@@ -1,17 +1,16 @@
 package net.minecraft.client.gui;
 
 import java.io.IOException;
+
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.network.play.client.C00PacketKeepAlive;
 
-public class GuiDownloadTerrain extends GuiScreen
-{
+public class GuiDownloadTerrain extends GuiScreen {
     private NetHandlerPlayClient netHandlerPlayClient;
     private int progress;
 
-    public GuiDownloadTerrain(NetHandlerPlayClient netHandler)
-    {
+    public GuiDownloadTerrain(NetHandlerPlayClient netHandler) {
         this.netHandlerPlayClient = netHandler;
     }
 
@@ -19,28 +18,24 @@ public class GuiDownloadTerrain extends GuiScreen
      * Fired when a key is typed (except F11 which toggles full screen). This is the equivalent of
      * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
      */
-    protected void keyTyped(char typedChar, int keyCode) throws IOException
-    {
+    protected void keyTyped(char typedChar, int keyCode) throws IOException {
     }
 
     /**
      * Adds the buttons (and other controls) to the screen in question. Called when the GUI is displayed and when the
      * window resizes, the buttonList is cleared beforehand.
      */
-    public void initGui()
-    {
+    public void initGui() {
         this.buttonList.clear();
     }
 
     /**
      * Called from the main game loop to update the screen.
      */
-    public void updateScreen()
-    {
+    public void updateScreen() {
         ++this.progress;
 
-        if (this.progress % 20 == 0)
-        {
+        if (this.progress % 20 == 0) {
             this.netHandlerPlayClient.addToSendQueue(new C00PacketKeepAlive());
         }
     }
@@ -48,8 +43,7 @@ public class GuiDownloadTerrain extends GuiScreen
     /**
      * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
      */
-    public void drawScreen(int mouseX, int mouseY, float partialTicks)
-    {
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawBackground(0);
         this.drawCenteredString(this.fontRendererObj, I18n.format("multiplayer.downloadingTerrain", new Object[0]), this.width / 2, this.height / 2 - 50, 16777215);
         super.drawScreen(mouseX, mouseY, partialTicks);
@@ -58,8 +52,7 @@ public class GuiDownloadTerrain extends GuiScreen
     /**
      * Returns true if this GUI should pause the game when it is displayed in single-player
      */
-    public boolean doesGuiPauseGame()
-    {
+    public boolean doesGuiPauseGame() {
         return false;
     }
 }

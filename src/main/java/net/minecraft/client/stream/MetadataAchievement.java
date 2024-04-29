@@ -2,10 +2,8 @@ package net.minecraft.client.stream;
 
 import net.minecraft.stats.Achievement;
 
-public class MetadataAchievement extends Metadata
-{
-    public MetadataAchievement(Achievement p_i1032_1_)
-    {
+public class MetadataAchievement extends Metadata {
+    public MetadataAchievement(Achievement p_i1032_1_) {
         super("achievement");
         this.func_152808_a("achievement_id", p_i1032_1_.statId);
         this.func_152808_a("achievement_name", p_i1032_1_.getStatName().getUnformattedText());

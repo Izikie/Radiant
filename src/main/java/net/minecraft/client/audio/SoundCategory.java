@@ -1,10 +1,10 @@
 package net.minecraft.client.audio;
 
 import com.google.common.collect.Maps;
+
 import java.util.Map;
 
-public enum SoundCategory
-{
+public enum SoundCategory {
     MASTER("master", 0),
     MUSIC("music", 1),
     RECORDS("record", 2),
@@ -20,32 +20,26 @@ public enum SoundCategory
     private final String categoryName;
     private final int categoryId;
 
-    private SoundCategory(String name, int id)
-    {
+    private SoundCategory(String name, int id) {
         this.categoryName = name;
         this.categoryId = id;
     }
 
-    public String getCategoryName()
-    {
+    public String getCategoryName() {
         return this.categoryName;
     }
 
-    public int getCategoryId()
-    {
+    public int getCategoryId() {
         return this.categoryId;
     }
 
-    public static SoundCategory getCategory(String name)
-    {
-        return (SoundCategory)NAME_CATEGORY_MAP.get(name);
+    public static SoundCategory getCategory(String name) {
+        return (SoundCategory) NAME_CATEGORY_MAP.get(name);
     }
 
     static {
-        for (SoundCategory soundcategory : values())
-        {
-            if (NAME_CATEGORY_MAP.containsKey(soundcategory.getCategoryName()) || ID_CATEGORY_MAP.containsKey(Integer.valueOf(soundcategory.getCategoryId())))
-            {
+        for (SoundCategory soundcategory : values()) {
+            if (NAME_CATEGORY_MAP.containsKey(soundcategory.getCategoryName()) || ID_CATEGORY_MAP.containsKey(Integer.valueOf(soundcategory.getCategoryId()))) {
                 throw new Error("Clash in Sound Category ID & Name pools! Cannot insert " + soundcategory);
             }
 

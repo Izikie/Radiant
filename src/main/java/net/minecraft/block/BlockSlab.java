@@ -2,6 +2,7 @@ package net.minecraft.block;
 
 import java.util.List;
 import java.util.Random;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
@@ -17,49 +18,35 @@ import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public abstract class BlockSlab extends Block
-{
+public abstract class BlockSlab extends Block {
     public static final PropertyEnum<BlockSlab.EnumBlockHalf> HALF = PropertyEnum.<BlockSlab.EnumBlockHalf>create("half", BlockSlab.EnumBlockHalf.class);
 
-    public BlockSlab(Material materialIn)
-    {
+    public BlockSlab(Material materialIn) {
         super(materialIn);
 
-        if (this.isDouble())
-        {
+        if (this.isDouble()) {
             this.fullBlock = true;
-        }
-        else
-        {
+        } else {
             this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
         }
 
         this.setLightOpacity(255);
     }
 
-    protected boolean canSilkHarvest()
-    {
+    protected boolean canSilkHarvest() {
         return false;
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
-    {
-        if (this.isDouble())
-        {
+    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
+        if (this.isDouble()) {
             this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-        }
-        else
-        {
+        } else {
             IBlockState iblockstate = worldIn.getBlockState(pos);
 
-            if (iblockstate.getBlock() == this)
-            {
-                if (iblockstate.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP)
-                {
+            if (iblockstate.getBlock() == this) {
+                if (iblockstate.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP) {
                     this.setBlockBounds(0.0F, 0.5F, 0.0F, 1.0F, 1.0F, 1.0F);
-                }
-                else
-                {
+                } else {
                     this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
                 }
             }
@@ -69,14 +56,10 @@ public abstract class BlockSlab extends Block
     /**
      * Sets the block's bounds for rendering it as an item
      */
-    public void setBlockBoundsForItemRender()
-    {
-        if (this.isDouble())
-        {
+    public void setBlockBoundsForItemRender() {
+        if (this.isDouble()) {
             this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-        }
-        else
-        {
+        } else {
             this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
         }
     }
@@ -84,8 +67,7 @@ public abstract class BlockSlab extends Block
     /**
      * Add all collision boxes of this Block to the list that intersect with the given mask.
      */
-    public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
-    {
+    public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {
         this.setBlockBoundsBasedOnState(worldIn, pos);
         super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
     }
@@ -93,8 +75,7 @@ public abstract class BlockSlab extends Block
     /**
      * Used to determine ambient occlusion and culling when rebuilding chunks for render
      */
-    public boolean isOpaqueCube()
-    {
+    public boolean isOpaqueCube() {
         return this.isDouble();
     }
 
@@ -102,37 +83,28 @@ public abstract class BlockSlab extends Block
      * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
      * IBlockstate
      */
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-    {
+    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         IBlockState iblockstate = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
-        return this.isDouble() ? iblockstate : (facing != EnumFacing.DOWN && (facing == EnumFacing.UP || (double)hitY <= 0.5D) ? iblockstate : iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.TOP));
+        return this.isDouble() ? iblockstate : (facing != EnumFacing.DOWN && (facing == EnumFacing.UP || (double) hitY <= 0.5D) ? iblockstate : iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.TOP));
     }
 
     /**
      * Returns the quantity of items to drop on block destruction.
      */
-    public int quantityDropped(Random random)
-    {
+    public int quantityDropped(Random random) {
         return this.isDouble() ? 2 : 1;
     }
 
-    public boolean isFullCube()
-    {
+    public boolean isFullCube() {
         return this.isDouble();
     }
 
-    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side)
-    {
-        if (this.isDouble())
-        {
+    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
+        if (this.isDouble()) {
             return super.shouldSideBeRendered(worldIn, pos, side);
-        }
-        else if (side != EnumFacing.UP && side != EnumFacing.DOWN && !super.shouldSideBeRendered(worldIn, pos, side))
-        {
+        } else if (side != EnumFacing.UP && side != EnumFacing.DOWN && !super.shouldSideBeRendered(worldIn, pos, side)) {
             return false;
-        }
-        else
-        {
+        } else {
             BlockPos blockpos = pos.offset(side.getOpposite());
             IBlockState iblockstate = worldIn.getBlockState(pos);
             IBlockState iblockstate1 = worldIn.getBlockState(blockpos);
@@ -142,8 +114,7 @@ public abstract class BlockSlab extends Block
         }
     }
 
-    protected static boolean isSlab(Block blockIn)
-    {
+    protected static boolean isSlab(Block blockIn) {
         return blockIn == Blocks.stone_slab || blockIn == Blocks.wooden_slab || blockIn == Blocks.stone_slab2;
     }
 
@@ -155,8 +126,7 @@ public abstract class BlockSlab extends Block
     /**
      * Gets the meta to use for the Pick Block ItemStack result
      */
-    public int getDamageValue(World worldIn, BlockPos pos)
-    {
+    public int getDamageValue(World worldIn, BlockPos pos) {
         return super.getDamageValue(worldIn, pos) & 7;
     }
 
@@ -166,25 +136,21 @@ public abstract class BlockSlab extends Block
 
     public abstract Object getVariant(ItemStack stack);
 
-    public static enum EnumBlockHalf implements IStringSerializable
-    {
+    public static enum EnumBlockHalf implements IStringSerializable {
         TOP("top"),
         BOTTOM("bottom");
 
         private final String name;
 
-        private EnumBlockHalf(String name)
-        {
+        private EnumBlockHalf(String name) {
             this.name = name;
         }
 
-        public String toString()
-        {
+        public String toString() {
             return this.name;
         }
 
-        public String getName()
-        {
+        public String getName() {
             return this.name;
         }
     }

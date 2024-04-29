@@ -5,14 +5,10 @@ import net.minecraft.client.renderer.vertex.VertexBuffer;
 import net.minecraft.util.EnumWorldBlockLayer;
 import org.lwjgl.opengl.GL11;
 
-public class VboRenderList extends ChunkRenderContainer
-{
-    public void renderChunkLayer(EnumWorldBlockLayer layer)
-    {
-        if (this.initialized)
-        {
-            for (RenderChunk renderchunk : this.renderChunks)
-            {
+public class VboRenderList extends ChunkRenderContainer {
+    public void renderChunkLayer(EnumWorldBlockLayer layer) {
+        if (this.initialized) {
+            for (RenderChunk renderchunk : this.renderChunks) {
                 VertexBuffer vertexbuffer = renderchunk.getVertexBufferByLayer(layer.ordinal());
                 GlStateManager.pushMatrix();
                 this.preRenderChunk(renderchunk);
@@ -29,8 +25,7 @@ public class VboRenderList extends ChunkRenderContainer
         }
     }
 
-    private void setupArrayPointers()
-    {
+    private void setupArrayPointers() {
         GL11.glVertexPointer(3, GL11.GL_FLOAT, 28, 0L);
         GL11.glColorPointer(4, GL11.GL_UNSIGNED_BYTE, 28, 12L);
         GL11.glTexCoordPointer(2, GL11.GL_FLOAT, 28, 16L);

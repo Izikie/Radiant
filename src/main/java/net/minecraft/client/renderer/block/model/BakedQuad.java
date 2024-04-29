@@ -2,8 +2,7 @@ package net.minecraft.client.renderer.block.model;
 
 import net.minecraft.util.EnumFacing;
 
-public class BakedQuad
-{
+public class BakedQuad {
     /**
      * Joined 4 vertex records, each has 7 fields (x, y, z, shadeColor, u, v, <unused>), see
      * FaceBakery.storeVertexData()
@@ -12,30 +11,25 @@ public class BakedQuad
     protected final int tintIndex;
     protected final EnumFacing face;
 
-    public BakedQuad(int[] vertexDataIn, int tintIndexIn, EnumFacing faceIn)
-    {
+    public BakedQuad(int[] vertexDataIn, int tintIndexIn, EnumFacing faceIn) {
         this.vertexData = vertexDataIn;
         this.tintIndex = tintIndexIn;
         this.face = faceIn;
     }
 
-    public int[] getVertexData()
-    {
+    public int[] getVertexData() {
         return this.vertexData;
     }
 
-    public boolean hasTintIndex()
-    {
+    public boolean hasTintIndex() {
         return this.tintIndex != -1;
     }
 
-    public int getTintIndex()
-    {
+    public int getTintIndex() {
         return this.tintIndex;
     }
 
-    public EnumFacing getFace()
-    {
+    public EnumFacing getFace() {
         return this.face;
     }
 }

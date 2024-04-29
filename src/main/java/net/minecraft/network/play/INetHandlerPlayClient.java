@@ -73,8 +73,7 @@ import net.minecraft.network.play.server.S47PacketPlayerListHeaderFooter;
 import net.minecraft.network.play.server.S48PacketResourcePackSend;
 import net.minecraft.network.play.server.S49PacketUpdateEntityNBT;
 
-public interface INetHandlerPlayClient extends INetHandler
-{
+public interface INetHandlerPlayClient extends INetHandler {
     /**
      * Spawns an instance of the objecttype indicated by the packet and sets its position and momentum
      */
