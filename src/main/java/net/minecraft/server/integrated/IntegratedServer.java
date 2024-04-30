@@ -26,7 +26,6 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.WorldServerMulti;
 import net.minecraft.world.WorldSettings;
 import net.minecraft.world.WorldType;
-import net.minecraft.world.demo.DemoWorldServer;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.WorldInfo;
 import org.apache.logging.log4j.LogManager;
@@ -55,12 +54,11 @@ public class IntegratedServer extends MinecraftServer {
         this.setServerOwner(mcIn.getSession().getUsername());
         this.setFolderName(folderName);
         this.setWorldName(worldName);
-        this.setDemo(mcIn.isDemo());
         this.canCreateBonusChest(settings.isBonusChestEnabled());
         this.setBuildLimit(256);
         this.setConfigManager(new IntegratedPlayerList(this));
         this.mc = mcIn;
-        this.theWorldSettings = this.isDemo() ? DemoWorldServer.demoWorldSettings : settings;
+        this.theWorldSettings = settings;
     }
 
     protected ServerCommandManager createNewCommandManager() {
@@ -93,12 +91,7 @@ public class IntegratedServer extends MinecraftServer {
             }
 
             if (i == 0) {
-                if (this.isDemo()) {
-                    this.worldServers[i] = (WorldServer) (new DemoWorldServer(this, isavehandler, worldinfo, j, this.theProfiler)).init();
-                } else {
-                    this.worldServers[i] = (WorldServer) (new WorldServer(this, isavehandler, worldinfo, j, this.theProfiler)).init();
-                }
-
+                this.worldServers[i] = (WorldServer) (new WorldServer(this, isavehandler, worldinfo, j, this.theProfiler)).init();
                 this.worldServers[i].initialize(this.theWorldSettings);
             } else {
                 this.worldServers[i] = (WorldServer) (new WorldServerMulti(this, isavehandler, j, this.worldServers[0], this.theProfiler)).init();
