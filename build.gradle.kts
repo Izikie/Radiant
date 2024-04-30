@@ -50,7 +50,7 @@ tasks.register<JavaExec>("RunClient") {
     classpath(sourceSets.getByName("main").runtimeClasspath)
 
     workingDir = file("$appDataDir\\.minecraft")
-    args("--version", "${project.name}-1.8.8")
+    args("--version", "${project.name}-1.8.9")
     args("--assetsDir", "assets")
     args("--assetIndex", "1.8")
     args("--accessToken", "0")
