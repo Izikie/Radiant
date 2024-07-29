@@ -299,8 +299,7 @@ public class Minecraft implements IThreadListener {
     private ISaveFormat saveLoader;
 
     /**
-     * This is set to fpsCounter every debug screen update, and is shown on the debug screen. It's also sent as part of
-     * the usage snooping.
+     * This is set to fpsCounter every debug screen update, and is shown on the debug screen.
      */
     private static int debugFPS;
 

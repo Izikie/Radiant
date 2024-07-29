@@ -38,7 +38,6 @@ public class GuiOverlayDebug extends Gui {
     }
 
     public void renderDebugInfo(ScaledResolution scaledResolutionIn) {
-        this.mc.mcProfiler.startSection("debug");
         GlStateManager.pushMatrix();
         this.renderDebugInfoLeft();
         this.renderDebugInfoRight(scaledResolutionIn);
@@ -47,93 +46,88 @@ public class GuiOverlayDebug extends Gui {
         if (this.mc.gameSettings.showLagometer) {
             this.renderLagometer();
         }
-
-        this.mc.mcProfiler.endSection();
-    }
-
-    private boolean isReducedDebug() {
-        return this.mc.thePlayer.hasReducedDebug() || this.mc.gameSettings.reducedDebugInfo;
     }
 
     protected void renderDebugInfoLeft() {
-        List<String> list = this.call();
+        List<String> list = this.getDebugInfoLeft();
+        int fontHeight = this.fontRenderer.FONT_HEIGHT;
 
         for (int i = 0; i < list.size(); ++i) {
-            String s = (String) list.get(i);
+            String line = list.get(i);
 
-            if (!Strings.isNullOrEmpty(s)) {
-                int j = this.fontRenderer.FONT_HEIGHT;
-                int k = this.fontRenderer.getStringWidth(s);
-                int l = 2;
-                int i1 = 2 + j * i;
-                drawRect(1, i1 - 1, 2 + k + 1, i1 + j - 1, -1873784752);
-                this.fontRenderer.drawString(s, 2, i1, 14737632);
+            if (!Strings.isNullOrEmpty(line)) {
+                int stringWidth = this.fontRenderer.getStringWidth(line);
+                int yPos = 2 + fontHeight * i;
+                drawRect(1, yPos - 1, 2 + stringWidth + 1, yPos + fontHeight - 1, -1873784752);
+                this.fontRenderer.drawString(line, 2, yPos, -1);
             }
         }
     }
 
     protected void renderDebugInfoRight(ScaledResolution scaledRes) {
         List<String> list = this.getDebugInfoRight();
+        int fontHeight = this.fontRenderer.FONT_HEIGHT;
 
         for (int i = 0; i < list.size(); ++i) {
-            String s = (String) list.get(i);
+            String s = list.get(i);
 
             if (!Strings.isNullOrEmpty(s)) {
-                int j = this.fontRenderer.FONT_HEIGHT;
-                int k = this.fontRenderer.getStringWidth(s);
-                int l = scaledRes.getScaledWidth() - 2 - k;
-                int i1 = 2 + j * i;
-                drawRect(l - 1, i1 - 1, l + k + 1, i1 + j - 1, -1873784752);
-                this.fontRenderer.drawString(s, l, i1, 14737632);
+                int stringWidth = this.fontRenderer.getStringWidth(s);
+                int xPos = scaledRes.getScaledWidth() - 2 - stringWidth;
+                int yPos = 2 + fontHeight * i;
+                drawRect(xPos - 1, yPos - 1, xPos + stringWidth + 1, yPos + fontHeight - 1, -1873784752);
+                this.fontRenderer.drawString(s, xPos, yPos, -1);
             }
         }
     }
 
     @SuppressWarnings("incomplete-switch")
-    protected List<String> call() {
+    protected List<String> getDebugInfoLeft() {
         BlockPos blockpos = new BlockPos(this.mc.getRenderViewEntity().posX, this.mc.getRenderViewEntity().getEntityBoundingBox().minY, this.mc.getRenderViewEntity().posZ);
 
+        List<String> list = Lists.newArrayList(
+                "Minecraft 1.8.9 (" + this.mc.getVersion() + "/" + ClientBrandRetriever.getClientModName() + ")",
+                this.mc.debug,
+                this.mc.renderGlobal.getDebugInfoRenders(),
+                this.mc.renderGlobal.getDebugInfoEntities(),
+                "P: " + this.mc.effectRenderer.getStatistics() + ". T: " + this.mc.theWorld.getDebugLoadedEntities(),
+                this.mc.theWorld.getProviderName(),
+                ""
+        );
+
         if (this.isReducedDebug()) {
-            return Lists.newArrayList(new String[]{"Minecraft 1.8.9 (" + this.mc.getVersion() + "/" + ClientBrandRetriever.getClientModName() + ")", this.mc.debug, this.mc.renderGlobal.getDebugInfoRenders(), this.mc.renderGlobal.getDebugInfoEntities(), "P: " + this.mc.effectRenderer.getStatistics() + ". T: " + this.mc.theWorld.getDebugLoadedEntities(), this.mc.theWorld.getProviderName(), "", String.format("Chunk-relative: %d %d %d", new Object[]{Integer.valueOf(blockpos.getX() & 15), Integer.valueOf(blockpos.getY() & 15), Integer.valueOf(blockpos.getZ() & 15)})});
+            list.add(String.format("Chunk-relative: %d %d %d", blockpos.getX() & 15, blockpos.getY() & 15, blockpos.getZ() & 15));
         } else {
             Entity entity = this.mc.getRenderViewEntity();
-            EnumFacing enumfacing = entity.getHorizontalFacing();
-            String s = "Invalid";
+            EnumFacing enumFacing = entity.getHorizontalFacing();
+            String direction = switch (enumFacing) {
+                case NORTH -> "Towards -Z";
+                case SOUTH -> "Towards +Z";
+                case WEST -> "Towards -X";
+                case EAST -> "Towards +X";
+                default -> "Invalid";
+            };
 
-            switch (enumfacing) {
-                case NORTH:
-                    s = "Towards negative Z";
-                    break;
-
-                case SOUTH:
-                    s = "Towards positive Z";
-                    break;
-
-                case WEST:
-                    s = "Towards negative X";
-                    break;
-
-                case EAST:
-                    s = "Towards positive X";
-            }
-
-            List<String> list = Lists.newArrayList(new String[]{"Minecraft 1.8.9 (" + this.mc.getVersion() + "/" + ClientBrandRetriever.getClientModName() + ")", this.mc.debug, this.mc.renderGlobal.getDebugInfoRenders(), this.mc.renderGlobal.getDebugInfoEntities(), "P: " + this.mc.effectRenderer.getStatistics() + ". T: " + this.mc.theWorld.getDebugLoadedEntities(), this.mc.theWorld.getProviderName(), "", String.format("XYZ: %.3f / %.5f / %.3f", new Object[]{Double.valueOf(this.mc.getRenderViewEntity().posX), Double.valueOf(this.mc.getRenderViewEntity().getEntityBoundingBox().minY), Double.valueOf(this.mc.getRenderViewEntity().posZ)}), String.format("Block: %d %d %d", new Object[]{Integer.valueOf(blockpos.getX()), Integer.valueOf(blockpos.getY()), Integer.valueOf(blockpos.getZ())}), String.format("Chunk: %d %d %d in %d %d %d", new Object[]{Integer.valueOf(blockpos.getX() & 15), Integer.valueOf(blockpos.getY() & 15), Integer.valueOf(blockpos.getZ() & 15), Integer.valueOf(blockpos.getX() >> 4), Integer.valueOf(blockpos.getY() >> 4), Integer.valueOf(blockpos.getZ() >> 4)}), String.format("Facing: %s (%s) (%.1f / %.1f)", new Object[]{enumfacing, s, Float.valueOf(MathHelper.wrapAngleTo180_float(entity.rotationYaw)), Float.valueOf(MathHelper.wrapAngleTo180_float(entity.rotationPitch))})});
+            list.add(String.format("XYZ: %.3f / %.3f / %.3f", this.mc.getRenderViewEntity().posX,this.mc.getRenderViewEntity().getEntityBoundingBox().minY, this.mc.getRenderViewEntity().posZ));
+            list.add(String.format("Block: %d %d %d", blockpos.getX(), blockpos.getY(), blockpos.getZ()));
+            list.add(String.format("Chunk: %d %d %d in %d %d %d", blockpos.getX() & 15, blockpos.getY() & 15, blockpos.getZ() & 15, blockpos.getX() >> 4, blockpos.getY() >> 4, blockpos.getZ() >> 4));
+            list.add(String.format("Facing: %s (%s) (%.1f / %.1f)", enumFacing, direction, MathHelper.wrapAngleTo180_float(entity.rotationYaw), MathHelper.wrapAngleTo180_float(entity.rotationPitch)));
 
             if (this.mc.theWorld != null && this.mc.theWorld.isBlockLoaded(blockpos)) {
                 Chunk chunk = this.mc.theWorld.getChunkFromBlockCoords(blockpos);
                 list.add("Biome: " + chunk.getBiome(blockpos, this.mc.theWorld.getWorldChunkManager()).biomeName);
                 list.add("Light: " + chunk.getLightSubtracted(blockpos, 0) + " (" + chunk.getLightFor(EnumSkyBlock.SKY, blockpos) + " sky, " + chunk.getLightFor(EnumSkyBlock.BLOCK, blockpos) + " block)");
-                DifficultyInstance difficultyinstance = this.mc.theWorld.getDifficultyForLocation(blockpos);
+                DifficultyInstance difficultyInstance = this.mc.theWorld.getDifficultyForLocation(blockpos);
 
                 if (this.mc.isIntegratedServerRunning() && this.mc.getIntegratedServer() != null) {
-                    EntityPlayerMP entityplayermp = this.mc.getIntegratedServer().getConfigurationManager().getPlayerByUUID(this.mc.thePlayer.getUniqueID());
+                    EntityPlayerMP entityPlayerMP = this.mc.getIntegratedServer().getConfigurationManager().getPlayerByUUID(this.mc.thePlayer.getUniqueID());
 
-                    if (entityplayermp != null) {
-                        difficultyinstance = entityplayermp.worldObj.getDifficultyForLocation(new BlockPos(entityplayermp));
+                    if (entityPlayerMP != null) {
+                        difficultyInstance = entityPlayerMP.worldObj.getDifficultyForLocation(new BlockPos(entityPlayerMP));
                     }
                 }
 
-                list.add(String.format("Local Difficulty: %.2f (Day %d)", new Object[]{Float.valueOf(difficultyinstance.getAdditionalDifficulty()), Long.valueOf(this.mc.theWorld.getWorldTime() / 24000L)}));
+                list.add(String.format("Local Difficulty: %.2f (Day %d)", difficultyInstance.getAdditionalDifficulty(), this.mc.theWorld.getWorldTime() / 24000L));
             }
 
             if (this.mc.entityRenderer != null && this.mc.entityRenderer.isShaderActive()) {
@@ -141,83 +135,92 @@ public class GuiOverlayDebug extends Gui {
             }
 
             if (this.mc.objectMouseOver != null && this.mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && this.mc.objectMouseOver.getBlockPos() != null) {
-                BlockPos blockpos1 = this.mc.objectMouseOver.getBlockPos();
-                list.add(String.format("Looking at: %d %d %d", new Object[]{Integer.valueOf(blockpos1.getX()), Integer.valueOf(blockpos1.getY()), Integer.valueOf(blockpos1.getZ())}));
+                BlockPos blockPos = this.mc.objectMouseOver.getBlockPos();
+                list.add(String.format("Looking at: %d %d %d", blockPos.getX(), blockPos.getY(), blockPos.getZ()));
             }
 
-            return list;
-        }
+        } return list;
     }
 
     protected List<String> getDebugInfoRight() {
-        long i = Runtime.getRuntime().maxMemory();
-        long j = Runtime.getRuntime().totalMemory();
-        long k = Runtime.getRuntime().freeMemory();
-        long l = j - k;
-        List<String> list = Lists.newArrayList(new String[]{String.format("Java: %s %dbit", new Object[]{System.getProperty("java.version"), Integer.valueOf(this.mc.isJava64bit() ? 64 : 32)}), String.format("Mem: % 2d%% %03d/%03dMB", new Object[]{Long.valueOf(l * 100L / i), Long.valueOf(bytesToMb(l)), Long.valueOf(bytesToMb(i))}), String.format("Allocated: % 2d%% %03dMB", new Object[]{Long.valueOf(j * 100L / i), Long.valueOf(bytesToMb(j))}), "", String.format("CPU: %s", new Object[]{OpenGlHelper.getCpu()}), "", String.format("Display: %dx%d (%s)", new Object[]{Integer.valueOf(Display.getWidth()), Integer.valueOf(Display.getHeight()), GL11.glGetString(GL11.GL_VENDOR)}), GL11.glGetString(GL11.GL_RENDERER), GL11.glGetString(GL11.GL_VERSION)});
+        long maxMemory = Runtime.getRuntime().maxMemory();
+        long totalMemory = Runtime.getRuntime().totalMemory();
+        long freeMemory = Runtime.getRuntime().freeMemory();
+        long memoryDif = totalMemory - freeMemory;
+        List<String> list = Lists.newArrayList(
+                String.format("Java: %s %dbit", System.getProperty("java.version"), this.mc.isJava64bit() ? 64 : 32),
+                String.format("Mem: % 2d%% %03d/%03dMB", memoryDif * 100L / maxMemory, bytesToMb(memoryDif), bytesToMb(maxMemory)),
+                String.format("Allocated: % 2d%% %03dMB", totalMemory * 100L / maxMemory, bytesToMb(totalMemory)),
+                "",
+                String.format("CPU: %s", OpenGlHelper.getCpu()),
+                "",
+                String.format("Display: %dx%d (%s)", Display.getWidth(), Display.getHeight(), GL11.glGetString(GL11.GL_VENDOR)),
+                GL11.glGetString(GL11.GL_RENDERER), GL11.glGetString(GL11.GL_VERSION));
 
-        if (this.isReducedDebug()) {
-            return list;
-        } else {
+        if (!this.isReducedDebug()) {
             if (this.mc.objectMouseOver != null && this.mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && this.mc.objectMouseOver.getBlockPos() != null) {
-                BlockPos blockpos = this.mc.objectMouseOver.getBlockPos();
-                IBlockState iblockstate = this.mc.theWorld.getBlockState(blockpos);
+                BlockPos blockPos = this.mc.objectMouseOver.getBlockPos();
+                IBlockState iBlockState = this.mc.theWorld.getBlockState(blockPos);
 
                 if (this.mc.theWorld.getWorldType() != WorldType.DEBUG_WORLD) {
-                    iblockstate = iblockstate.getBlock().getActualState(iblockstate, this.mc.theWorld, blockpos);
+                    iBlockState = iBlockState.getBlock().getActualState(iBlockState, this.mc.theWorld, blockPos);
                 }
 
                 list.add("");
-                list.add(String.valueOf(Block.blockRegistry.getNameForObject(iblockstate.getBlock())));
+                list.add(String.valueOf(Block.blockRegistry.getNameForObject(iBlockState.getBlock())));
 
-                for (Entry<IProperty, Comparable> entry : iblockstate.getProperties().entrySet()) {
-                    String s = ((Comparable) entry.getValue()).toString();
+                for (Entry<IProperty, Comparable> entry : iBlockState.getProperties().entrySet()) {
+                    String string = entry.getValue().toString();
 
                     if (entry.getValue() == Boolean.TRUE) {
-                        s = EnumChatFormatting.GREEN + s;
+                        string = EnumChatFormatting.GREEN + string;
                     } else if (entry.getValue() == Boolean.FALSE) {
-                        s = EnumChatFormatting.RED + s;
+                        string = EnumChatFormatting.RED + string;
                     }
 
-                    list.add(((IProperty) entry.getKey()).getName() + ": " + s);
+                    list.add(entry.getKey().getName() + ": " + string);
                 }
             }
 
-            return list;
         }
+        return list;
+    }
+
+    private boolean isReducedDebug() {
+        return this.mc.thePlayer.hasReducedDebug() || this.mc.gameSettings.reducedDebugInfo;
     }
 
     private void renderLagometer() {
         GlStateManager.disableDepth();
-        FrameTimer frametimer = this.mc.getFrameTimer();
-        int i = frametimer.getLastIndex();
-        int j = frametimer.getIndex();
-        long[] along = frametimer.getFrames();
-        ScaledResolution scaledresolution = new ScaledResolution(this.mc);
-        int k = i;
+        FrameTimer frameTimer = this.mc.getFrameTimer();
+        int lastIndex = frameTimer.getLastIndex();
+        int index = frameTimer.getIndex();
+        long[] frames = frameTimer.getFrames();
+        ScaledResolution scaledResolution = new ScaledResolution(this.mc);
+        int k = lastIndex;
         int l = 0;
-        drawRect(0, scaledresolution.getScaledHeight() - 60, 240, scaledresolution.getScaledHeight(), -1873784752);
+        drawRect(0, scaledResolution.getScaledHeight() - 60, 240, scaledResolution.getScaledHeight(), -1873784752);
 
-        while (k != j) {
-            int i1 = frametimer.getLagometerValue(along[k], 30);
+        while (k != index) {
+            int i1 = frameTimer.getLagometerValue(frames[k], 30);
             int j1 = this.getFrameColor(MathHelper.clamp_int(i1, 0, 60), 0, 30, 60);
-            this.drawVerticalLine(l, scaledresolution.getScaledHeight(), scaledresolution.getScaledHeight() - i1, j1);
+            this.drawVerticalLine(l, scaledResolution.getScaledHeight(), scaledResolution.getScaledHeight() - i1, j1);
             ++l;
-            k = frametimer.parseIndex(k + 1);
+            k = frameTimer.parseIndex(k + 1);
         }
 
-        drawRect(1, scaledresolution.getScaledHeight() - 30 + 1, 14, scaledresolution.getScaledHeight() - 30 + 10, -1873784752);
-        this.fontRenderer.drawString("60", 2, scaledresolution.getScaledHeight() - 30 + 2, 14737632);
-        this.drawHorizontalLine(0, 239, scaledresolution.getScaledHeight() - 30, -1);
-        drawRect(1, scaledresolution.getScaledHeight() - 60 + 1, 14, scaledresolution.getScaledHeight() - 60 + 10, -1873784752);
-        this.fontRenderer.drawString("30", 2, scaledresolution.getScaledHeight() - 60 + 2, 14737632);
-        this.drawHorizontalLine(0, 239, scaledresolution.getScaledHeight() - 60, -1);
-        this.drawHorizontalLine(0, 239, scaledresolution.getScaledHeight() - 1, -1);
-        this.drawVerticalLine(0, scaledresolution.getScaledHeight() - 60, scaledresolution.getScaledHeight(), -1);
-        this.drawVerticalLine(239, scaledresolution.getScaledHeight() - 60, scaledresolution.getScaledHeight(), -1);
+        drawRect(1, scaledResolution.getScaledHeight() - 30 + 1, 14, scaledResolution.getScaledHeight() - 30 + 10, -1873784752);
+        this.fontRenderer.drawString("60", 2, scaledResolution.getScaledHeight() - 30 + 2, 14737632);
+        this.drawHorizontalLine(0, 239, scaledResolution.getScaledHeight() - 30, -1);
+        drawRect(1, scaledResolution.getScaledHeight() - 60 + 1, 14, scaledResolution.getScaledHeight() - 60 + 10, -1873784752);
+        this.fontRenderer.drawString("30", 2, scaledResolution.getScaledHeight() - 60 + 2, 14737632);
+        this.drawHorizontalLine(0, 239, scaledResolution.getScaledHeight() - 60, -1);
+        this.drawHorizontalLine(0, 239, scaledResolution.getScaledHeight() - 1, -1);
+        this.drawVerticalLine(0, scaledResolution.getScaledHeight() - 60, scaledResolution.getScaledHeight(), -1);
+        this.drawVerticalLine(239, scaledResolution.getScaledHeight() - 60, scaledResolution.getScaledHeight(), -1);
 
         if (this.mc.gameSettings.limitFramerate <= 120) {
-            this.drawHorizontalLine(0, 239, scaledresolution.getScaledHeight() - 60 + this.mc.gameSettings.limitFramerate / 2, -16711681);
+            this.drawHorizontalLine(0, 239, scaledResolution.getScaledHeight() - 60 + this.mc.gameSettings.limitFramerate / 2, -16711681);
         }
 
         GlStateManager.enableDepth();
