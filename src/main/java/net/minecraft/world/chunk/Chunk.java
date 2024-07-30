@@ -305,8 +305,6 @@ public class Chunk {
     }
 
     private void recheckGaps(boolean p_150803_1_) {
-        this.worldObj.theProfiler.startSection("recheckGaps");
-
         if (this.worldObj.isAreaLoaded(new BlockPos(this.xPosition * 16 + 8, 0, this.zPosition * 16 + 8), 16)) {
             for (int i = 0; i < 16; ++i) {
                 for (int j = 0; j < 16; ++j) {
@@ -328,7 +326,6 @@ public class Chunk {
                         }
 
                         if (p_150803_1_) {
-                            this.worldObj.theProfiler.endSection();
                             return;
                         }
                     }
@@ -337,8 +334,6 @@ public class Chunk {
 
             this.isGapLightingUpdated = false;
         }
-
-        this.worldObj.theProfiler.endSection();
     }
 
     /**

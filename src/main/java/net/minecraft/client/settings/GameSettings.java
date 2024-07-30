@@ -146,7 +146,6 @@ public class GameSettings {
      * true if debug info should be displayed instead of version
      */
     public boolean showDebugInfo;
-    public boolean showDebugProfilerChart;
     public boolean showLagometer;
 
     /**

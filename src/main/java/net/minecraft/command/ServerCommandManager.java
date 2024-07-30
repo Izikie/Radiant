@@ -54,7 +54,6 @@ public class ServerCommandManager extends CommandHandler implements IAdminComman
         this.registerCommand(new CommandEmote());
         this.registerCommand(new CommandShowSeed());
         this.registerCommand(new CommandHelp());
-        this.registerCommand(new CommandDebug());
         this.registerCommand(new CommandMessage());
         this.registerCommand(new CommandBroadcast());
         this.registerCommand(new CommandSetSpawnpoint());

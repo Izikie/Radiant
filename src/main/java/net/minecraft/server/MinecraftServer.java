@@ -47,7 +47,6 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.NetworkSystem;
 import net.minecraft.network.ServerStatusResponse;
 import net.minecraft.network.play.server.S03PacketTimeUpdate;
-import net.minecraft.profiler.Profiler;
 import net.minecraft.server.management.PlayerProfileCache;
 import net.minecraft.server.management.ServerConfigurationManager;
 import net.minecraft.util.BlockPos;
@@ -89,7 +88,6 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
     private final File anvilFile;
     private final List<ITickable> playersOnline = Lists.<ITickable>newArrayList();
     protected final ICommandManager commandManager;
-    public final Profiler theProfiler = new Profiler();
     private final NetworkSystem networkSystem;
     private final ServerStatusResponse statusResponse = new ServerStatusResponse();
     private final Random random = new Random();
@@ -321,10 +319,10 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
             }
 
             if (i == 0) {
-                this.worldServers[i] = (WorldServer) (new WorldServer(this, isavehandler, worldinfo, j, this.theProfiler)).init();
+                this.worldServers[i] = (WorldServer) (new WorldServer(this, isavehandler, worldinfo, j)).init();
                 this.worldServers[i].initialize(worldsettings);
             } else {
-                this.worldServers[i] = (WorldServer) (new WorldServerMulti(this, isavehandler, j, this.worldServers[0], this.theProfiler)).init();
+                this.worldServers[i] = (WorldServer) (new WorldServerMulti(this, isavehandler, j, this.worldServers[0])).init();
             }
 
             this.worldServers[i].addWorldAccess(new WorldManager(this, this.worldServers[i]));
@@ -603,13 +601,6 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         long i = System.nanoTime();
         ++this.tickCounter;
 
-        if (this.startProfiling) {
-            this.startProfiling = false;
-            this.theProfiler.profilingEnabled = true;
-            this.theProfiler.clearProfiling();
-        }
-
-        this.theProfiler.startSection("root");
         this.updateTimeLightAndEntities();
 
         if (i - this.nanoTimeSinceStatusRefresh >= 5000000000L) {
@@ -627,43 +618,29 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         }
 
         if (this.tickCounter % 900 == 0) {
-            this.theProfiler.startSection("save");
             this.serverConfigManager.saveAllPlayerData();
             this.saveAllWorlds(true);
-            this.theProfiler.endSection();
         }
 
-        this.theProfiler.startSection("tallying");
         this.tickTimeArray[this.tickCounter % 100] = System.nanoTime() - i;
-        this.theProfiler.endSection();
-        this.theProfiler.endSection();
     }
 
     public void updateTimeLightAndEntities() {
-        this.theProfiler.startSection("jobs");
-
         synchronized (this.futureTaskQueue) {
             while (!this.futureTaskQueue.isEmpty()) {
                 Util.runTask((FutureTask) this.futureTaskQueue.poll(), logger);
             }
         }
 
-        this.theProfiler.endStartSection("levels");
-
         for (int j = 0; j < this.worldServers.length; ++j) {
             long i = System.nanoTime();
 
             if (j == 0 || this.getAllowNether()) {
                 WorldServer worldserver = this.worldServers[j];
-                this.theProfiler.startSection(worldserver.getWorldInfo().getWorldName());
 
                 if (this.tickCounter % 20 == 0) {
-                    this.theProfiler.startSection("timeSync");
                     this.serverConfigManager.sendPacketToAllPlayersInDimension(new S03PacketTimeUpdate(worldserver.getTotalWorldTime(), worldserver.getWorldTime(), worldserver.getGameRules().getBoolean("doDaylightCycle")), worldserver.provider.getDimensionId());
-                    this.theProfiler.endSection();
                 }
-
-                this.theProfiler.startSection("tick");
 
                 try {
                     worldserver.tick();
@@ -681,27 +658,18 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
                     throw new ReportedException(crashreport1);
                 }
 
-                this.theProfiler.endSection();
-                this.theProfiler.startSection("tracker");
                 worldserver.getEntityTracker().updateTrackedEntities();
-                this.theProfiler.endSection();
-                this.theProfiler.endSection();
             }
 
             this.timeOfLastDimensionTick[j][this.tickCounter % 100] = System.nanoTime() - i;
         }
 
-        this.theProfiler.endStartSection("connection");
         this.getNetworkSystem().networkTick();
-        this.theProfiler.endStartSection("players");
         this.serverConfigManager.onTick();
-        this.theProfiler.endStartSection("tickables");
 
         for (int k = 0; k < this.playersOnline.size(); ++k) {
             ((ITickable) this.playersOnline.get(k)).update();
         }
-
-        this.theProfiler.endSection();
     }
 
     public boolean getAllowNether() {
@@ -777,12 +745,6 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
      * Adds the server info, including from theWorldServer, to the crash report.
      */
     public CrashReport addServerInfoToCrashReport(CrashReport report) {
-        report.getCategory().addCrashSectionCallable("Profiler Position", new Callable<String>() {
-            public String call() throws Exception {
-                return MinecraftServer.this.theProfiler.profilingEnabled ? MinecraftServer.this.theProfiler.getNameOfLastSection() : "N/A (disabled)";
-            }
-        });
-
         if (this.serverConfigManager != null) {
             report.getCategory().addCrashSectionCallable("Player Count", new Callable<String>() {
                 public String call() {

@@ -1,6 +1,5 @@
 package net.minecraft.world;
 
-import net.minecraft.profiler.Profiler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.village.VillageCollection;
 import net.minecraft.world.border.IBorderListener;
@@ -11,8 +10,8 @@ import net.minecraft.world.storage.ISaveHandler;
 public class WorldServerMulti extends WorldServer {
     private WorldServer delegate;
 
-    public WorldServerMulti(MinecraftServer server, ISaveHandler saveHandlerIn, int dimensionId, WorldServer delegate, Profiler profilerIn) {
-        super(server, saveHandlerIn, new DerivedWorldInfo(delegate.getWorldInfo()), dimensionId, profilerIn);
+    public WorldServerMulti(MinecraftServer server, ISaveHandler saveHandlerIn, int dimensionId, WorldServer delegate) {
+        super(server, saveHandlerIn, new DerivedWorldInfo(delegate.getWorldInfo()), dimensionId);
         this.delegate = delegate;
         delegate.getWorldBorder().addListener(new IBorderListener() {
             public void onSizeChanged(WorldBorder border, double newSize) {

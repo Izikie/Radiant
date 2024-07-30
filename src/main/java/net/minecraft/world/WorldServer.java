@@ -41,7 +41,6 @@ import net.minecraft.network.play.server.S27PacketExplosion;
 import net.minecraft.network.play.server.S2APacketParticles;
 import net.minecraft.network.play.server.S2BPacketChangeGameState;
 import net.minecraft.network.play.server.S2CPacketSpawnGlobalEntity;
-import net.minecraft.profiler.Profiler;
 import net.minecraft.scoreboard.ScoreboardSaveData;
 import net.minecraft.scoreboard.ServerScoreboard;
 import net.minecraft.server.MinecraftServer;
@@ -105,8 +104,8 @@ public class WorldServer extends World implements IThreadListener {
     private static final List<WeightedRandomChestContent> bonusChestContent = Lists.newArrayList(new WeightedRandomChestContent[]{new WeightedRandomChestContent(Items.stick, 0, 1, 3, 10), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.planks), 0, 1, 3, 10), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.log), 0, 1, 3, 10), new WeightedRandomChestContent(Items.stone_axe, 0, 1, 1, 3), new WeightedRandomChestContent(Items.wooden_axe, 0, 1, 1, 5), new WeightedRandomChestContent(Items.stone_pickaxe, 0, 1, 1, 3), new WeightedRandomChestContent(Items.wooden_pickaxe, 0, 1, 1, 5), new WeightedRandomChestContent(Items.apple, 0, 2, 3, 5), new WeightedRandomChestContent(Items.bread, 0, 2, 3, 3), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.log2), 0, 1, 3, 10)});
     private List<NextTickListEntry> pendingTickListEntriesThisTick = Lists.<NextTickListEntry>newArrayList();
 
-    public WorldServer(MinecraftServer server, ISaveHandler saveHandlerIn, WorldInfo info, int dimensionId, Profiler profilerIn) {
-        super(saveHandlerIn, info, WorldProvider.getProviderForDimension(dimensionId), profilerIn, false);
+    public WorldServer(MinecraftServer server, ISaveHandler saveHandlerIn, WorldInfo info, int dimensionId) {
+        super(saveHandlerIn, info, WorldProvider.getProviderForDimension(dimensionId), false);
         this.mcServer = server;
         this.theEntityTracker = new EntityTracker(this);
         this.thePlayerManager = new PlayerManager(this);
@@ -177,13 +176,10 @@ public class WorldServer extends World implements IThreadListener {
             this.wakeAllPlayers();
         }
 
-        this.theProfiler.startSection("mobSpawner");
-
         if (this.getGameRules().getBoolean("doMobSpawning") && this.worldInfo.getTerrainType() != WorldType.DEBUG_WORLD) {
             this.mobSpawner.findChunksForSpawning(this, this.spawnHostileMobs, this.spawnPeacefulMobs, this.worldInfo.getWorldTotalTime() % 400L == 0L);
         }
 
-        this.theProfiler.endStartSection("chunkSource");
         this.chunkProvider.unloadQueuedChunks();
         int j = this.calculateSkylightSubtracted(1.0F);
 
@@ -197,18 +193,12 @@ public class WorldServer extends World implements IThreadListener {
             this.worldInfo.setWorldTime(this.worldInfo.getWorldTime() + 1L);
         }
 
-        this.theProfiler.endStartSection("tickPending");
         this.tickUpdates(false);
-        this.theProfiler.endStartSection("tickBlocks");
         this.updateBlocks();
-        this.theProfiler.endStartSection("chunkMap");
         this.thePlayerManager.updatePlayerInstances();
-        this.theProfiler.endStartSection("village");
         this.villageCollectionObj.tick();
         this.villageSiege.tick();
-        this.theProfiler.endStartSection("portalForcer");
         this.worldTeleporter.removeStalePortalLocations(this.getTotalWorldTime());
-        this.theProfiler.endSection();
         this.sendQueuedBlockEvents();
     }
 
@@ -317,12 +307,9 @@ public class WorldServer extends World implements IThreadListener {
             for (ChunkCoordIntPair chunkcoordintpair : this.activeChunkSet) {
                 int k = chunkcoordintpair.chunkXPos * 16;
                 int l = chunkcoordintpair.chunkZPos * 16;
-                this.theProfiler.startSection("getChunk");
                 Chunk chunk = this.getChunkFromChunkCoords(chunkcoordintpair.chunkXPos, chunkcoordintpair.chunkZPos);
                 this.playMoodSoundAndCheckLight(k, l, chunk);
-                this.theProfiler.endStartSection("tickChunk");
                 chunk.func_150804_b(false);
-                this.theProfiler.endStartSection("thunder");
 
                 if (this.rand.nextInt(100000) == 0 && this.isRaining() && this.isThundering()) {
                     this.updateLCG = this.updateLCG * 3 + 1013904223;
@@ -333,8 +320,6 @@ public class WorldServer extends World implements IThreadListener {
                         this.addWeatherEffect(new EntityLightningBolt(this, (double) blockpos.getX(), (double) blockpos.getY(), (double) blockpos.getZ()));
                     }
                 }
-
-                this.theProfiler.endStartSection("iceandsnow");
 
                 if (this.rand.nextInt(16) == 0) {
                     this.updateLCG = this.updateLCG * 3 + 1013904223;
@@ -355,7 +340,6 @@ public class WorldServer extends World implements IThreadListener {
                     }
                 }
 
-                this.theProfiler.endStartSection("tickBlocks");
                 int l2 = this.getGameRules().getInt("randomTickSpeed");
 
                 if (l2 > 0) {
@@ -379,8 +363,6 @@ public class WorldServer extends World implements IThreadListener {
                         }
                     }
                 }
-
-                this.theProfiler.endSection();
             }
         }
     }
@@ -492,8 +474,6 @@ public class WorldServer extends World implements IThreadListener {
                     i = 1000;
                 }
 
-                this.theProfiler.startSection("cleaning");
-
                 for (int j = 0; j < i; ++j) {
                     NextTickListEntry nextticklistentry = (NextTickListEntry) this.pendingTickListEntriesTreeSet.first();
 
@@ -506,8 +486,6 @@ public class WorldServer extends World implements IThreadListener {
                     this.pendingTickListEntriesThisTick.add(nextticklistentry);
                 }
 
-                this.theProfiler.endSection();
-                this.theProfiler.startSection("ticking");
                 Iterator<NextTickListEntry> iterator = this.pendingTickListEntriesThisTick.iterator();
 
                 while (iterator.hasNext()) {
@@ -533,7 +511,6 @@ public class WorldServer extends World implements IThreadListener {
                     }
                 }
 
-                this.theProfiler.endSection();
                 this.pendingTickListEntriesThisTick.clear();
                 return !this.pendingTickListEntriesTreeSet.isEmpty();
             }
