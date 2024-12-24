@@ -513,7 +513,7 @@ public class RenderItem implements IResourceManagerReloadListener {
                     if (i1 >= 0) {
                         j = i1 >> 16 & 255;
                         k = i1 >> 8 & 255;
-                        l = i1 >> 0 & 255;
+                        l = i1 & 255;
                     }
                 }
 

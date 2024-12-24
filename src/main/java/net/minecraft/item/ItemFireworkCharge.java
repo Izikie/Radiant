@@ -31,7 +31,7 @@ public class ItemFireworkCharge extends Item {
                     for (int l : aint) {
                         i += (l & 16711680) >> 16;
                         j += (l & 65280) >> 8;
-                        k += (l & 255) >> 0;
+                        k += (l & 255);
                     }
 
                     i = i / aint.length;

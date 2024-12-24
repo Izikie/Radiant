@@ -77,8 +77,8 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
         }
 
         p_70974_2_ = 1.0F - p_70974_2_;
-        int i = this.ringBufferIndex - p_70974_1_ * 1 & 63;
-        int j = this.ringBufferIndex - p_70974_1_ * 1 - 1 & 63;
+        int i = this.ringBufferIndex - p_70974_1_ & 63;
+        int j = this.ringBufferIndex - p_70974_1_ - 1 & 63;
         double[] adouble = new double[3];
         double d0 = this.ringBuffer[i][0];
         double d1 = MathHelper.wrapAngleTo180_double(this.ringBuffer[j][0] - d0);

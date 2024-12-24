@@ -248,8 +248,8 @@ public class MathHelper {
         int j = (p_180188_1_ & 16711680) >> 16;
         int k = (p_180188_0_ & 65280) >> 8;
         int l = (p_180188_1_ & 65280) >> 8;
-        int i1 = (p_180188_0_ & 255) >> 0;
-        int j1 = (p_180188_1_ & 255) >> 0;
+        int i1 = (p_180188_0_ & 255);
+        int j1 = (p_180188_1_ & 255);
         int k1 = (int) ((float) i * (float) j / 255.0F);
         int l1 = (int) ((float) k * (float) l / 255.0F);
         int i2 = (int) ((float) i1 * (float) j1 / 255.0F);

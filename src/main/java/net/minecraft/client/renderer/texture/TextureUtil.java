@@ -73,7 +73,7 @@ public class TextureUtil {
                     for (int i1 = 0; i1 < j; ++i1) {
                         for (int j1 = 0; j1 < k; ++j1) {
                             int k1 = 2 * (i1 + j1 * l);
-                            aint2[i1 + j1 * j] = blendColors(aint1[k1 + 0], aint1[k1 + 1], aint1[k1 + 0 + l], aint1[k1 + 1 + l], flag);
+                            aint2[i1 + j1 * j] = blendColors(aint1[k1], aint1[k1 + 1], aint1[k1 + l], aint1[k1 + 1 + l], flag);
                         }
                     }
 
