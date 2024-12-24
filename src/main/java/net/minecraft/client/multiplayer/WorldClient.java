@@ -20,7 +20,7 @@ import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.profiler.Profiler;
+
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
@@ -51,8 +51,8 @@ public class WorldClient extends World {
     private final Set<ChunkCoordIntPair> previousActiveChunkSet = Sets.<ChunkCoordIntPair>newHashSet();
     private boolean playerUpdate = false;
 
-    public WorldClient(NetHandlerPlayClient netHandler, WorldSettings settings, int dimension, EnumDifficulty difficulty, Profiler profilerIn) {
-        super(new SaveHandlerMP(), new WorldInfo(settings, "MpServer"), WorldProvider.getProviderForDimension(dimension), profilerIn, true);
+    public WorldClient(NetHandlerPlayClient netHandler, WorldSettings settings, int dimension, EnumDifficulty difficulty) {
+        super(new SaveHandlerMP(), new WorldInfo(settings, "MpServer"), WorldProvider.getProviderForDimension(dimension), true);
         this.sendQueue = netHandler;
         this.getWorldInfo().setDifficulty(difficulty);
         this.provider.registerWorld(this);
@@ -77,8 +77,6 @@ public class WorldClient extends World {
             this.setWorldTime(this.getWorldTime() + 1L);
         }
 
-        this.theProfiler.startSection("reEntryProcessing");
-
         for (int i = 0; i < 10 && !this.entitySpawnQueue.isEmpty(); ++i) {
             Entity entity = (Entity) this.entitySpawnQueue.iterator().next();
             this.entitySpawnQueue.remove(entity);
@@ -88,11 +86,8 @@ public class WorldClient extends World {
             }
         }
 
-        this.theProfiler.endStartSection("chunkCache");
         this.clientChunkProvider.unloadQueuedChunks();
-        this.theProfiler.endStartSection("blocks");
         this.updateBlocks();
-        this.theProfiler.endSection();
     }
 
     public void invalidateBlockReceiveRegion(int x1, int y1, int z1, int x2, int y2, int z2) {
@@ -117,10 +112,8 @@ public class WorldClient extends World {
             if (!this.previousActiveChunkSet.contains(chunkcoordintpair)) {
                 int j = chunkcoordintpair.chunkXPos * 16;
                 int k = chunkcoordintpair.chunkZPos * 16;
-                this.theProfiler.startSection("getChunk");
                 Chunk chunk = this.getChunkFromChunkCoords(chunkcoordintpair.chunkXPos, chunkcoordintpair.chunkZPos);
                 this.playMoodSoundAndCheckLight(j, k, chunk);
-                this.theProfiler.endSection();
                 this.previousActiveChunkSet.add(chunkcoordintpair);
                 ++i;
 

@@ -5,21 +5,11 @@ import com.google.common.collect.Lists;
 import java.util.Iterator;
 import java.util.List;
 
-import net.minecraft.profiler.Profiler;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 public class EntityAITasks {
-    private static final Logger logger = LogManager.getLogger();
-    private List<EntityAITasks.EntityAITaskEntry> taskEntries = Lists.<EntityAITasks.EntityAITaskEntry>newArrayList();
-    private List<EntityAITasks.EntityAITaskEntry> executingTaskEntries = Lists.<EntityAITasks.EntityAITaskEntry>newArrayList();
-    private final Profiler theProfiler;
+    private List<EntityAITasks.EntityAITaskEntry> taskEntries = Lists.newArrayList();
+    private List<EntityAITasks.EntityAITaskEntry> executingTaskEntries = Lists.newArrayList();
     private int tickCount;
     private int tickRate = 3;
-
-    public EntityAITasks(Profiler profilerIn) {
-        this.theProfiler = profilerIn;
-    }
 
     public void addTask(int priority, EntityAIBase task) {
         this.taskEntries.add(new EntityAITasks.EntityAITaskEntry(priority, task));
@@ -44,8 +34,6 @@ public class EntityAITasks {
     }
 
     public void onUpdateTasks() {
-        this.theProfiler.startSection("goalSetup");
-
         if (this.tickCount++ % this.tickRate == 0) {
             Iterator iterator = this.taskEntries.iterator();
             label38:
@@ -90,14 +78,9 @@ public class EntityAITasks {
             }
         }
 
-        this.theProfiler.endSection();
-        this.theProfiler.startSection("goalTick");
-
         for (EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry2 : this.executingTaskEntries) {
             entityaitasks$entityaitaskentry2.action.updateTask();
         }
-
-        this.theProfiler.endSection();
     }
 
     private boolean canContinue(EntityAITasks.EntityAITaskEntry taskEntry) {

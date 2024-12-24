@@ -51,12 +51,10 @@ public abstract class PathNavigate {
             return null;
         } else {
             float f = this.getPathSearchRange();
-            this.worldObj.theProfiler.startSection("pathfind");
             BlockPos blockpos = new BlockPos(this.theEntity);
             int i = (int) (f + 8.0F);
             ChunkCache chunkcache = new ChunkCache(this.worldObj, blockpos.add(-i, -i, -i), blockpos.add(i, i, i), 0);
             PathEntity pathentity = this.pathFinder.createEntityPathTo(chunkcache, this.theEntity, pos, f);
-            this.worldObj.theProfiler.endSection();
             return pathentity;
         }
     }
@@ -75,12 +73,10 @@ public abstract class PathNavigate {
             return null;
         } else {
             float f = this.getPathSearchRange();
-            this.worldObj.theProfiler.startSection("pathfind");
             BlockPos blockpos = (new BlockPos(this.theEntity)).up();
             int i = (int) (f + 16.0F);
             ChunkCache chunkcache = new ChunkCache(this.worldObj, blockpos.add(-i, -i, -i), blockpos.add(i, i, i), 0);
             PathEntity pathentity = this.pathFinder.createEntityPathTo(chunkcache, this.theEntity, entityIn, f);
-            this.worldObj.theProfiler.endSection();
             return pathentity;
         }
     }

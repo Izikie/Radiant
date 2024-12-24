@@ -27,9 +27,7 @@ public class EntitySenses {
         } else if (this.unseenEntities.contains(entityIn)) {
             return false;
         } else {
-            this.entityObj.worldObj.theProfiler.startSection("canSee");
             boolean flag = this.entityObj.canEntityBeSeen(entityIn);
-            this.entityObj.worldObj.theProfiler.endSection();
 
             if (flag) {
                 this.seenEntities.add(entityIn);
