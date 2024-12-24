@@ -18,7 +18,7 @@ import net.minecraft.util.ResourceLocation;
 import net.optifine.reflect.ReflectorForge;
 
 public class DefaultResourcePack implements IResourcePack {
-    public static final Set<String> defaultResourceDomains = ImmutableSet.<String>of("minecraft", "realms");
+    public static final Set<String> defaultResourceDomains = ImmutableSet.<String>of("minecraft");
     private final Map<String, File> mapAssets;
 
     public DefaultResourcePack(Map<String, File> mapAssetsIn) {
