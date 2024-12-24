@@ -54,7 +54,7 @@ public class EntitySpider extends EntityMob {
 
     protected void entityInit() {
         super.entityInit();
-        this.dataWatcher.addObject(16, new Byte((byte) 0));
+        this.dataWatcher.addObject(16, (byte) 0);
     }
 
     public void onUpdate() {

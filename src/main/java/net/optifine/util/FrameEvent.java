@@ -14,7 +14,7 @@ public class FrameEvent {
             Integer integer = (Integer) mapEventFrames.get(name);
 
             if (integer == null) {
-                integer = new Integer(i);
+                integer = i;
                 mapEventFrames.put(name, integer);
             }
 
@@ -23,7 +23,7 @@ public class FrameEvent {
             if (i > j && i < j + frameInterval) {
                 return false;
             } else {
-                mapEventFrames.put(name, new Integer(i));
+                mapEventFrames.put(name, i);
                 return true;
             }
         }

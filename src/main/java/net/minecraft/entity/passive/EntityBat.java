@@ -23,7 +23,7 @@ public class EntityBat extends EntityAmbientCreature {
 
     protected void entityInit() {
         super.entityInit();
-        this.dataWatcher.addObject(16, new Byte((byte) 0));
+        this.dataWatcher.addObject(16, (byte) 0);
     }
 
     protected float getSoundVolume() {

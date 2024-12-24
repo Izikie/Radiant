@@ -102,9 +102,9 @@ public class EntityWolf extends EntityTameable {
 
     protected void entityInit() {
         super.entityInit();
-        this.dataWatcher.addObject(18, new Float(this.getHealth()));
-        this.dataWatcher.addObject(19, new Byte((byte) 0));
-        this.dataWatcher.addObject(20, new Byte((byte) EnumDyeColor.RED.getMetadata()));
+        this.dataWatcher.addObject(18, this.getHealth());
+        this.dataWatcher.addObject(19, (byte) 0);
+        this.dataWatcher.addObject(20, (byte) EnumDyeColor.RED.getMetadata());
     }
 
     protected void playStepSound(BlockPos pos, Block blockIn) {

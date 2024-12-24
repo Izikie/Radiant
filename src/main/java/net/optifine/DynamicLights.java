@@ -154,7 +154,7 @@ public class DynamicLights {
                         int j = cp.parseInt(s2, -1);
 
                         if (j >= 0 && j <= 15) {
-                            mapLightLevels.put(object, new Integer(j));
+                            mapLightLevels.put(object, j);
                         } else {
                             cp.warn("Invalid light level: " + s);
                         }

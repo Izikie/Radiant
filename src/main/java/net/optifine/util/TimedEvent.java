@@ -12,7 +12,7 @@ public class TimedEvent {
             Long olong = (Long) mapEventTimes.get(name);
 
             if (olong == null) {
-                olong = new Long(i);
+                olong = i;
                 mapEventTimes.put(name, olong);
             }
 
@@ -21,7 +21,7 @@ public class TimedEvent {
             if (i < j + timeIntervalMs) {
                 return false;
             } else {
-                mapEventTimes.put(name, new Long(i));
+                mapEventTimes.put(name, i);
                 return true;
             }
         }
