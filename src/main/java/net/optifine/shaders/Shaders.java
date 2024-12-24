@@ -4087,11 +4087,6 @@ public class Shaders {
         OpenGlHelper.glFramebufferTexture2D(OpenGlHelper.GL_FRAMEBUFFER, OpenGlHelper.GL_COLOR_ATTACHMENT0, 3553, mc.getFramebuffer().framebufferTexture, 0);
         GL11.glViewport(0, 0, mc.displayWidth, mc.displayHeight);
 
-        if (EntityRenderer.anaglyphEnable) {
-            boolean flag = EntityRenderer.anaglyphField != 0;
-            GlStateManager.colorMask(flag, !flag, !flag, true);
-        }
-
         GlStateManager.depthMask(true);
         GL11.glClearColor(clearColorR, clearColorG, clearColorB, 1.0F);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);

@@ -207,14 +207,8 @@ public class TextureUtil {
     }
 
     private static void copyToBufferPos(int[] p_110994_0_, int p_110994_1_, int p_110994_2_) {
-        int[] aint = p_110994_0_;
-
-        if (Minecraft.getMinecraft().gameSettings.anaglyph) {
-            aint = updateAnaglyph(p_110994_0_);
-        }
-
         dataBuffer.clear();
-        dataBuffer.put(aint, p_110994_1_, p_110994_2_);
+        dataBuffer.put(p_110994_0_, p_110994_1_, p_110994_2_);
         dataBuffer.position(0).limit(p_110994_2_);
     }
 
@@ -250,27 +244,6 @@ public class TextureUtil {
 
             return bufferedimage;
         }
-    }
-
-    public static int[] updateAnaglyph(int[] p_110985_0_) {
-        int[] aint = new int[p_110985_0_.length];
-
-        for (int i = 0; i < p_110985_0_.length; ++i) {
-            aint[i] = anaglyphColor(p_110985_0_[i]);
-        }
-
-        return aint;
-    }
-
-    public static int anaglyphColor(int p_177054_0_) {
-        int i = p_177054_0_ >> 24 & 255;
-        int j = p_177054_0_ >> 16 & 255;
-        int k = p_177054_0_ >> 8 & 255;
-        int l = p_177054_0_ & 255;
-        int i1 = (j * 30 + k * 59 + l * 11) / 100;
-        int j1 = (j * 30 + k * 70) / 100;
-        int k1 = (j * 30 + l * 70) / 100;
-        return i << 24 | i1 << 16 | j1 << 8 | k1;
     }
 
     public static void processPixelValues(int[] p_147953_0_, int p_147953_1_, int p_147953_2_) {

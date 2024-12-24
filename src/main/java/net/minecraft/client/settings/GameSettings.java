@@ -79,7 +79,6 @@ public class GameSettings {
     public boolean invertMouse;
     public int renderDistanceChunks = -1;
     public boolean viewBobbing = true;
-    public boolean anaglyph;
     public boolean fboEnable = true;
     public int limitFramerate = 120;
     public int clouds = 2;
@@ -143,8 +142,6 @@ public class GameSettings {
     public boolean hideGUI;
     public int thirdPersonView;
     public boolean showDebugInfo;
-    public boolean showDebugProfilerChart;
-    public boolean showLagometer;
     public String lastServer;
     public boolean smoothCamera;
     public boolean debugCamEnable;
@@ -174,8 +171,6 @@ public class GameSettings {
     public int ofDroppedItems = 0;
     public int ofBetterGrass = 3;
     public int ofAutoSaveTicks = 4000;
-    public boolean ofLagometer = false;
-    public boolean ofProfiler = false;
     public boolean ofShowFps = false;
     public boolean ofWeather = true;
     public boolean ofSky = true;
@@ -427,16 +422,6 @@ public class GameSettings {
             this.fboEnable = !this.fboEnable;
         }
 
-        if (settingsOption == GameSettings.Options.ANAGLYPH) {
-            if (!this.anaglyph && Config.isShaders()) {
-                Config.showGuiMessage(Lang.get("of.message.an.shaders1"), Lang.get("of.message.an.shaders2"));
-                return;
-            }
-
-            this.anaglyph = !this.anaglyph;
-            this.mc.refreshResources();
-        }
-
         if (settingsOption == GameSettings.Options.GRAPHICS) {
             this.fancyGraphics = !this.fancyGraphics;
             this.updateRenderClouds();
@@ -529,9 +514,6 @@ public class GameSettings {
 
             case VIEW_BOBBING:
                 return this.viewBobbing;
-
-            case ANAGLYPH:
-                return this.anaglyph;
 
             case FBO_ENABLE:
                 return this.fboEnable;
@@ -682,10 +664,6 @@ public class GameSettings {
 
                             if (astring[0].equals("bobView")) {
                                 this.viewBobbing = astring[1].equals("true");
-                            }
-
-                            if (astring[0].equals("anaglyph3d")) {
-                                this.anaglyph = astring[1].equals("true");
                             }
 
                             if (astring[0].equals("maxFps")) {
@@ -934,7 +912,6 @@ public class GameSettings {
             printwriter.println("guiScale:" + this.guiScale);
             printwriter.println("particles:" + this.particleSetting);
             printwriter.println("bobView:" + this.viewBobbing);
-            printwriter.println("anaglyph3d:" + this.anaglyph);
             printwriter.println("maxFps:" + this.limitFramerate);
             printwriter.println("fboEnable:" + this.fboEnable);
             printwriter.println("difficulty:" + this.difficulty.getDifficultyId());
@@ -1310,10 +1287,6 @@ public class GameSettings {
             this.ofRainSplash = !this.ofRainSplash;
         }
 
-        if (p_setOptionValueOF_1_ == GameSettings.Options.LAGOMETER) {
-            this.ofLagometer = !this.ofLagometer;
-        }
-
         if (p_setOptionValueOF_1_ == GameSettings.Options.SHOW_FPS) {
             this.ofShowFps = !this.ofShowFps;
         }
@@ -1399,10 +1372,6 @@ public class GameSettings {
         if (p_setOptionValueOF_1_ == GameSettings.Options.CLEAR_WATER) {
             this.ofClearWater = !this.ofClearWater;
             this.updateWaterOpacity();
-        }
-
-        if (p_setOptionValueOF_1_ == GameSettings.Options.PROFILER) {
-            this.ofProfiler = !this.ofProfiler;
         }
 
         if (p_setOptionValueOF_1_ == GameSettings.Options.BETTER_SNOW) {
@@ -1754,8 +1723,6 @@ public class GameSettings {
             return this.ofAnimatedTextures ? s + Lang.getOn() : s + Lang.getOff();
         } else if (p_getKeyBindingOF_1_ == GameSettings.Options.RAIN_SPLASH) {
             return this.ofRainSplash ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.LAGOMETER) {
-            return this.ofLagometer ? s + Lang.getOn() : s + Lang.getOff();
         } else if (p_getKeyBindingOF_1_ == GameSettings.Options.SHOW_FPS) {
             return this.ofShowFps ? s + Lang.getOn() : s + Lang.getOff();
         } else if (p_getKeyBindingOF_1_ == GameSettings.Options.AUTOSAVE_TICKS) {
@@ -1820,8 +1787,6 @@ public class GameSettings {
             return this.ofAaLevel == 0 ? s + Lang.getOff() + s3 : s + this.ofAaLevel + s3;
         } else if (p_getKeyBindingOF_1_ == GameSettings.Options.AF_LEVEL) {
             return this.ofAfLevel == 1 ? s + Lang.getOff() : s + this.ofAfLevel;
-        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.PROFILER) {
-            return this.ofProfiler ? s + Lang.getOn() : s + Lang.getOff();
         } else if (p_getKeyBindingOF_1_ == GameSettings.Options.BETTER_SNOW) {
             return this.ofBetterSnow ? s + Lang.getOn() : s + Lang.getOff();
         } else if (p_getKeyBindingOF_1_ == GameSettings.Options.SWAMP_COLORS) {
@@ -2044,10 +2009,6 @@ public class GameSettings {
                         this.ofRainSplash = Boolean.valueOf(astring[1]).booleanValue();
                     }
 
-                    if (astring[0].equals("ofLagometer") && astring.length >= 2) {
-                        this.ofLagometer = Boolean.valueOf(astring[1]).booleanValue();
-                    }
-
                     if (astring[0].equals("ofShowFps") && astring.length >= 2) {
                         this.ofShowFps = Boolean.valueOf(astring[1]).booleanValue();
                     }
@@ -2115,10 +2076,6 @@ public class GameSettings {
                     if (astring[0].equals("ofAfLevel") && astring.length >= 2) {
                         this.ofAfLevel = Integer.valueOf(astring[1]).intValue();
                         this.ofAfLevel = Config.limit(this.ofAfLevel, 1, 16);
-                    }
-
-                    if (astring[0].equals("ofProfiler") && astring.length >= 2) {
-                        this.ofProfiler = Boolean.valueOf(astring[1]).booleanValue();
                     }
 
                     if (astring[0].equals("ofBetterSnow") && astring.length >= 2) {
@@ -2275,7 +2232,6 @@ public class GameSettings {
             printwriter.println("ofAnimatedTerrain:" + this.ofAnimatedTerrain);
             printwriter.println("ofAnimatedTextures:" + this.ofAnimatedTextures);
             printwriter.println("ofRainSplash:" + this.ofRainSplash);
-            printwriter.println("ofLagometer:" + this.ofLagometer);
             printwriter.println("ofShowFps:" + this.ofShowFps);
             printwriter.println("ofAutoSaveTicks:" + this.ofAutoSaveTicks);
             printwriter.println("ofBetterGrass:" + this.ofBetterGrass);
@@ -2291,7 +2247,6 @@ public class GameSettings {
             printwriter.println("ofClearWater:" + this.ofClearWater);
             printwriter.println("ofAaLevel:" + this.ofAaLevel);
             printwriter.println("ofAfLevel:" + this.ofAfLevel);
-            printwriter.println("ofProfiler:" + this.ofProfiler);
             printwriter.println("ofBetterSnow:" + this.ofBetterSnow);
             printwriter.println("ofSwampColors:" + this.ofSwampColors);
             printwriter.println("ofRandomEntities:" + this.ofRandomEntities);
@@ -2351,7 +2306,6 @@ public class GameSettings {
     public void resetSettings() {
         this.renderDistanceChunks = 8;
         this.viewBobbing = true;
-        this.anaglyph = false;
         this.limitFramerate = (int) GameSettings.Options.FRAMERATE_LIMIT.getValueMax();
         this.enableVsync = false;
         this.updateVSync();
@@ -2395,9 +2349,7 @@ public class GameSettings {
         this.ofRain = 0;
         this.ofBetterGrass = 3;
         this.ofAutoSaveTicks = 4000;
-        this.ofLagometer = false;
         this.ofShowFps = false;
-        this.ofProfiler = false;
         this.ofWeather = true;
         this.ofSky = true;
         this.ofStars = true;
@@ -2519,7 +2471,6 @@ public class GameSettings {
         SATURATION("options.saturation", true, false),
         RENDER_DISTANCE("options.renderDistance", true, false, 2.0F, 16.0F, 1.0F),
         VIEW_BOBBING("options.viewBobbing", false, true),
-        ANAGLYPH("options.anaglyph", false, true),
         FRAMERATE_LIMIT("options.framerateLimit", true, false, 0.0F, 260.0F, 5.0F),
         FBO_ENABLE("options.fboEnable", false, true),
         RENDER_CLOUDS("options.renderClouds", false, false),
@@ -2559,7 +2510,6 @@ public class GameSettings {
         ANIMATED_FIRE("of.options.ANIMATED_FIRE", false, false),
         ANIMATED_PORTAL("of.options.ANIMATED_PORTAL", false, false),
         AO_LEVEL("of.options.AO_LEVEL", true, false),
-        LAGOMETER("of.options.LAGOMETER", false, false),
         SHOW_FPS("of.options.SHOW_FPS", false, false),
         AUTOSAVE_TICKS("of.options.AUTOSAVE_TICKS", false, false),
         BETTER_GRASS("of.options.BETTER_GRASS", false, false),
@@ -2583,7 +2533,6 @@ public class GameSettings {
         PORTAL_PARTICLES("of.options.PORTAL_PARTICLES", false, false),
         POTION_PARTICLES("of.options.POTION_PARTICLES", false, false),
         FIREWORK_PARTICLES("of.options.FIREWORK_PARTICLES", false, false),
-        PROFILER("of.options.PROFILER", false, false),
         DRIPPING_WATER_LAVA("of.options.DRIPPING_WATER_LAVA", false, false),
         BETTER_SNOW("of.options.BETTER_SNOW", false, false),
         FULLSCREEN_MODE("of.options.FULLSCREEN_MODE", true, false, 0.0F, (float) Config.getDisplayModes().length, 1.0F),

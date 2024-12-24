@@ -208,10 +208,6 @@ public class BlockModelRenderer {
                     k = block.colorMultiplier(p_renderQuadsSmooth_1_, p_renderQuadsSmooth_3_, bakedquad.getTintIndex());
                 }
 
-                if (EntityRenderer.anaglyphEnable) {
-                    k = TextureUtil.anaglyphColor(k);
-                }
-
                 float f = (float) (k >> 16 & 255) / 255.0F;
                 float f1 = (float) (k >> 8 & 255) / 255.0F;
                 float f2 = (float) (k & 255) / 255.0F;
@@ -355,10 +351,6 @@ public class BlockModelRenderer {
                     l = block.colorMultiplier(p_renderQuadsFlat_1_, p_renderQuadsFlat_3_, bakedquad.getTintIndex());
                 }
 
-                if (EntityRenderer.anaglyphEnable) {
-                    l = TextureUtil.anaglyphColor(l);
-                }
-
                 float f = (float) (l >> 16 & 255) / 255.0F;
                 float f1 = (float) (l >> 8 & 255) / 255.0F;
                 float f2 = (float) (l & 255) / 255.0F;
@@ -385,10 +377,6 @@ public class BlockModelRenderer {
         block.setBlockBoundsForItemRender();
         GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
         int i = block.getRenderColor(block.getStateForEntityRender(p_178266_2_));
-
-        if (EntityRenderer.anaglyphEnable) {
-            i = TextureUtil.anaglyphColor(i);
-        }
 
         float f = (float) (i >> 16 & 255) / 255.0F;
         float f1 = (float) (i >> 8 & 255) / 255.0F;

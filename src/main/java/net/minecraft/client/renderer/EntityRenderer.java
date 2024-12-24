@@ -100,8 +100,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     private static final Logger logger = LogManager.getLogger();
     private static final ResourceLocation locationRainPng = new ResourceLocation("textures/environment/rain.png");
     private static final ResourceLocation locationSnowPng = new ResourceLocation("textures/environment/snow.png");
-    public static boolean anaglyphEnable;
-    public static int anaglyphField;
     private final Minecraft mc;
     private final IResourceManager resourceManager;
     private final Random random = new Random();
@@ -666,10 +664,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         GlStateManager.loadIdentity();
         float f = 0.07F;
 
-        if (this.mc.gameSettings.anaglyph) {
-            GlStateManager.translate((float) (-(pass * 2 - 1)) * f, 0.0F, 0.0F);
-        }
-
         this.clipDistance = this.farPlaneDistance * 2.0F;
 
         if (this.clipDistance < 173.0F) {
@@ -684,11 +678,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         Project.gluPerspective(this.getFOVModifier(partialTicks, true), (float) this.mc.displayWidth / (float) this.mc.displayHeight, 0.05F, this.clipDistance);
         GlStateManager.matrixMode(5888);
         GlStateManager.loadIdentity();
-
-        if (this.mc.gameSettings.anaglyph) {
-            GlStateManager.translate((float) (pass * 2 - 1) * 0.1F, 0.0F, 0.0F);
-        }
-
+    
         this.hurtCameraEffect(partialTicks);
 
         if (this.mc.gameSettings.viewBobbing) {
@@ -747,10 +737,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             GlStateManager.loadIdentity();
             float f = 0.07F;
 
-            if (this.mc.gameSettings.anaglyph) {
-                GlStateManager.translate((float) (-(p_renderHand_2_ * 2 - 1)) * f, 0.0F, 0.0F);
-            }
-
             if (Config.isShaders()) {
                 Shaders.applyHandDepth();
             }
@@ -758,10 +744,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             Project.gluPerspective(this.getFOVModifier(p_renderHand_1_, false), (float) this.mc.displayWidth / (float) this.mc.displayHeight, 0.05F, this.farPlaneDistance * 2.0F);
             GlStateManager.matrixMode(5888);
             GlStateManager.loadIdentity();
-
-            if (this.mc.gameSettings.anaglyph) {
-                GlStateManager.translate((float) (p_renderHand_2_ * 2 - 1) * 0.1F, 0.0F, 0.0F);
-            }
 
             boolean flag = false;
 
@@ -1025,7 +1007,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         }
 
         if (!this.mc.skipRenderWorld) {
-            anaglyphEnable = this.mc.gameSettings.anaglyph;
             final ScaledResolution scaledresolution = new ScaledResolution(this.mc);
             int i1 = scaledresolution.getScaledWidth();
             int j1 = scaledresolution.getScaledHeight();
@@ -1112,10 +1093,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         this.frameFinish();
         this.waitForServerThread();
         MemoryMonitor.update();
-
-        if (this.mc.gameSettings.ofProfiler) {
-            this.mc.gameSettings.showDebugProfilerChart = true;
-        }
     }
 
     private boolean isDrawBlockOutline() {
@@ -1185,18 +1162,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         GlStateManager.enableAlpha();
         GlStateManager.alphaFunc(516, 0.1F);
 
-        if (this.mc.gameSettings.anaglyph) {
-            anaglyphField = 0;
-            GlStateManager.colorMask(false, true, true, false);
-            this.renderWorldPass(0, partialTicks, finishTimeNano);
-            anaglyphField = 1;
-            GlStateManager.colorMask(true, false, false, false);
-            this.renderWorldPass(1, partialTicks, finishTimeNano);
-            GlStateManager.colorMask(true, true, true, false);
-        } else {
-            this.renderWorldPass(2, partialTicks, finishTimeNano);
-        }
-
+        this.renderWorldPass(2, partialTicks, finishTimeNano);
     }
 
     private void renderWorldPass(int pass, float partialTicks, long finishTimeNano) {
@@ -1890,15 +1856,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             this.fogColorRed = this.fogColorRed * (1.0F - f15) + this.fogColorRed * f6 * f15;
             this.fogColorGreen = this.fogColorGreen * (1.0F - f15) + this.fogColorGreen * f6 * f15;
             this.fogColorBlue = this.fogColorBlue * (1.0F - f15) + this.fogColorBlue * f6 * f15;
-        }
-
-        if (this.mc.gameSettings.anaglyph) {
-            float f16 = (this.fogColorRed * 30.0F + this.fogColorGreen * 59.0F + this.fogColorBlue * 11.0F) / 100.0F;
-            float f17 = (this.fogColorRed * 30.0F + this.fogColorGreen * 70.0F) / 100.0F;
-            float f7 = (this.fogColorRed * 30.0F + this.fogColorBlue * 70.0F) / 100.0F;
-            this.fogColorRed = f16;
-            this.fogColorGreen = f17;
-            this.fogColorBlue = f7;
         }
 
         if (Reflector.EntityViewRenderEvent_FogColors_Constructor.exists()) {

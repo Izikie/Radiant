@@ -19,8 +19,6 @@ import java.io.InputStream;
 import java.net.Proxy;
 import java.net.SocketAddress;
 import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
@@ -129,7 +127,6 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.handshake.client.C00Handshake;
 import net.minecraft.network.login.client.C00PacketLoginStart;
 import net.minecraft.network.play.client.C16PacketClientStatus;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.stats.IStatStringFormat;
@@ -165,12 +162,9 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.ContextCapabilities;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL20;
-import org.lwjgl.opengl.GLContext;
 import org.lwjgl.opengl.OpenGLException;
 import org.lwjgl.opengl.PixelFormat;
 import org.lwjgl.util.glu.GLU;
@@ -252,20 +246,15 @@ public class Minecraft implements IThreadListener {
     private final MinecraftSessionService sessionService;
     private SkinManager skinManager;
     private final Queue<FutureTask<?>> scheduledTasks = Queues.newArrayDeque();
-    private final long field_175615_aJ = 0L;
     private final Thread mcThread = Thread.currentThread();
     private ModelManager modelManager;
     private BlockRendererDispatcher blockRenderDispatcher;
     volatile boolean running = true;
     public String debug = "";
-    public boolean field_175613_B = false;
-    public boolean field_175614_C = false;
-    public boolean field_175611_D = false;
     public boolean renderChunksMany = true;
     long debugUpdateTime = getSystemTime();
     int fpsCounter;
     long prevFrameTime = -1L;
-    private String debugProfilerName = "root";
 
     public Minecraft(GameConfiguration gameConfig) {
         theMinecraft = this;
@@ -1337,8 +1326,6 @@ public class Minecraft implements IThreadListener {
 
                         if (k == 61) {
                             this.gameSettings.showDebugInfo = !this.gameSettings.showDebugInfo;
-                            this.gameSettings.showDebugProfilerChart = GuiScreen.isShiftKeyDown();
-                            this.gameSettings.showLagometer = GuiScreen.isAltKeyDown();
                         }
 
                         if (this.gameSettings.keyBindTogglePerspective.isPressed()) {

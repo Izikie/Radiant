@@ -280,10 +280,6 @@ public class RenderItem implements IResourceManagerReloadListener {
                     k = CustomColors.getColorFromItemStack(stack, bakedquad.getTintIndex(), k);
                 }
 
-                if (EntityRenderer.anaglyphEnable) {
-                    k = TextureUtil.anaglyphColor(k);
-                }
-
                 k = k | -16777216;
             }
 

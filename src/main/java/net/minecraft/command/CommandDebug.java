@@ -39,7 +39,6 @@ public class CommandDebug extends CommandBase {
                 }
 
                 notifyOperators(sender, this, "commands.debug.start");
-                MinecraftServer.getServer().enableProfiling();
                 this.profileStartTime = MinecraftServer.getCurrentTimeMillis();
                 this.profileStartTick = MinecraftServer.getServer().getTickCounter();
             } else {
@@ -75,14 +74,13 @@ public class CommandDebug extends CommandBase {
     }
 
     private String getProfileResults(long timeSpan, int tickSpan) {
-        String stringbuilder = "---- Minecraft Profiler Results ----\n" +
+        return "---- Minecraft Profiler Results ----\n" +
                 "// " +
                 getWittyComment() +
                 "\n\n" +
                 "Time span: " + timeSpan + " ms\n" +
                 "Tick span: " + tickSpan + " ticks\n" +
                 "// This is approximately " + String.format("%.2f", Float.valueOf((float) tickSpan / ((float) timeSpan / 1000.0F))) + " ticks per second. It should be " + 20 + " ticks per second\n\n";
-        return stringbuilder;
     }
 
     private static String getWittyComment() {

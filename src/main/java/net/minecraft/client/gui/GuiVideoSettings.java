@@ -146,11 +146,6 @@ public class GuiVideoSettings extends GuiScreenOF {
                     return;
                 }
 
-                if (Config.getGameSettings().anaglyph) {
-                    Config.showGuiMessage(Lang.get("of.message.shaders.an1"), Lang.get("of.message.shaders.an2"));
-                    return;
-                }
-
                 this.mc.gameSettings.saveOptions();
                 GuiShaders guishaders = new GuiShaders(this, this.guiGameSettings);
                 this.mc.displayGuiScreen(guishaders);

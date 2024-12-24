@@ -116,7 +116,6 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
     private boolean serverIsRunning;
     private long timeOfLastWarning;
     private String userMessage;
-    private boolean startProfiling;
     private boolean isGamemodeForced;
     private final YggdrasilAuthenticationService authService;
     private final MinecraftSessionService sessionService;
@@ -477,10 +476,6 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
     public void tick() {
         long i = System.nanoTime();
         ++this.tickCounter;
-
-        if (this.startProfiling) {
-            this.startProfiling = false;
-        }
 
         this.updateTimeLightAndEntities();
 
@@ -863,10 +858,6 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
 
     public int getTickCounter() {
         return this.tickCounter;
-    }
-
-    public void enableProfiling() {
-        this.startProfiling = true;
     }
 
     public BlockPos getPosition() {
