@@ -5,17 +5,11 @@ import java.lang.reflect.Field;
 import net.optifine.Log;
 
 public class FieldLocatorType implements IFieldLocator {
-    private ReflectorClass reflectorClass;
-    private Class targetFieldType;
-    private int targetFieldIndex;
-
-    public FieldLocatorType(ReflectorClass reflectorClass, Class targetFieldType) {
-        this(reflectorClass, targetFieldType, 0);
-    }
+    private final ReflectorClass reflectorClass;
+    private final Class targetFieldType;
+    private final int targetFieldIndex;
 
     public FieldLocatorType(ReflectorClass reflectorClass, Class targetFieldType, int targetFieldIndex) {
-        this.reflectorClass = null;
-        this.targetFieldType = null;
         this.reflectorClass = reflectorClass;
         this.targetFieldType = targetFieldType;
         this.targetFieldIndex = targetFieldIndex;
@@ -31,9 +25,7 @@ public class FieldLocatorType implements IFieldLocator {
                 Field[] afield = oclass.getDeclaredFields();
                 int i = 0;
 
-                for (int j = 0; j < afield.length; ++j) {
-                    Field field = afield[j];
-
+                for (Field field : afield) {
                     if (field.getType() == this.targetFieldType) {
                         if (i == this.targetFieldIndex) {
                             field.setAccessible(true);

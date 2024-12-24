@@ -24,15 +24,15 @@ public class ReflectorForge {
 
     public static void FMLClientHandler_trackBrokenTexture(ResourceLocation loc, String message) {
         if (!Reflector.FMLClientHandler_trackBrokenTexture.exists()) {
-            Object object = Reflector.call(Reflector.FMLClientHandler_instance, new Object[0]);
-            Reflector.call(object, Reflector.FMLClientHandler_trackBrokenTexture, new Object[]{loc, message});
+            Object object = Reflector.call(Reflector.FMLClientHandler_instance);
+            Reflector.call(object, Reflector.FMLClientHandler_trackBrokenTexture, loc, message);
         }
     }
 
     public static void FMLClientHandler_trackMissingTexture(ResourceLocation loc) {
         if (!Reflector.FMLClientHandler_trackMissingTexture.exists()) {
-            Object object = Reflector.call(Reflector.FMLClientHandler_instance, new Object[0]);
-            Reflector.call(object, Reflector.FMLClientHandler_trackMissingTexture, new Object[]{loc});
+            Object object = Reflector.call(Reflector.FMLClientHandler_instance);
+            Reflector.call(object, Reflector.FMLClientHandler_trackMissingTexture, loc);
         }
     }
 
@@ -45,7 +45,7 @@ public class ReflectorForge {
     }
 
     public static boolean renderFirstPersonHand(RenderGlobal renderGlobal, float partialTicks, int pass) {
-        return !Reflector.ForgeHooksClient_renderFirstPersonHand.exists() ? false : Reflector.callBoolean(Reflector.ForgeHooksClient_renderFirstPersonHand, new Object[]{renderGlobal, Float.valueOf(partialTicks), Integer.valueOf(pass)});
+        return !Reflector.ForgeHooksClient_renderFirstPersonHand.exists() ? false : Reflector.callBoolean(Reflector.ForgeHooksClient_renderFirstPersonHand, renderGlobal, Float.valueOf(partialTicks), Integer.valueOf(pass));
     }
 
     public static InputStream getOptiFineResourceStream(String path) {
@@ -61,13 +61,12 @@ public class ReflectorForge {
                     path = path.substring(1);
                 }
 
-                byte[] abyte = (byte[]) ((byte[]) Reflector.call(object, Reflector.OptiFineClassTransformer_getOptiFineResource, new Object[]{path}));
+                byte[] abyte = (byte[]) Reflector.call(object, Reflector.OptiFineClassTransformer_getOptiFineResource, new Object[]{path});
 
                 if (abyte == null) {
                     return null;
                 } else {
-                    InputStream inputstream = new ByteArrayInputStream(abyte);
-                    return inputstream;
+                    return new ByteArrayInputStream(abyte);
                 }
             }
         }
@@ -75,11 +74,11 @@ public class ReflectorForge {
 
     public static boolean blockHasTileEntity(IBlockState state) {
         Block block = state.getBlock();
-        return !Reflector.ForgeBlock_hasTileEntity.exists() ? block.hasTileEntity() : Reflector.callBoolean(block, Reflector.ForgeBlock_hasTileEntity, new Object[]{state});
+        return !Reflector.ForgeBlock_hasTileEntity.exists() ? block.hasTileEntity() : Reflector.callBoolean(block, Reflector.ForgeBlock_hasTileEntity, state);
     }
 
     public static boolean isItemDamaged(ItemStack stack) {
-        return !Reflector.ForgeItem_showDurabilityBar.exists() ? stack.isItemDamaged() : Reflector.callBoolean(stack.getItem(), Reflector.ForgeItem_showDurabilityBar, new Object[]{stack});
+        return !Reflector.ForgeItem_showDurabilityBar.exists() ? stack.isItemDamaged() : Reflector.callBoolean(stack.getItem(), Reflector.ForgeItem_showDurabilityBar, stack);
     }
 
     public static boolean armorHasOverlay(ItemArmor itemArmor, ItemStack itemStack) {
@@ -87,25 +86,21 @@ public class ReflectorForge {
         return i != -1;
     }
 
-    public static MapData getMapData(ItemMap itemMap, ItemStack stack, World world) {
-        return Reflector.ForgeHooksClient.exists() ? ((ItemMap) stack.getItem()).getMapData(stack, world) : itemMap.getMapData(stack, world);
-    }
-
     public static String[] getForgeModIds() {
         if (!Reflector.Loader.exists()) {
             return new String[0];
         } else {
-            Object object = Reflector.call(Reflector.Loader_instance, new Object[0]);
+            Object object = Reflector.call(Reflector.Loader_instance);
             List list = (List) Reflector.call(object, Reflector.Loader_getActiveModList, new Object[0]);
 
             if (list == null) {
                 return new String[0];
             } else {
-                List<String> list1 = new ArrayList();
+                List<String> list1 = new ArrayList<>();
 
                 for (Object object1 : list) {
                     if (Reflector.ModContainer.isInstance(object1)) {
-                        String s = Reflector.callString(object1, Reflector.ModContainer_getModId, new Object[0]);
+                        String s = Reflector.callString(object1, Reflector.ModContainer_getModId);
 
                         if (s != null) {
                             list1.add(s);
@@ -113,18 +108,17 @@ public class ReflectorForge {
                     }
                 }
 
-                String[] astring = (String[]) ((String[]) list1.toArray(new String[list1.size()]));
-                return astring;
+                return list1.toArray(new String[list1.size()]);
             }
         }
     }
 
     public static boolean canEntitySpawn(EntityLiving entityliving, World world, float x, float y, float z) {
-        Object object = Reflector.call(Reflector.ForgeEventFactory_canEntitySpawn, new Object[]{entityliving, world, Float.valueOf(x), Float.valueOf(y), Float.valueOf(z)});
+        Object object = Reflector.call(Reflector.ForgeEventFactory_canEntitySpawn, entityliving, world, Float.valueOf(x), Float.valueOf(y), Float.valueOf(z));
         return object == EVENT_RESULT_ALLOW || object == EVENT_RESULT_DEFAULT && entityliving.getCanSpawnHere() && entityliving.isNotColliding();
     }
 
     public static boolean doSpecialSpawn(EntityLiving entityliving, World world, float x, int y, float z) {
-        return Reflector.ForgeEventFactory_doSpecialSpawn.exists() ? Reflector.callBoolean(Reflector.ForgeEventFactory_doSpecialSpawn, new Object[]{entityliving, world, Float.valueOf(x), Integer.valueOf(y), Float.valueOf(z)}) : false;
+        return Reflector.ForgeEventFactory_doSpecialSpawn.exists() ? Reflector.callBoolean(Reflector.ForgeEventFactory_doSpecialSpawn, entityliving, world, Float.valueOf(x), Integer.valueOf(y), Float.valueOf(z)) : false;
     }
 }

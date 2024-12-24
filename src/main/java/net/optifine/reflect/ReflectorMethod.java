@@ -7,20 +7,17 @@ import java.util.List;
 import net.optifine.Log;
 
 public class ReflectorMethod implements IResolvable {
-    private ReflectorClass reflectorClass;
-    private String targetMethodName;
-    private Class[] targetMethodParameterTypes;
+    private final ReflectorClass reflectorClass;
+    private final String targetMethodName;
+    private final Class[] targetMethodParameterTypes;
     private boolean checked;
     private Method targetMethod;
 
     public ReflectorMethod(ReflectorClass reflectorClass, String targetMethodName) {
-        this(reflectorClass, targetMethodName, (Class[]) null);
+        this(reflectorClass, targetMethodName, null);
     }
 
     public ReflectorMethod(ReflectorClass reflectorClass, String targetMethodName, Class[] targetMethodParameterTypes) {
-        this.reflectorClass = null;
-        this.targetMethodName = null;
-        this.targetMethodParameterTypes = null;
         this.checked = false;
         this.targetMethod = null;
         this.reflectorClass = reflectorClass;
@@ -43,7 +40,7 @@ public class ReflectorMethod implements IResolvable {
                     if (this.targetMethodParameterTypes == null) {
                         Method[] amethod = getMethods(oclass, this.targetMethodName);
 
-                        if (amethod.length <= 0) {
+                        if (amethod.length == 0) {
                             Log.log("(Reflector) Method not present: " + oclass.getName() + "." + this.targetMethodName);
                             return null;
                         }
@@ -51,8 +48,7 @@ public class ReflectorMethod implements IResolvable {
                         if (amethod.length > 1) {
                             Log.warn("(Reflector) More than one method found: " + oclass.getName() + "." + this.targetMethodName);
 
-                            for (int i = 0; i < amethod.length; ++i) {
-                                Method method = amethod[i];
+                            for (Method method : amethod) {
                                 Log.warn("(Reflector)  - " + method);
                             }
 
@@ -101,44 +97,12 @@ public class ReflectorMethod implements IResolvable {
         return Reflector.callBoolean(this, params);
     }
 
-    public int callInt(Object... params) {
-        return Reflector.callInt(this, params);
-    }
-
-    public float callFloat(Object... params) {
-        return Reflector.callFloat(this, params);
-    }
-
-    public double callDouble(Object... params) {
-        return Reflector.callDouble(this, params);
-    }
-
-    public String callString(Object... params) {
-        return Reflector.callString(this, params);
-    }
-
     public Object call(Object param) {
-        return Reflector.call(this, new Object[]{param});
+        return Reflector.call(this, param);
     }
 
     public boolean callBoolean(Object param) {
-        return Reflector.callBoolean(this, new Object[]{param});
-    }
-
-    public int callInt(Object param) {
-        return Reflector.callInt(this, new Object[]{param});
-    }
-
-    public float callFloat(Object param) {
-        return Reflector.callFloat(this, new Object[]{param});
-    }
-
-    public double callDouble(Object param) {
-        return Reflector.callDouble(this, new Object[]{param});
-    }
-
-    public String callString1(Object param) {
-        return Reflector.callString(this, new Object[]{param});
+        return Reflector.callBoolean(this, param);
     }
 
     public void callVoid(Object... params) {
@@ -148,9 +112,7 @@ public class ReflectorMethod implements IResolvable {
     public static Method getMethod(Class cls, String methodName, Class[] paramTypes) {
         Method[] amethod = cls.getDeclaredMethods();
 
-        for (int i = 0; i < amethod.length; ++i) {
-            Method method = amethod[i];
-
+        for (Method method : amethod) {
             if (method.getName().equals(methodName)) {
                 Class[] aclass = method.getParameterTypes();
 
@@ -164,22 +126,17 @@ public class ReflectorMethod implements IResolvable {
     }
 
     public static Method[] getMethods(Class cls, String methodName) {
-        List list = new ArrayList();
+        List list = new ArrayList<>();
         Method[] amethod = cls.getDeclaredMethods();
 
-        for (int i = 0; i < amethod.length; ++i) {
-            Method method = amethod[i];
-
+        for (Method method : amethod) {
             if (method.getName().equals(methodName)) {
                 list.add(method);
             }
         }
 
-        Method[] amethod1 = (Method[]) ((Method[]) list.toArray(new Method[list.size()]));
-        return amethod1;
+        return (Method[]) list.toArray(new Method[list.size()]);
     }
 
-    public void resolve() {
-        Method method = this.getTargetMethod();
-    }
+    public void resolve() {}
 }

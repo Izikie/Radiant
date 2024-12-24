@@ -6,8 +6,8 @@ import net.optifine.Log;
 import net.optifine.util.ArrayUtils;
 
 public class ReflectorConstructor implements IResolvable {
-    private ReflectorClass reflectorClass = null;
-    private Class[] parameterTypes = null;
+    private final ReflectorClass reflectorClass;
+    private final Class[] parameterTypes;
     private boolean checked = false;
     private Constructor targetConstructor = null;
 
@@ -49,8 +49,7 @@ public class ReflectorConstructor implements IResolvable {
     private static Constructor findConstructor(Class cls, Class[] paramTypes) {
         Constructor[] aconstructor = cls.getDeclaredConstructors();
 
-        for (int i = 0; i < aconstructor.length; ++i) {
-            Constructor constructor = aconstructor[i];
+        for (Constructor constructor : aconstructor) {
             Class[] aclass = constructor.getParameterTypes();
 
             if (Reflector.matchesTypes(paramTypes, aclass)) {
@@ -74,7 +73,5 @@ public class ReflectorConstructor implements IResolvable {
         return Reflector.newInstance(this, params);
     }
 
-    public void resolve() {
-        Constructor constructor = this.getTargetConstructor();
-    }
+    public void resolve() {}
 }

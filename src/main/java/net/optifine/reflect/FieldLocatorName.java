@@ -5,8 +5,8 @@ import java.lang.reflect.Field;
 import net.optifine.Log;
 
 public class FieldLocatorName implements IFieldLocator {
-    private ReflectorClass reflectorClass = null;
-    private String targetFieldName = null;
+    private final ReflectorClass reflectorClass;
+    private final String targetFieldName;
 
     public FieldLocatorName(ReflectorClass reflectorClass, String targetFieldName) {
         this.reflectorClass = reflectorClass;
@@ -39,9 +39,7 @@ public class FieldLocatorName implements IFieldLocator {
     private Field getDeclaredField(Class cls, String name) throws NoSuchFieldException {
         Field[] afield = cls.getDeclaredFields();
 
-        for (int i = 0; i < afield.length; ++i) {
-            Field field = afield[i];
-
+        for (Field field : afield) {
             if (field.getName().equals(name)) {
                 return field;
             }

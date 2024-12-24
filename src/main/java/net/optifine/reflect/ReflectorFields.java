@@ -1,15 +1,9 @@
 package net.optifine.reflect;
 
 public class ReflectorFields {
-    private ReflectorClass reflectorClass;
-    private Class fieldType;
-    private int fieldCount;
     private ReflectorField[] reflectorFields;
 
     public ReflectorFields(ReflectorClass reflectorClass, Class fieldType, int fieldCount) {
-        this.reflectorClass = reflectorClass;
-        this.fieldType = fieldType;
-
         if (reflectorClass.exists()) {
             if (fieldType != null) {
                 this.reflectorFields = new ReflectorField[fieldCount];
@@ -19,18 +13,6 @@ public class ReflectorFields {
                 }
             }
         }
-    }
-
-    public ReflectorClass getReflectorClass() {
-        return this.reflectorClass;
-    }
-
-    public Class getFieldType() {
-        return this.fieldType;
-    }
-
-    public int getFieldCount() {
-        return this.fieldCount;
     }
 
     public ReflectorField getReflectorField(int index) {
