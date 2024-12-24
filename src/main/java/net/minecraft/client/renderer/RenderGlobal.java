@@ -31,7 +31,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.chunk.ChunkRenderDispatcher;
@@ -97,7 +96,6 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.optifine.CustomColors;
 import net.optifine.CustomSky;
 import net.optifine.DynamicLights;
-import net.optifine.Lagometer;
 import net.optifine.RandomEntities;
 import net.optifine.SmartAnimations;
 import net.optifine.model.BlockModelUtils;
@@ -898,7 +896,6 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         this.lastViewEntityPitch = viewEntity.rotationPitch;
         this.lastViewEntityYaw = viewEntity.rotationYaw;
         boolean flag = this.debugFixedClippingHelper != null;
-        Lagometer.timerVisibility.start();
         int i = this.getCountLoadedChunks();
 
         if (i != this.countLoadedChunksPrev) {
@@ -1051,13 +1048,10 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             this.debugFixTerrainFrustum = false;
         }
 
-        Lagometer.timerVisibility.end();
-
         if (!Shaders.isShadowPass) {
             this.renderDispatcher.clearChunkUpdates();
             Set<RenderChunk> set = this.chunksToUpdate;
             this.chunksToUpdate = Sets.newLinkedHashSet();
-            Lagometer.timerChunkUpdate.start();
 
             for (ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation3 : this.renderInfos) {
                 RenderChunk renderchunk5 = renderglobal$containerlocalrenderinformation3.renderChunk;
@@ -1078,7 +1072,6 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 }
             }
 
-            Lagometer.timerChunkUpdate.end();
             this.chunksToUpdate.addAll(set);
         }
     }

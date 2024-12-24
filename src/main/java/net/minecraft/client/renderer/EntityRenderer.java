@@ -1,6 +1,5 @@
 package net.minecraft.client.renderer;
 
-import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.gson.JsonSyntaxException;
 
@@ -63,7 +62,6 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EntitySelectors;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.util.MathHelper;
@@ -78,7 +76,6 @@ import net.minecraft.world.WorldSettings;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.optifine.CustomColors;
 import net.optifine.GlErrors;
-import net.optifine.Lagometer;
 import net.optifine.RandomEntities;
 import net.optifine.gui.GuiChatOF;
 import net.optifine.reflect.Reflector;
@@ -1066,10 +1063,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                     if (this.mc.gameSettings.ofShowFps && !this.mc.gameSettings.showDebugInfo) {
                         Config.drawFps();
                     }
-
-                    if (this.mc.gameSettings.showDebugInfo) {
-                        Lagometer.showLagometer(scaledresolution);
-                    }
                 }
 
             } else {
@@ -1119,7 +1112,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         this.frameFinish();
         this.waitForServerThread();
         MemoryMonitor.update();
-        Lagometer.updateLagometer();
 
         if (this.mc.gameSettings.ofProfiler) {
             this.mc.gameSettings.showDebugProfilerChart = true;
@@ -1297,12 +1289,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         }
 
         if (pass == 0 || pass == 2) {
-            Lagometer.timerChunkUpload.start();
             this.mc.renderGlobal.updateChunks(finishTimeNano);
-            Lagometer.timerChunkUpload.end();
         }
-
-        Lagometer.timerTerrain.start();
 
         if (this.mc.gameSettings.ofSmoothFps && pass > 0) {
             GL11.glFinish();
@@ -1339,7 +1327,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             ShadersRender.endTerrain();
         }
 
-        Lagometer.timerTerrain.end();
         GlStateManager.shadeModel(7424);
         GlStateManager.alphaFunc(516, 0.1F);
 
@@ -2048,9 +2035,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
                     if (!flag && !(this.mc.currentScreen instanceof GuiDownloadTerrain)) {
                         if (this.serverWaitTime > 0) {
-                            Lagometer.timerServer.start();
                             Config.sleep(this.serverWaitTime);
-                            Lagometer.timerServer.end();
                             this.serverWaitTimeCurrent = this.serverWaitTime;
                         }
 

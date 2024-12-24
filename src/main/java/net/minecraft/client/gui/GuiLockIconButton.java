@@ -4,18 +4,18 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 
 public class GuiLockIconButton extends GuiButton {
-    private boolean field_175231_o = false;
+    private boolean locked = false;
 
-    public GuiLockIconButton(int p_i45538_1_, int p_i45538_2_, int p_i45538_3_) {
-        super(p_i45538_1_, p_i45538_2_, p_i45538_3_, 20, 20, "");
+    public GuiLockIconButton(int buttonId, int x, int y) {
+        super(buttonId, x, y, 20, 20, "");
     }
 
-    public boolean func_175230_c() {
-        return this.field_175231_o;
+    public boolean isLocked() {
+        return this.locked;
     }
 
-    public void func_175229_b(boolean p_175229_1_) {
-        this.field_175231_o = p_175229_1_;
+    public void setLocked(boolean state) {
+        this.locked = state;
     }
 
     public void drawButton(Minecraft mc, int mouseX, int mouseY) {
@@ -25,7 +25,7 @@ public class GuiLockIconButton extends GuiButton {
             boolean flag = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
             GuiLockIconButton.Icon guilockiconbutton$icon;
 
-            if (this.field_175231_o) {
+            if (this.locked) {
                 if (!this.enabled) {
                     guilockiconbutton$icon = GuiLockIconButton.Icon.LOCKED_DISABLED;
                 } else if (flag) {
