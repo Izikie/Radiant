@@ -2,34 +2,26 @@ package net.minecraft.command;
 
 import net.minecraft.server.MinecraftServer;
 
-public class CommandSetPlayerTimeout extends CommandBase
-{
-    public String getCommandName()
-    {
+public class CommandSetPlayerTimeout extends CommandBase {
+    public String getCommandName() {
         return "setidletimeout";
     }
 
-    public int getRequiredPermissionLevel()
-    {
+    public int getRequiredPermissionLevel() {
         return 3;
     }
 
-    public String getCommandUsage(ICommandSender sender)
-    {
+    public String getCommandUsage(ICommandSender sender) {
         return "commands.setidletimeout.usage";
     }
 
-    public void processCommand(ICommandSender sender, String[] args) throws CommandException
-    {
-        if (args.length != 1)
-        {
+    public void processCommand(ICommandSender sender, String[] args) throws CommandException {
+        if (args.length != 1) {
             throw new WrongUsageException("commands.setidletimeout.usage", new Object[0]);
-        }
-        else
-        {
+        } else {
             int i = parseInt(args[0], 0);
             MinecraftServer.getServer().setPlayerIdleTimeout(i);
-            notifyOperators(sender, this, "commands.setidletimeout.success", new Object[] {Integer.valueOf(i)});
+            notifyOperators(sender, this, "commands.setidletimeout.success", new Object[]{Integer.valueOf(i)});
         }
     }
 }

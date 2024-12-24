@@ -1,7 +1,6 @@
 package net.minecraft.block.material;
 
-public class MapColor
-{
+public class MapColor {
     public static final MapColor[] mapColorArray = new MapColor[64];
     public static final MapColor airColor = new MapColor(0, 0);
     public static final MapColor grassColor = new MapColor(1, 8368696);
@@ -42,41 +41,32 @@ public class MapColor
     public int colorValue;
     public final int colorIndex;
 
-    private MapColor(int index, int color)
-    {
-        if (index >= 0 && index <= 63)
-        {
+    private MapColor(int index, int color) {
+        if (index >= 0 && index <= 63) {
             this.colorIndex = index;
             this.colorValue = color;
             mapColorArray[index] = this;
-        }
-        else
-        {
+        } else {
             throw new IndexOutOfBoundsException("Map colour ID must be between 0 and 63 (inclusive)");
         }
     }
 
-    public int getMapColor(int p_151643_1_)
-    {
+    public int getMapColor(int p_151643_1_) {
         int i = 220;
 
-        if (p_151643_1_ == 3)
-        {
+        if (p_151643_1_ == 3) {
             i = 135;
         }
 
-        if (p_151643_1_ == 2)
-        {
+        if (p_151643_1_ == 2) {
             i = 255;
         }
 
-        if (p_151643_1_ == 1)
-        {
+        if (p_151643_1_ == 1) {
             i = 220;
         }
 
-        if (p_151643_1_ == 0)
-        {
+        if (p_151643_1_ == 0) {
             i = 180;
         }
 

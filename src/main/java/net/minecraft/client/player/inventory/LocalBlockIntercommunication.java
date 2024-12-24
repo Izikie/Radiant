@@ -6,39 +6,32 @@ import net.minecraft.inventory.Container;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.world.IInteractionObject;
 
-public class LocalBlockIntercommunication implements IInteractionObject
-{
+public class LocalBlockIntercommunication implements IInteractionObject {
     private String guiID;
     private IChatComponent displayName;
 
-    public LocalBlockIntercommunication(String guiIdIn, IChatComponent displayNameIn)
-    {
+    public LocalBlockIntercommunication(String guiIdIn, IChatComponent displayNameIn) {
         this.guiID = guiIdIn;
         this.displayName = displayNameIn;
     }
 
-    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
-    {
+    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
         throw new UnsupportedOperationException();
     }
 
-    public String getName()
-    {
+    public String getName() {
         return this.displayName.getUnformattedText();
     }
 
-    public boolean hasCustomName()
-    {
+    public boolean hasCustomName() {
         return true;
     }
 
-    public String getGuiID()
-    {
+    public String getGuiID() {
         return this.guiID;
     }
 
-    public IChatComponent getDisplayName()
-    {
+    public IChatComponent getDisplayName() {
         return this.displayName;
     }
 }

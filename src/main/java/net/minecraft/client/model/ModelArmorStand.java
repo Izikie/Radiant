@@ -4,20 +4,17 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityArmorStand;
 
-public class ModelArmorStand extends ModelArmorStandArmor
-{
+public class ModelArmorStand extends ModelArmorStandArmor {
     public ModelRenderer standRightSide;
     public ModelRenderer standLeftSide;
     public ModelRenderer standWaist;
     public ModelRenderer standBase;
 
-    public ModelArmorStand()
-    {
+    public ModelArmorStand() {
         this(0.0F);
     }
 
-    public ModelArmorStand(float p_i46306_1_)
-    {
+    public ModelArmorStand(float p_i46306_1_) {
         super(p_i46306_1_, 64, 64);
         this.bipedHead = new ModelRenderer(this, 0, 0);
         this.bipedHead.addBox(-1.0F, -7.0F, -1.0F, 2, 7, 2, p_i46306_1_);
@@ -54,13 +51,11 @@ public class ModelArmorStand extends ModelArmorStandArmor
         this.standBase.setRotationPoint(0.0F, 12.0F, 0.0F);
     }
 
-    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn)
-    {
+    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
         super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
 
-        if (entityIn instanceof EntityArmorStand)
-        {
-            EntityArmorStand entityarmorstand = (EntityArmorStand)entityIn;
+        if (entityIn instanceof EntityArmorStand) {
+            EntityArmorStand entityarmorstand = (EntityArmorStand) entityIn;
             this.bipedLeftArm.showModel = entityarmorstand.getShowArms();
             this.bipedRightArm.showModel = entityarmorstand.getShowArms();
             this.standBase.showModel = !entityarmorstand.hasNoBasePlate();
@@ -84,13 +79,11 @@ public class ModelArmorStand extends ModelArmorStandArmor
         }
     }
 
-    public void render(Entity entityIn, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_, float scale)
-    {
+    public void render(Entity entityIn, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_, float scale) {
         super.render(entityIn, p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, scale);
         GlStateManager.pushMatrix();
 
-        if (this.isChild)
-        {
+        if (this.isChild) {
             float f = 2.0F;
             GlStateManager.scale(1.0F / f, 1.0F / f, 1.0F / f);
             GlStateManager.translate(0.0F, 24.0F * scale, 0.0F);
@@ -98,11 +91,8 @@ public class ModelArmorStand extends ModelArmorStandArmor
             this.standLeftSide.render(scale);
             this.standWaist.render(scale);
             this.standBase.render(scale);
-        }
-        else
-        {
-            if (entityIn.isSneaking())
-            {
+        } else {
+            if (entityIn.isSneaking()) {
                 GlStateManager.translate(0.0F, 0.2F, 0.0F);
             }
 
@@ -115,8 +105,7 @@ public class ModelArmorStand extends ModelArmorStandArmor
         GlStateManager.popMatrix();
     }
 
-    public void postRenderArm(float scale)
-    {
+    public void postRenderArm(float scale) {
         boolean flag = this.bipedRightArm.showModel;
         this.bipedRightArm.showModel = true;
         super.postRenderArm(scale);

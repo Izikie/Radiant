@@ -11,80 +11,62 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
-public class EntityAIEatGrass extends EntityAIBase
-{
+public class EntityAIEatGrass extends EntityAIBase {
     private static final Predicate<IBlockState> field_179505_b = BlockStateHelper.forBlock(Blocks.tallgrass).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
     private EntityLiving grassEaterEntity;
     private World entityWorld;
     int eatingGrassTimer;
 
-    public EntityAIEatGrass(EntityLiving grassEaterEntityIn)
-    {
+    public EntityAIEatGrass(EntityLiving grassEaterEntityIn) {
         this.grassEaterEntity = grassEaterEntityIn;
         this.entityWorld = grassEaterEntityIn.worldObj;
         this.setMutexBits(7);
     }
 
-    public boolean shouldExecute()
-    {
-        if (this.grassEaterEntity.getRNG().nextInt(this.grassEaterEntity.isChild() ? 50 : 1000) != 0)
-        {
+    public boolean shouldExecute() {
+        if (this.grassEaterEntity.getRNG().nextInt(this.grassEaterEntity.isChild() ? 50 : 1000) != 0) {
             return false;
-        }
-        else
-        {
+        } else {
             BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY, this.grassEaterEntity.posZ);
             return field_179505_b.apply(this.entityWorld.getBlockState(blockpos)) ? true : this.entityWorld.getBlockState(blockpos.down()).getBlock() == Blocks.grass;
         }
     }
 
-    public void startExecuting()
-    {
+    public void startExecuting() {
         this.eatingGrassTimer = 40;
-        this.entityWorld.setEntityState(this.grassEaterEntity, (byte)10);
+        this.entityWorld.setEntityState(this.grassEaterEntity, (byte) 10);
         this.grassEaterEntity.getNavigator().clearPathEntity();
     }
 
-    public void resetTask()
-    {
+    public void resetTask() {
         this.eatingGrassTimer = 0;
     }
 
-    public boolean continueExecuting()
-    {
+    public boolean continueExecuting() {
         return this.eatingGrassTimer > 0;
     }
 
-    public int getEatingGrassTimer()
-    {
+    public int getEatingGrassTimer() {
         return this.eatingGrassTimer;
     }
 
-    public void updateTask()
-    {
+    public void updateTask() {
         this.eatingGrassTimer = Math.max(0, this.eatingGrassTimer - 1);
 
-        if (this.eatingGrassTimer == 4)
-        {
+        if (this.eatingGrassTimer == 4) {
             BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY, this.grassEaterEntity.posZ);
 
-            if (field_179505_b.apply(this.entityWorld.getBlockState(blockpos)))
-            {
-                if (this.entityWorld.getGameRules().getBoolean("mobGriefing"))
-                {
+            if (field_179505_b.apply(this.entityWorld.getBlockState(blockpos))) {
+                if (this.entityWorld.getGameRules().getBoolean("mobGriefing")) {
                     this.entityWorld.destroyBlock(blockpos, false);
                 }
 
                 this.grassEaterEntity.eatGrassBonus();
-            }
-            else
-            {
+            } else {
                 BlockPos blockpos1 = blockpos.down();
 
-                if (this.entityWorld.getBlockState(blockpos1).getBlock() == Blocks.grass)
-                {
-                    if (this.entityWorld.getGameRules().getBoolean("mobGriefing"))
-                    {
+                if (this.entityWorld.getBlockState(blockpos1).getBlock() == Blocks.grass) {
+                    if (this.entityWorld.getGameRules().getBoolean("mobGriefing")) {
                         this.entityWorld.playAuxSFX(2001, blockpos1, Block.getIdFromBlock(Blocks.grass));
                         this.entityWorld.setBlockState(blockpos1, Blocks.dirt.getDefaultState(), 2);
                     }

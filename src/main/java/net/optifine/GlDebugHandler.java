@@ -1,6 +1,7 @@
 package net.optifine;
 
 import java.nio.IntBuffer;
+
 import net.minecraft.src.Config;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.ARBDebugOutput;
@@ -12,26 +13,20 @@ import org.lwjgl.opengl.GLContext;
 import org.lwjgl.opengl.PixelFormat;
 import org.lwjgl.opengl.ARBDebugOutputCallback.Handler;
 
-public class GlDebugHandler implements Handler
-{
-    public static void createDisplayDebug() throws LWJGLException
-    {
+public class GlDebugHandler implements Handler {
+    public static void createDisplayDebug() throws LWJGLException {
         boolean flag = GLContext.getCapabilities().GL_ARB_debug_output;
         ContextAttribs contextattribs = (new ContextAttribs()).withDebug(true);
         Display.create((new PixelFormat()).withDepthBits(24), contextattribs);
         ARBDebugOutput.glDebugMessageCallbackARB(new ARBDebugOutputCallback(new GlDebugHandler()));
-        ARBDebugOutput.glDebugMessageControlARB(4352, 4352, 4352, (IntBuffer)null, true);
+        ARBDebugOutput.glDebugMessageControlARB(4352, 4352, 4352, (IntBuffer) null, true);
         GL11.glEnable(33346);
     }
 
-    public void handleMessage(int source, int type, int id, int severity, String message)
-    {
-        if (!message.contains("glBindFramebuffer"))
-        {
-            if (!message.contains("Wide lines"))
-            {
-                if (!message.contains("shader recompiled"))
-                {
+    public void handleMessage(int source, int type, int id, int severity, String message) {
+        if (!message.contains("glBindFramebuffer")) {
+            if (!message.contains("Wide lines")) {
+                if (!message.contains("shader recompiled")) {
                     Config.dbg("[LWJGL] source: " + this.getSource(source) + ", type: " + this.getType(type) + ", id: " + id + ", severity: " + this.getSeverity(severity) + ", message: " + message);
                     (new Throwable("StackTrace")).printStackTrace();
                 }
@@ -39,10 +34,8 @@ public class GlDebugHandler implements Handler
         }
     }
 
-    public String getSource(int source)
-    {
-        switch (source)
-        {
+    public String getSource(int source) {
+        switch (source) {
             case 33350:
                 return "API";
 
@@ -66,10 +59,8 @@ public class GlDebugHandler implements Handler
         }
     }
 
-    public String getType(int type)
-    {
-        switch (type)
-        {
+    public String getType(int type) {
+        switch (type) {
             case 33356:
                 return "ERROR";
 
@@ -93,10 +84,8 @@ public class GlDebugHandler implements Handler
         }
     }
 
-    public String getSeverity(int severity)
-    {
-        switch (severity)
-        {
+    public String getSeverity(int severity) {
+        switch (severity) {
             case 37190:
                 return "HIGH";
 
@@ -111,8 +100,7 @@ public class GlDebugHandler implements Handler
         }
     }
 
-    private String getUnknown(int token)
-    {
+    private String getUnknown(int token) {
         return "Unknown (0x" + Integer.toHexString(token).toUpperCase() + ")";
     }
 }

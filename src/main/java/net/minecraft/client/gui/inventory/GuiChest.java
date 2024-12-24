@@ -6,15 +6,13 @@ import net.minecraft.inventory.ContainerChest;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 
-public class GuiChest extends GuiContainer
-{
+public class GuiChest extends GuiContainer {
     private static final ResourceLocation CHEST_GUI_TEXTURE = new ResourceLocation("textures/gui/container/generic_54.png");
     private IInventory upperChestInventory;
     private IInventory lowerChestInventory;
     private int inventoryRows;
 
-    public GuiChest(IInventory upperInv, IInventory lowerInv)
-    {
+    public GuiChest(IInventory upperInv, IInventory lowerInv) {
         super(new ContainerChest(upperInv, lowerInv, Minecraft.getMinecraft().thePlayer));
         this.upperChestInventory = upperInv;
         this.lowerChestInventory = lowerInv;
@@ -25,14 +23,12 @@ public class GuiChest extends GuiContainer
         this.ySize = j + this.inventoryRows * 18;
     }
 
-    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
-    {
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         this.fontRendererObj.drawString(this.lowerChestInventory.getDisplayName().getUnformattedText(), 8, 6, 4210752);
         this.fontRendererObj.drawString(this.upperChestInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
     }
 
-    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
-    {
+    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(CHEST_GUI_TEXTURE);
         int i = (this.width - this.xSize) / 2;

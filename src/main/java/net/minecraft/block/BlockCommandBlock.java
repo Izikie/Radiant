@@ -1,6 +1,7 @@
 package net.minecraft.block;
 
 import java.util.Random;
+
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -17,127 +18,102 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
-public class BlockCommandBlock extends BlockContainer
-{
+public class BlockCommandBlock extends BlockContainer {
     public static final PropertyBool TRIGGERED = PropertyBool.create("triggered");
 
-    public BlockCommandBlock()
-    {
+    public BlockCommandBlock() {
         super(Material.iron, MapColor.adobeColor);
         this.setDefaultState(this.blockState.getBaseState().withProperty(TRIGGERED, Boolean.valueOf(false)));
     }
 
-    public TileEntity createNewTileEntity(World worldIn, int meta)
-    {
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntityCommandBlock();
     }
 
-    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
-    {
-        if (!worldIn.isRemote)
-        {
+    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
+        if (!worldIn.isRemote) {
             boolean flag = worldIn.isBlockPowered(pos);
-            boolean flag1 = ((Boolean)state.getValue(TRIGGERED)).booleanValue();
+            boolean flag1 = ((Boolean) state.getValue(TRIGGERED)).booleanValue();
 
-            if (flag && !flag1)
-            {
+            if (flag && !flag1) {
                 worldIn.setBlockState(pos, state.withProperty(TRIGGERED, Boolean.valueOf(true)), 4);
                 worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
-            }
-            else if (!flag && flag1)
-            {
+            } else if (!flag && flag1) {
                 worldIn.setBlockState(pos, state.withProperty(TRIGGERED, Boolean.valueOf(false)), 4);
             }
         }
     }
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
-    {
+    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
-        if (tileentity instanceof TileEntityCommandBlock)
-        {
-            ((TileEntityCommandBlock)tileentity).getCommandBlockLogic().trigger(worldIn);
+        if (tileentity instanceof TileEntityCommandBlock) {
+            ((TileEntityCommandBlock) tileentity).getCommandBlockLogic().trigger(worldIn);
             worldIn.updateComparatorOutputLevel(pos, this);
         }
     }
 
-    public int tickRate(World worldIn)
-    {
+    public int tickRate(World worldIn) {
         return 1;
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
-    {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
-        return tileentity instanceof TileEntityCommandBlock ? ((TileEntityCommandBlock)tileentity).getCommandBlockLogic().tryOpenEditCommandBlock(playerIn) : false;
+        return tileentity instanceof TileEntityCommandBlock ? ((TileEntityCommandBlock) tileentity).getCommandBlockLogic().tryOpenEditCommandBlock(playerIn) : false;
     }
 
-    public boolean hasComparatorInputOverride()
-    {
+    public boolean hasComparatorInputOverride() {
         return true;
     }
 
-    public int getComparatorInputOverride(World worldIn, BlockPos pos)
-    {
+    public int getComparatorInputOverride(World worldIn, BlockPos pos) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
-        return tileentity instanceof TileEntityCommandBlock ? ((TileEntityCommandBlock)tileentity).getCommandBlockLogic().getSuccessCount() : 0;
+        return tileentity instanceof TileEntityCommandBlock ? ((TileEntityCommandBlock) tileentity).getCommandBlockLogic().getSuccessCount() : 0;
     }
 
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
-    {
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
-        if (tileentity instanceof TileEntityCommandBlock)
-        {
-            CommandBlockLogic commandblocklogic = ((TileEntityCommandBlock)tileentity).getCommandBlockLogic();
+        if (tileentity instanceof TileEntityCommandBlock) {
+            CommandBlockLogic commandblocklogic = ((TileEntityCommandBlock) tileentity).getCommandBlockLogic();
 
-            if (stack.hasDisplayName())
-            {
+            if (stack.hasDisplayName()) {
                 commandblocklogic.setName(stack.getDisplayName());
             }
 
-            if (!worldIn.isRemote)
-            {
+            if (!worldIn.isRemote) {
                 commandblocklogic.setTrackOutput(worldIn.getGameRules().getBoolean("sendCommandFeedback"));
             }
         }
     }
 
-    public int quantityDropped(Random random)
-    {
+    public int quantityDropped(Random random) {
         return 0;
     }
 
-    public int getRenderType()
-    {
+    public int getRenderType() {
         return 3;
     }
 
-    public IBlockState getStateFromMeta(int meta)
-    {
+    public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(TRIGGERED, Boolean.valueOf((meta & 1) > 0));
     }
 
-    public int getMetaFromState(IBlockState state)
-    {
+    public int getMetaFromState(IBlockState state) {
         int i = 0;
 
-        if (((Boolean)state.getValue(TRIGGERED)).booleanValue())
-        {
+        if (((Boolean) state.getValue(TRIGGERED)).booleanValue()) {
             i |= 1;
         }
 
         return i;
     }
 
-    protected BlockState createBlockState()
-    {
-        return new BlockState(this, new IProperty[] {TRIGGERED});
+    protected BlockState createBlockState() {
+        return new BlockState(this, new IProperty[]{TRIGGERED});
     }
 
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-    {
+    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return this.getDefaultState().withProperty(TRIGGERED, Boolean.valueOf(false));
     }
 }

@@ -3,6 +3,7 @@ package net.optifine.shaders;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.BlockStateBase;
 import net.minecraft.block.state.IBlockState;
@@ -15,8 +16,7 @@ import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 
-public class SVertexBuilder
-{
+public class SVertexBuilder {
     int vertexSize;
     int offsetNormal;
     int offsetUV;
@@ -28,72 +28,60 @@ public class SVertexBuilder
     long[] entityData = new long[10];
     int entityDataIndex = 0;
 
-    public SVertexBuilder()
-    {
+    public SVertexBuilder() {
         this.entityData[this.entityDataIndex] = 0L;
     }
 
-    public static void initVertexBuilder(WorldRenderer wrr)
-    {
+    public static void initVertexBuilder(WorldRenderer wrr) {
         wrr.sVertexBuilder = new SVertexBuilder();
     }
 
-    public void pushEntity(long data)
-    {
+    public void pushEntity(long data) {
         ++this.entityDataIndex;
         this.entityData[this.entityDataIndex] = data;
     }
 
-    public void popEntity()
-    {
+    public void popEntity() {
         this.entityData[this.entityDataIndex] = 0L;
         --this.entityDataIndex;
     }
 
-    public static void pushEntity(IBlockState blockState, BlockPos blockPos, IBlockAccess blockAccess, WorldRenderer wrr)
-    {
+    public static void pushEntity(IBlockState blockState, BlockPos blockPos, IBlockAccess blockAccess, WorldRenderer wrr) {
         Block block = blockState.getBlock();
         int i;
         int j;
 
-        if (blockState instanceof BlockStateBase)
-        {
-            BlockStateBase blockstatebase = (BlockStateBase)blockState;
+        if (blockState instanceof BlockStateBase) {
+            BlockStateBase blockstatebase = (BlockStateBase) blockState;
             i = blockstatebase.getBlockId();
             j = blockstatebase.getMetadata();
-        }
-        else
-        {
+        } else {
             i = Block.getIdFromBlock(block);
             j = block.getMetaFromState(blockState);
         }
 
         int j1 = BlockAliases.getBlockAliasId(i, j);
 
-        if (j1 >= 0)
-        {
+        if (j1 >= 0) {
             i = j1;
         }
 
         int k = block.getRenderType();
         int l = ((k & 65535) << 16) + (i & 65535);
         int i1 = j & 65535;
-        wrr.sVertexBuilder.pushEntity(((long)i1 << 32) + (long)l);
+        wrr.sVertexBuilder.pushEntity(((long) i1 << 32) + (long) l);
     }
 
-    public static void popEntity(WorldRenderer wrr)
-    {
+    public static void popEntity(WorldRenderer wrr) {
         wrr.sVertexBuilder.popEntity();
     }
 
-    public static boolean popEntity(boolean value, WorldRenderer wrr)
-    {
+    public static boolean popEntity(boolean value, WorldRenderer wrr) {
         wrr.sVertexBuilder.popEntity();
         return value;
     }
 
-    public static void endSetVertexFormat(WorldRenderer wrr)
-    {
+    public static void endSetVertexFormat(WorldRenderer wrr) {
         SVertexBuilder svertexbuilder = wrr.sVertexBuilder;
         VertexFormat vertexformat = wrr.getVertexFormat();
         svertexbuilder.vertexSize = vertexformat.getNextOffset() / 4;
@@ -105,89 +93,73 @@ public class SVertexBuilder
         svertexbuilder.offsetUVCenter = 8;
     }
 
-    public static void beginAddVertex(WorldRenderer wrr)
-    {
-        if (wrr.vertexCount == 0)
-        {
+    public static void beginAddVertex(WorldRenderer wrr) {
+        if (wrr.vertexCount == 0) {
             endSetVertexFormat(wrr);
         }
     }
 
-    public static void endAddVertex(WorldRenderer wrr)
-    {
+    public static void endAddVertex(WorldRenderer wrr) {
         SVertexBuilder svertexbuilder = wrr.sVertexBuilder;
 
-        if (svertexbuilder.vertexSize == 14)
-        {
-            if (wrr.drawMode == 7 && wrr.vertexCount % 4 == 0)
-            {
+        if (svertexbuilder.vertexSize == 14) {
+            if (wrr.drawMode == 7 && wrr.vertexCount % 4 == 0) {
                 svertexbuilder.calcNormal(wrr, wrr.getBufferSize() - 4 * svertexbuilder.vertexSize);
             }
 
             long i = svertexbuilder.entityData[svertexbuilder.entityDataIndex];
             int j = wrr.getBufferSize() - 14 + 12;
-            wrr.rawIntBuffer.put(j, (int)i);
-            wrr.rawIntBuffer.put(j + 1, (int)(i >> 32));
+            wrr.rawIntBuffer.put(j, (int) i);
+            wrr.rawIntBuffer.put(j + 1, (int) (i >> 32));
         }
     }
 
-    public static void beginAddVertexData(WorldRenderer wrr, int[] data)
-    {
-        if (wrr.vertexCount == 0)
-        {
+    public static void beginAddVertexData(WorldRenderer wrr, int[] data) {
+        if (wrr.vertexCount == 0) {
             endSetVertexFormat(wrr);
         }
 
         SVertexBuilder svertexbuilder = wrr.sVertexBuilder;
 
-        if (svertexbuilder.vertexSize == 14)
-        {
+        if (svertexbuilder.vertexSize == 14) {
             long i = svertexbuilder.entityData[svertexbuilder.entityDataIndex];
 
-            for (int j = 12; j + 1 < data.length; j += 14)
-            {
-                data[j] = (int)i;
-                data[j + 1] = (int)(i >> 32);
+            for (int j = 12; j + 1 < data.length; j += 14) {
+                data[j] = (int) i;
+                data[j + 1] = (int) (i >> 32);
             }
         }
     }
 
-    public static void beginAddVertexData(WorldRenderer wrr, ByteBuffer byteBuffer)
-    {
-        if (wrr.vertexCount == 0)
-        {
+    public static void beginAddVertexData(WorldRenderer wrr, ByteBuffer byteBuffer) {
+        if (wrr.vertexCount == 0) {
             endSetVertexFormat(wrr);
         }
 
         SVertexBuilder svertexbuilder = wrr.sVertexBuilder;
 
-        if (svertexbuilder.vertexSize == 14)
-        {
+        if (svertexbuilder.vertexSize == 14) {
             long i = svertexbuilder.entityData[svertexbuilder.entityDataIndex];
             int j = byteBuffer.limit() / 4;
 
-            for (int k = 12; k + 1 < j; k += 14)
-            {
-                int l = (int)i;
-                int i1 = (int)(i >> 32);
+            for (int k = 12; k + 1 < j; k += 14) {
+                int l = (int) i;
+                int i1 = (int) (i >> 32);
                 byteBuffer.putInt(k * 4, l);
                 byteBuffer.putInt((k + 1) * 4, i1);
             }
         }
     }
 
-    public static void endAddVertexData(WorldRenderer wrr)
-    {
+    public static void endAddVertexData(WorldRenderer wrr) {
         SVertexBuilder svertexbuilder = wrr.sVertexBuilder;
 
-        if (svertexbuilder.vertexSize == 14 && wrr.drawMode == 7 && wrr.vertexCount % 4 == 0)
-        {
+        if (svertexbuilder.vertexSize == 14 && wrr.drawMode == 7 && wrr.vertexCount % 4 == 0) {
             svertexbuilder.calcNormal(wrr, wrr.getBufferSize() - 4 * svertexbuilder.vertexSize);
         }
     }
 
-    public void calcNormal(WorldRenderer wrr, int baseIndex)
-    {
+    public void calcNormal(WorldRenderer wrr, int baseIndex) {
         FloatBuffer floatbuffer = wrr.rawFloatBuffer;
         IntBuffer intbuffer = wrr.rawIntBuffer;
         int i = wrr.getBufferSize();
@@ -221,7 +193,7 @@ public class SVertexBuilder
         float f31 = f22 * f23 - f25 * f20;
         float f32 = f20 * f24 - f23 * f21;
         float f33 = f30 * f30 + f31 * f31 + f32 * f32;
-        float f34 = (double)f33 != 0.0D ? (float)(1.0D / Math.sqrt((double)f33)) : 1.0F;
+        float f34 = (double) f33 != 0.0D ? (float) (1.0D / Math.sqrt((double) f33)) : 1.0F;
         f30 = f30 * f34;
         f31 = f31 * f34;
         f32 = f32 * f34;
@@ -244,12 +216,12 @@ public class SVertexBuilder
         float f41 = (f26 * f24 - f28 * f21) * f36;
         float f42 = (f26 * f25 - f28 * f22) * f36;
         f33 = f37 * f37 + f38 * f38 + f39 * f39;
-        f34 = (double)f33 != 0.0D ? (float)(1.0D / Math.sqrt((double)f33)) : 1.0F;
+        f34 = (double) f33 != 0.0D ? (float) (1.0D / Math.sqrt((double) f33)) : 1.0F;
         f37 = f37 * f34;
         f38 = f38 * f34;
         f39 = f39 * f34;
         f33 = f40 * f40 + f41 * f41 + f42 * f42;
-        f34 = (double)f33 != 0.0D ? (float)(1.0D / Math.sqrt((double)f33)) : 1.0F;
+        f34 = (double) f33 != 0.0D ? (float) (1.0D / Math.sqrt((double) f33)) : 1.0F;
         f40 = f40 * f34;
         f41 = f41 * f34;
         f42 = f42 * f34;
@@ -257,16 +229,16 @@ public class SVertexBuilder
         float f44 = f30 * f39 - f32 * f37;
         float f45 = f31 * f37 - f30 * f38;
         float f46 = f40 * f43 + f41 * f44 + f42 * f45 < 0.0F ? -1.0F : 1.0F;
-        int j = (int)(f30 * 127.0F) & 255;
-        int k = (int)(f31 * 127.0F) & 255;
-        int l = (int)(f32 * 127.0F) & 255;
+        int j = (int) (f30 * 127.0F) & 255;
+        int k = (int) (f31 * 127.0F) & 255;
+        int l = (int) (f32 * 127.0F) & 255;
         int i1 = (l << 16) + (k << 8) + j;
         intbuffer.put(baseIndex + 0 * this.vertexSize + this.offsetNormal, i1);
         intbuffer.put(baseIndex + 1 * this.vertexSize + this.offsetNormal, i1);
         intbuffer.put(baseIndex + 2 * this.vertexSize + this.offsetNormal, i1);
         intbuffer.put(baseIndex + 3 * this.vertexSize + this.offsetNormal, i1);
-        int j1 = ((int)(f37 * 32767.0F) & 65535) + (((int)(f38 * 32767.0F) & 65535) << 16);
-        int k1 = ((int)(f39 * 32767.0F) & 65535) + (((int)(f46 * 32767.0F) & 65535) << 16);
+        int j1 = ((int) (f37 * 32767.0F) & 65535) + (((int) (f38 * 32767.0F) & 65535) << 16);
+        int k1 = ((int) (f39 * 32767.0F) & 65535) + (((int) (f46 * 32767.0F) & 65535) << 16);
         intbuffer.put(baseIndex + 0 * this.vertexSize + 10, j1);
         intbuffer.put(baseIndex + 0 * this.vertexSize + 10 + 1, k1);
         intbuffer.put(baseIndex + 1 * this.vertexSize + 10, j1);
@@ -287,30 +259,24 @@ public class SVertexBuilder
         floatbuffer.put(baseIndex + 3 * this.vertexSize + 8 + 1, f48);
     }
 
-    public static void calcNormalChunkLayer(WorldRenderer wrr)
-    {
-        if (wrr.getVertexFormat().hasNormal() && wrr.drawMode == 7 && wrr.vertexCount % 4 == 0)
-        {
+    public static void calcNormalChunkLayer(WorldRenderer wrr) {
+        if (wrr.getVertexFormat().hasNormal() && wrr.drawMode == 7 && wrr.vertexCount % 4 == 0) {
             SVertexBuilder svertexbuilder = wrr.sVertexBuilder;
             endSetVertexFormat(wrr);
             int i = wrr.vertexCount * svertexbuilder.vertexSize;
 
-            for (int j = 0; j < i; j += svertexbuilder.vertexSize * 4)
-            {
+            for (int j = 0; j < i; j += svertexbuilder.vertexSize * 4) {
                 svertexbuilder.calcNormal(wrr, j);
             }
         }
     }
 
-    public static void drawArrays(int drawMode, int first, int count, WorldRenderer wrr)
-    {
-        if (count != 0)
-        {
+    public static void drawArrays(int drawMode, int first, int count, WorldRenderer wrr) {
+        if (count != 0) {
             VertexFormat vertexformat = wrr.getVertexFormat();
             int i = vertexformat.getNextOffset();
 
-            if (i == 56)
-            {
+            if (i == 56) {
                 ByteBuffer bytebuffer = wrr.getByteBuffer();
                 bytebuffer.position(32);
                 GL20.glVertexAttribPointer(Shaders.midTexCoordAttrib, 2, GL11.GL_FLOAT, false, i, bytebuffer);
@@ -326,9 +292,7 @@ public class SVertexBuilder
                 GL20.glDisableVertexAttribArray(Shaders.midTexCoordAttrib);
                 GL20.glDisableVertexAttribArray(Shaders.tangentAttrib);
                 GL20.glDisableVertexAttribArray(Shaders.entityAttrib);
-            }
-            else
-            {
+            } else {
                 GlStateManager.glDrawArrays(drawMode, first, count);
             }
         }

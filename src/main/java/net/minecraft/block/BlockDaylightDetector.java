@@ -2,6 +2,7 @@ package net.minecraft.block;
 
 import java.util.List;
 import java.util.Random;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
@@ -21,13 +22,11 @@ import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockDaylightDetector extends BlockContainer
-{
+public class BlockDaylightDetector extends BlockContainer {
     public static final PropertyInteger POWER = PropertyInteger.create("power", 0, 15);
     private final boolean inverted;
 
-    public BlockDaylightDetector(boolean inverted)
-    {
+    public BlockDaylightDetector(boolean inverted) {
         super(Material.wood);
         this.inverted = inverted;
         this.setDefaultState(this.blockState.getBaseState().withProperty(POWER, Integer.valueOf(0)));
@@ -38,124 +37,96 @@ public class BlockDaylightDetector extends BlockContainer
         this.setUnlocalizedName("daylightDetector");
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
-    {
+    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.375F, 1.0F);
     }
 
-    public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side)
-    {
-        return ((Integer)state.getValue(POWER)).intValue();
+    public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side) {
+        return ((Integer) state.getValue(POWER)).intValue();
     }
 
-    public void updatePower(World worldIn, BlockPos pos)
-    {
-        if (!worldIn.provider.getHasNoSky())
-        {
+    public void updatePower(World worldIn, BlockPos pos) {
+        if (!worldIn.provider.getHasNoSky()) {
             IBlockState iblockstate = worldIn.getBlockState(pos);
             int i = worldIn.getLightFor(EnumSkyBlock.SKY, pos) - worldIn.getSkylightSubtracted();
             float f = worldIn.getCelestialAngleRadians(1.0F);
-            float f1 = f < (float)Math.PI ? 0.0F : ((float)Math.PI * 2F);
+            float f1 = f < (float) Math.PI ? 0.0F : ((float) Math.PI * 2F);
             f = f + (f1 - f) * 0.2F;
-            i = Math.round((float)i * MathHelper.cos(f));
+            i = Math.round((float) i * MathHelper.cos(f));
             i = MathHelper.clamp_int(i, 0, 15);
 
-            if (this.inverted)
-            {
+            if (this.inverted) {
                 i = 15 - i;
             }
 
-            if (((Integer)iblockstate.getValue(POWER)).intValue() != i)
-            {
+            if (((Integer) iblockstate.getValue(POWER)).intValue() != i) {
                 worldIn.setBlockState(pos, iblockstate.withProperty(POWER, Integer.valueOf(i)), 3);
             }
         }
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
-    {
-        if (playerIn.isAllowEdit())
-        {
-            if (worldIn.isRemote)
-            {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
+        if (playerIn.isAllowEdit()) {
+            if (worldIn.isRemote) {
                 return true;
-            }
-            else
-            {
-                if (this.inverted)
-                {
+            } else {
+                if (this.inverted) {
                     worldIn.setBlockState(pos, Blocks.daylight_detector.getDefaultState().withProperty(POWER, state.getValue(POWER)), 4);
                     Blocks.daylight_detector.updatePower(worldIn, pos);
-                }
-                else
-                {
+                } else {
                     worldIn.setBlockState(pos, Blocks.daylight_detector_inverted.getDefaultState().withProperty(POWER, state.getValue(POWER)), 4);
                     Blocks.daylight_detector_inverted.updatePower(worldIn, pos);
                 }
 
                 return true;
             }
-        }
-        else
-        {
+        } else {
             return super.onBlockActivated(worldIn, pos, state, playerIn, side, hitX, hitY, hitZ);
         }
     }
 
-    public Item getItemDropped(IBlockState state, Random rand, int fortune)
-    {
+    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Item.getItemFromBlock(Blocks.daylight_detector);
     }
 
-    public Item getItem(World worldIn, BlockPos pos)
-    {
+    public Item getItem(World worldIn, BlockPos pos) {
         return Item.getItemFromBlock(Blocks.daylight_detector);
     }
 
-    public boolean isFullCube()
-    {
+    public boolean isFullCube() {
         return false;
     }
 
-    public boolean isOpaqueCube()
-    {
+    public boolean isOpaqueCube() {
         return false;
     }
 
-    public int getRenderType()
-    {
+    public int getRenderType() {
         return 3;
     }
 
-    public boolean canProvidePower()
-    {
+    public boolean canProvidePower() {
         return true;
     }
 
-    public TileEntity createNewTileEntity(World worldIn, int meta)
-    {
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntityDaylightDetector();
     }
 
-    public IBlockState getStateFromMeta(int meta)
-    {
+    public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(POWER, Integer.valueOf(meta));
     }
 
-    public int getMetaFromState(IBlockState state)
-    {
-        return ((Integer)state.getValue(POWER)).intValue();
+    public int getMetaFromState(IBlockState state) {
+        return ((Integer) state.getValue(POWER)).intValue();
     }
 
-    protected BlockState createBlockState()
-    {
-        return new BlockState(this, new IProperty[] {POWER});
+    protected BlockState createBlockState() {
+        return new BlockState(this, new IProperty[]{POWER});
     }
 
-    public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list)
-    {
-        if (!this.inverted)
-        {
+    public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+        if (!this.inverted) {
             super.getSubBlocks(itemIn, tab, list);
         }
     }

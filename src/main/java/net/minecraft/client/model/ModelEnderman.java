@@ -2,13 +2,11 @@ package net.minecraft.client.model;
 
 import net.minecraft.entity.Entity;
 
-public class ModelEnderman extends ModelBiped
-{
+public class ModelEnderman extends ModelBiped {
     public boolean isCarrying;
     public boolean isAttacking;
 
-    public ModelEnderman(float p_i46305_1_)
-    {
+    public ModelEnderman(float p_i46305_1_) {
         super(0.0F, -14.0F, 64, 32);
         float f = -14.0F;
         this.bipedHeadwear = new ModelRenderer(this, 0, 16);
@@ -33,8 +31,7 @@ public class ModelEnderman extends ModelBiped
         this.bipedLeftLeg.setRotationPoint(2.0F, 12.0F + f, 0.0F);
     }
 
-    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn)
-    {
+    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
         super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
         this.bipedHead.showModel = true;
         float f = -14.0F;
@@ -43,54 +40,45 @@ public class ModelEnderman extends ModelBiped
         this.bipedBody.rotationPointZ = -0.0F;
         this.bipedRightLeg.rotateAngleX -= 0.0F;
         this.bipedLeftLeg.rotateAngleX -= 0.0F;
-        this.bipedRightArm.rotateAngleX = (float)((double)this.bipedRightArm.rotateAngleX * 0.5D);
-        this.bipedLeftArm.rotateAngleX = (float)((double)this.bipedLeftArm.rotateAngleX * 0.5D);
-        this.bipedRightLeg.rotateAngleX = (float)((double)this.bipedRightLeg.rotateAngleX * 0.5D);
-        this.bipedLeftLeg.rotateAngleX = (float)((double)this.bipedLeftLeg.rotateAngleX * 0.5D);
+        this.bipedRightArm.rotateAngleX = (float) ((double) this.bipedRightArm.rotateAngleX * 0.5D);
+        this.bipedLeftArm.rotateAngleX = (float) ((double) this.bipedLeftArm.rotateAngleX * 0.5D);
+        this.bipedRightLeg.rotateAngleX = (float) ((double) this.bipedRightLeg.rotateAngleX * 0.5D);
+        this.bipedLeftLeg.rotateAngleX = (float) ((double) this.bipedLeftLeg.rotateAngleX * 0.5D);
         float f1 = 0.4F;
 
-        if (this.bipedRightArm.rotateAngleX > f1)
-        {
+        if (this.bipedRightArm.rotateAngleX > f1) {
             this.bipedRightArm.rotateAngleX = f1;
         }
 
-        if (this.bipedLeftArm.rotateAngleX > f1)
-        {
+        if (this.bipedLeftArm.rotateAngleX > f1) {
             this.bipedLeftArm.rotateAngleX = f1;
         }
 
-        if (this.bipedRightArm.rotateAngleX < -f1)
-        {
+        if (this.bipedRightArm.rotateAngleX < -f1) {
             this.bipedRightArm.rotateAngleX = -f1;
         }
 
-        if (this.bipedLeftArm.rotateAngleX < -f1)
-        {
+        if (this.bipedLeftArm.rotateAngleX < -f1) {
             this.bipedLeftArm.rotateAngleX = -f1;
         }
 
-        if (this.bipedRightLeg.rotateAngleX > f1)
-        {
+        if (this.bipedRightLeg.rotateAngleX > f1) {
             this.bipedRightLeg.rotateAngleX = f1;
         }
 
-        if (this.bipedLeftLeg.rotateAngleX > f1)
-        {
+        if (this.bipedLeftLeg.rotateAngleX > f1) {
             this.bipedLeftLeg.rotateAngleX = f1;
         }
 
-        if (this.bipedRightLeg.rotateAngleX < -f1)
-        {
+        if (this.bipedRightLeg.rotateAngleX < -f1) {
             this.bipedRightLeg.rotateAngleX = -f1;
         }
 
-        if (this.bipedLeftLeg.rotateAngleX < -f1)
-        {
+        if (this.bipedLeftLeg.rotateAngleX < -f1) {
             this.bipedLeftLeg.rotateAngleX = -f1;
         }
 
-        if (this.isCarrying)
-        {
+        if (this.isCarrying) {
             this.bipedRightArm.rotateAngleX = -0.5F;
             this.bipedLeftArm.rotateAngleX = -0.5F;
             this.bipedRightArm.rotateAngleZ = 0.05F;
@@ -112,8 +100,7 @@ public class ModelEnderman extends ModelBiped
         this.bipedHeadwear.rotateAngleY = this.bipedHead.rotateAngleY;
         this.bipedHeadwear.rotateAngleZ = this.bipedHead.rotateAngleZ;
 
-        if (this.isAttacking)
-        {
+        if (this.isAttacking) {
             float f2 = 1.0F;
             this.bipedHead.rotationPointY -= f2 * 5.0F;
         }

@@ -2,8 +2,7 @@ package net.minecraft.item;
 
 import net.minecraft.util.EnumChatFormatting;
 
-public enum EnumRarity
-{
+public enum EnumRarity {
     COMMON(EnumChatFormatting.WHITE, "Common"),
     UNCOMMON(EnumChatFormatting.YELLOW, "Uncommon"),
     RARE(EnumChatFormatting.AQUA, "Rare"),
@@ -12,8 +11,7 @@ public enum EnumRarity
     public final EnumChatFormatting rarityColor;
     public final String rarityName;
 
-    private EnumRarity(EnumChatFormatting color, String name)
-    {
+    private EnumRarity(EnumChatFormatting color, String name) {
         this.rarityColor = color;
         this.rarityName = name;
     }

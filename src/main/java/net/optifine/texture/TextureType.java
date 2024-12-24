@@ -1,7 +1,6 @@
 package net.optifine.texture;
 
-public enum TextureType
-{
+public enum TextureType {
     TEXTURE_1D(3552),
     TEXTURE_2D(3553),
     TEXTURE_3D(32879),
@@ -9,13 +8,11 @@ public enum TextureType
 
     private int id;
 
-    private TextureType(int id)
-    {
+    private TextureType(int id) {
         this.id = id;
     }
 
-    public int getId()
-    {
+    public int getId() {
         return this.id;
     }
 }

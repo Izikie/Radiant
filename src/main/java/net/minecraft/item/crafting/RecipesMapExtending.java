@@ -7,55 +7,41 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.MapData;
 
-public class RecipesMapExtending extends ShapedRecipes
-{
-    public RecipesMapExtending()
-    {
-        super(3, 3, new ItemStack[] {new ItemStack(Items.paper), new ItemStack(Items.paper), new ItemStack(Items.paper), new ItemStack(Items.paper), new ItemStack(Items.filled_map, 0, 32767), new ItemStack(Items.paper), new ItemStack(Items.paper), new ItemStack(Items.paper), new ItemStack(Items.paper)}, new ItemStack(Items.map, 0, 0));
+public class RecipesMapExtending extends ShapedRecipes {
+    public RecipesMapExtending() {
+        super(3, 3, new ItemStack[]{new ItemStack(Items.paper), new ItemStack(Items.paper), new ItemStack(Items.paper), new ItemStack(Items.paper), new ItemStack(Items.filled_map, 0, 32767), new ItemStack(Items.paper), new ItemStack(Items.paper), new ItemStack(Items.paper), new ItemStack(Items.paper)}, new ItemStack(Items.map, 0, 0));
     }
 
-    public boolean matches(InventoryCrafting inv, World worldIn)
-    {
-        if (!super.matches(inv, worldIn))
-        {
+    public boolean matches(InventoryCrafting inv, World worldIn) {
+        if (!super.matches(inv, worldIn)) {
             return false;
-        }
-        else
-        {
+        } else {
             ItemStack itemstack = null;
 
-            for (int i = 0; i < inv.getSizeInventory() && itemstack == null; ++i)
-            {
+            for (int i = 0; i < inv.getSizeInventory() && itemstack == null; ++i) {
                 ItemStack itemstack1 = inv.getStackInSlot(i);
 
-                if (itemstack1 != null && itemstack1.getItem() == Items.filled_map)
-                {
+                if (itemstack1 != null && itemstack1.getItem() == Items.filled_map) {
                     itemstack = itemstack1;
                 }
             }
 
-            if (itemstack == null)
-            {
+            if (itemstack == null) {
                 return false;
-            }
-            else
-            {
+            } else {
                 MapData mapdata = Items.filled_map.getMapData(itemstack, worldIn);
                 return mapdata == null ? false : mapdata.scale < 4;
             }
         }
     }
 
-    public ItemStack getCraftingResult(InventoryCrafting inv)
-    {
+    public ItemStack getCraftingResult(InventoryCrafting inv) {
         ItemStack itemstack = null;
 
-        for (int i = 0; i < inv.getSizeInventory() && itemstack == null; ++i)
-        {
+        for (int i = 0; i < inv.getSizeInventory() && itemstack == null; ++i) {
             ItemStack itemstack1 = inv.getStackInSlot(i);
 
-            if (itemstack1 != null && itemstack1.getItem() == Items.filled_map)
-            {
+            if (itemstack1 != null && itemstack1.getItem() == Items.filled_map) {
                 itemstack = itemstack1;
             }
         }
@@ -63,8 +49,7 @@ public class RecipesMapExtending extends ShapedRecipes
         itemstack = itemstack.copy();
         itemstack.stackSize = 1;
 
-        if (itemstack.getTagCompound() == null)
-        {
+        if (itemstack.getTagCompound() == null) {
             itemstack.setTagCompound(new NBTTagCompound());
         }
 

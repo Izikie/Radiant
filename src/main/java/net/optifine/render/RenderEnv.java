@@ -3,6 +3,7 @@ package net.optifine.render;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.state.BlockStateBase;
@@ -18,8 +19,7 @@ import net.minecraft.util.EnumWorldBlockLayer;
 import net.optifine.BlockPosM;
 import net.optifine.model.ListQuadsOverlay;
 
-public class RenderEnv
-{
+public class RenderEnv {
     private IBlockState blockState;
     private BlockPos blockPos;
     private int blockId = -1;
@@ -47,16 +47,13 @@ public class RenderEnv
     private static final int FALSE = 0;
     private static final int TRUE = 1;
 
-    public RenderEnv(IBlockState blockState, BlockPos blockPos)
-    {
+    public RenderEnv(IBlockState blockState, BlockPos blockPos) {
         this.blockState = blockState;
         this.blockPos = blockPos;
     }
 
-    public void reset(IBlockState blockStateIn, BlockPos blockPosIn)
-    {
-        if (this.blockState != blockStateIn || this.blockPos != blockPosIn)
-        {
+    public void reset(IBlockState blockStateIn, BlockPos blockPosIn) {
+        if (this.blockState != blockStateIn || this.blockPos != blockPosIn) {
             this.blockState = blockStateIn;
             this.blockPos = blockPosIn;
             this.blockId = -1;
@@ -67,17 +64,12 @@ public class RenderEnv
         }
     }
 
-    public int getBlockId()
-    {
-        if (this.blockId < 0)
-        {
-            if (this.blockState instanceof BlockStateBase)
-            {
-                BlockStateBase blockstatebase = (BlockStateBase)this.blockState;
+    public int getBlockId() {
+        if (this.blockId < 0) {
+            if (this.blockState instanceof BlockStateBase) {
+                BlockStateBase blockstatebase = (BlockStateBase) this.blockState;
                 this.blockId = blockstatebase.getBlockId();
-            }
-            else
-            {
+            } else {
                 this.blockId = Block.getIdFromBlock(this.blockState.getBlock());
             }
         }
@@ -85,17 +77,12 @@ public class RenderEnv
         return this.blockId;
     }
 
-    public int getMetadata()
-    {
-        if (this.metadata < 0)
-        {
-            if (this.blockState instanceof BlockStateBase)
-            {
-                BlockStateBase blockstatebase = (BlockStateBase)this.blockState;
+    public int getMetadata() {
+        if (this.metadata < 0) {
+            if (this.blockState instanceof BlockStateBase) {
+                BlockStateBase blockstatebase = (BlockStateBase) this.blockState;
                 this.metadata = blockstatebase.getMetadata();
-            }
-            else
-            {
+            } else {
                 this.metadata = this.blockState.getBlock().getMetaFromState(this.blockState);
             }
         }
@@ -103,31 +90,23 @@ public class RenderEnv
         return this.metadata;
     }
 
-    public float[] getQuadBounds()
-    {
+    public float[] getQuadBounds() {
         return this.quadBounds;
     }
 
-    public BitSet getBoundsFlags()
-    {
+    public BitSet getBoundsFlags() {
         return this.boundsFlags;
     }
 
-    public BlockModelRenderer.AmbientOcclusionFace getAoFace()
-    {
+    public BlockModelRenderer.AmbientOcclusionFace getAoFace() {
         return this.aoFace;
     }
 
-    public boolean isBreakingAnimation(List listQuads)
-    {
-        if (this.breakingAnimation == -1 && listQuads.size() > 0)
-        {
-            if (listQuads.get(0) instanceof BreakingFour)
-            {
+    public boolean isBreakingAnimation(List listQuads) {
+        if (this.breakingAnimation == -1 && listQuads.size() > 0) {
+            if (listQuads.get(0) instanceof BreakingFour) {
                 this.breakingAnimation = 1;
-            }
-            else
-            {
+            } else {
                 this.breakingAnimation = 0;
             }
         }
@@ -135,16 +114,11 @@ public class RenderEnv
         return this.breakingAnimation == 1;
     }
 
-    public boolean isBreakingAnimation(BakedQuad quad)
-    {
-        if (this.breakingAnimation < 0)
-        {
-            if (quad instanceof BreakingFour)
-            {
+    public boolean isBreakingAnimation(BakedQuad quad) {
+        if (this.breakingAnimation < 0) {
+            if (quad instanceof BreakingFour) {
                 this.breakingAnimation = 1;
-            }
-            else
-            {
+            } else {
                 this.breakingAnimation = 0;
             }
         }
@@ -152,68 +126,55 @@ public class RenderEnv
         return this.breakingAnimation == 1;
     }
 
-    public boolean isBreakingAnimation()
-    {
+    public boolean isBreakingAnimation() {
         return this.breakingAnimation == 1;
     }
 
-    public IBlockState getBlockState()
-    {
+    public IBlockState getBlockState() {
         return this.blockState;
     }
 
-    public BlockPosM getColorizerBlockPosM()
-    {
-        if (this.colorizerBlockPosM == null)
-        {
+    public BlockPosM getColorizerBlockPosM() {
+        if (this.colorizerBlockPosM == null) {
             this.colorizerBlockPosM = new BlockPosM(0, 0, 0);
         }
 
         return this.colorizerBlockPosM;
     }
 
-    public boolean[] getBorderFlags()
-    {
-        if (this.borderFlags == null)
-        {
+    public boolean[] getBorderFlags() {
+        if (this.borderFlags == null) {
             this.borderFlags = new boolean[4];
         }
 
         return this.borderFlags;
     }
 
-    public boolean[] getBorderFlags2()
-    {
-        if (this.borderFlags2 == null)
-        {
+    public boolean[] getBorderFlags2() {
+        if (this.borderFlags2 == null) {
             this.borderFlags2 = new boolean[4];
         }
 
         return this.borderFlags2;
     }
 
-    public boolean[] getBorderFlags3()
-    {
-        if (this.borderFlags3 == null)
-        {
+    public boolean[] getBorderFlags3() {
+        if (this.borderFlags3 == null) {
             this.borderFlags3 = new boolean[4];
         }
 
         return this.borderFlags3;
     }
 
-    public EnumFacing[] getBorderDirections()
-    {
-        if (this.borderDirections == null)
-        {
+    public EnumFacing[] getBorderDirections() {
+        if (this.borderDirections == null) {
             this.borderDirections = new EnumFacing[4];
         }
 
         return this.borderDirections;
     }
 
-    public EnumFacing[] getBorderDirections(EnumFacing dir0, EnumFacing dir1, EnumFacing dir2, EnumFacing dir3)
-    {
+    public EnumFacing[] getBorderDirections(EnumFacing dir0, EnumFacing dir1, EnumFacing dir2, EnumFacing dir3) {
         EnumFacing[] aenumfacing = this.getBorderDirections();
         aenumfacing[0] = dir0;
         aenumfacing[1] = dir1;
@@ -222,16 +183,11 @@ public class RenderEnv
         return aenumfacing;
     }
 
-    public boolean isSmartLeaves()
-    {
-        if (this.smartLeaves == -1)
-        {
-            if (Config.isTreesSmart() && this.blockState.getBlock() instanceof BlockLeaves)
-            {
+    public boolean isSmartLeaves() {
+        if (this.smartLeaves == -1) {
+            if (Config.isTreesSmart() && this.blockState.getBlock() instanceof BlockLeaves) {
                 this.smartLeaves = 1;
-            }
-            else
-            {
+            } else {
                 this.smartLeaves = 0;
             }
         }
@@ -239,34 +195,29 @@ public class RenderEnv
         return this.smartLeaves == 1;
     }
 
-    public List<BakedQuad> getListQuadsCustomizer()
-    {
+    public List<BakedQuad> getListQuadsCustomizer() {
         return this.listQuadsCustomizer;
     }
 
-    public BakedQuad[] getArrayQuadsCtm(BakedQuad quad)
-    {
+    public BakedQuad[] getArrayQuadsCtm(BakedQuad quad) {
         this.arrayQuadsCtm1[0] = quad;
         return this.arrayQuadsCtm1;
     }
 
-    public BakedQuad[] getArrayQuadsCtm(BakedQuad quad0, BakedQuad quad1)
-    {
+    public BakedQuad[] getArrayQuadsCtm(BakedQuad quad0, BakedQuad quad1) {
         this.arrayQuadsCtm2[0] = quad0;
         this.arrayQuadsCtm2[1] = quad1;
         return this.arrayQuadsCtm2;
     }
 
-    public BakedQuad[] getArrayQuadsCtm(BakedQuad quad0, BakedQuad quad1, BakedQuad quad2)
-    {
+    public BakedQuad[] getArrayQuadsCtm(BakedQuad quad0, BakedQuad quad1, BakedQuad quad2) {
         this.arrayQuadsCtm3[0] = quad0;
         this.arrayQuadsCtm3[1] = quad1;
         this.arrayQuadsCtm3[2] = quad2;
         return this.arrayQuadsCtm3;
     }
 
-    public BakedQuad[] getArrayQuadsCtm(BakedQuad quad0, BakedQuad quad1, BakedQuad quad2, BakedQuad quad3)
-    {
+    public BakedQuad[] getArrayQuadsCtm(BakedQuad quad0, BakedQuad quad1, BakedQuad quad2, BakedQuad quad3) {
         this.arrayQuadsCtm4[0] = quad0;
         this.arrayQuadsCtm4[1] = quad1;
         this.arrayQuadsCtm4[2] = quad2;
@@ -274,14 +225,11 @@ public class RenderEnv
         return this.arrayQuadsCtm4;
     }
 
-    public List<BakedQuad> getListQuadsCtmMultipass(BakedQuad[] quads)
-    {
+    public List<BakedQuad> getListQuadsCtmMultipass(BakedQuad[] quads) {
         this.listQuadsCtmMultipass.clear();
 
-        if (quads != null)
-        {
-            for (int i = 0; i < quads.length; ++i)
-            {
+        if (quads != null) {
+            for (int i = 0; i < quads.length; ++i) {
                 BakedQuad bakedquad = quads[i];
                 this.listQuadsCtmMultipass.add(bakedquad);
             }
@@ -290,22 +238,18 @@ public class RenderEnv
         return this.listQuadsCtmMultipass;
     }
 
-    public RegionRenderCacheBuilder getRegionRenderCacheBuilder()
-    {
+    public RegionRenderCacheBuilder getRegionRenderCacheBuilder() {
         return this.regionRenderCacheBuilder;
     }
 
-    public void setRegionRenderCacheBuilder(RegionRenderCacheBuilder regionRenderCacheBuilder)
-    {
+    public void setRegionRenderCacheBuilder(RegionRenderCacheBuilder regionRenderCacheBuilder) {
         this.regionRenderCacheBuilder = regionRenderCacheBuilder;
     }
 
-    public ListQuadsOverlay getListQuadsOverlay(EnumWorldBlockLayer layer)
-    {
+    public ListQuadsOverlay getListQuadsOverlay(EnumWorldBlockLayer layer) {
         ListQuadsOverlay listquadsoverlay = this.listsQuadsOverlay[layer.ordinal()];
 
-        if (listquadsoverlay == null)
-        {
+        if (listquadsoverlay == null) {
             listquadsoverlay = new ListQuadsOverlay();
             this.listsQuadsOverlay[layer.ordinal()] = listquadsoverlay;
         }
@@ -313,13 +257,11 @@ public class RenderEnv
         return listquadsoverlay;
     }
 
-    public boolean isOverlaysRendered()
-    {
+    public boolean isOverlaysRendered() {
         return this.overlaysRendered;
     }
 
-    public void setOverlaysRendered(boolean overlaysRendered)
-    {
+    public void setOverlaysRendered(boolean overlaysRendered) {
         this.overlaysRendered = overlaysRendered;
     }
 }

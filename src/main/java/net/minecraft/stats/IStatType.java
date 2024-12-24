@@ -1,6 +1,5 @@
 package net.minecraft.stats;
 
-public interface IStatType
-{
+public interface IStatType {
     String format(int number);
 }

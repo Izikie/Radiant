@@ -9,8 +9,7 @@ import net.minecraft.util.IChatComponent;
 import net.minecraft.util.IJsonSerializable;
 import net.minecraft.util.StatCollector;
 
-public class Achievement extends StatBase
-{
+public class Achievement extends StatBase {
     public final int displayColumn;
     public final int displayRow;
     public final Achievement parentAchievement;
@@ -19,96 +18,80 @@ public class Achievement extends StatBase
     public final ItemStack theItemStack;
     private boolean isSpecial;
 
-    public Achievement(String statIdIn, String unlocalizedName, int column, int row, Item itemIn, Achievement parent)
-    {
+    public Achievement(String statIdIn, String unlocalizedName, int column, int row, Item itemIn, Achievement parent) {
         this(statIdIn, unlocalizedName, column, row, new ItemStack(itemIn), parent);
     }
 
-    public Achievement(String statIdIn, String unlocalizedName, int column, int row, Block blockIn, Achievement parent)
-    {
+    public Achievement(String statIdIn, String unlocalizedName, int column, int row, Block blockIn, Achievement parent) {
         this(statIdIn, unlocalizedName, column, row, new ItemStack(blockIn), parent);
     }
 
-    public Achievement(String statIdIn, String unlocalizedName, int column, int row, ItemStack stack, Achievement parent)
-    {
+    public Achievement(String statIdIn, String unlocalizedName, int column, int row, ItemStack stack, Achievement parent) {
         super(statIdIn, new ChatComponentTranslation("achievement." + unlocalizedName, new Object[0]));
         this.theItemStack = stack;
         this.achievementDescription = "achievement." + unlocalizedName + ".desc";
         this.displayColumn = column;
         this.displayRow = row;
 
-        if (column < AchievementList.minDisplayColumn)
-        {
+        if (column < AchievementList.minDisplayColumn) {
             AchievementList.minDisplayColumn = column;
         }
 
-        if (row < AchievementList.minDisplayRow)
-        {
+        if (row < AchievementList.minDisplayRow) {
             AchievementList.minDisplayRow = row;
         }
 
-        if (column > AchievementList.maxDisplayColumn)
-        {
+        if (column > AchievementList.maxDisplayColumn) {
             AchievementList.maxDisplayColumn = column;
         }
 
-        if (row > AchievementList.maxDisplayRow)
-        {
+        if (row > AchievementList.maxDisplayRow) {
             AchievementList.maxDisplayRow = row;
         }
 
         this.parentAchievement = parent;
     }
 
-    public Achievement initIndependentStat()
-    {
+    public Achievement initIndependentStat() {
         this.isIndependent = true;
         return this;
     }
 
-    public Achievement setSpecial()
-    {
+    public Achievement setSpecial() {
         this.isSpecial = true;
         return this;
     }
 
-    public Achievement registerStat()
-    {
+    public Achievement registerStat() {
         super.registerStat();
         AchievementList.achievementList.add(this);
         return this;
     }
 
-    public boolean isAchievement()
-    {
+    public boolean isAchievement() {
         return true;
     }
 
-    public IChatComponent getStatName()
-    {
+    public IChatComponent getStatName() {
         IChatComponent ichatcomponent = super.getStatName();
         ichatcomponent.getChatStyle().setColor(this.getSpecial() ? EnumChatFormatting.DARK_PURPLE : EnumChatFormatting.GREEN);
         return ichatcomponent;
     }
 
-    public Achievement func_150953_b(Class <? extends IJsonSerializable > p_150953_1_)
-    {
-        return (Achievement)super.func_150953_b(p_150953_1_);
+    public Achievement func_150953_b(Class<? extends IJsonSerializable> p_150953_1_) {
+        return (Achievement) super.func_150953_b(p_150953_1_);
     }
 
-    public String getDescription()
-    {
+    public String getDescription() {
         return this.statStringFormatter != null ? this.statStringFormatter.formatString(StatCollector.translateToLocal(this.achievementDescription)) : StatCollector.translateToLocal(this.achievementDescription);
     }
 
-    public Achievement setStatStringFormatter(IStatStringFormat statStringFormatterIn)
-    {
+    public Achievement setStatStringFormatter(IStatStringFormat statStringFormatterIn) {
         this.statStringFormatter = statStringFormatterIn;
         return this;
     }
 
-    public boolean getSpecial()
-    {
+    public boolean getSpecial() {
         return this.isSpecial;
     }
 }

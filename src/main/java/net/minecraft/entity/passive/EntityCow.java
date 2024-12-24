@@ -19,13 +19,11 @@ import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
-public class EntityCow extends EntityAnimal
-{
-    public EntityCow(World worldIn)
-    {
+public class EntityCow extends EntityAnimal {
+    public EntityCow(World worldIn) {
         super(worldIn);
         this.setSize(0.9F, 1.3F);
-        ((PathNavigateGround)this.getNavigator()).setAvoidsWater(true);
+        ((PathNavigateGround) this.getNavigator()).setAvoidsWater(true);
         this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(1, new EntityAIPanic(this, 2.0D));
         this.tasks.addTask(2, new EntityAIMate(this, 1.0D));
@@ -36,97 +34,75 @@ public class EntityCow extends EntityAnimal
         this.tasks.addTask(7, new EntityAILookIdle(this));
     }
 
-    protected void applyEntityAttributes()
-    {
+    protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D);
         this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.20000000298023224D);
     }
 
-    protected String getLivingSound()
-    {
+    protected String getLivingSound() {
         return "mob.cow.say";
     }
 
-    protected String getHurtSound()
-    {
+    protected String getHurtSound() {
         return "mob.cow.hurt";
     }
 
-    protected String getDeathSound()
-    {
+    protected String getDeathSound() {
         return "mob.cow.hurt";
     }
 
-    protected void playStepSound(BlockPos pos, Block blockIn)
-    {
+    protected void playStepSound(BlockPos pos, Block blockIn) {
         this.playSound("mob.cow.step", 0.15F, 1.0F);
     }
 
-    protected float getSoundVolume()
-    {
+    protected float getSoundVolume() {
         return 0.4F;
     }
 
-    protected Item getDropItem()
-    {
+    protected Item getDropItem() {
         return Items.leather;
     }
 
-    protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier)
-    {
+    protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
         int i = this.rand.nextInt(3) + this.rand.nextInt(1 + lootingModifier);
 
-        for (int j = 0; j < i; ++j)
-        {
+        for (int j = 0; j < i; ++j) {
             this.dropItem(Items.leather, 1);
         }
 
         i = this.rand.nextInt(3) + 1 + this.rand.nextInt(1 + lootingModifier);
 
-        for (int k = 0; k < i; ++k)
-        {
-            if (this.isBurning())
-            {
+        for (int k = 0; k < i; ++k) {
+            if (this.isBurning()) {
                 this.dropItem(Items.cooked_beef, 1);
-            }
-            else
-            {
+            } else {
                 this.dropItem(Items.beef, 1);
             }
         }
     }
 
-    public boolean interact(EntityPlayer player)
-    {
+    public boolean interact(EntityPlayer player) {
         ItemStack itemstack = player.inventory.getCurrentItem();
 
-        if (itemstack != null && itemstack.getItem() == Items.bucket && !player.capabilities.isCreativeMode && !this.isChild())
-        {
-            if (itemstack.stackSize-- == 1)
-            {
+        if (itemstack != null && itemstack.getItem() == Items.bucket && !player.capabilities.isCreativeMode && !this.isChild()) {
+            if (itemstack.stackSize-- == 1) {
                 player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.milk_bucket));
-            }
-            else if (!player.inventory.addItemStackToInventory(new ItemStack(Items.milk_bucket)))
-            {
+            } else if (!player.inventory.addItemStackToInventory(new ItemStack(Items.milk_bucket))) {
                 player.dropPlayerItemWithRandomChoice(new ItemStack(Items.milk_bucket, 1, 0), false);
             }
 
             return true;
-        }
-        else
-        {
+        } else {
             return super.interact(player);
         }
     }
 
-    public EntityCow createChild(EntityAgeable ageable)
-    {
+    public EntityCow createChild(EntityAgeable ageable) {
         return new EntityCow(this.worldObj);
     }
 
-    public float getEyeHeight()
-    {
+    public float getEyeHeight() {
         return this.height;
     }
 }

@@ -3,8 +3,7 @@ package net.minecraft.realms;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
 
-public class RealmsDefaultVertexFormat
-{
+public class RealmsDefaultVertexFormat {
     public static final RealmsVertexFormat BLOCK = new RealmsVertexFormat(new VertexFormat());
     public static final RealmsVertexFormat BLOCK_NORMALS = new RealmsVertexFormat(new VertexFormat());
     public static final RealmsVertexFormat ENTITY = new RealmsVertexFormat(new VertexFormat());
@@ -24,8 +23,7 @@ public class RealmsDefaultVertexFormat
     public static final RealmsVertexFormatElement ELEMENT_NORMAL = new RealmsVertexFormatElement(new VertexFormatElement(0, VertexFormatElement.EnumType.BYTE, VertexFormatElement.EnumUsage.NORMAL, 3));
     public static final RealmsVertexFormatElement ELEMENT_PADDING = new RealmsVertexFormatElement(new VertexFormatElement(0, VertexFormatElement.EnumType.BYTE, VertexFormatElement.EnumUsage.PADDING, 1));
 
-    static
-    {
+    static {
         BLOCK.addElement(ELEMENT_POSITION);
         BLOCK.addElement(ELEMENT_COLOR);
         BLOCK.addElement(ELEMENT_UV0);

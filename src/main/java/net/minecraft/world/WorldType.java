@@ -1,7 +1,6 @@
 package net.minecraft.world;
 
-public class WorldType
-{
+public class WorldType {
     public static final WorldType[] worldTypes = new WorldType[16];
     public static final WorldType DEFAULT = (new WorldType(0, "default", 1)).setVersioned();
     public static final WorldType FLAT = new WorldType(1, "flat");
@@ -17,13 +16,11 @@ public class WorldType
     private boolean isWorldTypeVersioned;
     private boolean hasNotificationData;
 
-    private WorldType(int id, String name)
-    {
+    private WorldType(int id, String name) {
         this(id, name, 0);
     }
 
-    private WorldType(int id, String name, int version)
-    {
+    private WorldType(int id, String name, int version) {
         this.worldType = name;
         this.generatorVersion = version;
         this.canBeCreated = true;
@@ -31,59 +28,47 @@ public class WorldType
         worldTypes[id] = this;
     }
 
-    public String getWorldTypeName()
-    {
+    public String getWorldTypeName() {
         return this.worldType;
     }
 
-    public String getTranslateName()
-    {
+    public String getTranslateName() {
         return "generator." + this.worldType;
     }
 
-    public String getTranslatedInfo()
-    {
+    public String getTranslatedInfo() {
         return this.getTranslateName() + ".info";
     }
 
-    public int getGeneratorVersion()
-    {
+    public int getGeneratorVersion() {
         return this.generatorVersion;
     }
 
-    public WorldType getWorldTypeForGeneratorVersion(int version)
-    {
+    public WorldType getWorldTypeForGeneratorVersion(int version) {
         return this == DEFAULT && version == 0 ? DEFAULT_1_1 : this;
     }
 
-    private WorldType setCanBeCreated(boolean enable)
-    {
+    private WorldType setCanBeCreated(boolean enable) {
         this.canBeCreated = enable;
         return this;
     }
 
-    public boolean getCanBeCreated()
-    {
+    public boolean getCanBeCreated() {
         return this.canBeCreated;
     }
 
-    private WorldType setVersioned()
-    {
+    private WorldType setVersioned() {
         this.isWorldTypeVersioned = true;
         return this;
     }
 
-    public boolean isVersioned()
-    {
+    public boolean isVersioned() {
         return this.isWorldTypeVersioned;
     }
 
-    public static WorldType parseWorldType(String type)
-    {
-        for (int i = 0; i < worldTypes.length; ++i)
-        {
-            if (worldTypes[i] != null && worldTypes[i].worldType.equalsIgnoreCase(type))
-            {
+    public static WorldType parseWorldType(String type) {
+        for (int i = 0; i < worldTypes.length; ++i) {
+            if (worldTypes[i] != null && worldTypes[i].worldType.equalsIgnoreCase(type)) {
                 return worldTypes[i];
             }
         }
@@ -91,18 +76,15 @@ public class WorldType
         return null;
     }
 
-    public int getWorldTypeID()
-    {
+    public int getWorldTypeID() {
         return this.worldTypeId;
     }
 
-    public boolean showWorldInfoNotice()
-    {
+    public boolean showWorldInfoNotice() {
         return this.hasNotificationData;
     }
 
-    private WorldType setNotificationData()
-    {
+    private WorldType setNotificationData() {
         this.hasNotificationData = true;
         return this;
     }

@@ -2,23 +2,20 @@ package net.optifine.shaders.uniform;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import net.optifine.util.CounterInt;
 import net.optifine.util.SmoothFloat;
 
-public class Smoother
-{
+public class Smoother {
     private static Map<Integer, SmoothFloat> mapSmoothValues = new HashMap();
     private static CounterInt counterIds = new CounterInt(1);
 
-    public static float getSmoothValue(int id, float value, float timeFadeUpSec, float timeFadeDownSec)
-    {
-        synchronized (mapSmoothValues)
-        {
+    public static float getSmoothValue(int id, float value, float timeFadeUpSec, float timeFadeDownSec) {
+        synchronized (mapSmoothValues) {
             Integer integer = Integer.valueOf(id);
-            SmoothFloat smoothfloat = (SmoothFloat)mapSmoothValues.get(integer);
+            SmoothFloat smoothfloat = (SmoothFloat) mapSmoothValues.get(integer);
 
-            if (smoothfloat == null)
-            {
+            if (smoothfloat == null) {
                 smoothfloat = new SmoothFloat(value, timeFadeUpSec, timeFadeDownSec);
                 mapSmoothValues.put(integer, smoothfloat);
             }
@@ -28,18 +25,14 @@ public class Smoother
         }
     }
 
-    public static int getNextId()
-    {
-        synchronized (counterIds)
-        {
+    public static int getNextId() {
+        synchronized (counterIds) {
             return counterIds.nextValue();
         }
     }
 
-    public static void resetValues()
-    {
-        synchronized (mapSmoothValues)
-        {
+    public static void resetValues() {
+        synchronized (mapSmoothValues) {
             mapSmoothValues.clear();
         }
     }

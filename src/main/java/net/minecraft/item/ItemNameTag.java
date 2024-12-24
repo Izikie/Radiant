@@ -5,29 +5,21 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 
-public class ItemNameTag extends Item
-{
-    public ItemNameTag()
-    {
+public class ItemNameTag extends Item {
+    public ItemNameTag() {
         this.setCreativeTab(CreativeTabs.tabTools);
     }
 
-    public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target)
-    {
-        if (!stack.hasDisplayName())
-        {
+    public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target) {
+        if (!stack.hasDisplayName()) {
             return false;
-        }
-        else if (target instanceof EntityLiving)
-        {
-            EntityLiving entityliving = (EntityLiving)target;
+        } else if (target instanceof EntityLiving) {
+            EntityLiving entityliving = (EntityLiving) target;
             entityliving.setCustomNameTag(stack.getDisplayName());
             entityliving.enablePersistence();
             --stack.stackSize;
             return true;
-        }
-        else
-        {
+        } else {
             return super.itemInteractionForEntity(stack, playerIn, target);
         }
     }

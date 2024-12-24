@@ -5,13 +5,11 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.util.MathHelper;
 
-public class ModelWither extends ModelBase
-{
+public class ModelWither extends ModelBase {
     private ModelRenderer[] field_82905_a;
     private ModelRenderer[] field_82904_b;
 
-    public ModelWither(float p_i46302_1_)
-    {
+    public ModelWither(float p_i46302_1_) {
         this.textureWidth = 64;
         this.textureHeight = 64;
         this.field_82905_a = new ModelRenderer[3];
@@ -38,39 +36,33 @@ public class ModelWither extends ModelBase
         this.field_82904_b[2].rotationPointY = 4.0F;
     }
 
-    public void render(Entity entityIn, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_, float scale)
-    {
+    public void render(Entity entityIn, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_, float scale) {
         this.setRotationAngles(p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, scale, entityIn);
 
-        for (ModelRenderer modelrenderer : this.field_82904_b)
-        {
+        for (ModelRenderer modelrenderer : this.field_82904_b) {
             modelrenderer.render(scale);
         }
 
-        for (ModelRenderer modelrenderer1 : this.field_82905_a)
-        {
+        for (ModelRenderer modelrenderer1 : this.field_82905_a) {
             modelrenderer1.render(scale);
         }
     }
 
-    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn)
-    {
+    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
         float f = MathHelper.cos(ageInTicks * 0.1F);
-        this.field_82905_a[1].rotateAngleX = (0.065F + 0.05F * f) * (float)Math.PI;
+        this.field_82905_a[1].rotateAngleX = (0.065F + 0.05F * f) * (float) Math.PI;
         this.field_82905_a[2].setRotationPoint(-2.0F, 6.9F + MathHelper.cos(this.field_82905_a[1].rotateAngleX) * 10.0F, -0.5F + MathHelper.sin(this.field_82905_a[1].rotateAngleX) * 10.0F);
-        this.field_82905_a[2].rotateAngleX = (0.265F + 0.1F * f) * (float)Math.PI;
-        this.field_82904_b[0].rotateAngleY = netHeadYaw / (180F / (float)Math.PI);
-        this.field_82904_b[0].rotateAngleX = headPitch / (180F / (float)Math.PI);
+        this.field_82905_a[2].rotateAngleX = (0.265F + 0.1F * f) * (float) Math.PI;
+        this.field_82904_b[0].rotateAngleY = netHeadYaw / (180F / (float) Math.PI);
+        this.field_82904_b[0].rotateAngleX = headPitch / (180F / (float) Math.PI);
     }
 
-    public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_, float partialTickTime)
-    {
-        EntityWither entitywither = (EntityWither)entitylivingbaseIn;
+    public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
+        EntityWither entitywither = (EntityWither) entitylivingbaseIn;
 
-        for (int i = 1; i < 3; ++i)
-        {
-            this.field_82904_b[i].rotateAngleY = (entitywither.func_82207_a(i - 1) - entitylivingbaseIn.renderYawOffset) / (180F / (float)Math.PI);
-            this.field_82904_b[i].rotateAngleX = entitywither.func_82210_r(i - 1) / (180F / (float)Math.PI);
+        for (int i = 1; i < 3; ++i) {
+            this.field_82904_b[i].rotateAngleY = (entitywither.func_82207_a(i - 1) - entitylivingbaseIn.renderYawOffset) / (180F / (float) Math.PI);
+            this.field_82904_b[i].rotateAngleX = entitywither.func_82210_r(i - 1) / (180F / (float) Math.PI);
         }
     }
 }

@@ -9,38 +9,29 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 
-public class NetHandlerHandshakeTCP implements INetHandlerHandshakeServer
-{
+public class NetHandlerHandshakeTCP implements INetHandlerHandshakeServer {
     private final MinecraftServer server;
     private final NetworkManager networkManager;
 
-    public NetHandlerHandshakeTCP(MinecraftServer serverIn, NetworkManager netManager)
-    {
+    public NetHandlerHandshakeTCP(MinecraftServer serverIn, NetworkManager netManager) {
         this.server = serverIn;
         this.networkManager = netManager;
     }
 
-    public void processHandshake(C00Handshake packetIn)
-    {
-        switch (packetIn.getRequestedState())
-        {
+    public void processHandshake(C00Handshake packetIn) {
+        switch (packetIn.getRequestedState()) {
             case LOGIN:
                 this.networkManager.setConnectionState(EnumConnectionState.LOGIN);
 
-                if (packetIn.getProtocolVersion() > 47)
-                {
+                if (packetIn.getProtocolVersion() > 47) {
                     ChatComponentText chatcomponenttext = new ChatComponentText("Outdated server! I\'m still on 1.8.9");
                     this.networkManager.sendPacket(new S00PacketDisconnect(chatcomponenttext));
                     this.networkManager.closeChannel(chatcomponenttext);
-                }
-                else if (packetIn.getProtocolVersion() < 47)
-                {
+                } else if (packetIn.getProtocolVersion() < 47) {
                     ChatComponentText chatcomponenttext1 = new ChatComponentText("Outdated client! Please use 1.8.9");
                     this.networkManager.sendPacket(new S00PacketDisconnect(chatcomponenttext1));
                     this.networkManager.closeChannel(chatcomponenttext1);
-                }
-                else
-                {
+                } else {
                     this.networkManager.setNetHandler(new NetHandlerLoginServer(this.server, this.networkManager));
                 }
 
@@ -56,7 +47,6 @@ public class NetHandlerHandshakeTCP implements INetHandlerHandshakeServer
         }
     }
 
-    public void onDisconnect(IChatComponent reason)
-    {
+    public void onDisconnect(IChatComponent reason) {
     }
 }

@@ -1,7 +1,9 @@
 package net.minecraft.client.multiplayer;
 
 import com.google.common.collect.Lists;
+
 import java.util.List;
+
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.IProgressUpdate;
@@ -15,31 +17,26 @@ import net.minecraft.world.chunk.IChunkProvider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class ChunkProviderClient implements IChunkProvider
-{
+public class ChunkProviderClient implements IChunkProvider {
     private static final Logger logger = LogManager.getLogger();
     private Chunk blankChunk;
     private LongHashMap<Chunk> chunkMapping = new LongHashMap();
     private List<Chunk> chunkListing = Lists.<Chunk>newArrayList();
     private World worldObj;
 
-    public ChunkProviderClient(World worldIn)
-    {
+    public ChunkProviderClient(World worldIn) {
         this.blankChunk = new EmptyChunk(worldIn, 0, 0);
         this.worldObj = worldIn;
     }
 
-    public boolean chunkExists(int x, int z)
-    {
+    public boolean chunkExists(int x, int z) {
         return true;
     }
 
-    public void unloadChunk(int x, int z)
-    {
+    public void unloadChunk(int x, int z) {
         Chunk chunk = this.provideChunk(x, z);
 
-        if (!chunk.isEmpty())
-        {
+        if (!chunk.isEmpty()) {
             chunk.onChunkUnload();
         }
 
@@ -47,8 +44,7 @@ public class ChunkProviderClient implements IChunkProvider
         this.chunkListing.remove(chunk);
     }
 
-    public Chunk loadChunk(int chunkX, int chunkZ)
-    {
+    public Chunk loadChunk(int chunkX, int chunkZ) {
         Chunk chunk = new Chunk(this.worldObj, chunkX, chunkZ);
         this.chunkMapping.add(ChunkCoordIntPair.chunkXZ2Int(chunkX, chunkZ), chunk);
         this.chunkListing.add(chunk);
@@ -56,78 +52,63 @@ public class ChunkProviderClient implements IChunkProvider
         return chunk;
     }
 
-    public Chunk provideChunk(int x, int z)
-    {
-        Chunk chunk = (Chunk)this.chunkMapping.getValueByKey(ChunkCoordIntPair.chunkXZ2Int(x, z));
+    public Chunk provideChunk(int x, int z) {
+        Chunk chunk = (Chunk) this.chunkMapping.getValueByKey(ChunkCoordIntPair.chunkXZ2Int(x, z));
         return chunk == null ? this.blankChunk : chunk;
     }
 
-    public boolean saveChunks(boolean saveAllChunks, IProgressUpdate progressCallback)
-    {
+    public boolean saveChunks(boolean saveAllChunks, IProgressUpdate progressCallback) {
         return true;
     }
 
-    public void saveExtraData()
-    {
+    public void saveExtraData() {
     }
 
-    public boolean unloadQueuedChunks()
-    {
+    public boolean unloadQueuedChunks() {
         long i = System.currentTimeMillis();
 
-        for (Chunk chunk : this.chunkListing)
-        {
+        for (Chunk chunk : this.chunkListing) {
             chunk.func_150804_b(System.currentTimeMillis() - i > 5L);
         }
 
-        if (System.currentTimeMillis() - i > 100L)
-        {
-            logger.info("Warning: Clientside chunk ticking took {} ms", new Object[] {Long.valueOf(System.currentTimeMillis() - i)});
+        if (System.currentTimeMillis() - i > 100L) {
+            logger.info("Warning: Clientside chunk ticking took {} ms", new Object[]{Long.valueOf(System.currentTimeMillis() - i)});
         }
 
         return false;
     }
 
-    public boolean canSave()
-    {
+    public boolean canSave() {
         return false;
     }
 
-    public void populate(IChunkProvider chunkProvider, int x, int z)
-    {
+    public void populate(IChunkProvider chunkProvider, int x, int z) {
     }
 
-    public boolean populateChunk(IChunkProvider chunkProvider, Chunk chunkIn, int x, int z)
-    {
+    public boolean populateChunk(IChunkProvider chunkProvider, Chunk chunkIn, int x, int z) {
         return false;
     }
 
-    public String makeString()
-    {
+    public String makeString() {
         return "MultiplayerChunkCache: " + this.chunkMapping.getNumHashElements() + ", " + this.chunkListing.size();
     }
 
-    public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos)
-    {
+    public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
         return null;
     }
 
-    public BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position)
-    {
+    public BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position) {
         return null;
     }
 
-    public int getLoadedChunkCount()
-    {
+    public int getLoadedChunkCount() {
         return this.chunkListing.size();
     }
 
-    public void recreateStructures(Chunk chunkIn, int x, int z)
-    {
+    public void recreateStructures(Chunk chunkIn, int x, int z) {
     }
 
-    public Chunk provideChunk(BlockPos blockPosIn)
-    {
+    public Chunk provideChunk(BlockPos blockPosIn) {
         return this.provideChunk(blockPosIn.getX() >> 4, blockPosIn.getZ() >> 4);
     }
 }

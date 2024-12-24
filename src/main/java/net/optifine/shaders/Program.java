@@ -2,12 +2,12 @@ package net.optifine.shaders;
 
 import java.nio.IntBuffer;
 import java.util.Arrays;
+
 import net.optifine.render.GlAlphaState;
 import net.optifine.render.GlBlendState;
 import net.optifine.shaders.config.RenderScale;
 
-public class Program
-{
+public class Program {
     private final int index;
     private final String name;
     private final ProgramStage programStage;
@@ -25,50 +25,43 @@ public class Program
     private int countInstances;
     private final boolean[] toggleColorTextures = new boolean[8];
 
-    public Program(int index, String name, ProgramStage programStage, Program programBackup)
-    {
+    public Program(int index, String name, ProgramStage programStage, Program programBackup) {
         this.index = index;
         this.name = name;
         this.programStage = programStage;
         this.programBackup = programBackup;
     }
 
-    public Program(int index, String name, ProgramStage programStage, boolean ownBackup)
-    {
+    public Program(int index, String name, ProgramStage programStage, boolean ownBackup) {
         this.index = index;
         this.name = name;
         this.programStage = programStage;
         this.programBackup = ownBackup ? this : null;
     }
 
-    public void resetProperties()
-    {
+    public void resetProperties() {
         this.alphaState = null;
         this.blendState = null;
         this.renderScale = null;
-        Arrays.fill(this.buffersFlip, (Object)null);
+        Arrays.fill(this.buffersFlip, (Object) null);
     }
 
-    public void resetId()
-    {
+    public void resetId() {
         this.id = 0;
         this.ref = 0;
     }
 
-    public void resetConfiguration()
-    {
+    public void resetConfiguration() {
         this.drawBufSettings = null;
         this.compositeMipmapSetting = 0;
         this.countInstances = 0;
 
-        if (this.drawBuffersBuffer == null)
-        {
+        if (this.drawBuffersBuffer == null) {
             this.drawBuffersBuffer = Shaders.nextIntBuffer(8);
         }
     }
 
-    public void copyFrom(Program p)
-    {
+    public void copyFrom(Program p) {
         this.id = p.getId();
         this.alphaState = p.getAlphaState();
         this.blendState = p.getBlendState();
@@ -81,145 +74,114 @@ public class Program
         System.arraycopy(p.getToggleColorTextures(), 0, this.toggleColorTextures, 0, this.toggleColorTextures.length);
     }
 
-    public int getIndex()
-    {
+    public int getIndex() {
         return this.index;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return this.name;
     }
 
-    public ProgramStage getProgramStage()
-    {
+    public ProgramStage getProgramStage() {
         return this.programStage;
     }
 
-    public Program getProgramBackup()
-    {
+    public Program getProgramBackup() {
         return this.programBackup;
     }
 
-    public int getId()
-    {
+    public int getId() {
         return this.id;
     }
 
-    public int getRef()
-    {
+    public int getRef() {
         return this.ref;
     }
 
-    public String getDrawBufSettings()
-    {
+    public String getDrawBufSettings() {
         return this.drawBufSettings;
     }
 
-    public IntBuffer getDrawBuffers()
-    {
+    public IntBuffer getDrawBuffers() {
         return this.drawBuffers;
     }
 
-    public IntBuffer getDrawBuffersBuffer()
-    {
+    public IntBuffer getDrawBuffersBuffer() {
         return this.drawBuffersBuffer;
     }
 
-    public int getCompositeMipmapSetting()
-    {
+    public int getCompositeMipmapSetting() {
         return this.compositeMipmapSetting;
     }
 
-    public int getCountInstances()
-    {
+    public int getCountInstances() {
         return this.countInstances;
     }
 
-    public GlAlphaState getAlphaState()
-    {
+    public GlAlphaState getAlphaState() {
         return this.alphaState;
     }
 
-    public GlBlendState getBlendState()
-    {
+    public GlBlendState getBlendState() {
         return this.blendState;
     }
 
-    public RenderScale getRenderScale()
-    {
+    public RenderScale getRenderScale() {
         return this.renderScale;
     }
 
-    public Boolean[] getBuffersFlip()
-    {
+    public Boolean[] getBuffersFlip() {
         return this.buffersFlip;
     }
 
-    public boolean[] getToggleColorTextures()
-    {
+    public boolean[] getToggleColorTextures() {
         return this.toggleColorTextures;
     }
 
-    public void setId(int id)
-    {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public void setRef(int ref)
-    {
+    public void setRef(int ref) {
         this.ref = ref;
     }
 
-    public void setDrawBufSettings(String drawBufSettings)
-    {
+    public void setDrawBufSettings(String drawBufSettings) {
         this.drawBufSettings = drawBufSettings;
     }
 
-    public void setDrawBuffers(IntBuffer drawBuffers)
-    {
+    public void setDrawBuffers(IntBuffer drawBuffers) {
         this.drawBuffers = drawBuffers;
     }
 
-    public void setCompositeMipmapSetting(int compositeMipmapSetting)
-    {
+    public void setCompositeMipmapSetting(int compositeMipmapSetting) {
         this.compositeMipmapSetting = compositeMipmapSetting;
     }
 
-    public void setCountInstances(int countInstances)
-    {
+    public void setCountInstances(int countInstances) {
         this.countInstances = countInstances;
     }
 
-    public void setAlphaState(GlAlphaState alphaState)
-    {
+    public void setAlphaState(GlAlphaState alphaState) {
         this.alphaState = alphaState;
     }
 
-    public void setBlendState(GlBlendState blendState)
-    {
+    public void setBlendState(GlBlendState blendState) {
         this.blendState = blendState;
     }
 
-    public void setRenderScale(RenderScale renderScale)
-    {
+    public void setRenderScale(RenderScale renderScale) {
         this.renderScale = renderScale;
     }
 
-    public String getRealProgramName()
-    {
-        if (this.id == 0)
-        {
+    public String getRealProgramName() {
+        if (this.id == 0) {
             return "none";
-        }
-        else
-        {
+        } else {
             Program program;
 
-            for (program = this; program.getRef() != this.id; program = program.getProgramBackup())
-            {
-                if (program.getProgramBackup() == null || program.getProgramBackup() == program)
-                {
+            for (program = this; program.getRef() != this.id; program = program.getProgramBackup()) {
+                if (program.getProgramBackup() == null || program.getProgramBackup() == program) {
                     return "unknown";
                 }
             }
@@ -228,8 +190,7 @@ public class Program
         }
     }
 
-    public String toString()
-    {
+    public String toString() {
         return "name: " + this.name + ", id: " + this.id + ", ref: " + this.ref + ", real: " + this.getRealProgramName();
     }
 }

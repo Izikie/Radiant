@@ -1,10 +1,12 @@
 package net.minecraft.potion;
 
 import com.google.common.collect.Maps;
+
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.Map.Entry;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -17,8 +19,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
 
-public class Potion
-{
+public class Potion {
     public static final Potion[] potionTypes = new Potion[32];
     private static final Map<ResourceLocation, Potion> field_180150_I = Maps.<ResourceLocation, Potion>newHashMap();
     public static final Potion field_180151_b = null;
@@ -62,245 +63,180 @@ public class Potion
     private double effectiveness;
     private boolean usable;
 
-    protected Potion(int potionID, ResourceLocation location, boolean badEffect, int potionColor)
-    {
+    protected Potion(int potionID, ResourceLocation location, boolean badEffect, int potionColor) {
         this.id = potionID;
         potionTypes[potionID] = this;
         field_180150_I.put(location, this);
         this.isBadEffect = badEffect;
 
-        if (badEffect)
-        {
+        if (badEffect) {
             this.effectiveness = 0.5D;
-        }
-        else
-        {
+        } else {
             this.effectiveness = 1.0D;
         }
 
         this.liquidColor = potionColor;
     }
 
-    public static Potion getPotionFromResourceLocation(String location)
-    {
-        return (Potion)field_180150_I.get(new ResourceLocation(location));
+    public static Potion getPotionFromResourceLocation(String location) {
+        return (Potion) field_180150_I.get(new ResourceLocation(location));
     }
 
-    public static Set<ResourceLocation> getPotionLocations()
-    {
+    public static Set<ResourceLocation> getPotionLocations() {
         return field_180150_I.keySet();
     }
 
-    protected Potion setIconIndex(int p_76399_1_, int p_76399_2_)
-    {
+    protected Potion setIconIndex(int p_76399_1_, int p_76399_2_) {
         this.statusIconIndex = p_76399_1_ + p_76399_2_ * 8;
         return this;
     }
 
-    public int getId()
-    {
+    public int getId() {
         return this.id;
     }
 
-    public void performEffect(EntityLivingBase entityLivingBaseIn, int p_76394_2_)
-    {
-        if (this.id == regeneration.id)
-        {
-            if (entityLivingBaseIn.getHealth() < entityLivingBaseIn.getMaxHealth())
-            {
+    public void performEffect(EntityLivingBase entityLivingBaseIn, int p_76394_2_) {
+        if (this.id == regeneration.id) {
+            if (entityLivingBaseIn.getHealth() < entityLivingBaseIn.getMaxHealth()) {
                 entityLivingBaseIn.heal(1.0F);
             }
-        }
-        else if (this.id == poison.id)
-        {
-            if (entityLivingBaseIn.getHealth() > 1.0F)
-            {
+        } else if (this.id == poison.id) {
+            if (entityLivingBaseIn.getHealth() > 1.0F) {
                 entityLivingBaseIn.attackEntityFrom(DamageSource.magic, 1.0F);
             }
-        }
-        else if (this.id == wither.id)
-        {
+        } else if (this.id == wither.id) {
             entityLivingBaseIn.attackEntityFrom(DamageSource.wither, 1.0F);
-        }
-        else if (this.id == hunger.id && entityLivingBaseIn instanceof EntityPlayer)
-        {
-            ((EntityPlayer)entityLivingBaseIn).addExhaustion(0.025F * (float)(p_76394_2_ + 1));
-        }
-        else if (this.id == saturation.id && entityLivingBaseIn instanceof EntityPlayer)
-        {
-            if (!entityLivingBaseIn.worldObj.isRemote)
-            {
-                ((EntityPlayer)entityLivingBaseIn).getFoodStats().addStats(p_76394_2_ + 1, 1.0F);
+        } else if (this.id == hunger.id && entityLivingBaseIn instanceof EntityPlayer) {
+            ((EntityPlayer) entityLivingBaseIn).addExhaustion(0.025F * (float) (p_76394_2_ + 1));
+        } else if (this.id == saturation.id && entityLivingBaseIn instanceof EntityPlayer) {
+            if (!entityLivingBaseIn.worldObj.isRemote) {
+                ((EntityPlayer) entityLivingBaseIn).getFoodStats().addStats(p_76394_2_ + 1, 1.0F);
             }
-        }
-        else if ((this.id != heal.id || entityLivingBaseIn.isEntityUndead()) && (this.id != harm.id || !entityLivingBaseIn.isEntityUndead()))
-        {
-            if (this.id == harm.id && !entityLivingBaseIn.isEntityUndead() || this.id == heal.id && entityLivingBaseIn.isEntityUndead())
-            {
-                entityLivingBaseIn.attackEntityFrom(DamageSource.magic, (float)(6 << p_76394_2_));
+        } else if ((this.id != heal.id || entityLivingBaseIn.isEntityUndead()) && (this.id != harm.id || !entityLivingBaseIn.isEntityUndead())) {
+            if (this.id == harm.id && !entityLivingBaseIn.isEntityUndead() || this.id == heal.id && entityLivingBaseIn.isEntityUndead()) {
+                entityLivingBaseIn.attackEntityFrom(DamageSource.magic, (float) (6 << p_76394_2_));
             }
-        }
-        else
-        {
-            entityLivingBaseIn.heal((float)Math.max(4 << p_76394_2_, 0));
+        } else {
+            entityLivingBaseIn.heal((float) Math.max(4 << p_76394_2_, 0));
         }
     }
 
-    public void affectEntity(Entity p_180793_1_, Entity p_180793_2_, EntityLivingBase entityLivingBaseIn, int p_180793_4_, double p_180793_5_)
-    {
-        if ((this.id != heal.id || entityLivingBaseIn.isEntityUndead()) && (this.id != harm.id || !entityLivingBaseIn.isEntityUndead()))
-        {
-            if (this.id == harm.id && !entityLivingBaseIn.isEntityUndead() || this.id == heal.id && entityLivingBaseIn.isEntityUndead())
-            {
-                int j = (int)(p_180793_5_ * (double)(6 << p_180793_4_) + 0.5D);
+    public void affectEntity(Entity p_180793_1_, Entity p_180793_2_, EntityLivingBase entityLivingBaseIn, int p_180793_4_, double p_180793_5_) {
+        if ((this.id != heal.id || entityLivingBaseIn.isEntityUndead()) && (this.id != harm.id || !entityLivingBaseIn.isEntityUndead())) {
+            if (this.id == harm.id && !entityLivingBaseIn.isEntityUndead() || this.id == heal.id && entityLivingBaseIn.isEntityUndead()) {
+                int j = (int) (p_180793_5_ * (double) (6 << p_180793_4_) + 0.5D);
 
-                if (p_180793_1_ == null)
-                {
-                    entityLivingBaseIn.attackEntityFrom(DamageSource.magic, (float)j);
-                }
-                else
-                {
-                    entityLivingBaseIn.attackEntityFrom(DamageSource.causeIndirectMagicDamage(p_180793_1_, p_180793_2_), (float)j);
+                if (p_180793_1_ == null) {
+                    entityLivingBaseIn.attackEntityFrom(DamageSource.magic, (float) j);
+                } else {
+                    entityLivingBaseIn.attackEntityFrom(DamageSource.causeIndirectMagicDamage(p_180793_1_, p_180793_2_), (float) j);
                 }
             }
-        }
-        else
-        {
-            int i = (int)(p_180793_5_ * (double)(4 << p_180793_4_) + 0.5D);
-            entityLivingBaseIn.heal((float)i);
+        } else {
+            int i = (int) (p_180793_5_ * (double) (4 << p_180793_4_) + 0.5D);
+            entityLivingBaseIn.heal((float) i);
         }
     }
 
-    public boolean isInstant()
-    {
+    public boolean isInstant() {
         return false;
     }
 
-    public boolean isReady(int p_76397_1_, int p_76397_2_)
-    {
-        if (this.id == regeneration.id)
-        {
+    public boolean isReady(int p_76397_1_, int p_76397_2_) {
+        if (this.id == regeneration.id) {
             int k = 50 >> p_76397_2_;
             return k > 0 ? p_76397_1_ % k == 0 : true;
-        }
-        else if (this.id == poison.id)
-        {
+        } else if (this.id == poison.id) {
             int j = 25 >> p_76397_2_;
             return j > 0 ? p_76397_1_ % j == 0 : true;
-        }
-        else if (this.id == wither.id)
-        {
+        } else if (this.id == wither.id) {
             int i = 40 >> p_76397_2_;
             return i > 0 ? p_76397_1_ % i == 0 : true;
-        }
-        else
-        {
+        } else {
             return this.id == hunger.id;
         }
     }
 
-    public Potion setPotionName(String nameIn)
-    {
+    public Potion setPotionName(String nameIn) {
         this.name = nameIn;
         return this;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return this.name;
     }
 
-    public boolean hasStatusIcon()
-    {
+    public boolean hasStatusIcon() {
         return this.statusIconIndex >= 0;
     }
 
-    public int getStatusIconIndex()
-    {
+    public int getStatusIconIndex() {
         return this.statusIconIndex;
     }
 
-    public boolean isBadEffect()
-    {
+    public boolean isBadEffect() {
         return this.isBadEffect;
     }
 
-    public static String getDurationString(PotionEffect effect)
-    {
-        if (effect.getIsPotionDurationMax())
-        {
+    public static String getDurationString(PotionEffect effect) {
+        if (effect.getIsPotionDurationMax()) {
             return "**:**";
-        }
-        else
-        {
+        } else {
             int i = effect.getDuration();
             return StringUtils.ticksToElapsedTime(i);
         }
     }
 
-    protected Potion setEffectiveness(double effectivenessIn)
-    {
+    protected Potion setEffectiveness(double effectivenessIn) {
         this.effectiveness = effectivenessIn;
         return this;
     }
 
-    public double getEffectiveness()
-    {
+    public double getEffectiveness() {
         return this.effectiveness;
     }
 
-    public boolean isUsable()
-    {
+    public boolean isUsable() {
         return this.usable;
     }
 
-    public int getLiquidColor()
-    {
+    public int getLiquidColor() {
         return this.liquidColor;
     }
 
-    public Potion registerPotionAttributeModifier(IAttribute p_111184_1_, String p_111184_2_, double p_111184_3_, int p_111184_5_)
-    {
+    public Potion registerPotionAttributeModifier(IAttribute p_111184_1_, String p_111184_2_, double p_111184_3_, int p_111184_5_) {
         AttributeModifier attributemodifier = new AttributeModifier(UUID.fromString(p_111184_2_), this.getName(), p_111184_3_, p_111184_5_);
         this.attributeModifierMap.put(p_111184_1_, attributemodifier);
         return this;
     }
 
-    public Map<IAttribute, AttributeModifier> getAttributeModifierMap()
-    {
+    public Map<IAttribute, AttributeModifier> getAttributeModifierMap() {
         return this.attributeModifierMap;
     }
 
-    public void removeAttributesModifiersFromEntity(EntityLivingBase entityLivingBaseIn, BaseAttributeMap p_111187_2_, int amplifier)
-    {
-        for (Entry<IAttribute, AttributeModifier> entry : this.attributeModifierMap.entrySet())
-        {
-            IAttributeInstance iattributeinstance = p_111187_2_.getAttributeInstance((IAttribute)entry.getKey());
+    public void removeAttributesModifiersFromEntity(EntityLivingBase entityLivingBaseIn, BaseAttributeMap p_111187_2_, int amplifier) {
+        for (Entry<IAttribute, AttributeModifier> entry : this.attributeModifierMap.entrySet()) {
+            IAttributeInstance iattributeinstance = p_111187_2_.getAttributeInstance((IAttribute) entry.getKey());
 
-            if (iattributeinstance != null)
-            {
-                iattributeinstance.removeModifier((AttributeModifier)entry.getValue());
+            if (iattributeinstance != null) {
+                iattributeinstance.removeModifier((AttributeModifier) entry.getValue());
             }
         }
     }
 
-    public void applyAttributesModifiersToEntity(EntityLivingBase entityLivingBaseIn, BaseAttributeMap p_111185_2_, int amplifier)
-    {
-        for (Entry<IAttribute, AttributeModifier> entry : this.attributeModifierMap.entrySet())
-        {
-            IAttributeInstance iattributeinstance = p_111185_2_.getAttributeInstance((IAttribute)entry.getKey());
+    public void applyAttributesModifiersToEntity(EntityLivingBase entityLivingBaseIn, BaseAttributeMap p_111185_2_, int amplifier) {
+        for (Entry<IAttribute, AttributeModifier> entry : this.attributeModifierMap.entrySet()) {
+            IAttributeInstance iattributeinstance = p_111185_2_.getAttributeInstance((IAttribute) entry.getKey());
 
-            if (iattributeinstance != null)
-            {
-                AttributeModifier attributemodifier = (AttributeModifier)entry.getValue();
+            if (iattributeinstance != null) {
+                AttributeModifier attributemodifier = (AttributeModifier) entry.getValue();
                 iattributeinstance.removeModifier(attributemodifier);
                 iattributeinstance.applyModifier(new AttributeModifier(attributemodifier.getID(), this.getName() + " " + amplifier, this.getAttributeModifierAmount(amplifier, attributemodifier), attributemodifier.getOperation()));
             }
         }
     }
 
-    public double getAttributeModifierAmount(int p_111183_1_, AttributeModifier modifier)
-    {
-        return modifier.getAmount() * (double)(p_111183_1_ + 1);
+    public double getAttributeModifierAmount(int p_111183_1_, AttributeModifier modifier) {
+        return modifier.getAmount() * (double) (p_111183_1_ + 1);
     }
 }

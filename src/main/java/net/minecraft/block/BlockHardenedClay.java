@@ -5,16 +5,13 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 
-public class BlockHardenedClay extends Block
-{
-    public BlockHardenedClay()
-    {
+public class BlockHardenedClay extends Block {
+    public BlockHardenedClay() {
         super(Material.rock);
         this.setCreativeTab(CreativeTabs.tabBlock);
     }
 
-    public MapColor getMapColor(IBlockState state)
-    {
+    public MapColor getMapColor(IBlockState state) {
         return MapColor.adobeColor;
     }
 }

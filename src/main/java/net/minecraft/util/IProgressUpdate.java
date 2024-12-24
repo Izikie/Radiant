@@ -1,7 +1,6 @@
 package net.minecraft.util;
 
-public interface IProgressUpdate
-{
+public interface IProgressUpdate {
     void displaySavingString(String message);
 
     void resetProgressAndMessage(String message);

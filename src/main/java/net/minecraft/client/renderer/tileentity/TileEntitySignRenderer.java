@@ -1,6 +1,7 @@
 package net.minecraft.client.renderer.tileentity;
 
 import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -18,62 +19,51 @@ import net.optifine.CustomColors;
 import net.optifine.shaders.Shaders;
 import org.lwjgl.opengl.GL11;
 
-public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntitySign>
-{
+public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntitySign> {
     private static final ResourceLocation SIGN_TEXTURE = new ResourceLocation("textures/entity/sign.png");
     private final ModelSign model = new ModelSign();
     private static double textRenderDistanceSq = 4096.0D;
 
-    public void renderTileEntityAt(TileEntitySign te, double x, double y, double z, float partialTicks, int destroyStage)
-    {
+    public void renderTileEntityAt(TileEntitySign te, double x, double y, double z, float partialTicks, int destroyStage) {
         Block block = te.getBlockType();
         GlStateManager.pushMatrix();
         float f = 0.6666667F;
 
-        if (block == Blocks.standing_sign)
-        {
-            GlStateManager.translate((float)x + 0.5F, (float)y + 0.75F * f, (float)z + 0.5F);
-            float f1 = (float)(te.getBlockMetadata() * 360) / 16.0F;
+        if (block == Blocks.standing_sign) {
+            GlStateManager.translate((float) x + 0.5F, (float) y + 0.75F * f, (float) z + 0.5F);
+            float f1 = (float) (te.getBlockMetadata() * 360) / 16.0F;
             GlStateManager.rotate(-f1, 0.0F, 1.0F, 0.0F);
             this.model.signStick.showModel = true;
-        }
-        else
-        {
+        } else {
             int k = te.getBlockMetadata();
             float f2 = 0.0F;
 
-            if (k == 2)
-            {
+            if (k == 2) {
                 f2 = 180.0F;
             }
 
-            if (k == 4)
-            {
+            if (k == 4) {
                 f2 = 90.0F;
             }
 
-            if (k == 5)
-            {
+            if (k == 5) {
                 f2 = -90.0F;
             }
 
-            GlStateManager.translate((float)x + 0.5F, (float)y + 0.75F * f, (float)z + 0.5F);
+            GlStateManager.translate((float) x + 0.5F, (float) y + 0.75F * f, (float) z + 0.5F);
             GlStateManager.rotate(-f2, 0.0F, 1.0F, 0.0F);
             GlStateManager.translate(0.0F, -0.3125F, -0.4375F);
             this.model.signStick.showModel = false;
         }
 
-        if (destroyStage >= 0)
-        {
+        if (destroyStage >= 0) {
             this.bindTexture(DESTROY_STAGES[destroyStage]);
             GlStateManager.matrixMode(5890);
             GlStateManager.pushMatrix();
             GlStateManager.scale(4.0F, 2.0F, 1.0F);
             GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
             GlStateManager.matrixMode(5888);
-        }
-        else
-        {
+        } else {
             this.bindTexture(SIGN_TEXTURE);
         }
 
@@ -83,8 +73,7 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntity
         this.model.renderSign();
         GlStateManager.popMatrix();
 
-        if (isRenderText(te))
-        {
+        if (isRenderText(te)) {
             FontRenderer fontrenderer = this.getFontRenderer();
             float f3 = 0.015625F * f;
             GlStateManager.translate(0.0F, 0.5F * f, 0.07F * f);
@@ -93,28 +82,21 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntity
             GlStateManager.depthMask(false);
             int i = 0;
 
-            if (Config.isCustomColors())
-            {
+            if (Config.isCustomColors()) {
                 i = CustomColors.getSignTextColor(i);
             }
 
-            if (destroyStage < 0)
-            {
-                for (int j = 0; j < te.signText.length; ++j)
-                {
-                    if (te.signText[j] != null)
-                    {
+            if (destroyStage < 0) {
+                for (int j = 0; j < te.signText.length; ++j) {
+                    if (te.signText[j] != null) {
                         IChatComponent ichatcomponent = te.signText[j];
                         List<IChatComponent> list = GuiUtilRenderComponents.splitText(ichatcomponent, 90, fontrenderer, false, true);
-                        String s = list != null && list.size() > 0 ? ((IChatComponent)list.get(0)).getFormattedText() : "";
+                        String s = list != null && list.size() > 0 ? ((IChatComponent) list.get(0)).getFormattedText() : "";
 
-                        if (j == te.lineBeingEdited)
-                        {
+                        if (j == te.lineBeingEdited) {
                             s = "> " + s + " <";
                             fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, j * 10 - te.signText.length * 5, i);
-                        }
-                        else
-                        {
+                        } else {
                             fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, j * 10 - te.signText.length * 5, i);
                         }
                     }
@@ -126,33 +108,24 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntity
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.popMatrix();
 
-        if (destroyStage >= 0)
-        {
+        if (destroyStage >= 0) {
             GlStateManager.matrixMode(5890);
             GlStateManager.popMatrix();
             GlStateManager.matrixMode(5888);
         }
     }
 
-    private static boolean isRenderText(TileEntitySign p_isRenderText_0_)
-    {
-        if (Shaders.isShadowPass)
-        {
+    private static boolean isRenderText(TileEntitySign p_isRenderText_0_) {
+        if (Shaders.isShadowPass) {
             return false;
-        }
-        else if (Config.getMinecraft().currentScreen instanceof GuiEditSign)
-        {
+        } else if (Config.getMinecraft().currentScreen instanceof GuiEditSign) {
             return true;
-        }
-        else
-        {
-            if (!Config.zoomMode && p_isRenderText_0_.lineBeingEdited < 0)
-            {
+        } else {
+            if (!Config.zoomMode && p_isRenderText_0_.lineBeingEdited < 0) {
                 Entity entity = Config.getMinecraft().getRenderViewEntity();
                 double d0 = p_isRenderText_0_.getDistanceSq(entity.posX, entity.posY, entity.posZ);
 
-                if (d0 > textRenderDistanceSq)
-                {
+                if (d0 > textRenderDistanceSq) {
                     return false;
                 }
             }
@@ -161,11 +134,10 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntity
         }
     }
 
-    public static void updateTextRenderDistance()
-    {
+    public static void updateTextRenderDistance() {
         Minecraft minecraft = Config.getMinecraft();
-        double d0 = (double)Config.limit(minecraft.gameSettings.fovSetting, 1.0F, 120.0F);
-        double d1 = Math.max(1.5D * (double)minecraft.displayHeight / d0, 16.0D);
+        double d0 = (double) Config.limit(minecraft.gameSettings.fovSetting, 1.0F, 120.0F);
+        double d1 = Math.max(1.5D * (double) minecraft.displayHeight / d0, 16.0D);
         textRenderDistanceSq = d1 * d1;
     }
 }

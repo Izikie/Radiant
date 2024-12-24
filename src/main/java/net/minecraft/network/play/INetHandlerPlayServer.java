@@ -25,8 +25,7 @@ import net.minecraft.network.play.client.C17PacketCustomPayload;
 import net.minecraft.network.play.client.C18PacketSpectate;
 import net.minecraft.network.play.client.C19PacketResourcePackStatus;
 
-public interface INetHandlerPlayServer extends INetHandler
-{
+public interface INetHandlerPlayServer extends INetHandler {
     void handleAnimation(C0APacketAnimation packetIn);
 
     void processChatMessage(C01PacketChatMessage packetIn);

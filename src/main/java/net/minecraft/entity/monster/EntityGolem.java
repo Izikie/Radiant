@@ -4,39 +4,31 @@ import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.passive.IAnimals;
 import net.minecraft.world.World;
 
-public abstract class EntityGolem extends EntityCreature implements IAnimals
-{
-    public EntityGolem(World worldIn)
-    {
+public abstract class EntityGolem extends EntityCreature implements IAnimals {
+    public EntityGolem(World worldIn) {
         super(worldIn);
     }
 
-    public void fall(float distance, float damageMultiplier)
-    {
+    public void fall(float distance, float damageMultiplier) {
     }
 
-    protected String getLivingSound()
-    {
+    protected String getLivingSound() {
         return "none";
     }
 
-    protected String getHurtSound()
-    {
+    protected String getHurtSound() {
         return "none";
     }
 
-    protected String getDeathSound()
-    {
+    protected String getDeathSound() {
         return "none";
     }
 
-    public int getTalkInterval()
-    {
+    public int getTalkInterval() {
         return 120;
     }
 
-    protected boolean canDespawn()
-    {
+    protected boolean canDespawn() {
         return false;
     }
 }

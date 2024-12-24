@@ -3,9 +3,11 @@ package net.minecraft.stats;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityList;
 import net.minecraft.init.Blocks;
@@ -18,8 +20,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ResourceLocation;
 
-public class StatList
-{
+public class StatList {
     protected static Map<String, StatBase> oneShotStats = Maps.<String, StatBase>newHashMap();
     public static List<StatBase> allStats = Lists.<StatBase>newArrayList();
     public static List<StatBase> generalStats = Lists.<StatBase>newArrayList();
@@ -78,8 +79,7 @@ public class StatList
     public static final StatBase[] objectUseStats = new StatBase[32000];
     public static final StatBase[] objectBreakStats = new StatBase[32000];
 
-    public static void init()
-    {
+    public static void init() {
         initMiningStats();
         initStats();
         initItemDepleteStats();
@@ -88,33 +88,26 @@ public class StatList
         EntityList.func_151514_a();
     }
 
-    private static void initCraftableStats()
-    {
+    private static void initCraftableStats() {
         Set<Item> set = Sets.<Item>newHashSet();
 
-        for (IRecipe irecipe : CraftingManager.getInstance().getRecipeList())
-        {
-            if (irecipe.getRecipeOutput() != null)
-            {
+        for (IRecipe irecipe : CraftingManager.getInstance().getRecipeList()) {
+            if (irecipe.getRecipeOutput() != null) {
                 set.add(irecipe.getRecipeOutput().getItem());
             }
         }
 
-        for (ItemStack itemstack : FurnaceRecipes.instance().getSmeltingList().values())
-        {
+        for (ItemStack itemstack : FurnaceRecipes.instance().getSmeltingList().values()) {
             set.add(itemstack.getItem());
         }
 
-        for (Item item : set)
-        {
-            if (item != null)
-            {
+        for (Item item : set) {
+            if (item != null) {
                 int i = Item.getIdFromItem(item);
                 String s = func_180204_a(item);
 
-                if (s != null)
-                {
-                    objectCraftStats[i] = (new StatCrafting("stat.craftItem.", s, new ChatComponentTranslation("stat.craftItem", new Object[] {(new ItemStack(item)).getChatComponent()}), item)).registerStat();
+                if (s != null) {
+                    objectCraftStats[i] = (new StatCrafting("stat.craftItem.", s, new ChatComponentTranslation("stat.craftItem", new Object[]{(new ItemStack(item)).getChatComponent()}), item)).registerStat();
                 }
             }
         }
@@ -122,21 +115,17 @@ public class StatList
         replaceAllSimilarBlocks(objectCraftStats);
     }
 
-    private static void initMiningStats()
-    {
-        for (Block block : Block.blockRegistry)
-        {
+    private static void initMiningStats() {
+        for (Block block : Block.blockRegistry) {
             Item item = Item.getItemFromBlock(block);
 
-            if (item != null)
-            {
+            if (item != null) {
                 int i = Block.getIdFromBlock(block);
                 String s = func_180204_a(item);
 
-                if (s != null && block.getEnableStats())
-                {
-                    mineBlockStatArray[i] = (new StatCrafting("stat.mineBlock.", s, new ChatComponentTranslation("stat.mineBlock", new Object[] {(new ItemStack(block)).getChatComponent()}), item)).registerStat();
-                    objectMineStats.add((StatCrafting)mineBlockStatArray[i]);
+                if (s != null && block.getEnableStats()) {
+                    mineBlockStatArray[i] = (new StatCrafting("stat.mineBlock.", s, new ChatComponentTranslation("stat.mineBlock", new Object[]{(new ItemStack(block)).getChatComponent()}), item)).registerStat();
+                    objectMineStats.add((StatCrafting) mineBlockStatArray[i]);
                 }
             }
         }
@@ -144,22 +133,17 @@ public class StatList
         replaceAllSimilarBlocks(mineBlockStatArray);
     }
 
-    private static void initStats()
-    {
-        for (Item item : Item.itemRegistry)
-        {
-            if (item != null)
-            {
+    private static void initStats() {
+        for (Item item : Item.itemRegistry) {
+            if (item != null) {
                 int i = Item.getIdFromItem(item);
                 String s = func_180204_a(item);
 
-                if (s != null)
-                {
-                    objectUseStats[i] = (new StatCrafting("stat.useItem.", s, new ChatComponentTranslation("stat.useItem", new Object[] {(new ItemStack(item)).getChatComponent()}), item)).registerStat();
+                if (s != null) {
+                    objectUseStats[i] = (new StatCrafting("stat.useItem.", s, new ChatComponentTranslation("stat.useItem", new Object[]{(new ItemStack(item)).getChatComponent()}), item)).registerStat();
 
-                    if (!(item instanceof ItemBlock))
-                    {
-                        itemStats.add((StatCrafting)objectUseStats[i]);
+                    if (!(item instanceof ItemBlock)) {
+                        itemStats.add((StatCrafting) objectUseStats[i]);
                     }
                 }
             }
@@ -168,18 +152,14 @@ public class StatList
         replaceAllSimilarBlocks(objectUseStats);
     }
 
-    private static void initItemDepleteStats()
-    {
-        for (Item item : Item.itemRegistry)
-        {
-            if (item != null)
-            {
+    private static void initItemDepleteStats() {
+        for (Item item : Item.itemRegistry) {
+            if (item != null) {
                 int i = Item.getIdFromItem(item);
                 String s = func_180204_a(item);
 
-                if (s != null && item.isDamageable())
-                {
-                    objectBreakStats[i] = (new StatCrafting("stat.breakItem.", s, new ChatComponentTranslation("stat.breakItem", new Object[] {(new ItemStack(item)).getChatComponent()}), item)).registerStat();
+                if (s != null && item.isDamageable()) {
+                    objectBreakStats[i] = (new StatCrafting("stat.breakItem.", s, new ChatComponentTranslation("stat.breakItem", new Object[]{(new ItemStack(item)).getChatComponent()}), item)).registerStat();
                 }
             }
         }
@@ -187,14 +167,12 @@ public class StatList
         replaceAllSimilarBlocks(objectBreakStats);
     }
 
-    private static String func_180204_a(Item p_180204_0_)
-    {
-        ResourceLocation resourcelocation = (ResourceLocation)Item.itemRegistry.getNameForObject(p_180204_0_);
+    private static String func_180204_a(Item p_180204_0_) {
+        ResourceLocation resourcelocation = (ResourceLocation) Item.itemRegistry.getNameForObject(p_180204_0_);
         return resourcelocation != null ? resourcelocation.toString().replace(':', '.') : null;
     }
 
-    private static void replaceAllSimilarBlocks(StatBase[] p_75924_0_)
-    {
+    private static void replaceAllSimilarBlocks(StatBase[] p_75924_0_) {
         mergeStatBases(p_75924_0_, Blocks.water, Blocks.flowing_water);
         mergeStatBases(p_75924_0_, Blocks.lava, Blocks.flowing_lava);
         mergeStatBases(p_75924_0_, Blocks.lit_pumpkin, Blocks.pumpkin);
@@ -211,17 +189,13 @@ public class StatList
         mergeStatBases(p_75924_0_, Blocks.farmland, Blocks.dirt);
     }
 
-    private static void mergeStatBases(StatBase[] statBaseIn, Block p_151180_1_, Block p_151180_2_)
-    {
+    private static void mergeStatBases(StatBase[] statBaseIn, Block p_151180_1_, Block p_151180_2_) {
         int i = Block.getIdFromBlock(p_151180_1_);
         int j = Block.getIdFromBlock(p_151180_2_);
 
-        if (statBaseIn[i] != null && statBaseIn[j] == null)
-        {
+        if (statBaseIn[i] != null && statBaseIn[j] == null) {
             statBaseIn[j] = statBaseIn[i];
-        }
-        else
-        {
+        } else {
             allStats.remove(statBaseIn[i]);
             objectMineStats.remove(statBaseIn[i]);
             generalStats.remove(statBaseIn[i]);
@@ -229,20 +203,17 @@ public class StatList
         }
     }
 
-    public static StatBase getStatKillEntity(EntityList.EntityEggInfo eggInfo)
-    {
+    public static StatBase getStatKillEntity(EntityList.EntityEggInfo eggInfo) {
         String s = EntityList.getStringFromID(eggInfo.spawnedID);
-        return s == null ? null : (new StatBase("stat.killEntity." + s, new ChatComponentTranslation("stat.entityKill", new Object[] {new ChatComponentTranslation("entity." + s + ".name", new Object[0])}))).registerStat();
+        return s == null ? null : (new StatBase("stat.killEntity." + s, new ChatComponentTranslation("stat.entityKill", new Object[]{new ChatComponentTranslation("entity." + s + ".name", new Object[0])}))).registerStat();
     }
 
-    public static StatBase getStatEntityKilledBy(EntityList.EntityEggInfo eggInfo)
-    {
+    public static StatBase getStatEntityKilledBy(EntityList.EntityEggInfo eggInfo) {
         String s = EntityList.getStringFromID(eggInfo.spawnedID);
-        return s == null ? null : (new StatBase("stat.entityKilledBy." + s, new ChatComponentTranslation("stat.entityKilledBy", new Object[] {new ChatComponentTranslation("entity." + s + ".name", new Object[0])}))).registerStat();
+        return s == null ? null : (new StatBase("stat.entityKilledBy." + s, new ChatComponentTranslation("stat.entityKilledBy", new Object[]{new ChatComponentTranslation("entity." + s + ".name", new Object[0])}))).registerStat();
     }
 
-    public static StatBase getOneShotStat(String p_151177_0_)
-    {
-        return (StatBase)oneShotStats.get(p_151177_0_);
+    public static StatBase getOneShotStat(String p_151177_0_) {
+        return (StatBase) oneShotStats.get(p_151177_0_);
     }
 }

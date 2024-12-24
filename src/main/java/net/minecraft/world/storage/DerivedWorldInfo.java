@@ -7,210 +7,165 @@ import net.minecraft.world.GameRules;
 import net.minecraft.world.WorldSettings;
 import net.minecraft.world.WorldType;
 
-public class DerivedWorldInfo extends WorldInfo
-{
+public class DerivedWorldInfo extends WorldInfo {
     private final WorldInfo theWorldInfo;
 
-    public DerivedWorldInfo(WorldInfo p_i2145_1_)
-    {
+    public DerivedWorldInfo(WorldInfo p_i2145_1_) {
         this.theWorldInfo = p_i2145_1_;
     }
 
-    public NBTTagCompound getNBTTagCompound()
-    {
+    public NBTTagCompound getNBTTagCompound() {
         return this.theWorldInfo.getNBTTagCompound();
     }
 
-    public NBTTagCompound cloneNBTCompound(NBTTagCompound nbt)
-    {
+    public NBTTagCompound cloneNBTCompound(NBTTagCompound nbt) {
         return this.theWorldInfo.cloneNBTCompound(nbt);
     }
 
-    public long getSeed()
-    {
+    public long getSeed() {
         return this.theWorldInfo.getSeed();
     }
 
-    public int getSpawnX()
-    {
+    public int getSpawnX() {
         return this.theWorldInfo.getSpawnX();
     }
 
-    public int getSpawnY()
-    {
+    public int getSpawnY() {
         return this.theWorldInfo.getSpawnY();
     }
 
-    public int getSpawnZ()
-    {
+    public int getSpawnZ() {
         return this.theWorldInfo.getSpawnZ();
     }
 
-    public long getWorldTotalTime()
-    {
+    public long getWorldTotalTime() {
         return this.theWorldInfo.getWorldTotalTime();
     }
 
-    public long getWorldTime()
-    {
+    public long getWorldTime() {
         return this.theWorldInfo.getWorldTime();
     }
 
-    public long getSizeOnDisk()
-    {
+    public long getSizeOnDisk() {
         return this.theWorldInfo.getSizeOnDisk();
     }
 
-    public NBTTagCompound getPlayerNBTTagCompound()
-    {
+    public NBTTagCompound getPlayerNBTTagCompound() {
         return this.theWorldInfo.getPlayerNBTTagCompound();
     }
 
-    public String getWorldName()
-    {
+    public String getWorldName() {
         return this.theWorldInfo.getWorldName();
     }
 
-    public int getSaveVersion()
-    {
+    public int getSaveVersion() {
         return this.theWorldInfo.getSaveVersion();
     }
 
-    public long getLastTimePlayed()
-    {
+    public long getLastTimePlayed() {
         return this.theWorldInfo.getLastTimePlayed();
     }
 
-    public boolean isThundering()
-    {
+    public boolean isThundering() {
         return this.theWorldInfo.isThundering();
     }
 
-    public int getThunderTime()
-    {
+    public int getThunderTime() {
         return this.theWorldInfo.getThunderTime();
     }
 
-    public boolean isRaining()
-    {
+    public boolean isRaining() {
         return this.theWorldInfo.isRaining();
     }
 
-    public int getRainTime()
-    {
+    public int getRainTime() {
         return this.theWorldInfo.getRainTime();
     }
 
-    public WorldSettings.GameType getGameType()
-    {
+    public WorldSettings.GameType getGameType() {
         return this.theWorldInfo.getGameType();
     }
 
-    public void setSpawnX(int x)
-    {
+    public void setSpawnX(int x) {
     }
 
-    public void setSpawnY(int y)
-    {
+    public void setSpawnY(int y) {
     }
 
-    public void setSpawnZ(int z)
-    {
+    public void setSpawnZ(int z) {
     }
 
-    public void setWorldTotalTime(long time)
-    {
+    public void setWorldTotalTime(long time) {
     }
 
-    public void setWorldTime(long time)
-    {
+    public void setWorldTime(long time) {
     }
 
-    public void setSpawn(BlockPos spawnPoint)
-    {
+    public void setSpawn(BlockPos spawnPoint) {
     }
 
-    public void setWorldName(String worldName)
-    {
+    public void setWorldName(String worldName) {
     }
 
-    public void setSaveVersion(int version)
-    {
+    public void setSaveVersion(int version) {
     }
 
-    public void setThundering(boolean thunderingIn)
-    {
+    public void setThundering(boolean thunderingIn) {
     }
 
-    public void setThunderTime(int time)
-    {
+    public void setThunderTime(int time) {
     }
 
-    public void setRaining(boolean isRaining)
-    {
+    public void setRaining(boolean isRaining) {
     }
 
-    public void setRainTime(int time)
-    {
+    public void setRainTime(int time) {
     }
 
-    public boolean isMapFeaturesEnabled()
-    {
+    public boolean isMapFeaturesEnabled() {
         return this.theWorldInfo.isMapFeaturesEnabled();
     }
 
-    public boolean isHardcoreModeEnabled()
-    {
+    public boolean isHardcoreModeEnabled() {
         return this.theWorldInfo.isHardcoreModeEnabled();
     }
 
-    public WorldType getTerrainType()
-    {
+    public WorldType getTerrainType() {
         return this.theWorldInfo.getTerrainType();
     }
 
-    public void setTerrainType(WorldType type)
-    {
+    public void setTerrainType(WorldType type) {
     }
 
-    public boolean areCommandsAllowed()
-    {
+    public boolean areCommandsAllowed() {
         return this.theWorldInfo.areCommandsAllowed();
     }
 
-    public void setAllowCommands(boolean allow)
-    {
+    public void setAllowCommands(boolean allow) {
     }
 
-    public boolean isInitialized()
-    {
+    public boolean isInitialized() {
         return this.theWorldInfo.isInitialized();
     }
 
-    public void setServerInitialized(boolean initializedIn)
-    {
+    public void setServerInitialized(boolean initializedIn) {
     }
 
-    public GameRules getGameRulesInstance()
-    {
+    public GameRules getGameRulesInstance() {
         return this.theWorldInfo.getGameRulesInstance();
     }
 
-    public EnumDifficulty getDifficulty()
-    {
+    public EnumDifficulty getDifficulty() {
         return this.theWorldInfo.getDifficulty();
     }
 
-    public void setDifficulty(EnumDifficulty newDifficulty)
-    {
+    public void setDifficulty(EnumDifficulty newDifficulty) {
     }
 
-    public boolean isDifficultyLocked()
-    {
+    public boolean isDifficultyLocked() {
         return this.theWorldInfo.isDifficultyLocked();
     }
 
-    public void setDifficultyLocked(boolean locked)
-    {
+    public void setDifficultyLocked(boolean locked) {
     }
 }

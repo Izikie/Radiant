@@ -9,32 +9,28 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.Config;
 
-public class HttpUtils
-{
+public class HttpUtils {
     private static String playerItemsUrl = null;
     public static final String SERVER_URL = "http://s.optifine.net";
     public static final String POST_URL = "http://optifine.net";
 
-    public static byte[] get(String urlStr) throws IOException
-    {
+    public static byte[] get(String urlStr) throws IOException {
         HttpURLConnection httpurlconnection = null;
         byte[] abyte1;
 
-        try
-        {
+        try {
             URL url = new URL(urlStr);
-            httpurlconnection = (HttpURLConnection)url.openConnection(Minecraft.getMinecraft().getProxy());
+            httpurlconnection = (HttpURLConnection) url.openConnection(Minecraft.getMinecraft().getProxy());
             httpurlconnection.setDoInput(true);
             httpurlconnection.setDoOutput(false);
             httpurlconnection.connect();
 
-            if (httpurlconnection.getResponseCode() / 100 != 2)
-            {
-                if (httpurlconnection.getErrorStream() != null)
-                {
+            if (httpurlconnection.getResponseCode() / 100 != 2) {
+                if (httpurlconnection.getErrorStream() != null) {
                     Config.readAll(httpurlconnection.getErrorStream());
                 }
 
@@ -45,29 +41,23 @@ public class HttpUtils
             byte[] abyte = new byte[httpurlconnection.getContentLength()];
             int i = 0;
 
-            while (true)
-            {
+            while (true) {
                 int j = inputstream.read(abyte, i, abyte.length - i);
 
-                if (j < 0)
-                {
+                if (j < 0) {
                     throw new IOException("Input stream closed: " + urlStr);
                 }
 
                 i += j;
 
-                if (i >= abyte.length)
-                {
+                if (i >= abyte.length) {
                     break;
                 }
             }
 
             abyte1 = abyte;
-        }
-        finally
-        {
-            if (httpurlconnection != null)
-            {
+        } finally {
+            if (httpurlconnection != null) {
                 httpurlconnection.disconnect();
             }
         }
@@ -75,21 +65,17 @@ public class HttpUtils
         return abyte1;
     }
 
-    public static String post(String urlStr, Map headers, byte[] content) throws IOException
-    {
+    public static String post(String urlStr, Map headers, byte[] content) throws IOException {
         HttpURLConnection httpurlconnection = null;
         String s3;
 
-        try
-        {
+        try {
             URL url = new URL(urlStr);
-            httpurlconnection = (HttpURLConnection)url.openConnection(Minecraft.getMinecraft().getProxy());
+            httpurlconnection = (HttpURLConnection) url.openConnection(Minecraft.getMinecraft().getProxy());
             httpurlconnection.setRequestMethod("POST");
 
-            if (headers != null)
-            {
-                for (Object s : headers.keySet())
-                {
+            if (headers != null) {
+                for (Object s : headers.keySet()) {
                     String s1 = "" + headers.get(s);
                     httpurlconnection.setRequestProperty((String) s, s1);
                 }
@@ -111,19 +97,15 @@ public class HttpUtils
             StringBuffer stringbuffer = new StringBuffer();
             String s2;
 
-            while ((s2 = bufferedreader.readLine()) != null)
-            {
+            while ((s2 = bufferedreader.readLine()) != null) {
                 stringbuffer.append(s2);
                 stringbuffer.append('\r');
             }
 
             bufferedreader.close();
             s3 = stringbuffer.toString();
-        }
-        finally
-        {
-            if (httpurlconnection != null)
-            {
+        } finally {
+            if (httpurlconnection != null) {
                 httpurlconnection.disconnect();
             }
         }
@@ -131,28 +113,21 @@ public class HttpUtils
         return s3;
     }
 
-    public static synchronized String getPlayerItemsUrl()
-    {
-        if (playerItemsUrl == null)
-        {
-            try
-            {
+    public static synchronized String getPlayerItemsUrl() {
+        if (playerItemsUrl == null) {
+            try {
                 boolean flag = Config.parseBoolean(System.getProperty("player.models.local"), false);
 
-                if (flag)
-                {
+                if (flag) {
                     File file1 = Minecraft.getMinecraft().mcDataDir;
                     File file2 = new File(file1, "playermodels");
                     playerItemsUrl = file2.toURI().toURL().toExternalForm();
                 }
-            }
-            catch (Exception exception)
-            {
+            } catch (Exception exception) {
                 Config.warn("" + exception.getClass().getName() + ": " + exception.getMessage());
             }
 
-            if (playerItemsUrl == null)
-            {
+            if (playerItemsUrl == null) {
                 playerItemsUrl = "http://s.optifine.net";
             }
         }

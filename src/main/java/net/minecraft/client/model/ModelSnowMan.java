@@ -3,16 +3,14 @@ package net.minecraft.client.model;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 
-public class ModelSnowMan extends ModelBase
-{
+public class ModelSnowMan extends ModelBase {
     public ModelRenderer body;
     public ModelRenderer bottomBody;
     public ModelRenderer head;
     public ModelRenderer rightHand;
     public ModelRenderer leftHand;
 
-    public ModelSnowMan()
-    {
+    public ModelSnowMan() {
         float f = 4.0F;
         float f1 = 0.0F;
         this.head = (new ModelRenderer(this, 0, 0)).setTextureSize(64, 64);
@@ -32,26 +30,24 @@ public class ModelSnowMan extends ModelBase
         this.bottomBody.setRotationPoint(0.0F, 0.0F + f + 20.0F, 0.0F);
     }
 
-    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn)
-    {
+    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
         super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
-        this.head.rotateAngleY = netHeadYaw / (180F / (float)Math.PI);
-        this.head.rotateAngleX = headPitch / (180F / (float)Math.PI);
-        this.body.rotateAngleY = netHeadYaw / (180F / (float)Math.PI) * 0.25F;
+        this.head.rotateAngleY = netHeadYaw / (180F / (float) Math.PI);
+        this.head.rotateAngleX = headPitch / (180F / (float) Math.PI);
+        this.body.rotateAngleY = netHeadYaw / (180F / (float) Math.PI) * 0.25F;
         float f = MathHelper.sin(this.body.rotateAngleY);
         float f1 = MathHelper.cos(this.body.rotateAngleY);
         this.rightHand.rotateAngleZ = 1.0F;
         this.leftHand.rotateAngleZ = -1.0F;
         this.rightHand.rotateAngleY = 0.0F + this.body.rotateAngleY;
-        this.leftHand.rotateAngleY = (float)Math.PI + this.body.rotateAngleY;
+        this.leftHand.rotateAngleY = (float) Math.PI + this.body.rotateAngleY;
         this.rightHand.rotationPointX = f1 * 5.0F;
         this.rightHand.rotationPointZ = -f * 5.0F;
         this.leftHand.rotationPointX = -f1 * 5.0F;
         this.leftHand.rotationPointZ = f * 5.0F;
     }
 
-    public void render(Entity entityIn, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_, float scale)
-    {
+    public void render(Entity entityIn, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_, float scale) {
         this.setRotationAngles(p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, scale, entityIn);
         this.body.render(scale);
         this.bottomBody.render(scale);

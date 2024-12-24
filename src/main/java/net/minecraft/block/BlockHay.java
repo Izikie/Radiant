@@ -13,61 +13,48 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
-public class BlockHay extends BlockRotatedPillar
-{
-    public BlockHay()
-    {
+public class BlockHay extends BlockRotatedPillar {
+    public BlockHay() {
         super(Material.grass, MapColor.yellowColor);
         this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, EnumFacing.Axis.Y));
         this.setCreativeTab(CreativeTabs.tabBlock);
     }
 
-    public IBlockState getStateFromMeta(int meta)
-    {
+    public IBlockState getStateFromMeta(int meta) {
         EnumFacing.Axis enumfacing$axis = EnumFacing.Axis.Y;
         int i = meta & 12;
 
-        if (i == 4)
-        {
+        if (i == 4) {
             enumfacing$axis = EnumFacing.Axis.X;
-        }
-        else if (i == 8)
-        {
+        } else if (i == 8) {
             enumfacing$axis = EnumFacing.Axis.Z;
         }
 
         return this.getDefaultState().withProperty(AXIS, enumfacing$axis);
     }
 
-    public int getMetaFromState(IBlockState state)
-    {
+    public int getMetaFromState(IBlockState state) {
         int i = 0;
-        EnumFacing.Axis enumfacing$axis = (EnumFacing.Axis)state.getValue(AXIS);
+        EnumFacing.Axis enumfacing$axis = (EnumFacing.Axis) state.getValue(AXIS);
 
-        if (enumfacing$axis == EnumFacing.Axis.X)
-        {
+        if (enumfacing$axis == EnumFacing.Axis.X) {
             i |= 4;
-        }
-        else if (enumfacing$axis == EnumFacing.Axis.Z)
-        {
+        } else if (enumfacing$axis == EnumFacing.Axis.Z) {
             i |= 8;
         }
 
         return i;
     }
 
-    protected BlockState createBlockState()
-    {
-        return new BlockState(this, new IProperty[] {AXIS});
+    protected BlockState createBlockState() {
+        return new BlockState(this, new IProperty[]{AXIS});
     }
 
-    protected ItemStack createStackedBlock(IBlockState state)
-    {
+    protected ItemStack createStackedBlock(IBlockState state) {
         return new ItemStack(Item.getItemFromBlock(this), 1, 0);
     }
 
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-    {
+    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(AXIS, facing.getAxis());
     }
 }

@@ -1,6 +1,7 @@
 package net.minecraft.entity.item;
 
 import java.util.List;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -16,115 +17,91 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.world.World;
 
-public class EntityMinecartHopper extends EntityMinecartContainer implements IHopper
-{
+public class EntityMinecartHopper extends EntityMinecartContainer implements IHopper {
     private boolean isBlocked = true;
     private int transferTicker = -1;
     private BlockPos field_174900_c = BlockPos.ORIGIN;
 
-    public EntityMinecartHopper(World worldIn)
-    {
+    public EntityMinecartHopper(World worldIn) {
         super(worldIn);
     }
 
-    public EntityMinecartHopper(World worldIn, double x, double y, double z)
-    {
+    public EntityMinecartHopper(World worldIn, double x, double y, double z) {
         super(worldIn, x, y, z);
     }
 
-    public EntityMinecart.EnumMinecartType getMinecartType()
-    {
+    public EntityMinecart.EnumMinecartType getMinecartType() {
         return EntityMinecart.EnumMinecartType.HOPPER;
     }
 
-    public IBlockState getDefaultDisplayTile()
-    {
+    public IBlockState getDefaultDisplayTile() {
         return Blocks.hopper.getDefaultState();
     }
 
-    public int getDefaultDisplayTileOffset()
-    {
+    public int getDefaultDisplayTileOffset() {
         return 1;
     }
 
-    public int getSizeInventory()
-    {
+    public int getSizeInventory() {
         return 5;
     }
 
-    public boolean interactFirst(EntityPlayer playerIn)
-    {
-        if (!this.worldObj.isRemote)
-        {
+    public boolean interactFirst(EntityPlayer playerIn) {
+        if (!this.worldObj.isRemote) {
             playerIn.displayGUIChest(this);
         }
 
         return true;
     }
 
-    public void onActivatorRailPass(int x, int y, int z, boolean receivingPower)
-    {
+    public void onActivatorRailPass(int x, int y, int z, boolean receivingPower) {
         boolean flag = !receivingPower;
 
-        if (flag != this.getBlocked())
-        {
+        if (flag != this.getBlocked()) {
             this.setBlocked(flag);
         }
     }
 
-    public boolean getBlocked()
-    {
+    public boolean getBlocked() {
         return this.isBlocked;
     }
 
-    public void setBlocked(boolean p_96110_1_)
-    {
+    public void setBlocked(boolean p_96110_1_) {
         this.isBlocked = p_96110_1_;
     }
 
-    public World getWorld()
-    {
+    public World getWorld() {
         return this.worldObj;
     }
 
-    public double getXPos()
-    {
+    public double getXPos() {
         return this.posX;
     }
 
-    public double getYPos()
-    {
+    public double getYPos() {
         return this.posY + 0.5D;
     }
 
-    public double getZPos()
-    {
+    public double getZPos() {
         return this.posZ;
     }
 
-    public void onUpdate()
-    {
+    public void onUpdate() {
         super.onUpdate();
 
-        if (!this.worldObj.isRemote && this.isEntityAlive() && this.getBlocked())
-        {
+        if (!this.worldObj.isRemote && this.isEntityAlive() && this.getBlocked()) {
             BlockPos blockpos = new BlockPos(this);
 
-            if (blockpos.equals(this.field_174900_c))
-            {
+            if (blockpos.equals(this.field_174900_c)) {
                 --this.transferTicker;
-            }
-            else
-            {
+            } else {
                 this.setTransferTicker(0);
             }
 
-            if (!this.canTransfer())
-            {
+            if (!this.canTransfer()) {
                 this.setTransferTicker(0);
 
-                if (this.func_96112_aD())
-                {
+                if (this.func_96112_aD()) {
                     this.setTransferTicker(4);
                     this.markDirty();
                 }
@@ -132,64 +109,51 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
         }
     }
 
-    public boolean func_96112_aD()
-    {
-        if (TileEntityHopper.captureDroppedItems(this))
-        {
+    public boolean func_96112_aD() {
+        if (TileEntityHopper.captureDroppedItems(this)) {
             return true;
-        }
-        else
-        {
+        } else {
             List<EntityItem> list = this.worldObj.<EntityItem>getEntitiesWithinAABB(EntityItem.class, this.getEntityBoundingBox().expand(0.25D, 0.0D, 0.25D), EntitySelectors.selectAnything);
 
-            if (list.size() > 0)
-            {
-                TileEntityHopper.putDropInInventoryAllSlots(this, (EntityItem)list.get(0));
+            if (list.size() > 0) {
+                TileEntityHopper.putDropInInventoryAllSlots(this, (EntityItem) list.get(0));
             }
 
             return false;
         }
     }
 
-    public void killMinecart(DamageSource source)
-    {
+    public void killMinecart(DamageSource source) {
         super.killMinecart(source);
 
-        if (this.worldObj.getGameRules().getBoolean("doEntityDrops"))
-        {
+        if (this.worldObj.getGameRules().getBoolean("doEntityDrops")) {
             this.dropItemWithOffset(Item.getItemFromBlock(Blocks.hopper), 1, 0.0F);
         }
     }
 
-    protected void writeEntityToNBT(NBTTagCompound tagCompound)
-    {
+    protected void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         tagCompound.setInteger("TransferCooldown", this.transferTicker);
     }
 
-    protected void readEntityFromNBT(NBTTagCompound tagCompund)
-    {
+    protected void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
         this.transferTicker = tagCompund.getInteger("TransferCooldown");
     }
 
-    public void setTransferTicker(int p_98042_1_)
-    {
+    public void setTransferTicker(int p_98042_1_) {
         this.transferTicker = p_98042_1_;
     }
 
-    public boolean canTransfer()
-    {
+    public boolean canTransfer() {
         return this.transferTicker > 0;
     }
 
-    public String getGuiID()
-    {
+    public String getGuiID() {
         return "minecraft:hopper";
     }
 
-    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
-    {
+    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
         return new ContainerHopper(playerInventory, this, playerIn);
     }
 }

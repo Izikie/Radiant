@@ -10,57 +10,46 @@ import net.minecraft.util.IChatComponent;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
-public class RConConsoleSource implements ICommandSender
-{
+public class RConConsoleSource implements ICommandSender {
     private static final RConConsoleSource instance = new RConConsoleSource();
     private StringBuffer buffer = new StringBuffer();
 
-    public String getName()
-    {
+    public String getName() {
         return "Rcon";
     }
 
-    public IChatComponent getDisplayName()
-    {
+    public IChatComponent getDisplayName() {
         return new ChatComponentText(this.getName());
     }
 
-    public void addChatMessage(IChatComponent component)
-    {
+    public void addChatMessage(IChatComponent component) {
         this.buffer.append(component.getUnformattedText());
     }
 
-    public boolean canCommandSenderUseCommand(int permLevel, String commandName)
-    {
+    public boolean canCommandSenderUseCommand(int permLevel, String commandName) {
         return true;
     }
 
-    public BlockPos getPosition()
-    {
+    public BlockPos getPosition() {
         return new BlockPos(0, 0, 0);
     }
 
-    public Vec3 getPositionVector()
-    {
+    public Vec3 getPositionVector() {
         return new Vec3(0.0D, 0.0D, 0.0D);
     }
 
-    public World getEntityWorld()
-    {
+    public World getEntityWorld() {
         return MinecraftServer.getServer().getEntityWorld();
     }
 
-    public Entity getCommandSenderEntity()
-    {
+    public Entity getCommandSenderEntity() {
         return null;
     }
 
-    public boolean sendCommandFeedback()
-    {
+    public boolean sendCommandFeedback() {
         return true;
     }
 
-    public void setCommandStat(CommandResultStats.Type type, int amount)
-    {
+    public void setCommandStat(CommandResultStats.Type type, int amount) {
     }
 }

@@ -1,7 +1,6 @@
 package net.minecraft.block.material;
 
-public class Material
-{
+public class Material {
     public static final Material air = new MaterialTransparent(MapColor.airColor);
     public static final Material grass = new Material(MapColor.grassColor);
     public static final Material ground = new Material(MapColor.dirtColor);
@@ -34,10 +33,8 @@ public class Material
     public static final Material dragonEgg = (new Material(MapColor.foliageColor)).setNoPushMobility();
     public static final Material portal = (new MaterialPortal(MapColor.airColor)).setImmovableMobility();
     public static final Material cake = (new Material(MapColor.airColor)).setNoPushMobility();
-    public static final Material web = (new Material(MapColor.clothColor)
-    {
-        public boolean blocksMovement()
-        {
+    public static final Material web = (new Material(MapColor.clothColor) {
+        public boolean blocksMovement() {
             return false;
         }
     }).setRequiresTool().setNoPushMobility();
@@ -51,100 +48,82 @@ public class Material
     private int mobilityFlag;
     private boolean isAdventureModeExempt;
 
-    public Material(MapColor color)
-    {
+    public Material(MapColor color) {
         this.materialMapColor = color;
     }
 
-    public boolean isLiquid()
-    {
+    public boolean isLiquid() {
         return false;
     }
 
-    public boolean isSolid()
-    {
+    public boolean isSolid() {
         return true;
     }
 
-    public boolean blocksLight()
-    {
+    public boolean blocksLight() {
         return true;
     }
 
-    public boolean blocksMovement()
-    {
+    public boolean blocksMovement() {
         return true;
     }
 
-    private Material setTranslucent()
-    {
+    private Material setTranslucent() {
         this.isTranslucent = true;
         return this;
     }
 
-    protected Material setRequiresTool()
-    {
+    protected Material setRequiresTool() {
         this.requiresNoTool = false;
         return this;
     }
 
-    protected Material setBurning()
-    {
+    protected Material setBurning() {
         this.canBurn = true;
         return this;
     }
 
-    public boolean getCanBurn()
-    {
+    public boolean getCanBurn() {
         return this.canBurn;
     }
 
-    public Material setReplaceable()
-    {
+    public Material setReplaceable() {
         this.replaceable = true;
         return this;
     }
 
-    public boolean isReplaceable()
-    {
+    public boolean isReplaceable() {
         return this.replaceable;
     }
 
-    public boolean isOpaque()
-    {
+    public boolean isOpaque() {
         return this.isTranslucent ? false : this.blocksMovement();
     }
 
-    public boolean isToolNotRequired()
-    {
+    public boolean isToolNotRequired() {
         return this.requiresNoTool;
     }
 
-    public int getMaterialMobility()
-    {
+    public int getMaterialMobility() {
         return this.mobilityFlag;
     }
 
-    protected Material setNoPushMobility()
-    {
+    protected Material setNoPushMobility() {
         this.mobilityFlag = 1;
         return this;
     }
 
-    protected Material setImmovableMobility()
-    {
+    protected Material setImmovableMobility() {
         this.mobilityFlag = 2;
         return this;
     }
 
-    protected Material setAdventureModeExempt()
-    {
+    protected Material setAdventureModeExempt() {
         this.isAdventureModeExempt = true;
         return this;
     }
 
-    public MapColor getMaterialMapColor()
-    {
+    public MapColor getMaterialMapColor() {
         return this.materialMapColor;
     }
 }

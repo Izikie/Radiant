@@ -5,21 +5,18 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.EntityLeashKnot;
 import net.minecraft.util.ResourceLocation;
 
-public class RenderLeashKnot extends Render<EntityLeashKnot>
-{
+public class RenderLeashKnot extends Render<EntityLeashKnot> {
     private static final ResourceLocation leashKnotTextures = new ResourceLocation("textures/entity/lead_knot.png");
     private ModelLeashKnot leashKnotModel = new ModelLeashKnot();
 
-    public RenderLeashKnot(RenderManager renderManagerIn)
-    {
+    public RenderLeashKnot(RenderManager renderManagerIn) {
         super(renderManagerIn);
     }
 
-    public void doRender(EntityLeashKnot entity, double x, double y, double z, float entityYaw, float partialTicks)
-    {
+    public void doRender(EntityLeashKnot entity, double x, double y, double z, float entityYaw, float partialTicks) {
         GlStateManager.pushMatrix();
         GlStateManager.disableCull();
-        GlStateManager.translate((float)x, (float)y, (float)z);
+        GlStateManager.translate((float) x, (float) y, (float) z);
         float f = 0.0625F;
         GlStateManager.enableRescaleNormal();
         GlStateManager.scale(-1.0F, -1.0F, 1.0F);
@@ -30,8 +27,7 @@ public class RenderLeashKnot extends Render<EntityLeashKnot>
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 
-    protected ResourceLocation getEntityTexture(EntityLeashKnot entity)
-    {
+    protected ResourceLocation getEntityTexture(EntityLeashKnot entity) {
         return leashKnotTextures;
     }
 }
