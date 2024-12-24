@@ -42,7 +42,6 @@ dependencies {
     implementation(group = "org.lwjgl.lwjgl", name = "lwjgl", version = "2.9.3")
     implementation(group = "org.lwjgl.lwjgl", name = "lwjgl_util", version = "2.9.3")
     implementation(group = "com.mojang", name = "authlib", version = "1.5.21")
-    implementation(group = "tv.twitch", name = "twitch", version = "6.5")
 }
 
 val appDataDir: String = System.getenv("APPDATA")

@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Set;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.stream.GuiTwitchUserMode;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
@@ -44,7 +43,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-import tv.twitch.chat.ChatUserInfo;
 
 public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -313,14 +311,6 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
                     this.setText(clickevent.getValue(), true);
                 } else if (clickevent.getAction() == ClickEvent.Action.RUN_COMMAND) {
                     this.sendChatMessage(clickevent.getValue(), false);
-                } else if (clickevent.getAction() == ClickEvent.Action.TWITCH_USER_INFO) {
-                    ChatUserInfo chatuserinfo = this.mc.getTwitchStream().func_152926_a(clickevent.getValue());
-
-                    if (chatuserinfo != null) {
-                        this.mc.displayGuiScreen(new GuiTwitchUserMode(this.mc.getTwitchStream(), chatuserinfo));
-                    } else {
-                        LOGGER.error("Tried to handle twitch user but couldn\'t find them!");
-                    }
                 } else {
                     LOGGER.error("Don\'t know how to handle " + clickevent);
                 }
