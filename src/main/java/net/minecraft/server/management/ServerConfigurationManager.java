@@ -56,7 +56,6 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.WorldSettings;
 import net.minecraft.world.border.IBorderListener;
 import net.minecraft.world.border.WorldBorder;
-import net.minecraft.world.demo.DemoWorldManager;
 import net.minecraft.world.storage.IPlayerFileData;
 import net.minecraft.world.storage.WorldInfo;
 import org.apache.logging.log4j.LogManager;
@@ -344,13 +343,7 @@ public abstract class ServerConfigurationManager {
             entityplayermp1.playerNetServerHandler.kickPlayerFromServer("You logged in from another location");
         }
 
-        ItemInWorldManager iteminworldmanager;
-
-        if (this.mcServer.isDemo()) {
-            iteminworldmanager = new DemoWorldManager(this.mcServer.worldServerForDimension(0));
-        } else {
-            iteminworldmanager = new ItemInWorldManager(this.mcServer.worldServerForDimension(0));
-        }
+        ItemInWorldManager iteminworldmanager = new ItemInWorldManager(this.mcServer.worldServerForDimension(0));
 
         return new EntityPlayerMP(this.mcServer, this.mcServer.worldServerForDimension(0), profile, iteminworldmanager);
     }
@@ -364,13 +357,7 @@ public abstract class ServerConfigurationManager {
         BlockPos blockpos = playerIn.getBedLocation();
         boolean flag = playerIn.isSpawnForced();
         playerIn.dimension = dimension;
-        ItemInWorldManager iteminworldmanager;
-
-        if (this.mcServer.isDemo()) {
-            iteminworldmanager = new DemoWorldManager(this.mcServer.worldServerForDimension(playerIn.dimension));
-        } else {
-            iteminworldmanager = new ItemInWorldManager(this.mcServer.worldServerForDimension(playerIn.dimension));
-        }
+        ItemInWorldManager iteminworldmanager = new ItemInWorldManager(this.mcServer.worldServerForDimension(playerIn.dimension));
 
         EntityPlayerMP entityplayermp = new EntityPlayerMP(this.mcServer, this.mcServer.worldServerForDimension(playerIn.dimension), playerIn.getGameProfile(), iteminworldmanager);
         entityplayermp.playerNetServerHandler = playerIn.playerNetServerHandler;

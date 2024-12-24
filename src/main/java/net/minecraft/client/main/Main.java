@@ -24,7 +24,6 @@ public class Main {
         System.setProperty("java.net.preferIPv4Stack", "true");
         OptionParser optionparser = new OptionParser();
         optionparser.allowsUnrecognizedOptions();
-        optionparser.accepts("demo");
         optionparser.accepts("fullscreen");
         optionparser.accepts("checkGlErrors");
         OptionSpec<String> optionspec = optionparser.accepts("server").withRequiredArg();
@@ -80,7 +79,6 @@ public class Main {
         int j = ((Integer) optionset.valueOf(optionspec14)).intValue();
         boolean flag = optionset.has("fullscreen");
         boolean flag1 = optionset.has("checkGlErrors");
-        boolean flag2 = optionset.has("demo");
         String s3 = (String) optionset.valueOf(optionspec12);
         Gson gson = (new GsonBuilder()).registerTypeAdapter(PropertyMap.class, new Serializer()).create();
         PropertyMap propertymap = (PropertyMap) gson.fromJson((String) optionset.valueOf(optionspec15), PropertyMap.class);
@@ -93,7 +91,7 @@ public class Main {
         String s6 = (String) optionset.valueOf(optionspec);
         Integer integer = (Integer) optionset.valueOf(optionspec1);
         Session session = new Session((String) optionspec9.value(optionset), s4, (String) optionspec11.value(optionset), (String) optionspec18.value(optionset));
-        GameConfiguration gameconfiguration = new GameConfiguration(new GameConfiguration.UserInformation(session, propertymap, propertymap1, proxy), new GameConfiguration.DisplayInformation(i, j, flag, flag1), new GameConfiguration.FolderInformation(file1, file3, file2, s5), new GameConfiguration.GameInformation(flag2, s3), new GameConfiguration.ServerInformation(s6, integer.intValue()));
+        GameConfiguration gameconfiguration = new GameConfiguration(new GameConfiguration.UserInformation(session, propertymap, propertymap1, proxy), new GameConfiguration.DisplayInformation(i, j, flag, flag1), new GameConfiguration.FolderInformation(file1, file3, file2, s5), new GameConfiguration.GameInformation(s3), new GameConfiguration.ServerInformation(s6, integer.intValue()));
         Runtime.getRuntime().addShutdownHook(new Thread("Client Shutdown Thread") {
             public void run() {
                 Minecraft.stopIntegratedServer();

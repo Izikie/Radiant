@@ -51,11 +51,9 @@ public class GameConfiguration {
     }
 
     public static class GameInformation {
-        public final boolean isDemo;
         public final String version;
 
-        public GameInformation(boolean isDemoIn, String versionIn) {
-            this.isDemo = isDemoIn;
+        public GameInformation(String versionIn) {
             this.version = versionIn;
         }
     }

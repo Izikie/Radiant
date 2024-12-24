@@ -29,7 +29,6 @@ import net.minecraft.client.gui.GuiMerchant;
 import net.minecraft.client.gui.GuiMultiplayer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiScreenBook;
-import net.minecraft.client.gui.GuiScreenDemo;
 import net.minecraft.client.gui.GuiWinGame;
 import net.minecraft.client.gui.GuiYesNo;
 import net.minecraft.client.gui.GuiYesNoCallback;
@@ -1000,17 +999,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         } else if (i == 4) {
             this.gameController.displayGuiScreen(new GuiWinGame());
         } else if (i == 5) {
-            GameSettings gamesettings = this.gameController.gameSettings;
-
-            if (f == 0.0F) {
-                this.gameController.displayGuiScreen(new GuiScreenDemo());
-            } else if (f == 101.0F) {
-                this.gameController.ingameGUI.getChatGUI().printChatMessage(new ChatComponentTranslation("demo.help.movement", new Object[]{GameSettings.getKeyDisplayString(gamesettings.keyBindForward.getKeyCode()), GameSettings.getKeyDisplayString(gamesettings.keyBindLeft.getKeyCode()), GameSettings.getKeyDisplayString(gamesettings.keyBindBack.getKeyCode()), GameSettings.getKeyDisplayString(gamesettings.keyBindRight.getKeyCode())}));
-            } else if (f == 102.0F) {
-                this.gameController.ingameGUI.getChatGUI().printChatMessage(new ChatComponentTranslation("demo.help.jump", new Object[]{GameSettings.getKeyDisplayString(gamesettings.keyBindJump.getKeyCode())}));
-            } else if (f == 103.0F) {
-                this.gameController.ingameGUI.getChatGUI().printChatMessage(new ChatComponentTranslation("demo.help.inventory", new Object[]{GameSettings.getKeyDisplayString(gamesettings.keyBindInventory.getKeyCode())}));
-            }
+            // TODO: Notify Player or Ignore
         } else if (i == 6) {
             this.clientWorldController.playSound(entityplayer.posX, entityplayer.posY + (double) entityplayer.getEyeHeight(), entityplayer.posZ, "random.successful_hit", 0.18F, 0.45F, false);
         } else if (i == 7) {
