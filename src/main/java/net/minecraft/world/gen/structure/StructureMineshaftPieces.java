@@ -471,7 +471,7 @@ public class StructureMineshaftPieces {
     }
 
     public static class Room extends StructureComponent {
-        private List<StructureBoundingBox> roomsLinkedToTheRoom = Lists.<StructureBoundingBox>newLinkedList();
+        private final List<StructureBoundingBox> roomsLinkedToTheRoom = Lists.<StructureBoundingBox>newLinkedList();
 
         public Room() {
         }

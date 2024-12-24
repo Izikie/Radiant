@@ -18,10 +18,10 @@ import net.minecraft.nbt.NBTTagShort;
 import net.minecraft.world.WorldSavedData;
 
 public class MapStorage {
-    private ISaveHandler saveHandler;
+    private final ISaveHandler saveHandler;
     protected Map<String, WorldSavedData> loadedDataMap = Maps.<String, WorldSavedData>newHashMap();
-    private List<WorldSavedData> loadedDataList = Lists.<WorldSavedData>newArrayList();
-    private Map<String, Short> idCounts = Maps.<String, Short>newHashMap();
+    private final List<WorldSavedData> loadedDataList = Lists.<WorldSavedData>newArrayList();
+    private final Map<String, Short> idCounts = Maps.<String, Short>newHashMap();
 
     public MapStorage(ISaveHandler saveHandlerIn) {
         this.saveHandler = saveHandlerIn;

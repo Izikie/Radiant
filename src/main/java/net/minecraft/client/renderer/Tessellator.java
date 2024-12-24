@@ -3,8 +3,8 @@ package net.minecraft.client.renderer;
 import net.optifine.SmartAnimations;
 
 public class Tessellator {
-    private WorldRenderer worldRenderer;
-    private WorldVertexBufferUploader vboUploader = new WorldVertexBufferUploader();
+    private final WorldRenderer worldRenderer;
+    private final WorldVertexBufferUploader vboUploader = new WorldVertexBufferUploader();
     private static final Tessellator instance = new Tessellator(2097152);
 
     public static Tessellator getInstance() {

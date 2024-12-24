@@ -6,10 +6,10 @@ import java.util.Iterator;
 import java.util.List;
 
 public class EntityAITasks {
-    private List<EntityAITasks.EntityAITaskEntry> taskEntries = Lists.newArrayList();
-    private List<EntityAITasks.EntityAITaskEntry> executingTaskEntries = Lists.newArrayList();
+    private final List<EntityAITasks.EntityAITaskEntry> taskEntries = Lists.newArrayList();
+    private final List<EntityAITasks.EntityAITaskEntry> executingTaskEntries = Lists.newArrayList();
     private int tickCount;
-    private int tickRate = 3;
+    private final int tickRate = 3;
 
     public void addTask(int priority, EntityAIBase task) {
         this.taskEntries.add(new EntityAITasks.EntityAITaskEntry(priority, task));

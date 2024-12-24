@@ -12,8 +12,8 @@ public class SoundEventAccessorComposite implements ISoundEventAccessor<SoundPoo
     private final Random rnd = new Random();
     private final ResourceLocation soundLocation;
     private final SoundCategory category;
-    private double eventPitch;
-    private double eventVolume;
+    private final double eventPitch;
+    private final double eventVolume;
 
     public SoundEventAccessorComposite(ResourceLocation soundLocation, double pitch, double volume, SoundCategory category) {
         this.soundLocation = soundLocation;

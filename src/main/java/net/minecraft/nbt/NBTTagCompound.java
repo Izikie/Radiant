@@ -15,7 +15,7 @@ import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.util.ReportedException;
 
 public class NBTTagCompound extends NBTBase {
-    private Map<String, NBTBase> tagMap = Maps.<String, NBTBase>newHashMap();
+    private final Map<String, NBTBase> tagMap = Maps.<String, NBTBase>newHashMap();
 
     void write(DataOutput output) throws IOException {
         for (String s : this.tagMap.keySet()) {

@@ -6,7 +6,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
 
 public class EntityLookHelper {
-    private EntityLiving entity;
+    private final EntityLiving entity;
     private float deltaLookYaw;
     private float deltaLookPitch;
     private boolean isLooking;

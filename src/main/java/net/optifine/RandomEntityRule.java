@@ -26,7 +26,7 @@ import net.optifine.util.MathUtils;
 public class RandomEntityRule {
     private String pathProps = null;
     private ResourceLocation baseResLoc = null;
-    private int index;
+    private final int index;
     private int[] textures = null;
     private ResourceLocation[] resourceLocations = null;
     private int[] weights = null;

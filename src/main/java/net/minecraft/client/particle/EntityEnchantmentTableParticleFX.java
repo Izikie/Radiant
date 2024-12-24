@@ -3,10 +3,10 @@ package net.minecraft.client.particle;
 import net.minecraft.world.World;
 
 public class EntityEnchantmentTableParticleFX extends EntityFX {
-    private float field_70565_a;
-    private double coordX;
-    private double coordY;
-    private double coordZ;
+    private final float field_70565_a;
+    private final double coordX;
+    private final double coordY;
+    private final double coordZ;
 
     protected EntityEnchantmentTableParticleFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);

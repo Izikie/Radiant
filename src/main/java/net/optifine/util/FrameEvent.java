@@ -6,7 +6,7 @@ import java.util.Map;
 import net.minecraft.client.Minecraft;
 
 public class FrameEvent {
-    private static Map<String, Integer> mapEventFrames = new HashMap();
+    private static final Map<String, Integer> mapEventFrames = new HashMap();
 
     public static boolean isActive(String name, int frameInterval) {
         synchronized (mapEventFrames) {

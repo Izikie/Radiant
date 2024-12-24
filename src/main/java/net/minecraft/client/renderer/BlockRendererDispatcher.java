@@ -18,7 +18,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.WorldType;
 
 public class BlockRendererDispatcher implements IResourceManagerReloadListener {
-    private BlockModelShapes blockModelShapes;
+    private final BlockModelShapes blockModelShapes;
     private final GameSettings gameSettings;
     private final BlockModelRenderer blockModelRenderer = new BlockModelRenderer();
     private final ChestRenderer chestRenderer = new ChestRenderer();

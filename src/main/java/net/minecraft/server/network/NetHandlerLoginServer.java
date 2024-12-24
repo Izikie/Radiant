@@ -43,7 +43,7 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
     private NetHandlerLoginServer.LoginState currentLoginState = NetHandlerLoginServer.LoginState.HELLO;
     private int connectionTimer;
     private GameProfile loginGameProfile;
-    private String serverId = "";
+    private final String serverId = "";
     private SecretKey secretKey;
     private EntityPlayerMP player;
 

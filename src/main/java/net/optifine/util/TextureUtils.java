@@ -139,7 +139,7 @@ public class TextureUtils {
     public static TextureAtlasSprite iconClock;
     public static final String SPRITE_PREFIX_BLOCKS = "minecraft:blocks/";
     public static final String SPRITE_PREFIX_ITEMS = "minecraft:items/";
-    private static IntBuffer staticBuffer = GLAllocation.createDirectIntBuffer(256);
+    private static final IntBuffer staticBuffer = GLAllocation.createDirectIntBuffer(256);
 
     public static void update() {
         TextureMap texturemap = getTextureMapBlocks();

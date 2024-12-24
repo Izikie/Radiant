@@ -20,10 +20,10 @@ import org.apache.logging.log4j.Logger;
 
 public class ContainerRepair extends Container {
     private static final Logger logger = LogManager.getLogger();
-    private IInventory outputSlot;
-    private IInventory inputSlots;
-    private World theWorld;
-    private BlockPos selfPosition;
+    private final IInventory outputSlot;
+    private final IInventory inputSlots;
+    private final World theWorld;
+    private final BlockPos selfPosition;
     public int maximumCost;
     private int materialCost;
     private String repairedItemName;

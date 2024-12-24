@@ -24,8 +24,8 @@ public enum RenderEntityParameterBool implements IExpressionBool {
     IS_SPRINTING("is_sprinting"),
     IS_WET("is_wet");
 
-    private String name;
-    private RenderManager renderManager;
+    private final String name;
+    private final RenderManager renderManager;
     private static final RenderEntityParameterBool[] VALUES = values();
 
     private RenderEntityParameterBool(String name) {

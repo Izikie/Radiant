@@ -3,10 +3,10 @@ package net.minecraft.block;
 import net.minecraft.util.BlockPos;
 
 public class BlockEventData {
-    private BlockPos position;
-    private Block blockType;
-    private int eventID;
-    private int eventParameter;
+    private final BlockPos position;
+    private final Block blockType;
+    private final int eventID;
+    private final int eventParameter;
 
     public BlockEventData(BlockPos pos, Block blockType, int eventId, int p_i45756_4_) {
         this.position = pos;

@@ -14,7 +14,7 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 
 public class EntityAIMate extends EntityAIBase {
-    private EntityAnimal theAnimal;
+    private final EntityAnimal theAnimal;
     World theWorld;
     private EntityAnimal targetMate;
     int spawnBabyDelay;

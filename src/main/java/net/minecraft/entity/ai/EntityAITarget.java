@@ -17,7 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 public abstract class EntityAITarget extends EntityAIBase {
     protected final EntityCreature taskOwner;
     protected boolean shouldCheckSight;
-    private boolean nearbyOnly;
+    private final boolean nearbyOnly;
     private int targetSearchStatus;
     private int targetSearchDelay;
     private int targetUnseenTicks;

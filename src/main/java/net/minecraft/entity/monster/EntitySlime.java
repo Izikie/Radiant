@@ -283,7 +283,7 @@ public class EntitySlime extends EntityLiving implements IMob {
     }
 
     static class AISlimeAttack extends EntityAIBase {
-        private EntitySlime slime;
+        private final EntitySlime slime;
         private int field_179465_b;
 
         public AISlimeAttack(EntitySlime slimeIn) {
@@ -313,7 +313,7 @@ public class EntitySlime extends EntityLiving implements IMob {
     }
 
     static class AISlimeFaceRandom extends EntityAIBase {
-        private EntitySlime slime;
+        private final EntitySlime slime;
         private float field_179459_b;
         private int field_179460_c;
 
@@ -337,7 +337,7 @@ public class EntitySlime extends EntityLiving implements IMob {
     }
 
     static class AISlimeFloat extends EntityAIBase {
-        private EntitySlime slime;
+        private final EntitySlime slime;
 
         public AISlimeFloat(EntitySlime slimeIn) {
             this.slime = slimeIn;
@@ -359,7 +359,7 @@ public class EntitySlime extends EntityLiving implements IMob {
     }
 
     static class AISlimeHop extends EntityAIBase {
-        private EntitySlime slime;
+        private final EntitySlime slime;
 
         public AISlimeHop(EntitySlime slimeIn) {
             this.slime = slimeIn;
@@ -378,7 +378,7 @@ public class EntitySlime extends EntityLiving implements IMob {
     static class SlimeMoveHelper extends EntityMoveHelper {
         private float field_179922_g;
         private int field_179924_h;
-        private EntitySlime slime;
+        private final EntitySlime slime;
         private boolean field_179923_j;
 
         public SlimeMoveHelper(EntitySlime slimeIn) {

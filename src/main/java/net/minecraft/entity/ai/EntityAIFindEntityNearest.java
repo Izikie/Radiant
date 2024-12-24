@@ -16,11 +16,11 @@ import org.apache.logging.log4j.Logger;
 
 public class EntityAIFindEntityNearest extends EntityAIBase {
     private static final Logger LOGGER = LogManager.getLogger();
-    private EntityLiving mob;
+    private final EntityLiving mob;
     private final Predicate<EntityLivingBase> field_179443_c;
     private final EntityAINearestAttackableTarget.Sorter field_179440_d;
     private EntityLivingBase target;
-    private Class<? extends EntityLivingBase> field_179439_f;
+    private final Class<? extends EntityLivingBase> field_179439_f;
 
     public EntityAIFindEntityNearest(EntityLiving mobIn, Class<? extends EntityLivingBase> p_i45884_2_) {
         this.mob = mobIn;

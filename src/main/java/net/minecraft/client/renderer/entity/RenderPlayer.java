@@ -19,7 +19,7 @@ import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer> {
-    private boolean smallArms;
+    private final boolean smallArms;
 
     public RenderPlayer(RenderManager renderManager) {
         this(renderManager, false);

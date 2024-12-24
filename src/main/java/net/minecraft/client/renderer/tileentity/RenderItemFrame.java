@@ -40,7 +40,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
     private final Minecraft mc = Minecraft.getMinecraft();
     private final ModelResourceLocation itemFrameModel = new ModelResourceLocation("item_frame", "normal");
     private final ModelResourceLocation mapModel = new ModelResourceLocation("item_frame", "map");
-    private RenderItem itemRenderer;
+    private final RenderItem itemRenderer;
     private static double itemRenderDistanceSq = 4096.0D;
 
     public RenderItemFrame(RenderManager renderManagerIn, RenderItem itemRendererIn) {

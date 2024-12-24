@@ -36,7 +36,7 @@ import org.lwjgl.input.Mouse;
 
 public class GuiContainerCreative extends InventoryEffectRenderer {
     private static final ResourceLocation creativeInventoryTabs = new ResourceLocation("textures/gui/container/creative_inventory/tabs.png");
-    private static InventoryBasic field_147060_v = new InventoryBasic("tmp", true, 45);
+    private static final InventoryBasic field_147060_v = new InventoryBasic("tmp", true, 45);
     private static int selectedTabIndex = CreativeTabs.tabBlock.getTabIndex();
     private float currentScroll;
     private boolean isScrolling;

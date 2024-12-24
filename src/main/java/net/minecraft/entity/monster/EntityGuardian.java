@@ -46,7 +46,7 @@ public class EntityGuardian extends EntityMob {
     private EntityLivingBase targetedEntity;
     private int field_175479_bo;
     private boolean field_175480_bp;
-    private EntityAIWander wander;
+    private final EntityAIWander wander;
 
     public EntityGuardian(World worldIn) {
         super(worldIn);
@@ -415,7 +415,7 @@ public class EntityGuardian extends EntityMob {
     }
 
     static class AIGuardianAttack extends EntityAIBase {
-        private EntityGuardian theEntity;
+        private final EntityGuardian theEntity;
         private int tickCounter;
 
         public AIGuardianAttack(EntityGuardian guardian) {
@@ -482,7 +482,7 @@ public class EntityGuardian extends EntityMob {
     }
 
     static class GuardianMoveHelper extends EntityMoveHelper {
-        private EntityGuardian entityGuardian;
+        private final EntityGuardian entityGuardian;
 
         public GuardianMoveHelper(EntityGuardian guardian) {
             super(guardian);
@@ -534,7 +534,7 @@ public class EntityGuardian extends EntityMob {
     }
 
     static class GuardianTargetSelector implements Predicate<EntityLivingBase> {
-        private EntityGuardian parentEntity;
+        private final EntityGuardian parentEntity;
 
         public GuardianTargetSelector(EntityGuardian guardian) {
             this.parentEntity = guardian;

@@ -7,8 +7,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 public class ItemSeedFood extends ItemFood {
-    private Block crops;
-    private Block soilId;
+    private final Block crops;
+    private final Block soilId;
 
     public ItemSeedFood(int healAmount, float saturation, Block crops, Block soil) {
         super(healAmount, saturation, false);

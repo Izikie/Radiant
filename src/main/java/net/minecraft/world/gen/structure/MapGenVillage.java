@@ -15,7 +15,7 @@ public class MapGenVillage extends MapGenStructure {
     public static final List<BiomeGenBase> villageSpawnBiomes = Arrays.<BiomeGenBase>asList(new BiomeGenBase[]{BiomeGenBase.plains, BiomeGenBase.desert, BiomeGenBase.savanna});
     private int terrainType;
     private int field_82665_g;
-    private int field_82666_h;
+    private final int field_82666_h;
 
     public MapGenVillage() {
         this.field_82665_g = 32;

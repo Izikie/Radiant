@@ -1,8 +1,8 @@
 package net.optifine.shaders.config;
 
 public class ShaderMacro {
-    private String name;
-    private String value;
+    private final String name;
+    private final String value;
 
     public ShaderMacro(String name, String value) {
         this.name = name;

@@ -22,7 +22,7 @@ public abstract class Container {
     private int dragEvent;
     private final Set<Slot> dragSlots = Sets.<Slot>newHashSet();
     protected List<ICrafting> crafters = Lists.<ICrafting>newArrayList();
-    private Set<EntityPlayer> playerList = Sets.<EntityPlayer>newHashSet();
+    private final Set<EntityPlayer> playerList = Sets.<EntityPlayer>newHashSet();
 
     protected Slot addSlotToContainer(Slot slotIn) {
         slotIn.slotNumber = this.inventorySlots.size();

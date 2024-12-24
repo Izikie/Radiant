@@ -36,8 +36,8 @@ public class FontRenderer implements IResourceManagerReloadListener {
     private final int[] charWidth = new int[256];
     public int FONT_HEIGHT = 9;
     public Random fontRandom = new Random();
-    private byte[] glyphWidth = new byte[65536];
-    private int[] colorCode = new int[32];
+    private final byte[] glyphWidth = new byte[65536];
+    private final int[] colorCode = new int[32];
     private ResourceLocation locationFontTexture;
     private final TextureManager renderEngine;
     private float posX;
@@ -57,9 +57,9 @@ public class FontRenderer implements IResourceManagerReloadListener {
     public GameSettings gameSettings;
     public ResourceLocation locationFontTextureBase;
     public float offsetBold = 1.0F;
-    private float[] charWidthFloat = new float[256];
+    private final float[] charWidthFloat = new float[256];
     private boolean blend = false;
-    private GlBlendState oldBlendState = new GlBlendState();
+    private final GlBlendState oldBlendState = new GlBlendState();
 
     public FontRenderer(GameSettings gameSettingsIn, ResourceLocation location, TextureManager textureManagerIn, boolean unicode) {
         this.gameSettings = gameSettingsIn;

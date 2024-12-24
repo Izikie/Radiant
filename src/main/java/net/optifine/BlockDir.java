@@ -23,7 +23,7 @@ public enum BlockDir {
     UP_WEST(EnumFacing.UP, EnumFacing.WEST),
     UP_EAST(EnumFacing.UP, EnumFacing.EAST);
 
-    private EnumFacing facing1;
+    private final EnumFacing facing1;
     private EnumFacing facing2;
 
     private BlockDir(EnumFacing facing1) {

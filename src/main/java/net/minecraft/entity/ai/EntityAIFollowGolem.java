@@ -6,7 +6,7 @@ import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.passive.EntityVillager;
 
 public class EntityAIFollowGolem extends EntityAIBase {
-    private EntityVillager theVillager;
+    private final EntityVillager theVillager;
     private EntityIronGolem theGolem;
     private int takeGolemRoseTick;
     private boolean tookGolemRose;

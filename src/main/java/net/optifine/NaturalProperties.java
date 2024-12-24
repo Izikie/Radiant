@@ -12,7 +12,7 @@ import net.minecraft.util.MathHelper;
 public class NaturalProperties {
     public int rotation = 1;
     public boolean flip = false;
-    private Map[] quadMaps = new Map[8];
+    private final Map[] quadMaps = new Map[8];
 
     public NaturalProperties(String type) {
         if (type.equals("4")) {

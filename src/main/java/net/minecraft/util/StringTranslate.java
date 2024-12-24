@@ -16,7 +16,7 @@ import org.apache.commons.io.IOUtils;
 public class StringTranslate {
     private static final Pattern numericVariablePattern = Pattern.compile("%(\\d+\\$)?[\\d\\.]*[df]");
     private static final Splitter equalSignSplitter = Splitter.on('=').limit(2);
-    private static StringTranslate instance = new StringTranslate();
+    private static final StringTranslate instance = new StringTranslate();
     private final Map<String, String> languageList = Maps.<String, String>newHashMap();
     private long lastUpdateTimeInMilliseconds;
 

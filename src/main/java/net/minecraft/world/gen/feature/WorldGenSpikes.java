@@ -10,7 +10,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class WorldGenSpikes extends WorldGenerator {
-    private Block baseBlockRequired;
+    private final Block baseBlockRequired;
 
     public WorldGenSpikes(Block p_i45464_1_) {
         this.baseBlockRequired = p_i45464_1_;

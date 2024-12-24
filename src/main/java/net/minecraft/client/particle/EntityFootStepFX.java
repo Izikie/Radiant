@@ -14,8 +14,8 @@ import net.minecraft.world.World;
 public class EntityFootStepFX extends EntityFX {
     private static final ResourceLocation FOOTPRINT_TEXTURE = new ResourceLocation("textures/particle/footprint.png");
     private int footstepAge;
-    private int footstepMaxAge;
-    private TextureManager currentFootSteps;
+    private final int footstepMaxAge;
+    private final TextureManager currentFootSteps;
 
     protected EntityFootStepFX(TextureManager currentFootStepsIn, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn) {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);

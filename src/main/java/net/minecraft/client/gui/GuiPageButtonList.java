@@ -16,7 +16,7 @@ public class GuiPageButtonList extends GuiListExtended {
     private final List<GuiTextField> field_178072_w = Lists.<GuiTextField>newArrayList();
     private final GuiPageButtonList.GuiListEntry[][] field_178078_x;
     private int field_178077_y;
-    private GuiPageButtonList.GuiResponder field_178076_z;
+    private final GuiPageButtonList.GuiResponder field_178076_z;
     private Gui field_178075_A;
 
     public GuiPageButtonList(Minecraft mcIn, int widthIn, int heightIn, int topIn, int bottomIn, int slotHeightIn, GuiPageButtonList.GuiResponder p_i45536_7_, GuiPageButtonList.GuiListEntry[]... p_i45536_8_) {

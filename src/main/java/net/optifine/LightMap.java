@@ -5,8 +5,8 @@ import net.minecraft.world.World;
 
 public class LightMap {
     private CustomColormap lightMapRgb = null;
-    private float[][] sunRgbs = new float[16][3];
-    private float[][] torchRgbs = new float[16][3];
+    private final float[][] sunRgbs = new float[16][3];
+    private final float[][] torchRgbs = new float[16][3];
 
     public LightMap(CustomColormap lightMapRgb) {
         this.lightMapRgb = lightMapRgb;

@@ -57,7 +57,7 @@ public enum ShaderParameterFloat {
     SHADOW_MODEL_VIEW(Shaders.uniform_shadowModelView, new String[]{"0", "1", "2", "3"}, new String[]{"0", "1", "2", "3"}),
     SHADOW_MODEL_VIEW_INVERSE(Shaders.uniform_shadowModelViewInverse, new String[]{"0", "1", "2", "3"}, new String[]{"0", "1", "2", "3"});
 
-    private String name;
+    private final String name;
     private ShaderUniformBase uniform;
     private String[] indexNames1;
     private String[] indexNames2;

@@ -5,7 +5,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 public class ContainerBeacon extends Container {
-    private IInventory tileBeacon;
+    private final IInventory tileBeacon;
     private final ContainerBeacon.BeaconSlot beaconSlot;
 
     public ContainerBeacon(IInventory playerInventory, IInventory tileBeaconIn) {

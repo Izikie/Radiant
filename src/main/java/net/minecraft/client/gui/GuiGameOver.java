@@ -9,7 +9,7 @@ import net.minecraft.util.EnumChatFormatting;
 
 public class GuiGameOver extends GuiScreen implements GuiYesNoCallback {
     private int enableButtonsTimer;
-    private boolean field_146346_f = false;
+    private final boolean field_146346_f = false;
 
     public void initGui() {
         this.buttonList.clear();

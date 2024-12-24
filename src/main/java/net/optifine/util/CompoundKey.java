@@ -3,7 +3,7 @@ package net.optifine.util;
 import net.minecraft.src.Config;
 
 public class CompoundKey {
-    private Object[] keys;
+    private final Object[] keys;
     private int hashcode;
 
     public CompoundKey(Object[] keys) {

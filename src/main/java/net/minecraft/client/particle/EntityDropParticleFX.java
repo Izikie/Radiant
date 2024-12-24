@@ -9,7 +9,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class EntityDropParticleFX extends EntityFX {
-    private Material materialType;
+    private final Material materialType;
     private int bobTimer;
 
     protected EntityDropParticleFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, Material p_i1203_8_) {

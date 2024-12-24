@@ -10,7 +10,7 @@ import net.minecraft.util.MathHelper;
 
 public class EntityAIVillagerInteract extends EntityAIWatchClosest2 {
     private int interactionDelay;
-    private EntityVillager villager;
+    private final EntityVillager villager;
 
     public EntityAIVillagerInteract(EntityVillager villagerIn) {
         super(villagerIn, EntityVillager.class, 3.0F, 0.02F);

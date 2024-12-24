@@ -25,7 +25,7 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
     public float bookRotation;
     public float bookRotationPrev;
     public float field_145924_q;
-    private static Random rand = new Random();
+    private static final Random rand = new Random();
     private String customName;
 
     public void writeToNBT(NBTTagCompound compound) {

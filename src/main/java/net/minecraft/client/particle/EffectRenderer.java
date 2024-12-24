@@ -36,11 +36,11 @@ import net.optifine.reflect.Reflector;
 public class EffectRenderer {
     private static final ResourceLocation particleTextures = new ResourceLocation("textures/particle/particles.png");
     protected World worldObj;
-    private List<EntityFX>[][] fxLayers = new List[4][];
-    private List<EntityParticleEmitter> particleEmitters = Lists.<EntityParticleEmitter>newArrayList();
-    private TextureManager renderer;
-    private Random rand = new Random();
-    private Map<Integer, IParticleFactory> particleTypes = Maps.<Integer, IParticleFactory>newHashMap();
+    private final List<EntityFX>[][] fxLayers = new List[4][];
+    private final List<EntityParticleEmitter> particleEmitters = Lists.<EntityParticleEmitter>newArrayList();
+    private final TextureManager renderer;
+    private final Random rand = new Random();
+    private final Map<Integer, IParticleFactory> particleTypes = Maps.<Integer, IParticleFactory>newHashMap();
 
     public EffectRenderer(World worldIn, TextureManager rendererIn) {
         this.worldObj = worldIn;

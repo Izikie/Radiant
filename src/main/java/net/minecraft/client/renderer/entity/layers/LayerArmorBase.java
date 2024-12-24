@@ -24,10 +24,10 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
     protected T modelLeggings;
     protected T modelArmor;
     private final RendererLivingEntity<?> renderer;
-    private float alpha = 1.0F;
-    private float colorR = 1.0F;
-    private float colorG = 1.0F;
-    private float colorB = 1.0F;
+    private final float alpha = 1.0F;
+    private final float colorR = 1.0F;
+    private final float colorG = 1.0F;
+    private final float colorB = 1.0F;
     private boolean skipRenderGlint;
     private static final Map<String, ResourceLocation> ARMOR_TEXTURE_RES_MAP = Maps.<String, ResourceLocation>newHashMap();
 

@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 public class PotionEffect {
     private static final Logger LOGGER = LogManager.getLogger();
-    private int potionID;
+    private final int potionID;
     private int duration;
     private int amplifier;
     private boolean isSplashPotion;

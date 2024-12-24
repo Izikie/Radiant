@@ -60,7 +60,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
     private int iconGridCountY;
     private double iconGridSizeU;
     private double iconGridSizeV;
-    private CounterInt counterIndexInMap;
+    private final CounterInt counterIndexInMap;
     public int atlasWidth;
     public int atlasHeight;
     private int countAnimationsActive;

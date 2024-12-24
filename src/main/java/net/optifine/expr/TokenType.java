@@ -8,8 +8,8 @@ public enum TokenType {
     BRACKET_OPEN("("),
     BRACKET_CLOSE(")");
 
-    private String charsFirst;
-    private String charsNext;
+    private final String charsFirst;
+    private final String charsNext;
     public static final TokenType[] VALUES = values();
 
     private TokenType(String charsFirst) {

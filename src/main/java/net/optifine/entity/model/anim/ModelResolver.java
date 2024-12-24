@@ -9,12 +9,12 @@ import net.optifine.entity.model.ModelAdapter;
 import net.optifine.expr.IExpression;
 
 public class ModelResolver implements IModelResolver {
-    private ModelAdapter modelAdapter;
-    private ModelBase model;
-    private CustomModelRenderer[] customModelRenderers;
+    private final ModelAdapter modelAdapter;
+    private final ModelBase model;
+    private final CustomModelRenderer[] customModelRenderers;
     private ModelRenderer thisModelRenderer;
     private ModelRenderer partModelRenderer;
-    private IRenderResolver renderResolver;
+    private final IRenderResolver renderResolver;
 
     public ModelResolver(ModelAdapter modelAdapter, ModelBase model, CustomModelRenderer[] customModelRenderers) {
         this.modelAdapter = modelAdapter;

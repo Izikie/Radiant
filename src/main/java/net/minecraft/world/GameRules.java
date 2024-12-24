@@ -6,7 +6,7 @@ import java.util.TreeMap;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class GameRules {
-    private TreeMap<String, GameRules.Value> theGameRules = new TreeMap();
+    private final TreeMap<String, GameRules.Value> theGameRules = new TreeMap();
 
     public GameRules() {
         this.addGameRule("doFireTick", "true", GameRules.ValueType.BOOLEAN_VALUE);

@@ -13,17 +13,17 @@ public class GuiLabel extends Gui {
     protected int field_146161_f = 20;
     public int field_146162_g;
     public int field_146174_h;
-    private List<String> field_146173_k;
+    private final List<String> field_146173_k;
     public int field_175204_i;
     private boolean centered;
     public boolean visible = true;
-    private boolean labelBgEnabled;
-    private int field_146168_n;
-    private int field_146169_o;
-    private int field_146166_p;
-    private int field_146165_q;
-    private FontRenderer fontRenderer;
-    private int field_146163_s;
+    private final boolean labelBgEnabled;
+    private final int field_146168_n;
+    private final int field_146169_o;
+    private final int field_146166_p;
+    private final int field_146165_q;
+    private final FontRenderer fontRenderer;
+    private final int field_146163_s;
 
     public GuiLabel(FontRenderer fontRendererObj, int p_i45540_2_, int p_i45540_3_, int p_i45540_4_, int p_i45540_5_, int p_i45540_6_, int p_i45540_7_) {
         this.fontRenderer = fontRendererObj;

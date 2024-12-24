@@ -40,11 +40,11 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
     private static final AtomicInteger field_175373_f = new AtomicInteger(0);
     private static final Logger logger = LogManager.getLogger();
     private static final Random RANDOM = new Random();
-    private float updateCounter;
+    private final float updateCounter;
     private String splashText;
     private int panoramaTimer;
     private DynamicTexture viewportTexture;
-    private boolean field_175375_v = true;
+    private final boolean field_175375_v = true;
     private final Object threadLock = new Object();
     private String openGLWarning1;
     private String openGLWarning2;
@@ -60,7 +60,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
     private int field_92020_v;
     private int field_92019_w;
     private ResourceLocation backgroundTexture;
-    private boolean field_183502_L;
+    private final boolean field_183502_L;
     private GuiScreen field_183503_M;
 
     public GuiMainMenu() {

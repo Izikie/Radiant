@@ -13,7 +13,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class ItemSword extends Item {
-    private float attackDamage;
+    private final float attackDamage;
     private final Item.ToolMaterial material;
 
     public ItemSword(Item.ToolMaterial material) {

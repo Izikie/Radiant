@@ -11,8 +11,8 @@ import net.minecraft.world.World;
 public class ContainerWorkbench extends Container {
     public InventoryCrafting craftMatrix = new InventoryCrafting(this, 3, 3);
     public IInventory craftResult = new InventoryCraftResult();
-    private World worldObj;
-    private BlockPos pos;
+    private final World worldObj;
+    private final BlockPos pos;
 
     public ContainerWorkbench(InventoryPlayer playerInventory, World worldIn, BlockPos posIn) {
         this.worldObj = worldIn;

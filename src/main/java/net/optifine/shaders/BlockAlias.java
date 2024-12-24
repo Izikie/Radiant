@@ -9,8 +9,8 @@ import net.minecraft.src.Config;
 import net.optifine.config.MatchBlock;
 
 public class BlockAlias {
-    private int blockAliasId;
-    private MatchBlock[] matchBlocks;
+    private final int blockAliasId;
+    private final MatchBlock[] matchBlocks;
 
     public BlockAlias(int blockAliasId, MatchBlock[] matchBlocks) {
         this.blockAliasId = blockAliasId;

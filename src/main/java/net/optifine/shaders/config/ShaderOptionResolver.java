@@ -7,7 +7,7 @@ import net.optifine.expr.IExpression;
 import net.optifine.expr.IExpressionResolver;
 
 public class ShaderOptionResolver implements IExpressionResolver {
-    private Map<String, ExpressionShaderOptionSwitch> mapOptions = new HashMap();
+    private final Map<String, ExpressionShaderOptionSwitch> mapOptions = new HashMap();
 
     public ShaderOptionResolver(ShaderOption[] options) {
         for (int i = 0; i < options.length; ++i) {

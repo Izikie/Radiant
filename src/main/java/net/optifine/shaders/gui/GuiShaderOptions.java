@@ -17,10 +17,10 @@ import net.optifine.shaders.config.ShaderOptionProfile;
 import net.optifine.shaders.config.ShaderOptionScreen;
 
 public class GuiShaderOptions extends GuiScreenOF {
-    private GuiScreen prevScreen;
+    private final GuiScreen prevScreen;
     protected String title;
-    private GameSettings settings;
-    private TooltipManager tooltipManager;
+    private final GameSettings settings;
+    private final TooltipManager tooltipManager;
     private String screenName;
     private String screenText;
     private boolean changed;

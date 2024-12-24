@@ -7,9 +7,9 @@ import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.util.Vec3;
 
 public class EntityAIPlay extends EntityAIBase {
-    private EntityVillager villagerObj;
+    private final EntityVillager villagerObj;
     private EntityLivingBase targetVillager;
-    private double speed;
+    private final double speed;
     private int playTime;
 
     public EntityAIPlay(EntityVillager villagerObjIn, double speedIn) {

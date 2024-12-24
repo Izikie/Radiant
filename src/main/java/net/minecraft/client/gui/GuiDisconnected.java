@@ -7,8 +7,8 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.util.IChatComponent;
 
 public class GuiDisconnected extends GuiScreen {
-    private String reason;
-    private IChatComponent message;
+    private final String reason;
+    private final IChatComponent message;
     private List<String> multilineMessage;
     private final GuiScreen parentScreen;
     private int field_175353_i;

@@ -20,7 +20,7 @@ import net.minecraft.world.World;
 public class EntityMinecartHopper extends EntityMinecartContainer implements IHopper {
     private boolean isBlocked = true;
     private int transferTicker = -1;
-    private BlockPos field_174900_c = BlockPos.ORIGIN;
+    private final BlockPos field_174900_c = BlockPos.ORIGIN;
 
     public EntityMinecartHopper(World worldIn) {
         super(worldIn);

@@ -111,7 +111,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
     private long lastSentPingPacket;
     private int chatSpamThresholdCount;
     private int itemDropThreshold;
-    private IntHashMap<Short> field_147372_n = new IntHashMap();
+    private final IntHashMap<Short> field_147372_n = new IntHashMap();
     private double lastPosX;
     private double lastPosY;
     private double lastPosZ;

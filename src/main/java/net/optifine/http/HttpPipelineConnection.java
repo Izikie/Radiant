@@ -17,8 +17,8 @@ public class HttpPipelineConnection {
     private String host;
     private int port;
     private Proxy proxy;
-    private List<HttpPipelineRequest> listRequests;
-    private List<HttpPipelineRequest> listRequestsSend;
+    private final List<HttpPipelineRequest> listRequests;
+    private final List<HttpPipelineRequest> listRequestsSend;
     private Socket socket;
     private InputStream inputStream;
     private OutputStream outputStream;

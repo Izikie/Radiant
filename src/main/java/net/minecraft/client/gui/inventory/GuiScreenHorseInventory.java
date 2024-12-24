@@ -9,9 +9,9 @@ import net.minecraft.util.ResourceLocation;
 
 public class GuiScreenHorseInventory extends GuiContainer {
     private static final ResourceLocation horseGuiTextures = new ResourceLocation("textures/gui/container/horse.png");
-    private IInventory playerInventory;
-    private IInventory horseInventory;
-    private EntityHorse horseEntity;
+    private final IInventory playerInventory;
+    private final IInventory horseInventory;
+    private final EntityHorse horseEntity;
     private float mousePosx;
     private float mousePosY;
 

@@ -12,14 +12,14 @@ import net.minecraft.util.ResourceLocation;
 
 public class GuiAchievement extends Gui {
     private static final ResourceLocation achievementBg = new ResourceLocation("textures/gui/achievement/achievement_background.png");
-    private Minecraft mc;
+    private final Minecraft mc;
     private int width;
     private int height;
     private String achievementTitle;
     private String achievementDescription;
     private Achievement theAchievement;
     private long notificationTime;
-    private RenderItem renderItem;
+    private final RenderItem renderItem;
     private boolean permanentNotification;
 
     public GuiAchievement(Minecraft mc) {

@@ -9,9 +9,9 @@ import net.optifine.CustomLoadingScreen;
 import net.optifine.CustomLoadingScreens;
 
 public class GuiDownloadTerrain extends GuiScreen {
-    private NetHandlerPlayClient netHandlerPlayClient;
+    private final NetHandlerPlayClient netHandlerPlayClient;
     private int progress;
-    private CustomLoadingScreen customLoadingScreen = CustomLoadingScreens.getCustomLoadingScreen();
+    private final CustomLoadingScreen customLoadingScreen = CustomLoadingScreens.getCustomLoadingScreen();
 
     public GuiDownloadTerrain(NetHandlerPlayClient netHandler) {
         this.netHandlerPlayClient = netHandler;

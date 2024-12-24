@@ -3,8 +3,8 @@ package net.minecraft.client.model;
 import net.minecraft.client.renderer.WorldRenderer;
 
 public class ModelBox {
-    private PositionTextureVertex[] vertexPositions;
-    private TexturedQuad[] quadList;
+    private final PositionTextureVertex[] vertexPositions;
+    private final TexturedQuad[] quadList;
     public final float posX1;
     public final float posY1;
     public final float posZ1;

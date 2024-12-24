@@ -10,10 +10,10 @@ import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
 
 public class CustomLoadingScreen {
-    private ResourceLocation locationTexture;
+    private final ResourceLocation locationTexture;
     private int scaleMode = 0;
     private int scale = 2;
-    private boolean center;
+    private final boolean center;
     private static final int SCALE_DEFAULT = 2;
     private static final int SCALE_MODE_FIXED = 0;
     private static final int SCALE_MODE_FULL = 1;

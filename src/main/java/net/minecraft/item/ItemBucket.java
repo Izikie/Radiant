@@ -15,7 +15,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
 public class ItemBucket extends Item {
-    private Block isFull;
+    private final Block isFull;
 
     public ItemBucket(Block containedBlock) {
         this.maxStackSize = 1;

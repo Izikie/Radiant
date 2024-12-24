@@ -9,8 +9,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class WorldGenSand extends WorldGenerator {
-    private Block block;
-    private int radius;
+    private final Block block;
+    private final int radius;
 
     public WorldGenSand(Block p_i45462_1_, int p_i45462_2_) {
         this.block = p_i45462_1_;

@@ -29,7 +29,7 @@ public class GuiWinGame extends GuiScreen {
     private int field_146581_h;
     private List<String> field_146582_i;
     private int field_146579_r;
-    private float field_146578_s = 0.5F;
+    private final float field_146578_s = 0.5F;
 
     public void updateScreen() {
         MusicTicker musicticker = this.mc.getMusicTicker();

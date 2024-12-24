@@ -30,12 +30,12 @@ import net.optifine.util.ResUtils;
 import net.optifine.util.StrUtils;
 
 public class RandomEntities {
-    private static Map<String, RandomEntityProperties> mapProperties = new HashMap();
+    private static final Map<String, RandomEntityProperties> mapProperties = new HashMap();
     private static boolean active = false;
     private static RenderGlobal renderGlobal;
-    private static RandomEntity randomEntity = new RandomEntity();
+    private static final RandomEntity randomEntity = new RandomEntity();
     private static TileEntityRendererDispatcher tileEntityRendererDispatcher;
-    private static RandomTileEntity randomTileEntity = new RandomTileEntity();
+    private static final RandomTileEntity randomTileEntity = new RandomTileEntity();
     private static boolean working = false;
     public static final String SUFFIX_PNG = ".png";
     public static final String SUFFIX_PROPERTIES = ".properties";

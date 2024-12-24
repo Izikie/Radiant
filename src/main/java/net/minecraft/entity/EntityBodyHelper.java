@@ -3,7 +3,7 @@ package net.minecraft.entity;
 import net.minecraft.util.MathHelper;
 
 public class EntityBodyHelper {
-    private EntityLivingBase theLiving;
+    private final EntityLivingBase theLiving;
     private int rotationTickCounter;
     private float prevRenderYawHead;
 

@@ -10,8 +10,8 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
 
 public class WorldManager implements IWorldAccess {
-    private MinecraftServer mcServer;
-    private WorldServer theWorldServer;
+    private final MinecraftServer mcServer;
+    private final WorldServer theWorldServer;
 
     public WorldManager(MinecraftServer mcServerIn, WorldServer worldServerIn) {
         this.mcServer = mcServerIn;

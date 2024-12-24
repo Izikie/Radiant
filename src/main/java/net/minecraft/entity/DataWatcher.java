@@ -25,7 +25,7 @@ public class DataWatcher {
     private static final Map<Class<?>, Integer> dataTypes = Maps.<Class<?>, Integer>newHashMap();
     private final Map<Integer, DataWatcher.WatchableObject> watchedObjects = Maps.<Integer, DataWatcher.WatchableObject>newHashMap();
     private boolean objectChanged;
-    private ReadWriteLock lock = new ReentrantReadWriteLock();
+    private final ReadWriteLock lock = new ReentrantReadWriteLock();
     public BiomeGenBase spawnBiome = BiomeGenBase.plains;
     public BlockPos spawnPosition = BlockPos.ORIGIN;
 

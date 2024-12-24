@@ -20,7 +20,7 @@ public class GuiScreenCapeOF extends GuiScreenOF {
     private long messageHideTimeMs;
     private String linkUrl;
     private GuiButtonOF buttonCopyLink;
-    private FontRenderer fontRenderer;
+    private final FontRenderer fontRenderer;
 
     public GuiScreenCapeOF(GuiScreen parentScreenIn) {
         this.fontRenderer = Config.getMinecraft().fontRendererObj;

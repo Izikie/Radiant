@@ -12,9 +12,9 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.src.Config;
 
 public class GuiMessage extends GuiScreen {
-    private GuiScreen parentScreen;
-    private String messageLine1;
-    private String messageLine2;
+    private final GuiScreen parentScreen;
+    private final String messageLine1;
+    private final String messageLine2;
     private final List listLines2 = Lists.newArrayList();
     protected String confirmButtonText;
     private int ticksUntilEnable;

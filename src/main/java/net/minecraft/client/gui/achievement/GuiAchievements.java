@@ -43,7 +43,7 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
     protected double field_146565_w;
     protected double field_146573_x;
     private int field_146554_D;
-    private StatFileWriter statFileWriter;
+    private final StatFileWriter statFileWriter;
     private boolean loadingAchievements = true;
 
     public GuiAchievements(GuiScreen parentScreenIn, StatFileWriter statFileWriterIn) {

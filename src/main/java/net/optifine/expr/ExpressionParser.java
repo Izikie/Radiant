@@ -12,7 +12,7 @@ import java.util.List;
 import net.minecraft.src.Config;
 
 public class ExpressionParser {
-    private IExpressionResolver expressionResolver;
+    private final IExpressionResolver expressionResolver;
 
     public ExpressionParser(IExpressionResolver expressionResolver) {
         this.expressionResolver = expressionResolver;

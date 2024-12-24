@@ -198,9 +198,9 @@ public class TileEntityBanner extends TileEntity {
         FLOWER("flower", "flo", new ItemStack(Blocks.red_flower, 1, BlockFlower.EnumFlowerType.OXEYE_DAISY.getMeta())),
         MOJANG("mojang", "moj", new ItemStack(Items.golden_apple, 1, 1));
 
-        private String patternName;
-        private String patternID;
-        private String[] craftingLayers;
+        private final String patternName;
+        private final String patternID;
+        private final String[] craftingLayers;
         private ItemStack patternCraftingStack;
 
         private EnumBannerPattern(String name, String id) {

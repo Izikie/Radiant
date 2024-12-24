@@ -7,8 +7,8 @@ import net.optifine.shaders.Shaders;
 
 public class SmartAnimations {
     private static boolean active;
-    private static BitSet spritesRendered = new BitSet();
-    private static BitSet texturesRendered = new BitSet();
+    private static final BitSet spritesRendered = new BitSet();
+    private static final BitSet texturesRendered = new BitSet();
 
     public static boolean isActive() {
         return active && !Shaders.isShadowPass;

@@ -81,7 +81,7 @@ public class Config {
     public static final String OF_EDITION = "HD_U";
     public static final String OF_RELEASE = "M6_pre2";
     public static final String VERSION = "OptiFine_1.8.9_HD_U_M6_pre2";
-    private static String build = null;
+    private static final String build = null;
     private static String newRelease = null;
     private static boolean notify64BitJava = false;
     public static String openGlVersion = null;
@@ -94,7 +94,7 @@ public class Config {
     public static boolean fancyFogAvailable = false;
     public static boolean occlusionAvailable = false;
     private static GameSettings gameSettings = null;
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
     private static boolean initialized = false;
     private static Thread minecraftThread = null;
     private static DisplayMode desktopDisplayMode = null;

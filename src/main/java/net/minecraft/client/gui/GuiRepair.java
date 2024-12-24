@@ -24,9 +24,9 @@ import org.lwjgl.input.Keyboard;
 
 public class GuiRepair extends GuiContainer implements ICrafting {
     private static final ResourceLocation anvilResource = new ResourceLocation("textures/gui/container/anvil.png");
-    private ContainerRepair anvil;
+    private final ContainerRepair anvil;
     private GuiTextField nameField;
-    private InventoryPlayer playerInventory;
+    private final InventoryPlayer playerInventory;
 
     public GuiRepair(InventoryPlayer inventoryIn, World worldIn) {
         super(new ContainerRepair(inventoryIn, worldIn, Minecraft.getMinecraft().thePlayer));

@@ -7,10 +7,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class EntityAIBeg extends EntityAIBase {
-    private EntityWolf theWolf;
+    private final EntityWolf theWolf;
     private EntityPlayer thePlayer;
-    private World worldObject;
-    private float minPlayerDistance;
+    private final World worldObject;
+    private final float minPlayerDistance;
     private int timeoutCounter;
 
     public EntityAIBeg(EntityWolf wolf, float minDistance) {

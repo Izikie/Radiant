@@ -6,7 +6,7 @@ import java.util.ArrayDeque;
 public class ArrayCache {
     private Class elementClass = null;
     private int maxCacheSize = 0;
-    private ArrayDeque cache = new ArrayDeque();
+    private final ArrayDeque cache = new ArrayDeque();
 
     public ArrayCache(Class elementClass, int maxCacheSize) {
         this.elementClass = elementClass;

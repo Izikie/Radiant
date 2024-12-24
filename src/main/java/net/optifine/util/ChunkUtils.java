@@ -13,9 +13,9 @@ import net.optifine.reflect.ReflectorClass;
 import net.optifine.reflect.ReflectorField;
 
 public class ChunkUtils {
-    private static ReflectorClass chunkClass = new ReflectorClass(Chunk.class);
-    private static ReflectorField fieldHasEntities = findFieldHasEntities();
-    private static ReflectorField fieldPrecipitationHeightMap = new ReflectorField(chunkClass, int[].class, 0);
+    private static final ReflectorClass chunkClass = new ReflectorClass(Chunk.class);
+    private static final ReflectorField fieldHasEntities = findFieldHasEntities();
+    private static final ReflectorField fieldPrecipitationHeightMap = new ReflectorField(chunkClass, int[].class, 0);
 
     public static boolean hasEntities(Chunk chunk) {
         return Reflector.getFieldValueBoolean(chunk, fieldHasEntities, true);

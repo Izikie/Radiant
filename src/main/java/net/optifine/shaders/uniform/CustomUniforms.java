@@ -8,8 +8,8 @@ import net.optifine.expr.IExpression;
 import net.optifine.expr.IExpressionCached;
 
 public class CustomUniforms {
-    private CustomUniform[] uniforms;
-    private IExpressionCached[] expressionsCached;
+    private final CustomUniform[] uniforms;
+    private final IExpressionCached[] expressionsCached;
 
     public CustomUniforms(CustomUniform[] uniforms, Map<String, IExpression> mapExpressions) {
         this.uniforms = uniforms;

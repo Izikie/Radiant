@@ -46,7 +46,7 @@ public class SoundManager {
     private int playTime = 0;
     private final Map<String, ISound> playingSounds = HashBiMap.<String, ISound>create();
     private final Map<ISound, String> invPlayingSounds;
-    private Map<ISound, SoundPoolEntry> playingSoundPoolEntries;
+    private final Map<ISound, SoundPoolEntry> playingSoundPoolEntries;
     private final Multimap<SoundCategory, String> categorySounds;
     private final List<ITickableSound> tickableSounds;
     private final Map<ISound, Integer> delayedSounds;

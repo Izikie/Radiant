@@ -17,8 +17,8 @@ import net.minecraft.world.gen.layer.IntCache;
 public class WorldChunkManager {
     private GenLayer genBiomes;
     private GenLayer biomeIndexLayer;
-    private BiomeCache biomeCache;
-    private List<BiomeGenBase> biomesToSpawnIn;
+    private final BiomeCache biomeCache;
+    private final List<BiomeGenBase> biomesToSpawnIn;
     private String generatorOptions;
 
     protected WorldChunkManager() {

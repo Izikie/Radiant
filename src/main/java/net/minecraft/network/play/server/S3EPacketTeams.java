@@ -18,7 +18,7 @@ public class S3EPacketTeams implements Packet<INetHandlerPlayClient> {
     private String suffix = "";
     private String nameTagVisibility;
     private int color;
-    private Collection<String> players;
+    private final Collection<String> players;
     private int action;
     private int friendlyFlags;
 

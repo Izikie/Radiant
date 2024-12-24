@@ -60,7 +60,7 @@ public class Chunk {
     private int heightMapMinimum;
     private long inhabitedTime;
     private int queuedLightChecks;
-    private ConcurrentLinkedQueue<BlockPos> tileEntityPosQueue;
+    private final ConcurrentLinkedQueue<BlockPos> tileEntityPosQueue;
 
     public Chunk(World worldIn, int x, int z) {
         this.storageArrays = new ExtendedBlockStorage[16];

@@ -159,7 +159,7 @@ public class Shaders {
     static float[] upPosModelView = new float[]{0.0F, 100.0F, 0.0F, 0.0F};
     static float[] sunPosModelView = new float[]{0.0F, 100.0F, 0.0F, 0.0F};
     static float[] moonPosModelView = new float[]{0.0F, -100.0F, 0.0F, 0.0F};
-    private static float[] tempMat = new float[16];
+    private static final float[] tempMat = new float[16];
     static float clearColorR;
     static float clearColorG;
     static float clearColorB;
@@ -214,7 +214,7 @@ public class Shaders {
     private static boolean hasGeometryShaders = false;
     public static int atlasSizeX = 0;
     public static int atlasSizeY = 0;
-    private static ShaderUniforms shaderUniforms = new ShaderUniforms();
+    private static final ShaderUniforms shaderUniforms = new ShaderUniforms();
     public static ShaderUniform4f uniform_entityColor = shaderUniforms.make4f("entityColor");
     public static ShaderUniform1i uniform_entityId = shaderUniforms.make1i("entityId");
     public static ShaderUniform1i uniform_blockEntityId = shaderUniforms.make1i("blockEntityId");
@@ -339,10 +339,10 @@ public class Shaders {
     static int usedDrawBuffers = 0;
     static int dfb = 0;
     static int sfb = 0;
-    private static int[] gbuffersFormat = new int[8];
+    private static final int[] gbuffersFormat = new int[8];
     public static boolean[] gbuffersClear = new boolean[8];
     public static Vector4f[] gbuffersClearColor = new Vector4f[8];
-    private static Programs programs = new Programs();
+    private static final Programs programs = new Programs();
     public static final Program ProgramNone = programs.getProgramNone();
     public static final Program ProgramShadow = programs.makeShadow("shadow", ProgramNone);
     public static final Program ProgramShadowSolid = programs.makeShadow("shadow_solid", ProgramShadow);
@@ -380,7 +380,7 @@ public class Shaders {
     public static final Program[] ProgramsAll = programs.getPrograms();
     public static Program activeProgram = ProgramNone;
     public static int activeProgramID = 0;
-    private static ProgramStack programStack = new ProgramStack();
+    private static final ProgramStack programStack = new ProgramStack();
     private static boolean hasDeferredPrograms = false;
     static IntBuffer activeDrawBuffers = null;
     private static int activeCompositeMipmapSetting = 0;
@@ -449,7 +449,7 @@ public class Shaders {
     public static PropertyDefaultTrueFalse shaderPackFrustumCulling = new PropertyDefaultTrueFalse("frustum.culling", "Frustum Culling", 0);
     private static Map<String, String> shaderPackResources = new HashMap();
     private static World currentWorld = null;
-    private static List<Integer> shaderPackDimensions = new ArrayList();
+    private static final List<Integer> shaderPackDimensions = new ArrayList();
     private static ICustomTexture[] customTexturesGbuffers = null;
     private static ICustomTexture[] customTexturesComposite = null;
     private static ICustomTexture[] customTexturesDeferred = null;

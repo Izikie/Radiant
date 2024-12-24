@@ -13,8 +13,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 
 public class BlockStateMapper {
-    private Map<Block, IStateMapper> blockStateMap = Maps.<Block, IStateMapper>newIdentityHashMap();
-    private Set<Block> setBuiltInBlocks = Sets.<Block>newIdentityHashSet();
+    private final Map<Block, IStateMapper> blockStateMap = Maps.<Block, IStateMapper>newIdentityHashMap();
+    private final Set<Block> setBuiltInBlocks = Sets.<Block>newIdentityHashSet();
 
     public void registerBlockStateMapper(Block p_178447_1_, IStateMapper p_178447_2_) {
         this.blockStateMap.put(p_178447_1_, p_178447_2_);

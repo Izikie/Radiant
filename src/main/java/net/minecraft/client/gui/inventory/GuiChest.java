@@ -8,9 +8,9 @@ import net.minecraft.util.ResourceLocation;
 
 public class GuiChest extends GuiContainer {
     private static final ResourceLocation CHEST_GUI_TEXTURE = new ResourceLocation("textures/gui/container/generic_54.png");
-    private IInventory upperChestInventory;
-    private IInventory lowerChestInventory;
-    private int inventoryRows;
+    private final IInventory upperChestInventory;
+    private final IInventory lowerChestInventory;
+    private final int inventoryRows;
 
     public GuiChest(IInventory upperInv, IInventory lowerInv) {
         super(new ContainerChest(upperInv, lowerInv, Minecraft.getMinecraft().thePlayer));

@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 
 public class EntityHugeExplodeFX extends EntityFX {
     private int timeSinceStart;
-    private int maximumTime = 8;
+    private final int maximumTime = 8;
 
     protected EntityHugeExplodeFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i1214_8_, double p_i1214_10_, double p_i1214_12_) {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);

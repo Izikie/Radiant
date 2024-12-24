@@ -13,7 +13,7 @@ public class BlockPosM extends BlockPos {
     private int mx;
     private int my;
     private int mz;
-    private int level;
+    private final int level;
     private BlockPosM[] facings;
     private boolean needsUpdate;
 

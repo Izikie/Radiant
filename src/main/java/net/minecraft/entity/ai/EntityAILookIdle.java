@@ -3,7 +3,7 @@ package net.minecraft.entity.ai;
 import net.minecraft.entity.EntityLiving;
 
 public class EntityAILookIdle extends EntityAIBase {
-    private EntityLiving idleEntity;
+    private final EntityLiving idleEntity;
     private double lookX;
     private double lookZ;
     private int idleTime;

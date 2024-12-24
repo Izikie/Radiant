@@ -140,7 +140,7 @@ public class EntityGhast extends EntityFlying implements IMob {
     }
 
     static class AIFireballAttack extends EntityAIBase {
-        private EntityGhast parentEntity;
+        private final EntityGhast parentEntity;
         public int attackTimer;
 
         public AIFireballAttack(EntityGhast ghast) {
@@ -195,7 +195,7 @@ public class EntityGhast extends EntityFlying implements IMob {
     }
 
     static class AILookAround extends EntityAIBase {
-        private EntityGhast parentEntity;
+        private final EntityGhast parentEntity;
 
         public AILookAround(EntityGhast ghast) {
             this.parentEntity = ghast;
@@ -223,7 +223,7 @@ public class EntityGhast extends EntityFlying implements IMob {
     }
 
     static class AIRandomFly extends EntityAIBase {
-        private EntityGhast parentEntity;
+        private final EntityGhast parentEntity;
 
         public AIRandomFly(EntityGhast ghast) {
             this.parentEntity = ghast;
@@ -258,7 +258,7 @@ public class EntityGhast extends EntityFlying implements IMob {
     }
 
     static class GhastMoveHelper extends EntityMoveHelper {
-        private EntityGhast parentEntity;
+        private final EntityGhast parentEntity;
         private int courseChangeCooldown;
 
         public GhastMoveHelper(EntityGhast ghast) {

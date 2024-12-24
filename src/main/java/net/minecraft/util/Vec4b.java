@@ -1,10 +1,10 @@
 package net.minecraft.util;
 
 public class Vec4b {
-    private byte field_176117_a;
-    private byte field_176115_b;
-    private byte field_176116_c;
-    private byte field_176114_d;
+    private final byte field_176117_a;
+    private final byte field_176115_b;
+    private final byte field_176116_c;
+    private final byte field_176114_d;
 
     public Vec4b(byte p_i45555_1_, byte p_i45555_2_, byte p_i45555_3_, byte p_i45555_4_) {
         this.field_176117_a = p_i45555_1_;

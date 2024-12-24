@@ -14,12 +14,12 @@ import net.minecraft.village.Village;
 import net.minecraft.village.VillageDoorInfo;
 
 public class EntityAIMoveThroughVillage extends EntityAIBase {
-    private EntityCreature theEntity;
-    private double movementSpeed;
+    private final EntityCreature theEntity;
+    private final double movementSpeed;
     private PathEntity entityPathNavigate;
     private VillageDoorInfo doorInfo;
-    private boolean isNocturnal;
-    private List<VillageDoorInfo> doorList = Lists.<VillageDoorInfo>newArrayList();
+    private final boolean isNocturnal;
+    private final List<VillageDoorInfo> doorList = Lists.<VillageDoorInfo>newArrayList();
 
     public EntityAIMoveThroughVillage(EntityCreature theEntityIn, double movementSpeedIn, boolean isNocturnalIn) {
         this.theEntity = theEntityIn;

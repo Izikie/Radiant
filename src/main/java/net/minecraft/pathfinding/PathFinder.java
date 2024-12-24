@@ -6,9 +6,9 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.pathfinder.NodeProcessor;
 
 public class PathFinder {
-    private Path path = new Path();
-    private PathPoint[] pathOptions = new PathPoint[32];
-    private NodeProcessor nodeProcessor;
+    private final Path path = new Path();
+    private final PathPoint[] pathOptions = new PathPoint[32];
+    private final NodeProcessor nodeProcessor;
 
     public PathFinder(NodeProcessor nodeProcessorIn) {
         this.nodeProcessor = nodeProcessorIn;

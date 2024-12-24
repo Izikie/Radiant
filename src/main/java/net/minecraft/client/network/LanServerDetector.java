@@ -21,8 +21,8 @@ public class LanServerDetector {
     private static final Logger logger = LogManager.getLogger();
 
     public static class LanServer {
-        private String lanServerMotd;
-        private String lanServerIpPort;
+        private final String lanServerMotd;
+        private final String lanServerIpPort;
         private long timeLastSeen;
 
         public LanServer(String motd, String address) {
@@ -45,7 +45,7 @@ public class LanServerDetector {
     }
 
     public static class LanServerList {
-        private List<LanServerDetector.LanServer> listOfLanServers = Lists.<LanServerDetector.LanServer>newArrayList();
+        private final List<LanServerDetector.LanServer> listOfLanServers = Lists.<LanServerDetector.LanServer>newArrayList();
         boolean wasUpdated;
 
         public synchronized boolean getWasUpdated() {

@@ -27,8 +27,8 @@ import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraft.world.gen.structure.StructureOceanMonument;
 
 public class ChunkProviderFlat implements IChunkProvider {
-    private World worldObj;
-    private Random random;
+    private final World worldObj;
+    private final Random random;
     private final IBlockState[] cachedBlockIDs = new IBlockState[256];
     private final FlatGeneratorInfo flatWorldGenInfo;
     private final List<MapGenStructure> structureGenerators = Lists.<MapGenStructure>newArrayList();

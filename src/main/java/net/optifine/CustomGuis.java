@@ -35,8 +35,8 @@ import net.optifine.util.PropertiesOrdered;
 import net.optifine.util.ResUtils;
 
 public class CustomGuis {
-    private static Minecraft mc = Config.getMinecraft();
-    private static PlayerControllerOF playerControllerOF = null;
+    private static final Minecraft mc = Config.getMinecraft();
+    private static final PlayerControllerOF playerControllerOF = null;
     private static CustomGuiProperties[][] guiProperties = (CustomGuiProperties[][]) null;
     public static boolean isChristmas = isChristmas();
 

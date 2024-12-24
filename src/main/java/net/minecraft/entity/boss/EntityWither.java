@@ -40,12 +40,12 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
 public class EntityWither extends EntityMob implements IBossDisplayData, IRangedAttackMob {
-    private float[] field_82220_d = new float[2];
-    private float[] field_82221_e = new float[2];
-    private float[] field_82217_f = new float[2];
-    private float[] field_82218_g = new float[2];
-    private int[] field_82223_h = new int[2];
-    private int[] field_82224_i = new int[2];
+    private final float[] field_82220_d = new float[2];
+    private final float[] field_82221_e = new float[2];
+    private final float[] field_82217_f = new float[2];
+    private final float[] field_82218_g = new float[2];
+    private final int[] field_82223_h = new int[2];
+    private final int[] field_82224_i = new int[2];
     private int blockBreakCounter;
     private static final Predicate<Entity> attackEntitySelector = new Predicate<Entity>() {
         public boolean apply(Entity p_apply_1_) {

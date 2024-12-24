@@ -3,7 +3,7 @@ package net.minecraft.entity.ai;
 import net.minecraft.entity.EntityLiving;
 
 public class EntityJumpHelper {
-    private EntityLiving entity;
+    private final EntityLiving entity;
     protected boolean isJumping;
 
     public EntityJumpHelper(EntityLiving entityIn) {

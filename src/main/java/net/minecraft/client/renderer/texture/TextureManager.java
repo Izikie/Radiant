@@ -30,7 +30,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
     private final Map<ResourceLocation, ITextureObject> mapTextureObjects = Maps.<ResourceLocation, ITextureObject>newHashMap();
     private final List<ITickable> listTickables = Lists.<ITickable>newArrayList();
     private final Map<String, Integer> mapTextureCounters = Maps.<String, Integer>newHashMap();
-    private IResourceManager theResourceManager;
+    private final IResourceManager theResourceManager;
     private ITextureObject boundTexture;
     private ResourceLocation boundTextureLocation;
 

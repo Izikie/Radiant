@@ -8,7 +8,7 @@ import net.minecraft.util.MathHelper;
 public class GuiOptionSlider extends GuiButton {
     private float sliderValue;
     public boolean dragging;
-    private GameSettings.Options options;
+    private final GameSettings.Options options;
     private final float field_146132_r;
     private final float field_146131_s;
 

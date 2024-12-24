@@ -13,7 +13,7 @@ public class VertexFormat {
     private final List<Integer> offsets;
     private int nextOffset;
     private int colorElementOffset;
-    private List<Integer> uvOffsetsById;
+    private final List<Integer> uvOffsetsById;
     private int normalElementOffset;
 
     public VertexFormat(VertexFormat vertexFormatIn) {

@@ -19,10 +19,10 @@ import org.apache.logging.log4j.Logger;
 
 public class ChunkProviderClient implements IChunkProvider {
     private static final Logger logger = LogManager.getLogger();
-    private Chunk blankChunk;
-    private LongHashMap<Chunk> chunkMapping = new LongHashMap();
-    private List<Chunk> chunkListing = Lists.<Chunk>newArrayList();
-    private World worldObj;
+    private final Chunk blankChunk;
+    private final LongHashMap<Chunk> chunkMapping = new LongHashMap();
+    private final List<Chunk> chunkListing = Lists.<Chunk>newArrayList();
+    private final World worldObj;
 
     public ChunkProviderClient(World worldIn) {
         this.blankChunk = new EmptyChunk(worldIn, 0, 0);

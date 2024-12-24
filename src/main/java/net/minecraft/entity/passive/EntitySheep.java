@@ -43,7 +43,7 @@ public class EntitySheep extends EntityAnimal {
     }, 2, 1);
     private static final Map<EnumDyeColor, float[]> DYE_TO_RGB = Maps.newEnumMap(EnumDyeColor.class);
     private int sheepTimer;
-    private EntityAIEatGrass entityAIEatGrass = new EntityAIEatGrass(this);
+    private final EntityAIEatGrass entityAIEatGrass = new EntityAIEatGrass(this);
 
     public static float[] getDyeRgb(EnumDyeColor dyeColor) {
         return (float[]) DYE_TO_RGB.get(dyeColor);

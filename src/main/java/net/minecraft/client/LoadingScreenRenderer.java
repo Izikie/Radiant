@@ -16,12 +16,12 @@ import net.optifine.reflect.Reflector;
 
 public class LoadingScreenRenderer implements IProgressUpdate {
     private String message = "";
-    private Minecraft mc;
+    private final Minecraft mc;
     private String currentlyDisplayedText = "";
     private long systemTime = Minecraft.getSystemTime();
     private boolean loadingSuccess;
-    private ScaledResolution scaledResolution;
-    private Framebuffer framebuffer;
+    private final ScaledResolution scaledResolution;
+    private final Framebuffer framebuffer;
 
     public LoadingScreenRenderer(Minecraft mcIn) {
         this.mc = mcIn;

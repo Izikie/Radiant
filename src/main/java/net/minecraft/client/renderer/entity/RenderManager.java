@@ -110,8 +110,8 @@ import net.optifine.shaders.Shaders;
 
 public class RenderManager {
     private Map<Class, Render> entityRenderMap = Maps.newHashMap();
-    private Map<String, RenderPlayer> skinMap = Maps.<String, RenderPlayer>newHashMap();
-    private RenderPlayer playerRenderer;
+    private final Map<String, RenderPlayer> skinMap = Maps.<String, RenderPlayer>newHashMap();
+    private final RenderPlayer playerRenderer;
     private FontRenderer textRenderer;
     private double renderPosX;
     private double renderPosY;

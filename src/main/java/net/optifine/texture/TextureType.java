@@ -6,7 +6,7 @@ public enum TextureType {
     TEXTURE_3D(32879),
     TEXTURE_RECTANGLE(34037);
 
-    private int id;
+    private final int id;
 
     private TextureType(int id) {
         this.id = id;

@@ -46,7 +46,7 @@ public class EntityFirework {
     }
 
     public static class SparkFX extends EntityFX {
-        private int baseTextureIndex = 160;
+        private final int baseTextureIndex = 160;
         private boolean trail;
         private boolean twinkle;
         private final EffectRenderer field_92047_az;

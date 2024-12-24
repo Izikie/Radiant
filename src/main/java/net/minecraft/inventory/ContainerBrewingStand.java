@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.AchievementList;
 
 public class ContainerBrewingStand extends Container {
-    private IInventory tileBrewingStand;
+    private final IInventory tileBrewingStand;
     private final Slot theSlot;
     private int brewTime;
 
@@ -123,7 +123,7 @@ public class ContainerBrewingStand extends Container {
     }
 
     static class Potion extends Slot {
-        private EntityPlayer player;
+        private final EntityPlayer player;
 
         public Potion(EntityPlayer playerIn, IInventory inventoryIn, int index, int xPosition, int yPosition) {
             super(inventoryIn, index, xPosition, yPosition);

@@ -33,7 +33,7 @@ import net.minecraft.world.World;
 
 public class EntityOcelot extends EntityTameable {
     private EntityAIAvoidEntity<EntityPlayer> avoidEntity;
-    private EntityAITempt aiTempt;
+    private final EntityAITempt aiTempt;
 
     public EntityOcelot(World worldIn) {
         super(worldIn);

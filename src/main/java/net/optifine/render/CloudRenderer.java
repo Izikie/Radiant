@@ -8,7 +8,7 @@ import net.minecraft.util.Vec3;
 import org.lwjgl.opengl.GL11;
 
 public class CloudRenderer {
-    private Minecraft mc;
+    private final Minecraft mc;
     private boolean updated = false;
     private boolean renderFancy = false;
     int cloudTickCounter;

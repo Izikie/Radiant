@@ -1,7 +1,7 @@
 package net.optifine.entity.model.anim;
 
 public class ModelUpdater {
-    private ModelVariableUpdater[] modelVariableUpdaters;
+    private final ModelVariableUpdater[] modelVariableUpdaters;
 
     public ModelUpdater(ModelVariableUpdater[] modelVariableUpdaters) {
         this.modelVariableUpdaters = modelVariableUpdaters;

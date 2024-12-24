@@ -30,7 +30,7 @@ public class ModelBlock {
     private final List<BlockPart> elements;
     private final boolean gui3d;
     private final boolean ambientOcclusion;
-    private ItemCameraTransforms cameraTransforms;
+    private final ItemCameraTransforms cameraTransforms;
     public String name;
     protected final Map<String, String> textures;
     protected ModelBlock parent;

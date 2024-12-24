@@ -384,7 +384,7 @@ public class PlayerManager {
     class PlayerInstance {
         private final List<EntityPlayerMP> playersWatchingChunk = Lists.<EntityPlayerMP>newArrayList();
         private final ChunkCoordIntPair chunkCoords;
-        private short[] locationOfBlockChange = new short[64];
+        private final short[] locationOfBlockChange = new short[64];
         private int numBlocksToUpdate;
         private int flagsYAreasToUpdate;
         private long previousWorldTime;

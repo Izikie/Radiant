@@ -10,7 +10,7 @@ import net.minecraft.client.resources.I18n;
 public class GuiYesNo extends GuiScreen {
     protected GuiYesNoCallback parentScreen;
     protected String messageLine1;
-    private String messageLine2;
+    private final String messageLine2;
     private final List<String> field_175298_s = Lists.<String>newArrayList();
     protected String confirmButtonText;
     protected String cancelButtonText;

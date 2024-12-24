@@ -13,8 +13,8 @@ import net.minecraft.world.World;
 
 public class EntityAIEatGrass extends EntityAIBase {
     private static final Predicate<IBlockState> field_179505_b = BlockStateHelper.forBlock(Blocks.tallgrass).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
-    private EntityLiving grassEaterEntity;
-    private World entityWorld;
+    private final EntityLiving grassEaterEntity;
+    private final World entityWorld;
     int eatingGrassTimer;
 
     public EntityAIEatGrass(EntityLiving grassEaterEntityIn) {

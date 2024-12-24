@@ -37,7 +37,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
     private GuiStats.StatsItem itemStats;
     private GuiStats.StatsBlock blockStats;
     private GuiStats.StatsMobsList mobStats;
-    private StatFileWriter field_146546_t;
+    private final StatFileWriter field_146546_t;
     private GuiSlot displaySlot;
     private boolean doesGuiPauseGame = true;
 

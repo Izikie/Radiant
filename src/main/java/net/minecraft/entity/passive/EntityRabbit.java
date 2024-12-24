@@ -39,7 +39,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
 public class EntityRabbit extends EntityAnimal {
-    private EntityRabbit.AIAvoidEntity<EntityWolf> aiAvoidWolves;
+    private final EntityRabbit.AIAvoidEntity<EntityWolf> aiAvoidWolves;
     private int field_175540_bm = 0;
     private int field_175535_bn = 0;
     private boolean field_175536_bo = false;
@@ -47,7 +47,7 @@ public class EntityRabbit extends EntityAnimal {
     private int currentMoveTypeDuration = 0;
     private EntityRabbit.EnumMoveType moveType = EntityRabbit.EnumMoveType.HOP;
     private int carrotTicks = 0;
-    private EntityPlayer field_175543_bt = null;
+    private final EntityPlayer field_175543_bt = null;
 
     public EntityRabbit(World worldIn) {
         super(worldIn);
@@ -370,7 +370,7 @@ public class EntityRabbit extends EntityAnimal {
     }
 
     static class AIAvoidEntity<T extends Entity> extends EntityAIAvoidEntity<T> {
-        private EntityRabbit entityInstance;
+        private final EntityRabbit entityInstance;
 
         public AIAvoidEntity(EntityRabbit rabbit, Class<T> p_i46403_2_, float p_i46403_3_, double p_i46403_4_, double p_i46403_6_) {
             super(rabbit, p_i46403_2_, p_i46403_3_, p_i46403_4_, p_i46403_6_);
@@ -393,7 +393,7 @@ public class EntityRabbit extends EntityAnimal {
     }
 
     static class AIPanic extends EntityAIPanic {
-        private EntityRabbit theEntity;
+        private final EntityRabbit theEntity;
 
         public AIPanic(EntityRabbit rabbit, double speedIn) {
             super(rabbit, speedIn);
@@ -517,7 +517,7 @@ public class EntityRabbit extends EntityAnimal {
     }
 
     public class RabbitJumpHelper extends EntityJumpHelper {
-        private EntityRabbit theEntity;
+        private final EntityRabbit theEntity;
         private boolean field_180068_d = false;
 
         public RabbitJumpHelper(EntityRabbit rabbit) {
@@ -546,7 +546,7 @@ public class EntityRabbit extends EntityAnimal {
     }
 
     static class RabbitMoveHelper extends EntityMoveHelper {
-        private EntityRabbit theEntity;
+        private final EntityRabbit theEntity;
 
         public RabbitMoveHelper(EntityRabbit rabbit) {
             super(rabbit);

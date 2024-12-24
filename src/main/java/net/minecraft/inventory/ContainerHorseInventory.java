@@ -6,8 +6,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 public class ContainerHorseInventory extends Container {
-    private IInventory horseInventory;
-    private EntityHorse theHorse;
+    private final IInventory horseInventory;
+    private final EntityHorse theHorse;
 
     public ContainerHorseInventory(IInventory playerInventory, final IInventory horseInventoryIn, final EntityHorse horse, EntityPlayer player) {
         this.horseInventory = horseInventoryIn;

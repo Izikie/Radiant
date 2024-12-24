@@ -8,8 +8,8 @@ import java.util.Set;
 
 public class ShaderProfile {
     private String name = null;
-    private Map<String, String> mapOptionValues = new LinkedHashMap();
-    private Set<String> disabledPrograms = new LinkedHashSet();
+    private final Map<String, String> mapOptionValues = new LinkedHashMap();
+    private final Set<String> disabledPrograms = new LinkedHashSet();
 
     public ShaderProfile(String name) {
         this.name = name;

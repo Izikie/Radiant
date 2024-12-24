@@ -14,7 +14,7 @@ import net.minecraft.world.SpawnerAnimals;
 import net.minecraft.world.World;
 
 public class VillageSiege {
-    private World worldObj;
+    private final World worldObj;
     private boolean field_75535_b;
     private int field_75536_c = -1;
     private int field_75533_d;

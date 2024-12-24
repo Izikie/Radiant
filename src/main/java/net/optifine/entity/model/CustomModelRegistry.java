@@ -9,7 +9,7 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.src.Config;
 
 public class CustomModelRegistry {
-    private static Map<String, ModelAdapter> mapModelAdapters = makeMapModelAdapters();
+    private static final Map<String, ModelAdapter> mapModelAdapters = makeMapModelAdapters();
 
     private static Map<String, ModelAdapter> makeMapModelAdapters() {
         Map<String, ModelAdapter> map = new LinkedHashMap();

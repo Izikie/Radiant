@@ -17,7 +17,7 @@ import net.minecraft.util.ChatComponentText;
 import org.lwjgl.input.Keyboard;
 
 public class GuiEditSign extends GuiScreen {
-    private TileEntitySign tileSign;
+    private final TileEntitySign tileSign;
     private int updateCounter;
     private int editLine;
     private GuiButton doneBtn;

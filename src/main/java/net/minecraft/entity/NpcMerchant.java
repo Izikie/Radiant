@@ -9,10 +9,10 @@ import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
 
 public class NpcMerchant implements IMerchant {
-    private InventoryMerchant theMerchantInventory;
-    private EntityPlayer customer;
+    private final InventoryMerchant theMerchantInventory;
+    private final EntityPlayer customer;
     private MerchantRecipeList recipeList;
-    private IChatComponent field_175548_d;
+    private final IChatComponent field_175548_d;
 
     public NpcMerchant(EntityPlayer p_i45817_1_, IChatComponent p_i45817_2_) {
         this.customer = p_i45817_1_;

@@ -23,7 +23,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 public class EntitySilverfish extends EntityMob {
-    private EntitySilverfish.AISummonSilverfish summonSilverfish;
+    private final EntitySilverfish.AISummonSilverfish summonSilverfish;
 
     public EntitySilverfish(World worldIn) {
         super(worldIn);
@@ -170,7 +170,7 @@ public class EntitySilverfish extends EntityMob {
     }
 
     static class AISummonSilverfish extends EntityAIBase {
-        private EntitySilverfish silverfish;
+        private final EntitySilverfish silverfish;
         private int field_179463_b;
 
         public AISummonSilverfish(EntitySilverfish silverfishIn) {

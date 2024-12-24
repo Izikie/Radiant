@@ -12,9 +12,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityDispenser;
 
 public class WeightedRandomChestContent extends WeightedRandom.Item {
-    private ItemStack theItemId;
-    private int minStackSize;
-    private int maxStackSize;
+    private final ItemStack theItemId;
+    private final int minStackSize;
+    private final int maxStackSize;
 
     public WeightedRandomChestContent(Item p_i45311_1_, int p_i45311_2_, int minimumChance, int maximumChance, int itemWeightIn) {
         super(itemWeightIn);

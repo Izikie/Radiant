@@ -21,7 +21,7 @@ import net.minecraft.util.ResourceLocation;
 public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEntityBanner> {
     private static final Map<String, TileEntityBannerRenderer.TimedBannerTexture> DESIGNS = Maps.<String, TileEntityBannerRenderer.TimedBannerTexture>newHashMap();
     private static final ResourceLocation BANNERTEXTURES = new ResourceLocation("textures/entity/banner_base.png");
-    private ModelBanner bannerModel = new ModelBanner();
+    private final ModelBanner bannerModel = new ModelBanner();
 
     public void renderTileEntityAt(TileEntityBanner te, double x, double y, double z, float partialTicks, int destroyStage) {
         boolean flag = te.getWorld() != null;

@@ -43,7 +43,7 @@ import net.optifine.override.PlayerControllerOF;
 import net.optifine.reflect.Reflector;
 
 public class WorldClient extends World {
-    private NetHandlerPlayClient sendQueue;
+    private final NetHandlerPlayClient sendQueue;
     private ChunkProviderClient clientChunkProvider;
     private final Set<Entity> entityList = Sets.<Entity>newHashSet();
     private final Set<Entity> entitySpawnQueue = Sets.<Entity>newHashSet();

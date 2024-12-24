@@ -7,7 +7,7 @@ import net.minecraft.world.chunk.NibbleArray;
 import net.optifine.reflect.Reflector;
 
 public class ExtendedBlockStorage {
-    private int yBase;
+    private final int yBase;
     private int blockRefCount;
     private int tickRefCount;
     private char[] data;

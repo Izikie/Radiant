@@ -5,9 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ParametersVariable implements IParameters {
-    private ExpressionType[] first;
-    private ExpressionType[] repeat;
-    private ExpressionType[] last;
+    private final ExpressionType[] first;
+    private final ExpressionType[] repeat;
+    private final ExpressionType[] last;
     private int maxCount;
     private static final ExpressionType[] EMPTY = new ExpressionType[0];
 

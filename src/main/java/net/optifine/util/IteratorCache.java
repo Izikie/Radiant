@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class IteratorCache {
-    private static Deque<IteratorCache.IteratorReusable<Object>> dequeIterators = new ArrayDeque();
+    private static final Deque<IteratorCache.IteratorReusable<Object>> dequeIterators = new ArrayDeque();
 
     public static Iterator<Object> getReadOnly(List list) {
         synchronized (dequeIterators) {

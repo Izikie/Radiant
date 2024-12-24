@@ -10,8 +10,8 @@ import net.minecraft.util.LongHashMap;
 public class BiomeCache {
     private final WorldChunkManager chunkManager;
     private long lastCleanupTime;
-    private LongHashMap<BiomeCache.Block> cacheMap = new LongHashMap();
-    private List<BiomeCache.Block> cache = Lists.<BiomeCache.Block>newArrayList();
+    private final LongHashMap<BiomeCache.Block> cacheMap = new LongHashMap();
+    private final List<BiomeCache.Block> cache = Lists.<BiomeCache.Block>newArrayList();
 
     public BiomeCache(WorldChunkManager chunkManagerIn) {
         this.chunkManager = chunkManagerIn;

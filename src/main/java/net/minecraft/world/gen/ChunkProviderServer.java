@@ -29,14 +29,14 @@ import org.apache.logging.log4j.Logger;
 
 public class ChunkProviderServer implements IChunkProvider {
     private static final Logger logger = LogManager.getLogger();
-    private Set<Long> droppedChunksSet = Collections.<Long>newSetFromMap(new ConcurrentHashMap());
-    private Chunk dummyChunk;
-    private IChunkProvider serverChunkGenerator;
-    private IChunkLoader chunkLoader;
+    private final Set<Long> droppedChunksSet = Collections.<Long>newSetFromMap(new ConcurrentHashMap());
+    private final Chunk dummyChunk;
+    private final IChunkProvider serverChunkGenerator;
+    private final IChunkLoader chunkLoader;
     public boolean chunkLoadOverride = true;
-    private LongHashMap<Chunk> id2ChunkMap = new LongHashMap();
-    private List<Chunk> loadedChunks = Lists.<Chunk>newArrayList();
-    private WorldServer worldObj;
+    private final LongHashMap<Chunk> id2ChunkMap = new LongHashMap();
+    private final List<Chunk> loadedChunks = Lists.<Chunk>newArrayList();
+    private final WorldServer worldObj;
 
     public ChunkProviderServer(WorldServer p_i1520_1_, IChunkLoader p_i1520_2_, IChunkProvider p_i1520_3_) {
         this.dummyChunk = new EmptyChunk(p_i1520_1_, 0, 0);

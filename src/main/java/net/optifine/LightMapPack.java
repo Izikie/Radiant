@@ -3,9 +3,9 @@ package net.optifine;
 import net.minecraft.world.World;
 
 public class LightMapPack {
-    private LightMap lightMap;
-    private LightMap lightMapRain;
-    private LightMap lightMapThunder;
+    private final LightMap lightMap;
+    private final LightMap lightMapRain;
+    private final LightMap lightMapThunder;
     private int[] colorBuffer1 = new int[0];
     private int[] colorBuffer2 = new int[0];
 

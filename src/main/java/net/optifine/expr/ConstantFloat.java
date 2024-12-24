@@ -1,7 +1,7 @@
 package net.optifine.expr;
 
 public class ConstantFloat implements IExpressionFloat {
-    private float value;
+    private final float value;
 
     public ConstantFloat(float value) {
         this.value = value;

@@ -9,7 +9,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 
 public class BlockBreakable extends Block {
-    private boolean ignoreSimilarity;
+    private final boolean ignoreSimilarity;
 
     protected BlockBreakable(Material materialIn, boolean ignoreSimilarityIn) {
         this(materialIn, ignoreSimilarityIn, materialIn.getMaterialMapColor());

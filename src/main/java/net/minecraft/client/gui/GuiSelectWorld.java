@@ -30,7 +30,7 @@ public class GuiSelectWorld extends GuiScreen implements GuiYesNoCallback {
     private GuiSelectWorld.List availableWorlds;
     private String field_146637_u;
     private String field_146636_v;
-    private String[] field_146635_w = new String[4];
+    private final String[] field_146635_w = new String[4];
     private boolean confirmingDelete;
     private GuiButton deleteButton;
     private GuiButton selectButton;

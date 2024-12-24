@@ -5,7 +5,7 @@ import net.minecraft.client.resources.I18n;
 
 public class GuiListButton extends GuiButton {
     private boolean field_175216_o;
-    private String localizationStr;
+    private final String localizationStr;
     private final GuiPageButtonList.GuiResponder guiResponder;
 
     public GuiListButton(GuiPageButtonList.GuiResponder responder, int p_i45539_2_, int p_i45539_3_, int p_i45539_4_, String p_i45539_5_, boolean p_i45539_6_) {

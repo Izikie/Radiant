@@ -8,12 +8,12 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 public class EntityAIFleeSun extends EntityAIBase {
-    private EntityCreature theCreature;
+    private final EntityCreature theCreature;
     private double shelterX;
     private double shelterY;
     private double shelterZ;
-    private double movementSpeed;
-    private World theWorld;
+    private final double movementSpeed;
+    private final World theWorld;
 
     public EntityAIFleeSun(EntityCreature theCreatureIn, double movementSpeedIn) {
         this.theCreature = theCreatureIn;

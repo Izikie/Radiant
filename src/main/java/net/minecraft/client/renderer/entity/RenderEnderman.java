@@ -11,8 +11,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderEnderman extends RenderLiving<EntityEnderman> {
     private static final ResourceLocation endermanTextures = new ResourceLocation("textures/entity/enderman/enderman.png");
-    private ModelEnderman endermanModel;
-    private Random rnd = new Random();
+    private final ModelEnderman endermanModel;
+    private final Random rnd = new Random();
 
     public RenderEnderman(RenderManager renderManagerIn) {
         super(renderManagerIn, new ModelEnderman(0.0F), 0.5F);

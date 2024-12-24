@@ -150,7 +150,7 @@ public class EntityBlaze extends EntityMob {
     }
 
     static class AIFireballAttack extends EntityAIBase {
-        private EntityBlaze blaze;
+        private final EntityBlaze blaze;
         private int field_179467_b;
         private int field_179468_c;
 

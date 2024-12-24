@@ -45,9 +45,9 @@ import org.apache.logging.log4j.Logger;
 public class EntityTracker {
     private static final Logger logger = LogManager.getLogger();
     private final WorldServer theWorld;
-    private Set<EntityTrackerEntry> trackedEntities = Sets.<EntityTrackerEntry>newHashSet();
-    private IntHashMap<EntityTrackerEntry> trackedEntityHashTable = new IntHashMap();
-    private int maxTrackingDistanceThreshold;
+    private final Set<EntityTrackerEntry> trackedEntities = Sets.<EntityTrackerEntry>newHashSet();
+    private final IntHashMap<EntityTrackerEntry> trackedEntityHashTable = new IntHashMap();
+    private final int maxTrackingDistanceThreshold;
 
     public EntityTracker(WorldServer theWorldIn) {
         this.theWorld = theWorldIn;

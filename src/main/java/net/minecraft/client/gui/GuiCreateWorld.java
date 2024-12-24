@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.input.Keyboard;
 
 public class GuiCreateWorld extends GuiScreen {
-    private GuiScreen parentScreen;
+    private final GuiScreen parentScreen;
     private GuiTextField worldNameField;
     private GuiTextField worldSeedField;
     private String saveDirName;

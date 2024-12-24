@@ -24,7 +24,7 @@ public class GuiChat extends GuiScreen {
     private boolean playerNamesFound;
     private boolean waitingOnAutocomplete;
     private int autocompleteIndex;
-    private List<String> foundPlayerNames = Lists.<String>newArrayList();
+    private final List<String> foundPlayerNames = Lists.<String>newArrayList();
     protected GuiTextField inputField;
     private String defaultInputFieldText = "";
 

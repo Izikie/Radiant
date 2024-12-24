@@ -4,7 +4,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityTameable;
 
 public class EntityAISit extends EntityAIBase {
-    private EntityTameable theEntity;
+    private final EntityTameable theEntity;
     private boolean isSitting;
 
     public EntityAISit(EntityTameable entityIn) {

@@ -38,8 +38,8 @@ public class GuiScreenBook extends GuiScreen {
     private boolean bookIsModified;
     private boolean bookGettingSigned;
     private int updateCount;
-    private int bookImageWidth = 192;
-    private int bookImageHeight = 192;
+    private final int bookImageWidth = 192;
+    private final int bookImageHeight = 192;
     private int bookTotalPages = 1;
     private int currPage;
     private NBTTagList bookPages;

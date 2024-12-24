@@ -7,8 +7,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class ContainerMerchant extends Container {
-    private IMerchant theMerchant;
-    private InventoryMerchant merchantInventory;
+    private final IMerchant theMerchant;
+    private final InventoryMerchant merchantInventory;
     private final World theWorld;
 
     public ContainerMerchant(InventoryPlayer playerInventory, IMerchant merchant, World worldIn) {

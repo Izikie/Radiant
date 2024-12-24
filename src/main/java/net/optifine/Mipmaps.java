@@ -17,9 +17,9 @@ public class Mipmaps {
     private final int height;
     private final int[] data;
     private final boolean direct;
-    private int[][] mipmapDatas;
+    private final int[][] mipmapDatas;
     private IntBuffer[] mipmapBuffers;
-    private Dimension[] mipmapDimensions;
+    private final Dimension[] mipmapDimensions;
 
     public Mipmaps(String iconName, int width, int height, int[] data, boolean direct) {
         this.iconName = iconName;

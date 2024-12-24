@@ -10,7 +10,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class EntityDiggingFX extends EntityFX {
-    private IBlockState sourceState;
+    private final IBlockState sourceState;
     private BlockPos sourcePos;
 
     protected EntityDiggingFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, IBlockState state) {

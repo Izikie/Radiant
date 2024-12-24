@@ -4,8 +4,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 
 public class ModelBlaze extends ModelBase {
-    private ModelRenderer[] blazeSticks = new ModelRenderer[12];
-    private ModelRenderer blazeHead;
+    private final ModelRenderer[] blazeSticks = new ModelRenderer[12];
+    private final ModelRenderer blazeHead;
 
     public ModelBlaze() {
         for (int i = 0; i < this.blazeSticks.length; ++i) {

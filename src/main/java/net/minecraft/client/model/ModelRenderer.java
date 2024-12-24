@@ -36,7 +36,7 @@ public class ModelRenderer {
     public List<ModelBox> cubeList;
     public List<ModelRenderer> childModels;
     public final String boxName;
-    private ModelBase baseModel;
+    private final ModelBase baseModel;
     public float offsetX;
     public float offsetY;
     public float offsetZ;
@@ -49,7 +49,7 @@ public class ModelRenderer {
     private ResourceLocation textureLocation;
     private String id;
     private ModelUpdater modelUpdater;
-    private RenderGlobal renderGlobal;
+    private final RenderGlobal renderGlobal;
 
     public ModelRenderer(ModelBase model, String boxNameIn) {
         this.spriteList = new ArrayList();

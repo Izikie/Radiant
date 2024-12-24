@@ -29,8 +29,8 @@ public class GuiEnchantment extends GuiContainer {
     private static final ResourceLocation ENCHANTMENT_TABLE_BOOK_TEXTURE = new ResourceLocation("textures/entity/enchanting_table_book.png");
     private static final ModelBook MODEL_BOOK = new ModelBook();
     private final InventoryPlayer playerInventory;
-    private Random random = new Random();
-    private ContainerEnchantment container;
+    private final Random random = new Random();
+    private final ContainerEnchantment container;
     public int field_147073_u;
     public float field_147071_v;
     public float field_147069_w;

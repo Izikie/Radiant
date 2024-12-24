@@ -575,7 +575,7 @@ public class StructureOceanMonumentPieces {
     public static class MonumentBuilding extends StructureOceanMonumentPieces.Piece {
         private StructureOceanMonumentPieces.RoomDefinition field_175845_o;
         private StructureOceanMonumentPieces.RoomDefinition field_175844_p;
-        private List<StructureOceanMonumentPieces.Piece> field_175843_q = Lists.<StructureOceanMonumentPieces.Piece>newArrayList();
+        private final List<StructureOceanMonumentPieces.Piece> field_175843_q = Lists.<StructureOceanMonumentPieces.Piece>newArrayList();
 
         public MonumentBuilding() {
         }

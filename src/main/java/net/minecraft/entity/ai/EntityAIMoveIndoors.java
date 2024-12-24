@@ -7,7 +7,7 @@ import net.minecraft.village.Village;
 import net.minecraft.village.VillageDoorInfo;
 
 public class EntityAIMoveIndoors extends EntityAIBase {
-    private EntityCreature entityObj;
+    private final EntityCreature entityObj;
     private VillageDoorInfo doorInfo;
     private int insidePosX = -1;
     private int insidePosZ = -1;

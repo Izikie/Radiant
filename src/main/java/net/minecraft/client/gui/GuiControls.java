@@ -9,9 +9,9 @@ import net.minecraft.client.settings.KeyBinding;
 
 public class GuiControls extends GuiScreen {
     private static final GameSettings.Options[] optionsArr = new GameSettings.Options[]{GameSettings.Options.INVERT_MOUSE, GameSettings.Options.SENSITIVITY, GameSettings.Options.TOUCHSCREEN};
-    private GuiScreen parentScreen;
+    private final GuiScreen parentScreen;
     protected String screenTitle = "Controls";
-    private GameSettings options;
+    private final GameSettings options;
     public KeyBinding buttonId = null;
     public long time;
     private GuiKeyBindingList keyBindingList;

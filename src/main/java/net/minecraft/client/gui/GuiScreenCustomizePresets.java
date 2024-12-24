@@ -19,7 +19,7 @@ public class GuiScreenCustomizePresets extends GuiScreen {
     private GuiScreenCustomizePresets.ListPreset field_175311_g;
     private GuiButton field_175316_h;
     private GuiTextField field_175317_i;
-    private GuiCustomizeWorldScreen field_175314_r;
+    private final GuiCustomizeWorldScreen field_175314_r;
     protected String field_175315_a = "Customize World Presets";
     private String field_175313_s;
     private String field_175312_t;

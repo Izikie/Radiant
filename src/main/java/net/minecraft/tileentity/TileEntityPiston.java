@@ -20,7 +20,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
     private boolean shouldHeadBeRendered;
     private float progress;
     private float lastProgress;
-    private List<Entity> field_174933_k = Lists.<Entity>newArrayList();
+    private final List<Entity> field_174933_k = Lists.<Entity>newArrayList();
 
     public TileEntityPiston() {
     }

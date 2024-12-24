@@ -63,8 +63,8 @@ public class RenderChunk {
     public AxisAlignedBB boundingBox;
     private int frameIndex = -1;
     private boolean needsUpdate = true;
-    private EnumMap<EnumFacing, BlockPos> mapEnumFacing = null;
-    private BlockPos[] positionOffsets16 = new BlockPos[EnumFacing.VALUES.length];
+    private final EnumMap<EnumFacing, BlockPos> mapEnumFacing = null;
+    private final BlockPos[] positionOffsets16 = new BlockPos[EnumFacing.VALUES.length];
     public static final EnumWorldBlockLayer[] ENUM_WORLD_BLOCK_LAYERS = EnumWorldBlockLayer.values();
     private final EnumWorldBlockLayer[] blockLayersSingle = new EnumWorldBlockLayer[1];
     private final boolean isMipmaps = Config.isMipmaps();
@@ -75,10 +75,10 @@ public class RenderChunk {
     private final RenderChunk[] renderChunksOfset16 = new RenderChunk[6];
     private boolean renderChunksOffset16Updated = false;
     private Chunk chunk;
-    private RenderChunk[] renderChunkNeighbours = new RenderChunk[EnumFacing.VALUES.length];
-    private RenderChunk[] renderChunkNeighboursValid = new RenderChunk[EnumFacing.VALUES.length];
+    private final RenderChunk[] renderChunkNeighbours = new RenderChunk[EnumFacing.VALUES.length];
+    private final RenderChunk[] renderChunkNeighboursValid = new RenderChunk[EnumFacing.VALUES.length];
     private boolean renderChunkNeighboursUpated = false;
-    private RenderGlobal.ContainerLocalRenderInformation renderInfo = new RenderGlobal.ContainerLocalRenderInformation(this, (EnumFacing) null, 0);
+    private final RenderGlobal.ContainerLocalRenderInformation renderInfo = new RenderGlobal.ContainerLocalRenderInformation(this, (EnumFacing) null, 0);
     public AabbFrame boundingBoxParent;
 
     public RenderChunk(World worldIn, RenderGlobal renderGlobalIn, BlockPos blockPosIn, int indexIn) {

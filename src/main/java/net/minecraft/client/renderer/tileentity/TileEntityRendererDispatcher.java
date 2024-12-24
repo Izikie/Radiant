@@ -49,7 +49,7 @@ public class TileEntityRendererDispatcher {
     public double entityY;
     public double entityZ;
     public TileEntity tileEntityRendered;
-    private Tessellator batchBuffer = new Tessellator(2097152);
+    private final Tessellator batchBuffer = new Tessellator(2097152);
     private boolean drawingBatch = false;
 
     private TileEntityRendererDispatcher() {

@@ -95,7 +95,7 @@ public class StructureOceanMonument extends MapGenStructure {
     }
 
     public static class StartMonument extends StructureStart {
-        private Set<ChunkCoordIntPair> field_175791_c = Sets.<ChunkCoordIntPair>newHashSet();
+        private final Set<ChunkCoordIntPair> field_175791_c = Sets.<ChunkCoordIntPair>newHashSet();
         private boolean field_175790_d;
 
         public StartMonument() {

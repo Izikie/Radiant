@@ -6,10 +6,10 @@ import java.util.List;
 
 public class IntCache {
     private static int intCacheSize = 256;
-    private static List<int[]> freeSmallArrays = Lists.<int[]>newArrayList();
-    private static List<int[]> inUseSmallArrays = Lists.<int[]>newArrayList();
-    private static List<int[]> freeLargeArrays = Lists.<int[]>newArrayList();
-    private static List<int[]> inUseLargeArrays = Lists.<int[]>newArrayList();
+    private static final List<int[]> freeSmallArrays = Lists.<int[]>newArrayList();
+    private static final List<int[]> inUseSmallArrays = Lists.<int[]>newArrayList();
+    private static final List<int[]> freeLargeArrays = Lists.<int[]>newArrayList();
+    private static final List<int[]> inUseLargeArrays = Lists.<int[]>newArrayList();
 
     public static synchronized int[] getIntCache(int p_76445_0_) {
         if (p_76445_0_ <= 256) {

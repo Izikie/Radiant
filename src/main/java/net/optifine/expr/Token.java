@@ -1,8 +1,8 @@
 package net.optifine.expr;
 
 public class Token {
-    private TokenType type;
-    private String text;
+    private final TokenType type;
+    private final String text;
 
     public Token(TokenType type, String text) {
         this.type = type;

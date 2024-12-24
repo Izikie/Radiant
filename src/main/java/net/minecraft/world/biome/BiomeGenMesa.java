@@ -22,8 +22,8 @@ public class BiomeGenMesa extends BiomeGenBase {
     private NoiseGeneratorPerlin field_150623_aE;
     private NoiseGeneratorPerlin field_150624_aF;
     private NoiseGeneratorPerlin field_150625_aG;
-    private boolean field_150626_aH;
-    private boolean field_150620_aI;
+    private final boolean field_150626_aH;
+    private final boolean field_150620_aI;
 
     public BiomeGenMesa(int id, boolean p_i45380_2_, boolean p_i45380_3_) {
         super(id);

@@ -7,8 +7,8 @@ import net.minecraft.util.IChatComponent;
 import net.minecraft.world.IInteractionObject;
 
 public class LocalBlockIntercommunication implements IInteractionObject {
-    private String guiID;
-    private IChatComponent displayName;
+    private final String guiID;
+    private final IChatComponent displayName;
 
     public LocalBlockIntercommunication(String guiIdIn, IChatComponent displayNameIn) {
         this.guiID = guiIdIn;

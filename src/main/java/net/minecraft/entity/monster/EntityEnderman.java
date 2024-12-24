@@ -334,7 +334,7 @@ public class EntityEnderman extends EntityMob {
         private EntityPlayer player;
         private int field_179450_h;
         private int field_179451_i;
-        private EntityEnderman enderman;
+        private final EntityEnderman enderman;
 
         public AIFindPlayer(EntityEnderman p_i45842_1_) {
             super(p_i45842_1_, EntityPlayer.class, true);
@@ -411,7 +411,7 @@ public class EntityEnderman extends EntityMob {
     }
 
     static class AIPlaceBlock extends EntityAIBase {
-        private EntityEnderman enderman;
+        private final EntityEnderman enderman;
 
         public AIPlaceBlock(EntityEnderman p_i45843_1_) {
             this.enderman = p_i45843_1_;
@@ -443,7 +443,7 @@ public class EntityEnderman extends EntityMob {
     }
 
     static class AITakeBlock extends EntityAIBase {
-        private EntityEnderman enderman;
+        private final EntityEnderman enderman;
 
         public AITakeBlock(EntityEnderman p_i45841_1_) {
             this.enderman = p_i45841_1_;

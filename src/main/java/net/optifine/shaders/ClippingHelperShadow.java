@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.culling.ClippingHelper;
 import net.minecraft.util.MathHelper;
 
 public class ClippingHelperShadow extends ClippingHelper {
-    private static ClippingHelperShadow instance = new ClippingHelperShadow();
+    private static final ClippingHelperShadow instance = new ClippingHelperShadow();
     float[] frustumTest = new float[6];
     float[][] shadowClipPlanes = new float[10][4];
     int shadowClipPlaneCount;

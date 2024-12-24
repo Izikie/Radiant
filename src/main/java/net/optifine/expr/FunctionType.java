@@ -64,10 +64,10 @@ public enum FunctionType {
     VEC3(ExpressionType.FLOAT_ARRAY, "vec3", new ExpressionType[]{ExpressionType.FLOAT, ExpressionType.FLOAT, ExpressionType.FLOAT}),
     VEC4(ExpressionType.FLOAT_ARRAY, "vec4", new ExpressionType[]{ExpressionType.FLOAT, ExpressionType.FLOAT, ExpressionType.FLOAT, ExpressionType.FLOAT});
 
-    private int precedence;
-    private ExpressionType expressionType;
-    private String name;
-    private IParameters parameters;
+    private final int precedence;
+    private final ExpressionType expressionType;
+    private final String name;
+    private final IParameters parameters;
     public static FunctionType[] VALUES = values();
     private static final Map<Integer, Float> mapSmooth = new HashMap();
 

@@ -7,8 +7,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.src.Config;
 
 public class CacheObjectArray {
-    private static ArrayDeque<int[]> arrays = new ArrayDeque();
-    private static int maxCacheSize = 10;
+    private static final ArrayDeque<int[]> arrays = new ArrayDeque();
+    private static final int maxCacheSize = 10;
 
     private static synchronized int[] allocateArray(int size) {
         int[] aint = (int[]) arrays.pollLast();

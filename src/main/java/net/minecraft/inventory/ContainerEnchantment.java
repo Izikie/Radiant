@@ -17,9 +17,9 @@ import net.minecraft.world.World;
 
 public class ContainerEnchantment extends Container {
     public IInventory tableInventory;
-    private World worldPointer;
-    private BlockPos position;
-    private Random rand;
+    private final World worldPointer;
+    private final BlockPos position;
+    private final Random rand;
     public int xpSeed;
     public int[] enchantLevels;
     public int[] enchantmentIds;

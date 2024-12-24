@@ -61,8 +61,8 @@ public class SimpleBakedModel implements IBakedModel {
         private final List<List<BakedQuad>> builderFaceQuads;
         private final boolean builderAmbientOcclusion;
         private TextureAtlasSprite builderTexture;
-        private boolean builderGui3d;
-        private ItemCameraTransforms builderCameraTransforms;
+        private final boolean builderGui3d;
+        private final ItemCameraTransforms builderCameraTransforms;
 
         public Builder(ModelBlock model) {
             this(model.isAmbientOcclusion(), model.isGui3d(), model.getAllTransforms());

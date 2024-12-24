@@ -141,7 +141,7 @@ public class BlockWall extends Block {
         private static final BlockWall.EnumType[] META_LOOKUP = new BlockWall.EnumType[values().length];
         private final int meta;
         private final String name;
-        private String unlocalizedName;
+        private final String unlocalizedName;
 
         private EnumType(int meta, String name, String unlocalizedName) {
             this.meta = meta;

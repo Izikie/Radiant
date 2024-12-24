@@ -5,7 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 
 public class EntityAITradePlayer extends EntityAIBase {
-    private EntityVillager villager;
+    private final EntityVillager villager;
 
     public EntityAITradePlayer(EntityVillager villagerIn) {
         this.villager = villagerIn;

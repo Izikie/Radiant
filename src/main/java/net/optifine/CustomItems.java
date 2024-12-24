@@ -46,9 +46,9 @@ public class CustomItems {
     private static CustomItemProperties[][] itemProperties = (CustomItemProperties[][]) null;
     private static CustomItemProperties[][] enchantmentProperties = (CustomItemProperties[][]) null;
     private static Map mapPotionIds = null;
-    private static ItemModelGenerator itemModelGenerator = new ItemModelGenerator();
+    private static final ItemModelGenerator itemModelGenerator = new ItemModelGenerator();
     private static boolean useGlint = true;
-    private static boolean renderOffHand = false;
+    private static final boolean renderOffHand = false;
     public static final int MASK_POTION_SPLASH = 16384;
     public static final int MASK_POTION_NAME = 63;
     public static final int MASK_POTION_EXTENDED = 64;

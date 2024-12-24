@@ -39,7 +39,7 @@ public class ChunkRenderDispatcher {
     private final Queue<ListenableFutureTask<?>> queueChunkUploads;
     private final ChunkRenderWorker renderWorker;
     private final int countRenderBuilders;
-    private List<RegionRenderCacheBuilder> listPausedBuilders;
+    private final List<RegionRenderCacheBuilder> listPausedBuilders;
 
     public ChunkRenderDispatcher() {
         this(-1);

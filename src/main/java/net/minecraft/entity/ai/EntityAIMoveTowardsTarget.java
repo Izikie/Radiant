@@ -5,13 +5,13 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.Vec3;
 
 public class EntityAIMoveTowardsTarget extends EntityAIBase {
-    private EntityCreature theEntity;
+    private final EntityCreature theEntity;
     private EntityLivingBase targetEntity;
     private double movePosX;
     private double movePosY;
     private double movePosZ;
-    private double speed;
-    private float maxTargetDistance;
+    private final double speed;
+    private final float maxTargetDistance;
 
     public EntityAIMoveTowardsTarget(EntityCreature creature, double speedIn, float targetMaxDistance) {
         this.theEntity = creature;

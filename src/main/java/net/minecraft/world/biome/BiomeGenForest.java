@@ -14,7 +14,7 @@ import net.minecraft.world.gen.feature.WorldGenCanopyTree;
 import net.minecraft.world.gen.feature.WorldGenForest;
 
 public class BiomeGenForest extends BiomeGenBase {
-    private int field_150632_aF;
+    private final int field_150632_aF;
     protected static final WorldGenForest field_150629_aC = new WorldGenForest(false, true);
     protected static final WorldGenForest field_150630_aD = new WorldGenForest(false, false);
     protected static final WorldGenCanopyTree field_150631_aE = new WorldGenCanopyTree(false);

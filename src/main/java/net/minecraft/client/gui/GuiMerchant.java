@@ -26,11 +26,11 @@ import org.apache.logging.log4j.Logger;
 public class GuiMerchant extends GuiContainer {
     private static final Logger logger = LogManager.getLogger();
     private static final ResourceLocation MERCHANT_GUI_TEXTURE = new ResourceLocation("textures/gui/container/villager.png");
-    private IMerchant merchant;
+    private final IMerchant merchant;
     private GuiMerchant.MerchantButton nextButton;
     private GuiMerchant.MerchantButton previousButton;
     private int selectedMerchantRecipe;
-    private IChatComponent chatComponent;
+    private final IChatComponent chatComponent;
 
     public GuiMerchant(InventoryPlayer p_i45500_1_, IMerchant p_i45500_2_, World worldIn) {
         super(new ContainerMerchant(p_i45500_1_, p_i45500_2_, worldIn));

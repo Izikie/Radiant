@@ -6,10 +6,10 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.ChunkCoordIntPair;
 
 public class ChunkPosComparator implements Comparator<ChunkCoordIntPair> {
-    private int chunkPosX;
-    private int chunkPosZ;
-    private double yawRad;
-    private double pitchNorm;
+    private final int chunkPosX;
+    private final int chunkPosZ;
+    private final double yawRad;
+    private final double pitchNorm;
 
     public ChunkPosComparator(int chunkPosX, int chunkPosZ, double yawRad, double pitchRad) {
         this.chunkPosX = chunkPosX;

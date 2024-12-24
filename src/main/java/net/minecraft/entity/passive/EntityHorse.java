@@ -73,7 +73,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
     private float prevMouthOpenness;
     private int gallopTime;
     private String texturePrefix;
-    private String[] horseTexturesArray = new String[3];
+    private final String[] horseTexturesArray = new String[3];
     private boolean field_175508_bO = false;
 
     public EntityHorse(World worldIn) {

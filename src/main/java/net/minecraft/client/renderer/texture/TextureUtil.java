@@ -27,7 +27,7 @@ public class TextureUtil {
     public static final DynamicTexture missingTexture = new DynamicTexture(16, 16);
     public static final int[] missingTextureData = missingTexture.getTextureData();
     private static final int[] mipmapBuffer;
-    private static int[] dataArray = new int[4194304];
+    private static final int[] dataArray = new int[4194304];
 
     public static int glGenTextures() {
         return GlStateManager.generateTexture();

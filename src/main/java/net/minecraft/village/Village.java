@@ -35,8 +35,8 @@ public class Village {
     private int tickCounter;
     private int numVillagers;
     private int noBreedTicks;
-    private TreeMap<String, Integer> playerReputation = new TreeMap();
-    private List<Village.VillageAggressor> villageAgressors = Lists.<Village.VillageAggressor>newArrayList();
+    private final TreeMap<String, Integer> playerReputation = new TreeMap();
+    private final List<Village.VillageAggressor> villageAgressors = Lists.<Village.VillageAggressor>newArrayList();
     private int numIronGolems;
 
     public Village() {

@@ -15,14 +15,14 @@ import net.minecraft.util.Vec3;
 public class EntityAIAvoidEntity<T extends Entity> extends EntityAIBase {
     private final Predicate<Entity> canBeSeenSelector;
     protected EntityCreature theEntity;
-    private double farSpeed;
-    private double nearSpeed;
+    private final double farSpeed;
+    private final double nearSpeed;
     protected T closestLivingEntity;
-    private float avoidDistance;
+    private final float avoidDistance;
     private PathEntity entityPathEntity;
-    private PathNavigate entityPathNavigate;
-    private Class<T> classToAvoid;
-    private Predicate<? super T> avoidTargetSelector;
+    private final PathNavigate entityPathNavigate;
+    private final Class<T> classToAvoid;
+    private final Predicate<? super T> avoidTargetSelector;
 
     public EntityAIAvoidEntity(EntityCreature theEntityIn, Class<T> classToAvoidIn, float avoidDistanceIn, double farSpeedIn, double nearSpeedIn) {
         this(theEntityIn, classToAvoidIn, Predicates.<T>alwaysTrue(), avoidDistanceIn, farSpeedIn, nearSpeedIn);
