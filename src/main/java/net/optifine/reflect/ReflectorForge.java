@@ -36,40 +36,12 @@ public class ReflectorForge {
         }
     }
 
-    public static void putLaunchBlackboard(String key, Object value) {
-        Map map = (Map) Reflector.getFieldValue(Reflector.Launch_blackboard);
-
-        if (map != null) {
-            map.put(key, value);
-        }
-    }
-
     public static boolean renderFirstPersonHand(RenderGlobal renderGlobal, float partialTicks, int pass) {
         return !Reflector.ForgeHooksClient_renderFirstPersonHand.exists() ? false : Reflector.callBoolean(Reflector.ForgeHooksClient_renderFirstPersonHand, renderGlobal, Float.valueOf(partialTicks), Integer.valueOf(pass));
     }
 
     public static InputStream getOptiFineResourceStream(String path) {
-        if (!Reflector.OptiFineClassTransformer_instance.exists()) {
-            return null;
-        } else {
-            Object object = Reflector.getFieldValue(Reflector.OptiFineClassTransformer_instance);
-
-            if (object == null) {
-                return null;
-            } else {
-                if (path.startsWith("/")) {
-                    path = path.substring(1);
-                }
-
-                byte[] abyte = (byte[]) Reflector.call(object, Reflector.OptiFineClassTransformer_getOptiFineResource, new Object[]{path});
-
-                if (abyte == null) {
-                    return null;
-                } else {
-                    return new ByteArrayInputStream(abyte);
-                }
-            }
-        }
+        return null;
     }
 
     public static boolean blockHasTileEntity(IBlockState state) {
@@ -87,30 +59,7 @@ public class ReflectorForge {
     }
 
     public static String[] getForgeModIds() {
-        if (!Reflector.Loader.exists()) {
-            return new String[0];
-        } else {
-            Object object = Reflector.call(Reflector.Loader_instance);
-            List list = (List) Reflector.call(object, Reflector.Loader_getActiveModList, new Object[0]);
-
-            if (list == null) {
-                return new String[0];
-            } else {
-                List<String> list1 = new ArrayList<>();
-
-                for (Object object1 : list) {
-                    if (Reflector.ModContainer.isInstance(object1)) {
-                        String s = Reflector.callString(object1, Reflector.ModContainer_getModId);
-
-                        if (s != null) {
-                            list1.add(s);
-                        }
-                    }
-                }
-
-                return list1.toArray(new String[list1.size()]);
-            }
-        }
+        return new String[0];
     }
 
     public static boolean canEntitySpawn(EntityLiving entityliving, World world, float x, float y, float z) {

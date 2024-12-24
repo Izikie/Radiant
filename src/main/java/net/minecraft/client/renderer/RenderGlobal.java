@@ -2133,25 +2133,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 double d4 = (double) blockpos.getY() - d1;
                 double d5 = (double) blockpos.getZ() - d2;
                 Block block = this.theWorld.getBlockState(blockpos).getBlock();
-                boolean flag;
 
-                if (Reflector.ForgeTileEntity_canRenderBreaking.exists()) {
-                    boolean flag1 = block instanceof BlockChest || block instanceof BlockEnderChest || block instanceof BlockSign || block instanceof BlockSkull;
-
-                    if (!flag1) {
-                        TileEntity tileentity = this.theWorld.getTileEntity(blockpos);
-
-                        if (tileentity != null) {
-                            flag1 = Reflector.callBoolean(tileentity, Reflector.ForgeTileEntity_canRenderBreaking);
-                        }
-                    }
-
-                    flag = !flag1;
-                } else {
-                    flag = !(block instanceof BlockChest) && !(block instanceof BlockEnderChest) && !(block instanceof BlockSign) && !(block instanceof BlockSkull);
-                }
-
-                if (flag) {
+                if (!(block instanceof BlockChest) && !(block instanceof BlockEnderChest) && !(block instanceof BlockSign) && !(block instanceof BlockSkull)) {
                     if (d3 * d3 + d4 * d4 + d5 * d5 > 1024.0D) {
                         iterator.remove();
                     } else {

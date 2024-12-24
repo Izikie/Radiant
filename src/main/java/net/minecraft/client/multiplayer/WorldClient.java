@@ -61,7 +61,6 @@ public class WorldClient extends World {
         this.mapStorage = new SaveDataMemoryStorage();
         this.calculateInitialSkylight();
         this.calculateInitialWeather();
-        Reflector.postForgeBusEvent(Reflector.WorldEvent_Load_Constructor, new Object[]{this});
 
         if (this.mc.playerController != null && this.mc.playerController.getClass() == PlayerControllerMP.class) {
             this.mc.playerController = new PlayerControllerOF(this.mc, netHandler);

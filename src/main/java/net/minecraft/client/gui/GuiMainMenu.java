@@ -400,25 +400,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         this.drawCenteredString(this.fontRendererObj, this.splashText, 0, -8, -256);
         GlStateManager.popMatrix();
         String s = "Minecraft 1.8.9";
-
-        if (Reflector.FMLCommonHandler_getBrandings.exists()) {
-            Object object = Reflector.call(Reflector.FMLCommonHandler_instance, new Object[0]);
-            List<String> list = Lists.<String>reverse((List) Reflector.call(object, Reflector.FMLCommonHandler_getBrandings, new Object[]{Boolean.valueOf(true)}));
-
-            for (int l1 = 0; l1 < list.size(); ++l1) {
-                String s1 = (String) list.get(l1);
-
-                if (!Strings.isNullOrEmpty(s1)) {
-                    this.drawString(this.fontRendererObj, s1, 2, this.height - (10 + l1 * (this.fontRendererObj.FONT_HEIGHT + 1)), 16777215);
-                }
-            }
-
-            if (Reflector.ForgeHooksClient_renderMainMenu.exists()) {
-                Reflector.call(Reflector.ForgeHooksClient_renderMainMenu, new Object[]{this, this.fontRendererObj, Integer.valueOf(this.width), Integer.valueOf(this.height)});
-            }
-        } else {
-            this.drawString(this.fontRendererObj, s, 2, this.height - 10, -1);
-        }
+        this.drawString(this.fontRendererObj, s, 2, this.height - 10, -1);
 
         String s2 = "Copyright Mojang AB. Do not distribute!";
         this.drawString(this.fontRendererObj, s2, this.width - this.fontRendererObj.getStringWidth(s2) - 2, this.height - 10, -1);

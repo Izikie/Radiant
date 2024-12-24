@@ -494,12 +494,6 @@ public class RenderItem implements IResourceManagerReloadListener {
                 int j1 = (int) Math.round(13.0D - (double) stack.getItemDamage() * 13.0D / (double) stack.getMaxDamage());
                 int i = (int) Math.round(255.0D - (double) stack.getItemDamage() * 255.0D / (double) stack.getMaxDamage());
 
-                if (Reflector.ForgeItem_getDurabilityForDisplay.exists()) {
-                    double d0 = Reflector.callDouble(stack.getItem(), Reflector.ForgeItem_getDurabilityForDisplay, new Object[]{stack});
-                    j1 = (int) Math.round(13.0D - d0 * 13.0D);
-                    i = (int) Math.round(255.0D - d0 * 255.0D);
-                }
-
                 GlStateManager.disableLighting();
                 GlStateManager.disableDepth();
                 GlStateManager.disableTexture2D();

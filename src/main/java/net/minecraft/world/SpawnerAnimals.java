@@ -100,12 +100,6 @@ public final class SpawnerAnimals {
                     if (k4 <= l4) {
                         Collection<ChunkCoordIntPair> collection = this.eligibleChunksForSpawning;
 
-                        if (Reflector.ForgeHooksClient.exists()) {
-                            ArrayList<ChunkCoordIntPair> arraylist = Lists.newArrayList(collection);
-                            Collections.shuffle(arraylist);
-                            collection = arraylist;
-                        }
-
                         label561:
 
                         for (ChunkCoordIntPair chunkcoordintpair1 : collection) {
