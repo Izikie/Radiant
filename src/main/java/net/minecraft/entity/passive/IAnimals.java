@@ -1,4 +1,5 @@
 package net.minecraft.entity.passive;
 
-public interface IAnimals {
+public interface IAnimals
+{
 }

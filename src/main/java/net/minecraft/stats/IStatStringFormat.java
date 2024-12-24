@@ -1,10 +1,6 @@
 package net.minecraft.stats;
 
-public interface IStatStringFormat {
-    /**
-     * Formats the strings based on 'IStatStringFormat' interface.
-     *
-     * @param str The String to format
-     */
+public interface IStatStringFormat
+{
     String formatString(String str);
 }

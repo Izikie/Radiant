@@ -1,17 +1,14 @@
 package net.minecraft.item;
 
-public class ItemBook extends Item {
-    /**
-     * Checks isDamagable and if it cannot be stacked
-     */
-    public boolean isItemTool(ItemStack stack) {
+public class ItemBook extends Item
+{
+    public boolean isItemTool(ItemStack stack)
+    {
         return stack.stackSize == 1;
     }
 
-    /**
-     * Return the enchantability factor of the item, most of the time is based on material.
-     */
-    public int getItemEnchantability() {
+    public int getItemEnchantability()
+    {
         return 1;
     }
 }

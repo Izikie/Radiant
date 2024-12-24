@@ -1,8 +1,6 @@
 package net.minecraft.util;
 
-public interface ITickable {
-    /**
-     * Like the old updateEntity(), except more generic.
-     */
+public interface ITickable
+{
     void update();
 }

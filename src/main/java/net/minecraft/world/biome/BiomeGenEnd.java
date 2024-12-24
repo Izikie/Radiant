@@ -3,8 +3,10 @@ package net.minecraft.world.biome;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.init.Blocks;
 
-public class BiomeGenEnd extends BiomeGenBase {
-    public BiomeGenEnd(int id) {
+public class BiomeGenEnd extends BiomeGenBase
+{
+    public BiomeGenEnd(int id)
+    {
         super(id);
         this.spawnableMonsterList.clear();
         this.spawnableCreatureList.clear();
@@ -16,10 +18,8 @@ public class BiomeGenEnd extends BiomeGenBase {
         this.theBiomeDecorator = new BiomeEndDecorator();
     }
 
-    /**
-     * takes temperature, returns color
-     */
-    public int getSkyColorByTemp(float p_76731_1_) {
+    public int getSkyColorByTemp(float p_76731_1_)
+    {
         return 0;
     }
 }

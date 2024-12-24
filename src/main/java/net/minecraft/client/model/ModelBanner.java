@@ -1,11 +1,13 @@
 package net.minecraft.client.model;
 
-public class ModelBanner extends ModelBase {
+public class ModelBanner extends ModelBase
+{
     public ModelRenderer bannerSlate;
     public ModelRenderer bannerStand;
     public ModelRenderer bannerTop;
 
-    public ModelBanner() {
+    public ModelBanner()
+    {
         this.textureWidth = 64;
         this.textureHeight = 64;
         this.bannerSlate = new ModelRenderer(this, 0, 0);
@@ -16,10 +18,8 @@ public class ModelBanner extends ModelBase {
         this.bannerTop.addBox(-10.0F, -32.0F, -1.0F, 20, 2, 2, 0.0F);
     }
 
-    /**
-     * Renders the banner model in.
-     */
-    public void renderBanner() {
+    public void renderBanner()
+    {
         this.bannerSlate.rotationPointY = -32.0F;
         this.bannerSlate.render(0.0625F);
         this.bannerStand.render(0.0625F);

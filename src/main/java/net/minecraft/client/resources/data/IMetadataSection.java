@@ -1,4 +1,5 @@
 package net.minecraft.client.resources.data;
 
-public interface IMetadataSection {
+public interface IMetadataSection
+{
 }
