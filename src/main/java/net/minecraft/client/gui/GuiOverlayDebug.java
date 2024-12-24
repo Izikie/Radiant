@@ -50,80 +50,68 @@ public class GuiOverlayDebug extends Gui {
     }
 
     public void renderDebugInfo(ScaledResolution scaledResolutionIn) {
-        this.mc.mcProfiler.startSection("debug");
         GlStateManager.pushMatrix();
-        this.renderDebugInfoLeft();
-        this.renderDebugInfoRight(scaledResolutionIn);
+        renderDebugInfoLeft();
+        renderDebugInfoRight(scaledResolutionIn);
         GlStateManager.popMatrix();
-
-        if (this.mc.gameSettings.showLagometer) {
-            this.renderLagometer();
-        }
-
-        this.mc.mcProfiler.endSection();
     }
 
     private boolean isReducedDebug() {
-        return this.mc.thePlayer.hasReducedDebug() || this.mc.gameSettings.reducedDebugInfo;
+        return mc.thePlayer.hasReducedDebug() || mc.gameSettings.reducedDebugInfo;
     }
 
     protected void renderDebugInfoLeft() {
-        List<String> list = this.debugInfoLeft;
+        List<String> list = debugInfoLeft;
 
-        if (list == null || System.currentTimeMillis() > this.updateInfoLeftTimeMs) {
-            list = this.call();
-            this.debugInfoLeft = list;
-            this.updateInfoLeftTimeMs = System.currentTimeMillis() + 100L;
+        if (list == null || System.currentTimeMillis() > updateInfoLeftTimeMs) {
+            list = getDebugInfoLeft();
+            debugInfoLeft = list;
+            updateInfoLeftTimeMs = System.currentTimeMillis() + 100L;
         }
 
         for (int i = 0; i < list.size(); ++i) {
-            String s = (String) list.get(i);
+            String line = list.get(i);
 
-            if (!Strings.isNullOrEmpty(s)) {
-                int j = this.fontRenderer.FONT_HEIGHT;
-                int k = this.fontRenderer.getStringWidth(s);
-                int l = 2;
-                int i1 = 2 + j * i;
-                drawRect(1, i1 - 1, 2 + k + 1, i1 + j - 1, -1873784752);
-                this.fontRenderer.drawString(s, 2, i1, 14737632);
+            if (!Strings.isNullOrEmpty(line)) {
+                int fontHeight = fontRenderer.FONT_HEIGHT;
+                int yPos = 2 + fontHeight * i;
+                fontRenderer.drawStringWithShadow(line, 2, yPos, -1);
             }
         }
     }
 
     protected void renderDebugInfoRight(ScaledResolution scaledRes) {
-        List<String> list = this.debugInfoRight;
+        List<String> list = debugInfoRight;
 
-        if (list == null || System.currentTimeMillis() > this.updateInfoRightTimeMs) {
-            list = this.getDebugInfoRight();
-            this.debugInfoRight = list;
-            this.updateInfoRightTimeMs = System.currentTimeMillis() + 100L;
+        if (list == null || System.currentTimeMillis() > updateInfoRightTimeMs) {
+            list = getDebugInfoRight();
+            debugInfoRight = list;
+            updateInfoRightTimeMs = System.currentTimeMillis() + 100L;
         }
 
         for (int i = 0; i < list.size(); ++i) {
-            String s = (String) list.get(i);
+            String line = list.get(i);
 
-            if (!Strings.isNullOrEmpty(s)) {
-                int j = this.fontRenderer.FONT_HEIGHT;
-                int k = this.fontRenderer.getStringWidth(s);
-                int l = scaledRes.getScaledWidth() - 2 - k;
-                int i1 = 2 + j * i;
-                drawRect(l - 1, i1 - 1, l + k + 1, i1 + j - 1, -1873784752);
-                this.fontRenderer.drawString(s, l, i1, 14737632);
+            if (!Strings.isNullOrEmpty(line)) {
+                int lineWidth = fontRenderer.getStringWidth(line);
+                int xPos = scaledRes.getScaledWidth() - 2 - lineWidth;
+                int yPos = 2 + fontRenderer.FONT_HEIGHT * i;
+                fontRenderer.drawStringWithShadow(line, xPos, yPos, -1);
             }
         }
     }
 
     @SuppressWarnings("incomplete-switch")
-    protected List<String> call() {
-        BlockPos blockpos = new BlockPos(this.mc.getRenderViewEntity().posX, this.mc.getRenderViewEntity().getEntityBoundingBox().minY, this.mc.getRenderViewEntity().posZ);
+    protected List<String> getDebugInfoLeft() {
+        BlockPos blockPos = new BlockPos(mc.getRenderViewEntity().posX, mc.getRenderViewEntity().getEntityBoundingBox().minY, mc.getRenderViewEntity().posZ);
 
-        if (this.mc.debug != this.debugOF) {
-            StringBuffer stringbuffer = new StringBuffer(this.mc.debug);
-            int i = Config.getFpsMin();
-            int j = this.mc.debug.indexOf(" fps ");
+        if (mc.debug != debugOF) {
+            StringBuffer stringbuffer = new StringBuffer(mc.debug);
+            int minFPS = Config.getFpsMin();
+            int currentFPS = mc.debug.indexOf(" fps ");
 
-            if (j >= 0) {
-                stringbuffer.insert(j, "/" + i);
+            if (currentFPS >= 0) {
+                stringbuffer.insert(currentFPS, "/" + minFPS);
             }
 
             if (Config.isSmoothFps()) {
@@ -150,152 +138,134 @@ public class GuiOverlayDebug extends Gui {
                 stringbuffer.append(" sh");
             }
 
-            this.mc.debug = stringbuffer.toString();
-            this.debugOF = this.mc.debug;
+            mc.debug = stringbuffer.toString();
+            debugOF = mc.debug;
         }
 
-        StringBuilder stringbuilder = new StringBuilder();
-        TextureMap texturemap = Config.getTextureMap();
-        stringbuilder.append(", A: ");
+        StringBuilder textureAnimBuilder = new StringBuilder();
+        TextureMap textureMap = Config.getTextureMap();
+        textureAnimBuilder.append(", A: ");
 
         if (SmartAnimations.isActive()) {
-            stringbuilder.append(texturemap.getCountAnimationsActive() + TextureAnimations.getCountAnimationsActive());
-            stringbuilder.append("/");
+            textureAnimBuilder.append(textureMap.getCountAnimationsActive() + TextureAnimations.getCountAnimationsActive());
+            textureAnimBuilder.append("/");
         }
 
-        stringbuilder.append(texturemap.getCountAnimations() + TextureAnimations.getCountAnimations());
-        String s1 = stringbuilder.toString();
+        textureAnimBuilder.append(textureMap.getCountAnimations() + TextureAnimations.getCountAnimations());
+        String textureAnimInfo = textureAnimBuilder.toString();
 
-        if (this.isReducedDebug()) {
-            return Lists.newArrayList(new String[]{"Minecraft 1.8.9 (" + this.mc.getVersion() + "/" + ClientBrandRetriever.getClientModName() + ")", this.mc.debug, this.mc.renderGlobal.getDebugInfoRenders(), this.mc.renderGlobal.getDebugInfoEntities(), "P: " + this.mc.effectRenderer.getStatistics() + ". T: " + this.mc.theWorld.getDebugLoadedEntities() + s1, this.mc.theWorld.getProviderName(), "", String.format("Chunk-relative: %d %d %d", new Object[]{Integer.valueOf(blockpos.getX() & 15), Integer.valueOf(blockpos.getY() & 15), Integer.valueOf(blockpos.getZ() & 15)})});
+        List<String> debugInfo = Lists.newArrayList(
+            String.format("Minecraft 1.8.9 (%s)", mc.getVersion()),
+                mc.debug,
+                mc.renderGlobal.getDebugInfoRenders(),
+                mc.renderGlobal.getDebugInfoEntities(),
+                "P: " + mc.effectRenderer.getStatistics() + ". T: " + mc.theWorld.getDebugLoadedEntities() + textureAnimInfo,
+                mc.theWorld.getProviderName(),
+                "",
+                String.format("Chunk-relative: %d %d %d", blockPos.getX() & 15, blockPos.getY() & 15, blockPos.getZ() & 15)
+        );
+
+        if (isReducedDebug()) {
+            debugInfo.add(String.format("Chunk-relative: %d %d %d", blockPos.getX() & 15, blockPos.getY() & 15, blockPos.getZ() & 15));
         } else {
-            Entity entity = this.mc.getRenderViewEntity();
-            EnumFacing enumfacing = entity.getHorizontalFacing();
-            String s = "Invalid";
+            Entity entity = mc.getRenderViewEntity();
+            EnumFacing enumFacing = entity.getHorizontalFacing();
+            String direction = switch (enumFacing) {
+                case NORTH -> "Towards -Z";
+                case SOUTH -> "Towards +Z";
+                case WEST -> "Towards -X";
+                case EAST -> "Towards +X";
+                default -> "Invalid";
+            };
 
-            switch (enumfacing) {
-                case NORTH:
-                    s = "Towards negative Z";
-                    break;
+            debugInfo.add(String.format("XYZ: %.3f / %.3f / %.3f", mc.getRenderViewEntity().posX, mc.getRenderViewEntity().getEntityBoundingBox().minY, mc.getRenderViewEntity().posZ));
+            debugInfo.add(String.format("Block: %d %d %d", blockPos.getX(), blockPos.getY(), blockPos.getZ()));
+            debugInfo.add(String.format("Chunk: %d %d %d in %d %d %d", blockPos.getX() & 15, blockPos.getY() & 15, blockPos.getZ() & 15, blockPos.getX() >> 4, blockPos.getY() >> 4, blockPos.getZ() >> 4));
+            debugInfo.add(String.format("Facing: %s (%s) (%.1f / %.1f)", enumFacing, direction, MathHelper.wrapAngleTo180_float(entity.rotationYaw), MathHelper.wrapAngleTo180_float(entity.rotationPitch)));
 
-                case SOUTH:
-                    s = "Towards positive Z";
-                    break;
+            if (mc.theWorld != null && mc.theWorld.isBlockLoaded(blockPos)) {
+                Chunk chunk = mc.theWorld.getChunkFromBlockCoords(blockPos);
+                debugInfo.add("Biome: " + chunk.getBiome(blockPos, mc.theWorld.getWorldChunkManager()).biomeName);
+                debugInfo.add("Light: " + chunk.getLightSubtracted(blockPos, 0) + " (" + chunk.getLightFor(EnumSkyBlock.SKY, blockPos) + " sky, " + chunk.getLightFor(EnumSkyBlock.BLOCK, blockPos) + " block)");
+                DifficultyInstance localDifficulty = mc.theWorld.getDifficultyForLocation(blockPos);
 
-                case WEST:
-                    s = "Towards negative X";
-                    break;
+                if (mc.isIntegratedServerRunning() && mc.getIntegratedServer() != null) {
+                    EntityPlayerMP entityPlayerMP = mc.getIntegratedServer().getConfigurationManager().getPlayerByUUID(mc.thePlayer.getUniqueID());
 
-                case EAST:
-                    s = "Towards positive X";
-            }
+                    if (entityPlayerMP != null) {
+                        DifficultyInstance difficultyAsync = mc.getIntegratedServer().getDifficultyAsync(entityPlayerMP.worldObj, new BlockPos(entityPlayerMP));
 
-            List<String> list = Lists.newArrayList(new String[]{"Minecraft 1.8.9 (" + this.mc.getVersion() + "/" + ClientBrandRetriever.getClientModName() + ")", this.mc.debug, this.mc.renderGlobal.getDebugInfoRenders(), this.mc.renderGlobal.getDebugInfoEntities(), "P: " + this.mc.effectRenderer.getStatistics() + ". T: " + this.mc.theWorld.getDebugLoadedEntities() + s1, this.mc.theWorld.getProviderName(), "", String.format("XYZ: %.3f / %.5f / %.3f", new Object[]{Double.valueOf(this.mc.getRenderViewEntity().posX), Double.valueOf(this.mc.getRenderViewEntity().getEntityBoundingBox().minY), Double.valueOf(this.mc.getRenderViewEntity().posZ)}), String.format("Block: %d %d %d", new Object[]{Integer.valueOf(blockpos.getX()), Integer.valueOf(blockpos.getY()), Integer.valueOf(blockpos.getZ())}), String.format("Chunk: %d %d %d in %d %d %d", new Object[]{Integer.valueOf(blockpos.getX() & 15), Integer.valueOf(blockpos.getY() & 15), Integer.valueOf(blockpos.getZ() & 15), Integer.valueOf(blockpos.getX() >> 4), Integer.valueOf(blockpos.getY() >> 4), Integer.valueOf(blockpos.getZ() >> 4)}), String.format("Facing: %s (%s) (%.1f / %.1f)", new Object[]{enumfacing, s, Float.valueOf(MathHelper.wrapAngleTo180_float(entity.rotationYaw)), Float.valueOf(MathHelper.wrapAngleTo180_float(entity.rotationPitch))})});
-
-            if (this.mc.theWorld != null && this.mc.theWorld.isBlockLoaded(blockpos)) {
-                Chunk chunk = this.mc.theWorld.getChunkFromBlockCoords(blockpos);
-                list.add("Biome: " + chunk.getBiome(blockpos, this.mc.theWorld.getWorldChunkManager()).biomeName);
-                list.add("Light: " + chunk.getLightSubtracted(blockpos, 0) + " (" + chunk.getLightFor(EnumSkyBlock.SKY, blockpos) + " sky, " + chunk.getLightFor(EnumSkyBlock.BLOCK, blockpos) + " block)");
-                DifficultyInstance difficultyinstance = this.mc.theWorld.getDifficultyForLocation(blockpos);
-
-                if (this.mc.isIntegratedServerRunning() && this.mc.getIntegratedServer() != null) {
-                    EntityPlayerMP entityplayermp = this.mc.getIntegratedServer().getConfigurationManager().getPlayerByUUID(this.mc.thePlayer.getUniqueID());
-
-                    if (entityplayermp != null) {
-                        DifficultyInstance difficultyinstance1 = this.mc.getIntegratedServer().getDifficultyAsync(entityplayermp.worldObj, new BlockPos(entityplayermp));
-
-                        if (difficultyinstance1 != null) {
-                            difficultyinstance = difficultyinstance1;
+                        if (difficultyAsync != null) {
+                            localDifficulty = difficultyAsync;
                         }
                     }
                 }
 
-                list.add(String.format("Local Difficulty: %.2f (Day %d)", new Object[]{Float.valueOf(difficultyinstance.getAdditionalDifficulty()), Long.valueOf(this.mc.theWorld.getWorldTime() / 24000L)}));
+                debugInfo.add(String.format("Local Difficulty: %.2f (Day %d)", localDifficulty.getAdditionalDifficulty(), mc.theWorld.getWorldTime() / 24000L));
             }
 
-            if (this.mc.entityRenderer != null && this.mc.entityRenderer.isShaderActive()) {
-                list.add("Shader: " + this.mc.entityRenderer.getShaderGroup().getShaderGroupName());
+            if (mc.entityRenderer != null && mc.entityRenderer.isShaderActive()) {
+                debugInfo.add("Shader: " + mc.entityRenderer.getShaderGroup().getShaderGroupName());
             }
 
-            if (this.mc.objectMouseOver != null && this.mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && this.mc.objectMouseOver.getBlockPos() != null) {
-                BlockPos blockpos1 = this.mc.objectMouseOver.getBlockPos();
-                list.add(String.format("Looking at: %d %d %d", new Object[]{Integer.valueOf(blockpos1.getX()), Integer.valueOf(blockpos1.getY()), Integer.valueOf(blockpos1.getZ())}));
+            if (mc.objectMouseOver != null && mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && mc.objectMouseOver.getBlockPos() != null) {
+                BlockPos lookPos = mc.objectMouseOver.getBlockPos();
+                debugInfo.add(String.format("Looking at: %d %d %d", lookPos.getX(), lookPos.getY(), lookPos.getZ()));
             }
-
-            return list;
         }
+
+        return debugInfo;
     }
 
     protected List<String> getDebugInfoRight() {
-        long i = Runtime.getRuntime().maxMemory();
-        long j = Runtime.getRuntime().totalMemory();
-        long k = Runtime.getRuntime().freeMemory();
-        long l = j - k;
-        List<String> list = Lists.newArrayList(new String[]{String.format("Java: %s %dbit", new Object[]{System.getProperty("java.version"), Integer.valueOf(this.mc.isJava64bit() ? 64 : 32)}), String.format("Mem: % 2d%% %03d/%03dMB", new Object[]{Long.valueOf(l * 100L / i), Long.valueOf(bytesToMb(l)), Long.valueOf(bytesToMb(i))}), String.format("Allocated: % 2d%% %03dMB", new Object[]{Long.valueOf(j * 100L / i), Long.valueOf(bytesToMb(j))}), "", String.format("CPU: %s", new Object[]{OpenGlHelper.getCpu()}), "", String.format("Display: %dx%d (%s)", new Object[]{Integer.valueOf(Display.getWidth()), Integer.valueOf(Display.getHeight()), GL11.glGetString(GL11.GL_VENDOR)}), GL11.glGetString(GL11.GL_RENDERER), GL11.glGetString(GL11.GL_VERSION)});
-        long i1 = NativeMemory.getBufferAllocated();
-        long j1 = NativeMemory.getBufferMaximum();
-        String s = "Native: " + bytesToMb(i1) + "/" + bytesToMb(j1) + "MB";
-        list.add(4, s);
+        long maxMemory = Runtime.getRuntime().maxMemory();
+        long totalMemory = Runtime.getRuntime().totalMemory();
+        long freeMemory = Runtime.getRuntime().freeMemory();
+        long usedMemory = totalMemory - freeMemory;
+
+        List<String> list = Lists.newArrayList(
+                String.format("Java: %s %dbit", System.getProperty("java.version"), mc.isJava64bit() ? 64 : 32),
+                String.format("Mem: % 2d%% %03d/%03dMB", usedMemory * 100L / maxMemory, bytesToMb(usedMemory), bytesToMb(maxMemory)),
+                String.format("Allocated: % 2d%% %03dMB", totalMemory * 100L / maxMemory, bytesToMb(totalMemory)),
+                "",
+                String.format("CPU: %s", OpenGlHelper.getCpu()),
+                "",
+                String.format("Display: %dx%d (%s)", Display.getWidth(), Display.getHeight(), GL11.glGetString(GL11.GL_VENDOR)),
+                GL11.glGetString(GL11.GL_RENDERER), GL11.glGetString(GL11.GL_VERSION));
+
+        long bufferAllocated = bytesToMb(NativeMemory.getBufferAllocated());
+        long bufferMax = bytesToMb(NativeMemory.getBufferMaximum());
+        String nativeMemory = "Native: " + bufferAllocated + "/" + bufferMax + "MB";
+        list.add(4, nativeMemory);
         list.set(5, "GC: " + MemoryMonitor.getAllocationRateMb() + "MB/s");
 
-        if (Reflector.FMLCommonHandler_getBrandings.exists()) {
-            Object object = Reflector.call(Reflector.FMLCommonHandler_instance, new Object[0]);
-            list.add("");
-            list.addAll((Collection) Reflector.call(object, Reflector.FMLCommonHandler_getBrandings, new Object[]{Boolean.valueOf(false)}));
-        }
+        if (!isReducedDebug()) {
+            if (mc.objectMouseOver != null && mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && mc.objectMouseOver.getBlockPos() != null) {
+                BlockPos blockPos = mc.objectMouseOver.getBlockPos();
+                IBlockState iBlockState = mc.theWorld.getBlockState(blockPos);
 
-        if (this.isReducedDebug()) {
-            return list;
-        } else {
-            if (this.mc.objectMouseOver != null && this.mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && this.mc.objectMouseOver.getBlockPos() != null) {
-                BlockPos blockpos = this.mc.objectMouseOver.getBlockPos();
-                IBlockState iblockstate = this.mc.theWorld.getBlockState(blockpos);
-
-                if (this.mc.theWorld.getWorldType() != WorldType.DEBUG_WORLD) {
-                    iblockstate = iblockstate.getBlock().getActualState(iblockstate, this.mc.theWorld, blockpos);
+                if (mc.theWorld.getWorldType() != WorldType.DEBUG_WORLD) {
+                    iBlockState = iBlockState.getBlock().getActualState(iBlockState, mc.theWorld, blockPos);
                 }
 
                 list.add("");
-                list.add(String.valueOf(Block.blockRegistry.getNameForObject(iblockstate.getBlock())));
+                list.add(String.valueOf(Block.blockRegistry.getNameForObject(iBlockState.getBlock())));
 
-                for (Entry<IProperty, Comparable> entry : iblockstate.getProperties().entrySet()) {
-                    String s1 = ((Comparable) entry.getValue()).toString();
+                for (Entry<IProperty, Comparable> entry : iBlockState.getProperties().entrySet()) {
+                    String value = entry.getValue().toString();
 
                     if (entry.getValue() == Boolean.TRUE) {
-                        s1 = EnumChatFormatting.GREEN + s1;
+                        value = EnumChatFormatting.GREEN + value;
                     } else if (entry.getValue() == Boolean.FALSE) {
-                        s1 = EnumChatFormatting.RED + s1;
+                        value = EnumChatFormatting.RED + value;
                     }
 
-                    list.add(((IProperty) entry.getKey()).getName() + ": " + s1);
+                    list.add(entry.getKey().getName() + ": " + value);
                 }
             }
 
-            return list;
         }
-    }
-
-    private void renderLagometer() {
-    }
-
-    private int getFrameColor(int p_181552_1_, int p_181552_2_, int p_181552_3_, int p_181552_4_) {
-        return p_181552_1_ < p_181552_3_ ? this.blendColors(-16711936, -256, (float) p_181552_1_ / (float) p_181552_3_) : this.blendColors(-256, -65536, (float) (p_181552_1_ - p_181552_3_) / (float) (p_181552_4_ - p_181552_3_));
-    }
-
-    private int blendColors(int p_181553_1_, int p_181553_2_, float p_181553_3_) {
-        int i = p_181553_1_ >> 24 & 255;
-        int j = p_181553_1_ >> 16 & 255;
-        int k = p_181553_1_ >> 8 & 255;
-        int l = p_181553_1_ & 255;
-        int i1 = p_181553_2_ >> 24 & 255;
-        int j1 = p_181553_2_ >> 16 & 255;
-        int k1 = p_181553_2_ >> 8 & 255;
-        int l1 = p_181553_2_ & 255;
-        int i2 = MathHelper.clamp_int((int) ((float) i + (float) (i1 - i) * p_181553_3_), 0, 255);
-        int j2 = MathHelper.clamp_int((int) ((float) j + (float) (j1 - j) * p_181553_3_), 0, 255);
-        int k2 = MathHelper.clamp_int((int) ((float) k + (float) (k1 - k) * p_181553_3_), 0, 255);
-        int l2 = MathHelper.clamp_int((int) ((float) l + (float) (l1 - l) * p_181553_3_), 0, 255);
-        return i2 << 24 | j2 << 16 | k2 << 8 | l2;
+        return list;
     }
 
     private static long bytesToMb(long bytes) {

@@ -87,8 +87,7 @@ public class CrashReporter {
     }
 
     public static void extendCrashReport(CrashReportCategory cat) {
-        cat.addCrashSection("OptiFine Version", Config.getVersion());
-        cat.addCrashSection("OptiFine Build", Config.getBuild());
+        cat.addCrashSection("OptiFine Version/Build", Config.getVersion());
 
         if (Config.getGameSettings() != null) {
             cat.addCrashSection("Render Distance Chunks", "" + Config.getChunkViewDistance());

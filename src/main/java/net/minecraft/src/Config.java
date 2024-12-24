@@ -118,27 +118,25 @@ public class Config {
     public static float renderPartialTicks;
 
     public static String getVersion() {
-        return "OptiFine_1.8.9_HD_U_M6_pre2";
+        return "OptiFine 1.8.9 HD U M6 Pre 2";
     }
 
     public static String getVersionDebug() {
-        StringBuffer stringbuffer = new StringBuffer(32);
+        StringBuilder stringBuilder = new StringBuilder(32);
 
         if (isDynamicLights()) {
-            stringbuffer.append("DL: ");
-            stringbuffer.append(String.valueOf(DynamicLights.getCount()));
-            stringbuffer.append(", ");
+            stringBuilder.append("DL: ");
+            stringBuilder.append(DynamicLights.getCount());
         }
 
-        stringbuffer.append("OptiFine_1.8.9_HD_U_M6_pre2");
-        String s = Shaders.getShaderPackName();
+        String shaderName = Shaders.getShaderPackName();
 
-        if (s != null) {
-            stringbuffer.append(", ");
-            stringbuffer.append(s);
+        if (shaderName != null) {
+            stringBuilder.append(", ");
+            stringBuilder.append(shaderName);
         }
 
-        return stringbuffer.toString();
+        return stringBuilder.toString();
     }
 
     public static void initGameSettings(GameSettings p_initGameSettings_0_) {
@@ -171,9 +169,8 @@ public class Config {
     }
 
     private static void checkOpenGlCaps() {
-        log("");
         log(getVersion());
-        log("Build: " + getBuild());
+        log("Build: " + getVersion());
         log("OS: " + System.getProperty("os.name") + " (" + System.getProperty("os.arch") + ") version " + System.getProperty("os.version"));
         log("Java: " + System.getProperty("java.version") + ", " + System.getProperty("java.vendor"));
         log("VM: " + System.getProperty("java.vm.name") + " (" + System.getProperty("java.vm.info") + "), " + System.getProperty("java.vm.vendor"));
@@ -202,25 +199,6 @@ public class Config {
 
         int i = TextureUtils.getGLMaximumTextureSize();
         dbg("Maximum texture size: " + i + "x" + i);
-    }
-
-    public static String getBuild() {
-        if (build == null) {
-            try {
-                InputStream inputstream = Config.class.getResourceAsStream("/buildof.txt");
-
-                if (inputstream == null) {
-                    return null;
-                }
-
-                build = readLines(inputstream)[0];
-            } catch (Exception exception) {
-                warn("" + exception.getClass().getName() + ": " + exception.getMessage());
-                build = "";
-            }
-        }
-
-        return build;
     }
 
     public static boolean isFancyFogAvailable() {
