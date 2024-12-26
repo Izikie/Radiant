@@ -1,25 +1,17 @@
 package net.optifine.reflect;
 
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.item.ItemArmor;
-import net.minecraft.item.ItemMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.MapData;
 
 public class ReflectorForge {
     public static Object EVENT_RESULT_ALLOW = Reflector.getFieldValue(Reflector.Event_Result_ALLOW);
-    public static Object EVENT_RESULT_DENY = Reflector.getFieldValue(Reflector.Event_Result_DENY);
     public static Object EVENT_RESULT_DEFAULT = Reflector.getFieldValue(Reflector.Event_Result_DEFAULT);
 
     public static void FMLClientHandler_trackBrokenTexture(ResourceLocation loc, String message) {
@@ -51,11 +43,6 @@ public class ReflectorForge {
 
     public static boolean isItemDamaged(ItemStack stack) {
         return !Reflector.ForgeItem_showDurabilityBar.exists() ? stack.isItemDamaged() : Reflector.callBoolean(stack.getItem(), Reflector.ForgeItem_showDurabilityBar, stack);
-    }
-
-    public static boolean armorHasOverlay(ItemArmor itemArmor, ItemStack itemStack) {
-        int i = itemArmor.getColor(itemStack);
-        return i != -1;
     }
 
     public static String[] getForgeModIds() {

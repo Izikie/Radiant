@@ -221,8 +221,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 this.loadShader(new ResourceLocation("shaders/post/spider.json"));
             } else if (entityIn instanceof EntityEnderman) {
                 this.loadShader(new ResourceLocation("shaders/post/invert.json"));
-            } else if (Reflector.ForgeHooksClient_loadEntityShader.exists()) {
-                Reflector.call(Reflector.ForgeHooksClient_loadEntityShader, entityIn, this);
             }
         }
     }
@@ -553,9 +551,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 IBlockState iblockstate = this.mc.theWorld.getBlockState(blockpos);
                 Block block = iblockstate.getBlock();
 
-                if (Reflector.ForgeHooksClient_orientBedCamera.exists()) {
-                    Reflector.callVoid(Reflector.ForgeHooksClient_orientBedCamera, this.mc.theWorld, blockpos, iblockstate, entity);
-                } else if (block == Blocks.bed) {
+                if (block == Blocks.bed) {
                     int j = iblockstate.getValue(BlockBed.FACING).getHorizontalIndex();
                     GlStateManager.rotate((float) (j * 90), 0.0F, 1.0F, 0.0F);
                 }
@@ -1042,11 +1038,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 GlStateManager.clear(256);
 
                 try {
-                    if (Reflector.ForgeHooksClient_drawScreen.exists()) {
-                        Reflector.callVoid(Reflector.ForgeHooksClient_drawScreen, this.mc.currentScreen, Integer.valueOf(k1), Integer.valueOf(l1), Float.valueOf(partialTicks));
-                    } else {
-                        this.mc.currentScreen.drawScreen(k1, l1, partialTicks);
-                    }
+                    this.mc.currentScreen.drawScreen(k1, l1, partialTicks);
                 } catch (Throwable throwable) {
                     CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Rendering screen");
                     CrashReportCategory crashreportcategory = crashreport.makeCategory("Screen render details");
@@ -1393,15 +1385,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             Shaders.endWater();
         }
 
-        if (Reflector.ForgeHooksClient_setRenderPass.exists() && !this.debugView) {
-            RenderHelper.enableStandardItemLighting();
-            Reflector.callVoid(Reflector.ForgeHooksClient_setRenderPass, Integer.valueOf(1));
-            this.mc.renderGlobal.renderEntities(entity, icamera, partialTicks);
-            GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-            Reflector.callVoid(Reflector.ForgeHooksClient_setRenderPass, Integer.valueOf(-1));
-            RenderHelper.disableStandardItemLighting();
-        }
-
         GlStateManager.shadeModel(7424);
         GlStateManager.depthMask(true);
         GlStateManager.enableCull();
@@ -1410,10 +1393,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
         if (entity.posY + (double) entity.getEyeHeight() >= 128.0D + (double) (this.mc.gameSettings.ofCloudsHeight * 128.0F)) {
             this.renderCloudsCheck(renderglobal, partialTicks, pass);
-        }
-
-        if (Reflector.ForgeHooksClient_dispatchRenderLast.exists()) {
-            Reflector.callVoid(Reflector.ForgeHooksClient_dispatchRenderLast, renderglobal, Float.valueOf(partialTicks));
         }
 
         if (this.renderHand && !Shaders.isShadowPass) {
@@ -1913,10 +1892,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             if (this.mc.theWorld.provider.doesXZShowFog((int) entity.posX, (int) entity.posZ)) {
                 GlStateManager.setFogStart(f3 * 0.05F);
                 GlStateManager.setFogEnd(f3);
-            }
-
-            if (Reflector.ForgeHooksClient_onFogRender.exists()) {
-                Reflector.callVoid(Reflector.ForgeHooksClient_onFogRender, this, entity, block, Float.valueOf(partialTicks), Integer.valueOf(startCoords), Float.valueOf(f3));
             }
         }
 

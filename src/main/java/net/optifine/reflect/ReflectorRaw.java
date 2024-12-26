@@ -1,9 +1,7 @@
 package net.optifine.reflect;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ReflectorRaw {
@@ -46,24 +44,6 @@ public class ReflectorRaw {
 
             return (Field[]) list.toArray(new Field[list.size()]);
         } catch (Exception var5) {
-            return null;
-        }
-    }
-
-    public static Field[] getFieldsAfter(Class cls, Field field, Class fieldType) {
-        try {
-            Field[] afield = cls.getDeclaredFields();
-            List<Field> list = Arrays.asList(afield);
-            int i = list.indexOf(field);
-
-            if (i < 0) {
-                return new Field[0];
-            } else {
-                List<Field> list1 = list.subList(i + 1, list.size());
-                Field[] afield1 = list1.toArray(new Field[list1.size()]);
-                return getFields(afield1, fieldType);
-            }
-        } catch (Exception var8) {
             return null;
         }
     }

@@ -34,12 +34,6 @@ public class BlockModelRenderer {
     private static boolean separateAoLightValue = false;
     private static final EnumWorldBlockLayer[] OVERLAY_LAYERS = new EnumWorldBlockLayer[]{EnumWorldBlockLayer.CUTOUT, EnumWorldBlockLayer.CUTOUT_MIPPED, EnumWorldBlockLayer.TRANSLUCENT};
 
-    public BlockModelRenderer() {
-        if (Reflector.ForgeModContainer_forgeLightPipelineEnabled.exists()) {
-            Reflector.setFieldValue(Reflector.ForgeModContainer_forgeLightPipelineEnabled, Boolean.valueOf(false));
-        }
-    }
-
     public boolean renderModel(IBlockAccess blockAccessIn, IBakedModel modelIn, IBlockState blockStateIn, BlockPos blockPosIn, WorldRenderer worldRendererIn) {
         Block block = blockStateIn.getBlock();
         block.setBlockBoundsBasedOnState(blockAccessIn, blockPosIn);

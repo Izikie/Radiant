@@ -83,12 +83,7 @@ public class RenderItem implements IResourceManagerReloadListener {
     public RenderItem(TextureManager textureManager, ModelManager modelManager) {
         this.textureManager = textureManager;
         this.modelManager = modelManager;
-
-        if (Reflector.ItemModelMesherForge_Constructor.exists()) {
-            this.itemModelMesher = (ItemModelMesher) Reflector.newInstance(Reflector.ItemModelMesherForge_Constructor, new Object[]{modelManager});
-        } else {
-            this.itemModelMesher = new ItemModelMesher(modelManager);
-        }
+        this.itemModelMesher = new ItemModelMesher(modelManager);
 
         this.registerItems();
     }
@@ -360,15 +355,11 @@ public class RenderItem implements IResourceManagerReloadListener {
         GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
         GlStateManager.pushMatrix();
 
-        if (Reflector.ForgeHooksClient_handleCameraTransforms.exists()) {
-            model = (IBakedModel) Reflector.call(Reflector.ForgeHooksClient_handleCameraTransforms, new Object[]{model, cameraTransformType});
-        } else {
-            ItemCameraTransforms itemcameratransforms = model.getItemCameraTransforms();
-            itemcameratransforms.applyTransform(cameraTransformType);
+        ItemCameraTransforms itemcameratransforms = model.getItemCameraTransforms();
+        itemcameratransforms.applyTransform(cameraTransformType);
 
-            if (this.isThereOneNegativeScale(itemcameratransforms.getTransform(cameraTransformType))) {
-                GlStateManager.cullFace(1028);
-            }
+        if (this.isThereOneNegativeScale(itemcameratransforms.getTransform(cameraTransformType))) {
+            GlStateManager.cullFace(1028);
         }
 
         this.renderItem(stack, model);
@@ -398,11 +389,7 @@ public class RenderItem implements IResourceManagerReloadListener {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.setupGuiTransform(x, y, ibakedmodel.isGui3d());
 
-        if (Reflector.ForgeHooksClient_handleCameraTransforms.exists()) {
-            ibakedmodel = (IBakedModel) Reflector.call(Reflector.ForgeHooksClient_handleCameraTransforms, new Object[]{ibakedmodel, ItemCameraTransforms.TransformType.GUI});
-        } else {
-            ibakedmodel.getItemCameraTransforms().applyTransform(ItemCameraTransforms.TransformType.GUI);
-        }
+        ibakedmodel.getItemCameraTransforms().applyTransform(ItemCameraTransforms.TransformType.GUI);
 
         this.renderItem(stack, ibakedmodel);
         GlStateManager.disableAlpha();
@@ -1071,10 +1058,6 @@ public class RenderItem implements IResourceManagerReloadListener {
         this.registerBlock(Blocks.brown_mushroom_block, BlockHugeMushroom.EnumType.ALL_INSIDE.getMetadata(), "brown_mushroom_block");
         this.registerBlock(Blocks.red_mushroom_block, BlockHugeMushroom.EnumType.ALL_INSIDE.getMetadata(), "red_mushroom_block");
         this.registerBlock(Blocks.dragon_egg, "dragon_egg");
-
-        if (Reflector.ModelLoader_onRegisterItems.exists()) {
-            Reflector.call(Reflector.ModelLoader_onRegisterItems, new Object[]{this.itemModelMesher});
-        }
     }
 
     public void onResourceManagerReload(IResourceManager resourceManager) {

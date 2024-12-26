@@ -101,20 +101,12 @@ public class TileEntityRendererDispatcher {
 
     public void renderTileEntity(TileEntity tileentityIn, float partialTicks, int destroyStage) {
         if (tileentityIn.getDistanceSq(this.entityX, this.entityY, this.entityZ) < tileentityIn.getMaxRenderDistanceSquared()) {
-            boolean flag = true;
-
-            if (Reflector.ForgeTileEntity_hasFastRenderer.exists()) {
-                flag = !this.drawingBatch || !Reflector.callBoolean(tileentityIn, Reflector.ForgeTileEntity_hasFastRenderer, new Object[0]);
-            }
-
-            if (flag) {
-                RenderHelper.enableStandardItemLighting();
-                int i = this.worldObj.getCombinedLight(tileentityIn.getPos(), 0);
-                int j = i % 65536;
-                int k = i / 65536;
-                OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j / 1.0F, (float) k / 1.0F);
-                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            }
+            RenderHelper.enableStandardItemLighting();
+            int i = this.worldObj.getCombinedLight(tileentityIn.getPos(), 0);
+            int j = i % 65536;
+            int k = i / 65536;
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j / 1.0F, (float) k / 1.0F);
+            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
             BlockPos blockpos = tileentityIn.getPos();
 

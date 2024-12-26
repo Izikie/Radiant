@@ -79,11 +79,6 @@ public class ReflectorMethod implements IResolvable {
         return this.checked ? this.targetMethod != null : this.getTargetMethod() != null;
     }
 
-    public Class getReturnType() {
-        Method method = this.getTargetMethod();
-        return method == null ? null : method.getReturnType();
-    }
-
     public void deactivate() {
         this.checked = true;
         this.targetMethod = null;
@@ -103,10 +98,6 @@ public class ReflectorMethod implements IResolvable {
 
     public boolean callBoolean(Object param) {
         return Reflector.callBoolean(this, param);
-    }
-
-    public void callVoid(Object... params) {
-        Reflector.callVoid(this, params);
     }
 
     public static Method getMethod(Class cls, String methodName, Class[] paramTypes) {
