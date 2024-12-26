@@ -331,16 +331,7 @@ public class EffectRenderer {
     }
 
     public void addBlockDestroyEffects(BlockPos pos, IBlockState state) {
-        boolean flag;
-
-        if (Reflector.ForgeBlock_addDestroyEffects.exists() && Reflector.ForgeBlock_isAir.exists()) {
-            Block block = state.getBlock();
-            flag = !Reflector.callBoolean(block, Reflector.ForgeBlock_isAir, new Object[]{this.worldObj, pos}) && !Reflector.callBoolean(block, Reflector.ForgeBlock_addDestroyEffects, new Object[]{this.worldObj, pos, this});
-        } else {
-            flag = state.getBlock().getMaterial() != Material.air;
-        }
-
-        if (flag) {
+        if (state.getBlock().getMaterial() != Material.air) {
             state = state.getBlock().getActualState(state, this.worldObj, pos);
             int l = 4;
 

@@ -108,14 +108,11 @@ public class Reflector {
     public static final ReflectorClass ForgeBiome = new ReflectorClass(BiomeGenBase.class);
     public static final ReflectorMethod ForgeBiome_getWaterColorMultiplier = new ReflectorMethod(ForgeBiome, "getWaterColorMultiplier");
     public static final ReflectorClass ForgeBlock = new ReflectorClass(Block.class);
-    public static final ReflectorMethod ForgeBlock_addDestroyEffects = new ReflectorMethod(ForgeBlock, "addDestroyEffects");
     public static final ReflectorMethod ForgeBlock_addHitEffects = new ReflectorMethod(ForgeBlock, "addHitEffects");
     public static final ReflectorMethod ForgeBlock_canCreatureSpawn = new ReflectorMethod(ForgeBlock, "canCreatureSpawn");
     public static final ReflectorMethod ForgeBlock_canRenderInLayer = new ReflectorMethod(ForgeBlock, "canRenderInLayer", new Class[]{EnumWorldBlockLayer.class});
     public static final ReflectorMethod ForgeBlock_getBedDirection = new ReflectorMethod(ForgeBlock, "getBedDirection");
-    public static final ReflectorMethod ForgeBlock_getExtendedState = new ReflectorMethod(ForgeBlock, "getExtendedState");
     public static final ReflectorMethod ForgeBlock_hasTileEntity = new ReflectorMethod(ForgeBlock, "hasTileEntity", new Class[]{IBlockState.class});
-    public static final ReflectorMethod ForgeBlock_isAir = new ReflectorMethod(ForgeBlock, "isAir");
     public static final ReflectorMethod ForgeBlock_isBed = new ReflectorMethod(ForgeBlock, "isBed");
     public static final ReflectorClass ForgeChunkCache = new ReflectorClass(ChunkCache.class);
     public static final ReflectorMethod ForgeChunkCache_isSideSolid = new ReflectorMethod(ForgeChunkCache, "isSideSolid");
@@ -171,8 +168,6 @@ public class Reflector {
     public static final ReflectorMethod ForgeWorldProvider_getSkyRenderer = new ReflectorMethod(ForgeWorldProvider, "getSkyRenderer");
     public static final ReflectorMethod ForgeWorldProvider_getWeatherRenderer = new ReflectorMethod(ForgeWorldProvider, "getWeatherRenderer");
     public static final ReflectorClass IColoredBakedQuad = new ReflectorClass("net.minecraftforge.client.model.IColoredBakedQuad");
-    public static final ReflectorClass IExtendedBlockState = new ReflectorClass("net.minecraftforge.common.property.IExtendedBlockState");
-    public static final ReflectorMethod IExtendedBlockState_getClean = new ReflectorMethod(IExtendedBlockState, "getClean");
     public static final ReflectorClass IModel = new ReflectorClass("net.minecraftforge.client.model.IModel");
     public static final ReflectorMethod IModel_getTextures = new ReflectorMethod(IModel, "getTextures");
     public static final ReflectorClass IRenderHandler = new ReflectorClass("net.minecraftforge.client.IRenderHandler");
@@ -189,7 +184,6 @@ public class Reflector {
     public static final ReflectorClass ModelLoader = new ReflectorClass("net.minecraftforge.client.model.ModelLoader");
     public static final ReflectorField ModelLoader_stateModels = new ReflectorField(ModelLoader, "stateModels");
     public static final ReflectorMethod ModelLoader_onRegisterItems = new ReflectorMethod(ModelLoader, "onRegisterItems");
-    public static final ReflectorMethod ModelLoader_getInventoryVariant = new ReflectorMethod(ModelLoader, "getInventoryVariant");
     public static final ReflectorField ModelLoader_textures = new ReflectorField(ModelLoader, "textures");
     public static final ReflectorClass ModelLoader_VanillaLoader = new ReflectorClass("net.minecraftforge.client.model.ModelLoader$VanillaLoader");
     public static final ReflectorField ModelLoader_VanillaLoader_INSTANCE = new ReflectorField(ModelLoader_VanillaLoader, "instance");

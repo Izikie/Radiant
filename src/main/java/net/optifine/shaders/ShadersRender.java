@@ -232,10 +232,6 @@ public class ShadersRender {
             GlStateManager.popMatrix();
             GlStateManager.pushMatrix();
 
-            if (Reflector.ForgeHooksClient_setRenderPass.exists()) {
-                Reflector.callVoid(Reflector.ForgeHooksClient_setRenderPass, Integer.valueOf(0));
-            }
-
             renderglobal.renderEntities(entity, frustum, partialTicks);
             Shaders.checkGLError("shadow entities");
             GlStateManager.matrixMode(5888);
@@ -266,15 +262,6 @@ public class ShadersRender {
             if (Shaders.isRenderShadowTranslucent()) {
                 renderglobal.renderBlockLayer(EnumWorldBlockLayer.TRANSLUCENT, partialTicks, 2, entity);
                 Shaders.checkGLError("shadow translucent");
-            }
-
-            if (Reflector.ForgeHooksClient_setRenderPass.exists()) {
-                RenderHelper.enableStandardItemLighting();
-                Reflector.call(Reflector.ForgeHooksClient_setRenderPass, 1);
-                renderglobal.renderEntities(entity, frustum, partialTicks);
-                Reflector.call(Reflector.ForgeHooksClient_setRenderPass, -1);
-                RenderHelper.disableStandardItemLighting();
-                Shaders.checkGLError("shadow entities 1");
             }
 
             GlStateManager.shadeModel(7424);

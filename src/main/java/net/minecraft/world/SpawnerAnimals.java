@@ -263,14 +263,6 @@ public final class SpawnerAnimals {
                                 continue;
                             }
 
-                            if (Reflector.ForgeEventFactory_canEntitySpawn.exists()) {
-                                Object object = Reflector.call(Reflector.ForgeEventFactory_canEntitySpawn, new Object[]{entityliving, worldIn, Float.valueOf((float) j + 0.5F), Integer.valueOf(blockpos.getY()), Float.valueOf((float) k + 0.5F)});
-
-                                if (object == ReflectorForge.EVENT_RESULT_DENY) {
-                                    continue;
-                                }
-                            }
-
                             entityliving.setLocationAndAngles((double) ((float) j + 0.5F), (double) blockpos.getY(), (double) ((float) k + 0.5F), randomIn.nextFloat() * 360.0F, 0.0F);
                             worldIn.spawnEntityInWorld(entityliving);
                             ientitylivingdata = entityliving.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityliving)), ientitylivingdata);

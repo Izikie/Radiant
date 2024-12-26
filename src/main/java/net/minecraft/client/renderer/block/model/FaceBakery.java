@@ -36,10 +36,6 @@ public class FaceBakery {
             this.applyFacing(aint, enumfacing);
         }
 
-        if (Reflector.ForgeHooksClient_fillNormal.exists()) {
-            Reflector.call(Reflector.ForgeHooksClient_fillNormal, new Object[]{aint, enumfacing});
-        }
-
         return new BakedQuad(aint, p_makeBakedQuad_3_.tintIndex, enumfacing);
     }
 

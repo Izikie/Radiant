@@ -335,11 +335,6 @@ public class ModelBakery {
 
     private ResourceLocation getItemLocation(String p_177583_1_) {
         ResourceLocation resourcelocation = new ResourceLocation(p_177583_1_);
-
-        if (Reflector.ForgeHooksClient.exists()) {
-            resourcelocation = new ResourceLocation(p_177583_1_.replaceAll("#.*", ""));
-        }
-
         return new ResourceLocation(resourcelocation.getResourceDomain(), "item/" + resourcelocation.getResourcePath());
     }
 
@@ -371,11 +366,6 @@ public class ModelBakery {
         for (Entry<String, ResourceLocation> entry : this.itemLocations.entrySet()) {
             ResourceLocation resourcelocation = (ResourceLocation) entry.getValue();
             ModelResourceLocation modelresourcelocation1 = new ModelResourceLocation((String) entry.getKey(), "inventory");
-
-            if (Reflector.ModelLoader_getInventoryVariant.exists()) {
-                modelresourcelocation1 = (ModelResourceLocation) Reflector.call(Reflector.ModelLoader_getInventoryVariant, new Object[]{entry.getKey()});
-            }
-
             ModelBlock modelblock1 = (ModelBlock) this.models.get(resourcelocation);
 
             if (modelblock1 != null && modelblock1.isResolved()) {
@@ -429,13 +419,8 @@ public class ModelBakery {
             for (EnumFacing enumfacing : blockpart.mapFaces.keySet()) {
                 BlockPartFace blockpartface = (BlockPartFace) blockpart.mapFaces.get(enumfacing);
                 TextureAtlasSprite textureatlassprite1 = (TextureAtlasSprite) this.sprites.get(new ResourceLocation(p_bakeModel_1_.resolveTextureName(blockpartface.texture)));
-                boolean flag = true;
 
-                if (Reflector.ForgeHooksClient.exists()) {
-                    flag = TRSRTransformation.isInteger(p_bakeModel_2_.getMatrix());
-                }
-
-                if (blockpartface.cullFace != null && flag) {
+                if (blockpartface.cullFace != null) {
                     simplebakedmodel$builder.addFaceQuad(p_bakeModel_2_.rotate(blockpartface.cullFace), this.makeBakedQuad(blockpart, blockpartface, textureatlassprite1, enumfacing, p_bakeModel_2_, p_bakeModel_3_));
                 } else {
                     simplebakedmodel$builder.addGeneralQuad(this.makeBakedQuad(blockpart, blockpartface, textureatlassprite1, enumfacing, p_bakeModel_2_, p_bakeModel_3_));
