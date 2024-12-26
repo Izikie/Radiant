@@ -28,19 +28,6 @@ public class ReflectorForge {
         }
     }
 
-    public static boolean renderFirstPersonHand(RenderGlobal renderGlobal, float partialTicks, int pass) {
-        return !Reflector.ForgeHooksClient_renderFirstPersonHand.exists() ? false : Reflector.callBoolean(Reflector.ForgeHooksClient_renderFirstPersonHand, renderGlobal, Float.valueOf(partialTicks), Integer.valueOf(pass));
-    }
-
-    public static InputStream getOptiFineResourceStream(String path) {
-        return null;
-    }
-
-    public static boolean blockHasTileEntity(IBlockState state) {
-        Block block = state.getBlock();
-        return !Reflector.ForgeBlock_hasTileEntity.exists() ? block.hasTileEntity() : Reflector.callBoolean(block, Reflector.ForgeBlock_hasTileEntity, state);
-    }
-
     public static boolean isItemDamaged(ItemStack stack) {
         return !Reflector.ForgeItem_showDurabilityBar.exists() ? stack.isItemDamaged() : Reflector.callBoolean(stack.getItem(), Reflector.ForgeItem_showDurabilityBar, stack);
     }

@@ -417,16 +417,4 @@ public class EffectRenderer {
 
         return "" + i;
     }
-
-    public void addBlockHitEffects(BlockPos p_addBlockHitEffects_1_, MovingObjectPosition p_addBlockHitEffects_2_) {
-        IBlockState iblockstate = this.worldObj.getBlockState(p_addBlockHitEffects_1_);
-
-        if (iblockstate != null) {
-            boolean flag = Reflector.callBoolean(iblockstate.getBlock(), Reflector.ForgeBlock_addHitEffects, new Object[]{this.worldObj, p_addBlockHitEffects_2_, this});
-
-            if (iblockstate != null && !flag) {
-                this.addBlockHitEffects(p_addBlockHitEffects_1_, p_addBlockHitEffects_2_.sideHit);
-            }
-        }
-    }
 }

@@ -220,10 +220,8 @@ public final class SpawnerAnimals {
                 return block.getMaterial().isLiquid() && worldIn.getBlockState(pos.down()).getBlock().getMaterial().isLiquid() && !worldIn.getBlockState(pos.up()).getBlock().isNormalCube();
             } else {
                 BlockPos blockpos = pos.down();
-                IBlockState iblockstate = worldIn.getBlockState(blockpos);
-                boolean flag = Reflector.ForgeBlock_canCreatureSpawn.exists() ? Reflector.callBoolean(iblockstate.getBlock(), Reflector.ForgeBlock_canCreatureSpawn, new Object[]{worldIn, blockpos, spawnPlacementTypeIn}) : World.doesBlockHaveSolidTopSurface(worldIn, blockpos);
 
-                if (!flag) {
+                if (!World.doesBlockHaveSolidTopSurface(worldIn, blockpos)) {
                     return false;
                 } else {
                     Block block1 = worldIn.getBlockState(blockpos).getBlock();

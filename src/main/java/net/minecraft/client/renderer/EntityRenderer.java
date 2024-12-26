@@ -390,13 +390,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                     double d3 = vec3.distanceTo(movingobjectposition.hitVec);
 
                     if (d3 < d2 || d2 == 0.0D) {
-                        boolean flag1 = false;
-
-                        if (Reflector.ForgeEntity_canRiderInteract.exists()) {
-                            flag1 = Reflector.callBoolean(entity1, Reflector.ForgeEntity_canRiderInteract);
-                        }
-
-                        if (!flag1 && entity1 == entity.ridingEntity) {
+                        if (entity1 == entity.ridingEntity) {
                             if (d2 == 0.0D) {
                                 this.pointedEntity = entity1;
                                 vec33 = movingobjectposition.hitVec;
@@ -496,7 +490,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 f = f * 60.0F / 70.0F;
             }
 
-            return Reflector.ForgeHooksClient_getFOVModifier.exists() ? Reflector.callFloat(Reflector.ForgeHooksClient_getFOVModifier, this, entity, block, Float.valueOf(partialTicks), Float.valueOf(f)) : f;
+            return f;
         }
     }
 
@@ -732,9 +726,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 }
 
                 flag = this.mc.getRenderViewEntity() instanceof EntityLivingBase && ((EntityLivingBase) this.mc.getRenderViewEntity()).isPlayerSleeping();
-                boolean flag1 = !ReflectorForge.renderFirstPersonHand(this.mc.renderGlobal, p_renderHand_1_, p_renderHand_2_);
 
-                if (flag1 && this.mc.gameSettings.thirdPersonView == 0 && !flag && !this.mc.gameSettings.hideGUI && !this.mc.playerController.isSpectator()) {
+                if (this.mc.gameSettings.thirdPersonView == 0 && !flag && !this.mc.gameSettings.hideGUI && !this.mc.playerController.isSpectator()) {
                     this.enableLightmap();
 
                     if (Config.isShaders()) {
@@ -1083,7 +1076,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                     Block block = iblockstate.getBlock();
 
                     if (this.mc.playerController.getCurrentGameType() == WorldSettings.GameType.SPECTATOR) {
-                        flag = ReflectorForge.blockHasTileEntity(iblockstate) && this.mc.theWorld.getTileEntity(blockpos) instanceof IInventory;
+                        flag = block.hasTileEntity() && this.mc.theWorld.getTileEntity(blockpos) instanceof IInventory;
                     } else {
                         flag = itemstack != null && (itemstack.canDestroy(block) || itemstack.canPlaceOn(block));
                     }
@@ -1500,16 +1493,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     }
 
     protected void renderRainSnow(float partialTicks) {
-        if (Reflector.ForgeWorldProvider_getWeatherRenderer.exists()) {
-            WorldProvider worldprovider = this.mc.theWorld.provider;
-            Object object = Reflector.call(worldprovider, Reflector.ForgeWorldProvider_getWeatherRenderer);
-
-            if (object != null) {
-                Reflector.callVoid(object, Reflector.IRenderHandler_render, Float.valueOf(partialTicks), this.mc.theWorld, this.mc);
-                return;
-            }
-        }
-
         float f5 = this.mc.theWorld.getRainStrength(partialTicks);
 
         if (f5 > 0.0F) {

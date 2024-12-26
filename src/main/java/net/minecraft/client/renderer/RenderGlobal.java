@@ -710,10 +710,6 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
             RenderHelper.enableStandardItemLighting();
 
-            if (Reflector.ForgeTileEntity_hasFastRenderer.exists()) {
-                TileEntityRendererDispatcher.instance.preDrawBatch();
-            }
-
             TileEntitySignRenderer.updateTextRenderDistance();
             label1408:
 
@@ -767,10 +763,6 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                         TileEntityRendererDispatcher.instance.renderTileEntity(tileentity, partialTicks, -1);
                     }
                 }
-            }
-
-            if (Reflector.ForgeTileEntity_hasFastRenderer.exists()) {
-                TileEntityRendererDispatcher.instance.drawBatch(i);
             }
 
             this.renderOverlayDamaged = true;
@@ -1355,16 +1347,6 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     }
 
     public void renderSky(float partialTicks, int pass) {
-        if (Reflector.ForgeWorldProvider_getSkyRenderer.exists()) {
-            WorldProvider worldprovider = this.mc.theWorld.provider;
-            Object object = Reflector.call(worldprovider, Reflector.ForgeWorldProvider_getSkyRenderer);
-
-            if (object != null) {
-                Reflector.callVoid(object, Reflector.IRenderHandler_render, Float.valueOf(partialTicks), this.theWorld, this.mc);
-                return;
-            }
-        }
-
         if (this.mc.theWorld.provider.getDimensionId() == 1) {
             this.renderSkyEnd();
         } else if (this.mc.theWorld.provider.isSurfaceWorld()) {
@@ -1655,16 +1637,6 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
     public void renderClouds(float partialTicks, int pass) {
         if (!Config.isCloudsOff()) {
-            if (Reflector.ForgeWorldProvider_getCloudRenderer.exists()) {
-                WorldProvider worldprovider = this.mc.theWorld.provider;
-                Object object = Reflector.call(worldprovider, Reflector.ForgeWorldProvider_getCloudRenderer);
-
-                if (object != null) {
-                    Reflector.callVoid(object, Reflector.IRenderHandler_render, Float.valueOf(partialTicks), this.theWorld, this.mc);
-                    return;
-                }
-            }
-
             if (this.mc.theWorld.provider.isSurfaceWorld()) {
                 if (Config.isShaders()) {
                     Shaders.beginClouds();

@@ -166,31 +166,4 @@ public class TileEntityRendererDispatcher {
     public FontRenderer getFontRenderer() {
         return this.fontRenderer;
     }
-
-    public void preDrawBatch() {
-        this.batchBuffer.getWorldRenderer().begin(7, DefaultVertexFormats.BLOCK);
-        this.drawingBatch = true;
-    }
-
-    public void drawBatch(int p_drawBatch_1_) {
-        this.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-        RenderHelper.disableStandardItemLighting();
-        GlStateManager.blendFunc(770, 771);
-        GlStateManager.enableBlend();
-        GlStateManager.disableCull();
-
-        if (Minecraft.isAmbientOcclusionEnabled()) {
-            GlStateManager.shadeModel(7425);
-        } else {
-            GlStateManager.shadeModel(7424);
-        }
-
-        if (p_drawBatch_1_ > 0) {
-            this.batchBuffer.getWorldRenderer().sortVertexData((float) staticPlayerX, (float) staticPlayerY, (float) staticPlayerZ);
-        }
-
-        this.batchBuffer.draw();
-        RenderHelper.enableStandardItemLighting();
-        this.drawingBatch = false;
-    }
 }

@@ -187,7 +187,7 @@ public class RenderChunk {
                     lvt_10_1_.func_178606_a(blockposm);
                 }
 
-                if (ReflectorForge.blockHasTileEntity(iblockstate)) {
+                if (block.hasTileEntity()) {
                     TileEntity tileentity = chunkcacheof.getTileEntity(new BlockPos(blockposm));
                     TileEntitySpecialRenderer<TileEntity> tileentityspecialrenderer = TileEntityRendererDispatcher.instance.<TileEntity>getSpecialRenderer(tileentity);
 

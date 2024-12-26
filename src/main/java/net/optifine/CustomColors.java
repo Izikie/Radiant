@@ -140,7 +140,7 @@ public class CustomColors {
     private static final CustomColors.IColorizer COLORIZER_WATER = new CustomColors.IColorizer() {
         public int getColor(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos) {
             BiomeGenBase biomegenbase = CustomColors.getColorBiome(blockAccess, blockPos);
-            return CustomColors.waterColors != null ? CustomColors.waterColors.getColor(biomegenbase, blockPos) : (Reflector.ForgeBiome_getWaterColorMultiplier.exists() ? Reflector.callInt(biomegenbase, Reflector.ForgeBiome_getWaterColorMultiplier, new Object[0]) : biomegenbase.waterColorMultiplier);
+            return CustomColors.waterColors != null ? CustomColors.waterColors.getColor(biomegenbase, blockPos) : (biomegenbase.waterColorMultiplier);
         }
 
         public boolean isColorConstant() {
