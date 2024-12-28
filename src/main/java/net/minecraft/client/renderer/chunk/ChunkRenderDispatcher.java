@@ -78,7 +78,7 @@ public class ChunkRenderDispatcher {
     }
 
     public String getDebugInfo() {
-        return String.format("pC: %03d, pU: %1d, aB: %1d", new Object[]{Integer.valueOf(this.queueChunkUpdates.size()), Integer.valueOf(this.queueChunkUploads.size()), Integer.valueOf(this.queueFreeRenderBuilders.size())});
+        return String.format("pC: %03d, pU: %1d, aB: %1d", this.queueChunkUpdates.size(), this.queueChunkUploads.size(), this.queueFreeRenderBuilders.size());
     }
 
     public boolean runChunkUploads(long p_178516_1_) {
@@ -86,10 +86,10 @@ public class ChunkRenderDispatcher {
 
         while (true) {
             boolean flag1 = false;
-            ListenableFutureTask listenablefuturetask = null;
+            ListenableFutureTask listenablefuturetask;
 
             synchronized (this.queueChunkUploads) {
-                listenablefuturetask = (ListenableFutureTask) this.queueChunkUploads.poll();
+                listenablefuturetask = this.queueChunkUploads.poll();
             }
 
             if (listenablefuturetask != null) {

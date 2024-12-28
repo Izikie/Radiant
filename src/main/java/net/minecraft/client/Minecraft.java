@@ -540,7 +540,7 @@ public class Minecraft implements IThreadListener {
                 while (Minecraft.this.running) {
                     try {
                         Thread.sleep(2147483647L);
-                    } catch (InterruptedException var2) {
+                    } catch (InterruptedException ignored) {
                     }
                 }
             }
