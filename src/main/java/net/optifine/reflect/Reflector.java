@@ -9,8 +9,6 @@ import java.lang.reflect.Method;
 import java.util.Map;
 import javax.vecmath.Matrix4f;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiEnchantment;
 import net.minecraft.client.gui.GuiHopper;
@@ -59,80 +57,51 @@ import net.minecraft.client.renderer.tileentity.TileEntityEnchantmentTableRender
 import net.minecraft.client.renderer.tileentity.TileEntityEnderChestRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySignRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
-import net.minecraft.client.renderer.vertex.VertexFormatElement;
 import net.minecraft.client.resources.DefaultResourcePack;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryBasic;
-import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityBeacon;
 import net.minecraft.tileentity.TileEntityBrewingStand;
 import net.minecraft.tileentity.TileEntityEnchantmentTable;
 import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.util.LongHashMap;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.ChunkCache;
 import net.minecraft.world.IWorldNameable;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.optifine.Log;
 import net.optifine.util.ArrayUtils;
 
 public class Reflector {
     // Reflector Forge
-    public static final ReflectorClass BetterFoliageClient = new ReflectorClass("mods.betterfoliage.client.BetterFoliageClient");
     public static final ReflectorClass EventBus = new ReflectorClass("net.minecraftforge.fml.common.eventhandler.EventBus");
     public static final ReflectorMethod EventBus_post = new ReflectorMethod(EventBus, "post");
     public static final ReflectorClass Event_Result = new ReflectorClass("net.minecraftforge.fml.common.eventhandler.Event$Result");
     public static final ReflectorField Event_Result_DENY = new ReflectorField(Event_Result, "DENY");
-    public static final ReflectorField Event_Result_ALLOW = new ReflectorField(Event_Result, "ALLOW");
     public static final ReflectorField Event_Result_DEFAULT = new ReflectorField(Event_Result, "DEFAULT");
-    public static final ReflectorClass FMLClientHandler = new ReflectorClass("net.minecraftforge.fml.client.FMLClientHandler");
-    public static final ReflectorMethod FMLClientHandler_instance = new ReflectorMethod(FMLClientHandler, "instance");
-    public static final ReflectorMethod FMLClientHandler_trackBrokenTexture = new ReflectorMethod(FMLClientHandler, "trackBrokenTexture");
-    public static final ReflectorMethod FMLClientHandler_trackMissingTexture = new ReflectorMethod(FMLClientHandler, "trackMissingTexture");
-    public static final ReflectorClass ForgeBlock = new ReflectorClass(Block.class);
-    public static final ReflectorMethod ForgeBlock_canRenderInLayer = new ReflectorMethod(ForgeBlock, "canRenderInLayer", new Class[]{EnumWorldBlockLayer.class});
+
     public static final ReflectorClass ForgeEntity = new ReflectorClass(Entity.class);
     public static final ReflectorMethod ForgeEntity_shouldRenderInPass = new ReflectorMethod(ForgeEntity, "shouldRenderInPass");
+
     public static final ReflectorClass ForgeEventFactory = new ReflectorClass("net.minecraftforge.event.ForgeEventFactory");
     public static final ReflectorMethod ForgeEventFactory_canEntityDespawn = new ReflectorMethod(ForgeEventFactory, "canEntityDespawn");
-    public static final ReflectorMethod ForgeEventFactory_canEntitySpawn = new ReflectorMethod(ForgeEventFactory, "canEntitySpawn");
-    public static final ReflectorMethod ForgeEventFactory_doSpecialSpawn = new ReflectorMethod(ForgeEventFactory, "doSpecialSpawn", new Class[]{EntityLiving.class, World.class, Float.TYPE, Float.TYPE, Float.TYPE});
-    public static final ReflectorMethod ForgeEventFactory_getMaxSpawnPackSize = new ReflectorMethod(ForgeEventFactory, "getMaxSpawnPackSize");
-    public static final ReflectorMethod ForgeEventFactory_renderBlockOverlay = new ReflectorMethod(ForgeEventFactory, "renderBlockOverlay");
-    public static final ReflectorMethod ForgeEventFactory_renderFireOverlay = new ReflectorMethod(ForgeEventFactory, "renderFireOverlay");
-    public static final ReflectorMethod ForgeEventFactory_renderWaterOverlay = new ReflectorMethod(ForgeEventFactory, "renderWaterOverlay");
+
     public static final ReflectorClass ForgeHooksClient = new ReflectorClass("net.minecraftforge.client.ForgeHooksClient");
     public static final ReflectorMethod ForgeHooksClient_applyTransform = new ReflectorMethod(ForgeHooksClient, "applyTransform", new Class[]{Matrix4f.class, Optional.class});
-    public static final ReflectorMethod ForgeHooksClient_onDrawBlockHighlight = new ReflectorMethod(ForgeHooksClient, "onDrawBlockHighlight");
-    public static final ReflectorMethod ForgeHooksClient_setRenderLayer = new ReflectorMethod(ForgeHooksClient, "setRenderLayer");
-    public static final ReflectorClass ForgeItem = new ReflectorClass(Item.class);
-    public static final ReflectorField ForgeItem_delegate = new ReflectorField(ForgeItem, "delegate");
-    public static final ReflectorMethod ForgeItem_showDurabilityBar = new ReflectorMethod(ForgeItem, "showDurabilityBar");
+
     public static final ReflectorClass ForgeTileEntity = new ReflectorClass(TileEntity.class);
     public static final ReflectorMethod ForgeTileEntity_canRenderBreaking = new ReflectorMethod(ForgeTileEntity, "canRenderBreaking");
     public static final ReflectorMethod ForgeTileEntity_getRenderBoundingBox = new ReflectorMethod(ForgeTileEntity, "getRenderBoundingBox");
     public static final ReflectorMethod ForgeTileEntity_hasFastRenderer = new ReflectorMethod(ForgeTileEntity, "hasFastRenderer");
     public static final ReflectorMethod ForgeTileEntity_shouldRenderInPass = new ReflectorMethod(ForgeTileEntity, "shouldRenderInPass");
-    public static final ReflectorClass ForgeVertexFormatElementEnumUseage = new ReflectorClass(VertexFormatElement.EnumUsage.class);
-    public static final ReflectorMethod ForgeVertexFormatElementEnumUseage_preDraw = new ReflectorMethod(ForgeVertexFormatElementEnumUseage, "preDraw");
-    public static final ReflectorMethod ForgeVertexFormatElementEnumUseage_postDraw = new ReflectorMethod(ForgeVertexFormatElementEnumUseage, "postDraw");
-    public static final ReflectorClass ForgeWorld = new ReflectorClass(World.class);
-    public static final ReflectorMethod ForgeWorld_countEntities = new ReflectorMethod(ForgeWorld, "countEntities", new Class[]{EnumCreatureType.class, Boolean.TYPE});
+
     public static final ReflectorClass MinecraftForge = new ReflectorClass("net.minecraftforge.common.MinecraftForge");
     public static final ReflectorField MinecraftForge_EVENT_BUS = new ReflectorField(MinecraftForge, "EVENT_BUS");
+
     public static final ReflectorClass ModelLoader = new ReflectorClass("net.minecraftforge.client.model.ModelLoader");
-    public static final ReflectorClass RenderBlockOverlayEvent_OverlayType = new ReflectorClass("net.minecraftforge.client.event.RenderBlockOverlayEvent$OverlayType");
-    public static final ReflectorField RenderBlockOverlayEvent_OverlayType_BLOCK = new ReflectorField(RenderBlockOverlayEvent_OverlayType, "BLOCK");
-    public static final ReflectorClass RenderItemInFrameEvent = new ReflectorClass("net.minecraftforge.client.event.RenderItemInFrameEvent");
-    public static final ReflectorConstructor RenderItemInFrameEvent_Constructor = new ReflectorConstructor(RenderItemInFrameEvent, new Class[]{EntityItemFrame.class, RenderItemFrame.class});
+
     // Reflector Vanilla
     public static final ReflectorClass ChunkProviderClient = new ReflectorClass(ChunkProviderClient.class);
     public static final ReflectorField ChunkProviderClient_chunkMapping = new ReflectorField(ChunkProviderClient, LongHashMap.class);
@@ -237,20 +206,6 @@ public class Reflector {
     public static final ReflectorClass TileEntitySkullRenderer = new ReflectorClass(TileEntitySkullRenderer.class);
     public static final ReflectorField TileEntitySkullRenderer_humanoidHead = new ReflectorField(TileEntitySkullRenderer, ModelSkeletonHead.class, 1);
 
-    public static void callVoid(ReflectorMethod refMethod, Object... params) {
-        try {
-            Method method = refMethod.getTargetMethod();
-
-            if (method == null) {
-                return;
-            }
-
-            method.invoke(null, params);
-        } catch (Throwable throwable) {
-            handleException(throwable, null, refMethod, params);
-        }
-    }
-
     public static boolean callBoolean(ReflectorMethod refMethod, Object... params) {
         try {
             Method method = refMethod.getTargetMethod();
@@ -263,36 +218,6 @@ public class Reflector {
         } catch (Throwable throwable) {
             handleException(throwable, null, refMethod, params);
             return false;
-        }
-    }
-
-    public static int callInt(ReflectorMethod refMethod, Object... params) {
-        try {
-            Method method = refMethod.getTargetMethod();
-
-            if (method == null) {
-                return 0;
-            } else {
-                return (Integer) method.invoke(null, params);
-            }
-        } catch (Throwable throwable) {
-            handleException(throwable, null, refMethod, params);
-            return 0;
-        }
-    }
-
-    public static float callFloat(ReflectorMethod refMethod, Object... params) {
-        try {
-            Method method = refMethod.getTargetMethod();
-
-            if (method == null) {
-                return 0.0F;
-            } else {
-                return (Float) method.invoke(null, params);
-            }
-        } catch (Throwable throwable) {
-            handleException(throwable, null, refMethod, params);
-            return 0.0F;
         }
     }
 
@@ -311,24 +236,6 @@ public class Reflector {
         }
     }
 
-    public static void callVoid(Object obj, ReflectorMethod refMethod, Object... params) {
-        try {
-            if (obj == null) {
-                return;
-            }
-
-            Method method = refMethod.getTargetMethod();
-
-            if (method == null) {
-                return;
-            }
-
-            method.invoke(obj, params);
-        } catch (Throwable throwable) {
-            handleException(throwable, obj, refMethod, params);
-        }
-    }
-
     public static boolean callBoolean(Object obj, ReflectorMethod refMethod, Object... params) {
         try {
             Method method = refMethod.getTargetMethod();
@@ -341,21 +248,6 @@ public class Reflector {
         } catch (Throwable throwable) {
             handleException(throwable, obj, refMethod, params);
             return false;
-        }
-    }
-
-    public static int callInt(Object obj, ReflectorMethod refMethod, Object... params) {
-        try {
-            Method method = refMethod.getTargetMethod();
-
-            if (method == null) {
-                return 0;
-            } else {
-                return (Integer) method.invoke(obj, params);
-            }
-        } catch (Throwable throwable) {
-            handleException(throwable, obj, refMethod, params);
-            return 0;
         }
     }
 

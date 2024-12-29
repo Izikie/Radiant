@@ -1,11 +1,8 @@
 package net.minecraft.world;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +10,6 @@ import java.util.Random;
 import java.util.Set;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EnumCreatureType;
@@ -26,7 +22,6 @@ import net.minecraft.util.WeightedRandom;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.optifine.BlockPosM;
-import net.optifine.reflect.Reflector;
 
 public final class SpawnerAnimals {
     private static final int MOB_COUNT_DIV = (int) Math.pow(17.0D, 2.0D);
@@ -93,7 +88,7 @@ public final class SpawnerAnimals {
 
             for (EnumCreatureType enumcreaturetype : EnumCreatureType.values()) {
                 if ((!enumcreaturetype.getPeacefulCreature() || spawnPeacefulMobs) && (enumcreaturetype.getPeacefulCreature() || spawnHostileMobs) && (!enumcreaturetype.getAnimal() || p_77192_4_)) {
-                    int k4 = Reflector.ForgeWorld_countEntities.exists() ? Reflector.callInt(worldServerIn, Reflector.ForgeWorld_countEntities, new Object[]{enumcreaturetype, Boolean.valueOf(true)}) : worldServerIn.countEntities(enumcreaturetype.getCreatureClass());
+                    int k4 = worldServerIn.countEntities(enumcreaturetype.getCreatureClass());
                     int l4 = enumcreaturetype.getMaxNumberOfCreature() * this.countChunkPos / MOB_COUNT_DIV;
 
                     if (k4 <= l4) {
@@ -161,7 +156,7 @@ public final class SpawnerAnimals {
                                                         worldServerIn.spawnEntityInWorld(entityliving);
                                                     }
 
-                                                    int i4 = Reflector.ForgeEventFactory_getMaxSpawnPackSize.exists() ? Reflector.callInt(Reflector.ForgeEventFactory_getMaxSpawnPackSize, new Object[]{entityliving}) : entityliving.getMaxSpawnedInChunk();
+                                                    int i4 = entityliving.getMaxSpawnedInChunk();
 
                                                     if (j2 >= i4) {
                                                         continue label561;

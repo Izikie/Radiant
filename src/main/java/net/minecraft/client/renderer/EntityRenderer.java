@@ -1289,9 +1289,10 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             EntityPlayer entityplayer1 = (EntityPlayer) entity;
             GlStateManager.disableAlpha();
 
-            if ((!Reflector.ForgeHooksClient_onDrawBlockHighlight.exists() || !Reflector.callBoolean(Reflector.ForgeHooksClient_onDrawBlockHighlight, renderglobal, entityplayer1, this.mc.objectMouseOver, Integer.valueOf(0), entityplayer1.getHeldItem(), Float.valueOf(partialTicks))) && !this.mc.gameSettings.hideGUI) {
+            if (!this.mc.gameSettings.hideGUI) {
                 renderglobal.drawSelectionBox(entityplayer1, this.mc.objectMouseOver, 0, partialTicks);
             }
+
             GlStateManager.enableAlpha();
         }
 
