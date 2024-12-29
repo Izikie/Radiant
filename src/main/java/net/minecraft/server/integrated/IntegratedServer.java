@@ -319,7 +319,7 @@ public class IntegratedServer extends MinecraftServer {
     }
 
     public void initiateShutdown() {
-        if (!Reflector.MinecraftForge.exists() || this.isServerRunning()) {
+        if (this.isServerRunning()) {
             Futures.getUnchecked(this.addScheduledTask(new Runnable() {
                 public void run() {
                     for (EntityPlayerMP entityplayermp : Lists.newArrayList(IntegratedServer.this.getConfigurationManager().getPlayerList())) {

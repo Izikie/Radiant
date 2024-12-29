@@ -38,9 +38,5 @@ public class ReflectorClass implements IResolvable {
         return this.getTargetClass() != null;
     }
 
-    public boolean isInstance(Object obj) {
-        return this.getTargetClass() == null ? false : this.getTargetClass().isInstance(obj);
-    }
-
     public void resolve() {}
 }

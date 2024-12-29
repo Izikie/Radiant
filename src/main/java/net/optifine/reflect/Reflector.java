@@ -1,13 +1,11 @@
 package net.optifine.reflect;
 
-import com.google.common.base.Optional;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
-import javax.vecmath.Matrix4f;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiEnchantment;
@@ -49,7 +47,6 @@ import net.minecraft.client.renderer.entity.RenderBoat;
 import net.minecraft.client.renderer.entity.RenderLeashKnot;
 import net.minecraft.client.renderer.entity.RenderMinecart;
 import net.minecraft.client.renderer.tileentity.RenderEnderCrystal;
-import net.minecraft.client.renderer.tileentity.RenderItemFrame;
 import net.minecraft.client.renderer.tileentity.RenderWitherSkull;
 import net.minecraft.client.renderer.tileentity.TileEntityBannerRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityChestRenderer;
@@ -59,7 +56,6 @@ import net.minecraft.client.renderer.tileentity.TileEntitySignRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
 import net.minecraft.client.resources.DefaultResourcePack;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryBasic;
@@ -76,8 +72,6 @@ import net.optifine.util.ArrayUtils;
 
 public class Reflector {
     // Reflector Forge
-    public static final ReflectorClass EventBus = new ReflectorClass("net.minecraftforge.fml.common.eventhandler.EventBus");
-    public static final ReflectorMethod EventBus_post = new ReflectorMethod(EventBus, "post");
     public static final ReflectorClass Event_Result = new ReflectorClass("net.minecraftforge.fml.common.eventhandler.Event$Result");
     public static final ReflectorField Event_Result_DENY = new ReflectorField(Event_Result, "DENY");
     public static final ReflectorField Event_Result_DEFAULT = new ReflectorField(Event_Result, "DEFAULT");
@@ -88,17 +82,11 @@ public class Reflector {
     public static final ReflectorClass ForgeEventFactory = new ReflectorClass("net.minecraftforge.event.ForgeEventFactory");
     public static final ReflectorMethod ForgeEventFactory_canEntityDespawn = new ReflectorMethod(ForgeEventFactory, "canEntityDespawn");
 
-    public static final ReflectorClass ForgeHooksClient = new ReflectorClass("net.minecraftforge.client.ForgeHooksClient");
-    public static final ReflectorMethod ForgeHooksClient_applyTransform = new ReflectorMethod(ForgeHooksClient, "applyTransform", new Class[]{Matrix4f.class, Optional.class});
-
     public static final ReflectorClass ForgeTileEntity = new ReflectorClass(TileEntity.class);
     public static final ReflectorMethod ForgeTileEntity_canRenderBreaking = new ReflectorMethod(ForgeTileEntity, "canRenderBreaking");
     public static final ReflectorMethod ForgeTileEntity_getRenderBoundingBox = new ReflectorMethod(ForgeTileEntity, "getRenderBoundingBox");
     public static final ReflectorMethod ForgeTileEntity_hasFastRenderer = new ReflectorMethod(ForgeTileEntity, "hasFastRenderer");
     public static final ReflectorMethod ForgeTileEntity_shouldRenderInPass = new ReflectorMethod(ForgeTileEntity, "shouldRenderInPass");
-
-    public static final ReflectorClass MinecraftForge = new ReflectorClass("net.minecraftforge.common.MinecraftForge");
-    public static final ReflectorField MinecraftForge_EVENT_BUS = new ReflectorField(MinecraftForge, "EVENT_BUS");
 
     public static final ReflectorClass ModelLoader = new ReflectorClass("net.minecraftforge.client.model.ModelLoader");
 
@@ -205,21 +193,6 @@ public class Reflector {
     public static final ReflectorField TileEntitySignRenderer_model = new ReflectorField(TileEntitySignRenderer, ModelSign.class);
     public static final ReflectorClass TileEntitySkullRenderer = new ReflectorClass(TileEntitySkullRenderer.class);
     public static final ReflectorField TileEntitySkullRenderer_humanoidHead = new ReflectorField(TileEntitySkullRenderer, ModelSkeletonHead.class, 1);
-
-    public static boolean callBoolean(ReflectorMethod refMethod, Object... params) {
-        try {
-            Method method = refMethod.getTargetMethod();
-
-            if (method == null) {
-                return false;
-            } else {
-                return (Boolean) method.invoke(null, params);
-            }
-        } catch (Throwable throwable) {
-            handleException(throwable, null, refMethod, params);
-            return false;
-        }
-    }
 
     public static Object call(ReflectorMethod refMethod, Object... params) {
         try {
@@ -358,31 +331,6 @@ public class Reflector {
         } catch (Throwable throwable) {
             Log.error("", throwable);
             return false;
-        }
-    }
-
-    public static boolean postForgeBusEvent(ReflectorConstructor constr, Object... params) {
-        Object object = newInstance(constr, params);
-        return object == null ? false : postForgeBusEvent(object);
-    }
-
-    public static boolean postForgeBusEvent(Object event) {
-        if (event == null) {
-            return false;
-        } else {
-            Object object = getFieldValue(MinecraftForge_EVENT_BUS);
-
-            if (object == null) {
-                return false;
-            } else {
-                Object object1 = call(object, EventBus_post, event);
-
-                if (!(object1 instanceof Boolean)) {
-                    return false;
-                } else {
-                    return (Boolean) object1;
-                }
-            }
         }
     }
 

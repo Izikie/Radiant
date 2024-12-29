@@ -1,8 +1,6 @@
 package net.minecraft.client.renderer.block.model;
 
-import net.minecraftforge.client.model.ITransformation;
 import net.optifine.model.BlockModelUtils;
-import net.optifine.reflect.Reflector;
 import net.optifine.shaders.Shaders;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
@@ -21,25 +19,21 @@ public class FaceBakery {
     private static final float SCALE_ROTATION_GENERAL = 1.0F / (float) Math.cos((Math.PI / 4D)) - 1.0F;
 
     public BakedQuad makeBakedQuad(Vector3f posFrom, Vector3f posTo, BlockPartFace face, TextureAtlasSprite sprite, EnumFacing facing, ModelRotation modelRotationIn, BlockPartRotation partRotation, boolean uvLocked, boolean shade) {
-        return this.makeBakedQuad(posFrom, posTo, face, sprite, facing, (ITransformation) modelRotationIn, partRotation, uvLocked, shade);
-    }
-
-    public BakedQuad makeBakedQuad(Vector3f p_makeBakedQuad_1_, Vector3f p_makeBakedQuad_2_, BlockPartFace p_makeBakedQuad_3_, TextureAtlasSprite p_makeBakedQuad_4_, EnumFacing p_makeBakedQuad_5_, ITransformation p_makeBakedQuad_6_, BlockPartRotation p_makeBakedQuad_7_, boolean p_makeBakedQuad_8_, boolean p_makeBakedQuad_9_) {
-        int[] aint = this.makeQuadVertexData(p_makeBakedQuad_3_, p_makeBakedQuad_4_, p_makeBakedQuad_5_, this.getPositionsDiv16(p_makeBakedQuad_1_, p_makeBakedQuad_2_), p_makeBakedQuad_6_, p_makeBakedQuad_7_, p_makeBakedQuad_8_, p_makeBakedQuad_9_);
+        int[] aint = this.makeQuadVertexData(face, sprite, facing, this.getPositionsDiv16(posFrom, posTo), modelRotationIn, partRotation, uvLocked, shade);
         EnumFacing enumfacing = getFacingFromVertexData(aint);
 
-        if (p_makeBakedQuad_8_) {
-            this.lockUv(aint, enumfacing, p_makeBakedQuad_3_.blockFaceUV, p_makeBakedQuad_4_);
+        if (uvLocked) {
+            this.lockUv(aint, enumfacing, face.blockFaceUV, sprite);
         }
 
-        if (p_makeBakedQuad_7_ == null) {
+        if (partRotation == null) {
             this.applyFacing(aint, enumfacing);
         }
 
-        return new BakedQuad(aint, p_makeBakedQuad_3_.tintIndex, enumfacing);
+        return new BakedQuad(aint, face.tintIndex, enumfacing);
     }
 
-    private int[] makeQuadVertexData(BlockPartFace p_makeQuadVertexData_1_, TextureAtlasSprite p_makeQuadVertexData_2_, EnumFacing p_makeQuadVertexData_3_, float[] p_makeQuadVertexData_4_, ITransformation p_makeQuadVertexData_5_, BlockPartRotation p_makeQuadVertexData_6_, boolean p_makeQuadVertexData_7_, boolean p_makeQuadVertexData_8_) {
+    private int[] makeQuadVertexData(BlockPartFace face, TextureAtlasSprite sprite, EnumFacing facing, float[] p_makeQuadVertexData_4_, ModelRotation modelRotationIn, BlockPartRotation partRotation, boolean uvLocked, boolean shade) {
         int i = 28;
 
         if (Config.isShaders()) {
@@ -49,7 +43,7 @@ public class FaceBakery {
         int[] aint = new int[i];
 
         for (int j = 0; j < 4; ++j) {
-            this.fillVertexData(aint, j, p_makeQuadVertexData_3_, p_makeQuadVertexData_1_, p_makeQuadVertexData_4_, p_makeQuadVertexData_2_, p_makeQuadVertexData_5_, p_makeQuadVertexData_6_, p_makeQuadVertexData_7_, p_makeQuadVertexData_8_);
+            this.fillVertexData(aint, j, facing, face, p_makeQuadVertexData_4_, sprite, modelRotationIn, partRotation, uvLocked, shade);
         }
 
         return aint;
@@ -105,15 +99,15 @@ public class FaceBakery {
         return afloat;
     }
 
-    private void fillVertexData(int[] p_fillVertexData_1_, int p_fillVertexData_2_, EnumFacing p_fillVertexData_3_, BlockPartFace p_fillVertexData_4_, float[] p_fillVertexData_5_, TextureAtlasSprite p_fillVertexData_6_, ITransformation p_fillVertexData_7_, BlockPartRotation p_fillVertexData_8_, boolean p_fillVertexData_9_, boolean p_fillVertexData_10_) {
-        EnumFacing enumfacing = p_fillVertexData_7_.rotate(p_fillVertexData_3_);
-        int i = p_fillVertexData_10_ ? this.getFaceShadeColor(enumfacing) : -1;
-        EnumFaceDirection.VertexInformation enumfacedirection$vertexinformation = EnumFaceDirection.getFacing(p_fillVertexData_3_).getVertexInformation(p_fillVertexData_2_);
+    private void fillVertexData(int[] p_fillVertexData_1_, int p_fillVertexData_2_, EnumFacing face, BlockPartFace p_fillVertexData_4_, float[] p_fillVertexData_5_, TextureAtlasSprite sprite, ModelRotation modelRotationIn, BlockPartRotation partRotation, boolean uvLocked, boolean shade) {
+        EnumFacing enumfacing = modelRotationIn.rotateFace(face);
+        int i = shade ? this.getFaceShadeColor(enumfacing) : -1;
+        EnumFaceDirection.VertexInformation enumfacedirection$vertexinformation = EnumFaceDirection.getFacing(face).getVertexInformation(p_fillVertexData_2_);
         Vector3f vector3f = new Vector3f(p_fillVertexData_5_[enumfacedirection$vertexinformation.xIndex], p_fillVertexData_5_[enumfacedirection$vertexinformation.yIndex], p_fillVertexData_5_[enumfacedirection$vertexinformation.zIndex]);
-        this.rotatePart(vector3f, p_fillVertexData_8_);
-        int j = this.rotateVertex(vector3f, p_fillVertexData_3_, p_fillVertexData_2_, p_fillVertexData_7_, p_fillVertexData_9_);
+        this.rotatePart(vector3f, partRotation);
+        int j = this.rotateVertex(vector3f, face, p_fillVertexData_2_, modelRotationIn, uvLocked);
         BlockModelUtils.snapVertexPosition(vector3f);
-        this.storeVertexData(p_fillVertexData_1_, j, p_fillVertexData_2_, vector3f, i, p_fillVertexData_6_, p_fillVertexData_4_.blockFaceUV);
+        this.storeVertexData(p_fillVertexData_1_, j, p_fillVertexData_2_, vector3f, i, sprite, p_fillVertexData_4_.blockFaceUV);
     }
 
     private void storeVertexData(int[] faceData, int storeIndex, int vertexIndex, Vector3f position, int shadeColor, TextureAtlasSprite sprite, BlockFaceUV faceUV) {
@@ -165,15 +159,11 @@ public class FaceBakery {
     }
 
     public int rotateVertex(Vector3f position, EnumFacing facing, int vertexIndex, ModelRotation modelRotationIn, boolean uvLocked) {
-        return this.rotateVertex(position, facing, vertexIndex, modelRotationIn, uvLocked);
-    }
-
-    public int rotateVertex(Vector3f p_rotateVertex_1_, EnumFacing p_rotateVertex_2_, int p_rotateVertex_3_, ITransformation p_rotateVertex_4_, boolean p_rotateVertex_5_) {
-        if (p_rotateVertex_4_ == ModelRotation.X0_Y0) {
-            return p_rotateVertex_3_;
+        if (modelRotationIn == ModelRotation.X0_Y0) {
+            return vertexIndex;
         } else {
-            this.rotateScale(p_rotateVertex_1_, new Vector3f(0.5F, 0.5F, 0.5F), ((ModelRotation) p_rotateVertex_4_).getMatrix4d(), new Vector3f(1.0F, 1.0F, 1.0F));
-            return p_rotateVertex_4_.rotate(p_rotateVertex_2_, p_rotateVertex_3_);
+            this.rotateScale(position, new Vector3f(0.5F, 0.5F, 0.5F), ((ModelRotation) modelRotationIn).getMatrix4d(), new Vector3f(1.0F, 1.0F, 1.0F));
+            return modelRotationIn.rotateVertex(facing, vertexIndex);
         }
     }
 

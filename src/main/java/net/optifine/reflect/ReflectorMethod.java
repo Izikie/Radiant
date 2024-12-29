@@ -88,16 +88,8 @@ public class ReflectorMethod implements IResolvable {
         return Reflector.call(this, params);
     }
 
-    public boolean callBoolean(Object... params) {
-        return Reflector.callBoolean(this, params);
-    }
-
     public Object call(Object param) {
         return Reflector.call(this, param);
-    }
-
-    public boolean callBoolean(Object param) {
-        return Reflector.callBoolean(this, param);
     }
 
     public static Method getMethod(Class cls, String methodName, Class[] paramTypes) {
