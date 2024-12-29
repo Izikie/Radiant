@@ -6,7 +6,7 @@ There are also plans to add qol features/improvements to small annoyances with m
 
 ## Features
 - Increased FPS
-- Exploit/Bug Fixed
+- Exploit/Bug Fixes
 - QOL (Quality Of Life) Features
 
 ## Important
