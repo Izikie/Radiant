@@ -1267,65 +1267,52 @@ public class Minecraft implements IThreadListener {
                     if (this.currentScreen != null) {
                         this.currentScreen.handleKeyboardInput();
                     } else {
-                        if (k == 1) {
-                            this.displayInGameMenu();
-                        }
+                        
+                        switch (k) {
+                            case 1 -> this.displayInGameMenu();
 
-                        if (k == 32 && Keyboard.isKeyDown(61) && this.ingameGUI != null) {
-                            this.ingameGUI.getChatGUI().clearChatMessages();
-                        }
+                            case 20, 31 -> {
+                                if (Keyboard.isKeyDown(61))
+                                    this.refreshResources();
+                            }
 
-                        if (k == 31 && Keyboard.isKeyDown(61)) {
-                            this.refreshResources();
-                        }
+                            case 25 -> {
+                                if (Keyboard.isKeyDown(61)) {
+                                    this.gameSettings.pauseOnLostFocus = !this.gameSettings.pauseOnLostFocus;
+                                    this.gameSettings.saveOptions();
+                                }
+                            }
 
-                        if (k == 17 && Keyboard.isKeyDown(61)) {
-                        }
+                            case 30 -> {
+                                if (Keyboard.isKeyDown(61))
+                                    this.renderGlobal.loadRenderers();
+                            }
 
-                        if (k == 18 && Keyboard.isKeyDown(61)) {
-                        }
+                            case 32 -> {
+                                if (Keyboard.isKeyDown(61) && this.ingameGUI != null)
+                                    this.ingameGUI.getChatGUI().clearChatMessages();
+                            }
 
-                        if (k == 47 && Keyboard.isKeyDown(61)) {
-                        }
+                            case 33 -> {
+                                if (Keyboard.isKeyDown(61))
+                                    this.gameSettings.setOptionValue(GameSettings.Options.RENDER_DISTANCE, GuiScreen.isShiftKeyDown() ? -1 : 1);
+                            }
 
-                        if (k == 38 && Keyboard.isKeyDown(61)) {
-                        }
+                            case 35 -> {
+                                if (Keyboard.isKeyDown(61)) {
+                                    this.gameSettings.advancedItemTooltips = !this.gameSettings.advancedItemTooltips;
+                                    this.gameSettings.saveOptions();
+                                }
+                            }
 
-                        if (k == 22 && Keyboard.isKeyDown(61)) {
-                        }
+                            case 48 -> {
+                                if (Keyboard.isKeyDown(61))
+                                    this.renderManager.setDebugBoundingBox(!this.renderManager.isDebugBoundingBox());
+                            }
 
-                        if (k == 20 && Keyboard.isKeyDown(61)) {
-                            this.refreshResources();
-                        }
+                            case 59 -> this.gameSettings.hideGUI = !this.gameSettings.hideGUI;
 
-                        if (k == 33 && Keyboard.isKeyDown(61)) {
-                            this.gameSettings.setOptionValue(GameSettings.Options.RENDER_DISTANCE, GuiScreen.isShiftKeyDown() ? -1 : 1);
-                        }
-
-                        if (k == 30 && Keyboard.isKeyDown(61)) {
-                            this.renderGlobal.loadRenderers();
-                        }
-
-                        if (k == 35 && Keyboard.isKeyDown(61)) {
-                            this.gameSettings.advancedItemTooltips = !this.gameSettings.advancedItemTooltips;
-                            this.gameSettings.saveOptions();
-                        }
-
-                        if (k == 48 && Keyboard.isKeyDown(61)) {
-                            this.renderManager.setDebugBoundingBox(!this.renderManager.isDebugBoundingBox());
-                        }
-
-                        if (k == 25 && Keyboard.isKeyDown(61)) {
-                            this.gameSettings.pauseOnLostFocus = !this.gameSettings.pauseOnLostFocus;
-                            this.gameSettings.saveOptions();
-                        }
-
-                        if (k == 59) {
-                            this.gameSettings.hideGUI = !this.gameSettings.hideGUI;
-                        }
-
-                        if (k == 61) {
-                            this.gameSettings.showDebugInfo = !this.gameSettings.showDebugInfo;
+                            case 61 -> this.gameSettings.showDebugInfo = !this.gameSettings.showDebugInfo;
                         }
 
                         if (this.gameSettings.keyBindTogglePerspective.isPressed()) {
