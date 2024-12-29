@@ -1267,7 +1267,7 @@ public class Minecraft implements IThreadListener {
                     if (this.currentScreen != null) {
                         this.currentScreen.handleKeyboardInput();
                     } else {
-                        
+
                         switch (k) {
                             case 1 -> this.displayInGameMenu();
 
