@@ -27,7 +27,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.optifine.BlockPosM;
 import net.optifine.reflect.Reflector;
-import net.optifine.reflect.ReflectorForge;
 
 public final class SpawnerAnimals {
     private static final int MOB_COUNT_DIV = (int) Math.pow(17.0D, 2.0D);
@@ -153,14 +152,9 @@ public final class SpawnerAnimals {
                                                 }
 
                                                 entityliving.setLocationAndAngles((double) f, (double) i3, (double) f1, worldServerIn.rand.nextFloat() * 360.0F, 0.0F);
-                                                boolean flag2 = Reflector.ForgeEventFactory_canEntitySpawn.exists() ? ReflectorForge.canEntitySpawn(entityliving, worldServerIn, f, (float) i3, f1) : entityliving.getCanSpawnHere() && entityliving.isNotColliding();
 
-                                                if (flag2) {
+                                                if (entityliving.getCanSpawnHere() && entityliving.isNotColliding()) {
                                                     this.mapSampleEntitiesByClass.remove(biomegenbase$spawnlistentry.entityClass);
-
-                                                    if (!ReflectorForge.doSpecialSpawn(entityliving, worldServerIn, f, i3, f1)) {
-                                                        ientitylivingdata = entityliving.onInitialSpawn(worldServerIn.getDifficultyForLocation(new BlockPos(entityliving)), ientitylivingdata);
-                                                    }
 
                                                     if (entityliving.isNotColliding()) {
                                                         ++j2;

@@ -79,7 +79,6 @@ import net.optifine.GlErrors;
 import net.optifine.RandomEntities;
 import net.optifine.gui.GuiChatOF;
 import net.optifine.reflect.Reflector;
-import net.optifine.reflect.ReflectorForge;
 import net.optifine.reflect.ReflectorResolver;
 import net.optifine.shaders.Shaders;
 import net.optifine.shaders.ShadersRender;

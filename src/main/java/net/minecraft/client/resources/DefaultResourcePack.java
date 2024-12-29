@@ -15,7 +15,6 @@ import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.client.resources.data.IMetadataSerializer;
 import net.minecraft.util.ResourceLocation;
-import net.optifine.reflect.ReflectorForge;
 
 public class DefaultResourcePack implements IResourcePack {
     public static final Set<String> defaultResourceDomains = ImmutableSet.<String>of("minecraft");

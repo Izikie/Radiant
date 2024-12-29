@@ -31,7 +31,6 @@ import net.optifine.config.ConnectedParser;
 import net.optifine.config.EntityClassLocator;
 import net.optifine.config.IObjectLocator;
 import net.optifine.config.ItemLocator;
-import net.optifine.reflect.ReflectorForge;
 import net.optifine.util.PropertiesOrdered;
 
 public class DynamicLights {
@@ -92,19 +91,6 @@ public class DynamicLights {
         initialized = true;
         mapEntityLightLevels.clear();
         mapItemLightLevels.clear();
-        String[] astring = ReflectorForge.getForgeModIds();
-
-        for (int i = 0; i < astring.length; ++i) {
-            String s = astring[i];
-
-            try {
-                ResourceLocation resourcelocation = new ResourceLocation(s, "optifine/dynamic_lights.properties");
-                InputStream inputstream = Config.getResourceStream(resourcelocation);
-                loadModConfiguration(inputstream, resourcelocation.toString(), s);
-            } catch (IOException var5) {
-                ;
-            }
-        }
 
         if (mapEntityLightLevels.size() > 0) {
             Config.dbg("DynamicLights entities: " + mapEntityLightLevels.size());
@@ -112,55 +98,6 @@ public class DynamicLights {
 
         if (mapItemLightLevels.size() > 0) {
             Config.dbg("DynamicLights items: " + mapItemLightLevels.size());
-        }
-    }
-
-    private static void loadModConfiguration(InputStream in, String path, String modId) {
-        if (in != null) {
-            try {
-                Properties properties = new PropertiesOrdered();
-                properties.load(in);
-                in.close();
-                Config.dbg("DynamicLights: Parsing " + path);
-                ConnectedParser connectedparser = new ConnectedParser("DynamicLights");
-                loadModLightLevels(properties.getProperty("entities"), mapEntityLightLevels, new EntityClassLocator(), connectedparser, path, modId);
-                loadModLightLevels(properties.getProperty("items"), mapItemLightLevels, new ItemLocator(), connectedparser, path, modId);
-            } catch (IOException var5) {
-                Config.warn("DynamicLights: Error reading " + path);
-            }
-        }
-    }
-
-    private static void loadModLightLevels(String prop, Map mapLightLevels, IObjectLocator ol, ConnectedParser cp, String path, String modId) {
-        if (prop != null) {
-            String[] astring = Config.tokenize(prop, " ");
-
-            for (int i = 0; i < astring.length; ++i) {
-                String s = astring[i];
-                String[] astring1 = Config.tokenize(s, ":");
-
-                if (astring1.length != 2) {
-                    cp.warn("Invalid entry: " + s + ", in:" + path);
-                } else {
-                    String s1 = astring1[0];
-                    String s2 = astring1[1];
-                    String s3 = modId + ":" + s1;
-                    ResourceLocation resourcelocation = new ResourceLocation(s3);
-                    Object object = ol.getObject(resourcelocation);
-
-                    if (object == null) {
-                        cp.warn("Object not found: " + s3);
-                    } else {
-                        int j = cp.parseInt(s2, -1);
-
-                        if (j >= 0 && j <= 15) {
-                            mapLightLevels.put(object, j);
-                        } else {
-                            cp.warn("Invalid light level: " + s);
-                        }
-                    }
-                }
-            }
         }
     }
 

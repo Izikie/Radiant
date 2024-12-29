@@ -10,7 +10,6 @@ import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.config.ConnectedParser;
 import net.optifine.reflect.Reflector;
-import net.optifine.reflect.ReflectorForge;
 import net.optifine.shaders.config.MacroProcessor;
 import net.optifine.util.PropertiesOrdered;
 import net.optifine.util.StrUtils;
@@ -50,26 +49,8 @@ public class ItemAliases {
                 loadItemAliases(inputstream, s, list);
             }
 
-            loadModItemAliases(list);
-
             if (((List) list).size() > 0) {
                 itemAliases = toArray(list);
-            }
-        }
-    }
-
-    private static void loadModItemAliases(List<Integer> listItemAliases) {
-        String[] astring = ReflectorForge.getForgeModIds();
-
-        for (int i = 0; i < astring.length; ++i) {
-            String s = astring[i];
-
-            try {
-                ResourceLocation resourcelocation = new ResourceLocation(s, "shaders/item.properties");
-                InputStream inputstream = Config.getResourceStream(resourcelocation);
-                loadItemAliases(inputstream, resourcelocation.toString(), listItemAliases);
-            } catch (IOException var6) {
-                ;
             }
         }
     }

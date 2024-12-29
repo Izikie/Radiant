@@ -23,7 +23,6 @@ import com.google.common.collect.Queues;
 import com.google.common.collect.Sets;
 import net.minecraftforge.client.model.ITransformation;
 import net.minecraftforge.client.model.TRSRTransformation;
-import net.minecraftforge.fml.common.registry.RegistryDelegate;
 import net.optifine.CustomItems;
 import net.optifine.reflect.Reflector;
 import net.optifine.util.StrUtils;
@@ -75,7 +74,6 @@ public class ModelBakery {
     private final Map<String, ResourceLocation> itemLocations = Maps.<String, ResourceLocation>newLinkedHashMap();
     private final Map<ResourceLocation, ModelBlockDefinition> blockDefinitions = Maps.<ResourceLocation, ModelBlockDefinition>newHashMap();
     private final Map<Item, List<String>> variantNames = Maps.<Item, List<String>>newIdentityHashMap();
-    private static final Map<RegistryDelegate<Item>, Set<String>> customVariantNames = Maps.<RegistryDelegate<Item>, Set<String>>newHashMap();
 
     public ModelBakery(IResourceManager p_i46085_1_, TextureMap p_i46085_2_, BlockModelShapes p_i46085_3_) {
         this.resourceManager = p_i46085_1_;
@@ -314,10 +312,6 @@ public class ModelBakery {
         this.variantNames.put(Item.getItemFromBlock(Blocks.oak_fence_gate), Lists.newArrayList(new String[]{"oak_fence_gate"}));
         this.variantNames.put(Item.getItemFromBlock(Blocks.oak_fence), Lists.newArrayList(new String[]{"oak_fence"}));
         this.variantNames.put(Items.oak_door, Lists.newArrayList(new String[]{"oak_door"}));
-
-        for (Entry<RegistryDelegate<Item>, Set<String>> entry : customVariantNames.entrySet()) {
-            this.variantNames.put((Item) ((RegistryDelegate) entry.getKey()).get(), Lists.newArrayList(((Set) entry.getValue()).iterator()));
-        }
 
         CustomItems.update();
         CustomItems.loadModels(this);
@@ -669,29 +663,6 @@ public class ModelBakery {
         p_fixResourcePath_0_ = StrUtils.removeSuffix(p_fixResourcePath_0_, ".json");
         p_fixResourcePath_0_ = StrUtils.removeSuffix(p_fixResourcePath_0_, ".png");
         return p_fixResourcePath_0_;
-    }
-
-    @Deprecated
-    public static void addVariantName(Item p_addVariantName_0_, String... p_addVariantName_1_) {
-        RegistryDelegate registrydelegate = (RegistryDelegate) Reflector.getFieldValue(p_addVariantName_0_, Reflector.ForgeItem_delegate);
-
-        if (customVariantNames.containsKey(registrydelegate)) {
-            ((Set) customVariantNames.get(registrydelegate)).addAll(Lists.newArrayList(p_addVariantName_1_));
-        } else {
-            customVariantNames.put(registrydelegate, Sets.newHashSet(p_addVariantName_1_));
-        }
-    }
-
-    public static <T extends ResourceLocation> void registerItemVariants(Item p_registerItemVariants_0_, T... p_registerItemVariants_1_) {
-        RegistryDelegate registrydelegate = (RegistryDelegate) Reflector.getFieldValue(p_registerItemVariants_0_, Reflector.ForgeItem_delegate);
-
-        if (!customVariantNames.containsKey(registrydelegate)) {
-            customVariantNames.put(registrydelegate, Sets.<String>newHashSet());
-        }
-
-        for (ResourceLocation resourcelocation : p_registerItemVariants_1_) {
-            ((Set) customVariantNames.get(registrydelegate)).add(resourcelocation.toString());
-        }
     }
 
     static {
