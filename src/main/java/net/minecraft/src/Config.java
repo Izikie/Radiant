@@ -56,7 +56,6 @@ import net.optifine.GlErrors;
 import net.optifine.config.GlVersion;
 import net.optifine.gui.GuiMessage;
 import net.optifine.reflect.Reflector;
-import net.optifine.reflect.ReflectorForge;
 import net.optifine.shaders.Shaders;
 import net.optifine.util.DisplayModeComparator;
 import net.optifine.util.PropertiesOrdered;
