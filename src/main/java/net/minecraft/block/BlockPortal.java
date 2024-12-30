@@ -24,7 +24,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockPortal extends BlockBreakable {
-    public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.create("axis", EnumFacing.Axis.class, new EnumFacing.Axis[]{EnumFacing.Axis.X, EnumFacing.Axis.Z});
+    public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.create("axis", EnumFacing.Axis.class, EnumFacing.Axis.X, EnumFacing.Axis.Z);
 
     public BlockPortal() {
         super(Material.portal, false);
@@ -182,7 +182,7 @@ public class BlockPortal extends BlockBreakable {
                 d5 = (rand.nextFloat() * 2.0F * j);
             }
 
-            worldIn.spawnParticle(EnumParticleTypes.PORTAL, d0, d1, d2, d3, d4, d5, new int[0]);
+            worldIn.spawnParticle(EnumParticleTypes.PORTAL, d0, d1, d2, d3, d4, d5);
         }
     }
 
@@ -199,7 +199,7 @@ public class BlockPortal extends BlockBreakable {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{AXIS});
+        return new BlockState(this, AXIS);
     }
 
     public BlockPattern.PatternHelper func_181089_f(World p_181089_1_, BlockPos p_181089_2_) {

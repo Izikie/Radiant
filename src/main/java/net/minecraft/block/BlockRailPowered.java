@@ -149,6 +149,6 @@ public class BlockRailPowered extends BlockRailBase {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{SHAPE, POWERED});
+        return new BlockState(this, SHAPE, POWERED);
     }
 }

@@ -242,7 +242,7 @@ public class WorldClient extends World {
             iblockstate.getBlock().randomDisplayTick(this, blockpos$mutableblockpos, iblockstate, random);
 
             if (flag && iblockstate.getBlock() == Blocks.barrier) {
-                this.spawnParticle(EnumParticleTypes.BARRIER, (k + 0.5F), (l + 0.5F), (i1 + 0.5F), 0.0D, 0.0D, 0.0D, new int[0]);
+                this.spawnParticle(EnumParticleTypes.BARRIER, (k + 0.5F), (l + 0.5F), (i1 + 0.5F), 0.0D, 0.0D, 0.0D);
             }
         }
     }

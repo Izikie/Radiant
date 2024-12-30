@@ -26,7 +26,7 @@ public class CommandGive extends CommandBase {
 
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length < 2) {
-            throw new WrongUsageException("commands.give.usage", new Object[0]);
+            throw new WrongUsageException("commands.give.usage");
         } else {
             EntityPlayer entityplayer = getPlayer(sender, args[0]);
             Item item = getItemByText(sender, args[1]);
@@ -40,7 +40,7 @@ public class CommandGive extends CommandBase {
                 try {
                     itemstack.setTagCompound(JsonToNBT.getTagFromJson(s));
                 } catch (NBTException nbtexception) {
-                    throw new CommandException("commands.give.tagError", new Object[]{nbtexception.getMessage()});
+                    throw new CommandException("commands.give.tagError", nbtexception.getMessage());
                 }
             }
 
@@ -69,7 +69,7 @@ public class CommandGive extends CommandBase {
                 }
             }
 
-            notifyOperators(sender, this, "commands.give.success", new Object[]{itemstack.getChatComponent(), Integer.valueOf(i), entityplayer.getName()});
+            notifyOperators(sender, this, "commands.give.success", itemstack.getChatComponent(), Integer.valueOf(i), entityplayer.getName());
         }
     }
 

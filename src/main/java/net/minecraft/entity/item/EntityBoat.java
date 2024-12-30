@@ -204,11 +204,11 @@ public class EntityBoat extends Entity {
                 if (this.rand.nextBoolean()) {
                     double d7 = this.posX - d2 * d5 * 0.8D + d4 * d6;
                     double d8 = this.posZ - d4 * d5 * 0.8D - d2 * d6;
-                    this.worldObj.spawnParticle(EnumParticleTypes.WATER_SPLASH, d7, this.posY - 0.125D, d8, this.motionX, this.motionY, this.motionZ, new int[0]);
+                    this.worldObj.spawnParticle(EnumParticleTypes.WATER_SPLASH, d7, this.posY - 0.125D, d8, this.motionX, this.motionY, this.motionZ);
                 } else {
                     double d24 = this.posX + d2 + d4 * d5 * 0.7D;
                     double d25 = this.posZ + d4 - d2 * d5 * 0.7D;
-                    this.worldObj.spawnParticle(EnumParticleTypes.WATER_SPLASH, d24, this.posY - 0.125D, d25, this.motionX, this.motionY, this.motionZ, new int[0]);
+                    this.worldObj.spawnParticle(EnumParticleTypes.WATER_SPLASH, d24, this.posY - 0.125D, d25, this.motionX, this.motionY, this.motionZ);
                 }
             }
         }

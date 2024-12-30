@@ -25,7 +25,7 @@ public class Locale {
         this.properties.clear();
 
         for (String s : languageList) {
-            String s1 = String.format("lang/%s.lang", new Object[]{s});
+            String s1 = String.format("lang/%s.lang", s);
 
             for (String s2 : resourceManager.getResourceDomains()) {
                 try {

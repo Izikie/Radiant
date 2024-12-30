@@ -337,7 +337,7 @@ public class SoundManager {
     }
 
     private static URL getURLForSoundResource(final ResourceLocation p_148612_0_) {
-        String s = String.format("%s:%s:%s", new Object[]{"mcsounddomain", p_148612_0_.getResourceDomain(), p_148612_0_.getResourcePath()});
+        String s = String.format("%s:%s:%s", "mcsounddomain", p_148612_0_.getResourceDomain(), p_148612_0_.getResourcePath());
         URLStreamHandler urlstreamhandler = new URLStreamHandler() {
             protected URLConnection openConnection(final URL p_openConnection_1_) {
                 return new URLConnection(p_openConnection_1_) {

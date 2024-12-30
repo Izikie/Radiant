@@ -313,7 +313,7 @@ public class EntityRabbit extends EntityAnimal {
         if (rabbitTypeId == 99) {
             this.tasks.removeTask(this.aiAvoidWolves);
             this.tasks.addTask(4, new EntityRabbit.AIEvilAttack(this));
-            this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
+            this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
             this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
             this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityWolf.class, true));
 
@@ -355,7 +355,7 @@ public class EntityRabbit extends EntityAnimal {
     }
 
     protected void createEatingParticles() {
-        this.worldObj.spawnParticle(EnumParticleTypes.BLOCK_DUST, this.posX + (this.rand.nextFloat() * this.width * 2.0F) - this.width, this.posY + 0.5D + (this.rand.nextFloat() * this.height), this.posZ + (this.rand.nextFloat() * this.width * 2.0F) - this.width, 0.0D, 0.0D, 0.0D, new int[]{Block.getStateId(Blocks.carrots.getStateFromMeta(7))});
+        this.worldObj.spawnParticle(EnumParticleTypes.BLOCK_DUST, this.posX + (this.rand.nextFloat() * this.width * 2.0F) - this.width, this.posY + 0.5D + (this.rand.nextFloat() * this.height), this.posZ + (this.rand.nextFloat() * this.width * 2.0F) - this.width, 0.0D, 0.0D, 0.0D, Block.getStateId(Blocks.carrots.getStateFromMeta(7)));
         this.carrotTicks = 100;
     }
 

@@ -58,13 +58,13 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
             try {
                 this.getSessionService().joinServer(this.mc.getSession().getProfile(), this.mc.getSession().getToken(), s1);
             } catch (AuthenticationUnavailableException var7) {
-                this.networkManager.closeChannel(new ChatComponentTranslation("disconnect.loginFailedInfo", new Object[]{new ChatComponentTranslation("disconnect.loginFailedInfo.serversUnavailable", new Object[0])}));
+                this.networkManager.closeChannel(new ChatComponentTranslation("disconnect.loginFailedInfo", new ChatComponentTranslation("disconnect.loginFailedInfo.serversUnavailable")));
                 return;
             } catch (InvalidCredentialsException var8) {
-                this.networkManager.closeChannel(new ChatComponentTranslation("disconnect.loginFailedInfo", new Object[]{new ChatComponentTranslation("disconnect.loginFailedInfo.invalidSession", new Object[0])}));
+                this.networkManager.closeChannel(new ChatComponentTranslation("disconnect.loginFailedInfo", new ChatComponentTranslation("disconnect.loginFailedInfo.invalidSession")));
                 return;
             } catch (AuthenticationException authenticationexception) {
-                this.networkManager.closeChannel(new ChatComponentTranslation("disconnect.loginFailedInfo", new Object[]{authenticationexception.getMessage()}));
+                this.networkManager.closeChannel(new ChatComponentTranslation("disconnect.loginFailedInfo", authenticationexception.getMessage()));
                 return;
             }
         }
@@ -73,7 +73,7 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
             public void operationComplete(Future<? super Void> p_operationComplete_1_) throws Exception {
                 NetHandlerLoginClient.this.networkManager.enableEncryption(secretkey);
             }
-        }, new GenericFutureListener[0]);
+        });
     }
 
     private MinecraftSessionService getSessionService() {

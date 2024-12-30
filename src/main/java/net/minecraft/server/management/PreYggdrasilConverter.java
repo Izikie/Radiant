@@ -62,7 +62,7 @@ public class PreYggdrasilConverter {
                         PreYggdrasilConverter.LOGGER.warn((String) ("Could not lookup user whitelist entry for " + p_onProfileLookupFailed_1_.getName()), (Throwable) p_onProfileLookupFailed_2_);
                     }
                 };
-                lookupNames(minecraftserver, Lists.newArrayList(new String[]{p_152719_0_}), profilelookupcallback);
+                lookupNames(minecraftserver, Lists.newArrayList(p_152719_0_), profilelookupcallback);
                 return list.size() > 0 && ((GameProfile) list.get(0)).getId() != null ? ((GameProfile) list.get(0)).getId().toString() : "";
             } else {
                 return EntityPlayer.getUUID(new GameProfile((UUID) null, p_152719_0_)).toString();

@@ -99,7 +99,7 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
                     public void operationComplete(ChannelFuture p_operationComplete_1_) throws Exception {
                         NetHandlerLoginServer.this.networkManager.setCompressionTreshold(NetHandlerLoginServer.this.server.getNetworkCompressionTreshold());
                     }
-                }, new GenericFutureListener[0]);
+                });
             }
 
             this.networkManager.sendPacket(new S02PacketLoginSuccess(this.loginGameProfile));
@@ -123,7 +123,7 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
     }
 
     public void processLoginStart(C00PacketLoginStart packetIn) {
-        Validate.validState(this.currentLoginState == NetHandlerLoginServer.LoginState.HELLO, "Unexpected hello packet", new Object[0]);
+        Validate.validState(this.currentLoginState == NetHandlerLoginServer.LoginState.HELLO, "Unexpected hello packet");
         this.loginGameProfile = packetIn.getProfile();
 
         if (this.server.isServerInOnlineMode() && !this.networkManager.isLocalChannel()) {
@@ -135,7 +135,7 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
     }
 
     public void processEncryptionResponse(C01PacketEncryptionResponse packetIn) {
-        Validate.validState(this.currentLoginState == NetHandlerLoginServer.LoginState.KEY, "Unexpected key packet", new Object[0]);
+        Validate.validState(this.currentLoginState == NetHandlerLoginServer.LoginState.KEY, "Unexpected key packet");
         PrivateKey privatekey = this.server.getKeyPair().getPrivate();
 
         if (!Arrays.equals(this.verifyToken, packetIn.getVerifyToken(privatekey))) {

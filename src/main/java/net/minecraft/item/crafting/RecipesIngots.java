@@ -13,11 +13,11 @@ public class RecipesIngots {
         for (Object[] recipeItem : this.recipeItems) {
             Block block = (Block) recipeItem[0];
             ItemStack itemstack = (ItemStack) recipeItem[1];
-            p_77590_1_.addRecipe(new ItemStack(block), new Object[]{"###", "###", "###", '#', itemstack});
-            p_77590_1_.addRecipe(itemstack, new Object[]{"#", '#', block});
+            p_77590_1_.addRecipe(new ItemStack(block), "###", "###", "###", '#', itemstack);
+            p_77590_1_.addRecipe(itemstack, "#", '#', block);
         }
 
-        p_77590_1_.addRecipe(new ItemStack(Items.gold_ingot), new Object[]{"###", "###", "###", '#', Items.gold_nugget});
-        p_77590_1_.addRecipe(new ItemStack(Items.gold_nugget, 9), new Object[]{"#", '#', Items.gold_ingot});
+        p_77590_1_.addRecipe(new ItemStack(Items.gold_ingot), "###", "###", "###", '#', Items.gold_nugget);
+        p_77590_1_.addRecipe(new ItemStack(Items.gold_nugget, 9), "#", '#', Items.gold_ingot);
     }
 }

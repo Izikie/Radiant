@@ -68,7 +68,7 @@ public class StatisticsFile extends StatFileWriter {
             this.field_150886_g = true;
 
             if (this.mcServer.isAnnouncingPlayerAchievements()) {
-                this.mcServer.getConfigurationManager().sendChatMsg(new ChatComponentTranslation("chat.type.achievement", new Object[]{playerIn.getDisplayName(), statIn.createChatComponent()}));
+                this.mcServer.getConfigurationManager().sendChatMsg(new ChatComponentTranslation("chat.type.achievement", playerIn.getDisplayName(), statIn.createChatComponent()));
             }
         }
 
@@ -76,7 +76,7 @@ public class StatisticsFile extends StatFileWriter {
             this.field_150886_g = true;
 
             if (this.mcServer.isAnnouncingPlayerAchievements()) {
-                this.mcServer.getConfigurationManager().sendChatMsg(new ChatComponentTranslation("chat.type.achievement.taken", new Object[]{playerIn.getDisplayName(), statIn.createChatComponent()}));
+                this.mcServer.getConfigurationManager().sendChatMsg(new ChatComponentTranslation("chat.type.achievement.taken", playerIn.getDisplayName(), statIn.createChatComponent()));
             }
         }
     }
@@ -114,7 +114,7 @@ public class StatisticsFile extends StatFileWriter {
 
                         if (jsonobject1.has("progress") && statbase.func_150954_l() != null) {
                             try {
-                                Constructor<? extends IJsonSerializable> constructor = statbase.func_150954_l().getConstructor(new Class[0]);
+                                Constructor<? extends IJsonSerializable> constructor = statbase.func_150954_l().getConstructor();
                                 IJsonSerializable ijsonserializable = (IJsonSerializable) constructor.newInstance(new Object[0]);
                                 ijsonserializable.fromJson(jsonobject1.get("progress"));
                                 tupleintjsonserializable.setJsonSerializableValue(ijsonserializable);

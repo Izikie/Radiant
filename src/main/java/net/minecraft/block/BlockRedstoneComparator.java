@@ -230,7 +230,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{FACING, MODE, POWERED});
+        return new BlockState(this, FACING, MODE, POWERED);
     }
 
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {

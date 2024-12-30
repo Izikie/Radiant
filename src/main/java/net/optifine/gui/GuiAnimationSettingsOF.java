@@ -20,7 +20,7 @@ public class GuiAnimationSettingsOF extends GuiScreen {
     }
 
     public void initGui() {
-        this.title = I18n.format("of.options.animationsTitle", new Object[0]);
+        this.title = I18n.format("of.options.animationsTitle");
         this.buttonList.clear();
 
         for (int i = 0; i < enumOptions.length; ++i) {
@@ -37,7 +37,7 @@ public class GuiAnimationSettingsOF extends GuiScreen {
 
         this.buttonList.add(new GuiButton(210, this.width / 2 - 155, this.height / 6 + 168 + 11, 70, 20, Lang.get("of.options.animation.allOn")));
         this.buttonList.add(new GuiButton(211, this.width / 2 - 155 + 80, this.height / 6 + 168 + 11, 70, 20, Lang.get("of.options.animation.allOff")));
-        this.buttonList.add(new GuiOptionButton(200, this.width / 2 + 5, this.height / 6 + 168 + 11, I18n.format("gui.done", new Object[0])));
+        this.buttonList.add(new GuiOptionButton(200, this.width / 2 + 5, this.height / 6 + 168 + 11, I18n.format("gui.done")));
     }
 
     protected void actionPerformed(GuiButton guibutton) {

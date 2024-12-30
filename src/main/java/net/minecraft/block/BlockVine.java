@@ -350,7 +350,7 @@ public class BlockVine extends Block {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{UP, NORTH, EAST, SOUTH, WEST});
+        return new BlockState(this, UP, NORTH, EAST, SOUTH, WEST);
     }
 
     public static PropertyBool getPropertyFor(EnumFacing side) {

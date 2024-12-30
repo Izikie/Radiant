@@ -1600,7 +1600,7 @@ public class Shaders {
         int i = EXTFramebufferObject.glCheckFramebufferStatusEXT(36160);
 
         if (i != 36053) {
-            System.err.format("FramebufferStatus 0x%04X at %s\n", new Object[]{Integer.valueOf(i), location});
+            System.err.format("FramebufferStatus 0x%04X at %s\n", Integer.valueOf(i), location);
         }
 
         return i;
@@ -1612,11 +1612,11 @@ public class Shaders {
         if (i != 0 && GlErrors.isEnabled(i)) {
             String s = Config.getGlErrorString(i);
             String s1 = getErrorInfo(i, location);
-            String s2 = String.format("OpenGL error: %s (%s)%s, at: %s", new Object[]{Integer.valueOf(i), s, s1, location});
+            String s2 = String.format("OpenGL error: %s (%s)%s, at: %s", Integer.valueOf(i), s, s1, location);
             SMCLog.severe(s2);
 
             if (Config.isShowGlErrors() && TimedEvent.isActive("ShowGlErrorShaders", 10000L)) {
-                String s3 = I18n.format("of.message.openglError", new Object[]{Integer.valueOf(i), s});
+                String s3 = I18n.format("of.message.openglError", Integer.valueOf(i), s);
                 printChat(s3);
             }
         }
@@ -2510,7 +2510,7 @@ public class Shaders {
 
                                                         if (i2 >= 0 && l != 0) {
                                                             gbuffersFormat[i2] = l;
-                                                            SMCLog.info("%s format: %s", new Object[]{s5, s7});
+                                                            SMCLog.info("%s format: %s", s5, s7);
                                                         }
                                                     } else if (shaderline.isConstBoolSuffix("Clear", false)) {
                                                         if (ShaderParser.isComposite(filename) || ShaderParser.isDeferred(filename)) {
@@ -2519,7 +2519,7 @@ public class Shaders {
 
                                                             if (k1 >= 0) {
                                                                 gbuffersClear[k1] = false;
-                                                                SMCLog.info("%s clear disabled", new Object[]{s4});
+                                                                SMCLog.info("%s clear disabled", s4);
                                                             }
                                                         }
                                                     } else if (shaderline.isConstVec4Suffix("ClearColor")) {
@@ -2532,7 +2532,7 @@ public class Shaders {
 
                                                                 if (vector4f != null) {
                                                                     gbuffersClearColor[j1] = vector4f;
-                                                                    SMCLog.info("%s clear color: %s %s %s %s", new Object[]{s3, Float.valueOf(vector4f.getX()), Float.valueOf(vector4f.getY()), Float.valueOf(vector4f.getZ()), Float.valueOf(vector4f.getW())});
+                                                                    SMCLog.info("%s clear color: %s %s %s %s", s3, Float.valueOf(vector4f.getX()), Float.valueOf(vector4f.getY()), Float.valueOf(vector4f.getZ()), Float.valueOf(vector4f.getW()));
                                                                 } else {
                                                                     SMCLog.warning("Invalid color value: " + shaderline.getValue());
                                                                 }
@@ -2556,7 +2556,7 @@ public class Shaders {
                                                                 int k = program.getCompositeMipmapSetting();
                                                                 k = k | 1 << j;
                                                                 program.setCompositeMipmapSetting(k);
-                                                                SMCLog.info("%s mipmap enabled", new Object[]{s2});
+                                                                SMCLog.info("%s mipmap enabled", s2);
                                                             }
                                                         }
                                                     } else if (shaderline.isProperty("DRAWBUFFERS")) {
@@ -3007,10 +3007,10 @@ public class Shaders {
                         if (block1 != null) {
                             mapBlockToEntityData.put(block1, Integer.valueOf(j));
                         } else {
-                            SMCLog.warning("Unknown block name %s", new Object[]{s2});
+                            SMCLog.warning("Unknown block name %s", s2);
                         }
                     } else {
-                        SMCLog.warning("unmatched %s\n", new Object[]{s1});
+                        SMCLog.warning("unmatched %s\n", s1);
                     }
                 }
             } catch (Exception var9) {

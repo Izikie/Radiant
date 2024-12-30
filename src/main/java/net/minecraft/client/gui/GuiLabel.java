@@ -43,7 +43,7 @@ public class GuiLabel extends Gui {
     }
 
     public void func_175202_a(String p_175202_1_) {
-        this.field_146173_k.add(I18n.format(p_175202_1_, new Object[0]));
+        this.field_146173_k.add(I18n.format(p_175202_1_));
     }
 
     public GuiLabel setCentered() {

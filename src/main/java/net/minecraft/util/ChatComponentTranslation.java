@@ -68,7 +68,7 @@ public class ChatComponentTranslation extends ChatComponentStyle {
                 l = matcher.end();
 
                 if (k > j) {
-                    ChatComponentText chatcomponenttext = new ChatComponentText(String.format(format.substring(j, k), new Object[0]));
+                    ChatComponentText chatcomponenttext = new ChatComponentText(String.format(format.substring(j, k)));
                     chatcomponenttext.getChatStyle().setParentStyle(this.getChatStyle());
                     this.children.add(chatcomponenttext);
                 }
@@ -95,7 +95,7 @@ public class ChatComponentTranslation extends ChatComponentStyle {
             }
 
             if (j < format.length()) {
-                ChatComponentText chatcomponenttext1 = new ChatComponentText(String.format(format.substring(j), new Object[0]));
+                ChatComponentText chatcomponenttext1 = new ChatComponentText(String.format(format.substring(j)));
                 chatcomponenttext1.getChatStyle().setParentStyle(this.getChatStyle());
                 this.children.add(chatcomponenttext1);
             }

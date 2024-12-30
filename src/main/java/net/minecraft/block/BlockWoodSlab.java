@@ -85,7 +85,7 @@ public abstract class BlockWoodSlab extends BlockSlab {
     }
 
     protected BlockState createBlockState() {
-        return this.isDouble() ? new BlockState(this, new IProperty[]{VARIANT}) : new BlockState(this, new IProperty[]{HALF, VARIANT});
+        return this.isDouble() ? new BlockState(this, VARIANT) : new BlockState(this, HALF, VARIANT);
     }
 
     public int damageDropped(IBlockState state) {

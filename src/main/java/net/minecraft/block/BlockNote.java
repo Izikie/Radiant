@@ -17,7 +17,7 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 
 public class BlockNote extends BlockContainer {
-    private static final List<String> INSTRUMENTS = Lists.newArrayList(new String[]{"harp", "bd", "snare", "hat", "bassattack"});
+    private static final List<String> INSTRUMENTS = Lists.newArrayList("harp", "bd", "snare", "hat", "bassattack");
 
     public BlockNote() {
         super(Material.wood);
@@ -82,7 +82,7 @@ public class BlockNote extends BlockContainer {
     public boolean onBlockEventReceived(World worldIn, BlockPos pos, IBlockState state, int eventID, int eventParam) {
         float f = (float) Math.pow(2.0D, (eventParam - 12) / 12.0D);
         worldIn.playSoundEffect(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, "note." + this.getInstrument(eventID), 3.0F, f);
-        worldIn.spawnParticle(EnumParticleTypes.NOTE, pos.getX() + 0.5D, pos.getY() + 1.2D, pos.getZ() + 0.5D, eventParam / 24.0D, 0.0D, 0.0D, new int[0]);
+        worldIn.spawnParticle(EnumParticleTypes.NOTE, pos.getX() + 0.5D, pos.getY() + 1.2D, pos.getZ() + 0.5D, eventParam / 24.0D, 0.0D, 0.0D);
         return true;
     }
 

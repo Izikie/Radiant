@@ -122,7 +122,7 @@ public class BlockDaylightDetector extends BlockContainer {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{POWER});
+        return new BlockState(this, POWER);
     }
 
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {

@@ -97,7 +97,7 @@ public abstract class BlockStoneSlabNew extends BlockSlab {
     }
 
     protected BlockState createBlockState() {
-        return this.isDouble() ? new BlockState(this, new IProperty[]{SEAMLESS, VARIANT}) : new BlockState(this, new IProperty[]{HALF, VARIANT});
+        return this.isDouble() ? new BlockState(this, SEAMLESS, VARIANT) : new BlockState(this, HALF, VARIANT);
     }
 
     public MapColor getMapColor(IBlockState state) {

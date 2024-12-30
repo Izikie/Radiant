@@ -57,6 +57,6 @@ public class BlockPressurePlateWeighted extends BlockBasePressurePlate {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{POWER});
+        return new BlockState(this, POWER);
     }
 }

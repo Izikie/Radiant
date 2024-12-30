@@ -201,8 +201,8 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
             {
                 try {
                     bufferedimage = TextureUtil.readBufferedImage(new ByteBufInputStream(bytebuf1));
-                    Validate.validState(bufferedimage.getWidth() == 64, "Must be 64 pixels wide", new Object[0]);
-                    Validate.validState(bufferedimage.getHeight() == 64, "Must be 64 pixels high", new Object[0]);
+                    Validate.validState(bufferedimage.getWidth() == 64, "Must be 64 pixels wide");
+                    Validate.validState(bufferedimage.getHeight() == 64, "Must be 64 pixels high");
                     break label101;
                 } catch (Throwable throwable) {
                     logger.error("Invalid icon for server " + this.server.serverName + " (" + this.server.serverIP + ")", throwable);

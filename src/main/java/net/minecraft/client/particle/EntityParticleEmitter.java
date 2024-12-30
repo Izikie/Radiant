@@ -32,7 +32,7 @@ public class EntityParticleEmitter extends EntityFX {
                 double d3 = this.attachedEntity.posX + d0 * this.attachedEntity.width / 4.0D;
                 double d4 = this.attachedEntity.getEntityBoundingBox().minY + (this.attachedEntity.height / 2.0F) + d1 * this.attachedEntity.height / 4.0D;
                 double d5 = this.attachedEntity.posZ + d2 * this.attachedEntity.width / 4.0D;
-                this.worldObj.spawnParticle(this.particleTypes, false, d3, d4, d5, d0, d1 + 0.2D, d2, new int[0]);
+                this.worldObj.spawnParticle(this.particleTypes, false, d3, d4, d5, d0, d1 + 0.2D, d2);
             }
         }
 

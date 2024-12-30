@@ -34,6 +34,6 @@ public class BlockRail extends BlockRailBase {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{SHAPE});
+        return new BlockState(this, SHAPE);
     }
 }

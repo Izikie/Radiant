@@ -77,7 +77,7 @@ public class BlockNewLeaf extends BlockLeaves {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{VARIANT, CHECK_DECAY, DECAYABLE});
+        return new BlockState(this, VARIANT, CHECK_DECAY, DECAYABLE);
     }
 
     public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te) {

@@ -123,6 +123,6 @@ public class BlockSnow extends Block {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{LAYERS});
+        return new BlockState(this, LAYERS);
     }
 }

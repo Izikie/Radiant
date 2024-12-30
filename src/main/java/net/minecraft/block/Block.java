@@ -784,7 +784,7 @@ public class Block {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[0]);
+        return new BlockState(this);
     }
 
     public BlockState getBlockState() {

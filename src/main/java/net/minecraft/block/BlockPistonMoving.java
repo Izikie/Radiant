@@ -221,6 +221,6 @@ public class BlockPistonMoving extends BlockContainer {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{FACING, TYPE});
+        return new BlockState(this, FACING, TYPE);
     }
 }

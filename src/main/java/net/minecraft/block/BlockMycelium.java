@@ -55,7 +55,7 @@ public class BlockMycelium extends Block {
         super.randomDisplayTick(worldIn, pos, state, rand);
 
         if (rand.nextInt(10) == 0) {
-            worldIn.spawnParticle(EnumParticleTypes.TOWN_AURA, (pos.getX() + rand.nextFloat()), (pos.getY() + 1.1F), (pos.getZ() + rand.nextFloat()), 0.0D, 0.0D, 0.0D, new int[0]);
+            worldIn.spawnParticle(EnumParticleTypes.TOWN_AURA, (pos.getX() + rand.nextFloat()), (pos.getY() + 1.1F), (pos.getZ() + rand.nextFloat()), 0.0D, 0.0D, 0.0D);
         }
     }
 
@@ -68,6 +68,6 @@ public class BlockMycelium extends Block {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{SNOWY});
+        return new BlockState(this, SNOWY);
     }
 }

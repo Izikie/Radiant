@@ -860,7 +860,7 @@ public class GuiIngame extends Gui {
     }
 
     public void setRecordPlayingMessage(String recordName) {
-        this.setRecordPlaying(I18n.format("record.nowPlaying", new Object[]{recordName}), true);
+        this.setRecordPlaying(I18n.format("record.nowPlaying", recordName), true);
     }
 
     public void setRecordPlaying(String message, boolean isPlaying) {

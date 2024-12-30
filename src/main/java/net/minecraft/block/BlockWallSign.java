@@ -70,6 +70,6 @@ public class BlockWallSign extends BlockSign {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{FACING});
+        return new BlockState(this, FACING);
     }
 }

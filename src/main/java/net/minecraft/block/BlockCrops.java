@@ -163,6 +163,6 @@ public class BlockCrops extends BlockBush implements IGrowable {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{AGE});
+        return new BlockState(this, AGE);
     }
 }

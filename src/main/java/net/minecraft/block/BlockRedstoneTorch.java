@@ -106,7 +106,7 @@ public class BlockRedstoneTorch extends BlockTorch {
                         double d0 = pos.getX() + rand.nextDouble() * 0.6D + 0.2D;
                         double d1 = pos.getY() + rand.nextDouble() * 0.6D + 0.2D;
                         double d2 = pos.getZ() + rand.nextDouble() * 0.6D + 0.2D;
-                        worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D, new int[0]);
+                        worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D);
                     }
 
                     worldIn.scheduleUpdate(pos, worldIn.getBlockState(pos).getBlock(), 160);
@@ -152,7 +152,7 @@ public class BlockRedstoneTorch extends BlockTorch {
                 d2 += 0.27D * enumfacing1.getFrontOffsetZ();
             }
 
-            worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d0, d1, d2, 0.0D, 0.0D, 0.0D, new int[0]);
+            worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
         }
     }
 

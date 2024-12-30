@@ -594,7 +594,7 @@ public class BlockStairs extends Block {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{FACING, HALF, SHAPE});
+        return new BlockState(this, FACING, HALF, SHAPE);
     }
 
     public static enum EnumHalf implements IStringSerializable {

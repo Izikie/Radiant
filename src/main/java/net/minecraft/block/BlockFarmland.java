@@ -126,6 +126,6 @@ public class BlockFarmland extends Block {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{MOISTURE});
+        return new BlockState(this, MOISTURE);
     }
 }

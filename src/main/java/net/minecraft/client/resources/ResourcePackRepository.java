@@ -316,7 +316,7 @@ public class ResourcePackRepository {
         }
 
         public String toString() {
-            return String.format("%s:%s:%d", new Object[]{this.resourcePackFile.getName(), this.resourcePackFile.isDirectory() ? "folder" : "zip", Long.valueOf(this.resourcePackFile.lastModified())});
+            return String.format("%s:%s:%d", this.resourcePackFile.getName(), this.resourcePackFile.isDirectory() ? "folder" : "zip", Long.valueOf(this.resourcePackFile.lastModified()));
         }
     }
 }

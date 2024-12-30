@@ -23,7 +23,7 @@ public class GuiMessage extends GuiScreen {
         this.parentScreen = parentScreen;
         this.messageLine1 = line1;
         this.messageLine2 = line2;
-        this.confirmButtonText = I18n.format("gui.done", new Object[0]);
+        this.confirmButtonText = I18n.format("gui.done");
     }
 
     public void initGui() {

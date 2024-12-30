@@ -131,7 +131,7 @@ public class BlockWall extends Block {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{UP, NORTH, EAST, WEST, SOUTH, VARIANT});
+        return new BlockState(this, UP, NORTH, EAST, WEST, SOUTH, VARIANT);
     }
 
     public static enum EnumType implements IStringSerializable {

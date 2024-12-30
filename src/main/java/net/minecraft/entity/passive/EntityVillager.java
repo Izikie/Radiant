@@ -519,7 +519,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc {
             }
 
             if (s1 != null) {
-                ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation("entity.Villager." + s1, new Object[0]);
+                ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation("entity.Villager." + s1);
                 chatcomponenttranslation.getChatStyle().setChatHoverEvent(this.getHoverEvent());
                 chatcomponenttranslation.getChatStyle().setInsertion(this.getUniqueID().toString());
                 return chatcomponenttranslation;
@@ -556,7 +556,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc {
             double d0 = this.rand.nextGaussian() * 0.02D;
             double d1 = this.rand.nextGaussian() * 0.02D;
             double d2 = this.rand.nextGaussian() * 0.02D;
-            this.worldObj.spawnParticle(particleType, this.posX + (this.rand.nextFloat() * this.width * 2.0F) - this.width, this.posY + 1.0D + (this.rand.nextFloat() * this.height), this.posZ + (this.rand.nextFloat() * this.width * 2.0F) - this.width, d0, d1, d2, new int[0]);
+            this.worldObj.spawnParticle(particleType, this.posX + (this.rand.nextFloat() * this.width * 2.0F) - this.width, this.posY + 1.0D + (this.rand.nextFloat() * this.height), this.posZ + (this.rand.nextFloat() * this.width * 2.0F) - this.width, d0, d1, d2);
         }
     }
 

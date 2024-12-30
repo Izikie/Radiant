@@ -62,7 +62,7 @@ public class EntityWolf extends EntityTameable {
         this.tasks.addTask(9, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new EntityAIOwnerHurtByTarget(this));
         this.targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
-        this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, true, new Class[0]));
+        this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, true));
         this.targetTasks.addTask(4, new EntityAITargetNonTamed(this, EntityAnimal.class, false, new Predicate<Entity>() {
             public boolean apply(Entity p_apply_1_) {
                 return p_apply_1_ instanceof EntitySheep || p_apply_1_ instanceof EntityRabbit;
@@ -198,7 +198,7 @@ public class EntityWolf extends EntityTameable {
                 for (int j = 0; j < i; ++j) {
                     float f1 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width * 0.5F;
                     float f2 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width * 0.5F;
-                    this.worldObj.spawnParticle(EnumParticleTypes.WATER_SPLASH, this.posX + f1, (f + 0.8F), this.posZ + f2, this.motionX, this.motionY, this.motionZ, new int[0]);
+                    this.worldObj.spawnParticle(EnumParticleTypes.WATER_SPLASH, this.posX + f1, (f + 0.8F), this.posZ + f2, this.motionX, this.motionY, this.motionZ);
                 }
             }
         }

@@ -105,7 +105,7 @@ public class EntityAIMate extends EntityAIBase {
                 double d3 = random.nextDouble() * this.theAnimal.width * 2.0D - this.theAnimal.width;
                 double d4 = 0.5D + random.nextDouble() * this.theAnimal.height;
                 double d5 = random.nextDouble() * this.theAnimal.width * 2.0D - this.theAnimal.width;
-                this.theWorld.spawnParticle(EnumParticleTypes.HEART, this.theAnimal.posX + d3, this.theAnimal.posY + d4, this.theAnimal.posZ + d5, d0, d1, d2, new int[0]);
+                this.theWorld.spawnParticle(EnumParticleTypes.HEART, this.theAnimal.posX + d3, this.theAnimal.posY + d4, this.theAnimal.posZ + d5, d0, d1, d2);
             }
 
             if (this.theWorld.getGameRules().getBoolean("doMobLoot")) {

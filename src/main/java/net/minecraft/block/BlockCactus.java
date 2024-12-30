@@ -108,6 +108,6 @@ public class BlockCactus extends Block {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{AGE});
+        return new BlockState(this, AGE);
     }
 }

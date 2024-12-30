@@ -57,7 +57,7 @@ public abstract class BlockFlower extends BlockBush {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{this.getTypeProperty()});
+        return new BlockState(this, this.getTypeProperty());
     }
 
     public Block.EnumOffsetType getOffsetType() {

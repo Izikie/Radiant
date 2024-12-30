@@ -51,7 +51,7 @@ public class LanguageManager implements IResourceManagerReloadListener {
     }
 
     public void onResourceManagerReload(IResourceManager resourceManager) {
-        List<String> list = Lists.newArrayList(new String[]{"en_US"});
+        List<String> list = Lists.newArrayList("en_US");
 
         if (!"en_US".equals(this.currentLanguage)) {
             list.add(this.currentLanguage);

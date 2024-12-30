@@ -173,7 +173,7 @@ public abstract class EntityLiving extends EntityLivingBase {
                 double d1 = this.rand.nextGaussian() * 0.02D;
                 double d2 = this.rand.nextGaussian() * 0.02D;
                 double d3 = 10.0D;
-                this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, this.posX + (this.rand.nextFloat() * this.width * 2.0F) - this.width - d0 * d3, this.posY + (this.rand.nextFloat() * this.height) - d1 * d3, this.posZ + (this.rand.nextFloat() * this.width * 2.0F) - this.width - d2 * d3, d0, d1, d2, new int[0]);
+                this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, this.posX + (this.rand.nextFloat() * this.width * 2.0F) - this.width - d0 * d3, this.posY + (this.rand.nextFloat() * this.height) - d1 * d3, this.posZ + (this.rand.nextFloat() * this.width * 2.0F) - this.width - d2 * d3, d0, d1, d2);
             }
         } else {
             this.worldObj.setEntityState(this, (byte) 20);
@@ -405,7 +405,7 @@ public abstract class EntityLiving extends EntityLivingBase {
 
         if (this.persistenceRequired) {
             this.entityAge = 0;
-        } else if ((this.entityAge & 31) == 31 && (object = Reflector.call(Reflector.ForgeEventFactory_canEntityDespawn, new Object[]{this})) != object1) {
+        } else if ((this.entityAge & 31) == 31 && (object = Reflector.call(Reflector.ForgeEventFactory_canEntityDespawn, this)) != object1) {
             if (object == object2) {
                 this.entityAge = 0;
             } else {

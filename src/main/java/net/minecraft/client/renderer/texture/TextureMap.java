@@ -415,7 +415,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
     }
 
     public ResourceLocation completeResourceLocation(ResourceLocation location, int p_147634_2_) {
-        return this.isAbsoluteLocation(location) ? new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + ".png") : (p_147634_2_ == 0 ? new ResourceLocation(location.getResourceDomain(), String.format("%s/%s%s", new Object[]{this.basePath, location.getResourcePath(), ".png"})) : new ResourceLocation(location.getResourceDomain(), String.format("%s/mipmaps/%s.%d%s", new Object[]{this.basePath, location.getResourcePath(), Integer.valueOf(p_147634_2_), ".png"})));
+        return this.isAbsoluteLocation(location) ? new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + ".png") : (p_147634_2_ == 0 ? new ResourceLocation(location.getResourceDomain(), String.format("%s/%s%s", this.basePath, location.getResourcePath(), ".png")) : new ResourceLocation(location.getResourceDomain(), String.format("%s/mipmaps/%s.%d%s", this.basePath, location.getResourcePath(), Integer.valueOf(p_147634_2_), ".png")));
     }
 
     public TextureAtlasSprite getAtlasSprite(String iconName) {

@@ -52,7 +52,7 @@ public class BlockStainedGlassPane extends BlockPane {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{NORTH, EAST, WEST, SOUTH, COLOR});
+        return new BlockState(this, NORTH, EAST, WEST, SOUTH, COLOR);
     }
 
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {

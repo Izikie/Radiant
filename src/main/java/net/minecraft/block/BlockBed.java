@@ -49,7 +49,7 @@ public class BlockBed extends BlockDirectional {
                     EntityPlayer entityplayer = this.getPlayerInBed(worldIn, pos);
 
                     if (entityplayer != null) {
-                        playerIn.addChatComponentMessage(new ChatComponentTranslation("tile.bed.occupied", new Object[0]));
+                        playerIn.addChatComponentMessage(new ChatComponentTranslation("tile.bed.occupied"));
                         return true;
                     }
 
@@ -65,9 +65,9 @@ public class BlockBed extends BlockDirectional {
                     return true;
                 } else {
                     if (entityplayer$enumstatus == EntityPlayer.EnumStatus.NOT_POSSIBLE_NOW) {
-                        playerIn.addChatComponentMessage(new ChatComponentTranslation("tile.bed.noSleep", new Object[0]));
+                        playerIn.addChatComponentMessage(new ChatComponentTranslation("tile.bed.noSleep"));
                     } else if (entityplayer$enumstatus == EntityPlayer.EnumStatus.NOT_SAFE) {
-                        playerIn.addChatComponentMessage(new ChatComponentTranslation("tile.bed.notSafe", new Object[0]));
+                        playerIn.addChatComponentMessage(new ChatComponentTranslation("tile.bed.notSafe"));
                     }
 
                     return true;
@@ -227,7 +227,7 @@ public class BlockBed extends BlockDirectional {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{FACING, PART, OCCUPIED});
+        return new BlockState(this, FACING, PART, OCCUPIED);
     }
 
     public static enum EnumPartType implements IStringSerializable {

@@ -335,9 +335,9 @@ public abstract class EntityPlayer extends EntityLivingBase {
                 vec31 = vec31.addVector(this.posX, this.posY + this.getEyeHeight(), this.posZ);
 
                 if (itemStackIn.getHasSubtypes()) {
-                    this.worldObj.spawnParticle(EnumParticleTypes.ITEM_CRACK, vec31.xCoord, vec31.yCoord, vec31.zCoord, vec3.xCoord, vec3.yCoord + 0.05D, vec3.zCoord, new int[]{Item.getIdFromItem(itemStackIn.getItem()), itemStackIn.getMetadata()});
+                    this.worldObj.spawnParticle(EnumParticleTypes.ITEM_CRACK, vec31.xCoord, vec31.yCoord, vec31.zCoord, vec3.xCoord, vec3.yCoord + 0.05D, vec3.zCoord, Item.getIdFromItem(itemStackIn.getItem()), itemStackIn.getMetadata());
                 } else {
-                    this.worldObj.spawnParticle(EnumParticleTypes.ITEM_CRACK, vec31.xCoord, vec31.yCoord, vec31.zCoord, vec3.xCoord, vec3.yCoord + 0.05D, vec3.zCoord, new int[]{Item.getIdFromItem(itemStackIn.getItem())});
+                    this.worldObj.spawnParticle(EnumParticleTypes.ITEM_CRACK, vec31.xCoord, vec31.yCoord, vec31.zCoord, vec3.xCoord, vec3.yCoord + 0.05D, vec3.zCoord, Item.getIdFromItem(itemStackIn.getItem()));
                 }
             }
 

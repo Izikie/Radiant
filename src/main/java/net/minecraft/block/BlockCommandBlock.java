@@ -110,7 +110,7 @@ public class BlockCommandBlock extends BlockContainer {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{TRIGGERED});
+        return new BlockState(this, TRIGGERED);
     }
 
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {

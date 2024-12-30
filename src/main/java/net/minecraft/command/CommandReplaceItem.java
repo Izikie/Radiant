@@ -36,7 +36,7 @@ public class CommandReplaceItem extends CommandBase {
 
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length < 1) {
-            throw new WrongUsageException("commands.replaceitem.usage", new Object[0]);
+            throw new WrongUsageException("commands.replaceitem.usage");
         } else {
             boolean flag;
 
@@ -44,7 +44,7 @@ public class CommandReplaceItem extends CommandBase {
                 flag = false;
             } else {
                 if (!args[0].equals("block")) {
-                    throw new WrongUsageException("commands.replaceitem.usage", new Object[0]);
+                    throw new WrongUsageException("commands.replaceitem.usage");
                 }
 
                 flag = true;
@@ -54,13 +54,13 @@ public class CommandReplaceItem extends CommandBase {
 
             if (flag) {
                 if (args.length < 6) {
-                    throw new WrongUsageException("commands.replaceitem.block.usage", new Object[0]);
+                    throw new WrongUsageException("commands.replaceitem.block.usage");
                 }
 
                 i = 4;
             } else {
                 if (args.length < 4) {
-                    throw new WrongUsageException("commands.replaceitem.entity.usage", new Object[0]);
+                    throw new WrongUsageException("commands.replaceitem.entity.usage");
                 }
 
                 i = 2;
@@ -90,7 +90,7 @@ public class CommandReplaceItem extends CommandBase {
                 try {
                     itemstack.setTagCompound(JsonToNBT.getTagFromJson(s));
                 } catch (NBTException nbtexception) {
-                    throw new CommandException("commands.replaceitem.tagError", new Object[]{nbtexception.getMessage()});
+                    throw new CommandException("commands.replaceitem.tagError", nbtexception.getMessage());
                 }
             }
 
@@ -105,7 +105,7 @@ public class CommandReplaceItem extends CommandBase {
                 TileEntity tileentity = world.getTileEntity(blockpos);
 
                 if (tileentity == null || !(tileentity instanceof IInventory iinventory)) {
-                    throw new CommandException("commands.replaceitem.noContainer", new Object[]{Integer.valueOf(blockpos.getX()), Integer.valueOf(blockpos.getY()), Integer.valueOf(blockpos.getZ())});
+                    throw new CommandException("commands.replaceitem.noContainer", Integer.valueOf(blockpos.getX()), Integer.valueOf(blockpos.getY()), Integer.valueOf(blockpos.getZ()));
                 }
 
                 if (j >= 0 && j < iinventory.getSizeInventory()) {
@@ -120,7 +120,7 @@ public class CommandReplaceItem extends CommandBase {
                 }
 
                 if (!entity.replaceItemInInventory(j, itemstack)) {
-                    throw new CommandException("commands.replaceitem.failed", new Object[]{Integer.valueOf(j), Integer.valueOf(k), itemstack == null ? "Air" : itemstack.getChatComponent()});
+                    throw new CommandException("commands.replaceitem.failed", Integer.valueOf(j), Integer.valueOf(k), itemstack == null ? "Air" : itemstack.getChatComponent());
                 }
 
                 if (entity instanceof EntityPlayer) {
@@ -129,20 +129,20 @@ public class CommandReplaceItem extends CommandBase {
             }
 
             sender.setCommandStat(CommandResultStats.Type.AFFECTED_ITEMS, k);
-            notifyOperators(sender, this, "commands.replaceitem.success", new Object[]{Integer.valueOf(j), Integer.valueOf(k), itemstack == null ? "Air" : itemstack.getChatComponent()});
+            notifyOperators(sender, this, "commands.replaceitem.success", Integer.valueOf(j), Integer.valueOf(k), itemstack == null ? "Air" : itemstack.getChatComponent());
         }
     }
 
     private int getSlotForShortcut(String shortcut) throws CommandException {
         if (!SHORTCUTS.containsKey(shortcut)) {
-            throw new CommandException("commands.generic.parameter.invalid", new Object[]{shortcut});
+            throw new CommandException("commands.generic.parameter.invalid", shortcut);
         } else {
             return ((Integer) SHORTCUTS.get(shortcut)).intValue();
         }
     }
 
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
-        return args.length == 1 ? getListOfStringsMatchingLastWord(args, new String[]{"entity", "block"}) : (args.length == 2 && args[0].equals("entity") ? getListOfStringsMatchingLastWord(args, this.getUsernames()) : (args.length >= 2 && args.length <= 4 && args[0].equals("block") ? func_175771_a(args, 1, pos) : ((args.length != 3 || !args[0].equals("entity")) && (args.length != 5 || !args[0].equals("block")) ? ((args.length != 4 || !args[0].equals("entity")) && (args.length != 6 || !args[0].equals("block")) ? null : getListOfStringsMatchingLastWord(args, Item.itemRegistry.getKeys())) : getListOfStringsMatchingLastWord(args, SHORTCUTS.keySet()))));
+        return args.length == 1 ? getListOfStringsMatchingLastWord(args, "entity", "block") : (args.length == 2 && args[0].equals("entity") ? getListOfStringsMatchingLastWord(args, this.getUsernames()) : (args.length >= 2 && args.length <= 4 && args[0].equals("block") ? func_175771_a(args, 1, pos) : ((args.length != 3 || !args[0].equals("entity")) && (args.length != 5 || !args[0].equals("block")) ? ((args.length != 4 || !args[0].equals("entity")) && (args.length != 6 || !args[0].equals("block")) ? null : getListOfStringsMatchingLastWord(args, Item.itemRegistry.getKeys())) : getListOfStringsMatchingLastWord(args, SHORTCUTS.keySet()))));
     }
 
     protected String[] getUsernames() {

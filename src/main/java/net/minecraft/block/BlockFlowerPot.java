@@ -233,7 +233,7 @@ public class BlockFlowerPot extends BlockContainer {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{CONTENTS, LEGACY_DATA});
+        return new BlockState(this, CONTENTS, LEGACY_DATA);
     }
 
     public int getMetaFromState(IBlockState state) {

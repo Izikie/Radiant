@@ -61,7 +61,7 @@ public class BlockDirt extends Block {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{VARIANT, SNOWY});
+        return new BlockState(this, VARIANT, SNOWY);
     }
 
     public int damageDropped(IBlockState state) {

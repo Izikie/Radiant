@@ -104,16 +104,16 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
     }
 
     public void channelInactive(ChannelHandlerContext p_channelInactive_1_) throws Exception {
-        this.closeChannel(new ChatComponentTranslation("disconnect.endOfStream", new Object[0]));
+        this.closeChannel(new ChatComponentTranslation("disconnect.endOfStream"));
     }
 
     public void exceptionCaught(ChannelHandlerContext p_exceptionCaught_1_, Throwable p_exceptionCaught_2_) throws Exception {
         ChatComponentTranslation chatcomponenttranslation;
 
         if (p_exceptionCaught_2_ instanceof TimeoutException) {
-            chatcomponenttranslation = new ChatComponentTranslation("disconnect.timeout", new Object[0]);
+            chatcomponenttranslation = new ChatComponentTranslation("disconnect.timeout");
         } else {
-            chatcomponenttranslation = new ChatComponentTranslation("disconnect.genericReason", new Object[]{"Internal Exception: " + p_exceptionCaught_2_});
+            chatcomponenttranslation = new ChatComponentTranslation("disconnect.genericReason", "Internal Exception: " + p_exceptionCaught_2_);
         }
 
         this.closeChannel(chatcomponenttranslation);
@@ -130,7 +130,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
     }
 
     public void setNetHandler(INetHandler handler) {
-        Validate.notNull(handler, "packetListener", new Object[0]);
+        Validate.notNull(handler, "packetListener");
         logger.debug("Set listener of {} to {}", new Object[]{this, handler});
         this.packetListener = handler;
     }

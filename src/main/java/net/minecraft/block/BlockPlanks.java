@@ -45,7 +45,7 @@ public class BlockPlanks extends Block {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{VARIANT});
+        return new BlockState(this, VARIANT);
     }
 
     public static enum EnumType implements IStringSerializable {

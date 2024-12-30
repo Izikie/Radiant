@@ -277,6 +277,6 @@ public class BlockTripWireHook extends Block {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{FACING, POWERED, ATTACHED, SUSPENDED});
+        return new BlockState(this, FACING, POWERED, ATTACHED, SUSPENDED);
     }
 }

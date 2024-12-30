@@ -7,8 +7,8 @@ import net.minecraft.client.resources.I18n;
 public class GuiMemoryErrorScreen extends GuiScreen {
     public void initGui() {
         this.buttonList.clear();
-        this.buttonList.add(new GuiOptionButton(0, this.width / 2 - 155, this.height / 4 + 120 + 12, I18n.format("gui.toTitle", new Object[0])));
-        this.buttonList.add(new GuiOptionButton(1, this.width / 2 - 155 + 160, this.height / 4 + 120 + 12, I18n.format("menu.quit", new Object[0])));
+        this.buttonList.add(new GuiOptionButton(0, this.width / 2 - 155, this.height / 4 + 120 + 12, I18n.format("gui.toTitle")));
+        this.buttonList.add(new GuiOptionButton(1, this.width / 2 - 155 + 160, this.height / 4 + 120 + 12, I18n.format("menu.quit")));
     }
 
     protected void actionPerformed(GuiButton button) throws IOException {

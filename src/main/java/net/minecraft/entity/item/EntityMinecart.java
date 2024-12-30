@@ -849,7 +849,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
             chatcomponenttext.getChatStyle().setInsertion(this.getUniqueID().toString());
             return chatcomponenttext;
         } else {
-            ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation(this.getName(), new Object[0]);
+            ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation(this.getName());
             chatcomponenttranslation.getChatStyle().setChatHoverEvent(this.getHoverEvent());
             chatcomponenttranslation.getChatStyle().setInsertion(this.getUniqueID().toString());
             return chatcomponenttranslation;

@@ -20,7 +20,7 @@ public class CommandSaveAll extends CommandBase {
 
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         MinecraftServer minecraftserver = MinecraftServer.getServer();
-        sender.addChatMessage(new ChatComponentTranslation("commands.save.start", new Object[0]));
+        sender.addChatMessage(new ChatComponentTranslation("commands.save.start"));
 
         if (minecraftserver.getConfigurationManager() != null) {
             minecraftserver.getConfigurationManager().saveAllPlayerData();
@@ -38,7 +38,7 @@ public class CommandSaveAll extends CommandBase {
             }
 
             if (args.length > 0 && "flush".equals(args[0])) {
-                sender.addChatMessage(new ChatComponentTranslation("commands.save.flushStart", new Object[0]));
+                sender.addChatMessage(new ChatComponentTranslation("commands.save.flushStart"));
 
                 for (int j = 0; j < minecraftserver.worldServers.length; ++j) {
                     if (minecraftserver.worldServers[j] != null) {
@@ -50,13 +50,13 @@ public class CommandSaveAll extends CommandBase {
                     }
                 }
 
-                sender.addChatMessage(new ChatComponentTranslation("commands.save.flushEnd", new Object[0]));
+                sender.addChatMessage(new ChatComponentTranslation("commands.save.flushEnd"));
             }
         } catch (MinecraftException minecraftexception) {
-            notifyOperators(sender, this, "commands.save.failed", new Object[]{minecraftexception.getMessage()});
+            notifyOperators(sender, this, "commands.save.failed", minecraftexception.getMessage());
             return;
         }
 
-        notifyOperators(sender, this, "commands.save.success", new Object[0]);
+        notifyOperators(sender, this, "commands.save.success");
     }
 }

@@ -320,7 +320,7 @@ public class BlockFire extends Block {
                     double d3 = pos.getX() + rand.nextDouble() * 0.10000000149011612D;
                     double d8 = pos.getY() + rand.nextDouble();
                     double d13 = pos.getZ() + rand.nextDouble();
-                    worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d3, d8, d13, 0.0D, 0.0D, 0.0D, new int[0]);
+                    worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d3, d8, d13, 0.0D, 0.0D, 0.0D);
                 }
             }
 
@@ -329,7 +329,7 @@ public class BlockFire extends Block {
                     double d4 = (pos.getX() + 1) - rand.nextDouble() * 0.10000000149011612D;
                     double d9 = pos.getY() + rand.nextDouble();
                     double d14 = pos.getZ() + rand.nextDouble();
-                    worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d4, d9, d14, 0.0D, 0.0D, 0.0D, new int[0]);
+                    worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d4, d9, d14, 0.0D, 0.0D, 0.0D);
                 }
             }
 
@@ -338,7 +338,7 @@ public class BlockFire extends Block {
                     double d5 = pos.getX() + rand.nextDouble();
                     double d10 = pos.getY() + rand.nextDouble();
                     double d15 = pos.getZ() + rand.nextDouble() * 0.10000000149011612D;
-                    worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d5, d10, d15, 0.0D, 0.0D, 0.0D, new int[0]);
+                    worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d5, d10, d15, 0.0D, 0.0D, 0.0D);
                 }
             }
 
@@ -347,7 +347,7 @@ public class BlockFire extends Block {
                     double d6 = pos.getX() + rand.nextDouble();
                     double d11 = pos.getY() + rand.nextDouble();
                     double d16 = (pos.getZ() + 1) - rand.nextDouble() * 0.10000000149011612D;
-                    worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d6, d11, d16, 0.0D, 0.0D, 0.0D, new int[0]);
+                    worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d6, d11, d16, 0.0D, 0.0D, 0.0D);
                 }
             }
 
@@ -356,7 +356,7 @@ public class BlockFire extends Block {
                     double d7 = pos.getX() + rand.nextDouble();
                     double d12 = (pos.getY() + 1) - rand.nextDouble() * 0.10000000149011612D;
                     double d17 = pos.getZ() + rand.nextDouble();
-                    worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d7, d12, d17, 0.0D, 0.0D, 0.0D, new int[0]);
+                    worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d7, d12, d17, 0.0D, 0.0D, 0.0D);
                 }
             }
         } else {
@@ -364,7 +364,7 @@ public class BlockFire extends Block {
                 double d0 = pos.getX() + rand.nextDouble();
                 double d1 = pos.getY() + rand.nextDouble() * 0.5D + 0.5D;
                 double d2 = pos.getZ() + rand.nextDouble();
-                worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d0, d1, d2, 0.0D, 0.0D, 0.0D, new int[0]);
+                worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
             }
         }
     }
@@ -386,6 +386,6 @@ public class BlockFire extends Block {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{AGE, NORTH, EAST, SOUTH, WEST, UPPER, FLIP, ALT});
+        return new BlockState(this, AGE, NORTH, EAST, SOUTH, WEST, UPPER, FLIP, ALT);
     }
 }

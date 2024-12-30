@@ -771,13 +771,13 @@ public abstract class Entity implements ICommandSender {
         for (int i = 0; i < 1.0F + this.width * 20.0F; ++i) {
             float f2 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width;
             float f3 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width;
-            this.worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX + f2, (f1 + 1.0F), this.posZ + f3, this.motionX, this.motionY - (this.rand.nextFloat() * 0.2F), this.motionZ, new int[0]);
+            this.worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX + f2, (f1 + 1.0F), this.posZ + f3, this.motionX, this.motionY - (this.rand.nextFloat() * 0.2F), this.motionZ);
         }
 
         for (int j = 0; j < 1.0F + this.width * 20.0F; ++j) {
             float f4 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width;
             float f5 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width;
-            this.worldObj.spawnParticle(EnumParticleTypes.WATER_SPLASH, this.posX + f4, (f1 + 1.0F), this.posZ + f5, this.motionX, this.motionY, this.motionZ, new int[0]);
+            this.worldObj.spawnParticle(EnumParticleTypes.WATER_SPLASH, this.posX + f4, (f1 + 1.0F), this.posZ + f5, this.motionX, this.motionY, this.motionZ);
         }
     }
 
@@ -796,7 +796,7 @@ public abstract class Entity implements ICommandSender {
         Block block = iblockstate.getBlock();
 
         if (block.getRenderType() != -1) {
-            this.worldObj.spawnParticle(EnumParticleTypes.BLOCK_CRACK, this.posX + (this.rand.nextFloat() - 0.5D) * this.width, this.getEntityBoundingBox().minY + 0.1D, this.posZ + (this.rand.nextFloat() - 0.5D) * this.width, -this.motionX * 4.0D, 1.5D, -this.motionZ * 4.0D, new int[]{Block.getStateId(iblockstate)});
+            this.worldObj.spawnParticle(EnumParticleTypes.BLOCK_CRACK, this.posX + (this.rand.nextFloat() - 0.5D) * this.width, this.getEntityBoundingBox().minY + 0.1D, this.posZ + (this.rand.nextFloat() - 0.5D) * this.width, -this.motionX * 4.0D, 1.5D, -this.motionZ * 4.0D, Block.getStateId(iblockstate));
         }
     }
 
@@ -1078,9 +1078,9 @@ public abstract class Entity implements ICommandSender {
 
     public void writeToNBT(NBTTagCompound tagCompund) {
         try {
-            tagCompund.setTag("Pos", this.newDoubleNBTList(new double[]{this.posX, this.posY, this.posZ}));
-            tagCompund.setTag("Motion", this.newDoubleNBTList(new double[]{this.motionX, this.motionY, this.motionZ}));
-            tagCompund.setTag("Rotation", this.newFloatNBTList(new float[]{this.rotationYaw, this.rotationPitch}));
+            tagCompund.setTag("Pos", this.newDoubleNBTList(this.posX, this.posY, this.posZ));
+            tagCompund.setTag("Motion", this.newDoubleNBTList(this.motionX, this.motionY, this.motionZ));
+            tagCompund.setTag("Rotation", this.newFloatNBTList(this.rotationYaw, this.rotationPitch));
             tagCompund.setFloat("FallDistance", this.fallDistance);
             tagCompund.setShort("Fire", (short) this.fire);
             tagCompund.setShort("Air", (short) this.getAir());
@@ -1630,7 +1630,7 @@ public abstract class Entity implements ICommandSender {
     }
 
     public String toString() {
-        return String.format("%s[\'%s\'/%d, l=\'%s\', x=%.2f, y=%.2f, z=%.2f]", new Object[]{this.getClass().getSimpleName(), this.getName(), Integer.valueOf(this.entityId), this.worldObj == null ? "~NULL~" : this.worldObj.getWorldInfo().getWorldName(), Double.valueOf(this.posX), Double.valueOf(this.posY), Double.valueOf(this.posZ)});
+        return String.format("%s[\'%s\'/%d, l=\'%s\', x=%.2f, y=%.2f, z=%.2f]", this.getClass().getSimpleName(), this.getName(), Integer.valueOf(this.entityId), this.worldObj == null ? "~NULL~" : this.worldObj.getWorldInfo().getWorldName(), Double.valueOf(this.posX), Double.valueOf(this.posY), Double.valueOf(this.posZ));
     }
 
     public boolean isEntityInvulnerable(DamageSource source) {
@@ -1722,9 +1722,9 @@ public abstract class Entity implements ICommandSender {
                 return Entity.this.getName();
             }
         });
-        category.addCrashSection("Entity\'s Exact location", String.format("%.2f, %.2f, %.2f", new Object[]{Double.valueOf(this.posX), Double.valueOf(this.posY), Double.valueOf(this.posZ)}));
+        category.addCrashSection("Entity\'s Exact location", String.format("%.2f, %.2f, %.2f", Double.valueOf(this.posX), Double.valueOf(this.posY), Double.valueOf(this.posZ)));
         category.addCrashSection("Entity\'s Block location", CrashReportCategory.getCoordinateInfo(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)));
-        category.addCrashSection("Entity\'s Momentum", String.format("%.2f, %.2f, %.2f", new Object[]{Double.valueOf(this.motionX), Double.valueOf(this.motionY), Double.valueOf(this.motionZ)}));
+        category.addCrashSection("Entity\'s Momentum", String.format("%.2f, %.2f, %.2f", Double.valueOf(this.motionX), Double.valueOf(this.motionY), Double.valueOf(this.motionZ)));
         category.addCrashSectionCallable("Entity\'s Rider", new Callable<String>() {
             public String call() throws Exception {
                 return Entity.this.riddenByEntity.toString();

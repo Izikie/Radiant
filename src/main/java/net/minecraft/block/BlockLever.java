@@ -203,7 +203,7 @@ public class BlockLever extends Block {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{FACING, POWERED});
+        return new BlockState(this, FACING, POWERED);
     }
 
     public static enum EnumOrientation implements IStringSerializable {

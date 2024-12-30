@@ -344,7 +344,7 @@ public class BlockRedstoneWire extends Block {
             float f1 = f * 0.6F + 0.4F;
             float f2 = Math.max(0.0F, f * f * 0.7F - 0.5F);
             float f3 = Math.max(0.0F, f * f * 0.6F - 0.7F);
-            worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d0, d1, d2, f1, f2, f3, new int[0]);
+            worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d0, d1, d2, f1, f2, f3);
         }
     }
 
@@ -365,7 +365,7 @@ public class BlockRedstoneWire extends Block {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{NORTH, EAST, SOUTH, WEST, POWER});
+        return new BlockState(this, NORTH, EAST, SOUTH, WEST, POWER);
     }
 
     static enum EnumAttachPosition implements IStringSerializable {

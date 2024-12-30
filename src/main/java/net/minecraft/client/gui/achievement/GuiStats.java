@@ -47,7 +47,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
     }
 
     public void initGui() {
-        this.screenTitle = I18n.format("gui.stats", new Object[0]);
+        this.screenTitle = I18n.format("gui.stats");
         this.doesGuiPauseGame = true;
         this.mc.getNetHandler().addToSendQueue(new C16PacketClientStatus(C16PacketClientStatus.EnumState.REQUEST_STATS));
     }
@@ -72,14 +72,14 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
     }
 
     public void createButtons() {
-        this.buttonList.add(new GuiButton(0, this.width / 2 + 4, this.height - 28, 150, 20, I18n.format("gui.done", new Object[0])));
-        this.buttonList.add(new GuiButton(1, this.width / 2 - 160, this.height - 52, 80, 20, I18n.format("stat.generalButton", new Object[0])));
+        this.buttonList.add(new GuiButton(0, this.width / 2 + 4, this.height - 28, 150, 20, I18n.format("gui.done")));
+        this.buttonList.add(new GuiButton(1, this.width / 2 - 160, this.height - 52, 80, 20, I18n.format("stat.generalButton")));
         GuiButton guibutton;
-        this.buttonList.add(guibutton = new GuiButton(2, this.width / 2 - 80, this.height - 52, 80, 20, I18n.format("stat.blocksButton", new Object[0])));
+        this.buttonList.add(guibutton = new GuiButton(2, this.width / 2 - 80, this.height - 52, 80, 20, I18n.format("stat.blocksButton")));
         GuiButton guibutton1;
-        this.buttonList.add(guibutton1 = new GuiButton(3, this.width / 2, this.height - 52, 80, 20, I18n.format("stat.itemsButton", new Object[0])));
+        this.buttonList.add(guibutton1 = new GuiButton(3, this.width / 2, this.height - 52, 80, 20, I18n.format("stat.itemsButton")));
         GuiButton guibutton2;
-        this.buttonList.add(guibutton2 = new GuiButton(4, this.width / 2 + 80, this.height - 52, 80, 20, I18n.format("stat.mobsButton", new Object[0])));
+        this.buttonList.add(guibutton2 = new GuiButton(4, this.width / 2 + 80, this.height - 52, 80, 20, I18n.format("stat.mobsButton")));
 
         if (this.blockStats.getSize() == 0) {
             guibutton.enabled = false;
@@ -115,7 +115,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         if (this.doesGuiPauseGame) {
             this.drawDefaultBackground();
-            this.drawCenteredString(this.fontRendererObj, I18n.format("multiplayer.downloadingStats", new Object[0]), this.width / 2, this.height / 2, 16777215);
+            this.drawCenteredString(this.fontRendererObj, I18n.format("multiplayer.downloadingStats"), this.width / 2, this.height / 2, 16777215);
             this.drawCenteredString(this.fontRendererObj, lanSearchStates[(int) (Minecraft.getSystemTime() / 150L % lanSearchStates.length)], this.width / 2, this.height / 2 + this.fontRendererObj.FONT_HEIGHT * 2, 16777215);
         } else {
             this.displaySlot.drawScreen(mouseX, mouseY, partialTicks);
@@ -296,7 +296,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
                         s = this.func_148210_b(2);
                     }
 
-                    s = ("" + I18n.format(s, new Object[0])).trim();
+                    s = ("" + I18n.format(s)).trim();
 
                     if (s.length() > 0) {
                         int k = p_148142_1_ + 12;
@@ -314,7 +314,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
                 Item item = p_148213_1_.func_150959_a();
                 ItemStack itemstack = new ItemStack(item);
                 String s = itemstack.getUnlocalizedName();
-                String s1 = ("" + I18n.format(s + ".name", new Object[0])).trim();
+                String s1 = ("" + I18n.format(s + ".name")).trim();
 
                 if (s1.length() > 0) {
                     int i = p_148213_2_ + 12;
@@ -607,18 +607,18 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
 
         protected void drawSlot(int entryID, int p_180791_2_, int p_180791_3_, int p_180791_4_, int mouseXIn, int mouseYIn) {
             EntityList.EntityEggInfo entitylist$entityegginfo = (EntityList.EntityEggInfo) this.field_148222_l.get(entryID);
-            String s = I18n.format("entity." + EntityList.getStringFromID(entitylist$entityegginfo.spawnedID) + ".name", new Object[0]);
+            String s = I18n.format("entity." + EntityList.getStringFromID(entitylist$entityegginfo.spawnedID) + ".name");
             int i = GuiStats.this.field_146546_t.readStat(entitylist$entityegginfo.field_151512_d);
             int j = GuiStats.this.field_146546_t.readStat(entitylist$entityegginfo.field_151513_e);
-            String s1 = I18n.format("stat.entityKills", new Object[]{Integer.valueOf(i), s});
-            String s2 = I18n.format("stat.entityKilledBy", new Object[]{s, Integer.valueOf(j)});
+            String s1 = I18n.format("stat.entityKills", Integer.valueOf(i), s);
+            String s2 = I18n.format("stat.entityKilledBy", s, Integer.valueOf(j));
 
             if (i == 0) {
-                s1 = I18n.format("stat.entityKills.none", new Object[]{s});
+                s1 = I18n.format("stat.entityKills.none", s);
             }
 
             if (j == 0) {
-                s2 = I18n.format("stat.entityKilledBy.none", new Object[]{s});
+                s2 = I18n.format("stat.entityKilledBy.none", s);
             }
 
             GuiStats.this.drawString(GuiStats.this.fontRendererObj, s, p_180791_2_ + 2 - 10, p_180791_3_ + 1, 16777215);

@@ -108,7 +108,7 @@ public class EntitySlime extends EntityLiving implements IMob {
                 EnumParticleTypes enumparticletypes = this.getParticleType();
                 double d0 = this.posX + f2;
                 double d1 = this.posZ + f3;
-                world.spawnParticle(enumparticletypes, d0, this.getEntityBoundingBox().minY, d1, 0.0D, 0.0D, 0.0D, new int[0]);
+                world.spawnParticle(enumparticletypes, d0, this.getEntityBoundingBox().minY, d1, 0.0D, 0.0D, 0.0D);
             }
 
             if (this.makesSoundOnLand()) {

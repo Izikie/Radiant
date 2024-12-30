@@ -213,6 +213,6 @@ public class BlockDispenser extends BlockContainer {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{FACING, TRIGGERED});
+        return new BlockState(this, FACING, TRIGGERED);
     }
 }

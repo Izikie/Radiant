@@ -214,7 +214,7 @@ public class BlockTrapDoor extends Block {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{FACING, OPEN, HALF});
+        return new BlockState(this, FACING, OPEN, HALF);
     }
 
     public static enum DoorHalf implements IStringSerializable {

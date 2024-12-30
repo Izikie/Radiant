@@ -704,7 +704,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 
             if (flag) {
                 GameSettings gamesettings = this.gameController.gameSettings;
-                this.gameController.ingameGUI.setRecordPlaying(I18n.format("mount.onboard", new Object[]{GameSettings.getKeyDisplayString(gamesettings.keyBindSneak.getKeyCode())}), false);
+                this.gameController.ingameGUI.setRecordPlaying(I18n.format("mount.onboard", GameSettings.getKeyDisplayString(gamesettings.keyBindSneak.getKeyCode())), false);
             }
         } else if (packetIn.getLeash() == 1 && entity instanceof EntityLiving) {
             if (entity1 != null) {
@@ -955,7 +955,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         int j = MathHelper.floor_float(f + 0.5F);
 
         if (i >= 0 && i < S2BPacketChangeGameState.MESSAGE_NAMES.length && S2BPacketChangeGameState.MESSAGE_NAMES[i] != null) {
-            entityplayer.addChatComponentMessage(new ChatComponentTranslation(S2BPacketChangeGameState.MESSAGE_NAMES[i], new Object[0]));
+            entityplayer.addChatComponentMessage(new ChatComponentTranslation(S2BPacketChangeGameState.MESSAGE_NAMES[i]));
         }
 
         if (i == 1) {
@@ -977,7 +977,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         } else if (i == 8) {
             this.clientWorldController.setThunderStrength(f);
         } else if (i == 10) {
-            this.clientWorldController.spawnParticle(EnumParticleTypes.MOB_APPEARANCE, entityplayer.posX, entityplayer.posY, entityplayer.posZ, 0.0D, 0.0D, 0.0D, new int[0]);
+            this.clientWorldController.spawnParticle(EnumParticleTypes.MOB_APPEARANCE, entityplayer.posX, entityplayer.posY, entityplayer.posZ, 0.0D, 0.0D, 0.0D);
             this.clientWorldController.playSound(entityplayer.posX, entityplayer.posY, entityplayer.posZ, "mob.guardian.curse", 1.0F, 1.0F, false);
         }
     }
@@ -1251,7 +1251,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
                                 ServerList.func_147414_b(NetHandlerPlayClient.this.gameController.getCurrentServerData());
                                 NetHandlerPlayClient.this.gameController.displayGuiScreen((GuiScreen) null);
                             }
-                        }, I18n.format("multiplayer.texturePrompt.line1", new Object[0]), I18n.format("multiplayer.texturePrompt.line2", new Object[0]), 0));
+                        }, I18n.format("multiplayer.texturePrompt.line1"), I18n.format("multiplayer.texturePrompt.line2"), 0));
                     }
                 });
             }

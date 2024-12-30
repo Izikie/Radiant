@@ -7,7 +7,7 @@ public class ModelResourceLocation extends ResourceLocation {
     private final String variant;
 
     protected ModelResourceLocation(int p_i46078_1_, String... p_i46078_2_) {
-        super(0, new String[]{p_i46078_2_[0], p_i46078_2_[1]});
+        super(0, p_i46078_2_[0], p_i46078_2_[1]);
         this.variant = StringUtils.isEmpty(p_i46078_2_[2]) ? "normal" : p_i46078_2_[2].toLowerCase();
     }
 

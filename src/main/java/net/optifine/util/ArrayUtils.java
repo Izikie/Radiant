@@ -134,7 +134,7 @@ public class ArrayUtils {
                     stringbuffer.append(separator);
                 }
 
-                stringbuffer.append(String.format(format, new Object[]{Float.valueOf(f)}));
+                stringbuffer.append(String.format(format, Float.valueOf(f)));
             }
 
             return stringbuffer.toString();

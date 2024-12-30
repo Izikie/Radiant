@@ -167,7 +167,7 @@ public class BlockBanner extends BlockContainer {
         }
 
         protected BlockState createBlockState() {
-            return new BlockState(this, new IProperty[]{FACING});
+            return new BlockState(this, FACING);
         }
     }
 
@@ -194,7 +194,7 @@ public class BlockBanner extends BlockContainer {
         }
 
         protected BlockState createBlockState() {
-            return new BlockState(this, new IProperty[]{ROTATION});
+            return new BlockState(this, ROTATION);
         }
     }
 }

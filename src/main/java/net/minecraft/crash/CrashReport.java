@@ -90,7 +90,7 @@ public class CrashReport {
                     }
                 }
 
-                return String.format("%d total; %s", new Object[]{Integer.valueOf(i), stringbuilder.toString()});
+                return String.format("%d total; %s", Integer.valueOf(i), stringbuilder.toString());
             }
         });
         this.theReportCategory.addCrashSectionCallable("IntCache", new Callable<String>() {

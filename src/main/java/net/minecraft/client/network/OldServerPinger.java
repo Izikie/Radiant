@@ -164,7 +164,7 @@ public class OldServerPinger {
                     ;
                 }
 
-                p_initChannel_1_.pipeline().addLast(new ChannelHandler[]{new SimpleChannelInboundHandler<ByteBuf>() {
+                p_initChannel_1_.pipeline().addLast(new SimpleChannelInboundHandler<ByteBuf>() {
                     public void channelActive(ChannelHandlerContext p_channelActive_1_) throws Exception {
                         super.channelActive(p_channelActive_1_);
                         ByteBuf bytebuf = Unpooled.buffer();
@@ -222,7 +222,6 @@ public class OldServerPinger {
                     public void exceptionCaught(ChannelHandlerContext p_exceptionCaught_1_, Throwable p_exceptionCaught_2_) throws Exception {
                         p_exceptionCaught_1_.close();
                     }
-                }
                 });
             }
         })).channel(NioSocketChannel.class)).connect(serveraddress.getIP(), serveraddress.getPort());

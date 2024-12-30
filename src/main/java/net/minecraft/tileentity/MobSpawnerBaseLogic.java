@@ -64,8 +64,8 @@ public abstract class MobSpawnerBaseLogic {
                 double d3 = (blockpos.getX() + this.getSpawnerWorld().rand.nextFloat());
                 double d4 = (blockpos.getY() + this.getSpawnerWorld().rand.nextFloat());
                 double d5 = (blockpos.getZ() + this.getSpawnerWorld().rand.nextFloat());
-                this.getSpawnerWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d3, d4, d5, 0.0D, 0.0D, 0.0D, new int[0]);
-                this.getSpawnerWorld().spawnParticle(EnumParticleTypes.FLAME, d3, d4, d5, 0.0D, 0.0D, 0.0D, new int[0]);
+                this.getSpawnerWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d3, d4, d5, 0.0D, 0.0D, 0.0D);
+                this.getSpawnerWorld().spawnParticle(EnumParticleTypes.FLAME, d3, d4, d5, 0.0D, 0.0D, 0.0D);
 
                 if (this.spawnDelay > 0) {
                     --this.spawnDelay;

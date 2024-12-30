@@ -40,7 +40,7 @@ public class PlayerSelector {
     private static final Pattern tokenPattern = Pattern.compile("^@([pare])(?:\\[([\\w=,!-]*)\\])?$");
     private static final Pattern intListPattern = Pattern.compile("\\G([-!]?[\\w-]*)(?:$|,)");
     private static final Pattern keyValueListPattern = Pattern.compile("\\G(\\w+)=([-!]?[\\w-]*)(?:$|,)");
-    private static final Set<String> WORLD_BINDING_ARGS = Sets.newHashSet(new String[]{"x", "y", "z", "dx", "dy", "dz", "rm", "r"});
+    private static final Set<String> WORLD_BINDING_ARGS = Sets.newHashSet("x", "y", "z", "dx", "dy", "dz", "rm", "r");
 
     public static EntityPlayerMP matchOnePlayer(ICommandSender sender, String token) {
         return (EntityPlayerMP) matchOneEntity(sender, token, EntityPlayerMP.class);
@@ -120,7 +120,7 @@ public class PlayerSelector {
         s = s != null && s.startsWith("!") ? s.substring(1) : s;
 
         if (s != null && !EntityList.isStringValidEntityName(s)) {
-            ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation("commands.generic.entity.invalidType", new Object[]{s});
+            ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation("commands.generic.entity.invalidType", s);
             chatcomponenttranslation.getChatStyle().setColor(EnumChatFormatting.RED);
             commandSender.addChatMessage(chatcomponenttranslation);
             return false;

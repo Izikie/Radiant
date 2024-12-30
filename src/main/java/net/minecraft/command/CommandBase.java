@@ -44,7 +44,7 @@ public abstract class CommandBase implements ICommand {
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException var2) {
-            throw new NumberInvalidException("commands.generic.num.invalid", new Object[]{input});
+            throw new NumberInvalidException("commands.generic.num.invalid", input);
         }
     }
 
@@ -56,9 +56,9 @@ public abstract class CommandBase implements ICommand {
         int i = parseInt(input);
 
         if (i < min) {
-            throw new NumberInvalidException("commands.generic.num.tooSmall", new Object[]{Integer.valueOf(i), Integer.valueOf(min)});
+            throw new NumberInvalidException("commands.generic.num.tooSmall", Integer.valueOf(i), Integer.valueOf(min));
         } else if (i > max) {
-            throw new NumberInvalidException("commands.generic.num.tooBig", new Object[]{Integer.valueOf(i), Integer.valueOf(max)});
+            throw new NumberInvalidException("commands.generic.num.tooBig", Integer.valueOf(i), Integer.valueOf(max));
         } else {
             return i;
         }
@@ -68,7 +68,7 @@ public abstract class CommandBase implements ICommand {
         try {
             return Long.parseLong(input);
         } catch (NumberFormatException var2) {
-            throw new NumberInvalidException("commands.generic.num.invalid", new Object[]{input});
+            throw new NumberInvalidException("commands.generic.num.invalid", input);
         }
     }
 
@@ -76,9 +76,9 @@ public abstract class CommandBase implements ICommand {
         long i = parseLong(input);
 
         if (i < min) {
-            throw new NumberInvalidException("commands.generic.num.tooSmall", new Object[]{Long.valueOf(i), Long.valueOf(min)});
+            throw new NumberInvalidException("commands.generic.num.tooSmall", Long.valueOf(i), Long.valueOf(min));
         } else if (i > max) {
-            throw new NumberInvalidException("commands.generic.num.tooBig", new Object[]{Long.valueOf(i), Long.valueOf(max)});
+            throw new NumberInvalidException("commands.generic.num.tooBig", Long.valueOf(i), Long.valueOf(max));
         } else {
             return i;
         }
@@ -94,12 +94,12 @@ public abstract class CommandBase implements ICommand {
             double d0 = Double.parseDouble(input);
 
             if (!Doubles.isFinite(d0)) {
-                throw new NumberInvalidException("commands.generic.num.invalid", new Object[]{input});
+                throw new NumberInvalidException("commands.generic.num.invalid", input);
             } else {
                 return d0;
             }
         } catch (NumberFormatException var3) {
-            throw new NumberInvalidException("commands.generic.num.invalid", new Object[]{input});
+            throw new NumberInvalidException("commands.generic.num.invalid", input);
         }
     }
 
@@ -111,9 +111,9 @@ public abstract class CommandBase implements ICommand {
         double d0 = parseDouble(input);
 
         if (d0 < min) {
-            throw new NumberInvalidException("commands.generic.double.tooSmall", new Object[]{Double.valueOf(d0), Double.valueOf(min)});
+            throw new NumberInvalidException("commands.generic.double.tooSmall", Double.valueOf(d0), Double.valueOf(min));
         } else if (d0 > max) {
-            throw new NumberInvalidException("commands.generic.double.tooBig", new Object[]{Double.valueOf(d0), Double.valueOf(max)});
+            throw new NumberInvalidException("commands.generic.double.tooBig", Double.valueOf(d0), Double.valueOf(max));
         } else {
             return d0;
         }
@@ -122,7 +122,7 @@ public abstract class CommandBase implements ICommand {
     public static boolean parseBoolean(String input) throws CommandException {
         if (!input.equals("true") && !input.equals("1")) {
             if (!input.equals("false") && !input.equals("0")) {
-                throw new CommandException("commands.generic.boolean.invalid", new Object[]{input});
+                throw new CommandException("commands.generic.boolean.invalid", input);
             } else {
                 return false;
             }
@@ -135,7 +135,7 @@ public abstract class CommandBase implements ICommand {
         if (sender instanceof EntityPlayerMP) {
             return (EntityPlayerMP) sender;
         } else {
-            throw new PlayerNotFoundException("You must specify which player you wish to perform this action on.", new Object[0]);
+            throw new PlayerNotFoundException("You must specify which player you wish to perform this action on.");
         }
     }
 
@@ -182,7 +182,7 @@ public abstract class CommandBase implements ICommand {
                     entity = minecraftserver.getConfigurationManager().getPlayerByUUID(uuid);
                 }
             } catch (IllegalArgumentException var6) {
-                throw new EntityNotFoundException("commands.generic.entity.invalidUuid", new Object[0]);
+                throw new EntityNotFoundException("commands.generic.entity.invalidUuid");
             }
         }
 
@@ -280,7 +280,7 @@ public abstract class CommandBase implements ICommand {
         boolean flag = p_175767_2_.startsWith("~");
 
         if (flag && Double.isNaN(p_175767_0_)) {
-            throw new NumberInvalidException("commands.generic.num.invalid", new Object[]{Double.valueOf(p_175767_0_)});
+            throw new NumberInvalidException("commands.generic.num.invalid", Double.valueOf(p_175767_0_));
         } else {
             double d0 = 0.0D;
 
@@ -300,11 +300,11 @@ public abstract class CommandBase implements ICommand {
 
             if (min != 0 || max != 0) {
                 if (d0 < min) {
-                    throw new NumberInvalidException("commands.generic.double.tooSmall", new Object[]{Double.valueOf(d0), Integer.valueOf(min)});
+                    throw new NumberInvalidException("commands.generic.double.tooSmall", Double.valueOf(d0), Integer.valueOf(min));
                 }
 
                 if (d0 > max) {
-                    throw new NumberInvalidException("commands.generic.double.tooBig", new Object[]{Double.valueOf(d0), Integer.valueOf(max)});
+                    throw new NumberInvalidException("commands.generic.double.tooBig", Double.valueOf(d0), Integer.valueOf(max));
                 }
             }
 
@@ -320,7 +320,7 @@ public abstract class CommandBase implements ICommand {
         boolean flag = input.startsWith("~");
 
         if (flag && Double.isNaN(base)) {
-            throw new NumberInvalidException("commands.generic.num.invalid", new Object[]{Double.valueOf(base)});
+            throw new NumberInvalidException("commands.generic.num.invalid", Double.valueOf(base));
         } else {
             double d0 = flag ? base : 0.0D;
 
@@ -340,11 +340,11 @@ public abstract class CommandBase implements ICommand {
 
             if (min != 0 || max != 0) {
                 if (d0 < min) {
-                    throw new NumberInvalidException("commands.generic.double.tooSmall", new Object[]{Double.valueOf(d0), Integer.valueOf(min)});
+                    throw new NumberInvalidException("commands.generic.double.tooSmall", Double.valueOf(d0), Integer.valueOf(min));
                 }
 
                 if (d0 > max) {
-                    throw new NumberInvalidException("commands.generic.double.tooBig", new Object[]{Double.valueOf(d0), Integer.valueOf(max)});
+                    throw new NumberInvalidException("commands.generic.double.tooBig", Double.valueOf(d0), Integer.valueOf(max));
                 }
             }
 
@@ -357,7 +357,7 @@ public abstract class CommandBase implements ICommand {
         Item item = (Item) Item.itemRegistry.getObject(resourcelocation);
 
         if (item == null) {
-            throw new NumberInvalidException("commands.give.item.notFound", new Object[]{resourcelocation});
+            throw new NumberInvalidException("commands.give.item.notFound", resourcelocation);
         } else {
             return item;
         }
@@ -367,12 +367,12 @@ public abstract class CommandBase implements ICommand {
         ResourceLocation resourcelocation = new ResourceLocation(id);
 
         if (!Block.blockRegistry.containsKey(resourcelocation)) {
-            throw new NumberInvalidException("commands.give.block.notFound", new Object[]{resourcelocation});
+            throw new NumberInvalidException("commands.give.block.notFound", resourcelocation);
         } else {
             Block block = (Block) Block.blockRegistry.getObject(resourcelocation);
 
             if (block == null) {
-                throw new NumberInvalidException("commands.give.block.notFound", new Object[]{resourcelocation});
+                throw new NumberInvalidException("commands.give.block.notFound", resourcelocation);
             } else {
                 return block;
             }
@@ -440,7 +440,7 @@ public abstract class CommandBase implements ICommand {
                 s = Integer.toString(p_175771_2_.getZ());
             }
 
-            return Lists.newArrayList(new String[]{s});
+            return Lists.newArrayList(s);
         }
     }
 
@@ -461,7 +461,7 @@ public abstract class CommandBase implements ICommand {
                 s = Integer.toString(p_181043_2_.getZ());
             }
 
-            return Lists.newArrayList(new String[]{s});
+            return Lists.newArrayList(s);
         }
     }
 

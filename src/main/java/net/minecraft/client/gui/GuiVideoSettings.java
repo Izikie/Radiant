@@ -31,7 +31,7 @@ public class GuiVideoSettings extends GuiScreenOF {
     }
 
     public void initGui() {
-        this.screenTitle = I18n.format("options.videoTitle", new Object[0]);
+        this.screenTitle = I18n.format("options.videoTitle");
         this.buttonList.clear();
 
         for (int i = 0; i < videoOptions.length; ++i) {
@@ -66,7 +66,7 @@ public class GuiVideoSettings extends GuiScreenOF {
         i1 = this.width / 2 - 155 + 160;
         this.buttonList.add(new GuiOptionButton(222, i1, l, Lang.get("of.options.other")));
         l = l + 21;
-        this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168 + 11, I18n.format("gui.done", new Object[0])));
+        this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168 + 11, I18n.format("gui.done")));
     }
 
     protected void actionPerformed(GuiButton button) throws IOException {

@@ -72,7 +72,7 @@ public class BlockRailDetector extends BlockRailBase {
     private void updatePoweredState(World worldIn, BlockPos pos, IBlockState state) {
         boolean flag = ((Boolean) state.getValue(POWERED)).booleanValue();
         boolean flag1 = false;
-        List<EntityMinecart> list = this.findMinecarts(worldIn, pos, EntityMinecart.class, new Predicate[0]);
+        List<EntityMinecart> list = this.findMinecarts(worldIn, pos, EntityMinecart.class);
 
         if (!list.isEmpty()) {
             flag1 = true;
@@ -114,13 +114,13 @@ public class BlockRailDetector extends BlockRailBase {
 
     public int getComparatorInputOverride(World worldIn, BlockPos pos) {
         if (((Boolean) worldIn.getBlockState(pos).getValue(POWERED)).booleanValue()) {
-            List<EntityMinecartCommandBlock> list = this.findMinecarts(worldIn, pos, EntityMinecartCommandBlock.class, new Predicate[0]);
+            List<EntityMinecartCommandBlock> list = this.findMinecarts(worldIn, pos, EntityMinecartCommandBlock.class);
 
             if (!list.isEmpty()) {
                 return ((EntityMinecartCommandBlock) list.get(0)).getCommandBlockLogic().getSuccessCount();
             }
 
-            List<EntityMinecart> list1 = this.findMinecarts(worldIn, pos, EntityMinecart.class, new Predicate[]{EntitySelectors.selectInventories});
+            List<EntityMinecart> list1 = this.findMinecarts(worldIn, pos, EntityMinecart.class, EntitySelectors.selectInventories);
 
             if (!list1.isEmpty()) {
                 return Container.calcRedstoneFromInventory((IInventory) list1.get(0));
@@ -156,6 +156,6 @@ public class BlockRailDetector extends BlockRailBase {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{SHAPE, POWERED});
+        return new BlockState(this, SHAPE, POWERED);
     }
 }

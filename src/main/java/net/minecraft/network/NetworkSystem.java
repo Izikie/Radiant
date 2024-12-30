@@ -169,7 +169,7 @@ public class NetworkSystem {
                                 public void operationComplete(Future<? super Void> p_operationComplete_1_) throws Exception {
                                     networkmanager.closeChannel(chatcomponenttext);
                                 }
-                            }, new GenericFutureListener[0]);
+                            });
                             networkmanager.disableAutoRead();
                         }
                     }

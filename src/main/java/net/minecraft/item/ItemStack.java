@@ -451,9 +451,9 @@ public final class ItemStack {
             int i = Item.getIdFromItem(this.item);
 
             if (this.getHasSubtypes()) {
-                s = s + String.format("#%04d/%d%s", new Object[]{Integer.valueOf(i), Integer.valueOf(this.itemDamage), s1});
+                s = s + String.format("#%04d/%d%s", Integer.valueOf(i), Integer.valueOf(this.itemDamage), s1);
             } else {
-                s = s + String.format("#%04d%s", new Object[]{Integer.valueOf(i), s1});
+                s = s + String.format("#%04d%s", Integer.valueOf(i), s1);
             }
         } else if (!this.hasDisplayName() && this.item == Items.filled_map) {
             s = s + " #" + this.itemDamage;

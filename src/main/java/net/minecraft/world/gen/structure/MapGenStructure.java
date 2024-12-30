@@ -45,7 +45,7 @@ public abstract class MapGenStructure extends MapGenBase {
                         return MapGenStructure.this.canSpawnStructureAtCoords(chunkX, chunkZ) ? "True" : "False";
                     }
                 });
-                crashreportcategory.addCrashSection("Chunk location", String.format("%d,%d", new Object[]{Integer.valueOf(chunkX), Integer.valueOf(chunkZ)}));
+                crashreportcategory.addCrashSection("Chunk location", String.format("%d,%d", Integer.valueOf(chunkX), Integer.valueOf(chunkZ)));
                 crashreportcategory.addCrashSectionCallable("Chunk pos hash", new Callable<String>() {
                     public String call() throws Exception {
                         return String.valueOf(ChunkCoordIntPair.chunkXZ2Int(chunkX, chunkZ));

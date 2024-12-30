@@ -72,7 +72,7 @@ public class ServerScoreboard extends Scoreboard {
     public boolean addPlayerToTeam(String player, String newTeam) {
         if (super.addPlayerToTeam(player, newTeam)) {
             ScorePlayerTeam scoreplayerteam = this.getTeam(newTeam);
-            this.scoreboardMCServer.getConfigurationManager().sendPacketToAllPlayers(new S3EPacketTeams(scoreplayerteam, Arrays.asList(new String[]{player}), 3));
+            this.scoreboardMCServer.getConfigurationManager().sendPacketToAllPlayers(new S3EPacketTeams(scoreplayerteam, Arrays.asList(player), 3));
             this.markSaveDataDirty();
             return true;
         } else {
@@ -82,7 +82,7 @@ public class ServerScoreboard extends Scoreboard {
 
     public void removePlayerFromTeam(String p_96512_1_, ScorePlayerTeam p_96512_2_) {
         super.removePlayerFromTeam(p_96512_1_, p_96512_2_);
-        this.scoreboardMCServer.getConfigurationManager().sendPacketToAllPlayers(new S3EPacketTeams(p_96512_2_, Arrays.asList(new String[]{p_96512_1_}), 4));
+        this.scoreboardMCServer.getConfigurationManager().sendPacketToAllPlayers(new S3EPacketTeams(p_96512_2_, Arrays.asList(p_96512_1_), 4));
         this.markSaveDataDirty();
     }
 

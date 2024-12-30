@@ -86,7 +86,7 @@ public interface IChatComponent extends Iterable<IChatComponent> {
 
                         ichatcomponent = new ChatComponentTranslation(s, aobject);
                     } else {
-                        ichatcomponent = new ChatComponentTranslation(s, new Object[0]);
+                        ichatcomponent = new ChatComponentTranslation(s);
                     }
                 } else if (jsonobject.has("score")) {
                     JsonObject jsonobject1 = jsonobject.getAsJsonObject("score");
