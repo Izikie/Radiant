@@ -38,9 +38,9 @@ public class EnumTypeAdapterFactory implements TypeAdapterFactory {
                 public T read(JsonReader p_read_1_) throws IOException {
                     if (p_read_1_.peek() == JsonToken.NULL) {
                         p_read_1_.nextNull();
-                        return (T) null;
+                        return null;
                     } else {
-                        return (T) map.get(p_read_1_.nextString());
+                        return map.get(p_read_1_.nextString());
                     }
                 }
             };

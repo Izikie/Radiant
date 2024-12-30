@@ -27,7 +27,7 @@ public class ItemSaddle extends Item {
     }
 
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-        this.itemInteractionForEntity(stack, (EntityPlayer) null, target);
+        this.itemInteractionForEntity(stack, null, target);
         return true;
     }
 }

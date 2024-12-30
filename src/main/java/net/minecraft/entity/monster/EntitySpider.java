@@ -136,7 +136,7 @@ public class EntitySpider extends EntityMob {
         if (this.worldObj.rand.nextInt(100) == 0) {
             EntitySkeleton entityskeleton = new EntitySkeleton(this.worldObj);
             entityskeleton.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-            entityskeleton.onInitialSpawn(difficulty, (IEntityLivingData) null);
+            entityskeleton.onInitialSpawn(difficulty, null);
             this.worldObj.spawnEntityInWorld(entityskeleton);
             entityskeleton.mountEntity(this);
         }
@@ -173,7 +173,7 @@ public class EntitySpider extends EntityMob {
             float f = this.attacker.getBrightness(1.0F);
 
             if (f >= 0.5F && this.attacker.getRNG().nextInt(100) == 0) {
-                this.attacker.setAttackTarget((EntityLivingBase) null);
+                this.attacker.setAttackTarget(null);
                 return false;
             } else {
                 return super.continueExecuting();

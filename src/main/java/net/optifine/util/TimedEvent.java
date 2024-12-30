@@ -9,7 +9,7 @@ public class TimedEvent {
     public static boolean isActive(String name, long timeIntervalMs) {
         synchronized (mapEventTimes) {
             long i = System.currentTimeMillis();
-            Long olong = (Long) mapEventTimes.get(name);
+            Long olong = mapEventTimes.get(name);
 
             if (olong == null) {
                 olong = i;

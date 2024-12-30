@@ -76,11 +76,11 @@ public class EnchantmentHelper {
             if (enchantment != null) {
                 NBTTagCompound nbttagcompound = new NBTTagCompound();
                 nbttagcompound.setShort("id", (short) i);
-                nbttagcompound.setShort("lvl", (short) ((Integer) enchMap.get(Integer.valueOf(i))).intValue());
+                nbttagcompound.setShort("lvl", (short) enchMap.get(Integer.valueOf(i)).intValue());
                 nbttaglist.appendTag(nbttagcompound);
 
                 if (stack.getItem() == Items.enchanted_book) {
-                    Items.enchanted_book.addEnchantment(stack, new EnchantmentData(enchantment, ((Integer) enchMap.get(Integer.valueOf(i))).intValue()));
+                    Items.enchanted_book.addEnchantment(stack, new EnchantmentData(enchantment, enchMap.get(Integer.valueOf(i)).intValue()));
                 }
             }
         }
@@ -294,7 +294,7 @@ public class EnchantmentHelper {
             Map<Integer, EnchantmentData> map = mapEnchantmentData(k, itemStackIn);
 
             if (map != null && !map.isEmpty()) {
-                EnchantmentData enchantmentdata = (EnchantmentData) WeightedRandom.getRandomItem(randomIn, map.values());
+                EnchantmentData enchantmentdata = WeightedRandom.getRandomItem(randomIn, map.values());
 
                 if (enchantmentdata != null) {
                     list = Lists.newArrayList();
@@ -304,7 +304,7 @@ public class EnchantmentHelper {
                         Iterator<Integer> iterator = map.keySet().iterator();
 
                         while (iterator.hasNext()) {
-                            Integer integer = (Integer) iterator.next();
+                            Integer integer = iterator.next();
                             boolean flag = true;
 
                             for (EnchantmentData enchantmentdata1 : list) {
@@ -320,7 +320,7 @@ public class EnchantmentHelper {
                         }
 
                         if (!map.isEmpty()) {
-                            EnchantmentData enchantmentdata2 = (EnchantmentData) WeightedRandom.getRandomItem(randomIn, map.values());
+                            EnchantmentData enchantmentdata2 = WeightedRandom.getRandomItem(randomIn, map.values());
                             list.add(enchantmentdata2);
                         }
                     }

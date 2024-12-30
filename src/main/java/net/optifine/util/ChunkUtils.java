@@ -22,7 +22,7 @@ public class ChunkUtils {
     }
 
     public static int getPrecipitationHeight(Chunk chunk, BlockPos pos) {
-        int[] aint = (int[]) ((int[]) Reflector.getFieldValue(chunk, fieldPrecipitationHeightMap));
+        int[] aint = (int[]) Reflector.getFieldValue(chunk, fieldPrecipitationHeightMap);
 
         if (aint != null && aint.length == 256) {
             int i = pos.getX() & 15;
@@ -43,7 +43,7 @@ public class ChunkUtils {
 
     private static ReflectorField findFieldHasEntities() {
         try {
-            Chunk chunk = new Chunk((World) null, 0, 0);
+            Chunk chunk = new Chunk(null, 0, 0);
             List list = new ArrayList();
             List list1 = new ArrayList();
             Field[] afield = Chunk.class.getDeclaredFields();
@@ -74,7 +74,7 @@ public class ChunkUtils {
 
             List list4 = new ArrayList();
 
-            for (int j = 0; j < ((List) list).size(); ++j) {
+            for (int j = 0; j < list.size(); ++j) {
                 Field field3 = (Field) list.get(j);
                 Boolean obool = (Boolean) list2.get(j);
                 Boolean obool1 = (Boolean) list3.get(j);

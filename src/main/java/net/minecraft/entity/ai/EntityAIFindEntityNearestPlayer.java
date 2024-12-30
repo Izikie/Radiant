@@ -69,7 +69,7 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase {
         if (list.isEmpty()) {
             return false;
         } else {
-            this.entityTarget = (EntityLivingBase) list.get(0);
+            this.entityTarget = list.get(0);
             return true;
         }
     }
@@ -102,7 +102,7 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase {
     }
 
     public void resetTask() {
-        this.entityLiving.setAttackTarget((EntityLivingBase) null);
+        this.entityLiving.setAttackTarget(null);
         super.startExecuting();
     }
 

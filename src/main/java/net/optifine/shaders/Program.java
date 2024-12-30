@@ -43,7 +43,7 @@ public class Program {
         this.alphaState = null;
         this.blendState = null;
         this.renderScale = null;
-        Arrays.fill(this.buffersFlip, (Object) null);
+        Arrays.fill(this.buffersFlip, null);
     }
 
     public void resetId() {

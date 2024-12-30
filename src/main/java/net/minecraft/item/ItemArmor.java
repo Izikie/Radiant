@@ -32,7 +32,7 @@ public class ItemArmor extends Item {
             List<EntityLivingBase> list = source.getWorld().getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb, Predicates.and(EntitySelectors.NOT_SPECTATING, new EntitySelectors.ArmoredMob(stack)));
 
             if (list.size() > 0) {
-                EntityLivingBase entitylivingbase = (EntityLivingBase) list.get(0);
+                EntityLivingBase entitylivingbase = list.get(0);
                 int l = entitylivingbase instanceof EntityPlayer ? 1 : 0;
                 int i1 = EntityLiving.getArmorPosition(stack);
                 ItemStack itemstack = stack.copy();

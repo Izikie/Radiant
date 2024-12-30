@@ -52,7 +52,7 @@ public class BlockDispenser extends BlockContainer {
 
     private void setDefaultDirection(World worldIn, BlockPos pos, IBlockState state) {
         if (!worldIn.isRemote) {
-            EnumFacing enumfacing = (EnumFacing) state.getValue(FACING);
+            EnumFacing enumfacing = state.getValue(FACING);
             boolean flag = worldIn.getBlockState(pos.north()).getBlock().isFullBlock();
             boolean flag1 = worldIn.getBlockState(pos.south()).getBlock().isFullBlock();
 
@@ -97,7 +97,7 @@ public class BlockDispenser extends BlockContainer {
 
     protected void dispense(World worldIn, BlockPos pos) {
         BlockSourceImpl blocksourceimpl = new BlockSourceImpl(worldIn, pos);
-        TileEntityDispenser tileentitydispenser = (TileEntityDispenser) blocksourceimpl.getBlockTileEntity();
+        TileEntityDispenser tileentitydispenser = blocksourceimpl.getBlockTileEntity();
 
         if (tileentitydispenser != null) {
             int i = tileentitydispenser.getDispenseSlot();
@@ -117,12 +117,12 @@ public class BlockDispenser extends BlockContainer {
     }
 
     protected IBehaviorDispenseItem getBehavior(ItemStack stack) {
-        return (IBehaviorDispenseItem) dispenseBehaviorRegistry.getObject(stack == null ? null : stack.getItem());
+        return dispenseBehaviorRegistry.getObject(stack == null ? null : stack.getItem());
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         boolean flag = worldIn.isBlockPowered(pos) || worldIn.isBlockPowered(pos.up());
-        boolean flag1 = ((Boolean) state.getValue(TRIGGERED)).booleanValue();
+        boolean flag1 = state.getValue(TRIGGERED).booleanValue();
 
         if (flag && !flag1) {
             worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
@@ -203,9 +203,9 @@ public class BlockDispenser extends BlockContainer {
 
     public int getMetaFromState(IBlockState state) {
         int i = 0;
-        i = i | ((EnumFacing) state.getValue(FACING)).getIndex();
+        i = i | state.getValue(FACING).getIndex();
 
-        if (((Boolean) state.getValue(TRIGGERED)).booleanValue()) {
+        if (state.getValue(TRIGGERED).booleanValue()) {
             i |= 8;
         }
 

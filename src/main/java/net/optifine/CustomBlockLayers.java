@@ -51,8 +51,8 @@ public class CustomBlockLayers {
             }
         }
 
-        if (!((List) list).isEmpty()) {
-            renderLayers = (EnumWorldBlockLayer[]) list.toArray(new EnumWorldBlockLayer[list.size()]);
+        if (!list.isEmpty()) {
+            renderLayers = list.toArray(new EnumWorldBlockLayer[list.size()]);
             active = true;
         }
     }

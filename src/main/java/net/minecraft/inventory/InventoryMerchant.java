@@ -97,7 +97,7 @@ public class InventoryMerchant implements IInventory {
     }
 
     public IChatComponent getDisplayName() {
-        return (IChatComponent) (this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName(), new Object[0]));
+        return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName(), new Object[0]);
     }
 
     public int getInventoryStackLimit() {
@@ -133,7 +133,7 @@ public class InventoryMerchant implements IInventory {
         }
 
         if (itemstack == null) {
-            this.setInventorySlotContents(2, (ItemStack) null);
+            this.setInventorySlotContents(2, null);
         } else {
             MerchantRecipeList merchantrecipelist = this.theMerchant.getRecipes(this.thePlayer);
 
@@ -150,10 +150,10 @@ public class InventoryMerchant implements IInventory {
                         this.currentRecipe = merchantrecipe;
                         this.setInventorySlotContents(2, merchantrecipe.getItemToSell().copy());
                     } else {
-                        this.setInventorySlotContents(2, (ItemStack) null);
+                        this.setInventorySlotContents(2, null);
                     }
                 } else {
-                    this.setInventorySlotContents(2, (ItemStack) null);
+                    this.setInventorySlotContents(2, null);
                 }
             }
         }

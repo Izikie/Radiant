@@ -83,10 +83,10 @@ public abstract class BlockStoneSlabNew extends BlockSlab {
 
     public int getMetaFromState(IBlockState state) {
         int i = 0;
-        i = i | ((BlockStoneSlabNew.EnumType) state.getValue(VARIANT)).getMetadata();
+        i = i | state.getValue(VARIANT).getMetadata();
 
         if (this.isDouble()) {
-            if (((Boolean) state.getValue(SEAMLESS)).booleanValue()) {
+            if (state.getValue(SEAMLESS).booleanValue()) {
                 i |= 8;
             }
         } else if (state.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP) {
@@ -101,11 +101,11 @@ public abstract class BlockStoneSlabNew extends BlockSlab {
     }
 
     public MapColor getMapColor(IBlockState state) {
-        return ((BlockStoneSlabNew.EnumType) state.getValue(VARIANT)).func_181068_c();
+        return state.getValue(VARIANT).func_181068_c();
     }
 
     public int damageDropped(IBlockState state) {
-        return ((BlockStoneSlabNew.EnumType) state.getValue(VARIANT)).getMetadata();
+        return state.getValue(VARIANT).getMetadata();
     }
 
     public static enum EnumType implements IStringSerializable {

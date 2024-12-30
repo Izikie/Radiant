@@ -158,7 +158,7 @@ public class TextureAnimation {
                             } else {
                                 this.imageData.position(i);
                                 GlStateManager.bindTexture(this.dstTextId);
-                                GL11.glTexSubImage2D(GL11.GL_TEXTURE_2D, 0, this.dstX, this.dstY, this.frameWidth, this.frameHeight, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, (ByteBuffer) this.imageData);
+                                GL11.glTexSubImage2D(GL11.GL_TEXTURE_2D, 0, this.dstX, this.dstY, this.frameWidth, this.frameHeight, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, this.imageData);
                             }
                         }
                     }
@@ -187,7 +187,7 @@ public class TextureAnimation {
 
                 this.interpolateData.flip();
                 GlStateManager.bindTexture(this.dstTextId);
-                GL11.glTexSubImage2D(GL11.GL_TEXTURE_2D, 0, this.dstX, this.dstY, this.frameWidth, this.frameHeight, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, (ByteBuffer) this.interpolateData);
+                GL11.glTexSubImage2D(GL11.GL_TEXTURE_2D, 0, this.dstX, this.dstY, this.frameWidth, this.frameHeight, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, this.interpolateData);
             }
         }
     }

@@ -32,7 +32,7 @@ public class WeightedRandomChestContent extends WeightedRandom.Item {
 
     public static void generateChestContents(Random random, List<WeightedRandomChestContent> listIn, IInventory inv, int max) {
         for (int i = 0; i < max; ++i) {
-            WeightedRandomChestContent weightedrandomchestcontent = (WeightedRandomChestContent) WeightedRandom.getRandomItem(random, listIn);
+            WeightedRandomChestContent weightedrandomchestcontent = WeightedRandom.getRandomItem(random, listIn);
             int j = weightedrandomchestcontent.minStackSize + random.nextInt(weightedrandomchestcontent.maxStackSize - weightedrandomchestcontent.minStackSize + 1);
 
             if (weightedrandomchestcontent.theItemId.getMaxStackSize() >= j) {
@@ -51,7 +51,7 @@ public class WeightedRandomChestContent extends WeightedRandom.Item {
 
     public static void generateDispenserContents(Random random, List<WeightedRandomChestContent> listIn, TileEntityDispenser dispenser, int max) {
         for (int i = 0; i < max; ++i) {
-            WeightedRandomChestContent weightedrandomchestcontent = (WeightedRandomChestContent) WeightedRandom.getRandomItem(random, listIn);
+            WeightedRandomChestContent weightedrandomchestcontent = WeightedRandom.getRandomItem(random, listIn);
             int j = weightedrandomchestcontent.minStackSize + random.nextInt(weightedrandomchestcontent.maxStackSize - weightedrandomchestcontent.minStackSize + 1);
 
             if (weightedrandomchestcontent.theItemId.getMaxStackSize() >= j) {

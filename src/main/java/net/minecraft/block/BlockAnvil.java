@@ -59,11 +59,11 @@ public class BlockAnvil extends BlockFalling {
     }
 
     public int damageDropped(IBlockState state) {
-        return ((Integer) state.getValue(DAMAGE)).intValue();
+        return state.getValue(DAMAGE).intValue();
     }
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-        EnumFacing enumfacing = (EnumFacing) worldIn.getBlockState(pos).getValue(FACING);
+        EnumFacing enumfacing = worldIn.getBlockState(pos).getValue(FACING);
 
         if (enumfacing.getAxis() == EnumFacing.Axis.X) {
             this.setBlockBounds(0.0F, 0.0F, 0.125F, 1.0F, 1.0F, 0.875F);
@@ -100,8 +100,8 @@ public class BlockAnvil extends BlockFalling {
 
     public int getMetaFromState(IBlockState state) {
         int i = 0;
-        i = i | ((EnumFacing) state.getValue(FACING)).getHorizontalIndex();
-        i = i | ((Integer) state.getValue(DAMAGE)).intValue() << 2;
+        i = i | state.getValue(FACING).getHorizontalIndex();
+        i = i | state.getValue(DAMAGE).intValue() << 2;
         return i;
     }
 

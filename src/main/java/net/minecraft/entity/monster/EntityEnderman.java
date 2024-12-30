@@ -145,7 +145,7 @@ public class EntityEnderman extends EntityMob {
             float f = this.getBrightness(1.0F);
 
             if (f > 0.5F && this.worldObj.canSeeSky(new BlockPos(this)) && this.rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
-                this.setAttackTarget((EntityLivingBase) null);
+                this.setAttackTarget(null);
                 this.setScreaming(false);
                 this.isAggressive = false;
                 this.teleportRandomly();
@@ -349,7 +349,7 @@ public class EntityEnderman extends EntityMob {
             if (list.isEmpty()) {
                 return false;
             } else {
-                this.player = (EntityPlayer) list.get(0);
+                this.player = list.get(0);
                 return true;
             }
         }

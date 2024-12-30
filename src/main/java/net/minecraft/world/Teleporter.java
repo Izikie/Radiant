@@ -67,7 +67,7 @@ public class Teleporter {
         long l = ChunkCoordIntPair.chunkXZ2Int(j, k);
 
         if (this.destinationCoordinateCache.containsItem(l)) {
-            Teleporter.PortalPosition teleporter$portalposition = (Teleporter.PortalPosition) this.destinationCoordinateCache.getValueByKey(l);
+            Teleporter.PortalPosition teleporter$portalposition = this.destinationCoordinateCache.getValueByKey(l);
             d0 = 0.0D;
             blockpos = teleporter$portalposition;
             teleporter$portalposition.lastUpdateTime = this.worldServerInstance.getTotalWorldTime();
@@ -329,8 +329,8 @@ public class Teleporter {
             long i = worldTime - 300L;
 
             while (iterator.hasNext()) {
-                Long olong = (Long) iterator.next();
-                Teleporter.PortalPosition teleporter$portalposition = (Teleporter.PortalPosition) this.destinationCoordinateCache.getValueByKey(olong.longValue());
+                Long olong = iterator.next();
+                Teleporter.PortalPosition teleporter$portalposition = this.destinationCoordinateCache.getValueByKey(olong.longValue());
 
                 if (teleporter$portalposition == null || teleporter$portalposition.lastUpdateTime < i) {
                     iterator.remove();

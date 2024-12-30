@@ -71,7 +71,7 @@ public class ModelRenderer {
     }
 
     public ModelRenderer(ModelBase model) {
-        this(model, (String) null);
+        this(model, null);
     }
 
     public ModelRenderer(ModelBase model, int texOffX, int texOffY) {
@@ -157,7 +157,7 @@ public class ModelRenderer {
 
                     if (this.childModels != null) {
                         for (ModelRenderer childModel : this.childModels) {
-                            ((ModelRenderer) childModel).render(p_78785_1_);
+                            childModel.render(p_78785_1_);
                         }
                     }
 
@@ -175,7 +175,7 @@ public class ModelRenderer {
 
                     if (this.childModels != null) {
                         for (ModelRenderer childModel : this.childModels) {
-                            ((ModelRenderer) childModel).render(p_78785_1_);
+                            childModel.render(p_78785_1_);
                         }
                     }
 
@@ -209,7 +209,7 @@ public class ModelRenderer {
 
                 if (this.childModels != null) {
                     for (ModelRenderer childModel : this.childModels) {
-                        ((ModelRenderer) childModel).render(p_78785_1_);
+                        childModel.render(p_78785_1_);
                     }
                 }
 
@@ -271,7 +271,7 @@ public class ModelRenderer {
 
             if (this.childModels != null) {
                 for (ModelRenderer childModel : this.childModels) {
-                    ((ModelRenderer) childModel).render(p_78791_1_);
+                    childModel.render(p_78791_1_);
                 }
             }
 
@@ -322,7 +322,7 @@ public class ModelRenderer {
         WorldRenderer worldrenderer = Tessellator.getInstance().getWorldRenderer();
 
         for (ModelBox modelBox : this.cubeList) {
-            ((ModelBox) modelBox).render(worldrenderer, scale);
+            modelBox.render(worldrenderer, scale);
         }
 
         for (Object o : this.spriteList) {
@@ -385,7 +385,7 @@ public class ModelRenderer {
         } else {
             if (this.childModels != null) {
                 for (ModelRenderer childModel : this.childModels) {
-                    ModelRenderer modelrenderer = (ModelRenderer) childModel;
+                    ModelRenderer modelrenderer = childModel;
 
                     if (p_getChild_1_.equals(modelrenderer.getId())) {
                         return modelrenderer;
@@ -408,7 +408,7 @@ public class ModelRenderer {
             } else {
                 if (this.childModels != null) {
                     for (ModelRenderer childModel : this.childModels) {
-                        ModelRenderer modelrenderer1 = (ModelRenderer) childModel;
+                        ModelRenderer modelrenderer1 = childModel;
                         ModelRenderer modelrenderer2 = modelrenderer1.getChildDeep(p_getChildDeep_1_);
 
                         if (modelrenderer2 != null) {

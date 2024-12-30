@@ -37,7 +37,7 @@ public class BlockSponge extends Block {
     }
 
     public int damageDropped(IBlockState state) {
-        return ((Boolean) state.getValue(WET)).booleanValue() ? 1 : 0;
+        return state.getValue(WET).booleanValue() ? 1 : 0;
     }
 
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
@@ -50,7 +50,7 @@ public class BlockSponge extends Block {
     }
 
     protected void tryAbsorb(World worldIn, BlockPos pos, IBlockState state) {
-        if (!((Boolean) state.getValue(WET)).booleanValue() && this.absorb(worldIn, pos)) {
+        if (!state.getValue(WET).booleanValue() && this.absorb(worldIn, pos)) {
             worldIn.setBlockState(pos, state.withProperty(WET, Boolean.valueOf(true)), 2);
             worldIn.playAuxSFX(2001, pos, Block.getIdFromBlock(Blocks.water));
         }
@@ -62,10 +62,10 @@ public class BlockSponge extends Block {
         queue.add(new Tuple(pos, Integer.valueOf(0)));
         int i = 0;
 
-        while (!((Queue) queue).isEmpty()) {
-            Tuple<BlockPos, Integer> tuple = (Tuple) queue.poll();
-            BlockPos blockpos = (BlockPos) tuple.getFirst();
-            int j = ((Integer) tuple.getSecond()).intValue();
+        while (!queue.isEmpty()) {
+            Tuple<BlockPos, Integer> tuple = queue.poll();
+            BlockPos blockpos = tuple.getFirst();
+            int j = tuple.getSecond().intValue();
 
             for (EnumFacing enumfacing : EnumFacing.values()) {
                 BlockPos blockpos1 = blockpos.offset(enumfacing);
@@ -103,7 +103,7 @@ public class BlockSponge extends Block {
     }
 
     public int getMetaFromState(IBlockState state) {
-        return ((Boolean) state.getValue(WET)).booleanValue() ? 1 : 0;
+        return state.getValue(WET).booleanValue() ? 1 : 0;
     }
 
     protected BlockState createBlockState() {
@@ -111,7 +111,7 @@ public class BlockSponge extends Block {
     }
 
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        if (((Boolean) state.getValue(WET)).booleanValue()) {
+        if (state.getValue(WET).booleanValue()) {
             EnumFacing enumfacing = EnumFacing.random(rand);
 
             if (enumfacing != EnumFacing.UP && !World.doesBlockHaveSolidTopSurface(worldIn, pos.offset(enumfacing))) {

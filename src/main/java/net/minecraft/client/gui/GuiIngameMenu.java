@@ -19,7 +19,7 @@ public class GuiIngameMenu extends GuiScreen {
         this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 120 + i, I18n.format("menu.returnToMenu")));
 
         if (!this.mc.isIntegratedServerRunning()) {
-            ((GuiButton) this.buttonList.get(0)).displayString = I18n.format("menu.disconnect");
+            this.buttonList.get(0).displayString = I18n.format("menu.disconnect");
         }
 
         this.buttonList.add(new GuiButton(4, this.width / 2 - 100, this.height / 4 + 24 + i, I18n.format("menu.returnToGame")));
@@ -41,7 +41,7 @@ public class GuiIngameMenu extends GuiScreen {
                 boolean flag = this.mc.isIntegratedServerRunning();
                 button.enabled = false;
                 this.mc.theWorld.sendQuittingDisconnectingPacket();
-                this.mc.loadWorld((WorldClient) null);
+                this.mc.loadWorld(null);
 
                 if (flag) {
                     this.mc.displayGuiScreen(new GuiMainMenu());
@@ -55,7 +55,7 @@ public class GuiIngameMenu extends GuiScreen {
                 break;
 
             case 4:
-                this.mc.displayGuiScreen((GuiScreen) null);
+                this.mc.displayGuiScreen(null);
                 this.mc.setIngameFocus();
                 break;
 

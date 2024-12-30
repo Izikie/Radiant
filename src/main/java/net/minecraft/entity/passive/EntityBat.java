@@ -94,7 +94,7 @@ public class EntityBat extends EntityAmbientCreature {
         if (this.getIsBatHanging()) {
             if (!this.worldObj.getBlockState(blockpos1).getBlock().isNormalCube()) {
                 this.setIsBatHanging(false);
-                this.worldObj.playAuxSFXAtEntity((EntityPlayer) null, 1015, blockpos, 0);
+                this.worldObj.playAuxSFXAtEntity(null, 1015, blockpos, 0);
             } else {
                 if (this.rand.nextInt(200) == 0) {
                     this.rotationYawHead = this.rand.nextInt(360);
@@ -102,7 +102,7 @@ public class EntityBat extends EntityAmbientCreature {
 
                 if (this.worldObj.getClosestPlayerToEntity(this, 4.0D) != null) {
                     this.setIsBatHanging(false);
-                    this.worldObj.playAuxSFXAtEntity((EntityPlayer) null, 1015, blockpos, 0);
+                    this.worldObj.playAuxSFXAtEntity(null, 1015, blockpos, 0);
                 }
             }
         } else {

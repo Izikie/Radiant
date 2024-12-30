@@ -129,7 +129,7 @@ public class GuiShaders extends GuiScreenOF {
 
                             try {
                                 Class oclass1 = Class.forName("java.awt.Desktop");
-                                Object object1 = oclass1.getMethod("getDesktop", new Class[0]).invoke((Object) null);
+                                Object object1 = oclass1.getMethod("getDesktop", new Class[0]).invoke(null);
                                 oclass1.getMethod("browse", new Class[]{URI.class}).invoke(object1, (new File(this.mc.mcDataDir, "shaderpacks")).toURI());
                             } catch (Throwable throwable1) {
                                 throwable1.printStackTrace();
@@ -157,7 +157,7 @@ public class GuiShaders extends GuiScreenOF {
                         case 210:
                             try {
                                 Class<?> oclass = Class.forName("java.awt.Desktop");
-                                Object object = oclass.getMethod("getDesktop", new Class[0]).invoke((Object) null);
+                                Object object = oclass.getMethod("getDesktop", new Class[0]).invoke(null);
                                 oclass.getMethod("browse", new Class[]{URI.class}).invoke(object, new URI("http://optifine.net/shaderPacks"));
                             } catch (Throwable throwable) {
                                 throwable.printStackTrace();

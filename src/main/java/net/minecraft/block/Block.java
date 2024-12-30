@@ -119,7 +119,7 @@ public class Block {
     }
 
     public static Block getBlockById(int id) {
-        return (Block) blockRegistry.getObjectById(id);
+        return blockRegistry.getObjectById(id);
     }
 
     public static IBlockState getStateById(int id) {
@@ -136,10 +136,10 @@ public class Block {
         ResourceLocation resourcelocation = new ResourceLocation(name);
 
         if (blockRegistry.containsKey(resourcelocation)) {
-            return (Block) blockRegistry.getObject(resourcelocation);
+            return blockRegistry.getObject(resourcelocation);
         } else {
             try {
-                return (Block) blockRegistry.getObjectById(Integer.parseInt(name));
+                return blockRegistry.getObjectById(Integer.parseInt(name));
             } catch (NumberFormatException var3) {
                 return null;
             }

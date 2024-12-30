@@ -97,7 +97,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
             float[] afloat;
 
             if (iblockstate.getBlock() == Blocks.stained_glass) {
-                afloat = EntitySheep.getDyeRgb((EnumDyeColor) iblockstate.getValue(BlockStainedGlass.COLOR));
+                afloat = EntitySheep.getDyeRgb(iblockstate.getValue(BlockStainedGlass.COLOR));
             } else {
                 if (iblockstate.getBlock() != Blocks.stained_glass_pane) {
                     if (iblockstate.getBlock().getLightOpacity() >= 15 && iblockstate.getBlock() != Blocks.bedrock) {
@@ -110,7 +110,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
                     continue;
                 }
 
-                afloat = EntitySheep.getDyeRgb((EnumDyeColor) iblockstate.getValue(BlockStainedGlassPane.COLOR));
+                afloat = EntitySheep.getDyeRgb(iblockstate.getValue(BlockStainedGlassPane.COLOR));
             }
 
             if (!flag) {

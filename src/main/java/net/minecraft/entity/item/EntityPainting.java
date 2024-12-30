@@ -35,7 +35,7 @@ public class EntityPainting extends EntityHanging {
         }
 
         if (!list.isEmpty()) {
-            this.art = (EntityPainting.EnumArt) list.get(this.rand.nextInt(list.size()));
+            this.art = list.get(this.rand.nextInt(list.size()));
         }
 
         this.updateFacingWithBoundingBox(facing);

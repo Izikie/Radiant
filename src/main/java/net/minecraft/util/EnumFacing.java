@@ -181,7 +181,7 @@ public enum EnumFacing implements IStringSerializable {
     }
 
     public static EnumFacing byName(String name) {
-        return name == null ? null : (EnumFacing) NAME_LOOKUP.get(name.toLowerCase());
+        return name == null ? null : NAME_LOOKUP.get(name.toLowerCase());
     }
 
     public static EnumFacing getFront(int index) {
@@ -265,7 +265,7 @@ public enum EnumFacing implements IStringSerializable {
         }
 
         public static EnumFacing.Axis byName(String name) {
-            return name == null ? null : (EnumFacing.Axis) NAME_LOOKUP.get(name.toLowerCase());
+            return name == null ? null : NAME_LOOKUP.get(name.toLowerCase());
         }
 
         public String getName2() {

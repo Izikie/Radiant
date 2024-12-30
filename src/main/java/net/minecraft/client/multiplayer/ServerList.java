@@ -37,7 +37,7 @@ public class ServerList {
                 this.servers.add(ServerData.getServerDataFromNBTCompound(nbttaglist.getCompoundTagAt(i)));
             }
         } catch (Exception exception) {
-            logger.error((String) "Couldn\'t load server list", (Throwable) exception);
+            logger.error("Couldn\'t load server list", exception);
         }
     }
 
@@ -53,12 +53,12 @@ public class ServerList {
             nbttagcompound.setTag("servers", nbttaglist);
             CompressedStreamTools.safeWrite(nbttagcompound, new File(this.mc.mcDataDir, "servers.dat"));
         } catch (Exception exception) {
-            logger.error((String) "Couldn\'t save server list", (Throwable) exception);
+            logger.error("Couldn\'t save server list", exception);
         }
     }
 
     public ServerData getServerData(int index) {
-        return (ServerData) this.servers.get(index);
+        return this.servers.get(index);
     }
 
     public void removeServerData(int index) {

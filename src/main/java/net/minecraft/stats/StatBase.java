@@ -67,7 +67,7 @@ public class StatBase {
 
     public StatBase registerStat() {
         if (StatList.oneShotStats.containsKey(this.statId)) {
-            throw new RuntimeException("Duplicate stat id: \"" + ((StatBase) StatList.oneShotStats.get(this.statId)).statName + "\" and \"" + this.statName + "\" at id " + this.statId);
+            throw new RuntimeException("Duplicate stat id: \"" + StatList.oneShotStats.get(this.statId).statName + "\" and \"" + this.statName + "\" at id " + this.statId);
         } else {
             StatList.allStats.add(this);
             StatList.oneShotStats.put(this.statId, this);

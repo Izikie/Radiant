@@ -118,7 +118,7 @@ public class ScoreboardSaveData extends WorldSavedData {
     protected void readObjectives(NBTTagList nbt) {
         for (int i = 0; i < nbt.tagCount(); ++i) {
             NBTTagCompound nbttagcompound = nbt.getCompoundTagAt(i);
-            IScoreObjectiveCriteria iscoreobjectivecriteria = (IScoreObjectiveCriteria) IScoreObjectiveCriteria.INSTANCES.get(nbttagcompound.getString("CriteriaName"));
+            IScoreObjectiveCriteria iscoreobjectivecriteria = IScoreObjectiveCriteria.INSTANCES.get(nbttagcompound.getString("CriteriaName"));
 
             if (iscoreobjectivecriteria != null) {
                 String s = nbttagcompound.getString("Name");

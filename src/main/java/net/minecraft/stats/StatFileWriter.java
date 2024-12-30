@@ -40,7 +40,7 @@ public class StatFileWriter {
     }
 
     public void unlockAchievement(EntityPlayer playerIn, StatBase statIn, int p_150873_3_) {
-        TupleIntJsonSerializable tupleintjsonserializable = (TupleIntJsonSerializable) this.statsData.get(statIn);
+        TupleIntJsonSerializable tupleintjsonserializable = this.statsData.get(statIn);
 
         if (tupleintjsonserializable == null) {
             tupleintjsonserializable = new TupleIntJsonSerializable();
@@ -51,17 +51,17 @@ public class StatFileWriter {
     }
 
     public int readStat(StatBase stat) {
-        TupleIntJsonSerializable tupleintjsonserializable = (TupleIntJsonSerializable) this.statsData.get(stat);
+        TupleIntJsonSerializable tupleintjsonserializable = this.statsData.get(stat);
         return tupleintjsonserializable == null ? 0 : tupleintjsonserializable.getIntegerValue();
     }
 
     public <T extends IJsonSerializable> T func_150870_b(StatBase p_150870_1_) {
-        TupleIntJsonSerializable tupleintjsonserializable = (TupleIntJsonSerializable) this.statsData.get(p_150870_1_);
-        return (T) (tupleintjsonserializable != null ? tupleintjsonserializable.getJsonSerializableValue() : null);
+        TupleIntJsonSerializable tupleintjsonserializable = this.statsData.get(p_150870_1_);
+        return tupleintjsonserializable != null ? tupleintjsonserializable.getJsonSerializableValue() : null;
     }
 
     public <T extends IJsonSerializable> T func_150872_a(StatBase p_150872_1_, T p_150872_2_) {
-        TupleIntJsonSerializable tupleintjsonserializable = (TupleIntJsonSerializable) this.statsData.get(p_150872_1_);
+        TupleIntJsonSerializable tupleintjsonserializable = this.statsData.get(p_150872_1_);
 
         if (tupleintjsonserializable == null) {
             tupleintjsonserializable = new TupleIntJsonSerializable();
@@ -69,6 +69,6 @@ public class StatFileWriter {
         }
 
         tupleintjsonserializable.setJsonSerializableValue(p_150872_2_);
-        return (T) p_150872_2_;
+        return p_150872_2_;
     }
 }

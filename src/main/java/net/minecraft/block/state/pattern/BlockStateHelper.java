@@ -26,9 +26,9 @@ public class BlockStateHelper implements Predicate<IBlockState> {
     public boolean apply(IBlockState p_apply_1_) {
         if (p_apply_1_ != null && p_apply_1_.getBlock().equals(this.blockstate.getBlock())) {
             for (Entry<IProperty, Predicate> entry : this.propertyPredicates.entrySet()) {
-                Object object = p_apply_1_.getValue((IProperty) entry.getKey());
+                Object object = p_apply_1_.getValue(entry.getKey());
 
-                if (!((Predicate) entry.getValue()).apply(object)) {
+                if (!entry.getValue().apply(object)) {
                     return false;
                 }
             }

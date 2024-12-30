@@ -57,7 +57,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
             this.setModelPartVisible(t, armorSlot);
             boolean flag = this.isSlotForLeggings(armorSlot);
 
-            if (!Config.isCustomItems() || !CustomItems.bindCustomArmorTexture(itemstack, flag ? 2 : 1, (String) null)) {
+            if (!Config.isCustomItems() || !CustomItems.bindCustomArmorTexture(itemstack, flag ? 2 : 1, null)) {
                 this.renderer.bindTexture(this.getArmorResource(itemarmor, flag));
             }
 
@@ -93,7 +93,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
     }
 
     public T getArmorModel(int armorSlot) {
-        return (T) (this.isSlotForLeggings(armorSlot) ? this.modelLeggings : this.modelArmor);
+        return this.isSlotForLeggings(armorSlot) ? this.modelLeggings : this.modelArmor;
     }
 
     private boolean isSlotForLeggings(int armorSlot) {
@@ -145,12 +145,12 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
     }
 
     private ResourceLocation getArmorResource(ItemArmor p_177181_1_, boolean p_177181_2_) {
-        return this.getArmorResource(p_177181_1_, p_177181_2_, (String) null);
+        return this.getArmorResource(p_177181_1_, p_177181_2_, null);
     }
 
     private ResourceLocation getArmorResource(ItemArmor p_177178_1_, boolean p_177178_2_, String p_177178_3_) {
         String s = String.format("textures/models/armor/%s_layer_%d%s.png", p_177178_1_.getArmorMaterial().getName(), Integer.valueOf(p_177178_2_ ? 2 : 1), p_177178_3_ == null ? "" : String.format("_%s", p_177178_3_));
-        ResourceLocation resourcelocation = (ResourceLocation) ARMOR_TEXTURE_RES_MAP.get(s);
+        ResourceLocation resourcelocation = ARMOR_TEXTURE_RES_MAP.get(s);
 
         if (resourcelocation == null) {
             resourcelocation = new ResourceLocation(s);

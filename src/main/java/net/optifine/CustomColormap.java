@@ -36,7 +36,7 @@ public class CustomColormap implements CustomColors.IColorizer {
     private int width = 0;
     private int height = 0;
     private int[] colors = null;
-    private float[][] colorsRgb = (float[][]) null;
+    private float[][] colorsRgb = null;
     private static final int FORMAT_UNKNOWN = -1;
     private static final int FORMAT_VANILLA = 0;
     private static final int FORMAT_GRID = 1;
@@ -330,7 +330,7 @@ public class CustomColormap implements CustomColors.IColorizer {
             for (int l1 = i - radius; l1 <= i + radius; ++l1) {
                 for (int i2 = k - radius; i2 <= k + radius; ++i2) {
                     blockposm.setXyz(l1, j, i2);
-                    int j2 = this.getColor((IBlockAccess) blockAccess, blockposm);
+                    int j2 = this.getColor(blockAccess, blockposm);
                     l += j2 >> 16 & 255;
                     i1 += j2 >> 8 & 255;
                     j1 += j2 & 255;
@@ -403,7 +403,7 @@ public class CustomColormap implements CustomColors.IColorizer {
             this.matchBlocks = new MatchBlock[0];
         }
 
-        this.matchBlocks = (MatchBlock[]) ((MatchBlock[]) Config.addObjectToArray(this.matchBlocks, mb));
+        this.matchBlocks = (MatchBlock[]) Config.addObjectToArray(this.matchBlocks, mb);
     }
 
     public void addMatchBlock(int blockId, int metadata) {
@@ -444,7 +444,7 @@ public class CustomColormap implements CustomColors.IColorizer {
                 }
             }
 
-            Integer[] ainteger = (Integer[]) ((Integer[]) set.toArray(new Integer[set.size()]));
+            Integer[] ainteger = (Integer[]) set.toArray(new Integer[set.size()]);
             int[] aint = new int[ainteger.length];
 
             for (int j = 0; j < ainteger.length; ++j) {
@@ -456,6 +456,6 @@ public class CustomColormap implements CustomColors.IColorizer {
     }
 
     public String toString() {
-        return "" + this.basePath + "/" + this.name + ", blocks: " + Config.arrayToString((Object[]) this.matchBlocks) + ", source: " + this.source;
+        return "" + this.basePath + "/" + this.name + ", blocks: " + Config.arrayToString(this.matchBlocks) + ", source: " + this.source;
     }
 }

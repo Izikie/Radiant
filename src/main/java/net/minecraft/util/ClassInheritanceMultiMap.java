@@ -72,7 +72,7 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
     }
 
     private void addForClass(T value, Class<?> parentClass) {
-        List<T> list = (List) this.map.get(parentClass);
+        List<T> list = this.map.get(parentClass);
 
         if (list == null) {
             this.map.put(parentClass, Lists.newArrayList(value));
@@ -89,7 +89,7 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
 
         for (Class<?> oclass : this.knownKeys) {
             if (oclass.isAssignableFrom(t.getClass())) {
-                List<T> list = (List) this.map.get(oclass);
+                List<T> list = this.map.get(oclass);
 
                 if (list != null && list.remove(t)) {
                     flag = true;
@@ -108,7 +108,7 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
     public <S> Iterable<S> getByClass(final Class<S> clazz) {
         return new Iterable<S>() {
             public Iterator<S> iterator() {
-                List<T> list = (List) ClassInheritanceMultiMap.this.map.get(ClassInheritanceMultiMap.this.initializeClassLookup(clazz));
+                List<T> list = ClassInheritanceMultiMap.this.map.get(ClassInheritanceMultiMap.this.initializeClassLookup(clazz));
 
                 if (list == null) {
                     return Iterators.emptyIterator();

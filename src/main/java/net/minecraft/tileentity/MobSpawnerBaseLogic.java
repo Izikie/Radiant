@@ -169,7 +169,7 @@ public abstract class MobSpawnerBaseLogic {
             }
         } else if (entityIn instanceof EntityLivingBase && entityIn.worldObj != null && spawn) {
             if (entityIn instanceof EntityLiving) {
-                ((EntityLiving) entityIn).onInitialSpawn(entityIn.worldObj.getDifficultyForLocation(new BlockPos(entityIn)), (IEntityLivingData) null);
+                ((EntityLiving) entityIn).onInitialSpawn(entityIn.worldObj.getDifficultyForLocation(new BlockPos(entityIn)), null);
             }
 
             entityIn.worldObj.spawnEntityInWorld(entityIn);
@@ -187,7 +187,7 @@ public abstract class MobSpawnerBaseLogic {
         }
 
         if (this.minecartToSpawn.size() > 0) {
-            this.setRandomEntity((MobSpawnerBaseLogic.WeightedRandomMinecart) WeightedRandom.getRandomItem(this.getSpawnerWorld().rand, this.minecartToSpawn));
+            this.setRandomEntity(WeightedRandom.getRandomItem(this.getSpawnerWorld().rand, this.minecartToSpawn));
         }
 
         this.func_98267_a(1);
@@ -209,7 +209,7 @@ public abstract class MobSpawnerBaseLogic {
         if (nbt.hasKey("SpawnData", 10)) {
             this.setRandomEntity(new MobSpawnerBaseLogic.WeightedRandomMinecart(nbt.getCompoundTag("SpawnData"), this.mobID));
         } else {
-            this.setRandomEntity((MobSpawnerBaseLogic.WeightedRandomMinecart) null);
+            this.setRandomEntity(null);
         }
 
         if (nbt.hasKey("MinSpawnDelay", 99)) {

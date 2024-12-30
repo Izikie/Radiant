@@ -65,7 +65,7 @@ public class BlockSkull extends BlockContainer {
     }
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-        switch ((EnumFacing) worldIn.getBlockState(pos).getValue(FACING)) {
+        switch (worldIn.getBlockState(pos).getValue(FACING)) {
             case UP:
             default:
                 this.setBlockBounds(0.25F, 0.0F, 0.25F, 0.75F, 0.5F, 0.75F);
@@ -124,7 +124,7 @@ public class BlockSkull extends BlockContainer {
 
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         if (!worldIn.isRemote) {
-            if (!((Boolean) state.getValue(NODROP)).booleanValue()) {
+            if (!state.getValue(NODROP).booleanValue()) {
                 TileEntity tileentity = worldIn.getTileEntity(pos);
 
                 if (tileentity instanceof TileEntitySkull tileentityskull) {
@@ -204,9 +204,9 @@ public class BlockSkull extends BlockContainer {
 
     public int getMetaFromState(IBlockState state) {
         int i = 0;
-        i = i | ((EnumFacing) state.getValue(FACING)).getIndex();
+        i = i | state.getValue(FACING).getIndex();
 
-        if (((Boolean) state.getValue(NODROP)).booleanValue()) {
+        if (state.getValue(NODROP).booleanValue()) {
             i |= 8;
         }
 

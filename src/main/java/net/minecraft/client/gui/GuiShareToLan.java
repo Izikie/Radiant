@@ -58,7 +58,7 @@ public class GuiShareToLan extends GuiScreen {
             this.field_146600_i = !this.field_146600_i;
             this.func_146595_g();
         } else if (button.id == 101) {
-            this.mc.displayGuiScreen((GuiScreen) null);
+            this.mc.displayGuiScreen(null);
             String s = this.mc.getIntegratedServer().shareToLAN(WorldSettings.GameType.getByName(this.field_146599_h), this.field_146600_i);
             IChatComponent ichatcomponent;
 

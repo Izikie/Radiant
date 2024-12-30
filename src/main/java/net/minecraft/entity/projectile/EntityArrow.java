@@ -206,7 +206,7 @@ public class EntityArrow extends Entity implements IProjectile {
             double d0 = 0.0D;
 
             for (Entity value : list) {
-                Entity entity1 = (Entity) value;
+                Entity entity1 = value;
 
                 if (entity1.canBeCollidedWith() && (entity1 != this.shootingEntity || this.ticksInAir >= 5)) {
                     float f1 = 0.3F;
@@ -380,7 +380,7 @@ public class EntityArrow extends Entity implements IProjectile {
         tagCompound.setShort("yTile", (short) this.yTile);
         tagCompound.setShort("zTile", (short) this.zTile);
         tagCompound.setShort("life", (short) this.ticksInGround);
-        ResourceLocation resourcelocation = (ResourceLocation) Block.blockRegistry.getNameForObject(this.inTile);
+        ResourceLocation resourcelocation = Block.blockRegistry.getNameForObject(this.inTile);
         tagCompound.setString("inTile", resourcelocation == null ? "" : resourcelocation.toString());
         tagCompound.setByte("inData", (byte) this.inData);
         tagCompound.setByte("shake", (byte) this.arrowShake);

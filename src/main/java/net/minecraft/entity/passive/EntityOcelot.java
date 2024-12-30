@@ -49,7 +49,7 @@ public class EntityOcelot extends EntityTameable {
         this.tasks.addTask(9, new EntityAIMate(this, 0.8D));
         this.tasks.addTask(10, new EntityAIWander(this, 0.8D));
         this.tasks.addTask(11, new EntityAIWatchClosest(this, EntityPlayer.class, 10.0F));
-        this.targetTasks.addTask(1, new EntityAITargetNonTamed(this, EntityChicken.class, false, (Predicate) null));
+        this.targetTasks.addTask(1, new EntityAITargetNonTamed(this, EntityChicken.class, false, null));
     }
 
     protected void entityInit() {
@@ -149,7 +149,7 @@ public class EntityOcelot extends EntityTameable {
             }
 
             if (itemstack.stackSize <= 0) {
-                player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
+                player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
             }
 
             if (!this.worldObj.isRemote) {

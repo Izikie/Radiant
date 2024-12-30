@@ -1406,7 +1406,7 @@ public class StructureOceanMonumentPieces {
                 entityguardian.setElder(true);
                 entityguardian.heal(entityguardian.getMaxHealth());
                 entityguardian.setLocationAndAngles(i + 0.5D, j, k + 0.5D, 0.0F, 0.0F);
-                entityguardian.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityguardian)), (IEntityLivingData) null);
+                entityguardian.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityguardian)), null);
                 worldIn.spawnEntityInWorld(entityguardian);
                 return true;
             } else {

@@ -86,7 +86,7 @@ public class Explosion {
                             IBlockState iblockstate = this.worldObj.getBlockState(blockpos);
 
                             if (iblockstate.getBlock().getMaterial() != Material.air) {
-                                float f2 = this.exploder != null ? this.exploder.getExplosionResistance(this, this.worldObj, blockpos, iblockstate) : iblockstate.getBlock().getExplosionResistance((Entity) null);
+                                float f2 = this.exploder != null ? this.exploder.getExplosionResistance(this, this.worldObj, blockpos, iblockstate) : iblockstate.getBlock().getExplosionResistance(null);
                                 f -= (f2 + 0.3F) * 0.3F;
                             }
 
@@ -115,7 +115,7 @@ public class Explosion {
         Vec3 vec3 = new Vec3(this.explosionX, this.explosionY, this.explosionZ);
 
         for (Entity value : list) {
-            Entity entity = (Entity) value;
+            Entity entity = value;
 
             if (!entity.isImmuneToExplosions()) {
                 double d12 = entity.getDistance(this.explosionX, this.explosionY, this.explosionZ) / f3;

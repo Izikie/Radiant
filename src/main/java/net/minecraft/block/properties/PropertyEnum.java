@@ -21,7 +21,7 @@ public class PropertyEnum<T extends Enum<T> & IStringSerializable> extends Prope
         this.allowedValues = ImmutableSet.copyOf(allowedValues);
 
         for (T t : allowedValues) {
-            String s = ((IStringSerializable) t).getName();
+            String s = t.getName();
 
             if (this.nameToValue.containsKey(s)) {
                 throw new IllegalArgumentException("Multiple values have the same name \'" + s + "\'");
@@ -36,7 +36,7 @@ public class PropertyEnum<T extends Enum<T> & IStringSerializable> extends Prope
     }
 
     public String getName(T value) {
-        return ((IStringSerializable) value).getName();
+        return value.getName();
     }
 
     public static <T extends Enum<T> & IStringSerializable> PropertyEnum<T> create(String name, Class<T> clazz) {

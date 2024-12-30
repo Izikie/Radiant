@@ -32,7 +32,7 @@ public class ModelAdapterGuardian extends ModelAdapter {
                 String s = "spine";
 
                 if (modelPart.startsWith(s)) {
-                    ModelRenderer[] amodelrenderer1 = (ModelRenderer[]) ((ModelRenderer[]) Reflector.getFieldValue(modelguardian, Reflector.ModelGuardian_spines));
+                    ModelRenderer[] amodelrenderer1 = (ModelRenderer[]) Reflector.getFieldValue(modelguardian, Reflector.ModelGuardian_spines);
 
                     if (amodelrenderer1 == null) {
                         return null;
@@ -46,7 +46,7 @@ public class ModelAdapterGuardian extends ModelAdapter {
                     String s1 = "tail";
 
                     if (modelPart.startsWith(s1)) {
-                        ModelRenderer[] amodelrenderer = (ModelRenderer[]) ((ModelRenderer[]) Reflector.getFieldValue(modelguardian, Reflector.ModelGuardian_tail));
+                        ModelRenderer[] amodelrenderer = (ModelRenderer[]) Reflector.getFieldValue(modelguardian, Reflector.ModelGuardian_tail);
 
                         if (amodelrenderer == null) {
                             return null;

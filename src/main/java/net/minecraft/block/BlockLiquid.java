@@ -48,7 +48,7 @@ public abstract class BlockLiquid extends Block {
     }
 
     protected int getLevel(IBlockAccess worldIn, BlockPos pos) {
-        return worldIn.getBlockState(pos).getBlock().getMaterial() == this.blockMaterial ? ((Integer) worldIn.getBlockState(pos).getValue(LEVEL)).intValue() : -1;
+        return worldIn.getBlockState(pos).getBlock().getMaterial() == this.blockMaterial ? worldIn.getBlockState(pos).getValue(LEVEL).intValue() : -1;
     }
 
     protected int getEffectiveFlowDecay(IBlockAccess worldIn, BlockPos pos) {
@@ -65,7 +65,7 @@ public abstract class BlockLiquid extends Block {
     }
 
     public boolean canCollideCheck(IBlockState state, boolean hitIfLiquid) {
-        return hitIfLiquid && ((Integer) state.getValue(LEVEL)).intValue() == 0;
+        return hitIfLiquid && state.getValue(LEVEL).intValue() == 0;
     }
 
     public boolean isBlockSolid(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
@@ -132,7 +132,7 @@ public abstract class BlockLiquid extends Block {
             }
         }
 
-        if (((Integer) worldIn.getBlockState(pos).getValue(LEVEL)).intValue() >= 8) {
+        if (worldIn.getBlockState(pos).getValue(LEVEL).intValue() >= 8) {
             for (EnumFacing enumfacing1 : EnumFacing.Plane.HORIZONTAL) {
                 BlockPos blockpos1 = pos.offset(enumfacing1);
 
@@ -174,7 +174,7 @@ public abstract class BlockLiquid extends Block {
         double d2 = pos.getZ();
 
         if (this.blockMaterial == Material.water) {
-            int i = ((Integer) state.getValue(LEVEL)).intValue();
+            int i = state.getValue(LEVEL).intValue();
 
             if (i > 0 && i < 8) {
                 if (rand.nextInt(64) == 0) {
@@ -241,7 +241,7 @@ public abstract class BlockLiquid extends Block {
             }
 
             if (flag) {
-                Integer integer = (Integer) state.getValue(LEVEL);
+                Integer integer = state.getValue(LEVEL);
 
                 if (integer.intValue() == 0) {
                     worldIn.setBlockState(pos, Blocks.obsidian.getDefaultState());
@@ -276,7 +276,7 @@ public abstract class BlockLiquid extends Block {
     }
 
     public int getMetaFromState(IBlockState state) {
-        return ((Integer) state.getValue(LEVEL)).intValue();
+        return state.getValue(LEVEL).intValue();
     }
 
     protected BlockState createBlockState() {

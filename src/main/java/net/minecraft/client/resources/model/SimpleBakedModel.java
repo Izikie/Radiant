@@ -29,7 +29,7 @@ public class SimpleBakedModel implements IBakedModel {
     }
 
     public List<BakedQuad> getFaceQuads(EnumFacing facing) {
-        return (List) this.faceQuads.get(facing.ordinal());
+        return this.faceQuads.get(facing.ordinal());
     }
 
     public List<BakedQuad> getGeneralQuads() {
@@ -105,7 +105,7 @@ public class SimpleBakedModel implements IBakedModel {
         }
 
         public SimpleBakedModel.Builder addFaceQuad(EnumFacing facing, BakedQuad quad) {
-            ((List) this.builderFaceQuads.get(facing.ordinal())).add(quad);
+            this.builderFaceQuads.get(facing.ordinal()).add(quad);
             return this;
         }
 

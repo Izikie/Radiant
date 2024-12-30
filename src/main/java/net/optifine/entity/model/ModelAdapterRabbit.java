@@ -30,7 +30,7 @@ public class ModelAdapterRabbit extends ModelAdapter {
             Map<String, Integer> map = getMapPartFields();
 
             if (map.containsKey(modelPart)) {
-                int i = ((Integer) map.get(modelPart)).intValue();
+                int i = map.get(modelPart).intValue();
                 return (ModelRenderer) Reflector.getFieldValue(modelrabbit, Reflector.ModelRabbit_renderers, i);
             } else {
                 return null;

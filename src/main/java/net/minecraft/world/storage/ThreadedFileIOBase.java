@@ -30,7 +30,7 @@ public class ThreadedFileIOBase implements Runnable {
 
     private void processQueue() {
         for (int i = 0; i < this.threadedIOQueue.size(); ++i) {
-            IThreadedFileIO ithreadedfileio = (IThreadedFileIO) this.threadedIOQueue.get(i);
+            IThreadedFileIO ithreadedfileio = this.threadedIOQueue.get(i);
             boolean flag = ithreadedfileio.writeNextIO();
 
             if (!flag) {

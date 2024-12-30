@@ -35,7 +35,7 @@ public class ItemHoe extends Item {
                 }
 
                 if (block == Blocks.dirt) {
-                    switch ((BlockDirt.DirtType) iblockstate.getValue(BlockDirt.VARIANT)) {
+                    switch (iblockstate.getValue(BlockDirt.VARIANT)) {
                         case DIRT:
                             return this.useHoe(stack, playerIn, worldIn, pos, Blocks.farmland.getDefaultState());
 

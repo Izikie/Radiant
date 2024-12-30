@@ -445,23 +445,23 @@ public class ChunkProviderGenerate implements IChunkProvider {
 
     public void recreateStructures(Chunk chunkIn, int x, int z) {
         if (this.settings.useMineShafts && this.mapFeaturesEnabled) {
-            this.mineshaftGenerator.generate(this, this.worldObj, x, z, (ChunkPrimer) null);
+            this.mineshaftGenerator.generate(this, this.worldObj, x, z, null);
         }
 
         if (this.settings.useVillages && this.mapFeaturesEnabled) {
-            this.villageGenerator.generate(this, this.worldObj, x, z, (ChunkPrimer) null);
+            this.villageGenerator.generate(this, this.worldObj, x, z, null);
         }
 
         if (this.settings.useStrongholds && this.mapFeaturesEnabled) {
-            this.strongholdGenerator.generate(this, this.worldObj, x, z, (ChunkPrimer) null);
+            this.strongholdGenerator.generate(this, this.worldObj, x, z, null);
         }
 
         if (this.settings.useTemples && this.mapFeaturesEnabled) {
-            this.scatteredFeatureGenerator.generate(this, this.worldObj, x, z, (ChunkPrimer) null);
+            this.scatteredFeatureGenerator.generate(this, this.worldObj, x, z, null);
         }
 
         if (this.settings.useMonuments && this.mapFeaturesEnabled) {
-            this.oceanMonumentGenerator.generate(this, this.worldObj, x, z, (ChunkPrimer) null);
+            this.oceanMonumentGenerator.generate(this, this.worldObj, x, z, null);
         }
     }
 

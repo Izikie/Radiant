@@ -35,8 +35,8 @@ public class BlockPart {
 
     private void setDefaultUvs() {
         for (Entry<EnumFacing, BlockPartFace> entry : this.mapFaces.entrySet()) {
-            float[] afloat = this.getFaceUvs((EnumFacing) entry.getKey());
-            ((BlockPartFace) entry.getValue()).blockFaceUV.setUvs(afloat);
+            float[] afloat = this.getFaceUvs(entry.getKey());
+            entry.getValue().blockFaceUV.setUvs(afloat);
         }
     }
 
@@ -131,8 +131,8 @@ public class BlockPart {
             JsonObject jsonobject = JsonUtils.getJsonObject(p_178253_2_, "faces");
 
             for (Entry<String, JsonElement> entry : jsonobject.entrySet()) {
-                EnumFacing enumfacing = this.parseEnumFacing((String) entry.getKey());
-                map.put(enumfacing, (BlockPartFace) p_178253_1_.deserialize((JsonElement) entry.getValue(), BlockPartFace.class));
+                EnumFacing enumfacing = this.parseEnumFacing(entry.getKey());
+                map.put(enumfacing, p_178253_1_.deserialize(entry.getValue(), BlockPartFace.class));
             }
 
             return map;

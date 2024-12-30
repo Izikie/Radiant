@@ -62,7 +62,7 @@ public class SaveFormatOld implements ISaveFormat {
                     NBTTagCompound nbttagcompound3 = nbttagcompound2.getCompoundTag("Data");
                     return new WorldInfo(nbttagcompound3);
                 } catch (Exception exception1) {
-                    logger.error((String) ("Exception reading " + file2), (Throwable) exception1);
+                    logger.error("Exception reading " + file2, exception1);
                 }
             }
 
@@ -74,7 +74,7 @@ public class SaveFormatOld implements ISaveFormat {
                     NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("Data");
                     return new WorldInfo(nbttagcompound1);
                 } catch (Exception exception) {
-                    logger.error((String) ("Exception reading " + file2), (Throwable) exception);
+                    logger.error("Exception reading " + file2, exception);
                 }
             }
 

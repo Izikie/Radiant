@@ -138,7 +138,7 @@ public class VillageSiege {
 
             try {
                 entityzombie = new EntityZombie(this.worldObj);
-                entityzombie.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(entityzombie)), (IEntityLivingData) null);
+                entityzombie.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(entityzombie)), null);
                 entityzombie.setVillager(false);
             } catch (Exception exception) {
                 exception.printStackTrace();

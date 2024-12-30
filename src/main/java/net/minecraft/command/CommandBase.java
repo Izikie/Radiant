@@ -194,7 +194,7 @@ public abstract class CommandBase implements ICommand {
     }
 
     public static List<Entity> func_175763_c(ICommandSender p_175763_0_, String p_175763_1_) throws EntityNotFoundException {
-        return (List<Entity>) (PlayerSelector.hasArguments(p_175763_1_) ? PlayerSelector.matchEntities(p_175763_0_, p_175763_1_, Entity.class) : Lists.newArrayList(new Entity[]{getEntity(p_175763_0_, p_175763_1_)}));
+        return PlayerSelector.hasArguments(p_175763_1_) ? PlayerSelector.matchEntities(p_175763_0_, p_175763_1_, Entity.class) : Lists.newArrayList(new Entity[]{getEntity(p_175763_0_, p_175763_1_)});
     }
 
     public static String getPlayerName(ICommandSender sender, String query) throws PlayerNotFoundException {
@@ -354,7 +354,7 @@ public abstract class CommandBase implements ICommand {
 
     public static Item getItemByText(ICommandSender sender, String id) throws NumberInvalidException {
         ResourceLocation resourcelocation = new ResourceLocation(id);
-        Item item = (Item) Item.itemRegistry.getObject(resourcelocation);
+        Item item = Item.itemRegistry.getObject(resourcelocation);
 
         if (item == null) {
             throw new NumberInvalidException("commands.give.item.notFound", resourcelocation);
@@ -369,7 +369,7 @@ public abstract class CommandBase implements ICommand {
         if (!Block.blockRegistry.containsKey(resourcelocation)) {
             throw new NumberInvalidException("commands.give.block.notFound", resourcelocation);
         } else {
-            Block block = (Block) Block.blockRegistry.getObject(resourcelocation);
+            Block block = Block.blockRegistry.getObject(resourcelocation);
 
             if (block == null) {
                 throw new NumberInvalidException("commands.give.block.notFound", resourcelocation);
@@ -411,7 +411,7 @@ public abstract class CommandBase implements ICommand {
                 }
             }
 
-            ichatcomponent.appendSibling((IChatComponent) components.get(i));
+            ichatcomponent.appendSibling(components.get(i));
         }
 
         return ichatcomponent;

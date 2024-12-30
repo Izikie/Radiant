@@ -63,11 +63,11 @@ public abstract class AbstractResourcePack implements IResourcePack {
 
         try {
             bufferedreader = new BufferedReader(new InputStreamReader(p_110596_1_, Charsets.UTF_8));
-            jsonobject = (new JsonParser()).parse((Reader) bufferedreader).getAsJsonObject();
+            jsonobject = (new JsonParser()).parse(bufferedreader).getAsJsonObject();
         } catch (RuntimeException runtimeexception) {
             throw new JsonParseException(runtimeexception);
         } finally {
-            IOUtils.closeQuietly((Reader) bufferedreader);
+            IOUtils.closeQuietly(bufferedreader);
         }
 
         return p_110596_0_.parseMetadataSection(p_110596_2_, jsonobject);

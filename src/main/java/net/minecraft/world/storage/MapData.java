@@ -96,7 +96,7 @@ public class MapData extends WorldSavedData {
         }
 
         for (int i = 0; i < this.playersArrayList.size(); ++i) {
-            MapData.MapInfo mapdata$mapinfo1 = (MapData.MapInfo) this.playersArrayList.get(i);
+            MapData.MapInfo mapdata$mapinfo1 = this.playersArrayList.get(i);
 
             if (!mapdata$mapinfo1.entityplayerObj.isDead && (mapdata$mapinfo1.entityplayerObj.inventory.hasItemStack(mapStack) || mapStack.isOnItemFrame())) {
                 if (!mapStack.isOnItemFrame() && mapdata$mapinfo1.entityplayerObj.dimension == this.dimension) {
@@ -174,7 +174,7 @@ public class MapData extends WorldSavedData {
     }
 
     public Packet getMapPacket(ItemStack mapStack, World worldIn, EntityPlayer player) {
-        MapData.MapInfo mapdata$mapinfo = (MapData.MapInfo) this.playersHashMap.get(player);
+        MapData.MapInfo mapdata$mapinfo = this.playersHashMap.get(player);
         return mapdata$mapinfo == null ? null : mapdata$mapinfo.getPacket(mapStack);
     }
 
@@ -187,7 +187,7 @@ public class MapData extends WorldSavedData {
     }
 
     public MapData.MapInfo getMapInfo(EntityPlayer player) {
-        MapData.MapInfo mapdata$mapinfo = (MapData.MapInfo) this.playersHashMap.get(player);
+        MapData.MapInfo mapdata$mapinfo = this.playersHashMap.get(player);
 
         if (mapdata$mapinfo == null) {
             mapdata$mapinfo = new MapData.MapInfo(player);

@@ -18,7 +18,7 @@ public class ProgramStack {
         if (this.stack.isEmpty()) {
             throw new RuntimeException("Program stack empty");
         } else {
-            Program program = (Program) this.stack.pollLast();
+            Program program = this.stack.pollLast();
             return program;
         }
     }

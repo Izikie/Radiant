@@ -67,7 +67,7 @@ public class RandomEntityProperties {
             }
         }
 
-        RandomEntityRule[] arandomentityrule = (RandomEntityRule[]) ((RandomEntityRule[]) list.toArray(new RandomEntityRule[list.size()]));
+        RandomEntityRule[] arandomentityrule = (RandomEntityRule[]) list.toArray(new RandomEntityRule[list.size()]);
         return arandomentityrule;
     }
 

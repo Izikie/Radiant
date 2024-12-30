@@ -55,7 +55,7 @@ public class EntityAIVillagerInteract extends EntityAIWatchClosest2 {
                         }
 
                         if (itemstack.stackSize <= 0) {
-                            inventorybasic.setInventorySlotContents(i, (ItemStack) null);
+                            inventorybasic.setInventorySlotContents(i, null);
                         }
                     }
 

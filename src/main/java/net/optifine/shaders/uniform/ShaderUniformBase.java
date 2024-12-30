@@ -50,7 +50,7 @@ public abstract class ShaderUniformBase {
             int i = this.locations[this.program];
 
             if (i == Integer.MIN_VALUE) {
-                i = ARBShaderObjects.glGetUniformLocationARB(this.program, (CharSequence) this.name);
+                i = ARBShaderObjects.glGetUniformLocationARB(this.program, this.name);
                 this.locations[this.program] = i;
             }
 

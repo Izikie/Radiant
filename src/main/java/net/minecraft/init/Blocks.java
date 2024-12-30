@@ -235,7 +235,7 @@ public class Blocks {
     public static final BlockSlab stone_slab2;
 
     private static Block getRegisteredBlock(String blockName) {
-        return (Block) Block.blockRegistry.getObject(new ResourceLocation(blockName));
+        return Block.blockRegistry.getObject(new ResourceLocation(blockName));
     }
 
     static {

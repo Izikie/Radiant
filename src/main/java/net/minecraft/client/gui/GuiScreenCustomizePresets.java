@@ -148,7 +148,7 @@ public class GuiScreenCustomizePresets extends GuiScreen {
         protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY) {
             this.field_178053_u = slotIndex;
             GuiScreenCustomizePresets.this.func_175304_a();
-            GuiScreenCustomizePresets.this.field_175317_i.setText(((GuiScreenCustomizePresets.Info) GuiScreenCustomizePresets.field_175310_f.get(GuiScreenCustomizePresets.this.field_175311_g.field_178053_u)).field_178954_c.toString());
+            GuiScreenCustomizePresets.this.field_175317_i.setText(GuiScreenCustomizePresets.field_175310_f.get(GuiScreenCustomizePresets.this.field_175311_g.field_178053_u).field_178954_c.toString());
         }
 
         protected boolean isSelected(int slotIndex) {
@@ -179,7 +179,7 @@ public class GuiScreenCustomizePresets extends GuiScreen {
         }
 
         protected void drawSlot(int entryID, int p_180791_2_, int p_180791_3_, int p_180791_4_, int mouseXIn, int mouseYIn) {
-            GuiScreenCustomizePresets.Info guiscreencustomizepresets$info = (GuiScreenCustomizePresets.Info) GuiScreenCustomizePresets.field_175310_f.get(entryID);
+            GuiScreenCustomizePresets.Info guiscreencustomizepresets$info = GuiScreenCustomizePresets.field_175310_f.get(entryID);
             this.func_178051_a(p_180791_2_, p_180791_3_, guiscreencustomizepresets$info.field_178953_b);
             GuiScreenCustomizePresets.this.fontRendererObj.drawString(guiscreencustomizepresets$info.field_178955_a, p_180791_2_ + 32 + 10, p_180791_3_ + 14, 16777215);
         }

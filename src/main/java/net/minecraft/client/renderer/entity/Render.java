@@ -143,7 +143,7 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
         tessellator.draw();
 
         if (flag) {
-            worldrenderer.setBlockLayer((EnumWorldBlockLayer) null);
+            worldrenderer.setBlockLayer(null);
             GlStateManager.bindCurrentTexture();
         }
 

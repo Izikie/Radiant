@@ -44,7 +44,7 @@ public abstract class EntityAgeable extends EntityCreature {
                             --itemstack.stackSize;
 
                             if (itemstack.stackSize <= 0) {
-                                player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
+                                player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
                             }
                         }
                     }

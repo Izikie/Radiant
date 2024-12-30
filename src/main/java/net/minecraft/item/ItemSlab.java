@@ -41,7 +41,7 @@ public class ItemSlab extends ItemBlock {
             if (iblockstate.getBlock() == this.singleSlab) {
                 IProperty iproperty = this.singleSlab.getVariantProperty();
                 Comparable comparable = iblockstate.getValue(iproperty);
-                BlockSlab.EnumBlockHalf blockslab$enumblockhalf = (BlockSlab.EnumBlockHalf) iblockstate.getValue(BlockSlab.HALF);
+                BlockSlab.EnumBlockHalf blockslab$enumblockhalf = iblockstate.getValue(BlockSlab.HALF);
 
                 if ((side == EnumFacing.UP && blockslab$enumblockhalf == BlockSlab.EnumBlockHalf.BOTTOM || side == EnumFacing.DOWN && blockslab$enumblockhalf == BlockSlab.EnumBlockHalf.TOP) && comparable == object) {
                     IBlockState iblockstate1 = this.doubleSlab.getDefaultState().withProperty(iproperty, comparable);

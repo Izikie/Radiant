@@ -360,7 +360,7 @@ public class EntityGuardian extends EntityMob {
     }
 
     protected void addRandomDrop() {
-        ItemStack itemstack = ((WeightedRandomFishable) WeightedRandom.getRandomItem(this.rand, EntityFishHook.func_174855_j())).getItemStack(this.rand);
+        ItemStack itemstack = WeightedRandom.getRandomItem(this.rand, EntityFishHook.func_174855_j()).getItemStack(this.rand);
         this.entityDropItem(itemstack, 1.0F);
     }
 
@@ -440,7 +440,7 @@ public class EntityGuardian extends EntityMob {
 
         public void resetTask() {
             this.theEntity.setTargetedEntity(0);
-            this.theEntity.setAttackTarget((EntityLivingBase) null);
+            this.theEntity.setAttackTarget(null);
             this.theEntity.wander.makeUpdate();
         }
 
@@ -450,7 +450,7 @@ public class EntityGuardian extends EntityMob {
             this.theEntity.getLookHelper().setLookPositionWithEntity(entitylivingbase, 90.0F, 90.0F);
 
             if (!this.theEntity.canEntityBeSeen(entitylivingbase)) {
-                this.theEntity.setAttackTarget((EntityLivingBase) null);
+                this.theEntity.setAttackTarget(null);
             } else {
                 ++this.tickCounter;
 
@@ -470,7 +470,7 @@ public class EntityGuardian extends EntityMob {
 
                     entitylivingbase.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this.theEntity, this.theEntity), f);
                     entitylivingbase.attackEntityFrom(DamageSource.causeMobDamage(this.theEntity), (float) this.theEntity.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue());
-                    this.theEntity.setAttackTarget((EntityLivingBase) null);
+                    this.theEntity.setAttackTarget(null);
                 } else if (this.tickCounter >= 60 && this.tickCounter % 20 == 0) {
                     ;
                 }

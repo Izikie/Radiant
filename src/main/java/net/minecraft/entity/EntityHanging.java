@@ -85,7 +85,7 @@ public abstract class EntityHanging extends Entity {
 
             if (!this.isDead && !this.onValidSurface()) {
                 this.setDead();
-                this.onBroken((Entity) null);
+                this.onBroken(null);
             }
         }
     }
@@ -149,14 +149,14 @@ public abstract class EntityHanging extends Entity {
     public void moveEntity(double x, double y, double z) {
         if (!this.worldObj.isRemote && !this.isDead && x * x + y * y + z * z > 0.0D) {
             this.setDead();
-            this.onBroken((Entity) null);
+            this.onBroken(null);
         }
     }
 
     public void addVelocity(double x, double y, double z) {
         if (!this.worldObj.isRemote && !this.isDead && x * x + y * y + z * z > 0.0D) {
             this.setDead();
-            this.onBroken((Entity) null);
+            this.onBroken(null);
         }
     }
 

@@ -148,7 +148,7 @@ public class GuiCreateWorld extends GuiScreen {
             if (button.id == 1) {
                 this.mc.displayGuiScreen(this.parentScreen);
             } else if (button.id == 0) {
-                this.mc.displayGuiScreen((GuiScreen) null);
+                this.mc.displayGuiScreen(null);
 
                 if (this.alreadyGenerated) {
                     return;
@@ -320,10 +320,10 @@ public class GuiCreateWorld extends GuiScreen {
         }
 
         if (keyCode == 28 || keyCode == 156) {
-            this.actionPerformed((GuiButton) this.buttonList.get(0));
+            this.actionPerformed(this.buttonList.get(0));
         }
 
-        ((GuiButton) this.buttonList.get(0)).enabled = this.worldNameField.getText().length() > 0;
+        this.buttonList.get(0).enabled = this.worldNameField.getText().length() > 0;
         this.calcSaveDirName();
     }
 

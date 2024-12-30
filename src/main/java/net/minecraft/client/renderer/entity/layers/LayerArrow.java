@@ -30,7 +30,7 @@ public class LayerArrow implements LayerRenderer<EntityLivingBase> {
             for (int j = 0; j < i; ++j) {
                 GlStateManager.pushMatrix();
                 ModelRenderer modelrenderer = this.field_177168_a.getMainModel().getRandomModelBox(random);
-                ModelBox modelbox = (ModelBox) modelrenderer.cubeList.get(random.nextInt(modelrenderer.cubeList.size()));
+                ModelBox modelbox = modelrenderer.cubeList.get(random.nextInt(modelrenderer.cubeList.size()));
                 modelrenderer.postRender(0.0625F);
                 float f = random.nextFloat();
                 float f1 = random.nextFloat();

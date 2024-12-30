@@ -44,9 +44,9 @@ public class StatisticsFile extends StatFileWriter {
                 this.statsData.clear();
                 this.statsData.putAll(this.parseJson(FileUtils.readFileToString(this.statsFile)));
             } catch (IOException ioexception) {
-                logger.error((String) ("Couldn\'t read statistics file " + this.statsFile), (Throwable) ioexception);
+                logger.error("Couldn\'t read statistics file " + this.statsFile, ioexception);
             } catch (JsonParseException jsonparseexception) {
-                logger.error((String) ("Couldn\'t parse statistics file " + this.statsFile), (Throwable) jsonparseexception);
+                logger.error("Couldn\'t parse statistics file " + this.statsFile, jsonparseexception);
             }
         }
     }
@@ -55,7 +55,7 @@ public class StatisticsFile extends StatFileWriter {
         try {
             FileUtils.writeStringToFile(this.statsFile, dumpJson(this.statsData));
         } catch (IOException ioexception) {
-            logger.error((String) "Couldn\'t save stats", (Throwable) ioexception);
+            logger.error("Couldn\'t save stats", ioexception);
         }
     }
 
@@ -98,15 +98,15 @@ public class StatisticsFile extends StatFileWriter {
             Map<StatBase, TupleIntJsonSerializable> map = Maps.newHashMap();
 
             for (Entry<String, JsonElement> entry : jsonobject.entrySet()) {
-                StatBase statbase = StatList.getOneShotStat((String) entry.getKey());
+                StatBase statbase = StatList.getOneShotStat(entry.getKey());
 
                 if (statbase != null) {
                     TupleIntJsonSerializable tupleintjsonserializable = new TupleIntJsonSerializable();
 
-                    if (((JsonElement) entry.getValue()).isJsonPrimitive() && ((JsonElement) entry.getValue()).getAsJsonPrimitive().isNumber()) {
-                        tupleintjsonserializable.setIntegerValue(((JsonElement) entry.getValue()).getAsInt());
-                    } else if (((JsonElement) entry.getValue()).isJsonObject()) {
-                        JsonObject jsonobject1 = ((JsonElement) entry.getValue()).getAsJsonObject();
+                    if (entry.getValue().isJsonPrimitive() && entry.getValue().getAsJsonPrimitive().isNumber()) {
+                        tupleintjsonserializable.setIntegerValue(entry.getValue().getAsInt());
+                    } else if (entry.getValue().isJsonObject()) {
+                        JsonObject jsonobject1 = entry.getValue().getAsJsonObject();
 
                         if (jsonobject1.has("value") && jsonobject1.get("value").isJsonPrimitive() && jsonobject1.get("value").getAsJsonPrimitive().isNumber()) {
                             tupleintjsonserializable.setIntegerValue(jsonobject1.getAsJsonPrimitive("value").getAsInt());
@@ -115,7 +115,7 @@ public class StatisticsFile extends StatFileWriter {
                         if (jsonobject1.has("progress") && statbase.func_150954_l() != null) {
                             try {
                                 Constructor<? extends IJsonSerializable> constructor = statbase.func_150954_l().getConstructor();
-                                IJsonSerializable ijsonserializable = (IJsonSerializable) constructor.newInstance(new Object[0]);
+                                IJsonSerializable ijsonserializable = constructor.newInstance(new Object[0]);
                                 ijsonserializable.fromJson(jsonobject1.get("progress"));
                                 tupleintjsonserializable.setJsonSerializableValue(ijsonserializable);
                             } catch (Throwable throwable) {
@@ -126,7 +126,7 @@ public class StatisticsFile extends StatFileWriter {
 
                     map.put(statbase, tupleintjsonserializable);
                 } else {
-                    logger.warn("Invalid statistic in " + this.statsFile + ": Don\'t know what " + (String) entry.getKey() + " is");
+                    logger.warn("Invalid statistic in " + this.statsFile + ": Don\'t know what " + entry.getKey() + " is");
                 }
             }
 
@@ -138,19 +138,19 @@ public class StatisticsFile extends StatFileWriter {
         JsonObject jsonobject = new JsonObject();
 
         for (Entry<StatBase, TupleIntJsonSerializable> entry : p_150880_0_.entrySet()) {
-            if (((TupleIntJsonSerializable) entry.getValue()).getJsonSerializableValue() != null) {
+            if (entry.getValue().getJsonSerializableValue() != null) {
                 JsonObject jsonobject1 = new JsonObject();
-                jsonobject1.addProperty("value", (Number) Integer.valueOf(((TupleIntJsonSerializable) entry.getValue()).getIntegerValue()));
+                jsonobject1.addProperty("value", Integer.valueOf(entry.getValue().getIntegerValue()));
 
                 try {
-                    jsonobject1.add("progress", ((TupleIntJsonSerializable) entry.getValue()).getJsonSerializableValue().getSerializableElement());
+                    jsonobject1.add("progress", entry.getValue().getJsonSerializableValue().getSerializableElement());
                 } catch (Throwable throwable) {
-                    logger.warn("Couldn\'t save statistic " + ((StatBase) entry.getKey()).getStatName() + ": error serializing progress", throwable);
+                    logger.warn("Couldn\'t save statistic " + entry.getKey().getStatName() + ": error serializing progress", throwable);
                 }
 
-                jsonobject.add(((StatBase) entry.getKey()).statId, jsonobject1);
+                jsonobject.add(entry.getKey().statId, jsonobject1);
             } else {
-                jsonobject.addProperty(((StatBase) entry.getKey()).statId, (Number) Integer.valueOf(((TupleIntJsonSerializable) entry.getValue()).getIntegerValue()));
+                jsonobject.addProperty(entry.getKey().statId, Integer.valueOf(entry.getValue().getIntegerValue()));
             }
         }
 

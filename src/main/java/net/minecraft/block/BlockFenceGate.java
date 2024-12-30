@@ -27,7 +27,7 @@ public class BlockFenceGate extends BlockDirectional {
     }
 
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-        EnumFacing.Axis enumfacing$axis = ((EnumFacing) state.getValue(FACING)).getAxis();
+        EnumFacing.Axis enumfacing$axis = state.getValue(FACING).getAxis();
 
         if (enumfacing$axis == EnumFacing.Axis.Z && (worldIn.getBlockState(pos.west()).getBlock() == Blocks.cobblestone_wall || worldIn.getBlockState(pos.east()).getBlock() == Blocks.cobblestone_wall) || enumfacing$axis == EnumFacing.Axis.X && (worldIn.getBlockState(pos.north()).getBlock() == Blocks.cobblestone_wall || worldIn.getBlockState(pos.south()).getBlock() == Blocks.cobblestone_wall)) {
             state = state.withProperty(IN_WALL, Boolean.valueOf(true));
@@ -41,16 +41,16 @@ public class BlockFenceGate extends BlockDirectional {
     }
 
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
-        if (((Boolean) state.getValue(OPEN)).booleanValue()) {
+        if (state.getValue(OPEN).booleanValue()) {
             return null;
         } else {
-            EnumFacing.Axis enumfacing$axis = ((EnumFacing) state.getValue(FACING)).getAxis();
+            EnumFacing.Axis enumfacing$axis = state.getValue(FACING).getAxis();
             return enumfacing$axis == EnumFacing.Axis.Z ? new AxisAlignedBB(pos.getX(), pos.getY(), (pos.getZ() + 0.375F), (pos.getX() + 1), (pos.getY() + 1.5F), (pos.getZ() + 0.625F)) : new AxisAlignedBB((pos.getX() + 0.375F), pos.getY(), pos.getZ(), (pos.getX() + 0.625F), (pos.getY() + 1.5F), (pos.getZ() + 1));
         }
     }
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-        EnumFacing.Axis enumfacing$axis = ((EnumFacing) worldIn.getBlockState(pos).getValue(FACING)).getAxis();
+        EnumFacing.Axis enumfacing$axis = worldIn.getBlockState(pos).getValue(FACING).getAxis();
 
         if (enumfacing$axis == EnumFacing.Axis.Z) {
             this.setBlockBounds(0.0F, 0.0F, 0.375F, 1.0F, 1.0F, 0.625F);
@@ -68,7 +68,7 @@ public class BlockFenceGate extends BlockDirectional {
     }
 
     public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
-        return ((Boolean) worldIn.getBlockState(pos).getValue(OPEN)).booleanValue();
+        return worldIn.getBlockState(pos).getValue(OPEN).booleanValue();
     }
 
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
@@ -76,7 +76,7 @@ public class BlockFenceGate extends BlockDirectional {
     }
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
-        if (((Boolean) state.getValue(OPEN)).booleanValue()) {
+        if (state.getValue(OPEN).booleanValue()) {
             state = state.withProperty(OPEN, Boolean.valueOf(false));
             worldIn.setBlockState(pos, state, 2);
         } else {
@@ -90,7 +90,7 @@ public class BlockFenceGate extends BlockDirectional {
             worldIn.setBlockState(pos, state, 2);
         }
 
-        worldIn.playAuxSFXAtEntity(playerIn, ((Boolean) state.getValue(OPEN)).booleanValue() ? 1003 : 1006, pos, 0);
+        worldIn.playAuxSFXAtEntity(playerIn, state.getValue(OPEN).booleanValue() ? 1003 : 1006, pos, 0);
         return true;
     }
 
@@ -99,13 +99,13 @@ public class BlockFenceGate extends BlockDirectional {
             boolean flag = worldIn.isBlockPowered(pos);
 
             if (flag || neighborBlock.canProvidePower()) {
-                if (flag && !((Boolean) state.getValue(OPEN)).booleanValue() && !((Boolean) state.getValue(POWERED)).booleanValue()) {
+                if (flag && !state.getValue(OPEN).booleanValue() && !state.getValue(POWERED).booleanValue()) {
                     worldIn.setBlockState(pos, state.withProperty(OPEN, Boolean.valueOf(true)).withProperty(POWERED, Boolean.valueOf(true)), 2);
-                    worldIn.playAuxSFXAtEntity((EntityPlayer) null, 1003, pos, 0);
-                } else if (!flag && ((Boolean) state.getValue(OPEN)).booleanValue() && ((Boolean) state.getValue(POWERED)).booleanValue()) {
+                    worldIn.playAuxSFXAtEntity(null, 1003, pos, 0);
+                } else if (!flag && state.getValue(OPEN).booleanValue() && state.getValue(POWERED).booleanValue()) {
                     worldIn.setBlockState(pos, state.withProperty(OPEN, Boolean.valueOf(false)).withProperty(POWERED, Boolean.valueOf(false)), 2);
-                    worldIn.playAuxSFXAtEntity((EntityPlayer) null, 1006, pos, 0);
-                } else if (flag != ((Boolean) state.getValue(POWERED)).booleanValue()) {
+                    worldIn.playAuxSFXAtEntity(null, 1006, pos, 0);
+                } else if (flag != state.getValue(POWERED).booleanValue()) {
                     worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(flag)), 2);
                 }
             }
@@ -122,13 +122,13 @@ public class BlockFenceGate extends BlockDirectional {
 
     public int getMetaFromState(IBlockState state) {
         int i = 0;
-        i = i | ((EnumFacing) state.getValue(FACING)).getHorizontalIndex();
+        i = i | state.getValue(FACING).getHorizontalIndex();
 
-        if (((Boolean) state.getValue(POWERED)).booleanValue()) {
+        if (state.getValue(POWERED).booleanValue()) {
             i |= 8;
         }
 
-        if (((Boolean) state.getValue(OPEN)).booleanValue()) {
+        if (state.getValue(OPEN).booleanValue()) {
             i |= 4;
         }
 

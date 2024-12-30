@@ -58,7 +58,7 @@ public class GuiWinGame extends GuiScreen {
 
     private void sendRespawnPacket() {
         this.mc.thePlayer.sendQueue.addToSendQueue(new C16PacketClientStatus(C16PacketClientStatus.EnumState.PERFORM_RESPAWN));
-        this.mc.displayGuiScreen((GuiScreen) null);
+        this.mc.displayGuiScreen(null);
     }
 
     public boolean doesGuiPauseGame() {
@@ -110,7 +110,7 @@ public class GuiWinGame extends GuiScreen {
                 inputstream.close();
                 this.field_146579_r = this.field_146582_i.size() * 12;
             } catch (Exception exception) {
-                logger.error((String) "Couldn\'t load credits", (Throwable) exception);
+                logger.error("Couldn\'t load credits", exception);
             }
         }
     }
@@ -171,7 +171,7 @@ public class GuiWinGame extends GuiScreen {
             }
 
             if (l + f + 12.0F + 8.0F > 0.0F && l + f < this.height) {
-                String s = (String) this.field_146582_i.get(i1);
+                String s = this.field_146582_i.get(i1);
 
                 if (s.startsWith("[C]")) {
                     this.fontRendererObj.drawStringWithShadow(s.substring(3), (j + (i - this.fontRendererObj.getStringWidth(s.substring(3))) / 2), l, 16777215);

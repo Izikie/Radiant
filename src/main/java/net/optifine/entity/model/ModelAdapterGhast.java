@@ -30,7 +30,7 @@ public class ModelAdapterGhast extends ModelAdapter {
                 String s = "tentacle";
 
                 if (modelPart.startsWith(s)) {
-                    ModelRenderer[] amodelrenderer = (ModelRenderer[]) ((ModelRenderer[]) Reflector.getFieldValue(modelghast, Reflector.ModelGhast_tentacles));
+                    ModelRenderer[] amodelrenderer = (ModelRenderer[]) Reflector.getFieldValue(modelghast, Reflector.ModelGhast_tentacles);
 
                     if (amodelrenderer == null) {
                         return null;

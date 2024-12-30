@@ -276,7 +276,7 @@ public class CommandScoreboard extends CommandBase {
         String s = args[index++];
         String s1 = args[index++];
         Scoreboard scoreboard = this.getScoreboard();
-        IScoreObjectiveCriteria iscoreobjectivecriteria = (IScoreObjectiveCriteria) IScoreObjectiveCriteria.INSTANCES.get(s1);
+        IScoreObjectiveCriteria iscoreobjectivecriteria = IScoreObjectiveCriteria.INSTANCES.get(s1);
 
         if (iscoreobjectivecriteria == null) {
             throw new WrongUsageException("commands.scoreboard.objectives.add.wrongType", s1);
@@ -706,7 +706,7 @@ public class CommandScoreboard extends CommandBase {
             scoreboard.removeObjectiveFromEntity(s, scoreobjective);
             notifyOperators(p_147187_1_, this, "commands.scoreboard.players.resetscore.success", scoreobjective.getName(), s);
         } else {
-            scoreboard.removeObjectiveFromEntity(s, (ScoreObjective) null);
+            scoreboard.removeObjectiveFromEntity(s, null);
             notifyOperators(p_147187_1_, this, "commands.scoreboard.players.reset.success", s);
         }
     }

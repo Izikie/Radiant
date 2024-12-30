@@ -65,7 +65,7 @@ public class ActiveRenderInfo {
             float f = 0.0F;
 
             if (iblockstate.getBlock() instanceof BlockLiquid) {
-                f = BlockLiquid.getLiquidHeightPercent(((Integer) iblockstate.getValue(BlockLiquid.LEVEL)).intValue()) - 0.11111111F;
+                f = BlockLiquid.getLiquidHeightPercent(iblockstate.getValue(BlockLiquid.LEVEL).intValue()) - 0.11111111F;
             }
 
             float f1 = (blockpos.getY() + 1) - f;

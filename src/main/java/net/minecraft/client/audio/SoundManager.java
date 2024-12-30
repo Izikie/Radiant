@@ -66,7 +66,7 @@ public class SoundManager {
             SoundSystemConfig.addLibrary(LibraryLWJGLOpenAL.class);
             SoundSystemConfig.setCodec("ogg", CodecJOrbis.class);
         } catch (SoundSystemException soundsystemexception) {
-            logger.error(LOG_MARKER, (String) "Error linking with the LibraryJavaSound plug-in", (Throwable) soundsystemexception);
+            logger.error(LOG_MARKER, "Error linking with the LibraryJavaSound plug-in", soundsystemexception);
         }
     }
 
@@ -107,7 +107,7 @@ public class SoundManager {
                     }
                 }, "Sound Library Loader")).start();
             } catch (RuntimeException runtimeexception) {
-                logger.error(LOG_MARKER, (String) "Error starting SoundSystem. Turning off sounds & music", (Throwable) runtimeexception);
+                logger.error(LOG_MARKER, "Error starting SoundSystem. Turning off sounds & music", runtimeexception);
                 this.options.setSoundLevel(SoundCategory.MASTER, 0.0F);
                 this.options.saveOptions();
             }
@@ -124,8 +124,8 @@ public class SoundManager {
                 this.sndSystem.setMasterVolume(volume);
             } else {
                 for (String s : this.categorySounds.get(category)) {
-                    ISound isound = (ISound) this.playingSounds.get(s);
-                    float f = this.getNormalizedVolume(isound, (SoundPoolEntry) this.playingSoundPoolEntries.get(isound), category);
+                    ISound isound = this.playingSounds.get(s);
+                    float f = this.getNormalizedVolume(isound, this.playingSoundPoolEntries.get(isound), category);
 
                     if (f <= 0.0F) {
                         this.stopSound(isound);
@@ -169,9 +169,9 @@ public class SoundManager {
             if (itickablesound.isDonePlaying()) {
                 this.stopSound(itickablesound);
             } else {
-                String s = (String) this.invPlayingSounds.get(itickablesound);
-                this.sndSystem.setVolume(s, this.getNormalizedVolume(itickablesound, (SoundPoolEntry) this.playingSoundPoolEntries.get(itickablesound), this.sndHandler.getSound(itickablesound.getSoundLocation()).getSoundCategory()));
-                this.sndSystem.setPitch(s, this.getNormalizedPitch(itickablesound, (SoundPoolEntry) this.playingSoundPoolEntries.get(itickablesound)));
+                String s = this.invPlayingSounds.get(itickablesound);
+                this.sndSystem.setVolume(s, this.getNormalizedVolume(itickablesound, this.playingSoundPoolEntries.get(itickablesound), this.sndHandler.getSound(itickablesound.getSoundLocation()).getSoundCategory()));
+                this.sndSystem.setPitch(s, this.getNormalizedPitch(itickablesound, this.playingSoundPoolEntries.get(itickablesound)));
                 this.sndSystem.setPosition(s, itickablesound.getXPosF(), itickablesound.getYPosF(), itickablesound.getZPosF());
             }
         }
@@ -179,12 +179,12 @@ public class SoundManager {
         Iterator<Entry<String, ISound>> iterator = this.playingSounds.entrySet().iterator();
 
         while (iterator.hasNext()) {
-            Entry<String, ISound> entry = (Entry) iterator.next();
-            String s1 = (String) entry.getKey();
-            ISound isound = (ISound) entry.getValue();
+            Entry<String, ISound> entry = iterator.next();
+            String s1 = entry.getKey();
+            ISound isound = entry.getValue();
 
             if (!this.sndSystem.playing(s1)) {
-                int i = ((Integer) this.playingSoundsStopTime.get(s1)).intValue();
+                int i = this.playingSoundsStopTime.get(s1).intValue();
 
                 if (i <= this.playTime) {
                     int j = isound.getRepeatDelay();
@@ -215,10 +215,10 @@ public class SoundManager {
         Iterator<Entry<ISound, Integer>> iterator1 = this.delayedSounds.entrySet().iterator();
 
         while (iterator1.hasNext()) {
-            Entry<ISound, Integer> entry1 = (Entry) iterator1.next();
+            Entry<ISound, Integer> entry1 = iterator1.next();
 
-            if (this.playTime >= ((Integer) entry1.getValue()).intValue()) {
-                ISound isound1 = (ISound) entry1.getKey();
+            if (this.playTime >= entry1.getValue().intValue()) {
+                ISound isound1 = entry1.getKey();
 
                 if (isound1 instanceof ITickableSound) {
                     ((ITickableSound) isound1).update();
@@ -234,14 +234,14 @@ public class SoundManager {
         if (!this.loaded) {
             return false;
         } else {
-            String s = (String) this.invPlayingSounds.get(sound);
-            return s == null ? false : this.sndSystem.playing(s) || this.playingSoundsStopTime.containsKey(s) && ((Integer) this.playingSoundsStopTime.get(s)).intValue() <= this.playTime;
+            String s = this.invPlayingSounds.get(sound);
+            return s == null ? false : this.sndSystem.playing(s) || this.playingSoundsStopTime.containsKey(s) && this.playingSoundsStopTime.get(s).intValue() <= this.playTime;
         }
     }
 
     public void stopSound(ISound sound) {
         if (this.loaded) {
-            String s = (String) this.invPlayingSounds.get(sound);
+            String s = this.invPlayingSounds.get(sound);
 
             if (s != null) {
                 this.sndSystem.stop(s);
@@ -352,7 +352,7 @@ public class SoundManager {
         };
 
         try {
-            return new URL((URL) null, s, urlstreamhandler);
+            return new URL(null, s, urlstreamhandler);
         } catch (MalformedURLException var4) {
             throw new Error("TODO: Sanely handle url exception! :D");
         }
@@ -389,7 +389,7 @@ public class SoundManager {
                 if (this.soundLibrary == null) {
                     return false;
                 } else {
-                    Source source = (Source) this.soundLibrary.getSources().get(p_playing_1_);
+                    Source source = this.soundLibrary.getSources().get(p_playing_1_);
                     return source == null ? false : source.playing() || source.paused() || source.preLoad;
                 }
             }

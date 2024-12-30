@@ -51,7 +51,7 @@ public class SetVisibility {
                     stringbuilder.append("  ");
                 } else {
                     boolean flag = this.isVisible(enumfacing2, enumfacing1);
-                    stringbuilder.append(' ').append((char) (flag ? 'Y' : 'n'));
+                    stringbuilder.append(' ').append(flag ? 'Y' : 'n');
                 }
             }
 

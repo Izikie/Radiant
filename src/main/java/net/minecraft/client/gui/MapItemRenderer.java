@@ -33,7 +33,7 @@ public class MapItemRenderer {
     }
 
     private MapItemRenderer.Instance getMapRendererInstance(MapData mapdataIn) {
-        MapItemRenderer.Instance mapitemrenderer$instance = (MapItemRenderer.Instance) this.loadedMaps.get(mapdataIn.mapName);
+        MapItemRenderer.Instance mapitemrenderer$instance = this.loadedMaps.get(mapdataIn.mapName);
 
         if (mapitemrenderer$instance == null) {
             mapitemrenderer$instance = new MapItemRenderer.Instance(mapdataIn);

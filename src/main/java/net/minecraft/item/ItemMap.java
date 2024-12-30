@@ -160,7 +160,7 @@ public class ItemMap extends ItemMapBase {
                                     i5 = 0;
                                 }
 
-                                MapColor mapcolor = (MapColor) Iterables.getFirst(Multisets.copyHighestCountFirst(multiset), MapColor.airColor);
+                                MapColor mapcolor = Iterables.getFirst(Multisets.copyHighestCountFirst(multiset), MapColor.airColor);
 
                                 if (mapcolor == MapColor.waterColor) {
                                     d2 = k3 * 0.1D + (k1 + l1 & 1) * 0.2D;

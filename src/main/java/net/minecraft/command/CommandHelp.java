@@ -41,7 +41,7 @@ public class CommandHelp extends CommandBase {
             k = args.length == 0 ? 0 : parseInt(args[0], 1, j + 1) - 1;
         } catch (NumberInvalidException numberinvalidexception) {
             Map<String, ICommand> map = this.getCommands();
-            ICommand icommand = (ICommand) map.get(args[0]);
+            ICommand icommand = map.get(args[0]);
 
             if (icommand != null) {
                 throw new WrongUsageException(icommand.getCommandUsage(sender));
@@ -60,7 +60,7 @@ public class CommandHelp extends CommandBase {
         sender.addChatMessage(chatcomponenttranslation1);
 
         for (int i1 = k * 7; i1 < l; ++i1) {
-            ICommand icommand1 = (ICommand) list.get(i1);
+            ICommand icommand1 = list.get(i1);
             ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation(icommand1.getCommandUsage(sender));
             chatcomponenttranslation.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/" + icommand1.getCommandName() + " "));
             sender.addChatMessage(chatcomponenttranslation);
@@ -86,7 +86,7 @@ public class CommandHelp extends CommandBase {
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         if (args.length == 1) {
             Set<String> set = this.getCommands().keySet();
-            return getListOfStringsMatchingLastWord(args, (String[]) set.toArray(new String[set.size()]));
+            return getListOfStringsMatchingLastWord(args, set.toArray(new String[set.size()]));
         } else {
             return null;
         }

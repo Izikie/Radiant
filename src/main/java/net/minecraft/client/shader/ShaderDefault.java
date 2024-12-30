@@ -4,7 +4,7 @@ import org.lwjgl.util.vector.Matrix4f;
 
 public class ShaderDefault extends ShaderUniform {
     public ShaderDefault() {
-        super("dummy", 4, 1, (ShaderManager) null);
+        super("dummy", 4, 1, null);
     }
 
     public void set(float p_148090_1_) {

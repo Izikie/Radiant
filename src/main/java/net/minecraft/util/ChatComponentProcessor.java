@@ -22,7 +22,7 @@ public class ChatComponentProcessor {
                     throw new EntityNotFoundException();
                 }
 
-                s = ((Entity) list.get(0)).getName();
+                s = list.get(0).getName();
             }
 
             ichatcomponent = entityIn != null && s.equals("*") ? new ChatComponentScore(entityIn.getName(), chatcomponentscore.getObjective()) : new ChatComponentScore(s, chatcomponentscore.getObjective());

@@ -47,8 +47,8 @@ public class ItemFirework extends Item {
                         ItemFireworkCharge.addExplosionInfo(nbttagcompound1, list);
 
                         if (list.size() > 0) {
-                            for (int j = 1; j < ((List) list).size(); ++j) {
-                                list.set(j, "  " + (String) list.get(j));
+                            for (int j = 1; j < list.size(); ++j) {
+                                list.set(j, "  " + list.get(j));
                             }
 
                             tooltip.addAll(list);

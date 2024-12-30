@@ -142,7 +142,7 @@ public class BlockBrewingStand extends BlockContainer {
         int i = 0;
 
         for (int j = 0; j < 3; ++j) {
-            if (((Boolean) state.getValue(HAS_BOTTLE[j])).booleanValue()) {
+            if (state.getValue(HAS_BOTTLE[j]).booleanValue()) {
                 i |= 1 << j;
             }
         }

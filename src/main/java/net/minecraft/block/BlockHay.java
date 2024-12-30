@@ -35,7 +35,7 @@ public class BlockHay extends BlockRotatedPillar {
 
     public int getMetaFromState(IBlockState state) {
         int i = 0;
-        EnumFacing.Axis enumfacing$axis = (EnumFacing.Axis) state.getValue(AXIS);
+        EnumFacing.Axis enumfacing$axis = state.getValue(AXIS);
 
         if (enumfacing$axis == EnumFacing.Axis.X) {
             i |= 4;

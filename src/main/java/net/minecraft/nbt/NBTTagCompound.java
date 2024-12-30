@@ -19,7 +19,7 @@ public class NBTTagCompound extends NBTBase {
 
     void write(DataOutput output) throws IOException {
         for (String s : this.tagMap.keySet()) {
-            NBTBase nbtbase = (NBTBase) this.tagMap.get(s);
+            NBTBase nbtbase = this.tagMap.get(s);
             writeEntry(s, nbtbase, output);
         }
 
@@ -100,11 +100,11 @@ public class NBTTagCompound extends NBTBase {
     }
 
     public NBTBase getTag(String key) {
-        return (NBTBase) this.tagMap.get(key);
+        return this.tagMap.get(key);
     }
 
     public byte getTagId(String key) {
-        NBTBase nbtbase = (NBTBase) this.tagMap.get(key);
+        NBTBase nbtbase = this.tagMap.get(key);
         return nbtbase != null ? nbtbase.getId() : 0;
     }
 
@@ -178,7 +178,7 @@ public class NBTTagCompound extends NBTBase {
 
     public String getString(String key) {
         try {
-            return !this.hasKey(key, 8) ? "" : ((NBTBase) this.tagMap.get(key)).getString();
+            return !this.hasKey(key, 8) ? "" : this.tagMap.get(key).getString();
         } catch (ClassCastException var3) {
             return "";
         }
@@ -237,7 +237,7 @@ public class NBTTagCompound extends NBTBase {
                 stringbuilder.append(',');
             }
 
-            stringbuilder.append((String) entry.getKey()).append(':').append(entry.getValue());
+            stringbuilder.append(entry.getKey()).append(':').append(entry.getValue());
         }
 
         return stringbuilder.append('}').toString();
@@ -252,7 +252,7 @@ public class NBTTagCompound extends NBTBase {
         CrashReportCategory crashreportcategory = crashreport.makeCategoryDepth("Corrupt NBT tag", 1);
         crashreportcategory.addCrashSectionCallable("Tag type found", new Callable<String>() {
             public String call() throws Exception {
-                return NBTBase.NBT_TYPES[((NBTBase) NBTTagCompound.this.tagMap.get(key)).getId()];
+                return NBTBase.NBT_TYPES[NBTTagCompound.this.tagMap.get(key).getId()];
             }
         });
         crashreportcategory.addCrashSectionCallable("Tag type expected", new Callable<String>() {
@@ -268,7 +268,7 @@ public class NBTTagCompound extends NBTBase {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
 
         for (String s : this.tagMap.keySet()) {
-            nbttagcompound.setTag(s, ((NBTBase) this.tagMap.get(s)).copy());
+            nbttagcompound.setTag(s, this.tagMap.get(s).copy());
         }
 
         return nbttagcompound;
@@ -321,7 +321,7 @@ public class NBTTagCompound extends NBTBase {
 
     public void merge(NBTTagCompound other) {
         for (String s : other.tagMap.keySet()) {
-            NBTBase nbtbase = (NBTBase) other.tagMap.get(s);
+            NBTBase nbtbase = other.tagMap.get(s);
 
             if (nbtbase.getId() == 10) {
                 if (this.hasKey(s, 10)) {

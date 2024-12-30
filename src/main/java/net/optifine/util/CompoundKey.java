@@ -8,7 +8,7 @@ public class CompoundKey {
 
     public CompoundKey(Object[] keys) {
         this.hashcode = 0;
-        this.keys = (Object[]) ((Object[]) keys.clone());
+        this.keys = keys.clone();
     }
 
     public CompoundKey(Object k1, Object k2) {
@@ -66,7 +66,7 @@ public class CompoundKey {
     }
 
     public Object[] getKeysCopy() {
-        return (Object[]) ((Object[]) this.keys.clone());
+        return this.keys.clone();
     }
 
     public String toString() {

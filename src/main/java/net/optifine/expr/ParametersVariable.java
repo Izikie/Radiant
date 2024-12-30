@@ -12,7 +12,7 @@ public class ParametersVariable implements IParameters {
     private static final ExpressionType[] EMPTY = new ExpressionType[0];
 
     public ParametersVariable() {
-        this((ExpressionType[]) null, (ExpressionType[]) null, (ExpressionType[]) null);
+        this(null, null, null);
     }
 
     public ParametersVariable(ExpressionType[] first, ExpressionType[] repeat, ExpressionType[] last) {
@@ -64,7 +64,7 @@ public class ParametersVariable implements IParameters {
         }
 
         list.addAll(Arrays.asList(this.last));
-        ExpressionType[] aexpressiontype = (ExpressionType[]) list.toArray(new ExpressionType[list.size()]);
+        ExpressionType[] aexpressiontype = list.toArray(new ExpressionType[list.size()]);
         return aexpressiontype;
     }
 

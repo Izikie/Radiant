@@ -97,7 +97,7 @@ public class GuiScreenCapeOF extends GuiScreenOF {
     private void showMessage(String msg, long timeMs) {
         this.message = msg;
         this.messageHideTimeMs = System.currentTimeMillis() + timeMs;
-        this.setLinkUrl((String) null);
+        this.setLinkUrl(null);
     }
 
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
@@ -109,7 +109,7 @@ public class GuiScreenCapeOF extends GuiScreenOF {
 
             if (System.currentTimeMillis() > this.messageHideTimeMs) {
                 this.message = null;
-                this.setLinkUrl((String) null);
+                this.setLinkUrl(null);
             }
         }
 

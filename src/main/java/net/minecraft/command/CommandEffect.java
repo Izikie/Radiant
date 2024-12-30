@@ -26,7 +26,7 @@ public class CommandEffect extends CommandBase {
         if (args.length < 2) {
             throw new WrongUsageException("commands.effect.usage");
         } else {
-            EntityLivingBase entitylivingbase = (EntityLivingBase) getEntity(sender, args[0], EntityLivingBase.class);
+            EntityLivingBase entitylivingbase = getEntity(sender, args[0], EntityLivingBase.class);
 
             if (args[1].equals("clear")) {
                 if (entitylivingbase.getActivePotionEffects().isEmpty()) {

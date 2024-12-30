@@ -139,7 +139,7 @@ public class InventoryBasic implements IInventory {
     }
 
     public IChatComponent getDisplayName() {
-        return (IChatComponent) (this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName(), new Object[0]));
+        return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName(), new Object[0]);
     }
 
     public int getInventoryStackLimit() {
@@ -149,7 +149,7 @@ public class InventoryBasic implements IInventory {
     public void markDirty() {
         if (this.changeListeners != null) {
             for (IInvBasic changeListener : this.changeListeners) {
-                ((IInvBasic) changeListener).onInventoryChanged(this);
+                changeListener.onInventoryChanged(this);
             }
         }
     }

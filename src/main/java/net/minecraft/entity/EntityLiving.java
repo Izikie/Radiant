@@ -784,7 +784,7 @@ public abstract class EntityLiving extends EntityLivingBase {
             }
 
             if (!this.worldObj.isRemote && sendPacket && this.worldObj instanceof WorldServer) {
-                ((WorldServer) this.worldObj).getEntityTracker().sendToAllTrackingEntity(this, new S1BPacketEntityAttach(1, this, (Entity) null));
+                ((WorldServer) this.worldObj).getEntityTracker().sendToAllTrackingEntity(this, new S1BPacketEntityAttach(1, this, null));
             }
         }
     }
@@ -886,7 +886,7 @@ public abstract class EntityLiving extends EntityLivingBase {
             } else if (world.playerEntities.size() != 1) {
                 return false;
             } else {
-                Entity entity = (Entity) world.playerEntities.get(0);
+                Entity entity = world.playerEntities.get(0);
                 double d0 = Math.max(Math.abs(this.posX - entity.posX) - 16.0D, 0.0D);
                 double d1 = Math.max(Math.abs(this.posZ - entity.posZ) - 16.0D, 0.0D);
                 double d2 = d0 * d0 + d1 * d1;

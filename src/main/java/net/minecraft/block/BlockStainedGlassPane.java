@@ -26,7 +26,7 @@ public class BlockStainedGlassPane extends BlockPane {
     }
 
     public int damageDropped(IBlockState state) {
-        return ((EnumDyeColor) state.getValue(COLOR)).getMetadata();
+        return state.getValue(COLOR).getMetadata();
     }
 
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
@@ -36,7 +36,7 @@ public class BlockStainedGlassPane extends BlockPane {
     }
 
     public MapColor getMapColor(IBlockState state) {
-        return ((EnumDyeColor) state.getValue(COLOR)).getMapColor();
+        return state.getValue(COLOR).getMapColor();
     }
 
     public EnumWorldBlockLayer getBlockLayer() {
@@ -48,7 +48,7 @@ public class BlockStainedGlassPane extends BlockPane {
     }
 
     public int getMetaFromState(IBlockState state) {
-        return ((EnumDyeColor) state.getValue(COLOR)).getMetadata();
+        return state.getValue(COLOR).getMetadata();
     }
 
     protected BlockState createBlockState() {

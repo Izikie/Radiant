@@ -29,7 +29,7 @@ public class HttpResponse {
     }
 
     public String getHeader(String key) {
-        return (String) this.headers.get(key);
+        return this.headers.get(key);
     }
 
     public byte[] getBody() {

@@ -69,7 +69,7 @@ public class BakedQuad {
     }
 
     private static int[] makeVertexDataSingle(int[] p_makeVertexDataSingle_0_, TextureAtlasSprite p_makeVertexDataSingle_1_) {
-        int[] aint = (int[]) p_makeVertexDataSingle_0_.clone();
+        int[] aint = p_makeVertexDataSingle_0_.clone();
         int i = aint.length / 4;
 
         for (int j = 0; j < 4; ++j) {

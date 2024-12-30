@@ -303,7 +303,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
         if (this.healingEnderCrystal != null) {
             if (this.healingEnderCrystal.isDead) {
                 if (!this.worldObj.isRemote) {
-                    this.attackEntityFromPart(this.dragonPartHead, DamageSource.setExplosionSource((Explosion) null), 10.0F);
+                    this.attackEntityFromPart(this.dragonPartHead, DamageSource.setExplosionSource(null), 10.0F);
                 }
 
                 this.healingEnderCrystal = null;
@@ -347,7 +347,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
 
     private void attackEntitiesInList(List<Entity> p_70971_1_) {
         for (Entity value : p_70971_1_) {
-            Entity entity = (Entity) value;
+            Entity entity = value;
 
             if (entity instanceof EntityLivingBase) {
                 entity.attackEntityFrom(DamageSource.causeMobDamage(this), 10.0F);
@@ -362,13 +362,13 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
         Iterator<EntityPlayer> iterator = list.iterator();
 
         while (iterator.hasNext()) {
-            if (((EntityPlayer) iterator.next()).isSpectator()) {
+            if (iterator.next().isSpectator()) {
                 iterator.remove();
             }
         }
 
         if (this.rand.nextInt(2) == 0 && !list.isEmpty()) {
-            this.target = (Entity) list.get(this.rand.nextInt(list.size()));
+            this.target = list.get(this.rand.nextInt(list.size()));
         } else {
             while (true) {
                 this.targetX = 0.0D;

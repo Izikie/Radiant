@@ -104,14 +104,14 @@ public class GuiBeacon extends GuiContainer {
 
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.id == -2) {
-            this.mc.displayGuiScreen((GuiScreen) null);
+            this.mc.displayGuiScreen(null);
         } else if (button.id == -1) {
             String s = "MC|Beacon";
             PacketBuffer packetbuffer = new PacketBuffer(Unpooled.buffer());
             packetbuffer.writeInt(this.tileBeacon.getField(1));
             packetbuffer.writeInt(this.tileBeacon.getField(2));
             this.mc.getNetHandler().addToSendQueue(new C17PacketCustomPayload(s, packetbuffer));
-            this.mc.displayGuiScreen((GuiScreen) null);
+            this.mc.displayGuiScreen(null);
         } else if (button instanceof GuiBeacon.PowerButton) {
             if (((GuiBeacon.PowerButton) button).func_146141_c()) {
                 return;

@@ -87,7 +87,7 @@ public class CommandSummon extends CommandBase {
                     entity2.setLocationAndAngles(d0, d1, d2, entity2.rotationYaw, entity2.rotationPitch);
 
                     if (!flag && entity2 instanceof EntityLiving) {
-                        ((EntityLiving) entity2).onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity2)), (IEntityLivingData) null);
+                        ((EntityLiving) entity2).onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity2)), null);
                     }
 
                     world.spawnEntityInWorld(entity2);

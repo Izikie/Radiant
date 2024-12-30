@@ -44,7 +44,7 @@ public class HttpUtil {
             }
 
             try {
-                stringbuilder.append(URLEncoder.encode((String) entry.getKey(), "UTF-8"));
+                stringbuilder.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
             } catch (UnsupportedEncodingException unsupportedencodingexception1) {
                 unsupportedencodingexception1.printStackTrace();
             }
@@ -100,7 +100,7 @@ public class HttpUtil {
             return stringbuffer.toString();
         } catch (Exception exception) {
             if (!skipLoggingErrors) {
-                logger.error((String) ("Could not post to " + url), (Throwable) exception);
+                logger.error("Could not post to " + url, exception);
             }
 
             return "";
@@ -128,7 +128,7 @@ public class HttpUtil {
                         float f1 = p_180192_2_.entrySet().size();
 
                         for (Entry<String, String> entry : p_180192_2_.entrySet()) {
-                            httpurlconnection.setRequestProperty((String) entry.getKey(), (String) entry.getValue());
+                            httpurlconnection.setRequestProperty(entry.getKey(), entry.getValue());
 
                             if (p_180192_4_ != null) {
                                 p_180192_4_.setLoadingProgress((int) (++f / f1 * 100.0F));

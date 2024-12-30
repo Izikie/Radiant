@@ -59,7 +59,7 @@ public class GuiScreenAddServer extends GuiScreen {
         this.serverIPField.setMaxStringLength(128);
         this.serverIPField.setText(this.serverData.serverIP);
         this.serverIPField.setValidator(this.field_181032_r);
-        ((GuiButton) this.buttonList.get(0)).enabled = this.serverIPField.getText().length() > 0 && this.serverIPField.getText().split(":").length > 0 && this.serverNameField.getText().length() > 0;
+        this.buttonList.get(0).enabled = this.serverIPField.getText().length() > 0 && this.serverIPField.getText().split(":").length > 0 && this.serverNameField.getText().length() > 0;
     }
 
     public void onGuiClosed() {
@@ -91,10 +91,10 @@ public class GuiScreenAddServer extends GuiScreen {
         }
 
         if (keyCode == 28 || keyCode == 156) {
-            this.actionPerformed((GuiButton) this.buttonList.get(0));
+            this.actionPerformed(this.buttonList.get(0));
         }
 
-        ((GuiButton) this.buttonList.get(0)).enabled = this.serverIPField.getText().length() > 0 && this.serverIPField.getText().split(":").length > 0 && this.serverNameField.getText().length() > 0;
+        this.buttonList.get(0).enabled = this.serverIPField.getText().length() > 0 && this.serverIPField.getText().split(":").length > 0 && this.serverNameField.getText().length() > 0;
     }
 
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {

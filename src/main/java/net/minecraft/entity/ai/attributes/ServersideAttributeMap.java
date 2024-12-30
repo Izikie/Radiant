@@ -20,7 +20,7 @@ public class ServersideAttributeMap extends BaseAttributeMap {
         IAttributeInstance iattributeinstance = super.getAttributeInstanceByName(attributeName);
 
         if (iattributeinstance == null) {
-            iattributeinstance = (IAttributeInstance) this.descriptionToAttributeInstanceMap.get(attributeName);
+            iattributeinstance = this.descriptionToAttributeInstanceMap.get(attributeName);
         }
 
         return (ModifiableAttributeInstance) iattributeinstance;

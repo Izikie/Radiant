@@ -34,7 +34,7 @@ public class DataWatcher {
     }
 
     public <T> void addObject(int id, T object) {
-        Integer integer = (Integer) dataTypes.get(object.getClass());
+        Integer integer = dataTypes.get(object.getClass());
 
         if (integer == null) {
             throw new IllegalArgumentException("Unknown data type: " + object.getClass());
@@ -52,7 +52,7 @@ public class DataWatcher {
     }
 
     public void addObjectByDataType(int id, int type) {
-        DataWatcher.WatchableObject datawatcher$watchableobject = new DataWatcher.WatchableObject(type, id, (Object) null);
+        DataWatcher.WatchableObject datawatcher$watchableobject = new DataWatcher.WatchableObject(type, id, null);
         this.lock.writeLock().lock();
         this.watchedObjects.put(Integer.valueOf(id), datawatcher$watchableobject);
         this.lock.writeLock().unlock();
@@ -88,7 +88,7 @@ public class DataWatcher {
         DataWatcher.WatchableObject datawatcher$watchableobject;
 
         try {
-            datawatcher$watchableobject = (DataWatcher.WatchableObject) this.watchedObjects.get(Integer.valueOf(id));
+            datawatcher$watchableobject = this.watchedObjects.get(Integer.valueOf(id));
         } catch (Throwable throwable) {
             CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Getting synched entity data");
             CrashReportCategory crashreportcategory = crashreport.makeCategory("Synched entity data");
@@ -292,7 +292,7 @@ public class DataWatcher {
         this.lock.writeLock().lock();
 
         for (DataWatcher.WatchableObject datawatcher$watchableobject : p_75687_1_) {
-            DataWatcher.WatchableObject datawatcher$watchableobject1 = (DataWatcher.WatchableObject) this.watchedObjects.get(Integer.valueOf(datawatcher$watchableobject.getDataValueId()));
+            DataWatcher.WatchableObject datawatcher$watchableobject1 = this.watchedObjects.get(Integer.valueOf(datawatcher$watchableobject.getDataValueId()));
 
             if (datawatcher$watchableobject1 != null) {
                 datawatcher$watchableobject1.setObject(datawatcher$watchableobject.getObject());

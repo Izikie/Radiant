@@ -288,7 +288,7 @@ public class EntityWolf extends EntityTameable {
                         this.heal(itemfood.getHealAmount(itemstack));
 
                         if (itemstack.stackSize <= 0) {
-                            player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
+                            player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
                         }
 
                         return true;
@@ -300,7 +300,7 @@ public class EntityWolf extends EntityTameable {
                         this.setCollarColor(enumdyecolor);
 
                         if (!player.capabilities.isCreativeMode && --itemstack.stackSize <= 0) {
-                            player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
+                            player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
                         }
 
                         return true;
@@ -312,7 +312,7 @@ public class EntityWolf extends EntityTameable {
                 this.aiSit.setSitting(!this.isSitting());
                 this.isJumping = false;
                 this.navigator.clearPathEntity();
-                this.setAttackTarget((EntityLivingBase) null);
+                this.setAttackTarget(null);
             }
         } else if (itemstack != null && itemstack.getItem() == Items.bone && !this.isAngry()) {
             if (!player.capabilities.isCreativeMode) {
@@ -320,14 +320,14 @@ public class EntityWolf extends EntityTameable {
             }
 
             if (itemstack.stackSize <= 0) {
-                player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
+                player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
             }
 
             if (!this.worldObj.isRemote) {
                 if (this.rand.nextInt(3) == 0) {
                     this.setTamed(true);
                     this.navigator.clearPathEntity();
-                    this.setAttackTarget((EntityLivingBase) null);
+                    this.setAttackTarget(null);
                     this.aiSit.setSitting(true);
                     this.setHealth(20.0F);
                     this.setOwnerId(player.getUniqueID().toString());

@@ -69,13 +69,13 @@ public class UserList<K, V extends UserListEntry<K>> {
         try {
             this.writeChanges();
         } catch (IOException ioexception) {
-            logger.warn((String) "Could not save the list after adding a user.", (Throwable) ioexception);
+            logger.warn("Could not save the list after adding a user.", ioexception);
         }
     }
 
     public V getEntry(K obj) {
         this.removeExpired();
-        return (V) ((UserListEntry) this.values.get(this.getObjectKey(obj)));
+        return this.values.get(this.getObjectKey(obj));
     }
 
     public void removeEntry(K entry) {
@@ -84,12 +84,12 @@ public class UserList<K, V extends UserListEntry<K>> {
         try {
             this.writeChanges();
         } catch (IOException ioexception) {
-            logger.warn((String) "Could not save the list after removing a user.", (Throwable) ioexception);
+            logger.warn("Could not save the list after removing a user.", ioexception);
         }
     }
 
     public String[] getKeys() {
-        return (String[]) this.values.keySet().toArray(new String[this.values.size()]);
+        return this.values.keySet().toArray(new String[this.values.size()]);
     }
 
     protected String getObjectKey(K obj) {
@@ -115,7 +115,7 @@ public class UserList<K, V extends UserListEntry<K>> {
     }
 
     protected UserListEntry<K> createEntry(JsonObject entryData) {
-        return new UserListEntry((Object) null, entryData);
+        return new UserListEntry(null, entryData);
     }
 
     protected Map<String, V> getValues() {
@@ -124,14 +124,14 @@ public class UserList<K, V extends UserListEntry<K>> {
 
     public void writeChanges() throws IOException {
         Collection<V> collection = this.values.values();
-        String s = this.gson.toJson((Object) collection);
+        String s = this.gson.toJson(collection);
         BufferedWriter bufferedwriter = null;
 
         try {
             bufferedwriter = Files.newWriter(this.saveFile, Charsets.UTF_8);
             bufferedwriter.write(s);
         } finally {
-            IOUtils.closeQuietly((Writer) bufferedwriter);
+            IOUtils.closeQuietly(bufferedwriter);
         }
     }
 

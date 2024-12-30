@@ -11,7 +11,7 @@ public class RandomPositionGenerator {
     private static Vec3 staticVector = new Vec3(0.0D, 0.0D, 0.0D);
 
     public static Vec3 findRandomTarget(EntityCreature entitycreatureIn, int xz, int y) {
-        return findRandomTargetBlock(entitycreatureIn, xz, y, (Vec3) null);
+        return findRandomTargetBlock(entitycreatureIn, xz, y, null);
     }
 
     public static Vec3 findRandomTargetBlockTowards(EntityCreature entitycreatureIn, int xz, int y, Vec3 targetVec3) {

@@ -168,7 +168,7 @@ public class GuiScreenBook extends GuiScreen {
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.enabled) {
             if (button.id == 0) {
-                this.mc.displayGuiScreen((GuiScreen) null);
+                this.mc.displayGuiScreen(null);
                 this.sendBookToServer(false);
             } else if (button.id == 3 && this.bookIsUnsigned) {
                 this.bookGettingSigned = true;
@@ -188,7 +188,7 @@ public class GuiScreenBook extends GuiScreen {
                 }
             } else if (button.id == 5 && this.bookGettingSigned) {
                 this.sendBookToServer(true);
-                this.mc.displayGuiScreen((GuiScreen) null);
+                this.mc.displayGuiScreen(null);
             } else if (button.id == 4 && this.bookGettingSigned) {
                 this.bookGettingSigned = false;
             }
@@ -258,7 +258,7 @@ public class GuiScreenBook extends GuiScreen {
             case 156:
                 if (!this.bookTitle.isEmpty()) {
                     this.sendBookToServer(true);
-                    this.mc.displayGuiScreen((GuiScreen) null);
+                    this.mc.displayGuiScreen(null);
                 }
 
                 return;
@@ -362,7 +362,7 @@ public class GuiScreenBook extends GuiScreen {
                 int k1 = Math.min(128 / this.fontRendererObj.FONT_HEIGHT, this.field_175386_A.size());
 
                 for (int l1 = 0; l1 < k1; ++l1) {
-                    IChatComponent ichatcomponent2 = (IChatComponent) this.field_175386_A.get(l1);
+                    IChatComponent ichatcomponent2 = this.field_175386_A.get(l1);
                     this.fontRendererObj.drawString(ichatcomponent2.getUnformattedText(), i + 36, j + 16 + 16 + l1 * this.fontRendererObj.FONT_HEIGHT, 0);
                 }
 
@@ -414,7 +414,7 @@ public class GuiScreenBook extends GuiScreen {
             boolean flag = super.handleComponentClick(component);
 
             if (flag && clickevent.getAction() == ClickEvent.Action.RUN_COMMAND) {
-                this.mc.displayGuiScreen((GuiScreen) null);
+                this.mc.displayGuiScreen(null);
             }
 
             return flag;
@@ -435,7 +435,7 @@ public class GuiScreenBook extends GuiScreen {
                     int l = j / this.mc.fontRendererObj.FONT_HEIGHT;
 
                     if (l >= 0 && l < this.field_175386_A.size()) {
-                        IChatComponent ichatcomponent = (IChatComponent) this.field_175386_A.get(l);
+                        IChatComponent ichatcomponent = this.field_175386_A.get(l);
                         int i1 = 0;
 
                         for (IChatComponent ichatcomponent1 : ichatcomponent) {

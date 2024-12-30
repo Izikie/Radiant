@@ -72,7 +72,7 @@ public class TextureAtlasSprite {
 
     protected static TextureAtlasSprite makeAtlasSprite(ResourceLocation spriteResourceLocation) {
         String s = spriteResourceLocation.toString();
-        return (TextureAtlasSprite) (locationNameClock.equals(s) ? new TextureClock(s) : (locationNameCompass.equals(s) ? new TextureCompass(s) : new TextureAtlasSprite(s)));
+        return locationNameClock.equals(s) ? new TextureClock(s) : (locationNameCompass.equals(s) ? new TextureCompass(s) : new TextureAtlasSprite(s));
     }
 
     public static void setLocationNameClock(String clockName) {
@@ -203,7 +203,7 @@ public class TextureAtlasSprite {
                 }
 
                 if (i != k && k >= 0 && k < this.framesTextureData.size()) {
-                    TextureUtil.uploadTextureMipmap((int[][]) ((int[][]) this.framesTextureData.get(k)), this.width, this.height, this.originX, this.originY, flag, flag1);
+                    TextureUtil.uploadTextureMipmap(this.framesTextureData.get(k), this.width, this.height, this.originX, this.originY, flag, flag1);
                 }
             } else if (this.animationMetadata.isInterpolate()) {
                 if (!this.animationActive) {
@@ -222,8 +222,8 @@ public class TextureAtlasSprite {
         int k = this.animationMetadata.getFrameIndex((this.frameCounter + 1) % j);
 
         if (i != k && k >= 0 && k < this.framesTextureData.size()) {
-            int[][] aint = (int[][]) ((int[][]) this.framesTextureData.get(i));
-            int[][] aint1 = (int[][]) ((int[][]) this.framesTextureData.get(k));
+            int[][] aint = this.framesTextureData.get(i);
+            int[][] aint1 = this.framesTextureData.get(k);
 
             if (this.interpolatedFrameData == null || this.interpolatedFrameData.length != aint.length) {
                 this.interpolatedFrameData = new int[aint.length][];
@@ -251,7 +251,7 @@ public class TextureAtlasSprite {
     }
 
     public int[][] getFrameTextureData(int index) {
-        return (int[][]) ((int[][]) this.framesTextureData.get(index));
+        return this.framesTextureData.get(index);
     }
 
     public int getFrameCount() {
@@ -350,7 +350,7 @@ public class TextureAtlasSprite {
             }
 
             for (int[][] framesTextureDatum : this.framesTextureData) {
-                int[][] aint1 = (int[][]) ((int[][]) framesTextureDatum);
+                int[][] aint1 = framesTextureDatum;
 
                 if (aint1 != null && !this.iconName.startsWith("minecraft:blocks/leaves_")) {
                     for (int[] aint2 : aint1) {
@@ -369,7 +369,7 @@ public class TextureAtlasSprite {
         List<int[][]> list = Lists.newArrayList();
 
         for (int i = 0; i < this.framesTextureData.size(); ++i) {
-            final int[][] aint = (int[][]) ((int[][]) this.framesTextureData.get(i));
+            final int[][] aint = this.framesTextureData.get(i);
 
             if (aint != null) {
                 try {
@@ -408,7 +408,7 @@ public class TextureAtlasSprite {
     private void allocateFrameTextureData(int index) {
         if (this.framesTextureData.size() <= index) {
             for (int i = this.framesTextureData.size(); i <= index; ++i) {
-                this.framesTextureData.add((int[][]) ((int[][]) null));
+                this.framesTextureData.add(null);
             }
         }
 

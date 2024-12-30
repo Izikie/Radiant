@@ -30,7 +30,7 @@ public class EntityMinecartEmpty extends EntityMinecart {
     public void onActivatorRailPass(int x, int y, int z, boolean receivingPower) {
         if (receivingPower) {
             if (this.riddenByEntity != null) {
-                this.riddenByEntity.mountEntity((Entity) null);
+                this.riddenByEntity.mountEntity(null);
             }
 
             if (this.getRollingAmplitude() == 0) {

@@ -45,7 +45,7 @@ public class SkinManager {
     }
 
     public ResourceLocation loadSkin(MinecraftProfileTexture profileTexture, Type p_152792_2_) {
-        return this.loadSkin(profileTexture, p_152792_2_, (SkinManager.SkinAvailableCallback) null);
+        return this.loadSkin(profileTexture, p_152792_2_, null);
     }
 
     public ResourceLocation loadSkin(final MinecraftProfileTexture profileTexture, final Type p_152789_2_, final SkinManager.SkinAvailableCallback skinAvailableCallback) {
@@ -105,11 +105,11 @@ public class SkinManager {
                 Minecraft.getMinecraft().addScheduledTask(new Runnable() {
                     public void run() {
                         if (map.containsKey(Type.SKIN)) {
-                            SkinManager.this.loadSkin((MinecraftProfileTexture) map.get(Type.SKIN), Type.SKIN, skinAvailableCallback);
+                            SkinManager.this.loadSkin(map.get(Type.SKIN), Type.SKIN, skinAvailableCallback);
                         }
 
                         if (map.containsKey(Type.CAPE)) {
-                            SkinManager.this.loadSkin((MinecraftProfileTexture) map.get(Type.CAPE), Type.CAPE, skinAvailableCallback);
+                            SkinManager.this.loadSkin(map.get(Type.CAPE), Type.CAPE, skinAvailableCallback);
                         }
                     }
                 });
@@ -118,7 +118,7 @@ public class SkinManager {
     }
 
     public Map<Type, MinecraftProfileTexture> loadSkinFromCache(GameProfile profile) {
-        return (Map) this.skinCacheLoader.getUnchecked(profile);
+        return this.skinCacheLoader.getUnchecked(profile);
     }
 
     public interface SkinAvailableCallback {

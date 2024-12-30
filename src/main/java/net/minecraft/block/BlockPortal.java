@@ -58,7 +58,7 @@ public class BlockPortal extends BlockBreakable {
     }
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-        EnumFacing.Axis enumfacing$axis = (EnumFacing.Axis) worldIn.getBlockState(pos).getValue(AXIS);
+        EnumFacing.Axis enumfacing$axis = worldIn.getBlockState(pos).getValue(AXIS);
         float f = 0.125F;
         float f1 = 0.125F;
 
@@ -100,7 +100,7 @@ public class BlockPortal extends BlockBreakable {
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
-        EnumFacing.Axis enumfacing$axis = (EnumFacing.Axis) state.getValue(AXIS);
+        EnumFacing.Axis enumfacing$axis = state.getValue(AXIS);
 
         if (enumfacing$axis == EnumFacing.Axis.X) {
             BlockPortal.Size blockportal$size = new BlockPortal.Size(worldIn, pos, EnumFacing.Axis.X);
@@ -122,7 +122,7 @@ public class BlockPortal extends BlockBreakable {
         IBlockState iblockstate = worldIn.getBlockState(pos);
 
         if (worldIn.getBlockState(pos).getBlock() == this) {
-            enumfacing$axis = (EnumFacing.Axis) iblockstate.getValue(AXIS);
+            enumfacing$axis = iblockstate.getValue(AXIS);
 
             if (enumfacing$axis == null) {
                 return false;
@@ -195,7 +195,7 @@ public class BlockPortal extends BlockBreakable {
     }
 
     public int getMetaFromState(IBlockState state) {
-        return getMetaForAxis((EnumFacing.Axis) state.getValue(AXIS));
+        return getMetaForAxis(state.getValue(AXIS));
     }
 
     protected BlockState createBlockState() {

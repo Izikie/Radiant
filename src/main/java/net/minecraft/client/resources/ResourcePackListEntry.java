@@ -98,7 +98,7 @@ public abstract class ResourcePackListEntry implements GuiListExtended.IGuiListE
         List<String> list = this.mc.fontRendererObj.listFormattedStringToWidth(s1, 157);
 
         for (int l = 0; l < 2 && l < list.size(); ++l) {
-            this.mc.fontRendererObj.drawStringWithShadow((String) list.get(l), (x + 32 + 2), (y + 12 + 10 * l), 8421504);
+            this.mc.fontRendererObj.drawStringWithShadow(list.get(l), (x + 32 + 2), (y + 12 + 10 * l), 8421504);
         }
     }
 
@@ -125,13 +125,13 @@ public abstract class ResourcePackListEntry implements GuiListExtended.IGuiListE
     protected boolean func_148314_g() {
         List<ResourcePackListEntry> list = this.resourcePacksGUI.getListContaining(this);
         int i = list.indexOf(this);
-        return i > 0 && ((ResourcePackListEntry) list.get(i - 1)).func_148310_d();
+        return i > 0 && list.get(i - 1).func_148310_d();
     }
 
     protected boolean func_148307_h() {
         List<ResourcePackListEntry> list = this.resourcePacksGUI.getListContaining(this);
         int i = list.indexOf(this);
-        return i >= 0 && i < list.size() - 1 && ((ResourcePackListEntry) list.get(i + 1)).func_148310_d();
+        return i >= 0 && i < list.size() - 1 && list.get(i + 1).func_148310_d();
     }
 
     public boolean mousePressed(int slotIndex, int p_148278_2_, int p_148278_3_, int p_148278_4_, int p_148278_5_, int p_148278_6_) {

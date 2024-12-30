@@ -177,7 +177,7 @@ public class TextureUtils {
                 BufferedImage bufferedimage = new BufferedImage(i, j * 2, 2);
                 Graphics2D graphics2d = bufferedimage.createGraphics();
                 graphics2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-                graphics2d.drawImage(bi, 0, 0, i, j, (ImageObserver) null);
+                graphics2d.drawImage(bi, 0, 0, i, j, null);
                 return bufferedimage;
             }
         }
@@ -386,7 +386,7 @@ public class TextureUtils {
         }
 
         graphics2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, object);
-        graphics2d.drawImage(bi, 0, 0, w2, k, (ImageObserver) null);
+        graphics2d.drawImage(bi, 0, 0, w2, k, null);
         return bufferedimage;
     }
 
@@ -482,13 +482,13 @@ public class TextureUtils {
             int l = j * k;
             IntBuffer intbuffer = BufferUtils.createIntBuffer(l);
             int[] aint = new int[l];
-            GL11.glGetTexImage(GL11.GL_TEXTURE_2D, i1, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, (IntBuffer) intbuffer);
+            GL11.glGetTexImage(GL11.GL_TEXTURE_2D, i1, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, intbuffer);
             intbuffer.get(aint);
             BufferedImage bufferedimage = new BufferedImage(j, k, 2);
             bufferedimage.setRGB(0, 0, j, k, aint, 0, j);
 
             try {
-                ImageIO.write(bufferedimage, "png", (File) file4);
+                ImageIO.write(bufferedimage, "png", file4);
                 Config.dbg("Exported: " + file4);
             } catch (Exception exception) {
                 Config.warn("Error writing: " + file4);
@@ -551,7 +551,7 @@ public class TextureUtils {
         if (list.size() <= frame) {
             return null;
         } else {
-            int[][] aint = (int[][]) list.get(frame);
+            int[][] aint = list.get(frame);
 
             if (aint != null && aint.length > level) {
                 int[] aint1 = aint[level];
@@ -564,7 +564,7 @@ public class TextureUtils {
 
     public static int getGLMaximumTextureSize() {
         for (int i = 65536; i > 0; i >>= 1) {
-            GlStateManager.glTexImage2D(32868, 0, 6408, i, i, 0, 6408, 5121, (IntBuffer) null);
+            GlStateManager.glTexImage2D(32868, 0, 6408, i, i, 0, 6408, 5121, null);
             int j = GL11.glGetError();
             int k = GlStateManager.glGetTexLevelParameteri(32868, 0, 4096);
 

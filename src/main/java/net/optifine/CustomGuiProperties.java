@@ -89,7 +89,7 @@ public class CustomGuiProperties {
         this.levels = connectedparser.parseRangeListInt(props.getProperty("levels"));
         this.professions = connectedparser.parseProfessions(props.getProperty("professions"));
         CustomGuiProperties.EnumVariant[] acustomguiproperties$enumvariant = getContainerVariants(this.container);
-        this.variants = (CustomGuiProperties.EnumVariant[]) ((CustomGuiProperties.EnumVariant[]) connectedparser.parseEnums(props.getProperty("variants"), acustomguiproperties$enumvariant, "variants", VARIANTS_INVALID));
+        this.variants = (CustomGuiProperties.EnumVariant[]) connectedparser.parseEnums(props.getProperty("variants"), acustomguiproperties$enumvariant, "variants", VARIANTS_INVALID);
         this.colors = parseEnumDyeColors(props.getProperty("colors"));
     }
 
@@ -324,7 +324,7 @@ public class CustomGuiProperties {
     }
 
     private static IWorldNameable getWorldNameable(GuiScreen screen) {
-        return (IWorldNameable) (screen instanceof GuiBeacon ? getWorldNameable(screen, Reflector.GuiBeacon_tileBeacon) : (screen instanceof GuiBrewingStand ? getWorldNameable(screen, Reflector.GuiBrewingStand_tileBrewingStand) : (screen instanceof GuiChest ? getWorldNameable(screen, Reflector.GuiChest_lowerChestInventory) : (screen instanceof GuiDispenser ? ((GuiDispenser) screen).dispenserInventory : (screen instanceof GuiEnchantment ? getWorldNameable(screen, Reflector.GuiEnchantment_nameable) : (screen instanceof GuiFurnace ? getWorldNameable(screen, Reflector.GuiFurnace_tileFurnace) : (screen instanceof GuiHopper ? getWorldNameable(screen, Reflector.GuiHopper_hopperInventory) : null)))))));
+        return screen instanceof GuiBeacon ? getWorldNameable(screen, Reflector.GuiBeacon_tileBeacon) : (screen instanceof GuiBrewingStand ? getWorldNameable(screen, Reflector.GuiBrewingStand_tileBrewingStand) : (screen instanceof GuiChest ? getWorldNameable(screen, Reflector.GuiChest_lowerChestInventory) : (screen instanceof GuiDispenser ? ((GuiDispenser) screen).dispenserInventory : (screen instanceof GuiEnchantment ? getWorldNameable(screen, Reflector.GuiEnchantment_nameable) : (screen instanceof GuiFurnace ? getWorldNameable(screen, Reflector.GuiFurnace_tileFurnace) : (screen instanceof GuiHopper ? getWorldNameable(screen, Reflector.GuiHopper_hopperInventory) : null))))));
     }
 
     private static IWorldNameable getWorldNameable(GuiScreen screen, ReflectorField fieldInventory) {
@@ -492,7 +492,7 @@ public class CustomGuiProperties {
     }
 
     public ResourceLocation getTextureLocation(ResourceLocation loc) {
-        ResourceLocation resourcelocation = (ResourceLocation) this.textureLocations.get(loc);
+        ResourceLocation resourcelocation = this.textureLocations.get(loc);
         return resourcelocation == null ? loc : resourcelocation;
     }
 

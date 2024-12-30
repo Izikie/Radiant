@@ -80,7 +80,7 @@ public class Chunk {
             this.entityLists[i] = new ClassInheritanceMultiMap(Entity.class);
         }
 
-        Arrays.fill((int[]) this.precipitationHeightMap, (int) -999);
+        Arrays.fill(this.precipitationHeightMap, -999);
         Arrays.fill(this.blockBiomeArray, (byte) -1);
     }
 
@@ -672,7 +672,7 @@ public class Chunk {
     }
 
     public TileEntity getTileEntity(BlockPos pos, Chunk.EnumCreateEntityType p_177424_2_) {
-        TileEntity tileentity = (TileEntity) this.chunkTileEntityMap.get(pos);
+        TileEntity tileentity = this.chunkTileEntityMap.get(pos);
 
         if (tileentity == null) {
             if (p_177424_2_ == Chunk.EnumCreateEntityType.IMMEDIATE) {
@@ -703,7 +703,7 @@ public class Chunk {
 
         if (this.getBlock(pos) instanceof ITileEntityProvider) {
             if (this.chunkTileEntityMap.containsKey(pos)) {
-                ((TileEntity) this.chunkTileEntityMap.get(pos)).invalidate();
+                this.chunkTileEntityMap.get(pos).invalidate();
             }
 
             tileEntityIn.validate();
@@ -713,7 +713,7 @@ public class Chunk {
 
     public void removeTileEntity(BlockPos pos) {
         if (this.isChunkLoaded) {
-            TileEntity tileentity = (TileEntity) this.chunkTileEntityMap.remove(pos);
+            TileEntity tileentity = this.chunkTileEntityMap.remove(pos);
 
             if (tileentity != null) {
                 tileentity.invalidate();
@@ -905,7 +905,7 @@ public class Chunk {
         }
 
         while (!this.tileEntityPosQueue.isEmpty()) {
-            BlockPos blockpos = (BlockPos) this.tileEntityPosQueue.poll();
+            BlockPos blockpos = this.tileEntityPosQueue.poll();
 
             if (this.getTileEntity(blockpos, Chunk.EnumCreateEntityType.CHECK) == null && this.getBlock(blockpos).hasTileEntity()) {
                 TileEntity tileentity = this.createNewTileEntity(blockpos);

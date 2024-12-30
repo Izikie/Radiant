@@ -254,7 +254,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
         }
 
         protected final StatCrafting func_148211_c(int p_148211_1_) {
-            return (StatCrafting) this.statsHolder.get(p_148211_1_);
+            return this.statsHolder.get(p_148211_1_);
         }
 
         protected abstract String func_148210_b(int p_148210_1_);
@@ -466,7 +466,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
         }
 
         protected void drawSlot(int entryID, int p_180791_2_, int p_180791_3_, int p_180791_4_, int mouseXIn, int mouseYIn) {
-            StatBase statbase = (StatBase) StatList.generalStats.get(entryID);
+            StatBase statbase = StatList.generalStats.get(entryID);
             GuiStats.this.drawString(GuiStats.this.fontRendererObj, statbase.getStatName().getUnformattedText(), p_180791_2_ + 2, p_180791_3_ + 1, entryID % 2 == 0 ? 16777215 : 9474192);
             String s = statbase.format(GuiStats.this.field_146546_t.readStat(statbase));
             GuiStats.this.drawString(GuiStats.this.fontRendererObj, s, p_180791_2_ + 2 + 213 - GuiStats.this.fontRendererObj.getStringWidth(s), p_180791_3_ + 1, entryID % 2 == 0 ? 16777215 : 9474192);
@@ -606,7 +606,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
         }
 
         protected void drawSlot(int entryID, int p_180791_2_, int p_180791_3_, int p_180791_4_, int mouseXIn, int mouseYIn) {
-            EntityList.EntityEggInfo entitylist$entityegginfo = (EntityList.EntityEggInfo) this.field_148222_l.get(entryID);
+            EntityList.EntityEggInfo entitylist$entityegginfo = this.field_148222_l.get(entryID);
             String s = I18n.format("entity." + EntityList.getStringFromID(entitylist$entityegginfo.spawnedID) + ".name");
             int i = GuiStats.this.field_146546_t.readStat(entitylist$entityegginfo.field_151512_d);
             int j = GuiStats.this.field_146546_t.readStat(entitylist$entityegginfo.field_151513_e);

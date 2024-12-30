@@ -101,7 +101,7 @@ public class PotionHelper {
 
         if (!bypassCache) {
             if (DATAVALUE_COLORS.containsKey(integer)) {
-                return ((Integer) DATAVALUE_COLORS.get(integer)).intValue();
+                return DATAVALUE_COLORS.get(integer).intValue();
             } else {
                 int i = calcPotionLiquidColor(getPotionEffects(integer.intValue(), false));
                 DATAVALUE_COLORS.put(integer, Integer.valueOf(i));
@@ -285,14 +285,14 @@ public class PotionHelper {
 
         for (Potion potion : Potion.potionTypes) {
             if (potion != null && (!potion.isUsable() || p_77917_1_)) {
-                String s = (String) potionRequirements.get(Integer.valueOf(potion.getId()));
+                String s = potionRequirements.get(Integer.valueOf(potion.getId()));
 
                 if (s != null) {
                     int i = parsePotionEffects(s, 0, s.length(), p_77917_0_);
 
                     if (i > 0) {
                         int j = 0;
-                        String s1 = (String) potionAmplifiers.get(Integer.valueOf(potion.getId()));
+                        String s1 = potionAmplifiers.get(Integer.valueOf(potion.getId()));
 
                         if (s1 != null) {
                             j = parsePotionEffects(s1, 0, s1.length(), p_77917_0_);

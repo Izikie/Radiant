@@ -59,7 +59,7 @@ public class StructureVillagePieces {
         Iterator<StructureVillagePieces.PieceWeight> iterator = list.iterator();
 
         while (iterator.hasNext()) {
-            if (((StructureVillagePieces.PieceWeight) iterator.next()).villagePiecesLimit == 0) {
+            if (iterator.next().villagePiecesLimit == 0) {
                 iterator.remove();
             }
         }
@@ -1222,7 +1222,7 @@ public class StructureVillagePieces {
         }
 
         public Start(WorldChunkManager chunkManagerIn, int p_i2104_2_, Random rand, int p_i2104_4_, int p_i2104_5_, List<StructureVillagePieces.PieceWeight> p_i2104_6_, int p_i2104_7_) {
-            super((StructureVillagePieces.Start) null, 0, rand, p_i2104_4_, p_i2104_5_);
+            super(null, 0, rand, p_i2104_4_, p_i2104_5_);
             this.worldChunkMngr = chunkManagerIn;
             this.structureVillageWeightedPieceList = p_i2104_6_;
             this.terrainType = p_i2104_7_;
@@ -1385,7 +1385,7 @@ public class StructureVillagePieces {
                     ++this.villagersSpawned;
                     EntityVillager entityvillager = new EntityVillager(worldIn);
                     entityvillager.setLocationAndAngles(j + 0.5D, k, l + 0.5D, 0.0F, 0.0F);
-                    entityvillager.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityvillager)), (IEntityLivingData) null);
+                    entityvillager.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityvillager)), null);
                     entityvillager.setProfession(this.func_180779_c(i, entityvillager.getProfession()));
                     worldIn.spawnEntityInWorld(entityvillager);
                 }

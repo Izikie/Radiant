@@ -167,7 +167,7 @@ public class ChunkRenderDispatcher {
 
         List<RegionRenderCacheBuilder> list = Lists.newArrayList();
 
-        while (((List) list).size() != this.countRenderBuilders) {
+        while (list.size() != this.countRenderBuilders) {
             try {
                 list.add(this.allocateRenderBuilder());
             } catch (InterruptedException var3) {
@@ -183,11 +183,11 @@ public class ChunkRenderDispatcher {
     }
 
     public RegionRenderCacheBuilder allocateRenderBuilder() throws InterruptedException {
-        return (RegionRenderCacheBuilder) this.queueFreeRenderBuilders.take();
+        return this.queueFreeRenderBuilders.take();
     }
 
     public ChunkCompileTaskGenerator getNextChunkUpdate() throws InterruptedException {
-        return (ChunkCompileTaskGenerator) this.queueChunkUpdates.take();
+        return this.queueChunkUpdates.take();
     }
 
     public boolean updateTransparencyLater(RenderChunk chunkRenderer) {
@@ -225,13 +225,13 @@ public class ChunkRenderDispatcher {
             }
 
             p_178503_2_.setTranslation(0.0D, 0.0D, 0.0D);
-            return Futures.immediateFuture((Object) null);
+            return Futures.immediateFuture(null);
         } else {
             ListenableFutureTask<Object> listenablefuturetask = ListenableFutureTask.create(new Runnable() {
                 public void run() {
                     ChunkRenderDispatcher.this.uploadChunk(player, p_178503_2_, chunkRenderer, compiledChunkIn);
                 }
-            }, (Object) null);
+            }, null);
 
             synchronized (this.queueChunkUploads) {
                 this.queueChunkUploads.add(listenablefuturetask);
@@ -256,7 +256,7 @@ public class ChunkRenderDispatcher {
 
     public void clearChunkUpdates() {
         while (!this.queueChunkUpdates.isEmpty()) {
-            ChunkCompileTaskGenerator chunkcompiletaskgenerator = (ChunkCompileTaskGenerator) this.queueChunkUpdates.poll();
+            ChunkCompileTaskGenerator chunkcompiletaskgenerator = this.queueChunkUpdates.poll();
 
             if (chunkcompiletaskgenerator != null) {
                 chunkcompiletaskgenerator.finish();
@@ -272,7 +272,7 @@ public class ChunkRenderDispatcher {
         while (this.listPausedBuilders.size() != this.countRenderBuilders) {
             try {
                 this.runChunkUploads(Long.MAX_VALUE);
-                RegionRenderCacheBuilder regionrendercachebuilder = (RegionRenderCacheBuilder) this.queueFreeRenderBuilders.poll(100L, TimeUnit.MILLISECONDS);
+                RegionRenderCacheBuilder regionrendercachebuilder = this.queueFreeRenderBuilders.poll(100L, TimeUnit.MILLISECONDS);
 
                 if (regionrendercachebuilder != null) {
                     this.listPausedBuilders.add(regionrendercachebuilder);

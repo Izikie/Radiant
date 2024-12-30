@@ -15,7 +15,7 @@ public class ChunkPrimer {
 
     public IBlockState getBlockState(int index) {
         if (index >= 0 && index < this.data.length) {
-            IBlockState iblockstate = (IBlockState) Block.BLOCK_STATE_IDS.getByValue(this.data[index]);
+            IBlockState iblockstate = Block.BLOCK_STATE_IDS.getByValue(this.data[index]);
             return iblockstate != null ? iblockstate : this.defaultState;
         } else {
             throw new IndexOutOfBoundsException("The coordinate is out of range");

@@ -194,7 +194,7 @@ public abstract class BiomeGenBase {
     }
 
     public WorldGenAbstractTree genBigTreeChance(Random rand) {
-        return (WorldGenAbstractTree) (rand.nextInt(10) == 0 ? this.worldGeneratorBigTree : this.worldGeneratorTrees);
+        return rand.nextInt(10) == 0 ? this.worldGeneratorBigTree : this.worldGeneratorTrees;
     }
 
     public WorldGenerator getRandomWorldGenForGrass(Random rand) {
@@ -410,7 +410,7 @@ public abstract class BiomeGenBase {
     }
 
     public static BiomeGenBase getBiome(int id) {
-        return getBiomeFromBiomeList(id, (BiomeGenBase) null);
+        return getBiomeFromBiomeList(id, null);
     }
 
     public static BiomeGenBase getBiomeFromBiomeList(int biomeId, BiomeGenBase biome) {
@@ -449,7 +449,7 @@ public abstract class BiomeGenBase {
         for (BiomeGenBase biomegenbase : biomeList) {
             if (biomegenbase != null) {
                 if (BIOME_ID_MAP.containsKey(biomegenbase.biomeName)) {
-                    throw new Error("Biome \"" + biomegenbase.biomeName + "\" is defined as both ID " + ((BiomeGenBase) BIOME_ID_MAP.get(biomegenbase.biomeName)).biomeID + " and " + biomegenbase.biomeID);
+                    throw new Error("Biome \"" + biomegenbase.biomeName + "\" is defined as both ID " + BIOME_ID_MAP.get(biomegenbase.biomeName).biomeID + " and " + biomegenbase.biomeID);
                 }
 
                 BIOME_ID_MAP.put(biomegenbase.biomeName, biomegenbase);

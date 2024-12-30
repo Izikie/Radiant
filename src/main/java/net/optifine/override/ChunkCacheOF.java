@@ -112,16 +112,16 @@ public class ChunkCacheOF implements IBlockAccess {
 
     public void renderStart() {
         if (this.combinedLights == null) {
-            this.combinedLights = (int[]) ((int[]) cacheCombinedLights.allocate(this.arraySize));
+            this.combinedLights = (int[]) cacheCombinedLights.allocate(this.arraySize);
         }
 
-        Arrays.fill((int[]) this.combinedLights, (int) -1);
+        Arrays.fill(this.combinedLights, -1);
 
         if (this.blockStates == null) {
-            this.blockStates = (IBlockState[]) ((IBlockState[]) cacheBlockStates.allocate(this.arraySize));
+            this.blockStates = (IBlockState[]) cacheBlockStates.allocate(this.arraySize);
         }
 
-        Arrays.fill(this.blockStates, (Object) null);
+        Arrays.fill(this.blockStates, null);
     }
 
     public void renderFinish() {

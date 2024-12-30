@@ -79,14 +79,14 @@ public class AnimationMetadataSectionSerializer extends BaseMetadataSectionSeria
 
     public JsonElement serialize(AnimationMetadataSection p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
         JsonObject jsonobject = new JsonObject();
-        jsonobject.addProperty("frametime", (Number) Integer.valueOf(p_serialize_1_.getFrameTime()));
+        jsonobject.addProperty("frametime", Integer.valueOf(p_serialize_1_.getFrameTime()));
 
         if (p_serialize_1_.getFrameWidth() != -1) {
-            jsonobject.addProperty("width", (Number) Integer.valueOf(p_serialize_1_.getFrameWidth()));
+            jsonobject.addProperty("width", Integer.valueOf(p_serialize_1_.getFrameWidth()));
         }
 
         if (p_serialize_1_.getFrameHeight() != -1) {
-            jsonobject.addProperty("height", (Number) Integer.valueOf(p_serialize_1_.getFrameHeight()));
+            jsonobject.addProperty("height", Integer.valueOf(p_serialize_1_.getFrameHeight()));
         }
 
         if (p_serialize_1_.getFrameCount() > 0) {
@@ -95,8 +95,8 @@ public class AnimationMetadataSectionSerializer extends BaseMetadataSectionSeria
             for (int i = 0; i < p_serialize_1_.getFrameCount(); ++i) {
                 if (p_serialize_1_.frameHasTime(i)) {
                     JsonObject jsonobject1 = new JsonObject();
-                    jsonobject1.addProperty("index", (Number) Integer.valueOf(p_serialize_1_.getFrameIndex(i)));
-                    jsonobject1.addProperty("time", (Number) Integer.valueOf(p_serialize_1_.getFrameTimeSingle(i)));
+                    jsonobject1.addProperty("index", Integer.valueOf(p_serialize_1_.getFrameIndex(i)));
+                    jsonobject1.addProperty("time", Integer.valueOf(p_serialize_1_.getFrameTimeSingle(i)));
                     jsonarray.add(jsonobject1);
                 } else {
                     jsonarray.add(new JsonPrimitive(Integer.valueOf(p_serialize_1_.getFrameIndex(i))));

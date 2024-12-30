@@ -97,7 +97,7 @@ public class ItemBanner extends ItemBlock {
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
         for (EnumDyeColor enumdyecolor : EnumDyeColor.values()) {
             NBTTagCompound nbttagcompound = new NBTTagCompound();
-            TileEntityBanner.setBaseColorAndPatterns(nbttagcompound, enumdyecolor.getDyeDamage(), (NBTTagList) null);
+            TileEntityBanner.setBaseColorAndPatterns(nbttagcompound, enumdyecolor.getDyeDamage(), null);
             NBTTagCompound nbttagcompound1 = new NBTTagCompound();
             nbttagcompound1.setTag("BlockEntityTag", nbttagcompound);
             ItemStack itemstack = new ItemStack(itemIn, 1, enumdyecolor.getDyeDamage());

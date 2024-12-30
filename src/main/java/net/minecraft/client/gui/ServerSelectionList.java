@@ -22,7 +22,7 @@ public class ServerSelectionList extends GuiListExtended {
 
     public GuiListExtended.IGuiListEntry getListEntry(int index) {
         if (index < this.serverListInternet.size()) {
-            return (GuiListExtended.IGuiListEntry) this.serverListInternet.get(index);
+            return this.serverListInternet.get(index);
         } else {
             index = index - this.serverListInternet.size();
 
@@ -30,7 +30,7 @@ public class ServerSelectionList extends GuiListExtended {
                 return this.lanScanEntry;
             } else {
                 --index;
-                return (GuiListExtended.IGuiListEntry) this.serverListLan.get(index);
+                return this.serverListLan.get(index);
             }
         }
     }

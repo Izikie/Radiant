@@ -20,8 +20,8 @@ public class GuiUtilRenderComponents {
         List<IChatComponent> list = Lists.newArrayList();
         List<IChatComponent> list1 = Lists.newArrayList(p_178908_0_);
 
-        for (int j = 0; j < ((List) list1).size(); ++j) {
-            IChatComponent ichatcomponent1 = (IChatComponent) list1.get(j);
+        for (int j = 0; j < list1.size(); ++j) {
+            IChatComponent ichatcomponent1 = list1.get(j);
             String s = ichatcomponent1.getUnformattedTextForChat();
             boolean flag = false;
 

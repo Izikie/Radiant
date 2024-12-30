@@ -150,7 +150,7 @@ public class TileEntityBanner extends TileEntity {
                     stack.getTagCompound().removeTag("BlockEntityTag");
 
                     if (stack.getTagCompound().hasNoTags()) {
-                        stack.setTagCompound((NBTTagCompound) null);
+                        stack.setTagCompound(null);
                     }
                 }
             }

@@ -91,7 +91,7 @@ public class GuiLanguage extends GuiScreen {
         }
 
         protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY) {
-            Language language = (Language) this.languageMap.get(this.langCodeList.get(slotIndex));
+            Language language = this.languageMap.get(this.langCodeList.get(slotIndex));
             GuiLanguage.this.languageManager.setCurrentLanguage(language);
             GuiLanguage.this.game_settings_3.language = language.getLanguageCode();
             this.mc.refreshResources();
@@ -103,7 +103,7 @@ public class GuiLanguage extends GuiScreen {
         }
 
         protected boolean isSelected(int slotIndex) {
-            return ((String) this.langCodeList.get(slotIndex)).equals(GuiLanguage.this.languageManager.getCurrentLanguage().getLanguageCode());
+            return this.langCodeList.get(slotIndex).equals(GuiLanguage.this.languageManager.getCurrentLanguage().getLanguageCode());
         }
 
         protected int getContentHeight() {
@@ -116,7 +116,7 @@ public class GuiLanguage extends GuiScreen {
 
         protected void drawSlot(int entryID, int p_180791_2_, int p_180791_3_, int p_180791_4_, int mouseXIn, int mouseYIn) {
             GuiLanguage.this.fontRendererObj.setBidiFlag(true);
-            GuiLanguage.this.drawCenteredString(GuiLanguage.this.fontRendererObj, ((Language) this.languageMap.get(this.langCodeList.get(entryID))).toString(), this.width / 2, p_180791_3_ + 1, 16777215);
+            GuiLanguage.this.drawCenteredString(GuiLanguage.this.fontRendererObj, this.languageMap.get(this.langCodeList.get(entryID)).toString(), this.width / 2, p_180791_3_ + 1, 16777215);
             GuiLanguage.this.fontRendererObj.setBidiFlag(GuiLanguage.this.languageManager.getCurrentLanguage().isBidirectional());
         }
     }

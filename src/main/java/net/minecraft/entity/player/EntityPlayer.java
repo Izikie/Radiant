@@ -385,7 +385,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
     public void updateRidden() {
         if (!this.worldObj.isRemote && this.isSneaking()) {
-            this.mountEntity((Entity) null);
+            this.mountEntity(null);
             this.setSneaking(false);
         } else {
             double d0 = this.posX;
@@ -480,7 +480,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
             List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, axisalignedbb);
 
             for (Entity value : list) {
-                Entity entity = (Entity) value;
+                Entity entity = value;
 
                 if (!entity.isDead) {
                     this.collideWithPlayer(entity);
@@ -922,7 +922,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
     }
 
     public void destroyCurrentEquippedItem() {
-        this.inventory.setInventorySlotContents(this.inventory.currentItem, (ItemStack) null);
+        this.inventory.setInventorySlotContents(this.inventory.currentItem, null);
     }
 
     public double getYOffset() {
@@ -1098,13 +1098,13 @@ public abstract class EntityPlayer extends EntityLivingBase {
         }
 
         if (this.isRiding()) {
-            this.mountEntity((Entity) null);
+            this.mountEntity(null);
         }
 
         this.setSize(0.2F, 0.2F);
 
         if (this.worldObj.isBlockLoaded(bedLocation)) {
-            EnumFacing enumfacing = (EnumFacing) this.worldObj.getBlockState(bedLocation).getValue(BlockDirectional.FACING);
+            EnumFacing enumfacing = this.worldObj.getBlockState(bedLocation).getValue(BlockDirectional.FACING);
             float f = 0.5F;
             float f1 = 0.5F;
 
@@ -1215,7 +1215,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
     public float getBedOrientationInDegrees() {
         if (this.playerLocation != null) {
-            EnumFacing enumfacing = (EnumFacing) this.worldObj.getBlockState(this.playerLocation).getValue(BlockDirectional.FACING);
+            EnumFacing enumfacing = this.worldObj.getBlockState(this.playerLocation).getValue(BlockDirectional.FACING);
 
             switch (enumfacing) {
                 case SOUTH:
@@ -1408,7 +1408,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
             this.triggerAchievement(AchievementList.killEnemy);
         }
 
-        EntityList.EntityEggInfo entitylist$entityegginfo = (EntityList.EntityEggInfo) EntityList.entityEggs.get(Integer.valueOf(EntityList.getEntityID(entityLivingIn)));
+        EntityList.EntityEggInfo entitylist$entityegginfo = EntityList.entityEggs.get(Integer.valueOf(EntityList.getEntityID(entityLivingIn)));
 
         if (entitylist$entityegginfo != null) {
             this.triggerAchievement(entitylist$entityegginfo.field_151512_d);

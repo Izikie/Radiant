@@ -58,7 +58,7 @@ public class GuiCommandBlock extends GuiScreen {
         if (button.enabled) {
             if (button.id == 1) {
                 this.localCommandBlock.setTrackOutput(this.field_175389_t);
-                this.mc.displayGuiScreen((GuiScreen) null);
+                this.mc.displayGuiScreen(null);
             } else if (button.id == 0) {
                 PacketBuffer packetbuffer = new PacketBuffer(Unpooled.buffer());
                 packetbuffer.writeByte(this.localCommandBlock.func_145751_f());
@@ -68,10 +68,10 @@ public class GuiCommandBlock extends GuiScreen {
                 this.mc.getNetHandler().addToSendQueue(new C17PacketCustomPayload("MC|AdvCdm", packetbuffer));
 
                 if (!this.localCommandBlock.shouldTrackOutput()) {
-                    this.localCommandBlock.setLastOutput((IChatComponent) null);
+                    this.localCommandBlock.setLastOutput(null);
                 }
 
-                this.mc.displayGuiScreen((GuiScreen) null);
+                this.mc.displayGuiScreen(null);
             } else if (button.id == 4) {
                 this.localCommandBlock.setTrackOutput(!this.localCommandBlock.shouldTrackOutput());
                 this.func_175388_a();

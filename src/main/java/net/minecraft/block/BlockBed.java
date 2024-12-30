@@ -36,7 +36,7 @@ public class BlockBed extends BlockDirectional {
             return true;
         } else {
             if (state.getValue(PART) != BlockBed.EnumPartType.HEAD) {
-                pos = pos.offset((EnumFacing) state.getValue(FACING));
+                pos = pos.offset(state.getValue(FACING));
                 state = worldIn.getBlockState(pos);
 
                 if (state.getBlock() != this) {
@@ -45,7 +45,7 @@ public class BlockBed extends BlockDirectional {
             }
 
             if (worldIn.provider.canRespawnHere() && worldIn.getBiomeGenForCoords(pos) != BiomeGenBase.hell) {
-                if (((Boolean) state.getValue(OCCUPIED)).booleanValue()) {
+                if (state.getValue(OCCUPIED).booleanValue()) {
                     EntityPlayer entityplayer = this.getPlayerInBed(worldIn, pos);
 
                     if (entityplayer != null) {
@@ -74,13 +74,13 @@ public class BlockBed extends BlockDirectional {
                 }
             } else {
                 worldIn.setBlockToAir(pos);
-                BlockPos blockpos = pos.offset(((EnumFacing) state.getValue(FACING)).getOpposite());
+                BlockPos blockpos = pos.offset(state.getValue(FACING).getOpposite());
 
                 if (worldIn.getBlockState(blockpos).getBlock() == this) {
                     worldIn.setBlockToAir(blockpos);
                 }
 
-                worldIn.newExplosion((Entity) null, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, 5.0F, true, true);
+                worldIn.newExplosion(null, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, 5.0F, true, true);
                 return true;
             }
         }
@@ -109,7 +109,7 @@ public class BlockBed extends BlockDirectional {
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
-        EnumFacing enumfacing = (EnumFacing) state.getValue(FACING);
+        EnumFacing enumfacing = state.getValue(FACING);
 
         if (state.getValue(PART) == BlockBed.EnumPartType.HEAD) {
             if (worldIn.getBlockState(pos.offset(enumfacing.getOpposite())).getBlock() != this) {
@@ -133,7 +133,7 @@ public class BlockBed extends BlockDirectional {
     }
 
     public static BlockPos getSafeExitLocation(World worldIn, BlockPos pos, int tries) {
-        EnumFacing enumfacing = (EnumFacing) worldIn.getBlockState(pos).getValue(FACING);
+        EnumFacing enumfacing = worldIn.getBlockState(pos).getValue(FACING);
         int i = pos.getX();
         int j = pos.getY();
         int k = pos.getZ();
@@ -186,7 +186,7 @@ public class BlockBed extends BlockDirectional {
 
     public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
         if (player.capabilities.isCreativeMode && state.getValue(PART) == BlockBed.EnumPartType.HEAD) {
-            BlockPos blockpos = pos.offset(((EnumFacing) state.getValue(FACING)).getOpposite());
+            BlockPos blockpos = pos.offset(state.getValue(FACING).getOpposite());
 
             if (worldIn.getBlockState(blockpos).getBlock() == this) {
                 worldIn.setBlockToAir(blockpos);
@@ -201,7 +201,7 @@ public class BlockBed extends BlockDirectional {
 
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         if (state.getValue(PART) == BlockBed.EnumPartType.FOOT) {
-            IBlockState iblockstate = worldIn.getBlockState(pos.offset((EnumFacing) state.getValue(FACING)));
+            IBlockState iblockstate = worldIn.getBlockState(pos.offset(state.getValue(FACING)));
 
             if (iblockstate.getBlock() == this) {
                 state = state.withProperty(OCCUPIED, iblockstate.getValue(OCCUPIED));
@@ -213,12 +213,12 @@ public class BlockBed extends BlockDirectional {
 
     public int getMetaFromState(IBlockState state) {
         int i = 0;
-        i = i | ((EnumFacing) state.getValue(FACING)).getHorizontalIndex();
+        i = i | state.getValue(FACING).getHorizontalIndex();
 
         if (state.getValue(PART) == BlockBed.EnumPartType.HEAD) {
             i |= 8;
 
-            if (((Boolean) state.getValue(OCCUPIED)).booleanValue()) {
+            if (state.getValue(OCCUPIED).booleanValue()) {
                 i |= 4;
             }
         }

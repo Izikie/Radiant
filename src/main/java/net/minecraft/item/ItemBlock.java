@@ -39,7 +39,7 @@ public class ItemBlock extends Item {
             return false;
         } else if (!playerIn.canPlayerEdit(pos, side, stack)) {
             return false;
-        } else if (worldIn.canBlockBePlaced(this.block, pos, false, side, (Entity) null, stack)) {
+        } else if (worldIn.canBlockBePlaced(this.block, pos, false, side, null, stack)) {
             int i = this.getMetadata(stack.getMetadata());
             IBlockState iblockstate1 = this.block.onBlockPlaced(worldIn, pos, side, hitX, hitY, hitZ, i, playerIn);
 
@@ -105,7 +105,7 @@ public class ItemBlock extends Item {
             pos = pos.offset(side);
         }
 
-        return worldIn.canBlockBePlaced(this.block, pos, false, side, (Entity) null, stack);
+        return worldIn.canBlockBePlaced(this.block, pos, false, side, null, stack);
     }
 
     public String getUnlocalizedName(ItemStack stack) {

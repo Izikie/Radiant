@@ -63,14 +63,14 @@ public class BlockState {
         List<Iterable<Comparable>> list = Lists.newArrayList();
 
         for (int i = 0; i < this.properties.size(); ++i) {
-            list.add(((IProperty) this.properties.get(i)).getAllowedValues());
+            list.add(this.properties.get(i).getAllowedValues());
         }
 
         return list;
     }
 
     public IBlockState getBaseState() {
-        return (IBlockState) this.validStates.get(0);
+        return this.validStates.get(0);
     }
 
     public Block getBlock() {
@@ -103,7 +103,7 @@ public class BlockState {
             if (!this.properties.containsKey(property)) {
                 throw new IllegalArgumentException("Cannot get property " + property + " as it does not exist in " + this.block.getBlockState());
             } else {
-                return (T) ((Comparable) property.getValueClass().cast(this.properties.get(property)));
+                return property.getValueClass().cast(this.properties.get(property));
             }
         }
 
@@ -113,7 +113,7 @@ public class BlockState {
             } else if (!property.getAllowedValues().contains(value)) {
                 throw new IllegalArgumentException("Cannot set property " + property + " to " + value + " on block " + Block.blockRegistry.getNameForObject(this.block) + ", it is not an allowed value");
             } else {
-                return (IBlockState) (this.properties.get(property) == value ? this : (IBlockState) this.propertyValueTable.get(property, value));
+                return this.properties.get(property) == value ? this : this.propertyValueTable.get(property, value);
             }
         }
 

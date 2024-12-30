@@ -76,7 +76,7 @@ public class BlockRedstoneWire extends Block {
 
     public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass) {
         IBlockState iblockstate = worldIn.getBlockState(pos);
-        return iblockstate.getBlock() != this ? super.colorMultiplier(worldIn, pos, renderPass) : this.colorMultiplier(((Integer) iblockstate.getValue(POWER)).intValue());
+        return iblockstate.getBlock() != this ? super.colorMultiplier(worldIn, pos, renderPass) : this.colorMultiplier(iblockstate.getValue(POWER).intValue());
     }
 
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
@@ -97,7 +97,7 @@ public class BlockRedstoneWire extends Block {
 
     private IBlockState calculateCurrentChanges(World worldIn, BlockPos pos1, BlockPos pos2, IBlockState state) {
         IBlockState iblockstate = state;
-        int i = ((Integer) state.getValue(POWER)).intValue();
+        int i = state.getValue(POWER).intValue();
         int j = 0;
         j = this.getMaxCurrentStrength(worldIn, pos2, j);
         this.canProvidePower = false;
@@ -220,7 +220,7 @@ public class BlockRedstoneWire extends Block {
         if (worldIn.getBlockState(pos).getBlock() != this) {
             return strength;
         } else {
-            int i = ((Integer) worldIn.getBlockState(pos).getValue(POWER)).intValue();
+            int i = worldIn.getBlockState(pos).getValue(POWER).intValue();
             return i > strength ? i : strength;
         }
     }
@@ -248,7 +248,7 @@ public class BlockRedstoneWire extends Block {
         if (!this.canProvidePower) {
             return 0;
         } else {
-            int i = ((Integer) state.getValue(POWER)).intValue();
+            int i = state.getValue(POWER).intValue();
 
             if (i == 0) {
                 return 0;
@@ -288,7 +288,7 @@ public class BlockRedstoneWire extends Block {
     }
 
     protected static boolean canConnectUpwardsTo(IBlockState state) {
-        return canConnectTo(state, (EnumFacing) null);
+        return canConnectTo(state, null);
     }
 
     protected static boolean canConnectTo(IBlockState blockState, EnumFacing side) {
@@ -297,7 +297,7 @@ public class BlockRedstoneWire extends Block {
         if (block == Blocks.redstone_wire) {
             return true;
         } else if (Blocks.unpowered_repeater.isAssociated(block)) {
-            EnumFacing enumfacing = (EnumFacing) blockState.getValue(BlockRedstoneRepeater.FACING);
+            EnumFacing enumfacing = blockState.getValue(BlockRedstoneRepeater.FACING);
             return enumfacing == side || enumfacing.getOpposite() == side;
         } else {
             return block.canProvidePower() && side != null;
@@ -334,7 +334,7 @@ public class BlockRedstoneWire extends Block {
     }
 
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        int i = ((Integer) state.getValue(POWER)).intValue();
+        int i = state.getValue(POWER).intValue();
 
         if (i != 0) {
             double d0 = pos.getX() + 0.5D + (rand.nextFloat() - 0.5D) * 0.2D;
@@ -361,7 +361,7 @@ public class BlockRedstoneWire extends Block {
     }
 
     public int getMetaFromState(IBlockState state) {
-        return ((Integer) state.getValue(POWER)).intValue();
+        return state.getValue(POWER).intValue();
     }
 
     protected BlockState createBlockState() {

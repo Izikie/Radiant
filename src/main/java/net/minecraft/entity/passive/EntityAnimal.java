@@ -121,7 +121,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
             --stack.stackSize;
 
             if (stack.stackSize <= 0) {
-                player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
+                player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
             }
         }
     }

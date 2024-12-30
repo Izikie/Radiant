@@ -76,7 +76,7 @@ public class BlockNote extends BlockContainer {
             id = 0;
         }
 
-        return (String) INSTRUMENTS.get(id);
+        return INSTRUMENTS.get(id);
     }
 
     public boolean onBlockEventReceived(World worldIn, BlockPos pos, IBlockState state, int eventID, int eventParam) {

@@ -46,8 +46,8 @@ public class RandomEntities {
     public static final String PREFIX_MCPATCHER_MOB = "mcpatcher/mob/";
     private static final String[] DEPENDANT_SUFFIXES = new String[]{"_armor", "_eyes", "_exploding", "_shooting", "_fur", "_eyes", "_invulnerable", "_angry", "_tame", "_collar"};
     private static final String PREFIX_DYNAMIC_TEXTURE_HORSE = "horse/";
-    private static final String[] HORSE_TEXTURES = (String[]) ((String[]) ReflectorRaw.getFieldValue((Object) null, EntityHorse.class, String[].class, 2));
-    private static final String[] HORSE_TEXTURES_ABBR = (String[]) ((String[]) ReflectorRaw.getFieldValue((Object) null, EntityHorse.class, String[].class, 3));
+    private static final String[] HORSE_TEXTURES = (String[]) ReflectorRaw.getFieldValue(null, EntityHorse.class, String[].class, 2);
+    private static final String[] HORSE_TEXTURES_ABBR = (String[]) ReflectorRaw.getFieldValue(null, EntityHorse.class, String[].class, 3);
 
     public static void entityLoaded(Entity entity, World world) {
         if (world != null) {
@@ -88,8 +88,8 @@ public class RandomEntities {
             }
         }
 
-        randomEntity.setEntity((Entity) null);
-        randomTileEntity.setTileEntity((TileEntity) null);
+        randomEntity.setEntity(null);
+        randomTileEntity.setTileEntity(null);
     }
 
     public static ResourceLocation getTextureLocation(ResourceLocation loc) {
@@ -116,7 +116,7 @@ public class RandomEntities {
                         return resourcelocation2;
                     }
 
-                    RandomEntityProperties randomentityproperties = (RandomEntityProperties) mapProperties.get(s);
+                    RandomEntityProperties randomentityproperties = mapProperties.get(s);
 
                     if (randomentityproperties == null) {
                         ResourceLocation resourcelocation3 = loc;
@@ -299,7 +299,7 @@ public class RandomEntities {
         if (resourcelocation == null) {
             return null;
         } else {
-            for (int i = 1; i < ((List) list).size() + 10; ++i) {
+            for (int i = 1; i < list.size() + 10; ++i) {
                 int j = i + 1;
                 ResourceLocation resourcelocation1 = getLocationIndexed(resourcelocation, j);
 
@@ -311,7 +311,7 @@ public class RandomEntities {
             if (list.size() <= 1) {
                 return null;
             } else {
-                ResourceLocation[] aresourcelocation = (ResourceLocation[]) ((ResourceLocation[]) list.toArray(new ResourceLocation[list.size()]));
+                ResourceLocation[] aresourcelocation = (ResourceLocation[]) list.toArray(new ResourceLocation[list.size()]);
                 dbg(loc.getResourcePath() + ", variants: " + aresourcelocation.length);
                 return aresourcelocation;
             }
@@ -347,7 +347,7 @@ public class RandomEntities {
                 ResourceLocation resourcelocation = new ResourceLocation(s1);
 
                 if (Config.hasResource(resourcelocation)) {
-                    RandomEntityProperties randomentityproperties = (RandomEntityProperties) mapProperties.get(s1);
+                    RandomEntityProperties randomentityproperties = mapProperties.get(s1);
 
                     if (randomentityproperties == null) {
                         randomentityproperties = makeProperties(resourcelocation, false);

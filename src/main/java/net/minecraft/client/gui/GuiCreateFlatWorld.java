@@ -162,7 +162,7 @@ public class GuiCreateFlatWorld extends GuiScreen {
         }
 
         protected void drawSlot(int entryID, int p_180791_2_, int p_180791_3_, int p_180791_4_, int mouseXIn, int mouseYIn) {
-            FlatLayerInfo flatlayerinfo = (FlatLayerInfo) GuiCreateFlatWorld.this.theFlatGeneratorInfo.getFlatLayers().get(GuiCreateFlatWorld.this.theFlatGeneratorInfo.getFlatLayers().size() - entryID - 1);
+            FlatLayerInfo flatlayerinfo = GuiCreateFlatWorld.this.theFlatGeneratorInfo.getFlatLayers().get(GuiCreateFlatWorld.this.theFlatGeneratorInfo.getFlatLayers().size() - entryID - 1);
             IBlockState iblockstate = flatlayerinfo.getLayerMaterial();
             Block block = iblockstate.getBlock();
             Item item = Item.getItemFromBlock(block);

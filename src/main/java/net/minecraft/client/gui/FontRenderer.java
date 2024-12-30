@@ -596,7 +596,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
             }
 
             if (reverse) {
-                stringbuilder.insert(0, (char) c0);
+                stringbuilder.insert(0, c0);
             } else {
                 stringbuilder.append(c0);
             }

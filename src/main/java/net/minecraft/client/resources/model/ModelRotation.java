@@ -92,7 +92,7 @@ public enum ModelRotation {
     }
 
     public static ModelRotation getModelRotation(int p_177524_0_, int p_177524_1_) {
-        return (ModelRotation) mapRotations.get(Integer.valueOf(combineXY(MathHelper.normalizeAngle(p_177524_0_, 360), MathHelper.normalizeAngle(p_177524_1_, 360))));
+        return mapRotations.get(Integer.valueOf(combineXY(MathHelper.normalizeAngle(p_177524_0_, 360), MathHelper.normalizeAngle(p_177524_1_, 360))));
     }
 
     static {

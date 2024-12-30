@@ -71,7 +71,7 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
 
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         if (keyCode == this.mc.gameSettings.keyBindInventory.getKeyCode()) {
-            this.mc.displayGuiScreen((GuiScreen) null);
+            this.mc.displayGuiScreen(null);
             this.mc.setIngameFocus();
         } else {
             super.keyTyped(typedChar, keyCode);
@@ -271,7 +271,7 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
         this.mc.getTextureManager().bindTexture(ACHIEVEMENT_BACKGROUND);
 
         for (int j5 = 0; j5 < AchievementList.achievementList.size(); ++j5) {
-            Achievement achievement1 = (Achievement) AchievementList.achievementList.get(j5);
+            Achievement achievement1 = AchievementList.achievementList.get(j5);
 
             if (achievement1.parentAchievement != null) {
                 int k5 = achievement1.displayColumn * 24 - i + 11;
@@ -316,7 +316,7 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
         GlStateManager.enableColorMaterial();
 
         for (int i6 = 0; i6 < AchievementList.achievementList.size(); ++i6) {
-            Achievement achievement2 = (Achievement) AchievementList.achievementList.get(i6);
+            Achievement achievement2 = AchievementList.achievementList.get(i6);
             int l6 = achievement2.displayColumn * 24 - i;
             int j7 = achievement2.displayRow * 24 - j;
 

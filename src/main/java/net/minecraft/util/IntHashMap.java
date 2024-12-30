@@ -24,7 +24,7 @@ public class IntHashMap<V> {
             }
         }
 
-        return (V) null;
+        return null;
     }
 
     public boolean containsItem(int p_76037_1_) {
@@ -98,7 +98,7 @@ public class IntHashMap<V> {
 
     public V removeObject(int p_76049_1_) {
         IntHashMap.Entry<V> entry = this.removeEntry(p_76049_1_);
-        return (V) (entry == null ? null : entry.valueEntry);
+        return entry == null ? null : entry.valueEntry;
     }
 
     final IntHashMap.Entry<V> removeEntry(int p_76036_1_) {

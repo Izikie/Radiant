@@ -32,7 +32,7 @@ public class CommandSaveAll extends CommandBase {
                     WorldServer worldserver = minecraftserver.worldServers[i];
                     boolean flag = worldserver.disableLevelSaving;
                     worldserver.disableLevelSaving = false;
-                    worldserver.saveAllChunks(true, (IProgressUpdate) null);
+                    worldserver.saveAllChunks(true, null);
                     worldserver.disableLevelSaving = flag;
                 }
             }

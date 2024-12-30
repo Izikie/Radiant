@@ -228,7 +228,7 @@ public class EntityFishHook extends Entity {
             double d0 = 0.0D;
 
             for (Entity value : list) {
-                Entity entity1 = (Entity) value;
+                Entity entity1 = value;
 
                 if (entity1.canBeCollidedWith() && (entity1 != this.angler || this.ticksInAir >= 5)) {
                     float f = 0.3F;
@@ -414,7 +414,7 @@ public class EntityFishHook extends Entity {
         tagCompound.setShort("xTile", (short) this.xTile);
         tagCompound.setShort("yTile", (short) this.yTile);
         tagCompound.setShort("zTile", (short) this.zTile);
-        ResourceLocation resourcelocation = (ResourceLocation) Block.blockRegistry.getNameForObject(this.inTile);
+        ResourceLocation resourcelocation = Block.blockRegistry.getNameForObject(this.inTile);
         tagCompound.setString("inTile", resourcelocation == null ? "" : resourcelocation.toString());
         tagCompound.setByte("shake", (byte) this.shake);
         tagCompound.setByte("inGround", (byte) (this.inGround ? 1 : 0));
@@ -487,17 +487,17 @@ public class EntityFishHook extends Entity {
 
         if (f < f1) {
             this.angler.triggerAchievement(StatList.junkFishedStat);
-            return ((WeightedRandomFishable) WeightedRandom.getRandomItem(this.rand, JUNK)).getItemStack(this.rand);
+            return WeightedRandom.getRandomItem(this.rand, JUNK).getItemStack(this.rand);
         } else {
             f = f - f1;
 
             if (f < f2) {
                 this.angler.triggerAchievement(StatList.treasureFishedStat);
-                return ((WeightedRandomFishable) WeightedRandom.getRandomItem(this.rand, TREASURE)).getItemStack(this.rand);
+                return WeightedRandom.getRandomItem(this.rand, TREASURE).getItemStack(this.rand);
             } else {
                 float f3 = f - f2;
                 this.angler.triggerAchievement(StatList.fishCaughtStat);
-                return ((WeightedRandomFishable) WeightedRandom.getRandomItem(this.rand, FISH)).getItemStack(this.rand);
+                return WeightedRandom.getRandomItem(this.rand, FISH).getItemStack(this.rand);
             }
         }
     }

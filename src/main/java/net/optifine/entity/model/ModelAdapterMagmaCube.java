@@ -30,7 +30,7 @@ public class ModelAdapterMagmaCube extends ModelAdapter {
                 String s = "segment";
 
                 if (modelPart.startsWith(s)) {
-                    ModelRenderer[] amodelrenderer = (ModelRenderer[]) ((ModelRenderer[]) Reflector.getFieldValue(modelmagmacube, Reflector.ModelMagmaCube_segments));
+                    ModelRenderer[] amodelrenderer = (ModelRenderer[]) Reflector.getFieldValue(modelmagmacube, Reflector.ModelMagmaCube_segments);
 
                     if (amodelrenderer == null) {
                         return null;

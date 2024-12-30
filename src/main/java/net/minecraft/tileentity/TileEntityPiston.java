@@ -82,7 +82,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
         AxisAlignedBB axisalignedbb = Blocks.piston_extension.getBoundingBox(this.worldObj, this.pos, this.pistonState, p_145863_1_, this.pistonFacing);
 
         if (axisalignedbb != null) {
-            List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity((Entity) null, axisalignedbb);
+            List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(null, axisalignedbb);
 
             if (!list.isEmpty()) {
                 this.field_174933_k.addAll(list);

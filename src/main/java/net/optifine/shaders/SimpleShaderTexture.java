@@ -64,8 +64,8 @@ public class SimpleShaderTexture extends AbstractTexture {
             TextureMetadataSection texturemetadatasection1;
 
             try {
-                JsonObject jsonobject = (new JsonParser()).parse((Reader) bufferedreader).getAsJsonObject();
-                TextureMetadataSection texturemetadatasection = (TextureMetadataSection) imetadataserializer.parseMetadataSection(s1, jsonobject);
+                JsonObject jsonobject = (new JsonParser()).parse(bufferedreader).getAsJsonObject();
+                TextureMetadataSection texturemetadatasection = imetadataserializer.parseMetadataSection(s1, jsonobject);
 
                 if (texturemetadatasection == null) {
                     return def;
@@ -77,7 +77,7 @@ public class SimpleShaderTexture extends AbstractTexture {
                 SMCLog.warning("" + runtimeexception.getClass().getName() + ": " + runtimeexception.getMessage());
                 return def;
             } finally {
-                IOUtils.closeQuietly((Reader) bufferedreader);
+                IOUtils.closeQuietly(bufferedreader);
                 IOUtils.closeQuietly(inputstream);
             }
 

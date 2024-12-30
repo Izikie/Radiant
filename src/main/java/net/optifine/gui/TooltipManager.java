@@ -35,7 +35,7 @@ public class TooltipManager {
 
                     if (astring != null) {
                         if (astring.length > 8) {
-                            astring = (String[]) Arrays.copyOf(astring, 8);
+                            astring = Arrays.copyOf(astring, 8);
                             astring[astring.length - 1] = astring[astring.length - 1] + " ...";
                         }
 

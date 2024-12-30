@@ -23,7 +23,7 @@ public class CommandShowSeed extends CommandBase {
     }
 
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-        World world = (World) (sender instanceof EntityPlayer ? ((EntityPlayer) sender).worldObj : MinecraftServer.getServer().worldServerForDimension(0));
+        World world = sender instanceof EntityPlayer ? ((EntityPlayer) sender).worldObj : MinecraftServer.getServer().worldServerForDimension(0);
         sender.addChatMessage(new ChatComponentTranslation("commands.seed.success", Long.valueOf(world.getSeed())));
     }
 }

@@ -162,7 +162,7 @@ public class FaceBakery {
         if (modelRotationIn == ModelRotation.X0_Y0) {
             return vertexIndex;
         } else {
-            this.rotateScale(position, new Vector3f(0.5F, 0.5F, 0.5F), ((ModelRotation) modelRotationIn).getMatrix4d(), new Vector3f(1.0F, 1.0F, 1.0F));
+            this.rotateScale(position, new Vector3f(0.5F, 0.5F, 0.5F), modelRotationIn.getMatrix4d(), new Vector3f(1.0F, 1.0F, 1.0F));
             return modelRotationIn.rotateVertex(facing, vertexIndex);
         }
     }

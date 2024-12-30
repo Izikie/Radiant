@@ -132,7 +132,7 @@ public class DynamicLight {
     public void updateLitChunks(RenderGlobal renderGlobal) {
         for (BlockPos blockpos : this.setLitChunkPos) {
             RenderChunk renderchunk = renderGlobal.getRenderChunk(blockpos);
-            this.updateChunkLight(renderchunk, (Set<BlockPos>) null, (Set<BlockPos>) null);
+            this.updateChunkLight(renderchunk, null, null);
         }
     }
 

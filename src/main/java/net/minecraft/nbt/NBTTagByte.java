@@ -57,7 +57,7 @@ public class NBTTagByte extends NBTBase.NBTPrimitive {
     }
 
     public short getShort() {
-        return (short) this.data;
+        return this.data;
     }
 
     public byte getByte() {

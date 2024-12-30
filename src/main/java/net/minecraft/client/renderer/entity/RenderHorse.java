@@ -67,7 +67,7 @@ public class RenderHorse extends RenderLiving<EntityHorse> {
         if (!horse.func_175507_cI()) {
             return null;
         } else {
-            ResourceLocation resourcelocation = (ResourceLocation) field_110852_a.get(s);
+            ResourceLocation resourcelocation = field_110852_a.get(s);
 
             if (resourcelocation == null) {
                 resourcelocation = new ResourceLocation(s);

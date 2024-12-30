@@ -213,9 +213,9 @@ public class EntityPlayerSP extends AbstractClientPlayer {
     }
 
     public void closeScreenAndDropStack() {
-        this.inventory.setItemStack((ItemStack) null);
+        this.inventory.setItemStack(null);
         super.closeScreen();
-        this.mc.displayGuiScreen((GuiScreen) null);
+        this.mc.displayGuiScreen(null);
     }
 
     public void setPlayerSPHealth(float health) {
@@ -483,7 +483,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 
         if (this.inPortal) {
             if (this.mc.currentScreen != null && !this.mc.currentScreen.doesGuiPauseGame()) {
-                this.mc.displayGuiScreen((GuiScreen) null);
+                this.mc.displayGuiScreen(null);
             }
 
             if (this.timeInPortal == 0.0F) {

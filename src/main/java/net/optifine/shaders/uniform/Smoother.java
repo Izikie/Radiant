@@ -13,7 +13,7 @@ public class Smoother {
     public static float getSmoothValue(int id, float value, float timeFadeUpSec, float timeFadeDownSec) {
         synchronized (mapSmoothValues) {
             Integer integer = Integer.valueOf(id);
-            SmoothFloat smoothfloat = (SmoothFloat) mapSmoothValues.get(integer);
+            SmoothFloat smoothfloat = mapSmoothValues.get(integer);
 
             if (smoothfloat == null) {
                 smoothfloat = new SmoothFloat(value, timeFadeUpSec, timeFadeDownSec);

@@ -28,7 +28,7 @@ public class RegionRenderCache extends ChunkCache {
         this.position = posFromIn.subtract(new Vec3i(subIn, subIn, subIn));
         int i = 8000;
         this.combinedLights = allocateLights(8000);
-        Arrays.fill((int[]) ((int[]) this.combinedLights), (int) -1);
+        Arrays.fill(this.combinedLights, -1);
         this.blockStates = allocateStates(8000);
     }
 
@@ -85,7 +85,7 @@ public class RegionRenderCache extends ChunkCache {
 
     private static int[] allocateLights(int p_allocateLights_0_) {
         synchronized (cacheLights) {
-            int[] aint = (int[]) cacheLights.pollLast();
+            int[] aint = cacheLights.pollLast();
 
             if (aint == null || aint.length < p_allocateLights_0_) {
                 aint = new int[p_allocateLights_0_];
@@ -105,10 +105,10 @@ public class RegionRenderCache extends ChunkCache {
 
     private static IBlockState[] allocateStates(int p_allocateStates_0_) {
         synchronized (cacheStates) {
-            IBlockState[] aiblockstate = (IBlockState[]) cacheStates.pollLast();
+            IBlockState[] aiblockstate = cacheStates.pollLast();
 
             if (aiblockstate != null && aiblockstate.length >= p_allocateStates_0_) {
-                Arrays.fill(aiblockstate, (Object) null);
+                Arrays.fill(aiblockstate, null);
             } else {
                 aiblockstate = new IBlockState[p_allocateStates_0_];
             }

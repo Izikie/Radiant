@@ -136,7 +136,7 @@ public class CryptManager {
     public static Cipher createNetCipherInstance(int opMode, Key key) {
         try {
             Cipher cipher = Cipher.getInstance("AES/CFB8/NoPadding");
-            cipher.init(opMode, (Key) key, (AlgorithmParameterSpec) (new IvParameterSpec(key.getEncoded())));
+            cipher.init(opMode, key, new IvParameterSpec(key.getEncoded()));
             return cipher;
         } catch (GeneralSecurityException generalsecurityexception) {
             throw new RuntimeException(generalsecurityexception);

@@ -77,7 +77,7 @@ public class WorldClient extends World {
         }
 
         for (int i = 0; i < 10 && !this.entitySpawnQueue.isEmpty(); ++i) {
-            Entity entity = (Entity) this.entitySpawnQueue.iterator().next();
+            Entity entity = this.entitySpawnQueue.iterator().next();
             this.entitySpawnQueue.remove(entity);
 
             if (!this.loadedEntityList.contains(entity)) {
@@ -193,11 +193,11 @@ public class WorldClient extends World {
     }
 
     public Entity getEntityByID(int id) {
-        return (Entity) (id == this.mc.thePlayer.getEntityId() ? this.mc.thePlayer : super.getEntityByID(id));
+        return id == this.mc.thePlayer.getEntityId() ? this.mc.thePlayer : super.getEntityByID(id);
     }
 
     public Entity removeEntityFromWorld(int entityID) {
-        Entity entity = (Entity) this.entitiesById.removeObject(entityID);
+        Entity entity = this.entitiesById.removeObject(entityID);
 
         if (entity != null) {
             this.entityList.remove(entity);
@@ -251,7 +251,7 @@ public class WorldClient extends World {
         this.loadedEntityList.removeAll(this.unloadedEntityList);
 
         for (Entity value : this.unloadedEntityList) {
-            Entity entity = (Entity) value;
+            Entity entity = value;
             int j = entity.chunkCoordX;
             int k = entity.chunkCoordZ;
 
@@ -261,13 +261,13 @@ public class WorldClient extends World {
         }
 
         for (Entity entity : this.unloadedEntityList) {
-            this.onEntityRemoved((Entity) entity);
+            this.onEntityRemoved(entity);
         }
 
         this.unloadedEntityList.clear();
 
         for (int i1 = 0; i1 < this.loadedEntityList.size(); ++i1) {
-            Entity entity1 = (Entity) this.loadedEntityList.get(i1);
+            Entity entity1 = this.loadedEntityList.get(i1);
 
             if (entity1.ridingEntity != null) {
                 if (!entity1.ridingEntity.isDead && entity1.ridingEntity.riddenByEntity == entity1) {

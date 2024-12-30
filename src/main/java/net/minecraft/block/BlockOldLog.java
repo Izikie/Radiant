@@ -25,9 +25,9 @@ public class BlockOldLog extends BlockLog {
     }
 
     public MapColor getMapColor(IBlockState state) {
-        BlockPlanks.EnumType blockplanks$enumtype = (BlockPlanks.EnumType) state.getValue(VARIANT);
+        BlockPlanks.EnumType blockplanks$enumtype = state.getValue(VARIANT);
 
-        switch ((BlockLog.EnumAxis) state.getValue(LOG_AXIS)) {
+        switch (state.getValue(LOG_AXIS)) {
             case X:
             case Z:
             case NONE:
@@ -85,9 +85,9 @@ public class BlockOldLog extends BlockLog {
     @SuppressWarnings("incomplete-switch")
     public int getMetaFromState(IBlockState state) {
         int i = 0;
-        i = i | ((BlockPlanks.EnumType) state.getValue(VARIANT)).getMetadata();
+        i = i | state.getValue(VARIANT).getMetadata();
 
-        switch ((BlockLog.EnumAxis) state.getValue(LOG_AXIS)) {
+        switch (state.getValue(LOG_AXIS)) {
             case X:
                 i |= 4;
                 break;
@@ -108,10 +108,10 @@ public class BlockOldLog extends BlockLog {
     }
 
     protected ItemStack createStackedBlock(IBlockState state) {
-        return new ItemStack(Item.getItemFromBlock(this), 1, ((BlockPlanks.EnumType) state.getValue(VARIANT)).getMetadata());
+        return new ItemStack(Item.getItemFromBlock(this), 1, state.getValue(VARIANT).getMetadata());
     }
 
     public int damageDropped(IBlockState state) {
-        return ((BlockPlanks.EnumType) state.getValue(VARIANT)).getMetadata();
+        return state.getValue(VARIANT).getMetadata();
     }
 }

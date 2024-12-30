@@ -231,7 +231,7 @@ public class Village {
         Village.VillageAggressor village$villageaggressor = null;
 
         for (VillageAggressor villageAgressor : this.villageAgressors) {
-            VillageAggressor village$villageaggressor1 = (VillageAggressor) villageAgressor;
+            VillageAggressor village$villageaggressor1 = villageAgressor;
             double d1 = village$villageaggressor1.agressor.getDistanceSqToEntity(entitylivingbaseIn);
 
             if (d1 <= d0) {
@@ -269,7 +269,7 @@ public class Village {
         Iterator<Village.VillageAggressor> iterator = this.villageAgressors.iterator();
 
         while (iterator.hasNext()) {
-            Village.VillageAggressor village$villageaggressor = (Village.VillageAggressor) iterator.next();
+            Village.VillageAggressor village$villageaggressor = iterator.next();
 
             if (!village$villageaggressor.agressor.isEntityAlive() || Math.abs(this.tickCounter - village$villageaggressor.agressionTime) > 300) {
                 iterator.remove();
@@ -283,7 +283,7 @@ public class Village {
         Iterator<VillageDoorInfo> iterator = this.villageDoorInfoList.iterator();
 
         while (iterator.hasNext()) {
-            VillageDoorInfo villagedoorinfo = (VillageDoorInfo) iterator.next();
+            VillageDoorInfo villagedoorinfo = iterator.next();
 
             if (flag1) {
                 villagedoorinfo.resetDoorOpeningRestrictionCounter();
@@ -326,7 +326,7 @@ public class Village {
     }
 
     public int getReputationForPlayer(String p_82684_1_) {
-        Integer integer = (Integer) this.playerReputation.get(p_82684_1_);
+        Integer integer = this.playerReputation.get(p_82684_1_);
         return integer != null ? integer.intValue() : 0;
     }
 
@@ -412,7 +412,7 @@ public class Village {
 
             if (gameprofile != null) {
                 nbttagcompound1.setString("UUID", gameprofile.getId().toString());
-                nbttagcompound1.setInteger("S", ((Integer) this.playerReputation.get(s)).intValue());
+                nbttagcompound1.setInteger("S", this.playerReputation.get(s).intValue());
                 nbttaglist1.appendTag(nbttagcompound1);
             }
         }

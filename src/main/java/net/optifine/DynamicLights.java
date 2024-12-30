@@ -79,7 +79,7 @@ public class DynamicLights {
                     List<DynamicLight> list = mapDynamicLights.valueList();
 
                     for (DynamicLight dynamicLight : list) {
-                        DynamicLight dynamiclight = (DynamicLight) dynamicLight;
+                        DynamicLight dynamiclight = dynamicLight;
                         dynamiclight.update(renderGlobal);
                     }
                 }
@@ -162,7 +162,7 @@ public class DynamicLights {
             int i = list.size();
 
             for (DynamicLight dynamicLight : list) {
-                DynamicLight dynamiclight = (DynamicLight) dynamicLight;
+                DynamicLight dynamiclight = dynamicLight;
                 int k = dynamiclight.getLastLightLevel();
 
                 if (k > 0) {
@@ -223,7 +223,7 @@ public class DynamicLights {
                     return Blocks.beacon.getLightValue() / 2;
                 } else {
                     if (!mapItemLightLevels.isEmpty()) {
-                        Integer integer = (Integer) mapItemLightLevels.get(item);
+                        Integer integer = mapItemLightLevels.get(item);
 
                         if (integer != null) {
                             return integer.intValue();
@@ -253,7 +253,7 @@ public class DynamicLights {
                 return 15;
             } else {
                 if (!mapEntityLightLevels.isEmpty()) {
-                    Integer integer = (Integer) mapEntityLightLevels.get(entity.getClass());
+                    Integer integer = mapEntityLightLevels.get(entity.getClass());
 
                     if (integer != null) {
                         return integer.intValue();
@@ -298,7 +298,7 @@ public class DynamicLights {
             List<DynamicLight> list = mapDynamicLights.valueList();
 
             for (DynamicLight dynamicLight : list) {
-                DynamicLight dynamiclight = (DynamicLight) dynamicLight;
+                DynamicLight dynamiclight = dynamicLight;
                 dynamiclight.updateLitChunks(renderGlobal);
             }
 

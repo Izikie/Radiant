@@ -32,7 +32,7 @@ public class WeightedRandom {
             }
         }
 
-        return (T) null;
+        return null;
     }
 
     public static <T extends WeightedRandom.Item> T getRandomItem(Random random, Collection<T> collection) {

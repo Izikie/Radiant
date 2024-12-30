@@ -35,11 +35,11 @@ public class BlockPrismarine extends Block {
     }
 
     public int damageDropped(IBlockState state) {
-        return ((BlockPrismarine.EnumType) state.getValue(VARIANT)).getMetadata();
+        return state.getValue(VARIANT).getMetadata();
     }
 
     public int getMetaFromState(IBlockState state) {
-        return ((BlockPrismarine.EnumType) state.getValue(VARIANT)).getMetadata();
+        return state.getValue(VARIANT).getMetadata();
     }
 
     protected BlockState createBlockState() {

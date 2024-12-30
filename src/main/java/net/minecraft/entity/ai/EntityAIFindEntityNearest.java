@@ -52,7 +52,7 @@ public class EntityAIFindEntityNearest extends EntityAIBase {
         if (list.isEmpty()) {
             return false;
         } else {
-            this.target = (EntityLivingBase) list.get(0);
+            this.target = list.get(0);
             return true;
         }
     }
@@ -76,7 +76,7 @@ public class EntityAIFindEntityNearest extends EntityAIBase {
     }
 
     public void resetTask() {
-        this.mob.setAttackTarget((EntityLivingBase) null);
+        this.mob.setAttackTarget(null);
         super.startExecuting();
     }
 

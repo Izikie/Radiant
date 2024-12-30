@@ -66,8 +66,8 @@ public class Shader {
         this.manager.addSamplerTexture("DiffuseSampler", this.framebufferIn);
 
         for (int i = 0; i < this.listAuxFramebuffers.size(); ++i) {
-            this.manager.addSamplerTexture((String) this.listAuxNames.get(i), this.listAuxFramebuffers.get(i));
-            this.manager.getShaderUniformOrDefault("AuxSize" + i).set(((Integer) this.listAuxWidths.get(i)).intValue(), ((Integer) this.listAuxHeights.get(i)).intValue());
+            this.manager.addSamplerTexture(this.listAuxNames.get(i), this.listAuxFramebuffers.get(i));
+            this.manager.getShaderUniformOrDefault("AuxSize" + i).set(this.listAuxWidths.get(i).intValue(), this.listAuxHeights.get(i).intValue());
         }
 
         this.manager.getShaderUniformOrDefault("ProjMat").set(this.projectionMatrix);

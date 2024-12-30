@@ -17,10 +17,10 @@ import net.optifine.util.PropertiesOrdered;
 import net.optifine.util.TextureUtils;
 
 public class CustomSky {
-    private static CustomSkyLayer[][] worldSkyLayers = (CustomSkyLayer[][]) null;
+    private static CustomSkyLayer[][] worldSkyLayers = null;
 
     public static void reset() {
-        worldSkyLayers = (CustomSkyLayer[][]) null;
+        worldSkyLayers = null;
     }
 
     public static void update() {
@@ -78,14 +78,14 @@ public class CustomSky {
             }
 
             if (list.size() > 0) {
-                CustomSkyLayer[] acustomskylayer2 = (CustomSkyLayer[]) ((CustomSkyLayer[]) list.toArray(new CustomSkyLayer[list.size()]));
+                CustomSkyLayer[] acustomskylayer2 = (CustomSkyLayer[]) list.toArray(new CustomSkyLayer[list.size()]);
                 acustomskylayer[j] = acustomskylayer2;
                 i = j;
             }
         }
 
         if (i < 0) {
-            return (CustomSkyLayer[][]) null;
+            return null;
         } else {
             int l = i + 1;
             CustomSkyLayer[][] acustomskylayer1 = new CustomSkyLayer[l][0];

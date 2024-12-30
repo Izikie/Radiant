@@ -46,7 +46,7 @@ public class BlockRailDetector extends BlockRailBase {
 
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
         if (!worldIn.isRemote) {
-            if (!((Boolean) state.getValue(POWERED)).booleanValue()) {
+            if (!state.getValue(POWERED).booleanValue()) {
                 this.updatePoweredState(worldIn, pos, state);
             }
         }
@@ -56,21 +56,21 @@ public class BlockRailDetector extends BlockRailBase {
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        if (!worldIn.isRemote && ((Boolean) state.getValue(POWERED)).booleanValue()) {
+        if (!worldIn.isRemote && state.getValue(POWERED).booleanValue()) {
             this.updatePoweredState(worldIn, pos, state);
         }
     }
 
     public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side) {
-        return ((Boolean) state.getValue(POWERED)).booleanValue() ? 15 : 0;
+        return state.getValue(POWERED).booleanValue() ? 15 : 0;
     }
 
     public int getStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side) {
-        return !((Boolean) state.getValue(POWERED)).booleanValue() ? 0 : (side == EnumFacing.UP ? 15 : 0);
+        return !state.getValue(POWERED).booleanValue() ? 0 : (side == EnumFacing.UP ? 15 : 0);
     }
 
     private void updatePoweredState(World worldIn, BlockPos pos, IBlockState state) {
-        boolean flag = ((Boolean) state.getValue(POWERED)).booleanValue();
+        boolean flag = state.getValue(POWERED).booleanValue();
         boolean flag1 = false;
         List<EntityMinecart> list = this.findMinecarts(worldIn, pos, EntityMinecart.class);
 
@@ -113,11 +113,11 @@ public class BlockRailDetector extends BlockRailBase {
     }
 
     public int getComparatorInputOverride(World worldIn, BlockPos pos) {
-        if (((Boolean) worldIn.getBlockState(pos).getValue(POWERED)).booleanValue()) {
+        if (worldIn.getBlockState(pos).getValue(POWERED).booleanValue()) {
             List<EntityMinecartCommandBlock> list = this.findMinecarts(worldIn, pos, EntityMinecartCommandBlock.class);
 
             if (!list.isEmpty()) {
-                return ((EntityMinecartCommandBlock) list.get(0)).getCommandBlockLogic().getSuccessCount();
+                return list.get(0).getCommandBlockLogic().getSuccessCount();
             }
 
             List<EntityMinecart> list1 = this.findMinecarts(worldIn, pos, EntityMinecart.class, EntitySelectors.selectInventories);
@@ -146,9 +146,9 @@ public class BlockRailDetector extends BlockRailBase {
 
     public int getMetaFromState(IBlockState state) {
         int i = 0;
-        i = i | ((BlockRailBase.EnumRailDirection) state.getValue(SHAPE)).getMetadata();
+        i = i | state.getValue(SHAPE).getMetadata();
 
-        if (((Boolean) state.getValue(POWERED)).booleanValue()) {
+        if (state.getValue(POWERED).booleanValue()) {
             i |= 8;
         }
 

@@ -93,7 +93,7 @@ public class CommandTeleport extends CommandBase {
                             f = MathHelper.wrapAngleTo180_float(f + 180.0F);
                         }
 
-                        entity.mountEntity((Entity) null);
+                        entity.mountEntity(null);
                         ((EntityPlayerMP) entity).playerNetServerHandler.setPlayerLocation(commandbase$coordinatearg.func_179629_b(), commandbase$coordinatearg1.func_179629_b(), commandbase$coordinatearg2.func_179629_b(), f, f1, set);
                         entity.setRotationYawHead(f);
                     } else {
@@ -117,7 +117,7 @@ public class CommandTeleport extends CommandBase {
                 if (entity1.worldObj != entity.worldObj) {
                     throw new CommandException("commands.tp.notSameDimension");
                 } else {
-                    entity.mountEntity((Entity) null);
+                    entity.mountEntity(null);
 
                     if (entity instanceof EntityPlayerMP) {
                         ((EntityPlayerMP) entity).playerNetServerHandler.setPlayerLocation(entity1.posX, entity1.posY, entity1.posZ, entity1.rotationYaw, entity1.rotationPitch);

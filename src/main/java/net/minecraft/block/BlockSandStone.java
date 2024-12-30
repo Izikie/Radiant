@@ -23,7 +23,7 @@ public class BlockSandStone extends Block {
     }
 
     public int damageDropped(IBlockState state) {
-        return ((BlockSandStone.EnumType) state.getValue(TYPE)).getMetadata();
+        return state.getValue(TYPE).getMetadata();
     }
 
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
@@ -41,7 +41,7 @@ public class BlockSandStone extends Block {
     }
 
     public int getMetaFromState(IBlockState state) {
-        return ((BlockSandStone.EnumType) state.getValue(TYPE)).getMetadata();
+        return state.getValue(TYPE).getMetadata();
     }
 
     protected BlockState createBlockState() {

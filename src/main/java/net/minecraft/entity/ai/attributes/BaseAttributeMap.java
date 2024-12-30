@@ -16,11 +16,11 @@ public abstract class BaseAttributeMap {
     protected final Multimap<IAttribute, IAttribute> field_180377_c = HashMultimap.create();
 
     public IAttributeInstance getAttributeInstance(IAttribute attribute) {
-        return (IAttributeInstance) this.attributes.get(attribute);
+        return this.attributes.get(attribute);
     }
 
     public IAttributeInstance getAttributeInstanceByName(String attributeName) {
-        return (IAttributeInstance) this.attributesByName.get(attributeName);
+        return this.attributesByName.get(attributeName);
     }
 
     public IAttributeInstance registerAttribute(IAttribute attribute) {
@@ -50,21 +50,21 @@ public abstract class BaseAttributeMap {
 
     public void removeAttributeModifiers(Multimap<String, AttributeModifier> modifiers) {
         for (Entry<String, AttributeModifier> entry : modifiers.entries()) {
-            IAttributeInstance iattributeinstance = this.getAttributeInstanceByName((String) entry.getKey());
+            IAttributeInstance iattributeinstance = this.getAttributeInstanceByName(entry.getKey());
 
             if (iattributeinstance != null) {
-                iattributeinstance.removeModifier((AttributeModifier) entry.getValue());
+                iattributeinstance.removeModifier(entry.getValue());
             }
         }
     }
 
     public void applyAttributeModifiers(Multimap<String, AttributeModifier> modifiers) {
         for (Entry<String, AttributeModifier> entry : modifiers.entries()) {
-            IAttributeInstance iattributeinstance = this.getAttributeInstanceByName((String) entry.getKey());
+            IAttributeInstance iattributeinstance = this.getAttributeInstanceByName(entry.getKey());
 
             if (iattributeinstance != null) {
-                iattributeinstance.removeModifier((AttributeModifier) entry.getValue());
-                iattributeinstance.applyModifier((AttributeModifier) entry.getValue());
+                iattributeinstance.removeModifier(entry.getValue());
+                iattributeinstance.applyModifier(entry.getValue());
             }
         }
     }

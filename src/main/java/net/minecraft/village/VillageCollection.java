@@ -69,7 +69,7 @@ public class VillageCollection extends WorldSavedData {
         Iterator<Village> iterator = this.villageList.iterator();
 
         while (iterator.hasNext()) {
-            Village village = (Village) iterator.next();
+            Village village = iterator.next();
 
             if (village.isAnnihilated()) {
                 iterator.remove();
@@ -104,13 +104,13 @@ public class VillageCollection extends WorldSavedData {
 
     private void dropOldestVillagerPosition() {
         if (!this.villagerPositionsList.isEmpty()) {
-            this.addDoorsAround((BlockPos) this.villagerPositionsList.remove(0));
+            this.addDoorsAround(this.villagerPositionsList.remove(0));
         }
     }
 
     private void addNewDoorsToVillageOrCreateVillage() {
         for (VillageDoorInfo newDoor : this.newDoors) {
-            VillageDoorInfo villagedoorinfo = (VillageDoorInfo) newDoor;
+            VillageDoorInfo villagedoorinfo = newDoor;
             Village village = this.getNearestVillage(villagedoorinfo.getDoorBlockPos(), 32);
 
             if (village == null) {

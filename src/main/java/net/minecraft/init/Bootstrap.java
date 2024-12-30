@@ -122,7 +122,7 @@ public class Bootstrap {
                 Entity entity = ItemMonsterPlacer.spawnCreature(source.getWorld(), stack.getMetadata(), d0, d1, d2);
 
                 if (entity instanceof EntityLivingBase && stack.hasDisplayName()) {
-                    ((EntityLiving) entity).setCustomNameTag(stack.getDisplayName());
+                    entity.setCustomNameTag(stack.getDisplayName());
                 }
 
                 stack.splitStack(1);
@@ -228,10 +228,10 @@ public class Bootstrap {
                 Material material = block.getMaterial();
                 Item item;
 
-                if (Material.water.equals(material) && block instanceof BlockLiquid && ((Integer) iblockstate.getValue(BlockLiquid.LEVEL)).intValue() == 0) {
+                if (Material.water.equals(material) && block instanceof BlockLiquid && iblockstate.getValue(BlockLiquid.LEVEL).intValue() == 0) {
                     item = Items.water_bucket;
                 } else {
-                    if (!Material.lava.equals(material) || !(block instanceof BlockLiquid) || ((Integer) iblockstate.getValue(BlockLiquid.LEVEL)).intValue() != 0) {
+                    if (!Material.lava.equals(material) || !(block instanceof BlockLiquid) || iblockstate.getValue(BlockLiquid.LEVEL).intValue() != 0) {
                         return super.dispenseStack(source, stack);
                     }
 
@@ -315,7 +315,7 @@ public class Bootstrap {
             protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
                 World world = source.getWorld();
                 BlockPos blockpos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
-                EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(world, blockpos.getX() + 0.5D, blockpos.getY(), blockpos.getZ() + 0.5D, (EntityLivingBase) null);
+                EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(world, blockpos.getX() + 0.5D, blockpos.getY(), blockpos.getZ() + 0.5D, null);
                 world.spawnEntityInWorld(entitytntprimed);
                 world.playSoundAtEntity(entitytntprimed, "game.tnt.primed", 1.0F, 1.0F);
                 --stack.stackSize;
@@ -349,7 +349,7 @@ public class Bootstrap {
                                         String s = nbttagcompound.getString("SkullOwner");
 
                                         if (!StringUtils.isNullOrEmpty(s)) {
-                                            gameprofile = new GameProfile((UUID) null, s);
+                                            gameprofile = new GameProfile(null, s);
                                         }
                                     }
                                 }

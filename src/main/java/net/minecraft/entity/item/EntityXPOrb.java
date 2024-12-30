@@ -152,7 +152,7 @@ public class EntityXPOrb extends Entity {
     }
 
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
-        tagCompound.setShort("Health", (short) ((byte) this.xpOrbHealth));
+        tagCompound.setShort("Health", (byte) this.xpOrbHealth);
         tagCompound.setShort("Age", (short) this.xpOrbAge);
         tagCompound.setShort("Value", (short) this.xpValue);
     }

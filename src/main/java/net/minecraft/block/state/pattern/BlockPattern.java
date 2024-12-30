@@ -146,7 +146,7 @@ public class BlockPattern {
         }
 
         public BlockWorldState translateOffset(int palmOffset, int thumbOffset, int fingerOffset) {
-            return (BlockWorldState) this.lcache.getUnchecked(BlockPattern.translateOffset(this.pos, this.getFinger(), this.getThumb(), palmOffset, thumbOffset, fingerOffset));
+            return this.lcache.getUnchecked(BlockPattern.translateOffset(this.pos, this.getFinger(), this.getThumb(), palmOffset, thumbOffset, fingerOffset));
         }
 
         public String toString() {

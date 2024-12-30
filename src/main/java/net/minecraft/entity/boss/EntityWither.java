@@ -239,7 +239,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
                         List<EntityLivingBase> list = this.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, this.getEntityBoundingBox().expand(20.0D, 8.0D, 20.0D), Predicates.and(attackEntitySelector, EntitySelectors.NOT_SPECTATING));
 
                         for (int j2 = 0; j2 < 10 && !list.isEmpty(); ++j2) {
-                            EntityLivingBase entitylivingbase = (EntityLivingBase) list.get(this.rand.nextInt(list.size()));
+                            EntityLivingBase entitylivingbase = list.get(this.rand.nextInt(list.size()));
 
                             if (entitylivingbase != this && entitylivingbase.isEntityAlive() && this.canEntityBeSeen(entitylivingbase)) {
                                 if (entitylivingbase instanceof EntityPlayer) {
@@ -291,7 +291,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
                     }
 
                     if (flag) {
-                        this.worldObj.playAuxSFXAtEntity((EntityPlayer) null, 1012, new BlockPos(this), 0);
+                        this.worldObj.playAuxSFXAtEntity(null, 1012, new BlockPos(this), 0);
                     }
                 }
             }
@@ -361,7 +361,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
     }
 
     private void launchWitherSkullToCoords(int p_82209_1_, double x, double y, double z, boolean invulnerable) {
-        this.worldObj.playAuxSFXAtEntity((EntityPlayer) null, 1014, new BlockPos(this), 0);
+        this.worldObj.playAuxSFXAtEntity(null, 1014, new BlockPos(this), 0);
         double d0 = this.func_82214_u(p_82209_1_);
         double d1 = this.func_82208_v(p_82209_1_);
         double d2 = this.func_82213_w(p_82209_1_);

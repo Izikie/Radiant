@@ -53,7 +53,7 @@ public abstract class TileEntity {
     }
 
     public void writeToNBT(NBTTagCompound compound) {
-        String s = (String) classToNameMap.get(this.getClass());
+        String s = classToNameMap.get(this.getClass());
 
         if (s == null) {
             throw new RuntimeException(this.getClass() + " is missing a mapping! This is a bug!");
@@ -69,10 +69,10 @@ public abstract class TileEntity {
         TileEntity tileentity = null;
 
         try {
-            Class<? extends TileEntity> oclass = (Class) nameToClassMap.get(nbt.getString("id"));
+            Class<? extends TileEntity> oclass = nameToClassMap.get(nbt.getString("id"));
 
             if (oclass != null) {
-                tileentity = (TileEntity) oclass.newInstance();
+                tileentity = oclass.newInstance();
             }
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -159,7 +159,7 @@ public abstract class TileEntity {
     public void addInfoToCrashReport(CrashReportCategory reportCategory) {
         reportCategory.addCrashSectionCallable("Name", new Callable<String>() {
             public String call() throws Exception {
-                return (String) TileEntity.classToNameMap.get(TileEntity.this.getClass()) + " // " + TileEntity.this.getClass().getCanonicalName();
+                return TileEntity.classToNameMap.get(TileEntity.this.getClass()) + " // " + TileEntity.this.getClass().getCanonicalName();
             }
         });
 

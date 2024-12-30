@@ -35,7 +35,7 @@ public class GuiScreenWorking extends GuiScreen implements IProgressUpdate {
 
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         if (this.doneWorking) {
-            this.mc.displayGuiScreen((GuiScreen) null);
+            this.mc.displayGuiScreen(null);
         } else {
             if (this.customLoadingScreen != null && this.mc.theWorld == null) {
                 this.customLoadingScreen.drawBackground(this.width, this.height);

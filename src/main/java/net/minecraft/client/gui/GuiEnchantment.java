@@ -124,7 +124,7 @@ public class GuiEnchantment extends GuiContainer {
         }
 
         GlStateManager.enableRescaleNormal();
-        MODEL_BOOK.render((Entity) null, 0.0F, f3, f4, f2, 0.0F, 0.0625F);
+        MODEL_BOOK.render(null, 0.0F, f3, f4, f2, 0.0F, 0.0625F);
         GlStateManager.disableRescaleNormal();
         RenderHelper.disableStandardItemLighting();
         GlStateManager.matrixMode(5889);

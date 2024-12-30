@@ -329,7 +329,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
 
         if (itemstack != null && canExtractItemFromSlot(inventoryIn, itemstack, index, direction)) {
             ItemStack itemstack1 = itemstack.copy();
-            ItemStack itemstack2 = putStackInInventoryAllSlots(hopper, inventoryIn.decrStackSize(index, 1), (EnumFacing) null);
+            ItemStack itemstack2 = putStackInInventoryAllSlots(hopper, inventoryIn.decrStackSize(index, 1), null);
 
             if (itemstack2 == null || itemstack2.stackSize == 0) {
                 inventoryIn.markDirty();
@@ -349,7 +349,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
             return false;
         } else {
             ItemStack itemstack = itemIn.getEntityItem().copy();
-            ItemStack itemstack1 = putStackInInventoryAllSlots(p_145898_0_, itemstack, (EnumFacing) null);
+            ItemStack itemstack1 = putStackInInventoryAllSlots(p_145898_0_, itemstack, null);
 
             if (itemstack1 != null && itemstack1.stackSize != 0) {
                 itemIn.setEntityItemStack(itemstack1);
@@ -461,7 +461,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
         }
 
         if (iinventory == null) {
-            List<Entity> list = worldIn.getEntitiesInAABBexcluding((Entity) null, new AxisAlignedBB(x - 0.5D, y - 0.5D, z - 0.5D, x + 0.5D, y + 0.5D, z + 0.5D), EntitySelectors.selectInventories);
+            List<Entity> list = worldIn.getEntitiesInAABBexcluding(null, new AxisAlignedBB(x - 0.5D, y - 0.5D, z - 0.5D, x + 0.5D, y + 0.5D, z + 0.5D), EntitySelectors.selectInventories);
 
             if (list.size() > 0) {
                 iinventory = (IInventory) list.get(worldIn.rand.nextInt(list.size()));

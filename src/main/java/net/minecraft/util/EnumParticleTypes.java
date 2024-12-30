@@ -93,7 +93,7 @@ public enum EnumParticleTypes {
     }
 
     public static EnumParticleTypes getParticleFromId(int particleId) {
-        return (EnumParticleTypes) PARTICLES.get(Integer.valueOf(particleId));
+        return PARTICLES.get(Integer.valueOf(particleId));
     }
 
     static {
@@ -107,6 +107,6 @@ public enum EnumParticleTypes {
             }
         }
 
-        PARTICLE_NAMES = (String[]) list.toArray(new String[list.size()]);
+        PARTICLE_NAMES = list.toArray(new String[list.size()]);
     }
 }

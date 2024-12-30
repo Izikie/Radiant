@@ -53,7 +53,7 @@ public class ChunkProviderClient implements IChunkProvider {
     }
 
     public Chunk provideChunk(int x, int z) {
-        Chunk chunk = (Chunk) this.chunkMapping.getValueByKey(ChunkCoordIntPair.chunkXZ2Int(x, z));
+        Chunk chunk = this.chunkMapping.getValueByKey(ChunkCoordIntPair.chunkXZ2Int(x, z));
         return chunk == null ? this.blankChunk : chunk;
     }
 

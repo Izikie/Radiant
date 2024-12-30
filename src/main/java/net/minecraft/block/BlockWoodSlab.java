@@ -32,7 +32,7 @@ public abstract class BlockWoodSlab extends BlockSlab {
     }
 
     public MapColor getMapColor(IBlockState state) {
-        return ((BlockPlanks.EnumType) state.getValue(VARIANT)).getMapColor();
+        return state.getValue(VARIANT).getMapColor();
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
@@ -75,7 +75,7 @@ public abstract class BlockWoodSlab extends BlockSlab {
 
     public int getMetaFromState(IBlockState state) {
         int i = 0;
-        i = i | ((BlockPlanks.EnumType) state.getValue(VARIANT)).getMetadata();
+        i = i | state.getValue(VARIANT).getMetadata();
 
         if (!this.isDouble() && state.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP) {
             i |= 8;
@@ -89,6 +89,6 @@ public abstract class BlockWoodSlab extends BlockSlab {
     }
 
     public int damageDropped(IBlockState state) {
-        return ((BlockPlanks.EnumType) state.getValue(VARIANT)).getMetadata();
+        return state.getValue(VARIANT).getMetadata();
     }
 }

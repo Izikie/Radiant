@@ -133,7 +133,7 @@ public class ShaderGroup {
             throw new JsonException("Output target \'" + s2 + "\' does not exist");
         } else {
             Shader shader = this.addShader(s, framebuffer, framebuffer1);
-            JsonArray jsonarray = JsonUtils.getJsonArray(jsonobject, "auxtargets", (JsonArray) null);
+            JsonArray jsonarray = JsonUtils.getJsonArray(jsonobject, "auxtargets", null);
 
             if (jsonarray != null) {
                 int i = 0;
@@ -182,7 +182,7 @@ public class ShaderGroup {
                 }
             }
 
-            JsonArray jsonarray1 = JsonUtils.getJsonArray(jsonobject, "uniforms", (JsonArray) null);
+            JsonArray jsonarray1 = JsonUtils.getJsonArray(jsonobject, "uniforms", null);
 
             if (jsonarray1 != null) {
                 int l = 0;
@@ -205,7 +205,7 @@ public class ShaderGroup {
     private void initUniform(JsonElement p_148028_1_) throws JsonException {
         JsonObject jsonobject = JsonUtils.getJsonObject(p_148028_1_, "uniform");
         String s = JsonUtils.getString(jsonobject, "name");
-        ShaderUniform shaderuniform = ((Shader) this.listShaders.get(this.listShaders.size() - 1)).getShaderManager().getShaderUniform(s);
+        ShaderUniform shaderuniform = this.listShaders.get(this.listShaders.size() - 1).getShaderManager().getShaderUniform(s);
 
         if (shaderuniform == null) {
             throw new JsonException("Uniform \'" + s + "\' does not exist");
@@ -249,7 +249,7 @@ public class ShaderGroup {
     }
 
     public Framebuffer getFramebufferRaw(String p_177066_1_) {
-        return (Framebuffer) this.mapFramebuffers.get(p_177066_1_);
+        return this.mapFramebuffers.get(p_177066_1_);
     }
 
     public void addFramebuffer(String p_148020_1_, int p_148020_2_, int p_148020_3_) {
@@ -328,6 +328,6 @@ public class ShaderGroup {
     }
 
     private Framebuffer getFramebuffer(String p_148017_1_) {
-        return p_148017_1_ == null ? null : (p_148017_1_.equals("minecraft:main") ? this.mainFramebuffer : (Framebuffer) this.mapFramebuffers.get(p_148017_1_));
+        return p_148017_1_ == null ? null : (p_148017_1_.equals("minecraft:main") ? this.mainFramebuffer : this.mapFramebuffers.get(p_148017_1_));
     }
 }

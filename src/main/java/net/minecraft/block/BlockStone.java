@@ -30,7 +30,7 @@ public class BlockStone extends Block {
     }
 
     public MapColor getMapColor(IBlockState state) {
-        return ((BlockStone.EnumType) state.getValue(VARIANT)).func_181072_c();
+        return state.getValue(VARIANT).func_181072_c();
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
@@ -38,7 +38,7 @@ public class BlockStone extends Block {
     }
 
     public int damageDropped(IBlockState state) {
-        return ((BlockStone.EnumType) state.getValue(VARIANT)).getMetadata();
+        return state.getValue(VARIANT).getMetadata();
     }
 
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
@@ -52,7 +52,7 @@ public class BlockStone extends Block {
     }
 
     public int getMetaFromState(IBlockState state) {
-        return ((BlockStone.EnumType) state.getValue(VARIANT)).getMetadata();
+        return state.getValue(VARIANT).getMetadata();
     }
 
     protected BlockState createBlockState() {

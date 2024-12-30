@@ -35,7 +35,7 @@ public abstract class StructureStart {
         Iterator<StructureComponent> iterator = this.components.iterator();
 
         while (iterator.hasNext()) {
-            StructureComponent structurecomponent = (StructureComponent) iterator.next();
+            StructureComponent structurecomponent = iterator.next();
 
             if (structurecomponent.getBoundingBox().intersectsWith(structurebb) && !structurecomponent.addComponentParts(worldIn, rand, structurebb)) {
                 iterator.remove();

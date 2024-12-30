@@ -20,7 +20,7 @@ public class BlockSand extends BlockFalling {
     }
 
     public int damageDropped(IBlockState state) {
-        return ((BlockSand.EnumType) state.getValue(VARIANT)).getMetadata();
+        return state.getValue(VARIANT).getMetadata();
     }
 
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
@@ -30,7 +30,7 @@ public class BlockSand extends BlockFalling {
     }
 
     public MapColor getMapColor(IBlockState state) {
-        return ((BlockSand.EnumType) state.getValue(VARIANT)).getMapColor();
+        return state.getValue(VARIANT).getMapColor();
     }
 
     public IBlockState getStateFromMeta(int meta) {
@@ -38,7 +38,7 @@ public class BlockSand extends BlockFalling {
     }
 
     public int getMetaFromState(IBlockState state) {
-        return ((BlockSand.EnumType) state.getValue(VARIANT)).getMetadata();
+        return state.getValue(VARIANT).getMetadata();
     }
 
     protected BlockState createBlockState() {

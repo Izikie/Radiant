@@ -28,7 +28,7 @@ public class RegistryNamespaced<K, V> extends RegistrySimple<K, V> implements IO
     }
 
     public K getNameForObject(V value) {
-        return (K) this.inverseObjectRegistry.get(value);
+        return this.inverseObjectRegistry.get(value);
     }
 
     public boolean containsKey(K key) {
@@ -40,7 +40,7 @@ public class RegistryNamespaced<K, V> extends RegistrySimple<K, V> implements IO
     }
 
     public V getObjectById(int id) {
-        return (V) this.underlyingIntegerMap.getByValue(id);
+        return this.underlyingIntegerMap.getByValue(id);
     }
 
     public Iterator<V> iterator() {

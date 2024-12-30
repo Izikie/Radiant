@@ -41,7 +41,7 @@ public class EntitySpawnPlacementRegistry {
     private static final HashMap<Class, EntityLiving.SpawnPlacementType> ENTITY_PLACEMENTS = Maps.newHashMap();
 
     public static EntityLiving.SpawnPlacementType getPlacementForEntity(Class entityClass) {
-        return (EntityLiving.SpawnPlacementType) ENTITY_PLACEMENTS.get(entityClass);
+        return ENTITY_PLACEMENTS.get(entityClass);
     }
 
     static {

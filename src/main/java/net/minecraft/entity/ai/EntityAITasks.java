@@ -19,7 +19,7 @@ public class EntityAITasks {
         Iterator<EntityAITasks.EntityAITaskEntry> iterator = this.taskEntries.iterator();
 
         while (iterator.hasNext()) {
-            EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry = (EntityAITasks.EntityAITaskEntry) iterator.next();
+            EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry = iterator.next();
             EntityAIBase entityaibase = entityaitasks$entityaitaskentry.action;
 
             if (entityaibase == task) {
@@ -69,7 +69,7 @@ public class EntityAITasks {
             Iterator<EntityAITasks.EntityAITaskEntry> iterator1 = this.executingTaskEntries.iterator();
 
             while (iterator1.hasNext()) {
-                EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry1 = (EntityAITasks.EntityAITaskEntry) iterator1.next();
+                EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry1 = iterator1.next();
 
                 if (!this.canContinue(entityaitasks$entityaitaskentry1)) {
                     entityaitasks$entityaitaskentry1.action.resetTask();

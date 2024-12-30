@@ -75,7 +75,7 @@ public class RenderChunk {
     private final RenderChunk[] renderChunkNeighbours = new RenderChunk[EnumFacing.VALUES.length];
     private final RenderChunk[] renderChunkNeighboursValid = new RenderChunk[EnumFacing.VALUES.length];
     private boolean renderChunkNeighboursUpated = false;
-    private final RenderGlobal.ContainerLocalRenderInformation renderInfo = new RenderGlobal.ContainerLocalRenderInformation(this, (EnumFacing) null, 0);
+    private final RenderGlobal.ContainerLocalRenderInformation renderInfo = new RenderGlobal.ContainerLocalRenderInformation(this, null, 0);
     public AabbFrame boundingBoxParent;
 
     public RenderChunk(World worldIn, RenderGlobal renderGlobalIn, BlockPos blockPosIn, int indexIn) {
@@ -243,7 +243,7 @@ public class RenderChunk {
                         compiledchunk.setAnimatedSprites(enumworldblocklayer1, (BitSet) worldrenderer1.animatedSprites.clone());
                     }
                 } else {
-                    compiledchunk.setAnimatedSprites(enumworldblocklayer1, (BitSet) null);
+                    compiledchunk.setAnimatedSprites(enumworldblocklayer1, null);
                 }
             }
 

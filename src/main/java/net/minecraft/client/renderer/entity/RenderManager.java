@@ -218,7 +218,7 @@ public class RenderManager {
     public <T extends Entity> Render<T> getEntityRenderObject(Entity entityIn) {
         if (entityIn instanceof AbstractClientPlayer) {
             String s = ((AbstractClientPlayer) entityIn).getSkinType();
-            RenderPlayer renderplayer = (RenderPlayer) this.skinMap.get(s);
+            RenderPlayer renderplayer = this.skinMap.get(s);
             return (Render<T>) (renderplayer != null ? renderplayer : this.playerRenderer);
         } else {
             return this.getEntityClassRenderObject(entityIn.getClass());
@@ -237,7 +237,7 @@ public class RenderManager {
             Block block = iblockstate.getBlock();
 
             if (block == Blocks.bed) {
-                int j = ((EnumFacing) iblockstate.getValue(BlockBed.FACING)).getHorizontalIndex();
+                int j = iblockstate.getValue(BlockBed.FACING).getHorizontalIndex();
                 this.playerViewY = (j * 90 + 180);
                 this.playerViewX = 0.0F;
             }

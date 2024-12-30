@@ -168,7 +168,7 @@ public class StatList {
     }
 
     private static String func_180204_a(Item p_180204_0_) {
-        ResourceLocation resourcelocation = (ResourceLocation) Item.itemRegistry.getNameForObject(p_180204_0_);
+        ResourceLocation resourcelocation = Item.itemRegistry.getNameForObject(p_180204_0_);
         return resourcelocation != null ? resourcelocation.toString().replace(':', '.') : null;
     }
 
@@ -214,6 +214,6 @@ public class StatList {
     }
 
     public static StatBase getOneShotStat(String p_151177_0_) {
-        return (StatBase) oneShotStats.get(p_151177_0_);
+        return oneShotStats.get(p_151177_0_);
     }
 }

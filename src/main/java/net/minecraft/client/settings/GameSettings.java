@@ -237,7 +237,7 @@ public class GameSettings {
     private File optionsFileOF;
 
     public GameSettings(Minecraft mcIn, File optionsFileIn) {
-        this.keyBindings = (KeyBinding[]) ((KeyBinding[]) ArrayUtils.addAll(new KeyBinding[]{this.keyBindAttack, this.keyBindUseItem, this.keyBindForward, this.keyBindLeft, this.keyBindBack, this.keyBindRight, this.keyBindJump, this.keyBindSneak, this.keyBindSprint, this.keyBindDrop, this.keyBindInventory, this.keyBindChat, this.keyBindPlayerList, this.keyBindPickBlock, this.keyBindCommand, this.keyBindScreenshot, this.keyBindTogglePerspective, this.keyBindSmoothCamera, this.keyBindFullscreen, this.keyBindSpectatorOutlines}, this.keyBindsHotbar));
+        this.keyBindings = ArrayUtils.addAll(new KeyBinding[]{this.keyBindAttack, this.keyBindUseItem, this.keyBindForward, this.keyBindLeft, this.keyBindBack, this.keyBindRight, this.keyBindJump, this.keyBindSneak, this.keyBindSprint, this.keyBindDrop, this.keyBindInventory, this.keyBindChat, this.keyBindPlayerList, this.keyBindPickBlock, this.keyBindCommand, this.keyBindScreenshot, this.keyBindTogglePerspective, this.keyBindSmoothCamera, this.keyBindFullscreen, this.keyBindSpectatorOutlines}, this.keyBindsHotbar);
         this.difficulty = EnumDifficulty.NORMAL;
         this.lastServer = "";
         this.fovSetting = 70.0F;
@@ -265,7 +265,7 @@ public class GameSettings {
         this.optionsFileOF = new File(optionsFileIn, "optionsof.txt");
         this.limitFramerate = (int) GameSettings.Options.FRAMERATE_LIMIT.getValueMax();
         this.ofKeyBindZoom = new KeyBinding("of.key.zoom", 46, "key.categories.misc");
-        this.keyBindings = (KeyBinding[]) ((KeyBinding[]) ArrayUtils.add(this.keyBindings, this.ofKeyBindZoom));
+        this.keyBindings = ArrayUtils.add(this.keyBindings, this.ofKeyBindZoom);
         KeyUtils.fixKeyConflicts(this.keyBindings, new KeyBinding[]{this.ofKeyBindZoom});
         this.renderDistanceChunks = 8;
         this.loadOptions();
@@ -273,7 +273,7 @@ public class GameSettings {
     }
 
     public GameSettings() {
-        this.keyBindings = (KeyBinding[]) ((KeyBinding[]) ArrayUtils.addAll(new KeyBinding[]{this.keyBindAttack, this.keyBindUseItem, this.keyBindForward, this.keyBindLeft, this.keyBindBack, this.keyBindRight, this.keyBindJump, this.keyBindSneak, this.keyBindSprint, this.keyBindDrop, this.keyBindInventory, this.keyBindChat, this.keyBindPlayerList, this.keyBindPickBlock, this.keyBindCommand, this.keyBindScreenshot, this.keyBindTogglePerspective, this.keyBindSmoothCamera, this.keyBindFullscreen, this.keyBindSpectatorOutlines}, this.keyBindsHotbar));
+        this.keyBindings = ArrayUtils.addAll(new KeyBinding[]{this.keyBindAttack, this.keyBindUseItem, this.keyBindForward, this.keyBindLeft, this.keyBindBack, this.keyBindRight, this.keyBindJump, this.keyBindSneak, this.keyBindSprint, this.keyBindDrop, this.keyBindInventory, this.keyBindChat, this.keyBindPlayerList, this.keyBindPickBlock, this.keyBindCommand, this.keyBindScreenshot, this.keyBindTogglePerspective, this.keyBindSmoothCamera, this.keyBindFullscreen, this.keyBindSpectatorOutlines}, this.keyBindsHotbar);
         this.difficulty = EnumDifficulty.NORMAL;
         this.lastServer = "";
         this.fovSetting = 70.0F;
@@ -712,7 +712,7 @@ public class GameSettings {
                             }
 
                             if (astring[0].equals("resourcePacks")) {
-                                this.resourcePacks = (List) gson.fromJson((String) s.substring(s.indexOf(58) + 1), typeListString);
+                                this.resourcePacks = gson.fromJson(s.substring(s.indexOf(58) + 1), typeListString);
 
                                 if (this.resourcePacks == null) {
                                     this.resourcePacks = Lists.newArrayList();
@@ -720,7 +720,7 @@ public class GameSettings {
                             }
 
                             if (astring[0].equals("incompatibleResourcePacks")) {
-                                this.incompatibleResourcePacks = (List) gson.fromJson((String) s.substring(s.indexOf(58) + 1), typeListString);
+                                this.incompatibleResourcePacks = gson.fromJson(s.substring(s.indexOf(58) + 1), typeListString);
 
                                 if (this.incompatibleResourcePacks == null) {
                                     this.incompatibleResourcePacks = Lists.newArrayList();
@@ -877,10 +877,10 @@ public class GameSettings {
                     break label2;
                 }
             } catch (Exception exception1) {
-                logger.error((String) "Failed to load options", (Throwable) exception1);
+                logger.error("Failed to load options", exception1);
                 break label2;
             } finally {
-                IOUtils.closeQuietly((InputStream) fileinputstream);
+                IOUtils.closeQuietly(fileinputstream);
             }
 
             return;
@@ -923,8 +923,8 @@ public class GameSettings {
                     printwriter.println("renderClouds:true");
             }
 
-            printwriter.println("resourcePacks:" + gson.toJson((Object) this.resourcePacks));
-            printwriter.println("incompatibleResourcePacks:" + gson.toJson((Object) this.incompatibleResourcePacks));
+            printwriter.println("resourcePacks:" + gson.toJson(this.resourcePacks));
+            printwriter.println("incompatibleResourcePacks:" + gson.toJson(this.incompatibleResourcePacks));
             printwriter.println("lastServer:" + this.lastServer);
             printwriter.println("lang:" + this.language);
             printwriter.println("chatVisibility:" + this.chatVisibility.getChatVisibility());
@@ -969,7 +969,7 @@ public class GameSettings {
 
             printwriter.close();
         } catch (Exception exception) {
-            logger.error((String) "Failed to save options", (Throwable) exception);
+            logger.error("Failed to save options", exception);
         }
 
         this.saveOfOptions();
@@ -977,7 +977,7 @@ public class GameSettings {
     }
 
     public float getSoundLevel(SoundCategory sndCategory) {
-        return this.mapSoundLevels.containsKey(sndCategory) ? ((Float) this.mapSoundLevels.get(sndCategory)).floatValue() : 1.0F;
+        return this.mapSoundLevels.containsKey(sndCategory) ? this.mapSoundLevels.get(sndCategory).floatValue() : 1.0F;
     }
 
     public void setSoundLevel(SoundCategory sndCategory, float soundLevel) {

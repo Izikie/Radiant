@@ -130,7 +130,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 
                 if (flag || this.getDamage() > 40.0F) {
                     if (this.riddenByEntity != null) {
-                        this.riddenByEntity.mountEntity((Entity) null);
+                        this.riddenByEntity.mountEntity(null);
                     }
 
                     if (flag && !this.hasCustomName()) {
@@ -260,7 +260,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
                 this.func_180460_a(blockpos, iblockstate);
 
                 if (iblockstate.getBlock() == Blocks.activator_rail) {
-                    this.onActivatorRailPass(k, l, i1, ((Boolean) iblockstate.getValue(BlockRailPowered.POWERED)).booleanValue());
+                    this.onActivatorRailPass(k, l, i1, iblockstate.getValue(BlockRailPowered.POWERED).booleanValue());
                 }
             } else {
                 this.moveDerailedMinecart();
@@ -343,12 +343,12 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         BlockRailBase blockrailbase = (BlockRailBase) p_180460_2_.getBlock();
 
         if (blockrailbase == Blocks.golden_rail) {
-            flag = ((Boolean) p_180460_2_.getValue(BlockRailPowered.POWERED)).booleanValue();
+            flag = p_180460_2_.getValue(BlockRailPowered.POWERED).booleanValue();
             flag1 = !flag;
         }
 
         double d0 = 0.0078125D;
-        BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = (BlockRailBase.EnumRailDirection) p_180460_2_.getValue(blockrailbase.getShapeProperty());
+        BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = p_180460_2_.getValue(blockrailbase.getShapeProperty());
 
         switch (blockrailbase$enumraildirection) {
             case ASCENDING_EAST:
@@ -543,7 +543,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         IBlockState iblockstate = this.worldObj.getBlockState(new BlockPos(i, j, k));
 
         if (BlockRailBase.isRailBlock(iblockstate)) {
-            BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = (BlockRailBase.EnumRailDirection) iblockstate.getValue(((BlockRailBase) iblockstate.getBlock()).getShapeProperty());
+            BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = iblockstate.getValue(((BlockRailBase) iblockstate.getBlock()).getShapeProperty());
             p_70495_3_ = j;
 
             if (blockrailbase$enumraildirection.isAscending()) {
@@ -583,7 +583,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         IBlockState iblockstate = this.worldObj.getBlockState(new BlockPos(i, j, k));
 
         if (BlockRailBase.isRailBlock(iblockstate)) {
-            BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = (BlockRailBase.EnumRailDirection) iblockstate.getValue(((BlockRailBase) iblockstate.getBlock()).getShapeProperty());
+            BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = iblockstate.getValue(((BlockRailBase) iblockstate.getBlock()).getShapeProperty());
             int[][] aint = matrix[blockrailbase$enumraildirection.getMetadata()];
             double d0 = 0.0D;
             double d1 = i + 0.5D + aint[0][0] * 0.5D;
@@ -660,7 +660,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         if (this.hasDisplayTile()) {
             tagCompound.setBoolean("CustomDisplayTile", true);
             IBlockState iblockstate = this.getDisplayTile();
-            ResourceLocation resourcelocation = (ResourceLocation) Block.blockRegistry.getNameForObject(iblockstate.getBlock());
+            ResourceLocation resourcelocation = Block.blockRegistry.getNameForObject(iblockstate.getBlock());
             tagCompound.setString("DisplayTile", resourcelocation == null ? "" : resourcelocation.toString());
             tagCompound.setInteger("DisplayData", iblockstate.getBlock().getMetaFromState(iblockstate));
             tagCompound.setInteger("DisplayOffset", this.getDisplayTileOffset());
@@ -883,7 +883,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         }
 
         public static EntityMinecart.EnumMinecartType byNetworkID(int id) {
-            EntityMinecart.EnumMinecartType entityminecart$enumminecarttype = (EntityMinecart.EnumMinecartType) ID_LOOKUP.get(Integer.valueOf(id));
+            EntityMinecart.EnumMinecartType entityminecart$enumminecarttype = ID_LOOKUP.get(Integer.valueOf(id));
             return entityminecart$enumminecarttype == null ? RIDEABLE : entityminecart$enumminecarttype;
         }
 

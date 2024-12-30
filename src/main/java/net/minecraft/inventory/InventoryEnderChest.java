@@ -19,7 +19,7 @@ public class InventoryEnderChest extends InventoryBasic {
 
     public void loadInventoryFromNBT(NBTTagList p_70486_1_) {
         for (int i = 0; i < this.getSizeInventory(); ++i) {
-            this.setInventorySlotContents(i, (ItemStack) null);
+            this.setInventorySlotContents(i, null);
         }
 
         for (int k = 0; k < p_70486_1_.tagCount(); ++k) {

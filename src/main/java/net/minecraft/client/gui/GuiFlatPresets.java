@@ -106,7 +106,7 @@ public class GuiFlatPresets extends GuiScreen {
     }
 
     private static void func_146425_a(String p_146425_0_, Item p_146425_1_, BiomeGenBase p_146425_2_, FlatLayerInfo... p_146425_3_) {
-        func_175354_a(p_146425_0_, p_146425_1_, 0, p_146425_2_, (List<String>) null, p_146425_3_);
+        func_175354_a(p_146425_0_, p_146425_1_, 0, p_146425_2_, null, p_146425_3_);
     }
 
     private static void func_146421_a(String p_146421_0_, Item p_146421_1_, BiomeGenBase p_146421_2_, List<String> p_146421_3_, FlatLayerInfo... p_146421_4_) {
@@ -201,7 +201,7 @@ public class GuiFlatPresets extends GuiScreen {
         protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY) {
             this.field_148175_k = slotIndex;
             GuiFlatPresets.this.func_146426_g();
-            GuiFlatPresets.this.field_146433_u.setText(((GuiFlatPresets.LayerItem) GuiFlatPresets.FLAT_WORLD_PRESETS.get(GuiFlatPresets.this.field_146435_s.field_148175_k)).field_148233_c);
+            GuiFlatPresets.this.field_146433_u.setText(GuiFlatPresets.FLAT_WORLD_PRESETS.get(GuiFlatPresets.this.field_146435_s.field_148175_k).field_148233_c);
         }
 
         protected boolean isSelected(int slotIndex) {
@@ -212,7 +212,7 @@ public class GuiFlatPresets extends GuiScreen {
         }
 
         protected void drawSlot(int entryID, int p_180791_2_, int p_180791_3_, int p_180791_4_, int mouseXIn, int mouseYIn) {
-            GuiFlatPresets.LayerItem guiflatpresets$layeritem = (GuiFlatPresets.LayerItem) GuiFlatPresets.FLAT_WORLD_PRESETS.get(entryID);
+            GuiFlatPresets.LayerItem guiflatpresets$layeritem = GuiFlatPresets.FLAT_WORLD_PRESETS.get(entryID);
             this.func_178054_a(p_180791_2_, p_180791_3_, guiflatpresets$layeritem.field_148234_a, guiflatpresets$layeritem.field_179037_b);
             GuiFlatPresets.this.fontRendererObj.drawString(guiflatpresets$layeritem.field_148232_b, p_180791_2_ + 18 + 5, p_180791_3_ + 6, 16777215);
         }

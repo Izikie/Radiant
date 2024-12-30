@@ -204,7 +204,7 @@ public class EntityItem extends Entity {
     }
 
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
-        tagCompound.setShort("Health", (short) ((byte) this.health));
+        tagCompound.setShort("Health", (byte) this.health);
         tagCompound.setShort("Age", (short) this.age);
         tagCompound.setShort("PickupDelay", (short) this.delayBeforeCanPickup);
 

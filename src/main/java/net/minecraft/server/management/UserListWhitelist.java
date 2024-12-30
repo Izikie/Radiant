@@ -19,7 +19,7 @@ public class UserListWhitelist extends UserList<GameProfile, UserListWhitelistEn
         int i = 0;
 
         for (UserListWhitelistEntry userlistwhitelistentry : this.getValues().values()) {
-            astring[i++] = ((GameProfile) userlistwhitelistentry.getValue()).getName();
+            astring[i++] = userlistwhitelistentry.getValue().getName();
         }
 
         return astring;
@@ -31,8 +31,8 @@ public class UserListWhitelist extends UserList<GameProfile, UserListWhitelistEn
 
     public GameProfile getBannedProfile(String name) {
         for (UserListWhitelistEntry userlistwhitelistentry : this.getValues().values()) {
-            if (name.equalsIgnoreCase(((GameProfile) userlistwhitelistentry.getValue()).getName())) {
-                return (GameProfile) userlistwhitelistentry.getValue();
+            if (name.equalsIgnoreCase(userlistwhitelistentry.getValue().getName())) {
+                return userlistwhitelistentry.getValue();
             }
         }
 

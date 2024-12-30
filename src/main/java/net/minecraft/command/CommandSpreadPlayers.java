@@ -73,7 +73,7 @@ public class CommandSpreadPlayers extends CommandBase {
                 throw new EntityNotFoundException();
             } else {
                 sender.addChatMessage(new ChatComponentTranslation("commands.spreadplayers.spreading." + (flag ? "teams" : "players"), Integer.valueOf(list.size()), Double.valueOf(d3), Double.valueOf(d0), Double.valueOf(d1), Double.valueOf(d2)));
-                this.func_110669_a(sender, list, new CommandSpreadPlayers.Position(d0, d1), d2, d3, ((Entity) list.get(0)).worldObj, flag);
+                this.func_110669_a(sender, list, new CommandSpreadPlayers.Position(d0, d1), d2, d3, list.get(0).worldObj, flag);
             }
         }
     }
@@ -101,7 +101,7 @@ public class CommandSpreadPlayers extends CommandBase {
             if (entity instanceof EntityPlayer) {
                 set.add(((EntityPlayer) entity).getTeam());
             } else {
-                set.add((Team) null);
+                set.add(null);
             }
         }
 
@@ -179,7 +179,7 @@ public class CommandSpreadPlayers extends CommandBase {
         Map<Team, CommandSpreadPlayers.Position> map = Maps.newHashMap();
 
         for (Entity value : p_110671_1_) {
-            Entity entity = (Entity) value;
+            Entity entity = value;
             Position commandspreadplayers$position;
 
             if (p_110671_4_) {
@@ -189,7 +189,7 @@ public class CommandSpreadPlayers extends CommandBase {
                     map.put(team, p_110671_3_[i++]);
                 }
 
-                commandspreadplayers$position = (Position) map.get(team);
+                commandspreadplayers$position = map.get(team);
             } else {
                 commandspreadplayers$position = p_110671_3_[i++];
             }

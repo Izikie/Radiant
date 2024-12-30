@@ -30,7 +30,7 @@ public class BlockRail extends BlockRailBase {
     }
 
     public int getMetaFromState(IBlockState state) {
-        return ((BlockRailBase.EnumRailDirection) state.getValue(SHAPE)).getMetadata();
+        return state.getValue(SHAPE).getMetadata();
     }
 
     protected BlockState createBlockState() {

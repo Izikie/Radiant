@@ -216,7 +216,7 @@ public class ChunkProviderHell implements IChunkProvider {
         }
 
         Chunk chunk = new Chunk(this.worldObj, chunkprimer, x, z);
-        BiomeGenBase[] abiomegenbase = this.worldObj.getWorldChunkManager().loadBlockGeneratorData((BiomeGenBase[]) null, x * 16, z * 16, 16, 16);
+        BiomeGenBase[] abiomegenbase = this.worldObj.getWorldChunkManager().loadBlockGeneratorData(null, x * 16, z * 16, 16, 16);
         byte[] abyte = chunk.getBiomeArray();
 
         for (int i = 0; i < abyte.length; ++i) {
@@ -389,7 +389,7 @@ public class ChunkProviderHell implements IChunkProvider {
     }
 
     public void recreateStructures(Chunk chunkIn, int x, int z) {
-        this.genNetherBridge.generate(this, this.worldObj, x, z, (ChunkPrimer) null);
+        this.genNetherBridge.generate(this, this.worldObj, x, z, null);
     }
 
     public Chunk provideChunk(BlockPos blockPosIn) {

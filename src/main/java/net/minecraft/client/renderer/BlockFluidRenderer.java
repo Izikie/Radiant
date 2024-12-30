@@ -240,7 +240,7 @@ public class BlockFluidRenderer {
                     }
                 }
 
-                worldRendererIn.setSprite((TextureAtlasSprite) null);
+                worldRendererIn.setSprite(null);
                 boolean flag3 = flag2;
                 return flag3;
             }
@@ -275,7 +275,7 @@ public class BlockFluidRenderer {
                     ++i;
                 }
             } else {
-                int k = ((Integer) iblockstate.getValue(BlockLiquid.LEVEL)).intValue();
+                int k = iblockstate.getValue(BlockLiquid.LEVEL).intValue();
 
                 if (k >= 8 || k == 0) {
                     f += BlockLiquid.getLiquidHeightPercent(k) * 10.0F;

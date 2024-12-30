@@ -92,14 +92,14 @@ public class VertexFormat {
     }
 
     public int getUvOffsetById(int id) {
-        return ((Integer) this.uvOffsetsById.get(id)).intValue();
+        return this.uvOffsetsById.get(id).intValue();
     }
 
     public String toString() {
         String s = "format: " + this.elements.size() + " elements: ";
 
         for (int i = 0; i < this.elements.size(); ++i) {
-            s = s + ((VertexFormatElement) this.elements.get(i)).toString();
+            s = s + this.elements.get(i).toString();
 
             if (i != this.elements.size() - 1) {
                 s = s + " ";
@@ -113,7 +113,7 @@ public class VertexFormat {
         int i = 0;
 
         for (int j = this.elements.size(); i < j; ++i) {
-            VertexFormatElement vertexformatelement = (VertexFormatElement) this.elements.get(i);
+            VertexFormatElement vertexformatelement = this.elements.get(i);
 
             if (vertexformatelement.isPositionElement()) {
                 return true;
@@ -140,11 +140,11 @@ public class VertexFormat {
     }
 
     public VertexFormatElement getElement(int index) {
-        return (VertexFormatElement) this.elements.get(index);
+        return this.elements.get(index);
     }
 
     public int getOffset(int p_181720_1_) {
-        return ((Integer) this.offsets.get(p_181720_1_)).intValue();
+        return this.offsets.get(p_181720_1_).intValue();
     }
 
     public boolean equals(Object p_equals_1_) {

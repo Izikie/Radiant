@@ -57,7 +57,7 @@ public class EntityPickupFX extends EntityFX {
         this.field_174842_aB.renderEntityWithPosYaw(this.field_174840_a, ((float) d6), ((float) d7), ((float) d8), this.field_174840_a.rotationYaw, partialTicks);
 
         if (Config.isShaders()) {
-            Shaders.setEntityId((Entity) null);
+            Shaders.setEntityId(null);
             Shaders.useProgram(program);
         }
     }

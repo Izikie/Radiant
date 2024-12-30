@@ -11,7 +11,7 @@ public class CacheObjectArray {
     private static final int maxCacheSize = 10;
 
     private static synchronized int[] allocateArray(int size) {
-        int[] aint = (int[]) arrays.pollLast();
+        int[] aint = arrays.pollLast();
 
         if (aint == null || aint.length < size) {
             aint = new int[size];
@@ -51,7 +51,7 @@ public class CacheObjectArray {
         int[] aint = new int[size];
 
         for (int j = 0; j < count; ++j) {
-            int[] aint1 = (int[]) aint.clone();
+            int[] aint1 = aint.clone();
         }
 
         long k = System.currentTimeMillis();
@@ -62,7 +62,7 @@ public class CacheObjectArray {
         long i = System.currentTimeMillis();
 
         for (int j = 0; j < count; ++j) {
-            int[] aint = (int[]) ((int[]) Array.newInstance(Integer.TYPE, size));
+            int[] aint = (int[]) Array.newInstance(Integer.TYPE, size);
         }
 
         long k = System.currentTimeMillis();
@@ -74,7 +74,7 @@ public class CacheObjectArray {
         IBlockState[] aiblockstate = new IBlockState[size];
 
         for (int j = 0; j < count; ++j) {
-            IBlockState[] aiblockstate1 = (IBlockState[]) aiblockstate.clone();
+            IBlockState[] aiblockstate1 = aiblockstate.clone();
         }
 
         long k = System.currentTimeMillis();
@@ -96,7 +96,7 @@ public class CacheObjectArray {
         long i = System.currentTimeMillis();
 
         for (int j = 0; j < count; ++j) {
-            Object[] aobject = (Object[]) ((Object[]) Array.newInstance(cls, size));
+            Object[] aobject = (Object[]) Array.newInstance(cls, size);
         }
 
         long k = System.currentTimeMillis();

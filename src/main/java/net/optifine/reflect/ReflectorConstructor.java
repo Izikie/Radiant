@@ -31,7 +31,7 @@ public class ReflectorConstructor implements IResolvable {
                     this.targetConstructor = findConstructor(oclass, this.parameterTypes);
 
                     if (this.targetConstructor == null) {
-                        Log.dbg("(Reflector) Constructor not present: " + oclass.getName() + ", params: " + ArrayUtils.arrayToString((Object[]) this.parameterTypes));
+                        Log.dbg("(Reflector) Constructor not present: " + oclass.getName() + ", params: " + ArrayUtils.arrayToString(this.parameterTypes));
                     }
 
                     if (this.targetConstructor != null) {

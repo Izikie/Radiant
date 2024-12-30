@@ -25,7 +25,7 @@ public class GuiGameOver extends GuiScreen implements GuiYesNoCallback {
             this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 96, I18n.format("deathScreen.titleScreen")));
 
             if (this.mc.getSession() == null) {
-                ((GuiButton) this.buttonList.get(1)).enabled = false;
+                this.buttonList.get(1).enabled = false;
             }
         }
 
@@ -41,7 +41,7 @@ public class GuiGameOver extends GuiScreen implements GuiYesNoCallback {
         switch (button.id) {
             case 0:
                 this.mc.thePlayer.respawnPlayer();
-                this.mc.displayGuiScreen((GuiScreen) null);
+                this.mc.displayGuiScreen(null);
                 break;
 
             case 1:
@@ -58,11 +58,11 @@ public class GuiGameOver extends GuiScreen implements GuiYesNoCallback {
     public void confirmClicked(boolean result, int id) {
         if (result) {
             this.mc.theWorld.sendQuittingDisconnectingPacket();
-            this.mc.loadWorld((WorldClient) null);
+            this.mc.loadWorld(null);
             this.mc.displayGuiScreen(new GuiMainMenu());
         } else {
             this.mc.thePlayer.respawnPlayer();
-            this.mc.displayGuiScreen((GuiScreen) null);
+            this.mc.displayGuiScreen(null);
         }
     }
 

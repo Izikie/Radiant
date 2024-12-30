@@ -37,7 +37,7 @@ public class BlockSilverfish extends Block {
     }
 
     protected ItemStack createStackedBlock(IBlockState state) {
-        switch ((BlockSilverfish.EnumType) state.getValue(VARIANT)) {
+        switch (state.getValue(VARIANT)) {
             case COBBLESTONE:
                 return new ItemStack(Blocks.cobblestone);
 
@@ -83,7 +83,7 @@ public class BlockSilverfish extends Block {
     }
 
     public int getMetaFromState(IBlockState state) {
-        return ((BlockSilverfish.EnumType) state.getValue(VARIANT)).getMetadata();
+        return state.getValue(VARIANT).getMetadata();
     }
 
     protected BlockState createBlockState() {

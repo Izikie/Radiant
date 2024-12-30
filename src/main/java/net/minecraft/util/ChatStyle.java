@@ -212,27 +212,27 @@ public class ChatStyle {
             StringBuilder stringbuilder = new StringBuilder();
 
             if (this.getColor() != null) {
-                stringbuilder.append((Object) this.getColor());
+                stringbuilder.append(this.getColor());
             }
 
             if (this.getBold()) {
-                stringbuilder.append((Object) EnumChatFormatting.BOLD);
+                stringbuilder.append(EnumChatFormatting.BOLD);
             }
 
             if (this.getItalic()) {
-                stringbuilder.append((Object) EnumChatFormatting.ITALIC);
+                stringbuilder.append(EnumChatFormatting.ITALIC);
             }
 
             if (this.getUnderlined()) {
-                stringbuilder.append((Object) EnumChatFormatting.UNDERLINE);
+                stringbuilder.append(EnumChatFormatting.UNDERLINE);
             }
 
             if (this.getObfuscated()) {
-                stringbuilder.append((Object) EnumChatFormatting.OBFUSCATED);
+                stringbuilder.append(EnumChatFormatting.OBFUSCATED);
             }
 
             if (this.getStrikethrough()) {
-                stringbuilder.append((Object) EnumChatFormatting.STRIKETHROUGH);
+                stringbuilder.append(EnumChatFormatting.STRIKETHROUGH);
             }
 
             return stringbuilder.toString();
@@ -367,7 +367,7 @@ public class ChatStyle {
                     }
 
                     if (jsonobject.has("color")) {
-                        chatstyle.color = (EnumChatFormatting) p_deserialize_3_.deserialize(jsonobject.get("color"), EnumChatFormatting.class);
+                        chatstyle.color = p_deserialize_3_.deserialize(jsonobject.get("color"), EnumChatFormatting.class);
                     }
 
                     if (jsonobject.has("insertion")) {
@@ -395,7 +395,7 @@ public class ChatStyle {
                         if (jsonobject2 != null) {
                             JsonPrimitive jsonprimitive2 = jsonobject2.getAsJsonPrimitive("action");
                             HoverEvent.Action hoverevent$action = jsonprimitive2 == null ? null : HoverEvent.Action.getValueByCanonicalName(jsonprimitive2.getAsString());
-                            IChatComponent ichatcomponent = (IChatComponent) p_deserialize_3_.deserialize(jsonobject2.get("value"), IChatComponent.class);
+                            IChatComponent ichatcomponent = p_deserialize_3_.deserialize(jsonobject2.get("value"), IChatComponent.class);
 
                             if (hoverevent$action != null && ichatcomponent != null && hoverevent$action.shouldAllowInChat()) {
                                 chatstyle.chatHoverEvent = new HoverEvent(hoverevent$action, ichatcomponent);

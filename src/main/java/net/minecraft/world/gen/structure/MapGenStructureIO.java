@@ -27,21 +27,21 @@ public class MapGenStructureIO {
     }
 
     public static String getStructureStartName(StructureStart start) {
-        return (String) startClassToNameMap.get(start.getClass());
+        return startClassToNameMap.get(start.getClass());
     }
 
     public static String getStructureComponentName(StructureComponent component) {
-        return (String) componentClassToNameMap.get(component.getClass());
+        return componentClassToNameMap.get(component.getClass());
     }
 
     public static StructureStart getStructureStart(NBTTagCompound tagCompound, World worldIn) {
         StructureStart structurestart = null;
 
         try {
-            Class<? extends StructureStart> oclass = (Class) startNameToClassMap.get(tagCompound.getString("id"));
+            Class<? extends StructureStart> oclass = startNameToClassMap.get(tagCompound.getString("id"));
 
             if (oclass != null) {
-                structurestart = (StructureStart) oclass.newInstance();
+                structurestart = oclass.newInstance();
             }
         } catch (Exception exception) {
             logger.warn("Failed Start with id " + tagCompound.getString("id"));
@@ -61,10 +61,10 @@ public class MapGenStructureIO {
         StructureComponent structurecomponent = null;
 
         try {
-            Class<? extends StructureComponent> oclass = (Class) componentNameToClassMap.get(tagCompound.getString("id"));
+            Class<? extends StructureComponent> oclass = componentNameToClassMap.get(tagCompound.getString("id"));
 
             if (oclass != null) {
-                structurecomponent = (StructureComponent) oclass.newInstance();
+                structurecomponent = oclass.newInstance();
             }
         } catch (Exception exception) {
             logger.warn("Failed Piece with id " + tagCompound.getString("id"));
