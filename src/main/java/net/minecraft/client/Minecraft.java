@@ -338,7 +338,6 @@ public class Minecraft implements IThreadListener {
     private void startGame() throws LWJGLException, IOException {
         this.gameSettings = new GameSettings(this, this.mcDataDir);
         this.defaultResourcePacks.add(this.mcDefaultResourcePack);
-        this.startTimerHackThread();
 
         if (this.gameSettings.overrideHeight > 0 && this.gameSettings.overrideWidth > 0) {
             this.displayWidth = this.gameSettings.overrideWidth;
@@ -532,21 +531,6 @@ public class Minecraft implements IThreadListener {
 
     public String getVersion() {
         return this.launchedVersion;
-    }
-
-    private void startTimerHackThread() {
-        Thread thread = new Thread("Timer hack thread") {
-            public void run() {
-                while (Minecraft.this.running) {
-                    try {
-                        Thread.sleep(2147483647L);
-                    } catch (InterruptedException ignored) {
-                    }
-                }
-            }
-        };
-        thread.setDaemon(true);
-        thread.start();
     }
 
     public void crashed(CrashReport crash) {
