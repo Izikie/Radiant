@@ -61,7 +61,7 @@ public abstract class InventoryEffectRenderer extends GuiContainer {
 
                 if (potion.hasStatusIcon()) {
                     int i1 = potion.getStatusIconIndex();
-                    this.drawTexturedModalRect(i + 6, j + 7, 0 + i1 % 8 * 18, 198 + i1 / 8 * 18, 18, 18);
+                    this.drawTexturedModalRect(i + 6, j + 7, i1 % 8 * 18, 198 + i1 / 8 * 18, 18, 18);
                 }
 
                 String s1 = I18n.format(potion.getName());

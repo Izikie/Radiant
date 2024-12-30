@@ -228,7 +228,7 @@ public class TextureAnimations {
                         int j1 = aint[k] >> 8 & 255;
                         int k1 = aint[k] & 255;
 
-                        abyte[k * 4 + 0] = (byte) i1;
+                        abyte[k * 4] = (byte) i1;
                         abyte[k * 4 + 1] = (byte) j1;
                         abyte[k * 4 + 2] = (byte) k1;
                         abyte[k * 4 + 3] = (byte) l;

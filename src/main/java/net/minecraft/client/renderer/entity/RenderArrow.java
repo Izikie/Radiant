@@ -28,7 +28,7 @@ public class RenderArrow extends Render<EntityArrow> {
         int i = 0;
         float f = 0.0F;
         float f1 = 0.5F;
-        float f2 = (0 + i * 10) / 32.0F;
+        float f2 = (i * 10) / 32.0F;
         float f3 = (5 + i * 10) / 32.0F;
         float f4 = 0.0F;
         float f5 = 0.15625F;

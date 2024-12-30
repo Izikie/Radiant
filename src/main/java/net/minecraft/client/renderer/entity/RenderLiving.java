@@ -42,7 +42,7 @@ public abstract class RenderLiving<T extends EntityLiving> extends RendererLivin
         int i = entityLivingIn.getBrightnessForRender(partialTicks);
         int j = i % 65536;
         int k = i / 65536;
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, j / 1.0F, k / 1.0F);
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, j, k);
     }
 
     private double interpolateValue(double start, double end, double pct) {

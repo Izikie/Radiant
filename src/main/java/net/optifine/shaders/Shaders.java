@@ -3765,7 +3765,7 @@ public class Shaders {
     }
 
     public static void preCelestialRotate() {
-        GL11.glRotatef(sunPathRotation * 1.0F, 0.0F, 0.0F, 1.0F);
+        GL11.glRotatef(sunPathRotation, 0.0F, 0.0F, 1.0F);
         checkGLError("preCelestialRotate");
     }
 

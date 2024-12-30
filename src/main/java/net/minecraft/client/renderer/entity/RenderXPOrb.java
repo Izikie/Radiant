@@ -25,9 +25,9 @@ public class RenderXPOrb extends Render<EntityXPOrb> {
         GlStateManager.translate((float) x, (float) y, (float) z);
         this.bindEntityTexture(entity);
         int i = entity.getTextureByXP();
-        float f = (i % 4 * 16 + 0) / 64.0F;
+        float f = (i % 4 * 16) / 64.0F;
         float f1 = (i % 4 * 16 + 16) / 64.0F;
-        float f2 = (i / 4 * 16 + 0) / 64.0F;
+        float f2 = (i / 4 * 16) / 64.0F;
         float f3 = (i / 4 * 16 + 16) / 64.0F;
         float f4 = 1.0F;
         float f5 = 0.5F;
@@ -35,7 +35,7 @@ public class RenderXPOrb extends Render<EntityXPOrb> {
         int j = entity.getBrightnessForRender(partialTicks);
         int k = j % 65536;
         int l = j / 65536;
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, k / 1.0F, l / 1.0F);
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, k, l);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         float f7 = 255.0F;
         float f8 = (entity.xpColor + partialTicks) / 2.0F;

@@ -218,7 +218,7 @@ public class Config {
             }
 
             if (astring.length > 2) {
-                i += 1 * parseInt(astring[2], 0);
+                i += parseInt(astring[2], 0);
             }
 
             minecraftVersionInt = i;

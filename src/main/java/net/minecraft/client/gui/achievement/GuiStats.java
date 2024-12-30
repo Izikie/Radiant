@@ -160,10 +160,10 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-        worldrenderer.pos((p_146527_1_ + 0), (p_146527_2_ + 18), this.zLevel).tex(((p_146527_3_ + 0) * 0.0078125F), ((p_146527_4_ + 18) * 0.0078125F)).endVertex();
+        worldrenderer.pos((p_146527_1_), (p_146527_2_ + 18), this.zLevel).tex(((p_146527_3_) * 0.0078125F), ((p_146527_4_ + 18) * 0.0078125F)).endVertex();
         worldrenderer.pos((p_146527_1_ + 18), (p_146527_2_ + 18), this.zLevel).tex(((p_146527_3_ + 18) * 0.0078125F), ((p_146527_4_ + 18) * 0.0078125F)).endVertex();
-        worldrenderer.pos((p_146527_1_ + 18), (p_146527_2_ + 0), this.zLevel).tex(((p_146527_3_ + 18) * 0.0078125F), ((p_146527_4_ + 0) * 0.0078125F)).endVertex();
-        worldrenderer.pos((p_146527_1_ + 0), (p_146527_2_ + 0), this.zLevel).tex(((p_146527_3_ + 0) * 0.0078125F), ((p_146527_4_ + 0) * 0.0078125F)).endVertex();
+        worldrenderer.pos((p_146527_1_ + 18), (p_146527_2_), this.zLevel).tex(((p_146527_3_ + 18) * 0.0078125F), ((p_146527_4_) * 0.0078125F)).endVertex();
+        worldrenderer.pos((p_146527_1_), (p_146527_2_), this.zLevel).tex(((p_146527_3_) * 0.0078125F), ((p_146527_4_) * 0.0078125F)).endVertex();
         tessellator.draw();
     }
 

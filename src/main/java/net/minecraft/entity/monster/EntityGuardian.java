@@ -511,7 +511,7 @@ public class EntityGuardian extends EntityMob {
                 this.entityGuardian.motionY += this.entityGuardian.getAIMoveSpeed() * d1 * 0.1D;
                 EntityLookHelper entitylookhelper = this.entityGuardian.getLookHelper();
                 double d7 = this.entityGuardian.posX + d0 / d3 * 2.0D;
-                double d8 = this.entityGuardian.getEyeHeight() + this.entityGuardian.posY + d1 / d3 * 1.0D;
+                double d8 = this.entityGuardian.getEyeHeight() + this.entityGuardian.posY + d1 / d3;
                 double d9 = this.entityGuardian.posZ + d2 / d3 * 2.0D;
                 double d10 = entitylookhelper.getLookPosX();
                 double d11 = entitylookhelper.getLookPosY();

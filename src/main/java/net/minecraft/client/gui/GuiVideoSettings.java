@@ -51,17 +51,17 @@ public class GuiVideoSettings extends GuiScreenOF {
 
         int l = this.height / 6 + 21 * (videoOptions.length / 2) - 12;
         int i1 = 0;
-        i1 = this.width / 2 - 155 + 0;
+        i1 = this.width / 2 - 155;
         this.buttonList.add(new GuiOptionButton(231, i1, l, Lang.get("of.options.shaders")));
         i1 = this.width / 2 - 155 + 160;
         this.buttonList.add(new GuiOptionButton(202, i1, l, Lang.get("of.options.quality")));
         l = l + 21;
-        i1 = this.width / 2 - 155 + 0;
+        i1 = this.width / 2 - 155;
         this.buttonList.add(new GuiOptionButton(201, i1, l, Lang.get("of.options.details")));
         i1 = this.width / 2 - 155 + 160;
         this.buttonList.add(new GuiOptionButton(212, i1, l, Lang.get("of.options.performance")));
         l = l + 21;
-        i1 = this.width / 2 - 155 + 0;
+        i1 = this.width / 2 - 155;
         this.buttonList.add(new GuiOptionButton(211, i1, l, Lang.get("of.options.animations")));
         i1 = this.width / 2 - 155 + 160;
         this.buttonList.add(new GuiOptionButton(222, i1, l, Lang.get("of.options.other")));

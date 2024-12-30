@@ -51,7 +51,7 @@ public class BlockCarpet extends Block {
 
     protected void setBlockBoundsFromMeta(int meta) {
         int i = 0;
-        float f = (1 * (1 + i)) / 16.0F;
+        float f = ((1 + i)) / 16.0F;
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
     }
 

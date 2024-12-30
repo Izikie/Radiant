@@ -93,10 +93,10 @@ public class MapItemRenderer {
             GlStateManager.tryBlendFuncSeparate(1, 771, 0, 1);
             GlStateManager.disableAlpha();
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-            worldrenderer.pos(((i + 0) + f), ((j + 128) - f), -0.009999999776482582D).tex(0.0D, 1.0D).endVertex();
+            worldrenderer.pos(((i) + f), ((j + 128) - f), -0.009999999776482582D).tex(0.0D, 1.0D).endVertex();
             worldrenderer.pos(((i + 128) - f), ((j + 128) - f), -0.009999999776482582D).tex(1.0D, 1.0D).endVertex();
-            worldrenderer.pos(((i + 128) - f), ((j + 0) + f), -0.009999999776482582D).tex(1.0D, 0.0D).endVertex();
-            worldrenderer.pos(((i + 0) + f), ((j + 0) + f), -0.009999999776482582D).tex(0.0D, 0.0D).endVertex();
+            worldrenderer.pos(((i + 128) - f), ((j) + f), -0.009999999776482582D).tex(1.0D, 0.0D).endVertex();
+            worldrenderer.pos(((i) + f), ((j) + f), -0.009999999776482582D).tex(0.0D, 0.0D).endVertex();
             tessellator.draw();
             GlStateManager.enableAlpha();
             GlStateManager.disableBlend();
@@ -111,8 +111,8 @@ public class MapItemRenderer {
                     GlStateManager.scale(4.0F, 4.0F, 3.0F);
                     GlStateManager.translate(-0.125F, 0.125F, 0.0F);
                     byte b0 = vec4b.func_176110_a();
-                    float f1 = (b0 % 4 + 0) / 4.0F;
-                    float f2 = (b0 / 4 + 0) / 4.0F;
+                    float f1 = (b0 % 4) / 4.0F;
+                    float f2 = (b0 / 4) / 4.0F;
                     float f3 = (b0 % 4 + 1) / 4.0F;
                     float f4 = (b0 / 4 + 1) / 4.0F;
                     worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);

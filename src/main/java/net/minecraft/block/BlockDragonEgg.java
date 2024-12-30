@@ -76,9 +76,9 @@ public class BlockDragonEgg extends Block {
                             float f = (worldIn.rand.nextFloat() - 0.5F) * 0.2F;
                             float f1 = (worldIn.rand.nextFloat() - 0.5F) * 0.2F;
                             float f2 = (worldIn.rand.nextFloat() - 0.5F) * 0.2F;
-                            double d1 = blockpos.getX() + (pos.getX() - blockpos.getX()) * d0 + (worldIn.rand.nextDouble() - 0.5D) * 1.0D + 0.5D;
-                            double d2 = blockpos.getY() + (pos.getY() - blockpos.getY()) * d0 + worldIn.rand.nextDouble() * 1.0D - 0.5D;
-                            double d3 = blockpos.getZ() + (pos.getZ() - blockpos.getZ()) * d0 + (worldIn.rand.nextDouble() - 0.5D) * 1.0D + 0.5D;
+                            double d1 = blockpos.getX() + (pos.getX() - blockpos.getX()) * d0 + (worldIn.rand.nextDouble() - 0.5D) + 0.5D;
+                            double d2 = blockpos.getY() + (pos.getY() - blockpos.getY()) * d0 + worldIn.rand.nextDouble() - 0.5D;
+                            double d3 = blockpos.getZ() + (pos.getZ() - blockpos.getZ()) * d0 + (worldIn.rand.nextDouble() - 0.5D) + 0.5D;
                             worldIn.spawnParticle(EnumParticleTypes.PORTAL, d1, d2, d3, f, f1, f2);
                         }
                     } else {

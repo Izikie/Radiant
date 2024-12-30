@@ -743,7 +743,7 @@ public class ShadersTex {
 
                     for (int l = 0; l < k; ++l) {
                         int i1 = aint1[l] >>> 24 & 255;
-                        aint[l] = blendColor(aint1[l], aint[0 + l], i1);
+                        aint[l] = blendColor(aint1[l], aint[l], i1);
                         aint[k + l] = blendColor(aint1[k + l], aint[k + l], i1);
                         aint[k * 2 + l] = blendColor(aint1[k * 2 + l], aint[k * 2 + l], i1);
                     }
