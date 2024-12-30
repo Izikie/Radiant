@@ -409,9 +409,7 @@ public class CustomSkyLayer {
                 int k = (int) (j / 24000L);
                 int l = k % this.daysLoop;
 
-                if (!this.days.isInRange(l)) {
-                    return false;
-                }
+                return this.days.isInRange(l);
             }
 
             return true;

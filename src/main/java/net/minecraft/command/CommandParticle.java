@@ -60,11 +60,7 @@ public class CommandParticle extends CommandBase {
                     i = parseInt(args[8], 0);
                 }
 
-                boolean flag1 = false;
-
-                if (args.length > 9 && "force".equals(args[9])) {
-                    flag1 = true;
-                }
+                boolean flag1 = args.length > 9 && "force".equals(args[9]);
 
                 World world = sender.getEntityWorld();
 

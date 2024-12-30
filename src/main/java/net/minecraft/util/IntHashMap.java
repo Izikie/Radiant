@@ -181,9 +181,7 @@ public class IntHashMap<V> {
                     Object object2 = this.getValue();
                     Object object3 = entry.getValue();
 
-                    if (object2 == object3 || object2 != null && object2.equals(object3)) {
-                        return true;
-                    }
+                    return object2 == object3 || object2 != null && object2.equals(object3);
                 }
 
                 return false;

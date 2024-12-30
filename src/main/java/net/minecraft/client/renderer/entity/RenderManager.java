@@ -364,9 +364,7 @@ public class RenderManager {
                         throw new ReportedException(CrashReport.makeCrashReport(throwable, "Rendering entity hitbox in world"));
                     }
                 }
-            } else if (this.renderEngine != null) {
-                return false;
-            }
+            } else return this.renderEngine == null;
 
             return true;
         } catch (Throwable throwable3) {

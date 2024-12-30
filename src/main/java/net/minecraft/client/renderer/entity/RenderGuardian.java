@@ -36,9 +36,7 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
                     Vec3 vec3 = this.func_177110_a(entitylivingbase, entitylivingbase.height * 0.5D, 1.0F);
                     Vec3 vec31 = this.func_177110_a(livingEntity, livingEntity.getEyeHeight(), 1.0F);
 
-                    if (camera.isBoundingBoxInFrustum(AxisAlignedBB.fromBounds(vec31.xCoord, vec31.yCoord, vec31.zCoord, vec3.xCoord, vec3.yCoord, vec3.zCoord))) {
-                        return true;
-                    }
+                    return camera.isBoundingBoxInFrustum(AxisAlignedBB.fromBounds(vec31.xCoord, vec31.yCoord, vec31.zCoord, vec3.xCoord, vec3.yCoord, vec3.zCoord));
                 }
             }
 

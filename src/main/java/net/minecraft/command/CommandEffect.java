@@ -73,11 +73,7 @@ public class CommandEffect extends CommandBase {
                         k = parseInt(args[3], 0, 255);
                     }
 
-                    boolean flag = true;
-
-                    if (args.length >= 5 && "true".equalsIgnoreCase(args[4])) {
-                        flag = false;
-                    }
+                    boolean flag = args.length < 5 || !"true".equalsIgnoreCase(args[4]);
 
                     if (l > 0) {
                         PotionEffect potioneffect = new PotionEffect(i, j, k, false, flag);

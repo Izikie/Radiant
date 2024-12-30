@@ -630,9 +630,7 @@ public class CustomItems {
                     return false;
                 }
 
-                if (cip.hand == 2 && !renderOffHand) {
-                    return false;
-                }
+                return cip.hand != 2 || renderOffHand;
             }
 
             return true;

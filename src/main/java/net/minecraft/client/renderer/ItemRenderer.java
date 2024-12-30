@@ -479,11 +479,7 @@ public class ItemRenderer {
             if (!this.itemToRender.getIsItemStackEqual(itemstack)) {
                 flag = true;
             }
-        } else if (this.itemToRender == null && itemstack == null) {
-            flag = false;
-        } else {
-            flag = true;
-        }
+        } else flag = this.itemToRender != null || itemstack != null;
 
         float f2 = 0.4F;
         float f = flag ? 0.0F : 1.0F;

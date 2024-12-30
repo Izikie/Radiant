@@ -222,9 +222,7 @@ public class EntityOcelot extends EntityTameable {
 
             Block block = this.worldObj.getBlockState(blockpos.down()).getBlock();
 
-            if (block == Blocks.grass || block.getMaterial() == Material.leaves) {
-                return true;
-            }
+            return block == Blocks.grass || block.getMaterial() == Material.leaves;
         }
 
         return false;

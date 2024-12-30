@@ -305,9 +305,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
         if (direction == EnumFacing.DOWN && index == 1) {
             Item item = stack.getItem();
 
-            if (item != Items.water_bucket && item != Items.bucket) {
-                return false;
-            }
+            return item == Items.water_bucket || item == Items.bucket;
         }
 
         return true;

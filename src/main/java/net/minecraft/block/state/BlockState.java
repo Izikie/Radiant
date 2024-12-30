@@ -12,12 +12,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Table;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
@@ -141,25 +136,25 @@ public class BlockState {
         public void buildPropertyValueTable(Map<Map<IProperty, Comparable>, BlockState.StateImplementation> map) {
             if (this.propertyValueTable != null) {
                 throw new IllegalStateException();
-            } else {
-                Table<IProperty, Comparable, IBlockState> table = HashBasedTable.create();
+            }
 
-                for (IProperty<? extends Comparable> iproperty : this.properties.keySet()) {
-                    for (Comparable comparable : iproperty.getAllowedValues()) {
-                        if (comparable != this.properties.get(iproperty)) {
-                            table.put(iproperty, comparable, map.get(this.getPropertiesWithValue(iproperty, comparable)));
-                        }
+            Table<IProperty, Comparable, IBlockState> table = HashBasedTable.create();
+
+            for (IProperty<? extends Comparable> property : this.properties.keySet()) {
+                for (Comparable value : property.getAllowedValues()) {
+                    if (!value.equals(this.properties.get(property))) {
+                        table.put(property, value, map.get(this.getPropertiesWithValue(property, value)));
                     }
                 }
-
-                this.propertyValueTable = ImmutableTable.copyOf(table);
             }
+
+            this.propertyValueTable = ImmutableTable.copyOf(table);
         }
 
         private Map<IProperty, Comparable> getPropertiesWithValue(IProperty property, Comparable value) {
-            Map<IProperty, Comparable> map = Maps.newHashMap(this.properties);
-            map.put(property, value);
-            return map;
+            return new HashMap<>(this.properties){{
+                put(property, value);
+            }};
         }
     }
 }

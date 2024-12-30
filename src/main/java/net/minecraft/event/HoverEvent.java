@@ -33,14 +33,8 @@ public class HoverEvent {
                 return false;
             } else {
                 if (this.value != null) {
-                    if (!this.value.equals(hoverevent.value)) {
-                        return false;
-                    }
-                } else if (hoverevent.value != null) {
-                    return false;
-                }
-
-                return true;
+                    return this.value.equals(hoverevent.value);
+                } else return hoverevent.value == null;
             }
         } else {
             return false;

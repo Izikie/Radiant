@@ -65,9 +65,7 @@ public class BetterSnow {
                     if (block instanceof BlockLever) {
                         Object object = blockState.getValue(BlockLever.FACING);
 
-                        if (object == BlockLever.EnumOrientation.UP_X || object == BlockLever.EnumOrientation.UP_Z) {
-                            return true;
-                        }
+                        return object == BlockLever.EnumOrientation.UP_X || object == BlockLever.EnumOrientation.UP_Z;
                     }
 
                     return false;

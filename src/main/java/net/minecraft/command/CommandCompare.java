@@ -41,11 +41,7 @@ public class CommandCompare extends CommandBase {
                 World world = sender.getEntityWorld();
 
                 if (world.isAreaLoaded(structureboundingbox) && world.isAreaLoaded(structureboundingbox1)) {
-                    boolean flag = false;
-
-                    if (args.length > 9 && args[9].equals("masked")) {
-                        flag = true;
-                    }
+                    boolean flag = args.length > 9 && args[9].equals("masked");
 
                     i = 0;
                     BlockPos blockpos3 = new BlockPos(structureboundingbox1.minX - structureboundingbox.minX, structureboundingbox1.minY - structureboundingbox.minY, structureboundingbox1.minZ - structureboundingbox.minZ);

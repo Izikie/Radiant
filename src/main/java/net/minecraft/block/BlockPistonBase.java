@@ -258,11 +258,7 @@ public class BlockPistonBase extends Block {
                     }
 
                     if (blockIn.getMobilityFlag() == 1) {
-                        if (!allowDestroy) {
-                            return false;
-                        }
-
-                        return true;
+                        return allowDestroy;
                     }
                 } else if (((Boolean) worldIn.getBlockState(pos).getValue(EXTENDED)).booleanValue()) {
                     return false;

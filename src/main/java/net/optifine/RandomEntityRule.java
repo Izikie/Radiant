@@ -328,9 +328,7 @@ public class RandomEntityRule {
                 if (world2 != null) {
                     Weather weather = Weather.getWeather(world2, 0.0F);
 
-                    if (!ArrayUtils.contains(this.weatherList, weather)) {
-                        return false;
-                    }
+                    return ArrayUtils.contains(this.weatherList, weather);
                 }
             }
 

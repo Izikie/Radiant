@@ -344,9 +344,7 @@ public class CustomGuiProperties {
                 tileentitybeacon.writeToNBT(nbttagcompound);
                 int i = nbttagcompound.getInteger("Levels");
 
-                if (!this.levels.isInRange(i)) {
-                    return false;
-                }
+                return this.levels.isInRange(i);
             }
 
             return true;
@@ -391,9 +389,7 @@ public class CustomGuiProperties {
             if (this.variants != null) {
                 CustomGuiProperties.EnumVariant customguiproperties$enumvariant = this.getDispenserVariant(tileentitydispenser);
 
-                if (!Config.equalsOne(customguiproperties$enumvariant, this.variants)) {
-                    return false;
-                }
+                return Config.equalsOne(customguiproperties$enumvariant, this.variants);
             }
 
             return true;
@@ -451,9 +447,7 @@ public class CustomGuiProperties {
                     }
                 }
 
-                if (!flag) {
-                    return false;
-                }
+                return flag;
             }
 
             return true;
@@ -468,9 +462,7 @@ public class CustomGuiProperties {
             if (this.variants != null) {
                 CustomGuiProperties.EnumVariant customguiproperties$enumvariant = this.getHorseVariant(entityhorse);
 
-                if (!Config.equalsOne(customguiproperties$enumvariant, this.variants)) {
-                    return false;
-                }
+                return Config.equalsOne(customguiproperties$enumvariant, this.variants);
             }
 
             return true;

@@ -74,9 +74,7 @@ public class StructureOceanMonument extends MapGenStructure {
 
             boolean flag = this.worldObj.getWorldChunkManager().areBiomesViable(i * 16 + 8, j * 16 + 8, 29, field_175802_d);
 
-            if (flag) {
-                return true;
-            }
+            return flag;
         }
 
         return false;

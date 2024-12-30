@@ -98,11 +98,7 @@ public class NbtTagValue {
 
                 if (nbtbase == null) {
                     return false;
-                } else if (this.matchesBase(nbtbase)) {
-                    return true;
-                } else {
-                    return false;
-                }
+                } else return this.matchesBase(nbtbase);
             }
         }
     }
