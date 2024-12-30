@@ -26,7 +26,7 @@ public class BlockWall extends Block {
     public static final PropertyBool EAST = PropertyBool.create("east");
     public static final PropertyBool SOUTH = PropertyBool.create("south");
     public static final PropertyBool WEST = PropertyBool.create("west");
-    public static final PropertyEnum<BlockWall.EnumType> VARIANT = PropertyEnum.<BlockWall.EnumType>create("variant", BlockWall.EnumType.class);
+    public static final PropertyEnum<BlockWall.EnumType> VARIANT = PropertyEnum.create("variant", BlockWall.EnumType.class);
 
     public BlockWall(Block modelBlock) {
         super(modelBlock.blockMaterial);

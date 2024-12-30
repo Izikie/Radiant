@@ -27,7 +27,7 @@ import net.minecraft.world.World;
 
 public class BlockFlowerPot extends BlockContainer {
     public static final PropertyInteger LEGACY_DATA = PropertyInteger.create("legacy_data", 0, 15);
-    public static final PropertyEnum<BlockFlowerPot.EnumFlowerType> CONTENTS = PropertyEnum.<BlockFlowerPot.EnumFlowerType>create("contents", BlockFlowerPot.EnumFlowerType.class);
+    public static final PropertyEnum<BlockFlowerPot.EnumFlowerType> CONTENTS = PropertyEnum.create("contents", BlockFlowerPot.EnumFlowerType.class);
 
     public BlockFlowerPot() {
         super(Material.circuits);

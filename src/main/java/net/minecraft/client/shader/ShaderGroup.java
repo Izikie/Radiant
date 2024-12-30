@@ -30,9 +30,9 @@ public class ShaderGroup {
     private final Framebuffer mainFramebuffer;
     private final IResourceManager resourceManager;
     private final String shaderGroupName;
-    private final List<Shader> listShaders = Lists.<Shader>newArrayList();
-    private final Map<String, Framebuffer> mapFramebuffers = Maps.<String, Framebuffer>newHashMap();
-    private final List<Framebuffer> listFramebuffers = Lists.<Framebuffer>newArrayList();
+    private final List<Shader> listShaders = Lists.newArrayList();
+    private final Map<String, Framebuffer> mapFramebuffers = Maps.newHashMap();
+    private final List<Framebuffer> listFramebuffers = Lists.newArrayList();
     private Matrix4f projectionMatrix;
     private int mainFramebufferWidth;
     private int mainFramebufferHeight;

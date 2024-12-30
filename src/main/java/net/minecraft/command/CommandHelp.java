@@ -28,7 +28,7 @@ public class CommandHelp extends CommandBase {
     }
 
     public List<String> getCommandAliases() {
-        return Arrays.<String>asList(new String[]{"?"});
+        return Arrays.asList(new String[]{"?"});
     }
 
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {

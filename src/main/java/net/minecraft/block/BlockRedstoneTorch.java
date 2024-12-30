@@ -18,12 +18,12 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockRedstoneTorch extends BlockTorch {
-    private static final Map<World, List<BlockRedstoneTorch.Toggle>> toggles = Maps.<World, List<BlockRedstoneTorch.Toggle>>newHashMap();
+    private static final Map<World, List<BlockRedstoneTorch.Toggle>> toggles = Maps.newHashMap();
     private final boolean isOn;
 
     private boolean isBurnedOut(World worldIn, BlockPos pos, boolean turnOff) {
         if (!toggles.containsKey(worldIn)) {
-            toggles.put(worldIn, Lists.<BlockRedstoneTorch.Toggle>newArrayList());
+            toggles.put(worldIn, Lists.newArrayList());
         }
 
         List<BlockRedstoneTorch.Toggle> list = (List) toggles.get(worldIn);

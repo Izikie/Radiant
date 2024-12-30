@@ -5,7 +5,7 @@ import com.google.common.collect.Lists;
 import java.util.List;
 
 public class SoundList {
-    private final List<SoundList.SoundEntry> soundList = Lists.<SoundList.SoundEntry>newArrayList();
+    private final List<SoundList.SoundEntry> soundList = Lists.newArrayList();
     private boolean replaceExisting;
     private SoundCategory category;
 

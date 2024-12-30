@@ -28,7 +28,7 @@ public class CrashReport {
     private final String description;
     private final Throwable cause;
     private final CrashReportCategory theReportCategory = new CrashReportCategory(this, "System Details");
-    private final List<CrashReportCategory> crashReportSections = Lists.<CrashReportCategory>newArrayList();
+    private final List<CrashReportCategory> crashReportSections = Lists.newArrayList();
     private File crashReportFile;
     private boolean firstCategoryInCrashReport = true;
     private StackTraceElement[] stacktrace = new StackTraceElement[0];

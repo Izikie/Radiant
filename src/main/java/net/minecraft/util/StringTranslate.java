@@ -17,7 +17,7 @@ public class StringTranslate {
     private static final Pattern numericVariablePattern = Pattern.compile("%(\\d+\\$)?[\\d\\.]*[df]");
     private static final Splitter equalSignSplitter = Splitter.on('=').limit(2);
     private static final StringTranslate instance = new StringTranslate();
-    private final Map<String, String> languageList = Maps.<String, String>newHashMap();
+    private final Map<String, String> languageList = Maps.newHashMap();
     private long lastUpdateTimeInMilliseconds;
 
     public StringTranslate() {

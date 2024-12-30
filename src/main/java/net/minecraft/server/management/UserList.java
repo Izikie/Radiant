@@ -32,7 +32,7 @@ public class UserList<K, V extends UserListEntry<K>> {
     protected static final Logger logger = LogManager.getLogger();
     protected final Gson gson;
     private final File saveFile;
-    private final Map<String, V> values = Maps.<String, V>newHashMap();
+    private final Map<String, V> values = Maps.newHashMap();
     private boolean lanServer = true;
     private static final ParameterizedType saveFileFormat = new ParameterizedType() {
         public Type[] getActualTypeArguments() {
@@ -101,7 +101,7 @@ public class UserList<K, V extends UserListEntry<K>> {
     }
 
     private void removeExpired() {
-        List<K> list = Lists.<K>newArrayList();
+        List<K> list = Lists.newArrayList();
 
         for (V v : this.values.values()) {
             if (v.hasBanExpired()) {

@@ -18,9 +18,9 @@ import net.minecraft.world.WorldSavedData;
 
 public class VillageCollection extends WorldSavedData {
     private World worldObj;
-    private final List<BlockPos> villagerPositionsList = Lists.<BlockPos>newArrayList();
-    private final List<VillageDoorInfo> newDoors = Lists.<VillageDoorInfo>newArrayList();
-    private final List<Village> villageList = Lists.<Village>newArrayList();
+    private final List<BlockPos> villagerPositionsList = Lists.newArrayList();
+    private final List<VillageDoorInfo> newDoors = Lists.newArrayList();
+    private final List<Village> villageList = Lists.newArrayList();
     private int tickCounter;
 
     public VillageCollection(String name) {

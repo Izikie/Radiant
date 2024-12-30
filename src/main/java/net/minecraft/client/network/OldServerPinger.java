@@ -48,7 +48,7 @@ import org.apache.logging.log4j.Logger;
 public class OldServerPinger {
     private static final Splitter PING_RESPONSE_SPLITTER = Splitter.on('\u0000').limit(6);
     private static final Logger logger = LogManager.getLogger();
-    private final List<NetworkManager> pingDestinations = Collections.<NetworkManager>synchronizedList(Lists.<NetworkManager>newArrayList());
+    private final List<NetworkManager> pingDestinations = Collections.synchronizedList(Lists.newArrayList());
 
     public void ping(final ServerData server) throws UnknownHostException {
         ServerAddress serveraddress = ServerAddress.fromString(server.serverIP);

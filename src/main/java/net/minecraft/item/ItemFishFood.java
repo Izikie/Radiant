@@ -65,7 +65,7 @@ public class ItemFishFood extends ItemFood {
         CLOWNFISH(2, "clownfish", 1, 0.1F),
         PUFFERFISH(3, "pufferfish", 1, 0.1F);
 
-        private static final Map<Integer, ItemFishFood.FishType> META_LOOKUP = Maps.<Integer, ItemFishFood.FishType>newHashMap();
+        private static final Map<Integer, ItemFishFood.FishType> META_LOOKUP = Maps.newHashMap();
         private final int meta;
         private final String unlocalizedName;
         private final int uncookedHealAmount;

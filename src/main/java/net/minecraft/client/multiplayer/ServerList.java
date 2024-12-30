@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
 public class ServerList {
     private static final Logger logger = LogManager.getLogger();
     private final Minecraft mc;
-    private final List<ServerData> servers = Lists.<ServerData>newArrayList();
+    private final List<ServerData> servers = Lists.newArrayList();
 
     public ServerList(Minecraft mcIn) {
         this.mc = mcIn;

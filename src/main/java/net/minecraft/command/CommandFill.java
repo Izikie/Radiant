@@ -73,7 +73,7 @@ public class CommandFill extends CommandBase {
                     }
                 }
 
-                List<BlockPos> list = Lists.<BlockPos>newArrayList();
+                List<BlockPos> list = Lists.newArrayList();
                 j = 0;
 
                 for (int i1 = blockpos2.getZ(); i1 <= blockpos3.getZ(); ++i1) {

@@ -70,7 +70,7 @@ public class CommandAchievement extends CommandBase {
 
                                 List<Achievement> list;
 
-                                for (list = Lists.<Achievement>newArrayList(); achievement.parentAchievement != null && !entityplayermp.getStatFile().hasAchievementUnlocked(achievement.parentAchievement); achievement = achievement.parentAchievement) {
+                                for (list = Lists.newArrayList(); achievement.parentAchievement != null && !entityplayermp.getStatFile().hasAchievementUnlocked(achievement.parentAchievement); achievement = achievement.parentAchievement) {
                                     list.add(achievement.parentAchievement);
                                 }
 
@@ -131,7 +131,7 @@ public class CommandAchievement extends CommandBase {
         } else if (args.length != 2) {
             return args.length == 3 ? getListOfStringsMatchingLastWord(args, MinecraftServer.getServer().getAllUsernames()) : null;
         } else {
-            List<String> list = Lists.<String>newArrayList();
+            List<String> list = Lists.newArrayList();
 
             for (StatBase statbase : StatList.allStats) {
                 list.add(statbase.statId);

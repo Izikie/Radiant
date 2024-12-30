@@ -18,10 +18,10 @@ public class Shader {
     private final ShaderManager manager;
     public final Framebuffer framebufferIn;
     public final Framebuffer framebufferOut;
-    private final List<Object> listAuxFramebuffers = Lists.<Object>newArrayList();
-    private final List<String> listAuxNames = Lists.<String>newArrayList();
-    private final List<Integer> listAuxWidths = Lists.<Integer>newArrayList();
-    private final List<Integer> listAuxHeights = Lists.<Integer>newArrayList();
+    private final List<Object> listAuxFramebuffers = Lists.newArrayList();
+    private final List<String> listAuxNames = Lists.newArrayList();
+    private final List<Integer> listAuxWidths = Lists.newArrayList();
+    private final List<Integer> listAuxHeights = Lists.newArrayList();
     private Matrix4f projectionMatrix;
 
     public Shader(IResourceManager p_i45089_1_, String p_i45089_2_, Framebuffer p_i45089_3_, Framebuffer p_i45089_4_) throws JsonException, IOException {

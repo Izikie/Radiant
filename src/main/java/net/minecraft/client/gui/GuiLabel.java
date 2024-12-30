@@ -32,7 +32,7 @@ public class GuiLabel extends Gui {
         this.field_146174_h = p_i45540_4_;
         this.field_146167_a = p_i45540_5_;
         this.field_146161_f = p_i45540_6_;
-        this.field_146173_k = Lists.<String>newArrayList();
+        this.field_146173_k = Lists.newArrayList();
         this.centered = false;
         this.labelBgEnabled = false;
         this.field_146168_n = p_i45540_7_;

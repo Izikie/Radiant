@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class BlockBed extends BlockDirectional {
-    public static final PropertyEnum<BlockBed.EnumPartType> PART = PropertyEnum.<BlockBed.EnumPartType>create("part", BlockBed.EnumPartType.class);
+    public static final PropertyEnum<BlockBed.EnumPartType> PART = PropertyEnum.create("part", BlockBed.EnumPartType.class);
     public static final PropertyBool OCCUPIED = PropertyBool.create("occupied");
 
     public BlockBed() {

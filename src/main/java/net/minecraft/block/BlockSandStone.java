@@ -14,7 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
 
 public class BlockSandStone extends Block {
-    public static final PropertyEnum<BlockSandStone.EnumType> TYPE = PropertyEnum.<BlockSandStone.EnumType>create("type", BlockSandStone.EnumType.class);
+    public static final PropertyEnum<BlockSandStone.EnumType> TYPE = PropertyEnum.create("type", BlockSandStone.EnumType.class);
 
     public BlockSandStone() {
         super(Material.rock);

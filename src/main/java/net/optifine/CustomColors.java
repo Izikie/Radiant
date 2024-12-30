@@ -243,7 +243,7 @@ public class CustomColors {
                 if (s == null) {
                     return valDef;
                 } else {
-                    List<String> list = Arrays.<String>asList(validValues);
+                    List<String> list = Arrays.asList(validValues);
 
                     if (!list.contains(s)) {
                         warn("Invalid value: " + key + "=" + s);

@@ -12,7 +12,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
 public class CombatTracker {
-    private final List<CombatEntry> combatEntries = Lists.<CombatEntry>newArrayList();
+    private final List<CombatEntry> combatEntries = Lists.newArrayList();
     private final EntityLivingBase fighter;
     private int field_94555_c;
     private int field_152775_d;

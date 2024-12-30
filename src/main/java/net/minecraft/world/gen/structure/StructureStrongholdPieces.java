@@ -53,7 +53,7 @@ public class StructureStrongholdPieces {
     }
 
     public static void prepareStructurePieces() {
-        structurePieceList = Lists.<StructureStrongholdPieces.PieceWeight>newArrayList();
+        structurePieceList = Lists.newArrayList();
 
         for (StructureStrongholdPieces.PieceWeight structurestrongholdpieces$pieceweight : pieceWeightArray) {
             structurestrongholdpieces$pieceweight.instancesSpawned = 0;
@@ -1046,7 +1046,7 @@ public class StructureStrongholdPieces {
     public static class Stairs2 extends StructureStrongholdPieces.Stairs {
         public StructureStrongholdPieces.PieceWeight strongholdPieceWeight;
         public StructureStrongholdPieces.PortalRoom strongholdPortalRoom;
-        public List<StructureComponent> field_75026_c = Lists.<StructureComponent>newArrayList();
+        public List<StructureComponent> field_75026_c = Lists.newArrayList();
 
         public Stairs2() {
         }

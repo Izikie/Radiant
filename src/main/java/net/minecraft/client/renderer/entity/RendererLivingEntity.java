@@ -39,7 +39,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
     private static final DynamicTexture textureBrightness = new DynamicTexture(16, 16);
     public ModelBase mainModel;
     protected FloatBuffer brightnessBuffer = GLAllocation.createDirectFloatBuffer(4);
-    protected List<LayerRenderer<T>> layerRenderers = Lists.<LayerRenderer<T>>newArrayList();
+    protected List<LayerRenderer<T>> layerRenderers = Lists.newArrayList();
     protected boolean renderOutlines = false;
     public static float NAME_TAG_RANGE = 64.0F;
     public static float NAME_TAG_RANGE_SNEAK = 32.0F;

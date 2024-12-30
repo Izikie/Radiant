@@ -10,7 +10,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 
 public class BaseSpectatorGroup implements ISpectatorMenuView {
-    private final List<ISpectatorMenuObject> field_178671_a = Lists.<ISpectatorMenuObject>newArrayList();
+    private final List<ISpectatorMenuObject> field_178671_a = Lists.newArrayList();
 
     public BaseSpectatorGroup() {
         this.field_178671_a.add(new TeleportToPlayer());

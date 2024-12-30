@@ -203,7 +203,7 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
     }
 
     public SoundEventAccessorComposite getRandomSoundFromCategories(SoundCategory... categories) {
-        List<SoundEventAccessorComposite> list = Lists.<SoundEventAccessorComposite>newArrayList();
+        List<SoundEventAccessorComposite> list = Lists.newArrayList();
 
         for (ResourceLocation resourcelocation : this.sndRegistry.getKeys()) {
             SoundEventAccessorComposite soundeventaccessorcomposite = (SoundEventAccessorComposite) this.sndRegistry.getObject(resourcelocation);

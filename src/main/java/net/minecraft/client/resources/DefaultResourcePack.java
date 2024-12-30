@@ -17,7 +17,7 @@ import net.minecraft.client.resources.data.IMetadataSerializer;
 import net.minecraft.util.ResourceLocation;
 
 public class DefaultResourcePack implements IResourcePack {
-    public static final Set<String> defaultResourceDomains = ImmutableSet.<String>of("minecraft");
+    public static final Set<String> defaultResourceDomains = ImmutableSet.of("minecraft");
     private final Map<String, File> mapAssets;
 
     public DefaultResourcePack(Map<String, File> mapAssetsIn) {

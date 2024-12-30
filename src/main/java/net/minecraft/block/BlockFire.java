@@ -31,8 +31,8 @@ public class BlockFire extends Block {
     public static final PropertyBool SOUTH = PropertyBool.create("south");
     public static final PropertyBool WEST = PropertyBool.create("west");
     public static final PropertyInteger UPPER = PropertyInteger.create("upper", 0, 2);
-    private final Map<Block, Integer> encouragements = Maps.<Block, Integer>newIdentityHashMap();
-    private final Map<Block, Integer> flammabilities = Maps.<Block, Integer>newIdentityHashMap();
+    private final Map<Block, Integer> encouragements = Maps.newIdentityHashMap();
+    private final Map<Block, Integer> flammabilities = Maps.newIdentityHashMap();
 
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         int i = pos.getX();

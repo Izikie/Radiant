@@ -66,8 +66,8 @@ public abstract class BiomeGenBase {
     protected static final BiomeGenBase.Height height_LowIslands = new BiomeGenBase.Height(0.2F, 0.3F);
     protected static final BiomeGenBase.Height height_PartiallySubmerged = new BiomeGenBase.Height(-0.2F, 0.1F);
     private static final BiomeGenBase[] biomeList = new BiomeGenBase[256];
-    public static final Set<BiomeGenBase> explorationBiomesList = Sets.<BiomeGenBase>newHashSet();
-    public static final Map<String, BiomeGenBase> BIOME_ID_MAP = Maps.<String, BiomeGenBase>newHashMap();
+    public static final Set<BiomeGenBase> explorationBiomesList = Sets.newHashSet();
+    public static final Map<String, BiomeGenBase> BIOME_ID_MAP = Maps.newHashMap();
     public static final BiomeGenBase ocean = (new BiomeGenOcean(0)).setColor(112).setBiomeName("Ocean").setHeight(height_Oceans);
     public static final BiomeGenBase plains = (new BiomeGenPlains(1)).setColor(9286496).setBiomeName("Plains");
     public static final BiomeGenBase desert = (new BiomeGenDesert(2)).setColor(16421912).setBiomeName("Desert").setDisableRain().setTemperatureRainfall(2.0F, 0.0F).setHeight(height_LowPlains);
@@ -141,10 +141,10 @@ public abstract class BiomeGenBase {
         this.temperature = 0.5F;
         this.rainfall = 0.5F;
         this.waterColorMultiplier = 16777215;
-        this.spawnableMonsterList = Lists.<BiomeGenBase.SpawnListEntry>newArrayList();
-        this.spawnableCreatureList = Lists.<BiomeGenBase.SpawnListEntry>newArrayList();
-        this.spawnableWaterCreatureList = Lists.<BiomeGenBase.SpawnListEntry>newArrayList();
-        this.spawnableCaveCreatureList = Lists.<BiomeGenBase.SpawnListEntry>newArrayList();
+        this.spawnableMonsterList = Lists.newArrayList();
+        this.spawnableCreatureList = Lists.newArrayList();
+        this.spawnableWaterCreatureList = Lists.newArrayList();
+        this.spawnableCaveCreatureList = Lists.newArrayList();
         this.enableRain = true;
         this.worldGeneratorTrees = new WorldGenTrees(false);
         this.worldGeneratorBigTree = new WorldGenBigTree(false);
@@ -263,7 +263,7 @@ public abstract class BiomeGenBase {
                 return this.spawnableCaveCreatureList;
 
             default:
-                return Collections.<BiomeGenBase.SpawnListEntry>emptyList();
+                return Collections.emptyList();
         }
     }
 

@@ -66,8 +66,8 @@ public class NetworkSystem {
     };
     private final MinecraftServer mcServer;
     public volatile boolean isAlive;
-    private final List<ChannelFuture> endpoints = Collections.<ChannelFuture>synchronizedList(Lists.<ChannelFuture>newArrayList());
-    private final List<NetworkManager> networkManagers = Collections.<NetworkManager>synchronizedList(Lists.<NetworkManager>newArrayList());
+    private final List<ChannelFuture> endpoints = Collections.synchronizedList(Lists.newArrayList());
+    private final List<NetworkManager> networkManagers = Collections.synchronizedList(Lists.newArrayList());
 
     public NetworkSystem(MinecraftServer server) {
         this.mcServer = server;

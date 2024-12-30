@@ -46,11 +46,11 @@ public class ChunkRenderDispatcher {
     }
 
     public ChunkRenderDispatcher(int p_i4_1_) {
-        this.listThreadedWorkers = Lists.<ChunkRenderWorker>newArrayList();
-        this.queueChunkUpdates = Queues.<ChunkCompileTaskGenerator>newArrayBlockingQueue(100);
+        this.listThreadedWorkers = Lists.newArrayList();
+        this.queueChunkUpdates = Queues.newArrayBlockingQueue(100);
         this.worldVertexUploader = new WorldVertexBufferUploader();
         this.vertexUploader = new VertexBufferUploader();
-        this.queueChunkUploads = Queues.<ListenableFutureTask<?>>newArrayDeque();
+        this.queueChunkUploads = Queues.newArrayDeque();
         this.listPausedBuilders = new ArrayList();
         int i = Math.max(1, (int) ((double) Runtime.getRuntime().maxMemory() * 0.3D) / 10485760);
         int j = Math.max(1, MathHelper.clamp_int(Runtime.getRuntime().availableProcessors() - 2, 1, i / 5));
@@ -68,7 +68,7 @@ public class ChunkRenderDispatcher {
             this.listThreadedWorkers.add(chunkrenderworker);
         }
 
-        this.queueFreeRenderBuilders = Queues.<RegionRenderCacheBuilder>newArrayBlockingQueue(this.countRenderBuilders);
+        this.queueFreeRenderBuilders = Queues.newArrayBlockingQueue(this.countRenderBuilders);
 
         for (int l = 0; l < this.countRenderBuilders; ++l) {
             this.queueFreeRenderBuilders.add(new RegionRenderCacheBuilder());
@@ -165,7 +165,7 @@ public class ChunkRenderDispatcher {
             ;
         }
 
-        List<RegionRenderCacheBuilder> list = Lists.<RegionRenderCacheBuilder>newArrayList();
+        List<RegionRenderCacheBuilder> list = Lists.newArrayList();
 
         while (((List) list).size() != this.countRenderBuilders) {
             try {
@@ -225,9 +225,9 @@ public class ChunkRenderDispatcher {
             }
 
             p_178503_2_.setTranslation(0.0D, 0.0D, 0.0D);
-            return Futures.<Object>immediateFuture((Object) null);
+            return Futures.immediateFuture((Object) null);
         } else {
-            ListenableFutureTask<Object> listenablefuturetask = ListenableFutureTask.<Object>create(new Runnable() {
+            ListenableFutureTask<Object> listenablefuturetask = ListenableFutureTask.create(new Runnable() {
                 public void run() {
                     ChunkRenderDispatcher.this.uploadChunk(player, p_178503_2_, chunkRenderer, compiledChunkIn);
                 }

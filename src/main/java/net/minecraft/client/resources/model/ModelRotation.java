@@ -27,7 +27,7 @@ public enum ModelRotation {
     X270_Y180(270, 180),
     X270_Y270(270, 270);
 
-    private static final Map<Integer, ModelRotation> mapRotations = Maps.<Integer, ModelRotation>newHashMap();
+    private static final Map<Integer, ModelRotation> mapRotations = Maps.newHashMap();
     private final int combinedXY;
     private final Matrix4f matrix4d;
     private final int quartersX;

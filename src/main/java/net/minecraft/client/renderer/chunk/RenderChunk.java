@@ -54,7 +54,7 @@ public class RenderChunk {
     private final ReentrantLock lockCompileTask = new ReentrantLock();
     private final ReentrantLock lockCompiledChunk = new ReentrantLock();
     private ChunkCompileTaskGenerator compileTask = null;
-    private final Set<TileEntity> setTileEntities = Sets.<TileEntity>newHashSet();
+    private final Set<TileEntity> setTileEntities = Sets.newHashSet();
     private final int index;
     private final FloatBuffer modelviewMatrix = GLAllocation.createDirectFloatBuffer(16);
     private final VertexBuffer[] vertexBuffers = new VertexBuffer[EnumWorldBlockLayer.values().length];
@@ -184,7 +184,7 @@ public class RenderChunk {
 
                 if (block.hasTileEntity()) {
                     TileEntity tileentity = chunkcacheof.getTileEntity(new BlockPos(blockposm));
-                    TileEntitySpecialRenderer<TileEntity> tileentityspecialrenderer = TileEntityRendererDispatcher.instance.<TileEntity>getSpecialRenderer(tileentity);
+                    TileEntitySpecialRenderer<TileEntity> tileentityspecialrenderer = TileEntityRendererDispatcher.instance.getSpecialRenderer(tileentity);
 
                     if (tileentity != null && tileentityspecialrenderer != null) {
                         compiledchunk.addTileEntity(tileentity);

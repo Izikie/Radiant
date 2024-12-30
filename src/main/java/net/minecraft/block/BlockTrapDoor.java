@@ -24,7 +24,7 @@ import net.minecraft.world.World;
 public class BlockTrapDoor extends Block {
     public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
     public static final PropertyBool OPEN = PropertyBool.create("open");
-    public static final PropertyEnum<BlockTrapDoor.DoorHalf> HALF = PropertyEnum.<BlockTrapDoor.DoorHalf>create("half", BlockTrapDoor.DoorHalf.class);
+    public static final PropertyEnum<BlockTrapDoor.DoorHalf> HALF = PropertyEnum.create("half", BlockTrapDoor.DoorHalf.class);
 
     protected BlockTrapDoor(Material materialIn) {
         super(materialIn);

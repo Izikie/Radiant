@@ -62,7 +62,7 @@ public class ClickEvent {
         SUGGEST_COMMAND("suggest_command", true),
         CHANGE_PAGE("change_page", true);
 
-        private static final Map<String, ClickEvent.Action> nameMapping = Maps.<String, ClickEvent.Action>newHashMap();
+        private static final Map<String, ClickEvent.Action> nameMapping = Maps.newHashMap();
         private final boolean allowedInChat;
         private final String canonicalName;
 

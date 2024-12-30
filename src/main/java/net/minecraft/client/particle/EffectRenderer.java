@@ -37,10 +37,10 @@ public class EffectRenderer {
     private static final ResourceLocation particleTextures = new ResourceLocation("textures/particle/particles.png");
     protected World worldObj;
     private final List<EntityFX>[][] fxLayers = new List[4][];
-    private final List<EntityParticleEmitter> particleEmitters = Lists.<EntityParticleEmitter>newArrayList();
+    private final List<EntityParticleEmitter> particleEmitters = Lists.newArrayList();
     private final TextureManager renderer;
     private final Random rand = new Random();
-    private final Map<Integer, IParticleFactory> particleTypes = Maps.<Integer, IParticleFactory>newHashMap();
+    private final Map<Integer, IParticleFactory> particleTypes = Maps.newHashMap();
 
     public EffectRenderer(World worldIn, TextureManager rendererIn) {
         this.worldObj = worldIn;
@@ -144,7 +144,7 @@ public class EffectRenderer {
             this.updateEffectLayer(i);
         }
 
-        List<EntityParticleEmitter> list = Lists.<EntityParticleEmitter>newArrayList();
+        List<EntityParticleEmitter> list = Lists.newArrayList();
 
         for (EntityParticleEmitter entityparticleemitter : this.particleEmitters) {
             entityparticleemitter.onUpdate();

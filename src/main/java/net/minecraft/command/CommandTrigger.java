@@ -84,7 +84,7 @@ public class CommandTrigger extends CommandBase {
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         if (args.length == 1) {
             Scoreboard scoreboard = MinecraftServer.getServer().worldServerForDimension(0).getScoreboard();
-            List<String> list = Lists.<String>newArrayList();
+            List<String> list = Lists.newArrayList();
 
             for (ScoreObjective scoreobjective : scoreboard.getScoreObjectives()) {
                 if (scoreobjective.getCriteria() == IScoreObjectiveCriteria.TRIGGER) {

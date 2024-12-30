@@ -35,7 +35,7 @@ public class ChunkProviderServer implements IChunkProvider {
     private final IChunkLoader chunkLoader;
     public boolean chunkLoadOverride = true;
     private final LongHashMap<Chunk> id2ChunkMap = new LongHashMap();
-    private final List<Chunk> loadedChunks = Lists.<Chunk>newArrayList();
+    private final List<Chunk> loadedChunks = Lists.newArrayList();
     private final WorldServer worldObj;
 
     public ChunkProviderServer(WorldServer p_i1520_1_, IChunkLoader p_i1520_2_, IChunkProvider p_i1520_3_) {

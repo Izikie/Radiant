@@ -25,7 +25,7 @@ public class StateMap extends StateMapperBase {
     }
 
     protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-        Map<IProperty, Comparable> map = Maps.<IProperty, Comparable>newLinkedHashMap(state.getProperties());
+        Map<IProperty, Comparable> map = Maps.newLinkedHashMap(state.getProperties());
         String s;
 
         if (this.name == null) {
@@ -48,7 +48,7 @@ public class StateMap extends StateMapperBase {
     public static class Builder {
         private IProperty<?> name;
         private String suffix;
-        private final List<IProperty<?>> ignored = Lists.<IProperty<?>>newArrayList();
+        private final List<IProperty<?>> ignored = Lists.newArrayList();
 
         public StateMap.Builder withName(IProperty<?> builderPropertyIn) {
             this.name = builderPropertyIn;

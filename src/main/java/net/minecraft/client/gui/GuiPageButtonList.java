@@ -11,9 +11,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.IntHashMap;
 
 public class GuiPageButtonList extends GuiListExtended {
-    private final List<GuiPageButtonList.GuiEntry> field_178074_u = Lists.<GuiPageButtonList.GuiEntry>newArrayList();
+    private final List<GuiPageButtonList.GuiEntry> field_178074_u = Lists.newArrayList();
     private final IntHashMap<Gui> field_178073_v = new IntHashMap();
-    private final List<GuiTextField> field_178072_w = Lists.<GuiTextField>newArrayList();
+    private final List<GuiTextField> field_178072_w = Lists.newArrayList();
     private final GuiPageButtonList.GuiListEntry[][] field_178078_x;
     private int field_178077_y;
     private final GuiPageButtonList.GuiResponder field_178076_z;

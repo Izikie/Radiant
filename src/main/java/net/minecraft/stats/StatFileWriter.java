@@ -9,7 +9,7 @@ import net.minecraft.util.IJsonSerializable;
 import net.minecraft.util.TupleIntJsonSerializable;
 
 public class StatFileWriter {
-    protected final Map<StatBase, TupleIntJsonSerializable> statsData = Maps.<StatBase, TupleIntJsonSerializable>newConcurrentMap();
+    protected final Map<StatBase, TupleIntJsonSerializable> statsData = Maps.newConcurrentMap();
 
     public boolean hasAchievementUnlocked(Achievement achievementIn) {
         return this.readStat(achievementIn) > 0;

@@ -14,7 +14,7 @@ import net.minecraft.util.IStringSerializable;
 
 public class PropertyEnum<T extends Enum<T> & IStringSerializable> extends PropertyHelper<T> {
     private final ImmutableSet<T> allowedValues;
-    private final Map<String, T> nameToValue = Maps.<String, T>newHashMap();
+    private final Map<String, T> nameToValue = Maps.newHashMap();
 
     protected PropertyEnum(String name, Class<T> valueClass, Collection<T> allowedValues) {
         super(name, valueClass);
@@ -40,11 +40,11 @@ public class PropertyEnum<T extends Enum<T> & IStringSerializable> extends Prope
     }
 
     public static <T extends Enum<T> & IStringSerializable> PropertyEnum<T> create(String name, Class<T> clazz) {
-        return create(name, clazz, Predicates.<T>alwaysTrue());
+        return create(name, clazz, Predicates.alwaysTrue());
     }
 
     public static <T extends Enum<T> & IStringSerializable> PropertyEnum<T> create(String name, Class<T> clazz, Predicate<T> filter) {
-        return create(name, clazz, Collections2.<T>filter(Lists.newArrayList(clazz.getEnumConstants()), filter));
+        return create(name, clazz, Collections2.filter(Lists.newArrayList(clazz.getEnumConstants()), filter));
     }
 
     public static <T extends Enum<T> & IStringSerializable> PropertyEnum<T> create(String name, Class<T> clazz, T... values) {

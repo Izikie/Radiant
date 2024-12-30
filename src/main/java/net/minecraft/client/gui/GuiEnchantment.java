@@ -192,7 +192,7 @@ public class GuiEnchantment extends GuiContainer {
             int i1 = j + 1;
 
             if (this.isPointInRegion(60, 14 + 19 * j, 108, 17, mouseX, mouseY) && k > 0 && l >= 0) {
-                List<String> list = Lists.<String>newArrayList();
+                List<String> list = Lists.newArrayList();
 
                 if (l >= 0 && Enchantment.getEnchantmentById(l & 255) != null) {
                     String s = Enchantment.getEnchantmentById(l & 255).getTranslatedName((l & 65280) >> 8);

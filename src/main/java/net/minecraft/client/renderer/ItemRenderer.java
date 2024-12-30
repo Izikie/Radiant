@@ -133,7 +133,7 @@ public class ItemRenderer {
 
     private void renderPlayerArms(AbstractClientPlayer clientPlayer) {
         this.mc.getTextureManager().bindTexture(clientPlayer.getLocationSkin());
-        Render<AbstractClientPlayer> render = this.renderManager.<AbstractClientPlayer>getEntityRenderObject(this.mc.thePlayer);
+        Render<AbstractClientPlayer> render = this.renderManager.getEntityRenderObject(this.mc.thePlayer);
         RenderPlayer renderplayer = (RenderPlayer) render;
 
         if (!clientPlayer.isInvisible()) {
@@ -204,7 +204,7 @@ public class ItemRenderer {
         GlStateManager.rotate(-135.0F, 0.0F, 1.0F, 0.0F);
         GlStateManager.scale(1.0F, 1.0F, 1.0F);
         GlStateManager.translate(5.6F, 0.0F, 0.0F);
-        Render<AbstractClientPlayer> render = this.renderManager.<AbstractClientPlayer>getEntityRenderObject(this.mc.thePlayer);
+        Render<AbstractClientPlayer> render = this.renderManager.getEntityRenderObject(this.mc.thePlayer);
         GlStateManager.disableCull();
         RenderPlayer renderplayer = (RenderPlayer) render;
         renderplayer.renderRightArm(this.mc.thePlayer);

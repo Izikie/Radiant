@@ -20,7 +20,7 @@ public class EnumTypeAdapterFactory implements TypeAdapterFactory {
         if (!oclass.isEnum()) {
             return null;
         } else {
-            final Map<String, T> map = Maps.<String, T>newHashMap();
+            final Map<String, T> map = Maps.newHashMap();
 
             for (T t : oclass.getEnumConstants()) {
                 map.put(this.func_151232_a(t), t);

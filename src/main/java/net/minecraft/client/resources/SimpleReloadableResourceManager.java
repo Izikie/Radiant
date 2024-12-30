@@ -21,9 +21,9 @@ import org.apache.logging.log4j.Logger;
 public class SimpleReloadableResourceManager implements IReloadableResourceManager {
     private static final Logger logger = LogManager.getLogger();
     private static final Joiner joinerResourcePacks = Joiner.on(", ");
-    private final Map<String, FallbackResourceManager> domainResourceManagers = Maps.<String, FallbackResourceManager>newHashMap();
-    private final List<IResourceManagerReloadListener> reloadListeners = Lists.<IResourceManagerReloadListener>newArrayList();
-    private final Set<String> setResourceDomains = Sets.<String>newLinkedHashSet();
+    private final Map<String, FallbackResourceManager> domainResourceManagers = Maps.newHashMap();
+    private final List<IResourceManagerReloadListener> reloadListeners = Lists.newArrayList();
+    private final Set<String> setResourceDomains = Sets.newLinkedHashSet();
     private final IMetadataSerializer rmMetadataSerializer;
 
     public SimpleReloadableResourceManager(IMetadataSerializer rmMetadataSerializerIn) {

@@ -30,7 +30,7 @@ public class InventoryBasic implements IInventory {
 
     public void addInventoryChangeListener(IInvBasic listener) {
         if (this.changeListeners == null) {
-            this.changeListeners = Lists.<IInvBasic>newArrayList();
+            this.changeListeners = Lists.newArrayList();
         }
 
         this.changeListeners.add(listener);

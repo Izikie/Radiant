@@ -21,11 +21,11 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ResourceLocation;
 
 public class StatList {
-    protected static Map<String, StatBase> oneShotStats = Maps.<String, StatBase>newHashMap();
-    public static List<StatBase> allStats = Lists.<StatBase>newArrayList();
-    public static List<StatBase> generalStats = Lists.<StatBase>newArrayList();
-    public static List<StatCrafting> itemStats = Lists.<StatCrafting>newArrayList();
-    public static List<StatCrafting> objectMineStats = Lists.<StatCrafting>newArrayList();
+    protected static Map<String, StatBase> oneShotStats = Maps.newHashMap();
+    public static List<StatBase> allStats = Lists.newArrayList();
+    public static List<StatBase> generalStats = Lists.newArrayList();
+    public static List<StatCrafting> itemStats = Lists.newArrayList();
+    public static List<StatCrafting> objectMineStats = Lists.newArrayList();
     public static StatBase leaveGameStat = (new StatBasic("stat.leaveGame", new ChatComponentTranslation("stat.leaveGame", new Object[0]))).initIndependentStat().registerStat();
     public static StatBase minutesPlayedStat = (new StatBasic("stat.playOneMinute", new ChatComponentTranslation("stat.playOneMinute", new Object[0]), StatBase.timeStatType)).initIndependentStat().registerStat();
     public static StatBase timeSinceDeathStat = (new StatBasic("stat.timeSinceDeath", new ChatComponentTranslation("stat.timeSinceDeath", new Object[0]), StatBase.timeStatType)).initIndependentStat().registerStat();
@@ -89,7 +89,7 @@ public class StatList {
     }
 
     private static void initCraftableStats() {
-        Set<Item> set = Sets.<Item>newHashSet();
+        Set<Item> set = Sets.newHashSet();
 
         for (IRecipe irecipe : CraftingManager.getInstance().getRecipeList()) {
             if (irecipe.getRecipeOutput() != null) {

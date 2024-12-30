@@ -12,7 +12,7 @@ import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderHorse extends RenderLiving<EntityHorse> {
-    private static final Map<String, ResourceLocation> field_110852_a = Maps.<String, ResourceLocation>newHashMap();
+    private static final Map<String, ResourceLocation> field_110852_a = Maps.newHashMap();
     private static final ResourceLocation whiteHorseTextures = new ResourceLocation("textures/entity/horse/horse_white.png");
     private static final ResourceLocation muleTextures = new ResourceLocation("textures/entity/horse/mule.png");
     private static final ResourceLocation donkeyTextures = new ResourceLocation("textures/entity/horse/donkey.png");

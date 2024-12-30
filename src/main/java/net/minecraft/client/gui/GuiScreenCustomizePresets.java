@@ -15,7 +15,7 @@ import net.minecraft.world.gen.ChunkProviderSettings;
 import org.lwjgl.input.Keyboard;
 
 public class GuiScreenCustomizePresets extends GuiScreen {
-    private static final List<GuiScreenCustomizePresets.Info> field_175310_f = Lists.<GuiScreenCustomizePresets.Info>newArrayList();
+    private static final List<GuiScreenCustomizePresets.Info> field_175310_f = Lists.newArrayList();
     private GuiScreenCustomizePresets.ListPreset field_175311_g;
     private GuiButton field_175316_h;
     private GuiTextField field_175317_i;

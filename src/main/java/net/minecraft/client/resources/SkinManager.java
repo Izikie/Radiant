@@ -37,7 +37,7 @@ public class SkinManager {
         this.textureManager = textureManagerInstance;
         this.skinCacheDir = skinCacheDirectory;
         this.sessionService = sessionService;
-        this.skinCacheLoader = CacheBuilder.newBuilder().expireAfterAccess(15L, TimeUnit.SECONDS).<GameProfile, Map<Type, MinecraftProfileTexture>>build(new CacheLoader<GameProfile, Map<Type, MinecraftProfileTexture>>() {
+        this.skinCacheLoader = CacheBuilder.newBuilder().expireAfterAccess(15L, TimeUnit.SECONDS).build(new CacheLoader<GameProfile, Map<Type, MinecraftProfileTexture>>() {
             public Map<Type, MinecraftProfileTexture> load(GameProfile p_load_1_) throws Exception {
                 return Minecraft.getMinecraft().getSessionService().getTextures(p_load_1_, false);
             }
@@ -88,7 +88,7 @@ public class SkinManager {
     public void loadProfileTextures(final GameProfile profile, final SkinManager.SkinAvailableCallback skinAvailableCallback, final boolean requireSecure) {
         THREAD_POOL.submit(new Runnable() {
             public void run() {
-                final Map<Type, MinecraftProfileTexture> map = Maps.<Type, MinecraftProfileTexture>newHashMap();
+                final Map<Type, MinecraftProfileTexture> map = Maps.newHashMap();
 
                 try {
                     map.putAll(SkinManager.this.sessionService.getTextures(profile, requireSecure));

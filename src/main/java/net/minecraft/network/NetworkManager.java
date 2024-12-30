@@ -55,7 +55,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
     private static final Logger logger = LogManager.getLogger();
     public static final Marker logMarkerNetwork = MarkerManager.getMarker("NETWORK");
     public static final Marker logMarkerPackets = MarkerManager.getMarker("NETWORK_PACKETS", logMarkerNetwork);
-    public static final AttributeKey<EnumConnectionState> attrKeyConnectionState = AttributeKey.<EnumConnectionState>valueOf("protocol");
+    public static final AttributeKey<EnumConnectionState> attrKeyConnectionState = AttributeKey.valueOf("protocol");
     public static final LazyLoadBase<NioEventLoopGroup> CLIENT_NIO_EVENTLOOP = new LazyLoadBase<NioEventLoopGroup>() {
         protected NioEventLoopGroup load() {
             return new NioEventLoopGroup(0, (new ThreadFactoryBuilder()).setNameFormat("Netty Client IO #%d").setDaemon(true).build());
@@ -72,7 +72,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
         }
     };
     private final EnumPacketDirection direction;
-    private final Queue<NetworkManager.InboundHandlerTuplePacketListener> outboundPacketsQueue = Queues.<NetworkManager.InboundHandlerTuplePacketListener>newConcurrentLinkedQueue();
+    private final Queue<NetworkManager.InboundHandlerTuplePacketListener> outboundPacketsQueue = Queues.newConcurrentLinkedQueue();
     private final ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();
     private Channel channel;
     private SocketAddress socketAddress;

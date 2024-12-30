@@ -21,7 +21,7 @@ import net.minecraft.world.gen.MapGenBase;
 
 public abstract class MapGenStructure extends MapGenBase {
     private MapGenStructureData structureData;
-    protected Map<Long, StructureStart> structureMap = Maps.<Long, StructureStart>newHashMap();
+    protected Map<Long, StructureStart> structureMap = Maps.newHashMap();
 
     public abstract String getStructureName();
 

@@ -34,10 +34,10 @@ import org.apache.logging.log4j.Logger;
 public class PlayerManager {
     private static final Logger pmLogger = LogManager.getLogger();
     private final WorldServer theWorldServer;
-    private final List<EntityPlayerMP> players = Lists.<EntityPlayerMP>newArrayList();
+    private final List<EntityPlayerMP> players = Lists.newArrayList();
     private final LongHashMap<PlayerManager.PlayerInstance> playerInstances = new LongHashMap();
-    private final List<PlayerManager.PlayerInstance> playerInstancesToUpdate = Lists.<PlayerManager.PlayerInstance>newArrayList();
-    private final List<PlayerManager.PlayerInstance> playerInstanceList = Lists.<PlayerManager.PlayerInstance>newArrayList();
+    private final List<PlayerManager.PlayerInstance> playerInstancesToUpdate = Lists.newArrayList();
+    private final List<PlayerManager.PlayerInstance> playerInstanceList = Lists.newArrayList();
     private int playerViewRadius;
     private long previousTotalWorldTime;
     private final int[][] xzDirectionsConst = new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
@@ -345,7 +345,7 @@ public class PlayerManager {
         double d1 = (double) p_getNearest_2_.rotationPitch;
         double d2 = d1 * 0.017453292519943295D;
         ChunkPosComparator chunkposcomparator = new ChunkPosComparator(p_getNearest_2_.chunkCoordX, p_getNearest_2_.chunkCoordZ, d0, d2);
-        Comparator<ChunkCoordIntPair> comparator = Collections.<ChunkCoordIntPair>reverseOrder(chunkposcomparator);
+        Comparator<ChunkCoordIntPair> comparator = Collections.reverseOrder(chunkposcomparator);
         PriorityQueue<ChunkCoordIntPair> priorityqueue = new PriorityQueue(p_getNearest_3_, comparator);
 
         for (ChunkCoordIntPair chunkcoordintpair : p_getNearest_1_) {
@@ -382,7 +382,7 @@ public class PlayerManager {
     }
 
     class PlayerInstance {
-        private final List<EntityPlayerMP> playersWatchingChunk = Lists.<EntityPlayerMP>newArrayList();
+        private final List<EntityPlayerMP> playersWatchingChunk = Lists.newArrayList();
         private final ChunkCoordIntPair chunkCoords;
         private final short[] locationOfBlockChange = new short[64];
         private int numBlocksToUpdate;

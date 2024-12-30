@@ -30,7 +30,7 @@ public abstract class Team {
         HIDE_FOR_OTHER_TEAMS("hideForOtherTeams", 2),
         HIDE_FOR_OWN_TEAM("hideForOwnTeam", 3);
 
-        private static final Map<String, Team.EnumVisible> field_178828_g = Maps.<String, Team.EnumVisible>newHashMap();
+        private static final Map<String, Team.EnumVisible> field_178828_g = Maps.newHashMap();
         public final String internalName;
         public final int id;
 

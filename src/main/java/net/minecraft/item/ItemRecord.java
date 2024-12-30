@@ -17,7 +17,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 public class ItemRecord extends Item {
-    private static final Map<String, ItemRecord> RECORDS = Maps.<String, ItemRecord>newHashMap();
+    private static final Map<String, ItemRecord> RECORDS = Maps.newHashMap();
     public final String recordName;
 
     protected ItemRecord(String name) {

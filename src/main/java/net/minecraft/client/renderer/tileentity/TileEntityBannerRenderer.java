@@ -19,7 +19,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEntityBanner> {
-    private static final Map<String, TileEntityBannerRenderer.TimedBannerTexture> DESIGNS = Maps.<String, TileEntityBannerRenderer.TimedBannerTexture>newHashMap();
+    private static final Map<String, TileEntityBannerRenderer.TimedBannerTexture> DESIGNS = Maps.newHashMap();
     private static final ResourceLocation BANNERTEXTURES = new ResourceLocation("textures/entity/banner_base.png");
     private final ModelBanner bannerModel = new ModelBanner();
 
@@ -105,7 +105,7 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEnti
 
                 List<TileEntityBanner.EnumBannerPattern> list1 = bannerObj.getPatternList();
                 List<EnumDyeColor> list = bannerObj.getColorList();
-                List<String> list2 = Lists.<String>newArrayList();
+                List<String> list2 = Lists.newArrayList();
 
                 for (TileEntityBanner.EnumBannerPattern tileentitybanner$enumbannerpattern : list1) {
                     list2.add("textures/entity/banner/" + tileentitybanner$enumbannerpattern.getPatternName() + ".png");

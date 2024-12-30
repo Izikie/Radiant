@@ -25,8 +25,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeColorHelper;
 
 public class BlockDoublePlant extends BlockBush implements IGrowable {
-    public static final PropertyEnum<BlockDoublePlant.EnumPlantType> VARIANT = PropertyEnum.<BlockDoublePlant.EnumPlantType>create("variant", BlockDoublePlant.EnumPlantType.class);
-    public static final PropertyEnum<BlockDoublePlant.EnumBlockHalf> HALF = PropertyEnum.<BlockDoublePlant.EnumBlockHalf>create("half", BlockDoublePlant.EnumBlockHalf.class);
+    public static final PropertyEnum<BlockDoublePlant.EnumPlantType> VARIANT = PropertyEnum.create("variant", BlockDoublePlant.EnumPlantType.class);
+    public static final PropertyEnum<BlockDoublePlant.EnumBlockHalf> HALF = PropertyEnum.create("half", BlockDoublePlant.EnumBlockHalf.class);
     public static final PropertyEnum<EnumFacing> FACING = BlockDirectional.FACING;
 
     public BlockDoublePlant() {

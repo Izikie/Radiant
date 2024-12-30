@@ -17,7 +17,7 @@ import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.StatCollector;
 
 public class BlockStone extends Block {
-    public static final PropertyEnum<BlockStone.EnumType> VARIANT = PropertyEnum.<BlockStone.EnumType>create("variant", BlockStone.EnumType.class);
+    public static final PropertyEnum<BlockStone.EnumType> VARIANT = PropertyEnum.create("variant", BlockStone.EnumType.class);
 
     public BlockStone() {
         super(Material.rock);

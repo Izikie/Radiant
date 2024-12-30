@@ -54,7 +54,7 @@ public enum EnumParticleTypes {
     private final int particleID;
     private final boolean shouldIgnoreRange;
     private final int argumentCount;
-    private static final Map<Integer, EnumParticleTypes> PARTICLES = Maps.<Integer, EnumParticleTypes>newHashMap();
+    private static final Map<Integer, EnumParticleTypes> PARTICLES = Maps.newHashMap();
     private static final String[] PARTICLE_NAMES;
 
     private EnumParticleTypes(String particleNameIn, int particleIDIn, boolean p_i46011_5_, int argumentCountIn) {
@@ -97,7 +97,7 @@ public enum EnumParticleTypes {
     }
 
     static {
-        List<String> list = Lists.<String>newArrayList();
+        List<String> list = Lists.newArrayList();
 
         for (EnumParticleTypes enumparticletypes : values()) {
             PARTICLES.put(Integer.valueOf(enumparticletypes.getParticleID()), enumparticletypes);

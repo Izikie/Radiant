@@ -106,8 +106,8 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
     public final ItemInWorldManager theItemInWorldManager;
     public double managedPosX;
     public double managedPosZ;
-    public final List<ChunkCoordIntPair> loadedChunks = Lists.<ChunkCoordIntPair>newLinkedList();
-    private final List<Integer> destroyedItemsNetCache = Lists.<Integer>newLinkedList();
+    public final List<ChunkCoordIntPair> loadedChunks = Lists.newLinkedList();
+    private final List<Integer> destroyedItemsNetCache = Lists.newLinkedList();
     private final StatisticsFile statsFile;
     private float combinedHealth = Float.MIN_VALUE;
     private float lastHealth = -1.0E8F;
@@ -226,9 +226,9 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         }
 
         if (!this.loadedChunks.isEmpty()) {
-            List<Chunk> list = Lists.<Chunk>newArrayList();
+            List<Chunk> list = Lists.newArrayList();
             Iterator<ChunkCoordIntPair> iterator1 = this.loadedChunks.iterator();
-            List<TileEntity> list1 = Lists.<TileEntity>newArrayList();
+            List<TileEntity> list1 = Lists.newArrayList();
 
             while (iterator1.hasNext() && ((List) list).size() < 10) {
                 ChunkCoordIntPair chunkcoordintpair = (ChunkCoordIntPair) iterator1.next();
@@ -308,7 +308,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
                 this.combinedHealth = this.getHealth() + this.getAbsorptionAmount();
 
                 for (ScoreObjective scoreobjective : this.getWorldScoreboard().getObjectivesFromCriteria(IScoreObjectiveCriteria.health)) {
-                    this.getWorldScoreboard().getValueFromObjective(this.getName(), scoreobjective).func_96651_a(Arrays.<EntityPlayer>asList(new EntityPlayer[]{this}));
+                    this.getWorldScoreboard().getValueFromObjective(this.getName(), scoreobjective).func_96651_a(Arrays.asList(new EntityPlayer[]{this}));
                 }
             }
 

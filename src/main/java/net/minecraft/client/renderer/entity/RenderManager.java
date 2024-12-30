@@ -110,7 +110,7 @@ import net.optifine.shaders.Shaders;
 
 public class RenderManager {
     private Map<Class, Render> entityRenderMap = Maps.newHashMap();
-    private final Map<String, RenderPlayer> skinMap = Maps.<String, RenderPlayer>newHashMap();
+    private final Map<String, RenderPlayer> skinMap = Maps.newHashMap();
     private final RenderPlayer playerRenderer;
     private FontRenderer textRenderer;
     private double renderPosX;
@@ -208,7 +208,7 @@ public class RenderManager {
         Render<? extends Entity> render = (Render) this.entityRenderMap.get(entityClass);
 
         if (render == null && entityClass != Entity.class) {
-            render = this.<Entity>getEntityClassRenderObject((Class<? extends Entity>) entityClass.getSuperclass());
+            render = this.getEntityClassRenderObject((Class<? extends Entity>) entityClass.getSuperclass());
             this.entityRenderMap.put(entityClass, render);
         }
 
@@ -221,7 +221,7 @@ public class RenderManager {
             RenderPlayer renderplayer = (RenderPlayer) this.skinMap.get(s);
             return (Render<T>) (renderplayer != null ? renderplayer : this.playerRenderer);
         } else {
-            return this.<T>getEntityClassRenderObject(entityIn.getClass());
+            return this.getEntityClassRenderObject(entityIn.getClass());
         }
     }
 
@@ -280,7 +280,7 @@ public class RenderManager {
     }
 
     public boolean shouldRender(Entity entityIn, ICamera camera, double camX, double camY, double camZ) {
-        Render<Entity> render = this.<Entity>getEntityRenderObject(entityIn);
+        Render<Entity> render = this.getEntityRenderObject(entityIn);
         return render != null && render.shouldRender(entityIn, camera, camX, camY, camZ);
     }
 
@@ -312,7 +312,7 @@ public class RenderManager {
         double d0 = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * (double) partialTicks;
         double d1 = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * (double) partialTicks;
         double d2 = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * (double) partialTicks;
-        Render<Entity> render = this.<Entity>getEntityRenderObject(entityIn);
+        Render<Entity> render = this.getEntityRenderObject(entityIn);
 
         if (render != null && this.renderEngine != null) {
             int i = entityIn.getBrightnessForRender(partialTicks);
@@ -332,7 +332,7 @@ public class RenderManager {
         Render<Entity> render = null;
 
         try {
-            render = this.<Entity>getEntityRenderObject(entity);
+            render = this.getEntityRenderObject(entity);
 
             if (render != null && this.renderEngine != null) {
                 try {
@@ -442,6 +442,6 @@ public class RenderManager {
     }
 
     public Map<String, RenderPlayer> getSkinMap() {
-        return Collections.<String, RenderPlayer>unmodifiableMap(this.skinMap);
+        return Collections.unmodifiableMap(this.skinMap);
     }
 }

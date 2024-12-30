@@ -55,8 +55,8 @@ public class ResourcePackRepository {
     private IResourcePack resourcePackInstance;
     private final ReentrantLock lock = new ReentrantLock();
     private ListenableFuture<Object> downloadingPacks;
-    private List<ResourcePackRepository.Entry> repositoryEntriesAll = Lists.<ResourcePackRepository.Entry>newArrayList();
-    public List<ResourcePackRepository.Entry> repositoryEntries = Lists.<ResourcePackRepository.Entry>newArrayList();
+    private List<ResourcePackRepository.Entry> repositoryEntriesAll = Lists.newArrayList();
+    public List<ResourcePackRepository.Entry> repositoryEntries = Lists.newArrayList();
 
     public ResourcePackRepository(File dirResourcepacksIn, File dirServerResourcepacksIn, IResourcePack rprDefaultResourcePackIn, IMetadataSerializer rprMetadataSerializerIn, GameSettings settings) {
         this.dirResourcepacks = dirResourcepacksIn;
@@ -95,11 +95,11 @@ public class ResourcePackRepository {
     }
 
     private List<File> getResourcePackFiles() {
-        return this.dirResourcepacks.isDirectory() ? Arrays.asList(this.dirResourcepacks.listFiles(resourcePackFilter)) : Collections.<File>emptyList();
+        return this.dirResourcepacks.isDirectory() ? Arrays.asList(this.dirResourcepacks.listFiles(resourcePackFilter)) : Collections.emptyList();
     }
 
     public void updateRepositoryEntriesAll() {
-        List<ResourcePackRepository.Entry> list = Lists.<ResourcePackRepository.Entry>newArrayList();
+        List<ResourcePackRepository.Entry> list = Lists.newArrayList();
 
         for (File file1 : this.getResourcePackFiles()) {
             ResourcePackRepository.Entry resourcepackrepository$entry = new ResourcePackRepository.Entry(file1);
@@ -188,7 +188,7 @@ public class ResourcePackRepository {
                     minecraft.displayGuiScreen(guiscreenworking);
                 }
             }));
-            final SettableFuture<Object> settablefuture = SettableFuture.<Object>create();
+            final SettableFuture<Object> settablefuture = SettableFuture.create();
             this.downloadingPacks = HttpUtil.downloadResourcePack(file1, url, map, 52428800, guiscreenworking, minecraft.getProxy());
             Futures.addCallback(this.downloadingPacks, new FutureCallback<Object>() {
                 public void onSuccess(Object p_onSuccess_1_) {

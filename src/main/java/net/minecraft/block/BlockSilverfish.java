@@ -18,7 +18,7 @@ import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.World;
 
 public class BlockSilverfish extends Block {
-    public static final PropertyEnum<BlockSilverfish.EnumType> VARIANT = PropertyEnum.<BlockSilverfish.EnumType>create("variant", BlockSilverfish.EnumType.class);
+    public static final PropertyEnum<BlockSilverfish.EnumType> VARIANT = PropertyEnum.create("variant", BlockSilverfish.EnumType.class);
 
     public BlockSilverfish() {
         super(Material.clay);

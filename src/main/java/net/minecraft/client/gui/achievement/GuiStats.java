@@ -344,7 +344,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
     class StatsBlock extends GuiStats.Stats {
         public StatsBlock(Minecraft mcIn) {
             super(mcIn);
-            this.statsHolder = Lists.<StatCrafting>newArrayList();
+            this.statsHolder = Lists.newArrayList();
 
             for (StatCrafting statcrafting : StatList.objectMineStats) {
                 boolean flag = false;
@@ -476,7 +476,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
     class StatsItem extends GuiStats.Stats {
         public StatsItem(Minecraft mcIn) {
             super(mcIn);
-            this.statsHolder = Lists.<StatCrafting>newArrayList();
+            this.statsHolder = Lists.newArrayList();
 
             for (StatCrafting statcrafting : StatList.itemStats) {
                 boolean flag = false;
@@ -573,7 +573,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
     }
 
     class StatsMobsList extends GuiSlot {
-        private final List<EntityList.EntityEggInfo> field_148222_l = Lists.<EntityList.EntityEggInfo>newArrayList();
+        private final List<EntityList.EntityEggInfo> field_148222_l = Lists.newArrayList();
 
         public StatsMobsList(Minecraft mcIn) {
             super(mcIn, GuiStats.this.width, GuiStats.this.height, 32, GuiStats.this.height - 64, GuiStats.this.fontRendererObj.FONT_HEIGHT * 4);

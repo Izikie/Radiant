@@ -314,7 +314,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
 
         if (this.rand.nextInt(10) == 0) {
             float f = 32.0F;
-            List<EntityEnderCrystal> list = this.worldObj.<EntityEnderCrystal>getEntitiesWithinAABB(EntityEnderCrystal.class, this.getEntityBoundingBox().expand((double) f, (double) f, (double) f));
+            List<EntityEnderCrystal> list = this.worldObj.getEntitiesWithinAABB(EntityEnderCrystal.class, this.getEntityBoundingBox().expand((double) f, (double) f, (double) f));
             EntityEnderCrystal entityendercrystal = null;
             double d0 = Double.MAX_VALUE;
 

@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 public class NBTTagList extends NBTBase {
     private static final Logger LOGGER = LogManager.getLogger();
-    private List<NBTBase> tagList = Lists.<NBTBase>newArrayList();
+    private List<NBTBase> tagList = Lists.newArrayList();
     private byte tagType = 0;
 
     void write(DataOutput output) throws IOException {
@@ -43,7 +43,7 @@ public class NBTTagList extends NBTBase {
                 throw new RuntimeException("Missing type on ListTag");
             } else {
                 sizeTracker.read(32L * (long) i);
-                this.tagList = Lists.<NBTBase>newArrayListWithCapacity(i);
+                this.tagList = Lists.newArrayListWithCapacity(i);
 
                 for (int j = 0; j < i; ++j) {
                     NBTBase nbtbase = NBTBase.createNewByType(this.tagType);

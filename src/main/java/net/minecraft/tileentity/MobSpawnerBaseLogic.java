@@ -23,7 +23,7 @@ import net.minecraft.world.World;
 public abstract class MobSpawnerBaseLogic {
     private int spawnDelay = 20;
     private String mobID = "Pig";
-    private final List<MobSpawnerBaseLogic.WeightedRandomMinecart> minecartToSpawn = Lists.<MobSpawnerBaseLogic.WeightedRandomMinecart>newArrayList();
+    private final List<MobSpawnerBaseLogic.WeightedRandomMinecart> minecartToSpawn = Lists.newArrayList();
     private MobSpawnerBaseLogic.WeightedRandomMinecart randomEntity;
     private double mobRotation;
     private double prevMobRotation;

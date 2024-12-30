@@ -575,7 +575,7 @@ public class StructureOceanMonumentPieces {
     public static class MonumentBuilding extends StructureOceanMonumentPieces.Piece {
         private StructureOceanMonumentPieces.RoomDefinition field_175845_o;
         private StructureOceanMonumentPieces.RoomDefinition field_175844_p;
-        private final List<StructureOceanMonumentPieces.Piece> field_175843_q = Lists.<StructureOceanMonumentPieces.Piece>newArrayList();
+        private final List<StructureOceanMonumentPieces.Piece> field_175843_q = Lists.newArrayList();
 
         public MonumentBuilding() {
         }
@@ -598,7 +598,7 @@ public class StructureOceanMonumentPieces {
             this.field_175845_o.field_175963_d = true;
             this.field_175843_q.add(new StructureOceanMonumentPieces.EntryRoom(this.coordBaseMode, this.field_175845_o));
             this.field_175843_q.add(new StructureOceanMonumentPieces.MonumentCoreRoom(this.coordBaseMode, this.field_175844_p, p_i45599_1_));
-            List<StructureOceanMonumentPieces.MonumentRoomFitHelper> list1 = Lists.<StructureOceanMonumentPieces.MonumentRoomFitHelper>newArrayList();
+            List<StructureOceanMonumentPieces.MonumentRoomFitHelper> list1 = Lists.newArrayList();
             list1.add(new StructureOceanMonumentPieces.XYDoubleRoomFitHelper());
             list1.add(new StructureOceanMonumentPieces.YZDoubleRoomFitHelper());
             list1.add(new StructureOceanMonumentPieces.ZDoubleRoomFitHelper());
@@ -722,7 +722,7 @@ public class StructureOceanMonumentPieces {
             this.field_175844_p.field_175965_b[EnumFacing.EAST.getIndex()].field_175965_b[EnumFacing.UP.getIndex()].field_175963_d = true;
             this.field_175844_p.field_175965_b[EnumFacing.NORTH.getIndex()].field_175965_b[EnumFacing.UP.getIndex()].field_175963_d = true;
             this.field_175844_p.field_175965_b[EnumFacing.EAST.getIndex()].field_175965_b[EnumFacing.NORTH.getIndex()].field_175965_b[EnumFacing.UP.getIndex()].field_175963_d = true;
-            List<StructureOceanMonumentPieces.RoomDefinition> list = Lists.<StructureOceanMonumentPieces.RoomDefinition>newArrayList();
+            List<StructureOceanMonumentPieces.RoomDefinition> list = Lists.newArrayList();
 
             for (StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition4 : astructureoceanmonumentpieces$roomdefinition) {
                 if (structureoceanmonumentpieces$roomdefinition4 != null) {

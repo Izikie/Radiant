@@ -10,7 +10,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.ChunkCoordIntPair;
 
 public class WorldBorder {
-    private final List<IBorderListener> listeners = Lists.<IBorderListener>newArrayList();
+    private final List<IBorderListener> listeners = Lists.newArrayList();
     private double centerX = 0.0D;
     private double centerZ = 0.0D;
     private double startDiameter = 6.0E7D;

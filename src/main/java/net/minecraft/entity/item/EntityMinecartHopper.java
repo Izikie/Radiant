@@ -113,7 +113,7 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
         if (TileEntityHopper.captureDroppedItems(this)) {
             return true;
         } else {
-            List<EntityItem> list = this.worldObj.<EntityItem>getEntitiesWithinAABB(EntityItem.class, this.getEntityBoundingBox().expand(0.25D, 0.0D, 0.25D), EntitySelectors.selectAnything);
+            List<EntityItem> list = this.worldObj.getEntitiesWithinAABB(EntityItem.class, this.getEntityBoundingBox().expand(0.25D, 0.0D, 0.25D), EntitySelectors.selectAnything);
 
             if (list.size() > 0) {
                 TileEntityHopper.putDropInInventoryAllSlots(this, (EntityItem) list.get(0));

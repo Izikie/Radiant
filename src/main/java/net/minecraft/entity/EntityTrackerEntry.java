@@ -87,7 +87,7 @@ public class EntityTrackerEntry {
     private boolean ridingEntity;
     private boolean onGround;
     public boolean playerEntitiesUpdated;
-    public Set<EntityPlayerMP> trackingPlayers = Sets.<EntityPlayerMP>newHashSet();
+    public Set<EntityPlayerMP> trackingPlayers = Sets.newHashSet();
 
     public EntityTrackerEntry(Entity trackedEntityIn, int trackingDistanceThresholdIn, int updateFrequencyIn, boolean sendVelocityUpdatesIn) {
         this.trackedEntity = trackedEntityIn;

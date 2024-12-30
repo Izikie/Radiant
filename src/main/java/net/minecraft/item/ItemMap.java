@@ -87,7 +87,7 @@ public class ItemMap extends ItemMapBase {
                             boolean flag1 = i2 * i2 + j2 * j2 > (j1 - 2) * (j1 - 2);
                             int k2 = (j / i + k1 - 64) * i;
                             int l2 = (k / i + l1 - 64) * i;
-                            Multiset<MapColor> multiset = HashMultiset.<MapColor>create();
+                            Multiset<MapColor> multiset = HashMultiset.create();
                             Chunk chunk = worldIn.getChunkFromBlockCoords(new BlockPos(k2, 0, l2));
 
                             if (!chunk.isEmpty()) {
@@ -160,7 +160,7 @@ public class ItemMap extends ItemMapBase {
                                     i5 = 0;
                                 }
 
-                                MapColor mapcolor = (MapColor) Iterables.getFirst(Multisets.<MapColor>copyHighestCountFirst(multiset), MapColor.airColor);
+                                MapColor mapcolor = (MapColor) Iterables.getFirst(Multisets.copyHighestCountFirst(multiset), MapColor.airColor);
 
                                 if (mapcolor == MapColor.waterColor) {
                                     d2 = (double) k3 * 0.1D + (double) (k1 + l1 & 1) * 0.2D;

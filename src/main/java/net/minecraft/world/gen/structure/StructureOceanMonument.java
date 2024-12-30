@@ -23,8 +23,8 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class StructureOceanMonument extends MapGenStructure {
     private int field_175800_f;
     private int field_175801_g;
-    public static final List<BiomeGenBase> field_175802_d = Arrays.<BiomeGenBase>asList(new BiomeGenBase[]{BiomeGenBase.ocean, BiomeGenBase.deepOcean, BiomeGenBase.river, BiomeGenBase.frozenOcean, BiomeGenBase.frozenRiver});
-    private static final List<BiomeGenBase.SpawnListEntry> field_175803_h = Lists.<BiomeGenBase.SpawnListEntry>newArrayList();
+    public static final List<BiomeGenBase> field_175802_d = Arrays.asList(new BiomeGenBase[]{BiomeGenBase.ocean, BiomeGenBase.deepOcean, BiomeGenBase.river, BiomeGenBase.frozenOcean, BiomeGenBase.frozenRiver});
+    private static final List<BiomeGenBase.SpawnListEntry> field_175803_h = Lists.newArrayList();
 
     public StructureOceanMonument() {
         this.field_175800_f = 32;
@@ -95,7 +95,7 @@ public class StructureOceanMonument extends MapGenStructure {
     }
 
     public static class StartMonument extends StructureStart {
-        private final Set<ChunkCoordIntPair> field_175791_c = Sets.<ChunkCoordIntPair>newHashSet();
+        private final Set<ChunkCoordIntPair> field_175791_c = Sets.newHashSet();
         private boolean field_175790_d;
 
         public StartMonument() {

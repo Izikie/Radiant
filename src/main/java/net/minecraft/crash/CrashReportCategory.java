@@ -12,7 +12,7 @@ import net.minecraft.util.BlockPos;
 public class CrashReportCategory {
     private final CrashReport crashReport;
     private final String name;
-    private final List<CrashReportCategory.Entry> children = Lists.<CrashReportCategory.Entry>newArrayList();
+    private final List<CrashReportCategory.Entry> children = Lists.newArrayList();
     private StackTraceElement[] stackTrace = new StackTraceElement[0];
 
     public CrashReportCategory(CrashReport report, String name) {

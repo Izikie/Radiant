@@ -45,7 +45,7 @@ public class LanServerDetector {
     }
 
     public static class LanServerList {
-        private final List<LanServerDetector.LanServer> listOfLanServers = Lists.<LanServerDetector.LanServer>newArrayList();
+        private final List<LanServerDetector.LanServer> listOfLanServers = Lists.newArrayList();
         boolean wasUpdated;
 
         public synchronized boolean getWasUpdated() {
@@ -57,7 +57,7 @@ public class LanServerDetector {
         }
 
         public synchronized List<LanServerDetector.LanServer> getLanServers() {
-            return Collections.<LanServerDetector.LanServer>unmodifiableList(this.listOfLanServers);
+            return Collections.unmodifiableList(this.listOfLanServers);
         }
 
         public synchronized void func_77551_a(String p_77551_1_, InetAddress p_77551_2_) {

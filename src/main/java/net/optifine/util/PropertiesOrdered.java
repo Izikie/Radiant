@@ -17,10 +17,10 @@ public class PropertiesOrdered extends Properties {
     public Set<Object> keySet() {
         Set<Object> set = super.keySet();
         this.keysOrdered.retainAll(set);
-        return Collections.<Object>unmodifiableSet(this.keysOrdered);
+        return Collections.unmodifiableSet(this.keysOrdered);
     }
 
     public synchronized Enumeration<Object> keys() {
-        return Collections.<Object>enumeration(this.keySet());
+        return Collections.enumeration(this.keySet());
     }
 }

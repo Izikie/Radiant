@@ -13,7 +13,7 @@ import net.minecraft.block.state.IBlockState;
 
 public class BlockStateHelper implements Predicate<IBlockState> {
     private final BlockState blockstate;
-    private final Map<IProperty, Predicate> propertyPredicates = Maps.<IProperty, Predicate>newHashMap();
+    private final Map<IProperty, Predicate> propertyPredicates = Maps.newHashMap();
 
     private BlockStateHelper(BlockState blockStateIn) {
         this.blockstate = blockStateIn;

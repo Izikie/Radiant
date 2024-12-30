@@ -49,8 +49,8 @@ public class Explosion {
 
     public Explosion(World worldIn, Entity entityIn, double x, double y, double z, float size, boolean flaming, boolean smoking) {
         this.explosionRNG = new Random();
-        this.affectedBlockPositions = Lists.<BlockPos>newArrayList();
-        this.playerKnockbackMap = Maps.<EntityPlayer, Vec3>newHashMap();
+        this.affectedBlockPositions = Lists.newArrayList();
+        this.playerKnockbackMap = Maps.newHashMap();
         this.worldObj = worldIn;
         this.exploder = entityIn;
         this.explosionSize = size;
@@ -62,7 +62,7 @@ public class Explosion {
     }
 
     public void doExplosionA() {
-        Set<BlockPos> set = Sets.<BlockPos>newHashSet();
+        Set<BlockPos> set = Sets.newHashSet();
         int i = 16;
 
         for (int j = 0; j < 16; ++j) {

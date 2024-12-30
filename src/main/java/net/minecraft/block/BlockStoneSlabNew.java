@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 
 public abstract class BlockStoneSlabNew extends BlockSlab {
     public static final PropertyBool SEAMLESS = PropertyBool.create("seamless");
-    public static final PropertyEnum<BlockStoneSlabNew.EnumType> VARIANT = PropertyEnum.<BlockStoneSlabNew.EnumType>create("variant", BlockStoneSlabNew.EnumType.class);
+    public static final PropertyEnum<BlockStoneSlabNew.EnumType> VARIANT = PropertyEnum.create("variant", BlockStoneSlabNew.EnumType.class);
 
     public BlockStoneSlabNew() {
         super(Material.rock);

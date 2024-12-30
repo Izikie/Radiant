@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class MapGenNetherBridge extends MapGenStructure {
-    private final List<BiomeGenBase.SpawnListEntry> spawnList = Lists.<BiomeGenBase.SpawnListEntry>newArrayList();
+    private final List<BiomeGenBase.SpawnListEntry> spawnList = Lists.newArrayList();
 
     public MapGenNetherBridge() {
         this.spawnList.add(new BiomeGenBase.SpawnListEntry(EntityBlaze.class, 10, 2, 3));

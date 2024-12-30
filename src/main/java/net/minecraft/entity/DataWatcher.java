@@ -22,8 +22,8 @@ import org.apache.commons.lang3.ObjectUtils;
 public class DataWatcher {
     private final Entity owner;
     private boolean isBlank = true;
-    private static final Map<Class<?>, Integer> dataTypes = Maps.<Class<?>, Integer>newHashMap();
-    private final Map<Integer, DataWatcher.WatchableObject> watchedObjects = Maps.<Integer, DataWatcher.WatchableObject>newHashMap();
+    private static final Map<Class<?>, Integer> dataTypes = Maps.newHashMap();
+    private final Map<Integer, DataWatcher.WatchableObject> watchedObjects = Maps.newHashMap();
     private boolean objectChanged;
     private final ReadWriteLock lock = new ReentrantReadWriteLock();
     public BiomeGenBase spawnBiome = BiomeGenBase.plains;
@@ -145,7 +145,7 @@ public class DataWatcher {
                     datawatcher$watchableobject.setWatched(false);
 
                     if (list == null) {
-                        list = Lists.<DataWatcher.WatchableObject>newArrayList();
+                        list = Lists.newArrayList();
                     }
 
                     list.add(datawatcher$watchableobject);
@@ -176,7 +176,7 @@ public class DataWatcher {
 
         for (DataWatcher.WatchableObject datawatcher$watchableobject : this.watchedObjects.values()) {
             if (list == null) {
-                list = Lists.<DataWatcher.WatchableObject>newArrayList();
+                list = Lists.newArrayList();
             }
 
             list.add(datawatcher$watchableobject);
@@ -236,7 +236,7 @@ public class DataWatcher {
 
         for (int i = buffer.readByte(); i != 127; i = buffer.readByte()) {
             if (list == null) {
-                list = Lists.<DataWatcher.WatchableObject>newArrayList();
+                list = Lists.newArrayList();
             }
 
             int j = (i & 224) >> 5;

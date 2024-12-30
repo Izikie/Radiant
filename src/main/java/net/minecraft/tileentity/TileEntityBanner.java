@@ -114,8 +114,8 @@ public class TileEntityBanner extends TileEntity {
             if (!this.field_175119_g) {
                 this.patternResourceLocation = "";
             } else {
-                this.patternList = Lists.<TileEntityBanner.EnumBannerPattern>newArrayList();
-                this.colorList = Lists.<EnumDyeColor>newArrayList();
+                this.patternList = Lists.newArrayList();
+                this.colorList = Lists.newArrayList();
                 this.patternList.add(TileEntityBanner.EnumBannerPattern.BASE);
                 this.colorList.add(EnumDyeColor.byDyeDamage(this.baseColor));
                 this.patternResourceLocation = "b" + this.baseColor;

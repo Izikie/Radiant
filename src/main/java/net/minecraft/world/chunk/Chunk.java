@@ -67,9 +67,9 @@ public class Chunk {
         this.blockBiomeArray = new byte[256];
         this.precipitationHeightMap = new int[256];
         this.updateSkylightColumns = new boolean[256];
-        this.chunkTileEntityMap = Maps.<BlockPos, TileEntity>newHashMap();
+        this.chunkTileEntityMap = Maps.newHashMap();
         this.queuedLightChecks = 4096;
-        this.tileEntityPosQueue = Queues.<BlockPos>newConcurrentLinkedQueue();
+        this.tileEntityPosQueue = Queues.newConcurrentLinkedQueue();
         this.entityLists = (ClassInheritanceMultiMap[]) (new ClassInheritanceMultiMap[16]);
         this.worldObj = worldIn;
         this.xPosition = x;

@@ -44,7 +44,7 @@ public class CommandOp extends CommandBase {
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         if (args.length == 1) {
             String s = args[args.length - 1];
-            List<String> list = Lists.<String>newArrayList();
+            List<String> list = Lists.newArrayList();
 
             for (GameProfile gameprofile : MinecraftServer.getServer().getGameProfiles()) {
                 if (!MinecraftServer.getServer().getConfigurationManager().canSendCommands(gameprofile) && doesStringStartWith(s, gameprofile.getName())) {

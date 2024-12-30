@@ -56,11 +56,11 @@ public class FileResourcePack extends AbstractResourcePack implements Closeable 
         try {
             zipfile = this.getResourcePackZipFile();
         } catch (IOException var8) {
-            return Collections.<String>emptySet();
+            return Collections.emptySet();
         }
 
         Enumeration<? extends ZipEntry> enumeration = zipfile.entries();
-        Set<String> set = Sets.<String>newHashSet();
+        Set<String> set = Sets.newHashSet();
 
         while (enumeration.hasMoreElements()) {
             ZipEntry zipentry = (ZipEntry) enumeration.nextElement();

@@ -54,7 +54,7 @@ public class CommandTeleport extends CommandBase {
                     CommandBase.CoordinateArg commandbase$coordinatearg4 = parseCoordinate((double) entity.rotationPitch, args.length > lvt_5_2_ ? args[lvt_5_2_] : "~", false);
 
                     if (entity instanceof EntityPlayerMP) {
-                        Set<S08PacketPlayerPosLook.EnumFlags> set = EnumSet.<S08PacketPlayerPosLook.EnumFlags>noneOf(S08PacketPlayerPosLook.EnumFlags.class);
+                        Set<S08PacketPlayerPosLook.EnumFlags> set = EnumSet.noneOf(S08PacketPlayerPosLook.EnumFlags.class);
 
                         if (commandbase$coordinatearg.func_179630_c()) {
                             set.add(S08PacketPlayerPosLook.EnumFlags.X);

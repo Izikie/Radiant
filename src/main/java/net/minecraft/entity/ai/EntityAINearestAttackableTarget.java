@@ -72,7 +72,7 @@ public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends
             return false;
         } else {
             double d0 = this.getTargetDistance();
-            List<T> list = this.taskOwner.worldObj.<T>getEntitiesWithinAABB(this.targetClass, this.taskOwner.getEntityBoundingBox().expand(d0, 4.0D, d0), Predicates.<T>and(this.targetEntitySelector, EntitySelectors.NOT_SPECTATING));
+            List<T> list = this.taskOwner.worldObj.getEntitiesWithinAABB(this.targetClass, this.taskOwner.getEntityBoundingBox().expand(d0, 4.0D, d0), Predicates.and(this.targetEntitySelector, EntitySelectors.NOT_SPECTATING));
             Collections.sort(list, this.theNearestAttackableTargetSorter);
 
             if (list.isEmpty()) {

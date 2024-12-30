@@ -92,11 +92,11 @@ public class SimpleBakedModel implements IBakedModel {
         }
 
         private Builder(boolean ambientOcclusion, boolean gui3d, ItemCameraTransforms cameraTransforms) {
-            this.builderGeneralQuads = Lists.<BakedQuad>newArrayList();
-            this.builderFaceQuads = Lists.<List<BakedQuad>>newArrayListWithCapacity(6);
+            this.builderGeneralQuads = Lists.newArrayList();
+            this.builderFaceQuads = Lists.newArrayListWithCapacity(6);
 
             for (EnumFacing enumfacing : EnumFacing.values()) {
-                this.builderFaceQuads.add(Lists.<BakedQuad>newArrayList());
+                this.builderFaceQuads.add(Lists.newArrayList());
             }
 
             this.builderAmbientOcclusion = ambientOcclusion;

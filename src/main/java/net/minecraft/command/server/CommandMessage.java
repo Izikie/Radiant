@@ -17,7 +17,7 @@ import net.minecraft.util.IChatComponent;
 
 public class CommandMessage extends CommandBase {
     public List<String> getCommandAliases() {
-        return Arrays.<String>asList(new String[]{"w", "msg"});
+        return Arrays.asList(new String[]{"w", "msg"});
     }
 
     public String getCommandName() {

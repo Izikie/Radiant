@@ -29,7 +29,7 @@ public abstract class CommandBase implements ICommand {
     }
 
     public List<String> getCommandAliases() {
-        return Collections.<String>emptyList();
+        return Collections.emptyList();
     }
 
     public boolean canCommandSenderUseCommand(ICommandSender sender) {
@@ -475,7 +475,7 @@ public abstract class CommandBase implements ICommand {
 
     public static List<String> getListOfStringsMatchingLastWord(String[] p_175762_0_, Collection<?> p_175762_1_) {
         String s = p_175762_0_[p_175762_0_.length - 1];
-        List<String> list = Lists.<String>newArrayList();
+        List<String> list = Lists.newArrayList();
 
         if (!p_175762_1_.isEmpty()) {
             for (String s1 : Iterables.transform(p_175762_1_, Functions.toStringFunction())) {

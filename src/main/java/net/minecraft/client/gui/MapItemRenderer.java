@@ -18,7 +18,7 @@ import net.minecraft.world.storage.MapData;
 public class MapItemRenderer {
     private static final ResourceLocation mapIcons = new ResourceLocation("textures/map/map_icons.png");
     private final TextureManager textureManager;
-    private final Map<String, MapItemRenderer.Instance> loadedMaps = Maps.<String, MapItemRenderer.Instance>newHashMap();
+    private final Map<String, MapItemRenderer.Instance> loadedMaps = Maps.newHashMap();
 
     public MapItemRenderer(TextureManager textureManagerIn) {
         this.textureManager = textureManagerIn;

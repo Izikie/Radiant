@@ -25,7 +25,7 @@ public enum EnumFacing implements IStringSerializable {
     private final Vec3i directionVec;
     public static final EnumFacing[] VALUES = new EnumFacing[6];
     private static final EnumFacing[] HORIZONTALS = new EnumFacing[4];
-    private static final Map<String, EnumFacing> NAME_LOOKUP = Maps.<String, EnumFacing>newHashMap();
+    private static final Map<String, EnumFacing> NAME_LOOKUP = Maps.newHashMap();
 
     EnumFacing(int indexIn, int oppositeIn, int horizontalIndexIn, String nameIn, EnumFacing.AxisDirection axisDirectionIn, EnumFacing.Axis axisIn, Vec3i directionVecIn) {
         this.index = indexIn;
@@ -255,7 +255,7 @@ public enum EnumFacing implements IStringSerializable {
         Y("y", EnumFacing.Plane.VERTICAL),
         Z("z", EnumFacing.Plane.HORIZONTAL);
 
-        private static final Map<String, EnumFacing.Axis> NAME_LOOKUP = Maps.<String, EnumFacing.Axis>newHashMap();
+        private static final Map<String, EnumFacing.Axis> NAME_LOOKUP = Maps.newHashMap();
         private final String name;
         private final EnumFacing.Plane plane;
 
@@ -349,7 +349,7 @@ public enum EnumFacing implements IStringSerializable {
         }
 
         public Iterator<EnumFacing> iterator() {
-            return Iterators.<EnumFacing>forArray(this.facings());
+            return Iterators.forArray(this.facings());
         }
     }
 }

@@ -865,7 +865,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         HOPPER(5, "MinecartHopper"),
         COMMAND_BLOCK(6, "MinecartCommandBlock");
 
-        private static final Map<Integer, EntityMinecart.EnumMinecartType> ID_LOOKUP = Maps.<Integer, EntityMinecart.EnumMinecartType>newHashMap();
+        private static final Map<Integer, EntityMinecart.EnumMinecartType> ID_LOOKUP = Maps.newHashMap();
         private final int networkID;
         private final String name;
 

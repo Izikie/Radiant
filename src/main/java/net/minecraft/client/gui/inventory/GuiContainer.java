@@ -39,7 +39,7 @@ public abstract class GuiContainer extends GuiScreen {
     private ItemStack returningStack;
     private Slot currentDragTargetSlot;
     private long dragItemDropDelay;
-    protected final Set<Slot> dragSplittingSlots = Sets.<Slot>newHashSet();
+    protected final Set<Slot> dragSplittingSlots = Sets.newHashSet();
     protected boolean dragSplitting;
     private int dragSplittingLimit;
     private int dragSplittingButton;

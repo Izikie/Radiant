@@ -16,7 +16,7 @@ import net.minecraft.util.ResourceLocation;
 import org.apache.commons.io.IOUtils;
 
 public class SimpleResource implements IResource {
-    private final Map<String, IMetadataSection> mapMetadataSections = Maps.<String, IMetadataSection>newHashMap();
+    private final Map<String, IMetadataSection> mapMetadataSections = Maps.newHashMap();
     private final String resourcePackName;
     private final ResourceLocation srResourceLocation;
     private final InputStream resourceInputStream;

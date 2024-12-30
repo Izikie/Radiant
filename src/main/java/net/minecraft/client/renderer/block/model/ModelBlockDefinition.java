@@ -23,7 +23,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class ModelBlockDefinition {
     static final Gson GSON = (new GsonBuilder()).registerTypeAdapter(ModelBlockDefinition.class, new ModelBlockDefinition.Deserializer()).registerTypeAdapter(ModelBlockDefinition.Variant.class, new ModelBlockDefinition.Variant.Deserializer()).create();
-    private final Map<String, ModelBlockDefinition.Variants> mapVariants = Maps.<String, ModelBlockDefinition.Variants>newHashMap();
+    private final Map<String, ModelBlockDefinition.Variants> mapVariants = Maps.newHashMap();
 
     public static ModelBlockDefinition parseFromReader(Reader p_178331_0_) {
         return (ModelBlockDefinition) GSON.fromJson(p_178331_0_, ModelBlockDefinition.class);
@@ -75,7 +75,7 @@ public class ModelBlockDefinition {
 
         protected List<ModelBlockDefinition.Variants> parseVariantsList(JsonDeserializationContext p_178334_1_, JsonObject p_178334_2_) {
             JsonObject jsonobject = JsonUtils.getJsonObject(p_178334_2_, "variants");
-            List<ModelBlockDefinition.Variants> list = Lists.<ModelBlockDefinition.Variants>newArrayList();
+            List<ModelBlockDefinition.Variants> list = Lists.newArrayList();
 
             for (Entry<String, JsonElement> entry : jsonobject.entrySet()) {
                 list.add(this.parseVariants(p_178334_1_, entry));
@@ -86,7 +86,7 @@ public class ModelBlockDefinition {
 
         protected ModelBlockDefinition.Variants parseVariants(JsonDeserializationContext p_178335_1_, Entry<String, JsonElement> p_178335_2_) {
             String s = (String) p_178335_2_.getKey();
-            List<ModelBlockDefinition.Variant> list = Lists.<ModelBlockDefinition.Variant>newArrayList();
+            List<ModelBlockDefinition.Variant> list = Lists.newArrayList();
             JsonElement jsonelement = (JsonElement) p_178335_2_.getValue();
 
             if (jsonelement.isJsonArray()) {

@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 
 public class RecipeRepairItem implements IRecipe {
     public boolean matches(InventoryCrafting inv, World worldIn) {
-        List<ItemStack> list = Lists.<ItemStack>newArrayList();
+        List<ItemStack> list = Lists.newArrayList();
 
         for (int i = 0; i < inv.getSizeInventory(); ++i) {
             ItemStack itemstack = inv.getStackInSlot(i);
@@ -33,7 +33,7 @@ public class RecipeRepairItem implements IRecipe {
     }
 
     public ItemStack getCraftingResult(InventoryCrafting inv) {
-        List<ItemStack> list = Lists.<ItemStack>newArrayList();
+        List<ItemStack> list = Lists.newArrayList();
 
         for (int i = 0; i < inv.getSizeInventory(); ++i) {
             ItemStack itemstack = inv.getStackInSlot(i);

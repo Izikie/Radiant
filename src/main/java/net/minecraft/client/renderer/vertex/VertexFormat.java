@@ -27,11 +27,11 @@ public class VertexFormat {
     }
 
     public VertexFormat() {
-        this.elements = Lists.<VertexFormatElement>newArrayList();
-        this.offsets = Lists.<Integer>newArrayList();
+        this.elements = Lists.newArrayList();
+        this.offsets = Lists.newArrayList();
         this.nextOffset = 0;
         this.colorElementOffset = -1;
-        this.uvOffsetsById = Lists.<Integer>newArrayList();
+        this.uvOffsetsById = Lists.newArrayList();
         this.normalElementOffset = -1;
     }
 

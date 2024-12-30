@@ -15,7 +15,7 @@ public class ChatComponentTranslation extends ChatComponentStyle {
     private final Object[] formatArgs;
     private final Object syncLock = new Object();
     private long lastTranslationUpdateTimeInMilliseconds = -1L;
-    List<IChatComponent> children = Lists.<IChatComponent>newArrayList();
+    List<IChatComponent> children = Lists.newArrayList();
     public static final Pattern stringVariablePattern = Pattern.compile("%(?:(\\d+)\\$)?([A-Za-z%]|$)");
 
     public ChatComponentTranslation(String translationKey, Object... args) {
@@ -142,7 +142,7 @@ public class ChatComponentTranslation extends ChatComponentStyle {
 
     public Iterator<IChatComponent> iterator() {
         this.ensureInitialized();
-        return Iterators.<IChatComponent>concat(createDeepCopyIterator(this.children), createDeepCopyIterator(this.siblings));
+        return Iterators.concat(createDeepCopyIterator(this.children), createDeepCopyIterator(this.siblings));
     }
 
     public String getUnformattedTextForChat() {

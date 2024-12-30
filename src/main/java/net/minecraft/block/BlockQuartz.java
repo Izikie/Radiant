@@ -18,7 +18,7 @@ import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.World;
 
 public class BlockQuartz extends Block {
-    public static final PropertyEnum<BlockQuartz.EnumType> VARIANT = PropertyEnum.<BlockQuartz.EnumType>create("variant", BlockQuartz.EnumType.class);
+    public static final PropertyEnum<BlockQuartz.EnumType> VARIANT = PropertyEnum.create("variant", BlockQuartz.EnumType.class);
 
     public BlockQuartz() {
         super(Material.rock);

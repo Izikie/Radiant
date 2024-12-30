@@ -10,7 +10,7 @@ import net.minecraft.util.EnumChatFormatting;
 public class ScorePlayerTeam extends Team {
     private final Scoreboard theScoreboard;
     private final String registeredName;
-    private final Set<String> membershipSet = Sets.<String>newHashSet();
+    private final Set<String> membershipSet = Sets.newHashSet();
     private String teamNameSPT;
     private String namePrefixSPT = "";
     private String colorSuffix = "";

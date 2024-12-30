@@ -33,7 +33,7 @@ public class ResUtils {
         for (int i = 0; i < airesourcepack.length; ++i) {
             IResourcePack iresourcepack = airesourcepack[i];
             String[] astring = collectFiles(iresourcepack, (String[]) prefixes, (String[]) suffixes, (String[]) null);
-            set.addAll(Arrays.<String>asList(astring));
+            set.addAll(Arrays.asList(astring));
         }
 
         String[] astring1 = (String[]) set.toArray(new String[set.size()]);

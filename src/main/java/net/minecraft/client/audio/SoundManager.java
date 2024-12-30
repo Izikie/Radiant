@@ -44,7 +44,7 @@ public class SoundManager {
     private SoundManager.SoundSystemStarterThread sndSystem;
     private boolean loaded;
     private int playTime = 0;
-    private final Map<String, ISound> playingSounds = HashBiMap.<String, ISound>create();
+    private final Map<String, ISound> playingSounds = HashBiMap.create();
     private final Map<ISound, String> invPlayingSounds;
     private final Map<ISound, SoundPoolEntry> playingSoundPoolEntries;
     private final Multimap<SoundCategory, String> categorySounds;
@@ -54,11 +54,11 @@ public class SoundManager {
 
     public SoundManager(SoundHandler p_i45119_1_, GameSettings p_i45119_2_) {
         this.invPlayingSounds = ((BiMap) this.playingSounds).inverse();
-        this.playingSoundPoolEntries = Maps.<ISound, SoundPoolEntry>newHashMap();
-        this.categorySounds = HashMultimap.<SoundCategory, String>create();
-        this.tickableSounds = Lists.<ITickableSound>newArrayList();
-        this.delayedSounds = Maps.<ISound, Integer>newHashMap();
-        this.playingSoundsStopTime = Maps.<String, Integer>newHashMap();
+        this.playingSoundPoolEntries = Maps.newHashMap();
+        this.categorySounds = HashMultimap.create();
+        this.tickableSounds = Lists.newArrayList();
+        this.delayedSounds = Maps.newHashMap();
+        this.playingSoundsStopTime = Maps.newHashMap();
         this.sndHandler = p_i45119_1_;
         this.options = p_i45119_2_;
 

@@ -147,7 +147,7 @@ public class CommandStats extends CommandBase {
 
     protected List<String> func_175777_e() {
         Collection<ScoreObjective> collection = MinecraftServer.getServer().worldServerForDimension(0).getScoreboard().getScoreObjectives();
-        List<String> list = Lists.<String>newArrayList();
+        List<String> list = Lists.newArrayList();
 
         for (ScoreObjective scoreobjective : collection) {
             if (!scoreobjective.getCriteria().isReadOnly()) {

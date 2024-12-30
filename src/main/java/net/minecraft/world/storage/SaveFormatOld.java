@@ -31,7 +31,7 @@ public class SaveFormatOld implements ISaveFormat {
     }
 
     public List<SaveFormatComparator> getSaveList() throws AnvilConverterException {
-        List<SaveFormatComparator> list = Lists.<SaveFormatComparator>newArrayList();
+        List<SaveFormatComparator> list = Lists.newArrayList();
 
         for (int i = 0; i < 5; ++i) {
             String s = "World" + (i + 1);

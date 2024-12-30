@@ -12,8 +12,8 @@ import net.minecraft.util.MathHelper;
 
 public class Stitcher {
     private final int mipmapLevelStitcher;
-    private final Set<Stitcher.Holder> setStitchHolders = Sets.<Stitcher.Holder>newHashSetWithExpectedSize(256);
-    private final List<Stitcher.Slot> stitchSlots = Lists.<Stitcher.Slot>newArrayListWithCapacity(256);
+    private final Set<Stitcher.Holder> setStitchHolders = Sets.newHashSetWithExpectedSize(256);
+    private final List<Stitcher.Slot> stitchSlots = Lists.newArrayListWithCapacity(256);
     private int currentWidth;
     private int currentHeight;
     private final int maxWidth;
@@ -65,13 +65,13 @@ public class Stitcher {
     }
 
     public List<TextureAtlasSprite> getStichSlots() {
-        List<Stitcher.Slot> list = Lists.<Stitcher.Slot>newArrayList();
+        List<Stitcher.Slot> list = Lists.newArrayList();
 
         for (Stitcher.Slot stitcher$slot : this.stitchSlots) {
             stitcher$slot.getAllStitchSlots(list);
         }
 
-        List<TextureAtlasSprite> list1 = Lists.<TextureAtlasSprite>newArrayList();
+        List<TextureAtlasSprite> list1 = Lists.newArrayList();
 
         for (Stitcher.Slot stitcher$slot1 : list) {
             Stitcher.Holder stitcher$holder = stitcher$slot1.getStitchHolder();
@@ -277,7 +277,7 @@ public class Stitcher {
                         return true;
                     } else {
                         if (this.subSlots == null) {
-                            this.subSlots = Lists.<Stitcher.Slot>newArrayListWithCapacity(1);
+                            this.subSlots = Lists.newArrayListWithCapacity(1);
                             this.subSlots.add(new Stitcher.Slot(this.originX, this.originY, i, j));
                             int k = this.width - i;
                             int l = this.height - j;

@@ -432,7 +432,7 @@ public final class ItemStack {
     }
 
     public List<String> getTooltip(EntityPlayer playerIn, boolean advanced) {
-        List<String> list = Lists.<String>newArrayList();
+        List<String> list = Lists.newArrayList();
         String s = this.getDisplayName();
 
         if (this.hasDisplayName()) {
@@ -669,7 +669,7 @@ public final class ItemStack {
         Multimap<String, AttributeModifier> multimap;
 
         if (this.hasTagCompound() && this.stackTagCompound.hasKey("AttributeModifiers", 9)) {
-            multimap = HashMultimap.<String, AttributeModifier>create();
+            multimap = HashMultimap.create();
             NBTTagList nbttaglist = this.stackTagCompound.getTagList("AttributeModifiers", 10);
 
             for (int i = 0; i < nbttaglist.tagCount(); ++i) {

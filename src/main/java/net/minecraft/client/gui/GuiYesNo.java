@@ -11,7 +11,7 @@ public class GuiYesNo extends GuiScreen {
     protected GuiYesNoCallback parentScreen;
     protected String messageLine1;
     private final String messageLine2;
-    private final List<String> field_175298_s = Lists.<String>newArrayList();
+    private final List<String> field_175298_s = Lists.newArrayList();
     protected String confirmButtonText;
     protected String cancelButtonText;
     protected int parentButtonClickedId;

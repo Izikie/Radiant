@@ -18,8 +18,8 @@ import org.apache.logging.log4j.Logger;
 
 public class CommandHandler implements ICommandManager {
     private static final Logger logger = LogManager.getLogger();
-    private final Map<String, ICommand> commandMap = Maps.<String, ICommand>newHashMap();
-    private final Set<ICommand> commandSet = Sets.<ICommand>newHashSet();
+    private final Map<String, ICommand> commandMap = Maps.newHashMap();
+    private final Set<ICommand> commandSet = Sets.newHashSet();
 
     public int executeCommand(ICommandSender sender, String rawCommand) {
         rawCommand = rawCommand.trim();
@@ -41,7 +41,7 @@ public class CommandHandler implements ICommandManager {
             sender.addChatMessage(chatcomponenttranslation);
         } else if (icommand.canCommandSenderUseCommand(sender)) {
             if (i > -1) {
-                List<Entity> list = PlayerSelector.<Entity>matchEntities(sender, astring[i], Entity.class);
+                List<Entity> list = PlayerSelector.matchEntities(sender, astring[i], Entity.class);
                 String s1 = astring[i];
                 sender.setCommandStat(CommandResultStats.Type.AFFECTED_ENTITIES, list.size());
 
@@ -119,7 +119,7 @@ public class CommandHandler implements ICommandManager {
         String s = astring[0];
 
         if (astring.length == 1) {
-            List<String> list = Lists.<String>newArrayList();
+            List<String> list = Lists.newArrayList();
 
             for (Entry<String, ICommand> entry : this.commandMap.entrySet()) {
                 if (CommandBase.doesStringStartWith(s, (String) entry.getKey()) && ((ICommand) entry.getValue()).canCommandSenderUseCommand(sender)) {
@@ -142,7 +142,7 @@ public class CommandHandler implements ICommandManager {
     }
 
     public List<ICommand> getPossibleCommands(ICommandSender sender) {
-        List<ICommand> list = Lists.<ICommand>newArrayList();
+        List<ICommand> list = Lists.newArrayList();
 
         for (ICommand icommand : this.commandSet) {
             if (icommand.canCommandSenderUseCommand(sender)) {

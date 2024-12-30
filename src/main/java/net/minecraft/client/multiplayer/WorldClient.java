@@ -45,10 +45,10 @@ import net.optifine.reflect.Reflector;
 public class WorldClient extends World {
     private final NetHandlerPlayClient sendQueue;
     private ChunkProviderClient clientChunkProvider;
-    private final Set<Entity> entityList = Sets.<Entity>newHashSet();
-    private final Set<Entity> entitySpawnQueue = Sets.<Entity>newHashSet();
+    private final Set<Entity> entityList = Sets.newHashSet();
+    private final Set<Entity> entitySpawnQueue = Sets.newHashSet();
     private final Minecraft mc = Minecraft.getMinecraft();
-    private final Set<ChunkCoordIntPair> previousActiveChunkSet = Sets.<ChunkCoordIntPair>newHashSet();
+    private final Set<ChunkCoordIntPair> previousActiveChunkSet = Sets.newHashSet();
     private boolean playerUpdate = false;
 
     public WorldClient(NetHandlerPlayClient netHandler, WorldSettings settings, int dimension, EnumDifficulty difficulty) {

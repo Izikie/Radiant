@@ -74,8 +74,8 @@ public class GuiLanguage extends GuiScreen {
     }
 
     class List extends GuiSlot {
-        private final java.util.List<String> langCodeList = Lists.<String>newArrayList();
-        private final Map<String, Language> languageMap = Maps.<String, Language>newHashMap();
+        private final java.util.List<String> langCodeList = Lists.newArrayList();
+        private final Map<String, Language> languageMap = Maps.newHashMap();
 
         public List(Minecraft mcIn) {
             super(mcIn, GuiLanguage.this.width, GuiLanguage.this.height, 32, GuiLanguage.this.height - 65 + 4, 18);

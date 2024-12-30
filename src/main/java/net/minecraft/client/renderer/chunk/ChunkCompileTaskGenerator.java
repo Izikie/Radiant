@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.RegionRenderCacheBuilder;
 public class ChunkCompileTaskGenerator {
     private final RenderChunk renderChunk;
     private final ReentrantLock lock = new ReentrantLock();
-    private final List<Runnable> listFinishRunnables = Lists.<Runnable>newArrayList();
+    private final List<Runnable> listFinishRunnables = Lists.newArrayList();
     private final ChunkCompileTaskGenerator.Type type;
     private RegionRenderCacheBuilder regionRenderCacheBuilder;
     private CompiledChunk compiledChunk;

@@ -57,8 +57,8 @@ public class BlockSponge extends Block {
     }
 
     private boolean absorb(World worldIn, BlockPos pos) {
-        Queue<Tuple<BlockPos, Integer>> queue = Lists.<Tuple<BlockPos, Integer>>newLinkedList();
-        ArrayList<BlockPos> arraylist = Lists.<BlockPos>newArrayList();
+        Queue<Tuple<BlockPos, Integer>> queue = Lists.newLinkedList();
+        ArrayList<BlockPos> arraylist = Lists.newArrayList();
         queue.add(new Tuple(pos, Integer.valueOf(0)));
         int i = 0;
 

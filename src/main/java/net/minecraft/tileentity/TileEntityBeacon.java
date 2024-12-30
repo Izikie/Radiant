@@ -31,7 +31,7 @@ import net.minecraft.util.ITickable;
 
 public class TileEntityBeacon extends TileEntityLockable implements ITickable, IInventory {
     public static final Potion[][] effectsList = new Potion[][]{{Potion.moveSpeed, Potion.digSpeed}, {Potion.resistance, Potion.jump}, {Potion.damageBoost}, {Potion.regeneration}};
-    private final List<TileEntityBeacon.BeamSegment> beamSegments = Lists.<TileEntityBeacon.BeamSegment>newArrayList();
+    private final List<TileEntityBeacon.BeamSegment> beamSegments = Lists.newArrayList();
     private long beamRenderCounter;
     private float field_146014_j;
     private boolean isComplete;
@@ -65,7 +65,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
             int k = this.pos.getY();
             int l = this.pos.getZ();
             AxisAlignedBB axisalignedbb = (new AxisAlignedBB((double) j, (double) k, (double) l, (double) (j + 1), (double) (k + 1), (double) (l + 1))).expand(d0, d0, d0).addCoord(0.0D, (double) this.worldObj.getHeight(), 0.0D);
-            List<EntityPlayer> list = this.worldObj.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
+            List<EntityPlayer> list = this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
 
             for (EntityPlayer entityplayer : list) {
                 entityplayer.addPotionEffect(new PotionEffect(this.primaryEffect, 180, i, true, true));

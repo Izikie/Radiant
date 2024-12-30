@@ -44,7 +44,7 @@ import net.minecraft.world.World;
 public class EntityEnderman extends EntityMob {
     private static final UUID attackingSpeedBoostModifierUUID = UUID.fromString("020E0DFB-87AE-4653-9556-831010E291A0");
     private static final AttributeModifier attackingSpeedBoostModifier = (new AttributeModifier(attackingSpeedBoostModifierUUID, "Attacking speed boost", 0.15000000596046448D, 0)).setSaved(false);
-    private static final Set<Block> carriableBlocks = Sets.<Block>newIdentityHashSet();
+    private static final Set<Block> carriableBlocks = Sets.newIdentityHashSet();
     private boolean isAggressive;
 
     public EntityEnderman(World worldIn) {
@@ -343,7 +343,7 @@ public class EntityEnderman extends EntityMob {
 
         public boolean shouldExecute() {
             double d0 = this.getTargetDistance();
-            List<EntityPlayer> list = this.taskOwner.worldObj.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class, this.taskOwner.getEntityBoundingBox().expand(d0, 4.0D, d0), this.targetEntitySelector);
+            List<EntityPlayer> list = this.taskOwner.worldObj.getEntitiesWithinAABB(EntityPlayer.class, this.taskOwner.getEntityBoundingBox().expand(d0, 4.0D, d0), this.targetEntitySelector);
             Collections.sort(list, this.theNearestAttackableTargetSorter);
 
             if (list.isEmpty()) {

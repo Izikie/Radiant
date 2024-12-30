@@ -24,7 +24,7 @@ import net.optifine.util.TextureUtils;
 
 public class TextureAtlasSprite {
     private final String iconName;
-    protected List<int[][]> framesTextureData = Lists.<int[][]>newArrayList();
+    protected List<int[][]> framesTextureData = Lists.newArrayList();
     protected int[][] interpolatedFrameData;
     private AnimationMetadataSection animationMetadata;
     protected boolean rotated;
@@ -333,7 +333,7 @@ public class TextureAtlasSprite {
 
                 this.animationMetadata = meta;
             } else {
-                List<AnimationFrame> list = Lists.<AnimationFrame>newArrayList();
+                List<AnimationFrame> list = Lists.newArrayList();
 
                 for (int j2 = 0; j2 < j1; ++j2) {
                     this.framesTextureData.add(getFrameTextureData(aint, l1, l, j2));
@@ -367,7 +367,7 @@ public class TextureAtlasSprite {
     }
 
     public void generateMipmaps(int level) {
-        List<int[][]> list = Lists.<int[][]>newArrayList();
+        List<int[][]> list = Lists.newArrayList();
 
         for (int i = 0; i < this.framesTextureData.size(); ++i) {
             final int[][] aint = (int[][]) ((int[][]) this.framesTextureData.get(i));
@@ -455,7 +455,7 @@ public class TextureAtlasSprite {
 
     private void resetSprite() {
         this.animationMetadata = null;
-        this.setFramesTextureData(Lists.<int[][]>newArrayList());
+        this.setFramesTextureData(Lists.newArrayList());
         this.frameCounter = 0;
         this.tickCounter = 0;
 

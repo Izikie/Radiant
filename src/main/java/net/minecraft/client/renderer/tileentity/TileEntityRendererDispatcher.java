@@ -73,7 +73,7 @@ public class TileEntityRendererDispatcher {
         TileEntitySpecialRenderer<? extends TileEntity> tileentityspecialrenderer = (TileEntitySpecialRenderer) this.mapSpecialRenderers.get(teClass);
 
         if (tileentityspecialrenderer == null && teClass != TileEntity.class) {
-            tileentityspecialrenderer = this.<TileEntity>getSpecialRendererByClass((Class<? extends TileEntity>) teClass.getSuperclass());
+            tileentityspecialrenderer = this.getSpecialRendererByClass((Class<? extends TileEntity>) teClass.getSuperclass());
             this.mapSpecialRenderers.put(teClass, tileentityspecialrenderer);
         }
 
@@ -137,7 +137,7 @@ public class TileEntityRendererDispatcher {
     }
 
     public void renderTileEntityAt(TileEntity tileEntityIn, double x, double y, double z, float partialTicks, int destroyStage) {
-        TileEntitySpecialRenderer<TileEntity> tileentityspecialrenderer = this.<TileEntity>getSpecialRenderer(tileEntityIn);
+        TileEntitySpecialRenderer<TileEntity> tileentityspecialrenderer = this.getSpecialRenderer(tileEntityIn);
 
         if (tileentityspecialrenderer != null) {
             try {

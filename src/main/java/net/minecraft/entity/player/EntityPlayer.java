@@ -581,7 +581,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
             }
         }
 
-        return Lists.<ScoreObjective>newArrayList();
+        return Lists.newArrayList();
     }
 
     public EntityItem dropOneItem(boolean dropAll) {
@@ -1090,7 +1090,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
             double d0 = 8.0D;
             double d1 = 5.0D;
-            List<EntityMob> list = this.worldObj.<EntityMob>getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB((double) bedLocation.getX() - d0, (double) bedLocation.getY() - d1, (double) bedLocation.getZ() - d0, (double) bedLocation.getX() + d0, (double) bedLocation.getY() + d1, (double) bedLocation.getZ() + d0));
+            List<EntityMob> list = this.worldObj.getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB((double) bedLocation.getX() - d0, (double) bedLocation.getY() - d1, (double) bedLocation.getZ() - d0, (double) bedLocation.getX() + d0, (double) bedLocation.getY() + d1, (double) bedLocation.getZ() + d0));
 
             if (!list.isEmpty()) {
                 return EntityPlayer.EnumStatus.NOT_SAFE;

@@ -88,9 +88,9 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
         this.counterIndexInMap = new CounterInt(0);
         this.atlasWidth = 0;
         this.atlasHeight = 0;
-        this.listAnimatedSprites = Lists.<TextureAtlasSprite>newArrayList();
-        this.mapRegisteredSprites = Maps.<String, TextureAtlasSprite>newHashMap();
-        this.mapUploadedSprites = Maps.<String, TextureAtlasSprite>newHashMap();
+        this.listAnimatedSprites = Lists.newArrayList();
+        this.mapRegisteredSprites = Maps.newHashMap();
+        this.mapUploadedSprites = Maps.newHashMap();
         this.missingImage = new TextureAtlasSprite("missingno");
         this.basePath = p_i6_1_;
         this.iconCreator = p_i6_2_;
@@ -325,7 +325,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                 TextureUtil.allocateTextureImpl(this.getGlTextureId(), this.mipmapLevels, stitcher.getCurrentWidth(), stitcher.getCurrentHeight());
             }
 
-            Map<String, TextureAtlasSprite> map = Maps.<String, TextureAtlasSprite>newHashMap(this.mapRegisteredSprites);
+            Map<String, TextureAtlasSprite> map = Maps.newHashMap(this.mapRegisteredSprites);
 
             for (TextureAtlasSprite textureatlassprite2 : stitcher.getStichSlots()) {
                 String s = textureatlassprite2.getIconName();

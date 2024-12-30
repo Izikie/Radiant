@@ -216,7 +216,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
     private Minecraft gameController;
     private WorldClient clientWorldController;
     private boolean doneLoadingTerrain;
-    private final Map<UUID, NetworkPlayerInfo> playerInfoMap = Maps.<UUID, NetworkPlayerInfo>newHashMap();
+    private final Map<UUID, NetworkPlayerInfo> playerInfoMap = Maps.newHashMap();
     public int currentServerMaxPlayers = 20;
     private boolean field_147308_k = false;
     private final Random avRandomizer = new Random();

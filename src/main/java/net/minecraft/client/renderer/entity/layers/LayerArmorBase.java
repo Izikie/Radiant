@@ -28,7 +28,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
     private final float colorG = 1.0F;
     private final float colorB = 1.0F;
     private boolean skipRenderGlint;
-    private static final Map<String, ResourceLocation> ARMOR_TEXTURE_RES_MAP = Maps.<String, ResourceLocation>newHashMap();
+    private static final Map<String, ResourceLocation> ARMOR_TEXTURE_RES_MAP = Maps.newHashMap();
 
     public LayerArmorBase(RendererLivingEntity<?> rendererIn) {
         this.renderer = rendererIn;

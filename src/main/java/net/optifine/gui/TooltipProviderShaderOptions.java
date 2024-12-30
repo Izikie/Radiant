@@ -51,7 +51,7 @@ public class TooltipProviderShaderOptions extends TooltipProviderOptions {
 
         List<String> list = new ArrayList();
         list.add(s);
-        list.addAll(Arrays.<String>asList(astring));
+        list.addAll(Arrays.asList(astring));
 
         if (s2 != null) {
             list.add(s2);

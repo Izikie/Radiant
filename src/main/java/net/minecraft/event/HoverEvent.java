@@ -63,7 +63,7 @@ public class HoverEvent {
         SHOW_ITEM("show_item", true),
         SHOW_ENTITY("show_entity", true);
 
-        private static final Map<String, HoverEvent.Action> nameMapping = Maps.<String, HoverEvent.Action>newHashMap();
+        private static final Map<String, HoverEvent.Action> nameMapping = Maps.newHashMap();
         private final boolean allowedInChat;
         private final String canonicalName;
 

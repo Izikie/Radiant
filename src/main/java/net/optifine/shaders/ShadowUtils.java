@@ -29,7 +29,7 @@ public class ShadowUtils {
             IteratorRenderChunks iteratorrenderchunks = new IteratorRenderChunks(viewFrustum, blockpos1, blockpos2, i, i);
             return iteratorrenderchunks;
         } else {
-            List<RenderChunk> list = Arrays.<RenderChunk>asList(viewFrustum.renderChunks);
+            List<RenderChunk> list = Arrays.asList(viewFrustum.renderChunks);
             Iterator<RenderChunk> iterator = list.iterator();
             return iterator;
         }
