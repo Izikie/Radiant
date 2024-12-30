@@ -25,8 +25,7 @@ public class PlayerItemsLayer implements LayerRenderer {
     protected void renderEquippedItems(EntityLivingBase entityLiving, float scale, float partialTicks) {
         if (Config.isShowCapes()) {
             if (!entityLiving.isInvisible()) {
-                if (entityLiving instanceof AbstractClientPlayer) {
-                    AbstractClientPlayer abstractclientplayer = (AbstractClientPlayer) entityLiving;
+                if (entityLiving instanceof AbstractClientPlayer abstractclientplayer) {
                     GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                     GlStateManager.disableRescaleNormal();
                     GlStateManager.enableCull();
@@ -49,8 +48,7 @@ public class PlayerItemsLayer implements LayerRenderer {
         for (Object object : set) {
             Object object1 = renderPlayerMap.get(object);
 
-            if (object1 instanceof RenderPlayer) {
-                RenderPlayer renderplayer = (RenderPlayer) object1;
+            if (object1 instanceof RenderPlayer renderplayer) {
                 renderplayer.addLayer(new PlayerItemsLayer(renderplayer));
                 flag = true;
             }

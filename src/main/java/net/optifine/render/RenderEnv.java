@@ -66,8 +66,7 @@ public class RenderEnv {
 
     public int getBlockId() {
         if (this.blockId < 0) {
-            if (this.blockState instanceof BlockStateBase) {
-                BlockStateBase blockstatebase = (BlockStateBase) this.blockState;
+            if (this.blockState instanceof BlockStateBase blockstatebase) {
                 this.blockId = blockstatebase.getBlockId();
             } else {
                 this.blockId = Block.getIdFromBlock(this.blockState.getBlock());
@@ -79,8 +78,7 @@ public class RenderEnv {
 
     public int getMetadata() {
         if (this.metadata < 0) {
-            if (this.blockState instanceof BlockStateBase) {
-                BlockStateBase blockstatebase = (BlockStateBase) this.blockState;
+            if (this.blockState instanceof BlockStateBase blockstatebase) {
                 this.metadata = blockstatebase.getMetadata();
             } else {
                 this.metadata = this.blockState.getBlock().getMetaFromState(this.blockState);

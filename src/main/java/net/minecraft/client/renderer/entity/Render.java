@@ -160,8 +160,7 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
             GlStateManager.depthMask(false);
             float f = this.shadowSize;
 
-            if (entityIn instanceof EntityLiving) {
-                EntityLiving entityliving = (EntityLiving) entityIn;
+            if (entityIn instanceof EntityLiving entityliving) {
                 f *= entityliving.getRenderSizeModifier();
 
                 if (entityliving.isChild()) {

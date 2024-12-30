@@ -24,10 +24,9 @@ public class ModelAdapterOcelot extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelOcelot)) {
+        if (!(model instanceof ModelOcelot modelocelot)) {
             return null;
         } else {
-            ModelOcelot modelocelot = (ModelOcelot) model;
             Map<String, Integer> map = getMapPartFields();
 
             if (map.containsKey(modelPart)) {

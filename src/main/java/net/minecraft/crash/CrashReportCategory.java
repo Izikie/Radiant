@@ -204,8 +204,7 @@ public class CrashReportCategory {
 
             if (value == null) {
                 this.value = "~~NULL~~";
-            } else if (value instanceof Throwable) {
-                Throwable throwable = (Throwable) value;
+            } else if (value instanceof Throwable throwable) {
                 this.value = "~~ERROR~~ " + throwable.getClass().getSimpleName() + ": " + throwable.getMessage();
             } else {
                 this.value = value.toString();

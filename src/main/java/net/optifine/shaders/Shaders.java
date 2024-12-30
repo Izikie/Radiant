@@ -4800,10 +4800,9 @@ public class Shaders {
 
             if (item == null) {
                 return false;
-            } else if (!(item instanceof ItemBlock)) {
+            } else if (!(item instanceof ItemBlock itemblock)) {
                 return false;
             } else {
-                ItemBlock itemblock = (ItemBlock) item;
                 Block block = itemblock.getBlock();
 
                 if (block == null) {

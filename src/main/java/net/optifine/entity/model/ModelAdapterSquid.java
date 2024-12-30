@@ -20,10 +20,9 @@ public class ModelAdapterSquid extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelSquid)) {
+        if (!(model instanceof ModelSquid modelsquid)) {
             return null;
         } else {
-            ModelSquid modelsquid = (ModelSquid) model;
 
             if (modelPart.equals("body")) {
                 return (ModelRenderer) Reflector.getFieldValue(modelsquid, Reflector.ModelSquid_body);

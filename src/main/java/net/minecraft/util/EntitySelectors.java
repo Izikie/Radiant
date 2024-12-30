@@ -41,10 +41,9 @@ public final class EntitySelectors {
         public boolean apply(Entity p_apply_1_) {
             if (!p_apply_1_.isEntityAlive()) {
                 return false;
-            } else if (!(p_apply_1_ instanceof EntityLivingBase)) {
+            } else if (!(p_apply_1_ instanceof EntityLivingBase entitylivingbase)) {
                 return false;
             } else {
-                EntityLivingBase entitylivingbase = (EntityLivingBase) p_apply_1_;
                 return entitylivingbase.getEquipmentInSlot(EntityLiving.getArmorPosition(this.armor)) != null ? false : (entitylivingbase instanceof EntityLiving ? ((EntityLiving) entitylivingbase).canPickUpLoot() : (entitylivingbase instanceof EntityArmorStand ? true : entitylivingbase instanceof EntityPlayer));
             }
         }

@@ -690,8 +690,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
                         GuiPageButtonList.GuiEntry guipagebuttonlist$guientry = this.field_175349_r.getListEntry(i);
                         Gui gui = guipagebuttonlist$guientry.func_178022_a();
 
-                        if (gui instanceof GuiButton) {
-                            GuiButton guibutton = (GuiButton) gui;
+                        if (gui instanceof GuiButton guibutton) {
 
                             if (guibutton instanceof GuiSlider) {
                                 float f = ((GuiSlider) guibutton).func_175217_d() * (0.75F + this.random.nextFloat() * 0.5F) + (this.random.nextFloat() * 0.1F - 0.05F);
@@ -703,8 +702,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
 
                         Gui gui1 = guipagebuttonlist$guientry.func_178021_b();
 
-                        if (gui1 instanceof GuiButton) {
-                            GuiButton guibutton1 = (GuiButton) gui1;
+                        if (gui1 instanceof GuiButton guibutton1) {
 
                             if (guibutton1 instanceof GuiSlider) {
                                 float f1 = ((GuiSlider) guibutton1).func_175217_d() * (0.75F + this.random.nextFloat() * 0.5F) + (this.random.nextFloat() * 0.1F - 0.05F);
@@ -817,7 +815,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
     private void func_175327_a(float p_175327_1_) {
         Gui gui = this.field_175349_r.func_178056_g();
 
-        if (gui instanceof GuiTextField) {
+        if (gui instanceof GuiTextField guitextfield) {
             float f = p_175327_1_;
 
             if (GuiScreen.isShiftKeyDown()) {
@@ -834,7 +832,6 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
                 }
             }
 
-            GuiTextField guitextfield = (GuiTextField) gui;
             Float f1 = Floats.tryParse(guitextfield.getText());
 
             if (f1 != null) {

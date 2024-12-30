@@ -54,8 +54,7 @@ public class EntityMinecartTNT extends EntityMinecart {
     public boolean attackEntityFrom(DamageSource source, float amount) {
         Entity entity = source.getSourceOfDamage();
 
-        if (entity instanceof EntityArrow) {
-            EntityArrow entityarrow = (EntityArrow) entity;
+        if (entity instanceof EntityArrow entityarrow) {
 
             if (entityarrow.isBurning()) {
                 this.explodeCart(entityarrow.motionX * entityarrow.motionX + entityarrow.motionY * entityarrow.motionY + entityarrow.motionZ * entityarrow.motionZ);

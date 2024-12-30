@@ -68,8 +68,7 @@ public class CommandParticle extends CommandBase {
 
                 World world = sender.getEntityWorld();
 
-                if (world instanceof WorldServer) {
-                    WorldServer worldserver = (WorldServer) world;
+                if (world instanceof WorldServer worldserver) {
                     int[] aint = new int[enumparticletypes.getArgumentCount()];
 
                     if (enumparticletypes.hasArguments()) {

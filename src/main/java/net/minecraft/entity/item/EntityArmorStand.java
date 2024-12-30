@@ -285,8 +285,7 @@ public class EntityArmorStand extends EntityLivingBase {
             ItemStack itemstack = player.getCurrentEquippedItem();
             boolean flag = itemstack != null;
 
-            if (flag && itemstack.getItem() instanceof ItemArmor) {
-                ItemArmor itemarmor = (ItemArmor) itemstack.getItem();
+            if (flag && itemstack.getItem() instanceof ItemArmor itemarmor) {
 
                 if (itemarmor.armorType == 3) {
                     i = 1;

@@ -169,10 +169,9 @@ public class PlayerSelector {
         if (i > -1 || j > -1) {
             list.add(new Predicate<Entity>() {
                 public boolean apply(Entity p_apply_1_) {
-                    if (!(p_apply_1_ instanceof EntityPlayerMP)) {
+                    if (!(p_apply_1_ instanceof EntityPlayerMP entityplayermp)) {
                         return false;
                     } else {
-                        EntityPlayerMP entityplayermp = (EntityPlayerMP) p_apply_1_;
                         return (i <= -1 || entityplayermp.experienceLevel >= i) && (j <= -1 || entityplayermp.experienceLevel <= j);
                     }
                 }
@@ -189,10 +188,9 @@ public class PlayerSelector {
         if (i != WorldSettings.GameType.NOT_SET.getID()) {
             list.add(new Predicate<Entity>() {
                 public boolean apply(Entity p_apply_1_) {
-                    if (!(p_apply_1_ instanceof EntityPlayerMP)) {
+                    if (!(p_apply_1_ instanceof EntityPlayerMP entityplayermp)) {
                         return false;
                     } else {
-                        EntityPlayerMP entityplayermp = (EntityPlayerMP) p_apply_1_;
                         return entityplayermp.theItemInWorldManager.getGameType().getID() == i;
                     }
                 }
@@ -215,10 +213,9 @@ public class PlayerSelector {
             final String s_f = s;
             list.add(new Predicate<Entity>() {
                 public boolean apply(Entity p_apply_1_) {
-                    if (!(p_apply_1_ instanceof EntityLivingBase)) {
+                    if (!(p_apply_1_ instanceof EntityLivingBase entitylivingbase)) {
                         return false;
                     } else {
-                        EntityLivingBase entitylivingbase = (EntityLivingBase) p_apply_1_;
                         Team team = entitylivingbase.getTeam();
                         String s1 = team == null ? "" : team.getRegisteredName();
                         return s1.equals(s_f) != flag;

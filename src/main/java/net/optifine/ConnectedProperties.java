@@ -142,8 +142,7 @@ public class ConnectedProperties {
             Map<Integer, Integer> map = new HashMap();
 
             for (Object object : props.keySet()) {
-                if (object instanceof String) {
-                    String s = (String) object;
+                if (object instanceof String s) {
                     String s1 = "ctm.";
 
                     if (s.startsWith(s1)) {

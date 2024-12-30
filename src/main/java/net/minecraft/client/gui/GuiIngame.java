@@ -280,10 +280,9 @@ public class GuiIngame extends Gui {
     }
 
     protected void renderTooltip(ScaledResolution sr, float partialTicks) {
-        if (this.mc.getRenderViewEntity() instanceof EntityPlayer) {
+        if (this.mc.getRenderViewEntity() instanceof EntityPlayer entityplayer) {
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             this.mc.getTextureManager().bindTexture(widgetsTexPath);
-            EntityPlayer entityplayer = (EntityPlayer) this.mc.getRenderViewEntity();
             int i = sr.getScaledWidth() / 2;
             float f = this.zLevel;
             this.zLevel = -90.0F;
@@ -460,8 +459,7 @@ public class GuiIngame extends Gui {
     }
 
     private void renderPlayerStats(ScaledResolution scaledRes) {
-        if (this.mc.getRenderViewEntity() instanceof EntityPlayer) {
-            EntityPlayer entityplayer = (EntityPlayer) this.mc.getRenderViewEntity();
+        if (this.mc.getRenderViewEntity() instanceof EntityPlayer entityplayer) {
             int i = MathHelper.ceiling_float_int(entityplayer.getHealth());
             boolean flag = this.healthUpdateCounter > (long) this.updateCounter && (this.healthUpdateCounter - (long) this.updateCounter) / 3L % 2L == 1L;
 
@@ -627,8 +625,7 @@ public class GuiIngame extends Gui {
                         this.drawTexturedModalRect(j9, j7, l7 + 45, 27, 9, 9);
                     }
                 }
-            } else if (entity instanceof EntityLivingBase) {
-                EntityLivingBase entitylivingbase = (EntityLivingBase) entity;
+            } else if (entity instanceof EntityLivingBase entitylivingbase) {
                 int i7 = (int) Math.ceil((double) entitylivingbase.getHealth());
                 float f3 = entitylivingbase.getMaxHealth();
                 int j8 = (int) (f3 + 0.5F) / 2;

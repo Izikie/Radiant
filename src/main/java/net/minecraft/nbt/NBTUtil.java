@@ -100,8 +100,7 @@ public final class NBTUtil {
             return false;
         } else if (!p_181123_0_.getClass().equals(p_181123_1_.getClass())) {
             return false;
-        } else if (p_181123_0_ instanceof NBTTagCompound) {
-            NBTTagCompound nbttagcompound = (NBTTagCompound) p_181123_0_;
+        } else if (p_181123_0_ instanceof NBTTagCompound nbttagcompound) {
             NBTTagCompound nbttagcompound1 = (NBTTagCompound) p_181123_1_;
 
             for (String s : nbttagcompound.getKeySet()) {
@@ -113,8 +112,7 @@ public final class NBTUtil {
             }
 
             return true;
-        } else if (p_181123_0_ instanceof NBTTagList && p_181123_2_) {
-            NBTTagList nbttaglist = (NBTTagList) p_181123_0_;
+        } else if (p_181123_0_ instanceof NBTTagList nbttaglist && p_181123_2_) {
             NBTTagList nbttaglist1 = (NBTTagList) p_181123_1_;
 
             if (nbttaglist.tagCount() == 0) {

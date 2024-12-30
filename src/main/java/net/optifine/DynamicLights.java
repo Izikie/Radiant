@@ -202,8 +202,7 @@ public class DynamicLights {
         } else {
             Item item = itemStack.getItem();
 
-            if (item instanceof ItemBlock) {
-                ItemBlock itemblock = (ItemBlock) item;
+            if (item instanceof ItemBlock itemblock) {
                 Block block = itemblock.getBlock();
 
                 if (block != null) {
@@ -243,8 +242,7 @@ public class DynamicLights {
         if (entity == Config.getMinecraft().getRenderViewEntity() && !Config.isDynamicHandLight()) {
             return 0;
         } else {
-            if (entity instanceof EntityPlayer) {
-                EntityPlayer entityplayer = (EntityPlayer) entity;
+            if (entity instanceof EntityPlayer entityplayer) {
 
                 if (entityplayer.isSpectator()) {
                     return 0;
@@ -266,30 +264,25 @@ public class DynamicLights {
                     return 15;
                 } else if (entity instanceof EntityTNTPrimed) {
                     return 15;
-                } else if (entity instanceof EntityBlaze) {
-                    EntityBlaze entityblaze = (EntityBlaze) entity;
+                } else if (entity instanceof EntityBlaze entityblaze) {
                     return entityblaze.func_70845_n() ? 15 : 10;
-                } else if (entity instanceof EntityMagmaCube) {
-                    EntityMagmaCube entitymagmacube = (EntityMagmaCube) entity;
+                } else if (entity instanceof EntityMagmaCube entitymagmacube) {
                     return (double) entitymagmacube.squishFactor > 0.6D ? 13 : 8;
                 } else {
-                    if (entity instanceof EntityCreeper) {
-                        EntityCreeper entitycreeper = (EntityCreeper) entity;
+                    if (entity instanceof EntityCreeper entitycreeper) {
 
                         if ((double) entitycreeper.getCreeperFlashIntensity(0.0F) > 0.001D) {
                             return 15;
                         }
                     }
 
-                    if (entity instanceof EntityLivingBase) {
-                        EntityLivingBase entitylivingbase = (EntityLivingBase) entity;
+                    if (entity instanceof EntityLivingBase entitylivingbase) {
                         ItemStack itemstack2 = entitylivingbase.getHeldItem();
                         int i = getLightLevel(itemstack2);
                         ItemStack itemstack1 = entitylivingbase.getEquipmentInSlot(4);
                         int j = getLightLevel(itemstack1);
                         return Math.max(i, j);
-                    } else if (entity instanceof EntityItem) {
-                        EntityItem entityitem = (EntityItem) entity;
+                    } else if (entity instanceof EntityItem entityitem) {
                         ItemStack itemstack = getItemStack(entityitem);
                         return getLightLevel(itemstack);
                     } else {

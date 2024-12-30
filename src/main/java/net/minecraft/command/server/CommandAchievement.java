@@ -60,8 +60,7 @@ public class CommandAchievement extends CommandBase {
                             notifyOperators(sender, this, "commands.achievement.take.success.all", new Object[]{entityplayermp.getName()});
                         }
                     } else {
-                        if (statbase instanceof Achievement) {
-                            Achievement achievement = (Achievement) statbase;
+                        if (statbase instanceof Achievement achievement) {
 
                             if (flag) {
                                 if (entityplayermp.getStatFile().hasAchievementUnlocked(achievement)) {

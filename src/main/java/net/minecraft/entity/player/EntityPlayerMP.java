@@ -421,8 +421,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
                         return false;
                     }
 
-                    if (entity instanceof EntityArrow) {
-                        EntityArrow entityarrow = (EntityArrow) entity;
+                    if (entity instanceof EntityArrow entityarrow) {
 
                         if (entityarrow.shootingEntity instanceof EntityPlayer && !this.canAttackPlayer((EntityPlayer) entityarrow.shootingEntity)) {
                             return false;
@@ -568,8 +567,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
             this.closeScreen();
         }
 
-        if (chestInventory instanceof ILockableContainer) {
-            ILockableContainer ilockablecontainer = (ILockableContainer) chestInventory;
+        if (chestInventory instanceof ILockableContainer ilockablecontainer) {
 
             if (ilockablecontainer.isLocked() && !this.canOpen(ilockablecontainer.getLockCode()) && !this.isSpectator()) {
                 this.playerNetServerHandler.sendPacket(new S02PacketChat(new ChatComponentTranslation("container.isLocked", new Object[]{chestInventory.getDisplayName()}), (byte) 2));

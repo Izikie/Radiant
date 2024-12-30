@@ -12,8 +12,7 @@ public class ItemSaddle extends Item {
     }
 
     public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target) {
-        if (target instanceof EntityPig) {
-            EntityPig entitypig = (EntityPig) target;
+        if (target instanceof EntityPig entitypig) {
 
             if (!entitypig.getSaddled() && !entitypig.isChild()) {
                 entitypig.setSaddled(true);

@@ -29,20 +29,18 @@ public class NextTickHashSet extends TreeSet {
     }
 
     public boolean contains(Object obj) {
-        if (!(obj instanceof NextTickListEntry)) {
+        if (!(obj instanceof NextTickListEntry nextticklistentry)) {
             return false;
         } else {
-            NextTickListEntry nextticklistentry = (NextTickListEntry) obj;
             Set set = this.getSubSet(nextticklistentry, false);
             return set == null ? false : set.contains(nextticklistentry);
         }
     }
 
     public boolean add(Object obj) {
-        if (!(obj instanceof NextTickListEntry)) {
+        if (!(obj instanceof NextTickListEntry nextticklistentry)) {
             return false;
         } else {
-            NextTickListEntry nextticklistentry = (NextTickListEntry) obj;
 
             if (nextticklistentry == null) {
                 return false;
@@ -61,10 +59,9 @@ public class NextTickHashSet extends TreeSet {
     }
 
     public boolean remove(Object obj) {
-        if (!(obj instanceof NextTickListEntry)) {
+        if (!(obj instanceof NextTickListEntry nextticklistentry)) {
             return false;
         } else {
-            NextTickListEntry nextticklistentry = (NextTickListEntry) obj;
             Set set = this.getSubSet(nextticklistentry, false);
 
             if (set == null) {

@@ -512,10 +512,9 @@ public class CustomItems {
         } else {
             Item item = itemStack.getItem();
 
-            if (!(item instanceof ItemArmor)) {
+            if (!(item instanceof ItemArmor itemarmor)) {
                 return null;
             } else {
-                ItemArmor itemarmor = (ItemArmor) item;
                 String s = itemarmor.getArmorMaterial().getName();
                 StringBuffer stringbuffer = new StringBuffer();
                 stringbuffer.append("texture.");

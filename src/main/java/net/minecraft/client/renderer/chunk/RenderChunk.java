@@ -432,8 +432,7 @@ public class RenderChunk {
     }
 
     private boolean isWorldPlayerUpdate() {
-        if (this.world instanceof WorldClient) {
-            WorldClient worldclient = (WorldClient) this.world;
+        if (this.world instanceof WorldClient worldclient) {
             return worldclient.isPlayerUpdate();
         } else {
             return false;

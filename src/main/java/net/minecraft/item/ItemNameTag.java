@@ -13,8 +13,7 @@ public class ItemNameTag extends Item {
     public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target) {
         if (!stack.hasDisplayName()) {
             return false;
-        } else if (target instanceof EntityLiving) {
-            EntityLiving entityliving = (EntityLiving) target;
+        } else if (target instanceof EntityLiving entityliving) {
             entityliving.setCustomNameTag(stack.getDisplayName());
             entityliving.enablePersistence();
             --stack.stackSize;

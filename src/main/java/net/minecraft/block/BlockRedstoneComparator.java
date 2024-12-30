@@ -162,8 +162,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
         TileEntity tileentity = worldIn.getTileEntity(pos);
         int j = 0;
 
-        if (tileentity instanceof TileEntityComparator) {
-            TileEntityComparator tileentitycomparator = (TileEntityComparator) tileentity;
+        if (tileentity instanceof TileEntityComparator tileentitycomparator) {
             j = tileentitycomparator.getOutputSignal();
             tileentitycomparator.setOutputSignal(i);
         }

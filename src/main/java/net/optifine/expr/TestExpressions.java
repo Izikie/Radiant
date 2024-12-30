@@ -19,14 +19,12 @@ public class TestExpressions {
 
                 IExpression iexpression = expressionparser.parse(s);
 
-                if (iexpression instanceof IExpressionFloat) {
-                    IExpressionFloat iexpressionfloat = (IExpressionFloat) iexpression;
+                if (iexpression instanceof IExpressionFloat iexpressionfloat) {
                     float f = iexpressionfloat.eval();
                     System.out.println("" + f);
                 }
 
-                if (iexpression instanceof IExpressionBool) {
-                    IExpressionBool iexpressionbool = (IExpressionBool) iexpression;
+                if (iexpression instanceof IExpressionBool iexpressionbool) {
                     boolean flag = iexpressionbool.eval();
                     System.out.println("" + flag);
                 }

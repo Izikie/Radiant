@@ -51,8 +51,7 @@ public enum RenderEntityParameterFloat implements IExpressionFloat {
         if (render == null) {
             return 0.0F;
         } else {
-            if (render instanceof RendererLivingEntity) {
-                RendererLivingEntity rendererlivingentity = (RendererLivingEntity) render;
+            if (render instanceof RendererLivingEntity rendererlivingentity) {
 
                 switch (this) {
                     case LIMB_SWING:

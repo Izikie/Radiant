@@ -29,10 +29,9 @@ public class ChatComponentSelector extends ChatComponentStyle {
     public boolean equals(Object p_equals_1_) {
         if (this == p_equals_1_) {
             return true;
-        } else if (!(p_equals_1_ instanceof ChatComponentSelector)) {
+        } else if (!(p_equals_1_ instanceof ChatComponentSelector chatcomponentselector)) {
             return false;
         } else {
-            ChatComponentSelector chatcomponentselector = (ChatComponentSelector) p_equals_1_;
             return this.selector.equals(chatcomponentselector.selector) && super.equals(p_equals_1_);
         }
     }

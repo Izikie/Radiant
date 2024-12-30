@@ -342,9 +342,7 @@ public abstract class EntityLiving extends EntityLivingBase {
                 if (i == 0) {
                     if (itemstack.getItem() instanceof ItemSword && !(itemstack1.getItem() instanceof ItemSword)) {
                         flag = true;
-                    } else if (itemstack.getItem() instanceof ItemSword && itemstack1.getItem() instanceof ItemSword) {
-                        ItemSword itemsword = (ItemSword) itemstack.getItem();
-                        ItemSword itemsword1 = (ItemSword) itemstack1.getItem();
+                    } else if (itemstack.getItem() instanceof ItemSword itemsword && itemstack1.getItem() instanceof ItemSword itemsword1) {
 
                         if (itemsword.getDamageVsEntity() != itemsword1.getDamageVsEntity()) {
                             flag = itemsword.getDamageVsEntity() > itemsword1.getDamageVsEntity();
@@ -358,9 +356,7 @@ public abstract class EntityLiving extends EntityLivingBase {
                     }
                 } else if (itemstack.getItem() instanceof ItemArmor && !(itemstack1.getItem() instanceof ItemArmor)) {
                     flag = true;
-                } else if (itemstack.getItem() instanceof ItemArmor && itemstack1.getItem() instanceof ItemArmor) {
-                    ItemArmor itemarmor = (ItemArmor) itemstack.getItem();
-                    ItemArmor itemarmor1 = (ItemArmor) itemstack1.getItem();
+                } else if (itemstack.getItem() instanceof ItemArmor itemarmor && itemstack1.getItem() instanceof ItemArmor itemarmor1) {
 
                     if (itemarmor.damageReduceAmount != itemarmor1.damageReduceAmount) {
                         flag = itemarmor.damageReduceAmount > itemarmor1.damageReduceAmount;
@@ -462,8 +458,7 @@ public abstract class EntityLiving extends EntityLivingBase {
         double d1 = entityIn.posZ - this.posZ;
         double d2;
 
-        if (entityIn instanceof EntityLivingBase) {
-            EntityLivingBase entitylivingbase = (EntityLivingBase) entityIn;
+        if (entityIn instanceof EntityLivingBase entitylivingbase) {
             d2 = entitylivingbase.posY + (double) entitylivingbase.getEyeHeight() - (this.posY + (double) this.getEyeHeight());
         } else {
             d2 = (entityIn.getEntityBoundingBox().minY + entityIn.getEntityBoundingBox().maxY) / 2.0D - (this.posY + (double) this.getEyeHeight());

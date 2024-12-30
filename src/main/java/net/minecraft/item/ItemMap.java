@@ -199,8 +199,7 @@ public class ItemMap extends ItemMapBase {
         if (!worldIn.isRemote) {
             MapData mapdata = this.getMapData(stack, worldIn);
 
-            if (entityIn instanceof EntityPlayer) {
-                EntityPlayer entityplayer = (EntityPlayer) entityIn;
+            if (entityIn instanceof EntityPlayer entityplayer) {
                 mapdata.updateVisiblePlayers(entityplayer, stack);
             }
 

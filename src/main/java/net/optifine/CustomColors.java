@@ -752,10 +752,9 @@ public class CustomColors {
     private static CustomColormap getBlockColormap(IBlockState blockState) {
         if (blockColormaps == null) {
             return null;
-        } else if (!(blockState instanceof BlockStateBase)) {
+        } else if (!(blockState instanceof BlockStateBase blockstatebase)) {
             return null;
         } else {
-            BlockStateBase blockstatebase = (BlockStateBase) blockState;
             int i = blockstatebase.getBlockId();
 
             if (i >= 0 && i < blockColormaps.length) {
@@ -875,10 +874,9 @@ public class CustomColors {
         } else {
             Object object = state.getValue(BlockRedstoneWire.POWER);
 
-            if (!(object instanceof Integer)) {
+            if (!(object instanceof Integer integer)) {
                 return def;
             } else {
-                Integer integer = (Integer) object;
                 return integer.intValue();
             }
         }

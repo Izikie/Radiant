@@ -228,8 +228,7 @@ public class EntityArrow extends Entity implements IProjectile {
                 movingobjectposition = new MovingObjectPosition(entity);
             }
 
-            if (movingobjectposition != null && movingobjectposition.entityHit != null && movingobjectposition.entityHit instanceof EntityPlayer) {
-                EntityPlayer entityplayer = (EntityPlayer) movingobjectposition.entityHit;
+            if (movingobjectposition != null && movingobjectposition.entityHit != null && movingobjectposition.entityHit instanceof EntityPlayer entityplayer) {
 
                 if (entityplayer.capabilities.disableDamage || this.shootingEntity instanceof EntityPlayer && !((EntityPlayer) this.shootingEntity).canAttackPlayer(entityplayer)) {
                     movingobjectposition = null;
@@ -258,8 +257,7 @@ public class EntityArrow extends Entity implements IProjectile {
                     }
 
                     if (movingobjectposition.entityHit.attackEntityFrom(damagesource, (float) l)) {
-                        if (movingobjectposition.entityHit instanceof EntityLivingBase) {
-                            EntityLivingBase entitylivingbase = (EntityLivingBase) movingobjectposition.entityHit;
+                        if (movingobjectposition.entityHit instanceof EntityLivingBase entitylivingbase) {
 
                             if (!this.worldObj.isRemote) {
                                 entitylivingbase.setArrowCountInEntity(entitylivingbase.getArrowCountInEntity() + 1);

@@ -47,8 +47,7 @@ public class ModelResourceLocation extends ResourceLocation {
     public boolean equals(Object p_equals_1_) {
         if (this == p_equals_1_) {
             return true;
-        } else if (p_equals_1_ instanceof ModelResourceLocation && super.equals(p_equals_1_)) {
-            ModelResourceLocation modelresourcelocation = (ModelResourceLocation) p_equals_1_;
+        } else if (p_equals_1_ instanceof ModelResourceLocation modelresourcelocation && super.equals(p_equals_1_)) {
             return this.variant.equals(modelresourcelocation.variant);
         } else {
             return false;

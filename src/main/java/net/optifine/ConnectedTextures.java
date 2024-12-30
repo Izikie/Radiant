@@ -298,10 +298,9 @@ public class ConnectedTextures {
     public static BakedQuad[] getConnectedTextureSingle(IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, EnumFacing facing, BakedQuad quad, boolean checkBlocks, int pass, RenderEnv renderEnv) {
         Block block = blockState.getBlock();
 
-        if (!(blockState instanceof BlockStateBase)) {
+        if (!(blockState instanceof BlockStateBase blockstatebase)) {
             return renderEnv.getArrayQuadsCtm(quad);
         } else {
-            BlockStateBase blockstatebase = (BlockStateBase) blockState;
             TextureAtlasSprite textureatlassprite = quad.getSprite();
 
             if (tileProperties != null) {
@@ -1404,8 +1403,7 @@ public class ConnectedTextures {
         if (iblockstate == AIR_DEFAULT_STATE) {
             return false;
         } else {
-            if (cp.matchBlocks != null && iblockstate instanceof BlockStateBase) {
-                BlockStateBase blockstatebase = (BlockStateBase) iblockstate;
+            if (cp.matchBlocks != null && iblockstate instanceof BlockStateBase blockstatebase) {
 
                 if (!cp.matchesBlock(blockstatebase.getBlockId(), blockstatebase.getMetadata())) {
                     return false;
@@ -1444,10 +1442,9 @@ public class ConnectedTextures {
             }
         } else if (cp.connect == 3) {
             return neighbourState == null ? false : (neighbourState == AIR_DEFAULT_STATE ? false : neighbourState.getBlock().getMaterial() == blockState.getBlock().getMaterial());
-        } else if (!(neighbourState instanceof BlockStateBase)) {
+        } else if (!(neighbourState instanceof BlockStateBase blockstatebase)) {
             return false;
         } else {
-            BlockStateBase blockstatebase = (BlockStateBase) neighbourState;
             Block block = blockstatebase.getBlock();
             int i = blockstatebase.getMetadata();
             return block == blockState.getBlock() && i == metadata;

@@ -244,8 +244,7 @@ public class BlockFlowerPot extends BlockContainer {
         BlockFlowerPot.EnumFlowerType blockflowerpot$enumflowertype = BlockFlowerPot.EnumFlowerType.EMPTY;
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
-        if (tileentity instanceof TileEntityFlowerPot) {
-            TileEntityFlowerPot tileentityflowerpot = (TileEntityFlowerPot) tileentity;
+        if (tileentity instanceof TileEntityFlowerPot tileentityflowerpot) {
             Item item = tileentityflowerpot.getFlowerPotItem();
 
             if (item instanceof ItemBlock) {

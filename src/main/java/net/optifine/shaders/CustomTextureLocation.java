@@ -40,8 +40,7 @@ public class CustomTextureLocation implements ICustomTexture {
     public int getTextureId() {
         ITextureObject itextureobject = this.getTexture();
 
-        if (this.variant != 0 && itextureobject instanceof AbstractTexture) {
-            AbstractTexture abstracttexture = (AbstractTexture) itextureobject;
+        if (this.variant != 0 && itextureobject instanceof AbstractTexture abstracttexture) {
             MultiTexID multitexid = abstracttexture.multiTex;
 
             if (multitexid != null) {

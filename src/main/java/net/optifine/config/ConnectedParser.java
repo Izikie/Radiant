@@ -347,8 +347,7 @@ public class ConnectedParser {
     }
 
     private static Object getValueName(Comparable obj) {
-        if (obj instanceof IStringSerializable) {
-            IStringSerializable istringserializable = (IStringSerializable) obj;
+        if (obj instanceof IStringSerializable istringserializable) {
             return istringserializable.getName();
         } else {
             return obj.toString();

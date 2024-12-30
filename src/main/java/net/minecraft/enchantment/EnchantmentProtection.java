@@ -47,8 +47,7 @@ public class EnchantmentProtection extends Enchantment {
     }
 
     public boolean canApplyTogether(Enchantment ench) {
-        if (ench instanceof EnchantmentProtection) {
-            EnchantmentProtection enchantmentprotection = (EnchantmentProtection) ench;
+        if (ench instanceof EnchantmentProtection enchantmentprotection) {
             return enchantmentprotection.protectionType == this.protectionType ? false : this.protectionType == 2 || enchantmentprotection.protectionType == 2;
         } else {
             return super.canApplyTogether(ench);

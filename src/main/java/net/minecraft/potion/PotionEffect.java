@@ -131,10 +131,9 @@ public class PotionEffect {
     }
 
     public boolean equals(Object p_equals_1_) {
-        if (!(p_equals_1_ instanceof PotionEffect)) {
+        if (!(p_equals_1_ instanceof PotionEffect potioneffect)) {
             return false;
         } else {
-            PotionEffect potioneffect = (PotionEffect) p_equals_1_;
             return this.potionID == potioneffect.potionID && this.amplifier == potioneffect.amplifier && this.duration == potioneffect.duration && this.isSplashPotion == potioneffect.isSplashPotion && this.isAmbient == potioneffect.isAmbient;
         }
     }

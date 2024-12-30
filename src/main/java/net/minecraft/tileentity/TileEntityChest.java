@@ -203,8 +203,7 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
         if (this.isChestAt(blockpos)) {
             TileEntity tileentity = this.worldObj.getTileEntity(blockpos);
 
-            if (tileentity instanceof TileEntityChest) {
-                TileEntityChest tileentitychest = (TileEntityChest) tileentity;
+            if (tileentity instanceof TileEntityChest tileentitychest) {
                 tileentitychest.func_174910_a(this, side.getOpposite());
                 return tileentitychest;
             }

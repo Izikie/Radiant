@@ -278,8 +278,7 @@ public class EntityWolf extends EntityTameable {
 
         if (this.isTamed()) {
             if (itemstack != null) {
-                if (itemstack.getItem() instanceof ItemFood) {
-                    ItemFood itemfood = (ItemFood) itemstack.getItem();
+                if (itemstack.getItem() instanceof ItemFood itemfood) {
 
                     if (itemfood.isWolfsFavoriteMeat() && this.dataWatcher.getWatchableObjectFloat(18) < 20.0F) {
                         if (!player.capabilities.isCreativeMode) {
@@ -415,10 +414,9 @@ public class EntityWolf extends EntityTameable {
             return false;
         } else if (!this.isTamed()) {
             return false;
-        } else if (!(otherAnimal instanceof EntityWolf)) {
+        } else if (!(otherAnimal instanceof EntityWolf entitywolf)) {
             return false;
         } else {
-            EntityWolf entitywolf = (EntityWolf) otherAnimal;
             return !entitywolf.isTamed() ? false : (entitywolf.isSitting() ? false : this.isInLove() && entitywolf.isInLove());
         }
     }
@@ -433,8 +431,7 @@ public class EntityWolf extends EntityTameable {
 
     public boolean shouldAttackEntity(EntityLivingBase p_142018_1_, EntityLivingBase p_142018_2_) {
         if (!(p_142018_1_ instanceof EntityCreeper) && !(p_142018_1_ instanceof EntityGhast)) {
-            if (p_142018_1_ instanceof EntityWolf) {
-                EntityWolf entitywolf = (EntityWolf) p_142018_1_;
+            if (p_142018_1_ instanceof EntityWolf entitywolf) {
 
                 if (entitywolf.isTamed() && entitywolf.getOwner() == p_142018_2_) {
                     return false;

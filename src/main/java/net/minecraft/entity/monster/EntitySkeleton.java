@@ -142,8 +142,7 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob {
     public void updateRidden() {
         super.updateRidden();
 
-        if (this.ridingEntity instanceof EntityCreature) {
-            EntityCreature entitycreature = (EntityCreature) this.ridingEntity;
+        if (this.ridingEntity instanceof EntityCreature entitycreature) {
             this.renderYawOffset = entitycreature.renderYawOffset;
         }
     }
@@ -151,8 +150,7 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob {
     public void onDeath(DamageSource cause) {
         super.onDeath(cause);
 
-        if (cause.getSourceOfDamage() instanceof EntityArrow && cause.getEntity() instanceof EntityPlayer) {
-            EntityPlayer entityplayer = (EntityPlayer) cause.getEntity();
+        if (cause.getSourceOfDamage() instanceof EntityArrow && cause.getEntity() instanceof EntityPlayer entityplayer) {
             double d0 = entityplayer.posX - this.posX;
             double d1 = entityplayer.posZ - this.posZ;
 

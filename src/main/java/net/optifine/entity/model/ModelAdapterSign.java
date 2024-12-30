@@ -20,10 +20,9 @@ public class ModelAdapterSign extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelSign)) {
+        if (!(model instanceof ModelSign modelsign)) {
             return null;
         } else {
-            ModelSign modelsign = (ModelSign) model;
             return modelPart.equals("board") ? modelsign.signBoard : (modelPart.equals("stick") ? modelsign.signStick : null);
         }
     }

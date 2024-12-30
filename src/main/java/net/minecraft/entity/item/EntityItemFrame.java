@@ -72,8 +72,7 @@ public class EntityItemFrame extends EntityHanging {
         if (this.worldObj.getGameRules().getBoolean("doEntityDrops")) {
             ItemStack itemstack = this.getDisplayedItem();
 
-            if (p_146065_1_ instanceof EntityPlayer) {
-                EntityPlayer entityplayer = (EntityPlayer) p_146065_1_;
+            if (p_146065_1_ instanceof EntityPlayer entityplayer) {
 
                 if (entityplayer.capabilities.isCreativeMode) {
                     this.removeFrameFromMap(itemstack);

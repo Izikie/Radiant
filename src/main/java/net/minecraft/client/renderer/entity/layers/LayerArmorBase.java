@@ -49,8 +49,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
     private void renderLayer(EntityLivingBase entitylivingbaseIn, float p_177182_2_, float p_177182_3_, float partialTicks, float p_177182_5_, float p_177182_6_, float p_177182_7_, float scale, int armorSlot) {
         ItemStack itemstack = this.getCurrentArmor(entitylivingbaseIn, armorSlot);
 
-        if (itemstack != null && itemstack.getItem() instanceof ItemArmor) {
-            ItemArmor itemarmor = (ItemArmor) itemstack.getItem();
+        if (itemstack != null && itemstack.getItem() instanceof ItemArmor itemarmor) {
             T t = this.getArmorModel(armorSlot);
             t.setModelAttributes(this.renderer.getMainModel());
             t.setLivingAnimations(entitylivingbaseIn, p_177182_2_, p_177182_3_, partialTicks);

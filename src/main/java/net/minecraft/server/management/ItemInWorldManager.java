@@ -282,9 +282,8 @@ public class ItemInWorldManager {
         if (this.gameType == WorldSettings.GameType.SPECTATOR) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
-            if (tileentity instanceof ILockableContainer) {
+            if (tileentity instanceof ILockableContainer ilockablecontainer) {
                 Block block = worldIn.getBlockState(pos).getBlock();
-                ILockableContainer ilockablecontainer = (ILockableContainer) tileentity;
 
                 if (ilockablecontainer instanceof TileEntityChest && block instanceof BlockChest) {
                     ilockablecontainer = ((BlockChest) block).getLockableContainer(worldIn, pos);

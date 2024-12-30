@@ -97,8 +97,7 @@ public class BlockBanner extends BlockContainer {
     }
 
     public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te) {
-        if (te instanceof TileEntityBanner) {
-            TileEntityBanner tileentitybanner = (TileEntityBanner) te;
+        if (te instanceof TileEntityBanner tileentitybanner) {
             ItemStack itemstack = new ItemStack(Items.banner, 1, ((TileEntityBanner) te).getBaseColor());
             NBTTagCompound nbttagcompound = new NBTTagCompound();
             TileEntityBanner.setBaseColorAndPatterns(nbttagcompound, tileentitybanner.getBaseColor(), tileentitybanner.getPatterns());

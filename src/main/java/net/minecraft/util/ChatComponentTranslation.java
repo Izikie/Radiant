@@ -180,10 +180,9 @@ public class ChatComponentTranslation extends ChatComponentStyle {
     public boolean equals(Object p_equals_1_) {
         if (this == p_equals_1_) {
             return true;
-        } else if (!(p_equals_1_ instanceof ChatComponentTranslation)) {
+        } else if (!(p_equals_1_ instanceof ChatComponentTranslation chatcomponenttranslation)) {
             return false;
         } else {
-            ChatComponentTranslation chatcomponenttranslation = (ChatComponentTranslation) p_equals_1_;
             return Arrays.equals(this.formatArgs, chatcomponenttranslation.formatArgs) && this.key.equals(chatcomponenttranslation.key) && super.equals(p_equals_1_);
         }
     }

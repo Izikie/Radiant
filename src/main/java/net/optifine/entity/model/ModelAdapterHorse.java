@@ -28,10 +28,9 @@ public class ModelAdapterHorse extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelHorse)) {
+        if (!(model instanceof ModelHorse modelhorse)) {
             return null;
         } else {
-            ModelHorse modelhorse = (ModelHorse) model;
             Map<String, Integer> map = getMapPartFields();
 
             if (map.containsKey(modelPart)) {

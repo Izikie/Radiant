@@ -20,10 +20,9 @@ public class ModelAdapterGuardian extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelGuardian)) {
+        if (!(model instanceof ModelGuardian modelguardian)) {
             return null;
         } else {
-            ModelGuardian modelguardian = (ModelGuardian) model;
 
             if (modelPart.equals("body")) {
                 return (ModelRenderer) Reflector.getFieldValue(modelguardian, Reflector.ModelGuardian_body);

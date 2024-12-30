@@ -15,10 +15,9 @@ import net.optifine.util.StrUtils;
 
 public class TooltipProviderShaderOptions extends TooltipProviderOptions {
     public String[] getTooltipLines(GuiButton btn, int width) {
-        if (!(btn instanceof GuiButtonShaderOption)) {
+        if (!(btn instanceof GuiButtonShaderOption guibuttonshaderoption)) {
             return null;
         } else {
-            GuiButtonShaderOption guibuttonshaderoption = (GuiButtonShaderOption) btn;
             ShaderOption shaderoption = guibuttonshaderoption.getShaderOption();
             String[] astring = this.makeTooltipLines(shaderoption, width);
             return astring;

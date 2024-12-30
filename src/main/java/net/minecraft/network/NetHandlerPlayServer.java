@@ -590,8 +590,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
     }
 
     public void sendPacket(final Packet packetIn) {
-        if (packetIn instanceof S02PacketChat) {
-            S02PacketChat s02packetchat = (S02PacketChat) packetIn;
+        if (packetIn instanceof S02PacketChat s02packetchat) {
             EntityPlayer.EnumChatVisibility entityplayer$enumchatvisibility = this.playerEntity.getChatVisibility();
 
             if (entityplayer$enumchatvisibility == EntityPlayer.EnumChatVisibility.HIDDEN) {
@@ -905,11 +904,9 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         if (worldserver.isBlockLoaded(blockpos)) {
             TileEntity tileentity = worldserver.getTileEntity(blockpos);
 
-            if (!(tileentity instanceof TileEntitySign)) {
+            if (!(tileentity instanceof TileEntitySign tileentitysign)) {
                 return;
             }
-
-            TileEntitySign tileentitysign = (TileEntitySign) tileentity;
 
             if (!tileentitysign.getIsEditable() || tileentitysign.getPlayer() != this.playerEntity) {
                 this.serverController.logWarning("Player " + this.playerEntity.getName() + " just tried to change non-editable sign");
@@ -1104,8 +1101,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
                     logger.error((String) "Couldn\'t set beacon", (Throwable) exception);
                 }
             }
-        } else if ("MC|ItemName".equals(packetIn.getChannelName()) && this.playerEntity.openContainer instanceof ContainerRepair) {
-            ContainerRepair containerrepair = (ContainerRepair) this.playerEntity.openContainer;
+        } else if ("MC|ItemName".equals(packetIn.getChannelName()) && this.playerEntity.openContainer instanceof ContainerRepair containerrepair) {
 
             if (packetIn.getBufferData() != null && packetIn.getBufferData().readableBytes() >= 1) {
                 String s = ChatAllowedCharacters.filterAllowedCharacters(packetIn.getBufferData().readStringFromBuffer(32767));

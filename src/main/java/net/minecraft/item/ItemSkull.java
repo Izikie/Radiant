@@ -61,8 +61,7 @@ public class ItemSkull extends Item {
 
                     TileEntity tileentity = worldIn.getTileEntity(pos);
 
-                    if (tileentity instanceof TileEntitySkull) {
-                        TileEntitySkull tileentityskull = (TileEntitySkull) tileentity;
+                    if (tileentity instanceof TileEntitySkull tileentityskull) {
 
                         if (stack.getMetadata() == 3) {
                             GameProfile gameprofile = null;

@@ -68,8 +68,7 @@ public class RandomEntities {
     private static void updateEntityVillager(UUID uuid, EntityVillager ev) {
         Entity entity = IntegratedServerUtils.getEntity(uuid);
 
-        if (entity instanceof EntityVillager) {
-            EntityVillager entityvillager = (EntityVillager) entity;
+        if (entity instanceof EntityVillager entityvillager) {
             int i = entityvillager.getProfession();
             ev.setProfession(i);
             int j = Reflector.getFieldValueInt(entityvillager, Reflector.EntityVillager_careerId, 0);

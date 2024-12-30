@@ -65,10 +65,9 @@ public abstract class NBTBase {
     }
 
     public boolean equals(Object p_equals_1_) {
-        if (!(p_equals_1_ instanceof NBTBase)) {
+        if (!(p_equals_1_ instanceof NBTBase nbtbase)) {
             return false;
         } else {
-            NBTBase nbtbase = (NBTBase) p_equals_1_;
             return this.getId() == nbtbase.getId();
         }
     }

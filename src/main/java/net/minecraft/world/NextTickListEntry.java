@@ -18,10 +18,9 @@ public class NextTickListEntry implements Comparable<NextTickListEntry> {
     }
 
     public boolean equals(Object p_equals_1_) {
-        if (!(p_equals_1_ instanceof NextTickListEntry)) {
+        if (!(p_equals_1_ instanceof NextTickListEntry nextticklistentry)) {
             return false;
         } else {
-            NextTickListEntry nextticklistentry = (NextTickListEntry) p_equals_1_;
             return this.position.equals(nextticklistentry.position) && Block.isEqualTo(this.block, nextticklistentry.block);
         }
     }

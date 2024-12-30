@@ -23,10 +23,9 @@ public class CustomBlockLayers {
             return null;
         } else if (blockState.getBlock().isOpaqueCube()) {
             return null;
-        } else if (!(blockState instanceof BlockStateBase)) {
+        } else if (!(blockState instanceof BlockStateBase blockstatebase)) {
             return null;
         } else {
-            BlockStateBase blockstatebase = (BlockStateBase) blockState;
             int i = blockstatebase.getBlockId();
             return i > 0 && i < renderLayers.length ? renderLayers[i] : null;
         }

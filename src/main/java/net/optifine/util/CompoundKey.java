@@ -40,10 +40,9 @@ public class CompoundKey {
             return false;
         } else if (obj == this) {
             return true;
-        } else if (!(obj instanceof CompoundKey)) {
+        } else if (!(obj instanceof CompoundKey compoundkey)) {
             return false;
         } else {
-            CompoundKey compoundkey = (CompoundKey) obj;
             Object[] aobject = compoundkey.getKeys();
 
             if (aobject.length != this.keys.length) {

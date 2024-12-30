@@ -202,8 +202,7 @@ public class GuiPageButtonList extends GuiListExtended {
     }
 
     public void func_178062_a(char p_178062_1_, int p_178062_2_) {
-        if (this.field_178075_A instanceof GuiTextField) {
-            GuiTextField guitextfield = (GuiTextField) this.field_178075_A;
+        if (this.field_178075_A instanceof GuiTextField guitextfield) {
 
             if (!GuiScreen.isKeyComboCtrlV(p_178062_2_)) {
                 if (p_178062_2_ == 15) {

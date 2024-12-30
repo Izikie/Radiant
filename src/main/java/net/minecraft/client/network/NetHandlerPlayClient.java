@@ -802,8 +802,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         } else {
             boolean flag = false;
 
-            if (this.gameController.currentScreen instanceof GuiContainerCreative) {
-                GuiContainerCreative guicontainercreative = (GuiContainerCreative) this.gameController.currentScreen;
+            if (this.gameController.currentScreen instanceof GuiContainerCreative guicontainercreative) {
                 flag = guicontainercreative.getSelectedTabIndex() != CreativeTabs.tabInventory.getTabIndex();
             }
 
@@ -868,8 +867,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         if (this.gameController.theWorld.isBlockLoaded(packetIn.getPos())) {
             TileEntity tileentity = this.gameController.theWorld.getTileEntity(packetIn.getPos());
 
-            if (tileentity instanceof TileEntitySign) {
-                TileEntitySign tileentitysign = (TileEntitySign) tileentity;
+            if (tileentity instanceof TileEntitySign tileentitysign) {
 
                 if (tileentitysign.getIsEditable()) {
                     System.arraycopy(packetIn.getLines(), 0, tileentitysign.signText, 0, 4);
@@ -1173,8 +1171,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.gameController);
         String[] astring = packetIn.func_149630_c();
 
-        if (this.gameController.currentScreen instanceof GuiChat) {
-            GuiChat guichat = (GuiChat) this.gameController.currentScreen;
+        if (this.gameController.currentScreen instanceof GuiChat guichat) {
             guichat.onAutocompleteResponse(astring);
         }
     }

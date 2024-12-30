@@ -202,8 +202,7 @@ public class ThreadDownloadImageData extends SimpleTexture {
     private void loadingFinished() {
         this.imageFound = Boolean.valueOf(this.bufferedImage != null);
 
-        if (this.imageBuffer instanceof CapeImageBuffer) {
-            CapeImageBuffer capeimagebuffer = (CapeImageBuffer) this.imageBuffer;
+        if (this.imageBuffer instanceof CapeImageBuffer capeimagebuffer) {
             capeimagebuffer.cleanup();
         }
     }

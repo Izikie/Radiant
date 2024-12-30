@@ -32,10 +32,9 @@ public class BlockEventData {
     }
 
     public boolean equals(Object p_equals_1_) {
-        if (!(p_equals_1_ instanceof BlockEventData)) {
+        if (!(p_equals_1_ instanceof BlockEventData blockeventdata)) {
             return false;
         } else {
-            BlockEventData blockeventdata = (BlockEventData) p_equals_1_;
             return this.position.equals(blockeventdata.position) && this.eventID == blockeventdata.eventID && this.eventParameter == blockeventdata.eventParameter && this.blockType == blockeventdata.blockType;
         }
     }

@@ -118,8 +118,7 @@ public class BlockCauldron extends Block {
 
                     return true;
                 } else {
-                    if (i > 0 && item instanceof ItemArmor) {
-                        ItemArmor itemarmor = (ItemArmor) item;
+                    if (i > 0 && item instanceof ItemArmor itemarmor) {
 
                         if (itemarmor.getArmorMaterial() == ItemArmor.ArmorMaterial.LEATHER && itemarmor.hasColor(itemstack)) {
                             itemarmor.removeColor(itemstack);

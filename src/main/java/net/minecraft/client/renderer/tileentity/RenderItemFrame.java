@@ -131,8 +131,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
                     textureatlassprite = this.mc.getTextureMapBlocks().getAtlasSprite(TextureCompass.locationSprite);
                     this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
 
-                    if (textureatlassprite instanceof TextureCompass) {
-                        TextureCompass texturecompass = (TextureCompass) textureatlassprite;
+                    if (textureatlassprite instanceof TextureCompass texturecompass) {
                         double d1 = texturecompass.currentAngle;
                         double d2 = texturecompass.angleDelta;
                         texturecompass.currentAngle = 0.0D;

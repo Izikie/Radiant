@@ -241,8 +241,7 @@ public final class ItemStack {
                     entityIn.renderBrokenItemStack(this);
                     --this.stackSize;
 
-                    if (entityIn instanceof EntityPlayer) {
-                        EntityPlayer entityplayer = (EntityPlayer) entityIn;
+                    if (entityIn instanceof EntityPlayer entityplayer) {
                         entityplayer.triggerAchievement(StatList.objectBreakStats[Item.getIdFromItem(this.item)]);
 
                         if (this.stackSize == 0 && this.getItem() instanceof ItemBow) {

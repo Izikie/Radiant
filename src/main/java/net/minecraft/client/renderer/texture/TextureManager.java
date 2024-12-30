@@ -154,8 +154,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
             if (s.startsWith("mcpatcher/") || s.startsWith("optifine/") || EmissiveTextures.isEmissive(resourcelocation)) {
                 ITextureObject itextureobject = (ITextureObject) this.mapTextureObjects.get(resourcelocation);
 
-                if (itextureobject instanceof AbstractTexture) {
-                    AbstractTexture abstracttexture = (AbstractTexture) itextureobject;
+                if (itextureobject instanceof AbstractTexture abstracttexture) {
                     abstracttexture.deleteGlTexture();
                 }
 

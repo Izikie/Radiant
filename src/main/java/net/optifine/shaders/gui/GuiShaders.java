@@ -100,7 +100,7 @@ public class GuiShaders extends GuiScreenOF {
 
     private void actionPerformed(GuiButton button, boolean rightClick) {
         if (button.enabled) {
-            if (!(button instanceof GuiButtonEnumShaderOption)) {
+            if (!(button instanceof GuiButtonEnumShaderOption guibuttonenumshaderoption)) {
                 if (!rightClick) {
                     switch (button.id) {
                         case 201:
@@ -174,7 +174,6 @@ public class GuiShaders extends GuiScreenOF {
                     }
                 }
             } else {
-                GuiButtonEnumShaderOption guibuttonenumshaderoption = (GuiButtonEnumShaderOption) button;
 
                 switch (guibuttonenumshaderoption.getEnumShaderOption()) {
                     case ANTIALIASING:

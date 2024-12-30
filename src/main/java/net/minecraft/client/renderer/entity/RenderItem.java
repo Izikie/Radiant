@@ -308,8 +308,7 @@ public class RenderItem implements IResourceManagerReloadListener {
         if (stack != null && entityToRenderFor != null) {
             IBakedModel ibakedmodel = this.itemModelMesher.getItemModel(stack);
 
-            if (entityToRenderFor instanceof EntityPlayer) {
-                EntityPlayer entityplayer = (EntityPlayer) entityToRenderFor;
+            if (entityToRenderFor instanceof EntityPlayer entityplayer) {
                 Item item = stack.getItem();
                 ModelResourceLocation modelresourcelocation = null;
 

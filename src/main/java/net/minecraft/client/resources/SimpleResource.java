@@ -78,10 +78,9 @@ public class SimpleResource implements IResource {
     public boolean equals(Object p_equals_1_) {
         if (this == p_equals_1_) {
             return true;
-        } else if (!(p_equals_1_ instanceof SimpleResource)) {
+        } else if (!(p_equals_1_ instanceof SimpleResource simpleresource)) {
             return false;
         } else {
-            SimpleResource simpleresource = (SimpleResource) p_equals_1_;
 
             if (this.srResourceLocation != null) {
                 if (!this.srResourceLocation.equals(simpleresource.srResourceLocation)) {

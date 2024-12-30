@@ -12,8 +12,7 @@ public class ChatComponentProcessor {
     public static IChatComponent processComponent(ICommandSender commandSender, IChatComponent component, Entity entityIn) throws CommandException {
         IChatComponent ichatcomponent = null;
 
-        if (component instanceof ChatComponentScore) {
-            ChatComponentScore chatcomponentscore = (ChatComponentScore) component;
+        if (component instanceof ChatComponentScore chatcomponentscore) {
             String s = chatcomponentscore.getName();
 
             if (PlayerSelector.hasArguments(s)) {

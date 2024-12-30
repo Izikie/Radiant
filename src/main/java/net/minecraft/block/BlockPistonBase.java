@@ -142,8 +142,7 @@ public class BlockPistonBase extends Block {
                 if (block == Blocks.piston_extension) {
                     TileEntity tileentity = worldIn.getTileEntity(blockpos);
 
-                    if (tileentity instanceof TileEntityPiston) {
-                        TileEntityPiston tileentitypiston = (TileEntityPiston) tileentity;
+                    if (tileentity instanceof TileEntityPiston tileentitypiston) {
 
                         if (tileentitypiston.getFacing() == enumfacing && tileentitypiston.isExtending()) {
                             tileentitypiston.clearPistonTileEntity();

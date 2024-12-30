@@ -47,8 +47,7 @@ public enum RenderEntityParameterBool implements IExpressionBool {
         if (render == null) {
             return false;
         } else {
-            if (render instanceof RendererLivingEntity) {
-                RendererLivingEntity rendererlivingentity = (RendererLivingEntity) render;
+            if (render instanceof RendererLivingEntity rendererlivingentity) {
                 EntityLivingBase entitylivingbase = rendererlivingentity.renderEntity;
 
                 if (entitylivingbase == null) {

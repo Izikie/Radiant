@@ -55,9 +55,8 @@ public class EntityTracker {
     }
 
     public void trackEntity(Entity entityIn) {
-        if (entityIn instanceof EntityPlayerMP) {
+        if (entityIn instanceof EntityPlayerMP entityplayermp) {
             this.trackEntity(entityIn, 512, 2);
-            EntityPlayerMP entityplayermp = (EntityPlayerMP) entityIn;
 
             for (EntityTrackerEntry entitytrackerentry : this.trackedEntities) {
                 if (entitytrackerentry.trackedEntity != entityplayermp) {
@@ -163,8 +162,7 @@ public class EntityTracker {
     }
 
     public void untrackEntity(Entity entityIn) {
-        if (entityIn instanceof EntityPlayerMP) {
-            EntityPlayerMP entityplayermp = (EntityPlayerMP) entityIn;
+        if (entityIn instanceof EntityPlayerMP entityplayermp) {
 
             for (EntityTrackerEntry entitytrackerentry : this.trackedEntities) {
                 entitytrackerentry.removeFromTrackedPlayers(entityplayermp);

@@ -344,12 +344,11 @@ public class EntityZombie extends EntityMob {
     public void onKillEntity(EntityLivingBase entityLivingIn) {
         super.onKillEntity(entityLivingIn);
 
-        if ((this.worldObj.getDifficulty() == EnumDifficulty.NORMAL || this.worldObj.getDifficulty() == EnumDifficulty.HARD) && entityLivingIn instanceof EntityVillager) {
+        if ((this.worldObj.getDifficulty() == EnumDifficulty.NORMAL || this.worldObj.getDifficulty() == EnumDifficulty.HARD) && entityLivingIn instanceof EntityVillager entityliving) {
             if (this.worldObj.getDifficulty() != EnumDifficulty.HARD && this.rand.nextBoolean()) {
                 return;
             }
 
-            EntityLiving entityliving = (EntityLiving) entityLivingIn;
             EntityZombie entityzombie = new EntityZombie(this.worldObj);
             entityzombie.copyLocationAndAnglesFrom(entityLivingIn);
             this.worldObj.removeEntity(entityLivingIn);
@@ -395,8 +394,7 @@ public class EntityZombie extends EntityMob {
             livingdata = new EntityZombie.GroupData(this.worldObj.rand.nextFloat() < 0.05F, this.worldObj.rand.nextFloat() < 0.05F);
         }
 
-        if (livingdata instanceof EntityZombie.GroupData) {
-            EntityZombie.GroupData entityzombie$groupdata = (EntityZombie.GroupData) livingdata;
+        if (livingdata instanceof GroupData entityzombie$groupdata) {
 
             if (entityzombie$groupdata.isVillager) {
                 this.setVillager(true);

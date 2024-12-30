@@ -40,10 +40,9 @@ public class PathPoint {
     }
 
     public boolean equals(Object p_equals_1_) {
-        if (!(p_equals_1_ instanceof PathPoint)) {
+        if (!(p_equals_1_ instanceof PathPoint pathpoint)) {
             return false;
         } else {
-            PathPoint pathpoint = (PathPoint) p_equals_1_;
             return this.hash == pathpoint.hash && this.xCoord == pathpoint.xCoord && this.yCoord == pathpoint.yCoord && this.zCoord == pathpoint.zCoord;
         }
     }

@@ -98,8 +98,7 @@ public class GuiShaderOptions extends GuiScreenOF {
     public static String getButtonText(ShaderOption so, int btnWidth) {
         String s = so.getNameText();
 
-        if (so instanceof ShaderOptionScreen) {
-            ShaderOptionScreen shaderoptionscreen = (ShaderOptionScreen) so;
+        if (so instanceof ShaderOptionScreen shaderoptionscreen) {
             return s + "...";
         } else {
             FontRenderer fontrenderer = Config.getMinecraft().fontRendererObj;
@@ -116,8 +115,7 @@ public class GuiShaderOptions extends GuiScreenOF {
 
     protected void actionPerformed(GuiButton guibutton) {
         if (guibutton.enabled) {
-            if (guibutton.id < 200 && guibutton instanceof GuiButtonShaderOption) {
-                GuiButtonShaderOption guibuttonshaderoption = (GuiButtonShaderOption) guibutton;
+            if (guibutton.id < 200 && guibutton instanceof GuiButtonShaderOption guibuttonshaderoption) {
                 ShaderOption shaderoption = guibuttonshaderoption.getShaderOption();
 
                 if (shaderoption instanceof ShaderOptionScreen) {
@@ -162,8 +160,7 @@ public class GuiShaderOptions extends GuiScreenOF {
     }
 
     protected void actionPerformedRightClick(GuiButton btn) {
-        if (btn instanceof GuiButtonShaderOption) {
-            GuiButtonShaderOption guibuttonshaderoption = (GuiButtonShaderOption) btn;
+        if (btn instanceof GuiButtonShaderOption guibuttonshaderoption) {
             ShaderOption shaderoption = guibuttonshaderoption.getShaderOption();
 
             if (isShiftKeyDown()) {
@@ -189,12 +186,10 @@ public class GuiShaderOptions extends GuiScreenOF {
 
     private void updateAllButtons() {
         for (GuiButton guibutton : this.buttonList) {
-            if (guibutton instanceof GuiButtonShaderOption) {
-                GuiButtonShaderOption guibuttonshaderoption = (GuiButtonShaderOption) guibutton;
+            if (guibutton instanceof GuiButtonShaderOption guibuttonshaderoption) {
                 ShaderOption shaderoption = guibuttonshaderoption.getShaderOption();
 
-                if (shaderoption instanceof ShaderOptionProfile) {
-                    ShaderOptionProfile shaderoptionprofile = (ShaderOptionProfile) shaderoption;
+                if (shaderoption instanceof ShaderOptionProfile shaderoptionprofile) {
                     shaderoptionprofile.updateProfile();
                 }
 
