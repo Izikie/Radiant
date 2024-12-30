@@ -30,9 +30,9 @@ public class ItemEnderEye extends Item {
                 --stack.stackSize;
 
                 for (int i = 0; i < 16; ++i) {
-                    double d0 = (double) ((float) pos.getX() + (5.0F + itemRand.nextFloat() * 6.0F) / 16.0F);
-                    double d1 = (double) ((float) pos.getY() + 0.8125F);
-                    double d2 = (double) ((float) pos.getZ() + (5.0F + itemRand.nextFloat() * 6.0F) / 16.0F);
+                    double d0 = (pos.getX() + (5.0F + itemRand.nextFloat() * 6.0F) / 16.0F);
+                    double d1 = (pos.getY() + 0.8125F);
+                    double d2 = (pos.getZ() + (5.0F + itemRand.nextFloat() * 6.0F) / 16.0F);
                     double d3 = 0.0D;
                     double d4 = 0.0D;
                     double d5 = 0.0D;

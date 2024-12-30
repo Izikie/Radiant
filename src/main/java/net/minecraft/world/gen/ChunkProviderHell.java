@@ -205,7 +205,7 @@ public class ChunkProviderHell implements IChunkProvider {
     }
 
     public Chunk provideChunk(int x, int z) {
-        this.hellRNG.setSeed((long) x * 341873128712L + (long) z * 132897987541L);
+        this.hellRNG.setSeed(x * 341873128712L + z * 132897987541L);
         ChunkPrimer chunkprimer = new ChunkPrimer();
         this.func_180515_a(x, z, chunkprimer);
         this.func_180516_b(x, z, chunkprimer);
@@ -243,11 +243,11 @@ public class ChunkProviderHell implements IChunkProvider {
         double[] adouble = new double[p_73164_6_];
 
         for (int j = 0; j < p_73164_6_; ++j) {
-            adouble[j] = Math.cos((double) j * Math.PI * 6.0D / (double) p_73164_6_) * 2.0D;
-            double d2 = (double) j;
+            adouble[j] = Math.cos(j * Math.PI * 6.0D / p_73164_6_) * 2.0D;
+            double d2 = j;
 
             if (j > p_73164_6_ / 2) {
-                d2 = (double) (p_73164_6_ - 1 - j);
+                d2 = (p_73164_6_ - 1 - j);
             }
 
             if (d2 < 4.0D) {
@@ -278,12 +278,12 @@ public class ChunkProviderHell implements IChunkProvider {
                     d4 = d4 - d5;
 
                     if (k > p_73164_6_ - 4) {
-                        double d9 = (double) ((float) (k - (p_73164_6_ - 4)) / 3.0F);
+                        double d9 = ((k - (p_73164_6_ - 4)) / 3.0F);
                         d4 = d4 * (1.0D - d9) + -10.0D * d9;
                     }
 
-                    if ((double) k < d3) {
-                        double d10 = (d3 - (double) k) / 4.0D;
+                    if (k < d3) {
+                        double d10 = (d3 - k) / 4.0D;
                         d10 = MathHelper.clamp_double(d10, 0.0D, 1.0D);
                         d4 = d4 * (1.0D - d10) + -10.0D * d10;
                     }

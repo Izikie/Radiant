@@ -166,7 +166,7 @@ public class GuiCreateWorld extends GuiScreen {
                             i = j;
                         }
                     } catch (NumberFormatException var7) {
-                        i = (long) s.hashCode();
+                        i = s.hashCode();
                     }
                 }
 

@@ -31,11 +31,11 @@ public class WorldManager implements IWorldAccess {
     }
 
     public void playSound(String soundName, double x, double y, double z, float volume, float pitch) {
-        this.mcServer.getConfigurationManager().sendToAllNear(x, y, z, volume > 1.0F ? (double) (16.0F * volume) : 16.0D, this.theWorldServer.provider.getDimensionId(), new S29PacketSoundEffect(soundName, x, y, z, volume, pitch));
+        this.mcServer.getConfigurationManager().sendToAllNear(x, y, z, volume > 1.0F ? (16.0F * volume) : 16.0D, this.theWorldServer.provider.getDimensionId(), new S29PacketSoundEffect(soundName, x, y, z, volume, pitch));
     }
 
     public void playSoundToNearExcept(EntityPlayer except, String soundName, double x, double y, double z, float volume, float pitch) {
-        this.mcServer.getConfigurationManager().sendToAllNearExcept(except, x, y, z, volume > 1.0F ? (double) (16.0F * volume) : 16.0D, this.theWorldServer.provider.getDimensionId(), new S29PacketSoundEffect(soundName, x, y, z, volume, pitch));
+        this.mcServer.getConfigurationManager().sendToAllNearExcept(except, x, y, z, volume > 1.0F ? (16.0F * volume) : 16.0D, this.theWorldServer.provider.getDimensionId(), new S29PacketSoundEffect(soundName, x, y, z, volume, pitch));
     }
 
     public void markBlockRangeForRenderUpdate(int x1, int y1, int z1, int x2, int y2, int z2) {
@@ -52,7 +52,7 @@ public class WorldManager implements IWorldAccess {
     }
 
     public void playAuxSFX(EntityPlayer player, int sfxType, BlockPos blockPosIn, int data) {
-        this.mcServer.getConfigurationManager().sendToAllNearExcept(player, (double) blockPosIn.getX(), (double) blockPosIn.getY(), (double) blockPosIn.getZ(), 64.0D, this.theWorldServer.provider.getDimensionId(), new S28PacketEffect(sfxType, blockPosIn, data, false));
+        this.mcServer.getConfigurationManager().sendToAllNearExcept(player, blockPosIn.getX(), blockPosIn.getY(), blockPosIn.getZ(), 64.0D, this.theWorldServer.provider.getDimensionId(), new S28PacketEffect(sfxType, blockPosIn, data, false));
     }
 
     public void broadcastSound(int soundID, BlockPos pos, int data) {
@@ -62,9 +62,9 @@ public class WorldManager implements IWorldAccess {
     public void sendBlockBreakProgress(int breakerId, BlockPos pos, int progress) {
         for (EntityPlayerMP entityplayermp : this.mcServer.getConfigurationManager().getPlayerList()) {
             if (entityplayermp != null && entityplayermp.worldObj == this.theWorldServer && entityplayermp.getEntityId() != breakerId) {
-                double d0 = (double) pos.getX() - entityplayermp.posX;
-                double d1 = (double) pos.getY() - entityplayermp.posY;
-                double d2 = (double) pos.getZ() - entityplayermp.posZ;
+                double d0 = pos.getX() - entityplayermp.posX;
+                double d1 = pos.getY() - entityplayermp.posY;
+                double d2 = pos.getZ() - entityplayermp.posZ;
 
                 if (d0 * d0 + d1 * d1 + d2 * d2 < 1024.0D) {
                     entityplayermp.playerNetServerHandler.sendPacket(new S25PacketBlockBreakAnim(breakerId, pos, progress));

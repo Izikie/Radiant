@@ -15,7 +15,7 @@ public class LayerEnderDragonDeath implements LayerRenderer<EntityDragon> {
             Tessellator tessellator = Tessellator.getInstance();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             RenderHelper.disableStandardItemLighting();
-            float f = ((float) entitylivingbaseIn.deathTicks + partialTicks) / 200.0F;
+            float f = (entitylivingbaseIn.deathTicks + partialTicks) / 200.0F;
             float f1 = 0.0F;
 
             if (f > 0.8F) {
@@ -33,7 +33,7 @@ public class LayerEnderDragonDeath implements LayerRenderer<EntityDragon> {
             GlStateManager.pushMatrix();
             GlStateManager.translate(0.0F, -1.0F, -2.0F);
 
-            for (int i = 0; (float) i < (f + f * f) / 2.0F * 60.0F; ++i) {
+            for (int i = 0; i < (f + f * f) / 2.0F * 60.0F; ++i) {
                 GlStateManager.rotate(random.nextFloat() * 360.0F, 1.0F, 0.0F, 0.0F);
                 GlStateManager.rotate(random.nextFloat() * 360.0F, 0.0F, 1.0F, 0.0F);
                 GlStateManager.rotate(random.nextFloat() * 360.0F, 0.0F, 0.0F, 1.0F);
@@ -44,10 +44,10 @@ public class LayerEnderDragonDeath implements LayerRenderer<EntityDragon> {
                 float f3 = random.nextFloat() * 2.0F + 1.0F + f1 * 2.0F;
                 worldrenderer.begin(6, DefaultVertexFormats.POSITION_COLOR);
                 worldrenderer.pos(0.0D, 0.0D, 0.0D).color(255, 255, 255, (int) (255.0F * (1.0F - f1))).endVertex();
-                worldrenderer.pos(-0.866D * (double) f3, (double) f2, (double) (-0.5F * f3)).color(255, 0, 255, 0).endVertex();
-                worldrenderer.pos(0.866D * (double) f3, (double) f2, (double) (-0.5F * f3)).color(255, 0, 255, 0).endVertex();
-                worldrenderer.pos(0.0D, (double) f2, (double) (1.0F * f3)).color(255, 0, 255, 0).endVertex();
-                worldrenderer.pos(-0.866D * (double) f3, (double) f2, (double) (-0.5F * f3)).color(255, 0, 255, 0).endVertex();
+                worldrenderer.pos(-0.866D * f3, f2, (-0.5F * f3)).color(255, 0, 255, 0).endVertex();
+                worldrenderer.pos(0.866D * f3, f2, (-0.5F * f3)).color(255, 0, 255, 0).endVertex();
+                worldrenderer.pos(0.0D, f2, (1.0F * f3)).color(255, 0, 255, 0).endVertex();
+                worldrenderer.pos(-0.866D * f3, f2, (-0.5F * f3)).color(255, 0, 255, 0).endVertex();
                 tessellator.draw();
             }
 

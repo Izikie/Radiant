@@ -38,7 +38,7 @@ public class ShaderExpressionResolver implements IExpressionResolver {
             String s = biomegenbase.biomeName.trim();
             s = "BIOME_" + s.toUpperCase().replace(' ', '_');
             int j = biomegenbase.biomeID;
-            IExpression iexpression = new ConstantFloat((float) j);
+            IExpression iexpression = new ConstantFloat(j);
             this.registerExpression(s, iexpression);
         }
     }

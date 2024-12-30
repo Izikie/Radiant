@@ -48,8 +48,8 @@ public class GuiInventory extends InventoryEffectRenderer {
 
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
-        this.oldMouseX = (float) mouseX;
-        this.oldMouseY = (float) mouseY;
+        this.oldMouseX = mouseX;
+        this.oldMouseY = mouseY;
     }
 
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
@@ -58,14 +58,14 @@ public class GuiInventory extends InventoryEffectRenderer {
         int i = this.guiLeft;
         int j = this.guiTop;
         this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
-        drawEntityOnScreen(i + 51, j + 75, 30, (float) (i + 51) - this.oldMouseX, (float) (j + 75 - 50) - this.oldMouseY, this.mc.thePlayer);
+        drawEntityOnScreen(i + 51, j + 75, 30, (i + 51) - this.oldMouseX, (j + 75 - 50) - this.oldMouseY, this.mc.thePlayer);
     }
 
     public static void drawEntityOnScreen(int posX, int posY, int scale, float mouseX, float mouseY, EntityLivingBase ent) {
         GlStateManager.enableColorMaterial();
         GlStateManager.pushMatrix();
-        GlStateManager.translate((float) posX, (float) posY, 50.0F);
-        GlStateManager.scale((float) (-scale), (float) scale, (float) scale);
+        GlStateManager.translate(posX, posY, 50.0F);
+        GlStateManager.scale((-scale), scale, scale);
         GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
         float f = ent.renderYawOffset;
         float f1 = ent.rotationYaw;
@@ -75,10 +75,10 @@ public class GuiInventory extends InventoryEffectRenderer {
         GlStateManager.rotate(135.0F, 0.0F, 1.0F, 0.0F);
         RenderHelper.enableStandardItemLighting();
         GlStateManager.rotate(-135.0F, 0.0F, 1.0F, 0.0F);
-        GlStateManager.rotate(-((float) Math.atan((double) (mouseY / 40.0F))) * 20.0F, 1.0F, 0.0F, 0.0F);
-        ent.renderYawOffset = (float) Math.atan((double) (mouseX / 40.0F)) * 20.0F;
-        ent.rotationYaw = (float) Math.atan((double) (mouseX / 40.0F)) * 40.0F;
-        ent.rotationPitch = -((float) Math.atan((double) (mouseY / 40.0F))) * 20.0F;
+        GlStateManager.rotate(-((float) Math.atan((mouseY / 40.0F))) * 20.0F, 1.0F, 0.0F, 0.0F);
+        ent.renderYawOffset = (float) Math.atan((mouseX / 40.0F)) * 20.0F;
+        ent.rotationYaw = (float) Math.atan((mouseX / 40.0F)) * 40.0F;
+        ent.rotationPitch = -((float) Math.atan((mouseY / 40.0F))) * 20.0F;
         ent.rotationYawHead = ent.rotationYaw;
         ent.prevRotationYawHead = ent.rotationYaw;
         GlStateManager.translate(0.0F, 0.0F, 0.0F);

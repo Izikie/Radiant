@@ -51,9 +51,9 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
     public void doRender(EntityItemFrame entity, double x, double y, double z, float entityYaw, float partialTicks) {
         GlStateManager.pushMatrix();
         BlockPos blockpos = entity.getHangingPosition();
-        double d0 = (double) blockpos.getX() - entity.posX + x;
-        double d1 = (double) blockpos.getY() - entity.posY + y;
-        double d2 = (double) blockpos.getZ() - entity.posZ + z;
+        double d0 = blockpos.getX() - entity.posX + x;
+        double d1 = blockpos.getY() - entity.posY + y;
+        double d2 = blockpos.getZ() - entity.posZ + z;
         GlStateManager.translate(d0 + 0.5D, d1 + 0.5D, d2 + 0.5D);
         GlStateManager.rotate(180.0F - entity.rotationYaw, 0.0F, 1.0F, 0.0F);
         this.renderManager.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
@@ -74,7 +74,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
         GlStateManager.translate(0.0F, 0.0F, 0.4375F);
         this.renderItem(entity);
         GlStateManager.popMatrix();
-        this.renderName(entity, x + (double) ((float) entity.facingDirection.getFrontOffsetX() * 0.3F), y - 0.25D, z + (double) ((float) entity.facingDirection.getFrontOffsetZ() * 0.3F));
+        this.renderName(entity, x + (entity.facingDirection.getFrontOffsetX() * 0.3F), y - 0.25D, z + (entity.facingDirection.getFrontOffsetZ() * 0.3F));
     }
 
     protected ResourceLocation getEntityTexture(EntityItemFrame entity) {
@@ -110,7 +110,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
                 i = i % 4 * 2;
             }
 
-            GlStateManager.rotate((float) i * 360.0F / 8.0F, 0.0F, 0.0F, 1.0F);
+            GlStateManager.rotate(i * 360.0F / 8.0F, 0.0F, 0.0F, 1.0F);
 
             if (item instanceof ItemMap) {
                 this.renderManager.renderEngine.bindTexture(mapBackgroundTextures);
@@ -136,7 +136,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
                         double d2 = texturecompass.angleDelta;
                         texturecompass.currentAngle = 0.0D;
                         texturecompass.angleDelta = 0.0D;
-                        texturecompass.updateCompass(itemFrame.worldObj, itemFrame.posX, itemFrame.posZ, (double) MathHelper.wrapAngleTo180_float((float) (180 + itemFrame.facingDirection.getHorizontalIndex() * 90)), false, true);
+                        texturecompass.updateCompass(itemFrame.worldObj, itemFrame.posX, itemFrame.posZ, MathHelper.wrapAngleTo180_float((180 + itemFrame.facingDirection.getHorizontalIndex() * 90)), false, true);
                         texturecompass.currentAngle = d1;
                         texturecompass.angleDelta = d2;
                     } else {
@@ -173,7 +173,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
             double d0 = entity.getDistanceSqToEntity(this.renderManager.livingPlayer);
             float f2 = entity.isSneaking() ? 32.0F : 64.0F;
 
-            if (d0 < (double) (f2 * f2)) {
+            if (d0 < (f2 * f2)) {
                 String s = entity.getDisplayedItem().getDisplayName();
 
                 if (entity.isSneaking()) {
@@ -194,10 +194,10 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
                     int i = fontrenderer.getStringWidth(s) / 2;
                     GlStateManager.disableTexture2D();
                     worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-                    worldrenderer.pos((double) (-i - 1), -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-                    worldrenderer.pos((double) (-i - 1), 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-                    worldrenderer.pos((double) (i + 1), 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-                    worldrenderer.pos((double) (i + 1), -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    worldrenderer.pos((-i - 1), -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    worldrenderer.pos((-i - 1), 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    worldrenderer.pos((i + 1), 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    worldrenderer.pos((i + 1), -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
                     tessellator.draw();
                     GlStateManager.enableTexture2D();
                     GlStateManager.depthMask(true);
@@ -232,8 +232,8 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
 
     public static void updateItemRenderDistance() {
         Minecraft minecraft = Config.getMinecraft();
-        double d0 = (double) Config.limit(minecraft.gameSettings.fovSetting, 1.0F, 120.0F);
-        double d1 = Math.max(6.0D * (double) minecraft.displayHeight / d0, 16.0D);
+        double d0 = Config.limit(minecraft.gameSettings.fovSetting, 1.0F, 120.0F);
+        double d1 = Math.max(6.0D * minecraft.displayHeight / d0, 16.0D);
         itemRenderDistanceSq = d1 * d1;
     }
 }

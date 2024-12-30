@@ -242,7 +242,7 @@ public class WorldClient extends World {
             iblockstate.getBlock().randomDisplayTick(this, blockpos$mutableblockpos, iblockstate, random);
 
             if (flag && iblockstate.getBlock() == Blocks.barrier) {
-                this.spawnParticle(EnumParticleTypes.BARRIER, (double) ((float) k + 0.5F), (double) ((float) l + 0.5F), (double) ((float) i1 + 0.5F), 0.0D, 0.0D, 0.0D, new int[0]);
+                this.spawnParticle(EnumParticleTypes.BARRIER, (k + 0.5F), (l + 0.5F), (i1 + 0.5F), 0.0D, 0.0D, 0.0D, new int[0]);
             }
         }
     }
@@ -318,7 +318,7 @@ public class WorldClient extends World {
     }
 
     public void playSoundAtPos(BlockPos pos, String soundName, float volume, float pitch, boolean distanceDelay) {
-        this.playSound((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, soundName, volume, pitch, distanceDelay);
+        this.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, soundName, volume, pitch, distanceDelay);
     }
 
     public void playSound(double x, double y, double z, String soundName, float volume, float pitch, boolean distanceDelay) {

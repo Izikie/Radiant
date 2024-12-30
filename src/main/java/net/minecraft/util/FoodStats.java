@@ -15,7 +15,7 @@ public class FoodStats {
 
     public void addStats(int foodLevelIn, float foodSaturationModifier) {
         this.foodLevel = Math.min(foodLevelIn + this.foodLevel, 20);
-        this.foodSaturationLevel = Math.min(this.foodSaturationLevel + (float) foodLevelIn * foodSaturationModifier * 2.0F, (float) this.foodLevel);
+        this.foodSaturationLevel = Math.min(this.foodSaturationLevel + foodLevelIn * foodSaturationModifier * 2.0F, this.foodLevel);
     }
 
     public void addStats(ItemFood foodItem, ItemStack p_151686_2_) {

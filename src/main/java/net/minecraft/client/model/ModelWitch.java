@@ -40,10 +40,10 @@ public class ModelWitch extends ModelVillager {
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
         super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
         this.villagerNose.offsetX = this.villagerNose.offsetY = this.villagerNose.offsetZ = 0.0F;
-        float f = 0.01F * (float) (entityIn.getEntityId() % 10);
-        this.villagerNose.rotateAngleX = MathHelper.sin((float) entityIn.ticksExisted * f) * 4.5F * (float) Math.PI / 180.0F;
+        float f = 0.01F * (entityIn.getEntityId() % 10);
+        this.villagerNose.rotateAngleX = MathHelper.sin(entityIn.ticksExisted * f) * 4.5F * (float) Math.PI / 180.0F;
         this.villagerNose.rotateAngleY = 0.0F;
-        this.villagerNose.rotateAngleZ = MathHelper.cos((float) entityIn.ticksExisted * f) * 2.5F * (float) Math.PI / 180.0F;
+        this.villagerNose.rotateAngleZ = MathHelper.cos(entityIn.ticksExisted * f) * 2.5F * (float) Math.PI / 180.0F;
 
         if (this.field_82900_g) {
             this.villagerNose.rotateAngleX = -0.9F;

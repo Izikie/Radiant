@@ -100,12 +100,12 @@ public class BlockRedstoneTorch extends BlockTorch {
                 worldIn.setBlockState(pos, Blocks.unlit_redstone_torch.getDefaultState().withProperty(FACING, state.getValue(FACING)), 3);
 
                 if (this.isBurnedOut(worldIn, pos, true)) {
-                    worldIn.playSoundEffect((double) ((float) pos.getX() + 0.5F), (double) ((float) pos.getY() + 0.5F), (double) ((float) pos.getZ() + 0.5F), "random.fizz", 0.5F, 2.6F + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.8F);
+                    worldIn.playSoundEffect((pos.getX() + 0.5F), (pos.getY() + 0.5F), (pos.getZ() + 0.5F), "random.fizz", 0.5F, 2.6F + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.8F);
 
                     for (int i = 0; i < 5; ++i) {
-                        double d0 = (double) pos.getX() + rand.nextDouble() * 0.6D + 0.2D;
-                        double d1 = (double) pos.getY() + rand.nextDouble() * 0.6D + 0.2D;
-                        double d2 = (double) pos.getZ() + rand.nextDouble() * 0.6D + 0.2D;
+                        double d0 = pos.getX() + rand.nextDouble() * 0.6D + 0.2D;
+                        double d1 = pos.getY() + rand.nextDouble() * 0.6D + 0.2D;
+                        double d2 = pos.getZ() + rand.nextDouble() * 0.6D + 0.2D;
                         worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D, new int[0]);
                     }
 
@@ -139,17 +139,17 @@ public class BlockRedstoneTorch extends BlockTorch {
 
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (this.isOn) {
-            double d0 = (double) pos.getX() + 0.5D + (rand.nextDouble() - 0.5D) * 0.2D;
-            double d1 = (double) pos.getY() + 0.7D + (rand.nextDouble() - 0.5D) * 0.2D;
-            double d2 = (double) pos.getZ() + 0.5D + (rand.nextDouble() - 0.5D) * 0.2D;
+            double d0 = pos.getX() + 0.5D + (rand.nextDouble() - 0.5D) * 0.2D;
+            double d1 = pos.getY() + 0.7D + (rand.nextDouble() - 0.5D) * 0.2D;
+            double d2 = pos.getZ() + 0.5D + (rand.nextDouble() - 0.5D) * 0.2D;
             EnumFacing enumfacing = (EnumFacing) state.getValue(FACING);
 
             if (enumfacing.getAxis().isHorizontal()) {
                 EnumFacing enumfacing1 = enumfacing.getOpposite();
                 double d3 = 0.27D;
-                d0 += 0.27D * (double) enumfacing1.getFrontOffsetX();
+                d0 += 0.27D * enumfacing1.getFrontOffsetX();
                 d1 += 0.22D;
-                d2 += 0.27D * (double) enumfacing1.getFrontOffsetZ();
+                d2 += 0.27D * enumfacing1.getFrontOffsetZ();
             }
 
             worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d0, d1, d2, 0.0D, 0.0D, 0.0D, new int[0]);

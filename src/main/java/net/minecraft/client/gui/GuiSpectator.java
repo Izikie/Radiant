@@ -34,7 +34,7 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
 
     private float func_175265_c() {
         long i = this.field_175270_h - Minecraft.getSystemTime() + 5000L;
-        return MathHelper.clamp_float((float) i / 2000.0F, 0.0F, 1.0F);
+        return MathHelper.clamp_float(i / 2000.0F, 0.0F, 1.0F);
     }
 
     public void renderTooltip(ScaledResolution p_175264_1_, float p_175264_2_) {
@@ -47,7 +47,7 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
                 int i = p_175264_1_.getScaledWidth() / 2;
                 float f1 = this.zLevel;
                 this.zLevel = -90.0F;
-                float f2 = (float) p_175264_1_.getScaledHeight() - 22.0F * f;
+                float f2 = p_175264_1_.getScaledHeight() - 22.0F * f;
                 SpectatorDetails spectatordetails = this.field_175271_i.func_178646_f();
                 this.func_175258_a(p_175264_1_, f, i, f2, spectatordetails);
                 this.zLevel = f1;
@@ -61,10 +61,10 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
         GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
         GlStateManager.color(1.0F, 1.0F, 1.0F, p_175258_2_);
         this.field_175268_g.getTextureManager().bindTexture(field_175267_f);
-        this.drawTexturedModalRect((float) (p_175258_3_ - 91), p_175258_4_, 0, 0, 182, 22);
+        this.drawTexturedModalRect((p_175258_3_ - 91), p_175258_4_, 0, 0, 182, 22);
 
         if (p_175258_5_.func_178681_b() >= 0) {
-            this.drawTexturedModalRect((float) (p_175258_3_ - 91 - 1 + p_175258_5_.func_178681_b() * 20), p_175258_4_ - 1.0F, 0, 22, 24, 22);
+            this.drawTexturedModalRect((p_175258_3_ - 91 - 1 + p_175258_5_.func_178681_b() * 20), p_175258_4_ - 1.0F, 0, 22, 24, 22);
         }
 
         RenderHelper.enableGUIStandardItemLighting();
@@ -84,7 +84,7 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
         if (p_175266_5_ != SpectatorMenu.field_178657_a) {
             int i = (int) (p_175266_4_ * 255.0F);
             GlStateManager.pushMatrix();
-            GlStateManager.translate((float) p_175266_2_, p_175266_3_, 0.0F);
+            GlStateManager.translate(p_175266_2_, p_175266_3_, 0.0F);
             float f = p_175266_5_.func_178662_A_() ? 1.0F : 0.25F;
             GlStateManager.color(f, f, f, p_175266_4_);
             p_175266_5_.func_178663_a(f, i);
@@ -92,7 +92,7 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
             String s = String.valueOf((Object) GameSettings.getKeyDisplayString(this.field_175268_g.gameSettings.keyBindsHotbar[p_175266_1_].getKeyCode()));
 
             if (i > 3 && p_175266_5_.func_178662_A_()) {
-                this.field_175268_g.fontRendererObj.drawStringWithShadow(s, (float) (p_175266_2_ + 19 - 2 - this.field_175268_g.fontRendererObj.getStringWidth(s)), p_175266_3_ + 6.0F + 3.0F, 16777215 + (i << 24));
+                this.field_175268_g.fontRendererObj.drawStringWithShadow(s, (p_175266_2_ + 19 - 2 - this.field_175268_g.fontRendererObj.getStringWidth(s)), p_175266_3_ + 6.0F + 3.0F, 16777215 + (i << 24));
             }
         }
     }
@@ -110,7 +110,7 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
                 GlStateManager.pushMatrix();
                 GlStateManager.enableBlend();
                 GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-                this.field_175268_g.fontRendererObj.drawStringWithShadow(s, (float) j, (float) k, 16777215 + (i << 24));
+                this.field_175268_g.fontRendererObj.drawStringWithShadow(s, j, k, 16777215 + (i << 24));
                 GlStateManager.disableBlend();
                 GlStateManager.popMatrix();
             }

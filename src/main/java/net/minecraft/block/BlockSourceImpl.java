@@ -20,15 +20,15 @@ public class BlockSourceImpl implements IBlockSource {
     }
 
     public double getX() {
-        return (double) this.pos.getX() + 0.5D;
+        return this.pos.getX() + 0.5D;
     }
 
     public double getY() {
-        return (double) this.pos.getY() + 0.5D;
+        return this.pos.getY() + 0.5D;
     }
 
     public double getZ() {
-        return (double) this.pos.getZ() + 0.5D;
+        return this.pos.getZ() + 0.5D;
     }
 
     public BlockPos getBlockPos() {

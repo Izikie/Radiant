@@ -49,8 +49,8 @@ public class CloudRenderer {
             return true;
         } else {
             Entity entity = this.mc.getRenderViewEntity();
-            boolean flag = this.updatePlayerY + (double) entity.getEyeHeight() < 128.0D + (double) (this.mc.gameSettings.ofCloudsHeight * 128.0F);
-            boolean flag1 = entity.prevPosY + (double) entity.getEyeHeight() < 128.0D + (double) (this.mc.gameSettings.ofCloudsHeight * 128.0F);
+            boolean flag = this.updatePlayerY + entity.getEyeHeight() < 128.0D + (this.mc.gameSettings.ofCloudsHeight * 128.0F);
+            boolean flag1 = entity.prevPosY + entity.getEyeHeight() < 128.0D + (this.mc.gameSettings.ofCloudsHeight * 128.0F);
             return flag1 != flag;
         }
     }
@@ -73,10 +73,10 @@ public class CloudRenderer {
 
     public void renderGlList() {
         Entity entity = this.mc.getRenderViewEntity();
-        double d0 = entity.prevPosX + (entity.posX - entity.prevPosX) * (double) this.partialTicks;
-        double d1 = entity.prevPosY + (entity.posY - entity.prevPosY) * (double) this.partialTicks;
-        double d2 = entity.prevPosZ + (entity.posZ - entity.prevPosZ) * (double) this.partialTicks;
-        double d3 = (double) ((float) (this.cloudTickCounter - this.updateCloudTickCounter) + this.partialTicks);
+        double d0 = entity.prevPosX + (entity.posX - entity.prevPosX) * this.partialTicks;
+        double d1 = entity.prevPosY + (entity.posY - entity.prevPosY) * this.partialTicks;
+        double d2 = entity.prevPosZ + (entity.posZ - entity.prevPosZ) * this.partialTicks;
+        double d3 = ((this.cloudTickCounter - this.updateCloudTickCounter) + this.partialTicks);
         float f = (float) (d0 - this.updatePlayerX + d3 * 0.03D);
         float f1 = (float) (d1 - this.updatePlayerY);
         float f2 = (float) (d2 - this.updatePlayerZ);

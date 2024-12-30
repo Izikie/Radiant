@@ -38,7 +38,7 @@ public class BlockPos extends Vec3i {
     }
 
     public BlockPos add(double x, double y, double z) {
-        return x == 0.0D && y == 0.0D && z == 0.0D ? this : new BlockPos((double) this.getX() + x, (double) this.getY() + y, (double) this.getZ() + z);
+        return x == 0.0D && y == 0.0D && z == 0.0D ? this : new BlockPos(this.getX() + x, this.getY() + y, this.getZ() + z);
     }
 
     public BlockPos add(int x, int y, int z) {
@@ -114,7 +114,7 @@ public class BlockPos extends Vec3i {
     }
 
     public long toLong() {
-        return ((long) this.getX() & X_MASK) << X_SHIFT | ((long) this.getY() & Y_MASK) << Y_SHIFT | ((long) this.getZ() & Z_MASK);
+        return (this.getX() & X_MASK) << X_SHIFT | (this.getY() & Y_MASK) << Y_SHIFT | (this.getZ() & Z_MASK);
     }
 
     public static BlockPos fromLong(long serialized) {

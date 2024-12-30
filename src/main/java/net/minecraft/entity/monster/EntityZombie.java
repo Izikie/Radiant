@@ -124,7 +124,7 @@ public class EntityZombie extends EntityMob {
 
     protected int getExperiencePoints(EntityPlayer player) {
         if (this.isChild()) {
-            this.experienceValue = (int) ((float) this.experienceValue * 2.5F);
+            this.experienceValue = (int) (this.experienceValue * 2.5F);
         }
 
         return super.getExperiencePoints(player);
@@ -156,7 +156,7 @@ public class EntityZombie extends EntityMob {
     public void onLivingUpdate() {
         if (this.worldObj.isDaytime() && !this.worldObj.isRemote && !this.isChild()) {
             float f = this.getBrightness(1.0F);
-            BlockPos blockpos = new BlockPos(this.posX, (double) Math.round(this.posY), this.posZ);
+            BlockPos blockpos = new BlockPos(this.posX, Math.round(this.posY), this.posZ);
 
             if (f > 0.5F && this.rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && this.worldObj.canSeeSky(blockpos)) {
                 boolean flag = true;
@@ -196,7 +196,7 @@ public class EntityZombie extends EntityMob {
                 entitylivingbase = (EntityLivingBase) source.getEntity();
             }
 
-            if (entitylivingbase != null && this.worldObj.getDifficulty() == EnumDifficulty.HARD && (double) this.rand.nextFloat() < this.getEntityAttribute(reinforcementChance).getAttributeValue()) {
+            if (entitylivingbase != null && this.worldObj.getDifficulty() == EnumDifficulty.HARD && this.rand.nextFloat() < this.getEntityAttribute(reinforcementChance).getAttributeValue()) {
                 int i = MathHelper.floor_double(this.posX);
                 int j = MathHelper.floor_double(this.posY);
                 int k = MathHelper.floor_double(this.posZ);
@@ -208,9 +208,9 @@ public class EntityZombie extends EntityMob {
                     int k1 = k + MathHelper.getRandomIntegerInRange(this.rand, 7, 40) * MathHelper.getRandomIntegerInRange(this.rand, -1, 1);
 
                     if (World.doesBlockHaveSolidTopSurface(this.worldObj, new BlockPos(i1, j1 - 1, k1)) && this.worldObj.getLightFromNeighbors(new BlockPos(i1, j1, k1)) < 10) {
-                        entityzombie.setPosition((double) i1, (double) j1, (double) k1);
+                        entityzombie.setPosition(i1, j1, k1);
 
-                        if (!this.worldObj.isAnyPlayerWithinRangeAt((double) i1, (double) j1, (double) k1, 7.0D) && this.worldObj.checkNoEntityCollision(entityzombie.getEntityBoundingBox(), entityzombie) && this.worldObj.getCollidingBoundingBoxes(entityzombie, entityzombie.getEntityBoundingBox()).isEmpty() && !this.worldObj.isAnyLiquid(entityzombie.getEntityBoundingBox())) {
+                        if (!this.worldObj.isAnyPlayerWithinRangeAt(i1, j1, k1, 7.0D) && this.worldObj.checkNoEntityCollision(entityzombie.getEntityBoundingBox(), entityzombie) && this.worldObj.getCollidingBoundingBoxes(entityzombie, entityzombie.getEntityBoundingBox()).isEmpty() && !this.worldObj.isAnyLiquid(entityzombie.getEntityBoundingBox())) {
                             this.worldObj.spawnEntityInWorld(entityzombie);
                             entityzombie.setAttackTarget(entitylivingbase);
                             entityzombie.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(entityzombie)), (IEntityLivingData) null);
@@ -247,7 +247,7 @@ public class EntityZombie extends EntityMob {
         if (flag) {
             int i = this.worldObj.getDifficulty().getDifficultyId();
 
-            if (this.getHeldItem() == null && this.isBurning() && this.rand.nextFloat() < (float) i * 0.3F) {
+            if (this.getHeldItem() == null && this.isBurning() && this.rand.nextFloat() < i * 0.3F) {
                 entityIn.setFire(2 * i);
             }
         }
@@ -375,7 +375,7 @@ public class EntityZombie extends EntityMob {
         float f = 1.74F;
 
         if (this.isChild()) {
-            f = (float) ((double) f - 0.81D);
+            f = (float) (f - 0.81D);
         }
 
         return f;
@@ -403,7 +403,7 @@ public class EntityZombie extends EntityMob {
             if (entityzombie$groupdata.isChild) {
                 this.setChild(true);
 
-                if ((double) this.worldObj.rand.nextFloat() < 0.05D) {
+                if (this.worldObj.rand.nextFloat() < 0.05D) {
                     List<EntityChicken> list = this.worldObj.getEntitiesWithinAABB(EntityChicken.class, this.getEntityBoundingBox().expand(5.0D, 3.0D, 5.0D), EntitySelectors.IS_STANDALONE);
 
                     if (!list.isEmpty()) {
@@ -411,7 +411,7 @@ public class EntityZombie extends EntityMob {
                         entitychicken.setChickenJockey(true);
                         this.mountEntity(entitychicken);
                     }
-                } else if ((double) this.worldObj.rand.nextFloat() < 0.05D) {
+                } else if (this.worldObj.rand.nextFloat() < 0.05D) {
                     EntityChicken entitychicken1 = new EntityChicken(this.worldObj);
                     entitychicken1.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
                     entitychicken1.onInitialSpawn(difficulty, (IEntityLivingData) null);
@@ -436,7 +436,7 @@ public class EntityZombie extends EntityMob {
         }
 
         this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextDouble() * 0.05000000074505806D, 0));
-        double d0 = this.rand.nextDouble() * 1.5D * (double) f;
+        double d0 = this.rand.nextDouble() * 1.5D * f;
 
         if (d0 > 1.0D) {
             this.getEntityAttribute(SharedMonsterAttributes.followRange).applyModifier(new AttributeModifier("Random zombie-spawn bonus", d0, 2));

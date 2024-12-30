@@ -70,14 +70,14 @@ public class CommandTime extends CommandBase {
 
     protected void setTime(ICommandSender sender, int time) {
         for (int i = 0; i < MinecraftServer.getServer().worldServers.length; ++i) {
-            MinecraftServer.getServer().worldServers[i].setWorldTime((long) time);
+            MinecraftServer.getServer().worldServers[i].setWorldTime(time);
         }
     }
 
     protected void addTime(ICommandSender sender, int time) {
         for (int i = 0; i < MinecraftServer.getServer().worldServers.length; ++i) {
             WorldServer worldserver = MinecraftServer.getServer().worldServers[i];
-            worldserver.setWorldTime(worldserver.getWorldTime() + (long) time);
+            worldserver.setWorldTime(worldserver.getWorldTime() + time);
         }
     }
 }

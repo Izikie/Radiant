@@ -61,7 +61,7 @@ public class TileEntitySign extends TileEntity {
             }
 
             public Vec3 getPositionVector() {
-                return new Vec3((double) TileEntitySign.this.pos.getX() + 0.5D, (double) TileEntitySign.this.pos.getY() + 0.5D, (double) TileEntitySign.this.pos.getZ() + 0.5D);
+                return new Vec3(TileEntitySign.this.pos.getX() + 0.5D, TileEntitySign.this.pos.getY() + 0.5D, TileEntitySign.this.pos.getZ() + 0.5D);
             }
 
             public World getEntityWorld() {
@@ -151,7 +151,7 @@ public class TileEntitySign extends TileEntity {
             }
 
             public Vec3 getPositionVector() {
-                return new Vec3((double) TileEntitySign.this.pos.getX() + 0.5D, (double) TileEntitySign.this.pos.getY() + 0.5D, (double) TileEntitySign.this.pos.getZ() + 0.5D);
+                return new Vec3(TileEntitySign.this.pos.getX() + 0.5D, TileEntitySign.this.pos.getY() + 0.5D, TileEntitySign.this.pos.getZ() + 0.5D);
             }
 
             public World getEntityWorld() {

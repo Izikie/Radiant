@@ -741,16 +741,16 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
             this.iconGridCountX = p_updateIconGrid_1_ / this.iconGridSize;
             this.iconGridCountY = p_updateIconGrid_2_ / this.iconGridSize;
             this.iconGrid = new TextureAtlasSprite[this.iconGridCountX * this.iconGridCountY];
-            this.iconGridSizeU = 1.0D / (double) this.iconGridCountX;
-            this.iconGridSizeV = 1.0D / (double) this.iconGridCountY;
+            this.iconGridSizeU = 1.0D / this.iconGridCountX;
+            this.iconGridSizeV = 1.0D / this.iconGridCountY;
 
             for (TextureAtlasSprite textureatlassprite : this.mapUploadedSprites.values()) {
-                double d0 = 0.5D / (double) p_updateIconGrid_1_;
-                double d1 = 0.5D / (double) p_updateIconGrid_2_;
-                double d2 = (double) Math.min(textureatlassprite.getMinU(), textureatlassprite.getMaxU()) + d0;
-                double d3 = (double) Math.min(textureatlassprite.getMinV(), textureatlassprite.getMaxV()) + d1;
-                double d4 = (double) Math.max(textureatlassprite.getMinU(), textureatlassprite.getMaxU()) - d0;
-                double d5 = (double) Math.max(textureatlassprite.getMinV(), textureatlassprite.getMaxV()) - d1;
+                double d0 = 0.5D / p_updateIconGrid_1_;
+                double d1 = 0.5D / p_updateIconGrid_2_;
+                double d2 = Math.min(textureatlassprite.getMinU(), textureatlassprite.getMaxU()) + d0;
+                double d3 = Math.min(textureatlassprite.getMinV(), textureatlassprite.getMaxV()) + d1;
+                double d4 = Math.max(textureatlassprite.getMinU(), textureatlassprite.getMaxU()) - d0;
+                double d5 = Math.max(textureatlassprite.getMinV(), textureatlassprite.getMaxV()) - d1;
                 int i = (int) (d2 / this.iconGridSizeU);
                 int j = (int) (d3 / this.iconGridSizeV);
                 int k = (int) (d4 / this.iconGridSizeU);

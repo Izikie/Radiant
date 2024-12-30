@@ -38,8 +38,8 @@ public class CommandSpreadPlayers extends CommandBase {
         } else {
             int i = 0;
             BlockPos blockpos = sender.getPosition();
-            double d0 = parseDouble((double) blockpos.getX(), args[i++], true);
-            double d1 = parseDouble((double) blockpos.getZ(), args[i++], true);
+            double d0 = parseDouble(blockpos.getX(), args[i++], true);
+            double d1 = parseDouble(blockpos.getZ(), args[i++], true);
             double d2 = parseDouble(args[i++], 0.0D);
             double d3 = parseDouble(args[i++], d2 + 1.0D);
             boolean flag = parseBoolean(args[i++]);
@@ -137,9 +137,9 @@ public class CommandSpreadPlayers extends CommandBase {
                 }
 
                 if (k > 0) {
-                    commandspreadplayers$position1.field_111101_a /= (double) k;
-                    commandspreadplayers$position1.field_111100_b /= (double) k;
-                    double d2 = (double) commandspreadplayers$position1.func_111096_b();
+                    commandspreadplayers$position1.field_111101_a /= k;
+                    commandspreadplayers$position1.field_111100_b /= k;
+                    double d2 = commandspreadplayers$position1.func_111096_b();
 
                     if (d2 > 0.0D) {
                         commandspreadplayers$position1.func_111095_a();
@@ -194,7 +194,7 @@ public class CommandSpreadPlayers extends CommandBase {
                 commandspreadplayers$position = p_110671_3_[i++];
             }
 
-            entity.setPositionAndUpdate((double) ((float) MathHelper.floor_double(commandspreadplayers$position.field_111101_a) + 0.5F), (double) commandspreadplayers$position.func_111092_a(worldIn), (double) MathHelper.floor_double(commandspreadplayers$position.field_111100_b) + 0.5D);
+            entity.setPositionAndUpdate((MathHelper.floor_double(commandspreadplayers$position.field_111101_a) + 0.5F), commandspreadplayers$position.func_111092_a(worldIn), MathHelper.floor_double(commandspreadplayers$position.field_111100_b) + 0.5D);
             double d2 = Double.MAX_VALUE;
 
             for (Position position : p_110671_3_) {
@@ -207,7 +207,7 @@ public class CommandSpreadPlayers extends CommandBase {
             d0 += d2;
         }
 
-        d0 = d0 / (double) p_110671_1_.size();
+        d0 = d0 / p_110671_1_.size();
         return d0;
     }
 
@@ -246,7 +246,7 @@ public class CommandSpreadPlayers extends CommandBase {
         }
 
         void func_111095_a() {
-            double d0 = (double) this.func_111096_b();
+            double d0 = this.func_111096_b();
             this.field_111101_a /= d0;
             this.field_111100_b /= d0;
         }

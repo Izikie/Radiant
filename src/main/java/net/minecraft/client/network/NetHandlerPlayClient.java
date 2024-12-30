@@ -250,9 +250,9 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 
     public void handleSpawnObject(S0EPacketSpawnObject packetIn) {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.gameController);
-        double d0 = (double) packetIn.getX() / 32.0D;
-        double d1 = (double) packetIn.getY() / 32.0D;
-        double d2 = (double) packetIn.getZ() / 32.0D;
+        double d0 = packetIn.getX() / 32.0D;
+        double d1 = packetIn.getY() / 32.0D;
+        double d2 = packetIn.getZ() / 32.0D;
         Entity entity = null;
 
         switch (packetIn.getType()) {
@@ -264,10 +264,10 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
             case 60 -> entity = new EntityArrow(this.clientWorldController, d0, d1, d2);
             case 61 -> entity = new EntitySnowball(this.clientWorldController, d0, d1, d2);
             case 62 -> entity = new EntityEgg(this.clientWorldController, d0, d1, d2);
-            case 63 -> entity = new EntityLargeFireball(this.clientWorldController, d0, d1, d2, (double) packetIn.getSpeedX() / 8000.0D, (double) packetIn.getSpeedY() / 8000.0D, (double) packetIn.getSpeedZ() / 8000.0D);
-            case 64 -> entity = new EntitySmallFireball(this.clientWorldController, d0, d1, d2, (double) packetIn.getSpeedX() / 8000.0D, (double) packetIn.getSpeedY() / 8000.0D, (double) packetIn.getSpeedZ() / 8000.0D);
+            case 63 -> entity = new EntityLargeFireball(this.clientWorldController, d0, d1, d2, packetIn.getSpeedX() / 8000.0D, packetIn.getSpeedY() / 8000.0D, packetIn.getSpeedZ() / 8000.0D);
+            case 64 -> entity = new EntitySmallFireball(this.clientWorldController, d0, d1, d2, packetIn.getSpeedX() / 8000.0D, packetIn.getSpeedY() / 8000.0D, packetIn.getSpeedZ() / 8000.0D);
             case 65 -> entity = new EntityEnderPearl(this.clientWorldController, d0, d1, d2);
-            case 66 -> entity = new EntityWitherSkull(this.clientWorldController, d0, d1, d2, (double) packetIn.getSpeedX() / 8000.0D, (double) packetIn.getSpeedY() / 8000.0D, (double) packetIn.getSpeedZ() / 8000.0D);
+            case 66 -> entity = new EntityWitherSkull(this.clientWorldController, d0, d1, d2, packetIn.getSpeedX() / 8000.0D, packetIn.getSpeedY() / 8000.0D, packetIn.getSpeedZ() / 8000.0D);
             case 70 -> entity = new EntityFallingBlock(this.clientWorldController, d0, d1, d2, Block.getStateById(packetIn.getExtraData() & 65535));
             case 71 -> entity = new EntityItemFrame(this.clientWorldController, new BlockPos(MathHelper.floor_double(d0), MathHelper.floor_double(d1), MathHelper.floor_double(d2)), EnumFacing.getHorizontal(packetIn.getExtraData()));
             case 72 -> entity = new EntityEnderEye(this.clientWorldController, d0, d1, d2);
@@ -289,8 +289,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
             entity.serverPosX = packetIn.getX();
             entity.serverPosY = packetIn.getY();
             entity.serverPosZ = packetIn.getZ();
-            entity.rotationPitch = (float) (packetIn.getPitch() * 360) / 256.0F;
-            entity.rotationYaw = (float) (packetIn.getYaw() * 360) / 256.0F;
+            entity.rotationPitch = (packetIn.getPitch() * 360) / 256.0F;
+            entity.rotationYaw = (packetIn.getYaw() * 360) / 256.0F;
             Entity[] aentity = entity.getParts();
 
             if (aentity != null) {
@@ -313,14 +313,14 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
                     }
                 }
 
-                entity.setVelocity((double) packetIn.getSpeedX() / 8000.0D, (double) packetIn.getSpeedY() / 8000.0D, (double) packetIn.getSpeedZ() / 8000.0D);
+                entity.setVelocity(packetIn.getSpeedX() / 8000.0D, packetIn.getSpeedY() / 8000.0D, packetIn.getSpeedZ() / 8000.0D);
             }
         }
     }
 
     public void handleSpawnExperienceOrb(S11PacketSpawnExperienceOrb packetIn) {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.gameController);
-        Entity entity = new EntityXPOrb(this.clientWorldController, (double) packetIn.getX() / 32.0D, (double) packetIn.getY() / 32.0D, (double) packetIn.getZ() / 32.0D, packetIn.getXPValue());
+        Entity entity = new EntityXPOrb(this.clientWorldController, packetIn.getX() / 32.0D, packetIn.getY() / 32.0D, packetIn.getZ() / 32.0D, packetIn.getXPValue());
         entity.serverPosX = packetIn.getX();
         entity.serverPosY = packetIn.getY();
         entity.serverPosZ = packetIn.getZ();
@@ -332,9 +332,9 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 
     public void handleSpawnGlobalEntity(S2CPacketSpawnGlobalEntity packetIn) {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.gameController);
-        double d0 = (double) packetIn.func_149051_d() / 32.0D;
-        double d1 = (double) packetIn.func_149050_e() / 32.0D;
-        double d2 = (double) packetIn.func_149049_f() / 32.0D;
+        double d0 = packetIn.func_149051_d() / 32.0D;
+        double d1 = packetIn.func_149050_e() / 32.0D;
+        double d2 = packetIn.func_149049_f() / 32.0D;
         Entity entity = null;
 
         if (packetIn.func_149053_g() == 1) {
@@ -363,7 +363,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         Entity entity = this.clientWorldController.getEntityByID(packetIn.getEntityID());
 
         if (entity != null) {
-            entity.setVelocity((double) packetIn.getMotionX() / 8000.0D, (double) packetIn.getMotionY() / 8000.0D, (double) packetIn.getMotionZ() / 8000.0D);
+            entity.setVelocity(packetIn.getMotionX() / 8000.0D, packetIn.getMotionY() / 8000.0D, packetIn.getMotionZ() / 8000.0D);
         }
     }
 
@@ -378,15 +378,15 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 
     public void handleSpawnPlayer(S0CPacketSpawnPlayer packetIn) {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.gameController);
-        double d0 = (double) packetIn.getX() / 32.0D;
-        double d1 = (double) packetIn.getY() / 32.0D;
-        double d2 = (double) packetIn.getZ() / 32.0D;
-        float f = (float) (packetIn.getYaw() * 360) / 256.0F;
-        float f1 = (float) (packetIn.getPitch() * 360) / 256.0F;
+        double d0 = packetIn.getX() / 32.0D;
+        double d1 = packetIn.getY() / 32.0D;
+        double d2 = packetIn.getZ() / 32.0D;
+        float f = (packetIn.getYaw() * 360) / 256.0F;
+        float f1 = (packetIn.getPitch() * 360) / 256.0F;
         EntityOtherPlayerMP entityotherplayermp = new EntityOtherPlayerMP(this.gameController.theWorld, this.getPlayerInfo(packetIn.getPlayer()).getGameProfile());
-        entityotherplayermp.prevPosX = entityotherplayermp.lastTickPosX = (double) (entityotherplayermp.serverPosX = packetIn.getX());
-        entityotherplayermp.prevPosY = entityotherplayermp.lastTickPosY = (double) (entityotherplayermp.serverPosY = packetIn.getY());
-        entityotherplayermp.prevPosZ = entityotherplayermp.lastTickPosZ = (double) (entityotherplayermp.serverPosZ = packetIn.getZ());
+        entityotherplayermp.prevPosX = entityotherplayermp.lastTickPosX = (entityotherplayermp.serverPosX = packetIn.getX());
+        entityotherplayermp.prevPosY = entityotherplayermp.lastTickPosY = (entityotherplayermp.serverPosY = packetIn.getY());
+        entityotherplayermp.prevPosZ = entityotherplayermp.lastTickPosZ = (entityotherplayermp.serverPosZ = packetIn.getZ());
         int i = packetIn.getCurrentItemID();
 
         if (i == 0) {
@@ -412,11 +412,11 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
             entity.serverPosX = packetIn.getX();
             entity.serverPosY = packetIn.getY();
             entity.serverPosZ = packetIn.getZ();
-            double d0 = (double) entity.serverPosX / 32.0D;
-            double d1 = (double) entity.serverPosY / 32.0D;
-            double d2 = (double) entity.serverPosZ / 32.0D;
-            float f = (float) (packetIn.getYaw() * 360) / 256.0F;
-            float f1 = (float) (packetIn.getPitch() * 360) / 256.0F;
+            double d0 = entity.serverPosX / 32.0D;
+            double d1 = entity.serverPosY / 32.0D;
+            double d2 = entity.serverPosZ / 32.0D;
+            float f = (packetIn.getYaw() * 360) / 256.0F;
+            float f1 = (packetIn.getPitch() * 360) / 256.0F;
 
             if (Math.abs(entity.posX - d0) < 0.03125D && Math.abs(entity.posY - d1) < 0.015625D && Math.abs(entity.posZ - d2) < 0.03125D) {
                 entity.setPositionAndRotation2(entity.posX, entity.posY, entity.posZ, f, f1, 3, true);
@@ -444,11 +444,11 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
             entity.serverPosX += packetIn.func_149062_c();
             entity.serverPosY += packetIn.func_149061_d();
             entity.serverPosZ += packetIn.func_149064_e();
-            double d0 = (double) entity.serverPosX / 32.0D;
-            double d1 = (double) entity.serverPosY / 32.0D;
-            double d2 = (double) entity.serverPosZ / 32.0D;
-            float f = packetIn.func_149060_h() ? (float) (packetIn.func_149066_f() * 360) / 256.0F : entity.rotationYaw;
-            float f1 = packetIn.func_149060_h() ? (float) (packetIn.func_149063_g() * 360) / 256.0F : entity.rotationPitch;
+            double d0 = entity.serverPosX / 32.0D;
+            double d1 = entity.serverPosY / 32.0D;
+            double d2 = entity.serverPosZ / 32.0D;
+            float f = packetIn.func_149060_h() ? (packetIn.func_149066_f() * 360) / 256.0F : entity.rotationYaw;
+            float f1 = packetIn.func_149060_h() ? (packetIn.func_149063_g() * 360) / 256.0F : entity.rotationPitch;
             entity.setPositionAndRotation2(d0, d1, d2, f, f1, 3, false);
             entity.onGround = packetIn.getOnGround();
         }
@@ -459,7 +459,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         Entity entity = packetIn.getEntity(this.clientWorldController);
 
         if (entity != null) {
-            float f = (float) (packetIn.getYaw() * 360) / 256.0F;
+            float f = (packetIn.getYaw() * 360) / 256.0F;
             entity.setRotationYawHead(f);
         }
     }
@@ -631,16 +631,16 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 
     public void handleSpawnMob(S0FPacketSpawnMob packetIn) {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.gameController);
-        double d0 = (double) packetIn.getX() / 32.0D;
-        double d1 = (double) packetIn.getY() / 32.0D;
-        double d2 = (double) packetIn.getZ() / 32.0D;
-        float f = (float) (packetIn.getYaw() * 360) / 256.0F;
-        float f1 = (float) (packetIn.getPitch() * 360) / 256.0F;
+        double d0 = packetIn.getX() / 32.0D;
+        double d1 = packetIn.getY() / 32.0D;
+        double d2 = packetIn.getZ() / 32.0D;
+        float f = (packetIn.getYaw() * 360) / 256.0F;
+        float f1 = (packetIn.getPitch() * 360) / 256.0F;
         EntityLivingBase entitylivingbase = (EntityLivingBase) EntityList.createEntityByID(packetIn.getEntityType(), this.gameController.theWorld);
         entitylivingbase.serverPosX = packetIn.getX();
         entitylivingbase.serverPosY = packetIn.getY();
         entitylivingbase.serverPosZ = packetIn.getZ();
-        entitylivingbase.renderYawOffset = entitylivingbase.rotationYawHead = (float) (packetIn.getHeadPitch() * 360) / 256.0F;
+        entitylivingbase.renderYawOffset = entitylivingbase.rotationYawHead = (packetIn.getHeadPitch() * 360) / 256.0F;
         Entity[] aentity = entitylivingbase.getParts();
 
         if (aentity != null) {
@@ -653,9 +653,9 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 
         entitylivingbase.setEntityId(packetIn.getEntityID());
         entitylivingbase.setPositionAndRotation(d0, d1, d2, f, f1);
-        entitylivingbase.motionX = (double) ((float) packetIn.getVelocityX() / 8000.0F);
-        entitylivingbase.motionY = (double) ((float) packetIn.getVelocityY() / 8000.0F);
-        entitylivingbase.motionZ = (double) ((float) packetIn.getVelocityZ() / 8000.0F);
+        entitylivingbase.motionX = (packetIn.getVelocityX() / 8000.0F);
+        entitylivingbase.motionY = (packetIn.getVelocityY() / 8000.0F);
+        entitylivingbase.motionZ = (packetIn.getVelocityZ() / 8000.0F);
         this.clientWorldController.addEntityToWorld(packetIn.getEntityID(), entitylivingbase);
         List<DataWatcher.WatchableObject> list = packetIn.func_149027_c();
 
@@ -761,9 +761,9 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.gameController);
         Explosion explosion = new Explosion(this.gameController.theWorld, (Entity) null, packetIn.getX(), packetIn.getY(), packetIn.getZ(), packetIn.getStrength(), packetIn.getAffectedBlockPositions());
         explosion.doExplosionB(true);
-        this.gameController.thePlayer.motionX += (double) packetIn.func_149149_c();
-        this.gameController.thePlayer.motionY += (double) packetIn.func_149144_d();
-        this.gameController.thePlayer.motionZ += (double) packetIn.func_149147_e();
+        this.gameController.thePlayer.motionX += packetIn.func_149149_c();
+        this.gameController.thePlayer.motionY += packetIn.func_149144_d();
+        this.gameController.thePlayer.motionZ += packetIn.func_149147_e();
     }
 
     public void handleOpenWindow(S2DPacketOpenWindow packetIn) {
@@ -971,7 +971,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         } else if (i == 5) {
             // TODO: Notify Player or Ignore
         } else if (i == 6) {
-            this.clientWorldController.playSound(entityplayer.posX, entityplayer.posY + (double) entityplayer.getEyeHeight(), entityplayer.posZ, "random.successful_hit", 0.18F, 0.45F, false);
+            this.clientWorldController.playSound(entityplayer.posX, entityplayer.posY + entityplayer.getEyeHeight(), entityplayer.posZ, "random.successful_hit", 0.18F, 0.45F, false);
         } else if (i == 7) {
             this.clientWorldController.setRainStrength(f);
         } else if (i == 8) {
@@ -1392,9 +1392,9 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.gameController);
 
         if (packetIn.getParticleCount() == 0) {
-            double d0 = (double) (packetIn.getParticleSpeed() * packetIn.getXOffset());
-            double d2 = (double) (packetIn.getParticleSpeed() * packetIn.getYOffset());
-            double d4 = (double) (packetIn.getParticleSpeed() * packetIn.getZOffset());
+            double d0 = (packetIn.getParticleSpeed() * packetIn.getXOffset());
+            double d2 = (packetIn.getParticleSpeed() * packetIn.getYOffset());
+            double d4 = (packetIn.getParticleSpeed() * packetIn.getZOffset());
 
             try {
                 this.clientWorldController.spawnParticle(packetIn.getParticleType(), packetIn.isLongDistance(), packetIn.getXCoordinate(), packetIn.getYCoordinate(), packetIn.getZCoordinate(), d0, d2, d4, packetIn.getParticleArgs());
@@ -1403,12 +1403,12 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
             }
         } else {
             for (int i = 0; i < packetIn.getParticleCount(); ++i) {
-                double d1 = this.avRandomizer.nextGaussian() * (double) packetIn.getXOffset();
-                double d3 = this.avRandomizer.nextGaussian() * (double) packetIn.getYOffset();
-                double d5 = this.avRandomizer.nextGaussian() * (double) packetIn.getZOffset();
-                double d6 = this.avRandomizer.nextGaussian() * (double) packetIn.getParticleSpeed();
-                double d7 = this.avRandomizer.nextGaussian() * (double) packetIn.getParticleSpeed();
-                double d8 = this.avRandomizer.nextGaussian() * (double) packetIn.getParticleSpeed();
+                double d1 = this.avRandomizer.nextGaussian() * packetIn.getXOffset();
+                double d3 = this.avRandomizer.nextGaussian() * packetIn.getYOffset();
+                double d5 = this.avRandomizer.nextGaussian() * packetIn.getZOffset();
+                double d6 = this.avRandomizer.nextGaussian() * packetIn.getParticleSpeed();
+                double d7 = this.avRandomizer.nextGaussian() * packetIn.getParticleSpeed();
+                double d8 = this.avRandomizer.nextGaussian() * packetIn.getParticleSpeed();
 
                 try {
                     this.clientWorldController.spawnParticle(packetIn.getParticleType(), packetIn.isLongDistance(), packetIn.getXCoordinate() + d1, packetIn.getYCoordinate() + d3, packetIn.getZCoordinate() + d5, d6, d7, d8, packetIn.getParticleArgs());

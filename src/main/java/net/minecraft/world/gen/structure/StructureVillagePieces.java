@@ -1384,7 +1384,7 @@ public class StructureVillagePieces {
 
                     ++this.villagersSpawned;
                     EntityVillager entityvillager = new EntityVillager(worldIn);
-                    entityvillager.setLocationAndAngles((double) j + 0.5D, (double) k, (double) l + 0.5D, 0.0F, 0.0F);
+                    entityvillager.setLocationAndAngles(j + 0.5D, k, l + 0.5D, 0.0F, 0.0F);
                     entityvillager.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityvillager)), (IEntityLivingData) null);
                     entityvillager.setProfession(this.func_180779_c(i, entityvillager.getProfession()));
                     worldIn.spawnEntityInWorld(entityvillager);

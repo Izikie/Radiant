@@ -41,7 +41,7 @@ public class BlockSnow extends Block {
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
         int i = ((Integer) state.getValue(LAYERS)).intValue() - 1;
         float f = 0.125F;
-        return new AxisAlignedBB((double) pos.getX() + this.minX, (double) pos.getY() + this.minY, (double) pos.getZ() + this.minZ, (double) pos.getX() + this.maxX, (double) ((float) pos.getY() + (float) i * f), (double) pos.getZ() + this.maxZ);
+        return new AxisAlignedBB(pos.getX() + this.minX, pos.getY() + this.minY, pos.getZ() + this.minZ, pos.getX() + this.maxX, (pos.getY() + i * f), pos.getZ() + this.maxZ);
     }
 
     public boolean isOpaqueCube() {
@@ -62,7 +62,7 @@ public class BlockSnow extends Block {
     }
 
     protected void getBoundsForLayers(int p_150154_1_) {
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, (float) p_150154_1_ / 8.0F, 1.0F);
+        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, p_150154_1_ / 8.0F, 1.0F);
     }
 
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {

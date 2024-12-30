@@ -293,8 +293,8 @@ public abstract class BiomeGenBase {
 
     public final float getFloatTemperature(BlockPos pos) {
         if (pos.getY() > 64) {
-            float f = (float) (temperatureNoise.func_151601_a((double) pos.getX() * 1.0D / 8.0D, (double) pos.getZ() * 1.0D / 8.0D) * 4.0D);
-            return this.temperature - (f + (float) pos.getY() - 64.0F) * 0.05F / 30.0F;
+            float f = (float) (temperatureNoise.func_151601_a(pos.getX() * 1.0D / 8.0D, pos.getZ() * 1.0D / 8.0D) * 4.0D);
+            return this.temperature - (f + pos.getY() - 64.0F) * 0.05F / 30.0F;
         } else {
             return this.temperature;
         }
@@ -305,14 +305,14 @@ public abstract class BiomeGenBase {
     }
 
     public int getGrassColorAtPos(BlockPos pos) {
-        double d0 = (double) MathHelper.clamp_float(this.getFloatTemperature(pos), 0.0F, 1.0F);
-        double d1 = (double) MathHelper.clamp_float(this.getFloatRainfall(), 0.0F, 1.0F);
+        double d0 = MathHelper.clamp_float(this.getFloatTemperature(pos), 0.0F, 1.0F);
+        double d1 = MathHelper.clamp_float(this.getFloatRainfall(), 0.0F, 1.0F);
         return ColorizerGrass.getGrassColor(d0, d1);
     }
 
     public int getFoliageColorAtPos(BlockPos pos) {
-        double d0 = (double) MathHelper.clamp_float(this.getFloatTemperature(pos), 0.0F, 1.0F);
-        double d1 = (double) MathHelper.clamp_float(this.getFloatRainfall(), 0.0F, 1.0F);
+        double d0 = MathHelper.clamp_float(this.getFloatTemperature(pos), 0.0F, 1.0F);
+        double d1 = MathHelper.clamp_float(this.getFloatRainfall(), 0.0F, 1.0F);
         return ColorizerFoliage.getFoliageColor(d0, d1);
     }
 
@@ -402,7 +402,7 @@ public abstract class BiomeGenBase {
     }
 
     public BiomeGenBase.TempCategory getTempCategory() {
-        return (double) this.temperature < 0.2D ? BiomeGenBase.TempCategory.COLD : ((double) this.temperature < 1.0D ? BiomeGenBase.TempCategory.MEDIUM : BiomeGenBase.TempCategory.WARM);
+        return this.temperature < 0.2D ? BiomeGenBase.TempCategory.COLD : (this.temperature < 1.0D ? BiomeGenBase.TempCategory.MEDIUM : BiomeGenBase.TempCategory.WARM);
     }
 
     public static BiomeGenBase[] getBiomeGenArray() {

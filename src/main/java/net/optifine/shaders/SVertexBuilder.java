@@ -68,7 +68,7 @@ public class SVertexBuilder {
         int k = block.getRenderType();
         int l = ((k & 65535) << 16) + (i & 65535);
         int i1 = j & 65535;
-        wrr.sVertexBuilder.pushEntity(((long) i1 << 32) + (long) l);
+        wrr.sVertexBuilder.pushEntity(((long) i1 << 32) + l);
     }
 
     public static void popEntity(WorldRenderer wrr) {
@@ -191,7 +191,7 @@ public class SVertexBuilder {
         float f31 = f22 * f23 - f25 * f20;
         float f32 = f20 * f24 - f23 * f21;
         float f33 = f30 * f30 + f31 * f31 + f32 * f32;
-        float f34 = (double) f33 != 0.0D ? (float) (1.0D / Math.sqrt((double) f33)) : 1.0F;
+        float f34 = f33 != 0.0D ? (float) (1.0D / Math.sqrt(f33)) : 1.0F;
         f30 = f30 * f34;
         f31 = f31 * f34;
         f32 = f32 * f34;
@@ -214,12 +214,12 @@ public class SVertexBuilder {
         float f41 = (f26 * f24 - f28 * f21) * f36;
         float f42 = (f26 * f25 - f28 * f22) * f36;
         f33 = f37 * f37 + f38 * f38 + f39 * f39;
-        f34 = (double) f33 != 0.0D ? (float) (1.0D / Math.sqrt((double) f33)) : 1.0F;
+        f34 = f33 != 0.0D ? (float) (1.0D / Math.sqrt(f33)) : 1.0F;
         f37 = f37 * f34;
         f38 = f38 * f34;
         f39 = f39 * f34;
         f33 = f40 * f40 + f41 * f41 + f42 * f42;
-        f34 = (double) f33 != 0.0D ? (float) (1.0D / Math.sqrt((double) f33)) : 1.0F;
+        f34 = f33 != 0.0D ? (float) (1.0D / Math.sqrt(f33)) : 1.0F;
         f40 = f40 * f34;
         f41 = f41 * f34;
         f42 = f42 * f34;

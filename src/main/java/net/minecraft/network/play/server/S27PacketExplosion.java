@@ -39,9 +39,9 @@ public class S27PacketExplosion implements Packet<INetHandlerPlayClient> {
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.posX = (double) buf.readFloat();
-        this.posY = (double) buf.readFloat();
-        this.posZ = (double) buf.readFloat();
+        this.posX = buf.readFloat();
+        this.posY = buf.readFloat();
+        this.posZ = buf.readFloat();
         this.strength = buf.readFloat();
         int i = buf.readInt();
         this.affectedBlockPositions = Lists.newArrayListWithCapacity(i);

@@ -22,7 +22,7 @@ public class MovingSoundMinecartRiding extends MovingSound {
         if (!this.minecart.isDead && this.player.isRiding() && this.player.ridingEntity == this.minecart) {
             float f = MathHelper.sqrt_double(this.minecart.motionX * this.minecart.motionX + this.minecart.motionZ * this.minecart.motionZ);
 
-            if ((double) f >= 0.01D) {
+            if (f >= 0.01D) {
                 this.volume = 0.0F + MathHelper.clamp_float(f, 0.0F, 1.0F) * 0.75F;
             } else {
                 this.volume = 0.0F;

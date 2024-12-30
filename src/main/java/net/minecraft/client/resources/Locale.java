@@ -59,8 +59,8 @@ public class Locale {
             }
         }
 
-        float f = (float) i / (float) j;
-        this.unicode = (double) f > 0.1D;
+        float f = (float) i / j;
+        this.unicode = f > 0.1D;
     }
 
     private void loadLocaleData(List<IResource> resourcesList) throws IOException {

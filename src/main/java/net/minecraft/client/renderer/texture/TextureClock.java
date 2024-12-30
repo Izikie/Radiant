@@ -17,7 +17,7 @@ public class TextureClock extends TextureAtlasSprite {
             double d0 = 0.0D;
 
             if (minecraft.theWorld != null && minecraft.thePlayer != null) {
-                d0 = (double) minecraft.theWorld.getCelestialAngle(1.0F);
+                d0 = minecraft.theWorld.getCelestialAngle(1.0F);
 
                 if (!minecraft.theWorld.provider.isSurfaceWorld()) {
                     d0 = Math.random();
@@ -40,7 +40,7 @@ public class TextureClock extends TextureAtlasSprite {
             this.currentAngle += this.angleDelta;
             int i;
 
-            for (i = (int) ((this.currentAngle + 1.0D) * (double) this.framesTextureData.size()) % this.framesTextureData.size(); i < 0; i = (i + this.framesTextureData.size()) % this.framesTextureData.size()) {
+            for (i = (int) ((this.currentAngle + 1.0D) * this.framesTextureData.size()) % this.framesTextureData.size(); i < 0; i = (i + this.framesTextureData.size()) % this.framesTextureData.size()) {
                 ;
             }
 

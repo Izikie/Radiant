@@ -67,7 +67,7 @@ public class IntHashMap<V> {
             IntHashMap.Entry<V>[] entry1 = new IntHashMap.Entry[p_76047_1_];
             this.copyTo(entry1);
             this.slots = entry1;
-            this.threshold = (int) ((float) p_76047_1_ * this.growFactor);
+            this.threshold = (int) (p_76047_1_ * this.growFactor);
         }
     }
 

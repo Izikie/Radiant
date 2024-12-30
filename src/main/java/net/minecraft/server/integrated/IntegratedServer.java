@@ -222,11 +222,11 @@ public class IntegratedServer extends MinecraftServer {
             int i = this.getTickCounter();
             int j = this.mc.gameSettings.ofAutoSaveTicks;
 
-            if ((long) i < this.ticksSaveLast + (long) j) {
+            if (i < this.ticksSaveLast + j) {
                 return;
             }
 
-            this.ticksSaveLast = (long) i;
+            this.ticksSaveLast = i;
         }
 
         super.saveAllWorlds(dontLog);

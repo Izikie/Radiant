@@ -619,7 +619,7 @@ public class ComponentScatteredFeaturePieces {
                     if (structureBoundingBoxIn.isVecInside(new BlockPos(l1, i2, k1))) {
                         this.hasWitch = true;
                         EntityWitch entitywitch = new EntityWitch(worldIn);
-                        entitywitch.setLocationAndAngles((double) l1 + 0.5D, (double) i2, (double) k1 + 0.5D, 0.0F, 0.0F);
+                        entitywitch.setLocationAndAngles(l1 + 0.5D, i2, k1 + 0.5D, 0.0F, 0.0F);
                         entitywitch.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(l1, i2, k1)), (IEntityLivingData) null);
                         worldIn.spawnEntityInWorld(entitywitch);
                     }

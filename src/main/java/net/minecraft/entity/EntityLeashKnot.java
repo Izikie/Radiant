@@ -17,7 +17,7 @@ public class EntityLeashKnot extends EntityHanging {
 
     public EntityLeashKnot(World worldIn, BlockPos hangingPositionIn) {
         super(worldIn, hangingPositionIn);
-        this.setPosition((double) hangingPositionIn.getX() + 0.5D, (double) hangingPositionIn.getY() + 0.5D, (double) hangingPositionIn.getZ() + 0.5D);
+        this.setPosition(hangingPositionIn.getX() + 0.5D, hangingPositionIn.getY() + 0.5D, hangingPositionIn.getZ() + 0.5D);
         float f = 0.125F;
         float f1 = 0.1875F;
         float f2 = 0.25F;
@@ -108,7 +108,7 @@ public class EntityLeashKnot extends EntityHanging {
         int j = pos.getY();
         int k = pos.getZ();
 
-        for (EntityLeashKnot entityleashknot : worldIn.getEntitiesWithinAABB(EntityLeashKnot.class, new AxisAlignedBB((double) i - 1.0D, (double) j - 1.0D, (double) k - 1.0D, (double) i + 1.0D, (double) j + 1.0D, (double) k + 1.0D))) {
+        for (EntityLeashKnot entityleashknot : worldIn.getEntitiesWithinAABB(EntityLeashKnot.class, new AxisAlignedBB(i - 1.0D, j - 1.0D, k - 1.0D, i + 1.0D, j + 1.0D, k + 1.0D))) {
             if (entityleashknot.getHangingPosition().equals(pos)) {
                 return entityleashknot;
             }

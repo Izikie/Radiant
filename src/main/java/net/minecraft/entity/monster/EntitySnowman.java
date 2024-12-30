@@ -56,9 +56,9 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
             }
 
             for (int l = 0; l < 4; ++l) {
-                i = MathHelper.floor_double(this.posX + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
+                i = MathHelper.floor_double(this.posX + ((l % 2 * 2 - 1) * 0.25F));
                 j = MathHelper.floor_double(this.posY);
-                k = MathHelper.floor_double(this.posZ + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
+                k = MathHelper.floor_double(this.posZ + ((l / 2 % 2 * 2 - 1) * 0.25F));
                 BlockPos blockpos = new BlockPos(i, j, k);
 
                 if (this.worldObj.getBlockState(blockpos).getBlock().getMaterial() == Material.air && this.worldObj.getBiomeGenForCoords(new BlockPos(i, 0, k)).getFloatTemperature(blockpos) < 0.8F && Blocks.snow_layer.canPlaceBlockAt(this.worldObj, blockpos)) {
@@ -82,12 +82,12 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
 
     public void attackEntityWithRangedAttack(EntityLivingBase target, float p_82196_2_) {
         EntitySnowball entitysnowball = new EntitySnowball(this.worldObj, this);
-        double d0 = target.posY + (double) target.getEyeHeight() - 1.100000023841858D;
+        double d0 = target.posY + target.getEyeHeight() - 1.100000023841858D;
         double d1 = target.posX - this.posX;
         double d2 = d0 - entitysnowball.posY;
         double d3 = target.posZ - this.posZ;
         float f = MathHelper.sqrt_double(d1 * d1 + d3 * d3) * 0.2F;
-        entitysnowball.setThrowableHeading(d1, d2 + (double) f, d3, 1.6F, 12.0F);
+        entitysnowball.setThrowableHeading(d1, d2 + f, d3, 1.6F, 12.0F);
         this.playSound("random.bow", 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
         this.worldObj.spawnEntityInWorld(entitysnowball);
     }

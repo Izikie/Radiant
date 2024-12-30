@@ -335,8 +335,8 @@ public class ModelRenderer {
     }
 
     public ModelRenderer setTextureSize(int textureWidthIn, int textureHeightIn) {
-        this.textureWidth = (float) textureWidthIn;
-        this.textureHeight = (float) textureHeightIn;
+        this.textureWidth = textureWidthIn;
+        this.textureHeight = textureHeightIn;
         return this;
     }
 

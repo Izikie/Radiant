@@ -335,7 +335,7 @@ public class ContainerRepair extends Container {
     }
 
     public boolean canInteractWith(EntityPlayer playerIn) {
-        return this.theWorld.getBlockState(this.selfPosition).getBlock() != Blocks.anvil ? false : playerIn.getDistanceSq((double) this.selfPosition.getX() + 0.5D, (double) this.selfPosition.getY() + 0.5D, (double) this.selfPosition.getZ() + 0.5D) <= 64.0D;
+        return this.theWorld.getBlockState(this.selfPosition).getBlock() != Blocks.anvil ? false : playerIn.getDistanceSq(this.selfPosition.getX() + 0.5D, this.selfPosition.getY() + 0.5D, this.selfPosition.getZ() + 0.5D) <= 64.0D;
     }
 
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {

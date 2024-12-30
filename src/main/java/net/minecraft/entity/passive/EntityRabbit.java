@@ -79,7 +79,7 @@ public class EntityRabbit extends EntityAnimal {
     }
 
     public float func_175521_o(float p_175521_1_) {
-        return this.field_175535_bn == 0 ? 0.0F : ((float) this.field_175540_bm + p_175521_1_) / (float) this.field_175535_bn;
+        return this.field_175535_bn == 0 ? 0.0F : (this.field_175540_bm + p_175521_1_) / this.field_175535_bn;
     }
 
     public void setMovementSpeed(double newSpeed) {
@@ -95,7 +95,7 @@ public class EntityRabbit extends EntityAnimal {
                 this.moveType = EntityRabbit.EnumMoveType.HOP;
             }
         } else {
-            this.setMovementSpeed(1.5D * (double) moveTypeIn.getSpeed());
+            this.setMovementSpeed(1.5D * moveTypeIn.getSpeed());
             this.playSound(this.getJumpingSound(), this.getSoundVolume(), ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F) * 0.8F);
         }
 
@@ -355,7 +355,7 @@ public class EntityRabbit extends EntityAnimal {
     }
 
     protected void createEatingParticles() {
-        this.worldObj.spawnParticle(EnumParticleTypes.BLOCK_DUST, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + 0.5D + (double) (this.rand.nextFloat() * this.height), this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, 0.0D, 0.0D, 0.0D, new int[]{Block.getStateId(Blocks.carrots.getStateFromMeta(7))});
+        this.worldObj.spawnParticle(EnumParticleTypes.BLOCK_DUST, this.posX + (this.rand.nextFloat() * this.width * 2.0F) - this.width, this.posY + 0.5D + (this.rand.nextFloat() * this.height), this.posZ + (this.rand.nextFloat() * this.width * 2.0F) - this.width, 0.0D, 0.0D, 0.0D, new int[]{Block.getStateId(Blocks.carrots.getStateFromMeta(7))});
         this.carrotTicks = 100;
     }
 
@@ -388,7 +388,7 @@ public class EntityRabbit extends EntityAnimal {
         }
 
         protected double func_179512_a(EntityLivingBase attackTarget) {
-            return (double) (4.0F + attackTarget.width);
+            return (4.0F + attackTarget.width);
         }
     }
 
@@ -443,7 +443,7 @@ public class EntityRabbit extends EntityAnimal {
 
         public void updateTask() {
             super.updateTask();
-            this.rabbit.getLookHelper().setLookPosition((double) this.destinationBlock.getX() + 0.5D, (double) (this.destinationBlock.getY() + 1), (double) this.destinationBlock.getZ() + 0.5D, 10.0F, (float) this.rabbit.getVerticalFaceSpeed());
+            this.rabbit.getLookHelper().setLookPosition(this.destinationBlock.getX() + 0.5D, (this.destinationBlock.getY() + 1), this.destinationBlock.getZ() + 0.5D, 10.0F, this.rabbit.getVerticalFaceSpeed());
 
             if (this.getIsAboveDestination()) {
                 World world = this.rabbit.worldObj;

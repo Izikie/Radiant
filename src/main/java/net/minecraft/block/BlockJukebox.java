@@ -61,11 +61,11 @@ public class BlockJukebox extends BlockContainer {
                     worldIn.playRecord(pos, (String) null);
                     blockjukebox$tileentityjukebox.setRecord((ItemStack) null);
                     float f = 0.7F;
-                    double d0 = (double) (worldIn.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-                    double d1 = (double) (worldIn.rand.nextFloat() * f) + (double) (1.0F - f) * 0.2D + 0.6D;
-                    double d2 = (double) (worldIn.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+                    double d0 = (worldIn.rand.nextFloat() * f) + (1.0F - f) * 0.5D;
+                    double d1 = (worldIn.rand.nextFloat() * f) + (1.0F - f) * 0.2D + 0.6D;
+                    double d2 = (worldIn.rand.nextFloat() * f) + (1.0F - f) * 0.5D;
                     ItemStack itemstack1 = itemstack.copy();
-                    EntityItem entityitem = new EntityItem(worldIn, (double) pos.getX() + d0, (double) pos.getY() + d1, (double) pos.getZ() + d2, itemstack1);
+                    EntityItem entityitem = new EntityItem(worldIn, pos.getX() + d0, pos.getY() + d1, pos.getZ() + d2, itemstack1);
                     entityitem.setDefaultPickupDelay();
                     worldIn.spawnEntityInWorld(entityitem);
                 }

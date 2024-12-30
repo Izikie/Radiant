@@ -65,9 +65,9 @@ public class PotionHelper {
                     }
 
                     for (int k = 0; k <= potioneffect.getAmplifier(); ++k) {
-                        f += (float) (j >> 16 & 255) / 255.0F;
-                        f1 += (float) (j >> 8 & 255) / 255.0F;
-                        f2 += (float) (j & 255) / 255.0F;
+                        f += (j >> 16 & 255) / 255.0F;
+                        f1 += (j >> 8 & 255) / 255.0F;
+                        f2 += (j & 255) / 255.0F;
                         ++f3;
                     }
                 }
@@ -307,10 +307,10 @@ public class PotionHelper {
                         } else {
                             i = 1200 * (i * 3 + (i - 1) * 2);
                             i = i >> j;
-                            i = (int) Math.round((double) i * potion.getEffectiveness());
+                            i = (int) Math.round(i * potion.getEffectiveness());
 
                             if ((p_77917_0_ & 16384) != 0) {
-                                i = (int) Math.round((double) i * 0.75D + 0.5D);
+                                i = (int) Math.round(i * 0.75D + 0.5D);
                             }
                         }
 

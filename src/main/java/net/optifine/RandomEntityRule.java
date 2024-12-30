@@ -227,7 +227,7 @@ public class RandomEntityRule {
                     int i = randomEntity.getMaxHealth();
 
                     if (i > 0) {
-                        i1 = (int) ((double) (i1 * 100) / (double) i);
+                        i1 = (int) ((double) (i1 * 100) / i);
                     }
                 }
 

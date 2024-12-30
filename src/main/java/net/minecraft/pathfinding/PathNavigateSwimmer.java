@@ -20,7 +20,7 @@ public class PathNavigateSwimmer extends PathNavigate {
     }
 
     protected Vec3 getEntityPosition() {
-        return new Vec3(this.theEntity.posX, this.theEntity.posY + (double) this.theEntity.height * 0.5D, this.theEntity.posZ);
+        return new Vec3(this.theEntity.posX, this.theEntity.posY + this.theEntity.height * 0.5D, this.theEntity.posZ);
     }
 
     protected void pathFollow() {
@@ -28,7 +28,7 @@ public class PathNavigateSwimmer extends PathNavigate {
         float f = this.theEntity.width * this.theEntity.width;
         int i = 6;
 
-        if (vec3.squareDistanceTo(this.currentPath.getVectorFromIndex(this.theEntity, this.currentPath.getCurrentPathIndex())) < (double) f) {
+        if (vec3.squareDistanceTo(this.currentPath.getVectorFromIndex(this.theEntity, this.currentPath.getCurrentPathIndex())) < f) {
             this.currentPath.incrementPathIndex();
         }
 
@@ -49,7 +49,7 @@ public class PathNavigateSwimmer extends PathNavigate {
     }
 
     protected boolean isDirectPathBetweenPoints(Vec3 posVec31, Vec3 posVec32, int sizeX, int sizeY, int sizeZ) {
-        MovingObjectPosition movingobjectposition = this.worldObj.rayTraceBlocks(posVec31, new Vec3(posVec32.xCoord, posVec32.yCoord + (double) this.theEntity.height * 0.5D, posVec32.zCoord), false, true, false);
+        MovingObjectPosition movingobjectposition = this.worldObj.rayTraceBlocks(posVec31, new Vec3(posVec32.xCoord, posVec32.yCoord + this.theEntity.height * 0.5D, posVec32.zCoord), false, true, false);
         return movingobjectposition == null || movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.MISS;
     }
 }

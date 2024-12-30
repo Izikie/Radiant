@@ -33,7 +33,7 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEnti
 
         if (flag1) {
             GlStateManager.translate((float) x + 0.5F, (float) y + 0.75F * f, (float) z + 0.5F);
-            float f1 = (float) (i * 360) / 16.0F;
+            float f1 = (i * 360) / 16.0F;
             GlStateManager.rotate(-f1, 0.0F, 1.0F, 0.0F);
             this.bannerModel.bannerStand.showModel = true;
         } else {
@@ -58,7 +58,7 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEnti
         }
 
         BlockPos blockpos = te.getPos();
-        float f3 = (float) (blockpos.getX() * 7 + blockpos.getY() * 9 + blockpos.getZ() * 13) + (float) j + partialTicks;
+        float f3 = (float) (blockpos.getX() * 7 + blockpos.getY() * 9 + blockpos.getZ() * 13) + j + partialTicks;
         this.bannerModel.bannerSlate.rotateAngleX = (-0.0125F + 0.01F * MathHelper.cos(f3 * (float) Math.PI * 0.02F)) * (float) Math.PI;
         GlStateManager.enableRescaleNormal();
         ResourceLocation resourcelocation = this.func_178463_a(te);

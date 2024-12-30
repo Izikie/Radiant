@@ -21,7 +21,7 @@ public class RenderIronGolem extends RenderLiving<EntityIronGolem> {
     protected void rotateCorpse(EntityIronGolem bat, float p_77043_2_, float p_77043_3_, float partialTicks) {
         super.rotateCorpse(bat, p_77043_2_, p_77043_3_, partialTicks);
 
-        if ((double) bat.limbSwingAmount >= 0.01D) {
+        if (bat.limbSwingAmount >= 0.01D) {
             float f = 13.0F;
             float f1 = bat.limbSwing - bat.limbSwingAmount * (1.0F - partialTicks) + 6.0F;
             float f2 = (Math.abs(f1 % f - f * 0.5F) - f * 0.25F) / (f * 0.25F);

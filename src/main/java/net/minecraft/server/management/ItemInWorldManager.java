@@ -74,7 +74,7 @@ public class ItemInWorldManager {
             if (block.getMaterial() == Material.air) {
                 this.receivedFinishDiggingPacket = false;
             } else {
-                float f = block.getPlayerRelativeBlockHardness(this.thisPlayerMP, this.thisPlayerMP.worldObj, this.field_180241_i) * (float) (i + 1);
+                float f = block.getPlayerRelativeBlockHardness(this.thisPlayerMP, this.thisPlayerMP.worldObj, this.field_180241_i) * (i + 1);
                 int j = (int) (f * 10.0F);
 
                 if (j != this.durabilityRemainingOnBlock) {
@@ -96,7 +96,7 @@ public class ItemInWorldManager {
                 this.isDestroyingBlock = false;
             } else {
                 int k = this.curblockDamage - this.initialDamage;
-                float f1 = block1.getPlayerRelativeBlockHardness(this.thisPlayerMP, this.thisPlayerMP.worldObj, this.field_180241_i) * (float) (k + 1);
+                float f1 = block1.getPlayerRelativeBlockHardness(this.thisPlayerMP, this.thisPlayerMP.worldObj, this.field_180241_i) * (k + 1);
                 int l = (int) (f1 * 10.0F);
 
                 if (l != this.durabilityRemainingOnBlock) {
@@ -160,7 +160,7 @@ public class ItemInWorldManager {
             Block block = this.theWorld.getBlockState(pos).getBlock();
 
             if (block.getMaterial() != Material.air) {
-                float f = block.getPlayerRelativeBlockHardness(this.thisPlayerMP, this.thisPlayerMP.worldObj, pos) * (float) (i + 1);
+                float f = block.getPlayerRelativeBlockHardness(this.thisPlayerMP, this.thisPlayerMP.worldObj, pos) * (i + 1);
 
                 if (f >= 0.7F) {
                     this.isDestroyingBlock = false;

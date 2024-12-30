@@ -173,7 +173,7 @@ public abstract class EntityLiving extends EntityLivingBase {
                 double d1 = this.rand.nextGaussian() * 0.02D;
                 double d2 = this.rand.nextGaussian() * 0.02D;
                 double d3 = 10.0D;
-                this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width - d0 * d3, this.posY + (double) (this.rand.nextFloat() * this.height) - d1 * d3, this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width - d2 * d3, d0, d1, d2, new int[0]);
+                this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, this.posX + (this.rand.nextFloat() * this.width * 2.0F) - this.width - d0 * d3, this.posY + (this.rand.nextFloat() * this.height) - d1 * d3, this.posZ + (this.rand.nextFloat() * this.width * 2.0F) - this.width - d2 * d3, d0, d1, d2, new int[0]);
             }
         } else {
             this.worldObj.setEntityState(this, (byte) 20);
@@ -459,12 +459,12 @@ public abstract class EntityLiving extends EntityLivingBase {
         double d2;
 
         if (entityIn instanceof EntityLivingBase entitylivingbase) {
-            d2 = entitylivingbase.posY + (double) entitylivingbase.getEyeHeight() - (this.posY + (double) this.getEyeHeight());
+            d2 = entitylivingbase.posY + entitylivingbase.getEyeHeight() - (this.posY + this.getEyeHeight());
         } else {
-            d2 = (entityIn.getEntityBoundingBox().minY + entityIn.getEntityBoundingBox().maxY) / 2.0D - (this.posY + (double) this.getEyeHeight());
+            d2 = (entityIn.getEntityBoundingBox().minY + entityIn.getEntityBoundingBox().maxY) / 2.0D - (this.posY + this.getEyeHeight());
         }
 
-        double d3 = (double) MathHelper.sqrt_double(d0 * d0 + d1 * d1);
+        double d3 = MathHelper.sqrt_double(d0 * d0 + d1 * d1);
         float f = (float) (MathHelper.atan2(d1, d0) * 180.0D / Math.PI) - 90.0F;
         float f1 = (float) (-(MathHelper.atan2(d2, d3) * 180.0D / Math.PI));
         this.rotationPitch = this.updateRotation(this.rotationPitch, f1, p_70625_3_);
@@ -541,7 +541,7 @@ public abstract class EntityLiving extends EntityLivingBase {
             ItemStack itemstack = this.getEquipmentInSlot(i);
             boolean flag = this.equipmentDropChances[i] > 1.0F;
 
-            if (itemstack != null && (wasRecentlyHit || flag) && this.rand.nextFloat() - (float) lootingModifier * 0.01F < this.equipmentDropChances[i]) {
+            if (itemstack != null && (wasRecentlyHit || flag) && this.rand.nextFloat() - lootingModifier * 0.01F < this.equipmentDropChances[i]) {
                 if (!flag && itemstack.isItemStackDamageable()) {
                     int j = Math.max(itemstack.getMaxDamage() - 25, 1);
                     int k = itemstack.getMaxDamage() - this.rand.nextInt(this.rand.nextInt(j) + 1);
@@ -684,14 +684,14 @@ public abstract class EntityLiving extends EntityLivingBase {
         float f = difficulty.getClampedAdditionalDifficulty();
 
         if (this.getHeldItem() != null && this.rand.nextFloat() < 0.25F * f) {
-            EnchantmentHelper.addRandomEnchantment(this.rand, this.getHeldItem(), (int) (5.0F + f * (float) this.rand.nextInt(18)));
+            EnchantmentHelper.addRandomEnchantment(this.rand, this.getHeldItem(), (int) (5.0F + f * this.rand.nextInt(18)));
         }
 
         for (int i = 0; i < 4; ++i) {
             ItemStack itemstack = this.getCurrentArmor(i);
 
             if (itemstack != null && this.rand.nextFloat() < 0.5F * f) {
-                EnchantmentHelper.addRandomEnchantment(this.rand, itemstack, (int) (5.0F + f * (float) this.rand.nextInt(18)));
+                EnchantmentHelper.addRandomEnchantment(this.rand, itemstack, (int) (5.0F + f * this.rand.nextInt(18)));
             }
         }
     }

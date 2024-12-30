@@ -700,10 +700,10 @@ public class Minecraft implements IThreadListener {
         float f1 = 0.00390625F;
         WorldRenderer worldrenderer = Tessellator.getInstance().getWorldRenderer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        worldrenderer.pos(posX, posY + height, 0.0D).tex((float) texU * f, (float) (texV + height) * f1).color(red, green, blue, alpha).endVertex();
-        worldrenderer.pos(posX + width, posY + height, 0.0D).tex((float) (texU + width) * f, (float) (texV + height) * f1).color(red, green, blue, alpha).endVertex();
-        worldrenderer.pos(posX + width, posY, 0.0D).tex((float) (texU + width) * f, (float) texV * f1).color(red, green, blue, alpha).endVertex();
-        worldrenderer.pos(posX, posY, 0.0D).tex((float) texU * f, (float) texV * f1).color(red, green, blue, alpha).endVertex();
+        worldrenderer.pos(posX, posY + height, 0.0D).tex(texU * f, (texV + height) * f1).color(red, green, blue, alpha).endVertex();
+        worldrenderer.pos(posX + width, posY + height, 0.0D).tex((texU + width) * f, (texV + height) * f1).color(red, green, blue, alpha).endVertex();
+        worldrenderer.pos(posX + width, posY, 0.0D).tex((texU + width) * f, texV * f1).color(red, green, blue, alpha).endVertex();
+        worldrenderer.pos(posX, posY, 0.0D).tex(texU * f, texV * f1).color(red, green, blue, alpha).endVertex();
         Tessellator.getInstance().draw();
     }
 
@@ -839,7 +839,7 @@ public class Minecraft implements IThreadListener {
 
         while (getSystemTime() >= this.debugUpdateTime + 1000L) {
             debugFPS = this.fpsCounter;
-            this.debug = String.format("%d fps (%d chunk update%s) T: %s%s%s%s%s", Integer.valueOf(debugFPS), Integer.valueOf(RenderChunk.renderChunksUpdated), RenderChunk.renderChunksUpdated != 1 ? "s" : "", (float) this.gameSettings.limitFramerate == GameSettings.Options.FRAMERATE_LIMIT.getValueMax() ? "inf" : Integer.valueOf(this.gameSettings.limitFramerate), this.gameSettings.enableVsync ? " vsync" : "", this.gameSettings.fancyGraphics ? "" : " fast", this.gameSettings.clouds == 0 ? "" : (this.gameSettings.clouds == 1 ? " fast-clouds" : " fancy-clouds"), OpenGlHelper.useVbo() ? " vbo" : "");
+            this.debug = String.format("%d fps (%d chunk update%s) T: %s%s%s%s%s", Integer.valueOf(debugFPS), Integer.valueOf(RenderChunk.renderChunksUpdated), RenderChunk.renderChunksUpdated != 1 ? "s" : "", this.gameSettings.limitFramerate == GameSettings.Options.FRAMERATE_LIMIT.getValueMax() ? "inf" : Integer.valueOf(this.gameSettings.limitFramerate), this.gameSettings.enableVsync ? " vsync" : "", this.gameSettings.fancyGraphics ? "" : " fast", this.gameSettings.clouds == 0 ? "" : (this.gameSettings.clouds == 1 ? " fast-clouds" : " fancy-clouds"), OpenGlHelper.useVbo() ? " vbo" : "");
             RenderChunk.renderChunksUpdated = 0;
             this.debugUpdateTime += 1000L;
             this.fpsCounter = 0;
@@ -881,7 +881,7 @@ public class Minecraft implements IThreadListener {
     }
 
     public boolean isFramerateLimitBelowMax() {
-        return (float) this.getLimitFramerate() < GameSettings.Options.FRAMERATE_LIMIT.getValueMax();
+        return this.getLimitFramerate() < GameSettings.Options.FRAMERATE_LIMIT.getValueMax();
     }
 
     public void freeMemory() {
@@ -1199,7 +1199,7 @@ public class Minecraft implements IThreadListener {
                             if (this.ingameGUI.getSpectatorGui().func_175262_a()) {
                                 this.ingameGUI.getSpectatorGui().func_175259_b(-j);
                             } else {
-                                float f = MathHelper.clamp_float(this.thePlayer.capabilities.getFlySpeed() + (float) j * 0.005F, 0.0F, 0.2F);
+                                float f = MathHelper.clamp_float(this.thePlayer.capabilities.getFlySpeed() + j * 0.005F, 0.0F, 0.2F);
                                 this.thePlayer.capabilities.setFlySpeed(f);
                             }
                         } else {

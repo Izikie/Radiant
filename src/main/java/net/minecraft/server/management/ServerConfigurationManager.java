@@ -368,7 +368,7 @@ public abstract class ServerConfigurationManager {
             BlockPos blockpos1 = EntityPlayer.getBedSpawnLocation(this.mcServer.worldServerForDimension(playerIn.dimension), blockpos, flag);
 
             if (blockpos1 != null) {
-                entityplayermp.setLocationAndAngles((float) blockpos1.getX() + 0.5F, (float) blockpos1.getY() + 0.1F, (float) blockpos1.getZ() + 0.5F, 0.0F, 0.0F);
+                entityplayermp.setLocationAndAngles(blockpos1.getX() + 0.5F, blockpos1.getY() + 0.1F, blockpos1.getZ() + 0.5F, 0.0F, 0.0F);
                 entityplayermp.setSpawnPoint(blockpos, flag);
             } else {
                 entityplayermp.playerNetServerHandler.sendPacket(new S2BPacketChangeGameState(0, 0.0F));

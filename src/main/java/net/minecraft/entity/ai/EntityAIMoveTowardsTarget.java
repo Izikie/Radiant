@@ -25,7 +25,7 @@ public class EntityAIMoveTowardsTarget extends EntityAIBase {
 
         if (this.targetEntity == null) {
             return false;
-        } else if (this.targetEntity.getDistanceSqToEntity(this.theEntity) > (double) (this.maxTargetDistance * this.maxTargetDistance)) {
+        } else if (this.targetEntity.getDistanceSqToEntity(this.theEntity) > (this.maxTargetDistance * this.maxTargetDistance)) {
             return false;
         } else {
             Vec3 vec3 = RandomPositionGenerator.findRandomTargetBlockTowards(this.theEntity, 16, 7, new Vec3(this.targetEntity.posX, this.targetEntity.posY, this.targetEntity.posZ));
@@ -42,7 +42,7 @@ public class EntityAIMoveTowardsTarget extends EntityAIBase {
     }
 
     public boolean continueExecuting() {
-        return !this.theEntity.getNavigator().noPath() && this.targetEntity.isEntityAlive() && this.targetEntity.getDistanceSqToEntity(this.theEntity) < (double) (this.maxTargetDistance * this.maxTargetDistance);
+        return !this.theEntity.getNavigator().noPath() && this.targetEntity.isEntityAlive() && this.targetEntity.getDistanceSqToEntity(this.theEntity) < (this.maxTargetDistance * this.maxTargetDistance);
     }
 
     public void resetTask() {

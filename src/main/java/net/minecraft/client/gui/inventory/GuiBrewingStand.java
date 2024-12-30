@@ -32,7 +32,7 @@ public class GuiBrewingStand extends GuiContainer {
         int k = this.tileBrewingStand.getField(0);
 
         if (k > 0) {
-            int l = (int) (28.0F * (1.0F - (float) k / 400.0F));
+            int l = (int) (28.0F * (1.0F - k / 400.0F));
 
             if (l > 0) {
                 this.drawTexturedModalRect(i + 97, j + 16, 176, 0, 9, l);

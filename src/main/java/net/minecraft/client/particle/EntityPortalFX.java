@@ -29,7 +29,7 @@ public class EntityPortalFX extends EntityFX {
     }
 
     public void renderParticle(WorldRenderer worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-        float f = ((float) this.particleAge + partialTicks) / (float) this.particleMaxAge;
+        float f = (this.particleAge + partialTicks) / this.particleMaxAge;
         f = 1.0F - f;
         f = f * f;
         f = 1.0F - f;
@@ -39,7 +39,7 @@ public class EntityPortalFX extends EntityFX {
 
     public int getBrightnessForRender(float partialTicks) {
         int i = super.getBrightnessForRender(partialTicks);
-        float f = (float) this.particleAge / (float) this.particleMaxAge;
+        float f = (float) this.particleAge / this.particleMaxAge;
         f = f * f;
         f = f * f;
         int j = i & 255;
@@ -55,7 +55,7 @@ public class EntityPortalFX extends EntityFX {
 
     public float getBrightness(float partialTicks) {
         float f = super.getBrightness(partialTicks);
-        float f1 = (float) this.particleAge / (float) this.particleMaxAge;
+        float f1 = (float) this.particleAge / this.particleMaxAge;
         f1 = f1 * f1 * f1 * f1;
         return f * (1.0F - f1) + f1;
     }
@@ -64,12 +64,12 @@ public class EntityPortalFX extends EntityFX {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
         this.prevPosZ = this.posZ;
-        float f = (float) this.particleAge / (float) this.particleMaxAge;
+        float f = (float) this.particleAge / this.particleMaxAge;
         f = -f + f * f * 2.0F;
         f = 1.0F - f;
-        this.posX = this.portalPosX + this.motionX * (double) f;
-        this.posY = this.portalPosY + this.motionY * (double) f + (double) (1.0F - f);
-        this.posZ = this.portalPosZ + this.motionZ * (double) f;
+        this.posX = this.portalPosX + this.motionX * f;
+        this.posY = this.portalPosY + this.motionY * f + (1.0F - f);
+        this.posZ = this.portalPosZ + this.motionZ * f;
 
         if (this.particleAge++ >= this.particleMaxAge) {
             this.setDead();

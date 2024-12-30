@@ -110,12 +110,12 @@ public class PlayerManager {
     }
 
     public boolean hasPlayerInstance(int chunkX, int chunkZ) {
-        long i = (long) chunkX + 2147483647L | (long) chunkZ + 2147483647L << 32;
+        long i = chunkX + 2147483647L | chunkZ + 2147483647L << 32;
         return this.playerInstances.getValueByKey(i) != null;
     }
 
     private PlayerManager.PlayerInstance getPlayerInstance(int chunkX, int chunkZ, boolean createIfAbsent) {
-        long i = (long) chunkX + 2147483647L | (long) chunkZ + 2147483647L << 32;
+        long i = chunkX + 2147483647L | chunkZ + 2147483647L << 32;
         PlayerManager.PlayerInstance playermanager$playerinstance = (PlayerManager.PlayerInstance) this.playerInstances.getValueByKey(i);
 
         if (playermanager$playerinstance == null && createIfAbsent) {
@@ -341,8 +341,8 @@ public class PlayerManager {
             f -= 360.0F;
         }
 
-        double d0 = (double) f * 0.017453292519943295D;
-        double d1 = (double) p_getNearest_2_.rotationPitch;
+        double d0 = f * 0.017453292519943295D;
+        double d1 = p_getNearest_2_.rotationPitch;
         double d2 = d1 * 0.017453292519943295D;
         ChunkPosComparator chunkposcomparator = new ChunkPosComparator(p_getNearest_2_.chunkCoordX, p_getNearest_2_.chunkCoordZ, d0, d2);
         Comparator<ChunkCoordIntPair> comparator = Collections.reverseOrder(chunkposcomparator);
@@ -419,7 +419,7 @@ public class PlayerManager {
                 player.loadedChunks.remove(this.chunkCoords);
 
                 if (this.playersWatchingChunk.isEmpty()) {
-                    long i = (long) this.chunkCoords.chunkXPos + 2147483647L | (long) this.chunkCoords.chunkZPos + 2147483647L << 32;
+                    long i = this.chunkCoords.chunkXPos + 2147483647L | this.chunkCoords.chunkZPos + 2147483647L << 32;
                     this.increaseInhabitedTime(chunk);
                     PlayerManager.this.playerInstances.remove(i);
                     PlayerManager.this.playerInstanceList.remove(this);

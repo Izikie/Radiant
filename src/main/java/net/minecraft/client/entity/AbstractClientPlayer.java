@@ -119,7 +119,7 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
         }
 
         IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
-        f = (float) ((double) f * ((iattributeinstance.getAttributeValue() / (double) this.capabilities.getWalkSpeed() + 1.0D) / 2.0D));
+        f = (float) (f * ((iattributeinstance.getAttributeValue() / this.capabilities.getWalkSpeed() + 1.0D) / 2.0D));
 
         if (this.capabilities.getWalkSpeed() == 0.0F || Float.isNaN(f) || Float.isInfinite(f)) {
             f = 1.0F;
@@ -127,7 +127,7 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
 
         if (this.isUsingItem() && this.getItemInUse().getItem() == Items.bow) {
             int i = this.getItemInUseDuration();
-            float f1 = (float) i / 20.0F;
+            float f1 = i / 20.0F;
 
             if (f1 > 1.0F) {
                 f1 = 1.0F;

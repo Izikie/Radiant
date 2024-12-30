@@ -37,7 +37,7 @@ public abstract class EntityAIDoorInteract extends EntityAIBase {
                     PathPoint pathpoint = pathentity.getPathPointFromIndex(i);
                     this.doorPosition = new BlockPos(pathpoint.xCoord, pathpoint.yCoord + 1, pathpoint.zCoord);
 
-                    if (this.theEntity.getDistanceSq((double) this.doorPosition.getX(), this.theEntity.posY, (double) this.doorPosition.getZ()) <= 2.25D) {
+                    if (this.theEntity.getDistanceSq(this.doorPosition.getX(), this.theEntity.posY, this.doorPosition.getZ()) <= 2.25D) {
                         this.doorBlock = this.getBlockDoor(this.doorPosition);
 
                         if (this.doorBlock != null) {
@@ -61,13 +61,13 @@ public abstract class EntityAIDoorInteract extends EntityAIBase {
 
     public void startExecuting() {
         this.hasStoppedDoorInteraction = false;
-        this.entityPositionX = (float) ((double) ((float) this.doorPosition.getX() + 0.5F) - this.theEntity.posX);
-        this.entityPositionZ = (float) ((double) ((float) this.doorPosition.getZ() + 0.5F) - this.theEntity.posZ);
+        this.entityPositionX = (float) ((this.doorPosition.getX() + 0.5F) - this.theEntity.posX);
+        this.entityPositionZ = (float) ((this.doorPosition.getZ() + 0.5F) - this.theEntity.posZ);
     }
 
     public void updateTask() {
-        float f = (float) ((double) ((float) this.doorPosition.getX() + 0.5F) - this.theEntity.posX);
-        float f1 = (float) ((double) ((float) this.doorPosition.getZ() + 0.5F) - this.theEntity.posZ);
+        float f = (float) ((this.doorPosition.getX() + 0.5F) - this.theEntity.posX);
+        float f1 = (float) ((this.doorPosition.getZ() + 0.5F) - this.theEntity.posZ);
         float f2 = this.entityPositionX * f + this.entityPositionZ * f1;
 
         if (f2 < 0.0F) {

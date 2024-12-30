@@ -148,12 +148,12 @@ public class BlockPistonMoving extends BlockContainer {
             }
 
             EnumFacing enumfacing = tileentitypiston.getFacing();
-            this.minX = block.getBlockBoundsMinX() - (double) ((float) enumfacing.getFrontOffsetX() * f);
-            this.minY = block.getBlockBoundsMinY() - (double) ((float) enumfacing.getFrontOffsetY() * f);
-            this.minZ = block.getBlockBoundsMinZ() - (double) ((float) enumfacing.getFrontOffsetZ() * f);
-            this.maxX = block.getBlockBoundsMaxX() - (double) ((float) enumfacing.getFrontOffsetX() * f);
-            this.maxY = block.getBlockBoundsMaxY() - (double) ((float) enumfacing.getFrontOffsetY() * f);
-            this.maxZ = block.getBlockBoundsMaxZ() - (double) ((float) enumfacing.getFrontOffsetZ() * f);
+            this.minX = block.getBlockBoundsMinX() - (enumfacing.getFrontOffsetX() * f);
+            this.minY = block.getBlockBoundsMinY() - (enumfacing.getFrontOffsetY() * f);
+            this.minZ = block.getBlockBoundsMinZ() - (enumfacing.getFrontOffsetZ() * f);
+            this.maxX = block.getBlockBoundsMaxX() - (enumfacing.getFrontOffsetX() * f);
+            this.maxY = block.getBlockBoundsMaxY() - (enumfacing.getFrontOffsetY() * f);
+            this.maxZ = block.getBlockBoundsMaxZ() - (enumfacing.getFrontOffsetZ() * f);
         }
     }
 
@@ -172,21 +172,21 @@ public class BlockPistonMoving extends BlockContainer {
                 double d5 = axisalignedbb.maxZ;
 
                 if (direction.getFrontOffsetX() < 0) {
-                    d0 -= (double) ((float) direction.getFrontOffsetX() * progress);
+                    d0 -= (direction.getFrontOffsetX() * progress);
                 } else {
-                    d3 -= (double) ((float) direction.getFrontOffsetX() * progress);
+                    d3 -= (direction.getFrontOffsetX() * progress);
                 }
 
                 if (direction.getFrontOffsetY() < 0) {
-                    d1 -= (double) ((float) direction.getFrontOffsetY() * progress);
+                    d1 -= (direction.getFrontOffsetY() * progress);
                 } else {
-                    d4 -= (double) ((float) direction.getFrontOffsetY() * progress);
+                    d4 -= (direction.getFrontOffsetY() * progress);
                 }
 
                 if (direction.getFrontOffsetZ() < 0) {
-                    d2 -= (double) ((float) direction.getFrontOffsetZ() * progress);
+                    d2 -= (direction.getFrontOffsetZ() * progress);
                 } else {
-                    d5 -= (double) ((float) direction.getFrontOffsetZ() * progress);
+                    d5 -= (direction.getFrontOffsetZ() * progress);
                 }
 
                 return new AxisAlignedBB(d0, d1, d2, d3, d4, d5);

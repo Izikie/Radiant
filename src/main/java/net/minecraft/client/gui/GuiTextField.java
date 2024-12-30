@@ -366,7 +366,7 @@ public class GuiTextField extends Gui {
 
             if (s.length() > 0) {
                 String s1 = flag ? s.substring(0, j) : s;
-                j1 = this.fontRendererInstance.drawStringWithShadow(s1, (float) l, (float) i1, i);
+                j1 = this.fontRendererInstance.drawStringWithShadow(s1, l, i1, i);
             }
 
             boolean flag2 = this.cursorPosition < this.text.length() || this.text.length() >= this.getMaxStringLength();
@@ -380,14 +380,14 @@ public class GuiTextField extends Gui {
             }
 
             if (s.length() > 0 && flag && j < s.length()) {
-                j1 = this.fontRendererInstance.drawStringWithShadow(s.substring(j), (float) j1, (float) i1, i);
+                j1 = this.fontRendererInstance.drawStringWithShadow(s.substring(j), j1, i1, i);
             }
 
             if (flag1) {
                 if (flag2) {
                     Gui.drawRect(k1, i1 - 1, k1 + 1, i1 + 1 + this.fontRendererInstance.FONT_HEIGHT, -3092272);
                 } else {
-                    this.fontRendererInstance.drawStringWithShadow("_", (float) k1, (float) i1, i);
+                    this.fontRendererInstance.drawStringWithShadow("_", k1, i1, i);
                 }
             }
 
@@ -426,10 +426,10 @@ public class GuiTextField extends Gui {
         GlStateManager.enableColorLogic();
         GlStateManager.colorLogicOp(5387);
         worldrenderer.begin(7, DefaultVertexFormats.POSITION);
-        worldrenderer.pos((double) p_146188_1_, (double) p_146188_4_, 0.0D).endVertex();
-        worldrenderer.pos((double) p_146188_3_, (double) p_146188_4_, 0.0D).endVertex();
-        worldrenderer.pos((double) p_146188_3_, (double) p_146188_2_, 0.0D).endVertex();
-        worldrenderer.pos((double) p_146188_1_, (double) p_146188_2_, 0.0D).endVertex();
+        worldrenderer.pos(p_146188_1_, p_146188_4_, 0.0D).endVertex();
+        worldrenderer.pos(p_146188_3_, p_146188_4_, 0.0D).endVertex();
+        worldrenderer.pos(p_146188_3_, p_146188_2_, 0.0D).endVertex();
+        worldrenderer.pos(p_146188_1_, p_146188_2_, 0.0D).endVertex();
         tessellator.draw();
         GlStateManager.disableColorLogic();
         GlStateManager.enableTexture2D();

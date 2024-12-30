@@ -43,7 +43,7 @@ public class EntityMoveHelper {
             int i = MathHelper.floor_double(this.entity.getEntityBoundingBox().minY + 0.5D);
             double d0 = this.posX - this.entity.posX;
             double d1 = this.posZ - this.entity.posZ;
-            double d2 = this.posY - (double) i;
+            double d2 = this.posY - i;
             double d3 = d0 * d0 + d2 * d2 + d1 * d1;
 
             if (d3 >= 2.500000277905201E-7D) {

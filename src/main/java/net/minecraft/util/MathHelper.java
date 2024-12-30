@@ -33,7 +33,7 @@ public class MathHelper {
     }
 
     public static float sqrt_float(float value) {
-        return (float) Math.sqrt((double) value);
+        return (float) Math.sqrt(value);
     }
 
     public static float sqrt_double(double value) {
@@ -42,7 +42,7 @@ public class MathHelper {
 
     public static int floor_float(float value) {
         int i = (int) value;
-        return value < (float) i ? i - 1 : i;
+        return value < i ? i - 1 : i;
     }
 
     public static int truncateDoubleToInt(double value) {
@@ -51,12 +51,12 @@ public class MathHelper {
 
     public static int floor_double(double value) {
         int i = (int) value;
-        return value < (double) i ? i - 1 : i;
+        return value < i ? i - 1 : i;
     }
 
     public static long floor_double_long(double value) {
         long i = (long) value;
-        return value < (double) i ? i - 1L : i;
+        return value < i ? i - 1L : i;
     }
 
     public static int func_154353_e(double value) {
@@ -73,12 +73,12 @@ public class MathHelper {
 
     public static int ceiling_float_int(float value) {
         int i = (int) value;
-        return value > (float) i ? i + 1 : i;
+        return value > i ? i + 1 : i;
     }
 
     public static int ceiling_double_int(double value) {
         int i = (int) value;
-        return value > (double) i ? i + 1 : i;
+        return value > i ? i + 1 : i;
     }
 
     public static int clamp_int(int num, int min, int max) {
@@ -132,7 +132,7 @@ public class MathHelper {
             i += j;
         }
 
-        return (double) i / (double) values.length;
+        return (double) i / values.length;
     }
 
     public static boolean epsilonEquals(float p_180185_0_, float p_180185_1_) {
@@ -211,7 +211,7 @@ public class MathHelper {
 
     private static int calculateLogBaseTwoDeBruijn(int value) {
         value = isPowerOfTwo(value) ? value : roundUpToPowerOfTwo(value);
-        return multiplyDeBruijnBitPosition[(int) ((long) value * 125613361L >> 27) & 31];
+        return multiplyDeBruijnBitPosition[(int) (value * 125613361L >> 27) & 31];
     }
 
     public static int calculateLogBaseTwo(int value) {
@@ -250,9 +250,9 @@ public class MathHelper {
         int l = (p_180188_1_ & 65280) >> 8;
         int i1 = (p_180188_0_ & 255);
         int j1 = (p_180188_1_ & 255);
-        int k1 = (int) ((float) i * (float) j / 255.0F);
-        int l1 = (int) ((float) k * (float) l / 255.0F);
-        int i2 = (int) ((float) i1 * (float) j1 / 255.0F);
+        int k1 = (int) ((float) i * j / 255.0F);
+        int l1 = (int) ((float) k * l / 255.0F);
+        int i2 = (int) ((float) i1 * j1 / 255.0F);
         return p_180188_0_ & -16777216 | k1 << 16 | l1 << 8 | i2;
     }
 
@@ -265,7 +265,7 @@ public class MathHelper {
     }
 
     public static long getCoordinateRandom(int x, int y, int z) {
-        long i = (long) (x * 3129871) ^ (long) z * 116129781L ^ (long) y;
+        long i = (x * 3129871) ^ z * 116129781L ^ y;
         i = i * i * 42317861L + i * 11L;
         return i;
     }
@@ -345,7 +345,7 @@ public class MathHelper {
 
     public static int hsvToRGB(float p_181758_0_, float p_181758_1_, float p_181758_2_) {
         int i = (int) (p_181758_0_ * 6.0F) % 6;
-        float f = p_181758_0_ * 6.0F - (float) i;
+        float f = p_181758_0_ * 6.0F - i;
         float f1 = p_181758_2_ * (1.0F - p_181758_1_);
         float f2 = p_181758_2_ * (1.0F - f * p_181758_1_);
         float f3 = p_181758_2_ * (1.0F - (1.0F - f) * p_181758_1_);
@@ -402,11 +402,11 @@ public class MathHelper {
 
     static {
         for (int i = 0; i < 65536; ++i) {
-            SIN_TABLE[i] = (float) Math.sin((double) i * Math.PI * 2.0D / 65536.0D);
+            SIN_TABLE[i] = (float) Math.sin(i * Math.PI * 2.0D / 65536.0D);
         }
 
         for (int j = 0; j < SIN_TABLE_FAST.length; ++j) {
-            SIN_TABLE_FAST[j] = MathUtils.roundToFloat(Math.sin((double) j * Math.PI * 2.0D / 4096.0D));
+            SIN_TABLE_FAST[j] = MathUtils.roundToFloat(Math.sin(j * Math.PI * 2.0D / 4096.0D));
         }
 
         multiplyDeBruijnBitPosition = new int[]{0, 1, 28, 2, 29, 14, 24, 3, 30, 22, 20, 15, 25, 17, 4, 8, 31, 27, 13, 23, 21, 19, 16, 7, 26, 12, 18, 6, 11, 5, 10, 9};
@@ -415,7 +415,7 @@ public class MathHelper {
         field_181165_f = new double[257];
 
         for (int k = 0; k < 257; ++k) {
-            double d0 = (double) k / 256.0D;
+            double d0 = k / 256.0D;
             double d1 = Math.asin(d0);
             field_181165_f[k] = Math.cos(d1);
             field_181164_e[k] = d1;

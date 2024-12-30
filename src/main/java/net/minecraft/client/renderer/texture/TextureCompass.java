@@ -19,7 +19,7 @@ public class TextureCompass extends TextureAtlasSprite {
         Minecraft minecraft = Minecraft.getMinecraft();
 
         if (minecraft.theWorld != null && minecraft.thePlayer != null) {
-            this.updateCompass(minecraft.theWorld, minecraft.thePlayer.posX, minecraft.thePlayer.posZ, (double) minecraft.thePlayer.rotationYaw, false, false);
+            this.updateCompass(minecraft.theWorld, minecraft.thePlayer.posX, minecraft.thePlayer.posZ, minecraft.thePlayer.rotationYaw, false, false);
         } else {
             this.updateCompass((World) null, 0.0D, 0.0D, 0.0D, true, false);
         }
@@ -31,8 +31,8 @@ public class TextureCompass extends TextureAtlasSprite {
 
             if (worldIn != null && !p_94241_8_) {
                 BlockPos blockpos = worldIn.getSpawnPoint();
-                double d1 = (double) blockpos.getX() - p_94241_2_;
-                double d2 = (double) blockpos.getZ() - p_94241_4_;
+                double d1 = blockpos.getX() - p_94241_2_;
+                double d2 = blockpos.getZ() - p_94241_4_;
                 p_94241_6_ = p_94241_6_ % 360.0D;
                 d0 = -((p_94241_6_ - 90.0D) * Math.PI / 180.0D - Math.atan2(d2, d1));
 
@@ -62,7 +62,7 @@ public class TextureCompass extends TextureAtlasSprite {
 
             int i;
 
-            for (i = (int) ((this.currentAngle / (Math.PI * 2D) + 1.0D) * (double) this.framesTextureData.size()) % this.framesTextureData.size(); i < 0; i = (i + this.framesTextureData.size()) % this.framesTextureData.size()) {
+            for (i = (int) ((this.currentAngle / (Math.PI * 2D) + 1.0D) * this.framesTextureData.size()) % this.framesTextureData.size(); i < 0; i = (i + this.framesTextureData.size()) % this.framesTextureData.size()) {
                 ;
             }
 

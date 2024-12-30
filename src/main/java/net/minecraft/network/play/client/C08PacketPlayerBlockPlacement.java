@@ -37,9 +37,9 @@ public class C08PacketPlayerBlockPlacement implements Packet<INetHandlerPlayServ
         this.position = buf.readBlockPos();
         this.placedBlockDirection = buf.readUnsignedByte();
         this.stack = buf.readItemStackFromBuffer();
-        this.facingX = (float) buf.readUnsignedByte() / 16.0F;
-        this.facingY = (float) buf.readUnsignedByte() / 16.0F;
-        this.facingZ = (float) buf.readUnsignedByte() / 16.0F;
+        this.facingX = buf.readUnsignedByte() / 16.0F;
+        this.facingY = buf.readUnsignedByte() / 16.0F;
+        this.facingZ = buf.readUnsignedByte() / 16.0F;
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {

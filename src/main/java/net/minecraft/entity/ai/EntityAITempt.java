@@ -56,7 +56,7 @@ public class EntityAITempt extends EntityAIBase {
                     return false;
                 }
 
-                if (Math.abs((double) this.temptingPlayer.rotationPitch - this.pitch) > 5.0D || Math.abs((double) this.temptingPlayer.rotationYaw - this.yaw) > 5.0D) {
+                if (Math.abs(this.temptingPlayer.rotationPitch - this.pitch) > 5.0D || Math.abs(this.temptingPlayer.rotationYaw - this.yaw) > 5.0D) {
                     return false;
                 }
             } else {
@@ -65,8 +65,8 @@ public class EntityAITempt extends EntityAIBase {
                 this.targetZ = this.temptingPlayer.posZ;
             }
 
-            this.pitch = (double) this.temptingPlayer.rotationPitch;
-            this.yaw = (double) this.temptingPlayer.rotationYaw;
+            this.pitch = this.temptingPlayer.rotationPitch;
+            this.yaw = this.temptingPlayer.rotationYaw;
         }
 
         return this.shouldExecute();
@@ -90,7 +90,7 @@ public class EntityAITempt extends EntityAIBase {
     }
 
     public void updateTask() {
-        this.temptedEntity.getLookHelper().setLookPositionWithEntity(this.temptingPlayer, 30.0F, (float) this.temptedEntity.getVerticalFaceSpeed());
+        this.temptedEntity.getLookHelper().setLookPositionWithEntity(this.temptingPlayer, 30.0F, this.temptedEntity.getVerticalFaceSpeed());
 
         if (this.temptedEntity.getDistanceSqToEntity(this.temptingPlayer) < 6.25D) {
             this.temptedEntity.getNavigator().clearPathEntity();

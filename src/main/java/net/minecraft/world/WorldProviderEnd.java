@@ -31,13 +31,13 @@ public class WorldProviderEnd extends WorldProvider {
         int i = 10518688;
         float f = MathHelper.cos(p_76562_1_ * (float) Math.PI * 2.0F) * 2.0F + 0.5F;
         f = MathHelper.clamp_float(f, 0.0F, 1.0F);
-        float f1 = (float) (i >> 16 & 255) / 255.0F;
-        float f2 = (float) (i >> 8 & 255) / 255.0F;
-        float f3 = (float) (i & 255) / 255.0F;
+        float f1 = (i >> 16 & 255) / 255.0F;
+        float f2 = (i >> 8 & 255) / 255.0F;
+        float f3 = (i & 255) / 255.0F;
         f1 = f1 * (f * 0.0F + 0.15F);
         f2 = f2 * (f * 0.0F + 0.15F);
         f3 = f3 * (f * 0.0F + 0.15F);
-        return new Vec3((double) f1, (double) f2, (double) f3);
+        return new Vec3(f1, f2, f3);
     }
 
     public boolean isSkyColored() {

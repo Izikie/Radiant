@@ -58,14 +58,14 @@ public class EntityChicken extends EntityAnimal {
         super.onLivingUpdate();
         this.field_70888_h = this.wingRotation;
         this.field_70884_g = this.destPos;
-        this.destPos = (float) ((double) this.destPos + (double) (this.onGround ? -1 : 4) * 0.3D);
+        this.destPos = (float) (this.destPos + (this.onGround ? -1 : 4) * 0.3D);
         this.destPos = MathHelper.clamp_float(this.destPos, 0.0F, 1.0F);
 
         if (!this.onGround && this.wingRotDelta < 1.0F) {
             this.wingRotDelta = 1.0F;
         }
 
-        this.wingRotDelta = (float) ((double) this.wingRotDelta * 0.9D);
+        this.wingRotDelta = (float) (this.wingRotDelta * 0.9D);
 
         if (!this.onGround && this.motionY < 0.0D) {
             this.motionY *= 0.6D;
@@ -154,7 +154,7 @@ public class EntityChicken extends EntityAnimal {
         float f1 = MathHelper.cos(this.renderYawOffset * (float) Math.PI / 180.0F);
         float f2 = 0.1F;
         float f3 = 0.0F;
-        this.riddenByEntity.setPosition(this.posX + (double) (f2 * f), this.posY + (double) (this.height * 0.5F) + this.riddenByEntity.getYOffset() + (double) f3, this.posZ - (double) (f2 * f1));
+        this.riddenByEntity.setPosition(this.posX + (f2 * f), this.posY + (this.height * 0.5F) + this.riddenByEntity.getYOffset() + f3, this.posZ - (f2 * f1));
 
         if (this.riddenByEntity instanceof EntityLivingBase) {
             ((EntityLivingBase) this.riddenByEntity).renderYawOffset = this.renderYawOffset;

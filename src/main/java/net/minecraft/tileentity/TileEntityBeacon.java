@@ -54,7 +54,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 
     private void addEffectsToPlayers() {
         if (this.isComplete && this.levels > 0 && !this.worldObj.isRemote && this.primaryEffect > 0) {
-            double d0 = (double) (this.levels * 10 + 10);
+            double d0 = (this.levels * 10 + 10);
             int i = 0;
 
             if (this.levels >= 4 && this.primaryEffect == this.secondaryEffect) {
@@ -64,7 +64,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
             int j = this.pos.getX();
             int k = this.pos.getY();
             int l = this.pos.getZ();
-            AxisAlignedBB axisalignedbb = (new AxisAlignedBB((double) j, (double) k, (double) l, (double) (j + 1), (double) (k + 1), (double) (l + 1))).expand(d0, d0, d0).addCoord(0.0D, (double) this.worldObj.getHeight(), 0.0D);
+            AxisAlignedBB axisalignedbb = (new AxisAlignedBB(j, k, l, (j + 1), (k + 1), (l + 1))).expand(d0, d0, d0).addCoord(0.0D, this.worldObj.getHeight(), 0.0D);
             List<EntityPlayer> list = this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
 
             for (EntityPlayer entityplayer : list) {
@@ -159,7 +159,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
         }
 
         if (!this.worldObj.isRemote && this.levels == 4 && i < this.levels) {
-            for (EntityPlayer entityplayer : this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, (new AxisAlignedBB((double) j, (double) k, (double) l, (double) j, (double) (k - 4), (double) l)).expand(10.0D, 5.0D, 10.0D))) {
+            for (EntityPlayer entityplayer : this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, (new AxisAlignedBB(j, k, l, j, (k - 4), l)).expand(10.0D, 5.0D, 10.0D))) {
                 entityplayer.triggerAchievement(AchievementList.fullBeacon);
             }
         }
@@ -177,7 +177,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
             this.beamRenderCounter = this.worldObj.getTotalWorldTime();
 
             if (i > 1) {
-                this.field_146014_j -= (float) i / 40.0F;
+                this.field_146014_j -= i / 40.0F;
 
                 if (this.field_146014_j < 0.0F) {
                     this.field_146014_j = 0.0F;
@@ -283,7 +283,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
     }
 
     public boolean isUseableByPlayer(EntityPlayer player) {
-        return this.worldObj.getTileEntity(this.pos) != this ? false : player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
+        return this.worldObj.getTileEntity(this.pos) != this ? false : player.getDistanceSq(this.pos.getX() + 0.5D, this.pos.getY() + 0.5D, this.pos.getZ() + 0.5D) <= 64.0D;
     }
 
     public void openInventory(EntityPlayer player) {

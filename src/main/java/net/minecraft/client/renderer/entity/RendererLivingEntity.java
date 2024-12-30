@@ -247,9 +247,9 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
             }
         }
 
-        float f1 = (float) (i >> 16 & 255) / 255.0F;
-        float f2 = (float) (i >> 8 & 255) / 255.0F;
-        float f = (float) (i & 255) / 255.0F;
+        float f1 = (i >> 16 & 255) / 255.0F;
+        float f2 = (i >> 8 & 255) / 255.0F;
+        float f = (i & 255) / 255.0F;
         GlStateManager.disableLighting();
         GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
         GlStateManager.color(f1, f2, f, 1.0F);
@@ -349,10 +349,10 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                     Shaders.setEntityColor(1.0F, 0.0F, 0.0F, 0.3F);
                 }
             } else {
-                float f1 = (float) (i >> 24 & 255) / 255.0F;
-                float f2 = (float) (i >> 16 & 255) / 255.0F;
-                float f3 = (float) (i >> 8 & 255) / 255.0F;
-                float f4 = (float) (i & 255) / 255.0F;
+                float f1 = (i >> 24 & 255) / 255.0F;
+                float f2 = (i >> 16 & 255) / 255.0F;
+                float f3 = (i >> 8 & 255) / 255.0F;
+                float f4 = (i & 255) / 255.0F;
                 this.brightnessBuffer.put(f2);
                 this.brightnessBuffer.put(f3);
                 this.brightnessBuffer.put(f4);
@@ -434,7 +434,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
         GlStateManager.rotate(180.0F - p_77043_3_, 0.0F, 1.0F, 0.0F);
 
         if (bat.deathTime > 0) {
-            float f = ((float) bat.deathTime + partialTicks - 1.0F) / 20.0F * 1.6F;
+            float f = (bat.deathTime + partialTicks - 1.0F) / 20.0F * 1.6F;
             f = MathHelper.sqrt_float(f);
 
             if (f > 1.0F) {
@@ -457,7 +457,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
     }
 
     protected float handleRotationFloat(T livingBase, float partialTicks) {
-        return (float) livingBase.ticksExisted + partialTicks;
+        return livingBase.ticksExisted + partialTicks;
     }
 
     protected void renderLayers(T entitylivingbaseIn, float p_177093_2_, float p_177093_3_, float partialTicks, float p_177093_5_, float p_177093_6_, float p_177093_7_, float p_177093_8_) {
@@ -513,7 +513,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
             double d0 = entity.getDistanceSqToEntity(this.renderManager.livingPlayer);
             float f = entity.isSneaking() ? NAME_TAG_RANGE_SNEAK : NAME_TAG_RANGE;
 
-            if (d0 < (double) (f * f)) {
+            if (d0 < (f * f)) {
                 String s = entity.getDisplayName().getFormattedText();
                 float f1 = 0.02666667F;
                 GlStateManager.alphaFunc(516, 0.1F);
@@ -536,10 +536,10 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                     Tessellator tessellator = Tessellator.getInstance();
                     WorldRenderer worldrenderer = tessellator.getWorldRenderer();
                     worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-                    worldrenderer.pos((double) (-i - 1), -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-                    worldrenderer.pos((double) (-i - 1), 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-                    worldrenderer.pos((double) (i + 1), 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-                    worldrenderer.pos((double) (i + 1), -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    worldrenderer.pos((-i - 1), -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    worldrenderer.pos((-i - 1), 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    worldrenderer.pos((i + 1), 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    worldrenderer.pos((i + 1), -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
                     tessellator.draw();
                     GlStateManager.enableTexture2D();
                     GlStateManager.depthMask(true);
@@ -549,7 +549,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                     GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                     GlStateManager.popMatrix();
                 } else {
-                    this.renderOffsetLivingLabel(entity, x, y - (entity.isChild() ? (double) (entity.height / 2.0F) : 0.0D), z, s, 0.02666667F, d0);
+                    this.renderOffsetLivingLabel(entity, x, y - (entity.isChild() ? (entity.height / 2.0F) : 0.0D), z, s, 0.02666667F, d0);
                 }
             }
         }

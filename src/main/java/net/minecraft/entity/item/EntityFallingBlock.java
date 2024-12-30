@@ -154,10 +154,10 @@ public class EntityFallingBlock extends Entity {
                 DamageSource damagesource = flag ? DamageSource.anvil : DamageSource.fallingBlock;
 
                 for (Entity entity : list) {
-                    entity.attackEntityFrom(damagesource, (float) Math.min(MathHelper.floor_float((float) i * this.fallHurtAmount), this.fallHurtMax));
+                    entity.attackEntityFrom(damagesource, Math.min(MathHelper.floor_float(i * this.fallHurtAmount), this.fallHurtMax));
                 }
 
-                if (flag && (double) this.rand.nextFloat() < 0.05000000074505806D + (double) i * 0.05D) {
+                if (flag && this.rand.nextFloat() < 0.05000000074505806D + i * 0.05D) {
                     int j = ((Integer) this.fallTile.getValue(BlockAnvil.DAMAGE)).intValue();
                     ++j;
 

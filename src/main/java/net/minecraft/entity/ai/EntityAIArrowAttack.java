@@ -69,7 +69,7 @@ public class EntityAIArrowAttack extends EntityAIBase {
             this.field_75318_f = 0;
         }
 
-        if (d0 <= (double) this.maxAttackDistance && this.field_75318_f >= 20) {
+        if (d0 <= this.maxAttackDistance && this.field_75318_f >= 20) {
             this.entityHost.getNavigator().clearPathEntity();
         } else {
             this.entityHost.getNavigator().tryMoveToEntityLiving(this.attackTarget, this.entityMoveSpeed);
@@ -78,17 +78,17 @@ public class EntityAIArrowAttack extends EntityAIBase {
         this.entityHost.getLookHelper().setLookPositionWithEntity(this.attackTarget, 30.0F, 30.0F);
 
         if (--this.rangedAttackTime == 0) {
-            if (d0 > (double) this.maxAttackDistance || !flag) {
+            if (d0 > this.maxAttackDistance || !flag) {
                 return;
             }
 
             float f = MathHelper.sqrt_double(d0) / this.field_96562_i;
             float lvt_5_1_ = MathHelper.clamp_float(f, 0.1F, 1.0F);
             this.rangedAttackEntityHost.attackEntityWithRangedAttack(this.attackTarget, lvt_5_1_);
-            this.rangedAttackTime = MathHelper.floor_float(f * (float) (this.maxRangedAttackTime - this.field_96561_g) + (float) this.field_96561_g);
+            this.rangedAttackTime = MathHelper.floor_float(f * (this.maxRangedAttackTime - this.field_96561_g) + this.field_96561_g);
         } else if (this.rangedAttackTime < 0) {
             float f2 = MathHelper.sqrt_double(d0) / this.field_96562_i;
-            this.rangedAttackTime = MathHelper.floor_float(f2 * (float) (this.maxRangedAttackTime - this.field_96561_g) + (float) this.field_96561_g);
+            this.rangedAttackTime = MathHelper.floor_float(f2 * (this.maxRangedAttackTime - this.field_96561_g) + this.field_96561_g);
         }
     }
 }

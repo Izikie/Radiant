@@ -33,7 +33,7 @@ public class EntityMooshroom extends EntityCow {
 
         if (itemstack != null && itemstack.getItem() == Items.shears && this.getGrowingAge() >= 0) {
             this.setDead();
-            this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.posX, this.posY + (double) (this.height / 2.0F), this.posZ, 0.0D, 0.0D, 0.0D, new int[0]);
+            this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.posX, this.posY + (this.height / 2.0F), this.posZ, 0.0D, 0.0D, 0.0D, new int[0]);
 
             if (!this.worldObj.isRemote) {
                 EntityCow entitycow = new EntityCow(this.worldObj);
@@ -48,7 +48,7 @@ public class EntityMooshroom extends EntityCow {
                 this.worldObj.spawnEntityInWorld(entitycow);
 
                 for (int i = 0; i < 5; ++i) {
-                    this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.posX, this.posY + (double) this.height, this.posZ, new ItemStack(Blocks.red_mushroom)));
+                    this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.posX, this.posY + this.height, this.posZ, new ItemStack(Blocks.red_mushroom)));
                 }
 
                 itemstack.damageItem(1, player);

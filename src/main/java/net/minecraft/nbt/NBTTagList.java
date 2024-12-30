@@ -42,7 +42,7 @@ public class NBTTagList extends NBTBase {
             if (this.tagType == 0 && i > 0) {
                 throw new RuntimeException("Missing type on ListTag");
             } else {
-                sizeTracker.read(32L * (long) i);
+                sizeTracker.read(32L * i);
                 this.tagList = Lists.newArrayListWithCapacity(i);
 
                 for (int j = 0; j < i; ++j) {

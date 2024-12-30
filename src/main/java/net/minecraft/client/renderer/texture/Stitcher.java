@@ -191,11 +191,11 @@ public class Stitcher {
         }
 
         public int getWidth() {
-            return this.rotated ? Stitcher.getMipmapDimension((int) ((float) this.height * this.scaleFactor), this.mipmapLevelHolder) : Stitcher.getMipmapDimension((int) ((float) this.width * this.scaleFactor), this.mipmapLevelHolder);
+            return this.rotated ? Stitcher.getMipmapDimension((int) (this.height * this.scaleFactor), this.mipmapLevelHolder) : Stitcher.getMipmapDimension((int) (this.width * this.scaleFactor), this.mipmapLevelHolder);
         }
 
         public int getHeight() {
-            return this.rotated ? Stitcher.getMipmapDimension((int) ((float) this.width * this.scaleFactor), this.mipmapLevelHolder) : Stitcher.getMipmapDimension((int) ((float) this.height * this.scaleFactor), this.mipmapLevelHolder);
+            return this.rotated ? Stitcher.getMipmapDimension((int) (this.width * this.scaleFactor), this.mipmapLevelHolder) : Stitcher.getMipmapDimension((int) (this.height * this.scaleFactor), this.mipmapLevelHolder);
         }
 
         public void rotate() {
@@ -208,7 +208,7 @@ public class Stitcher {
 
         public void setNewDimension(int p_94196_1_) {
             if (this.width > p_94196_1_ && this.height > p_94196_1_) {
-                this.scaleFactor = (float) p_94196_1_ / (float) Math.min(this.width, this.height);
+                this.scaleFactor = (float) p_94196_1_ / Math.min(this.width, this.height);
             }
         }
 

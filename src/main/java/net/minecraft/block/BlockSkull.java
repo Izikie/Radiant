@@ -174,7 +174,7 @@ public class BlockSkull extends BlockContainer {
                 BlockPos blockpos = blockpattern$patternhelper.translateOffset(1, 0, 0).getPos();
                 EntityWither entitywither = new EntityWither(worldIn);
                 BlockPos blockpos1 = blockpattern$patternhelper.translateOffset(1, 2, 0).getPos();
-                entitywither.setLocationAndAngles((double) blockpos1.getX() + 0.5D, (double) blockpos1.getY() + 0.55D, (double) blockpos1.getZ() + 0.5D, blockpattern$patternhelper.getFinger().getAxis() == EnumFacing.Axis.X ? 0.0F : 90.0F, 0.0F);
+                entitywither.setLocationAndAngles(blockpos1.getX() + 0.5D, blockpos1.getY() + 0.55D, blockpos1.getZ() + 0.5D, blockpattern$patternhelper.getFinger().getAxis() == EnumFacing.Axis.X ? 0.0F : 90.0F, 0.0F);
                 entitywither.renderYawOffset = blockpattern$patternhelper.getFinger().getAxis() == EnumFacing.Axis.X ? 0.0F : 90.0F;
                 entitywither.func_82206_m();
 
@@ -185,7 +185,7 @@ public class BlockSkull extends BlockContainer {
                 worldIn.spawnEntityInWorld(entitywither);
 
                 for (int l = 0; l < 120; ++l) {
-                    worldIn.spawnParticle(EnumParticleTypes.SNOWBALL, (double) blockpos.getX() + worldIn.rand.nextDouble(), (double) (blockpos.getY() - 2) + worldIn.rand.nextDouble() * 3.9D, (double) blockpos.getZ() + worldIn.rand.nextDouble(), 0.0D, 0.0D, 0.0D, new int[0]);
+                    worldIn.spawnParticle(EnumParticleTypes.SNOWBALL, blockpos.getX() + worldIn.rand.nextDouble(), (blockpos.getY() - 2) + worldIn.rand.nextDouble() * 3.9D, blockpos.getZ() + worldIn.rand.nextDouble(), 0.0D, 0.0D, 0.0D, new int[0]);
                 }
 
                 for (int i1 = 0; i1 < blockpattern.getPalmLength(); ++i1) {

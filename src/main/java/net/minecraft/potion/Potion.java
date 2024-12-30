@@ -107,34 +107,34 @@ public class Potion {
         } else if (this.id == wither.id) {
             entityLivingBaseIn.attackEntityFrom(DamageSource.wither, 1.0F);
         } else if (this.id == hunger.id && entityLivingBaseIn instanceof EntityPlayer) {
-            ((EntityPlayer) entityLivingBaseIn).addExhaustion(0.025F * (float) (p_76394_2_ + 1));
+            ((EntityPlayer) entityLivingBaseIn).addExhaustion(0.025F * (p_76394_2_ + 1));
         } else if (this.id == saturation.id && entityLivingBaseIn instanceof EntityPlayer) {
             if (!entityLivingBaseIn.worldObj.isRemote) {
                 ((EntityPlayer) entityLivingBaseIn).getFoodStats().addStats(p_76394_2_ + 1, 1.0F);
             }
         } else if ((this.id != heal.id || entityLivingBaseIn.isEntityUndead()) && (this.id != harm.id || !entityLivingBaseIn.isEntityUndead())) {
             if (this.id == harm.id && !entityLivingBaseIn.isEntityUndead() || this.id == heal.id && entityLivingBaseIn.isEntityUndead()) {
-                entityLivingBaseIn.attackEntityFrom(DamageSource.magic, (float) (6 << p_76394_2_));
+                entityLivingBaseIn.attackEntityFrom(DamageSource.magic, (6 << p_76394_2_));
             }
         } else {
-            entityLivingBaseIn.heal((float) Math.max(4 << p_76394_2_, 0));
+            entityLivingBaseIn.heal(Math.max(4 << p_76394_2_, 0));
         }
     }
 
     public void affectEntity(Entity p_180793_1_, Entity p_180793_2_, EntityLivingBase entityLivingBaseIn, int p_180793_4_, double p_180793_5_) {
         if ((this.id != heal.id || entityLivingBaseIn.isEntityUndead()) && (this.id != harm.id || !entityLivingBaseIn.isEntityUndead())) {
             if (this.id == harm.id && !entityLivingBaseIn.isEntityUndead() || this.id == heal.id && entityLivingBaseIn.isEntityUndead()) {
-                int j = (int) (p_180793_5_ * (double) (6 << p_180793_4_) + 0.5D);
+                int j = (int) (p_180793_5_ * (6 << p_180793_4_) + 0.5D);
 
                 if (p_180793_1_ == null) {
-                    entityLivingBaseIn.attackEntityFrom(DamageSource.magic, (float) j);
+                    entityLivingBaseIn.attackEntityFrom(DamageSource.magic, j);
                 } else {
-                    entityLivingBaseIn.attackEntityFrom(DamageSource.causeIndirectMagicDamage(p_180793_1_, p_180793_2_), (float) j);
+                    entityLivingBaseIn.attackEntityFrom(DamageSource.causeIndirectMagicDamage(p_180793_1_, p_180793_2_), j);
                 }
             }
         } else {
-            int i = (int) (p_180793_5_ * (double) (4 << p_180793_4_) + 0.5D);
-            entityLivingBaseIn.heal((float) i);
+            int i = (int) (p_180793_5_ * (4 << p_180793_4_) + 0.5D);
+            entityLivingBaseIn.heal(i);
         }
     }
 
@@ -237,6 +237,6 @@ public class Potion {
     }
 
     public double getAttributeModifierAmount(int p_111183_1_, AttributeModifier modifier) {
-        return modifier.getAmount() * (double) (p_111183_1_ + 1);
+        return modifier.getAmount() * (p_111183_1_ + 1);
     }
 }

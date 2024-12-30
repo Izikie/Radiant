@@ -350,7 +350,7 @@ public class GameSettings {
             int i = this.mipmapLevels;
             this.mipmapLevels = (int) value;
 
-            if ((float) i != value) {
+            if (i != value) {
                 this.mc.getTextureMapBlocks().setMipmapLevels(this.mipmapLevels);
                 this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
                 this.mc.getTextureMapBlocks().setBlurMipmapDirect(false, this.mipmapLevels > 0);
@@ -502,9 +502,9 @@ public class GameSettings {
                 : (settingOption == GameSettings.Options.CHAT_HEIGHT_UNFOCUSED ? this.chatHeightUnfocused
                 : (settingOption == GameSettings.Options.CHAT_SCALE ? this.chatScale
                 : (settingOption == GameSettings.Options.CHAT_WIDTH ? this.chatWidth
-                : (settingOption == GameSettings.Options.FRAMERATE_LIMIT ? (float) this.limitFramerate
-                : (settingOption == GameSettings.Options.MIPMAP_LEVELS ? (float) this.mipmapLevels
-                : (settingOption == GameSettings.Options.RENDER_DISTANCE ? (float) this.renderDistanceChunks : 0.0F))))))))))));
+                : (settingOption == GameSettings.Options.FRAMERATE_LIMIT ? this.limitFramerate
+                : (settingOption == GameSettings.Options.MIPMAP_LEVELS ? this.mipmapLevels
+                : (settingOption == GameSettings.Options.RENDER_DISTANCE ? this.renderDistanceChunks : 0.0F))))))))))));
     }
 
     public boolean getOptionOrdinalValue(GameSettings.Options settingOption) {
@@ -578,7 +578,7 @@ public class GameSettings {
             if (settingOption.getEnumFloat()) {
                 float f1 = this.getOptionFloatValue(settingOption);
                 float f = settingOption.normalizeValue(f1);
-                return settingOption == GameSettings.Options.MIPMAP_LEVELS && (double) f1 >= 4.0D ? s1 + Lang.get("of.general.max")
+                return settingOption == GameSettings.Options.MIPMAP_LEVELS && f1 >= 4.0D ? s1 + Lang.get("of.general.max")
                         : (settingOption == GameSettings.Options.SENSITIVITY ? (f == 0.0F ? s1 + I18n.format("options.sensitivity.min", new Object[0]) : (f == 1.0F ? s1 + I18n.format("options.sensitivity.max", new Object[0]) : s1 + (int) (f * 200.0F) + "%"))
                         : (settingOption == GameSettings.Options.FOV ? (f1 == 70.0F ? s1 + I18n.format("options.fov.min", new Object[0]) : (f1 == 110.0F ? s1 + I18n.format("options.fov.max", new Object[0]) : s1 + (int) f1))
                         : (settingOption == GameSettings.Options.FRAMERATE_LIMIT ? (f1 == settingOption.valueMax ? s1 + I18n.format("options.framerateLimit.max", new Object[0]) : s1 + (int) f1 + " fps")
@@ -1101,20 +1101,20 @@ public class GameSettings {
         } else if (p_getOptionFloatValueOF_1_ == GameSettings.Options.AO_LEVEL) {
             return this.ofAoLevel;
         } else if (p_getOptionFloatValueOF_1_ == GameSettings.Options.AA_LEVEL) {
-            return (float) this.ofAaLevel;
+            return this.ofAaLevel;
         } else if (p_getOptionFloatValueOF_1_ == GameSettings.Options.AF_LEVEL) {
-            return (float) this.ofAfLevel;
+            return this.ofAfLevel;
         } else if (p_getOptionFloatValueOF_1_ == GameSettings.Options.MIPMAP_TYPE) {
-            return (float) this.ofMipmapType;
+            return this.ofMipmapType;
         } else if (p_getOptionFloatValueOF_1_ == GameSettings.Options.FRAMERATE_LIMIT) {
-            return (float) this.limitFramerate == GameSettings.Options.FRAMERATE_LIMIT.getValueMax() && this.enableVsync ? 0.0F : (float) this.limitFramerate;
+            return this.limitFramerate == GameSettings.Options.FRAMERATE_LIMIT.getValueMax() && this.enableVsync ? 0.0F : this.limitFramerate;
         } else if (p_getOptionFloatValueOF_1_ == GameSettings.Options.FULLSCREEN_MODE) {
             if (this.ofFullscreenMode.equals("Default")) {
                 return 0.0F;
             } else {
                 List list = Arrays.asList(Config.getDisplayModeNames());
                 int i = list.indexOf(this.ofFullscreenMode);
-                return i < 0 ? 0.0F : (float) (i + 1);
+                return i < 0 ? 0.0F : (i + 1);
             }
         } else {
             return Float.MAX_VALUE;
@@ -2527,7 +2527,7 @@ public class GameSettings {
         FIREWORK_PARTICLES("of.options.FIREWORK_PARTICLES", false, false),
         DRIPPING_WATER_LAVA("of.options.DRIPPING_WATER_LAVA", false, false),
         BETTER_SNOW("of.options.BETTER_SNOW", false, false),
-        FULLSCREEN_MODE("of.options.FULLSCREEN_MODE", true, false, 0.0F, (float) Config.getDisplayModes().length, 1.0F),
+        FULLSCREEN_MODE("of.options.FULLSCREEN_MODE", true, false, 0.0F, Config.getDisplayModes().length, 1.0F),
         ANIMATED_TERRAIN("of.options.ANIMATED_TERRAIN", false, false),
         SWAMP_COLORS("of.options.SWAMP_COLORS", false, false),
         RANDOM_ENTITIES("of.options.RANDOM_ENTITIES", false, false),
@@ -2629,7 +2629,7 @@ public class GameSettings {
 
         protected float snapToStep(float value) {
             if (this.valueStep > 0.0F) {
-                value = this.valueStep * (float) Math.round(value / this.valueStep);
+                value = this.valueStep * Math.round(value / this.valueStep);
             }
 
             return value;

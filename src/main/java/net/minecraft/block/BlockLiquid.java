@@ -44,7 +44,7 @@ public abstract class BlockLiquid extends Block {
             meta = 0;
         }
 
-        return (float) (meta + 1) / 9.0F;
+        return (meta + 1) / 9.0F;
     }
 
     protected int getLevel(IBlockAccess worldIn, BlockPos pos) {
@@ -123,12 +123,12 @@ public abstract class BlockLiquid extends Block {
 
                     if (j >= 0) {
                         int k = j - (i - 8);
-                        vec3 = vec3.addVector((double) ((blockpos.getX() - pos.getX()) * k), (double) ((blockpos.getY() - pos.getY()) * k), (double) ((blockpos.getZ() - pos.getZ()) * k));
+                        vec3 = vec3.addVector(((blockpos.getX() - pos.getX()) * k), ((blockpos.getY() - pos.getY()) * k), ((blockpos.getZ() - pos.getZ()) * k));
                     }
                 }
             } else if (j >= 0) {
                 int l = j - i;
-                vec3 = vec3.addVector((double) ((blockpos.getX() - pos.getX()) * l), (double) ((blockpos.getY() - pos.getY()) * l), (double) ((blockpos.getZ() - pos.getZ()) * l));
+                vec3 = vec3.addVector(((blockpos.getX() - pos.getX()) * l), ((blockpos.getY() - pos.getY()) * l), ((blockpos.getZ() - pos.getZ()) * l));
             }
         }
 
@@ -169,9 +169,9 @@ public abstract class BlockLiquid extends Block {
     }
 
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        double d0 = (double) pos.getX();
-        double d1 = (double) pos.getY();
-        double d2 = (double) pos.getZ();
+        double d0 = pos.getX();
+        double d1 = pos.getY();
+        double d2 = pos.getZ();
 
         if (this.blockMaterial == Material.water) {
             int i = ((Integer) state.getValue(LEVEL)).intValue();
@@ -181,15 +181,15 @@ public abstract class BlockLiquid extends Block {
                     worldIn.playSound(d0 + 0.5D, d1 + 0.5D, d2 + 0.5D, "liquid.water", rand.nextFloat() * 0.25F + 0.75F, rand.nextFloat() * 1.0F + 0.5F, false);
                 }
             } else if (rand.nextInt(10) == 0) {
-                worldIn.spawnParticle(EnumParticleTypes.SUSPENDED, d0 + (double) rand.nextFloat(), d1 + (double) rand.nextFloat(), d2 + (double) rand.nextFloat(), 0.0D, 0.0D, 0.0D, new int[0]);
+                worldIn.spawnParticle(EnumParticleTypes.SUSPENDED, d0 + rand.nextFloat(), d1 + rand.nextFloat(), d2 + rand.nextFloat(), 0.0D, 0.0D, 0.0D, new int[0]);
             }
         }
 
         if (this.blockMaterial == Material.lava && worldIn.getBlockState(pos.up()).getBlock().getMaterial() == Material.air && !worldIn.getBlockState(pos.up()).getBlock().isOpaqueCube()) {
             if (rand.nextInt(100) == 0) {
-                double d8 = d0 + (double) rand.nextFloat();
+                double d8 = d0 + rand.nextFloat();
                 double d4 = d1 + this.maxY;
-                double d6 = d2 + (double) rand.nextFloat();
+                double d6 = d2 + rand.nextFloat();
                 worldIn.spawnParticle(EnumParticleTypes.LAVA, d8, d4, d6, 0.0D, 0.0D, 0.0D, new int[0]);
                 worldIn.playSound(d8, d4, d6, "liquid.lavapop", 0.2F + rand.nextFloat() * 0.2F, 0.9F + rand.nextFloat() * 0.15F, false);
             }
@@ -203,9 +203,9 @@ public abstract class BlockLiquid extends Block {
             Material material = worldIn.getBlockState(pos.down(2)).getBlock().getMaterial();
 
             if (!material.blocksMovement() && !material.isLiquid()) {
-                double d3 = d0 + (double) rand.nextFloat();
+                double d3 = d0 + rand.nextFloat();
                 double d5 = d1 - 1.05D;
-                double d7 = d2 + (double) rand.nextFloat();
+                double d7 = d2 + rand.nextFloat();
 
                 if (this.blockMaterial == Material.water) {
                     worldIn.spawnParticle(EnumParticleTypes.DRIP_WATER, d3, d5, d7, 0.0D, 0.0D, 0.0D, new int[0]);
@@ -261,9 +261,9 @@ public abstract class BlockLiquid extends Block {
     }
 
     protected void triggerMixEffects(World worldIn, BlockPos pos) {
-        double d0 = (double) pos.getX();
-        double d1 = (double) pos.getY();
-        double d2 = (double) pos.getZ();
+        double d0 = pos.getX();
+        double d1 = pos.getY();
+        double d2 = pos.getZ();
         worldIn.playSoundEffect(d0 + 0.5D, d1 + 0.5D, d2 + 0.5D, "random.fizz", 0.5F, 2.6F + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.8F);
 
         for (int i = 0; i < 8; ++i) {

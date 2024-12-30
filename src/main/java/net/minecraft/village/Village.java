@@ -82,7 +82,7 @@ public class Village {
             BlockPos blockpos = p_179862_1_.add(this.worldObj.rand.nextInt(16) - 8, this.worldObj.rand.nextInt(6) - 3, this.worldObj.rand.nextInt(16) - 8);
 
             if (this.func_179866_a(blockpos) && this.func_179861_a(new BlockPos(p_179862_2_, p_179862_3_, p_179862_4_), blockpos)) {
-                return new Vec3((double) blockpos.getX(), (double) blockpos.getY(), (double) blockpos.getZ());
+                return new Vec3(blockpos.getX(), blockpos.getY(), blockpos.getZ());
             }
         }
 
@@ -111,12 +111,12 @@ public class Village {
     }
 
     private void updateNumIronGolems() {
-        List<EntityIronGolem> list = this.worldObj.getEntitiesWithinAABB(EntityIronGolem.class, new AxisAlignedBB((double) (this.center.getX() - this.villageRadius), (double) (this.center.getY() - 4), (double) (this.center.getZ() - this.villageRadius), (double) (this.center.getX() + this.villageRadius), (double) (this.center.getY() + 4), (double) (this.center.getZ() + this.villageRadius)));
+        List<EntityIronGolem> list = this.worldObj.getEntitiesWithinAABB(EntityIronGolem.class, new AxisAlignedBB((this.center.getX() - this.villageRadius), (this.center.getY() - 4), (this.center.getZ() - this.villageRadius), (this.center.getX() + this.villageRadius), (this.center.getY() + 4), (this.center.getZ() + this.villageRadius)));
         this.numIronGolems = list.size();
     }
 
     private void updateNumVillagers() {
-        List<EntityVillager> list = this.worldObj.getEntitiesWithinAABB(EntityVillager.class, new AxisAlignedBB((double) (this.center.getX() - this.villageRadius), (double) (this.center.getY() - 4), (double) (this.center.getZ() - this.villageRadius), (double) (this.center.getX() + this.villageRadius), (double) (this.center.getY() + 4), (double) (this.center.getZ() + this.villageRadius)));
+        List<EntityVillager> list = this.worldObj.getEntitiesWithinAABB(EntityVillager.class, new AxisAlignedBB((this.center.getX() - this.villageRadius), (this.center.getY() - 4), (this.center.getZ() - this.villageRadius), (this.center.getX() + this.villageRadius), (this.center.getY() + 4), (this.center.getZ() + this.villageRadius)));
         this.numVillagers = list.size();
 
         if (this.numVillagers == 0) {
@@ -145,7 +145,7 @@ public class Village {
     }
 
     public boolean func_179866_a(BlockPos pos) {
-        return this.center.distanceSq(pos) < (double) (this.villageRadius * this.villageRadius);
+        return this.center.distanceSq(pos) < (this.villageRadius * this.villageRadius);
     }
 
     public List<VillageDoorInfo> getVillageDoorInfoList() {
@@ -191,7 +191,7 @@ public class Village {
     }
 
     public VillageDoorInfo getExistedDoor(BlockPos doorBlock) {
-        if (this.center.distanceSq(doorBlock) > (double) (this.villageRadius * this.villageRadius)) {
+        if (this.center.distanceSq(doorBlock) > (this.villageRadius * this.villageRadius)) {
             return null;
         } else {
             for (VillageDoorInfo villagedoorinfo : this.villageDoorInfoList) {
@@ -321,7 +321,7 @@ public class Village {
                 j = Math.max(villagedoorinfo.getDistanceToDoorBlockSq(this.center), j);
             }
 
-            this.villageRadius = Math.max(32, (int) Math.sqrt((double) j) + 1);
+            this.villageRadius = Math.max(32, (int) Math.sqrt(j) + 1);
         }
     }
 

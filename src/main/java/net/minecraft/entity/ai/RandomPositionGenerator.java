@@ -34,8 +34,8 @@ public class RandomPositionGenerator {
         boolean flag1;
 
         if (entitycreatureIn.hasHome()) {
-            double d0 = entitycreatureIn.getHomePosition().distanceSq((double) MathHelper.floor_double(entitycreatureIn.posX), (double) MathHelper.floor_double(entitycreatureIn.posY), (double) MathHelper.floor_double(entitycreatureIn.posZ)) + 4.0D;
-            double d1 = (double) (entitycreatureIn.getMaximumHomeDistance() + (float) xz);
+            double d0 = entitycreatureIn.getHomePosition().distanceSq(MathHelper.floor_double(entitycreatureIn.posX), MathHelper.floor_double(entitycreatureIn.posY), MathHelper.floor_double(entitycreatureIn.posZ)) + 4.0D;
+            double d1 = (entitycreatureIn.getMaximumHomeDistance() + xz);
             flag1 = d0 < d1 * d1;
         } else {
             flag1 = false;
@@ -46,17 +46,17 @@ public class RandomPositionGenerator {
             int k1 = random.nextInt(2 * y + 1) - y;
             int i1 = random.nextInt(2 * xz + 1) - xz;
 
-            if (targetVec3 == null || (double) l * targetVec3.xCoord + (double) i1 * targetVec3.zCoord >= 0.0D) {
+            if (targetVec3 == null || l * targetVec3.xCoord + i1 * targetVec3.zCoord >= 0.0D) {
                 if (entitycreatureIn.hasHome() && xz > 1) {
                     BlockPos blockpos = entitycreatureIn.getHomePosition();
 
-                    if (entitycreatureIn.posX > (double) blockpos.getX()) {
+                    if (entitycreatureIn.posX > blockpos.getX()) {
                         l -= random.nextInt(xz / 2);
                     } else {
                         l += random.nextInt(xz / 2);
                     }
 
-                    if (entitycreatureIn.posZ > (double) blockpos.getZ()) {
+                    if (entitycreatureIn.posZ > blockpos.getZ()) {
                         i1 -= random.nextInt(xz / 2);
                     } else {
                         i1 += random.nextInt(xz / 2);
@@ -83,7 +83,7 @@ public class RandomPositionGenerator {
         }
 
         if (flag) {
-            return new Vec3((double) i, (double) j, (double) k);
+            return new Vec3(i, j, k);
         } else {
             return null;
         }

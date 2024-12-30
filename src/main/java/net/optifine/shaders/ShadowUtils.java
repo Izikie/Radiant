@@ -15,7 +15,7 @@ public class ShadowUtils {
     public static Iterator<RenderChunk> makeShadowChunkIterator(WorldClient world, double partialTicks, Entity viewEntity, int renderDistanceChunks, ViewFrustum viewFrustum) {
         float f = Shaders.getShadowRenderDistance();
 
-        if (f > 0.0F && f < (float) ((renderDistanceChunks - 1) * 16)) {
+        if (f > 0.0F && f < ((renderDistanceChunks - 1) * 16)) {
             int i = MathHelper.ceiling_float_int(f / 16.0F) + 1;
             float f6 = world.getCelestialAngleRadians((float) partialTicks);
             float f1 = Shaders.sunPathRotation * MathHelper.deg2Rad;
@@ -24,8 +24,8 @@ public class ShadowUtils {
             float f4 = MathHelper.cos(f2) * MathHelper.cos(f1);
             float f5 = -MathHelper.cos(f2) * MathHelper.sin(f1);
             BlockPos blockpos = new BlockPos(MathHelper.floor_double(viewEntity.posX) >> 4, MathHelper.floor_double(viewEntity.posY) >> 4, MathHelper.floor_double(viewEntity.posZ) >> 4);
-            BlockPos blockpos1 = blockpos.add((double) (-f3 * (float) i), (double) (-f4 * (float) i), (double) (-f5 * (float) i));
-            BlockPos blockpos2 = blockpos.add((double) (f3 * (float) renderDistanceChunks), (double) (f4 * (float) renderDistanceChunks), (double) (f5 * (float) renderDistanceChunks));
+            BlockPos blockpos1 = blockpos.add((-f3 * i), (-f4 * i), (-f5 * i));
+            BlockPos blockpos2 = blockpos.add((f3 * renderDistanceChunks), (f4 * renderDistanceChunks), (f5 * renderDistanceChunks));
             IteratorRenderChunks iteratorrenderchunks = new IteratorRenderChunks(viewFrustum, blockpos1, blockpos2, i, i);
             return iteratorrenderchunks;
         } else {

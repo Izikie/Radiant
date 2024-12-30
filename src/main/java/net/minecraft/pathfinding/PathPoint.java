@@ -26,16 +26,16 @@ public class PathPoint {
     }
 
     public float distanceTo(PathPoint pathpointIn) {
-        float f = (float) (pathpointIn.xCoord - this.xCoord);
-        float f1 = (float) (pathpointIn.yCoord - this.yCoord);
-        float f2 = (float) (pathpointIn.zCoord - this.zCoord);
+        float f = (pathpointIn.xCoord - this.xCoord);
+        float f1 = (pathpointIn.yCoord - this.yCoord);
+        float f2 = (pathpointIn.zCoord - this.zCoord);
         return MathHelper.sqrt_float(f * f + f1 * f1 + f2 * f2);
     }
 
     public float distanceToSquared(PathPoint pathpointIn) {
-        float f = (float) (pathpointIn.xCoord - this.xCoord);
-        float f1 = (float) (pathpointIn.yCoord - this.yCoord);
-        float f2 = (float) (pathpointIn.zCoord - this.zCoord);
+        float f = (pathpointIn.xCoord - this.xCoord);
+        float f1 = (pathpointIn.yCoord - this.yCoord);
+        float f2 = (pathpointIn.zCoord - this.zCoord);
         return f * f + f1 * f1 + f2 * f2;
     }
 

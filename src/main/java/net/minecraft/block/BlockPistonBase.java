@@ -123,7 +123,7 @@ public class BlockPistonBase extends Block {
             }
 
             worldIn.setBlockState(pos, state.withProperty(EXTENDED, Boolean.valueOf(true)), 2);
-            worldIn.playSoundEffect((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, "tile.piston.out", 0.5F, worldIn.rand.nextFloat() * 0.25F + 0.6F);
+            worldIn.playSoundEffect(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, "tile.piston.out", 0.5F, worldIn.rand.nextFloat() * 0.25F + 0.6F);
         } else if (eventID == 1) {
             TileEntity tileentity1 = worldIn.getTileEntity(pos.offset(enumfacing));
 
@@ -158,7 +158,7 @@ public class BlockPistonBase extends Block {
                 worldIn.setBlockToAir(pos.offset(enumfacing));
             }
 
-            worldIn.playSoundEffect((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, "tile.piston.in", 0.5F, worldIn.rand.nextFloat() * 0.15F + 0.6F);
+            worldIn.playSoundEffect(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, "tile.piston.in", 0.5F, worldIn.rand.nextFloat() * 0.15F + 0.6F);
         }
 
         return true;
@@ -226,14 +226,14 @@ public class BlockPistonBase extends Block {
     }
 
     public static EnumFacing getFacingFromEntity(World worldIn, BlockPos clickedBlock, EntityLivingBase entityIn) {
-        if (MathHelper.abs((float) entityIn.posX - (float) clickedBlock.getX()) < 2.0F && MathHelper.abs((float) entityIn.posZ - (float) clickedBlock.getZ()) < 2.0F) {
-            double d0 = entityIn.posY + (double) entityIn.getEyeHeight();
+        if (MathHelper.abs((float) entityIn.posX - clickedBlock.getX()) < 2.0F && MathHelper.abs((float) entityIn.posZ - clickedBlock.getZ()) < 2.0F) {
+            double d0 = entityIn.posY + entityIn.getEyeHeight();
 
-            if (d0 - (double) clickedBlock.getY() > 2.0D) {
+            if (d0 - clickedBlock.getY() > 2.0D) {
                 return EnumFacing.UP;
             }
 
-            if ((double) clickedBlock.getY() - d0 > 0.0D) {
+            if (clickedBlock.getY() - d0 > 0.0D) {
                 return EnumFacing.DOWN;
             }
         }

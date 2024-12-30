@@ -118,7 +118,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
         int j = bufferedimage.getHeight();
         int k = i / 16;
         int l = j / 16;
-        float f = (float) i / 128.0F;
+        float f = i / 128.0F;
         float f1 = Config.limit(f, 1.0F, 2.0F);
         this.offsetBold = 1.0F / f1;
         float f2 = FontUtils.readFloat(properties, "offsetBold", -1.0F);
@@ -166,7 +166,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
                 }
             }
 
-            this.charWidthFloat[i1] = (float) (l1 + 1) / f + 1.0F;
+            this.charWidthFloat[i1] = (l1 + 1) / f + 1.0F;
         }
 
         FontUtils.readCustomCharWidths(properties, this.charWidthFloat);
@@ -206,14 +206,14 @@ public class FontRenderer implements IResourceManagerReloadListener {
         float f = this.charWidthFloat[ch];
         float f1 = 7.99F;
         GL11.glBegin(GL11.GL_TRIANGLE_STRIP);
-        GL11.glTexCoord2f((float) i / 128.0F, (float) j / 128.0F);
-        GL11.glVertex3f(this.posX + (float) k, this.posY, 0.0F);
-        GL11.glTexCoord2f((float) i / 128.0F, ((float) j + 7.99F) / 128.0F);
-        GL11.glVertex3f(this.posX - (float) k, this.posY + 7.99F, 0.0F);
-        GL11.glTexCoord2f(((float) i + f1 - 1.0F) / 128.0F, (float) j / 128.0F);
-        GL11.glVertex3f(this.posX + f1 - 1.0F + (float) k, this.posY, 0.0F);
-        GL11.glTexCoord2f(((float) i + f1 - 1.0F) / 128.0F, ((float) j + 7.99F) / 128.0F);
-        GL11.glVertex3f(this.posX + f1 - 1.0F - (float) k, this.posY + 7.99F, 0.0F);
+        GL11.glTexCoord2f(i / 128.0F, j / 128.0F);
+        GL11.glVertex3f(this.posX + k, this.posY, 0.0F);
+        GL11.glTexCoord2f(i / 128.0F, (j + 7.99F) / 128.0F);
+        GL11.glVertex3f(this.posX - k, this.posY + 7.99F, 0.0F);
+        GL11.glTexCoord2f((i + f1 - 1.0F) / 128.0F, j / 128.0F);
+        GL11.glVertex3f(this.posX + f1 - 1.0F + k, this.posY, 0.0F);
+        GL11.glTexCoord2f((i + f1 - 1.0F) / 128.0F, (j + 7.99F) / 128.0F);
+        GL11.glVertex3f(this.posX + f1 - 1.0F - k, this.posY + 7.99F, 0.0F);
         GL11.glEnd();
         return f;
     }
@@ -239,10 +239,10 @@ public class FontRenderer implements IResourceManagerReloadListener {
             this.loadGlyphTexture(i);
             int j = this.glyphWidth[ch] >>> 4;
             int k = this.glyphWidth[ch] & 15;
-            float f = (float) j;
-            float f1 = (float) (k + 1);
-            float f2 = (float) (ch % 16 * 16) + f;
-            float f3 = (float) ((ch & 255) / 16 * 16);
+            float f = j;
+            float f1 = (k + 1);
+            float f2 = (ch % 16 * 16) + f;
+            float f3 = ((ch & 255) / 16 * 16);
             float f4 = f1 - f - 0.02F;
             float f5 = italic ? 1.0F : 0.0F;
             GL11.glBegin(GL11.GL_TRIANGLE_STRIP);
@@ -264,7 +264,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
     }
 
     public int drawString(String text, int x, int y, int color) {
-        return this.drawString(text, (float) x, (float) y, color, false);
+        return this.drawString(text, x, y, color, false);
     }
 
     public int drawString(String text, float x, float y, int color, boolean dropShadow) {
@@ -340,7 +340,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
                     }
 
                     this.textColor = i1;
-                    this.setColor((float) (i1 >> 16) / 255.0F, (float) (i1 >> 8 & 255) / 255.0F, (float) (i1 & 255) / 255.0F, this.alpha);
+                    this.setColor((i1 >> 16) / 255.0F, (i1 >> 8 & 255) / 255.0F, (i1 & 255) / 255.0F, this.alpha);
                 } else if (l == 16) {
                     this.randomStyle = true;
                 } else if (l == 17) {
@@ -425,10 +425,10 @@ public class FontRenderer implements IResourceManagerReloadListener {
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             GlStateManager.disableTexture2D();
             worldrenderer.begin(7, DefaultVertexFormats.POSITION);
-            worldrenderer.pos((double) this.posX, (double) (this.posY + (float) (this.FONT_HEIGHT / 2)), 0.0D).endVertex();
-            worldrenderer.pos((double) (this.posX + p_doDraw_1_), (double) (this.posY + (float) (this.FONT_HEIGHT / 2)), 0.0D).endVertex();
-            worldrenderer.pos((double) (this.posX + p_doDraw_1_), (double) (this.posY + (float) (this.FONT_HEIGHT / 2) - 1.0F), 0.0D).endVertex();
-            worldrenderer.pos((double) this.posX, (double) (this.posY + (float) (this.FONT_HEIGHT / 2) - 1.0F), 0.0D).endVertex();
+            worldrenderer.pos(this.posX, (this.posY + (this.FONT_HEIGHT / 2)), 0.0D).endVertex();
+            worldrenderer.pos((this.posX + p_doDraw_1_), (this.posY + (this.FONT_HEIGHT / 2)), 0.0D).endVertex();
+            worldrenderer.pos((this.posX + p_doDraw_1_), (this.posY + (this.FONT_HEIGHT / 2) - 1.0F), 0.0D).endVertex();
+            worldrenderer.pos(this.posX, (this.posY + (this.FONT_HEIGHT / 2) - 1.0F), 0.0D).endVertex();
             tessellator.draw();
             GlStateManager.enableTexture2D();
         }
@@ -439,10 +439,10 @@ public class FontRenderer implements IResourceManagerReloadListener {
             GlStateManager.disableTexture2D();
             worldrenderer1.begin(7, DefaultVertexFormats.POSITION);
             int i = this.underlineStyle ? -1 : 0;
-            worldrenderer1.pos((double) (this.posX + (float) i), (double) (this.posY + (float) this.FONT_HEIGHT), 0.0D).endVertex();
-            worldrenderer1.pos((double) (this.posX + p_doDraw_1_), (double) (this.posY + (float) this.FONT_HEIGHT), 0.0D).endVertex();
-            worldrenderer1.pos((double) (this.posX + p_doDraw_1_), (double) (this.posY + (float) this.FONT_HEIGHT - 1.0F), 0.0D).endVertex();
-            worldrenderer1.pos((double) (this.posX + (float) i), (double) (this.posY + (float) this.FONT_HEIGHT - 1.0F), 0.0D).endVertex();
+            worldrenderer1.pos((this.posX + i), (this.posY + this.FONT_HEIGHT), 0.0D).endVertex();
+            worldrenderer1.pos((this.posX + p_doDraw_1_), (this.posY + this.FONT_HEIGHT), 0.0D).endVertex();
+            worldrenderer1.pos((this.posX + p_doDraw_1_), (this.posY + this.FONT_HEIGHT - 1.0F), 0.0D).endVertex();
+            worldrenderer1.pos((this.posX + i), (this.posY + this.FONT_HEIGHT - 1.0F), 0.0D).endVertex();
             tessellator1.draw();
             GlStateManager.enableTexture2D();
         }
@@ -456,7 +456,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
             x = x + width - i;
         }
 
-        return this.renderString(text, (float) x, (float) y, color, dropShadow);
+        return this.renderString(text, x, y, color, dropShadow);
     }
 
     private int renderString(String text, float x, float y, int color, boolean dropShadow) {
@@ -475,10 +475,10 @@ public class FontRenderer implements IResourceManagerReloadListener {
                 color = (color & 16579836) >> 2 | color & -16777216;
             }
 
-            this.red = (float) (color >> 16 & 255) / 255.0F;
-            this.blue = (float) (color >> 8 & 255) / 255.0F;
-            this.green = (float) (color & 255) / 255.0F;
-            this.alpha = (float) (color >> 24 & 255) / 255.0F;
+            this.red = (color >> 16 & 255) / 255.0F;
+            this.blue = (color >> 8 & 255) / 255.0F;
+            this.green = (color & 255) / 255.0F;
+            this.alpha = (color >> 24 & 255) / 255.0F;
             this.setColor(this.red, this.blue, this.green, this.alpha);
             this.posX = x;
             this.posY = y;
@@ -546,7 +546,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
                 }
 
                 ++k;
-                return (float) ((k - j) / 2 + 1);
+                return ((k - j) / 2 + 1);
             } else {
                 return 0.0F;
             }
@@ -567,7 +567,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
         boolean flag = false;
         boolean flag1 = false;
 
-        for (int k = i; k >= 0 && k < text.length() && f < (float) width; k += j) {
+        for (int k = i; k >= 0 && k < text.length() && f < width; k += j) {
             char c0 = text.charAt(k);
             float f1 = this.getCharWidthFloat(c0);
 
@@ -591,7 +591,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
                 }
             }
 
-            if (f > (float) width) {
+            if (f > width) {
                 break;
             }
 
@@ -693,7 +693,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
                     k = j;
 
                 default:
-                    f += (float) this.getCharWidth(c0);
+                    f += this.getCharWidth(c0);
 
                     if (flag) {
                         ++f;

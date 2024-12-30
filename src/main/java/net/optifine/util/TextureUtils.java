@@ -358,7 +358,7 @@ public class TextureUtils {
     public static void applyAnisotropicLevel() {
         if (GLContext.getCapabilities().GL_EXT_texture_filter_anisotropic) {
             float f = GL11.glGetFloat(34047);
-            float f1 = (float) Config.getAnisotropicFilterLevel();
+            float f1 = Config.getAnisotropicFilterLevel();
             f1 = Math.min(f1, f);
             GL11.glTexParameterf(GL11.GL_TEXTURE_2D, 34046, f1);
         }
@@ -521,7 +521,7 @@ public class TextureUtils {
             }
 
             if (aint2.length != i * j) {
-                int k = (int) Math.round(Math.sqrt((double) aint2.length));
+                int k = (int) Math.round(Math.sqrt(aint2.length));
 
                 if (k * k != aint2.length) {
                     aint2 = new int[1];

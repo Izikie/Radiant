@@ -47,7 +47,7 @@ public class WorldGenSpikes extends WorldGenerator {
             }
 
             Entity entity = new EntityEnderCrystal(worldIn);
-            entity.setLocationAndAngles((double) ((float) position.getX() + 0.5F), (double) (position.getY() + i), (double) ((float) position.getZ() + 0.5F), rand.nextFloat() * 360.0F, 0.0F);
+            entity.setLocationAndAngles((position.getX() + 0.5F), (position.getY() + i), (position.getZ() + 0.5F), rand.nextFloat() * 360.0F, 0.0F);
             worldIn.spawnEntityInWorld(entity);
             worldIn.setBlockState(position.up(i), Blocks.bedrock.getDefaultState(), 2);
             return true;

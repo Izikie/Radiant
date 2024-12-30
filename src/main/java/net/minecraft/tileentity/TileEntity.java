@@ -109,9 +109,9 @@ public abstract class TileEntity {
     }
 
     public double getDistanceSq(double x, double y, double z) {
-        double d0 = (double) this.pos.getX() + 0.5D - x;
-        double d1 = (double) this.pos.getY() + 0.5D - y;
-        double d2 = (double) this.pos.getZ() + 0.5D - z;
+        double d0 = this.pos.getX() + 0.5D - x;
+        double d1 = this.pos.getY() + 0.5D - y;
+        double d2 = this.pos.getZ() + 0.5D - z;
         return d0 * d0 + d1 * d1 + d2 * d2;
     }
 

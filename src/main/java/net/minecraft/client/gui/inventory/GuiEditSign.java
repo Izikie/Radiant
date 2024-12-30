@@ -88,14 +88,14 @@ public class GuiEditSign extends GuiScreen {
         this.drawCenteredString(this.fontRendererObj, I18n.format("sign.edit", new Object[0]), this.width / 2, 40, 16777215);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.pushMatrix();
-        GlStateManager.translate((float) (this.width / 2), 0.0F, 50.0F);
+        GlStateManager.translate((this.width / 2), 0.0F, 50.0F);
         float f = 93.75F;
         GlStateManager.scale(-f, -f, -f);
         GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
         Block block = this.tileSign.getBlockType();
 
         if (block == Blocks.standing_sign) {
-            float f1 = (float) (this.tileSign.getBlockMetadata() * 360) / 16.0F;
+            float f1 = (this.tileSign.getBlockMetadata() * 360) / 16.0F;
             GlStateManager.rotate(f1, 0.0F, 1.0F, 0.0F);
             GlStateManager.translate(0.0F, -1.0625F, 0.0F);
         } else {

@@ -33,7 +33,7 @@ public class BiomeGenSwamp extends BiomeGenBase {
     }
 
     public int getGrassColorAtPos(BlockPos pos) {
-        double d0 = GRASS_COLOR_NOISE.func_151601_a((double) pos.getX() * 0.0225D, (double) pos.getZ() * 0.0225D);
+        double d0 = GRASS_COLOR_NOISE.func_151601_a(pos.getX() * 0.0225D, pos.getZ() * 0.0225D);
         return d0 < -0.1D ? 5011004 : 6975545;
     }
 
@@ -46,7 +46,7 @@ public class BiomeGenSwamp extends BiomeGenBase {
     }
 
     public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
-        double d0 = GRASS_COLOR_NOISE.func_151601_a((double) x * 0.25D, (double) z * 0.25D);
+        double d0 = GRASS_COLOR_NOISE.func_151601_a(x * 0.25D, z * 0.25D);
 
         if (d0 > 0.0D) {
             int i = x & 15;

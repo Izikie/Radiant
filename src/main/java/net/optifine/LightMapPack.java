@@ -93,9 +93,9 @@ public class LightMapPack {
                 int k1 = j1 >> 16 & 255;
                 int l1 = j1 >> 8 & 255;
                 int i2 = j1 & 255;
-                int j2 = (int) ((float) k * br0 + (float) k1 * br1);
-                int k2 = (int) ((float) l * br0 + (float) l1 * br1);
-                int l2 = (int) ((float) i1 * br0 + (float) i2 * br1);
+                int j2 = (int) (k * br0 + k1 * br1);
+                int k2 = (int) (l * br0 + l1 * br1);
+                int l2 = (int) (i1 * br0 + i2 * br1);
                 cols0[i] = -16777216 | j2 << 16 | k2 << 8 | l2;
             }
 
@@ -118,9 +118,9 @@ public class LightMapPack {
                 int k2 = j2 >> 16 & 255;
                 int l2 = j2 >> 8 & 255;
                 int i3 = j2 & 255;
-                int j3 = (int) ((float) k * br0 + (float) k1 * br1 + (float) k2 * br2);
-                int k3 = (int) ((float) l * br0 + (float) l1 * br1 + (float) l2 * br2);
-                int l3 = (int) ((float) i1 * br0 + (float) i2 * br1 + (float) i3 * br2);
+                int j3 = (int) (k * br0 + k1 * br1 + k2 * br2);
+                int k3 = (int) (l * br0 + l1 * br1 + l2 * br2);
+                int l3 = (int) (i1 * br0 + i2 * br1 + i3 * br2);
                 cols0[i] = -16777216 | j3 << 16 | k3 << 8 | l3;
             }
 

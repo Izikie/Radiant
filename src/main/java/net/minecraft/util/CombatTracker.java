@@ -147,7 +147,7 @@ public class CombatTracker {
                 f = combatentry2.getDamageAmount();
             }
 
-            if (combatentry2.func_94562_g() != null && (combatentry1 == null || combatentry2.func_94563_c() > (float) i)) {
+            if (combatentry2.func_94562_g() != null && (combatentry1 == null || combatentry2.func_94563_c() > i)) {
                 combatentry1 = combatentry2;
             }
         }

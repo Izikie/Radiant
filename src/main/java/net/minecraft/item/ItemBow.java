@@ -23,10 +23,10 @@ public class ItemBow extends Item {
 
         if (flag || playerIn.inventory.hasItem(Items.arrow)) {
             int i = this.getMaxItemUseDuration(stack) - timeLeft;
-            float f = (float) i / 20.0F;
+            float f = i / 20.0F;
             f = (f * f + f * 2.0F) / 3.0F;
 
-            if ((double) f < 0.1D) {
+            if (f < 0.1D) {
                 return;
             }
 
@@ -43,7 +43,7 @@ public class ItemBow extends Item {
             int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, stack);
 
             if (j > 0) {
-                entityarrow.setDamage(entityarrow.getDamage() + (double) j * 0.5D + 0.5D);
+                entityarrow.setDamage(entityarrow.getDamage() + j * 0.5D + 0.5D);
             }
 
             int k = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, stack);

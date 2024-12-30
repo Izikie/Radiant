@@ -82,7 +82,7 @@ public class BlockChest extends BlockContainer {
     }
 
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-        EnumFacing enumfacing = EnumFacing.getHorizontal(MathHelper.floor_double((double) (placer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3).getOpposite();
+        EnumFacing enumfacing = EnumFacing.getHorizontal(MathHelper.floor_double((placer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3).getOpposite();
         state = state.withProperty(FACING, enumfacing);
         BlockPos blockpos = pos.north();
         BlockPos blockpos1 = pos.south();
@@ -415,7 +415,7 @@ public class BlockChest extends BlockContainer {
     }
 
     private boolean isOcelotSittingOnChest(World worldIn, BlockPos pos) {
-        for (Entity entity : worldIn.getEntitiesWithinAABB(EntityOcelot.class, new AxisAlignedBB((double) pos.getX(), (double) (pos.getY() + 1), (double) pos.getZ(), (double) (pos.getX() + 1), (double) (pos.getY() + 2), (double) (pos.getZ() + 1)))) {
+        for (Entity entity : worldIn.getEntitiesWithinAABB(EntityOcelot.class, new AxisAlignedBB(pos.getX(), (pos.getY() + 1), pos.getZ(), (pos.getX() + 1), (pos.getY() + 2), (pos.getZ() + 1)))) {
             EntityOcelot entityocelot = (EntityOcelot) entity;
 
             if (entityocelot.isSitting()) {

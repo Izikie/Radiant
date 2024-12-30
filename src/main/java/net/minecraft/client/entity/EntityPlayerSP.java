@@ -143,8 +143,8 @@ public class EntityPlayerSP extends AbstractClientPlayer {
             double d0 = this.posX - this.lastReportedPosX;
             double d1 = this.getEntityBoundingBox().minY - this.lastReportedPosY;
             double d2 = this.posZ - this.lastReportedPosZ;
-            double d3 = (double) (this.rotationYaw - this.lastReportedYaw);
-            double d4 = (double) (this.rotationPitch - this.lastReportedPitch);
+            double d3 = (this.rotationYaw - this.lastReportedYaw);
+            double d4 = (this.rotationPitch - this.lastReportedPitch);
             boolean flag2 = d0 * d0 + d1 * d1 + d2 * d2 > 9.0E-4D || this.positionUpdateTicks >= 20;
             boolean flag3 = d3 != 0.0D || d4 != 0.0D;
 
@@ -286,8 +286,8 @@ public class EntityPlayerSP extends AbstractClientPlayer {
             return false;
         } else {
             BlockPos blockpos = new BlockPos(x, y, z);
-            double d0 = x - (double) blockpos.getX();
-            double d1 = z - (double) blockpos.getZ();
+            double d0 = x - blockpos.getX();
+            double d1 = z - blockpos.getZ();
 
             if (!this.isOpenBlockSpace(blockpos)) {
                 int i = -1;
@@ -316,19 +316,19 @@ public class EntityPlayerSP extends AbstractClientPlayer {
                 float f = 0.1F;
 
                 if (i == 0) {
-                    this.motionX = (double) (-f);
+                    this.motionX = (-f);
                 }
 
                 if (i == 1) {
-                    this.motionX = (double) f;
+                    this.motionX = f;
                 }
 
                 if (i == 4) {
-                    this.motionZ = (double) (-f);
+                    this.motionZ = (-f);
                 }
 
                 if (i == 5) {
-                    this.motionZ = (double) f;
+                    this.motionZ = f;
                 }
             }
 
@@ -457,8 +457,8 @@ public class EntityPlayerSP extends AbstractClientPlayer {
             this.isJumping = this.movementInput.jump;
             this.prevRenderArmYaw = this.renderArmYaw;
             this.prevRenderArmPitch = this.renderArmPitch;
-            this.renderArmPitch = (float) ((double) this.renderArmPitch + (double) (this.rotationPitch - this.renderArmPitch) * 0.5D);
-            this.renderArmYaw = (float) ((double) this.renderArmYaw + (double) (this.rotationYaw - this.renderArmYaw) * 0.5D);
+            this.renderArmPitch = (float) (this.renderArmPitch + (this.rotationPitch - this.renderArmPitch) * 0.5D);
+            this.renderArmYaw = (float) (this.renderArmYaw + (this.rotationYaw - this.renderArmYaw) * 0.5D);
         }
     }
 
@@ -529,11 +529,11 @@ public class EntityPlayerSP extends AbstractClientPlayer {
             this.sprintToggleTimer = 0;
         }
 
-        this.pushOutOfBlocks(this.posX - (double) this.width * 0.35D, this.getEntityBoundingBox().minY + 0.5D, this.posZ + (double) this.width * 0.35D);
-        this.pushOutOfBlocks(this.posX - (double) this.width * 0.35D, this.getEntityBoundingBox().minY + 0.5D, this.posZ - (double) this.width * 0.35D);
-        this.pushOutOfBlocks(this.posX + (double) this.width * 0.35D, this.getEntityBoundingBox().minY + 0.5D, this.posZ - (double) this.width * 0.35D);
-        this.pushOutOfBlocks(this.posX + (double) this.width * 0.35D, this.getEntityBoundingBox().minY + 0.5D, this.posZ + (double) this.width * 0.35D);
-        boolean flag3 = (float) this.getFoodStats().getFoodLevel() > 6.0F || this.capabilities.allowFlying;
+        this.pushOutOfBlocks(this.posX - this.width * 0.35D, this.getEntityBoundingBox().minY + 0.5D, this.posZ + this.width * 0.35D);
+        this.pushOutOfBlocks(this.posX - this.width * 0.35D, this.getEntityBoundingBox().minY + 0.5D, this.posZ - this.width * 0.35D);
+        this.pushOutOfBlocks(this.posX + this.width * 0.35D, this.getEntityBoundingBox().minY + 0.5D, this.posZ - this.width * 0.35D);
+        this.pushOutOfBlocks(this.posX + this.width * 0.35D, this.getEntityBoundingBox().minY + 0.5D, this.posZ + this.width * 0.35D);
+        boolean flag3 = this.getFoodStats().getFoodLevel() > 6.0F || this.capabilities.allowFlying;
 
         if (this.onGround && !flag1 && !flag2 && this.movementInput.moveForward >= f && !this.isSprinting() && flag3 && !this.isUsingItem() && !this.isPotionActive(Potion.blindness)) {
             if (this.sprintToggleTimer <= 0 && !this.mc.gameSettings.keyBindSprint.isKeyDown()) {
@@ -570,11 +570,11 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 
         if (this.capabilities.isFlying && this.isCurrentViewEntity()) {
             if (this.movementInput.sneak) {
-                this.motionY -= (double) (this.capabilities.getFlySpeed() * 3.0F);
+                this.motionY -= (this.capabilities.getFlySpeed() * 3.0F);
             }
 
             if (this.movementInput.jump) {
-                this.motionY += (double) (this.capabilities.getFlySpeed() * 3.0F);
+                this.motionY += (this.capabilities.getFlySpeed() * 3.0F);
             }
         }
 
@@ -597,9 +597,9 @@ public class EntityPlayerSP extends AbstractClientPlayer {
                 ++this.horseJumpPowerCounter;
 
                 if (this.horseJumpPowerCounter < 10) {
-                    this.horseJumpPower = (float) this.horseJumpPowerCounter * 0.1F;
+                    this.horseJumpPower = this.horseJumpPowerCounter * 0.1F;
                 } else {
-                    this.horseJumpPower = 0.8F + 2.0F / (float) (this.horseJumpPowerCounter - 9) * 0.1F;
+                    this.horseJumpPower = 0.8F + 2.0F / (this.horseJumpPowerCounter - 9) * 0.1F;
                 }
             }
         } else {

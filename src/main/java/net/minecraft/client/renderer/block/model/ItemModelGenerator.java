@@ -51,8 +51,8 @@ public class ItemModelGenerator {
     }
 
     private List<BlockPart> func_178397_a(TextureAtlasSprite p_178397_1_, String p_178397_2_, int p_178397_3_) {
-        float f = (float) p_178397_1_.getIconWidth();
-        float f1 = (float) p_178397_1_.getIconHeight();
+        float f = p_178397_1_.getIconWidth();
+        float f1 = p_178397_1_.getIconHeight();
         List<BlockPart> list = Lists.newArrayList();
 
         for (ItemModelGenerator.Span itemmodelgenerator$span : this.func_178393_a(p_178397_1_)) {
@@ -66,9 +66,9 @@ public class ItemModelGenerator {
             float f9 = 0.0F;
             float f10 = 0.0F;
             float f11 = 0.0F;
-            float f12 = (float) itemmodelgenerator$span.func_178385_b();
-            float f13 = (float) itemmodelgenerator$span.func_178384_c();
-            float f14 = (float) itemmodelgenerator$span.func_178381_d();
+            float f12 = itemmodelgenerator$span.func_178385_b();
+            float f13 = itemmodelgenerator$span.func_178384_c();
+            float f14 = itemmodelgenerator$span.func_178381_d();
             ItemModelGenerator.SpanFacing itemmodelgenerator$spanfacing = itemmodelgenerator$span.func_178383_a();
 
             switch (itemmodelgenerator$spanfacing) {

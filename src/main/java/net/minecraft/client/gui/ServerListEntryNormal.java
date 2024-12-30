@@ -111,7 +111,7 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
             }
         } else {
             k = 1;
-            l = (int) (Minecraft.getSystemTime() / 100L + (long) (slotIndex * 2) & 7L);
+            l = (int) (Minecraft.getSystemTime() / 100L + (slotIndex * 2) & 7L);
 
             if (l > 4) {
                 l = 8 - l;
@@ -122,7 +122,7 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
 
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(Gui.icons);
-        Gui.drawModalRectWithCustomSizedTexture(x + listWidth - 15, y, (float) (k * 10), (float) (176 + l * 8), 10, 8, 256.0F, 256.0F);
+        Gui.drawModalRectWithCustomSizedTexture(x + listWidth - 15, y, (k * 10), (176 + l * 8), 10, 8, 256.0F, 256.0F);
 
         if (this.server.getBase64EncodedIconData() != null && !this.server.getBase64EncodedIconData().equals(this.field_148299_g)) {
             this.field_148299_g = this.server.getBase64EncodedIconData();

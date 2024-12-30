@@ -284,7 +284,7 @@ public class EnchantmentHelper {
             i = 1 + randomIn.nextInt((i >> 1) + 1) + randomIn.nextInt((i >> 1) + 1);
             int j = i + p_77513_2_;
             float f = (randomIn.nextFloat() + randomIn.nextFloat() - 1.0F) * 0.15F;
-            int k = (int) ((float) j * (1.0F + f) + 0.5F);
+            int k = (int) (j * (1.0F + f) + 0.5F);
 
             if (k < 1) {
                 k = 1;

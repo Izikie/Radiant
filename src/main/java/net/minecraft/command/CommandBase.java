@@ -86,7 +86,7 @@ public abstract class CommandBase implements ICommand {
 
     public static BlockPos parseBlockPos(ICommandSender sender, String[] args, int startIndex, boolean centerBlock) throws NumberInvalidException {
         BlockPos blockpos = sender.getPosition();
-        return new BlockPos(parseDouble((double) blockpos.getX(), args[startIndex], -30000000, 30000000, centerBlock), parseDouble((double) blockpos.getY(), args[startIndex + 1], 0, 256, false), parseDouble((double) blockpos.getZ(), args[startIndex + 2], -30000000, 30000000, centerBlock));
+        return new BlockPos(parseDouble(blockpos.getX(), args[startIndex], -30000000, 30000000, centerBlock), parseDouble(blockpos.getY(), args[startIndex + 1], 0, 256, false), parseDouble(blockpos.getZ(), args[startIndex + 2], -30000000, 30000000, centerBlock));
     }
 
     public static double parseDouble(String input) throws NumberInvalidException {
@@ -299,11 +299,11 @@ public abstract class CommandBase implements ICommand {
             }
 
             if (min != 0 || max != 0) {
-                if (d0 < (double) min) {
+                if (d0 < min) {
                     throw new NumberInvalidException("commands.generic.double.tooSmall", new Object[]{Double.valueOf(d0), Integer.valueOf(min)});
                 }
 
-                if (d0 > (double) max) {
+                if (d0 > max) {
                     throw new NumberInvalidException("commands.generic.double.tooBig", new Object[]{Double.valueOf(d0), Integer.valueOf(max)});
                 }
             }
@@ -339,11 +339,11 @@ public abstract class CommandBase implements ICommand {
             }
 
             if (min != 0 || max != 0) {
-                if (d0 < (double) min) {
+                if (d0 < min) {
                     throw new NumberInvalidException("commands.generic.double.tooSmall", new Object[]{Double.valueOf(d0), Integer.valueOf(min)});
                 }
 
-                if (d0 > (double) max) {
+                if (d0 > max) {
                     throw new NumberInvalidException("commands.generic.double.tooBig", new Object[]{Double.valueOf(d0), Integer.valueOf(max)});
                 }
             }

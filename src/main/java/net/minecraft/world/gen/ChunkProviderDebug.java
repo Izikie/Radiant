@@ -130,7 +130,7 @@ public class ChunkProviderDebug implements IChunkProvider {
             field_177464_a.addAll(block.getBlockState().getValidStates());
         }
 
-        field_177462_b = MathHelper.ceiling_float_int(MathHelper.sqrt_float((float) field_177464_a.size()));
-        field_181039_c = MathHelper.ceiling_float_int((float) field_177464_a.size() / (float) field_177462_b);
+        field_177462_b = MathHelper.ceiling_float_int(MathHelper.sqrt_float(field_177464_a.size()));
+        field_181039_c = MathHelper.ceiling_float_int((float) field_177464_a.size() / field_177462_b);
     }
 }

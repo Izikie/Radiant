@@ -53,15 +53,15 @@ public class S29PacketSoundEffect implements Packet<INetHandlerPlayClient> {
     }
 
     public double getX() {
-        return (double) ((float) this.posX / 8.0F);
+        return (this.posX / 8.0F);
     }
 
     public double getY() {
-        return (double) ((float) this.posY / 8.0F);
+        return (this.posY / 8.0F);
     }
 
     public double getZ() {
-        return (double) ((float) this.posZ / 8.0F);
+        return (this.posZ / 8.0F);
     }
 
     public float getVolume() {
@@ -69,7 +69,7 @@ public class S29PacketSoundEffect implements Packet<INetHandlerPlayClient> {
     }
 
     public float getPitch() {
-        return (float) this.soundPitch / 63.0F;
+        return this.soundPitch / 63.0F;
     }
 
     public void processPacket(INetHandlerPlayClient handler) {

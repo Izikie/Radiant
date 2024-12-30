@@ -45,8 +45,8 @@ public class LightMap {
                     }
 
                     f = Config.limitTo1(f);
-                    float f1 = f * (float) (j - 1);
-                    float f2 = Config.limitTo1(torchFlickerX + 0.5F) * (float) (j - 1);
+                    float f1 = f * (j - 1);
+                    float f2 = Config.limitTo1(torchFlickerX + 0.5F) * (j - 1);
                     float f3 = Config.limitTo1(Config.getGameSettings().gammaSetting);
                     boolean flag = f3 > 1.0E-4F;
                     float[][] afloat = this.lightMapRgb.getColorsRgb();
@@ -82,8 +82,8 @@ public class LightMap {
     }
 
     private void getLightMapColumn(float[][] origMap, float x, int offset, int width, float[][] colRgb) {
-        int i = (int) Math.floor((double) x);
-        int j = (int) Math.ceil((double) x);
+        int i = (int) Math.floor(x);
+        int j = (int) Math.ceil(x);
 
         if (i == j) {
             for (int i1 = 0; i1 < 16; ++i1) {
@@ -95,8 +95,8 @@ public class LightMap {
                 }
             }
         } else {
-            float f = 1.0F - (x - (float) i);
-            float f1 = 1.0F - ((float) j - x);
+            float f = 1.0F - (x - i);
+            float f1 = 1.0F - (j - x);
 
             for (int k = 0; k < 16; ++k) {
                 float[] afloat = origMap[offset + k * width + i];

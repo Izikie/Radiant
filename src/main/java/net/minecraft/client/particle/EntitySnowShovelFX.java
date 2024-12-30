@@ -25,12 +25,12 @@ public class EntitySnowShovelFX extends EntityFX {
         this.particleScale *= p_i1228_14_;
         this.snowDigParticleScale = this.particleScale;
         this.particleMaxAge = (int) (8.0D / (Math.random() * 0.8D + 0.2D));
-        this.particleMaxAge = (int) ((float) this.particleMaxAge * p_i1228_14_);
+        this.particleMaxAge = (int) (this.particleMaxAge * p_i1228_14_);
         this.noClip = false;
     }
 
     public void renderParticle(WorldRenderer worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-        float f = ((float) this.particleAge + partialTicks) / (float) this.particleMaxAge * 32.0F;
+        float f = (this.particleAge + partialTicks) / this.particleMaxAge * 32.0F;
         f = MathHelper.clamp_float(f, 0.0F, 1.0F);
         this.particleScale = this.snowDigParticleScale * f;
         super.renderParticle(worldRendererIn, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);

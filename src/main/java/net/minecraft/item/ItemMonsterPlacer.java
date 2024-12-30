@@ -78,7 +78,7 @@ public class ItemMonsterPlacer extends Item {
                 d0 = 0.5D;
             }
 
-            Entity entity = spawnCreature(worldIn, stack.getMetadata(), (double) pos.getX() + 0.5D, (double) pos.getY() + d0, (double) pos.getZ() + 0.5D);
+            Entity entity = spawnCreature(worldIn, stack.getMetadata(), pos.getX() + 0.5D, pos.getY() + d0, pos.getZ() + 0.5D);
 
             if (entity != null) {
                 if (entity instanceof EntityLivingBase && stack.hasDisplayName()) {
@@ -115,7 +115,7 @@ public class ItemMonsterPlacer extends Item {
                     }
 
                     if (worldIn.getBlockState(blockpos).getBlock() instanceof BlockLiquid) {
-                        Entity entity = spawnCreature(worldIn, itemStackIn.getMetadata(), (double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.5D, (double) blockpos.getZ() + 0.5D);
+                        Entity entity = spawnCreature(worldIn, itemStackIn.getMetadata(), blockpos.getX() + 0.5D, blockpos.getY() + 0.5D, blockpos.getZ() + 0.5D);
 
                         if (entity != null) {
                             if (entity instanceof EntityLivingBase && itemStackIn.hasDisplayName()) {

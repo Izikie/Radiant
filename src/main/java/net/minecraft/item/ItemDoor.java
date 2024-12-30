@@ -33,7 +33,7 @@ public class ItemDoor extends Item {
             } else if (!this.block.canPlaceBlockAt(worldIn, pos)) {
                 return false;
             } else {
-                placeDoor(worldIn, pos, EnumFacing.fromAngle((double) playerIn.rotationYaw), this.block);
+                placeDoor(worldIn, pos, EnumFacing.fromAngle(playerIn.rotationYaw), this.block);
                 --stack.stackSize;
                 return true;
             }

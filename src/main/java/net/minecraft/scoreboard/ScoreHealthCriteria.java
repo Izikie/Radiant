@@ -18,7 +18,7 @@ public class ScoreHealthCriteria extends ScoreDummyCriteria {
         }
 
         if (p_96635_1_.size() > 0) {
-            f /= (float) p_96635_1_.size();
+            f /= p_96635_1_.size();
         }
 
         return MathHelper.ceiling_float_int(f);

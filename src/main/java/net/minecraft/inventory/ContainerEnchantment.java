@@ -149,7 +149,7 @@ public class ContainerEnchantment extends Container {
                         }
                     }
 
-                    this.rand.setSeed((long) this.xpSeed);
+                    this.rand.setSeed(this.xpSeed);
 
                     for (int i1 = 0; i1 < 3; ++i1) {
                         this.enchantLevels[i1] = EnchantmentHelper.calcItemStackEnchantability(this.rand, i1, l, itemstack);
@@ -233,7 +233,7 @@ public class ContainerEnchantment extends Container {
     }
 
     private List<EnchantmentData> func_178148_a(ItemStack stack, int p_178148_2_, int p_178148_3_) {
-        this.rand.setSeed((long) (this.xpSeed + p_178148_2_));
+        this.rand.setSeed((this.xpSeed + p_178148_2_));
         List<EnchantmentData> list = EnchantmentHelper.buildEnchantmentList(this.rand, stack, p_178148_3_);
 
         if (stack.getItem() == Items.book && list != null && list.size() > 1) {
@@ -263,7 +263,7 @@ public class ContainerEnchantment extends Container {
     }
 
     public boolean canInteractWith(EntityPlayer playerIn) {
-        return this.worldPointer.getBlockState(this.position).getBlock() != Blocks.enchanting_table ? false : playerIn.getDistanceSq((double) this.position.getX() + 0.5D, (double) this.position.getY() + 0.5D, (double) this.position.getZ() + 0.5D) <= 64.0D;
+        return this.worldPointer.getBlockState(this.position).getBlock() != Blocks.enchanting_table ? false : playerIn.getDistanceSq(this.position.getX() + 0.5D, this.position.getY() + 0.5D, this.position.getZ() + 0.5D) <= 64.0D;
     }
 
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {

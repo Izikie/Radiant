@@ -59,7 +59,7 @@ public class EntityAIBreakDoor extends EntityAIDoorInteract {
         }
 
         ++this.breakingTime;
-        int i = (int) ((float) this.breakingTime / 240.0F * 10.0F);
+        int i = (int) (this.breakingTime / 240.0F * 10.0F);
 
         if (i != this.previousBreakProgress) {
             this.theEntity.worldObj.sendBlockBreakProgress(this.theEntity.getEntityId(), this.doorPosition, i);

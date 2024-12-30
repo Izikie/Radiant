@@ -325,13 +325,13 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         int i = MathHelper.ceiling_float_int((distance * 0.5F - 3.0F) * damageMultiplier);
 
         if (i > 0) {
-            this.attackEntityFrom(DamageSource.fall, (float) i);
+            this.attackEntityFrom(DamageSource.fall, i);
 
             if (this.riddenByEntity != null) {
-                this.riddenByEntity.attackEntityFrom(DamageSource.fall, (float) i);
+                this.riddenByEntity.attackEntityFrom(DamageSource.fall, i);
             }
 
-            Block block = this.worldObj.getBlockState(new BlockPos(this.posX, this.posY - 0.2D - (double) this.prevRotationYaw, this.posZ)).getBlock();
+            Block block = this.worldObj.getBlockState(new BlockPos(this.posX, this.posY - 0.2D - this.prevRotationYaw, this.posZ)).getBlock();
 
             if (block.getMaterial() != Material.air && !this.isSilent()) {
                 Block.SoundType block$soundtype = block.stepSound;
@@ -984,10 +984,10 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
             }
 
             if (this.jumpPower > 0.0F && !this.isHorseJumping() && this.onGround) {
-                this.motionY = this.getHorseJumpStrength() * (double) this.jumpPower;
+                this.motionY = this.getHorseJumpStrength() * this.jumpPower;
 
                 if (this.isPotionActive(Potion.jump)) {
-                    this.motionY += (double) ((float) (this.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F);
+                    this.motionY += ((this.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F);
                 }
 
                 this.setHorseJumping(true);
@@ -996,8 +996,8 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
                 if (forward > 0.0F) {
                     float f = MathHelper.sin(this.rotationYaw * (float) Math.PI / 180.0F);
                     float f1 = MathHelper.cos(this.rotationYaw * (float) Math.PI / 180.0F);
-                    this.motionX += (double) (-0.4F * f * this.jumpPower);
-                    this.motionZ += (double) (0.4F * f1 * this.jumpPower);
+                    this.motionX += (-0.4F * f * this.jumpPower);
+                    this.motionZ += (0.4F * f1 * this.jumpPower);
                     this.playSound("mob.horse.jump", 0.4F, 1.0F);
                 }
 
@@ -1194,7 +1194,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         }
 
         entityhorse1.setHorseType(k);
-        double d1 = this.getEntityAttribute(SharedMonsterAttributes.maxHealth).getBaseValue() + ageable.getEntityAttribute(SharedMonsterAttributes.maxHealth).getBaseValue() + (double) this.getModifiedMaxHealth();
+        double d1 = this.getEntityAttribute(SharedMonsterAttributes.maxHealth).getBaseValue() + ageable.getEntityAttribute(SharedMonsterAttributes.maxHealth).getBaseValue() + this.getModifiedMaxHealth();
         entityhorse1.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(d1 / 3.0D);
         double d2 = this.getEntityAttribute(horseJumpStrength).getBaseValue() + ageable.getEntityAttribute(horseJumpStrength).getBaseValue() + this.getModifiedJumpStrength();
         entityhorse1.getEntityAttribute(horseJumpStrength).setBaseValue(d2 / 3.0D);
@@ -1232,7 +1232,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         }
 
         if (i != 4 && i != 3) {
-            this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((double) this.getModifiedMaxHealth());
+            this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(this.getModifiedMaxHealth());
 
             if (i == 0) {
                 this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(this.getModifiedMovementSpeed());
@@ -1278,7 +1278,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
             if (jumpPowerIn >= 90) {
                 this.jumpPower = 1.0F;
             } else {
-                this.jumpPower = 0.4F + 0.4F * (float) jumpPowerIn / 90.0F;
+                this.jumpPower = 0.4F + 0.4F * jumpPowerIn / 90.0F;
             }
         }
     }
@@ -1290,7 +1290,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
             double d0 = this.rand.nextGaussian() * 0.02D;
             double d1 = this.rand.nextGaussian() * 0.02D;
             double d2 = this.rand.nextGaussian() * 0.02D;
-            this.worldObj.spawnParticle(enumparticletypes, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + 0.5D + (double) (this.rand.nextFloat() * this.height), this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2, new int[0]);
+            this.worldObj.spawnParticle(enumparticletypes, this.posX + (this.rand.nextFloat() * this.width * 2.0F) - this.width, this.posY + 0.5D + (this.rand.nextFloat() * this.height), this.posZ + (this.rand.nextFloat() * this.width * 2.0F) - this.width, d0, d1, d2, new int[0]);
         }
     }
 
@@ -1312,7 +1312,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
             float f1 = MathHelper.cos(this.renderYawOffset * (float) Math.PI / 180.0F);
             float f2 = 0.7F * this.prevRearingAmount;
             float f3 = 0.15F * this.prevRearingAmount;
-            this.riddenByEntity.setPosition(this.posX + (double) (f2 * f), this.posY + this.getMountedYOffset() + this.riddenByEntity.getYOffset() + (double) f3, this.posZ - (double) (f2 * f1));
+            this.riddenByEntity.setPosition(this.posX + (f2 * f), this.posY + this.getMountedYOffset() + this.riddenByEntity.getYOffset() + f3, this.posZ - (f2 * f1));
 
             if (this.riddenByEntity instanceof EntityLivingBase) {
                 ((EntityLivingBase) this.riddenByEntity).renderYawOffset = this.renderYawOffset;
@@ -1321,7 +1321,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
     }
 
     private float getModifiedMaxHealth() {
-        return 15.0F + (float) this.rand.nextInt(8) + (float) this.rand.nextInt(9);
+        return 15.0F + this.rand.nextInt(8) + this.rand.nextInt(9);
     }
 
     private double getModifiedJumpStrength() {

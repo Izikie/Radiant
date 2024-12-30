@@ -29,7 +29,7 @@ public class EntitySquid extends EntityWaterMob {
     public EntitySquid(World worldIn) {
         super(worldIn);
         this.setSize(0.95F, 0.95F);
-        this.rand.setSeed((long) (1 + this.getEntityId()));
+        this.rand.setSeed((1 + this.getEntityId()));
         this.rotationVelocity = 1.0F / (this.rand.nextFloat() + 1.0F) * 0.2F;
         this.tasks.addTask(0, new EntitySquid.AIMoveRandom(this));
     }
@@ -87,11 +87,11 @@ public class EntitySquid extends EntityWaterMob {
         this.lastTentacleAngle = this.tentacleAngle;
         this.squidRotation += this.rotationVelocity;
 
-        if ((double) this.squidRotation > (Math.PI * 2D)) {
+        if (this.squidRotation > (Math.PI * 2D)) {
             if (this.worldObj.isRemote) {
                 this.squidRotation = ((float) Math.PI * 2F);
             } else {
-                this.squidRotation = (float) ((double) this.squidRotation - (Math.PI * 2D));
+                this.squidRotation = (float) (this.squidRotation - (Math.PI * 2D));
 
                 if (this.rand.nextInt(10) == 0) {
                     this.rotationVelocity = 1.0F / (this.rand.nextFloat() + 1.0F) * 0.2F;
@@ -106,7 +106,7 @@ public class EntitySquid extends EntityWaterMob {
                 float f = this.squidRotation / (float) Math.PI;
                 this.tentacleAngle = MathHelper.sin(f * f * (float) Math.PI) * (float) Math.PI * 0.25F;
 
-                if ((double) f > 0.75D) {
+                if (f > 0.75D) {
                     this.randomMotionSpeed = 1.0F;
                     this.field_70871_bB = 1.0F;
                 } else {
@@ -119,16 +119,16 @@ public class EntitySquid extends EntityWaterMob {
             }
 
             if (!this.worldObj.isRemote) {
-                this.motionX = (double) (this.randomMotionVecX * this.randomMotionSpeed);
-                this.motionY = (double) (this.randomMotionVecY * this.randomMotionSpeed);
-                this.motionZ = (double) (this.randomMotionVecZ * this.randomMotionSpeed);
+                this.motionX = (this.randomMotionVecX * this.randomMotionSpeed);
+                this.motionY = (this.randomMotionVecY * this.randomMotionSpeed);
+                this.motionZ = (this.randomMotionVecZ * this.randomMotionSpeed);
             }
 
             float f1 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
             this.renderYawOffset += (-((float) MathHelper.atan2(this.motionX, this.motionZ)) * 180.0F / (float) Math.PI - this.renderYawOffset) * 0.1F;
             this.rotationYaw = this.renderYawOffset;
-            this.squidYaw = (float) ((double) this.squidYaw + Math.PI * (double) this.field_70871_bB * 1.5D);
-            this.squidPitch += (-((float) MathHelper.atan2((double) f1, this.motionY)) * 180.0F / (float) Math.PI - this.squidPitch) * 0.1F;
+            this.squidYaw = (float) (this.squidYaw + Math.PI * this.field_70871_bB * 1.5D);
+            this.squidPitch += (-((float) MathHelper.atan2(f1, this.motionY)) * 180.0F / (float) Math.PI - this.squidPitch) * 0.1F;
         } else {
             this.tentacleAngle = MathHelper.abs(MathHelper.sin(this.squidRotation)) * (float) Math.PI * 0.25F;
 
@@ -139,7 +139,7 @@ public class EntitySquid extends EntityWaterMob {
                 this.motionZ = 0.0D;
             }
 
-            this.squidPitch = (float) ((double) this.squidPitch + (double) (-90.0F - this.squidPitch) * 0.02D);
+            this.squidPitch = (float) (this.squidPitch + (-90.0F - this.squidPitch) * 0.02D);
         }
     }
 
@@ -148,7 +148,7 @@ public class EntitySquid extends EntityWaterMob {
     }
 
     public boolean getCanSpawnHere() {
-        return this.posY > 45.0D && this.posY < (double) this.worldObj.getSeaLevel() && super.getCanSpawnHere();
+        return this.posY > 45.0D && this.posY < this.worldObj.getSeaLevel() && super.getCanSpawnHere();
     }
 
     public void handleStatusUpdate(byte id) {

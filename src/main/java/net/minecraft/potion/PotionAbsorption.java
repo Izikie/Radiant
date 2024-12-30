@@ -10,12 +10,12 @@ public class PotionAbsorption extends Potion {
     }
 
     public void removeAttributesModifiersFromEntity(EntityLivingBase entityLivingBaseIn, BaseAttributeMap p_111187_2_, int amplifier) {
-        entityLivingBaseIn.setAbsorptionAmount(entityLivingBaseIn.getAbsorptionAmount() - (float) (4 * (amplifier + 1)));
+        entityLivingBaseIn.setAbsorptionAmount(entityLivingBaseIn.getAbsorptionAmount() - (4 * (amplifier + 1)));
         super.removeAttributesModifiersFromEntity(entityLivingBaseIn, p_111187_2_, amplifier);
     }
 
     public void applyAttributesModifiersToEntity(EntityLivingBase entityLivingBaseIn, BaseAttributeMap p_111185_2_, int amplifier) {
-        entityLivingBaseIn.setAbsorptionAmount(entityLivingBaseIn.getAbsorptionAmount() + (float) (4 * (amplifier + 1)));
+        entityLivingBaseIn.setAbsorptionAmount(entityLivingBaseIn.getAbsorptionAmount() + (4 * (amplifier + 1)));
         super.applyAttributesModifiersToEntity(entityLivingBaseIn, p_111185_2_, amplifier);
     }
 }

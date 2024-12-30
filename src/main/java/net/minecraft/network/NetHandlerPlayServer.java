@@ -129,8 +129,8 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         this.field_147366_g = false;
         ++this.networkTickCount;
 
-        if ((long) this.networkTickCount - this.lastSentPingPacket > 40L) {
-            this.lastSentPingPacket = (long) this.networkTickCount;
+        if (this.networkTickCount - this.lastSentPingPacket > 40L) {
+            this.lastSentPingPacket = this.networkTickCount;
             this.lastPingTime = this.currentTimeMillis();
             this.field_147378_h = (int) this.lastPingTime;
             this.sendPacket(new S00PacketKeepAlive(this.field_147378_h));
@@ -145,7 +145,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
             --this.itemDropThreshold;
         }
 
-        if (this.playerEntity.getLastActiveTime() > 0L && this.serverController.getMaxPlayerIdleMinutes() > 0 && MinecraftServer.getCurrentTimeMillis() - this.playerEntity.getLastActiveTime() > (long) (this.serverController.getMaxPlayerIdleMinutes() * 1000 * 60)) {
+        if (this.playerEntity.getLastActiveTime() > 0L && this.serverController.getMaxPlayerIdleMinutes() > 0 && MinecraftServer.getCurrentTimeMillis() - this.playerEntity.getLastActiveTime() > (this.serverController.getMaxPlayerIdleMinutes() * 1000 * 60)) {
             this.kickPlayerFromServer("You have been idle for too long!");
         }
     }
@@ -307,7 +307,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
                     }
 
                     float f3 = 0.0625F;
-                    boolean flag = worldserver.getCollidingBoundingBoxes(this.playerEntity, this.playerEntity.getEntityBoundingBox().contract((double) f3, (double) f3, (double) f3)).isEmpty();
+                    boolean flag = worldserver.getCollidingBoundingBoxes(this.playerEntity, this.playerEntity.getEntityBoundingBox().contract(f3, f3, f3)).isEmpty();
 
                     if (this.playerEntity.onGround && !packetIn.isOnGround() && d12 > 0.0D) {
                         this.playerEntity.jump();
@@ -335,7 +335,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
                     this.playerEntity.addMovementStat(this.playerEntity.posX - d0, this.playerEntity.posY - d1, this.playerEntity.posZ - d2);
 
                     if (!this.playerEntity.noClip) {
-                        boolean flag2 = worldserver.getCollidingBoundingBoxes(this.playerEntity, this.playerEntity.getEntityBoundingBox().contract((double) f3, (double) f3, (double) f3)).isEmpty();
+                        boolean flag2 = worldserver.getCollidingBoundingBoxes(this.playerEntity, this.playerEntity.getEntityBoundingBox().contract(f3, f3, f3)).isEmpty();
 
                         if (flag && (flag1 || !flag2) && !this.playerEntity.isPlayerSleeping()) {
                             this.setPlayerLocation(this.lastPosX, this.lastPosY, this.lastPosZ, f1, f2);
@@ -343,7 +343,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
                         }
                     }
 
-                    AxisAlignedBB axisalignedbb = this.playerEntity.getEntityBoundingBox().expand((double) f3, (double) f3, (double) f3).addCoord(0.0D, -0.55D, 0.0D);
+                    AxisAlignedBB axisalignedbb = this.playerEntity.getEntityBoundingBox().expand(f3, f3, f3).addCoord(0.0D, -0.55D, 0.0D);
 
                     if (!this.serverController.isFlightAllowed() && !this.playerEntity.capabilities.allowFlying && !worldserver.checkBlockCollision(axisalignedbb)) {
                         if (d12 >= -0.03125D) {
@@ -434,9 +434,9 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
             case START_DESTROY_BLOCK:
             case ABORT_DESTROY_BLOCK:
             case STOP_DESTROY_BLOCK:
-                double d0 = this.playerEntity.posX - ((double) blockpos.getX() + 0.5D);
-                double d1 = this.playerEntity.posY - ((double) blockpos.getY() + 0.5D) + 1.5D;
-                double d2 = this.playerEntity.posZ - ((double) blockpos.getZ() + 0.5D);
+                double d0 = this.playerEntity.posX - (blockpos.getX() + 0.5D);
+                double d1 = this.playerEntity.posY - (blockpos.getY() + 0.5D) + 1.5D;
+                double d2 = this.playerEntity.posZ - (blockpos.getZ() + 0.5D);
                 double d3 = d0 * d0 + d1 * d1 + d2 * d2;
 
                 if (d3 > 36.0D) {
@@ -486,7 +486,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 
             this.playerEntity.theItemInWorldManager.tryUseItem(this.playerEntity, worldserver, itemstack);
         } else if (blockpos.getY() < this.serverController.getBuildLimit() - 1 || enumfacing != EnumFacing.UP && blockpos.getY() < this.serverController.getBuildLimit()) {
-            if (this.hasMoved && this.playerEntity.getDistanceSq((double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.5D, (double) blockpos.getZ() + 0.5D) < 64.0D && !this.serverController.isBlockProtected(worldserver, blockpos, this.playerEntity) && worldserver.getWorldBorder().contains(blockpos)) {
+            if (this.hasMoved && this.playerEntity.getDistanceSq(blockpos.getX() + 0.5D, blockpos.getY() + 0.5D, blockpos.getZ() + 0.5D) < 64.0D && !this.serverController.isBlockProtected(worldserver, blockpos, this.playerEntity) && worldserver.getWorldBorder().contains(blockpos)) {
                 this.playerEntity.theItemInWorldManager.activateBlockOrUseItem(this.playerEntity, worldserver, itemstack, blockpos, enumfacing, packetIn.getPlacedBlockOffsetX(), packetIn.getPlacedBlockOffsetY(), packetIn.getPlacedBlockOffsetZ());
             }
 

@@ -80,7 +80,7 @@ public class EntityBat extends EntityAmbientCreature {
 
         if (this.getIsBatHanging()) {
             this.motionX = this.motionY = this.motionZ = 0.0D;
-            this.posY = (double) MathHelper.floor_double(this.posY) + 1.0D - (double) this.height;
+            this.posY = MathHelper.floor_double(this.posY) + 1.0D - this.height;
         } else {
             this.motionY *= 0.6000000238418579D;
         }
@@ -97,7 +97,7 @@ public class EntityBat extends EntityAmbientCreature {
                 this.worldObj.playAuxSFXAtEntity((EntityPlayer) null, 1015, blockpos, 0);
             } else {
                 if (this.rand.nextInt(200) == 0) {
-                    this.rotationYawHead = (float) this.rand.nextInt(360);
+                    this.rotationYawHead = this.rand.nextInt(360);
                 }
 
                 if (this.worldObj.getClosestPlayerToEntity(this, 4.0D) != null) {
@@ -110,13 +110,13 @@ public class EntityBat extends EntityAmbientCreature {
                 this.spawnPosition = null;
             }
 
-            if (this.spawnPosition == null || this.rand.nextInt(30) == 0 || this.spawnPosition.distanceSq((double) ((int) this.posX), (double) ((int) this.posY), (double) ((int) this.posZ)) < 4.0D) {
+            if (this.spawnPosition == null || this.rand.nextInt(30) == 0 || this.spawnPosition.distanceSq(((int) this.posX), ((int) this.posY), ((int) this.posZ)) < 4.0D) {
                 this.spawnPosition = new BlockPos((int) this.posX + this.rand.nextInt(7) - this.rand.nextInt(7), (int) this.posY + this.rand.nextInt(6) - 2, (int) this.posZ + this.rand.nextInt(7) - this.rand.nextInt(7));
             }
 
-            double d0 = (double) this.spawnPosition.getX() + 0.5D - this.posX;
-            double d1 = (double) this.spawnPosition.getY() + 0.1D - this.posY;
-            double d2 = (double) this.spawnPosition.getZ() + 0.5D - this.posZ;
+            double d0 = this.spawnPosition.getX() + 0.5D - this.posX;
+            double d1 = this.spawnPosition.getY() + 0.1D - this.posY;
+            double d2 = this.spawnPosition.getZ() + 0.5D - this.posZ;
             this.motionX += (Math.signum(d0) * 0.5D - this.motionX) * 0.10000000149011612D;
             this.motionY += (Math.signum(d1) * 0.699999988079071D - this.motionY) * 0.10000000149011612D;
             this.motionZ += (Math.signum(d2) * 0.5D - this.motionZ) * 0.10000000149011612D;

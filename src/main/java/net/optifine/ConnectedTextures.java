@@ -134,7 +134,7 @@ public class ConnectedTextures {
             }
 
             iblockstate = iblockstate.getBlock().getActualState(iblockstate, blockAccess, blockpos);
-            double d0 = (double) quad.getMidX();
+            double d0 = quad.getMidX();
 
             if (d0 < 0.4D) {
                 if (((Boolean) iblockstate.getValue(BlockPane.WEST)).booleanValue()) {

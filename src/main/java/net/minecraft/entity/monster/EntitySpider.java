@@ -45,7 +45,7 @@ public class EntitySpider extends EntityMob {
     }
 
     public double getMountedYOffset() {
-        return (double) (this.height * 0.5F);
+        return (this.height * 0.5F);
     }
 
     protected PathNavigate getNewNavigator(World worldIn) {
@@ -181,7 +181,7 @@ public class EntitySpider extends EntityMob {
         }
 
         protected double func_179512_a(EntityLivingBase attackTarget) {
-            return (double) (4.0F + attackTarget.width);
+            return (4.0F + attackTarget.width);
         }
     }
 

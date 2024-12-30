@@ -14,8 +14,8 @@ public class MapGenCavesHell extends MapGenBase {
     }
 
     protected void func_180704_a(long p_180704_1_, int p_180704_3_, int p_180704_4_, ChunkPrimer p_180704_5_, double p_180704_6_, double p_180704_8_, double p_180704_10_, float p_180704_12_, float p_180704_13_, float p_180704_14_, int p_180704_15_, int p_180704_16_, double p_180704_17_) {
-        double d0 = (double) (p_180704_3_ * 16 + 8);
-        double d1 = (double) (p_180704_4_ * 16 + 8);
+        double d0 = (p_180704_3_ * 16 + 8);
+        double d1 = (p_180704_4_ * 16 + 8);
         float f = 0.0F;
         float f1 = 0.0F;
         Random random = new Random(p_180704_1_);
@@ -35,13 +35,13 @@ public class MapGenCavesHell extends MapGenBase {
         int j = random.nextInt(p_180704_16_ / 2) + p_180704_16_ / 4;
 
         for (boolean flag = random.nextInt(6) == 0; p_180704_15_ < p_180704_16_; ++p_180704_15_) {
-            double d2 = 1.5D + (double) (MathHelper.sin((float) p_180704_15_ * (float) Math.PI / (float) p_180704_16_) * p_180704_12_ * 1.0F);
+            double d2 = 1.5D + (MathHelper.sin(p_180704_15_ * (float) Math.PI / p_180704_16_) * p_180704_12_ * 1.0F);
             double d3 = d2 * p_180704_17_;
             float f2 = MathHelper.cos(p_180704_14_);
             float f3 = MathHelper.sin(p_180704_14_);
-            p_180704_6_ += (double) (MathHelper.cos(p_180704_13_) * f2);
-            p_180704_8_ += (double) f3;
-            p_180704_10_ += (double) (MathHelper.sin(p_180704_13_) * f2);
+            p_180704_6_ += (MathHelper.cos(p_180704_13_) * f2);
+            p_180704_8_ += f3;
+            p_180704_10_ += (MathHelper.sin(p_180704_13_) * f2);
 
             if (flag) {
                 p_180704_14_ = p_180704_14_ * 0.92F;
@@ -65,8 +65,8 @@ public class MapGenCavesHell extends MapGenBase {
             if (flag1 || random.nextInt(4) != 0) {
                 double d4 = p_180704_6_ - d0;
                 double d5 = p_180704_10_ - d1;
-                double d6 = (double) (p_180704_16_ - p_180704_15_);
-                double d7 = (double) (p_180704_12_ + 2.0F + 16.0F);
+                double d6 = (p_180704_16_ - p_180704_15_);
+                double d7 = (p_180704_12_ + 2.0F + 16.0F);
 
                 if (d4 * d4 + d5 * d5 - d6 * d6 > d7 * d7) {
                     return;
@@ -126,13 +126,13 @@ public class MapGenCavesHell extends MapGenBase {
 
                     if (!flag2) {
                         for (int i3 = j2; i3 < k; ++i3) {
-                            double d10 = ((double) (i3 + p_180704_3_ * 16) + 0.5D - p_180704_6_) / d2;
+                            double d10 = ((i3 + p_180704_3_ * 16) + 0.5D - p_180704_6_) / d2;
 
                             for (int j3 = l2; j3 < i1; ++j3) {
-                                double d8 = ((double) (j3 + p_180704_4_ * 16) + 0.5D - p_180704_10_) / d2;
+                                double d8 = ((j3 + p_180704_4_ * 16) + 0.5D - p_180704_10_) / d2;
 
                                 for (int i2 = l; i2 > k2; --i2) {
-                                    double d9 = ((double) (i2 - 1) + 0.5D - p_180704_8_) / d3;
+                                    double d9 = ((i2 - 1) + 0.5D - p_180704_8_) / d3;
 
                                     if (d9 > -0.7D && d10 * d10 + d9 * d9 + d8 * d8 < 1.0D) {
                                         IBlockState iblockstate1 = p_180704_5_.getBlockState(i3, i2, j3);
@@ -162,9 +162,9 @@ public class MapGenCavesHell extends MapGenBase {
         }
 
         for (int j = 0; j < i; ++j) {
-            double d0 = (double) (chunkX * 16 + this.rand.nextInt(16));
-            double d1 = (double) this.rand.nextInt(128);
-            double d2 = (double) (chunkZ * 16 + this.rand.nextInt(16));
+            double d0 = (chunkX * 16 + this.rand.nextInt(16));
+            double d1 = this.rand.nextInt(128);
+            double d2 = (chunkZ * 16 + this.rand.nextInt(16));
             int k = 1;
 
             if (this.rand.nextInt(4) == 0) {

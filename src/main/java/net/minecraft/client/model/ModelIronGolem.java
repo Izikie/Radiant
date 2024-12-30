@@ -70,13 +70,13 @@ public class ModelIronGolem extends ModelBase {
         int i = entityirongolem.getAttackTimer();
 
         if (i > 0) {
-            this.ironGolemRightArm.rotateAngleX = -2.0F + 1.5F * this.func_78172_a((float) i - partialTickTime, 10.0F);
-            this.ironGolemLeftArm.rotateAngleX = -2.0F + 1.5F * this.func_78172_a((float) i - partialTickTime, 10.0F);
+            this.ironGolemRightArm.rotateAngleX = -2.0F + 1.5F * this.func_78172_a(i - partialTickTime, 10.0F);
+            this.ironGolemLeftArm.rotateAngleX = -2.0F + 1.5F * this.func_78172_a(i - partialTickTime, 10.0F);
         } else {
             int j = entityirongolem.getHoldRoseTick();
 
             if (j > 0) {
-                this.ironGolemRightArm.rotateAngleX = -0.8F + 0.025F * this.func_78172_a((float) j, 70.0F);
+                this.ironGolemRightArm.rotateAngleX = -0.8F + 0.025F * this.func_78172_a(j, 70.0F);
                 this.ironGolemLeftArm.rotateAngleX = 0.0F;
             } else {
                 this.ironGolemRightArm.rotateAngleX = (-0.2F + 1.5F * this.func_78172_a(p_78086_2_, 13.0F)) * p_78086_3_;

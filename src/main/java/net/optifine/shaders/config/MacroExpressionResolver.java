@@ -39,7 +39,7 @@ public class MacroExpressionResolver implements IExpressionResolver {
                 Config.warn("Unknown macro value: " + name);
                 return new ConstantFloat(0.0F);
             } else {
-                return new ConstantFloat((float) i);
+                return new ConstantFloat(i);
             }
         }
     }

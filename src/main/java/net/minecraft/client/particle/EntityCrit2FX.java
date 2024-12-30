@@ -25,14 +25,14 @@ public class EntityCrit2FX extends EntityFX {
         this.particleScale *= p_i46285_14_;
         this.field_174839_a = this.particleScale;
         this.particleMaxAge = (int) (6.0D / (Math.random() * 0.8D + 0.6D));
-        this.particleMaxAge = (int) ((float) this.particleMaxAge * p_i46285_14_);
+        this.particleMaxAge = (int) (this.particleMaxAge * p_i46285_14_);
         this.noClip = false;
         this.setParticleTextureIndex(65);
         this.onUpdate();
     }
 
     public void renderParticle(WorldRenderer worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-        float f = ((float) this.particleAge + partialTicks) / (float) this.particleMaxAge * 32.0F;
+        float f = (this.particleAge + partialTicks) / this.particleMaxAge * 32.0F;
         f = MathHelper.clamp_float(f, 0.0F, 1.0F);
         this.particleScale = this.field_174839_a * f;
         super.renderParticle(worldRendererIn, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
@@ -48,8 +48,8 @@ public class EntityCrit2FX extends EntityFX {
         }
 
         this.moveEntity(this.motionX, this.motionY, this.motionZ);
-        this.particleGreen = (float) ((double) this.particleGreen * 0.96D);
-        this.particleBlue = (float) ((double) this.particleBlue * 0.9D);
+        this.particleGreen = (float) (this.particleGreen * 0.96D);
+        this.particleBlue = (float) (this.particleBlue * 0.9D);
         this.motionX *= 0.699999988079071D;
         this.motionY *= 0.699999988079071D;
         this.motionZ *= 0.699999988079071D;

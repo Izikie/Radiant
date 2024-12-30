@@ -43,12 +43,12 @@ public class GuiScreenHorseInventory extends GuiContainer {
             this.drawTexturedModalRect(i + 7, j + 35, 0, this.ySize + 54, 18, 18);
         }
 
-        GuiInventory.drawEntityOnScreen(i + 51, j + 60, 17, (float) (i + 51) - this.mousePosx, (float) (j + 75 - 50) - this.mousePosY, this.horseEntity);
+        GuiInventory.drawEntityOnScreen(i + 51, j + 60, 17, (i + 51) - this.mousePosx, (j + 75 - 50) - this.mousePosY, this.horseEntity);
     }
 
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        this.mousePosx = (float) mouseX;
-        this.mousePosY = (float) mouseY;
+        this.mousePosx = mouseX;
+        this.mousePosY = mouseY;
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 }

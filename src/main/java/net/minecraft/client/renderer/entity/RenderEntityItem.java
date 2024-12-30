@@ -33,19 +33,19 @@ public class RenderEntityItem extends Render<EntityItem> {
             boolean flag = p_177077_9_.isGui3d();
             int i = this.func_177078_a(itemstack);
             float f = 0.25F;
-            float f1 = MathHelper.sin(((float) itemIn.getAge() + p_177077_8_) / 10.0F + itemIn.hoverStart) * 0.1F + 0.1F;
+            float f1 = MathHelper.sin((itemIn.getAge() + p_177077_8_) / 10.0F + itemIn.hoverStart) * 0.1F + 0.1F;
             float f2 = p_177077_9_.getItemCameraTransforms().getTransform(ItemCameraTransforms.TransformType.GROUND).scale.y;
             GlStateManager.translate((float) p_177077_2_, (float) p_177077_4_ + f1 + 0.25F * f2, (float) p_177077_6_);
 
             if (flag || this.renderManager.options != null) {
-                float f3 = (((float) itemIn.getAge() + p_177077_8_) / 20.0F + itemIn.hoverStart) * (180F / (float) Math.PI);
+                float f3 = ((itemIn.getAge() + p_177077_8_) / 20.0F + itemIn.hoverStart) * (180F / (float) Math.PI);
                 GlStateManager.rotate(f3, 0.0F, 1.0F, 0.0F);
             }
 
             if (!flag) {
-                float f6 = -0.0F * (float) (i - 1) * 0.5F;
-                float f4 = -0.0F * (float) (i - 1) * 0.5F;
-                float f5 = -0.046875F * (float) (i - 1) * 0.5F;
+                float f6 = -0.0F * (i - 1) * 0.5F;
+                float f4 = -0.0F * (i - 1) * 0.5F;
+                float f5 = -0.046875F * (i - 1) * 0.5F;
                 GlStateManager.translate(f6, f4, f5);
             }
 

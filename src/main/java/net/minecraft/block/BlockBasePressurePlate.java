@@ -114,9 +114,9 @@ public abstract class BlockBasePressurePlate extends Block {
         }
 
         if (!flag1 && flag) {
-            worldIn.playSoundEffect((double) pos.getX() + 0.5D, (double) pos.getY() + 0.1D, (double) pos.getZ() + 0.5D, "random.click", 0.3F, 0.5F);
+            worldIn.playSoundEffect(pos.getX() + 0.5D, pos.getY() + 0.1D, pos.getZ() + 0.5D, "random.click", 0.3F, 0.5F);
         } else if (flag1 && !flag) {
-            worldIn.playSoundEffect((double) pos.getX() + 0.5D, (double) pos.getY() + 0.1D, (double) pos.getZ() + 0.5D, "random.click", 0.3F, 0.6F);
+            worldIn.playSoundEffect(pos.getX() + 0.5D, pos.getY() + 0.1D, pos.getZ() + 0.5D, "random.click", 0.3F, 0.6F);
         }
 
         if (flag1) {
@@ -126,7 +126,7 @@ public abstract class BlockBasePressurePlate extends Block {
 
     protected AxisAlignedBB getSensitiveAABB(BlockPos pos) {
         float f = 0.125F;
-        return new AxisAlignedBB((double) ((float) pos.getX() + 0.125F), (double) pos.getY(), (double) ((float) pos.getZ() + 0.125F), (double) ((float) (pos.getX() + 1) - 0.125F), (double) pos.getY() + 0.25D, (double) ((float) (pos.getZ() + 1) - 0.125F));
+        return new AxisAlignedBB((pos.getX() + 0.125F), pos.getY(), (pos.getZ() + 0.125F), ((pos.getX() + 1) - 0.125F), pos.getY() + 0.25D, ((pos.getZ() + 1) - 0.125F));
     }
 
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {

@@ -110,8 +110,8 @@ public class StructureOceanMonument extends MapGenStructure {
             p_175789_2_.setSeed(worldIn.getSeed());
             long i = p_175789_2_.nextLong();
             long j = p_175789_2_.nextLong();
-            long k = (long) p_175789_3_ * i;
-            long l = (long) p_175789_4_ * j;
+            long k = p_175789_3_ * i;
+            long l = p_175789_4_ * j;
             p_175789_2_.setSeed(k ^ l ^ worldIn.getSeed());
             int i1 = p_175789_3_ * 16 + 8 - 29;
             int j1 = p_175789_4_ * 16 + 8 - 29;

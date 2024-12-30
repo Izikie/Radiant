@@ -22,7 +22,7 @@ public class LayerWitherAura implements LayerRenderer<EntityWither> {
             this.witherRenderer.bindTexture(WITHER_ARMOR);
             GlStateManager.matrixMode(5890);
             GlStateManager.loadIdentity();
-            float f = (float) entitylivingbaseIn.ticksExisted + partialTicks;
+            float f = entitylivingbaseIn.ticksExisted + partialTicks;
             float f1 = MathHelper.cos(f * 0.02F) * 3.0F;
             float f2 = f * 0.01F;
             GlStateManager.translate(f1, f2, 0.0F);

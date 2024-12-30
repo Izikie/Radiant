@@ -39,7 +39,7 @@ public class VboRegion {
     public void bufferData(ByteBuffer data, VboRange range) {
         int i = range.getPosition();
         int j = range.getSize();
-        int k = this.toVertex((long) data.limit());
+        int k = this.toVertex(data.limit());
 
         if (k <= 0) {
             if (i >= 0) {
@@ -249,11 +249,11 @@ public class VboRegion {
     }
 
     private long toBytes(int vertex) {
-        return (long) vertex * (long) this.vertexBytes;
+        return (long) vertex * this.vertexBytes;
     }
 
     private int toVertex(long bytes) {
-        return (int) (bytes / (long) this.vertexBytes);
+        return (int) (bytes / this.vertexBytes);
     }
 
     public int getPositionTop() {

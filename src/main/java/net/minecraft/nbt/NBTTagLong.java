@@ -65,10 +65,10 @@ public class NBTTagLong extends NBTBase.NBTPrimitive {
     }
 
     public double getDouble() {
-        return (double) this.data;
+        return this.data;
     }
 
     public float getFloat() {
-        return (float) this.data;
+        return this.data;
     }
 }

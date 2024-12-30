@@ -144,7 +144,7 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
     }
 
     public boolean isUseableByPlayer(EntityPlayer player) {
-        return this.worldObj.getTileEntity(this.pos) != this ? false : player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
+        return this.worldObj.getTileEntity(this.pos) != this ? false : player.getDistanceSq(this.pos.getX() + 0.5D, this.pos.getY() + 0.5D, this.pos.getZ() + 0.5D) <= 64.0D;
     }
 
     public void updateContainingBlockInfo() {
@@ -232,7 +232,7 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
             this.numPlayersUsing = 0;
             float f = 5.0F;
 
-            for (EntityPlayer entityplayer : this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB((double) ((float) i - f), (double) ((float) j - f), (double) ((float) k - f), (double) ((float) (i + 1) + f), (double) ((float) (j + 1) + f), (double) ((float) (k + 1) + f)))) {
+            for (EntityPlayer entityplayer : this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB((i - f), (j - f), (k - f), ((i + 1) + f), ((j + 1) + f), ((k + 1) + f)))) {
                 if (entityplayer.openContainer instanceof ContainerChest) {
                     IInventory iinventory = ((ContainerChest) entityplayer.openContainer).getLowerChestInventory();
 
@@ -247,8 +247,8 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
         float f1 = 0.1F;
 
         if (this.numPlayersUsing > 0 && this.lidAngle == 0.0F && this.adjacentChestZNeg == null && this.adjacentChestXNeg == null) {
-            double d1 = (double) i + 0.5D;
-            double d2 = (double) k + 0.5D;
+            double d1 = i + 0.5D;
+            double d2 = k + 0.5D;
 
             if (this.adjacentChestZPos != null) {
                 d2 += 0.5D;
@@ -258,7 +258,7 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
                 d1 += 0.5D;
             }
 
-            this.worldObj.playSoundEffect(d1, (double) j + 0.5D, d2, "random.chestopen", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+            this.worldObj.playSoundEffect(d1, j + 0.5D, d2, "random.chestopen", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
         }
 
         if (this.numPlayersUsing == 0 && this.lidAngle > 0.0F || this.numPlayersUsing > 0 && this.lidAngle < 1.0F) {
@@ -277,8 +277,8 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
             float f3 = 0.5F;
 
             if (this.lidAngle < f3 && f2 >= f3 && this.adjacentChestZNeg == null && this.adjacentChestXNeg == null) {
-                double d3 = (double) i + 0.5D;
-                double d0 = (double) k + 0.5D;
+                double d3 = i + 0.5D;
+                double d0 = k + 0.5D;
 
                 if (this.adjacentChestZPos != null) {
                     d0 += 0.5D;
@@ -288,7 +288,7 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
                     d3 += 0.5D;
                 }
 
-                this.worldObj.playSoundEffect(d3, (double) j + 0.5D, d0, "random.chestclosed", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+                this.worldObj.playSoundEffect(d3, j + 0.5D, d0, "random.chestclosed", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
             }
 
             if (this.lidAngle < 0.0F) {

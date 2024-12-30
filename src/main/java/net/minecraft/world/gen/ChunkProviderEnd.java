@@ -141,7 +141,7 @@ public class ChunkProviderEnd implements IChunkProvider {
     }
 
     public Chunk provideChunk(int x, int z) {
-        this.endRNG.setSeed((long) x * 341873128712L + (long) z * 132897987541L);
+        this.endRNG.setSeed(x * 341873128712L + z * 132897987541L);
         ChunkPrimer chunkprimer = new ChunkPrimer();
         this.biomesForGeneration = this.endWorld.getWorldChunkManager().loadBlockGeneratorData(this.biomesForGeneration, x * 16, z * 16, 16, 16);
         this.func_180520_a(x, z, chunkprimer);
@@ -174,8 +174,8 @@ public class ChunkProviderEnd implements IChunkProvider {
 
         for (int j = 0; j < p_73187_5_; ++j) {
             for (int k = 0; k < p_73187_7_; ++k) {
-                float f = (float) (j + p_73187_2_) / 1.0F;
-                float f1 = (float) (k + p_73187_4_) / 1.0F;
+                float f = (j + p_73187_2_) / 1.0F;
+                float f1 = (k + p_73187_4_) / 1.0F;
                 float f2 = 100.0F - MathHelper.sqrt_float(f * f + f1 * f1) * 8.0F;
 
                 if (f2 > 80.0F) {
@@ -201,11 +201,11 @@ public class ChunkProviderEnd implements IChunkProvider {
                     }
 
                     d2 = d2 - 8.0D;
-                    d2 = d2 + (double) f2;
+                    d2 = d2 + f2;
                     int i1 = 2;
 
                     if (l > p_73187_6_ / 2 - i1) {
-                        double d6 = (double) ((float) (l - (p_73187_6_ / 2 - i1)) / 64.0F);
+                        double d6 = ((l - (p_73187_6_ / 2 - i1)) / 64.0F);
                         d6 = MathHelper.clamp_double(d6, 0.0D, 1.0D);
                         d2 = d2 * (1.0D - d6) + -3000.0D * d6;
                     }
@@ -213,7 +213,7 @@ public class ChunkProviderEnd implements IChunkProvider {
                     i1 = 8;
 
                     if (l < i1) {
-                        double d7 = (double) ((float) (i1 - l) / ((float) i1 - 1.0F));
+                        double d7 = ((i1 - l) / (i1 - 1.0F));
                         d2 = d2 * (1.0D - d7) + -30.0D * d7;
                     }
 

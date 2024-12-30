@@ -841,7 +841,7 @@ public class CustomItemProperties {
             }
         }
 
-        return (float) this.textureWidth;
+        return this.textureWidth;
     }
 
     public float getTextureHeight(TextureManager textureManager) {
@@ -860,7 +860,7 @@ public class CustomItemProperties {
             }
         }
 
-        return (float) this.textureHeight;
+        return this.textureHeight;
     }
 
     public IBakedModel getBakedModel(ResourceLocation modelLocation, boolean fullModel) {

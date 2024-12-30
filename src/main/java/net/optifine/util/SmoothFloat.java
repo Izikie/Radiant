@@ -43,7 +43,7 @@ public class SmoothFloat {
         long i = System.currentTimeMillis();
         float f = this.valueLast;
         long j = this.timeLastMs;
-        float f1 = (float) (i - j) / 1000.0F;
+        float f1 = (i - j) / 1000.0F;
         float f2 = value >= f ? this.timeFadeUpSec : this.timeFadeDownSec;
         float f3 = getSmoothValue(f, value, f1, f2);
         this.valueLast = f3;

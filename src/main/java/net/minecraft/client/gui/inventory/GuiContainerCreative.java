@@ -409,7 +409,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
                 i = -1;
             }
 
-            this.currentScroll = (float) ((double) this.currentScroll - (double) i / (double) j);
+            this.currentScroll = (float) (this.currentScroll - (double) i / j);
             this.currentScroll = MathHelper.clamp_float(this.currentScroll, 0.0F, 1.0F);
             ((GuiContainerCreative.ContainerCreative) this.inventorySlots).scrollTo(this.currentScroll);
         }
@@ -435,7 +435,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         this.wasClicking = flag;
 
         if (this.isScrolling) {
-            this.currentScroll = ((float) (mouseY - l) - 7.5F) / ((float) (j1 - l) - 15.0F);
+            this.currentScroll = ((mouseY - l) - 7.5F) / ((j1 - l) - 15.0F);
             this.currentScroll = MathHelper.clamp_float(this.currentScroll, 0.0F, 1.0F);
             ((GuiContainerCreative.ContainerCreative) this.inventorySlots).scrollTo(this.currentScroll);
         }
@@ -517,13 +517,13 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         this.mc.getTextureManager().bindTexture(creativeInventoryTabs);
 
         if (creativetabs.shouldHidePlayerInventory()) {
-            this.drawTexturedModalRect(i, j + (int) ((float) (k - j - 17) * this.currentScroll), 232 + (this.needsScrollBars() ? 0 : 12), 0, 12, 15);
+            this.drawTexturedModalRect(i, j + (int) ((k - j - 17) * this.currentScroll), 232 + (this.needsScrollBars() ? 0 : 12), 0, 12, 15);
         }
 
         this.func_147051_a(creativetabs);
 
         if (creativetabs == CreativeTabs.tabInventory) {
-            GuiInventory.drawEntityOnScreen(this.guiLeft + 43, this.guiTop + 45, 20, (float) (this.guiLeft + 43 - mouseX), (float) (this.guiTop + 45 - 30 - mouseY), this.mc.thePlayer);
+            GuiInventory.drawEntityOnScreen(this.guiLeft + 43, this.guiTop + 45, 20, (this.guiLeft + 43 - mouseX), (this.guiTop + 45 - 30 - mouseY), this.mc.thePlayer);
         }
     }
 
@@ -654,7 +654,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 
         public void scrollTo(float p_148329_1_) {
             int i = (this.itemList.size() + 9 - 1) / 9 - 5;
-            int j = (int) ((double) (p_148329_1_ * (float) i) + 0.5D);
+            int j = (int) ((p_148329_1_ * i) + 0.5D);
 
             if (j < 0) {
                 j = 0;

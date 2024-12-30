@@ -31,7 +31,7 @@ public class EntityEnchantmentTableParticleFX extends EntityFX {
 
     public int getBrightnessForRender(float partialTicks) {
         int i = super.getBrightnessForRender(partialTicks);
-        float f = (float) this.particleAge / (float) this.particleMaxAge;
+        float f = (float) this.particleAge / this.particleMaxAge;
         f = f * f;
         f = f * f;
         int j = i & 255;
@@ -47,7 +47,7 @@ public class EntityEnchantmentTableParticleFX extends EntityFX {
 
     public float getBrightness(float partialTicks) {
         float f = super.getBrightness(partialTicks);
-        float f1 = (float) this.particleAge / (float) this.particleMaxAge;
+        float f1 = (float) this.particleAge / this.particleMaxAge;
         f1 = f1 * f1;
         f1 = f1 * f1;
         return f * (1.0F - f1) + f1;
@@ -57,14 +57,14 @@ public class EntityEnchantmentTableParticleFX extends EntityFX {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
         this.prevPosZ = this.posZ;
-        float f = (float) this.particleAge / (float) this.particleMaxAge;
+        float f = (float) this.particleAge / this.particleMaxAge;
         f = 1.0F - f;
         float f1 = 1.0F - f;
         f1 = f1 * f1;
         f1 = f1 * f1;
-        this.posX = this.coordX + this.motionX * (double) f;
-        this.posY = this.coordY + this.motionY * (double) f - (double) (f1 * 1.2F);
-        this.posZ = this.coordZ + this.motionZ * (double) f;
+        this.posX = this.coordX + this.motionX * f;
+        this.posY = this.coordY + this.motionY * f - (f1 * 1.2F);
+        this.posZ = this.coordZ + this.motionZ * f;
 
         if (this.particleAge++ >= this.particleMaxAge) {
             this.setDead();

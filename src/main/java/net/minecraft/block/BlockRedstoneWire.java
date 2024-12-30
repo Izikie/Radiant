@@ -309,7 +309,7 @@ public class BlockRedstoneWire extends Block {
     }
 
     private int colorMultiplier(int powerLevel) {
-        float f = (float) powerLevel / 15.0F;
+        float f = powerLevel / 15.0F;
         float f1 = f * 0.6F + 0.4F;
 
         if (powerLevel == 0) {
@@ -337,14 +337,14 @@ public class BlockRedstoneWire extends Block {
         int i = ((Integer) state.getValue(POWER)).intValue();
 
         if (i != 0) {
-            double d0 = (double) pos.getX() + 0.5D + ((double) rand.nextFloat() - 0.5D) * 0.2D;
-            double d1 = (double) ((float) pos.getY() + 0.0625F);
-            double d2 = (double) pos.getZ() + 0.5D + ((double) rand.nextFloat() - 0.5D) * 0.2D;
-            float f = (float) i / 15.0F;
+            double d0 = pos.getX() + 0.5D + (rand.nextFloat() - 0.5D) * 0.2D;
+            double d1 = (pos.getY() + 0.0625F);
+            double d2 = pos.getZ() + 0.5D + (rand.nextFloat() - 0.5D) * 0.2D;
+            float f = i / 15.0F;
             float f1 = f * 0.6F + 0.4F;
             float f2 = Math.max(0.0F, f * f * 0.7F - 0.5F);
             float f3 = Math.max(0.0F, f * f * 0.6F - 0.7F);
-            worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d0, d1, d2, (double) f1, (double) f2, (double) f3, new int[0]);
+            worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d0, d1, d2, f1, f2, f3, new int[0]);
         }
     }
 

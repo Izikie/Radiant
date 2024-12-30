@@ -29,17 +29,17 @@ public class NoiseGeneratorOctaves extends NoiseGenerator {
         double d3 = 1.0D;
 
         for (int j = 0; j < this.octaves; ++j) {
-            double d0 = (double) xOffset * d3 * xScale;
-            double d1 = (double) yOffset * d3 * yScale;
-            double d2 = (double) zOffset * d3 * zScale;
+            double d0 = xOffset * d3 * xScale;
+            double d1 = yOffset * d3 * yScale;
+            double d2 = zOffset * d3 * zScale;
             long k = MathHelper.floor_double_long(d0);
             long l = MathHelper.floor_double_long(d2);
-            d0 = d0 - (double) k;
-            d2 = d2 - (double) l;
+            d0 = d0 - k;
+            d2 = d2 - l;
             k = k % 16777216L;
             l = l % 16777216L;
-            d0 = d0 + (double) k;
-            d2 = d2 + (double) l;
+            d0 = d0 + k;
+            d2 = d2 + l;
             this.generatorCollection[j].populateNoiseArray(noiseArray, d0, d1, d2, xSize, ySize, zSize, xScale * d3, yScale * d3, zScale * d3, d3);
             d3 /= 2.0D;
         }

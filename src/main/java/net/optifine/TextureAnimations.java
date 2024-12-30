@@ -146,7 +146,7 @@ public class TextureAnimations {
                     int k1 = j1 * k * l;
 
                     if (i1 != k1) {
-                        Config.warn("TextureAnimation: Source texture has invalid number of frames: " + s + ", frames: " + (float) i1 / (float) (k * l));
+                        Config.warn("TextureAnimation: Source texture has invalid number of frames: " + s + ", frames: " + (float) i1 / (k * l));
                         return null;
                     } else {
                         ResourceLocation resourcelocation = new ResourceLocation(s1);
@@ -211,8 +211,8 @@ public class TextureAnimations {
                     return null;
                 } else {
                     if (targetWidth > 0 && bufferedimage.getWidth() != targetWidth) {
-                        double d0 = (double) (bufferedimage.getHeight() / bufferedimage.getWidth());
-                        int j = (int) ((double) targetWidth * d0);
+                        double d0 = (bufferedimage.getHeight() / bufferedimage.getWidth());
+                        int j = (int) (targetWidth * d0);
                         bufferedimage = scaleBufferedImage(bufferedimage, targetWidth, j);
                     }
 

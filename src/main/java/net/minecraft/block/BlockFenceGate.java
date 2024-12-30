@@ -45,7 +45,7 @@ public class BlockFenceGate extends BlockDirectional {
             return null;
         } else {
             EnumFacing.Axis enumfacing$axis = ((EnumFacing) state.getValue(FACING)).getAxis();
-            return enumfacing$axis == EnumFacing.Axis.Z ? new AxisAlignedBB((double) pos.getX(), (double) pos.getY(), (double) ((float) pos.getZ() + 0.375F), (double) (pos.getX() + 1), (double) ((float) pos.getY() + 1.5F), (double) ((float) pos.getZ() + 0.625F)) : new AxisAlignedBB((double) ((float) pos.getX() + 0.375F), (double) pos.getY(), (double) pos.getZ(), (double) ((float) pos.getX() + 0.625F), (double) ((float) pos.getY() + 1.5F), (double) (pos.getZ() + 1));
+            return enumfacing$axis == EnumFacing.Axis.Z ? new AxisAlignedBB(pos.getX(), pos.getY(), (pos.getZ() + 0.375F), (pos.getX() + 1), (pos.getY() + 1.5F), (pos.getZ() + 0.625F)) : new AxisAlignedBB((pos.getX() + 0.375F), pos.getY(), pos.getZ(), (pos.getX() + 0.625F), (pos.getY() + 1.5F), (pos.getZ() + 1));
         }
     }
 
@@ -80,7 +80,7 @@ public class BlockFenceGate extends BlockDirectional {
             state = state.withProperty(OPEN, Boolean.valueOf(false));
             worldIn.setBlockState(pos, state, 2);
         } else {
-            EnumFacing enumfacing = EnumFacing.fromAngle((double) playerIn.rotationYaw);
+            EnumFacing enumfacing = EnumFacing.fromAngle(playerIn.rotationYaw);
 
             if (state.getValue(FACING) == enumfacing.getOpposite()) {
                 state = state.withProperty(FACING, enumfacing);

@@ -15,11 +15,11 @@ public class ModelEnderMite extends ModelBase {
 
         for (int i = 0; i < this.field_178713_d.length; ++i) {
             this.field_178713_d[i] = new ModelRenderer(this, field_178714_b[i][0], field_178714_b[i][1]);
-            this.field_178713_d[i].addBox((float) field_178716_a[i][0] * -0.5F, 0.0F, (float) field_178716_a[i][2] * -0.5F, field_178716_a[i][0], field_178716_a[i][1], field_178716_a[i][2]);
-            this.field_178713_d[i].setRotationPoint(0.0F, (float) (24 - field_178716_a[i][1]), f);
+            this.field_178713_d[i].addBox(field_178716_a[i][0] * -0.5F, 0.0F, field_178716_a[i][2] * -0.5F, field_178716_a[i][0], field_178716_a[i][1], field_178716_a[i][2]);
+            this.field_178713_d[i].setRotationPoint(0.0F, (24 - field_178716_a[i][1]), f);
 
             if (i < this.field_178713_d.length - 1) {
-                f += (float) (field_178716_a[i][2] + field_178716_a[i + 1][2]) * 0.5F;
+                f += (field_178716_a[i][2] + field_178716_a[i + 1][2]) * 0.5F;
             }
         }
     }
@@ -34,8 +34,8 @@ public class ModelEnderMite extends ModelBase {
 
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
         for (int i = 0; i < this.field_178713_d.length; ++i) {
-            this.field_178713_d[i].rotateAngleY = MathHelper.cos(ageInTicks * 0.9F + (float) i * 0.15F * (float) Math.PI) * (float) Math.PI * 0.01F * (float) (1 + Math.abs(i - 2));
-            this.field_178713_d[i].rotationPointX = MathHelper.sin(ageInTicks * 0.9F + (float) i * 0.15F * (float) Math.PI) * (float) Math.PI * 0.1F * (float) Math.abs(i - 2);
+            this.field_178713_d[i].rotateAngleY = MathHelper.cos(ageInTicks * 0.9F + i * 0.15F * (float) Math.PI) * (float) Math.PI * 0.01F * (1 + Math.abs(i - 2));
+            this.field_178713_d[i].rotationPointX = MathHelper.sin(ageInTicks * 0.9F + i * 0.15F * (float) Math.PI) * (float) Math.PI * 0.1F * Math.abs(i - 2);
         }
     }
 }

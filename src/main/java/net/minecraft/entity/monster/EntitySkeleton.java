@@ -107,7 +107,7 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob {
     public void onLivingUpdate() {
         if (this.worldObj.isDaytime() && !this.worldObj.isRemote) {
             float f = this.getBrightness(1.0F);
-            BlockPos blockpos = new BlockPos(this.posX, (double) Math.round(this.posY), this.posZ);
+            BlockPos blockpos = new BlockPos(this.posX, Math.round(this.posY), this.posZ);
 
             if (f > 0.5F && this.rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && this.worldObj.canSeeSky(blockpos)) {
                 boolean flag = true;
@@ -241,13 +241,13 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob {
     }
 
     public void attackEntityWithRangedAttack(EntityLivingBase target, float p_82196_2_) {
-        EntityArrow entityarrow = new EntityArrow(this.worldObj, this, target, 1.6F, (float) (14 - this.worldObj.getDifficulty().getDifficultyId() * 4));
+        EntityArrow entityarrow = new EntityArrow(this.worldObj, this, target, 1.6F, (14 - this.worldObj.getDifficulty().getDifficultyId() * 4));
         int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, this.getHeldItem());
         int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, this.getHeldItem());
-        entityarrow.setDamage((double) (p_82196_2_ * 2.0F) + this.rand.nextGaussian() * 0.25D + (double) ((float) this.worldObj.getDifficulty().getDifficultyId() * 0.11F));
+        entityarrow.setDamage((p_82196_2_ * 2.0F) + this.rand.nextGaussian() * 0.25D + (this.worldObj.getDifficulty().getDifficultyId() * 0.11F));
 
         if (i > 0) {
-            entityarrow.setDamage(entityarrow.getDamage() + (double) i * 0.5D + 0.5D);
+            entityarrow.setDamage(entityarrow.getDamage() + i * 0.5D + 0.5D);
         }
 
         if (j > 0) {

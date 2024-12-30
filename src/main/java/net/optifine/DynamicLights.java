@@ -135,7 +135,7 @@ public class DynamicLights {
     }
 
     public static int getCombinedLight(Entity entity, int combinedLight) {
-        double d0 = (double) getLightLevel(entity);
+        double d0 = getLightLevel(entity);
         combinedLight = getCombinedLight(d0, combinedLight);
         return combinedLight;
     }
@@ -169,9 +169,9 @@ public class DynamicLights {
                     double d1 = dynamiclight.getLastPosX();
                     double d2 = dynamiclight.getLastPosY();
                     double d3 = dynamiclight.getLastPosZ();
-                    double d4 = (double) pos.getX() - d1;
-                    double d5 = (double) pos.getY() - d2;
-                    double d6 = (double) pos.getZ() - d3;
+                    double d4 = pos.getX() - d1;
+                    double d5 = pos.getY() - d2;
+                    double d6 = pos.getZ() - d3;
                     double d7 = d4 * d4 + d5 * d5 + d6 * d6;
 
                     if (dynamiclight.isUnderwater() && !Config.isClearWater()) {
@@ -182,7 +182,7 @@ public class DynamicLights {
                     if (d7 <= 56.25D) {
                         double d8 = Math.sqrt(d7);
                         double d9 = 1.0D - d8 / 7.5D;
-                        double d10 = d9 * (double) k;
+                        double d10 = d9 * k;
 
                         if (d10 > d0) {
                             d0 = d10;
@@ -267,11 +267,11 @@ public class DynamicLights {
                 } else if (entity instanceof EntityBlaze entityblaze) {
                     return entityblaze.func_70845_n() ? 15 : 10;
                 } else if (entity instanceof EntityMagmaCube entitymagmacube) {
-                    return (double) entitymagmacube.squishFactor > 0.6D ? 13 : 8;
+                    return entitymagmacube.squishFactor > 0.6D ? 13 : 8;
                 } else {
                     if (entity instanceof EntityCreeper entitycreeper) {
 
-                        if ((double) entitycreeper.getCreeperFlashIntensity(0.0F) > 0.001D) {
+                        if (entitycreeper.getCreeperFlashIntensity(0.0F) > 0.001D) {
                             return 15;
                         }
                     }

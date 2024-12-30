@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 public class ItemFirework extends Item {
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote) {
-            EntityFireworkRocket entityfireworkrocket = new EntityFireworkRocket(worldIn, (double) ((float) pos.getX() + hitX), (double) ((float) pos.getY() + hitY), (double) ((float) pos.getZ() + hitZ), stack);
+            EntityFireworkRocket entityfireworkrocket = new EntityFireworkRocket(worldIn, (pos.getX() + hitX), (pos.getY() + hitY), (pos.getZ() + hitZ), stack);
             worldIn.spawnEntityInWorld(entityfireworkrocket);
 
             if (!playerIn.capabilities.isCreativeMode) {

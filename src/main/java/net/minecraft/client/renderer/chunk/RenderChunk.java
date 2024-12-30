@@ -334,9 +334,9 @@ public class RenderChunk {
             int l = pos.getZ() >> i << i;
             j = this.regionX;
             l = this.regionZ;
-            worldRendererIn.setTranslation((double) (-j), (double) (-k), (double) (-l));
+            worldRendererIn.setTranslation((-j), (-k), (-l));
         } else {
-            worldRendererIn.setTranslation((double) (-pos.getX()), (double) (-pos.getY()), (double) (-pos.getZ()));
+            worldRendererIn.setTranslation((-pos.getX()), (-pos.getY()), (-pos.getZ()));
         }
     }
 
@@ -587,14 +587,14 @@ public class RenderChunk {
             if (i1 != i || j1 != j || k1 != k) {
                 AabbFrame aabbframe = this.renderGlobal.getRenderChunk(new BlockPos(i1, j1, k1)).getBoundingBoxParent();
 
-                if (aabbframe != null && aabbframe.minX == (double) i1 && aabbframe.minY == (double) j1 && aabbframe.minZ == (double) k1) {
+                if (aabbframe != null && aabbframe.minX == i1 && aabbframe.minY == j1 && aabbframe.minZ == k1) {
                     this.boundingBoxParent = aabbframe;
                 }
             }
 
             if (this.boundingBoxParent == null) {
                 int l1 = 1 << l;
-                this.boundingBoxParent = new AabbFrame((double) i1, (double) j1, (double) k1, (double) (i1 + l1), (double) (j1 + l1), (double) (k1 + l1));
+                this.boundingBoxParent = new AabbFrame(i1, j1, k1, (i1 + l1), (j1 + l1), (k1 + l1));
             }
         }
 

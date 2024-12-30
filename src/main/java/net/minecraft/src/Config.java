@@ -1099,7 +1099,7 @@ public class Config {
         List list = new ArrayList();
 
         for (DisplayMode displaymode : p_getDisplayModes_0_) {
-            if ((double) displaymode.getWidth() == p_getDisplayModes_1_.getWidth() && (double) displaymode.getHeight() == p_getDisplayModes_1_.getHeight()) {
+            if (displaymode.getWidth() == p_getDisplayModes_1_.getWidth() && displaymode.getHeight() == p_getDisplayModes_1_.getHeight()) {
                 list.add(displaymode);
             }
         }
@@ -1706,11 +1706,11 @@ public class Config {
                     k = 1;
                 }
 
-                long l = (long) (1.0D / (double) k * 1.0E9D);
+                long l = (long) (1.0D / k * 1.0E9D);
                 long i1 = l;
                 long j1 = 0L;
 
-                for (int k1 = MathHelper.normalizeAngle(i - 1, along.length); k1 != j && (double) j1 < 1.0E9D; k1 = MathHelper.normalizeAngle(k1 - 1, along.length)) {
+                for (int k1 = MathHelper.normalizeAngle(i - 1, along.length); k1 != j && j1 < 1.0E9D; k1 = MathHelper.normalizeAngle(k1 - 1, along.length)) {
                     long l1 = along[k1];
 
                     if (l1 > i1) {
@@ -1720,7 +1720,7 @@ public class Config {
                     j1 += l1;
                 }
 
-                double d0 = (double) i1 / 1.0E9D;
+                double d0 = i1 / 1.0E9D;
                 fpsMinLast = (int) (1.0D / d0);
                 return fpsMinLast;
             }

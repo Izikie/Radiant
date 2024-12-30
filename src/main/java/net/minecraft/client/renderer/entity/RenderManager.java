@@ -238,7 +238,7 @@ public class RenderManager {
 
             if (block == Blocks.bed) {
                 int j = ((EnumFacing) iblockstate.getValue(BlockBed.FACING)).getHorizontalIndex();
-                this.playerViewY = (float) (j * 90 + 180);
+                this.playerViewY = (j * 90 + 180);
                 this.playerViewX = 0.0F;
             }
         } else {
@@ -250,9 +250,9 @@ public class RenderManager {
             this.playerViewY += 180.0F;
         }
 
-        this.viewerPosX = livingPlayerIn.lastTickPosX + (livingPlayerIn.posX - livingPlayerIn.lastTickPosX) * (double) partialTicks;
-        this.viewerPosY = livingPlayerIn.lastTickPosY + (livingPlayerIn.posY - livingPlayerIn.lastTickPosY) * (double) partialTicks;
-        this.viewerPosZ = livingPlayerIn.lastTickPosZ + (livingPlayerIn.posZ - livingPlayerIn.lastTickPosZ) * (double) partialTicks;
+        this.viewerPosX = livingPlayerIn.lastTickPosX + (livingPlayerIn.posX - livingPlayerIn.lastTickPosX) * partialTicks;
+        this.viewerPosY = livingPlayerIn.lastTickPosY + (livingPlayerIn.posY - livingPlayerIn.lastTickPosY) * partialTicks;
+        this.viewerPosZ = livingPlayerIn.lastTickPosZ + (livingPlayerIn.posZ - livingPlayerIn.lastTickPosZ) * partialTicks;
     }
 
     public void setPlayerViewY(float playerViewYIn) {
@@ -291,9 +291,9 @@ public class RenderManager {
             entity.lastTickPosZ = entity.posZ;
         }
 
-        double d0 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * (double) partialTicks;
-        double d1 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * (double) partialTicks;
-        double d2 = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * (double) partialTicks;
+        double d0 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
+        double d1 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
+        double d2 = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
         float f = entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks;
         int i = entity.getBrightnessForRender(partialTicks);
 
@@ -303,22 +303,22 @@ public class RenderManager {
 
         int j = i % 65536;
         int k = i / 65536;
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j / 1.0F, (float) k / 1.0F);
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, j / 1.0F, k / 1.0F);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         return this.doRenderEntity(entity, d0 - this.renderPosX, d1 - this.renderPosY, d2 - this.renderPosZ, f, partialTicks, hideDebugBox);
     }
 
     public void renderWitherSkull(Entity entityIn, float partialTicks) {
-        double d0 = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * (double) partialTicks;
-        double d1 = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * (double) partialTicks;
-        double d2 = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * (double) partialTicks;
+        double d0 = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * partialTicks;
+        double d1 = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * partialTicks;
+        double d2 = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * partialTicks;
         Render<Entity> render = this.getEntityRenderObject(entityIn);
 
         if (render != null && this.renderEngine != null) {
             int i = entityIn.getBrightnessForRender(partialTicks);
             int j = i % 65536;
             int k = i / 65536;
-            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j / 1.0F, (float) k / 1.0F);
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, j / 1.0F, k / 1.0F);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             render.renderName(entityIn, d0 - this.renderPosX, d1 - this.renderPosY, d2 - this.renderPosZ);
         }
@@ -396,15 +396,15 @@ public class RenderManager {
 
             if (entityIn instanceof EntityLivingBase) {
                 float f1 = 0.01F;
-                RenderGlobal.drawOutlinedBoundingBox(new AxisAlignedBB(x - (double) f, y + (double) entityIn.getEyeHeight() - 0.009999999776482582D, z - (double) f, x + (double) f, y + (double) entityIn.getEyeHeight() + 0.009999999776482582D, z + (double) f), 255, 0, 0, 255);
+                RenderGlobal.drawOutlinedBoundingBox(new AxisAlignedBB(x - f, y + entityIn.getEyeHeight() - 0.009999999776482582D, z - f, x + f, y + entityIn.getEyeHeight() + 0.009999999776482582D, z + f), 255, 0, 0, 255);
             }
 
             Tessellator tessellator = Tessellator.getInstance();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             Vec3 vec3 = entityIn.getLook(partialTicks);
             worldrenderer.begin(3, DefaultVertexFormats.POSITION_COLOR);
-            worldrenderer.pos(x, y + (double) entityIn.getEyeHeight(), z).color(0, 0, 255, 255).endVertex();
-            worldrenderer.pos(x + vec3.xCoord * 2.0D, y + (double) entityIn.getEyeHeight() + vec3.yCoord * 2.0D, z + vec3.zCoord * 2.0D).color(0, 0, 255, 255).endVertex();
+            worldrenderer.pos(x, y + entityIn.getEyeHeight(), z).color(0, 0, 255, 255).endVertex();
+            worldrenderer.pos(x + vec3.xCoord * 2.0D, y + entityIn.getEyeHeight() + vec3.yCoord * 2.0D, z + vec3.zCoord * 2.0D).color(0, 0, 255, 255).endVertex();
             tessellator.draw();
             GlStateManager.enableTexture2D();
             GlStateManager.enableLighting();

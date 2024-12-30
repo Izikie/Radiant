@@ -87,7 +87,7 @@ public class BlockMushroom extends BlockBush implements IGrowable {
     }
 
     public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-        return (double) rand.nextFloat() < 0.4D;
+        return rand.nextFloat() < 0.4D;
     }
 
     public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {

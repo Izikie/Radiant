@@ -27,16 +27,16 @@ public class Barrier extends EntityFX {
         float f2 = this.particleIcon.getMinV();
         float f3 = this.particleIcon.getMaxV();
         float f4 = 0.5F;
-        float f5 = (float) (this.prevPosX + (this.posX - this.prevPosX) * (double) partialTicks - interpPosX);
-        float f6 = (float) (this.prevPosY + (this.posY - this.prevPosY) * (double) partialTicks - interpPosY);
-        float f7 = (float) (this.prevPosZ + (this.posZ - this.prevPosZ) * (double) partialTicks - interpPosZ);
+        float f5 = (float) (this.prevPosX + (this.posX - this.prevPosX) * partialTicks - interpPosX);
+        float f6 = (float) (this.prevPosY + (this.posY - this.prevPosY) * partialTicks - interpPosY);
+        float f7 = (float) (this.prevPosZ + (this.posZ - this.prevPosZ) * partialTicks - interpPosZ);
         int i = this.getBrightnessForRender(partialTicks);
         int j = i >> 16 & 65535;
         int k = i & 65535;
-        worldRendererIn.pos((double) (f5 - rotationX * 0.5F - rotationXY * 0.5F), (double) (f6 - rotationZ * 0.5F), (double) (f7 - rotationYZ * 0.5F - rotationXZ * 0.5F)).tex((double) f1, (double) f3).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(j, k).endVertex();
-        worldRendererIn.pos((double) (f5 - rotationX * 0.5F + rotationXY * 0.5F), (double) (f6 + rotationZ * 0.5F), (double) (f7 - rotationYZ * 0.5F + rotationXZ * 0.5F)).tex((double) f1, (double) f2).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(j, k).endVertex();
-        worldRendererIn.pos((double) (f5 + rotationX * 0.5F + rotationXY * 0.5F), (double) (f6 + rotationZ * 0.5F), (double) (f7 + rotationYZ * 0.5F + rotationXZ * 0.5F)).tex((double) f, (double) f2).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(j, k).endVertex();
-        worldRendererIn.pos((double) (f5 + rotationX * 0.5F - rotationXY * 0.5F), (double) (f6 - rotationZ * 0.5F), (double) (f7 + rotationYZ * 0.5F - rotationXZ * 0.5F)).tex((double) f, (double) f3).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(j, k).endVertex();
+        worldRendererIn.pos((f5 - rotationX * 0.5F - rotationXY * 0.5F), (f6 - rotationZ * 0.5F), (f7 - rotationYZ * 0.5F - rotationXZ * 0.5F)).tex(f1, f3).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(j, k).endVertex();
+        worldRendererIn.pos((f5 - rotationX * 0.5F + rotationXY * 0.5F), (f6 + rotationZ * 0.5F), (f7 - rotationYZ * 0.5F + rotationXZ * 0.5F)).tex(f1, f2).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(j, k).endVertex();
+        worldRendererIn.pos((f5 + rotationX * 0.5F + rotationXY * 0.5F), (f6 + rotationZ * 0.5F), (f7 + rotationYZ * 0.5F + rotationXZ * 0.5F)).tex(f, f2).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(j, k).endVertex();
+        worldRendererIn.pos((f5 + rotationX * 0.5F - rotationXY * 0.5F), (f6 - rotationZ * 0.5F), (f7 + rotationYZ * 0.5F - rotationXZ * 0.5F)).tex(f, f3).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(j, k).endVertex();
     }
 
     public static class Factory implements IParticleFactory {

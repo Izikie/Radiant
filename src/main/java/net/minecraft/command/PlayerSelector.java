@@ -325,7 +325,7 @@ public class PlayerSelector {
             final int j = func_179650_a(parseIntWithDefault(p_179662_0_, "ry", 359));
             list.add(new Predicate<Entity>() {
                 public boolean apply(Entity p_apply_1_) {
-                    int i1 = PlayerSelector.func_179650_a((int) Math.floor((double) p_apply_1_.rotationYaw));
+                    int i1 = PlayerSelector.func_179650_a((int) Math.floor(p_apply_1_.rotationYaw));
                     return i > j ? i1 >= i || i1 <= j : i1 >= i && i1 <= j;
                 }
             });
@@ -336,7 +336,7 @@ public class PlayerSelector {
             final int l = func_179650_a(parseIntWithDefault(p_179662_0_, "rx", 359));
             list.add(new Predicate<Entity>() {
                 public boolean apply(Entity p_apply_1_) {
-                    int i1 = PlayerSelector.func_179650_a((int) Math.floor((double) p_apply_1_.rotationPitch));
+                    int i1 = PlayerSelector.func_179650_a((int) Math.floor(p_apply_1_.rotationPitch));
                     return k > l ? i1 >= k || i1 <= l : i1 >= k && i1 <= l;
                 }
             });
@@ -365,7 +365,7 @@ public class PlayerSelector {
 
             if (!params.containsKey("dx") && !params.containsKey("dy") && !params.containsKey("dz")) {
                 if (l >= 0) {
-                    AxisAlignedBB axisalignedbb1 = new AxisAlignedBB((double) (position.getX() - l), (double) (position.getY() - l), (double) (position.getZ() - l), (double) (position.getX() + l + 1), (double) (position.getY() + l + 1), (double) (position.getZ() + l + 1));
+                    AxisAlignedBB axisalignedbb1 = new AxisAlignedBB((position.getX() - l), (position.getY() - l), (position.getZ() - l), (position.getX() + l + 1), (position.getY() + l + 1), (position.getZ() + l + 1));
 
                     if (flag && flag2 && !flag1) {
                         list.addAll(worldIn.<T>getPlayers(entityClass, predicate1));
@@ -446,7 +446,7 @@ public class PlayerSelector {
         int l = p_179661_0_.getX() + (flag ? 0 : p_179661_1_) + 1;
         int i1 = p_179661_0_.getY() + (flag1 ? 0 : p_179661_2_) + 1;
         int j1 = p_179661_0_.getZ() + (flag2 ? 0 : p_179661_3_) + 1;
-        return new AxisAlignedBB((double) i, (double) j, (double) k, (double) l, (double) i1, (double) j1);
+        return new AxisAlignedBB(i, j, k, l, i1, j1);
     }
 
     public static int func_179650_a(int p_179650_0_) {

@@ -78,7 +78,7 @@ public class EntityAIVillagerMate extends EntityAIBase {
         if (!this.villageObj.isMatingSeason()) {
             return false;
         } else {
-            int i = (int) ((double) ((float) this.villageObj.getNumVillageDoors()) * 0.35D);
+            int i = (int) (((float) this.villageObj.getNumVillageDoors()) * 0.35D);
             return this.villageObj.getNumVillagers() < i;
         }
     }

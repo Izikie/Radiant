@@ -39,12 +39,12 @@ public abstract class EntityCreature extends EntityLiving {
     }
 
     public boolean isWithinHomeDistanceFromPosition(BlockPos pos) {
-        return this.maximumHomeDistance == -1.0F ? true : this.homePosition.distanceSq(pos) < (double) (this.maximumHomeDistance * this.maximumHomeDistance);
+        return this.maximumHomeDistance == -1.0F ? true : this.homePosition.distanceSq(pos) < (this.maximumHomeDistance * this.maximumHomeDistance);
     }
 
     public void setHomePosAndDistance(BlockPos pos, int distance) {
         this.homePosition = pos;
-        this.maximumHomeDistance = (float) distance;
+        this.maximumHomeDistance = distance;
     }
 
     public BlockPos getHomePosition() {
@@ -96,9 +96,9 @@ public abstract class EntityCreature extends EntityLiving {
             }
 
             if (f > 6.0F) {
-                double d0 = (entity.posX - this.posX) / (double) f;
-                double d1 = (entity.posY - this.posY) / (double) f;
-                double d2 = (entity.posZ - this.posZ) / (double) f;
+                double d0 = (entity.posX - this.posX) / f;
+                double d1 = (entity.posY - this.posY) / f;
+                double d2 = (entity.posZ - this.posZ) / f;
                 this.motionX += d0 * Math.abs(d0) * 0.4D;
                 this.motionY += d1 * Math.abs(d1) * 0.4D;
                 this.motionZ += d2 * Math.abs(d2) * 0.4D;

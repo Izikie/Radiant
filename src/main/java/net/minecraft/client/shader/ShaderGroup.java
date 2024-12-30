@@ -283,8 +283,8 @@ public class ShaderGroup {
     private void resetProjectionMatrix() {
         this.projectionMatrix = new Matrix4f();
         this.projectionMatrix.setIdentity();
-        this.projectionMatrix.m00 = 2.0F / (float) this.mainFramebuffer.framebufferTextureWidth;
-        this.projectionMatrix.m11 = 2.0F / (float) (-this.mainFramebuffer.framebufferTextureHeight);
+        this.projectionMatrix.m00 = 2.0F / this.mainFramebuffer.framebufferTextureWidth;
+        this.projectionMatrix.m11 = 2.0F / (-this.mainFramebuffer.framebufferTextureHeight);
         this.projectionMatrix.m22 = -0.0020001999F;
         this.projectionMatrix.m33 = 1.0F;
         this.projectionMatrix.m03 = -1.0F;

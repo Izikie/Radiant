@@ -90,12 +90,12 @@ public class TextureUtil {
     }
 
     private static int blendColorComponent(int p_147944_0_, int p_147944_1_, int p_147944_2_, int p_147944_3_, int p_147944_4_) {
-        float f = (float) Math.pow((double) ((float) (p_147944_0_ >> p_147944_4_ & 255) / 255.0F), 2.2D);
-        float f1 = (float) Math.pow((double) ((float) (p_147944_1_ >> p_147944_4_ & 255) / 255.0F), 2.2D);
-        float f2 = (float) Math.pow((double) ((float) (p_147944_2_ >> p_147944_4_ & 255) / 255.0F), 2.2D);
-        float f3 = (float) Math.pow((double) ((float) (p_147944_3_ >> p_147944_4_ & 255) / 255.0F), 2.2D);
-        float f4 = (float) Math.pow((double) (f + f1 + f2 + f3) * 0.25D, 0.45454545454545453D);
-        return (int) ((double) f4 * 255.0D);
+        float f = (float) Math.pow(((p_147944_0_ >> p_147944_4_ & 255) / 255.0F), 2.2D);
+        float f1 = (float) Math.pow(((p_147944_1_ >> p_147944_4_ & 255) / 255.0F), 2.2D);
+        float f2 = (float) Math.pow(((p_147944_2_ >> p_147944_4_ & 255) / 255.0F), 2.2D);
+        float f3 = (float) Math.pow(((p_147944_3_ >> p_147944_4_ & 255) / 255.0F), 2.2D);
+        float f4 = (float) Math.pow((f + f1 + f2 + f3) * 0.25D, 0.45454545454545453D);
+        return (int) (f4 * 255.0D);
     }
 
     public static void uploadTextureMipmap(int[][] p_147955_0_, int p_147955_1_, int p_147955_2_, int p_147955_3_, int p_147955_4_, boolean p_147955_5_, boolean p_147955_6_) {
@@ -138,7 +138,7 @@ public class TextureUtil {
         if (p_180600_1_ >= 0) {
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL12.GL_TEXTURE_MAX_LEVEL, p_180600_1_);
             GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL12.GL_TEXTURE_MIN_LOD, 0.0F);
-            GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL12.GL_TEXTURE_MAX_LOD, (float) p_180600_1_);
+            GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL12.GL_TEXTURE_MAX_LOD, p_180600_1_);
             GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL14.GL_TEXTURE_LOD_BIAS, 0.0F);
         }
 

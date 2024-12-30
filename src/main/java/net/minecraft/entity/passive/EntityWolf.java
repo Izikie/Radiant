@@ -198,7 +198,7 @@ public class EntityWolf extends EntityTameable {
                 for (int j = 0; j < i; ++j) {
                     float f1 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width * 0.5F;
                     float f2 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width * 0.5F;
-                    this.worldObj.spawnParticle(EnumParticleTypes.WATER_SPLASH, this.posX + (double) f1, (double) (f + 0.8F), this.posZ + (double) f2, this.motionX, this.motionY, this.motionZ, new int[0]);
+                    this.worldObj.spawnParticle(EnumParticleTypes.WATER_SPLASH, this.posX + f1, (f + 0.8F), this.posZ + f2, this.motionX, this.motionY, this.motionZ, new int[0]);
                 }
             }
         }
@@ -252,7 +252,7 @@ public class EntityWolf extends EntityTameable {
     }
 
     public boolean attackEntityAsMob(Entity entityIn) {
-        boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float) ((int) this.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue()));
+        boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), ((int) this.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue()));
 
         if (flag) {
             this.applyEnchantments(this, entityIn);
@@ -285,7 +285,7 @@ public class EntityWolf extends EntityTameable {
                             --itemstack.stackSize;
                         }
 
-                        this.heal((float) itemfood.getHealAmount(itemstack));
+                        this.heal(itemfood.getHealAmount(itemstack));
 
                         if (itemstack.stackSize <= 0) {
                             player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);

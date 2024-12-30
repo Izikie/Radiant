@@ -346,11 +346,11 @@ public class CustomColormap implements CustomColors.IColorizer {
     }
 
     private int getColorVanilla(BiomeGenBase biome, BlockPos blockPos) {
-        double d0 = (double) MathHelper.clamp_float(biome.getFloatTemperature(blockPos), 0.0F, 1.0F);
-        double d1 = (double) MathHelper.clamp_float(biome.getFloatRainfall(), 0.0F, 1.0F);
+        double d0 = MathHelper.clamp_float(biome.getFloatTemperature(blockPos), 0.0F, 1.0F);
+        double d1 = MathHelper.clamp_float(biome.getFloatRainfall(), 0.0F, 1.0F);
         d1 = d1 * d0;
-        int i = (int) ((1.0D - d0) * (double) (this.width - 1));
-        int j = (int) ((1.0D - d1) * (double) (this.height - 1));
+        int i = (int) ((1.0D - d0) * (this.width - 1));
+        int j = (int) ((1.0D - d1) * (this.height - 1));
         return this.getColor(i, j);
     }
 
@@ -386,9 +386,9 @@ public class CustomColormap implements CustomColors.IColorizer {
 
         for (int i = 0; i < cols.length; ++i) {
             int j = cols[i];
-            float f = (float) (j >> 16 & 255) / 255.0F;
-            float f1 = (float) (j >> 8 & 255) / 255.0F;
-            float f2 = (float) (j & 255) / 255.0F;
+            float f = (j >> 16 & 255) / 255.0F;
+            float f1 = (j >> 8 & 255) / 255.0F;
+            float f2 = (j & 255) / 255.0F;
             float[] afloat1 = afloat[i];
             afloat1[0] = f;
             afloat1[1] = f1;

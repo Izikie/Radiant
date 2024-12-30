@@ -75,13 +75,13 @@ public abstract class GuiContainer extends GuiScreen {
         super.drawScreen(mouseX, mouseY, partialTicks);
         RenderHelper.enableGUIStandardItemLighting();
         GlStateManager.pushMatrix();
-        GlStateManager.translate((float) i, (float) j, 0.0F);
+        GlStateManager.translate(i, j, 0.0F);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.enableRescaleNormal();
         this.theSlot = null;
         int k = 240;
         int l = 240;
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) k / 1.0F, (float) l / 1.0F);
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, k / 1.0F, l / 1.0F);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
         for (int i1 = 0; i1 < this.inventorySlots.inventorySlots.size(); ++i1) {
@@ -115,7 +115,7 @@ public abstract class GuiContainer extends GuiScreen {
 
             if (this.draggedStack != null && this.isRightMouseClick) {
                 itemstack = itemstack.copy();
-                itemstack.stackSize = MathHelper.ceiling_float_int((float) itemstack.stackSize / 2.0F);
+                itemstack.stackSize = MathHelper.ceiling_float_int(itemstack.stackSize / 2.0F);
             } else if (this.dragSplitting && this.dragSplittingSlots.size() > 1) {
                 itemstack = itemstack.copy();
                 itemstack.stackSize = this.dragSplittingRemnant;
@@ -129,7 +129,7 @@ public abstract class GuiContainer extends GuiScreen {
         }
 
         if (this.returningStack != null) {
-            float f = (float) (Minecraft.getSystemTime() - this.returningStackTime) / 100.0F;
+            float f = (Minecraft.getSystemTime() - this.returningStackTime) / 100.0F;
 
             if (f >= 1.0F) {
                 f = 1.0F;
@@ -138,8 +138,8 @@ public abstract class GuiContainer extends GuiScreen {
 
             int l2 = this.returningStackDestSlot.xDisplayPosition - this.touchUpX;
             int i3 = this.returningStackDestSlot.yDisplayPosition - this.touchUpY;
-            int l1 = this.touchUpX + (int) ((float) l2 * f);
-            int i2 = this.touchUpY + (int) ((float) i3 * f);
+            int l1 = this.touchUpX + (int) (l2 * f);
+            int i2 = this.touchUpY + (int) (i3 * f);
             this.drawItemStack(this.returningStack, l1, i2, (String) null);
         }
 

@@ -145,7 +145,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc {
                 this.detachHome();
             } else {
                 BlockPos blockpos1 = this.villageObj.getCenter();
-                this.setHomePosAndDistance(blockpos1, (int) ((float) this.villageObj.getVillageRadius() * 1.0F));
+                this.setHomePosAndDistance(blockpos1, (int) (this.villageObj.getVillageRadius() * 1.0F));
 
                 if (this.isLookingForHome) {
                     this.isLookingForHome = false;
@@ -533,7 +533,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc {
         float f = 1.62F;
 
         if (this.isChild()) {
-            f = (float) ((double) f - 0.81D);
+            f = (float) (f - 0.81D);
         }
 
         return f;
@@ -556,7 +556,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc {
             double d0 = this.rand.nextGaussian() * 0.02D;
             double d1 = this.rand.nextGaussian() * 0.02D;
             double d2 = this.rand.nextGaussian() * 0.02D;
-            this.worldObj.spawnParticle(particleType, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + 1.0D + (double) (this.rand.nextFloat() * this.height), this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2, new int[0]);
+            this.worldObj.spawnParticle(particleType, this.posX + (this.rand.nextFloat() * this.width * 2.0F) - this.width, this.posY + 1.0D + (this.rand.nextFloat() * this.height), this.posZ + (this.rand.nextFloat() * this.width * 2.0F) - this.width, d0, d1, d2, new int[0]);
         }
     }
 

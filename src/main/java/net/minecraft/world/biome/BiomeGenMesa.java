@@ -79,11 +79,11 @@ public class BiomeGenMesa extends BiomeGenBase {
         if (this.field_150626_aH) {
             int i = (x & -16) + (z & 15);
             int j = (z & -16) + (x & 15);
-            double d0 = Math.min(Math.abs(noiseVal), this.field_150623_aE.func_151601_a((double) i * 0.25D, (double) j * 0.25D));
+            double d0 = Math.min(Math.abs(noiseVal), this.field_150623_aE.func_151601_a(i * 0.25D, j * 0.25D));
 
             if (d0 > 0.0D) {
                 double d1 = 0.001953125D;
-                double d2 = Math.abs(this.field_150624_aF.func_151601_a((double) i * d1, (double) j * d1));
+                double d2 = Math.abs(this.field_150624_aF.func_151601_a(i * d1, j * d1));
                 d4 = d0 * d0 * 2.5D;
                 double d3 = Math.ceil(d2 * 50.0D) + 14.0D;
 
@@ -249,7 +249,7 @@ public class BiomeGenMesa extends BiomeGenBase {
     }
 
     private IBlockState func_180629_a(int p_180629_1_, int p_180629_2_, int p_180629_3_) {
-        int i = (int) Math.round(this.field_150625_aG.func_151601_a((double) p_180629_1_ * 1.0D / 512.0D, (double) p_180629_1_ * 1.0D / 512.0D) * 2.0D);
+        int i = (int) Math.round(this.field_150625_aG.func_151601_a(p_180629_1_ * 1.0D / 512.0D, p_180629_1_ * 1.0D / 512.0D) * 2.0D);
         return this.field_150621_aC[(p_180629_2_ + i + 64) % 64];
     }
 

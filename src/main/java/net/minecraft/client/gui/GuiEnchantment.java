@@ -104,8 +104,8 @@ public class GuiEnchantment extends GuiContainer {
         GlStateManager.rotate(180.0F, 1.0F, 0.0F, 0.0F);
         float f3 = this.field_147069_w + (this.field_147071_v - this.field_147069_w) * partialTicks + 0.25F;
         float f4 = this.field_147069_w + (this.field_147071_v - this.field_147069_w) * partialTicks + 0.75F;
-        f3 = (f3 - (float) MathHelper.truncateDoubleToInt((double) f3)) * 1.6F - 0.3F;
-        f4 = (f4 - (float) MathHelper.truncateDoubleToInt((double) f4)) * 1.6F - 0.3F;
+        f3 = (f3 - MathHelper.truncateDoubleToInt(f3)) * 1.6F - 0.3F;
+        f4 = (f4 - MathHelper.truncateDoubleToInt(f4)) * 1.6F - 0.3F;
 
         if (f3 < 0.0F) {
             f3 = 0.0F;
@@ -134,7 +134,7 @@ public class GuiEnchantment extends GuiContainer {
         GlStateManager.popMatrix();
         RenderHelper.disableStandardItemLighting();
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        EnchantmentNameParts.getInstance().reseedRandomGenerator((long) this.container.xpSeed);
+        EnchantmentNameParts.getInstance().reseedRandomGenerator(this.container.xpSeed);
         int k = this.container.getLapisAmount();
 
         for (int l = 0; l < 3; ++l) {
@@ -176,7 +176,7 @@ public class GuiEnchantment extends GuiContainer {
                 }
 
                 fontrenderer = this.mc.fontRendererObj;
-                fontrenderer.drawStringWithShadow(s1, (float) (j1 + 86 - fontrenderer.getStringWidth(s1)), (float) (j + 16 + 19 * l + 7), i2);
+                fontrenderer.drawStringWithShadow(s1, (j1 + 86 - fontrenderer.getStringWidth(s1)), (j + 16 + 19 * l + 7), i2);
             }
         }
     }
@@ -244,7 +244,7 @@ public class GuiEnchantment extends GuiContainer {
             this.field_147077_B = itemstack;
 
             while (true) {
-                this.field_147082_x += (float) (this.random.nextInt(4) - this.random.nextInt(4));
+                this.field_147082_x += (this.random.nextInt(4) - this.random.nextInt(4));
 
                 if (this.field_147071_v > this.field_147082_x + 1.0F || this.field_147071_v < this.field_147082_x - 1.0F) {
                     break;

@@ -70,8 +70,8 @@ public class BiomeGenForest extends BiomeGenBase {
 
     public BlockFlower.EnumFlowerType pickRandomFlower(Random rand, BlockPos pos) {
         if (this.field_150632_aF == 1) {
-            double d0 = MathHelper.clamp_double((1.0D + GRASS_COLOR_NOISE.func_151601_a((double) pos.getX() / 48.0D, (double) pos.getZ() / 48.0D)) / 2.0D, 0.0D, 0.9999D);
-            BlockFlower.EnumFlowerType blockflower$enumflowertype = BlockFlower.EnumFlowerType.values()[(int) (d0 * (double) BlockFlower.EnumFlowerType.values().length)];
+            double d0 = MathHelper.clamp_double((1.0D + GRASS_COLOR_NOISE.func_151601_a(pos.getX() / 48.0D, pos.getZ() / 48.0D)) / 2.0D, 0.0D, 0.9999D);
+            BlockFlower.EnumFlowerType blockflower$enumflowertype = BlockFlower.EnumFlowerType.values()[(int) (d0 * BlockFlower.EnumFlowerType.values().length)];
             return blockflower$enumflowertype == BlockFlower.EnumFlowerType.BLUE_ORCHID ? BlockFlower.EnumFlowerType.POPPY : blockflower$enumflowertype;
         } else {
             return super.pickRandomFlower(rand, pos);

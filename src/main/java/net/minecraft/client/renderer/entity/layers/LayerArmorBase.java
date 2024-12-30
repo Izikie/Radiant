@@ -64,9 +64,9 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
             switch (itemarmor.getArmorMaterial()) {
                 case LEATHER:
                     int i = itemarmor.getColor(itemstack);
-                    float f = (float) (i >> 16 & 255) / 255.0F;
-                    float f1 = (float) (i >> 8 & 255) / 255.0F;
-                    float f2 = (float) (i & 255) / 255.0F;
+                    float f = (i >> 16 & 255) / 255.0F;
+                    float f1 = (i >> 8 & 255) / 255.0F;
+                    float f2 = (i & 255) / 255.0F;
                     GlStateManager.color(this.colorR * f, this.colorG * f1, this.colorB * f2, this.alpha);
                     t.render(entitylivingbaseIn, p_177182_2_, p_177182_3_, p_177182_5_, p_177182_6_, p_177182_7_, scale);
 
@@ -102,7 +102,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
 
     private void renderGlint(EntityLivingBase entitylivingbaseIn, T modelbaseIn, float p_177183_3_, float p_177183_4_, float partialTicks, float p_177183_6_, float p_177183_7_, float p_177183_8_, float scale) {
         if (!Config.isShaders() || !Shaders.isShadowPass) {
-            float f = (float) entitylivingbaseIn.ticksExisted + partialTicks;
+            float f = entitylivingbaseIn.ticksExisted + partialTicks;
             this.renderer.bindTexture(ENCHANTED_ITEM_GLINT_RES);
 
             if (Config.isShaders()) {
@@ -124,8 +124,8 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
                 GlStateManager.loadIdentity();
                 float f3 = 0.33333334F;
                 GlStateManager.scale(f3, f3, f3);
-                GlStateManager.rotate(30.0F - (float) i * 60.0F, 0.0F, 0.0F, 1.0F);
-                GlStateManager.translate(0.0F, f * (0.001F + (float) i * 0.003F) * 20.0F, 0.0F);
+                GlStateManager.rotate(30.0F - i * 60.0F, 0.0F, 0.0F, 1.0F);
+                GlStateManager.translate(0.0F, f * (0.001F + i * 0.003F) * 20.0F, 0.0F);
                 GlStateManager.matrixMode(5888);
                 modelbaseIn.render(entitylivingbaseIn, p_177183_3_, p_177183_4_, p_177183_6_, p_177183_7_, p_177183_8_, scale);
             }

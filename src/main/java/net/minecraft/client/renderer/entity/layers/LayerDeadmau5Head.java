@@ -21,7 +21,7 @@ public class LayerDeadmau5Head implements LayerRenderer<AbstractClientPlayer> {
                 GlStateManager.pushMatrix();
                 GlStateManager.rotate(f, 0.0F, 1.0F, 0.0F);
                 GlStateManager.rotate(f1, 1.0F, 0.0F, 0.0F);
-                GlStateManager.translate(0.375F * (float) (i * 2 - 1), 0.0F, 0.0F);
+                GlStateManager.translate(0.375F * (i * 2 - 1), 0.0F, 0.0F);
                 GlStateManager.translate(0.0F, -0.375F, 0.0F);
                 GlStateManager.rotate(-f1, 1.0F, 0.0F, 0.0F);
                 GlStateManager.rotate(-f, 0.0F, 1.0F, 0.0F);

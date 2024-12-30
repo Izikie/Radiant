@@ -43,7 +43,7 @@ public class ItemSword extends Item {
     }
 
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, BlockPos pos, EntityLivingBase playerIn) {
-        if ((double) blockIn.getBlockHardness(worldIn, pos) != 0.0D) {
+        if (blockIn.getBlockHardness(worldIn, pos) != 0.0D) {
             stack.damageItem(2, playerIn);
         }
 
@@ -85,7 +85,7 @@ public class ItemSword extends Item {
 
     public Multimap<String, AttributeModifier> getItemAttributeModifiers() {
         Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers();
-        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(itemModifierUUID, "Weapon modifier", (double) this.attackDamage, 0));
+        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(itemModifierUUID, "Weapon modifier", this.attackDamage, 0));
         return multimap;
     }
 }

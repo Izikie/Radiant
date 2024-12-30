@@ -22,7 +22,7 @@ public class ModelMagmaCube extends ModelBase {
             }
 
             this.segments[i] = new ModelRenderer(this, j, k);
-            this.segments[i].addBox(-4.0F, (float) (16 + i), -4.0F, 8, 1, 8);
+            this.segments[i].addBox(-4.0F, (16 + i), -4.0F, 8, 1, 8);
         }
 
         this.core = new ModelRenderer(this, 0, 16);
@@ -38,7 +38,7 @@ public class ModelMagmaCube extends ModelBase {
         }
 
         for (int i = 0; i < this.segments.length; ++i) {
-            this.segments[i].rotationPointY = (float) (-(4 - i)) * f * 1.7F;
+            this.segments[i].rotationPointY = (-(4 - i)) * f * 1.7F;
         }
     }
 

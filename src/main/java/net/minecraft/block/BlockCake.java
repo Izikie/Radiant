@@ -29,7 +29,7 @@ public class BlockCake extends Block {
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         float f = 0.0625F;
-        float f1 = (float) (1 + ((Integer) worldIn.getBlockState(pos).getValue(BITES)).intValue() * 2) / 16.0F;
+        float f1 = (1 + ((Integer) worldIn.getBlockState(pos).getValue(BITES)).intValue() * 2) / 16.0F;
         float f2 = 0.5F;
         this.setBlockBounds(f1, 0.0F, f, 1.0F - f, f2, 1.0F - f);
     }
@@ -42,9 +42,9 @@ public class BlockCake extends Block {
 
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
         float f = 0.0625F;
-        float f1 = (float) (1 + ((Integer) state.getValue(BITES)).intValue() * 2) / 16.0F;
+        float f1 = (1 + ((Integer) state.getValue(BITES)).intValue() * 2) / 16.0F;
         float f2 = 0.5F;
-        return new AxisAlignedBB((double) ((float) pos.getX() + f1), (double) pos.getY(), (double) ((float) pos.getZ() + f), (double) ((float) (pos.getX() + 1) - f), (double) ((float) pos.getY() + f2), (double) ((float) (pos.getZ() + 1) - f));
+        return new AxisAlignedBB((pos.getX() + f1), pos.getY(), (pos.getZ() + f), ((pos.getX() + 1) - f), (pos.getY() + f2), ((pos.getZ() + 1) - f));
     }
 
     public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos) {

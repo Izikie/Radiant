@@ -17,8 +17,8 @@ public class MemoryMonitor {
         if (gcEvent) {
             long k = lastTimeMs - startTimeMs;
             long l = lastMemory - startMemory;
-            double d0 = (double) k / 1000.0D;
-            int i1 = (int) ((double) l / d0);
+            double d0 = k / 1000.0D;
+            int i1 = (int) (l / d0);
 
             if (i1 > 0) {
                 memBytesSec = i1;
@@ -50,6 +50,6 @@ public class MemoryMonitor {
     }
 
     public static long getAllocationRateMb() {
-        return (long) memBytesSec / MB;
+        return memBytesSec / MB;
     }
 }

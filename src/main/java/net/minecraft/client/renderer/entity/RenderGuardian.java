@@ -33,8 +33,8 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
                 EntityLivingBase entitylivingbase = livingEntity.getTargetedEntity();
 
                 if (entitylivingbase != null) {
-                    Vec3 vec3 = this.func_177110_a(entitylivingbase, (double) entitylivingbase.height * 0.5D, 1.0F);
-                    Vec3 vec31 = this.func_177110_a(livingEntity, (double) livingEntity.getEyeHeight(), 1.0F);
+                    Vec3 vec3 = this.func_177110_a(entitylivingbase, entitylivingbase.height * 0.5D, 1.0F);
+                    Vec3 vec31 = this.func_177110_a(livingEntity, livingEntity.getEyeHeight(), 1.0F);
 
                     if (camera.isBoundingBoxInFrustum(AxisAlignedBB.fromBounds(vec31.xCoord, vec31.yCoord, vec31.zCoord, vec3.xCoord, vec3.yCoord, vec3.zCoord))) {
                         return true;
@@ -47,9 +47,9 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
     }
 
     private Vec3 func_177110_a(EntityLivingBase entityLivingBaseIn, double p_177110_2_, float p_177110_4_) {
-        double d0 = entityLivingBaseIn.lastTickPosX + (entityLivingBaseIn.posX - entityLivingBaseIn.lastTickPosX) * (double) p_177110_4_;
-        double d1 = p_177110_2_ + entityLivingBaseIn.lastTickPosY + (entityLivingBaseIn.posY - entityLivingBaseIn.lastTickPosY) * (double) p_177110_4_;
-        double d2 = entityLivingBaseIn.lastTickPosZ + (entityLivingBaseIn.posZ - entityLivingBaseIn.lastTickPosZ) * (double) p_177110_4_;
+        double d0 = entityLivingBaseIn.lastTickPosX + (entityLivingBaseIn.posX - entityLivingBaseIn.lastTickPosX) * p_177110_4_;
+        double d1 = p_177110_2_ + entityLivingBaseIn.lastTickPosY + (entityLivingBaseIn.posY - entityLivingBaseIn.lastTickPosY) * p_177110_4_;
+        double d2 = entityLivingBaseIn.lastTickPosZ + (entityLivingBaseIn.posZ - entityLivingBaseIn.lastTickPosZ) * p_177110_4_;
         return new Vec3(d0, d1, d2);
     }
 
@@ -76,13 +76,13 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
             float f1 = 240.0F;
             OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, f1, f1);
             GlStateManager.tryBlendFuncSeparate(770, 1, 1, 0);
-            float f2 = (float) entity.worldObj.getTotalWorldTime() + partialTicks;
+            float f2 = entity.worldObj.getTotalWorldTime() + partialTicks;
             float f3 = f2 * 0.5F % 1.0F;
             float f4 = entity.getEyeHeight();
             GlStateManager.pushMatrix();
             GlStateManager.translate((float) x, (float) y + f4, (float) z);
-            Vec3 vec3 = this.func_177110_a(entitylivingbase, (double) entitylivingbase.height * 0.5D, partialTicks);
-            Vec3 vec31 = this.func_177110_a(entity, (double) f4, partialTicks);
+            Vec3 vec3 = this.func_177110_a(entitylivingbase, entitylivingbase.height * 0.5D, partialTicks);
+            Vec3 vec31 = this.func_177110_a(entity, f4, partialTicks);
             Vec3 vec32 = vec3.subtract(vec31);
             double d0 = vec32.lengthVector() + 1.0D;
             vec32 = vec32.normalize();
@@ -91,13 +91,13 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
             GlStateManager.rotate((((float) Math.PI / 2F) + -f6) * (180F / (float) Math.PI), 0.0F, 1.0F, 0.0F);
             GlStateManager.rotate(f5 * (180F / (float) Math.PI), 1.0F, 0.0F, 0.0F);
             int i = 1;
-            double d1 = (double) f2 * 0.05D * (1.0D - (double) (i & 1) * 2.5D);
+            double d1 = f2 * 0.05D * (1.0D - (i & 1) * 2.5D);
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
             float f7 = f * f;
             int j = 64 + (int) (f7 * 240.0F);
             int k = 32 + (int) (f7 * 192.0F);
             int l = 128 - (int) (f7 * 64.0F);
-            double d2 = (double) i * 0.2D;
+            double d2 = i * 0.2D;
             double d3 = d2 * 1.41D;
             double d4 = 0.0D + Math.cos(d1 + 2.356194490192345D) * d3;
             double d5 = 0.0D + Math.sin(d1 + 2.356194490192345D) * d3;
@@ -117,7 +117,7 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
             double d19 = 0.0D + Math.sin(d1 + (Math.PI * 3D / 2D)) * d2;
             double d20 = 0.0D;
             double d21 = 0.4999D;
-            double d22 = (double) (-1.0F + f3);
+            double d22 = (-1.0F + f3);
             double d23 = d0 * (0.5D / d2) + d22;
             worldrenderer.pos(d12, d0, d13).tex(0.4999D, d23).color(j, k, l, 255).endVertex();
             worldrenderer.pos(d12, 0.0D, d13).tex(0.4999D, d22).color(j, k, l, 255).endVertex();

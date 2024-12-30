@@ -28,7 +28,7 @@ public class LayerSheepWool implements LayerRenderer<EntitySheep> {
                 int j = EnumDyeColor.values().length;
                 int k = i % j;
                 int l = (i + 1) % j;
-                float f = ((float) (entitylivingbaseIn.ticksExisted % 25) + partialTicks) / 25.0F;
+                float f = ((entitylivingbaseIn.ticksExisted % 25) + partialTicks) / 25.0F;
                 float[] afloat1 = EntitySheep.getDyeRgb(EnumDyeColor.byMetadata(k));
                 float[] afloat2 = EntitySheep.getDyeRgb(EnumDyeColor.byMetadata(l));
 

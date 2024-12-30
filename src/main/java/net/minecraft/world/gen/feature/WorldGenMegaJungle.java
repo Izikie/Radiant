@@ -29,8 +29,8 @@ public class WorldGenMegaJungle extends WorldGenHugeTrees {
                 int l = position.getZ() + (int) (0.5F + MathHelper.sin(f) * 4.0F);
 
                 for (int i1 = 0; i1 < 5; ++i1) {
-                    k = position.getX() + (int) (1.5F + MathHelper.cos(f) * (float) i1);
-                    l = position.getZ() + (int) (1.5F + MathHelper.sin(f) * (float) i1);
+                    k = position.getX() + (int) (1.5F + MathHelper.cos(f) * i1);
+                    l = position.getZ() + (int) (1.5F + MathHelper.sin(f) * i1);
                     this.setBlockAndNotifyAdequately(worldIn, new BlockPos(k, j - 3 + i1 / 2, l), this.woodMetadata);
                 }
 

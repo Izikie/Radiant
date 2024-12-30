@@ -336,24 +336,24 @@ public class ConnectedTexturesCompact {
         float f7 = 15.968F;
         float f8 = 15.968F;
 
-        if (d0 < (double) x1) {
-            f5 = (float) ((double) f5 + ((double) x1 - d0) / (double) f7);
-            d0 = (double) x1;
+        if (d0 < x1) {
+            f5 = (float) (f5 + (x1 - d0) / f7);
+            d0 = x1;
         }
 
-        if (d0 > (double) x2) {
-            f5 = (float) ((double) f5 - (d0 - (double) x2) / (double) f7);
-            d0 = (double) x2;
+        if (d0 > x2) {
+            f5 = (float) (f5 - (d0 - x2) / f7);
+            d0 = x2;
         }
 
-        if (d1 < (double) y1) {
-            f6 = (float) ((double) f6 + ((double) y1 - d1) / (double) f8);
-            d1 = (double) y1;
+        if (d1 < y1) {
+            f6 = (float) (f6 + (y1 - d1) / f8);
+            d1 = y1;
         }
 
-        if (d1 > (double) y2) {
-            f6 = (float) ((double) f6 - (d1 - (double) y2) / (double) f8);
-            d1 = (double) y2;
+        if (d1 > y2) {
+            f6 = (float) (f6 - (d1 - y2) / f8);
+            d1 = y2;
         }
 
         switch (side) {

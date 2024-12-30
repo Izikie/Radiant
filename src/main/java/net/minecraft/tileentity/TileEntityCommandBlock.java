@@ -18,7 +18,7 @@ public class TileEntityCommandBlock extends TileEntity {
         }
 
         public Vec3 getPositionVector() {
-            return new Vec3((double) TileEntityCommandBlock.this.pos.getX() + 0.5D, (double) TileEntityCommandBlock.this.pos.getY() + 0.5D, (double) TileEntityCommandBlock.this.pos.getZ() + 0.5D);
+            return new Vec3(TileEntityCommandBlock.this.pos.getX() + 0.5D, TileEntityCommandBlock.this.pos.getY() + 0.5D, TileEntityCommandBlock.this.pos.getZ() + 0.5D);
         }
 
         public World getEntityWorld() {

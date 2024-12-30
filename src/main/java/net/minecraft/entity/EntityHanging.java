@@ -33,30 +33,30 @@ public abstract class EntityHanging extends Entity {
         Validate.notNull(facingDirectionIn);
         Validate.isTrue(facingDirectionIn.getAxis().isHorizontal());
         this.facingDirection = facingDirectionIn;
-        this.prevRotationYaw = this.rotationYaw = (float) (this.facingDirection.getHorizontalIndex() * 90);
+        this.prevRotationYaw = this.rotationYaw = (this.facingDirection.getHorizontalIndex() * 90);
         this.updateBoundingBox();
     }
 
     private void updateBoundingBox() {
         if (this.facingDirection != null) {
-            double d0 = (double) this.hangingPosition.getX() + 0.5D;
-            double d1 = (double) this.hangingPosition.getY() + 0.5D;
-            double d2 = (double) this.hangingPosition.getZ() + 0.5D;
+            double d0 = this.hangingPosition.getX() + 0.5D;
+            double d1 = this.hangingPosition.getY() + 0.5D;
+            double d2 = this.hangingPosition.getZ() + 0.5D;
             double d3 = 0.46875D;
             double d4 = this.func_174858_a(this.getWidthPixels());
             double d5 = this.func_174858_a(this.getHeightPixels());
-            d0 = d0 - (double) this.facingDirection.getFrontOffsetX() * 0.46875D;
-            d2 = d2 - (double) this.facingDirection.getFrontOffsetZ() * 0.46875D;
+            d0 = d0 - this.facingDirection.getFrontOffsetX() * 0.46875D;
+            d2 = d2 - this.facingDirection.getFrontOffsetZ() * 0.46875D;
             d1 = d1 + d5;
             EnumFacing enumfacing = this.facingDirection.rotateYCCW();
-            d0 = d0 + d4 * (double) enumfacing.getFrontOffsetX();
-            d2 = d2 + d4 * (double) enumfacing.getFrontOffsetZ();
+            d0 = d0 + d4 * enumfacing.getFrontOffsetX();
+            d2 = d2 + d4 * enumfacing.getFrontOffsetZ();
             this.posX = d0;
             this.posY = d1;
             this.posZ = d2;
-            double d6 = (double) this.getWidthPixels();
-            double d7 = (double) this.getHeightPixels();
-            double d8 = (double) this.getWidthPixels();
+            double d6 = this.getWidthPixels();
+            double d7 = this.getHeightPixels();
+            double d8 = this.getWidthPixels();
 
             if (this.facingDirection.getAxis() == EnumFacing.Axis.Z) {
                 d8 = 1.0D;

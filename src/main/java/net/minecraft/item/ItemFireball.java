@@ -23,7 +23,7 @@ public class ItemFireball extends Item {
                 return false;
             } else {
                 if (worldIn.getBlockState(pos).getBlock().getMaterial() == Material.air) {
-                    worldIn.playSoundEffect((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, "item.fireCharge.use", 1.0F, (itemRand.nextFloat() - itemRand.nextFloat()) * 0.2F + 1.0F);
+                    worldIn.playSoundEffect(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, "item.fireCharge.use", 1.0F, (itemRand.nextFloat() - itemRand.nextFloat()) * 0.2F + 1.0F);
                     worldIn.setBlockState(pos, Blocks.fire.getDefaultState());
                 }
 

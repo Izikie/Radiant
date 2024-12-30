@@ -205,7 +205,7 @@ public enum EnumFacing implements IStringSerializable {
         float f = Float.MIN_VALUE;
 
         for (EnumFacing enumfacing1 : values()) {
-            float f1 = p_176737_0_ * (float) enumfacing1.directionVec.getX() + p_176737_1_ * (float) enumfacing1.directionVec.getY() + p_176737_2_ * (float) enumfacing1.directionVec.getZ();
+            float f1 = p_176737_0_ * enumfacing1.directionVec.getX() + p_176737_1_ * enumfacing1.directionVec.getY() + p_176737_2_ * enumfacing1.directionVec.getZ();
 
             if (f1 > f) {
                 f = f1;

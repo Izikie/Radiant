@@ -38,7 +38,7 @@ public class SMath {
         matOut[15] = m[0] * m[5] * m[10] - m[0] * m[6] * m[9] - m[4] * m[1] * m[10] + m[4] * m[2] * m[9] + m[8] * m[1] * m[6] - m[8] * m[2] * m[5];
         float f = m[0] * matOut[0] + m[1] * matOut[4] + m[2] * matOut[8] + m[3] * matOut[12];
 
-        if ((double) f != 0.0D) {
+        if (f != 0.0D) {
             for (int i = 0; i < 16; ++i) {
                 matOut[i] /= f;
             }

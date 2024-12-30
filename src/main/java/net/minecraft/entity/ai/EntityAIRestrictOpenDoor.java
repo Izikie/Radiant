@@ -29,7 +29,7 @@ public class EntityAIRestrictOpenDoor extends EntityAIBase {
                 return false;
             } else {
                 this.frontDoor = village.getNearestDoor(blockpos);
-                return this.frontDoor == null ? false : (double) this.frontDoor.getDistanceToInsideBlockSq(blockpos) < 2.25D;
+                return this.frontDoor == null ? false : this.frontDoor.getDistanceToInsideBlockSq(blockpos) < 2.25D;
             }
         }
     }

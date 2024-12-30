@@ -80,7 +80,7 @@ public class BlockBed extends BlockDirectional {
                     worldIn.setBlockToAir(blockpos);
                 }
 
-                worldIn.newExplosion((Entity) null, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, 5.0F, true, true);
+                worldIn.newExplosion((Entity) null, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, 5.0F, true, true);
                 return true;
             }
         }

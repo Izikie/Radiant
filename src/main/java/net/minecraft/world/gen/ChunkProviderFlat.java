@@ -151,7 +151,7 @@ public class ChunkProviderFlat implements IChunkProvider {
         this.random.setSeed(this.worldObj.getSeed());
         long k = this.random.nextLong() / 2L * 2L + 1L;
         long l = this.random.nextLong() / 2L * 2L + 1L;
-        this.random.setSeed((long) x * k + (long) z * l ^ this.worldObj.getSeed());
+        this.random.setSeed(x * k + z * l ^ this.worldObj.getSeed());
         ChunkCoordIntPair chunkcoordintpair = new ChunkCoordIntPair(x, z);
 
         for (MapGenStructure mapgenstructure : this.structureGenerators) {

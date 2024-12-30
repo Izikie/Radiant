@@ -57,7 +57,7 @@ public class GuiAchievement extends Gui {
         GlStateManager.clear(256);
         GlStateManager.matrixMode(5889);
         GlStateManager.loadIdentity();
-        GlStateManager.ortho(0.0D, (double) this.width, (double) this.height, 0.0D, 1000.0D, 3000.0D);
+        GlStateManager.ortho(0.0D, this.width, this.height, 0.0D, 1000.0D, 3000.0D);
         GlStateManager.matrixMode(5888);
         GlStateManager.loadIdentity();
         GlStateManager.translate(0.0F, 0.0F, -2000.0F);
@@ -65,7 +65,7 @@ public class GuiAchievement extends Gui {
 
     public void updateAchievementWindow() {
         if (this.theAchievement != null && this.notificationTime != 0L && Minecraft.getMinecraft().thePlayer != null) {
-            double d0 = (double) (Minecraft.getSystemTime() - this.notificationTime) / 3000.0D;
+            double d0 = (Minecraft.getSystemTime() - this.notificationTime) / 3000.0D;
 
             if (!this.permanentNotification) {
                 if (d0 < 0.0D || d0 > 1.0D) {

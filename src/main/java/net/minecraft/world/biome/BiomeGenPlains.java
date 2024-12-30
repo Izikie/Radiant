@@ -22,7 +22,7 @@ public class BiomeGenPlains extends BiomeGenBase {
     }
 
     public BlockFlower.EnumFlowerType pickRandomFlower(Random rand, BlockPos pos) {
-        double d0 = GRASS_COLOR_NOISE.func_151601_a((double) pos.getX() / 200.0D, (double) pos.getZ() / 200.0D);
+        double d0 = GRASS_COLOR_NOISE.func_151601_a(pos.getX() / 200.0D, pos.getZ() / 200.0D);
 
         if (d0 < -0.8D) {
             int j = rand.nextInt(4);
@@ -50,7 +50,7 @@ public class BiomeGenPlains extends BiomeGenBase {
     }
 
     public void decorate(World worldIn, Random rand, BlockPos pos) {
-        double d0 = GRASS_COLOR_NOISE.func_151601_a((double) (pos.getX() + 8) / 200.0D, (double) (pos.getZ() + 8) / 200.0D);
+        double d0 = GRASS_COLOR_NOISE.func_151601_a((pos.getX() + 8) / 200.0D, (pos.getZ() + 8) / 200.0D);
 
         if (d0 < -0.8D) {
             this.theBiomeDecorator.flowersPerChunk = 15;

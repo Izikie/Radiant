@@ -24,13 +24,13 @@ public class EntityFishWakeFX extends EntityFX {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
         this.prevPosZ = this.posZ;
-        this.motionY -= (double) this.particleGravity;
+        this.motionY -= this.particleGravity;
         this.moveEntity(this.motionX, this.motionY, this.motionZ);
         this.motionX *= 0.9800000190734863D;
         this.motionY *= 0.9800000190734863D;
         this.motionZ *= 0.9800000190734863D;
         int i = 60 - this.particleMaxAge;
-        float f = (float) i * 0.001F;
+        float f = i * 0.001F;
         this.setSize(f, f);
         this.setParticleTextureIndex(19 + i % 4);
 

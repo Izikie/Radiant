@@ -94,11 +94,11 @@ public abstract class ResourcePackListEntry implements GuiListExtended.IGuiListE
             s = this.mc.fontRendererObj.trimStringToWidth(s, 157 - this.mc.fontRendererObj.getStringWidth("...")) + "...";
         }
 
-        this.mc.fontRendererObj.drawStringWithShadow(s, (float) (x + 32 + 2), (float) (y + 1), 16777215);
+        this.mc.fontRendererObj.drawStringWithShadow(s, (x + 32 + 2), (y + 1), 16777215);
         List<String> list = this.mc.fontRendererObj.listFormattedStringToWidth(s1, 157);
 
         for (int l = 0; l < 2 && l < list.size(); ++l) {
-            this.mc.fontRendererObj.drawStringWithShadow((String) list.get(l), (float) (x + 32 + 2), (float) (y + 12 + 10 * l), 8421504);
+            this.mc.fontRendererObj.drawStringWithShadow((String) list.get(l), (x + 32 + 2), (y + 12 + 10 * l), 8421504);
         }
     }
 

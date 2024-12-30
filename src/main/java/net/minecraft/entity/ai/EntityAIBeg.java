@@ -21,12 +21,12 @@ public class EntityAIBeg extends EntityAIBase {
     }
 
     public boolean shouldExecute() {
-        this.thePlayer = this.worldObject.getClosestPlayerToEntity(this.theWolf, (double) this.minPlayerDistance);
+        this.thePlayer = this.worldObject.getClosestPlayerToEntity(this.theWolf, this.minPlayerDistance);
         return this.thePlayer == null ? false : this.hasPlayerGotBoneInHand(this.thePlayer);
     }
 
     public boolean continueExecuting() {
-        return !this.thePlayer.isEntityAlive() ? false : (this.theWolf.getDistanceSqToEntity(this.thePlayer) > (double) (this.minPlayerDistance * this.minPlayerDistance) ? false : this.timeoutCounter > 0 && this.hasPlayerGotBoneInHand(this.thePlayer));
+        return !this.thePlayer.isEntityAlive() ? false : (this.theWolf.getDistanceSqToEntity(this.thePlayer) > (this.minPlayerDistance * this.minPlayerDistance) ? false : this.timeoutCounter > 0 && this.hasPlayerGotBoneInHand(this.thePlayer));
     }
 
     public void startExecuting() {
@@ -40,7 +40,7 @@ public class EntityAIBeg extends EntityAIBase {
     }
 
     public void updateTask() {
-        this.theWolf.getLookHelper().setLookPosition(this.thePlayer.posX, this.thePlayer.posY + (double) this.thePlayer.getEyeHeight(), this.thePlayer.posZ, 10.0F, (float) this.theWolf.getVerticalFaceSpeed());
+        this.theWolf.getLookHelper().setLookPosition(this.thePlayer.posX, this.thePlayer.posY + this.thePlayer.getEyeHeight(), this.thePlayer.posZ, 10.0F, this.theWolf.getVerticalFaceSpeed());
         --this.timeoutCounter;
     }
 

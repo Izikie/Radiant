@@ -23,15 +23,15 @@ public class RenderMinecart<T extends EntityMinecart> extends Render<T> {
     public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
         GlStateManager.pushMatrix();
         this.bindEntityTexture(entity);
-        long i = (long) entity.getEntityId() * 493286711L;
+        long i = entity.getEntityId() * 493286711L;
         i = i * i * 4392167121L + i * 98761L;
-        float f = (((float) (i >> 16 & 7L) + 0.5F) / 8.0F - 0.5F) * 0.004F;
-        float f1 = (((float) (i >> 20 & 7L) + 0.5F) / 8.0F - 0.5F) * 0.004F;
-        float f2 = (((float) (i >> 24 & 7L) + 0.5F) / 8.0F - 0.5F) * 0.004F;
+        float f = (((i >> 16 & 7L) + 0.5F) / 8.0F - 0.5F) * 0.004F;
+        float f1 = (((i >> 20 & 7L) + 0.5F) / 8.0F - 0.5F) * 0.004F;
+        float f2 = (((i >> 24 & 7L) + 0.5F) / 8.0F - 0.5F) * 0.004F;
         GlStateManager.translate(f, f1, f2);
-        double d0 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * (double) partialTicks;
-        double d1 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * (double) partialTicks;
-        double d2 = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * (double) partialTicks;
+        double d0 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
+        double d1 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
+        double d2 = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
         double d3 = 0.30000001192092896D;
         Vec3 vec3 = entity.func_70489_a(d0, d1, d2);
         float f3 = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks;
@@ -63,7 +63,7 @@ public class RenderMinecart<T extends EntityMinecart> extends Render<T> {
         GlStateManager.translate((float) x, (float) y + 0.375F, (float) z);
         GlStateManager.rotate(180.0F - entityYaw, 0.0F, 1.0F, 0.0F);
         GlStateManager.rotate(-f3, 0.0F, 0.0F, 1.0F);
-        float f5 = (float) entity.getRollingAmplitude() - partialTicks;
+        float f5 = entity.getRollingAmplitude() - partialTicks;
         float f6 = entity.getDamage() - partialTicks;
 
         if (f6 < 0.0F) {
@@ -71,7 +71,7 @@ public class RenderMinecart<T extends EntityMinecart> extends Render<T> {
         }
 
         if (f5 > 0.0F) {
-            GlStateManager.rotate(MathHelper.sin(f5) * f5 * f6 / 10.0F * (float) entity.getRollingDirection(), 1.0F, 0.0F, 0.0F);
+            GlStateManager.rotate(MathHelper.sin(f5) * f5 * f6 / 10.0F * entity.getRollingDirection(), 1.0F, 0.0F, 0.0F);
         }
 
         int j = entity.getDisplayTileOffset();
@@ -82,7 +82,7 @@ public class RenderMinecart<T extends EntityMinecart> extends Render<T> {
             this.bindTexture(TextureMap.locationBlocksTexture);
             float f4 = 0.75F;
             GlStateManager.scale(f4, f4, f4);
-            GlStateManager.translate(-0.5F, (float) (j - 8) / 16.0F, 0.5F);
+            GlStateManager.translate(-0.5F, (j - 8) / 16.0F, 0.5F);
             this.func_180560_a(entity, partialTicks, iblockstate);
             GlStateManager.popMatrix();
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);

@@ -229,7 +229,7 @@ public class StructureMineshaftPieces {
             if (boundingBoxIn.isVecInside(blockpos) && worldIn.getBlockState(blockpos).getBlock().getMaterial() == Material.air) {
                 int i = rand.nextBoolean() ? 1 : 0;
                 worldIn.setBlockState(blockpos, Blocks.rail.getStateFromMeta(this.getMetadataWithOffset(Blocks.rail, i)), 2);
-                EntityMinecartChest entityminecartchest = new EntityMinecartChest(worldIn, (double) ((float) blockpos.getX() + 0.5F), (double) ((float) blockpos.getY() + 0.5F), (double) ((float) blockpos.getZ() + 0.5F));
+                EntityMinecartChest entityminecartchest = new EntityMinecartChest(worldIn, (blockpos.getX() + 0.5F), (blockpos.getY() + 0.5F), (blockpos.getZ() + 0.5F));
                 WeightedRandomChestContent.generateChestContents(rand, listIn, entityminecartchest, max);
                 worldIn.spawnEntityInWorld(entityminecartchest);
                 return true;

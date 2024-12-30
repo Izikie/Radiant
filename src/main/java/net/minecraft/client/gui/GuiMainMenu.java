@@ -214,12 +214,12 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 
         for (int k = 0; k < j; ++k) {
             GlStateManager.pushMatrix();
-            float f = ((float) (k % i) / (float) i - 0.5F) / 64.0F;
-            float f1 = ((float) (k / i) / (float) i - 0.5F) / 64.0F;
+            float f = ((float) (k % i) / i - 0.5F) / 64.0F;
+            float f1 = ((float) (k / i) / i - 0.5F) / 64.0F;
             float f2 = 0.0F;
             GlStateManager.translate(f, f1, f2);
-            GlStateManager.rotate(MathHelper.sin(((float) this.panoramaTimer + p_73970_3_) / 400.0F) * 25.0F + 20.0F, 1.0F, 0.0F, 0.0F);
-            GlStateManager.rotate(-((float) this.panoramaTimer + p_73970_3_) * 0.1F, 0.0F, 1.0F, 0.0F);
+            GlStateManager.rotate(MathHelper.sin((this.panoramaTimer + p_73970_3_) / 400.0F) * 25.0F + 20.0F, 1.0F, 0.0F, 0.0F);
+            GlStateManager.rotate(-(this.panoramaTimer + p_73970_3_) * 0.1F, 0.0F, 1.0F, 0.0F);
 
             for (int l = 0; l < 6; ++l) {
                 GlStateManager.pushMatrix();
@@ -298,14 +298,14 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         }
 
         for (int k = 0; k < j; ++k) {
-            float f = 1.0F / (float) (k + 1);
+            float f = 1.0F / (k + 1);
             int l = this.width;
             int i1 = this.height;
-            float f1 = (float) (k - i / 2) / 256.0F;
-            worldrenderer.pos((double) l, (double) i1, (double) this.zLevel).tex((double) (0.0F + f1), 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
-            worldrenderer.pos((double) l, 0.0D, (double) this.zLevel).tex((double) (1.0F + f1), 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
-            worldrenderer.pos(0.0D, 0.0D, (double) this.zLevel).tex((double) (1.0F + f1), 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
-            worldrenderer.pos(0.0D, (double) i1, (double) this.zLevel).tex((double) (0.0F + f1), 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
+            float f1 = (k - i / 2) / 256.0F;
+            worldrenderer.pos(l, i1, this.zLevel).tex((0.0F + f1), 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
+            worldrenderer.pos(l, 0.0D, this.zLevel).tex((1.0F + f1), 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
+            worldrenderer.pos(0.0D, 0.0D, this.zLevel).tex((1.0F + f1), 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
+            worldrenderer.pos(0.0D, i1, this.zLevel).tex((0.0F + f1), 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
         }
 
         tessellator.draw();
@@ -332,18 +332,18 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 
         this.mc.getFramebuffer().bindFramebuffer(true);
         GlStateManager.viewport(0, 0, this.mc.displayWidth, this.mc.displayHeight);
-        float f2 = this.width > this.height ? 120.0F / (float) this.width : 120.0F / (float) this.height;
-        float f = (float) this.height * f2 / 256.0F;
-        float f1 = (float) this.width * f2 / 256.0F;
+        float f2 = this.width > this.height ? 120.0F / this.width : 120.0F / this.height;
+        float f = this.height * f2 / 256.0F;
+        float f1 = this.width * f2 / 256.0F;
         int k = this.width;
         int l = this.height;
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        worldrenderer.pos(0.0D, (double) l, (double) this.zLevel).tex((double) (0.5F - f), (double) (0.5F + f1)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-        worldrenderer.pos((double) k, (double) l, (double) this.zLevel).tex((double) (0.5F - f), (double) (0.5F - f1)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-        worldrenderer.pos((double) k, 0.0D, (double) this.zLevel).tex((double) (0.5F + f), (double) (0.5F - f1)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-        worldrenderer.pos(0.0D, 0.0D, (double) this.zLevel).tex((double) (0.5F + f), (double) (0.5F + f1)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        worldrenderer.pos(0.0D, l, this.zLevel).tex((0.5F - f), (0.5F + f1)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        worldrenderer.pos(k, l, this.zLevel).tex((0.5F - f), (0.5F - f1)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        worldrenderer.pos(k, 0.0D, this.zLevel).tex((0.5F + f), (0.5F - f1)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        worldrenderer.pos(0.0D, 0.0D, this.zLevel).tex((0.5F + f), (0.5F + f1)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
         tessellator.draw();
     }
 
@@ -380,7 +380,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         this.mc.getTextureManager().bindTexture(minecraftTitleTextures);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
-        if ((double) this.updateCounter < 1.0E-4D) {
+        if (this.updateCounter < 1.0E-4D) {
             this.drawTexturedModalRect(j + 0, k + 0, 0, 0, 99, 44);
             this.drawTexturedModalRect(j + 99, k + 0, 129, 0, 27, 44);
             this.drawTexturedModalRect(j + 99 + 26, k + 0, 126, 0, 3, 44);
@@ -392,10 +392,10 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         }
 
         GlStateManager.pushMatrix();
-        GlStateManager.translate((float) (this.width / 2 + 90), 70.0F, 0.0F);
+        GlStateManager.translate((this.width / 2 + 90), 70.0F, 0.0F);
         GlStateManager.rotate(-20.0F, 0.0F, 0.0F, 1.0F);
-        float f = 1.8F - MathHelper.abs(MathHelper.sin((float) (Minecraft.getSystemTime() % 1000L) / 1000.0F * (float) Math.PI * 2.0F) * 0.1F);
-        f = f * 100.0F / (float) (this.fontRendererObj.getStringWidth(this.splashText) + 32);
+        float f = 1.8F - MathHelper.abs(MathHelper.sin((Minecraft.getSystemTime() % 1000L) / 1000.0F * (float) Math.PI * 2.0F) * 0.1F);
+        f = f * 100.0F / (this.fontRendererObj.getStringWidth(this.splashText) + 32);
         GlStateManager.scale(f, f, f);
         this.drawCenteredString(this.fontRendererObj, this.splashText, 0, -8, -256);
         GlStateManager.popMatrix();

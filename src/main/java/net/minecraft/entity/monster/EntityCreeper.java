@@ -52,7 +52,7 @@ public class EntityCreeper extends EntityMob {
 
     public void fall(float distance, float damageMultiplier) {
         super.fall(distance, damageMultiplier);
-        this.timeSinceIgnited = (int) ((float) this.timeSinceIgnited + distance * 1.5F);
+        this.timeSinceIgnited = (int) (this.timeSinceIgnited + distance * 1.5F);
 
         if (this.timeSinceIgnited > this.fuseTime - 5) {
             this.timeSinceIgnited = this.fuseTime - 5;
@@ -155,7 +155,7 @@ public class EntityCreeper extends EntityMob {
     }
 
     public float getCreeperFlashIntensity(float p_70831_1_) {
-        return ((float) this.lastActiveTime + (float) (this.timeSinceIgnited - this.lastActiveTime) * p_70831_1_) / (float) (this.fuseTime - 2);
+        return (this.lastActiveTime + (this.timeSinceIgnited - this.lastActiveTime) * p_70831_1_) / (this.fuseTime - 2);
     }
 
     protected Item getDropItem() {
@@ -196,7 +196,7 @@ public class EntityCreeper extends EntityMob {
         if (!this.worldObj.isRemote) {
             boolean flag = this.worldObj.getGameRules().getBoolean("mobGriefing");
             float f = this.getPowered() ? 2.0F : 1.0F;
-            this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float) this.explosionRadius * f, flag);
+            this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, this.explosionRadius * f, flag);
             this.setDead();
         }
     }

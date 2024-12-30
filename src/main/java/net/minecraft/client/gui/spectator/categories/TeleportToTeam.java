@@ -107,14 +107,14 @@ public class TeleportToTeam implements ISpectatorMenuView, ISpectatorMenuObject 
             }
 
             if (i >= 0) {
-                float f = (float) (i >> 16 & 255) / 255.0F;
-                float f1 = (float) (i >> 8 & 255) / 255.0F;
-                float f2 = (float) (i & 255) / 255.0F;
+                float f = (i >> 16 & 255) / 255.0F;
+                float f1 = (i >> 8 & 255) / 255.0F;
+                float f2 = (i & 255) / 255.0F;
                 Gui.drawRect(1, 1, 15, 15, MathHelper.func_180183_b(f * p_178663_1_, f1 * p_178663_1_, f2 * p_178663_1_) | alpha << 24);
             }
 
             Minecraft.getMinecraft().getTextureManager().bindTexture(this.field_178677_c);
-            GlStateManager.color(p_178663_1_, p_178663_1_, p_178663_1_, (float) alpha / 255.0F);
+            GlStateManager.color(p_178663_1_, p_178663_1_, p_178663_1_, alpha / 255.0F);
             Gui.drawScaledCustomSizeModalRect(2, 2, 8.0F, 8.0F, 8, 8, 12, 12, 64.0F, 64.0F);
             Gui.drawScaledCustomSizeModalRect(2, 2, 40.0F, 8.0F, 8, 8, 12, 12, 64.0F, 64.0F);
         }

@@ -53,37 +53,37 @@ public class RenderFish extends Render<EntityFishHook> {
             vec3 = vec3.rotateYaw(-(entity.angler.prevRotationYaw + (entity.angler.rotationYaw - entity.angler.prevRotationYaw) * partialTicks) * (float) Math.PI / 180.0F);
             vec3 = vec3.rotateYaw(f8 * 0.5F);
             vec3 = vec3.rotatePitch(-f8 * 0.7F);
-            double d0 = entity.angler.prevPosX + (entity.angler.posX - entity.angler.prevPosX) * (double) partialTicks + vec3.xCoord;
-            double d1 = entity.angler.prevPosY + (entity.angler.posY - entity.angler.prevPosY) * (double) partialTicks + vec3.yCoord;
-            double d2 = entity.angler.prevPosZ + (entity.angler.posZ - entity.angler.prevPosZ) * (double) partialTicks + vec3.zCoord;
-            double d3 = (double) entity.angler.getEyeHeight();
+            double d0 = entity.angler.prevPosX + (entity.angler.posX - entity.angler.prevPosX) * partialTicks + vec3.xCoord;
+            double d1 = entity.angler.prevPosY + (entity.angler.posY - entity.angler.prevPosY) * partialTicks + vec3.yCoord;
+            double d2 = entity.angler.prevPosZ + (entity.angler.posZ - entity.angler.prevPosZ) * partialTicks + vec3.zCoord;
+            double d3 = entity.angler.getEyeHeight();
 
             if (this.renderManager.options != null && this.renderManager.options.thirdPersonView > 0 || entity.angler != Minecraft.getMinecraft().thePlayer) {
                 float f9 = (entity.angler.prevRenderYawOffset + (entity.angler.renderYawOffset - entity.angler.prevRenderYawOffset) * partialTicks) * (float) Math.PI / 180.0F;
-                double d4 = (double) MathHelper.sin(f9);
-                double d6 = (double) MathHelper.cos(f9);
+                double d4 = MathHelper.sin(f9);
+                double d6 = MathHelper.cos(f9);
                 double d8 = 0.35D;
                 double d10 = 0.8D;
-                d0 = entity.angler.prevPosX + (entity.angler.posX - entity.angler.prevPosX) * (double) partialTicks - d6 * 0.35D - d4 * 0.8D;
-                d1 = entity.angler.prevPosY + d3 + (entity.angler.posY - entity.angler.prevPosY) * (double) partialTicks - 0.45D;
-                d2 = entity.angler.prevPosZ + (entity.angler.posZ - entity.angler.prevPosZ) * (double) partialTicks - d4 * 0.35D + d6 * 0.8D;
+                d0 = entity.angler.prevPosX + (entity.angler.posX - entity.angler.prevPosX) * partialTicks - d6 * 0.35D - d4 * 0.8D;
+                d1 = entity.angler.prevPosY + d3 + (entity.angler.posY - entity.angler.prevPosY) * partialTicks - 0.45D;
+                d2 = entity.angler.prevPosZ + (entity.angler.posZ - entity.angler.prevPosZ) * partialTicks - d4 * 0.35D + d6 * 0.8D;
                 d3 = entity.angler.isSneaking() ? -0.1875D : 0.0D;
             }
 
-            double d13 = entity.prevPosX + (entity.posX - entity.prevPosX) * (double) partialTicks;
-            double d5 = entity.prevPosY + (entity.posY - entity.prevPosY) * (double) partialTicks + 0.25D;
-            double d7 = entity.prevPosZ + (entity.posZ - entity.prevPosZ) * (double) partialTicks;
-            double d9 = (double) ((float) (d0 - d13));
-            double d11 = (double) ((float) (d1 - d5)) + d3;
-            double d12 = (double) ((float) (d2 - d7));
+            double d13 = entity.prevPosX + (entity.posX - entity.prevPosX) * partialTicks;
+            double d5 = entity.prevPosY + (entity.posY - entity.prevPosY) * partialTicks + 0.25D;
+            double d7 = entity.prevPosZ + (entity.posZ - entity.prevPosZ) * partialTicks;
+            double d9 = ((float) (d0 - d13));
+            double d11 = ((float) (d1 - d5)) + d3;
+            double d12 = ((float) (d2 - d7));
             GlStateManager.disableTexture2D();
             GlStateManager.disableLighting();
             worldrenderer.begin(3, DefaultVertexFormats.POSITION_COLOR);
             int k = 16;
 
             for (int l = 0; l <= 16; ++l) {
-                float f10 = (float) l / 16.0F;
-                worldrenderer.pos(x + d9 * (double) f10, y + d11 * (double) (f10 * f10 + f10) * 0.5D + 0.25D, z + d12 * (double) f10).color(0, 0, 0, 255).endVertex();
+                float f10 = l / 16.0F;
+                worldrenderer.pos(x + d9 * f10, y + d11 * (f10 * f10 + f10) * 0.5D + 0.25D, z + d12 * f10).color(0, 0, 0, 255).endVertex();
             }
 
             tessellator.draw();

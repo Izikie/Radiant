@@ -13,7 +13,7 @@ public class InventoryHelper {
     private static final Random RANDOM = new Random();
 
     public static void dropInventoryItems(World worldIn, BlockPos pos, IInventory inventory) {
-        dropInventoryItems(worldIn, (double) pos.getX(), (double) pos.getY(), (double) pos.getZ(), inventory);
+        dropInventoryItems(worldIn, pos.getX(), pos.getY(), pos.getZ(), inventory);
     }
 
     public static void dropInventoryItems(World worldIn, Entity entityAt, IInventory inventory) {
@@ -43,16 +43,16 @@ public class InventoryHelper {
             }
 
             stack.stackSize -= i;
-            EntityItem entityitem = new EntityItem(worldIn, x + (double) f, y + (double) f1, z + (double) f2, new ItemStack(stack.getItem(), i, stack.getMetadata()));
+            EntityItem entityitem = new EntityItem(worldIn, x + f, y + f1, z + f2, new ItemStack(stack.getItem(), i, stack.getMetadata()));
 
             if (stack.hasTagCompound()) {
                 entityitem.getEntityItem().setTagCompound((NBTTagCompound) stack.getTagCompound().copy());
             }
 
             float f3 = 0.05F;
-            entityitem.motionX = RANDOM.nextGaussian() * (double) f3;
-            entityitem.motionY = RANDOM.nextGaussian() * (double) f3 + 0.20000000298023224D;
-            entityitem.motionZ = RANDOM.nextGaussian() * (double) f3;
+            entityitem.motionX = RANDOM.nextGaussian() * f3;
+            entityitem.motionY = RANDOM.nextGaussian() * f3 + 0.20000000298023224D;
+            entityitem.motionZ = RANDOM.nextGaussian() * f3;
             worldIn.spawnEntityInWorld(entityitem);
         }
     }

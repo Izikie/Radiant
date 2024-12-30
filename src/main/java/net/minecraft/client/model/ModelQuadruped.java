@@ -16,22 +16,22 @@ public class ModelQuadruped extends ModelBase {
 
     public ModelQuadruped(int p_i1154_1_, float p_i1154_2_) {
         this.head.addBox(-4.0F, -4.0F, -8.0F, 8, 8, 8, p_i1154_2_);
-        this.head.setRotationPoint(0.0F, (float) (18 - p_i1154_1_), -6.0F);
+        this.head.setRotationPoint(0.0F, (18 - p_i1154_1_), -6.0F);
         this.body = new ModelRenderer(this, 28, 8);
         this.body.addBox(-5.0F, -10.0F, -7.0F, 10, 16, 8, p_i1154_2_);
-        this.body.setRotationPoint(0.0F, (float) (17 - p_i1154_1_), 2.0F);
+        this.body.setRotationPoint(0.0F, (17 - p_i1154_1_), 2.0F);
         this.leg1 = new ModelRenderer(this, 0, 16);
         this.leg1.addBox(-2.0F, 0.0F, -2.0F, 4, p_i1154_1_, 4, p_i1154_2_);
-        this.leg1.setRotationPoint(-3.0F, (float) (24 - p_i1154_1_), 7.0F);
+        this.leg1.setRotationPoint(-3.0F, (24 - p_i1154_1_), 7.0F);
         this.leg2 = new ModelRenderer(this, 0, 16);
         this.leg2.addBox(-2.0F, 0.0F, -2.0F, 4, p_i1154_1_, 4, p_i1154_2_);
-        this.leg2.setRotationPoint(3.0F, (float) (24 - p_i1154_1_), 7.0F);
+        this.leg2.setRotationPoint(3.0F, (24 - p_i1154_1_), 7.0F);
         this.leg3 = new ModelRenderer(this, 0, 16);
         this.leg3.addBox(-2.0F, 0.0F, -2.0F, 4, p_i1154_1_, 4, p_i1154_2_);
-        this.leg3.setRotationPoint(-3.0F, (float) (24 - p_i1154_1_), -5.0F);
+        this.leg3.setRotationPoint(-3.0F, (24 - p_i1154_1_), -5.0F);
         this.leg4 = new ModelRenderer(this, 0, 16);
         this.leg4.addBox(-2.0F, 0.0F, -2.0F, 4, p_i1154_1_, 4, p_i1154_2_);
-        this.leg4.setRotationPoint(3.0F, (float) (24 - p_i1154_1_), -5.0F);
+        this.leg4.setRotationPoint(3.0F, (24 - p_i1154_1_), -5.0F);
     }
 
     public void render(Entity entityIn, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_, float scale) {

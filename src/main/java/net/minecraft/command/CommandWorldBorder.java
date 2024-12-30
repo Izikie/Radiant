@@ -75,8 +75,8 @@ public class CommandWorldBorder extends CommandBase {
                 }
 
                 BlockPos blockpos = sender.getPosition();
-                double d1 = parseDouble((double) blockpos.getX() + 0.5D, args[1], true);
-                double d3 = parseDouble((double) blockpos.getZ() + 0.5D, args[2], true);
+                double d1 = parseDouble(blockpos.getX() + 0.5D, args[1], true);
+                double d3 = parseDouble(blockpos.getZ() + 0.5D, args[2], true);
                 worldborder.setCenter(d1, d3);
                 notifyOperators(sender, this, "commands.worldborder.center.success", new Object[]{Double.valueOf(d1), Double.valueOf(d3)});
             } else if (args[0].equals("damage")) {

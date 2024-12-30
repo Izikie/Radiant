@@ -182,7 +182,7 @@ public class BlockSapling extends BlockBush implements IGrowable {
     }
 
     public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-        return (double) worldIn.rand.nextFloat() < 0.45D;
+        return worldIn.rand.nextFloat() < 0.45D;
     }
 
     public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {

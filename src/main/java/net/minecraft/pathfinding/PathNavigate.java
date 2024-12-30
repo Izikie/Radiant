@@ -60,7 +60,7 @@ public abstract class PathNavigate {
     }
 
     public boolean tryMoveToXYZ(double x, double y, double z, double speedIn) {
-        PathEntity pathentity = this.getPathToXYZ((double) MathHelper.floor_double(x), (double) ((int) y), (double) MathHelper.floor_double(z));
+        PathEntity pathentity = this.getPathToXYZ(MathHelper.floor_double(x), ((int) y), MathHelper.floor_double(z));
         return this.setPath(pathentity, speedIn);
     }
 
@@ -163,7 +163,7 @@ public abstract class PathNavigate {
         for (int k = this.currentPath.getCurrentPathIndex(); k < i; ++k) {
             Vec3 vec31 = this.currentPath.getVectorFromIndex(this.theEntity, k);
 
-            if (vec3.squareDistanceTo(vec31) < (double) f) {
+            if (vec3.squareDistanceTo(vec31) < f) {
                 this.currentPath.setCurrentPathIndex(k + 1);
             }
         }

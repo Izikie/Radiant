@@ -116,7 +116,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
         if (this.doesGuiPauseGame) {
             this.drawDefaultBackground();
             this.drawCenteredString(this.fontRendererObj, I18n.format("multiplayer.downloadingStats", new Object[0]), this.width / 2, this.height / 2, 16777215);
-            this.drawCenteredString(this.fontRendererObj, lanSearchStates[(int) (Minecraft.getSystemTime() / 150L % (long) lanSearchStates.length)], this.width / 2, this.height / 2 + this.fontRendererObj.FONT_HEIGHT * 2, 16777215);
+            this.drawCenteredString(this.fontRendererObj, lanSearchStates[(int) (Minecraft.getSystemTime() / 150L % lanSearchStates.length)], this.width / 2, this.height / 2 + this.fontRendererObj.FONT_HEIGHT * 2, 16777215);
         } else {
             this.displaySlot.drawScreen(mouseX, mouseY, partialTicks);
             this.drawCenteredString(this.fontRendererObj, this.screenTitle, this.width / 2, 20, 16777215);
@@ -160,10 +160,10 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-        worldrenderer.pos((double) (p_146527_1_ + 0), (double) (p_146527_2_ + 18), (double) this.zLevel).tex((double) ((float) (p_146527_3_ + 0) * 0.0078125F), (double) ((float) (p_146527_4_ + 18) * 0.0078125F)).endVertex();
-        worldrenderer.pos((double) (p_146527_1_ + 18), (double) (p_146527_2_ + 18), (double) this.zLevel).tex((double) ((float) (p_146527_3_ + 18) * 0.0078125F), (double) ((float) (p_146527_4_ + 18) * 0.0078125F)).endVertex();
-        worldrenderer.pos((double) (p_146527_1_ + 18), (double) (p_146527_2_ + 0), (double) this.zLevel).tex((double) ((float) (p_146527_3_ + 18) * 0.0078125F), (double) ((float) (p_146527_4_ + 0) * 0.0078125F)).endVertex();
-        worldrenderer.pos((double) (p_146527_1_ + 0), (double) (p_146527_2_ + 0), (double) this.zLevel).tex((double) ((float) (p_146527_3_ + 0) * 0.0078125F), (double) ((float) (p_146527_4_ + 0) * 0.0078125F)).endVertex();
+        worldrenderer.pos((p_146527_1_ + 0), (p_146527_2_ + 18), this.zLevel).tex(((p_146527_3_ + 0) * 0.0078125F), ((p_146527_4_ + 18) * 0.0078125F)).endVertex();
+        worldrenderer.pos((p_146527_1_ + 18), (p_146527_2_ + 18), this.zLevel).tex(((p_146527_3_ + 18) * 0.0078125F), ((p_146527_4_ + 18) * 0.0078125F)).endVertex();
+        worldrenderer.pos((p_146527_1_ + 18), (p_146527_2_ + 0), this.zLevel).tex(((p_146527_3_ + 18) * 0.0078125F), ((p_146527_4_ + 0) * 0.0078125F)).endVertex();
+        worldrenderer.pos((p_146527_1_ + 0), (p_146527_2_ + 0), this.zLevel).tex(((p_146527_3_ + 0) * 0.0078125F), ((p_146527_4_ + 0) * 0.0078125F)).endVertex();
         tessellator.draw();
     }
 
@@ -303,7 +303,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
                         int l = p_148142_2_ - 12;
                         int i1 = GuiStats.this.fontRendererObj.getStringWidth(s);
                         GuiStats.this.drawGradientRect(k - 3, l - 3, k + i1 + 3, l + 8 + 3, -1073741824, -1073741824);
-                        GuiStats.this.fontRendererObj.drawStringWithShadow(s, (float) k, (float) l, -1);
+                        GuiStats.this.fontRendererObj.drawStringWithShadow(s, k, l, -1);
                     }
                 }
             }
@@ -321,7 +321,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
                     int j = p_148213_3_ - 12;
                     int k = GuiStats.this.fontRendererObj.getStringWidth(s1);
                     GuiStats.this.drawGradientRect(i - 3, j - 3, i + k + 3, j + 8 + 3, -1073741824, -1073741824);
-                    GuiStats.this.fontRendererObj.drawStringWithShadow(s1, (float) i, (float) j, -1);
+                    GuiStats.this.fontRendererObj.drawStringWithShadow(s1, i, j, -1);
                 }
             }
         }

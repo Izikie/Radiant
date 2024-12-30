@@ -10,7 +10,7 @@ public class EntityExplodeFX extends EntityFX {
         this.motionZ = zSpeedIn + (Math.random() * 2.0D - 1.0D) * 0.05000000074505806D;
         this.particleRed = this.particleGreen = this.particleBlue = this.rand.nextFloat() * 0.3F + 0.7F;
         this.particleScale = this.rand.nextFloat() * this.rand.nextFloat() * 6.0F + 1.0F;
-        this.particleMaxAge = (int) (16.0D / ((double) this.rand.nextFloat() * 0.8D + 0.2D)) + 2;
+        this.particleMaxAge = (int) (16.0D / (this.rand.nextFloat() * 0.8D + 0.2D)) + 2;
     }
 
     public void onUpdate() {

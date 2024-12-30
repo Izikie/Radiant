@@ -119,7 +119,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
                 double d3 = d0 * d0 + d1 * d1;
 
                 if (d3 > 9.0D) {
-                    double d5 = (double) MathHelper.sqrt_double(d3);
+                    double d5 = MathHelper.sqrt_double(d3);
                     this.motionX += (d0 / d5 * 0.5D - this.motionX) * 0.6000000238418579D;
                     this.motionZ += (d1 / d5 * 0.5D - this.motionZ) * 0.6000000238418579D;
                 }
@@ -150,9 +150,9 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
                 double d12 = this.func_82208_v(j + 1);
                 double d13 = this.func_82213_w(j + 1);
                 double d6 = entity1.posX - d11;
-                double d7 = entity1.posY + (double) entity1.getEyeHeight() - d12;
+                double d7 = entity1.posY + entity1.getEyeHeight() - d12;
                 double d8 = entity1.posZ - d13;
-                double d9 = (double) MathHelper.sqrt_double(d6 * d6 + d8 * d8);
+                double d9 = MathHelper.sqrt_double(d6 * d6 + d8 * d8);
                 float f = (float) (MathHelper.atan2(d8, d6) * 180.0D / Math.PI) - 90.0F;
                 float f1 = (float) (-(MathHelper.atan2(d7, d9) * 180.0D / Math.PI));
                 this.field_82220_d[j] = this.func_82204_b(this.field_82220_d[j], f1, 40.0F);
@@ -177,7 +177,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
 
         if (this.getInvulTime() > 0) {
             for (int i1 = 0; i1 < 3; ++i1) {
-                this.worldObj.spawnParticle(EnumParticleTypes.SPELL_MOB, this.posX + this.rand.nextGaussian() * 1.0D, this.posY + (double) (this.rand.nextFloat() * 3.3F), this.posZ + this.rand.nextGaussian() * 1.0D, 0.699999988079071D, 0.699999988079071D, 0.8999999761581421D, new int[0]);
+                this.worldObj.spawnParticle(EnumParticleTypes.SPELL_MOB, this.posX + this.rand.nextGaussian() * 1.0D, this.posY + (this.rand.nextFloat() * 3.3F), this.posZ + this.rand.nextGaussian() * 1.0D, 0.699999988079071D, 0.699999988079071D, 0.8999999761581421D, new int[0]);
             }
         }
     }
@@ -187,7 +187,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
             int j1 = this.getInvulTime() - 1;
 
             if (j1 <= 0) {
-                this.worldObj.newExplosion(this, this.posX, this.posY + (double) this.getEyeHeight(), this.posZ, 7.0F, false, this.worldObj.getGameRules().getBoolean("mobGriefing"));
+                this.worldObj.newExplosion(this, this.posX, this.posY + this.getEyeHeight(), this.posZ, 7.0F, false, this.worldObj.getGameRules().getBoolean("mobGriefing"));
                 this.worldObj.playBroadcastSound(1013, new BlockPos(this), 0);
             }
 
@@ -211,9 +211,9 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
                         if (k3 > 15) {
                             float f = 10.0F;
                             float f1 = 5.0F;
-                            double d0 = MathHelper.getRandomDoubleInRange(this.rand, this.posX - (double) f, this.posX + (double) f);
-                            double d1 = MathHelper.getRandomDoubleInRange(this.rand, this.posY - (double) f1, this.posY + (double) f1);
-                            double d2 = MathHelper.getRandomDoubleInRange(this.rand, this.posZ - (double) f, this.posZ + (double) f);
+                            double d0 = MathHelper.getRandomDoubleInRange(this.rand, this.posX - f, this.posX + f);
+                            double d1 = MathHelper.getRandomDoubleInRange(this.rand, this.posY - f1, this.posY + f1);
+                            double d2 = MathHelper.getRandomDoubleInRange(this.rand, this.posZ - f, this.posZ + f);
                             this.launchWitherSkullToCoords(i + 1, d0, d1, d2, true);
                             this.field_82224_i[i - 1] = 0;
                         }
@@ -322,9 +322,9 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
         if (p_82214_1_ <= 0) {
             return this.posX;
         } else {
-            float f = (this.renderYawOffset + (float) (180 * (p_82214_1_ - 1))) / 180.0F * (float) Math.PI;
+            float f = (this.renderYawOffset + (180 * (p_82214_1_ - 1))) / 180.0F * (float) Math.PI;
             float f1 = MathHelper.cos(f);
-            return this.posX + (double) f1 * 1.3D;
+            return this.posX + f1 * 1.3D;
         }
     }
 
@@ -336,9 +336,9 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
         if (p_82213_1_ <= 0) {
             return this.posZ;
         } else {
-            float f = (this.renderYawOffset + (float) (180 * (p_82213_1_ - 1))) / 180.0F * (float) Math.PI;
+            float f = (this.renderYawOffset + (180 * (p_82213_1_ - 1))) / 180.0F * (float) Math.PI;
             float f1 = MathHelper.sin(f);
-            return this.posZ + (double) f1 * 1.3D;
+            return this.posZ + f1 * 1.3D;
         }
     }
 
@@ -357,7 +357,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
     }
 
     private void launchWitherSkullToEntity(int p_82216_1_, EntityLivingBase p_82216_2_) {
-        this.launchWitherSkullToCoords(p_82216_1_, p_82216_2_.posX, p_82216_2_.posY + (double) p_82216_2_.getEyeHeight() * 0.5D, p_82216_2_.posZ, p_82216_1_ == 0 && this.rand.nextFloat() < 0.001F);
+        this.launchWitherSkullToCoords(p_82216_1_, p_82216_2_.posX, p_82216_2_.posY + p_82216_2_.getEyeHeight() * 0.5D, p_82216_2_.posZ, p_82216_1_ == 0 && this.rand.nextFloat() < 0.001F);
     }
 
     private void launchWitherSkullToCoords(int p_82209_1_, double x, double y, double z, boolean invulnerable) {

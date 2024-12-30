@@ -54,12 +54,12 @@ public class BlockCactus extends Block {
 
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
         float f = 0.0625F;
-        return new AxisAlignedBB((double) ((float) pos.getX() + f), (double) pos.getY(), (double) ((float) pos.getZ() + f), (double) ((float) (pos.getX() + 1) - f), (double) ((float) (pos.getY() + 1) - f), (double) ((float) (pos.getZ() + 1) - f));
+        return new AxisAlignedBB((pos.getX() + f), pos.getY(), (pos.getZ() + f), ((pos.getX() + 1) - f), ((pos.getY() + 1) - f), ((pos.getZ() + 1) - f));
     }
 
     public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos) {
         float f = 0.0625F;
-        return new AxisAlignedBB((double) ((float) pos.getX() + f), (double) pos.getY(), (double) ((float) pos.getZ() + f), (double) ((float) (pos.getX() + 1) - f), (double) (pos.getY() + 1), (double) ((float) (pos.getZ() + 1) - f));
+        return new AxisAlignedBB((pos.getX() + f), pos.getY(), (pos.getZ() + f), ((pos.getX() + 1) - f), (pos.getY() + 1), ((pos.getZ() + 1) - f));
     }
 
     public boolean isFullCube() {

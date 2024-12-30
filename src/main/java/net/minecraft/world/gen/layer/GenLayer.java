@@ -63,7 +63,7 @@ public abstract class GenLayer {
         genlayerhills = new GenLayerRareBiome(1001L, genlayerhills);
 
         for (int k = 0; k < i; ++k) {
-            genlayerhills = new GenLayerZoom((long) (1000 + k), genlayerhills);
+            genlayerhills = new GenLayerZoom((1000 + k), genlayerhills);
 
             if (k == 0) {
                 genlayerhills = new GenLayerAddIsland(3L, genlayerhills);
@@ -120,7 +120,7 @@ public abstract class GenLayer {
     }
 
     protected int nextInt(int p_75902_1_) {
-        int i = (int) ((this.chunkSeed >> 24) % (long) p_75902_1_);
+        int i = (int) ((this.chunkSeed >> 24) % p_75902_1_);
 
         if (i < 0) {
             i += p_75902_1_;

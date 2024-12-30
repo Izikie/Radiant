@@ -35,8 +35,8 @@ public class MapData extends WorldSavedData {
 
     public void calculateMapCenter(double x, double z, int mapScale) {
         int i = 128 * (1 << mapScale);
-        int j = MathHelper.floor_double((x + 64.0D) / (double) i);
-        int k = MathHelper.floor_double((z + 64.0D) / (double) i);
+        int j = MathHelper.floor_double((x + 64.0D) / i);
+        int k = MathHelper.floor_double((z + 64.0D) / i);
         this.xCenter = j * i + i / 2 - 64;
         this.zCenter = k * i + i / 2 - 64;
     }
@@ -100,7 +100,7 @@ public class MapData extends WorldSavedData {
 
             if (!mapdata$mapinfo1.entityplayerObj.isDead && (mapdata$mapinfo1.entityplayerObj.inventory.hasItemStack(mapStack) || mapStack.isOnItemFrame())) {
                 if (!mapStack.isOnItemFrame() && mapdata$mapinfo1.entityplayerObj.dimension == this.dimension) {
-                    this.updateDecorations(0, mapdata$mapinfo1.entityplayerObj.worldObj, mapdata$mapinfo1.entityplayerObj.getName(), mapdata$mapinfo1.entityplayerObj.posX, mapdata$mapinfo1.entityplayerObj.posZ, (double) mapdata$mapinfo1.entityplayerObj.rotationYaw);
+                    this.updateDecorations(0, mapdata$mapinfo1.entityplayerObj.worldObj, mapdata$mapinfo1.entityplayerObj.getName(), mapdata$mapinfo1.entityplayerObj.posX, mapdata$mapinfo1.entityplayerObj.posZ, mapdata$mapinfo1.entityplayerObj.rotationYaw);
                 }
             } else {
                 this.playersHashMap.remove(mapdata$mapinfo1.entityplayerObj);
@@ -111,7 +111,7 @@ public class MapData extends WorldSavedData {
         if (mapStack.isOnItemFrame()) {
             EntityItemFrame entityitemframe = mapStack.getItemFrame();
             BlockPos blockpos = entityitemframe.getHangingPosition();
-            this.updateDecorations(1, player.worldObj, "frame-" + entityitemframe.getEntityId(), (double) blockpos.getX(), (double) blockpos.getZ(), (double) (entityitemframe.facingDirection.getHorizontalIndex() * 90));
+            this.updateDecorations(1, player.worldObj, "frame-" + entityitemframe.getEntityId(), blockpos.getX(), blockpos.getZ(), (entityitemframe.facingDirection.getHorizontalIndex() * 90));
         }
 
         if (mapStack.hasTagCompound() && mapStack.getTagCompound().hasKey("Decorations", 9)) {
@@ -129,14 +129,14 @@ public class MapData extends WorldSavedData {
 
     private void updateDecorations(int type, World worldIn, String entityIdentifier, double worldX, double worldZ, double rotation) {
         int i = 1 << this.scale;
-        float f = (float) (worldX - (double) this.xCenter) / (float) i;
-        float f1 = (float) (worldZ - (double) this.zCenter) / (float) i;
-        byte b0 = (byte) ((int) ((double) (f * 2.0F) + 0.5D));
-        byte b1 = (byte) ((int) ((double) (f1 * 2.0F) + 0.5D));
+        float f = (float) (worldX - this.xCenter) / i;
+        float f1 = (float) (worldZ - this.zCenter) / i;
+        byte b0 = (byte) ((int) ((f * 2.0F) + 0.5D));
+        byte b1 = (byte) ((int) ((f1 * 2.0F) + 0.5D));
         int j = 63;
         byte b2;
 
-        if (f >= (float) (-j) && f1 >= (float) (-j) && f <= (float) j && f1 <= (float) j) {
+        if (f >= (-j) && f1 >= (-j) && f <= j && f1 <= j) {
             rotation = rotation + (rotation < 0.0D ? -8.0D : 8.0D);
             b2 = (byte) ((int) (rotation * 16.0D / 360.0D));
 
@@ -153,19 +153,19 @@ public class MapData extends WorldSavedData {
             type = 6;
             b2 = 0;
 
-            if (f <= (float) (-j)) {
-                b0 = (byte) ((int) ((double) (j * 2) + 2.5D));
+            if (f <= (-j)) {
+                b0 = (byte) ((int) ((j * 2) + 2.5D));
             }
 
-            if (f1 <= (float) (-j)) {
-                b1 = (byte) ((int) ((double) (j * 2) + 2.5D));
+            if (f1 <= (-j)) {
+                b1 = (byte) ((int) ((j * 2) + 2.5D));
             }
 
-            if (f >= (float) j) {
+            if (f >= j) {
                 b0 = (byte) (j * 2 + 1);
             }
 
-            if (f1 >= (float) j) {
+            if (f1 >= j) {
                 b1 = (byte) (j * 2 + 1);
             }
         }

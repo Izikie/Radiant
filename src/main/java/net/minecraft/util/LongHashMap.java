@@ -83,7 +83,7 @@ public class LongHashMap<V> {
             this.copyHashTableTo(entry1);
             this.hashArray = entry1;
             this.mask = this.hashArray.length - 1;
-            float f = (float) p_76153_1_;
+            float f = p_76153_1_;
             this.getClass();
             this.capacity = (int) (f * 0.75F);
         }
@@ -166,7 +166,7 @@ public class LongHashMap<V> {
             }
         }
 
-        return 1.0D * (double) i / (double) this.numHashElements;
+        return 1.0D * i / this.numHashElements;
     }
 
     static class Entry<V> {

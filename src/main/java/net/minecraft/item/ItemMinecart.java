@@ -21,9 +21,9 @@ public class ItemMinecart extends Item {
         public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
             EnumFacing enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
             World world = source.getWorld();
-            double d0 = source.getX() + (double) enumfacing.getFrontOffsetX() * 1.125D;
-            double d1 = Math.floor(source.getY()) + (double) enumfacing.getFrontOffsetY();
-            double d2 = source.getZ() + (double) enumfacing.getFrontOffsetZ() * 1.125D;
+            double d0 = source.getX() + enumfacing.getFrontOffsetX() * 1.125D;
+            double d1 = Math.floor(source.getY()) + enumfacing.getFrontOffsetY();
+            double d2 = source.getZ() + enumfacing.getFrontOffsetZ() * 1.125D;
             BlockPos blockpos = source.getBlockPos().offset(enumfacing);
             IBlockState iblockstate = world.getBlockState(blockpos);
             BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = iblockstate.getBlock() instanceof BlockRailBase ? (BlockRailBase.EnumRailDirection) iblockstate.getValue(((BlockRailBase) iblockstate.getBlock()).getShapeProperty()) : BlockRailBase.EnumRailDirection.NORTH_SOUTH;
@@ -86,7 +86,7 @@ public class ItemMinecart extends Item {
                     d0 = 0.5D;
                 }
 
-                EntityMinecart entityminecart = EntityMinecart.getMinecart(worldIn, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.0625D + d0, (double) pos.getZ() + 0.5D, this.minecartType);
+                EntityMinecart entityminecart = EntityMinecart.getMinecart(worldIn, pos.getX() + 0.5D, pos.getY() + 0.0625D + d0, pos.getZ() + 0.5D, this.minecartType);
 
                 if (stack.hasDisplayName()) {
                     entityminecart.setCustomNameTag(stack.getDisplayName());

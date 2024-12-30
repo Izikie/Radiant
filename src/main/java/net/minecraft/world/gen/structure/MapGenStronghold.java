@@ -59,7 +59,7 @@ public class MapGenStronghold extends MapGenStructure {
             int i = 1;
 
             for (int j = 0; j < this.structureCoords.length; ++j) {
-                double d1 = (1.25D * (double) i + random.nextDouble()) * this.field_82671_h * (double) i;
+                double d1 = (1.25D * i + random.nextDouble()) * this.field_82671_h * i;
                 int k = (int) Math.round(Math.cos(d0) * d1);
                 int l = (int) Math.round(Math.sin(d0) * d1);
                 BlockPos blockpos = this.worldObj.getWorldChunkManager().findBiomePosition((k << 4) + 8, (l << 4) + 8, 112, this.field_151546_e, random);
@@ -70,7 +70,7 @@ public class MapGenStronghold extends MapGenStructure {
                 }
 
                 this.structureCoords[j] = new ChunkCoordIntPair(k, l);
-                d0 += (Math.PI * 2D) * (double) i / (double) this.field_82672_i;
+                d0 += (Math.PI * 2D) * i / this.field_82672_i;
 
                 if (j == this.field_82672_i) {
                     i += 2 + random.nextInt(5);

@@ -37,7 +37,7 @@ public class NBTTagCompound extends NBTBase {
 
             while ((b0 = readType(input, sizeTracker)) != 0) {
                 String s = readKey(input, sizeTracker);
-                sizeTracker.read((long) (224 + 16 * s.length()));
+                sizeTracker.read((224 + 16 * s.length()));
                 NBTBase nbtbase = readNBT(b0, s, input, depth + 1, sizeTracker);
 
                 if (this.tagMap.put(s, nbtbase) != null) {

@@ -30,7 +30,7 @@ public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntit
 
     public void renderTileEntityAt(TileEntitySkull te, double x, double y, double z, float partialTicks, int destroyStage) {
         EnumFacing enumfacing = EnumFacing.getFront(te.getBlockMetadata() & 7);
-        this.renderSkull((float) x, (float) y, (float) z, enumfacing, (float) (te.getSkullRotation() * 360) / 16.0F, te.getSkullType(), te.getPlayerProfile(), destroyStage);
+        this.renderSkull((float) x, (float) y, (float) z, enumfacing, (te.getSkullRotation() * 360) / 16.0F, te.getSkullType(), te.getPlayerProfile(), destroyStage);
     }
 
     public void setRendererDispatcher(TileEntityRendererDispatcher rendererDispatcherIn) {

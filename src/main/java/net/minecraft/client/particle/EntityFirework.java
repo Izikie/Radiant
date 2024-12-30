@@ -30,18 +30,18 @@ public class EntityFirework {
             float f1 = 0.5F;
             float f2 = 0.125F;
             float f3 = 0.375F;
-            float f4 = 7.1F * MathHelper.sin(((float) this.particleAge + partialTicks - 1.0F) * 0.25F * (float) Math.PI);
-            this.particleAlpha = 0.6F - ((float) this.particleAge + partialTicks - 1.0F) * 0.25F * 0.5F;
-            float f5 = (float) (this.prevPosX + (this.posX - this.prevPosX) * (double) partialTicks - interpPosX);
-            float f6 = (float) (this.prevPosY + (this.posY - this.prevPosY) * (double) partialTicks - interpPosY);
-            float f7 = (float) (this.prevPosZ + (this.posZ - this.prevPosZ) * (double) partialTicks - interpPosZ);
+            float f4 = 7.1F * MathHelper.sin((this.particleAge + partialTicks - 1.0F) * 0.25F * (float) Math.PI);
+            this.particleAlpha = 0.6F - (this.particleAge + partialTicks - 1.0F) * 0.25F * 0.5F;
+            float f5 = (float) (this.prevPosX + (this.posX - this.prevPosX) * partialTicks - interpPosX);
+            float f6 = (float) (this.prevPosY + (this.posY - this.prevPosY) * partialTicks - interpPosY);
+            float f7 = (float) (this.prevPosZ + (this.posZ - this.prevPosZ) * partialTicks - interpPosZ);
             int i = this.getBrightnessForRender(partialTicks);
             int j = i >> 16 & 65535;
             int k = i & 65535;
-            worldRendererIn.pos((double) (f5 - rotationX * f4 - rotationXY * f4), (double) (f6 - rotationZ * f4), (double) (f7 - rotationYZ * f4 - rotationXZ * f4)).tex(0.5D, 0.375D).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(j, k).endVertex();
-            worldRendererIn.pos((double) (f5 - rotationX * f4 + rotationXY * f4), (double) (f6 + rotationZ * f4), (double) (f7 - rotationYZ * f4 + rotationXZ * f4)).tex(0.5D, 0.125D).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(j, k).endVertex();
-            worldRendererIn.pos((double) (f5 + rotationX * f4 + rotationXY * f4), (double) (f6 + rotationZ * f4), (double) (f7 + rotationYZ * f4 + rotationXZ * f4)).tex(0.25D, 0.125D).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(j, k).endVertex();
-            worldRendererIn.pos((double) (f5 + rotationX * f4 - rotationXY * f4), (double) (f6 - rotationZ * f4), (double) (f7 + rotationYZ * f4 - rotationXZ * f4)).tex(0.25D, 0.375D).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(j, k).endVertex();
+            worldRendererIn.pos((f5 - rotationX * f4 - rotationXY * f4), (f6 - rotationZ * f4), (f7 - rotationYZ * f4 - rotationXZ * f4)).tex(0.5D, 0.375D).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(j, k).endVertex();
+            worldRendererIn.pos((f5 - rotationX * f4 + rotationXY * f4), (f6 + rotationZ * f4), (f7 - rotationYZ * f4 + rotationXZ * f4)).tex(0.5D, 0.125D).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(j, k).endVertex();
+            worldRendererIn.pos((f5 + rotationX * f4 + rotationXY * f4), (f6 + rotationZ * f4), (f7 + rotationYZ * f4 + rotationXZ * f4)).tex(0.25D, 0.125D).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(j, k).endVertex();
+            worldRendererIn.pos((f5 + rotationX * f4 - rotationXY * f4), (f6 - rotationZ * f4), (f7 + rotationYZ * f4 - rotationXZ * f4)).tex(0.25D, 0.375D).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(j, k).endVertex();
         }
     }
 
@@ -75,17 +75,17 @@ public class EntityFirework {
         }
 
         public void setColour(int colour) {
-            float f = (float) ((colour & 16711680) >> 16) / 255.0F;
-            float f1 = (float) ((colour & 65280) >> 8) / 255.0F;
-            float f2 = (float) ((colour & 255)) / 255.0F;
+            float f = ((colour & 16711680) >> 16) / 255.0F;
+            float f1 = ((colour & 65280) >> 8) / 255.0F;
+            float f2 = ((colour & 255)) / 255.0F;
             float f3 = 1.0F;
             this.setRBGColorF(f * f3, f1 * f3, f2 * f3);
         }
 
         public void setFadeColour(int faceColour) {
-            this.fadeColourRed = (float) ((faceColour & 16711680) >> 16) / 255.0F;
-            this.fadeColourGreen = (float) ((faceColour & 65280) >> 8) / 255.0F;
-            this.fadeColourBlue = (float) ((faceColour & 255)) / 255.0F;
+            this.fadeColourRed = ((faceColour & 16711680) >> 16) / 255.0F;
+            this.fadeColourGreen = ((faceColour & 65280) >> 8) / 255.0F;
+            this.fadeColourBlue = ((faceColour & 255)) / 255.0F;
             this.hasFadeColour = true;
         }
 
@@ -113,7 +113,7 @@ public class EntityFirework {
             }
 
             if (this.particleAge > this.particleMaxAge / 2) {
-                this.setAlphaF(1.0F - ((float) this.particleAge - (float) (this.particleMaxAge / 2)) / (float) this.particleMaxAge);
+                this.setAlphaF(1.0F - ((float) this.particleAge - (this.particleMaxAge / 2)) / this.particleMaxAge);
 
                 if (this.hasFadeColour) {
                     this.particleRed += (this.fadeColourRed - this.particleRed) * 0.2F;
@@ -247,9 +247,9 @@ public class EntityFirework {
                 }
 
                 int j = aint[0];
-                float f = (float) ((j & 16711680) >> 16) / 255.0F;
-                float f1 = (float) ((j & 65280) >> 8) / 255.0F;
-                float f2 = (float) ((j & 255)) / 255.0F;
+                float f = ((j & 16711680) >> 16) / 255.0F;
+                float f1 = ((j & 65280) >> 8) / 255.0F;
+                float f2 = ((j & 255)) / 255.0F;
                 EntityFirework.OverlayFX entityfirework$overlayfx = new EntityFirework.OverlayFX(this.worldObj, this.posX, this.posY, this.posZ);
                 entityfirework$overlayfx.setRBGColorF(f, f1, f2);
                 this.theEffectRenderer.addEffect(entityfirework$overlayfx);
@@ -296,10 +296,10 @@ public class EntityFirework {
             for (int i = -size; i <= size; ++i) {
                 for (int j = -size; j <= size; ++j) {
                     for (int k = -size; k <= size; ++k) {
-                        double d3 = (double) j + (this.rand.nextDouble() - this.rand.nextDouble()) * 0.5D;
-                        double d4 = (double) i + (this.rand.nextDouble() - this.rand.nextDouble()) * 0.5D;
-                        double d5 = (double) k + (this.rand.nextDouble() - this.rand.nextDouble()) * 0.5D;
-                        double d6 = (double) MathHelper.sqrt_double(d3 * d3 + d4 * d4 + d5 * d5) / speed + this.rand.nextGaussian() * 0.05D;
+                        double d3 = j + (this.rand.nextDouble() - this.rand.nextDouble()) * 0.5D;
+                        double d4 = i + (this.rand.nextDouble() - this.rand.nextDouble()) * 0.5D;
+                        double d5 = k + (this.rand.nextDouble() - this.rand.nextDouble()) * 0.5D;
+                        double d6 = MathHelper.sqrt_double(d3 * d3 + d4 * d4 + d5 * d5) / speed + this.rand.nextGaussian() * 0.05D;
                         this.createParticle(d0, d1, d2, d3 / d6, d4 / d6, d5 / d6, colours, fadeColours, trail, twinkleIn);
 
                         if (i != -size && i != size && j != -size && j != size) {
@@ -318,7 +318,7 @@ public class EntityFirework {
             double d2 = p_92038_8_ ? 0.034D : 0.34D;
 
             for (int i = 0; i < 3; ++i) {
-                double d3 = (double) f + (double) ((float) i * (float) Math.PI) * d2;
+                double d3 = f + (i * (float) Math.PI) * d2;
                 double d4 = d0;
                 double d5 = d1;
 

@@ -222,9 +222,9 @@ public class EffectRenderer {
         float f2 = ActiveRenderInfo.getRotationYZ();
         float f3 = ActiveRenderInfo.getRotationXY();
         float f4 = ActiveRenderInfo.getRotationXZ();
-        EntityFX.interpPosX = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * (double) partialTicks;
-        EntityFX.interpPosY = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * (double) partialTicks;
-        EntityFX.interpPosZ = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * (double) partialTicks;
+        EntityFX.interpPosX = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * partialTicks;
+        EntityFX.interpPosY = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * partialTicks;
+        EntityFX.interpPosZ = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * partialTicks;
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(770, 771);
         GlStateManager.alphaFunc(516, 0.003921569F);
@@ -337,10 +337,10 @@ public class EffectRenderer {
             for (int i = 0; i < l; ++i) {
                 for (int j = 0; j < l; ++j) {
                     for (int k = 0; k < l; ++k) {
-                        double d0 = (double) pos.getX() + ((double) i + 0.5D) / (double) l;
-                        double d1 = (double) pos.getY() + ((double) j + 0.5D) / (double) l;
-                        double d2 = (double) pos.getZ() + ((double) k + 0.5D) / (double) l;
-                        this.addEffect((new EntityDiggingFX(this.worldObj, d0, d1, d2, d0 - (double) pos.getX() - 0.5D, d1 - (double) pos.getY() - 0.5D, d2 - (double) pos.getZ() - 0.5D, state)).setBlockPos(pos));
+                        double d0 = pos.getX() + (i + 0.5D) / l;
+                        double d1 = pos.getY() + (j + 0.5D) / l;
+                        double d2 = pos.getZ() + (k + 0.5D) / l;
+                        this.addEffect((new EntityDiggingFX(this.worldObj, d0, d1, d2, d0 - pos.getX() - 0.5D, d1 - pos.getY() - 0.5D, d2 - pos.getZ() - 0.5D, state)).setBlockPos(pos));
                     }
                 }
             }
@@ -356,32 +356,32 @@ public class EffectRenderer {
             int j = pos.getY();
             int k = pos.getZ();
             float f = 0.1F;
-            double d0 = (double) i + this.rand.nextDouble() * (block.getBlockBoundsMaxX() - block.getBlockBoundsMinX() - (double) (f * 2.0F)) + (double) f + block.getBlockBoundsMinX();
-            double d1 = (double) j + this.rand.nextDouble() * (block.getBlockBoundsMaxY() - block.getBlockBoundsMinY() - (double) (f * 2.0F)) + (double) f + block.getBlockBoundsMinY();
-            double d2 = (double) k + this.rand.nextDouble() * (block.getBlockBoundsMaxZ() - block.getBlockBoundsMinZ() - (double) (f * 2.0F)) + (double) f + block.getBlockBoundsMinZ();
+            double d0 = i + this.rand.nextDouble() * (block.getBlockBoundsMaxX() - block.getBlockBoundsMinX() - (f * 2.0F)) + f + block.getBlockBoundsMinX();
+            double d1 = j + this.rand.nextDouble() * (block.getBlockBoundsMaxY() - block.getBlockBoundsMinY() - (f * 2.0F)) + f + block.getBlockBoundsMinY();
+            double d2 = k + this.rand.nextDouble() * (block.getBlockBoundsMaxZ() - block.getBlockBoundsMinZ() - (f * 2.0F)) + f + block.getBlockBoundsMinZ();
 
             if (side == EnumFacing.DOWN) {
-                d1 = (double) j + block.getBlockBoundsMinY() - (double) f;
+                d1 = j + block.getBlockBoundsMinY() - f;
             }
 
             if (side == EnumFacing.UP) {
-                d1 = (double) j + block.getBlockBoundsMaxY() + (double) f;
+                d1 = j + block.getBlockBoundsMaxY() + f;
             }
 
             if (side == EnumFacing.NORTH) {
-                d2 = (double) k + block.getBlockBoundsMinZ() - (double) f;
+                d2 = k + block.getBlockBoundsMinZ() - f;
             }
 
             if (side == EnumFacing.SOUTH) {
-                d2 = (double) k + block.getBlockBoundsMaxZ() + (double) f;
+                d2 = k + block.getBlockBoundsMaxZ() + f;
             }
 
             if (side == EnumFacing.WEST) {
-                d0 = (double) i + block.getBlockBoundsMinX() - (double) f;
+                d0 = i + block.getBlockBoundsMinX() - f;
             }
 
             if (side == EnumFacing.EAST) {
-                d0 = (double) i + block.getBlockBoundsMaxX() + (double) f;
+                d0 = i + block.getBlockBoundsMaxX() + f;
             }
 
             this.addEffect((new EntityDiggingFX(this.worldObj, d0, d1, d2, 0.0D, 0.0D, 0.0D, iblockstate)).setBlockPos(pos).multiplyVelocity(0.2F).multipleParticleScaleBy(0.6F));

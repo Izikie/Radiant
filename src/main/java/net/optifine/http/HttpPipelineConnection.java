@@ -241,7 +241,7 @@ public class HttpPipelineConnection {
                         int j = Config.parseInt(astring1[1], -1);
 
                         if (j > 0) {
-                            this.keepaliveTimeoutMs = (long) (j * 1000);
+                            this.keepaliveTimeoutMs = (j * 1000);
                         }
                     }
 

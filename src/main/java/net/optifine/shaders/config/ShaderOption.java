@@ -183,7 +183,7 @@ public abstract class ShaderOption {
             if (i < 0) {
                 return 0.0F;
             } else {
-                float f = 1.0F * (float) i / ((float) this.values.length - 1.0F);
+                float f = 1.0F * i / (this.values.length - 1.0F);
                 return f;
             }
         }
@@ -192,7 +192,7 @@ public abstract class ShaderOption {
     public void setIndexNormalized(float f) {
         if (this.values.length > 1) {
             f = Config.limit(f, 0.0F, 1.0F);
-            int i = Math.round(f * (float) (this.values.length - 1));
+            int i = Math.round(f * (this.values.length - 1));
             this.value = this.values[i];
         }
     }

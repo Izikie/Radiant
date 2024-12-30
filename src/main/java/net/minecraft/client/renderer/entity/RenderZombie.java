@@ -71,7 +71,7 @@ public class RenderZombie extends RenderBiped<EntityZombie> {
 
     protected void rotateCorpse(EntityZombie bat, float p_77043_2_, float p_77043_3_, float partialTicks) {
         if (bat.isConverting()) {
-            p_77043_3_ += (float) (Math.cos((double) bat.ticksExisted * 3.25D) * Math.PI * 0.25D);
+            p_77043_3_ += (float) (Math.cos(bat.ticksExisted * 3.25D) * Math.PI * 0.25D);
         }
 
         super.rotateCorpse(bat, p_77043_2_, p_77043_3_, partialTicks);

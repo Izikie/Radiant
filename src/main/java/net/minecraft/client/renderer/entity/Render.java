@@ -102,7 +102,7 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
         float f3 = entity.height / f;
         float f4 = (float) (entity.posY - entity.getEntityBoundingBox().minY);
         GlStateManager.rotate(-this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-        GlStateManager.translate(0.0F, 0.0F, -0.3F + (float) ((int) f3) * 0.02F);
+        GlStateManager.translate(0.0F, 0.0F, -0.3F + ((int) f3) * 0.02F);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         float f5 = 0.0F;
         int i = 0;
@@ -129,10 +129,10 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
                 f6 = f10;
             }
 
-            worldrenderer.pos((double) (f1 - f2), (double) (0.0F - f4), (double) f5).tex((double) f8, (double) f9).endVertex();
-            worldrenderer.pos((double) (-f1 - f2), (double) (0.0F - f4), (double) f5).tex((double) f6, (double) f9).endVertex();
-            worldrenderer.pos((double) (-f1 - f2), (double) (1.4F - f4), (double) f5).tex((double) f6, (double) f7).endVertex();
-            worldrenderer.pos((double) (f1 - f2), (double) (1.4F - f4), (double) f5).tex((double) f8, (double) f7).endVertex();
+            worldrenderer.pos((f1 - f2), (0.0F - f4), f5).tex(f8, f9).endVertex();
+            worldrenderer.pos((-f1 - f2), (0.0F - f4), f5).tex(f6, f9).endVertex();
+            worldrenderer.pos((-f1 - f2), (1.4F - f4), f5).tex(f6, f7).endVertex();
+            worldrenderer.pos((f1 - f2), (1.4F - f4), f5).tex(f8, f7).endVertex();
             f3 -= 0.45F;
             f4 -= 0.45F;
             f1 *= 0.9F;
@@ -168,15 +168,15 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
                 }
             }
 
-            double d5 = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * (double) partialTicks;
-            double d0 = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * (double) partialTicks;
-            double d1 = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * (double) partialTicks;
-            int i = MathHelper.floor_double(d5 - (double) f);
-            int j = MathHelper.floor_double(d5 + (double) f);
-            int k = MathHelper.floor_double(d0 - (double) f);
+            double d5 = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * partialTicks;
+            double d0 = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * partialTicks;
+            double d1 = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * partialTicks;
+            int i = MathHelper.floor_double(d5 - f);
+            int j = MathHelper.floor_double(d5 + f);
+            int k = MathHelper.floor_double(d0 - f);
             int l = MathHelper.floor_double(d0);
-            int i1 = MathHelper.floor_double(d1 - (double) f);
-            int j1 = MathHelper.floor_double(d1 + (double) f);
+            int i1 = MathHelper.floor_double(d1 - f);
+            int j1 = MathHelper.floor_double(d1 + f);
             double d2 = x - d5;
             double d3 = y - d0;
             double d4 = z - d1;
@@ -207,26 +207,26 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
         if (blockIn.isFullCube()) {
             Tessellator tessellator = Tessellator.getInstance();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-            double d0 = ((double) p_180549_9_ - (p_180549_4_ - ((double) pos.getY() + p_180549_13_)) / 2.0D) * 0.5D * (double) this.getWorldFromRenderManager().getLightBrightness(pos);
+            double d0 = (p_180549_9_ - (p_180549_4_ - (pos.getY() + p_180549_13_)) / 2.0D) * 0.5D * this.getWorldFromRenderManager().getLightBrightness(pos);
 
             if (d0 >= 0.0D) {
                 if (d0 > 1.0D) {
                     d0 = 1.0D;
                 }
 
-                double d1 = (double) pos.getX() + blockIn.getBlockBoundsMinX() + p_180549_11_;
-                double d2 = (double) pos.getX() + blockIn.getBlockBoundsMaxX() + p_180549_11_;
-                double d3 = (double) pos.getY() + blockIn.getBlockBoundsMinY() + p_180549_13_ + 0.015625D;
-                double d4 = (double) pos.getZ() + blockIn.getBlockBoundsMinZ() + p_180549_15_;
-                double d5 = (double) pos.getZ() + blockIn.getBlockBoundsMaxZ() + p_180549_15_;
-                float f = (float) ((p_180549_2_ - d1) / 2.0D / (double) p_180549_10_ + 0.5D);
-                float f1 = (float) ((p_180549_2_ - d2) / 2.0D / (double) p_180549_10_ + 0.5D);
-                float f2 = (float) ((p_180549_6_ - d4) / 2.0D / (double) p_180549_10_ + 0.5D);
-                float f3 = (float) ((p_180549_6_ - d5) / 2.0D / (double) p_180549_10_ + 0.5D);
-                worldrenderer.pos(d1, d3, d4).tex((double) f, (double) f2).color(1.0F, 1.0F, 1.0F, (float) d0).endVertex();
-                worldrenderer.pos(d1, d3, d5).tex((double) f, (double) f3).color(1.0F, 1.0F, 1.0F, (float) d0).endVertex();
-                worldrenderer.pos(d2, d3, d5).tex((double) f1, (double) f3).color(1.0F, 1.0F, 1.0F, (float) d0).endVertex();
-                worldrenderer.pos(d2, d3, d4).tex((double) f1, (double) f2).color(1.0F, 1.0F, 1.0F, (float) d0).endVertex();
+                double d1 = pos.getX() + blockIn.getBlockBoundsMinX() + p_180549_11_;
+                double d2 = pos.getX() + blockIn.getBlockBoundsMaxX() + p_180549_11_;
+                double d3 = pos.getY() + blockIn.getBlockBoundsMinY() + p_180549_13_ + 0.015625D;
+                double d4 = pos.getZ() + blockIn.getBlockBoundsMinZ() + p_180549_15_;
+                double d5 = pos.getZ() + blockIn.getBlockBoundsMaxZ() + p_180549_15_;
+                float f = (float) ((p_180549_2_ - d1) / 2.0D / p_180549_10_ + 0.5D);
+                float f1 = (float) ((p_180549_2_ - d2) / 2.0D / p_180549_10_ + 0.5D);
+                float f2 = (float) ((p_180549_6_ - d4) / 2.0D / p_180549_10_ + 0.5D);
+                float f3 = (float) ((p_180549_6_ - d5) / 2.0D / p_180549_10_ + 0.5D);
+                worldrenderer.pos(d1, d3, d4).tex(f, f2).color(1.0F, 1.0F, 1.0F, (float) d0).endVertex();
+                worldrenderer.pos(d1, d3, d5).tex(f, f3).color(1.0F, 1.0F, 1.0F, (float) d0).endVertex();
+                worldrenderer.pos(d2, d3, d5).tex(f1, f3).color(1.0F, 1.0F, 1.0F, (float) d0).endVertex();
+                worldrenderer.pos(d2, d3, d4).tex(f1, f2).color(1.0F, 1.0F, 1.0F, (float) d0).endVertex();
             }
         }
     }
@@ -271,7 +271,7 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
         if (this.renderManager.options != null) {
             if (this.renderManager.options.entityShadows && this.shadowSize > 0.0F && !entityIn.isInvisible() && this.renderManager.isRenderShadow()) {
                 double d0 = this.renderManager.getDistanceToCamera(entityIn.posX, entityIn.posY, entityIn.posZ);
-                float f = (float) ((1.0D - d0 / 256.0D) * (double) this.shadowOpaque);
+                float f = (float) ((1.0D - d0 / 256.0D) * this.shadowOpaque);
 
                 if (f > 0.0F) {
                     this.renderShadow(entityIn, x, y, z, f, partialTicks);
@@ -291,7 +291,7 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
     protected void renderLivingLabel(T entityIn, String str, double x, double y, double z, int maxDistance) {
         double d0 = entityIn.getDistanceSqToEntity(this.renderManager.livingPlayer);
 
-        if (d0 <= (double) (maxDistance * maxDistance)) {
+        if (d0 <= (maxDistance * maxDistance)) {
             FontRenderer fontrenderer = this.getFontRendererFromRenderManager();
             float f = 1.6F;
             float f1 = 0.016666668F * f;
@@ -317,10 +317,10 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
             int j = fontrenderer.getStringWidth(str) / 2;
             GlStateManager.disableTexture2D();
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-            worldrenderer.pos((double) (-j - 1), (double) (-1 + i), 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-            worldrenderer.pos((double) (-j - 1), (double) (8 + i), 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-            worldrenderer.pos((double) (j + 1), (double) (8 + i), 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-            worldrenderer.pos((double) (j + 1), (double) (-1 + i), 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+            worldrenderer.pos((-j - 1), (-1 + i), 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+            worldrenderer.pos((-j - 1), (8 + i), 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+            worldrenderer.pos((j + 1), (8 + i), 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+            worldrenderer.pos((j + 1), (-1 + i), 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
             tessellator.draw();
             GlStateManager.enableTexture2D();
             fontrenderer.drawString(str, -fontrenderer.getStringWidth(str) / 2, i, 553648127);

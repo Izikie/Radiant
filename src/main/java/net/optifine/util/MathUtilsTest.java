@@ -20,8 +20,8 @@ public class MathUtilsTest {
         switch (oper) {
             case SIN:
             case COS:
-                d0 = (double) (-MathHelper.PI);
-                d1 = (double) MathHelper.PI;
+                d0 = (-MathHelper.PI);
+                d1 = MathHelper.PI;
                 break;
 
             case ASIN:
@@ -37,7 +37,7 @@ public class MathUtilsTest {
         int i = 10;
 
         for (int j = 0; j <= i; ++j) {
-            double d2 = d0 + (double) j * (d1 - d0) / (double) i;
+            double d2 = d0 + j * (d1 - d0) / i;
             float f;
             float f1;
 

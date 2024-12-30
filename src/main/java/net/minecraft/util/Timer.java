@@ -24,14 +24,14 @@ public class Timer {
         long i = Minecraft.getSystemTime();
         long j = i - this.lastSyncSysClock;
         long k = System.nanoTime() / 1000000L;
-        double d0 = (double) k / 1000.0D;
+        double d0 = k / 1000.0D;
 
         if (j <= 1000L && j >= 0L) {
             this.counter += j;
 
             if (this.counter > 1000L) {
                 long l = k - this.lastSyncHRClock;
-                double d1 = (double) this.counter / (double) l;
+                double d1 = (double) this.counter / l;
                 this.timeSyncAdjustment += (d1 - this.timeSyncAdjustment) * 0.20000000298023224D;
                 this.lastSyncHRClock = k;
                 this.counter = 0L;
@@ -48,9 +48,9 @@ public class Timer {
         double d2 = (d0 - this.lastHRTime) * this.timeSyncAdjustment;
         this.lastHRTime = d0;
         d2 = MathHelper.clamp_double(d2, 0.0D, 1.0D);
-        this.elapsedPartialTicks = (float) ((double) this.elapsedPartialTicks + d2 * (double) this.timerSpeed * (double) this.ticksPerSecond);
+        this.elapsedPartialTicks = (float) (this.elapsedPartialTicks + d2 * this.timerSpeed * this.ticksPerSecond);
         this.elapsedTicks = (int) this.elapsedPartialTicks;
-        this.elapsedPartialTicks -= (float) this.elapsedTicks;
+        this.elapsedPartialTicks -= this.elapsedTicks;
 
         if (this.elapsedTicks > 10) {
             this.elapsedTicks = 10;

@@ -61,15 +61,15 @@ public class TileEntityPiston extends TileEntity implements ITickable {
     }
 
     public float getOffsetX(float ticks) {
-        return this.extending ? (this.getProgress(ticks) - 1.0F) * (float) this.pistonFacing.getFrontOffsetX() : (1.0F - this.getProgress(ticks)) * (float) this.pistonFacing.getFrontOffsetX();
+        return this.extending ? (this.getProgress(ticks) - 1.0F) * this.pistonFacing.getFrontOffsetX() : (1.0F - this.getProgress(ticks)) * this.pistonFacing.getFrontOffsetX();
     }
 
     public float getOffsetY(float ticks) {
-        return this.extending ? (this.getProgress(ticks) - 1.0F) * (float) this.pistonFacing.getFrontOffsetY() : (1.0F - this.getProgress(ticks)) * (float) this.pistonFacing.getFrontOffsetY();
+        return this.extending ? (this.getProgress(ticks) - 1.0F) * this.pistonFacing.getFrontOffsetY() : (1.0F - this.getProgress(ticks)) * this.pistonFacing.getFrontOffsetY();
     }
 
     public float getOffsetZ(float ticks) {
-        return this.extending ? (this.getProgress(ticks) - 1.0F) * (float) this.pistonFacing.getFrontOffsetZ() : (1.0F - this.getProgress(ticks)) * (float) this.pistonFacing.getFrontOffsetZ();
+        return this.extending ? (this.getProgress(ticks) - 1.0F) * this.pistonFacing.getFrontOffsetZ() : (1.0F - this.getProgress(ticks)) * this.pistonFacing.getFrontOffsetZ();
     }
 
     private void launchWithSlimeBlock(float p_145863_1_, float p_145863_2_) {
@@ -91,18 +91,18 @@ public class TileEntityPiston extends TileEntity implements ITickable {
                     if (this.pistonState.getBlock() == Blocks.slime_block && this.extending) {
                         switch (this.pistonFacing.getAxis()) {
                             case X:
-                                entity.motionX = (double) this.pistonFacing.getFrontOffsetX();
+                                entity.motionX = this.pistonFacing.getFrontOffsetX();
                                 break;
 
                             case Y:
-                                entity.motionY = (double) this.pistonFacing.getFrontOffsetY();
+                                entity.motionY = this.pistonFacing.getFrontOffsetY();
                                 break;
 
                             case Z:
-                                entity.motionZ = (double) this.pistonFacing.getFrontOffsetZ();
+                                entity.motionZ = this.pistonFacing.getFrontOffsetZ();
                         }
                     } else {
-                        entity.moveEntity((double) (p_145863_2_ * (float) this.pistonFacing.getFrontOffsetX()), (double) (p_145863_2_ * (float) this.pistonFacing.getFrontOffsetY()), (double) (p_145863_2_ * (float) this.pistonFacing.getFrontOffsetZ()));
+                        entity.moveEntity((p_145863_2_ * this.pistonFacing.getFrontOffsetX()), (p_145863_2_ * this.pistonFacing.getFrontOffsetY()), (p_145863_2_ * this.pistonFacing.getFrontOffsetZ()));
                     }
                 }
 

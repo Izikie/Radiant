@@ -73,13 +73,13 @@ public class EntityAIControlledByPlayer extends EntityAIBase {
                 this.speedBoosted = false;
             }
 
-            f1 += f1 * 1.15F * MathHelper.sin((float) this.speedBoostTime / (float) this.maxSpeedBoostTime * (float) Math.PI);
+            f1 += f1 * 1.15F * MathHelper.sin((float) this.speedBoostTime / this.maxSpeedBoostTime * (float) Math.PI);
         }
 
         float f2 = 0.91F;
 
         if (this.thisEntity.onGround) {
-            f2 = this.thisEntity.worldObj.getBlockState(new BlockPos(MathHelper.floor_float((float) i), MathHelper.floor_float((float) j) - 1, MathHelper.floor_float((float) k))).getBlock().slipperiness * 0.91F;
+            f2 = this.thisEntity.worldObj.getBlockState(new BlockPos(MathHelper.floor_float(i), MathHelper.floor_float(j) - 1, MathHelper.floor_float(k))).getBlock().slipperiness * 0.91F;
         }
 
         float f3 = 0.16277136F / (f2 * f2 * f2);
@@ -114,8 +114,8 @@ public class EntityAIControlledByPlayer extends EntityAIBase {
             }
         }
 
-        int l = MathHelper.floor_double(this.thisEntity.posX + (double) f9);
-        int i1 = MathHelper.floor_double(this.thisEntity.posZ + (double) f10);
+        int l = MathHelper.floor_double(this.thisEntity.posX + f9);
+        int i1 = MathHelper.floor_double(this.thisEntity.posZ + f10);
         int j1 = MathHelper.floor_float(this.thisEntity.width + 1.0F);
         int k1 = MathHelper.floor_float(this.thisEntity.height + entityplayer.height + 1.0F);
         int l1 = MathHelper.floor_float(this.thisEntity.width + 1.0F);

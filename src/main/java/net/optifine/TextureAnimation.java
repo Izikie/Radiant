@@ -152,7 +152,7 @@ public class TextureAnimation {
                             if (this.interpolate && textureanimationframe.counter > 0) {
                                 if (this.interpolateSkip <= 1 || textureanimationframe.counter % this.interpolateSkip == 0) {
                                     TextureAnimationFrame textureanimationframe1 = this.getFrame(this.currentFrameIndex + 1);
-                                    double d0 = 1.0D * (double) textureanimationframe.counter / (double) textureanimationframe.duration;
+                                    double d0 = 1.0D * textureanimationframe.counter / textureanimationframe.duration;
                                     this.updateTextureInerpolate(textureanimationframe, textureanimationframe1, d0);
                                 }
                             } else {
@@ -193,7 +193,7 @@ public class TextureAnimation {
     }
 
     private int mix(int col1, int col2, double k) {
-        return (int) ((double) col1 * (1.0D - k) + (double) col2 * k);
+        return (int) (col1 * (1.0D - k) + col2 * k);
     }
 
     public String getSrcTex() {

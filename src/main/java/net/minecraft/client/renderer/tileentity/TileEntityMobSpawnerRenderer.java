@@ -20,7 +20,7 @@ public class TileEntityMobSpawnerRenderer extends TileEntitySpecialRenderer<Tile
         if (entity != null) {
             float f = 0.4375F;
             GlStateManager.translate(0.0F, 0.4F, 0.0F);
-            GlStateManager.rotate((float) (mobSpawnerLogic.getPrevMobRotation() + (mobSpawnerLogic.getMobRotation() - mobSpawnerLogic.getPrevMobRotation()) * (double) partialTicks) * 10.0F, 0.0F, 1.0F, 0.0F);
+            GlStateManager.rotate((float) (mobSpawnerLogic.getPrevMobRotation() + (mobSpawnerLogic.getMobRotation() - mobSpawnerLogic.getPrevMobRotation()) * partialTicks) * 10.0F, 0.0F, 1.0F, 0.0F);
             GlStateManager.rotate(-30.0F, 1.0F, 0.0F, 0.0F);
             GlStateManager.translate(0.0F, -0.4F, 0.0F);
             GlStateManager.scale(f, f, f);

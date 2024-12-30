@@ -84,10 +84,10 @@ public enum RenderEntityParameterFloat implements IExpressionFloat {
                                 return entitylivingbase.getHealth();
 
                             case HURT_TIME:
-                                return (float) entitylivingbase.hurtTime;
+                                return entitylivingbase.hurtTime;
 
                             case IDLE_TIME:
-                                return (float) entitylivingbase.getAge();
+                                return entitylivingbase.getAge();
 
                             case MAX_HEALTH:
                                 return entitylivingbase.getMaxHealth();
@@ -108,7 +108,7 @@ public enum RenderEntityParameterFloat implements IExpressionFloat {
                                 return (float) entitylivingbase.posZ;
 
                             case REVENGE_TIME:
-                                return (float) entitylivingbase.getRevengeTimer();
+                                return entitylivingbase.getRevengeTimer();
 
                             case SWING_PROGRESS:
                                 return entitylivingbase.getSwingProgress(rendererlivingentity.renderPartialTicks);

@@ -35,7 +35,7 @@ public class VillageSiege {
             if (this.field_75536_c == 0) {
                 float f = this.worldObj.getCelestialAngle(0.0F);
 
-                if ((double) f < 0.5D || (double) f > 0.501D) {
+                if (f < 0.5D || f > 0.501D) {
                     return;
                 }
 
@@ -88,14 +88,14 @@ public class VillageSiege {
 
                 if (this.theVillage != null && this.theVillage.getNumVillageDoors() >= 10 && this.theVillage.getTicksSinceLastDoorAdding() >= 20 && this.theVillage.getNumVillagers() >= 20) {
                     BlockPos blockpos = this.theVillage.getCenter();
-                    float f = (float) this.theVillage.getVillageRadius();
+                    float f = this.theVillage.getVillageRadius();
                     boolean flag = false;
 
                     for (int i = 0; i < 10; ++i) {
                         float f1 = this.worldObj.rand.nextFloat() * (float) Math.PI * 2.0F;
-                        this.field_75532_g = blockpos.getX() + (int) ((double) (MathHelper.cos(f1) * f) * 0.9D);
+                        this.field_75532_g = blockpos.getX() + (int) ((MathHelper.cos(f1) * f) * 0.9D);
                         this.field_75538_h = blockpos.getY();
-                        this.field_75539_i = blockpos.getZ() + (int) ((double) (MathHelper.sin(f1) * f) * 0.9D);
+                        this.field_75539_i = blockpos.getZ() + (int) ((MathHelper.sin(f1) * f) * 0.9D);
                         flag = false;
 
                         for (Village village : this.worldObj.getVillageCollection().getVillageList()) {
@@ -158,7 +158,7 @@ public class VillageSiege {
             BlockPos blockpos = p_179867_1_.add(this.worldObj.rand.nextInt(16) - 8, this.worldObj.rand.nextInt(6) - 3, this.worldObj.rand.nextInt(16) - 8);
 
             if (this.theVillage.func_179866_a(blockpos) && SpawnerAnimals.canCreatureTypeSpawnAtLocation(EntityLiving.SpawnPlacementType.ON_GROUND, this.worldObj, blockpos)) {
-                return new Vec3((double) blockpos.getX(), (double) blockpos.getY(), (double) blockpos.getZ());
+                return new Vec3(blockpos.getX(), blockpos.getY(), blockpos.getZ());
             }
         }
 

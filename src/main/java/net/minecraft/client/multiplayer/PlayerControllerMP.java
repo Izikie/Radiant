@@ -215,7 +215,7 @@ public class PlayerControllerMP {
                 this.curBlockDamageMP += block.getPlayerRelativeBlockHardness(this.mc.thePlayer, this.mc.thePlayer.worldObj, posBlock);
 
                 if (this.stepSoundTickCounter % 4.0F == 0.0F) {
-                    this.mc.getSoundHandler().playSound(new PositionedSoundRecord(new ResourceLocation(block.stepSound.getStepSound()), (block.stepSound.getVolume() + 1.0F) / 8.0F, block.stepSound.getFrequency() * 0.5F, (float) posBlock.getX() + 0.5F, (float) posBlock.getY() + 0.5F, (float) posBlock.getZ() + 0.5F));
+                    this.mc.getSoundHandler().playSound(new PositionedSoundRecord(new ResourceLocation(block.stepSound.getStepSound()), (block.stepSound.getVolume() + 1.0F) / 8.0F, block.stepSound.getFrequency() * 0.5F, posBlock.getX() + 0.5F, posBlock.getY() + 0.5F, posBlock.getZ() + 0.5F));
                 }
 
                 ++this.stepSoundTickCounter;
@@ -273,9 +273,9 @@ public class PlayerControllerMP {
 
     public boolean onPlayerRightClick(EntityPlayerSP player, WorldClient worldIn, ItemStack heldStack, BlockPos hitPos, EnumFacing side, Vec3 hitVec) {
         this.syncCurrentPlayItem();
-        float f = (float) (hitVec.xCoord - (double) hitPos.getX());
-        float f1 = (float) (hitVec.yCoord - (double) hitPos.getY());
-        float f2 = (float) (hitVec.zCoord - (double) hitPos.getZ());
+        float f = (float) (hitVec.xCoord - hitPos.getX());
+        float f1 = (float) (hitVec.yCoord - hitPos.getY());
+        float f2 = (float) (hitVec.zCoord - hitPos.getZ());
         boolean flag = false;
 
         if (!this.mc.theWorld.getWorldBorder().contains(hitPos)) {

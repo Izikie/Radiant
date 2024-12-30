@@ -40,7 +40,7 @@ public class NoiseGeneratorSimplex {
     }
 
     private static double func_151604_a(int[] p_151604_0_, double p_151604_1_, double p_151604_3_) {
-        return (double) p_151604_0_[0] * p_151604_1_ + (double) p_151604_0_[1] * p_151604_3_;
+        return p_151604_0_[0] * p_151604_1_ + p_151604_0_[1] * p_151604_3_;
     }
 
     public double func_151605_a(double p_151605_1_, double p_151605_3_) {
@@ -49,9 +49,9 @@ public class NoiseGeneratorSimplex {
         int i = func_151607_a(p_151605_1_ + d4);
         int j = func_151607_a(p_151605_3_ + d4);
         double d5 = (3.0D - field_151614_a) / 6.0D;
-        double d6 = (double) (i + j) * d5;
-        double d7 = (double) i - d6;
-        double d8 = (double) j - d6;
+        double d6 = (i + j) * d5;
+        double d7 = i - d6;
+        double d8 = j - d6;
         double d9 = p_151605_1_ - d7;
         double d10 = p_151605_3_ - d8;
         int k;
@@ -65,8 +65,8 @@ public class NoiseGeneratorSimplex {
             l = 1;
         }
 
-        double d11 = d9 - (double) k + d5;
-        double d12 = d10 - (double) l + d5;
+        double d11 = d9 - k + d5;
+        double d12 = d10 - l + d5;
         double d13 = d9 - 1.0D + 2.0D * d5;
         double d14 = d10 - 1.0D + 2.0D * d5;
         int i1 = i & 255;
@@ -111,16 +111,16 @@ public class NoiseGeneratorSimplex {
         int i = 0;
 
         for (int j = 0; j < p_151606_7_; ++j) {
-            double d0 = (p_151606_4_ + (double) j) * p_151606_10_ + this.field_151613_c;
+            double d0 = (p_151606_4_ + j) * p_151606_10_ + this.field_151613_c;
 
             for (int k = 0; k < p_151606_6_; ++k) {
-                double d1 = (p_151606_2_ + (double) k) * p_151606_8_ + this.field_151612_b;
+                double d1 = (p_151606_2_ + k) * p_151606_8_ + this.field_151612_b;
                 double d5 = (d1 + d0) * field_151609_g;
                 int l = func_151607_a(d1 + d5);
                 int i1 = func_151607_a(d0 + d5);
-                double d6 = (double) (l + i1) * field_151615_h;
-                double d7 = (double) l - d6;
-                double d8 = (double) i1 - d6;
+                double d6 = (l + i1) * field_151615_h;
+                double d7 = l - d6;
+                double d8 = i1 - d6;
                 double d9 = d1 - d7;
                 double d10 = d0 - d8;
                 int j1;
@@ -134,8 +134,8 @@ public class NoiseGeneratorSimplex {
                     k1 = 1;
                 }
 
-                double d11 = d9 - (double) j1 + field_151615_h;
-                double d12 = d10 - (double) k1 + field_151615_h;
+                double d11 = d9 - j1 + field_151615_h;
+                double d12 = d10 - k1 + field_151615_h;
                 double d13 = d9 - 1.0D + 2.0D * field_151615_h;
                 double d14 = d10 - 1.0D + 2.0D * field_151615_h;
                 int l1 = l & 255;

@@ -22,7 +22,7 @@ public class EntityLookHelper {
         this.posX = entityIn.posX;
 
         if (entityIn instanceof EntityLivingBase) {
-            this.posY = entityIn.posY + (double) entityIn.getEyeHeight();
+            this.posY = entityIn.posY + entityIn.getEyeHeight();
         } else {
             this.posY = (entityIn.getEntityBoundingBox().minY + entityIn.getEntityBoundingBox().maxY) / 2.0D;
         }
@@ -48,9 +48,9 @@ public class EntityLookHelper {
         if (this.isLooking) {
             this.isLooking = false;
             double d0 = this.posX - this.entity.posX;
-            double d1 = this.posY - (this.entity.posY + (double) this.entity.getEyeHeight());
+            double d1 = this.posY - (this.entity.posY + this.entity.getEyeHeight());
             double d2 = this.posZ - this.entity.posZ;
-            double d3 = (double) MathHelper.sqrt_double(d0 * d0 + d2 * d2);
+            double d3 = MathHelper.sqrt_double(d0 * d0 + d2 * d2);
             float f = (float) (MathHelper.atan2(d2, d0) * 180.0D / Math.PI) - 90.0F;
             float f1 = (float) (-(MathHelper.atan2(d1, d3) * 180.0D / Math.PI));
             this.entity.rotationPitch = this.updateRotation(this.entity.rotationPitch, f1, this.deltaLookPitch);

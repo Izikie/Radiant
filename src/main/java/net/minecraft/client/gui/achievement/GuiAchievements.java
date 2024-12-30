@@ -51,8 +51,8 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
         this.statFileWriter = statFileWriterIn;
         int i = 141;
         int j = 141;
-        this.field_146569_s = this.field_146567_u = this.field_146565_w = (double) (AchievementList.openInventory.displayColumn * 24 - i / 2 - 12);
-        this.field_146568_t = this.field_146566_v = this.field_146573_x = (double) (AchievementList.openInventory.displayRow * 24 - j / 2);
+        this.field_146569_s = this.field_146567_u = this.field_146565_w = (AchievementList.openInventory.displayColumn * 24 - i / 2 - 12);
+        this.field_146568_t = this.field_146566_v = this.field_146573_x = (AchievementList.openInventory.displayRow * 24 - j / 2);
     }
 
     public void initGui() {
@@ -82,7 +82,7 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
         if (this.loadingAchievements) {
             this.drawDefaultBackground();
             this.drawCenteredString(this.fontRendererObj, I18n.format("multiplayer.downloadingStats", new Object[0]), this.width / 2, this.height / 2, 16777215);
-            this.drawCenteredString(this.fontRendererObj, lanSearchStates[(int) (Minecraft.getSystemTime() / 150L % (long) lanSearchStates.length)], this.width / 2, this.height / 2 + this.fontRendererObj.FONT_HEIGHT * 2, 16777215);
+            this.drawCenteredString(this.fontRendererObj, lanSearchStates[(int) (Minecraft.getSystemTime() / 150L % lanSearchStates.length)], this.width / 2, this.height / 2 + this.fontRendererObj.FONT_HEIGHT * 2, 16777215);
         } else {
             if (Mouse.isButtonDown(0)) {
                 int i = (this.width - this.field_146555_f) / 2;
@@ -94,8 +94,8 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
                     if (this.field_146554_D == 0) {
                         this.field_146554_D = 1;
                     } else {
-                        this.field_146567_u -= (double) ((float) (mouseX - this.field_146563_h) * this.field_146570_r);
-                        this.field_146566_v -= (double) ((float) (mouseY - this.field_146564_i) * this.field_146570_r);
+                        this.field_146567_u -= ((mouseX - this.field_146563_h) * this.field_146570_r);
+                        this.field_146566_v -= ((mouseY - this.field_146564_i) * this.field_146570_r);
                         this.field_146565_w = this.field_146569_s = this.field_146567_u;
                         this.field_146573_x = this.field_146568_t = this.field_146566_v;
                     }
@@ -120,30 +120,30 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
 
             if (this.field_146570_r != f3) {
                 float f5 = f3 - this.field_146570_r;
-                float f4 = f3 * (float) this.field_146555_f;
-                float f = f3 * (float) this.field_146557_g;
-                float f1 = this.field_146570_r * (float) this.field_146555_f;
-                float f2 = this.field_146570_r * (float) this.field_146557_g;
-                this.field_146567_u -= (double) ((f1 - f4) * 0.5F);
-                this.field_146566_v -= (double) ((f2 - f) * 0.5F);
+                float f4 = f3 * this.field_146555_f;
+                float f = f3 * this.field_146557_g;
+                float f1 = this.field_146570_r * this.field_146555_f;
+                float f2 = this.field_146570_r * this.field_146557_g;
+                this.field_146567_u -= ((f1 - f4) * 0.5F);
+                this.field_146566_v -= ((f2 - f) * 0.5F);
                 this.field_146565_w = this.field_146569_s = this.field_146567_u;
                 this.field_146573_x = this.field_146568_t = this.field_146566_v;
             }
 
-            if (this.field_146565_w < (double) field_146572_y) {
-                this.field_146565_w = (double) field_146572_y;
+            if (this.field_146565_w < field_146572_y) {
+                this.field_146565_w = field_146572_y;
             }
 
-            if (this.field_146573_x < (double) field_146571_z) {
-                this.field_146573_x = (double) field_146571_z;
+            if (this.field_146573_x < field_146571_z) {
+                this.field_146573_x = field_146571_z;
             }
 
-            if (this.field_146565_w >= (double) field_146559_A) {
-                this.field_146565_w = (double) (field_146559_A - 1);
+            if (this.field_146565_w >= field_146559_A) {
+                this.field_146565_w = (field_146559_A - 1);
             }
 
-            if (this.field_146573_x >= (double) field_146560_B) {
-                this.field_146573_x = (double) (field_146560_B - 1);
+            if (this.field_146573_x >= field_146560_B) {
+                this.field_146573_x = (field_146560_B - 1);
             }
 
             this.drawDefaultBackground();
@@ -186,8 +186,8 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
     }
 
     protected void drawAchievementScreen(int p_146552_1_, int p_146552_2_, float p_146552_3_) {
-        int i = MathHelper.floor_double(this.field_146569_s + (this.field_146567_u - this.field_146569_s) * (double) p_146552_3_);
-        int j = MathHelper.floor_double(this.field_146568_t + (this.field_146566_v - this.field_146568_t) * (double) p_146552_3_);
+        int i = MathHelper.floor_double(this.field_146569_s + (this.field_146567_u - this.field_146569_s) * p_146552_3_);
+        int j = MathHelper.floor_double(this.field_146568_t + (this.field_146566_v - this.field_146568_t) * p_146552_3_);
 
         if (i < field_146572_y) {
             i = field_146572_y;
@@ -212,7 +212,7 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
         this.zLevel = 0.0F;
         GlStateManager.depthFunc(518);
         GlStateManager.pushMatrix();
-        GlStateManager.translate((float) i1, (float) j1, -200.0F);
+        GlStateManager.translate(i1, j1, -200.0F);
         GlStateManager.scale(1.0F / this.field_146570_r, 1.0F / this.field_146570_r, 0.0F);
         GlStateManager.enableTexture2D();
         GlStateManager.disableLighting();
@@ -231,12 +231,12 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
         float f = 16.0F / this.field_146570_r;
         float f1 = 16.0F / this.field_146570_r;
 
-        for (int l3 = 0; (float) l3 * f - (float) j2 < 155.0F; ++l3) {
-            float f2 = 0.6F - (float) (l1 + l3) / 25.0F * 0.3F;
+        for (int l3 = 0; l3 * f - j2 < 155.0F; ++l3) {
+            float f2 = 0.6F - (l1 + l3) / 25.0F * 0.3F;
             GlStateManager.color(f2, f2, f2, 1.0F);
 
-            for (int i4 = 0; (float) i4 * f1 - (float) i2 < 224.0F; ++i4) {
-                random.setSeed((long) (this.mc.getSession().getPlayerID().hashCode() + k1 + i4 + (l1 + l3) * 16));
+            for (int i4 = 0; i4 * f1 - i2 < 224.0F; ++i4) {
+                random.setSeed((this.mc.getSession().getPlayerID().hashCode() + k1 + i4 + (l1 + l3) * 16));
                 int j4 = random.nextInt(1 + l1 + l3) + (l1 + l3) / 2;
                 TextureAtlasSprite textureatlassprite = this.func_175371_a(Blocks.sand);
 
@@ -308,8 +308,8 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
         }
 
         Achievement achievement = null;
-        float f3 = (float) (p_146552_1_ - i1) * this.field_146570_r;
-        float f4 = (float) (p_146552_2_ - j1) * this.field_146570_r;
+        float f3 = (p_146552_1_ - i1) * this.field_146570_r;
+        float f4 = (p_146552_2_ - j1) * this.field_146570_r;
         RenderHelper.enableGUIStandardItemLighting();
         GlStateManager.disableLighting();
         GlStateManager.enableRescaleNormal();
@@ -320,7 +320,7 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
             int l6 = achievement2.displayColumn * 24 - i;
             int j7 = achievement2.displayRow * 24 - j;
 
-            if (l6 >= -24 && j7 >= -24 && (float) l6 <= 224.0F * this.field_146570_r && (float) j7 <= 155.0F * this.field_146570_r) {
+            if (l6 >= -24 && j7 >= -24 && l6 <= 224.0F * this.field_146570_r && j7 <= 155.0F * this.field_146570_r) {
                 int l7 = this.statFileWriter.func_150874_c(achievement2);
 
                 if (this.statFileWriter.hasAchievementUnlocked(achievement2)) {
@@ -370,7 +370,7 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
 
                 GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
-                if (f3 >= (float) l6 && f3 <= (float) (l6 + 22) && f4 >= (float) j7 && f4 <= (float) (j7 + 22)) {
+                if (f3 >= l6 && f3 <= (l6 + 22) && f4 >= j7 && f4 <= (j7 + 22)) {
                     achievement = achievement2;
                 }
             }
@@ -407,7 +407,7 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
                 this.fontRendererObj.drawSplitString(s1, i7, k7 + 12, j8, -6250336);
 
                 if (this.statFileWriter.hasAchievementUnlocked(achievement)) {
-                    this.fontRendererObj.drawStringWithShadow(I18n.format("achievement.taken", new Object[0]), (float) i7, (float) (k7 + i9 + 4), -7302913);
+                    this.fontRendererObj.drawStringWithShadow(I18n.format("achievement.taken", new Object[0]), i7, (k7 + i9 + 4), -7302913);
                 }
             } else if (i8 == 3) {
                 s = I18n.format("achievement.unknown", new Object[0]);
@@ -427,7 +427,7 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
             }
 
             if (s != null) {
-                this.fontRendererObj.drawStringWithShadow(s, (float) i7, (float) k7, this.statFileWriter.canUnlockAchievement(achievement) ? (achievement.getSpecial() ? -128 : -1) : (achievement.getSpecial() ? -8355776 : -8355712));
+                this.fontRendererObj.drawStringWithShadow(s, i7, k7, this.statFileWriter.canUnlockAchievement(achievement) ? (achievement.getSpecial() ? -128 : -1) : (achievement.getSpecial() ? -8355776 : -8355712));
             }
         }
 

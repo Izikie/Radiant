@@ -57,7 +57,7 @@ public class ContainerWorkbench extends Container {
     }
 
     public boolean canInteractWith(EntityPlayer playerIn) {
-        return this.worldObj.getBlockState(this.pos).getBlock() != Blocks.crafting_table ? false : playerIn.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
+        return this.worldObj.getBlockState(this.pos).getBlock() != Blocks.crafting_table ? false : playerIn.getDistanceSq(this.pos.getX() + 0.5D, this.pos.getY() + 0.5D, this.pos.getZ() + 0.5D) <= 64.0D;
     }
 
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {

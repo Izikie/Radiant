@@ -31,7 +31,7 @@ public class RenderWither extends RenderLiving<EntityWither> {
         int i = entitylivingbaseIn.getInvulTime();
 
         if (i > 0) {
-            f -= ((float) i - partialTickTime) / 220.0F * 0.5F;
+            f -= (i - partialTickTime) / 220.0F * 0.5F;
         }
 
         GlStateManager.scale(f, f, f);

@@ -9,6 +9,6 @@ public class PotionAttackDamage extends Potion {
     }
 
     public double getAttributeModifierAmount(int p_111183_1_, AttributeModifier modifier) {
-        return this.id == Potion.weakness.id ? (double) (-0.5F * (float) (p_111183_1_ + 1)) : 1.3D * (double) (p_111183_1_ + 1);
+        return this.id == Potion.weakness.id ? (-0.5F * (p_111183_1_ + 1)) : 1.3D * (p_111183_1_ + 1);
     }
 }

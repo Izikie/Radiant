@@ -26,7 +26,7 @@ public class TooltipManager {
         if (Math.abs(x - this.lastMouseX) <= 5 && Math.abs(y - this.lastMouseY) <= 5) {
             int i = 700;
 
-            if (System.currentTimeMillis() >= this.mouseStillTime + (long) i) {
+            if (System.currentTimeMillis() >= this.mouseStillTime + i) {
                 GuiButton guibutton = GuiScreenOF.getSelectedButton(x, y, buttonList);
 
                 if (guibutton != null) {
@@ -55,7 +55,7 @@ public class TooltipManager {
                             }
 
                             FontRenderer fontrenderer = Minecraft.getMinecraft().fontRendererObj;
-                            fontrenderer.drawStringWithShadow(s, (float) (rectangle.x + 5), (float) (rectangle.y + 5 + l * 11), k);
+                            fontrenderer.drawStringWithShadow(s, (rectangle.x + 5), (rectangle.y + 5 + l * 11), k);
                         }
                     }
                 }

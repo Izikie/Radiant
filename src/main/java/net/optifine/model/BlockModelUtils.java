@@ -149,14 +149,14 @@ public class BlockModelUtils {
     public static AxisAlignedBB getOffsetBoundingBox(AxisAlignedBB aabb, Block.EnumOffsetType offsetType, BlockPos pos) {
         int i = pos.getX();
         int j = pos.getZ();
-        long k = (long) (i * 3129871) ^ (long) j * 116129781L;
+        long k = (i * 3129871) ^ j * 116129781L;
         k = k * k * 42317861L + k * 11L;
-        double d0 = ((double) ((float) (k >> 16 & 15L) / 15.0F) - 0.5D) * 0.5D;
-        double d1 = ((double) ((float) (k >> 24 & 15L) / 15.0F) - 0.5D) * 0.5D;
+        double d0 = (((k >> 16 & 15L) / 15.0F) - 0.5D) * 0.5D;
+        double d1 = (((k >> 24 & 15L) / 15.0F) - 0.5D) * 0.5D;
         double d2 = 0.0D;
 
         if (offsetType == Block.EnumOffsetType.XYZ) {
-            d2 = ((double) ((float) (k >> 20 & 15L) / 15.0F) - 1.0D) * 0.2D;
+            d2 = (((k >> 20 & 15L) / 15.0F) - 1.0D) * 0.2D;
         }
 
         return aabb.offset(d0, d2, d1);

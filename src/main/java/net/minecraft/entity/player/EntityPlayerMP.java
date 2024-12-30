@@ -132,7 +132,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
 
         if (!worldIn.provider.getHasNoSky() && worldIn.getWorldInfo().getGameType() != WorldSettings.GameType.ADVENTURE) {
             int i = Math.max(5, server.getSpawnProtectionSize() - 6);
-            int j = MathHelper.floor_double(worldIn.getWorldBorder().getClosestDistance((double) blockpos.getX(), (double) blockpos.getZ()));
+            int j = MathHelper.floor_double(worldIn.getWorldBorder().getClosestDistance(blockpos.getX(), blockpos.getZ()));
 
             if (j < i) {
                 i = j;
@@ -454,7 +454,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
                 BlockPos blockpos = this.mcServer.worldServerForDimension(dimensionId).getSpawnCoordinate();
 
                 if (blockpos != null) {
-                    this.playerNetServerHandler.setPlayerLocation((double) blockpos.getX(), (double) blockpos.getY(), (double) blockpos.getZ(), 0.0F, 0.0F);
+                    this.playerNetServerHandler.setPlayerLocation(blockpos.getX(), blockpos.getY(), blockpos.getZ(), 0.0F, 0.0F);
                 }
 
                 dimensionId = 1;
@@ -793,7 +793,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
 
     public void setGameType(WorldSettings.GameType gameType) {
         this.theItemInWorldManager.setGameType(gameType);
-        this.playerNetServerHandler.sendPacket(new S2BPacketChangeGameState(3, (float) gameType.getID()));
+        this.playerNetServerHandler.sendPacket(new S2BPacketChangeGameState(3, gameType.getID()));
 
         if (gameType == WorldSettings.GameType.SPECTATOR) {
             this.mountEntity((Entity) null);

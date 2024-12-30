@@ -493,20 +493,20 @@ public abstract class StructureComponent {
     }
 
     protected void randomlyRareFillWithBlocks(World worldIn, StructureBoundingBox boundingboxIn, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, IBlockState blockstateIn, boolean p_180777_10_) {
-        float f = (float) (maxX - minX + 1);
-        float f1 = (float) (maxY - minY + 1);
-        float f2 = (float) (maxZ - minZ + 1);
-        float f3 = (float) minX + f / 2.0F;
-        float f4 = (float) minZ + f2 / 2.0F;
+        float f = (maxX - minX + 1);
+        float f1 = (maxY - minY + 1);
+        float f2 = (maxZ - minZ + 1);
+        float f3 = minX + f / 2.0F;
+        float f4 = minZ + f2 / 2.0F;
 
         for (int i = minY; i <= maxY; ++i) {
-            float f5 = (float) (i - minY) / f1;
+            float f5 = (i - minY) / f1;
 
             for (int j = minX; j <= maxX; ++j) {
-                float f6 = ((float) j - f3) / (f * 0.5F);
+                float f6 = (j - f3) / (f * 0.5F);
 
                 for (int k = minZ; k <= maxZ; ++k) {
-                    float f7 = ((float) k - f4) / (f2 * 0.5F);
+                    float f7 = (k - f4) / (f2 * 0.5F);
 
                     if (!p_180777_10_ || this.getBlockStateFromPos(worldIn, j, i, k, boundingboxIn).getBlock().getMaterial() != Material.air) {
                         float f8 = f6 * f6 + f5 * f5 + f7 * f7;

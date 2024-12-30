@@ -31,7 +31,7 @@ public class PathNavigateGround extends PathNavigate {
     }
 
     protected Vec3 getEntityPosition() {
-        return new Vec3(this.theEntity.posX, (double) this.getPathablePosY(), this.theEntity.posZ);
+        return new Vec3(this.theEntity.posX, this.getPathablePosY(), this.theEntity.posZ);
     }
 
     private int getPathablePosY() {
@@ -98,8 +98,8 @@ public class PathNavigateGround extends PathNavigate {
                 sizeZ = sizeZ - 2;
                 double d4 = 1.0D / Math.abs(d0);
                 double d5 = 1.0D / Math.abs(d1);
-                double d6 = (double) (i * 1) - posVec31.xCoord;
-                double d7 = (double) (j * 1) - posVec31.zCoord;
+                double d6 = (i * 1) - posVec31.xCoord;
+                double d7 = (j * 1) - posVec31.zCoord;
 
                 if (d0 >= 0.0D) {
                     ++d6;
@@ -148,8 +148,8 @@ public class PathNavigateGround extends PathNavigate {
         } else {
             for (int k = i; k < i + sizeX; ++k) {
                 for (int l = j; l < j + sizeZ; ++l) {
-                    double d0 = (double) k + 0.5D - vec31.xCoord;
-                    double d1 = (double) l + 0.5D - vec31.zCoord;
+                    double d0 = k + 0.5D - vec31.xCoord;
+                    double d1 = l + 0.5D - vec31.zCoord;
 
                     if (d0 * p_179683_8_ + d1 * p_179683_10_ >= 0.0D) {
                         Block block = this.worldObj.getBlockState(new BlockPos(k, y - 1, l)).getBlock();
@@ -176,8 +176,8 @@ public class PathNavigateGround extends PathNavigate {
 
     private boolean isPositionClear(int p_179692_1_, int p_179692_2_, int p_179692_3_, int p_179692_4_, int p_179692_5_, int p_179692_6_, Vec3 p_179692_7_, double p_179692_8_, double p_179692_10_) {
         for (BlockPos blockpos : BlockPos.getAllInBox(new BlockPos(p_179692_1_, p_179692_2_, p_179692_3_), new BlockPos(p_179692_1_ + p_179692_4_ - 1, p_179692_2_ + p_179692_5_ - 1, p_179692_3_ + p_179692_6_ - 1))) {
-            double d0 = (double) blockpos.getX() + 0.5D - p_179692_7_.xCoord;
-            double d1 = (double) blockpos.getZ() + 0.5D - p_179692_7_.zCoord;
+            double d0 = blockpos.getX() + 0.5D - p_179692_7_.xCoord;
+            double d1 = blockpos.getZ() + 0.5D - p_179692_7_.zCoord;
 
             if (d0 * p_179692_8_ + d1 * p_179692_10_ >= 0.0D) {
                 Block block = this.worldObj.getBlockState(blockpos).getBlock();

@@ -298,7 +298,7 @@ public class WorldServer extends World implements IThreadListener {
                     BlockPos blockpos = this.adjustPosToNearbyEntity(new BlockPos(k + (i1 & 15), 0, l + (i1 >> 8 & 15)));
 
                     if (this.isRainingAt(blockpos)) {
-                        this.addWeatherEffect(new EntityLightningBolt(this, (double) blockpos.getX(), (double) blockpos.getY(), (double) blockpos.getZ()));
+                        this.addWeatherEffect(new EntityLightningBolt(this, blockpos.getX(), blockpos.getY(), blockpos.getZ()));
                     }
                 }
 
@@ -392,7 +392,7 @@ public class WorldServer extends World implements IThreadListener {
 
         if (this.isAreaLoaded(pos.add(-i, -i, -i), pos.add(i, i, i))) {
             if (blockIn.getMaterial() != Material.air) {
-                nextticklistentry.setScheduledTime((long) delay + this.worldInfo.getWorldTotalTime());
+                nextticklistentry.setScheduledTime(delay + this.worldInfo.getWorldTotalTime());
                 nextticklistentry.setPriority(priority);
             }
 
@@ -408,7 +408,7 @@ public class WorldServer extends World implements IThreadListener {
         nextticklistentry.setPriority(priority);
 
         if (blockIn.getMaterial() != Material.air) {
-            nextticklistentry.setScheduledTime((long) delay + this.worldInfo.getWorldTotalTime());
+            nextticklistentry.setScheduledTime(delay + this.worldInfo.getWorldTotalTime());
         }
 
         if (!this.pendingTickListEntriesHashSet.contains(nextticklistentry)) {
@@ -797,7 +797,7 @@ public class WorldServer extends World implements IThreadListener {
 
             for (BlockEventData blockeventdata : this.blockEventQueue[i]) {
                 if (this.fireBlockEvent(blockeventdata)) {
-                    this.mcServer.getConfigurationManager().sendToAllNear((double) blockeventdata.getPosition().getX(), (double) blockeventdata.getPosition().getY(), (double) blockeventdata.getPosition().getZ(), 64.0D, this.provider.getDimensionId(), new S24PacketBlockAction(blockeventdata.getPosition(), blockeventdata.getBlock(), blockeventdata.getEventID(), blockeventdata.getEventParameter()));
+                    this.mcServer.getConfigurationManager().sendToAllNear(blockeventdata.getPosition().getX(), blockeventdata.getPosition().getY(), blockeventdata.getPosition().getZ(), 64.0D, this.provider.getDimensionId(), new S24PacketBlockAction(blockeventdata.getPosition(), blockeventdata.getBlock(), blockeventdata.getEventID(), blockeventdata.getEventParameter()));
                 }
             }
 

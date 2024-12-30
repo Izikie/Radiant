@@ -138,7 +138,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
     }
 
     public boolean isUseableByPlayer(EntityPlayer player) {
-        return this.worldObj.getTileEntity(this.pos) != this ? false : player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
+        return this.worldObj.getTileEntity(this.pos) != this ? false : player.getDistanceSq(this.pos.getX() + 0.5D, this.pos.getY() + 0.5D, this.pos.getZ() + 0.5D) <= 64.0D;
     }
 
     public void openInventory(EntityPlayer player) {
@@ -429,7 +429,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
 
     private IInventory getInventoryForHopperTransfer() {
         EnumFacing enumfacing = BlockHopper.getFacing(this.getBlockMetadata());
-        return getInventoryAtPosition(this.getWorld(), (double) (this.pos.getX() + enumfacing.getFrontOffsetX()), (double) (this.pos.getY() + enumfacing.getFrontOffsetY()), (double) (this.pos.getZ() + enumfacing.getFrontOffsetZ()));
+        return getInventoryAtPosition(this.getWorld(), (this.pos.getX() + enumfacing.getFrontOffsetX()), (this.pos.getY() + enumfacing.getFrontOffsetY()), (this.pos.getZ() + enumfacing.getFrontOffsetZ()));
     }
 
     public static IInventory getHopperInventory(IHopper hopper) {
@@ -476,15 +476,15 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
     }
 
     public double getXPos() {
-        return (double) this.pos.getX() + 0.5D;
+        return this.pos.getX() + 0.5D;
     }
 
     public double getYPos() {
-        return (double) this.pos.getY() + 0.5D;
+        return this.pos.getY() + 0.5D;
     }
 
     public double getZPos() {
-        return (double) this.pos.getZ() + 0.5D;
+        return this.pos.getZ() + 0.5D;
     }
 
     public void setTransferCooldown(int ticks) {

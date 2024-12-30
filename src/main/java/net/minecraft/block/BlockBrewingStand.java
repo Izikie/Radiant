@@ -92,9 +92,9 @@ public class BlockBrewingStand extends BlockContainer {
     }
 
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        double d0 = (double) ((float) pos.getX() + 0.4F + rand.nextFloat() * 0.2F);
-        double d1 = (double) ((float) pos.getY() + 0.7F + rand.nextFloat() * 0.3F);
-        double d2 = (double) ((float) pos.getZ() + 0.4F + rand.nextFloat() * 0.2F);
+        double d0 = (pos.getX() + 0.4F + rand.nextFloat() * 0.2F);
+        double d1 = (pos.getY() + 0.7F + rand.nextFloat() * 0.3F);
+        double d2 = (pos.getZ() + 0.4F + rand.nextFloat() * 0.2F);
         worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D, new int[0]);
     }
 

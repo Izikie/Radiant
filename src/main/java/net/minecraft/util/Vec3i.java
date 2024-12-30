@@ -53,21 +53,21 @@ public class Vec3i implements Comparable<Vec3i> {
     }
 
     public double distanceSq(double toX, double toY, double toZ) {
-        double d0 = (double) this.getX() - toX;
-        double d1 = (double) this.getY() - toY;
-        double d2 = (double) this.getZ() - toZ;
+        double d0 = this.getX() - toX;
+        double d1 = this.getY() - toY;
+        double d2 = this.getZ() - toZ;
         return d0 * d0 + d1 * d1 + d2 * d2;
     }
 
     public double distanceSqToCenter(double xIn, double yIn, double zIn) {
-        double d0 = (double) this.getX() + 0.5D - xIn;
-        double d1 = (double) this.getY() + 0.5D - yIn;
-        double d2 = (double) this.getZ() + 0.5D - zIn;
+        double d0 = this.getX() + 0.5D - xIn;
+        double d1 = this.getY() + 0.5D - yIn;
+        double d2 = this.getZ() + 0.5D - zIn;
         return d0 * d0 + d1 * d1 + d2 * d2;
     }
 
     public double distanceSq(Vec3i to) {
-        return this.distanceSq((double) to.getX(), (double) to.getY(), (double) to.getZ());
+        return this.distanceSq(to.getX(), to.getY(), to.getZ());
     }
 
     public String toString() {

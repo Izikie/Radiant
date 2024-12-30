@@ -30,8 +30,8 @@ public class RenderLightningBolt extends Render<EntityLightningBolt> {
         for (int i = 7; i >= 0; --i) {
             adouble[i] = d0;
             adouble1[i] = d1;
-            d0 += (double) (random.nextInt(11) - 5);
-            d1 += (double) (random.nextInt(11) - 5);
+            d0 += (random.nextInt(11) - 5);
+            d1 += (random.nextInt(11) - 5);
         }
 
         for (int k1 = 0; k1 < 4; ++k1) {
@@ -57,11 +57,11 @@ public class RenderLightningBolt extends Render<EntityLightningBolt> {
                     double d5 = d3;
 
                     if (j == 0) {
-                        d2 += (double) (random1.nextInt(11) - 5);
-                        d3 += (double) (random1.nextInt(11) - 5);
+                        d2 += (random1.nextInt(11) - 5);
+                        d3 += (random1.nextInt(11) - 5);
                     } else {
-                        d2 += (double) (random1.nextInt(31) - 15);
-                        d3 += (double) (random1.nextInt(31) - 15);
+                        d2 += (random1.nextInt(31) - 15);
+                        d3 += (random1.nextInt(31) - 15);
                     }
 
                     worldrenderer.begin(5, DefaultVertexFormats.POSITION_COLOR);
@@ -69,16 +69,16 @@ public class RenderLightningBolt extends Render<EntityLightningBolt> {
                     float f1 = 0.45F;
                     float f2 = 0.45F;
                     float f3 = 0.5F;
-                    double d6 = 0.1D + (double) k1 * 0.2D;
+                    double d6 = 0.1D + k1 * 0.2D;
 
                     if (j == 0) {
-                        d6 *= (double) i1 * 0.1D + 1.0D;
+                        d6 *= i1 * 0.1D + 1.0D;
                     }
 
-                    double d7 = 0.1D + (double) k1 * 0.2D;
+                    double d7 = 0.1D + k1 * 0.2D;
 
                     if (j == 0) {
-                        d7 *= (double) (i1 - 1) * 0.1D + 1.0D;
+                        d7 *= (i1 - 1) * 0.1D + 1.0D;
                     }
 
                     for (int j1 = 0; j1 < 5; ++j1) {
@@ -104,8 +104,8 @@ public class RenderLightningBolt extends Render<EntityLightningBolt> {
                             d11 += d7 * 2.0D;
                         }
 
-                        worldrenderer.pos(d10 + d2, y + (double) (i1 * 16), d11 + d3).color(0.45F, 0.45F, 0.5F, 0.3F).endVertex();
-                        worldrenderer.pos(d8 + d4, y + (double) ((i1 + 1) * 16), d9 + d5).color(0.45F, 0.45F, 0.5F, 0.3F).endVertex();
+                        worldrenderer.pos(d10 + d2, y + (i1 * 16), d11 + d3).color(0.45F, 0.45F, 0.5F, 0.3F).endVertex();
+                        worldrenderer.pos(d8 + d4, y + ((i1 + 1) * 16), d9 + d5).color(0.45F, 0.45F, 0.5F, 0.3F).endVertex();
                     }
 
                     tessellator.draw();

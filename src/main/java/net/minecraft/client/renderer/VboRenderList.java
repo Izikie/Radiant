@@ -87,6 +87,6 @@ public class VboRenderList extends ChunkRenderContainer {
     }
 
     public void preRenderRegion(int p_preRenderRegion_1_, int p_preRenderRegion_2_, int p_preRenderRegion_3_) {
-        GlStateManager.translate((float) ((double) p_preRenderRegion_1_ - this.viewEntityX), (float) ((double) p_preRenderRegion_2_ - this.viewEntityY), (float) ((double) p_preRenderRegion_3_ - this.viewEntityZ));
+        GlStateManager.translate((float) (p_preRenderRegion_1_ - this.viewEntityX), (float) (p_preRenderRegion_2_ - this.viewEntityY), (float) (p_preRenderRegion_3_ - this.viewEntityZ));
     }
 }

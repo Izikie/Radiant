@@ -19,7 +19,7 @@ public class RenderEnderCrystal extends Render<EntityEnderCrystal> {
     }
 
     public void doRender(EntityEnderCrystal entity, double x, double y, double z, float entityYaw, float partialTicks) {
-        float f = (float) entity.innerRotation + partialTicks;
+        float f = entity.innerRotation + partialTicks;
         GlStateManager.pushMatrix();
         GlStateManager.translate((float) x, (float) y, (float) z);
         this.bindTexture(enderCrystalTextures);

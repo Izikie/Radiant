@@ -53,10 +53,10 @@ public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends
                                 f = 0.1F;
                             }
 
-                            d0 *= (double) (0.7F * f);
+                            d0 *= (0.7F * f);
                         }
 
-                        if ((double) p_apply_1_.getDistanceToEntity(EntityAINearestAttackableTarget.this.taskOwner) > d0) {
+                        if (p_apply_1_.getDistanceToEntity(EntityAINearestAttackableTarget.this.taskOwner) > d0) {
                             return false;
                         }
                     }

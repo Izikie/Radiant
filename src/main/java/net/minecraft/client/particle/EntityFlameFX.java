@@ -13,9 +13,9 @@ public class EntityFlameFX extends EntityFX {
         this.motionX = this.motionX * 0.009999999776482582D + xSpeedIn;
         this.motionY = this.motionY * 0.009999999776482582D + ySpeedIn;
         this.motionZ = this.motionZ * 0.009999999776482582D + zSpeedIn;
-        this.posX += (double) ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.05F);
-        this.posY += (double) ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.05F);
-        this.posZ += (double) ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.05F);
+        this.posX += ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.05F);
+        this.posY += ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.05F);
+        this.posZ += ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.05F);
         this.flameScale = this.particleScale;
         this.particleRed = this.particleGreen = this.particleBlue = 1.0F;
         this.particleMaxAge = (int) (8.0D / (Math.random() * 0.8D + 0.2D)) + 4;
@@ -24,13 +24,13 @@ public class EntityFlameFX extends EntityFX {
     }
 
     public void renderParticle(WorldRenderer worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-        float f = ((float) this.particleAge + partialTicks) / (float) this.particleMaxAge;
+        float f = (this.particleAge + partialTicks) / this.particleMaxAge;
         this.particleScale = this.flameScale * (1.0F - f * f * 0.5F);
         super.renderParticle(worldRendererIn, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
     }
 
     public int getBrightnessForRender(float partialTicks) {
-        float f = ((float) this.particleAge + partialTicks) / (float) this.particleMaxAge;
+        float f = (this.particleAge + partialTicks) / this.particleMaxAge;
         f = MathHelper.clamp_float(f, 0.0F, 1.0F);
         int i = super.getBrightnessForRender(partialTicks);
         int j = i & 255;
@@ -45,7 +45,7 @@ public class EntityFlameFX extends EntityFX {
     }
 
     public float getBrightness(float partialTicks) {
-        float f = ((float) this.particleAge + partialTicks) / (float) this.particleMaxAge;
+        float f = (this.particleAge + partialTicks) / this.particleMaxAge;
         f = MathHelper.clamp_float(f, 0.0F, 1.0F);
         float f1 = super.getBrightness(partialTicks);
         return f1 * f + (1.0F - f);

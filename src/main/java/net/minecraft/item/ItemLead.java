@@ -39,7 +39,7 @@ public class ItemLead extends Item {
         int j = fence.getY();
         int k = fence.getZ();
 
-        for (EntityLiving entityliving : worldIn.getEntitiesWithinAABB(EntityLiving.class, new AxisAlignedBB((double) i - d0, (double) j - d0, (double) k - d0, (double) i + d0, (double) j + d0, (double) k + d0))) {
+        for (EntityLiving entityliving : worldIn.getEntitiesWithinAABB(EntityLiving.class, new AxisAlignedBB(i - d0, j - d0, k - d0, i + d0, j + d0, k + d0))) {
             if (entityliving.getLeashed() && entityliving.getLeashedToEntity() == player) {
                 if (entityleashknot == null) {
                     entityleashknot = EntityLeashKnot.createKnot(worldIn, fence);

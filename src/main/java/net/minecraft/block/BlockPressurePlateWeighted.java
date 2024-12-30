@@ -29,7 +29,7 @@ public class BlockPressurePlateWeighted extends BlockBasePressurePlate {
         int i = Math.min(worldIn.getEntitiesWithinAABB(Entity.class, this.getSensitiveAABB(pos)).size(), this.field_150068_a);
 
         if (i > 0) {
-            float f = (float) Math.min(this.field_150068_a, i) / (float) this.field_150068_a;
+            float f = (float) Math.min(this.field_150068_a, i) / this.field_150068_a;
             return MathHelper.ceiling_float_int(f * 15.0F);
         } else {
             return 0;

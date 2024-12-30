@@ -69,7 +69,7 @@ public class WorldChunkManager {
 
         for (int i = 0; i < width * length; ++i) {
             try {
-                float f = (float) BiomeGenBase.getBiomeFromBiomeList(aint[i], BiomeGenBase.field_180279_ad).getIntRainfall() / 65536.0F;
+                float f = BiomeGenBase.getBiomeFromBiomeList(aint[i], BiomeGenBase.field_180279_ad).getIntRainfall() / 65536.0F;
 
                 if (f > 1.0F) {
                     f = 1.0F;

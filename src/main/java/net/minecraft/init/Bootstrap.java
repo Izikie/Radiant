@@ -116,9 +116,9 @@ public class Bootstrap {
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.spawn_egg, new BehaviorDefaultDispenseItem() {
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
                 EnumFacing enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
-                double d0 = source.getX() + (double) enumfacing.getFrontOffsetX();
-                double d1 = (double) ((float) source.getBlockPos().getY() + 0.2F);
-                double d2 = source.getZ() + (double) enumfacing.getFrontOffsetZ();
+                double d0 = source.getX() + enumfacing.getFrontOffsetX();
+                double d1 = (source.getBlockPos().getY() + 0.2F);
+                double d2 = source.getZ() + enumfacing.getFrontOffsetZ();
                 Entity entity = ItemMonsterPlacer.spawnCreature(source.getWorld(), stack.getMetadata(), d0, d1, d2);
 
                 if (entity instanceof EntityLivingBase && stack.hasDisplayName()) {
@@ -132,9 +132,9 @@ public class Bootstrap {
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.fireworks, new BehaviorDefaultDispenseItem() {
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
                 EnumFacing enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
-                double d0 = source.getX() + (double) enumfacing.getFrontOffsetX();
-                double d1 = (double) ((float) source.getBlockPos().getY() + 0.2F);
-                double d2 = source.getZ() + (double) enumfacing.getFrontOffsetZ();
+                double d0 = source.getX() + enumfacing.getFrontOffsetX();
+                double d1 = (source.getBlockPos().getY() + 0.2F);
+                double d2 = source.getZ() + enumfacing.getFrontOffsetZ();
                 EntityFireworkRocket entityfireworkrocket = new EntityFireworkRocket(source.getWorld(), d0, d1, d2, stack);
                 source.getWorld().spawnEntityInWorld(entityfireworkrocket);
                 stack.splitStack(1);
@@ -149,14 +149,14 @@ public class Bootstrap {
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
                 EnumFacing enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
                 IPosition iposition = BlockDispenser.getDispensePosition(source);
-                double d0 = iposition.getX() + (double) ((float) enumfacing.getFrontOffsetX() * 0.3F);
-                double d1 = iposition.getY() + (double) ((float) enumfacing.getFrontOffsetY() * 0.3F);
-                double d2 = iposition.getZ() + (double) ((float) enumfacing.getFrontOffsetZ() * 0.3F);
+                double d0 = iposition.getX() + (enumfacing.getFrontOffsetX() * 0.3F);
+                double d1 = iposition.getY() + (enumfacing.getFrontOffsetY() * 0.3F);
+                double d2 = iposition.getZ() + (enumfacing.getFrontOffsetZ() * 0.3F);
                 World world = source.getWorld();
                 Random random = world.rand;
-                double d3 = random.nextGaussian() * 0.05D + (double) enumfacing.getFrontOffsetX();
-                double d4 = random.nextGaussian() * 0.05D + (double) enumfacing.getFrontOffsetY();
-                double d5 = random.nextGaussian() * 0.05D + (double) enumfacing.getFrontOffsetZ();
+                double d3 = random.nextGaussian() * 0.05D + enumfacing.getFrontOffsetX();
+                double d4 = random.nextGaussian() * 0.05D + enumfacing.getFrontOffsetY();
+                double d5 = random.nextGaussian() * 0.05D + enumfacing.getFrontOffsetZ();
                 world.spawnEntityInWorld(new EntitySmallFireball(world, d0, d1, d2, d3, d4, d5));
                 stack.splitStack(1);
                 return stack;
@@ -172,9 +172,9 @@ public class Bootstrap {
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
                 EnumFacing enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
                 World world = source.getWorld();
-                double d0 = source.getX() + (double) ((float) enumfacing.getFrontOffsetX() * 1.125F);
-                double d1 = source.getY() + (double) ((float) enumfacing.getFrontOffsetY() * 1.125F);
-                double d2 = source.getZ() + (double) ((float) enumfacing.getFrontOffsetZ() * 1.125F);
+                double d0 = source.getX() + (enumfacing.getFrontOffsetX() * 1.125F);
+                double d1 = source.getY() + (enumfacing.getFrontOffsetY() * 1.125F);
+                double d2 = source.getZ() + (enumfacing.getFrontOffsetZ() * 1.125F);
                 BlockPos blockpos = source.getBlockPos().offset(enumfacing);
                 Material material = world.getBlockState(blockpos).getBlock().getMaterial();
                 double d3;
@@ -315,7 +315,7 @@ public class Bootstrap {
             protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
                 World world = source.getWorld();
                 BlockPos blockpos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
-                EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(world, (double) blockpos.getX() + 0.5D, (double) blockpos.getY(), (double) blockpos.getZ() + 0.5D, (EntityLivingBase) null);
+                EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(world, blockpos.getX() + 0.5D, blockpos.getY(), blockpos.getZ() + 0.5D, (EntityLivingBase) null);
                 world.spawnEntityInWorld(entitytntprimed);
                 world.playSoundAtEntity(entitytntprimed, "game.tnt.primed", 1.0F, 1.0F);
                 --stack.stackSize;

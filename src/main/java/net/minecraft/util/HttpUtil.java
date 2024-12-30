@@ -125,7 +125,7 @@ public class HttpUtil {
                         URL url = new URL(packUrl);
                         httpurlconnection = (HttpURLConnection) url.openConnection(p_180192_5_);
                         float f = 0.0F;
-                        float f1 = (float) p_180192_2_.entrySet().size();
+                        float f1 = p_180192_2_.entrySet().size();
 
                         for (Entry<String, String> entry : p_180192_2_.entrySet()) {
                             httpurlconnection.setRequestProperty((String) entry.getKey(), (String) entry.getValue());
@@ -136,7 +136,7 @@ public class HttpUtil {
                         }
 
                         inputstream = httpurlconnection.getInputStream();
-                        f1 = (float) httpurlconnection.getContentLength();
+                        f1 = httpurlconnection.getContentLength();
                         int i = httpurlconnection.getContentLength();
 
                         if (p_180192_4_ != null) {
@@ -146,7 +146,7 @@ public class HttpUtil {
                         if (saveFile.exists()) {
                             long j = saveFile.length();
 
-                            if (j == (long) i) {
+                            if (j == i) {
                                 if (p_180192_4_ != null) {
                                     p_180192_4_.setDoneWorking();
                                 }
@@ -162,7 +162,7 @@ public class HttpUtil {
 
                         outputstream = new DataOutputStream(new FileOutputStream(saveFile));
 
-                        if (maxSize > 0 && f1 > (float) maxSize) {
+                        if (maxSize > 0 && f1 > maxSize) {
                             if (p_180192_4_ != null) {
                                 p_180192_4_.setDoneWorking();
                             }
@@ -173,13 +173,13 @@ public class HttpUtil {
                         int k = 0;
 
                         while ((k = inputstream.read(abyte)) >= 0) {
-                            f += (float) k;
+                            f += k;
 
                             if (p_180192_4_ != null) {
                                 p_180192_4_.setLoadingProgress((int) (f / f1 * 100.0F));
                             }
 
-                            if (maxSize > 0 && f > (float) maxSize) {
+                            if (maxSize > 0 && f > maxSize) {
                                 if (p_180192_4_ != null) {
                                     p_180192_4_.setDoneWorking();
                                 }

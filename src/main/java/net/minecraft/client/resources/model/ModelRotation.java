@@ -42,11 +42,11 @@ public enum ModelRotation {
         this.matrix4d = new Matrix4f();
         Matrix4f matrix4f = new Matrix4f();
         matrix4f.setIdentity();
-        Matrix4f.rotate((float) (-p_i46087_3_) * 0.017453292F, new Vector3f(1.0F, 0.0F, 0.0F), matrix4f, matrix4f);
+        Matrix4f.rotate((-p_i46087_3_) * 0.017453292F, new Vector3f(1.0F, 0.0F, 0.0F), matrix4f, matrix4f);
         this.quartersX = MathHelper.abs_int(p_i46087_3_ / 90);
         Matrix4f matrix4f1 = new Matrix4f();
         matrix4f1.setIdentity();
-        Matrix4f.rotate((float) (-p_i46087_4_) * 0.017453292F, new Vector3f(0.0F, 1.0F, 0.0F), matrix4f1, matrix4f1);
+        Matrix4f.rotate((-p_i46087_4_) * 0.017453292F, new Vector3f(0.0F, 1.0F, 0.0F), matrix4f1, matrix4f1);
         this.quartersY = MathHelper.abs_int(p_i46087_4_ / 90);
         Matrix4f.mul(matrix4f1, matrix4f, this.matrix4d);
     }

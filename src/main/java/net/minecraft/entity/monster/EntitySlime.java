@@ -49,10 +49,10 @@ public class EntitySlime extends EntityLiving implements IMob {
 
     protected void setSlimeSize(int size) {
         this.dataWatcher.updateObject(16, Byte.valueOf((byte) size));
-        this.setSize(0.51000005F * (float) size, 0.51000005F * (float) size);
+        this.setSize(0.51000005F * size, 0.51000005F * size);
         this.setPosition(this.posX, this.posY, this.posZ);
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((double) (size * size));
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double) (0.2F + 0.1F * (float) size));
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((size * size));
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((0.2F + 0.1F * size));
         this.setHealth(this.getMaxHealth());
         this.experienceValue = size;
     }
@@ -102,12 +102,12 @@ public class EntitySlime extends EntityLiving implements IMob {
             for (int j = 0; j < i * 8; ++j) {
                 float f = this.rand.nextFloat() * (float) Math.PI * 2.0F;
                 float f1 = this.rand.nextFloat() * 0.5F + 0.5F;
-                float f2 = MathHelper.sin(f) * (float) i * 0.5F * f1;
-                float f3 = MathHelper.cos(f) * (float) i * 0.5F * f1;
+                float f2 = MathHelper.sin(f) * i * 0.5F * f1;
+                float f3 = MathHelper.cos(f) * i * 0.5F * f1;
                 World world = this.worldObj;
                 EnumParticleTypes enumparticletypes = this.getParticleType();
-                double d0 = this.posX + (double) f2;
-                double d1 = this.posZ + (double) f3;
+                double d0 = this.posX + f2;
+                double d1 = this.posZ + f3;
                 world.spawnParticle(enumparticletypes, d0, this.getEntityBoundingBox().minY, d1, 0.0D, 0.0D, 0.0D, new int[0]);
             }
 
@@ -139,7 +139,7 @@ public class EntitySlime extends EntityLiving implements IMob {
     public void onDataWatcherUpdate(int dataID) {
         if (dataID == 16) {
             int i = this.getSlimeSize();
-            this.setSize(0.51000005F * (float) i, 0.51000005F * (float) i);
+            this.setSize(0.51000005F * i, 0.51000005F * i);
             this.rotationYaw = this.rotationYawHead;
             this.renderYawOffset = this.rotationYawHead;
 
@@ -158,8 +158,8 @@ public class EntitySlime extends EntityLiving implements IMob {
             int j = 2 + this.rand.nextInt(3);
 
             for (int k = 0; k < j; ++k) {
-                float f = ((float) (k % 2) - 0.5F) * (float) i / 4.0F;
-                float f1 = ((float) (k / 2) - 0.5F) * (float) i / 4.0F;
+                float f = ((k % 2) - 0.5F) * i / 4.0F;
+                float f1 = ((k / 2) - 0.5F) * i / 4.0F;
                 EntitySlime entityslime = this.createInstance();
 
                 if (this.hasCustomName()) {
@@ -171,7 +171,7 @@ public class EntitySlime extends EntityLiving implements IMob {
                 }
 
                 entityslime.setSlimeSize(i / 2);
-                entityslime.setLocationAndAngles(this.posX + (double) f, this.posY + 0.5D, this.posZ + (double) f1, this.rand.nextFloat() * 360.0F, 0.0F);
+                entityslime.setLocationAndAngles(this.posX + f, this.posY + 0.5D, this.posZ + f1, this.rand.nextFloat() * 360.0F, 0.0F);
                 this.worldObj.spawnEntityInWorld(entityslime);
             }
         }
@@ -196,7 +196,7 @@ public class EntitySlime extends EntityLiving implements IMob {
     protected void func_175451_e(EntityLivingBase p_175451_1_) {
         int i = this.getSlimeSize();
 
-        if (this.canEntityBeSeen(p_175451_1_) && this.getDistanceSqToEntity(p_175451_1_) < 0.6D * (double) i * 0.6D * (double) i && p_175451_1_.attackEntityFrom(DamageSource.causeMobDamage(this), (float) this.getAttackStrength())) {
+        if (this.canEntityBeSeen(p_175451_1_) && this.getDistanceSqToEntity(p_175451_1_) < 0.6D * i * 0.6D * i && p_175451_1_.attackEntityFrom(DamageSource.causeMobDamage(this), this.getAttackStrength())) {
             this.playSound("mob.attack", 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
             this.applyEnchantments(this, p_175451_1_);
         }
@@ -250,7 +250,7 @@ public class EntitySlime extends EntityLiving implements IMob {
     }
 
     protected float getSoundVolume() {
-        return 0.4F * (float) this.getSlimeSize();
+        return 0.4F * this.getSlimeSize();
     }
 
     public int getVerticalFaceSpeed() {
@@ -329,7 +329,7 @@ public class EntitySlime extends EntityLiving implements IMob {
         public void updateTask() {
             if (--this.field_179460_c <= 0) {
                 this.field_179460_c = 40 + this.slime.getRNG().nextInt(60);
-                this.field_179459_b = (float) this.slime.getRNG().nextInt(360);
+                this.field_179459_b = this.slime.getRNG().nextInt(360);
             }
 
             ((EntitySlime.SlimeMoveHelper) this.slime.getMoveHelper()).func_179920_a(this.field_179459_b, false);

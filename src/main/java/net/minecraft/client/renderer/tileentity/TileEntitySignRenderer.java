@@ -31,7 +31,7 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntity
 
         if (block == Blocks.standing_sign) {
             GlStateManager.translate((float) x + 0.5F, (float) y + 0.75F * f, (float) z + 0.5F);
-            float f1 = (float) (te.getBlockMetadata() * 360) / 16.0F;
+            float f1 = (te.getBlockMetadata() * 360) / 16.0F;
             GlStateManager.rotate(-f1, 0.0F, 1.0F, 0.0F);
             this.model.signStick.showModel = true;
         } else {
@@ -136,8 +136,8 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntity
 
     public static void updateTextRenderDistance() {
         Minecraft minecraft = Config.getMinecraft();
-        double d0 = (double) Config.limit(minecraft.gameSettings.fovSetting, 1.0F, 120.0F);
-        double d1 = Math.max(1.5D * (double) minecraft.displayHeight / d0, 16.0D);
+        double d0 = Config.limit(minecraft.gameSettings.fovSetting, 1.0F, 120.0F);
+        double d1 = Math.max(1.5D * minecraft.displayHeight / d0, 16.0D);
         textRenderDistanceSq = d1 * d1;
     }
 }

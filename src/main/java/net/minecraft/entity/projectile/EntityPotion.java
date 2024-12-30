@@ -91,7 +91,7 @@ public class EntityPotion extends EntityThrowable {
                                 if (Potion.potionTypes[i].isInstant()) {
                                     Potion.potionTypes[i].affectEntity(this, this.getThrower(), entitylivingbase, potioneffect.getAmplifier(), d1);
                                 } else {
-                                    int j = (int) (d1 * (double) potioneffect.getDuration() + 0.5D);
+                                    int j = (int) (d1 * potioneffect.getDuration() + 0.5D);
 
                                     if (j > 20) {
                                         entitylivingbase.addPotionEffect(new PotionEffect(i, j, potioneffect.getAmplifier()));

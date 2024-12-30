@@ -22,7 +22,7 @@ public class LayerCreeperCharge implements LayerRenderer<EntityCreeper> {
             this.creeperRenderer.bindTexture(LIGHTNING_TEXTURE);
             GlStateManager.matrixMode(5890);
             GlStateManager.loadIdentity();
-            float f = (float) entitylivingbaseIn.ticksExisted + partialTicks;
+            float f = entitylivingbaseIn.ticksExisted + partialTicks;
             GlStateManager.translate(f * 0.01F, f * 0.01F, 0.0F);
             GlStateManager.matrixMode(5888);
             GlStateManager.enableBlend();

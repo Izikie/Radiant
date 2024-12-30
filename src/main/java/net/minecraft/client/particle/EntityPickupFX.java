@@ -35,26 +35,26 @@ public class EntityPickupFX extends EntityFX {
             Shaders.nextEntity(this.field_174840_a);
         }
 
-        float f = ((float) this.age + partialTicks) / (float) this.maxAge;
+        float f = (this.age + partialTicks) / this.maxAge;
         f = f * f;
         double d0 = this.field_174840_a.posX;
         double d1 = this.field_174840_a.posY;
         double d2 = this.field_174840_a.posZ;
-        double d3 = this.field_174843_ax.lastTickPosX + (this.field_174843_ax.posX - this.field_174843_ax.lastTickPosX) * (double) partialTicks;
-        double d4 = this.field_174843_ax.lastTickPosY + (this.field_174843_ax.posY - this.field_174843_ax.lastTickPosY) * (double) partialTicks + (double) this.field_174841_aA;
-        double d5 = this.field_174843_ax.lastTickPosZ + (this.field_174843_ax.posZ - this.field_174843_ax.lastTickPosZ) * (double) partialTicks;
-        double d6 = d0 + (d3 - d0) * (double) f;
-        double d7 = d1 + (d4 - d1) * (double) f;
-        double d8 = d2 + (d5 - d2) * (double) f;
+        double d3 = this.field_174843_ax.lastTickPosX + (this.field_174843_ax.posX - this.field_174843_ax.lastTickPosX) * partialTicks;
+        double d4 = this.field_174843_ax.lastTickPosY + (this.field_174843_ax.posY - this.field_174843_ax.lastTickPosY) * partialTicks + this.field_174841_aA;
+        double d5 = this.field_174843_ax.lastTickPosZ + (this.field_174843_ax.posZ - this.field_174843_ax.lastTickPosZ) * partialTicks;
+        double d6 = d0 + (d3 - d0) * f;
+        double d7 = d1 + (d4 - d1) * f;
+        double d8 = d2 + (d5 - d2) * f;
         int i = this.getBrightnessForRender(partialTicks);
         int j = i % 65536;
         int k = i / 65536;
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j / 1.0F, (float) k / 1.0F);
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, j / 1.0F, k / 1.0F);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         d6 = d6 - interpPosX;
         d7 = d7 - interpPosY;
         d8 = d8 - interpPosZ;
-        this.field_174842_aB.renderEntityWithPosYaw(this.field_174840_a, (double) ((float) d6), (double) ((float) d7), (double) ((float) d8), this.field_174840_a.rotationYaw, partialTicks);
+        this.field_174842_aB.renderEntityWithPosYaw(this.field_174840_a, ((float) d6), ((float) d7), ((float) d8), this.field_174840_a.rotationYaw, partialTicks);
 
         if (Config.isShaders()) {
             Shaders.setEntityId((Entity) null);

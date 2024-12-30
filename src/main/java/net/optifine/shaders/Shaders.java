@@ -2588,7 +2588,7 @@ public class Shaders {
                                     }
                                 } else {
                                     spShadowMapWidth = spShadowMapHeight = shaderline.getValueInt();
-                                    shadowMapWidth = shadowMapHeight = Math.round((float) spShadowMapWidth * configShadowResMul);
+                                    shadowMapWidth = shadowMapHeight = Math.round(spShadowMapWidth * configShadowResMul);
                                     SMCLog.info("Shadow map resolution: " + spShadowMapWidth);
                                 }
                             }
@@ -2854,11 +2854,11 @@ public class Shaders {
                 setProgramUniform1f(uniform_sunAngle, sunAngle);
                 setProgramUniform1f(uniform_shadowAngle, shadowAngle);
                 setProgramUniform1f(uniform_rainStrength, rainStrength);
-                setProgramUniform1f(uniform_aspectRatio, (float) renderWidth / (float) renderHeight);
-                setProgramUniform1f(uniform_viewWidth, (float) renderWidth);
-                setProgramUniform1f(uniform_viewHeight, (float) renderHeight);
+                setProgramUniform1f(uniform_aspectRatio, (float) renderWidth / renderHeight);
+                setProgramUniform1f(uniform_viewWidth, renderWidth);
+                setProgramUniform1f(uniform_viewHeight, renderHeight);
                 setProgramUniform1f(uniform_near, 0.05F);
-                setProgramUniform1f(uniform_far, (float) (mc.gameSettings.renderDistanceChunks * 16));
+                setProgramUniform1f(uniform_far, (mc.gameSettings.renderDistanceChunks * 16));
                 setProgramUniform3f(uniform_sunPosition, sunPosition[0], sunPosition[1], sunPosition[2]);
                 setProgramUniform3f(uniform_moonPosition, moonPosition[0], moonPosition[1], moonPosition[2]);
                 setProgramUniform3f(uniform_shadowLightPosition, shadowLightPosition[0], shadowLightPosition[1], shadowLightPosition[2]);
@@ -3120,15 +3120,15 @@ public class Shaders {
     private static void resize() {
         renderDisplayWidth = mc.displayWidth;
         renderDisplayHeight = mc.displayHeight;
-        renderWidth = Math.round((float) renderDisplayWidth * configRenderResMul);
-        renderHeight = Math.round((float) renderDisplayHeight * configRenderResMul);
+        renderWidth = Math.round(renderDisplayWidth * configRenderResMul);
+        renderHeight = Math.round(renderDisplayHeight * configRenderResMul);
         setupFrameBuffer();
     }
 
     private static void resizeShadow() {
         needResizeShadow = false;
-        shadowMapWidth = Math.round((float) spShadowMapWidth * configShadowResMul);
-        shadowMapHeight = Math.round((float) spShadowMapHeight * configShadowResMul);
+        shadowMapWidth = Math.round(spShadowMapWidth * configShadowResMul);
+        shadowMapHeight = Math.round(spShadowMapHeight * configShadowResMul);
         setupShadowFrameBuffer();
     }
 
@@ -3342,12 +3342,12 @@ public class Shaders {
 
         diffSystemTime = systemTime - lastSystemTime;
         lastSystemTime = systemTime;
-        frameTime = (float) diffSystemTime / 1000.0F;
+        frameTime = diffSystemTime / 1000.0F;
         frameTimeCounter += frameTime;
         frameTimeCounter %= 3600.0F;
         rainStrength = minecraft.theWorld.getRainStrength(partialTicks);
-        float f = (float) diffSystemTime * 0.01F;
-        float f1 = (float) Math.exp(Math.log(0.5D) * (double) f / (double) (wetness < rainStrength ? drynessHalfLife : wetnessHalfLife));
+        float f = diffSystemTime * 0.01F;
+        float f1 = (float) Math.exp(Math.log(0.5D) * f / (wetness < rainStrength ? drynessHalfLife : wetnessHalfLife));
         wetness = wetness * f1 + rainStrength * (1.0F - f1);
         Entity entity = mc.getRenderViewEntity();
 
@@ -3355,10 +3355,10 @@ public class Shaders {
             isSleeping = entity instanceof EntityLivingBase && ((EntityLivingBase) entity).isPlayerSleeping();
             eyePosY = (float) entity.posY * partialTicks + (float) entity.lastTickPosY * (1.0F - partialTicks);
             eyeBrightness = entity.getBrightnessForRender(partialTicks);
-            f1 = (float) diffSystemTime * 0.01F;
-            float f2 = (float) Math.exp(Math.log(0.5D) * (double) f1 / (double) eyeBrightnessHalflife);
-            eyeBrightnessFadeX = eyeBrightnessFadeX * f2 + (float) (eyeBrightness & 65535) * (1.0F - f2);
-            eyeBrightnessFadeY = eyeBrightnessFadeY * f2 + (float) (eyeBrightness >> 16) * (1.0F - f2);
+            f1 = diffSystemTime * 0.01F;
+            float f2 = (float) Math.exp(Math.log(0.5D) * f1 / eyeBrightnessHalflife);
+            eyeBrightnessFadeX = eyeBrightnessFadeX * f2 + (eyeBrightness & 65535) * (1.0F - f2);
+            eyeBrightnessFadeY = eyeBrightnessFadeY * f2 + (eyeBrightness >> 16) * (1.0F - f2);
             Block block = ActiveRenderInfo.getBlockAtEntityViewpoint(mc.theWorld, entity, partialTicks);
             Material material = block.getMaterial();
 
@@ -3381,7 +3381,7 @@ public class Shaders {
 
                 if (mc.thePlayer.isPotionActive(Potion.blindness)) {
                     int i = mc.thePlayer.getActivePotionEffect(Potion.blindness).getDuration();
-                    blindness = Config.limit((float) i / 20.0F, 0.0F, 1.0F);
+                    blindness = Config.limit(i / 20.0F, 0.0F, 1.0F);
                 }
             }
 
@@ -3633,13 +3633,13 @@ public class Shaders {
 
     public static void setCamera(float partialTicks) {
         Entity entity = mc.getRenderViewEntity();
-        double d0 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * (double) partialTicks;
-        double d1 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * (double) partialTicks;
-        double d2 = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * (double) partialTicks;
+        double d0 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
+        double d1 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
+        double d2 = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
         updateCameraOffset(entity);
-        cameraPositionX = d0 - (double) cameraOffsetX;
+        cameraPositionX = d0 - cameraOffsetX;
         cameraPositionY = d1;
-        cameraPositionZ = d2 - (double) cameraOffsetZ;
+        cameraPositionZ = d2 - cameraOffsetZ;
         GL11.glGetFloat(GL11.GL_PROJECTION_MATRIX, (FloatBuffer) projection.position(0));
         SMath.invertMat4FBFA((FloatBuffer) projectionInverse.position(0), (FloatBuffer) projection.position(0), faProjectionInverse, faProjection);
         projection.position(0);
@@ -3674,13 +3674,13 @@ public class Shaders {
 
     public static void setCameraShadow(float partialTicks) {
         Entity entity = mc.getRenderViewEntity();
-        double d0 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * (double) partialTicks;
-        double d1 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * (double) partialTicks;
-        double d2 = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * (double) partialTicks;
+        double d0 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
+        double d1 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
+        double d2 = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
         updateCameraOffset(entity);
-        cameraPositionX = d0 - (double) cameraOffsetX;
+        cameraPositionX = d0 - cameraOffsetX;
         cameraPositionY = d1;
-        cameraPositionZ = d2 - (double) cameraOffsetZ;
+        cameraPositionZ = d2 - cameraOffsetZ;
         GL11.glGetFloat(GL11.GL_PROJECTION_MATRIX, (FloatBuffer) projection.position(0));
         SMath.invertMat4FBFA((FloatBuffer) projectionInverse.position(0), (FloatBuffer) projection.position(0), faProjectionInverse, faProjection);
         projection.position(0);
@@ -3694,9 +3694,9 @@ public class Shaders {
         GL11.glLoadIdentity();
 
         if (shadowMapIsOrtho) {
-            GL11.glOrtho((double) (-shadowMapHalfPlane), (double) shadowMapHalfPlane, (double) (-shadowMapHalfPlane), (double) shadowMapHalfPlane, 0.05000000074505806D, 256.0D);
+            GL11.glOrtho((-shadowMapHalfPlane), shadowMapHalfPlane, (-shadowMapHalfPlane), shadowMapHalfPlane, 0.05000000074505806D, 256.0D);
         } else {
-            GLU.gluPerspective(shadowMapFOV, (float) shadowMapWidth / (float) shadowMapHeight, 0.05F, 256.0F);
+            GLU.gluPerspective(shadowMapFOV, (float) shadowMapWidth / shadowMapHeight, 0.05F, 256.0F);
         }
 
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
@@ -3708,7 +3708,7 @@ public class Shaders {
         float f = celestialAngle * -360.0F;
         float f1 = shadowAngleInterval > 0.0F ? f % shadowAngleInterval - shadowAngleInterval * 0.5F : 0.0F;
 
-        if ((double) sunAngle <= 0.5D) {
+        if (sunAngle <= 0.5D) {
             GL11.glRotatef(f - f1, 0.0F, 0.0F, 1.0F);
             GL11.glRotatef(sunPathRotation, 1.0F, 0.0F, 0.0F);
             shadowAngle = sunAngle;
@@ -3725,14 +3725,14 @@ public class Shaders {
         }
 
         float f9 = sunAngle * ((float) Math.PI * 2F);
-        float f10 = (float) Math.cos((double) f9);
-        float f4 = (float) Math.sin((double) f9);
+        float f10 = (float) Math.cos(f9);
+        float f4 = (float) Math.sin(f9);
         float f5 = sunPathRotation * ((float) Math.PI * 2F);
         float f6 = f10;
-        float f7 = f4 * (float) Math.cos((double) f5);
-        float f8 = f4 * (float) Math.sin((double) f5);
+        float f7 = f4 * (float) Math.cos(f5);
+        float f8 = f4 * (float) Math.sin(f5);
 
-        if ((double) sunAngle > 0.5D) {
+        if (sunAngle > 0.5D) {
             f6 = -f10;
             f7 = -f7;
             f8 = -f8;
@@ -4028,10 +4028,10 @@ public class Shaders {
         RenderScale renderscale = activeProgram.getRenderScale();
 
         if (renderscale != null) {
-            int i = (int) ((float) renderWidth * renderscale.getOffsetX());
-            int j = (int) ((float) renderHeight * renderscale.getOffsetY());
-            int k = (int) ((float) renderWidth * renderscale.getScale());
-            int l = (int) ((float) renderHeight * renderscale.getScale());
+            int i = (int) (renderWidth * renderscale.getOffsetX());
+            int j = (int) (renderHeight * renderscale.getOffsetY());
+            int k = (int) (renderWidth * renderscale.getScale());
+            int l = (int) (renderHeight * renderscale.getScale());
             GL11.glViewport(i, j, k, l);
         }
     }
@@ -4105,9 +4105,9 @@ public class Shaders {
 
     public static void drawHorizon() {
         WorldRenderer worldrenderer = Tessellator.getInstance().getWorldRenderer();
-        float f = (float) (mc.gameSettings.renderDistanceChunks * 16);
-        double d0 = (double) f * 0.9238D;
-        double d1 = (double) f * 0.3826D;
+        float f = (mc.gameSettings.renderDistanceChunks * 16);
+        double d0 = f * 0.9238D;
+        double d1 = f * 0.3826D;
         double d2 = -d1;
         double d3 = -d0;
         double d4 = 16.0D;
@@ -4364,8 +4364,8 @@ public class Shaders {
             tempDirectFloatBuffer.clear();
             GL11.glReadPixels(renderWidth / 2, renderHeight / 2, 1, 1, GL11.GL_DEPTH_COMPONENT, GL11.GL_FLOAT, (FloatBuffer) tempDirectFloatBuffer);
             centerDepth = tempDirectFloatBuffer.get(0);
-            float f = (float) diffSystemTime * 0.01F;
-            float f1 = (float) Math.exp(Math.log(0.5D) * (double) f / (double) centerDepthSmoothHalflife);
+            float f = diffSystemTime * 0.01F;
+            float f1 = (float) Math.exp(Math.log(0.5D) * f / centerDepthSmoothHalflife);
             centerDepthSmooth = centerDepthSmooth * f1 + centerDepth * (1.0F - f1);
         }
     }
@@ -4427,8 +4427,8 @@ public class Shaders {
     }
 
     public static void applyHandDepth() {
-        if ((double) configHandDepthMul != 1.0D) {
-            GL11.glScaled(1.0D, 1.0D, (double) configHandDepthMul);
+        if (configHandDepthMul != 1.0D) {
+            GL11.glScaled(1.0D, 1.0D, configHandDepthMul);
         }
     }
 

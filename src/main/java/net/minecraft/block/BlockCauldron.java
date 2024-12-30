@@ -63,9 +63,9 @@ public class BlockCauldron extends Block {
 
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
         int i = ((Integer) state.getValue(LEVEL)).intValue();
-        float f = (float) pos.getY() + (6.0F + (float) (3 * i)) / 16.0F;
+        float f = pos.getY() + (6.0F + (3 * i)) / 16.0F;
 
-        if (!worldIn.isRemote && entityIn.isBurning() && i > 0 && entityIn.getEntityBoundingBox().minY <= (double) f) {
+        if (!worldIn.isRemote && entityIn.isBurning() && i > 0 && entityIn.getEntityBoundingBox().minY <= f) {
             entityIn.extinguish();
             this.setWaterLevel(worldIn, pos, state, i - 1);
         }
@@ -100,7 +100,7 @@ public class BlockCauldron extends Block {
                             ItemStack itemstack2 = new ItemStack(Items.potionitem, 1, 0);
 
                             if (!playerIn.inventory.addItemStackToInventory(itemstack2)) {
-                                worldIn.spawnEntityInWorld(new EntityItem(worldIn, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.5D, (double) pos.getZ() + 0.5D, itemstack2));
+                                worldIn.spawnEntityInWorld(new EntityItem(worldIn, pos.getX() + 0.5D, pos.getY() + 1.5D, pos.getZ() + 0.5D, itemstack2));
                             } else if (playerIn instanceof EntityPlayerMP) {
                                 ((EntityPlayerMP) playerIn).sendContainerToPlayer(playerIn.inventoryContainer);
                             }
@@ -137,7 +137,7 @@ public class BlockCauldron extends Block {
                             playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, itemstack1);
                         } else {
                             if (!playerIn.inventory.addItemStackToInventory(itemstack1)) {
-                                worldIn.spawnEntityInWorld(new EntityItem(worldIn, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.5D, (double) pos.getZ() + 0.5D, itemstack1));
+                                worldIn.spawnEntityInWorld(new EntityItem(worldIn, pos.getX() + 0.5D, pos.getY() + 1.5D, pos.getZ() + 0.5D, itemstack1));
                             } else if (playerIn instanceof EntityPlayerMP) {
                                 ((EntityPlayerMP) playerIn).sendContainerToPlayer(playerIn.inventoryContainer);
                             }

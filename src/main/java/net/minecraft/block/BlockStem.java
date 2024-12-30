@@ -113,7 +113,7 @@ public class BlockStem extends BlockBush implements IGrowable {
     }
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-        this.maxY = (double) ((float) (((Integer) worldIn.getBlockState(pos).getValue(AGE)).intValue() * 2 + 2) / 16.0F);
+        this.maxY = ((((Integer) worldIn.getBlockState(pos).getValue(AGE)).intValue() * 2 + 2) / 16.0F);
         float f = 0.125F;
         this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, (float) this.maxY, 0.5F + f);
     }

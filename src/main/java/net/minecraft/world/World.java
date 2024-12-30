@@ -654,25 +654,25 @@ public abstract class World implements IBlockAccess {
                     double d2 = 999.0D;
 
                     if (i > l) {
-                        d0 = (double) l + 1.0D;
+                        d0 = l + 1.0D;
                     } else if (i < l) {
-                        d0 = (double) l + 0.0D;
+                        d0 = l + 0.0D;
                     } else {
                         flag2 = false;
                     }
 
                     if (j > i1) {
-                        d1 = (double) i1 + 1.0D;
+                        d1 = i1 + 1.0D;
                     } else if (j < i1) {
-                        d1 = (double) i1 + 0.0D;
+                        d1 = i1 + 0.0D;
                     } else {
                         flag = false;
                     }
 
                     if (k > j1) {
-                        d2 = (double) j1 + 1.0D;
+                        d2 = j1 + 1.0D;
                     } else if (k < j1) {
-                        d2 = (double) j1 + 0.0D;
+                        d2 = j1 + 0.0D;
                     } else {
                         flag1 = false;
                     }
@@ -995,8 +995,8 @@ public abstract class World implements IBlockAccess {
         float f1 = 1.0F - (MathHelper.cos(f * (float) Math.PI * 2.0F) * 2.0F + 0.5F);
         f1 = MathHelper.clamp_float(f1, 0.0F, 1.0F);
         f1 = 1.0F - f1;
-        f1 = (float) ((double) f1 * (1.0D - (double) (this.getRainStrength(p_72967_1_) * 5.0F) / 16.0D));
-        f1 = (float) ((double) f1 * (1.0D - (double) (this.getThunderStrength(p_72967_1_) * 5.0F) / 16.0D));
+        f1 = (float) (f1 * (1.0D - (this.getRainStrength(p_72967_1_) * 5.0F) / 16.0D));
+        f1 = (float) (f1 * (1.0D - (this.getThunderStrength(p_72967_1_) * 5.0F) / 16.0D));
         f1 = 1.0F - f1;
         return (int) (f1 * 11.0F);
     }
@@ -1006,8 +1006,8 @@ public abstract class World implements IBlockAccess {
         float f1 = 1.0F - (MathHelper.cos(f * (float) Math.PI * 2.0F) * 2.0F + 0.2F);
         f1 = MathHelper.clamp_float(f1, 0.0F, 1.0F);
         f1 = 1.0F - f1;
-        f1 = (float) ((double) f1 * (1.0D - (double) (this.getRainStrength(p_72971_1_) * 5.0F) / 16.0D));
-        f1 = (float) ((double) f1 * (1.0D - (double) (this.getThunderStrength(p_72971_1_) * 5.0F) / 16.0D));
+        f1 = (float) (f1 * (1.0D - (this.getRainStrength(p_72971_1_) * 5.0F) / 16.0D));
+        f1 = (float) (f1 * (1.0D - (this.getThunderStrength(p_72971_1_) * 5.0F) / 16.0D));
         return f1 * 0.8F + 0.2F;
     }
 
@@ -1022,9 +1022,9 @@ public abstract class World implements IBlockAccess {
         BiomeGenBase biomegenbase = this.getBiomeGenForCoords(blockpos);
         float f2 = biomegenbase.getFloatTemperature(blockpos);
         int l = biomegenbase.getSkyColorByTemp(f2);
-        float f3 = (float) (l >> 16 & 255) / 255.0F;
-        float f4 = (float) (l >> 8 & 255) / 255.0F;
-        float f5 = (float) (l & 255) / 255.0F;
+        float f3 = (l >> 16 & 255) / 255.0F;
+        float f4 = (l >> 8 & 255) / 255.0F;
+        float f5 = (l & 255) / 255.0F;
         f3 = f3 * f1;
         f4 = f4 * f1;
         f5 = f5 * f1;
@@ -1049,7 +1049,7 @@ public abstract class World implements IBlockAccess {
         }
 
         if (this.lastLightningBolt > 0) {
-            float f12 = (float) this.lastLightningBolt - partialTicks;
+            float f12 = this.lastLightningBolt - partialTicks;
 
             if (f12 > 1.0F) {
                 f12 = 1.0F;
@@ -1085,9 +1085,9 @@ public abstract class World implements IBlockAccess {
         float f = this.getCelestialAngle(partialTicks);
         float f1 = MathHelper.cos(f * (float) Math.PI * 2.0F) * 2.0F + 0.5F;
         f1 = MathHelper.clamp_float(f1, 0.0F, 1.0F);
-        float f2 = (float) (this.cloudColour >> 16 & 255L) / 255.0F;
-        float f3 = (float) (this.cloudColour >> 8 & 255L) / 255.0F;
-        float f4 = (float) (this.cloudColour & 255L) / 255.0F;
+        float f2 = (this.cloudColour >> 16 & 255L) / 255.0F;
+        float f3 = (this.cloudColour >> 8 & 255L) / 255.0F;
+        float f4 = (this.cloudColour & 255L) / 255.0F;
         float f5 = this.getRainStrength(partialTicks);
 
         if (f5 > 0.0F) {
@@ -1505,9 +1505,9 @@ public abstract class World implements IBlockAccess {
                         Block block = iblockstate.getBlock();
 
                         if (block.getMaterial() == materialIn) {
-                            double d0 = (float) (l1 + 1) - BlockLiquid.getLiquidHeightPercent(iblockstate.getValue(BlockLiquid.LEVEL).intValue());
+                            double d0 = (l1 + 1) - BlockLiquid.getLiquidHeightPercent(iblockstate.getValue(BlockLiquid.LEVEL).intValue());
 
-                            if ((double) l >= d0) {
+                            if (l >= d0) {
                                 flag = true;
                                 vec3 = block.modifyAcceleration(this, blockpos$mutableblockpos, entityIn, vec3);
                             }
@@ -1570,7 +1570,7 @@ public abstract class World implements IBlockAccess {
                         double d0 = l1 + 1;
 
                         if (j2 < 8) {
-                            d0 = (double) (l1 + 1) - (double) j2 / 8.0D;
+                            d0 = (l1 + 1) - j2 / 8.0D;
                         }
 
                         if (d0 >= bb.minY) {
@@ -1606,12 +1606,12 @@ public abstract class World implements IBlockAccess {
             int i = 0;
             int j = 0;
 
-            for (float f = 0.0F; f <= 1.0F; f = (float) ((double) f + d0)) {
-                for (float f1 = 0.0F; f1 <= 1.0F; f1 = (float) ((double) f1 + d1)) {
-                    for (float f2 = 0.0F; f2 <= 1.0F; f2 = (float) ((double) f2 + d2)) {
-                        double d5 = bb.minX + (bb.maxX - bb.minX) * (double) f;
-                        double d6 = bb.minY + (bb.maxY - bb.minY) * (double) f1;
-                        double d7 = bb.minZ + (bb.maxZ - bb.minZ) * (double) f2;
+            for (float f = 0.0F; f <= 1.0F; f = (float) (f + d0)) {
+                for (float f1 = 0.0F; f1 <= 1.0F; f1 = (float) (f1 + d1)) {
+                    for (float f2 = 0.0F; f2 <= 1.0F; f2 = (float) (f2 + d2)) {
+                        double d5 = bb.minX + (bb.maxX - bb.minX) * f;
+                        double d6 = bb.minY + (bb.maxY - bb.minY) * f1;
+                        double d7 = bb.minZ + (bb.maxZ - bb.minZ) * f2;
 
                         if (this.rayTraceBlocks(new Vec3(d5 + d3, d6, d7 + d4), vec) == null) {
                             ++i;
@@ -1622,7 +1622,7 @@ public abstract class World implements IBlockAccess {
                 }
             }
 
-            return (float) i / (float) j;
+            return (float) i / j;
         } else {
             return 0.0F;
         }
@@ -1810,9 +1810,9 @@ public abstract class World implements IBlockAccess {
                 this.prevThunderingStrength = this.thunderingStrength;
 
                 if (this.worldInfo.isThundering()) {
-                    this.thunderingStrength = (float) ((double) this.thunderingStrength + 0.01D);
+                    this.thunderingStrength = (float) (this.thunderingStrength + 0.01D);
                 } else {
-                    this.thunderingStrength = (float) ((double) this.thunderingStrength - 0.01D);
+                    this.thunderingStrength = (float) (this.thunderingStrength - 0.01D);
                 }
 
                 this.thunderingStrength = MathHelper.clamp_float(this.thunderingStrength, 0.0F, 1.0F);
@@ -1836,9 +1836,9 @@ public abstract class World implements IBlockAccess {
                 this.prevRainingStrength = this.rainingStrength;
 
                 if (this.worldInfo.isRaining()) {
-                    this.rainingStrength = (float) ((double) this.rainingStrength + 0.01D);
+                    this.rainingStrength = (float) (this.rainingStrength + 0.01D);
                 } else {
-                    this.rainingStrength = (float) ((double) this.rainingStrength - 0.01D);
+                    this.rainingStrength = (float) (this.rainingStrength - 0.01D);
                 }
 
                 this.rainingStrength = MathHelper.clamp_float(this.rainingStrength, 0.0F, 1.0F);
@@ -1889,10 +1889,10 @@ public abstract class World implements IBlockAccess {
             k = k + p_147467_2_;
 
             if (block.getMaterial() == Material.air && this.getLight(blockpos) <= this.rand.nextInt(8) && this.getLightFor(EnumSkyBlock.SKY, blockpos) <= 0) {
-                EntityPlayer entityplayer = this.getClosestPlayer((double) j + 0.5D, (double) l + 0.5D, (double) k + 0.5D, 8.0D);
+                EntityPlayer entityplayer = this.getClosestPlayer(j + 0.5D, l + 0.5D, k + 0.5D, 8.0D);
 
-                if (entityplayer != null && entityplayer.getDistanceSq((double) j + 0.5D, (double) l + 0.5D, (double) k + 0.5D) > 4.0D) {
-                    this.playSoundEffect((double) j + 0.5D, (double) l + 0.5D, (double) k + 0.5D, "ambient.cave.cave", 0.7F, 0.8F + this.rand.nextFloat() * 0.2F);
+                if (entityplayer != null && entityplayer.getDistanceSq(j + 0.5D, l + 0.5D, k + 0.5D) > 4.0D) {
+                    this.playSoundEffect(j + 0.5D, l + 0.5D, k + 0.5D, "ambient.cave.cave", 0.7F, 0.8F + this.rand.nextFloat() * 0.2F);
                     this.ambientTickCountdown = this.rand.nextInt(12000) + 6000;
                 }
             }
@@ -2516,11 +2516,11 @@ public abstract class World implements IBlockAccess {
     }
 
     public boolean isThundering() {
-        return (double) this.getThunderStrength(1.0F) > 0.9D;
+        return this.getThunderStrength(1.0F) > 0.9D;
     }
 
     public boolean isRaining() {
-        return (double) this.getRainStrength(1.0F) > 0.2D;
+        return this.getRainStrength(1.0F) > 0.2D;
     }
 
     public boolean isRainingAt(BlockPos strikePosition) {
@@ -2592,7 +2592,7 @@ public abstract class World implements IBlockAccess {
     }
 
     public Random setRandomSeed(int p_72843_1_, int p_72843_2_, int p_72843_3_) {
-        long i = (long) p_72843_1_ * 341873128712L + (long) p_72843_2_ * 132897987541L + this.getWorldInfo().getSeed() + (long) p_72843_3_;
+        long i = p_72843_1_ * 341873128712L + p_72843_2_ * 132897987541L + this.getWorldInfo().getSeed() + p_72843_3_;
         this.rand.setSeed(i);
         return this.rand;
     }

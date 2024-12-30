@@ -290,12 +290,12 @@ public class Block {
     }
 
     protected final void setBlockBounds(float minX, float minY, float minZ, float maxX, float maxY, float maxZ) {
-        this.minX = (double) minX;
-        this.minY = (double) minY;
-        this.minZ = (double) minZ;
-        this.maxX = (double) maxX;
-        this.maxY = (double) maxY;
-        this.maxZ = (double) maxZ;
+        this.minX = minX;
+        this.minY = minY;
+        this.minZ = minZ;
+        this.maxX = maxX;
+        this.maxY = maxY;
+        this.maxZ = maxZ;
     }
 
     public int getMixedBrightnessForBlock(IBlockAccess worldIn, BlockPos pos) {
@@ -320,7 +320,7 @@ public class Block {
     }
 
     public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos) {
-        return new AxisAlignedBB((double) pos.getX() + this.minX, (double) pos.getY() + this.minY, (double) pos.getZ() + this.minZ, (double) pos.getX() + this.maxX, (double) pos.getY() + this.maxY, (double) pos.getZ() + this.maxZ);
+        return new AxisAlignedBB(pos.getX() + this.minX, pos.getY() + this.minY, pos.getZ() + this.minZ, pos.getX() + this.maxX, pos.getY() + this.maxY, pos.getZ() + this.maxZ);
     }
 
     public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {
@@ -332,7 +332,7 @@ public class Block {
     }
 
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
-        return new AxisAlignedBB((double) pos.getX() + this.minX, (double) pos.getY() + this.minY, (double) pos.getZ() + this.minZ, (double) pos.getX() + this.maxX, (double) pos.getY() + this.maxY, (double) pos.getZ() + this.maxZ);
+        return new AxisAlignedBB(pos.getX() + this.minX, pos.getY() + this.minY, pos.getZ() + this.minZ, pos.getX() + this.maxX, pos.getY() + this.maxY, pos.getZ() + this.maxZ);
     }
 
     public boolean isOpaqueCube() {
@@ -409,10 +409,10 @@ public class Block {
     public static void spawnAsEntity(World worldIn, BlockPos pos, ItemStack stack) {
         if (!worldIn.isRemote && worldIn.getGameRules().getBoolean("doTileDrops")) {
             float f = 0.5F;
-            double d0 = (double) (worldIn.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-            double d1 = (double) (worldIn.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-            double d2 = (double) (worldIn.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-            EntityItem entityitem = new EntityItem(worldIn, (double) pos.getX() + d0, (double) pos.getY() + d1, (double) pos.getZ() + d2, stack);
+            double d0 = (worldIn.rand.nextFloat() * f) + (1.0F - f) * 0.5D;
+            double d1 = (worldIn.rand.nextFloat() * f) + (1.0F - f) * 0.5D;
+            double d2 = (worldIn.rand.nextFloat() * f) + (1.0F - f) * 0.5D;
+            EntityItem entityitem = new EntityItem(worldIn, pos.getX() + d0, pos.getY() + d1, pos.getZ() + d2, stack);
             entityitem.setDefaultPickupDelay();
             worldIn.spawnEntityInWorld(entityitem);
         }
@@ -423,7 +423,7 @@ public class Block {
             while (amount > 0) {
                 int i = EntityXPOrb.getXPSplit(amount);
                 amount -= i;
-                worldIn.spawnEntityInWorld(new EntityXPOrb(worldIn, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, i));
+                worldIn.spawnEntityInWorld(new EntityXPOrb(worldIn, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, i));
             }
         }
     }
@@ -438,8 +438,8 @@ public class Block {
 
     public MovingObjectPosition collisionRayTrace(World worldIn, BlockPos pos, Vec3 start, Vec3 end) {
         this.setBlockBoundsBasedOnState(worldIn, pos);
-        start = start.addVector((double) (-pos.getX()), (double) (-pos.getY()), (double) (-pos.getZ()));
-        end = end.addVector((double) (-pos.getX()), (double) (-pos.getY()), (double) (-pos.getZ()));
+        start = start.addVector((-pos.getX()), (-pos.getY()), (-pos.getZ()));
+        end = end.addVector((-pos.getX()), (-pos.getY()), (-pos.getZ()));
         Vec3 vec3 = start.getIntermediateWithXValue(end, this.minX);
         Vec3 vec31 = start.getIntermediateWithXValue(end, this.maxX);
         Vec3 vec32 = start.getIntermediateWithYValue(end, this.minY);
@@ -526,7 +526,7 @@ public class Block {
                 enumfacing = EnumFacing.SOUTH;
             }
 
-            return new MovingObjectPosition(vec36.addVector((double) pos.getX(), (double) pos.getY(), (double) pos.getZ()), enumfacing, pos);
+            return new MovingObjectPosition(vec36.addVector(pos.getX(), pos.getY(), pos.getZ()), enumfacing, pos);
         }
     }
 

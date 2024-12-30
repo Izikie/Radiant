@@ -200,14 +200,14 @@ public class RenderItem implements IResourceManagerReloadListener {
                 GlStateManager.matrixMode(5890);
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(8.0F, 8.0F, 8.0F);
-                float f = (float) (Minecraft.getSystemTime() % 3000L) / 3000.0F / 8.0F;
+                float f = (Minecraft.getSystemTime() % 3000L) / 3000.0F / 8.0F;
                 GlStateManager.translate(f, 0.0F, 0.0F);
                 GlStateManager.rotate(-50.0F, 0.0F, 0.0F, 1.0F);
                 this.renderModel(model, -8372020);
                 GlStateManager.popMatrix();
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(8.0F, 8.0F, 8.0F);
-                float f1 = (float) (Minecraft.getSystemTime() % 4873L) / 4873.0F / 8.0F;
+                float f1 = (Minecraft.getSystemTime() % 4873L) / 4873.0F / 8.0F;
                 GlStateManager.translate(-f1, 0.0F, 0.0F);
                 GlStateManager.rotate(10.0F, 0.0F, 0.0F, 1.0F);
                 this.renderModel(model, -8372020);
@@ -228,7 +228,7 @@ public class RenderItem implements IResourceManagerReloadListener {
 
     private void putQuadNormal(WorldRenderer renderer, BakedQuad quad) {
         Vec3i vec3i = quad.getFace().getDirectionVec();
-        renderer.putNormal((float) vec3i.getX(), (float) vec3i.getY(), (float) vec3i.getZ());
+        renderer.putNormal(vec3i.getX(), vec3i.getY(), vec3i.getZ());
     }
 
     private void renderQuad(WorldRenderer renderer, BakedQuad quad, int color) {
@@ -394,7 +394,7 @@ public class RenderItem implements IResourceManagerReloadListener {
     }
 
     private void setupGuiTransform(int xPosition, int yPosition, boolean isGui3d) {
-        GlStateManager.translate((float) xPosition, (float) yPosition, 100.0F + this.zLevel);
+        GlStateManager.translate(xPosition, yPosition, 100.0F + this.zLevel);
         GlStateManager.translate(8.0F, 8.0F, 0.0F);
         GlStateManager.scale(1.0F, 1.0F, -1.0F);
         GlStateManager.scale(0.5F, 0.5F, 0.5F);
@@ -463,15 +463,15 @@ public class RenderItem implements IResourceManagerReloadListener {
                 GlStateManager.disableLighting();
                 GlStateManager.disableDepth();
                 GlStateManager.disableBlend();
-                fr.drawStringWithShadow(s, (float) (xPosition + 19 - 2 - fr.getStringWidth(s)), (float) (yPosition + 6 + 3), 16777215);
+                fr.drawStringWithShadow(s, (xPosition + 19 - 2 - fr.getStringWidth(s)), (yPosition + 6 + 3), 16777215);
                 GlStateManager.enableLighting();
                 GlStateManager.enableDepth();
                 GlStateManager.enableBlend();
             }
 
             if (stack.isItemDamaged()) {
-                int j1 = (int) Math.round(13.0D - (double) stack.getItemDamage() * 13.0D / (double) stack.getMaxDamage());
-                int i = (int) Math.round(255.0D - (double) stack.getItemDamage() * 255.0D / (double) stack.getMaxDamage());
+                int j1 = (int) Math.round(13.0D - stack.getItemDamage() * 13.0D / stack.getMaxDamage());
+                int i = (int) Math.round(255.0D - stack.getItemDamage() * 255.0D / stack.getMaxDamage());
 
                 GlStateManager.disableLighting();
                 GlStateManager.disableDepth();
@@ -508,10 +508,10 @@ public class RenderItem implements IResourceManagerReloadListener {
 
     private void draw(WorldRenderer renderer, int x, int y, int width, int height, int red, int green, int blue, int alpha) {
         renderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        renderer.pos((double) (x + 0), (double) (y + 0), 0.0D).color(red, green, blue, alpha).endVertex();
-        renderer.pos((double) (x + 0), (double) (y + height), 0.0D).color(red, green, blue, alpha).endVertex();
-        renderer.pos((double) (x + width), (double) (y + height), 0.0D).color(red, green, blue, alpha).endVertex();
-        renderer.pos((double) (x + width), (double) (y + 0), 0.0D).color(red, green, blue, alpha).endVertex();
+        renderer.pos((x + 0), (y + 0), 0.0D).color(red, green, blue, alpha).endVertex();
+        renderer.pos((x + 0), (y + height), 0.0D).color(red, green, blue, alpha).endVertex();
+        renderer.pos((x + width), (y + height), 0.0D).color(red, green, blue, alpha).endVertex();
+        renderer.pos((x + width), (y + 0), 0.0D).color(red, green, blue, alpha).endVertex();
         Tessellator.getInstance().draw();
     }
 

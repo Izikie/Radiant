@@ -52,7 +52,7 @@ public class Teleporter {
                 }
             }
 
-            entityIn.setLocationAndAngles((double) i, (double) j, (double) k, entityIn.rotationYaw, 0.0F);
+            entityIn.setLocationAndAngles(i, j, k, entityIn.rotationYaw, 0.0F);
             entityIn.motionX = entityIn.motionY = entityIn.motionZ = 0.0D;
         }
     }
@@ -105,22 +105,22 @@ public class Teleporter {
                 this.destinationCoordinateKeys.add(Long.valueOf(l));
             }
 
-            double d5 = (double) blockpos.getX() + 0.5D;
-            double d6 = (double) blockpos.getY() + 0.5D;
-            double d7 = (double) blockpos.getZ() + 0.5D;
+            double d5 = blockpos.getX() + 0.5D;
+            double d6 = blockpos.getY() + 0.5D;
+            double d7 = blockpos.getZ() + 0.5D;
             BlockPattern.PatternHelper blockpattern$patternhelper = Blocks.portal.func_181089_f(this.worldServerInstance, blockpos);
             boolean flag1 = blockpattern$patternhelper.getFinger().rotateY().getAxisDirection() == EnumFacing.AxisDirection.NEGATIVE;
-            double d2 = blockpattern$patternhelper.getFinger().getAxis() == EnumFacing.Axis.X ? (double) blockpattern$patternhelper.getPos().getZ() : (double) blockpattern$patternhelper.getPos().getX();
-            d6 = (double) (blockpattern$patternhelper.getPos().getY() + 1) - entityIn.func_181014_aG().yCoord * (double) blockpattern$patternhelper.func_181119_e();
+            double d2 = blockpattern$patternhelper.getFinger().getAxis() == EnumFacing.Axis.X ? blockpattern$patternhelper.getPos().getZ() : blockpattern$patternhelper.getPos().getX();
+            d6 = (blockpattern$patternhelper.getPos().getY() + 1) - entityIn.func_181014_aG().yCoord * blockpattern$patternhelper.func_181119_e();
 
             if (flag1) {
                 ++d2;
             }
 
             if (blockpattern$patternhelper.getFinger().getAxis() == EnumFacing.Axis.X) {
-                d7 = d2 + (1.0D - entityIn.func_181014_aG().xCoord) * (double) blockpattern$patternhelper.func_181118_d() * (double) blockpattern$patternhelper.getFinger().rotateY().getAxisDirection().getOffset();
+                d7 = d2 + (1.0D - entityIn.func_181014_aG().xCoord) * blockpattern$patternhelper.func_181118_d() * blockpattern$patternhelper.getFinger().rotateY().getAxisDirection().getOffset();
             } else {
-                d5 = d2 + (1.0D - entityIn.func_181014_aG().xCoord) * (double) blockpattern$patternhelper.func_181118_d() * (double) blockpattern$patternhelper.getFinger().rotateY().getAxisDirection().getOffset();
+                d5 = d2 + (1.0D - entityIn.func_181014_aG().xCoord) * blockpattern$patternhelper.func_181118_d() * blockpattern$patternhelper.getFinger().rotateY().getAxisDirection().getOffset();
             }
 
             float f = 0.0F;
@@ -144,9 +144,9 @@ public class Teleporter {
 
             double d3 = entityIn.motionX;
             double d4 = entityIn.motionZ;
-            entityIn.motionX = d3 * (double) f + d4 * (double) f3;
-            entityIn.motionZ = d3 * (double) f2 + d4 * (double) f1;
-            entityIn.rotationYaw = rotationYaw - (float) (entityIn.getTeleportDirection().getOpposite().getHorizontalIndex() * 90) + (float) (blockpattern$patternhelper.getFinger().getHorizontalIndex() * 90);
+            entityIn.motionX = d3 * f + d4 * f3;
+            entityIn.motionZ = d3 * f2 + d4 * f1;
+            entityIn.rotationYaw = rotationYaw - (entityIn.getTeleportDirection().getOpposite().getHorizontalIndex() * 90) + (blockpattern$patternhelper.getFinger().getHorizontalIndex() * 90);
             entityIn.setLocationAndAngles(d5, d6, d7, entityIn.rotationYaw, entityIn.rotationPitch);
             return true;
         } else {
@@ -168,10 +168,10 @@ public class Teleporter {
         BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 
         for (int j2 = j - i; j2 <= j + i; ++j2) {
-            double d1 = (double) j2 + 0.5D - entityIn.posX;
+            double d1 = j2 + 0.5D - entityIn.posX;
 
             for (int l2 = l - i; l2 <= l + i; ++l2) {
-                double d2 = (double) l2 + 0.5D - entityIn.posZ;
+                double d2 = l2 + 0.5D - entityIn.posZ;
                 label142:
 
                 for (int j3 = this.worldServerInstance.getActualHeight() - 1; j3 >= 0; --j3) {
@@ -204,7 +204,7 @@ public class Teleporter {
                                 }
                             }
 
-                            double d5 = (double) j3 + 0.5D - entityIn.posY;
+                            double d5 = j3 + 0.5D - entityIn.posY;
                             double d7 = d1 * d1 + d5 * d5 + d2 * d2;
 
                             if (d0 < 0.0D || d7 < d0) {
@@ -222,10 +222,10 @@ public class Teleporter {
 
         if (d0 < 0.0D) {
             for (int l5 = j - i; l5 <= j + i; ++l5) {
-                double d3 = (double) l5 + 0.5D - entityIn.posX;
+                double d3 = l5 + 0.5D - entityIn.posX;
 
                 for (int j6 = l - i; j6 <= l + i; ++j6) {
-                    double d4 = (double) j6 + 0.5D - entityIn.posZ;
+                    double d4 = j6 + 0.5D - entityIn.posZ;
                     label562:
 
                     for (int i7 = this.worldServerInstance.getActualHeight() - 1; i7 >= 0; --i7) {
@@ -251,7 +251,7 @@ public class Teleporter {
                                     }
                                 }
 
-                                double d6 = (double) i7 + 0.5D - entityIn.posY;
+                                double d6 = i7 + 0.5D - entityIn.posY;
                                 double d8 = d3 * d3 + d6 * d6 + d4 * d4;
 
                                 if (d0 < 0.0D || d8 < d0) {

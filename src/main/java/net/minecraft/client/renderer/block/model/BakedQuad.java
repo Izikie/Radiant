@@ -104,7 +104,7 @@ public class BakedQuad {
 
         float f6 = (f + f2) / 2.0F;
         float f7 = (f1 + f3) / 2.0F;
-        TextureAtlasSprite textureatlassprite = Minecraft.getMinecraft().getTextureMapBlocks().getIconByUV((double) f6, (double) f7);
+        TextureAtlasSprite textureatlassprite = Minecraft.getMinecraft().getTextureMapBlocks().getIconByUV(f6, f7);
         return textureatlassprite;
     }
 
@@ -157,12 +157,12 @@ public class BakedQuad {
 
     public double getMidY() {
         QuadBounds quadbounds = this.getQuadBounds();
-        return (double) ((quadbounds.getMaxY() + quadbounds.getMinY()) / 2.0F);
+        return ((quadbounds.getMaxY() + quadbounds.getMinY()) / 2.0F);
     }
 
     public double getMidZ() {
         QuadBounds quadbounds = this.getQuadBounds();
-        return (double) ((quadbounds.getMaxZ() + quadbounds.getMinZ()) / 2.0F);
+        return ((quadbounds.getMaxZ() + quadbounds.getMinZ()) / 2.0F);
     }
 
     public boolean isFaceQuad() {

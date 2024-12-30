@@ -81,18 +81,18 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (this.isRepeaterPowered) {
             EnumFacing enumfacing = (EnumFacing) state.getValue(FACING);
-            double d0 = (double) ((float) pos.getX() + 0.5F) + (double) (rand.nextFloat() - 0.5F) * 0.2D;
-            double d1 = (double) ((float) pos.getY() + 0.4F) + (double) (rand.nextFloat() - 0.5F) * 0.2D;
-            double d2 = (double) ((float) pos.getZ() + 0.5F) + (double) (rand.nextFloat() - 0.5F) * 0.2D;
+            double d0 = (pos.getX() + 0.5F) + (rand.nextFloat() - 0.5F) * 0.2D;
+            double d1 = (pos.getY() + 0.4F) + (rand.nextFloat() - 0.5F) * 0.2D;
+            double d2 = (pos.getZ() + 0.5F) + (rand.nextFloat() - 0.5F) * 0.2D;
             float f = -5.0F;
 
             if (rand.nextBoolean()) {
-                f = (float) (((Integer) state.getValue(DELAY)).intValue() * 2 - 1);
+                f = (((Integer) state.getValue(DELAY)).intValue() * 2 - 1);
             }
 
             f = f / 16.0F;
-            double d3 = (double) (f * (float) enumfacing.getFrontOffsetX());
-            double d4 = (double) (f * (float) enumfacing.getFrontOffsetZ());
+            double d3 = (f * enumfacing.getFrontOffsetX());
+            double d4 = (f * enumfacing.getFrontOffsetZ());
             worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D, new int[0]);
         }
     }

@@ -22,7 +22,7 @@ public class GenLayerZoom extends GenLayer {
             int j2 = aint[i2 + (k1) * k];
 
             for (int k2 = aint[i2 + (k1 + 1) * k]; i2 < k - 1; ++i2) {
-                this.initChunkSeed((long) (i2 + i << 1), (long) (k1 + j << 1));
+                this.initChunkSeed((i2 + i << 1), (k1 + j << 1));
                 int l2 = aint[i2 + 1 + (k1) * k];
                 int i3 = aint[i2 + 1 + (k1 + 1) * k];
                 aint1[l1] = j2;
@@ -47,7 +47,7 @@ public class GenLayerZoom extends GenLayer {
         GenLayer genlayer = p_75915_2_;
 
         for (int i = 0; i < p_75915_3_; ++i) {
-            genlayer = new GenLayerZoom(p_75915_0_ + (long) i, genlayer);
+            genlayer = new GenLayerZoom(p_75915_0_ + i, genlayer);
         }
 
         return genlayer;

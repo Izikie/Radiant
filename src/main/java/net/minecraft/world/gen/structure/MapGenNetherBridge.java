@@ -33,7 +33,7 @@ public class MapGenNetherBridge extends MapGenStructure {
     protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ) {
         int i = chunkX >> 4;
         int j = chunkZ >> 4;
-        this.rand.setSeed((long) (i ^ j << 4) ^ this.worldObj.getSeed());
+        this.rand.setSeed((i ^ j << 4) ^ this.worldObj.getSeed());
         this.rand.nextInt();
         return this.rand.nextInt(3) != 0 ? false : (chunkX != (i << 4) + 4 + this.rand.nextInt(8) ? false : chunkZ == (j << 4) + 4 + this.rand.nextInt(8));
     }

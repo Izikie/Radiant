@@ -19,7 +19,7 @@ public class WeightedRandomFishable extends WeightedRandom.Item {
         ItemStack itemstack = this.returnStack.copy();
 
         if (this.maxDamagePercent > 0.0F) {
-            int i = (int) (this.maxDamagePercent * (float) this.returnStack.getMaxDamage());
+            int i = (int) (this.maxDamagePercent * this.returnStack.getMaxDamage());
             int j = itemstack.getMaxDamage() - random.nextInt(random.nextInt(i) + 1);
 
             if (j > i) {

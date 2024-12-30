@@ -24,10 +24,10 @@ public class RenderChunkUtils {
     }
 
     public static double getRelativeBufferSize(int blockCount) {
-        double d0 = (double) blockCount / 4096.0D;
+        double d0 = blockCount / 4096.0D;
         d0 = d0 * 0.995D;
         double d1 = d0 * 2.0D - 1.0D;
         d1 = MathHelper.clamp_double(d1, -1.0D, 1.0D);
-        return (double) MathHelper.sqrt_double(1.0D - d1 * d1);
+        return MathHelper.sqrt_double(1.0D - d1 * d1);
     }
 }

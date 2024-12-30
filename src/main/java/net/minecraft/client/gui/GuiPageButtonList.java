@@ -228,9 +228,9 @@ public class GuiPageButtonList extends GuiListExtended {
                     int i1 = guitextfield.yPosition;
 
                     if (l > this.bottom) {
-                        this.amountScrolled += (float) (l - this.bottom);
+                        this.amountScrolled += (l - this.bottom);
                     } else if (i1 < this.top) {
-                        this.amountScrolled = (float) i1;
+                        this.amountScrolled = i1;
                     }
                 } else {
                     guitextfield.textboxKeyTyped(p_178062_1_, p_178062_2_);

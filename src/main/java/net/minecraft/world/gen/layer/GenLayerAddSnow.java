@@ -17,7 +17,7 @@ public class GenLayerAddSnow extends GenLayer {
         for (int i1 = 0; i1 < areaHeight; ++i1) {
             for (int j1 = 0; j1 < areaWidth; ++j1) {
                 int k1 = aint[j1 + 1 + (i1 + 1) * k];
-                this.initChunkSeed((long) (j1 + areaX), (long) (i1 + areaY));
+                this.initChunkSeed((j1 + areaX), (i1 + areaY));
 
                 if (k1 == 0) {
                     aint1[j1 + i1 * areaWidth] = 0;

@@ -14,7 +14,7 @@ public class EntityLavaFX extends EntityFX {
         this.motionX *= 0.800000011920929D;
         this.motionY *= 0.800000011920929D;
         this.motionZ *= 0.800000011920929D;
-        this.motionY = (double) (this.rand.nextFloat() * 0.4F + 0.05F);
+        this.motionY = (this.rand.nextFloat() * 0.4F + 0.05F);
         this.particleRed = this.particleGreen = this.particleBlue = 1.0F;
         this.particleScale *= this.rand.nextFloat() * 2.0F + 0.2F;
         this.lavaParticleScale = this.particleScale;
@@ -24,7 +24,7 @@ public class EntityLavaFX extends EntityFX {
     }
 
     public int getBrightnessForRender(float partialTicks) {
-        float f = ((float) this.particleAge + partialTicks) / (float) this.particleMaxAge;
+        float f = (this.particleAge + partialTicks) / this.particleMaxAge;
         f = MathHelper.clamp_float(f, 0.0F, 1.0F);
         int i = super.getBrightnessForRender(partialTicks);
         int j = 240;
@@ -37,7 +37,7 @@ public class EntityLavaFX extends EntityFX {
     }
 
     public void renderParticle(WorldRenderer worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-        float f = ((float) this.particleAge + partialTicks) / (float) this.particleMaxAge;
+        float f = (this.particleAge + partialTicks) / this.particleMaxAge;
         this.particleScale = this.lavaParticleScale * (1.0F - f * f);
         super.renderParticle(worldRendererIn, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
     }
@@ -51,7 +51,7 @@ public class EntityLavaFX extends EntityFX {
             this.setDead();
         }
 
-        float f = (float) this.particleAge / (float) this.particleMaxAge;
+        float f = (float) this.particleAge / this.particleMaxAge;
 
         if (this.rand.nextFloat() > f) {
             this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX, this.posY, this.posZ, this.motionX, this.motionY, this.motionZ, new int[0]);

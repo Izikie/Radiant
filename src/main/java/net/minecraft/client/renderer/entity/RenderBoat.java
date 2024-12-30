@@ -20,7 +20,7 @@ public class RenderBoat extends Render<EntityBoat> {
         GlStateManager.pushMatrix();
         GlStateManager.translate((float) x, (float) y + 0.25F, (float) z);
         GlStateManager.rotate(180.0F - entityYaw, 0.0F, 1.0F, 0.0F);
-        float f = (float) entity.getTimeSinceHit() - partialTicks;
+        float f = entity.getTimeSinceHit() - partialTicks;
         float f1 = entity.getDamageTaken() - partialTicks;
 
         if (f1 < 0.0F) {
@@ -28,7 +28,7 @@ public class RenderBoat extends Render<EntityBoat> {
         }
 
         if (f > 0.0F) {
-            GlStateManager.rotate(MathHelper.sin(f) * f * f1 / 10.0F * (float) entity.getForwardDirection(), 1.0F, 0.0F, 0.0F);
+            GlStateManager.rotate(MathHelper.sin(f) * f * f1 / 10.0F * entity.getForwardDirection(), 1.0F, 0.0F, 0.0F);
         }
 
         float f2 = 0.75F;

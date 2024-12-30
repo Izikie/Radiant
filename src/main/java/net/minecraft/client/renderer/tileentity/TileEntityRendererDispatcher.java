@@ -94,9 +94,9 @@ public class TileEntityRendererDispatcher {
         this.fontRenderer = fontrendererIn;
         this.entityYaw = entityIn.prevRotationYaw + (entityIn.rotationYaw - entityIn.prevRotationYaw) * partialTicks;
         this.entityPitch = entityIn.prevRotationPitch + (entityIn.rotationPitch - entityIn.prevRotationPitch) * partialTicks;
-        this.entityX = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * (double) partialTicks;
-        this.entityY = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * (double) partialTicks;
-        this.entityZ = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * (double) partialTicks;
+        this.entityX = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * partialTicks;
+        this.entityY = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * partialTicks;
+        this.entityZ = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * partialTicks;
     }
 
     public void renderTileEntity(TileEntity tileentityIn, float partialTicks, int destroyStage) {
@@ -105,7 +105,7 @@ public class TileEntityRendererDispatcher {
             int i = this.worldObj.getCombinedLight(tileentityIn.getPos(), 0);
             int j = i % 65536;
             int k = i / 65536;
-            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j / 1.0F, (float) k / 1.0F);
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, j / 1.0F, k / 1.0F);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
             BlockPos blockpos = tileentityIn.getPos();
@@ -118,12 +118,12 @@ public class TileEntityRendererDispatcher {
                 EmissiveTextures.beginRender();
             }
 
-            this.renderTileEntityAt(tileentityIn, (double) blockpos.getX() - staticPlayerX, (double) blockpos.getY() - staticPlayerY, (double) blockpos.getZ() - staticPlayerZ, partialTicks, destroyStage);
+            this.renderTileEntityAt(tileentityIn, blockpos.getX() - staticPlayerX, blockpos.getY() - staticPlayerY, blockpos.getZ() - staticPlayerZ, partialTicks, destroyStage);
 
             if (EmissiveTextures.isActive()) {
                 if (EmissiveTextures.hasEmissive()) {
                     EmissiveTextures.beginRenderEmissive();
-                    this.renderTileEntityAt(tileentityIn, (double) blockpos.getX() - staticPlayerX, (double) blockpos.getY() - staticPlayerY, (double) blockpos.getZ() - staticPlayerZ, partialTicks, destroyStage);
+                    this.renderTileEntityAt(tileentityIn, blockpos.getX() - staticPlayerX, blockpos.getY() - staticPlayerY, blockpos.getZ() - staticPlayerZ, partialTicks, destroyStage);
                     EmissiveTextures.endRenderEmissive();
                 }
 

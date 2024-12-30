@@ -117,8 +117,8 @@ public class FaceBakery {
         faceData[j + 1] = Float.floatToRawIntBits(position.y);
         faceData[j + 2] = Float.floatToRawIntBits(position.z);
         faceData[j + 3] = shadeColor;
-        faceData[j + 4] = Float.floatToRawIntBits(sprite.getInterpolatedU((double) faceUV.func_178348_a(vertexIndex) * 0.999D + (double) faceUV.func_178348_a((vertexIndex + 2) % 4) * 0.001D));
-        faceData[j + 4 + 1] = Float.floatToRawIntBits(sprite.getInterpolatedV((double) faceUV.func_178346_b(vertexIndex) * 0.999D + (double) faceUV.func_178346_b((vertexIndex + 2) % 4) * 0.001D));
+        faceData[j + 4] = Float.floatToRawIntBits(sprite.getInterpolatedU(faceUV.func_178348_a(vertexIndex) * 0.999D + faceUV.func_178348_a((vertexIndex + 2) % 4) * 0.001D));
+        faceData[j + 4 + 1] = Float.floatToRawIntBits(sprite.getInterpolatedV(faceUV.func_178346_b(vertexIndex) * 0.999D + faceUV.func_178346_b((vertexIndex + 2) % 4) * 0.001D));
     }
 
     private void rotatePart(Vector3f p_178407_1_, BlockPartRotation partRotation) {
@@ -195,7 +195,7 @@ public class FaceBakery {
         Vector3f.sub(vector3f, vector3f1, vector3f3);
         Vector3f.sub(vector3f2, vector3f1, vector3f4);
         Vector3f.cross(vector3f4, vector3f3, vector3f5);
-        float f = (float) Math.sqrt((double) (vector3f5.x * vector3f5.x + vector3f5.y * vector3f5.y + vector3f5.z * vector3f5.z));
+        float f = (float) Math.sqrt((vector3f5.x * vector3f5.x + vector3f5.y * vector3f5.y + vector3f5.z * vector3f5.z));
         vector3f5.x /= f;
         vector3f5.y /= f;
         vector3f5.z /= f;
@@ -204,7 +204,7 @@ public class FaceBakery {
 
         for (EnumFacing enumfacing1 : EnumFacing.values()) {
             Vec3i vec3i = enumfacing1.getDirectionVec();
-            Vector3f vector3f6 = new Vector3f((float) vec3i.getX(), (float) vec3i.getY(), (float) vec3i.getZ());
+            Vector3f vector3f6 = new Vector3f(vec3i.getX(), vec3i.getY(), vec3i.getZ());
             float f2 = Vector3f.dot(vector3f5, vector3f6);
 
             if (f2 >= 0.0F && f2 > f1) {
@@ -303,15 +303,15 @@ public class FaceBakery {
         float f2 = Float.intBitsToFloat(p_178401_2_[j + 2]);
 
         if (f < -0.1F || f >= 1.1F) {
-            f -= (float) MathHelper.floor_float(f);
+            f -= MathHelper.floor_float(f);
         }
 
         if (f1 < -0.1F || f1 >= 1.1F) {
-            f1 -= (float) MathHelper.floor_float(f1);
+            f1 -= MathHelper.floor_float(f1);
         }
 
         if (f2 < -0.1F || f2 >= 1.1F) {
-            f2 -= (float) MathHelper.floor_float(f2);
+            f2 -= MathHelper.floor_float(f2);
         }
 
         float f3 = 0.0F;
@@ -349,7 +349,7 @@ public class FaceBakery {
         }
 
         int k = p_178401_4_.func_178345_c(p_178401_1_) * i;
-        p_178401_2_[k + 4] = Float.floatToRawIntBits(p_178401_5_.getInterpolatedU((double) f3));
-        p_178401_2_[k + 4 + 1] = Float.floatToRawIntBits(p_178401_5_.getInterpolatedV((double) f4));
+        p_178401_2_[k + 4] = Float.floatToRawIntBits(p_178401_5_.getInterpolatedU(f3));
+        p_178401_2_[k + 4 + 1] = Float.floatToRawIntBits(p_178401_5_.getInterpolatedV(f4));
     }
 }

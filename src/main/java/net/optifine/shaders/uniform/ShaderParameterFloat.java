@@ -119,7 +119,7 @@ public enum ShaderParameterFloat {
                     case BIOME:
                         BlockPos blockpos2 = Shaders.getCameraPosition();
                         BiomeGenBase biomegenbase2 = Shaders.getCurrentWorld().getBiomeGenForCoords(blockpos2);
-                        return (float) biomegenbase2.biomeID;
+                        return biomegenbase2.biomeID;
 
                     case TEMPERATURE:
                         BlockPos blockpos1 = Shaders.getCameraPosition();
@@ -135,9 +135,9 @@ public enum ShaderParameterFloat {
                         if (this.uniform instanceof ShaderUniform1f) {
                             return ((ShaderUniform1f) this.uniform).getValue();
                         } else if (this.uniform instanceof ShaderUniform1i) {
-                            return (float) ((ShaderUniform1i) this.uniform).getValue();
+                            return ((ShaderUniform1i) this.uniform).getValue();
                         } else if (this.uniform instanceof ShaderUniform2i) {
-                            return (float) ((ShaderUniform2i) this.uniform).getValue()[index1];
+                            return ((ShaderUniform2i) this.uniform).getValue()[index1];
                         } else if (this.uniform instanceof ShaderUniform2f) {
                             return ((ShaderUniform2f) this.uniform).getValue()[index1];
                         } else if (this.uniform instanceof ShaderUniform3f) {

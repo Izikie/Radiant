@@ -35,12 +35,12 @@ public class BehaviorDefaultDispenseItem implements IBehaviorDispenseItem {
 
         EntityItem entityitem = new EntityItem(worldIn, d0, d1, d2, stack);
         double d3 = worldIn.rand.nextDouble() * 0.1D + 0.2D;
-        entityitem.motionX = (double) facing.getFrontOffsetX() * d3;
+        entityitem.motionX = facing.getFrontOffsetX() * d3;
         entityitem.motionY = 0.20000000298023224D;
-        entityitem.motionZ = (double) facing.getFrontOffsetZ() * d3;
-        entityitem.motionX += worldIn.rand.nextGaussian() * 0.007499999832361937D * (double) speed;
-        entityitem.motionY += worldIn.rand.nextGaussian() * 0.007499999832361937D * (double) speed;
-        entityitem.motionZ += worldIn.rand.nextGaussian() * 0.007499999832361937D * (double) speed;
+        entityitem.motionZ = facing.getFrontOffsetZ() * d3;
+        entityitem.motionX += worldIn.rand.nextGaussian() * 0.007499999832361937D * speed;
+        entityitem.motionY += worldIn.rand.nextGaussian() * 0.007499999832361937D * speed;
+        entityitem.motionZ += worldIn.rand.nextGaussian() * 0.007499999832361937D * speed;
         worldIn.spawnEntityInWorld(entityitem);
     }
 

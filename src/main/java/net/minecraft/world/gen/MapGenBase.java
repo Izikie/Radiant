@@ -20,8 +20,8 @@ public class MapGenBase {
 
         for (int l = x - i; l <= x + i; ++l) {
             for (int i1 = z - i; i1 <= z + i; ++i1) {
-                long j1 = (long) l * j;
-                long k1 = (long) i1 * k;
+                long j1 = l * j;
+                long k1 = i1 * k;
                 this.rand.setSeed(j1 ^ k1 ^ worldIn.getSeed());
                 this.recursiveGenerate(worldIn, l, i1, x, z, chunkPrimerIn);
             }

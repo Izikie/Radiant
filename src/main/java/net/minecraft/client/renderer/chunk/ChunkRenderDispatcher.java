@@ -52,7 +52,7 @@ public class ChunkRenderDispatcher {
         this.vertexUploader = new VertexBufferUploader();
         this.queueChunkUploads = Queues.newArrayDeque();
         this.listPausedBuilders = new ArrayList();
-        int i = Math.max(1, (int) ((double) Runtime.getRuntime().maxMemory() * 0.3D) / 10485760);
+        int i = Math.max(1, (int) (Runtime.getRuntime().maxMemory() * 0.3D) / 10485760);
         int j = Math.max(1, MathHelper.clamp_int(Runtime.getRuntime().availableProcessors() - 2, 1, i / 5));
 
         if (p_i4_1_ < 0) {

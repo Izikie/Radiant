@@ -58,11 +58,11 @@ public class BlockPumpkin extends BlockDirectional {
 
             EntitySnowman entitysnowman = new EntitySnowman(worldIn);
             BlockPos blockpos1 = blockpattern$patternhelper.translateOffset(0, 2, 0).getPos();
-            entitysnowman.setLocationAndAngles((double) blockpos1.getX() + 0.5D, (double) blockpos1.getY() + 0.05D, (double) blockpos1.getZ() + 0.5D, 0.0F, 0.0F);
+            entitysnowman.setLocationAndAngles(blockpos1.getX() + 0.5D, blockpos1.getY() + 0.05D, blockpos1.getZ() + 0.5D, 0.0F, 0.0F);
             worldIn.spawnEntityInWorld(entitysnowman);
 
             for (int j = 0; j < 120; ++j) {
-                worldIn.spawnParticle(EnumParticleTypes.SNOW_SHOVEL, (double) blockpos1.getX() + worldIn.rand.nextDouble(), (double) blockpos1.getY() + worldIn.rand.nextDouble() * 2.5D, (double) blockpos1.getZ() + worldIn.rand.nextDouble(), 0.0D, 0.0D, 0.0D, new int[0]);
+                worldIn.spawnParticle(EnumParticleTypes.SNOW_SHOVEL, blockpos1.getX() + worldIn.rand.nextDouble(), blockpos1.getY() + worldIn.rand.nextDouble() * 2.5D, blockpos1.getZ() + worldIn.rand.nextDouble(), 0.0D, 0.0D, 0.0D, new int[0]);
             }
 
             for (int i1 = 0; i1 < this.getSnowmanPattern().getThumbLength(); ++i1) {
@@ -79,11 +79,11 @@ public class BlockPumpkin extends BlockDirectional {
             BlockPos blockpos = blockpattern$patternhelper.translateOffset(1, 2, 0).getPos();
             EntityIronGolem entityirongolem = new EntityIronGolem(worldIn);
             entityirongolem.setPlayerCreated(true);
-            entityirongolem.setLocationAndAngles((double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.05D, (double) blockpos.getZ() + 0.5D, 0.0F, 0.0F);
+            entityirongolem.setLocationAndAngles(blockpos.getX() + 0.5D, blockpos.getY() + 0.05D, blockpos.getZ() + 0.5D, 0.0F, 0.0F);
             worldIn.spawnEntityInWorld(entityirongolem);
 
             for (int j1 = 0; j1 < 120; ++j1) {
-                worldIn.spawnParticle(EnumParticleTypes.SNOWBALL, (double) blockpos.getX() + worldIn.rand.nextDouble(), (double) blockpos.getY() + worldIn.rand.nextDouble() * 3.9D, (double) blockpos.getZ() + worldIn.rand.nextDouble(), 0.0D, 0.0D, 0.0D, new int[0]);
+                worldIn.spawnParticle(EnumParticleTypes.SNOWBALL, blockpos.getX() + worldIn.rand.nextDouble(), blockpos.getY() + worldIn.rand.nextDouble() * 3.9D, blockpos.getZ() + worldIn.rand.nextDouble(), 0.0D, 0.0D, 0.0D, new int[0]);
             }
 
             for (int k1 = 0; k1 < this.getGolemPattern().getPalmLength(); ++k1) {

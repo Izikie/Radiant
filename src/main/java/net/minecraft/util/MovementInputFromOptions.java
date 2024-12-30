@@ -33,8 +33,8 @@ public class MovementInputFromOptions extends MovementInput {
         this.sneak = this.gameSettings.keyBindSneak.isKeyDown();
 
         if (this.sneak) {
-            this.moveStrafe = (float) ((double) this.moveStrafe * 0.3D);
-            this.moveForward = (float) ((double) this.moveForward * 0.3D);
+            this.moveStrafe = (float) (this.moveStrafe * 0.3D);
+            this.moveForward = (float) (this.moveForward * 0.3D);
         }
     }
 }

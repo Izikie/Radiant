@@ -172,7 +172,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 
             for (int k1 = 0; k1 < textLines.size(); ++k1) {
                 String s1 = textLines.get(k1);
-                this.fontRendererObj.drawStringWithShadow(s1, (float) l1, (float) i2, -1);
+                this.fontRendererObj.drawStringWithShadow(s1, l1, i2, -1);
 
                 if (k1 == 0) {
                     i2 += 2;
@@ -448,9 +448,9 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         float f = 32.0F;
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        worldrenderer.pos(0.0D, this.height, 0.0D).tex(0.0D, (float) this.height / 32.0F + (float) tint).color(64, 64, 64, 255).endVertex();
-        worldrenderer.pos(this.width, this.height, 0.0D).tex((float) this.width / 32.0F, (float) this.height / 32.0F + (float) tint).color(64, 64, 64, 255).endVertex();
-        worldrenderer.pos(this.width, 0.0D, 0.0D).tex((float) this.width / 32.0F, tint).color(64, 64, 64, 255).endVertex();
+        worldrenderer.pos(0.0D, this.height, 0.0D).tex(0.0D, this.height / 32.0F + tint).color(64, 64, 64, 255).endVertex();
+        worldrenderer.pos(this.width, this.height, 0.0D).tex(this.width / 32.0F, this.height / 32.0F + tint).color(64, 64, 64, 255).endVertex();
+        worldrenderer.pos(this.width, 0.0D, 0.0D).tex(this.width / 32.0F, tint).color(64, 64, 64, 255).endVertex();
         worldrenderer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, tint).color(64, 64, 64, 255).endVertex();
         tessellator.draw();
     }

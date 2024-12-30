@@ -40,7 +40,7 @@ public class RenderFallingBlock extends Render<EntityFallingBlock> {
                     int i = blockpos.getX();
                     int j = blockpos.getY();
                     int k = blockpos.getZ();
-                    worldrenderer.setTranslation((double) ((float) (-i) - 0.5F), (double) (-j), (double) ((float) (-k) - 0.5F));
+                    worldrenderer.setTranslation(((-i) - 0.5F), (-j), ((-k) - 0.5F));
                     BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
                     IBakedModel ibakedmodel = blockrendererdispatcher.getModelFromBlockState(iblockstate, world, (BlockPos) null);
                     blockrendererdispatcher.getBlockModelRenderer().renderModel(world, ibakedmodel, iblockstate, blockpos, worldrenderer, false);

@@ -371,9 +371,9 @@ public class EntityTrackerEntry {
     }
 
     public boolean func_180233_c(EntityPlayerMP playerMP) {
-        double d0 = playerMP.posX - (double) (this.encodedPosX / 32);
-        double d1 = playerMP.posZ - (double) (this.encodedPosZ / 32);
-        return d0 >= (double) (-this.trackingDistanceThreshold) && d0 <= (double) this.trackingDistanceThreshold && d1 >= (double) (-this.trackingDistanceThreshold) && d1 <= (double) this.trackingDistanceThreshold && this.trackedEntity.isSpectatedByPlayer(playerMP);
+        double d0 = playerMP.posX - (this.encodedPosX / 32);
+        double d1 = playerMP.posZ - (this.encodedPosZ / 32);
+        return d0 >= (-this.trackingDistanceThreshold) && d0 <= this.trackingDistanceThreshold && d1 >= (-this.trackingDistanceThreshold) && d1 <= this.trackingDistanceThreshold && this.trackedEntity.isSpectatedByPlayer(playerMP);
     }
 
     private boolean isPlayerWatchingThisChunk(EntityPlayerMP playerMP) {
@@ -455,16 +455,16 @@ public class EntityTrackerEntry {
         } else if (this.trackedEntity instanceof EntityItemFrame entityitemframe) {
             S0EPacketSpawnObject s0epacketspawnobject1 = new S0EPacketSpawnObject(this.trackedEntity, 71, entityitemframe.facingDirection.getHorizontalIndex());
             BlockPos blockpos1 = entityitemframe.getHangingPosition();
-            s0epacketspawnobject1.setX(MathHelper.floor_float((float) (blockpos1.getX() * 32)));
-            s0epacketspawnobject1.setY(MathHelper.floor_float((float) (blockpos1.getY() * 32)));
-            s0epacketspawnobject1.setZ(MathHelper.floor_float((float) (blockpos1.getZ() * 32)));
+            s0epacketspawnobject1.setX(MathHelper.floor_float((blockpos1.getX() * 32)));
+            s0epacketspawnobject1.setY(MathHelper.floor_float((blockpos1.getY() * 32)));
+            s0epacketspawnobject1.setZ(MathHelper.floor_float((blockpos1.getZ() * 32)));
             return s0epacketspawnobject1;
         } else if (this.trackedEntity instanceof EntityLeashKnot entityleashknot) {
             S0EPacketSpawnObject s0epacketspawnobject = new S0EPacketSpawnObject(this.trackedEntity, 77);
             BlockPos blockpos = entityleashknot.getHangingPosition();
-            s0epacketspawnobject.setX(MathHelper.floor_float((float) (blockpos.getX() * 32)));
-            s0epacketspawnobject.setY(MathHelper.floor_float((float) (blockpos.getY() * 32)));
-            s0epacketspawnobject.setZ(MathHelper.floor_float((float) (blockpos.getZ() * 32)));
+            s0epacketspawnobject.setX(MathHelper.floor_float((blockpos.getX() * 32)));
+            s0epacketspawnobject.setY(MathHelper.floor_float((blockpos.getY() * 32)));
+            s0epacketspawnobject.setZ(MathHelper.floor_float((blockpos.getZ() * 32)));
             return s0epacketspawnobject;
         } else if (this.trackedEntity instanceof EntityXPOrb) {
             return new S11PacketSpawnExperienceOrb((EntityXPOrb) this.trackedEntity);

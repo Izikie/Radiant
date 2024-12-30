@@ -23,7 +23,7 @@ public class CustomColorFader {
                 if (Math.abs(x - this.color.xCoord) < 0.004D && Math.abs(y - this.color.yCoord) < 0.004D && Math.abs(z - this.color.zCoord) < 0.004D) {
                     return this.color;
                 } else {
-                    double d0 = (double) j * 0.001D;
+                    double d0 = j * 0.001D;
                     d0 = Config.limit(d0, 0.0D, 1.0D);
                     double d1 = x - this.color.xCoord;
                     double d2 = y - this.color.yCoord;

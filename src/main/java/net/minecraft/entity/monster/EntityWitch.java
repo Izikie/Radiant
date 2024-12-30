@@ -148,7 +148,7 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
         }
 
         if (source.isMagicDamage()) {
-            damage = (float) ((double) damage * 0.15D);
+            damage = (float) (damage * 0.15D);
         }
 
         return damage;
@@ -174,7 +174,7 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
     public void attackEntityWithRangedAttack(EntityLivingBase target, float p_82196_2_) {
         if (!this.getAggressive()) {
             EntityPotion entitypotion = new EntityPotion(this.worldObj, this, 32732);
-            double d0 = target.posY + (double) target.getEyeHeight() - 1.100000023841858D;
+            double d0 = target.posY + target.getEyeHeight() - 1.100000023841858D;
             entitypotion.rotationPitch -= -20.0F;
             double d1 = target.posX + target.motionX - this.posX;
             double d2 = d0 - this.posY;
@@ -189,7 +189,7 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
                 entitypotion.setPotionDamage(32696);
             }
 
-            entitypotion.setThrowableHeading(d1, d2 + (double) (f * 0.2F), d3, 0.75F, 8.0F);
+            entitypotion.setThrowableHeading(d1, d2 + (f * 0.2F), d3, 0.75F, 8.0F);
             this.worldObj.spawnEntityInWorld(entitypotion);
         }
     }

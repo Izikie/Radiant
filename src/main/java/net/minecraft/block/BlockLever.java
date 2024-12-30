@@ -157,7 +157,7 @@ public class BlockLever extends Block {
         } else {
             state = state.cycleProperty(POWERED);
             worldIn.setBlockState(pos, state, 3);
-            worldIn.playSoundEffect((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, "random.click", 0.3F, ((Boolean) state.getValue(POWERED)).booleanValue() ? 0.6F : 0.5F);
+            worldIn.playSoundEffect(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, "random.click", 0.3F, ((Boolean) state.getValue(POWERED)).booleanValue() ? 0.6F : 0.5F);
             worldIn.notifyNeighborsOfStateChange(pos, this);
             EnumFacing enumfacing = ((BlockLever.EnumOrientation) state.getValue(FACING)).getFacing();
             worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing.getOpposite()), this);

@@ -49,9 +49,9 @@ public class SlotFurnaceOutput extends Slot {
             if (f == 0.0F) {
                 i = 0;
             } else if (f < 1.0F) {
-                int j = MathHelper.floor_float((float) i * f);
+                int j = MathHelper.floor_float(i * f);
 
-                if (j < MathHelper.ceiling_float_int((float) i * f) && Math.random() < (double) ((float) i * f - (float) j)) {
+                if (j < MathHelper.ceiling_float_int(i * f) && Math.random() < (i * f - j)) {
                     ++j;
                 }
 

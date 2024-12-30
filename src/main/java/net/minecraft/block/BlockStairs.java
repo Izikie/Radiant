@@ -50,7 +50,7 @@ public class BlockStairs extends Block {
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         if (this.hasRaytraced) {
-            this.setBlockBounds(0.5F * (float) (this.rayTracePass % 2), 0.5F * (float) (this.rayTracePass / 4 % 2), 0.5F * (float) (this.rayTracePass / 2 % 2), 0.5F + 0.5F * (float) (this.rayTracePass % 2), 0.5F + 0.5F * (float) (this.rayTracePass / 4 % 2), 0.5F + 0.5F * (float) (this.rayTracePass / 2 % 2));
+            this.setBlockBounds(0.5F * (this.rayTracePass % 2), 0.5F * (this.rayTracePass / 4 % 2), 0.5F * (this.rayTracePass / 2 % 2), 0.5F + 0.5F * (this.rayTracePass % 2), 0.5F + 0.5F * (this.rayTracePass / 4 % 2), 0.5F + 0.5F * (this.rayTracePass / 2 % 2));
         } else {
             this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
         }
@@ -504,7 +504,7 @@ public class BlockStairs extends Block {
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         IBlockState iblockstate = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
         iblockstate = iblockstate.withProperty(FACING, placer.getHorizontalFacing()).withProperty(SHAPE, BlockStairs.EnumShape.STRAIGHT);
-        return facing != EnumFacing.DOWN && (facing == EnumFacing.UP || (double) hitY <= 0.5D) ? iblockstate.withProperty(HALF, BlockStairs.EnumHalf.BOTTOM) : iblockstate.withProperty(HALF, BlockStairs.EnumHalf.TOP);
+        return facing != EnumFacing.DOWN && (facing == EnumFacing.UP || hitY <= 0.5D) ? iblockstate.withProperty(HALF, BlockStairs.EnumHalf.BOTTOM) : iblockstate.withProperty(HALF, BlockStairs.EnumHalf.TOP);
     }
 
     public MovingObjectPosition collisionRayTrace(World worldIn, BlockPos pos, Vec3 start, Vec3 end) {

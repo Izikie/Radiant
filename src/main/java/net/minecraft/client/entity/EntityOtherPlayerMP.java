@@ -34,8 +34,8 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
         this.otherPlayerMPX = x;
         this.otherPlayerMPY = y;
         this.otherPlayerMPZ = z;
-        this.otherPlayerMPYaw = (double) yaw;
-        this.otherPlayerMPPitch = (double) pitch;
+        this.otherPlayerMPYaw = yaw;
+        this.otherPlayerMPPitch = pitch;
         this.otherPlayerMPPosRotationIncrements = posRotationIncrements;
     }
 
@@ -66,12 +66,12 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
 
     public void onLivingUpdate() {
         if (this.otherPlayerMPPosRotationIncrements > 0) {
-            double d0 = this.posX + (this.otherPlayerMPX - this.posX) / (double) this.otherPlayerMPPosRotationIncrements;
-            double d1 = this.posY + (this.otherPlayerMPY - this.posY) / (double) this.otherPlayerMPPosRotationIncrements;
-            double d2 = this.posZ + (this.otherPlayerMPZ - this.posZ) / (double) this.otherPlayerMPPosRotationIncrements;
+            double d0 = this.posX + (this.otherPlayerMPX - this.posX) / this.otherPlayerMPPosRotationIncrements;
+            double d1 = this.posY + (this.otherPlayerMPY - this.posY) / this.otherPlayerMPPosRotationIncrements;
+            double d2 = this.posZ + (this.otherPlayerMPZ - this.posZ) / this.otherPlayerMPPosRotationIncrements;
             double d3;
 
-            for (d3 = this.otherPlayerMPYaw - (double) this.rotationYaw; d3 < -180.0D; d3 += 360.0D) {
+            for (d3 = this.otherPlayerMPYaw - this.rotationYaw; d3 < -180.0D; d3 += 360.0D) {
                 ;
             }
 
@@ -79,8 +79,8 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
                 d3 -= 360.0D;
             }
 
-            this.rotationYaw = (float) ((double) this.rotationYaw + d3 / (double) this.otherPlayerMPPosRotationIncrements);
-            this.rotationPitch = (float) ((double) this.rotationPitch + (this.otherPlayerMPPitch - (double) this.rotationPitch) / (double) this.otherPlayerMPPosRotationIncrements);
+            this.rotationYaw = (float) (this.rotationYaw + d3 / this.otherPlayerMPPosRotationIncrements);
+            this.rotationPitch = (float) (this.rotationPitch + (this.otherPlayerMPPitch - this.rotationPitch) / this.otherPlayerMPPosRotationIncrements);
             --this.otherPlayerMPPosRotationIncrements;
             this.setPosition(d0, d1, d2);
             this.setRotation(this.rotationYaw, this.rotationPitch);

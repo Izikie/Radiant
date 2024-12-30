@@ -114,7 +114,7 @@ public class GuiPlayerTabOverlay extends Gui {
 
             for (String s3 : list1) {
                 int i2 = this.mc.fontRendererObj.getStringWidth(s3);
-                this.mc.fontRendererObj.drawStringWithShadow(s3, (float) (width / 2 - i2 / 2), (float) k1, -1);
+                this.mc.fontRendererObj.drawStringWithShadow(s3, (width / 2 - i2 / 2), k1, -1);
                 k1 += this.mc.fontRendererObj.FONT_HEIGHT;
             }
 
@@ -145,12 +145,12 @@ public class GuiPlayerTabOverlay extends Gui {
                     this.mc.getTextureManager().bindTexture(networkplayerinfo1.getLocationSkin());
                     int l2 = 8 + (flag1 ? 8 : 0);
                     int i3 = 8 * (flag1 ? -1 : 1);
-                    Gui.drawScaledCustomSizeModalRect(j2, k2, 8.0F, (float) l2, 8, i3, 8, 8, 64.0F, 64.0F);
+                    Gui.drawScaledCustomSizeModalRect(j2, k2, 8.0F, l2, 8, i3, 8, 8, 64.0F, 64.0F);
 
                     if (entityplayer != null && entityplayer.isWearing(EnumPlayerModelParts.HAT)) {
                         int j3 = 8 + (flag1 ? 8 : 0);
                         int k3 = 8 * (flag1 ? -1 : 1);
-                        Gui.drawScaledCustomSizeModalRect(j2, k2, 40.0F, (float) j3, 8, k3, 8, 8, 64.0F, 64.0F);
+                        Gui.drawScaledCustomSizeModalRect(j2, k2, 40.0F, j3, 8, k3, 8, 8, 64.0F, 64.0F);
                     }
 
                     j2 += 9;
@@ -158,9 +158,9 @@ public class GuiPlayerTabOverlay extends Gui {
 
                 if (networkplayerinfo1.getGameType() == WorldSettings.GameType.SPECTATOR) {
                     s1 = EnumChatFormatting.ITALIC + s1;
-                    this.mc.fontRendererObj.drawStringWithShadow(s1, (float) j2, (float) k2, -1862270977);
+                    this.mc.fontRendererObj.drawStringWithShadow(s1, j2, k2, -1862270977);
                 } else {
-                    this.mc.fontRendererObj.drawStringWithShadow(s1, (float) j2, (float) k2, -1);
+                    this.mc.fontRendererObj.drawStringWithShadow(s1, j2, k2, -1);
                 }
 
                 if (scoreObjectiveIn != null && networkplayerinfo1.getGameType() != WorldSettings.GameType.SPECTATOR) {
@@ -182,7 +182,7 @@ public class GuiPlayerTabOverlay extends Gui {
 
             for (String s4 : list2) {
                 int j5 = this.mc.fontRendererObj.getStringWidth(s4);
-                this.mc.fontRendererObj.drawStringWithShadow(s4, (float) (width / 2 - j5 / 2), (float) k1, -1);
+                this.mc.fontRendererObj.drawStringWithShadow(s4, (width / 2 - j5 / 2), k1, -1);
                 k1 += this.mc.fontRendererObj.FONT_HEIGHT;
             }
         }
@@ -222,10 +222,10 @@ public class GuiPlayerTabOverlay extends Gui {
             if (this.lastTimeOpened == p_175247_6_.func_178855_p()) {
                 if (i < p_175247_6_.func_178835_l()) {
                     p_175247_6_.func_178846_a(Minecraft.getSystemTime());
-                    p_175247_6_.func_178844_b((long) (this.guiIngame.getUpdateCounter() + 20));
+                    p_175247_6_.func_178844_b((this.guiIngame.getUpdateCounter() + 20));
                 } else if (i > p_175247_6_.func_178835_l()) {
                     p_175247_6_.func_178846_a(Minecraft.getSystemTime());
-                    p_175247_6_.func_178844_b((long) (this.guiIngame.getUpdateCounter() + 10));
+                    p_175247_6_.func_178844_b((this.guiIngame.getUpdateCounter() + 10));
                 }
             }
 
@@ -237,54 +237,54 @@ public class GuiPlayerTabOverlay extends Gui {
 
             p_175247_6_.func_178843_c(this.lastTimeOpened);
             p_175247_6_.func_178836_b(i);
-            int j = MathHelper.ceiling_float_int((float) Math.max(i, p_175247_6_.func_178860_m()) / 2.0F);
-            int k = Math.max(MathHelper.ceiling_float_int((float) (i / 2)), Math.max(MathHelper.ceiling_float_int((float) (p_175247_6_.func_178860_m() / 2)), 10));
-            boolean flag = p_175247_6_.func_178858_o() > (long) this.guiIngame.getUpdateCounter() && (p_175247_6_.func_178858_o() - (long) this.guiIngame.getUpdateCounter()) / 3L % 2L == 1L;
+            int j = MathHelper.ceiling_float_int(Math.max(i, p_175247_6_.func_178860_m()) / 2.0F);
+            int k = Math.max(MathHelper.ceiling_float_int((i / 2)), Math.max(MathHelper.ceiling_float_int((p_175247_6_.func_178860_m() / 2)), 10));
+            boolean flag = p_175247_6_.func_178858_o() > this.guiIngame.getUpdateCounter() && (p_175247_6_.func_178858_o() - this.guiIngame.getUpdateCounter()) / 3L % 2L == 1L;
 
             if (j > 0) {
-                float f = Math.min((float) (p_175247_5_ - p_175247_4_ - 4) / (float) k, 9.0F);
+                float f = Math.min((float) (p_175247_5_ - p_175247_4_ - 4) / k, 9.0F);
 
                 if (f > 3.0F) {
                     for (int l = j; l < k; ++l) {
-                        this.drawTexturedModalRect((float) p_175247_4_ + (float) l * f, (float) p_175247_2_, flag ? 25 : 16, 0, 9, 9);
+                        this.drawTexturedModalRect(p_175247_4_ + l * f, p_175247_2_, flag ? 25 : 16, 0, 9, 9);
                     }
 
                     for (int j1 = 0; j1 < j; ++j1) {
-                        this.drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, flag ? 25 : 16, 0, 9, 9);
+                        this.drawTexturedModalRect(p_175247_4_ + j1 * f, p_175247_2_, flag ? 25 : 16, 0, 9, 9);
 
                         if (flag) {
                             if (j1 * 2 + 1 < p_175247_6_.func_178860_m()) {
-                                this.drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, 70, 0, 9, 9);
+                                this.drawTexturedModalRect(p_175247_4_ + j1 * f, p_175247_2_, 70, 0, 9, 9);
                             }
 
                             if (j1 * 2 + 1 == p_175247_6_.func_178860_m()) {
-                                this.drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, 79, 0, 9, 9);
+                                this.drawTexturedModalRect(p_175247_4_ + j1 * f, p_175247_2_, 79, 0, 9, 9);
                             }
                         }
 
                         if (j1 * 2 + 1 < i) {
-                            this.drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, j1 >= 10 ? 160 : 52, 0, 9, 9);
+                            this.drawTexturedModalRect(p_175247_4_ + j1 * f, p_175247_2_, j1 >= 10 ? 160 : 52, 0, 9, 9);
                         }
 
                         if (j1 * 2 + 1 == i) {
-                            this.drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, j1 >= 10 ? 169 : 61, 0, 9, 9);
+                            this.drawTexturedModalRect(p_175247_4_ + j1 * f, p_175247_2_, j1 >= 10 ? 169 : 61, 0, 9, 9);
                         }
                     }
                 } else {
-                    float f1 = MathHelper.clamp_float((float) i / 20.0F, 0.0F, 1.0F);
+                    float f1 = MathHelper.clamp_float(i / 20.0F, 0.0F, 1.0F);
                     int i1 = (int) ((1.0F - f1) * 255.0F) << 16 | (int) (f1 * 255.0F) << 8;
-                    String s = "" + (float) i / 2.0F;
+                    String s = "" + i / 2.0F;
 
                     if (p_175247_5_ - this.mc.fontRendererObj.getStringWidth(s + "hp") >= p_175247_4_) {
                         s = s + "hp";
                     }
 
-                    this.mc.fontRendererObj.drawStringWithShadow(s, (float) ((p_175247_5_ + p_175247_4_) / 2 - this.mc.fontRendererObj.getStringWidth(s) / 2), (float) p_175247_2_, i1);
+                    this.mc.fontRendererObj.drawStringWithShadow(s, ((p_175247_5_ + p_175247_4_) / 2 - this.mc.fontRendererObj.getStringWidth(s) / 2), p_175247_2_, i1);
                 }
             }
         } else {
             String s1 = EnumChatFormatting.YELLOW + "" + i;
-            this.mc.fontRendererObj.drawStringWithShadow(s1, (float) (p_175247_5_ - this.mc.fontRendererObj.getStringWidth(s1)), (float) p_175247_2_, 16777215);
+            this.mc.fontRendererObj.drawStringWithShadow(s1, (p_175247_5_ - this.mc.fontRendererObj.getStringWidth(s1)), p_175247_2_, 16777215);
         }
     }
 

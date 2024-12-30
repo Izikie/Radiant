@@ -87,12 +87,12 @@ public class TextureAtlasSprite {
         this.originX = originInX;
         this.originY = originInY;
         this.rotated = rotatedIn;
-        float f = (float) (0.009999999776482582D / (double) inX);
-        float f1 = (float) (0.009999999776482582D / (double) inY);
-        this.minU = (float) originInX / (float) ((double) inX) + f;
-        this.maxU = (float) (originInX + this.width) / (float) ((double) inX) - f;
-        this.minV = (float) originInY / (float) inY + f1;
-        this.maxV = (float) (originInY + this.height) / (float) inY - f1;
+        float f = (float) (0.009999999776482582D / inX);
+        float f1 = (float) (0.009999999776482582D / inY);
+        this.minU = originInX / (float) ((double) inX) + f;
+        this.maxU = (originInX + this.width) / (float) ((double) inX) - f;
+        this.minV = (float) originInY / inY + f1;
+        this.maxV = (float) (originInY + this.height) / inY - f1;
         this.baseU = Math.min(this.minU, this.maxU);
         this.baseV = Math.min(this.minV, this.maxV);
 
@@ -216,7 +216,7 @@ public class TextureAtlasSprite {
     }
 
     private void updateAnimationInterpolated() {
-        double d0 = 1.0D - (double) this.tickCounter / (double) this.animationMetadata.getFrameTimeSingle(this.frameCounter);
+        double d0 = 1.0D - (double) this.tickCounter / this.animationMetadata.getFrameTimeSingle(this.frameCounter);
         int i = this.animationMetadata.getFrameIndex(this.frameCounter);
         int j = this.animationMetadata.getFrameCount() == 0 ? this.framesTextureData.size() : this.animationMetadata.getFrameCount();
         int k = this.animationMetadata.getFrameIndex((this.frameCounter + 1) % j);
@@ -238,9 +238,9 @@ public class TextureAtlasSprite {
                     for (int i1 = 0; i1 < aint[l].length; ++i1) {
                         int j1 = aint[l][i1];
                         int k1 = aint1[l][i1];
-                        int l1 = (int) ((double) ((j1 & 16711680) >> 16) * d0 + (double) ((k1 & 16711680) >> 16) * (1.0D - d0));
-                        int i2 = (int) ((double) ((j1 & 65280) >> 8) * d0 + (double) ((k1 & 65280) >> 8) * (1.0D - d0));
-                        int j2 = (int) ((double) (j1 & 255) * d0 + (double) (k1 & 255) * (1.0D - d0));
+                        int l1 = (int) (((j1 & 16711680) >> 16) * d0 + ((k1 & 16711680) >> 16) * (1.0D - d0));
+                        int i2 = (int) (((j1 & 65280) >> 8) * d0 + ((k1 & 65280) >> 8) * (1.0D - d0));
+                        int j2 = (int) ((j1 & 255) * d0 + (k1 & 255) * (1.0D - d0));
                         this.interpolatedFrameData[l][i1] = j1 & -16777216 | l1 << 16 | i2 << 8 | j2;
                     }
                 }
@@ -523,9 +523,9 @@ public class TextureAtlasSprite {
                     int l1 = j1 >> 16 & 255;
                     int i2 = j1 >> 8 & 255;
                     int j2 = j1 & 255;
-                    i += (long) l1;
-                    j += (long) i2;
-                    k += (long) j2;
+                    i += l1;
+                    j += i2;
+                    k += j2;
                     ++l;
                 }
             }
@@ -550,12 +550,12 @@ public class TextureAtlasSprite {
 
     public double getSpriteU16(float p_getSpriteU16_1_) {
         float f = this.maxU - this.minU;
-        return (double) ((p_getSpriteU16_1_ - this.minU) / f * 16.0F);
+        return ((p_getSpriteU16_1_ - this.minU) / f * 16.0F);
     }
 
     public double getSpriteV16(float p_getSpriteV16_1_) {
         float f = this.maxV - this.minV;
-        return (double) ((p_getSpriteV16_1_ - this.minV) / f * 16.0F);
+        return ((p_getSpriteV16_1_ - this.minV) / f * 16.0F);
     }
 
     public void bindSpriteTexture() {
@@ -577,14 +577,14 @@ public class TextureAtlasSprite {
 
     public float toSingleU(float p_toSingleU_1_) {
         p_toSingleU_1_ = p_toSingleU_1_ - this.baseU;
-        float f = (float) this.sheetWidth / (float) this.width;
+        float f = (float) this.sheetWidth / this.width;
         p_toSingleU_1_ = p_toSingleU_1_ * f;
         return p_toSingleU_1_;
     }
 
     public float toSingleV(float p_toSingleV_1_) {
         p_toSingleV_1_ = p_toSingleV_1_ - this.baseV;
-        float f = (float) this.sheetHeight / (float) this.height;
+        float f = (float) this.sheetHeight / this.height;
         p_toSingleV_1_ = p_toSingleV_1_ * f;
         return p_toSingleV_1_;
     }

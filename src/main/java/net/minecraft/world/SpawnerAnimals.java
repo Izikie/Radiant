@@ -119,10 +119,10 @@ public final class SpawnerAnimals {
                                         i3 += worldServerIn.rand.nextInt(1) - worldServerIn.rand.nextInt(1);
                                         j3 += worldServerIn.rand.nextInt(k3) - worldServerIn.rand.nextInt(k3);
                                         BlockPos blockpos1 = new BlockPos(l2, i3, j3);
-                                        float f = (float) l2 + 0.5F;
-                                        float f1 = (float) j3 + 0.5F;
+                                        float f = l2 + 0.5F;
+                                        float f1 = j3 + 0.5F;
 
-                                        if (!worldServerIn.isAnyPlayerWithinRangeAt((double) f, (double) i3, (double) f1, 24.0D) && blockpos2.distanceSq((double) f, (double) i3, (double) f1) >= 576.0D) {
+                                        if (!worldServerIn.isAnyPlayerWithinRangeAt(f, i3, f1, 24.0D) && blockpos2.distanceSq(f, i3, f1) >= 576.0D) {
                                             if (biomegenbase$spawnlistentry == null) {
                                                 biomegenbase$spawnlistentry = worldServerIn.getSpawnListEntryForTypeAt(enumcreaturetype, blockpos1);
 
@@ -146,7 +146,7 @@ public final class SpawnerAnimals {
                                                     return j4;
                                                 }
 
-                                                entityliving.setLocationAndAngles((double) f, (double) i3, (double) f1, worldServerIn.rand.nextFloat() * 360.0F, 0.0F);
+                                                entityliving.setLocationAndAngles(f, i3, f1, worldServerIn.rand.nextFloat() * 360.0F, 0.0F);
 
                                                 if (entityliving.getCanSpawnHere() && entityliving.isNotColliding()) {
                                                     this.mapSampleEntitiesByClass.remove(biomegenbase$spawnlistentry.entityClass);
@@ -250,7 +250,7 @@ public final class SpawnerAnimals {
                                 continue;
                             }
 
-                            entityliving.setLocationAndAngles((double) ((float) j + 0.5F), (double) blockpos.getY(), (double) ((float) k + 0.5F), randomIn.nextFloat() * 360.0F, 0.0F);
+                            entityliving.setLocationAndAngles((j + 0.5F), blockpos.getY(), (k + 0.5F), randomIn.nextFloat() * 360.0F, 0.0F);
                             worldIn.spawnEntityInWorld(entityliving);
                             ientitylivingdata = entityliving.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityliving)), ientitylivingdata);
                             flag = true;

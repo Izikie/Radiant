@@ -38,7 +38,7 @@ public abstract class WorldProvider {
         float f = 0.0F;
 
         for (int i = 0; i <= 15; ++i) {
-            float f1 = 1.0F - (float) i / 15.0F;
+            float f1 = 1.0F - i / 15.0F;
             this.lightBrightnessTable[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) * (1.0F - f) + f;
         }
     }
@@ -66,7 +66,7 @@ public abstract class WorldProvider {
 
     public float calculateCelestialAngle(long worldTime, float partialTicks) {
         int i = (int) (worldTime % 24000L);
-        float f = ((float) i + partialTicks) / 24000.0F - 0.25F;
+        float f = (i + partialTicks) / 24000.0F - 0.25F;
 
         if (f < 0.0F) {
             ++f;
@@ -76,7 +76,7 @@ public abstract class WorldProvider {
             --f;
         }
 
-        f = 1.0F - (float) ((Math.cos((double) f * Math.PI) + 1.0D) / 2.0D);
+        f = 1.0F - (float) ((Math.cos(f * Math.PI) + 1.0D) / 2.0D);
         f = f + (f - f) / 3.0F;
         return f;
     }
@@ -117,7 +117,7 @@ public abstract class WorldProvider {
         f1 = f1 * (f * 0.94F + 0.06F);
         f2 = f2 * (f * 0.94F + 0.06F);
         f3 = f3 * (f * 0.91F + 0.09F);
-        return new Vec3((double) f1, (double) f2, (double) f3);
+        return new Vec3(f1, f2, f3);
     }
 
     public boolean canRespawnHere() {

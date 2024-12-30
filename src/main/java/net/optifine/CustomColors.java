@@ -587,10 +587,10 @@ public class CustomColors {
             int j = i >> 16 & 255;
             int k = i >> 8 & 255;
             int l = i & 255;
-            float f = (float) j / 255.0F;
-            float f1 = (float) k / 255.0F;
-            float f2 = (float) l / 255.0F;
-            return new Vec3((double) f, (double) f1, (double) f2);
+            float f = j / 255.0F;
+            float f1 = k / 255.0F;
+            float f2 = l / 255.0F;
+            return new Vec3(f, f1, f2);
         }
     }
 
@@ -810,9 +810,9 @@ public class CustomColors {
             int j = i >> 16 & 255;
             int k = i >> 8 & 255;
             int l = i & 255;
-            float f = (float) j / 255.0F;
-            float f1 = (float) k / 255.0F;
-            float f2 = (float) l / 255.0F;
+            float f = j / 255.0F;
+            float f1 = k / 255.0F;
+            float f2 = l / 255.0F;
             fx.setRBGColorF(f, f1, f2);
         }
     }
@@ -823,9 +823,9 @@ public class CustomColors {
             int j = i >> 16 & 255;
             int k = i >> 8 & 255;
             int l = i & 255;
-            float f = (float) j / 255.0F;
-            float f1 = (float) k / 255.0F;
-            float f2 = (float) l / 255.0F;
+            float f = j / 255.0F;
+            float f1 = k / 255.0F;
+            float f2 = l / 255.0F;
             fx.setRBGColorF(f, f1, f2);
         }
     }
@@ -848,9 +848,9 @@ public class CustomColors {
             int k = j >> 16 & 255;
             int l = j >> 8 & 255;
             int i1 = j & 255;
-            float f = (float) k / 255.0F;
-            float f1 = (float) l / 255.0F;
-            float f2 = (float) i1 / 255.0F;
+            float f = k / 255.0F;
+            float f1 = l / 255.0F;
+            float f2 = i1 / 255.0F;
             fx.setRBGColorF(f, f1, f2);
         }
     }
@@ -875,7 +875,7 @@ public class CustomColors {
         if (xpOrbTime <= 0) {
             return timer;
         } else {
-            float f = 628.0F / (float) xpOrbTime;
+            float f = 628.0F / xpOrbTime;
             return timer * f;
         }
     }
@@ -884,7 +884,7 @@ public class CustomColors {
         if (xpOrbColors == null) {
             return -1;
         } else {
-            int i = (int) Math.round((double) ((MathHelper.sin(timer) + 1.0F) * (float) (xpOrbColors.getLength() - 1)) / 2.0D);
+            int i = (int) Math.round(((MathHelper.sin(timer) + 1.0F) * (xpOrbColors.getLength() - 1)) / 2.0D);
             int j = xpOrbColors.getColor(i);
             return j;
         }
@@ -908,17 +908,17 @@ public class CustomColors {
             int j = i >> 16 & 255;
             int k = i >> 8 & 255;
             int l = i & 255;
-            float f = (float) j / 255.0F;
-            float f1 = (float) k / 255.0F;
-            float f2 = (float) l / 255.0F;
+            float f = j / 255.0F;
+            float f1 = k / 255.0F;
+            float f2 = l / 255.0F;
 
             if (particleWaterColor >= 0) {
                 int i1 = particleWaterColor >> 16 & 255;
                 int j1 = particleWaterColor >> 8 & 255;
                 int k1 = particleWaterColor & 255;
-                f *= (float) i1 / 255.0F;
-                f1 *= (float) j1 / 255.0F;
-                f2 *= (float) k1 / 255.0F;
+                f *= i1 / 255.0F;
+                f1 *= j1 / 255.0F;
+                f2 *= k1 / 255.0F;
             }
 
             fx.setRBGColorF(f, f1, f2);
@@ -949,16 +949,16 @@ public class CustomColors {
             int j = i >> 16 & 255;
             int k = i >> 8 & 255;
             int l = i & 255;
-            float f = (float) j / 255.0F;
-            float f1 = (float) k / 255.0F;
-            float f2 = (float) l / 255.0F;
+            float f = j / 255.0F;
+            float f1 = k / 255.0F;
+            float f2 = l / 255.0F;
             float f3 = (float) skyColor3d.xCoord / 0.5F;
             float f4 = (float) skyColor3d.yCoord / 0.66275F;
             float f5 = (float) skyColor3d.zCoord;
             f = f * f3;
             f1 = f1 * f4;
             f2 = f2 * f5;
-            Vec3 vec3 = skyColorFader.getColor((double) f, (double) f1, (double) f2);
+            Vec3 vec3 = skyColorFader.getColor(f, f1, f2);
             return vec3;
         }
     }
@@ -971,16 +971,16 @@ public class CustomColors {
             int j = i >> 16 & 255;
             int k = i >> 8 & 255;
             int l = i & 255;
-            float f = (float) j / 255.0F;
-            float f1 = (float) k / 255.0F;
-            float f2 = (float) l / 255.0F;
+            float f = j / 255.0F;
+            float f1 = k / 255.0F;
+            float f2 = l / 255.0F;
             float f3 = (float) fogColor3d.xCoord / 0.753F;
             float f4 = (float) fogColor3d.yCoord / 0.8471F;
             float f5 = (float) fogColor3d.zCoord;
             f = f * f3;
             f1 = f1 * f4;
             f2 = f2 * f5;
-            Vec3 vec3 = fogColorFader.getColor((double) f, (double) f1, (double) f2);
+            Vec3 vec3 = fogColorFader.getColor(f, f1, f2);
             return vec3;
         }
     }
@@ -1001,10 +1001,10 @@ public class CustomColors {
             int j = i >> 16 & 255;
             int k = i >> 8 & 255;
             int l = i & 255;
-            float f = (float) j / 255.0F;
-            float f1 = (float) k / 255.0F;
-            float f2 = (float) l / 255.0F;
-            Vec3 vec3 = underFluidColorFader.getColor((double) f, (double) f1, (double) f2);
+            float f = j / 255.0F;
+            float f1 = k / 255.0F;
+            float f2 = l / 255.0F;
+            Vec3 vec3 = underFluidColorFader.getColor(f, f1, f2);
             return vec3;
         }
     }
@@ -1177,7 +1177,7 @@ public class CustomColors {
                 int j = parseColor(s1);
 
                 if (enumdyecolor1 != null && j >= 0) {
-                    float[] afloat = new float[]{(float) (j >> 16 & 255) / 255.0F, (float) (j >> 8 & 255) / 255.0F, (float) (j & 255) / 255.0F};
+                    float[] afloat = new float[]{(j >> 16 & 255) / 255.0F, (j >> 8 & 255) / 255.0F, (j & 255) / 255.0F};
                     afloat1[enumdyecolor1.ordinal()] = afloat;
                     ++k;
                 } else {

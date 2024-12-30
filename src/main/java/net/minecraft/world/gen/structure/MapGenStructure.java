@@ -128,8 +128,8 @@ public abstract class MapGenStructure extends MapGenBase {
         this.rand.setSeed(worldIn.getSeed());
         long i = this.rand.nextLong();
         long j = this.rand.nextLong();
-        long k = (long) (pos.getX() >> 4) * i;
-        long l = (long) (pos.getZ() >> 4) * j;
+        long k = (pos.getX() >> 4) * i;
+        long l = (pos.getZ() >> 4) * j;
         this.rand.setSeed(k ^ l ^ worldIn.getSeed());
         this.recursiveGenerate(worldIn, pos.getX() >> 4, pos.getZ() >> 4, 0, 0, (ChunkPrimer) null);
         double d0 = Double.MAX_VALUE;

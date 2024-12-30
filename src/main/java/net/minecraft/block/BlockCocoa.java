@@ -72,28 +72,28 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
         int i = ((Integer) iblockstate.getValue(AGE)).intValue();
         int j = 4 + i * 2;
         int k = 5 + i * 2;
-        float f = (float) j / 2.0F;
+        float f = j / 2.0F;
 
         switch (enumfacing) {
             case SOUTH:
-                this.setBlockBounds((8.0F - f) / 16.0F, (12.0F - (float) k) / 16.0F, (15.0F - (float) j) / 16.0F, (8.0F + f) / 16.0F, 0.75F, 0.9375F);
+                this.setBlockBounds((8.0F - f) / 16.0F, (12.0F - k) / 16.0F, (15.0F - j) / 16.0F, (8.0F + f) / 16.0F, 0.75F, 0.9375F);
                 break;
 
             case NORTH:
-                this.setBlockBounds((8.0F - f) / 16.0F, (12.0F - (float) k) / 16.0F, 0.0625F, (8.0F + f) / 16.0F, 0.75F, (1.0F + (float) j) / 16.0F);
+                this.setBlockBounds((8.0F - f) / 16.0F, (12.0F - k) / 16.0F, 0.0625F, (8.0F + f) / 16.0F, 0.75F, (1.0F + j) / 16.0F);
                 break;
 
             case WEST:
-                this.setBlockBounds(0.0625F, (12.0F - (float) k) / 16.0F, (8.0F - f) / 16.0F, (1.0F + (float) j) / 16.0F, 0.75F, (8.0F + f) / 16.0F);
+                this.setBlockBounds(0.0625F, (12.0F - k) / 16.0F, (8.0F - f) / 16.0F, (1.0F + j) / 16.0F, 0.75F, (8.0F + f) / 16.0F);
                 break;
 
             case EAST:
-                this.setBlockBounds((15.0F - (float) j) / 16.0F, (12.0F - (float) k) / 16.0F, (8.0F - f) / 16.0F, 0.9375F, 0.75F, (8.0F + f) / 16.0F);
+                this.setBlockBounds((15.0F - j) / 16.0F, (12.0F - k) / 16.0F, (8.0F - f) / 16.0F, 0.9375F, 0.75F, (8.0F + f) / 16.0F);
         }
     }
 
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-        EnumFacing enumfacing = EnumFacing.fromAngle((double) placer.rotationYaw);
+        EnumFacing enumfacing = EnumFacing.fromAngle(placer.rotationYaw);
         worldIn.setBlockState(pos, state.withProperty(FACING, enumfacing), 2);
     }
 

@@ -121,7 +121,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
     }
 
     private EntityItemFrame findItemFrame(World worldIn, final EnumFacing facing, BlockPos pos) {
-        List<EntityItemFrame> list = worldIn.getEntitiesWithinAABB(EntityItemFrame.class, new AxisAlignedBB((double) pos.getX(), (double) pos.getY(), (double) pos.getZ(), (double) (pos.getX() + 1), (double) (pos.getY() + 1), (double) (pos.getZ() + 1)), new Predicate<Entity>() {
+        List<EntityItemFrame> list = worldIn.getEntitiesWithinAABB(EntityItemFrame.class, new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), (pos.getX() + 1), (pos.getY() + 1), (pos.getZ() + 1)), new Predicate<Entity>() {
             public boolean apply(Entity p_apply_1_) {
                 return p_apply_1_ != null && p_apply_1_.getHorizontalFacing() == facing;
             }
@@ -134,7 +134,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
             return false;
         } else {
             state = state.cycleProperty(MODE);
-            worldIn.playSoundEffect((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, "random.click", 0.3F, state.getValue(MODE) == BlockRedstoneComparator.Mode.SUBTRACT ? 0.55F : 0.5F);
+            worldIn.playSoundEffect(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, "random.click", 0.3F, state.getValue(MODE) == BlockRedstoneComparator.Mode.SUBTRACT ? 0.55F : 0.5F);
             worldIn.setBlockState(pos, state, 2);
             this.onStateChange(worldIn, pos, state);
             return true;

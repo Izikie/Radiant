@@ -273,7 +273,7 @@ public class SoundManager {
 
                         SoundCategory soundcategory = soundeventaccessorcomposite.getSoundCategory();
                         float f2 = this.getNormalizedVolume(p_sound, soundpoolentry, soundcategory);
-                        double d0 = (double) this.getNormalizedPitch(p_sound, soundpoolentry);
+                        double d0 = this.getNormalizedPitch(p_sound, soundpoolentry);
                         ResourceLocation resourcelocation = soundpoolentry.getSoundPoolEntryLocation();
 
                         if (f2 == 0.0F) {
@@ -311,11 +311,11 @@ public class SoundManager {
     }
 
     private float getNormalizedPitch(ISound sound, SoundPoolEntry entry) {
-        return (float) MathHelper.clamp_double((double) sound.getPitch() * entry.getPitch(), 0.5D, 2.0D);
+        return (float) MathHelper.clamp_double(sound.getPitch() * entry.getPitch(), 0.5D, 2.0D);
     }
 
     private float getNormalizedVolume(ISound sound, SoundPoolEntry entry, SoundCategory category) {
-        return (float) MathHelper.clamp_double((double) sound.getVolume() * entry.getVolume(), 0.0D, 1.0D) * this.getSoundCategoryVolume(category);
+        return (float) MathHelper.clamp_double(sound.getVolume() * entry.getVolume(), 0.0D, 1.0D) * this.getSoundCategoryVolume(category);
     }
 
     public void pauseAllSounds() {
@@ -362,9 +362,9 @@ public class SoundManager {
         if (this.loaded && player != null) {
             float f = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * p_148615_2_;
             float f1 = player.prevRotationYaw + (player.rotationYaw - player.prevRotationYaw) * p_148615_2_;
-            double d0 = player.prevPosX + (player.posX - player.prevPosX) * (double) p_148615_2_;
-            double d1 = player.prevPosY + (player.posY - player.prevPosY) * (double) p_148615_2_ + (double) player.getEyeHeight();
-            double d2 = player.prevPosZ + (player.posZ - player.prevPosZ) * (double) p_148615_2_;
+            double d0 = player.prevPosX + (player.posX - player.prevPosX) * p_148615_2_;
+            double d1 = player.prevPosY + (player.posY - player.prevPosY) * p_148615_2_ + player.getEyeHeight();
+            double d2 = player.prevPosZ + (player.posZ - player.prevPosZ) * p_148615_2_;
             float f2 = MathHelper.cos((f1 + 90.0F) * 0.017453292F);
             float f3 = MathHelper.sin((f1 + 90.0F) * 0.017453292F);
             float f4 = MathHelper.cos(-f * 0.017453292F);

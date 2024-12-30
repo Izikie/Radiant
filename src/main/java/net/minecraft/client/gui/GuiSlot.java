@@ -106,7 +106,7 @@ public abstract class GuiSlot {
     }
 
     protected void bindAmountScrolled() {
-        this.amountScrolled = MathHelper.clamp_float(this.amountScrolled, 0.0F, (float) this.func_148135_f());
+        this.amountScrolled = MathHelper.clamp_float(this.amountScrolled, 0.0F, this.func_148135_f());
     }
 
     public int func_148135_f() {
@@ -122,7 +122,7 @@ public abstract class GuiSlot {
     }
 
     public void scrollBy(int amount) {
-        this.amountScrolled += (float) amount;
+        this.amountScrolled += amount;
         this.bindAmountScrolled();
         this.initialClickY = -2;
     }
@@ -130,11 +130,11 @@ public abstract class GuiSlot {
     public void actionPerformed(GuiButton button) {
         if (button.enabled) {
             if (button.id == this.scrollUpButtonID) {
-                this.amountScrolled -= (float) (this.slotHeight * 2 / 3);
+                this.amountScrolled -= (this.slotHeight * 2 / 3);
                 this.initialClickY = -2;
                 this.bindAmountScrolled();
             } else if (button.id == this.scrollDownButtonID) {
-                this.amountScrolled += (float) (this.slotHeight * 2 / 3);
+                this.amountScrolled += (this.slotHeight * 2 / 3);
                 this.initialClickY = -2;
                 this.bindAmountScrolled();
             }
@@ -241,7 +241,7 @@ public abstract class GuiSlot {
             if (Mouse.isButtonDown(0) && this.getEnabled()) {
                 if (this.initialClickY != -1) {
                     if (this.initialClickY >= 0) {
-                        this.amountScrolled -= (float) (this.mouseY - this.initialClickY) * this.scrollMultiplier;
+                        this.amountScrolled -= (this.mouseY - this.initialClickY) * this.scrollMultiplier;
                         this.initialClickY = this.mouseY;
                     }
                 } else {
@@ -274,9 +274,9 @@ public abstract class GuiSlot {
                                 k1 = 1;
                             }
 
-                            int l1 = (int) ((float) ((this.bottom - this.top) * (this.bottom - this.top)) / (float) this.getContentHeight());
+                            int l1 = (int) ((float) ((this.bottom - this.top) * (this.bottom - this.top)) / this.getContentHeight());
                             l1 = MathHelper.clamp_int(l1, 32, this.bottom - this.top - 8);
-                            this.scrollMultiplier /= (float) (this.bottom - this.top - l1) / (float) k1;
+                            this.scrollMultiplier /= (float) (this.bottom - this.top - l1) / k1;
                         } else {
                             this.scrollMultiplier = 1.0F;
                         }
@@ -303,7 +303,7 @@ public abstract class GuiSlot {
                     i2 = 1;
                 }
 
-                this.amountScrolled += (float) (i2 * this.slotHeight / 2);
+                this.amountScrolled += (i2 * this.slotHeight / 2);
             }
         }
     }
@@ -368,10 +368,10 @@ public abstract class GuiSlot {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         float f = 32.0F;
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        worldrenderer.pos(this.left, endY, 0.0D).tex(0.0D, (float) endY / 32.0F).color(64, 64, 64, endAlpha).endVertex();
-        worldrenderer.pos(this.left + this.width, endY, 0.0D).tex((float) this.width / 32.0F, (float) endY / 32.0F).color(64, 64, 64, endAlpha).endVertex();
-        worldrenderer.pos(this.left + this.width, startY, 0.0D).tex((float) this.width / 32.0F, (float) startY / 32.0F).color(64, 64, 64, startAlpha).endVertex();
-        worldrenderer.pos(this.left, startY, 0.0D).tex(0.0D, (float) startY / 32.0F).color(64, 64, 64, startAlpha).endVertex();
+        worldrenderer.pos(this.left, endY, 0.0D).tex(0.0D, endY / 32.0F).color(64, 64, 64, endAlpha).endVertex();
+        worldrenderer.pos(this.left + this.width, endY, 0.0D).tex(this.width / 32.0F, endY / 32.0F).color(64, 64, 64, endAlpha).endVertex();
+        worldrenderer.pos(this.left + this.width, startY, 0.0D).tex(this.width / 32.0F, startY / 32.0F).color(64, 64, 64, startAlpha).endVertex();
+        worldrenderer.pos(this.left, startY, 0.0D).tex(0.0D, startY / 32.0F).color(64, 64, 64, startAlpha).endVertex();
         tessellator.draw();
     }
 
@@ -390,10 +390,10 @@ public abstract class GuiSlot {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         float f = 32.0F;
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        worldrenderer.pos(this.left, this.bottom, 0.0D).tex((float) this.left / f, (float) (this.bottom + (int) this.amountScrolled) / f).color(32, 32, 32, 255).endVertex();
-        worldrenderer.pos(this.right, this.bottom, 0.0D).tex((float) this.right / f, (float) (this.bottom + (int) this.amountScrolled) / f).color(32, 32, 32, 255).endVertex();
-        worldrenderer.pos(this.right, this.top, 0.0D).tex((float) this.right / f, (float) (this.top + (int) this.amountScrolled) / f).color(32, 32, 32, 255).endVertex();
-        worldrenderer.pos(this.left, this.top, 0.0D).tex((float) this.left / f, (float) (this.top + (int) this.amountScrolled) / f).color(32, 32, 32, 255).endVertex();
+        worldrenderer.pos(this.left, this.bottom, 0.0D).tex(this.left / f, (this.bottom + (int) this.amountScrolled) / f).color(32, 32, 32, 255).endVertex();
+        worldrenderer.pos(this.right, this.bottom, 0.0D).tex(this.right / f, (this.bottom + (int) this.amountScrolled) / f).color(32, 32, 32, 255).endVertex();
+        worldrenderer.pos(this.right, this.top, 0.0D).tex(this.right / f, (this.top + (int) this.amountScrolled) / f).color(32, 32, 32, 255).endVertex();
+        worldrenderer.pos(this.left, this.top, 0.0D).tex(this.left / f, (this.top + (int) this.amountScrolled) / f).color(32, 32, 32, 255).endVertex();
         p_drawContainerBackground_1_.draw();
     }
 }

@@ -71,7 +71,7 @@ public class EntityIronGolem extends EntityGolem {
                 this.detachHome();
             } else {
                 BlockPos blockpos = this.villageObj.getCenter();
-                this.setHomePosAndDistance(blockpos, (int) ((float) this.villageObj.getVillageRadius() * 0.6F));
+                this.setHomePosAndDistance(blockpos, (int) (this.villageObj.getVillageRadius() * 0.6F));
             }
         }
 
@@ -115,7 +115,7 @@ public class EntityIronGolem extends EntityGolem {
             Block block = iblockstate.getBlock();
 
             if (block.getMaterial() != Material.air) {
-                this.worldObj.spawnParticle(EnumParticleTypes.BLOCK_CRACK, this.posX + ((double) this.rand.nextFloat() - 0.5D) * (double) this.width, this.getEntityBoundingBox().minY + 0.1D, this.posZ + ((double) this.rand.nextFloat() - 0.5D) * (double) this.width, 4.0D * ((double) this.rand.nextFloat() - 0.5D), 0.5D, ((double) this.rand.nextFloat() - 0.5D) * 4.0D, new int[]{Block.getStateId(iblockstate)});
+                this.worldObj.spawnParticle(EnumParticleTypes.BLOCK_CRACK, this.posX + (this.rand.nextFloat() - 0.5D) * this.width, this.getEntityBoundingBox().minY + 0.1D, this.posZ + (this.rand.nextFloat() - 0.5D) * this.width, 4.0D * (this.rand.nextFloat() - 0.5D), 0.5D, (this.rand.nextFloat() - 0.5D) * 4.0D, new int[]{Block.getStateId(iblockstate)});
             }
         }
     }
@@ -137,7 +137,7 @@ public class EntityIronGolem extends EntityGolem {
     public boolean attackEntityAsMob(Entity entityIn) {
         this.attackTimer = 10;
         this.worldObj.setEntityState(this, (byte) 4);
-        boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float) (7 + this.rand.nextInt(15)));
+        boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (7 + this.rand.nextInt(15)));
 
         if (flag) {
             entityIn.motionY += 0.4000000059604645D;
@@ -188,7 +188,7 @@ public class EntityIronGolem extends EntityGolem {
         int i = this.rand.nextInt(3);
 
         for (int j = 0; j < i; ++j) {
-            this.dropItemWithOffset(Item.getItemFromBlock(Blocks.red_flower), 1, (float) BlockFlower.EnumFlowerType.POPPY.getMeta());
+            this.dropItemWithOffset(Item.getItemFromBlock(Blocks.red_flower), 1, BlockFlower.EnumFlowerType.POPPY.getMeta());
         }
 
         int l = 3 + this.rand.nextInt(3);
@@ -248,10 +248,10 @@ public class EntityIronGolem extends EntityGolem {
                                     f = 0.1F;
                                 }
 
-                                d0 *= (double) (0.7F * f);
+                                d0 *= (0.7F * f);
                             }
 
-                            if ((double) p_apply_1_.getDistanceToEntity(creature) > d0) {
+                            if (p_apply_1_.getDistanceToEntity(creature) > d0) {
                                 return false;
                             }
                         }

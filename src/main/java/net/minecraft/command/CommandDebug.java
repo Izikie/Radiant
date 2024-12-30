@@ -55,7 +55,7 @@ public class CommandDebug extends CommandBase {
                 long k = i - this.profileStartTime;
                 int l = j - this.profileStartTick;
                 this.saveProfileResults(k, l);
-                notifyOperators(sender, this, "commands.debug.stop", Float.valueOf((float) k / 1000.0F), Integer.valueOf(l));
+                notifyOperators(sender, this, "commands.debug.stop", Float.valueOf(k / 1000.0F), Integer.valueOf(l));
             }
         }
     }
@@ -80,14 +80,14 @@ public class CommandDebug extends CommandBase {
                 "\n\n" +
                 "Time span: " + timeSpan + " ms\n" +
                 "Tick span: " + tickSpan + " ticks\n" +
-                "// This is approximately " + String.format("%.2f", Float.valueOf((float) tickSpan / ((float) timeSpan / 1000.0F))) + " ticks per second. It should be " + 20 + " ticks per second\n\n";
+                "// This is approximately " + String.format("%.2f", Float.valueOf(tickSpan / (timeSpan / 1000.0F))) + " ticks per second. It should be " + 20 + " ticks per second\n\n";
     }
 
     private static String getWittyComment() {
         String[] astring = new String[]{"Shiny numbers!", "Am I not running fast enough? :(", "I'm working as hard as I can!", "Will I ever be good enough for you? :(", "Speedy. Zoooooom!", "Hello world", "40% better than a crash report.", "Now with extra numbers", "Now with less numbers", "Now with the same numbers", "You should add flames to things, it makes them go faster!", "Do you feel the need for... optimization?", "*cracks redstone whip*", "Maybe if you treated it better then it'll have more motivation to work faster! Poor server."};
 
         try {
-            return astring[(int) (System.nanoTime() % (long) astring.length)];
+            return astring[(int) (System.nanoTime() % astring.length)];
         } catch (Throwable var2) {
             return "Witty comment unavailable :(";
         }

@@ -112,7 +112,7 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer> {
             if (scoreobjective != null) {
                 Score score = scoreboard.getValueFromObjective(entityIn.getName(), scoreobjective);
                 this.renderLivingLabel(entityIn, score.getScorePoints() + " " + scoreobjective.getDisplayName(), x, y, z, 64);
-                y += (double) ((float) this.getFontRendererFromRenderManager().FONT_HEIGHT * 1.15F * p_177069_9_);
+                y += (this.getFontRendererFromRenderManager().FONT_HEIGHT * 1.15F * p_177069_9_);
             }
         }
 
@@ -143,7 +143,7 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer> {
 
     protected void renderLivingAt(AbstractClientPlayer entityLivingBaseIn, double x, double y, double z) {
         if (entityLivingBaseIn.isEntityAlive() && entityLivingBaseIn.isPlayerSleeping()) {
-            super.renderLivingAt(entityLivingBaseIn, x + (double) entityLivingBaseIn.renderOffsetX, y + (double) entityLivingBaseIn.renderOffsetY, z + (double) entityLivingBaseIn.renderOffsetZ);
+            super.renderLivingAt(entityLivingBaseIn, x + entityLivingBaseIn.renderOffsetX, y + entityLivingBaseIn.renderOffsetY, z + entityLivingBaseIn.renderOffsetZ);
         } else {
             super.renderLivingAt(entityLivingBaseIn, x, y, z);
         }

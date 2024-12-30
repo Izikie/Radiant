@@ -151,7 +151,7 @@ public class BlockTripWire extends Block {
         IBlockState iblockstate = worldIn.getBlockState(pos);
         boolean flag = ((Boolean) iblockstate.getValue(POWERED)).booleanValue();
         boolean flag1 = false;
-        List<? extends Entity> list = worldIn.getEntitiesWithinAABBExcludingEntity((Entity) null, new AxisAlignedBB((double) pos.getX() + this.minX, (double) pos.getY() + this.minY, (double) pos.getZ() + this.minZ, (double) pos.getX() + this.maxX, (double) pos.getY() + this.maxY, (double) pos.getZ() + this.maxZ));
+        List<? extends Entity> list = worldIn.getEntitiesWithinAABBExcludingEntity((Entity) null, new AxisAlignedBB(pos.getX() + this.minX, pos.getY() + this.minY, pos.getZ() + this.minZ, pos.getX() + this.maxX, pos.getY() + this.maxY, pos.getZ() + this.maxZ));
 
         if (!list.isEmpty()) {
             for (Entity entity : list) {
