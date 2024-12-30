@@ -10,8 +10,7 @@ public class KeyUtils {
     public static void fixKeyConflicts(KeyBinding[] keys, KeyBinding[] keysPrio) {
         Set<Integer> set = new HashSet();
 
-        for (int i = 0; i < keysPrio.length; ++i) {
-            KeyBinding keybinding = keysPrio[i];
+        for (KeyBinding keybinding : keysPrio) {
             set.add(Integer.valueOf(keybinding.getKeyCode()));
         }
 

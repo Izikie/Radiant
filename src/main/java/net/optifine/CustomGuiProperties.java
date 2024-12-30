@@ -127,9 +127,7 @@ public class CustomGuiProperties {
         } else {
             EnumDyeColor[] aenumdyecolor = EnumDyeColor.values();
 
-            for (int i = 0; i < aenumdyecolor.length; ++i) {
-                EnumDyeColor enumdyecolor = aenumdyecolor[i];
-
+            for (EnumDyeColor enumdyecolor : aenumdyecolor) {
                 if (enumdyecolor.getName().equals(str)) {
                     return enumdyecolor;
                 }
@@ -446,9 +444,7 @@ public class CustomGuiProperties {
 
                 boolean flag = false;
 
-                for (int k = 0; k < this.professions.length; ++k) {
-                    VillagerProfession villagerprofession = this.professions[k];
-
+                for (VillagerProfession villagerprofession : this.professions) {
                     if (villagerprofession.matches(i, j)) {
                         flag = true;
                         break;

@@ -47,8 +47,8 @@ public class ItemBoat extends Item {
             float f9 = 1.0F;
             List<Entity> list = worldIn.getEntitiesWithinAABBExcludingEntity(playerIn, playerIn.getEntityBoundingBox().addCoord(vec32.xCoord * d3, vec32.yCoord * d3, vec32.zCoord * d3).expand((double) f9, (double) f9, (double) f9));
 
-            for (int i = 0; i < list.size(); ++i) {
-                Entity entity = (Entity) list.get(i);
+            for (Entity value : list) {
+                Entity entity = (Entity) value;
 
                 if (entity.canBeCollidedWith()) {
                     float f10 = entity.getCollisionBorderSize();

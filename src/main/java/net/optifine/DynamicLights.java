@@ -78,8 +78,8 @@ public class DynamicLights {
                 if (mapDynamicLights.size() > 0) {
                     List<DynamicLight> list = mapDynamicLights.valueList();
 
-                    for (int j = 0; j < list.size(); ++j) {
-                        DynamicLight dynamiclight = (DynamicLight) list.get(j);
+                    for (DynamicLight dynamicLight : list) {
+                        DynamicLight dynamiclight = (DynamicLight) dynamicLight;
                         dynamiclight.update(renderGlobal);
                     }
                 }
@@ -161,8 +161,8 @@ public class DynamicLights {
             List<DynamicLight> list = mapDynamicLights.valueList();
             int i = list.size();
 
-            for (int j = 0; j < i; ++j) {
-                DynamicLight dynamiclight = (DynamicLight) list.get(j);
+            for (DynamicLight dynamicLight : list) {
+                DynamicLight dynamiclight = (DynamicLight) dynamicLight;
                 int k = dynamiclight.getLastLightLevel();
 
                 if (k > 0) {
@@ -297,8 +297,8 @@ public class DynamicLights {
         synchronized (mapDynamicLights) {
             List<DynamicLight> list = mapDynamicLights.valueList();
 
-            for (int i = 0; i < list.size(); ++i) {
-                DynamicLight dynamiclight = (DynamicLight) list.get(i);
+            for (DynamicLight dynamicLight : list) {
+                DynamicLight dynamiclight = (DynamicLight) dynamicLight;
                 dynamiclight.updateLitChunks(renderGlobal);
             }
 

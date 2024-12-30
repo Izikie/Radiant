@@ -30,9 +30,7 @@ public class BlockAliases {
             if (ablockalias == null) {
                 return blockId;
             } else {
-                for (int i = 0; i < ablockalias.length; ++i) {
-                    BlockAlias blockalias = ablockalias[i];
-
+                for (BlockAlias blockalias : ablockalias) {
                     if (blockalias.matches(blockId, metadata)) {
                         return blockalias.getBlockAliasId();
                     }
@@ -124,9 +122,7 @@ public class BlockAliases {
     private static void addToList(List<List<BlockAlias>> blocksAliases, BlockAlias ba) {
         int[] aint = ba.getMatchBlockIds();
 
-        for (int i = 0; i < aint.length; ++i) {
-            int j = aint[i];
-
+        for (int j : aint) {
             while (j >= blocksAliases.size()) {
                 blocksAliases.add(null);
             }

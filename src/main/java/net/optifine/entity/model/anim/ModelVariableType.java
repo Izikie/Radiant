@@ -128,9 +128,7 @@ public enum ModelVariableType {
     }
 
     public static ModelVariableType parse(String str) {
-        for (int i = 0; i < VALUES.length; ++i) {
-            ModelVariableType modelvariabletype = VALUES[i];
-
+        for (ModelVariableType modelvariabletype : VALUES) {
             if (modelvariabletype.getName().equals(str)) {
                 return modelvariabletype;
             }

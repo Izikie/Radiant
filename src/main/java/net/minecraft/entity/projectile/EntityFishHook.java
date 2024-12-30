@@ -227,8 +227,8 @@ public class EntityFishHook extends Entity {
             List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().addCoord(this.motionX, this.motionY, this.motionZ).expand(1.0D, 1.0D, 1.0D));
             double d0 = 0.0D;
 
-            for (int i = 0; i < list.size(); ++i) {
-                Entity entity1 = (Entity) list.get(i);
+            for (Entity value : list) {
+                Entity entity1 = (Entity) value;
 
                 if (entity1.canBeCollidedWith() && (entity1 != this.angler || this.ticksInAir >= 5)) {
                     float f = 0.3F;

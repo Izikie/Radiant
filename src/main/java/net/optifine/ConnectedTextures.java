@@ -312,9 +312,7 @@ public class ConnectedTextures {
                     if (aconnectedproperties != null) {
                         int j = getSide(facing);
 
-                        for (int k = 0; k < aconnectedproperties.length; ++k) {
-                            ConnectedProperties connectedproperties = aconnectedproperties[k];
-
+                        for (ConnectedProperties connectedproperties : aconnectedproperties) {
                             if (connectedproperties != null && connectedproperties.matchesBlockId(blockstatebase.getBlockId())) {
                                 BakedQuad[] abakedquad = getConnectedTexture(connectedproperties, blockAccess, blockstatebase, blockPos, j, quad, pass, renderEnv);
 
@@ -336,9 +334,7 @@ public class ConnectedTextures {
                     if (aconnectedproperties1 != null) {
                         int i1 = getSide(facing);
 
-                        for (int j1 = 0; j1 < aconnectedproperties1.length; ++j1) {
-                            ConnectedProperties connectedproperties1 = aconnectedproperties1[j1];
-
+                        for (ConnectedProperties connectedproperties1 : aconnectedproperties1) {
                             if (connectedproperties1 != null && connectedproperties1.matchesIcon(textureatlassprite)) {
                                 BakedQuad[] abakedquad1 = getConnectedTexture(connectedproperties1, blockAccess, blockstatebase, blockPos, i1, quad, pass, renderEnv);
 
@@ -1477,8 +1473,8 @@ public class ConnectedTextures {
                     if (list1 == null) {
                         return null;
                     } else {
-                        for (int i = 0; i < list1.size(); ++i) {
-                            BakedQuad bakedquad = (BakedQuad) list1.get(i);
+                        for (Object o : list1) {
+                            BakedQuad bakedquad = (BakedQuad) o;
 
                             if (bakedquad.getFace() == enumfacing) {
                                 return bakedquad.getSprite();
@@ -1782,8 +1778,7 @@ public class ConnectedTextures {
         List list = makePropertyList(tileProperties);
         List list1 = makePropertyList(blockProperties);
 
-        for (int i = 0; i < astring.length; ++i) {
-            String s = astring[i];
+        for (String s : astring) {
             Config.dbg("ConnectedTextures: " + s);
 
             try {
@@ -1821,8 +1816,7 @@ public class ConnectedTextures {
         List list = new ArrayList();
 
         if (propsArr != null) {
-            for (int i = 0; i < propsArr.length; ++i) {
-                ConnectedProperties[] aconnectedproperties = propsArr[i];
+            for (ConnectedProperties[] aconnectedproperties : propsArr) {
                 List list1 = null;
 
                 if (aconnectedproperties != null) {
@@ -1839,17 +1833,13 @@ public class ConnectedTextures {
     private static boolean detectMultipass() {
         List list = new ArrayList();
 
-        for (int i = 0; i < tileProperties.length; ++i) {
-            ConnectedProperties[] aconnectedproperties = tileProperties[i];
-
+        for (ConnectedProperties[] aconnectedproperties : tileProperties) {
             if (aconnectedproperties != null) {
                 list.addAll(Arrays.asList(aconnectedproperties));
             }
         }
 
-        for (int k = 0; k < blockProperties.length; ++k) {
-            ConnectedProperties[] aconnectedproperties2 = blockProperties[k];
-
+        for (ConnectedProperties[] aconnectedproperties2 : blockProperties) {
             if (aconnectedproperties2 != null) {
                 list.addAll(Arrays.asList(aconnectedproperties2));
             }
@@ -1859,9 +1849,7 @@ public class ConnectedTextures {
         Set set1 = new HashSet();
         Set set = new HashSet();
 
-        for (int j = 0; j < aconnectedproperties1.length; ++j) {
-            ConnectedProperties connectedproperties = aconnectedproperties1[j];
-
+        for (ConnectedProperties connectedproperties : aconnectedproperties1) {
             if (connectedproperties.matchTileIcons != null) {
                 set1.addAll(Arrays.asList(connectedproperties.matchTileIcons));
             }

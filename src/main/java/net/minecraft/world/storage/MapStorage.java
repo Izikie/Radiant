@@ -74,8 +74,8 @@ public class MapStorage {
     }
 
     public void saveAllData() {
-        for (int i = 0; i < this.loadedDataList.size(); ++i) {
-            WorldSavedData worldsaveddata = (WorldSavedData) this.loadedDataList.get(i);
+        for (WorldSavedData worldSavedData : this.loadedDataList) {
+            WorldSavedData worldsaveddata = (WorldSavedData) worldSavedData;
 
             if (worldsaveddata.isDirty()) {
                 this.saveData(worldsaveddata);

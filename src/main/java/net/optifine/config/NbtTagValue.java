@@ -83,8 +83,7 @@ public class NbtTagValue {
         } else {
             NBTBase nbtbase = nbt;
 
-            for (int i = 0; i < this.parents.length; ++i) {
-                String s = this.parents[i];
+            for (String s : this.parents) {
                 nbtbase = getChildTag(nbtbase, s);
 
                 if (nbtbase == null) {

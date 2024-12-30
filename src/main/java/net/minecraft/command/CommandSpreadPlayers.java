@@ -178,9 +178,9 @@ public class CommandSpreadPlayers extends CommandBase {
         int i = 0;
         Map<Team, CommandSpreadPlayers.Position> map = Maps.newHashMap();
 
-        for (int j = 0; j < p_110671_1_.size(); ++j) {
-            Entity entity = (Entity) p_110671_1_.get(j);
-            CommandSpreadPlayers.Position commandspreadplayers$position;
+        for (Entity value : p_110671_1_) {
+            Entity entity = (Entity) value;
+            Position commandspreadplayers$position;
 
             if (p_110671_4_) {
                 Team team = entity instanceof EntityPlayer ? ((EntityPlayer) entity).getTeam() : null;
@@ -189,7 +189,7 @@ public class CommandSpreadPlayers extends CommandBase {
                     map.put(team, p_110671_3_[i++]);
                 }
 
-                commandspreadplayers$position = (CommandSpreadPlayers.Position) map.get(team);
+                commandspreadplayers$position = (Position) map.get(team);
             } else {
                 commandspreadplayers$position = p_110671_3_[i++];
             }
@@ -197,9 +197,9 @@ public class CommandSpreadPlayers extends CommandBase {
             entity.setPositionAndUpdate((double) ((float) MathHelper.floor_double(commandspreadplayers$position.field_111101_a) + 0.5F), (double) commandspreadplayers$position.func_111092_a(worldIn), (double) MathHelper.floor_double(commandspreadplayers$position.field_111100_b) + 0.5D);
             double d2 = Double.MAX_VALUE;
 
-            for (int k = 0; k < p_110671_3_.length; ++k) {
-                if (commandspreadplayers$position != p_110671_3_[k]) {
-                    double d1 = commandspreadplayers$position.func_111099_a(p_110671_3_[k]);
+            for (Position position : p_110671_3_) {
+                if (commandspreadplayers$position != position) {
+                    double d1 = commandspreadplayers$position.func_111099_a(position);
                     d2 = Math.min(d1, d2);
                 }
             }

@@ -32,8 +32,7 @@ public class MathUtils {
         } else {
             int i = 0;
 
-            for (int j = 0; j < vals.length; ++j) {
-                int k = vals[j];
+            for (int k : vals) {
                 i += k;
             }
 

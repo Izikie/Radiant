@@ -37,8 +37,8 @@ public class ContainerBrewingStand extends Container {
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
 
-        for (int i = 0; i < this.crafters.size(); ++i) {
-            ICrafting icrafting = (ICrafting) this.crafters.get(i);
+        for (ICrafting crafter : this.crafters) {
+            ICrafting icrafting = (ICrafting) crafter;
 
             if (this.brewTime != this.tileBrewingStand.getField(0)) {
                 icrafting.sendProgressBarUpdate(this, 0, this.tileBrewingStand.getField(0));

@@ -75,8 +75,8 @@ public class Programs {
         if (name == null) {
             return null;
         } else {
-            for (int i = 0; i < this.programs.size(); ++i) {
-                Program program = (Program) this.programs.get(i);
+            for (Program value : this.programs) {
+                Program program = (Program) value;
                 String s = program.getName();
 
                 if (s.equals(name)) {

@@ -82,8 +82,7 @@ public class ItemAliases {
                             int[] aint = connectedparser.parseItems(s1);
 
                             if (aint != null && aint.length >= 1) {
-                                for (int j = 0; j < aint.length; ++j) {
-                                    int k = aint[j];
+                                for (int k : aint) {
                                     addToList(listItemAliases, k, i);
                                 }
                             } else {

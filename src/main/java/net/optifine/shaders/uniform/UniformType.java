@@ -140,9 +140,7 @@ public enum UniformType {
     public static UniformType parse(String type) {
         UniformType[] auniformtype = values();
 
-        for (int i = 0; i < auniformtype.length; ++i) {
-            UniformType uniformtype = auniformtype[i];
-
+        for (UniformType uniformtype : auniformtype) {
             if (uniformtype.name().toLowerCase().equals(type)) {
                 return uniformtype;
             }

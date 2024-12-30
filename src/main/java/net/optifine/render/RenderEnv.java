@@ -227,8 +227,7 @@ public class RenderEnv {
         this.listQuadsCtmMultipass.clear();
 
         if (quads != null) {
-            for (int i = 0; i < quads.length; ++i) {
-                BakedQuad bakedquad = quads[i];
+            for (BakedQuad bakedquad : quads) {
                 this.listQuadsCtmMultipass.add(bakedquad);
             }
         }

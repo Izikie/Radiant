@@ -80,9 +80,7 @@ public class ShaderPackParser {
     }
 
     private static void collectShaderOptions(IShaderPack shaderPack, String dir, String[] programNames, Map<String, ShaderOption> mapOptions) {
-        for (int i = 0; i < programNames.length; ++i) {
-            String s = programNames[i];
-
+        for (String s : programNames) {
             if (!s.equals("")) {
                 String s1 = dir + "/" + s + ".vsh";
                 String s2 = dir + "/" + s + ".fsh";
@@ -95,8 +93,7 @@ public class ShaderPackParser {
     private static void collectShaderOptions(IShaderPack sp, String path, Map<String, ShaderOption> mapOptions) {
         String[] astring = getLines(sp, path);
 
-        for (int i = 0; i < astring.length; ++i) {
-            String s = astring[i];
+        for (String s : astring) {
             ShaderOption shaderoption = getShaderOption(s, path);
 
             if (shaderoption != null && !shaderoption.getName().startsWith(ShaderMacros.getPrefixMacro()) && (!shaderoption.checkUsed() || isOptionUsed(shaderoption, astring))) {
@@ -124,9 +121,7 @@ public class ShaderPackParser {
     }
 
     private static boolean isOptionUsed(ShaderOption so, String[] lines) {
-        for (int i = 0; i < lines.length; ++i) {
-            String s = lines[i];
-
+        for (String s : lines) {
             if (so.isUsedInLine(s)) {
                 return true;
             }
@@ -292,8 +287,7 @@ public class ShaderPackParser {
         } else {
             String[] astring = Config.tokenize(s, " ");
 
-            for (int i = 0; i < astring.length; ++i) {
-                String s1 = astring[i];
+            for (String s1 : astring) {
                 ShaderOption shaderoption = ShaderUtils.getShaderOption(s1, shaderOptions);
 
                 if (shaderoption == null) {
@@ -320,9 +314,7 @@ public class ShaderPackParser {
             String s2 = props.getProperty(s1);
             String[] astring = Config.tokenize(s2, " ");
 
-            for (int i = 0; i < astring.length; ++i) {
-                String s3 = astring[i];
-
+            for (String s3 : astring) {
                 if (s3.startsWith(s)) {
                     String s4 = s3.substring(s.length());
                     ShaderProfile shaderprofile1 = parseProfile(s4, props, parsedProfiles, shaderOptions);
@@ -404,9 +396,7 @@ public class ShaderPackParser {
             Set<String> set = new HashSet();
             String[] astring = Config.tokenize(s, " ");
 
-            for (int i = 0; i < astring.length; ++i) {
-                String s1 = astring[i];
-
+            for (String s1 : astring) {
                 if (s1.equals("<empty>")) {
                     list.add((ShaderOption) null);
                 } else if (set.contains(s1)) {
@@ -545,8 +535,7 @@ public class ShaderPackParser {
             if (j >= 0 && s1.contains(ShaderMacros.getPrefixMacro())) {
                 ShaderMacro[] ashadermacro = findMacros(s1, ShaderMacros.getExtensions());
 
-                for (int i1 = 0; i1 < ashadermacro.length; ++i1) {
-                    ShaderMacro shadermacro1 = ashadermacro[i1];
+                for (ShaderMacro shadermacro1 : ashadermacro) {
                     set.add(shadermacro1);
                 }
             }
@@ -560,9 +549,7 @@ public class ShaderPackParser {
     private static ShaderMacro[] findMacros(String line, ShaderMacro[] macros) {
         List<ShaderMacro> list = new ArrayList();
 
-        for (int i = 0; i < macros.length; ++i) {
-            ShaderMacro shadermacro = macros[i];
-
+        for (ShaderMacro shadermacro : macros) {
             if (line.contains(shadermacro.getName())) {
                 list.add(shadermacro);
             }

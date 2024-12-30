@@ -86,14 +86,14 @@ public class PlayerManager {
         if (j - this.previousTotalWorldTime > 8000L) {
             this.previousTotalWorldTime = j;
 
-            for (int k = 0; k < this.playerInstanceList.size(); ++k) {
-                PlayerManager.PlayerInstance playermanager$playerinstance1 = (PlayerManager.PlayerInstance) this.playerInstanceList.get(k);
+            for (PlayerInstance playerInstance : this.playerInstanceList) {
+                PlayerInstance playermanager$playerinstance1 = (PlayerInstance) playerInstance;
                 playermanager$playerinstance1.onUpdate();
                 playermanager$playerinstance1.processChunk();
             }
         } else {
-            for (int l = 0; l < this.playerInstancesToUpdate.size(); ++l) {
-                PlayerManager.PlayerInstance playermanager$playerinstance2 = (PlayerManager.PlayerInstance) this.playerInstancesToUpdate.get(l);
+            for (PlayerInstance playerInstance : this.playerInstancesToUpdate) {
+                PlayerInstance playermanager$playerinstance2 = (PlayerInstance) playerInstance;
                 playermanager$playerinstance2.onUpdate();
             }
         }
@@ -463,8 +463,8 @@ public class PlayerManager {
         }
 
         public void sendToAllPlayersWatchingChunk(Packet thePacket) {
-            for (int i = 0; i < this.playersWatchingChunk.size(); ++i) {
-                EntityPlayerMP entityplayermp = (EntityPlayerMP) this.playersWatchingChunk.get(i);
+            for (EntityPlayerMP entityPlayerMP : this.playersWatchingChunk) {
+                EntityPlayerMP entityplayermp = (EntityPlayerMP) entityPlayerMP;
 
                 if (!entityplayermp.loadedChunks.contains(this.chunkCoords)) {
                     entityplayermp.playerNetServerHandler.sendPacket(thePacket);
@@ -507,8 +507,8 @@ public class PlayerManager {
                             int l = k << 4;
                             List<TileEntity> list = PlayerManager.this.theWorldServer.getTileEntitiesIn(i, l, j, i + 16, l + 16, j + 16);
 
-                            for (int i1 = 0; i1 < list.size(); ++i1) {
-                                this.sendTileToAllPlayersWatchingChunk((TileEntity) list.get(i1));
+                            for (TileEntity tileEntity : list) {
+                                this.sendTileToAllPlayersWatchingChunk((TileEntity) tileEntity);
                             }
                         }
                     }

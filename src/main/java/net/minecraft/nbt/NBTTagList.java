@@ -25,8 +25,8 @@ public class NBTTagList extends NBTBase {
         output.writeByte(this.tagType);
         output.writeInt(this.tagList.size());
 
-        for (int i = 0; i < this.tagList.size(); ++i) {
-            ((NBTBase) this.tagList.get(i)).write(output);
+        for (NBTBase nbtBase : this.tagList) {
+            ((NBTBase) nbtBase).write(output);
         }
     }
 

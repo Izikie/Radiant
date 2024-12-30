@@ -349,12 +349,11 @@ public class TextureAtlasSprite {
                 this.loadShadersSprites();
             }
 
-            for (int k1 = 0; k1 < this.framesTextureData.size(); ++k1) {
-                int[][] aint1 = (int[][]) ((int[][]) this.framesTextureData.get(k1));
+            for (int[][] framesTextureDatum : this.framesTextureData) {
+                int[][] aint1 = (int[][]) ((int[][]) framesTextureDatum);
 
                 if (aint1 != null && !this.iconName.startsWith("minecraft:blocks/leaves_")) {
-                    for (int i2 = 0; i2 < aint1.length; ++i2) {
-                        int[] aint2 = aint1[i2];
+                    for (int[] aint2 : aint1) {
                         this.fixTransparentColor(aint2);
                     }
                 }
@@ -517,8 +516,7 @@ public class TextureAtlasSprite {
             long k = 0L;
             long l = 0L;
 
-            for (int i1 = 0; i1 < p_fixTransparentColor_1_.length; ++i1) {
-                int j1 = p_fixTransparentColor_1_[i1];
+            for (int j1 : p_fixTransparentColor_1_) {
                 int k1 = j1 >> 24 & 255;
 
                 if (k1 >= 16) {

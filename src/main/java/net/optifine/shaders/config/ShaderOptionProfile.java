@@ -44,8 +44,7 @@ public class ShaderOptionProfile extends ShaderOption {
         if (shaderprofile != null) {
             String[] astring = shaderprofile.getOptions();
 
-            for (int i = 0; i < astring.length; ++i) {
-                String s = astring[i];
+            for (String s : astring) {
                 ShaderOption shaderoption = this.getOption(s);
 
                 if (shaderoption != null) {
@@ -57,9 +56,7 @@ public class ShaderOptionProfile extends ShaderOption {
     }
 
     private ShaderOption getOption(String name) {
-        for (int i = 0; i < this.options.length; ++i) {
-            ShaderOption shaderoption = this.options[i];
-
+        for (ShaderOption shaderoption : this.options) {
             if (shaderoption.getName().equals(name)) {
                 return shaderoption;
             }
@@ -69,9 +66,7 @@ public class ShaderOptionProfile extends ShaderOption {
     }
 
     private ShaderProfile getProfile(String name) {
-        for (int i = 0; i < this.profiles.length; ++i) {
-            ShaderProfile shaderprofile = this.profiles[i];
-
+        for (ShaderProfile shaderprofile : this.profiles) {
             if (shaderprofile.getName().equals(name)) {
                 return shaderprofile;
             }
@@ -100,8 +95,8 @@ public class ShaderOptionProfile extends ShaderOption {
         } else {
             StringBuffer stringbuffer = new StringBuffer();
 
-            for (int i = 0; i < this.profiles.length; ++i) {
-                String s1 = this.profiles[i].getName();
+            for (ShaderProfile profile : this.profiles) {
+                String s1 = profile.getName();
 
                 if (s1 != null) {
                     String s2 = Shaders.translate("profile." + s1 + ".comment", (String) null);
@@ -132,8 +127,7 @@ public class ShaderOptionProfile extends ShaderOption {
     private static String[] getProfileNames(ShaderProfile[] profs) {
         List<String> list = new ArrayList();
 
-        for (int i = 0; i < profs.length; ++i) {
-            ShaderProfile shaderprofile = profs[i];
+        for (ShaderProfile shaderprofile : profs) {
             list.add(shaderprofile.getName());
         }
 

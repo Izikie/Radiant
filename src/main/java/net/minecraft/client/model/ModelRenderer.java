@@ -156,8 +156,8 @@ public class ModelRenderer {
                     GlStateManager.callList(this.displayList);
 
                     if (this.childModels != null) {
-                        for (int l = 0; l < this.childModels.size(); ++l) {
-                            ((ModelRenderer) this.childModels.get(l)).render(p_78785_1_);
+                        for (ModelRenderer childModel : this.childModels) {
+                            ((ModelRenderer) childModel).render(p_78785_1_);
                         }
                     }
 
@@ -174,8 +174,8 @@ public class ModelRenderer {
                     GlStateManager.callList(this.displayList);
 
                     if (this.childModels != null) {
-                        for (int k = 0; k < this.childModels.size(); ++k) {
-                            ((ModelRenderer) this.childModels.get(k)).render(p_78785_1_);
+                        for (ModelRenderer childModel : this.childModels) {
+                            ((ModelRenderer) childModel).render(p_78785_1_);
                         }
                     }
 
@@ -208,8 +208,8 @@ public class ModelRenderer {
                 GlStateManager.callList(this.displayList);
 
                 if (this.childModels != null) {
-                    for (int j = 0; j < this.childModels.size(); ++j) {
-                        ((ModelRenderer) this.childModels.get(j)).render(p_78785_1_);
+                    for (ModelRenderer childModel : this.childModels) {
+                        ((ModelRenderer) childModel).render(p_78785_1_);
                     }
                 }
 
@@ -270,8 +270,8 @@ public class ModelRenderer {
             GlStateManager.callList(this.displayList);
 
             if (this.childModels != null) {
-                for (int j = 0; j < this.childModels.size(); ++j) {
-                    ((ModelRenderer) this.childModels.get(j)).render(p_78791_1_);
+                for (ModelRenderer childModel : this.childModels) {
+                    ((ModelRenderer) childModel).render(p_78791_1_);
                 }
             }
 
@@ -321,12 +321,12 @@ public class ModelRenderer {
         GL11.glNewList(this.displayList, GL11.GL_COMPILE);
         WorldRenderer worldrenderer = Tessellator.getInstance().getWorldRenderer();
 
-        for (int i = 0; i < this.cubeList.size(); ++i) {
-            ((ModelBox) this.cubeList.get(i)).render(worldrenderer, scale);
+        for (ModelBox modelBox : this.cubeList) {
+            ((ModelBox) modelBox).render(worldrenderer, scale);
         }
 
-        for (int j = 0; j < this.spriteList.size(); ++j) {
-            ModelSprite modelsprite = (ModelSprite) this.spriteList.get(j);
+        for (Object o : this.spriteList) {
+            ModelSprite modelsprite = (ModelSprite) o;
             modelsprite.render(Tessellator.getInstance(), scale);
         }
 
@@ -384,8 +384,8 @@ public class ModelRenderer {
             return null;
         } else {
             if (this.childModels != null) {
-                for (int i = 0; i < this.childModels.size(); ++i) {
-                    ModelRenderer modelrenderer = (ModelRenderer) this.childModels.get(i);
+                for (ModelRenderer childModel : this.childModels) {
+                    ModelRenderer modelrenderer = (ModelRenderer) childModel;
 
                     if (p_getChild_1_.equals(modelrenderer.getId())) {
                         return modelrenderer;
@@ -407,8 +407,8 @@ public class ModelRenderer {
                 return modelrenderer;
             } else {
                 if (this.childModels != null) {
-                    for (int i = 0; i < this.childModels.size(); ++i) {
-                        ModelRenderer modelrenderer1 = (ModelRenderer) this.childModels.get(i);
+                    for (ModelRenderer childModel : this.childModels) {
+                        ModelRenderer modelrenderer1 = (ModelRenderer) childModel;
                         ModelRenderer modelrenderer2 = modelrenderer1.getChildDeep(p_getChildDeep_1_);
 
                         if (modelrenderer2 != null) {

@@ -148,8 +148,8 @@ public class InventoryBasic implements IInventory {
 
     public void markDirty() {
         if (this.changeListeners != null) {
-            for (int i = 0; i < this.changeListeners.size(); ++i) {
-                ((IInvBasic) this.changeListeners.get(i)).onInventoryChanged(this);
+            for (IInvBasic changeListener : this.changeListeners) {
+                ((IInvBasic) changeListener).onInventoryChanged(this);
             }
         }
     }

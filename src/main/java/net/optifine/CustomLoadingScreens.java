@@ -47,8 +47,7 @@ public class CustomLoadingScreens {
         String[] astring = ResUtils.collectFiles(s, s1);
         Map<Integer, String> map = new HashMap();
 
-        for (int i = 0; i < astring.length; ++i) {
-            String s2 = astring[i];
+        for (String s2 : astring) {
             String s3 = StrUtils.removePrefixSuffix(s2, s, s1);
             int j = Config.parseInt(s3, Integer.MIN_VALUE);
 
@@ -73,8 +72,7 @@ public class CustomLoadingScreens {
             int i1 = l - k + 1;
             CustomLoadingScreen[] acustomloadingscreen = new CustomLoadingScreen[i1];
 
-            for (int j1 = 0; j1 < ainteger.length; ++j1) {
-                Integer integer = ainteger[j1];
+            for (Integer integer : ainteger) {
                 String s4 = (String) map.get(integer);
                 acustomloadingscreen[integer.intValue() - k] = CustomLoadingScreen.parseScreen(s4, integer.intValue(), properties);
             }

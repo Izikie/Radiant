@@ -30,8 +30,7 @@ public class ResUtils {
         Set<String> set = new LinkedHashSet();
         IResourcePack[] airesourcepack = Config.getResourcePacks();
 
-        for (int i = 0; i < airesourcepack.length; ++i) {
-            IResourcePack iresourcepack = airesourcepack[i];
+        for (IResourcePack iresourcepack : airesourcepack) {
             String[] astring = collectFiles(iresourcepack, (String[]) prefixes, (String[]) suffixes, (String[]) null);
             set.addAll(Arrays.asList(astring));
         }
@@ -76,8 +75,7 @@ public class ResUtils {
         } else {
             List list = new ArrayList();
 
-            for (int i = 0; i < paths.length; ++i) {
-                String s = paths[i];
+            for (String s : paths) {
                 ResourceLocation resourcelocation = new ResourceLocation(s);
 
                 if (rp.resourceExists(resourcelocation)) {
@@ -98,9 +96,7 @@ public class ResUtils {
         if (afile == null) {
             return new String[0];
         } else {
-            for (int i = 0; i < afile.length; ++i) {
-                File file1 = afile[i];
-
+            for (File file1 : afile) {
                 if (file1.isFile()) {
                     String s3 = basePath + file1.getName();
 
@@ -115,8 +111,7 @@ public class ResUtils {
                     String s1 = basePath + file1.getName() + "/";
                     String[] astring = collectFilesFolder(file1, s1, prefixes, suffixes);
 
-                    for (int j = 0; j < astring.length; ++j) {
-                        String s2 = astring[j];
+                    for (String s2 : astring) {
                         list.add(s2);
                     }
                 }

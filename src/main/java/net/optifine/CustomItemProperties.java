@@ -168,8 +168,7 @@ public class CustomItemProperties {
             String[] astring = Config.tokenize(str, " ");
             label45:
 
-            for (int i = 0; i < astring.length; ++i) {
-                String s = astring[i];
+            for (String s : astring) {
                 int j = Config.parseInt(s, -1);
 
                 if (j >= 0) {
@@ -426,9 +425,7 @@ public class CustomItemProperties {
             String[] astring = Config.tokenize(str, " ");
             RangeListInt rangelistint = new RangeListInt();
 
-            for (int i = 0; i < astring.length; ++i) {
-                String s = astring[i];
-
+            for (String s : astring) {
                 if (parser != null) {
                     int j = parser.parse(s, Integer.MIN_VALUE);
 

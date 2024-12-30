@@ -348,8 +348,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
                 logger.info("Saving worlds");
                 this.saveAllWorlds(false);
 
-                for (int i = 0; i < this.worldServers.length; ++i) {
-                    WorldServer worldserver = this.worldServers[i];
+                for (WorldServer worldserver : this.worldServers) {
                     worldserver.flush();
                 }
             }
@@ -543,8 +542,8 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         this.getNetworkSystem().networkTick();
         this.serverConfigManager.onTick();
 
-        for (int k = 0; k < this.playersOnline.size(); ++k) {
-            this.playersOnline.get(k).update();
+        for (ITickable iTickable : this.playersOnline) {
+            iTickable.update();
         }
     }
 
@@ -699,9 +698,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
     }
 
     public void setDifficultyForAllWorlds(EnumDifficulty difficulty) {
-        for (int i = 0; i < this.worldServers.length; ++i) {
-            World world = this.worldServers[i];
-
+        for (World world : this.worldServers) {
             if (world != null) {
                 if (world.getWorldInfo().isHardcoreModeEnabled()) {
                     world.getWorldInfo().setDifficulty(EnumDifficulty.HARD);
@@ -733,9 +730,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         this.worldIsBeingDeleted = true;
         this.getActiveAnvilConverter().flushCache();
 
-        for (int i = 0; i < this.worldServers.length; ++i) {
-            WorldServer worldserver = this.worldServers[i];
-
+        for (WorldServer worldserver : this.worldServers) {
             if (worldserver != null) {
                 worldserver.flush();
             }

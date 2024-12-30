@@ -479,8 +479,8 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
             List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, axisalignedbb);
 
-            for (int i = 0; i < list.size(); ++i) {
-                Entity entity = (Entity) list.get(i);
+            for (Entity value : list) {
+                Entity entity = (Entity) value;
 
                 if (!entity.isDead) {
                     this.collideWithPlayer(entity);

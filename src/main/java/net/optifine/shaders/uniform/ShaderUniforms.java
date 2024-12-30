@@ -7,15 +7,15 @@ public class ShaderUniforms {
     private final List<ShaderUniformBase> listUniforms = new ArrayList();
 
     public void setProgram(int program) {
-        for (int i = 0; i < this.listUniforms.size(); ++i) {
-            ShaderUniformBase shaderuniformbase = (ShaderUniformBase) this.listUniforms.get(i);
+        for (ShaderUniformBase listUniform : this.listUniforms) {
+            ShaderUniformBase shaderuniformbase = (ShaderUniformBase) listUniform;
             shaderuniformbase.setProgram(program);
         }
     }
 
     public void reset() {
-        for (int i = 0; i < this.listUniforms.size(); ++i) {
-            ShaderUniformBase shaderuniformbase = (ShaderUniformBase) this.listUniforms.get(i);
+        for (ShaderUniformBase listUniform : this.listUniforms) {
+            ShaderUniformBase shaderuniformbase = (ShaderUniformBase) listUniform;
             shaderuniformbase.reset();
         }
     }

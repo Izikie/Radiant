@@ -42,8 +42,7 @@ public class TextureAnimations {
         if (textureAnimations != null && Config.isAnimatedTextures()) {
             int i = 0;
 
-            for (int j = 0; j < textureAnimations.length; ++j) {
-                TextureAnimation textureanimation = textureAnimations[j];
+            for (TextureAnimation textureanimation : textureAnimations) {
                 textureanimation.updateTexture();
 
                 if (textureanimation.isActive()) {
@@ -69,8 +68,7 @@ public class TextureAnimations {
     private static TextureAnimation[] getTextureAnimations(IResourcePack[] rps) {
         List list = new ArrayList();
 
-        for (int i = 0; i < rps.length; ++i) {
-            IResourcePack iresourcepack = rps[i];
+        for (IResourcePack iresourcepack : rps) {
             TextureAnimation[] atextureanimation = getTextureAnimations(iresourcepack);
 
             if (atextureanimation != null) {
@@ -90,8 +88,7 @@ public class TextureAnimations {
         } else {
             List list = new ArrayList();
 
-            for (int i = 0; i < astring.length; ++i) {
-                String s = astring[i];
+            for (String s : astring) {
                 Config.dbg("Texture animation: " + s);
 
                 try {

@@ -77,8 +77,7 @@ public class ConnectedParser {
             List list = new ArrayList();
             String[] astring = Config.tokenize(propMatchBlocks, " ");
 
-            for (int i = 0; i < astring.length; ++i) {
-                String s = astring[i];
+            for (String s : astring) {
                 MatchBlock[] amatchblock = this.parseMatchBlock(s);
 
                 if (amatchblock != null) {
@@ -230,9 +229,7 @@ public class ConnectedParser {
                 Collection collection = iblockstate.getPropertyNames();
                 Map<IProperty, List<Comparable>> map = new HashMap();
 
-                for (int i = 0; i < params.length; ++i) {
-                    String s1 = params[i];
-
+                for (String s1 : params) {
                     if (s1.length() > 0) {
                         String[] astring = Config.tokenize(s1, "=");
 
@@ -259,8 +256,7 @@ public class ConnectedParser {
 
                         String[] astring1 = Config.tokenize(s3, ",");
 
-                        for (int j = 0; j < astring1.length; ++j) {
-                            String s4 = astring1[j];
+                        for (String s4 : astring1) {
                             Comparable comparable = parsePropertyValue(iproperty, s4);
 
                             if (comparable == null) {
@@ -410,8 +406,7 @@ public class ConnectedParser {
             String[] astring = Config.tokenize(str, " ");
             List list = new ArrayList();
 
-            for (int i = 0; i < astring.length; ++i) {
-                String s = astring[i];
+            for (String s : astring) {
                 BiomeGenBase biomegenbase = this.findBiome(s);
 
                 if (biomegenbase == null) {
@@ -440,9 +435,7 @@ public class ConnectedParser {
         } else {
             BiomeGenBase[] abiomegenbase = BiomeGenBase.getBiomeGenArray();
 
-            for (int i = 0; i < abiomegenbase.length; ++i) {
-                BiomeGenBase biomegenbase = abiomegenbase[i];
-
+            for (BiomeGenBase biomegenbase : abiomegenbase) {
                 if (biomegenbase != null) {
                     String s = biomegenbase.biomeName.replace(" ", "").toLowerCase();
 
@@ -479,9 +472,7 @@ public class ConnectedParser {
             List<Integer> list = new ArrayList();
             String[] astring = Config.tokenize(str, " ,");
 
-            for (int i = 0; i < astring.length; ++i) {
-                String s = astring[i];
-
+            for (String s : astring) {
                 if (s.contains("-")) {
                     String[] astring1 = Config.tokenize(s, "-");
 
@@ -527,9 +518,7 @@ public class ConnectedParser {
             EnumSet enumset = EnumSet.allOf(EnumFacing.class);
             String[] astring = Config.tokenize(str, " ,");
 
-            for (int i = 0; i < astring.length; ++i) {
-                String s = astring[i];
-
+            for (String s : astring) {
                 if (s.equals("sides")) {
                     enumset.add(EnumFacing.NORTH);
                     enumset.add(EnumFacing.SOUTH);
@@ -596,8 +585,7 @@ public class ConnectedParser {
             RangeListInt rangelistint = new RangeListInt();
             String[] astring = Config.tokenize(str, " ,");
 
-            for (int i = 0; i < astring.length; ++i) {
-                String s = astring[i];
+            for (String s : astring) {
                 RangeInt rangeint = this.parseRangeInt(s);
 
                 if (rangeint == null) {
@@ -714,9 +702,7 @@ public class ConnectedParser {
             str = str.toLowerCase().trim();
             EnumWorldBlockLayer[] aenumworldblocklayer = EnumWorldBlockLayer.values();
 
-            for (int i = 0; i < aenumworldblocklayer.length; ++i) {
-                EnumWorldBlockLayer enumworldblocklayer = aenumworldblocklayer[i];
-
+            for (EnumWorldBlockLayer enumworldblocklayer : aenumworldblocklayer) {
                 if (str.equals(enumworldblocklayer.name().toLowerCase())) {
                     return enumworldblocklayer;
                 }
@@ -732,8 +718,7 @@ public class ConnectedParser {
         } else {
             String s = str.toLowerCase().trim();
 
-            for (int i = 0; i < objs.length; ++i) {
-                T t = objs[i];
+            for (T t : objs) {
                 String s1 = nameGetter.getName(t);
 
                 if (s1 != null && s1.toLowerCase().equals(s)) {
@@ -796,8 +781,7 @@ public class ConnectedParser {
             List<VillagerProfession> list = new ArrayList();
             String[] astring = Config.tokenize(profStr, " ");
 
-            for (int i = 0; i < astring.length; ++i) {
-                String s = astring[i];
+            for (String s : astring) {
                 VillagerProfession villagerprofession = this.parseProfession(s);
 
                 if (villagerprofession == null) {
@@ -860,8 +844,7 @@ public class ConnectedParser {
         Set<Integer> set = new HashSet();
         String[] astring = Config.tokenize(str, ",");
 
-        for (int i = 0; i < astring.length; ++i) {
-            String s = astring[i];
+        for (String s : astring) {
             int j = parseCareerId(prof, s);
 
             if (j < 0) {
@@ -952,8 +935,7 @@ public class ConnectedParser {
         Set<Integer> set = new TreeSet();
         String[] astring = Config.tokenize(str, " ");
 
-        for (int i = 0; i < astring.length; ++i) {
-            String s = astring[i];
+        for (String s : astring) {
             ResourceLocation resourcelocation = new ResourceLocation(s);
             Item item = (Item) Item.itemRegistry.getObject(resourcelocation);
 
@@ -980,8 +962,7 @@ public class ConnectedParser {
         Set<Integer> set = new TreeSet();
         String[] astring = Config.tokenize(str, " ");
 
-        for (int i = 0; i < astring.length; ++i) {
-            String s = astring[i];
+        for (String s : astring) {
             int j = EntityUtils.getEntityIdByName(s);
 
             if (j < 0) {

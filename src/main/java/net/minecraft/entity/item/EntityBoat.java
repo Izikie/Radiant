@@ -354,8 +354,8 @@ public class EntityBoat extends Entity {
                 List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().expand(0.20000000298023224D, 0.0D, 0.20000000298023224D));
 
                 if (list != null && !list.isEmpty()) {
-                    for (int k2 = 0; k2 < list.size(); ++k2) {
-                        Entity entity = (Entity) list.get(k2);
+                    for (Entity value : list) {
+                        Entity entity = (Entity) value;
 
                         if (entity != this.riddenByEntity && entity.canBePushed() && entity instanceof EntityBoat) {
                             entity.applyEntityCollision(this);
