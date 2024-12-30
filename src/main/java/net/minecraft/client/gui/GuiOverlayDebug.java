@@ -28,7 +28,6 @@ import net.minecraft.world.chunk.Chunk;
 import net.optifine.SmartAnimations;
 import net.optifine.TextureAnimations;
 import net.optifine.util.MemoryMonitor;
-import net.optifine.util.NativeMemory;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 
@@ -224,17 +223,12 @@ public class GuiOverlayDebug extends Gui {
                 String.format("Java: %s %dbit", System.getProperty("java.version"), mc.isJava64bit() ? 64 : 32),
                 String.format("Mem: % 2d%% %03d/%03dMB", usedMemory * 100L / maxMemory, bytesToMb(usedMemory), bytesToMb(maxMemory)),
                 String.format("Allocated: % 2d%% %03dMB", totalMemory * 100L / maxMemory, bytesToMb(totalMemory)),
+                "GC: " + MemoryMonitor.getAllocationRateMb() + "MB/s",
                 "",
                 String.format("CPU: %s", OpenGlHelper.getCpu()),
                 "",
                 String.format("Display: %dx%d (%s)", Display.getWidth(), Display.getHeight(), GL11.glGetString(GL11.GL_VENDOR)),
                 GL11.glGetString(GL11.GL_RENDERER), GL11.glGetString(GL11.GL_VERSION));
-
-        long bufferAllocated = bytesToMb(NativeMemory.getBufferAllocated());
-        long bufferMax = bytesToMb(NativeMemory.getBufferMaximum());
-        String nativeMemory = "Native: " + bufferAllocated + "/" + bufferMax + "MB";
-        list.add(4, nativeMemory);
-        list.set(5, "GC: " + MemoryMonitor.getAllocationRateMb() + "MB/s");
 
         if (!isReducedDebug()) {
             if (mc.objectMouseOver != null && mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && mc.objectMouseOver.getBlockPos() != null) {
