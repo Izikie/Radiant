@@ -61,6 +61,10 @@ public class LanguageManager implements IResourceManagerReloadListener {
         StringTranslate.replaceWith(currentLocale.properties);
     }
 
+    public boolean isCurrentLocaleUnicode() {
+        return currentLocale.isUnicode();
+    }
+
     public boolean isCurrentLanguageBidirectional() {
         return this.getCurrentLanguage() != null && this.getCurrentLanguage().isBidirectional();
     }

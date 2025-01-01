@@ -557,11 +557,11 @@ public class Minecraft implements IThreadListener {
     }
 
     public boolean isUnicode() {
-        return this.gameSettings.forceUnicodeFont;
+        return this.mcLanguageManager.isCurrentLocaleUnicode() || this.gameSettings.forceUnicodeFont;
     }
 
     public void reloadLanguageManager() {
-        this.mcLanguageManager.onResourceManagerReload((IResourceManager)this.mcResourceManager);
+        this.mcLanguageManager.onResourceManagerReload(this.mcResourceManager);
         Lang.resourcesReloaded();
     }
 

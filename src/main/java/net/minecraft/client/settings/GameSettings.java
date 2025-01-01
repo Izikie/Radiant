@@ -415,7 +415,7 @@ public class GameSettings {
 
         if (settingsOption == GameSettings.Options.FORCE_UNICODE_FONT) {
             this.forceUnicodeFont = !this.forceUnicodeFont;
-            this.mc.fontRendererObj.setUnicodeFlag(this.forceUnicodeFont);
+            this.mc.fontRendererObj.setUnicodeFlag(this.mc.getLanguageManager().isCurrentLocaleUnicode() || this.forceUnicodeFont);
         }
 
         if (settingsOption == GameSettings.Options.FBO_ENABLE) {
