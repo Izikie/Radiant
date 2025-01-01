@@ -28,7 +28,7 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
 
         for (GameSettings.Options gamesettings$options : field_146440_f) {
             if (gamesettings$options.getEnumFloat()) {
-                this.buttonList.add(new GuiOptionSlider(gamesettings$options.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 - 12 + 24 * (i >> 1), gamesettings$options));
+                this.buttonList.add(new GuiOptionSlider(1000, this.width / 2 - 155 + i % 2 * 160, this.height / 6 - 12 + 24 * (i >> 1), gamesettings$options));
             } else {
                 GuiOptionButton guioptionbutton = new GuiOptionButton(gamesettings$options.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 - 12 + 24 * (i >> 1), gamesettings$options, this.gameSettings.getKeyBinding(gamesettings$options));
                 this.buttonList.add(guioptionbutton);
@@ -134,6 +134,10 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
                 case 10 -> {
                     this.mc.gameSettings.saveOptions();
                     this.mc.displayGuiScreen(this.pauseMenu);
+                }
+
+                case 1000 -> {
+                    // Do Nothing
                 }
 
                 default -> {
