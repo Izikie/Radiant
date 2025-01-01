@@ -154,6 +154,7 @@ import net.minecraft.world.chunk.storage.AnvilSaveConverter;
 import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.WorldInfo;
+import net.optifine.Lang;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
@@ -557,6 +558,11 @@ public class Minecraft implements IThreadListener {
 
     public boolean isUnicode() {
         return this.mcLanguageManager.isCurrentLocaleUnicode() || this.gameSettings.forceUnicodeFont;
+    }
+
+    public void reloadLanguageManager() {
+        this.mcLanguageManager.onResourceManagerReload(this.mcResourceManager);
+        Lang.resourcesReloaded();
     }
 
     public void refreshResources() {
