@@ -490,9 +490,6 @@ public class ConnectedTextures {
                             return getConnectedTextureCtmCompact(cp, blockAccess, blockState, blockPos, i, side, quad, j, renderEnv);
                         }
 
-                    default:
-                        return null;
-
                     case 11:
                         return getConnectedTextureOverlay(cp, blockAccess, blockState, blockPos, i, side, quad, j, renderEnv);
 
@@ -507,6 +504,9 @@ public class ConnectedTextures {
 
                     case 15:
                         return getConnectedTextureOverlayCtm(cp, blockAccess, blockState, blockPos, i, side, quad, j, renderEnv);
+
+                    default:
+                        return null;
                 }
             }
         }
@@ -543,16 +543,16 @@ public class ConnectedTextures {
                     case 1:
                         return 5;
 
-                    case 2:
-                    case 3:
-                    default:
-                        return side;
-
                     case 4:
                         return 1;
 
                     case 5:
                         return 0;
+
+                    case 2:
+                    case 3:
+                    default:
+                        return side;
                 }
 
             default:

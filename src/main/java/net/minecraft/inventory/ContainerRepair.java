@@ -237,6 +237,15 @@ public class ContainerRepair extends Container {
 
                                     case 2:
                                         l5 = 4;
+                                        break;
+
+                                    case 5:
+                                        l5 = 2;
+                                        break;
+
+                                    case 10:
+                                        l5 = 1;
+                                        break;
 
                                     case 3:
                                     case 4:
@@ -246,13 +255,6 @@ public class ContainerRepair extends Container {
                                     case 9:
                                     default:
                                         break;
-
-                                    case 5:
-                                        l5 = 2;
-                                        break;
-
-                                    case 10:
-                                        l5 = 1;
                                 }
 
                                 if (flag) {

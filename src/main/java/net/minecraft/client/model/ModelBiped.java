@@ -118,11 +118,6 @@ public class ModelBiped extends ModelBase {
         this.bipedRightArm.rotateAngleZ = 0.0F;
 
         switch (this.heldItemRight) {
-            case 0:
-            case 2:
-            default:
-                break;
-
             case 1:
                 this.bipedRightArm.rotateAngleX = this.bipedRightArm.rotateAngleX * 0.5F - ((float) Math.PI / 10F) * this.heldItemRight;
                 break;
@@ -130,6 +125,12 @@ public class ModelBiped extends ModelBase {
             case 3:
                 this.bipedRightArm.rotateAngleX = this.bipedRightArm.rotateAngleX * 0.5F - ((float) Math.PI / 10F) * this.heldItemRight;
                 this.bipedRightArm.rotateAngleY = -0.5235988F;
+                break;
+
+            case 0:
+            case 2:
+            default:
+                break;
         }
 
         this.bipedLeftArm.rotateAngleY = 0.0F;

@@ -124,7 +124,6 @@ public class BlockBanner extends BlockContainer {
 
             switch (enumfacing) {
                 case NORTH:
-                default:
                     this.setBlockBounds(f2, f, 1.0F - f4, f3, f1, 1.0F);
                     break;
 
@@ -138,6 +137,10 @@ public class BlockBanner extends BlockContainer {
 
                 case EAST:
                     this.setBlockBounds(0.0F, f, f2, f4, f1, f3);
+                    break;
+
+                default:
+                    this.setBlockBounds(f2, f, 1.0F - f4, f3, f1, 1.0F);
             }
         }
 

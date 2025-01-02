@@ -246,13 +246,14 @@ public class EffectRenderer {
                     }
 
                     switch (i) {
+                        case 1:
+                            this.renderer.bindTexture(TextureMap.locationBlocksTexture);
+                            break;
+
                         case 0:
                         default:
                             this.renderer.bindTexture(particleTextures);
                             break;
-
-                        case 1:
-                            this.renderer.bindTexture(TextureMap.locationBlocksTexture);
                     }
 
                     GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);

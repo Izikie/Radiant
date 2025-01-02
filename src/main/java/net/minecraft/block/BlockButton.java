@@ -278,13 +278,14 @@ public abstract class BlockButton extends Block {
                 i = 4;
                 break;
 
+            case DOWN:
+                i = 0;
+                break;
+
             case UP:
             default:
                 i = 5;
                 break;
-
-            case DOWN:
-                i = 0;
         }
 
         if (state.getValue(POWERED).booleanValue()) {

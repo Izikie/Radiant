@@ -1631,12 +1631,12 @@ public class GameSettings {
                 case 2:
                     return s + Lang.getFancy();
 
+                case 4:
+                    return s + Lang.get("of.general.smart");
+
                 case 3:
                 default:
                     return s + Lang.getDefault();
-
-                case 4:
-                    return s + Lang.get("of.general.smart");
             }
         } else if (p_getKeyBindingOF_1_ == GameSettings.Options.DROPPED_ITEMS) {
             switch (this.ofDroppedItems) {

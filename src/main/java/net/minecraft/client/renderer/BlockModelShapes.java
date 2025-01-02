@@ -199,10 +199,6 @@ public class BlockModelShapes {
                 BlockQuartz.EnumType blockquartz$enumtype = state.getValue(BlockQuartz.VARIANT);
 
                 switch (blockquartz$enumtype) {
-                    case DEFAULT:
-                    default:
-                        return new ModelResourceLocation("quartz_block", "normal");
-
                     case CHISELED:
                         return new ModelResourceLocation("chiseled_quartz_block", "normal");
 
@@ -214,6 +210,10 @@ public class BlockModelShapes {
 
                     case LINES_Z:
                         return new ModelResourceLocation("quartz_column", "axis=z");
+
+                    case DEFAULT:
+                    default:
+                        return new ModelResourceLocation("quartz_block", "normal");
                 }
             }
         });

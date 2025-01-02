@@ -26,10 +26,6 @@ public class RenderRabbit extends RenderLiving<EntityRabbit> {
             return TOAST;
         } else {
             switch (entity.getRabbitType()) {
-                case 0:
-                default:
-                    return BROWN;
-
                 case 1:
                     return WHITE;
 
@@ -47,6 +43,10 @@ public class RenderRabbit extends RenderLiving<EntityRabbit> {
 
                 case 99:
                     return CAERBANNOG;
+
+                case 0:
+                default:
+                    return BROWN;
             }
         }
     }

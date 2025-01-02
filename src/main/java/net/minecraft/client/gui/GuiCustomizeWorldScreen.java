@@ -252,6 +252,17 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
             case 147:
                 return String.format("%2.3f", Float.valueOf(p_175330_2_));
 
+            case 162:
+                if (p_175330_2_ < 0.0F) {
+                    return I18n.format("gui.all");
+                } else if ((int) p_175330_2_ >= BiomeGenBase.hell.biomeID) {
+                    BiomeGenBase biomegenbase1 = BiomeGenBase.getBiomeGenArray()[(int) p_175330_2_ + 2];
+                    return biomegenbase1 != null ? biomegenbase1.biomeName : "?";
+                } else {
+                    BiomeGenBase biomegenbase = BiomeGenBase.getBiomeGenArray()[(int) p_175330_2_];
+                    return biomegenbase != null ? biomegenbase.biomeName : "?";
+                }
+
             case 116:
             case 117:
             case 118:
@@ -284,17 +295,6 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
             case 161:
             default:
                 return String.format("%d", Integer.valueOf((int) p_175330_2_));
-
-            case 162:
-                if (p_175330_2_ < 0.0F) {
-                    return I18n.format("gui.all");
-                } else if ((int) p_175330_2_ >= BiomeGenBase.hell.biomeID) {
-                    BiomeGenBase biomegenbase1 = BiomeGenBase.getBiomeGenArray()[(int) p_175330_2_ + 2];
-                    return biomegenbase1 != null ? biomegenbase1.biomeName : "?";
-                } else {
-                    BiomeGenBase biomegenbase = BiomeGenBase.getBiomeGenArray()[(int) p_175330_2_];
-                    return biomegenbase != null ? biomegenbase.biomeName : "?";
-                }
         }
     }
 
@@ -413,52 +413,6 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
 
             case 115:
                 this.field_175336_F.biomeScaleOffset = value;
-
-            case 116:
-            case 117:
-            case 118:
-            case 119:
-            case 120:
-            case 121:
-            case 122:
-            case 123:
-            case 124:
-            case 125:
-            case 126:
-            case 127:
-            case 128:
-            case 129:
-            case 130:
-            case 131:
-            case 132:
-            case 133:
-            case 134:
-            case 135:
-            case 136:
-            case 137:
-            case 138:
-            case 139:
-            case 140:
-            case 141:
-            case 142:
-            case 143:
-            case 144:
-            case 145:
-            case 146:
-            case 147:
-            case 148:
-            case 149:
-            case 150:
-            case 151:
-            case 152:
-            case 153:
-            case 154:
-            case 155:
-            case 156:
-            case 161:
-            case 188:
-            default:
-                break;
 
             case 157:
                 this.field_175336_F.dungeonChance = (int) value;
@@ -662,6 +616,53 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
 
             case 209:
                 this.field_175336_F.lapisSpread = (int) value;
+                break;
+
+            case 116:
+            case 117:
+            case 118:
+            case 119:
+            case 120:
+            case 121:
+            case 122:
+            case 123:
+            case 124:
+            case 125:
+            case 126:
+            case 127:
+            case 128:
+            case 129:
+            case 130:
+            case 131:
+            case 132:
+            case 133:
+            case 134:
+            case 135:
+            case 136:
+            case 137:
+            case 138:
+            case 139:
+            case 140:
+            case 141:
+            case 142:
+            case 143:
+            case 144:
+            case 145:
+            case 146:
+            case 147:
+            case 148:
+            case 149:
+            case 150:
+            case 151:
+            case 152:
+            case 153:
+            case 154:
+            case 155:
+            case 156:
+            case 161:
+            case 188:
+            default:
+                break;
         }
 
         if (id >= 100 && id < 116) {

@@ -226,10 +226,6 @@ public class ShaderGroup {
             }
 
             switch (i) {
-                case 0:
-                default:
-                    break;
-
                 case 1:
                     shaderuniform.set(afloat[0]);
                     break;
@@ -244,6 +240,11 @@ public class ShaderGroup {
 
                 case 4:
                     shaderuniform.set(afloat[0], afloat[1], afloat[2], afloat[3]);
+                    break;
+
+                case 0:
+                default:
+                    break;
             }
         }
     }

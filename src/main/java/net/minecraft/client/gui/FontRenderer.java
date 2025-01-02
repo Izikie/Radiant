@@ -691,14 +691,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 
                 case ' ':
                     k = j;
-
-                default:
-                    f += this.getCharWidth(c0);
-
-                    if (flag) {
-                        ++f;
-                    }
-
                     break;
 
                 case '\u00a7':
@@ -714,6 +706,16 @@ public class FontRenderer implements IResourceManagerReloadListener {
                             flag = true;
                         }
                     }
+                    break;
+
+                default:
+                    f += this.getCharWidth(c0);
+
+                    if (flag) {
+                        ++f;
+                    }
+
+                    break;
             }
 
             if (c0 == 10) {

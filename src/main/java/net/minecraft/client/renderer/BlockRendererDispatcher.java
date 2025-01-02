@@ -114,10 +114,6 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
 
         if (i != -1) {
             switch (i) {
-                case 1:
-                default:
-                    break;
-
                 case 2:
                     this.chestRenderer.renderChestBrightness(state.getBlock(), brightness);
                     break;
@@ -125,6 +121,11 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
                 case 3:
                     IBakedModel ibakedmodel = this.getBakedModel(state, null);
                     this.blockModelRenderer.renderModelBrightness(ibakedmodel, state, brightness, true);
+                    break;
+
+                case 1:
+                default:
+                    break;
             }
         }
     }

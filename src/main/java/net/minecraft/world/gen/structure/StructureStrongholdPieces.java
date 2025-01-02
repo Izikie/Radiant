@@ -1219,11 +1219,6 @@ public class StructureStrongholdPieces {
 
         protected void placeDoor(World worldIn, Random p_74990_2_, StructureBoundingBox p_74990_3_, StructureStrongholdPieces.Stronghold.Door p_74990_4_, int p_74990_5_, int p_74990_6_, int p_74990_7_) {
             switch (p_74990_4_) {
-                case OPENING:
-                default:
-                    this.fillWithBlocks(worldIn, p_74990_3_, p_74990_5_, p_74990_6_, p_74990_7_, p_74990_5_ + 3 - 1, p_74990_6_ + 3 - 1, p_74990_7_, Blocks.air.getDefaultState(), Blocks.air.getDefaultState(), false);
-                    break;
-
                 case WOOD_DOOR:
                     this.setBlockState(worldIn, Blocks.stonebrick.getDefaultState(), p_74990_5_, p_74990_6_, p_74990_7_, p_74990_3_);
                     this.setBlockState(worldIn, Blocks.stonebrick.getDefaultState(), p_74990_5_, p_74990_6_ + 1, p_74990_7_, p_74990_3_);
@@ -1260,6 +1255,12 @@ public class StructureStrongholdPieces {
                     this.setBlockState(worldIn, Blocks.iron_door.getStateFromMeta(8), p_74990_5_ + 1, p_74990_6_ + 1, p_74990_7_, p_74990_3_);
                     this.setBlockState(worldIn, Blocks.stone_button.getStateFromMeta(this.getMetadataWithOffset(Blocks.stone_button, 4)), p_74990_5_ + 2, p_74990_6_ + 1, p_74990_7_ + 1, p_74990_3_);
                     this.setBlockState(worldIn, Blocks.stone_button.getStateFromMeta(this.getMetadataWithOffset(Blocks.stone_button, 3)), p_74990_5_ + 2, p_74990_6_ + 1, p_74990_7_ - 1, p_74990_3_);
+                    break;
+
+                case OPENING:
+                default:
+                    this.fillWithBlocks(worldIn, p_74990_3_, p_74990_5_, p_74990_6_, p_74990_7_, p_74990_5_ + 3 - 1, p_74990_6_ + 3 - 1, p_74990_7_, Blocks.air.getDefaultState(), Blocks.air.getDefaultState(), false);
+                    break;
             }
         }
 
@@ -1267,11 +1268,6 @@ public class StructureStrongholdPieces {
             int i = p_74988_1_.nextInt(5);
 
             switch (i) {
-                case 0:
-                case 1:
-                default:
-                    return StructureStrongholdPieces.Stronghold.Door.OPENING;
-
                 case 2:
                     return StructureStrongholdPieces.Stronghold.Door.WOOD_DOOR;
 
@@ -1280,6 +1276,11 @@ public class StructureStrongholdPieces {
 
                 case 4:
                     return StructureStrongholdPieces.Stronghold.Door.IRON_DOOR;
+
+                case 0:
+                case 1:
+                default:
+                    return StructureStrongholdPieces.Stronghold.Door.OPENING;
             }
         }
 

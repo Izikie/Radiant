@@ -50,11 +50,6 @@ public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntit
             GlStateManager.matrixMode(5888);
         } else {
             switch (p_180543_6_) {
-                case 0:
-                default:
-                    this.bindTexture(SKELETON_TEXTURES);
-                    break;
-
                 case 1:
                     this.bindTexture(WITHER_SKELETON_TEXTURES);
                     break;
@@ -85,6 +80,12 @@ public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntit
 
                 case 4:
                     this.bindTexture(CREEPER_TEXTURES);
+                    break;
+
+                case 0:
+                default:
+                    this.bindTexture(SKELETON_TEXTURES);
+                    break;
             }
         }
 
