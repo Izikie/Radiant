@@ -15,7 +15,7 @@ public class ModelBook extends ModelBase {
     public ModelBook() {
         this.coverRight.setRotationPoint(0.0F, 0.0F, -1.0F);
         this.coverLeft.setRotationPoint(0.0F, 0.0F, 1.0F);
-        this.bookSpine.rotateAngleY = ((float) Math.PI / 2F);
+        this.bookSpine.rotateAngleY = ((float) Math.PI / 2.0F);
     }
 
     public void render(Entity entityIn, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_, float scale) {

@@ -2567,7 +2567,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                     this.spawnParticle(EnumParticleTypes.ITEM_CRACK, d6, d8, d10, random.nextGaussian() * 0.15D, random.nextDouble() * 0.2D, random.nextGaussian() * 0.15D, Item.getIdFromItem(Items.ender_eye));
                 }
 
-                for (double d22 = 0.0D; d22 < (Math.PI * 2D); d22 += 0.15707963267948966D) {
+                for (double d22 = 0.0D; d22 < (Math.PI * 2.0D); d22 += 0.15707963267948966D) {
                     this.spawnParticle(EnumParticleTypes.PORTAL, d6 + Math.cos(d22) * 5.0D, d8 - 0.4D, d10 + Math.sin(d22) * 5.0D, Math.cos(d22) * -5.0D, 0.0D, Math.sin(d22) * -5.0D);
                     this.spawnParticle(EnumParticleTypes.PORTAL, d6 + Math.cos(d22) * 5.0D, d8 - 0.4D, d10 + Math.sin(d22) * 5.0D, Math.cos(d22) * -7.0D, 0.0D, Math.sin(d22) * -7.0D);
                 }

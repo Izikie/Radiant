@@ -72,29 +72,29 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
         }
 
         while (this.bookRotation >= (float) Math.PI) {
-            this.bookRotation -= ((float) Math.PI * 2F);
+            this.bookRotation -= ((float) Math.PI * 2.0F);
         }
 
         while (this.bookRotation < -(float) Math.PI) {
-            this.bookRotation += ((float) Math.PI * 2F);
+            this.bookRotation += ((float) Math.PI * 2.0F);
         }
 
         while (this.field_145924_q >= (float) Math.PI) {
-            this.field_145924_q -= ((float) Math.PI * 2F);
+            this.field_145924_q -= ((float) Math.PI * 2.0F);
         }
 
         while (this.field_145924_q < -(float) Math.PI) {
-            this.field_145924_q += ((float) Math.PI * 2F);
+            this.field_145924_q += ((float) Math.PI * 2.0F);
         }
 
         float f2;
 
-        for (f2 = this.field_145924_q - this.bookRotation; f2 >= (float) Math.PI; f2 -= ((float) Math.PI * 2F)) {
+        for (f2 = this.field_145924_q - this.bookRotation; f2 >= (float) Math.PI; f2 -= ((float) Math.PI * 2.0F)) {
             ;
         }
 
         while (f2 < -(float) Math.PI) {
-            f2 += ((float) Math.PI * 2F);
+            f2 += ((float) Math.PI * 2.0F);
         }
 
         this.bookRotation += f2 * 0.4F;

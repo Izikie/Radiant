@@ -22,7 +22,7 @@ public class EntityAILookIdle extends EntityAIBase {
     }
 
     public void startExecuting() {
-        double d0 = (Math.PI * 2D) * this.idleEntity.getRNG().nextDouble();
+        double d0 = (Math.PI * 2.0D) * this.idleEntity.getRNG().nextDouble();
         this.lookX = Math.cos(d0);
         this.lookZ = Math.sin(d0);
         this.idleTime = 20 + this.idleEntity.getRNG().nextInt(20);

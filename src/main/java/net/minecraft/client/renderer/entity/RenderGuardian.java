@@ -86,8 +86,8 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
             vec32 = vec32.normalize();
             float f5 = (float) Math.acos(vec32.yCoord);
             float f6 = (float) Math.atan2(vec32.zCoord, vec32.xCoord);
-            GlStateManager.rotate((((float) Math.PI / 2F) + -f6) * (180F / (float) Math.PI), 0.0F, 1.0F, 0.0F);
-            GlStateManager.rotate(f5 * (180F / (float) Math.PI), 1.0F, 0.0F, 0.0F);
+            GlStateManager.rotate((((float) Math.PI / 2.0F) + -f6) * (180.0F / (float) Math.PI), 0.0F, 1.0F, 0.0F);
+            GlStateManager.rotate(f5 * (180.0F / (float) Math.PI), 1.0F, 0.0F, 0.0F);
             int i = 1;
             double d1 = f2 * 0.05D * (1.0D - (i & 1) * 2.5D);
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
@@ -99,8 +99,8 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
             double d3 = d2 * 1.41D;
             double d4 = 0.0D + Math.cos(d1 + 2.356194490192345D) * d3;
             double d5 = 0.0D + Math.sin(d1 + 2.356194490192345D) * d3;
-            double d6 = 0.0D + Math.cos(d1 + (Math.PI / 4D)) * d3;
-            double d7 = 0.0D + Math.sin(d1 + (Math.PI / 4D)) * d3;
+            double d6 = 0.0D + Math.cos(d1 + (Math.PI / 4.0D)) * d3;
+            double d7 = 0.0D + Math.sin(d1 + (Math.PI / 4.0D)) * d3;
             double d8 = 0.0D + Math.cos(d1 + 3.9269908169872414D) * d3;
             double d9 = 0.0D + Math.sin(d1 + 3.9269908169872414D) * d3;
             double d10 = 0.0D + Math.cos(d1 + 5.497787143782138D) * d3;
@@ -109,10 +109,10 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
             double d13 = 0.0D + Math.sin(d1 + Math.PI) * d2;
             double d14 = 0.0D + Math.cos(d1 + 0.0D) * d2;
             double d15 = 0.0D + Math.sin(d1 + 0.0D) * d2;
-            double d16 = 0.0D + Math.cos(d1 + (Math.PI / 2D)) * d2;
-            double d17 = 0.0D + Math.sin(d1 + (Math.PI / 2D)) * d2;
-            double d18 = 0.0D + Math.cos(d1 + (Math.PI * 3D / 2D)) * d2;
-            double d19 = 0.0D + Math.sin(d1 + (Math.PI * 3D / 2D)) * d2;
+            double d16 = 0.0D + Math.cos(d1 + (Math.PI / 2.0D)) * d2;
+            double d17 = 0.0D + Math.sin(d1 + (Math.PI / 2.0D)) * d2;
+            double d18 = 0.0D + Math.cos(d1 + (Math.PI * 3.0D / 2.0D)) * d2;
+            double d19 = 0.0D + Math.sin(d1 + (Math.PI * 3.0D / 2.0D)) * d2;
             double d20 = 0.0D;
             double d21 = 0.4999D;
             double d22 = (-1.0F + f3);

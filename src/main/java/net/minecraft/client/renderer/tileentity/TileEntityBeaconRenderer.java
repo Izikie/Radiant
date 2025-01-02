@@ -53,8 +53,8 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
                     double d3 = 0.2D;
                     double d4 = 0.5D + Math.cos(d2 + 2.356194490192345D) * 0.2D;
                     double d5 = 0.5D + Math.sin(d2 + 2.356194490192345D) * 0.2D;
-                    double d6 = 0.5D + Math.cos(d2 + (Math.PI / 4D)) * 0.2D;
-                    double d7 = 0.5D + Math.sin(d2 + (Math.PI / 4D)) * 0.2D;
+                    double d6 = 0.5D + Math.cos(d2 + (Math.PI / 4.0D)) * 0.2D;
+                    double d7 = 0.5D + Math.sin(d2 + (Math.PI / 4.0D)) * 0.2D;
                     double d8 = 0.5D + Math.cos(d2 + 3.9269908169872414D) * 0.2D;
                     double d9 = 0.5D + Math.sin(d2 + 3.9269908169872414D) * 0.2D;
                     double d10 = 0.5D + Math.cos(d2 + 5.497787143782138D) * 0.2D;

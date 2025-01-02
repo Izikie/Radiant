@@ -70,7 +70,7 @@ public class MapGenStronghold extends MapGenStructure {
                 }
 
                 this.structureCoords[j] = new ChunkCoordIntPair(k, l);
-                d0 += (Math.PI * 2D) * i / this.field_82672_i;
+                d0 += (Math.PI * 2.0D) * i / this.field_82672_i;
 
                 if (j == this.field_82672_i) {
                     i += 2 + random.nextInt(5);

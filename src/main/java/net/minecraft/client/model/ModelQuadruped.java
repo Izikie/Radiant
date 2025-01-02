@@ -63,10 +63,10 @@ public class ModelQuadruped extends ModelBase {
     }
 
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-        float f = (180F / (float) Math.PI);
-        this.head.rotateAngleX = headPitch / (180F / (float) Math.PI);
-        this.head.rotateAngleY = netHeadYaw / (180F / (float) Math.PI);
-        this.body.rotateAngleX = ((float) Math.PI / 2F);
+        float f = (180.0F / (float) Math.PI);
+        this.head.rotateAngleX = headPitch / (180.0F / (float) Math.PI);
+        this.head.rotateAngleY = netHeadYaw / (180.0F / (float) Math.PI);
+        this.body.rotateAngleX = ((float) Math.PI / 2.0F);
         this.leg1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
         this.leg2.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
         this.leg3.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;

@@ -12,8 +12,8 @@ public class MathHelper {
     private static final int SIN_COUNT = 4096;
     private static final int SIN_COUNT_D4 = 1024;
     public static final float PI = MathUtils.roundToFloat(Math.PI);
-    public static final float PI2 = MathUtils.roundToFloat((Math.PI * 2D));
-    public static final float PId2 = MathUtils.roundToFloat((Math.PI / 2D));
+    public static final float PI2 = MathUtils.roundToFloat((Math.PI * 2.0D));
+    public static final float PId2 = MathUtils.roundToFloat((Math.PI / 2.0D));
     private static final float radToIndex = MathUtils.roundToFloat(651.8986469044033D);
     public static final float deg2Rad = MathUtils.roundToFloat(0.017453292519943295D);
     private static final float[] SIN_TABLE_FAST = new float[4096];
@@ -319,7 +319,7 @@ public class MathHelper {
             double d8 = d3 + d7;
 
             if (flag2) {
-                d8 = (Math.PI / 2D) - d8;
+                d8 = (Math.PI / 2.0D) - d8;
             }
 
             if (flag1) {

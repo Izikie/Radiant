@@ -125,9 +125,9 @@ public class EntitySheep extends EntityAnimal {
     public float getHeadRotationAngleX(float p_70890_1_) {
         if (this.sheepTimer > 4 && this.sheepTimer <= 36) {
             float f = ((this.sheepTimer - 4) - p_70890_1_) / 32.0F;
-            return ((float) Math.PI / 5F) + ((float) Math.PI * 7F / 100F) * MathHelper.sin(f * 28.7F);
+            return ((float) Math.PI / 5.0F) + ((float) Math.PI * 7.0F / 100.0F) * MathHelper.sin(f * 28.7F);
         } else {
-            return this.sheepTimer > 0 ? ((float) Math.PI / 5F) : this.rotationPitch / (180F / (float) Math.PI);
+            return this.sheepTimer > 0 ? ((float) Math.PI / 5.0F) : this.rotationPitch / (180.0F / (float) Math.PI);
         }
     }
 

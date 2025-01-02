@@ -46,12 +46,12 @@ public class TextureCompass extends TextureAtlasSprite {
             } else {
                 double d3;
 
-                for (d3 = d0 - this.currentAngle; d3 < -Math.PI; d3 += (Math.PI * 2D)) {
+                for (d3 = d0 - this.currentAngle; d3 < -Math.PI; d3 += (Math.PI * 2.0D)) {
                     ;
                 }
 
                 while (d3 >= Math.PI) {
-                    d3 -= (Math.PI * 2D);
+                    d3 -= (Math.PI * 2.0D);
                 }
 
                 d3 = MathHelper.clamp_double(d3, -1.0D, 1.0D);
@@ -62,7 +62,7 @@ public class TextureCompass extends TextureAtlasSprite {
 
             int i;
 
-            for (i = (int) ((this.currentAngle / (Math.PI * 2D) + 1.0D) * this.framesTextureData.size()) % this.framesTextureData.size(); i < 0; i = (i + this.framesTextureData.size()) % this.framesTextureData.size()) {
+            for (i = (int) ((this.currentAngle / (Math.PI * 2.0D) + 1.0D) * this.framesTextureData.size()) % this.framesTextureData.size(); i < 0; i = (i + this.framesTextureData.size()) % this.framesTextureData.size()) {
                 ;
             }
 

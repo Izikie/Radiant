@@ -3724,10 +3724,10 @@ public class Shaders {
             GL11.glTranslatef((float) d0 % f2 - f3, (float) d1 % f2 - f3, (float) d2 % f2 - f3);
         }
 
-        float f9 = sunAngle * ((float) Math.PI * 2F);
+        float f9 = sunAngle * ((float) Math.PI * 2.0F);
         float f10 = (float) Math.cos(f9);
         float f4 = (float) Math.sin(f9);
-        float f5 = sunPathRotation * ((float) Math.PI * 2F);
+        float f5 = sunPathRotation * ((float) Math.PI * 2.0F);
         float f6 = f10;
         float f7 = f4 * (float) Math.cos(f5);
         float f8 = f4 * (float) Math.sin(f5);

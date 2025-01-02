@@ -4,8 +4,8 @@ import net.minecraft.util.MathHelper;
 
 public class MathUtils {
     public static final float PI = (float) Math.PI;
-    public static final float PI2 = ((float) Math.PI * 2F);
-    public static final float PId2 = ((float) Math.PI / 2F);
+    public static final float PI2 = ((float) Math.PI * 2.0F);
+    public static final float PId2 = ((float) Math.PI / 2.0F);
     private static final float[] ASIN_TABLE = new float[65536];
 
     public static float asin(float value) {
@@ -13,7 +13,7 @@ public class MathUtils {
     }
 
     public static float acos(float value) {
-        return ((float) Math.PI / 2F) - ASIN_TABLE[(int) ((value + 1.0F) * 32767.5D) & 65535];
+        return ((float) Math.PI / 2.0F) - ASIN_TABLE[(int) ((value + 1.0F) * 32767.5D) & 65535];
     }
 
     public static int getAverage(int[] vals) {

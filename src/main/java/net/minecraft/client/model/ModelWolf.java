@@ -92,22 +92,22 @@ public class ModelWolf extends ModelBase {
 
         if (entitywolf.isSitting()) {
             this.wolfMane.setRotationPoint(-1.0F, 16.0F, -3.0F);
-            this.wolfMane.rotateAngleX = ((float) Math.PI * 2F / 5F);
+            this.wolfMane.rotateAngleX = ((float) Math.PI * 2.0F / 5.0F);
             this.wolfMane.rotateAngleY = 0.0F;
             this.wolfBody.setRotationPoint(0.0F, 18.0F, 0.0F);
-            this.wolfBody.rotateAngleX = ((float) Math.PI / 4F);
+            this.wolfBody.rotateAngleX = ((float) Math.PI / 4.0F);
             this.wolfTail.setRotationPoint(-1.0F, 21.0F, 6.0F);
             this.wolfLeg1.setRotationPoint(-2.5F, 22.0F, 2.0F);
-            this.wolfLeg1.rotateAngleX = ((float) Math.PI * 3F / 2F);
+            this.wolfLeg1.rotateAngleX = ((float) Math.PI * 3.0F / 2.0F);
             this.wolfLeg2.setRotationPoint(0.5F, 22.0F, 2.0F);
-            this.wolfLeg2.rotateAngleX = ((float) Math.PI * 3F / 2F);
+            this.wolfLeg2.rotateAngleX = ((float) Math.PI * 3.0F / 2.0F);
             this.wolfLeg3.rotateAngleX = 5.811947F;
             this.wolfLeg3.setRotationPoint(-2.49F, 17.0F, -4.0F);
             this.wolfLeg4.rotateAngleX = 5.811947F;
             this.wolfLeg4.setRotationPoint(0.51F, 17.0F, -4.0F);
         } else {
             this.wolfBody.setRotationPoint(0.0F, 14.0F, 2.0F);
-            this.wolfBody.rotateAngleX = ((float) Math.PI / 2F);
+            this.wolfBody.rotateAngleX = ((float) Math.PI / 2.0F);
             this.wolfMane.setRotationPoint(-1.0F, 14.0F, -3.0F);
             this.wolfMane.rotateAngleX = this.wolfBody.rotateAngleX;
             this.wolfTail.setRotationPoint(-1.0F, 12.0F, 8.0F);
@@ -129,8 +129,8 @@ public class ModelWolf extends ModelBase {
 
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
         super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
-        this.wolfHeadMain.rotateAngleX = headPitch / (180F / (float) Math.PI);
-        this.wolfHeadMain.rotateAngleY = netHeadYaw / (180F / (float) Math.PI);
+        this.wolfHeadMain.rotateAngleX = headPitch / (180.0F / (float) Math.PI);
+        this.wolfHeadMain.rotateAngleY = netHeadYaw / (180.0F / (float) Math.PI);
         this.wolfTail.rotateAngleX = ageInTicks;
     }
 }

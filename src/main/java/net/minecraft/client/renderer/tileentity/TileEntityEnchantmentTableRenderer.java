@@ -18,12 +18,12 @@ public class TileEntityEnchantmentTableRenderer extends TileEntitySpecialRendere
         GlStateManager.translate(0.0F, 0.1F + MathHelper.sin(f * 0.1F) * 0.01F, 0.0F);
         float f1;
 
-        for (f1 = te.bookRotation - te.bookRotationPrev; f1 >= (float) Math.PI; f1 -= ((float) Math.PI * 2F)) {
+        for (f1 = te.bookRotation - te.bookRotationPrev; f1 >= (float) Math.PI; f1 -= ((float) Math.PI * 2.0F)) {
             ;
         }
 
         while (f1 < -(float) Math.PI) {
-            f1 += ((float) Math.PI * 2F);
+            f1 += ((float) Math.PI * 2.0F);
         }
 
         float f2 = te.bookRotationPrev + f1 * partialTicks;

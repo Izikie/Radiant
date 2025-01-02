@@ -36,7 +36,7 @@ public class ModelBlaze extends ModelBase {
             ++f;
         }
 
-        f = ((float) Math.PI / 4F) + ageInTicks * (float) Math.PI * 0.03F;
+        f = ((float) Math.PI / 4.0F) + ageInTicks * (float) Math.PI * 0.03F;
 
         for (int j = 4; j < 8; ++j) {
             this.blazeSticks[j].rotationPointY = 2.0F + MathHelper.cos(((j * 2) + ageInTicks) * 0.25F);
@@ -54,7 +54,7 @@ public class ModelBlaze extends ModelBase {
             ++f;
         }
 
-        this.blazeHead.rotateAngleY = netHeadYaw / (180F / (float) Math.PI);
-        this.blazeHead.rotateAngleX = headPitch / (180F / (float) Math.PI);
+        this.blazeHead.rotateAngleY = netHeadYaw / (180.0F / (float) Math.PI);
+        this.blazeHead.rotateAngleX = headPitch / (180.0F / (float) Math.PI);
     }
 }

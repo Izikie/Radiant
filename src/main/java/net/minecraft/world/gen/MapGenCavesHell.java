@@ -57,8 +57,8 @@ public class MapGenCavesHell extends MapGenBase {
             f = f + (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 4.0F;
 
             if (!flag1 && p_180704_15_ == j && p_180704_12_ > 1.0F) {
-                this.func_180704_a(random.nextLong(), p_180704_3_, p_180704_4_, p_180704_5_, p_180704_6_, p_180704_8_, p_180704_10_, random.nextFloat() * 0.5F + 0.5F, p_180704_13_ - ((float) Math.PI / 2F), p_180704_14_ / 3.0F, p_180704_15_, p_180704_16_, 1.0D);
-                this.func_180704_a(random.nextLong(), p_180704_3_, p_180704_4_, p_180704_5_, p_180704_6_, p_180704_8_, p_180704_10_, random.nextFloat() * 0.5F + 0.5F, p_180704_13_ + ((float) Math.PI / 2F), p_180704_14_ / 3.0F, p_180704_15_, p_180704_16_, 1.0D);
+                this.func_180704_a(random.nextLong(), p_180704_3_, p_180704_4_, p_180704_5_, p_180704_6_, p_180704_8_, p_180704_10_, random.nextFloat() * 0.5F + 0.5F, p_180704_13_ - ((float) Math.PI / 2.0F), p_180704_14_ / 3.0F, p_180704_15_, p_180704_16_, 1.0D);
+                this.func_180704_a(random.nextLong(), p_180704_3_, p_180704_4_, p_180704_5_, p_180704_6_, p_180704_8_, p_180704_10_, random.nextFloat() * 0.5F + 0.5F, p_180704_13_ + ((float) Math.PI / 2.0F), p_180704_14_ / 3.0F, p_180704_15_, p_180704_16_, 1.0D);
                 return;
             }
 

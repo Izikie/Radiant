@@ -87,11 +87,11 @@ public class EntitySquid extends EntityWaterMob {
         this.lastTentacleAngle = this.tentacleAngle;
         this.squidRotation += this.rotationVelocity;
 
-        if (this.squidRotation > (Math.PI * 2D)) {
+        if (this.squidRotation > (Math.PI * 2.0D)) {
             if (this.worldObj.isRemote) {
-                this.squidRotation = ((float) Math.PI * 2F);
+                this.squidRotation = ((float) Math.PI * 2.0F);
             } else {
-                this.squidRotation = (float) (this.squidRotation - (Math.PI * 2D));
+                this.squidRotation = (float) (this.squidRotation - (Math.PI * 2.0D));
 
                 if (this.rand.nextInt(10) == 0) {
                     this.rotationVelocity = 1.0F / (this.rand.nextFloat() + 1.0F) * 0.2F;

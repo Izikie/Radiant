@@ -32,9 +32,9 @@ public class ModelSnowMan extends ModelBase {
 
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
         super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
-        this.head.rotateAngleY = netHeadYaw / (180F / (float) Math.PI);
-        this.head.rotateAngleX = headPitch / (180F / (float) Math.PI);
-        this.body.rotateAngleY = netHeadYaw / (180F / (float) Math.PI) * 0.25F;
+        this.head.rotateAngleY = netHeadYaw / (180.0F / (float) Math.PI);
+        this.head.rotateAngleX = headPitch / (180.0F / (float) Math.PI);
+        this.body.rotateAngleY = netHeadYaw / (180.0F / (float) Math.PI) * 0.25F;
         float f = MathHelper.sin(this.body.rotateAngleY);
         float f1 = MathHelper.cos(this.body.rotateAngleY);
         this.rightHand.rotateAngleZ = 1.0F;

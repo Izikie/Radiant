@@ -25,9 +25,9 @@ public class ModelBoat extends ModelBase {
         this.boatSides[3].setRotationPoint(0.0F, l, (-k / 2 + 1));
         this.boatSides[4].addBox((-i / 2 + 2), (-j - 1), -1.0F, i - 4, j, 2, 0.0F);
         this.boatSides[4].setRotationPoint(0.0F, l, (k / 2 - 1));
-        this.boatSides[0].rotateAngleX = ((float) Math.PI / 2F);
-        this.boatSides[1].rotateAngleY = ((float) Math.PI * 3F / 2F);
-        this.boatSides[2].rotateAngleY = ((float) Math.PI / 2F);
+        this.boatSides[0].rotateAngleX = ((float) Math.PI / 2.0F);
+        this.boatSides[1].rotateAngleY = ((float) Math.PI * 3.0F / 2.0F);
+        this.boatSides[2].rotateAngleY = ((float) Math.PI / 2.0F);
         this.boatSides[3].rotateAngleY = (float) Math.PI;
     }
 

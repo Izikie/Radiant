@@ -57,8 +57,8 @@ public class ModelGuardian extends ModelBase {
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
         EntityGuardian entityguardian = (EntityGuardian) entityIn;
         float f = ageInTicks - entityguardian.ticksExisted;
-        this.guardianBody.rotateAngleY = netHeadYaw / (180F / (float) Math.PI);
-        this.guardianBody.rotateAngleX = headPitch / (180F / (float) Math.PI);
+        this.guardianBody.rotateAngleY = netHeadYaw / (180.0F / (float) Math.PI);
+        this.guardianBody.rotateAngleX = headPitch / (180.0F / (float) Math.PI);
         float[] afloat = new float[]{1.75F, 0.25F, 0.0F, 0.0F, 0.5F, 0.5F, 0.5F, 0.5F, 1.25F, 0.75F, 0.0F, 0.0F};
         float[] afloat1 = new float[]{0.0F, 0.0F, 0.0F, 0.0F, 0.25F, 1.75F, 1.25F, 0.75F, 0.0F, 0.0F, 0.0F, 0.0F};
         float[] afloat2 = new float[]{0.0F, 0.0F, 0.25F, 1.75F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.75F, 1.25F};
@@ -96,7 +96,7 @@ public class ModelGuardian extends ModelBase {
 
             Vec3 vec32 = entityIn.getLook(0.0F);
             vec32 = new Vec3(vec32.xCoord, 0.0D, vec32.zCoord);
-            Vec3 vec33 = (new Vec3(vec31.xCoord - vec3.xCoord, 0.0D, vec31.zCoord - vec3.zCoord)).normalize().rotateYaw(((float) Math.PI / 2F));
+            Vec3 vec33 = (new Vec3(vec31.xCoord - vec3.xCoord, 0.0D, vec31.zCoord - vec3.zCoord)).normalize().rotateYaw(((float) Math.PI / 2.0F));
             double d1 = vec32.dotProduct(vec33);
             this.guardianEye.rotationPointX = MathHelper.sqrt_float((float) Math.abs(d1)) * 2.0F * (float) Math.signum(d1);
         }

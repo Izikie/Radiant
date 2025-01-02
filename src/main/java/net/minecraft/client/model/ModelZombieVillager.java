@@ -31,8 +31,8 @@ public class ModelZombieVillager extends ModelBiped {
         this.bipedLeftArm.rotateAngleZ = 0.0F;
         this.bipedRightArm.rotateAngleY = -(0.1F - f * 0.6F);
         this.bipedLeftArm.rotateAngleY = 0.1F - f * 0.6F;
-        this.bipedRightArm.rotateAngleX = -((float) Math.PI / 2F);
-        this.bipedLeftArm.rotateAngleX = -((float) Math.PI / 2F);
+        this.bipedRightArm.rotateAngleX = -((float) Math.PI / 2.0F);
+        this.bipedLeftArm.rotateAngleX = -((float) Math.PI / 2.0F);
         this.bipedRightArm.rotateAngleX -= f * 1.2F - f1 * 0.4F;
         this.bipedLeftArm.rotateAngleX -= f * 1.2F - f1 * 0.4F;
         this.bipedRightArm.rotateAngleZ += MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;

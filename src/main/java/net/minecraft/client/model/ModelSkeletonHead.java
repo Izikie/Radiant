@@ -24,7 +24,7 @@ public class ModelSkeletonHead extends ModelBase {
 
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
         super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
-        this.skeletonHead.rotateAngleY = netHeadYaw / (180F / (float) Math.PI);
-        this.skeletonHead.rotateAngleX = headPitch / (180F / (float) Math.PI);
+        this.skeletonHead.rotateAngleY = netHeadYaw / (180.0F / (float) Math.PI);
+        this.skeletonHead.rotateAngleX = headPitch / (180.0F / (float) Math.PI);
     }
 }

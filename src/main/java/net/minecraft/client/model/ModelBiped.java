@@ -90,8 +90,8 @@ public class ModelBiped extends ModelBase {
     }
 
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-        this.bipedHead.rotateAngleY = netHeadYaw / (180F / (float) Math.PI);
-        this.bipedHead.rotateAngleX = headPitch / (180F / (float) Math.PI);
+        this.bipedHead.rotateAngleY = netHeadYaw / (180.0F / (float) Math.PI);
+        this.bipedHead.rotateAngleX = headPitch / (180.0F / (float) Math.PI);
         this.bipedRightArm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 2.0F * limbSwingAmount * 0.5F;
         this.bipedLeftArm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 2.0F * limbSwingAmount * 0.5F;
         this.bipedRightArm.rotateAngleZ = 0.0F;
@@ -102,16 +102,16 @@ public class ModelBiped extends ModelBase {
         this.bipedLeftLeg.rotateAngleY = 0.0F;
 
         if (this.isRiding) {
-            this.bipedRightArm.rotateAngleX += -((float) Math.PI / 5F);
-            this.bipedLeftArm.rotateAngleX += -((float) Math.PI / 5F);
-            this.bipedRightLeg.rotateAngleX = -((float) Math.PI * 2F / 5F);
-            this.bipedLeftLeg.rotateAngleX = -((float) Math.PI * 2F / 5F);
-            this.bipedRightLeg.rotateAngleY = ((float) Math.PI / 10F);
-            this.bipedLeftLeg.rotateAngleY = -((float) Math.PI / 10F);
+            this.bipedRightArm.rotateAngleX += -((float) Math.PI / 5.0F);
+            this.bipedLeftArm.rotateAngleX += -((float) Math.PI / 5.0F);
+            this.bipedRightLeg.rotateAngleX = -((float) Math.PI * 2.0F / 5.0F);
+            this.bipedLeftLeg.rotateAngleX = -((float) Math.PI * 2.0F / 5.0F);
+            this.bipedRightLeg.rotateAngleY = ((float) Math.PI / 10.0F);
+            this.bipedLeftLeg.rotateAngleY = -((float) Math.PI / 10.0F);
         }
 
         if (this.heldItemLeft != 0) {
-            this.bipedLeftArm.rotateAngleX = this.bipedLeftArm.rotateAngleX * 0.5F - ((float) Math.PI / 10F) * this.heldItemLeft;
+            this.bipedLeftArm.rotateAngleX = this.bipedLeftArm.rotateAngleX * 0.5F - ((float) Math.PI / 10.0F) * this.heldItemLeft;
         }
 
         this.bipedRightArm.rotateAngleY = 0.0F;
@@ -119,11 +119,11 @@ public class ModelBiped extends ModelBase {
 
         switch (this.heldItemRight) {
             case 1:
-                this.bipedRightArm.rotateAngleX = this.bipedRightArm.rotateAngleX * 0.5F - ((float) Math.PI / 10F) * this.heldItemRight;
+                this.bipedRightArm.rotateAngleX = this.bipedRightArm.rotateAngleX * 0.5F - ((float) Math.PI / 10.0F) * this.heldItemRight;
                 break;
 
             case 3:
-                this.bipedRightArm.rotateAngleX = this.bipedRightArm.rotateAngleX * 0.5F - ((float) Math.PI / 10F) * this.heldItemRight;
+                this.bipedRightArm.rotateAngleX = this.bipedRightArm.rotateAngleX * 0.5F - ((float) Math.PI / 10.0F) * this.heldItemRight;
                 this.bipedRightArm.rotateAngleY = -0.5235988F;
                 break;
 
@@ -186,8 +186,8 @@ public class ModelBiped extends ModelBase {
             this.bipedLeftArm.rotateAngleZ = 0.0F;
             this.bipedRightArm.rotateAngleY = -(0.1F - f3 * 0.6F) + this.bipedHead.rotateAngleY;
             this.bipedLeftArm.rotateAngleY = 0.1F - f3 * 0.6F + this.bipedHead.rotateAngleY + 0.4F;
-            this.bipedRightArm.rotateAngleX = -((float) Math.PI / 2F) + this.bipedHead.rotateAngleX;
-            this.bipedLeftArm.rotateAngleX = -((float) Math.PI / 2F) + this.bipedHead.rotateAngleX;
+            this.bipedRightArm.rotateAngleX = -((float) Math.PI / 2.0F) + this.bipedHead.rotateAngleX;
+            this.bipedLeftArm.rotateAngleX = -((float) Math.PI / 2.0F) + this.bipedHead.rotateAngleX;
             this.bipedRightArm.rotateAngleX -= f3 * 1.2F - f4 * 0.4F;
             this.bipedLeftArm.rotateAngleX -= f3 * 1.2F - f4 * 0.4F;
             this.bipedRightArm.rotateAngleZ += MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;

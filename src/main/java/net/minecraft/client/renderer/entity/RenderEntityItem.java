@@ -38,7 +38,7 @@ public class RenderEntityItem extends Render<EntityItem> {
             GlStateManager.translate((float) p_177077_2_, (float) p_177077_4_ + f1 + 0.25F * f2, (float) p_177077_6_);
 
             if (flag || this.renderManager.options != null) {
-                float f3 = ((itemIn.getAge() + p_177077_8_) / 20.0F + itemIn.hoverStart) * (180F / (float) Math.PI);
+                float f3 = ((itemIn.getAge() + p_177077_8_) / 20.0F + itemIn.hoverStart) * (180.0F / (float) Math.PI);
                 GlStateManager.rotate(f3, 0.0F, 1.0F, 0.0F);
             }
 

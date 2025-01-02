@@ -356,7 +356,7 @@ public class EntityWolf extends EntityTameable {
     }
 
     public float getTailRotation() {
-        return this.isAngry() ? 1.5393804F : (this.isTamed() ? (0.55F - (20.0F - this.dataWatcher.getWatchableObjectFloat(18)) * 0.02F) * (float) Math.PI : ((float) Math.PI / 5F));
+        return this.isAngry() ? 1.5393804F : (this.isTamed() ? (0.55F - (20.0F - this.dataWatcher.getWatchableObjectFloat(18)) * 0.02F) * (float) Math.PI : ((float) Math.PI / 5.0F));
     }
 
     public boolean isBreedingItem(ItemStack stack) {

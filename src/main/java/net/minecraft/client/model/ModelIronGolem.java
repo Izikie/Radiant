@@ -57,8 +57,8 @@ public class ModelIronGolem extends ModelBase {
     }
 
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-        this.ironGolemHead.rotateAngleY = netHeadYaw / (180F / (float) Math.PI);
-        this.ironGolemHead.rotateAngleX = headPitch / (180F / (float) Math.PI);
+        this.ironGolemHead.rotateAngleY = netHeadYaw / (180.0F / (float) Math.PI);
+        this.ironGolemHead.rotateAngleX = headPitch / (180.0F / (float) Math.PI);
         this.ironGolemLeftLeg.rotateAngleX = -1.5F * this.func_78172_a(limbSwing, 13.0F) * limbSwingAmount;
         this.ironGolemRightLeg.rotateAngleX = 1.5F * this.func_78172_a(limbSwing, 13.0F) * limbSwingAmount;
         this.ironGolemLeftLeg.rotateAngleY = 0.0F;
