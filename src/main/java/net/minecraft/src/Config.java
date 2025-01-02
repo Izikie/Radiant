@@ -81,7 +81,6 @@ public class Config {
     public static final String OF_RELEASE = "M6_pre2";
     public static final String VERSION = "OptiFine_1.8.9_HD_U_M6_pre2";
     private static final String build = null;
-    private static String newRelease = null;
     private static boolean notify64BitJava = false;
     public static String openGlVersion = null;
     public static String openGlRenderer = null;
@@ -1296,14 +1295,6 @@ public class Config {
 
     public static GameSettings getGameSettings() {
         return gameSettings;
-    }
-
-    public static String getNewRelease() {
-        return newRelease;
-    }
-
-    public static void setNewRelease(String p_setNewRelease_0_) {
-        newRelease = p_setNewRelease_0_;
     }
 
     public static int compareRelease(String p_compareRelease_0_, String p_compareRelease_1_) {

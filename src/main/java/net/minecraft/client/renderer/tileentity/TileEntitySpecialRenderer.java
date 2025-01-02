@@ -40,9 +40,6 @@ public abstract class TileEntitySpecialRenderer<T extends TileEntity> implements
         return false;
     }
 
-    public void renderTileEntityFast(T p_renderTileEntityFast_1_, double p_renderTileEntityFast_2_, double p_renderTileEntityFast_4_, double p_renderTileEntityFast_6_, float p_renderTileEntityFast_8_, int p_renderTileEntityFast_9_, WorldRenderer p_renderTileEntityFast_10_) {
-    }
-
     public Class getEntityClass() {
         return this.tileEntityClass;
     }

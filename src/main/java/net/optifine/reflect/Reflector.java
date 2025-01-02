@@ -10,7 +10,6 @@ import java.util.Map;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiEnchantment;
 import net.minecraft.client.gui.GuiHopper;
-import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.inventory.GuiBeacon;
 import net.minecraft.client.gui.inventory.GuiBrewingStand;
 import net.minecraft.client.gui.inventory.GuiChest;
@@ -55,11 +54,9 @@ import net.minecraft.client.renderer.tileentity.TileEntityEnderChestRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySignRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
 import net.minecraft.client.resources.DefaultResourcePack;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryBasic;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityBeacon;
 import net.minecraft.tileentity.TileEntityBrewingStand;
 import net.minecraft.tileentity.TileEntityEnchantmentTable;
@@ -72,22 +69,6 @@ import net.optifine.util.ArrayUtils;
 
 public class Reflector {
     // Reflector Forge
-    public static final ReflectorClass Event_Result = new ReflectorClass("net.minecraftforge.fml.common.eventhandler.Event$Result");
-    public static final ReflectorField Event_Result_DENY = new ReflectorField(Event_Result, "DENY");
-    public static final ReflectorField Event_Result_DEFAULT = new ReflectorField(Event_Result, "DEFAULT");
-
-    public static final ReflectorClass ForgeEntity = new ReflectorClass(Entity.class);
-    public static final ReflectorMethod ForgeEntity_shouldRenderInPass = new ReflectorMethod(ForgeEntity, "shouldRenderInPass");
-
-    public static final ReflectorClass ForgeEventFactory = new ReflectorClass("net.minecraftforge.event.ForgeEventFactory");
-    public static final ReflectorMethod ForgeEventFactory_canEntityDespawn = new ReflectorMethod(ForgeEventFactory, "canEntityDespawn");
-
-    public static final ReflectorClass ForgeTileEntity = new ReflectorClass(TileEntity.class);
-    public static final ReflectorMethod ForgeTileEntity_canRenderBreaking = new ReflectorMethod(ForgeTileEntity, "canRenderBreaking");
-    public static final ReflectorMethod ForgeTileEntity_getRenderBoundingBox = new ReflectorMethod(ForgeTileEntity, "getRenderBoundingBox");
-    public static final ReflectorMethod ForgeTileEntity_hasFastRenderer = new ReflectorMethod(ForgeTileEntity, "hasFastRenderer");
-    public static final ReflectorMethod ForgeTileEntity_shouldRenderInPass = new ReflectorMethod(ForgeTileEntity, "shouldRenderInPass");
-
     public static final ReflectorClass ModelLoader = new ReflectorClass("net.minecraftforge.client.model.ModelLoader");
 
     // Reflector Vanilla
@@ -108,8 +89,6 @@ public class Reflector {
     public static final ReflectorField GuiFurnace_tileFurnace = new ReflectorField(GuiFurnace, IInventory.class);
     public static final ReflectorClass GuiHopper = new ReflectorClass(GuiHopper.class);
     public static final ReflectorField GuiHopper_hopperInventory = new ReflectorField(GuiHopper, IInventory.class, 1);
-    public static final ReflectorClass GuiMainMenu = new ReflectorClass(GuiMainMenu.class);
-    public static final ReflectorField GuiMainMenu_splashText = new ReflectorField(GuiMainMenu, String.class);
     public static final ReflectorClass Minecraft = new ReflectorClass(Minecraft.class);
     public static final ReflectorField Minecraft_defaultResourcePack = new ReflectorField(Minecraft, DefaultResourcePack.class);
     public static final ReflectorClass ModelHumanoidHead = new ReflectorClass(ModelHumanoidHead.class);
@@ -206,21 +185,6 @@ public class Reflector {
         } catch (Throwable throwable) {
             handleException(throwable, null, refMethod, params);
             return null;
-        }
-    }
-
-    public static boolean callBoolean(Object obj, ReflectorMethod refMethod, Object... params) {
-        try {
-            Method method = refMethod.getTargetMethod();
-
-            if (method == null) {
-                return false;
-            } else {
-                return (Boolean) method.invoke(obj, params);
-            }
-        } catch (Throwable throwable) {
-            handleException(throwable, obj, refMethod, params);
-            return false;
         }
     }
 

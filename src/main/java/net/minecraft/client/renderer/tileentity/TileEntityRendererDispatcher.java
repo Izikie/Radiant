@@ -50,7 +50,6 @@ public class TileEntityRendererDispatcher {
     public double entityZ;
     public TileEntity tileEntityRendered;
     private final Tessellator batchBuffer = new Tessellator(2097152);
-    private boolean drawingBatch = false;
 
     private TileEntityRendererDispatcher() {
         this.mapSpecialRenderers.put(TileEntitySign.class, new TileEntitySignRenderer());
@@ -142,12 +141,7 @@ public class TileEntityRendererDispatcher {
         if (tileentityspecialrenderer != null) {
             try {
                 this.tileEntityRendered = tileEntityIn;
-
-                if (this.drawingBatch && Reflector.callBoolean(tileEntityIn, Reflector.ForgeTileEntity_hasFastRenderer)) {
-                    tileentityspecialrenderer.renderTileEntityFast(tileEntityIn, x, y, z, partialTicks, destroyStage, this.batchBuffer.getWorldRenderer());
-                } else {
-                    tileentityspecialrenderer.renderTileEntityAt(tileEntityIn, x, y, z, partialTicks, destroyStage);
-                }
+                tileentityspecialrenderer.renderTileEntityAt(tileEntityIn, x, y, z, partialTicks, destroyStage);
 
                 this.tileEntityRendered = null;
             } catch (Throwable throwable) {
