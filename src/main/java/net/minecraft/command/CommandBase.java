@@ -194,7 +194,7 @@ public abstract class CommandBase implements ICommand {
     }
 
     public static List<Entity> func_175763_c(ICommandSender p_175763_0_, String p_175763_1_) throws EntityNotFoundException {
-        return PlayerSelector.hasArguments(p_175763_1_) ? PlayerSelector.matchEntities(p_175763_0_, p_175763_1_, Entity.class) : Lists.newArrayList(new Entity[]{getEntity(p_175763_0_, p_175763_1_)});
+        return PlayerSelector.hasArguments(p_175763_1_) ? PlayerSelector.matchEntities(p_175763_0_, p_175763_1_, Entity.class) : Lists.newArrayList(getEntity(p_175763_0_, p_175763_1_));
     }
 
     public static String getPlayerName(ICommandSender sender, String query) throws PlayerNotFoundException {

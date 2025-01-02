@@ -40,7 +40,7 @@ public class MapStorage {
 
                     if (file1 != null && file1.exists()) {
                         try {
-                            worldsaveddata = clazz.getConstructor(new Class[]{String.class}).newInstance(new Object[]{dataIdentifier});
+                            worldsaveddata = clazz.getConstructor(new Class[]{String.class}).newInstance(dataIdentifier);
                         } catch (Exception exception) {
                             throw new RuntimeException("Failed to instantiate " + clazz.toString(), exception);
                         }

@@ -115,7 +115,7 @@ public class EntityList {
             Class<? extends Entity> oclass = stringToClassMapping.get(entityName);
 
             if (oclass != null) {
-                entity = oclass.getConstructor(new Class[]{World.class}).newInstance(new Object[]{worldIn});
+                entity = oclass.getConstructor(new Class[]{World.class}).newInstance(worldIn);
             }
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -136,7 +136,7 @@ public class EntityList {
             Class<? extends Entity> oclass = stringToClassMapping.get(nbt.getString("id"));
 
             if (oclass != null) {
-                entity = oclass.getConstructor(new Class[]{World.class}).newInstance(new Object[]{worldIn});
+                entity = oclass.getConstructor(new Class[]{World.class}).newInstance(worldIn);
             }
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -158,7 +158,7 @@ public class EntityList {
             Class<? extends Entity> oclass = getClassFromID(entityID);
 
             if (oclass != null) {
-                entity = oclass.getConstructor(new Class[]{World.class}).newInstance(new Object[]{worldIn});
+                entity = oclass.getConstructor(new Class[]{World.class}).newInstance(worldIn);
             }
         } catch (Exception exception) {
             exception.printStackTrace();
