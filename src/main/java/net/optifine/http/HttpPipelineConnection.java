@@ -224,7 +224,7 @@ public class HttpPipelineConnection {
     private void checkResponseHeader(HttpResponse resp) {
         String s = resp.getHeader("Connection");
 
-        if (s != null && !s.toLowerCase().equals("keep-alive")) {
+        if (s != null && !s.equalsIgnoreCase("keep-alive")) {
             this.terminate(new EOFException("Connection not keep-alive"));
         }
 

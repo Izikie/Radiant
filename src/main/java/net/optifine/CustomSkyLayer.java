@@ -134,9 +134,9 @@ public class CustomSkyLayer {
     private boolean parseBoolean(String str, boolean defVal) {
         if (str == null) {
             return defVal;
-        } else if (str.toLowerCase().equals("true")) {
+        } else if (str.equalsIgnoreCase("true")) {
             return true;
-        } else if (str.toLowerCase().equals("false")) {
+        } else if (str.equalsIgnoreCase("false")) {
             return false;
         } else {
             Config.warn("Unknown boolean: " + str);

@@ -25,7 +25,7 @@ public class ResourceLocation {
         int i = toSplit.indexOf(58);
 
         if (i >= 0) {
-            astring[1] = toSplit.substring(i + 1, toSplit.length());
+            astring[1] = toSplit.substring(i + 1);
 
             if (i > 1) {
                 astring[0] = toSplit.substring(0, i);

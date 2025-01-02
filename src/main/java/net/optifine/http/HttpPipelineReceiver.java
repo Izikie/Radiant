@@ -141,8 +141,7 @@ public class HttpPipelineReceiver extends Thread {
             i = j;
         }
 
-        byte[] abyte = bytearrayoutputstream.toByteArray();
-        String s = new String(abyte, ASCII);
+        String s = bytearrayoutputstream.toString(ASCII);
 
         if (flag) {
             s = s.substring(0, s.length() - 2);

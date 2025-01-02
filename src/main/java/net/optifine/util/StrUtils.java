@@ -111,7 +111,7 @@ public class StrUtils {
             if (str.length() < mask.length()) {
                 return false;
             } else {
-                String s = str.substring(str.length() - mask.length(), str.length());
+                String s = str.substring(str.length() - mask.length());
                 return equalsMaskSingle(s, mask, wildCharSingle);
             }
         } else {
@@ -216,7 +216,7 @@ public class StrUtils {
                     }
                 }
 
-                list.add(str.substring(i, str.length()));
+                list.add(str.substring(i));
                 return (String[]) list.toArray(new String[list.size()]);
             }
         } else {
