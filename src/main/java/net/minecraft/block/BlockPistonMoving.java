@@ -42,8 +42,8 @@ public class BlockPistonMoving extends BlockContainer {
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
-        if (tileentity instanceof TileEntityPiston) {
-            ((TileEntityPiston) tileentity).clearPistonTileEntity();
+        if (tileentity instanceof TileEntityPiston tileEntityPiston) {
+            tileEntityPiston.clearPistonTileEntity();
         } else {
             super.breakBlock(worldIn, pos, state);
         }
@@ -198,7 +198,7 @@ public class BlockPistonMoving extends BlockContainer {
 
     private TileEntityPiston getTileEntity(IBlockAccess worldIn, BlockPos pos) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
-        return tileentity instanceof TileEntityPiston ? (TileEntityPiston) tileentity : null;
+        return tileentity instanceof TileEntityPiston tileEntityPiston ? tileEntityPiston : null;
     }
 
     public Item getItem(World worldIn, BlockPos pos) {

@@ -75,14 +75,14 @@ public class TileEntityUtils {
             return Reflector.setFieldValue(te, Reflector.TileEntityEnchantmentTable_customName, name);
         } else if (te instanceof TileEntityFurnace) {
             return Reflector.setFieldValue(te, Reflector.TileEntityFurnace_customName, name);
-        } else if (te instanceof TileEntityChest) {
-            ((TileEntityChest) te).setCustomName(name);
+        } else if (te instanceof TileEntityChest tileEntityChest) {
+            tileEntityChest.setCustomName(name);
             return true;
-        } else if (te instanceof TileEntityDispenser) {
-            ((TileEntityDispenser) te).setCustomName(name);
+        } else if (te instanceof TileEntityDispenser tileEntityDispenser) {
+            tileEntityDispenser.setCustomName(name);
             return true;
-        } else if (te instanceof TileEntityHopper) {
-            ((TileEntityHopper) te).setCustomName(name);
+        } else if (te instanceof TileEntityHopper tileEntityHopper) {
+            tileEntityHopper.setCustomName(name);
             return true;
         } else {
             return false;

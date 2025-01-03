@@ -129,7 +129,7 @@ public class Block {
     }
 
     public static Block getBlockFromItem(Item itemIn) {
-        return itemIn instanceof ItemBlock ? ((ItemBlock) itemIn).getBlock() : null;
+        return itemIn instanceof ItemBlock itemBlock ? itemBlock.getBlock() : null;
     }
 
     public static Block getBlockFromName(String name) {

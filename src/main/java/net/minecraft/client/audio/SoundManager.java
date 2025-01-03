@@ -219,8 +219,8 @@ public class SoundManager {
             if (this.playTime >= entry1.getValue().intValue()) {
                 ISound isound1 = entry1.getKey();
 
-                if (isound1 instanceof ITickableSound) {
-                    ((ITickableSound) isound1).update();
+                if (isound1 instanceof ITickableSound iTickableSound) {
+                    iTickableSound.update();
                 }
 
                 this.playSound(isound1);
@@ -299,8 +299,8 @@ public class SoundManager {
                                 this.categorySounds.put(soundcategory, s);
                             }
 
-                            if (p_sound instanceof ITickableSound) {
-                                this.tickableSounds.add((ITickableSound) p_sound);
+                            if (p_sound instanceof ITickableSound iTickableSound) {
+                                this.tickableSounds.add(iTickableSound);
                             }
                         }
                     }

@@ -52,8 +52,8 @@ public class RecipesArmorDyes implements IRecipe {
             ItemStack itemstack1 = inv.getStackInSlot(k);
 
             if (itemstack1 != null) {
-                if (itemstack1.getItem() instanceof ItemArmor) {
-                    itemarmor = (ItemArmor) itemstack1.getItem();
+                if (itemstack1.getItem() instanceof ItemArmor itemArmor) {
+                    itemarmor = itemArmor;
 
                     if (itemarmor.getArmorMaterial() != ItemArmor.ArmorMaterial.LEATHER || itemstack != null) {
                         return null;

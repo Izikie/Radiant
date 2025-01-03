@@ -212,9 +212,9 @@ public class ShadersTex {
             int j = Shaders.atlasSizeX;
             int k = Shaders.atlasSizeY;
 
-            if (tex instanceof TextureMap) {
-                Shaders.atlasSizeX = ((TextureMap) tex).atlasWidth;
-                Shaders.atlasSizeY = ((TextureMap) tex).atlasHeight;
+            if (tex instanceof TextureMap textureMap) {
+                Shaders.atlasSizeX = textureMap.atlasWidth;
+                Shaders.atlasSizeY = textureMap.atlasHeight;
             } else {
                 Shaders.atlasSizeX = 0;
                 Shaders.atlasSizeY = 0;

@@ -36,7 +36,7 @@ public class LayerHeldItem implements LayerRenderer<EntityLivingBase> {
             ((ModelBiped) this.livingEntityRenderer.getMainModel()).postRenderArm(0.0625F);
             GlStateManager.translate(-0.0625F, 0.4375F, 0.0625F);
 
-            if (entitylivingbaseIn instanceof EntityPlayer && ((EntityPlayer) entitylivingbaseIn).fishEntity != null) {
+            if (entitylivingbaseIn instanceof EntityPlayer entityPlayer && entityPlayer.fishEntity != null) {
                 itemstack = new ItemStack(Items.fishing_rod, 0);
             }
 

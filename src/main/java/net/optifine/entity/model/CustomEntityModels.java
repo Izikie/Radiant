@@ -57,10 +57,10 @@ public class CustomEntityModels {
                         Class oclass = ientityrenderer.getEntityClass();
 
                         if (oclass != null) {
-                            if (ientityrenderer instanceof Render) {
-                                map.put(oclass, (Render) ientityrenderer);
-                            } else if (ientityrenderer instanceof TileEntitySpecialRenderer) {
-                                map1.put(oclass, (TileEntitySpecialRenderer) ientityrenderer);
+                            if (ientityrenderer instanceof Render render) {
+                                map.put(oclass, render);
+                            } else if (ientityrenderer instanceof TileEntitySpecialRenderer tileEntitySpecialRenderer) {
+                                map1.put(oclass, tileEntitySpecialRenderer);
                             } else {
                                 Config.warn("Unknown renderer type: " + ientityrenderer.getClass().getName());
                             }

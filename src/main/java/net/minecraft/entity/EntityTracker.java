@@ -183,8 +183,8 @@ public class EntityTracker {
         for (EntityTrackerEntry entitytrackerentry : this.trackedEntities) {
             entitytrackerentry.updatePlayerList(this.theWorld.playerEntities);
 
-            if (entitytrackerentry.playerEntitiesUpdated && entitytrackerentry.trackedEntity instanceof EntityPlayerMP) {
-                list.add((EntityPlayerMP) entitytrackerentry.trackedEntity);
+            if (entitytrackerentry.playerEntitiesUpdated && entitytrackerentry.trackedEntity instanceof EntityPlayerMP entityPlayerMP) {
+                list.add(entityPlayerMP);
             }
         }
 

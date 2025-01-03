@@ -294,8 +294,8 @@ public class EntityRabbit extends EntityAnimal {
     public EntityRabbit createChild(EntityAgeable ageable) {
         EntityRabbit entityrabbit = new EntityRabbit(this.worldObj);
 
-        if (ageable instanceof EntityRabbit) {
-            entityrabbit.setRabbitType(this.rand.nextBoolean() ? this.getRabbitType() : ((EntityRabbit) ageable).getRabbitType());
+        if (ageable instanceof EntityRabbit entityRabbit) {
+            entityrabbit.setRabbitType(this.rand.nextBoolean() ? this.getRabbitType() : entityRabbit.getRabbitType());
         }
 
         return entityrabbit;
@@ -330,8 +330,8 @@ public class EntityRabbit extends EntityAnimal {
         int i = this.rand.nextInt(6);
         boolean flag = false;
 
-        if (livingdata instanceof EntityRabbit.RabbitTypeData) {
-            i = ((EntityRabbit.RabbitTypeData) livingdata).typeData;
+        if (livingdata instanceof RabbitTypeData rabbitTypeData) {
+            i = rabbitTypeData.typeData;
             flag = true;
         } else {
             livingdata = new EntityRabbit.RabbitTypeData(i);

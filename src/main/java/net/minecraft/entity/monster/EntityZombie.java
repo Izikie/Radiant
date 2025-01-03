@@ -192,8 +192,8 @@ public class EntityZombie extends EntityMob {
         if (super.attackEntityFrom(source, amount)) {
             EntityLivingBase entitylivingbase = this.getAttackTarget();
 
-            if (entitylivingbase == null && source.getEntity() instanceof EntityLivingBase) {
-                entitylivingbase = (EntityLivingBase) source.getEntity();
+            if (entitylivingbase == null && source.getEntity() instanceof EntityLivingBase entityLivingBase) {
+                entitylivingbase = entityLivingBase;
             }
 
             if (entitylivingbase != null && this.worldObj.getDifficulty() == EnumDifficulty.HARD && this.rand.nextFloat() < this.getEntityAttribute(reinforcementChance).getAttributeValue()) {
@@ -574,8 +574,8 @@ public class EntityZombie extends EntityMob {
     public void onDeath(DamageSource cause) {
         super.onDeath(cause);
 
-        if (cause.getEntity() instanceof EntityCreeper && !(this instanceof EntityPigZombie) && ((EntityCreeper) cause.getEntity()).getPowered() && ((EntityCreeper) cause.getEntity()).isAIEnabled()) {
-            ((EntityCreeper) cause.getEntity()).func_175493_co();
+        if (cause.getEntity() instanceof EntityCreeper entityCreeper && !(this instanceof EntityPigZombie) && entityCreeper.getPowered() && entityCreeper.isAIEnabled()) {
+            entityCreeper.func_175493_co();
             this.entityDropItem(new ItemStack(Items.skull, 1, 2), 0.0F);
         }
     }

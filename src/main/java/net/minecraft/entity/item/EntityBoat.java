@@ -88,7 +88,7 @@ public class EntityBoat extends Entity {
                 this.setTimeSinceHit(10);
                 this.setDamageTaken(this.getDamageTaken() + amount * 10.0F);
                 this.setBeenAttacked();
-                boolean flag = source.getEntity() instanceof EntityPlayer && ((EntityPlayer) source.getEntity()).capabilities.isCreativeMode;
+                boolean flag = source.getEntity() instanceof EntityPlayer entityPlayer && entityPlayer.capabilities.isCreativeMode;
 
                 if (flag || this.getDamageTaken() > 40.0F) {
                     if (this.riddenByEntity != null) {

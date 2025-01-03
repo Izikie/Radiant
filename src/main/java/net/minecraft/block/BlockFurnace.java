@@ -102,8 +102,8 @@ public class BlockFurnace extends BlockContainer {
         } else {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
-            if (tileentity instanceof TileEntityFurnace) {
-                playerIn.displayGUIChest((TileEntityFurnace) tileentity);
+            if (tileentity instanceof TileEntityFurnace tileEntityFurnace) {
+                playerIn.displayGUIChest(tileEntityFurnace);
                 playerIn.triggerAchievement(StatList.field_181741_Y);
             }
 
@@ -146,8 +146,8 @@ public class BlockFurnace extends BlockContainer {
         if (stack.hasDisplayName()) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
-            if (tileentity instanceof TileEntityFurnace) {
-                ((TileEntityFurnace) tileentity).setCustomInventoryName(stack.getDisplayName());
+            if (tileentity instanceof TileEntityFurnace tileEntityFurnace) {
+                tileEntityFurnace.setCustomInventoryName(stack.getDisplayName());
             }
         }
     }
@@ -156,8 +156,8 @@ public class BlockFurnace extends BlockContainer {
         if (!keepInventory) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
-            if (tileentity instanceof TileEntityFurnace) {
-                InventoryHelper.dropInventoryItems(worldIn, pos, (TileEntityFurnace) tileentity);
+            if (tileentity instanceof TileEntityFurnace tileEntityFurnace) {
+                InventoryHelper.dropInventoryItems(worldIn, pos, tileEntityFurnace);
                 worldIn.updateComparatorOutputLevel(pos, this);
             }
         }

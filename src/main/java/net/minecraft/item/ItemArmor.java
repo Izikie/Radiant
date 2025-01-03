@@ -39,8 +39,8 @@ public class ItemArmor extends Item {
                 itemstack.stackSize = 1;
                 entitylivingbase.setCurrentItemOrArmor(i1 - l, itemstack);
 
-                if (entitylivingbase instanceof EntityLiving) {
-                    ((EntityLiving) entitylivingbase).setEquipmentDropChance(i1, 2.0F);
+                if (entitylivingbase instanceof EntityLiving entityLiving) {
+                    entityLiving.setEquipmentDropChance(i1, 2.0F);
                 }
 
                 --stack.stackSize;

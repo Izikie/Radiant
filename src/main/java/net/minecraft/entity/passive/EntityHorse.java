@@ -43,7 +43,7 @@ import net.minecraft.world.World;
 public class EntityHorse extends EntityAnimal implements IInvBasic {
     private static final Predicate<Entity> horseBreedingSelector = new Predicate<Entity>() {
         public boolean apply(Entity p_apply_1_) {
-            return p_apply_1_ instanceof EntityHorse && ((EntityHorse) p_apply_1_).isBreeding();
+            return p_apply_1_ instanceof EntityHorse entityHorse && entityHorse.isBreeding();
         }
     };
     private static final IAttribute horseJumpStrength = (new RangedAttribute(null, "horse.jumpStrength", 0.7D, 0.0D, 2.0D)).setDescription("Jump Strength").setShouldWatch(true);
@@ -965,13 +965,13 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
     }
 
     public void moveEntityWithHeading(float strafe, float forward) {
-        if (this.riddenByEntity != null && this.riddenByEntity instanceof EntityLivingBase && this.isHorseSaddled()) {
+        if (this.riddenByEntity != null && this.riddenByEntity instanceof EntityLivingBase entityLivingBase && this.isHorseSaddled()) {
             this.prevRotationYaw = this.rotationYaw = this.riddenByEntity.rotationYaw;
             this.rotationPitch = this.riddenByEntity.rotationPitch * 0.5F;
             this.setRotation(this.rotationYaw, this.rotationPitch);
             this.rotationYawHead = this.renderYawOffset = this.rotationYaw;
-            strafe = ((EntityLivingBase) this.riddenByEntity).moveStrafing * 0.5F;
-            forward = ((EntityLivingBase) this.riddenByEntity).moveForward;
+            strafe = entityLivingBase.moveStrafing * 0.5F;
+            forward = entityLivingBase.moveForward;
 
             if (forward <= 0.0F) {
                 forward *= 0.25F;
@@ -1208,9 +1208,9 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         int i = 0;
         int j = 0;
 
-        if (livingdata instanceof EntityHorse.GroupData) {
-            i = ((EntityHorse.GroupData) livingdata).horseType;
-            j = ((EntityHorse.GroupData) livingdata).horseVariant & 255 | this.rand.nextInt(5) << 8;
+        if (livingdata instanceof GroupData groupData) {
+            i = groupData.horseType;
+            j = groupData.horseVariant & 255 | this.rand.nextInt(5) << 8;
         } else {
             if (this.rand.nextInt(10) == 0) {
                 i = 1;
@@ -1314,8 +1314,8 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
             float f3 = 0.15F * this.prevRearingAmount;
             this.riddenByEntity.setPosition(this.posX + (f2 * f), this.posY + this.getMountedYOffset() + this.riddenByEntity.getYOffset() + f3, this.posZ - (f2 * f1));
 
-            if (this.riddenByEntity instanceof EntityLivingBase) {
-                ((EntityLivingBase) this.riddenByEntity).renderYawOffset = this.renderYawOffset;
+            if (this.riddenByEntity instanceof EntityLivingBase entityLivingBase) {
+                entityLivingBase.renderYawOffset = this.renderYawOffset;
             }
         }
     }

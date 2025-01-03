@@ -414,8 +414,8 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
             logger.error("Encountered an unexpected exception", throwable1);
             CrashReport crashreport = null;
 
-            if (throwable1 instanceof ReportedException) {
-                crashreport = this.addServerInfoToCrashReport(((ReportedException) throwable1).getCrashReport());
+            if (throwable1 instanceof ReportedException reportedException) {
+                crashreport = this.addServerInfoToCrashReport(reportedException.getCrashReport());
             } else {
                 crashreport = this.addServerInfoToCrashReport(new CrashReport("Exception in server tick loop", throwable1));
             }

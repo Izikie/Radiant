@@ -79,8 +79,8 @@ public class CommandSetBlock extends CommandBase {
                 TileEntity tileentity1 = world.getTileEntity(blockpos);
 
                 if (tileentity1 != null) {
-                    if (tileentity1 instanceof IInventory) {
-                        ((IInventory) tileentity1).clear();
+                    if (tileentity1 instanceof IInventory iInventory) {
+                        iInventory.clear();
                     }
 
                     world.setBlockState(blockpos, Blocks.air.getDefaultState(), block == Blocks.air ? 2 : 4);

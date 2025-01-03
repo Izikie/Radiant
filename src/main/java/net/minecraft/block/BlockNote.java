@@ -60,8 +60,8 @@ public class BlockNote extends BlockContainer {
         if (!worldIn.isRemote) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
-            if (tileentity instanceof TileEntityNote) {
-                ((TileEntityNote) tileentity).triggerNote(worldIn, pos);
+            if (tileentity instanceof TileEntityNote tileEntityNote) {
+                tileEntityNote.triggerNote(worldIn, pos);
                 playerIn.triggerAchievement(StatList.field_181734_R);
             }
         }

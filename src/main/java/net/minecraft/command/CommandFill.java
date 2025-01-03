@@ -120,8 +120,8 @@ public class CommandFill extends CommandBase {
                             TileEntity tileentity1 = world.getTileEntity(blockpos4);
 
                             if (tileentity1 != null) {
-                                if (tileentity1 instanceof IInventory) {
-                                    ((IInventory) tileentity1).clear();
+                                if (tileentity1 instanceof IInventory iInventory) {
+                                    iInventory.clear();
                                 }
 
                                 world.setBlockState(blockpos4, Blocks.barrier.getDefaultState(), block == Blocks.barrier ? 2 : 4);

@@ -452,7 +452,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
     }
 
     public boolean attackEntityFrom(DamageSource source, float amount) {
-        if (source instanceof EntityDamageSource && ((EntityDamageSource) source).getIsThornsDamage()) {
+        if (source instanceof EntityDamageSource entityDamageSource && entityDamageSource.getIsThornsDamage()) {
             this.attackDragonFrom(source, amount);
         }
 

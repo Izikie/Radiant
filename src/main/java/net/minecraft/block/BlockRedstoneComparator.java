@@ -74,7 +74,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
 
     protected int getActiveSignal(IBlockAccess worldIn, BlockPos pos, IBlockState state) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
-        return tileentity instanceof TileEntityComparator ? ((TileEntityComparator) tileentity).getOutputSignal() : 0;
+        return tileentity instanceof TileEntityComparator tileEntityComparator ? tileEntityComparator.getOutputSignal() : 0;
     }
 
     private int calculateOutput(World worldIn, BlockPos pos, IBlockState state) {
@@ -145,7 +145,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
         if (!worldIn.isBlockTickPending(pos, this)) {
             int i = this.calculateOutput(worldIn, pos, state);
             TileEntity tileentity = worldIn.getTileEntity(pos);
-            int j = tileentity instanceof TileEntityComparator ? ((TileEntityComparator) tileentity).getOutputSignal() : 0;
+            int j = tileentity instanceof TileEntityComparator tileEntityComparator ? tileEntityComparator.getOutputSignal() : 0;
 
             if (i != j || this.isPowered(state) != this.shouldBePowered(worldIn, pos, state)) {
                 if (this.isFacingTowardsRepeater(worldIn, pos, state)) {

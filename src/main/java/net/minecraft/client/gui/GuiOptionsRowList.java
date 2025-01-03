@@ -72,15 +72,15 @@ public class GuiOptionsRowList extends GuiListExtended {
 
         public boolean mousePressed(int slotIndex, int p_148278_2_, int p_148278_3_, int p_148278_4_, int p_148278_5_, int p_148278_6_) {
             if (this.field_148323_b.mousePressed(this.field_148325_a, p_148278_2_, p_148278_3_)) {
-                if (this.field_148323_b instanceof GuiOptionButton) {
-                    this.field_148325_a.gameSettings.setOptionValue(((GuiOptionButton) this.field_148323_b).returnEnumOptions(), 1);
+                if (this.field_148323_b instanceof GuiOptionButton guiOptionButton) {
+                    this.field_148325_a.gameSettings.setOptionValue(guiOptionButton.returnEnumOptions(), 1);
                     this.field_148323_b.displayString = this.field_148325_a.gameSettings.getKeyBinding(GameSettings.Options.getEnumOptions(this.field_148323_b.id));
                 }
 
                 return true;
             } else if (this.field_148324_c != null && this.field_148324_c.mousePressed(this.field_148325_a, p_148278_2_, p_148278_3_)) {
-                if (this.field_148324_c instanceof GuiOptionButton) {
-                    this.field_148325_a.gameSettings.setOptionValue(((GuiOptionButton) this.field_148324_c).returnEnumOptions(), 1);
+                if (this.field_148324_c instanceof GuiOptionButton guiOptionButton) {
+                    this.field_148325_a.gameSettings.setOptionValue(guiOptionButton.returnEnumOptions(), 1);
                     this.field_148324_c.displayString = this.field_148325_a.gameSettings.getKeyBinding(GameSettings.Options.getEnumOptions(this.field_148324_c.id));
                 }
 

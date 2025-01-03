@@ -97,8 +97,8 @@ public class CompressedStreamTools {
     public static NBTTagCompound read(DataInput p_152456_0_, NBTSizeTracker p_152456_1_) throws IOException {
         NBTBase nbtbase = func_152455_a(p_152456_0_, 0, p_152456_1_);
 
-        if (nbtbase instanceof NBTTagCompound) {
-            return (NBTTagCompound) nbtbase;
+        if (nbtbase instanceof NBTTagCompound nbtTagCompound) {
+            return nbtTagCompound;
         } else {
             throw new IOException("Root tag must be a named compound tag");
         }

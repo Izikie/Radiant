@@ -215,12 +215,12 @@ public class CraftingManager {
             Character character = (Character) recipeComponents[i];
             ItemStack itemstack = null;
 
-            if (recipeComponents[i + 1] instanceof Item) {
-                itemstack = new ItemStack((Item) recipeComponents[i + 1]);
-            } else if (recipeComponents[i + 1] instanceof Block) {
-                itemstack = new ItemStack((Block) recipeComponents[i + 1], 1, 32767);
-            } else if (recipeComponents[i + 1] instanceof ItemStack) {
-                itemstack = (ItemStack) recipeComponents[i + 1];
+            if (recipeComponents[i + 1] instanceof Item item) {
+                itemstack = new ItemStack(item);
+            } else if (recipeComponents[i + 1] instanceof Block block) {
+                itemstack = new ItemStack(block, 1, 32767);
+            } else if (recipeComponents[i + 1] instanceof ItemStack itemStack) {
+                itemstack = itemStack;
             }
 
             map.put(character, itemstack);
@@ -247,16 +247,16 @@ public class CraftingManager {
         List<ItemStack> list = Lists.newArrayList();
 
         for (Object object : recipeComponents) {
-            if (object instanceof ItemStack) {
-                list.add(((ItemStack) object).copy());
-            } else if (object instanceof Item) {
-                list.add(new ItemStack((Item) object));
+            if (object instanceof ItemStack itemStack) {
+                list.add(itemStack.copy());
+            } else if (object instanceof Item item) {
+                list.add(new ItemStack(item));
             } else {
-                if (!(object instanceof Block)) {
+                if (!(object instanceof Block block)) {
                     throw new IllegalArgumentException("Invalid shapeless recipe: unknown type " + object.getClass().getName() + "!");
                 }
 
-                list.add(new ItemStack((Block) object));
+                list.add(new ItemStack(block));
             }
         }
 

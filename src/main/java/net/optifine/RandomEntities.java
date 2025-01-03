@@ -56,8 +56,8 @@ public class RandomEntities {
             datawatcher.spawnBiome = world.getBiomeGenForCoords(datawatcher.spawnPosition);
             UUID uuid = entity.getUniqueID();
 
-            if (entity instanceof EntityVillager) {
-                updateEntityVillager(uuid, (EntityVillager) entity);
+            if (entity instanceof EntityVillager entityVillager) {
+                updateEntityVillager(uuid, entityVillager);
             }
         }
     }

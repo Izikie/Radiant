@@ -106,8 +106,8 @@ public class Potion {
             }
         } else if (this.id == wither.id) {
             entityLivingBaseIn.attackEntityFrom(DamageSource.wither, 1.0F);
-        } else if (this.id == hunger.id && entityLivingBaseIn instanceof EntityPlayer) {
-            ((EntityPlayer) entityLivingBaseIn).addExhaustion(0.025F * (p_76394_2_ + 1));
+        } else if (this.id == hunger.id && entityLivingBaseIn instanceof EntityPlayer entityPlayer) {
+            entityPlayer.addExhaustion(0.025F * (p_76394_2_ + 1));
         } else if (this.id == saturation.id && entityLivingBaseIn instanceof EntityPlayer) {
             if (!entityLivingBaseIn.worldObj.isRemote) {
                 ((EntityPlayer) entityLivingBaseIn).getFoodStats().addStats(p_76394_2_ + 1, 1.0F);

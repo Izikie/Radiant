@@ -230,7 +230,7 @@ public class EntityArrow extends Entity implements IProjectile {
 
             if (movingobjectposition != null && movingobjectposition.entityHit != null && movingobjectposition.entityHit instanceof EntityPlayer entityplayer) {
 
-                if (entityplayer.capabilities.disableDamage || this.shootingEntity instanceof EntityPlayer && !((EntityPlayer) this.shootingEntity).canAttackPlayer(entityplayer)) {
+                if (entityplayer.capabilities.disableDamage || this.shootingEntity instanceof EntityPlayer entityPlayer && !entityPlayer.canAttackPlayer(entityplayer)) {
                     movingobjectposition = null;
                 }
             }
@@ -271,13 +271,13 @@ public class EntityArrow extends Entity implements IProjectile {
                                 }
                             }
 
-                            if (this.shootingEntity instanceof EntityLivingBase) {
+                            if (this.shootingEntity instanceof EntityLivingBase entityLivingBase) {
                                 EnchantmentHelper.applyThornEnchantments(entitylivingbase, this.shootingEntity);
-                                EnchantmentHelper.applyArthropodEnchantments((EntityLivingBase) this.shootingEntity, entitylivingbase);
+                                EnchantmentHelper.applyArthropodEnchantments(entityLivingBase, entitylivingbase);
                             }
 
-                            if (this.shootingEntity != null && movingobjectposition.entityHit != this.shootingEntity && movingobjectposition.entityHit instanceof EntityPlayer && this.shootingEntity instanceof EntityPlayerMP) {
-                                ((EntityPlayerMP) this.shootingEntity).playerNetServerHandler.sendPacket(new S2BPacketChangeGameState(6, 0.0F));
+                            if (this.shootingEntity != null && movingobjectposition.entityHit != this.shootingEntity && movingobjectposition.entityHit instanceof EntityPlayer && this.shootingEntity instanceof EntityPlayerMP entityPlayerMP) {
+                                entityPlayerMP.playerNetServerHandler.sendPacket(new S2BPacketChangeGameState(6, 0.0F));
                             }
                         }
 

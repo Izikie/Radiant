@@ -40,8 +40,8 @@ public class WorldGeneratorBonusChest extends WorldGenerator {
                     worldIn.setBlockState(blockpos, Blocks.chest.getDefaultState(), 2);
                     TileEntity tileentity = worldIn.getTileEntity(blockpos);
 
-                    if (tileentity instanceof TileEntityChest) {
-                        WeightedRandomChestContent.generateChestContents(rand, this.chestItems, (TileEntityChest) tileentity, this.itemsToGenerateInBonusChest);
+                    if (tileentity instanceof TileEntityChest tileEntityChest) {
+                        WeightedRandomChestContent.generateChestContents(rand, this.chestItems, tileEntityChest, this.itemsToGenerateInBonusChest);
                     }
 
                     BlockPos blockpos1 = blockpos.east();

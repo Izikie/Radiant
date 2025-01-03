@@ -149,10 +149,10 @@ public class HttpPipeline {
             Exception exception = (Exception) map.get("Exception");
 
             if (exception != null) {
-                if (exception instanceof IOException) {
-                    throw (IOException) exception;
-                } else if (exception instanceof RuntimeException) {
-                    throw (RuntimeException) exception;
+                if (exception instanceof IOException ioException) {
+                    throw ioException;
+                } else if (exception instanceof RuntimeException runtimeException) {
+                    throw runtimeException;
                 } else {
                     throw new RuntimeException(exception.getMessage(), exception);
                 }

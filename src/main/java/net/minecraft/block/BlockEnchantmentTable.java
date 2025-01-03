@@ -73,8 +73,8 @@ public class BlockEnchantmentTable extends BlockContainer {
         } else {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
-            if (tileentity instanceof TileEntityEnchantmentTable) {
-                playerIn.displayGui((TileEntityEnchantmentTable) tileentity);
+            if (tileentity instanceof TileEntityEnchantmentTable tileEntityEnchantmentTable) {
+                playerIn.displayGui(tileEntityEnchantmentTable);
             }
 
             return true;
@@ -87,8 +87,8 @@ public class BlockEnchantmentTable extends BlockContainer {
         if (stack.hasDisplayName()) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
-            if (tileentity instanceof TileEntityEnchantmentTable) {
-                ((TileEntityEnchantmentTable) tileentity).setCustomName(stack.getDisplayName());
+            if (tileentity instanceof TileEntityEnchantmentTable tileEntityEnchantmentTable) {
+                tileEntityEnchantmentTable.setCustomName(stack.getDisplayName());
             }
         }
     }

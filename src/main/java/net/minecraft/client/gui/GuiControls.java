@@ -54,8 +54,8 @@ public class GuiControls extends GuiScreen {
             }
 
             KeyBinding.resetKeyBindingArrayAndHash();
-        } else if (button.id < 100 && button instanceof GuiOptionButton) {
-            this.options.setOptionValue(((GuiOptionButton) button).returnEnumOptions(), 1);
+        } else if (button.id < 100 && button instanceof GuiOptionButton guiOptionButton) {
+            this.options.setOptionValue(guiOptionButton.returnEnumOptions(), 1);
             button.displayString = this.options.getKeyBinding(GameSettings.Options.getEnumOptions(button.id));
         }
     }

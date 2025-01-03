@@ -66,7 +66,7 @@ public class EntityAIFindEntityNearest extends EntityAIBase {
             return false;
         } else {
             double d0 = this.getFollowRange();
-            return this.mob.getDistanceSqToEntity(entitylivingbase) > d0 * d0 ? false : !(entitylivingbase instanceof EntityPlayerMP) || !((EntityPlayerMP) entitylivingbase).theItemInWorldManager.isCreative();
+            return this.mob.getDistanceSqToEntity(entitylivingbase) > d0 * d0 ? false : !(entitylivingbase instanceof EntityPlayerMP entityPlayerMP) || !entityPlayerMP.theItemInWorldManager.isCreative();
         }
     }
 

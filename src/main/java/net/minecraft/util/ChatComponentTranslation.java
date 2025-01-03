@@ -23,8 +23,8 @@ public class ChatComponentTranslation extends ChatComponentStyle {
         this.formatArgs = args;
 
         for (Object object : args) {
-            if (object instanceof IChatComponent) {
-                ((IChatComponent) object).getChatStyle().setParentStyle(this.getChatStyle());
+            if (object instanceof IChatComponent iChatComponent) {
+                iChatComponent.getChatStyle().setParentStyle(this.getChatStyle());
             }
         }
     }
@@ -111,8 +111,8 @@ public class ChatComponentTranslation extends ChatComponentStyle {
             Object object = this.formatArgs[index];
             IChatComponent ichatcomponent;
 
-            if (object instanceof IChatComponent) {
-                ichatcomponent = (IChatComponent) object;
+            if (object instanceof IChatComponent iChatComponent) {
+                ichatcomponent = iChatComponent;
             } else {
                 ichatcomponent = new ChatComponentText(object == null ? "null" : object.toString());
                 ichatcomponent.getChatStyle().setParentStyle(this.getChatStyle());
@@ -126,8 +126,8 @@ public class ChatComponentTranslation extends ChatComponentStyle {
         super.setChatStyle(style);
 
         for (Object object : this.formatArgs) {
-            if (object instanceof IChatComponent) {
-                ((IChatComponent) object).getChatStyle().setParentStyle(this.getChatStyle());
+            if (object instanceof IChatComponent iChatComponent) {
+                iChatComponent.getChatStyle().setParentStyle(this.getChatStyle());
             }
         }
 
@@ -160,8 +160,8 @@ public class ChatComponentTranslation extends ChatComponentStyle {
         Object[] aobject = new Object[this.formatArgs.length];
 
         for (int i = 0; i < this.formatArgs.length; ++i) {
-            if (this.formatArgs[i] instanceof IChatComponent) {
-                aobject[i] = ((IChatComponent) this.formatArgs[i]).createCopy();
+            if (this.formatArgs[i] instanceof IChatComponent iChatComponent) {
+                aobject[i] = iChatComponent.createCopy();
             } else {
                 aobject[i] = this.formatArgs[i];
             }

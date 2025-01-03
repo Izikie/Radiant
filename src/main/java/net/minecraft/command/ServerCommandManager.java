@@ -134,8 +134,8 @@ public class ServerCommandManager extends CommandHandler implements IAdminComman
 
         boolean flag3 = minecraftserver.worldServers[0].getGameRules().getBoolean("sendCommandFeedback");
 
-        if (sender instanceof CommandBlockLogic) {
-            flag3 = ((CommandBlockLogic) sender).shouldTrackOutput();
+        if (sender instanceof CommandBlockLogic commandBlockLogic) {
+            flag3 = commandBlockLogic.shouldTrackOutput();
         }
 
         if ((flags & 1) != 1 && flag3 || sender instanceof MinecraftServer) {

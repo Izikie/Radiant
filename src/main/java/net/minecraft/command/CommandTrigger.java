@@ -32,16 +32,16 @@ public class CommandTrigger extends CommandBase {
         } else {
             EntityPlayerMP entityplayermp;
 
-            if (sender instanceof EntityPlayerMP) {
-                entityplayermp = (EntityPlayerMP) sender;
+            if (sender instanceof EntityPlayerMP playerMP) {
+                entityplayermp = playerMP;
             } else {
                 Entity entity = sender.getCommandSenderEntity();
 
-                if (!(entity instanceof EntityPlayerMP)) {
+                if (!(entity instanceof EntityPlayerMP entityPlayerMP)) {
                     throw new CommandException("commands.trigger.invalidPlayer");
                 }
 
-                entityplayermp = (EntityPlayerMP) entity;
+                entityplayermp = entityPlayerMP;
             }
 
             Scoreboard scoreboard = MinecraftServer.getServer().worldServerForDimension(0).getScoreboard();

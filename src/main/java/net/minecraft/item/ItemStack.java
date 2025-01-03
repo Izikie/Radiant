@@ -235,7 +235,7 @@ public final class ItemStack {
     }
 
     public void damageItem(int amount, EntityLivingBase entityIn) {
-        if (!(entityIn instanceof EntityPlayer) || !((EntityPlayer) entityIn).capabilities.isCreativeMode) {
+        if (!(entityIn instanceof EntityPlayer entityPlayer) || !entityPlayer.capabilities.isCreativeMode) {
             if (this.isItemStackDamageable()) {
                 if (this.attemptDamageItem(amount, entityIn.getRNG())) {
                     entityIn.renderBrokenItemStack(this);

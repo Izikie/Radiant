@@ -83,8 +83,8 @@ public class GuiVideoSettings extends GuiScreenOF {
         if (p_actionPerformed_1_.enabled) {
             int i = this.guiGameSettings.guiScale;
 
-            if (p_actionPerformed_1_.id < 200 && p_actionPerformed_1_ instanceof GuiOptionButton) {
-                this.guiGameSettings.setOptionValue(((GuiOptionButton) p_actionPerformed_1_).returnEnumOptions(), p_actionPerformed_2_);
+            if (p_actionPerformed_1_.id < 200 && p_actionPerformed_1_ instanceof GuiOptionButton guiOptionButton) {
+                this.guiGameSettings.setOptionValue(guiOptionButton.returnEnumOptions(), p_actionPerformed_2_);
                 p_actionPerformed_1_.displayString = this.guiGameSettings.getKeyBinding(GameSettings.Options.getEnumOptions(p_actionPerformed_1_.id));
             }
 

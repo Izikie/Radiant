@@ -59,7 +59,7 @@ public class ItemMap extends ItemMapBase {
     }
 
     public void updateMapData(World worldIn, Entity viewer, MapData data) {
-        if (worldIn.provider.getDimensionId() == data.dimension && viewer instanceof EntityPlayer) {
+        if (worldIn.provider.getDimensionId() == data.dimension && viewer instanceof EntityPlayer entityPlayer) {
             int i = 1 << data.scale;
             int j = data.xCenter;
             int k = data.zCenter;
@@ -71,7 +71,7 @@ public class ItemMap extends ItemMapBase {
                 j1 /= 2;
             }
 
-            MapData.MapInfo mapdata$mapinfo = data.getMapInfo((EntityPlayer) viewer);
+            MapData.MapInfo mapdata$mapinfo = data.getMapInfo(entityPlayer);
             ++mapdata$mapinfo.field_82569_d;
             boolean flag = false;
 

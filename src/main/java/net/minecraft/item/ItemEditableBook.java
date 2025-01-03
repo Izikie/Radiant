@@ -100,9 +100,9 @@ public class ItemEditableBook extends Item {
 
                     nbttagcompound.setTag("pages", nbttaglist);
 
-                    if (player instanceof EntityPlayerMP && player.getCurrentEquippedItem() == stack) {
+                    if (player instanceof EntityPlayerMP entityPlayerMP && player.getCurrentEquippedItem() == stack) {
                         Slot slot = player.openContainer.getSlotFromInventory(player.inventory, player.inventory.currentItem);
-                        ((EntityPlayerMP) player).playerNetServerHandler.sendPacket(new S2FPacketSetSlot(0, slot.slotNumber, stack));
+                        entityPlayerMP.playerNetServerHandler.sendPacket(new S2FPacketSetSlot(0, slot.slotNumber, stack));
                     }
                 }
             }

@@ -438,8 +438,8 @@ public class GuiScreenBook extends GuiScreen {
                         int i1 = 0;
 
                         for (IChatComponent ichatcomponent1 : ichatcomponent) {
-                            if (ichatcomponent1 instanceof ChatComponentText) {
-                                i1 += this.mc.fontRendererObj.getStringWidth(((ChatComponentText) ichatcomponent1).getChatComponentText_TextValue());
+                            if (ichatcomponent1 instanceof ChatComponentText iChatComponents) {
+                                i1 += this.mc.fontRendererObj.getStringWidth(iChatComponents.getChatComponentText_TextValue());
 
                                 if (i1 > i) {
                                     return ichatcomponent1;

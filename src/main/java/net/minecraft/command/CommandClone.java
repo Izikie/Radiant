@@ -114,8 +114,8 @@ public class CommandClone extends CommandBase {
                                 for (BlockPos blockpos6 : linkedlist) {
                                     TileEntity tileentity1 = world.getTileEntity(blockpos6);
 
-                                    if (tileentity1 instanceof IInventory) {
-                                        ((IInventory) tileentity1).clear();
+                                    if (tileentity1 instanceof IInventory iInventory) {
+                                        iInventory.clear();
                                     }
 
                                     world.setBlockState(blockpos6, Blocks.barrier.getDefaultState(), 2);
@@ -135,8 +135,8 @@ public class CommandClone extends CommandBase {
                             for (CommandClone.StaticCloneData commandclone$staticclonedata : list4) {
                                 TileEntity tileentity2 = world.getTileEntity(commandclone$staticclonedata.pos);
 
-                                if (tileentity2 instanceof IInventory) {
-                                    ((IInventory) tileentity2).clear();
+                                if (tileentity2 instanceof IInventory iInventory) {
+                                    iInventory.clear();
                                 }
 
                                 world.setBlockState(commandclone$staticclonedata.pos, Blocks.barrier.getDefaultState(), 2);

@@ -278,7 +278,7 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
                 }
             }
 
-            if (entityIn.canRenderOnFire() && (!(entityIn instanceof EntityPlayer) || !((EntityPlayer) entityIn).isSpectator())) {
+            if (entityIn.canRenderOnFire() && (!(entityIn instanceof EntityPlayer entityPlayer) || !entityPlayer.isSpectator())) {
                 this.renderEntityOnFire(entityIn, x, y, z, partialTicks);
             }
         }

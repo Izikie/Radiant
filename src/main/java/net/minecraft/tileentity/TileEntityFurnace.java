@@ -271,7 +271,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
                 }
             }
 
-            return item instanceof ItemTool && ((ItemTool) item).getToolMaterialName().equals("WOOD") ? 200 : (item instanceof ItemSword && ((ItemSword) item).getToolMaterialName().equals("WOOD") ? 200 : (item instanceof ItemHoe && ((ItemHoe) item).getMaterialName().equals("WOOD") ? 200 : (item == Items.stick ? 100 : (item == Items.coal ? 1600 : (item == Items.lava_bucket ? 20000 : (item == Item.getItemFromBlock(Blocks.sapling) ? 100 : (item == Items.blaze_rod ? 2400 : 0)))))));
+            return item instanceof ItemTool itemTool && itemTool.getToolMaterialName().equals("WOOD") ? 200 : (item instanceof ItemSword itemSword && itemSword.getToolMaterialName().equals("WOOD") ? 200 : (item instanceof ItemHoe itemHoe && itemHoe.getMaterialName().equals("WOOD") ? 200 : (item == Items.stick ? 100 : (item == Items.coal ? 1600 : (item == Items.lava_bucket ? 20000 : (item == Item.getItemFromBlock(Blocks.sapling) ? 100 : (item == Items.blaze_rod ? 2400 : 0)))))));
         }
     }
 

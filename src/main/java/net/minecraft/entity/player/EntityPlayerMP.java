@@ -417,13 +417,13 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
                 if (source instanceof EntityDamageSource) {
                     Entity entity = source.getEntity();
 
-                    if (entity instanceof EntityPlayer && !this.canAttackPlayer((EntityPlayer) entity)) {
+                    if (entity instanceof EntityPlayer player && !this.canAttackPlayer(player)) {
                         return false;
                     }
 
                     if (entity instanceof EntityArrow entityarrow) {
 
-                        if (entityarrow.shootingEntity instanceof EntityPlayer && !this.canAttackPlayer((EntityPlayer) entityarrow.shootingEntity)) {
+                        if (entityarrow.shootingEntity instanceof EntityPlayer entityPlayer && !this.canAttackPlayer(entityPlayer)) {
                             return false;
                         }
                     }
@@ -578,9 +578,9 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
 
         this.getNextWindowId();
 
-        if (chestInventory instanceof IInteractionObject) {
-            this.playerNetServerHandler.sendPacket(new S2DPacketOpenWindow(this.currentWindowId, ((IInteractionObject) chestInventory).getGuiID(), chestInventory.getDisplayName(), chestInventory.getSizeInventory()));
-            this.openContainer = ((IInteractionObject) chestInventory).createContainer(this.inventory, this);
+        if (chestInventory instanceof IInteractionObject iInteractionObject) {
+            this.playerNetServerHandler.sendPacket(new S2DPacketOpenWindow(this.currentWindowId, iInteractionObject.getGuiID(), chestInventory.getDisplayName(), chestInventory.getSizeInventory()));
+            this.openContainer = iInteractionObject.createContainer(this.inventory, this);
         } else {
             this.playerNetServerHandler.sendPacket(new S2DPacketOpenWindow(this.currentWindowId, "minecraft:container", chestInventory.getDisplayName(), chestInventory.getSizeInventory()));
             this.openContainer = new ContainerChest(this.inventory, chestInventory, this);

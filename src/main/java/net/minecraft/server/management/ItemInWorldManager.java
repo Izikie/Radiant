@@ -285,16 +285,16 @@ public class ItemInWorldManager {
             if (tileentity instanceof ILockableContainer ilockablecontainer) {
                 Block block = worldIn.getBlockState(pos).getBlock();
 
-                if (ilockablecontainer instanceof TileEntityChest && block instanceof BlockChest) {
-                    ilockablecontainer = ((BlockChest) block).getLockableContainer(worldIn, pos);
+                if (ilockablecontainer instanceof TileEntityChest && block instanceof BlockChest blockChest) {
+                    ilockablecontainer = blockChest.getLockableContainer(worldIn, pos);
                 }
 
                 if (ilockablecontainer != null) {
                     player.displayGUIChest(ilockablecontainer);
                     return true;
                 }
-            } else if (tileentity instanceof IInventory) {
-                player.displayGUIChest((IInventory) tileentity);
+            } else if (tileentity instanceof IInventory iInventory) {
+                player.displayGUIChest(iInventory);
                 return true;
             }
 

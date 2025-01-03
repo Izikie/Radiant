@@ -115,16 +115,16 @@ public class CommandReplaceItem extends CommandBase {
                 Entity entity = getEntity(sender, args[1]);
                 sender.setCommandStat(CommandResultStats.Type.AFFECTED_ITEMS, 0);
 
-                if (entity instanceof EntityPlayer) {
-                    ((EntityPlayer) entity).inventoryContainer.detectAndSendChanges();
+                if (entity instanceof EntityPlayer player) {
+                    player.inventoryContainer.detectAndSendChanges();
                 }
 
                 if (!entity.replaceItemInInventory(j, itemstack)) {
                     throw new CommandException("commands.replaceitem.failed", Integer.valueOf(j), Integer.valueOf(k), itemstack == null ? "Air" : itemstack.getChatComponent());
                 }
 
-                if (entity instanceof EntityPlayer) {
-                    ((EntityPlayer) entity).inventoryContainer.detectAndSendChanges();
+                if (entity instanceof EntityPlayer entityPlayer) {
+                    entityPlayer.inventoryContainer.detectAndSendChanges();
                 }
             }
 

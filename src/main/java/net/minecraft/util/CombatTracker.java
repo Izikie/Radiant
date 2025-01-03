@@ -73,7 +73,7 @@ public class CombatTracker {
                 if (combatentry.getDamageSrc() != DamageSource.fall && combatentry.getDamageSrc() != DamageSource.outOfWorld) {
                     if (ichatcomponent2 != null && (ichatcomponent1 == null || !ichatcomponent2.equals(ichatcomponent1))) {
                         Entity entity1 = combatentry.getDamageSrc().getEntity();
-                        ItemStack itemstack1 = entity1 instanceof EntityLivingBase ? ((EntityLivingBase) entity1).getHeldItem() : null;
+                        ItemStack itemstack1 = entity1 instanceof EntityLivingBase entityLivingBase ? entityLivingBase.getHeldItem() : null;
 
                         if (itemstack1 != null && itemstack1.hasDisplayName()) {
                             ichatcomponent = new ChatComponentTranslation("death.fell.assist.item", this.fighter.getDisplayName(), ichatcomponent2, itemstack1.getChatComponent());
@@ -81,7 +81,7 @@ public class CombatTracker {
                             ichatcomponent = new ChatComponentTranslation("death.fell.assist", this.fighter.getDisplayName(), ichatcomponent2);
                         }
                     } else if (ichatcomponent1 != null) {
-                        ItemStack itemstack = entity instanceof EntityLivingBase ? ((EntityLivingBase) entity).getHeldItem() : null;
+                        ItemStack itemstack = entity instanceof EntityLivingBase entityLivingBase ? entityLivingBase.getHeldItem() : null;
 
                         if (itemstack != null && itemstack.hasDisplayName()) {
                             ichatcomponent = new ChatComponentTranslation("death.fell.finish.item", this.fighter.getDisplayName(), ichatcomponent1, itemstack.getChatComponent());
@@ -109,14 +109,14 @@ public class CombatTracker {
         float f1 = 0.0F;
 
         for (CombatEntry combatentry : this.combatEntries) {
-            if (combatentry.getDamageSrc().getEntity() instanceof EntityPlayer && (entityplayer == null || combatentry.func_94563_c() > f1)) {
+            if (combatentry.getDamageSrc().getEntity() instanceof EntityPlayer entityPlayer && (entityplayer == null || combatentry.func_94563_c() > f1)) {
                 f1 = combatentry.func_94563_c();
-                entityplayer = (EntityPlayer) combatentry.getDamageSrc().getEntity();
+                entityplayer = entityPlayer;
             }
 
-            if (combatentry.getDamageSrc().getEntity() instanceof EntityLivingBase && (entitylivingbase == null || combatentry.func_94563_c() > f)) {
+            if (combatentry.getDamageSrc().getEntity() instanceof EntityLivingBase entityLivingBase && (entitylivingbase == null || combatentry.func_94563_c() > f)) {
                 f = combatentry.func_94563_c();
-                entitylivingbase = (EntityLivingBase) combatentry.getDamageSrc().getEntity();
+                entitylivingbase = entityLivingBase;
             }
         }
 

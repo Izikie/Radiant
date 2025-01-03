@@ -96,8 +96,8 @@ public class Shader {
         this.framebufferIn.unbindFramebufferTexture();
 
         for (Object object : this.listAuxFramebuffers) {
-            if (object instanceof Framebuffer) {
-                ((Framebuffer) object).unbindFramebufferTexture();
+            if (object instanceof Framebuffer framebuffer) {
+                framebuffer.unbindFramebufferTexture();
             }
         }
     }

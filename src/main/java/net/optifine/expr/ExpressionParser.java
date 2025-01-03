@@ -21,20 +21,20 @@ public class ExpressionParser {
     public IExpressionFloat parseFloat(String str) throws ParseException {
         IExpression iexpression = this.parse(str);
 
-        if (!(iexpression instanceof IExpressionFloat)) {
+        if (!(iexpression instanceof IExpressionFloat iExpressionFloat)) {
             throw new ParseException("Not a float expression: " + iexpression.getExpressionType());
         } else {
-            return (IExpressionFloat) iexpression;
+            return iExpressionFloat;
         }
     }
 
     public IExpressionBool parseBool(String str) throws ParseException {
         IExpression iexpression = this.parse(str);
 
-        if (!(iexpression instanceof IExpressionBool)) {
+        if (!(iexpression instanceof IExpressionBool iExpressionBool)) {
             throw new ParseException("Not a boolean expression: " + iexpression.getExpressionType());
         } else {
-            return (IExpressionBool) iexpression;
+            return iExpressionBool;
         }
     }
 

@@ -72,8 +72,8 @@ public class BlockBrewingStand extends BlockContainer {
         } else {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
-            if (tileentity instanceof TileEntityBrewingStand) {
-                playerIn.displayGUIChest((TileEntityBrewingStand) tileentity);
+            if (tileentity instanceof TileEntityBrewingStand tileEntityBrewingStand) {
+                playerIn.displayGUIChest(tileEntityBrewingStand);
                 playerIn.triggerAchievement(StatList.field_181729_M);
             }
 
@@ -85,8 +85,8 @@ public class BlockBrewingStand extends BlockContainer {
         if (stack.hasDisplayName()) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
-            if (tileentity instanceof TileEntityBrewingStand) {
-                ((TileEntityBrewingStand) tileentity).setName(stack.getDisplayName());
+            if (tileentity instanceof TileEntityBrewingStand tileEntityBrewingStand) {
+                tileEntityBrewingStand.setName(stack.getDisplayName());
             }
         }
     }
@@ -101,8 +101,8 @@ public class BlockBrewingStand extends BlockContainer {
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
-        if (tileentity instanceof TileEntityBrewingStand) {
-            InventoryHelper.dropInventoryItems(worldIn, pos, (TileEntityBrewingStand) tileentity);
+        if (tileentity instanceof TileEntityBrewingStand tileEntityBrewingStand) {
+            InventoryHelper.dropInventoryItems(worldIn, pos, tileEntityBrewingStand);
         }
 
         super.breakBlock(worldIn, pos, state);

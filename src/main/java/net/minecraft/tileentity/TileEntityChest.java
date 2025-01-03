@@ -217,7 +217,7 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
             return false;
         } else {
             Block block = this.worldObj.getBlockState(posIn).getBlock();
-            return block instanceof BlockChest && ((BlockChest) block).chestType == this.getChestType();
+            return block instanceof BlockChest blockChest && blockChest.chestType == this.getChestType();
         }
     }
 
@@ -233,10 +233,10 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
             float f = 5.0F;
 
             for (EntityPlayer entityplayer : this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB((i - f), (j - f), (k - f), ((i + 1) + f), ((j + 1) + f), ((k + 1) + f)))) {
-                if (entityplayer.openContainer instanceof ContainerChest) {
-                    IInventory iinventory = ((ContainerChest) entityplayer.openContainer).getLowerChestInventory();
+                if (entityplayer.openContainer instanceof ContainerChest containerChest) {
+                    IInventory iinventory = containerChest.getLowerChestInventory();
 
-                    if (iinventory == this || iinventory instanceof InventoryLargeChest && ((InventoryLargeChest) iinventory).isPartOfLargeChest(this)) {
+                    if (iinventory == this || iinventory instanceof InventoryLargeChest inventoryLargeChest && inventoryLargeChest.isPartOfLargeChest(this)) {
                         ++this.numPlayersUsing;
                     }
                 }
@@ -340,11 +340,11 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
 
     public int getChestType() {
         if (this.cachedChestType == -1) {
-            if (this.worldObj == null || !(this.getBlockType() instanceof BlockChest)) {
+            if (this.worldObj == null || !(this.getBlockType() instanceof BlockChest blockChest)) {
                 return 0;
             }
 
-            this.cachedChestType = ((BlockChest) this.getBlockType()).chestType;
+            this.cachedChestType = blockChest.chestType;
         }
 
         return this.cachedChestType;

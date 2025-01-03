@@ -70,7 +70,7 @@ public class SlotCrafting extends Slot {
             this.thePlayer.triggerAchievement(AchievementList.bakeCake);
         }
 
-        if (stack.getItem() instanceof ItemPickaxe && ((ItemPickaxe) stack.getItem()).getToolMaterial() != Item.ToolMaterial.WOOD) {
+        if (stack.getItem() instanceof ItemPickaxe itemPickaxe && itemPickaxe.getToolMaterial() != Item.ToolMaterial.WOOD) {
             this.thePlayer.triggerAchievement(AchievementList.buildBetterPickaxe);
         }
 

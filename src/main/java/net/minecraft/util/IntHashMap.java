@@ -170,10 +170,10 @@ public class IntHashMap<V> {
         }
 
         public final boolean equals(Object p_equals_1_) {
-            if (!(p_equals_1_ instanceof IntHashMap.Entry)) {
+            if (!(p_equals_1_ instanceof IntHashMap.Entry entry1)) {
                 return false;
             } else {
-                IntHashMap.Entry<V> entry = (IntHashMap.Entry) p_equals_1_;
+                IntHashMap.Entry<V> entry = entry1;
                 Object object = Integer.valueOf(this.getHash());
                 Object object1 = Integer.valueOf(entry.getHash());
 

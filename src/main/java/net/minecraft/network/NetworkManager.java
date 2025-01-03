@@ -222,8 +222,8 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
     public void processReceivedPackets() {
         this.flushOutboundQueue();
 
-        if (this.packetListener instanceof ITickable) {
-            ((ITickable) this.packetListener).update();
+        if (this.packetListener instanceof ITickable iTickable) {
+            iTickable.update();
         }
 
         this.channel.flush();
@@ -312,8 +312,8 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
 
     public void setCompressionTreshold(int treshold) {
         if (treshold >= 0) {
-            if (this.channel.pipeline().get("decompress") instanceof NettyCompressionDecoder) {
-                ((NettyCompressionDecoder) this.channel.pipeline().get("decompress")).setCompressionTreshold(treshold);
+            if (this.channel.pipeline().get("decompress") instanceof NettyCompressionDecoder nettyCompressionDecoder) {
+                nettyCompressionDecoder.setCompressionTreshold(treshold);
             } else {
                 this.channel.pipeline().addBefore("decoder", "decompress", new NettyCompressionDecoder(treshold));
             }

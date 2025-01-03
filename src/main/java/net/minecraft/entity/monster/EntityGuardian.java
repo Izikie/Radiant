@@ -159,8 +159,8 @@ public class EntityGuardian extends EntityMob {
             } else {
                 Entity entity = this.worldObj.getEntityByID(this.dataWatcher.getWatchableObjectInt(17));
 
-                if (entity instanceof EntityLivingBase) {
-                    this.targetedEntity = (EntityLivingBase) entity;
+                if (entity instanceof EntityLivingBase entityLivingBase) {
+                    this.targetedEntity = entityLivingBase;
                     return this.targetedEntity;
                 } else {
                     return null;

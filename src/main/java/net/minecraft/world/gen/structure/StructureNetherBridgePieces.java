@@ -1162,8 +1162,8 @@ public class StructureNetherBridgePieces {
                     worldIn.setBlockState(blockpos, Blocks.mob_spawner.getDefaultState(), 2);
                     TileEntity tileentity = worldIn.getTileEntity(blockpos);
 
-                    if (tileentity instanceof TileEntityMobSpawner) {
-                        ((TileEntityMobSpawner) tileentity).getSpawnerBaseLogic().setEntityName("Blaze");
+                    if (tileentity instanceof TileEntityMobSpawner tileEntityMobSpawner) {
+                        tileEntityMobSpawner.getSpawnerBaseLogic().setEntityName("Blaze");
                     }
                 }
             }

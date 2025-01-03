@@ -661,7 +661,7 @@ public class ShaderPackParser {
     }
 
     private static IExpression makeExpressionCached(IExpression expr) {
-        return expr instanceof IExpressionFloat ? new ExpressionFloatCached((IExpressionFloat) expr) : (expr instanceof IExpressionFloatArray ? new ExpressionFloatArrayCached((IExpressionFloatArray) expr) : expr);
+        return expr instanceof IExpressionFloat iExpressionFloat ? new ExpressionFloatCached(iExpressionFloat) : (expr instanceof IExpressionFloatArray iExpressionFloatArray ? new ExpressionFloatArrayCached(iExpressionFloatArray) : expr);
     }
 
     public static void parseAlphaStates(Properties props) {

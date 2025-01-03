@@ -53,7 +53,7 @@ public class CommandTeleport extends CommandBase {
                     CommandBase.CoordinateArg commandbase$coordinatearg3 = parseCoordinate(entity.rotationYaw, args.length > lvt_5_2_ ? args[lvt_5_2_++] : "~", false);
                     CommandBase.CoordinateArg commandbase$coordinatearg4 = parseCoordinate(entity.rotationPitch, args.length > lvt_5_2_ ? args[lvt_5_2_] : "~", false);
 
-                    if (entity instanceof EntityPlayerMP) {
+                    if (entity instanceof EntityPlayerMP entityPlayerMP) {
                         Set<S08PacketPlayerPosLook.EnumFlags> set = EnumSet.noneOf(S08PacketPlayerPosLook.EnumFlags.class);
 
                         if (commandbase$coordinatearg.func_179630_c()) {
@@ -94,7 +94,7 @@ public class CommandTeleport extends CommandBase {
                         }
 
                         entity.mountEntity(null);
-                        ((EntityPlayerMP) entity).playerNetServerHandler.setPlayerLocation(commandbase$coordinatearg.func_179629_b(), commandbase$coordinatearg1.func_179629_b(), commandbase$coordinatearg2.func_179629_b(), f, f1, set);
+                        entityPlayerMP.playerNetServerHandler.setPlayerLocation(commandbase$coordinatearg.func_179629_b(), commandbase$coordinatearg1.func_179629_b(), commandbase$coordinatearg2.func_179629_b(), f, f1, set);
                         entity.setRotationYawHead(f);
                     } else {
                         float f2 = (float) MathHelper.wrapAngleTo180_double(commandbase$coordinatearg3.func_179628_a());
@@ -119,8 +119,8 @@ public class CommandTeleport extends CommandBase {
                 } else {
                     entity.mountEntity(null);
 
-                    if (entity instanceof EntityPlayerMP) {
-                        ((EntityPlayerMP) entity).playerNetServerHandler.setPlayerLocation(entity1.posX, entity1.posY, entity1.posZ, entity1.rotationYaw, entity1.rotationPitch);
+                    if (entity instanceof EntityPlayerMP entityPlayerMP) {
+                        entityPlayerMP.playerNetServerHandler.setPlayerLocation(entity1.posX, entity1.posY, entity1.posZ, entity1.rotationYaw, entity1.rotationPitch);
                     } else {
                         entity.setLocationAndAngles(entity1.posX, entity1.posY, entity1.posZ, entity1.rotationYaw, entity1.rotationPitch);
                     }

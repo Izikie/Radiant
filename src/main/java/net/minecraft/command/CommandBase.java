@@ -132,8 +132,8 @@ public abstract class CommandBase implements ICommand {
     }
 
     public static EntityPlayerMP getCommandSenderAsPlayer(ICommandSender sender) throws PlayerNotFoundException {
-        if (sender instanceof EntityPlayerMP) {
-            return (EntityPlayerMP) sender;
+        if (sender instanceof EntityPlayerMP entityPlayerMP) {
+            return entityPlayerMP;
         } else {
             throw new PlayerNotFoundException("You must specify which player you wish to perform this action on.");
         }
@@ -485,7 +485,7 @@ public abstract class CommandBase implements ICommand {
 
             if (list.isEmpty()) {
                 for (Object object : p_175762_1_) {
-                    if (object instanceof ResourceLocation && doesStringStartWith(s, ((ResourceLocation) object).getResourcePath())) {
+                    if (object instanceof ResourceLocation resourceLocation && doesStringStartWith(s, resourceLocation.getResourcePath())) {
                         list.add(String.valueOf(object));
                     }
                 }

@@ -60,8 +60,8 @@ public class BlockFlowerPot extends BlockContainer {
     public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
-        if (tileentity instanceof TileEntityFlowerPot) {
-            Item item = ((TileEntityFlowerPot) tileentity).getFlowerPotItem();
+        if (tileentity instanceof TileEntityFlowerPot tileEntityFlowerPot) {
+            Item item = tileEntityFlowerPot.getFlowerPotItem();
 
             if (item instanceof ItemBlock) {
                 return Block.getBlockFromItem(item).colorMultiplier(worldIn, pos, renderPass);
@@ -161,7 +161,7 @@ public class BlockFlowerPot extends BlockContainer {
 
     private TileEntityFlowerPot getTileEntity(World worldIn, BlockPos pos) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
-        return tileentity instanceof TileEntityFlowerPot ? (TileEntityFlowerPot) tileentity : null;
+        return tileentity instanceof TileEntityFlowerPot tileEntityFlowerPot ? tileEntityFlowerPot : null;
     }
 
     public TileEntity createNewTileEntity(World worldIn, int meta) {

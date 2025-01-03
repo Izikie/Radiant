@@ -278,8 +278,8 @@ public class CrashReport {
     public static CrashReport makeCrashReport(Throwable causeIn, String descriptionIn) {
         CrashReport crashreport;
 
-        if (causeIn instanceof ReportedException) {
-            crashreport = ((ReportedException) causeIn).getCrashReport();
+        if (causeIn instanceof ReportedException reportedException) {
+            crashreport = reportedException.getCrashReport();
         } else {
             crashreport = new CrashReport(descriptionIn, causeIn);
         }

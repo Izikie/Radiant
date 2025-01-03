@@ -398,10 +398,10 @@ public abstract class EntityPlayer extends EntityLivingBase {
             this.cameraYaw = 0.0F;
             this.addMountedMovementStat(this.posX - d0, this.posY - d1, this.posZ - d2);
 
-            if (this.ridingEntity instanceof EntityPig) {
+            if (this.ridingEntity instanceof EntityPig entityPig) {
                 this.rotationPitch = f1;
                 this.rotationYaw = f;
-                this.renderYawOffset = ((EntityPig) this.ridingEntity).renderYawOffset;
+                this.renderYawOffset = entityPig.renderYawOffset;
             }
         }
     }
@@ -794,8 +794,8 @@ public abstract class EntityPlayer extends EntityLivingBase {
                 } else {
                     Entity entity = source.getEntity();
 
-                    if (entity instanceof EntityArrow && ((EntityArrow) entity).shootingEntity != null) {
-                        entity = ((EntityArrow) entity).shootingEntity;
+                    if (entity instanceof EntityArrow entityArrow && entityArrow.shootingEntity != null) {
+                        entity = entityArrow.shootingEntity;
                     }
 
                     return super.attackEntityFrom(source, amount);
@@ -878,8 +878,8 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
     public boolean interactWith(Entity targetEntity) {
         if (this.isSpectator()) {
-            if (targetEntity instanceof IInventory) {
-                this.displayGUIChest((IInventory) targetEntity);
+            if (targetEntity instanceof IInventory iInventory) {
+                this.displayGUIChest(iInventory);
             }
 
             return false;
@@ -888,12 +888,12 @@ public abstract class EntityPlayer extends EntityLivingBase {
             ItemStack itemstack1 = itemstack != null ? itemstack.copy() : null;
 
             if (!targetEntity.interactFirst(this)) {
-                if (itemstack != null && targetEntity instanceof EntityLivingBase) {
+                if (itemstack != null && targetEntity instanceof EntityLivingBase entityLivingBase) {
                     if (this.capabilities.isCreativeMode) {
                         itemstack = itemstack1;
                     }
 
-                    if (itemstack.interactWithEntity(this, (EntityLivingBase) targetEntity)) {
+                    if (itemstack.interactWithEntity(this, entityLivingBase)) {
                         if (itemstack.stackSize <= 0 && !this.capabilities.isCreativeMode) {
                             this.destroyCurrentEquippedItem();
                         }
@@ -936,8 +936,8 @@ public abstract class EntityPlayer extends EntityLivingBase {
                 int i = 0;
                 float f1 = 0.0F;
 
-                if (targetEntity instanceof EntityLivingBase) {
-                    f1 = EnchantmentHelper.getModifierForCreature(this.getHeldItem(), ((EntityLivingBase) targetEntity).getCreatureAttribute());
+                if (targetEntity instanceof EntityLivingBase base) {
+                    f1 = EnchantmentHelper.getModifierForCreature(this.getHeldItem(), base.getCreatureAttribute());
                 } else {
                     f1 = EnchantmentHelper.getModifierForCreature(this.getHeldItem(), EnumCreatureAttribute.UNDEFINED);
                 }
@@ -977,8 +977,8 @@ public abstract class EntityPlayer extends EntityLivingBase {
                             this.setSprinting(false);
                         }
 
-                        if (targetEntity instanceof EntityPlayerMP && targetEntity.velocityChanged) {
-                            ((EntityPlayerMP) targetEntity).playerNetServerHandler.sendPacket(new S12PacketEntityVelocity(targetEntity));
+                        if (targetEntity instanceof EntityPlayerMP entityPlayerMP && targetEntity.velocityChanged) {
+                            entityPlayerMP.playerNetServerHandler.sendPacket(new S12PacketEntityVelocity(targetEntity));
                             targetEntity.velocityChanged = false;
                             targetEntity.motionX = d0;
                             targetEntity.motionY = d1;
@@ -999,24 +999,24 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
                         this.setLastAttacker(targetEntity);
 
-                        if (targetEntity instanceof EntityLivingBase) {
-                            EnchantmentHelper.applyThornEnchantments((EntityLivingBase) targetEntity, this);
+                        if (targetEntity instanceof EntityLivingBase livingBase) {
+                            EnchantmentHelper.applyThornEnchantments(livingBase, this);
                         }
 
                         EnchantmentHelper.applyArthropodEnchantments(this, targetEntity);
                         ItemStack itemstack = this.getCurrentEquippedItem();
                         Entity entity = targetEntity;
 
-                        if (targetEntity instanceof EntityDragonPart) {
-                            IEntityMultiPart ientitymultipart = ((EntityDragonPart) targetEntity).entityDragonObj;
+                        if (targetEntity instanceof EntityDragonPart entityDragonPart) {
+                            IEntityMultiPart ientitymultipart = entityDragonPart.entityDragonObj;
 
-                            if (ientitymultipart instanceof EntityLivingBase) {
-                                entity = (EntityLivingBase) ientitymultipart;
+                            if (ientitymultipart instanceof EntityLivingBase entityLivingBase) {
+                                entity = entityLivingBase;
                             }
                         }
 
-                        if (itemstack != null && entity instanceof EntityLivingBase) {
-                            itemstack.hitEntity((EntityLivingBase) entity, this);
+                        if (itemstack != null && entity instanceof EntityLivingBase entityLivingBase) {
+                            itemstack.hitEntity(entityLivingBase, this);
 
                             if (itemstack.stackSize <= 0) {
                                 this.destroyCurrentEquippedItem();

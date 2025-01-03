@@ -336,7 +336,7 @@ public class Bootstrap {
                         world.setBlockState(blockpos, blockskull.getDefaultState().withProperty(BlockSkull.FACING, EnumFacing.UP), 3);
                         TileEntity tileentity = world.getTileEntity(blockpos);
 
-                        if (tileentity instanceof TileEntitySkull) {
+                        if (tileentity instanceof TileEntitySkull tileEntitySkull) {
                             if (stack.getMetadata() == 3) {
                                 GameProfile gameprofile = null;
 
@@ -359,8 +359,8 @@ public class Bootstrap {
                                 ((TileEntitySkull) tileentity).setType(stack.getMetadata());
                             }
 
-                            ((TileEntitySkull) tileentity).setSkullRotation(enumfacing.getOpposite().getHorizontalIndex() * 4);
-                            Blocks.skull.checkWitherSpawn(world, blockpos, (TileEntitySkull) tileentity);
+                            tileEntitySkull.setSkullRotation(enumfacing.getOpposite().getHorizontalIndex() * 4);
+                            Blocks.skull.checkWitherSpawn(world, blockpos, tileEntitySkull);
                         }
 
                         --stack.stackSize;

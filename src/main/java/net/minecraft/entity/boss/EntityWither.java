@@ -49,7 +49,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
     private int blockBreakCounter;
     private static final Predicate<Entity> attackEntitySelector = new Predicate<Entity>() {
         public boolean apply(Entity p_apply_1_) {
-            return p_apply_1_ instanceof EntityLivingBase && ((EntityLivingBase) p_apply_1_).getCreatureAttribute() != EnumCreatureAttribute.UNDEAD;
+            return p_apply_1_ instanceof EntityLivingBase entityLivingBase && entityLivingBase.getCreatureAttribute() != EnumCreatureAttribute.UNDEAD;
         }
     };
 
@@ -225,7 +225,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
                         Entity entity = this.worldObj.getEntityByID(k1);
 
                         if (entity != null && entity.isEntityAlive() && this.getDistanceSqToEntity(entity) <= 900.0D && this.canEntityBeSeen(entity)) {
-                            if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.disableDamage) {
+                            if (entity instanceof EntityPlayer entityPlayer && entityPlayer.capabilities.disableDamage) {
                                 this.updateWatchedTargetId(i, 0);
                             } else {
                                 this.launchWitherSkullToEntity(i + 1, (EntityLivingBase) entity);
@@ -242,8 +242,8 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
                             EntityLivingBase entitylivingbase = list.get(this.rand.nextInt(list.size()));
 
                             if (entitylivingbase != this && entitylivingbase.isEntityAlive() && this.canEntityBeSeen(entitylivingbase)) {
-                                if (entitylivingbase instanceof EntityPlayer) {
-                                    if (!((EntityPlayer) entitylivingbase).capabilities.disableDamage) {
+                                if (entitylivingbase instanceof EntityPlayer entityPlayer) {
+                                    if (!entityPlayer.capabilities.disableDamage) {
                                         this.updateWatchedTargetId(i, entitylivingbase.getEntityId());
                                     }
                                 } else {
@@ -401,7 +401,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
 
                 Entity entity1 = source.getEntity();
 
-                if (entity1 != null && !(entity1 instanceof EntityPlayer) && entity1 instanceof EntityLivingBase && ((EntityLivingBase) entity1).getCreatureAttribute() == this.getCreatureAttribute()) {
+                if (entity1 != null && !(entity1 instanceof EntityPlayer) && entity1 instanceof EntityLivingBase entityLivingBase && entityLivingBase.getCreatureAttribute() == this.getCreatureAttribute()) {
                     return false;
                 } else {
                     if (this.blockBreakCounter <= 0) {

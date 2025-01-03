@@ -288,8 +288,8 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
                 try {
                     Entity entity = ((WorldServer) this.worldObj).getEntityFromUuid(UUID.fromString(this.throwerName));
 
-                    if (entity instanceof EntityLivingBase) {
-                        this.thrower = (EntityLivingBase) entity;
+                    if (entity instanceof EntityLivingBase entityLivingBase) {
+                        this.thrower = entityLivingBase;
                     }
                 } catch (Throwable var2) {
                     this.thrower = null;

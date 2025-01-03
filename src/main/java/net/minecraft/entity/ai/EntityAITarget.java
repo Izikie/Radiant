@@ -59,7 +59,7 @@ public abstract class EntityAITarget extends EntityAIBase {
                         }
                     }
 
-                    return !(entitylivingbase instanceof EntityPlayer) || !((EntityPlayer) entitylivingbase).capabilities.disableDamage;
+                    return !(entitylivingbase instanceof EntityPlayer entityPlayer) || !entityPlayer.capabilities.disableDamage;
                 }
             }
         }
@@ -96,15 +96,15 @@ public abstract class EntityAITarget extends EntityAIBase {
             if (team != null && team1 == team) {
                 return false;
             } else {
-                if (attacker instanceof IEntityOwnable && StringUtils.isNotEmpty(((IEntityOwnable) attacker).getOwnerId())) {
-                    if (target instanceof IEntityOwnable && ((IEntityOwnable) attacker).getOwnerId().equals(((IEntityOwnable) target).getOwnerId())) {
+                if (attacker instanceof IEntityOwnable iEntityOwnable && StringUtils.isNotEmpty(iEntityOwnable.getOwnerId())) {
+                    if (target instanceof IEntityOwnable entityOwnable && iEntityOwnable.getOwnerId().equals(entityOwnable.getOwnerId())) {
                         return false;
                     }
 
-                    if (target == ((IEntityOwnable) attacker).getOwner()) {
+                    if (target == iEntityOwnable.getOwner()) {
                         return false;
                     }
-                } else if (target instanceof EntityPlayer && !includeInvincibles && ((EntityPlayer) target).capabilities.disableDamage) {
+                } else if (target instanceof EntityPlayer entityPlayer && !includeInvincibles && entityPlayer.capabilities.disableDamage) {
                     return false;
                 }
 

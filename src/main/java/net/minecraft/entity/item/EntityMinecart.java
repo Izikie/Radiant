@@ -126,7 +126,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
                 this.setRollingAmplitude(10);
                 this.setBeenAttacked();
                 this.setDamage(this.getDamage() + amount * 10.0F);
-                boolean flag = source.getEntity() instanceof EntityPlayer && ((EntityPlayer) source.getEntity()).capabilities.isCreativeMode;
+                boolean flag = source.getEntity() instanceof EntityPlayer entityPlayer && entityPlayer.capabilities.isCreativeMode;
 
                 if (flag || this.getDamage() > 40.0F) {
                     if (this.riddenByEntity != null) {
@@ -188,8 +188,8 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
             this.kill();
         }
 
-        if (!this.worldObj.isRemote && this.worldObj instanceof WorldServer) {
-            MinecraftServer minecraftserver = ((WorldServer) this.worldObj).getMinecraftServer();
+        if (!this.worldObj.isRemote && this.worldObj instanceof WorldServer worldServer) {
+            MinecraftServer minecraftserver = worldServer.getMinecraftServer();
             int i = this.getMaxInPortalTime();
 
             if (this.inPortal) {
@@ -391,8 +391,8 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         this.motionX = d5 * d1 / d3;
         this.motionZ = d5 * d2 / d3;
 
-        if (this.riddenByEntity instanceof EntityLivingBase) {
-            double d6 = ((EntityLivingBase) this.riddenByEntity).moveForward;
+        if (this.riddenByEntity instanceof EntityLivingBase entityLivingBase) {
+            double d6 = entityLivingBase.moveForward;
 
             if (d6 > 0.0D) {
                 double d7 = -Math.sin((this.riddenByEntity.rotationYaw * (float) Math.PI / 180.0F));
@@ -702,7 +702,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
                         d0 = d0 * 0.5D;
                         d1 = d1 * 0.5D;
 
-                        if (entityIn instanceof EntityMinecart) {
+                        if (entityIn instanceof EntityMinecart entityMinecart) {
                             double d4 = entityIn.posX - this.posX;
                             double d5 = entityIn.posZ - this.posZ;
                             Vec3 vec3 = (new Vec3(d4, 0.0D, d5)).normalize();
@@ -716,7 +716,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
                             double d7 = entityIn.motionX + this.motionX;
                             double d8 = entityIn.motionZ + this.motionZ;
 
-                            if (((EntityMinecart) entityIn).getMinecartType() == EntityMinecart.EnumMinecartType.FURNACE && this.getMinecartType() != EntityMinecart.EnumMinecartType.FURNACE) {
+                            if (entityMinecart.getMinecartType() == EntityMinecart.EnumMinecartType.FURNACE && this.getMinecartType() != EntityMinecart.EnumMinecartType.FURNACE) {
                                 this.motionX *= 0.20000000298023224D;
                                 this.motionZ *= 0.20000000298023224D;
                                 this.addVelocity(entityIn.motionX - d0, 0.0D, entityIn.motionZ - d1);

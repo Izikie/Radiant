@@ -43,8 +43,8 @@ public class ItemSign extends Item {
                 --stack.stackSize;
                 TileEntity tileentity = worldIn.getTileEntity(pos);
 
-                if (tileentity instanceof TileEntitySign && !ItemBlock.setTileEntityNBT(worldIn, playerIn, pos, stack)) {
-                    playerIn.openEditSign((TileEntitySign) tileentity);
+                if (tileentity instanceof TileEntitySign tileEntitySign && !ItemBlock.setTileEntityNBT(worldIn, playerIn, pos, stack)) {
+                    playerIn.openEditSign(tileEntitySign);
                 }
 
                 return true;

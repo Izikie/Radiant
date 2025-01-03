@@ -99,14 +99,14 @@ public class CommandStats extends CommandBase {
                         throw new CommandException("commands.stats.noCompatibleBlock", Integer.valueOf(blockpos.getX()), Integer.valueOf(blockpos.getY()), Integer.valueOf(blockpos.getZ()));
                     }
 
-                    if (tileentity instanceof TileEntityCommandBlock) {
-                        commandresultstats = ((TileEntityCommandBlock) tileentity).getCommandResultStats();
+                    if (tileentity instanceof TileEntityCommandBlock tileEntityCommandBlock) {
+                        commandresultstats = tileEntityCommandBlock.getCommandResultStats();
                     } else {
-                        if (!(tileentity instanceof TileEntitySign)) {
+                        if (!(tileentity instanceof TileEntitySign tileEntitySign)) {
                             throw new CommandException("commands.stats.noCompatibleBlock", Integer.valueOf(blockpos.getX()), Integer.valueOf(blockpos.getY()), Integer.valueOf(blockpos.getZ()));
                         }
 
-                        commandresultstats = ((TileEntitySign) tileentity).getStats();
+                        commandresultstats = tileEntitySign.getStats();
                     }
                 } else {
                     Entity entity = getEntity(sender, args[1]);

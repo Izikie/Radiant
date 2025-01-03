@@ -90,7 +90,7 @@ public class BlockTNT extends Block {
         if (!worldIn.isRemote && entityIn instanceof EntityArrow entityarrow) {
 
             if (entityarrow.isBurning()) {
-                this.explode(worldIn, pos, worldIn.getBlockState(pos).withProperty(EXPLODE, Boolean.valueOf(true)), entityarrow.shootingEntity instanceof EntityLivingBase ? (EntityLivingBase) entityarrow.shootingEntity : null);
+                this.explode(worldIn, pos, worldIn.getBlockState(pos).withProperty(EXPLODE, Boolean.valueOf(true)), entityarrow.shootingEntity instanceof EntityLivingBase entityLivingBase ? entityLivingBase : null);
                 worldIn.setBlockToAir(pos);
             }
         }

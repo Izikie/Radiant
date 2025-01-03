@@ -552,8 +552,8 @@ public abstract class StructureComponent {
             worldIn.setBlockState(blockpos, Blocks.chest.correctFacing(worldIn, blockpos, iblockstate), 2);
             TileEntity tileentity = worldIn.getTileEntity(blockpos);
 
-            if (tileentity instanceof TileEntityChest) {
-                WeightedRandomChestContent.generateChestContents(rand, listIn, (TileEntityChest) tileentity, max);
+            if (tileentity instanceof TileEntityChest tileEntityChest) {
+                WeightedRandomChestContent.generateChestContents(rand, listIn, tileEntityChest, max);
             }
 
             return true;
@@ -569,8 +569,8 @@ public abstract class StructureComponent {
             worldIn.setBlockState(blockpos, Blocks.dispenser.getStateFromMeta(this.getMetadataWithOffset(Blocks.dispenser, meta)), 2);
             TileEntity tileentity = worldIn.getTileEntity(blockpos);
 
-            if (tileentity instanceof TileEntityDispenser) {
-                WeightedRandomChestContent.generateDispenserContents(rand, listIn, (TileEntityDispenser) tileentity, max);
+            if (tileentity instanceof TileEntityDispenser tileEntityDispenser) {
+                WeightedRandomChestContent.generateDispenserContents(rand, listIn, tileEntityDispenser, max);
             }
 
             return true;

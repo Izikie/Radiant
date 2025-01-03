@@ -141,8 +141,8 @@ public class WorldClient extends World {
 
         if (!flag) {
             this.entitySpawnQueue.add(entityIn);
-        } else if (entityIn instanceof EntityMinecart) {
-            this.mc.getSoundHandler().playSound(new MovingSoundMinecart((EntityMinecart) entityIn));
+        } else if (entityIn instanceof EntityMinecart entityMinecart) {
+            this.mc.getSoundHandler().playSound(new MovingSoundMinecart(entityMinecart));
         }
 
         return flag;

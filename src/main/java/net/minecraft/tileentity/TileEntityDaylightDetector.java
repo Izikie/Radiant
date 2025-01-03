@@ -8,8 +8,8 @@ public class TileEntityDaylightDetector extends TileEntity implements ITickable 
         if (this.worldObj != null && !this.worldObj.isRemote && this.worldObj.getTotalWorldTime() % 20L == 0L) {
             this.blockType = this.getBlockType();
 
-            if (this.blockType instanceof BlockDaylightDetector) {
-                ((BlockDaylightDetector) this.blockType).updatePower(this.worldObj, this.pos);
+            if (this.blockType instanceof BlockDaylightDetector blockDaylightDetector) {
+                blockDaylightDetector.updatePower(this.worldObj, this.pos);
             }
         }
     }

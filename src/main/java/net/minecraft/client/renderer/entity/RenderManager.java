@@ -216,8 +216,8 @@ public class RenderManager {
     }
 
     public <T extends Entity> Render<T> getEntityRenderObject(Entity entityIn) {
-        if (entityIn instanceof AbstractClientPlayer) {
-            String s = ((AbstractClientPlayer) entityIn).getSkinType();
+        if (entityIn instanceof AbstractClientPlayer abstractClientPlayer) {
+            String s = abstractClientPlayer.getSkinType();
             RenderPlayer renderplayer = this.skinMap.get(s);
             return (Render<T>) (renderplayer != null ? renderplayer : this.playerRenderer);
         } else {
@@ -232,7 +232,7 @@ public class RenderManager {
         this.pointedEntity = pointedEntityIn;
         this.textRenderer = textRendererIn;
 
-        if (livingPlayerIn instanceof EntityLivingBase && ((EntityLivingBase) livingPlayerIn).isPlayerSleeping()) {
+        if (livingPlayerIn instanceof EntityLivingBase entityLivingBase && entityLivingBase.isPlayerSleeping()) {
             IBlockState iblockstate = worldIn.getBlockState(new BlockPos(livingPlayerIn));
             Block block = iblockstate.getBlock();
 
@@ -336,8 +336,8 @@ public class RenderManager {
 
             if (render != null && this.renderEngine != null) {
                 try {
-                    if (render instanceof RendererLivingEntity) {
-                        ((RendererLivingEntity) render).setRenderOutlines(this.renderOutlines);
+                    if (render instanceof RendererLivingEntity rendererLivingEntity) {
+                        rendererLivingEntity.setRenderOutlines(this.renderOutlines);
                     }
 
                     if (CustomEntityModels.isActive()) {

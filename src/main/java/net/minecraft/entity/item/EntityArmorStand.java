@@ -270,7 +270,7 @@ public class EntityArmorStand extends EntityLivingBase {
             for (Entity value : list) {
                 Entity entity = value;
 
-                if (entity instanceof EntityMinecart && ((EntityMinecart) entity).getMinecartType() == EntityMinecart.EnumMinecartType.RIDEABLE && this.getDistanceSqToEntity(entity) <= 0.2D) {
+                if (entity instanceof EntityMinecart entityMinecart && entityMinecart.getMinecartType() == EntityMinecart.EnumMinecartType.RIDEABLE && this.getDistanceSqToEntity(entity) <= 0.2D) {
                     entity.applyEntityCollision(this);
                 }
             }
@@ -410,7 +410,7 @@ public class EntityArmorStand extends EntityLivingBase {
                         source.getSourceOfDamage().setDead();
                     }
 
-                    if (source.getEntity() instanceof EntityPlayer && !((EntityPlayer) source.getEntity()).capabilities.allowEdit) {
+                    if (source.getEntity() instanceof EntityPlayer entityPlayer && !entityPlayer.capabilities.allowEdit) {
                         return false;
                     } else if (source.isCreativePlayer()) {
                         this.playParticles();
@@ -448,8 +448,8 @@ public class EntityArmorStand extends EntityLivingBase {
     }
 
     private void playParticles() {
-        if (this.worldObj instanceof WorldServer) {
-            ((WorldServer) this.worldObj).spawnParticle(EnumParticleTypes.BLOCK_DUST, this.posX, this.posY + this.height / 1.5D, this.posZ, 10, (this.width / 4.0F), (this.height / 4.0F), (this.width / 4.0F), 0.05D, Block.getStateId(Blocks.planks.getDefaultState()));
+        if (this.worldObj instanceof WorldServer worldServer) {
+            worldServer.spawnParticle(EnumParticleTypes.BLOCK_DUST, this.posX, this.posY + this.height / 1.5D, this.posZ, 10, (this.width / 4.0F), (this.height / 4.0F), (this.width / 4.0F), 0.05D, Block.getStateId(Blocks.planks.getDefaultState()));
         }
     }
 

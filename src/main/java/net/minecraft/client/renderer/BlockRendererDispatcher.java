@@ -82,8 +82,8 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
     private IBakedModel getBakedModel(IBlockState state, BlockPos pos) {
         IBakedModel ibakedmodel = this.blockModelShapes.getModelForState(state);
 
-        if (pos != null && this.gameSettings.allowBlockAlternatives && ibakedmodel instanceof WeightedBakedModel) {
-            ibakedmodel = ((WeightedBakedModel) ibakedmodel).getAlternativeModel(MathHelper.getPositionRandom(pos));
+        if (pos != null && this.gameSettings.allowBlockAlternatives && ibakedmodel instanceof WeightedBakedModel weightedBakedModel) {
+            ibakedmodel = weightedBakedModel.getAlternativeModel(MathHelper.getPositionRandom(pos));
         }
 
         return ibakedmodel;
@@ -101,8 +101,8 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
 
         IBakedModel ibakedmodel = this.blockModelShapes.getModelForState(state);
 
-        if (pos != null && this.gameSettings.allowBlockAlternatives && ibakedmodel instanceof WeightedBakedModel) {
-            ibakedmodel = ((WeightedBakedModel) ibakedmodel).getAlternativeModel(MathHelper.getPositionRandom(pos));
+        if (pos != null && this.gameSettings.allowBlockAlternatives && ibakedmodel instanceof WeightedBakedModel weightedBakedModel) {
+            ibakedmodel = weightedBakedModel.getAlternativeModel(MathHelper.getPositionRandom(pos));
         }
 
         return ibakedmodel;

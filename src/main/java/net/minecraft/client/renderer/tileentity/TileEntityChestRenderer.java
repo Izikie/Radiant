@@ -41,8 +41,8 @@ public class TileEntityChestRenderer extends TileEntitySpecialRenderer<TileEntit
             Block block = te.getBlockType();
             i = te.getBlockMetadata();
 
-            if (block instanceof BlockChest && i == 0) {
-                ((BlockChest) block).checkForSurroundingChests(te.getWorld(), te.getPos(), te.getWorld().getBlockState(te.getPos()));
+            if (block instanceof BlockChest blockChest && i == 0) {
+                blockChest.checkForSurroundingChests(te.getWorld(), te.getPos(), te.getWorld().getBlockState(te.getPos()));
                 i = te.getBlockMetadata();
             }
 

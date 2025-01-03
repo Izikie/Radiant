@@ -385,11 +385,11 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
     }
 
     private static boolean canInsertItemInSlot(IInventory inventoryIn, ItemStack stack, int index, EnumFacing side) {
-        return !inventoryIn.isItemValidForSlot(index, stack) ? false : !(inventoryIn instanceof ISidedInventory) || ((ISidedInventory) inventoryIn).canInsertItem(index, stack, side);
+        return !inventoryIn.isItemValidForSlot(index, stack) ? false : !(inventoryIn instanceof ISidedInventory iSidedInventory) || iSidedInventory.canInsertItem(index, stack, side);
     }
 
     private static boolean canExtractItemFromSlot(IInventory inventoryIn, ItemStack stack, int index, EnumFacing side) {
-        return !(inventoryIn instanceof ISidedInventory) || ((ISidedInventory) inventoryIn).canExtractItem(index, stack, side);
+        return !(inventoryIn instanceof ISidedInventory iSidedInventory) || iSidedInventory.canExtractItem(index, stack, side);
     }
 
     private static ItemStack insertStack(IInventory inventoryIn, ItemStack stack, int index, EnumFacing side) {
@@ -451,11 +451,11 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
         if (block.hasTileEntity()) {
             TileEntity tileentity = worldIn.getTileEntity(blockpos);
 
-            if (tileentity instanceof IInventory) {
-                iinventory = (IInventory) tileentity;
+            if (tileentity instanceof IInventory iInventory) {
+                iinventory = iInventory;
 
-                if (iinventory instanceof TileEntityChest && block instanceof BlockChest) {
-                    iinventory = ((BlockChest) block).getLockableContainer(worldIn, blockpos);
+                if (iinventory instanceof TileEntityChest && block instanceof BlockChest blockChest) {
+                    iinventory = blockChest.getLockableContainer(worldIn, blockpos);
                 }
             }
         }

@@ -41,7 +41,7 @@ public class LayerCustomHead implements LayerRenderer<EntityLivingBase> {
                 GlStateManager.translate(0.0F, 0.2F, 0.0F);
             }
 
-            boolean flag = entitylivingbaseIn instanceof EntityVillager || entitylivingbaseIn instanceof EntityZombie && ((EntityZombie) entitylivingbaseIn).isVillager();
+            boolean flag = entitylivingbaseIn instanceof EntityVillager || entitylivingbaseIn instanceof EntityZombie entityZombie && entityZombie.isVillager();
 
             if (!flag && entitylivingbaseIn.isChild()) {
                 float f = 2.0F;

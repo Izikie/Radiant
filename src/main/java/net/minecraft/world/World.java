@@ -2243,7 +2243,7 @@ public abstract class World implements IBlockAccess {
         int i = 0;
 
         for (Entity entity : this.loadedEntityList) {
-            if ((!(entity instanceof EntityLiving) || !((EntityLiving) entity).isNoDespawnRequired()) && entityType.isAssignableFrom(entity.getClass())) {
+            if ((!(entity instanceof EntityLiving entityLiving) || !entityLiving.isNoDespawnRequired()) && entityType.isAssignableFrom(entity.getClass())) {
                 ++i;
             }
         }

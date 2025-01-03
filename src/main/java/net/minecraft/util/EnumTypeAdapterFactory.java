@@ -48,6 +48,6 @@ public class EnumTypeAdapterFactory implements TypeAdapterFactory {
     }
 
     private String func_151232_a(Object p_151232_1_) {
-        return p_151232_1_ instanceof Enum ? ((Enum) p_151232_1_).name().toLowerCase(Locale.US) : p_151232_1_.toString().toLowerCase(Locale.US);
+        return p_151232_1_ instanceof Enum anEnum ? anEnum.name().toLowerCase(Locale.US) : p_151232_1_.toString().toLowerCase(Locale.US);
     }
 }

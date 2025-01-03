@@ -77,6 +77,6 @@ public abstract class EntityAIDoorInteract extends EntityAIBase {
 
     private BlockDoor getBlockDoor(BlockPos pos) {
         Block block = this.theEntity.worldObj.getBlockState(pos).getBlock();
-        return block instanceof BlockDoor && block.getMaterial() == Material.wood ? (BlockDoor) block : null;
+        return block instanceof BlockDoor blockDoor && block.getMaterial() == Material.wood ? blockDoor : null;
     }
 }

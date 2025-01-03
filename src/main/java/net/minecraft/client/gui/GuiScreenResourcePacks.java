@@ -129,8 +129,8 @@ public class GuiScreenResourcePacks extends GuiScreen {
                     List<ResourcePackRepository.Entry> list = Lists.newArrayList();
 
                     for (ResourcePackListEntry resourcepacklistentry : this.selectedResourcePacks) {
-                        if (resourcepacklistentry instanceof ResourcePackListEntryFound) {
-                            list.add(((ResourcePackListEntryFound) resourcepacklistentry).func_148318_i());
+                        if (resourcepacklistentry instanceof ResourcePackListEntryFound resourcePackListEntryFound) {
+                            list.add(resourcePackListEntryFound.func_148318_i());
                         }
                     }
 

@@ -255,8 +255,8 @@ public abstract class EntityFireball extends Entity {
                     this.accelerationZ = this.motionZ * 0.1D;
                 }
 
-                if (source.getEntity() instanceof EntityLivingBase) {
-                    this.shootingEntity = (EntityLivingBase) source.getEntity();
+                if (source.getEntity() instanceof EntityLivingBase entityLivingBase) {
+                    this.shootingEntity = entityLivingBase;
                 }
 
                 return true;

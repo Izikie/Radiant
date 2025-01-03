@@ -261,8 +261,8 @@ public abstract class EntityLiving extends EntityLivingBase {
             if (this.leashedToEntity instanceof EntityLivingBase) {
                 nbttagcompound1.setLong("UUIDMost", this.leashedToEntity.getUniqueID().getMostSignificantBits());
                 nbttagcompound1.setLong("UUIDLeast", this.leashedToEntity.getUniqueID().getLeastSignificantBits());
-            } else if (this.leashedToEntity instanceof EntityHanging) {
-                BlockPos blockpos = ((EntityHanging) this.leashedToEntity).getHangingPosition();
+            } else if (this.leashedToEntity instanceof EntityHanging entityHanging) {
+                BlockPos blockpos = entityHanging.getHangingPosition();
                 nbttagcompound1.setInteger("X", blockpos.getX());
                 nbttagcompound1.setInteger("Y", blockpos.getY());
                 nbttagcompound1.setInteger("Z", blockpos.getZ());
@@ -591,8 +591,8 @@ public abstract class EntityLiving extends EntityLivingBase {
 
     public static int getArmorPosition(ItemStack stack) {
         if (stack.getItem() != Item.getItemFromBlock(Blocks.pumpkin) && stack.getItem() != Items.skull) {
-            if (stack.getItem() instanceof ItemArmor) {
-                switch (((ItemArmor) stack.getItem()).armorType) {
+            if (stack.getItem() instanceof ItemArmor itemArmor) {
+                switch (itemArmor.armorType) {
                     case 0:
                         return 4;
 
@@ -725,13 +725,13 @@ public abstract class EntityLiving extends EntityLivingBase {
             ItemStack itemstack = playerIn.inventory.getCurrentItem();
 
             if (itemstack != null && itemstack.getItem() == Items.lead && this.allowLeashing()) {
-                if (!(this instanceof EntityTameable) || !((EntityTameable) this).isTamed()) {
+                if (!(this instanceof EntityTameable entityTameable) || !entityTameable.isTamed()) {
                     this.setLeashedToEntity(playerIn, true);
                     --itemstack.stackSize;
                     return true;
                 }
 
-                if (((EntityTameable) this).isOwner(playerIn)) {
+                if (entityTameable.isOwner(playerIn)) {
                     this.setLeashedToEntity(playerIn, true);
                     --itemstack.stackSize;
                     return true;
@@ -775,8 +775,8 @@ public abstract class EntityLiving extends EntityLivingBase {
                 this.dropItem(Items.lead, 1);
             }
 
-            if (!this.worldObj.isRemote && sendPacket && this.worldObj instanceof WorldServer) {
-                ((WorldServer) this.worldObj).getEntityTracker().sendToAllTrackingEntity(this, new S1BPacketEntityAttach(1, this, null));
+            if (!this.worldObj.isRemote && sendPacket && this.worldObj instanceof WorldServer worldServer) {
+                worldServer.getEntityTracker().sendToAllTrackingEntity(this, new S1BPacketEntityAttach(1, this, null));
             }
         }
     }
@@ -797,8 +797,8 @@ public abstract class EntityLiving extends EntityLivingBase {
         this.isLeashed = true;
         this.leashedToEntity = entityIn;
 
-        if (!this.worldObj.isRemote && sendAttachNotification && this.worldObj instanceof WorldServer) {
-            ((WorldServer) this.worldObj).getEntityTracker().sendToAllTrackingEntity(this, new S1BPacketEntityAttach(1, this, this.leashedToEntity));
+        if (!this.worldObj.isRemote && sendAttachNotification && this.worldObj instanceof WorldServer worldServer) {
+            worldServer.getEntityTracker().sendToAllTrackingEntity(this, new S1BPacketEntityAttach(1, this, this.leashedToEntity));
         }
     }
 

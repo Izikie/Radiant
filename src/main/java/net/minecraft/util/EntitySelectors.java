@@ -27,7 +27,7 @@ public final class EntitySelectors {
     };
     public static final Predicate<Entity> NOT_SPECTATING = new Predicate<Entity>() {
         public boolean apply(Entity p_apply_1_) {
-            return !(p_apply_1_ instanceof EntityPlayer) || !((EntityPlayer) p_apply_1_).isSpectator();
+            return !(p_apply_1_ instanceof EntityPlayer entityPlayer) || !entityPlayer.isSpectator();
         }
     };
 
@@ -44,7 +44,7 @@ public final class EntitySelectors {
             } else if (!(p_apply_1_ instanceof EntityLivingBase entitylivingbase)) {
                 return false;
             } else {
-                return entitylivingbase.getEquipmentInSlot(EntityLiving.getArmorPosition(this.armor)) != null ? false : (entitylivingbase instanceof EntityLiving ? ((EntityLiving) entitylivingbase).canPickUpLoot() : (entitylivingbase instanceof EntityArmorStand ? true : entitylivingbase instanceof EntityPlayer));
+                return entitylivingbase.getEquipmentInSlot(EntityLiving.getArmorPosition(this.armor)) != null ? false : (entitylivingbase instanceof EntityLiving entityLiving ? entityLiving.canPickUpLoot() : (entitylivingbase instanceof EntityArmorStand ? true : entitylivingbase instanceof EntityPlayer));
             }
         }
     }

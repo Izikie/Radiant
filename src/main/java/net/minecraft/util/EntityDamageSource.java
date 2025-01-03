@@ -28,7 +28,7 @@ public class EntityDamageSource extends DamageSource {
     }
 
     public IChatComponent getDeathMessage(EntityLivingBase entityLivingBaseIn) {
-        ItemStack itemstack = this.damageSourceEntity instanceof EntityLivingBase ? ((EntityLivingBase) this.damageSourceEntity).getHeldItem() : null;
+        ItemStack itemstack = this.damageSourceEntity instanceof EntityLivingBase entityLivingBase ? entityLivingBase.getHeldItem() : null;
         String s = "death.attack." + this.damageType;
         String s1 = s + ".item";
         return itemstack != null && itemstack.hasDisplayName() && StatCollector.canTranslate(s1) ? new ChatComponentTranslation(s1, entityLivingBaseIn.getDisplayName(), this.damageSourceEntity.getDisplayName(), itemstack.getChatComponent()) : new ChatComponentTranslation(s, entityLivingBaseIn.getDisplayName(), this.damageSourceEntity.getDisplayName());

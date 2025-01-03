@@ -102,7 +102,7 @@ public abstract class MobSpawnerBaseLogic {
                     double d0 = blockpos.getX() + (this.getSpawnerWorld().rand.nextDouble() - this.getSpawnerWorld().rand.nextDouble()) * this.spawnRange + 0.5D;
                     double d1 = (blockpos.getY() + this.getSpawnerWorld().rand.nextInt(3) - 1);
                     double d2 = blockpos.getZ() + (this.getSpawnerWorld().rand.nextDouble() - this.getSpawnerWorld().rand.nextDouble()) * this.spawnRange + 0.5D;
-                    EntityLiving entityliving = entity instanceof EntityLiving ? (EntityLiving) entity : null;
+                    EntityLiving entityliving = entity instanceof EntityLiving entityLiving ? entityLiving : null;
                     entity.setLocationAndAngles(d0, d1, d2, this.getSpawnerWorld().rand.nextFloat() * 360.0F, 0.0F);
 
                     if (entityliving == null || entityliving.getCanSpawnHere() && entityliving.isNotColliding()) {
@@ -168,8 +168,8 @@ public abstract class MobSpawnerBaseLogic {
                 entity = entity1;
             }
         } else if (entityIn instanceof EntityLivingBase && entityIn.worldObj != null && spawn) {
-            if (entityIn instanceof EntityLiving) {
-                ((EntityLiving) entityIn).onInitialSpawn(entityIn.worldObj.getDifficultyForLocation(new BlockPos(entityIn)), null);
+            if (entityIn instanceof EntityLiving entityLiving) {
+                entityLiving.onInitialSpawn(entityIn.worldObj.getDifficultyForLocation(new BlockPos(entityIn)), null);
             }
 
             entityIn.worldObj.spawnEntityInWorld(entityIn);

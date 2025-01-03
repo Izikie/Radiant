@@ -285,8 +285,8 @@ public class ResourcePackRepository {
         }
 
         public void closeResourcePack() {
-            if (this.reResourcePack instanceof Closeable) {
-                IOUtils.closeQuietly((Closeable) this.reResourcePack);
+            if (this.reResourcePack instanceof Closeable closeable) {
+                IOUtils.closeQuietly(closeable);
             }
         }
 

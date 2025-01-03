@@ -127,8 +127,8 @@ public class BlockPistonBase extends Block {
         } else if (eventID == 1) {
             TileEntity tileentity1 = worldIn.getTileEntity(pos.offset(enumfacing));
 
-            if (tileentity1 instanceof TileEntityPiston) {
-                ((TileEntityPiston) tileentity1).clearPistonTileEntity();
+            if (tileentity1 instanceof TileEntityPiston tileEntityPiston) {
+                tileEntityPiston.clearPistonTileEntity();
             }
 
             worldIn.setBlockState(pos, Blocks.piston_extension.getDefaultState().withProperty(BlockPistonMoving.FACING, enumfacing).withProperty(BlockPistonMoving.TYPE, this.isSticky ? BlockPistonExtension.EnumPistonType.STICKY : BlockPistonExtension.EnumPistonType.DEFAULT), 3);

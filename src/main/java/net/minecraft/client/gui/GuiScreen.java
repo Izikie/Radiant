@@ -201,8 +201,8 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
                 try {
                     NBTBase nbtbase = JsonToNBT.getTagFromJson(hoverevent.getValue().getUnformattedText());
 
-                    if (nbtbase instanceof NBTTagCompound) {
-                        itemstack = ItemStack.loadItemStackFromNBT((NBTTagCompound) nbtbase);
+                    if (nbtbase instanceof NBTTagCompound nbtTagCompound) {
+                        itemstack = ItemStack.loadItemStackFromNBT(nbtTagCompound);
                     }
                 } catch (NBTException var11) {
                 }
@@ -244,7 +244,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
                     IChatComponent ichatcomponent = statbase.getStatName();
                     IChatComponent ichatcomponent1 = new ChatComponentTranslation("stats.tooltip.type." + (statbase.isAchievement() ? "achievement" : "statistic"));
                     ichatcomponent1.getChatStyle().setItalic(Boolean.valueOf(true));
-                    String s1 = statbase instanceof Achievement ? ((Achievement) statbase).getDescription() : null;
+                    String s1 = statbase instanceof Achievement achievement ? achievement.getDescription() : null;
                     List<String> list = Lists.newArrayList(ichatcomponent.getFormattedText(), ichatcomponent1.getFormattedText());
 
                     if (s1 != null) {

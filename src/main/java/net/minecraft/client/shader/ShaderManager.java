@@ -183,12 +183,12 @@ public class ShaderManager {
                 Object object = this.shaderSamplers.get(this.samplerNames.get(i));
                 int j = -1;
 
-                if (object instanceof Framebuffer) {
-                    j = ((Framebuffer) object).framebufferTexture;
-                } else if (object instanceof ITextureObject) {
-                    j = ((ITextureObject) object).getGlTextureId();
-                } else if (object instanceof Integer) {
-                    j = ((Integer) object).intValue();
+                if (object instanceof Framebuffer framebuffer) {
+                    j = framebuffer.framebufferTexture;
+                } else if (object instanceof ITextureObject iTextureObject) {
+                    j = iTextureObject.getGlTextureId();
+                } else if (object instanceof Integer integer) {
+                    j = integer.intValue();
                 }
 
                 if (j != -1) {

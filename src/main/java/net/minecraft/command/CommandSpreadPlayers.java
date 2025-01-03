@@ -98,8 +98,8 @@ public class CommandSpreadPlayers extends CommandBase {
         Set<Team> set = Sets.newHashSet();
 
         for (Entity entity : p_110667_1_) {
-            if (entity instanceof EntityPlayer) {
-                set.add(((EntityPlayer) entity).getTeam());
+            if (entity instanceof EntityPlayer entityPlayer) {
+                set.add(entityPlayer.getTeam());
             } else {
                 set.add(null);
             }
@@ -183,7 +183,7 @@ public class CommandSpreadPlayers extends CommandBase {
             Position commandspreadplayers$position;
 
             if (p_110671_4_) {
-                Team team = entity instanceof EntityPlayer ? ((EntityPlayer) entity).getTeam() : null;
+                Team team = entity instanceof EntityPlayer entityPlayer ? entityPlayer.getTeam() : null;
 
                 if (!map.containsKey(team)) {
                     map.put(team, p_110671_3_[i++]);

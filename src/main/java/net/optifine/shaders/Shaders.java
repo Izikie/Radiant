@@ -3344,7 +3344,7 @@ public class Shaders {
         Entity entity = mc.getRenderViewEntity();
 
         if (entity != null) {
-            isSleeping = entity instanceof EntityLivingBase && ((EntityLivingBase) entity).isPlayerSleeping();
+            isSleeping = entity instanceof EntityLivingBase entityLivingBase && entityLivingBase.isPlayerSleeping();
             eyePosY = (float) entity.posY * partialTicks + (float) entity.lastTickPosY * (1.0F - partialTicks);
             eyeBrightness = entity.getBrightnessForRender(partialTicks);
             f1 = diffSystemTime * 0.01F;

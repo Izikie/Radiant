@@ -90,8 +90,8 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob {
 
     public boolean attackEntityAsMob(Entity entityIn) {
         if (super.attackEntityAsMob(entityIn)) {
-            if (this.getSkeletonType() == 1 && entityIn instanceof EntityLivingBase) {
-                ((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(Potion.wither.id, 200));
+            if (this.getSkeletonType() == 1 && entityIn instanceof EntityLivingBase entityLivingBase) {
+                entityLivingBase.addPotionEffect(new PotionEffect(Potion.wither.id, 200));
             }
 
             return true;
@@ -157,8 +157,8 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob {
             if (d0 * d0 + d1 * d1 >= 2500.0D) {
                 entityplayer.triggerAchievement(AchievementList.snipeSkeleton);
             }
-        } else if (cause.getEntity() instanceof EntityCreeper && ((EntityCreeper) cause.getEntity()).getPowered() && ((EntityCreeper) cause.getEntity()).isAIEnabled()) {
-            ((EntityCreeper) cause.getEntity()).func_175493_co();
+        } else if (cause.getEntity() instanceof EntityCreeper entityCreeper && entityCreeper.getPowered() && entityCreeper.isAIEnabled()) {
+            entityCreeper.func_175493_co();
             this.entityDropItem(new ItemStack(Items.skull, 1, this.getSkeletonType() == 1 ? 1 : 0), 0.0F);
         }
     }

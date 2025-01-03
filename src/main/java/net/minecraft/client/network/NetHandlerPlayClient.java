@@ -279,8 +279,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
             case 90 -> {
                 Entity entity1 = this.clientWorldController.getEntityByID(packetIn.getExtraData());
 
-                if (entity1 instanceof EntityPlayer) {
-                    entity = new EntityFishHook(this.clientWorldController, d0, d1, d2, (EntityPlayer) entity1);
+                if (entity1 instanceof EntityPlayer entityPlayer) {
+                    entity = new EntityFishHook(this.clientWorldController, d0, d1, d2, entityPlayer);
                 }
             }
         }
@@ -308,8 +308,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
                 if (packetIn.getType() == 60) {
                     Entity entity2 = this.clientWorldController.getEntityByID(packetIn.getExtraData());
 
-                    if (entity2 instanceof EntityLivingBase && entity instanceof EntityArrow) {
-                        ((EntityArrow) entity).shootingEntity = entity2;
+                    if (entity2 instanceof EntityLivingBase && entity instanceof EntityArrow entityArrow) {
+                        entityArrow.shootingEntity = entity2;
                     }
                 }
 
@@ -687,13 +687,13 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
             if (packetIn.getEntityId() == this.gameController.thePlayer.getEntityId()) {
                 entity = this.gameController.thePlayer;
 
-                if (entity1 instanceof EntityBoat) {
-                    ((EntityBoat) entity1).setIsBoatEmpty(false);
+                if (entity1 instanceof EntityBoat entityBoat) {
+                    entityBoat.setIsBoatEmpty(false);
                 }
 
                 flag = entity.ridingEntity == null && entity1 != null;
-            } else if (entity1 instanceof EntityBoat) {
-                ((EntityBoat) entity1).setIsBoatEmpty(true);
+            } else if (entity1 instanceof EntityBoat entityBoat) {
+                entityBoat.setIsBoatEmpty(true);
             }
 
             if (entity == null) {
@@ -779,8 +779,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         } else if ("EntityHorse".equals(packetIn.getGuiId())) {
             Entity entity = this.clientWorldController.getEntityByID(packetIn.getEntityId());
 
-            if (entity instanceof EntityHorse) {
-                entityplayersp.displayGUIHorse((EntityHorse) entity, new AnimalChest(packetIn.getWindowTitle(), packetIn.getSlotCount()));
+            if (entity instanceof EntityHorse entityHorse) {
+                entityplayersp.displayGUIHorse(entityHorse, new AnimalChest(packetIn.getWindowTitle(), packetIn.getSlotCount()));
                 entityplayersp.openContainer.windowId = packetIn.getWindowId();
             }
         } else if (!packetIn.hasSlots()) {
@@ -1030,8 +1030,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 
         this.field_147308_k = true;
 
-        if (this.gameController.currentScreen instanceof IProgressMeter) {
-            ((IProgressMeter) this.gameController.currentScreen).doneLoading();
+        if (this.gameController.currentScreen instanceof IProgressMeter iProgressMeter) {
+            iProgressMeter.doneLoading();
         }
     }
 
@@ -1039,10 +1039,10 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.gameController);
         Entity entity = this.clientWorldController.getEntityByID(packetIn.getEntityId());
 
-        if (entity instanceof EntityLivingBase) {
+        if (entity instanceof EntityLivingBase entityLivingBase) {
             PotionEffect potioneffect = new PotionEffect(packetIn.getEffectId(), packetIn.getDuration(), packetIn.getAmplifier(), false, packetIn.func_179707_f());
             potioneffect.setPotionDurationMax(packetIn.func_149429_c());
-            ((EntityLivingBase) entity).addPotionEffect(potioneffect);
+            entityLivingBase.addPotionEffect(potioneffect);
         }
     }
 
@@ -1109,8 +1109,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.gameController);
         Entity entity = this.clientWorldController.getEntityByID(packetIn.getEntityId());
 
-        if (entity instanceof EntityLivingBase) {
-            ((EntityLivingBase) entity).removePotionEffectClient(packetIn.getEffectId());
+        if (entity instanceof EntityLivingBase entityLivingBase) {
+            entityLivingBase.removePotionEffectClient(packetIn.getEffectId());
         }
     }
 
@@ -1277,8 +1277,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
                 int i = packetbuffer.readInt();
                 GuiScreen guiscreen = this.gameController.currentScreen;
 
-                if (guiscreen != null && guiscreen instanceof GuiMerchant && i == this.gameController.thePlayer.openContainer.windowId) {
-                    IMerchant imerchant = ((GuiMerchant) guiscreen).getMerchant();
+                if (guiscreen != null && guiscreen instanceof GuiMerchant guiMerchant && i == this.gameController.thePlayer.openContainer.windowId) {
+                    IMerchant imerchant = guiMerchant.getMerchant();
                     MerchantRecipeList merchantrecipelist = MerchantRecipeList.readFromBuf(packetbuffer);
                     imerchant.setRecipes(merchantrecipelist);
                 }
@@ -1425,10 +1425,10 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         Entity entity = this.clientWorldController.getEntityByID(packetIn.getEntityId());
 
         if (entity != null) {
-            if (!(entity instanceof EntityLivingBase)) {
+            if (!(entity instanceof EntityLivingBase entityLivingBase)) {
                 throw new IllegalStateException("Server tried to update attributes of a non-living entity (actually: " + entity + ")");
             } else {
-                BaseAttributeMap baseattributemap = ((EntityLivingBase) entity).getAttributeMap();
+                BaseAttributeMap baseattributemap = entityLivingBase.getAttributeMap();
 
                 for (S20PacketEntityProperties.Snapshot s20packetentityproperties$snapshot : packetIn.func_149441_d()) {
                     IAttributeInstance iattributeinstance = baseattributemap.getAttributeInstanceByName(s20packetentityproperties$snapshot.func_151409_a());

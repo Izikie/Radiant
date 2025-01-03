@@ -27,31 +27,31 @@ public class ChatComponentProcessor {
 
             ichatcomponent = entityIn != null && s.equals("*") ? new ChatComponentScore(entityIn.getName(), chatcomponentscore.getObjective()) : new ChatComponentScore(s, chatcomponentscore.getObjective());
             ((ChatComponentScore) ichatcomponent).setValue(chatcomponentscore.getUnformattedTextForChat());
-        } else if (component instanceof ChatComponentSelector) {
-            String s1 = ((ChatComponentSelector) component).getSelector();
+        } else if (component instanceof ChatComponentSelector components) {
+            String s1 = components.getSelector();
             ichatcomponent = PlayerSelector.matchEntitiesToChatComponent(commandSender, s1);
 
             if (ichatcomponent == null) {
                 ichatcomponent = new ChatComponentText("");
             }
-        } else if (component instanceof ChatComponentText) {
-            ichatcomponent = new ChatComponentText(((ChatComponentText) component).getChatComponentText_TextValue());
+        } else if (component instanceof ChatComponentText chatComponents) {
+            ichatcomponent = new ChatComponentText(chatComponents.getChatComponentText_TextValue());
         } else {
-            if (!(component instanceof ChatComponentTranslation)) {
+            if (!(component instanceof ChatComponentTranslation iChatComponents)) {
                 return component;
             }
 
-            Object[] aobject = ((ChatComponentTranslation) component).getFormatArgs();
+            Object[] aobject = iChatComponents.getFormatArgs();
 
             for (int i = 0; i < aobject.length; ++i) {
                 Object object = aobject[i];
 
-                if (object instanceof IChatComponent) {
-                    aobject[i] = processComponent(commandSender, (IChatComponent) object, entityIn);
+                if (object instanceof IChatComponent iChatComponent) {
+                    aobject[i] = processComponent(commandSender, iChatComponent, entityIn);
                 }
             }
 
-            ichatcomponent = new ChatComponentTranslation(((ChatComponentTranslation) component).getKey(), aobject);
+            ichatcomponent = new ChatComponentTranslation(iChatComponents.getKey(), aobject);
         }
 
         ChatStyle chatstyle = component.getChatStyle();

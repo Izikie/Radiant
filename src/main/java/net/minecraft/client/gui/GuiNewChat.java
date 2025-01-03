@@ -210,8 +210,8 @@ public class GuiNewChat extends Gui {
                         int j1 = 0;
 
                         for (IChatComponent ichatcomponent : chatline.getChatComponent()) {
-                            if (ichatcomponent instanceof ChatComponentText) {
-                                j1 += this.mc.fontRendererObj.getStringWidth(GuiUtilRenderComponents.func_178909_a(((ChatComponentText) ichatcomponent).getChatComponentText_TextValue(), false));
+                            if (ichatcomponent instanceof ChatComponentText iChatComponents) {
+                                j1 += this.mc.fontRendererObj.getStringWidth(GuiUtilRenderComponents.func_178909_a(iChatComponents.getChatComponentText_TextValue(), false));
 
                                 if (j1 > j) {
                                     return ichatcomponent;

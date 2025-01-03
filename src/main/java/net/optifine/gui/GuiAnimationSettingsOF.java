@@ -42,8 +42,8 @@ public class GuiAnimationSettingsOF extends GuiScreen {
 
     protected void actionPerformed(GuiButton guibutton) {
         if (guibutton.enabled) {
-            if (guibutton.id < 200 && guibutton instanceof GuiOptionButton) {
-                this.settings.setOptionValue(((GuiOptionButton) guibutton).returnEnumOptions(), 1);
+            if (guibutton.id < 200 && guibutton instanceof GuiOptionButton guiOptionButton) {
+                this.settings.setOptionValue(guiOptionButton.returnEnumOptions(), 1);
                 guibutton.displayString = this.settings.getKeyBinding(GameSettings.Options.getEnumOptions(guibutton.id));
             }
 

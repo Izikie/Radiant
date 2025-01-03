@@ -33,9 +33,9 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase {
 
         this.predicate = new Predicate<Entity>() {
             public boolean apply(Entity p_apply_1_) {
-                if (!(p_apply_1_ instanceof EntityPlayer)) {
+                if (!(p_apply_1_ instanceof EntityPlayer entityPlayer)) {
                     return false;
-                } else if (((EntityPlayer) p_apply_1_).capabilities.disableDamage) {
+                } else if (entityPlayer.capabilities.disableDamage) {
                     return false;
                 } else {
                     double d0 = EntityAIFindEntityNearestPlayer.this.maxTargetRange();
@@ -81,7 +81,7 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase {
             return false;
         } else if (!entitylivingbase.isEntityAlive()) {
             return false;
-        } else if (entitylivingbase instanceof EntityPlayer && ((EntityPlayer) entitylivingbase).capabilities.disableDamage) {
+        } else if (entitylivingbase instanceof EntityPlayer entityPlayer && entityPlayer.capabilities.disableDamage) {
             return false;
         } else {
             Team team = this.entityLiving.getTeam();
@@ -91,7 +91,7 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase {
                 return false;
             } else {
                 double d0 = this.maxTargetRange();
-                return this.entityLiving.getDistanceSqToEntity(entitylivingbase) > d0 * d0 ? false : !(entitylivingbase instanceof EntityPlayerMP) || !((EntityPlayerMP) entitylivingbase).theItemInWorldManager.isCreative();
+                return this.entityLiving.getDistanceSqToEntity(entitylivingbase) > d0 * d0 ? false : !(entitylivingbase instanceof EntityPlayerMP entityPlayerMP) || !entityPlayerMP.theItemInWorldManager.isCreative();
             }
         }
     }

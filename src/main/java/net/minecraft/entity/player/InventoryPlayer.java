@@ -477,8 +477,8 @@ public class InventoryPlayer implements IInventory {
         int i = 0;
 
         for (ItemStack stack : this.armorInventory) {
-            if (stack != null && stack.getItem() instanceof ItemArmor) {
-                int k = ((ItemArmor) stack.getItem()).damageReduceAmount;
+            if (stack != null && stack.getItem() instanceof ItemArmor itemArmor) {
+                int k = itemArmor.damageReduceAmount;
                 i += k;
             }
         }

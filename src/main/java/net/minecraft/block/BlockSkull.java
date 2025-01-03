@@ -40,7 +40,7 @@ public class BlockSkull extends BlockContainer {
     public static final PropertyBool NODROP = PropertyBool.create("nodrop");
     private static final Predicate<BlockWorldState> IS_WITHER_SKELETON = new Predicate<BlockWorldState>() {
         public boolean apply(BlockWorldState p_apply_1_) {
-            return p_apply_1_.getBlockState() != null && p_apply_1_.getBlockState().getBlock() == Blocks.skull && p_apply_1_.getTileEntity() instanceof TileEntitySkull && ((TileEntitySkull) p_apply_1_.getTileEntity()).getSkullType() == 1;
+            return p_apply_1_.getBlockState() != null && p_apply_1_.getBlockState().getBlock() == Blocks.skull && p_apply_1_.getTileEntity() instanceof TileEntitySkull tileEntitySkull && tileEntitySkull.getSkullType() == 1;
         }
     };
     private BlockPattern witherBasePattern;
@@ -108,7 +108,7 @@ public class BlockSkull extends BlockContainer {
 
     public int getDamageValue(World worldIn, BlockPos pos) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
-        return tileentity instanceof TileEntitySkull ? ((TileEntitySkull) tileentity).getSkullType() : super.getDamageValue(worldIn, pos);
+        return tileentity instanceof TileEntitySkull tileEntitySkull ? tileEntitySkull.getSkullType() : super.getDamageValue(worldIn, pos);
     }
 
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {

@@ -47,8 +47,8 @@ public class BlockCommandBlock extends BlockContainer {
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
-        if (tileentity instanceof TileEntityCommandBlock) {
-            ((TileEntityCommandBlock) tileentity).getCommandBlockLogic().trigger(worldIn);
+        if (tileentity instanceof TileEntityCommandBlock tileEntityCommandBlock) {
+            tileEntityCommandBlock.getCommandBlockLogic().trigger(worldIn);
             worldIn.updateComparatorOutputLevel(pos, this);
         }
     }
@@ -59,7 +59,7 @@ public class BlockCommandBlock extends BlockContainer {
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
-        return tileentity instanceof TileEntityCommandBlock ? ((TileEntityCommandBlock) tileentity).getCommandBlockLogic().tryOpenEditCommandBlock(playerIn) : false;
+        return tileentity instanceof TileEntityCommandBlock tileEntityCommandBlock ? tileEntityCommandBlock.getCommandBlockLogic().tryOpenEditCommandBlock(playerIn) : false;
     }
 
     public boolean hasComparatorInputOverride() {
@@ -68,14 +68,14 @@ public class BlockCommandBlock extends BlockContainer {
 
     public int getComparatorInputOverride(World worldIn, BlockPos pos) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
-        return tileentity instanceof TileEntityCommandBlock ? ((TileEntityCommandBlock) tileentity).getCommandBlockLogic().getSuccessCount() : 0;
+        return tileentity instanceof TileEntityCommandBlock tileEntityCommandBlock ? tileEntityCommandBlock.getCommandBlockLogic().getSuccessCount() : 0;
     }
 
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
-        if (tileentity instanceof TileEntityCommandBlock) {
-            CommandBlockLogic commandblocklogic = ((TileEntityCommandBlock) tileentity).getCommandBlockLogic();
+        if (tileentity instanceof TileEntityCommandBlock tileEntityCommandBlock) {
+            CommandBlockLogic commandblocklogic = tileEntityCommandBlock.getCommandBlockLogic();
 
             if (stack.hasDisplayName()) {
                 commandblocklogic.setName(stack.getDisplayName());

@@ -171,7 +171,7 @@ public abstract class Entity implements ICommandSender {
     }
 
     public boolean equals(Object p_equals_1_) {
-        return p_equals_1_ instanceof Entity ? ((Entity) p_equals_1_).entityId == this.entityId : false;
+        return p_equals_1_ instanceof Entity entity ? entity.entityId == this.entityId : false;
     }
 
     public int hashCode() {
@@ -252,8 +252,8 @@ public abstract class Entity implements ICommandSender {
         this.prevRotationPitch = this.rotationPitch;
         this.prevRotationYaw = this.rotationYaw;
 
-        if (!this.worldObj.isRemote && this.worldObj instanceof WorldServer) {
-            MinecraftServer minecraftserver = ((WorldServer) this.worldObj).getMinecraftServer();
+        if (!this.worldObj.isRemote && this.worldObj instanceof WorldServer worldServer) {
+            MinecraftServer minecraftserver = worldServer.getMinecraftServer();
             int i = this.getMaxInPortalTime();
 
             if (this.inPortal) {
@@ -1886,8 +1886,8 @@ public abstract class Entity implements ICommandSender {
     }
 
     protected void applyEnchantments(EntityLivingBase entityLivingBaseIn, Entity entityIn) {
-        if (entityIn instanceof EntityLivingBase) {
-            EnchantmentHelper.applyThornEnchantments((EntityLivingBase) entityIn, entityLivingBaseIn);
+        if (entityIn instanceof EntityLivingBase entityLivingBase) {
+            EnchantmentHelper.applyThornEnchantments(entityLivingBase, entityLivingBaseIn);
         }
 
         EnchantmentHelper.applyArthropodEnchantments(entityLivingBaseIn, entityIn);

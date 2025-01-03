@@ -118,8 +118,8 @@ public class BlockChest extends BlockContainer {
         if (stack.hasDisplayName()) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
-            if (tileentity instanceof TileEntityChest) {
-                ((TileEntityChest) tileentity).setCustomName(stack.getDisplayName());
+            if (tileentity instanceof TileEntityChest tileEntityChest) {
+                tileEntityChest.setCustomName(stack.getDisplayName());
             }
         }
     }
@@ -314,8 +314,8 @@ public class BlockChest extends BlockContainer {
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
-        if (tileentity instanceof IInventory) {
-            InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory) tileentity);
+        if (tileentity instanceof IInventory iInventory) {
+            InventoryHelper.dropInventoryItems(worldIn, pos, iInventory);
             worldIn.updateComparatorOutputLevel(pos, this);
         }
 
@@ -345,10 +345,10 @@ public class BlockChest extends BlockContainer {
     public ILockableContainer getLockableContainer(World worldIn, BlockPos pos) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
-        if (!(tileentity instanceof TileEntityChest)) {
+        if (!(tileentity instanceof TileEntityChest tileEntityChest)) {
             return null;
         } else {
-            ILockableContainer ilockablecontainer = (TileEntityChest) tileentity;
+            ILockableContainer ilockablecontainer = tileEntityChest;
 
             if (this.isBlocked(worldIn, pos)) {
                 return null;
@@ -394,8 +394,8 @@ public class BlockChest extends BlockContainer {
             int i = 0;
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
-            if (tileentity instanceof TileEntityChest) {
-                i = ((TileEntityChest) tileentity).numPlayersUsing;
+            if (tileentity instanceof TileEntityChest tileEntityChest) {
+                i = tileEntityChest.numPlayersUsing;
             }
 
             return MathHelper.clamp_int(i, 0, 15);

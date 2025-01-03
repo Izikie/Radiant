@@ -42,8 +42,8 @@ public class BlockJukebox extends BlockContainer {
         if (!worldIn.isRemote) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
-            if (tileentity instanceof BlockJukebox.TileEntityJukebox) {
-                ((BlockJukebox.TileEntityJukebox) tileentity).setRecord(new ItemStack(recordStack.getItem(), 1, recordStack.getMetadata()));
+            if (tileentity instanceof TileEntityJukebox tileEntityJukebox) {
+                tileEntityJukebox.setRecord(new ItemStack(recordStack.getItem(), 1, recordStack.getMetadata()));
                 worldIn.setBlockState(pos, state.withProperty(HAS_RECORD, Boolean.valueOf(true)), 2);
             }
         }
@@ -95,8 +95,8 @@ public class BlockJukebox extends BlockContainer {
     public int getComparatorInputOverride(World worldIn, BlockPos pos) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
-        if (tileentity instanceof BlockJukebox.TileEntityJukebox) {
-            ItemStack itemstack = ((BlockJukebox.TileEntityJukebox) tileentity).getRecord();
+        if (tileentity instanceof TileEntityJukebox tileEntityJukebox) {
+            ItemStack itemstack = tileEntityJukebox.getRecord();
 
             if (itemstack != null) {
                 return Item.getIdFromItem(itemstack.getItem()) + 1 - Item.getIdFromItem(Items.record_13);

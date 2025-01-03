@@ -71,7 +71,7 @@ public abstract class EntityCreature extends EntityLiving {
             this.setHomePosAndDistance(new BlockPos((int) entity.posX, (int) entity.posY, (int) entity.posZ), 5);
             float f = this.getDistanceToEntity(entity);
 
-            if (this instanceof EntityTameable && ((EntityTameable) this).isSitting()) {
+            if (this instanceof EntityTameable entityTameable && entityTameable.isSitting()) {
                 if (f > 10.0F) {
                     this.clearLeashed(true, true);
                 }
@@ -82,8 +82,8 @@ public abstract class EntityCreature extends EntityLiving {
             if (!this.isMovementAITaskSet) {
                 this.tasks.addTask(2, this.aiBase);
 
-                if (this.getNavigator() instanceof PathNavigateGround) {
-                    ((PathNavigateGround) this.getNavigator()).setAvoidsWater(false);
+                if (this.getNavigator() instanceof PathNavigateGround pathNavigateGround) {
+                    pathNavigateGround.setAvoidsWater(false);
                 }
 
                 this.isMovementAITaskSet = true;
@@ -111,8 +111,8 @@ public abstract class EntityCreature extends EntityLiving {
             this.isMovementAITaskSet = false;
             this.tasks.removeTask(this.aiBase);
 
-            if (this.getNavigator() instanceof PathNavigateGround) {
-                ((PathNavigateGround) this.getNavigator()).setAvoidsWater(true);
+            if (this.getNavigator() instanceof PathNavigateGround pathNavigateGround) {
+                pathNavigateGround.setAvoidsWater(true);
             }
 
             this.detachHome();

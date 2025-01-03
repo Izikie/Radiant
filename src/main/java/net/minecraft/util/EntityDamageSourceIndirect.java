@@ -22,7 +22,7 @@ public class EntityDamageSourceIndirect extends EntityDamageSource {
 
     public IChatComponent getDeathMessage(EntityLivingBase entityLivingBaseIn) {
         IChatComponent ichatcomponent = this.indirectEntity == null ? this.damageSourceEntity.getDisplayName() : this.indirectEntity.getDisplayName();
-        ItemStack itemstack = this.indirectEntity instanceof EntityLivingBase ? ((EntityLivingBase) this.indirectEntity).getHeldItem() : null;
+        ItemStack itemstack = this.indirectEntity instanceof EntityLivingBase entityLivingBase ? entityLivingBase.getHeldItem() : null;
         String s = "death.attack." + this.damageType;
         String s1 = s + ".item";
         return itemstack != null && itemstack.hasDisplayName() && StatCollector.canTranslate(s1) ? new ChatComponentTranslation(s1, entityLivingBaseIn.getDisplayName(), ichatcomponent, itemstack.getChatComponent()) : new ChatComponentTranslation(s, entityLivingBaseIn.getDisplayName(), ichatcomponent);

@@ -149,8 +149,8 @@ public class EntitySpider extends EntityMob {
             }
         }
 
-        if (livingdata instanceof EntitySpider.GroupData) {
-            int i = ((EntitySpider.GroupData) livingdata).potionEffectId;
+        if (livingdata instanceof GroupData groupData) {
+            int i = groupData.potionEffectId;
 
             if (i > 0 && Potion.potionTypes[i] != null) {
                 this.addPotionEffect(new PotionEffect(i, Integer.MAX_VALUE));

@@ -156,8 +156,8 @@ public class EntityChicken extends EntityAnimal {
         float f3 = 0.0F;
         this.riddenByEntity.setPosition(this.posX + (f2 * f), this.posY + (this.height * 0.5F) + this.riddenByEntity.getYOffset() + f3, this.posZ - (f2 * f1));
 
-        if (this.riddenByEntity instanceof EntityLivingBase) {
-            ((EntityLivingBase) this.riddenByEntity).renderYawOffset = this.renderYawOffset;
+        if (this.riddenByEntity instanceof EntityLivingBase entityLivingBase) {
+            entityLivingBase.renderYawOffset = this.renderYawOffset;
         }
     }
 

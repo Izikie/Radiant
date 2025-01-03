@@ -35,8 +35,8 @@ public class ScreenChatOptions extends GuiScreen {
 
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.enabled) {
-            if (button.id < 100 && button instanceof GuiOptionButton) {
-                this.game_settings.setOptionValue(((GuiOptionButton) button).returnEnumOptions(), 1);
+            if (button.id < 100 && button instanceof GuiOptionButton guiOptionButton) {
+                this.game_settings.setOptionValue(guiOptionButton.returnEnumOptions(), 1);
                 button.displayString = this.game_settings.getKeyBinding(GameSettings.Options.getEnumOptions(button.id));
             }
 

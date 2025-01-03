@@ -275,7 +275,7 @@ public class EntityEnderman extends EntityMob {
                 }
 
                 if (source instanceof EntityDamageSource && source.getEntity() instanceof EntityPlayer) {
-                    if (source.getEntity() instanceof EntityPlayerMP && ((EntityPlayerMP) source.getEntity()).theItemInWorldManager.isCreative()) {
+                    if (source.getEntity() instanceof EntityPlayerMP entityPlayerMP && entityPlayerMP.theItemInWorldManager.isCreative()) {
                         this.setScreaming(false);
                     } else {
                         this.isAggressive = true;
@@ -394,7 +394,7 @@ public class EntityEnderman extends EntityMob {
                 }
             } else {
                 if (this.targetEntity != null) {
-                    if (this.targetEntity instanceof EntityPlayer && this.enderman.shouldAttackPlayer((EntityPlayer) this.targetEntity)) {
+                    if (this.targetEntity instanceof EntityPlayer entityPlayer && this.enderman.shouldAttackPlayer(entityPlayer)) {
                         if (this.targetEntity.getDistanceSqToEntity(this.enderman) < 16.0D) {
                             this.enderman.teleportRandomly();
                         }

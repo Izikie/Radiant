@@ -42,7 +42,7 @@ public class EntityAIFollowOwner extends EntityAIBase {
 
         if (entitylivingbase == null) {
             return false;
-        } else if (entitylivingbase instanceof EntityPlayer && ((EntityPlayer) entitylivingbase).isSpectator()) {
+        } else if (entitylivingbase instanceof EntityPlayer entityPlayer && entityPlayer.isSpectator()) {
             return false;
         } else if (this.thePet.isSitting()) {
             return false;

@@ -132,20 +132,20 @@ public enum ShaderParameterFloat {
                         return biome != null ? biome.getFloatRainfall() : 0.0F;
 
                     default:
-                        if (this.uniform instanceof ShaderUniform1f) {
-                            return ((ShaderUniform1f) this.uniform).getValue();
-                        } else if (this.uniform instanceof ShaderUniform1i) {
-                            return ((ShaderUniform1i) this.uniform).getValue();
-                        } else if (this.uniform instanceof ShaderUniform2i) {
-                            return ((ShaderUniform2i) this.uniform).getValue()[index1];
-                        } else if (this.uniform instanceof ShaderUniform2f) {
-                            return ((ShaderUniform2f) this.uniform).getValue()[index1];
-                        } else if (this.uniform instanceof ShaderUniform3f) {
-                            return ((ShaderUniform3f) this.uniform).getValue()[index1];
-                        } else if (this.uniform instanceof ShaderUniform4f) {
-                            return ((ShaderUniform4f) this.uniform).getValue()[index1];
-                        } else if (this.uniform instanceof ShaderUniformM4) {
-                            return ((ShaderUniformM4) this.uniform).getValue(index1, index2);
+                        if (this.uniform instanceof ShaderUniform1f shaderUniform1f) {
+                            return shaderUniform1f.getValue();
+                        } else if (this.uniform instanceof ShaderUniform1i shaderUniform1i) {
+                            return shaderUniform1i.getValue();
+                        } else if (this.uniform instanceof ShaderUniform2i shaderUniform2i) {
+                            return shaderUniform2i.getValue()[index1];
+                        } else if (this.uniform instanceof ShaderUniform2f shaderUniform2f) {
+                            return shaderUniform2f.getValue()[index1];
+                        } else if (this.uniform instanceof ShaderUniform3f shaderUniform3f) {
+                            return shaderUniform3f.getValue()[index1];
+                        } else if (this.uniform instanceof ShaderUniform4f shaderUniform4f) {
+                            return shaderUniform4f.getValue()[index1];
+                        } else if (this.uniform instanceof ShaderUniformM4 shaderUniformM4) {
+                            return shaderUniformM4.getValue(index1, index2);
                         } else {
                             throw new IllegalArgumentException("Unknown uniform type: " + this);
                         }

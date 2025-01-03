@@ -169,6 +169,6 @@ public class DamageSource {
 
     public boolean isCreativePlayer() {
         Entity entity = this.getEntity();
-        return entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isCreativeMode;
+        return entity instanceof EntityPlayer entityPlayer && entityPlayer.capabilities.isCreativeMode;
     }
 }

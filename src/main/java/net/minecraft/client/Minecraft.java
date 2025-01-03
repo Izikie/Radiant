@@ -1950,7 +1950,7 @@ public class Minecraft implements IThreadListener {
         int i = Keyboard.getEventKey() == 0 ? Keyboard.getEventCharacter() : Keyboard.getEventKey();
 
         if (i != 0 && !Keyboard.isRepeatEvent()) {
-            if (!(this.currentScreen instanceof GuiControls) || ((GuiControls) this.currentScreen).time <= getSystemTime() - 20L) {
+            if (!(this.currentScreen instanceof GuiControls guiControls) || guiControls.time <= getSystemTime() - 20L) {
                 if (Keyboard.getEventKeyState()) {
                     if (i == this.gameSettings.keyBindFullscreen.getKeyCode()) {
                         this.toggleFullscreen();

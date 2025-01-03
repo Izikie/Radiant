@@ -140,8 +140,8 @@ public class EntityCreeper extends EntityMob {
             int j = Item.getIdFromItem(Items.record_wait);
             int k = i + this.rand.nextInt(j - i + 1);
             this.dropItem(Item.getItemById(k), 1);
-        } else if (cause.getEntity() instanceof EntityCreeper && cause.getEntity() != this && ((EntityCreeper) cause.getEntity()).getPowered() && ((EntityCreeper) cause.getEntity()).isAIEnabled()) {
-            ((EntityCreeper) cause.getEntity()).func_175493_co();
+        } else if (cause.getEntity() instanceof EntityCreeper entityCreeper && cause.getEntity() != this && entityCreeper.getPowered() && entityCreeper.isAIEnabled()) {
+            entityCreeper.func_175493_co();
             this.entityDropItem(new ItemStack(Items.skull, 1, 4), 0.0F);
         }
     }

@@ -593,7 +593,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 this.renderManager.setRenderOutlines(true);
 
                 for (Entity entity3 : list) {
-                    boolean flag2 = this.mc.getRenderViewEntity() instanceof EntityLivingBase && ((EntityLivingBase) this.mc.getRenderViewEntity()).isPlayerSleeping();
+                    boolean flag2 = this.mc.getRenderViewEntity() instanceof EntityLivingBase entityLivingBase && entityLivingBase.isPlayerSleeping();
                     boolean flag3 = entity3.isInRangeToRender3d(d0, d1, d2) && (entity3.ignoreFrustumCheck || camera.isBoundingBoxInFrustum(entity3.getEntityBoundingBox()) || entity3.riddenByEntity == this.mc.thePlayer) && entity3 instanceof EntityPlayer;
 
                     if ((entity3 != this.mc.getRenderViewEntity() || this.mc.gameSettings.thirdPersonView != 0 || flag2) && flag3) {
@@ -653,7 +653,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                                 break;
                             }
 
-                            boolean flag5 = this.mc.getRenderViewEntity() instanceof EntityLivingBase && ((EntityLivingBase) this.mc.getRenderViewEntity()).isPlayerSleeping();
+                            boolean flag5 = this.mc.getRenderViewEntity() instanceof EntityLivingBase entityLivingBase && entityLivingBase.isPlayerSleeping();
 
                             if ((entity2 != this.mc.getRenderViewEntity() || flag8 || this.mc.gameSettings.thirdPersonView != 0 || flag5) && (entity2.posY < 0.0D || entity2.posY >= 256.0D || this.theWorld.isBlockLoaded(new BlockPos(entity2)))) {
                                 ++this.countEntitiesRendered;
@@ -2427,8 +2427,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 break;
 
             case 1005:
-                if (Item.getItemById(data) instanceof ItemRecord) {
-                    this.theWorld.playRecord(blockPosIn, "records." + ((ItemRecord) Item.getItemById(data)).recordName);
+                if (Item.getItemById(data) instanceof ItemRecord itemRecord) {
+                    this.theWorld.playRecord(blockPosIn, "records." + itemRecord.recordName);
                 } else {
                     this.theWorld.playRecord(blockPosIn, null);
                 }

@@ -206,7 +206,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 
                 GlStateManager.depthMask(true);
 
-                if (!(entity instanceof EntityPlayer) || !((EntityPlayer) entity).isSpectator()) {
+                if (!(entity instanceof EntityPlayer entityPlayer) || !entityPlayer.isSpectator()) {
                     this.renderLayers(entity, f6, f5, partialTicks, f8, f2, f7, 0.0625F);
                 }
             }
@@ -444,7 +444,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
         } else {
             String s = EnumChatFormatting.getTextWithoutFormattingCodes(bat.getName());
 
-            if (s != null && (s.equals("Dinnerbone") || s.equals("Grumm")) && (!(bat instanceof EntityPlayer) || ((EntityPlayer) bat).isWearing(EnumPlayerModelParts.CAPE))) {
+            if (s != null && (s.equals("Dinnerbone") || s.equals("Grumm")) && (!(bat instanceof EntityPlayer entityPlayer) || entityPlayer.isWearing(EnumPlayerModelParts.CAPE))) {
                 GlStateManager.translate(0.0F, bat.height + 0.1F, 0.0F);
                 GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
             }

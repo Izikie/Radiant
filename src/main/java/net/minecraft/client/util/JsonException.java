@@ -37,8 +37,8 @@ public class JsonException extends IOException {
     }
 
     public static JsonException func_151379_a(Exception p_151379_0_) {
-        if (p_151379_0_ instanceof JsonException) {
-            return (JsonException) p_151379_0_;
+        if (p_151379_0_ instanceof JsonException jsonException) {
+            return jsonException;
         } else {
             String s = p_151379_0_.getMessage();
 

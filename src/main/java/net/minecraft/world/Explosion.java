@@ -138,8 +138,8 @@ public class Explosion {
                         entity.motionY += d7 * d11;
                         entity.motionZ += d9 * d11;
 
-                        if (entity instanceof EntityPlayer && !((EntityPlayer) entity).capabilities.disableDamage) {
-                            this.playerKnockbackMap.put((EntityPlayer) entity, new Vec3(d5 * d10, d7 * d10, d9 * d10));
+                        if (entity instanceof EntityPlayer entityPlayer && !entityPlayer.capabilities.disableDamage) {
+                            this.playerKnockbackMap.put(entityPlayer, new Vec3(d5 * d10, d7 * d10, d9 * d10));
                         }
                     }
                 }
@@ -205,7 +205,7 @@ public class Explosion {
     }
 
     public EntityLivingBase getExplosivePlacedBy() {
-        return this.exploder == null ? null : (this.exploder instanceof EntityTNTPrimed ? ((EntityTNTPrimed) this.exploder).getTntPlacedBy() : (this.exploder instanceof EntityLivingBase ? (EntityLivingBase) this.exploder : null));
+        return this.exploder == null ? null : (this.exploder instanceof EntityTNTPrimed entityTNTPrimed ? entityTNTPrimed.getTntPlacedBy() : (this.exploder instanceof EntityLivingBase entityLivingBase ? entityLivingBase : null));
     }
 
     public void clearAffectedBlockPositions() {

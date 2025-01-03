@@ -96,8 +96,8 @@ public class EntityPlayerSP extends AbstractClientPlayer {
     public void mountEntity(Entity entityIn) {
         super.mountEntity(entityIn);
 
-        if (entityIn instanceof EntityMinecart) {
-            this.mc.getSoundHandler().playSound(new MovingSoundMinecartRiding(this, (EntityMinecart) entityIn));
+        if (entityIn instanceof EntityMinecart entityMinecart) {
+            this.mc.getSoundHandler().playSound(new MovingSoundMinecartRiding(this, entityMinecart));
         }
     }
 
@@ -372,7 +372,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
     }
 
     public boolean isRidingHorse() {
-        return this.ridingEntity != null && this.ridingEntity instanceof EntityHorse && ((EntityHorse) this.ridingEntity).isHorseSaddled();
+        return this.ridingEntity != null && this.ridingEntity instanceof EntityHorse entityHorse && entityHorse.isHorseSaddled();
     }
 
     public float getHorseJumpPower() {
@@ -396,7 +396,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
     }
 
     public void displayGUIChest(IInventory chestInventory) {
-        String s = chestInventory instanceof IInteractionObject ? ((IInteractionObject) chestInventory).getGuiID() : "minecraft:container";
+        String s = chestInventory instanceof IInteractionObject iInteractionObject ? iInteractionObject.getGuiID() : "minecraft:container";
 
         if ("minecraft:chest".equals(s)) {
             this.mc.displayGuiScreen(new GuiChest(this.inventory, chestInventory));

@@ -477,8 +477,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 this.mc.renderGlobal.displayListEntitiesDirty = true;
             }
 
-            if (entity instanceof EntityLivingBase && ((EntityLivingBase) entity).getHealth() <= 0.0F) {
-                float f1 = ((EntityLivingBase) entity).deathTime + partialTicks;
+            if (entity instanceof EntityLivingBase entityLivingBase && entityLivingBase.getHealth() <= 0.0F) {
+                float f1 = entityLivingBase.deathTime + partialTicks;
                 f /= (1.0F - 500.0F / (f1 + 500.0F)) * 2.0F + 1.0F;
             }
 
@@ -534,7 +534,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         double d1 = entity.prevPosY + (entity.posY - entity.prevPosY) * partialTicks + f;
         double d2 = entity.prevPosZ + (entity.posZ - entity.prevPosZ) * partialTicks;
 
-        if (entity instanceof EntityLivingBase && ((EntityLivingBase) entity).isPlayerSleeping()) {
+        if (entity instanceof EntityLivingBase entityLivingBase && entityLivingBase.isPlayerSleeping()) {
             f = (float) (f + 1.0D);
             GlStateManager.translate(0.0F, 0.3F, 0.0F);
 
@@ -723,7 +723,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                     this.setupViewBobbing(p_renderHand_1_);
                 }
 
-                flag = this.mc.getRenderViewEntity() instanceof EntityLivingBase && ((EntityLivingBase) this.mc.getRenderViewEntity()).isPlayerSleeping();
+                flag = this.mc.getRenderViewEntity() instanceof EntityLivingBase entityLivingBase && entityLivingBase.isPlayerSleeping();
 
                 if (this.mc.gameSettings.thirdPersonView == 0 && !flag && !this.mc.gameSettings.hideGUI && !this.mc.playerController.isSpectator()) {
                     this.enableLightmap();
@@ -1709,7 +1709,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             float f12 = EnchantmentHelper.getRespiration(entity) * 0.2F;
             f12 = Config.limit(f12, 0.0F, 0.6F);
 
-            if (entity instanceof EntityLivingBase && ((EntityLivingBase) entity).isPotionActive(Potion.waterBreathing)) {
+            if (entity instanceof EntityLivingBase entityLivingBase && entityLivingBase.isPotionActive(Potion.waterBreathing)) {
                 f12 = f12 * 0.3F + 0.6F;
             }
 
@@ -1742,8 +1742,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         this.fogColorBlue *= f13;
         double d1 = (entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks) * world.provider.getVoidFogYFactor();
 
-        if (entity instanceof EntityLivingBase && ((EntityLivingBase) entity).isPotionActive(Potion.blindness)) {
-            int i = ((EntityLivingBase) entity).getActivePotionEffect(Potion.blindness).getDuration();
+        if (entity instanceof EntityLivingBase livingBase && livingBase.isPotionActive(Potion.blindness)) {
+            int i = livingBase.getActivePotionEffect(Potion.blindness).getDuration();
 
             if (i < 20) {
                 d1 *= 1.0F - i / 20.0F;
@@ -1770,8 +1770,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             this.fogColorBlue = this.fogColorBlue * (1.0F - f14) + this.fogColorBlue * 0.6F * f14;
         }
 
-        if (entity instanceof EntityLivingBase && ((EntityLivingBase) entity).isPotionActive(Potion.nightVision)) {
-            float f15 = this.getNightVisionBrightness((EntityLivingBase) entity, partialTicks);
+        if (entity instanceof EntityLivingBase entityLivingBase && entityLivingBase.isPotionActive(Potion.nightVision)) {
+            float f15 = this.getNightVisionBrightness(entityLivingBase, partialTicks);
             float f6 = 1.0F / this.fogColorRed;
 
             if (f6 > 1.0F / this.fogColorGreen) {
@@ -1799,8 +1799,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         Entity entity = this.mc.getRenderViewEntity();
         boolean flag = false;
 
-        if (entity instanceof EntityPlayer) {
-            flag = ((EntityPlayer) entity).capabilities.isCreativeMode;
+        if (entity instanceof EntityPlayer entityPlayer) {
+            flag = entityPlayer.capabilities.isCreativeMode;
         }
 
         GL11.glFog(GL11.GL_FOG_COLOR, this.setFogColorBuffer(this.fogColorRed, this.fogColorGreen, this.fogColorBlue, 1.0F));
@@ -1811,9 +1811,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
         if (f >= 0.0F) {
             GlStateManager.setFogDensity(f);
-        } else if (entity instanceof EntityLivingBase && ((EntityLivingBase) entity).isPotionActive(Potion.blindness)) {
+        } else if (entity instanceof EntityLivingBase livingBase && livingBase.isPotionActive(Potion.blindness)) {
             float f4 = 5.0F;
-            int i = ((EntityLivingBase) entity).getActivePotionEffect(Potion.blindness).getDuration();
+            int i = livingBase.getActivePotionEffect(Potion.blindness).getDuration();
 
             if (i < 20) {
                 f4 = 5.0F + (this.farPlaneDistance - 5.0F) * (1.0F - i / 20.0F);
@@ -1839,7 +1839,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             GlStateManager.setFog(2048);
             float f1 = Config.isClearWater() ? 0.02F : 0.1F;
 
-            if (entity instanceof EntityLivingBase && ((EntityLivingBase) entity).isPotionActive(Potion.waterBreathing)) {
+            if (entity instanceof EntityLivingBase entityLivingBase && entityLivingBase.isPotionActive(Potion.waterBreathing)) {
                 GlStateManager.setFogDensity(0.01F);
             } else {
                 float f2 = 0.1F - EnchantmentHelper.getRespiration(entity) * 0.03F;

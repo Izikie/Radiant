@@ -698,15 +698,15 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
                 break;
 
             case RIDING_JUMP:
-                if (this.playerEntity.ridingEntity instanceof EntityHorse) {
-                    ((EntityHorse) this.playerEntity.ridingEntity).setJumpPower(packetIn.getAuxData());
+                if (this.playerEntity.ridingEntity instanceof EntityHorse horse) {
+                    horse.setJumpPower(packetIn.getAuxData());
                 }
 
                 break;
 
             case OPEN_INVENTORY:
-                if (this.playerEntity.ridingEntity instanceof EntityHorse) {
-                    ((EntityHorse) this.playerEntity.ridingEntity).openGUI(this.playerEntity);
+                if (this.playerEntity.ridingEntity instanceof EntityHorse entityHorse) {
+                    entityHorse.openGUI(this.playerEntity);
                 }
 
                 break;
@@ -1029,8 +1029,8 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
                 int i = packetIn.getBufferData().readInt();
                 Container container = this.playerEntity.openContainer;
 
-                if (container instanceof ContainerMerchant) {
-                    ((ContainerMerchant) container).setCurrentRecipeIndex(i);
+                if (container instanceof ContainerMerchant containerMerchant) {
+                    containerMerchant.setCurrentRecipeIndex(i);
                 }
             } catch (Exception exception2) {
                 logger.error("Couldn't select trade", exception2);
@@ -1048,14 +1048,14 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
                     if (j == 0) {
                         TileEntity tileentity = this.playerEntity.worldObj.getTileEntity(new BlockPos(packetbuffer.readInt(), packetbuffer.readInt(), packetbuffer.readInt()));
 
-                        if (tileentity instanceof TileEntityCommandBlock) {
-                            commandblocklogic = ((TileEntityCommandBlock) tileentity).getCommandBlockLogic();
+                        if (tileentity instanceof TileEntityCommandBlock tileEntityCommandBlock) {
+                            commandblocklogic = tileEntityCommandBlock.getCommandBlockLogic();
                         }
                     } else if (j == 1) {
                         Entity entity = this.playerEntity.worldObj.getEntityByID(packetbuffer.readInt());
 
-                        if (entity instanceof EntityMinecartCommandBlock) {
-                            commandblocklogic = ((EntityMinecartCommandBlock) entity).getCommandBlockLogic();
+                        if (entity instanceof EntityMinecartCommandBlock entityMinecartCommandBlock) {
+                            commandblocklogic = entityMinecartCommandBlock.getCommandBlockLogic();
                         }
                     }
 

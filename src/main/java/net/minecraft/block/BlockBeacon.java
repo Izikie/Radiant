@@ -36,8 +36,8 @@ public class BlockBeacon extends BlockContainer {
         } else {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
-            if (tileentity instanceof TileEntityBeacon) {
-                playerIn.displayGUIChest((TileEntityBeacon) tileentity);
+            if (tileentity instanceof TileEntityBeacon tileEntityBeacon) {
+                playerIn.displayGUIChest(tileEntityBeacon);
                 playerIn.triggerAchievement(StatList.field_181730_N);
             }
 
@@ -63,8 +63,8 @@ public class BlockBeacon extends BlockContainer {
         if (stack.hasDisplayName()) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
-            if (tileentity instanceof TileEntityBeacon) {
-                ((TileEntityBeacon) tileentity).setName(stack.getDisplayName());
+            if (tileentity instanceof TileEntityBeacon tileEntityBeacon) {
+                tileEntityBeacon.setName(stack.getDisplayName());
             }
         }
     }
@@ -72,8 +72,8 @@ public class BlockBeacon extends BlockContainer {
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
-        if (tileentity instanceof TileEntityBeacon) {
-            ((TileEntityBeacon) tileentity).updateBeacon();
+        if (tileentity instanceof TileEntityBeacon tileEntityBeacon) {
+            tileEntityBeacon.updateBeacon();
             worldIn.addBlockEvent(pos, this, 1, 0);
         }
     }
@@ -101,8 +101,8 @@ public class BlockBeacon extends BlockContainer {
                             public void run() {
                                 TileEntity tileentity = worldIn.getTileEntity(blockpos);
 
-                                if (tileentity instanceof TileEntityBeacon) {
-                                    ((TileEntityBeacon) tileentity).updateBeacon();
+                                if (tileentity instanceof TileEntityBeacon tileEntityBeacon) {
+                                    tileEntityBeacon.updateBeacon();
                                     worldIn.addBlockEvent(blockpos, Blocks.beacon, 1, 0);
                                 }
                             }

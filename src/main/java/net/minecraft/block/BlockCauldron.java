@@ -101,8 +101,8 @@ public class BlockCauldron extends Block {
 
                             if (!playerIn.inventory.addItemStackToInventory(itemstack2)) {
                                 worldIn.spawnEntityInWorld(new EntityItem(worldIn, pos.getX() + 0.5D, pos.getY() + 1.5D, pos.getZ() + 0.5D, itemstack2));
-                            } else if (playerIn instanceof EntityPlayerMP) {
-                                ((EntityPlayerMP) playerIn).sendContainerToPlayer(playerIn.inventoryContainer);
+                            } else if (playerIn instanceof EntityPlayerMP entityPlayerMP) {
+                                entityPlayerMP.sendContainerToPlayer(playerIn.inventoryContainer);
                             }
 
                             playerIn.triggerAchievement(StatList.field_181726_J);
@@ -138,8 +138,8 @@ public class BlockCauldron extends Block {
                         } else {
                             if (!playerIn.inventory.addItemStackToInventory(itemstack1)) {
                                 worldIn.spawnEntityInWorld(new EntityItem(worldIn, pos.getX() + 0.5D, pos.getY() + 1.5D, pos.getZ() + 0.5D, itemstack1));
-                            } else if (playerIn instanceof EntityPlayerMP) {
-                                ((EntityPlayerMP) playerIn).sendContainerToPlayer(playerIn.inventoryContainer);
+                            } else if (playerIn instanceof EntityPlayerMP entityPlayerMP) {
+                                entityPlayerMP.sendContainerToPlayer(playerIn.inventoryContainer);
                             }
 
                             playerIn.triggerAchievement(StatList.field_181728_L);

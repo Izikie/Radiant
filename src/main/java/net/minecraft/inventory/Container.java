@@ -537,7 +537,7 @@ public abstract class Container {
     }
 
     public static int calcRedstone(TileEntity te) {
-        return te instanceof IInventory ? calcRedstoneFromInventory((IInventory) te) : 0;
+        return te instanceof IInventory iInventory ? calcRedstoneFromInventory(iInventory) : 0;
     }
 
     public static int calcRedstoneFromInventory(IInventory inv) {

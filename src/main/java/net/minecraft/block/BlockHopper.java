@@ -82,8 +82,8 @@ public class BlockHopper extends BlockContainer {
         if (stack.hasDisplayName()) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
-            if (tileentity instanceof TileEntityHopper) {
-                ((TileEntityHopper) tileentity).setCustomName(stack.getDisplayName());
+            if (tileentity instanceof TileEntityHopper tileEntityHopper) {
+                tileEntityHopper.setCustomName(stack.getDisplayName());
             }
         }
     }
@@ -98,8 +98,8 @@ public class BlockHopper extends BlockContainer {
         } else {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
-            if (tileentity instanceof TileEntityHopper) {
-                playerIn.displayGUIChest((TileEntityHopper) tileentity);
+            if (tileentity instanceof TileEntityHopper tileEntityHopper) {
+                playerIn.displayGUIChest(tileEntityHopper);
                 playerIn.triggerAchievement(StatList.field_181732_P);
             }
 
@@ -122,8 +122,8 @@ public class BlockHopper extends BlockContainer {
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
-        if (tileentity instanceof TileEntityHopper) {
-            InventoryHelper.dropInventoryItems(worldIn, pos, (TileEntityHopper) tileentity);
+        if (tileentity instanceof TileEntityHopper tileEntityHopper) {
+            InventoryHelper.dropInventoryItems(worldIn, pos, tileEntityHopper);
             worldIn.updateComparatorOutputLevel(pos, this);
         }
 

@@ -101,8 +101,8 @@ public class WorldGenDungeons extends WorldGenerator {
                             List<WeightedRandomChestContent> list = WeightedRandomChestContent.func_177629_a(CHESTCONTENT, Items.enchanted_book.getRandom(rand));
                             TileEntity tileentity1 = worldIn.getTileEntity(blockpos2);
 
-                            if (tileentity1 instanceof TileEntityChest) {
-                                WeightedRandomChestContent.generateChestContents(rand, list, (TileEntityChest) tileentity1, 8);
+                            if (tileentity1 instanceof TileEntityChest tileEntityChest) {
+                                WeightedRandomChestContent.generateChestContents(rand, list, tileEntityChest, 8);
                             }
 
                             break;
@@ -114,8 +114,8 @@ public class WorldGenDungeons extends WorldGenerator {
             worldIn.setBlockState(position, Blocks.mob_spawner.getDefaultState(), 2);
             TileEntity tileentity = worldIn.getTileEntity(position);
 
-            if (tileentity instanceof TileEntityMobSpawner) {
-                ((TileEntityMobSpawner) tileentity).getSpawnerBaseLogic().setEntityName(this.pickMobSpawner(rand));
+            if (tileentity instanceof TileEntityMobSpawner tileEntityMobSpawner) {
+                tileEntityMobSpawner.getSpawnerBaseLogic().setEntityName(this.pickMobSpawner(rand));
             } else {
                 field_175918_a.error("Failed to fetch mob spawner entity at (" + position.getX() + ", " + position.getY() + ", " + position.getZ() + ")");
             }

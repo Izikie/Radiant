@@ -1147,7 +1147,7 @@ public class CustomColors {
             return color;
         } else {
             Item item = itemStack.getItem();
-            return item == null ? color : (item instanceof ItemMonsterPlacer ? getSpawnEggColor((ItemMonsterPlacer) item, itemStack, layer, color) : color);
+            return item == null ? color : (item instanceof ItemMonsterPlacer itemMonsterPlacer ? getSpawnEggColor(itemMonsterPlacer, itemStack, layer, color) : color);
         }
     }
 

@@ -137,8 +137,8 @@ public class EntityPigZombie extends EntityZombie {
         this.angerLevel = 400 + this.rand.nextInt(400);
         this.randomSoundDelay = this.rand.nextInt(40);
 
-        if (p_70835_1_ instanceof EntityLivingBase) {
-            this.setRevengeTarget((EntityLivingBase) p_70835_1_);
+        if (p_70835_1_ instanceof EntityLivingBase entityLivingBase) {
+            this.setRevengeTarget(entityLivingBase);
         }
     }
 
@@ -198,8 +198,8 @@ public class EntityPigZombie extends EntityZombie {
         protected void setEntityAttackTarget(EntityCreature creatureIn, EntityLivingBase entityLivingBaseIn) {
             super.setEntityAttackTarget(creatureIn, entityLivingBaseIn);
 
-            if (creatureIn instanceof EntityPigZombie) {
-                ((EntityPigZombie) creatureIn).becomeAngryAt(entityLivingBaseIn);
+            if (creatureIn instanceof EntityPigZombie entityPigZombie) {
+                entityPigZombie.becomeAngryAt(entityLivingBaseIn);
             }
         }
     }

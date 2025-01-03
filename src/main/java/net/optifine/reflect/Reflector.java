@@ -334,8 +334,8 @@ public class Reflector {
         if (e instanceof InvocationTargetException) {
             Throwable throwable = e.getCause();
 
-            if (throwable instanceof RuntimeException) {
-                throw (RuntimeException) throwable;
+            if (throwable instanceof RuntimeException runtimeException) {
+                throw runtimeException;
             } else {
                 Log.error("", e);
             }

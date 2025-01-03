@@ -138,8 +138,8 @@ public interface IChatComponent extends Iterable<IChatComponent> {
         }
 
         public JsonElement serialize(IChatComponent p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
-            if (p_serialize_1_ instanceof ChatComponentText && p_serialize_1_.getChatStyle().isEmpty() && p_serialize_1_.getSiblings().isEmpty()) {
-                return new JsonPrimitive(((ChatComponentText) p_serialize_1_).getChatComponentText_TextValue());
+            if (p_serialize_1_ instanceof ChatComponentText chatComponents && p_serialize_1_.getChatStyle().isEmpty() && p_serialize_1_.getSiblings().isEmpty()) {
+                return new JsonPrimitive(chatComponents.getChatComponentText_TextValue());
             } else {
                 JsonObject jsonobject = new JsonObject();
 
@@ -157,8 +157,8 @@ public interface IChatComponent extends Iterable<IChatComponent> {
                     jsonobject.add("extra", jsonarray);
                 }
 
-                if (p_serialize_1_ instanceof ChatComponentText) {
-                    jsonobject.addProperty("text", ((ChatComponentText) p_serialize_1_).getChatComponentText_TextValue());
+                if (p_serialize_1_ instanceof ChatComponentText iChatComponents) {
+                    jsonobject.addProperty("text", iChatComponents.getChatComponentText_TextValue());
                 } else if (p_serialize_1_ instanceof ChatComponentTranslation chatcomponenttranslation) {
                     jsonobject.addProperty("translate", chatcomponenttranslation.getKey());
 

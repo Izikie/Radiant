@@ -42,8 +42,8 @@ public class GuiCustomizeSkin extends GuiScreen {
             if (button.id == 200) {
                 this.mc.gameSettings.saveOptions();
                 this.mc.displayGuiScreen(this.parentScreen);
-            } else if (button instanceof GuiCustomizeSkin.ButtonPart) {
-                EnumPlayerModelParts enumplayermodelparts = ((GuiCustomizeSkin.ButtonPart) button).playerModelParts;
+            } else if (button instanceof ButtonPart buttonPart) {
+                EnumPlayerModelParts enumplayermodelparts = buttonPart.playerModelParts;
                 this.mc.gameSettings.switchModelPartEnabled(enumplayermodelparts);
                 button.displayString = this.func_175358_a(enumplayermodelparts);
             }

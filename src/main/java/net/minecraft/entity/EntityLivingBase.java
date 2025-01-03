@@ -337,8 +337,8 @@ public abstract class EntityLivingBase extends Entity {
     }
 
     public void setLastAttacker(Entity entityIn) {
-        if (entityIn instanceof EntityLivingBase) {
-            this.lastAttacker = (EntityLivingBase) entityIn;
+        if (entityIn instanceof EntityLivingBase entityLivingBase) {
+            this.lastAttacker = entityLivingBase;
         } else {
             this.lastAttacker = null;
         }
@@ -638,13 +638,13 @@ public abstract class EntityLivingBase extends Entity {
                 Entity entity = source.getEntity();
 
                 if (entity != null) {
-                    if (entity instanceof EntityLivingBase) {
-                        this.setRevengeTarget((EntityLivingBase) entity);
+                    if (entity instanceof EntityLivingBase entityLivingBase) {
+                        this.setRevengeTarget(entityLivingBase);
                     }
 
-                    if (entity instanceof EntityPlayer) {
+                    if (entity instanceof EntityPlayer entityPlayer) {
                         this.recentlyHit = 100;
-                        this.attackingPlayer = (EntityPlayer) entity;
+                        this.attackingPlayer = entityPlayer;
                     } else if (entity instanceof EntityWolf entitywolf) {
 
                         if (entitywolf.isTamed()) {
@@ -788,7 +788,7 @@ public abstract class EntityLivingBase extends Entity {
         int j = MathHelper.floor_double(this.getEntityBoundingBox().minY);
         int k = MathHelper.floor_double(this.posZ);
         Block block = this.worldObj.getBlockState(new BlockPos(i, j, k)).getBlock();
-        return (block == Blocks.ladder || block == Blocks.vine) && (!(this instanceof EntityPlayer) || !((EntityPlayer) this).isSpectator());
+        return (block == Blocks.ladder || block == Blocks.vine) && (!(this instanceof EntityPlayer entityPlayer) || !entityPlayer.isSpectator());
     }
 
     public boolean isEntityAlive() {
@@ -829,8 +829,8 @@ public abstract class EntityLivingBase extends Entity {
         int i = 0;
 
         for (ItemStack itemstack : this.getInventory()) {
-            if (itemstack != null && itemstack.getItem() instanceof ItemArmor) {
-                int j = ((ItemArmor) itemstack.getItem()).damageReduceAmount;
+            if (itemstack != null && itemstack.getItem() instanceof ItemArmor itemArmor) {
+                int j = itemArmor.damageReduceAmount;
                 i += j;
             }
         }
@@ -929,8 +929,8 @@ public abstract class EntityLivingBase extends Entity {
             this.swingProgressInt = -1;
             this.isSwingInProgress = true;
 
-            if (this.worldObj instanceof WorldServer) {
-                ((WorldServer) this.worldObj).getEntityTracker().sendToAllTrackingEntity(this, new S0BPacketAnimation(this, 0));
+            if (this.worldObj instanceof WorldServer worldServer) {
+                worldServer.getEntityTracker().sendToAllTrackingEntity(this, new S0BPacketAnimation(this, 0));
             }
         }
     }
@@ -1100,8 +1100,8 @@ public abstract class EntityLivingBase extends Entity {
 
     public void moveEntityWithHeading(float strafe, float forward) {
         if (this.isServerWorld()) {
-            if (!this.isInWater() || this instanceof EntityPlayer && ((EntityPlayer) this).capabilities.isFlying) {
-                if (!this.isInLava() || this instanceof EntityPlayer && ((EntityPlayer) this).capabilities.isFlying) {
+            if (!this.isInWater() || this instanceof EntityPlayer player && player.capabilities.isFlying) {
+                if (!this.isInLava() || this instanceof EntityPlayer entityPlayer && entityPlayer.capabilities.isFlying) {
                     float f4 = 0.91F;
 
                     if (this.onGround) {
