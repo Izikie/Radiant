@@ -49,14 +49,14 @@ public class Session {
         return this.sessionType;
     }
 
-    public static enum Type {
+    public enum Type {
         LEGACY("legacy"),
         MOJANG("mojang");
 
         private static final Map<String, Session.Type> SESSION_TYPES = Maps.newHashMap();
         private final String sessionType;
 
-        private Type(String sessionTypeIn) {
+        Type(String sessionTypeIn) {
             this.sessionType = sessionTypeIn;
         }
 

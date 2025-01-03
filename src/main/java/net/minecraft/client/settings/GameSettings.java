@@ -2454,7 +2454,7 @@ public class GameSettings {
         return -1;
     }
 
-    public static enum Options {
+    public enum Options {
         INVERT_MOUSE("options.invertMouse", false, true),
         SENSITIVITY("options.sensitivity", true, false),
         FOV("options.fov", true, false, 30.0F, 110.0F, 1.0F),
@@ -2576,11 +2576,11 @@ public class GameSettings {
             return null;
         }
 
-        private Options(String str, boolean isFloat, boolean isBoolean) {
+        Options(String str, boolean isFloat, boolean isBoolean) {
             this(str, isFloat, isBoolean, 0.0F, 1.0F, 0.0F);
         }
 
-        private Options(String str, boolean isFloat, boolean isBoolean, float valMin, float valMax, float valStep) {
+        Options(String str, boolean isFloat, boolean isBoolean, float valMin, float valMax, float valStep) {
             this.enumString = str;
             this.enumFloat = isFloat;
             this.enumBoolean = isBoolean;

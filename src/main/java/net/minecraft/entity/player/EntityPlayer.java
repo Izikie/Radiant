@@ -1733,7 +1733,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         this.hasReducedDebug = reducedDebug;
     }
 
-    public static enum EnumChatVisibility {
+    public enum EnumChatVisibility {
         FULL(0, "options.chat.visibility.full"),
         SYSTEM(1, "options.chat.visibility.system"),
         HIDDEN(2, "options.chat.visibility.hidden");
@@ -1742,7 +1742,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         private final int chatVisibility;
         private final String resourceKey;
 
-        private EnumChatVisibility(int id, String resourceKey) {
+        EnumChatVisibility(int id, String resourceKey) {
             this.chatVisibility = id;
             this.resourceKey = resourceKey;
         }
@@ -1766,7 +1766,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         }
     }
 
-    public static enum EnumStatus {
+    public enum EnumStatus {
         OK,
         NOT_POSSIBLE_HERE,
         NOT_POSSIBLE_NOW,

@@ -17,7 +17,7 @@ public enum EnumPlayerModelParts {
     private final String partName;
     private final IChatComponent field_179339_k;
 
-    private EnumPlayerModelParts(int partIdIn, String partNameIn) {
+    EnumPlayerModelParts(int partIdIn, String partNameIn) {
         this.partId = partIdIn;
         this.partMask = 1 << partIdIn;
         this.partName = partNameIn;

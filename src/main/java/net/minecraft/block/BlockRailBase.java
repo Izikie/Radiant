@@ -134,7 +134,7 @@ public abstract class BlockRailBase extends Block {
 
     public abstract IProperty<BlockRailBase.EnumRailDirection> getShapeProperty();
 
-    public static enum EnumRailDirection implements IStringSerializable {
+    public enum EnumRailDirection implements IStringSerializable {
         NORTH_SOUTH(0, "north_south"),
         EAST_WEST(1, "east_west"),
         ASCENDING_EAST(2, "ascending_east"),
@@ -150,7 +150,7 @@ public abstract class BlockRailBase extends Block {
         private final int meta;
         private final String name;
 
-        private EnumRailDirection(int meta, String name) {
+        EnumRailDirection(int meta, String name) {
             this.meta = meta;
             this.name = name;
         }

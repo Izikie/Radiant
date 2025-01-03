@@ -206,7 +206,7 @@ public class BlockLever extends Block {
         return new BlockState(this, FACING, POWERED);
     }
 
-    public static enum EnumOrientation implements IStringSerializable {
+    public enum EnumOrientation implements IStringSerializable {
         DOWN_X(0, "down_x", EnumFacing.DOWN),
         EAST(1, "east", EnumFacing.EAST),
         WEST(2, "west", EnumFacing.WEST),
@@ -221,7 +221,7 @@ public class BlockLever extends Block {
         private final String name;
         private final EnumFacing facing;
 
-        private EnumOrientation(int meta, String name, EnumFacing facing) {
+        EnumOrientation(int meta, String name, EnumFacing facing) {
             this.meta = meta;
             this.name = name;
             this.facing = facing;

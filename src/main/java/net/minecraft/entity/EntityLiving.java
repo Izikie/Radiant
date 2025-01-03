@@ -912,7 +912,7 @@ public abstract class EntityLiving extends EntityLivingBase {
         return this.worldObj.getScoreboard().getPlayersTeam(this.teamUuidString);
     }
 
-    public static enum SpawnPlacementType {
+    public enum SpawnPlacementType {
         ON_GROUND,
         IN_AIR,
         IN_WATER

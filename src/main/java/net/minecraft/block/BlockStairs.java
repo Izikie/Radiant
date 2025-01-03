@@ -597,13 +597,13 @@ public class BlockStairs extends Block {
         return new BlockState(this, FACING, HALF, SHAPE);
     }
 
-    public static enum EnumHalf implements IStringSerializable {
+    public enum EnumHalf implements IStringSerializable {
         TOP("top"),
         BOTTOM("bottom");
 
         private final String name;
 
-        private EnumHalf(String name) {
+        EnumHalf(String name) {
             this.name = name;
         }
 
@@ -616,7 +616,7 @@ public class BlockStairs extends Block {
         }
     }
 
-    public static enum EnumShape implements IStringSerializable {
+    public enum EnumShape implements IStringSerializable {
         STRAIGHT("straight"),
         INNER_LEFT("inner_left"),
         INNER_RIGHT("inner_right"),
@@ -625,7 +625,7 @@ public class BlockStairs extends Block {
 
         private final String name;
 
-        private EnumShape(String name) {
+        EnumShape(String name) {
             this.name = name;
         }
 

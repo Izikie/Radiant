@@ -237,13 +237,13 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
         return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite()).withProperty(POWERED, Boolean.valueOf(false)).withProperty(MODE, BlockRedstoneComparator.Mode.COMPARE);
     }
 
-    public static enum Mode implements IStringSerializable {
+    public enum Mode implements IStringSerializable {
         COMPARE("compare"),
         SUBTRACT("subtract");
 
         private final String name;
 
-        private Mode(String name) {
+        Mode(String name) {
             this.name = name;
         }
 

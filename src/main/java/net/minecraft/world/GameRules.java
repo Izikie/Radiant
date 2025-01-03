@@ -145,7 +145,7 @@ public class GameRules {
         }
     }
 
-    public static enum ValueType {
+    public enum ValueType {
         ANY_VALUE,
         BOOLEAN_VALUE,
         NUMERICAL_VALUE

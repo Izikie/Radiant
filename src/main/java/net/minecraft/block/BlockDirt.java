@@ -74,7 +74,7 @@ public class BlockDirt extends Block {
         return blockdirt$dirttype.getMetadata();
     }
 
-    public static enum DirtType implements IStringSerializable {
+    public enum DirtType implements IStringSerializable {
         DIRT(0, "dirt", "default", MapColor.dirtColor),
         COARSE_DIRT(1, "coarse_dirt", "coarse", MapColor.dirtColor),
         PODZOL(2, "podzol", MapColor.obsidianColor);
@@ -85,11 +85,11 @@ public class BlockDirt extends Block {
         private final String unlocalizedName;
         private final MapColor field_181067_h;
 
-        private DirtType(int p_i46396_3_, String p_i46396_4_, MapColor p_i46396_5_) {
+        DirtType(int p_i46396_3_, String p_i46396_4_, MapColor p_i46396_5_) {
             this(p_i46396_3_, p_i46396_4_, p_i46396_4_, p_i46396_5_);
         }
 
-        private DirtType(int p_i46397_3_, String p_i46397_4_, String p_i46397_5_, MapColor p_i46397_6_) {
+        DirtType(int p_i46397_3_, String p_i46397_4_, String p_i46397_5_, MapColor p_i46397_6_) {
             this.metadata = p_i46397_3_;
             this.name = p_i46397_4_;
             this.unlocalizedName = p_i46397_5_;

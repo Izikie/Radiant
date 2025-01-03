@@ -734,7 +734,7 @@ public class Item {
         itemRegistry.register(id, textualID, itemIn);
     }
 
-    public static enum ToolMaterial {
+    public enum ToolMaterial {
         WOOD(0, 59, 2.0F, 0.0F, 15),
         STONE(1, 131, 4.0F, 1.0F, 5),
         IRON(2, 250, 6.0F, 2.0F, 14),
@@ -747,7 +747,7 @@ public class Item {
         private final float damageVsEntity;
         private final int enchantability;
 
-        private ToolMaterial(int harvestLevel, int maxUses, float efficiency, float damageVsEntity, int enchantability) {
+        ToolMaterial(int harvestLevel, int maxUses, float efficiency, float damageVsEntity, int enchantability) {
             this.harvestLevel = harvestLevel;
             this.maxUses = maxUses;
             this.efficiencyOnProperMaterial = efficiency;

@@ -59,7 +59,7 @@ public class BlockStone extends Block {
         return new BlockState(this, VARIANT);
     }
 
-    public static enum EnumType implements IStringSerializable {
+    public enum EnumType implements IStringSerializable {
         STONE(0, MapColor.stoneColor, "stone"),
         GRANITE(1, MapColor.dirtColor, "granite"),
         GRANITE_SMOOTH(2, MapColor.dirtColor, "smooth_granite", "graniteSmooth"),
@@ -74,11 +74,11 @@ public class BlockStone extends Block {
         private final String unlocalizedName;
         private final MapColor field_181073_l;
 
-        private EnumType(int p_i46383_3_, MapColor p_i46383_4_, String p_i46383_5_) {
+        EnumType(int p_i46383_3_, MapColor p_i46383_4_, String p_i46383_5_) {
             this(p_i46383_3_, p_i46383_4_, p_i46383_5_, p_i46383_5_);
         }
 
-        private EnumType(int p_i46384_3_, MapColor p_i46384_4_, String p_i46384_5_, String p_i46384_6_) {
+        EnumType(int p_i46384_3_, MapColor p_i46384_4_, String p_i46384_5_, String p_i46384_6_) {
             this.meta = p_i46384_3_;
             this.name = p_i46384_5_;
             this.unlocalizedName = p_i46384_6_;

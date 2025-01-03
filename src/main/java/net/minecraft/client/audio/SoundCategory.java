@@ -20,7 +20,7 @@ public enum SoundCategory {
     private final String categoryName;
     private final int categoryId;
 
-    private SoundCategory(String name, int id) {
+    SoundCategory(String name, int id) {
         this.categoryName = name;
         this.categoryId = id;
     }

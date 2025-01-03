@@ -44,15 +44,15 @@ public enum EnumChatFormatting {
         return p_175745_0_.toLowerCase().replaceAll("[^a-z]", "");
     }
 
-    private EnumChatFormatting(String formattingName, char formattingCodeIn, int colorIndex) {
+    EnumChatFormatting(String formattingName, char formattingCodeIn, int colorIndex) {
         this(formattingName, formattingCodeIn, false, colorIndex);
     }
 
-    private EnumChatFormatting(String formattingName, char formattingCodeIn, boolean fancyStylingIn) {
+    EnumChatFormatting(String formattingName, char formattingCodeIn, boolean fancyStylingIn) {
         this(formattingName, formattingCodeIn, fancyStylingIn, -1);
     }
 
-    private EnumChatFormatting(String formattingName, char formattingCodeIn, boolean fancyStylingIn, int colorIndex) {
+    EnumChatFormatting(String formattingName, char formattingCodeIn, boolean fancyStylingIn, int colorIndex) {
         this.name = formattingName;
         this.formattingCode = formattingCodeIn;
         this.fancyStyling = fancyStylingIn;

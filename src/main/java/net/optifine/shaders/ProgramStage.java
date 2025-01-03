@@ -9,7 +9,7 @@ public enum ProgramStage {
 
     private final String name;
 
-    private ProgramStage(String name) {
+    ProgramStage(String name) {
         this.name = name;
     }
 

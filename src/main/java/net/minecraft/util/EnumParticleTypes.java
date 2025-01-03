@@ -57,14 +57,14 @@ public enum EnumParticleTypes {
     private static final Map<Integer, EnumParticleTypes> PARTICLES = Maps.newHashMap();
     private static final String[] PARTICLE_NAMES;
 
-    private EnumParticleTypes(String particleNameIn, int particleIDIn, boolean p_i46011_5_, int argumentCountIn) {
+    EnumParticleTypes(String particleNameIn, int particleIDIn, boolean p_i46011_5_, int argumentCountIn) {
         this.particleName = particleNameIn;
         this.particleID = particleIDIn;
         this.shouldIgnoreRange = p_i46011_5_;
         this.argumentCount = argumentCountIn;
     }
 
-    private EnumParticleTypes(String particleNameIn, int particleIDIn, boolean p_i46012_5_) {
+    EnumParticleTypes(String particleNameIn, int particleIDIn, boolean p_i46012_5_) {
         this(particleNameIn, particleIDIn, p_i46012_5_, 0);
     }
 

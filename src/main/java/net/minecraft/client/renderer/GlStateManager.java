@@ -979,7 +979,7 @@ public class GlStateManager {
         }
     }
 
-    public static enum TexGen {
+    public enum TexGen {
         S,
         T,
         R,

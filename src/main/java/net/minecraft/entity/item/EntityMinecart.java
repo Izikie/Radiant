@@ -856,7 +856,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         }
     }
 
-    public static enum EnumMinecartType {
+    public enum EnumMinecartType {
         RIDEABLE(0, "MinecartRideable"),
         CHEST(1, "MinecartChest"),
         FURNACE(2, "MinecartFurnace"),
@@ -869,7 +869,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         private final int networkID;
         private final String name;
 
-        private EnumMinecartType(int networkID, String name) {
+        EnumMinecartType(int networkID, String name) {
             this.networkID = networkID;
             this.name = name;
         }

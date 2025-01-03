@@ -56,7 +56,7 @@ public class BlockPrismarine extends Block {
         list.add(new ItemStack(itemIn, 1, DARK_META));
     }
 
-    public static enum EnumType implements IStringSerializable {
+    public enum EnumType implements IStringSerializable {
         ROUGH(0, "prismarine", "rough"),
         BRICKS(1, "prismarine_bricks", "bricks"),
         DARK(2, "dark_prismarine", "dark");
@@ -66,7 +66,7 @@ public class BlockPrismarine extends Block {
         private final String name;
         private final String unlocalizedName;
 
-        private EnumType(int meta, String name, String unlocalizedName) {
+        EnumType(int meta, String name, String unlocalizedName) {
             this.meta = meta;
             this.name = name;
             this.unlocalizedName = unlocalizedName;

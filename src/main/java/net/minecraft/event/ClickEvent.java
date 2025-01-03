@@ -49,7 +49,7 @@ public class ClickEvent {
         return i;
     }
 
-    public static enum Action {
+    public enum Action {
         OPEN_URL("open_url", true),
         OPEN_FILE("open_file", false),
         RUN_COMMAND("run_command", true),
@@ -60,7 +60,7 @@ public class ClickEvent {
         private final boolean allowedInChat;
         private final String canonicalName;
 
-        private Action(String canonicalNameIn, boolean allowedInChatIn) {
+        Action(String canonicalNameIn, boolean allowedInChatIn) {
             this.canonicalName = canonicalNameIn;
             this.allowedInChat = allowedInChatIn;
         }

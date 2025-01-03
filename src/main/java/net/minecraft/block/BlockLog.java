@@ -39,7 +39,7 @@ public abstract class BlockLog extends BlockRotatedPillar {
         return super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(LOG_AXIS, BlockLog.EnumAxis.fromFacingAxis(facing.getAxis()));
     }
 
-    public static enum EnumAxis implements IStringSerializable {
+    public enum EnumAxis implements IStringSerializable {
         X("x"),
         Y("y"),
         Z("z"),
@@ -47,7 +47,7 @@ public abstract class BlockLog extends BlockRotatedPillar {
 
         private final String name;
 
-        private EnumAxis(String name) {
+        EnumAxis(String name) {
             this.name = name;
         }
 

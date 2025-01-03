@@ -74,7 +74,7 @@ public class MathUtilsTest {
         System.out.println(str);
     }
 
-    private static enum OPER {
+    private enum OPER {
         SIN,
         COS,
         ASIN,

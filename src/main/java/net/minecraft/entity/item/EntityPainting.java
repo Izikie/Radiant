@@ -106,7 +106,7 @@ public class EntityPainting extends EntityHanging {
         this.setPosition(blockpos.getX(), blockpos.getY(), blockpos.getZ());
     }
 
-    public static enum EnumArt {
+    public enum EnumArt {
         KEBAB("Kebab", 16, 16, 0, 0),
         AZTEC("Aztec", 16, 16, 16, 0),
         ALBAN("Alban", 16, 16, 32, 0),
@@ -141,7 +141,7 @@ public class EntityPainting extends EntityHanging {
         public final int offsetX;
         public final int offsetY;
 
-        private EnumArt(String titleIn, int width, int height, int textureU, int textureV) {
+        EnumArt(String titleIn, int width, int height, int textureU, int textureV) {
             this.title = titleIn;
             this.sizeX = width;
             this.sizeY = height;

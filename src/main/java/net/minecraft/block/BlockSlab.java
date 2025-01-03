@@ -114,13 +114,13 @@ public abstract class BlockSlab extends Block {
 
     public abstract Object getVariant(ItemStack stack);
 
-    public static enum EnumBlockHalf implements IStringSerializable {
+    public enum EnumBlockHalf implements IStringSerializable {
         TOP("top"),
         BOTTOM("bottom");
 
         private final String name;
 
-        private EnumBlockHalf(String name) {
+        EnumBlockHalf(String name) {
             this.name = name;
         }
 

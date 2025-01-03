@@ -183,7 +183,7 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
         return new GameProfile(uuid, original.getName());
     }
 
-    static enum LoginState {
+    enum LoginState {
         HELLO,
         KEY,
         AUTHENTICATING,

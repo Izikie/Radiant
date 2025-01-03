@@ -32,7 +32,7 @@ public class C16PacketClientStatus implements Packet<INetHandlerPlayServer> {
         return this.status;
     }
 
-    public static enum EnumState {
+    public enum EnumState {
         PERFORM_RESPAWN,
         REQUEST_STATS,
         OPEN_INVENTORY_ACHIEVEMENT

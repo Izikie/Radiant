@@ -8,7 +8,7 @@ public enum TextureType {
 
     private final int id;
 
-    private TextureType(int id) {
+    TextureType(int id) {
         this.id = id;
     }
 

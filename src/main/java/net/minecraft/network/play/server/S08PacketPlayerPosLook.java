@@ -74,7 +74,7 @@ public class S08PacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
         return this.field_179835_f;
     }
 
-    public static enum EnumFlags {
+    public enum EnumFlags {
         X(0),
         Y(1),
         Z(2),
@@ -83,7 +83,7 @@ public class S08PacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
 
         private final int field_180058_f;
 
-        private EnumFlags(int p_i45992_3_) {
+        EnumFlags(int p_i45992_3_) {
             this.field_180058_f = p_i45992_3_;
         }
 

@@ -43,7 +43,7 @@ public class BlockRedSandstone extends Block {
         return new BlockState(this, TYPE);
     }
 
-    public static enum EnumType implements IStringSerializable {
+    public enum EnumType implements IStringSerializable {
         DEFAULT(0, "red_sandstone", "default"),
         CHISELED(1, "chiseled_red_sandstone", "chiseled"),
         SMOOTH(2, "smooth_red_sandstone", "smooth");
@@ -53,7 +53,7 @@ public class BlockRedSandstone extends Block {
         private final String name;
         private final String unlocalizedName;
 
-        private EnumType(int meta, String name, String unlocalizedName) {
+        EnumType(int meta, String name, String unlocalizedName) {
             this.meta = meta;
             this.name = name;
             this.unlocalizedName = unlocalizedName;

@@ -217,13 +217,13 @@ public class BlockTrapDoor extends Block {
         return new BlockState(this, FACING, OPEN, HALF);
     }
 
-    public static enum DoorHalf implements IStringSerializable {
+    public enum DoorHalf implements IStringSerializable {
         TOP("top"),
         BOTTOM("bottom");
 
         private final String name;
 
-        private DoorHalf(String name) {
+        DoorHalf(String name) {
             this.name = name;
         }
 

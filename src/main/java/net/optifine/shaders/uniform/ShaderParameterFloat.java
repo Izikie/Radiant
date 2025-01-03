@@ -62,11 +62,11 @@ public enum ShaderParameterFloat {
     private String[] indexNames1;
     private String[] indexNames2;
 
-    private ShaderParameterFloat(String name) {
+    ShaderParameterFloat(String name) {
         this.name = name;
     }
 
-    private ShaderParameterFloat(ShaderUniformBase uniform) {
+    ShaderParameterFloat(ShaderUniformBase uniform) {
         this.name = uniform.getName();
         this.uniform = uniform;
 
@@ -75,7 +75,7 @@ public enum ShaderParameterFloat {
         }
     }
 
-    private ShaderParameterFloat(ShaderUniformBase uniform, String[] indexNames1) {
+    ShaderParameterFloat(ShaderUniformBase uniform, String[] indexNames1) {
         this.name = uniform.getName();
         this.uniform = uniform;
         this.indexNames1 = indexNames1;
@@ -85,7 +85,7 @@ public enum ShaderParameterFloat {
         }
     }
 
-    private ShaderParameterFloat(ShaderUniformBase uniform, String[] indexNames1, String[] indexNames2) {
+    ShaderParameterFloat(ShaderUniformBase uniform, String[] indexNames1, String[] indexNames2) {
         this.name = uniform.getName();
         this.uniform = uniform;
         this.indexNames1 = indexNames1;

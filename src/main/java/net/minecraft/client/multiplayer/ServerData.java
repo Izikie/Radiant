@@ -90,14 +90,14 @@ public class ServerData {
         this.lanServer = serverDataIn.lanServer;
     }
 
-    public static enum ServerResourceMode {
+    public enum ServerResourceMode {
         ENABLED("enabled"),
         DISABLED("disabled"),
         PROMPT("prompt");
 
         private final IChatComponent motd;
 
-        private ServerResourceMode(String name) {
+        ServerResourceMode(String name) {
             this.motd = new ChatComponentTranslation("addServer.resourcePack." + name);
         }
 

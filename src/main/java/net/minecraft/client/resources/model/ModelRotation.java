@@ -37,7 +37,7 @@ public enum ModelRotation {
         return p_177521_0_ * 360 + p_177521_1_;
     }
 
-    private ModelRotation(int p_i46087_3_, int p_i46087_4_) {
+    ModelRotation(int p_i46087_3_, int p_i46087_4_) {
         this.combinedXY = combineXY(p_i46087_3_, p_i46087_4_);
         this.matrix4d = new Matrix4f();
         Matrix4f matrix4f = new Matrix4f();

@@ -85,7 +85,7 @@ public class S45PacketTitle implements Packet<INetHandlerPlayClient> {
         return this.fadeOutTime;
     }
 
-    public static enum Type {
+    public enum Type {
         TITLE,
         SUBTITLE,
         TIMES,

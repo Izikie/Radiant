@@ -28,7 +28,7 @@ public class Util {
         return null;
     }
 
-    public static enum EnumOS {
+    public enum EnumOS {
         LINUX,
         SOLARIS,
         WINDOWS,

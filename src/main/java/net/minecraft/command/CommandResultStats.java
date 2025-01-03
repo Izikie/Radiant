@@ -165,7 +165,7 @@ public class CommandResultStats {
         }
     }
 
-    public static enum Type {
+    public enum Type {
         SUCCESS_COUNT(0, "SuccessCount"),
         AFFECTED_BLOCKS(1, "AffectedBlocks"),
         AFFECTED_ENTITIES(2, "AffectedEntities"),
@@ -175,7 +175,7 @@ public class CommandResultStats {
         final int typeID;
         final String typeName;
 
-        private Type(int id, String name) {
+        Type(int id, String name) {
             this.typeID = id;
             this.typeName = name;
         }

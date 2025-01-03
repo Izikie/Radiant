@@ -480,7 +480,7 @@ public class EntityRabbit extends EntityAnimal {
         }
     }
 
-    static enum EnumMoveType {
+    enum EnumMoveType {
         NONE(0.0F, 0.0F, 30, 1),
         HOP(0.8F, 0.2F, 20, 10),
         STEP(1.0F, 0.45F, 14, 14),
@@ -492,7 +492,7 @@ public class EntityRabbit extends EntityAnimal {
         private final int duration;
         private final int field_180085_i;
 
-        private EnumMoveType(float typeSpeed, float p_i45866_4_, int typeDuration, int p_i45866_6_) {
+        EnumMoveType(float typeSpeed, float p_i45866_4_, int typeDuration, int p_i45866_6_) {
             this.speed = typeSpeed;
             this.field_180077_g = p_i45866_4_;
             this.duration = typeDuration;

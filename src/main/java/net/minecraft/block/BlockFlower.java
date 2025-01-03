@@ -64,7 +64,7 @@ public abstract class BlockFlower extends BlockBush {
         return Block.EnumOffsetType.XZ;
     }
 
-    public static enum EnumFlowerColor {
+    public enum EnumFlowerColor {
         YELLOW,
         RED;
 
@@ -73,7 +73,7 @@ public abstract class BlockFlower extends BlockBush {
         }
     }
 
-    public static enum EnumFlowerType implements IStringSerializable {
+    public enum EnumFlowerType implements IStringSerializable {
         DANDELION(BlockFlower.EnumFlowerColor.YELLOW, 0, "dandelion"),
         POPPY(BlockFlower.EnumFlowerColor.RED, 0, "poppy"),
         BLUE_ORCHID(BlockFlower.EnumFlowerColor.RED, 1, "blue_orchid", "blueOrchid"),
@@ -91,11 +91,11 @@ public abstract class BlockFlower extends BlockBush {
         private final String name;
         private final String unlocalizedName;
 
-        private EnumFlowerType(BlockFlower.EnumFlowerColor blockType, int meta, String name) {
+        EnumFlowerType(BlockFlower.EnumFlowerColor blockType, int meta, String name) {
             this(blockType, meta, name, name);
         }
 
-        private EnumFlowerType(BlockFlower.EnumFlowerColor blockType, int meta, String name, String unlocalizedName) {
+        EnumFlowerType(BlockFlower.EnumFlowerColor blockType, int meta, String name, String unlocalizedName) {
             this.blockType = blockType;
             this.meta = meta;
             this.name = name;

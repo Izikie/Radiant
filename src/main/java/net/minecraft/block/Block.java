@@ -1056,7 +1056,7 @@ public class Block {
         registerBlock(id, new ResourceLocation(textualID), block_);
     }
 
-    public static enum EnumOffsetType {
+    public enum EnumOffsetType {
         NONE,
         XZ,
         XYZ

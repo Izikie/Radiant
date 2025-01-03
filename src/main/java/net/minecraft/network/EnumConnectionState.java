@@ -249,7 +249,7 @@ public enum EnumConnectionState {
     private final int id;
     private final Map<EnumPacketDirection, BiMap<Integer, Class<? extends Packet>>> directionMaps;
 
-    private EnumConnectionState(int protocolId) {
+    EnumConnectionState(int protocolId) {
         this.directionMaps = Maps.newEnumMap(EnumPacketDirection.class);
         this.id = protocolId;
     }

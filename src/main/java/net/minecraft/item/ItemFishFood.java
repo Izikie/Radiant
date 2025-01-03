@@ -59,7 +59,7 @@ public class ItemFishFood extends ItemFood {
         return this.getUnlocalizedName() + "." + itemfishfood$fishtype.getUnlocalizedName() + "." + (this.cooked && itemfishfood$fishtype.canCook() ? "cooked" : "raw");
     }
 
-    public static enum FishType {
+    public enum FishType {
         COD(0, "cod", 2, 0.1F, 5, 0.6F),
         SALMON(1, "salmon", 2, 0.1F, 6, 0.8F),
         CLOWNFISH(2, "clownfish", 1, 0.1F),
@@ -74,7 +74,7 @@ public class ItemFishFood extends ItemFood {
         private final float cookedSaturationModifier;
         private boolean cookable = false;
 
-        private FishType(int meta, String unlocalizedName, int uncookedHeal, float uncookedSaturation, int cookedHeal, float cookedSaturation) {
+        FishType(int meta, String unlocalizedName, int uncookedHeal, float uncookedSaturation, int cookedHeal, float cookedSaturation) {
             this.meta = meta;
             this.unlocalizedName = unlocalizedName;
             this.uncookedHealAmount = uncookedHeal;
@@ -84,7 +84,7 @@ public class ItemFishFood extends ItemFood {
             this.cookable = true;
         }
 
-        private FishType(int meta, String unlocalizedName, int uncookedHeal, float uncookedSaturation) {
+        FishType(int meta, String unlocalizedName, int uncookedHeal, float uncookedSaturation) {
             this.meta = meta;
             this.unlocalizedName = unlocalizedName;
             this.uncookedHealAmount = uncookedHeal;
