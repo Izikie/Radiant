@@ -74,14 +74,18 @@ dependencies {
     implementation(group = "com.mojang", name = "authlib", version = "1.5.21")
 }
 
-val appDataDir: String = System.getenv("APPDATA")
+val minecraftDir: String = when {
+    System.getProperty("os.name").contains("Windows", ignoreCase = true) -> System.getenv("APPDATA") + "/.minecraft"
+    System.getProperty("os.name").contains("Mac", ignoreCase = true) -> System.getProperty("user.home") + "/Library/Application Support/minecraft"
+    else -> System.getProperty("user.home") + "/.minecraft"
+}
 
 tasks.register<JavaExec>("RunClient") {
     group = "GradleMCP"
     description = "Runs the client"
     classpath(sourceSets.getByName("main").runtimeClasspath)
 
-    workingDir = file("$appDataDir\\.minecraft")
+    workingDir = file(minecraftDir)
     args("--version", "${project.name}-1.8.9")
     args("--assetsDir", "assets")
     args("--assetIndex", "1.8")
