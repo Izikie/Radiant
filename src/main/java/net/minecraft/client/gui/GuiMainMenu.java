@@ -37,14 +37,11 @@ import org.lwjgl.opengl.GLContext;
 import org.lwjgl.util.glu.Project;
 
 public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
-    private static final AtomicInteger field_175373_f = new AtomicInteger(0);
-    private static final Logger logger = LogManager.getLogger();
     private static final Random RANDOM = new Random();
     private final float updateCounter;
     private String splashText;
     private int panoramaTimer;
     private DynamicTexture viewportTexture;
-    private final boolean field_175375_v = true;
     private final Object threadLock = new Object();
     private String openGLWarning1;
     private String openGLWarning2;
@@ -140,8 +137,8 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         int i = 24;
         int j = this.height / 4 + 48;
 
-        this.addSingleplayerMultiplayerButtons(j, 24);
-
+        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, j, I18n.format("menu.singleplayer")));
+        this.buttonList.add(new GuiButton(2, this.width / 2 - 100, j + 24, I18n.format("menu.multiplayer")));
         this.buttonList.add(new GuiButton(0, this.width / 2 - 100, j + 72 + 12, 98, 20, I18n.format("menu.options")));
         this.buttonList.add(new GuiButton(4, this.width / 2 + 2, j + 72 + 12, 98, 20, I18n.format("menu.quit")));
         this.buttonList.add(new GuiButtonLanguage(5, this.width / 2 - 124, j + 72 + 12));
@@ -155,11 +152,6 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
             this.field_92020_v = this.field_92022_t + k;
             this.field_92019_w = this.field_92021_u + 24;
         }
-    }
-
-    private void addSingleplayerMultiplayerButtons(int p_73969_1_, int p_73969_2_) {
-        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, p_73969_1_, I18n.format("menu.singleplayer")));
-        this.buttonList.add(new GuiButton(2, this.width / 2 - 100, p_73969_1_ + p_73969_2_, I18n.format("menu.multiplayer")));
     }
 
     protected void actionPerformed(GuiButton button) throws IOException {

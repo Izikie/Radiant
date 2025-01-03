@@ -35,10 +35,10 @@ public class GuiOverlayDebug extends Gui {
     private final Minecraft mc;
     private final FontRenderer fontRenderer;
     private String debugOF = null;
+
     private List<String> debugInfoLeft = null;
     private List<String> debugInfoRight = null;
-    private long updateInfoLeftTimeMs = 0L;
-    private long updateInfoRightTimeMs = 0L;
+    private long updateTimeMS = 0L;
 
     public GuiOverlayDebug(Minecraft mc) {
         this.mc = mc;
@@ -47,23 +47,20 @@ public class GuiOverlayDebug extends Gui {
 
     public void renderDebugInfo(ScaledResolution scaledResolutionIn) {
         GlStateManager.pushMatrix();
+
+        if (debugInfoLeft == null || debugInfoRight == null || System.currentTimeMillis() > updateTimeMS) {
+            debugInfoLeft = getDebugInfoLeft();
+            debugInfoRight = getDebugInfoRight();
+            updateTimeMS = System.currentTimeMillis() + 150L;
+        }
+
         renderDebugInfoLeft();
         renderDebugInfoRight(scaledResolutionIn);
         GlStateManager.popMatrix();
     }
 
-    private boolean isReducedDebug() {
-        return mc.thePlayer.hasReducedDebug() || mc.gameSettings.reducedDebugInfo;
-    }
-
     protected void renderDebugInfoLeft() {
         List<String> list = debugInfoLeft;
-
-        if (list == null || System.currentTimeMillis() > updateInfoLeftTimeMs) {
-            list = getDebugInfoLeft();
-            debugInfoLeft = list;
-            updateInfoLeftTimeMs = System.currentTimeMillis() + 100L;
-        }
 
         for (int i = 0; i < list.size(); ++i) {
             String line = list.get(i);
@@ -79,12 +76,6 @@ public class GuiOverlayDebug extends Gui {
     protected void renderDebugInfoRight(ScaledResolution scaledRes) {
         List<String> list = debugInfoRight;
 
-        if (list == null || System.currentTimeMillis() > updateInfoRightTimeMs) {
-            list = getDebugInfoRight();
-            debugInfoRight = list;
-            updateInfoRightTimeMs = System.currentTimeMillis() + 100L;
-        }
-
         for (int i = 0; i < list.size(); ++i) {
             String line = list.get(i);
 
@@ -95,6 +86,10 @@ public class GuiOverlayDebug extends Gui {
                 fontRenderer.drawStringWithShadow(line, xPos, yPos, -1);
             }
         }
+    }
+
+    private boolean isReducedDebug() {
+        return mc.thePlayer.hasReducedDebug() || mc.gameSettings.reducedDebugInfo;
     }
 
     @SuppressWarnings("incomplete-switch")
@@ -157,8 +152,7 @@ public class GuiOverlayDebug extends Gui {
                 mc.renderGlobal.getDebugInfoEntities(),
                 "P: " + mc.effectRenderer.getStatistics() + ". T: " + mc.theWorld.getDebugLoadedEntities() + textureAnimInfo,
                 mc.theWorld.getProviderName(),
-                "",
-                String.format("Chunk-relative: %d %d %d", blockPos.getX() & 15, blockPos.getY() & 15, blockPos.getZ() & 15)
+                ""
         );
 
         if (isReducedDebug()) {
