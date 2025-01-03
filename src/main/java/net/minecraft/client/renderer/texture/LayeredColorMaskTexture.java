@@ -72,7 +72,7 @@ public class LayeredColorMaskTexture extends AbstractTexture {
                 }
             }
         } catch (IOException ioexception) {
-            LOG.error("Couldn\'t load layered image", ioexception);
+            LOG.error("Couldn't load layered image", ioexception);
             return;
         }
 

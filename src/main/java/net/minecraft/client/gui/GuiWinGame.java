@@ -110,7 +110,7 @@ public class GuiWinGame extends GuiScreen {
                 inputstream.close();
                 this.field_146579_r = this.field_146582_i.size() * 12;
             } catch (Exception exception) {
-                logger.error("Couldn\'t load credits", exception);
+                logger.error("Couldn't load credits", exception);
             }
         }
     }

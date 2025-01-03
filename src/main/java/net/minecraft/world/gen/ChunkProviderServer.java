@@ -125,7 +125,7 @@ public class ChunkProviderServer implements IChunkProvider {
 
                 return chunk;
             } catch (Exception exception) {
-                logger.error("Couldn\'t load chunk", exception);
+                logger.error("Couldn't load chunk", exception);
                 return null;
             }
         }
@@ -136,7 +136,7 @@ public class ChunkProviderServer implements IChunkProvider {
             try {
                 this.chunkLoader.saveExtraChunkData(this.worldObj, chunkIn);
             } catch (Exception exception) {
-                logger.error("Couldn\'t save entities", exception);
+                logger.error("Couldn't save entities", exception);
             }
         }
     }
@@ -147,9 +147,9 @@ public class ChunkProviderServer implements IChunkProvider {
                 chunkIn.setLastSaveTime(this.worldObj.getTotalWorldTime());
                 this.chunkLoader.saveChunk(this.worldObj, chunkIn);
             } catch (IOException ioexception) {
-                logger.error("Couldn\'t save chunk", ioexception);
+                logger.error("Couldn't save chunk", ioexception);
             } catch (MinecraftException minecraftexception) {
-                logger.error("Couldn\'t save chunk; already in use by another instance of Minecraft?", minecraftexception);
+                logger.error("Couldn't save chunk; already in use by another instance of Minecraft?", minecraftexception);
             }
         }
     }

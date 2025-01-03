@@ -154,7 +154,7 @@ public class BlockPart {
             if (vector3f.x >= -16.0F && vector3f.y >= -16.0F && vector3f.z >= -16.0F && vector3f.x <= 32.0F && vector3f.y <= 32.0F && vector3f.z <= 32.0F) {
                 return vector3f;
             } else {
-                throw new JsonParseException("\'to\' specifier exceeds the allowed boundaries: " + vector3f);
+                throw new JsonParseException("'to' specifier exceeds the allowed boundaries: " + vector3f);
             }
         }
 
@@ -164,7 +164,7 @@ public class BlockPart {
             if (vector3f.x >= -16.0F && vector3f.y >= -16.0F && vector3f.z >= -16.0F && vector3f.x <= 32.0F && vector3f.y <= 32.0F && vector3f.z <= 32.0F) {
                 return vector3f;
             } else {
-                throw new JsonParseException("\'from\' specifier exceeds the allowed boundaries: " + vector3f);
+                throw new JsonParseException("'from' specifier exceeds the allowed boundaries: " + vector3f);
             }
         }
 

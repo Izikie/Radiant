@@ -1283,7 +1283,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
                     imerchant.setRecipes(merchantrecipelist);
                 }
             } catch (IOException ioexception) {
-                logger.error("Couldn\'t load trade info", ioexception);
+                logger.error("Couldn't load trade info", ioexception);
             } finally {
                 packetbuffer.release();
             }

@@ -161,7 +161,7 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
                             NetHandlerLoginServer.this.currentLoginState = NetHandlerLoginServer.LoginState.READY_TO_ACCEPT;
                         } else {
                             NetHandlerLoginServer.this.closeConnection("Failed to verify username!");
-                            NetHandlerLoginServer.logger.error("Username \'" + NetHandlerLoginServer.this.loginGameProfile.getName() + "\' tried to join with an invalid session");
+                            NetHandlerLoginServer.logger.error("Username '" + NetHandlerLoginServer.this.loginGameProfile.getName() + "' tried to join with an invalid session");
                         }
                     } catch (AuthenticationUnavailableException var3) {
                         if (NetHandlerLoginServer.this.server.isSinglePlayer()) {
@@ -170,7 +170,7 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
                             NetHandlerLoginServer.this.currentLoginState = NetHandlerLoginServer.LoginState.READY_TO_ACCEPT;
                         } else {
                             NetHandlerLoginServer.this.closeConnection("Authentication servers are down. Please try again later, sorry!");
-                            NetHandlerLoginServer.logger.error("Couldn\'t verify username because servers are unavailable");
+                            NetHandlerLoginServer.logger.error("Couldn't verify username because servers are unavailable");
                         }
                     }
                 }

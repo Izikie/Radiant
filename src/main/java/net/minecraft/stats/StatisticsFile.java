@@ -44,9 +44,9 @@ public class StatisticsFile extends StatFileWriter {
                 this.statsData.clear();
                 this.statsData.putAll(this.parseJson(FileUtils.readFileToString(this.statsFile)));
             } catch (IOException ioexception) {
-                logger.error("Couldn\'t read statistics file " + this.statsFile, ioexception);
+                logger.error("Couldn't read statistics file " + this.statsFile, ioexception);
             } catch (JsonParseException jsonparseexception) {
-                logger.error("Couldn\'t parse statistics file " + this.statsFile, jsonparseexception);
+                logger.error("Couldn't parse statistics file " + this.statsFile, jsonparseexception);
             }
         }
     }
@@ -55,7 +55,7 @@ public class StatisticsFile extends StatFileWriter {
         try {
             FileUtils.writeStringToFile(this.statsFile, dumpJson(this.statsData));
         } catch (IOException ioexception) {
-            logger.error("Couldn\'t save stats", ioexception);
+            logger.error("Couldn't save stats", ioexception);
         }
     }
 
@@ -126,7 +126,7 @@ public class StatisticsFile extends StatFileWriter {
 
                     map.put(statbase, tupleintjsonserializable);
                 } else {
-                    logger.warn("Invalid statistic in " + this.statsFile + ": Don\'t know what " + entry.getKey() + " is");
+                    logger.warn("Invalid statistic in " + this.statsFile + ": Don't know what " + entry.getKey() + " is");
                 }
             }
 
@@ -145,7 +145,7 @@ public class StatisticsFile extends StatFileWriter {
                 try {
                     jsonobject1.add("progress", entry.getValue().getJsonSerializableValue().getSerializableElement());
                 } catch (Throwable throwable) {
-                    logger.warn("Couldn\'t save statistic " + entry.getKey().getStatName() + ": error serializing progress", throwable);
+                    logger.warn("Couldn't save statistic " + entry.getKey().getStatName() + ": error serializing progress", throwable);
                 }
 
                 jsonobject.add(entry.getKey().statId, jsonobject1);

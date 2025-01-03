@@ -95,7 +95,7 @@ public class SoundManager {
 
                             public void errorMessage(String p_errorMessage_1_, String p_errorMessage_2_, int p_errorMessage_3_) {
                                 if (!p_errorMessage_2_.isEmpty()) {
-                                    SoundManager.logger.error("Error in class \'" + p_errorMessage_1_ + "\'");
+                                    SoundManager.logger.error("Error in class '" + p_errorMessage_1_ + "'");
                                     SoundManager.logger.error(p_errorMessage_2_);
                                 }
                             }
@@ -194,7 +194,7 @@ public class SoundManager {
                     }
 
                     iterator.remove();
-                    logger.debug(LOG_MARKER, "Removed channel {} because it\'s not playing anymore", new Object[]{s1});
+                    logger.debug(LOG_MARKER, "Removed channel {} because it's not playing anymore", new Object[]{s1});
                     this.sndSystem.removeSource(s1);
                     this.playingSoundsStopTime.remove(s1);
                     this.playingSoundPoolEntries.remove(isound);

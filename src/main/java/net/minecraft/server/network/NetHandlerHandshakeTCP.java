@@ -24,7 +24,7 @@ public class NetHandlerHandshakeTCP implements INetHandlerHandshakeServer {
                 this.networkManager.setConnectionState(EnumConnectionState.LOGIN);
 
                 if (packetIn.getProtocolVersion() > 47) {
-                    ChatComponentText chatcomponenttext = new ChatComponentText("Outdated server! I\'m still on 1.8.9");
+                    ChatComponentText chatcomponenttext = new ChatComponentText("Outdated server! I'm still on 1.8.9");
                     this.networkManager.sendPacket(new S00PacketDisconnect(chatcomponenttext));
                     this.networkManager.closeChannel(chatcomponenttext);
                 } else if (packetIn.getProtocolVersion() < 47) {

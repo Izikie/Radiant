@@ -18,7 +18,7 @@ public class JsonToNBT {
         jsonString = jsonString.trim();
 
         if (!jsonString.startsWith("{")) {
-            throw new NBTException("Invalid tag encountered, expected \'{\' as first char.");
+            throw new NBTException("Invalid tag encountered, expected '{' as first char.");
         } else if (func_150310_b(jsonString) != 1) {
             throw new NBTException("Encountered multiple top tags, only one expected");
         } else {
@@ -101,7 +101,7 @@ public class JsonToNBT {
                 char c1 = p_150316_1_.charAt(s1.length());
 
                 if (c1 != 44 && c1 != 123 && c1 != 125 && c1 != 91 && c1 != 93) {
-                    throw new NBTException("Unexpected token \'" + c1 + "\' at: " + p_150316_1_.substring(s1.length()));
+                    throw new NBTException("Unexpected token '" + c1 + "' at: " + p_150316_1_.substring(s1.length()));
                 }
             }
 
@@ -126,7 +126,7 @@ public class JsonToNBT {
                 char c0 = p_150316_1_.charAt(s.length());
 
                 if (c0 != 44 && c0 != 123 && c0 != 125 && c0 != 91 && c0 != 93) {
-                    throw new NBTException("Unexpected token \'" + c0 + "\' at: " + p_150316_1_.substring(s.length()));
+                    throw new NBTException("Unexpected token '" + c0 + "' at: " + p_150316_1_.substring(s.length()));
                 }
             }
 

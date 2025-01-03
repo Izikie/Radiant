@@ -78,7 +78,7 @@ public class ResourcePackRepository {
                     }
 
                     iterator.remove();
-                    logger.warn("Removed selected resource pack {} because it\'s no longer compatible", new Object[]{resourcepackrepository$entry.getResourcePackName()});
+                    logger.warn("Removed selected resource pack {} because it's no longer compatible", new Object[]{resourcepackrepository$entry.getResourcePackName()});
                 }
             }
         }
@@ -174,7 +174,7 @@ public class ResourcePackRepository {
                     logger.warn("File " + file1 + " had wrong hash (expected " + hash + ", found " + s1 + "). Deleting it.");
                     FileUtils.deleteQuietly(file1);
                 } catch (IOException ioexception) {
-                    logger.warn("File " + file1 + " couldn\'t be hashed. Deleting it.", ioexception);
+                    logger.warn("File " + file1 + " couldn't be hashed. Deleting it.", ioexception);
                     FileUtils.deleteQuietly(file1);
                 }
             }
@@ -300,7 +300,7 @@ public class ResourcePackRepository {
         }
 
         public String getTexturePackDescription() {
-            return this.rePackMetadataSection == null ? EnumChatFormatting.RED + "Invalid pack.mcmeta (or missing \'pack\' section)" : this.rePackMetadataSection.getPackDescription().getFormattedText();
+            return this.rePackMetadataSection == null ? EnumChatFormatting.RED + "Invalid pack.mcmeta (or missing 'pack' section)" : this.rePackMetadataSection.getPackDescription().getFormattedText();
         }
 
         public int func_183027_f() {

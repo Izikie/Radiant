@@ -180,7 +180,7 @@ public class Block {
 
     public int getMetaFromState(IBlockState state) {
         if (state != null && !state.getPropertyNames().isEmpty()) {
-            throw new IllegalArgumentException("Don\'t know how to convert " + state + " back into data...");
+            throw new IllegalArgumentException("Don't know how to convert " + state + " back into data...");
         } else {
             return 0;
         }

@@ -34,7 +34,7 @@ public class MessageSerializer extends MessageToByteEncoder<Packet> {
         }
 
         if (integer == null) {
-            throw new IOException("Can\'t serialize unregistered packet");
+            throw new IOException("Can't serialize unregistered packet");
         } else {
             PacketBuffer packetbuffer = new PacketBuffer(p_encode_3_);
             packetbuffer.writeVarIntToBuffer(integer.intValue());

@@ -27,12 +27,12 @@ public class Scoreboard {
 
     public ScoreObjective addScoreObjective(String name, IScoreObjectiveCriteria criteria) {
         if (name.length() > 16) {
-            throw new IllegalArgumentException("The objective name \'" + name + "\' is too long!");
+            throw new IllegalArgumentException("The objective name '" + name + "' is too long!");
         } else {
             ScoreObjective scoreobjective = this.getObjective(name);
 
             if (scoreobjective != null) {
-                throw new IllegalArgumentException("An objective with the name \'" + name + "\' already exists!");
+                throw new IllegalArgumentException("An objective with the name '" + name + "' already exists!");
             } else {
                 scoreobjective = new ScoreObjective(this, name, criteria);
                 List<ScoreObjective> list = this.scoreObjectiveCriterias.get(criteria);
@@ -68,7 +68,7 @@ public class Scoreboard {
 
     public Score getValueFromObjective(String name, ScoreObjective objective) {
         if (name.length() > 40) {
-            throw new IllegalArgumentException("The player name \'" + name + "\' is too long!");
+            throw new IllegalArgumentException("The player name '" + name + "' is too long!");
         } else {
             Map<ScoreObjective, Score> map = this.entitiesScoreObjectives.get(name);
 
@@ -194,12 +194,12 @@ public class Scoreboard {
 
     public ScorePlayerTeam createTeam(String name) {
         if (name.length() > 16) {
-            throw new IllegalArgumentException("The team name \'" + name + "\' is too long!");
+            throw new IllegalArgumentException("The team name '" + name + "' is too long!");
         } else {
             ScorePlayerTeam scoreplayerteam = this.getTeam(name);
 
             if (scoreplayerteam != null) {
-                throw new IllegalArgumentException("A team with the name \'" + name + "\' already exists!");
+                throw new IllegalArgumentException("A team with the name '" + name + "' already exists!");
             } else {
                 scoreplayerteam = new ScorePlayerTeam(this, name);
                 this.teams.put(name, scoreplayerteam);
@@ -221,7 +221,7 @@ public class Scoreboard {
 
     public boolean addPlayerToTeam(String player, String newTeam) {
         if (player.length() > 40) {
-            throw new IllegalArgumentException("The player name \'" + player + "\' is too long!");
+            throw new IllegalArgumentException("The player name '" + player + "' is too long!");
         } else if (!this.teams.containsKey(newTeam)) {
             return false;
         } else {
@@ -250,7 +250,7 @@ public class Scoreboard {
 
     public void removePlayerFromTeam(String p_96512_1_, ScorePlayerTeam p_96512_2_) {
         if (this.getPlayersTeam(p_96512_1_) != p_96512_2_) {
-            throw new IllegalStateException("Player is either on another team or not on any team. Cannot remove from team \'" + p_96512_2_.getRegisteredName() + "\'.");
+            throw new IllegalStateException("Player is either on another team or not on any team. Cannot remove from team '" + p_96512_2_.getRegisteredName() + "'.");
         } else {
             this.teamMemberships.remove(p_96512_1_);
             p_96512_2_.getMembershipCollection().remove(p_96512_1_);

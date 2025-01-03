@@ -114,7 +114,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback {
                 if (s4 != null) {
                     this.deletingServer = true;
                     String s = I18n.format("selectServer.deleteQuestion");
-                    String s1 = "\'" + s4 + "\' " + I18n.format("selectServer.deleteWarning");
+                    String s1 = "'" + s4 + "' " + I18n.format("selectServer.deleteWarning");
                     String s2 = I18n.format("selectServer.deleteButton");
                     String s3 = I18n.format("gui.cancel");
                     GuiYesNo guiyesno = new GuiYesNo(this, s, s1, s2, s3, this.serverListSelector.func_148193_k());

@@ -128,9 +128,9 @@ public class ShaderGroup {
         Framebuffer framebuffer1 = this.getFramebuffer(s2);
 
         if (framebuffer == null) {
-            throw new JsonException("Input target \'" + s1 + "\' does not exist");
+            throw new JsonException("Input target '" + s1 + "' does not exist");
         } else if (framebuffer1 == null) {
-            throw new JsonException("Output target \'" + s2 + "\' does not exist");
+            throw new JsonException("Output target '" + s2 + "' does not exist");
         } else {
             Shader shader = this.addShader(s, framebuffer, framebuffer1);
             JsonArray jsonarray = JsonUtils.getJsonArray(jsonobject, "auxtargets", null);
@@ -151,7 +151,7 @@ public class ShaderGroup {
                             try {
                                 this.resourceManager.getResource(resourcelocation);
                             } catch (FileNotFoundException var24) {
-                                throw new JsonException("Render target or texture \'" + s3 + "\' does not exist");
+                                throw new JsonException("Render target or texture '" + s3 + "' does not exist");
                             }
 
                             p_152764_1_.bindTexture(resourcelocation);
@@ -208,7 +208,7 @@ public class ShaderGroup {
         ShaderUniform shaderuniform = this.listShaders.get(this.listShaders.size() - 1).getShaderManager().getShaderUniform(s);
 
         if (shaderuniform == null) {
-            throw new JsonException("Uniform \'" + s + "\' does not exist");
+            throw new JsonException("Uniform '" + s + "' does not exist");
         } else {
             float[] afloat = new float[4];
             int i = 0;

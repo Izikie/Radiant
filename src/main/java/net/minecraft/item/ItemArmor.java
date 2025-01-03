@@ -126,7 +126,7 @@ public class ItemArmor extends Item {
 
     public void setColor(ItemStack stack, int color) {
         if (this.material != ItemArmor.ArmorMaterial.LEATHER) {
-            throw new UnsupportedOperationException("Can\'t dye non-leather!");
+            throw new UnsupportedOperationException("Can't dye non-leather!");
         } else {
             NBTTagCompound nbttagcompound = stack.getTagCompound();
 

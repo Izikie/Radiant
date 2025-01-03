@@ -110,7 +110,7 @@ public class LanServerDetector {
                 } catch (SocketTimeoutException var5) {
                     continue;
                 } catch (IOException ioexception) {
-                    LanServerDetector.logger.error("Couldn\'t ping server", ioexception);
+                    LanServerDetector.logger.error("Couldn't ping server", ioexception);
                     break;
                 }
 

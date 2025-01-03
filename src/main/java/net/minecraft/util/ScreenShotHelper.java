@@ -115,7 +115,7 @@ public class ScreenShotHelper {
             ichatcomponent.getChatStyle().setUnderlined(Boolean.valueOf(true));
             return new ChatComponentTranslation("screenshot.success", ichatcomponent);
         } catch (Exception exception) {
-            logger.warn("Couldn\'t save screenshot", exception);
+            logger.warn("Couldn't save screenshot", exception);
             return new ChatComponentTranslation("screenshot.failure", exception.getMessage());
         }
     }

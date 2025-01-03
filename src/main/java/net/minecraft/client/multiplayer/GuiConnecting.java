@@ -64,14 +64,14 @@ public class GuiConnecting extends GuiScreen {
                         return;
                     }
 
-                    GuiConnecting.logger.error("Couldn\'t connect to server", unknownhostexception);
+                    GuiConnecting.logger.error("Couldn't connect to server", unknownhostexception);
                     GuiConnecting.this.mc.displayGuiScreen(new GuiDisconnected(GuiConnecting.this.previousGuiScreen, "connect.failed", new ChatComponentTranslation("disconnect.genericReason", "Unknown host")));
                 } catch (Exception exception) {
                     if (GuiConnecting.this.cancel) {
                         return;
                     }
 
-                    GuiConnecting.logger.error("Couldn\'t connect to server", exception);
+                    GuiConnecting.logger.error("Couldn't connect to server", exception);
                     String s = exception.toString();
 
                     if (inetaddress != null) {

@@ -82,7 +82,7 @@ public class ChatComponentTranslation extends ChatComponentStyle {
                     this.children.add(chatcomponenttext2);
                 } else {
                     if (!"s".equals(s2)) {
-                        throw new ChatComponentTranslationFormatException(this, "Unsupported format: \'" + s + "\'");
+                        throw new ChatComponentTranslationFormatException(this, "Unsupported format: '" + s + "'");
                     }
 
                     String s1 = matcher.group(1);
@@ -195,7 +195,7 @@ public class ChatComponentTranslation extends ChatComponentStyle {
     }
 
     public String toString() {
-        return "TranslatableComponent{key=\'" + this.key + '\'' + ", args=" + Arrays.toString(this.formatArgs) + ", siblings=" + this.siblings + ", style=" + this.getChatStyle() + '}';
+        return "TranslatableComponent{key='" + this.key + '\'' + ", args=" + Arrays.toString(this.formatArgs) + ", siblings=" + this.siblings + ", style=" + this.getChatStyle() + '}';
     }
 
     public String getKey() {

@@ -27,7 +27,7 @@ public class TokenParser {
                 TokenType tokentype = TokenType.getTypeByFirstChar(c0);
 
                 if (tokentype == null) {
-                    throw new ParseException("Invalid character: \'" + c0 + "\', in: " + str);
+                    throw new ParseException("Invalid character: '" + c0 + "', in: " + str);
                 }
 
                 Token token = readToken(c0, tokentype, pushbackreader);

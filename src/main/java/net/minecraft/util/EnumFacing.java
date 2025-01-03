@@ -335,7 +335,7 @@ public enum EnumFacing implements IStringSerializable {
                 case VERTICAL:
                     return new EnumFacing[]{EnumFacing.UP, EnumFacing.DOWN};
                 default:
-                    throw new Error("Someone\'s been tampering with the universe!");
+                    throw new Error("Someone's been tampering with the universe!");
             }
         }
 

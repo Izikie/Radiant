@@ -37,6 +37,6 @@ public class ChatComponentText extends ChatComponentStyle {
     }
 
     public String toString() {
-        return "TextComponent{text=\'" + this.text + '\'' + ", siblings=" + this.siblings + ", style=" + this.getChatStyle() + '}';
+        return "TextComponent{text='" + this.text + '\'' + ", siblings=" + this.siblings + ", style=" + this.getChatStyle() + '}';
     }
 }
