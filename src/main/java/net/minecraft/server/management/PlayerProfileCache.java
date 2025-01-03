@@ -190,9 +190,7 @@ public class PlayerProfileCache {
                 }
             }
         } catch (FileNotFoundException var9) {
-            ;
         } catch (JsonParseException var10) {
-            ;
         } finally {
             IOUtils.closeQuietly(bufferedreader);
         }
@@ -207,7 +205,6 @@ public class PlayerProfileCache {
             bufferedwriter.write(s);
             return;
         } catch (FileNotFoundException var8) {
-            ;
         } catch (IOException var9) {
             return;
         } finally {

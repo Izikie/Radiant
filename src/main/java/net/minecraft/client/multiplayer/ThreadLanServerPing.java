@@ -42,7 +42,6 @@ public class ThreadLanServerPing extends Thread {
             try {
                 sleep(1500L);
             } catch (InterruptedException var5) {
-                ;
             }
         }
     }

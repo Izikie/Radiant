@@ -670,7 +670,6 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                         }
                     }
                 } catch (Exception var17) {
-                    ;
                 }
             }
         }

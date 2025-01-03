@@ -267,7 +267,6 @@ public class ResourcePackRepository {
             try {
                 this.texturePackIcon = this.reResourcePack.getPackImage();
             } catch (IOException var2) {
-                ;
             }
 
             if (this.texturePackIcon == null) {

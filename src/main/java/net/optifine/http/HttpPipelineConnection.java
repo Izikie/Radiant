@@ -295,7 +295,6 @@ public class HttpPipelineConnection {
                     this.socket.close();
                 }
             } catch (IOException var3) {
-                ;
             }
 
             this.socket = null;

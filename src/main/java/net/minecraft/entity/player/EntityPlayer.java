@@ -1772,6 +1772,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
         NOT_POSSIBLE_NOW,
         TOO_FAR_AWAY,
         OTHER_PROBLEM,
-        NOT_SAFE;
+        NOT_SAFE
     }
 }

@@ -189,7 +189,6 @@ public class TextureUtils {
         int i;
 
         for (i = 1; i < val; i *= 2) {
-            ;
         }
 
         return i;
@@ -397,7 +396,6 @@ public class TextureUtils {
             int i;
 
             for (i = size / sizeGrid * sizeGrid; i < size; i += sizeGrid) {
-                ;
             }
 
             return i;
@@ -411,7 +409,6 @@ public class TextureUtils {
             int i;
 
             for (i = sizeMin / size * size; i < sizeMin; i += size) {
-                ;
             }
 
             return i;

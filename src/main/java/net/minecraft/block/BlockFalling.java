@@ -51,7 +51,6 @@ public class BlockFalling extends Block {
                 BlockPos blockpos;
 
                 for (blockpos = pos.down(); canFallInto(worldIn, blockpos) && blockpos.getY() > 0; blockpos = blockpos.down()) {
-                    ;
                 }
 
                 if (blockpos.getY() > 0) {

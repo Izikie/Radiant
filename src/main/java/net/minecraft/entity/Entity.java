@@ -1288,7 +1288,6 @@ public abstract class Entity implements ICommandSender {
                 this.entityRiderYawDelta += (this.ridingEntity.rotationYaw - this.ridingEntity.prevRotationYaw);
 
                 for (this.entityRiderPitchDelta += (this.ridingEntity.rotationPitch - this.ridingEntity.prevRotationPitch); this.entityRiderYawDelta >= 180.0D; this.entityRiderYawDelta -= 360.0D) {
-                    ;
                 }
 
                 while (this.entityRiderYawDelta < -180.0D) {

@@ -164,7 +164,6 @@ public class LoadingScreenRenderer implements IProgressUpdate {
                 try {
                     Thread.yield();
                 } catch (Exception var16) {
-                    ;
                 }
             }
         }

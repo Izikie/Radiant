@@ -183,7 +183,6 @@ public class VboRegion {
         int i;
 
         for (i = this.capacity * 6 / 4; i < sizeMin; i = i * 6 / 4) {
-            ;
         }
 
         long j = this.toBytes(this.capacity);

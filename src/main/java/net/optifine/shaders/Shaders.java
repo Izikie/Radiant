@@ -569,7 +569,6 @@ public class Shaders {
                 shadersConfig.load(filereader);
                 filereader.close();
             } catch (Exception var7) {
-                ;
             }
         }
 
@@ -577,7 +576,6 @@ public class Shaders {
             try {
                 storeConfig();
             } catch (Exception var6) {
-                ;
             }
         }
 
@@ -1588,7 +1586,6 @@ public class Shaders {
                 }
             }
         } catch (Exception var7) {
-            ;
         }
 
         List<String> list = arraylist.subList(i, arraylist.size());
@@ -1838,7 +1835,6 @@ public class Shaders {
             checkGLError("Shaders.init pre");
 
             if (getShaderPackName() != null) {
-                ;
             }
 
             if (!capabilities.OpenGL20) {
@@ -1987,7 +1983,6 @@ public class Shaders {
                 Program program2;
 
                 for (program2 = program1; program2.getId() == 0 && program2.getProgramBackup() != program2; program2 = program2.getProgramBackup()) {
-                    ;
                 }
 
                 if (program2 != program1 && program1 != ProgramShadow) {
@@ -2016,7 +2011,6 @@ public class Shaders {
             resetDisplayLists();
 
             if (!flag) {
-                ;
             }
 
             checkGLError("Shaders.init");
@@ -2988,7 +2982,6 @@ public class Shaders {
         try {
             bufferedreader = new BufferedReader(new InputStreamReader(shaderPack.getResourceAsStream("/mc_Entity_x.txt")));
         } catch (Exception var8) {
-            ;
         }
 
         if (bufferedreader != null) {
@@ -3022,7 +3015,6 @@ public class Shaders {
             try {
                 bufferedreader.close();
             } catch (Exception var7) {
-                ;
             }
         }
     }
@@ -4419,7 +4411,6 @@ public class Shaders {
     public static void endWater() {
         if (isRenderingWorld) {
             if (isShadowPass) {
-                ;
             }
 
             useProgram(lightmapEnabled ? ProgramTexturedLit : ProgramTextured);

@@ -983,7 +983,7 @@ public class GlStateManager {
         S,
         T,
         R,
-        Q;
+        Q
     }
 
     static class TexGenCoord {

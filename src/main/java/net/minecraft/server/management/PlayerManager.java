@@ -334,7 +334,6 @@ public class PlayerManager {
         float f;
 
         for (f = p_getNearest_2_.rotationYaw + 90.0F; f <= -180.0F; f += 360.0F) {
-            ;
         }
 
         while (f > 180.0F) {

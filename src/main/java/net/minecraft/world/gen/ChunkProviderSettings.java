@@ -550,7 +550,6 @@ public class ChunkProviderSettings {
                 chunkprovidersettings$factory.lapisCenterHeight = JsonUtils.getInt(jsonobject, "lapisCenterHeight", chunkprovidersettings$factory.lapisCenterHeight);
                 chunkprovidersettings$factory.lapisSpread = JsonUtils.getInt(jsonobject, "lapisSpread", chunkprovidersettings$factory.lapisSpread);
             } catch (Exception var7) {
-                ;
             }
 
             return chunkprovidersettings$factory;

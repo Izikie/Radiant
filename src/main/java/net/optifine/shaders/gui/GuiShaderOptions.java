@@ -104,7 +104,6 @@ public class GuiShaderOptions extends GuiScreenOF {
             FontRenderer fontrenderer = Config.getMinecraft().fontRendererObj;
 
             for (int i = fontrenderer.getStringWidth(": " + Lang.getOff()) + 5; fontrenderer.getStringWidth(s) + i >= btnWidth && s.length() > 0; s = s.substring(0, s.length() - 1)) {
-                ;
             }
 
             String s1 = so.isChanged() ? so.getValueColor(so.getValue()) : "";

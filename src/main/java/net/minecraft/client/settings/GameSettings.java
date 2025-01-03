@@ -1069,7 +1069,6 @@ public class GameSettings {
             }
 
             for (this.ofAfLevel = 1; this.ofAfLevel * 2 <= k; this.ofAfLevel *= 2) {
-                ;
             }
 
             this.ofAfLevel = Config.limit(this.ofAfLevel, 1, 16);

@@ -124,7 +124,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
             try {
                 p_channelRead0_2_.processPacket(this.packetListener);
             } catch (ThreadQuickExitException var4) {
-                ;
             }
         }
     }
@@ -263,7 +262,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
                 try {
                     p_initChannel_1_.config().setOption(ChannelOption.TCP_NODELAY, Boolean.valueOf(true));
                 } catch (ChannelException var3) {
-                    ;
                 }
 
                 p_initChannel_1_.pipeline().addLast("timeout", new ReadTimeoutHandler(30)).addLast("splitter", new MessageDeserializer2()).addLast("decoder", new MessageDeserializer(EnumPacketDirection.CLIENTBOUND)).addLast("prepender", new MessageSerializer2()).addLast("encoder", new MessageSerializer(EnumPacketDirection.SERVERBOUND)).addLast("packet_handler", networkmanager);

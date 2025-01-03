@@ -79,7 +79,6 @@ public class Item {
             try {
                 return getItemById(Integer.parseInt(id));
             } catch (NumberFormatException var3) {
-                ;
             }
         }
 

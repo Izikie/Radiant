@@ -130,7 +130,6 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
         int i;
 
         for (i = this.field_175271_i.func_178648_e() + p_175259_1_; i >= 0 && i <= 8 && (this.field_175271_i.func_178643_a(i) == SpectatorMenu.field_178657_a || !this.field_175271_i.func_178643_a(i).func_178662_A_()); i += p_175259_1_) {
-            ;
         }
 
         if (i >= 0 && i <= 8) {

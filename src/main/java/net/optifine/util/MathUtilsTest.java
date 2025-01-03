@@ -78,6 +78,6 @@ public class MathUtilsTest {
         SIN,
         COS,
         ASIN,
-        ACOS;
+        ACOS
     }
 }

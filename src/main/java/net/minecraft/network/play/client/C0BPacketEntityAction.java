@@ -56,6 +56,6 @@ public class C0BPacketEntityAction implements Packet<INetHandlerPlayServer> {
         START_SPRINTING,
         STOP_SPRINTING,
         RIDING_JUMP,
-        OPEN_INVENTORY;
+        OPEN_INVENTORY
     }
 }

@@ -525,6 +525,6 @@ public class CustomGuiProperties {
         MULE,
         LLAMA,
         DISPENSER,
-        DROPPER;
+        DROPPER
     }
 }

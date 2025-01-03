@@ -38,7 +38,6 @@ public class StringTranslate {
 
             this.lastUpdateTimeInMilliseconds = System.currentTimeMillis();
         } catch (IOException var7) {
-            ;
         }
     }
 

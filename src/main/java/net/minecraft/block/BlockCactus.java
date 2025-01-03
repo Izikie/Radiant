@@ -34,7 +34,6 @@ public class BlockCactus extends Block {
             int i;
 
             for (i = 1; worldIn.getBlockState(pos.down(i)).getBlock() == this; ++i) {
-                ;
             }
 
             if (i < 3) {

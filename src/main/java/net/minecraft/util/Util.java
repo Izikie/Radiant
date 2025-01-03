@@ -33,6 +33,6 @@ public class Util {
         SOLARIS,
         WINDOWS,
         OSX,
-        UNKNOWN;
+        UNKNOWN
     }
 }

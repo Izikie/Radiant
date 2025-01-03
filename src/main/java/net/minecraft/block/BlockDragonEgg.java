@@ -43,7 +43,6 @@ public class BlockDragonEgg extends Block {
                 BlockPos blockpos;
 
                 for (blockpos = pos; BlockFalling.canFallInto(worldIn, blockpos) && blockpos.getY() > 0; blockpos = blockpos.down()) {
-                    ;
                 }
 
                 if (blockpos.getY() > 0) {

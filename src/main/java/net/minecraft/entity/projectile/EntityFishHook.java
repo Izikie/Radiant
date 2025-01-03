@@ -266,7 +266,6 @@ public class EntityFishHook extends Entity {
                 this.rotationYaw = (float) (MathHelper.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
 
                 for (this.rotationPitch = (float) (MathHelper.atan2(this.motionY, f5) * 180.0D / Math.PI); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
-                    ;
                 }
 
                 while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {

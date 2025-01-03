@@ -244,7 +244,6 @@ public class HttpUtil {
                     serversocket.close();
                 }
             } catch (IOException var8) {
-                ;
             }
         }
 

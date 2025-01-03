@@ -316,7 +316,6 @@ public class ShaderGroup {
         }
 
         for (this.field_148037_k = partialTicks; this.field_148036_j > 20.0F; this.field_148036_j -= 20.0F) {
-            ;
         }
 
         for (Shader shader : this.listShaders) {

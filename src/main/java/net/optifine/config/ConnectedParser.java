@@ -284,7 +284,6 @@ public class ConnectedParser {
                                 list1.add(Integer.valueOf(l));
                             }
                         } catch (IllegalArgumentException var18) {
-                            ;
                         }
                     }
 

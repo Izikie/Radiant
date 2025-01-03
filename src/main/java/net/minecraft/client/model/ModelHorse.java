@@ -293,7 +293,6 @@ public class ModelHorse extends ModelBase {
         float f;
 
         for (f = p_110683_2_ - p_110683_1_; f < -180.0F; f += 360.0F) {
-            ;
         }
 
         while (f >= 180.0F) {

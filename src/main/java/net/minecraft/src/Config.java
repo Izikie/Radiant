@@ -519,7 +519,6 @@ public class Config {
                     texturePackClouds = 3;
                 }
             } catch (Exception var4) {
-                ;
             }
         }
     }

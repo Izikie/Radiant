@@ -915,6 +915,6 @@ public abstract class EntityLiving extends EntityLivingBase {
     public static enum SpawnPlacementType {
         ON_GROUND,
         IN_AIR,
-        IN_WATER;
+        IN_WATER
     }
 }

@@ -403,7 +403,6 @@ public class CustomSkyLayer {
                 long j;
 
                 for (j = i - this.startFadeIn; j < 0L; j += (24000 * this.daysLoop)) {
-                    ;
                 }
 
                 int k = (int) (j / 24000L);

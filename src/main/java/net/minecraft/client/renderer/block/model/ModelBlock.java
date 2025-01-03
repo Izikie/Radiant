@@ -162,7 +162,6 @@ public class ModelBlock {
 
                 throw new ModelBlock.LoopException();
             } catch (NullPointerException var5) {
-                ;
             }
         }
     }

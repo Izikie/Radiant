@@ -472,7 +472,6 @@ public class EntityGuardian extends EntityMob {
                     entitylivingbase.attackEntityFrom(DamageSource.causeMobDamage(this.theEntity), (float) this.theEntity.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue());
                     this.theEntity.setAttackTarget(null);
                 } else if (this.tickCounter >= 60 && this.tickCounter % 20 == 0) {
-                    ;
                 }
 
                 super.updateTask();

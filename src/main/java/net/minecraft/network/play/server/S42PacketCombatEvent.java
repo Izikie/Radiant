@@ -69,6 +69,6 @@ public class S42PacketCombatEvent implements Packet<INetHandlerPlayClient> {
     public static enum Event {
         ENTER_COMBAT,
         END_COMBAT,
-        ENTITY_DIED;
+        ENTITY_DIED
     }
 }

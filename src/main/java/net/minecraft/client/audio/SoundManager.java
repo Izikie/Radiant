@@ -202,7 +202,6 @@ public class SoundManager {
                     try {
                         this.categorySounds.remove(this.sndHandler.getSound(isound.getSoundLocation()).getSoundCategory(), s1);
                     } catch (RuntimeException var8) {
-                        ;
                     }
 
                     if (isound instanceof ITickableSound) {

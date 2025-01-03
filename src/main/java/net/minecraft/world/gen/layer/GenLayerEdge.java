@@ -111,6 +111,6 @@ public class GenLayerEdge extends GenLayer {
     public static enum Mode {
         COOL_WARM,
         HEAT_ICE,
-        SPECIAL;
+        SPECIAL
     }
 }

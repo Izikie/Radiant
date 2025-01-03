@@ -31,7 +31,6 @@ public class Locale {
                 try {
                     this.loadLocaleData(resourceManager.getAllResources(new ResourceLocation(s2, s1)));
                 } catch (IOException var9) {
-                    ;
                 }
             }
         }

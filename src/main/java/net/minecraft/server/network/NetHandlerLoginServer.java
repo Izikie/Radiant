@@ -189,6 +189,6 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
         AUTHENTICATING,
         READY_TO_ACCEPT,
         DELAY_ACCEPT,
-        ACCEPTED;
+        ACCEPTED
     }
 }

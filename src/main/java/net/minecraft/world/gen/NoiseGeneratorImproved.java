@@ -24,7 +24,6 @@ public class NoiseGeneratorImproved extends NoiseGenerator {
         this.zCoord = p_i45469_1_.nextDouble() * 256.0D;
 
         for (int i = 0; i < 256; this.permutations[i] = i++) {
-            ;
         }
 
         for (int l = 0; l < 256; ++l) {

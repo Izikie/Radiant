@@ -19,7 +19,6 @@ public class TileEntityEnchantmentTableRenderer extends TileEntitySpecialRendere
         float f1;
 
         for (f1 = te.bookRotation - te.bookRotationPrev; f1 >= (float) Math.PI; f1 -= ((float) Math.PI * 2.0F)) {
-            ;
         }
 
         while (f1 < -(float) Math.PI) {

@@ -96,7 +96,6 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
             try {
                 state = block.getActualState(state, worldIn, pos);
             } catch (Exception var6) {
-                ;
             }
         }
 

@@ -147,7 +147,6 @@ public class ChunkRenderDispatcher {
             try {
                 this.renderWorker.processTask(chunkcompiletaskgenerator);
             } catch (InterruptedException var8) {
-                ;
             }
 
             flag = true;
@@ -162,7 +161,6 @@ public class ChunkRenderDispatcher {
         this.clearChunkUpdates();
 
         while (this.runChunkUploads(0L)) {
-            ;
         }
 
         List<RegionRenderCacheBuilder> list = Lists.newArrayList();
@@ -171,7 +169,6 @@ public class ChunkRenderDispatcher {
             try {
                 list.add(this.allocateRenderBuilder());
             } catch (InterruptedException var3) {
-                ;
             }
         }
 
@@ -278,7 +275,6 @@ public class ChunkRenderDispatcher {
                     this.listPausedBuilders.add(regionrendercachebuilder);
                 }
             } catch (InterruptedException var2) {
-                ;
             }
         }
     }

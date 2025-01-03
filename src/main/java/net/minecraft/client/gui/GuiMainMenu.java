@@ -92,13 +92,11 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
                 }
             }
         } catch (IOException var12) {
-            ;
         } finally {
             if (bufferedreader != null) {
                 try {
                     bufferedreader.close();
                 } catch (IOException var11) {
-                    ;
                 }
             }
         }

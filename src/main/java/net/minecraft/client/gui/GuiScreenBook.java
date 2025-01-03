@@ -406,7 +406,6 @@ public class GuiScreenBook extends GuiScreen {
                     return true;
                 }
             } catch (Throwable var5) {
-                ;
             }
 
             return false;

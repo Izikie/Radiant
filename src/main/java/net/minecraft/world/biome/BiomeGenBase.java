@@ -504,6 +504,6 @@ public abstract class BiomeGenBase {
         OCEAN,
         COLD,
         MEDIUM,
-        WARM;
+        WARM
     }
 }

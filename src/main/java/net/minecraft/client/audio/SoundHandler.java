@@ -72,7 +72,6 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
                     }
                 }
             } catch (IOException var11) {
-                ;
             }
         }
     }

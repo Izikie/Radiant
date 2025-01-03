@@ -1248,6 +1248,6 @@ public class Chunk {
     public static enum EnumCreateEntityType {
         IMMEDIATE,
         QUEUED,
-        CHECK;
+        CHECK
     }
 }

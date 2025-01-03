@@ -1059,7 +1059,7 @@ public class Block {
     public static enum EnumOffsetType {
         NONE,
         XZ,
-        XYZ;
+        XYZ
     }
 
     public static class SoundType {

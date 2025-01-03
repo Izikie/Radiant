@@ -105,11 +105,11 @@ public class ChunkCompileTaskGenerator {
         PENDING,
         COMPILING,
         UPLOADING,
-        DONE;
+        DONE
     }
 
     public static enum Type {
         REBUILD_CHUNK,
-        RESORT_TRANSPARENCY;
+        RESORT_TRANSPARENCY
     }
 }

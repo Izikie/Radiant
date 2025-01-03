@@ -593,7 +593,6 @@ public class WorldInfo {
                             s = "Anvil";
                     }
                 } catch (Throwable var3) {
-                    ;
                 }
 
                 return String.format("0x%05X - %s", Integer.valueOf(WorldInfo.this.saveVersion), s);
