@@ -100,7 +100,7 @@ tasks.register<JavaExec>("RunClient") {
 
 tasks.withType<JavaCompile> {
     options.isIncremental = false
-    dependsOn("transformEnumValues")
+    //dependsOn("transformEnumValues")
 }
 
 fun getOpcodeName(opcode: Int): String? {
