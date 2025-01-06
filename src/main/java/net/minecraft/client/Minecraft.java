@@ -1851,10 +1851,6 @@ public class Minecraft implements IThreadListener {
         return this.theIntegratedServer != null ? (this.theIntegratedServer.getPublic() ? "hosting_lan" : "singleplayer") : (this.currentServerData != null ? (this.currentServerData.isOnLAN() ? "playing_lan" : "multiplayer") : "out_of_game");
     }
 
-    public boolean isSnooperEnabled() {
-        return this.gameSettings.snooperEnabled;
-    }
-
     public void setServerData(ServerData serverDataIn) {
         this.currentServerData = serverDataIn;
     }

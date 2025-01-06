@@ -278,10 +278,6 @@ public class IntegratedServer extends MinecraftServer {
         }
     }
 
-    public boolean isSnooperEnabled() {
-        return Minecraft.getMinecraft().isSnooperEnabled();
-    }
-
     public String shareToLAN(WorldSettings.GameType type, boolean allowCheats) {
         try {
             int i = -1;
