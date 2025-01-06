@@ -98,9 +98,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
     public void onResourceManagerReload(IResourceManager resourceManager) {
         this.locationFontTexture = FontUtils.getHdFontLocation(this.locationFontTextureBase);
 
-        for (int i = 0; i < unicodePageLocations.length; ++i) {
-            unicodePageLocations[i] = null;
-        }
+        Arrays.fill(unicodePageLocations, null);
 
         this.readFontTexture();
         this.readGlyphSizes();
@@ -136,29 +134,26 @@ public class FontRenderer implements IResourceManagerReloadListener {
         for (int i1 = 0; i1 < 256; ++i1) {
             int j1 = i1 % 16;
             int k1 = i1 / 16;
-            int l1 = 0;
+            int l1;
 
             for (l1 = k - 1; l1 >= 0; --l1) {
                 int i2 = j1 * k + l1;
                 boolean flag = true;
 
-                for (int j2 = 0; j2 < l && flag; ++j2) {
+                for (int j2 = 0; j2 < l; ++j2) {
                     int k2 = (k1 * l + j2) * i;
                     int l2 = aint[i2 + k2];
                     int i3 = l2 >> 24 & 255;
 
                     if (i3 > 16) {
                         flag = false;
+                        break;
                     }
                 }
 
                 if (!flag) {
                     break;
                 }
-            }
-
-            if (i1 == 65) {
-                i1 = i1;
             }
 
             if (i1 == 32) {
@@ -193,11 +188,11 @@ public class FontRenderer implements IResourceManagerReloadListener {
     }
 
     private float renderChar(char ch, boolean italic) {
-        if (ch != 32 && ch != 160) {
-            int i = characterDictionary.indexOf(ch);
-            return i != -1 && !this.unicodeFlag ? this.renderDefaultChar(i, italic) : this.renderUnicodeChar(ch, italic);
+        if (ch == 32 || ch == 160) {
+            return this.unicodeFlag ? 4.0F : this.charWidthFloat[ch];
         } else {
-            return !this.unicodeFlag ? this.charWidthFloat[ch] : 4.0F;
+            int charIndex = characterDictionary.indexOf(ch);
+            return charIndex != -1 && !this.unicodeFlag ? this.renderDefaultChar(charIndex, italic) : this.renderUnicodeChar(ch, italic);
         }
     }
 
@@ -208,6 +203,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
         int italicStyle = italic ? 1 : 0;
         this.bindTexture(this.locationFontTexture);
         float charWidth = this.charWidthFloat[ch];
+
         float f1 = 7.99F;
         GL11.glBegin(GL11.GL_TRIANGLE_STRIP);
 
@@ -229,7 +225,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
 
     private ResourceLocation getUnicodePageLocation(int page) {
         if (unicodePageLocations[page] == null) {
-            unicodePageLocations[page] = new ResourceLocation(String.format("textures/font/unicode_page_%02x.png", Integer.valueOf(page)));
+            unicodePageLocations[page] = new ResourceLocation(String.format("textures/font/unicode_page_%02x.png", page));
             unicodePageLocations[page] = FontUtils.getHdFontLocation(unicodePageLocations[page]);
         }
 
@@ -246,14 +242,14 @@ public class FontRenderer implements IResourceManagerReloadListener {
         } else {
             int i = ch / 256;
             this.loadGlyphTexture(i);
-            int glyphX = this.glyphWidth[ch] >>> 4;
+            float glyphX = this.glyphWidth[ch] >>> 4;
             int glyphY = this.glyphWidth[ch] & 15;
-            float floatGlyphX = glyphX;
             float modifiedY = glyphY + 1;
-            float f2 = (ch % 16 * 16) + floatGlyphX;
+            float f2 = (ch % 16 * 16) + glyphX;
             float f3 = ((ch & 255) / 16 * 16);
-            float combinedGlyphSize = modifiedY - floatGlyphX - 0.02F;
+            float combinedGlyphSize = modifiedY - glyphX - 0.02F;
             float italicStyle = italic ? 1.0F : 0.0F;
+
             GL11.glBegin(GL11.GL_TRIANGLE_STRIP);
 
             GL11.glTexCoord2f(f2 / 256.0F, f3 / 256.0F);
@@ -269,7 +265,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
             GL11.glVertex3f(this.posX + combinedGlyphSize / 2.0F - italicStyle, this.posY + 7.99F, 0.0F);
 
             GL11.glEnd();
-            return (modifiedY - floatGlyphX) / 2.0F + 1.0F;
+            return (modifiedY - glyphX) / 2.0F + 1.0F;
         }
     }
 
@@ -282,7 +278,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
     }
 
     public int drawString(String text, float x, float y, int color, boolean dropShadow) {
-        this.enableAlpha();
+        GlStateManager.enableAlpha();
 
         if (this.blend) {
             GlStateManager.getBlendState(this.oldBlendState);
@@ -354,7 +350,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
                     }
 
                     this.textColor = currentColor;
-                    this.setColor((currentColor >> 16) / 255.0F, (currentColor >> 8 & 255) / 255.0F, (currentColor & 255) / 255.0F, this.alpha);
+                    GlStateManager.color((currentColor >> 16) / 255.0F, (currentColor >> 8 & 255) / 255.0F, (currentColor & 255) / 255.0F, alpha);
                 } else if (styleIndex == 16) {
                     this.randomStyle = true;
                 } else if (styleIndex == 17) {
@@ -371,7 +367,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
                     this.strikethroughStyle = false;
                     this.underlineStyle = false;
                     this.italicStyle = false;
-                    this.setColor(this.red, this.blue, this.green, this.alpha);
+                    GlStateManager.color(red, blue, green, alpha);
                 }
 
                 ++messageChar;
@@ -490,7 +486,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
             this.blue = (color >> 8 & 255) / 255.0F;
             this.green = (color & 255) / 255.0F;
             this.alpha = (color >> 24 & 255) / 255.0F;
-            this.setColor(this.red, this.blue, this.green, this.alpha);
+            GlStateManager.color(red, blue, green, alpha);
             this.posX = x;
             this.posY = y;
             this.renderStringAtPos(text, dropShadow);
@@ -763,7 +759,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
                 if (isFormatColor(c0)) {
                     s = "\u00a7" + c0;
                 } else if (isFormatSpecial(c0)) {
-                    s = s + "\u00a7" + c0;
+                    s += "\u00a7" + c0;
                 }
             }
         }
@@ -776,34 +772,26 @@ public class FontRenderer implements IResourceManagerReloadListener {
     }
 
     public int getColorCode(char character) {
-        int i = "0123456789abcdef".indexOf(character);
+        int charIndex = "0123456789abcdef".indexOf(character);
 
-        if (i >= 0 && i < this.colorCode.length) {
-            int j = this.colorCode[i];
+        if (charIndex >= 0 && charIndex < this.colorCode.length) {
+            int colorIndex = this.colorCode[charIndex];
 
             if (Config.isCustomColors()) {
-                j = CustomColors.getTextColor(i, j);
+                colorIndex = CustomColors.getTextColor(charIndex, colorIndex);
             }
 
-            return j;
+            return colorIndex;
         } else {
             return 16777215;
         }
     }
 
-    protected void setColor(float p_setColor_1_, float p_setColor_2_, float p_setColor_3_, float p_setColor_4_) {
-        GlStateManager.color(p_setColor_1_, p_setColor_2_, p_setColor_3_, p_setColor_4_);
+    protected void bindTexture(ResourceLocation resource) {
+        this.renderEngine.bindTexture(resource);
     }
 
-    protected void enableAlpha() {
-        GlStateManager.enableAlpha();
-    }
-
-    protected void bindTexture(ResourceLocation p_bindTexture_1_) {
-        this.renderEngine.bindTexture(p_bindTexture_1_);
-    }
-
-    protected InputStream getResourceInputStream(ResourceLocation p_getResourceInputStream_1_) throws IOException {
-        return Minecraft.getMinecraft().getResourceManager().getResource(p_getResourceInputStream_1_).getInputStream();
+    protected InputStream getResourceInputStream(ResourceLocation resource) throws IOException {
+        return Minecraft.getMinecraft().getResourceManager().getResource(resource).getInputStream();
     }
 }
