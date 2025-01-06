@@ -439,20 +439,20 @@ public class Config {
 
     public static void detail(String p_detail_0_) {
         if (logDetail) {
-            LOGGER.info("[OptiFine] " + p_detail_0_);
+            LOGGER.info("[OptiFine] {}", p_detail_0_);
         }
     }
 
     public static void dbg(String p_dbg_0_) {
-        LOGGER.info("[OptiFine] " + p_dbg_0_);
+        LOGGER.info("[OptiFine] {}", p_dbg_0_);
     }
 
     public static void warn(String p_warn_0_) {
-        LOGGER.warn("[OptiFine] " + p_warn_0_);
+        LOGGER.warn("[OptiFine] {}", p_warn_0_);
     }
 
     public static void error(String p_error_0_) {
-        LOGGER.error("[OptiFine] " + p_error_0_);
+        LOGGER.error("[OptiFine] {}", p_error_0_);
     }
 
     public static void log(String p_log_0_) {

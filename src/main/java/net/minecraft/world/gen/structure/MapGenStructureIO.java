@@ -44,14 +44,14 @@ public class MapGenStructureIO {
                 structurestart = oclass.newInstance();
             }
         } catch (Exception exception) {
-            logger.warn("Failed Start with id " + tagCompound.getString("id"));
+            logger.warn("Failed Start with id {}", tagCompound.getString("id"));
             exception.printStackTrace();
         }
 
         if (structurestart != null) {
             structurestart.readStructureComponentsFromNBT(worldIn, tagCompound);
         } else {
-            logger.warn("Skipping Structure with id " + tagCompound.getString("id"));
+            logger.warn("Skipping Structure with id {}", tagCompound.getString("id"));
         }
 
         return structurestart;
@@ -67,14 +67,14 @@ public class MapGenStructureIO {
                 structurecomponent = oclass.newInstance();
             }
         } catch (Exception exception) {
-            logger.warn("Failed Piece with id " + tagCompound.getString("id"));
+            logger.warn("Failed Piece with id {}", tagCompound.getString("id"));
             exception.printStackTrace();
         }
 
         if (structurecomponent != null) {
             structurecomponent.readStructureBaseNBT(worldIn, tagCompound);
         } else {
-            logger.warn("Skipping Piece with id " + tagCompound.getString("id"));
+            logger.warn("Skipping Piece with id {}", tagCompound.getString("id"));
         }
 
         return structurecomponent;

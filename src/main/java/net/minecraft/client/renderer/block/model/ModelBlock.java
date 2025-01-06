@@ -103,7 +103,7 @@ public class ModelBlock {
     private String resolveTextureName(String textureName, ModelBlock.Bookkeep p_178302_2_) {
         if (this.startsWithHash(textureName)) {
             if (this == p_178302_2_.modelExt) {
-                LOGGER.warn("Unable to resolve texture due to upward reference: " + textureName + " in " + this.name);
+                LOGGER.warn("Unable to resolve texture due to upward reference: {} in {}", textureName, this.name);
                 return "missingno";
             } else {
                 String s = this.textures.get(textureName.substring(1));

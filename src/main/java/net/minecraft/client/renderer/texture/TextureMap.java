@@ -237,10 +237,10 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                         AnimationMetadataSection animationmetadatasection = iresource.getMetadata("animation");
                         textureatlassprite3.loadSprite(abufferedimage, animationmetadatasection);
                     } catch (RuntimeException runtimeexception) {
-                        logger.error("Unable to parse metadata from " + resourcelocation2, runtimeexception);
+                        logger.error("Unable to parse metadata from {}", resourcelocation2, runtimeexception);
                         continue;
                     } catch (IOException ioexception1) {
-                        logger.error("Using missing texture, unable to load " + resourcelocation2 + ", " + ioexception1.getClass().getName());
+                        logger.error("Using missing texture, unable to load {}, {}", resourcelocation2, ioexception1.getClass().getName());
                         continue;
                     }
 

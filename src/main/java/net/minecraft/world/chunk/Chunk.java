@@ -622,7 +622,7 @@ public class Chunk {
         int j = MathHelper.floor_double(entityIn.posZ / 16.0D);
 
         if (i != this.xPosition || j != this.zPosition) {
-            logger.warn("Wrong location! (" + i + ", " + j + ") should be (" + this.xPosition + ", " + this.zPosition + "), " + entityIn, new Object[]{entityIn});
+            logger.warn("Wrong location! ({}, {}) should be ({}, {}), {}", i, j, this.xPosition, this.zPosition, entityIn, new Object[]{entityIn});
             entityIn.setDead();
         }
 
@@ -945,7 +945,7 @@ public class Chunk {
 
     public void setStorageArrays(ExtendedBlockStorage[] newStorageArrays) {
         if (this.storageArrays.length != newStorageArrays.length) {
-            logger.warn("Could not set level chunk sections, array length is " + newStorageArrays.length + " instead of " + this.storageArrays.length);
+            logger.warn("Could not set level chunk sections, array length is {} instead of {}", newStorageArrays.length, this.storageArrays.length);
         } else {
             for (int i = 0; i < this.storageArrays.length; ++i) {
                 this.storageArrays[i] = newStorageArrays[i];
@@ -1033,7 +1033,7 @@ public class Chunk {
 
     public void setBiomeArray(byte[] biomeArray) {
         if (this.blockBiomeArray.length != biomeArray.length) {
-            logger.warn("Could not set level chunk biomes, array length is " + biomeArray.length + " instead of " + this.blockBiomeArray.length);
+            logger.warn("Could not set level chunk biomes, array length is {} instead of {}", biomeArray.length, this.blockBiomeArray.length);
         } else {
             for (int i = 0; i < this.blockBiomeArray.length; ++i) {
                 this.blockBiomeArray[i] = biomeArray[i];
@@ -1189,7 +1189,7 @@ public class Chunk {
 
     public void setHeightMap(int[] newHeightMap) {
         if (this.heightMap.length != newHeightMap.length) {
-            logger.warn("Could not set level chunk heightmap, array length is " + newHeightMap.length + " instead of " + this.heightMap.length);
+            logger.warn("Could not set level chunk heightmap, array length is {} instead of {}", newHeightMap.length, this.heightMap.length);
         } else {
             for (int i = 0; i < this.heightMap.length; ++i) {
                 this.heightMap[i] = newHeightMap[i];

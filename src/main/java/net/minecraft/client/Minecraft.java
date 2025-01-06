@@ -268,8 +268,8 @@ public class Minecraft implements IThreadListener {
         this.proxy = gameConfig.userInfo.proxy == null ? Proxy.NO_PROXY : gameConfig.userInfo.proxy;
         this.sessionService = (new YggdrasilAuthenticationService(gameConfig.userInfo.proxy, UUID.randomUUID().toString())).createMinecraftSessionService();
         this.session = gameConfig.userInfo.session;
-        logger.info("Setting user: " + this.session.getUsername());
-        logger.info("(Session ID is " + this.session.getSessionID() + ")");
+        logger.info("Setting user: {}", this.session.getUsername());
+        logger.info("(Session ID is {})", this.session.getSessionID());
         this.displayWidth = gameConfig.displayInfo.width > 0 ? gameConfig.displayInfo.width : 1;
         this.displayHeight = gameConfig.displayInfo.height > 0 ? gameConfig.displayInfo.height : 1;
         this.tempDisplayWidth = gameConfig.displayInfo.width;
@@ -345,7 +345,7 @@ public class Minecraft implements IThreadListener {
             this.displayHeight = this.gameSettings.overrideHeight;
         }
 
-        logger.info("LWJGL Version: " + Sys.getVersion());
+        logger.info("LWJGL Version: {}", Sys.getVersion());
         this.setWindowIcon();
         this.setInitialDisplayMode();
         this.createDisplay();
@@ -675,7 +675,7 @@ public class Minecraft implements IThreadListener {
             this.mojangLogo = textureManagerInstance.getDynamicTextureLocation("logo", new DynamicTexture(ImageIO.read(inputstream)));
             textureManagerInstance.bindTexture(this.mojangLogo);
         } catch (IOException ioexception) {
-            logger.error("Unable to load logo: " + locationMojangPng, ioexception);
+            logger.error("Unable to load logo: {}", locationMojangPng, ioexception);
         } finally {
             IOUtils.closeQuietly(inputstream);
         }
@@ -755,8 +755,8 @@ public class Minecraft implements IThreadListener {
             if (i != 0) {
                 String s = GLU.gluErrorString(i);
                 logger.error("########## GL ERROR ##########");
-                logger.error("@ " + message);
-                logger.error(i + ": " + s);
+                logger.error("@ {}", message);
+                logger.error("{}: {}", i, s);
             }
         }
     }

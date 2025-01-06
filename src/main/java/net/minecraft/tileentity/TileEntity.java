@@ -81,7 +81,7 @@ public abstract class TileEntity {
         if (tileentity != null) {
             tileentity.readFromNBT(nbt);
         } else {
-            logger.warn("Skipping BlockEntity with id " + nbt.getString("id"));
+            logger.warn("Skipping BlockEntity with id {}", nbt.getString("id"));
         }
 
         return tileentity;

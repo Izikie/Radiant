@@ -853,7 +853,7 @@ public class GameSettings {
                                 }
                             }
                         } catch (Exception exception) {
-                            logger.warn("Skipping bad option: " + s);
+                            logger.warn("Skipping bad option: {}", s);
                             exception.printStackTrace();
                         }
                     }
