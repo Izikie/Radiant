@@ -52,7 +52,7 @@ public class SmartLeaves {
         } else {
             Block block = state1.getBlock();
             Block block1 = state2.getBlock();
-            return block != block1 ? false : (block instanceof BlockOldLeaf ? state1.getValue(BlockOldLeaf.VARIANT).equals(state2.getValue(BlockOldLeaf.VARIANT)) : (block instanceof BlockNewLeaf ? state1.getValue(BlockNewLeaf.VARIANT).equals(state2.getValue(BlockNewLeaf.VARIANT)) : false));
+            return block != block1 ? false : (block instanceof BlockOldLeaf ? state1.getValue(BlockOldLeaf.VARIANT) == state2.getValue(BlockOldLeaf.VARIANT) : (block instanceof BlockNewLeaf ? state1.getValue(BlockNewLeaf.VARIANT) == state2.getValue(BlockNewLeaf.VARIANT) : false));
         }
     }
 
