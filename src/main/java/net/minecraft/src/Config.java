@@ -15,6 +15,7 @@ import java.lang.reflect.Array;
 import java.net.URI;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -1234,7 +1235,7 @@ public class Config {
 
     public static String[] readLines(InputStream p_readLines_0_) throws IOException {
         List list = new ArrayList();
-        InputStreamReader inputstreamreader = new InputStreamReader(p_readLines_0_, "ASCII");
+        InputStreamReader inputstreamreader = new InputStreamReader(p_readLines_0_, StandardCharsets.US_ASCII);
         BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
 
         while (true) {
@@ -1810,7 +1811,7 @@ public class Config {
 
     public static void writeFile(File p_writeFile_0_, String p_writeFile_1_) throws IOException {
         FileOutputStream fileoutputstream = new FileOutputStream(p_writeFile_0_);
-        byte[] abyte = p_writeFile_1_.getBytes("ASCII");
+        byte[] abyte = p_writeFile_1_.getBytes(StandardCharsets.US_ASCII);
         fileoutputstream.write(abyte);
         fileoutputstream.close();
     }

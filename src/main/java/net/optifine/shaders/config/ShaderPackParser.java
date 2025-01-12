@@ -7,6 +7,7 @@ import java.io.CharArrayWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -569,7 +570,7 @@ public class ShaderPackParser {
             if (inputstream == null) {
                 return null;
             } else {
-                InputStreamReader inputstreamreader = new InputStreamReader(inputstream, "ASCII");
+                InputStreamReader inputstreamreader = new InputStreamReader(inputstream, StandardCharsets.US_ASCII);
                 BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
                 bufferedreader = resolveIncludes(bufferedreader, filePath, shaderPack, fileIndex, listFiles, includeLevel);
                 CharArrayWriter chararraywriter = new CharArrayWriter();

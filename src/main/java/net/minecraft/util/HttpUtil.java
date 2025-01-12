@@ -19,6 +19,7 @@ import java.net.Proxy;
 import java.net.ServerSocket;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.Executors;
@@ -43,20 +44,12 @@ public class HttpUtil {
                 stringbuilder.append('&');
             }
 
-            try {
-                stringbuilder.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
-            } catch (UnsupportedEncodingException unsupportedencodingexception1) {
-                unsupportedencodingexception1.printStackTrace();
-            }
+            stringbuilder.append(URLEncoder.encode(entry.getKey(), StandardCharsets.UTF_8));
 
             if (entry.getValue() != null) {
                 stringbuilder.append('=');
 
-                try {
-                    stringbuilder.append(URLEncoder.encode(entry.getValue().toString(), "UTF-8"));
-                } catch (UnsupportedEncodingException unsupportedencodingexception) {
-                    unsupportedencodingexception.printStackTrace();
-                }
+                stringbuilder.append(URLEncoder.encode(entry.getValue().toString(), StandardCharsets.UTF_8));
             }
         }
 
