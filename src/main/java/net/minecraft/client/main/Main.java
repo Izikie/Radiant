@@ -103,7 +103,7 @@ public class Main {
                 Minecraft.stopIntegratedServer();
             }
         });
-        Thread.currentThread().setName("Client thread");
+        Thread.currentThread().setName("Client Thread");
         (new Minecraft(gameconfiguration)).run();
     }
 
