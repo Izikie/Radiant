@@ -24,7 +24,7 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 
     protected BlockRedstoneRepeater(boolean powered) {
         super(powered);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(DELAY, Integer.valueOf(1)).withProperty(LOCKED, Boolean.valueOf(false)));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(DELAY, 1).withProperty(LOCKED, Boolean.FALSE));
     }
 
     public String getLocalizedName() {
@@ -32,7 +32,7 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
     }
 
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-        return state.withProperty(LOCKED, Boolean.valueOf(this.isLocked(worldIn, pos, state)));
+        return state.withProperty(LOCKED, this.isLocked(worldIn, pos, state));
     }
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
@@ -103,7 +103,7 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta)).withProperty(LOCKED, Boolean.valueOf(false)).withProperty(DELAY, Integer.valueOf(1 + (meta >> 2)));
+        return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta)).withProperty(LOCKED, Boolean.FALSE).withProperty(DELAY, 1 + (meta >> 2));
     }
 
     public int getMetaFromState(IBlockState state) {

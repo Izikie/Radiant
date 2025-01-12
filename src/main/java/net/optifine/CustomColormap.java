@@ -440,7 +440,7 @@ public class CustomColormap implements CustomColors.IColorizer {
 
             for (MatchBlock matchblock : this.matchBlocks) {
                 if (matchblock.getBlockId() >= 0) {
-                    set.add(Integer.valueOf(matchblock.getBlockId()));
+                    set.add(matchblock.getBlockId());
                 }
             }
 

@@ -276,7 +276,7 @@ public class CustomColors {
             if (j == Integer.MIN_VALUE) {
                 warn("Invalid dimension ID: " + s3 + ", path: " + s2);
             } else {
-                map.put(Integer.valueOf(j), s2);
+                map.put(j, s2);
             }
         }
 
@@ -285,7 +285,7 @@ public class CustomColors {
         Arrays.sort(ainteger);
 
         if (ainteger.length <= 0) {
-            return new ImmutablePair(null, Integer.valueOf(0));
+            return new ImmutablePair(null, 0);
         } else {
             int j1 = ainteger[0].intValue();
             int k1 = ainteger[ainteger.length - 1].intValue();
@@ -324,7 +324,7 @@ public class CustomColors {
                 }
             }
 
-            return new ImmutablePair(alightmappack, Integer.valueOf(j1));
+            return new ImmutablePair(alightmappack, j1);
         }
     }
 
@@ -1104,10 +1104,10 @@ public class CustomColors {
                         warn("Invalid spawn egg color: " + s + " = " + s1);
                     } else {
                         while (list.size() <= j) {
-                            list.add(Integer.valueOf(-1));
+                            list.add(-1);
                         }
 
-                        list.set(j, Integer.valueOf(k));
+                        list.set(j, k);
                         ++i;
                     }
                 }

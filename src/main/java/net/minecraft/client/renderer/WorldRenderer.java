@@ -100,7 +100,7 @@ public class WorldRenderer {
         Integer[] ainteger = new Integer[i];
 
         for (int k = 0; k < ainteger.length; ++k) {
-            ainteger[k] = Integer.valueOf(k);
+            ainteger[k] = k;
         }
 
         Arrays.sort(ainteger, new Comparator<Integer>() {

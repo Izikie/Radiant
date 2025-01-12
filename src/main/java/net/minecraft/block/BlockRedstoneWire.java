@@ -38,7 +38,7 @@ public class BlockRedstoneWire extends Block {
 
     public BlockRedstoneWire() {
         super(Material.circuits);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(NORTH, BlockRedstoneWire.EnumAttachPosition.NONE).withProperty(EAST, BlockRedstoneWire.EnumAttachPosition.NONE).withProperty(SOUTH, BlockRedstoneWire.EnumAttachPosition.NONE).withProperty(WEST, BlockRedstoneWire.EnumAttachPosition.NONE).withProperty(POWER, Integer.valueOf(0)));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(NORTH, BlockRedstoneWire.EnumAttachPosition.NONE).withProperty(EAST, BlockRedstoneWire.EnumAttachPosition.NONE).withProperty(SOUTH, BlockRedstoneWire.EnumAttachPosition.NONE).withProperty(WEST, BlockRedstoneWire.EnumAttachPosition.NONE).withProperty(POWER, 0));
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.0625F, 1.0F);
     }
 
@@ -140,7 +140,7 @@ public class BlockRedstoneWire extends Block {
         }
 
         if (i != j) {
-            state = state.withProperty(POWER, Integer.valueOf(j));
+            state = state.withProperty(POWER, j);
 
             if (worldIn.getBlockState(pos1) == iblockstate) {
                 worldIn.setBlockState(pos1, state, 2);
@@ -357,7 +357,7 @@ public class BlockRedstoneWire extends Block {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(POWER, Integer.valueOf(meta));
+        return this.getDefaultState().withProperty(POWER, meta);
     }
 
     public int getMetaFromState(IBlockState state) {

@@ -190,7 +190,7 @@ public class SoundManager {
                     int j = isound.getRepeatDelay();
 
                     if (isound.canRepeat() && j > 0) {
-                        this.delayedSounds.put(isound, Integer.valueOf(this.playTime + j));
+                        this.delayedSounds.put(isound, this.playTime + j);
                     }
 
                     iterator.remove();
@@ -291,7 +291,7 @@ public class SoundManager {
                             this.sndSystem.setPitch(s, (float) d0);
                             this.sndSystem.setVolume(s, f2);
                             this.sndSystem.play(s);
-                            this.playingSoundsStopTime.put(s, Integer.valueOf(this.playTime + 20));
+                            this.playingSoundsStopTime.put(s, this.playTime + 20);
                             this.playingSounds.put(s, p_sound);
                             this.playingSoundPoolEntries.put(p_sound, soundpoolentry);
 
@@ -332,7 +332,7 @@ public class SoundManager {
     }
 
     public void playDelayedSound(ISound sound, int delay) {
-        this.delayedSounds.put(sound, Integer.valueOf(this.playTime + delay));
+        this.delayedSounds.put(sound, this.playTime + delay);
     }
 
     private static URL getURLForSoundResource(final ResourceLocation p_148612_0_) {

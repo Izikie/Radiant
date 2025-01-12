@@ -36,7 +36,7 @@ public class BlockAlias {
 
         for (MatchBlock matchblock : this.matchBlocks) {
             int j = matchblock.getBlockId();
-            set.add(Integer.valueOf(j));
+            set.add(j);
         }
 
         Integer[] ainteger = set.toArray(new Integer[set.size()]);

@@ -32,7 +32,7 @@ public class BlockRailDetector extends BlockRailBase {
 
     public BlockRailDetector() {
         super(true);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(POWERED, Boolean.valueOf(false)).withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_SOUTH));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(POWERED, Boolean.FALSE).withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_SOUTH));
         this.setTickRandomly(true);
     }
 
@@ -79,14 +79,14 @@ public class BlockRailDetector extends BlockRailBase {
         }
 
         if (flag1 && !flag) {
-            worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(true)), 3);
+            worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.TRUE), 3);
             worldIn.notifyNeighborsOfStateChange(pos, this);
             worldIn.notifyNeighborsOfStateChange(pos.down(), this);
             worldIn.markBlockRangeForRenderUpdate(pos, pos);
         }
 
         if (!flag1 && flag) {
-            worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(false)), 3);
+            worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.FALSE), 3);
             worldIn.notifyNeighborsOfStateChange(pos, this);
             worldIn.notifyNeighborsOfStateChange(pos.down(), this);
             worldIn.markBlockRangeForRenderUpdate(pos, pos);
@@ -141,7 +141,7 @@ public class BlockRailDetector extends BlockRailBase {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(SHAPE, BlockRailBase.EnumRailDirection.byMetadata(meta & 7)).withProperty(POWERED, Boolean.valueOf((meta & 8) > 0));
+        return this.getDefaultState().withProperty(SHAPE, BlockRailBase.EnumRailDirection.byMetadata(meta & 7)).withProperty(POWERED, (meta & 8) > 0);
     }
 
     public int getMetaFromState(IBlockState state) {

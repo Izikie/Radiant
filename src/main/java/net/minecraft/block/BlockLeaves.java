@@ -60,7 +60,7 @@ public abstract class BlockLeaves extends BlockLeavesBase {
                         IBlockState iblockstate = worldIn.getBlockState(blockpos);
 
                         if (iblockstate.getBlock().getMaterial() == Material.leaves && !iblockstate.getValue(CHECK_DECAY).booleanValue()) {
-                            worldIn.setBlockState(blockpos, iblockstate.withProperty(CHECK_DECAY, Boolean.valueOf(true)), 4);
+                            worldIn.setBlockState(blockpos, iblockstate.withProperty(CHECK_DECAY, Boolean.TRUE), 4);
                         }
                     }
                 }
@@ -143,7 +143,7 @@ public abstract class BlockLeaves extends BlockLeavesBase {
                 int l2 = this.surroundings[l1 * k1 + l1 * j1 + l1];
 
                 if (l2 >= 0) {
-                    worldIn.setBlockState(pos, state.withProperty(CHECK_DECAY, Boolean.valueOf(false)), 4);
+                    worldIn.setBlockState(pos, state.withProperty(CHECK_DECAY, Boolean.FALSE), 4);
                 } else {
                     this.destroy(worldIn, pos);
                 }

@@ -195,8 +195,8 @@ public class LongHashMap<V> {
                 return false;
             } else {
                 LongHashMap.Entry<V> entry = entry1;
-                Object object = Long.valueOf(this.getKey());
-                Object object1 = Long.valueOf(entry.getKey());
+                Object object = this.getKey();
+                Object object1 = entry.getKey();
 
                 if (object == object1 || object != null && object.equals(object1)) {
                     Object object2 = this.getValue();

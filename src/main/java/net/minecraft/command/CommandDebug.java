@@ -55,7 +55,7 @@ public class CommandDebug extends CommandBase {
                 long k = i - this.profileStartTime;
                 int l = j - this.profileStartTick;
                 this.saveProfileResults(k, l);
-                notifyOperators(sender, this, "commands.debug.stop", Float.valueOf(k / 1000.0F), Integer.valueOf(l));
+                notifyOperators(sender, this, "commands.debug.stop", k / 1000.0F, l);
             }
         }
     }
@@ -80,7 +80,7 @@ public class CommandDebug extends CommandBase {
                 "\n\n" +
                 "Time span: " + timeSpan + " ms\n" +
                 "Tick span: " + tickSpan + " ticks\n" +
-                "// This is approximately " + String.format("%.2f", Float.valueOf(tickSpan / (timeSpan / 1000.0F))) + " ticks per second. It should be " + 20 + " ticks per second\n\n";
+                "// This is approximately " + String.format("%.2f", tickSpan / (timeSpan / 1000.0F)) + " ticks per second. It should be " + 20 + " ticks per second\n\n";
     }
 
     private static String getWittyComment() {

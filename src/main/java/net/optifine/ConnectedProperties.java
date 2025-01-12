@@ -157,7 +157,7 @@ public class ConnectedProperties {
                                 int j = Config.parseInt(s3, -1);
 
                                 if (j >= 0 && j < this.tiles.length) {
-                                    map.put(Integer.valueOf(i), Integer.valueOf(j));
+                                    map.put(i, j);
                                 } else {
                                     Config.warn("Invalid CTM tile index: " + s3);
                                 }
@@ -177,8 +177,8 @@ public class ConnectedProperties {
                 for (int k = 0; k < aint.length; ++k) {
                     aint[k] = -1;
 
-                    if (map.containsKey(Integer.valueOf(k))) {
-                        aint[k] = map.get(Integer.valueOf(k)).intValue();
+                    if (map.containsKey(k)) {
+                        aint[k] = map.get(k).intValue();
                     }
                 }
 

@@ -51,8 +51,8 @@ public class EntityUtils {
                         Config.warn("Duplicate entity name: " + s + ", class1: " + mapClassByName.get(s) + ", class2: " + oclass);
                     }
 
-                    mapIdByClass.put(oclass, Integer.valueOf(i));
-                    mapIdByName.put(s, Integer.valueOf(i));
+                    mapIdByClass.put(oclass, i);
+                    mapIdByName.put(s, i);
                     mapClassByName.put(s, oclass);
                 }
             }

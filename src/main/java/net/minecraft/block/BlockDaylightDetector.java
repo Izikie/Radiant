@@ -29,7 +29,7 @@ public class BlockDaylightDetector extends BlockContainer {
     public BlockDaylightDetector(boolean inverted) {
         super(Material.wood);
         this.inverted = inverted;
-        this.setDefaultState(this.blockState.getBaseState().withProperty(POWER, Integer.valueOf(0)));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(POWER, 0));
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.375F, 1.0F);
         this.setCreativeTab(CreativeTabs.tabRedstone);
         this.setHardness(0.2F);
@@ -60,7 +60,7 @@ public class BlockDaylightDetector extends BlockContainer {
             }
 
             if (iblockstate.getValue(POWER).intValue() != i) {
-                worldIn.setBlockState(pos, iblockstate.withProperty(POWER, Integer.valueOf(i)), 3);
+                worldIn.setBlockState(pos, iblockstate.withProperty(POWER, i), 3);
             }
         }
     }
@@ -114,7 +114,7 @@ public class BlockDaylightDetector extends BlockContainer {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(POWER, Integer.valueOf(meta));
+        return this.getDefaultState().withProperty(POWER, meta);
     }
 
     public int getMetaFromState(IBlockState state) {

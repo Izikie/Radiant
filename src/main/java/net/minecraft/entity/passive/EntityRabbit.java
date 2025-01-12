@@ -114,7 +114,7 @@ public class EntityRabbit extends EntityAnimal {
 
     protected void entityInit() {
         super.entityInit();
-        this.dataWatcher.addObject(18, Byte.valueOf((byte) 0));
+        this.dataWatcher.addObject(18, (byte) 0);
     }
 
     public void updateAITasks() {
@@ -322,7 +322,7 @@ public class EntityRabbit extends EntityAnimal {
             }
         }
 
-        this.dataWatcher.updateObject(18, Byte.valueOf((byte) rabbitTypeId));
+        this.dataWatcher.updateObject(18, (byte) rabbitTypeId);
     }
 
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {

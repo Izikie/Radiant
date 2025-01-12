@@ -72,7 +72,7 @@ public class ChunkProviderClient implements IChunkProvider {
         }
 
         if (System.currentTimeMillis() - i > 100L) {
-            logger.info("Warning: Clientside chunk ticking took {} ms", new Object[]{Long.valueOf(System.currentTimeMillis() - i)});
+            logger.info("Warning: Clientside chunk ticking took {} ms", new Object[]{System.currentTimeMillis() - i});
         }
 
         return false;

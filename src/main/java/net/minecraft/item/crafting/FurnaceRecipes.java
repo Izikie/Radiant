@@ -67,7 +67,7 @@ public class FurnaceRecipes {
 
     public void addSmeltingRecipe(ItemStack input, ItemStack stack, float experience) {
         this.smeltingList.put(input, stack);
-        this.experienceList.put(stack, Float.valueOf(experience));
+        this.experienceList.put(stack, experience);
     }
 
     public ItemStack getSmeltingResult(ItemStack stack) {

@@ -54,7 +54,7 @@ public class CustomLoadingScreens {
             if (j == Integer.MIN_VALUE) {
                 warn("Invalid dimension ID: " + s3 + ", path: " + s2);
             } else {
-                map.put(Integer.valueOf(j), s2);
+                map.put(j, s2);
             }
         }
 
@@ -63,7 +63,7 @@ public class CustomLoadingScreens {
         Arrays.sort(ainteger);
 
         if (ainteger.length <= 0) {
-            return new ImmutablePair(null, Integer.valueOf(0));
+            return new ImmutablePair(null, 0);
         } else {
             String s5 = "optifine/gui/loading/loading.properties";
             Properties properties = ResUtils.readProperties(s5, "CustomLoadingScreens");
@@ -77,7 +77,7 @@ public class CustomLoadingScreens {
                 acustomloadingscreen[integer.intValue() - k] = CustomLoadingScreen.parseScreen(s4, integer.intValue(), properties);
             }
 
-            return new ImmutablePair(acustomloadingscreen, Integer.valueOf(k));
+            return new ImmutablePair(acustomloadingscreen, k);
         }
     }
 

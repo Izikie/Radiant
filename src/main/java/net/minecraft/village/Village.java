@@ -333,7 +333,7 @@ public class Village {
     public int setReputationForPlayer(String p_82688_1_, int p_82688_2_) {
         int i = this.getReputationForPlayer(p_82688_1_);
         int j = MathHelper.clamp_int(i + p_82688_2_, -30, 10);
-        this.playerReputation.put(p_82688_1_, Integer.valueOf(j));
+        this.playerReputation.put(p_82688_1_, j);
         return j;
     }
 
@@ -368,10 +368,10 @@ public class Village {
                 GameProfile gameprofile = playerprofilecache.getProfileByUUID(UUID.fromString(nbttagcompound1.getString("UUID")));
 
                 if (gameprofile != null) {
-                    this.playerReputation.put(gameprofile.getName(), Integer.valueOf(nbttagcompound1.getInteger("S")));
+                    this.playerReputation.put(gameprofile.getName(), nbttagcompound1.getInteger("S"));
                 }
             } else {
-                this.playerReputation.put(nbttagcompound1.getString("Name"), Integer.valueOf(nbttagcompound1.getInteger("S")));
+                this.playerReputation.put(nbttagcompound1.getString("Name"), nbttagcompound1.getInteger("S"));
             }
         }
     }

@@ -140,7 +140,7 @@ public class StatisticsFile extends StatFileWriter {
         for (Entry<StatBase, TupleIntJsonSerializable> entry : p_150880_0_.entrySet()) {
             if (entry.getValue().getJsonSerializableValue() != null) {
                 JsonObject jsonobject1 = new JsonObject();
-                jsonobject1.addProperty("value", Integer.valueOf(entry.getValue().getIntegerValue()));
+                jsonobject1.addProperty("value", entry.getValue().getIntegerValue());
 
                 try {
                     jsonobject1.add("progress", entry.getValue().getJsonSerializableValue().getSerializableElement());
@@ -150,7 +150,7 @@ public class StatisticsFile extends StatFileWriter {
 
                 jsonobject.add(entry.getKey().statId, jsonobject1);
             } else {
-                jsonobject.addProperty(entry.getKey().statId, Integer.valueOf(entry.getValue().getIntegerValue()));
+                jsonobject.addProperty(entry.getKey().statId, entry.getValue().getIntegerValue());
             }
         }
 
@@ -171,7 +171,7 @@ public class StatisticsFile extends StatFileWriter {
             this.field_150885_f = i;
 
             for (StatBase statbase : this.func_150878_c()) {
-                map.put(statbase, Integer.valueOf(this.readStat(statbase)));
+                map.put(statbase, this.readStat(statbase));
             }
         }
 
@@ -183,7 +183,7 @@ public class StatisticsFile extends StatFileWriter {
 
         for (Achievement achievement : AchievementList.achievementList) {
             if (this.hasAchievementUnlocked(achievement)) {
-                map.put(achievement, Integer.valueOf(this.readStat(achievement)));
+                map.put(achievement, this.readStat(achievement));
                 this.field_150888_e.remove(achievement);
             }
         }

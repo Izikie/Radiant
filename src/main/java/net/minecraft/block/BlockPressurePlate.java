@@ -19,7 +19,7 @@ public class BlockPressurePlate extends BlockBasePressurePlate {
 
     protected BlockPressurePlate(Material materialIn, BlockPressurePlate.Sensitivity sensitivityIn) {
         super(materialIn);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(POWERED, Boolean.valueOf(false)));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(POWERED, Boolean.FALSE));
         this.sensitivity = sensitivityIn;
     }
 
@@ -28,7 +28,7 @@ public class BlockPressurePlate extends BlockBasePressurePlate {
     }
 
     protected IBlockState setRedstoneStrength(IBlockState state, int strength) {
-        return state.withProperty(POWERED, Boolean.valueOf(strength > 0));
+        return state.withProperty(POWERED, strength > 0);
     }
 
     protected int computeRedstoneStrength(World worldIn, BlockPos pos) {
@@ -60,7 +60,7 @@ public class BlockPressurePlate extends BlockBasePressurePlate {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(POWERED, Boolean.valueOf(meta == 1));
+        return this.getDefaultState().withProperty(POWERED, meta == 1);
     }
 
     public int getMetaFromState(IBlockState state) {

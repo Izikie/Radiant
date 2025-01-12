@@ -325,11 +325,11 @@ public class ChatStyle {
 
     public ChatStyle createDeepCopy() {
         ChatStyle chatstyle = new ChatStyle();
-        chatstyle.setBold(Boolean.valueOf(this.getBold()));
-        chatstyle.setItalic(Boolean.valueOf(this.getItalic()));
-        chatstyle.setStrikethrough(Boolean.valueOf(this.getStrikethrough()));
-        chatstyle.setUnderlined(Boolean.valueOf(this.getUnderlined()));
-        chatstyle.setObfuscated(Boolean.valueOf(this.getObfuscated()));
+        chatstyle.setBold(this.getBold());
+        chatstyle.setItalic(this.getItalic());
+        chatstyle.setStrikethrough(this.getStrikethrough());
+        chatstyle.setUnderlined(this.getUnderlined());
+        chatstyle.setObfuscated(this.getObfuscated());
         chatstyle.setColor(this.getColor());
         chatstyle.setChatClickEvent(this.getChatClickEvent());
         chatstyle.setChatHoverEvent(this.getChatHoverEvent());
@@ -347,23 +347,23 @@ public class ChatStyle {
                     return null;
                 } else {
                     if (jsonobject.has("bold")) {
-                        chatstyle.bold = Boolean.valueOf(jsonobject.get("bold").getAsBoolean());
+                        chatstyle.bold = jsonobject.get("bold").getAsBoolean();
                     }
 
                     if (jsonobject.has("italic")) {
-                        chatstyle.italic = Boolean.valueOf(jsonobject.get("italic").getAsBoolean());
+                        chatstyle.italic = jsonobject.get("italic").getAsBoolean();
                     }
 
                     if (jsonobject.has("underlined")) {
-                        chatstyle.underlined = Boolean.valueOf(jsonobject.get("underlined").getAsBoolean());
+                        chatstyle.underlined = jsonobject.get("underlined").getAsBoolean();
                     }
 
                     if (jsonobject.has("strikethrough")) {
-                        chatstyle.strikethrough = Boolean.valueOf(jsonobject.get("strikethrough").getAsBoolean());
+                        chatstyle.strikethrough = jsonobject.get("strikethrough").getAsBoolean();
                     }
 
                     if (jsonobject.has("obfuscated")) {
-                        chatstyle.obfuscated = Boolean.valueOf(jsonobject.get("obfuscated").getAsBoolean());
+                        chatstyle.obfuscated = jsonobject.get("obfuscated").getAsBoolean();
                     }
 
                     if (jsonobject.has("color")) {

@@ -13,7 +13,7 @@ public class ObjectIntIdentityMap<T> implements IObjectIntIterable<T> {
     private final List<T> objectList = Lists.newArrayList();
 
     public void put(T key, int value) {
-        this.identityMap.put(key, Integer.valueOf(value));
+        this.identityMap.put(key, value);
 
         while (this.objectList.size() <= value) {
             this.objectList.add(null);

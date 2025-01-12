@@ -125,7 +125,7 @@ public abstract class EntityLiving extends EntityLivingBase {
 
     protected void entityInit() {
         super.entityInit();
-        this.dataWatcher.addObject(15, Byte.valueOf((byte) 0));
+        this.dataWatcher.addObject(15, (byte) 0);
     }
 
     public int getTalkInterval() {
@@ -856,7 +856,7 @@ public abstract class EntityLiving extends EntityLivingBase {
     }
 
     public void setNoAI(boolean disable) {
-        this.dataWatcher.updateObject(15, Byte.valueOf((byte) (disable ? 1 : 0)));
+        this.dataWatcher.updateObject(15, (byte) (disable ? 1 : 0));
     }
 
     public boolean isAIDisabled() {

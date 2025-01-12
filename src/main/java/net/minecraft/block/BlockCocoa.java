@@ -25,7 +25,7 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
 
     public BlockCocoa() {
         super(Material.plants);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(AGE, Integer.valueOf(0)));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(AGE, 0));
         this.setTickRandomly(true);
     }
 
@@ -36,7 +36,7 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
             int i = state.getValue(AGE).intValue();
 
             if (i < 2) {
-                worldIn.setBlockState(pos, state.withProperty(AGE, Integer.valueOf(i + 1)), 2);
+                worldIn.setBlockState(pos, state.withProperty(AGE, i + 1), 2);
             }
         }
     }
@@ -102,7 +102,7 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
             facing = EnumFacing.NORTH;
         }
 
-        return this.getDefaultState().withProperty(FACING, facing.getOpposite()).withProperty(AGE, Integer.valueOf(0));
+        return this.getDefaultState().withProperty(FACING, facing.getOpposite()).withProperty(AGE, 0);
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
@@ -146,7 +146,7 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
     }
 
     public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-        worldIn.setBlockState(pos, state.withProperty(AGE, Integer.valueOf(state.getValue(AGE).intValue() + 1)), 2);
+        worldIn.setBlockState(pos, state.withProperty(AGE, state.getValue(AGE).intValue() + 1), 2);
     }
 
     public EnumWorldBlockLayer getBlockLayer() {
@@ -154,7 +154,7 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta)).withProperty(AGE, Integer.valueOf((meta & 15) >> 2));
+        return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta)).withProperty(AGE, (meta & 15) >> 2);
     }
 
     public int getMetaFromState(IBlockState state) {

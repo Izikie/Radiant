@@ -99,10 +99,10 @@ public class ItemAliases {
 
     private static void addToList(List<Integer> list, int index, int val) {
         while (list.size() <= index) {
-            list.add(Integer.valueOf(Integer.MIN_VALUE));
+            list.add(Integer.MIN_VALUE);
         }
 
-        list.set(index, Integer.valueOf(val));
+        list.set(index, val);
     }
 
     private static int[] toArray(List<Integer> list) {

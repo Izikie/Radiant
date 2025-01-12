@@ -11,14 +11,14 @@ public class KeyUtils {
         Set<Integer> set = new HashSet();
 
         for (KeyBinding keybinding : keysPrio) {
-            set.add(Integer.valueOf(keybinding.getKeyCode()));
+            set.add(keybinding.getKeyCode());
         }
 
         Set<KeyBinding> set1 = new HashSet(Arrays.asList(keys));
         set1.removeAll(Arrays.asList(keysPrio));
 
         for (KeyBinding keybinding1 : set1) {
-            Integer integer = Integer.valueOf(keybinding1.getKeyCode());
+            Integer integer = keybinding1.getKeyCode();
 
             if (set.contains(integer)) {
                 keybinding1.setKeyCode(0);

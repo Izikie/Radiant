@@ -51,7 +51,7 @@ public class VertexFormat {
             return this;
         } else {
             this.elements.add(element);
-            this.offsets.add(Integer.valueOf(this.nextOffset));
+            this.offsets.add(this.nextOffset);
 
             switch (element.getUsage()) {
                 case NORMAL:
@@ -63,7 +63,7 @@ public class VertexFormat {
                     break;
 
                 case UV:
-                    this.uvOffsetsById.add(element.getIndex(), Integer.valueOf(this.nextOffset));
+                    this.uvOffsetsById.add(element.getIndex(), this.nextOffset);
             }
 
             this.nextOffset += element.getSize();

@@ -56,7 +56,7 @@ public class JsonToNBT {
                         ++i;
                     }
 
-                    stack.push(Character.valueOf(c0));
+                    stack.push(c0);
                 }
             }
         }
@@ -201,7 +201,7 @@ public class JsonToNBT {
                         return p_179269_0_.substring(0, i);
                     }
                 } else {
-                    stack.push(Character.valueOf(c0));
+                    stack.push(c0);
                 }
             }
 

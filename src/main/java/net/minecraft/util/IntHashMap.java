@@ -174,8 +174,8 @@ public class IntHashMap<V> {
                 return false;
             } else {
                 IntHashMap.Entry<V> entry = entry1;
-                Object object = Integer.valueOf(this.getHash());
-                Object object1 = Integer.valueOf(entry.getHash());
+                Object object = this.getHash();
+                Object object1 = entry.getHash();
 
                 if (object == object1 || object != null && object.equals(object1)) {
                     Object object2 = this.getValue();

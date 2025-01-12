@@ -231,8 +231,8 @@ public class CraftingManager {
         for (int i1 = 0; i1 < j * k; ++i1) {
             char c0 = s.charAt(i1);
 
-            if (map.containsKey(Character.valueOf(c0))) {
-                aitemstack[i1] = map.get(Character.valueOf(c0)).copy();
+            if (map.containsKey(c0)) {
+                aitemstack[i1] = map.get(c0).copy();
             } else {
                 aitemstack[i1] = null;
             }

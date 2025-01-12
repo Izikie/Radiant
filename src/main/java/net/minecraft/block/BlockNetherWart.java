@@ -21,7 +21,7 @@ public class BlockNetherWart extends BlockBush {
 
     protected BlockNetherWart() {
         super(Material.plants, MapColor.redColor);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0));
         this.setTickRandomly(true);
         float f = 0.5F;
         this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.25F, 0.5F + f);
@@ -40,7 +40,7 @@ public class BlockNetherWart extends BlockBush {
         int i = state.getValue(AGE).intValue();
 
         if (i < 3 && rand.nextInt(10) == 0) {
-            state = state.withProperty(AGE, Integer.valueOf(i + 1));
+            state = state.withProperty(AGE, i + 1);
             worldIn.setBlockState(pos, state, 2);
         }
 
@@ -78,7 +78,7 @@ public class BlockNetherWart extends BlockBush {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(AGE, Integer.valueOf(meta));
+        return this.getDefaultState().withProperty(AGE, meta);
     }
 
     public int getMetaFromState(IBlockState state) {

@@ -131,11 +131,11 @@ public class ShadersTex {
 
         if (multitexid == null) {
             int i = tex.getGlTextureId();
-            multitexid = multiTexMap.get(Integer.valueOf(i));
+            multitexid = multiTexMap.get(i);
 
             if (multitexid == null) {
                 multitexid = new MultiTexID(i, GL11.glGenTextures(), GL11.glGenTextures());
-                multiTexMap.put(Integer.valueOf(i), multitexid);
+                multiTexMap.put(i, multitexid);
             }
 
             tex.multiTex = multitexid;
@@ -149,7 +149,7 @@ public class ShadersTex {
 
         if (multitexid != null) {
             atex.multiTex = null;
-            multiTexMap.remove(Integer.valueOf(multitexid.base));
+            multiTexMap.remove(multitexid.base);
             GlStateManager.deleteTexture(multitexid.norm);
             GlStateManager.deleteTexture(multitexid.spec);
 
@@ -227,7 +227,7 @@ public class ShadersTex {
     }
 
     public static void bindTextures(int baseTex) {
-        MultiTexID multitexid = multiTexMap.get(Integer.valueOf(baseTex));
+        MultiTexID multitexid = multiTexMap.get(baseTex);
         bindTextures(multitexid);
     }
 

@@ -22,7 +22,7 @@ public class BlockCactus extends Block {
 
     protected BlockCactus() {
         super(Material.cactus);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0));
         this.setTickRandomly(true);
         this.setCreativeTab(CreativeTabs.tabDecorations);
     }
@@ -41,11 +41,11 @@ public class BlockCactus extends Block {
 
                 if (j == 15) {
                     worldIn.setBlockState(blockpos, this.getDefaultState());
-                    IBlockState iblockstate = state.withProperty(AGE, Integer.valueOf(0));
+                    IBlockState iblockstate = state.withProperty(AGE, 0);
                     worldIn.setBlockState(pos, iblockstate, 4);
                     this.onNeighborBlockChange(worldIn, blockpos, iblockstate, this);
                 } else {
-                    worldIn.setBlockState(pos, state.withProperty(AGE, Integer.valueOf(j + 1)), 4);
+                    worldIn.setBlockState(pos, state.withProperty(AGE, j + 1), 4);
                 }
             }
         }
@@ -99,7 +99,7 @@ public class BlockCactus extends Block {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(AGE, Integer.valueOf(meta));
+        return this.getDefaultState().withProperty(AGE, meta);
     }
 
     public int getMetaFromState(IBlockState state) {

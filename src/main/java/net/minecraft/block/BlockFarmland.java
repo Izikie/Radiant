@@ -23,7 +23,7 @@ public class BlockFarmland extends Block {
 
     protected BlockFarmland() {
         super(Material.ground);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(MOISTURE, Integer.valueOf(0)));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(MOISTURE, 0));
         this.setTickRandomly(true);
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.9375F, 1.0F);
         this.setLightOpacity(255);
@@ -46,12 +46,12 @@ public class BlockFarmland extends Block {
 
         if (!this.hasWater(worldIn, pos) && !worldIn.isRainingAt(pos.up())) {
             if (i > 0) {
-                worldIn.setBlockState(pos, state.withProperty(MOISTURE, Integer.valueOf(i - 1)), 2);
+                worldIn.setBlockState(pos, state.withProperty(MOISTURE, i - 1), 2);
             } else if (!this.hasCrops(worldIn, pos)) {
                 worldIn.setBlockState(pos, Blocks.dirt.getDefaultState());
             }
         } else if (i < 7) {
-            worldIn.setBlockState(pos, state.withProperty(MOISTURE, Integer.valueOf(7)), 2);
+            worldIn.setBlockState(pos, state.withProperty(MOISTURE, 7), 2);
         }
     }
 
@@ -118,7 +118,7 @@ public class BlockFarmland extends Block {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(MOISTURE, Integer.valueOf(meta & 7));
+        return this.getDefaultState().withProperty(MOISTURE, meta & 7);
     }
 
     public int getMetaFromState(IBlockState state) {

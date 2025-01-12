@@ -102,7 +102,7 @@ public class EntityArrow extends Entity implements IProjectile {
     }
 
     protected void entityInit() {
-        this.dataWatcher.addObject(16, Byte.valueOf((byte) 0));
+        this.dataWatcher.addObject(16, (byte) 0);
     }
 
     public void setThrowableHeading(double x, double y, double z, float velocity, float inaccuracy) {
@@ -459,9 +459,9 @@ public class EntityArrow extends Entity implements IProjectile {
         byte b0 = this.dataWatcher.getWatchableObjectByte(16);
 
         if (critical) {
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte) (b0 | 1)));
+            this.dataWatcher.updateObject(16, (byte) (b0 | 1));
         } else {
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte) (b0 & -2)));
+            this.dataWatcher.updateObject(16, (byte) (b0 & -2));
         }
     }
 

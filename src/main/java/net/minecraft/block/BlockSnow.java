@@ -27,7 +27,7 @@ public class BlockSnow extends Block {
 
     protected BlockSnow() {
         super(Material.snow);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(LAYERS, Integer.valueOf(1)));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(LAYERS, 1));
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
         this.setTickRandomly(true);
         this.setCreativeTab(CreativeTabs.tabDecorations);
@@ -111,7 +111,7 @@ public class BlockSnow extends Block {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(LAYERS, Integer.valueOf((meta & 7) + 1));
+        return this.getDefaultState().withProperty(LAYERS, (meta & 7) + 1);
     }
 
     public boolean isReplaceable(World worldIn, BlockPos pos) {

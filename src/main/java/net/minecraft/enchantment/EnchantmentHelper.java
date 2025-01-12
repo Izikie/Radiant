@@ -58,7 +58,7 @@ public class EnchantmentHelper {
             for (int i = 0; i < nbttaglist.tagCount(); ++i) {
                 int j = nbttaglist.getCompoundTagAt(i).getShort("id");
                 int k = nbttaglist.getCompoundTagAt(i).getShort("lvl");
-                map.put(Integer.valueOf(j), Integer.valueOf(k));
+                map.put(j, k);
             }
         }
 
@@ -76,11 +76,11 @@ public class EnchantmentHelper {
             if (enchantment != null) {
                 NBTTagCompound nbttagcompound = new NBTTagCompound();
                 nbttagcompound.setShort("id", (short) i);
-                nbttagcompound.setShort("lvl", (short) enchMap.get(Integer.valueOf(i)).intValue());
+                nbttagcompound.setShort("lvl", (short) enchMap.get(i).intValue());
                 nbttaglist.appendTag(nbttagcompound);
 
                 if (stack.getItem() == Items.enchanted_book) {
-                    Items.enchanted_book.addEnchantment(stack, new EnchantmentData(enchantment, enchMap.get(Integer.valueOf(i)).intValue()));
+                    Items.enchanted_book.addEnchantment(stack, new EnchantmentData(enchantment, enchMap.get(i).intValue()));
                 }
             }
         }
@@ -344,7 +344,7 @@ public class EnchantmentHelper {
                             map = Maps.newHashMap();
                         }
 
-                        map.put(Integer.valueOf(enchantment.effectId), new EnchantmentData(enchantment, i));
+                        map.put(enchantment.effectId, new EnchantmentData(enchantment, i));
                     }
                 }
             }

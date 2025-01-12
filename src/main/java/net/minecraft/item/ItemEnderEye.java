@@ -25,7 +25,7 @@ public class ItemEnderEye extends Item {
             if (worldIn.isRemote) {
                 return true;
             } else {
-                worldIn.setBlockState(pos, iblockstate.withProperty(BlockEndPortalFrame.EYE, Boolean.valueOf(true)), 2);
+                worldIn.setBlockState(pos, iblockstate.withProperty(BlockEndPortalFrame.EYE, Boolean.TRUE), 2);
                 worldIn.updateComparatorOutputLevel(pos, Blocks.end_portal_frame);
                 --stack.stackSize;
 

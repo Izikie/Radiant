@@ -23,7 +23,7 @@ public class BlockCake extends Block {
 
     protected BlockCake() {
         super(Material.cake);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(BITES, Integer.valueOf(0)));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(BITES, 0));
         this.setTickRandomly(true);
     }
 
@@ -75,7 +75,7 @@ public class BlockCake extends Block {
             int i = state.getValue(BITES).intValue();
 
             if (i < 6) {
-                worldIn.setBlockState(pos, state.withProperty(BITES, Integer.valueOf(i + 1)), 3);
+                worldIn.setBlockState(pos, state.withProperty(BITES, i + 1), 3);
             } else {
                 worldIn.setBlockToAir(pos);
             }
@@ -113,7 +113,7 @@ public class BlockCake extends Block {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(BITES, Integer.valueOf(meta));
+        return this.getDefaultState().withProperty(BITES, meta);
     }
 
     public int getMetaFromState(IBlockState state) {
