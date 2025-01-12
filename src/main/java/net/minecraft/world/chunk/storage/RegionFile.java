@@ -161,12 +161,12 @@ public class RegionFile {
                 if (l1 != -1) {
                     for (int k1 = l1; k1 < this.sectorFree.size(); ++k1) {
                         if (j1 != 0) {
-                            if (this.sectorFree.get(k1).booleanValue()) {
+                            if (this.sectorFree.get(k1)) {
                                 ++j1;
                             } else {
                                 j1 = 0;
                             }
-                        } else if (this.sectorFree.get(k1).booleanValue()) {
+                        } else if (this.sectorFree.get(k1)) {
                             l1 = k1;
                             j1 = 1;
                         }

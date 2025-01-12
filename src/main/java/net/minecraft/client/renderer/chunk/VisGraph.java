@@ -60,7 +60,7 @@ public class VisGraph {
         this.field_178612_d.set(p_178604_1_, true);
 
         while (!queue.isEmpty()) {
-            int i = queue.poll().intValue();
+            int i = queue.poll();
             this.func_178610_a(i, set);
 
             for (EnumFacing enumfacing : EnumFacing.VALUES) {

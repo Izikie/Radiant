@@ -321,7 +321,7 @@ public class TextureAtlasSprite {
                 Iterator iterator = meta.getFrameIndexSet().iterator();
 
                 while (iterator.hasNext()) {
-                    int i1 = ((Integer) iterator.next()).intValue();
+                    int i1 = (Integer) iterator.next();
 
                     if (i1 >= j1) {
                         throw new RuntimeException("invalid frameindex " + i1);

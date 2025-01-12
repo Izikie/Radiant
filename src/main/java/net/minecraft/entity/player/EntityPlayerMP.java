@@ -218,7 +218,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
             int j = 0;
 
             while (iterator.hasNext() && j < i) {
-                aint[j++] = iterator.next().intValue();
+                aint[j++] = iterator.next();
                 iterator.remove();
             }
 

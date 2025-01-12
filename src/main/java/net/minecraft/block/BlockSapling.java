@@ -51,7 +51,7 @@ public class BlockSapling extends BlockBush implements IGrowable {
     }
 
     public void grow(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        if (state.getValue(STAGE).intValue() == 0) {
+        if (state.getValue(STAGE) == 0) {
             worldIn.setBlockState(pos, state.cycleProperty(STAGE), 4);
         } else {
             this.generateTree(worldIn, pos, state, rand);
@@ -196,7 +196,7 @@ public class BlockSapling extends BlockBush implements IGrowable {
     public int getMetaFromState(IBlockState state) {
         int i = 0;
         i = i | state.getValue(TYPE).getMetadata();
-        i = i | state.getValue(STAGE).intValue() << 3;
+        i = i | state.getValue(STAGE) << 3;
         return i;
     }
 

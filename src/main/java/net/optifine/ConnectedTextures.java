@@ -137,20 +137,20 @@ public class ConnectedTextures {
             double d0 = quad.getMidX();
 
             if (d0 < 0.4D) {
-                return iblockstate.getValue(BlockPane.WEST).booleanValue();
+                return iblockstate.getValue(BlockPane.WEST);
             } else if (d0 > 0.6D) {
-                return iblockstate.getValue(BlockPane.EAST).booleanValue();
+                return iblockstate.getValue(BlockPane.EAST);
             } else {
                 double d1 = quad.getMidZ();
 
                 if (d1 < 0.4D) {
-                    return iblockstate.getValue(BlockPane.NORTH).booleanValue();
+                    return iblockstate.getValue(BlockPane.NORTH);
                 } else {
                     if (d1 <= 0.6D) {
                         return true;
                     }
 
-                    return iblockstate.getValue(BlockPane.SOUTH).booleanValue();
+                    return iblockstate.getValue(BlockPane.SOUTH);
                 }
             }
         }

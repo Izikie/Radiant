@@ -45,7 +45,7 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
     }
 
     protected int getDelay(IBlockState state) {
-        return state.getValue(DELAY).intValue() * 2;
+        return state.getValue(DELAY) * 2;
     }
 
     protected IBlockState getPoweredState(IBlockState unpoweredState) {
@@ -87,7 +87,7 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
             float f = -5.0F;
 
             if (rand.nextBoolean()) {
-                f = (state.getValue(DELAY).intValue() * 2 - 1);
+                f = (state.getValue(DELAY) * 2 - 1);
             }
 
             f = f / 16.0F;
@@ -109,7 +109,7 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
     public int getMetaFromState(IBlockState state) {
         int i = 0;
         i = i | state.getValue(FACING).getHorizontalIndex();
-        i = i | state.getValue(DELAY).intValue() - 1 << 2;
+        i = i | state.getValue(DELAY) - 1 << 2;
         return i;
     }
 

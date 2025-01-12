@@ -260,7 +260,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
                 this.func_180460_a(blockpos, iblockstate);
 
                 if (iblockstate.getBlock() == Blocks.activator_rail) {
-                    this.onActivatorRailPass(k, l, i1, iblockstate.getValue(BlockRailPowered.POWERED).booleanValue());
+                    this.onActivatorRailPass(k, l, i1, iblockstate.getValue(BlockRailPowered.POWERED));
                 }
             } else {
                 this.moveDerailedMinecart();
@@ -343,7 +343,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         BlockRailBase blockrailbase = (BlockRailBase) p_180460_2_.getBlock();
 
         if (blockrailbase == Blocks.golden_rail) {
-            flag = p_180460_2_.getValue(BlockRailPowered.POWERED).booleanValue();
+            flag = p_180460_2_.getValue(BlockRailPowered.POWERED);
             flag1 = !flag;
         }
 

@@ -184,7 +184,7 @@ public class SoundManager {
             ISound isound = entry.getValue();
 
             if (!this.sndSystem.playing(s1)) {
-                int i = this.playingSoundsStopTime.get(s1).intValue();
+                int i = this.playingSoundsStopTime.get(s1);
 
                 if (i <= this.playTime) {
                     int j = isound.getRepeatDelay();
@@ -216,7 +216,7 @@ public class SoundManager {
         while (iterator1.hasNext()) {
             Entry<ISound, Integer> entry1 = iterator1.next();
 
-            if (this.playTime >= entry1.getValue().intValue()) {
+            if (this.playTime >= entry1.getValue()) {
                 ISound isound1 = entry1.getKey();
 
                 if (isound1 instanceof ITickableSound iTickableSound) {
@@ -234,7 +234,7 @@ public class SoundManager {
             return false;
         } else {
             String s = this.invPlayingSounds.get(sound);
-            return s == null ? false : this.sndSystem.playing(s) || this.playingSoundsStopTime.containsKey(s) && this.playingSoundsStopTime.get(s).intValue() <= this.playTime;
+            return s == null ? false : this.sndSystem.playing(s) || this.playingSoundsStopTime.containsKey(s) && this.playingSoundsStopTime.get(s) <= this.playTime;
         }
     }
 

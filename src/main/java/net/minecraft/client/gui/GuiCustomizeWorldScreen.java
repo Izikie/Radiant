@@ -36,7 +36,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
     private final Predicate<String> field_175332_D = new Predicate<String>() {
         public boolean apply(String p_apply_1_) {
             Float f = Floats.tryParse(p_apply_1_);
-            return p_apply_1_.length() == 0 || f != null && Floats.isFinite(f.floatValue()) && f.floatValue() >= 0.0F;
+            return p_apply_1_.length() == 0 || f != null && Floats.isFinite(f) && f >= 0.0F;
         }
     };
     private final ChunkProviderSettings.Factory field_175334_E = new ChunkProviderSettings.Factory();
@@ -835,9 +835,9 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
             Float f1 = Floats.tryParse(guitextfield.getText());
 
             if (f1 != null) {
-                f1 = f1.floatValue() + f;
+                f1 = f1 + f;
                 int i = guitextfield.getId();
-                String s = this.func_175330_b(guitextfield.getId(), f1.floatValue());
+                String s = this.func_175330_b(guitextfield.getId(), f1);
                 guitextfield.setText(s);
                 this.func_175319_a(i, s);
             }

@@ -261,7 +261,7 @@ public class BlockModelShapes {
                 Map<IProperty, Comparable> map = Maps.newLinkedHashMap(state.getProperties());
                 String s = BlockStoneSlab.VARIANT.getName((BlockStoneSlab.EnumType) map.remove(BlockStoneSlab.VARIANT));
                 map.remove(BlockStoneSlab.SEAMLESS);
-                String s1 = state.getValue(BlockStoneSlab.SEAMLESS).booleanValue() ? "all" : "normal";
+                String s1 = state.getValue(BlockStoneSlab.SEAMLESS) ? "all" : "normal";
                 return new ModelResourceLocation(s + "_double_slab", s1);
             }
         });
@@ -270,7 +270,7 @@ public class BlockModelShapes {
                 Map<IProperty, Comparable> map = Maps.newLinkedHashMap(state.getProperties());
                 String s = BlockStoneSlabNew.VARIANT.getName((BlockStoneSlabNew.EnumType) map.remove(BlockStoneSlabNew.VARIANT));
                 map.remove(BlockStoneSlab.SEAMLESS);
-                String s1 = state.getValue(BlockStoneSlabNew.SEAMLESS).booleanValue() ? "all" : "normal";
+                String s1 = state.getValue(BlockStoneSlabNew.SEAMLESS) ? "all" : "normal";
                 return new ModelResourceLocation(s + "_double_slab", s1);
             }
         });

@@ -21,7 +21,7 @@ public class ItemEnderEye extends Item {
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
         IBlockState iblockstate = worldIn.getBlockState(pos);
 
-        if (playerIn.canPlayerEdit(pos.offset(side), side, stack) && iblockstate.getBlock() == Blocks.end_portal_frame && !iblockstate.getValue(BlockEndPortalFrame.EYE).booleanValue()) {
+        if (playerIn.canPlayerEdit(pos.offset(side), side, stack) && iblockstate.getBlock() == Blocks.end_portal_frame && !iblockstate.getValue(BlockEndPortalFrame.EYE)) {
             if (worldIn.isRemote) {
                 return true;
             } else {
@@ -51,7 +51,7 @@ public class ItemEnderEye extends Item {
                     IBlockState iblockstate1 = worldIn.getBlockState(blockpos1);
 
                     if (iblockstate1.getBlock() == Blocks.end_portal_frame) {
-                        if (!iblockstate1.getValue(BlockEndPortalFrame.EYE).booleanValue()) {
+                        if (!iblockstate1.getValue(BlockEndPortalFrame.EYE)) {
                             flag = false;
                             break;
                         }
@@ -72,7 +72,7 @@ public class ItemEnderEye extends Item {
                         BlockPos blockpos2 = blockpos.offset(enumfacing1, i1);
                         IBlockState iblockstate3 = worldIn.getBlockState(blockpos2);
 
-                        if (iblockstate3.getBlock() != Blocks.end_portal_frame || !iblockstate3.getValue(BlockEndPortalFrame.EYE).booleanValue()) {
+                        if (iblockstate3.getBlock() != Blocks.end_portal_frame || !iblockstate3.getValue(BlockEndPortalFrame.EYE)) {
                             flag = false;
                             break;
                         }
@@ -85,7 +85,7 @@ public class ItemEnderEye extends Item {
                             BlockPos blockpos3 = blockpos.offset(enumfacing, l1);
                             IBlockState iblockstate2 = worldIn.getBlockState(blockpos3);
 
-                            if (iblockstate2.getBlock() != Blocks.end_portal_frame || !iblockstate2.getValue(BlockEndPortalFrame.EYE).booleanValue()) {
+                            if (iblockstate2.getBlock() != Blocks.end_portal_frame || !iblockstate2.getValue(BlockEndPortalFrame.EYE)) {
                                 flag = false;
                                 break;
                             }

@@ -44,7 +44,7 @@ public class BlockTrapDoor extends Block {
     }
 
     public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
-        return !worldIn.getBlockState(pos).getValue(OPEN).booleanValue();
+        return !worldIn.getBlockState(pos).getValue(OPEN);
     }
 
     public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos) {
@@ -79,7 +79,7 @@ public class BlockTrapDoor extends Block {
                 this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.1875F, 1.0F);
             }
 
-            if (obool.booleanValue()) {
+            if (obool) {
                 if (enumfacing == EnumFacing.NORTH) {
                     this.setBlockBounds(0.0F, 0.0F, 0.8125F, 1.0F, 1.0F, 1.0F);
                 }
@@ -105,7 +105,7 @@ public class BlockTrapDoor extends Block {
         } else {
             state = state.cycleProperty(OPEN);
             worldIn.setBlockState(pos, state, 2);
-            worldIn.playAuxSFXAtEntity(playerIn, state.getValue(OPEN).booleanValue() ? 1003 : 1006, pos, 0);
+            worldIn.playAuxSFXAtEntity(playerIn, state.getValue(OPEN) ? 1003 : 1006, pos, 0);
             return true;
         }
     }
@@ -121,7 +121,7 @@ public class BlockTrapDoor extends Block {
                 boolean flag = worldIn.isBlockPowered(pos);
 
                 if (flag || neighborBlock.canProvidePower()) {
-                    boolean flag1 = state.getValue(OPEN).booleanValue();
+                    boolean flag1 = state.getValue(OPEN);
 
                     if (flag1 != flag) {
                         worldIn.setBlockState(pos, state.withProperty(OPEN, flag), 2);
@@ -202,7 +202,7 @@ public class BlockTrapDoor extends Block {
         int i = 0;
         i = i | getMetaForFacing(state.getValue(FACING));
 
-        if (state.getValue(OPEN).booleanValue()) {
+        if (state.getValue(OPEN)) {
             i |= 4;
         }
 

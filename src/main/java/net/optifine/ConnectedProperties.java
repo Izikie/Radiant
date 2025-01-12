@@ -178,7 +178,7 @@ public class ConnectedProperties {
                     aint[k] = -1;
 
                     if (map.containsKey(k)) {
-                        aint[k] = map.get(k).intValue();
+                        aint[k] = map.get(k);
                     }
                 }
 

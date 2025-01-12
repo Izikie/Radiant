@@ -30,7 +30,7 @@ public class ModelAdapterOcelot extends ModelAdapter {
             Map<String, Integer> map = getMapPartFields();
 
             if (map.containsKey(modelPart)) {
-                int i = map.get(modelPart).intValue();
+                int i = map.get(modelPart);
                 return (ModelRenderer) Reflector.getFieldValue(modelocelot, Reflector.ModelOcelot_ModelRenderers, i);
             } else {
                 return null;

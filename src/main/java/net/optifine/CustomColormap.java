@@ -448,7 +448,7 @@ public class CustomColormap implements CustomColors.IColorizer {
             int[] aint = new int[ainteger.length];
 
             for (int j = 0; j < ainteger.length; ++j) {
-                aint[j] = ainteger[j].intValue();
+                aint[j] = ainteger[j];
             }
 
             return aint;

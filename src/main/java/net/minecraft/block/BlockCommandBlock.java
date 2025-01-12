@@ -33,7 +33,7 @@ public class BlockCommandBlock extends BlockContainer {
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         if (!worldIn.isRemote) {
             boolean flag = worldIn.isBlockPowered(pos);
-            boolean flag1 = state.getValue(TRIGGERED).booleanValue();
+            boolean flag1 = state.getValue(TRIGGERED);
 
             if (flag && !flag1) {
                 worldIn.setBlockState(pos, state.withProperty(TRIGGERED, Boolean.TRUE), 4);
@@ -102,7 +102,7 @@ public class BlockCommandBlock extends BlockContainer {
     public int getMetaFromState(IBlockState state) {
         int i = 0;
 
-        if (state.getValue(TRIGGERED).booleanValue()) {
+        if (state.getValue(TRIGGERED)) {
             i |= 1;
         }
 

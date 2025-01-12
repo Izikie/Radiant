@@ -410,11 +410,11 @@ public class Config {
 
     public static boolean isUseAlphaFunc() {
         float f = getAlphaFuncLevel();
-        return f > DEF_ALPHA_FUNC_LEVEL.floatValue() + 1.0E-5F;
+        return f > DEF_ALPHA_FUNC_LEVEL + 1.0E-5F;
     }
 
     public static float getAlphaFuncLevel() {
-        return DEF_ALPHA_FUNC_LEVEL.floatValue();
+        return DEF_ALPHA_FUNC_LEVEL;
     }
 
     public static boolean isFogFancy() {
@@ -1852,7 +1852,7 @@ public class Config {
             int[] aint = new int[p_toPrimitive_0_.length];
 
             for (int i = 0; i < aint.length; ++i) {
-                aint[i] = p_toPrimitive_0_[i].intValue();
+                aint[i] = p_toPrimitive_0_[i];
             }
 
             return aint;
@@ -1946,7 +1946,7 @@ public class Config {
     }
 
     public static boolean isTrue(Boolean p_isTrue_0_) {
-        return p_isTrue_0_ != null && p_isTrue_0_.booleanValue();
+        return p_isTrue_0_ != null && p_isTrue_0_;
     }
 
     public static boolean isQuadsToTriangles() {

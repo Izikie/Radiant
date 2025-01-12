@@ -24,7 +24,7 @@ public class ObjectIntIdentityMap<T> implements IObjectIntIterable<T> {
 
     public int get(T key) {
         Integer integer = this.identityMap.get(key);
-        return integer == null ? -1 : integer.intValue();
+        return integer == null ? -1 : integer;
     }
 
     public final T getByValue(int value) {

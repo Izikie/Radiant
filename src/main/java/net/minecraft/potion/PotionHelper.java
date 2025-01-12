@@ -101,14 +101,14 @@ public class PotionHelper {
 
         if (!bypassCache) {
             if (DATAVALUE_COLORS.containsKey(integer)) {
-                return DATAVALUE_COLORS.get(integer).intValue();
+                return DATAVALUE_COLORS.get(integer);
             } else {
-                int i = calcPotionLiquidColor(getPotionEffects(integer.intValue(), false));
+                int i = calcPotionLiquidColor(getPotionEffects(integer, false));
                 DATAVALUE_COLORS.put(integer, i);
                 return i;
             }
         } else {
-            return calcPotionLiquidColor(getPotionEffects(integer.intValue(), true));
+            return calcPotionLiquidColor(getPotionEffects(integer, true));
         }
     }
 

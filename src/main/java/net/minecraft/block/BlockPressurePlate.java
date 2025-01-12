@@ -24,7 +24,7 @@ public class BlockPressurePlate extends BlockBasePressurePlate {
     }
 
     protected int getRedstoneStrength(IBlockState state) {
-        return state.getValue(POWERED).booleanValue() ? 15 : 0;
+        return state.getValue(POWERED) ? 15 : 0;
     }
 
     protected IBlockState setRedstoneStrength(IBlockState state, int strength) {
@@ -64,7 +64,7 @@ public class BlockPressurePlate extends BlockBasePressurePlate {
     }
 
     public int getMetaFromState(IBlockState state) {
-        return state.getValue(POWERED).booleanValue() ? 1 : 0;
+        return state.getValue(POWERED) ? 1 : 0;
     }
 
     protected BlockState createBlockState() {

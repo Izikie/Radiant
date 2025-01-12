@@ -62,7 +62,7 @@ public class ShaderPackParser {
             Iterator<Integer> iterator = listDimensions.iterator();
 
             while (iterator.hasNext()) {
-                int i = iterator.next().intValue();
+                int i = iterator.next();
                 String s = "/shaders/world" + i;
                 collectShaderOptions(shaderPack, s, programNames, map);
             }
@@ -707,7 +707,7 @@ public class ShaderPackParser {
             float f = Config.parseFloat(s1, -1.0F);
 
             if (integer != null && f >= 0.0F) {
-                return new GlAlphaState(true, integer.intValue(), f);
+                return new GlAlphaState(true, integer, f);
             }
         }
 
@@ -768,7 +768,7 @@ public class ShaderPackParser {
             Integer integer3 = mapBlendFactors.get(s3);
 
             if (integer != null && integer1 != null && integer2 != null && integer3 != null) {
-                return new GlBlendState(true, integer.intValue(), integer1.intValue(), integer2.intValue(), integer3.intValue());
+                return new GlBlendState(true, integer, integer1, integer2, integer3);
             }
         }
 

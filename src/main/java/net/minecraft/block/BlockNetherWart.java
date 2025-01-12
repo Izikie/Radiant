@@ -37,7 +37,7 @@ public class BlockNetherWart extends BlockBush {
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        int i = state.getValue(AGE).intValue();
+        int i = state.getValue(AGE);
 
         if (i < 3 && rand.nextInt(10) == 0) {
             state = state.withProperty(AGE, i + 1);
@@ -51,7 +51,7 @@ public class BlockNetherWart extends BlockBush {
         if (!worldIn.isRemote) {
             int i = 1;
 
-            if (state.getValue(AGE).intValue() >= 3) {
+            if (state.getValue(AGE) >= 3) {
                 i = 2 + worldIn.rand.nextInt(3);
 
                 if (fortune > 0) {
@@ -82,7 +82,7 @@ public class BlockNetherWart extends BlockBush {
     }
 
     public int getMetaFromState(IBlockState state) {
-        return state.getValue(AGE).intValue();
+        return state.getValue(AGE);
     }
 
     protected BlockState createBlockState() {

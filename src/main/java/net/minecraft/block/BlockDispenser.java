@@ -122,7 +122,7 @@ public class BlockDispenser extends BlockContainer {
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         boolean flag = worldIn.isBlockPowered(pos) || worldIn.isBlockPowered(pos.up());
-        boolean flag1 = state.getValue(TRIGGERED).booleanValue();
+        boolean flag1 = state.getValue(TRIGGERED);
 
         if (flag && !flag1) {
             worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
@@ -205,7 +205,7 @@ public class BlockDispenser extends BlockContainer {
         int i = 0;
         i = i | state.getValue(FACING).getIndex();
 
-        if (state.getValue(TRIGGERED).booleanValue()) {
+        if (state.getValue(TRIGGERED)) {
             i |= 8;
         }
 

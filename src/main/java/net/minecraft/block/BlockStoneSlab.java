@@ -83,7 +83,7 @@ public abstract class BlockStoneSlab extends BlockSlab {
         i = i | state.getValue(VARIANT).getMetadata();
 
         if (this.isDouble()) {
-            if (state.getValue(SEAMLESS).booleanValue()) {
+            if (state.getValue(SEAMLESS)) {
                 i |= 8;
             }
         } else if (state.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP) {

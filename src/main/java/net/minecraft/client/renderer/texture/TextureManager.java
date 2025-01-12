@@ -118,7 +118,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
         if (integer == null) {
             integer = 1;
         } else {
-            integer = integer.intValue() + 1;
+            integer = integer + 1;
         }
 
         this.mapTextureCounters.put(name, integer);

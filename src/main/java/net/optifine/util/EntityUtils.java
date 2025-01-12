@@ -18,12 +18,12 @@ public class EntityUtils {
 
     public static int getEntityIdByClass(Class cls) {
         Integer integer = mapIdByClass.get(cls);
-        return integer == null ? -1 : integer.intValue();
+        return integer == null ? -1 : integer;
     }
 
     public static int getEntityIdByName(String name) {
         Integer integer = mapIdByName.get(name);
-        return integer == null ? -1 : integer.intValue();
+        return integer == null ? -1 : integer;
     }
 
     public static Class getEntityClassByName(String name) {

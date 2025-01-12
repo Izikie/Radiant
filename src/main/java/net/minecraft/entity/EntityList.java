@@ -173,7 +173,7 @@ public class EntityList {
 
     public static int getEntityID(Entity entityIn) {
         Integer integer = classToIDMapping.get(entityIn.getClass());
-        return integer == null ? 0 : integer.intValue();
+        return integer == null ? 0 : integer;
     }
 
     public static Class<? extends Entity> getClassFromID(int entityID) {
@@ -186,7 +186,7 @@ public class EntityList {
 
     public static int getIDFromString(String entityName) {
         Integer integer = stringToIDMapping.get(entityName);
-        return integer == null ? 90 : integer.intValue();
+        return integer == null ? 90 : integer;
     }
 
     public static String getStringFromID(int entityID) {

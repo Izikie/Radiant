@@ -188,7 +188,7 @@ public class ShaderManager {
                 } else if (object instanceof ITextureObject iTextureObject) {
                     j = iTextureObject.getGlTextureId();
                 } else if (object instanceof Integer integer) {
-                    j = integer.intValue();
+                    j = integer;
                 }
 
                 if (j != -1) {

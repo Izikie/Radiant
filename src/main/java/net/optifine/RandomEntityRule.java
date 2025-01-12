@@ -292,7 +292,7 @@ public class RandomEntityRule {
 
                 if (entity2 instanceof EntityLiving entityliving) {
 
-                    if (entityliving.isChild() != this.baby.booleanValue()) {
+                    if (entityliving.isChild() != this.baby) {
                         return false;
                     }
                 }

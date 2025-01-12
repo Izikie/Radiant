@@ -114,7 +114,7 @@ public class BlockHopper extends BlockContainer {
     private void updateState(World worldIn, BlockPos pos, IBlockState state) {
         boolean flag = !worldIn.isBlockPowered(pos);
 
-        if (flag != state.getValue(ENABLED).booleanValue()) {
+        if (flag != state.getValue(ENABLED)) {
             worldIn.setBlockState(pos, state.withProperty(ENABLED, flag), 4);
         }
     }
@@ -174,7 +174,7 @@ public class BlockHopper extends BlockContainer {
         int i = 0;
         i = i | state.getValue(FACING).getIndex();
 
-        if (!state.getValue(ENABLED).booleanValue()) {
+        if (!state.getValue(ENABLED)) {
             i |= 8;
         }
 

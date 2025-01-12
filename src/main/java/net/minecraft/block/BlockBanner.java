@@ -193,7 +193,7 @@ public class BlockBanner extends BlockContainer {
         }
 
         public int getMetaFromState(IBlockState state) {
-            return state.getValue(ROTATION).intValue();
+            return state.getValue(ROTATION);
         }
 
         protected BlockState createBlockState() {

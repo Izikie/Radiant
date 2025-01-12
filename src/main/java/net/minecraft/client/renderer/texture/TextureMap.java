@@ -220,7 +220,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                             Iterator iterator1 = list1.iterator();
 
                             while (iterator1.hasNext()) {
-                                int j4 = ((Integer) iterator1.next()).intValue();
+                                int j4 = (Integer) iterator1.next();
 
                                 if (j4 > 0 && j4 < abufferedimage.length - 1 && abufferedimage[j4] == null) {
                                     ResourceLocation resourcelocation = this.completeResourceLocation(resourcelocation1, j4);
@@ -663,7 +663,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                                 if (!map.containsKey(j)) {
                                     map.put(j, 1);
                                 } else {
-                                    int k = ((Integer) map.get(j)).intValue();
+                                    int k = (Integer) map.get(j);
                                     map.put(j, k + 1);
                                 }
                             }
@@ -680,8 +680,8 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
         int l1;
 
         for (Iterator iterator = set1.iterator(); iterator.hasNext(); l += l1) {
-            int j1 = ((Integer) iterator.next()).intValue();
-            l1 = ((Integer) map.get(j1)).intValue();
+            int j1 = (Integer) iterator.next();
+            l1 = (Integer) map.get(j1);
         }
 
         int i1 = 16;
@@ -690,8 +690,8 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
         Iterator iterator1 = set1.iterator();
 
         while (iterator1.hasNext()) {
-            int i2 = ((Integer) iterator1.next()).intValue();
-            int j2 = ((Integer) map.get(i2)).intValue();
+            int i2 = (Integer) iterator1.next();
+            int j2 = (Integer) map.get(i2);
             k1 += j2;
 
             if (i2 > i1) {

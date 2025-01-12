@@ -29,7 +29,7 @@ public class BlockCake extends Block {
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         float f = 0.0625F;
-        float f1 = (1 + worldIn.getBlockState(pos).getValue(BITES).intValue() * 2) / 16.0F;
+        float f1 = (1 + worldIn.getBlockState(pos).getValue(BITES) * 2) / 16.0F;
         float f2 = 0.5F;
         this.setBlockBounds(f1, 0.0F, f, 1.0F - f, f2, 1.0F - f);
     }
@@ -42,7 +42,7 @@ public class BlockCake extends Block {
 
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
         float f = 0.0625F;
-        float f1 = (1 + state.getValue(BITES).intValue() * 2) / 16.0F;
+        float f1 = (1 + state.getValue(BITES) * 2) / 16.0F;
         float f2 = 0.5F;
         return new AxisAlignedBB((pos.getX() + f1), pos.getY(), (pos.getZ() + f), ((pos.getX() + 1) - f), (pos.getY() + f2), ((pos.getZ() + 1) - f));
     }
@@ -72,7 +72,7 @@ public class BlockCake extends Block {
         if (player.canEat(false)) {
             player.triggerAchievement(StatList.field_181724_H);
             player.getFoodStats().addStats(2, 0.1F);
-            int i = state.getValue(BITES).intValue();
+            int i = state.getValue(BITES);
 
             if (i < 6) {
                 worldIn.setBlockState(pos, state.withProperty(BITES, i + 1), 3);
@@ -117,7 +117,7 @@ public class BlockCake extends Block {
     }
 
     public int getMetaFromState(IBlockState state) {
-        return state.getValue(BITES).intValue();
+        return state.getValue(BITES);
     }
 
     protected BlockState createBlockState() {
@@ -125,7 +125,7 @@ public class BlockCake extends Block {
     }
 
     public int getComparatorInputOverride(World worldIn, BlockPos pos) {
-        return (7 - worldIn.getBlockState(pos).getValue(BITES).intValue()) * 2;
+        return (7 - worldIn.getBlockState(pos).getValue(BITES)) * 2;
     }
 
     public boolean hasComparatorInputOverride() {

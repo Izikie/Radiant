@@ -93,8 +93,8 @@ public class MacroState {
             this.dequeResolved.add(flag4);
         } else if (!this.dequeState.isEmpty()) {
             if (name.equals("elif")) {
-                boolean flag3 = this.dequeState.removeLast().booleanValue();
-                boolean flag7 = this.dequeResolved.removeLast().booleanValue();
+                boolean flag3 = this.dequeState.removeLast();
+                boolean flag7 = this.dequeResolved.removeLast();
 
                 if (flag7) {
                     this.dequeState.add(Boolean.FALSE);
@@ -105,8 +105,8 @@ public class MacroState {
                     this.dequeResolved.add(flag8);
                 }
             } else if (name.equals("else")) {
-                boolean flag = this.dequeState.removeLast().booleanValue();
-                boolean flag1 = this.dequeResolved.removeLast().booleanValue();
+                boolean flag = this.dequeState.removeLast();
+                boolean flag1 = this.dequeResolved.removeLast();
                 boolean flag2 = !flag1;
                 this.dequeState.add(flag2);
                 this.dequeResolved.add(Boolean.TRUE);

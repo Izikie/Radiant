@@ -87,11 +87,11 @@ public class BlockOldLeaf extends BlockLeaves {
         int i = 0;
         i = i | state.getValue(VARIANT).getMetadata();
 
-        if (!state.getValue(DECAYABLE).booleanValue()) {
+        if (!state.getValue(DECAYABLE)) {
             i |= 4;
         }
 
-        if (state.getValue(CHECK_DECAY).booleanValue()) {
+        if (state.getValue(CHECK_DECAY)) {
             i |= 8;
         }
 

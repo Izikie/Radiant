@@ -93,8 +93,8 @@ public class BlockTripWireHook extends Block {
 
     public void func_176260_a(World worldIn, BlockPos pos, IBlockState hookState, boolean p_176260_4_, boolean p_176260_5_, int p_176260_6_, IBlockState p_176260_7_) {
         EnumFacing enumfacing = hookState.getValue(FACING);
-        boolean flag = hookState.getValue(ATTACHED).booleanValue();
-        boolean flag1 = hookState.getValue(POWERED).booleanValue();
+        boolean flag = hookState.getValue(ATTACHED);
+        boolean flag1 = hookState.getValue(POWERED);
         boolean flag2 = !World.doesBlockHaveSolidTopSurface(worldIn, pos.down());
         boolean flag3 = !p_176260_4_;
         boolean flag4 = false;
@@ -121,9 +121,9 @@ public class BlockTripWireHook extends Block {
                     iblockstate = Objects.firstNonNull(p_176260_7_, iblockstate);
                 }
 
-                boolean flag5 = !iblockstate.getValue(BlockTripWire.DISARMED).booleanValue();
-                boolean flag6 = iblockstate.getValue(BlockTripWire.POWERED).booleanValue();
-                boolean flag7 = iblockstate.getValue(BlockTripWire.SUSPENDED).booleanValue();
+                boolean flag5 = !iblockstate.getValue(BlockTripWire.DISARMED);
+                boolean flag6 = iblockstate.getValue(BlockTripWire.POWERED);
+                boolean flag7 = iblockstate.getValue(BlockTripWire.SUSPENDED);
                 flag3 &= flag7 == flag2;
                 flag4 |= flag5 && flag6;
                 aiblockstate[j] = iblockstate;
@@ -226,8 +226,8 @@ public class BlockTripWireHook extends Block {
     }
 
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-        boolean flag = state.getValue(ATTACHED).booleanValue();
-        boolean flag1 = state.getValue(POWERED).booleanValue();
+        boolean flag = state.getValue(ATTACHED);
+        boolean flag1 = state.getValue(POWERED);
 
         if (flag || flag1) {
             this.func_176260_a(worldIn, pos, state, true, false, -1, null);
@@ -242,11 +242,11 @@ public class BlockTripWireHook extends Block {
     }
 
     public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side) {
-        return state.getValue(POWERED).booleanValue() ? 15 : 0;
+        return state.getValue(POWERED) ? 15 : 0;
     }
 
     public int getStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side) {
-        return !state.getValue(POWERED).booleanValue() ? 0 : (state.getValue(FACING) == side ? 15 : 0);
+        return !state.getValue(POWERED) ? 0 : (state.getValue(FACING) == side ? 15 : 0);
     }
 
     public boolean canProvidePower() {
@@ -265,11 +265,11 @@ public class BlockTripWireHook extends Block {
         int i = 0;
         i = i | state.getValue(FACING).getHorizontalIndex();
 
-        if (state.getValue(POWERED).booleanValue()) {
+        if (state.getValue(POWERED)) {
             i |= 8;
         }
 
-        if (state.getValue(ATTACHED).booleanValue()) {
+        if (state.getValue(ATTACHED)) {
             i |= 4;
         }
 

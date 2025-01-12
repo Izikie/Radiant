@@ -18,7 +18,7 @@ public class FrameEvent {
                 mapEventFrames.put(name, integer);
             }
 
-            int j = integer.intValue();
+            int j = integer;
 
             if (i > j && i < j + frameInterval) {
                 return false;

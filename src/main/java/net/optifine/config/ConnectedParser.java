@@ -293,7 +293,7 @@ public class ConnectedParser {
                         int[] aint1 = new int[list1.size()];
 
                         for (int i1 = 0; i1 < aint1.length; ++i1) {
-                            aint1[i1] = list1.get(i1).intValue();
+                            aint1[i1] = list1.get(i1);
                         }
 
                         return aint1;
@@ -503,7 +503,7 @@ public class ConnectedParser {
             int[] aint = new int[list.size()];
 
             for (int j1 = 0; j1 < aint.length; ++j1) {
-                aint[j1] = list.get(j1).intValue();
+                aint[j1] = list.get(j1);
             }
 
             return aint;
@@ -857,7 +857,7 @@ public class ConnectedParser {
         int[] aint = new int[ainteger.length];
 
         for (int k = 0; k < aint.length; ++k) {
-            aint[k] = ainteger[k].intValue();
+            aint[k] = ainteger[k];
         }
 
         return aint;

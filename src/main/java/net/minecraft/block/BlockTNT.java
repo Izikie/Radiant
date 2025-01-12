@@ -57,7 +57,7 @@ public class BlockTNT extends Block {
 
     public void explode(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase igniter) {
         if (!worldIn.isRemote) {
-            if (state.getValue(EXPLODE).booleanValue()) {
+            if (state.getValue(EXPLODE)) {
                 EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(worldIn, (pos.getX() + 0.5F), pos.getY(), (pos.getZ() + 0.5F), igniter);
                 worldIn.spawnEntityInWorld(entitytntprimed);
                 worldIn.playSoundAtEntity(entitytntprimed, "game.tnt.primed", 1.0F, 1.0F);
@@ -105,7 +105,7 @@ public class BlockTNT extends Block {
     }
 
     public int getMetaFromState(IBlockState state) {
-        return state.getValue(EXPLODE).booleanValue() ? 1 : 0;
+        return state.getValue(EXPLODE) ? 1 : 0;
     }
 
     protected BlockState createBlockState() {

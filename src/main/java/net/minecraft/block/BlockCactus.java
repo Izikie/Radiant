@@ -37,7 +37,7 @@ public class BlockCactus extends Block {
             }
 
             if (i < 3) {
-                int j = state.getValue(AGE).intValue();
+                int j = state.getValue(AGE);
 
                 if (j == 15) {
                     worldIn.setBlockState(blockpos, this.getDefaultState());
@@ -103,7 +103,7 @@ public class BlockCactus extends Block {
     }
 
     public int getMetaFromState(IBlockState state) {
-        return state.getValue(AGE).intValue();
+        return state.getValue(AGE);
     }
 
     protected BlockState createBlockState() {

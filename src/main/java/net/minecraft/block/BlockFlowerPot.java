@@ -237,7 +237,7 @@ public class BlockFlowerPot extends BlockContainer {
     }
 
     public int getMetaFromState(IBlockState state) {
-        return state.getValue(LEGACY_DATA).intValue();
+        return state.getValue(LEGACY_DATA);
     }
 
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {

@@ -16,7 +16,7 @@ public class TimedEvent {
                 mapEventTimes.put(name, olong);
             }
 
-            long j = olong.longValue();
+            long j = olong;
 
             if (i < j + timeIntervalMs) {
                 return false;

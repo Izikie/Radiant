@@ -260,11 +260,11 @@ public class PlayerSelector {
                         Score score = scoreboard.getValueFromObjective(s1, scoreobjective);
                         int i = score.getScorePoints();
 
-                        if (i < entry.getValue().intValue() && flag) {
+                        if (i < entry.getValue() && flag) {
                             return false;
                         }
 
-                        if (i > entry.getValue().intValue() && !flag) {
+                        if (i > entry.getValue() && !flag) {
                             return false;
                         }
                     }
