@@ -41,7 +41,7 @@ public final class SpawnerAnimals {
             if (worldServerIn.playerEntities.size() == 1) {
                 entityplayer = worldServerIn.playerEntities.get(0);
 
-                if (this.eligibleChunksForSpawning.size() > 0 && entityplayer != null && entityplayer.chunkCoordX == this.lastPlayerChunkX && entityplayer.chunkCoordZ == this.lastPlayerChunkZ) {
+                if (!this.eligibleChunksForSpawning.isEmpty() && entityplayer != null && entityplayer.chunkCoordX == this.lastPlayerChunkX && entityplayer.chunkCoordZ == this.lastPlayerChunkZ) {
                     flag = false;
                 }
             }

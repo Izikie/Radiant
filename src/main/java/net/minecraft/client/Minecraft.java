@@ -1795,7 +1795,7 @@ public class Minecraft implements IThreadListener {
                 StringBuilder stringbuilder = new StringBuilder();
 
                 for (String s : Minecraft.this.gameSettings.resourcePacks) {
-                    if (stringbuilder.length() > 0) {
+                    if (!stringbuilder.isEmpty()) {
                         stringbuilder.append(", ");
                     }
 

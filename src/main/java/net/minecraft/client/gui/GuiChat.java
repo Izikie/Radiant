@@ -81,7 +81,7 @@ public class GuiChat extends GuiScreen {
         } else {
             String s = this.inputField.getText().trim();
 
-            if (s.length() > 0) {
+            if (!s.isEmpty()) {
                 this.sendChatMessage(s);
             }
 
@@ -158,7 +158,7 @@ public class GuiChat extends GuiScreen {
             StringBuilder stringbuilder = new StringBuilder();
 
             for (String s2 : this.foundPlayerNames) {
-                if (stringbuilder.length() > 0) {
+                if (!stringbuilder.isEmpty()) {
                     stringbuilder.append(", ");
                 }
 
@@ -172,7 +172,7 @@ public class GuiChat extends GuiScreen {
     }
 
     private void sendAutocompleteRequest(String p_146405_1_, String p_146405_2_) {
-        if (p_146405_1_.length() >= 1) {
+        if (!p_146405_1_.isEmpty()) {
             BlockPos blockpos = null;
 
             if (this.mc.objectMouseOver != null && this.mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
@@ -222,7 +222,7 @@ public class GuiChat extends GuiScreen {
             this.foundPlayerNames.clear();
 
             for (String s : p_146406_1_) {
-                if (s.length() > 0) {
+                if (!s.isEmpty()) {
                     this.foundPlayerNames.add(s);
                 }
             }
@@ -230,10 +230,10 @@ public class GuiChat extends GuiScreen {
             String s1 = this.inputField.getText().substring(this.inputField.func_146197_a(-1, this.inputField.getCursorPosition(), false));
             String s2 = StringUtils.getCommonPrefix(p_146406_1_);
 
-            if (s2.length() > 0 && !s1.equalsIgnoreCase(s2)) {
+            if (!s2.isEmpty() && !s1.equalsIgnoreCase(s2)) {
                 this.inputField.deleteFromCursor(this.inputField.func_146197_a(-1, this.inputField.getCursorPosition(), false) - this.inputField.getCursorPosition());
                 this.inputField.writeText(s2);
-            } else if (this.foundPlayerNames.size() > 0) {
+            } else if (!this.foundPlayerNames.isEmpty()) {
                 this.playerNamesFound = true;
                 this.autocompletePlayerNames();
             }

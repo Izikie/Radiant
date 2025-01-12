@@ -126,7 +126,7 @@ public class CommandResultStats {
     }
 
     public static void setScoreBoardStat(CommandResultStats stats, CommandResultStats.Type resultType, String entityID, String objectiveName) {
-        if (entityID != null && entityID.length() != 0 && objectiveName != null && objectiveName.length() != 0) {
+        if (entityID != null && !entityID.isEmpty() && objectiveName != null && !objectiveName.isEmpty()) {
             if (stats.entitiesID == STRING_RESULT_TYPES || stats.objectives == STRING_RESULT_TYPES) {
                 stats.entitiesID = new String[NUM_RESULT_TYPES];
                 stats.objectives = new String[NUM_RESULT_TYPES];

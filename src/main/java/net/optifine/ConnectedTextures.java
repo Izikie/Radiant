@@ -1456,7 +1456,7 @@ public class ConnectedTextures {
                     list = BetterGrass.getFaceQuads(iblockaccess, neighbourState, blockPos, enumfacing, list);
                 }
 
-                if (list.size() > 0) {
+                if (!list.isEmpty()) {
                     BakedQuad bakedquad1 = (BakedQuad) list.get(0);
                     return bakedquad1.getSprite();
                 } else {

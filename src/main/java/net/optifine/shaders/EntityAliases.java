@@ -48,7 +48,7 @@ public class EntityAliases {
                 loadEntityAliases(inputstream, s, list);
             }
 
-            if (list.size() > 0) {
+            if (!list.isEmpty()) {
                 entityAliases = toArray(list);
             }
         }

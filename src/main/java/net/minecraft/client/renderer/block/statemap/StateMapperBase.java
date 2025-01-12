@@ -17,7 +17,7 @@ public abstract class StateMapperBase implements IStateMapper {
         StringBuilder stringbuilder = new StringBuilder();
 
         for (Entry<IProperty, Comparable> entry : p_178131_1_.entrySet()) {
-            if (stringbuilder.length() != 0) {
+            if (!stringbuilder.isEmpty()) {
                 stringbuilder.append(",");
             }
 
@@ -28,7 +28,7 @@ public abstract class StateMapperBase implements IStateMapper {
             stringbuilder.append(iproperty.getName(comparable));
         }
 
-        if (stringbuilder.length() == 0) {
+        if (stringbuilder.isEmpty()) {
             stringbuilder.append("normal");
         }
 

@@ -92,11 +92,11 @@ public class DynamicLights {
         mapEntityLightLevels.clear();
         mapItemLightLevels.clear();
 
-        if (mapEntityLightLevels.size() > 0) {
+        if (!mapEntityLightLevels.isEmpty()) {
             Config.dbg("DynamicLights entities: " + mapEntityLightLevels.size());
         }
 
-        if (mapItemLightLevels.size() > 0) {
+        if (!mapItemLightLevels.isEmpty()) {
             Config.dbg("DynamicLights items: " + mapItemLightLevels.size());
         }
     }

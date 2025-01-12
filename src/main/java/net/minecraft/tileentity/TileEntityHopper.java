@@ -126,7 +126,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
     }
 
     public boolean hasCustomName() {
-        return this.customName != null && this.customName.length() > 0;
+        return this.customName != null && !this.customName.isEmpty();
     }
 
     public void setCustomName(String customNameIn) {
@@ -463,7 +463,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
         if (iinventory == null) {
             List<Entity> list = worldIn.getEntitiesInAABBexcluding(null, new AxisAlignedBB(x - 0.5D, y - 0.5D, z - 0.5D, x + 0.5D, y + 0.5D, z + 0.5D), EntitySelectors.selectInventories);
 
-            if (list.size() > 0) {
+            if (!list.isEmpty()) {
                 iinventory = (IInventory) list.get(worldIn.rand.nextInt(list.size()));
             }
         }

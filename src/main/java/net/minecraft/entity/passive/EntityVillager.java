@@ -186,7 +186,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc {
         boolean flag = itemstack != null && itemstack.getItem() == Items.spawn_egg;
 
         if (!flag && this.isEntityAlive() && !this.isTrading() && !this.isChild()) {
-            if (!this.worldObj.isRemote && (this.buyingList == null || this.buyingList.size() > 0)) {
+            if (!this.worldObj.isRemote && (this.buyingList == null || !this.buyingList.isEmpty())) {
                 this.setCustomer(player);
                 player.displayVillagerTradeGui(this);
             }
@@ -465,7 +465,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc {
     public IChatComponent getDisplayName() {
         String s = this.getCustomNameTag();
 
-        if (s != null && s.length() > 0) {
+        if (s != null && !s.isEmpty()) {
             ChatComponentText chatcomponenttext = new ChatComponentText(s);
             chatcomponenttext.getChatStyle().setChatHoverEvent(this.getHoverEvent());
             chatcomponenttext.getChatStyle().setInsertion(this.getUniqueID().toString());

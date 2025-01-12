@@ -443,7 +443,7 @@ public final class ItemStack {
         if (advanced) {
             String s1 = "";
 
-            if (s.length() > 0) {
+            if (!s.isEmpty()) {
                 s = s + " (";
                 s1 = ")";
             }

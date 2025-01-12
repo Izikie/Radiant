@@ -62,7 +62,7 @@ public class BlockAliases {
                 loadBlockAliases(inputstream, s, list);
             }
 
-            if (list.size() > 0) {
+            if (!list.isEmpty()) {
                 blockAliases = toArrays(list);
             }
         }

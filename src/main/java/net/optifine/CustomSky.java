@@ -77,7 +77,7 @@ public class CustomSky {
                 }
             }
 
-            if (list.size() > 0) {
+            if (!list.isEmpty()) {
                 CustomSkyLayer[] acustomskylayer2 = (CustomSkyLayer[]) list.toArray(new CustomSkyLayer[list.size()]);
                 acustomskylayer[j] = acustomskylayer2;
                 i = j;

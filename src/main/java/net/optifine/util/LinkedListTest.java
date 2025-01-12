@@ -74,7 +74,7 @@ public class LinkedListTest {
             }
             VboRange vborange = node.getItem();
 
-            if (stringbuffer.length() > 0) {
+            if (!stringbuffer.isEmpty()) {
                 stringbuffer.append(", ");
             }
 

@@ -49,7 +49,7 @@ public class ItemAliases {
                 loadItemAliases(inputstream, s, list);
             }
 
-            if (list.size() > 0) {
+            if (!list.isEmpty()) {
                 itemAliases = toArray(list);
             }
         }

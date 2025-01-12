@@ -393,7 +393,7 @@ public class EntityWolf extends EntityTameable {
         EntityWolf entitywolf = new EntityWolf(this.worldObj);
         String s = this.getOwnerId();
 
-        if (s != null && s.trim().length() > 0) {
+        if (s != null && !s.trim().isEmpty()) {
             entitywolf.setOwnerId(s);
             entitywolf.setTamed(true);
         }

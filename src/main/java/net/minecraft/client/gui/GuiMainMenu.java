@@ -395,7 +395,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         String s2 = "Copyright Mojang AB. Do not distribute!";
         this.drawString(this.fontRendererObj, s2, this.width - this.fontRendererObj.getStringWidth(s2) - 2, this.height - 10, -1);
 
-        if (this.openGLWarning1 != null && this.openGLWarning1.length() > 0) {
+        if (this.openGLWarning1 != null && !this.openGLWarning1.isEmpty()) {
             drawRect(this.field_92022_t - 2, this.field_92021_u - 2, this.field_92020_v + 2, this.field_92019_w - 1, 1428160512);
             this.drawString(this.fontRendererObj, this.openGLWarning1, this.field_92022_t, this.field_92021_u, -1);
             this.drawString(this.fontRendererObj, this.openGLWarning2, (this.width - this.field_92024_r) / 2, this.buttonList.get(0).yPosition - 12, -1);
@@ -408,7 +408,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         super.mouseClicked(mouseX, mouseY, mouseButton);
 
         synchronized (this.threadLock) {
-            if (this.openGLWarning1.length() > 0 && mouseX >= this.field_92022_t && mouseX <= this.field_92020_v && mouseY >= this.field_92021_u && mouseY <= this.field_92019_w) {
+            if (!this.openGLWarning1.isEmpty() && mouseX >= this.field_92022_t && mouseX <= this.field_92020_v && mouseY >= this.field_92021_u && mouseY <= this.field_92019_w) {
                 GuiConfirmOpenLink guiconfirmopenlink = new GuiConfirmOpenLink(this, this.openGLWarningLink, 13, true);
                 guiconfirmopenlink.disableSecurityWarning();
                 this.mc.displayGuiScreen(guiconfirmopenlink);

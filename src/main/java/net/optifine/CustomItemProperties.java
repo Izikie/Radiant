@@ -554,7 +554,7 @@ public class CustomItemProperties {
     }
 
     public boolean isValid(String path) {
-        if (this.name != null && this.name.length() > 0) {
+        if (this.name != null && !this.name.isEmpty()) {
             if (this.basePath == null) {
                 Config.warn("No base path found: " + path);
                 return false;

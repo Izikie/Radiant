@@ -172,7 +172,7 @@ public class LinkedList<T> {
 
         for (Iterator<Node<T>> it = iterator(); it.hasNext(); ) {
             Node<T> node = it.next();
-            if (stringbuffer.length() > 0) {
+            if (!stringbuffer.isEmpty()) {
                 stringbuffer.append(", ");
             }
 

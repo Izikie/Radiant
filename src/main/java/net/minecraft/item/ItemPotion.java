@@ -193,7 +193,7 @@ public class ItemPotion extends Item {
                     Potion potion = Potion.potionTypes[potioneffect.getPotionID()];
                     Map<IAttribute, AttributeModifier> map = potion.getAttributeModifierMap();
 
-                    if (map != null && map.size() > 0) {
+                    if (map != null && !map.isEmpty()) {
                         for (Entry<IAttribute, AttributeModifier> entry : map.entrySet()) {
                             AttributeModifier attributemodifier = entry.getValue();
                             AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(), potion.getAttributeModifierAmount(potioneffect.getAmplifier(), attributemodifier), attributemodifier.getOperation());

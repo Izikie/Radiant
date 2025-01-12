@@ -145,7 +145,7 @@ public class HttpPipelineConnection {
         if (this.socket != null) {
             long i = this.keepaliveTimeoutMs;
 
-            if (this.listRequests.size() > 0) {
+            if (!this.listRequests.isEmpty()) {
                 i = 5000L;
             }
 
@@ -172,7 +172,7 @@ public class HttpPipelineConnection {
             this.responseReceived = true;
             this.onActivity();
 
-            if (this.listRequests.size() > 0 && this.listRequests.get(0) == pr) {
+            if (!this.listRequests.isEmpty() && this.listRequests.get(0) == pr) {
                 this.listRequests.remove(0);
                 pr.setClosed(true);
                 String s = resp.getHeader("Location");
@@ -304,14 +304,14 @@ public class HttpPipelineConnection {
     }
 
     private void terminateRequests(Exception e) {
-        if (this.listRequests.size() > 0) {
+        if (!this.listRequests.isEmpty()) {
             if (!this.responseReceived) {
                 HttpPipelineRequest httppipelinerequest = this.listRequests.remove(0);
                 httppipelinerequest.getHttpListener().failed(httppipelinerequest.getHttpRequest(), e);
                 httppipelinerequest.setClosed(true);
             }
 
-            while (this.listRequests.size() > 0) {
+            while (!this.listRequests.isEmpty()) {
                 HttpPipelineRequest httppipelinerequest1 = this.listRequests.remove(0);
                 HttpPipeline.addRequest(httppipelinerequest1);
             }
@@ -327,7 +327,7 @@ public class HttpPipelineConnection {
     }
 
     public synchronized boolean hasActiveRequests() {
-        return this.listRequests.size() > 0;
+        return !this.listRequests.isEmpty();
     }
 
     public String getHost() {

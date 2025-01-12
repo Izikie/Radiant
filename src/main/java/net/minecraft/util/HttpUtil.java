@@ -40,7 +40,7 @@ public class HttpUtil {
         StringBuilder stringbuilder = new StringBuilder();
 
         for (Entry<String, Object> entry : data.entrySet()) {
-            if (stringbuilder.length() > 0) {
+            if (!stringbuilder.isEmpty()) {
                 stringbuilder.append('&');
             }
 

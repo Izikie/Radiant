@@ -156,7 +156,7 @@ public class CustomEntityModelParser {
         String s = Json.getString(elem, "id");
 
         if (s != null) {
-            if (s.length() < 1) {
+            if (s.isEmpty()) {
                 Config.warn("Empty model ID: " + s);
             } else if (mapModelJsons.containsKey(s)) {
                 Config.warn("Duplicate model ID: " + s);
@@ -194,7 +194,7 @@ public class CustomEntityModelParser {
                 }
             }
 
-            if (list.size() > 0) {
+            if (!list.isEmpty()) {
                 ModelVariableUpdater[] amodelvariableupdater = list.toArray(new ModelVariableUpdater[list.size()]);
                 modelupdater = new ModelUpdater(amodelvariableupdater);
             }

@@ -163,14 +163,14 @@ public class ConnectedParser {
             return false;
         } else {
             String s = parts[1];
-            return s.length() < 1 ? false : (this.startsWithDigit(s) ? false : !s.contains("="));
+            return s.isEmpty() ? false : (this.startsWithDigit(s) ? false : !s.contains("="));
         }
     }
 
     public boolean startsWithDigit(String str) {
         if (str == null) {
             return false;
-        } else if (str.length() < 1) {
+        } else if (str.isEmpty()) {
             return false;
         } else {
             char c0 = str.charAt(0);
@@ -230,7 +230,7 @@ public class ConnectedParser {
                 Map<IProperty, List<Comparable>> map = new HashMap();
 
                 for (String s1 : params) {
-                    if (s1.length() > 0) {
+                    if (!s1.isEmpty()) {
                         String[] astring = Config.tokenize(s1, "=");
 
                         if (astring.length != 2) {

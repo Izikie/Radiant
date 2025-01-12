@@ -1091,7 +1091,7 @@ public abstract class Entity implements ICommandSender {
             tagCompund.setLong("UUIDMost", this.getUniqueID().getMostSignificantBits());
             tagCompund.setLong("UUIDLeast", this.getUniqueID().getLeastSignificantBits());
 
-            if (this.getCustomNameTag() != null && this.getCustomNameTag().length() > 0) {
+            if (this.getCustomNameTag() != null && !this.getCustomNameTag().isEmpty()) {
                 tagCompund.setString("CustomName", this.getCustomNameTag());
                 tagCompund.setBoolean("CustomNameVisible", this.getAlwaysRenderNameTag());
             }
@@ -1164,7 +1164,7 @@ public abstract class Entity implements ICommandSender {
             this.setPosition(this.posX, this.posY, this.posZ);
             this.setRotation(this.rotationYaw, this.rotationPitch);
 
-            if (tagCompund.hasKey("CustomName", 8) && tagCompund.getString("CustomName").length() > 0) {
+            if (tagCompund.hasKey("CustomName", 8) && !tagCompund.getString("CustomName").isEmpty()) {
                 this.setCustomNameTag(tagCompund.getString("CustomName"));
             }
 
@@ -1764,7 +1764,7 @@ public abstract class Entity implements ICommandSender {
     }
 
     public boolean hasCustomName() {
-        return this.dataWatcher.getWatchableObjectString(2).length() > 0;
+        return !this.dataWatcher.getWatchableObjectString(2).isEmpty();
     }
 
     public void setAlwaysRenderNameTag(boolean alwaysRenderNameTag) {

@@ -468,7 +468,7 @@ public class ShaderPackParser {
             if (s1 == null) {
                 char[] achar = chararraywriter.toCharArray();
 
-                if (j >= 0 && set.size() > 0) {
+                if (j >= 0 && !set.isEmpty()) {
                     StringBuilder stringbuilder = new StringBuilder();
 
                     for (ShaderMacro shadermacro : set) {

@@ -114,7 +114,7 @@ public class CustomItems {
         String[] astring = ResUtils.collectFiles(rp, "mcpatcher/cit/", ".properties", null);
         Map map = makeAutoImageProperties(rp);
 
-        if (map.size() > 0) {
+        if (!map.isEmpty()) {
             Set set = map.keySet();
             String[] astring1 = (String[]) set.toArray(new String[set.size()]);
             astring = (String[]) Config.addObjectsToArray(astring, astring1);

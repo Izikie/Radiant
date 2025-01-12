@@ -887,7 +887,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                             this.renderInfosEntities.add(renderglobal$containerlocalrenderinformation);
                         }
 
-                        if (renderchunk2.getCompiledChunk().getTileEntities().size() > 0) {
+                        if (!renderchunk2.getCompiledChunk().getTileEntities().isEmpty()) {
                             this.renderInfosTileEntities.add(renderglobal$containerlocalrenderinformation);
                         }
                     }
@@ -968,7 +968,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                     this.renderInfosEntities.add(renderglobal$containerlocalrenderinformation5);
                 }
 
-                if (compiledchunk.getTileEntities().size() > 0) {
+                if (!compiledchunk.getTileEntities().isEmpty()) {
                     this.renderInfosTileEntities.add(renderglobal$containerlocalrenderinformation5);
                 }
 
@@ -1826,7 +1826,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         finishTimeNano = (long) (finishTimeNano + 1.0E8D);
         this.displayListEntitiesDirty |= this.renderDispatcher.runChunkUploads(finishTimeNano);
 
-        if (this.chunksToUpdateForced.size() > 0) {
+        if (!this.chunksToUpdateForced.isEmpty()) {
             Iterator iterator = this.chunksToUpdateForced.iterator();
 
             while (iterator.hasNext()) {
@@ -1843,7 +1843,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             }
         }
 
-        if (this.chunksToResortTransparency.size() > 0) {
+        if (!this.chunksToResortTransparency.isEmpty()) {
             Iterator iterator2 = this.chunksToResortTransparency.iterator();
 
             if (iterator2.hasNext()) {

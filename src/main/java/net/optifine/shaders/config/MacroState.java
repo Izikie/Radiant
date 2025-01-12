@@ -132,7 +132,7 @@ public class MacroState {
             while (matcher2.find()) {
                 String s = matcher2.group();
 
-                if (s.length() > 0) {
+                if (!s.isEmpty()) {
                     char c0 = s.charAt(0);
 
                     if ((Character.isLetter(c0) || c0 == 95) && this.mapMacroValues.containsKey(s)) {

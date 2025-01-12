@@ -383,7 +383,7 @@ public class TextureAtlasSprite {
                             StringBuilder stringbuilder = new StringBuilder();
 
                             for (int[] aint1 : aint) {
-                                if (stringbuilder.length() > 0) {
+                                if (!stringbuilder.isEmpty()) {
                                     stringbuilder.append(", ");
                                 }
 

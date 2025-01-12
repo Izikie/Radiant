@@ -39,7 +39,7 @@ public abstract class GenLayer {
         int i = 4;
         int j = i;
 
-        if (p_180781_2_ == WorldType.CUSTOMIZED && p_180781_3_.length() > 0) {
+        if (p_180781_2_ == WorldType.CUSTOMIZED && !p_180781_3_.isEmpty()) {
             chunkprovidersettings = ChunkProviderSettings.Factory.jsonToFactory(p_180781_3_).func_177864_b();
             i = chunkprovidersettings.biomeSize;
             j = chunkprovidersettings.riverSize;

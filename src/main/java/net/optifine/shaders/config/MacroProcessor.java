@@ -76,7 +76,7 @@ public class MacroProcessor {
             }
 
             if (MacroState.isMacroLine(s)) {
-                if (stringbuilder.length() == 0) {
+                if (stringbuilder.isEmpty()) {
                     stringbuilder.append(ShaderMacros.getFixedMacroLines());
                 }
 

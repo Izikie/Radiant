@@ -892,7 +892,7 @@ public class Shaders {
             }
         }
 
-        if (shaderPackDimensions.size() > 0) {
+        if (!shaderPackDimensions.isEmpty()) {
             Integer[] ainteger = shaderPackDimensions.toArray(new Integer[shaderPackDimensions.size()]);
             Config.dbg("[Shaders] Worlds: " + Config.arrayToString(ainteger));
         }

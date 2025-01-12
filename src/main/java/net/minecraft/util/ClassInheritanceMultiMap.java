@@ -32,7 +32,7 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
             this.createLookup(oclass);
         }
 
-        this.empty = this.values.size() == 0;
+        this.empty = this.values.isEmpty();
     }
 
     protected void createLookup(Class<?> clazz) {
@@ -67,7 +67,7 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
             }
         }
 
-        this.empty = this.values.size() == 0;
+        this.empty = this.values.isEmpty();
         return true;
     }
 
@@ -80,7 +80,7 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
             list.add(value);
         }
 
-        this.empty = this.values.size() == 0;
+        this.empty = this.values.isEmpty();
     }
 
     public boolean remove(Object p_remove_1_) {
@@ -97,7 +97,7 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
             }
         }
 
-        this.empty = this.values.size() == 0;
+        this.empty = this.values.isEmpty();
         return flag;
     }
 

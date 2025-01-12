@@ -36,7 +36,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
     private final Predicate<String> field_175332_D = new Predicate<String>() {
         public boolean apply(String p_apply_1_) {
             Float f = Floats.tryParse(p_apply_1_);
-            return p_apply_1_.length() == 0 || f != null && Floats.isFinite(f) && f >= 0.0F;
+            return p_apply_1_.isEmpty() || f != null && Floats.isFinite(f) && f >= 0.0F;
         }
     };
     private final ChunkProviderSettings.Factory field_175334_E = new ChunkProviderSettings.Factory();
@@ -111,7 +111,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
     }
 
     public void func_175324_a(String p_175324_1_) {
-        if (p_175324_1_ != null && p_175324_1_.length() != 0) {
+        if (p_175324_1_ != null && !p_175324_1_.isEmpty()) {
             this.field_175336_F = ChunkProviderSettings.Factory.jsonToFactory(p_175324_1_);
         } else {
             this.field_175336_F = new ChunkProviderSettings.Factory();
