@@ -255,7 +255,6 @@ public class Minecraft implements IThreadListener {
     public boolean renderChunksMany = true;
     long debugUpdateTime = getSystemTime();
     int fpsCounter;
-    long prevFrameTime = -1L;
 
     public Minecraft(GameConfiguration gameConfig) {
         theMinecraft = this;
@@ -490,9 +489,7 @@ public class Minecraft implements IThreadListener {
     }
 
     private void setWindowIcon() {
-        Util.EnumOS util$enumos = Util.getOSType();
-
-        if (util$enumos != Util.EnumOS.OSX) {
+        if (!isRunningOnMac) {
             InputStream inputstream = null;
             InputStream inputstream1 = null;
 
@@ -614,7 +611,7 @@ public class Minecraft implements IThreadListener {
         Collections.addAll(set, Display.getAvailableDisplayModes());
         DisplayMode displaymode = Display.getDesktopDisplayMode();
 
-        if (!set.contains(displaymode) && Util.getOSType() == Util.EnumOS.OSX) {
+        if (!set.contains(displaymode) && isRunningOnMac) {
             label53:
 
             for (DisplayMode displaymode1 : macDisplayModes) {
@@ -803,13 +800,10 @@ public class Minecraft implements IThreadListener {
             }
         }
 
-        long l = System.nanoTime();
-
         for (int j = 0; j < this.timer.elapsedTicks; ++j) {
             this.runTick();
         }
 
-        long i1 = System.nanoTime() - l;
         this.checkGLError("Pre render");
         this.mcSoundHandler.setListener(this.thePlayer, this.timer.renderPartialTicks);
         GlStateManager.pushMatrix();
@@ -825,8 +819,6 @@ public class Minecraft implements IThreadListener {
         if (!this.skipRenderWorld) {
             this.entityRenderer.updateCameraAndRender(this.timer.renderPartialTicks, i);
         }
-
-        this.prevFrameTime = System.nanoTime();
 
         this.guiAchievement.updateAchievementWindow();
         this.framebufferMc.unbindFramebuffer();

@@ -72,7 +72,7 @@ public class ItemFishFood extends ItemFood {
         private final float uncookedSaturationModifier;
         private final int cookedHealAmount;
         private final float cookedSaturationModifier;
-        private boolean cookable = false;
+        private final boolean cookable;
 
         FishType(int meta, String unlocalizedName, int uncookedHeal, float uncookedSaturation, int cookedHeal, float cookedSaturation) {
             this.meta = meta;
