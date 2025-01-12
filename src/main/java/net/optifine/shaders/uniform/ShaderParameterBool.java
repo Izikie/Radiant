@@ -91,16 +91,14 @@ public enum ShaderParameterBool implements IExpressionBool {
     }
 
     public static ShaderParameterBool parse(String str) {
-        if (str == null) {
-            return null;
-        } else {
+        if (str != null) {
             for (ShaderParameterBool shaderparameterbool : VALUES) {
                 if (shaderparameterbool.getName().equals(str)) {
                     return shaderparameterbool;
                 }
             }
 
-            return null;
         }
+        return null;
     }
 }

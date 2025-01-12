@@ -158,16 +158,14 @@ public class CommandHandler implements ICommandManager {
     }
 
     private int getUsernameIndex(ICommand command, String[] args) {
-        if (command == null) {
-            return -1;
-        } else {
+        if (command != null) {
             for (int i = 0; i < args.length; ++i) {
                 if (command.isUsernameIndex(args, i) && PlayerSelector.matchesMultiplePlayers(args[i])) {
                     return i;
                 }
             }
 
-            return -1;
         }
+        return -1;
     }
 }

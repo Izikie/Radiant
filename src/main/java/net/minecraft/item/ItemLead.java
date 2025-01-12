@@ -20,12 +20,10 @@ public class ItemLead extends Item {
         Block block = worldIn.getBlockState(pos).getBlock();
 
         if (block instanceof BlockFence) {
-            if (worldIn.isRemote) {
-                return true;
-            } else {
+            if (!worldIn.isRemote) {
                 attachToFence(playerIn, worldIn, pos);
-                return true;
             }
+            return true;
         } else {
             return false;
         }

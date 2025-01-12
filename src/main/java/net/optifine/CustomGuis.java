@@ -125,33 +125,29 @@ public class CustomGuis {
     private static ResourceLocation getTexturePos(CustomGuiProperties.EnumContainer container, BlockPos pos, IBlockAccess blockAccess, ResourceLocation loc, GuiScreen screen) {
         CustomGuiProperties[] acustomguiproperties = guiProperties[container.ordinal()];
 
-        if (acustomguiproperties == null) {
-            return loc;
-        } else {
+        if (acustomguiproperties != null) {
             for (CustomGuiProperties customguiproperties : acustomguiproperties) {
                 if (customguiproperties.matchesPos(container, pos, blockAccess, screen)) {
                     return customguiproperties.getTextureLocation(loc);
                 }
             }
 
-            return loc;
         }
+        return loc;
     }
 
     private static ResourceLocation getTextureEntity(CustomGuiProperties.EnumContainer container, Entity entity, IBlockAccess blockAccess, ResourceLocation loc) {
         CustomGuiProperties[] acustomguiproperties = guiProperties[container.ordinal()];
 
-        if (acustomguiproperties == null) {
-            return loc;
-        } else {
+        if (acustomguiproperties != null) {
             for (CustomGuiProperties customguiproperties : acustomguiproperties) {
                 if (customguiproperties.matchesEntity(container, entity, blockAccess)) {
                     return customguiproperties.getTextureLocation(loc);
                 }
             }
 
-            return loc;
         }
+        return loc;
     }
 
     public static void update() {

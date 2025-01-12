@@ -421,9 +421,7 @@ public class GuiScreenBook extends GuiScreen {
     }
 
     public IChatComponent func_175385_b(int p_175385_1_, int p_175385_2_) {
-        if (this.field_175386_A == null) {
-            return null;
-        } else {
+        if (this.field_175386_A != null) {
             int i = p_175385_1_ - (this.width - this.bookImageWidth) / 2 - 36;
             int j = p_175385_2_ - 2 - 16 - 16;
 
@@ -448,14 +446,10 @@ public class GuiScreenBook extends GuiScreen {
                         }
                     }
 
-                    return null;
-                } else {
-                    return null;
                 }
-            } else {
-                return null;
             }
         }
+        return null;
     }
 
     static class NextPageButton extends GuiButton {

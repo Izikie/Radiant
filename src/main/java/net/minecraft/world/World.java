@@ -1923,9 +1923,7 @@ public abstract class World implements IBlockAccess {
         BiomeGenBase biomegenbase = this.getBiomeGenForCoords(pos);
         float f = biomegenbase.getFloatTemperature(pos);
 
-        if (f > 0.15F) {
-            return false;
-        } else {
+        if (!(f > 0.15F)) {
             if (pos.getY() >= 0 && pos.getY() < 256 && this.getLightFor(EnumSkyBlock.BLOCK, pos) < 10) {
                 IBlockState iblockstate = this.getBlockState(pos);
                 Block block = iblockstate.getBlock();
@@ -1941,8 +1939,8 @@ public abstract class World implements IBlockAccess {
                 }
             }
 
-            return false;
         }
+        return false;
     }
 
     private boolean isWater(BlockPos pos) {
@@ -2290,36 +2288,26 @@ public abstract class World implements IBlockAccess {
         int i = 0;
         i = Math.max(i, this.getStrongPower(pos.down(), EnumFacing.DOWN));
 
-        if (i >= 15) {
-            return i;
-        } else {
+        if (i < 15) {
             i = Math.max(i, this.getStrongPower(pos.up(), EnumFacing.UP));
 
-            if (i >= 15) {
-                return i;
-            } else {
+            if (i < 15) {
                 i = Math.max(i, this.getStrongPower(pos.north(), EnumFacing.NORTH));
 
-                if (i >= 15) {
-                    return i;
-                } else {
+                if (i < 15) {
                     i = Math.max(i, this.getStrongPower(pos.south(), EnumFacing.SOUTH));
 
-                    if (i >= 15) {
-                        return i;
-                    } else {
+                    if (i < 15) {
                         i = Math.max(i, this.getStrongPower(pos.west(), EnumFacing.WEST));
 
-                        if (i >= 15) {
-                            return i;
-                        } else {
+                        if (i < 15) {
                             i = Math.max(i, this.getStrongPower(pos.east(), EnumFacing.EAST));
-                            return i;
                         }
                     }
                 }
             }
         }
+        return i;
     }
 
     public boolean isSidePowered(BlockPos pos, EnumFacing side) {

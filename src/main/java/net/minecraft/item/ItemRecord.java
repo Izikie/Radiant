@@ -31,15 +31,13 @@ public class ItemRecord extends Item {
         IBlockState iblockstate = worldIn.getBlockState(pos);
 
         if (iblockstate.getBlock() == Blocks.jukebox && !iblockstate.getValue(BlockJukebox.HAS_RECORD)) {
-            if (worldIn.isRemote) {
-                return true;
-            } else {
+            if (!worldIn.isRemote) {
                 ((BlockJukebox) Blocks.jukebox).insertRecord(worldIn, pos, iblockstate, stack);
                 worldIn.playAuxSFXAtEntity(null, 1005, pos, Item.getIdFromItem(this));
                 --stack.stackSize;
                 playerIn.triggerAchievement(StatList.field_181740_X);
-                return true;
             }
+            return true;
         } else {
             return false;
         }

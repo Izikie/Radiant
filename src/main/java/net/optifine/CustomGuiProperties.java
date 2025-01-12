@@ -122,9 +122,7 @@ public class CustomGuiProperties {
     }
 
     private static EnumDyeColor parseEnumDyeColor(String str) {
-        if (str == null) {
-            return null;
-        } else {
+        if (str != null) {
             EnumDyeColor[] aenumdyecolor = EnumDyeColor.values();
 
             for (EnumDyeColor enumdyecolor : aenumdyecolor) {
@@ -137,8 +135,8 @@ public class CustomGuiProperties {
                 }
             }
 
-            return null;
         }
+        return null;
     }
 
     private static ResourceLocation parseTextureLocation(String str, String basePath) {

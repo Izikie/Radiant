@@ -555,11 +555,10 @@ public class CustomColors {
 
             if (i < 0) {
                 warn("Invalid color: " + name + " = " + s);
-                return i;
             } else {
                 dbg(name + " = " + s);
-                return i;
             }
+            return i;
         }
     }
 
@@ -751,20 +750,16 @@ public class CustomColors {
             if (i >= 0 && i < blockColormaps.length) {
                 CustomColormap[] acustomcolormap = blockColormaps[i];
 
-                if (acustomcolormap == null) {
-                    return null;
-                } else {
+                if (acustomcolormap != null) {
                     for (CustomColormap customcolormap : acustomcolormap) {
                         if (customcolormap.matchesBlock(blockstatebase)) {
                             return customcolormap;
                         }
                     }
 
-                    return null;
                 }
-            } else {
-                return null;
             }
+            return null;
         }
     }
 

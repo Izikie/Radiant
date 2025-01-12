@@ -22,9 +22,7 @@ public class ItemEnderEye extends Item {
         IBlockState iblockstate = worldIn.getBlockState(pos);
 
         if (playerIn.canPlayerEdit(pos.offset(side), side, stack) && iblockstate.getBlock() == Blocks.end_portal_frame && !iblockstate.getValue(BlockEndPortalFrame.EYE)) {
-            if (worldIn.isRemote) {
-                return true;
-            } else {
+            if (!worldIn.isRemote) {
                 worldIn.setBlockState(pos, iblockstate.withProperty(BlockEndPortalFrame.EYE, Boolean.TRUE), 2);
                 worldIn.updateComparatorOutputLevel(pos, Blocks.end_portal_frame);
                 --stack.stackSize;
@@ -104,8 +102,8 @@ public class ItemEnderEye extends Item {
                     }
                 }
 
-                return true;
             }
+            return true;
         } else {
             return false;
         }

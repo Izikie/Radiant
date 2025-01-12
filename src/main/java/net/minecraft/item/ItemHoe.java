@@ -52,13 +52,11 @@ public class ItemHoe extends Item {
     protected boolean useHoe(ItemStack stack, EntityPlayer player, World worldIn, BlockPos target, IBlockState newState) {
         worldIn.playSoundEffect((target.getX() + 0.5F), (target.getY() + 0.5F), (target.getZ() + 0.5F), newState.getBlock().stepSound.getStepSound(), (newState.getBlock().stepSound.getVolume() + 1.0F) / 2.0F, newState.getBlock().stepSound.getFrequency() * 0.8F);
 
-        if (worldIn.isRemote) {
-            return true;
-        } else {
+        if (!worldIn.isRemote) {
             worldIn.setBlockState(target, newState);
             stack.damageItem(1, player);
-            return true;
         }
+        return true;
     }
 
     public boolean isFull3D() {

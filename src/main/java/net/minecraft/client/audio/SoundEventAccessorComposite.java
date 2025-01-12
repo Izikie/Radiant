@@ -49,10 +49,8 @@ public class SoundEventAccessorComposite implements ISoundEventAccessor<SoundPoo
                 }
             }
 
-            return SoundHandler.missing_sound;
-        } else {
-            return SoundHandler.missing_sound;
         }
+        return SoundHandler.missing_sound;
     }
 
     public void addSoundToEventPool(ISoundEventAccessor<SoundPoolEntry> sound) {

@@ -1551,10 +1551,8 @@ public class Shaders {
                 }
             }
 
-            return line;
-        } else {
-            return line;
         }
+        return line;
     }
 
     public static ArrayList listOfShaders() {
@@ -2059,9 +2057,7 @@ public class Shaders {
     private static int getDrawBuffer(Program p, String str, int ic) {
         int i = 0;
 
-        if (ic >= str.length()) {
-            return i;
-        } else {
+        if (ic < str.length()) {
             int j = str.charAt(ic) - 48;
 
             if (p == ProgramShadow) {
@@ -2070,7 +2066,6 @@ public class Shaders {
                     usedShadowColorBuffers = Math.max(usedShadowColorBuffers, j);
                 }
 
-                return i;
             } else {
                 if (j >= 0 && j <= 7) {
                     p.getToggleColorTextures()[j] = true;
@@ -2079,9 +2074,9 @@ public class Shaders {
                     usedColorBuffers = Math.max(usedColorBuffers, j);
                 }
 
-                return i;
             }
         }
+        return i;
     }
 
     private static void updateToggleBuffers(Program p) {

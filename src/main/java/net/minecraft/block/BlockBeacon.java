@@ -31,9 +31,7 @@ public class BlockBeacon extends BlockContainer {
     }
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
-        if (worldIn.isRemote) {
-            return true;
-        } else {
+        if (!worldIn.isRemote) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
             if (tileentity instanceof TileEntityBeacon tileEntityBeacon) {
@@ -41,8 +39,8 @@ public class BlockBeacon extends BlockContainer {
                 playerIn.triggerAchievement(StatList.field_181730_N);
             }
 
-            return true;
         }
+        return true;
     }
 
     public boolean isOpaqueCube() {

@@ -64,9 +64,7 @@ public class ItemBlock extends Item {
     public static boolean setTileEntityNBT(World worldIn, EntityPlayer pos, BlockPos stack, ItemStack p_179224_3_) {
         MinecraftServer minecraftserver = MinecraftServer.getServer();
 
-        if (minecraftserver == null) {
-            return false;
-        } else {
+        if (minecraftserver != null) {
             if (p_179224_3_.hasTagCompound() && p_179224_3_.getTagCompound().hasKey("BlockEntityTag", 10)) {
                 TileEntity tileentity = worldIn.getTileEntity(stack);
 
@@ -92,8 +90,8 @@ public class ItemBlock extends Item {
                 }
             }
 
-            return false;
         }
+        return false;
     }
 
     public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side, EntityPlayer player, ItemStack stack) {

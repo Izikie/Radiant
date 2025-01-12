@@ -1407,17 +1407,15 @@ public class Config {
     }
 
     public static boolean equalsOne(Object p_equalsOne_0_, Object[] p_equalsOne_1_) {
-        if (p_equalsOne_1_ == null) {
-            return false;
-        } else {
+        if (p_equalsOne_1_ != null) {
             for (Object object : p_equalsOne_1_) {
                 if (equals(p_equalsOne_0_, object)) {
                     return true;
                 }
             }
 
-            return false;
         }
+        return false;
     }
 
     public static boolean equalsOne(int p_equalsOne_0_, int[] p_equalsOne_1_) {
@@ -1431,17 +1429,15 @@ public class Config {
     }
 
     public static boolean isSameOne(Object p_isSameOne_0_, Object[] p_isSameOne_1_) {
-        if (p_isSameOne_1_ == null) {
-            return false;
-        } else {
+        if (p_isSameOne_1_ != null) {
             for (Object object : p_isSameOne_1_) {
                 if (p_isSameOne_0_ == object) {
                     return true;
                 }
             }
 
-            return false;
         }
+        return false;
     }
 
     public static String normalize(String p_normalize_0_) {
@@ -1679,18 +1675,14 @@ public class Config {
     }
 
     public static int getFpsMin() {
-        if (minecraft.debug == mcDebugLast) {
-            return fpsMinLast;
-        } else {
+        if (minecraft.debug != mcDebugLast) {
             mcDebugLast = minecraft.debug;
             FrameTimer frametimer = minecraft.getFrameTimer();
             long[] along = frametimer.getFrames();
             int i = frametimer.getIndex();
             int j = frametimer.getLastIndex();
 
-            if (i == j) {
-                return fpsMinLast;
-            } else {
+            if (i != j) {
                 int k = Minecraft.getDebugFPS();
 
                 if (k <= 0) {
@@ -1713,9 +1705,9 @@ public class Config {
 
                 double d0 = i1 / 1.0E9D;
                 fpsMinLast = (int) (1.0D / d0);
-                return fpsMinLast;
             }
         }
+        return fpsMinLast;
     }
 
     private static String getUpdates(String p_getUpdates_0_) {

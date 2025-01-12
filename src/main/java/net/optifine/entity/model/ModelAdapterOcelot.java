@@ -43,9 +43,7 @@ public class ModelAdapterOcelot extends ModelAdapter {
     }
 
     private static Map<String, Integer> getMapPartFields() {
-        if (mapPartFields != null) {
-            return mapPartFields;
-        } else {
+        if (mapPartFields == null) {
             mapPartFields = new HashMap();
             mapPartFields.put("back_left_leg", 0);
             mapPartFields.put("back_right_leg", 1);
@@ -55,8 +53,8 @@ public class ModelAdapterOcelot extends ModelAdapter {
             mapPartFields.put("tail2", 5);
             mapPartFields.put("head", 6);
             mapPartFields.put("body", 7);
-            return mapPartFields;
         }
+        return mapPartFields;
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {

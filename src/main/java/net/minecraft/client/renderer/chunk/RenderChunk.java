@@ -519,13 +519,11 @@ public class RenderChunk {
     private Chunk getChunk(BlockPos p_getChunk_1_) {
         Chunk chunk = this.chunk;
 
-        if (chunk != null && chunk.isLoaded()) {
-            return chunk;
-        } else {
+        if (chunk == null || !chunk.isLoaded()) {
             chunk = this.world.getChunkFromBlockCoords(p_getChunk_1_);
             this.chunk = chunk;
-            return chunk;
         }
+        return chunk;
     }
 
     public boolean isChunkRegionEmpty() {

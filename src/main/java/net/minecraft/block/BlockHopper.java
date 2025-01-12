@@ -93,9 +93,7 @@ public class BlockHopper extends BlockContainer {
     }
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
-        if (worldIn.isRemote) {
-            return true;
-        } else {
+        if (!worldIn.isRemote) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
             if (tileentity instanceof TileEntityHopper tileEntityHopper) {
@@ -103,8 +101,8 @@ public class BlockHopper extends BlockContainer {
                 playerIn.triggerAchievement(StatList.field_181732_P);
             }
 
-            return true;
         }
+        return true;
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {

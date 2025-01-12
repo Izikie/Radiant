@@ -1243,9 +1243,7 @@ public abstract class Entity implements ICommandSender {
     }
 
     public boolean isEntityInsideOpaqueBlock() {
-        if (this.noClip) {
-            return false;
-        } else {
+        if (!this.noClip) {
             BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE);
 
             for (int i = 0; i < 8; ++i) {
@@ -1262,8 +1260,8 @@ public abstract class Entity implements ICommandSender {
                 }
             }
 
-            return false;
         }
+        return false;
     }
 
     public boolean interactFirst(EntityPlayer playerIn) {

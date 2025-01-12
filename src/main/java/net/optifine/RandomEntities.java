@@ -146,10 +146,8 @@ public class RandomEntities {
                 }
             }
 
-            return path;
-        } else {
-            return path;
         }
+        return path;
     }
 
     private static IRandomEntity getRandomEntityRendered() {

@@ -47,9 +47,7 @@ public class ModelAdapterHorse extends ModelAdapter {
     }
 
     private static Map<String, Integer> getMapPartFields() {
-        if (mapPartFields != null) {
-            return mapPartFields;
-        } else {
+        if (mapPartFields == null) {
             mapPartFields = new HashMap();
             mapPartFields.put("head", 0);
             mapPartFields.put("upper_mouth", 1);
@@ -90,8 +88,8 @@ public class ModelAdapterHorse extends ModelAdapter {
             mapPartFields.put("horse_right_face_metal", 36);
             mapPartFields.put("horse_left_rein", 37);
             mapPartFields.put("horse_right_rein", 38);
-            return mapPartFields;
         }
+        return mapPartFields;
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {

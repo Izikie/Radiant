@@ -162,17 +162,15 @@ public abstract class CreativeTabs {
     }
 
     public boolean hasRelevantEnchantmentType(EnumEnchantmentType enchantmentType) {
-        if (this.enchantmentTypes == null) {
-            return false;
-        } else {
+        if (this.enchantmentTypes != null) {
             for (EnumEnchantmentType enumenchantmenttype : this.enchantmentTypes) {
                 if (enumenchantmenttype == enchantmentType) {
                     return true;
                 }
             }
 
-            return false;
         }
+        return false;
     }
 
     public void displayAllReleventItems(List<ItemStack> p_78018_1_) {

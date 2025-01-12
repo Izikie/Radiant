@@ -12,9 +12,7 @@ public class ClippingHelper {
     }
 
     public boolean isBoxInFrustum(double p_78553_1_, double p_78553_3_, double p_78553_5_, double p_78553_7_, double p_78553_9_, double p_78553_11_) {
-        if (this.disabled) {
-            return true;
-        } else {
+        if (!this.disabled) {
             float f = (float) p_78553_1_;
             float f1 = (float) p_78553_3_;
             float f2 = (float) p_78553_5_;
@@ -34,14 +32,12 @@ public class ClippingHelper {
                 }
             }
 
-            return true;
         }
+        return true;
     }
 
     public boolean isBoxInFrustumFully(double p_isBoxInFrustumFully_1_, double p_isBoxInFrustumFully_3_, double p_isBoxInFrustumFully_5_, double p_isBoxInFrustumFully_7_, double p_isBoxInFrustumFully_9_, double p_isBoxInFrustumFully_11_) {
-        if (this.disabled) {
-            return true;
-        } else {
+        if (!this.disabled) {
             float f = (float) p_isBoxInFrustumFully_1_;
             float f1 = (float) p_isBoxInFrustumFully_3_;
             float f2 = (float) p_isBoxInFrustumFully_5_;
@@ -65,7 +61,7 @@ public class ClippingHelper {
                 }
             }
 
-            return true;
         }
+        return true;
     }
 }

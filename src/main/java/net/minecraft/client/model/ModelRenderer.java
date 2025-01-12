@@ -380,9 +380,7 @@ public class ModelRenderer {
     }
 
     public ModelRenderer getChild(String p_getChild_1_) {
-        if (p_getChild_1_ == null) {
-            return null;
-        } else {
+        if (p_getChild_1_ != null) {
             if (this.childModels != null) {
                 for (ModelRenderer childModel : this.childModels) {
                     ModelRenderer modelrenderer = childModel;
@@ -393,8 +391,8 @@ public class ModelRenderer {
                 }
             }
 
-            return null;
         }
+        return null;
     }
 
     public ModelRenderer getChildDeep(String p_getChildDeep_1_) {

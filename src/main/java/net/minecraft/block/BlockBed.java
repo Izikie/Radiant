@@ -62,7 +62,6 @@ public class BlockBed extends BlockDirectional {
                 if (entityplayer$enumstatus == EntityPlayer.EnumStatus.OK) {
                     state = state.withProperty(OCCUPIED, Boolean.TRUE);
                     worldIn.setBlockState(pos, state, 4);
-                    return true;
                 } else {
                     if (entityplayer$enumstatus == EntityPlayer.EnumStatus.NOT_POSSIBLE_NOW) {
                         playerIn.addChatComponentMessage(new ChatComponentTranslation("tile.bed.noSleep"));
@@ -70,8 +69,8 @@ public class BlockBed extends BlockDirectional {
                         playerIn.addChatComponentMessage(new ChatComponentTranslation("tile.bed.notSafe"));
                     }
 
-                    return true;
                 }
+                return true;
             } else {
                 worldIn.setBlockToAir(pos);
                 BlockPos blockpos = pos.offset(state.getValue(FACING).getOpposite());

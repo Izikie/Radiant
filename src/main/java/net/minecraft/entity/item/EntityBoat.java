@@ -385,15 +385,13 @@ public class EntityBoat extends Entity {
     }
 
     public boolean interactFirst(EntityPlayer playerIn) {
-        if (this.riddenByEntity != null && this.riddenByEntity instanceof EntityPlayer && this.riddenByEntity != playerIn) {
-            return true;
-        } else {
+        if (this.riddenByEntity == null || !(this.riddenByEntity instanceof EntityPlayer) || this.riddenByEntity == playerIn) {
             if (!this.worldObj.isRemote) {
                 playerIn.mountEntity(this);
             }
 
-            return true;
         }
+        return true;
     }
 
     protected void updateFallState(double y, boolean onGroundIn, Block blockIn, BlockPos pos) {

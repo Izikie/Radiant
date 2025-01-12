@@ -69,22 +69,17 @@ public class ModelPlayer extends ModelBiped {
             float f = 2.0F;
             GlStateManager.scale(1.0F / f, 1.0F / f, 1.0F / f);
             GlStateManager.translate(0.0F, 24.0F * scale, 0.0F);
-            this.bipedLeftLegwear.render(scale);
-            this.bipedRightLegwear.render(scale);
-            this.bipedLeftArmwear.render(scale);
-            this.bipedRightArmwear.render(scale);
-            this.bipedBodyWear.render(scale);
         } else {
             if (entityIn.isSneaking()) {
                 GlStateManager.translate(0.0F, 0.2F, 0.0F);
             }
 
-            this.bipedLeftLegwear.render(scale);
-            this.bipedRightLegwear.render(scale);
-            this.bipedLeftArmwear.render(scale);
-            this.bipedRightArmwear.render(scale);
-            this.bipedBodyWear.render(scale);
         }
+        this.bipedLeftLegwear.render(scale);
+        this.bipedRightLegwear.render(scale);
+        this.bipedLeftArmwear.render(scale);
+        this.bipedRightArmwear.render(scale);
+        this.bipedBodyWear.render(scale);
 
         GlStateManager.popMatrix();
     }

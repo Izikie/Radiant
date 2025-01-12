@@ -105,10 +105,8 @@ public class AxisAlignedBB {
                 }
             }
 
-            return offsetX;
-        } else {
-            return offsetX;
         }
+        return offsetX;
     }
 
     public double calculateYOffset(AxisAlignedBB other, double offsetY) {
@@ -127,10 +125,8 @@ public class AxisAlignedBB {
                 }
             }
 
-            return offsetY;
-        } else {
-            return offsetY;
         }
+        return offsetY;
     }
 
     public double calculateZOffset(AxisAlignedBB other, double offsetZ) {
@@ -149,10 +145,8 @@ public class AxisAlignedBB {
                 }
             }
 
-            return offsetZ;
-        } else {
-            return offsetZ;
         }
+        return offsetZ;
     }
 
     public boolean intersectsWith(AxisAlignedBB other) {

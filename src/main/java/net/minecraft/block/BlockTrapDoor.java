@@ -100,14 +100,12 @@ public class BlockTrapDoor extends Block {
     }
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
-        if (this.blockMaterial == Material.iron) {
-            return true;
-        } else {
+        if (this.blockMaterial != Material.iron) {
             state = state.cycleProperty(OPEN);
             worldIn.setBlockState(pos, state, 2);
             worldIn.playAuxSFXAtEntity(playerIn, state.getValue(OPEN) ? 1003 : 1006, pos, 0);
-            return true;
         }
+        return true;
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {

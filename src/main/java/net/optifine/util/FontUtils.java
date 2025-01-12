@@ -14,9 +14,7 @@ public class FontUtils {
         Properties properties = new PropertiesOrdered();
         String s1 = ".png";
 
-        if (!s.endsWith(s1)) {
-            return properties;
-        } else {
+        if (s.endsWith(s1)) {
             String s2 = s.substring(0, s.length() - s1.length()) + ".properties";
 
             try {
@@ -35,8 +33,8 @@ public class FontUtils {
                 ioexception.printStackTrace();
             }
 
-            return properties;
         }
+        return properties;
     }
 
     public static void readCustomCharWidths(Properties props, float[] charWidth) {

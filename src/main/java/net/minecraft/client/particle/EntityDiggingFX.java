@@ -40,15 +40,13 @@ public class EntityDiggingFX extends EntityFX {
         this.sourcePos = new BlockPos(this.posX, this.posY, this.posZ);
         Block block = this.sourceState.getBlock();
 
-        if (block == Blocks.grass) {
-            return this;
-        } else {
+        if (block != Blocks.grass) {
             int i = block.getRenderColor(this.sourceState);
             this.particleRed *= (i >> 16 & 255) / 255.0F;
             this.particleGreen *= (i >> 8 & 255) / 255.0F;
             this.particleBlue *= (i & 255) / 255.0F;
-            return this;
         }
+        return this;
     }
 
     public int getFXLayer() {

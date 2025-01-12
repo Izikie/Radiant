@@ -152,17 +152,15 @@ public class BlockLever extends Block {
     }
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
-        if (worldIn.isRemote) {
-            return true;
-        } else {
+        if (!worldIn.isRemote) {
             state = state.cycleProperty(POWERED);
             worldIn.setBlockState(pos, state, 3);
             worldIn.playSoundEffect(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, "random.click", 0.3F, state.getValue(POWERED) ? 0.6F : 0.5F);
             worldIn.notifyNeighborsOfStateChange(pos, this);
             EnumFacing enumfacing = state.getValue(FACING).getFacing();
             worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing.getOpposite()), this);
-            return true;
         }
+        return true;
     }
 
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {

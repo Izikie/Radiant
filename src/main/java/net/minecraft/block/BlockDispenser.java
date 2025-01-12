@@ -76,9 +76,7 @@ public class BlockDispenser extends BlockContainer {
     }
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
-        if (worldIn.isRemote) {
-            return true;
-        } else {
+        if (!worldIn.isRemote) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
             if (tileentity instanceof TileEntityDispenser tileEntityDispenser) {
@@ -91,8 +89,8 @@ public class BlockDispenser extends BlockContainer {
                 }
             }
 
-            return true;
         }
+        return true;
     }
 
     protected void dispense(World worldIn, BlockPos pos) {

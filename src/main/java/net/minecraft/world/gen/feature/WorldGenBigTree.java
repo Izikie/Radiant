@@ -204,9 +204,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
         float f1 = (float) blockpos.getY() / i;
         float f2 = (float) blockpos.getZ() / i;
 
-        if (i == 0) {
-            return -1;
-        } else {
+        if (i != 0) {
             for (int j = 0; j <= i; ++j) {
                 BlockPos blockpos1 = posOne.add((0.5F + j * f), (0.5F + j * f1), (0.5F + j * f2));
 
@@ -215,8 +213,8 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
                 }
             }
 
-            return -1;
         }
+        return -1;
     }
 
     public void func_175904_e() {

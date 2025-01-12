@@ -95,14 +95,10 @@ public class ItemMonsterPlacer extends Item {
     }
 
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
-        if (worldIn.isRemote) {
-            return itemStackIn;
-        } else {
+        if (!worldIn.isRemote) {
             MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(worldIn, playerIn, true);
 
-            if (movingobjectposition == null) {
-                return itemStackIn;
-            } else {
+            if (movingobjectposition != null) {
                 if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                     BlockPos blockpos = movingobjectposition.getBlockPos();
 
@@ -131,9 +127,9 @@ public class ItemMonsterPlacer extends Item {
                     }
                 }
 
-                return itemStackIn;
             }
         }
+        return itemStackIn;
     }
 
     public static Entity spawnCreature(World worldIn, int entityID, double x, double y, double z) {

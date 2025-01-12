@@ -28,14 +28,10 @@ public class EnchantmentHelper {
     private static final EnchantmentHelper.DamageIterator ENCHANTMENT_ITERATOR_DAMAGE = new EnchantmentHelper.DamageIterator();
 
     public static int getEnchantmentLevel(int enchID, ItemStack stack) {
-        if (stack == null) {
-            return 0;
-        } else {
+        if (stack != null) {
             NBTTagList nbttaglist = stack.getEnchantmentTagList();
 
-            if (nbttaglist == null) {
-                return 0;
-            } else {
+            if (nbttaglist != null) {
                 for (int i = 0; i < nbttaglist.tagCount(); ++i) {
                     int j = nbttaglist.getCompoundTagAt(i).getShort("id");
                     int k = nbttaglist.getCompoundTagAt(i).getShort("lvl");
@@ -45,9 +41,9 @@ public class EnchantmentHelper {
                     }
                 }
 
-                return 0;
             }
         }
+        return 0;
     }
 
     public static Map<Integer, Integer> getEnchantments(ItemStack stack) {

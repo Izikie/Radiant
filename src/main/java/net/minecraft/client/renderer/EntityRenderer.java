@@ -2025,13 +2025,11 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         } else if (this.theShaderGroup != null && this.theShaderGroup != this.fxaaShaders[2] && this.theShaderGroup != this.fxaaShaders[4]) {
             return true;
         } else if (p_setFxaaShader_1_ != 2 && p_setFxaaShader_1_ != 4) {
-            if (this.theShaderGroup == null) {
-                return true;
-            } else {
+            if (this.theShaderGroup != null) {
                 this.theShaderGroup.deleteShaderGroup();
                 this.theShaderGroup = null;
-                return true;
             }
+            return true;
         } else if (this.theShaderGroup != null && this.theShaderGroup == this.fxaaShaders[p_setFxaaShader_1_]) {
             return true;
         } else if (this.mc.theWorld == null) {

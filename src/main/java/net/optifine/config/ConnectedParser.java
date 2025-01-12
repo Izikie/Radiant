@@ -695,9 +695,7 @@ public class ConnectedParser {
     }
 
     public EnumWorldBlockLayer parseBlockRenderLayer(String str, EnumWorldBlockLayer def) {
-        if (str == null) {
-            return def;
-        } else {
+        if (str != null) {
             str = str.toLowerCase().trim();
             EnumWorldBlockLayer[] aenumworldblocklayer = EnumWorldBlockLayer.values();
 
@@ -707,14 +705,12 @@ public class ConnectedParser {
                 }
             }
 
-            return def;
         }
+        return def;
     }
 
     public <T> T parseObject(String str, T[] objs, INameGetter nameGetter, String property) {
-        if (str == null) {
-            return null;
-        } else {
+        if (str != null) {
             String s = str.toLowerCase().trim();
 
             for (T t : objs) {
@@ -726,8 +722,8 @@ public class ConnectedParser {
             }
 
             this.warn("Invalid " + property + ": " + str);
-            return null;
         }
+        return null;
     }
 
     public <T> T[] parseObjects(String str, T[] objs, INameGetter nameGetter, String property, T[] errValue) {

@@ -182,10 +182,8 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
                 }
             }
 
-            return false;
-        } else {
-            return false;
         }
+        return false;
     }
 
     private boolean isEmpty() {

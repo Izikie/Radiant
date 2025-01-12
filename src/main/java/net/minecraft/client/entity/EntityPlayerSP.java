@@ -282,9 +282,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
     }
 
     protected boolean pushOutOfBlocks(double x, double y, double z) {
-        if (this.noClip) {
-            return false;
-        } else {
+        if (!this.noClip) {
             BlockPos blockpos = new BlockPos(x, y, z);
             double d0 = x - blockpos.getX();
             double d1 = z - blockpos.getZ();
@@ -332,8 +330,8 @@ public class EntityPlayerSP extends AbstractClientPlayer {
                 }
             }
 
-            return false;
         }
+        return false;
     }
 
     private boolean isOpenBlockSpace(BlockPos pos) {

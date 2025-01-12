@@ -180,16 +180,14 @@ public class BakedQuad {
     }
 
     public BakedQuad getQuadEmissive() {
-        if (this.quadEmissiveChecked) {
-            return this.quadEmissive;
-        } else {
+        if (!this.quadEmissiveChecked) {
             if (this.quadEmissive == null && this.sprite != null && this.sprite.spriteEmissive != null) {
                 this.quadEmissive = new BreakingFour(this, this.sprite.spriteEmissive);
             }
 
             this.quadEmissiveChecked = true;
-            return this.quadEmissive;
         }
+        return this.quadEmissive;
     }
 
     public String toString() {

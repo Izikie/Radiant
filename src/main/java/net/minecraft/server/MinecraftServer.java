@@ -622,7 +622,6 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
                 }
             }
 
-            return list;
         } else {
             String[] astring = input.split(" ", -1);
             String s = astring[astring.length - 1];
@@ -633,8 +632,8 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
                 }
             }
 
-            return list;
         }
+        return list;
     }
 
     public static MinecraftServer getServer() {

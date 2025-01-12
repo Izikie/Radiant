@@ -6,31 +6,27 @@ import net.optifine.shaders.config.ShaderProfile;
 
 public class ShaderUtils {
     public static ShaderOption getShaderOption(String name, ShaderOption[] opts) {
-        if (opts == null) {
-            return null;
-        } else {
+        if (opts != null) {
             for (ShaderOption shaderoption : opts) {
                 if (shaderoption.getName().equals(name)) {
                     return shaderoption;
                 }
             }
 
-            return null;
         }
+        return null;
     }
 
     public static ShaderProfile detectProfile(ShaderProfile[] profs, ShaderOption[] opts, boolean def) {
-        if (profs == null) {
-            return null;
-        } else {
+        if (profs != null) {
             for (ShaderProfile shaderprofile : profs) {
                 if (matchProfile(shaderprofile, opts, def)) {
                     return shaderprofile;
                 }
             }
 
-            return null;
         }
+        return null;
     }
 
     public static boolean matchProfile(ShaderProfile prof, ShaderOption[] opts, boolean def) {

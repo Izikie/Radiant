@@ -631,9 +631,7 @@ public class ModelBakery {
 
     public static ResourceLocation fixModelLocation(ResourceLocation p_fixModelLocation_0_, String p_fixModelLocation_1_) {
         if (p_fixModelLocation_0_ != null && p_fixModelLocation_1_ != null) {
-            if (!p_fixModelLocation_0_.getResourceDomain().equals("minecraft")) {
-                return p_fixModelLocation_0_;
-            } else {
+            if (p_fixModelLocation_0_.getResourceDomain().equals("minecraft")) {
                 String s = p_fixModelLocation_0_.getResourcePath();
                 String s1 = fixResourcePath(s, p_fixModelLocation_1_);
 
@@ -641,11 +639,9 @@ public class ModelBakery {
                     p_fixModelLocation_0_ = new ResourceLocation(p_fixModelLocation_0_.getResourceDomain(), s1);
                 }
 
-                return p_fixModelLocation_0_;
             }
-        } else {
-            return p_fixModelLocation_0_;
         }
+        return p_fixModelLocation_0_;
     }
 
     private static String fixResourcePath(String p_fixResourcePath_0_, String p_fixResourcePath_1_) {

@@ -209,9 +209,7 @@ public class InventoryPlayer implements IInventory {
             j = this.getFirstEmptyStack();
         }
 
-        if (j < 0) {
-            return i;
-        } else {
+        if (j >= 0) {
             if (this.mainInventory[j] == null) {
                 this.mainInventory[j] = new ItemStack(item, 0, itemStackIn.getMetadata());
 
@@ -230,15 +228,13 @@ public class InventoryPlayer implements IInventory {
                 k = this.getInventoryStackLimit() - this.mainInventory[j].stackSize;
             }
 
-            if (k == 0) {
-                return i;
-            } else {
+            if (k != 0) {
                 i = i - k;
                 this.mainInventory[j].stackSize += k;
                 this.mainInventory[j].animationsToGo = 5;
-                return i;
             }
         }
+        return i;
     }
 
     public void decrementAnimations() {

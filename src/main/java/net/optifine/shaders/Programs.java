@@ -72,9 +72,7 @@ public class Programs {
     }
 
     public Program getProgram(String name) {
-        if (name == null) {
-            return null;
-        } else {
+        if (name != null) {
             for (Program value : this.programs) {
                 Program program = value;
                 String s = program.getName();
@@ -84,8 +82,8 @@ public class Programs {
                 }
             }
 
-            return null;
         }
+        return null;
     }
 
     public String[] getProgramNames() {

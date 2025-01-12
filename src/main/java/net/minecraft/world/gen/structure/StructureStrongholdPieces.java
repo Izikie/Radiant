@@ -266,9 +266,7 @@ public class StructureStrongholdPieces {
             StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p_175869_2_, p_175869_3_, p_175869_4_, -1, -1, 0, 5, 5, 4, p_175869_5_);
             StructureComponent structurecomponent = StructureComponent.findIntersecting(p_175869_0_, structureboundingbox);
 
-            if (structurecomponent == null) {
-                return null;
-            } else {
+            if (structurecomponent != null) {
                 if (structurecomponent.getBoundingBox().minY == structureboundingbox.minY) {
                     for (int j = 3; j >= 1; --j) {
                         structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p_175869_2_, p_175869_3_, p_175869_4_, -1, -1, 0, 5, 5, j - 1, p_175869_5_);
@@ -279,8 +277,8 @@ public class StructureStrongholdPieces {
                     }
                 }
 
-                return null;
             }
+            return null;
         }
 
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {

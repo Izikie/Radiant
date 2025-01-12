@@ -19,9 +19,7 @@ public class ItemLilyPad extends ItemColored {
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
         MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(worldIn, playerIn, true);
 
-        if (movingobjectposition == null) {
-            return itemStackIn;
-        } else {
+        if (movingobjectposition != null) {
             if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                 BlockPos blockpos = movingobjectposition.getBlockPos();
 
@@ -47,8 +45,8 @@ public class ItemLilyPad extends ItemColored {
                 }
             }
 
-            return itemStackIn;
         }
+        return itemStackIn;
     }
 
     public int getColorFromItemStack(ItemStack stack, int renderPass) {

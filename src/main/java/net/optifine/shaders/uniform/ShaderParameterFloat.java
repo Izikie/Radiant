@@ -161,9 +161,7 @@ public enum ShaderParameterFloat {
     }
 
     private static boolean instanceOf(Object obj, Class... classes) {
-        if (obj == null) {
-            return false;
-        } else {
+        if (obj != null) {
             Class oclass = obj.getClass();
 
             for (Class oclass1 : classes) {
@@ -172,7 +170,7 @@ public enum ShaderParameterFloat {
                 }
             }
 
-            return false;
         }
+        return false;
     }
 }

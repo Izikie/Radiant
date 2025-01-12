@@ -81,9 +81,7 @@ public class ShaderPackZip implements IShaderPack {
     private String detectBaseFolder(ZipFile zip) {
         ZipEntry zipentry = zip.getEntry("shaders/");
 
-        if (zipentry != null && zipentry.isDirectory()) {
-            return "";
-        } else {
+        if (zipentry == null || !zipentry.isDirectory()) {
             Pattern pattern = Pattern.compile("([^/]+/)shaders/");
             Enumeration<? extends ZipEntry> enumeration = zip.entries();
 
@@ -105,8 +103,8 @@ public class ShaderPackZip implements IShaderPack {
                 }
             }
 
-            return "";
         }
+        return "";
     }
 
     public boolean hasDirectory(String resName) {

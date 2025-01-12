@@ -125,9 +125,7 @@ public class BlockChest extends BlockContainer {
     }
 
     public IBlockState checkForSurroundingChests(World worldIn, BlockPos pos, IBlockState state) {
-        if (worldIn.isRemote) {
-            return state;
-        } else {
+        if (!worldIn.isRemote) {
             IBlockState iblockstate = worldIn.getBlockState(pos.north());
             IBlockState iblockstate1 = worldIn.getBlockState(pos.south());
             IBlockState iblockstate2 = worldIn.getBlockState(pos.west());
@@ -201,8 +199,8 @@ public class BlockChest extends BlockContainer {
 
             state = state.withProperty(FACING, enumfacing);
             worldIn.setBlockState(pos, state, 3);
-            return state;
         }
+        return state;
     }
 
     public IBlockState correctFacing(World worldIn, BlockPos pos, IBlockState state) {
@@ -323,9 +321,7 @@ public class BlockChest extends BlockContainer {
     }
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
-        if (worldIn.isRemote) {
-            return true;
-        } else {
+        if (!worldIn.isRemote) {
             ILockableContainer ilockablecontainer = this.getLockableContainer(worldIn, pos);
 
             if (ilockablecontainer != null) {
@@ -338,8 +334,8 @@ public class BlockChest extends BlockContainer {
                 }
             }
 
-            return true;
         }
+        return true;
     }
 
     public ILockableContainer getLockableContainer(World worldIn, BlockPos pos) {

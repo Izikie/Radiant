@@ -137,7 +137,6 @@ public class WorldChunkManager {
         if (cacheFlag && width == 16 && length == 16 && (x & 15) == 0 && (z & 15) == 0) {
             BiomeGenBase[] abiomegenbase = this.biomeCache.getCachedBiomes(x, z);
             System.arraycopy(abiomegenbase, 0, listToReuse, 0, width * length);
-            return listToReuse;
         } else {
             int[] aint = this.biomeIndexLayer.getInts(x, z, width, length);
 
@@ -145,8 +144,8 @@ public class WorldChunkManager {
                 listToReuse[i] = BiomeGenBase.getBiomeFromBiomeList(aint[i], BiomeGenBase.field_180279_ad);
             }
 
-            return listToReuse;
         }
+        return listToReuse;
     }
 
     public boolean areBiomesViable(int p_76940_1_, int p_76940_2_, int p_76940_3_, List<BiomeGenBase> p_76940_4_) {

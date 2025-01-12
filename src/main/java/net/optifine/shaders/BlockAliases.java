@@ -27,17 +27,15 @@ public class BlockAliases {
         } else if (blockId >= 0 && blockId < blockAliases.length) {
             BlockAlias[] ablockalias = blockAliases[blockId];
 
-            if (ablockalias == null) {
-                return blockId;
-            } else {
+            if (ablockalias != null) {
                 for (BlockAlias blockalias : ablockalias) {
                     if (blockalias.matches(blockId, metadata)) {
                         return blockalias.getBlockAliasId();
                     }
                 }
 
-                return blockId;
             }
+            return blockId;
         } else {
             return blockId;
         }

@@ -42,12 +42,10 @@ public class CustomLoadingScreen {
         } else {
             String s = props.getProperty("dim" + dim + "." + key);
 
-            if (s != null) {
-                return s;
-            } else {
+            if (s == null) {
                 s = props.getProperty(key);
-                return s;
             }
+            return s;
         }
     }
 

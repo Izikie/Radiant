@@ -31,9 +31,7 @@ public class MapStorage {
     public WorldSavedData loadData(Class<? extends WorldSavedData> clazz, String dataIdentifier) {
         WorldSavedData worldsaveddata = this.loadedDataMap.get(dataIdentifier);
 
-        if (worldsaveddata != null) {
-            return worldsaveddata;
-        } else {
+        if (worldsaveddata == null) {
             if (this.saveHandler != null) {
                 try {
                     File file1 = this.saveHandler.getMapFileFromName(dataIdentifier);
@@ -60,8 +58,8 @@ public class MapStorage {
                 this.loadedDataList.add(worldsaveddata);
             }
 
-            return worldsaveddata;
         }
+        return worldsaveddata;
     }
 
     public void setData(String dataIdentifier, WorldSavedData data) {
@@ -144,9 +142,7 @@ public class MapStorage {
 
         this.idCounts.put(key, oshort);
 
-        if (this.saveHandler == null) {
-            return oshort;
-        } else {
+        if (this.saveHandler != null) {
             try {
                 File file1 = this.saveHandler.getMapFileFromName("idcounts");
 
@@ -166,7 +162,7 @@ public class MapStorage {
                 exception.printStackTrace();
             }
 
-            return oshort;
         }
+        return oshort;
     }
 }

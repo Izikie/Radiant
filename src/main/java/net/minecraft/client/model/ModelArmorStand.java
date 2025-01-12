@@ -86,20 +86,16 @@ public class ModelArmorStand extends ModelArmorStandArmor {
             float f = 2.0F;
             GlStateManager.scale(1.0F / f, 1.0F / f, 1.0F / f);
             GlStateManager.translate(0.0F, 24.0F * scale, 0.0F);
-            this.standRightSide.render(scale);
-            this.standLeftSide.render(scale);
-            this.standWaist.render(scale);
-            this.standBase.render(scale);
         } else {
             if (entityIn.isSneaking()) {
                 GlStateManager.translate(0.0F, 0.2F, 0.0F);
             }
 
-            this.standRightSide.render(scale);
-            this.standLeftSide.render(scale);
-            this.standWaist.render(scale);
-            this.standBase.render(scale);
         }
+        this.standRightSide.render(scale);
+        this.standLeftSide.render(scale);
+        this.standWaist.render(scale);
+        this.standBase.render(scale);
 
         GlStateManager.popMatrix();
     }

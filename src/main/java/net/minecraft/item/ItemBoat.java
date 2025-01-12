@@ -39,9 +39,7 @@ public class ItemBoat extends Item {
         Vec3 vec31 = vec3.addVector(f7 * d3, f6 * d3, f8 * d3);
         MovingObjectPosition movingobjectposition = worldIn.rayTraceBlocks(vec3, vec31, true);
 
-        if (movingobjectposition == null) {
-            return itemStackIn;
-        } else {
+        if (movingobjectposition != null) {
             Vec3 vec32 = playerIn.getLook(f);
             boolean flag = false;
             float f9 = 1.0F;
@@ -60,9 +58,7 @@ public class ItemBoat extends Item {
                 }
             }
 
-            if (flag) {
-                return itemStackIn;
-            } else {
+            if (!flag) {
                 if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                     BlockPos blockpos = movingobjectposition.getBlockPos();
 
@@ -88,8 +84,8 @@ public class ItemBoat extends Item {
                     playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
                 }
 
-                return itemStackIn;
             }
         }
+        return itemStackIn;
     }
 }

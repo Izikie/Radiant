@@ -300,9 +300,7 @@ public class TextureUtils {
     }
 
     public static ResourceLocation fixResourceLocation(ResourceLocation loc, String basePath) {
-        if (!loc.getResourceDomain().equals("minecraft")) {
-            return loc;
-        } else {
+        if (loc.getResourceDomain().equals("minecraft")) {
             String s = loc.getResourcePath();
             String s1 = fixResourcePath(s, basePath);
 
@@ -310,8 +308,8 @@ public class TextureUtils {
                 loc = new ResourceLocation(loc.getResourceDomain(), s1);
             }
 
-            return loc;
         }
+        return loc;
     }
 
     public static String fixResourcePath(String path, String basePath) {

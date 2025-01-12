@@ -434,9 +434,7 @@ public class WorldRenderer {
     }
 
     public WorldRenderer color(int red, int green, int blue, int alpha) {
-        if (this.noColor) {
-            return this;
-        } else {
+        if (!this.noColor) {
             int i = this.vertexCount * this.vertexFormat.getNextOffset() + this.vertexFormat.getOffset(this.vertexFormatIndex);
 
             switch (this.vertexFormatElement.getType()) {
@@ -479,8 +477,8 @@ public class WorldRenderer {
             }
 
             this.nextVertexFormatIndex();
-            return this;
         }
+        return this;
     }
 
     public void addVertexData(int[] vertexData) {
@@ -791,11 +789,10 @@ public class WorldRenderer {
     public RenderEnv getRenderEnv(IBlockState p_getRenderEnv_1_, BlockPos p_getRenderEnv_2_) {
         if (this.renderEnv == null) {
             this.renderEnv = new RenderEnv(p_getRenderEnv_1_, p_getRenderEnv_2_);
-            return this.renderEnv;
         } else {
             this.renderEnv.reset(p_getRenderEnv_1_, p_getRenderEnv_2_);
-            return this.renderEnv;
         }
+        return this.renderEnv;
     }
 
     public boolean isDrawing() {

@@ -1462,9 +1462,7 @@ public class ConnectedTextures {
                 } else {
                     List list1 = ibakedmodel.getGeneralQuads();
 
-                    if (list1 == null) {
-                        return null;
-                    } else {
+                    if (list1 != null) {
                         for (Object o : list1) {
                             BakedQuad bakedquad = (BakedQuad) o;
 
@@ -1473,8 +1471,8 @@ public class ConnectedTextures {
                             }
                         }
 
-                        return null;
                     }
+                    return null;
                 }
             }
         }

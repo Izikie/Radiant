@@ -44,9 +44,7 @@ public enum RenderEntityParameterBool implements IExpressionBool {
     public boolean eval() {
         Render render = this.renderManager.renderRender;
 
-        if (render == null) {
-            return false;
-        } else {
+        if (render != null) {
             if (render instanceof RendererLivingEntity rendererlivingentity) {
                 EntityLivingBase entitylivingbase = rendererlivingentity.renderEntity;
 
@@ -96,21 +94,19 @@ public enum RenderEntityParameterBool implements IExpressionBool {
                 }
             }
 
-            return false;
         }
+        return false;
     }
 
     public static RenderEntityParameterBool parse(String str) {
-        if (str == null) {
-            return null;
-        } else {
+        if (str != null) {
             for (RenderEntityParameterBool renderentityparameterbool : VALUES) {
                 if (renderentityparameterbool.getName().equals(str)) {
                     return renderentityparameterbool;
                 }
             }
 
-            return null;
         }
+        return null;
     }
 }

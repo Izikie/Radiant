@@ -1146,16 +1146,14 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             }
         }
 
-        if (l == 0) {
-            return l;
-        } else {
+        if (l != 0) {
             if (Config.isFogOff() && this.mc.entityRenderer.fogStandard) {
                 GlStateManager.disableFog();
             }
 
             this.renderBlockLayer(blockLayerIn);
-            return l;
         }
+        return l;
     }
 
     @SuppressWarnings("incomplete-switch")

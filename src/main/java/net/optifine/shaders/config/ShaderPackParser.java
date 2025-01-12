@@ -283,9 +283,7 @@ public class ShaderPackParser {
         Set<String> set = new HashSet();
         String s = props.getProperty("sliders");
 
-        if (s == null) {
-            return set;
-        } else {
+        if (s != null) {
             String[] astring = Config.tokenize(s, " ");
 
             for (String s1 : astring) {
@@ -298,8 +296,8 @@ public class ShaderPackParser {
                 }
             }
 
-            return set;
         }
+        return set;
     }
 
     private static ShaderProfile parseProfile(String name, Properties props, Set<String> parsedProfiles, ShaderOption[] shaderOptions) {

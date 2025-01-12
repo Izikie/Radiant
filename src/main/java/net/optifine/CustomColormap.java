@@ -419,17 +419,15 @@ public class CustomColormap implements CustomColors.IColorizer {
     }
 
     private MatchBlock getMatchBlock(int blockId) {
-        if (this.matchBlocks == null) {
-            return null;
-        } else {
+        if (this.matchBlocks != null) {
             for (MatchBlock matchblock : this.matchBlocks) {
                 if (matchblock.getBlockId() == blockId) {
                     return matchblock;
                 }
             }
 
-            return null;
         }
+        return null;
     }
 
     public int[] getMatchBlockIds() {
