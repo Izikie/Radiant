@@ -151,7 +151,7 @@ public class Config {
         checkDisplayMode();
         minecraftThread = Thread.currentThread();
         updateThreadPriorities();
-        Shaders.startup(Minecraft.getMinecraft());
+        Shaders.startup();
     }
 
     public static void checkInitialized() {
