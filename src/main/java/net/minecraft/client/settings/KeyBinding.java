@@ -90,6 +90,10 @@ public class KeyBinding implements Comparable<KeyBinding> {
         this.pressed = false;
     }
 
+    public static List<KeyBinding> getKeybindArray() {
+        return keybindArray;
+    }
+
     public String getKeyDescription() {
         return this.keyDescription;
     }
