@@ -168,13 +168,11 @@ public class MacroState {
 
                 if (iexpression.getExpressionType() == ExpressionType.BOOL) {
                     IExpressionBool iexpressionbool = (IExpressionBool) iexpression;
-                    boolean flag1 = iexpressionbool.eval();
-                    return flag1;
+                    return iexpressionbool.eval();
                 } else if (iexpression.getExpressionType() == ExpressionType.FLOAT) {
                     IExpressionFloat iexpressionfloat = (IExpressionFloat) iexpression;
                     float f = iexpressionfloat.eval();
-                    boolean flag2 = f != 0.0F;
-                    return flag2;
+                    return f != 0.0F;
                 } else {
                     throw new ParseException("Not a boolean or float expression: " + iexpression.getExpressionType());
                 }

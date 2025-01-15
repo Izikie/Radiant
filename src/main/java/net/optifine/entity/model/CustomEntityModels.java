@@ -113,15 +113,13 @@ public class CustomEntityModels {
             }
         }
 
-        ResourceLocation[] aresourcelocation = list.toArray(new ResourceLocation[list.size()]);
-        return aresourcelocation;
+        return list.toArray(new ResourceLocation[list.size()]);
     }
 
     private static IEntityRenderer parseEntityRender(ResourceLocation location) {
         try {
             JsonObject jsonobject = CustomEntityModelParser.loadJson(location);
-            IEntityRenderer ientityrenderer = parseEntityRender(jsonobject, location.getResourcePath());
-            return ientityrenderer;
+            return parseEntityRender(jsonobject, location.getResourcePath());
         } catch (IOException ioexception) {
             Config.error("" + ioexception.getClass().getName() + ": " + ioexception.getMessage());
             return null;

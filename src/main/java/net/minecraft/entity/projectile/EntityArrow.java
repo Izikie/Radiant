@@ -206,18 +206,17 @@ public class EntityArrow extends Entity implements IProjectile {
             double d0 = 0.0D;
 
             for (Entity value : list) {
-                Entity entity1 = value;
 
-                if (entity1.canBeCollidedWith() && (entity1 != this.shootingEntity || this.ticksInAir >= 5)) {
+                if (value.canBeCollidedWith() && (value != this.shootingEntity || this.ticksInAir >= 5)) {
                     float f1 = 0.3F;
-                    AxisAlignedBB axisalignedbb1 = entity1.getEntityBoundingBox().expand(f1, f1, f1);
+                    AxisAlignedBB axisalignedbb1 = value.getEntityBoundingBox().expand(f1, f1, f1);
                     MovingObjectPosition movingobjectposition1 = axisalignedbb1.calculateIntercept(vec31, vec3);
 
                     if (movingobjectposition1 != null) {
                         double d1 = vec31.squareDistanceTo(movingobjectposition1.hitVec);
 
                         if (d1 < d0 || d0 == 0.0D) {
-                            entity = entity1;
+                            entity = value;
                             d0 = d1;
                         }
                     }

@@ -77,10 +77,9 @@ public abstract class Container {
 
     public Slot getSlotFromInventory(IInventory inv, int slotIn) {
         for (Slot inventorySlot : this.inventorySlots) {
-            Slot slot = inventorySlot;
 
-            if (slot.isHere(inv, slotIn)) {
-                return slot;
+            if (inventorySlot.isHere(inv, slotIn)) {
+                return inventorySlot;
             }
         }
 

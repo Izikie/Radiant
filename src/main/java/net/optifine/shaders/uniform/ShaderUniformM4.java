@@ -28,8 +28,7 @@ public class ShaderUniformM4 extends ShaderUniformBase {
             return 0.0F;
         } else {
             int i = this.transpose ? col * 4 + row : row * 4 + col;
-            float f = this.matrix.get(i);
-            return f;
+            return this.matrix.get(i);
         }
     }
 

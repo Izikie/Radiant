@@ -115,30 +115,29 @@ public class Explosion {
         Vec3 vec3 = new Vec3(this.explosionX, this.explosionY, this.explosionZ);
 
         for (Entity value : list) {
-            Entity entity = value;
 
-            if (!entity.isImmuneToExplosions()) {
-                double d12 = entity.getDistance(this.explosionX, this.explosionY, this.explosionZ) / f3;
+            if (!value.isImmuneToExplosions()) {
+                double d12 = value.getDistance(this.explosionX, this.explosionY, this.explosionZ) / f3;
 
                 if (d12 <= 1.0D) {
-                    double d5 = entity.posX - this.explosionX;
-                    double d7 = entity.posY + entity.getEyeHeight() - this.explosionY;
-                    double d9 = entity.posZ - this.explosionZ;
+                    double d5 = value.posX - this.explosionX;
+                    double d7 = value.posY + value.getEyeHeight() - this.explosionY;
+                    double d9 = value.posZ - this.explosionZ;
                     double d13 = MathHelper.sqrt_double(d5 * d5 + d7 * d7 + d9 * d9);
 
                     if (d13 != 0.0D) {
                         d5 = d5 / d13;
                         d7 = d7 / d13;
                         d9 = d9 / d13;
-                        double d14 = this.worldObj.getBlockDensity(vec3, entity.getEntityBoundingBox());
+                        double d14 = this.worldObj.getBlockDensity(vec3, value.getEntityBoundingBox());
                         double d10 = (1.0D - d12) * d14;
-                        entity.attackEntityFrom(DamageSource.setExplosionSource(this), ((int) ((d10 * d10 + d10) / 2.0D * 8.0D * f3 + 1.0D)));
-                        double d11 = EnchantmentProtection.func_92092_a(entity, d10);
-                        entity.motionX += d5 * d11;
-                        entity.motionY += d7 * d11;
-                        entity.motionZ += d9 * d11;
+                        value.attackEntityFrom(DamageSource.setExplosionSource(this), ((int) ((d10 * d10 + d10) / 2.0D * 8.0D * f3 + 1.0D)));
+                        double d11 = EnchantmentProtection.func_92092_a(value, d10);
+                        value.motionX += d5 * d11;
+                        value.motionY += d7 * d11;
+                        value.motionZ += d9 * d11;
 
-                        if (entity instanceof EntityPlayer entityPlayer && !entityPlayer.capabilities.disableDamage) {
+                        if (value instanceof EntityPlayer entityPlayer && !entityPlayer.capabilities.disableDamage) {
                             this.playerKnockbackMap.put(entityPlayer, new Vec3(d5 * d10, d7 * d10, d9 * d10));
                         }
                     }

@@ -179,11 +179,10 @@ public class CommandSpreadPlayers extends CommandBase {
         Map<Team, CommandSpreadPlayers.Position> map = Maps.newHashMap();
 
         for (Entity value : p_110671_1_) {
-            Entity entity = value;
             Position commandspreadplayers$position;
 
             if (p_110671_4_) {
-                Team team = entity instanceof EntityPlayer entityPlayer ? entityPlayer.getTeam() : null;
+                Team team = value instanceof EntityPlayer entityPlayer ? entityPlayer.getTeam() : null;
 
                 if (!map.containsKey(team)) {
                     map.put(team, p_110671_3_[i++]);
@@ -194,7 +193,7 @@ public class CommandSpreadPlayers extends CommandBase {
                 commandspreadplayers$position = p_110671_3_[i++];
             }
 
-            entity.setPositionAndUpdate((MathHelper.floor_double(commandspreadplayers$position.field_111101_a) + 0.5F), commandspreadplayers$position.func_111092_a(worldIn), MathHelper.floor_double(commandspreadplayers$position.field_111100_b) + 0.5D);
+            value.setPositionAndUpdate((MathHelper.floor_double(commandspreadplayers$position.field_111101_a) + 0.5F), commandspreadplayers$position.func_111092_a(worldIn), MathHelper.floor_double(commandspreadplayers$position.field_111100_b) + 0.5D);
             double d2 = Double.MAX_VALUE;
 
             for (Position position : p_110671_3_) {

@@ -85,8 +85,7 @@ public class ConnectedParser {
                 }
             }
 
-            MatchBlock[] amatchblock1 = (MatchBlock[]) list.toArray(new MatchBlock[list.size()]);
-            return amatchblock1;
+            return (MatchBlock[]) list.toArray(new MatchBlock[list.size()]);
         }
     }
 
@@ -209,8 +208,7 @@ public class ConnectedParser {
                 this.warn("Block not found for name: " + s);
                 return null;
             } else {
-                Block[] ablock = new Block[]{block};
-                return ablock;
+                return new Block[]{block};
             }
         }
     }
@@ -222,8 +220,7 @@ public class ConnectedParser {
             String s = params[0];
 
             if (this.startsWithDigit(s)) {
-                int[] aint = this.parseIntList(s);
-                return aint;
+                return this.parseIntList(s);
             } else {
                 IBlockState iblockstate = block.getDefaultState();
                 Collection collection = iblockstate.getPropertyNames();
@@ -275,13 +272,12 @@ public class ConnectedParser {
                     List<Integer> list1 = new ArrayList();
 
                     for (int k = 0; k < 16; ++k) {
-                        int l = k;
 
                         try {
-                            IBlockState iblockstate1 = this.getStateFromMeta(block, l);
+                            IBlockState iblockstate1 = this.getStateFromMeta(block, k);
 
                             if (this.matchState(iblockstate1, map)) {
-                                list1.add(l);
+                                list1.add(k);
                             }
                         } catch (IllegalArgumentException var18) {
                         }
@@ -421,8 +417,7 @@ public class ConnectedParser {
                 list = list1;
             }
 
-            BiomeGenBase[] abiomegenbase = (BiomeGenBase[]) list.toArray(new BiomeGenBase[list.size()]);
-            return abiomegenbase;
+            return (BiomeGenBase[]) list.toArray(new BiomeGenBase[list.size()]);
         }
     }
 
@@ -671,8 +666,7 @@ public class ConnectedParser {
             str = str.trim();
 
             try {
-                int i = Integer.parseInt(str, 16) & 16777215;
-                return i;
+                return Integer.parseInt(str, 16) & 16777215;
             } catch (NumberFormatException var3) {
                 return defVal;
             }
@@ -686,8 +680,7 @@ public class ConnectedParser {
             str = str.trim();
 
             try {
-                int i = (int) (Long.parseLong(str, 16) & -1L);
-                return i;
+                return (int) (Long.parseLong(str, 16) & -1L);
             } catch (NumberFormatException var3) {
                 return defVal;
             }
@@ -790,8 +783,7 @@ public class ConnectedParser {
             if (list.isEmpty()) {
                 return null;
             } else {
-                VillagerProfession[] avillagerprofession = list.toArray(new VillagerProfession[list.size()]);
-                return avillagerprofession;
+                return list.toArray(new VillagerProfession[list.size()]);
             }
         }
     }
@@ -948,8 +940,7 @@ public class ConnectedParser {
         }
 
         Integer[] ainteger = set.toArray(new Integer[set.size()]);
-        int[] aint = Config.toPrimitive(ainteger);
-        return aint;
+        return Config.toPrimitive(ainteger);
     }
 
     public int[] parseEntities(String str) {
@@ -968,7 +959,6 @@ public class ConnectedParser {
         }
 
         Integer[] ainteger = set.toArray(new Integer[set.size()]);
-        int[] aint = Config.toPrimitive(ainteger);
-        return aint;
+        return Config.toPrimitive(ainteger);
     }
 }

@@ -231,8 +231,7 @@ public class ExpressionParser {
             IExpression iexpression = this.parseInfix(deque2);
 
             if (iexpression == null) {
-                IExpression[] aiexpression = list.toArray(new IExpression[list.size()]);
-                return aiexpression;
+                return list.toArray(new IExpression[list.size()]);
             }
 
             list.add(iexpression);

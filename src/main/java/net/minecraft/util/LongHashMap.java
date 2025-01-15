@@ -83,9 +83,8 @@ public class LongHashMap<V> {
             this.copyHashTableTo(entry1);
             this.hashArray = entry1;
             this.mask = this.hashArray.length - 1;
-            float f = p_76153_1_;
             this.getClass();
-            this.capacity = (int) (f * 0.75F);
+            this.capacity = (int) ((float) p_76153_1_ * 0.75F);
         }
     }
 
@@ -194,13 +193,12 @@ public class LongHashMap<V> {
             if (!(p_equals_1_ instanceof LongHashMap.Entry entry1)) {
                 return false;
             } else {
-                LongHashMap.Entry<V> entry = entry1;
                 Object object = this.getKey();
-                Object object1 = entry.getKey();
+                Object object1 = ((Entry<V>) entry1).getKey();
 
                 if (object == object1 || object != null && object.equals(object1)) {
                     Object object2 = this.getValue();
-                    Object object3 = entry.getValue();
+                    Object object3 = ((Entry<V>) entry1).getValue();
 
                     return object2 == object3 || object2 != null && object2.equals(object3);
                 }

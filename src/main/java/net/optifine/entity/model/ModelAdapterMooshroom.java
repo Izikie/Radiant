@@ -18,7 +18,6 @@ public class ModelAdapterMooshroom extends ModelAdapterQuadruped {
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
-        RenderMooshroom rendermooshroom = new RenderMooshroom(rendermanager, modelBase, shadowSize);
-        return rendermooshroom;
+        return new RenderMooshroom(rendermanager, modelBase, shadowSize);
     }
 }

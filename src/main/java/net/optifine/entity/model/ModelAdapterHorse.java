@@ -94,7 +94,6 @@ public class ModelAdapterHorse extends ModelAdapter {
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
-        RenderHorse renderhorse = new RenderHorse(rendermanager, (ModelHorse) modelBase, shadowSize);
-        return renderhorse;
+        return new RenderHorse(rendermanager, (ModelHorse) modelBase, shadowSize);
     }
 }

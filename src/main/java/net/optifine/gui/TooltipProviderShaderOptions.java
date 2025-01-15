@@ -19,8 +19,7 @@ public class TooltipProviderShaderOptions extends TooltipProviderOptions {
             return null;
         } else {
             ShaderOption shaderoption = guibuttonshaderoption.getShaderOption();
-            String[] astring = this.makeTooltipLines(shaderoption, width);
-            return astring;
+            return this.makeTooltipLines(shaderoption, width);
         }
     }
 
@@ -64,8 +63,7 @@ public class TooltipProviderShaderOptions extends TooltipProviderOptions {
             list.add(s4);
         }
 
-        String[] astring1 = this.makeTooltipLines(width, list);
-        return astring1;
+        return this.makeTooltipLines(width, list);
     }
 
     private String[] splitDescription(String desc) {
@@ -89,16 +87,14 @@ public class TooltipProviderShaderOptions extends TooltipProviderOptions {
         List<String> list = new ArrayList();
 
         for (String arg : args) {
-            String s = arg;
 
-            if (s != null && !s.isEmpty()) {
-                for (String s1 : fontrenderer.listFormattedStringToWidth(s, width)) {
+            if (arg != null && !arg.isEmpty()) {
+                for (String s1 : fontrenderer.listFormattedStringToWidth(arg, width)) {
                     list.add(s1);
                 }
             }
         }
 
-        String[] astring = list.toArray(new String[list.size()]);
-        return astring;
+        return list.toArray(new String[list.size()]);
     }
 }

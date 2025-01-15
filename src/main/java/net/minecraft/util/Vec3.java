@@ -124,18 +124,16 @@ public class Vec3 {
     public Vec3 rotatePitch(float pitch) {
         float f = MathHelper.cos(pitch);
         float f1 = MathHelper.sin(pitch);
-        double d0 = this.xCoord;
         double d1 = this.yCoord * f + this.zCoord * f1;
         double d2 = this.zCoord * f - this.yCoord * f1;
-        return new Vec3(d0, d1, d2);
+        return new Vec3(this.xCoord, d1, d2);
     }
 
     public Vec3 rotateYaw(float yaw) {
         float f = MathHelper.cos(yaw);
         float f1 = MathHelper.sin(yaw);
         double d0 = this.xCoord * f + this.zCoord * f1;
-        double d1 = this.yCoord;
         double d2 = this.zCoord * f - this.xCoord * f1;
-        return new Vec3(d0, d1, d2);
+        return new Vec3(d0, this.yCoord, d2);
     }
 }

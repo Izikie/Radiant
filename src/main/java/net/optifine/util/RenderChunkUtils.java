@@ -19,8 +19,7 @@ public class RenderChunkUtils {
 
     public static double getRelativeBufferSize(RenderChunk renderChunk) {
         int i = getCountBlocks(renderChunk);
-        double d0 = getRelativeBufferSize(i);
-        return d0;
+        return getRelativeBufferSize(i);
     }
 
     public static double getRelativeBufferSize(int blockCount) {

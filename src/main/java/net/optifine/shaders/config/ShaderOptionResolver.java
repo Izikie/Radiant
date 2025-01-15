@@ -19,7 +19,6 @@ public class ShaderOptionResolver implements IExpressionResolver {
     }
 
     public IExpression getExpression(String name) {
-        ExpressionShaderOptionSwitch expressionshaderoptionswitch = this.mapOptions.get(name);
-        return expressionshaderoptionswitch;
+        return this.mapOptions.get(name);
     }
 }

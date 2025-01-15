@@ -24,8 +24,7 @@ public class IteratorRenderChunks implements Iterator<RenderChunk> {
     public RenderChunk next() {
         BlockPos blockpos = this.Iterator3d.next();
         this.posBlock.setXyz(blockpos.getX() << 4, blockpos.getY() << 4, blockpos.getZ() << 4);
-        RenderChunk renderchunk = this.viewFrustum.getRenderChunk(this.posBlock);
-        return renderchunk;
+        return this.viewFrustum.getRenderChunk(this.posBlock);
     }
 
     public void remove() {

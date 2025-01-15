@@ -32,8 +32,7 @@ public class TooltipProviderOptions implements TooltipProvider {
             return null;
         } else {
             GameSettings.Options gamesettings$options = ioptioncontrol.getOption();
-            String[] astring = getTooltipLines(gamesettings$options.getEnumString());
-            return astring;
+            return getTooltipLines(gamesettings$options.getEnumString());
         }
     }
 
@@ -54,8 +53,7 @@ public class TooltipProviderOptions implements TooltipProvider {
         if (list.size() <= 0) {
             return null;
         } else {
-            String[] astring = list.toArray(new String[list.size()]);
-            return astring;
+            return list.toArray(new String[list.size()]);
         }
     }
 }

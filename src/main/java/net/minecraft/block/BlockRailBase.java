@@ -300,9 +300,8 @@ public abstract class BlockRailBase extends Block {
 
         private boolean func_180363_c(BlockPos p_180363_1_) {
             for (BlockPos blockPos : this.field_150657_g) {
-                BlockPos blockpos = blockPos;
 
-                if (blockpos.getX() == p_180363_1_.getX() && blockpos.getZ() == p_180363_1_.getZ()) {
+                if (blockPos.getX() == p_180363_1_.getX() && blockPos.getZ() == p_180363_1_.getZ()) {
                     return true;
                 }
             }

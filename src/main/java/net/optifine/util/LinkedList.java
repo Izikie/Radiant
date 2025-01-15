@@ -127,15 +127,15 @@ public class LinkedList<T> {
     }
 
     public Iterator<LinkedList.Node<T>> iterator() {
-        Iterator<LinkedList.Node<T>> iterator = new Iterator<LinkedList.Node<T>>() {
-            LinkedList.Node<T> node = LinkedList.this.getFirst();
+        return new Iterator<Node<T>>() {
+            Node<T> node = LinkedList.this.getFirst();
 
             public boolean hasNext() {
                 return this.node != null;
             }
 
-            public LinkedList.Node<T> next() {
-                LinkedList.Node<T> node = this.node;
+            public Node<T> next() {
+                Node<T> node = this.node;
 
                 if (this.node != null) {
                     this.node = this.node.next;
@@ -148,7 +148,6 @@ public class LinkedList<T> {
                 throw new UnsupportedOperationException("remove");
             }
         };
-        return iterator;
     }
 
     public LinkedList.Node<T> getFirst() {

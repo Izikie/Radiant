@@ -231,11 +231,10 @@ public class Village {
         Village.VillageAggressor village$villageaggressor = null;
 
         for (VillageAggressor villageAgressor : this.villageAgressors) {
-            VillageAggressor village$villageaggressor1 = villageAgressor;
-            double d1 = village$villageaggressor1.agressor.getDistanceSqToEntity(entitylivingbaseIn);
+            double d1 = villageAgressor.agressor.getDistanceSqToEntity(entitylivingbaseIn);
 
             if (d1 <= d0) {
-                village$villageaggressor = village$villageaggressor1;
+                village$villageaggressor = villageAgressor;
                 d0 = d1;
             }
         }

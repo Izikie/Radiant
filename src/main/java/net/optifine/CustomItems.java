@@ -178,14 +178,13 @@ public class CustomItems {
     }
 
     private static Comparator getPropertiesComparator() {
-        Comparator comparator = new Comparator() {
+        return new Comparator() {
             public int compare(Object o1, Object o2) {
                 CustomItemProperties customitemproperties = (CustomItemProperties) o1;
                 CustomItemProperties customitemproperties1 = (CustomItemProperties) o2;
                 return customitemproperties.layer != customitemproperties1.layer ? customitemproperties.layer - customitemproperties1.layer : (customitemproperties.weight != customitemproperties1.weight ? customitemproperties1.weight - customitemproperties.weight : (!customitemproperties.basePath.equals(customitemproperties1.basePath) ? customitemproperties.basePath.compareTo(customitemproperties1.basePath) : customitemproperties.name.compareTo(customitemproperties1.name)));
             }
         };
-        return comparator;
     }
 
     public static void updateIcons(TextureMap textureMap) {

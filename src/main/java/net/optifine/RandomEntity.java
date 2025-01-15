@@ -13,8 +13,7 @@ public class RandomEntity implements IRandomEntity {
     public int getId() {
         UUID uuid = this.entity.getUniqueID();
         long i = uuid.getLeastSignificantBits();
-        int j = (int) (i & 2147483647L);
-        return j;
+        return (int) (i & 2147483647L);
     }
 
     public BlockPos getSpawnPosition() {

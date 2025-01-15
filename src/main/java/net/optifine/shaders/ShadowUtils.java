@@ -26,12 +26,10 @@ public class ShadowUtils {
             BlockPos blockpos = new BlockPos(MathHelper.floor_double(viewEntity.posX) >> 4, MathHelper.floor_double(viewEntity.posY) >> 4, MathHelper.floor_double(viewEntity.posZ) >> 4);
             BlockPos blockpos1 = blockpos.add((-f3 * i), (-f4 * i), (-f5 * i));
             BlockPos blockpos2 = blockpos.add((f3 * renderDistanceChunks), (f4 * renderDistanceChunks), (f5 * renderDistanceChunks));
-            IteratorRenderChunks iteratorrenderchunks = new IteratorRenderChunks(viewFrustum, blockpos1, blockpos2, i, i);
-            return iteratorrenderchunks;
+            return new IteratorRenderChunks(viewFrustum, blockpos1, blockpos2, i, i);
         } else {
             List<RenderChunk> list = Arrays.asList(viewFrustum.renderChunks);
-            Iterator<RenderChunk> iterator = list.iterator();
-            return iterator;
+            return list.iterator();
         }
     }
 }

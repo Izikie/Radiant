@@ -200,16 +200,14 @@ public class Framebuffer {
 
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             this.bindFramebufferTexture();
-            float f = p_178038_1_;
-            float f1 = p_178038_2_;
             float f2 = (float) this.framebufferWidth / this.framebufferTextureWidth;
             float f3 = (float) this.framebufferHeight / this.framebufferTextureHeight;
             Tessellator tessellator = Tessellator.getInstance();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-            worldrenderer.pos(0.0D, f1, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255).endVertex();
-            worldrenderer.pos(f, f1, 0.0D).tex(f2, 0.0D).color(255, 255, 255, 255).endVertex();
-            worldrenderer.pos(f, 0.0D, 0.0D).tex(f2, f3).color(255, 255, 255, 255).endVertex();
+            worldrenderer.pos(0.0D, (float) p_178038_2_, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255).endVertex();
+            worldrenderer.pos((float) p_178038_1_, (float) p_178038_2_, 0.0D).tex(f2, 0.0D).color(255, 255, 255, 255).endVertex();
+            worldrenderer.pos((float) p_178038_1_, 0.0D, 0.0D).tex(f2, f3).color(255, 255, 255, 255).endVertex();
             worldrenderer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, f3).color(255, 255, 255, 255).endVertex();
             tessellator.draw();
             this.unbindFramebufferTexture();

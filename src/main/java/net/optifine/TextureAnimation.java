@@ -109,8 +109,7 @@ public class TextureAnimation {
                 index = 0;
             }
 
-            TextureAnimationFrame textureanimationframe = this.frames[index];
-            return textureanimationframe;
+            return this.frames[index];
         }
     }
 

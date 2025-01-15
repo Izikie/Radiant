@@ -87,14 +87,12 @@ public class PlayerManager {
             this.previousTotalWorldTime = j;
 
             for (PlayerInstance playerInstance : this.playerInstanceList) {
-                PlayerInstance playermanager$playerinstance1 = playerInstance;
-                playermanager$playerinstance1.onUpdate();
-                playermanager$playerinstance1.processChunk();
+                playerInstance.onUpdate();
+                playerInstance.processChunk();
             }
         } else {
             for (PlayerInstance playerInstance : this.playerInstancesToUpdate) {
-                PlayerInstance playermanager$playerinstance2 = playerInstance;
-                playermanager$playerinstance2.onUpdate();
+                playerInstance.onUpdate();
             }
         }
 
@@ -463,10 +461,9 @@ public class PlayerManager {
 
         public void sendToAllPlayersWatchingChunk(Packet thePacket) {
             for (EntityPlayerMP entityPlayerMP : this.playersWatchingChunk) {
-                EntityPlayerMP entityplayermp = entityPlayerMP;
 
-                if (!entityplayermp.loadedChunks.contains(this.chunkCoords)) {
-                    entityplayermp.playerNetServerHandler.sendPacket(thePacket);
+                if (!entityPlayerMP.loadedChunks.contains(this.chunkCoords)) {
+                    entityPlayerMP.playerNetServerHandler.sendPacket(thePacket);
                 }
             }
         }

@@ -74,11 +74,10 @@ public class Programs {
     public Program getProgram(String name) {
         if (name != null) {
             for (Program value : this.programs) {
-                Program program = value;
-                String s = program.getName();
+                String s = value.getName();
 
                 if (s.equals(name)) {
-                    return program;
+                    return value;
                 }
             }
 
@@ -97,8 +96,7 @@ public class Programs {
     }
 
     public Program[] getPrograms() {
-        Program[] aprogram = this.programs.toArray(new Program[this.programs.size()]);
-        return aprogram;
+        return this.programs.toArray(new Program[this.programs.size()]);
     }
 
     public Program[] getPrograms(Program programFrom, Program programTo) {

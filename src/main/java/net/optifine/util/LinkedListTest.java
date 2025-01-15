@@ -68,11 +68,10 @@ public class LinkedListTest {
         StringBuffer stringbuffer = new StringBuffer();
 
         linkedList.iterator().forEachRemaining(vboRangeNode -> {
-            LinkedList.Node<VboRange> node = vboRangeNode;
-            if (node.getItem() == null) {
+            if (vboRangeNode.getItem() == null) {
                 return;
             }
-            VboRange vborange = node.getItem();
+            VboRange vborange = vboRangeNode.getItem();
 
             if (!stringbuffer.isEmpty()) {
                 stringbuffer.append(", ");

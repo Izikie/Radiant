@@ -121,8 +121,7 @@ public class CustomSkyLayer {
                         i += 24;
                     }
 
-                    int k = i * 1000 + (int) (j / 60.0D * 1000.0D);
-                    return k;
+                    return i * 1000 + (int) (j / 60.0D * 1000.0D);
                 } else {
                     Config.warn("Invalid time: " + str);
                     return -1;
@@ -193,8 +192,7 @@ public class CustomSkyLayer {
                     Config.warn("Invalid axis values: " + str);
                     return defVal;
                 } else {
-                    float[] afloat1 = new float[]{f1, f, -f2};
-                    return afloat1;
+                    return new float[]{f1, f, -f2};
                 }
             }
         }

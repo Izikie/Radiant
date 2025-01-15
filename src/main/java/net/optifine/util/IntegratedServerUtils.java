@@ -36,8 +36,7 @@ public class IntegratedServerUtils {
                     int i = worldprovider.getDimensionId();
 
                     try {
-                        WorldServer worldserver = integratedserver.worldServerForDimension(i);
-                        return worldserver;
+                        return integratedserver.worldServerForDimension(i);
                     } catch (NullPointerException var6) {
                         return null;
                     }
@@ -52,8 +51,7 @@ public class IntegratedServerUtils {
         if (worldserver == null) {
             return null;
         } else {
-            Entity entity = worldserver.getEntityFromUuid(uuid);
-            return entity;
+            return worldserver.getEntityFromUuid(uuid);
         }
     }
 
@@ -68,8 +66,7 @@ public class IntegratedServerUtils {
             if (chunk == null) {
                 return null;
             } else {
-                TileEntity tileentity = chunk.getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK);
-                return tileentity;
+                return chunk.getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK);
             }
         }
     }

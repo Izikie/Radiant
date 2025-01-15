@@ -112,19 +112,16 @@ public class RandomEntities {
                     }
 
                     if (!s.startsWith("textures/entity/") && !s.startsWith("textures/painting/")) {
-                        ResourceLocation resourcelocation2 = loc;
-                        return resourcelocation2;
+                        return loc;
                     }
 
                     RandomEntityProperties randomentityproperties = mapProperties.get(s);
 
                     if (randomentityproperties == null) {
-                        ResourceLocation resourcelocation3 = loc;
-                        return resourcelocation3;
+                        return loc;
                     }
 
-                    ResourceLocation resourcelocation1 = randomentityproperties.getTextureLocation(loc, irandomentity);
-                    return resourcelocation1;
+                    return randomentityproperties.getTextureLocation(loc, irandomentity);
                 }
 
                 name = loc;
@@ -272,8 +269,7 @@ public class RandomEntities {
                 String s1 = s.substring(0, i);
                 String s2 = s.substring(i);
                 String s3 = s1 + index + s2;
-                ResourceLocation resourcelocation = new ResourceLocation(loc.getResourceDomain(), s3);
-                return resourcelocation;
+                return new ResourceLocation(loc.getResourceDomain(), s3);
             }
         }
     }
@@ -281,8 +277,7 @@ public class RandomEntities {
     private static String getParentTexturePath(String path) {
         for (String s : DEPENDANT_SUFFIXES) {
             if (path.endsWith(s)) {
-                String s1 = StrUtils.removeSuffix(path, s);
-                return s1;
+                return StrUtils.removeSuffix(path, s);
             }
         }
 

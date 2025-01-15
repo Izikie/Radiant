@@ -22,8 +22,7 @@ public class EntityAliases {
         if (entityAliases == null) {
             return -1;
         } else if (entityId >= 0 && entityId < entityAliases.length) {
-            int i = entityAliases[entityId];
-            return i;
+            return entityAliases[entityId];
         } else {
             return -1;
         }

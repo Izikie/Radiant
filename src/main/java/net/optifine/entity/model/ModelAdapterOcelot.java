@@ -59,7 +59,6 @@ public class ModelAdapterOcelot extends ModelAdapter {
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
-        RenderOcelot renderocelot = new RenderOcelot(rendermanager, modelBase, shadowSize);
-        return renderocelot;
+        return new RenderOcelot(rendermanager, modelBase, shadowSize);
     }
 }

@@ -436,8 +436,7 @@ public class CustomColors {
         if (list.size() <= 0) {
             return null;
         } else {
-            CustomColormap[] acustomcolormap = (CustomColormap[]) list.toArray(new CustomColormap[list.size()]);
-            return acustomcolormap;
+            return (CustomColormap[]) list.toArray(new CustomColormap[list.size()]);
         }
     }
 
@@ -481,8 +480,7 @@ public class CustomColors {
         if (list.size() <= 0) {
             return null;
         } else {
-            CustomColormap[][] acustomcolormap = blockListToArray(list);
-            return acustomcolormap;
+            return blockListToArray(list);
         }
     }
 
@@ -569,8 +567,7 @@ public class CustomColors {
             str = str.trim();
 
             try {
-                int i = Integer.parseInt(str, 16) & 16777215;
-                return i;
+                return Integer.parseInt(str, 16) & 16777215;
             } catch (NumberFormatException var2) {
                 return -1;
             }
@@ -770,12 +767,11 @@ public class CustomColors {
         int l = blockPos.getX();
         int i1 = blockPos.getY();
         int j1 = blockPos.getZ();
-        BlockPosM blockposm = blockPosM;
 
         for (int k1 = l - 1; k1 <= l + 1; ++k1) {
             for (int l1 = j1 - 1; l1 <= j1 + 1; ++l1) {
-                blockposm.setXyz(k1, i1, l1);
-                int i2 = colorizer.getColor(blockState, blockAccess, blockposm);
+                blockPosM.setXyz(k1, i1, l1);
+                int i2 = colorizer.getColor(blockState, blockAccess, blockPosM);
                 i += i2 >> 16 & 255;
                 j += i2 >> 8 & 255;
                 k += i2 & 255;
@@ -830,8 +826,7 @@ public class CustomColors {
             return -1;
         } else {
             int i = getRedstoneLevel(blockState, 15);
-            int j = redstoneColors.getColor(i);
-            return j;
+            return redstoneColors.getColor(i);
         }
     }
 
@@ -880,8 +875,7 @@ public class CustomColors {
             return -1;
         } else {
             int i = (int) Math.round(((MathHelper.sin(timer) + 1.0F) * (xpOrbColors.getLength() - 1)) / 2.0D);
-            int j = xpOrbColors.getColor(i);
-            return j;
+            return xpOrbColors.getColor(i);
         }
     }
 
@@ -890,8 +884,7 @@ public class CustomColors {
             return -1;
         } else {
             int i = dur255 * durabilityColors.getLength() / 255;
-            int j = durabilityColors.getColor(i);
-            return j;
+            return durabilityColors.getColor(i);
         }
     }
 
@@ -953,8 +946,7 @@ public class CustomColors {
             f = f * f3;
             f1 = f1 * f4;
             f2 = f2 * f5;
-            Vec3 vec3 = skyColorFader.getColor(f, f1, f2);
-            return vec3;
+            return skyColorFader.getColor(f, f1, f2);
         }
     }
 
@@ -975,8 +967,7 @@ public class CustomColors {
             f = f * f3;
             f1 = f1 * f4;
             f2 = f2 * f5;
-            Vec3 vec3 = fogColorFader.getColor(f, f1, f2);
-            return vec3;
+            return fogColorFader.getColor(f, f1, f2);
         }
     }
 
@@ -999,8 +990,7 @@ public class CustomColors {
             float f = j / 255.0F;
             float f1 = k / 255.0F;
             float f2 = l / 255.0F;
-            Vec3 vec3 = underFluidColorFader.getColor(f, f1, f2);
-            return vec3;
+            return underFluidColorFader.getColor(f, f1, f2);
         }
     }
 

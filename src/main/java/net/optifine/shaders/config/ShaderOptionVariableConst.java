@@ -49,8 +49,7 @@ public class ShaderOptionVariableConst extends ShaderOptionVariable {
 
             if (s1 != null && !s1.isEmpty()) {
                 path = StrUtils.removePrefix(path, "/shaders/");
-                ShaderOption shaderoption = new ShaderOptionVariableConst(s1, s, s3, s2, astring, path);
-                return shaderoption;
+                return new ShaderOptionVariableConst(s1, s, s3, s2, astring, path);
             } else {
                 return null;
             }

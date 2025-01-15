@@ -35,9 +35,8 @@ public class BlockRedstoneTorch extends BlockTorch {
         int i = 0;
 
         for (Toggle toggle : list) {
-            Toggle blockredstonetorch$toggle = toggle;
 
-            if (blockredstonetorch$toggle.pos.equals(pos)) {
+            if (toggle.pos.equals(pos)) {
                 ++i;
 
                 if (i >= 8) {

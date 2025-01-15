@@ -311,8 +311,7 @@ public class EffectRenderer {
                 WorldRenderer worldrenderer = tessellator.getWorldRenderer();
 
                 for (EntityFX entityFX : list) {
-                    EntityFX entityfx = entityFX;
-                    entityfx.renderParticle(worldrenderer, entityIn, partialTick, f1, f5, f2, f3, f4);
+                    entityFX.renderParticle(worldrenderer, entityIn, partialTick, f1, f5, f2, f3, f4);
                 }
             }
         }

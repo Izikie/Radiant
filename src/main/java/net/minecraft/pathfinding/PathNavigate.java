@@ -54,8 +54,7 @@ public abstract class PathNavigate {
             BlockPos blockpos = new BlockPos(this.theEntity);
             int i = (int) (f + 8.0F);
             ChunkCache chunkcache = new ChunkCache(this.worldObj, blockpos.add(-i, -i, -i), blockpos.add(i, i, i), 0);
-            PathEntity pathentity = this.pathFinder.createEntityPathTo(chunkcache, this.theEntity, pos, f);
-            return pathentity;
+            return this.pathFinder.createEntityPathTo(chunkcache, this.theEntity, pos, f);
         }
     }
 
@@ -76,8 +75,7 @@ public abstract class PathNavigate {
             BlockPos blockpos = (new BlockPos(this.theEntity)).up();
             int i = (int) (f + 16.0F);
             ChunkCache chunkcache = new ChunkCache(this.worldObj, blockpos.add(-i, -i, -i), blockpos.add(i, i, i), 0);
-            PathEntity pathentity = this.pathFinder.createEntityPathTo(chunkcache, this.theEntity, entityIn, f);
-            return pathentity;
+            return this.pathFinder.createEntityPathTo(chunkcache, this.theEntity, entityIn, f);
         }
     }
 
@@ -170,10 +168,9 @@ public abstract class PathNavigate {
 
         int j1 = MathHelper.ceiling_float_int(this.theEntity.width);
         int k1 = (int) this.theEntity.height + 1;
-        int l = j1;
 
         for (int i1 = i - 1; i1 >= this.currentPath.getCurrentPathIndex(); --i1) {
-            if (this.isDirectPathBetweenPoints(vec3, this.currentPath.getVectorFromIndex(this.theEntity, i1), j1, k1, l)) {
+            if (this.isDirectPathBetweenPoints(vec3, this.currentPath.getVectorFromIndex(this.theEntity, i1), j1, k1, j1)) {
                 this.currentPath.setCurrentPathIndex(i1);
                 break;
             }

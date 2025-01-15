@@ -173,13 +173,12 @@ public class IntHashMap<V> {
             if (!(p_equals_1_ instanceof IntHashMap.Entry entry1)) {
                 return false;
             } else {
-                IntHashMap.Entry<V> entry = entry1;
                 Object object = this.getHash();
-                Object object1 = entry.getHash();
+                Object object1 = ((Entry<V>) entry1).getHash();
 
                 if (object == object1 || object != null && object.equals(object1)) {
                     Object object2 = this.getValue();
-                    Object object3 = entry.getValue();
+                    Object object3 = ((Entry<V>) entry1).getValue();
 
                     return object2 == object3 || object2 != null && object2.equals(object3);
                 }

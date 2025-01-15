@@ -79,8 +79,7 @@ public class DynamicLights {
                     List<DynamicLight> list = mapDynamicLights.valueList();
 
                     for (DynamicLight dynamicLight : list) {
-                        DynamicLight dynamiclight = dynamicLight;
-                        dynamiclight.update(renderGlobal);
+                        dynamicLight.update(renderGlobal);
                     }
                 }
             }
@@ -162,19 +161,18 @@ public class DynamicLights {
             int i = list.size();
 
             for (DynamicLight dynamicLight : list) {
-                DynamicLight dynamiclight = dynamicLight;
-                int k = dynamiclight.getLastLightLevel();
+                int k = dynamicLight.getLastLightLevel();
 
                 if (k > 0) {
-                    double d1 = dynamiclight.getLastPosX();
-                    double d2 = dynamiclight.getLastPosY();
-                    double d3 = dynamiclight.getLastPosZ();
+                    double d1 = dynamicLight.getLastPosX();
+                    double d2 = dynamicLight.getLastPosY();
+                    double d3 = dynamicLight.getLastPosZ();
                     double d4 = pos.getX() - d1;
                     double d5 = pos.getY() - d2;
                     double d6 = pos.getZ() - d3;
                     double d7 = d4 * d4 + d5 * d5 + d6 * d6;
 
-                    if (dynamiclight.isUnderwater() && !Config.isClearWater()) {
+                    if (dynamicLight.isUnderwater() && !Config.isClearWater()) {
                         k = Config.limit(k - 2, 0, 15);
                         d7 *= 2.0D;
                     }
@@ -192,8 +190,7 @@ public class DynamicLights {
             }
         }
 
-        double d11 = Config.limit(d0, 0.0D, 15.0D);
-        return d11;
+        return Config.limit(d0, 0.0D, 15.0D);
     }
 
     public static int getLightLevel(ItemStack itemStack) {
@@ -298,8 +295,7 @@ public class DynamicLights {
             List<DynamicLight> list = mapDynamicLights.valueList();
 
             for (DynamicLight dynamicLight : list) {
-                DynamicLight dynamiclight = dynamicLight;
-                dynamiclight.updateLitChunks(renderGlobal);
+                dynamicLight.updateLitChunks(renderGlobal);
             }
 
             mapDynamicLights.clear();
@@ -319,7 +315,6 @@ public class DynamicLights {
     }
 
     public static ItemStack getItemStack(EntityItem entityItem) {
-        ItemStack itemstack = entityItem.getDataWatcher().getWatchableObjectItemStack(10);
-        return itemstack;
+        return entityItem.getDataWatcher().getWatchableObjectItemStack(10);
     }
 }

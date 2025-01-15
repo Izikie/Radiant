@@ -549,8 +549,7 @@ public class TextureUtils {
             int[][] aint = list.get(frame);
 
             if (aint != null && aint.length > level) {
-                int[] aint1 = aint[level];
-                return aint1;
+                return aint[level];
             } else {
                 return null;
             }

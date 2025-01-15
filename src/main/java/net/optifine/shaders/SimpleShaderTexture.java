@@ -59,13 +59,12 @@ public class SimpleShaderTexture extends AbstractTexture {
         InputStream inputstream = Shaders.getShaderPackResourceStream(s);
 
         if (inputstream != null) {
-            IMetadataSerializer imetadataserializer = METADATA_SERIALIZER;
             BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(inputstream));
             TextureMetadataSection texturemetadatasection1;
 
             try {
                 JsonObject jsonobject = (new JsonParser()).parse(bufferedreader).getAsJsonObject();
-                TextureMetadataSection texturemetadatasection = imetadataserializer.parseMetadataSection(s1, jsonobject);
+                TextureMetadataSection texturemetadatasection = METADATA_SERIALIZER.parseMetadataSection(s1, jsonobject);
 
                 if (texturemetadatasection == null) {
                     return def;

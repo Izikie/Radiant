@@ -92,8 +92,7 @@ public class PlayerConfigurationParser {
 
         try {
             byte[] abyte = HttpPipeline.get(s, Minecraft.getMinecraft().getProxy());
-            BufferedImage bufferedimage = ImageIO.read(new ByteArrayInputStream(abyte));
-            return bufferedimage;
+            return ImageIO.read(new ByteArrayInputStream(abyte));
         } catch (IOException ioexception) {
             Config.warn("Error loading item texture " + texturePath + ": " + ioexception.getClass().getName() + ": " + ioexception.getMessage());
             return null;
@@ -108,8 +107,7 @@ public class PlayerConfigurationParser {
             String s1 = new String(abyte, StandardCharsets.US_ASCII);
             JsonParser jsonparser = new JsonParser();
             JsonObject jsonobject = (JsonObject) jsonparser.parse(s1);
-            PlayerItemModel playeritemmodel = PlayerItemParser.parseItemModel(jsonobject);
-            return playeritemmodel;
+            return PlayerItemParser.parseItemModel(jsonobject);
         } catch (Exception exception) {
             Config.warn("Error loading item model " + modelPath + ": " + exception.getClass().getName() + ": " + exception.getMessage());
             return null;

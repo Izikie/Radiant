@@ -262,8 +262,7 @@ public class ArrayUtils {
     public static Object[] removeObjectFromArray(Object[] arr, Object obj) {
         List list = new ArrayList(Arrays.asList(arr));
         list.remove(obj);
-        Object[] aobject = collectionToArray(list, arr.getClass().getComponentType());
-        return aobject;
+        return collectionToArray(list, arr.getClass().getComponentType());
     }
 
     public static int[] toPrimitive(Integer[] arr) {

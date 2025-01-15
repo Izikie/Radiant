@@ -39,8 +39,7 @@ public class CustomPanorama {
                 properties = new PropertiesOrdered();
             }
 
-            CustomPanoramaProperties custompanoramaproperties = new CustomPanoramaProperties(s, properties);
-            customPanoramaProperties = custompanoramaproperties;
+            customPanoramaProperties = new CustomPanoramaProperties(s, properties);
         }
     }
 
@@ -58,8 +57,7 @@ public class CustomPanorama {
             }
         }
 
-        String[] astring = list.toArray(new String[list.size()]);
-        return astring;
+        return list.toArray(new String[list.size()]);
     }
 
     private static Properties[] getPanoramaProperties(String[] folders) {

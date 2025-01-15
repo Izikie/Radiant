@@ -148,8 +148,7 @@ public class UserList<K, V extends UserListEntry<K>> {
         public UserListEntry<K> deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
             if (p_deserialize_1_.isJsonObject()) {
                 JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
-                UserListEntry<K> userlistentry = UserList.this.createEntry(jsonobject);
-                return userlistentry;
+                return UserList.this.createEntry(jsonobject);
             } else {
                 return null;
             }

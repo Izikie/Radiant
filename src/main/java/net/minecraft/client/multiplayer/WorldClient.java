@@ -251,12 +251,11 @@ public class WorldClient extends World {
         this.loadedEntityList.removeAll(this.unloadedEntityList);
 
         for (Entity value : this.unloadedEntityList) {
-            Entity entity = value;
-            int j = entity.chunkCoordX;
-            int k = entity.chunkCoordZ;
+            int j = value.chunkCoordX;
+            int k = value.chunkCoordZ;
 
-            if (entity.addedToChunk && this.isChunkLoaded(j, k, true)) {
-                this.getChunkFromChunkCoords(j, k).removeEntity(entity);
+            if (value.addedToChunk && this.isChunkLoaded(j, k, true)) {
+                this.getChunkFromChunkCoords(j, k).removeEntity(value);
             }
         }
 

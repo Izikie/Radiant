@@ -896,8 +896,7 @@ public class ConnectedProperties {
                 }
             }
 
-            TextureAtlasSprite[] atextureatlassprite = (TextureAtlasSprite[]) list.toArray(new TextureAtlasSprite[list.size()]);
-            return atextureatlassprite;
+            return (TextureAtlasSprite[]) list.toArray(new TextureAtlasSprite[list.size()]);
         }
     }
 

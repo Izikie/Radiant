@@ -5,7 +5,6 @@ import net.minecraft.util.ResourceLocation;
 
 public class ItemLocator implements IObjectLocator {
     public Object getObject(ResourceLocation loc) {
-        Item item = Item.getByNameOrId(loc.toString());
-        return item;
+        return Item.getByNameOrId(loc.toString());
     }
 }

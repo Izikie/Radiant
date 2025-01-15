@@ -53,7 +53,6 @@ public class ModelAdapterSquid extends ModelAdapter {
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
-        RenderSquid rendersquid = new RenderSquid(rendermanager, modelBase, shadowSize);
-        return rendersquid;
+        return new RenderSquid(rendermanager, modelBase, shadowSize);
     }
 }

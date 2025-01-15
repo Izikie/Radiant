@@ -604,8 +604,7 @@ public class ModelBakery {
     }
 
     public ModelBlock getModelBlock(ResourceLocation p_getModelBlock_1_) {
-        ModelBlock modelblock = this.models.get(p_getModelBlock_1_);
-        return modelblock;
+        return this.models.get(p_getModelBlock_1_);
     }
 
     public static void fixModelLocations(ModelBlock p_fixModelLocations_0_, String p_fixModelLocations_1_) {

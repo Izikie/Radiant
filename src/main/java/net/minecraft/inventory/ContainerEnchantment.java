@@ -86,14 +86,13 @@ public class ContainerEnchantment extends Container {
         super.detectAndSendChanges();
 
         for (ICrafting crafter : this.crafters) {
-            ICrafting icrafting = crafter;
-            icrafting.sendProgressBarUpdate(this, 0, this.enchantLevels[0]);
-            icrafting.sendProgressBarUpdate(this, 1, this.enchantLevels[1]);
-            icrafting.sendProgressBarUpdate(this, 2, this.enchantLevels[2]);
-            icrafting.sendProgressBarUpdate(this, 3, this.xpSeed & -16);
-            icrafting.sendProgressBarUpdate(this, 4, this.enchantmentIds[0]);
-            icrafting.sendProgressBarUpdate(this, 5, this.enchantmentIds[1]);
-            icrafting.sendProgressBarUpdate(this, 6, this.enchantmentIds[2]);
+            crafter.sendProgressBarUpdate(this, 0, this.enchantLevels[0]);
+            crafter.sendProgressBarUpdate(this, 1, this.enchantLevels[1]);
+            crafter.sendProgressBarUpdate(this, 2, this.enchantLevels[2]);
+            crafter.sendProgressBarUpdate(this, 3, this.xpSeed & -16);
+            crafter.sendProgressBarUpdate(this, 4, this.enchantmentIds[0]);
+            crafter.sendProgressBarUpdate(this, 5, this.enchantmentIds[1]);
+            crafter.sendProgressBarUpdate(this, 6, this.enchantmentIds[2]);
         }
     }
 
@@ -202,12 +201,11 @@ public class ContainerEnchantment extends Container {
                     }
 
                     for (EnchantmentData enchantmentData : list) {
-                        EnchantmentData enchantmentdata = enchantmentData;
 
                         if (flag) {
-                            Items.enchanted_book.addEnchantment(itemstack, enchantmentdata);
+                            Items.enchanted_book.addEnchantment(itemstack, enchantmentData);
                         } else {
-                            itemstack.addEnchantment(enchantmentdata.enchantmentobj, enchantmentdata.enchantmentLevel);
+                            itemstack.addEnchantment(enchantmentData.enchantmentobj, enchantmentData.enchantmentLevel);
                         }
                     }
 

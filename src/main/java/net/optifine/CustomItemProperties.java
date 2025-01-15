@@ -514,8 +514,7 @@ public class CustomItemProperties {
                 list.add(nbttagvalue);
             }
 
-            NbtTagValue[] anbttagvalue = (NbtTagValue[]) list.toArray(new NbtTagValue[list.size()]);
-            return anbttagvalue;
+            return (NbtTagValue[]) list.toArray(new NbtTagValue[list.size()]);
         }
     }
 
@@ -656,8 +655,7 @@ public class CustomItemProperties {
         String s = resLoc.getResourcePath();
         s = StrUtils.removePrefix(s, "textures/");
         s = StrUtils.removeSuffix(s, ".png");
-        ResourceLocation resourcelocation = new ResourceLocation(resLoc.getResourceDomain(), s);
-        return resourcelocation;
+        return new ResourceLocation(resLoc.getResourceDomain(), s);
     }
 
     public void updateModelTexture(TextureMap textureMap, ItemModelGenerator itemModelGenerator) {
@@ -700,8 +698,7 @@ public class CustomItemProperties {
 
         ModelBlock modelblock = makeModelBlock(astring);
         ModelBlock modelblock1 = itemModelGenerator.makeItemModel(textureMap, modelblock);
-        IBakedModel ibakedmodel = bakeModel(textureMap, modelblock1, useTint);
-        return ibakedmodel;
+        return bakeModel(textureMap, modelblock1, useTint);
     }
 
     private String[] getModelTextures() {
@@ -782,8 +779,7 @@ public class CustomItemProperties {
 
         stringbuffer.append("}}");
         String s1 = stringbuffer.toString();
-        ModelBlock modelblock = ModelBlock.deserialize(s1);
-        return modelblock;
+        return ModelBlock.deserialize(s1);
     }
 
     private static IBakedModel bakeModel(TextureMap textureMap, ModelBlock modelBlockIn, boolean useTint) {

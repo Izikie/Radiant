@@ -169,8 +169,7 @@ public class PlayerItemParser {
             modelbase.textureWidth = textureDim.width;
             modelbase.textureHeight = textureDim.height;
             ModelRenderer modelrenderer = parseModelRenderer(elem, modelbase, null, null);
-            PlayerItemRenderer playeritemrenderer = new PlayerItemRenderer(i, modelrenderer);
-            return playeritemrenderer;
+            return new PlayerItemRenderer(i, modelrenderer);
         }
     }
 

@@ -110,8 +110,7 @@ public class VillageCollection extends WorldSavedData {
 
     private void addNewDoorsToVillageOrCreateVillage() {
         for (VillageDoorInfo newDoor : this.newDoors) {
-            VillageDoorInfo villagedoorinfo = newDoor;
-            Village village = this.getNearestVillage(villagedoorinfo.getDoorBlockPos(), 32);
+            Village village = this.getNearestVillage(newDoor.getDoorBlockPos(), 32);
 
             if (village == null) {
                 village = new Village(this.worldObj);
@@ -119,7 +118,7 @@ public class VillageCollection extends WorldSavedData {
                 this.markDirty();
             }
 
-            village.addVillageDoorInfo(villagedoorinfo);
+            village.addVillageDoorInfo(newDoor);
         }
 
         this.newDoors.clear();

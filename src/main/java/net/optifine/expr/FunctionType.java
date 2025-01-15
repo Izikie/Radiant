@@ -241,8 +241,7 @@ public enum FunctionType {
                 float f4 = evalFloat(args, 1);
                 float f5 = args.length > 2 ? evalFloat(args, 2) : 1.0F;
                 float f6 = args.length > 3 ? evalFloat(args, 3) : f5;
-                float f7 = Smoother.getSmoothValue(j, f4, f5, f6);
-                return f7;
+                return Smoother.getSmoothValue(j, f4, f5, f6);
 
             default:
                 Config.warn("Unknown function type: " + this);
@@ -288,8 +287,7 @@ public enum FunctionType {
 
     private static float evalFloat(IExpression[] exprs, int index) {
         IExpressionFloat iexpressionfloat = (IExpressionFloat) exprs[index];
-        float f = iexpressionfloat.eval();
-        return f;
+        return iexpressionfloat.eval();
     }
 
     public boolean evalBool(IExpression[] args) {
@@ -357,8 +355,7 @@ public enum FunctionType {
 
     private static boolean evalBool(IExpression[] exprs, int index) {
         IExpressionBool iexpressionbool = (IExpressionBool) exprs[index];
-        boolean flag = iexpressionbool.eval();
-        return flag;
+        return iexpressionbool.eval();
     }
 
     public float[] evalFloatArray(IExpression[] args) {

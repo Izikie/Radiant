@@ -20,8 +20,7 @@ public class Smoother {
                 mapSmoothValues.put(integer, smoothfloat);
             }
 
-            float f = smoothfloat.getSmoothValue(value, timeFadeUpSec, timeFadeDownSec);
-            return f;
+            return smoothfloat.getSmoothValue(value, timeFadeUpSec, timeFadeDownSec);
         }
     }
 

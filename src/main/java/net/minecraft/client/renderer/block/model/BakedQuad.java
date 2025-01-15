@@ -104,8 +104,7 @@ public class BakedQuad {
 
         float f6 = (f + f2) / 2.0F;
         float f7 = (f1 + f3) / 2.0F;
-        TextureAtlasSprite textureatlassprite = Minecraft.getMinecraft().getTextureMapBlocks().getIconByUV(f6, f7);
-        return textureatlassprite;
+        return Minecraft.getMinecraft().getTextureMapBlocks().getIconByUV(f6, f7);
     }
 
     protected void fixVertexData() {

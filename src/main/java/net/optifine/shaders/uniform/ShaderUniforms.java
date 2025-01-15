@@ -8,15 +8,13 @@ public class ShaderUniforms {
 
     public void setProgram(int program) {
         for (ShaderUniformBase listUniform : this.listUniforms) {
-            ShaderUniformBase shaderuniformbase = listUniform;
-            shaderuniformbase.setProgram(program);
+            listUniform.setProgram(program);
         }
     }
 
     public void reset() {
         for (ShaderUniformBase listUniform : this.listUniforms) {
-            ShaderUniformBase shaderuniformbase = listUniform;
-            shaderuniformbase.reset();
+            listUniform.reset();
         }
     }
 

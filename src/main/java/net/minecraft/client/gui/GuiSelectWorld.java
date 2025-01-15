@@ -187,8 +187,7 @@ public class GuiSelectWorld extends GuiScreen implements GuiYesNoCallback {
         String s1 = "'" + name + "' " + I18n.format("selectWorld.deleteWarning");
         String s2 = I18n.format("selectWorld.deleteButton");
         String s3 = I18n.format("gui.cancel");
-        GuiYesNo guiyesno = new GuiYesNo(selectWorld, s, s1, s2, s3, id);
-        return guiyesno;
+        return new GuiYesNo(selectWorld, s, s1, s2, s3, id);
     }
 
     class List extends GuiSlot {

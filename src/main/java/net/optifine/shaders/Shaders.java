@@ -1012,8 +1012,7 @@ public class Shaders {
         if (list.size() <= 0) {
             return null;
         } else {
-            ICustomTexture[] aicustomtexture = list.toArray(new ICustomTexture[list.size()]);
-            return aicustomtexture;
+            return list.toArray(new ICustomTexture[list.size()]);
         }
     }
 
@@ -1043,8 +1042,7 @@ public class Shaders {
         }
 
         ResourceLocation resourcelocation = new ResourceLocation(s);
-        CustomTextureLocation customtexturelocation = new CustomTextureLocation(textureUnit, resourcelocation, i);
-        return customtexturelocation;
+        return new CustomTextureLocation(textureUnit, resourcelocation, i);
     }
 
     private static ICustomTexture loadCustomTextureRaw(int textureUnit, String line) {
@@ -1136,8 +1134,7 @@ public class Shaders {
                 bytebuffer.put(abyte);
                 bytebuffer.flip();
                 TextureMetadataSection texturemetadatasection = SimpleShaderTexture.loadTextureMetadataSection(s, new TextureMetadataSection(true, true, new ArrayList()));
-                CustomTextureRaw customtextureraw = new CustomTextureRaw(type, internalFormat, width, height, depth, pixelFormat, pixelType, bytebuffer, textureUnit, texturemetadatasection.getTextureBlur(), texturemetadatasection.getTextureClamp());
-                return customtextureraw;
+                return new CustomTextureRaw(type, internalFormat, width, height, depth, pixelFormat, pixelType, bytebuffer, textureUnit, texturemetadatasection.getTextureBlur(), texturemetadatasection.getTextureClamp());
             }
         } catch (IOException ioexception) {
             SMCLog.warning("Error loading raw texture: " + path);
@@ -1164,8 +1161,7 @@ public class Shaders {
                 IOUtils.closeQuietly(inputstream);
                 SimpleShaderTexture simpleshadertexture = new SimpleShaderTexture(s);
                 simpleshadertexture.loadTexture(mc.getResourceManager());
-                CustomTexture customtexture = new CustomTexture(textureUnit, s, simpleshadertexture);
-                return customtexture;
+                return new CustomTexture(textureUnit, s, simpleshadertexture);
             }
         } catch (IOException ioexception) {
             SMCLog.warning("Error loading texture: " + path);
@@ -1379,8 +1375,7 @@ public class Shaders {
                     }
                 }
 
-                ShaderOption[] ashaderoption3 = list.toArray(new ShaderOption[list.size()]);
-                return ashaderoption3;
+                return list.toArray(new ShaderOption[list.size()]);
             }
         }
     }
@@ -1422,8 +1417,7 @@ public class Shaders {
             }
         }
 
-        ShaderOption[] ashaderoption1 = list.toArray(new ShaderOption[list.size()]);
-        return ashaderoption1;
+        return list.toArray(new ShaderOption[list.size()]);
     }
 
     public static ShaderOption getShaderOption(String name) {
@@ -1447,8 +1441,7 @@ public class Shaders {
             }
         }
 
-        ShaderOption[] ashaderoption = list.toArray(new ShaderOption[list.size()]);
-        return ashaderoption;
+        return list.toArray(new ShaderOption[list.size()]);
     }
 
     public static void saveShaderPackOptions() {
@@ -1538,8 +1531,7 @@ public class Shaders {
             }
         }
 
-        ShaderOption[] ashaderoption = list.toArray(new ShaderOption[list.size()]);
-        return ashaderoption;
+        return list.toArray(new ShaderOption[list.size()]);
     }
 
     private static String applyOptions(String line, ShaderOption[] ops) {

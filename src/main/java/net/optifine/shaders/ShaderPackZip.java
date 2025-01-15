@@ -74,8 +74,7 @@ public class ShaderPackZip implements IShaderPack {
             }
         }
 
-        String s1 = Joiner.on('/').join(deque);
-        return s1;
+        return Joiner.on('/').join(deque);
     }
 
     private String detectBaseFolder(ZipFile zip) {

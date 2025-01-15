@@ -117,18 +117,17 @@ public abstract class EntityFireball extends Entity {
             double d0 = 0.0D;
 
             for (Entity value : list) {
-                Entity entity1 = value;
 
-                if (entity1.canBeCollidedWith() && (!entity1.isEntityEqual(this.shootingEntity) || this.ticksInAir >= 25)) {
+                if (value.canBeCollidedWith() && (!value.isEntityEqual(this.shootingEntity) || this.ticksInAir >= 25)) {
                     float f = 0.3F;
-                    AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().expand(f, f, f);
+                    AxisAlignedBB axisalignedbb = value.getEntityBoundingBox().expand(f, f, f);
                     MovingObjectPosition movingobjectposition1 = axisalignedbb.calculateIntercept(vec3, vec31);
 
                     if (movingobjectposition1 != null) {
                         double d1 = vec3.squareDistanceTo(movingobjectposition1.hitVec);
 
                         if (d1 < d0 || d0 == 0.0D) {
-                            entity = entity1;
+                            entity = value;
                             d0 = d1;
                         }
                     }

@@ -32,7 +32,6 @@ public class ModelAdapterSlime extends ModelAdapter {
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
-        RenderSlime renderslime = new RenderSlime(rendermanager, modelBase, shadowSize);
-        return renderslime;
+        return new RenderSlime(rendermanager, modelBase, shadowSize);
     }
 }

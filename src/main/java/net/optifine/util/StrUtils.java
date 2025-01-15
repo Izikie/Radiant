@@ -454,8 +454,7 @@ public class StrUtils {
                     }
                 }
 
-                String[] astring = list.toArray(new String[list.size()]);
-                return astring;
+                return list.toArray(new String[list.size()]);
             }
         } else {
             return strs;

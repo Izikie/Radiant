@@ -383,10 +383,9 @@ public class ModelRenderer {
         if (p_getChild_1_ != null) {
             if (this.childModels != null) {
                 for (ModelRenderer childModel : this.childModels) {
-                    ModelRenderer modelrenderer = childModel;
 
-                    if (p_getChild_1_.equals(modelrenderer.getId())) {
-                        return modelrenderer;
+                    if (p_getChild_1_.equals(childModel.getId())) {
+                        return childModel;
                     }
                 }
             }
@@ -406,8 +405,7 @@ public class ModelRenderer {
             } else {
                 if (this.childModels != null) {
                     for (ModelRenderer childModel : this.childModels) {
-                        ModelRenderer modelrenderer1 = childModel;
-                        ModelRenderer modelrenderer2 = modelrenderer1.getChildDeep(p_getChildDeep_1_);
+                        ModelRenderer modelrenderer2 = childModel.getChildDeep(p_getChildDeep_1_);
 
                         if (modelrenderer2 != null) {
                             return modelrenderer2;

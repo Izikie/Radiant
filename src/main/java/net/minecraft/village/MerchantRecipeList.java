@@ -42,19 +42,18 @@ public class MerchantRecipeList extends ArrayList<MerchantRecipe> {
         buffer.writeByte((byte) (this.size() & 255));
 
         for (MerchantRecipe merchantRecipe : this) {
-            MerchantRecipe merchantrecipe = merchantRecipe;
-            buffer.writeItemStackToBuffer(merchantrecipe.getItemToBuy());
-            buffer.writeItemStackToBuffer(merchantrecipe.getItemToSell());
-            ItemStack itemstack = merchantrecipe.getSecondItemToBuy();
+            buffer.writeItemStackToBuffer(merchantRecipe.getItemToBuy());
+            buffer.writeItemStackToBuffer(merchantRecipe.getItemToSell());
+            ItemStack itemstack = merchantRecipe.getSecondItemToBuy();
             buffer.writeBoolean(itemstack != null);
 
             if (itemstack != null) {
                 buffer.writeItemStackToBuffer(itemstack);
             }
 
-            buffer.writeBoolean(merchantrecipe.isRecipeDisabled());
-            buffer.writeInt(merchantrecipe.getToolUses());
-            buffer.writeInt(merchantrecipe.getMaxTradeUses());
+            buffer.writeBoolean(merchantRecipe.isRecipeDisabled());
+            buffer.writeInt(merchantRecipe.getToolUses());
+            buffer.writeInt(merchantRecipe.getMaxTradeUses());
         }
     }
 
@@ -100,8 +99,7 @@ public class MerchantRecipeList extends ArrayList<MerchantRecipe> {
         NBTTagList nbttaglist = new NBTTagList();
 
         for (MerchantRecipe merchantRecipe : this) {
-            MerchantRecipe merchantrecipe = merchantRecipe;
-            nbttaglist.appendTag(merchantrecipe.writeToTags());
+            nbttaglist.appendTag(merchantRecipe.writeToTags());
         }
 
         nbttagcompound.setTag("Recipes", nbttaglist);

@@ -228,18 +228,17 @@ public class EntityFishHook extends Entity {
             double d0 = 0.0D;
 
             for (Entity value : list) {
-                Entity entity1 = value;
 
-                if (entity1.canBeCollidedWith() && (entity1 != this.angler || this.ticksInAir >= 5)) {
+                if (value.canBeCollidedWith() && (value != this.angler || this.ticksInAir >= 5)) {
                     float f = 0.3F;
-                    AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().expand(f, f, f);
+                    AxisAlignedBB axisalignedbb = value.getEntityBoundingBox().expand(f, f, f);
                     MovingObjectPosition movingobjectposition1 = axisalignedbb.calculateIntercept(vec31, vec3);
 
                     if (movingobjectposition1 != null) {
                         double d2 = vec31.squareDistanceTo(movingobjectposition1.hitVec);
 
                         if (d2 < d0 || d0 == 0.0D) {
-                            entity = entity1;
+                            entity = value;
                             d0 = d2;
                         }
                     }

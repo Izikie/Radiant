@@ -36,8 +36,7 @@ public class MacroProcessor {
         }
 
         byte[] abyte = s.getBytes(StandardCharsets.US_ASCII);
-        ByteArrayInputStream bytearrayinputstream = new ByteArrayInputStream(abyte);
-        return bytearrayinputstream;
+        return new ByteArrayInputStream(abyte);
     }
 
     public static String process(String strIn) throws IOException {

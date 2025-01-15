@@ -21,8 +21,7 @@ public class MathUtils {
             return 0;
         } else {
             int i = getSum(vals);
-            int j = i / vals.length;
-            return j;
+            return i / vals.length;
         }
     }
 

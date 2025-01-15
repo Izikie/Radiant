@@ -268,10 +268,9 @@ public class EntityArmorStand extends EntityLivingBase {
 
         if (list != null && !list.isEmpty()) {
             for (Entity value : list) {
-                Entity entity = value;
 
-                if (entity instanceof EntityMinecart entityMinecart && entityMinecart.getMinecartType() == EntityMinecart.EnumMinecartType.RIDEABLE && this.getDistanceSqToEntity(entity) <= 0.2D) {
-                    entity.applyEntityCollision(this);
+                if (value instanceof EntityMinecart entityMinecart && entityMinecart.getMinecartType() == EntityMinecart.EnumMinecartType.RIDEABLE && this.getDistanceSqToEntity(value) <= 0.2D) {
+                    value.applyEntityCollision(this);
                 }
             }
         }

@@ -18,8 +18,7 @@ public class RandomTileEntity implements IRandomEntity {
     }
 
     public String getName() {
-        String s = TileEntityUtils.getTileEntityName(this.tileEntity);
-        return s;
+        return TileEntityUtils.getTileEntityName(this.tileEntity);
     }
 
     public BiomeGenBase getSpawnBiome() {

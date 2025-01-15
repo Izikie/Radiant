@@ -30,8 +30,7 @@ public class ShaderUniform3f extends ShaderUniformBase {
 
     public float[] getValue() {
         int i = this.getProgram();
-        float[] afloat = this.programValues[i];
-        return afloat;
+        return this.programValues[i];
     }
 
     protected void onProgramSet(int program) {

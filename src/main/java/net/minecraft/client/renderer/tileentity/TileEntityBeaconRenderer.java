@@ -34,8 +34,7 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
                 int i = 0;
 
                 for (TileEntityBeacon.BeamSegment beamSegment : list) {
-                    TileEntityBeacon.BeamSegment tileentitybeacon$beamsegment = beamSegment;
-                    int k = i + tileentitybeacon$beamsegment.getHeight();
+                    int k = i + beamSegment.getHeight();
                     this.bindTexture(beaconBeam);
                     GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, 10497.0F);
                     GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, 10497.0F);
@@ -46,9 +45,9 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
                     GlStateManager.tryBlendFuncSeparate(770, 1, 1, 0);
                     double d0 = (double) te.getWorld().getTotalWorldTime() + partialTicks;
                     double d1 = MathHelper.func_181162_h(-d0 * 0.2D - MathHelper.floor_double(-d0 * 0.1D));
-                    float f1 = tileentitybeacon$beamsegment.getColors()[0];
-                    float f2 = tileentitybeacon$beamsegment.getColors()[1];
-                    float f3 = tileentitybeacon$beamsegment.getColors()[2];
+                    float f1 = beamSegment.getColors()[0];
+                    float f2 = beamSegment.getColors()[1];
+                    float f3 = beamSegment.getColors()[2];
                     double d2 = d0 * 0.025D * -1.5D;
                     double d3 = 0.2D;
                     double d4 = 0.5D + Math.cos(d2 + 2.356194490192345D) * 0.2D;
@@ -62,7 +61,7 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
                     double d12 = 0.0D;
                     double d13 = 1.0D;
                     double d14 = -1.0D + d1;
-                    double d15 = (tileentitybeacon$beamsegment.getHeight() * f) * 2.5D + d14;
+                    double d15 = (beamSegment.getHeight() * f) * 2.5D + d14;
                     worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
                     worldrenderer.pos(x + d4, y + k, z + d5).tex(1.0D, d15).color(f1, f2, f3, 1.0F).endVertex();
                     worldrenderer.pos(x + d4, y + i, z + d5).tex(1.0D, d14).color(f1, f2, f3, 1.0F).endVertex();
@@ -95,7 +94,7 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
                     d10 = 0.0D;
                     d11 = 1.0D;
                     d12 = -1.0D + d1;
-                    d13 = (tileentitybeacon$beamsegment.getHeight() * f) + d12;
+                    d13 = (beamSegment.getHeight() * f) + d12;
                     worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
                     worldrenderer.pos(x + 0.2D, y + k, z + 0.2D).tex(1.0D, d13).color(f1, f2, f3, 0.125F).endVertex();
                     worldrenderer.pos(x + 0.2D, y + i, z + 0.2D).tex(1.0D, d12).color(f1, f2, f3, 0.125F).endVertex();

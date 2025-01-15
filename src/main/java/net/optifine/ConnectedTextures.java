@@ -93,8 +93,7 @@ public class ConnectedTextures {
                 return renderEnv.getArrayQuadsCtm(quad);
             } else {
                 EnumFacing enumfacing = quad.getFace();
-                BakedQuad[] abakedquad = getConnectedTextureMultiPass(blockAccess, blockState, blockPos, enumfacing, quad, renderEnv);
-                return abakedquad;
+                return getConnectedTextureMultiPass(blockAccess, blockState, blockPos, enumfacing, quad, renderEnv);
             }
         }
     }
@@ -165,8 +164,7 @@ public class ConnectedTextures {
             return renderEnv.getArrayQuadsCtm(quadIn);
         } else {
             BakedQuad bakedquad = getQuad(sprite, quadIn);
-            BakedQuad[] abakedquad = renderEnv.getArrayQuadsCtm(bakedquad);
-            return abakedquad;
+            return renderEnv.getArrayQuadsCtm(bakedquad);
         }
     }
 
@@ -237,8 +235,7 @@ public class ConnectedTextures {
             fixVertex(aint, i, textureatlassprite, sprite);
         }
 
-        BakedQuad bakedquad = new BakedQuad(aint, quad.getTintIndex(), quad.getFace(), sprite);
-        return bakedquad;
+        return new BakedQuad(aint, quad.getTintIndex(), quad.getFace(), sprite);
     }
 
     private static void fixVertex(int[] data, int vertex, TextureAtlasSprite spriteFrom, TextureAtlasSprite spriteTo) {
@@ -263,8 +260,7 @@ public class ConnectedTextures {
             List<BakedQuad> list = renderEnv.getListQuadsCtmMultipass(abakedquad);
 
             for (int i = 0; i < list.size(); ++i) {
-                BakedQuad bakedquad = list.get(i);
-                BakedQuad bakedquad1 = bakedquad;
+                BakedQuad bakedquad1 = list.get(i);
 
                 for (int j = 0; j < 3; ++j) {
                     BakedQuad[] abakedquad1 = getConnectedTextureSingle(blockAccess, blockState, blockPos, side, bakedquad1, false, j + 1, renderEnv);
@@ -1945,7 +1941,6 @@ public class ConnectedTextures {
             }
         }
 
-        String[] astring1 = (String[]) list.toArray(new String[list.size()]);
-        return astring1;
+        return (String[]) list.toArray(new String[list.size()]);
     }
 }

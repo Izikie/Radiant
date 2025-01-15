@@ -31,8 +31,7 @@ public class ShaderUniform4i extends ShaderUniformBase {
 
     public int[] getValue() {
         int i = this.getProgram();
-        int[] aint = this.programValues[i];
-        return aint;
+        return this.programValues[i];
     }
 
     protected void onProgramSet(int program) {

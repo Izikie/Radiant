@@ -32,7 +32,6 @@ public class ModelAdapterWolf extends ModelAdapter {
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
-        RenderWolf renderwolf = new RenderWolf(rendermanager, modelBase, shadowSize);
-        return renderwolf;
+        return new RenderWolf(rendermanager, modelBase, shadowSize);
     }
 }

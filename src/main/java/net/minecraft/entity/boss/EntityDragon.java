@@ -347,11 +347,10 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
 
     private void attackEntitiesInList(List<Entity> p_70971_1_) {
         for (Entity value : p_70971_1_) {
-            Entity entity = value;
 
-            if (entity instanceof EntityLivingBase) {
-                entity.attackEntityFrom(DamageSource.causeMobDamage(this), 10.0F);
-                this.applyEnchantments(this, entity);
+            if (value instanceof EntityLivingBase) {
+                value.attackEntityFrom(DamageSource.causeMobDamage(this), 10.0F);
+                this.applyEnchantments(this, value);
             }
         }
     }

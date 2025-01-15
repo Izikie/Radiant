@@ -73,11 +73,10 @@ public class MapStorage {
 
     public void saveAllData() {
         for (WorldSavedData worldSavedData : this.loadedDataList) {
-            WorldSavedData worldsaveddata = worldSavedData;
 
-            if (worldsaveddata.isDirty()) {
-                this.saveData(worldsaveddata);
-                worldsaveddata.setDirty(false);
+            if (worldSavedData.isDirty()) {
+                this.saveData(worldSavedData);
+                worldSavedData.setDirty(false);
             }
         }
     }

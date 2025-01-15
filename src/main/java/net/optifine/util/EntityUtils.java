@@ -27,8 +27,7 @@ public class EntityUtils {
     }
 
     public static Class getEntityClassByName(String name) {
-        Class oclass = mapClassByName.get(name);
-        return oclass;
+        return mapClassByName.get(name);
     }
 
     static {

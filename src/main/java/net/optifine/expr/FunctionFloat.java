@@ -28,8 +28,7 @@ public class FunctionFloat implements IExpressionFloat {
                         this.smoothId = Smoother.getNextId();
                     }
 
-                    float f3 = Smoother.getSmoothValue(this.smoothId, f, f1, f2);
-                    return f3;
+                    return Smoother.getSmoothValue(this.smoothId, f, f1, f2);
                 }
 
             default:
@@ -39,8 +38,7 @@ public class FunctionFloat implements IExpressionFloat {
 
     private static float evalFloat(IExpression[] exprs, int index) {
         IExpressionFloat iexpressionfloat = (IExpressionFloat) exprs[index];
-        float f = iexpressionfloat.eval();
-        return f;
+        return iexpressionfloat.eval();
     }
 
     public ExpressionType getExpressionType() {

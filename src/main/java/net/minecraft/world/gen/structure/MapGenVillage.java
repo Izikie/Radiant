@@ -59,9 +59,8 @@ public class MapGenVillage extends MapGenStructure {
         l = l + random.nextInt(this.field_82665_g - this.field_82666_h);
 
         if (i == k && j == l) {
-            boolean flag = this.worldObj.getWorldChunkManager().areBiomesViable(i * 16 + 8, j * 16 + 8, 0, villageSpawnBiomes);
 
-            return flag;
+            return this.worldObj.getWorldChunkManager().areBiomesViable(i * 16 + 8, j * 16 + 8, 0, villageSpawnBiomes);
         }
 
         return false;

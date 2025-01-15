@@ -313,8 +313,6 @@ public class TextureAtlasSprite {
             this.framesTextureData.add(aint);
         } else {
             int j1 = j / i;
-            int l1 = i;
-            int l = i;
             this.height = this.width;
 
             if (meta.getFrameCount() > 0) {
@@ -328,7 +326,7 @@ public class TextureAtlasSprite {
                     }
 
                     this.allocateFrameTextureData(i1);
-                    this.framesTextureData.set(i1, getFrameTextureData(aint, l1, l, i1));
+                    this.framesTextureData.set(i1, getFrameTextureData(aint, i, i, i1));
                 }
 
                 this.animationMetadata = meta;
@@ -336,7 +334,7 @@ public class TextureAtlasSprite {
                 List<AnimationFrame> list = Lists.newArrayList();
 
                 for (int j2 = 0; j2 < j1; ++j2) {
-                    this.framesTextureData.add(getFrameTextureData(aint, l1, l, j2));
+                    this.framesTextureData.add(getFrameTextureData(aint, i, i, j2));
                     list.add(new AnimationFrame(j2, -1));
                 }
 
@@ -350,10 +348,9 @@ public class TextureAtlasSprite {
             }
 
             for (int[][] framesTextureDatum : this.framesTextureData) {
-                int[][] aint1 = framesTextureDatum;
 
-                if (aint1 != null && !this.iconName.startsWith("minecraft:blocks/leaves_")) {
-                    for (int[] aint2 : aint1) {
+                if (framesTextureDatum != null && !this.iconName.startsWith("minecraft:blocks/leaves_")) {
+                    for (int[] aint2 : framesTextureDatum) {
                         this.fixTransparentColor(aint2);
                     }
                 }

@@ -49,9 +49,8 @@ public class BlockPistonStructureHelper {
             return false;
         } else {
             for (BlockPos blockPos : this.toMove) {
-                BlockPos blockpos = blockPos;
 
-                if (this.world.getBlockState(blockpos).getBlock() == Blocks.slime_block && !this.func_177250_b(blockpos)) {
+                if (this.world.getBlockState(blockPos).getBlock() == Blocks.slime_block && !this.func_177250_b(blockPos)) {
                     return false;
                 }
             }

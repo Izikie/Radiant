@@ -286,8 +286,7 @@ public class PlayerProfileCache {
                             return null;
                         }
 
-                        PlayerProfileCache.ProfileEntry playerprofilecache$profileentry = PlayerProfileCache.this.new ProfileEntry(new GameProfile(uuid, s1), date);
-                        return playerprofilecache$profileentry;
+                        return PlayerProfileCache.this.new ProfileEntry(new GameProfile(uuid, s1), date);
                     } else {
                         return null;
                     }
