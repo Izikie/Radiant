@@ -33,10 +33,10 @@ public class Main {
         OptionSpec<File> assetsDirOption = optionParser.accepts("assetsDir").withRequiredArg().ofType(File.class);
         OptionSpec<File> resourcePackDirOption = optionParser.accepts("resourcePackDir").withRequiredArg().ofType(File.class);
         OptionSpec<String> proxyHostOption = optionParser.accepts("proxyHost").withRequiredArg();
-        OptionSpec<Integer> proxyPortOption = optionParser.accepts("proxyPort").withRequiredArg().defaultsTo("8080", new String[0]).ofType(Integer.class);
+        OptionSpec<Integer> proxyPortOption = optionParser.accepts("proxyPort").withRequiredArg().defaultsTo("8080").ofType(Integer.class);
         OptionSpec<String> proxyUserOption = optionParser.accepts("proxyUser").withRequiredArg();
         OptionSpec<String> proxyPassOption = optionParser.accepts("proxyPass").withRequiredArg();
-        OptionSpec<String> usernameOption = optionParser.accepts("username").withRequiredArg().defaultsTo("Player" + Minecraft.getSystemTime() % 1000L);
+        OptionSpec<String> usernameOption = optionParser.accepts("username").withRequiredArg().defaultsTo("Player");
         OptionSpec<String> uuidOption = optionParser.accepts("uuid").withRequiredArg();
         OptionSpec<String> accessTokenOption = optionParser.accepts("accessToken").withRequiredArg().required();
         OptionSpec<String> versionOption = optionParser.accepts("version").withRequiredArg().required();

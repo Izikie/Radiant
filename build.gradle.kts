@@ -37,7 +37,7 @@ dependencies {
     implementation(group = "net.java.dev.jna", name = "platform", version = "3.4.0")
 
     implementation(group = "com.ibm.icu", name = "icu4j", version = "51.2")
-    implementation(group = "net.sf.jopt-simple", name = "jopt-simple", version = "4.6")
+    implementation(group = "net.sf.jopt-simple", name = "jopt-simple", version = "5.0.4")
 
     implementation(group = "com.paulscode", name = "codecjorbis", version = "20101023")
     implementation(group = "com.paulscode", name = "codecwav", version = "20101023")
