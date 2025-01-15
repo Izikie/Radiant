@@ -597,7 +597,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 GlStateManager.rotate(f2 - entity.rotationPitch, 1.0F, 0.0F, 0.0F);
             }
         } else {
-            GlStateManager.translate(0.0F, 0.0F, -0.1F);
+            GlStateManager.translate(0.0F, 0.0F, 0.1F); // FIXED: Parallax Fix
         }
 
         if (!this.mc.gameSettings.debugCamEnable) {
