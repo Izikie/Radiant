@@ -1806,11 +1806,6 @@ public class Minecraft implements IThreadListener {
                 return Minecraft.this.mcLanguageManager.getCurrentLanguage().toString();
             }
         });
-        theCrash.getCategory().addCrashSectionCallable("CPU", new Callable<String>() {
-            public String call() {
-                return OpenGlHelper.getCpu();
-            }
-        });
 
         if (this.theWorld != null) {
             this.theWorld.addWorldInfoToCrashReport(theCrash);

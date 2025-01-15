@@ -33,8 +33,6 @@ dependencies {
     // Third Party
     implementation("javax.vecmath:vecmath:1.5.2")
 
-    implementation(group = "oshi-project", name = "oshi-core", version = "1.1")
-
     implementation(group = "net.java.dev.jna", name = "jna", version = "3.4.0")
     implementation(group = "net.java.dev.jna", name = "platform", version = "3.4.0")
 

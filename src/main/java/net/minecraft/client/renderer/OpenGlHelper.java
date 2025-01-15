@@ -26,8 +26,6 @@ import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 import org.lwjgl.opengl.GL31;
 import org.lwjgl.opengl.GLContext;
-import oshi.SystemInfo;
-import oshi.hardware.Processor;
 
 public class OpenGlHelper {
     public static boolean nvidia;
@@ -78,7 +76,6 @@ public class OpenGlHelper {
     public static boolean openGL21;
     public static boolean shadersSupported;
     private static String logText = "";
-    private static String cpu;
     public static boolean vboSupported;
     public static boolean vboSupportedAti;
     private static boolean arbVbo;
@@ -258,12 +255,6 @@ public class OpenGlHelper {
             } else {
                 GameSettings.Options.RENDER_DISTANCE.setValueMax(16.0F);
             }
-        }
-
-        try {
-            Processor[] aprocessor = (new SystemInfo()).getHardware().getProcessors();
-            cpu = String.format("%dx %s", new Object[]{aprocessor.length, aprocessor[0]}).replaceAll("\\s+", " ");
-        } catch (Throwable ignored) {
         }
     }
 
@@ -737,9 +728,5 @@ public class OpenGlHelper {
         } else {
             ARBCopyBuffer.glCopyBufferSubData(p_glCopyBufferSubData_0_, p_glCopyBufferSubData_1_, p_glCopyBufferSubData_2_, p_glCopyBufferSubData_4_, p_glCopyBufferSubData_6_);
         }
-    }
-
-    public static String getCpu() {
-        return cpu == null ? "<unknown>" : cpu;
     }
 }

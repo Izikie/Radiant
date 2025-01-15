@@ -219,10 +219,9 @@ public class GuiOverlayDebug extends Gui {
                 String.format("Allocated: % 2d%% %03dMB", totalMemory * 100L / maxMemory, bytesToMb(totalMemory)),
                 "GC: " + MemoryMonitor.getAllocationRateMb() + "MB/s",
                 "",
-                String.format("CPU: %s", OpenGlHelper.getCpu()),
-                "",
+                String.format("GPU: %s", GL11.glGetString(GL11.GL_RENDERER)),
                 String.format("Display: %dx%d (%s)", Display.getWidth(), Display.getHeight(), GL11.glGetString(GL11.GL_VENDOR)),
-                GL11.glGetString(GL11.GL_RENDERER), GL11.glGetString(GL11.GL_VERSION));
+                GL11.glGetString(GL11.GL_VERSION));
 
         if (!isReducedDebug()) {
             if (mc.objectMouseOver != null && mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && mc.objectMouseOver.getBlockPos() != null) {
