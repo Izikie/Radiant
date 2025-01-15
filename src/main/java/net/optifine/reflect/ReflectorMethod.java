@@ -6,16 +6,12 @@ import java.util.List;
 
 import net.optifine.Log;
 
-public class ReflectorMethod implements IResolvable {
+public class ReflectorMethod {
     private final ReflectorClass reflectorClass;
     private final String targetMethodName;
     private final Class[] targetMethodParameterTypes;
     private boolean checked;
     private Method targetMethod;
-
-    public ReflectorMethod(ReflectorClass reflectorClass, String targetMethodName) {
-        this(reflectorClass, targetMethodName, null);
-    }
 
     public ReflectorMethod(ReflectorClass reflectorClass, String targetMethodName, Class[] targetMethodParameterTypes) {
         this.checked = false;
@@ -23,7 +19,6 @@ public class ReflectorMethod implements IResolvable {
         this.reflectorClass = reflectorClass;
         this.targetMethodName = targetMethodName;
         this.targetMethodParameterTypes = targetMethodParameterTypes;
-        ReflectorResolver.register(this);
     }
 
     public Method getTargetMethod() {
@@ -120,6 +115,4 @@ public class ReflectorMethod implements IResolvable {
 
         return (Method[]) list.toArray(new Method[list.size()]);
     }
-
-    public void resolve() {}
 }

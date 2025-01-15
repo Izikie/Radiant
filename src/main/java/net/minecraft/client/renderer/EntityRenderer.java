@@ -71,15 +71,12 @@ import net.minecraft.util.ReportedException;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldSettings;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.optifine.CustomColors;
 import net.optifine.GlErrors;
 import net.optifine.RandomEntities;
 import net.optifine.gui.GuiChatOF;
-import net.optifine.reflect.Reflector;
-import net.optifine.reflect.ReflectorResolver;
 import net.optifine.shaders.Shaders;
 import net.optifine.shaders.ShadersRender;
 import net.optifine.util.MemoryMonitor;
@@ -1969,7 +1966,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         GlErrors.frameStart();
 
         if (!this.initialized) {
-            ReflectorResolver.resolve();
             TextureUtils.registerResourceListener();
 
             if (Config.getBitsOs() == 64 && Config.getBitsJre() == 32) {

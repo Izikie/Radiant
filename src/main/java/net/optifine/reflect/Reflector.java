@@ -282,19 +282,16 @@ public class Reflector {
         }
     }
 
-    public static boolean setFieldValueInt(Object obj, ReflectorField refField, int value) {
+    public static void setFieldValueInt(Object obj, ReflectorField refField, int value) {
         try {
             Field field = refField.getTargetField();
 
             if (field == null) {
-                return false;
             } else {
                 field.setInt(obj, value);
-                return true;
             }
         } catch (Throwable throwable) {
             Log.error("", throwable);
-            return false;
         }
     }
 

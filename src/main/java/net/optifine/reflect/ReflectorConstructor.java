@@ -5,7 +5,7 @@ import java.lang.reflect.Constructor;
 import net.optifine.Log;
 import net.optifine.util.ArrayUtils;
 
-public class ReflectorConstructor implements IResolvable {
+public class ReflectorConstructor {
     private final ReflectorClass reflectorClass;
     private final Class[] parameterTypes;
     private boolean checked = false;
@@ -14,7 +14,6 @@ public class ReflectorConstructor implements IResolvable {
     public ReflectorConstructor(ReflectorClass reflectorClass, Class[] parameterTypes) {
         this.reflectorClass = reflectorClass;
         this.parameterTypes = parameterTypes;
-        ReflectorResolver.register(this);
     }
 
     public Constructor getTargetConstructor() {
@@ -72,6 +71,4 @@ public class ReflectorConstructor implements IResolvable {
     public Object newInstance(Object... params) {
         return Reflector.newInstance(this, params);
     }
-
-    public void resolve() {}
 }

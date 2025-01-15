@@ -39,7 +39,7 @@ public class FieldLocatorTypes implements IFieldLocator {
         }
     }
 
-    public Field getField() {
+    public Field field() {
         return this.field;
     }
 }

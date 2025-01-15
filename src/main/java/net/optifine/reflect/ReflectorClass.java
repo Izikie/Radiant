@@ -2,14 +2,13 @@ package net.optifine.reflect;
 
 import net.optifine.Log;
 
-public class ReflectorClass implements IResolvable {
+public class ReflectorClass {
     private final String targetClassName;
     private boolean checked = false;
     private Class targetClass = null;
 
     public ReflectorClass(String targetClassName) {
         this.targetClassName = targetClassName;
-        ReflectorResolver.register(this);
     }
 
     public ReflectorClass(Class targetClass) {
@@ -37,6 +36,4 @@ public class ReflectorClass implements IResolvable {
     public boolean exists() {
         return this.getTargetClass() != null;
     }
-
-    public void resolve() {}
 }

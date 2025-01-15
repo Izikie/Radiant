@@ -15,7 +15,7 @@ public class FieldLocatorType implements IFieldLocator {
         this.targetFieldIndex = targetFieldIndex;
     }
 
-    public Field getField() {
+    public Field field() {
         Class oclass = this.reflectorClass.getTargetClass();
 
         if (oclass == null) {
