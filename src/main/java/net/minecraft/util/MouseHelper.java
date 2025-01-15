@@ -26,14 +26,13 @@ public class MouseHelper {
         this.deltaY = Mouse.getDY();
     }
 
-    // Improvement: Modern KeyBind Handling
+    // IMPROVEMENT: Modern KeyBind Handling
     private void updateKeyBindState() {
         for (KeyBinding keybinding : KeyBinding.getKeybindArray()) {
             try {
                 final int keyCode = keybinding.getKeyCode();
                 KeyBinding.setKeyBindState(keyCode, keyCode < 256 && Keyboard.isKeyDown(keyCode));
-            } catch (IndexOutOfBoundsException ignored) {
-            }
+            } catch (IndexOutOfBoundsException ignored) {}
         }
     }
 }

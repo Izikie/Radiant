@@ -8,6 +8,9 @@ import io.netty.buffer.Unpooled;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -54,7 +57,6 @@ import net.minecraft.entity.IMerchant;
 import net.minecraft.entity.NpcMerchant;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.BaseAttributeMap;
-import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.entity.effect.EntityLightningBolt;
@@ -968,12 +970,10 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
             this.gameController.playerController.setGameType(WorldSettings.GameType.getByID(j));
         } else if (i == 4) {
             this.gameController.displayGuiScreen(new GuiWinGame());
-        } else if (i == 5) {
-            // TODO: Notify Player or Ignore
-        } else if (i == 6) {
+        } else if (i == 6) { // FIXED: Action 5, Shows Demo Screen
             this.clientWorldController.playSound(entityplayer.posX, entityplayer.posY + entityplayer.getEyeHeight(), entityplayer.posZ, "random.successful_hit", 0.18F, 0.45F, false);
-        } else if (i == 7) {
-            this.clientWorldController.setRainStrength(f);
+        } else if (i == 7) { // FIXED: HIGH VALUE -> LAG/CRASH | LOW VALUE -> WORLD COLOR CHANGES
+            this.clientWorldController.setRainStrength(Math.clamp(f, -2.0F, 2F)); // Allow leniency for servers to use.
         } else if (i == 8) {
             this.clientWorldController.setThunderStrength(f);
         } else if (i == 10) {
@@ -1182,79 +1182,96 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
     }
 
     public void handleResourcePack(S48PacketResourcePackSend packetIn) {
-        final String s = packetIn.getURL();
-        final String s1 = packetIn.getHash();
+        final String url = packetIn.getURL();
+        final String hash = packetIn.getHash();
 
-        if (s.startsWith("level://")) {
-            String s2 = s.substring("level://".length());
-            File file1 = new File(this.gameController.mcDataDir, "saves");
-            File file2 = new File(file1, s2);
-
-            if (file2.isFile()) {
-                this.netManager.sendPacket(new C19PacketResourcePackStatus(s1, C19PacketResourcePackStatus.Action.ACCEPTED));
-                Futures.addCallback(this.gameController.getResourcePackRepository().setResourcePackInstance(file2), new FutureCallback<Object>() {
-                    public void onSuccess(Object p_onSuccess_1_) {
-                        NetHandlerPlayClient.this.netManager.sendPacket(new C19PacketResourcePackStatus(s1, C19PacketResourcePackStatus.Action.SUCCESSFULLY_LOADED));
-                    }
-
-                    public void onFailure(Throwable p_onFailure_1_) {
-                        NetHandlerPlayClient.this.netManager.sendPacket(new C19PacketResourcePackStatus(s1, C19PacketResourcePackStatus.Action.FAILED_DOWNLOAD));
-                    }
-                });
-            } else {
-                this.netManager.sendPacket(new C19PacketResourcePackStatus(s1, C19PacketResourcePackStatus.Action.FAILED_DOWNLOAD));
+        try { // FIXED: Resource Pack Traversal Exploit
+            // Check for unsupported protocols
+            if (!url.matches("(http|https|level)://+.*")) {
+                netManager.sendPacket(new C19PacketResourcePackStatus(hash, C19PacketResourcePackStatus.Action.FAILED_DOWNLOAD));
+                throw new URISyntaxException(url, "Unsupported Protocol");
             }
-        } else {
-            if (this.gameController.getCurrentServerData() != null && this.gameController.getCurrentServerData().getResourceMode() == ServerData.ServerResourceMode.ENABLED) {
-                this.netManager.sendPacket(new C19PacketResourcePackStatus(s1, C19PacketResourcePackStatus.Action.ACCEPTED));
-                Futures.addCallback(this.gameController.getResourcePackRepository().downloadResourcePack(s, s1), new FutureCallback<Object>() {
-                    public void onSuccess(Object p_onSuccess_1_) {
-                        NetHandlerPlayClient.this.netManager.sendPacket(new C19PacketResourcePackStatus(s1, C19PacketResourcePackStatus.Action.SUCCESSFULLY_LOADED));
-                    }
 
-                    public void onFailure(Throwable p_onFailure_1_) {
-                        NetHandlerPlayClient.this.netManager.sendPacket(new C19PacketResourcePackStatus(s1, C19PacketResourcePackStatus.Action.FAILED_DOWNLOAD));
-                    }
-                });
-            } else if (this.gameController.getCurrentServerData() != null && this.gameController.getCurrentServerData().getResourceMode() != ServerData.ServerResourceMode.PROMPT) {
-                this.netManager.sendPacket(new C19PacketResourcePackStatus(s1, C19PacketResourcePackStatus.Action.DECLINED));
+
+            if (url.startsWith("level://")) {
+                String s2 = url.substring("level://".length());
+
+                String decode = URLDecoder.decode(s2, StandardCharsets.UTF_8);
+                if (decode.contains("..") || !decode.endsWith("/resources.zip")) {
+                    throw new URISyntaxException(url, "Invalid level storage resource pack path");
+                }
+
+                File file1 = new File(this.gameController.mcDataDir, "saves");
+                File file2 = new File(file1, s2);
+
+                if (file2.isFile()) {
+                    this.netManager.sendPacket(new C19PacketResourcePackStatus(hash, C19PacketResourcePackStatus.Action.ACCEPTED));
+                    Futures.addCallback(this.gameController.getResourcePackRepository().setResourcePackInstance(file2), new FutureCallback<Object>() {
+                        public void onSuccess(Object p_onSuccess_1_) {
+                            NetHandlerPlayClient.this.netManager.sendPacket(new C19PacketResourcePackStatus(hash, C19PacketResourcePackStatus.Action.SUCCESSFULLY_LOADED));
+                        }
+
+                        public void onFailure(Throwable p_onFailure_1_) {
+                            NetHandlerPlayClient.this.netManager.sendPacket(new C19PacketResourcePackStatus(hash, C19PacketResourcePackStatus.Action.FAILED_DOWNLOAD));
+                        }
+                    });
+                } else {
+                    this.netManager.sendPacket(new C19PacketResourcePackStatus(hash, C19PacketResourcePackStatus.Action.FAILED_DOWNLOAD));
+                }
             } else {
-                this.gameController.addScheduledTask(new Runnable() {
-                    public void run() {
-                        NetHandlerPlayClient.this.gameController.displayGuiScreen(new GuiYesNo(new GuiYesNoCallback() {
-                            public void confirmClicked(boolean result, int id) {
-                                NetHandlerPlayClient.this.gameController = Minecraft.getMinecraft();
+                if (this.gameController.getCurrentServerData() != null && this.gameController.getCurrentServerData().getResourceMode() == ServerData.ServerResourceMode.ENABLED) {
+                    this.netManager.sendPacket(new C19PacketResourcePackStatus(hash, C19PacketResourcePackStatus.Action.ACCEPTED));
+                    Futures.addCallback(this.gameController.getResourcePackRepository().downloadResourcePack(url, hash), new FutureCallback<Object>() {
+                        public void onSuccess(Object p_onSuccess_1_) {
+                            NetHandlerPlayClient.this.netManager.sendPacket(new C19PacketResourcePackStatus(hash, C19PacketResourcePackStatus.Action.SUCCESSFULLY_LOADED));
+                        }
 
-                                if (result) {
-                                    if (NetHandlerPlayClient.this.gameController.getCurrentServerData() != null) {
-                                        NetHandlerPlayClient.this.gameController.getCurrentServerData().setResourceMode(ServerData.ServerResourceMode.ENABLED);
-                                    }
+                        public void onFailure(Throwable p_onFailure_1_) {
+                            NetHandlerPlayClient.this.netManager.sendPacket(new C19PacketResourcePackStatus(hash, C19PacketResourcePackStatus.Action.FAILED_DOWNLOAD));
+                        }
+                    });
+                } else if (this.gameController.getCurrentServerData() != null && this.gameController.getCurrentServerData().getResourceMode() != ServerData.ServerResourceMode.PROMPT) {
+                    this.netManager.sendPacket(new C19PacketResourcePackStatus(hash, C19PacketResourcePackStatus.Action.DECLINED));
+                } else {
+                    this.gameController.addScheduledTask(new Runnable() {
+                        public void run() {
+                            NetHandlerPlayClient.this.gameController.displayGuiScreen(new GuiYesNo(new GuiYesNoCallback() {
+                                public void confirmClicked(boolean result, int id) {
+                                    NetHandlerPlayClient.this.gameController = Minecraft.getMinecraft();
 
-                                    NetHandlerPlayClient.this.netManager.sendPacket(new C19PacketResourcePackStatus(s1, C19PacketResourcePackStatus.Action.ACCEPTED));
-                                    Futures.addCallback(NetHandlerPlayClient.this.gameController.getResourcePackRepository().downloadResourcePack(s, s1), new FutureCallback<Object>() {
-                                        public void onSuccess(Object p_onSuccess_1_) {
-                                            NetHandlerPlayClient.this.netManager.sendPacket(new C19PacketResourcePackStatus(s1, C19PacketResourcePackStatus.Action.SUCCESSFULLY_LOADED));
+                                    if (result) {
+                                        if (NetHandlerPlayClient.this.gameController.getCurrentServerData() != null) {
+                                            NetHandlerPlayClient.this.gameController.getCurrentServerData().setResourceMode(ServerData.ServerResourceMode.ENABLED);
                                         }
 
-                                        public void onFailure(Throwable p_onFailure_1_) {
-                                            NetHandlerPlayClient.this.netManager.sendPacket(new C19PacketResourcePackStatus(s1, C19PacketResourcePackStatus.Action.FAILED_DOWNLOAD));
+                                        NetHandlerPlayClient.this.netManager.sendPacket(new C19PacketResourcePackStatus(hash, C19PacketResourcePackStatus.Action.ACCEPTED));
+                                        Futures.addCallback(NetHandlerPlayClient.this.gameController.getResourcePackRepository().downloadResourcePack(url, hash), new FutureCallback<Object>() {
+                                            public void onSuccess(Object p_onSuccess_1_) {
+                                                NetHandlerPlayClient.this.netManager.sendPacket(new C19PacketResourcePackStatus(hash, C19PacketResourcePackStatus.Action.SUCCESSFULLY_LOADED));
+                                            }
+
+                                            public void onFailure(Throwable p_onFailure_1_) {
+                                                NetHandlerPlayClient.this.netManager.sendPacket(new C19PacketResourcePackStatus(hash, C19PacketResourcePackStatus.Action.FAILED_DOWNLOAD));
+                                            }
+                                        });
+                                    } else {
+                                        if (NetHandlerPlayClient.this.gameController.getCurrentServerData() != null) {
+                                            NetHandlerPlayClient.this.gameController.getCurrentServerData().setResourceMode(ServerData.ServerResourceMode.DISABLED);
                                         }
-                                    });
-                                } else {
-                                    if (NetHandlerPlayClient.this.gameController.getCurrentServerData() != null) {
-                                        NetHandlerPlayClient.this.gameController.getCurrentServerData().setResourceMode(ServerData.ServerResourceMode.DISABLED);
+
+                                        NetHandlerPlayClient.this.netManager.sendPacket(new C19PacketResourcePackStatus(hash, C19PacketResourcePackStatus.Action.DECLINED));
                                     }
 
-                                    NetHandlerPlayClient.this.netManager.sendPacket(new C19PacketResourcePackStatus(s1, C19PacketResourcePackStatus.Action.DECLINED));
+                                    ServerList.func_147414_b(NetHandlerPlayClient.this.gameController.getCurrentServerData());
+                                    NetHandlerPlayClient.this.gameController.displayGuiScreen(null);
                                 }
-
-                                ServerList.func_147414_b(NetHandlerPlayClient.this.gameController.getCurrentServerData());
-                                NetHandlerPlayClient.this.gameController.displayGuiScreen(null);
-                            }
-                        }, I18n.format("multiplayer.texturePrompt.line1"), I18n.format("multiplayer.texturePrompt.line2"), 0));
-                    }
-                });
+                            }, I18n.format("multiplayer.texturePrompt.line1"), I18n.format("multiplayer.texturePrompt.line2"), 0));
+                        }
+                    });
+                }
             }
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
         }
     }
 
