@@ -145,7 +145,7 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
             this.owner.setHoveringText(s);
         }
 
-        if (this.mc.gameSettings.touchscreen || isSelected) {
+        if (isSelected) {
             this.mc.getTextureManager().bindTexture(SERVER_SELECTION_BUTTONS);
             Gui.drawRect(x, y, x + 32, y + 32, -1601138544);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);

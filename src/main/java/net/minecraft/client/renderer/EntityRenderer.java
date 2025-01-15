@@ -932,7 +932,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         this.frameInit();
         boolean flag = Display.isActive();
 
-        if (!flag && this.mc.gameSettings.pauseOnLostFocus && (!this.mc.gameSettings.touchscreen || !Mouse.isButtonDown(1))) {
+        if (!flag && this.mc.gameSettings.pauseOnLostFocus) {
             if (Minecraft.getSystemTime() - this.prevFrameTime > 500L) {
                 this.mc.displayInGameMenu();
             }

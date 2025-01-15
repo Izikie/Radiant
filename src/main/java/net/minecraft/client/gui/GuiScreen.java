@@ -60,7 +60,6 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
     private GuiButton selectedButton;
     private int eventButton;
     private long lastMouseEvent;
-    private int touchValue;
     private URI clickedLinkURI;
 
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
@@ -392,18 +391,10 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
         int k = Mouse.getEventButton();
 
         if (Mouse.getEventButtonState()) {
-            if (this.mc.gameSettings.touchscreen && this.touchValue++ > 0) {
-                return;
-            }
-
             this.eventButton = k;
             this.lastMouseEvent = Minecraft.getSystemTime();
             this.mouseClicked(i, j, this.eventButton);
         } else if (k != -1) {
-            if (this.mc.gameSettings.touchscreen && --this.touchValue > 0) {
-                return;
-            }
-
             this.eventButton = -1;
             this.mouseReleased(i, j, k);
         } else if (this.eventButton != -1 && this.lastMouseEvent > 0L) {

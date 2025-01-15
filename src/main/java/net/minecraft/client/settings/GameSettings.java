@@ -99,7 +99,6 @@ public class GameSettings {
     public boolean advancedItemTooltips;
     public boolean pauseOnLostFocus = true;
     private final Set<EnumPlayerModelParts> setModelParts = Sets.newHashSet(EnumPlayerModelParts.values());
-    public boolean touchscreen;
     public int overrideWidth;
     public int overrideHeight;
     public boolean heldItemTooltips = true;
@@ -447,10 +446,6 @@ public class GameSettings {
             this.chatLinksPrompt = !this.chatLinksPrompt;
         }
 
-        if (settingsOption == GameSettings.Options.TOUCHSCREEN) {
-            this.touchscreen = !this.touchscreen;
-        }
-
         if (settingsOption == GameSettings.Options.USE_FULLSCREEN) {
             this.fullScreen = !this.fullScreen;
 
@@ -529,9 +524,6 @@ public class GameSettings {
 
             case USE_VBO:
                 return this.useVbo;
-
-            case TOUCHSCREEN:
-                return this.touchscreen;
 
             case FORCE_UNICODE_FONT:
                 return this.forceUnicodeFont;
@@ -776,10 +768,6 @@ public class GameSettings {
                                 this.pauseOnLostFocus = astring[1].equals("true");
                             }
 
-                            if (astring[0].equals("touchscreen")) {
-                                this.touchscreen = astring[1].equals("true");
-                            }
-
                             if (astring[0].equals("overrideHeight")) {
                                 this.overrideHeight = Integer.parseInt(astring[1]);
                             }
@@ -925,7 +913,6 @@ public class GameSettings {
             printwriter.println("hideServerAddress:" + this.hideServerAddress);
             printwriter.println("advancedItemTooltips:" + this.advancedItemTooltips);
             printwriter.println("pauseOnLostFocus:" + this.pauseOnLostFocus);
-            printwriter.println("touchscreen:" + this.touchscreen);
             printwriter.println("overrideWidth:" + this.overrideWidth);
             printwriter.println("overrideHeight:" + this.overrideHeight);
             printwriter.println("heldItemTooltips:" + this.heldItemTooltips);
@@ -2463,7 +2450,6 @@ public class GameSettings {
         USE_FULLSCREEN("options.fullscreen", false, true),
         ENABLE_VSYNC("options.vsync", false, true),
         USE_VBO("options.vbo", false, true),
-        TOUCHSCREEN("options.touchscreen", false, true),
         CHAT_SCALE("options.chat.scale", true, false),
         CHAT_WIDTH("options.chat.width", true, false),
         CHAT_HEIGHT_FOCUSED("options.chat.height.focused", true, false),
