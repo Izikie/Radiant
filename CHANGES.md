@@ -7,6 +7,8 @@
 - **Resource Pack Exploit** - Fix directory traversal exploit.
 - **Fix Demo Troll** - Ignore demo screen requests from servers.
 - **Fix Rain Strength** - Fix crashes/lag from high values and color changes from negative values.
+- **Fix Parallax** - Fix parallax rendering camera from back of head.
+- **Fix Alex Arm** - Fix Alex's items rendering in the wrong position.
 </details>
 
 <details>
