@@ -22,7 +22,7 @@ public class CommandHandler implements ICommandManager {
     private final Set<ICommand> commandSet = Sets.newHashSet();
 
     public int executeCommand(ICommandSender sender, String rawCommand) {
-        rawCommand = rawCommand.trim();
+        rawCommand = rawCommand.trim().toLowerCase(); // BUGFIX: Commands case-sensitive
 
         if (rawCommand.startsWith("/")) {
             rawCommand = rawCommand.substring(1);

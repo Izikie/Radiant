@@ -970,9 +970,9 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
             this.gameController.playerController.setGameType(WorldSettings.GameType.getByID(j));
         } else if (i == 4) {
             this.gameController.displayGuiScreen(new GuiWinGame());
-        } else if (i == 6) { // FIXED: Action 5, Shows Demo Screen
+        } else if (i == 6) { // BUGFIX: Action 5, Shows Demo Screen
             this.clientWorldController.playSound(entityplayer.posX, entityplayer.posY + entityplayer.getEyeHeight(), entityplayer.posZ, "random.successful_hit", 0.18F, 0.45F, false);
-        } else if (i == 7) { // FIXED: HIGH VALUE -> LAG/CRASH | LOW VALUE -> WORLD COLOR CHANGES
+        } else if (i == 7) { // BUGFIX: HIGH VALUE -> LAG/CRASH | LOW VALUE -> WORLD COLOR CHANGES
             this.clientWorldController.setRainStrength(Math.clamp(f, -2.0F, 2F)); // Allow leniency for servers to use.
         } else if (i == 8) {
             this.clientWorldController.setThunderStrength(f);
@@ -1185,7 +1185,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         final String url = packetIn.getURL();
         final String hash = packetIn.getHash();
 
-        try { // FIXED: Resource Pack Traversal Exploit
+        try { // BUGFIX: Resource Pack Traversal Exploit
             // Check for unsupported protocols
             if (!url.matches("(http|https|level)://+.*")) {
                 netManager.sendPacket(new C19PacketResourcePackStatus(hash, C19PacketResourcePackStatus.Action.FAILED_DOWNLOAD));
@@ -1196,6 +1196,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
             if (url.startsWith("level://")) {
                 String s2 = url.substring("level://".length());
 
+                // Check for invalid path
                 String decode = URLDecoder.decode(s2, StandardCharsets.UTF_8);
                 if (decode.contains("..") || !decode.endsWith("/resources.zip")) {
                     throw new URISyntaxException(url, "Invalid level storage resource pack path");

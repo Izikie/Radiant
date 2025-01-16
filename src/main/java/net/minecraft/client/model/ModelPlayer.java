@@ -126,7 +126,7 @@ public class ModelPlayer extends ModelBiped {
     }
 
     public void postRenderArm(float scale) {
-        if (this.smallArms) { // FIXED: Incorrect Alex's arm position
+        if (this.smallArms) { // BUGFIX: Incorrect Alex's arm position
             this.bipedRightArm.rotationPointX += 0.5F;
             this.bipedRightArm.postRender(scale);
             this.bipedRightArm.rotationPointZ -= 0.5F;
