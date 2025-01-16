@@ -55,9 +55,6 @@ dependencies {
     implementation(group = "com.google.guava", name = "guava", version = "17.0")
     implementation(group = "com.google.code.gson", name = "gson", version = "2.2.4") // Move to another faster more modern JSON library
 
-    implementation(group = "org.apache.httpcomponents", name = "httpcore", version = "4.3.2") // Remove, Use New Java HTTP Client API
-    implementation(group = "org.apache.httpcomponents", name = "httpclient", version = "4.3.3") // Remove, Use New Java HTTP Client API
-
     implementation(group = "commons-logging", name = "commons-logging", version = "1.1.3")
 
     implementation(group = "org.apache.commons", name = "commons-lang3", version = "3.3.2")
