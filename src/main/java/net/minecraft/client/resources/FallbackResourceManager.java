@@ -101,14 +101,6 @@ public class FallbackResourceManager implements IResourceManager {
             this.isClosed = true;
         }
 
-        protected void finalize() throws Throwable {
-            if (!this.isClosed) {
-                FallbackResourceManager.logger.warn(this.message);
-            }
-
-            super.finalize();
-        }
-
         public int read() throws IOException {
             return this.inputStream.read();
         }

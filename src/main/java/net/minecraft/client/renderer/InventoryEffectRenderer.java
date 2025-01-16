@@ -9,8 +9,6 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
 public abstract class InventoryEffectRenderer extends GuiContainer {
-    private boolean hasActivePotionEffects;
-
     public InventoryEffectRenderer(Container inventorySlotsIn) {
         super(inventorySlotsIn);
     }
@@ -21,19 +19,13 @@ public abstract class InventoryEffectRenderer extends GuiContainer {
     }
 
     protected void updateActivePotionEffects() {
-        if (!this.mc.thePlayer.getActivePotionEffects().isEmpty()) {
-            this.guiLeft = 160 + (this.width - this.xSize - 200) / 2;
-            this.hasActivePotionEffects = true;
-        } else {
-            this.guiLeft = (this.width - this.xSize) / 2;
-            this.hasActivePotionEffects = false;
-        }
+        this.guiLeft = (this.width - this.xSize) / 2;
     }
 
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
 
-        if (this.hasActivePotionEffects) {
+        if (this.hasActivePotionEffects()) {
             this.drawActivePotionEffects();
         }
     }
@@ -80,5 +72,9 @@ public abstract class InventoryEffectRenderer extends GuiContainer {
                 j += l;
             }
         }
+    }
+
+    private boolean hasActivePotionEffects() {
+        return !this.mc.thePlayer.getActivePotionEffects().isEmpty();
     }
 }
