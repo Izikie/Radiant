@@ -81,7 +81,7 @@ public class GuiTextField extends Gui {
         int i = this.cursorPosition < this.selectionEnd ? this.cursorPosition : this.selectionEnd;
         int j = this.cursorPosition < this.selectionEnd ? this.selectionEnd : this.cursorPosition;
         int k = this.maxStringLength - this.text.length() - (i - j);
-        int l = 0;
+        int l;
 
         if (!this.text.isEmpty()) {
             s = s + this.text.substring(0, i);
@@ -380,7 +380,7 @@ public class GuiTextField extends Gui {
             }
 
             if (!s.isEmpty() && flag && j < s.length()) {
-                j1 = this.fontRendererInstance.drawStringWithShadow(s.substring(j), j1, i1, i);
+                this.fontRendererInstance.drawStringWithShadow(s.substring(j), j1, i1, i);
             }
 
             if (flag1) {

@@ -207,7 +207,7 @@ public class GuiEnchantment extends GuiContainer {
                     if (this.mc.thePlayer.experienceLevel < k) {
                         list.add(EnumChatFormatting.RED.toString() + "Level Requirement: " + this.container.enchantLevels[j]);
                     } else {
-                        String s1 = "";
+                        String s1;
 
                         if (i1 == 1) {
                             s1 = I18n.format("container.enchant.lapis.one");

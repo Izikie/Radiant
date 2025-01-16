@@ -30,7 +30,7 @@ public class WorldGenTaiga2 extends WorldGenAbstractTree {
 
         if (position.getY() >= 1 && position.getY() + i + 1 <= 256) {
             for (int i1 = position.getY(); i1 <= position.getY() + 1 + i && flag; ++i1) {
-                int j1 = 1;
+                int j1;
 
                 if (i1 - position.getY() < j) {
                     j1 = 0;

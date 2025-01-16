@@ -7,9 +7,9 @@ import net.minecraft.util.MathHelper;
 import net.optifine.shaders.config.ShaderOption;
 
 public class GuiSliderShaderOption extends GuiButtonShaderOption {
-    private float sliderValue = 1.0F;
+    private float sliderValue;
     public boolean dragging;
-    private ShaderOption shaderOption = null;
+    private ShaderOption shaderOption;
 
     public GuiSliderShaderOption(int buttonId, int x, int y, int w, int h, ShaderOption shaderOption, String text) {
         super(buttonId, x, y, w, h, shaderOption, text);

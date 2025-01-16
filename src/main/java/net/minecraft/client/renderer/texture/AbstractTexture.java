@@ -16,8 +16,8 @@ public abstract class AbstractTexture implements ITextureObject {
     public void setBlurMipmapDirect(boolean p_174937_1_, boolean p_174937_2_) {
         this.blur = p_174937_1_;
         this.mipmap = p_174937_2_;
-        int i = -1;
-        int j = -1;
+        int i;
+        int j;
 
         if (p_174937_1_) {
             i = p_174937_2_ ? 9987 : 9729;

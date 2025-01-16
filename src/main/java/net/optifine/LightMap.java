@@ -4,7 +4,7 @@ import net.minecraft.src.Config;
 import net.minecraft.world.World;
 
 public class LightMap {
-    private CustomColormap lightMapRgb = null;
+    private CustomColormap lightMapRgb;
     private final float[][] sunRgbs = new float[16][3];
     private final float[][] torchRgbs = new float[16][3];
 

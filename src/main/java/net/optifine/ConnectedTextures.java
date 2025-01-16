@@ -1585,7 +1585,7 @@ public class ConnectedTextures {
                 }
         }
 
-        int i = 3;
+        int i;
 
         if (flag) {
             if (flag1) {
@@ -1648,7 +1648,7 @@ public class ConnectedTextures {
                 }
         }
 
-        int i = 3;
+        int i;
 
         if (flag) {
             if (flag1) {

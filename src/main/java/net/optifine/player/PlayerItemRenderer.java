@@ -4,8 +4,8 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 
 public class PlayerItemRenderer {
-    private int attachTo = 0;
-    private ModelRenderer modelRenderer = null;
+    private int attachTo;
+    private ModelRenderer modelRenderer;
 
     public PlayerItemRenderer(int attachTo, ModelRenderer modelRenderer) {
         this.attachTo = attachTo;

@@ -45,8 +45,8 @@ import net.optifine.util.TextureUtils;
 import org.lwjgl.opengl.GL11;
 
 public class CustomItemProperties {
-    public String name = null;
-    public String basePath = null;
+    public String name;
+    public String basePath;
     public int type = 1;
     public int[] items = null;
     public String texture = null;
@@ -710,7 +710,7 @@ public class CustomItemProperties {
                 int i = rangeint.getMin();
                 boolean flag = (i & 16384) != 0;
                 String s5 = this.getMapTexture(this.mapTextures, "texture.potion_overlay", "items/potion_overlay");
-                String s6 = null;
+                String s6;
 
                 if (flag) {
                     s6 = this.getMapTexture(this.mapTextures, "texture.potion_bottle_splash", "items/potion_bottle_splash");

@@ -192,7 +192,7 @@ public class GuiPlayerTabOverlay extends Gui {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(icons);
         int i = 0;
-        int j = 0;
+        int j;
 
         if (networkPlayerInfoIn.getResponseTime() < 0) {
             j = 5;

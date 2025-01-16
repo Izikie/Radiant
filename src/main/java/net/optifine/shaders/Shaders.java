@@ -1062,7 +1062,7 @@ public class Shaders {
                 SMCLog.warning("Invalid raw texture internal format: " + line);
                 return null;
             } else {
-                int i = 0;
+                int i;
                 int j = 0;
                 int k = 0;
 
@@ -2104,7 +2104,6 @@ public class Shaders {
 
             if (j == 0 && k == 0 && l == 0) {
                 ARBShaderObjects.glDeleteObjectARB(i);
-                i = 0;
                 program.resetId();
             } else {
                 if (j != 0) {
@@ -2181,7 +2180,6 @@ public class Shaders {
                     String s = "\"";
                     printChatAndLogError("[Shaders] Error: Invalid program " + s + program.getName() + s);
                     ARBShaderObjects.glDeleteObjectARB(i);
-                    i = 0;
                     program.resetId();
                 }
             }
@@ -2195,7 +2193,7 @@ public class Shaders {
             return 0;
         } else {
             StringBuilder stringbuilder = new StringBuilder(131072);
-            BufferedReader bufferedreader = null;
+            BufferedReader bufferedreader;
 
             try {
                 bufferedreader = new BufferedReader(getShaderReader(filename));
@@ -2276,7 +2274,7 @@ public class Shaders {
             return 0;
         } else {
             StringBuilder stringbuilder = new StringBuilder(131072);
-            BufferedReader bufferedreader = null;
+            BufferedReader bufferedreader;
 
             try {
                 bufferedreader = new BufferedReader(getShaderReader(filename));
@@ -2355,7 +2353,7 @@ public class Shaders {
             return 0;
         } else {
             StringBuilder stringbuilder = new StringBuilder(131072);
-            BufferedReader bufferedreader = null;
+            BufferedReader bufferedreader;
 
             try {
                 bufferedreader = new BufferedReader(getShaderReader(filename));

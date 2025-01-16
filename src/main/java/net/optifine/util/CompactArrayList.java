@@ -17,9 +17,6 @@ public class CompactArrayList {
     }
 
     public CompactArrayList(int initialCapacity, float loadFactor) {
-        this.list = null;
-        this.initialCapacity = 0;
-        this.loadFactor = 1.0F;
         this.countValid = 0;
         this.list = new ArrayList(initialCapacity);
         this.initialCapacity = initialCapacity;

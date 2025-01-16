@@ -208,7 +208,6 @@ public class PotionHelper {
                         } else if (c0 == 33) {
                             if (flag2) {
                                 j1 += getPotionEffect(flag3, flag1, flag4, k, l, i1, p_77912_3_);
-                                flag3 = false;
                                 flag4 = false;
                                 flag = false;
                                 flag1 = false;
@@ -223,7 +222,6 @@ public class PotionHelper {
                             if (flag2) {
                                 j1 += getPotionEffect(flag3, flag1, flag4, k, l, i1, p_77912_3_);
                                 flag3 = false;
-                                flag4 = false;
                                 flag = false;
                                 flag1 = false;
                                 flag2 = false;
@@ -373,7 +371,6 @@ public class PotionHelper {
                 if (flag) {
                     p_77913_0_ = brewBitOperations(p_77913_0_, k, flag2, flag1, flag3);
                     flag3 = false;
-                    flag1 = false;
                     flag2 = false;
                     flag = false;
                     k = 0;
@@ -385,7 +382,6 @@ public class PotionHelper {
                     p_77913_0_ = brewBitOperations(p_77913_0_, k, flag2, flag1, flag3);
                     flag3 = false;
                     flag1 = false;
-                    flag2 = false;
                     flag = false;
                     k = 0;
                 }
@@ -403,7 +399,6 @@ public class PotionHelper {
             } else if (c0 == 38) {
                 if (flag) {
                     p_77913_0_ = brewBitOperations(p_77913_0_, k, flag2, flag1, flag3);
-                    flag3 = false;
                     flag1 = false;
                     flag2 = false;
                     flag = false;

@@ -19,7 +19,7 @@ public class IteratorAxis implements Iterator<BlockPos> {
     private double yNext;
     private double zNext;
     private final BlockPosM pos = new BlockPosM(0, 0, 0);
-    private boolean hasNext = false;
+    private boolean hasNext;
 
     public IteratorAxis(BlockPos posStart, BlockPos posEnd, double yDelta, double zDelta) {
         this.yDelta = yDelta;
@@ -59,7 +59,6 @@ public class IteratorAxis implements Iterator<BlockPos> {
             ++this.yNext;
 
             if (this.yNext >= this.yEnd) {
-                this.yNext = this.yStart;
                 this.yStart += this.yDelta;
                 this.yEnd += this.yDelta;
                 this.yNext = this.yStart;

@@ -122,7 +122,7 @@ public class MacroState {
         str = matcher.replaceAll("defined_$1");
         Matcher matcher1 = PATTERN_DEFINED_FUNC.matcher(str);
         str = matcher1.replaceAll("defined_$1");
-        boolean flag = false;
+        boolean flag;
         int i = 0;
 
         while (true) {

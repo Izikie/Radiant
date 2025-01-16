@@ -5,7 +5,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 
 public class GuiSlider extends GuiButton {
-    private float sliderPosition = 1.0F;
+    private float sliderPosition;
     public boolean isMouseDown;
     private final String name;
     private final float min;

@@ -469,7 +469,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         this.cameraPitch += (f1 - this.cameraPitch) * 0.8F;
 
         if (this.getHealth() > 0.0F && !this.isSpectator()) {
-            AxisAlignedBB axisalignedbb = null;
+            AxisAlignedBB axisalignedbb;
 
             if (this.ridingEntity != null && !this.ridingEntity.isDead) {
                 axisalignedbb = this.getEntityBoundingBox().union(this.ridingEntity.getEntityBoundingBox()).expand(1.0D, 0.0D, 1.0D);
@@ -654,7 +654,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         }
 
         if (this.isPotionActive(Potion.digSlowdown)) {
-            float f1 = 1.0F;
+            float f1;
 
             switch (this.getActivePotionEffect(Potion.digSlowdown).getAmplifier()) {
                 case 0:
@@ -794,7 +794,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
                     Entity entity = source.getEntity();
 
                     if (entity instanceof EntityArrow entityArrow && entityArrow.shootingEntity != null) {
-                        entity = entityArrow.shootingEntity;
                     }
 
                     return super.attackEntityFrom(source, amount);
@@ -933,7 +932,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
             if (!targetEntity.hitByEntity(this)) {
                 float f = (float) this.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
                 int i = 0;
-                float f1 = 0.0F;
+                float f1;
 
                 if (targetEntity instanceof EntityLivingBase base) {
                     f1 = EnchantmentHelper.getModifierForCreature(this.getHeldItem(), base.getCreatureAttribute());

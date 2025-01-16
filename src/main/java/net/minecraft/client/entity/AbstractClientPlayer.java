@@ -30,7 +30,7 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
     private ResourceLocation locationOfCape = null;
     private long reloadCapeTimeMs = 0L;
     private boolean elytraOfCape = false;
-    private String nameClear = null;
+    private String nameClear;
     private static final ResourceLocation TEXTURE_ELYTRA = new ResourceLocation("textures/entity/elytra.png");
 
     public AbstractClientPlayer(World worldIn, GameProfile playerProfile) {

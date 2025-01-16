@@ -187,7 +187,7 @@ public class ChunkProviderEnd implements IChunkProvider {
                 }
 
                 for (int l = 0; l < p_73187_6_; ++l) {
-                    double d2 = 0.0D;
+                    double d2;
                     double d3 = this.noiseData2[i] / 512.0D;
                     double d4 = this.noiseData3[i] / 512.0D;
                     double d5 = (this.noiseData1[i] / 10.0D + 1.0D) / 2.0D;

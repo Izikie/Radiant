@@ -9,8 +9,8 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 
 public class GuiLabel extends Gui {
-    protected int field_146167_a = 200;
-    protected int field_146161_f = 20;
+    protected int field_146167_a;
+    protected int field_146161_f;
     public int field_146162_g;
     public int field_146174_h;
     private final List<String> field_146173_k;

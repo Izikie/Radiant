@@ -191,7 +191,6 @@ public class GuiCreateWorld extends GuiScreen {
                         this.allowCheats = false;
                     }
 
-                    this.hardCoreMode = false;
                     this.gameMode = "hardcore";
                     this.hardCoreMode = true;
                     this.btnAllowCommands.enabled = false;

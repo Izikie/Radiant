@@ -8,11 +8,11 @@ import net.optifine.shaders.Shaders;
 import net.optifine.util.StrUtils;
 
 public abstract class ShaderOption {
-    private String name = null;
-    private String description = null;
-    private String value = null;
-    private String[] values = null;
-    private String valueDefault = null;
+    private String name;
+    private String description;
+    private String value;
+    private String[] values;
+    private String valueDefault;
     private String[] paths = null;
     private boolean enabled = true;
     private boolean visible = true;

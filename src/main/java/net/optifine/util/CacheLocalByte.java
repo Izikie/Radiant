@@ -1,13 +1,13 @@
 package net.optifine.util;
 
 public class CacheLocalByte {
-    private int maxX = 18;
-    private int maxY = 128;
-    private int maxZ = 18;
+    private int maxX;
+    private int maxY;
+    private int maxZ;
     private int offsetX = 0;
     private int offsetY = 0;
     private int offsetZ = 0;
-    private byte[][][] cache = null;
+    private byte[][][] cache;
     private byte[] lastZs = null;
     private int lastDz = 0;
 

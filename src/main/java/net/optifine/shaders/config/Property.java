@@ -6,12 +6,12 @@ import net.minecraft.src.Config;
 import org.apache.commons.lang3.ArrayUtils;
 
 public class Property {
-    private int defaultValue = 0;
-    private String propertyName = null;
-    private String[] propertyValues = null;
-    private String userName = null;
-    private String[] userValues = null;
-    private int value = 0;
+    private int defaultValue;
+    private String propertyName;
+    private String[] propertyValues;
+    private String userName;
+    private String[] userValues;
+    private int value;
 
     public Property(String propertyName, String[] propertyValues, String userName, String[] userValues, int defaultValue) {
         this.propertyName = propertyName;

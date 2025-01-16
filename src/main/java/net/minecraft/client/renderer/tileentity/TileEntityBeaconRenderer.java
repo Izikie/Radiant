@@ -58,8 +58,8 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
                     double d9 = 0.5D + Math.sin(d2 + 3.9269908169872414D) * 0.2D;
                     double d10 = 0.5D + Math.cos(d2 + 5.497787143782138D) * 0.2D;
                     double d11 = 0.5D + Math.sin(d2 + 5.497787143782138D) * 0.2D;
-                    double d12 = 0.0D;
-                    double d13 = 1.0D;
+                    double d12;
+                    double d13;
                     double d14 = -1.0D + d1;
                     double d15 = (beamSegment.getHeight() * f) * 2.5D + d14;
                     worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
@@ -83,16 +83,6 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
                     GlStateManager.enableBlend();
                     GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
                     GlStateManager.depthMask(false);
-                    d2 = 0.2D;
-                    d3 = 0.2D;
-                    d4 = 0.8D;
-                    d5 = 0.2D;
-                    d6 = 0.2D;
-                    d7 = 0.8D;
-                    d8 = 0.8D;
-                    d9 = 0.8D;
-                    d10 = 0.0D;
-                    d11 = 1.0D;
                     d12 = -1.0D + d1;
                     d13 = (beamSegment.getHeight() * f) + d12;
                     worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);

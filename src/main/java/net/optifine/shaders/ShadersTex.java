@@ -447,7 +447,7 @@ public class ShadersTex {
         int h2 = height;
         int o1 = 0;
         int w1 = 0;
-        int h1 = 0;
+        int h1;
         int i;
 
         for (i = 0; w2 > 1 && h2 > 1; o2 = o1) {
@@ -498,7 +498,7 @@ public class ShadersTex {
         int h2 = height;
         int o1 = 0;
         int w1 = 0;
-        int h1 = 0;
+        int h1;
         int i;
 
         for (i = 0; w2 > 1 && h2 > 1; o2 = o1) {

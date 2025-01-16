@@ -70,7 +70,7 @@ public class GuiWinGame extends GuiScreen {
             this.field_146582_i = Lists.newArrayList();
 
             try {
-                String s = "";
+                String s;
                 String s1 = "" + EnumChatFormatting.WHITE + EnumChatFormatting.OBFUSCATED + EnumChatFormatting.GREEN + EnumChatFormatting.AQUA;
                 int i = 274;
                 InputStream inputstream = this.mc.getResourceManager().getResource(new ResourceLocation("texts/end.txt")).getInputStream();

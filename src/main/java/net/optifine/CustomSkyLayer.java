@@ -24,7 +24,7 @@ import net.optifine.util.SmoothFloat;
 import net.optifine.util.TextureUtils;
 
 public class CustomSkyLayer {
-    public String source = null;
+    public String source;
     private int startFadeIn = -1;
     private int endFadeIn = -1;
     private int startFadeOut = -1;

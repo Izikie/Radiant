@@ -20,7 +20,7 @@ public class CloudRenderer {
     private double updatePlayerX = 0.0D;
     private double updatePlayerY = 0.0D;
     private double updatePlayerZ = 0.0D;
-    private int glListClouds = -1;
+    private int glListClouds;
 
     public CloudRenderer(Minecraft mc) {
         this.mc = mc;

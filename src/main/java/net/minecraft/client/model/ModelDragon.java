@@ -111,13 +111,12 @@ public class ModelDragon extends ModelBase {
         f1 = (f1 * f1 * 1.0F + f1 * 2.0F) * 0.05F;
         GlStateManager.translate(0.0F, f1 - 2.0F, -3.0F);
         GlStateManager.rotate(f1 * 2.0F, 1.0F, 0.0F, 0.0F);
-        float f2 = -30.0F;
+        float f2;
         float f4 = 0.0F;
         float f5 = 1.5F;
         double[] adouble = entitydragon.getMovementOffsets(6, this.partialTicks);
         float f6 = this.updateRotations(entitydragon.getMovementOffsets(5, this.partialTicks)[0] - entitydragon.getMovementOffsets(10, this.partialTicks)[0]);
         float f7 = this.updateRotations(entitydragon.getMovementOffsets(5, this.partialTicks)[0] + (f6 / 2.0F));
-        f2 = f2 + 2.0F;
         float f8 = f * (float) Math.PI * 2.0F;
         f2 = 20.0F;
         float f3 = -12.0F;

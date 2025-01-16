@@ -27,10 +27,10 @@ import net.optifine.util.MathUtils;
 import net.optifine.util.TextureUtils;
 
 public class ConnectedProperties {
-    public String name = null;
-    public String basePath = null;
-    public MatchBlock[] matchBlocks = null;
-    public int[] metadatas = null;
+    public String name;
+    public String basePath;
+    public MatchBlock[] matchBlocks;
+    public int[] metadatas;
     public String[] matchTiles = null;
     public int method = 0;
     public String[] tiles = null;

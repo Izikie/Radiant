@@ -1083,7 +1083,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         this.setHorseVariant(tagCompund.getInteger("Variant"));
         this.setTemper(tagCompund.getInteger("Temper"));
         this.setHorseTamed(tagCompund.getBoolean("Tame"));
-        String s = "";
+        String s;
 
         if (tagCompund.hasKey("OwnerUUID", 8)) {
             s = tagCompund.getString("OwnerUUID");
@@ -1205,7 +1205,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
 
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
         livingdata = super.onInitialSpawn(difficulty, livingdata);
-        int i = 0;
+        int i;
         int j = 0;
 
         if (livingdata instanceof GroupData groupData) {

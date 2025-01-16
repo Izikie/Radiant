@@ -4,7 +4,7 @@ import net.minecraft.block.state.BlockStateBase;
 import net.minecraft.src.Config;
 
 public class MatchBlock {
-    private int blockId = -1;
+    private int blockId;
     private int[] metadatas = null;
 
     public MatchBlock(int blockId) {

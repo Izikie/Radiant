@@ -14,9 +14,9 @@ import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
 
 public class PlayerItemModel {
-    private Dimension textureSize = null;
-    private boolean usePlayerTexture = false;
-    private PlayerItemRenderer[] modelRenderers = new PlayerItemRenderer[0];
+    private Dimension textureSize;
+    private boolean usePlayerTexture;
+    private PlayerItemRenderer[] modelRenderers;
     private ResourceLocation textureLocation = null;
     private BufferedImage textureImage = null;
     private DynamicTexture texture = null;

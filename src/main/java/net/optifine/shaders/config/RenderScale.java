@@ -1,9 +1,9 @@
 package net.optifine.shaders.config;
 
 public class RenderScale {
-    private float scale = 1.0F;
-    private float offsetX = 0.0F;
-    private float offsetY = 0.0F;
+    private float scale;
+    private float offsetX;
+    private float offsetY;
 
     public RenderScale(float scale, float offsetX, float offsetY) {
         this.scale = scale;

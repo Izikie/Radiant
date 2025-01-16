@@ -163,7 +163,7 @@ public class HttpUtil {
                             throw new IOException("Filesize is bigger than maximum allowed (file is " + f + ", limit is " + maxSize + ")");
                         }
 
-                        int k = 0;
+                        int k;
 
                         while ((k = inputstream.read(abyte)) >= 0) {
                             f += k;
@@ -226,7 +226,7 @@ public class HttpUtil {
 
     public static int getSuitableLanPort() throws IOException {
         ServerSocket serversocket = null;
-        int i = -1;
+        int i;
 
         try {
             serversocket = new ServerSocket(0);

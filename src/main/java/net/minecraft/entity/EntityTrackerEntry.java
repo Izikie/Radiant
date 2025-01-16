@@ -421,7 +421,7 @@ public class EntityTrackerEntry {
         } else if (this.trackedEntity instanceof EntityFireworkRocket) {
             return new S0EPacketSpawnObject(this.trackedEntity, 76);
         } else if (this.trackedEntity instanceof EntityFireball entityfireball) {
-            S0EPacketSpawnObject s0epacketspawnobject2 = null;
+            S0EPacketSpawnObject s0epacketspawnobject2;
             int i = 63;
 
             if (this.trackedEntity instanceof EntitySmallFireball) {

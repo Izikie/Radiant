@@ -350,7 +350,6 @@ public class ItemRenderer {
 
                 if (iblockstate1.getBlock().isVisuallyOpaque()) {
                     iblockstate = iblockstate1;
-                    blockpos = blockpos1;
                 }
             }
 

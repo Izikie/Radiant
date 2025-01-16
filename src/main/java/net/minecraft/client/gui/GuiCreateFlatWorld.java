@@ -85,7 +85,6 @@ public class GuiCreateFlatWorld extends GuiScreen {
     public void func_146375_g() {
         boolean flag = this.func_146382_i();
         this.field_146386_v.enabled = flag;
-        this.field_146388_u.enabled = flag;
         this.field_146388_u.enabled = false;
         this.field_146389_t.enabled = false;
     }

@@ -115,7 +115,7 @@ public class FlatGeneratorInfo {
             }
         }
 
-        Block block = null;
+        Block block;
 
         try {
             String s = astring[astring.length - 1];

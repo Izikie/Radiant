@@ -1797,7 +1797,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         boolean flag = false;
 
         if (entity instanceof EntityPlayer entityPlayer) {
-            flag = entityPlayer.capabilities.isCreativeMode;
         }
 
         GL11.glFog(GL11.GL_FOG_COLOR, this.setFogColorBuffer(this.fogColorRed, this.fogColorGreen, this.fogColorBlue, 1.0F));
@@ -1926,7 +1925,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                                 int l = k - this.lastServerTicks;
 
                                 if (l < 0) {
-                                    this.lastServerTicks = k;
                                     l = 0;
                                 }
 
@@ -2070,7 +2068,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             Config.dbg("Loading visible chunks");
             long l = System.currentTimeMillis() + 5000L;
             int i1 = 0;
-            boolean flag1 = false;
+            boolean flag1;
 
             while (true) {
                 flag1 = false;

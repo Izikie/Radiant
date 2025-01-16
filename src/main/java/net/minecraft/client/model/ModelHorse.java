@@ -336,7 +336,6 @@ public class ModelHorse extends ModelBase {
         this.head.rotationPointY = 4.0F;
         this.head.rotationPointZ = -10.0F;
         this.tailBase.rotationPointY = 3.0F;
-        this.tailMiddle.rotationPointZ = 14.0F;
         this.muleRightChest.rotationPointY = 3.0F;
         this.muleRightChest.rotationPointZ = 10.0F;
         this.body.rotateAngleX = 0.0F;
@@ -347,7 +346,6 @@ public class ModelHorse extends ModelBase {
         this.head.rotationPointY = f6 * -6.0F + f5 * 11.0F + (1.0F - Math.max(f6, f5)) * this.head.rotationPointY;
         this.head.rotationPointZ = f6 * -1.0F + f5 * -10.0F + (1.0F - Math.max(f6, f5)) * this.head.rotationPointZ;
         this.tailBase.rotationPointY = f6 * 9.0F + f7 * this.tailBase.rotationPointY;
-        this.tailMiddle.rotationPointZ = f6 * 18.0F + f7 * this.tailMiddle.rotationPointZ;
         this.muleRightChest.rotationPointY = f6 * 5.5F + f7 * this.muleRightChest.rotationPointY;
         this.muleRightChest.rotationPointZ = f6 * 15.0F + f7 * this.muleRightChest.rotationPointZ;
         this.body.rotateAngleX = f6 * -45.0F / (180.0F / (float) Math.PI) + f7 * this.body.rotateAngleX;
@@ -385,7 +383,7 @@ public class ModelHorse extends ModelBase {
         this.mane.rotateAngleY = this.head.rotateAngleY;
         this.muleLeftChest.rotateAngleX = f11 / 5.0F;
         this.muleRightChest.rotateAngleX = -f11 / 5.0F;
-        float f12 = ((float) Math.PI / 2.0F);
+        float f12;
         float f13 = ((float) Math.PI * 3.0F / 2.0F);
         float f14 = -1.0471976F;
         float f15 = 0.2617994F * f6;

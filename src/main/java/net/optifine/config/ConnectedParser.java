@@ -30,7 +30,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class ConnectedParser {
-    private String context = null;
+    private String context;
     public static final VillagerProfession[] PROFESSIONS_INVALID = new VillagerProfession[0];
     public static final EnumDyeColor[] DYE_COLORS_INVALID = new EnumDyeColor[0];
     private static final INameGetter<Enum> NAME_GETTER_ENUM = new INameGetter<Enum>() {
@@ -114,8 +114,8 @@ public class ConnectedParser {
                 return null;
             } else {
                 String[] astring = Config.tokenize(blockStr, ":");
-                String s = "minecraft";
-                int i = 0;
+                String s;
+                int i;
 
                 if (astring.length > 1 && this.isFullBlockName(astring)) {
                     s = astring[0];

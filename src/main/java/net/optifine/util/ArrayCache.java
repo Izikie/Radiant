@@ -4,8 +4,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayDeque;
 
 public class ArrayCache {
-    private Class elementClass = null;
-    private int maxCacheSize = 0;
+    private Class elementClass;
+    private int maxCacheSize;
     private final ArrayDeque cache = new ArrayDeque();
 
     public ArrayCache(Class elementClass, int maxCacheSize) {

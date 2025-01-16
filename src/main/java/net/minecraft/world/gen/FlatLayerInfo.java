@@ -15,7 +15,6 @@ public class FlatLayerInfo {
     }
 
     public FlatLayerInfo(int p_i45627_1_, int height, Block layerMaterialIn) {
-        this.layerCount = 1;
         this.field_175902_a = p_i45627_1_;
         this.layerCount = height;
         this.layerMaterial = layerMaterialIn.getDefaultState();

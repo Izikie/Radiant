@@ -18,11 +18,11 @@ import net.optifine.util.StrUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 public class NbtTagValue {
-    private String[] parents = null;
-    private String name = null;
+    private String[] parents;
+    private String name;
     private boolean negative = false;
-    private int type = 0;
-    private String value = null;
+    private int type;
+    private String value;
     private int valueFormat = 0;
     private static final int TYPE_TEXT = 0;
     private static final int TYPE_PATTERN = 1;

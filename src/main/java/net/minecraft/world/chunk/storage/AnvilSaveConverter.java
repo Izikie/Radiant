@@ -112,7 +112,7 @@ public class AnvilSaveConverter extends SaveFormatOld {
         int i = list.size() + list1.size() + list2.size();
         logger.info("Total conversion count is {}", i);
         WorldInfo worldinfo = this.getWorldInfo(filename);
-        WorldChunkManager worldchunkmanager = null;
+        WorldChunkManager worldchunkmanager;
 
         if (worldinfo.getTerrainType() == WorldType.FLAT) {
             worldchunkmanager = new WorldChunkManagerHell(BiomeGenBase.plains, 0.5F);

@@ -111,7 +111,7 @@ public class PotionEffect {
     }
 
     public String toString() {
-        String s = "";
+        String s;
 
         if (this.getAmplifier() > 0) {
             s = this.getEffectName() + " x " + (this.getAmplifier() + 1) + ", Duration: " + this.getDuration();

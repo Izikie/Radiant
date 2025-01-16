@@ -63,7 +63,7 @@ public class GuiScreenOptionsSounds extends GuiScreen {
     class Button extends GuiButton {
         private final SoundCategory field_146153_r;
         private final String field_146152_s;
-        public float field_146156_o = 1.0F;
+        public float field_146156_o;
         public boolean field_146155_p;
 
         public Button(int p_i45024_2_, int p_i45024_3_, int p_i45024_4_, SoundCategory p_i45024_5_, boolean p_i45024_6_) {

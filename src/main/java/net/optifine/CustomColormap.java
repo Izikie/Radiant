@@ -25,8 +25,8 @@ import net.optifine.config.Matches;
 import net.optifine.util.TextureUtils;
 
 public class CustomColormap implements CustomColors.IColorizer {
-    public String name = null;
-    public String basePath = null;
+    public String name;
+    public String basePath;
     private int format = -1;
     private MatchBlock[] matchBlocks = null;
     private String source = null;

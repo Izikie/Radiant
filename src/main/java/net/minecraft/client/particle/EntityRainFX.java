@@ -53,7 +53,7 @@ public class EntityRainFX extends EntityFX {
         Material material = iblockstate.getBlock().getMaterial();
 
         if (material.isLiquid() || material.isSolid()) {
-            double d0 = 0.0D;
+            double d0;
 
             if (iblockstate.getBlock() instanceof BlockLiquid) {
                 d0 = (1.0F - BlockLiquid.getLiquidHeightPercent(iblockstate.getValue(BlockLiquid.LEVEL)));

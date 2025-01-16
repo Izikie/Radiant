@@ -210,7 +210,7 @@ public class ShadersRender {
             GlStateManager.colorMask(true, true, true, true);
             GlStateManager.disableCull();
             minecraft.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
-            int i = 0;
+            int i;
             i = entityRenderer.frameCount;
             entityRenderer.frameCount = i + 1;
             renderglobal.setupTerrain(entity, partialTicks, frustum, i, minecraft.thePlayer.isSpectator());

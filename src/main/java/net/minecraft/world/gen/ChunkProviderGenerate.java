@@ -209,8 +209,6 @@ public class ChunkProviderGenerate implements IChunkProvider {
         this.mainNoiseArray = this.field_147429_l.generateNoiseOctaves(this.mainNoiseArray, x, y, z, 5, 33, 5, (f / this.settings.mainNoiseScaleX), (f1 / this.settings.mainNoiseScaleY), (f / this.settings.mainNoiseScaleZ));
         this.lowerLimitNoiseArray = this.field_147431_j.generateNoiseOctaves(this.lowerLimitNoiseArray, x, y, z, 5, 33, 5, f, f1, f);
         this.upperLimitNoiseArray = this.field_147432_k.generateNoiseOctaves(this.upperLimitNoiseArray, x, y, z, 5, 33, 5, f, f1, f);
-        z = 0;
-        x = 0;
         int i = 0;
         int j = 0;
 

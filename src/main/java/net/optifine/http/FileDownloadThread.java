@@ -3,8 +3,8 @@ package net.optifine.http;
 import net.minecraft.client.Minecraft;
 
 public class FileDownloadThread extends Thread {
-    private String urlString = null;
-    private IFileDownloadListener listener = null;
+    private String urlString;
+    private IFileDownloadListener listener;
 
     public FileDownloadThread(String urlString, IFileDownloadListener listener) {
         this.urlString = urlString;

@@ -21,7 +21,7 @@ import net.optifine.http.HttpUtils;
 import net.optifine.util.Json;
 
 public class PlayerConfigurationParser {
-    private String player = null;
+    private String player;
     public static final String CONFIG_ITEMS = "items";
     public static final String ITEM_TYPE = "type";
     public static final String ITEM_ACTIVE = "active";

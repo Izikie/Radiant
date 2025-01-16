@@ -78,7 +78,7 @@ public class RecipesBanners {
                 }
 
                 NBTTagCompound nbttagcompound1 = itemstack.getSubCompound("BlockEntityTag", true);
-                NBTTagList nbttaglist = null;
+                NBTTagList nbttaglist;
 
                 if (nbttagcompound1.hasKey("Patterns", 9)) {
                     nbttaglist = nbttagcompound1.getTagList("Patterns", 10);

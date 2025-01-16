@@ -9,8 +9,8 @@ import net.minecraft.util.ResourceLocation;
 import net.optifine.config.ConnectedParser;
 
 public class RandomEntityProperties {
-    public String name = null;
-    public String basePath = null;
+    public String name;
+    public String basePath;
     public ResourceLocation[] resourceLocations = null;
     public RandomEntityRule[] rules = null;
 

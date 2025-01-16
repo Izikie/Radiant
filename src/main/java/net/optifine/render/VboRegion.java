@@ -12,7 +12,7 @@ import net.minecraft.util.EnumWorldBlockLayer;
 import net.optifine.util.LinkedList;
 
 public class VboRegion {
-    private EnumWorldBlockLayer layer = null;
+    private EnumWorldBlockLayer layer;
     private int glBufferId = OpenGlHelper.glGenBuffers();
     private int capacity = 4096;
     private int positionTop = 0;
@@ -83,7 +83,7 @@ public class VboRegion {
                 vborange = this.rangeList.getFirst().getItem();
             }
 
-            int i = vborange.getPosition();
+            int i;
             VboRange vborange1 = vborange.getPrev();
 
             if (vborange1 == null) {

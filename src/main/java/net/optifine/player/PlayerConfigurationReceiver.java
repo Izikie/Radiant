@@ -8,7 +8,7 @@ import net.optifine.http.IFileDownloadListener;
 import java.nio.charset.StandardCharsets;
 
 public class PlayerConfigurationReceiver implements IFileDownloadListener {
-    private String player = null;
+    private String player;
 
     public PlayerConfigurationReceiver(String player) {
         this.player = player;
