@@ -81,7 +81,7 @@ public class StatisticsFile extends StatFileWriter {
         }
     }
 
-    public Set<StatBase> func_150878_c() {
+    public Set<StatBase> getStats() {
         Set<StatBase> set = Sets.newHashSet(this.field_150888_e);
         this.field_150888_e.clear();
         this.field_150886_g = false;
@@ -163,19 +163,19 @@ public class StatisticsFile extends StatFileWriter {
         }
     }
 
-    public void func_150876_a(EntityPlayerMP p_150876_1_) {
+    public void func_150876_a(EntityPlayerMP entityPlayerMP) {
         int i = this.mcServer.getTickCounter();
         Map<StatBase, Integer> map = Maps.newHashMap();
 
         if (this.field_150886_g || i - this.field_150885_f > 300) {
             this.field_150885_f = i;
 
-            for (StatBase statbase : this.func_150878_c()) {
+            for (StatBase statbase : this.getStats()) {
                 map.put(statbase, this.readStat(statbase));
             }
         }
 
-        p_150876_1_.playerNetServerHandler.sendPacket(new S37PacketStatistics(map));
+        entityPlayerMP.playerNetServerHandler.sendPacket(new S37PacketStatistics(map));
     }
 
     public void sendAchievements(EntityPlayerMP player) {

@@ -4,14 +4,12 @@ import com.google.common.collect.Lists;
 import com.google.common.primitives.Doubles;
 import com.google.common.primitives.Floats;
 import com.google.common.util.concurrent.Futures;
-import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 
 import java.io.IOException;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Callable;
@@ -105,8 +103,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
     private int networkTickCount;
     private int field_175090_f;
     private int floatingTickCount;
-    private boolean field_147366_g;
-    private int field_147378_h;
+    private int lastPingTimeInt;
     private long lastPingTime;
     private long lastSentPingPacket;
     private int chatSpamThresholdCount;
@@ -126,14 +123,13 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
     }
 
     public void update() {
-        this.field_147366_g = false;
         ++this.networkTickCount;
 
         if (this.networkTickCount - this.lastSentPingPacket > 40L) {
             this.lastSentPingPacket = this.networkTickCount;
             this.lastPingTime = this.currentTimeMillis();
-            this.field_147378_h = (int) this.lastPingTime;
-            this.sendPacket(new S00PacketKeepAlive(this.field_147378_h));
+            this.lastPingTimeInt = (int) this.lastPingTime;
+            this.sendPacket(new S00PacketKeepAlive(this.lastPingTimeInt));
         }
 
 
@@ -185,7 +181,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
             this.kickPlayerFromServer("Invalid move packet received");
         } else {
             WorldServer worldserver = this.serverController.worldServerForDimension(this.playerEntity.dimension);
-            this.field_147366_g = true;
 
             if (!this.playerEntity.playerConqueredTheEnd) {
                 double d0 = this.playerEntity.posX;
@@ -816,13 +811,13 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
                     this.field_147372_n.addKey(this.playerEntity.openContainer.windowId, packetIn.getActionNumber());
                     this.playerEntity.playerNetServerHandler.sendPacket(new S32PacketConfirmTransaction(packetIn.getWindowId(), packetIn.getActionNumber(), false));
                     this.playerEntity.openContainer.setCanCraft(this.playerEntity, false);
-                    List<ItemStack> list1 = Lists.newArrayList();
+                    List<ItemStack> stacks = Lists.newArrayList();
 
                     for (int j = 0; j < this.playerEntity.openContainer.inventorySlots.size(); ++j) {
-                        list1.add(this.playerEntity.openContainer.inventorySlots.get(j).getStack());
+                        stacks.add(this.playerEntity.openContainer.inventorySlots.get(j).getStack());
                     }
 
-                    this.playerEntity.updateCraftingInventory(this.playerEntity.openContainer, list1);
+                    this.playerEntity.updateCraftingInventory(this.playerEntity.openContainer, stacks);
                 }
             }
         }
@@ -841,47 +836,44 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
     public void processCreativeInventoryAction(C10PacketCreativeInventoryAction packetIn) {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.playerEntity.getServerForPlayer());
 
-        if (this.playerEntity.theItemInWorldManager.isCreative()) {
-            boolean flag = packetIn.getSlotId() < 0;
-            ItemStack itemstack = packetIn.getStack();
+        if (!this.playerEntity.theItemInWorldManager.isCreative())
+            return;
 
-            if (itemstack != null && itemstack.hasTagCompound() && itemstack.getTagCompound().hasKey("BlockEntityTag", 10)) {
-                NBTTagCompound nbttagcompound = itemstack.getTagCompound().getCompoundTag("BlockEntityTag");
+        boolean flag = packetIn.getSlotId() < 0;
+        ItemStack itemstack = packetIn.getStack();
 
-                if (nbttagcompound.hasKey("x") && nbttagcompound.hasKey("y") && nbttagcompound.hasKey("z")) {
-                    BlockPos blockpos = new BlockPos(nbttagcompound.getInteger("x"), nbttagcompound.getInteger("y"), nbttagcompound.getInteger("z"));
-                    TileEntity tileentity = this.playerEntity.worldObj.getTileEntity(blockpos);
+        if (itemstack != null && itemstack.hasTagCompound() && itemstack.getTagCompound().hasKey("BlockEntityTag", 10)) {
+            NBTTagCompound nbttagcompound = itemstack.getTagCompound().getCompoundTag("BlockEntityTag");
 
-                    if (tileentity != null) {
-                        NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-                        tileentity.writeToNBT(nbttagcompound1);
-                        nbttagcompound1.removeTag("x");
-                        nbttagcompound1.removeTag("y");
-                        nbttagcompound1.removeTag("z");
-                        itemstack.setTagInfo("BlockEntityTag", nbttagcompound1);
-                    }
+            if (nbttagcompound.hasKey("x") && nbttagcompound.hasKey("y") && nbttagcompound.hasKey("z")) {
+                BlockPos blockpos = new BlockPos(nbttagcompound.getInteger("x"), nbttagcompound.getInteger("y"), nbttagcompound.getInteger("z"));
+                TileEntity tileentity = this.playerEntity.worldObj.getTileEntity(blockpos);
+
+                if (tileentity != null) {
+                    NBTTagCompound tagCompound = new NBTTagCompound();
+                    tileentity.writeToNBT(tagCompound);
+                    tagCompound.removeTag("x");
+                    tagCompound.removeTag("y");
+                    tagCompound.removeTag("z");
+                    itemstack.setTagInfo("BlockEntityTag", tagCompound);
                 }
             }
+        }
 
-            boolean flag1 = packetIn.getSlotId() >= 1 && packetIn.getSlotId() < 36 + InventoryPlayer.getHotbarSize();
-            boolean flag2 = itemstack == null || itemstack.getItem() != null;
-            boolean flag3 = itemstack == null || itemstack.getMetadata() >= 0 && itemstack.stackSize <= 64 && itemstack.stackSize > 0;
+        boolean flag1 = packetIn.getSlotId() >= 1 && packetIn.getSlotId() < 36 + InventoryPlayer.getHotbarSize();
+        boolean flag2 = itemstack == null || itemstack.getItem() != null;
+        boolean flag3 = itemstack == null || itemstack.getMetadata() >= 0 && itemstack.stackSize <= 64 && itemstack.stackSize > 0;
 
-            if (flag1 && flag2 && flag3) {
-                if (itemstack == null) {
-                    this.playerEntity.inventoryContainer.putStackInSlot(packetIn.getSlotId(), null);
-                } else {
-                    this.playerEntity.inventoryContainer.putStackInSlot(packetIn.getSlotId(), itemstack);
-                }
+        if (flag1 && flag2 && flag3) {
+            this.playerEntity.inventoryContainer.putStackInSlot(packetIn.getSlotId(), itemstack);
 
-                this.playerEntity.inventoryContainer.setCanCraft(this.playerEntity, true);
-            } else if (flag && flag2 && flag3 && this.itemDropThreshold < 200) {
-                this.itemDropThreshold += 20;
-                EntityItem entityitem = this.playerEntity.dropPlayerItemWithRandomChoice(itemstack, true);
+            this.playerEntity.inventoryContainer.setCanCraft(this.playerEntity, true);
+        } else if (flag && flag2 && flag3 && this.itemDropThreshold < 200) {
+            this.itemDropThreshold += 20;
+            EntityItem entityitem = this.playerEntity.dropPlayerItemWithRandomChoice(itemstack, true);
 
-                if (entityitem != null) {
-                    entityitem.setAgeToCreativeDespawnTime();
-                }
+            if (entityitem != null) {
+                entityitem.setAgeToCreativeDespawnTime();
             }
         }
     }
@@ -925,7 +917,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
     }
 
     public void processKeepAlive(C00PacketKeepAlive packetIn) {
-        if (packetIn.getKey() == this.field_147378_h) {
+        if (packetIn.getKey() == this.lastPingTimeInt) {
             int i = (int) (this.currentTimeMillis() - this.lastPingTime);
             this.playerEntity.ping = (this.playerEntity.ping * 3 + i) / 4;
         }
@@ -944,11 +936,9 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.playerEntity.getServerForPlayer());
         List<String> list = Lists.newArrayList();
 
-        for (String s : this.serverController.getTabCompletions(this.playerEntity, packetIn.getMessage(), packetIn.getTargetBlock())) {
-            list.add(s);
-        }
+        list.addAll(this.serverController.getTabCompletions(this.playerEntity, packetIn.getMessage(), packetIn.getTargetBlock()));
 
-        this.playerEntity.playerNetServerHandler.sendPacket(new S3APacketTabComplete(list.toArray(new String[list.size()])));
+        this.playerEntity.playerNetServerHandler.sendPacket(new S3APacketTabComplete(list.toArray(new String[0])));
     }
 
     public void processClientSettings(C15PacketClientSettings packetIn) {
@@ -960,70 +950,60 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.playerEntity.getServerForPlayer());
 
         if ("MC|BEdit".equals(packetIn.getChannelName())) {
-            PacketBuffer packetbuffer3 = new PacketBuffer(Unpooled.wrappedBuffer(packetIn.getBufferData()));
+            PacketBuffer buffer = new PacketBuffer(Unpooled.wrappedBuffer(packetIn.getBufferData()));
 
             try {
-                ItemStack itemstack1 = packetbuffer3.readItemStackFromBuffer();
+                ItemStack itemBook = buffer.readItemStackFromBuffer();
 
-                if (itemstack1 != null) {
-                    if (!ItemWritableBook.isNBTValid(itemstack1.getTagCompound())) {
+                if (itemBook != null) {
+                    if (!ItemWritableBook.isNBTValid(itemBook.getTagCompound())) {
                         throw new IOException("Invalid book tag!");
                     }
 
-                    ItemStack itemstack3 = this.playerEntity.inventory.getCurrentItem();
+                    ItemStack currentItem = this.playerEntity.inventory.getCurrentItem();
 
-                    if (itemstack3 == null) {
+                    if (currentItem == null) {
                         return;
                     }
 
-                    if (itemstack1.getItem() == Items.writable_book && itemstack1.getItem() == itemstack3.getItem()) {
-                        itemstack3.setTagInfo("pages", itemstack1.getTagCompound().getTagList("pages", 8));
+                    if (itemBook.getItem() == Items.writable_book && itemBook.getItem() == currentItem.getItem()) {
+                        currentItem.setTagInfo("pages", itemBook.getTagCompound().getTagList("pages", 8));
                     }
-
-                    return;
                 }
             } catch (Exception exception3) {
                 logger.error("Couldn't handle book info", exception3);
-                return;
             } finally {
-                packetbuffer3.release();
+                buffer.release();
             }
-
-            return;
         } else if ("MC|BSign".equals(packetIn.getChannelName())) {
-            PacketBuffer packetbuffer2 = new PacketBuffer(Unpooled.wrappedBuffer(packetIn.getBufferData()));
+            PacketBuffer buffer = new PacketBuffer(Unpooled.wrappedBuffer(packetIn.getBufferData()));
 
             try {
-                ItemStack itemstack = packetbuffer2.readItemStackFromBuffer();
+                ItemStack itemstack = buffer.readItemStackFromBuffer();
 
                 if (itemstack != null) {
                     if (!ItemEditableBook.validBookTagContents(itemstack.getTagCompound())) {
                         throw new IOException("Invalid book tag!");
                     }
 
-                    ItemStack itemstack2 = this.playerEntity.inventory.getCurrentItem();
+                    ItemStack currentItem = this.playerEntity.inventory.getCurrentItem();
 
-                    if (itemstack2 == null) {
+                    if (currentItem == null) {
                         return;
                     }
 
-                    if (itemstack.getItem() == Items.written_book && itemstack2.getItem() == Items.writable_book) {
-                        itemstack2.setTagInfo("author", new NBTTagString(this.playerEntity.getName()));
-                        itemstack2.setTagInfo("title", new NBTTagString(itemstack.getTagCompound().getString("title")));
-                        itemstack2.setTagInfo("pages", itemstack.getTagCompound().getTagList("pages", 8));
-                        itemstack2.setItem(Items.written_book);
+                    if (itemstack.getItem() == Items.written_book && currentItem.getItem() == Items.writable_book) {
+                        currentItem.setTagInfo("author", new NBTTagString(this.playerEntity.getName()));
+                        currentItem.setTagInfo("title", new NBTTagString(itemstack.getTagCompound().getString("title")));
+                        currentItem.setTagInfo("pages", itemstack.getTagCompound().getTagList("pages", 8));
+                        currentItem.setItem(Items.written_book);
                     }
-
-                    return;
                 }
             } catch (Exception exception4) {
                 logger.error("Couldn't sign book", exception4);
-                return;
             } finally {
-                packetbuffer2.release();
+                buffer.release();
             }
-
-            return;
         } else if ("MC|TrSel".equals(packetIn.getChannelName())) {
             try {
                 int i = packetIn.getBufferData().readInt();
@@ -1084,9 +1064,9 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         } else if ("MC|Beacon".equals(packetIn.getChannelName())) {
             if (this.playerEntity.openContainer instanceof ContainerBeacon) {
                 try {
-                    PacketBuffer packetbuffer1 = packetIn.getBufferData();
-                    int k = packetbuffer1.readInt();
-                    int l = packetbuffer1.readInt();
+                    PacketBuffer bufferData = packetIn.getBufferData();
+                    int k = bufferData.readInt();
+                    int l = bufferData.readInt();
                     ContainerBeacon containerbeacon = (ContainerBeacon) this.playerEntity.openContainer;
                     Slot slot = containerbeacon.getSlot(0);
 
@@ -1104,10 +1084,10 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         } else if ("MC|ItemName".equals(packetIn.getChannelName()) && this.playerEntity.openContainer instanceof ContainerRepair containerrepair) {
 
             if (packetIn.getBufferData() != null && packetIn.getBufferData().readableBytes() >= 1) {
-                String s = ChatAllowedCharacters.filterAllowedCharacters(packetIn.getBufferData().readStringFromBuffer(32767));
+                String allowedCharacters = ChatAllowedCharacters.filterAllowedCharacters(packetIn.getBufferData().readStringFromBuffer(32767));
 
-                if (s.length() <= 30) {
-                    containerrepair.updateItemName(s);
+                if (allowedCharacters.length() <= 30) {
+                    containerrepair.updateItemName(allowedCharacters);
                 }
             } else {
                 containerrepair.updateItemName("");
