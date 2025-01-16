@@ -18,7 +18,7 @@ public enum ModelVariableType {
     SCALE_Z("sz");
 
     private final String name;
-    public static ModelVariableType[] VALUES = values();
+    public static final ModelVariableType[] VALUES = values();
 
     ModelVariableType(String name) {
         this.name = name;

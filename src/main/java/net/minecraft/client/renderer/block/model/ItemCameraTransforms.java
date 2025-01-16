@@ -12,15 +12,15 @@ import net.minecraft.client.renderer.GlStateManager;
 
 public class ItemCameraTransforms {
     public static final ItemCameraTransforms DEFAULT = new ItemCameraTransforms();
-    public static float field_181690_b = 0.0F;
-    public static float field_181691_c = 0.0F;
-    public static float field_181692_d = 0.0F;
-    public static float field_181693_e = 0.0F;
-    public static float field_181694_f = 0.0F;
-    public static float field_181695_g = 0.0F;
-    public static float field_181696_h = 0.0F;
-    public static float field_181697_i = 0.0F;
-    public static float field_181698_j = 0.0F;
+    public static final float field_181690_b = 0.0F;
+    public static final float field_181691_c = 0.0F;
+    public static final float field_181692_d = 0.0F;
+    public static final float field_181693_e = 0.0F;
+    public static final float field_181694_f = 0.0F;
+    public static final float field_181695_g = 0.0F;
+    public static final float field_181696_h = 0.0F;
+    public static final float field_181697_i = 0.0F;
+    public static final float field_181698_j = 0.0F;
     public final ItemTransformVec3f thirdPerson;
     public final ItemTransformVec3f firstPerson;
     public final ItemTransformVec3f head;

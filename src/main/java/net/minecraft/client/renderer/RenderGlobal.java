@@ -174,8 +174,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     public boolean displayListEntitiesDirty = true;
     private final CloudRenderer cloudRenderer;
     public Entity renderedEntity;
-    public Set chunksToResortTransparency = new LinkedHashSet();
-    public Set chunksToUpdateForced = new LinkedHashSet();
+    public final Set chunksToResortTransparency = new LinkedHashSet();
+    public final Set chunksToUpdateForced = new LinkedHashSet();
     private final Deque visibilityDeque = new ArrayDeque();
     private List renderInfosEntities = new ArrayList(1024);
     private List renderInfosTileEntities = new ArrayList(1024);

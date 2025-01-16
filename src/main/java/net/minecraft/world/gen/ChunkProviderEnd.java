@@ -22,8 +22,8 @@ public class ChunkProviderEnd implements IChunkProvider {
     private final NoiseGeneratorOctaves noiseGen1;
     private final NoiseGeneratorOctaves noiseGen2;
     private final NoiseGeneratorOctaves noiseGen3;
-    public NoiseGeneratorOctaves noiseGen4;
-    public NoiseGeneratorOctaves noiseGen5;
+    public final NoiseGeneratorOctaves noiseGen4;
+    public final NoiseGeneratorOctaves noiseGen5;
     private final World endWorld;
     private double[] densities;
     private BiomeGenBase[] biomesForGeneration;

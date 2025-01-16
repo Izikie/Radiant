@@ -7,8 +7,8 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.chunk.IChunkProvider;
 
 public class MapGenBase {
-    protected int range = 8;
-    protected Random rand = new Random();
+    protected final int range = 8;
+    protected final Random rand = new Random();
     protected World worldObj;
 
     public void generate(IChunkProvider chunkProviderIn, World worldIn, int x, int z, ChunkPrimer chunkPrimerIn) {

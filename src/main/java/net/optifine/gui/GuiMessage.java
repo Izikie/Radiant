@@ -16,7 +16,7 @@ public class GuiMessage extends GuiScreen {
     private final String messageLine1;
     private final String messageLine2;
     private final List listLines2 = Lists.newArrayList();
-    protected String confirmButtonText;
+    protected final String confirmButtonText;
     private int ticksUntilEnable;
 
     public GuiMessage(GuiScreen parentScreen, String line1, String line2) {

@@ -4,10 +4,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class HttpResponse {
-    private int status;
-    private String statusLine;
-    private Map<String, String> headers;
-    private byte[] body;
+    private final int status;
+    private final String statusLine;
+    private final Map<String, String> headers;
+    private final byte[] body;
 
     public HttpResponse(int status, String statusLine, Map headers, byte[] body) {
         this.status = status;

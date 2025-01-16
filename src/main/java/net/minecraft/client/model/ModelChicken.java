@@ -5,14 +5,14 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 
 public class ModelChicken extends ModelBase {
-    public ModelRenderer head;
-    public ModelRenderer body;
-    public ModelRenderer rightLeg;
-    public ModelRenderer leftLeg;
-    public ModelRenderer rightWing;
-    public ModelRenderer leftWing;
-    public ModelRenderer bill;
-    public ModelRenderer chin;
+    public final ModelRenderer head;
+    public final ModelRenderer body;
+    public final ModelRenderer rightLeg;
+    public final ModelRenderer leftLeg;
+    public final ModelRenderer rightWing;
+    public final ModelRenderer leftWing;
+    public final ModelRenderer bill;
+    public final ModelRenderer chin;
 
     public ModelChicken() {
         int i = 16;

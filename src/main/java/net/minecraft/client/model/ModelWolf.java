@@ -7,14 +7,14 @@ import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.util.MathHelper;
 
 public class ModelWolf extends ModelBase {
-    public ModelRenderer wolfHeadMain;
-    public ModelRenderer wolfBody;
-    public ModelRenderer wolfLeg1;
-    public ModelRenderer wolfLeg2;
-    public ModelRenderer wolfLeg3;
-    public ModelRenderer wolfLeg4;
-    ModelRenderer wolfTail;
-    ModelRenderer wolfMane;
+    public final ModelRenderer wolfHeadMain;
+    public final ModelRenderer wolfBody;
+    public final ModelRenderer wolfLeg1;
+    public final ModelRenderer wolfLeg2;
+    public final ModelRenderer wolfLeg3;
+    public final ModelRenderer wolfLeg4;
+    final ModelRenderer wolfTail;
+    final ModelRenderer wolfMane;
 
     public ModelWolf() {
         float f = 0.0F;

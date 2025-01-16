@@ -48,13 +48,13 @@ public abstract class EntityLiving extends EntityLivingBase {
     protected EntityMoveHelper moveHelper;
     protected EntityJumpHelper jumpHelper;
     private final EntityBodyHelper bodyHelper;
-    protected PathNavigate navigator;
+    protected final PathNavigate navigator;
     protected final EntityAITasks tasks;
     protected final EntityAITasks targetTasks;
     private EntityLivingBase attackTarget;
     private final EntitySenses senses;
     private final ItemStack[] equipment = new ItemStack[5];
-    protected float[] equipmentDropChances = new float[5];
+    protected final float[] equipmentDropChances = new float[5];
     private boolean canPickUpLoot;
     private boolean persistenceRequired;
     private boolean isLeashed;

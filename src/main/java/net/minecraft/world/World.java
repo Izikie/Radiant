@@ -78,23 +78,23 @@ public abstract class World implements IBlockAccess {
     private int lastLightningBolt;
     public final Random rand = new Random();
     public final WorldProvider provider;
-    protected List<IWorldAccess> worldAccesses = Lists.newArrayList();
+    protected final List<IWorldAccess> worldAccesses = Lists.newArrayList();
     protected IChunkProvider chunkProvider;
     protected final ISaveHandler saveHandler;
-    protected WorldInfo worldInfo;
+    protected final WorldInfo worldInfo;
     protected boolean findingSpawnPoint;
     protected MapStorage mapStorage;
     protected VillageCollection villageCollectionObj;
     private final Calendar theCalendar = Calendar.getInstance();
     protected Scoreboard worldScoreboard = new Scoreboard();
     public final boolean isRemote;
-    protected Set<ChunkCoordIntPair> activeChunkSet = Sets.newHashSet();
+    protected final Set<ChunkCoordIntPair> activeChunkSet = Sets.newHashSet();
     private int ambientTickCountdown;
     protected boolean spawnHostileMobs;
     protected boolean spawnPeacefulMobs;
     private boolean processingLoadedTiles;
     private final WorldBorder worldBorder;
-    int[] lightUpdateBlockList;
+    final int[] lightUpdateBlockList;
 
     protected World(ISaveHandler saveHandlerIn, WorldInfo info, WorldProvider providerIn, boolean client) {
         this.ambientTickCountdown = this.rand.nextInt(12000);

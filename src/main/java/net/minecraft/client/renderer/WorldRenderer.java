@@ -49,7 +49,7 @@ public class WorldRenderer {
     public SVertexBuilder sVertexBuilder;
     public RenderEnv renderEnv = null;
     public BitSet animatedSprites = null;
-    public BitSet animatedSpritesCached = new BitSet();
+    public final BitSet animatedSpritesCached = new BitSet();
     private boolean modeTriangles = false;
     private ByteBuffer byteBufferTriangles;
 

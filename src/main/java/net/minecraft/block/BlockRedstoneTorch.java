@@ -164,8 +164,8 @@ public class BlockRedstoneTorch extends BlockTorch {
     }
 
     static class Toggle {
-        BlockPos pos;
-        long time;
+        final BlockPos pos;
+        final long time;
 
         public Toggle(BlockPos pos, long time) {
             this.pos = pos;

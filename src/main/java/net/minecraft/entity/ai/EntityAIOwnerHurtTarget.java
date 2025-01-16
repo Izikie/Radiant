@@ -4,7 +4,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityTameable;
 
 public class EntityAIOwnerHurtTarget extends EntityAITarget {
-    EntityTameable theEntityTameable;
+    final EntityTameable theEntityTameable;
     EntityLivingBase theTarget;
     private int field_142050_e;
 

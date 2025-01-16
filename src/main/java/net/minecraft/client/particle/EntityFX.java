@@ -11,8 +11,8 @@ import net.minecraft.world.World;
 public class EntityFX extends Entity {
     protected int particleTextureIndexX;
     protected int particleTextureIndexY;
-    protected float particleTextureJitterX;
-    protected float particleTextureJitterY;
+    protected final float particleTextureJitterX;
+    protected final float particleTextureJitterY;
     protected int particleAge;
     protected int particleMaxAge;
     protected float particleScale;

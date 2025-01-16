@@ -45,8 +45,8 @@ import net.optifine.util.TextureUtils;
 import org.lwjgl.opengl.GL11;
 
 public class CustomItemProperties {
-    public String name;
-    public String basePath;
+    public final String name;
+    public final String basePath;
     public int type = 1;
     public int[] items = null;
     public String texture = null;

@@ -252,7 +252,7 @@ public class Minecraft implements IThreadListener {
     private BlockRendererDispatcher blockRenderDispatcher;
     volatile boolean running = true;
     public String debug = "";
-    public boolean renderChunksMany = true;
+    public final boolean renderChunksMany = true;
     long debugUpdateTime = getSystemTime();
     int fpsCounter;
 

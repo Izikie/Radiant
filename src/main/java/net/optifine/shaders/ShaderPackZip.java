@@ -17,7 +17,7 @@ import net.minecraft.src.Config;
 import net.optifine.util.StrUtils;
 
 public class ShaderPackZip implements IShaderPack {
-    protected File packFile;
+    protected final File packFile;
     protected ZipFile packZipFile;
     protected String baseFolder;
 

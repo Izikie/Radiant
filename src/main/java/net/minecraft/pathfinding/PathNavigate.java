@@ -14,8 +14,8 @@ import net.minecraft.world.ChunkCache;
 import net.minecraft.world.World;
 
 public abstract class PathNavigate {
-    protected EntityLiving theEntity;
-    protected World worldObj;
+    protected final EntityLiving theEntity;
+    protected final World worldObj;
     protected PathEntity currentPath;
     protected double speed;
     private final IAttributeInstance pathSearchRange;

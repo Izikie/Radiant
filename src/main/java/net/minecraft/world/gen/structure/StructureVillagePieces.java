@@ -1180,10 +1180,10 @@ public class StructureVillagePieces {
     }
 
     public static class PieceWeight {
-        public Class<? extends StructureVillagePieces.Village> villagePieceClass;
+        public final Class<? extends StructureVillagePieces.Village> villagePieceClass;
         public final int villagePieceWeight;
         public int villagePiecesSpawned;
-        public int villagePiecesLimit;
+        public final int villagePiecesLimit;
 
         public PieceWeight(Class<? extends StructureVillagePieces.Village> p_i2098_1_, int p_i2098_2_, int p_i2098_3_) {
             this.villagePieceClass = p_i2098_1_;
@@ -1215,8 +1215,8 @@ public class StructureVillagePieces {
         public int terrainType;
         public StructureVillagePieces.PieceWeight structVillagePieceWeight;
         public List<StructureVillagePieces.PieceWeight> structureVillageWeightedPieceList;
-        public List<StructureComponent> field_74932_i = Lists.newArrayList();
-        public List<StructureComponent> field_74930_j = Lists.newArrayList();
+        public final List<StructureComponent> field_74932_i = Lists.newArrayList();
+        public final List<StructureComponent> field_74930_j = Lists.newArrayList();
 
         public Start() {
         }

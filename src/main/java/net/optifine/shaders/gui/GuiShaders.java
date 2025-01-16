@@ -20,7 +20,7 @@ import net.optifine.shaders.config.EnumShaderOption;
 import org.lwjgl.Sys;
 
 public class GuiShaders extends GuiScreenOF {
-    protected GuiScreen parentGui;
+    protected final GuiScreen parentGui;
     protected String screenTitle = "Shaders";
     private final TooltipManager tooltipManager = new TooltipManager(this, new TooltipProviderEnumShaderOptions());
     private int updateTimer = -1;

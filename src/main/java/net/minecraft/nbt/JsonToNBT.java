@@ -296,7 +296,7 @@ public class JsonToNBT {
     }
 
     static class Compound extends JsonToNBT.Any {
-        protected java.util.List<JsonToNBT.Any> field_150491_b = Lists.newArrayList();
+        protected final java.util.List<JsonToNBT.Any> field_150491_b = Lists.newArrayList();
 
         public Compound(String p_i45137_1_) {
             this.json = p_i45137_1_;
@@ -314,7 +314,7 @@ public class JsonToNBT {
     }
 
     static class List extends JsonToNBT.Any {
-        protected java.util.List<JsonToNBT.Any> field_150492_b = Lists.newArrayList();
+        protected final java.util.List<JsonToNBT.Any> field_150492_b = Lists.newArrayList();
 
         public List(String json) {
             this.json = json;

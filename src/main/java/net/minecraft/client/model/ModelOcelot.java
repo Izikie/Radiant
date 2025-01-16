@@ -7,14 +7,14 @@ import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.util.MathHelper;
 
 public class ModelOcelot extends ModelBase {
-    ModelRenderer ocelotBackLeftLeg;
-    ModelRenderer ocelotBackRightLeg;
-    ModelRenderer ocelotFrontLeftLeg;
-    ModelRenderer ocelotFrontRightLeg;
-    ModelRenderer ocelotTail;
-    ModelRenderer ocelotTail2;
-    ModelRenderer ocelotHead;
-    ModelRenderer ocelotBody;
+    final ModelRenderer ocelotBackLeftLeg;
+    final ModelRenderer ocelotBackRightLeg;
+    final ModelRenderer ocelotFrontLeftLeg;
+    final ModelRenderer ocelotFrontRightLeg;
+    final ModelRenderer ocelotTail;
+    final ModelRenderer ocelotTail2;
+    final ModelRenderer ocelotHead;
+    final ModelRenderer ocelotBody;
     int field_78163_i = 1;
 
     public ModelOcelot() {

@@ -4,9 +4,9 @@ import net.minecraft.entity.Entity;
 
 public class MovingObjectPosition {
     private BlockPos blockPos;
-    public MovingObjectPosition.MovingObjectType typeOfHit;
+    public final MovingObjectPosition.MovingObjectType typeOfHit;
     public EnumFacing sideHit;
-    public Vec3 hitVec;
+    public final Vec3 hitVec;
     public Entity entityHit;
 
     public MovingObjectPosition(Vec3 hitVecIn, EnumFacing facing, BlockPos blockPosIn) {

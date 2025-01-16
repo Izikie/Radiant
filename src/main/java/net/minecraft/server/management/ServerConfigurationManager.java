@@ -78,7 +78,7 @@ public abstract class ServerConfigurationManager {
     private final Map<UUID, StatisticsFile> playerStatFiles;
     private IPlayerFileData playerNBTManagerObj;
     private boolean whiteListEnforced;
-    protected int maxPlayers;
+    protected final int maxPlayers;
     private int viewDistance;
     private WorldSettings.GameType gameType;
     private boolean commandsAllowedForAll;

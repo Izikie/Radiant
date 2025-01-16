@@ -51,7 +51,7 @@ public class Item {
     private static final Map<Block, Item> BLOCK_TO_ITEM = Maps.newHashMap();
     protected static final UUID itemModifierUUID = UUID.fromString("CB3F55D3-645C-4F38-A497-9C13A33DB5CF");
     private CreativeTabs tabToDisplayOn;
-    protected static Random itemRand = new Random();
+    protected static final Random itemRand = new Random();
     protected int maxStackSize = 64;
     private int maxDamage;
     protected boolean bFull3D;

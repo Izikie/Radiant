@@ -5,10 +5,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityArmorStand;
 
 public class ModelArmorStand extends ModelArmorStandArmor {
-    public ModelRenderer standRightSide;
-    public ModelRenderer standLeftSide;
-    public ModelRenderer standWaist;
-    public ModelRenderer standBase;
+    public final ModelRenderer standRightSide;
+    public final ModelRenderer standLeftSide;
+    public final ModelRenderer standWaist;
+    public final ModelRenderer standBase;
 
     public ModelArmorStand() {
         this(0.0F);

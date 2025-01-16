@@ -6,9 +6,9 @@ public class NoiseGeneratorSimplex {
     private static final int[][] field_151611_e = new int[][]{{1, 1, 0}, {-1, 1, 0}, {1, -1, 0}, {-1, -1, 0}, {1, 0, 1}, {-1, 0, 1}, {1, 0, -1}, {-1, 0, -1}, {0, 1, 1}, {0, -1, 1}, {0, 1, -1}, {0, -1, -1}};
     public static final double field_151614_a = Math.sqrt(3.0D);
     private final int[] field_151608_f;
-    public double field_151612_b;
-    public double field_151613_c;
-    public double field_151610_d;
+    public final double field_151612_b;
+    public final double field_151613_c;
+    public final double field_151610_d;
     private static final double field_151609_g = 0.5D * (field_151614_a - 1.0D);
     private static final double field_151615_h = (3.0D - field_151614_a) / 6.0D;
 

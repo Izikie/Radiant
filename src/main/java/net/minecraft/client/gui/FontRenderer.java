@@ -37,8 +37,8 @@ public class FontRenderer implements IResourceManagerReloadListener {
 
     private static final ResourceLocation[] unicodePageLocations = new ResourceLocation[256];
     private final int[] charWidth = new int[256];
-    public int FONT_HEIGHT = 9;
-    public Random fontRandom = new Random();
+    public final int FONT_HEIGHT = 9;
+    public final Random fontRandom = new Random();
     private final byte[] glyphWidth = new byte[65536];
     private final int[] colorCode = new int[32];
     private ResourceLocation locationFontTexture;
@@ -57,8 +57,8 @@ public class FontRenderer implements IResourceManagerReloadListener {
     private boolean italicStyle;
     private boolean underlineStyle;
     private boolean strikethroughStyle;
-    public GameSettings gameSettings;
-    public ResourceLocation locationFontTextureBase;
+    public final GameSettings gameSettings;
+    public final ResourceLocation locationFontTextureBase;
     public float offsetBold = 1.0F;
     private final float[] charWidthFloat = new float[256];
     private boolean blend = false;

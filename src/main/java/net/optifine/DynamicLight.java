@@ -17,8 +17,8 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class DynamicLight {
-    private Entity entity;
-    private double offsetY;
+    private final Entity entity;
+    private final double offsetY;
     private double lastPosX = -2.147483648E9D;
     private double lastPosY = -2.147483648E9D;
     private double lastPosZ = -2.147483648E9D;

@@ -5,8 +5,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.World;
 
 public class EntityAIOcelotAttack extends EntityAIBase {
-    World theWorld;
-    EntityLiving theEntity;
+    final World theWorld;
+    final EntityLiving theEntity;
     EntityLivingBase theVictim;
     int attackCountdown;
 

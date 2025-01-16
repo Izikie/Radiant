@@ -19,7 +19,7 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
     private static final ResourceLocation END_SKY_TEXTURE = new ResourceLocation("textures/environment/end_sky.png");
     private static final ResourceLocation END_PORTAL_TEXTURE = new ResourceLocation("textures/entity/end_portal.png");
     private static final Random field_147527_e = new Random(31100L);
-    FloatBuffer field_147528_b = GLAllocation.createDirectFloatBuffer(16);
+    final FloatBuffer field_147528_b = GLAllocation.createDirectFloatBuffer(16);
 
     public void renderTileEntityAt(TileEntityEndPortal te, double x, double y, double z, float partialTicks, int destroyStage) {
         if (!Config.isShaders() || !ShadersRender.renderEndPortal(te, x, y, z, partialTicks, destroyStage, 0.75F)) {

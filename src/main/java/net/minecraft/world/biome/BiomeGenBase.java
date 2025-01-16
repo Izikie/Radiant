@@ -470,8 +470,8 @@ public abstract class BiomeGenBase {
     }
 
     public static class Height {
-        public float rootHeight;
-        public float variation;
+        public final float rootHeight;
+        public final float variation;
 
         public Height(float rootHeightIn, float variationIn) {
             this.rootHeight = rootHeightIn;
@@ -484,9 +484,9 @@ public abstract class BiomeGenBase {
     }
 
     public static class SpawnListEntry extends WeightedRandom.Item {
-        public Class<? extends EntityLiving> entityClass;
-        public int minGroupCount;
-        public int maxGroupCount;
+        public final Class<? extends EntityLiving> entityClass;
+        public final int minGroupCount;
+        public final int maxGroupCount;
 
         public SpawnListEntry(Class<? extends EntityLiving> entityclassIn, int weight, int groupCountMin, int groupCountMax) {
             super(weight);

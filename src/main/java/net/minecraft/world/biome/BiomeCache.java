@@ -63,10 +63,10 @@ public class BiomeCache {
     }
 
     public class Block {
-        public float[] rainfallValues = new float[256];
-        public BiomeGenBase[] biomes = new BiomeGenBase[256];
-        public int xPosition;
-        public int zPosition;
+        public final float[] rainfallValues = new float[256];
+        public final BiomeGenBase[] biomes = new BiomeGenBase[256];
+        public final int xPosition;
+        public final int zPosition;
         public long lastAccessTime;
 
         public Block(int x, int z) {

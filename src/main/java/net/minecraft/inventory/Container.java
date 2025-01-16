@@ -14,14 +14,14 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 
 public abstract class Container {
-    public List<ItemStack> inventoryItemStacks = Lists.newArrayList();
+    public final List<ItemStack> inventoryItemStacks = Lists.newArrayList();
     public List<Slot> inventorySlots = Lists.newArrayList();
     public int windowId;
     private short transactionID;
     private int dragMode = -1;
     private int dragEvent;
     private final Set<Slot> dragSlots = Sets.newHashSet();
-    protected List<ICrafting> crafters = Lists.newArrayList();
+    protected final List<ICrafting> crafters = Lists.newArrayList();
     private final Set<EntityPlayer> playerList = Sets.newHashSet();
 
     protected Slot addSlotToContainer(Slot slotIn) {

@@ -12,7 +12,7 @@ import net.minecraft.util.EnumWorldBlockLayer;
 import net.optifine.util.LinkedList;
 
 public class VboRegion {
-    private EnumWorldBlockLayer layer;
+    private final EnumWorldBlockLayer layer;
     private int glBufferId = OpenGlHelper.glGenBuffers();
     private int capacity = 4096;
     private int positionTop = 0;

@@ -123,9 +123,9 @@ public class GuiScreenCustomizePresets extends GuiScreen {
     }
 
     static class Info {
-        public String field_178955_a;
-        public ResourceLocation field_178953_b;
-        public ChunkProviderSettings.Factory field_178954_c;
+        public final String field_178955_a;
+        public final ResourceLocation field_178953_b;
+        public final ChunkProviderSettings.Factory field_178954_c;
 
         public Info(String p_i45523_1_, ResourceLocation p_i45523_2_, ChunkProviderSettings.Factory p_i45523_3_) {
             this.field_178955_a = p_i45523_1_;

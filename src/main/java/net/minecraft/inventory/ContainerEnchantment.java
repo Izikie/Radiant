@@ -16,13 +16,13 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class ContainerEnchantment extends Container {
-    public IInventory tableInventory;
+    public final IInventory tableInventory;
     private final World worldPointer;
     private final BlockPos position;
     private final Random rand;
     public int xpSeed;
-    public int[] enchantLevels;
-    public int[] enchantmentIds;
+    public final int[] enchantLevels;
+    public final int[] enchantmentIds;
 
     public ContainerEnchantment(InventoryPlayer playerInv, World worldIn) {
         this(playerInv, worldIn, BlockPos.ORIGIN);

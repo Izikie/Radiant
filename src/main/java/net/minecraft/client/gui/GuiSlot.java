@@ -27,7 +27,7 @@ public abstract class GuiSlot {
     protected float amountScrolled;
     protected int selectedElement = -1;
     protected long lastClicked;
-    protected boolean field_178041_q = true;
+    protected final boolean field_178041_q = true;
     protected boolean showSelectionBox = true;
     protected boolean hasListHeader;
     protected int headerPadding;

@@ -630,7 +630,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
     }
 
     static class ContainerCreative extends Container {
-        public List<ItemStack> itemList = Lists.newArrayList();
+        public final List<ItemStack> itemList = Lists.newArrayList();
 
         public ContainerCreative(EntityPlayer p_i1086_1_) {
             InventoryPlayer inventoryplayer = p_i1086_1_.inventory;

@@ -116,7 +116,7 @@ public class RenderManager {
     private double renderPosX;
     private double renderPosY;
     private double renderPosZ;
-    public TextureManager renderEngine;
+    public final TextureManager renderEngine;
     public World worldObj;
     public Entity livingPlayer;
     public Entity pointedEntity;

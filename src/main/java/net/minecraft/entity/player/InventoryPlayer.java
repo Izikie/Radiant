@@ -21,7 +21,7 @@ public class InventoryPlayer implements IInventory {
     public ItemStack[] mainInventory = new ItemStack[36];
     public ItemStack[] armorInventory = new ItemStack[4];
     public int currentItem;
-    public EntityPlayer player;
+    public final EntityPlayer player;
     private ItemStack itemStack;
     public boolean inventoryChanged;
 

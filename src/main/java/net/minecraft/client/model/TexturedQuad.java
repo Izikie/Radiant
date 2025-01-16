@@ -9,7 +9,7 @@ import net.optifine.shaders.SVertexFormat;
 
 public class TexturedQuad {
     public PositionTextureVertex[] vertexPositions;
-    public int nVertices;
+    public final int nVertices;
     private boolean invertNormal;
 
     public TexturedQuad(PositionTextureVertex[] vertices) {

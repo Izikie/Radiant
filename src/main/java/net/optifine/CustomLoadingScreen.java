@@ -11,8 +11,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class CustomLoadingScreen {
     private final ResourceLocation locationTexture;
-    private int scaleMode;
-    private int scale;
+    private final int scaleMode;
+    private final int scale;
     private final boolean center;
     private static final int SCALE_DEFAULT = 2;
     private static final int SCALE_MODE_FIXED = 0;

@@ -9,20 +9,20 @@ import net.minecraft.util.MathHelper;
 import org.lwjgl.opengl.GL11;
 
 public class ModelSprite {
-    private ModelRenderer modelRenderer;
-    private int textureOffsetX;
-    private int textureOffsetY;
-    private float posX;
-    private float posY;
-    private float posZ;
-    private int sizeX;
-    private int sizeY;
-    private int sizeZ;
-    private float sizeAdd;
-    private float minU;
-    private float minV;
-    private float maxU;
-    private float maxV;
+    private final ModelRenderer modelRenderer;
+    private final int textureOffsetX;
+    private final int textureOffsetY;
+    private final float posX;
+    private final float posY;
+    private final float posZ;
+    private final int sizeX;
+    private final int sizeY;
+    private final int sizeZ;
+    private final float sizeAdd;
+    private final float minU;
+    private final float minV;
+    private final float maxU;
+    private final float maxV;
 
     public ModelSprite(ModelRenderer modelRenderer, int textureOffsetX, int textureOffsetY, float posX, float posY, float posZ, int sizeX, int sizeY, int sizeZ, float sizeAdd) {
         this.modelRenderer = modelRenderer;

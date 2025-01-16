@@ -434,7 +434,7 @@ public class Village {
     }
 
     class VillageAggressor {
-        public EntityLivingBase agressor;
+        public final EntityLivingBase agressor;
         public int agressionTime;
 
         VillageAggressor(EntityLivingBase p_i1674_2_, int p_i1674_3_) {

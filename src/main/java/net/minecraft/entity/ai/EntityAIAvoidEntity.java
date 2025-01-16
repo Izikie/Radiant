@@ -14,7 +14,7 @@ import net.minecraft.util.Vec3;
 
 public class EntityAIAvoidEntity<T extends Entity> extends EntityAIBase {
     private final Predicate<Entity> canBeSeenSelector;
-    protected EntityCreature theEntity;
+    protected final EntityCreature theEntity;
     private final double farSpeed;
     private final double nearSpeed;
     protected T closestLivingEntity;

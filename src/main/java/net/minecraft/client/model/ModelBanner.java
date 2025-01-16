@@ -1,9 +1,9 @@
 package net.minecraft.client.model;
 
 public class ModelBanner extends ModelBase {
-    public ModelRenderer bannerSlate;
-    public ModelRenderer bannerStand;
-    public ModelRenderer bannerTop;
+    public final ModelRenderer bannerSlate;
+    public final ModelRenderer bannerStand;
+    public final ModelRenderer bannerTop;
 
     public ModelBanner() {
         this.textureWidth = 64;

@@ -4,13 +4,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 
 public class ModelCreeper extends ModelBase {
-    public ModelRenderer head;
-    public ModelRenderer creeperArmor;
-    public ModelRenderer body;
-    public ModelRenderer leg1;
-    public ModelRenderer leg2;
-    public ModelRenderer leg3;
-    public ModelRenderer leg4;
+    public final ModelRenderer head;
+    public final ModelRenderer creeperArmor;
+    public final ModelRenderer body;
+    public final ModelRenderer leg1;
+    public final ModelRenderer leg2;
+    public final ModelRenderer leg3;
+    public final ModelRenderer leg4;
 
     public ModelCreeper() {
         this(0.0F);

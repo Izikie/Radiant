@@ -34,8 +34,8 @@ import net.optifine.EmissiveTextures;
 import net.optifine.reflect.Reflector;
 
 public class TileEntityRendererDispatcher {
-    public Map<Class, TileEntitySpecialRenderer> mapSpecialRenderers = Maps.newHashMap();
-    public static TileEntityRendererDispatcher instance = new TileEntityRendererDispatcher();
+    public final Map<Class, TileEntitySpecialRenderer> mapSpecialRenderers = Maps.newHashMap();
+    public static final TileEntityRendererDispatcher instance = new TileEntityRendererDispatcher();
     public FontRenderer fontRenderer;
     public static double staticPlayerX;
     public static double staticPlayerY;

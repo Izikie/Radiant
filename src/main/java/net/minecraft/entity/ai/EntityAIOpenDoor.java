@@ -3,7 +3,7 @@ package net.minecraft.entity.ai;
 import net.minecraft.entity.EntityLiving;
 
 public class EntityAIOpenDoor extends EntityAIDoorInteract {
-    boolean closeDoor;
+    final boolean closeDoor;
     int closeDoorTemporisation;
 
     public EntityAIOpenDoor(EntityLiving entitylivingIn, boolean shouldClose) {

@@ -10,7 +10,7 @@ import net.optifine.expr.IExpression;
 import net.optifine.expr.IExpressionResolver;
 
 public class MacroExpressionResolver implements IExpressionResolver {
-    private Map<String, String> mapMacroValues;
+    private final Map<String, String> mapMacroValues;
 
     public MacroExpressionResolver(Map<String, String> mapMacroValues) {
         this.mapMacroValues = mapMacroValues;

@@ -8,13 +8,13 @@ import java.util.List;
 import net.minecraft.client.resources.I18n;
 
 public class GuiYesNo extends GuiScreen {
-    protected GuiYesNoCallback parentScreen;
-    protected String messageLine1;
+    protected final GuiYesNoCallback parentScreen;
+    protected final String messageLine1;
     private final String messageLine2;
     private final List<String> field_175298_s = Lists.newArrayList();
     protected String confirmButtonText;
     protected String cancelButtonText;
-    protected int parentButtonClickedId;
+    protected final int parentButtonClickedId;
     private int ticksUntilEnable;
 
     public GuiYesNo(GuiYesNoCallback p_i1082_1_, String p_i1082_2_, String p_i1082_3_, int p_i1082_4_) {

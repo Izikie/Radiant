@@ -1,10 +1,10 @@
 package net.minecraft.client.renderer.culling;
 
 public class ClippingHelper {
-    public float[][] frustum = new float[6][4];
-    public float[] projectionMatrix = new float[16];
-    public float[] modelviewMatrix = new float[16];
-    public float[] clippingMatrix = new float[16];
+    public final float[][] frustum = new float[6][4];
+    public final float[] projectionMatrix = new float[16];
+    public final float[] modelviewMatrix = new float[16];
+    public final float[] clippingMatrix = new float[16];
     public boolean disabled = false;
 
     private float dot(float[] p_dot_1_, float p_dot_2_, float p_dot_3_, float p_dot_4_) {

@@ -79,9 +79,9 @@ import net.minecraft.world.WorldSettings;
 
 @SuppressWarnings("incomplete-switch")
 public abstract class EntityPlayer extends EntityLivingBase {
-    public InventoryPlayer inventory = new InventoryPlayer(this);
+    public final InventoryPlayer inventory = new InventoryPlayer(this);
     private InventoryEnderChest theInventoryEnderChest = new InventoryEnderChest();
-    public Container inventoryContainer;
+    public final Container inventoryContainer;
     public Container openContainer;
     protected FoodStats foodStats = new FoodStats();
     protected int flyToggleTimer;
@@ -103,7 +103,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
     private BlockPos spawnChunk;
     private boolean spawnForced;
     private BlockPos startMinecartRidingCoordinate;
-    public PlayerCapabilities capabilities = new PlayerCapabilities();
+    public final PlayerCapabilities capabilities = new PlayerCapabilities();
     public int experienceLevel;
     public int experienceTotal;
     public float experience;
@@ -111,7 +111,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
     private ItemStack itemInUse;
     private int itemInUseCount;
     protected float speedOnGround = 0.1F;
-    protected float speedInAir = 0.02F;
+    protected final float speedInAir = 0.02F;
     private int lastXPSound;
     private final GameProfile gameProfile;
     private boolean hasReducedDebug = false;

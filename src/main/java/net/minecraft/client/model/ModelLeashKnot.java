@@ -3,7 +3,7 @@ package net.minecraft.client.model;
 import net.minecraft.entity.Entity;
 
 public class ModelLeashKnot extends ModelBase {
-    public ModelRenderer field_110723_a;
+    public final ModelRenderer field_110723_a;
 
     public ModelLeashKnot() {
         this(0, 0, 32, 32);

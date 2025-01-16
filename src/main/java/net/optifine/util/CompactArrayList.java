@@ -3,9 +3,9 @@ package net.optifine.util;
 import java.util.ArrayList;
 
 public class CompactArrayList {
-    private ArrayList list;
-    private int initialCapacity;
-    private float loadFactor;
+    private final ArrayList list;
+    private final int initialCapacity;
+    private final float loadFactor;
     private int countValid;
 
     public CompactArrayList() {

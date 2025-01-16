@@ -12,7 +12,7 @@ import java.util.Map;
 import net.minecraft.src.Config;
 
 public class HttpPipelineReceiver extends Thread {
-    private HttpPipelineConnection httpPipelineConnection;
+    private final HttpPipelineConnection httpPipelineConnection;
     private static final Charset ASCII = StandardCharsets.US_ASCII;
     private static final String HEADER_CONTENT_LENGTH = "Content-Length";
     private static final char CR = '\r';

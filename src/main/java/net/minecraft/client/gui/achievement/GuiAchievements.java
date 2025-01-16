@@ -30,9 +30,9 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
     private static final int field_146559_A = AchievementList.maxDisplayColumn * 24 - 77;
     private static final int field_146560_B = AchievementList.maxDisplayRow * 24 - 77;
     private static final ResourceLocation ACHIEVEMENT_BACKGROUND = new ResourceLocation("textures/gui/achievement/achievement_background.png");
-    protected GuiScreen parentScreen;
-    protected int field_146555_f = 256;
-    protected int field_146557_g = 202;
+    protected final GuiScreen parentScreen;
+    protected final int field_146555_f = 256;
+    protected final int field_146557_g = 202;
     protected int field_146563_h;
     protected int field_146564_i;
     protected float field_146570_r = 1.0F;

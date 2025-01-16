@@ -17,7 +17,7 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
     private static final ResourceLocation enderDragonCrystalBeamTextures = new ResourceLocation("textures/entity/endercrystal/endercrystal_beam.png");
     private static final ResourceLocation enderDragonExplodingTextures = new ResourceLocation("textures/entity/enderdragon/dragon_exploding.png");
     private static final ResourceLocation enderDragonTextures = new ResourceLocation("textures/entity/enderdragon/dragon.png");
-    protected ModelDragon modelDragon;
+    protected final ModelDragon modelDragon;
 
     public RenderDragon(RenderManager renderManagerIn) {
         super(renderManagerIn, new ModelDragon(0.0F), 0.5F);

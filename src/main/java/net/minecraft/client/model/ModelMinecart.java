@@ -3,7 +3,7 @@ package net.minecraft.client.model;
 import net.minecraft.entity.Entity;
 
 public class ModelMinecart extends ModelBase {
-    public ModelRenderer[] sideModels = new ModelRenderer[7];
+    public final ModelRenderer[] sideModels = new ModelRenderer[7];
 
     public ModelMinecart() {
         this.sideModels[0] = new ModelRenderer(this, 0, 10);

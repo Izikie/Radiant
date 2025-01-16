@@ -22,7 +22,7 @@ import org.apache.logging.log4j.Logger;
 public class GuiSelectWorld extends GuiScreen implements GuiYesNoCallback {
     private static final Logger logger = LogManager.getLogger();
     private final DateFormat field_146633_h = new SimpleDateFormat();
-    protected GuiScreen parentScreen;
+    protected final GuiScreen parentScreen;
     protected String screenTitle = "Select world";
     private boolean field_146634_i;
     private int selectedIndex;

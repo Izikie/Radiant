@@ -12,7 +12,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 public class ItemHoe extends Item {
-    protected Item.ToolMaterial theToolMaterial;
+    protected final Item.ToolMaterial theToolMaterial;
 
     public ItemHoe(Item.ToolMaterial material) {
         this.theToolMaterial = material;

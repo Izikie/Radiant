@@ -6,11 +6,11 @@ import net.minecraft.src.Config;
 import org.apache.commons.lang3.ArrayUtils;
 
 public class Property {
-    private int defaultValue;
-    private String propertyName;
-    private String[] propertyValues;
-    private String userName;
-    private String[] userValues;
+    private final int defaultValue;
+    private final String propertyName;
+    private final String[] propertyValues;
+    private final String userName;
+    private final String[] userValues;
     private int value;
 
     public Property(String propertyName, String[] propertyValues, String userName, String[] userValues, int defaultValue) {

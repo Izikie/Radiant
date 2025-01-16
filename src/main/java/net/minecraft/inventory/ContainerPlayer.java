@@ -10,9 +10,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 
 public class ContainerPlayer extends Container {
-    public InventoryCrafting craftMatrix = new InventoryCrafting(this, 2, 2);
-    public IInventory craftResult = new InventoryCraftResult();
-    public boolean isLocalWorld;
+    public final InventoryCrafting craftMatrix = new InventoryCrafting(this, 2, 2);
+    public final IInventory craftResult = new InventoryCraftResult();
+    public final boolean isLocalWorld;
     private final EntityPlayer thePlayer;
 
     public ContainerPlayer(final InventoryPlayer playerInventory, boolean localWorld, EntityPlayer player) {

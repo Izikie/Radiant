@@ -7,7 +7,7 @@ import net.minecraft.util.ResourceLocation;
 public class FlatLayerInfo {
     private final int field_175902_a;
     private IBlockState layerMaterial;
-    private int layerCount;
+    private final int layerCount;
     private int layerMinimumY;
 
     public FlatLayerInfo(int p_i45467_1_, Block p_i45467_2_) {

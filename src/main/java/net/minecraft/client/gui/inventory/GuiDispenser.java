@@ -9,7 +9,7 @@ import net.minecraft.util.ResourceLocation;
 public class GuiDispenser extends GuiContainer {
     private static final ResourceLocation dispenserGuiTextures = new ResourceLocation("textures/gui/container/dispenser.png");
     private final InventoryPlayer playerInventory;
-    public IInventory dispenserInventory;
+    public final IInventory dispenserInventory;
 
     public GuiDispenser(InventoryPlayer playerInv, IInventory dispenserInv) {
         super(new ContainerDispenser(playerInv, dispenserInv));

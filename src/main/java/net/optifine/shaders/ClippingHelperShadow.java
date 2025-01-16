@@ -6,10 +6,10 @@ import net.minecraft.util.MathHelper;
 public class ClippingHelperShadow extends ClippingHelper {
     private static final ClippingHelperShadow instance = new ClippingHelperShadow();
     float[] frustumTest = new float[6];
-    float[][] shadowClipPlanes = new float[10][4];
+    final float[][] shadowClipPlanes = new float[10][4];
     int shadowClipPlaneCount;
     float[] matInvMP = new float[16];
-    float[] vecIntersection = new float[4];
+    final float[] vecIntersection = new float[4];
 
     public boolean isBoxInFrustum(double x1, double y1, double z1, double x2, double y2, double z2) {
         for (int i = 0; i < this.shadowClipPlaneCount; ++i) {

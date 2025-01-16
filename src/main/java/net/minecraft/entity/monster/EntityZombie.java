@@ -581,8 +581,8 @@ public class EntityZombie extends EntityMob {
     }
 
     class GroupData implements IEntityLivingData {
-        public boolean isChild;
-        public boolean isVillager;
+        public final boolean isChild;
+        public final boolean isVillager;
 
         private GroupData(boolean isBaby, boolean isVillagerZombie) {
             this.isChild = isBaby;

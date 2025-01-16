@@ -98,7 +98,7 @@ public class CustomColors {
     private static int[] potionColors = null;
     private static final IBlockState BLOCK_STATE_DIRT = Blocks.dirt.getDefaultState();
     private static final IBlockState BLOCK_STATE_WATER = Blocks.water.getDefaultState();
-    public static Random random = new Random();
+    public static final Random random = new Random();
     private static final CustomColors.IColorizer COLORIZER_GRASS = new CustomColors.IColorizer() {
         public int getColor(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos) {
             BiomeGenBase biomegenbase = CustomColors.getColorBiome(blockAccess, blockPos);

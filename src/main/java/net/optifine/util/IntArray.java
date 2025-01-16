@@ -1,7 +1,7 @@
 package net.optifine.util;
 
 public class IntArray {
-    private int[] array;
+    private final int[] array;
     private int position = 0;
     private int limit = 0;
 

@@ -15,10 +15,10 @@ import net.minecraft.world.World;
 
 public class EntityAIMate extends EntityAIBase {
     private final EntityAnimal theAnimal;
-    World theWorld;
+    final World theWorld;
     private EntityAnimal targetMate;
     int spawnBabyDelay;
-    double moveSpeed;
+    final double moveSpeed;
 
     public EntityAIMate(EntityAnimal animal, double speedIn) {
         this.theAnimal = animal;

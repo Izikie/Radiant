@@ -25,7 +25,7 @@ public class SVertexBuilder {
     boolean hasTangent;
     boolean hasUV;
     boolean hasUVCenter;
-    long[] entityData = new long[10];
+    final long[] entityData = new long[10];
     int entityDataIndex = 0;
 
     public SVertexBuilder() {

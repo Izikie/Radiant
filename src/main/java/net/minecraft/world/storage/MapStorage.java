@@ -19,7 +19,7 @@ import net.minecraft.world.WorldSavedData;
 
 public class MapStorage {
     private final ISaveHandler saveHandler;
-    protected Map<String, WorldSavedData> loadedDataMap = Maps.newHashMap();
+    protected final Map<String, WorldSavedData> loadedDataMap = Maps.newHashMap();
     private final List<WorldSavedData> loadedDataList = Lists.newArrayList();
     private final Map<String, Short> idCounts = Maps.newHashMap();
 

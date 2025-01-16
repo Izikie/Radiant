@@ -14,7 +14,7 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 
 public abstract class EntityTameable extends EntityAnimal implements IEntityOwnable {
-    protected EntityAISit aiSit = new EntityAISit(this);
+    protected final EntityAISit aiSit = new EntityAISit(this);
 
     public EntityTameable(World worldIn) {
         super(worldIn);

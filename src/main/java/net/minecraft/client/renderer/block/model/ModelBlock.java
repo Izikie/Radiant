@@ -34,7 +34,7 @@ public class ModelBlock {
     public String name;
     protected final Map<String, String> textures;
     protected ModelBlock parent;
-    protected ResourceLocation parentLocation;
+    protected final ResourceLocation parentLocation;
 
     public static ModelBlock deserialize(Reader readerIn) {
         return SERIALIZER.fromJson(readerIn, ModelBlock.class);

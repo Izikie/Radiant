@@ -66,7 +66,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
     private boolean hasValidHealth;
     private String clientBrand;
     public MovementInput movementInput;
-    protected Minecraft mc;
+    protected final Minecraft mc;
     protected int sprintToggleTimer;
     public int sprintingTicksLeft;
     public float renderArmYaw;

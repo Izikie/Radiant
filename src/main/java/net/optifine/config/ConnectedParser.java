@@ -30,7 +30,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class ConnectedParser {
-    private String context;
+    private final String context;
     public static final VillagerProfession[] PROFESSIONS_INVALID = new VillagerProfession[0];
     public static final EnumDyeColor[] DYE_COLORS_INVALID = new EnumDyeColor[0];
     private static final INameGetter<Enum> NAME_GETTER_ENUM = new INameGetter<Enum>() {

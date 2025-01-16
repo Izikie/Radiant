@@ -5,12 +5,12 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityIronGolem;
 
 public class ModelIronGolem extends ModelBase {
-    public ModelRenderer ironGolemHead;
-    public ModelRenderer ironGolemBody;
-    public ModelRenderer ironGolemRightArm;
-    public ModelRenderer ironGolemLeftArm;
-    public ModelRenderer ironGolemLeftLeg;
-    public ModelRenderer ironGolemRightLeg;
+    public final ModelRenderer ironGolemHead;
+    public final ModelRenderer ironGolemBody;
+    public final ModelRenderer ironGolemRightArm;
+    public final ModelRenderer ironGolemLeftArm;
+    public final ModelRenderer ironGolemLeftLeg;
+    public final ModelRenderer ironGolemRightLeg;
 
     public ModelIronGolem() {
         this(0.0F);

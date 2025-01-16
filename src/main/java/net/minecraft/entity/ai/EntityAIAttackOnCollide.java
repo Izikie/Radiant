@@ -8,11 +8,11 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class EntityAIAttackOnCollide extends EntityAIBase {
-    World worldObj;
-    protected EntityCreature attacker;
+    final World worldObj;
+    protected final EntityCreature attacker;
     int attackTick;
-    double speedTowardsTarget;
-    boolean longMemory;
+    final double speedTowardsTarget;
+    final boolean longMemory;
     PathEntity entityPathEntity;
     Class<? extends Entity> classTarget;
     private int delayCounter;

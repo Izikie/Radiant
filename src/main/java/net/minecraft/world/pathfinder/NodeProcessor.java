@@ -8,7 +8,7 @@ import net.minecraft.world.IBlockAccess;
 
 public abstract class NodeProcessor {
     protected IBlockAccess blockaccess;
-    protected IntHashMap<PathPoint> pointMap = new IntHashMap();
+    protected final IntHashMap<PathPoint> pointMap = new IntHashMap();
     protected int entitySizeX;
     protected int entitySizeY;
     protected int entitySizeZ;

@@ -8,14 +8,14 @@ import net.optifine.config.ConnectedParser;
 public class CustomPanoramaProperties {
     private final String path;
     private final ResourceLocation[] panoramaLocations;
-    private int weight;
-    private int blur1;
-    private int blur2;
-    private int blur3;
-    private int overlay1Top;
-    private int overlay1Bottom;
-    private int overlay2Top;
-    private int overlay2Bottom;
+    private final int weight;
+    private final int blur1;
+    private final int blur2;
+    private final int blur3;
+    private final int overlay1Top;
+    private final int overlay1Bottom;
+    private final int overlay2Top;
+    private final int overlay2Bottom;
 
     public CustomPanoramaProperties(String path, Properties props) {
         ConnectedParser connectedparser = new ConnectedParser("CustomPanorama");

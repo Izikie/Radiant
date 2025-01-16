@@ -4,12 +4,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 
 public class ModelVillager extends ModelBase {
-    public ModelRenderer villagerHead;
-    public ModelRenderer villagerBody;
-    public ModelRenderer villagerArms;
-    public ModelRenderer rightVillagerLeg;
-    public ModelRenderer leftVillagerLeg;
-    public ModelRenderer villagerNose;
+    public final ModelRenderer villagerHead;
+    public final ModelRenderer villagerBody;
+    public final ModelRenderer villagerArms;
+    public final ModelRenderer rightVillagerLeg;
+    public final ModelRenderer leftVillagerLeg;
+    public final ModelRenderer villagerNose;
 
     public ModelVillager(float p_i1163_1_) {
         this(p_i1163_1_, 0.0F, 64, 64);

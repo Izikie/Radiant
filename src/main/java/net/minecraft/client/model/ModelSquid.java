@@ -3,8 +3,8 @@ package net.minecraft.client.model;
 import net.minecraft.entity.Entity;
 
 public class ModelSquid extends ModelBase {
-    ModelRenderer squidBody;
-    ModelRenderer[] squidTentacles = new ModelRenderer[8];
+    final ModelRenderer squidBody;
+    final ModelRenderer[] squidTentacles = new ModelRenderer[8];
 
     public ModelSquid() {
         int i = -16;

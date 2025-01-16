@@ -24,13 +24,13 @@ import net.optifine.util.ArrayUtils;
 import net.optifine.util.MathUtils;
 
 public class RandomEntityRule {
-    private String pathProps;
-    private ResourceLocation baseResLoc;
+    private final String pathProps;
+    private final ResourceLocation baseResLoc;
     private final int index;
-    private int[] textures;
+    private final int[] textures;
     private ResourceLocation[] resourceLocations = null;
     private int[] weights;
-    private BiomeGenBase[] biomes;
+    private final BiomeGenBase[] biomes;
     private RangeListInt heights;
     private RangeListInt healthRange = null;
     private boolean healthPercent = false;

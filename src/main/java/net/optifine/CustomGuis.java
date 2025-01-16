@@ -38,7 +38,7 @@ public class CustomGuis {
     private static final Minecraft mc = Config.getMinecraft();
     private static final PlayerControllerOF playerControllerOF = null;
     private static CustomGuiProperties[][] guiProperties = null;
-    public static boolean isChristmas = isChristmas();
+    public static final boolean isChristmas = isChristmas();
 
     public static ResourceLocation getTextureLocation(ResourceLocation loc) {
         if (guiProperties == null) {

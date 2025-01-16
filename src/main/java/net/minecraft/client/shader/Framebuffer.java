@@ -15,11 +15,11 @@ public class Framebuffer {
     public int framebufferTextureHeight;
     public int framebufferWidth;
     public int framebufferHeight;
-    public boolean useDepth;
+    public final boolean useDepth;
     public int framebufferObject;
     public int framebufferTexture;
     public int depthBuffer;
-    public float[] framebufferColor;
+    public final float[] framebufferColor;
     public int framebufferFilter;
 
     public Framebuffer(int p_i45078_1_, int p_i45078_2_, boolean p_i45078_3_) {

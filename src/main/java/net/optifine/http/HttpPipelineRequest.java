@@ -1,8 +1,8 @@
 package net.optifine.http;
 
 public class HttpPipelineRequest {
-    private HttpRequest httpRequest;
-    private HttpListener httpListener;
+    private final HttpRequest httpRequest;
+    private final HttpListener httpListener;
     private boolean closed = false;
 
     public HttpPipelineRequest(HttpRequest httpRequest, HttpListener httpListener) {

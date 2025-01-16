@@ -29,9 +29,9 @@ public class BiomeDecorator {
     protected Random randomGenerator;
     protected BlockPos field_180294_c;
     protected ChunkProviderSettings chunkProviderSettings;
-    protected WorldGenerator clayGen = new WorldGenClay(4);
-    protected WorldGenerator sandGen = new WorldGenSand(Blocks.sand, 7);
-    protected WorldGenerator gravelAsSandGen = new WorldGenSand(Blocks.gravel, 6);
+    protected final WorldGenerator clayGen = new WorldGenClay(4);
+    protected final WorldGenerator sandGen = new WorldGenSand(Blocks.sand, 7);
+    protected final WorldGenerator gravelAsSandGen = new WorldGenSand(Blocks.gravel, 6);
     protected WorldGenerator dirtGen;
     protected WorldGenerator gravelGen;
     protected WorldGenerator graniteGen;
@@ -43,13 +43,13 @@ public class BiomeDecorator {
     protected WorldGenerator redstoneGen;
     protected WorldGenerator diamondGen;
     protected WorldGenerator lapisGen;
-    protected WorldGenFlowers yellowFlowerGen = new WorldGenFlowers(Blocks.yellow_flower, BlockFlower.EnumFlowerType.DANDELION);
-    protected WorldGenerator mushroomBrownGen = new GeneratorBushFeature(Blocks.brown_mushroom);
-    protected WorldGenerator mushroomRedGen = new GeneratorBushFeature(Blocks.red_mushroom);
-    protected WorldGenerator bigMushroomGen = new WorldGenBigMushroom();
-    protected WorldGenerator reedGen = new WorldGenReed();
-    protected WorldGenerator cactusGen = new WorldGenCactus();
-    protected WorldGenerator waterlilyGen = new WorldGenWaterlily();
+    protected final WorldGenFlowers yellowFlowerGen = new WorldGenFlowers(Blocks.yellow_flower, BlockFlower.EnumFlowerType.DANDELION);
+    protected final WorldGenerator mushroomBrownGen = new GeneratorBushFeature(Blocks.brown_mushroom);
+    protected final WorldGenerator mushroomRedGen = new GeneratorBushFeature(Blocks.red_mushroom);
+    protected final WorldGenerator bigMushroomGen = new WorldGenBigMushroom();
+    protected final WorldGenerator reedGen = new WorldGenReed();
+    protected final WorldGenerator cactusGen = new WorldGenCactus();
+    protected final WorldGenerator waterlilyGen = new WorldGenWaterlily();
     protected int waterlilyPerChunk;
     protected int treesPerChunk;
     protected int flowersPerChunk = 2;
@@ -62,7 +62,7 @@ public class BiomeDecorator {
     protected int sandPerChunk2 = 3;
     protected int clayPerChunk = 1;
     protected int bigMushroomsPerChunk;
-    public boolean generateLakes = true;
+    public final boolean generateLakes = true;
 
     public void decorate(World worldIn, Random random, BiomeGenBase biome, BlockPos p_180292_4_) {
         if (this.currentWorld != null) {

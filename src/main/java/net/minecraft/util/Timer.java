@@ -3,11 +3,11 @@ package net.minecraft.util;
 import net.minecraft.client.Minecraft;
 
 public class Timer {
-    float ticksPerSecond;
+    final float ticksPerSecond;
     private double lastHRTime;
     public int elapsedTicks;
     public float renderPartialTicks;
-    public float timerSpeed = 1.0F;
+    public final float timerSpeed = 1.0F;
     public float elapsedPartialTicks;
     private long lastSyncSysClock;
     private long lastSyncHRClock;

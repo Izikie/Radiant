@@ -101,7 +101,7 @@ public class Block {
     protected double maxY;
     protected double maxZ;
     public Block.SoundType stepSound;
-    public float blockParticleGravity;
+    public final float blockParticleGravity;
     protected final Material blockMaterial;
     protected final MapColor blockMapColor;
     public float slipperiness;

@@ -75,7 +75,7 @@ public class RenderItem implements IResourceManagerReloadListener {
     private final TextureManager textureManager;
     private ModelResourceLocation modelLocation = null;
     private boolean renderItemGui = false;
-    public ModelManager modelManager;
+    public final ModelManager modelManager;
     private boolean renderModelHasEmissive = false;
     private boolean renderModelEmissive = false;
 

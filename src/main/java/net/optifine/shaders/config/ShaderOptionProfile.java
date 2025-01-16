@@ -8,8 +8,8 @@ import net.optifine.shaders.ShaderUtils;
 import net.optifine.shaders.Shaders;
 
 public class ShaderOptionProfile extends ShaderOption {
-    private ShaderProfile[] profiles;
-    private ShaderOption[] options;
+    private final ShaderProfile[] profiles;
+    private final ShaderOption[] options;
     private static final String NAME_PROFILE = "<profile>";
     private static final String VALUE_CUSTOM = "<custom>";
 

@@ -9,8 +9,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class ContainerWorkbench extends Container {
-    public InventoryCrafting craftMatrix = new InventoryCrafting(this, 3, 3);
-    public IInventory craftResult = new InventoryCraftResult();
+    public final InventoryCrafting craftMatrix = new InventoryCrafting(this, 3, 3);
+    public final IInventory craftResult = new InventoryCraftResult();
     private final World worldObj;
     private final BlockPos pos;
 

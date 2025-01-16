@@ -947,11 +947,11 @@ public class StructureNetherBridgePieces {
     }
 
     static class PieceWeight {
-        public Class<? extends StructureNetherBridgePieces.Piece> weightClass;
+        public final Class<? extends StructureNetherBridgePieces.Piece> weightClass;
         public final int field_78826_b;
         public int field_78827_c;
-        public int field_78824_d;
-        public boolean field_78825_e;
+        public final int field_78824_d;
+        public final boolean field_78825_e;
 
         public PieceWeight(Class<? extends StructureNetherBridgePieces.Piece> p_i2055_1_, int p_i2055_2_, int p_i2055_3_, boolean p_i2055_4_) {
             this.weightClass = p_i2055_1_;
@@ -1027,7 +1027,7 @@ public class StructureNetherBridgePieces {
         public StructureNetherBridgePieces.PieceWeight theNetherBridgePieceWeight;
         public List<StructureNetherBridgePieces.PieceWeight> primaryWeights;
         public List<StructureNetherBridgePieces.PieceWeight> secondaryWeights;
-        public List<StructureComponent> field_74967_d = Lists.newArrayList();
+        public final List<StructureComponent> field_74967_d = Lists.newArrayList();
 
         public Start() {
         }

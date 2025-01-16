@@ -18,7 +18,7 @@ import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.EnumFacing;
 
 public class TileEntityItemStackRenderer {
-    public static TileEntityItemStackRenderer instance = new TileEntityItemStackRenderer();
+    public static final TileEntityItemStackRenderer instance = new TileEntityItemStackRenderer();
     private final TileEntityChest field_147717_b = new TileEntityChest(0);
     private final TileEntityChest field_147718_c = new TileEntityChest(1);
     private final TileEntityEnderChest enderChest = new TileEntityEnderChest();

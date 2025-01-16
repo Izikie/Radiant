@@ -8,7 +8,7 @@ public class ParametersVariable implements IParameters {
     private final ExpressionType[] first;
     private final ExpressionType[] repeat;
     private final ExpressionType[] last;
-    private int maxCount;
+    private final int maxCount;
     private static final ExpressionType[] EMPTY = new ExpressionType[0];
 
     public ParametersVariable() {

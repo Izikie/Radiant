@@ -3,7 +3,7 @@ package net.minecraft.client.model;
 import net.minecraft.entity.Entity;
 
 public class ModelBoat extends ModelBase {
-    public ModelRenderer[] boatSides = new ModelRenderer[5];
+    public final ModelRenderer[] boatSides = new ModelRenderer[5];
 
     public ModelBoat() {
         this.boatSides[0] = new ModelRenderer(this, 0, 8);

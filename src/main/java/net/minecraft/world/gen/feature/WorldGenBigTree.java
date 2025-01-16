@@ -21,12 +21,12 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
     private BlockPos basePos = BlockPos.ORIGIN;
     int heightLimit;
     int height;
-    double heightAttenuation = 0.618D;
-    double branchSlope = 0.381D;
-    double scaleWidth = 1.0D;
-    double leafDensity = 1.0D;
-    int trunkSize = 1;
-    int heightLimitLimit = 12;
+    final double heightAttenuation = 0.618D;
+    final double branchSlope = 0.381D;
+    final double scaleWidth = 1.0D;
+    final double leafDensity = 1.0D;
+    final int trunkSize = 1;
+    final int heightLimitLimit = 12;
     int leafDistanceLimit = 4;
     List<WorldGenBigTree.FoliageCoordinates> field_175948_j;
 

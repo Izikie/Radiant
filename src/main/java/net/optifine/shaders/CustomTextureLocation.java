@@ -8,9 +8,9 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.ResourceLocation;
 
 public class CustomTextureLocation implements ICustomTexture {
-    private int textureUnit;
+    private final int textureUnit;
     private final ResourceLocation location;
-    private int variant;
+    private final int variant;
     private ITextureObject texture;
     public static final int VARIANT_BASE = 0;
     public static final int VARIANT_NORMAL = 1;

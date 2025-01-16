@@ -32,9 +32,9 @@ public class ChunkProviderGenerate implements IChunkProvider {
     private final NoiseGeneratorOctaves field_147432_k;
     private final NoiseGeneratorOctaves field_147429_l;
     private final NoiseGeneratorPerlin field_147430_m;
-    public NoiseGeneratorOctaves noiseGen5;
-    public NoiseGeneratorOctaves noiseGen6;
-    public NoiseGeneratorOctaves mobSpawnerNoise;
+    public final NoiseGeneratorOctaves noiseGen5;
+    public final NoiseGeneratorOctaves noiseGen6;
+    public final NoiseGeneratorOctaves mobSpawnerNoise;
     private final World worldObj;
     private final boolean mapFeaturesEnabled;
     private final WorldType field_177475_o;

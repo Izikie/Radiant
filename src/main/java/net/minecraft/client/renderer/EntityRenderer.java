@@ -100,7 +100,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     private final IResourceManager resourceManager;
     private final Random random = new Random();
     private float farPlaneDistance;
-    public ItemRenderer itemRenderer;
+    public final ItemRenderer itemRenderer;
     private final MapItemRenderer theMapItemRenderer;
     private int rendererUpdateCount;
     private Entity pointedEntity;

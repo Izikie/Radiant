@@ -13,7 +13,7 @@ import net.minecraft.client.resources.LanguageManager;
 import net.minecraft.client.settings.GameSettings;
 
 public class GuiLanguage extends GuiScreen {
-    protected GuiScreen parentScreen;
+    protected final GuiScreen parentScreen;
     private GuiLanguage.List list;
     private final GameSettings game_settings_3;
     private final LanguageManager languageManager;

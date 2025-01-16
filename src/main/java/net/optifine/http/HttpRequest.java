@@ -5,14 +5,14 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class HttpRequest {
-    private String host;
-    private int port;
-    private Proxy proxy;
-    private String method;
-    private String file;
-    private String http;
-    private Map<String, String> headers;
-    private byte[] body;
+    private final String host;
+    private final int port;
+    private final Proxy proxy;
+    private final String method;
+    private final String file;
+    private final String http;
+    private final Map<String, String> headers;
+    private final byte[] body;
     private int redirects = 0;
     public static final String METHOD_GET = "GET";
     public static final String METHOD_HEAD = "HEAD";

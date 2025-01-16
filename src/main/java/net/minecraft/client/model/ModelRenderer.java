@@ -33,14 +33,14 @@ public class ModelRenderer {
     public boolean mirror;
     public boolean showModel;
     public boolean isHidden;
-    public List<ModelBox> cubeList;
+    public final List<ModelBox> cubeList;
     public List<ModelRenderer> childModels;
     public final String boxName;
     private final ModelBase baseModel;
     public float offsetX;
     public float offsetY;
     public float offsetZ;
-    public List spriteList;
+    public final List spriteList;
     public boolean mirrorV;
     public float scaleX;
     public float scaleY;

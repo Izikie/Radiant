@@ -93,7 +93,7 @@ public abstract class Entity implements ICommandSender {
     public float stepHeight;
     public boolean noClip;
     public float entityCollisionReduction;
-    protected Random rand;
+    protected final Random rand;
     public int ticksExisted;
     public int fireResistance;
     private int fire;
@@ -101,7 +101,7 @@ public abstract class Entity implements ICommandSender {
     public int hurtResistantTime;
     protected boolean firstUpdate;
     protected boolean isImmuneToFire;
-    protected DataWatcher dataWatcher;
+    protected final DataWatcher dataWatcher;
     private double entityRiderPitchDelta;
     private double entityRiderYawDelta;
     public boolean addedToChunk;

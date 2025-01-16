@@ -7,18 +7,18 @@ import net.minecraft.entity.passive.EntityRabbit;
 import net.minecraft.util.MathHelper;
 
 public class ModelRabbit extends ModelBase {
-    ModelRenderer rabbitLeftFoot;
-    ModelRenderer rabbitRightFoot;
-    ModelRenderer rabbitLeftThigh;
-    ModelRenderer rabbitRightThigh;
-    ModelRenderer rabbitBody;
-    ModelRenderer rabbitLeftArm;
-    ModelRenderer rabbitRightArm;
-    ModelRenderer rabbitHead;
-    ModelRenderer rabbitRightEar;
-    ModelRenderer rabbitLeftEar;
-    ModelRenderer rabbitTail;
-    ModelRenderer rabbitNose;
+    final ModelRenderer rabbitLeftFoot;
+    final ModelRenderer rabbitRightFoot;
+    final ModelRenderer rabbitLeftThigh;
+    final ModelRenderer rabbitRightThigh;
+    final ModelRenderer rabbitBody;
+    final ModelRenderer rabbitLeftArm;
+    final ModelRenderer rabbitRightArm;
+    final ModelRenderer rabbitHead;
+    final ModelRenderer rabbitRightEar;
+    final ModelRenderer rabbitLeftEar;
+    final ModelRenderer rabbitTail;
+    final ModelRenderer rabbitNose;
     private float field_178701_m = 0.0F;
     private final float field_178699_n = 0.0F;
 

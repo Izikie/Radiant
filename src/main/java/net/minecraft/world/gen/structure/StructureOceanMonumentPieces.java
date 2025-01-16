@@ -1416,9 +1416,9 @@ public class StructureOceanMonumentPieces {
     }
 
     static class RoomDefinition {
-        int field_175967_a;
-        StructureOceanMonumentPieces.RoomDefinition[] field_175965_b = new StructureOceanMonumentPieces.RoomDefinition[6];
-        boolean[] field_175966_c = new boolean[6];
+        final int field_175967_a;
+        final StructureOceanMonumentPieces.RoomDefinition[] field_175965_b = new StructureOceanMonumentPieces.RoomDefinition[6];
+        final boolean[] field_175966_c = new boolean[6];
         boolean field_175963_d;
         boolean field_175964_e;
         int field_175962_f;

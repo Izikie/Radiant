@@ -4,17 +4,17 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 
 public class ModelSpider extends ModelBase {
-    public ModelRenderer spiderHead;
-    public ModelRenderer spiderNeck;
-    public ModelRenderer spiderBody;
-    public ModelRenderer spiderLeg1;
-    public ModelRenderer spiderLeg2;
-    public ModelRenderer spiderLeg3;
-    public ModelRenderer spiderLeg4;
-    public ModelRenderer spiderLeg5;
-    public ModelRenderer spiderLeg6;
-    public ModelRenderer spiderLeg7;
-    public ModelRenderer spiderLeg8;
+    public final ModelRenderer spiderHead;
+    public final ModelRenderer spiderNeck;
+    public final ModelRenderer spiderBody;
+    public final ModelRenderer spiderLeg1;
+    public final ModelRenderer spiderLeg2;
+    public final ModelRenderer spiderLeg3;
+    public final ModelRenderer spiderLeg4;
+    public final ModelRenderer spiderLeg5;
+    public final ModelRenderer spiderLeg6;
+    public final ModelRenderer spiderLeg7;
+    public final ModelRenderer spiderLeg8;
 
     public ModelSpider() {
         float f = 0.0F;

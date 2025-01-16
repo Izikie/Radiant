@@ -25,9 +25,9 @@ public class MapData extends WorldSavedData {
     public byte dimension;
     public byte scale;
     public byte[] colors = new byte[16384];
-    public List<MapData.MapInfo> playersArrayList = Lists.newArrayList();
+    public final List<MapData.MapInfo> playersArrayList = Lists.newArrayList();
     private final Map<EntityPlayer, MapData.MapInfo> playersHashMap = Maps.newHashMap();
-    public Map<String, Vec4b> mapDecorations = Maps.newLinkedHashMap();
+    public final Map<String, Vec4b> mapDecorations = Maps.newLinkedHashMap();
 
     public MapData(String mapname) {
         super(mapname);

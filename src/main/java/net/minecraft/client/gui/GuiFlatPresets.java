@@ -143,10 +143,10 @@ public class GuiFlatPresets extends GuiScreen {
     }
 
     static class LayerItem {
-        public Item field_148234_a;
-        public int field_179037_b;
-        public String field_148232_b;
-        public String field_148233_c;
+        public final Item field_148234_a;
+        public final int field_179037_b;
+        public final String field_148232_b;
+        public final String field_148233_c;
 
         public LayerItem(Item p_i45518_1_, int p_i45518_2_, String p_i45518_3_, String p_i45518_4_) {
             this.field_148234_a = p_i45518_1_;

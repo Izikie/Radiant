@@ -108,8 +108,8 @@ public class EntityAITasks {
     }
 
     class EntityAITaskEntry {
-        public EntityAIBase action;
-        public int priority;
+        public final EntityAIBase action;
+        public final int priority;
 
         public EntityAITaskEntry(int priorityIn, EntityAIBase task) {
             this.priority = priorityIn;

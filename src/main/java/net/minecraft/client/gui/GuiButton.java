@@ -9,11 +9,11 @@ import net.minecraft.util.ResourceLocation;
 public class GuiButton extends Gui {
     protected static final ResourceLocation buttonTextures = new ResourceLocation("textures/gui/widgets.png");
     protected int width;
-    protected int height;
+    protected final int height;
     public int xPosition;
     public int yPosition;
     public String displayString;
-    public int id;
+    public final int id;
     public boolean enabled;
     public boolean visible;
     protected boolean hovered;

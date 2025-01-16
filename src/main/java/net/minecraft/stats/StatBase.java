@@ -19,13 +19,13 @@ public class StatBase {
     private final IScoreObjectiveCriteria objectiveCriteria;
     private Class<? extends IJsonSerializable> field_150956_d;
     private static final NumberFormat numberFormat = NumberFormat.getIntegerInstance(Locale.US);
-    public static IStatType simpleStatType = new IStatType() {
+    public static final IStatType simpleStatType = new IStatType() {
         public String format(int number) {
             return StatBase.numberFormat.format(number);
         }
     };
     private static final DecimalFormat decimalFormat = new DecimalFormat("########0.00");
-    public static IStatType timeStatType = new IStatType() {
+    public static final IStatType timeStatType = new IStatType() {
         public String format(int number) {
             double d0 = number / 20.0D;
             double d1 = d0 / 60.0D;
@@ -35,14 +35,14 @@ public class StatBase {
             return d4 > 0.5D ? StatBase.decimalFormat.format(d4) + " y" : (d3 > 0.5D ? StatBase.decimalFormat.format(d3) + " d" : (d2 > 0.5D ? StatBase.decimalFormat.format(d2) + " h" : (d1 > 0.5D ? StatBase.decimalFormat.format(d1) + " m" : d0 + " s")));
         }
     };
-    public static IStatType distanceStatType = new IStatType() {
+    public static final IStatType distanceStatType = new IStatType() {
         public String format(int number) {
             double d0 = number / 100.0D;
             double d1 = d0 / 1000.0D;
             return d1 > 0.5D ? StatBase.decimalFormat.format(d1) + " km" : (d0 > 0.5D ? StatBase.decimalFormat.format(d0) + " m" : number + " cm");
         }
     };
-    public static IStatType field_111202_k = new IStatType() {
+    public static final IStatType field_111202_k = new IStatType() {
         public String format(int number) {
             return StatBase.decimalFormat.format(number * 0.1D);
         }

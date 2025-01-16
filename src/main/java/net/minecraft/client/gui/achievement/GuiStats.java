@@ -31,7 +31,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Mouse;
 
 public class GuiStats extends GuiScreen implements IProgressMeter {
-    protected GuiScreen parentScreen;
+    protected final GuiScreen parentScreen;
     protected String screenTitle = "Select world";
     private GuiStats.StatsGeneral generalStats;
     private GuiStats.StatsItem itemStats;

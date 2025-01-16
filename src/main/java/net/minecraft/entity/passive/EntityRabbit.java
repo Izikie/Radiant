@@ -563,7 +563,7 @@ public class EntityRabbit extends EntityAnimal {
     }
 
     public static class RabbitTypeData implements IEntityLivingData {
-        public int typeData;
+        public final int typeData;
 
         public RabbitTypeData(int type) {
             this.typeData = type;

@@ -5,9 +5,9 @@ import java.util.List;
 import net.minecraft.entity.passive.EntityAnimal;
 
 public class EntityAIFollowParent extends EntityAIBase {
-    EntityAnimal childAnimal;
+    final EntityAnimal childAnimal;
     EntityAnimal parentAnimal;
-    double moveSpeed;
+    final double moveSpeed;
     private int delayCounter;
 
     public EntityAIFollowParent(EntityAnimal animal, double speed) {

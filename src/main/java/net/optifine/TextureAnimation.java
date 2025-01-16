@@ -12,18 +12,18 @@ import net.optifine.util.TextureUtils;
 import org.lwjgl.opengl.GL11;
 
 public class TextureAnimation {
-    private String srcTex;
-    private String dstTex;
-    ResourceLocation dstTexLoc;
+    private final String srcTex;
+    private final String dstTex;
+    final ResourceLocation dstTexLoc;
     private int dstTextId = -1;
-    private int dstX;
-    private int dstY;
-    private int frameWidth;
-    private int frameHeight;
-    private TextureAnimationFrame[] frames;
+    private final int dstX;
+    private final int dstY;
+    private final int frameWidth;
+    private final int frameHeight;
+    private final TextureAnimationFrame[] frames;
     private int currentFrameIndex = 0;
-    private boolean interpolate;
-    private int interpolateSkip;
+    private final boolean interpolate;
+    private final int interpolateSkip;
     private ByteBuffer interpolateData = null;
     byte[] srcData;
     private ByteBuffer imageData = null;

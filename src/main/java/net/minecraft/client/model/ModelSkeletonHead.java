@@ -3,7 +3,7 @@ package net.minecraft.client.model;
 import net.minecraft.entity.Entity;
 
 public class ModelSkeletonHead extends ModelBase {
-    public ModelRenderer skeletonHead;
+    public final ModelRenderer skeletonHead;
 
     public ModelSkeletonHead() {
         this(0, 35, 64, 64);

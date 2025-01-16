@@ -3,9 +3,9 @@ package net.minecraft.client.model;
 import net.minecraft.util.Vec3;
 
 public class PositionTextureVertex {
-    public Vec3 vector3D;
-    public float texturePositionX;
-    public float texturePositionY;
+    public final Vec3 vector3D;
+    public final float texturePositionX;
+    public final float texturePositionY;
 
     public PositionTextureVertex(float p_i1158_1_, float p_i1158_2_, float p_i1158_3_, float p_i1158_4_, float p_i1158_5_) {
         this(new Vec3(p_i1158_1_, p_i1158_2_, p_i1158_3_), p_i1158_4_, p_i1158_5_);

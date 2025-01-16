@@ -607,10 +607,10 @@ public class StructureStrongholdPieces {
     }
 
     static class PieceWeight {
-        public Class<? extends StructureStrongholdPieces.Stronghold> pieceClass;
+        public final Class<? extends StructureStrongholdPieces.Stronghold> pieceClass;
         public final int pieceWeight;
         public int instancesSpawned;
-        public int instancesLimit;
+        public final int instancesLimit;
 
         public PieceWeight(Class<? extends StructureStrongholdPieces.Stronghold> p_i2076_1_, int p_i2076_2_, int p_i2076_3_) {
             this.pieceClass = p_i2076_1_;
@@ -1044,7 +1044,7 @@ public class StructureStrongholdPieces {
     public static class Stairs2 extends StructureStrongholdPieces.Stairs {
         public StructureStrongholdPieces.PieceWeight strongholdPieceWeight;
         public StructureStrongholdPieces.PortalRoom strongholdPortalRoom;
-        public List<StructureComponent> field_75026_c = Lists.newArrayList();
+        public final List<StructureComponent> field_75026_c = Lists.newArrayList();
 
         public Stairs2() {
         }

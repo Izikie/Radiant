@@ -13,7 +13,7 @@ public abstract class WorldGenHugeTrees extends WorldGenAbstractTree {
     protected final int baseHeight;
     protected final IBlockState woodMetadata;
     protected final IBlockState leavesMetadata;
-    protected int extraRandomHeight;
+    protected final int extraRandomHeight;
 
     public WorldGenHugeTrees(boolean p_i46447_1_, int p_i46447_2_, int p_i46447_3_, IBlockState p_i46447_4_, IBlockState p_i46447_5_) {
         super(p_i46447_1_);

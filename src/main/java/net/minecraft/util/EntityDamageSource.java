@@ -6,7 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 public class EntityDamageSource extends DamageSource {
-    protected Entity damageSourceEntity;
+    protected final Entity damageSourceEntity;
     private boolean isThornsDamage = false;
 
     public EntityDamageSource(String damageTypeIn, Entity damageSourceEntityIn) {
