@@ -1509,7 +1509,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             GlStateManager.color(0.0F, 0.0F, 0.0F);
             double d0 = this.mc.thePlayer.getPositionEyes(partialTicks).yCoord - this.theWorld.getHorizon();
 
-            if (d0 < 0.0D) {
+            if (d0 < 0.0D) { // TODO: PATCHER, Fix For Void Box, Figure Out Play Unrender Bug Then Remove This
                 GlStateManager.pushMatrix();
                 GlStateManager.translate(0.0F, 12.0F, 0.0F);
 
@@ -1901,6 +1901,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 Shaders.useProgram(Shaders.ProgramTexturedLit);
             }
 
+            // TODO: PATCHER, GlStateManager.func_179106_n();
             double d1 = 1.0D - worldborder.getClosestDistance(entityIn) / d0;
             d1 = Math.pow(d1, 4.0D);
             double d2 = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * partialTicks;
@@ -1909,6 +1910,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(770, 1, 1, 0);
             this.renderEngine.bindTexture(locationForcefieldPng);
+            // TODO: PATCHER, GlStateManager.func_179127_m();
             GlStateManager.depthMask(false);
             GlStateManager.pushMatrix();
             int i = worldborder.getStatus().getID();
@@ -1999,6 +2001,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
             GlStateManager.disableBlend();
             GlStateManager.popMatrix();
+            // TODO: PATCHER, GlStateManager.func_179127_m();
             GlStateManager.depthMask(true);
 
             if (Config.isShaders()) {
@@ -2011,7 +2014,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         GlStateManager.tryBlendFuncSeparate(774, 768, 1, 0);
         GlStateManager.enableBlend();
         GlStateManager.color(1.0F, 1.0F, 1.0F, 0.5F);
-        GlStateManager.doPolygonOffset(-1.0F, -10.0F);
+        GlStateManager.doPolygonOffset(-1.0F, -10.0F); // TODO: PATCHER Seems to change second value to -1.0F
         GlStateManager.enablePolygonOffset();
         GlStateManager.alphaFunc(516, 0.1F);
         GlStateManager.enableAlpha();
