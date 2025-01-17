@@ -12,8 +12,7 @@ public class C17PacketCustomPayload implements Packet<INetHandlerPlayServer> {
     private String channel;
     private PacketBuffer data;
 
-    public C17PacketCustomPayload() {
-    }
+    public C17PacketCustomPayload() {}
 
     public C17PacketCustomPayload(String channelIn, PacketBuffer dataIn) {
         this.channel = channelIn;

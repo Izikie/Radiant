@@ -9,8 +9,7 @@ import net.minecraft.network.play.INetHandlerPlayServer;
 public class C16PacketClientStatus implements Packet<INetHandlerPlayServer> {
     private C16PacketClientStatus.EnumState status;
 
-    public C16PacketClientStatus() {
-    }
+    public C16PacketClientStatus() {}
 
     public C16PacketClientStatus(C16PacketClientStatus.EnumState statusIn) {
         this.status = statusIn;

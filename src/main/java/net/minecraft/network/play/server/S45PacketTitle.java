@@ -14,8 +14,7 @@ public class S45PacketTitle implements Packet<INetHandlerPlayClient> {
     private int displayTime;
     private int fadeOutTime;
 
-    public S45PacketTitle() {
-    }
+    public S45PacketTitle() {}
 
     public S45PacketTitle(S45PacketTitle.Type type, IChatComponent message) {
         this(type, message, -1, -1, -1);

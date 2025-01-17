@@ -11,8 +11,7 @@ public class S32PacketConfirmTransaction implements Packet<INetHandlerPlayClient
     private short actionNumber;
     private boolean field_148893_c;
 
-    public S32PacketConfirmTransaction() {
-    }
+    public S32PacketConfirmTransaction() {}
 
     public S32PacketConfirmTransaction(int windowIdIn, short actionNumberIn, boolean p_i45182_3_) {
         this.windowId = windowIdIn;

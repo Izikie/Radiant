@@ -13,8 +13,7 @@ public class S35PacketUpdateTileEntity implements Packet<INetHandlerPlayClient> 
     private int metadata;
     private NBTTagCompound nbt;
 
-    public S35PacketUpdateTileEntity() {
-    }
+    public S35PacketUpdateTileEntity() {}
 
     public S35PacketUpdateTileEntity(BlockPos blockPosIn, int metadataIn, NBTTagCompound nbtIn) {
         this.blockPos = blockPosIn;

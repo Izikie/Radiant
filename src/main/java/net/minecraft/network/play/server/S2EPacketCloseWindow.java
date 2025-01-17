@@ -9,8 +9,7 @@ import net.minecraft.network.play.INetHandlerPlayClient;
 public class S2EPacketCloseWindow implements Packet<INetHandlerPlayClient> {
     private int windowId;
 
-    public S2EPacketCloseWindow() {
-    }
+    public S2EPacketCloseWindow() {}
 
     public S2EPacketCloseWindow(int windowIdIn) {
         this.windowId = windowIdIn;

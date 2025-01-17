@@ -21,8 +21,7 @@ public class S0EPacketSpawnObject implements Packet<INetHandlerPlayClient> {
     private int type;
     private int extraData;
 
-    public S0EPacketSpawnObject() {
-    }
+    public S0EPacketSpawnObject() {}
 
     public S0EPacketSpawnObject(Entity entityIn, int typeIn) {
         this(entityIn, typeIn, 0);

@@ -12,8 +12,7 @@ public class C12PacketUpdateSign implements Packet<INetHandlerPlayServer> {
     private BlockPos pos;
     private IChatComponent[] lines;
 
-    public C12PacketUpdateSign() {
-    }
+    public C12PacketUpdateSign() {}
 
     public C12PacketUpdateSign(BlockPos pos, IChatComponent[] lines) {
         this.pos = pos;

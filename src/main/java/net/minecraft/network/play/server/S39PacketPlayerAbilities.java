@@ -15,8 +15,7 @@ public class S39PacketPlayerAbilities implements Packet<INetHandlerPlayClient> {
     private float flySpeed;
     private float walkSpeed;
 
-    public S39PacketPlayerAbilities() {
-    }
+    public S39PacketPlayerAbilities() {}
 
     public S39PacketPlayerAbilities(PlayerCapabilities capabilities) {
         this.setInvulnerable(capabilities.disableDamage);

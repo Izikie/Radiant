@@ -11,8 +11,7 @@ public class S1EPacketRemoveEntityEffect implements Packet<INetHandlerPlayClient
     private int entityId;
     private int effectId;
 
-    public S1EPacketRemoveEntityEffect() {
-    }
+    public S1EPacketRemoveEntityEffect() {}
 
     public S1EPacketRemoveEntityEffect(int entityIdIn, PotionEffect effect) {
         this.entityId = entityIdIn;

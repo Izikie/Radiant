@@ -19,8 +19,7 @@ public class S01PacketJoinGame implements Packet<INetHandlerPlayClient> {
     private WorldType worldType;
     private boolean reducedDebugInfo;
 
-    public S01PacketJoinGame() {
-    }
+    public S01PacketJoinGame() {}
 
     public S01PacketJoinGame(int entityIdIn, WorldSettings.GameType gameTypeIn, boolean hardcoreModeIn, int dimensionIn, EnumDifficulty difficultyIn, int maxPlayersIn, WorldType worldTypeIn, boolean reducedDebugInfoIn) {
         this.entityId = entityIdIn;

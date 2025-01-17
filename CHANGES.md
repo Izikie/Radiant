@@ -18,6 +18,7 @@
 - **Better F3** - F3 now looks more like 1.7 and slightly less cluttered.
 - **Language Selection** - Language selection now only reloads the language.
 - **Case Insensitive Commands**
+- **1.7 Potion Positioning** - Don't offset inventory when potion effects are active.
 </details>
 
 <details>

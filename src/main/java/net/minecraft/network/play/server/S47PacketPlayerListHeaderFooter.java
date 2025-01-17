@@ -11,8 +11,7 @@ public class S47PacketPlayerListHeaderFooter implements Packet<INetHandlerPlayCl
     private IChatComponent header;
     private IChatComponent footer;
 
-    public S47PacketPlayerListHeaderFooter() {
-    }
+    public S47PacketPlayerListHeaderFooter() {}
 
     public S47PacketPlayerListHeaderFooter(IChatComponent headerIn) {
         this.header = headerIn;

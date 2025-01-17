@@ -10,8 +10,7 @@ import net.minecraft.util.IChatComponent;
 public class S00PacketDisconnect implements Packet<INetHandlerLoginClient> {
     private IChatComponent reason;
 
-    public S00PacketDisconnect() {
-    }
+    public S00PacketDisconnect() {}
 
     public S00PacketDisconnect(IChatComponent reasonIn) {
         this.reason = reasonIn;
@@ -29,7 +28,7 @@ public class S00PacketDisconnect implements Packet<INetHandlerLoginClient> {
         handler.handleDisconnect(this);
     }
 
-    public IChatComponent func_149603_c() {
+    public IChatComponent getReason() {
         return this.reason;
     }
 }

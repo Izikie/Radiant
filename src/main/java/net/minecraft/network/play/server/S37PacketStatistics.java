@@ -15,8 +15,7 @@ import net.minecraft.stats.StatList;
 public class S37PacketStatistics implements Packet<INetHandlerPlayClient> {
     private Map<StatBase, Integer> field_148976_a;
 
-    public S37PacketStatistics() {
-    }
+    public S37PacketStatistics() {}
 
     public S37PacketStatistics(Map<StatBase, Integer> p_i45173_1_) {
         this.field_148976_a = p_i45173_1_;

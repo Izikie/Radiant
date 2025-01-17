@@ -14,8 +14,7 @@ public class S2DPacketOpenWindow implements Packet<INetHandlerPlayClient> {
     private int slotCount;
     private int entityId;
 
-    public S2DPacketOpenWindow() {
-    }
+    public S2DPacketOpenWindow() {}
 
     public S2DPacketOpenWindow(int incomingWindowId, String incomingWindowTitle, IChatComponent windowTitleIn) {
         this(incomingWindowId, incomingWindowTitle, windowTitleIn, 0);

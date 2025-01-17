@@ -15,7 +15,7 @@ import net.minecraft.util.MathHelper;
 
 public class S0CPacketSpawnPlayer implements Packet<INetHandlerPlayClient> {
     private int entityId;
-    private UUID playerId;
+    private UUID uuid;
     private int x;
     private int y;
     private int z;
@@ -23,14 +23,13 @@ public class S0CPacketSpawnPlayer implements Packet<INetHandlerPlayClient> {
     private byte pitch;
     private int currentItem;
     private DataWatcher watcher;
-    private List<DataWatcher.WatchableObject> field_148958_j;
+    private List<DataWatcher.WatchableObject> metadata;
 
-    public S0CPacketSpawnPlayer() {
-    }
+    public S0CPacketSpawnPlayer() {}
 
     public S0CPacketSpawnPlayer(EntityPlayer player) {
         this.entityId = player.getEntityId();
-        this.playerId = player.getGameProfile().getId();
+        this.uuid = player.getGameProfile().getId();
         this.x = MathHelper.floor_double(player.posX * 32.0D);
         this.y = MathHelper.floor_double(player.posY * 32.0D);
         this.z = MathHelper.floor_double(player.posZ * 32.0D);
@@ -43,19 +42,19 @@ public class S0CPacketSpawnPlayer implements Packet<INetHandlerPlayClient> {
 
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.entityId = buf.readVarIntFromBuffer();
-        this.playerId = buf.readUuid();
+        this.uuid = buf.readUuid();
         this.x = buf.readInt();
         this.y = buf.readInt();
         this.z = buf.readInt();
         this.yaw = buf.readByte();
         this.pitch = buf.readByte();
         this.currentItem = buf.readShort();
-        this.field_148958_j = DataWatcher.readWatchedListFromPacketBuffer(buf);
+        this.metadata = DataWatcher.readWatchedListFromPacketBuffer(buf);
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeVarIntToBuffer(this.entityId);
-        buf.writeUuid(this.playerId);
+        buf.writeUuid(this.uuid);
         buf.writeInt(this.x);
         buf.writeInt(this.y);
         buf.writeInt(this.z);
@@ -69,12 +68,12 @@ public class S0CPacketSpawnPlayer implements Packet<INetHandlerPlayClient> {
         handler.handleSpawnPlayer(this);
     }
 
-    public List<DataWatcher.WatchableObject> func_148944_c() {
-        if (this.field_148958_j == null) {
-            this.field_148958_j = this.watcher.getAllWatched();
+    public List<DataWatcher.WatchableObject> getMetaData() {
+        if (this.metadata == null) {
+            this.metadata = this.watcher.getAllWatched();
         }
 
-        return this.field_148958_j;
+        return this.metadata;
     }
 
     public int getEntityID() {
@@ -82,7 +81,7 @@ public class S0CPacketSpawnPlayer implements Packet<INetHandlerPlayClient> {
     }
 
     public UUID getPlayer() {
-        return this.playerId;
+        return this.uuid;
     }
 
     public int getX() {

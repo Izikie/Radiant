@@ -17,8 +17,7 @@ public class S18PacketEntityTeleport implements Packet<INetHandlerPlayClient> {
     private byte pitch;
     private boolean onGround;
 
-    public S18PacketEntityTeleport() {
-    }
+    public S18PacketEntityTeleport() {}
 
     public S18PacketEntityTeleport(Entity entityIn) {
         this.entityId = entityIn.getEntityId();

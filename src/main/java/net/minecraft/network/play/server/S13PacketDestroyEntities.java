@@ -9,8 +9,7 @@ import net.minecraft.network.play.INetHandlerPlayClient;
 public class S13PacketDestroyEntities implements Packet<INetHandlerPlayClient> {
     private int[] entityIDs;
 
-    public S13PacketDestroyEntities() {
-    }
+    public S13PacketDestroyEntities() {}
 
     public S13PacketDestroyEntities(int... entityIDsIn) {
         this.entityIDs = entityIDsIn;

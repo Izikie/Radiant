@@ -18,8 +18,7 @@ public class S14PacketEntity implements Packet<INetHandlerPlayClient> {
     protected boolean onGround;
     protected boolean field_149069_g;
 
-    public S14PacketEntity() {
-    }
+    public S14PacketEntity() {}
 
     public S14PacketEntity(int entityIdIn) {
         this.entityId = entityIdIn;

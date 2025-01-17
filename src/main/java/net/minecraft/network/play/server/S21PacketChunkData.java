@@ -17,8 +17,7 @@ public class S21PacketChunkData implements Packet<INetHandlerPlayClient> {
     private S21PacketChunkData.Extracted extractedData;
     private boolean field_149279_g;
 
-    public S21PacketChunkData() {
-    }
+    public S21PacketChunkData() {}
 
     public S21PacketChunkData(Chunk chunkIn, boolean p_i45196_2_, int p_i45196_3_) {
         this.chunkX = chunkIn.xPosition;

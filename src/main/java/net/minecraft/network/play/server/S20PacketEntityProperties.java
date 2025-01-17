@@ -17,8 +17,7 @@ public class S20PacketEntityProperties implements Packet<INetHandlerPlayClient> 
     private int entityId;
     private final List<S20PacketEntityProperties.Snapshot> field_149444_b = Lists.newArrayList();
 
-    public S20PacketEntityProperties() {
-    }
+    public S20PacketEntityProperties() {}
 
     public S20PacketEntityProperties(int entityIdIn, Collection<IAttributeInstance> p_i45236_2_) {
         this.entityId = entityIdIn;

@@ -14,8 +14,7 @@ public class S33PacketUpdateSign implements Packet<INetHandlerPlayClient> {
     private BlockPos blockPos;
     private IChatComponent[] lines;
 
-    public S33PacketUpdateSign() {
-    }
+    public S33PacketUpdateSign() {}
 
     public S33PacketUpdateSign(World worldIn, BlockPos blockPosIn, IChatComponent[] linesIn) {
         this.world = worldIn;

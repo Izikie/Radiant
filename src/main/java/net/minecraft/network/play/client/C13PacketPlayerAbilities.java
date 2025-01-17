@@ -15,8 +15,7 @@ public class C13PacketPlayerAbilities implements Packet<INetHandlerPlayServer> {
     private float flySpeed;
     private float walkSpeed;
 
-    public C13PacketPlayerAbilities() {
-    }
+    public C13PacketPlayerAbilities() {}
 
     public C13PacketPlayerAbilities(PlayerCapabilities capabilities) {
         this.setInvulnerable(capabilities.disableDamage);

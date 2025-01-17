@@ -10,8 +10,7 @@ import net.minecraft.util.BlockPos;
 public class S36PacketSignEditorOpen implements Packet<INetHandlerPlayClient> {
     private BlockPos signPosition;
 
-    public S36PacketSignEditorOpen() {
-    }
+    public S36PacketSignEditorOpen() {}
 
     public S36PacketSignEditorOpen(BlockPos signPositionIn) {
         this.signPosition = signPositionIn;

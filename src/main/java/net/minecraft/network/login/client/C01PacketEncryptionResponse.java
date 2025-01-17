@@ -14,8 +14,7 @@ public class C01PacketEncryptionResponse implements Packet<INetHandlerLoginServe
     private byte[] secretKeyEncrypted = new byte[0];
     private byte[] verifyTokenEncrypted = new byte[0];
 
-    public C01PacketEncryptionResponse() {
-    }
+    public C01PacketEncryptionResponse() {}
 
     public C01PacketEncryptionResponse(SecretKey secretKey, PublicKey publicKey, byte[] verifyToken) {
         this.secretKeyEncrypted = CryptManager.encryptData(publicKey, secretKey.getEncoded());

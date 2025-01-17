@@ -12,18 +12,16 @@ import net.minecraft.network.login.INetHandlerLoginClient;
 public class S02PacketLoginSuccess implements Packet<INetHandlerLoginClient> {
     private GameProfile profile;
 
-    public S02PacketLoginSuccess() {
-    }
+    public S02PacketLoginSuccess() {}
 
     public S02PacketLoginSuccess(GameProfile profileIn) {
         this.profile = profileIn;
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        String s = buf.readStringFromBuffer(36);
-        String s1 = buf.readStringFromBuffer(16);
-        UUID uuid = UUID.fromString(s);
-        this.profile = new GameProfile(uuid, s1);
+        String uuid = buf.readStringFromBuffer(36);
+        String name = buf.readStringFromBuffer(16);
+        this.profile = new GameProfile(UUID.fromString(uuid), name);
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {

@@ -9,8 +9,7 @@ import net.minecraft.network.play.INetHandlerPlayServer;
 public class C01PacketChatMessage implements Packet<INetHandlerPlayServer> {
     private String message;
 
-    public C01PacketChatMessage() {
-    }
+    public C01PacketChatMessage() {}
 
     public C01PacketChatMessage(String messageIn) {
         if (messageIn.length() > 100) {

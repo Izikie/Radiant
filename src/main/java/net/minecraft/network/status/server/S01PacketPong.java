@@ -7,21 +7,20 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.status.INetHandlerStatusClient;
 
 public class S01PacketPong implements Packet<INetHandlerStatusClient> {
-    private long clientTime;
+    private long time;
 
-    public S01PacketPong() {
-    }
+    public S01PacketPong() {}
 
     public S01PacketPong(long time) {
-        this.clientTime = time;
+        this.time = time;
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.clientTime = buf.readLong();
+        this.time = buf.readLong();
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeLong(this.clientTime);
+        buf.writeLong(this.time);
     }
 
     public void processPacket(INetHandlerStatusClient handler) {

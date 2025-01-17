@@ -19,8 +19,7 @@ public class S34PacketMaps implements Packet<INetHandlerPlayClient> {
     private int mapMaxY;
     private byte[] mapDataBytes;
 
-    public S34PacketMaps() {
-    }
+    public S34PacketMaps() {}
 
     public S34PacketMaps(int mapIdIn, byte scale, Collection<Vec4b> visiblePlayers, byte[] colors, int minX, int minY, int maxX, int maxY) {
         this.mapId = mapIdIn;

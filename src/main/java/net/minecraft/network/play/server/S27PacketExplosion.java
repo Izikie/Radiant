@@ -21,8 +21,7 @@ public class S27PacketExplosion implements Packet<INetHandlerPlayClient> {
     private float field_149153_g;
     private float field_149159_h;
 
-    public S27PacketExplosion() {
-    }
+    public S27PacketExplosion() {}
 
     public S27PacketExplosion(double p_i45193_1_, double y, double z, float strengthIn, List<BlockPos> affectedBlocksIn, Vec3 p_i45193_9_) {
         this.posX = p_i45193_1_;

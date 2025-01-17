@@ -7,28 +7,27 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.status.INetHandlerStatusServer;
 
 public class C01PacketPing implements Packet<INetHandlerStatusServer> {
-    private long clientTime;
+    private long time;
 
-    public C01PacketPing() {
-    }
+    public C01PacketPing() {}
 
     public C01PacketPing(long ping) {
-        this.clientTime = ping;
+        this.time = ping;
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.clientTime = buf.readLong();
+        this.time = buf.readLong();
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeLong(this.clientTime);
+        buf.writeLong(this.time);
     }
 
     public void processPacket(INetHandlerStatusServer handler) {
         handler.processPing(this);
     }
 
-    public long getClientTime() {
-        return this.clientTime;
+    public long getTime() {
+        return this.time;
     }
 }

@@ -11,8 +11,7 @@ public class S31PacketWindowProperty implements Packet<INetHandlerPlayClient> {
     private int varIndex;
     private int varValue;
 
-    public S31PacketWindowProperty() {
-    }
+    public S31PacketWindowProperty() {}
 
     public S31PacketWindowProperty(int windowIdIn, int varIndexIn, int varValueIn) {
         this.windowId = windowIdIn;

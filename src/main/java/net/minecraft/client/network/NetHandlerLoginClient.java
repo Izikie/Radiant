@@ -91,12 +91,12 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
     }
 
     public void handleDisconnect(S00PacketDisconnect packetIn) {
-        this.networkManager.closeChannel(packetIn.func_149603_c());
+        this.networkManager.closeChannel(packetIn.getReason());
     }
 
     public void handleEnableCompression(S03PacketEnableCompression packetIn) {
         if (!this.networkManager.isLocalChannel()) {
-            this.networkManager.setCompressionTreshold(packetIn.getCompressionTreshold());
+            this.networkManager.setCompressionTreshold(packetIn.getCompressionThreshold());
         }
     }
 }

@@ -13,8 +13,7 @@ public class S49PacketUpdateEntityNBT implements Packet<INetHandlerPlayClient> {
     private int entityId;
     private NBTTagCompound tagCompound;
 
-    public S49PacketUpdateEntityNBT() {
-    }
+    public S49PacketUpdateEntityNBT() {}
 
     public S49PacketUpdateEntityNBT(int entityIdIn, NBTTagCompound tagCompoundIn) {
         this.entityId = entityIdIn;

@@ -11,8 +11,7 @@ public class S41PacketServerDifficulty implements Packet<INetHandlerPlayClient> 
     private EnumDifficulty difficulty;
     private boolean difficultyLocked;
 
-    public S41PacketServerDifficulty() {
-    }
+    public S41PacketServerDifficulty() {}
 
     public S41PacketServerDifficulty(EnumDifficulty difficultyIn, boolean lockedIn) {
         this.difficulty = difficultyIn;

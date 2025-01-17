@@ -10,8 +10,7 @@ public class C19PacketResourcePackStatus implements Packet<INetHandlerPlayServer
     private String hash;
     private C19PacketResourcePackStatus.Action status;
 
-    public C19PacketResourcePackStatus() {
-    }
+    public C19PacketResourcePackStatus() {}
 
     public C19PacketResourcePackStatus(String hashIn, C19PacketResourcePackStatus.Action statusIn) {
         if (hashIn.length() > 40) {

@@ -50,6 +50,5 @@ public class RConConsoleSource implements ICommandSender {
         return true;
     }
 
-    public void setCommandStat(CommandResultStats.Type type, int amount) {
-    }
+    public void setCommandStat(CommandResultStats.Type type, int amount) {}
 }

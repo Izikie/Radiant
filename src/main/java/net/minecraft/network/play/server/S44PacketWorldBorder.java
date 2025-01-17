@@ -18,8 +18,7 @@ public class S44PacketWorldBorder implements Packet<INetHandlerPlayClient> {
     private int warningTime;
     private int warningDistance;
 
-    public S44PacketWorldBorder() {
-    }
+    public S44PacketWorldBorder() {}
 
     public S44PacketWorldBorder(WorldBorder border, S44PacketWorldBorder.Action actionIn) {
         this.action = actionIn;

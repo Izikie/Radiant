@@ -13,8 +13,7 @@ public class C07PacketPlayerDigging implements Packet<INetHandlerPlayServer> {
     private EnumFacing facing;
     private C07PacketPlayerDigging.Action status;
 
-    public C07PacketPlayerDigging() {
-    }
+    public C07PacketPlayerDigging() {}
 
     public C07PacketPlayerDigging(C07PacketPlayerDigging.Action statusIn, BlockPos posIn, EnumFacing facingIn) {
         this.status = statusIn;

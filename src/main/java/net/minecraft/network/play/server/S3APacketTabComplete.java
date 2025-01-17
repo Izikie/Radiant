@@ -9,8 +9,7 @@ import net.minecraft.network.play.INetHandlerPlayClient;
 public class S3APacketTabComplete implements Packet<INetHandlerPlayClient> {
     private String[] matches;
 
-    public S3APacketTabComplete() {
-    }
+    public S3APacketTabComplete() {}
 
     public S3APacketTabComplete(String[] matchesIn) {
         this.matches = matchesIn;

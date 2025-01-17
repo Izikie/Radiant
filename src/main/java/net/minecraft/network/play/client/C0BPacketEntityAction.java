@@ -12,8 +12,7 @@ public class C0BPacketEntityAction implements Packet<INetHandlerPlayServer> {
     private C0BPacketEntityAction.Action action;
     private int auxData;
 
-    public C0BPacketEntityAction() {
-    }
+    public C0BPacketEntityAction() {}
 
     public C0BPacketEntityAction(Entity entity, C0BPacketEntityAction.Action action) {
         this(entity, action, 0);

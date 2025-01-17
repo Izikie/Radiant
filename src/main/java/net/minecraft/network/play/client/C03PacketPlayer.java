@@ -16,8 +16,7 @@ public class C03PacketPlayer implements Packet<INetHandlerPlayServer> {
     protected boolean moving;
     protected boolean rotating;
 
-    public C03PacketPlayer() {
-    }
+    public C03PacketPlayer() {}
 
     public C03PacketPlayer(boolean isOnGround) {
         this.onGround = isOnGround;

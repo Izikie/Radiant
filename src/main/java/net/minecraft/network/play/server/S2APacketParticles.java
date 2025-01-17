@@ -20,8 +20,7 @@ public class S2APacketParticles implements Packet<INetHandlerPlayClient> {
     private boolean longDistance;
     private int[] particleArguments;
 
-    public S2APacketParticles() {
-    }
+    public S2APacketParticles() {}
 
     public S2APacketParticles(EnumParticleTypes particleTypeIn, boolean longDistanceIn, float x, float y, float z, float xOffsetIn, float yOffset, float zOffset, float particleSpeedIn, int particleCountIn, int... particleArgumentsIn) {
         this.particleType = particleTypeIn;

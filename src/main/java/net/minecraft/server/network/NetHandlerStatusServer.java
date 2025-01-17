@@ -34,7 +34,7 @@ public class NetHandlerStatusServer implements INetHandlerStatusServer {
     }
 
     public void processPing(C01PacketPing packetIn) {
-        this.networkManager.sendPacket(new S01PacketPong(packetIn.getClientTime()));
+        this.networkManager.sendPacket(new S01PacketPong(packetIn.getTime()));
         this.networkManager.closeChannel(EXIT_MESSAGE);
     }
 }

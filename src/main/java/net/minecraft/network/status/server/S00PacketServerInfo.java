@@ -17,8 +17,7 @@ public class S00PacketServerInfo implements Packet<INetHandlerStatusClient> {
     private static final Gson GSON = (new GsonBuilder()).registerTypeAdapter(ServerStatusResponse.MinecraftProtocolVersionIdentifier.class, new ServerStatusResponse.MinecraftProtocolVersionIdentifier.Serializer()).registerTypeAdapter(ServerStatusResponse.PlayerCountData.class, new ServerStatusResponse.PlayerCountData.Serializer()).registerTypeAdapter(ServerStatusResponse.class, new ServerStatusResponse.Serializer()).registerTypeHierarchyAdapter(IChatComponent.class, new IChatComponent.Serializer()).registerTypeHierarchyAdapter(ChatStyle.class, new ChatStyle.Serializer()).registerTypeAdapterFactory(new EnumTypeAdapterFactory()).create();
     private ServerStatusResponse response;
 
-    public S00PacketServerInfo() {
-    }
+    public S00PacketServerInfo() {}
 
     public S00PacketServerInfo(ServerStatusResponse responseIn) {
         this.response = responseIn;

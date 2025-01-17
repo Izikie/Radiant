@@ -12,8 +12,7 @@ public class S30PacketWindowItems implements Packet<INetHandlerPlayClient> {
     private int windowId;
     private ItemStack[] itemStacks;
 
-    public S30PacketWindowItems() {
-    }
+    public S30PacketWindowItems() {}
 
     public S30PacketWindowItems(int windowIdIn, List<ItemStack> p_i45186_2_) {
         this.windowId = windowIdIn;

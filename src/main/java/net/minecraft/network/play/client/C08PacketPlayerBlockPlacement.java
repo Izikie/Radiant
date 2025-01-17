@@ -17,8 +17,7 @@ public class C08PacketPlayerBlockPlacement implements Packet<INetHandlerPlayServ
     private float facingY;
     private float facingZ;
 
-    public C08PacketPlayerBlockPlacement() {
-    }
+    public C08PacketPlayerBlockPlacement() {}
 
     public C08PacketPlayerBlockPlacement(ItemStack stackIn) {
         this(field_179726_a, 255, stackIn, 0.0F, 0.0F, 0.0F);

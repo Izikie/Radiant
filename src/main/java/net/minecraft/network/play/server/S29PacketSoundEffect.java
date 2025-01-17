@@ -16,8 +16,7 @@ public class S29PacketSoundEffect implements Packet<INetHandlerPlayClient> {
     private float soundVolume;
     private int soundPitch;
 
-    public S29PacketSoundEffect() {
-    }
+    public S29PacketSoundEffect() {}
 
     public S29PacketSoundEffect(String soundNameIn, double soundX, double soundY, double soundZ, float volume, float pitch) {
         Validate.notNull(soundNameIn, "name");

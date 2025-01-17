@@ -15,8 +15,7 @@ public class S10PacketSpawnPainting implements Packet<INetHandlerPlayClient> {
     private EnumFacing facing;
     private String title;
 
-    public S10PacketSpawnPainting() {
-    }
+    public S10PacketSpawnPainting() {}
 
     public S10PacketSpawnPainting(EntityPainting painting) {
         this.entityID = painting.getEntityId();

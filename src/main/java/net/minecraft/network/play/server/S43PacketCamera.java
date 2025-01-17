@@ -11,8 +11,7 @@ import net.minecraft.world.World;
 public class S43PacketCamera implements Packet<INetHandlerPlayClient> {
     public int entityId;
 
-    public S43PacketCamera() {
-    }
+    public S43PacketCamera() {}
 
     public S43PacketCamera(Entity entityIn) {
         this.entityId = entityIn.getEntityId();

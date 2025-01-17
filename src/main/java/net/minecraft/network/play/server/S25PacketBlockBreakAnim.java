@@ -12,8 +12,7 @@ public class S25PacketBlockBreakAnim implements Packet<INetHandlerPlayClient> {
     private BlockPos position;
     private int progress;
 
-    public S25PacketBlockBreakAnim() {
-    }
+    public S25PacketBlockBreakAnim() {}
 
     public S25PacketBlockBreakAnim(int breakerId, BlockPos pos, int progress) {
         this.breakerId = breakerId;

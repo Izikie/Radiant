@@ -12,8 +12,7 @@ public class S04PacketEntityEquipment implements Packet<INetHandlerPlayClient> {
     private int equipmentSlot;
     private ItemStack itemStack;
 
-    public S04PacketEntityEquipment() {
-    }
+    public S04PacketEntityEquipment() {}
 
     public S04PacketEntityEquipment(int entityIDIn, int p_i45221_2_, ItemStack itemStackIn) {
         this.entityID = entityIDIn;

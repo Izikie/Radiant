@@ -11,24 +11,23 @@ import net.minecraft.world.World;
 
 public class S0APacketUseBed implements Packet<INetHandlerPlayClient> {
     private int playerID;
-    private BlockPos bedPos;
+    private BlockPos pos;
 
-    public S0APacketUseBed() {
-    }
+    public S0APacketUseBed() {}
 
     public S0APacketUseBed(EntityPlayer player, BlockPos bedPosIn) {
         this.playerID = player.getEntityId();
-        this.bedPos = bedPosIn;
+        this.pos = bedPosIn;
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.playerID = buf.readVarIntFromBuffer();
-        this.bedPos = buf.readBlockPos();
+        this.pos = buf.readBlockPos();
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeVarIntToBuffer(this.playerID);
-        buf.writeBlockPos(this.bedPos);
+        buf.writeBlockPos(this.pos);
     }
 
     public void processPacket(INetHandlerPlayClient handler) {
@@ -39,7 +38,7 @@ public class S0APacketUseBed implements Packet<INetHandlerPlayClient> {
         return (EntityPlayer) worldIn.getEntityByID(this.playerID);
     }
 
-    public BlockPos getBedPosition() {
-        return this.bedPos;
+    public BlockPos getPosition() {
+        return this.pos;
     }
 }

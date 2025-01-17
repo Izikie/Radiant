@@ -14,8 +14,7 @@ public class C15PacketClientSettings implements Packet<INetHandlerPlayServer> {
     private boolean enableColors;
     private int modelPartFlags;
 
-    public C15PacketClientSettings() {
-    }
+    public C15PacketClientSettings() {}
 
     public C15PacketClientSettings(String langIn, int viewIn, EntityPlayer.EnumChatVisibility chatVisibilityIn, boolean enableColorsIn, int modelPartFlagsIn) {
         this.lang = langIn;

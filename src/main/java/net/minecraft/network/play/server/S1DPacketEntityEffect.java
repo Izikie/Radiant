@@ -14,8 +14,7 @@ public class S1DPacketEntityEffect implements Packet<INetHandlerPlayClient> {
     private int duration;
     private byte hideParticles;
 
-    public S1DPacketEntityEffect() {
-    }
+    public S1DPacketEntityEffect() {}
 
     public S1DPacketEntityEffect(int entityIdIn, PotionEffect effect) {
         this.entityId = entityIdIn;

@@ -10,8 +10,7 @@ import net.minecraft.util.BlockPos;
 public class S05PacketSpawnPosition implements Packet<INetHandlerPlayClient> {
     private BlockPos spawnBlockPos;
 
-    public S05PacketSpawnPosition() {
-    }
+    public S05PacketSpawnPosition() {}
 
     public S05PacketSpawnPosition(BlockPos spawnBlockPosIn) {
         this.spawnBlockPos = spawnBlockPosIn;

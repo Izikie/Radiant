@@ -14,8 +14,7 @@ public class S3BPacketScoreboardObjective implements Packet<INetHandlerPlayClien
     private IScoreObjectiveCriteria.EnumRenderType type;
     private int field_149342_c;
 
-    public S3BPacketScoreboardObjective() {
-    }
+    public S3BPacketScoreboardObjective() {}
 
     public S3BPacketScoreboardObjective(ScoreObjective p_i45224_1_, int p_i45224_2_) {
         this.objectiveName = p_i45224_1_.getName();
