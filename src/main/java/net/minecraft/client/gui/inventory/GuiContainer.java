@@ -121,7 +121,7 @@ public abstract class GuiContainer extends GuiScreen {
                 itemstack.stackSize = this.dragSplittingRemnant;
 
                 if (itemstack.stackSize == 0) {
-                    s = "" + EnumChatFormatting.YELLOW + "0";
+                    s = EnumChatFormatting.YELLOW + "0";
                 }
             }
 

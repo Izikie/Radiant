@@ -95,7 +95,7 @@ public class HttpUtils {
             InputStream inputstream = httpurlconnection.getInputStream();
             InputStreamReader inputstreamreader = new InputStreamReader(inputstream, StandardCharsets.US_ASCII);
             BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
-            StringBuffer stringbuffer = new StringBuffer();
+            StringBuilder stringbuffer = new StringBuilder();
             String s2;
 
             while ((s2 = bufferedreader.readLine()) != null) {

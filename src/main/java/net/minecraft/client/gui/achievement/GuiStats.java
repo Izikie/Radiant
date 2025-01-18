@@ -296,7 +296,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
                         s = this.func_148210_b(2);
                     }
 
-                    s = ("" + I18n.format(s)).trim();
+                    s = (I18n.format(s)).trim();
 
                     if (!s.isEmpty()) {
                         int k = p_148142_1_ + 12;
@@ -314,7 +314,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
                 Item item = p_148213_1_.func_150959_a();
                 ItemStack itemstack = new ItemStack(item);
                 String s = itemstack.getUnlocalizedName();
-                String s1 = ("" + I18n.format(s + ".name")).trim();
+                String s1 = (I18n.format(s + ".name")).trim();
 
                 if (!s1.isEmpty()) {
                     int i = p_148213_2_ + 12;

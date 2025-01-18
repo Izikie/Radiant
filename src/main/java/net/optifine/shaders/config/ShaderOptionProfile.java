@@ -93,7 +93,7 @@ public class ShaderOptionProfile extends ShaderOption {
         if (s != null) {
             return s;
         } else {
-            StringBuffer stringbuffer = new StringBuffer();
+            StringBuilder stringbuffer = new StringBuilder();
 
             for (ShaderProfile profile : this.profiles) {
                 String s1 = profile.getName();

@@ -216,9 +216,9 @@ public class GuiEnchantment extends GuiContainer {
                         }
 
                         if (i >= i1) {
-                            list.add(EnumChatFormatting.GRAY.toString() + "" + s1);
+                            list.add(EnumChatFormatting.GRAY.toString() + s1);
                         } else {
-                            list.add(EnumChatFormatting.RED.toString() + "" + s1);
+                            list.add(EnumChatFormatting.RED.toString() + s1);
                         }
 
                         if (i1 == 1) {
@@ -227,7 +227,7 @@ public class GuiEnchantment extends GuiContainer {
                             s1 = I18n.format("container.enchant.level.many", i1);
                         }
 
-                        list.add(EnumChatFormatting.GRAY.toString() + "" + s1);
+                        list.add(EnumChatFormatting.GRAY.toString() + s1);
                     }
                 }
 

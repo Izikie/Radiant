@@ -79,7 +79,7 @@ public class ArrayUtils {
         if (arr == null) {
             return "";
         } else {
-            StringBuffer stringbuffer = new StringBuffer(arr.length * 5);
+            StringBuilder stringbuffer = new StringBuilder(arr.length * 5);
 
             for (int i = 0; i < arr.length; ++i) {
                 boolean flag = arr[i];
@@ -103,7 +103,7 @@ public class ArrayUtils {
         if (arr == null) {
             return "";
         } else {
-            StringBuffer stringbuffer = new StringBuffer(arr.length * 5);
+            StringBuilder stringbuffer = new StringBuilder(arr.length * 5);
 
             for (int i = 0; i < arr.length; ++i) {
                 float f = arr[i];
@@ -123,7 +123,7 @@ public class ArrayUtils {
         if (arr == null) {
             return "";
         } else {
-            StringBuffer stringbuffer = new StringBuffer(arr.length * 5);
+            StringBuilder stringbuffer = new StringBuilder(arr.length * 5);
 
             for (int i = 0; i < arr.length; ++i) {
                 float f = arr[i];
@@ -147,7 +147,7 @@ public class ArrayUtils {
         if (arr == null) {
             return "";
         } else {
-            StringBuffer stringbuffer = new StringBuffer(arr.length * 5);
+            StringBuilder stringbuffer = new StringBuilder(arr.length * 5);
 
             for (int i = 0; i < arr.length; ++i) {
                 int j = arr[i];
@@ -167,7 +167,7 @@ public class ArrayUtils {
         if (arr == null) {
             return "";
         } else {
-            StringBuffer stringbuffer = new StringBuffer(arr.length * 5);
+            StringBuilder stringbuffer = new StringBuilder(arr.length * 5);
 
             for (int i = 0; i < arr.length; ++i) {
                 int j = arr[i];
@@ -192,7 +192,7 @@ public class ArrayUtils {
         if (arr == null) {
             return "";
         } else {
-            StringBuffer stringbuffer = new StringBuffer(arr.length * 5);
+            StringBuilder stringbuffer = new StringBuilder(arr.length * 5);
 
             for (int i = 0; i < arr.length; ++i) {
                 Object object = arr[i];

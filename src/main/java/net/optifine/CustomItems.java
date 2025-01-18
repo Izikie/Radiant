@@ -275,7 +275,7 @@ public class CustomItems {
                 Config.warn("Potion not found for image: " + path);
                 return null;
             } else {
-                StringBuffer stringbuffer = new StringBuffer();
+                StringBuilder stringbuffer = new StringBuilder();
 
                 for (int i = 0; i < aint.length; ++i) {
                     int j = aint[i];
@@ -502,7 +502,7 @@ public class CustomItems {
                 return null;
             } else {
                 String s = itemarmor.getArmorMaterial().getName();
-                StringBuffer stringbuffer = new StringBuffer();
+                StringBuilder stringbuffer = new StringBuilder();
                 stringbuffer.append("texture.");
                 stringbuffer.append(s);
                 stringbuffer.append("_layer_");

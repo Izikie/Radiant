@@ -286,7 +286,7 @@ public class GuiScreenBook extends GuiScreen {
     private void pageInsertIntoCurrent(String p_146459_1_) {
         String s = this.pageGetCurrent();
         String s1 = s + p_146459_1_;
-        int i = this.fontRendererObj.splitStringWidth(s1 + "" + EnumChatFormatting.BLACK + "_", 118);
+        int i = this.fontRendererObj.splitStringWidth(s1 + EnumChatFormatting.BLACK + "_", 118);
 
         if (i <= 128 && s1.length() < 256) {
             this.pageSetCurrent(s1);
@@ -305,9 +305,9 @@ public class GuiScreenBook extends GuiScreen {
 
             if (this.bookIsUnsigned) {
                 if (this.updateCount / 6 % 2 == 0) {
-                    s = s + "" + EnumChatFormatting.BLACK + "_";
+                    s = s + EnumChatFormatting.BLACK + "_";
                 } else {
-                    s = s + "" + EnumChatFormatting.GRAY + "_";
+                    s = s + EnumChatFormatting.GRAY + "_";
                 }
             }
 
@@ -333,9 +333,9 @@ public class GuiScreenBook extends GuiScreen {
                 if (this.fontRendererObj.getBidiFlag()) {
                     s5 = s5 + "_";
                 } else if (this.updateCount / 6 % 2 == 0) {
-                    s5 = s5 + "" + EnumChatFormatting.BLACK + "_";
+                    s5 = s5 + EnumChatFormatting.BLACK + "_";
                 } else {
-                    s5 = s5 + "" + EnumChatFormatting.GRAY + "_";
+                    s5 = s5 + EnumChatFormatting.GRAY + "_";
                 }
             } else if (this.field_175387_B != this.currPage) {
                 if (ItemEditableBook.validBookTagContents(this.bookObj.getTagCompound())) {

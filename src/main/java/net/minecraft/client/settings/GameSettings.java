@@ -1543,7 +1543,7 @@ public class GameSettings {
                 s2 = s1 + "+";
             }
 
-            return s + i1 + " " + s2 + "";
+            return s + i1 + " " + s2;
         } else if (p_getKeyBindingOF_1_ == GameSettings.Options.FOG_FANCY) {
             switch (this.ofFogType) {
                 case 1:

@@ -81,7 +81,7 @@ public class HttpUtil {
             dataoutputstream.flush();
             dataoutputstream.close();
             BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(httpurlconnection.getInputStream()));
-            StringBuffer stringbuffer = new StringBuffer();
+            StringBuilder stringbuffer = new StringBuilder();
             String s;
 
             while ((s = bufferedreader.readLine()) != null) {
