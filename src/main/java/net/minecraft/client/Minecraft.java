@@ -1298,9 +1298,8 @@ public class Minecraft implements IThreadListener {
 
                             if (this.gameSettings.thirdPersonView == 0) {
                                 this.entityRenderer.loadEntityShader(this.getRenderViewEntity());
-                            } else if (this.gameSettings.thirdPersonView == 1) {
-                                this.entityRenderer.loadEntityShader(null);
                             }
+                            // IMPROVEMENT: Don't reset the shader when switching to 3rd person view
 
                             this.renderGlobal.setDisplayListEntitiesDirty();
                         }
