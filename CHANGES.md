@@ -8,6 +8,7 @@
 - **Fix Demo Troll** - Ignore demo screen requests from servers.
 - **Fix Rain Strength** - Fix crashes/lag from high values and color changes from negative values.
 - **Fix Alex Arm** - Fix Alex's items rendering in the wrong position.
+- **Void Box Rendering**
 </details>
 
 <details>

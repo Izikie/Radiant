@@ -1509,48 +1509,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             GlStateManager.color(0.0F, 0.0F, 0.0F);
             double d0 = this.mc.thePlayer.getPositionEyes(partialTicks).yCoord - this.theWorld.getHorizon();
 
-            if (d0 < 0.0D) { // TODO: PATCHER, Fix For Void Box, Figure Out Play Unrender Bug Then Remove This
-                GlStateManager.pushMatrix();
-                GlStateManager.translate(0.0F, 12.0F, 0.0F);
-
-                if (this.vboEnabled) {
-                    this.sky2VBO.bindBuffer();
-                    GL11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
-                    GL11.glVertexPointer(3, GL11.GL_FLOAT, 12, 0L);
-                    this.sky2VBO.drawArrays(7);
-                    this.sky2VBO.unbindBuffer();
-                    GL11.glDisableClientState(GL11.GL_VERTEX_ARRAY);
-                } else {
-                    GlStateManager.callList(this.glSkyList2);
-                }
-
-                GlStateManager.popMatrix();
-                float f20 = 1.0F;
-                float f22 = -((float) (d0 + 65.0D));
-                float f24 = -1.0F;
-                worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-                worldrenderer.pos(-1.0D, f22, 1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(1.0D, f22, 1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(-1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(-1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(1.0D, f22, -1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(-1.0D, f22, -1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(1.0D, f22, 1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(1.0D, f22, -1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(-1.0D, f22, -1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(-1.0D, f22, 1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(-1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(-1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(-1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(-1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
-                tessellator.draw();
-            }
+            // BUGFIX: Void Render Box
 
             if (this.theWorld.provider.isSkyColored()) {
                 GlStateManager.color(f * 0.2F + 0.04F, f1 * 0.2F + 0.04F, f2 * 0.6F + 0.1F);
