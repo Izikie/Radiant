@@ -93,7 +93,7 @@ public class CrashReportCategory {
     public int getPrunedStackTrace(int size) {
         StackTraceElement[] astacktraceelement = Thread.currentThread().getStackTrace();
 
-        if (astacktraceelement.length <= 0) {
+        if (astacktraceelement.length == 0) {
             return 0;
         } else {
             this.stackTrace = new StackTraceElement[astacktraceelement.length - 3 - size];

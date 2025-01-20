@@ -21,7 +21,7 @@ public class CommandDifficulty extends CommandBase {
     }
 
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-        if (args.length <= 0) {
+        if (args.length == 0) {
             throw new WrongUsageException("commands.difficulty.usage");
         } else {
             EnumDifficulty enumdifficulty = this.getDifficultyFromCommand(args[0]);

@@ -103,7 +103,7 @@ public class NextTickHashSet extends TreeSet {
     public Iterator iterator() {
         if (this.minX == Integer.MIN_VALUE) {
             return super.iterator();
-        } else if (this.size() <= 0) {
+        } else if (this.size() == 0) {
             return Iterators.emptyIterator();
         } else {
             int i = this.minX >> 4;
@@ -122,7 +122,7 @@ public class NextTickHashSet extends TreeSet {
                 }
             }
 
-            if (list.size() <= 0) {
+            if (list.size() == 0) {
                 return Iterators.emptyIterator();
             } else if (list.size() == 1) {
                 return (Iterator) list.get(0);
