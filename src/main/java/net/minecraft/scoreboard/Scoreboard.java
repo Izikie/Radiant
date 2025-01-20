@@ -209,14 +209,16 @@ public class Scoreboard {
         }
     }
 
-    public void removeTeam(ScorePlayerTeam p_96511_1_) {
-        this.teams.remove(p_96511_1_.getRegisteredName());
+    public void removeTeam(ScorePlayerTeam team) {
+        if (team == null) return;
+        
+        this.teams.remove(team.getRegisteredName());
 
-        for (String s : p_96511_1_.getMembershipCollection()) {
+        for (String s : team.getMembershipCollection()) {
             this.teamMemberships.remove(s);
         }
 
-        this.func_96513_c(p_96511_1_);
+        this.func_96513_c(team);
     }
 
     public boolean addPlayerToTeam(String player, String newTeam) {
