@@ -326,12 +326,11 @@ public class GuiPageButtonList extends GuiListExtended {
 
         private void func_178017_a(Gui p_178017_1_, int p_178017_2_, int p_178017_3_, int p_178017_4_, boolean p_178017_5_) {
             if (p_178017_1_ != null) {
-                if (p_178017_1_ instanceof GuiButton guiButton) {
-                    this.func_178024_a(guiButton, p_178017_2_, p_178017_3_, p_178017_4_, p_178017_5_);
-                } else if (p_178017_1_ instanceof GuiTextField guiTextField) {
-                    this.func_178027_a(guiTextField, p_178017_2_, p_178017_5_);
-                } else if (p_178017_1_ instanceof GuiLabel guiLabel) {
-                    this.func_178025_a(guiLabel, p_178017_2_, p_178017_3_, p_178017_4_, p_178017_5_);
+                switch (p_178017_1_) {
+                    case GuiButton guiButton -> this.func_178024_a(guiButton, p_178017_2_, p_178017_3_, p_178017_4_, p_178017_5_);
+                    case GuiTextField guiTextField -> this.func_178027_a(guiTextField, p_178017_2_, p_178017_5_);
+                    case GuiLabel guiLabel -> this.func_178025_a(guiLabel, p_178017_2_, p_178017_3_, p_178017_4_, p_178017_5_);
+                    default -> {}
                 }
             }
         }

@@ -190,25 +190,18 @@ public class NbtTagValue {
     }
 
     private static String getNbtString(NBTBase nbtBase, int format) {
-        if (nbtBase == null) {
-            return null;
-        } else if (nbtBase instanceof NBTTagString nbttagstring) {
-            return nbttagstring.getString();
-        } else if (nbtBase instanceof NBTTagInt nbttagint) {
-            return format == 1 ? "#" + StrUtils.fillLeft(Integer.toHexString(nbttagint.getInt()), 6, '0') : Integer.toString(nbttagint.getInt());
-        } else if (nbtBase instanceof NBTTagByte nbttagbyte) {
-            return Byte.toString(nbttagbyte.getByte());
-        } else if (nbtBase instanceof NBTTagShort nbttagshort) {
-            return Short.toString(nbttagshort.getShort());
-        } else if (nbtBase instanceof NBTTagLong nbttaglong) {
-            return Long.toString(nbttaglong.getLong());
-        } else if (nbtBase instanceof NBTTagFloat nbttagfloat) {
-            return Float.toString(nbttagfloat.getFloat());
-        } else if (nbtBase instanceof NBTTagDouble nbttagdouble) {
-            return Double.toString(nbttagdouble.getDouble());
-        } else {
-            return nbtBase.toString();
-        }
+        return switch (nbtBase) {
+            case null -> null;
+            case NBTTagString nbttagstring -> nbttagstring.getString();
+            case NBTTagInt nbttagint ->
+                    format == 1 ? "#" + StrUtils.fillLeft(Integer.toHexString(nbttagint.getInt()), 6, '0') : Integer.toString(nbttagint.getInt());
+            case NBTTagByte nbttagbyte -> Byte.toString(nbttagbyte.getByte());
+            case NBTTagShort nbttagshort -> Short.toString(nbttagshort.getShort());
+            case NBTTagLong nbttaglong -> Long.toString(nbttaglong.getLong());
+            case NBTTagFloat nbttagfloat -> Float.toString(nbttagfloat.getFloat());
+            case NBTTagDouble nbttagdouble -> Double.toString(nbttagdouble.getDouble());
+            default -> nbtBase.toString();
+        };
     }
 
     public String toString() {

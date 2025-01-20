@@ -248,33 +248,39 @@ public class DynamicLights {
                     }
                 }
 
-                if (entity instanceof EntityFireball) {
-                    return 15;
-                } else if (entity instanceof EntityTNTPrimed) {
-                    return 15;
-                } else if (entity instanceof EntityBlaze entityblaze) {
-                    return entityblaze.func_70845_n() ? 15 : 10;
-                } else if (entity instanceof EntityMagmaCube entitymagmacube) {
-                    return entitymagmacube.squishFactor > 0.6D ? 13 : 8;
-                } else {
-                    if (entity instanceof EntityCreeper entitycreeper) {
-
-                        if (entitycreeper.getCreeperFlashIntensity(0.0F) > 0.001D) {
-                            return 15;
-                        }
+                switch (entity) {
+                    case EntityFireball entityFireball -> {
+                        return 15;
                     }
+                    case EntityTNTPrimed entityTNTPrimed -> {
+                        return 15;
+                    }
+                    case EntityBlaze entityblaze -> {
+                        return entityblaze.func_70845_n() ? 15 : 10;
+                    }
+                    case EntityMagmaCube entitymagmacube -> {
+                        return entitymagmacube.squishFactor > 0.6D ? 13 : 8;
+                    }
+                    default -> {
+                        if (entity instanceof EntityCreeper entitycreeper) {
 
-                    if (entity instanceof EntityLivingBase entitylivingbase) {
-                        ItemStack itemstack2 = entitylivingbase.getHeldItem();
-                        int i = getLightLevel(itemstack2);
-                        ItemStack itemstack1 = entitylivingbase.getEquipmentInSlot(4);
-                        int j = getLightLevel(itemstack1);
-                        return Math.max(i, j);
-                    } else if (entity instanceof EntityItem entityitem) {
-                        ItemStack itemstack = getItemStack(entityitem);
-                        return getLightLevel(itemstack);
-                    } else {
-                        return 0;
+                            if (entitycreeper.getCreeperFlashIntensity(0.0F) > 0.001D) {
+                                return 15;
+                            }
+                        }
+
+                        if (entity instanceof EntityLivingBase entitylivingbase) {
+                            ItemStack itemstack2 = entitylivingbase.getHeldItem();
+                            int i = getLightLevel(itemstack2);
+                            ItemStack itemstack1 = entitylivingbase.getEquipmentInSlot(4);
+                            int j = getLightLevel(itemstack1);
+                            return Math.max(i, j);
+                        } else if (entity instanceof EntityItem entityitem) {
+                            ItemStack itemstack = getItemStack(entityitem);
+                            return getLightLevel(itemstack);
+                        } else {
+                            return 0;
+                        }
                     }
                 }
             }

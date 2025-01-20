@@ -339,19 +339,19 @@ public abstract class EntityLiving extends EntityLivingBase {
 
             if (itemstack1 != null) {
                 if (i == 0) {
-                    if (itemstack.getItem() instanceof ItemSword && !(itemstack1.getItem() instanceof ItemSword)) {
-                        flag = true;
-                    } else if (itemstack.getItem() instanceof ItemSword itemsword && itemstack1.getItem() instanceof ItemSword itemsword1) {
+                    switch (itemstack.getItem()) {
+                        case ItemSword itemSword when !(itemstack1.getItem() instanceof ItemSword) -> flag = true;
+                        case ItemSword itemsword when itemstack1.getItem() instanceof ItemSword itemsword1 -> {
 
-                        if (itemsword.getDamageVsEntity() != itemsword1.getDamageVsEntity()) {
-                            flag = itemsword.getDamageVsEntity() > itemsword1.getDamageVsEntity();
-                        } else {
-                            flag = itemstack.getMetadata() > itemstack1.getMetadata() || itemstack.hasTagCompound() && !itemstack1.hasTagCompound();
+                            if (itemsword.getDamageVsEntity() != itemsword1.getDamageVsEntity()) {
+                                flag = itemsword.getDamageVsEntity() > itemsword1.getDamageVsEntity();
+                            } else {
+                                flag = itemstack.getMetadata() > itemstack1.getMetadata() || itemstack.hasTagCompound() && !itemstack1.hasTagCompound();
+                            }
                         }
-                    } else if (itemstack.getItem() instanceof ItemBow && itemstack1.getItem() instanceof ItemBow) {
-                        flag = itemstack.hasTagCompound() && !itemstack1.hasTagCompound();
-                    } else {
-                        flag = false;
+                        case ItemBow itemBow when itemstack1.getItem() instanceof ItemBow ->
+                                flag = itemstack.hasTagCompound() && !itemstack1.hasTagCompound();
+                        case null, default -> flag = false;
                     }
                 } else if (itemstack.getItem() instanceof ItemArmor && !(itemstack1.getItem() instanceof ItemArmor)) {
                     flag = true;

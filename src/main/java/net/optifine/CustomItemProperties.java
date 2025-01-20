@@ -538,15 +538,20 @@ public class CustomItemProperties {
         } else {
             str = str.toLowerCase();
 
-            if (str.equals("any")) {
-                return 0;
-            } else if (str.equals("main")) {
-                return 1;
-            } else if (str.equals("off")) {
-                return 2;
-            } else {
-                Config.warn("Invalid hand: " + str);
-                return 0;
+            switch (str) {
+                case "any" -> {
+                    return 0;
+                }
+                case "main" -> {
+                    return 1;
+                }
+                case "off" -> {
+                    return 2;
+                }
+                default -> {
+                    Config.warn("Invalid hand: " + str);
+                    return 0;
+                }
             }
         }
     }

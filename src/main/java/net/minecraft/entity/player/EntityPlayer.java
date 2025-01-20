@@ -1362,20 +1362,21 @@ public abstract class EntityPlayer extends EntityLivingBase {
             int i = Math.round(MathHelper.sqrt_double(p_71015_1_ * p_71015_1_ + p_71015_3_ * p_71015_3_ + p_71015_5_ * p_71015_5_) * 100.0F);
 
             if (i > 0) {
-                if (this.ridingEntity instanceof EntityMinecart) {
-                    this.addStat(StatList.distanceByMinecartStat, i);
+                switch (this.ridingEntity) {
+                    case EntityMinecart entityMinecart -> {
+                        this.addStat(StatList.distanceByMinecartStat, i);
 
-                    if (this.startMinecartRidingCoordinate == null) {
-                        this.startMinecartRidingCoordinate = new BlockPos(this);
-                    } else if (this.startMinecartRidingCoordinate.distanceSq(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)) >= 1000000.0D) {
-                        this.triggerAchievement(AchievementList.onARail);
+                        if (this.startMinecartRidingCoordinate == null) {
+                            this.startMinecartRidingCoordinate = new BlockPos(this);
+                        } else if (this.startMinecartRidingCoordinate.distanceSq(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)) >= 1000000.0D) {
+                            this.triggerAchievement(AchievementList.onARail);
+                        }
                     }
-                } else if (this.ridingEntity instanceof EntityBoat) {
-                    this.addStat(StatList.distanceByBoatStat, i);
-                } else if (this.ridingEntity instanceof EntityPig) {
-                    this.addStat(StatList.distanceByPigStat, i);
-                } else if (this.ridingEntity instanceof EntityHorse) {
-                    this.addStat(StatList.distanceByHorseStat, i);
+                    case EntityBoat entityBoat -> this.addStat(StatList.distanceByBoatStat, i);
+                    case EntityPig entityPig -> this.addStat(StatList.distanceByPigStat, i);
+                    case EntityHorse entityHorse -> this.addStat(StatList.distanceByHorseStat, i);
+                    default -> {
+                    }
                 }
             }
         }

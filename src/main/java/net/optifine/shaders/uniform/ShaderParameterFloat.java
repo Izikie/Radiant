@@ -132,23 +132,16 @@ public enum ShaderParameterFloat {
                         return biome != null ? biome.getFloatRainfall() : 0.0F;
 
                     default:
-                        if (this.uniform instanceof ShaderUniform1f shaderUniform1f) {
-                            return shaderUniform1f.getValue();
-                        } else if (this.uniform instanceof ShaderUniform1i shaderUniform1i) {
-                            return shaderUniform1i.getValue();
-                        } else if (this.uniform instanceof ShaderUniform2i shaderUniform2i) {
-                            return shaderUniform2i.getValue()[index1];
-                        } else if (this.uniform instanceof ShaderUniform2f shaderUniform2f) {
-                            return shaderUniform2f.getValue()[index1];
-                        } else if (this.uniform instanceof ShaderUniform3f shaderUniform3f) {
-                            return shaderUniform3f.getValue()[index1];
-                        } else if (this.uniform instanceof ShaderUniform4f shaderUniform4f) {
-                            return shaderUniform4f.getValue()[index1];
-                        } else if (this.uniform instanceof ShaderUniformM4 shaderUniformM4) {
-                            return shaderUniformM4.getValue(index1, index2);
-                        } else {
-                            throw new IllegalArgumentException("Unknown uniform type: " + this);
-                        }
+                        return switch (this.uniform) {
+                            case ShaderUniform1f shaderUniform1f -> shaderUniform1f.getValue();
+                            case ShaderUniform1i shaderUniform1i -> shaderUniform1i.getValue();
+                            case ShaderUniform2i shaderUniform2i -> shaderUniform2i.getValue()[index1];
+                            case ShaderUniform2f shaderUniform2f -> shaderUniform2f.getValue()[index1];
+                            case ShaderUniform3f shaderUniform3f -> shaderUniform3f.getValue()[index1];
+                            case ShaderUniform4f shaderUniform4f -> shaderUniform4f.getValue()[index1];
+                            case ShaderUniformM4 shaderUniformM4 -> shaderUniformM4.getValue(index1, index2);
+                            case null, default -> throw new IllegalArgumentException("Unknown uniform type: " + this);
+                        };
                 }
             } else {
                 Config.warn("Invalid index2, parameter: " + this + ", index: " + index2);

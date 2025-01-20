@@ -157,36 +157,40 @@ public interface IChatComponent extends Iterable<IChatComponent> {
                     jsonobject.add("extra", jsonarray);
                 }
 
-                if (p_serialize_1_ instanceof ChatComponentText iChatComponents) {
-                    jsonobject.addProperty("text", iChatComponents.getChatComponentText_TextValue());
-                } else if (p_serialize_1_ instanceof ChatComponentTranslation chatcomponenttranslation) {
-                    jsonobject.addProperty("translate", chatcomponenttranslation.getKey());
+                switch (p_serialize_1_) {
+                    case ChatComponentText iChatComponents ->
+                            jsonobject.addProperty("text", iChatComponents.getChatComponentText_TextValue());
+                    case ChatComponentTranslation chatcomponenttranslation -> {
+                        jsonobject.addProperty("translate", chatcomponenttranslation.getKey());
 
-                    if (chatcomponenttranslation.getFormatArgs() != null && chatcomponenttranslation.getFormatArgs().length > 0) {
-                        JsonArray jsonarray1 = new JsonArray();
+                        if (chatcomponenttranslation.getFormatArgs() != null && chatcomponenttranslation.getFormatArgs().length > 0) {
+                            JsonArray jsonarray1 = new JsonArray();
 
-                        for (Object object : chatcomponenttranslation.getFormatArgs()) {
-                            if (object instanceof IChatComponent chatComponent) {
-                                jsonarray1.add(this.serialize(chatComponent, object.getClass(), p_serialize_3_));
-                            } else {
-                                jsonarray1.add(new JsonPrimitive(String.valueOf(object)));
+                            for (Object object : chatcomponenttranslation.getFormatArgs()) {
+                                if (object instanceof IChatComponent chatComponent) {
+                                    jsonarray1.add(this.serialize(chatComponent, object.getClass(), p_serialize_3_));
+                                } else {
+                                    jsonarray1.add(new JsonPrimitive(String.valueOf(object)));
+                                }
                             }
+
+                            jsonobject.add("with", jsonarray1);
+                        }
+                    }
+                    case ChatComponentScore chatcomponentscore -> {
+                        JsonObject jsonobject1 = new JsonObject();
+                        jsonobject1.addProperty("name", chatcomponentscore.getName());
+                        jsonobject1.addProperty("objective", chatcomponentscore.getObjective());
+                        jsonobject1.addProperty("value", chatcomponentscore.getUnformattedTextForChat());
+                        jsonobject.add("score", jsonobject1);
+                    }
+                    default -> {
+                        if (!(p_serialize_1_ instanceof ChatComponentSelector chatcomponentselector)) {
+                            throw new IllegalArgumentException("Don't know how to serialize " + p_serialize_1_ + " as a Component");
                         }
 
-                        jsonobject.add("with", jsonarray1);
+                        jsonobject.addProperty("selector", chatcomponentselector.getSelector());
                     }
-                } else if (p_serialize_1_ instanceof ChatComponentScore chatcomponentscore) {
-                    JsonObject jsonobject1 = new JsonObject();
-                    jsonobject1.addProperty("name", chatcomponentscore.getName());
-                    jsonobject1.addProperty("objective", chatcomponentscore.getObjective());
-                    jsonobject1.addProperty("value", chatcomponentscore.getUnformattedTextForChat());
-                    jsonobject.add("score", jsonobject1);
-                } else {
-                    if (!(p_serialize_1_ instanceof ChatComponentSelector chatcomponentselector)) {
-                        throw new IllegalArgumentException("Don't know how to serialize " + p_serialize_1_ + " as a Component");
-                    }
-
-                    jsonobject.addProperty("selector", chatcomponentselector.getSelector());
                 }
 
                 return jsonobject;
