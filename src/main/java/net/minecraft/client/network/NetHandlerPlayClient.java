@@ -11,11 +11,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 import java.util.Map.Entry;
 
 import net.minecraft.block.Block;
@@ -563,11 +559,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
     public void onDisconnect(IChatComponent reason) {
         this.gameController.loadWorld(null);
 
-        if (this.guiScreenServer != null) {
-            this.gameController.displayGuiScreen(new GuiDisconnected(this.guiScreenServer, "disconnect.lost", reason));
-        } else {
-            this.gameController.displayGuiScreen(new GuiDisconnected(new GuiMultiplayer(new GuiMainMenu()), "disconnect.lost", reason));
-        }
+        this.gameController.displayGuiScreen(new GuiDisconnected(Objects.requireNonNullElseGet(this.guiScreenServer, () -> new GuiMultiplayer(new GuiMainMenu())), "disconnect.lost", reason));
     }
 
     public void addToSendQueue(Packet p_147297_1_) {

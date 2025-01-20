@@ -283,10 +283,7 @@ public class ItemPotion extends Item {
             }
         }
 
-        Iterator iterator = SUB_ITEMS_CACHE.values().iterator();
-
-        while (iterator.hasNext()) {
-            int j1 = (Integer) iterator.next();
+        for (int j1 : SUB_ITEMS_CACHE.values()) {
             subItems.add(new ItemStack(itemIn, 1, j1));
         }
     }

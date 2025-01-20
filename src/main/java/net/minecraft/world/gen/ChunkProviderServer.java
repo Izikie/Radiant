@@ -181,9 +181,7 @@ public class ChunkProviderServer implements IChunkProvider {
         int i = 0;
         List<Chunk> list = Lists.newArrayList(this.loadedChunks);
 
-        for (int j = 0; j < list.size(); ++j) {
-            Chunk chunk = list.get(j);
-
+        for (Chunk chunk : list) {
             if (saveAllChunks) {
                 this.saveChunkExtraData(chunk);
             }

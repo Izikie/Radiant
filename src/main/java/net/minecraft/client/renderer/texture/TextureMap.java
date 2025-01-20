@@ -216,11 +216,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                                 }
                             }
 
-                            Iterator iterator1 = list1.iterator();
-
-                            while (iterator1.hasNext()) {
-                                int j4 = (Integer) iterator1.next();
-
+                            for (int j4 : list1) {
                                 if (j4 > 0 && j4 < abufferedimage.length - 1 && abufferedimage[j4] == null) {
                                     ResourceLocation resourcelocation = this.completeResourceLocation(resourcelocation1, j4);
 
@@ -686,10 +682,9 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
         int i1 = 16;
         int k1 = 0;
         l1 = l * p_detectMinimumSpriteSize_3_ / 100;
-        Iterator iterator1 = set1.iterator();
 
-        while (iterator1.hasNext()) {
-            int i2 = (Integer) iterator1.next();
+        for (Object o : set1) {
+            int i2 = (Integer) o;
             int j2 = (Integer) map.get(i2);
             k1 += j2;
 

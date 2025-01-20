@@ -59,10 +59,8 @@ public class ShaderPackParser {
         } else {
             Map<String, ShaderOption> map = new HashMap();
             collectShaderOptions(shaderPack, "/shaders", programNames, map);
-            Iterator<Integer> iterator = listDimensions.iterator();
 
-            while (iterator.hasNext()) {
-                int i = iterator.next();
+            for (int i : listDimensions) {
                 String s = "/shaders/world" + i;
                 collectShaderOptions(shaderPack, s, programNames, map);
             }

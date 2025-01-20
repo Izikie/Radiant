@@ -186,10 +186,8 @@ public class ContainerRepair extends Container {
                     }
 
                     Map<Integer, Integer> map1 = EnchantmentHelper.getEnchantments(itemstack2);
-                    Iterator iterator1 = map1.keySet().iterator();
 
-                    while (iterator1.hasNext()) {
-                        int i5 = (Integer) iterator1.next();
+                    for (int i5 : map1.keySet()) {
                         Enchantment enchantment = Enchantment.getEnchantmentById(i5);
 
                         if (enchantment != null) {
@@ -211,11 +209,7 @@ public class ContainerRepair extends Container {
                                 flag1 = true;
                             }
 
-                            Iterator iterator = map.keySet().iterator();
-
-                            while (iterator.hasNext()) {
-                                int i4 = (Integer) iterator.next();
-
+                            for (int i4 : map.keySet()) {
                                 if (i4 != i5 && !enchantment.canApplyTogether(Enchantment.getEnchantmentById(i4))) {
                                     flag1 = false;
                                     ++l1;

@@ -39,8 +39,8 @@ public class StrUtils {
                     } else {
                         int i = 0;
 
-                        for (int j = 0; j < list.size(); ++j) {
-                            String s3 = (String) list.get(j);
+                        for (Object o : list) {
+                            String s3 = (String) o;
 
                             if (!s3.isEmpty()) {
                                 int k = indexOfMaskSingle(str, s3, i, wildCharSingle);
@@ -170,8 +170,8 @@ public class StrUtils {
                     } else {
                         int i = 0;
 
-                        for (int j = 0; j < list.size(); ++j) {
-                            String s3 = (String) list.get(j);
+                        for (Object o : list) {
+                            String s3 = (String) o;
 
                             if (!s3.isEmpty()) {
                                 int k = str.indexOf(s3, i);

@@ -63,10 +63,8 @@ public class EnchantmentHelper {
 
     public static void setEnchantments(Map<Integer, Integer> enchMap, ItemStack stack) {
         NBTTagList nbttaglist = new NBTTagList();
-        Iterator iterator = enchMap.keySet().iterator();
 
-        while (iterator.hasNext()) {
-            int i = (Integer) iterator.next();
+        for (int i : enchMap.keySet()) {
             Enchantment enchantment = Enchantment.getEnchantmentById(i);
 
             if (enchantment != null) {
