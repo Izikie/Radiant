@@ -1,5 +1,7 @@
 package net.minecraft.util;
 
+import java.util.Objects;
+
 public class LongHashMap<V> {
     private transient LongHashMap.Entry<V>[] hashArray = new LongHashMap.Entry[4096];
     private transient int numHashElements;
@@ -196,11 +198,11 @@ public class LongHashMap<V> {
                 Object object = this.getKey();
                 Object object1 = ((Entry<V>) entry1).getKey();
 
-                if (object == object1 || object != null && object.equals(object1)) {
+                if (Objects.equals(object, object1)) {
                     Object object2 = this.getValue();
                     Object object3 = ((Entry<V>) entry1).getValue();
 
-                    return object2 == object3 || object2 != null && object2.equals(object3);
+                    return Objects.equals(object2, object3);
                 }
 
                 return false;
