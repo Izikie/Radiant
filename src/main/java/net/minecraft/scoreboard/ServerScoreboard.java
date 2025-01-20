@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -72,7 +73,7 @@ public class ServerScoreboard extends Scoreboard {
     public boolean addPlayerToTeam(String player, String newTeam) {
         if (super.addPlayerToTeam(player, newTeam)) {
             ScorePlayerTeam scoreplayerteam = this.getTeam(newTeam);
-            this.scoreboardMCServer.getConfigurationManager().sendPacketToAllPlayers(new S3EPacketTeams(scoreplayerteam, Arrays.asList(player), 3));
+            this.scoreboardMCServer.getConfigurationManager().sendPacketToAllPlayers(new S3EPacketTeams(scoreplayerteam, List.of(player), 3));
             this.markSaveDataDirty();
             return true;
         } else {
@@ -82,7 +83,7 @@ public class ServerScoreboard extends Scoreboard {
 
     public void removePlayerFromTeam(String p_96512_1_, ScorePlayerTeam p_96512_2_) {
         super.removePlayerFromTeam(p_96512_1_, p_96512_2_);
-        this.scoreboardMCServer.getConfigurationManager().sendPacketToAllPlayers(new S3EPacketTeams(p_96512_2_, Arrays.asList(p_96512_1_), 4));
+        this.scoreboardMCServer.getConfigurationManager().sendPacketToAllPlayers(new S3EPacketTeams(p_96512_2_, Collections.singletonList(p_96512_1_), 4));
         this.markSaveDataDirty();
     }
 

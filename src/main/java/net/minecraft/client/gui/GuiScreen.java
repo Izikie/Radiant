@@ -13,10 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -120,7 +117,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
     }
 
     protected void drawCreativeTabHoveringText(String tabName, int mouseX, int mouseY) {
-        this.drawHoveringText(Arrays.asList(tabName), mouseX, mouseY);
+        this.drawHoveringText(Collections.singletonList(tabName), mouseX, mouseY);
     }
 
     protected void drawHoveringText(List<String> textLines, int x, int y) {
