@@ -58,7 +58,7 @@ public interface IChatComponent extends Iterable<IChatComponent> {
 
                     return ichatcomponent1;
                 } else {
-                    throw new JsonParseException("Don't know how to turn " + p_deserialize_1_.toString() + " into a Component");
+                    throw new JsonParseException("Don't know how to turn " + p_deserialize_1_ + " into a Component");
                 }
             } else {
                 JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
@@ -102,7 +102,7 @@ public interface IChatComponent extends Iterable<IChatComponent> {
                     }
                 } else {
                     if (!jsonobject.has("selector")) {
-                        throw new JsonParseException("Don't know how to turn " + p_deserialize_1_.toString() + " into a Component");
+                        throw new JsonParseException("Don't know how to turn " + p_deserialize_1_ + " into a Component");
                     }
 
                     ichatcomponent = new ChatComponentSelector(JsonUtils.getString(jsonobject, "selector"));

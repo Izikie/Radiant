@@ -643,7 +643,7 @@ public class Config {
                     stringbuffer.append(p_listToString_1_);
                 }
 
-                stringbuffer.append(String.valueOf(object));
+                stringbuffer.append(object);
             }
 
             return stringbuffer.toString();
@@ -667,7 +667,7 @@ public class Config {
                     stringbuffer.append(p_arrayToString_1_);
                 }
 
-                stringbuffer.append(String.valueOf(object));
+                stringbuffer.append(object);
             }
 
             return stringbuffer.toString();
@@ -691,7 +691,7 @@ public class Config {
                     stringbuffer.append(p_arrayToString_1_);
                 }
 
-                stringbuffer.append(String.valueOf(j));
+                stringbuffer.append(j);
             }
 
             return stringbuffer.toString();
@@ -715,7 +715,7 @@ public class Config {
                     stringbuffer.append(p_arrayToString_1_);
                 }
 
-                stringbuffer.append(String.valueOf(f));
+                stringbuffer.append(f);
             }
 
             return stringbuffer.toString();
@@ -1880,7 +1880,7 @@ public class Config {
                     stringbuffer.append(p_arrayToString_1_);
                 }
 
-                stringbuffer.append(String.valueOf(flag));
+                stringbuffer.append(flag);
             }
 
             return stringbuffer.toString();

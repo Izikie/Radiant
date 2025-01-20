@@ -297,7 +297,7 @@ public class StrUtils {
                 stringbuffer.append(fillChar);
             }
 
-            return stringbuffer.toString() + s;
+            return stringbuffer + s;
         }
     }
 

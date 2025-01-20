@@ -71,11 +71,7 @@ public class GuiLanguage extends GuiScreen {
         this.drawCenteredString(this.fontRendererObj, I18n.format("options.language"), this.width / 2, 16, 16777215);
         this.drawCenteredString(this.fontRendererObj, "(" + I18n.format("options.languageWarning") + ")", this.width / 2, this.height - 56, 8421504);
 
-        if (GuiLanguage.this.languageManager.isCurrentLocaleUnicode()) {
-            forceUnicodeFontBtn.visible = false;
-        } else {
-            forceUnicodeFontBtn.visible = true;
-        }
+        forceUnicodeFontBtn.enabled = !GuiLanguage.this.languageManager.isCurrentLocaleUnicode();
 
         super.drawScreen(mouseX, mouseY, partialTicks);
     }

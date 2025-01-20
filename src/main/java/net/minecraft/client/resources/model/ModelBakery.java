@@ -141,7 +141,7 @@ public class ModelBakery {
                     }
                 }
             } catch (IOException ioexception) {
-                throw new RuntimeException("Encountered an exception when loading model definition of model " + resourcelocation.toString(), ioexception);
+                throw new RuntimeException("Encountered an exception when loading model definition of model " + resourcelocation, ioexception);
             }
 
             modelblockdefinition = new ModelBlockDefinition(list);

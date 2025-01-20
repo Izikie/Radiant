@@ -119,7 +119,7 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
     }
 
     public String getConnectionInfo() {
-        return this.loginGameProfile != null ? this.loginGameProfile.toString() + " (" + this.networkManager.getRemoteAddress().toString() + ")" : String.valueOf(this.networkManager.getRemoteAddress());
+        return this.loginGameProfile != null ? this.loginGameProfile + " (" + this.networkManager.getRemoteAddress().toString() + ")" : String.valueOf(this.networkManager.getRemoteAddress());
     }
 
     public void processLoginStart(C00PacketLoginStart packetIn) {

@@ -294,12 +294,12 @@ public class WorldClient extends World {
         CrashReportCategory crashreportcategory = super.addWorldInfoToCrashReport(report);
         crashreportcategory.addCrashSectionCallable("Forced entities", new Callable<String>() {
             public String call() {
-                return WorldClient.this.entityList.size() + " total; " + WorldClient.this.entityList.toString();
+                return WorldClient.this.entityList.size() + " total; " + WorldClient.this.entityList;
             }
         });
         crashreportcategory.addCrashSectionCallable("Retry entities", new Callable<String>() {
             public String call() {
-                return WorldClient.this.entitySpawnQueue.size() + " total; " + WorldClient.this.entitySpawnQueue.toString();
+                return WorldClient.this.entitySpawnQueue.size() + " total; " + WorldClient.this.entitySpawnQueue;
             }
         });
         crashreportcategory.addCrashSectionCallable("Server brand", new Callable<String>() {

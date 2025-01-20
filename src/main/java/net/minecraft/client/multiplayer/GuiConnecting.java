@@ -75,7 +75,7 @@ public class GuiConnecting extends GuiScreen {
                     String s = exception.toString();
 
                     if (inetaddress != null) {
-                        String s1 = inetaddress.toString() + ":" + port;
+                        String s1 = inetaddress + ":" + port;
                         s = s.replaceAll(s1, "");
                     }
 

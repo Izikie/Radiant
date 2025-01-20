@@ -300,7 +300,7 @@ public class CustomItems {
                 Properties properties1 = new PropertiesOrdered();
                 properties1.put("type", "item");
                 properties1.put("items", "" + itemId);
-                properties1.put("damage", "" + stringbuffer.toString());
+                properties1.put("damage", "" + stringbuffer);
                 properties1.put("damageMask", "" + k);
 
                 if (type.equals("splash")) {

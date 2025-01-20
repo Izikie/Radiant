@@ -265,7 +265,7 @@ public class GuiScreenBook extends GuiScreen {
 
             default:
                 if (this.bookTitle.length() < 16 && ChatAllowedCharacters.isAllowedCharacter(p_146460_1_)) {
-                    this.bookTitle = this.bookTitle + Character.toString(p_146460_1_);
+                    this.bookTitle = this.bookTitle + p_146460_1_;
                     this.updateButtons();
                     this.bookIsModified = true;
                 }
@@ -346,7 +346,7 @@ public class GuiScreenBook extends GuiScreen {
                         this.field_175386_A = null;
                     }
                 } else {
-                    ChatComponentText chatcomponenttext = new ChatComponentText(EnumChatFormatting.DARK_RED.toString() + "* Invalid book tag *");
+                    ChatComponentText chatcomponenttext = new ChatComponentText(EnumChatFormatting.DARK_RED + "* Invalid book tag *");
                     this.field_175386_A = Lists.newArrayList(chatcomponenttext);
                 }
 
