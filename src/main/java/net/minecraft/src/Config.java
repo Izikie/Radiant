@@ -229,7 +229,7 @@ public class Config {
 
     public static String getOpenGlVersionString() {
         GlVersion glversion = getGlVersion();
-        return "" + glversion.getMajor() + "." + glversion.getMinor() + "." + glversion.getRelease();
+        return glversion.getMajor() + "." + glversion.getMinor() + "." + glversion.getRelease();
     }
 
     private static GlVersion getGlVersionLwjgl() {
@@ -1124,7 +1124,7 @@ public class Config {
 
         for (int i = 0; i < adisplaymode.length; ++i) {
             DisplayMode displaymode = adisplaymode[i];
-            String s = "" + displaymode.getWidth() + "x" + displaymode.getHeight();
+            String s = displaymode.getWidth() + "x" + displaymode.getHeight();
             astring[i] = s;
         }
 
@@ -1660,7 +1660,7 @@ public class Config {
         int j = minecraft.renderGlobal.getCountActiveRenderers();
         int k = minecraft.renderGlobal.getCountEntitiesRendered();
         int l = minecraft.renderGlobal.getCountTileEntitiesRendered();
-        String s1 = "" + i + "/" + getFpsMin() + " fps, C: " + j + ", E: " + k + "+" + l + ", U: " + s;
+        String s1 = i + "/" + getFpsMin() + " fps, C: " + j + ", E: " + k + "+" + l + ", U: " + s;
         minecraft.fontRendererObj.drawString(s1, 2, 2, -2039584);
     }
 

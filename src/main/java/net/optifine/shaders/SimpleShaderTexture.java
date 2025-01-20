@@ -72,7 +72,7 @@ public class SimpleShaderTexture extends AbstractTexture {
                 texturemetadatasection1 = texturemetadatasection;
             } catch (RuntimeException runtimeexception) {
                 SMCLog.warning("Error reading metadata: " + s);
-                SMCLog.warning("" + runtimeexception.getClass().getName() + ": " + runtimeexception.getMessage());
+                SMCLog.warning(runtimeexception.getClass().getName() + ": " + runtimeexception.getMessage());
                 return def;
             } finally {
                 IOUtils.closeQuietly(bufferedreader);

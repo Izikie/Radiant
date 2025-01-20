@@ -446,9 +446,9 @@ public class TextureUtils {
             int[] aint1 = aint[i];
 
             if (aint1 == null) {
-                Config.dbg("" + i + ": " + aint1);
+                Config.dbg(i + ": " + aint1);
             } else {
-                Config.dbg("" + i + ": " + aint1.length);
+                Config.dbg(i + ": " + aint1.length);
             }
         }
     }
@@ -486,7 +486,7 @@ public class TextureUtils {
                 Config.dbg("Exported: " + file4);
             } catch (Exception exception) {
                 Config.warn("Error writing: " + file4);
-                Config.warn("" + exception.getClass().getName() + ": " + exception.getMessage());
+                Config.warn(exception.getClass().getName() + ": " + exception.getMessage());
             }
         }
     }

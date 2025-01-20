@@ -162,13 +162,13 @@ public class ResUtils {
                 Properties properties = new PropertiesOrdered();
                 properties.load(inputstream);
                 inputstream.close();
-                Config.dbg("" + module + ": Loading " + path);
+                Config.dbg(module + ": Loading " + path);
                 return properties;
             }
         } catch (FileNotFoundException var5) {
             return null;
         } catch (IOException var6) {
-            Config.warn("" + module + ": Error reading " + path);
+            Config.warn(module + ": Error reading " + path);
             return null;
         }
     }

@@ -118,9 +118,9 @@ public class CustomEntityModelParser {
 
                 copyJsonElements(jsonobject, elem);
             } catch (IOException ioexception) {
-                Config.error("" + ioexception.getClass().getName() + ": " + ioexception.getMessage());
+                Config.error(ioexception.getClass().getName() + ": " + ioexception.getMessage());
             } catch (JsonParseException jsonparseexception) {
-                Config.error("" + jsonparseexception.getClass().getName() + ": " + jsonparseexception.getMessage());
+                Config.error(jsonparseexception.getClass().getName() + ": " + jsonparseexception.getMessage());
             } catch (Exception exception) {
                 exception.printStackTrace();
             }

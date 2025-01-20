@@ -30,7 +30,7 @@ public class NBTTagFloat extends NBTBase.NBTPrimitive {
     }
 
     public String toString() {
-        return "" + this.data + "f";
+        return this.data + "f";
     }
 
     public NBTBase copy() {

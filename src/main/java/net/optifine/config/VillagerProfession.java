@@ -48,6 +48,6 @@ public class VillagerProfession {
     }
 
     public String toString() {
-        return this.careers == null ? "" + this.profession : "" + this.profession + ":" + Config.arrayToString(this.careers);
+        return this.careers == null ? "" + this.profession : this.profession + ":" + Config.arrayToString(this.careers);
     }
 }

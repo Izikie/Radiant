@@ -28,7 +28,7 @@ public class NBTTagShort extends NBTBase.NBTPrimitive {
     }
 
     public String toString() {
-        return "" + this.data + "s";
+        return this.data + "s";
     }
 
     public NBTBase copy() {

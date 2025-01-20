@@ -121,10 +121,10 @@ public class CustomEntityModels {
             JsonObject jsonobject = CustomEntityModelParser.loadJson(location);
             return parseEntityRender(jsonobject, location.getResourcePath());
         } catch (IOException ioexception) {
-            Config.error("" + ioexception.getClass().getName() + ": " + ioexception.getMessage());
+            Config.error(ioexception.getClass().getName() + ": " + ioexception.getMessage());
             return null;
         } catch (JsonParseException jsonparseexception) {
-            Config.error("" + jsonparseexception.getClass().getName() + ": " + jsonparseexception.getMessage());
+            Config.error(jsonparseexception.getClass().getName() + ": " + jsonparseexception.getMessage());
             return null;
         } catch (Exception exception) {
             exception.printStackTrace();

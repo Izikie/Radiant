@@ -418,6 +418,6 @@ public class CustomSkyLayer {
     }
 
     public String toString() {
-        return "" + this.source + ", " + this.startFadeIn + "-" + this.endFadeIn + " " + this.startFadeOut + "-" + this.endFadeOut;
+        return this.source + ", " + this.startFadeIn + "-" + this.endFadeIn + " " + this.startFadeOut + "-" + this.endFadeOut;
     }
 }

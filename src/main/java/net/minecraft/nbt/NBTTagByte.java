@@ -28,7 +28,7 @@ public class NBTTagByte extends NBTBase.NBTPrimitive {
     }
 
     public String toString() {
-        return "" + this.data + "b";
+        return this.data + "b";
     }
 
     public NBTBase copy() {

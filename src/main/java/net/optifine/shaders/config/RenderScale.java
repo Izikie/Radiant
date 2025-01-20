@@ -24,6 +24,6 @@ public class RenderScale {
     }
 
     public String toString() {
-        return "" + this.scale + ", " + this.offsetX + ", " + this.offsetY;
+        return this.scale + ", " + this.offsetX + ", " + this.offsetY;
     }
 }

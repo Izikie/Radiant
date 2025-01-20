@@ -42,6 +42,6 @@ public class VboRange {
     }
 
     public String toString() {
-        return "" + this.position + "/" + this.size + "/" + (this.position + this.size);
+        return this.position + "/" + this.size + "/" + (this.position + this.size);
     }
 }

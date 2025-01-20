@@ -246,7 +246,7 @@ public class Item {
     }
 
     public String getItemStackDisplayName(ItemStack stack) {
-        return ("" + StatCollector.translateToLocal(this.getUnlocalizedNameInefficiently(stack) + ".name")).trim();
+        return (StatCollector.translateToLocal(this.getUnlocalizedNameInefficiently(stack) + ".name")).trim();
     }
 
     public boolean hasEffect(ItemStack stack) {

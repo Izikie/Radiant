@@ -249,7 +249,7 @@ public class CustomColors {
                         warn("Expected values: " + Config.arrayToString(validValues));
                         return valDef;
                     } else {
-                        dbg("" + key + "=" + s);
+                        dbg(key + "=" + s);
                         return s;
                     }
                 }

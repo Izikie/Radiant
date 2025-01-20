@@ -78,8 +78,8 @@ public class EntitySpellParticleFX extends EntityFX {
 
     public static class InstantFactory implements IParticleFactory {
         public EntityFX getEntityFX(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-            EntityFX entityfx = new EntitySpellParticleFX(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
-            ((EntitySpellParticleFX) entityfx).setBaseSpellTextureIndex(144);
+            EntitySpellParticleFX entityfx = new EntitySpellParticleFX(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
+            entityfx.setBaseSpellTextureIndex(144);
             return entityfx;
         }
     }
@@ -94,8 +94,8 @@ public class EntitySpellParticleFX extends EntityFX {
 
     public static class WitchFactory implements IParticleFactory {
         public EntityFX getEntityFX(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-            EntityFX entityfx = new EntitySpellParticleFX(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
-            ((EntitySpellParticleFX) entityfx).setBaseSpellTextureIndex(144);
+            EntitySpellParticleFX entityfx = new EntitySpellParticleFX(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
+            entityfx.setBaseSpellTextureIndex(144);
             float f = worldIn.rand.nextFloat() * 0.5F + 0.35F;
             entityfx.setRBGColorF(f, 0.0F * f, f);
             return entityfx;

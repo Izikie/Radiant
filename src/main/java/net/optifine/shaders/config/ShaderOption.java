@@ -197,6 +197,6 @@ public abstract class ShaderOption {
     }
 
     public String toString() {
-        return "" + this.name + ", value: " + this.value + ", valueDefault: " + this.valueDefault + ", paths: " + Config.arrayToString(this.paths);
+        return this.name + ", value: " + this.value + ", valueDefault: " + this.valueDefault + ", paths: " + Config.arrayToString(this.paths);
     }
 }

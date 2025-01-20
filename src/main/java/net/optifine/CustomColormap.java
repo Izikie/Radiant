@@ -454,6 +454,6 @@ public class CustomColormap implements CustomColors.IColorizer {
     }
 
     public String toString() {
-        return "" + this.basePath + "/" + this.name + ", blocks: " + Config.arrayToString(this.matchBlocks) + ", source: " + this.source;
+        return this.basePath + "/" + this.name + ", blocks: " + Config.arrayToString(this.matchBlocks) + ", source: " + this.source;
     }
 }

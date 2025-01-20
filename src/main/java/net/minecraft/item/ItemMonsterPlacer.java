@@ -30,7 +30,7 @@ public class ItemMonsterPlacer extends Item {
     }
 
     public String getItemStackDisplayName(ItemStack stack) {
-        String s = ("" + StatCollector.translateToLocal(this.getUnlocalizedName() + ".name")).trim();
+        String s = (StatCollector.translateToLocal(this.getUnlocalizedName() + ".name")).trim();
         String s1 = EntityList.getStringFromID(stack.getMetadata());
 
         if (s1 != null) {

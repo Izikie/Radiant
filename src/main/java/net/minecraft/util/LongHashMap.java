@@ -8,7 +8,6 @@ public class LongHashMap<V> {
     private int mask;
     private int capacity = 3072;
     private final float percentUseable = 0.75F;
-    private transient volatile int modCount;
 
     public LongHashMap() {
         this.mask = this.hashArray.length - 1;
@@ -70,7 +69,6 @@ public class LongHashMap<V> {
             }
         }
 
-        ++this.modCount;
         this.createKey(i, p_76163_1_, p_76163_3_, j);
     }
 
@@ -131,7 +129,6 @@ public class LongHashMap<V> {
             entry2 = entry1.nextEntry;
 
             if (entry1.key == p_76152_1_) {
-                ++this.modCount;
                 --this.numHashElements;
 
                 if (entry == entry1) {

@@ -565,11 +565,11 @@ public class ConnectedParser {
     }
 
     public void dbg(String str) {
-        Config.dbg("" + this.context + ": " + str);
+        Config.dbg(this.context + ": " + str);
     }
 
     public void warn(String str) {
-        Config.warn("" + this.context + ": " + str);
+        Config.warn(this.context + ": " + str);
     }
 
     public RangeListInt parseRangeListInt(String str) {
