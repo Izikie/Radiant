@@ -48,12 +48,7 @@ public abstract class EntityMob extends EntityCreature implements IMob {
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (this.isEntityInvulnerable(source)) {
             return false;
-        } else if (super.attackEntityFrom(source, amount)) {
-            Entity entity = source.getEntity();
-            return this.riddenByEntity != entity && this.ridingEntity != entity ? true : true;
-        } else {
-            return false;
-        }
+        } else return super.attackEntityFrom(source, amount);
     }
 
     protected String getHurtSound() {

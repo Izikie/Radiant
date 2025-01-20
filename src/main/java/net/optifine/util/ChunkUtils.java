@@ -6,7 +6,6 @@ import java.util.List;
 
 import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.optifine.reflect.Reflector;
 import net.optifine.reflect.ReflectorClass;

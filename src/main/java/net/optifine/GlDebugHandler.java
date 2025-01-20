@@ -1,7 +1,5 @@
 package net.optifine;
 
-import java.nio.IntBuffer;
-
 import net.minecraft.src.Config;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.ARBDebugOutput;

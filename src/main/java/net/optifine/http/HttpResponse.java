@@ -1,6 +1,5 @@
 package net.optifine.http;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class HttpResponse {

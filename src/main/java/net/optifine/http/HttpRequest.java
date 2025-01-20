@@ -1,7 +1,6 @@
 package net.optifine.http;
 
 import java.net.Proxy;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class HttpRequest {

@@ -1,11 +1,8 @@
 package net.optifine;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderGlobal;
@@ -25,13 +22,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.optifine.config.ConnectedParser;
-import net.optifine.config.EntityClassLocator;
-import net.optifine.config.IObjectLocator;
-import net.optifine.config.ItemLocator;
-import net.optifine.util.PropertiesOrdered;
 
 public class DynamicLights {
     private static final DynamicLightsMap mapDynamicLights = new DynamicLightsMap();

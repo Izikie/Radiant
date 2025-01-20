@@ -33,7 +33,6 @@ import net.optifine.ConnectedTextures;
 import net.optifine.CustomItems;
 import net.optifine.EmissiveTextures;
 import net.optifine.SmartAnimations;
-import net.optifine.reflect.Reflector;
 import net.optifine.shaders.ShadersTex;
 import net.optifine.util.CounterInt;
 import net.optifine.util.TextureUtils;

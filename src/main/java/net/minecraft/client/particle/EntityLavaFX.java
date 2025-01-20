@@ -3,7 +3,6 @@ package net.minecraft.client.particle;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class EntityLavaFX extends EntityFX {

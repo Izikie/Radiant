@@ -7,9 +7,7 @@ import java.util.List;
 import java.util.Properties;
 
 import net.minecraft.src.Config;
-import net.minecraft.util.ResourceLocation;
 import net.optifine.config.ConnectedParser;
-import net.optifine.reflect.Reflector;
 import net.optifine.shaders.config.MacroProcessor;
 import net.optifine.util.PropertiesOrdered;
 import net.optifine.util.StrUtils;

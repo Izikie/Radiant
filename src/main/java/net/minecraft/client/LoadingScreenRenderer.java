@@ -12,7 +12,6 @@ import net.minecraft.util.IProgressUpdate;
 import net.minecraft.util.MinecraftError;
 import net.optifine.CustomLoadingScreen;
 import net.optifine.CustomLoadingScreens;
-import net.optifine.reflect.Reflector;
 
 public class LoadingScreenRenderer implements IProgressUpdate {
     private String message = "";

@@ -12,7 +12,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.optifine.DynamicLights;
-import net.optifine.reflect.Reflector;
 import net.optifine.util.ArrayCache;
 
 public class ChunkCacheOF implements IBlockAccess {

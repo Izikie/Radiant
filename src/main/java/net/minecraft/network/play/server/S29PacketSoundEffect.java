@@ -5,7 +5,6 @@ import java.io.IOException;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
-import net.minecraft.util.MathHelper;
 import org.apache.commons.lang3.Validate;
 
 public class S29PacketSoundEffect implements Packet<INetHandlerPlayClient> {

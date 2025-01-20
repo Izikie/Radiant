@@ -472,9 +472,7 @@ public class EntityArmorStand extends EntityLivingBase {
     private void dropContents() {
         for (int i = 0; i < this.contents.length; ++i) {
             if (this.contents[i] != null && this.contents[i].stackSize > 0) {
-                if (this.contents[i] != null) {
-                    Block.spawnAsEntity(this.worldObj, (new BlockPos(this)).up(), this.contents[i]);
-                }
+                Block.spawnAsEntity(this.worldObj, (new BlockPos(this)).up(), this.contents[i]);
 
                 this.contents[i] = null;
             }

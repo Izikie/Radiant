@@ -39,7 +39,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-import net.optifine.reflect.Reflector;
 
 public abstract class EntityLiving extends EntityLivingBase {
     public int livingSoundTime;
