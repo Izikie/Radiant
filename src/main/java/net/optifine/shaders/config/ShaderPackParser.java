@@ -531,9 +531,7 @@ public class ShaderPackParser {
             if (j >= 0 && s1.contains(ShaderMacros.getPrefixMacro())) {
                 ShaderMacro[] ashadermacro = findMacros(s1, ShaderMacros.getExtensions());
 
-                for (ShaderMacro shadermacro1 : ashadermacro) {
-                    set.add(shadermacro1);
-                }
+                set.addAll(Arrays.asList(ashadermacro));
             }
 
             chararraywriter.write(s1);

@@ -109,9 +109,7 @@ public class ResUtils {
                     String s1 = basePath + file1.getName() + "/";
                     String[] astring = collectFilesFolder(file1, s1, prefixes, suffixes);
 
-                    for (String s2 : astring) {
-                        list.add(s2);
-                    }
+                    list.addAll(Arrays.asList(astring));
                 }
             }
 

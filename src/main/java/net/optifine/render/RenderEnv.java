@@ -1,6 +1,7 @@
 package net.optifine.render;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.BitSet;
 import java.util.List;
 
@@ -227,9 +228,7 @@ public class RenderEnv {
         this.listQuadsCtmMultipass.clear();
 
         if (quads != null) {
-            for (BakedQuad bakedquad : quads) {
-                this.listQuadsCtmMultipass.add(bakedquad);
-            }
+            this.listQuadsCtmMultipass.addAll(Arrays.asList(quads));
         }
 
         return this.listQuadsCtmMultipass;

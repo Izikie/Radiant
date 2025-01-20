@@ -23,9 +23,7 @@ public class NextTickHashSet extends TreeSet {
     private static final int UNDEFINED = Integer.MIN_VALUE;
 
     public NextTickHashSet(Set oldSet) {
-        for (Object object : oldSet) {
-            this.add(object);
-        }
+        this.addAll(oldSet);
     }
 
     public boolean contains(Object obj) {
