@@ -103,7 +103,7 @@ public class PlayerProfileCache {
         if (expirationDate == null) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(new Date());
-            calendar.add(2, 1);
+            calendar.add(Calendar.MONTH, 1);
             expirationDate = calendar.getTime();
         }
 

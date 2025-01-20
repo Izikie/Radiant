@@ -248,7 +248,7 @@ public class CustomGuis {
 
     private static boolean isChristmas() {
         Calendar calendar = Calendar.getInstance();
-        return calendar.get(2) + 1 == 12 && calendar.get(5) >= 24 && calendar.get(5) <= 26;
+        return calendar.get(Calendar.MONTH) + 1 == 12 && calendar.get(Calendar.DATE) >= 24 && calendar.get(Calendar.DATE) <= 26;
     }
 
     private static void warn(String str) {

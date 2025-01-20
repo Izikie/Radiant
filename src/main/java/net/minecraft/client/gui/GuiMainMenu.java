@@ -118,11 +118,11 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
 
-        if (calendar.get(2) + 1 == 12 && calendar.get(5) == 24) {
+        if (calendar.get(Calendar.MONTH) + 1 == 12 && calendar.get(Calendar.DATE) == 24) {
             this.splashText = "Merry X-mas!";
-        } else if (calendar.get(2) + 1 == 1 && calendar.get(5) == 1) {
+        } else if (calendar.get(Calendar.MONTH) + 1 == 1 && calendar.get(Calendar.DATE) == 1) {
             this.splashText = "Happy new year!";
-        } else if (calendar.get(2) + 1 == 10 && calendar.get(5) == 31) {
+        } else if (calendar.get(Calendar.MONTH) + 1 == 10 && calendar.get(Calendar.DATE) == 31) {
             this.splashText = "OOoooOOOoooo! Spooky!";
         }
 
