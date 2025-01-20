@@ -1384,6 +1384,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
             scoreplayerteam = scoreboard.getTeam(packetIn.getName());
         }
 
+        if (scoreplayerteam == null) return;
+
         if (packetIn.getAction() == 0 || packetIn.getAction() == 2) {
             scoreplayerteam.setTeamName(packetIn.getDisplayName());
             scoreplayerteam.setNamePrefix(packetIn.getPrefix());
