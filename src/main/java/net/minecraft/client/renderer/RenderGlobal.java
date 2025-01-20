@@ -187,7 +187,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     private final List renderInfosTileEntitiesShadow = new ArrayList(1024);
     private int renderDistance = 0;
     private int renderDistanceSq = 0;
-    private static final Set SET_ALL_FACINGS = Collections.unmodifiableSet(new HashSet(Arrays.asList(EnumFacing.VALUES)));
+    private static final Set SET_ALL_FACINGS = Set.of(EnumFacing.VALUES);
     private int countTileEntitiesRendered;
     private IChunkProvider worldChunkProvider = null;
     private LongHashMap worldChunkProviderMap = null;

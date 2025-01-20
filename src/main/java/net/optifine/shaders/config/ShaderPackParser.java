@@ -856,35 +856,10 @@ public class ShaderPackParser {
     }
 
     private static Map<String, Integer> makeMapAlphaFuncs() {
-        Map<String, Integer> map = new HashMap();
-        map.put("NEVER", 512);
-        map.put("LESS", 513);
-        map.put("EQUAL", 514);
-        map.put("LEQUAL", 515);
-        map.put("GREATER", 516);
-        map.put("NOTEQUAL", 517);
-        map.put("GEQUAL", 518);
-        map.put("ALWAYS", 519);
-        return Collections.unmodifiableMap(map);
+        return Map.of("NEVER", 512, "LESS", 513, "EQUAL", 514, "LEQUAL", 515, "GREATER", 516, "NOTEQUAL", 517, "GEQUAL", 518, "ALWAYS", 519);
     }
 
     private static Map<String, Integer> makeMapBlendFactors() {
-        Map<String, Integer> map = new HashMap();
-        map.put("ZERO", 0);
-        map.put("ONE", 1);
-        map.put("SRC_COLOR", 768);
-        map.put("ONE_MINUS_SRC_COLOR", 769);
-        map.put("DST_COLOR", 774);
-        map.put("ONE_MINUS_DST_COLOR", 775);
-        map.put("SRC_ALPHA", 770);
-        map.put("ONE_MINUS_SRC_ALPHA", 771);
-        map.put("DST_ALPHA", 772);
-        map.put("ONE_MINUS_DST_ALPHA", 773);
-        map.put("CONSTANT_COLOR", 32769);
-        map.put("ONE_MINUS_CONSTANT_COLOR", 32770);
-        map.put("CONSTANT_ALPHA", 32771);
-        map.put("ONE_MINUS_CONSTANT_ALPHA", 32772);
-        map.put("SRC_ALPHA_SATURATE", 776);
-        return Collections.unmodifiableMap(map);
+        return Map.ofEntries(Map.entry("ZERO", 0), Map.entry("ONE", 1), Map.entry("SRC_COLOR", 768), Map.entry("ONE_MINUS_SRC_COLOR", 769), Map.entry("DST_COLOR", 774), Map.entry("ONE_MINUS_DST_COLOR", 775), Map.entry("SRC_ALPHA", 770), Map.entry("ONE_MINUS_SRC_ALPHA", 771), Map.entry("DST_ALPHA", 772), Map.entry("ONE_MINUS_DST_ALPHA", 773), Map.entry("CONSTANT_COLOR", 32769), Map.entry("ONE_MINUS_CONSTANT_COLOR", 32770), Map.entry("CONSTANT_ALPHA", 32771), Map.entry("ONE_MINUS_CONSTANT_ALPHA", 32772), Map.entry("SRC_ALPHA_SATURATE", 776));
     }
 }
