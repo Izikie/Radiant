@@ -34,12 +34,9 @@ public class CompressedStreamTools {
     }
 
     public static void writeCompressed(NBTTagCompound p_74799_0_, OutputStream outputStream) throws IOException {
-        DataOutputStream dataoutputstream = new DataOutputStream(new BufferedOutputStream(new GZIPOutputStream(outputStream)));
 
-        try {
+        try (DataOutputStream dataoutputstream = new DataOutputStream(new BufferedOutputStream(new GZIPOutputStream(outputStream)))) {
             write(p_74799_0_, dataoutputstream);
-        } finally {
-            dataoutputstream.close();
         }
     }
 
@@ -64,12 +61,9 @@ public class CompressedStreamTools {
     }
 
     public static void write(NBTTagCompound p_74795_0_, File p_74795_1_) throws IOException {
-        DataOutputStream dataoutputstream = new DataOutputStream(new FileOutputStream(p_74795_1_));
 
-        try {
+        try (DataOutputStream dataoutputstream = new DataOutputStream(new FileOutputStream(p_74795_1_))) {
             write(p_74795_0_, dataoutputstream);
-        } finally {
-            dataoutputstream.close();
         }
     }
 
