@@ -1752,9 +1752,7 @@ public class Config {
             int[] aint = new int[j];
             System.arraycopy(p_addIntsToArray_0_, 0, aint, 0, i);
 
-            for (int k = 0; k < p_addIntsToArray_1_.length; ++k) {
-                aint[k + i] = p_addIntsToArray_1_[k];
-            }
+            System.arraycopy(p_addIntsToArray_1_, 0, aint, 0 + i, p_addIntsToArray_1_.length);
 
             return aint;
         } else {

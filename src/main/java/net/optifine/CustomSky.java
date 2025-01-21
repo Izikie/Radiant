@@ -90,9 +90,7 @@ public class CustomSky {
             int l = i + 1;
             CustomSkyLayer[][] acustomskylayer1 = new CustomSkyLayer[l][0];
 
-            for (int i1 = 0; i1 < acustomskylayer1.length; ++i1) {
-                acustomskylayer1[i1] = acustomskylayer[i1];
-            }
+            System.arraycopy(acustomskylayer, 0, acustomskylayer1, 0, acustomskylayer1.length);
 
             return acustomskylayer1;
         }

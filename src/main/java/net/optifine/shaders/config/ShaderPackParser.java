@@ -75,7 +75,7 @@ public class ShaderPackParser {
 
     private static void collectShaderOptions(IShaderPack shaderPack, String dir, String[] programNames, Map<String, ShaderOption> mapOptions) {
         for (String s : programNames) {
-            if (!s.equals("")) {
+            if (!s.isEmpty()) {
                 String s1 = dir + "/" + s + ".vsh";
                 String s2 = dir + "/" + s + ".fsh";
                 collectShaderOptions(shaderPack, s1, mapOptions);

@@ -935,9 +935,7 @@ public class Chunk {
         if (this.storageArrays.length != newStorageArrays.length) {
             logger.warn("Could not set level chunk sections, array length is {} instead of {}", newStorageArrays.length, this.storageArrays.length);
         } else {
-            for (int i = 0; i < this.storageArrays.length; ++i) {
-                this.storageArrays[i] = newStorageArrays[i];
-            }
+            System.arraycopy(newStorageArrays, 0, this.storageArrays, 0, this.storageArrays.length);
         }
     }
 
@@ -1023,9 +1021,7 @@ public class Chunk {
         if (this.blockBiomeArray.length != biomeArray.length) {
             logger.warn("Could not set level chunk biomes, array length is {} instead of {}", biomeArray.length, this.blockBiomeArray.length);
         } else {
-            for (int i = 0; i < this.blockBiomeArray.length; ++i) {
-                this.blockBiomeArray[i] = biomeArray[i];
-            }
+            System.arraycopy(biomeArray, 0, this.blockBiomeArray, 0, this.blockBiomeArray.length);
         }
     }
 
@@ -1179,9 +1175,7 @@ public class Chunk {
         if (this.heightMap.length != newHeightMap.length) {
             logger.warn("Could not set level chunk heightmap, array length is {} instead of {}", newHeightMap.length, this.heightMap.length);
         } else {
-            for (int i = 0; i < this.heightMap.length; ++i) {
-                this.heightMap[i] = newHeightMap[i];
-            }
+            System.arraycopy(newHeightMap, 0, this.heightMap, 0, this.heightMap.length);
         }
     }
 

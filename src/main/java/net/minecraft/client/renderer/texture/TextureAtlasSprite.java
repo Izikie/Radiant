@@ -582,8 +582,7 @@ public class TextureAtlasSprite {
     }
 
     public List<int[][]> getFramesTextureData() {
-        List<int[][]> list = new ArrayList();
-        list.addAll(this.framesTextureData);
+        List<int[][]> list = new ArrayList(this.framesTextureData);
         return list;
     }
 
