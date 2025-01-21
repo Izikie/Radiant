@@ -27,11 +27,13 @@ buildscript {
 repositories {
     mavenCentral()
     maven { url = uri("https://libraries.minecraft.net") }
+    maven { url = uri("https://litarvan.github.io/maven") }
 }
 
 dependencies {
     // Third Party
-    implementation("javax.vecmath:vecmath:1.5.2")
+    implementation(group = "fr.litarvan", name = "openauth", version = "1.1.6")
+    implementation(group = "javax.vecmath", name = "vecmath", version = "1.5.2")
 
     implementation(group = "net.java.dev.jna", name = "jna", version = "3.4.0")
     implementation(group = "net.java.dev.jna", name = "platform", version = "3.4.0")
