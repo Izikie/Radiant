@@ -1657,30 +1657,14 @@ public class Minecraft implements IThreadListener {
                     }
                     case EntityMinecart entityminecart -> {
 
-                        switch (entityminecart.getMinecartType()) {
-                            case FURNACE:
-                                item = Items.furnace_minecart;
-                                break;
-
-                            case CHEST:
-                                item = Items.chest_minecart;
-                                break;
-
-                            case TNT:
-                                item = Items.tnt_minecart;
-                                break;
-
-                            case HOPPER:
-                                item = Items.hopper_minecart;
-                                break;
-
-                            case COMMAND_BLOCK:
-                                item = Items.command_block_minecart;
-                                break;
-
-                            default:
-                                item = Items.minecart;
-                        }
+                        item = switch (entityminecart.getMinecartType()) {
+                            case FURNACE -> Items.furnace_minecart;
+                            case CHEST -> Items.chest_minecart;
+                            case TNT -> Items.tnt_minecart;
+                            case HOPPER -> Items.hopper_minecart;
+                            case COMMAND_BLOCK -> Items.command_block_minecart;
+                            default -> Items.minecart;
+                        };
                     }
                     case EntityBoat entityBoat -> item = Items.boat;
                     case EntityArmorStand entityArmorStand -> item = Items.armor_stand;

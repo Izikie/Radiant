@@ -197,23 +197,13 @@ public class BlockModelShapes {
             protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
                 BlockQuartz.EnumType blockquartz$enumtype = state.getValue(BlockQuartz.VARIANT);
 
-                switch (blockquartz$enumtype) {
-                    case CHISELED:
-                        return new ModelResourceLocation("chiseled_quartz_block", "normal");
-
-                    case LINES_Y:
-                        return new ModelResourceLocation("quartz_column", "axis=y");
-
-                    case LINES_X:
-                        return new ModelResourceLocation("quartz_column", "axis=x");
-
-                    case LINES_Z:
-                        return new ModelResourceLocation("quartz_column", "axis=z");
-
-                    case DEFAULT:
-                    default:
-                        return new ModelResourceLocation("quartz_block", "normal");
-                }
+                return switch (blockquartz$enumtype) {
+                    case CHISELED -> new ModelResourceLocation("chiseled_quartz_block", "normal");
+                    case LINES_Y -> new ModelResourceLocation("quartz_column", "axis=y");
+                    case LINES_X -> new ModelResourceLocation("quartz_column", "axis=x");
+                    case LINES_Z -> new ModelResourceLocation("quartz_column", "axis=z");
+                    default -> new ModelResourceLocation("quartz_block", "normal");
+                };
             }
         });
         this.registerBlockWithStateMapper(Blocks.deadbush, new StateMapperBase() {

@@ -33,69 +33,36 @@ public class GlDebugHandler implements Handler {
     }
 
     public String getSource(int source) {
-        switch (source) {
-            case 33350:
-                return "API";
-
-            case 33351:
-                return "WIN";
-
-            case 33352:
-                return "SHADER";
-
-            case 33353:
-                return "EXT";
-
-            case 33354:
-                return "APP";
-
-            case 33355:
-                return "OTHER";
-
-            default:
-                return this.getUnknown(source);
-        }
+        return switch (source) {
+            case 33350 -> "API";
+            case 33351 -> "WIN";
+            case 33352 -> "SHADER";
+            case 33353 -> "EXT";
+            case 33354 -> "APP";
+            case 33355 -> "OTHER";
+            default -> this.getUnknown(source);
+        };
     }
 
     public String getType(int type) {
-        switch (type) {
-            case 33356:
-                return "ERROR";
-
-            case 33357:
-                return "DEPRECATED";
-
-            case 33358:
-                return "UNDEFINED";
-
-            case 33359:
-                return "PORTABILITY";
-
-            case 33360:
-                return "PERFORMANCE";
-
-            case 33361:
-                return "OTHER";
-
-            default:
-                return this.getUnknown(type);
-        }
+        return switch (type) {
+            case 33356 -> "ERROR";
+            case 33357 -> "DEPRECATED";
+            case 33358 -> "UNDEFINED";
+            case 33359 -> "PORTABILITY";
+            case 33360 -> "PERFORMANCE";
+            case 33361 -> "OTHER";
+            default -> this.getUnknown(type);
+        };
     }
 
     public String getSeverity(int severity) {
-        switch (severity) {
-            case 37190:
-                return "HIGH";
-
-            case 37191:
-                return "MEDIUM";
-
-            case 37192:
-                return "LOW";
-
-            default:
-                return this.getUnknown(severity);
-        }
+        return switch (severity) {
+            case 37190 -> "HIGH";
+            case 37191 -> "MEDIUM";
+            case 37192 -> "LOW";
+            default -> this.getUnknown(severity);
+        };
     }
 
     private String getUnknown(int token) {
