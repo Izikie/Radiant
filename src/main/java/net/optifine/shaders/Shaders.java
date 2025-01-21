@@ -3578,14 +3578,13 @@ public class Shaders {
         celestialAngle = mc.theWorld.getCelestialAngle(partialTicks);
         sunAngle = celestialAngle < 0.75F ? celestialAngle + 0.25F : celestialAngle - 0.75F;
         float f = celestialAngle * -360.0F;
-        float f1 = shadowAngleInterval > 0.0F ? f % shadowAngleInterval - shadowAngleInterval * 0.5F : 0.0F;
 
         if (sunAngle <= 0.5D) {
-            GL11.glRotatef(f - f1, 0.0F, 0.0F, 1.0F);
+            GL11.glRotatef(f, 0.0F, 0.0F, 1.0F);
             GL11.glRotatef(sunPathRotation, 1.0F, 0.0F, 0.0F);
             shadowAngle = sunAngle;
         } else {
-            GL11.glRotatef(f + 180.0F - f1, 0.0F, 0.0F, 1.0F);
+            GL11.glRotatef(f + 180.0F, 0.0F, 0.0F, 1.0F);
             GL11.glRotatef(sunPathRotation, 1.0F, 0.0F, 0.0F);
             shadowAngle = sunAngle - 0.5F;
         }

@@ -181,7 +181,7 @@ public class ExpressionParser {
     private static IExpression makeConstantFloat(Token token) throws ParseException {
         float f = Config.parseFloat(token.getText(), Float.NaN);
 
-        if (f == Float.NaN) {
+        if (Float.isNaN(f)) {
             throw new ParseException("Invalid float value: " + token);
         } else {
             return new ConstantFloat(f);

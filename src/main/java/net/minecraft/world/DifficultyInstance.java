@@ -25,7 +25,7 @@ public class DifficultyInstance {
         } else {
             boolean flag = difficulty == EnumDifficulty.HARD;
             float f = 0.75F;
-            float f1 = MathHelper.clamp_float((worldTime + -72000.0F) / 1440000.0F, 0.0F, 1.0F) * 0.25F;
+            float f1 = MathHelper.clamp_float((worldTime - 72000.0F) / 1440000.0F, 0.0F, 1.0F) * 0.25F;
             f = f + f1;
             float f2 = 0.0F;
             f2 = f2 + MathHelper.clamp_float(chunkInhabitedTime / 3600000.0F, 0.0F, 1.0F) * (flag ? 1.0F : 0.75F);

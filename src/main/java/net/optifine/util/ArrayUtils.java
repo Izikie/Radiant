@@ -26,7 +26,7 @@ public class ArrayUtils {
             int[] aint = new int[j];
             System.arraycopy(intArray, 0, aint, 0, i);
 
-            System.arraycopy(copyFrom, 0, aint, 0 + i, copyFrom.length);
+            System.arraycopy(copyFrom, 0, aint, i, copyFrom.length);
 
             return aint;
         } else {

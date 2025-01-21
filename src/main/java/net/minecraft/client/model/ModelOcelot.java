@@ -133,7 +133,7 @@ public class ModelOcelot extends ModelBase {
             ++this.ocelotBody.rotationPointY;
             this.ocelotHead.rotationPointY += 2.0F;
             ++this.ocelotTail.rotationPointY;
-            this.ocelotTail2.rotationPointY += -4.0F;
+            this.ocelotTail2.rotationPointY -= 4.0F;
             this.ocelotTail2.rotationPointZ += 2.0F;
             this.ocelotTail.rotateAngleX = ((float) Math.PI / 2.0F);
             this.ocelotTail2.rotateAngleX = ((float) Math.PI / 2.0F);
@@ -146,14 +146,14 @@ public class ModelOcelot extends ModelBase {
             this.field_78163_i = 2;
         } else if (entityocelot.isSitting()) {
             this.ocelotBody.rotateAngleX = ((float) Math.PI / 4.0F);
-            this.ocelotBody.rotationPointY += -4.0F;
+            this.ocelotBody.rotationPointY -= 4.0F;
             this.ocelotBody.rotationPointZ += 5.0F;
-            this.ocelotHead.rotationPointY += -3.3F;
+            this.ocelotHead.rotationPointY -= 3.3F;
             ++this.ocelotHead.rotationPointZ;
             this.ocelotTail.rotationPointY += 8.0F;
-            this.ocelotTail.rotationPointZ += -2.0F;
+            this.ocelotTail.rotationPointZ -= 2.0F;
             this.ocelotTail2.rotationPointY += 2.0F;
-            this.ocelotTail2.rotationPointZ += -0.8F;
+            this.ocelotTail2.rotationPointZ -= 0.8F;
             this.ocelotTail.rotateAngleX = 1.7278761F;
             this.ocelotTail2.rotateAngleX = 2.670354F;
             this.ocelotFrontLeftLeg.rotateAngleX = this.ocelotFrontRightLeg.rotateAngleX = -0.15707964F;
