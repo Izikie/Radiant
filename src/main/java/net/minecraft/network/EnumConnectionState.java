@@ -255,12 +255,7 @@ public enum EnumConnectionState {
     }
 
     protected EnumConnectionState registerPacket(EnumPacketDirection direction, Class<? extends Packet> packetClass) {
-        BiMap<Integer, Class<? extends Packet>> bimap = this.directionMaps.get(direction);
-
-        if (bimap == null) {
-            bimap = HashBiMap.create();
-            this.directionMaps.put(direction, bimap);
-        }
+        BiMap<Integer, Class<? extends Packet>> bimap = this.directionMaps.computeIfAbsent(direction, k -> HashBiMap.create());
 
         if (bimap.containsValue(packetClass)) {
             String s = direction + " packet " + packetClass + " is already known to ID " + bimap.inverse().get(packetClass);

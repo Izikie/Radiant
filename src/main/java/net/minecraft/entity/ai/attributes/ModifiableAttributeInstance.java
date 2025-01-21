@@ -70,12 +70,7 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
         if (this.getModifier(modifier.getID()) != null) {
             throw new IllegalArgumentException("Modifier is already applied on this attribute!");
         } else {
-            Set<AttributeModifier> set = this.mapByName.get(modifier.getName());
-
-            if (set == null) {
-                set = Sets.newHashSet();
-                this.mapByName.put(modifier.getName(), set);
-            }
+            Set<AttributeModifier> set = this.mapByName.computeIfAbsent(modifier.getName(), k -> Sets.newHashSet());
 
             this.mapByOperation.get(modifier.getOperation()).add(modifier);
             set.add(modifier);

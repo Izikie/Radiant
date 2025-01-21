@@ -191,7 +191,7 @@ public class ContainerRepair extends Container {
                         Enchantment enchantment = Enchantment.getEnchantmentById(i5);
 
                         if (enchantment != null) {
-                            int k5 = map.containsKey(i5) ? map.get(i5) : 0;
+                            int k5 = map.getOrDefault(i5, 0);
                             int l3 = map1.get(i5);
                             int i6;
 
