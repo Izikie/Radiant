@@ -118,11 +118,7 @@ public class ChunkRenderDispatcher {
 
         try {
             final ChunkCompileTaskGenerator chunkcompiletaskgenerator = chunkRenderer.makeCompileTaskChunk();
-            chunkcompiletaskgenerator.addFinishRunnable(new Runnable() {
-                public void run() {
-                    ChunkRenderDispatcher.this.queueChunkUpdates.remove(chunkcompiletaskgenerator);
-                }
-            });
+            chunkcompiletaskgenerator.addFinishRunnable(() -> ChunkRenderDispatcher.this.queueChunkUpdates.remove(chunkcompiletaskgenerator));
             boolean flag1 = this.queueChunkUpdates.offer(chunkcompiletaskgenerator);
 
             if (!flag1) {
@@ -195,11 +191,7 @@ public class ChunkRenderDispatcher {
             final ChunkCompileTaskGenerator chunkcompiletaskgenerator = chunkRenderer.makeCompileTaskTransparency();
 
             if (chunkcompiletaskgenerator != null) {
-                chunkcompiletaskgenerator.addFinishRunnable(new Runnable() {
-                    public void run() {
-                        ChunkRenderDispatcher.this.queueChunkUpdates.remove(chunkcompiletaskgenerator);
-                    }
-                });
+                chunkcompiletaskgenerator.addFinishRunnable(() -> ChunkRenderDispatcher.this.queueChunkUpdates.remove(chunkcompiletaskgenerator));
                 return this.queueChunkUpdates.offer(chunkcompiletaskgenerator);
             }
 
@@ -222,11 +214,7 @@ public class ChunkRenderDispatcher {
             p_178503_2_.setTranslation(0.0D, 0.0D, 0.0D);
             return Futures.immediateFuture(null);
         } else {
-            ListenableFutureTask<Object> listenablefuturetask = ListenableFutureTask.create(new Runnable() {
-                public void run() {
-                    ChunkRenderDispatcher.this.uploadChunk(player, p_178503_2_, chunkRenderer, compiledChunkIn);
-                }
-            }, null);
+            ListenableFutureTask<Object> listenablefuturetask = ListenableFutureTask.create(() -> ChunkRenderDispatcher.this.uploadChunk(player, p_178503_2_, chunkRenderer, compiledChunkIn), null);
 
             synchronized (this.queueChunkUploads) {
                 this.queueChunkUploads.add(listenablefuturetask);

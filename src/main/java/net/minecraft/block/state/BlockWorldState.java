@@ -41,10 +41,6 @@ public class BlockWorldState {
     }
 
     public static Predicate<BlockWorldState> hasState(final Predicate<IBlockState> predicatesIn) {
-        return new Predicate<>() {
-            public boolean apply(BlockWorldState p_apply_1_) {
-                return p_apply_1_ != null && predicatesIn.apply(p_apply_1_.getBlockState());
-            }
-        };
+        return p_apply_1_ -> p_apply_1_ != null && predicatesIn.apply(p_apply_1_.getBlockState());
     }
 }

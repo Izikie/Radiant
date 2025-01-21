@@ -41,11 +41,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
 public class EntityHorse extends EntityAnimal implements IInvBasic {
-    private static final Predicate<Entity> horseBreedingSelector = new Predicate<>() {
-        public boolean apply(Entity p_apply_1_) {
-            return p_apply_1_ instanceof EntityHorse entityHorse && entityHorse.isBreeding();
-        }
-    };
+    private static final Predicate<Entity> horseBreedingSelector = p_apply_1_ -> p_apply_1_ instanceof EntityHorse entityHorse && entityHorse.isBreeding();
     private static final IAttribute horseJumpStrength = (new RangedAttribute(null, "horse.jumpStrength", 0.7D, 0.0D, 2.0D)).setDescription("Jump Strength").setShouldWatch(true);
     private static final String[] horseArmorTextures = new String[]{null, "textures/entity/horse/armor/horse_armor_iron.png", "textures/entity/horse/armor/horse_armor_gold.png", "textures/entity/horse/armor/horse_armor_diamond.png"};
     private static final String[] HORSE_ARMOR_TEXTURES_ABBR = new String[]{"", "meo", "goo", "dio"};

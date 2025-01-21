@@ -264,11 +264,7 @@ public class TextureUtils {
         IResourceManager iresourcemanager = Config.getResourceManager();
 
         if (iresourcemanager instanceof IReloadableResourceManager ireloadableresourcemanager) {
-            IResourceManagerReloadListener iresourcemanagerreloadlistener = new IResourceManagerReloadListener() {
-                public void onResourceManagerReload(IResourceManager var1) {
-                    TextureUtils.resourcesReloaded(var1);
-                }
-            };
+            IResourceManagerReloadListener iresourcemanagerreloadlistener = TextureUtils::resourcesReloaded;
             ireloadableresourcemanager.registerReloadListener(iresourcemanagerreloadlistener);
         }
 

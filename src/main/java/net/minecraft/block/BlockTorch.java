@@ -21,11 +21,7 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 public class BlockTorch extends Block {
-    public static final PropertyDirection FACING = PropertyDirection.create("facing", new Predicate<>() {
-        public boolean apply(EnumFacing p_apply_1_) {
-            return p_apply_1_ != EnumFacing.DOWN;
-        }
-    });
+    public static final PropertyDirection FACING = PropertyDirection.create("facing", p_apply_1_ -> p_apply_1_ != EnumFacing.DOWN);
 
     protected BlockTorch() {
         super(Material.circuits);

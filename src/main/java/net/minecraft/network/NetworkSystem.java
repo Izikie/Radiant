@@ -153,21 +153,13 @@ public class NetworkSystem {
                             if (networkmanager.isLocalChannel()) {
                                 CrashReport crashreport = CrashReport.makeCrashReport(exception, "Ticking memory connection");
                                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Ticking connection");
-                                crashreportcategory.addCrashSectionCallable("Connection", new Callable<>() {
-                                    public String call() throws Exception {
-                                        return networkmanager.toString();
-                                    }
-                                });
+                                crashreportcategory.addCrashSectionCallable("Connection", networkmanager::toString);
                                 throw new ReportedException(crashreport);
                             }
 
                             logger.warn("Failed to handle packet for {}", networkmanager.getRemoteAddress(), exception);
                             final ChatComponentText chatcomponenttext = new ChatComponentText("Internal server error");
-                            networkmanager.sendPacket(new S40PacketDisconnect(chatcomponenttext), new GenericFutureListener<>() {
-                                public void operationComplete(Future<? super Void> p_operationComplete_1_) throws Exception {
-                                    networkmanager.closeChannel(chatcomponenttext);
-                                }
-                            });
+                            networkmanager.sendPacket(new S40PacketDisconnect(chatcomponenttext), p_operationComplete_1_ -> networkmanager.closeChannel(chatcomponenttext));
                             networkmanager.disableAutoRead();
                         }
                     }

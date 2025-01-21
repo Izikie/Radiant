@@ -1435,11 +1435,7 @@ public abstract class EntityLivingBase extends Entity {
     }
 
     protected void collideWithNearbyEntities() {
-        List<Entity> list = this.worldObj.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().expand(0.20000000298023224D, 0.0D, 0.20000000298023224D), Predicates.and(EntitySelectors.NOT_SPECTATING, new Predicate<>() {
-            public boolean apply(Entity p_apply_1_) {
-                return p_apply_1_.canBePushed();
-            }
-        }));
+        List<Entity> list = this.worldObj.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().expand(0.20000000298023224D, 0.0D, 0.20000000298023224D), Predicates.and(EntitySelectors.NOT_SPECTATING, Entity::canBePushed));
 
         if (!list.isEmpty()) {
             for (Entity entity : list) {

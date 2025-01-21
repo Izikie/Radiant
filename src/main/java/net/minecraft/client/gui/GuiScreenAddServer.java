@@ -15,22 +15,20 @@ public class GuiScreenAddServer extends GuiScreen {
     private GuiTextField serverIPField;
     private GuiTextField serverNameField;
     private GuiButton serverResourcePacks;
-    private final Predicate<String> field_181032_r = new Predicate<>() {
-        public boolean apply(String p_apply_1_) {
-            if (p_apply_1_.isEmpty()) {
+    private final Predicate<String> field_181032_r = p_apply_1_ -> {
+        if (p_apply_1_.isEmpty()) {
+            return true;
+        } else {
+            String[] astring = p_apply_1_.split(":");
+
+            if (astring.length == 0) {
                 return true;
             } else {
-                String[] astring = p_apply_1_.split(":");
-
-                if (astring.length == 0) {
+                try {
+                    String s = IDN.toASCII(astring[0]);
                     return true;
-                } else {
-                    try {
-                        String s = IDN.toASCII(astring[0]);
-                        return true;
-                    } catch (IllegalArgumentException var4) {
-                        return false;
-                    }
+                } catch (IllegalArgumentException var4) {
+                    return false;
                 }
             }
         }

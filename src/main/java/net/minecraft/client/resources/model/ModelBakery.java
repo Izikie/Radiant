@@ -381,11 +381,7 @@ public class ModelBakery {
     private Set<ResourceLocation> getVariantsTextureLocations() {
         Set<ResourceLocation> set = Sets.newHashSet();
         List<ModelResourceLocation> list = Lists.newArrayList(this.variants.keySet());
-        list.sort(new Comparator<>() {
-            public int compare(ModelResourceLocation p_compare_1_, ModelResourceLocation p_compare_2_) {
-                return p_compare_1_.toString().compareTo(p_compare_2_.toString());
-            }
-        });
+        list.sort((p_compare_1_, p_compare_2_) -> p_compare_1_.toString().compareTo(p_compare_2_.toString()));
 
         for (ModelResourceLocation modelresourcelocation : list) {
             ModelBlockDefinition.Variants modelblockdefinition$variants = this.variants.get(modelresourcelocation);
@@ -516,12 +512,10 @@ public class ModelBakery {
         final Set<ResourceLocation> set = this.getVariantsTextureLocations();
         set.addAll(this.getItemsTextureLocations());
         set.remove(TextureMap.LOCATION_MISSING_TEXTURE);
-        IIconCreator iiconcreator = new IIconCreator() {
-            public void registerSprites(TextureMap iconRegistry) {
-                for (ResourceLocation resourcelocation : set) {
-                    TextureAtlasSprite textureatlassprite = iconRegistry.registerSprite(resourcelocation);
-                    ModelBakery.this.sprites.put(resourcelocation, textureatlassprite);
-                }
+        IIconCreator iiconcreator = iconRegistry -> {
+            for (ResourceLocation resourcelocation : set) {
+                TextureAtlasSprite textureatlassprite = iconRegistry.registerSprite(resourcelocation);
+                ModelBakery.this.sprites.put(resourcelocation, textureatlassprite);
             }
         };
         this.textureMap.loadSprites(this.resourceManager, iiconcreator);

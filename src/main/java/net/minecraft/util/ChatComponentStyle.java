@@ -74,17 +74,11 @@ public abstract class ChatComponentStyle implements IChatComponent {
     }
 
     public static Iterator<IChatComponent> createDeepCopyIterator(Iterable<IChatComponent> components) {
-        Iterator<IChatComponent> iterator = Iterators.concat(Iterators.transform(components.iterator(), new Function<IChatComponent, Iterator<IChatComponent>>() {
-            public Iterator<IChatComponent> apply(IChatComponent p_apply_1_) {
-                return p_apply_1_.iterator();
-            }
-        }));
-        iterator = Iterators.transform(iterator, new Function<>() {
-            public IChatComponent apply(IChatComponent p_apply_1_) {
-                IChatComponent ichatcomponent = p_apply_1_.createCopy();
-                ichatcomponent.setChatStyle(ichatcomponent.getChatStyle().createDeepCopy());
-                return ichatcomponent;
-            }
+        Iterator<IChatComponent> iterator = Iterators.concat(Iterators.transform(components.iterator(), Iterable::iterator));
+        iterator = Iterators.transform(iterator, p_apply_1_ -> {
+            IChatComponent ichatcomponent = p_apply_1_.createCopy();
+            ichatcomponent.setChatStyle(ichatcomponent.getChatStyle().createDeepCopy());
+            return ichatcomponent;
         });
         return iterator;
     }

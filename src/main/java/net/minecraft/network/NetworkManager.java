@@ -185,20 +185,18 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
 
             channelfuture.addListener(ChannelFutureListener.FIRE_EXCEPTION_ON_FAILURE);
         } else {
-            this.channel.eventLoop().execute(new Runnable() {
-                public void run() {
-                    if (enumconnectionstate != enumconnectionstate1) {
-                        NetworkManager.this.setConnectionState(enumconnectionstate);
-                    }
-
-                    ChannelFuture channelfuture1 = NetworkManager.this.channel.writeAndFlush(inPacket);
-
-                    if (futureListeners != null) {
-                        channelfuture1.addListeners(futureListeners);
-                    }
-
-                    channelfuture1.addListener(ChannelFutureListener.FIRE_EXCEPTION_ON_FAILURE);
+            this.channel.eventLoop().execute(() -> {
+                if (enumconnectionstate != enumconnectionstate1) {
+                    NetworkManager.this.setConnectionState(enumconnectionstate);
                 }
+
+                ChannelFuture channelfuture1 = NetworkManager.this.channel.writeAndFlush(inPacket);
+
+                if (futureListeners != null) {
+                    channelfuture1.addListeners(futureListeners);
+                }
+
+                channelfuture1.addListener(ChannelFutureListener.FIRE_EXCEPTION_ON_FAILURE);
             });
         }
     }

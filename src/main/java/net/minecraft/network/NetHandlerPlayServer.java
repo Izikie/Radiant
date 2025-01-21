@@ -152,17 +152,9 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 
     public void kickPlayerFromServer(String reason) {
         final ChatComponentText chatcomponenttext = new ChatComponentText(reason);
-        this.netManager.sendPacket(new S40PacketDisconnect(chatcomponenttext), new GenericFutureListener<>() {
-            public void operationComplete(Future<? super Void> p_operationComplete_1_) throws Exception {
-                NetHandlerPlayServer.this.netManager.closeChannel(chatcomponenttext);
-            }
-        });
+        this.netManager.sendPacket(new S40PacketDisconnect(chatcomponenttext), p_operationComplete_1_ -> NetHandlerPlayServer.this.netManager.closeChannel(chatcomponenttext));
         this.netManager.disableAutoRead();
-        Futures.getUnchecked(this.serverController.addScheduledTask(new Runnable() {
-            public void run() {
-                NetHandlerPlayServer.this.netManager.checkDisconnected();
-            }
-        }));
+        Futures.getUnchecked(this.serverController.addScheduledTask(NetHandlerPlayServer.this.netManager::checkDisconnected));
     }
 
     public void processInput(C0CPacketInput packetIn) {
@@ -602,11 +594,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         } catch (Throwable throwable) {
             CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Sending packet");
             CrashReportCategory crashreportcategory = crashreport.makeCategory("Packet being sent");
-            crashreportcategory.addCrashSectionCallable("Packet class", new Callable<>() {
-                public String call() throws Exception {
-                    return packetIn.getClass().getCanonicalName();
-                }
-            });
+            crashreportcategory.addCrashSectionCallable("Packet class", () -> packetIn.getClass().getCanonicalName());
             throw new ReportedException(crashreport);
         }
     }

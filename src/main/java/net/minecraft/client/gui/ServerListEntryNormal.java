@@ -51,17 +51,15 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
             this.server.pingToServer = -2L;
             this.server.serverMOTD = "";
             this.server.populationInfo = "";
-            field_148302_b.submit(new Runnable() {
-                public void run() {
-                    try {
-                        ServerListEntryNormal.this.owner.getOldServerPinger().ping(ServerListEntryNormal.this.server);
-                    } catch (UnknownHostException var2) {
-                        ServerListEntryNormal.this.server.pingToServer = -1L;
-                        ServerListEntryNormal.this.server.serverMOTD = EnumChatFormatting.DARK_RED + "Can't resolve hostname";
-                    } catch (Exception var3) {
-                        ServerListEntryNormal.this.server.pingToServer = -1L;
-                        ServerListEntryNormal.this.server.serverMOTD = EnumChatFormatting.DARK_RED + "Can't connect to server.";
-                    }
+            field_148302_b.submit(() -> {
+                try {
+                    ServerListEntryNormal.this.owner.getOldServerPinger().ping(ServerListEntryNormal.this.server);
+                } catch (UnknownHostException var2) {
+                    ServerListEntryNormal.this.server.pingToServer = -1L;
+                    ServerListEntryNormal.this.server.serverMOTD = EnumChatFormatting.DARK_RED + "Can't resolve hostname";
+                } catch (Exception var3) {
+                    ServerListEntryNormal.this.server.pingToServer = -1L;
+                    ServerListEntryNormal.this.server.serverMOTD = EnumChatFormatting.DARK_RED + "Can't connect to server.";
                 }
             });
         }

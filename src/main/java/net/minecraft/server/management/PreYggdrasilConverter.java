@@ -26,11 +26,7 @@ public class PreYggdrasilConverter {
     public static final File OLD_WHITELIST_FILE = new File("white-list.txt");
 
     private static void lookupNames(MinecraftServer server, Collection<String> names, ProfileLookupCallback callback) {
-        String[] astring = Iterators.toArray(Iterators.filter(names.iterator(), new Predicate<>() {
-            public boolean apply(String p_apply_1_) {
-                return !StringUtils.isNullOrEmpty(p_apply_1_);
-            }
-        }), String.class);
+        String[] astring = Iterators.toArray(Iterators.filter(names.iterator(), p_apply_1_ -> !StringUtils.isNullOrEmpty(p_apply_1_)), String.class);
 
         if (server.isServerInOnlineMode()) {
             server.getGameProfileRepository().findProfilesByNames(astring, Agent.MINECRAFT, callback);

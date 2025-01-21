@@ -31,31 +31,29 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase {
             LOGGER.warn("Use NearestAttackableTargetGoal.class for PathfinerMob mobs!");
         }
 
-        this.predicate = new Predicate<>() {
-            public boolean apply(Entity p_apply_1_) {
-                if (!(p_apply_1_ instanceof EntityPlayer entityPlayer)) {
-                    return false;
-                } else if (entityPlayer.capabilities.disableDamage) {
-                    return false;
-                } else {
-                    double d0 = EntityAIFindEntityNearestPlayer.this.maxTargetRange();
+        this.predicate = p_apply_1_ -> {
+            if (!(p_apply_1_ instanceof EntityPlayer entityPlayer)) {
+                return false;
+            } else if (entityPlayer.capabilities.disableDamage) {
+                return false;
+            } else {
+                double d0 = EntityAIFindEntityNearestPlayer.this.maxTargetRange();
 
-                    if (p_apply_1_.isSneaking()) {
-                        d0 *= 0.800000011920929D;
-                    }
-
-                    if (p_apply_1_.isInvisible()) {
-                        float f = ((EntityPlayer) p_apply_1_).getArmorVisibility();
-
-                        if (f < 0.1F) {
-                            f = 0.1F;
-                        }
-
-                        d0 *= (0.7F * f);
-                    }
-
-                    return p_apply_1_.getDistanceToEntity(EntityAIFindEntityNearestPlayer.this.entityLiving) > d0 ? false : EntityAITarget.isSuitableTarget(EntityAIFindEntityNearestPlayer.this.entityLiving, (EntityLivingBase) p_apply_1_, false, true);
+                if (p_apply_1_.isSneaking()) {
+                    d0 *= 0.800000011920929D;
                 }
+
+                if (p_apply_1_.isInvisible()) {
+                    float f = ((EntityPlayer) p_apply_1_).getArmorVisibility();
+
+                    if (f < 0.1F) {
+                        f = 0.1F;
+                    }
+
+                    d0 *= (0.7F * f);
+                }
+
+                return p_apply_1_.getDistanceToEntity(EntityAIFindEntityNearestPlayer.this.entityLiving) > d0 ? false : EntityAITarget.isSuitableTarget(EntityAIFindEntityNearestPlayer.this.entityLiving, (EntityLivingBase) p_apply_1_, false, true);
             }
         };
         this.sorter = new EntityAINearestAttackableTarget.Sorter(entityLivingIn);

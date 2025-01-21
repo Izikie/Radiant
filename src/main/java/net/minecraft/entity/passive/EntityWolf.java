@@ -63,11 +63,7 @@ public class EntityWolf extends EntityTameable {
         this.targetTasks.addTask(1, new EntityAIOwnerHurtByTarget(this));
         this.targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
         this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, true));
-        this.targetTasks.addTask(4, new EntityAITargetNonTamed(this, EntityAnimal.class, false, new Predicate<Entity>() {
-            public boolean apply(Entity p_apply_1_) {
-                return p_apply_1_ instanceof EntitySheep || p_apply_1_ instanceof EntityRabbit;
-            }
-        }));
+        this.targetTasks.addTask(4, new EntityAITargetNonTamed(this, EntityAnimal.class, false, (Predicate<Entity>) p_apply_1_ -> p_apply_1_ instanceof EntitySheep || p_apply_1_ instanceof EntityRabbit));
         this.targetTasks.addTask(5, new EntityAINearestAttackableTarget(this, EntitySkeleton.class, false));
         this.setTamed(false);
     }

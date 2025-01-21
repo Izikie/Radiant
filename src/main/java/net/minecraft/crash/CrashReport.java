@@ -39,63 +39,39 @@ public class CrashReport {
     }
 
     private void populateEnvironment() {
-        this.theReportCategory.addCrashSectionCallable("Minecraft Version", new Callable<>() {
-            public String call() {
-                return "1.8.9";
-            }
+        this.theReportCategory.addCrashSectionCallable("Minecraft Version", () -> "1.8.9");
+        this.theReportCategory.addCrashSectionCallable("Operating System", () -> System.getProperty("os.name") + " (" + System.getProperty("os.arch") + ") version " + System.getProperty("os.version"));
+        this.theReportCategory.addCrashSectionCallable("Java Version", () -> System.getProperty("java.version") + ", " + System.getProperty("java.vendor"));
+        this.theReportCategory.addCrashSectionCallable("Java VM Version", () -> System.getProperty("java.vm.name") + " (" + System.getProperty("java.vm.info") + "), " + System.getProperty("java.vm.vendor"));
+        this.theReportCategory.addCrashSectionCallable("Memory", () -> {
+            Runtime runtime = Runtime.getRuntime();
+            long i = runtime.maxMemory();
+            long j = runtime.totalMemory();
+            long k = runtime.freeMemory();
+            long l = i / 1024L / 1024L;
+            long i1 = j / 1024L / 1024L;
+            long j1 = k / 1024L / 1024L;
+            return k + " bytes (" + j1 + " MB) / " + j + " bytes (" + i1 + " MB) up to " + i + " bytes (" + l + " MB)";
         });
-        this.theReportCategory.addCrashSectionCallable("Operating System", new Callable<>() {
-            public String call() {
-                return System.getProperty("os.name") + " (" + System.getProperty("os.arch") + ") version " + System.getProperty("os.version");
-            }
-        });
-        this.theReportCategory.addCrashSectionCallable("Java Version", new Callable<>() {
-            public String call() {
-                return System.getProperty("java.version") + ", " + System.getProperty("java.vendor");
-            }
-        });
-        this.theReportCategory.addCrashSectionCallable("Java VM Version", new Callable<>() {
-            public String call() {
-                return System.getProperty("java.vm.name") + " (" + System.getProperty("java.vm.info") + "), " + System.getProperty("java.vm.vendor");
-            }
-        });
-        this.theReportCategory.addCrashSectionCallable("Memory", new Callable<>() {
-            public String call() {
-                Runtime runtime = Runtime.getRuntime();
-                long i = runtime.maxMemory();
-                long j = runtime.totalMemory();
-                long k = runtime.freeMemory();
-                long l = i / 1024L / 1024L;
-                long i1 = j / 1024L / 1024L;
-                long j1 = k / 1024L / 1024L;
-                return k + " bytes (" + j1 + " MB) / " + j + " bytes (" + i1 + " MB) up to " + i + " bytes (" + l + " MB)";
-            }
-        });
-        this.theReportCategory.addCrashSectionCallable("JVM Flags", new Callable<>() {
-            public String call() {
-                RuntimeMXBean runtimemxbean = ManagementFactory.getRuntimeMXBean();
-                List<String> list = runtimemxbean.getInputArguments();
-                int i = 0;
-                StringBuilder stringbuilder = new StringBuilder();
+        this.theReportCategory.addCrashSectionCallable("JVM Flags", () -> {
+            RuntimeMXBean runtimemxbean = ManagementFactory.getRuntimeMXBean();
+            List<String> list = runtimemxbean.getInputArguments();
+            int i = 0;
+            StringBuilder stringbuilder = new StringBuilder();
 
-                for (String s : list) {
-                    if (s.startsWith("-X")) {
-                        if (i++ > 0) {
-                            stringbuilder.append(" ");
-                        }
-
-                        stringbuilder.append(s);
+            for (String s : list) {
+                if (s.startsWith("-X")) {
+                    if (i++ > 0) {
+                        stringbuilder.append(" ");
                     }
-                }
 
-                return String.format("%d total; %s", i, stringbuilder);
+                    stringbuilder.append(s);
+                }
             }
+
+            return String.format("%d total; %s", i, stringbuilder);
         });
-        this.theReportCategory.addCrashSectionCallable("IntCache", new Callable<>() {
-            public String call() throws Exception {
-                return IntCache.getCacheSizes();
-            }
-        });
+        this.theReportCategory.addCrashSectionCallable("IntCache", IntCache::getCacheSizes);
     }
 
     public String getDescription() {

@@ -37,11 +37,7 @@ import net.minecraft.world.World;
 public class BlockSkull extends BlockContainer {
     public static final PropertyDirection FACING = PropertyDirection.create("facing");
     public static final PropertyBool NODROP = PropertyBool.create("nodrop");
-    private static final Predicate<BlockWorldState> IS_WITHER_SKELETON = new Predicate<>() {
-        public boolean apply(BlockWorldState p_apply_1_) {
-            return p_apply_1_.getBlockState() != null && p_apply_1_.getBlockState().getBlock() == Blocks.skull && p_apply_1_.getTileEntity() instanceof TileEntitySkull tileEntitySkull && tileEntitySkull.getSkullType() == 1;
-        }
-    };
+    private static final Predicate<BlockWorldState> IS_WITHER_SKELETON = p_apply_1_ -> p_apply_1_.getBlockState() != null && p_apply_1_.getBlockState().getBlock() == Blocks.skull && p_apply_1_.getTileEntity() instanceof TileEntitySkull tileEntitySkull && tileEntitySkull.getSkullType() == 1;
     private BlockPattern witherBasePattern;
     private BlockPattern witherPattern;
 
