@@ -28,7 +28,7 @@ public class BlockState {
 
     public BlockState(Block blockIn, IProperty... properties) {
         this.block = blockIn;
-        Arrays.sort(properties, (p_compare_1_, p_compare_2_) -> p_compare_1_.getName().compareTo(p_compare_2_.getName()));
+        Arrays.sort(properties, Comparator.comparing(IProperty::getName));
         this.properties = ImmutableList.copyOf(properties);
         Map<Map<IProperty, Comparable>, BlockState.StateImplementation> map = Maps.newLinkedHashMap();
         List<BlockState.StateImplementation> list = Lists.newArrayList();

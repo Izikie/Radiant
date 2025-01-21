@@ -381,7 +381,7 @@ public class ModelBakery {
     private Set<ResourceLocation> getVariantsTextureLocations() {
         Set<ResourceLocation> set = Sets.newHashSet();
         List<ModelResourceLocation> list = Lists.newArrayList(this.variants.keySet());
-        list.sort((p_compare_1_, p_compare_2_) -> p_compare_1_.toString().compareTo(p_compare_2_.toString()));
+        list.sort(Comparator.comparing(ModelResourceLocation::toString));
 
         for (ModelResourceLocation modelresourcelocation : list) {
             ModelBlockDefinition.Variants modelblockdefinition$variants = this.variants.get(modelresourcelocation);
