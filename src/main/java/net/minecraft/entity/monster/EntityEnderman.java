@@ -343,7 +343,7 @@ public class EntityEnderman extends EntityMob {
         public boolean shouldExecute() {
             double d0 = this.getTargetDistance();
             List<EntityPlayer> list = this.taskOwner.worldObj.getEntitiesWithinAABB(EntityPlayer.class, this.taskOwner.getEntityBoundingBox().expand(d0, 4.0D, d0), this.targetEntitySelector);
-            Collections.sort(list, this.theNearestAttackableTargetSorter);
+            list.sort(this.theNearestAttackableTargetSorter);
 
             if (list.isEmpty()) {
                 return false;

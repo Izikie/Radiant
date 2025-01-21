@@ -99,7 +99,7 @@ public class Scoreboard {
             }
         }
 
-        Collections.sort(list, Score.scoreComparator);
+        list.sort(Score.scoreComparator);
         return list;
     }
 

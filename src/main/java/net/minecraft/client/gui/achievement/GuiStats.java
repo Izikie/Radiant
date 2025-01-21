@@ -337,7 +337,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
                 this.field_148215_p = 0;
             }
 
-            Collections.sort(this.statsHolder, this.statSorter);
+            this.statsHolder.sort(this.statSorter);
         }
     }
 

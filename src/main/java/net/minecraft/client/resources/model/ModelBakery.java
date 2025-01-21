@@ -381,7 +381,7 @@ public class ModelBakery {
     private Set<ResourceLocation> getVariantsTextureLocations() {
         Set<ResourceLocation> set = Sets.newHashSet();
         List<ModelResourceLocation> list = Lists.newArrayList(this.variants.keySet());
-        Collections.sort(list, new Comparator<>() {
+        list.sort(new Comparator<>() {
             public int compare(ModelResourceLocation p_compare_1_, ModelResourceLocation p_compare_2_) {
                 return p_compare_1_.toString().compareTo(p_compare_2_.toString());
             }

@@ -205,7 +205,7 @@ public class ResourcePackRepository {
 
     private void deleteOldServerResourcesPacks() {
         List<File> list = Lists.newArrayList(FileUtils.listFiles(this.dirServerResourcepacks, TrueFileFilter.TRUE, null));
-        Collections.sort(list, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
+        list.sort(LastModifiedFileComparator.LASTMODIFIED_REVERSE);
         int i = 0;
 
         for (File file1 : list) {

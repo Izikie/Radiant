@@ -64,7 +64,7 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase {
     public boolean shouldExecute() {
         double d0 = this.maxTargetRange();
         List<EntityPlayer> list = this.entityLiving.worldObj.getEntitiesWithinAABB(EntityPlayer.class, this.entityLiving.getEntityBoundingBox().expand(d0, 4.0D, d0), this.predicate);
-        Collections.sort(list, this.sorter);
+        list.sort(this.sorter);
 
         if (list.isEmpty()) {
             return false;

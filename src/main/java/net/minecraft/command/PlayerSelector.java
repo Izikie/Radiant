@@ -412,7 +412,7 @@ public class PlayerSelector {
                 Collections.shuffle(p_179658_0_);
             }
         } else if (p_179658_5_ != null) {
-            Collections.sort(p_179658_0_, new Comparator<Entity>() {
+            p_179658_0_.sort(new Comparator<Entity>() {
                 public int compare(Entity p_compare_1_, Entity p_compare_2_) {
                     return ComparisonChain.start().compare(p_compare_1_.getDistanceSq(p_179658_5_), p_compare_2_.getDistanceSq(p_179658_5_)).result();
                 }

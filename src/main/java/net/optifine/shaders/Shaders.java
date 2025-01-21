@@ -1552,7 +1552,7 @@ public class Shaders {
         }
 
         List<String> list = arraylist.subList(i, arraylist.size());
-        Collections.sort(list, String.CASE_INSENSITIVE_ORDER);
+        list.sort(String.CASE_INSENSITIVE_ORDER);
         return arraylist;
     }
 
