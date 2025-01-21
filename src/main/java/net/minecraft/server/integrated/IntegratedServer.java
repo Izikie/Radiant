@@ -342,7 +342,7 @@ public class IntegratedServer extends MinecraftServer {
     }
 
     private void onTick() {
-        for (WorldServer worldserver : Arrays.asList(this.worldServers)) {
+        for (WorldServer worldserver : this.worldServers) {
             this.onTick(worldserver);
         }
     }

@@ -116,7 +116,7 @@ public class HttpUtil {
                     URL url = new URL(packUrl);
                     httpurlconnection = (HttpURLConnection) url.openConnection(p_180192_5_);
                     float f = 0.0F;
-                    float f1 = p_180192_2_.entrySet().size();
+                    float f1 = p_180192_2_.size();
 
                     for (Entry<String, String> entry : p_180192_2_.entrySet()) {
                         httpurlconnection.setRequestProperty(entry.getKey(), entry.getValue());

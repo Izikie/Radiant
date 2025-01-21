@@ -261,9 +261,7 @@ public class ShaderManager {
     }
 
     public void addSamplerTexture(String p_147992_1_, Object p_147992_2_) {
-        if (this.shaderSamplers.containsKey(p_147992_1_)) {
-            this.shaderSamplers.remove(p_147992_1_);
-        }
+        this.shaderSamplers.remove(p_147992_1_);
 
         this.shaderSamplers.put(p_147992_1_, p_147992_2_);
         this.markDirty();

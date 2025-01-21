@@ -155,9 +155,7 @@ public class WorldClient extends World {
     protected void onEntityAdded(Entity entityIn) {
         super.onEntityAdded(entityIn);
 
-        if (this.entitySpawnQueue.contains(entityIn)) {
-            this.entitySpawnQueue.remove(entityIn);
-        }
+        this.entitySpawnQueue.remove(entityIn);
     }
 
     protected void onEntityRemoved(Entity entityIn) {
