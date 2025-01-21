@@ -1,5 +1,6 @@
 package net.minecraft.tileentity;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -179,8 +180,6 @@ public class TileEntityDispenser extends TileEntityLockable implements IInventor
     }
 
     public void clear() {
-        for (int i = 0; i < this.stacks.length; ++i) {
-            this.stacks[i] = null;
-        }
+        Arrays.fill(this.stacks, null);
     }
 }

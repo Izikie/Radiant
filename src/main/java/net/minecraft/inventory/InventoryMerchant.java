@@ -9,6 +9,8 @@ import net.minecraft.util.IChatComponent;
 import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
 
+import java.util.Arrays;
+
 public class InventoryMerchant implements IInventory {
     private final IMerchant theMerchant;
     private final ItemStack[] theInventory = new ItemStack[3];
@@ -182,8 +184,6 @@ public class InventoryMerchant implements IInventory {
     }
 
     public void clear() {
-        for (int i = 0; i < this.theInventory.length; ++i) {
-            this.theInventory[i] = null;
-        }
+        Arrays.fill(this.theInventory, null);
     }
 }

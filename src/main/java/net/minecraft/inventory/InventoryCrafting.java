@@ -6,6 +6,8 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IChatComponent;
 
+import java.util.Arrays;
+
 public class InventoryCrafting implements IInventory {
     private final ItemStack[] stackList;
     private final int inventoryWidth;
@@ -114,9 +116,7 @@ public class InventoryCrafting implements IInventory {
     }
 
     public void clear() {
-        for (int i = 0; i < this.stackList.length; ++i) {
-            this.stackList[i] = null;
-        }
+        Arrays.fill(this.stackList, null);
     }
 
     public int getHeight() {

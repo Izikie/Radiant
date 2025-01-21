@@ -11,6 +11,8 @@ import net.minecraft.world.ILockableContainer;
 import net.minecraft.world.LockCode;
 import net.minecraft.world.World;
 
+import java.util.Arrays;
+
 public abstract class EntityMinecartContainer extends EntityMinecart implements ILockableContainer {
     private ItemStack[] minecartContainerItems = new ItemStack[36];
     private boolean dropContentsWhenDead = true;
@@ -181,8 +183,6 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
     }
 
     public void clear() {
-        for (int i = 0; i < this.minecartContainerItems.length; ++i) {
-            this.minecartContainerItems[i] = null;
-        }
+        Arrays.fill(this.minecartContainerItems, null);
     }
 }

@@ -3,10 +3,7 @@ package net.minecraft.client.renderer.chunk;
 import com.google.common.collect.Sets;
 
 import java.nio.FloatBuffer;
-import java.util.BitSet;
-import java.util.EnumMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 import net.minecraft.block.Block;
@@ -116,9 +113,7 @@ public class RenderChunk {
         this.boundingBox = new AxisAlignedBB(pos, pos.add(16, 16, 16));
         this.initModelviewMatrix();
 
-        for (int j = 0; j < this.positionOffsets16.length; ++j) {
-            this.positionOffsets16[j] = null;
-        }
+        Arrays.fill(this.positionOffsets16, null);
 
         this.renderChunksOffset16Updated = false;
         this.renderChunkNeighboursUpated = false;

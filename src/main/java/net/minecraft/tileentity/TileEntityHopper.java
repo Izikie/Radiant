@@ -1,5 +1,6 @@
 package net.minecraft.tileentity;
 
+import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.block.Block;
@@ -517,8 +518,6 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
     }
 
     public void clear() {
-        for (int i = 0; i < this.inventory.length; ++i) {
-            this.inventory[i] = null;
-        }
+        Arrays.fill(this.inventory, null);
     }
 }

@@ -1,5 +1,6 @@
 package net.minecraft.entity;
 
+import java.util.Arrays;
 import java.util.UUID;
 
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -73,9 +74,7 @@ public abstract class EntityLiving extends EntityLivingBase {
         this.navigator = this.getNewNavigator(worldIn);
         this.senses = new EntitySenses(this);
 
-        for (int i = 0; i < this.equipmentDropChances.length; ++i) {
-            this.equipmentDropChances[i] = 0.085F;
-        }
+        Arrays.fill(this.equipmentDropChances, 0.085F);
     }
 
     protected void applyEntityAttributes() {

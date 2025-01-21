@@ -1,5 +1,6 @@
 package net.minecraft.util;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class IntHashMap<V> {
@@ -134,9 +135,7 @@ public class IntHashMap<V> {
     public void clearMap() {
         IntHashMap.Entry<V>[] entry = this.slots;
 
-        for (int i = 0; i < entry.length; ++i) {
-            entry[i] = null;
-        }
+        Arrays.fill(entry, null);
 
         this.count = 0;
     }

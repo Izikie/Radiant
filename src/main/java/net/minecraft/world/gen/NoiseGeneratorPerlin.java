@@ -1,5 +1,6 @@
 package net.minecraft.world.gen;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class NoiseGeneratorPerlin extends NoiseGenerator {
@@ -33,9 +34,7 @@ public class NoiseGeneratorPerlin extends NoiseGenerator {
 
     public double[] func_151600_a(double[] p_151600_1_, double p_151600_2_, double p_151600_4_, int p_151600_6_, int p_151600_7_, double p_151600_8_, double p_151600_10_, double p_151600_12_, double p_151600_14_) {
         if (p_151600_1_ != null && p_151600_1_.length >= p_151600_6_ * p_151600_7_) {
-            for (int i = 0; i < p_151600_1_.length; ++i) {
-                p_151600_1_[i] = 0.0D;
-            }
+            Arrays.fill(p_151600_1_, 0.0D);
         } else {
             p_151600_1_ = new double[p_151600_6_ * p_151600_7_];
         }

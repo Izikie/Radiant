@@ -2,6 +2,7 @@ package net.minecraft.client.gui;
 
 import com.google.common.collect.Maps;
 
+import java.util.Arrays;
 import java.util.Map;
 
 import net.minecraft.block.material.MapColor;
@@ -63,9 +64,7 @@ public class MapItemRenderer {
             this.mapTextureData = this.mapTexture.getTextureData();
             this.location = MapItemRenderer.this.textureManager.getDynamicTextureLocation("map/" + mapdataIn.mapName, this.mapTexture);
 
-            for (int i = 0; i < this.mapTextureData.length; ++i) {
-                this.mapTextureData[i] = 0;
-            }
+            Arrays.fill(this.mapTextureData, 0);
         }
 
         private void updateMapTexture() {

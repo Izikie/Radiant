@@ -1094,9 +1094,7 @@ public class Chunk {
     }
 
     private void func_177441_y() {
-        for (int i = 0; i < this.updateSkylightColumns.length; ++i) {
-            this.updateSkylightColumns[i] = true;
-        }
+        Arrays.fill(this.updateSkylightColumns, true);
 
         this.recheckGaps(false);
     }

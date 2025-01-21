@@ -2,6 +2,7 @@ package net.minecraft.inventory;
 
 import com.google.common.collect.Lists;
 
+import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -180,8 +181,6 @@ public class InventoryBasic implements IInventory {
     }
 
     public void clear() {
-        for (int i = 0; i < this.inventoryContents.length; ++i) {
-            this.inventoryContents[i] = null;
-        }
+        Arrays.fill(this.inventoryContents, null);
     }
 }

@@ -1,5 +1,6 @@
 package net.minecraft.entity.player;
 
+import java.util.Arrays;
 import java.util.concurrent.Callable;
 
 import net.minecraft.block.Block;
@@ -578,12 +579,8 @@ public class InventoryPlayer implements IInventory {
     }
 
     public void clear() {
-        for (int i = 0; i < this.mainInventory.length; ++i) {
-            this.mainInventory[i] = null;
-        }
+        Arrays.fill(this.mainInventory, null);
 
-        for (int j = 0; j < this.armorInventory.length; ++j) {
-            this.armorInventory[j] = null;
-        }
+        Arrays.fill(this.armorInventory, null);
     }
 }

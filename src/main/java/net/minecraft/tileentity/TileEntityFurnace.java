@@ -25,6 +25,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.MathHelper;
 
+import java.util.Arrays;
+
 public class TileEntityFurnace extends TileEntityLockable implements ITickable, ISidedInventory {
     private static final int[] slotsTop = new int[]{0};
     private static final int[] slotsBottom = new int[]{2, 1};
@@ -353,8 +355,6 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
     }
 
     public void clear() {
-        for (int i = 0; i < this.furnaceItemStacks.length; ++i) {
-            this.furnaceItemStacks[i] = null;
-        }
+        Arrays.fill(this.furnaceItemStacks, null);
     }
 }
