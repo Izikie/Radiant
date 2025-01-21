@@ -96,7 +96,7 @@ public class Programs {
     }
 
     public Program[] getPrograms() {
-        return this.programs.toArray(new Program[this.programs.size()]);
+        return this.programs.toArray(new Program[0]);
     }
 
     public Program[] getPrograms(Program programFrom, Program programTo) {

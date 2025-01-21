@@ -141,7 +141,7 @@ public class BlockAliases {
             List<BlockAlias> list = listBlocksAliases.get(i);
 
             if (list != null) {
-                ablockalias[i] = list.toArray(new BlockAlias[list.size()]);
+                ablockalias[i] = list.toArray(new BlockAlias[0]);
             }
         }
 

@@ -49,7 +49,7 @@ public class Mipmaps {
                 l /= 2;
 
                 if (k <= 0 && l <= 0) {
-                    return (Dimension[]) list.toArray(new Dimension[list.size()]);
+                    return (Dimension[]) list.toArray(new Dimension[0]);
                 }
 
                 if (k <= 0) {

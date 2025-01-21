@@ -132,6 +132,6 @@ public class ShaderOptionProfile extends ShaderOption {
         }
 
         list.add("<custom>");
-        return list.toArray(new String[list.size()]);
+        return list.toArray(new String[0]);
     }
 }

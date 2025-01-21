@@ -42,7 +42,7 @@ public class ReflectorRaw {
                 }
             }
 
-            return (Field[]) list.toArray(new Field[list.size()]);
+            return (Field[]) list.toArray(new Field[0]);
         } catch (Exception var5) {
             return null;
         }

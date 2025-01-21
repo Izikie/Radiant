@@ -61,6 +61,6 @@ public abstract class ModelAdapter {
             }
         }
 
-        return list.toArray(new ModelRenderer[list.size()]);
+        return list.toArray(new ModelRenderer[0]);
     }
 }

@@ -78,7 +78,7 @@ public class CustomEntityModelParser {
             }
         }
 
-        CustomModelRenderer[] acustommodelrenderer = (CustomModelRenderer[]) list.toArray(new CustomModelRenderer[list.size()]);
+        CustomModelRenderer[] acustommodelrenderer = (CustomModelRenderer[]) list.toArray(new CustomModelRenderer[0]);
         ResourceLocation resourcelocation = null;
 
         if (s2 != null) {
@@ -194,7 +194,7 @@ public class CustomEntityModelParser {
             }
 
             if (!list.isEmpty()) {
-                ModelVariableUpdater[] amodelvariableupdater = list.toArray(new ModelVariableUpdater[list.size()]);
+                ModelVariableUpdater[] amodelvariableupdater = list.toArray(new ModelVariableUpdater[0]);
                 modelupdater = new ModelUpdater(amodelvariableupdater);
             }
         }

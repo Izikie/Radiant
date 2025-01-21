@@ -177,7 +177,7 @@ public class CustomGuis {
                     List<CustomGuiProperties> list = listProps.get(i);
 
                     if (list != null) {
-                        CustomGuiProperties[] acustomguiproperties1 = list.toArray(new CustomGuiProperties[list.size()]);
+                        CustomGuiProperties[] acustomguiproperties1 = list.toArray(new CustomGuiProperties[0]);
                         acustomguiproperties[i] = acustomguiproperties1;
                     }
                 }

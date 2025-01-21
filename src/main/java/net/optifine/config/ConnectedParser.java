@@ -77,7 +77,7 @@ public class ConnectedParser {
                 }
             }
 
-            return (MatchBlock[]) list.toArray(new MatchBlock[list.size()]);
+            return (MatchBlock[]) list.toArray(new MatchBlock[0]);
         }
     }
 
@@ -409,7 +409,7 @@ public class ConnectedParser {
                 list = list1;
             }
 
-            return (BiomeGenBase[]) list.toArray(new BiomeGenBase[list.size()]);
+            return (BiomeGenBase[]) list.toArray(new BiomeGenBase[0]);
         }
     }
 
@@ -781,7 +781,7 @@ public class ConnectedParser {
             if (list.isEmpty()) {
                 return null;
             } else {
-                return list.toArray(new VillagerProfession[list.size()]);
+                return list.toArray(new VillagerProfession[0]);
             }
         }
     }
@@ -839,7 +839,7 @@ public class ConnectedParser {
             set.add(j);
         }
 
-        Integer[] ainteger = set.toArray(new Integer[set.size()]);
+        Integer[] ainteger = set.toArray(new Integer[0]);
         int[] aint = new int[ainteger.length];
 
         for (int k = 0; k < aint.length; ++k) {
@@ -938,7 +938,7 @@ public class ConnectedParser {
             }
         }
 
-        Integer[] ainteger = set.toArray(new Integer[set.size()]);
+        Integer[] ainteger = set.toArray(new Integer[0]);
         return Config.toPrimitive(ainteger);
     }
 
@@ -957,7 +957,7 @@ public class ConnectedParser {
             }
         }
 
-        Integer[] ainteger = set.toArray(new Integer[set.size()]);
+        Integer[] ainteger = set.toArray(new Integer[0]);
         return Config.toPrimitive(ainteger);
     }
 }

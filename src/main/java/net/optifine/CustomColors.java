@@ -280,7 +280,7 @@ public class CustomColors {
         }
 
         Set<Integer> set = map.keySet();
-        Integer[] ainteger = set.toArray(new Integer[set.size()]);
+        Integer[] ainteger = set.toArray(new Integer[0]);
         Arrays.sort(ainteger);
 
         if (ainteger.length == 0) {
@@ -404,7 +404,7 @@ public class CustomColors {
             }
         }
 
-        String[] astring = (String[]) map.keySet().toArray(new String[map.size()]);
+        String[] astring = (String[]) map.keySet().toArray(new String[0]);
 
         for (String s6 : astring) {
             String s3 = props.getProperty(s6);
@@ -435,7 +435,7 @@ public class CustomColors {
         if (list.size() == 0) {
             return null;
         } else {
-            return (CustomColormap[]) list.toArray(new CustomColormap[list.size()]);
+            return (CustomColormap[]) list.toArray(new CustomColormap[0]);
         }
     }
 
@@ -521,7 +521,7 @@ public class CustomColors {
             List list = (List) lists.get(i);
 
             if (list != null) {
-                CustomColormap[] acustomcolormap1 = (CustomColormap[]) list.toArray(new CustomColormap[list.size()]);
+                CustomColormap[] acustomcolormap1 = (CustomColormap[]) list.toArray(new CustomColormap[0]);
                 acustomcolormap[i] = acustomcolormap1;
             }
         }

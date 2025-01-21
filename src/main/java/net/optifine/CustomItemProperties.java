@@ -213,7 +213,7 @@ public class CustomItemProperties {
                 }
             }
 
-            Integer[] ainteger = (Integer[]) set.toArray(new Integer[set.size()]);
+            Integer[] ainteger = (Integer[]) set.toArray(new Integer[0]);
             int[] aint = new int[ainteger.length];
 
             for (int l1 = 0; l1 < aint.length; ++l1) {
@@ -513,7 +513,7 @@ public class CustomItemProperties {
                 list.add(nbttagvalue);
             }
 
-            return (NbtTagValue[]) list.toArray(new NbtTagValue[list.size()]);
+            return (NbtTagValue[]) list.toArray(new NbtTagValue[0]);
         }
     }
 

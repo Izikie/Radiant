@@ -62,7 +62,7 @@ public class ParametersVariable implements IParameters {
         }
 
         list.addAll(Arrays.asList(this.last));
-        return list.toArray(new ExpressionType[list.size()]);
+        return list.toArray(new ExpressionType[0]);
     }
 
     public ParametersVariable first(ExpressionType... first) {

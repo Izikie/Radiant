@@ -100,6 +100,6 @@ public class CustomModelRegistry {
 
     public static String[] getModelNames() {
         Set<String> set = mapModelAdapters.keySet();
-        return set.toArray(new String[set.size()]);
+        return set.toArray(new String[0]);
     }
 }

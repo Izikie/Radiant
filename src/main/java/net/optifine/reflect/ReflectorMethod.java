@@ -113,6 +113,6 @@ public class ReflectorMethod {
             }
         }
 
-        return (Method[]) list.toArray(new Method[list.size()]);
+        return (Method[]) list.toArray(new Method[0]);
     }
 }

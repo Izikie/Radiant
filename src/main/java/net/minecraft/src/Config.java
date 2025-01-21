@@ -774,7 +774,7 @@ public class Config {
             list1.add(resourcepackrepository.getResourcePackInstance());
         }
 
-        return (IResourcePack[]) list1.toArray(new IResourcePack[list1.size()]);
+        return (IResourcePack[]) list1.toArray(new IResourcePack[0]);
     }
 
     public static String getResourcePackNames() {
@@ -1027,7 +1027,7 @@ public class Config {
             list.add(s);
         }
 
-        return (String[]) list.toArray(new String[list.size()]);
+        return (String[]) list.toArray(new String[0]);
     }
 
     public static DisplayMode getDesktopDisplayMode() {
@@ -1050,7 +1050,7 @@ public class Config {
                     }
                 }
 
-                DisplayMode[] adisplaymode2 = (DisplayMode[]) list.toArray(new DisplayMode[list.size()]);
+                DisplayMode[] adisplaymode2 = (DisplayMode[]) list.toArray(new DisplayMode[0]);
                 Arrays.sort(adisplaymode2, new DisplayModeComparator());
                 return adisplaymode2;
             } catch (Exception exception) {
@@ -1093,7 +1093,7 @@ public class Config {
             }
         }
 
-        return (DisplayMode[]) list.toArray(new DisplayMode[list.size()]);
+        return (DisplayMode[]) list.toArray(new DisplayMode[0]);
     }
 
     private static DisplayMode getDisplayMode(DisplayMode[] p_getDisplayMode_0_, DisplayMode p_getDisplayMode_1_) {
@@ -1231,7 +1231,7 @@ public class Config {
             String s = bufferedreader.readLine();
 
             if (s == null) {
-                return (String[]) list.toArray(new String[list.size()]);
+                return (String[]) list.toArray(new String[0]);
             }
 
             list.add(s);

@@ -211,7 +211,7 @@ public class StrUtils {
                 }
 
                 list.add(str.substring(i));
-                return (String[]) list.toArray(new String[list.size()]);
+                return (String[]) list.toArray(new String[0]);
             }
         } else {
             return new String[0];
@@ -454,7 +454,7 @@ public class StrUtils {
                     }
                 }
 
-                return list.toArray(new String[list.size()]);
+                return list.toArray(new String[0]);
             }
         } else {
             return strs;

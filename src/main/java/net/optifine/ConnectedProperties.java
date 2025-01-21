@@ -269,7 +269,7 @@ public class ConnectedProperties {
                 list.add(s);
             }
 
-            String[] astring2 = (String[]) list.toArray(new String[list.size()]);
+            String[] astring2 = (String[]) list.toArray(new String[0]);
 
             for (int i1 = 0; i1 < astring2.length; ++i1) {
                 String s1 = astring2[i1];
@@ -880,7 +880,7 @@ public class ConnectedProperties {
                 }
             }
 
-            return (TextureAtlasSprite[]) list.toArray(new TextureAtlasSprite[list.size()]);
+            return (TextureAtlasSprite[]) list.toArray(new TextureAtlasSprite[0]);
         }
     }
 

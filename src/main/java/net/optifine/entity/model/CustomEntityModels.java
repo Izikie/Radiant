@@ -113,7 +113,7 @@ public class CustomEntityModels {
             }
         }
 
-        return list.toArray(new ResourceLocation[list.size()]);
+        return list.toArray(new ResourceLocation[0]);
     }
 
     private static IEntityRenderer parseEntityRender(ResourceLocation location) {

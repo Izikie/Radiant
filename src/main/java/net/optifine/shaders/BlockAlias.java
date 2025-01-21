@@ -39,7 +39,7 @@ public class BlockAlias {
             set.add(j);
         }
 
-        Integer[] ainteger = set.toArray(new Integer[set.size()]);
+        Integer[] ainteger = set.toArray(new Integer[0]);
         return Config.toPrimitive(ainteger);
     }
 
@@ -52,7 +52,7 @@ public class BlockAlias {
             }
         }
 
-        return list.toArray(new MatchBlock[list.size()]);
+        return list.toArray(new MatchBlock[0]);
     }
 
     public String toString() {

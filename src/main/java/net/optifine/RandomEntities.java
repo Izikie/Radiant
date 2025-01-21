@@ -304,7 +304,7 @@ public class RandomEntities {
             if (list.size() <= 1) {
                 return null;
             } else {
-                ResourceLocation[] aresourcelocation = (ResourceLocation[]) list.toArray(new ResourceLocation[list.size()]);
+                ResourceLocation[] aresourcelocation = (ResourceLocation[]) list.toArray(new ResourceLocation[0]);
                 dbg(loc.getResourcePath() + ", variants: " + aresourcelocation.length);
                 return aresourcelocation;
             }

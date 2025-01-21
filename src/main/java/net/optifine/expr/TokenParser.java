@@ -17,7 +17,7 @@ public class TokenParser {
             int i = pushbackreader.read();
 
             if (i < 0) {
-                return list.toArray(new Token[list.size()]);
+                return list.toArray(new Token[0]);
             }
 
             char c0 = (char) i;

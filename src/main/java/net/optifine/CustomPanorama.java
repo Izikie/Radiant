@@ -57,7 +57,7 @@ public class CustomPanorama {
             }
         }
 
-        return list.toArray(new String[list.size()]);
+        return list.toArray(new String[0]);
     }
 
     private static Properties[] getPanoramaProperties(String[] folders) {

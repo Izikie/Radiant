@@ -1748,7 +1748,7 @@ public class ConnectedTextures {
             }
         }
 
-        ConnectedProperties[] aconnectedproperties1 = (ConnectedProperties[]) list.toArray(new ConnectedProperties[list.size()]);
+        ConnectedProperties[] aconnectedproperties1 = (ConnectedProperties[]) list.toArray(new ConnectedProperties[0]);
         Set set1 = new HashSet();
         Set set = new HashSet();
 
@@ -1773,7 +1773,7 @@ public class ConnectedTextures {
             List sublist = (List) list.get(i);
 
             if (sublist != null) {
-                ConnectedProperties[] aconnectedproperties1 = (ConnectedProperties[]) sublist.toArray(new ConnectedProperties[sublist.size()]);
+                ConnectedProperties[] aconnectedproperties1 = (ConnectedProperties[]) sublist.toArray(new ConnectedProperties[0]);
                 aconnectedproperties[i] = aconnectedproperties1;
             }
         }
@@ -1858,6 +1858,6 @@ public class ConnectedTextures {
             }
         }
 
-        return (String[]) list.toArray(new String[list.size()]);
+        return (String[]) list.toArray(new String[0]);
     }
 }

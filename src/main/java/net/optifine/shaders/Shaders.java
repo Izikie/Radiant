@@ -853,7 +853,7 @@ public class Shaders {
         }
 
         if (!shaderPackDimensions.isEmpty()) {
-            Integer[] ainteger = shaderPackDimensions.toArray(new Integer[shaderPackDimensions.size()]);
+            Integer[] ainteger = shaderPackDimensions.toArray(new Integer[0]);
             Config.dbg("[Shaders] Worlds: " + Config.arrayToString(ainteger));
         }
     }
@@ -972,7 +972,7 @@ public class Shaders {
         if (list.size() == 0) {
             return null;
         } else {
-            return list.toArray(new ICustomTexture[list.size()]);
+            return list.toArray(new ICustomTexture[0]);
         }
     }
 
@@ -1311,7 +1311,7 @@ public class Shaders {
                     }
                 }
 
-                return list.toArray(new ShaderOption[list.size()]);
+                return list.toArray(new ShaderOption[0]);
             }
         }
     }
@@ -1353,7 +1353,7 @@ public class Shaders {
             }
         }
 
-        return list.toArray(new ShaderOption[list.size()]);
+        return list.toArray(new ShaderOption[0]);
     }
 
     public static ShaderOption getShaderOption(String name) {
@@ -1377,7 +1377,7 @@ public class Shaders {
             }
         }
 
-        return list.toArray(new ShaderOption[list.size()]);
+        return list.toArray(new ShaderOption[0]);
     }
 
     public static void saveShaderPackOptions() {
@@ -1467,7 +1467,7 @@ public class Shaders {
             }
         }
 
-        return list.toArray(new ShaderOption[list.size()]);
+        return list.toArray(new ShaderOption[0]);
     }
 
     private static String applyOptions(String line, ShaderOption[] ops) {

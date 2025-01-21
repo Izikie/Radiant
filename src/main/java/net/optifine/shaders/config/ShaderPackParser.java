@@ -66,7 +66,7 @@ public class ShaderPackParser {
             }
 
             Collection<ShaderOption> collection = map.values();
-            ShaderOption[] ashaderoption = collection.toArray(new ShaderOption[collection.size()]);
+            ShaderOption[] ashaderoption = collection.toArray(new ShaderOption[0]);
             Comparator<ShaderOption> comparator = (o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName());
             Arrays.sort(ashaderoption, comparator);
             return ashaderoption;
@@ -229,7 +229,7 @@ public class ShaderPackParser {
         if (list.size() == 0) {
             return null;
         } else {
-            return list.toArray(new ShaderProfile[list.size()]);
+            return list.toArray(new ShaderProfile[0]);
         }
     }
 
@@ -428,7 +428,7 @@ public class ShaderPackParser {
                 }
             }
 
-            ShaderOption[] ashaderoption = list.toArray(new ShaderOption[list.size()]);
+            ShaderOption[] ashaderoption = list.toArray(new ShaderOption[0]);
             String s2 = props.getProperty(key + ".columns");
             int j = Config.parseInt(s2, 2);
             ScreenShaderOptions screenshaderoptions = new ScreenShaderOptions(key, ashaderoption, j);
@@ -542,7 +542,7 @@ public class ShaderPackParser {
             }
         }
 
-        return list.toArray(new ShaderMacro[list.size()]);
+        return list.toArray(new ShaderMacro[0]);
     }
 
     private static String loadFile(String filePath, IShaderPack shaderPack, int fileIndex, List<String> listFiles, int includeLevel) throws IOException {
@@ -612,7 +612,7 @@ public class ShaderPackParser {
         if (list.size() == 0) {
             return null;
         } else {
-            CustomUniform[] acustomuniform = list.toArray(new CustomUniform[list.size()]);
+            CustomUniform[] acustomuniform = list.toArray(new CustomUniform[0]);
             return new CustomUniforms(acustomuniform, map);
         }
     }
