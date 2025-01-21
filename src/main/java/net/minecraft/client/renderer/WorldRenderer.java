@@ -103,7 +103,7 @@ public class WorldRenderer {
             ainteger[k] = k;
         }
 
-        Arrays.sort(ainteger, new Comparator<Integer>() {
+        Arrays.sort(ainteger, new Comparator<>() {
             public int compare(Integer p_compare_1_, Integer p_compare_2_) {
                 return Floats.compare(afloat[p_compare_2_], afloat[p_compare_1_]);
             }

@@ -37,7 +37,7 @@ public class SkinManager {
         this.textureManager = textureManagerInstance;
         this.skinCacheDir = skinCacheDirectory;
         this.sessionService = sessionService;
-        this.skinCacheLoader = CacheBuilder.newBuilder().expireAfterAccess(15L, TimeUnit.SECONDS).build(new CacheLoader<GameProfile, Map<Type, MinecraftProfileTexture>>() {
+        this.skinCacheLoader = CacheBuilder.newBuilder().expireAfterAccess(15L, TimeUnit.SECONDS).build(new CacheLoader<>() {
             public Map<Type, MinecraftProfileTexture> load(GameProfile p_load_1_) throws Exception {
                 return Minecraft.getMinecraft().getSessionService().getTextures(p_load_1_, false);
             }

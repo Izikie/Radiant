@@ -187,7 +187,7 @@ public class ResourcePackRepository {
             }));
             final SettableFuture<Object> settablefuture = SettableFuture.create();
             this.downloadingPacks = HttpUtil.downloadResourcePack(file1, url, map, 52428800, guiscreenworking, minecraft.getProxy());
-            Futures.addCallback(this.downloadingPacks, new FutureCallback<Object>() {
+            Futures.addCallback(this.downloadingPacks, new FutureCallback<>() {
                 public void onSuccess(Object p_onSuccess_1_) {
                     ResourcePackRepository.this.setResourcePackInstance(file1);
                     settablefuture.set(null);

@@ -16,7 +16,7 @@ public class ItemMultiTexture extends ItemBlock {
     }
 
     public ItemMultiTexture(Block block, Block block2, final String[] namesByMeta) {
-        this(block, block2, new Function<ItemStack, String>() {
+        this(block, block2, new Function<>() {
             public String apply(ItemStack p_apply_1_) {
                 int i = p_apply_1_.getMetadata();
 

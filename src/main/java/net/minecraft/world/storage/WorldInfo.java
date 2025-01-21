@@ -549,37 +549,37 @@ public class WorldInfo {
     }
 
     public void addToCrashReport(CrashReportCategory category) {
-        category.addCrashSectionCallable("Level seed", new Callable<String>() {
+        category.addCrashSectionCallable("Level seed", new Callable<>() {
             public String call() throws Exception {
                 return String.valueOf(WorldInfo.this.getSeed());
             }
         });
-        category.addCrashSectionCallable("Level generator", new Callable<String>() {
+        category.addCrashSectionCallable("Level generator", new Callable<>() {
             public String call() throws Exception {
                 return String.format("ID %02d - %s, ver %d. Features enabled: %b", WorldInfo.this.terrainType.getWorldTypeID(), WorldInfo.this.terrainType.getWorldTypeName(), WorldInfo.this.terrainType.getGeneratorVersion(), WorldInfo.this.mapFeaturesEnabled);
             }
         });
-        category.addCrashSectionCallable("Level generator options", new Callable<String>() {
+        category.addCrashSectionCallable("Level generator options", new Callable<>() {
             public String call() throws Exception {
                 return WorldInfo.this.generatorOptions;
             }
         });
-        category.addCrashSectionCallable("Level spawn location", new Callable<String>() {
+        category.addCrashSectionCallable("Level spawn location", new Callable<>() {
             public String call() throws Exception {
                 return CrashReportCategory.getCoordinateInfo(WorldInfo.this.spawnX, WorldInfo.this.spawnY, WorldInfo.this.spawnZ);
             }
         });
-        category.addCrashSectionCallable("Level time", new Callable<String>() {
+        category.addCrashSectionCallable("Level time", new Callable<>() {
             public String call() throws Exception {
                 return String.format("%d game time, %d day time", WorldInfo.this.totalTime, WorldInfo.this.worldTime);
             }
         });
-        category.addCrashSectionCallable("Level dimension", new Callable<String>() {
+        category.addCrashSectionCallable("Level dimension", new Callable<>() {
             public String call() throws Exception {
                 return String.valueOf(WorldInfo.this.dimension);
             }
         });
-        category.addCrashSectionCallable("Level storage version", new Callable<String>() {
+        category.addCrashSectionCallable("Level storage version", new Callable<>() {
             public String call() throws Exception {
                 String s = "Unknown?";
 
@@ -598,12 +598,12 @@ public class WorldInfo {
                 return String.format("0x%05X - %s", WorldInfo.this.saveVersion, s);
             }
         });
-        category.addCrashSectionCallable("Level weather", new Callable<String>() {
+        category.addCrashSectionCallable("Level weather", new Callable<>() {
             public String call() throws Exception {
                 return String.format("Rain time: %d (now: %b), thunder time: %d (now: %b)", WorldInfo.this.rainTime, WorldInfo.this.raining, WorldInfo.this.thunderTime, WorldInfo.this.thundering);
             }
         });
-        category.addCrashSectionCallable("Level game mode", new Callable<String>() {
+        category.addCrashSectionCallable("Level game mode", new Callable<>() {
             public String call() throws Exception {
                 return String.format("Game mode: %s (ID %d). Hardcore: %b. Cheats: %b", WorldInfo.this.theGameType.getName(), WorldInfo.this.theGameType.getID(), WorldInfo.this.hardcore, WorldInfo.this.allowCommands);
             }

@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 
 public class BlockStem extends BlockBush implements IGrowable {
     public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 7);
-    public static final PropertyDirection FACING = PropertyDirection.create("facing", new Predicate<EnumFacing>() {
+    public static final PropertyDirection FACING = PropertyDirection.create("facing", new Predicate<>() {
         public boolean apply(EnumFacing p_apply_1_) {
             return p_apply_1_ != EnumFacing.DOWN;
         }

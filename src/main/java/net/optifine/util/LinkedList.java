@@ -127,7 +127,7 @@ public class LinkedList<T> {
     }
 
     public Iterator<LinkedList.Node<T>> iterator() {
-        return new Iterator<Node<T>>() {
+        return new Iterator<>() {
             Node<T> node = LinkedList.this.getFirst();
 
             public boolean hasNext() {

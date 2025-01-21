@@ -157,7 +157,7 @@ public abstract class TileEntity {
     }
 
     public void addInfoToCrashReport(CrashReportCategory reportCategory) {
-        reportCategory.addCrashSectionCallable("Name", new Callable<String>() {
+        reportCategory.addCrashSectionCallable("Name", new Callable<>() {
             public String call() throws Exception {
                 return TileEntity.classToNameMap.get(TileEntity.this.getClass()) + " // " + TileEntity.this.getClass().getCanonicalName();
             }
@@ -165,7 +165,7 @@ public abstract class TileEntity {
 
         if (this.worldObj != null) {
             CrashReportCategory.addBlockInfo(reportCategory, this.pos, this.getBlockType(), this.getBlockMetadata());
-            reportCategory.addCrashSectionCallable("Actual block type", new Callable<String>() {
+            reportCategory.addCrashSectionCallable("Actual block type", new Callable<>() {
                 public String call() throws Exception {
                     int i = Block.getIdFromBlock(TileEntity.this.worldObj.getBlockState(TileEntity.this.pos).getBlock());
 
@@ -176,7 +176,7 @@ public abstract class TileEntity {
                     }
                 }
             });
-            reportCategory.addCrashSectionCallable("Actual block data value", new Callable<String>() {
+            reportCategory.addCrashSectionCallable("Actual block data value", new Callable<>() {
                 public String call() throws Exception {
                     IBlockState iblockstate = TileEntity.this.worldObj.getBlockState(TileEntity.this.pos);
                     int i = iblockstate.getBlock().getMetaFromState(iblockstate);

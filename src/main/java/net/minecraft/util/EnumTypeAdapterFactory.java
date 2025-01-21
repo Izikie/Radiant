@@ -26,7 +26,7 @@ public class EnumTypeAdapterFactory implements TypeAdapterFactory {
                 map.put(this.func_151232_a(t), t);
             }
 
-            return new TypeAdapter<T>() {
+            return new TypeAdapter<>() {
                 public void write(JsonWriter p_write_1_, T p_write_2_) throws IOException {
                     if (p_write_2_ == null) {
                         p_write_1_.nullValue();

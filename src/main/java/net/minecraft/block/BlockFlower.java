@@ -42,7 +42,7 @@ public abstract class BlockFlower extends BlockBush {
 
     public IProperty<BlockFlower.EnumFlowerType> getTypeProperty() {
         if (this.type == null) {
-            this.type = PropertyEnum.create("type", BlockFlower.EnumFlowerType.class, new Predicate<BlockFlower.EnumFlowerType>() {
+            this.type = PropertyEnum.create("type", BlockFlower.EnumFlowerType.class, new Predicate<>() {
                 public boolean apply(BlockFlower.EnumFlowerType p_apply_1_) {
                     return p_apply_1_.getBlockType() == BlockFlower.this.getBlockType();
                 }
@@ -138,7 +138,7 @@ public abstract class BlockFlower extends BlockBush {
 
         static {
             for (final BlockFlower.EnumFlowerColor blockflower$enumflowercolor : BlockFlower.EnumFlowerColor.values()) {
-                Collection<BlockFlower.EnumFlowerType> collection = Collections2.filter(Lists.newArrayList(values()), new Predicate<BlockFlower.EnumFlowerType>() {
+                Collection<BlockFlower.EnumFlowerType> collection = Collections2.filter(Lists.newArrayList(values()), new Predicate<>() {
                     public boolean apply(BlockFlower.EnumFlowerType p_apply_1_) {
                         return p_apply_1_.getBlockType() == blockflower$enumflowercolor;
                     }

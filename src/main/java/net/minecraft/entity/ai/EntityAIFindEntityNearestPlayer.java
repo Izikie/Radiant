@@ -31,7 +31,7 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase {
             LOGGER.warn("Use NearestAttackableTargetGoal.class for PathfinerMob mobs!");
         }
 
-        this.predicate = new Predicate<Entity>() {
+        this.predicate = new Predicate<>() {
             public boolean apply(Entity p_apply_1_) {
                 if (!(p_apply_1_ instanceof EntityPlayer entityPlayer)) {
                     return false;

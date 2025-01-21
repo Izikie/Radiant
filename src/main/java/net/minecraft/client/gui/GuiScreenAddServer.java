@@ -15,7 +15,7 @@ public class GuiScreenAddServer extends GuiScreen {
     private GuiTextField serverIPField;
     private GuiTextField serverNameField;
     private GuiButton serverResourcePacks;
-    private final Predicate<String> field_181032_r = new Predicate<String>() {
+    private final Predicate<String> field_181032_r = new Predicate<>() {
         public boolean apply(String p_apply_1_) {
             if (p_apply_1_.isEmpty()) {
                 return true;

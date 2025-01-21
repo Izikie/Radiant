@@ -47,7 +47,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
     private final int[] field_82223_h = new int[2];
     private final int[] field_82224_i = new int[2];
     private int blockBreakCounter;
-    private static final Predicate<Entity> attackEntitySelector = new Predicate<Entity>() {
+    private static final Predicate<Entity> attackEntitySelector = new Predicate<>() {
         public boolean apply(Entity p_apply_1_) {
             return p_apply_1_ instanceof EntityLivingBase entityLivingBase && entityLivingBase.getCreatureAttribute() != EnumCreatureAttribute.UNDEAD;
         }

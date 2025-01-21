@@ -200,12 +200,12 @@ public class EffectRenderer {
             CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Ticking Particle");
             CrashReportCategory crashreportcategory = crashreport.makeCategory("Particle being ticked");
             final int i = particle.getFXLayer();
-            crashreportcategory.addCrashSectionCallable("Particle", new Callable<String>() {
+            crashreportcategory.addCrashSectionCallable("Particle", new Callable<>() {
                 public String call() throws Exception {
                     return particle.toString();
                 }
             });
-            crashreportcategory.addCrashSectionCallable("Particle Type", new Callable<String>() {
+            crashreportcategory.addCrashSectionCallable("Particle Type", new Callable<>() {
                 public String call() throws Exception {
                     return i == 0 ? "MISC_TEXTURE" : (i == 1 ? "TERRAIN_TEXTURE" : (i == 3 ? "ENTITY_PARTICLE_TEXTURE" : "Unknown - " + i));
                 }
@@ -269,12 +269,12 @@ public class EffectRenderer {
                         } catch (Throwable throwable) {
                             CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Rendering Particle");
                             CrashReportCategory crashreportcategory = crashreport.makeCategory("Particle being rendered");
-                            crashreportcategory.addCrashSectionCallable("Particle", new Callable<String>() {
+                            crashreportcategory.addCrashSectionCallable("Particle", new Callable<>() {
                                 public String call() throws Exception {
                                     return entityfx.toString();
                                 }
                             });
-                            crashreportcategory.addCrashSectionCallable("Particle Type", new Callable<String>() {
+                            crashreportcategory.addCrashSectionCallable("Particle Type", new Callable<>() {
                                 public String call() throws Exception {
                                     return i_f == 0 ? "MISC_TEXTURE" : (i_f == 1 ? "TERRAIN_TEXTURE" : (i_f == 3 ? "ENTITY_PARTICLE_TEXTURE" : "Unknown - " + i_f));
                                 }

@@ -121,7 +121,7 @@ public abstract class World implements IBlockAccess {
             } catch (Throwable throwable) {
                 CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Getting biome");
                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Coordinates of biome request");
-                crashreportcategory.addCrashSectionCallable("Location", new Callable<String>() {
+                crashreportcategory.addCrashSectionCallable("Location", new Callable<>() {
                     public String call() throws Exception {
                         return CrashReportCategory.getCoordinateInfo(pos);
                     }
@@ -372,7 +372,7 @@ public abstract class World implements IBlockAccess {
             } catch (Throwable throwable) {
                 CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Exception while updating neighbours");
                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Block being updated");
-                crashreportcategory.addCrashSectionCallable("Source block type", new Callable<String>() {
+                crashreportcategory.addCrashSectionCallable("Source block type", new Callable<>() {
                     public String call() throws Exception {
                         try {
                             return String.format("ID #%d (%s // %s)", Block.getIdFromBlock(blockIn), blockIn.getUnlocalizedName(), blockIn.getClass().getCanonicalName());
@@ -2600,12 +2600,12 @@ public abstract class World implements IBlockAccess {
     public CrashReportCategory addWorldInfoToCrashReport(CrashReport report) {
         CrashReportCategory crashreportcategory = report.makeCategoryDepth("Affected level", 1);
         crashreportcategory.addCrashSection("Level name", this.worldInfo == null ? "????" : this.worldInfo.getWorldName());
-        crashreportcategory.addCrashSectionCallable("All players", new Callable<String>() {
+        crashreportcategory.addCrashSectionCallable("All players", new Callable<>() {
             public String call() {
                 return World.this.playerEntities.size() + " total; " + World.this.playerEntities;
             }
         });
-        crashreportcategory.addCrashSectionCallable("Chunk stats", new Callable<String>() {
+        crashreportcategory.addCrashSectionCallable("Chunk stats", new Callable<>() {
             public String call() {
                 return World.this.chunkProvider.makeString();
             }

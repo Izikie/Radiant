@@ -48,17 +48,17 @@ import org.apache.logging.log4j.Logger;
 
 public class NetworkSystem {
     private static final Logger logger = LogManager.getLogger();
-    public static final LazyLoadBase<NioEventLoopGroup> eventLoops = new LazyLoadBase<NioEventLoopGroup>() {
+    public static final LazyLoadBase<NioEventLoopGroup> eventLoops = new LazyLoadBase<>() {
         protected NioEventLoopGroup load() {
             return new NioEventLoopGroup(0, (new ThreadFactoryBuilder()).setNameFormat("Netty Server IO #%d").setDaemon(true).build());
         }
     };
-    public static final LazyLoadBase<EpollEventLoopGroup> SERVER_EPOLL_EVENTLOOP = new LazyLoadBase<EpollEventLoopGroup>() {
+    public static final LazyLoadBase<EpollEventLoopGroup> SERVER_EPOLL_EVENTLOOP = new LazyLoadBase<>() {
         protected EpollEventLoopGroup load() {
             return new EpollEventLoopGroup(0, (new ThreadFactoryBuilder()).setNameFormat("Netty Epoll Server IO #%d").setDaemon(true).build());
         }
     };
-    public static final LazyLoadBase<LocalEventLoopGroup> SERVER_LOCAL_EVENTLOOP = new LazyLoadBase<LocalEventLoopGroup>() {
+    public static final LazyLoadBase<LocalEventLoopGroup> SERVER_LOCAL_EVENTLOOP = new LazyLoadBase<>() {
         protected LocalEventLoopGroup load() {
             return new LocalEventLoopGroup(0, (new ThreadFactoryBuilder()).setNameFormat("Netty Local Server IO #%d").setDaemon(true).build());
         }
@@ -88,7 +88,7 @@ public class NetworkSystem {
                 logger.info("Using default channel type");
             }
 
-            this.endpoints.add((new ServerBootstrap()).channel(oclass).childHandler(new ChannelInitializer<Channel>() {
+            this.endpoints.add((new ServerBootstrap()).channel(oclass).childHandler(new ChannelInitializer<>() {
                 protected void initChannel(Channel p_initChannel_1_) throws Exception {
                     try {
                         p_initChannel_1_.config().setOption(ChannelOption.TCP_NODELAY, Boolean.TRUE);
@@ -109,7 +109,7 @@ public class NetworkSystem {
         ChannelFuture channelfuture;
 
         synchronized (this.endpoints) {
-            channelfuture = (new ServerBootstrap()).channel(LocalServerChannel.class).childHandler(new ChannelInitializer<Channel>() {
+            channelfuture = (new ServerBootstrap()).channel(LocalServerChannel.class).childHandler(new ChannelInitializer<>() {
                 protected void initChannel(Channel p_initChannel_1_) throws Exception {
                     NetworkManager networkmanager = new NetworkManager(EnumPacketDirection.SERVERBOUND);
                     networkmanager.setNetHandler(new NetHandlerHandshakeMemory(NetworkSystem.this.mcServer, networkmanager));
@@ -153,7 +153,7 @@ public class NetworkSystem {
                             if (networkmanager.isLocalChannel()) {
                                 CrashReport crashreport = CrashReport.makeCrashReport(exception, "Ticking memory connection");
                                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Ticking connection");
-                                crashreportcategory.addCrashSectionCallable("Connection", new Callable<String>() {
+                                crashreportcategory.addCrashSectionCallable("Connection", new Callable<>() {
                                     public String call() throws Exception {
                                         return networkmanager.toString();
                                     }
@@ -163,7 +163,7 @@ public class NetworkSystem {
 
                             logger.warn("Failed to handle packet for {}", networkmanager.getRemoteAddress(), exception);
                             final ChatComponentText chatcomponenttext = new ChatComponentText("Internal server error");
-                            networkmanager.sendPacket(new S40PacketDisconnect(chatcomponenttext), new GenericFutureListener<Future<? super Void>>() {
+                            networkmanager.sendPacket(new S40PacketDisconnect(chatcomponenttext), new GenericFutureListener<>() {
                                 public void operationComplete(Future<? super Void> p_operationComplete_1_) throws Exception {
                                     networkmanager.closeChannel(chatcomponenttext);
                                 }

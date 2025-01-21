@@ -2198,7 +2198,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 crashreportcategory.addCrashSection("Parameters", parameters);
             }
 
-            crashreportcategory.addCrashSectionCallable("Position", new Callable<String>() {
+            crashreportcategory.addCrashSectionCallable("Position", new Callable<>() {
                 public String call() throws Exception {
                     return CrashReportCategory.getCoordinateInfo(xCoord, yCoord, zCoord);
                 }

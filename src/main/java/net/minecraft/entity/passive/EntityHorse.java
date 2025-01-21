@@ -41,7 +41,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
 public class EntityHorse extends EntityAnimal implements IInvBasic {
-    private static final Predicate<Entity> horseBreedingSelector = new Predicate<Entity>() {
+    private static final Predicate<Entity> horseBreedingSelector = new Predicate<>() {
         public boolean apply(Entity p_apply_1_) {
             return p_apply_1_ instanceof EntityHorse entityHorse && entityHorse.isBreeding();
         }

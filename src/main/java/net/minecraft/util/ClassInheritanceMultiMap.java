@@ -106,7 +106,7 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
     }
 
     public <S> Iterable<S> getByClass(final Class<S> clazz) {
-        return new Iterable<S>() {
+        return new Iterable<>() {
             public Iterator<S> iterator() {
                 List<T> list = ClassInheritanceMultiMap.this.map.get(ClassInheritanceMultiMap.this.initializeClassLookup(clazz));
 

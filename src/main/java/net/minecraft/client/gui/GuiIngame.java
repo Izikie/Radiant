@@ -409,7 +409,7 @@ public class GuiIngame extends Gui {
     private void renderScoreboard(ScoreObjective objective, ScaledResolution scaledRes) {
         Scoreboard scoreboard = objective.getScoreboard();
         Collection<Score> collection = scoreboard.getSortedScores(objective);
-        List<Score> list = Lists.newArrayList(Iterables.filter(collection, new Predicate<Score>() {
+        List<Score> list = Lists.newArrayList(Iterables.filter(collection, new Predicate<>() {
             public boolean apply(Score p_apply_1_) {
                 return p_apply_1_.getPlayerName() != null && !p_apply_1_.getPlayerName().startsWith("#");
             }

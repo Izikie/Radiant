@@ -55,17 +55,17 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
     public static final Marker logMarkerNetwork = MarkerManager.getMarker("NETWORK");
     public static final Marker logMarkerPackets = MarkerManager.getMarker("NETWORK_PACKETS", logMarkerNetwork);
     public static final AttributeKey<EnumConnectionState> attrKeyConnectionState = AttributeKey.valueOf("protocol");
-    public static final LazyLoadBase<NioEventLoopGroup> CLIENT_NIO_EVENTLOOP = new LazyLoadBase<NioEventLoopGroup>() {
+    public static final LazyLoadBase<NioEventLoopGroup> CLIENT_NIO_EVENTLOOP = new LazyLoadBase<>() {
         protected NioEventLoopGroup load() {
             return new NioEventLoopGroup(0, (new ThreadFactoryBuilder()).setNameFormat("Netty Client IO #%d").setDaemon(true).build());
         }
     };
-    public static final LazyLoadBase<EpollEventLoopGroup> CLIENT_EPOLL_EVENTLOOP = new LazyLoadBase<EpollEventLoopGroup>() {
+    public static final LazyLoadBase<EpollEventLoopGroup> CLIENT_EPOLL_EVENTLOOP = new LazyLoadBase<>() {
         protected EpollEventLoopGroup load() {
             return new EpollEventLoopGroup(0, (new ThreadFactoryBuilder()).setNameFormat("Netty Epoll Client IO #%d").setDaemon(true).build());
         }
     };
-    public static final LazyLoadBase<LocalEventLoopGroup> CLIENT_LOCAL_EVENTLOOP = new LazyLoadBase<LocalEventLoopGroup>() {
+    public static final LazyLoadBase<LocalEventLoopGroup> CLIENT_LOCAL_EVENTLOOP = new LazyLoadBase<>() {
         protected LocalEventLoopGroup load() {
             return new LocalEventLoopGroup(0, (new ThreadFactoryBuilder()).setNameFormat("Netty Local Client IO #%d").setDaemon(true).build());
         }
@@ -256,7 +256,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
             lazyloadbase = CLIENT_NIO_EVENTLOOP;
         }
 
-        (new Bootstrap()).group(lazyloadbase.getValue()).handler(new ChannelInitializer<Channel>() {
+        (new Bootstrap()).group(lazyloadbase.getValue()).handler(new ChannelInitializer<>() {
             protected void initChannel(Channel p_initChannel_1_) throws Exception {
                 try {
                     p_initChannel_1_.config().setOption(ChannelOption.TCP_NODELAY, Boolean.TRUE);
@@ -271,7 +271,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
 
     public static NetworkManager provideLocalClient(SocketAddress address) {
         final NetworkManager networkmanager = new NetworkManager(EnumPacketDirection.CLIENTBOUND);
-        (new Bootstrap()).group(CLIENT_LOCAL_EVENTLOOP.getValue()).handler(new ChannelInitializer<Channel>() {
+        (new Bootstrap()).group(CLIENT_LOCAL_EVENTLOOP.getValue()).handler(new ChannelInitializer<>() {
             protected void initChannel(Channel p_initChannel_1_) throws Exception {
                 p_initChannel_1_.pipeline().addLast("packet_handler", networkmanager);
             }

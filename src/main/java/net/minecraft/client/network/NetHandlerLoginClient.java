@@ -69,7 +69,7 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
             }
         }
 
-        this.networkManager.sendPacket(new C01PacketEncryptionResponse(secretkey, publickey, packetIn.getVerifyToken()), new GenericFutureListener<Future<? super Void>>() {
+        this.networkManager.sendPacket(new C01PacketEncryptionResponse(secretkey, publickey, packetIn.getVerifyToken()), new GenericFutureListener<>() {
             public void operationComplete(Future<? super Void> p_operationComplete_1_) throws Exception {
                 NetHandlerLoginClient.this.networkManager.enableEncryption(secretkey);
             }

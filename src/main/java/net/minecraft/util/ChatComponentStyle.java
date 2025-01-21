@@ -79,7 +79,7 @@ public abstract class ChatComponentStyle implements IChatComponent {
                 return p_apply_1_.iterator();
             }
         }));
-        iterator = Iterators.transform(iterator, new Function<IChatComponent, IChatComponent>() {
+        iterator = Iterators.transform(iterator, new Function<>() {
             public IChatComponent apply(IChatComponent p_apply_1_) {
                 IChatComponent ichatcomponent = p_apply_1_.createCopy();
                 ichatcomponent.setChatStyle(ichatcomponent.getChatStyle().createDeepCopy());

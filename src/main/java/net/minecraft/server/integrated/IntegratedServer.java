@@ -247,12 +247,12 @@ public class IntegratedServer extends MinecraftServer {
 
     public CrashReport addServerInfoToCrashReport(CrashReport report) {
         report = super.addServerInfoToCrashReport(report);
-        report.getCategory().addCrashSectionCallable("Type", new Callable<String>() {
+        report.getCategory().addCrashSectionCallable("Type", new Callable<>() {
             public String call() throws Exception {
                 return "Integrated Server (map_client.txt)";
             }
         });
-        report.getCategory().addCrashSectionCallable("Is Modded", new Callable<String>() {
+        report.getCategory().addCrashSectionCallable("Is Modded", new Callable<>() {
             public String call() throws Exception {
                 String s = ClientBrandRetriever.getClientModName();
 

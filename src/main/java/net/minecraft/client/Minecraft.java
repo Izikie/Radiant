@@ -1140,7 +1140,7 @@ public class Minecraft implements IThreadListener {
             } catch (Throwable throwable1) {
                 CrashReport crashreport = CrashReport.makeCrashReport(throwable1, "Updating screen events");
                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Affected screen");
-                crashreportcategory.addCrashSectionCallable("Screen name", new Callable<String>() {
+                crashreportcategory.addCrashSectionCallable("Screen name", new Callable<>() {
                     public String call() throws Exception {
                         return Minecraft.this.currentScreen.getClass().getCanonicalName();
                     }
@@ -1154,7 +1154,7 @@ public class Minecraft implements IThreadListener {
                 } catch (Throwable throwable) {
                     CrashReport crashreport1 = CrashReport.makeCrashReport(throwable, "Ticking screen");
                     CrashReportCategory crashreportcategory1 = crashreport1.makeCategory("Affected screen");
-                    crashreportcategory1.addCrashSectionCallable("Screen name", new Callable<String>() {
+                    crashreportcategory1.addCrashSectionCallable("Screen name", new Callable<>() {
                         public String call() throws Exception {
                             return Minecraft.this.currentScreen.getClass().getCanonicalName();
                         }
@@ -1745,43 +1745,43 @@ public class Minecraft implements IThreadListener {
     }
 
     public CrashReport addGraphicsAndWorldToCrashReport(CrashReport theCrash) {
-        theCrash.getCategory().addCrashSectionCallable("Launched Version", new Callable<String>() {
+        theCrash.getCategory().addCrashSectionCallable("Launched Version", new Callable<>() {
             public String call() throws Exception {
                 return Minecraft.this.launchedVersion;
             }
         });
-        theCrash.getCategory().addCrashSectionCallable("LWJGL", new Callable<String>() {
+        theCrash.getCategory().addCrashSectionCallable("LWJGL", new Callable<>() {
             public String call() {
                 return Sys.getVersion();
             }
         });
-        theCrash.getCategory().addCrashSectionCallable("OpenGL", new Callable<String>() {
+        theCrash.getCategory().addCrashSectionCallable("OpenGL", new Callable<>() {
             public String call() {
                 return GL11.glGetString(GL11.GL_RENDERER) + " GL version " + GL11.glGetString(GL11.GL_VERSION) + ", " + GL11.glGetString(GL11.GL_VENDOR);
             }
         });
-        theCrash.getCategory().addCrashSectionCallable("GL Caps", new Callable<String>() {
+        theCrash.getCategory().addCrashSectionCallable("GL Caps", new Callable<>() {
             public String call() {
                 return OpenGlHelper.getLogText();
             }
         });
-        theCrash.getCategory().addCrashSectionCallable("Using VBOs", new Callable<String>() {
+        theCrash.getCategory().addCrashSectionCallable("Using VBOs", new Callable<>() {
             public String call() {
                 return Minecraft.this.gameSettings.useVbo ? "Yes" : "No";
             }
         });
-        theCrash.getCategory().addCrashSectionCallable("Is Modded", new Callable<String>() {
+        theCrash.getCategory().addCrashSectionCallable("Is Modded", new Callable<>() {
             public String call() throws Exception {
                 String s = ClientBrandRetriever.getClientModName();
                 return !s.equals("vanilla") ? "Definitely; Client brand changed to '" + s + "'" : (Minecraft.class.getSigners() == null ? "Very likely; Jar signature invalidated" : "Probably not. Jar signature remains and client brand is untouched.");
             }
         });
-        theCrash.getCategory().addCrashSectionCallable("Type", new Callable<String>() {
+        theCrash.getCategory().addCrashSectionCallable("Type", new Callable<>() {
             public String call() throws Exception {
                 return "Client (map_client.txt)";
             }
         });
-        theCrash.getCategory().addCrashSectionCallable("Resource Packs", new Callable<String>() {
+        theCrash.getCategory().addCrashSectionCallable("Resource Packs", new Callable<>() {
             public String call() throws Exception {
                 StringBuilder stringbuilder = new StringBuilder();
 
@@ -1800,7 +1800,7 @@ public class Minecraft implements IThreadListener {
                 return stringbuilder.toString();
             }
         });
-        theCrash.getCategory().addCrashSectionCallable("Current Language", new Callable<String>() {
+        theCrash.getCategory().addCrashSectionCallable("Current Language", new Callable<>() {
             public String call() throws Exception {
                 return Minecraft.this.mcLanguageManager.getCurrentLanguage().toString();
             }

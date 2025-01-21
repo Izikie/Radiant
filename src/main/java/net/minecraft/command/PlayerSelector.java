@@ -143,7 +143,7 @@ public class PlayerSelector {
 
         if ((s == null || !p_179663_1_.equals("e")) && !flag2) {
             if (flag1) {
-                list.add(new Predicate<Entity>() {
+                list.add(new Predicate<>() {
                     public boolean apply(Entity p_apply_1_) {
                         return p_apply_1_ instanceof EntityPlayer;
                     }
@@ -151,7 +151,7 @@ public class PlayerSelector {
             }
         } else {
             final String s_f = s;
-            list.add(new Predicate<Entity>() {
+            list.add(new Predicate<>() {
                 public boolean apply(Entity p_apply_1_) {
                     return EntityList.isStringEntityName(p_apply_1_, s_f) != flag;
                 }
@@ -167,7 +167,7 @@ public class PlayerSelector {
         final int j = parseIntWithDefault(p_179648_0_, "l", -1);
 
         if (i > -1 || j > -1) {
-            list.add(new Predicate<Entity>() {
+            list.add(new Predicate<>() {
                 public boolean apply(Entity p_apply_1_) {
                     if (!(p_apply_1_ instanceof EntityPlayerMP entityplayermp)) {
                         return false;
@@ -186,7 +186,7 @@ public class PlayerSelector {
         final int i = parseIntWithDefault(p_179649_0_, "m", WorldSettings.GameType.NOT_SET.getID());
 
         if (i != WorldSettings.GameType.NOT_SET.getID()) {
-            list.add(new Predicate<Entity>() {
+            list.add(new Predicate<>() {
                 public boolean apply(Entity p_apply_1_) {
                     if (!(p_apply_1_ instanceof EntityPlayerMP entityplayermp)) {
                         return false;
@@ -211,7 +211,7 @@ public class PlayerSelector {
 
         if (s != null) {
             final String s_f = s;
-            list.add(new Predicate<Entity>() {
+            list.add(new Predicate<>() {
                 public boolean apply(Entity p_apply_1_) {
                     if (!(p_apply_1_ instanceof EntityLivingBase entitylivingbase)) {
                         return false;
@@ -232,7 +232,7 @@ public class PlayerSelector {
         final Map<String, Integer> map = func_96560_a(p_179657_0_);
 
         if (map != null && !map.isEmpty()) {
-            list.add(new Predicate<Entity>() {
+            list.add(new Predicate<>() {
                 public boolean apply(Entity p_apply_1_) {
                     Scoreboard scoreboard = MinecraftServer.getServer().worldServerForDimension(0).getScoreboard();
 
@@ -288,7 +288,7 @@ public class PlayerSelector {
 
         if (s != null) {
             final String s_f = s;
-            list.add(new Predicate<Entity>() {
+            list.add(new Predicate<>() {
                 public boolean apply(Entity p_apply_1_) {
                     return p_apply_1_.getName().equals(s_f) != flag;
                 }
@@ -306,7 +306,7 @@ public class PlayerSelector {
         if (p_180698_1_ != null && (i >= 0 || j >= 0)) {
             final int k = i * i;
             final int l = j * j;
-            list.add(new Predicate<Entity>() {
+            list.add(new Predicate<>() {
                 public boolean apply(Entity p_apply_1_) {
                     int i1 = (int) p_apply_1_.getDistanceSqToCenter(p_180698_1_);
                     return (i < 0 || i1 >= k) && (j < 0 || i1 <= l);
@@ -323,7 +323,7 @@ public class PlayerSelector {
         if (p_179662_0_.containsKey("rym") || p_179662_0_.containsKey("ry")) {
             final int i = func_179650_a(parseIntWithDefault(p_179662_0_, "rym", 0));
             final int j = func_179650_a(parseIntWithDefault(p_179662_0_, "ry", 359));
-            list.add(new Predicate<Entity>() {
+            list.add(new Predicate<>() {
                 public boolean apply(Entity p_apply_1_) {
                     int i1 = PlayerSelector.func_179650_a((int) Math.floor(p_apply_1_.rotationYaw));
                     return i > j ? i1 >= i || i1 <= j : i1 >= i && i1 <= j;
@@ -334,7 +334,7 @@ public class PlayerSelector {
         if (p_179662_0_.containsKey("rxm") || p_179662_0_.containsKey("rx")) {
             final int k = func_179650_a(parseIntWithDefault(p_179662_0_, "rxm", 0));
             final int l = func_179650_a(parseIntWithDefault(p_179662_0_, "rx", 359));
-            list.add(new Predicate<Entity>() {
+            list.add(new Predicate<>() {
                 public boolean apply(Entity p_apply_1_) {
                     int i1 = PlayerSelector.func_179650_a((int) Math.floor(p_apply_1_.rotationPitch));
                     return k > l ? i1 >= k || i1 <= l : i1 >= k && i1 <= l;
@@ -383,7 +383,7 @@ public class PlayerSelector {
                 final AxisAlignedBB axisalignedbb = func_179661_a(position, i, j, k);
 
                 if (flag && flag2 && !flag1) {
-                    Predicate<Entity> predicate2 = new Predicate<Entity>() {
+                    Predicate<Entity> predicate2 = new Predicate<>() {
                         public boolean apply(Entity p_apply_1_) {
                             return p_apply_1_.posX >= axisalignedbb.minX && p_apply_1_.posY >= axisalignedbb.minY && p_apply_1_.posZ >= axisalignedbb.minZ ? p_apply_1_.posX < axisalignedbb.maxX && p_apply_1_.posY < axisalignedbb.maxY && p_apply_1_.posZ < axisalignedbb.maxZ : false;
                         }

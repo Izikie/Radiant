@@ -116,7 +116,7 @@ public class ChunkRenderWorker implements Runnable {
                     listenablefuture.cancel(false);
                 }
             });
-            Futures.addCallback(listenablefuture, new FutureCallback<List<Object>>() {
+            Futures.addCallback(listenablefuture, new FutureCallback<>() {
                 public void onSuccess(List<Object> p_onSuccess_1_) {
                     ChunkRenderWorker.this.freeRenderBuilder(generator);
                     generator.getLock().lock();

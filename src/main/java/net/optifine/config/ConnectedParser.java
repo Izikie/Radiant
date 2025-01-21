@@ -33,12 +33,12 @@ public class ConnectedParser {
     private final String context;
     public static final VillagerProfession[] PROFESSIONS_INVALID = new VillagerProfession[0];
     public static final EnumDyeColor[] DYE_COLORS_INVALID = new EnumDyeColor[0];
-    private static final INameGetter<Enum> NAME_GETTER_ENUM = new INameGetter<Enum>() {
+    private static final INameGetter<Enum> NAME_GETTER_ENUM = new INameGetter<>() {
         public String getName(Enum en) {
             return en.name();
         }
     };
-    private static final INameGetter<EnumDyeColor> NAME_GETTER_DYE_COLOR = new INameGetter<EnumDyeColor>() {
+    private static final INameGetter<EnumDyeColor> NAME_GETTER_DYE_COLOR = new INameGetter<>() {
         public String getName(EnumDyeColor col) {
             return col.getName();
         }

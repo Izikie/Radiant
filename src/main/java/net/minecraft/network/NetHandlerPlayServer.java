@@ -152,7 +152,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 
     public void kickPlayerFromServer(String reason) {
         final ChatComponentText chatcomponenttext = new ChatComponentText(reason);
-        this.netManager.sendPacket(new S40PacketDisconnect(chatcomponenttext), new GenericFutureListener<Future<? super Void>>() {
+        this.netManager.sendPacket(new S40PacketDisconnect(chatcomponenttext), new GenericFutureListener<>() {
             public void operationComplete(Future<? super Void> p_operationComplete_1_) throws Exception {
                 NetHandlerPlayServer.this.netManager.closeChannel(chatcomponenttext);
             }
@@ -602,7 +602,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         } catch (Throwable throwable) {
             CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Sending packet");
             CrashReportCategory crashreportcategory = crashreport.makeCategory("Packet being sent");
-            crashreportcategory.addCrashSectionCallable("Packet class", new Callable<String>() {
+            crashreportcategory.addCrashSectionCallable("Packet class", new Callable<>() {
                 public String call() throws Exception {
                     return packetIn.getClass().getCanonicalName();
                 }

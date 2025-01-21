@@ -147,12 +147,12 @@ public abstract class GenLayer {
                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Biomes being compared");
                 crashreportcategory.addCrashSection("Biome A ID", biomeIDA);
                 crashreportcategory.addCrashSection("Biome B ID", biomeIDB);
-                crashreportcategory.addCrashSectionCallable("Biome A", new Callable<String>() {
+                crashreportcategory.addCrashSectionCallable("Biome A", new Callable<>() {
                     public String call() throws Exception {
                         return String.valueOf(biomegenbase);
                     }
                 });
-                crashreportcategory.addCrashSectionCallable("Biome B", new Callable<String>() {
+                crashreportcategory.addCrashSectionCallable("Biome B", new Callable<>() {
                     public String call() throws Exception {
                         return String.valueOf(biomegenbase1);
                     }

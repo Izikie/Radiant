@@ -21,7 +21,7 @@ import net.minecraft.util.MapPopulator;
 
 public class BlockState {
     private static final Joiner COMMA_JOINER = Joiner.on(", ");
-    private static final Function<IProperty, String> GET_NAME_FUNC = new Function<IProperty, String>() {
+    private static final Function<IProperty, String> GET_NAME_FUNC = new Function<>() {
         public String apply(IProperty p_apply_1_) {
             return p_apply_1_ == null ? "<NULL>" : p_apply_1_.getName();
         }
@@ -32,7 +32,7 @@ public class BlockState {
 
     public BlockState(Block blockIn, IProperty... properties) {
         this.block = blockIn;
-        Arrays.sort(properties, new Comparator<IProperty>() {
+        Arrays.sort(properties, new Comparator<>() {
             public int compare(IProperty p_compare_1_, IProperty p_compare_2_) {
                 return p_compare_1_.getName().compareTo(p_compare_2_.getName());
             }

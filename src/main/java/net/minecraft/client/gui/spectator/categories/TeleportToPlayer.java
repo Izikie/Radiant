@@ -21,7 +21,7 @@ import net.minecraft.util.IChatComponent;
 import net.minecraft.world.WorldSettings;
 
 public class TeleportToPlayer implements ISpectatorMenuView, ISpectatorMenuObject {
-    private static final Ordering<NetworkPlayerInfo> field_178674_a = Ordering.from(new Comparator<NetworkPlayerInfo>() {
+    private static final Ordering<NetworkPlayerInfo> field_178674_a = Ordering.from(new Comparator<>() {
         public int compare(NetworkPlayerInfo p_compare_1_, NetworkPlayerInfo p_compare_2_) {
             return ComparisonChain.start().compare(p_compare_1_.getGameProfile().getId(), p_compare_2_.getGameProfile().getId()).result();
         }

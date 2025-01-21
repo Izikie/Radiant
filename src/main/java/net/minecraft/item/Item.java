@@ -309,30 +309,30 @@ public class Item {
     }
 
     public static void registerItems() {
-        registerItemBlock(Blocks.stone, (new ItemMultiTexture(Blocks.stone, Blocks.stone, new Function<ItemStack, String>() {
+        registerItemBlock(Blocks.stone, (new ItemMultiTexture(Blocks.stone, Blocks.stone, new Function<>() {
             public String apply(ItemStack p_apply_1_) {
                 return BlockStone.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName();
             }
         })).setUnlocalizedName("stone"));
         registerItemBlock(Blocks.grass, new ItemColored(Blocks.grass, false));
-        registerItemBlock(Blocks.dirt, (new ItemMultiTexture(Blocks.dirt, Blocks.dirt, new Function<ItemStack, String>() {
+        registerItemBlock(Blocks.dirt, (new ItemMultiTexture(Blocks.dirt, Blocks.dirt, new Function<>() {
             public String apply(ItemStack p_apply_1_) {
                 return BlockDirt.DirtType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName();
             }
         })).setUnlocalizedName("dirt"));
         registerItemBlock(Blocks.cobblestone);
-        registerItemBlock(Blocks.planks, (new ItemMultiTexture(Blocks.planks, Blocks.planks, new Function<ItemStack, String>() {
+        registerItemBlock(Blocks.planks, (new ItemMultiTexture(Blocks.planks, Blocks.planks, new Function<>() {
             public String apply(ItemStack p_apply_1_) {
                 return BlockPlanks.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName();
             }
         })).setUnlocalizedName("wood"));
-        registerItemBlock(Blocks.sapling, (new ItemMultiTexture(Blocks.sapling, Blocks.sapling, new Function<ItemStack, String>() {
+        registerItemBlock(Blocks.sapling, (new ItemMultiTexture(Blocks.sapling, Blocks.sapling, new Function<>() {
             public String apply(ItemStack p_apply_1_) {
                 return BlockPlanks.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName();
             }
         })).setUnlocalizedName("sapling"));
         registerItemBlock(Blocks.bedrock);
-        registerItemBlock(Blocks.sand, (new ItemMultiTexture(Blocks.sand, Blocks.sand, new Function<ItemStack, String>() {
+        registerItemBlock(Blocks.sand, (new ItemMultiTexture(Blocks.sand, Blocks.sand, new Function<>() {
             public String apply(ItemStack p_apply_1_) {
                 return BlockSand.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName();
             }
@@ -341,19 +341,19 @@ public class Item {
         registerItemBlock(Blocks.gold_ore);
         registerItemBlock(Blocks.iron_ore);
         registerItemBlock(Blocks.coal_ore);
-        registerItemBlock(Blocks.log, (new ItemMultiTexture(Blocks.log, Blocks.log, new Function<ItemStack, String>() {
+        registerItemBlock(Blocks.log, (new ItemMultiTexture(Blocks.log, Blocks.log, new Function<>() {
             public String apply(ItemStack p_apply_1_) {
                 return BlockPlanks.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName();
             }
         })).setUnlocalizedName("log"));
-        registerItemBlock(Blocks.log2, (new ItemMultiTexture(Blocks.log2, Blocks.log2, new Function<ItemStack, String>() {
+        registerItemBlock(Blocks.log2, (new ItemMultiTexture(Blocks.log2, Blocks.log2, new Function<>() {
             public String apply(ItemStack p_apply_1_) {
                 return BlockPlanks.EnumType.byMetadata(p_apply_1_.getMetadata() + 4).getUnlocalizedName();
             }
         })).setUnlocalizedName("log"));
         registerItemBlock(Blocks.leaves, (new ItemLeaves(Blocks.leaves)).setUnlocalizedName("leaves"));
         registerItemBlock(Blocks.leaves2, (new ItemLeaves(Blocks.leaves2)).setUnlocalizedName("leaves"));
-        registerItemBlock(Blocks.sponge, (new ItemMultiTexture(Blocks.sponge, Blocks.sponge, new Function<ItemStack, String>() {
+        registerItemBlock(Blocks.sponge, (new ItemMultiTexture(Blocks.sponge, Blocks.sponge, new Function<>() {
             public String apply(ItemStack p_apply_1_) {
                 return (p_apply_1_.getMetadata() & 1) == 1 ? "wet" : "dry";
             }
@@ -362,7 +362,7 @@ public class Item {
         registerItemBlock(Blocks.lapis_ore);
         registerItemBlock(Blocks.lapis_block);
         registerItemBlock(Blocks.dispenser);
-        registerItemBlock(Blocks.sandstone, (new ItemMultiTexture(Blocks.sandstone, Blocks.sandstone, new Function<ItemStack, String>() {
+        registerItemBlock(Blocks.sandstone, (new ItemMultiTexture(Blocks.sandstone, Blocks.sandstone, new Function<>() {
             public String apply(ItemStack p_apply_1_) {
                 return BlockSandStone.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName();
             }
@@ -376,12 +376,12 @@ public class Item {
         registerItemBlock(Blocks.deadbush);
         registerItemBlock(Blocks.piston, new ItemPiston(Blocks.piston));
         registerItemBlock(Blocks.wool, (new ItemCloth(Blocks.wool)).setUnlocalizedName("cloth"));
-        registerItemBlock(Blocks.yellow_flower, (new ItemMultiTexture(Blocks.yellow_flower, Blocks.yellow_flower, new Function<ItemStack, String>() {
+        registerItemBlock(Blocks.yellow_flower, (new ItemMultiTexture(Blocks.yellow_flower, Blocks.yellow_flower, new Function<>() {
             public String apply(ItemStack p_apply_1_) {
                 return BlockFlower.EnumFlowerType.getType(BlockFlower.EnumFlowerColor.YELLOW, p_apply_1_.getMetadata()).getUnlocalizedName();
             }
         })).setUnlocalizedName("flower"));
-        registerItemBlock(Blocks.red_flower, (new ItemMultiTexture(Blocks.red_flower, Blocks.red_flower, new Function<ItemStack, String>() {
+        registerItemBlock(Blocks.red_flower, (new ItemMultiTexture(Blocks.red_flower, Blocks.red_flower, new Function<>() {
             public String apply(ItemStack p_apply_1_) {
                 return BlockFlower.EnumFlowerType.getType(BlockFlower.EnumFlowerColor.RED, p_apply_1_.getMetadata()).getUnlocalizedName();
             }
@@ -433,12 +433,12 @@ public class Item {
         registerItemBlock(Blocks.glowstone);
         registerItemBlock(Blocks.lit_pumpkin);
         registerItemBlock(Blocks.trapdoor);
-        registerItemBlock(Blocks.monster_egg, (new ItemMultiTexture(Blocks.monster_egg, Blocks.monster_egg, new Function<ItemStack, String>() {
+        registerItemBlock(Blocks.monster_egg, (new ItemMultiTexture(Blocks.monster_egg, Blocks.monster_egg, new Function<>() {
             public String apply(ItemStack p_apply_1_) {
                 return BlockSilverfish.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName();
             }
         })).setUnlocalizedName("monsterStoneEgg"));
-        registerItemBlock(Blocks.stonebrick, (new ItemMultiTexture(Blocks.stonebrick, Blocks.stonebrick, new Function<ItemStack, String>() {
+        registerItemBlock(Blocks.stonebrick, (new ItemMultiTexture(Blocks.stonebrick, Blocks.stonebrick, new Function<>() {
             public String apply(ItemStack p_apply_1_) {
                 return BlockStoneBrick.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName();
             }
@@ -478,7 +478,7 @@ public class Item {
         registerItemBlock(Blocks.jungle_stairs);
         registerItemBlock(Blocks.command_block);
         registerItemBlock(Blocks.beacon);
-        registerItemBlock(Blocks.cobblestone_wall, (new ItemMultiTexture(Blocks.cobblestone_wall, Blocks.cobblestone_wall, new Function<ItemStack, String>() {
+        registerItemBlock(Blocks.cobblestone_wall, (new ItemMultiTexture(Blocks.cobblestone_wall, Blocks.cobblestone_wall, new Function<>() {
             public String apply(ItemStack p_apply_1_) {
                 return BlockWall.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName();
             }
@@ -507,20 +507,20 @@ public class Item {
         registerItemBlock(Blocks.acacia_stairs);
         registerItemBlock(Blocks.dark_oak_stairs);
         registerItemBlock(Blocks.slime_block);
-        registerItemBlock(Blocks.double_plant, (new ItemDoublePlant(Blocks.double_plant, Blocks.double_plant, new Function<ItemStack, String>() {
+        registerItemBlock(Blocks.double_plant, (new ItemDoublePlant(Blocks.double_plant, Blocks.double_plant, new Function<>() {
             public String apply(ItemStack p_apply_1_) {
                 return BlockDoublePlant.EnumPlantType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName();
             }
         })).setUnlocalizedName("doublePlant"));
         registerItemBlock(Blocks.stained_glass, (new ItemCloth(Blocks.stained_glass)).setUnlocalizedName("stainedGlass"));
         registerItemBlock(Blocks.stained_glass_pane, (new ItemCloth(Blocks.stained_glass_pane)).setUnlocalizedName("stainedGlassPane"));
-        registerItemBlock(Blocks.prismarine, (new ItemMultiTexture(Blocks.prismarine, Blocks.prismarine, new Function<ItemStack, String>() {
+        registerItemBlock(Blocks.prismarine, (new ItemMultiTexture(Blocks.prismarine, Blocks.prismarine, new Function<>() {
             public String apply(ItemStack p_apply_1_) {
                 return BlockPrismarine.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName();
             }
         })).setUnlocalizedName("prismarine"));
         registerItemBlock(Blocks.sea_lantern);
-        registerItemBlock(Blocks.red_sandstone, (new ItemMultiTexture(Blocks.red_sandstone, Blocks.red_sandstone, new Function<ItemStack, String>() {
+        registerItemBlock(Blocks.red_sandstone, (new ItemMultiTexture(Blocks.red_sandstone, Blocks.red_sandstone, new Function<>() {
             public String apply(ItemStack p_apply_1_) {
                 return BlockRedSandstone.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName();
             }

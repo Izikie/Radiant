@@ -363,7 +363,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
                 }
             }
 
-            this.statSorter = new Comparator<StatCrafting>() {
+            this.statSorter = new Comparator<>() {
                 public int compare(StatCrafting p_compare_1_, StatCrafting p_compare_2_) {
                     int j = Item.getIdFromItem(p_compare_1_.func_150959_a());
                     int k = Item.getIdFromItem(p_compare_2_.func_150959_a());
@@ -495,7 +495,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
                 }
             }
 
-            this.statSorter = new Comparator<StatCrafting>() {
+            this.statSorter = new Comparator<>() {
                 public int compare(StatCrafting p_compare_1_, StatCrafting p_compare_2_) {
                     int j = Item.getIdFromItem(p_compare_1_.func_150959_a());
                     int k = Item.getIdFromItem(p_compare_2_.func_150959_a());

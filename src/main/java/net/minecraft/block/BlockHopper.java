@@ -28,7 +28,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockHopper extends BlockContainer {
-    public static final PropertyDirection FACING = PropertyDirection.create("facing", new Predicate<EnumFacing>() {
+    public static final PropertyDirection FACING = PropertyDirection.create("facing", new Predicate<>() {
         public boolean apply(EnumFacing p_apply_1_) {
             return p_apply_1_ != EnumFacing.UP;
         }

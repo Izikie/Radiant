@@ -127,9 +127,9 @@ public class BlockPos extends Vec3i {
     public static Iterable<BlockPos> getAllInBox(BlockPos from, BlockPos to) {
         final BlockPos blockpos = new BlockPos(Math.min(from.getX(), to.getX()), Math.min(from.getY(), to.getY()), Math.min(from.getZ(), to.getZ()));
         final BlockPos blockpos1 = new BlockPos(Math.max(from.getX(), to.getX()), Math.max(from.getY(), to.getY()), Math.max(from.getZ(), to.getZ()));
-        return new Iterable<BlockPos>() {
+        return new Iterable<>() {
             public Iterator<BlockPos> iterator() {
-                return new AbstractIterator<BlockPos>() {
+                return new AbstractIterator<>() {
                     private BlockPos lastReturned = null;
 
                     protected BlockPos computeNext() {
@@ -166,9 +166,9 @@ public class BlockPos extends Vec3i {
     public static Iterable<BlockPos.MutableBlockPos> getAllInBoxMutable(BlockPos from, BlockPos to) {
         final BlockPos blockpos = new BlockPos(Math.min(from.getX(), to.getX()), Math.min(from.getY(), to.getY()), Math.min(from.getZ(), to.getZ()));
         final BlockPos blockpos1 = new BlockPos(Math.max(from.getX(), to.getX()), Math.max(from.getY(), to.getY()), Math.max(from.getZ(), to.getZ()));
-        return new Iterable<BlockPos.MutableBlockPos>() {
+        return new Iterable<>() {
             public Iterator<BlockPos.MutableBlockPos> iterator() {
-                return new AbstractIterator<BlockPos.MutableBlockPos>() {
+                return new AbstractIterator<>() {
                     private BlockPos.MutableBlockPos theBlockPos = null;
 
                     protected BlockPos.MutableBlockPos computeNext() {

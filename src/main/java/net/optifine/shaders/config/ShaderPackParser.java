@@ -67,7 +67,7 @@ public class ShaderPackParser {
 
             Collection<ShaderOption> collection = map.values();
             ShaderOption[] ashaderoption = collection.toArray(new ShaderOption[collection.size()]);
-            Comparator<ShaderOption> comparator = new Comparator<ShaderOption>() {
+            Comparator<ShaderOption> comparator = new Comparator<>() {
                 public int compare(ShaderOption o1, ShaderOption o2) {
                     return o1.getName().compareToIgnoreCase(o2.getName());
                 }

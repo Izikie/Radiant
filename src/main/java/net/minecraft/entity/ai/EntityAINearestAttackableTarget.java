@@ -34,7 +34,7 @@ public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends
         this.targetChance = chance;
         this.theNearestAttackableTargetSorter = new EntityAINearestAttackableTarget.Sorter(creature);
         this.setMutexBits(1);
-        this.targetEntitySelector = new Predicate<T>() {
+        this.targetEntitySelector = new Predicate<>() {
             public boolean apply(T p_apply_1_) {
                 if (targetSelector != null && !targetSelector.apply(p_apply_1_)) {
                     return false;

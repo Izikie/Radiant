@@ -322,7 +322,7 @@ public class EntityGuardian extends EntityMob {
             if ((this.ticksExisted + this.getEntityId()) % 1200 == 0) {
                 Potion potion = Potion.digSlowdown;
 
-                for (EntityPlayerMP entityplayermp : this.worldObj.getPlayers(EntityPlayerMP.class, new Predicate<EntityPlayerMP>() {
+                for (EntityPlayerMP entityplayermp : this.worldObj.getPlayers(EntityPlayerMP.class, new Predicate<>() {
                     public boolean apply(EntityPlayerMP p_apply_1_) {
                         return EntityGuardian.this.getDistanceSqToEntity(p_apply_1_) < 2500.0D && p_apply_1_.theItemInWorldManager.survivalOrAdventure();
                     }
