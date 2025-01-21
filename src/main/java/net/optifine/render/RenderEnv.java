@@ -103,7 +103,7 @@ public class RenderEnv {
 
     public boolean isBreakingAnimation(List listQuads) {
         if (this.breakingAnimation == -1 && !listQuads.isEmpty()) {
-            if (listQuads.get(0) instanceof BreakingFour) {
+            if (listQuads.getFirst() instanceof BreakingFour) {
                 this.breakingAnimation = 1;
             } else {
                 this.breakingAnimation = 0;

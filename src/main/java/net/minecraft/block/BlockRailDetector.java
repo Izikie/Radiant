@@ -113,13 +113,13 @@ public class BlockRailDetector extends BlockRailBase {
             List<EntityMinecartCommandBlock> list = this.findMinecarts(worldIn, pos, EntityMinecartCommandBlock.class);
 
             if (!list.isEmpty()) {
-                return list.get(0).getCommandBlockLogic().getSuccessCount();
+                return list.getFirst().getCommandBlockLogic().getSuccessCount();
             }
 
             List<EntityMinecart> list1 = this.findMinecarts(worldIn, pos, EntityMinecart.class, EntitySelectors.selectInventories);
 
             if (!list1.isEmpty()) {
-                return Container.calcRedstoneFromInventory((IInventory) list1.get(0));
+                return Container.calcRedstoneFromInventory((IInventory) list1.getFirst());
             }
         }
 

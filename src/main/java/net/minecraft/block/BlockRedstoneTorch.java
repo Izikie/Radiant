@@ -89,8 +89,8 @@ public class BlockRedstoneTorch extends BlockTorch {
         boolean flag = this.shouldBeOff(worldIn, pos, state);
         List<BlockRedstoneTorch.Toggle> list = toggles.get(worldIn);
 
-        while (list != null && !list.isEmpty() && worldIn.getTotalWorldTime() - list.get(0).time > 60L) {
-            list.remove(0);
+        while (list != null && !list.isEmpty() && worldIn.getTotalWorldTime() - list.getFirst().time > 60L) {
+            list.removeFirst();
         }
 
         if (this.isOn) {

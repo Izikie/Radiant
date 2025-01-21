@@ -98,7 +98,7 @@ public class ExpressionParser {
         if (listExpr.size() != listFunc.size() + 1) {
             throw new ParseException("Invalid infix expression, expressions: " + listExpr.size() + ", operators: " + listFunc.size());
         } else if (listExpr.size() == 1) {
-            return listExpr.get(0);
+            return listExpr.getFirst();
         } else {
             int i = Integer.MAX_VALUE;
             int j = Integer.MIN_VALUE;
@@ -114,7 +114,7 @@ public class ExpressionParser {
                 }
 
                 if (listExpr.size() == 1 && listFunc.isEmpty()) {
-                    return listExpr.get(0);
+                    return listExpr.getFirst();
                 } else {
                     throw new ParseException("Error merging operators, expressions: " + listExpr.size() + ", operators: " + listFunc.size());
                 }

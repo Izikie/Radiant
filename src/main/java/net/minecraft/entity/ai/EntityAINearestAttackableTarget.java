@@ -76,7 +76,7 @@ public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends
             if (list.isEmpty()) {
                 return false;
             } else {
-                this.targetEntity = list.get(0);
+                this.targetEntity = list.getFirst();
                 return true;
             }
         }

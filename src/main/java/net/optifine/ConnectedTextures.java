@@ -1452,7 +1452,7 @@ public class ConnectedTextures {
                 }
 
                 if (!list.isEmpty()) {
-                    BakedQuad bakedquad1 = (BakedQuad) list.get(0);
+                    BakedQuad bakedquad1 = (BakedQuad) list.getFirst();
                     return bakedquad1.getSprite();
                 } else {
                     List list1 = ibakedmodel.getGeneralQuads();

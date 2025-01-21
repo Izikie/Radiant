@@ -62,7 +62,7 @@ public class BlockState {
     }
 
     public IBlockState getBaseState() {
-        return this.validStates.get(0);
+        return this.validStates.getFirst();
     }
 
     public Block getBlock() {

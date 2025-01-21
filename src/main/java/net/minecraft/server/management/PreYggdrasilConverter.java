@@ -59,7 +59,7 @@ public class PreYggdrasilConverter {
                     }
                 };
                 lookupNames(minecraftserver, Lists.newArrayList(p_152719_0_), profilelookupcallback);
-                return !list.isEmpty() && list.get(0).getId() != null ? list.get(0).getId().toString() : "";
+                return !list.isEmpty() && list.getFirst().getId() != null ? list.getFirst().getId().toString() : "";
             } else {
                 return EntityPlayer.getUUID(new GameProfile(null, p_152719_0_)).toString();
             }

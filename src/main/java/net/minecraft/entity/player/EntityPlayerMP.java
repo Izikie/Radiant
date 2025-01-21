@@ -250,7 +250,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
 
             if (!list.isEmpty()) {
                 if (list.size() == 1) {
-                    this.playerNetServerHandler.sendPacket(new S21PacketChunkData(list.get(0), true, 65535));
+                    this.playerNetServerHandler.sendPacket(new S21PacketChunkData(list.getFirst(), true, 65535));
                 } else {
                     this.playerNetServerHandler.sendPacket(new S26PacketMapChunkBulk(list));
                 }

@@ -205,7 +205,7 @@ public class ShaderGroup {
     private void initUniform(JsonElement p_148028_1_) throws JsonException {
         JsonObject jsonobject = JsonUtils.getJsonObject(p_148028_1_, "uniform");
         String s = JsonUtils.getString(jsonobject, "name");
-        ShaderUniform shaderuniform = this.listShaders.get(this.listShaders.size() - 1).getShaderManager().getShaderUniform(s);
+        ShaderUniform shaderuniform = this.listShaders.getLast().getShaderManager().getShaderUniform(s);
 
         if (shaderuniform == null) {
             throw new JsonException("Uniform '" + s + "' does not exist");

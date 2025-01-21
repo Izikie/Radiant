@@ -344,7 +344,7 @@ public class EntityEnderman extends EntityMob {
             if (list.isEmpty()) {
                 return false;
             } else {
-                this.player = list.get(0);
+                this.player = list.getFirst();
                 return true;
             }
         }

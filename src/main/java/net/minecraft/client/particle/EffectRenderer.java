@@ -129,7 +129,7 @@ public class EffectRenderer {
                 int j = effect.getAlpha() != 1.0F ? 0 : 1;
 
                 if (this.fxLayers[i][j].size() >= 4000) {
-                    this.fxLayers[i][j].remove(0);
+                    this.fxLayers[i][j].removeFirst();
                 }
 
                 this.fxLayers[i][j].add(effect);

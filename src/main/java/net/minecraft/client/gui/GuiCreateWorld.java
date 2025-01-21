@@ -319,10 +319,10 @@ public class GuiCreateWorld extends GuiScreen {
         }
 
         if (keyCode == 28 || keyCode == 156) {
-            this.actionPerformed(this.buttonList.get(0));
+            this.actionPerformed(this.buttonList.getFirst());
         }
 
-        this.buttonList.get(0).enabled = !this.worldNameField.getText().isEmpty();
+        this.buttonList.getFirst().enabled = !this.worldNameField.getText().isEmpty();
         this.calcSaveDirName();
     }
 

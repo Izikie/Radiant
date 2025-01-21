@@ -135,9 +135,9 @@ public class HttpPipelineConnection {
         this.onActivity();
 
         if (remove) {
-            return list.remove(0);
+            return list.removeFirst();
         } else {
-            return list.get(0);
+            return list.getFirst();
         }
     }
 
@@ -172,8 +172,8 @@ public class HttpPipelineConnection {
             this.responseReceived = true;
             this.onActivity();
 
-            if (!this.listRequests.isEmpty() && this.listRequests.get(0) == pr) {
-                this.listRequests.remove(0);
+            if (!this.listRequests.isEmpty() && this.listRequests.getFirst() == pr) {
+                this.listRequests.removeFirst();
                 pr.setClosed(true);
                 String s = resp.getHeader("Location");
 
@@ -306,13 +306,13 @@ public class HttpPipelineConnection {
     private void terminateRequests(Exception e) {
         if (!this.listRequests.isEmpty()) {
             if (!this.responseReceived) {
-                HttpPipelineRequest httppipelinerequest = this.listRequests.remove(0);
+                HttpPipelineRequest httppipelinerequest = this.listRequests.removeFirst();
                 httppipelinerequest.getHttpListener().failed(httppipelinerequest.getHttpRequest(), e);
                 httppipelinerequest.setClosed(true);
             }
 
             while (!this.listRequests.isEmpty()) {
-                HttpPipelineRequest httppipelinerequest1 = this.listRequests.remove(0);
+                HttpPipelineRequest httppipelinerequest1 = this.listRequests.removeFirst();
                 HttpPipeline.addRequest(httppipelinerequest1);
             }
         }

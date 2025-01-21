@@ -476,7 +476,7 @@ public class ModelBakery {
         ResourceLocation resourcelocation = p_177573_1_;
 
         while ((resourcelocation = this.getParentLocation(resourcelocation)) != null) {
-            list.add(0, resourcelocation);
+            list.addFirst(resourcelocation);
         }
 
         return list;

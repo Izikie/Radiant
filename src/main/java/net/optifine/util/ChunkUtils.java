@@ -86,7 +86,7 @@ public class ChunkUtils {
             }
 
             if (list4.size() == 1) {
-                Field field4 = (Field) list4.get(0);
+                Field field4 = (Field) list4.getFirst();
                 return new ReflectorField(field4);
             }
         } catch (Exception exception) {

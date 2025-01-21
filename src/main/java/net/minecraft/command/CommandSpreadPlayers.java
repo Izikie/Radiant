@@ -73,7 +73,7 @@ public class CommandSpreadPlayers extends CommandBase {
                 throw new EntityNotFoundException();
             } else {
                 sender.addChatMessage(new ChatComponentTranslation("commands.spreadplayers.spreading." + (flag ? "teams" : "players"), list.size(), d3, d0, d1, d2));
-                this.func_110669_a(sender, list, new CommandSpreadPlayers.Position(d0, d1), d2, d3, list.get(0).worldObj, flag);
+                this.func_110669_a(sender, list, new CommandSpreadPlayers.Position(d0, d1), d2, d3, list.getFirst().worldObj, flag);
             }
         }
     }

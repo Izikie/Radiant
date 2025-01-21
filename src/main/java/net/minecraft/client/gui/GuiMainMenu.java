@@ -140,7 +140,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
             this.field_92024_r = this.fontRendererObj.getStringWidth(this.openGLWarning2);
             int k = Math.max(this.field_92023_s, this.field_92024_r);
             this.field_92022_t = (this.width - k) / 2;
-            this.field_92021_u = this.buttonList.get(0).yPosition - 24;
+            this.field_92021_u = this.buttonList.getFirst().yPosition - 24;
             this.field_92020_v = this.field_92022_t + k;
             this.field_92019_w = this.field_92021_u + 24;
         }
@@ -390,7 +390,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         if (this.openGLWarning1 != null && !this.openGLWarning1.isEmpty()) {
             drawRect(this.field_92022_t - 2, this.field_92021_u - 2, this.field_92020_v + 2, this.field_92019_w - 1, 1428160512);
             this.drawString(this.fontRendererObj, this.openGLWarning1, this.field_92022_t, this.field_92021_u, -1);
-            this.drawString(this.fontRendererObj, this.openGLWarning2, (this.width - this.field_92024_r) / 2, this.buttonList.get(0).yPosition - 12, -1);
+            this.drawString(this.fontRendererObj, this.openGLWarning2, (this.width - this.field_92024_r) / 2, this.buttonList.getFirst().yPosition - 12, -1);
         }
 
         super.drawScreen(mouseX, mouseY, partialTicks);

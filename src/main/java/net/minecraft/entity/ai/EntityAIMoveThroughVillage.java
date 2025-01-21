@@ -120,7 +120,7 @@ public class EntityAIMoveThroughVillage extends EntityAIBase {
 
     private void resizeDoorList() {
         if (this.doorList.size() > 15) {
-            this.doorList.remove(0);
+            this.doorList.removeFirst();
         }
     }
 }

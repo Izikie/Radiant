@@ -67,7 +67,7 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase {
         if (list.isEmpty()) {
             return false;
         } else {
-            this.entityTarget = list.get(0);
+            this.entityTarget = list.getFirst();
             return true;
         }
     }

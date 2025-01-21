@@ -50,7 +50,7 @@ public class EntityAIAvoidEntity<T extends Entity> extends EntityAIBase {
         if (list.isEmpty()) {
             return false;
         } else {
-            this.closestLivingEntity = list.get(0);
+            this.closestLivingEntity = list.getFirst();
             Vec3 vec3 = RandomPositionGenerator.findRandomTargetBlockAwayFrom(this.theEntity, 16, 7, new Vec3(this.closestLivingEntity.posX, this.closestLivingEntity.posY, this.closestLivingEntity.posZ));
 
             if (vec3 == null) {

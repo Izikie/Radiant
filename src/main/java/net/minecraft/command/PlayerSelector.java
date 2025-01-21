@@ -48,7 +48,7 @@ public class PlayerSelector {
 
     public static <T extends Entity> T matchOneEntity(ICommandSender sender, String token, Class<? extends T> targetClass) {
         List<T> list = matchEntities(sender, token, targetClass);
-        return (T) (list.size() == 1 ? (Entity) list.get(0) : null);
+        return (T) (list.size() == 1 ? (Entity) list.getFirst() : null);
     }
 
     public static IChatComponent matchEntitiesToChatComponent(ICommandSender sender, String token) {

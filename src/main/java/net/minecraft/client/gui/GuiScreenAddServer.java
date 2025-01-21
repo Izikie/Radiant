@@ -57,7 +57,7 @@ public class GuiScreenAddServer extends GuiScreen {
         this.serverIPField.setMaxStringLength(128);
         this.serverIPField.setText(this.serverData.serverIP);
         this.serverIPField.setValidator(this.field_181032_r);
-        this.buttonList.get(0).enabled = !this.serverIPField.getText().isEmpty() && this.serverIPField.getText().split(":").length > 0 && !this.serverNameField.getText().isEmpty();
+        this.buttonList.getFirst().enabled = !this.serverIPField.getText().isEmpty() && this.serverIPField.getText().split(":").length > 0 && !this.serverNameField.getText().isEmpty();
     }
 
     public void onGuiClosed() {
@@ -89,10 +89,10 @@ public class GuiScreenAddServer extends GuiScreen {
         }
 
         if (keyCode == 28 || keyCode == 156) {
-            this.actionPerformed(this.buttonList.get(0));
+            this.actionPerformed(this.buttonList.getFirst());
         }
 
-        this.buttonList.get(0).enabled = !this.serverIPField.getText().isEmpty() && this.serverIPField.getText().split(":").length > 0 && !this.serverNameField.getText().isEmpty();
+        this.buttonList.getFirst().enabled = !this.serverIPField.getText().isEmpty() && this.serverIPField.getText().split(":").length > 0 && !this.serverNameField.getText().isEmpty();
     }
 
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
