@@ -5,7 +5,7 @@ import java.util.List;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentData;
-import net.minecraft.enchantment.EnumEnchantmentType;
+import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -41,7 +41,7 @@ public abstract class CreativeTabs {
         public Item getTabIconItem() {
             return Items.lava_bucket;
         }
-    }).setRelevantEnchantmentTypes(EnumEnchantmentType.ALL);
+    }).setRelevantEnchantmentTypes(EnchantmentTarget.ALL);
     public static final CreativeTabs tabAllSearch = (new CreativeTabs(5, "search") {
         public Item getTabIconItem() {
             return Items.compass;
@@ -56,12 +56,12 @@ public abstract class CreativeTabs {
         public Item getTabIconItem() {
             return Items.iron_axe;
         }
-    }).setRelevantEnchantmentTypes(EnumEnchantmentType.DIGGER, EnumEnchantmentType.FISHING_ROD, EnumEnchantmentType.BREAKABLE);
+    }).setRelevantEnchantmentTypes(EnchantmentTarget.DIGGER, EnchantmentTarget.FISHING_ROD, EnchantmentTarget.BREAKABLE);
     public static final CreativeTabs tabCombat = (new CreativeTabs(8, "combat") {
         public Item getTabIconItem() {
             return Items.golden_sword;
         }
-    }).setRelevantEnchantmentTypes(EnumEnchantmentType.ARMOR, EnumEnchantmentType.ARMOR_FEET, EnumEnchantmentType.ARMOR_HEAD, EnumEnchantmentType.ARMOR_LEGS, EnumEnchantmentType.ARMOR_TORSO, EnumEnchantmentType.BOW, EnumEnchantmentType.WEAPON);
+    }).setRelevantEnchantmentTypes(EnchantmentTarget.ARMOR, EnchantmentTarget.ARMOR_FEET, EnchantmentTarget.ARMOR_HEAD, EnchantmentTarget.ARMOR_LEGS, EnchantmentTarget.ARMOR_TORSO, EnchantmentTarget.BOW, EnchantmentTarget.WEAPON);
     public static final CreativeTabs tabBrewing = new CreativeTabs(9, "brewing") {
         public Item getTabIconItem() {
             return Items.potionitem;
@@ -82,7 +82,7 @@ public abstract class CreativeTabs {
     private String theTexture = "items.png";
     private boolean hasScrollbar = true;
     private boolean drawTitle = true;
-    private EnumEnchantmentType[] enchantmentTypes;
+    private EnchantmentTarget[] enchantmentTypes;
     private ItemStack iconItemStack;
 
     public CreativeTabs(int index, String label) {
@@ -152,18 +152,18 @@ public abstract class CreativeTabs {
         return this.tabIndex < 6;
     }
 
-    public EnumEnchantmentType[] getRelevantEnchantmentTypes() {
+    public EnchantmentTarget[] getRelevantEnchantmentTypes() {
         return this.enchantmentTypes;
     }
 
-    public CreativeTabs setRelevantEnchantmentTypes(EnumEnchantmentType... types) {
+    public CreativeTabs setRelevantEnchantmentTypes(EnchantmentTarget... types) {
         this.enchantmentTypes = types;
         return this;
     }
 
-    public boolean hasRelevantEnchantmentType(EnumEnchantmentType enchantmentType) {
+    public boolean hasRelevantEnchantmentType(EnchantmentTarget enchantmentType) {
         if (this.enchantmentTypes != null) {
-            for (EnumEnchantmentType enumenchantmenttype : this.enchantmentTypes) {
+            for (EnchantmentTarget enumenchantmenttype : this.enchantmentTypes) {
                 if (enumenchantmenttype == enchantmentType) {
                     return true;
                 }
@@ -185,7 +185,7 @@ public abstract class CreativeTabs {
         }
     }
 
-    public void addEnchantmentBooksToList(List<ItemStack> itemList, EnumEnchantmentType... enchantmentType) {
+    public void addEnchantmentBooksToList(List<ItemStack> itemList, EnchantmentTarget... enchantmentType) {
         for (Enchantment enchantment : Enchantment.enchantmentsBookList) {
             if (enchantment != null && enchantment.type != null) {
                 boolean flag = false;

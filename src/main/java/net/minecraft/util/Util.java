@@ -6,13 +6,13 @@ import java.util.concurrent.FutureTask;
 import org.apache.logging.log4j.Logger;
 
 public class Util {
-    public static EnumOS getOSType() {
+    public static OperatingSystem getOSType() {
         String os = System.getProperty("os.name").toLowerCase();
         return switch (os) {
-            case "win" -> EnumOS.WINDOWS;
-            case "mac" -> EnumOS.OSX;
-            case "linux", "unix" -> EnumOS.LINUX;
-            default -> EnumOS.UNKNOWN;
+            case "win" -> OperatingSystem.WINDOWS;
+            case "mac" -> OperatingSystem.OSX;
+            case "linux", "unix" -> OperatingSystem.LINUX;
+            default -> OperatingSystem.UNKNOWN;
         };
     }
 
@@ -33,7 +33,7 @@ public class Util {
         return null;
     }
 
-    public enum EnumOS {
+    public enum OperatingSystem {
         LINUX,
         WINDOWS,
         OSX,

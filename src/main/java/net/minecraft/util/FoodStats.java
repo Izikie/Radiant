@@ -4,7 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 
 public class FoodStats {
     private int foodLevel = 20;
@@ -23,7 +23,7 @@ public class FoodStats {
     }
 
     public void onUpdate(EntityPlayer player) {
-        EnumDifficulty enumdifficulty = player.worldObj.getDifficulty();
+        Difficulty enumdifficulty = player.worldObj.getDifficulty();
         this.prevFoodLevel = this.foodLevel;
 
         if (this.foodExhaustionLevel > 4.0F) {
@@ -31,7 +31,7 @@ public class FoodStats {
 
             if (this.foodSaturationLevel > 0.0F) {
                 this.foodSaturationLevel = Math.max(this.foodSaturationLevel - 1.0F, 0.0F);
-            } else if (enumdifficulty != EnumDifficulty.PEACEFUL) {
+            } else if (enumdifficulty != Difficulty.PEACEFUL) {
                 this.foodLevel = Math.max(this.foodLevel - 1, 0);
             }
         }
@@ -48,7 +48,7 @@ public class FoodStats {
             ++this.foodTimer;
 
             if (this.foodTimer >= 80) {
-                if (player.getHealth() > 10.0F || enumdifficulty == EnumDifficulty.HARD || player.getHealth() > 1.0F && enumdifficulty == EnumDifficulty.NORMAL) {
+                if (player.getHealth() > 10.0F || enumdifficulty == Difficulty.HARD || player.getHealth() > 1.0F && enumdifficulty == Difficulty.NORMAL) {
                     player.attackEntityFrom(DamageSource.starve, 1.0F);
                 }
 

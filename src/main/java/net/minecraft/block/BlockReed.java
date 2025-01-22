@@ -11,8 +11,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.Direction;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -57,7 +57,7 @@ public class BlockReed extends Block {
         } else if (block != Blocks.grass && block != Blocks.dirt && block != Blocks.sand) {
             return false;
         } else {
-            for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+            for (Direction enumfacing : Direction.Plane.HORIZONTAL) {
                 if (worldIn.getBlockState(pos.offset(enumfacing).down()).getBlock().getMaterial() == Material.water) {
                     return true;
                 }
@@ -109,8 +109,8 @@ public class BlockReed extends Block {
         return worldIn.getBiomeGenForCoords(pos).getGrassColorAtPos(pos);
     }
 
-    public EnumWorldBlockLayer getBlockLayer() {
-        return EnumWorldBlockLayer.CUTOUT;
+    public RenderLayer getBlockLayer() {
+        return RenderLayer.CUTOUT;
     }
 
     public IBlockState getStateFromMeta(int meta) {

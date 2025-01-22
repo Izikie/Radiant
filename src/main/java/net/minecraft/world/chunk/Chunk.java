@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import net.minecraft.block.Block;
@@ -23,11 +22,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ClassInheritanceMultiMap;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ReportedException;
 import net.minecraft.world.ChunkCoordIntPair;
-import net.minecraft.world.EnumSkyBlock;
+import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -234,13 +233,13 @@ public class Chunk {
                         int i1 = this.zPosition * 16 + j;
                         int j1 = Integer.MAX_VALUE;
 
-                        for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+                        for (Direction enumfacing : Direction.Plane.HORIZONTAL) {
                             j1 = Math.min(j1, this.worldObj.getChunksLowestHorizon(l + enumfacing.getFrontOffsetX(), i1 + enumfacing.getFrontOffsetZ()));
                         }
 
                         this.checkSkylightNeighborHeight(l, i1, j1);
 
-                        for (EnumFacing enumfacing1 : EnumFacing.Plane.HORIZONTAL) {
+                        for (Direction enumfacing1 : Direction.Plane.HORIZONTAL) {
                             this.checkSkylightNeighborHeight(l + enumfacing1.getFrontOffsetX(), i1 + enumfacing1.getFrontOffsetZ(), k);
                         }
 
@@ -269,7 +268,7 @@ public class Chunk {
     private void updateSkylightNeighborHeight(int x, int z, int startY, int endY) {
         if (endY > startY && this.worldObj.isAreaLoaded(new BlockPos(x, 0, z), 16)) {
             for (int i = startY; i < endY; ++i) {
-                this.worldObj.checkLightFor(EnumSkyBlock.SKY, new BlockPos(x, i, z));
+                this.worldObj.checkLightFor(LightType.SKY, new BlockPos(x, i, z));
             }
 
             this.isModified = true;
@@ -353,7 +352,7 @@ public class Chunk {
             }
 
             if (!this.worldObj.provider.getHasNoSky()) {
-                for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+                for (Direction enumfacing : Direction.Plane.HORIZONTAL) {
                     this.updateSkylightNeighborHeight(k + enumfacing.getFrontOffsetX(), l + enumfacing.getFrontOffsetZ(), j2, k2);
                 }
 
@@ -517,7 +516,7 @@ public class Chunk {
                         this.relightBlock(i, j, k);
                     }
 
-                    if (j1 != k1 && (j1 < k1 || this.getLightFor(EnumSkyBlock.SKY, pos) > 0 || this.getLightFor(EnumSkyBlock.BLOCK, pos) > 0)) {
+                    if (j1 != k1 && (j1 < k1 || this.getLightFor(LightType.SKY, pos) > 0 || this.getLightFor(LightType.BLOCK, pos) > 0)) {
                         this.propagateSkylightOcclusion(i, k);
                     }
                 }
@@ -553,15 +552,15 @@ public class Chunk {
         }
     }
 
-    public int getLightFor(EnumSkyBlock p_177413_1_, BlockPos pos) {
+    public int getLightFor(LightType p_177413_1_, BlockPos pos) {
         int i = pos.getX() & 15;
         int j = pos.getY();
         int k = pos.getZ() & 15;
         ExtendedBlockStorage extendedblockstorage = this.storageArrays[j >> 4];
-        return extendedblockstorage == null ? (this.canSeeSky(pos) ? p_177413_1_.defaultLightValue : 0) : (p_177413_1_ == EnumSkyBlock.SKY ? (this.worldObj.provider.getHasNoSky() ? 0 : extendedblockstorage.getExtSkylightValue(i, j & 15, k)) : (p_177413_1_ == EnumSkyBlock.BLOCK ? extendedblockstorage.getExtBlocklightValue(i, j & 15, k) : p_177413_1_.defaultLightValue));
+        return extendedblockstorage == null ? (this.canSeeSky(pos) ? p_177413_1_.defaultLightValue : 0) : (p_177413_1_ == LightType.SKY ? (this.worldObj.provider.getHasNoSky() ? 0 : extendedblockstorage.getExtSkylightValue(i, j & 15, k)) : (p_177413_1_ == LightType.BLOCK ? extendedblockstorage.getExtBlocklightValue(i, j & 15, k) : p_177413_1_.defaultLightValue));
     }
 
-    public void setLightFor(EnumSkyBlock p_177431_1_, BlockPos pos, int value) {
+    public void setLightFor(LightType p_177431_1_, BlockPos pos, int value) {
         int i = pos.getX() & 15;
         int j = pos.getY();
         int k = pos.getZ() & 15;
@@ -574,11 +573,11 @@ public class Chunk {
 
         this.isModified = true;
 
-        if (p_177431_1_ == EnumSkyBlock.SKY) {
+        if (p_177431_1_ == LightType.SKY) {
             if (!this.worldObj.provider.getHasNoSky()) {
                 extendedblockstorage.setExtSkylightValue(i, j & 15, k, value);
             }
-        } else if (p_177431_1_ == EnumSkyBlock.BLOCK) {
+        } else if (p_177431_1_ == LightType.BLOCK) {
             extendedblockstorage.setExtBlocklightValue(i, j & 15, k, value);
         }
     }
@@ -590,7 +589,7 @@ public class Chunk {
         ExtendedBlockStorage extendedblockstorage = this.storageArrays[j >> 4];
 
         if (extendedblockstorage == null) {
-            return !this.worldObj.provider.getHasNoSky() && amount < EnumSkyBlock.SKY.defaultLightValue ? EnumSkyBlock.SKY.defaultLightValue - amount : 0;
+            return !this.worldObj.provider.getHasNoSky() && amount < LightType.SKY.defaultLightValue ? LightType.SKY.defaultLightValue - amount : 0;
         } else {
             int l = this.worldObj.provider.getHasNoSky() ? 0 : extendedblockstorage.getExtSkylightValue(i, j & 15, k);
             l = l - amount;
@@ -1047,7 +1046,7 @@ public class Chunk {
                 boolean flag = i1 == 0 || i1 == 15 || k == 0 || k == 15 || l == 0 || l == 15;
 
                 if (this.storageArrays[j] == null && flag || this.storageArrays[j] != null && this.storageArrays[j].getBlockByExtId(k, i1, l).getMaterial() == Material.air) {
-                    for (EnumFacing enumfacing : EnumFacing.values()) {
+                    for (Direction enumfacing : Direction.values()) {
                         BlockPos blockpos2 = blockpos1.offset(enumfacing);
 
                         if (this.worldObj.getBlockState(blockpos2).getBlock().getLightValue() > 0) {
@@ -1080,8 +1079,8 @@ public class Chunk {
                 }
 
                 if (this.isLightPopulated) {
-                    for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
-                        int k = enumfacing.getAxisDirection() == EnumFacing.AxisDirection.POSITIVE ? 16 : 1;
+                    for (Direction enumfacing : Direction.Plane.HORIZONTAL) {
+                        int k = enumfacing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? 16 : 1;
                         this.worldObj.getChunkFromBlockCoords(blockpos.offset(enumfacing, k)).func_180700_a(enumfacing.getOpposite());
                     }
 
@@ -1099,21 +1098,21 @@ public class Chunk {
         this.recheckGaps(false);
     }
 
-    private void func_180700_a(EnumFacing facing) {
+    private void func_180700_a(Direction facing) {
         if (this.isTerrainPopulated) {
-            if (facing == EnumFacing.EAST) {
+            if (facing == Direction.EAST) {
                 for (int i = 0; i < 16; ++i) {
                     this.func_150811_f(15, i);
                 }
-            } else if (facing == EnumFacing.WEST) {
+            } else if (facing == Direction.WEST) {
                 for (int j = 0; j < 16; ++j) {
                     this.func_150811_f(0, j);
                 }
-            } else if (facing == EnumFacing.SOUTH) {
+            } else if (facing == Direction.SOUTH) {
                 for (int k = 0; k < 16; ++k) {
                     this.func_150811_f(k, 15);
                 }
-            } else if (facing == EnumFacing.NORTH) {
+            } else if (facing == Direction.NORTH) {
                 for (int l = 0; l < 16; ++l) {
                     this.func_150811_f(l, 0);
                 }

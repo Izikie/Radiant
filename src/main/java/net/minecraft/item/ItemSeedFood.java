@@ -3,7 +3,7 @@ package net.minecraft.item;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public class ItemSeedFood extends ItemFood {
@@ -16,8 +16,8 @@ public class ItemSeedFood extends ItemFood {
         this.soilId = soil;
     }
 
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-        if (side != EnumFacing.UP) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
+        if (side != Direction.UP) {
             return false;
         } else if (!playerIn.canPlayerEdit(pos.offset(side), side, stack)) {
             return false;

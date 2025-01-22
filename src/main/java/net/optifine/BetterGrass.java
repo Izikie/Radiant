@@ -16,7 +16,7 @@ import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.init.Blocks;
 import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
 import net.optifine.model.BlockModelUtils;
@@ -143,8 +143,8 @@ public class BetterGrass {
         return textureMap.registerSprite(resourcelocation1);
     }
 
-    public static List getFaceQuads(IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, EnumFacing facing, List quads) {
-        if (facing != EnumFacing.UP && facing != EnumFacing.DOWN) {
+    public static List getFaceQuads(IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, Direction facing, List quads) {
+        if (facing != Direction.UP && facing != Direction.DOWN) {
             if (!modelsLoaded) {
                 return quads;
             } else {
@@ -156,7 +156,7 @@ public class BetterGrass {
         }
     }
 
-    private static List getFaceQuadsMycelium(IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, EnumFacing facing, List quads) {
+    private static List getFaceQuadsMycelium(IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, Direction facing, List quads) {
         Block block = blockAccess.getBlockState(blockPos.up()).getBlock();
         boolean flag = block == Blocks.snow || block == Blocks.snow_layer;
 
@@ -179,8 +179,8 @@ public class BetterGrass {
         return quads;
     }
 
-    private static List getFaceQuadsDirt(IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, EnumFacing facing, List quads) {
-        Block block = getBlockAt(blockPos, EnumFacing.UP, blockAccess);
+    private static List getFaceQuadsDirt(IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, Direction facing, List quads) {
+        Block block = getBlockAt(blockPos, Direction.UP, blockAccess);
 
         if (blockState.getValue(BlockDirt.VARIANT) != BlockDirt.DirtType.PODZOL) {
             return quads;
@@ -212,7 +212,7 @@ public class BetterGrass {
         }
     }
 
-    private static List getFaceQuadsGrass(IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, EnumFacing facing, List quads) {
+    private static List getFaceQuadsGrass(IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, Direction facing, List quads) {
         Block block = blockAccess.getBlockState(blockPos.up()).getBlock();
         boolean flag = block == Blocks.snow || block == Blocks.snow_layer;
 
@@ -235,7 +235,7 @@ public class BetterGrass {
         return quads;
     }
 
-    private static Block getBlockAt(BlockPos blockPos, EnumFacing facing, IBlockAccess blockAccess) {
+    private static Block getBlockAt(BlockPos blockPos, Direction facing, IBlockAccess blockAccess) {
         BlockPos blockpos = blockPos.offset(facing);
         return blockAccess.getBlockState(blockpos).getBlock();
     }

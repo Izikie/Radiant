@@ -32,7 +32,7 @@ public class BlockSilverfish extends Block {
 
     public static boolean canContainSilverfish(IBlockState blockState) {
         Block block = blockState.getBlock();
-        return blockState == Blocks.stone.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.STONE) || block == Blocks.cobblestone || block == Blocks.stonebrick;
+        return blockState == Blocks.stone.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.StoneType.STONE) || block == Blocks.cobblestone || block == Blocks.stonebrick;
     }
 
     protected ItemStack createStackedBlock(IBlockState state) {
@@ -83,7 +83,7 @@ public class BlockSilverfish extends Block {
     public enum EnumType implements IStringSerializable {
         STONE(0, "stone") {
             public IBlockState getModelBlock() {
-                return Blocks.stone.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.STONE);
+                return Blocks.stone.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.StoneType.STONE);
             }
         },
         COBBLESTONE(1, "cobblestone", "cobble") {

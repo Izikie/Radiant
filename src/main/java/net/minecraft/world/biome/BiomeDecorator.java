@@ -44,7 +44,7 @@ public class BiomeDecorator {
     protected WorldGenerator redstoneGen;
     protected WorldGenerator diamondGen;
     protected WorldGenerator lapisGen;
-    protected final WorldGenFlowers yellowFlowerGen = new WorldGenFlowers(Blocks.yellow_flower, BlockFlower.EnumFlowerType.DANDELION);
+    protected final WorldGenFlowers yellowFlowerGen = new WorldGenFlowers(Blocks.yellow_flower, BlockFlower.FlowerType.DANDELION);
     protected final WorldGenerator mushroomBrownGen = new GeneratorBushFeature(Blocks.brown_mushroom);
     protected final WorldGenerator mushroomRedGen = new GeneratorBushFeature(Blocks.red_mushroom);
     protected final WorldGenerator bigMushroomGen = new WorldGenBigMushroom();
@@ -78,9 +78,9 @@ public class BiomeDecorator {
             this.field_180294_c = p_180292_4_;
             this.dirtGen = new WorldGenMinable(Blocks.dirt.getDefaultState(), this.chunkProviderSettings.dirtSize);
             this.gravelGen = new WorldGenMinable(Blocks.gravel.getDefaultState(), this.chunkProviderSettings.gravelSize);
-            this.graniteGen = new WorldGenMinable(Blocks.stone.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE), this.chunkProviderSettings.graniteSize);
-            this.dioriteGen = new WorldGenMinable(Blocks.stone.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.DIORITE), this.chunkProviderSettings.dioriteSize);
-            this.andesiteGen = new WorldGenMinable(Blocks.stone.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE), this.chunkProviderSettings.andesiteSize);
+            this.graniteGen = new WorldGenMinable(Blocks.stone.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.StoneType.GRANITE), this.chunkProviderSettings.graniteSize);
+            this.dioriteGen = new WorldGenMinable(Blocks.stone.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.StoneType.DIORITE), this.chunkProviderSettings.dioriteSize);
+            this.andesiteGen = new WorldGenMinable(Blocks.stone.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.StoneType.ANDESITE), this.chunkProviderSettings.andesiteSize);
             this.coalGen = new WorldGenMinable(Blocks.coal_ore.getDefaultState(), this.chunkProviderSettings.coalSize);
             this.ironGen = new WorldGenMinable(Blocks.iron_ore.getDefaultState(), this.chunkProviderSettings.ironSize);
             this.goldGen = new WorldGenMinable(Blocks.gold_ore.getDefaultState(), this.chunkProviderSettings.goldSize);
@@ -146,7 +146,7 @@ public class BiomeDecorator {
             if (j14 > 0) {
                 int k17 = this.randomGenerator.nextInt(j14);
                 BlockPos blockpos1 = this.field_180294_c.add(i7, k17, l10);
-                BlockFlower.EnumFlowerType blockflower$enumflowertype = biomeGenBaseIn.pickRandomFlower(this.randomGenerator, blockpos1);
+                BlockFlower.FlowerType blockflower$enumflowertype = biomeGenBaseIn.pickRandomFlower(this.randomGenerator, blockpos1);
                 BlockFlower blockflower = blockflower$enumflowertype.getBlockType().getBlock();
 
                 if (blockflower.getMaterial() != Material.air) {

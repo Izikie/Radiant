@@ -22,7 +22,7 @@ import net.minecraft.client.renderer.VertexBufferUploader;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.WorldVertexBufferUploader;
 import net.minecraft.client.renderer.vertex.VertexBuffer;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.util.MathHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -203,7 +203,7 @@ public class ChunkRenderDispatcher {
         return flag1;
     }
 
-    public ListenableFuture<Object> uploadChunk(final EnumWorldBlockLayer player, final WorldRenderer p_178503_2_, final RenderChunk chunkRenderer, final CompiledChunk compiledChunkIn) {
+    public ListenableFuture<Object> uploadChunk(final RenderLayer player, final WorldRenderer p_178503_2_, final RenderChunk chunkRenderer, final CompiledChunk compiledChunkIn) {
         if (Minecraft.getMinecraft().isCallingFromMinecraftThread()) {
             if (OpenGlHelper.useVbo()) {
                 this.uploadVertexBuffer(p_178503_2_, chunkRenderer.getVertexBufferByLayer(player.ordinal()));

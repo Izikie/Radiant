@@ -5,7 +5,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackOnCollide;
@@ -25,7 +25,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 
 public class EntitySpider extends EntityMob {
@@ -106,8 +106,8 @@ public class EntitySpider extends EntityMob {
     public void setInWeb() {
     }
 
-    public EnumCreatureAttribute getCreatureAttribute() {
-        return EnumCreatureAttribute.ARTHROPOD;
+    public EntityGroup getCreatureAttribute() {
+        return EntityGroup.ARTHROPOD;
     }
 
     public boolean isPotionApplicable(PotionEffect potioneffectIn) {
@@ -144,7 +144,7 @@ public class EntitySpider extends EntityMob {
         if (livingdata == null) {
             livingdata = new EntitySpider.GroupData();
 
-            if (this.worldObj.getDifficulty() == EnumDifficulty.HARD && this.worldObj.rand.nextFloat() < 0.1F * difficulty.getClampedAdditionalDifficulty()) {
+            if (this.worldObj.getDifficulty() == Difficulty.HARD && this.worldObj.rand.nextFloat() < 0.1F * difficulty.getClampedAdditionalDifficulty()) {
                 ((EntitySpider.GroupData) livingdata).func_111104_a(this.worldObj.rand);
             }
         }

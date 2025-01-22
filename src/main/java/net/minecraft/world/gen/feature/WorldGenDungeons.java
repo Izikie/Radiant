@@ -12,7 +12,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
@@ -90,7 +90,7 @@ public class WorldGenDungeons extends WorldGenerator {
                     if (worldIn.isAirBlock(blockpos2)) {
                         int j3 = 0;
 
-                        for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+                        for (Direction enumfacing : Direction.Plane.HORIZONTAL) {
                             if (worldIn.getBlockState(blockpos2.offset(enumfacing)).getBlock().getMaterial().isSolid()) {
                                 ++j3;
                             }

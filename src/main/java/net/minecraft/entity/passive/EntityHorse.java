@@ -34,7 +34,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.DifficultyInstance;
@@ -1270,7 +1270,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
     }
 
     protected void spawnHorseParticles(boolean p_110216_1_) {
-        EnumParticleTypes enumparticletypes = p_110216_1_ ? EnumParticleTypes.HEART : EnumParticleTypes.SMOKE_NORMAL;
+        ParticleTypes enumparticletypes = p_110216_1_ ? ParticleTypes.HEART : ParticleTypes.SMOKE_NORMAL;
 
         for (int i = 0; i < 7; ++i) {
             double d0 = this.rand.nextGaussian() * 0.02D;

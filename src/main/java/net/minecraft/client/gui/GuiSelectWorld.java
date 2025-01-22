@@ -9,7 +9,7 @@ import java.util.Date;
 import net.minecraft.client.AnvilConverterException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.Formatting;
 import net.minecraft.world.WorldSettings;
 import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.ISaveHandler;
@@ -243,7 +243,7 @@ public class GuiSelectWorld extends GuiScreen implements GuiYesNoCallback {
                 s2 = GuiSelectWorld.this.field_146635_w[saveformatcomparator.getEnumGameType().getID()];
 
                 if (saveformatcomparator.isHardcoreModeEnabled()) {
-                    s2 = EnumChatFormatting.DARK_RED + I18n.format("gameMode.hardcore", new Object[0]) + EnumChatFormatting.RESET;
+                    s2 = Formatting.DARK_RED + I18n.format("gameMode.hardcore", new Object[0]) + Formatting.RESET;
                 }
 
                 if (saveformatcomparator.getCheatsEnabled()) {

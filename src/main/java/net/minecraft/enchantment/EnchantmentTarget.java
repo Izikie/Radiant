@@ -7,7 +7,7 @@ import net.minecraft.item.ItemFishingRod;
 import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
 
-public enum EnumEnchantmentType {
+public enum EnchantmentTarget {
     ALL,
     ARMOR,
     ARMOR_FEET,

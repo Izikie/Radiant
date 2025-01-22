@@ -58,7 +58,7 @@ public class BlockPos extends Vec3i {
     }
 
     public BlockPos up(int n) {
-        return this.offset(EnumFacing.UP, n);
+        return this.offset(Direction.UP, n);
     }
 
     public BlockPos down() {
@@ -66,7 +66,7 @@ public class BlockPos extends Vec3i {
     }
 
     public BlockPos down(int n) {
-        return this.offset(EnumFacing.DOWN, n);
+        return this.offset(Direction.DOWN, n);
     }
 
     public BlockPos north() {
@@ -74,7 +74,7 @@ public class BlockPos extends Vec3i {
     }
 
     public BlockPos north(int n) {
-        return this.offset(EnumFacing.NORTH, n);
+        return this.offset(Direction.NORTH, n);
     }
 
     public BlockPos south() {
@@ -82,7 +82,7 @@ public class BlockPos extends Vec3i {
     }
 
     public BlockPos south(int n) {
-        return this.offset(EnumFacing.SOUTH, n);
+        return this.offset(Direction.SOUTH, n);
     }
 
     public BlockPos west() {
@@ -90,7 +90,7 @@ public class BlockPos extends Vec3i {
     }
 
     public BlockPos west(int n) {
-        return this.offset(EnumFacing.WEST, n);
+        return this.offset(Direction.WEST, n);
     }
 
     public BlockPos east() {
@@ -98,14 +98,14 @@ public class BlockPos extends Vec3i {
     }
 
     public BlockPos east(int n) {
-        return this.offset(EnumFacing.EAST, n);
+        return this.offset(Direction.EAST, n);
     }
 
-    public BlockPos offset(EnumFacing facing) {
+    public BlockPos offset(Direction facing) {
         return this.offset(facing, 1);
     }
 
-    public BlockPos offset(EnumFacing facing, int n) {
+    public BlockPos offset(Direction facing, int n) {
         return n == 0 ? this : new BlockPos(this.getX() + facing.getFrontOffsetX() * n, this.getY() + facing.getFrontOffsetY() * n, this.getZ() + facing.getFrontOffsetZ() * n);
     }
 

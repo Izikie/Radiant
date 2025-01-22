@@ -8,11 +8,11 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.VboRenderList;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.src.Config;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.RenderLayer;
 import net.optifine.util.LinkedList;
 
 public class VboRegion {
-    private final EnumWorldBlockLayer layer;
+    private final RenderLayer layer;
     private int glBufferId = OpenGlHelper.glGenBuffers();
     private int capacity = 4096;
     private int positionTop = 0;
@@ -24,7 +24,7 @@ public class VboRegion {
     private int drawMode;
     private final int vertexBytes;
 
-    public VboRegion(EnumWorldBlockLayer layer) {
+    public VboRegion(RenderLayer layer) {
         this.bufferIndexVertex = Config.createDirectIntBuffer(this.capacity);
         this.bufferCountVertex = Config.createDirectIntBuffer(this.capacity);
         this.drawMode = 7;

@@ -8,19 +8,19 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.world.World;
 
 public class BlockStainedGlassPane extends BlockPane {
-    public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.create("color", EnumDyeColor.class);
+    public static final PropertyEnum<DyeColor> COLOR = PropertyEnum.create("color", DyeColor.class);
 
     public BlockStainedGlassPane() {
         super(Material.glass, false);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE).withProperty(COLOR, EnumDyeColor.WHITE));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE).withProperty(COLOR, DyeColor.WHITE));
         this.setCreativeTab(CreativeTabs.tabDecorations);
     }
 
@@ -29,7 +29,7 @@ public class BlockStainedGlassPane extends BlockPane {
     }
 
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-        for (int i = 0; i < EnumDyeColor.values().length; ++i) {
+        for (int i = 0; i < DyeColor.values().length; ++i) {
             list.add(new ItemStack(itemIn, 1, i));
         }
     }
@@ -38,12 +38,12 @@ public class BlockStainedGlassPane extends BlockPane {
         return state.getValue(COLOR).getMapColor();
     }
 
-    public EnumWorldBlockLayer getBlockLayer() {
-        return EnumWorldBlockLayer.TRANSLUCENT;
+    public RenderLayer getBlockLayer() {
+        return RenderLayer.TRANSLUCENT;
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(COLOR, EnumDyeColor.byMetadata(meta));
+        return this.getDefaultState().withProperty(COLOR, DyeColor.byMetadata(meta));
     }
 
     public int getMetaFromState(IBlockState state) {

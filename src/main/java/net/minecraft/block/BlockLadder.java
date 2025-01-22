@@ -8,17 +8,17 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.Direction;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockLadder extends Block {
-    public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+    public static final PropertyDirection FACING = PropertyDirection.create("facing", Direction.Plane.HORIZONTAL);
 
     protected BlockLadder() {
         super(Material.circuits);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH));
         this.setCreativeTab(CreativeTabs.tabDecorations);
     }
 
@@ -70,11 +70,11 @@ public class BlockLadder extends Block {
         return worldIn.getBlockState(pos.west()).getBlock().isNormalCube() ? true : (worldIn.getBlockState(pos.east()).getBlock().isNormalCube() ? true : (worldIn.getBlockState(pos.north()).getBlock().isNormalCube() ? true : worldIn.getBlockState(pos.south()).getBlock().isNormalCube()));
     }
 
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         if (facing.getAxis().isHorizontal() && this.canBlockStay(worldIn, pos, facing)) {
             return this.getDefaultState().withProperty(FACING, facing);
         } else {
-            for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+            for (Direction enumfacing : Direction.Plane.HORIZONTAL) {
                 if (this.canBlockStay(worldIn, pos, enumfacing)) {
                     return this.getDefaultState().withProperty(FACING, enumfacing);
                 }
@@ -85,7 +85,7 @@ public class BlockLadder extends Block {
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
-        EnumFacing enumfacing = state.getValue(FACING);
+        Direction enumfacing = state.getValue(FACING);
 
         if (!this.canBlockStay(worldIn, pos, enumfacing)) {
             this.dropBlockAsItem(worldIn, pos, state, 0);
@@ -95,19 +95,19 @@ public class BlockLadder extends Block {
         super.onNeighborBlockChange(worldIn, pos, state, neighborBlock);
     }
 
-    protected boolean canBlockStay(World worldIn, BlockPos pos, EnumFacing facing) {
+    protected boolean canBlockStay(World worldIn, BlockPos pos, Direction facing) {
         return worldIn.getBlockState(pos.offset(facing.getOpposite())).getBlock().isNormalCube();
     }
 
-    public EnumWorldBlockLayer getBlockLayer() {
-        return EnumWorldBlockLayer.CUTOUT;
+    public RenderLayer getBlockLayer() {
+        return RenderLayer.CUTOUT;
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        EnumFacing enumfacing = EnumFacing.getFront(meta);
+        Direction enumfacing = Direction.getFront(meta);
 
-        if (enumfacing.getAxis() == EnumFacing.Axis.Y) {
-            enumfacing = EnumFacing.NORTH;
+        if (enumfacing.getAxis() == Direction.Axis.Y) {
+            enumfacing = Direction.NORTH;
         }
 
         return this.getDefaultState().withProperty(FACING, enumfacing);

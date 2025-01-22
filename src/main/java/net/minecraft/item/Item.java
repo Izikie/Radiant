@@ -1,6 +1,5 @@
 package net.minecraft.item;
 
-import com.google.common.base.Function;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
@@ -37,7 +36,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.RegistryNamespaced;
@@ -94,7 +93,7 @@ public class Item {
         return this;
     }
 
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
         return false;
     }
 
@@ -218,8 +217,8 @@ public class Item {
         return false;
     }
 
-    public EnumAction getItemUseAction(ItemStack stack) {
-        return EnumAction.NONE;
+    public UseAction getItemUseAction(ItemStack stack) {
+        return UseAction.NONE;
     }
 
     public int getMaxItemUseDuration(ItemStack stack) {
@@ -253,8 +252,8 @@ public class Item {
         return stack.isItemEnchanted();
     }
 
-    public EnumRarity getRarity(ItemStack stack) {
-        return stack.isItemEnchanted() ? EnumRarity.RARE : EnumRarity.COMMON;
+    public Rarity getRarity(ItemStack stack) {
+        return stack.isItemEnchanted() ? Rarity.RARE : Rarity.COMMON;
     }
 
     public boolean isItemTool(ItemStack stack) {
@@ -309,20 +308,20 @@ public class Item {
     }
 
     public static void registerItems() {
-        registerItemBlock(Blocks.stone, (new ItemMultiTexture(Blocks.stone, Blocks.stone, p_apply_1_ -> BlockStone.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("stone"));
+        registerItemBlock(Blocks.stone, (new ItemMultiTexture(Blocks.stone, Blocks.stone, p_apply_1_ -> BlockStone.StoneType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("stone"));
         registerItemBlock(Blocks.grass, new ItemColored(Blocks.grass, false));
         registerItemBlock(Blocks.dirt, (new ItemMultiTexture(Blocks.dirt, Blocks.dirt, p_apply_1_ -> BlockDirt.DirtType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("dirt"));
         registerItemBlock(Blocks.cobblestone);
-        registerItemBlock(Blocks.planks, (new ItemMultiTexture(Blocks.planks, Blocks.planks, p_apply_1_ -> BlockPlanks.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("wood"));
-        registerItemBlock(Blocks.sapling, (new ItemMultiTexture(Blocks.sapling, Blocks.sapling, p_apply_1_ -> BlockPlanks.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("sapling"));
+        registerItemBlock(Blocks.planks, (new ItemMultiTexture(Blocks.planks, Blocks.planks, p_apply_1_ -> BlockPlanks.WoodType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("wood"));
+        registerItemBlock(Blocks.sapling, (new ItemMultiTexture(Blocks.sapling, Blocks.sapling, p_apply_1_ -> BlockPlanks.WoodType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("sapling"));
         registerItemBlock(Blocks.bedrock);
-        registerItemBlock(Blocks.sand, (new ItemMultiTexture(Blocks.sand, Blocks.sand, p_apply_1_ -> BlockSand.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("sand"));
+        registerItemBlock(Blocks.sand, (new ItemMultiTexture(Blocks.sand, Blocks.sand, p_apply_1_ -> BlockSand.SandType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("sand"));
         registerItemBlock(Blocks.gravel);
         registerItemBlock(Blocks.gold_ore);
         registerItemBlock(Blocks.iron_ore);
         registerItemBlock(Blocks.coal_ore);
-        registerItemBlock(Blocks.log, (new ItemMultiTexture(Blocks.log, Blocks.log, p_apply_1_ -> BlockPlanks.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("log"));
-        registerItemBlock(Blocks.log2, (new ItemMultiTexture(Blocks.log2, Blocks.log2, p_apply_1_ -> BlockPlanks.EnumType.byMetadata(p_apply_1_.getMetadata() + 4).getUnlocalizedName())).setUnlocalizedName("log"));
+        registerItemBlock(Blocks.log, (new ItemMultiTexture(Blocks.log, Blocks.log, p_apply_1_ -> BlockPlanks.WoodType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("log"));
+        registerItemBlock(Blocks.log2, (new ItemMultiTexture(Blocks.log2, Blocks.log2, p_apply_1_ -> BlockPlanks.WoodType.byMetadata(p_apply_1_.getMetadata() + 4).getUnlocalizedName())).setUnlocalizedName("log"));
         registerItemBlock(Blocks.leaves, (new ItemLeaves(Blocks.leaves)).setUnlocalizedName("leaves"));
         registerItemBlock(Blocks.leaves2, (new ItemLeaves(Blocks.leaves2)).setUnlocalizedName("leaves"));
         registerItemBlock(Blocks.sponge, (new ItemMultiTexture(Blocks.sponge, Blocks.sponge, p_apply_1_ -> (p_apply_1_.getMetadata() & 1) == 1 ? "wet" : "dry")).setUnlocalizedName("sponge"));
@@ -330,7 +329,7 @@ public class Item {
         registerItemBlock(Blocks.lapis_ore);
         registerItemBlock(Blocks.lapis_block);
         registerItemBlock(Blocks.dispenser);
-        registerItemBlock(Blocks.sandstone, (new ItemMultiTexture(Blocks.sandstone, Blocks.sandstone, p_apply_1_ -> BlockSandStone.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("sandStone"));
+        registerItemBlock(Blocks.sandstone, (new ItemMultiTexture(Blocks.sandstone, Blocks.sandstone, p_apply_1_ -> BlockSandStone.SandStoneType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("sandStone"));
         registerItemBlock(Blocks.noteblock);
         registerItemBlock(Blocks.golden_rail);
         registerItemBlock(Blocks.detector_rail);
@@ -340,8 +339,8 @@ public class Item {
         registerItemBlock(Blocks.deadbush);
         registerItemBlock(Blocks.piston, new ItemPiston(Blocks.piston));
         registerItemBlock(Blocks.wool, (new ItemCloth(Blocks.wool)).setUnlocalizedName("cloth"));
-        registerItemBlock(Blocks.yellow_flower, (new ItemMultiTexture(Blocks.yellow_flower, Blocks.yellow_flower, p_apply_1_ -> BlockFlower.EnumFlowerType.getType(BlockFlower.EnumFlowerColor.YELLOW, p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("flower"));
-        registerItemBlock(Blocks.red_flower, (new ItemMultiTexture(Blocks.red_flower, Blocks.red_flower, p_apply_1_ -> BlockFlower.EnumFlowerType.getType(BlockFlower.EnumFlowerColor.RED, p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("rose"));
+        registerItemBlock(Blocks.yellow_flower, (new ItemMultiTexture(Blocks.yellow_flower, Blocks.yellow_flower, p_apply_1_ -> BlockFlower.FlowerType.getType(BlockFlower.FlowerColor.YELLOW, p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("flower"));
+        registerItemBlock(Blocks.red_flower, (new ItemMultiTexture(Blocks.red_flower, Blocks.red_flower, p_apply_1_ -> BlockFlower.FlowerType.getType(BlockFlower.FlowerColor.RED, p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("rose"));
         registerItemBlock(Blocks.brown_mushroom);
         registerItemBlock(Blocks.red_mushroom);
         registerItemBlock(Blocks.gold_block);
@@ -426,7 +425,7 @@ public class Item {
         registerItemBlock(Blocks.jungle_stairs);
         registerItemBlock(Blocks.command_block);
         registerItemBlock(Blocks.beacon);
-        registerItemBlock(Blocks.cobblestone_wall, (new ItemMultiTexture(Blocks.cobblestone_wall, Blocks.cobblestone_wall, p_apply_1_ -> BlockWall.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("cobbleWall"));
+        registerItemBlock(Blocks.cobblestone_wall, (new ItemMultiTexture(Blocks.cobblestone_wall, Blocks.cobblestone_wall, p_apply_1_ -> BlockWall.WallType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("cobbleWall"));
         registerItemBlock(Blocks.wooden_button);
         registerItemBlock(Blocks.anvil, (new ItemAnvilBlock(Blocks.anvil)).setUnlocalizedName("anvil"));
         registerItemBlock(Blocks.trapped_chest);
@@ -454,9 +453,9 @@ public class Item {
         registerItemBlock(Blocks.double_plant, (new ItemDoublePlant(Blocks.double_plant, Blocks.double_plant, p_apply_1_ -> BlockDoublePlant.EnumPlantType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("doublePlant"));
         registerItemBlock(Blocks.stained_glass, (new ItemCloth(Blocks.stained_glass)).setUnlocalizedName("stainedGlass"));
         registerItemBlock(Blocks.stained_glass_pane, (new ItemCloth(Blocks.stained_glass_pane)).setUnlocalizedName("stainedGlassPane"));
-        registerItemBlock(Blocks.prismarine, (new ItemMultiTexture(Blocks.prismarine, Blocks.prismarine, p_apply_1_ -> BlockPrismarine.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("prismarine"));
+        registerItemBlock(Blocks.prismarine, (new ItemMultiTexture(Blocks.prismarine, Blocks.prismarine, p_apply_1_ -> BlockPrismarine.PrismarineType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("prismarine"));
         registerItemBlock(Blocks.sea_lantern);
-        registerItemBlock(Blocks.red_sandstone, (new ItemMultiTexture(Blocks.red_sandstone, Blocks.red_sandstone, p_apply_1_ -> BlockRedSandstone.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("redSandStone"));
+        registerItemBlock(Blocks.red_sandstone, (new ItemMultiTexture(Blocks.red_sandstone, Blocks.red_sandstone, p_apply_1_ -> BlockRedSandstone.RedSandStoneType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("redSandStone"));
         registerItemBlock(Blocks.red_sandstone_stairs);
         registerItemBlock(Blocks.stone_slab2, (new ItemSlab(Blocks.stone_slab2, Blocks.stone_slab2, Blocks.double_stone_slab2)).setUnlocalizedName("stoneSlab2"));
         registerItem(256, "iron_shovel", (new ItemSpade(Item.ToolMaterial.IRON)).setUnlocalizedName("shovelIron"));
@@ -532,7 +531,7 @@ public class Item {
         registerItem(325, "bucket", item);
         registerItem(326, "water_bucket", (new ItemBucket(Blocks.flowing_water)).setUnlocalizedName("bucketWater").setContainerItem(item));
         registerItem(327, "lava_bucket", (new ItemBucket(Blocks.flowing_lava)).setUnlocalizedName("bucketLava").setContainerItem(item));
-        registerItem(328, "minecart", (new ItemMinecart(EntityMinecart.EnumMinecartType.RIDEABLE)).setUnlocalizedName("minecart"));
+        registerItem(328, "minecart", (new ItemMinecart(EntityMinecart.MinecartType.RIDEABLE)).setUnlocalizedName("minecart"));
         registerItem(329, "saddle", (new ItemSaddle()).setUnlocalizedName("saddle"));
         registerItem(330, "iron_door", (new ItemDoor(Blocks.iron_door)).setUnlocalizedName("doorIron"));
         registerItem(331, "redstone", (new ItemRedstone()).setUnlocalizedName("redstone").setPotionEffect(PotionHelper.redstoneEffect));
@@ -546,8 +545,8 @@ public class Item {
         registerItem(339, "paper", (new Item()).setUnlocalizedName("paper").setCreativeTab(CreativeTabs.tabMisc));
         registerItem(340, "book", (new ItemBook()).setUnlocalizedName("book").setCreativeTab(CreativeTabs.tabMisc));
         registerItem(341, "slime_ball", (new Item()).setUnlocalizedName("slimeball").setCreativeTab(CreativeTabs.tabMisc));
-        registerItem(342, "chest_minecart", (new ItemMinecart(EntityMinecart.EnumMinecartType.CHEST)).setUnlocalizedName("minecartChest"));
-        registerItem(343, "furnace_minecart", (new ItemMinecart(EntityMinecart.EnumMinecartType.FURNACE)).setUnlocalizedName("minecartFurnace"));
+        registerItem(342, "chest_minecart", (new ItemMinecart(EntityMinecart.MinecartType.CHEST)).setUnlocalizedName("minecartChest"));
+        registerItem(343, "furnace_minecart", (new ItemMinecart(EntityMinecart.MinecartType.FURNACE)).setUnlocalizedName("minecartFurnace"));
         registerItem(344, "egg", (new ItemEgg()).setUnlocalizedName("egg"));
         registerItem(345, "compass", (new Item()).setUnlocalizedName("compass").setCreativeTab(CreativeTabs.tabTools));
         registerItem(346, "fishing_rod", (new ItemFishingRod()).setUnlocalizedName("fishingRod"));
@@ -611,8 +610,8 @@ public class Item {
         registerItem(404, "comparator", (new ItemReed(Blocks.unpowered_comparator)).setUnlocalizedName("comparator").setCreativeTab(CreativeTabs.tabRedstone));
         registerItem(405, "netherbrick", (new Item()).setUnlocalizedName("netherbrick").setCreativeTab(CreativeTabs.tabMaterials));
         registerItem(406, "quartz", (new Item()).setUnlocalizedName("netherquartz").setCreativeTab(CreativeTabs.tabMaterials));
-        registerItem(407, "tnt_minecart", (new ItemMinecart(EntityMinecart.EnumMinecartType.TNT)).setUnlocalizedName("minecartTnt"));
-        registerItem(408, "hopper_minecart", (new ItemMinecart(EntityMinecart.EnumMinecartType.HOPPER)).setUnlocalizedName("minecartHopper"));
+        registerItem(407, "tnt_minecart", (new ItemMinecart(EntityMinecart.MinecartType.TNT)).setUnlocalizedName("minecartTnt"));
+        registerItem(408, "hopper_minecart", (new ItemMinecart(EntityMinecart.MinecartType.HOPPER)).setUnlocalizedName("minecartHopper"));
         registerItem(409, "prismarine_shard", (new Item()).setUnlocalizedName("prismarineShard").setCreativeTab(CreativeTabs.tabMaterials));
         registerItem(410, "prismarine_crystals", (new Item()).setUnlocalizedName("prismarineCrystals").setCreativeTab(CreativeTabs.tabMaterials));
         registerItem(411, "rabbit", (new ItemFood(3, 0.3F, true)).setUnlocalizedName("rabbitRaw"));
@@ -626,7 +625,7 @@ public class Item {
         registerItem(419, "diamond_horse_armor", (new Item()).setUnlocalizedName("horsearmordiamond").setMaxStackSize(1).setCreativeTab(CreativeTabs.tabMisc));
         registerItem(420, "lead", (new ItemLead()).setUnlocalizedName("leash"));
         registerItem(421, "name_tag", (new ItemNameTag()).setUnlocalizedName("nameTag"));
-        registerItem(422, "command_block_minecart", (new ItemMinecart(EntityMinecart.EnumMinecartType.COMMAND_BLOCK)).setUnlocalizedName("minecartCommandBlock").setCreativeTab(null));
+        registerItem(422, "command_block_minecart", (new ItemMinecart(EntityMinecart.MinecartType.COMMAND_BLOCK)).setUnlocalizedName("minecartCommandBlock").setCreativeTab(null));
         registerItem(423, "mutton", (new ItemFood(2, 0.3F, true)).setUnlocalizedName("muttonRaw"));
         registerItem(424, "cooked_mutton", (new ItemFood(6, 0.8F, true)).setUnlocalizedName("muttonCooked"));
         registerItem(425, "banner", (new ItemBanner()).setUnlocalizedName("banner"));

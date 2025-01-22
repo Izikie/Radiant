@@ -4,7 +4,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class EnchantmentOxygen extends Enchantment {
     public EnchantmentOxygen(int enchID, ResourceLocation p_i45766_2_, int p_i45766_3_) {
-        super(enchID, p_i45766_2_, p_i45766_3_, EnumEnchantmentType.ARMOR_HEAD);
+        super(enchID, p_i45766_2_, p_i45766_3_, EnchantmentTarget.ARMOR_HEAD);
         this.setName("oxygen");
     }
 

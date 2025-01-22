@@ -3,7 +3,7 @@ package net.minecraft.dispenser;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public class BehaviorDefaultDispenseItem implements IBehaviorDispenseItem {
@@ -15,19 +15,19 @@ public class BehaviorDefaultDispenseItem implements IBehaviorDispenseItem {
     }
 
     protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-        EnumFacing enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
+        Direction enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
         IPosition iposition = BlockDispenser.getDispensePosition(source);
         ItemStack itemstack = stack.splitStack(1);
         doDispense(source.getWorld(), itemstack, 6, enumfacing, iposition);
         return stack;
     }
 
-    public static void doDispense(World worldIn, ItemStack stack, int speed, EnumFacing facing, IPosition position) {
+    public static void doDispense(World worldIn, ItemStack stack, int speed, Direction facing, IPosition position) {
         double d0 = position.getX();
         double d1 = position.getY();
         double d2 = position.getZ();
 
-        if (facing.getAxis() == EnumFacing.Axis.Y) {
+        if (facing.getAxis() == Direction.Axis.Y) {
             d1 = d1 - 0.125D;
         } else {
             d1 = d1 - 0.15625D;
@@ -48,11 +48,11 @@ public class BehaviorDefaultDispenseItem implements IBehaviorDispenseItem {
         source.getWorld().playAuxSFX(1000, source.getBlockPos(), 0);
     }
 
-    protected void spawnDispenseParticles(IBlockSource source, EnumFacing facingIn) {
+    protected void spawnDispenseParticles(IBlockSource source, Direction facingIn) {
         source.getWorld().playAuxSFX(2000, source.getBlockPos(), this.func_82488_a(facingIn));
     }
 
-    private int func_82488_a(EnumFacing facingIn) {
+    private int func_82488_a(Direction facingIn) {
         return facingIn.getFrontOffsetX() + 1 + (facingIn.getFrontOffsetZ() + 1) * 3;
     }
 }

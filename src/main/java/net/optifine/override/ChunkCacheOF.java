@@ -6,7 +6,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.ChunkCache;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.WorldType;
@@ -138,7 +138,7 @@ public class ChunkCacheOF implements IBlockAccess {
         return this.chunkCache.getBiomeGenForCoords(pos);
     }
 
-    public int getStrongPower(BlockPos pos, EnumFacing direction) {
+    public int getStrongPower(BlockPos pos, Direction direction) {
         return this.chunkCache.getStrongPower(pos, direction);
     }
 

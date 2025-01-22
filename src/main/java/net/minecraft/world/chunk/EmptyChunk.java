@@ -11,7 +11,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.world.EnumSkyBlock;
+import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 
 public class EmptyChunk extends Chunk {
@@ -45,11 +45,11 @@ public class EmptyChunk extends Chunk {
         return 0;
     }
 
-    public int getLightFor(EnumSkyBlock p_177413_1_, BlockPos pos) {
+    public int getLightFor(LightType p_177413_1_, BlockPos pos) {
         return p_177413_1_.defaultLightValue;
     }
 
-    public void setLightFor(EnumSkyBlock p_177431_1_, BlockPos pos, int value) {
+    public void setLightFor(LightType p_177431_1_, BlockPos pos, int value) {
     }
 
     public int getLightSubtracted(BlockPos pos, int amount) {

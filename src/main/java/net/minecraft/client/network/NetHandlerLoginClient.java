@@ -5,8 +5,6 @@ import com.mojang.authlib.exceptions.AuthenticationException;
 import com.mojang.authlib.exceptions.AuthenticationUnavailableException;
 import com.mojang.authlib.exceptions.InvalidCredentialsException;
 import com.mojang.authlib.minecraft.MinecraftSessionService;
-import io.netty.util.concurrent.Future;
-import io.netty.util.concurrent.GenericFutureListener;
 
 import java.math.BigInteger;
 import java.security.PublicKey;
@@ -15,7 +13,7 @@ import javax.crypto.SecretKey;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiDisconnected;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.network.EnumConnectionState;
+import net.minecraft.network.NetworkState;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.login.INetHandlerLoginClient;
 import net.minecraft.network.login.client.C01PacketEncryptionResponse;
@@ -78,7 +76,7 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
 
     public void handleLoginSuccess(S02PacketLoginSuccess packetIn) {
         this.gameProfile = packetIn.getProfile();
-        this.networkManager.setConnectionState(EnumConnectionState.PLAY);
+        this.networkManager.setConnectionState(NetworkState.PLAY);
         this.networkManager.setNetHandler(new NetHandlerPlayClient(this.mc, this.previousGuiScreen, this.networkManager, this.gameProfile));
     }
 

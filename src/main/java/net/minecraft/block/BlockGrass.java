@@ -10,7 +10,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -86,7 +86,7 @@ public class BlockGrass extends Block implements IGrowable {
                 if (j >= i / 16) {
                     if (worldIn.getBlockState(blockpos1).getBlock().blockMaterial == Material.air) {
                         if (rand.nextInt(8) == 0) {
-                            BlockFlower.EnumFlowerType blockflower$enumflowertype = worldIn.getBiomeGenForCoords(blockpos1).pickRandomFlower(rand, blockpos1);
+                            BlockFlower.FlowerType blockflower$enumflowertype = worldIn.getBiomeGenForCoords(blockpos1).pickRandomFlower(rand, blockpos1);
                             BlockFlower blockflower = blockflower$enumflowertype.getBlockType().getBlock();
                             IBlockState iblockstate = blockflower.getDefaultState().withProperty(blockflower.getTypeProperty(), blockflower$enumflowertype);
 
@@ -116,8 +116,8 @@ public class BlockGrass extends Block implements IGrowable {
         }
     }
 
-    public EnumWorldBlockLayer getBlockLayer() {
-        return EnumWorldBlockLayer.CUTOUT_MIPPED;
+    public RenderLayer getBlockLayer() {
+        return RenderLayer.CUTOUT_MIPPED;
     }
 
     public int getMetaFromState(IBlockState state) {

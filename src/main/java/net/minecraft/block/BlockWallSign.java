@@ -4,20 +4,20 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockWallSign extends BlockSign {
-    public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+    public static final PropertyDirection FACING = PropertyDirection.create("facing", Direction.Plane.HORIZONTAL);
 
     public BlockWallSign() {
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH));
     }
 
     @SuppressWarnings("incomplete-switch")
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-        EnumFacing enumfacing = worldIn.getBlockState(pos).getValue(FACING);
+        Direction enumfacing = worldIn.getBlockState(pos).getValue(FACING);
         float f = 0.28125F;
         float f1 = 0.78125F;
         float f2 = 0.0F;
@@ -44,7 +44,7 @@ public class BlockWallSign extends BlockSign {
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
-        EnumFacing enumfacing = state.getValue(FACING);
+        Direction enumfacing = state.getValue(FACING);
 
         if (!worldIn.getBlockState(pos.offset(enumfacing.getOpposite())).getBlock().getMaterial().isSolid()) {
             this.dropBlockAsItem(worldIn, pos, state, 0);
@@ -55,10 +55,10 @@ public class BlockWallSign extends BlockSign {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        EnumFacing enumfacing = EnumFacing.getFront(meta);
+        Direction enumfacing = Direction.getFront(meta);
 
-        if (enumfacing.getAxis() == EnumFacing.Axis.Y) {
-            enumfacing = EnumFacing.NORTH;
+        if (enumfacing.getAxis() == Direction.Axis.Y) {
+            enumfacing = Direction.NORTH;
         }
 
         return this.getDefaultState().withProperty(FACING, enumfacing);

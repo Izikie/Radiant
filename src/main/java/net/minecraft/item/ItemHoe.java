@@ -8,7 +8,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public class ItemHoe extends Item {
@@ -22,14 +22,14 @@ public class ItemHoe extends Item {
     }
 
     @SuppressWarnings("incomplete-switch")
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
         if (!playerIn.canPlayerEdit(pos.offset(side), side, stack)) {
             return false;
         } else {
             IBlockState iblockstate = worldIn.getBlockState(pos);
             Block block = iblockstate.getBlock();
 
-            if (side != EnumFacing.DOWN && worldIn.getBlockState(pos.up()).getBlock().getMaterial() == Material.air) {
+            if (side != Direction.DOWN && worldIn.getBlockState(pos.up()).getBlock().getMaterial() == Material.air) {
                 if (block == Blocks.grass) {
                     return this.useHoe(stack, playerIn, worldIn, pos, Blocks.farmland.getDefaultState());
                 }

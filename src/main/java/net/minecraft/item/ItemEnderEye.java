@@ -8,8 +8,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.Direction;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
@@ -18,7 +18,7 @@ public class ItemEnderEye extends Item {
         this.setCreativeTab(CreativeTabs.tabMisc);
     }
 
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
         IBlockState iblockstate = worldIn.getBlockState(pos);
 
         if (playerIn.canPlayerEdit(pos.offset(side), side, stack) && iblockstate.getBlock() == Blocks.end_portal_frame && !iblockstate.getValue(BlockEndPortalFrame.EYE)) {
@@ -34,15 +34,15 @@ public class ItemEnderEye extends Item {
                     double d3 = 0.0D;
                     double d4 = 0.0D;
                     double d5 = 0.0D;
-                    worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, d3, d4, d5);
+                    worldIn.spawnParticle(ParticleTypes.SMOKE_NORMAL, d0, d1, d2, d3, d4, d5);
                 }
 
-                EnumFacing enumfacing = iblockstate.getValue(BlockEndPortalFrame.FACING);
+                Direction enumfacing = iblockstate.getValue(BlockEndPortalFrame.FACING);
                 int l = 0;
                 int j = 0;
                 boolean flag1 = false;
                 boolean flag = true;
-                EnumFacing enumfacing1 = enumfacing.rotateY();
+                Direction enumfacing1 = enumfacing.rotateY();
 
                 for (int k = -2; k <= 2; ++k) {
                     BlockPos blockpos1 = pos.offset(enumfacing1, k);

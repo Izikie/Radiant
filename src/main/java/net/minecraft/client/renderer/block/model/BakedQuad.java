@@ -3,20 +3,20 @@ package net.minecraft.client.renderer.block.model;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.src.Config;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.optifine.model.QuadBounds;
 
 public class BakedQuad {
     protected int[] vertexData;
     protected final int tintIndex;
-    protected EnumFacing face;
+    protected Direction face;
     protected TextureAtlasSprite sprite;
     private int[] vertexDataSingle = null;
     private QuadBounds quadBounds;
     private boolean quadEmissiveChecked;
     private BakedQuad quadEmissive;
 
-    public BakedQuad(int[] p_i3_1_, int p_i3_2_, EnumFacing p_i3_3_, TextureAtlasSprite p_i3_4_) {
+    public BakedQuad(int[] p_i3_1_, int p_i3_2_, Direction p_i3_3_, TextureAtlasSprite p_i3_4_) {
         this.vertexData = p_i3_1_;
         this.tintIndex = p_i3_2_;
         this.face = p_i3_3_;
@@ -24,7 +24,7 @@ public class BakedQuad {
         this.fixVertexData();
     }
 
-    public BakedQuad(int[] vertexDataIn, int tintIndexIn, EnumFacing faceIn) {
+    public BakedQuad(int[] vertexDataIn, int tintIndexIn, Direction faceIn) {
         this.vertexData = vertexDataIn;
         this.tintIndex = tintIndexIn;
         this.face = faceIn;
@@ -52,7 +52,7 @@ public class BakedQuad {
         return this.tintIndex;
     }
 
-    public EnumFacing getFace() {
+    public Direction getFace() {
         if (this.face == null) {
             this.face = FaceBakery.getFacingFromVertexData(this.getVertexData());
         }

@@ -8,7 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackOnCollide;
@@ -41,7 +41,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 
 public class EntityZombie extends EntityMob {
@@ -196,7 +196,7 @@ public class EntityZombie extends EntityMob {
                 entitylivingbase = entityLivingBase;
             }
 
-            if (entitylivingbase != null && this.worldObj.getDifficulty() == EnumDifficulty.HARD && this.rand.nextFloat() < this.getEntityAttribute(reinforcementChance).getAttributeValue()) {
+            if (entitylivingbase != null && this.worldObj.getDifficulty() == Difficulty.HARD && this.rand.nextFloat() < this.getEntityAttribute(reinforcementChance).getAttributeValue()) {
                 int i = MathHelper.floor_double(this.posX);
                 int j = MathHelper.floor_double(this.posY);
                 int k = MathHelper.floor_double(this.posZ);
@@ -275,8 +275,8 @@ public class EntityZombie extends EntityMob {
         return Items.rotten_flesh;
     }
 
-    public EnumCreatureAttribute getCreatureAttribute() {
-        return EnumCreatureAttribute.UNDEAD;
+    public EntityGroup getCreatureAttribute() {
+        return EntityGroup.UNDEAD;
     }
 
     protected void addRandomDrop() {
@@ -297,7 +297,7 @@ public class EntityZombie extends EntityMob {
     protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
         super.setEquipmentBasedOnDifficulty(difficulty);
 
-        if (this.rand.nextFloat() < (this.worldObj.getDifficulty() == EnumDifficulty.HARD ? 0.05F : 0.01F)) {
+        if (this.rand.nextFloat() < (this.worldObj.getDifficulty() == Difficulty.HARD ? 0.05F : 0.01F)) {
             int i = this.rand.nextInt(3);
 
             if (i == 0) {
@@ -344,8 +344,8 @@ public class EntityZombie extends EntityMob {
     public void onKillEntity(EntityLivingBase entityLivingIn) {
         super.onKillEntity(entityLivingIn);
 
-        if ((this.worldObj.getDifficulty() == EnumDifficulty.NORMAL || this.worldObj.getDifficulty() == EnumDifficulty.HARD) && entityLivingIn instanceof EntityVillager entityliving) {
-            if (this.worldObj.getDifficulty() != EnumDifficulty.HARD && this.rand.nextBoolean()) {
+        if ((this.worldObj.getDifficulty() == Difficulty.NORMAL || this.worldObj.getDifficulty() == Difficulty.HARD) && entityLivingIn instanceof EntityVillager entityliving) {
+            if (this.worldObj.getDifficulty() != Difficulty.HARD && this.rand.nextBoolean()) {
                 return;
             }
 

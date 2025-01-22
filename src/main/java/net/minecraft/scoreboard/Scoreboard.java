@@ -4,13 +4,12 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.Formatting;
 
 public class Scoreboard {
     private final Map<String, ScoreObjective> scoreObjectives = Maps.newHashMap();
@@ -290,9 +289,9 @@ public class Scoreboard {
             case 2 -> "belowName";
             default -> {
                 if (p_96517_0_ >= 3 && p_96517_0_ <= 18) {
-                    EnumChatFormatting enumchatformatting = EnumChatFormatting.func_175744_a(p_96517_0_ - 3);
+                    Formatting enumchatformatting = Formatting.func_175744_a(p_96517_0_ - 3);
 
-                    if (enumchatformatting != null && enumchatformatting != EnumChatFormatting.RESET) {
+                    if (enumchatformatting != null && enumchatformatting != Formatting.RESET) {
                         yield "sidebar.team." + enumchatformatting.getFriendlyName();
                     }
                 }
@@ -312,7 +311,7 @@ public class Scoreboard {
         } else {
             if (p_96537_0_.startsWith("sidebar.team.")) {
                 String s = p_96537_0_.substring("sidebar.team.".length());
-                EnumChatFormatting enumchatformatting = EnumChatFormatting.getValueByName(s);
+                Formatting enumchatformatting = Formatting.getValueByName(s);
 
                 if (enumchatformatting != null && enumchatformatting.getColorIndex() >= 0) {
                     return enumchatformatting.getColorIndex() + 3;

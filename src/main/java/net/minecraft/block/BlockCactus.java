@@ -12,8 +12,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.Direction;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.world.World;
 
 public class BlockCactus extends Block {
@@ -79,7 +79,7 @@ public class BlockCactus extends Block {
     }
 
     public boolean canBlockStay(World worldIn, BlockPos pos) {
-        for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+        for (Direction enumfacing : Direction.Plane.HORIZONTAL) {
             if (worldIn.getBlockState(pos.offset(enumfacing)).getBlock().getMaterial().isSolid()) {
                 return false;
             }
@@ -93,8 +93,8 @@ public class BlockCactus extends Block {
         entityIn.attackEntityFrom(DamageSource.cactus, 1.0F);
     }
 
-    public EnumWorldBlockLayer getBlockLayer() {
-        return EnumWorldBlockLayer.CUTOUT;
+    public RenderLayer getBlockLayer() {
+        return RenderLayer.CUTOUT;
     }
 
     public IBlockState getStateFromMeta(int meta) {

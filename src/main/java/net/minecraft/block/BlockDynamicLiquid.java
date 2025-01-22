@@ -8,7 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public class BlockDynamicLiquid extends BlockLiquid {
@@ -36,7 +36,7 @@ public class BlockDynamicLiquid extends BlockLiquid {
             int l = -100;
             this.adjacentSourceBlocks = 0;
 
-            for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+            for (Direction enumfacing : Direction.Plane.HORIZONTAL) {
                 l = this.checkAdjacentBlock(worldIn, pos.offset(enumfacing), l);
             }
 
@@ -103,7 +103,7 @@ public class BlockDynamicLiquid extends BlockLiquid {
                 this.tryFlowInto(worldIn, pos.down(), iblockstate, i + 8);
             }
         } else if (i >= 0 && (i == 0 || this.isBlocked(worldIn, pos.down(), iblockstate))) {
-            Set<EnumFacing> set = this.getPossibleFlowDirections(worldIn, pos);
+            Set<Direction> set = this.getPossibleFlowDirections(worldIn, pos);
             int k1 = i + j;
 
             if (i >= 8) {
@@ -114,7 +114,7 @@ public class BlockDynamicLiquid extends BlockLiquid {
                 return;
             }
 
-            for (EnumFacing enumfacing1 : set) {
+            for (Direction enumfacing1 : set) {
                 this.tryFlowInto(worldIn, pos.offset(enumfacing1), worldIn.getBlockState(pos.offset(enumfacing1)), k1);
             }
         }
@@ -134,10 +134,10 @@ public class BlockDynamicLiquid extends BlockLiquid {
         }
     }
 
-    private int func_176374_a(World worldIn, BlockPos pos, int distance, EnumFacing calculateFlowCost) {
+    private int func_176374_a(World worldIn, BlockPos pos, int distance, Direction calculateFlowCost) {
         int i = 1000;
 
-        for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+        for (Direction enumfacing : Direction.Plane.HORIZONTAL) {
             if (enumfacing != calculateFlowCost) {
                 BlockPos blockpos = pos.offset(enumfacing);
                 IBlockState iblockstate = worldIn.getBlockState(blockpos);
@@ -161,11 +161,11 @@ public class BlockDynamicLiquid extends BlockLiquid {
         return i;
     }
 
-    private Set<EnumFacing> getPossibleFlowDirections(World worldIn, BlockPos pos) {
+    private Set<Direction> getPossibleFlowDirections(World worldIn, BlockPos pos) {
         int i = 1000;
-        Set<EnumFacing> set = EnumSet.noneOf(EnumFacing.class);
+        Set<Direction> set = EnumSet.noneOf(Direction.class);
 
-        for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+        for (Direction enumfacing : Direction.Plane.HORIZONTAL) {
             BlockPos blockpos = pos.offset(enumfacing);
             IBlockState iblockstate = worldIn.getBlockState(blockpos);
 

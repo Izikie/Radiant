@@ -14,8 +14,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.Direction;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
@@ -24,7 +24,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockDoor extends Block {
-    public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+    public static final PropertyDirection FACING = PropertyDirection.create("facing", Direction.Plane.HORIZONTAL);
     public static final PropertyBool OPEN = PropertyBool.create("open");
     public static final PropertyEnum<BlockDoor.EnumHingePosition> HINGE = PropertyEnum.create("hinge", BlockDoor.EnumHingePosition.class);
     public static final PropertyBool POWERED = PropertyBool.create("powered");
@@ -32,7 +32,7 @@ public class BlockDoor extends Block {
 
     protected BlockDoor(Material materialIn) {
         super(materialIn);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(OPEN, Boolean.FALSE).withProperty(HINGE, BlockDoor.EnumHingePosition.LEFT).withProperty(POWERED, Boolean.FALSE).withProperty(HALF, BlockDoor.EnumDoorHalf.LOWER));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH).withProperty(OPEN, Boolean.FALSE).withProperty(HINGE, BlockDoor.EnumHingePosition.LEFT).withProperty(POWERED, Boolean.FALSE).withProperty(HALF, BlockDoor.EnumDoorHalf.LOWER));
     }
 
     public String getLocalizedName() {
@@ -68,48 +68,48 @@ public class BlockDoor extends Block {
     private void setBoundBasedOnMeta(int combinedMeta) {
         float f = 0.1875F;
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 2.0F, 1.0F);
-        EnumFacing enumfacing = getFacing(combinedMeta);
+        Direction enumfacing = getFacing(combinedMeta);
         boolean flag = isOpen(combinedMeta);
         boolean flag1 = isHingeLeft(combinedMeta);
 
         if (flag) {
-            if (enumfacing == EnumFacing.EAST) {
+            if (enumfacing == Direction.EAST) {
                 if (!flag1) {
                     this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, f);
                 } else {
                     this.setBlockBounds(0.0F, 0.0F, 1.0F - f, 1.0F, 1.0F, 1.0F);
                 }
-            } else if (enumfacing == EnumFacing.SOUTH) {
+            } else if (enumfacing == Direction.SOUTH) {
                 if (!flag1) {
                     this.setBlockBounds(1.0F - f, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
                 } else {
                     this.setBlockBounds(0.0F, 0.0F, 0.0F, f, 1.0F, 1.0F);
                 }
-            } else if (enumfacing == EnumFacing.WEST) {
+            } else if (enumfacing == Direction.WEST) {
                 if (!flag1) {
                     this.setBlockBounds(0.0F, 0.0F, 1.0F - f, 1.0F, 1.0F, 1.0F);
                 } else {
                     this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, f);
                 }
-            } else if (enumfacing == EnumFacing.NORTH) {
+            } else if (enumfacing == Direction.NORTH) {
                 if (!flag1) {
                     this.setBlockBounds(0.0F, 0.0F, 0.0F, f, 1.0F, 1.0F);
                 } else {
                     this.setBlockBounds(1.0F - f, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
                 }
             }
-        } else if (enumfacing == EnumFacing.EAST) {
+        } else if (enumfacing == Direction.EAST) {
             this.setBlockBounds(0.0F, 0.0F, 0.0F, f, 1.0F, 1.0F);
-        } else if (enumfacing == EnumFacing.SOUTH) {
+        } else if (enumfacing == Direction.SOUTH) {
             this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, f);
-        } else if (enumfacing == EnumFacing.WEST) {
+        } else if (enumfacing == Direction.WEST) {
             this.setBlockBounds(1.0F - f, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-        } else if (enumfacing == EnumFacing.NORTH) {
+        } else if (enumfacing == Direction.NORTH) {
             this.setBlockBounds(0.0F, 0.0F, 1.0F - f, 1.0F, 1.0F, 1.0F);
         }
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (this.blockMaterial == Material.iron) {
             return true;
         } else {
@@ -240,8 +240,8 @@ public class BlockDoor extends Block {
         }
     }
 
-    public EnumWorldBlockLayer getBlockLayer() {
-        return EnumWorldBlockLayer.CUTOUT;
+    public RenderLayer getBlockLayer() {
+        return RenderLayer.CUTOUT;
     }
 
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
@@ -263,7 +263,7 @@ public class BlockDoor extends Block {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return (meta & 8) > 0 ? this.getDefaultState().withProperty(HALF, BlockDoor.EnumDoorHalf.UPPER).withProperty(HINGE, (meta & 1) > 0 ? BlockDoor.EnumHingePosition.RIGHT : BlockDoor.EnumHingePosition.LEFT).withProperty(POWERED, (meta & 2) > 0) : this.getDefaultState().withProperty(HALF, BlockDoor.EnumDoorHalf.LOWER).withProperty(FACING, EnumFacing.getHorizontal(meta & 3).rotateYCCW()).withProperty(OPEN, (meta & 4) > 0);
+        return (meta & 8) > 0 ? this.getDefaultState().withProperty(HALF, BlockDoor.EnumDoorHalf.UPPER).withProperty(HINGE, (meta & 1) > 0 ? BlockDoor.EnumHingePosition.RIGHT : BlockDoor.EnumHingePosition.LEFT).withProperty(POWERED, (meta & 2) > 0) : this.getDefaultState().withProperty(HALF, BlockDoor.EnumDoorHalf.LOWER).withProperty(FACING, Direction.getHorizontal(meta & 3).rotateYCCW()).withProperty(OPEN, (meta & 4) > 0);
     }
 
     public int getMetaFromState(IBlockState state) {
@@ -298,12 +298,12 @@ public class BlockDoor extends Block {
         return isOpen(combineMetadata(worldIn, pos));
     }
 
-    public static EnumFacing getFacing(IBlockAccess worldIn, BlockPos pos) {
+    public static Direction getFacing(IBlockAccess worldIn, BlockPos pos) {
         return getFacing(combineMetadata(worldIn, pos));
     }
 
-    public static EnumFacing getFacing(int combinedMeta) {
-        return EnumFacing.getHorizontal(combinedMeta & 3).rotateYCCW();
+    public static Direction getFacing(int combinedMeta) {
+        return Direction.getHorizontal(combinedMeta & 3).rotateYCCW();
     }
 
     protected static boolean isOpen(int combinedMeta) {

@@ -13,7 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.IBlockAccess;
@@ -25,11 +25,11 @@ public class BlockWall extends Block {
     public static final PropertyBool EAST = PropertyBool.create("east");
     public static final PropertyBool SOUTH = PropertyBool.create("south");
     public static final PropertyBool WEST = PropertyBool.create("west");
-    public static final PropertyEnum<BlockWall.EnumType> VARIANT = PropertyEnum.create("variant", BlockWall.EnumType.class);
+    public static final PropertyEnum<WallType> VARIANT = PropertyEnum.create("variant", WallType.class);
 
     public BlockWall(Block modelBlock) {
         super(modelBlock.blockMaterial);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(UP, Boolean.FALSE).withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE).withProperty(VARIANT, BlockWall.EnumType.NORMAL));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(UP, Boolean.FALSE).withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE).withProperty(VARIANT, WallType.NORMAL));
         this.setHardness(modelBlock.blockHardness);
         this.setResistance(modelBlock.blockResistance / 3.0F);
         this.setStepSound(modelBlock.stepSound);
@@ -37,7 +37,7 @@ public class BlockWall extends Block {
     }
 
     public String getLocalizedName() {
-        return StatCollector.translateToLocal(this.getUnlocalizedName() + "." + BlockWall.EnumType.NORMAL.getUnlocalizedName() + ".name");
+        return StatCollector.translateToLocal(this.getUnlocalizedName() + "." + WallType.NORMAL.getUnlocalizedName() + ".name");
     }
 
     public boolean isFullCube() {
@@ -104,7 +104,7 @@ public class BlockWall extends Block {
     }
 
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-        for (BlockWall.EnumType blockwall$enumtype : BlockWall.EnumType.values()) {
+        for (WallType blockwall$enumtype : WallType.values()) {
             list.add(new ItemStack(itemIn, 1, blockwall$enumtype.getMetadata()));
         }
     }
@@ -113,12 +113,12 @@ public class BlockWall extends Block {
         return state.getValue(VARIANT).getMetadata();
     }
 
-    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
-        return side == EnumFacing.DOWN ? super.shouldSideBeRendered(worldIn, pos, side) : true;
+    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, Direction side) {
+        return side == Direction.DOWN ? super.shouldSideBeRendered(worldIn, pos, side) : true;
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(VARIANT, BlockWall.EnumType.byMetadata(meta));
+        return this.getDefaultState().withProperty(VARIANT, WallType.byMetadata(meta));
     }
 
     public int getMetaFromState(IBlockState state) {
@@ -133,16 +133,16 @@ public class BlockWall extends Block {
         return new BlockState(this, UP, NORTH, EAST, WEST, SOUTH, VARIANT);
     }
 
-    public enum EnumType implements IStringSerializable {
+    public enum WallType implements IStringSerializable {
         NORMAL(0, "cobblestone", "normal"),
         MOSSY(1, "mossy_cobblestone", "mossy");
 
-        private static final BlockWall.EnumType[] META_LOOKUP = new BlockWall.EnumType[values().length];
+        private static final WallType[] META_LOOKUP = new WallType[values().length];
         private final int meta;
         private final String name;
         private final String unlocalizedName;
 
-        EnumType(int meta, String name, String unlocalizedName) {
+        WallType(int meta, String name, String unlocalizedName) {
             this.meta = meta;
             this.name = name;
             this.unlocalizedName = unlocalizedName;
@@ -156,7 +156,7 @@ public class BlockWall extends Block {
             return this.name;
         }
 
-        public static BlockWall.EnumType byMetadata(int meta) {
+        public static WallType byMetadata(int meta) {
             if (meta < 0 || meta >= META_LOOKUP.length) {
                 meta = 0;
             }
@@ -173,7 +173,7 @@ public class BlockWall extends Block {
         }
 
         static {
-            for (BlockWall.EnumType blockwall$enumtype : values()) {
+            for (WallType blockwall$enumtype : values()) {
                 META_LOOKUP[blockwall$enumtype.getMetadata()] = blockwall$enumtype;
             }
         }

@@ -9,7 +9,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -142,12 +142,12 @@ public abstract class BlockBasePressurePlate extends Block {
         worldIn.notifyNeighborsOfStateChange(pos.down(), this);
     }
 
-    public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side) {
+    public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
         return this.getRedstoneStrength(state);
     }
 
-    public int getStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side) {
-        return side == EnumFacing.UP ? this.getRedstoneStrength(state) : 0;
+    public int getStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
+        return side == Direction.UP ? this.getRedstoneStrength(state) : 0;
     }
 
     public boolean canProvidePower() {

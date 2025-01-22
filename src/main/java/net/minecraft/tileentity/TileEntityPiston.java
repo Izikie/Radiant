@@ -10,12 +10,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ITickable;
 
 public class TileEntityPiston extends TileEntity implements ITickable {
     private IBlockState pistonState;
-    private EnumFacing pistonFacing;
+    private Direction pistonFacing;
     private boolean extending;
     private boolean shouldHeadBeRendered;
     private float progress;
@@ -25,7 +25,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
     public TileEntityPiston() {
     }
 
-    public TileEntityPiston(IBlockState pistonStateIn, EnumFacing pistonFacingIn, boolean extendingIn, boolean shouldHeadBeRenderedIn) {
+    public TileEntityPiston(IBlockState pistonStateIn, Direction pistonFacingIn, boolean extendingIn, boolean shouldHeadBeRenderedIn) {
         this.pistonState = pistonStateIn;
         this.pistonFacing = pistonFacingIn;
         this.extending = extendingIn;
@@ -44,7 +44,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
         return this.extending;
     }
 
-    public EnumFacing getFacing() {
+    public Direction getFacing() {
         return this.pistonFacing;
     }
 
@@ -152,7 +152,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         this.pistonState = Block.getBlockById(compound.getInteger("blockId")).getStateFromMeta(compound.getInteger("blockData"));
-        this.pistonFacing = EnumFacing.getFront(compound.getInteger("facing"));
+        this.pistonFacing = Direction.getFront(compound.getInteger("facing"));
         this.lastProgress = this.progress = compound.getFloat("progress");
         this.extending = compound.getBoolean("extending");
     }

@@ -9,7 +9,7 @@ import java.util.Set;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.EntityGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
@@ -33,27 +33,27 @@ public abstract class Enchantment {
     public static final Enchantment baneOfArthropods = new EnchantmentDamage(18, new ResourceLocation("bane_of_arthropods"), 5, 2);
     public static final Enchantment knockback = new EnchantmentKnockback(19, new ResourceLocation("knockback"), 5);
     public static final Enchantment fireAspect = new EnchantmentFireAspect(20, new ResourceLocation("fire_aspect"), 2);
-    public static final Enchantment looting = new EnchantmentLootBonus(21, new ResourceLocation("looting"), 2, EnumEnchantmentType.WEAPON);
+    public static final Enchantment looting = new EnchantmentLootBonus(21, new ResourceLocation("looting"), 2, EnchantmentTarget.WEAPON);
     public static final Enchantment efficiency = new EnchantmentDigging(32, new ResourceLocation("efficiency"), 10);
     public static final Enchantment silkTouch = new EnchantmentUntouching(33, new ResourceLocation("silk_touch"), 1);
     public static final Enchantment unbreaking = new EnchantmentDurability(34, new ResourceLocation("unbreaking"), 5);
-    public static final Enchantment fortune = new EnchantmentLootBonus(35, new ResourceLocation("fortune"), 2, EnumEnchantmentType.DIGGER);
+    public static final Enchantment fortune = new EnchantmentLootBonus(35, new ResourceLocation("fortune"), 2, EnchantmentTarget.DIGGER);
     public static final Enchantment power = new EnchantmentArrowDamage(48, new ResourceLocation("power"), 10);
     public static final Enchantment punch = new EnchantmentArrowKnockback(49, new ResourceLocation("punch"), 2);
     public static final Enchantment flame = new EnchantmentArrowFire(50, new ResourceLocation("flame"), 2);
     public static final Enchantment infinity = new EnchantmentArrowInfinite(51, new ResourceLocation("infinity"), 1);
-    public static final Enchantment luckOfTheSea = new EnchantmentLootBonus(61, new ResourceLocation("luck_of_the_sea"), 2, EnumEnchantmentType.FISHING_ROD);
-    public static final Enchantment lure = new EnchantmentFishingSpeed(62, new ResourceLocation("lure"), 2, EnumEnchantmentType.FISHING_ROD);
+    public static final Enchantment luckOfTheSea = new EnchantmentLootBonus(61, new ResourceLocation("luck_of_the_sea"), 2, EnchantmentTarget.FISHING_ROD);
+    public static final Enchantment lure = new EnchantmentFishingSpeed(62, new ResourceLocation("lure"), 2, EnchantmentTarget.FISHING_ROD);
     public final int effectId;
     private final int weight;
-    public EnumEnchantmentType type;
+    public EnchantmentTarget type;
     protected String name;
 
     public static Enchantment getEnchantmentById(int enchID) {
         return enchID >= 0 && enchID < enchantmentsList.length ? enchantmentsList[enchID] : null;
     }
 
-    protected Enchantment(int enchID, ResourceLocation enchName, int enchWeight, EnumEnchantmentType enchType) {
+    protected Enchantment(int enchID, ResourceLocation enchName, int enchWeight, EnchantmentTarget enchType) {
         this.effectId = enchID;
         this.weight = enchWeight;
         this.type = enchType;
@@ -98,7 +98,7 @@ public abstract class Enchantment {
         return 0;
     }
 
-    public float calcDamageByCreature(int level, EnumCreatureAttribute creatureType) {
+    public float calcDamageByCreature(int level, EntityGroup creatureType) {
         return 0.0F;
     }
 

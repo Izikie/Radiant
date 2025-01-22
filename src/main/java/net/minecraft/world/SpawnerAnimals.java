@@ -11,7 +11,7 @@ import java.util.Set;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
-import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.EntityCategory;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -85,7 +85,7 @@ public final class SpawnerAnimals {
             BlockPosM blockposm = new BlockPosM(0, 0, 0);
             new BlockPos.MutableBlockPos();
 
-            for (EnumCreatureType enumcreaturetype : EnumCreatureType.values()) {
+            for (EntityCategory enumcreaturetype : EntityCategory.values()) {
                 if ((!enumcreaturetype.getPeacefulCreature() || spawnPeacefulMobs) && (enumcreaturetype.getPeacefulCreature() || spawnHostileMobs) && (!enumcreaturetype.getAnimal() || p_77192_4_)) {
                     int k4 = worldServerIn.countEntities(enumcreaturetype.getCreatureClass());
                     int l4 = enumcreaturetype.getMaxNumberOfCreature() * this.countChunkPos / MOB_COUNT_DIV;
@@ -220,7 +220,7 @@ public final class SpawnerAnimals {
     }
 
     public static void performWorldGenSpawning(World worldIn, BiomeGenBase biomeIn, int p_77191_2_, int p_77191_3_, int p_77191_4_, int p_77191_5_, Random randomIn) {
-        List<BiomeGenBase.SpawnListEntry> list = biomeIn.getSpawnableList(EnumCreatureType.CREATURE);
+        List<BiomeGenBase.SpawnListEntry> list = biomeIn.getSpawnableList(EntityCategory.CREATURE);
 
         if (!list.isEmpty()) {
             while (randomIn.nextFloat() < biomeIn.getSpawningChance()) {

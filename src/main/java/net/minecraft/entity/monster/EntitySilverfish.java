@@ -5,7 +5,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSilverfish;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackOnCollide;
 import net.minecraft.entity.ai.EntityAIBase;
@@ -19,7 +19,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public class EntitySilverfish extends EntityMob {
@@ -109,13 +109,13 @@ public class EntitySilverfish extends EntityMob {
         }
     }
 
-    public EnumCreatureAttribute getCreatureAttribute() {
-        return EnumCreatureAttribute.ARTHROPOD;
+    public EntityGroup getCreatureAttribute() {
+        return EntityGroup.ARTHROPOD;
     }
 
     static class AIHideInStone extends EntityAIWander {
         private final EntitySilverfish silverfish;
-        private EnumFacing facing;
+        private Direction facing;
         private boolean field_179484_c;
 
         public AIHideInStone(EntitySilverfish silverfishIn) {
@@ -133,7 +133,7 @@ public class EntitySilverfish extends EntityMob {
                 Random random = this.silverfish.getRNG();
 
                 if (random.nextInt(10) == 0) {
-                    this.facing = EnumFacing.random(random);
+                    this.facing = Direction.random(random);
                     BlockPos blockpos = (new BlockPos(this.silverfish.posX, this.silverfish.posY + 0.5D, this.silverfish.posZ)).offset(this.facing);
                     IBlockState iblockstate = this.silverfish.worldObj.getBlockState(blockpos);
 

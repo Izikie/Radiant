@@ -12,8 +12,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumWorldBlockLayer;
-import net.minecraft.world.EnumSkyBlock;
+import net.minecraft.util.RenderLayer;
+import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 
 public class BlockIce extends BlockBreakable {
@@ -24,8 +24,8 @@ public class BlockIce extends BlockBreakable {
         this.setCreativeTab(CreativeTabs.tabBlock);
     }
 
-    public EnumWorldBlockLayer getBlockLayer() {
-        return EnumWorldBlockLayer.TRANSLUCENT;
+    public RenderLayer getBlockLayer() {
+        return RenderLayer.TRANSLUCENT;
     }
 
     public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te) {
@@ -59,7 +59,7 @@ public class BlockIce extends BlockBreakable {
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        if (worldIn.getLightFor(EnumSkyBlock.BLOCK, pos) > 11 - this.getLightOpacity()) {
+        if (worldIn.getLightFor(LightType.BLOCK, pos) > 11 - this.getLightOpacity()) {
             if (worldIn.provider.doesWaterVaporize()) {
                 worldIn.setBlockToAir(pos);
             } else {

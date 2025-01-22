@@ -7,7 +7,7 @@ import java.util.List;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -78,7 +78,7 @@ public class RecipesArmorDyes implements IRecipe {
                         return null;
                     }
 
-                    float[] afloat = EntitySheep.getDyeRgb(EnumDyeColor.byDyeDamage(itemstack1.getMetadata()));
+                    float[] afloat = EntitySheep.getDyeRgb(DyeColor.byDyeDamage(itemstack1.getMetadata()));
                     int l1 = (int) (afloat[0] * 255.0F);
                     int i2 = (int) (afloat[1] * 255.0F);
                     int j2 = (int) (afloat[2] * 255.0F);

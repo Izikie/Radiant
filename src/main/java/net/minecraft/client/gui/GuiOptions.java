@@ -7,7 +7,7 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IChatComponent;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 
 public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
     private static final GameSettings.Options[] field_146440_f = new GameSettings.Options[]{GameSettings.Options.FOV};
@@ -38,7 +38,7 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
         }
 
         if (this.mc.theWorld != null) {
-            EnumDifficulty enumdifficulty = this.mc.theWorld.getDifficulty();
+            Difficulty enumdifficulty = this.mc.theWorld.getDifficulty();
             this.button = new GuiButton(1, this.width / 2 - 155 + i % 2 * 160, this.height / 6 - 12 + 24 * (i >> 1), 150, 20, this.getDifficultyString(enumdifficulty));
             this.buttonList.add(this.button);
 
@@ -64,7 +64,7 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
         this.buttonList.add(new GuiButton(10, this.width / 2 - 100, this.height / 6 + 146, I18n.format("gui.done")));
     }
 
-    public String getDifficultyString(EnumDifficulty enumDifficulty) {
+    public String getDifficultyString(Difficulty enumDifficulty) {
         IChatComponent ichatcomponent = new ChatComponentText("");
         ichatcomponent.appendSibling(new ChatComponentTranslation("options.difficulty"));
         ichatcomponent.appendText(": ");
@@ -87,7 +87,7 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
         if (button.enabled) {
             switch (button.id) {
                 case 1 -> {
-                    this.mc.theWorld.getWorldInfo().setDifficulty(EnumDifficulty.getDifficultyEnum(this.mc.theWorld.getDifficulty().getDifficultyId() + 1));
+                    this.mc.theWorld.getWorldInfo().setDifficulty(Difficulty.getDifficultyEnum(this.mc.theWorld.getDifficulty().getDifficultyId() + 1));
                     this.button.displayString = this.getDifficultyString(this.mc.theWorld.getDifficulty());
                 }
 

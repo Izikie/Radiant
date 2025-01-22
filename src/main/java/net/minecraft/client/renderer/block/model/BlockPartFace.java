@@ -8,17 +8,17 @@ import com.google.gson.JsonParseException;
 
 import java.lang.reflect.Type;
 
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.JsonUtils;
 
 public class BlockPartFace {
-    public static final EnumFacing FACING_DEFAULT = null;
-    public final EnumFacing cullFace;
+    public static final Direction FACING_DEFAULT = null;
+    public final Direction cullFace;
     public final int tintIndex;
     public final String texture;
     public final BlockFaceUV blockFaceUV;
 
-    public BlockPartFace(EnumFacing cullFaceIn, int tintIndexIn, String textureIn, BlockFaceUV blockFaceUVIn) {
+    public BlockPartFace(Direction cullFaceIn, int tintIndexIn, String textureIn, BlockFaceUV blockFaceUVIn) {
         this.cullFace = cullFaceIn;
         this.tintIndex = tintIndexIn;
         this.texture = textureIn;
@@ -28,7 +28,7 @@ public class BlockPartFace {
     static class Deserializer implements JsonDeserializer<BlockPartFace> {
         public BlockPartFace deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
             JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
-            EnumFacing enumfacing = this.parseCullFace(jsonobject);
+            Direction enumfacing = this.parseCullFace(jsonobject);
             int i = this.parseTintIndex(jsonobject);
             String s = this.parseTexture(jsonobject);
             BlockFaceUV blockfaceuv = p_deserialize_3_.deserialize(jsonobject, BlockFaceUV.class);
@@ -43,9 +43,9 @@ public class BlockPartFace {
             return JsonUtils.getString(p_178340_1_, "texture");
         }
 
-        private EnumFacing parseCullFace(JsonObject p_178339_1_) {
+        private Direction parseCullFace(JsonObject p_178339_1_) {
             String s = JsonUtils.getString(p_178339_1_, "cullface", "");
-            return EnumFacing.byName(s);
+            return Direction.byName(s);
         }
     }
 }

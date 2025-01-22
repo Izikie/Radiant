@@ -5,7 +5,7 @@ import java.io.IOException;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.WorldSettings;
 import net.minecraft.world.WorldType;
 
@@ -14,14 +14,14 @@ public class S01PacketJoinGame implements Packet<INetHandlerPlayClient> {
     private boolean hardcoreMode;
     private WorldSettings.GameType gameType;
     private int dimension;
-    private EnumDifficulty difficulty;
+    private Difficulty difficulty;
     private int maxPlayers;
     private WorldType worldType;
     private boolean reducedDebugInfo;
 
     public S01PacketJoinGame() {}
 
-    public S01PacketJoinGame(int entityIdIn, WorldSettings.GameType gameTypeIn, boolean hardcoreModeIn, int dimensionIn, EnumDifficulty difficultyIn, int maxPlayersIn, WorldType worldTypeIn, boolean reducedDebugInfoIn) {
+    public S01PacketJoinGame(int entityIdIn, WorldSettings.GameType gameTypeIn, boolean hardcoreModeIn, int dimensionIn, Difficulty difficultyIn, int maxPlayersIn, WorldType worldTypeIn, boolean reducedDebugInfoIn) {
         this.entityId = entityIdIn;
         this.dimension = dimensionIn;
         this.difficulty = difficultyIn;
@@ -39,7 +39,7 @@ public class S01PacketJoinGame implements Packet<INetHandlerPlayClient> {
         i = i & -9;
         this.gameType = WorldSettings.GameType.getByID(i);
         this.dimension = buf.readByte();
-        this.difficulty = EnumDifficulty.getDifficultyEnum(buf.readUnsignedByte());
+        this.difficulty = Difficulty.getDifficultyEnum(buf.readUnsignedByte());
         this.maxPlayers = buf.readUnsignedByte();
         this.worldType = WorldType.parseWorldType(buf.readStringFromBuffer(16));
 
@@ -86,7 +86,7 @@ public class S01PacketJoinGame implements Packet<INetHandlerPlayClient> {
         return this.dimension;
     }
 
-    public EnumDifficulty getDifficulty() {
+    public Difficulty getDifficulty() {
         return this.difficulty;
     }
 

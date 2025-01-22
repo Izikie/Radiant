@@ -1,6 +1,5 @@
 package net.minecraft.world;
 
-import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -24,7 +23,7 @@ import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EntityTracker;
-import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.EntityCategory;
 import net.minecraft.entity.INpc;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -49,7 +48,7 @@ import net.minecraft.server.management.PlayerManager;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.IProgressUpdate;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.util.ReportedException;
@@ -146,8 +145,8 @@ public class WorldServer extends World implements IThreadListener {
     public void tick() {
         super.tick();
 
-        if (this.getWorldInfo().isHardcoreModeEnabled() && this.getDifficulty() != EnumDifficulty.HARD) {
-            this.getWorldInfo().setDifficulty(EnumDifficulty.HARD);
+        if (this.getWorldInfo().isHardcoreModeEnabled() && this.getDifficulty() != Difficulty.HARD) {
+            this.getWorldInfo().setDifficulty(Difficulty.HARD);
         }
 
         this.provider.getWorldChunkManager().cleanupCache();
@@ -188,12 +187,12 @@ public class WorldServer extends World implements IThreadListener {
         this.sendQueuedBlockEvents();
     }
 
-    public BiomeGenBase.SpawnListEntry getSpawnListEntryForTypeAt(EnumCreatureType creatureType, BlockPos pos) {
+    public BiomeGenBase.SpawnListEntry getSpawnListEntryForTypeAt(EntityCategory creatureType, BlockPos pos) {
         List<BiomeGenBase.SpawnListEntry> list = this.getChunkProvider().getPossibleCreatures(creatureType, pos);
         return list != null && !list.isEmpty() ? WeightedRandom.getRandomItem(this.rand, list) : null;
     }
 
-    public boolean canCreatureTypeSpawnHere(EnumCreatureType creatureType, BiomeGenBase.SpawnListEntry spawnListEntry, BlockPos pos) {
+    public boolean canCreatureTypeSpawnHere(EntityCategory creatureType, BiomeGenBase.SpawnListEntry spawnListEntry, BlockPos pos) {
         List<BiomeGenBase.SpawnListEntry> list = this.getChunkProvider().getPossibleCreatures(creatureType, pos);
         return list != null && !list.isEmpty() ? list.contains(spawnListEntry) : false;
     }
@@ -605,7 +604,7 @@ public class WorldServer extends World implements IThreadListener {
         this.worldInfo.setWorldTime(6000L);
         this.worldInfo.setGameType(WorldSettings.GameType.SPECTATOR);
         this.worldInfo.setHardcore(false);
-        this.worldInfo.setDifficulty(EnumDifficulty.PEACEFUL);
+        this.worldInfo.setDifficulty(Difficulty.PEACEFUL);
         this.worldInfo.setDifficultyLocked(true);
         this.getGameRules().setOrCreateGameRule("doDaylightCycle", "false");
     }
@@ -851,11 +850,11 @@ public class WorldServer extends World implements IThreadListener {
         return this.worldTeleporter;
     }
 
-    public void spawnParticle(EnumParticleTypes particleType, double xCoord, double yCoord, double zCoord, int numberOfParticles, double xOffset, double yOffset, double zOffset, double particleSpeed, int... particleArguments) {
+    public void spawnParticle(ParticleTypes particleType, double xCoord, double yCoord, double zCoord, int numberOfParticles, double xOffset, double yOffset, double zOffset, double particleSpeed, int... particleArguments) {
         this.spawnParticle(particleType, false, xCoord, yCoord, zCoord, numberOfParticles, xOffset, yOffset, zOffset, particleSpeed, particleArguments);
     }
 
-    public void spawnParticle(EnumParticleTypes particleType, boolean longDistance, double xCoord, double yCoord, double zCoord, int numberOfParticles, double xOffset, double yOffset, double zOffset, double particleSpeed, int... particleArguments) {
+    public void spawnParticle(ParticleTypes particleType, boolean longDistance, double xCoord, double yCoord, double zCoord, int numberOfParticles, double xOffset, double yOffset, double zOffset, double particleSpeed, int... particleArguments) {
         Packet packet = new S2APacketParticles(particleType, longDistance, (float) xCoord, (float) yCoord, (float) zCoord, (float) xOffset, (float) yOffset, (float) zOffset, (float) particleSpeed, numberOfParticles, particleArguments);
 
         for (EntityPlayer playerEntity : this.playerEntities) {

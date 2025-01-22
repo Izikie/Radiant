@@ -1,6 +1,6 @@
 package net.optifine.shaders.config;
 
-public enum EnumShaderOption {
+public enum ShaderOptions {
     ANTIALIASING("of.options.shaders.ANTIALIASING", "antialiasingLevel", "0"),
     NORMAL_MAP("of.options.shaders.NORMAL_MAP", "normalMapEnabled", "true"),
     SPECULAR_MAP("of.options.shaders.SPECULAR_MAP", "specularMapEnabled", "true"),
@@ -24,7 +24,7 @@ public enum EnumShaderOption {
     private final String propertyKey;
     private final String valueDefault;
 
-    EnumShaderOption(String resourceKey, String propertyKey, String valueDefault) {
+    ShaderOptions(String resourceKey, String propertyKey, String valueDefault) {
         this.resourceKey = resourceKey;
         this.propertyKey = propertyKey;
         this.valueDefault = valueDefault;

@@ -14,7 +14,7 @@ import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
@@ -111,7 +111,7 @@ public class StructureOceanMonument extends MapGenStructure {
             p_175789_2_.setSeed(k ^ l ^ worldIn.getSeed());
             int i1 = p_175789_3_ * 16 + 8 - 29;
             int j1 = p_175789_4_ * 16 + 8 - 29;
-            EnumFacing enumfacing = EnumFacing.Plane.HORIZONTAL.random(p_175789_2_);
+            Direction enumfacing = Direction.Plane.HORIZONTAL.random(p_175789_2_);
             this.components.add(new StructureOceanMonumentPieces.MonumentBuilding(p_175789_2_, i1, j1, enumfacing));
             this.updateBoundingBox();
             this.field_175790_d = true;

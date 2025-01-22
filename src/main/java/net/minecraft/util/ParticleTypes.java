@@ -6,7 +6,7 @@ import com.google.common.collect.Maps;
 import java.util.List;
 import java.util.Map;
 
-public enum EnumParticleTypes {
+public enum ParticleTypes {
     EXPLOSION_NORMAL("explode", 0, true),
     EXPLOSION_LARGE("largeexplode", 1, true),
     EXPLOSION_HUGE("hugeexplosion", 2, true),
@@ -54,17 +54,17 @@ public enum EnumParticleTypes {
     private final int particleID;
     private final boolean shouldIgnoreRange;
     private final int argumentCount;
-    private static final Map<Integer, EnumParticleTypes> PARTICLES = Maps.newHashMap();
+    private static final Map<Integer, ParticleTypes> PARTICLES = Maps.newHashMap();
     private static final String[] PARTICLE_NAMES;
 
-    EnumParticleTypes(String particleNameIn, int particleIDIn, boolean p_i46011_5_, int argumentCountIn) {
+    ParticleTypes(String particleNameIn, int particleIDIn, boolean p_i46011_5_, int argumentCountIn) {
         this.particleName = particleNameIn;
         this.particleID = particleIDIn;
         this.shouldIgnoreRange = p_i46011_5_;
         this.argumentCount = argumentCountIn;
     }
 
-    EnumParticleTypes(String particleNameIn, int particleIDIn, boolean p_i46012_5_) {
+    ParticleTypes(String particleNameIn, int particleIDIn, boolean p_i46012_5_) {
         this(particleNameIn, particleIDIn, p_i46012_5_, 0);
     }
 
@@ -92,14 +92,14 @@ public enum EnumParticleTypes {
         return this.argumentCount > 0;
     }
 
-    public static EnumParticleTypes getParticleFromId(int particleId) {
+    public static ParticleTypes getParticleFromId(int particleId) {
         return PARTICLES.get(particleId);
     }
 
     static {
         List<String> list = Lists.newArrayList();
 
-        for (EnumParticleTypes enumparticletypes : values()) {
+        for (ParticleTypes enumparticletypes : values()) {
             PARTICLES.put(enumparticletypes.getParticleID(), enumparticletypes);
 
             if (!enumparticletypes.getParticleName().endsWith("_")) {

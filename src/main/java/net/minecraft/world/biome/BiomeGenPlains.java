@@ -21,23 +21,23 @@ public class BiomeGenPlains extends BiomeGenBase {
         this.theBiomeDecorator.grassPerChunk = 10;
     }
 
-    public BlockFlower.EnumFlowerType pickRandomFlower(Random rand, BlockPos pos) {
+    public BlockFlower.FlowerType pickRandomFlower(Random rand, BlockPos pos) {
         double d0 = GRASS_COLOR_NOISE.func_151601_a(pos.getX() / 200.0D, pos.getZ() / 200.0D);
 
         if (d0 < -0.8D) {
             int j = rand.nextInt(4);
 
             return switch (j) {
-                case 0 -> BlockFlower.EnumFlowerType.ORANGE_TULIP;
-                case 1 -> BlockFlower.EnumFlowerType.RED_TULIP;
-                case 2 -> BlockFlower.EnumFlowerType.PINK_TULIP;
-                default -> BlockFlower.EnumFlowerType.WHITE_TULIP;
+                case 0 -> BlockFlower.FlowerType.ORANGE_TULIP;
+                case 1 -> BlockFlower.FlowerType.RED_TULIP;
+                case 2 -> BlockFlower.FlowerType.PINK_TULIP;
+                default -> BlockFlower.FlowerType.WHITE_TULIP;
             };
         } else if (rand.nextInt(3) > 0) {
             int i = rand.nextInt(3);
-            return i == 0 ? BlockFlower.EnumFlowerType.POPPY : (i == 1 ? BlockFlower.EnumFlowerType.HOUSTONIA : BlockFlower.EnumFlowerType.OXEYE_DAISY);
+            return i == 0 ? BlockFlower.FlowerType.POPPY : (i == 1 ? BlockFlower.FlowerType.HOUSTONIA : BlockFlower.FlowerType.OXEYE_DAISY);
         } else {
-            return BlockFlower.EnumFlowerType.DANDELION;
+            return BlockFlower.FlowerType.DANDELION;
         }
     }
 

@@ -5,8 +5,6 @@ import com.google.common.util.concurrent.Futures;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 
 import net.minecraft.client.ClientBrandRetriever;
@@ -25,7 +23,7 @@ import net.minecraft.util.CryptManager;
 import net.minecraft.util.HttpUtil;
 import net.minecraft.util.Util;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldManager;
 import net.minecraft.world.WorldServer;
@@ -198,7 +196,7 @@ public class IntegratedServer extends MinecraftServer {
         return this.theWorldSettings.getGameType();
     }
 
-    public EnumDifficulty getDifficulty() {
+    public Difficulty getDifficulty() {
         return this.mc.theWorld == null ? this.mc.gameSettings.difficulty : this.mc.theWorld.getWorldInfo().getDifficulty();
     }
 
@@ -261,7 +259,7 @@ public class IntegratedServer extends MinecraftServer {
         return report;
     }
 
-    public void setDifficultyForAllWorlds(EnumDifficulty difficulty) {
+    public void setDifficultyForAllWorlds(Difficulty difficulty) {
         super.setDifficultyForAllWorlds(difficulty);
 
         if (this.mc.theWorld != null) {

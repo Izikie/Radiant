@@ -45,7 +45,7 @@ import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.IRegistry;
 import net.minecraft.util.RegistrySimple;
 import net.minecraft.util.ResourceLocation;
@@ -406,7 +406,7 @@ public class ModelBakery {
         SimpleBakedModel.Builder simplebakedmodel$builder = (new SimpleBakedModel.Builder(modelBlockIn)).setTexture(textureatlassprite);
 
         for (BlockPart blockpart : modelBlockIn.getElements()) {
-            for (EnumFacing enumfacing : blockpart.mapFaces.keySet()) {
+            for (Direction enumfacing : blockpart.mapFaces.keySet()) {
                 BlockPartFace blockpartface = blockpart.mapFaces.get(enumfacing);
                 TextureAtlasSprite textureatlassprite1 = this.sprites.get(new ResourceLocation(modelBlockIn.resolveTextureName(blockpartface.texture)));
 
@@ -421,7 +421,7 @@ public class ModelBakery {
         return simplebakedmodel$builder.makeBakedModel();
     }
 
-    private BakedQuad makeBakedQuad(BlockPart p_177589_1_, BlockPartFace p_177589_2_, TextureAtlasSprite p_177589_3_, EnumFacing p_177589_4_, ModelRotation p_177589_5_, boolean p_177589_6_) {
+    private BakedQuad makeBakedQuad(BlockPart p_177589_1_, BlockPartFace p_177589_2_, TextureAtlasSprite p_177589_3_, Direction p_177589_4_, ModelRotation p_177589_5_, boolean p_177589_6_) {
         return this.faceBakery.makeBakedQuad(p_177589_1_.positionFrom, p_177589_1_.positionTo, p_177589_2_, p_177589_3_, p_177589_4_, p_177589_5_, p_177589_1_.partRotation, p_177589_6_, p_177589_1_.shade);
     }
 

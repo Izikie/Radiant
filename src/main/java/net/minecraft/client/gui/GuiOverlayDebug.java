@@ -16,12 +16,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Direction;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.EnumSkyBlock;
+import net.minecraft.world.LightType;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.Chunk;
 import net.optifine.SmartAnimations;
@@ -158,7 +158,7 @@ public class GuiOverlayDebug extends Gui {
             debugInfo.add(String.format("Chunk-relative: %d %d %d", blockPos.getX() & 15, blockPos.getY() & 15, blockPos.getZ() & 15));
         } else {
             Entity entity = mc.getRenderViewEntity();
-            EnumFacing enumFacing = entity.getHorizontalFacing();
+            Direction enumFacing = entity.getHorizontalFacing();
             String direction = switch (enumFacing) {
                 case NORTH -> "Towards -Z";
                 case SOUTH -> "Towards +Z";
@@ -175,7 +175,7 @@ public class GuiOverlayDebug extends Gui {
             if (mc.theWorld != null && mc.theWorld.isBlockLoaded(blockPos)) {
                 Chunk chunk = mc.theWorld.getChunkFromBlockCoords(blockPos);
                 debugInfo.add("Biome: " + chunk.getBiome(blockPos, mc.theWorld.getWorldChunkManager()).biomeName);
-                debugInfo.add("Light: " + chunk.getLightSubtracted(blockPos, 0) + " (" + chunk.getLightFor(EnumSkyBlock.SKY, blockPos) + " sky, " + chunk.getLightFor(EnumSkyBlock.BLOCK, blockPos) + " block)");
+                debugInfo.add("Light: " + chunk.getLightSubtracted(blockPos, 0) + " (" + chunk.getLightFor(LightType.SKY, blockPos) + " sky, " + chunk.getLightFor(LightType.BLOCK, blockPos) + " block)");
                 DifficultyInstance localDifficulty = mc.theWorld.getDifficultyForLocation(blockPos);
 
                 if (mc.isIntegratedServerRunning() && mc.getIntegratedServer() != null) {
@@ -238,9 +238,9 @@ public class GuiOverlayDebug extends Gui {
                     String value = entry.getValue().toString();
 
                     if (entry.getValue() == Boolean.TRUE) {
-                        value = EnumChatFormatting.GREEN + value;
+                        value = Formatting.GREEN + value;
                     } else if (entry.getValue() == Boolean.FALSE) {
-                        value = EnumChatFormatting.RED + value;
+                        value = Formatting.RED + value;
                     }
 
                     list.add(entry.getKey().getName() + ": " + value);

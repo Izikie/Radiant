@@ -1,6 +1,6 @@
 package net.minecraft.item;
 
-public enum EnumAction {
+public enum UseAction {
     NONE,
     EAT,
     DRINK,

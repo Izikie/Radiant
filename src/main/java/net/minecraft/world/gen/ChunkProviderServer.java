@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.EntityCategory;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.IProgressUpdate;
 import net.minecraft.util.LongHashMap;
@@ -241,7 +241,7 @@ public class ChunkProviderServer implements IChunkProvider {
         return "ServerChunkCache: " + this.id2ChunkMap.getNumHashElements() + " Drop: " + this.droppedChunksSet.size();
     }
 
-    public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
+    public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EntityCategory creatureType, BlockPos pos) {
         return this.serverChunkGenerator.getPossibleCreatures(creatureType, pos);
     }
 

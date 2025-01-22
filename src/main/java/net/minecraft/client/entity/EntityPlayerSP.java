@@ -43,8 +43,8 @@ import net.minecraft.stats.StatFileWriter;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.Direction;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MovementInput;
 import net.minecraft.util.ResourceLocation;
@@ -180,7 +180,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 
     public EntityItem dropOneItem(boolean dropAll) {
         C07PacketPlayerDigging.Action c07packetplayerdigging$action = dropAll ? C07PacketPlayerDigging.Action.DROP_ALL_ITEMS : C07PacketPlayerDigging.Action.DROP_ITEM;
-        this.sendQueue.addToSendQueue(new C07PacketPlayerDigging(c07packetplayerdigging$action, BlockPos.ORIGIN, EnumFacing.DOWN));
+        this.sendQueue.addToSendQueue(new C07PacketPlayerDigging(c07packetplayerdigging$action, BlockPos.ORIGIN, Direction.DOWN));
         return null;
     }
 
@@ -432,11 +432,11 @@ public class EntityPlayerSP extends AbstractClientPlayer {
     }
 
     public void onCriticalHit(Entity entityHit) {
-        this.mc.effectRenderer.emitParticleAtEntity(entityHit, EnumParticleTypes.CRIT);
+        this.mc.effectRenderer.emitParticleAtEntity(entityHit, ParticleTypes.CRIT);
     }
 
     public void onEnchantmentCritical(Entity entityHit) {
-        this.mc.effectRenderer.emitParticleAtEntity(entityHit, EnumParticleTypes.CRIT_MAGIC);
+        this.mc.effectRenderer.emitParticleAtEntity(entityHit, ParticleTypes.CRIT_MAGIC);
     }
 
     public boolean isSneaking() {

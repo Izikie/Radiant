@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.Callable;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -24,8 +23,8 @@ import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.Entity;
 import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.Direction;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.ResourceLocation;
@@ -56,54 +55,54 @@ public class EffectRenderer {
     }
 
     private void registerVanillaParticles() {
-        this.registerParticle(EnumParticleTypes.EXPLOSION_NORMAL.getParticleID(), new EntityExplodeFX.Factory());
-        this.registerParticle(EnumParticleTypes.WATER_BUBBLE.getParticleID(), new EntityBubbleFX.Factory());
-        this.registerParticle(EnumParticleTypes.WATER_SPLASH.getParticleID(), new EntitySplashFX.Factory());
-        this.registerParticle(EnumParticleTypes.WATER_WAKE.getParticleID(), new EntityFishWakeFX.Factory());
-        this.registerParticle(EnumParticleTypes.WATER_DROP.getParticleID(), new EntityRainFX.Factory());
-        this.registerParticle(EnumParticleTypes.SUSPENDED.getParticleID(), new EntitySuspendFX.Factory());
-        this.registerParticle(EnumParticleTypes.SUSPENDED_DEPTH.getParticleID(), new EntityAuraFX.Factory());
-        this.registerParticle(EnumParticleTypes.CRIT.getParticleID(), new EntityCrit2FX.Factory());
-        this.registerParticle(EnumParticleTypes.CRIT_MAGIC.getParticleID(), new EntityCrit2FX.MagicFactory());
-        this.registerParticle(EnumParticleTypes.SMOKE_NORMAL.getParticleID(), new EntitySmokeFX.Factory());
-        this.registerParticle(EnumParticleTypes.SMOKE_LARGE.getParticleID(), new EntityCritFX.Factory());
-        this.registerParticle(EnumParticleTypes.SPELL.getParticleID(), new EntitySpellParticleFX.Factory());
-        this.registerParticle(EnumParticleTypes.SPELL_INSTANT.getParticleID(), new EntitySpellParticleFX.InstantFactory());
-        this.registerParticle(EnumParticleTypes.SPELL_MOB.getParticleID(), new EntitySpellParticleFX.MobFactory());
-        this.registerParticle(EnumParticleTypes.SPELL_MOB_AMBIENT.getParticleID(), new EntitySpellParticleFX.AmbientMobFactory());
-        this.registerParticle(EnumParticleTypes.SPELL_WITCH.getParticleID(), new EntitySpellParticleFX.WitchFactory());
-        this.registerParticle(EnumParticleTypes.DRIP_WATER.getParticleID(), new EntityDropParticleFX.WaterFactory());
-        this.registerParticle(EnumParticleTypes.DRIP_LAVA.getParticleID(), new EntityDropParticleFX.LavaFactory());
-        this.registerParticle(EnumParticleTypes.VILLAGER_ANGRY.getParticleID(), new EntityHeartFX.AngryVillagerFactory());
-        this.registerParticle(EnumParticleTypes.VILLAGER_HAPPY.getParticleID(), new EntityAuraFX.HappyVillagerFactory());
-        this.registerParticle(EnumParticleTypes.TOWN_AURA.getParticleID(), new EntityAuraFX.Factory());
-        this.registerParticle(EnumParticleTypes.NOTE.getParticleID(), new EntityNoteFX.Factory());
-        this.registerParticle(EnumParticleTypes.PORTAL.getParticleID(), new EntityPortalFX.Factory());
-        this.registerParticle(EnumParticleTypes.ENCHANTMENT_TABLE.getParticleID(), new EntityEnchantmentTableParticleFX.EnchantmentTable());
-        this.registerParticle(EnumParticleTypes.FLAME.getParticleID(), new EntityFlameFX.Factory());
-        this.registerParticle(EnumParticleTypes.LAVA.getParticleID(), new EntityLavaFX.Factory());
-        this.registerParticle(EnumParticleTypes.FOOTSTEP.getParticleID(), new EntityFootStepFX.Factory());
-        this.registerParticle(EnumParticleTypes.CLOUD.getParticleID(), new EntityCloudFX.Factory());
-        this.registerParticle(EnumParticleTypes.REDSTONE.getParticleID(), new EntityReddustFX.Factory());
-        this.registerParticle(EnumParticleTypes.SNOWBALL.getParticleID(), new EntityBreakingFX.SnowballFactory());
-        this.registerParticle(EnumParticleTypes.SNOW_SHOVEL.getParticleID(), new EntitySnowShovelFX.Factory());
-        this.registerParticle(EnumParticleTypes.SLIME.getParticleID(), new EntityBreakingFX.SlimeFactory());
-        this.registerParticle(EnumParticleTypes.HEART.getParticleID(), new EntityHeartFX.Factory());
-        this.registerParticle(EnumParticleTypes.BARRIER.getParticleID(), new Barrier.Factory());
-        this.registerParticle(EnumParticleTypes.ITEM_CRACK.getParticleID(), new EntityBreakingFX.Factory());
-        this.registerParticle(EnumParticleTypes.BLOCK_CRACK.getParticleID(), new EntityDiggingFX.Factory());
-        this.registerParticle(EnumParticleTypes.BLOCK_DUST.getParticleID(), new EntityBlockDustFX.Factory());
-        this.registerParticle(EnumParticleTypes.EXPLOSION_HUGE.getParticleID(), new EntityHugeExplodeFX.Factory());
-        this.registerParticle(EnumParticleTypes.EXPLOSION_LARGE.getParticleID(), new EntityLargeExplodeFX.Factory());
-        this.registerParticle(EnumParticleTypes.FIREWORKS_SPARK.getParticleID(), new EntityFirework.Factory());
-        this.registerParticle(EnumParticleTypes.MOB_APPEARANCE.getParticleID(), new MobAppearance.Factory());
+        this.registerParticle(ParticleTypes.EXPLOSION_NORMAL.getParticleID(), new EntityExplodeFX.Factory());
+        this.registerParticle(ParticleTypes.WATER_BUBBLE.getParticleID(), new EntityBubbleFX.Factory());
+        this.registerParticle(ParticleTypes.WATER_SPLASH.getParticleID(), new EntitySplashFX.Factory());
+        this.registerParticle(ParticleTypes.WATER_WAKE.getParticleID(), new EntityFishWakeFX.Factory());
+        this.registerParticle(ParticleTypes.WATER_DROP.getParticleID(), new EntityRainFX.Factory());
+        this.registerParticle(ParticleTypes.SUSPENDED.getParticleID(), new EntitySuspendFX.Factory());
+        this.registerParticle(ParticleTypes.SUSPENDED_DEPTH.getParticleID(), new EntityAuraFX.Factory());
+        this.registerParticle(ParticleTypes.CRIT.getParticleID(), new EntityCrit2FX.Factory());
+        this.registerParticle(ParticleTypes.CRIT_MAGIC.getParticleID(), new EntityCrit2FX.MagicFactory());
+        this.registerParticle(ParticleTypes.SMOKE_NORMAL.getParticleID(), new EntitySmokeFX.Factory());
+        this.registerParticle(ParticleTypes.SMOKE_LARGE.getParticleID(), new EntityCritFX.Factory());
+        this.registerParticle(ParticleTypes.SPELL.getParticleID(), new EntitySpellParticleFX.Factory());
+        this.registerParticle(ParticleTypes.SPELL_INSTANT.getParticleID(), new EntitySpellParticleFX.InstantFactory());
+        this.registerParticle(ParticleTypes.SPELL_MOB.getParticleID(), new EntitySpellParticleFX.MobFactory());
+        this.registerParticle(ParticleTypes.SPELL_MOB_AMBIENT.getParticleID(), new EntitySpellParticleFX.AmbientMobFactory());
+        this.registerParticle(ParticleTypes.SPELL_WITCH.getParticleID(), new EntitySpellParticleFX.WitchFactory());
+        this.registerParticle(ParticleTypes.DRIP_WATER.getParticleID(), new EntityDropParticleFX.WaterFactory());
+        this.registerParticle(ParticleTypes.DRIP_LAVA.getParticleID(), new EntityDropParticleFX.LavaFactory());
+        this.registerParticle(ParticleTypes.VILLAGER_ANGRY.getParticleID(), new EntityHeartFX.AngryVillagerFactory());
+        this.registerParticle(ParticleTypes.VILLAGER_HAPPY.getParticleID(), new EntityAuraFX.HappyVillagerFactory());
+        this.registerParticle(ParticleTypes.TOWN_AURA.getParticleID(), new EntityAuraFX.Factory());
+        this.registerParticle(ParticleTypes.NOTE.getParticleID(), new EntityNoteFX.Factory());
+        this.registerParticle(ParticleTypes.PORTAL.getParticleID(), new EntityPortalFX.Factory());
+        this.registerParticle(ParticleTypes.ENCHANTMENT_TABLE.getParticleID(), new EntityEnchantmentTableParticleFX.EnchantmentTable());
+        this.registerParticle(ParticleTypes.FLAME.getParticleID(), new EntityFlameFX.Factory());
+        this.registerParticle(ParticleTypes.LAVA.getParticleID(), new EntityLavaFX.Factory());
+        this.registerParticle(ParticleTypes.FOOTSTEP.getParticleID(), new EntityFootStepFX.Factory());
+        this.registerParticle(ParticleTypes.CLOUD.getParticleID(), new EntityCloudFX.Factory());
+        this.registerParticle(ParticleTypes.REDSTONE.getParticleID(), new EntityReddustFX.Factory());
+        this.registerParticle(ParticleTypes.SNOWBALL.getParticleID(), new EntityBreakingFX.SnowballFactory());
+        this.registerParticle(ParticleTypes.SNOW_SHOVEL.getParticleID(), new EntitySnowShovelFX.Factory());
+        this.registerParticle(ParticleTypes.SLIME.getParticleID(), new EntityBreakingFX.SlimeFactory());
+        this.registerParticle(ParticleTypes.HEART.getParticleID(), new EntityHeartFX.Factory());
+        this.registerParticle(ParticleTypes.BARRIER.getParticleID(), new Barrier.Factory());
+        this.registerParticle(ParticleTypes.ITEM_CRACK.getParticleID(), new EntityBreakingFX.Factory());
+        this.registerParticle(ParticleTypes.BLOCK_CRACK.getParticleID(), new EntityDiggingFX.Factory());
+        this.registerParticle(ParticleTypes.BLOCK_DUST.getParticleID(), new EntityBlockDustFX.Factory());
+        this.registerParticle(ParticleTypes.EXPLOSION_HUGE.getParticleID(), new EntityHugeExplodeFX.Factory());
+        this.registerParticle(ParticleTypes.EXPLOSION_LARGE.getParticleID(), new EntityLargeExplodeFX.Factory());
+        this.registerParticle(ParticleTypes.FIREWORKS_SPARK.getParticleID(), new EntityFirework.Factory());
+        this.registerParticle(ParticleTypes.MOB_APPEARANCE.getParticleID(), new MobAppearance.Factory());
     }
 
     public void registerParticle(int id, IParticleFactory particleFactory) {
         this.particleTypes.put(id, particleFactory);
     }
 
-    public void emitParticleAtEntity(Entity entityIn, EnumParticleTypes particleTypes) {
+    public void emitParticleAtEntity(Entity entityIn, ParticleTypes particleTypes) {
         this.particleEmitters.add(new EntityParticleEmitter(this.worldObj, entityIn, particleTypes));
     }
 
@@ -329,7 +328,7 @@ public class EffectRenderer {
         }
     }
 
-    public void addBlockHitEffects(BlockPos pos, EnumFacing side) {
+    public void addBlockHitEffects(BlockPos pos, Direction side) {
         IBlockState iblockstate = this.worldObj.getBlockState(pos);
         Block block = iblockstate.getBlock();
 
@@ -342,27 +341,27 @@ public class EffectRenderer {
             double d1 = j + this.rand.nextDouble() * (block.getBlockBoundsMaxY() - block.getBlockBoundsMinY() - (f * 2.0F)) + f + block.getBlockBoundsMinY();
             double d2 = k + this.rand.nextDouble() * (block.getBlockBoundsMaxZ() - block.getBlockBoundsMinZ() - (f * 2.0F)) + f + block.getBlockBoundsMinZ();
 
-            if (side == EnumFacing.DOWN) {
+            if (side == Direction.DOWN) {
                 d1 = j + block.getBlockBoundsMinY() - f;
             }
 
-            if (side == EnumFacing.UP) {
+            if (side == Direction.UP) {
                 d1 = j + block.getBlockBoundsMaxY() + f;
             }
 
-            if (side == EnumFacing.NORTH) {
+            if (side == Direction.NORTH) {
                 d2 = k + block.getBlockBoundsMinZ() - f;
             }
 
-            if (side == EnumFacing.SOUTH) {
+            if (side == Direction.SOUTH) {
                 d2 = k + block.getBlockBoundsMaxZ() + f;
             }
 
-            if (side == EnumFacing.WEST) {
+            if (side == Direction.WEST) {
                 d0 = i + block.getBlockBoundsMinX() - f;
             }
 
-            if (side == EnumFacing.EAST) {
+            if (side == Direction.EAST) {
                 d0 = i + block.getBlockBoundsMaxX() + f;
             }
 

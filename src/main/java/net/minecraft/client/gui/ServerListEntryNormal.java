@@ -18,7 +18,7 @@ import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureUtil;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
@@ -56,10 +56,10 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
                     ServerListEntryNormal.this.owner.getOldServerPinger().ping(ServerListEntryNormal.this.server);
                 } catch (UnknownHostException var2) {
                     ServerListEntryNormal.this.server.pingToServer = -1L;
-                    ServerListEntryNormal.this.server.serverMOTD = EnumChatFormatting.DARK_RED + "Can't resolve hostname";
+                    ServerListEntryNormal.this.server.serverMOTD = Formatting.DARK_RED + "Can't resolve hostname";
                 } catch (Exception var3) {
                     ServerListEntryNormal.this.server.pingToServer = -1L;
-                    ServerListEntryNormal.this.server.serverMOTD = EnumChatFormatting.DARK_RED + "Can't connect to server.";
+                    ServerListEntryNormal.this.server.serverMOTD = Formatting.DARK_RED + "Can't connect to server.";
                 }
             });
         }
@@ -74,7 +74,7 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
             this.mc.fontRendererObj.drawString(list.get(i), x + 32 + 3, y + 12 + this.mc.fontRendererObj.FONT_HEIGHT * i, 8421504);
         }
 
-        String s2 = flag2 ? EnumChatFormatting.DARK_RED + this.server.gameVersion : this.server.populationInfo;
+        String s2 = flag2 ? Formatting.DARK_RED + this.server.gameVersion : this.server.populationInfo;
         int j = this.mc.fontRendererObj.getStringWidth(s2);
         this.mc.fontRendererObj.drawString(s2, x + listWidth - j - 15 - 2, y + 1, 8421504);
         int k = 0;

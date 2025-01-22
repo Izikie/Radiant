@@ -1442,7 +1442,7 @@ public class Config {
                 Display.setDisplayMode(displaymode);
                 Display.create((new PixelFormat()).withDepthBits(24).withSamples(i));
 
-                if (Util.getOSType() == Util.EnumOS.WINDOWS) {
+                if (Util.getOSType() == Util.OperatingSystem.WINDOWS) {
                     Display.setResizable(false);
                     Display.setResizable(true);
                 }
@@ -1454,7 +1454,7 @@ public class Config {
                     Display.setDisplayMode(displaymode);
                     Display.create((new PixelFormat()).withDepthBits(24));
 
-                    if (Util.getOSType() == Util.EnumOS.WINDOWS) {
+                    if (Util.getOSType() == Util.OperatingSystem.WINDOWS) {
                         Display.setResizable(false);
                         Display.setResizable(true);
                     }
@@ -1465,7 +1465,7 @@ public class Config {
                         Display.setDisplayMode(displaymode);
                         Display.create();
 
-                        if (Util.getOSType() == Util.EnumOS.WINDOWS) {
+                        if (Util.getOSType() == Util.OperatingSystem.WINDOWS) {
                             Display.setResizable(false);
                             Display.setResizable(true);
                         }
@@ -1569,7 +1569,7 @@ public class Config {
                 Display.update();
                 GlStateManager.enableTexture2D();
 
-                if (Util.getOSType() == Util.EnumOS.WINDOWS) {
+                if (Util.getOSType() == Util.OperatingSystem.WINDOWS) {
                     Display.setResizable(false);
                     Display.setResizable(true);
                 }

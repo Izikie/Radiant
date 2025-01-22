@@ -19,7 +19,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 
 public class EntityGhast extends EntityFlying implements IMob {
@@ -52,7 +52,7 @@ public class EntityGhast extends EntityFlying implements IMob {
     public void onUpdate() {
         super.onUpdate();
 
-        if (!this.worldObj.isRemote && this.worldObj.getDifficulty() == EnumDifficulty.PEACEFUL) {
+        if (!this.worldObj.isRemote && this.worldObj.getDifficulty() == Difficulty.PEACEFUL) {
             this.setDead();
         }
     }
@@ -115,7 +115,7 @@ public class EntityGhast extends EntityFlying implements IMob {
     }
 
     public boolean getCanSpawnHere() {
-        return this.rand.nextInt(20) == 0 && super.getCanSpawnHere() && this.worldObj.getDifficulty() != EnumDifficulty.PEACEFUL;
+        return this.rand.nextInt(20) == 0 && super.getCanSpawnHere() && this.worldObj.getDifficulty() != Difficulty.PEACEFUL;
     }
 
     public int getMaxSpawnedInChunk() {

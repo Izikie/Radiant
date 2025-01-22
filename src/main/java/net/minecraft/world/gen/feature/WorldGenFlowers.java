@@ -11,11 +11,11 @@ public class WorldGenFlowers extends WorldGenerator {
     private BlockFlower flower;
     private IBlockState field_175915_b;
 
-    public WorldGenFlowers(BlockFlower p_i45632_1_, BlockFlower.EnumFlowerType p_i45632_2_) {
+    public WorldGenFlowers(BlockFlower p_i45632_1_, BlockFlower.FlowerType p_i45632_2_) {
         this.setGeneratedBlock(p_i45632_1_, p_i45632_2_);
     }
 
-    public void setGeneratedBlock(BlockFlower p_175914_1_, BlockFlower.EnumFlowerType p_175914_2_) {
+    public void setGeneratedBlock(BlockFlower p_175914_1_, BlockFlower.FlowerType p_175914_2_) {
         this.flower = p_175914_1_;
         this.field_175915_b = p_175914_1_.getDefaultState().withProperty(p_175914_1_.getTypeProperty(), p_175914_2_);
     }

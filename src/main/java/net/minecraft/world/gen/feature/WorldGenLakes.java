@@ -6,7 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
-import net.minecraft.world.EnumSkyBlock;
+import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
@@ -88,7 +88,7 @@ public class WorldGenLakes extends WorldGenerator {
                         if (aboolean[(i2 * 16 + j3) * 8 + j4]) {
                             BlockPos blockpos = position.add(i2, j4 - 1, j3);
 
-                            if (worldIn.getBlockState(blockpos).getBlock() == Blocks.dirt && worldIn.getLightFor(EnumSkyBlock.SKY, position.add(i2, j4, j3)) > 0) {
+                            if (worldIn.getBlockState(blockpos).getBlock() == Blocks.dirt && worldIn.getLightFor(LightType.SKY, position.add(i2, j4, j3)) > 0) {
                                 BiomeGenBase biomegenbase = worldIn.getBiomeGenForCoords(blockpos);
 
                                 if (biomegenbase.topBlock.getBlock() == Blocks.mycelium) {

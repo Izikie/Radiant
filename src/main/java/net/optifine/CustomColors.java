@@ -26,7 +26,7 @@ import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemMonsterPlacer;
 import net.minecraft.item.ItemStack;
@@ -1126,10 +1126,10 @@ public class CustomColors {
     }
 
     private static float[][] readDyeColors(Properties props, String fileName, String prefix, String logName) {
-        EnumDyeColor[] aenumdyecolor = EnumDyeColor.values();
-        Map<String, EnumDyeColor> map = new HashMap();
+        DyeColor[] aenumdyecolor = DyeColor.values();
+        Map<String, DyeColor> map = new HashMap();
 
-        for (EnumDyeColor enumdyecolor : aenumdyecolor) {
+        for (DyeColor enumdyecolor : aenumdyecolor) {
             map.put(enumdyecolor.getName(), enumdyecolor);
         }
 
@@ -1147,7 +1147,7 @@ public class CustomColors {
                     s2 = "light_blue";
                 }
 
-                EnumDyeColor enumdyecolor1 = map.get(s2);
+                DyeColor enumdyecolor1 = map.get(s2);
                 int j = parseColor(s1);
 
                 if (enumdyecolor1 != null && j >= 0) {
@@ -1168,7 +1168,7 @@ public class CustomColors {
         }
     }
 
-    private static float[] getDyeColors(EnumDyeColor dye, float[][] dyeColors, float[] colors) {
+    private static float[] getDyeColors(DyeColor dye, float[][] dyeColors, float[] colors) {
         if (dyeColors == null) {
             return colors;
         } else if (dye == null) {
@@ -1179,11 +1179,11 @@ public class CustomColors {
         }
     }
 
-    public static float[] getWolfCollarColors(EnumDyeColor dye, float[] colors) {
+    public static float[] getWolfCollarColors(DyeColor dye, float[] colors) {
         return getDyeColors(dye, wolfCollarColors, colors);
     }
 
-    public static float[] getSheepColors(EnumDyeColor dye, float[] colors) {
+    public static float[] getSheepColors(DyeColor dye, float[] colors) {
         return getDyeColors(dye, sheepColors, colors);
     }
 

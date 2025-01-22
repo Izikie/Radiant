@@ -5,7 +5,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
-import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.EntityCategory;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.IProgressUpdate;
@@ -417,15 +417,15 @@ public class ChunkProviderGenerate implements IChunkProvider {
         return "RandomLevelSource";
     }
 
-    public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
+    public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EntityCategory creatureType, BlockPos pos) {
         BiomeGenBase biomegenbase = this.worldObj.getBiomeGenForCoords(pos);
 
         if (this.mapFeaturesEnabled) {
-            if (creatureType == EnumCreatureType.MONSTER && this.scatteredFeatureGenerator.func_175798_a(pos)) {
+            if (creatureType == EntityCategory.MONSTER && this.scatteredFeatureGenerator.func_175798_a(pos)) {
                 return this.scatteredFeatureGenerator.getScatteredFeatureSpawnList();
             }
 
-            if (creatureType == EnumCreatureType.MONSTER && this.settings.useMonuments && this.oceanMonumentGenerator.isPositionInStructure(this.worldObj, pos)) {
+            if (creatureType == EntityCategory.MONSTER && this.settings.useMonuments && this.oceanMonumentGenerator.isPositionInStructure(this.worldObj, pos)) {
                 return this.oceanMonumentGenerator.getScatteredFeatureSpawnList();
             }
         }

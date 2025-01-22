@@ -6,7 +6,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.LoadingCache;
 import net.minecraft.block.state.BlockWorldState;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Vec3i;
 import net.minecraft.world.World;
 
@@ -42,7 +42,7 @@ public class BlockPattern {
         return this.palmLength;
     }
 
-    private BlockPattern.PatternHelper checkPatternAt(BlockPos pos, EnumFacing finger, EnumFacing thumb, LoadingCache<BlockPos, BlockWorldState> lcache) {
+    private BlockPattern.PatternHelper checkPatternAt(BlockPos pos, Direction finger, Direction thumb, LoadingCache<BlockPos, BlockWorldState> lcache) {
         for (int i = 0; i < this.palmLength; ++i) {
             for (int j = 0; j < this.thumbLength; ++j) {
                 for (int k = 0; k < this.fingerLength; ++k) {
@@ -61,8 +61,8 @@ public class BlockPattern {
         int i = Math.max(Math.max(this.palmLength, this.thumbLength), this.fingerLength);
 
         for (BlockPos blockpos : BlockPos.getAllInBox(pos, pos.add(i - 1, i - 1, i - 1))) {
-            for (EnumFacing enumfacing : EnumFacing.values()) {
-                for (EnumFacing enumfacing1 : EnumFacing.values()) {
+            for (Direction enumfacing : Direction.values()) {
+                for (Direction enumfacing1 : Direction.values()) {
                     if (enumfacing1 != enumfacing && enumfacing1 != enumfacing.getOpposite()) {
                         BlockPattern.PatternHelper blockpattern$patternhelper = this.checkPatternAt(blockpos, enumfacing, enumfacing1, loadingcache);
 
@@ -81,7 +81,7 @@ public class BlockPattern {
         return CacheBuilder.newBuilder().build(new BlockPattern.CacheLoader(p_181627_0_, p_181627_1_));
     }
 
-    protected static BlockPos translateOffset(BlockPos pos, EnumFacing finger, EnumFacing thumb, int palmOffset, int thumbOffset, int fingerOffset) {
+    protected static BlockPos translateOffset(BlockPos pos, Direction finger, Direction thumb, int palmOffset, int thumbOffset, int fingerOffset) {
         if (finger != thumb && finger != thumb.getOpposite()) {
             Vec3i vec3i = new Vec3i(finger.getFrontOffsetX(), finger.getFrontOffsetY(), finger.getFrontOffsetZ());
             Vec3i vec3i1 = new Vec3i(thumb.getFrontOffsetX(), thumb.getFrontOffsetY(), thumb.getFrontOffsetZ());
@@ -108,14 +108,14 @@ public class BlockPattern {
 
     public static class PatternHelper {
         private final BlockPos pos;
-        private final EnumFacing finger;
-        private final EnumFacing thumb;
+        private final Direction finger;
+        private final Direction thumb;
         private final LoadingCache<BlockPos, BlockWorldState> lcache;
         private final int field_181120_e;
         private final int field_181121_f;
         private final int field_181122_g;
 
-        public PatternHelper(BlockPos posIn, EnumFacing fingerIn, EnumFacing thumbIn, LoadingCache<BlockPos, BlockWorldState> lcacheIn, int p_i46378_5_, int p_i46378_6_, int p_i46378_7_) {
+        public PatternHelper(BlockPos posIn, Direction fingerIn, Direction thumbIn, LoadingCache<BlockPos, BlockWorldState> lcacheIn, int p_i46378_5_, int p_i46378_6_, int p_i46378_7_) {
             this.pos = posIn;
             this.finger = fingerIn;
             this.thumb = thumbIn;
@@ -129,11 +129,11 @@ public class BlockPattern {
             return this.pos;
         }
 
-        public EnumFacing getFinger() {
+        public Direction getFinger() {
             return this.finger;
         }
 
-        public EnumFacing getThumb() {
+        public Direction getThumb() {
             return this.thumb;
         }
 

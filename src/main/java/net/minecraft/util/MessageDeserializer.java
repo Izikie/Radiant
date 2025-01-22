@@ -7,7 +7,7 @@ import io.netty.handler.codec.ByteToMessageDecoder;
 import java.io.IOException;
 import java.util.List;
 
-import net.minecraft.network.EnumPacketDirection;
+import net.minecraft.network.PacketDirection;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
@@ -19,9 +19,9 @@ import org.apache.logging.log4j.MarkerManager;
 public class MessageDeserializer extends ByteToMessageDecoder {
     private static final Logger logger = LogManager.getLogger();
     private static final Marker RECEIVED_PACKET_MARKER = MarkerManager.getMarker("PACKET_RECEIVED", NetworkManager.logMarkerPackets);
-    private final EnumPacketDirection direction;
+    private final PacketDirection direction;
 
-    public MessageDeserializer(EnumPacketDirection direction) {
+    public MessageDeserializer(PacketDirection direction) {
         this.direction = direction;
     }
 

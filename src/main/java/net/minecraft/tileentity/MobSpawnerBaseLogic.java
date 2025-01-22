@@ -14,7 +14,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.StringUtils;
 import net.minecraft.util.WeightedRandom;
 import net.minecraft.world.World;
@@ -63,8 +63,8 @@ public abstract class MobSpawnerBaseLogic {
                 double d3 = (blockpos.getX() + this.getSpawnerWorld().rand.nextFloat());
                 double d4 = (blockpos.getY() + this.getSpawnerWorld().rand.nextFloat());
                 double d5 = (blockpos.getZ() + this.getSpawnerWorld().rand.nextFloat());
-                this.getSpawnerWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d3, d4, d5, 0.0D, 0.0D, 0.0D);
-                this.getSpawnerWorld().spawnParticle(EnumParticleTypes.FLAME, d3, d4, d5, 0.0D, 0.0D, 0.0D);
+                this.getSpawnerWorld().spawnParticle(ParticleTypes.SMOKE_NORMAL, d3, d4, d5, 0.0D, 0.0D, 0.0D);
+                this.getSpawnerWorld().spawnParticle(ParticleTypes.FLAME, d3, d4, d5, 0.0D, 0.0D, 0.0D);
 
                 if (this.spawnDelay > 0) {
                     --this.spawnDelay;
@@ -325,7 +325,7 @@ public abstract class MobSpawnerBaseLogic {
 
             if (type.equals("Minecart")) {
                 if (tagCompound != null) {
-                    type = EntityMinecart.EnumMinecartType.byNetworkID(tagCompound.getInteger("Type")).getName();
+                    type = EntityMinecart.MinecartType.byNetworkID(tagCompound.getInteger("Type")).getName();
                 } else {
                     type = "MinecartRideable";
                 }

@@ -18,8 +18,8 @@ public class ItemAppleGold extends ItemFood {
         return stack.getMetadata() > 0;
     }
 
-    public EnumRarity getRarity(ItemStack stack) {
-        return stack.getMetadata() == 0 ? EnumRarity.RARE : EnumRarity.EPIC;
+    public Rarity getRarity(ItemStack stack) {
+        return stack.getMetadata() == 0 ? Rarity.RARE : Rarity.EPIC;
     }
 
     protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {

@@ -11,8 +11,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.Direction;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -59,7 +59,7 @@ public class BlockRedstoneTorch extends BlockTorch {
 
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         if (this.isOn) {
-            for (EnumFacing enumfacing : EnumFacing.values()) {
+            for (Direction enumfacing : Direction.values()) {
                 worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing), this);
             }
         }
@@ -67,18 +67,18 @@ public class BlockRedstoneTorch extends BlockTorch {
 
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         if (this.isOn) {
-            for (EnumFacing enumfacing : EnumFacing.values()) {
+            for (Direction enumfacing : Direction.values()) {
                 worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing), this);
             }
         }
     }
 
-    public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side) {
+    public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
         return this.isOn && state.getValue(FACING) != side ? 15 : 0;
     }
 
     private boolean shouldBeOff(World worldIn, BlockPos pos, IBlockState state) {
-        EnumFacing enumfacing = state.getValue(FACING).getOpposite();
+        Direction enumfacing = state.getValue(FACING).getOpposite();
         return worldIn.isSidePowered(pos.offset(enumfacing), enumfacing);
     }
 
@@ -104,7 +104,7 @@ public class BlockRedstoneTorch extends BlockTorch {
                         double d0 = pos.getX() + rand.nextDouble() * 0.6D + 0.2D;
                         double d1 = pos.getY() + rand.nextDouble() * 0.6D + 0.2D;
                         double d2 = pos.getZ() + rand.nextDouble() * 0.6D + 0.2D;
-                        worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+                        worldIn.spawnParticle(ParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D);
                     }
 
                     worldIn.scheduleUpdate(pos, worldIn.getBlockState(pos).getBlock(), 160);
@@ -123,8 +123,8 @@ public class BlockRedstoneTorch extends BlockTorch {
         }
     }
 
-    public int getStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side) {
-        return side == EnumFacing.DOWN ? this.getWeakPower(worldIn, pos, state, side) : 0;
+    public int getStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
+        return side == Direction.DOWN ? this.getWeakPower(worldIn, pos, state, side) : 0;
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
@@ -140,17 +140,17 @@ public class BlockRedstoneTorch extends BlockTorch {
             double d0 = pos.getX() + 0.5D + (rand.nextDouble() - 0.5D) * 0.2D;
             double d1 = pos.getY() + 0.7D + (rand.nextDouble() - 0.5D) * 0.2D;
             double d2 = pos.getZ() + 0.5D + (rand.nextDouble() - 0.5D) * 0.2D;
-            EnumFacing enumfacing = state.getValue(FACING);
+            Direction enumfacing = state.getValue(FACING);
 
             if (enumfacing.getAxis().isHorizontal()) {
-                EnumFacing enumfacing1 = enumfacing.getOpposite();
+                Direction enumfacing1 = enumfacing.getOpposite();
                 double d3 = 0.27D;
                 d0 += 0.27D * enumfacing1.getFrontOffsetX();
                 d1 += 0.22D;
                 d2 += 0.27D * enumfacing1.getFrontOffsetZ();
             }
 
-            worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+            worldIn.spawnParticle(ParticleTypes.REDSTONE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
         }
     }
 

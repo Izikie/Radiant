@@ -12,8 +12,8 @@ import net.minecraft.item.Item;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.Direction;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -58,7 +58,7 @@ public class BlockCake extends Block {
         return false;
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         this.eatCake(worldIn, pos, state, playerIn);
         return true;
     }
@@ -107,8 +107,8 @@ public class BlockCake extends Block {
         return Items.cake;
     }
 
-    public EnumWorldBlockLayer getBlockLayer() {
-        return EnumWorldBlockLayer.CUTOUT;
+    public RenderLayer getBlockLayer() {
+        return RenderLayer.CUTOUT;
     }
 
     public IBlockState getStateFromMeta(int meta) {

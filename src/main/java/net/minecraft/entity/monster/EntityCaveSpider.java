@@ -7,7 +7,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 
 public class EntityCaveSpider extends EntitySpider {
@@ -26,9 +26,9 @@ public class EntityCaveSpider extends EntitySpider {
             if (entityIn instanceof EntityLivingBase) {
                 int i = 0;
 
-                if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL) {
+                if (this.worldObj.getDifficulty() == Difficulty.NORMAL) {
                     i = 7;
-                } else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
+                } else if (this.worldObj.getDifficulty() == Difficulty.HARD) {
                     i = 15;
                 }
 

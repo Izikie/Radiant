@@ -8,7 +8,7 @@ import java.util.Map;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -41,9 +41,9 @@ public class ItemModelGenerator {
     }
 
     private List<BlockPart> func_178394_a(int p_178394_1_, String p_178394_2_, TextureAtlasSprite p_178394_3_) {
-        Map<EnumFacing, BlockPartFace> map = Maps.newHashMap();
-        map.put(EnumFacing.SOUTH, new BlockPartFace(null, p_178394_1_, p_178394_2_, new BlockFaceUV(new float[]{0.0F, 0.0F, 16.0F, 16.0F}, 0)));
-        map.put(EnumFacing.NORTH, new BlockPartFace(null, p_178394_1_, p_178394_2_, new BlockFaceUV(new float[]{16.0F, 0.0F, 0.0F, 16.0F}, 0)));
+        Map<Direction, BlockPartFace> map = Maps.newHashMap();
+        map.put(Direction.SOUTH, new BlockPartFace(null, p_178394_1_, p_178394_2_, new BlockFaceUV(new float[]{0.0F, 0.0F, 16.0F, 16.0F}, 0)));
+        map.put(Direction.NORTH, new BlockPartFace(null, p_178394_1_, p_178394_2_, new BlockFaceUV(new float[]{16.0F, 0.0F, 0.0F, 16.0F}, 0)));
         List<BlockPart> list = Lists.newArrayList();
         list.add(new BlockPart(new Vector3f(0.0F, 0.0F, 7.5F), new Vector3f(16.0F, 16.0F, 8.5F), map, null, true));
         list.addAll(this.func_178397_a(p_178394_3_, p_178394_2_, p_178394_1_));
@@ -132,7 +132,7 @@ public class ItemModelGenerator {
             f7 = f7 * f10;
             f8 = f8 * f11;
             f9 = f9 * f11;
-            Map<EnumFacing, BlockPartFace> map = Maps.newHashMap();
+            Map<Direction, BlockPartFace> map = Maps.newHashMap();
             map.put(itemmodelgenerator$spanfacing.getFacing(), new BlockPartFace(null, p_178397_3_, p_178397_2_, new BlockFaceUV(new float[]{f6, f8, f7, f9}, 0)));
 
             switch (itemmodelgenerator$spanfacing) {
@@ -253,22 +253,22 @@ public class ItemModelGenerator {
     }
 
     enum SpanFacing {
-        UP(EnumFacing.UP, 0, -1),
-        DOWN(EnumFacing.DOWN, 0, 1),
-        LEFT(EnumFacing.EAST, -1, 0),
-        RIGHT(EnumFacing.WEST, 1, 0);
+        UP(Direction.UP, 0, -1),
+        DOWN(Direction.DOWN, 0, 1),
+        LEFT(Direction.EAST, -1, 0),
+        RIGHT(Direction.WEST, 1, 0);
 
-        private final EnumFacing facing;
+        private final Direction facing;
         private final int field_178373_f;
         private final int field_178374_g;
 
-        SpanFacing(EnumFacing facing, int p_i46215_4_, int p_i46215_5_) {
+        SpanFacing(Direction facing, int p_i46215_4_, int p_i46215_5_) {
             this.facing = facing;
             this.field_178373_f = p_i46215_4_;
             this.field_178374_g = p_i46215_5_;
         }
 
-        public EnumFacing getFacing() {
+        public Direction getFacing() {
             return this.facing;
         }
 

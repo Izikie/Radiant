@@ -9,7 +9,7 @@ import net.minecraft.tileentity.TileEntityDispenser;
 import net.minecraft.tileentity.TileEntityDropper;
 import net.minecraft.tileentity.TileEntityHopper;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public class BlockDropper extends BlockDispenser {
@@ -36,7 +36,7 @@ public class BlockDropper extends BlockDispenser {
                 ItemStack itemstack = tileentitydispenser.getStackInSlot(i);
 
                 if (itemstack != null) {
-                    EnumFacing enumfacing = worldIn.getBlockState(pos).getValue(FACING);
+                    Direction enumfacing = worldIn.getBlockState(pos).getValue(FACING);
                     BlockPos blockpos = pos.offset(enumfacing);
                     IInventory iinventory = TileEntityHopper.getInventoryAtPosition(worldIn, blockpos.getX(), blockpos.getY(), blockpos.getZ());
                     ItemStack itemstack1;

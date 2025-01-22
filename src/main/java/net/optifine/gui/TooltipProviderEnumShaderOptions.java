@@ -4,7 +4,7 @@ import java.awt.Rectangle;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.optifine.shaders.config.EnumShaderOption;
+import net.optifine.shaders.config.ShaderOptions;
 import net.optifine.shaders.gui.GuiButtonDownloadShaders;
 import net.optifine.shaders.gui.GuiButtonEnumShaderOption;
 
@@ -36,12 +36,12 @@ public class TooltipProviderEnumShaderOptions implements TooltipProvider {
         } else if (!(btn instanceof GuiButtonEnumShaderOption guibuttonenumshaderoption)) {
             return null;
         } else {
-            EnumShaderOption enumshaderoption = guibuttonenumshaderoption.getEnumShaderOption();
+            ShaderOptions enumshaderoption = guibuttonenumshaderoption.getEnumShaderOption();
             return this.getTooltipLines(enumshaderoption);
         }
     }
 
-    private String[] getTooltipLines(EnumShaderOption option) {
+    private String[] getTooltipLines(ShaderOptions option) {
         return TooltipProviderOptions.getTooltipLines(option.getResourceKey());
     }
 }

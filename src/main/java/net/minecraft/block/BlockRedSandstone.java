@@ -12,11 +12,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
 
 public class BlockRedSandstone extends Block {
-    public static final PropertyEnum<BlockRedSandstone.EnumType> TYPE = PropertyEnum.create("type", BlockRedSandstone.EnumType.class);
+    public static final PropertyEnum<RedSandStoneType> TYPE = PropertyEnum.create("type", RedSandStoneType.class);
 
     public BlockRedSandstone() {
-        super(Material.rock, BlockSand.EnumType.RED_SAND.getMapColor());
-        this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, BlockRedSandstone.EnumType.DEFAULT));
+        super(Material.rock, BlockSand.SandType.RED_SAND.getMapColor());
+        this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, RedSandStoneType.DEFAULT));
         this.setCreativeTab(CreativeTabs.tabBlock);
     }
 
@@ -25,13 +25,13 @@ public class BlockRedSandstone extends Block {
     }
 
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-        for (BlockRedSandstone.EnumType blockredsandstone$enumtype : BlockRedSandstone.EnumType.values()) {
+        for (RedSandStoneType blockredsandstone$enumtype : RedSandStoneType.values()) {
             list.add(new ItemStack(itemIn, 1, blockredsandstone$enumtype.getMetadata()));
         }
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(TYPE, BlockRedSandstone.EnumType.byMetadata(meta));
+        return this.getDefaultState().withProperty(TYPE, RedSandStoneType.byMetadata(meta));
     }
 
     public int getMetaFromState(IBlockState state) {
@@ -42,17 +42,17 @@ public class BlockRedSandstone extends Block {
         return new BlockState(this, TYPE);
     }
 
-    public enum EnumType implements IStringSerializable {
+    public enum RedSandStoneType implements IStringSerializable {
         DEFAULT(0, "red_sandstone", "default"),
         CHISELED(1, "chiseled_red_sandstone", "chiseled"),
         SMOOTH(2, "smooth_red_sandstone", "smooth");
 
-        private static final BlockRedSandstone.EnumType[] META_LOOKUP = new BlockRedSandstone.EnumType[values().length];
+        private static final RedSandStoneType[] META_LOOKUP = new RedSandStoneType[values().length];
         private final int meta;
         private final String name;
         private final String unlocalizedName;
 
-        EnumType(int meta, String name, String unlocalizedName) {
+        RedSandStoneType(int meta, String name, String unlocalizedName) {
             this.meta = meta;
             this.name = name;
             this.unlocalizedName = unlocalizedName;
@@ -66,7 +66,7 @@ public class BlockRedSandstone extends Block {
             return this.name;
         }
 
-        public static BlockRedSandstone.EnumType byMetadata(int meta) {
+        public static RedSandStoneType byMetadata(int meta) {
             if (meta < 0 || meta >= META_LOOKUP.length) {
                 meta = 0;
             }
@@ -83,7 +83,7 @@ public class BlockRedSandstone extends Block {
         }
 
         static {
-            for (BlockRedSandstone.EnumType blockredsandstone$enumtype : values()) {
+            for (RedSandStoneType blockredsandstone$enumtype : values()) {
                 META_LOOKUP[blockredsandstone$enumtype.getMetadata()] = blockredsandstone$enumtype;
             }
         }

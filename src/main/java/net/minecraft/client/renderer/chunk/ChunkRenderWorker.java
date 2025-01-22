@@ -13,7 +13,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RegionRenderCacheBuilder;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.RenderLayer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -101,13 +101,13 @@ public class ChunkRenderWorker implements Runnable {
             ArrayList lvt_8_1_ = Lists.newArrayList();
 
             if (chunkcompiletaskgenerator$type == ChunkCompileTaskGenerator.Type.REBUILD_CHUNK) {
-                for (EnumWorldBlockLayer enumworldblocklayer : EnumWorldBlockLayer.values()) {
+                for (RenderLayer enumworldblocklayer : RenderLayer.values()) {
                     if (lvt_7_1_.isLayerStarted(enumworldblocklayer)) {
                         lvt_8_1_.add(this.chunkRenderDispatcher.uploadChunk(enumworldblocklayer, generator.getRegionRenderCacheBuilder().getWorldRendererByLayer(enumworldblocklayer), generator.getRenderChunk(), lvt_7_1_));
                     }
                 }
             } else if (chunkcompiletaskgenerator$type == ChunkCompileTaskGenerator.Type.RESORT_TRANSPARENCY) {
-                lvt_8_1_.add(this.chunkRenderDispatcher.uploadChunk(EnumWorldBlockLayer.TRANSLUCENT, generator.getRegionRenderCacheBuilder().getWorldRendererByLayer(EnumWorldBlockLayer.TRANSLUCENT), generator.getRenderChunk(), lvt_7_1_));
+                lvt_8_1_.add(this.chunkRenderDispatcher.uploadChunk(RenderLayer.TRANSLUCENT, generator.getRegionRenderCacheBuilder().getWorldRendererByLayer(RenderLayer.TRANSLUCENT), generator.getRenderChunk(), lvt_7_1_));
             }
 
             final ListenableFuture<List<Object>> listenablefuture = Futures.allAsList(lvt_8_1_);

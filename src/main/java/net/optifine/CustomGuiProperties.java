@@ -15,7 +15,7 @@ import net.minecraft.client.gui.inventory.GuiFurnace;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntity;
@@ -54,11 +54,11 @@ public class CustomGuiProperties {
     private final RangeListInt levels;
     private final VillagerProfession[] professions;
     private final CustomGuiProperties.EnumVariant[] variants;
-    private final EnumDyeColor[] colors;
+    private final DyeColor[] colors;
     private static final CustomGuiProperties.EnumVariant[] VARIANTS_HORSE = new CustomGuiProperties.EnumVariant[]{CustomGuiProperties.EnumVariant.HORSE, CustomGuiProperties.EnumVariant.DONKEY, CustomGuiProperties.EnumVariant.MULE, CustomGuiProperties.EnumVariant.LLAMA};
     private static final CustomGuiProperties.EnumVariant[] VARIANTS_DISPENSER = new CustomGuiProperties.EnumVariant[]{CustomGuiProperties.EnumVariant.DISPENSER, CustomGuiProperties.EnumVariant.DROPPER};
     private static final CustomGuiProperties.EnumVariant[] VARIANTS_INVALID = new CustomGuiProperties.EnumVariant[0];
-    private static final EnumDyeColor[] COLORS_INVALID = new EnumDyeColor[0];
+    private static final DyeColor[] COLORS_INVALID = new DyeColor[0];
     private static final ResourceLocation ANVIL_GUI_TEXTURE = new ResourceLocation("textures/gui/container/anvil.png");
     private static final ResourceLocation BEACON_GUI_TEXTURE = new ResourceLocation("textures/gui/container/beacon.png");
     private static final ResourceLocation BREWING_STAND_GUI_TEXTURE = new ResourceLocation("textures/gui/container/brewing_stand.png");
@@ -97,17 +97,17 @@ public class CustomGuiProperties {
         return cont == CustomGuiProperties.EnumContainer.HORSE ? VARIANTS_HORSE : (cont == CustomGuiProperties.EnumContainer.DISPENSER ? VARIANTS_DISPENSER : new CustomGuiProperties.EnumVariant[0]);
     }
 
-    private static EnumDyeColor[] parseEnumDyeColors(String str) {
+    private static DyeColor[] parseEnumDyeColors(String str) {
         if (str == null) {
             return null;
         } else {
             str = str.toLowerCase();
             String[] astring = Config.tokenize(str, " ");
-            EnumDyeColor[] aenumdyecolor = new EnumDyeColor[astring.length];
+            DyeColor[] aenumdyecolor = new DyeColor[astring.length];
 
             for (int i = 0; i < astring.length; ++i) {
                 String s = astring[i];
-                EnumDyeColor enumdyecolor = parseEnumDyeColor(s);
+                DyeColor enumdyecolor = parseEnumDyeColor(s);
 
                 if (enumdyecolor == null) {
                     warn("Invalid color: " + s);
@@ -121,11 +121,11 @@ public class CustomGuiProperties {
         }
     }
 
-    private static EnumDyeColor parseEnumDyeColor(String str) {
+    private static DyeColor parseEnumDyeColor(String str) {
         if (str != null) {
-            EnumDyeColor[] aenumdyecolor = EnumDyeColor.values();
+            DyeColor[] aenumdyecolor = DyeColor.values();
 
-            for (EnumDyeColor enumdyecolor : aenumdyecolor) {
+            for (DyeColor enumdyecolor : aenumdyecolor) {
                 if (enumdyecolor.getName().equals(str)) {
                     return enumdyecolor;
                 }

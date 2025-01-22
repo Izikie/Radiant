@@ -9,13 +9,13 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.Direction;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -24,7 +24,7 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
 
     public BlockCocoa() {
         super(Material.plants);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(AGE, 0));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH).withProperty(AGE, 0));
         this.setTickRandomly(true);
     }
 
@@ -43,7 +43,7 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
     public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state) {
         pos = pos.offset(state.getValue(FACING));
         IBlockState iblockstate = worldIn.getBlockState(pos);
-        return iblockstate.getBlock() == Blocks.log && iblockstate.getValue(BlockPlanks.VARIANT) == BlockPlanks.EnumType.JUNGLE;
+        return iblockstate.getBlock() == Blocks.log && iblockstate.getValue(BlockPlanks.VARIANT) == BlockPlanks.WoodType.JUNGLE;
     }
 
     public boolean isFullCube() {
@@ -67,7 +67,7 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
     @SuppressWarnings("incomplete-switch")
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         IBlockState iblockstate = worldIn.getBlockState(pos);
-        EnumFacing enumfacing = iblockstate.getValue(FACING);
+        Direction enumfacing = iblockstate.getValue(FACING);
         int i = iblockstate.getValue(AGE);
         int j = 4 + i * 2;
         int k = 5 + i * 2;
@@ -92,13 +92,13 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
     }
 
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-        EnumFacing enumfacing = EnumFacing.fromAngle(placer.rotationYaw);
+        Direction enumfacing = Direction.fromAngle(placer.rotationYaw);
         worldIn.setBlockState(pos, state.withProperty(FACING, enumfacing), 2);
     }
 
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         if (!facing.getAxis().isHorizontal()) {
-            facing = EnumFacing.NORTH;
+            facing = Direction.NORTH;
         }
 
         return this.getDefaultState().withProperty(FACING, facing.getOpposite()).withProperty(AGE, 0);
@@ -124,7 +124,7 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
         }
 
         for (int k = 0; k < j; ++k) {
-            spawnAsEntity(worldIn, pos, new ItemStack(Items.dye, 1, EnumDyeColor.BROWN.getDyeDamage()));
+            spawnAsEntity(worldIn, pos, new ItemStack(Items.dye, 1, DyeColor.BROWN.getDyeDamage()));
         }
     }
 
@@ -133,7 +133,7 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
     }
 
     public int getDamageValue(World worldIn, BlockPos pos) {
-        return EnumDyeColor.BROWN.getDyeDamage();
+        return DyeColor.BROWN.getDyeDamage();
     }
 
     public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
@@ -148,12 +148,12 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
         worldIn.setBlockState(pos, state.withProperty(AGE, state.getValue(AGE) + 1), 2);
     }
 
-    public EnumWorldBlockLayer getBlockLayer() {
-        return EnumWorldBlockLayer.CUTOUT;
+    public RenderLayer getBlockLayer() {
+        return RenderLayer.CUTOUT;
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta)).withProperty(AGE, (meta & 15) >> 2);
+        return this.getDefaultState().withProperty(FACING, Direction.getHorizontal(meta)).withProperty(AGE, (meta & 15) >> 2);
     }
 
     public int getMetaFromState(IBlockState state) {

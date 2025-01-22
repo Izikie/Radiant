@@ -7,7 +7,7 @@ import java.util.List;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -18,8 +18,8 @@ public class TileEntityBanner extends TileEntity {
     private int baseColor;
     private NBTTagList patterns;
     private boolean field_175119_g;
-    private List<TileEntityBanner.EnumBannerPattern> patternList;
-    private List<EnumDyeColor> colorList;
+    private List<BannerPattern> patternList;
+    private List<DyeColor> colorList;
     private String patternResourceLocation;
 
     public void setItemValues(ItemStack stack) {
@@ -90,7 +90,7 @@ public class TileEntityBanner extends TileEntity {
         return nbttagcompound != null && nbttagcompound.hasKey("Patterns") ? nbttagcompound.getTagList("Patterns", 10).tagCount() : 0;
     }
 
-    public List<TileEntityBanner.EnumBannerPattern> getPatternList() {
+    public List<BannerPattern> getPatternList() {
         this.initializeBannerData();
         return this.patternList;
     }
@@ -99,7 +99,7 @@ public class TileEntityBanner extends TileEntity {
         return this.patterns;
     }
 
-    public List<EnumDyeColor> getColorList() {
+    public List<DyeColor> getColorList() {
         this.initializeBannerData();
         return this.colorList;
     }
@@ -116,19 +116,19 @@ public class TileEntityBanner extends TileEntity {
             } else {
                 this.patternList = Lists.newArrayList();
                 this.colorList = Lists.newArrayList();
-                this.patternList.add(TileEntityBanner.EnumBannerPattern.BASE);
-                this.colorList.add(EnumDyeColor.byDyeDamage(this.baseColor));
+                this.patternList.add(BannerPattern.BASE);
+                this.colorList.add(DyeColor.byDyeDamage(this.baseColor));
                 this.patternResourceLocation = "b" + this.baseColor;
 
                 if (this.patterns != null) {
                     for (int i = 0; i < this.patterns.tagCount(); ++i) {
                         NBTTagCompound nbttagcompound = this.patterns.getCompoundTagAt(i);
-                        TileEntityBanner.EnumBannerPattern tileentitybanner$enumbannerpattern = TileEntityBanner.EnumBannerPattern.getPatternByID(nbttagcompound.getString("Pattern"));
+                        BannerPattern tileentitybanner$enumbannerpattern = BannerPattern.getPatternByID(nbttagcompound.getString("Pattern"));
 
                         if (tileentitybanner$enumbannerpattern != null) {
                             this.patternList.add(tileentitybanner$enumbannerpattern);
                             int j = nbttagcompound.getInteger("Color");
-                            this.colorList.add(EnumDyeColor.byDyeDamage(j));
+                            this.colorList.add(DyeColor.byDyeDamage(j));
                             this.patternResourceLocation = this.patternResourceLocation + tileentitybanner$enumbannerpattern.getPatternID() + j;
                         }
                     }
@@ -157,7 +157,7 @@ public class TileEntityBanner extends TileEntity {
         }
     }
 
-    public enum EnumBannerPattern {
+    public enum BannerPattern {
         BASE("base", "b"),
         SQUARE_BOTTOM_LEFT("square_bottom_left", "bl", "   ", "   ", "#  "),
         SQUARE_BOTTOM_RIGHT("square_bottom_right", "br", "   ", "   ", "  #"),
@@ -195,7 +195,7 @@ public class TileEntityBanner extends TileEntity {
         GRADIENT_UP("gradient_up", "gru", " # ", " # ", "# #"),
         BRICKS("bricks", "bri", new ItemStack(Blocks.brick_block)),
         SKULL("skull", "sku", new ItemStack(Items.skull, 1, 1)),
-        FLOWER("flower", "flo", new ItemStack(Blocks.red_flower, 1, BlockFlower.EnumFlowerType.OXEYE_DAISY.getMeta())),
+        FLOWER("flower", "flo", new ItemStack(Blocks.red_flower, 1, BlockFlower.FlowerType.OXEYE_DAISY.getMeta())),
         MOJANG("mojang", "moj", new ItemStack(Items.golden_apple, 1, 1));
 
         private final String patternName;
@@ -203,18 +203,18 @@ public class TileEntityBanner extends TileEntity {
         private final String[] craftingLayers;
         private ItemStack patternCraftingStack;
 
-        EnumBannerPattern(String name, String id) {
+        BannerPattern(String name, String id) {
             this.craftingLayers = new String[3];
             this.patternName = name;
             this.patternID = id;
         }
 
-        EnumBannerPattern(String name, String id, ItemStack craftingItem) {
+        BannerPattern(String name, String id, ItemStack craftingItem) {
             this(name, id);
             this.patternCraftingStack = craftingItem;
         }
 
-        EnumBannerPattern(String name, String id, String craftingTop, String craftingMid, String craftingBot) {
+        BannerPattern(String name, String id, String craftingTop, String craftingMid, String craftingBot) {
             this(name, id);
             this.craftingLayers[0] = craftingTop;
             this.craftingLayers[1] = craftingMid;
@@ -245,8 +245,8 @@ public class TileEntityBanner extends TileEntity {
             return this.patternCraftingStack;
         }
 
-        public static TileEntityBanner.EnumBannerPattern getPatternByID(String id) {
-            for (TileEntityBanner.EnumBannerPattern tileentitybanner$enumbannerpattern : values()) {
+        public static BannerPattern getPatternByID(String id) {
+            for (BannerPattern tileentitybanner$enumbannerpattern : values()) {
                 if (tileentitybanner$enumbannerpattern.patternID.equals(id)) {
                     return tileentitybanner$enumbannerpattern;
                 }

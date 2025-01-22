@@ -3,7 +3,6 @@ package net.minecraft.entity;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
-import java.util.concurrent.Callable;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
@@ -36,8 +35,8 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.Direction;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -119,7 +118,7 @@ public abstract class Entity implements ICommandSender {
     public int dimension;
     protected BlockPos lastPortalPos;
     protected Vec3 lastPortalVec;
-    protected EnumFacing teleportDirection;
+    protected Direction teleportDirection;
     private boolean invulnerable;
     protected UUID entityUniqueID;
     private final CommandResultStats cmdResultStats;
@@ -771,13 +770,13 @@ public abstract class Entity implements ICommandSender {
         for (int i = 0; i < 1.0F + this.width * 20.0F; ++i) {
             float f2 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width;
             float f3 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width;
-            this.worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX + f2, (f1 + 1.0F), this.posZ + f3, this.motionX, this.motionY - (this.rand.nextFloat() * 0.2F), this.motionZ);
+            this.worldObj.spawnParticle(ParticleTypes.WATER_BUBBLE, this.posX + f2, (f1 + 1.0F), this.posZ + f3, this.motionX, this.motionY - (this.rand.nextFloat() * 0.2F), this.motionZ);
         }
 
         for (int j = 0; j < 1.0F + this.width * 20.0F; ++j) {
             float f4 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width;
             float f5 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width;
-            this.worldObj.spawnParticle(EnumParticleTypes.WATER_SPLASH, this.posX + f4, (f1 + 1.0F), this.posZ + f5, this.motionX, this.motionY, this.motionZ);
+            this.worldObj.spawnParticle(ParticleTypes.WATER_SPLASH, this.posX + f4, (f1 + 1.0F), this.posZ + f5, this.motionX, this.motionY, this.motionZ);
         }
     }
 
@@ -796,7 +795,7 @@ public abstract class Entity implements ICommandSender {
         Block block = iblockstate.getBlock();
 
         if (block.getRenderType() != -1) {
-            this.worldObj.spawnParticle(EnumParticleTypes.BLOCK_CRACK, this.posX + (this.rand.nextFloat() - 0.5D) * this.width, this.getEntityBoundingBox().minY + 0.1D, this.posZ + (this.rand.nextFloat() - 0.5D) * this.width, -this.motionX * 4.0D, 1.5D, -this.motionZ * 4.0D, Block.getStateId(iblockstate));
+            this.worldObj.spawnParticle(ParticleTypes.BLOCK_CRACK, this.posX + (this.rand.nextFloat() - 0.5D) * this.width, this.getEntityBoundingBox().minY + 0.1D, this.posZ + (this.rand.nextFloat() - 0.5D) * this.width, -this.motionX * 4.0D, 1.5D, -this.motionZ * 4.0D, Block.getStateId(iblockstate));
         }
     }
 
@@ -1403,9 +1402,9 @@ public abstract class Entity implements ICommandSender {
             if (!this.worldObj.isRemote && !pos.equals(this.lastPortalPos)) {
                 this.lastPortalPos = pos;
                 BlockPattern.PatternHelper blockpattern$patternhelper = Blocks.portal.func_181089_f(this.worldObj, pos);
-                double d0 = blockpattern$patternhelper.getFinger().getAxis() == EnumFacing.Axis.X ? blockpattern$patternhelper.getPos().getZ() : blockpattern$patternhelper.getPos().getX();
-                double d1 = blockpattern$patternhelper.getFinger().getAxis() == EnumFacing.Axis.X ? this.posZ : this.posX;
-                d1 = Math.abs(MathHelper.func_181160_c(d1 - (blockpattern$patternhelper.getFinger().rotateY().getAxisDirection() == EnumFacing.AxisDirection.NEGATIVE ? 1 : 0), d0, d0 - blockpattern$patternhelper.func_181118_d()));
+                double d0 = blockpattern$patternhelper.getFinger().getAxis() == Direction.Axis.X ? blockpattern$patternhelper.getPos().getZ() : blockpattern$patternhelper.getPos().getX();
+                double d1 = blockpattern$patternhelper.getFinger().getAxis() == Direction.Axis.X ? this.posZ : this.posX;
+                d1 = Math.abs(MathHelper.func_181160_c(d1 - (blockpattern$patternhelper.getFinger().rotateY().getAxisDirection() == Direction.AxisDirection.NEGATIVE ? 1 : 0), d0, d0 - blockpattern$patternhelper.func_181118_d()));
                 double d2 = MathHelper.func_181160_c(this.posY - 1.0D, blockpattern$patternhelper.getPos().getY(), (blockpattern$patternhelper.getPos().getY() - blockpattern$patternhelper.func_181119_e()));
                 this.lastPortalVec = new Vec3(d1, d2, 0.0D);
                 this.teleportDirection = blockpattern$patternhelper.getFinger();
@@ -1698,7 +1697,7 @@ public abstract class Entity implements ICommandSender {
         return this.lastPortalVec;
     }
 
-    public EnumFacing getTeleportDirection() {
+    public Direction getTeleportDirection() {
         return this.teleportDirection;
     }
 
@@ -1767,8 +1766,8 @@ public abstract class Entity implements ICommandSender {
     public void onDataWatcherUpdate(int dataID) {
     }
 
-    public EnumFacing getHorizontalFacing() {
-        return EnumFacing.getHorizontal(MathHelper.floor_double((this.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3);
+    public Direction getHorizontalFacing() {
+        return Direction.getHorizontal(MathHelper.floor_double((this.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3);
     }
 
     protected HoverEvent getHoverEvent() {

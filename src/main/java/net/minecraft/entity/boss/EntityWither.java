@@ -10,7 +10,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIArrowAttack;
@@ -34,9 +34,9 @@ import net.minecraft.stats.AchievementList;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.MathHelper;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 
 public class EntityWither extends EntityMob implements IBossDisplayData, IRangedAttackMob {
@@ -47,7 +47,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
     private final int[] field_82223_h = new int[2];
     private final int[] field_82224_i = new int[2];
     private int blockBreakCounter;
-    private static final Predicate<Entity> attackEntitySelector = p_apply_1_ -> p_apply_1_ instanceof EntityLivingBase entityLivingBase && entityLivingBase.getCreatureAttribute() != EnumCreatureAttribute.UNDEAD;
+    private static final Predicate<Entity> attackEntitySelector = p_apply_1_ -> p_apply_1_ instanceof EntityLivingBase entityLivingBase && entityLivingBase.getCreatureAttribute() != EntityGroup.UNDEAD;
 
     public EntityWither(World worldIn) {
         super(worldIn);
@@ -164,16 +164,16 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
             double d10 = this.func_82214_u(l);
             double d2 = this.func_82208_v(l);
             double d4 = this.func_82213_w(l);
-            this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d10 + this.rand.nextGaussian() * 0.30000001192092896D, d2 + this.rand.nextGaussian() * 0.30000001192092896D, d4 + this.rand.nextGaussian() * 0.30000001192092896D, 0.0D, 0.0D, 0.0D);
+            this.worldObj.spawnParticle(ParticleTypes.SMOKE_NORMAL, d10 + this.rand.nextGaussian() * 0.30000001192092896D, d2 + this.rand.nextGaussian() * 0.30000001192092896D, d4 + this.rand.nextGaussian() * 0.30000001192092896D, 0.0D, 0.0D, 0.0D);
 
             if (flag && this.worldObj.rand.nextInt(4) == 0) {
-                this.worldObj.spawnParticle(EnumParticleTypes.SPELL_MOB, d10 + this.rand.nextGaussian() * 0.30000001192092896D, d2 + this.rand.nextGaussian() * 0.30000001192092896D, d4 + this.rand.nextGaussian() * 0.30000001192092896D, 0.699999988079071D, 0.699999988079071D, 0.5D);
+                this.worldObj.spawnParticle(ParticleTypes.SPELL_MOB, d10 + this.rand.nextGaussian() * 0.30000001192092896D, d2 + this.rand.nextGaussian() * 0.30000001192092896D, d4 + this.rand.nextGaussian() * 0.30000001192092896D, 0.699999988079071D, 0.699999988079071D, 0.5D);
             }
         }
 
         if (this.getInvulTime() > 0) {
             for (int i1 = 0; i1 < 3; ++i1) {
-                this.worldObj.spawnParticle(EnumParticleTypes.SPELL_MOB, this.posX + this.rand.nextGaussian(), this.posY + (this.rand.nextFloat() * 3.3F), this.posZ + this.rand.nextGaussian(), 0.699999988079071D, 0.699999988079071D, 0.8999999761581421D);
+                this.worldObj.spawnParticle(ParticleTypes.SPELL_MOB, this.posX + this.rand.nextGaussian(), this.posY + (this.rand.nextFloat() * 3.3F), this.posZ + this.rand.nextGaussian(), 0.699999988079071D, 0.699999988079071D, 0.8999999761581421D);
             }
         }
     }
@@ -199,7 +199,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
                 if (this.ticksExisted >= this.field_82223_h[i - 1]) {
                     this.field_82223_h[i - 1] = this.ticksExisted + 10 + this.rand.nextInt(10);
 
-                    if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL || this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
+                    if (this.worldObj.getDifficulty() == Difficulty.NORMAL || this.worldObj.getDifficulty() == Difficulty.HARD) {
                         int j3 = i - 1;
                         int k3 = this.field_82224_i[i - 1];
                         this.field_82224_i[j3] = this.field_82224_i[i - 1] + 1;
@@ -479,8 +479,8 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
         return this.getHealth() <= this.getMaxHealth() / 2.0F;
     }
 
-    public EnumCreatureAttribute getCreatureAttribute() {
-        return EnumCreatureAttribute.UNDEAD;
+    public EntityGroup getCreatureAttribute() {
+        return EntityGroup.UNDEAD;
     }
 
     public void mountEntity(Entity entityIn) {

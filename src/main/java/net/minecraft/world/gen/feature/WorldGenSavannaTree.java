@@ -11,12 +11,12 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public class WorldGenSavannaTree extends WorldGenAbstractTree {
-    private static final IBlockState field_181643_a = Blocks.log2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.ACACIA);
-    private static final IBlockState field_181644_b = Blocks.leaves2.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.EnumType.ACACIA).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
+    private static final IBlockState field_181643_a = Blocks.log2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.WoodType.ACACIA);
+    private static final IBlockState field_181644_b = Blocks.leaves2.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.WoodType.ACACIA).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
 
     public WorldGenSavannaTree(boolean p_i45463_1_) {
         super(p_i45463_1_);
@@ -60,7 +60,7 @@ public class WorldGenSavannaTree extends WorldGenAbstractTree {
 
                 if ((block == Blocks.grass || block == Blocks.dirt) && position.getY() < 256 - i - 1) {
                     this.func_175921_a(worldIn, position.down());
-                    EnumFacing enumfacing = EnumFacing.Plane.HORIZONTAL.random(rand);
+                    Direction enumfacing = Direction.Plane.HORIZONTAL.random(rand);
                     int k2 = i - rand.nextInt(4) - 1;
                     int l2 = 3 - rand.nextInt(3);
                     int i3 = position.getX();
@@ -109,7 +109,7 @@ public class WorldGenSavannaTree extends WorldGenAbstractTree {
                     this.func_175924_b(worldIn, blockpos2.north(2));
                     i3 = position.getX();
                     j1 = position.getZ();
-                    EnumFacing enumfacing1 = EnumFacing.Plane.HORIZONTAL.random(rand);
+                    Direction enumfacing1 = Direction.Plane.HORIZONTAL.random(rand);
 
                     if (enumfacing1 != enumfacing) {
                         int l3 = k2 - rand.nextInt(2) - 1;

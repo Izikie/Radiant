@@ -28,7 +28,7 @@ import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
@@ -266,7 +266,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
             boolean flag = false;
 
             for (String s : itemstack.getTooltip(this.mc.thePlayer, this.mc.gameSettings.advancedItemTooltips)) {
-                if (EnumChatFormatting.getTextWithoutFormattingCodes(s).toLowerCase().contains(s1)) {
+                if (Formatting.getTextWithoutFormattingCodes(s).toLowerCase().contains(s1)) {
                     flag = true;
                     break;
                 }
@@ -477,14 +477,14 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
             }
 
             if (creativetabs != null) {
-                list.add(1, "" + EnumChatFormatting.BOLD + EnumChatFormatting.BLUE + I18n.format(creativetabs.getTranslatedTabLabel()));
+                list.add(1, "" + Formatting.BOLD + Formatting.BLUE + I18n.format(creativetabs.getTranslatedTabLabel()));
             }
 
             for (int i = 0; i < list.size(); ++i) {
                 if (i == 0) {
                     list.set(i, stack.getRarity().rarityColor + list.get(i));
                 } else {
-                    list.set(i, EnumChatFormatting.GRAY + list.get(i));
+                    list.set(i, Formatting.GRAY + list.get(i));
                 }
             }
 

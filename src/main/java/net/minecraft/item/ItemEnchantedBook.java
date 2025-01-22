@@ -21,8 +21,8 @@ public class ItemEnchantedBook extends Item {
         return false;
     }
 
-    public EnumRarity getRarity(ItemStack stack) {
-        return this.getEnchantments(stack).tagCount() > 0 ? EnumRarity.UNCOMMON : super.getRarity(stack);
+    public Rarity getRarity(ItemStack stack) {
+        return this.getEnchantments(stack).tagCount() > 0 ? Rarity.UNCOMMON : super.getRarity(stack);
     }
 
     public NBTTagList getEnchantments(ItemStack stack) {

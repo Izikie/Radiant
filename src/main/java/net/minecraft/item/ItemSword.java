@@ -54,8 +54,8 @@ public class ItemSword extends Item {
         return true;
     }
 
-    public EnumAction getItemUseAction(ItemStack stack) {
-        return EnumAction.BLOCK;
+    public UseAction getItemUseAction(ItemStack stack) {
+        return UseAction.BLOCK;
     }
 
     public int getMaxItemUseDuration(ItemStack stack) {

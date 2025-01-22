@@ -12,7 +12,7 @@ import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.src.Config;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.model.ModelUtils;
 
@@ -142,9 +142,9 @@ public class SmartLeaves {
             Config.warn("SmartLeaves: Model is not cube, general quads: " + model.getGeneralQuads().size() + ", model: " + model);
             return model;
         } else {
-            EnumFacing[] aenumfacing = EnumFacing.VALUES;
+            Direction[] aenumfacing = Direction.VALUES;
 
-            for (EnumFacing enumfacing : aenumfacing) {
+            for (Direction enumfacing : aenumfacing) {
                 List<BakedQuad> list = model.getFaceQuads(enumfacing);
 
                 if (list.size() != 1) {
@@ -156,7 +156,7 @@ public class SmartLeaves {
             IBakedModel ibakedmodel = ModelUtils.duplicateModel(model);
             List[] alist = new List[aenumfacing.length];
 
-            for (EnumFacing enumfacing1 : aenumfacing) {
+            for (Direction enumfacing1 : aenumfacing) {
                 List<BakedQuad> list1 = ibakedmodel.getFaceQuads(enumfacing1);
                 BakedQuad bakedquad = list1.getFirst();
                 BakedQuad bakedquad1 = new BakedQuad(bakedquad.getVertexData().clone(), bakedquad.getTintIndex(), bakedquad.getFace(), bakedquad.getSprite());

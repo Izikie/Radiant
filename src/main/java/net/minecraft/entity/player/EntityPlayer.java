@@ -19,7 +19,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.IEntityMultiPart;
 import net.minecraft.entity.IMerchant;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -41,7 +41,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ContainerPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryEnderChest;
-import net.minecraft.item.EnumAction;
+import net.minecraft.item.UseAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemBlock;
@@ -65,13 +65,13 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.Direction;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.FoodStats;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.LockCode;
 import net.minecraft.world.World;
@@ -177,7 +177,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
     }
 
     public boolean isBlocking() {
-        return this.isUsingItem() && this.itemInUse.getItem().getItemUseAction(this.itemInUse) == EnumAction.BLOCK;
+        return this.isUsingItem() && this.itemInUse.getItem().getItemUseAction(this.itemInUse) == UseAction.BLOCK;
     }
 
     public void onUpdate() {
@@ -319,11 +319,11 @@ public abstract class EntityPlayer extends EntityLivingBase {
     }
 
     protected void updateItemUse(ItemStack itemStackIn, int p_71010_2_) {
-        if (itemStackIn.getItemUseAction() == EnumAction.DRINK) {
+        if (itemStackIn.getItemUseAction() == UseAction.DRINK) {
             this.playSound("random.drink", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
         }
 
-        if (itemStackIn.getItemUseAction() == EnumAction.EAT) {
+        if (itemStackIn.getItemUseAction() == UseAction.EAT) {
             for (int i = 0; i < p_71010_2_; ++i) {
                 Vec3 vec3 = new Vec3((this.rand.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
                 vec3 = vec3.rotatePitch(-this.rotationPitch * (float) Math.PI / 180.0F);
@@ -335,9 +335,9 @@ public abstract class EntityPlayer extends EntityLivingBase {
                 vec31 = vec31.addVector(this.posX, this.posY + this.getEyeHeight(), this.posZ);
 
                 if (itemStackIn.getHasSubtypes()) {
-                    this.worldObj.spawnParticle(EnumParticleTypes.ITEM_CRACK, vec31.xCoord, vec31.yCoord, vec31.zCoord, vec3.xCoord, vec3.yCoord + 0.05D, vec3.zCoord, Item.getIdFromItem(itemStackIn.getItem()), itemStackIn.getMetadata());
+                    this.worldObj.spawnParticle(ParticleTypes.ITEM_CRACK, vec31.xCoord, vec31.yCoord, vec31.zCoord, vec3.xCoord, vec3.yCoord + 0.05D, vec3.zCoord, Item.getIdFromItem(itemStackIn.getItem()), itemStackIn.getMetadata());
                 } else {
-                    this.worldObj.spawnParticle(EnumParticleTypes.ITEM_CRACK, vec31.xCoord, vec31.yCoord, vec31.zCoord, vec3.xCoord, vec3.yCoord + 0.05D, vec3.zCoord, Item.getIdFromItem(itemStackIn.getItem()));
+                    this.worldObj.spawnParticle(ParticleTypes.ITEM_CRACK, vec31.xCoord, vec31.yCoord, vec31.zCoord, vec3.xCoord, vec3.yCoord + 0.05D, vec3.zCoord, Item.getIdFromItem(itemStackIn.getItem()));
                 }
             }
 
@@ -424,7 +424,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
             --this.flyToggleTimer;
         }
 
-        if (this.worldObj.getDifficulty() == EnumDifficulty.PEACEFUL && this.worldObj.getGameRules().getBoolean("naturalRegeneration")) {
+        if (this.worldObj.getDifficulty() == Difficulty.PEACEFUL && this.worldObj.getGameRules().getBoolean("naturalRegeneration")) {
             if (this.getHealth() < this.getMaxHealth() && this.ticksExisted % 20 == 0) {
                 this.heal(1.0F);
             }
@@ -762,15 +762,15 @@ public abstract class EntityPlayer extends EntityLivingBase {
                 }
 
                 if (source.isDifficultyScaled()) {
-                    if (this.worldObj.getDifficulty() == EnumDifficulty.PEACEFUL) {
+                    if (this.worldObj.getDifficulty() == Difficulty.PEACEFUL) {
                         amount = 0.0F;
                     }
 
-                    if (this.worldObj.getDifficulty() == EnumDifficulty.EASY) {
+                    if (this.worldObj.getDifficulty() == Difficulty.EASY) {
                         amount = amount / 2.0F + 1.0F;
                     }
 
-                    if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
+                    if (this.worldObj.getDifficulty() == Difficulty.HARD) {
                         amount = amount * 3.0F / 2.0F;
                     }
                 }
@@ -924,7 +924,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
                 if (targetEntity instanceof EntityLivingBase base) {
                     f1 = EnchantmentHelper.getModifierForCreature(this.getHeldItem(), base.getCreatureAttribute());
                 } else {
-                    f1 = EnchantmentHelper.getModifierForCreature(this.getHeldItem(), EnumCreatureAttribute.UNDEFINED);
+                    f1 = EnchantmentHelper.getModifierForCreature(this.getHeldItem(), EntityGroup.UNDEFINED);
                 }
 
                 i = i + EnchantmentHelper.getKnockbackModifier(this);
@@ -1089,7 +1089,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         this.setSize(0.2F, 0.2F);
 
         if (this.worldObj.isBlockLoaded(bedLocation)) {
-            EnumFacing enumfacing = this.worldObj.getBlockState(bedLocation).getValue(BlockDirectional.FACING);
+            Direction enumfacing = this.worldObj.getBlockState(bedLocation).getValue(BlockDirectional.FACING);
             float f = 0.5F;
             float f1 = 0.5F;
 
@@ -1128,7 +1128,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         return EntityPlayer.EnumStatus.OK;
     }
 
-    private void func_175139_a(EnumFacing p_175139_1_) {
+    private void func_175139_a(Direction p_175139_1_) {
         this.renderOffsetX = 0.0F;
         this.renderOffsetZ = 0.0F;
 
@@ -1200,7 +1200,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
     public float getBedOrientationInDegrees() {
         if (this.playerLocation != null) {
-            EnumFacing enumfacing = this.worldObj.getBlockState(this.playerLocation).getValue(BlockDirectional.FACING);
+            Direction enumfacing = this.worldObj.getBlockState(this.playerLocation).getValue(BlockDirectional.FACING);
 
             switch (enumfacing) {
                 case SOUTH:
@@ -1498,7 +1498,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         return this.capabilities.allowEdit;
     }
 
-    public boolean canPlayerEdit(BlockPos p_175151_1_, EnumFacing p_175151_2_, ItemStack p_175151_3_) {
+    public boolean canPlayerEdit(BlockPos p_175151_1_, Direction p_175151_2_, ItemStack p_175151_3_) {
         if (this.capabilities.allowEdit) {
             return true;
         } else if (p_175151_3_ == null) {
@@ -1668,7 +1668,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         }
     }
 
-    public boolean isWearing(EnumPlayerModelParts p_175148_1_) {
+    public boolean isWearing(PlayerModelParts p_175148_1_) {
         return (this.getDataWatcher().getWatchableObjectByte(10) & p_175148_1_.getPartMask()) == p_175148_1_.getPartMask();
     }
 
@@ -1719,16 +1719,16 @@ public abstract class EntityPlayer extends EntityLivingBase {
         this.hasReducedDebug = reducedDebug;
     }
 
-    public enum EnumChatVisibility {
+    public enum ChatVisibility {
         FULL(0, "options.chat.visibility.full"),
         SYSTEM(1, "options.chat.visibility.system"),
         HIDDEN(2, "options.chat.visibility.hidden");
 
-        private static final EntityPlayer.EnumChatVisibility[] ID_LOOKUP = new EntityPlayer.EnumChatVisibility[values().length];
+        private static final ChatVisibility[] ID_LOOKUP = new ChatVisibility[values().length];
         private final int chatVisibility;
         private final String resourceKey;
 
-        EnumChatVisibility(int id, String resourceKey) {
+        ChatVisibility(int id, String resourceKey) {
             this.chatVisibility = id;
             this.resourceKey = resourceKey;
         }
@@ -1737,7 +1737,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
             return this.chatVisibility;
         }
 
-        public static EntityPlayer.EnumChatVisibility getEnumChatVisibility(int id) {
+        public static ChatVisibility getEnumChatVisibility(int id) {
             return ID_LOOKUP[id % ID_LOOKUP.length];
         }
 
@@ -1746,7 +1746,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         }
 
         static {
-            for (EntityPlayer.EnumChatVisibility entityplayer$enumchatvisibility : values()) {
+            for (ChatVisibility entityplayer$enumchatvisibility : values()) {
                 ID_LOOKUP[entityplayer$enumchatvisibility.chatVisibility] = entityplayer$enumchatvisibility;
             }
         }

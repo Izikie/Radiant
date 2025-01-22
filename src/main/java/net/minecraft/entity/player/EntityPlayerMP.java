@@ -31,7 +31,7 @@ import net.minecraft.inventory.ContainerMerchant;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.SlotCrafting;
-import net.minecraft.item.EnumAction;
+import net.minecraft.item.UseAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemMapBase;
 import net.minecraft.item.ItemStack;
@@ -115,7 +115,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
     private boolean wasHungry = true;
     private int lastExperience = -99999999;
     private int respawnInvulnerabilityTicks = 60;
-    private EntityPlayer.EnumChatVisibility chatVisibility;
+    private ChatVisibility chatVisibility;
     private boolean chatColours = true;
     private long playerLastActiveTime = System.currentTimeMillis();
     private Entity spectatingEntity = null;
@@ -733,7 +733,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
     public void setItemInUse(ItemStack stack, int duration) {
         super.setItemInUse(stack, duration);
 
-        if (stack != null && stack.getItem() != null && stack.getItem().getItemUseAction(stack) == EnumAction.EAT) {
+        if (stack != null && stack.getItem() != null && stack.getItem().getItemUseAction(stack) == UseAction.EAT) {
             this.getServerForPlayer().getEntityTracker().func_151248_b(this, new S0BPacketAnimation(this, 3));
         }
     }
@@ -835,7 +835,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         this.getDataWatcher().updateObject(10, (byte) packetIn.getModelPartFlags());
     }
 
-    public EntityPlayer.EnumChatVisibility getChatVisibility() {
+    public ChatVisibility getChatVisibility() {
         return this.chatVisibility;
     }
 

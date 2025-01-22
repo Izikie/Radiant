@@ -235,20 +235,20 @@ public class AxisAlignedBB {
         if (vec36 == null) {
             return null;
         } else {
-            EnumFacing enumfacing;
+            Direction enumfacing;
 
             if (vec36 == vec3) {
-                enumfacing = EnumFacing.WEST;
+                enumfacing = Direction.WEST;
             } else if (vec36 == vec31) {
-                enumfacing = EnumFacing.EAST;
+                enumfacing = Direction.EAST;
             } else if (vec36 == vec32) {
-                enumfacing = EnumFacing.DOWN;
+                enumfacing = Direction.DOWN;
             } else if (vec36 == vec33) {
-                enumfacing = EnumFacing.UP;
+                enumfacing = Direction.UP;
             } else if (vec36 == vec34) {
-                enumfacing = EnumFacing.NORTH;
+                enumfacing = Direction.NORTH;
             } else {
-                enumfacing = EnumFacing.SOUTH;
+                enumfacing = Direction.SOUTH;
             }
 
             return new MovingObjectPosition(vec36, enumfacing);

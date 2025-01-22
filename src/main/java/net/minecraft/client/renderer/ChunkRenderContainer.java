@@ -7,7 +7,7 @@ import java.util.List;
 
 import net.minecraft.client.renderer.chunk.RenderChunk;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.RenderLayer;
 import net.optifine.SmartAnimations;
 
 public abstract class ChunkRenderContainer {
@@ -45,7 +45,7 @@ public abstract class ChunkRenderContainer {
         GlStateManager.translate((float) (blockpos.getX() - this.viewEntityX), (float) (blockpos.getY() - this.viewEntityY), (float) (blockpos.getZ() - this.viewEntityZ));
     }
 
-    public void addRenderChunk(RenderChunk renderChunkIn, EnumWorldBlockLayer layer) {
+    public void addRenderChunk(RenderChunk renderChunkIn, RenderLayer layer) {
         this.renderChunks.add(renderChunkIn);
 
         if (this.animatedSpritesRendered != null) {
@@ -57,5 +57,5 @@ public abstract class ChunkRenderContainer {
         }
     }
 
-    public abstract void renderChunkLayer(EnumWorldBlockLayer layer);
+    public abstract void renderChunkLayer(RenderLayer layer);
 }

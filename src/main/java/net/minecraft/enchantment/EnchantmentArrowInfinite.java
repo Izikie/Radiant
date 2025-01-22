@@ -4,7 +4,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class EnchantmentArrowInfinite extends Enchantment {
     public EnchantmentArrowInfinite(int enchID, ResourceLocation enchName, int enchWeight) {
-        super(enchID, enchName, enchWeight, EnumEnchantmentType.BOW);
+        super(enchID, enchName, enchWeight, EnchantmentTarget.BOW);
         this.setName("arrowInfinite");
     }
 

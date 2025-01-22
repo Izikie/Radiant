@@ -6,12 +6,12 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.World;
 
 public abstract class BlockLog extends BlockRotatedPillar {
-    public static final PropertyEnum<BlockLog.EnumAxis> LOG_AXIS = PropertyEnum.create("axis", BlockLog.EnumAxis.class);
+    public static final PropertyEnum<Axis> LOG_AXIS = PropertyEnum.create("axis", Axis.class);
 
     public BlockLog() {
         super(Material.wood);
@@ -35,11 +35,11 @@ public abstract class BlockLog extends BlockRotatedPillar {
         }
     }
 
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-        return super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(LOG_AXIS, BlockLog.EnumAxis.fromFacingAxis(facing.getAxis()));
+    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        return super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(LOG_AXIS, Axis.fromFacingAxis(facing.getAxis()));
     }
 
-    public enum EnumAxis implements IStringSerializable {
+    public enum Axis implements IStringSerializable {
         X("x"),
         Y("y"),
         Z("z"),
@@ -47,7 +47,7 @@ public abstract class BlockLog extends BlockRotatedPillar {
 
         private final String name;
 
-        EnumAxis(String name) {
+        Axis(String name) {
             this.name = name;
         }
 
@@ -55,7 +55,7 @@ public abstract class BlockLog extends BlockRotatedPillar {
             return this.name;
         }
 
-        public static BlockLog.EnumAxis fromFacingAxis(EnumFacing.Axis axis) {
+        public static Axis fromFacingAxis(Direction.Axis axis) {
             return switch (axis) {
                 case X -> X;
                 case Y -> Y;

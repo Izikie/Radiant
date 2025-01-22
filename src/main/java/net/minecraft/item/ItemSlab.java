@@ -6,7 +6,7 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public class ItemSlab extends ItemBlock {
@@ -29,7 +29,7 @@ public class ItemSlab extends ItemBlock {
         return this.singleSlab.getUnlocalizedName(stack.getMetadata());
     }
 
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
         if (stack.stackSize == 0) {
             return false;
         } else if (!playerIn.canPlayerEdit(pos.offset(side), side, stack)) {
@@ -43,7 +43,7 @@ public class ItemSlab extends ItemBlock {
                 Comparable comparable = iblockstate.getValue(iproperty);
                 BlockSlab.EnumBlockHalf blockslab$enumblockhalf = iblockstate.getValue(BlockSlab.HALF);
 
-                if ((side == EnumFacing.UP && blockslab$enumblockhalf == BlockSlab.EnumBlockHalf.BOTTOM || side == EnumFacing.DOWN && blockslab$enumblockhalf == BlockSlab.EnumBlockHalf.TOP) && comparable == object) {
+                if ((side == Direction.UP && blockslab$enumblockhalf == BlockSlab.EnumBlockHalf.BOTTOM || side == Direction.DOWN && blockslab$enumblockhalf == BlockSlab.EnumBlockHalf.TOP) && comparable == object) {
                     IBlockState iblockstate1 = this.doubleSlab.getDefaultState().withProperty(iproperty, comparable);
 
                     if (worldIn.checkNoEntityCollision(this.doubleSlab.getCollisionBoundingBox(worldIn, pos, iblockstate1)) && worldIn.setBlockState(pos, iblockstate1, 3)) {
@@ -59,7 +59,7 @@ public class ItemSlab extends ItemBlock {
         }
     }
 
-    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side, EntityPlayer player, ItemStack stack) {
+    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Direction side, EntityPlayer player, ItemStack stack) {
         BlockPos blockpos = pos;
         IProperty iproperty = this.singleSlab.getVariantProperty();
         Object object = this.singleSlab.getVariant(stack);
@@ -68,7 +68,7 @@ public class ItemSlab extends ItemBlock {
         if (iblockstate.getBlock() == this.singleSlab) {
             boolean flag = iblockstate.getValue(BlockSlab.HALF) == BlockSlab.EnumBlockHalf.TOP;
 
-            if ((side == EnumFacing.UP && !flag || side == EnumFacing.DOWN && flag) && object == iblockstate.getValue(iproperty)) {
+            if ((side == Direction.UP && !flag || side == Direction.DOWN && flag) && object == iblockstate.getValue(iproperty)) {
                 return true;
             }
         }

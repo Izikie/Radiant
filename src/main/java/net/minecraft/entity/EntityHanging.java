@@ -7,14 +7,14 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.Validate;
 
 public abstract class EntityHanging extends Entity {
     private int tickCounter1;
     protected BlockPos hangingPosition;
-    public EnumFacing facingDirection;
+    public Direction facingDirection;
 
     public EntityHanging(World worldIn) {
         super(worldIn);
@@ -29,7 +29,7 @@ public abstract class EntityHanging extends Entity {
     protected void entityInit() {
     }
 
-    protected void updateFacingWithBoundingBox(EnumFacing facingDirectionIn) {
+    protected void updateFacingWithBoundingBox(Direction facingDirectionIn) {
         Validate.notNull(facingDirectionIn);
         Validate.isTrue(facingDirectionIn.getAxis().isHorizontal());
         this.facingDirection = facingDirectionIn;
@@ -48,7 +48,7 @@ public abstract class EntityHanging extends Entity {
             d0 = d0 - this.facingDirection.getFrontOffsetX() * 0.46875D;
             d2 = d2 - this.facingDirection.getFrontOffsetZ() * 0.46875D;
             d1 = d1 + d5;
-            EnumFacing enumfacing = this.facingDirection.rotateYCCW();
+            Direction enumfacing = this.facingDirection.rotateYCCW();
             d0 = d0 + d4 * enumfacing.getFrontOffsetX();
             d2 = d2 + d4 * enumfacing.getFrontOffsetZ();
             this.posX = d0;
@@ -58,7 +58,7 @@ public abstract class EntityHanging extends Entity {
             double d7 = this.getHeightPixels();
             double d8 = this.getWidthPixels();
 
-            if (this.facingDirection.getAxis() == EnumFacing.Axis.Z) {
+            if (this.facingDirection.getAxis() == Direction.Axis.Z) {
                 d8 = 1.0D;
             } else {
                 d6 = 1.0D;
@@ -97,7 +97,7 @@ public abstract class EntityHanging extends Entity {
             int i = Math.max(1, this.getWidthPixels() / 16);
             int j = Math.max(1, this.getHeightPixels() / 16);
             BlockPos blockpos = this.hangingPosition.offset(this.facingDirection.getOpposite());
-            EnumFacing enumfacing = this.facingDirection.rotateYCCW();
+            Direction enumfacing = this.facingDirection.rotateYCCW();
 
             for (int k = 0; k < i; ++k) {
                 for (int l = 0; l < j; ++l) {
@@ -128,7 +128,7 @@ public abstract class EntityHanging extends Entity {
         return entityIn instanceof EntityPlayer entityPlayer ? this.attackEntityFrom(DamageSource.causePlayerDamage(entityPlayer), 0.0F) : false;
     }
 
-    public EnumFacing getHorizontalFacing() {
+    public Direction getHorizontalFacing() {
         return this.facingDirection;
     }
 
@@ -169,15 +169,15 @@ public abstract class EntityHanging extends Entity {
 
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         this.hangingPosition = new BlockPos(tagCompund.getInteger("TileX"), tagCompund.getInteger("TileY"), tagCompund.getInteger("TileZ"));
-        EnumFacing enumfacing;
+        Direction enumfacing;
 
         if (tagCompund.hasKey("Direction", 99)) {
-            enumfacing = EnumFacing.getHorizontal(tagCompund.getByte("Direction"));
+            enumfacing = Direction.getHorizontal(tagCompund.getByte("Direction"));
             this.hangingPosition = this.hangingPosition.offset(enumfacing);
         } else if (tagCompund.hasKey("Facing", 99)) {
-            enumfacing = EnumFacing.getHorizontal(tagCompund.getByte("Facing"));
+            enumfacing = Direction.getHorizontal(tagCompund.getByte("Facing"));
         } else {
-            enumfacing = EnumFacing.getHorizontal(tagCompund.getByte("Dir"));
+            enumfacing = Direction.getHorizontal(tagCompund.getByte("Dir"));
         }
 
         this.updateFacingWithBoundingBox(enumfacing);

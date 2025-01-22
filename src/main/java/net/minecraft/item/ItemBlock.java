@@ -11,7 +11,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public class ItemBlock extends Item {
@@ -26,7 +26,7 @@ public class ItemBlock extends Item {
         return this;
     }
 
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
         IBlockState iblockstate = worldIn.getBlockState(pos);
         Block block = iblockstate.getBlock();
 
@@ -93,11 +93,11 @@ public class ItemBlock extends Item {
         return false;
     }
 
-    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side, EntityPlayer player, ItemStack stack) {
+    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Direction side, EntityPlayer player, ItemStack stack) {
         Block block = worldIn.getBlockState(pos).getBlock();
 
         if (block == Blocks.snow_layer) {
-            side = EnumFacing.UP;
+            side = Direction.UP;
         } else if (!block.isReplaceable(worldIn, pos)) {
             pos = pos.offset(side);
         }

@@ -11,12 +11,12 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public class WorldGenCanopyTree extends WorldGenAbstractTree {
-    private static final IBlockState field_181640_a = Blocks.log2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.DARK_OAK);
-    private static final IBlockState field_181641_b = Blocks.leaves2.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.EnumType.DARK_OAK).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
+    private static final IBlockState field_181640_a = Blocks.log2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.WoodType.DARK_OAK);
+    private static final IBlockState field_181641_b = Blocks.leaves2.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.WoodType.DARK_OAK).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
 
     public WorldGenCanopyTree(boolean p_i45461_1_) {
         super(p_i45461_1_);
@@ -41,7 +41,7 @@ public class WorldGenCanopyTree extends WorldGenAbstractTree {
                 this.func_175921_a(worldIn, blockpos.east());
                 this.func_175921_a(worldIn, blockpos.south());
                 this.func_175921_a(worldIn, blockpos.south().east());
-                EnumFacing enumfacing = EnumFacing.Plane.HORIZONTAL.random(rand);
+                Direction enumfacing = Direction.Plane.HORIZONTAL.random(rand);
                 int i1 = i - rand.nextInt(4);
                 int j1 = 2 - rand.nextInt(3);
                 int k1 = j;

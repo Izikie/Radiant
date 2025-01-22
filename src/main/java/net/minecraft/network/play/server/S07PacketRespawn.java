@@ -5,19 +5,19 @@ import java.io.IOException;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.WorldSettings;
 import net.minecraft.world.WorldType;
 
 public class S07PacketRespawn implements Packet<INetHandlerPlayClient> {
     private int dimensionID;
-    private EnumDifficulty difficulty;
+    private Difficulty difficulty;
     private WorldSettings.GameType gameType;
     private WorldType worldType;
 
     public S07PacketRespawn() {}
 
-    public S07PacketRespawn(int dimensionIDIn, EnumDifficulty difficultyIn, WorldType worldTypeIn, WorldSettings.GameType gameTypeIn) {
+    public S07PacketRespawn(int dimensionIDIn, Difficulty difficultyIn, WorldType worldTypeIn, WorldSettings.GameType gameTypeIn) {
         this.dimensionID = dimensionIDIn;
         this.difficulty = difficultyIn;
         this.gameType = gameTypeIn;
@@ -30,7 +30,7 @@ public class S07PacketRespawn implements Packet<INetHandlerPlayClient> {
 
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.dimensionID = buf.readInt();
-        this.difficulty = EnumDifficulty.getDifficultyEnum(buf.readUnsignedByte());
+        this.difficulty = Difficulty.getDifficultyEnum(buf.readUnsignedByte());
         this.gameType = WorldSettings.GameType.getByID(buf.readUnsignedByte());
         this.worldType = WorldType.parseWorldType(buf.readStringFromBuffer(16));
 
@@ -50,7 +50,7 @@ public class S07PacketRespawn implements Packet<INetHandlerPlayClient> {
         return this.dimensionID;
     }
 
-    public EnumDifficulty getDifficulty() {
+    public Difficulty getDifficulty() {
         return this.difficulty;
     }
 

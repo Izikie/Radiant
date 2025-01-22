@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
@@ -24,8 +24,8 @@ public class EntityMinecartTNT extends EntityMinecart {
         super(worldIn, x, y, z);
     }
 
-    public EntityMinecart.EnumMinecartType getMinecartType() {
-        return EntityMinecart.EnumMinecartType.TNT;
+    public MinecartType getMinecartType() {
+        return MinecartType.TNT;
     }
 
     public IBlockState getDefaultDisplayTile() {
@@ -37,7 +37,7 @@ public class EntityMinecartTNT extends EntityMinecart {
 
         if (this.minecartTNTFuse > 0) {
             --this.minecartTNTFuse;
-            this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX, this.posY + 0.5D, this.posZ, 0.0D, 0.0D, 0.0D);
+            this.worldObj.spawnParticle(ParticleTypes.SMOKE_NORMAL, this.posX, this.posY + 0.5D, this.posZ, 0.0D, 0.0D, 0.0D);
         } else if (this.minecartTNTFuse == 0) {
             this.explodeCart(this.motionX * this.motionX + this.motionZ * this.motionZ);
         }

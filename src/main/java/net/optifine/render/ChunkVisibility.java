@@ -9,7 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ClassInheritanceMultiMap;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
@@ -17,8 +17,8 @@ import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 
 public class ChunkVisibility {
     public static final int MASK_FACINGS = 63;
-    public static final EnumFacing[][] enumFacingArrays = makeEnumFacingArrays(false);
-    public static final EnumFacing[][] enumFacingOppositeArrays = makeEnumFacingArrays(true);
+    public static final Direction[][] enumFacingArrays = makeEnumFacingArrays(false);
+    public static final Direction[][] enumFacingOppositeArrays = makeEnumFacingArrays(true);
     private static int counter = 0;
     private static int iMaxStatic = -1;
     private static int iMaxStaticFinal = 16;
@@ -138,16 +138,16 @@ public class ChunkVisibility {
         return counter == 0;
     }
 
-    private static EnumFacing[][] makeEnumFacingArrays(boolean opposite) {
+    private static Direction[][] makeEnumFacingArrays(boolean opposite) {
         int i = 64;
-        EnumFacing[][] aenumfacing = new EnumFacing[i][];
+        Direction[][] aenumfacing = new Direction[i][];
 
         for (int j = 0; j < i; ++j) {
-            List<EnumFacing> list = new ArrayList();
+            List<Direction> list = new ArrayList();
 
-            for (int k = 0; k < EnumFacing.VALUES.length; ++k) {
-                EnumFacing enumfacing = EnumFacing.VALUES[k];
-                EnumFacing enumfacing1 = opposite ? enumfacing.getOpposite() : enumfacing;
+            for (int k = 0; k < Direction.VALUES.length; ++k) {
+                Direction enumfacing = Direction.VALUES[k];
+                Direction enumfacing1 = opposite ? enumfacing.getOpposite() : enumfacing;
                 int l = 1 << enumfacing1.ordinal();
 
                 if ((j & l) != 0) {
@@ -155,14 +155,14 @@ public class ChunkVisibility {
                 }
             }
 
-            EnumFacing[] aenumfacing1 = list.toArray(new EnumFacing[0]);
+            Direction[] aenumfacing1 = list.toArray(new Direction[0]);
             aenumfacing[j] = aenumfacing1;
         }
 
         return aenumfacing;
     }
 
-    public static EnumFacing[] getFacingsNotOpposite(int setDisabled) {
+    public static Direction[] getFacingsNotOpposite(int setDisabled) {
         int i = ~setDisabled & 63;
         return enumFacingOppositeArrays[i];
     }

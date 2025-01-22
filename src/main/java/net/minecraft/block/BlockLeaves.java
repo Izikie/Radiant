@@ -10,8 +10,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.ParticleTypes;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.world.ColorizerFoliage;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -156,7 +156,7 @@ public abstract class BlockLeaves extends BlockLeavesBase {
             double d0 = (pos.getX() + rand.nextFloat());
             double d1 = pos.getY() - 0.05D;
             double d2 = (pos.getZ() + rand.nextFloat());
-            worldIn.spawnParticle(EnumParticleTypes.DRIP_WATER, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+            worldIn.spawnParticle(ParticleTypes.DRIP_WATER, d0, d1, d2, 0.0D, 0.0D, 0.0D);
         }
     }
 
@@ -221,13 +221,13 @@ public abstract class BlockLeaves extends BlockLeavesBase {
         this.iconIndex = fancy ? 0 : 1;
     }
 
-    public EnumWorldBlockLayer getBlockLayer() {
-        return this.isTransparent ? EnumWorldBlockLayer.CUTOUT_MIPPED : EnumWorldBlockLayer.SOLID;
+    public RenderLayer getBlockLayer() {
+        return this.isTransparent ? RenderLayer.CUTOUT_MIPPED : RenderLayer.SOLID;
     }
 
     public boolean isVisuallyOpaque() {
         return false;
     }
 
-    public abstract BlockPlanks.EnumType getWoodType(int meta);
+    public abstract BlockPlanks.WoodType getWoodType(int meta);
 }

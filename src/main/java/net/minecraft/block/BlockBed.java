@@ -12,8 +12,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.Direction;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -29,7 +29,7 @@ public class BlockBed extends BlockDirectional {
         this.setBedBounds();
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (worldIn.isRemote) {
             return true;
         } else {
@@ -106,7 +106,7 @@ public class BlockBed extends BlockDirectional {
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
-        EnumFacing enumfacing = state.getValue(FACING);
+        Direction enumfacing = state.getValue(FACING);
 
         if (state.getValue(PART) == BlockBed.EnumPartType.HEAD) {
             if (worldIn.getBlockState(pos.offset(enumfacing.getOpposite())).getBlock() != this) {
@@ -130,7 +130,7 @@ public class BlockBed extends BlockDirectional {
     }
 
     public static BlockPos getSafeExitLocation(World worldIn, BlockPos pos, int tries) {
-        EnumFacing enumfacing = worldIn.getBlockState(pos).getValue(FACING);
+        Direction enumfacing = worldIn.getBlockState(pos).getValue(FACING);
         int i = pos.getX();
         int j = pos.getY();
         int k = pos.getZ();
@@ -173,8 +173,8 @@ public class BlockBed extends BlockDirectional {
         return 1;
     }
 
-    public EnumWorldBlockLayer getBlockLayer() {
-        return EnumWorldBlockLayer.CUTOUT;
+    public RenderLayer getBlockLayer() {
+        return RenderLayer.CUTOUT;
     }
 
     public Item getItem(World worldIn, BlockPos pos) {
@@ -192,7 +192,7 @@ public class BlockBed extends BlockDirectional {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        EnumFacing enumfacing = EnumFacing.getHorizontal(meta);
+        Direction enumfacing = Direction.getHorizontal(meta);
         return (meta & 8) > 0 ? this.getDefaultState().withProperty(PART, BlockBed.EnumPartType.HEAD).withProperty(FACING, enumfacing).withProperty(OCCUPIED, (meta & 4) > 0) : this.getDefaultState().withProperty(PART, BlockBed.EnumPartType.FOOT).withProperty(FACING, enumfacing);
     }
 

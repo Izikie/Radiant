@@ -68,11 +68,11 @@ public class BiomeGenForest extends BiomeGenBase {
         return this.field_150632_aF == 3 && rand.nextInt(3) > 0 ? field_150631_aE : (this.field_150632_aF != 2 && rand.nextInt(5) != 0 ? this.worldGeneratorTrees : field_150630_aD);
     }
 
-    public BlockFlower.EnumFlowerType pickRandomFlower(Random rand, BlockPos pos) {
+    public BlockFlower.FlowerType pickRandomFlower(Random rand, BlockPos pos) {
         if (this.field_150632_aF == 1) {
             double d0 = MathHelper.clamp_double((1.0D + GRASS_COLOR_NOISE.func_151601_a(pos.getX() / 48.0D, pos.getZ() / 48.0D)) / 2.0D, 0.0D, 0.9999D);
-            BlockFlower.EnumFlowerType blockflower$enumflowertype = BlockFlower.EnumFlowerType.values()[(int) (d0 * BlockFlower.EnumFlowerType.values().length)];
-            return blockflower$enumflowertype == BlockFlower.EnumFlowerType.BLUE_ORCHID ? BlockFlower.EnumFlowerType.POPPY : blockflower$enumflowertype;
+            BlockFlower.FlowerType blockflower$enumflowertype = BlockFlower.FlowerType.values()[(int) (d0 * BlockFlower.FlowerType.values().length)];
+            return blockflower$enumflowertype == BlockFlower.FlowerType.BLUE_ORCHID ? BlockFlower.FlowerType.POPPY : blockflower$enumflowertype;
         } else {
             return super.pickRandomFlower(rand, pos);
         }

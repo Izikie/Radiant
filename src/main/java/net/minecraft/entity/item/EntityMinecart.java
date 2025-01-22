@@ -52,7 +52,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         this.setSize(0.98F, 0.7F);
     }
 
-    public static EntityMinecart getMinecart(World worldIn, double x, double y, double z, EntityMinecart.EnumMinecartType type) {
+    public static EntityMinecart getMinecart(World worldIn, double x, double y, double z, MinecartType type) {
         return switch (type) {
             case CHEST -> new EntityMinecartChest(worldIn, x, y, z);
             case FURNACE -> new EntityMinecartFurnace(worldIn, x, y, z);
@@ -660,7 +660,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         if (!this.worldObj.isRemote) {
             if (!entityIn.noClip && !this.noClip) {
                 if (entityIn != this.riddenByEntity) {
-                    if (entityIn instanceof EntityLivingBase && !(entityIn instanceof EntityPlayer) && !(entityIn instanceof EntityIronGolem) && this.getMinecartType() == EntityMinecart.EnumMinecartType.RIDEABLE && this.motionX * this.motionX + this.motionZ * this.motionZ > 0.01D && this.riddenByEntity == null && entityIn.ridingEntity == null) {
+                    if (entityIn instanceof EntityLivingBase && !(entityIn instanceof EntityPlayer) && !(entityIn instanceof EntityIronGolem) && this.getMinecartType() == MinecartType.RIDEABLE && this.motionX * this.motionX + this.motionZ * this.motionZ > 0.01D && this.riddenByEntity == null && entityIn.ridingEntity == null) {
                         entityIn.mountEntity(this);
                     }
 
@@ -701,13 +701,13 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
                             double d7 = entityIn.motionX + this.motionX;
                             double d8 = entityIn.motionZ + this.motionZ;
 
-                            if (entityMinecart.getMinecartType() == EntityMinecart.EnumMinecartType.FURNACE && this.getMinecartType() != EntityMinecart.EnumMinecartType.FURNACE) {
+                            if (entityMinecart.getMinecartType() == MinecartType.FURNACE && this.getMinecartType() != MinecartType.FURNACE) {
                                 this.motionX *= 0.20000000298023224D;
                                 this.motionZ *= 0.20000000298023224D;
                                 this.addVelocity(entityIn.motionX - d0, 0.0D, entityIn.motionZ - d1);
                                 entityIn.motionX *= 0.949999988079071D;
                                 entityIn.motionZ *= 0.949999988079071D;
-                            } else if (((EntityMinecart) entityIn).getMinecartType() != EntityMinecart.EnumMinecartType.FURNACE && this.getMinecartType() == EntityMinecart.EnumMinecartType.FURNACE) {
+                            } else if (((EntityMinecart) entityIn).getMinecartType() != MinecartType.FURNACE && this.getMinecartType() == MinecartType.FURNACE) {
                                 entityIn.motionX *= 0.20000000298023224D;
                                 entityIn.motionZ *= 0.20000000298023224D;
                                 entityIn.addVelocity(this.motionX + d0, 0.0D, this.motionZ + d1);
@@ -775,7 +775,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         return this.dataWatcher.getWatchableObjectInt(18);
     }
 
-    public abstract EntityMinecart.EnumMinecartType getMinecartType();
+    public abstract MinecartType getMinecartType();
 
     public IBlockState getDisplayTile() {
         return !this.hasDisplayTile() ? this.getDefaultDisplayTile() : Block.getStateById(this.getDataWatcher().getWatchableObjectInt(20));
@@ -841,7 +841,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         }
     }
 
-    public enum EnumMinecartType {
+    public enum MinecartType {
         RIDEABLE(0, "MinecartRideable"),
         CHEST(1, "MinecartChest"),
         FURNACE(2, "MinecartFurnace"),
@@ -850,11 +850,11 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         HOPPER(5, "MinecartHopper"),
         COMMAND_BLOCK(6, "MinecartCommandBlock");
 
-        private static final Map<Integer, EntityMinecart.EnumMinecartType> ID_LOOKUP = Maps.newHashMap();
+        private static final Map<Integer, MinecartType> ID_LOOKUP = Maps.newHashMap();
         private final int networkID;
         private final String name;
 
-        EnumMinecartType(int networkID, String name) {
+        MinecartType(int networkID, String name) {
             this.networkID = networkID;
             this.name = name;
         }
@@ -867,13 +867,13 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
             return this.name;
         }
 
-        public static EntityMinecart.EnumMinecartType byNetworkID(int id) {
-            EntityMinecart.EnumMinecartType entityminecart$enumminecarttype = ID_LOOKUP.get(id);
+        public static MinecartType byNetworkID(int id) {
+            MinecartType entityminecart$enumminecarttype = ID_LOOKUP.get(id);
             return entityminecart$enumminecarttype == null ? RIDEABLE : entityminecart$enumminecarttype;
         }
 
         static {
-            for (EntityMinecart.EnumMinecartType entityminecart$enumminecarttype : values()) {
+            for (MinecartType entityminecart$enumminecarttype : values()) {
                 ID_LOOKUP.put(entityminecart$enumminecarttype.getNetworkID(), entityminecart$enumminecarttype);
             }
         }

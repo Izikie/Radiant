@@ -158,7 +158,7 @@ public class MapGenCaves extends MapGenBase {
                                                     p_180702_5_.setBlockState(j3, j2, i2, Blocks.air.getDefaultState());
 
                                                     if (iblockstate2.getBlock() == Blocks.sand) {
-                                                        p_180702_5_.setBlockState(j3, j2 + 1, i2, iblockstate2.getValue(BlockSand.VARIANT) == BlockSand.EnumType.RED_SAND ? Blocks.red_sandstone.getDefaultState() : Blocks.sandstone.getDefaultState());
+                                                        p_180702_5_.setBlockState(j3, j2 + 1, i2, iblockstate2.getValue(BlockSand.VARIANT) == BlockSand.SandType.RED_SAND ? Blocks.red_sandstone.getDefaultState() : Blocks.sandstone.getDefaultState());
                                                     }
 
                                                     if (flag1 && p_180702_5_.getBlockState(j3, j2 - 1, i2).getBlock() == Blocks.dirt) {

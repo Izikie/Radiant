@@ -2,7 +2,7 @@ package net.minecraft.world.chunk;
 
 import java.util.List;
 
-import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.EntityCategory;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.IProgressUpdate;
 import net.minecraft.world.World;
@@ -27,7 +27,7 @@ public interface IChunkProvider {
 
     String makeString();
 
-    List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos);
+    List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EntityCategory creatureType, BlockPos pos);
 
     BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position);
 

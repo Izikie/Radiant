@@ -2,7 +2,7 @@ package net.minecraft.client.particle;
 
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.world.World;
 
 public class EntityLavaFX extends EntityFX {
@@ -52,7 +52,7 @@ public class EntityLavaFX extends EntityFX {
         float f = (float) this.particleAge / this.particleMaxAge;
 
         if (this.rand.nextFloat() > f) {
-            this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX, this.posY, this.posZ, this.motionX, this.motionY, this.motionZ);
+            this.worldObj.spawnParticle(ParticleTypes.SMOKE_NORMAL, this.posX, this.posY, this.posZ, this.motionX, this.motionY, this.motionZ);
         }
 
         this.motionY -= 0.03D;

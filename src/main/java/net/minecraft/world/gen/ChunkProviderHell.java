@@ -7,7 +7,7 @@ import net.minecraft.block.BlockFalling;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockHelper;
-import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.EntityCategory;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.IProgressUpdate;
@@ -365,8 +365,8 @@ public class ChunkProviderHell implements IChunkProvider {
         return "HellRandomLevelSource";
     }
 
-    public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
-        if (creatureType == EnumCreatureType.MONSTER) {
+    public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EntityCategory creatureType, BlockPos pos) {
+        if (creatureType == EntityCategory.MONSTER) {
             if (this.genNetherBridge.func_175795_b(pos)) {
                 return this.genNetherBridge.getSpawnList();
             }

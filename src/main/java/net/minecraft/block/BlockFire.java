@@ -14,9 +14,9 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.Direction;
+import net.minecraft.util.ParticleTypes;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProviderEnd;
@@ -257,7 +257,7 @@ public class BlockFire extends Block {
     }
 
     private boolean canNeighborCatchFire(World worldIn, BlockPos pos) {
-        for (EnumFacing enumfacing : EnumFacing.values()) {
+        for (Direction enumfacing : Direction.values()) {
             if (this.canCatchFire(worldIn, pos.offset(enumfacing))) {
                 return true;
             }
@@ -272,7 +272,7 @@ public class BlockFire extends Block {
         } else {
             int i = 0;
 
-            for (EnumFacing enumfacing : EnumFacing.values()) {
+            for (Direction enumfacing : Direction.values()) {
                 i = Math.max(this.getEncouragement(worldIn.getBlockState(pos.offset(enumfacing)).getBlock()), i);
             }
 
@@ -319,7 +319,7 @@ public class BlockFire extends Block {
                     double d3 = pos.getX() + rand.nextDouble() * 0.10000000149011612D;
                     double d8 = pos.getY() + rand.nextDouble();
                     double d13 = pos.getZ() + rand.nextDouble();
-                    worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d3, d8, d13, 0.0D, 0.0D, 0.0D);
+                    worldIn.spawnParticle(ParticleTypes.SMOKE_LARGE, d3, d8, d13, 0.0D, 0.0D, 0.0D);
                 }
             }
 
@@ -328,7 +328,7 @@ public class BlockFire extends Block {
                     double d4 = (pos.getX() + 1) - rand.nextDouble() * 0.10000000149011612D;
                     double d9 = pos.getY() + rand.nextDouble();
                     double d14 = pos.getZ() + rand.nextDouble();
-                    worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d4, d9, d14, 0.0D, 0.0D, 0.0D);
+                    worldIn.spawnParticle(ParticleTypes.SMOKE_LARGE, d4, d9, d14, 0.0D, 0.0D, 0.0D);
                 }
             }
 
@@ -337,7 +337,7 @@ public class BlockFire extends Block {
                     double d5 = pos.getX() + rand.nextDouble();
                     double d10 = pos.getY() + rand.nextDouble();
                     double d15 = pos.getZ() + rand.nextDouble() * 0.10000000149011612D;
-                    worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d5, d10, d15, 0.0D, 0.0D, 0.0D);
+                    worldIn.spawnParticle(ParticleTypes.SMOKE_LARGE, d5, d10, d15, 0.0D, 0.0D, 0.0D);
                 }
             }
 
@@ -346,7 +346,7 @@ public class BlockFire extends Block {
                     double d6 = pos.getX() + rand.nextDouble();
                     double d11 = pos.getY() + rand.nextDouble();
                     double d16 = (pos.getZ() + 1) - rand.nextDouble() * 0.10000000149011612D;
-                    worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d6, d11, d16, 0.0D, 0.0D, 0.0D);
+                    worldIn.spawnParticle(ParticleTypes.SMOKE_LARGE, d6, d11, d16, 0.0D, 0.0D, 0.0D);
                 }
             }
 
@@ -355,7 +355,7 @@ public class BlockFire extends Block {
                     double d7 = pos.getX() + rand.nextDouble();
                     double d12 = (pos.getY() + 1) - rand.nextDouble() * 0.10000000149011612D;
                     double d17 = pos.getZ() + rand.nextDouble();
-                    worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d7, d12, d17, 0.0D, 0.0D, 0.0D);
+                    worldIn.spawnParticle(ParticleTypes.SMOKE_LARGE, d7, d12, d17, 0.0D, 0.0D, 0.0D);
                 }
             }
         } else {
@@ -363,7 +363,7 @@ public class BlockFire extends Block {
                 double d0 = pos.getX() + rand.nextDouble();
                 double d1 = pos.getY() + rand.nextDouble() * 0.5D + 0.5D;
                 double d2 = pos.getZ() + rand.nextDouble();
-                worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+                worldIn.spawnParticle(ParticleTypes.SMOKE_LARGE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
             }
         }
     }
@@ -372,8 +372,8 @@ public class BlockFire extends Block {
         return MapColor.tntColor;
     }
 
-    public EnumWorldBlockLayer getBlockLayer() {
-        return EnumWorldBlockLayer.CUTOUT;
+    public RenderLayer getBlockLayer() {
+        return RenderLayer.CUTOUT;
     }
 
     public IBlockState getStateFromMeta(int meta) {

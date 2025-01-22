@@ -12,7 +12,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -71,9 +71,9 @@ public class DynamicLight {
             Set<BlockPos> set = new HashSet();
 
             if (j > 0) {
-                EnumFacing enumfacing2 = (MathHelper.floor_double(d6) & 15) >= 8 ? EnumFacing.EAST : EnumFacing.WEST;
-                EnumFacing enumfacing = (MathHelper.floor_double(d0) & 15) >= 8 ? EnumFacing.UP : EnumFacing.DOWN;
-                EnumFacing enumfacing1 = (MathHelper.floor_double(d1) & 15) >= 8 ? EnumFacing.SOUTH : EnumFacing.NORTH;
+                Direction enumfacing2 = (MathHelper.floor_double(d6) & 15) >= 8 ? Direction.EAST : Direction.WEST;
+                Direction enumfacing = (MathHelper.floor_double(d0) & 15) >= 8 ? Direction.UP : Direction.DOWN;
+                Direction enumfacing1 = (MathHelper.floor_double(d1) & 15) >= 8 ? Direction.SOUTH : Direction.NORTH;
                 BlockPos blockpos = new BlockPos(d6, d0, d1);
                 RenderChunk renderchunk = renderGlobal.getRenderChunk(blockpos);
                 BlockPos blockpos1 = this.getChunkPos(renderchunk, blockpos, enumfacing2);
@@ -105,7 +105,7 @@ public class DynamicLight {
         }
     }
 
-    private BlockPos getChunkPos(RenderChunk renderChunk, BlockPos pos, EnumFacing facing) {
+    private BlockPos getChunkPos(RenderChunk renderChunk, BlockPos pos, Direction facing) {
         return renderChunk != null ? renderChunk.getBlockPosOffset16(facing) : pos.offset(facing, 16);
     }
 

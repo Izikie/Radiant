@@ -3,7 +3,7 @@ package net.minecraft.client.renderer;
 import net.minecraft.client.renderer.chunk.RenderChunk;
 import net.minecraft.client.renderer.vertex.VertexBuffer;
 import net.minecraft.src.Config;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.RenderLayer;
 import net.optifine.render.VboRegion;
 import net.optifine.shaders.ShadersRender;
 import org.lwjgl.opengl.GL11;
@@ -13,7 +13,7 @@ public class VboRenderList extends ChunkRenderContainer {
     private double viewEntityY;
     private double viewEntityZ;
 
-    public void renderChunkLayer(EnumWorldBlockLayer layer) {
+    public void renderChunkLayer(RenderLayer layer) {
         if (this.initialized) {
             if (!Config.isRenderRegions()) {
                 for (RenderChunk renderchunk1 : this.renderChunks) {

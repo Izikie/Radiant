@@ -15,13 +15,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntityDispenser;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
 
 public abstract class StructureComponent {
     protected StructureBoundingBox boundingBox;
-    protected EnumFacing coordBaseMode;
+    protected Direction coordBaseMode;
     protected int componentType;
 
     public StructureComponent() {
@@ -49,7 +49,7 @@ public abstract class StructureComponent {
         }
 
         int i = tagCompound.getInteger("O");
-        this.coordBaseMode = i == -1 ? null : EnumFacing.getHorizontal(i);
+        this.coordBaseMode = i == -1 ? null : Direction.getHorizontal(i);
         this.componentType = tagCompound.getInteger("GD");
         this.readStructureFromNBT(tagCompound);
     }
@@ -163,7 +163,7 @@ public abstract class StructureComponent {
 
     protected int getMetadataWithOffset(Block blockIn, int meta) {
         if (blockIn == Blocks.rail) {
-            if (this.coordBaseMode == EnumFacing.WEST || this.coordBaseMode == EnumFacing.EAST) {
+            if (this.coordBaseMode == Direction.WEST || this.coordBaseMode == Direction.EAST) {
                 if (meta == 1) {
                     return 0;
                 }
@@ -171,7 +171,7 @@ public abstract class StructureComponent {
                 return 1;
             }
         } else if (blockIn instanceof BlockDoor) {
-            if (this.coordBaseMode == EnumFacing.SOUTH) {
+            if (this.coordBaseMode == Direction.SOUTH) {
                 if (meta == 0) {
                     return 2;
                 }
@@ -180,59 +180,59 @@ public abstract class StructureComponent {
                     return 0;
                 }
             } else {
-                if (this.coordBaseMode == EnumFacing.WEST) {
+                if (this.coordBaseMode == Direction.WEST) {
                     return meta + 1 & 3;
                 }
 
-                if (this.coordBaseMode == EnumFacing.EAST) {
+                if (this.coordBaseMode == Direction.EAST) {
                     return meta + 3 & 3;
                 }
             }
         } else if (blockIn != Blocks.stone_stairs && blockIn != Blocks.oak_stairs && blockIn != Blocks.nether_brick_stairs && blockIn != Blocks.stone_brick_stairs && blockIn != Blocks.sandstone_stairs) {
             if (blockIn == Blocks.ladder) {
-                if (this.coordBaseMode == EnumFacing.SOUTH) {
-                    if (meta == EnumFacing.NORTH.getIndex()) {
-                        return EnumFacing.SOUTH.getIndex();
+                if (this.coordBaseMode == Direction.SOUTH) {
+                    if (meta == Direction.NORTH.getIndex()) {
+                        return Direction.SOUTH.getIndex();
                     }
 
-                    if (meta == EnumFacing.SOUTH.getIndex()) {
-                        return EnumFacing.NORTH.getIndex();
+                    if (meta == Direction.SOUTH.getIndex()) {
+                        return Direction.NORTH.getIndex();
                     }
-                } else if (this.coordBaseMode == EnumFacing.WEST) {
-                    if (meta == EnumFacing.NORTH.getIndex()) {
-                        return EnumFacing.WEST.getIndex();
-                    }
-
-                    if (meta == EnumFacing.SOUTH.getIndex()) {
-                        return EnumFacing.EAST.getIndex();
+                } else if (this.coordBaseMode == Direction.WEST) {
+                    if (meta == Direction.NORTH.getIndex()) {
+                        return Direction.WEST.getIndex();
                     }
 
-                    if (meta == EnumFacing.WEST.getIndex()) {
-                        return EnumFacing.NORTH.getIndex();
+                    if (meta == Direction.SOUTH.getIndex()) {
+                        return Direction.EAST.getIndex();
                     }
 
-                    if (meta == EnumFacing.EAST.getIndex()) {
-                        return EnumFacing.SOUTH.getIndex();
-                    }
-                } else if (this.coordBaseMode == EnumFacing.EAST) {
-                    if (meta == EnumFacing.NORTH.getIndex()) {
-                        return EnumFacing.EAST.getIndex();
+                    if (meta == Direction.WEST.getIndex()) {
+                        return Direction.NORTH.getIndex();
                     }
 
-                    if (meta == EnumFacing.SOUTH.getIndex()) {
-                        return EnumFacing.WEST.getIndex();
+                    if (meta == Direction.EAST.getIndex()) {
+                        return Direction.SOUTH.getIndex();
+                    }
+                } else if (this.coordBaseMode == Direction.EAST) {
+                    if (meta == Direction.NORTH.getIndex()) {
+                        return Direction.EAST.getIndex();
                     }
 
-                    if (meta == EnumFacing.WEST.getIndex()) {
-                        return EnumFacing.NORTH.getIndex();
+                    if (meta == Direction.SOUTH.getIndex()) {
+                        return Direction.WEST.getIndex();
                     }
 
-                    if (meta == EnumFacing.EAST.getIndex()) {
-                        return EnumFacing.SOUTH.getIndex();
+                    if (meta == Direction.WEST.getIndex()) {
+                        return Direction.NORTH.getIndex();
+                    }
+
+                    if (meta == Direction.EAST.getIndex()) {
+                        return Direction.SOUTH.getIndex();
                     }
                 }
             } else if (blockIn == Blocks.stone_button) {
-                if (this.coordBaseMode == EnumFacing.SOUTH) {
+                if (this.coordBaseMode == Direction.SOUTH) {
                     if (meta == 3) {
                         return 4;
                     }
@@ -240,7 +240,7 @@ public abstract class StructureComponent {
                     if (meta == 4) {
                         return 3;
                     }
-                } else if (this.coordBaseMode == EnumFacing.WEST) {
+                } else if (this.coordBaseMode == Direction.WEST) {
                     if (meta == 3) {
                         return 1;
                     }
@@ -256,7 +256,7 @@ public abstract class StructureComponent {
                     if (meta == 1) {
                         return 4;
                     }
-                } else if (this.coordBaseMode == EnumFacing.EAST) {
+                } else if (this.coordBaseMode == Direction.EAST) {
                     if (meta == 3) {
                         return 2;
                     }
@@ -275,86 +275,86 @@ public abstract class StructureComponent {
                 }
             } else if (blockIn != Blocks.tripwire_hook && !(blockIn instanceof BlockDirectional)) {
                 if (blockIn == Blocks.piston || blockIn == Blocks.sticky_piston || blockIn == Blocks.lever || blockIn == Blocks.dispenser) {
-                    if (this.coordBaseMode == EnumFacing.SOUTH) {
-                        if (meta == EnumFacing.NORTH.getIndex() || meta == EnumFacing.SOUTH.getIndex()) {
-                            return EnumFacing.getFront(meta).getOpposite().getIndex();
+                    if (this.coordBaseMode == Direction.SOUTH) {
+                        if (meta == Direction.NORTH.getIndex() || meta == Direction.SOUTH.getIndex()) {
+                            return Direction.getFront(meta).getOpposite().getIndex();
                         }
-                    } else if (this.coordBaseMode == EnumFacing.WEST) {
-                        if (meta == EnumFacing.NORTH.getIndex()) {
-                            return EnumFacing.WEST.getIndex();
-                        }
-
-                        if (meta == EnumFacing.SOUTH.getIndex()) {
-                            return EnumFacing.EAST.getIndex();
+                    } else if (this.coordBaseMode == Direction.WEST) {
+                        if (meta == Direction.NORTH.getIndex()) {
+                            return Direction.WEST.getIndex();
                         }
 
-                        if (meta == EnumFacing.WEST.getIndex()) {
-                            return EnumFacing.NORTH.getIndex();
+                        if (meta == Direction.SOUTH.getIndex()) {
+                            return Direction.EAST.getIndex();
                         }
 
-                        if (meta == EnumFacing.EAST.getIndex()) {
-                            return EnumFacing.SOUTH.getIndex();
-                        }
-                    } else if (this.coordBaseMode == EnumFacing.EAST) {
-                        if (meta == EnumFacing.NORTH.getIndex()) {
-                            return EnumFacing.EAST.getIndex();
+                        if (meta == Direction.WEST.getIndex()) {
+                            return Direction.NORTH.getIndex();
                         }
 
-                        if (meta == EnumFacing.SOUTH.getIndex()) {
-                            return EnumFacing.WEST.getIndex();
+                        if (meta == Direction.EAST.getIndex()) {
+                            return Direction.SOUTH.getIndex();
+                        }
+                    } else if (this.coordBaseMode == Direction.EAST) {
+                        if (meta == Direction.NORTH.getIndex()) {
+                            return Direction.EAST.getIndex();
                         }
 
-                        if (meta == EnumFacing.WEST.getIndex()) {
-                            return EnumFacing.NORTH.getIndex();
+                        if (meta == Direction.SOUTH.getIndex()) {
+                            return Direction.WEST.getIndex();
                         }
 
-                        if (meta == EnumFacing.EAST.getIndex()) {
-                            return EnumFacing.SOUTH.getIndex();
+                        if (meta == Direction.WEST.getIndex()) {
+                            return Direction.NORTH.getIndex();
+                        }
+
+                        if (meta == Direction.EAST.getIndex()) {
+                            return Direction.SOUTH.getIndex();
                         }
                     }
                 }
             } else {
-                EnumFacing enumfacing = EnumFacing.getHorizontal(meta);
+                Direction enumfacing = Direction.getHorizontal(meta);
 
-                if (this.coordBaseMode == EnumFacing.SOUTH) {
-                    if (enumfacing == EnumFacing.SOUTH || enumfacing == EnumFacing.NORTH) {
+                if (this.coordBaseMode == Direction.SOUTH) {
+                    if (enumfacing == Direction.SOUTH || enumfacing == Direction.NORTH) {
                         return enumfacing.getOpposite().getHorizontalIndex();
                     }
-                } else if (this.coordBaseMode == EnumFacing.WEST) {
-                    if (enumfacing == EnumFacing.NORTH) {
-                        return EnumFacing.WEST.getHorizontalIndex();
+                } else if (this.coordBaseMode == Direction.WEST) {
+                    if (enumfacing == Direction.NORTH) {
+                        return Direction.WEST.getHorizontalIndex();
                     }
 
-                    if (enumfacing == EnumFacing.SOUTH) {
-                        return EnumFacing.EAST.getHorizontalIndex();
+                    if (enumfacing == Direction.SOUTH) {
+                        return Direction.EAST.getHorizontalIndex();
                     }
 
-                    if (enumfacing == EnumFacing.WEST) {
-                        return EnumFacing.NORTH.getHorizontalIndex();
+                    if (enumfacing == Direction.WEST) {
+                        return Direction.NORTH.getHorizontalIndex();
                     }
 
-                    if (enumfacing == EnumFacing.EAST) {
-                        return EnumFacing.SOUTH.getHorizontalIndex();
+                    if (enumfacing == Direction.EAST) {
+                        return Direction.SOUTH.getHorizontalIndex();
                     }
-                } else if (this.coordBaseMode == EnumFacing.EAST) {
-                    if (enumfacing == EnumFacing.NORTH) {
-                        return EnumFacing.EAST.getHorizontalIndex();
-                    }
-
-                    if (enumfacing == EnumFacing.SOUTH) {
-                        return EnumFacing.WEST.getHorizontalIndex();
+                } else if (this.coordBaseMode == Direction.EAST) {
+                    if (enumfacing == Direction.NORTH) {
+                        return Direction.EAST.getHorizontalIndex();
                     }
 
-                    if (enumfacing == EnumFacing.WEST) {
-                        return EnumFacing.NORTH.getHorizontalIndex();
+                    if (enumfacing == Direction.SOUTH) {
+                        return Direction.WEST.getHorizontalIndex();
                     }
 
-                    if (enumfacing == EnumFacing.EAST) {
-                        return EnumFacing.SOUTH.getHorizontalIndex();
+                    if (enumfacing == Direction.WEST) {
+                        return Direction.NORTH.getHorizontalIndex();
+                    }
+
+                    if (enumfacing == Direction.EAST) {
+                        return Direction.SOUTH.getHorizontalIndex();
                     }
                 }
             }
-        } else if (this.coordBaseMode == EnumFacing.SOUTH) {
+        } else if (this.coordBaseMode == Direction.SOUTH) {
             if (meta == 2) {
                 return 3;
             }
@@ -362,7 +362,7 @@ public abstract class StructureComponent {
             if (meta == 3) {
                 return 2;
             }
-        } else if (this.coordBaseMode == EnumFacing.WEST) {
+        } else if (this.coordBaseMode == Direction.WEST) {
             if (meta == 0) {
                 return 2;
             }
@@ -378,7 +378,7 @@ public abstract class StructureComponent {
             if (meta == 3) {
                 return 1;
             }
-        } else if (this.coordBaseMode == EnumFacing.EAST) {
+        } else if (this.coordBaseMode == Direction.EAST) {
             if (meta == 0) {
                 return 2;
             }
@@ -563,7 +563,7 @@ public abstract class StructureComponent {
         }
     }
 
-    protected void placeDoorCurrentPosition(World worldIn, StructureBoundingBox boundingBoxIn, Random rand, int x, int y, int z, EnumFacing facing) {
+    protected void placeDoorCurrentPosition(World worldIn, StructureBoundingBox boundingBoxIn, Random rand, int x, int y, int z, Direction facing) {
         BlockPos blockpos = new BlockPos(this.getXWithOffset(x, z), this.getYWithOffset(y), this.getZWithOffset(x, z));
 
         if (boundingBoxIn.isVecInside(blockpos)) {

@@ -12,7 +12,7 @@ import net.minecraft.client.model.ModelBanner;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.LayeredColorMaskTexture;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.tileentity.TileEntityBanner;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
@@ -103,11 +103,11 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEnti
                     }
                 }
 
-                List<TileEntityBanner.EnumBannerPattern> list1 = bannerObj.getPatternList();
-                List<EnumDyeColor> list = bannerObj.getColorList();
+                List<TileEntityBanner.BannerPattern> list1 = bannerObj.getPatternList();
+                List<DyeColor> list = bannerObj.getColorList();
                 List<String> list2 = Lists.newArrayList();
 
-                for (TileEntityBanner.EnumBannerPattern tileentitybanner$enumbannerpattern : list1) {
+                for (TileEntityBanner.BannerPattern tileentitybanner$enumbannerpattern : list1) {
                     list2.add("textures/entity/banner/" + tileentitybanner$enumbannerpattern.getPatternName() + ".png");
                 }
 

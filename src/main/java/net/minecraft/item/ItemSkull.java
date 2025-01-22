@@ -15,7 +15,7 @@ import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
@@ -29,8 +29,8 @@ public class ItemSkull extends Item {
         this.setHasSubtypes(true);
     }
 
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-        if (side == EnumFacing.DOWN) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
+        if (side == Direction.DOWN) {
             return false;
         } else {
             IBlockState iblockstate = worldIn.getBlockState(pos);
@@ -54,7 +54,7 @@ public class ItemSkull extends Item {
                     worldIn.setBlockState(pos, Blocks.skull.getDefaultState().withProperty(BlockSkull.FACING, side), 3);
                     int i = 0;
 
-                    if (side == EnumFacing.UP) {
+                    if (side == Direction.UP) {
                         i = MathHelper.floor_double((playerIn.rotationYaw * 16.0F / 360.0F) + 0.5D) & 15;
                     }
 

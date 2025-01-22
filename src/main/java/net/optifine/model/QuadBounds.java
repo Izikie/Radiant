@@ -1,6 +1,6 @@
 package net.optifine.model;
 
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 
 public class QuadBounds {
     private float minX = Float.MAX_VALUE;
@@ -69,7 +69,7 @@ public class QuadBounds {
         return this.maxZ;
     }
 
-    public boolean isFaceQuad(EnumFacing face) {
+    public boolean isFaceQuad(Direction face) {
         float f;
         float f1;
         float f2;
@@ -118,7 +118,7 @@ public class QuadBounds {
         return f == f2 && f1 == f2;
     }
 
-    public boolean isFullQuad(EnumFacing face) {
+    public boolean isFullQuad(Direction face) {
         float f;
         float f1;
         float f2;

@@ -1,6 +1,6 @@
 package net.minecraft.util;
 
-public enum EnumWorldBlockLayer {
+public enum RenderLayer {
     SOLID("Solid"),
     CUTOUT_MIPPED("Mipped Cutout"),
     CUTOUT("Cutout"),
@@ -8,7 +8,7 @@ public enum EnumWorldBlockLayer {
 
     private final String layerName;
 
-    EnumWorldBlockLayer(String layerNameIn) {
+    RenderLayer(String layerNameIn) {
         this.layerName = layerNameIn;
     }
 

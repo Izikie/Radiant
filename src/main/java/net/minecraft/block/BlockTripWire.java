@@ -14,8 +14,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.Direction;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -37,7 +37,7 @@ public class BlockTripWire extends Block {
     }
 
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-        return state.withProperty(NORTH, isConnectedTo(worldIn, pos, state, EnumFacing.NORTH)).withProperty(EAST, isConnectedTo(worldIn, pos, state, EnumFacing.EAST)).withProperty(SOUTH, isConnectedTo(worldIn, pos, state, EnumFacing.SOUTH)).withProperty(WEST, isConnectedTo(worldIn, pos, state, EnumFacing.WEST));
+        return state.withProperty(NORTH, isConnectedTo(worldIn, pos, state, Direction.NORTH)).withProperty(EAST, isConnectedTo(worldIn, pos, state, Direction.EAST)).withProperty(SOUTH, isConnectedTo(worldIn, pos, state, Direction.SOUTH)).withProperty(WEST, isConnectedTo(worldIn, pos, state, Direction.WEST));
     }
 
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
@@ -52,8 +52,8 @@ public class BlockTripWire extends Block {
         return false;
     }
 
-    public EnumWorldBlockLayer getBlockLayer() {
-        return EnumWorldBlockLayer.TRANSLUCENT;
+    public RenderLayer getBlockLayer() {
+        return RenderLayer.TRANSLUCENT;
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
@@ -107,7 +107,7 @@ public class BlockTripWire extends Block {
     }
 
     private void notifyHook(World worldIn, BlockPos pos, IBlockState state) {
-        for (EnumFacing enumfacing : new EnumFacing[]{EnumFacing.SOUTH, EnumFacing.WEST}) {
+        for (Direction enumfacing : new Direction[]{Direction.SOUTH, Direction.WEST}) {
             for (int i = 1; i < 42; ++i) {
                 BlockPos blockpos = pos.offset(enumfacing, i);
                 IBlockState iblockstate = worldIn.getBlockState(blockpos);
@@ -172,13 +172,13 @@ public class BlockTripWire extends Block {
         }
     }
 
-    public static boolean isConnectedTo(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing direction) {
+    public static boolean isConnectedTo(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction direction) {
         BlockPos blockpos = pos.offset(direction);
         IBlockState iblockstate = worldIn.getBlockState(blockpos);
         Block block = iblockstate.getBlock();
 
         if (block == Blocks.tripwire_hook) {
-            EnumFacing enumfacing = direction.getOpposite();
+            Direction enumfacing = direction.getOpposite();
             return iblockstate.getValue(BlockTripWireHook.FACING) == enumfacing;
         } else if (block == Blocks.tripwire) {
             boolean flag = state.getValue(SUSPENDED);

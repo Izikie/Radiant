@@ -9,19 +9,19 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.world.World;
 
 public class BlockStainedGlass extends BlockBreakable {
-    public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.create("color", EnumDyeColor.class);
+    public static final PropertyEnum<DyeColor> COLOR = PropertyEnum.create("color", DyeColor.class);
 
     public BlockStainedGlass(Material materialIn) {
         super(materialIn, false);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(COLOR, EnumDyeColor.WHITE));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(COLOR, DyeColor.WHITE));
         this.setCreativeTab(CreativeTabs.tabBlock);
     }
 
@@ -30,7 +30,7 @@ public class BlockStainedGlass extends BlockBreakable {
     }
 
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-        for (EnumDyeColor enumdyecolor : EnumDyeColor.values()) {
+        for (DyeColor enumdyecolor : DyeColor.values()) {
             list.add(new ItemStack(itemIn, 1, enumdyecolor.getMetadata()));
         }
     }
@@ -39,8 +39,8 @@ public class BlockStainedGlass extends BlockBreakable {
         return state.getValue(COLOR).getMapColor();
     }
 
-    public EnumWorldBlockLayer getBlockLayer() {
-        return EnumWorldBlockLayer.TRANSLUCENT;
+    public RenderLayer getBlockLayer() {
+        return RenderLayer.TRANSLUCENT;
     }
 
     public int quantityDropped(Random random) {
@@ -56,7 +56,7 @@ public class BlockStainedGlass extends BlockBreakable {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(COLOR, EnumDyeColor.byMetadata(meta));
+        return this.getDefaultState().withProperty(COLOR, DyeColor.byMetadata(meta));
     }
 
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {

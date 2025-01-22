@@ -1,7 +1,5 @@
 package net.minecraft.block;
 
-import com.google.common.base.Predicate;
-
 import java.util.Random;
 
 import net.minecraft.block.material.Material;
@@ -13,19 +11,19 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.Direction;
+import net.minecraft.util.ParticleTypes;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 public class BlockTorch extends Block {
-    public static final PropertyDirection FACING = PropertyDirection.create("facing", p_apply_1_ -> p_apply_1_ != EnumFacing.DOWN);
+    public static final PropertyDirection FACING = PropertyDirection.create("facing", p_apply_1_ -> p_apply_1_ != Direction.DOWN);
 
     protected BlockTorch() {
         super(Material.circuits);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.UP));
         this.setTickRandomly(true);
         this.setCreativeTab(CreativeTabs.tabDecorations);
     }
@@ -52,7 +50,7 @@ public class BlockTorch extends Block {
     }
 
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-        for (EnumFacing enumfacing : FACING.getAllowedValues()) {
+        for (Direction enumfacing : FACING.getAllowedValues()) {
             if (this.canPlaceAt(worldIn, pos, enumfacing)) {
                 return true;
             }
@@ -61,17 +59,17 @@ public class BlockTorch extends Block {
         return false;
     }
 
-    private boolean canPlaceAt(World worldIn, BlockPos pos, EnumFacing facing) {
+    private boolean canPlaceAt(World worldIn, BlockPos pos, Direction facing) {
         BlockPos blockpos = pos.offset(facing.getOpposite());
         boolean flag = facing.getAxis().isHorizontal();
-        return flag && worldIn.isBlockNormalCube(blockpos, true) || facing == EnumFacing.UP && this.canPlaceOn(worldIn, blockpos);
+        return flag && worldIn.isBlockNormalCube(blockpos, true) || facing == Direction.UP && this.canPlaceOn(worldIn, blockpos);
     }
 
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         if (this.canPlaceAt(worldIn, pos, facing)) {
             return this.getDefaultState().withProperty(FACING, facing);
         } else {
-            for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+            for (Direction enumfacing : Direction.Plane.HORIZONTAL) {
                 if (worldIn.isBlockNormalCube(pos.offset(enumfacing.getOpposite()), true)) {
                     return this.getDefaultState().withProperty(FACING, enumfacing);
                 }
@@ -93,9 +91,9 @@ public class BlockTorch extends Block {
         if (!this.checkForDrop(worldIn, pos, state)) {
             return true;
         } else {
-            EnumFacing enumfacing = state.getValue(FACING);
-            EnumFacing.Axis enumfacing$axis = enumfacing.getAxis();
-            EnumFacing enumfacing1 = enumfacing.getOpposite();
+            Direction enumfacing = state.getValue(FACING);
+            Direction.Axis enumfacing$axis = enumfacing.getAxis();
+            Direction enumfacing1 = enumfacing.getOpposite();
             boolean flag = false;
 
             if (enumfacing$axis.isHorizontal() && !worldIn.isBlockNormalCube(pos.offset(enumfacing1), true)) {
@@ -128,16 +126,16 @@ public class BlockTorch extends Block {
     }
 
     public MovingObjectPosition collisionRayTrace(World worldIn, BlockPos pos, Vec3 start, Vec3 end) {
-        EnumFacing enumfacing = worldIn.getBlockState(pos).getValue(FACING);
+        Direction enumfacing = worldIn.getBlockState(pos).getValue(FACING);
         float f = 0.15F;
 
-        if (enumfacing == EnumFacing.EAST) {
+        if (enumfacing == Direction.EAST) {
             this.setBlockBounds(0.0F, 0.2F, 0.5F - f, f * 2.0F, 0.8F, 0.5F + f);
-        } else if (enumfacing == EnumFacing.WEST) {
+        } else if (enumfacing == Direction.WEST) {
             this.setBlockBounds(1.0F - f * 2.0F, 0.2F, 0.5F - f, 1.0F, 0.8F, 0.5F + f);
-        } else if (enumfacing == EnumFacing.SOUTH) {
+        } else if (enumfacing == Direction.SOUTH) {
             this.setBlockBounds(0.5F - f, 0.2F, 0.0F, 0.5F + f, 0.8F, f * 2.0F);
-        } else if (enumfacing == EnumFacing.NORTH) {
+        } else if (enumfacing == Direction.NORTH) {
             this.setBlockBounds(0.5F - f, 0.2F, 1.0F - f * 2.0F, 0.5F + f, 0.8F, 1.0F);
         } else {
             f = 0.1F;
@@ -148,7 +146,7 @@ public class BlockTorch extends Block {
     }
 
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        EnumFacing enumfacing = state.getValue(FACING);
+        Direction enumfacing = state.getValue(FACING);
         double d0 = pos.getX() + 0.5D;
         double d1 = pos.getY() + 0.7D;
         double d2 = pos.getZ() + 0.5D;
@@ -156,28 +154,28 @@ public class BlockTorch extends Block {
         double d4 = 0.27D;
 
         if (enumfacing.getAxis().isHorizontal()) {
-            EnumFacing enumfacing1 = enumfacing.getOpposite();
-            worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4 * enumfacing1.getFrontOffsetX(), d1 + d3, d2 + d4 * enumfacing1.getFrontOffsetZ(), 0.0D, 0.0D, 0.0D);
-            worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + d4 * enumfacing1.getFrontOffsetX(), d1 + d3, d2 + d4 * enumfacing1.getFrontOffsetZ(), 0.0D, 0.0D, 0.0D);
+            Direction enumfacing1 = enumfacing.getOpposite();
+            worldIn.spawnParticle(ParticleTypes.SMOKE_NORMAL, d0 + d4 * enumfacing1.getFrontOffsetX(), d1 + d3, d2 + d4 * enumfacing1.getFrontOffsetZ(), 0.0D, 0.0D, 0.0D);
+            worldIn.spawnParticle(ParticleTypes.FLAME, d0 + d4 * enumfacing1.getFrontOffsetX(), d1 + d3, d2 + d4 * enumfacing1.getFrontOffsetZ(), 0.0D, 0.0D, 0.0D);
         } else {
-            worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D);
-            worldIn.spawnParticle(EnumParticleTypes.FLAME, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+            worldIn.spawnParticle(ParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+            worldIn.spawnParticle(ParticleTypes.FLAME, d0, d1, d2, 0.0D, 0.0D, 0.0D);
         }
     }
 
-    public EnumWorldBlockLayer getBlockLayer() {
-        return EnumWorldBlockLayer.CUTOUT;
+    public RenderLayer getBlockLayer() {
+        return RenderLayer.CUTOUT;
     }
 
     public IBlockState getStateFromMeta(int meta) {
         IBlockState iblockstate = this.getDefaultState();
 
         iblockstate = switch (meta) {
-            case 1 -> iblockstate.withProperty(FACING, EnumFacing.EAST);
-            case 2 -> iblockstate.withProperty(FACING, EnumFacing.WEST);
-            case 3 -> iblockstate.withProperty(FACING, EnumFacing.SOUTH);
-            case 4 -> iblockstate.withProperty(FACING, EnumFacing.NORTH);
-            default -> iblockstate.withProperty(FACING, EnumFacing.UP);
+            case 1 -> iblockstate.withProperty(FACING, Direction.EAST);
+            case 2 -> iblockstate.withProperty(FACING, Direction.WEST);
+            case 3 -> iblockstate.withProperty(FACING, Direction.SOUTH);
+            case 4 -> iblockstate.withProperty(FACING, Direction.NORTH);
+            default -> iblockstate.withProperty(FACING, Direction.UP);
         };
 
         return iblockstate;

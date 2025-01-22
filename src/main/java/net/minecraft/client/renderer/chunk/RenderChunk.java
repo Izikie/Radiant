@@ -30,8 +30,8 @@ import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.Direction;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.world.ChunkCache;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
@@ -54,14 +54,14 @@ public class RenderChunk {
     private final Set<TileEntity> setTileEntities = Sets.newHashSet();
     private final int index;
     private final FloatBuffer modelviewMatrix = GLAllocation.createDirectFloatBuffer(16);
-    private final VertexBuffer[] vertexBuffers = new VertexBuffer[EnumWorldBlockLayer.values().length];
+    private final VertexBuffer[] vertexBuffers = new VertexBuffer[RenderLayer.values().length];
     public AxisAlignedBB boundingBox;
     private int frameIndex = -1;
     private boolean needsUpdate = true;
-    private final EnumMap<EnumFacing, BlockPos> mapEnumFacing = null;
-    private final BlockPos[] positionOffsets16 = new BlockPos[EnumFacing.VALUES.length];
-    public static final EnumWorldBlockLayer[] ENUM_WORLD_BLOCK_LAYERS = EnumWorldBlockLayer.values();
-    private final EnumWorldBlockLayer[] blockLayersSingle = new EnumWorldBlockLayer[1];
+    private final EnumMap<Direction, BlockPos> mapEnumFacing = null;
+    private final BlockPos[] positionOffsets16 = new BlockPos[Direction.VALUES.length];
+    public static final RenderLayer[] ENUM_WORLD_BLOCK_LAYERS = RenderLayer.values();
+    private final RenderLayer[] blockLayersSingle = new RenderLayer[1];
     private final boolean isMipmaps = Config.isMipmaps();
     private boolean playerUpdate = false;
     public int regionX;
@@ -69,8 +69,8 @@ public class RenderChunk {
     private final RenderChunk[] renderChunksOfset16 = new RenderChunk[6];
     private boolean renderChunksOffset16Updated = false;
     private Chunk chunk;
-    private final RenderChunk[] renderChunkNeighbours = new RenderChunk[EnumFacing.VALUES.length];
-    private final RenderChunk[] renderChunkNeighboursValid = new RenderChunk[EnumFacing.VALUES.length];
+    private final RenderChunk[] renderChunkNeighbours = new RenderChunk[Direction.VALUES.length];
+    private final RenderChunk[] renderChunkNeighboursValid = new RenderChunk[Direction.VALUES.length];
     private boolean renderChunkNeighboursUpated = false;
     private final RenderGlobal.ContainerLocalRenderInformation renderInfo = new RenderGlobal.ContainerLocalRenderInformation(this, null, 0);
     public AabbFrame boundingBoxParent;
@@ -85,7 +85,7 @@ public class RenderChunk {
         }
 
         if (OpenGlHelper.useVbo()) {
-            for (int i = 0; i < EnumWorldBlockLayer.values().length; ++i) {
+            for (int i = 0; i < RenderLayer.values().length; ++i) {
                 this.vertexBuffers[i] = new VertexBuffer(DefaultVertexFormats.BLOCK);
             }
         }
@@ -131,11 +131,11 @@ public class RenderChunk {
     public void resortTransparency(float x, float y, float z, ChunkCompileTaskGenerator generator) {
         CompiledChunk compiledchunk = generator.getCompiledChunk();
 
-        if (compiledchunk.getState() != null && !compiledchunk.isLayerEmpty(EnumWorldBlockLayer.TRANSLUCENT)) {
-            WorldRenderer worldrenderer = generator.getRegionRenderCacheBuilder().getWorldRendererByLayer(EnumWorldBlockLayer.TRANSLUCENT);
+        if (compiledchunk.getState() != null && !compiledchunk.isLayerEmpty(RenderLayer.TRANSLUCENT)) {
+            WorldRenderer worldrenderer = generator.getRegionRenderCacheBuilder().getWorldRendererByLayer(RenderLayer.TRANSLUCENT);
             this.preRenderBlocks(worldrenderer, this.position);
             worldrenderer.setVertexState(compiledchunk.getState());
-            this.postRenderBlocks(EnumWorldBlockLayer.TRANSLUCENT, x, y, z, worldrenderer, compiledchunk);
+            this.postRenderBlocks(RenderLayer.TRANSLUCENT, x, y, z, worldrenderer, compiledchunk);
         }
     }
 
@@ -188,13 +188,13 @@ public class RenderChunk {
                     }
                 }
 
-                EnumWorldBlockLayer[] aenumworldblocklayer;
+                RenderLayer[] aenumworldblocklayer;
 
                 aenumworldblocklayer = this.blockLayersSingle;
                 aenumworldblocklayer[0] = block.getBlockLayer();
 
-                for (EnumWorldBlockLayer enumWorldBlockLayer : aenumworldblocklayer) {
-                    EnumWorldBlockLayer enumworldblocklayer = enumWorldBlockLayer;
+                for (RenderLayer enumWorldBlockLayer : aenumworldblocklayer) {
+                    RenderLayer enumworldblocklayer = enumWorldBlockLayer;
 
                     enumworldblocklayer = this.fixBlockLayer(iblockstate, enumworldblocklayer);
                     int k = enumworldblocklayer.ordinal();
@@ -221,7 +221,7 @@ public class RenderChunk {
 
             }
 
-            for (EnumWorldBlockLayer enumworldblocklayer1 : ENUM_WORLD_BLOCK_LAYERS) {
+            for (RenderLayer enumworldblocklayer1 : ENUM_WORLD_BLOCK_LAYERS) {
                 if (aboolean[enumworldblocklayer1.ordinal()]) {
                     compiledchunk.setLayerUsed(enumworldblocklayer1);
                 }
@@ -333,8 +333,8 @@ public class RenderChunk {
         }
     }
 
-    private void postRenderBlocks(EnumWorldBlockLayer layer, float x, float y, float z, WorldRenderer worldRendererIn, CompiledChunk compiledChunkIn) {
-        if (layer == EnumWorldBlockLayer.TRANSLUCENT && !compiledChunkIn.isLayerEmpty(layer)) {
+    private void postRenderBlocks(RenderLayer layer, float x, float y, float z, WorldRenderer worldRendererIn, CompiledChunk compiledChunkIn) {
+        if (layer == RenderLayer.TRANSLUCENT && !compiledChunkIn.isLayerEmpty(layer)) {
             worldRendererIn.sortVertexData(x, y, z);
             compiledChunkIn.setState(worldRendererIn.getVertexState());
         }
@@ -379,7 +379,7 @@ public class RenderChunk {
     public void deleteGlResources() {
         this.stopCompileTask();
 
-        for (int i = 0; i < EnumWorldBlockLayer.values().length; ++i) {
+        for (int i = 0; i < RenderLayer.values().length; ++i) {
             if (this.vertexBuffers[i] != null) {
                 this.vertexBuffers[i].deleteGlBuffers();
             }
@@ -406,11 +406,11 @@ public class RenderChunk {
         return this.needsUpdate;
     }
 
-    public BlockPos getBlockPosOffset16(EnumFacing p_181701_1_) {
+    public BlockPos getBlockPosOffset16(Direction p_181701_1_) {
         return this.getPositionOffset16(p_181701_1_);
     }
 
-    public BlockPos getPositionOffset16(EnumFacing p_getPositionOffset16_1_) {
+    public BlockPos getPositionOffset16(Direction p_getPositionOffset16_1_) {
         int i = p_getPositionOffset16_1_.getIndex();
         BlockPos blockpos = this.positionOffsets16[i];
 
@@ -438,9 +438,9 @@ public class RenderChunk {
         return new RegionRenderCache(p_createRegionRenderCache_1_, p_createRegionRenderCache_2_, p_createRegionRenderCache_3_, p_createRegionRenderCache_4_);
     }
 
-    private EnumWorldBlockLayer fixBlockLayer(IBlockState p_fixBlockLayer_1_, EnumWorldBlockLayer p_fixBlockLayer_2_) {
+    private RenderLayer fixBlockLayer(IBlockState p_fixBlockLayer_1_, RenderLayer p_fixBlockLayer_2_) {
         if (CustomBlockLayers.isActive()) {
-            EnumWorldBlockLayer enumworldblocklayer = CustomBlockLayers.getRenderLayer(p_fixBlockLayer_1_);
+            RenderLayer enumworldblocklayer = CustomBlockLayers.getRenderLayer(p_fixBlockLayer_1_);
 
             if (enumworldblocklayer != null) {
                 return enumworldblocklayer;
@@ -448,7 +448,7 @@ public class RenderChunk {
         }
 
         if (this.isMipmaps) {
-            if (p_fixBlockLayer_2_ == EnumWorldBlockLayer.CUTOUT) {
+            if (p_fixBlockLayer_2_ == RenderLayer.CUTOUT) {
                 Block block = p_fixBlockLayer_1_.getBlock();
 
                 if (block instanceof BlockRedstoneWire) {
@@ -459,22 +459,22 @@ public class RenderChunk {
                     return p_fixBlockLayer_2_;
                 }
 
-                return EnumWorldBlockLayer.CUTOUT_MIPPED;
+                return RenderLayer.CUTOUT_MIPPED;
             }
-        } else if (p_fixBlockLayer_2_ == EnumWorldBlockLayer.CUTOUT_MIPPED) {
-            return EnumWorldBlockLayer.CUTOUT;
+        } else if (p_fixBlockLayer_2_ == RenderLayer.CUTOUT_MIPPED) {
+            return RenderLayer.CUTOUT;
         }
 
         return p_fixBlockLayer_2_;
     }
 
     private void postRenderOverlays(RegionRenderCacheBuilder p_postRenderOverlays_1_, CompiledChunk p_postRenderOverlays_2_, boolean[] p_postRenderOverlays_3_) {
-        this.postRenderOverlay(EnumWorldBlockLayer.CUTOUT, p_postRenderOverlays_1_, p_postRenderOverlays_2_, p_postRenderOverlays_3_);
-        this.postRenderOverlay(EnumWorldBlockLayer.CUTOUT_MIPPED, p_postRenderOverlays_1_, p_postRenderOverlays_2_, p_postRenderOverlays_3_);
-        this.postRenderOverlay(EnumWorldBlockLayer.TRANSLUCENT, p_postRenderOverlays_1_, p_postRenderOverlays_2_, p_postRenderOverlays_3_);
+        this.postRenderOverlay(RenderLayer.CUTOUT, p_postRenderOverlays_1_, p_postRenderOverlays_2_, p_postRenderOverlays_3_);
+        this.postRenderOverlay(RenderLayer.CUTOUT_MIPPED, p_postRenderOverlays_1_, p_postRenderOverlays_2_, p_postRenderOverlays_3_);
+        this.postRenderOverlay(RenderLayer.TRANSLUCENT, p_postRenderOverlays_1_, p_postRenderOverlays_2_, p_postRenderOverlays_3_);
     }
 
-    private void postRenderOverlay(EnumWorldBlockLayer p_postRenderOverlay_1_, RegionRenderCacheBuilder p_postRenderOverlay_2_, CompiledChunk p_postRenderOverlay_3_, boolean[] p_postRenderOverlay_4_) {
+    private void postRenderOverlay(RenderLayer p_postRenderOverlay_1_, RegionRenderCacheBuilder p_postRenderOverlay_2_, CompiledChunk p_postRenderOverlay_3_, boolean[] p_postRenderOverlay_4_) {
         WorldRenderer worldrenderer = p_postRenderOverlay_2_.getWorldRendererByLayer(p_postRenderOverlay_1_);
 
         if (worldrenderer.isDrawing()) {
@@ -491,10 +491,10 @@ public class RenderChunk {
         return new ChunkCacheOF(chunkcache, blockpos, blockpos1, 1);
     }
 
-    public RenderChunk getRenderChunkOffset16(ViewFrustum p_getRenderChunkOffset16_1_, EnumFacing p_getRenderChunkOffset16_2_) {
+    public RenderChunk getRenderChunkOffset16(ViewFrustum p_getRenderChunkOffset16_1_, Direction p_getRenderChunkOffset16_2_) {
         if (!this.renderChunksOffset16Updated) {
-            for (int i = 0; i < EnumFacing.VALUES.length; ++i) {
-                EnumFacing enumfacing = EnumFacing.VALUES[i];
+            for (int i = 0; i < Direction.VALUES.length; ++i) {
+                Direction enumfacing = Direction.VALUES[i];
                 BlockPos blockpos = this.getBlockPosOffset16(enumfacing);
                 this.renderChunksOfset16[i] = p_getRenderChunkOffset16_1_.getRenderChunk(blockpos);
             }
@@ -529,12 +529,12 @@ public class RenderChunk {
         return this.getChunk(p_isChunkRegionEmpty_1_).getAreLevelsEmpty(i, j);
     }
 
-    public void setRenderChunkNeighbour(EnumFacing p_setRenderChunkNeighbour_1_, RenderChunk p_setRenderChunkNeighbour_2_) {
+    public void setRenderChunkNeighbour(Direction p_setRenderChunkNeighbour_1_, RenderChunk p_setRenderChunkNeighbour_2_) {
         this.renderChunkNeighbours[p_setRenderChunkNeighbour_1_.ordinal()] = p_setRenderChunkNeighbour_2_;
         this.renderChunkNeighboursValid[p_setRenderChunkNeighbour_1_.ordinal()] = p_setRenderChunkNeighbour_2_;
     }
 
-    public RenderChunk getRenderChunkNeighbour(EnumFacing p_getRenderChunkNeighbour_1_) {
+    public RenderChunk getRenderChunkNeighbour(Direction p_getRenderChunkNeighbour_1_) {
         if (!this.renderChunkNeighboursUpated) {
             this.updateRenderChunkNeighboursValid();
         }
@@ -549,10 +549,10 @@ public class RenderChunk {
     private void updateRenderChunkNeighboursValid() {
         int i = this.getPosition().getX();
         int j = this.getPosition().getZ();
-        int k = EnumFacing.NORTH.ordinal();
-        int l = EnumFacing.SOUTH.ordinal();
-        int i1 = EnumFacing.WEST.ordinal();
-        int j1 = EnumFacing.EAST.ordinal();
+        int k = Direction.NORTH.ordinal();
+        int l = Direction.SOUTH.ordinal();
+        int i1 = Direction.WEST.ordinal();
+        int j1 = Direction.EAST.ordinal();
         this.renderChunkNeighboursValid[k] = this.renderChunkNeighbours[k].getPosition().getZ() == j - 16 ? this.renderChunkNeighbours[k] : null;
         this.renderChunkNeighboursValid[l] = this.renderChunkNeighbours[l].getPosition().getZ() == j + 16 ? this.renderChunkNeighbours[l] : null;
         this.renderChunkNeighboursValid[i1] = this.renderChunkNeighbours[i1].getPosition().getX() == i - 16 ? this.renderChunkNeighbours[i1] : null;

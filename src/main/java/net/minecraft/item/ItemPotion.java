@@ -5,7 +5,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -22,7 +21,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
@@ -107,8 +106,8 @@ public class ItemPotion extends Item {
         return 32;
     }
 
-    public EnumAction getItemUseAction(ItemStack stack) {
-        return EnumAction.DRINK;
+    public UseAction getItemUseAction(ItemStack stack) {
+        return UseAction.DRINK;
     }
 
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
@@ -207,19 +206,19 @@ public class ItemPotion extends Item {
                     }
 
                     if (potion.isBadEffect()) {
-                        tooltip.add(EnumChatFormatting.RED + s1);
+                        tooltip.add(Formatting.RED + s1);
                     } else {
-                        tooltip.add(EnumChatFormatting.GRAY + s1);
+                        tooltip.add(Formatting.GRAY + s1);
                     }
                 }
             } else {
                 String s = StatCollector.translateToLocal("potion.empty").trim();
-                tooltip.add(EnumChatFormatting.GRAY + s);
+                tooltip.add(Formatting.GRAY + s);
             }
 
             if (!multimap.isEmpty()) {
                 tooltip.add("");
-                tooltip.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("potion.effects.whenDrank"));
+                tooltip.add(Formatting.DARK_PURPLE + StatCollector.translateToLocal("potion.effects.whenDrank"));
 
                 for (Entry<String, AttributeModifier> entry1 : multimap.entries()) {
                     AttributeModifier attributemodifier2 = entry1.getValue();
@@ -233,10 +232,10 @@ public class ItemPotion extends Item {
                     }
 
                     if (d0 > 0.0D) {
-                        tooltip.add(EnumChatFormatting.BLUE + StatCollector.translateToLocalFormatted("attribute.modifier.plus." + attributemodifier2.getOperation(), new Object[]{ItemStack.DECIMALFORMAT.format(d1), StatCollector.translateToLocal("attribute.name." + entry1.getKey())}));
+                        tooltip.add(Formatting.BLUE + StatCollector.translateToLocalFormatted("attribute.modifier.plus." + attributemodifier2.getOperation(), new Object[]{ItemStack.DECIMALFORMAT.format(d1), StatCollector.translateToLocal("attribute.name." + entry1.getKey())}));
                     } else if (d0 < 0.0D) {
                         d1 = d1 * -1.0D;
-                        tooltip.add(EnumChatFormatting.RED + StatCollector.translateToLocalFormatted("attribute.modifier.take." + attributemodifier2.getOperation(), new Object[]{ItemStack.DECIMALFORMAT.format(d1), StatCollector.translateToLocal("attribute.name." + entry1.getKey())}));
+                        tooltip.add(Formatting.RED + StatCollector.translateToLocalFormatted("attribute.modifier.take." + attributemodifier2.getOperation(), new Object[]{ItemStack.DECIMALFORMAT.format(d1), StatCollector.translateToLocal("attribute.name." + entry1.getKey())}));
                     }
                 }
             }

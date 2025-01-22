@@ -18,7 +18,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.Rotations;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
@@ -269,7 +269,7 @@ public class EntityArmorStand extends EntityLivingBase {
         if (list != null && !list.isEmpty()) {
             for (Entity value : list) {
 
-                if (value instanceof EntityMinecart entityMinecart && entityMinecart.getMinecartType() == EntityMinecart.EnumMinecartType.RIDEABLE && this.getDistanceSqToEntity(value) <= 0.2D) {
+                if (value instanceof EntityMinecart entityMinecart && entityMinecart.getMinecartType() == EntityMinecart.MinecartType.RIDEABLE && this.getDistanceSqToEntity(value) <= 0.2D) {
                     value.applyEntityCollision(this);
                 }
             }
@@ -448,7 +448,7 @@ public class EntityArmorStand extends EntityLivingBase {
 
     private void playParticles() {
         if (this.worldObj instanceof WorldServer worldServer) {
-            worldServer.spawnParticle(EnumParticleTypes.BLOCK_DUST, this.posX, this.posY + this.height / 1.5D, this.posZ, 10, (this.width / 4.0F), (this.height / 4.0F), (this.width / 4.0F), 0.05D, Block.getStateId(Blocks.planks.getDefaultState()));
+            worldServer.spawnParticle(ParticleTypes.BLOCK_DUST, this.posX, this.posY + this.height / 1.5D, this.posZ, 10, (this.width / 4.0F), (this.height / 4.0F), (this.width / 4.0F), 0.05D, Block.getStateId(Blocks.planks.getDefaultState()));
         }
     }
 

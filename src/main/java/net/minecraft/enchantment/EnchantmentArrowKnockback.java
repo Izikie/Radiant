@@ -4,7 +4,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class EnchantmentArrowKnockback extends Enchantment {
     public EnchantmentArrowKnockback(int enchID, ResourceLocation enchName, int enchWeight) {
-        super(enchID, enchName, enchWeight, EnumEnchantmentType.BOW);
+        super(enchID, enchName, enchWeight, EnchantmentTarget.BOW);
         this.setName("arrowKnockback");
     }
 

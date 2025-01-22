@@ -8,7 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.world.World;
 
 public class BlockMobSpawner extends BlockContainer {
@@ -42,8 +42,8 @@ public class BlockMobSpawner extends BlockContainer {
         return 3;
     }
 
-    public EnumWorldBlockLayer getBlockLayer() {
-        return EnumWorldBlockLayer.CUTOUT;
+    public RenderLayer getBlockLayer() {
+        return RenderLayer.CUTOUT;
     }
 
     public Item getItem(World worldIn, BlockPos pos) {

@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.Callable;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
@@ -57,8 +56,8 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EntitySelectors;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.ParticleTypes;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MouseFilter;
 import net.minecraft.util.MovingObjectPosition;
@@ -1213,7 +1212,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             ShadersRender.beginTerrainSolid();
         }
 
-        renderglobal.renderBlockLayer(EnumWorldBlockLayer.SOLID, partialTicks, pass, entity);
+        renderglobal.renderBlockLayer(RenderLayer.SOLID, partialTicks, pass, entity);
         GlStateManager.enableAlpha();
 
         if (flag) {
@@ -1221,7 +1220,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         }
 
         this.mc.getTextureManager().getTexture(TextureMap.locationBlocksTexture).setBlurMipmap(false, this.mc.gameSettings.mipmapLevels > 0);
-        renderglobal.renderBlockLayer(EnumWorldBlockLayer.CUTOUT_MIPPED, partialTicks, pass, entity);
+        renderglobal.renderBlockLayer(RenderLayer.CUTOUT_MIPPED, partialTicks, pass, entity);
         this.mc.getTextureManager().getTexture(TextureMap.locationBlocksTexture).restoreLastBlurMipmap();
         this.mc.getTextureManager().getTexture(TextureMap.locationBlocksTexture).setBlurMipmap(false, false);
 
@@ -1229,7 +1228,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             ShadersRender.beginTerrainCutout();
         }
 
-        renderglobal.renderBlockLayer(EnumWorldBlockLayer.CUTOUT, partialTicks, pass, entity);
+        renderglobal.renderBlockLayer(RenderLayer.CUTOUT, partialTicks, pass, entity);
         this.mc.getTextureManager().getTexture(TextureMap.locationBlocksTexture).restoreLastBlurMipmap();
 
         if (flag) {
@@ -1351,7 +1350,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             Shaders.beginWater();
         }
 
-        renderglobal.renderBlockLayer(EnumWorldBlockLayer.TRANSLUCENT, partialTicks, pass, entity);
+        renderglobal.renderBlockLayer(RenderLayer.TRANSLUCENT, partialTicks, pass, entity);
 
         if (flag) {
             Shaders.endWater();
@@ -1443,7 +1442,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                     double d4 = this.random.nextDouble();
 
                     if (block.getMaterial() == Material.lava) {
-                        this.mc.theWorld.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, blockpos1.getX() + d3, (blockpos1.getY() + 0.1F) - block.getBlockBoundsMinY(), blockpos1.getZ() + d4, 0.0D, 0.0D, 0.0D);
+                        this.mc.theWorld.spawnParticle(ParticleTypes.SMOKE_NORMAL, blockpos1.getX() + d3, (blockpos1.getY() + 0.1F) - block.getBlockBoundsMinY(), blockpos1.getZ() + d4, 0.0D, 0.0D, 0.0D);
                     } else if (block.getMaterial() != Material.air) {
                         block.setBlockBoundsBasedOnState(world, blockpos2);
                         ++j;
@@ -1454,7 +1453,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                             d2 = blockpos2.getZ() + d4;
                         }
 
-                        this.mc.theWorld.spawnParticle(EnumParticleTypes.WATER_DROP, blockpos2.getX() + d3, (blockpos2.getY() + 0.1F) + block.getBlockBoundsMaxY(), blockpos2.getZ() + d4, 0.0D, 0.0D, 0.0D);
+                        this.mc.theWorld.spawnParticle(ParticleTypes.WATER_DROP, blockpos2.getX() + d3, (blockpos2.getY() + 0.1F) + block.getBlockBoundsMaxY(), blockpos2.getZ() + d4, 0.0D, 0.0D, 0.0D);
                     }
                 }
             }

@@ -16,7 +16,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ContainerEnchantment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnchantmentNameParts;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IWorldNameable;
@@ -195,7 +195,7 @@ public class GuiEnchantment extends GuiContainer {
 
                 if (l >= 0 && Enchantment.getEnchantmentById(l & 255) != null) {
                     String s = Enchantment.getEnchantmentById(l & 255).getTranslatedName((l & 65280) >> 8);
-                    list.add(EnumChatFormatting.WHITE.toString() + EnumChatFormatting.ITALIC + I18n.format("container.enchant.clue", s));
+                    list.add(Formatting.WHITE.toString() + Formatting.ITALIC + I18n.format("container.enchant.clue", s));
                 }
 
                 if (!flag) {
@@ -204,7 +204,7 @@ public class GuiEnchantment extends GuiContainer {
                     }
 
                     if (this.mc.thePlayer.experienceLevel < k) {
-                        list.add(EnumChatFormatting.RED + "Level Requirement: " + this.container.enchantLevels[j]);
+                        list.add(Formatting.RED + "Level Requirement: " + this.container.enchantLevels[j]);
                     } else {
                         String s1;
 
@@ -215,9 +215,9 @@ public class GuiEnchantment extends GuiContainer {
                         }
 
                         if (i >= i1) {
-                            list.add(EnumChatFormatting.GRAY + s1);
+                            list.add(Formatting.GRAY + s1);
                         } else {
-                            list.add(EnumChatFormatting.RED + s1);
+                            list.add(Formatting.RED + s1);
                         }
 
                         if (i1 == 1) {
@@ -226,7 +226,7 @@ public class GuiEnchantment extends GuiContainer {
                             s1 = I18n.format("container.enchant.level.many", i1);
                         }
 
-                        list.add(EnumChatFormatting.GRAY + s1);
+                        list.add(Formatting.GRAY + s1);
                     }
                 }
 

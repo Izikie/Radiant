@@ -16,8 +16,8 @@ import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.world.EnumSkyBlock;
+import net.minecraft.util.Direction;
+import net.minecraft.world.LightType;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -99,14 +99,14 @@ public class BlockSnow extends Block {
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        if (worldIn.getLightFor(EnumSkyBlock.BLOCK, pos) > 11) {
+        if (worldIn.getLightFor(LightType.BLOCK, pos) > 11) {
             this.dropBlockAsItem(worldIn, pos, worldIn.getBlockState(pos), 0);
             worldIn.setBlockToAir(pos);
         }
     }
 
-    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
-        return side == EnumFacing.UP ? true : super.shouldSideBeRendered(worldIn, pos, side);
+    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, Direction side) {
+        return side == Direction.UP ? true : super.shouldSideBeRendered(worldIn, pos, side);
     }
 
     public IBlockState getStateFromMeta(int meta) {

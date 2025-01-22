@@ -3,10 +3,10 @@ package net.minecraft.block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 
 public abstract class BlockDirectional extends Block {
-    public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+    public static final PropertyDirection FACING = PropertyDirection.create("facing", Direction.Plane.HORIZONTAL);
 
     protected BlockDirectional(Material materialIn) {
         super(materialIn);

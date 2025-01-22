@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class EnchantmentThorns extends Enchantment {
     public EnchantmentThorns(int p_i45764_1_, ResourceLocation p_i45764_2_, int p_i45764_3_) {
-        super(p_i45764_1_, p_i45764_2_, p_i45764_3_, EnumEnchantmentType.ARMOR_TORSO);
+        super(p_i45764_1_, p_i45764_2_, p_i45764_3_, EnchantmentTarget.ARMOR_TORSO);
         this.setName("thorns");
     }
 

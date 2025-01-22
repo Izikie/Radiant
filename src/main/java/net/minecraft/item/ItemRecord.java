@@ -12,7 +12,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
@@ -27,7 +27,7 @@ public class ItemRecord extends Item {
         RECORDS.put("records." + name, this);
     }
 
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
         IBlockState iblockstate = worldIn.getBlockState(pos);
 
         if (iblockstate.getBlock() == Blocks.jukebox && !iblockstate.getValue(BlockJukebox.HAS_RECORD)) {
@@ -51,8 +51,8 @@ public class ItemRecord extends Item {
         return StatCollector.translateToLocal("item.record." + this.recordName + ".desc");
     }
 
-    public EnumRarity getRarity(ItemStack stack) {
-        return EnumRarity.RARE;
+    public Rarity getRarity(ItemStack stack) {
+        return Rarity.RARE;
     }
 
     public static ItemRecord getRecord(String name) {

@@ -14,12 +14,12 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public class WorldGenTrees extends WorldGenAbstractTree {
-    private static final IBlockState field_181653_a = Blocks.log.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.OAK);
-    private static final IBlockState field_181654_b = Blocks.leaves.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.OAK).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
+    private static final IBlockState field_181653_a = Blocks.log.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.WoodType.OAK);
+    private static final IBlockState field_181654_b = Blocks.leaves.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.WoodType.OAK).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
     private final int minTreeHeight;
     private final boolean vinesGrow;
     private final IBlockState metaWood;
@@ -164,9 +164,9 @@ public class WorldGenTrees extends WorldGenAbstractTree {
 
                         if (rand.nextInt(5) == 0 && i > 5) {
                             for (int l3 = 0; l3 < 2; ++l3) {
-                                for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+                                for (Direction enumfacing : Direction.Plane.HORIZONTAL) {
                                     if (rand.nextInt(4 - l3) == 0) {
-                                        EnumFacing enumfacing1 = enumfacing.getOpposite();
+                                        Direction enumfacing1 = enumfacing.getOpposite();
                                         this.func_181652_a(worldIn, rand.nextInt(3), position.add(enumfacing1.getFrontOffsetX(), i - 5 + l3, enumfacing1.getFrontOffsetZ()), enumfacing);
                                     }
                                 }
@@ -184,7 +184,7 @@ public class WorldGenTrees extends WorldGenAbstractTree {
         }
     }
 
-    private void func_181652_a(World p_181652_1_, int p_181652_2_, BlockPos p_181652_3_, EnumFacing p_181652_4_) {
+    private void func_181652_a(World p_181652_1_, int p_181652_2_, BlockPos p_181652_3_, Direction p_181652_4_) {
         this.setBlockAndNotifyAdequately(p_181652_1_, p_181652_3_, Blocks.cocoa.getDefaultState().withProperty(BlockCocoa.AGE, p_181652_2_).withProperty(BlockCocoa.FACING, p_181652_4_));
     }
 

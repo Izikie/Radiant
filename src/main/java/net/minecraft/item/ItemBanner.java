@@ -12,7 +12,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityBanner;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
@@ -26,8 +26,8 @@ public class ItemBanner extends ItemBlock {
         this.setMaxDamage(0);
     }
 
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-        if (side == EnumFacing.DOWN) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
+        if (side == Direction.DOWN) {
             return false;
         } else if (!worldIn.getBlockState(pos).getBlock().getMaterial().isSolid()) {
             return false;
@@ -41,7 +41,7 @@ public class ItemBanner extends ItemBlock {
             } else if (worldIn.isRemote) {
                 return true;
             } else {
-                if (side == EnumFacing.UP) {
+                if (side == Direction.UP) {
                     int i = MathHelper.floor_double(((playerIn.rotationYaw + 180.0F) * 16.0F / 360.0F) + 0.5D) & 15;
                     worldIn.setBlockState(pos, Blocks.standing_banner.getDefaultState().withProperty(BlockStandingSign.ROTATION, i), 3);
                 } else {
@@ -62,7 +62,7 @@ public class ItemBanner extends ItemBlock {
 
     public String getItemStackDisplayName(ItemStack stack) {
         String s = "item.banner.";
-        EnumDyeColor enumdyecolor = this.getBaseColor(stack);
+        DyeColor enumdyecolor = this.getBaseColor(stack);
         s = s + enumdyecolor.getUnlocalizedName() + ".name";
         return StatCollector.translateToLocal(s);
     }
@@ -75,8 +75,8 @@ public class ItemBanner extends ItemBlock {
 
             for (int i = 0; i < nbttaglist.tagCount() && i < 6; ++i) {
                 NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
-                EnumDyeColor enumdyecolor = EnumDyeColor.byDyeDamage(nbttagcompound1.getInteger("Color"));
-                TileEntityBanner.EnumBannerPattern tileentitybanner$enumbannerpattern = TileEntityBanner.EnumBannerPattern.getPatternByID(nbttagcompound1.getString("Pattern"));
+                DyeColor enumdyecolor = DyeColor.byDyeDamage(nbttagcompound1.getInteger("Color"));
+                TileEntityBanner.BannerPattern tileentitybanner$enumbannerpattern = TileEntityBanner.BannerPattern.getPatternByID(nbttagcompound1.getString("Pattern"));
 
                 if (tileentitybanner$enumbannerpattern != null) {
                     tooltip.add(StatCollector.translateToLocal("item.banner." + tileentitybanner$enumbannerpattern.getPatternName() + "." + enumdyecolor.getUnlocalizedName()));
@@ -89,13 +89,13 @@ public class ItemBanner extends ItemBlock {
         if (renderPass == 0) {
             return 16777215;
         } else {
-            EnumDyeColor enumdyecolor = this.getBaseColor(stack);
+            DyeColor enumdyecolor = this.getBaseColor(stack);
             return enumdyecolor.getMapColor().colorValue;
         }
     }
 
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
-        for (EnumDyeColor enumdyecolor : EnumDyeColor.values()) {
+        for (DyeColor enumdyecolor : DyeColor.values()) {
             NBTTagCompound nbttagcompound = new NBTTagCompound();
             TileEntityBanner.setBaseColorAndPatterns(nbttagcompound, enumdyecolor.getDyeDamage(), null);
             NBTTagCompound nbttagcompound1 = new NBTTagCompound();
@@ -110,14 +110,14 @@ public class ItemBanner extends ItemBlock {
         return CreativeTabs.tabDecorations;
     }
 
-    private EnumDyeColor getBaseColor(ItemStack stack) {
+    private DyeColor getBaseColor(ItemStack stack) {
         NBTTagCompound nbttagcompound = stack.getSubCompound("BlockEntityTag", false);
-        EnumDyeColor enumdyecolor;
+        DyeColor enumdyecolor;
 
         if (nbttagcompound != null && nbttagcompound.hasKey("Base")) {
-            enumdyecolor = EnumDyeColor.byDyeDamage(nbttagcompound.getInteger("Base"));
+            enumdyecolor = DyeColor.byDyeDamage(nbttagcompound.getInteger("Base"));
         } else {
-            enumdyecolor = EnumDyeColor.byDyeDamage(stack.getMetadata());
+            enumdyecolor = DyeColor.byDyeDamage(stack.getMetadata());
         }
 
         return enumdyecolor;

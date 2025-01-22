@@ -16,7 +16,7 @@ import net.minecraft.event.HoverEvent;
 
 public class ChatStyle {
     private ChatStyle parentStyle;
-    private EnumChatFormatting color;
+    private Formatting color;
     private Boolean bold;
     private Boolean italic;
     private Boolean underlined;
@@ -26,7 +26,7 @@ public class ChatStyle {
     private HoverEvent chatHoverEvent;
     private String insertion;
     private static final ChatStyle rootStyle = new ChatStyle() {
-        public EnumChatFormatting getColor() {
+        public Formatting getColor() {
             return null;
         }
 
@@ -62,7 +62,7 @@ public class ChatStyle {
             return null;
         }
 
-        public ChatStyle setColor(EnumChatFormatting color) {
+        public ChatStyle setColor(Formatting color) {
             throw new UnsupportedOperationException();
         }
 
@@ -115,7 +115,7 @@ public class ChatStyle {
         }
     };
 
-    public EnumChatFormatting getColor() {
+    public Formatting getColor() {
         return this.color == null ? this.getParent().getColor() : this.color;
     }
 
@@ -155,7 +155,7 @@ public class ChatStyle {
         return this.insertion == null ? this.getParent().getInsertion() : this.insertion;
     }
 
-    public ChatStyle setColor(EnumChatFormatting color) {
+    public ChatStyle setColor(Formatting color) {
         this.color = color;
         return this;
     }
@@ -216,23 +216,23 @@ public class ChatStyle {
             }
 
             if (this.getBold()) {
-                stringbuilder.append(EnumChatFormatting.BOLD);
+                stringbuilder.append(Formatting.BOLD);
             }
 
             if (this.getItalic()) {
-                stringbuilder.append(EnumChatFormatting.ITALIC);
+                stringbuilder.append(Formatting.ITALIC);
             }
 
             if (this.getUnderlined()) {
-                stringbuilder.append(EnumChatFormatting.UNDERLINE);
+                stringbuilder.append(Formatting.UNDERLINE);
             }
 
             if (this.getObfuscated()) {
-                stringbuilder.append(EnumChatFormatting.OBFUSCATED);
+                stringbuilder.append(Formatting.OBFUSCATED);
             }
 
             if (this.getStrikethrough()) {
-                stringbuilder.append(EnumChatFormatting.STRIKETHROUGH);
+                stringbuilder.append(Formatting.STRIKETHROUGH);
             }
 
             return stringbuilder.toString();
@@ -367,7 +367,7 @@ public class ChatStyle {
                     }
 
                     if (jsonobject.has("color")) {
-                        chatstyle.color = p_deserialize_3_.deserialize(jsonobject.get("color"), EnumChatFormatting.class);
+                        chatstyle.color = p_deserialize_3_.deserialize(jsonobject.get("color"), Formatting.class);
                     }
 
                     if (jsonobject.has("insertion")) {

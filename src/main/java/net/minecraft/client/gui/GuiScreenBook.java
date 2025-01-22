@@ -22,7 +22,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.client.C17PacketCustomPayload;
 import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
@@ -286,7 +286,7 @@ public class GuiScreenBook extends GuiScreen {
     private void pageInsertIntoCurrent(String p_146459_1_) {
         String s = this.pageGetCurrent();
         String s1 = s + p_146459_1_;
-        int i = this.fontRendererObj.splitStringWidth(s1 + EnumChatFormatting.BLACK + "_", 118);
+        int i = this.fontRendererObj.splitStringWidth(s1 + Formatting.BLACK + "_", 118);
 
         if (i <= 128 && s1.length() < 256) {
             this.pageSetCurrent(s1);
@@ -305,9 +305,9 @@ public class GuiScreenBook extends GuiScreen {
 
             if (this.bookIsUnsigned) {
                 if (this.updateCount / 6 % 2 == 0) {
-                    s = s + EnumChatFormatting.BLACK + "_";
+                    s = s + Formatting.BLACK + "_";
                 } else {
-                    s = s + EnumChatFormatting.GRAY + "_";
+                    s = s + Formatting.GRAY + "_";
                 }
             }
 
@@ -318,7 +318,7 @@ public class GuiScreenBook extends GuiScreen {
             this.fontRendererObj.drawString(s, i + 36 + (116 - l) / 2, j + 48, 0);
             String s2 = I18n.format("book.byAuthor", this.editingPlayer.getName());
             int i1 = this.fontRendererObj.getStringWidth(s2);
-            this.fontRendererObj.drawString(EnumChatFormatting.DARK_GRAY + s2, i + 36 + (116 - i1) / 2, j + 48 + 10, 0);
+            this.fontRendererObj.drawString(Formatting.DARK_GRAY + s2, i + 36 + (116 - i1) / 2, j + 48 + 10, 0);
             String s3 = I18n.format("book.finalizeWarning");
             this.fontRendererObj.drawSplitString(s3, i + 36, j + 80, 116, 0);
         } else {
@@ -333,9 +333,9 @@ public class GuiScreenBook extends GuiScreen {
                 if (this.fontRendererObj.getBidiFlag()) {
                     s5 = s5 + "_";
                 } else if (this.updateCount / 6 % 2 == 0) {
-                    s5 = s5 + EnumChatFormatting.BLACK + "_";
+                    s5 = s5 + Formatting.BLACK + "_";
                 } else {
-                    s5 = s5 + EnumChatFormatting.GRAY + "_";
+                    s5 = s5 + Formatting.GRAY + "_";
                 }
             } else if (this.field_175387_B != this.currPage) {
                 if (ItemEditableBook.validBookTagContents(this.bookObj.getTagCompound())) {
@@ -346,7 +346,7 @@ public class GuiScreenBook extends GuiScreen {
                         this.field_175386_A = null;
                     }
                 } else {
-                    ChatComponentText chatcomponenttext = new ChatComponentText(EnumChatFormatting.DARK_RED + "* Invalid book tag *");
+                    ChatComponentText chatcomponenttext = new ChatComponentText(Formatting.DARK_RED + "* Invalid book tag *");
                     this.field_175386_A = Lists.newArrayList(chatcomponenttext);
                 }
 

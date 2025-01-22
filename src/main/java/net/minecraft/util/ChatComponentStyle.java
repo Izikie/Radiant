@@ -1,6 +1,5 @@
 package net.minecraft.util;
 
-import com.google.common.base.Function;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 
@@ -67,7 +66,7 @@ public abstract class ChatComponentStyle implements IChatComponent {
         for (IChatComponent ichatcomponent : this) {
             stringbuilder.append(ichatcomponent.getChatStyle().getFormattingCode());
             stringbuilder.append(ichatcomponent.getUnformattedTextForChat());
-            stringbuilder.append(EnumChatFormatting.RESET);
+            stringbuilder.append(Formatting.RESET);
         }
 
         return stringbuilder.toString();

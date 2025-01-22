@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderWolf;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.passive.EntityWolf;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.CustomColors;
@@ -20,7 +20,7 @@ public class LayerWolfCollar implements LayerRenderer<EntityWolf> {
     public void doRenderLayer(EntityWolf entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
         if (entitylivingbaseIn.isTamed() && !entitylivingbaseIn.isInvisible()) {
             this.wolfRenderer.bindTexture(WOLF_COLLAR);
-            EnumDyeColor enumdyecolor = EnumDyeColor.byMetadata(entitylivingbaseIn.getCollarColor().getMetadata());
+            DyeColor enumdyecolor = DyeColor.byMetadata(entitylivingbaseIn.getCollarColor().getMetadata());
             float[] afloat = EntitySheep.getDyeRgb(enumdyecolor);
 
             if (Config.isCustomColors()) {

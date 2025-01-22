@@ -15,9 +15,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityDaylightDetector;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.MathHelper;
-import net.minecraft.world.EnumSkyBlock;
+import net.minecraft.world.LightType;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -40,14 +40,14 @@ public class BlockDaylightDetector extends BlockContainer {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.375F, 1.0F);
     }
 
-    public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side) {
+    public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
         return state.getValue(POWER);
     }
 
     public void updatePower(World worldIn, BlockPos pos) {
         if (!worldIn.provider.getHasNoSky()) {
             IBlockState iblockstate = worldIn.getBlockState(pos);
-            int i = worldIn.getLightFor(EnumSkyBlock.SKY, pos) - worldIn.getSkylightSubtracted();
+            int i = worldIn.getLightFor(LightType.SKY, pos) - worldIn.getSkylightSubtracted();
             float f = worldIn.getCelestialAngleRadians(1.0F);
             float f1 = f < (float) Math.PI ? 0.0F : ((float) Math.PI * 2.0F);
             f = f + (f1 - f) * 0.2F;
@@ -64,7 +64,7 @@ public class BlockDaylightDetector extends BlockContainer {
         }
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (playerIn.isAllowEdit()) {
             if (!worldIn.isRemote) {
                 if (this.inverted) {

@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public class EntityLeashKnot extends EntityHanging {
@@ -28,7 +28,7 @@ public class EntityLeashKnot extends EntityHanging {
         super.entityInit();
     }
 
-    public void updateFacingWithBoundingBox(EnumFacing facingDirectionIn) {
+    public void updateFacingWithBoundingBox(Direction facingDirectionIn) {
     }
 
     public int getWidthPixels() {

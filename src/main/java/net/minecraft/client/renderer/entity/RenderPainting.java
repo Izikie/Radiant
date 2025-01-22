@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.item.EntityPainting;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
@@ -24,7 +24,7 @@ public class RenderPainting extends Render<EntityPainting> {
         GlStateManager.rotate(180.0F - entityYaw, 0.0F, 1.0F, 0.0F);
         GlStateManager.enableRescaleNormal();
         this.bindEntityTexture(entity);
-        EntityPainting.EnumArt entitypainting$enumart = entity.art;
+        EntityPainting.PaintingType entitypainting$enumart = entity.art;
         float f = 0.0625F;
         GlStateManager.scale(f, f, f);
         this.renderPainting(entity, entitypainting$enumart.sizeX, entitypainting$enumart.sizeY, entitypainting$enumart.offsetX, entitypainting$enumart.offsetY);
@@ -101,21 +101,21 @@ public class RenderPainting extends Render<EntityPainting> {
         int i = MathHelper.floor_double(painting.posX);
         int j = MathHelper.floor_double(painting.posY + (p_77008_3_ / 16.0F));
         int k = MathHelper.floor_double(painting.posZ);
-        EnumFacing enumfacing = painting.facingDirection;
+        Direction enumfacing = painting.facingDirection;
 
-        if (enumfacing == EnumFacing.NORTH) {
+        if (enumfacing == Direction.NORTH) {
             i = MathHelper.floor_double(painting.posX + (p_77008_2_ / 16.0F));
         }
 
-        if (enumfacing == EnumFacing.WEST) {
+        if (enumfacing == Direction.WEST) {
             k = MathHelper.floor_double(painting.posZ - (p_77008_2_ / 16.0F));
         }
 
-        if (enumfacing == EnumFacing.SOUTH) {
+        if (enumfacing == Direction.SOUTH) {
             i = MathHelper.floor_double(painting.posX - (p_77008_2_ / 16.0F));
         }
 
-        if (enumfacing == EnumFacing.EAST) {
+        if (enumfacing == Direction.EAST) {
             k = MathHelper.floor_double(painting.posZ + (p_77008_2_ / 16.0F));
         }
 

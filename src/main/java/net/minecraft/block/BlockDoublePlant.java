@@ -17,7 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -26,11 +26,11 @@ import net.minecraft.world.biome.BiomeColorHelper;
 public class BlockDoublePlant extends BlockBush implements IGrowable {
     public static final PropertyEnum<BlockDoublePlant.EnumPlantType> VARIANT = PropertyEnum.create("variant", BlockDoublePlant.EnumPlantType.class);
     public static final PropertyEnum<BlockDoublePlant.EnumBlockHalf> HALF = PropertyEnum.create("half", BlockDoublePlant.EnumBlockHalf.class);
-    public static final PropertyEnum<EnumFacing> FACING = BlockDirectional.FACING;
+    public static final PropertyEnum<Direction> FACING = BlockDirectional.FACING;
 
     public BlockDoublePlant() {
         super(Material.vine);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockDoublePlant.EnumPlantType.SUNFLOWER).withProperty(HALF, BlockDoublePlant.EnumBlockHalf.LOWER).withProperty(FACING, EnumFacing.NORTH));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockDoublePlant.EnumPlantType.SUNFLOWER).withProperty(HALF, BlockDoublePlant.EnumBlockHalf.LOWER).withProperty(FACING, Direction.NORTH));
         this.setHardness(0.0F);
         this.setStepSound(soundTypeGrass);
         this.setUnlocalizedName("doublePlant");

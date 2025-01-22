@@ -17,7 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 
 public class EntityPigZombie extends EntityZombie {
@@ -84,7 +84,7 @@ public class EntityPigZombie extends EntityZombie {
     }
 
     public boolean getCanSpawnHere() {
-        return this.worldObj.getDifficulty() != EnumDifficulty.PEACEFUL;
+        return this.worldObj.getDifficulty() != Difficulty.PEACEFUL;
     }
 
     public boolean isNotColliding() {

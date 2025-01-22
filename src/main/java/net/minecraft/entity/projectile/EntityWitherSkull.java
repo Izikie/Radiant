@@ -9,7 +9,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
@@ -66,9 +66,9 @@ public class EntityWitherSkull extends EntityFireball {
                 if (movingObject.entityHit instanceof EntityLivingBase) {
                     int i = 0;
 
-                    if (this.worldObj.getDifficulty() == EnumDifficulty.NORMAL) {
+                    if (this.worldObj.getDifficulty() == Difficulty.NORMAL) {
                         i = 10;
-                    } else if (this.worldObj.getDifficulty() == EnumDifficulty.HARD) {
+                    } else if (this.worldObj.getDifficulty() == Difficulty.HARD) {
                         i = 40;
                     }
 

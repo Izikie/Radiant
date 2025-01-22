@@ -12,12 +12,12 @@ import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EnumPlayerModelParts;
+import net.minecraft.entity.player.PlayerModelParts;
 import net.minecraft.scoreboard.IScoreObjectiveCriteria;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Scoreboard;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.WorldSettings;
@@ -141,13 +141,13 @@ public class GuiPlayerTabOverlay extends Gui {
 
                 if (flag) {
                     EntityPlayer entityplayer = this.mc.theWorld.getPlayerEntityByUUID(gameprofile.getId());
-                    boolean flag1 = entityplayer != null && entityplayer.isWearing(EnumPlayerModelParts.CAPE) && (gameprofile.getName().equals("Dinnerbone") || gameprofile.getName().equals("Grumm"));
+                    boolean flag1 = entityplayer != null && entityplayer.isWearing(PlayerModelParts.CAPE) && (gameprofile.getName().equals("Dinnerbone") || gameprofile.getName().equals("Grumm"));
                     this.mc.getTextureManager().bindTexture(networkplayerinfo1.getLocationSkin());
                     int l2 = 8 + (flag1 ? 8 : 0);
                     int i3 = 8 * (flag1 ? -1 : 1);
                     Gui.drawScaledCustomSizeModalRect(j2, k2, 8.0F, l2, 8, i3, 8, 8, 64.0F, 64.0F);
 
-                    if (entityplayer != null && entityplayer.isWearing(EnumPlayerModelParts.HAT)) {
+                    if (entityplayer != null && entityplayer.isWearing(PlayerModelParts.HAT)) {
                         int j3 = 8 + (flag1 ? 8 : 0);
                         int k3 = 8 * (flag1 ? -1 : 1);
                         Gui.drawScaledCustomSizeModalRect(j2, k2, 40.0F, j3, 8, k3, 8, 8, 64.0F, 64.0F);
@@ -157,7 +157,7 @@ public class GuiPlayerTabOverlay extends Gui {
                 }
 
                 if (networkplayerinfo1.getGameType() == WorldSettings.GameType.SPECTATOR) {
-                    s1 = EnumChatFormatting.ITALIC + s1;
+                    s1 = Formatting.ITALIC + s1;
                     this.mc.fontRendererObj.drawStringWithShadow(s1, j2, k2, -1862270977);
                 } else {
                     this.mc.fontRendererObj.drawStringWithShadow(s1, j2, k2, -1);
@@ -283,7 +283,7 @@ public class GuiPlayerTabOverlay extends Gui {
                 }
             }
         } else {
-            String s1 = EnumChatFormatting.YELLOW + "" + i;
+            String s1 = Formatting.YELLOW + "" + i;
             this.mc.fontRendererObj.drawStringWithShadow(s1, (p_175247_5_ - this.mc.fontRendererObj.getStringWidth(s1)), p_175247_2_, 16777215);
         }
     }

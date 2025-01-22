@@ -18,7 +18,6 @@ import java.nio.IntBuffer;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -57,7 +56,7 @@ import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
@@ -69,7 +68,7 @@ import net.optifine.config.ConnectedParser;
 import net.optifine.expr.IExpressionBool;
 import net.optifine.render.GlAlphaState;
 import net.optifine.render.GlBlendState;
-import net.optifine.shaders.config.EnumShaderOption;
+import net.optifine.shaders.config.ShaderOptions;
 import net.optifine.shaders.config.MacroProcessor;
 import net.optifine.shaders.config.MacroState;
 import net.optifine.shaders.config.PropertyDefaultFastFancyOff;
@@ -558,7 +557,7 @@ public class Shaders {
         }
 
         shadersConfig = new PropertiesOrdered();
-        shadersConfig.setProperty(EnumShaderOption.SHADER_PACK.getPropertyKey(), "");
+        shadersConfig.setProperty(ShaderOptions.SHADER_PACK.getPropertyKey(), "");
 
         if (configFile.exists()) {
             try {
@@ -576,9 +575,9 @@ public class Shaders {
             }
         }
 
-        EnumShaderOption[] aenumshaderoption = EnumShaderOption.values();
+        ShaderOptions[] aenumshaderoption = ShaderOptions.values();
 
-        for (EnumShaderOption enumshaderoption : aenumshaderoption) {
+        for (ShaderOptions enumshaderoption : aenumshaderoption) {
             String s = enumshaderoption.getPropertyKey();
             String s1 = enumshaderoption.getValueDefault();
             String s2 = shadersConfig.getProperty(s, s1);
@@ -588,7 +587,7 @@ public class Shaders {
         loadShaderPack();
     }
 
-    private static void setEnumShaderOption(EnumShaderOption eso, String str) {
+    private static void setEnumShaderOption(ShaderOptions eso, String str) {
         if (str == null) {
             str = eso.getValueDefault();
         }
@@ -678,9 +677,9 @@ public class Shaders {
             shadersConfig = new PropertiesOrdered();
         }
 
-        EnumShaderOption[] aenumshaderoption = EnumShaderOption.values();
+        ShaderOptions[] aenumshaderoption = ShaderOptions.values();
 
-        for (EnumShaderOption enumshaderoption : aenumshaderoption) {
+        for (ShaderOptions enumshaderoption : aenumshaderoption) {
             String s = enumshaderoption.getPropertyKey();
             String s1 = getEnumShaderOption(enumshaderoption);
             shadersConfig.setProperty(s, s1);
@@ -695,7 +694,7 @@ public class Shaders {
         }
     }
 
-    public static String getEnumShaderOption(EnumShaderOption eso) {
+    public static String getEnumShaderOption(ShaderOptions eso) {
         return switch (eso) {
             case ANTIALIASING -> Integer.toString(configAntialiasingLevel);
             case NORMAL_MAP -> Boolean.toString(configNormalMap);
@@ -721,7 +720,7 @@ public class Shaders {
 
     public static void setShaderPack(String par1name) {
         currentShaderName = par1name;
-        shadersConfig.setProperty(EnumShaderOption.SHADER_PACK.getPropertyKey(), par1name);
+        shadersConfig.setProperty(ShaderOptions.SHADER_PACK.getPropertyKey(), par1name);
         loadShaderPack();
     }
 
@@ -770,7 +769,7 @@ public class Shaders {
             flag2 = true;
         }
 
-        String s = shadersConfig.getProperty(EnumShaderOption.SHADER_PACK.getPropertyKey(), "(internal)");
+        String s = shadersConfig.getProperty(ShaderOptions.SHADER_PACK.getPropertyKey(), "(internal)");
 
         if (!flag2) {
             shaderPack = getShaderPack(s);
@@ -1690,7 +1689,7 @@ public class Shaders {
         return !shaderPackVignette.isFalse();
     }
 
-    public static boolean isRenderBackFace(EnumWorldBlockLayer blockLayerIn) {
+    public static boolean isRenderBackFace(RenderLayer blockLayerIn) {
         return switch (blockLayerIn) {
             case SOLID -> shaderPackBackFaceSolid.isTrue();
             case CUTOUT -> shaderPackBackFaceCutout.isTrue();
@@ -4637,8 +4636,8 @@ public class Shaders {
                 if (block == null) {
                     return false;
                 } else {
-                    EnumWorldBlockLayer enumworldblocklayer = block.getBlockLayer();
-                    return enumworldblocklayer == EnumWorldBlockLayer.TRANSLUCENT;
+                    RenderLayer enumworldblocklayer = block.getBlockLayer();
+                    return enumworldblocklayer == RenderLayer.TRANSLUCENT;
                 }
             }
         }

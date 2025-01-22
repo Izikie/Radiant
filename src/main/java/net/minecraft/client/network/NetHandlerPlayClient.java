@@ -30,7 +30,6 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiScreenBook;
 import net.minecraft.client.gui.GuiWinGame;
 import net.minecraft.client.gui.GuiYesNo;
-import net.minecraft.client.gui.GuiYesNoCallback;
 import net.minecraft.client.gui.IProgressMeter;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
@@ -191,9 +190,9 @@ import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Direction;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StringUtils;
@@ -256,7 +255,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         switch (packetIn.getType()) {
             case 1 -> entity = new EntityBoat(this.clientWorldController, d0, d1, d2);
             case 2 -> entity = new EntityItem(this.clientWorldController, d0, d1, d2);
-            case 10 -> entity = EntityMinecart.getMinecart(this.clientWorldController, d0, d1, d2, EntityMinecart.EnumMinecartType.byNetworkID(packetIn.getExtraData()));
+            case 10 -> entity = EntityMinecart.getMinecart(this.clientWorldController, d0, d1, d2, EntityMinecart.MinecartType.byNetworkID(packetIn.getExtraData()));
             case 50 -> entity = new EntityTNTPrimed(this.clientWorldController, d0, d1, d2, null);
             case 51 -> entity = new EntityEnderCrystal(this.clientWorldController, d0, d1, d2);
             case 60 -> entity = new EntityArrow(this.clientWorldController, d0, d1, d2);
@@ -267,7 +266,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
             case 65 -> entity = new EntityEnderPearl(this.clientWorldController, d0, d1, d2);
             case 66 -> entity = new EntityWitherSkull(this.clientWorldController, d0, d1, d2, packetIn.getSpeedX() / 8000.0D, packetIn.getSpeedY() / 8000.0D, packetIn.getSpeedZ() / 8000.0D);
             case 70 -> entity = new EntityFallingBlock(this.clientWorldController, d0, d1, d2, Block.getStateById(packetIn.getExtraData() & 65535));
-            case 71 -> entity = new EntityItemFrame(this.clientWorldController, new BlockPos(MathHelper.floor_double(d0), MathHelper.floor_double(d1), MathHelper.floor_double(d2)), EnumFacing.getHorizontal(packetIn.getExtraData()));
+            case 71 -> entity = new EntityItemFrame(this.clientWorldController, new BlockPos(MathHelper.floor_double(d0), MathHelper.floor_double(d1), MathHelper.floor_double(d2)), Direction.getHorizontal(packetIn.getExtraData()));
             case 72 -> entity = new EntityEnderEye(this.clientWorldController, d0, d1, d2);
             case 73 -> entity = new EntityPotion(this.clientWorldController, d0, d1, d2, packetIn.getExtraData());
             case 75 -> entity = new EntityExpBottle(this.clientWorldController, d0, d1, d2);
@@ -479,29 +478,29 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         float f = packetIn.getYaw();
         float f1 = packetIn.getPitch();
 
-        if (packetIn.func_179834_f().contains(S08PacketPlayerPosLook.EnumFlags.X)) {
+        if (packetIn.func_179834_f().contains(S08PacketPlayerPosLook.Flag.X)) {
             d0 += entityplayer.posX;
         } else {
             entityplayer.motionX = 0.0D;
         }
 
-        if (packetIn.func_179834_f().contains(S08PacketPlayerPosLook.EnumFlags.Y)) {
+        if (packetIn.func_179834_f().contains(S08PacketPlayerPosLook.Flag.Y)) {
             d1 += entityplayer.posY;
         } else {
             entityplayer.motionY = 0.0D;
         }
 
-        if (packetIn.func_179834_f().contains(S08PacketPlayerPosLook.EnumFlags.Z)) {
+        if (packetIn.func_179834_f().contains(S08PacketPlayerPosLook.Flag.Z)) {
             d2 += entityplayer.posZ;
         } else {
             entityplayer.motionZ = 0.0D;
         }
 
-        if (packetIn.func_179834_f().contains(S08PacketPlayerPosLook.EnumFlags.X_ROT)) {
+        if (packetIn.func_179834_f().contains(S08PacketPlayerPosLook.Flag.X_ROT)) {
             f1 += entityplayer.rotationPitch;
         }
 
-        if (packetIn.func_179834_f().contains(S08PacketPlayerPosLook.EnumFlags.Y_ROT)) {
+        if (packetIn.func_179834_f().contains(S08PacketPlayerPosLook.Flag.Y_ROT)) {
             f += entityplayer.rotationYaw;
         }
 
@@ -611,9 +610,9 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
                 EntityPlayer entityplayer = (EntityPlayer) entity;
                 entityplayer.wakeUpPlayer(false, false, false);
             } else if (packetIn.getAnimationType() == 4) {
-                this.gameController.effectRenderer.emitParticleAtEntity(entity, EnumParticleTypes.CRIT);
+                this.gameController.effectRenderer.emitParticleAtEntity(entity, ParticleTypes.CRIT);
             } else if (packetIn.getAnimationType() == 5) {
-                this.gameController.effectRenderer.emitParticleAtEntity(entity, EnumParticleTypes.CRIT_MAGIC);
+                this.gameController.effectRenderer.emitParticleAtEntity(entity, ParticleTypes.CRIT_MAGIC);
             }
         }
     }
@@ -978,7 +977,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
                 this.clientWorldController.setThunderStrength(f);
             }
             case 10 -> {
-                this.clientWorldController.spawnParticle(EnumParticleTypes.MOB_APPEARANCE, entityplayer.posX, entityplayer.posY, entityplayer.posZ, 0.0D, 0.0D, 0.0D);
+                this.clientWorldController.spawnParticle(ParticleTypes.MOB_APPEARANCE, entityplayer.posX, entityplayer.posY, entityplayer.posZ, 0.0D, 0.0D, 0.0D);
                 this.clientWorldController.playSound(entityplayer.posX, entityplayer.posY, entityplayer.posZ, "mob.guardian.curse", 1.0F, 1.0F, false);
             }
         }
@@ -1376,7 +1375,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
             scoreplayerteam.setTeamName(packetIn.getDisplayName());
             scoreplayerteam.setNamePrefix(packetIn.getPrefix());
             scoreplayerteam.setNameSuffix(packetIn.getSuffix());
-            scoreplayerteam.setChatFormat(EnumChatFormatting.func_175744_a(packetIn.getColor()));
+            scoreplayerteam.setChatFormat(Formatting.func_175744_a(packetIn.getColor()));
             scoreplayerteam.func_98298_a(packetIn.getFriendlyFlags());
             Team.EnumVisible team$enumvisible = Team.EnumVisible.func_178824_a(packetIn.getNameTagVisibility());
 

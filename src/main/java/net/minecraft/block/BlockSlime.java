@@ -5,7 +5,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.world.World;
 
 public class BlockSlime extends BlockBreakable {
@@ -15,8 +15,8 @@ public class BlockSlime extends BlockBreakable {
         this.slipperiness = 0.8F;
     }
 
-    public EnumWorldBlockLayer getBlockLayer() {
-        return EnumWorldBlockLayer.TRANSLUCENT;
+    public RenderLayer getBlockLayer() {
+        return RenderLayer.TRANSLUCENT;
     }
 
     public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {

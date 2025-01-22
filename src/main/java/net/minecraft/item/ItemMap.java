@@ -103,7 +103,7 @@ public class ItemMap extends ItemMapBase {
                                     if ((l3 >> 20 & 1) == 0) {
                                         multiset.add(Blocks.dirt.getMapColor(Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT)), 10);
                                     } else {
-                                        multiset.add(Blocks.stone.getMapColor(Blocks.stone.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.STONE)), 100);
+                                        multiset.add(Blocks.stone.getMapColor(Blocks.stone.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.StoneType.STONE)), 100);
                                     }
 
                                     d1 = 100.0D;

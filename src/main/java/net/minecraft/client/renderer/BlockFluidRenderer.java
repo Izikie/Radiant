@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.optifine.CustomColors;
@@ -48,13 +48,13 @@ public class BlockFluidRenderer {
             float f = (i >> 16 & 255) / 255.0F;
             float f1 = (i >> 8 & 255) / 255.0F;
             float f2 = (i & 255) / 255.0F;
-            boolean flag = blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.up(), EnumFacing.UP);
-            boolean flag1 = blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.down(), EnumFacing.DOWN);
+            boolean flag = blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.up(), Direction.UP);
+            boolean flag1 = blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.down(), Direction.DOWN);
             boolean[] aboolean = renderenv.getBorderFlags();
-            aboolean[0] = blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.north(), EnumFacing.NORTH);
-            aboolean[1] = blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.south(), EnumFacing.SOUTH);
-            aboolean[2] = blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.west(), EnumFacing.WEST);
-            aboolean[3] = blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.east(), EnumFacing.EAST);
+            aboolean[0] = blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.north(), Direction.NORTH);
+            aboolean[1] = blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.south(), Direction.SOUTH);
+            aboolean[2] = blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.west(), Direction.WEST);
+            aboolean[3] = blockliquid.shouldSideBeRendered(blockAccess, blockPosIn.east(), Direction.EAST);
 
             if (flag || flag1 || aboolean[0] || aboolean[1] || aboolean[2] || aboolean[3]) {
                 flag2 = false;
@@ -146,7 +146,7 @@ public class BlockFluidRenderer {
                     int l1 = blockliquid.getMixedBrightnessForBlock(blockAccess, blockPosIn.down());
                     int i2 = l1 >> 16 & 65535;
                     int j2 = l1 & 65535;
-                    float f41 = FaceBakery.getFaceBrightness(EnumFacing.DOWN);
+                    float f41 = FaceBakery.getFaceBrightness(Direction.DOWN);
                     worldRendererIn.pos(d0, d1, d2 + 1.0D).color(f * f41, f1 * f41, f2 * f41, 1.0F).tex(f35, f38).lightmap(i2, j2).endVertex();
                     worldRendererIn.pos(d0, d1, d2).color(f * f41, f1 * f41, f2 * f41, 1.0F).tex(f35, f37).lightmap(i2, j2).endVertex();
                     worldRendererIn.pos(d0 + 1.0D, d1, d2).color(f * f41, f1 * f41, f2 * f41, 1.0F).tex(f36, f37).lightmap(i2, j2).endVertex();
@@ -225,7 +225,7 @@ public class BlockFluidRenderer {
                         int j = blockliquid.getMixedBrightnessForBlock(blockAccess, blockpos);
                         int k = j >> 16 & 65535;
                         int l = j & 65535;
-                        float f31 = i1 < 2 ? FaceBakery.getFaceBrightness(EnumFacing.NORTH) : FaceBakery.getFaceBrightness(EnumFacing.WEST);
+                        float f31 = i1 < 2 ? FaceBakery.getFaceBrightness(Direction.NORTH) : FaceBakery.getFaceBrightness(Direction.WEST);
                         float f32 = f4 * f31 * f;
                         float f33 = f4 * f31 * f1;
                         float f34 = f4 * f31 * f2;

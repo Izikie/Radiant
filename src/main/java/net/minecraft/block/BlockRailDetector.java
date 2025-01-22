@@ -18,7 +18,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EntitySelectors;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -57,12 +57,12 @@ public class BlockRailDetector extends BlockRailBase {
         }
     }
 
-    public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side) {
+    public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
         return state.getValue(POWERED) ? 15 : 0;
     }
 
-    public int getStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side) {
-        return !state.getValue(POWERED) ? 0 : (side == EnumFacing.UP ? 15 : 0);
+    public int getStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
+        return !state.getValue(POWERED) ? 0 : (side == Direction.UP ? 15 : 0);
     }
 
     private void updatePoweredState(World worldIn, BlockPos pos, IBlockState state) {

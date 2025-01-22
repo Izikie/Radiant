@@ -16,10 +16,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -79,8 +79,8 @@ public class EntitySlime extends EntityLiving implements IMob {
         this.wasOnGround = tagCompund.getBoolean("wasOnGround");
     }
 
-    protected EnumParticleTypes getParticleType() {
-        return EnumParticleTypes.SLIME;
+    protected ParticleTypes getParticleType() {
+        return ParticleTypes.SLIME;
     }
 
     protected String getJumpSound() {
@@ -88,7 +88,7 @@ public class EntitySlime extends EntityLiving implements IMob {
     }
 
     public void onUpdate() {
-        if (!this.worldObj.isRemote && this.worldObj.getDifficulty() == EnumDifficulty.PEACEFUL && this.getSlimeSize() > 0) {
+        if (!this.worldObj.isRemote && this.worldObj.getDifficulty() == Difficulty.PEACEFUL && this.getSlimeSize() > 0) {
             this.isDead = true;
         }
 
@@ -105,7 +105,7 @@ public class EntitySlime extends EntityLiving implements IMob {
                 float f2 = MathHelper.sin(f) * i * 0.5F * f1;
                 float f3 = MathHelper.cos(f) * i * 0.5F * f1;
                 World world = this.worldObj;
-                EnumParticleTypes enumparticletypes = this.getParticleType();
+                ParticleTypes enumparticletypes = this.getParticleType();
                 double d0 = this.posX + f2;
                 double d1 = this.posZ + f3;
                 world.spawnParticle(enumparticletypes, d0, this.getEntityBoundingBox().minY, d1, 0.0D, 0.0D, 0.0D);
@@ -233,7 +233,7 @@ public class EntitySlime extends EntityLiving implements IMob {
         if (this.worldObj.getWorldInfo().getTerrainType() == WorldType.FLAT && this.rand.nextInt(4) != 1) {
             return false;
         } else {
-            if (this.worldObj.getDifficulty() != EnumDifficulty.PEACEFUL) {
+            if (this.worldObj.getDifficulty() != Difficulty.PEACEFUL) {
                 BiomeGenBase biomegenbase = this.worldObj.getBiomeGenForCoords(blockpos);
 
                 if (biomegenbase == BiomeGenBase.swampland && this.posY > 50.0D && this.posY < 70.0D && this.rand.nextFloat() < 0.5F && this.rand.nextFloat() < this.worldObj.getCurrentMoonPhaseFactor() && this.worldObj.getLightFromNeighbors(new BlockPos(this)) <= this.rand.nextInt(8)) {

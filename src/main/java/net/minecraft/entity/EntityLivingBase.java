@@ -1,6 +1,5 @@
 package net.minecraft.entity;
 
-import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Maps;
 
@@ -47,7 +46,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.CombatTracker;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
@@ -160,7 +159,7 @@ public abstract class EntityLivingBase extends Entity {
                 }
 
                 int i = (int) (150.0D * d0);
-                ((WorldServer) this.worldObj).spawnParticle(EnumParticleTypes.BLOCK_DUST, this.posX, this.posY, this.posZ, i, 0.0D, 0.0D, 0.0D, 0.15000000596046448D, Block.getStateId(iblockstate));
+                ((WorldServer) this.worldObj).spawnParticle(ParticleTypes.BLOCK_DUST, this.posX, this.posY, this.posZ, i, 0.0D, 0.0D, 0.0D, 0.15000000596046448D, Block.getStateId(iblockstate));
             }
         }
 
@@ -206,7 +205,7 @@ public abstract class EntityLivingBase extends Entity {
                             float f = this.rand.nextFloat() - this.rand.nextFloat();
                             float f1 = this.rand.nextFloat() - this.rand.nextFloat();
                             float f2 = this.rand.nextFloat() - this.rand.nextFloat();
-                            this.worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX + f, this.posY + f1, this.posZ + f2, this.motionX, this.motionY, this.motionZ);
+                            this.worldObj.spawnParticle(ParticleTypes.WATER_BUBBLE, this.posX + f, this.posY + f1, this.posZ + f2, this.motionX, this.motionY, this.motionZ);
                         }
 
                         this.attackEntityFrom(DamageSource.drown, 2.0F);
@@ -289,7 +288,7 @@ public abstract class EntityLivingBase extends Entity {
                 double d2 = this.rand.nextGaussian() * 0.02D;
                 double d0 = this.rand.nextGaussian() * 0.02D;
                 double d1 = this.rand.nextGaussian() * 0.02D;
-                this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, this.posX + (this.rand.nextFloat() * this.width * 2.0F) - this.width, this.posY + (this.rand.nextFloat() * this.height), this.posZ + (this.rand.nextFloat() * this.width * 2.0F) - this.width, d2, d0, d1);
+                this.worldObj.spawnParticle(ParticleTypes.EXPLOSION_NORMAL, this.posX + (this.rand.nextFloat() * this.width * 2.0F) - this.width, this.posY + (this.rand.nextFloat() * this.height), this.posZ + (this.rand.nextFloat() * this.width * 2.0F) - this.width, d2, d0, d1);
             }
         }
     }
@@ -467,7 +466,7 @@ public abstract class EntityLivingBase extends Entity {
                 double d0 = (i >> 16 & 255) / 255.0D;
                 double d1 = (i >> 8 & 255) / 255.0D;
                 double d2 = (i & 255) / 255.0D;
-                this.worldObj.spawnParticle(flag1 ? EnumParticleTypes.SPELL_MOB_AMBIENT : EnumParticleTypes.SPELL_MOB, this.posX + (this.rand.nextDouble() - 0.5D) * this.width, this.posY + this.rand.nextDouble() * this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * this.width, d0, d1, d2);
+                this.worldObj.spawnParticle(flag1 ? ParticleTypes.SPELL_MOB_AMBIENT : ParticleTypes.SPELL_MOB, this.posX + (this.rand.nextDouble() - 0.5D) * this.width, this.posY + this.rand.nextDouble() * this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * this.width, d0, d1, d2);
             }
         }
     }
@@ -532,7 +531,7 @@ public abstract class EntityLivingBase extends Entity {
     }
 
     public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-        if (this.getCreatureAttribute() == EnumCreatureAttribute.UNDEAD) {
+        if (this.getCreatureAttribute() == EntityGroup.UNDEAD) {
             int i = potioneffectIn.getPotionID();
 
             return i != Potion.regeneration.id && i != Potion.poison.id;
@@ -542,7 +541,7 @@ public abstract class EntityLivingBase extends Entity {
     }
 
     public boolean isEntityUndead() {
-        return this.getCreatureAttribute() == EnumCreatureAttribute.UNDEAD;
+        return this.getCreatureAttribute() == EntityGroup.UNDEAD;
     }
 
     public void removePotionEffectClient(int potionId) {
@@ -709,7 +708,7 @@ public abstract class EntityLivingBase extends Entity {
             vec31 = vec31.rotatePitch(-this.rotationPitch * (float) Math.PI / 180.0F);
             vec31 = vec31.rotateYaw(-this.rotationYaw * (float) Math.PI / 180.0F);
             vec31 = vec31.addVector(this.posX, this.posY + this.getEyeHeight(), this.posZ);
-            this.worldObj.spawnParticle(EnumParticleTypes.ITEM_CRACK, vec31.xCoord, vec31.yCoord, vec31.zCoord, vec3.xCoord, vec3.yCoord + 0.05D, vec3.zCoord, Item.getIdFromItem(stack.getItem()));
+            this.worldObj.spawnParticle(ParticleTypes.ITEM_CRACK, vec31.xCoord, vec31.yCoord, vec31.zCoord, vec3.xCoord, vec3.yCoord + 0.05D, vec3.zCoord, Item.getIdFromItem(stack.getItem()));
         }
     }
 
@@ -995,8 +994,8 @@ public abstract class EntityLivingBase extends Entity {
         return this.attributeMap;
     }
 
-    public EnumCreatureAttribute getCreatureAttribute() {
-        return EnumCreatureAttribute.UNDEFINED;
+    public EntityGroup getCreatureAttribute() {
+        return EntityGroup.UNDEFINED;
     }
 
     public abstract ItemStack getHeldItem();

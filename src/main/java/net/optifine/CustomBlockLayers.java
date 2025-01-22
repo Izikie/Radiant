@@ -7,7 +7,7 @@ import java.util.Properties;
 import net.minecraft.block.state.BlockStateBase;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.src.Config;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.RenderLayer;
 import net.optifine.config.ConnectedParser;
 import net.optifine.config.MatchBlock;
 import net.optifine.shaders.BlockAliases;
@@ -15,10 +15,10 @@ import net.optifine.util.PropertiesOrdered;
 import net.optifine.util.ResUtils;
 
 public class CustomBlockLayers {
-    private static EnumWorldBlockLayer[] renderLayers = null;
+    private static RenderLayer[] renderLayers = null;
     public static boolean active = false;
 
-    public static EnumWorldBlockLayer getRenderLayer(IBlockState blockState) {
+    public static RenderLayer getRenderLayer(IBlockState blockState) {
         if (renderLayers == null) {
             return null;
         } else if (blockState.getBlock().isOpaqueCube()) {
@@ -34,7 +34,7 @@ public class CustomBlockLayers {
     public static void update() {
         renderLayers = null;
         active = false;
-        List<EnumWorldBlockLayer> list = new ArrayList();
+        List<RenderLayer> list = new ArrayList();
         String s = "optifine/block.properties";
         Properties properties = ResUtils.readProperties(s, "CustomBlockLayers");
 
@@ -52,20 +52,20 @@ public class CustomBlockLayers {
         }
 
         if (!list.isEmpty()) {
-            renderLayers = list.toArray(new EnumWorldBlockLayer[0]);
+            renderLayers = list.toArray(new RenderLayer[0]);
             active = true;
         }
     }
 
-    private static void readLayers(String pathProps, Properties props, List<EnumWorldBlockLayer> list) {
+    private static void readLayers(String pathProps, Properties props, List<RenderLayer> list) {
         Config.dbg("CustomBlockLayers: " + pathProps);
-        readLayer("solid", EnumWorldBlockLayer.SOLID, props, list);
-        readLayer("cutout", EnumWorldBlockLayer.CUTOUT, props, list);
-        readLayer("cutout_mipped", EnumWorldBlockLayer.CUTOUT_MIPPED, props, list);
-        readLayer("translucent", EnumWorldBlockLayer.TRANSLUCENT, props, list);
+        readLayer("solid", RenderLayer.SOLID, props, list);
+        readLayer("cutout", RenderLayer.CUTOUT, props, list);
+        readLayer("cutout_mipped", RenderLayer.CUTOUT_MIPPED, props, list);
+        readLayer("translucent", RenderLayer.TRANSLUCENT, props, list);
     }
 
-    private static void readLayer(String name, EnumWorldBlockLayer layer, Properties props, List<EnumWorldBlockLayer> listLayers) {
+    private static void readLayer(String name, RenderLayer layer, Properties props, List<RenderLayer> listLayers) {
         String s = "layer." + name;
         String s1 = props.getProperty(s);
 

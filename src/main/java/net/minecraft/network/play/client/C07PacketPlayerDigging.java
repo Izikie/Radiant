@@ -6,16 +6,16 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 
 public class C07PacketPlayerDigging implements Packet<INetHandlerPlayServer> {
     private BlockPos position;
-    private EnumFacing facing;
+    private Direction facing;
     private C07PacketPlayerDigging.Action status;
 
     public C07PacketPlayerDigging() {}
 
-    public C07PacketPlayerDigging(C07PacketPlayerDigging.Action statusIn, BlockPos posIn, EnumFacing facingIn) {
+    public C07PacketPlayerDigging(C07PacketPlayerDigging.Action statusIn, BlockPos posIn, Direction facingIn) {
         this.status = statusIn;
         this.position = posIn;
         this.facing = facingIn;
@@ -24,7 +24,7 @@ public class C07PacketPlayerDigging implements Packet<INetHandlerPlayServer> {
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.status = buf.readEnumValue(Action.class);
         this.position = buf.readBlockPos();
-        this.facing = EnumFacing.getFront(buf.readUnsignedByte());
+        this.facing = Direction.getFront(buf.readUnsignedByte());
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException {
@@ -41,7 +41,7 @@ public class C07PacketPlayerDigging implements Packet<INetHandlerPlayServer> {
         return this.position;
     }
 
-    public EnumFacing getFacing() {
+    public Direction getFacing() {
         return this.facing;
     }
 

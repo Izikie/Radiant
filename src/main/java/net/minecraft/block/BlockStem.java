@@ -1,7 +1,5 @@
 package net.minecraft.block;
 
-import com.google.common.base.Predicate;
-
 import java.util.Random;
 
 import net.minecraft.block.material.Material;
@@ -14,18 +12,18 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockStem extends BlockBush implements IGrowable {
     public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 7);
-    public static final PropertyDirection FACING = PropertyDirection.create("facing", p_apply_1_ -> p_apply_1_ != EnumFacing.DOWN);
+    public static final PropertyDirection FACING = PropertyDirection.create("facing", p_apply_1_ -> p_apply_1_ != Direction.DOWN);
     private final Block crop;
 
     protected BlockStem(Block crop) {
-        this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0).withProperty(FACING, EnumFacing.UP));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0).withProperty(FACING, Direction.UP));
         this.crop = crop;
         this.setTickRandomly(true);
         float f = 0.125F;
@@ -34,9 +32,9 @@ public class BlockStem extends BlockBush implements IGrowable {
     }
 
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-        state = state.withProperty(FACING, EnumFacing.UP);
+        state = state.withProperty(FACING, Direction.UP);
 
-        for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+        for (Direction enumfacing : Direction.Plane.HORIZONTAL) {
             if (worldIn.getBlockState(pos.offset(enumfacing)).getBlock() == this.crop) {
                 state = state.withProperty(FACING, enumfacing);
                 break;
@@ -63,13 +61,13 @@ public class BlockStem extends BlockBush implements IGrowable {
                     state = state.withProperty(AGE, i + 1);
                     worldIn.setBlockState(pos, state, 2);
                 } else {
-                    for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+                    for (Direction enumfacing : Direction.Plane.HORIZONTAL) {
                         if (worldIn.getBlockState(pos.offset(enumfacing)).getBlock() == this.crop) {
                             return;
                         }
                     }
 
-                    pos = pos.offset(EnumFacing.Plane.HORIZONTAL.random(rand));
+                    pos = pos.offset(Direction.Plane.HORIZONTAL.random(rand));
                     Block block = worldIn.getBlockState(pos.down()).getBlock();
 
                     if (worldIn.getBlockState(pos).getBlock().blockMaterial == Material.air && (block == Blocks.farmland || block == Blocks.dirt || block == Blocks.grass)) {

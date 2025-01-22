@@ -7,8 +7,8 @@ import net.minecraft.client.renderer.chunk.IRenderChunkFactory;
 import net.minecraft.client.renderer.chunk.RenderChunk;
 import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.Direction;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
@@ -50,8 +50,8 @@ public class ViewFrustum {
         }
 
         for (RenderChunk renderchunk1 : this.renderChunks) {
-            for (int l1 = 0; l1 < EnumFacing.VALUES.length; ++l1) {
-                EnumFacing enumfacing = EnumFacing.VALUES[l1];
+            for (int l1 = 0; l1 < Direction.VALUES.length; ++l1) {
+                Direction enumfacing = Direction.VALUES[l1];
                 BlockPos blockpos1 = renderchunk1.getBlockPosOffset16(enumfacing);
                 RenderChunk renderchunk = this.getRenderChunk(blockpos1);
                 renderchunk1.setRenderChunkNeighbour(enumfacing, renderchunk);
@@ -180,7 +180,7 @@ public class ViewFrustum {
         int i = blockpos.getX() >> 8 << 8;
         int j = blockpos.getZ() >> 8 << 8;
         ChunkCoordIntPair chunkcoordintpair = new ChunkCoordIntPair(i, j);
-        EnumWorldBlockLayer[] aenumworldblocklayer = RenderChunk.ENUM_WORLD_BLOCK_LAYERS;
+        RenderLayer[] aenumworldblocklayer = RenderChunk.ENUM_WORLD_BLOCK_LAYERS;
         VboRegion[] avboregion = this.mapVboRegions.get(chunkcoordintpair);
 
         if (avboregion == null) {

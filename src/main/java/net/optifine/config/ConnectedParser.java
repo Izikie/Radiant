@@ -20,11 +20,11 @@ import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.src.Config;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.Direction;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -32,9 +32,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class ConnectedParser {
     private final String context;
     public static final VillagerProfession[] PROFESSIONS_INVALID = new VillagerProfession[0];
-    public static final EnumDyeColor[] DYE_COLORS_INVALID = new EnumDyeColor[0];
+    public static final DyeColor[] DYE_COLORS_INVALID = new DyeColor[0];
     private static final INameGetter<Enum> NAME_GETTER_ENUM = Enum::name;
-    private static final INameGetter<EnumDyeColor> NAME_GETTER_DYE_COLOR = EnumDyeColor::getName;
+    private static final INameGetter<DyeColor> NAME_GETTER_DYE_COLOR = DyeColor::getName;
 
     public ConnectedParser(String context) {
         this.context = context;
@@ -501,19 +501,19 @@ public class ConnectedParser {
         if (str == null) {
             return defVal;
         } else {
-            EnumSet enumset = EnumSet.allOf(EnumFacing.class);
+            EnumSet enumset = EnumSet.allOf(Direction.class);
             String[] astring = Config.tokenize(str, " ,");
 
             for (String s : astring) {
                 if (s.equals("sides")) {
-                    enumset.add(EnumFacing.NORTH);
-                    enumset.add(EnumFacing.SOUTH);
-                    enumset.add(EnumFacing.WEST);
-                    enumset.add(EnumFacing.EAST);
+                    enumset.add(Direction.NORTH);
+                    enumset.add(Direction.SOUTH);
+                    enumset.add(Direction.WEST);
+                    enumset.add(Direction.EAST);
                 } else if (s.equals("all")) {
-                    enumset.addAll(Arrays.asList(EnumFacing.VALUES));
+                    enumset.addAll(Arrays.asList(Direction.VALUES));
                 } else {
-                    EnumFacing enumfacing = this.parseFace(s);
+                    Direction enumfacing = this.parseFace(s);
 
                     if (enumfacing != null) {
                         enumset.add(enumfacing);
@@ -521,33 +521,33 @@ public class ConnectedParser {
                 }
             }
 
-            boolean[] aboolean = new boolean[EnumFacing.VALUES.length];
+            boolean[] aboolean = new boolean[Direction.VALUES.length];
 
             for (int j = 0; j < aboolean.length; ++j) {
-                aboolean[j] = enumset.contains(EnumFacing.VALUES[j]);
+                aboolean[j] = enumset.contains(Direction.VALUES[j]);
             }
 
             return aboolean;
         }
     }
 
-    public EnumFacing parseFace(String str) {
+    public Direction parseFace(String str) {
         str = str.toLowerCase();
 
         if (!str.equals("bottom") && !str.equals("down")) {
             if (!str.equals("top") && !str.equals("up")) {
                 switch (str) {
                     case "north" -> {
-                        return EnumFacing.NORTH;
+                        return Direction.NORTH;
                     }
                     case "south" -> {
-                        return EnumFacing.SOUTH;
+                        return Direction.SOUTH;
                     }
                     case "east" -> {
-                        return EnumFacing.EAST;
+                        return Direction.EAST;
                     }
                     case "west" -> {
-                        return EnumFacing.WEST;
+                        return Direction.WEST;
                     }
                     default -> {
                         Config.warn("Unknown face: " + str);
@@ -555,10 +555,10 @@ public class ConnectedParser {
                     }
                 }
             } else {
-                return EnumFacing.UP;
+                return Direction.UP;
             }
         } else {
-            return EnumFacing.DOWN;
+            return Direction.DOWN;
         }
     }
 
@@ -685,12 +685,12 @@ public class ConnectedParser {
         }
     }
 
-    public EnumWorldBlockLayer parseBlockRenderLayer(String str, EnumWorldBlockLayer def) {
+    public RenderLayer parseBlockRenderLayer(String str, RenderLayer def) {
         if (str != null) {
             str = str.toLowerCase().trim();
-            EnumWorldBlockLayer[] aenumworldblocklayer = EnumWorldBlockLayer.values();
+            RenderLayer[] aenumworldblocklayer = RenderLayer.values();
 
-            for (EnumWorldBlockLayer enumworldblocklayer : aenumworldblocklayer) {
+            for (RenderLayer enumworldblocklayer : aenumworldblocklayer) {
                 if (str.equals(enumworldblocklayer.name().toLowerCase())) {
                     return enumworldblocklayer;
                 }
@@ -748,8 +748,8 @@ public class ConnectedParser {
         return this.parseObjects(str, enums, NAME_GETTER_ENUM, property, errValue);
     }
 
-    public EnumDyeColor[] parseDyeColors(String str, String property, EnumDyeColor[] errValue) {
-        return this.parseObjects(str, EnumDyeColor.values(), NAME_GETTER_DYE_COLOR, property, errValue);
+    public DyeColor[] parseDyeColors(String str, String property, DyeColor[] errValue) {
+        return this.parseObjects(str, DyeColor.values(), NAME_GETTER_DYE_COLOR, property, errValue);
     }
 
     public Weather[] parseWeather(String str, String property, Weather[] errValue) {

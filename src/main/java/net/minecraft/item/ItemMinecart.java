@@ -11,7 +11,7 @@ import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public class ItemMinecart extends Item {
@@ -19,7 +19,7 @@ public class ItemMinecart extends Item {
         private final BehaviorDefaultDispenseItem behaviourDefaultDispenseItem = new BehaviorDefaultDispenseItem();
 
         public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-            EnumFacing enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
+            Direction enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
             World world = source.getWorld();
             double d0 = source.getX() + enumfacing.getFrontOffsetX() * 1.125D;
             double d1 = Math.floor(source.getY()) + enumfacing.getFrontOffsetY();
@@ -43,7 +43,7 @@ public class ItemMinecart extends Item {
                 IBlockState iblockstate1 = world.getBlockState(blockpos.down());
                 BlockRailBase.EnumRailDirection blockrailbase$enumraildirection1 = iblockstate1.getBlock() instanceof BlockRailBase blockRailBase ? iblockstate1.getValue(blockRailBase.getShapeProperty()) : BlockRailBase.EnumRailDirection.NORTH_SOUTH;
 
-                if (enumfacing != EnumFacing.DOWN && blockrailbase$enumraildirection1.isAscending()) {
+                if (enumfacing != Direction.DOWN && blockrailbase$enumraildirection1.isAscending()) {
                     d3 = -0.4D;
                 } else {
                     d3 = -0.9D;
@@ -65,16 +65,16 @@ public class ItemMinecart extends Item {
             source.getWorld().playAuxSFX(1000, source.getBlockPos(), 0);
         }
     };
-    private final EntityMinecart.EnumMinecartType minecartType;
+    private final EntityMinecart.MinecartType minecartType;
 
-    public ItemMinecart(EntityMinecart.EnumMinecartType type) {
+    public ItemMinecart(EntityMinecart.MinecartType type) {
         this.maxStackSize = 1;
         this.minecartType = type;
         this.setCreativeTab(CreativeTabs.tabTransport);
         BlockDispenser.dispenseBehaviorRegistry.putObject(this, dispenserMinecartBehavior);
     }
 
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
         IBlockState iblockstate = worldIn.getBlockState(pos);
 
         if (BlockRailBase.isRailBlock(iblockstate)) {

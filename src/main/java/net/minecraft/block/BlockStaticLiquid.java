@@ -6,7 +6,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public class BlockStaticLiquid extends BlockLiquid {
@@ -66,7 +66,7 @@ public class BlockStaticLiquid extends BlockLiquid {
     }
 
     protected boolean isSurroundingBlockFlammable(World worldIn, BlockPos pos) {
-        for (EnumFacing enumfacing : EnumFacing.values()) {
+        for (Direction enumfacing : Direction.values()) {
             if (this.getCanBlockBurn(worldIn, pos.offset(enumfacing))) {
                 return true;
             }

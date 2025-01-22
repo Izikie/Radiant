@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
-import java.util.concurrent.Callable;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
@@ -74,9 +73,9 @@ import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ClassInheritanceMultiMap;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.Direction;
+import net.minecraft.util.ParticleTypes;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.util.LongHashMap;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Matrix4f;
@@ -183,7 +182,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     private final List renderInfosTileEntitiesShadow = new ArrayList(1024);
     private int renderDistance = 0;
     private int renderDistanceSq = 0;
-    private static final Set SET_ALL_FACINGS = Set.of(EnumFacing.VALUES);
+    private static final Set SET_ALL_FACINGS = Set.of(Direction.VALUES);
     private int countTileEntitiesRendered;
     private IChunkProvider worldChunkProvider = null;
     private LongHashMap worldChunkProviderMap = null;
@@ -741,10 +740,10 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 if (tileentity2 instanceof TileEntityChest tileentitychest) {
 
                     if (tileentitychest.adjacentChestXNeg != null) {
-                        blockpos = blockpos.offset(EnumFacing.WEST);
+                        blockpos = blockpos.offset(Direction.WEST);
                         tileentity2 = this.theWorld.getTileEntity(blockpos);
                     } else if (tileentitychest.adjacentChestZNeg != null) {
-                        blockpos = blockpos.offset(EnumFacing.NORTH);
+                        blockpos = blockpos.offset(Direction.NORTH);
                         tileentity2 = this.theWorld.getTileEntity(blockpos);
                     }
                 }
@@ -909,7 +908,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
                 if (set1.size() == 1) {
                     Vector3f vector3f = this.getViewVector(viewEntity, partialTicks);
-                    EnumFacing enumfacing2 = EnumFacing.getFacingFromVector(vector3f.x, vector3f.y, vector3f.z).getOpposite();
+                    Direction enumfacing2 = Direction.getFacingFromVector(vector3f.x, vector3f.y, vector3f.z).getOpposite();
                     set1.remove(enumfacing2);
                 }
 
@@ -953,7 +952,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             while (!deque.isEmpty()) {
                 RenderGlobal.ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation5 = (RenderGlobal.ContainerLocalRenderInformation) deque.poll();
                 RenderChunk renderchunk6 = renderglobal$containerlocalrenderinformation5.renderChunk;
-                EnumFacing enumfacing1 = renderglobal$containerlocalrenderinformation5.facing;
+                Direction enumfacing1 = renderglobal$containerlocalrenderinformation5.facing;
                 CompiledChunk compiledchunk = renderchunk6.compiledChunk;
 
                 if (!compiledchunk.isEmpty() || renderchunk6.isNeedsUpdate()) {
@@ -968,7 +967,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                     this.renderInfosTileEntities.add(renderglobal$containerlocalrenderinformation5);
                 }
 
-                for (EnumFacing enumfacing : flag1 ? ChunkVisibility.getFacingsNotOpposite(renderglobal$containerlocalrenderinformation5.setFacing) : EnumFacing.VALUES) {
+                for (Direction enumfacing : flag1 ? ChunkVisibility.getFacingsNotOpposite(renderglobal$containerlocalrenderinformation5.setFacing) : Direction.VALUES) {
                     if (!flag1 || enumfacing1 == null || compiledchunk.isVisible(enumfacing1.getOpposite(), enumfacing)) {
                         RenderChunk renderchunk4 = this.getRenderChunkOffset(blockpos, renderchunk6, enumfacing, flag3, j);
 
@@ -1021,7 +1020,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         return MathHelper.abs_int(pos.getX() - blockpos.getX()) <= 16 && (MathHelper.abs_int(pos.getY() - blockpos.getY()) <= 16 && MathHelper.abs_int(pos.getZ() - blockpos.getZ()) <= 16);
     }
 
-    private Set<EnumFacing> getVisibleFacings(BlockPos pos) {
+    private Set<Direction> getVisibleFacings(BlockPos pos) {
         VisGraph visgraph = new VisGraph();
         BlockPos blockpos = new BlockPos(pos.getX() >> 4 << 4, pos.getY() >> 4 << 4, pos.getZ() >> 4 << 4);
         Chunk chunk = this.theWorld.getChunkFromBlockCoords(blockpos);
@@ -1034,7 +1033,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         return visgraph.func_178609_b(pos);
     }
 
-    private RenderChunk getRenderChunkOffset(BlockPos p_getRenderChunkOffset_1_, RenderChunk p_getRenderChunkOffset_2_, EnumFacing p_getRenderChunkOffset_3_, boolean p_getRenderChunkOffset_4_, int p_getRenderChunkOffset_5_) {
+    private RenderChunk getRenderChunkOffset(BlockPos p_getRenderChunkOffset_1_, RenderChunk p_getRenderChunkOffset_2_, Direction p_getRenderChunkOffset_3_, boolean p_getRenderChunkOffset_4_, int p_getRenderChunkOffset_5_) {
         RenderChunk renderchunk = p_getRenderChunkOffset_2_.getRenderChunkNeighbour(p_getRenderChunkOffset_3_);
 
         if (renderchunk == null) {
@@ -1103,10 +1102,10 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         return new Vector3f(f3 * f4, f5, f2 * f4);
     }
 
-    public int renderBlockLayer(EnumWorldBlockLayer blockLayerIn, double partialTicks, int pass, Entity entityIn) {
+    public int renderBlockLayer(RenderLayer blockLayerIn, double partialTicks, int pass, Entity entityIn) {
         RenderHelper.disableStandardItemLighting();
 
-        if (blockLayerIn == EnumWorldBlockLayer.TRANSLUCENT && !Shaders.isShadowPass) {
+        if (blockLayerIn == RenderLayer.TRANSLUCENT && !Shaders.isShadowPass) {
             double d0 = entityIn.posX - this.prevRenderSortX;
             double d1 = entityIn.posY - this.prevRenderSortY;
             double d2 = entityIn.posZ - this.prevRenderSortZ;
@@ -1128,7 +1127,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         }
 
         int l = 0;
-        boolean flag = blockLayerIn == EnumWorldBlockLayer.TRANSLUCENT;
+        boolean flag = blockLayerIn == RenderLayer.TRANSLUCENT;
         int i1 = flag ? this.renderInfos.size() - 1 : 0;
         int i = flag ? -1 : this.renderInfos.size();
         int j1 = flag ? -1 : 1;
@@ -1153,7 +1152,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     }
 
     @SuppressWarnings("incomplete-switch")
-    private void renderBlockLayer(EnumWorldBlockLayer blockLayerIn) {
+    private void renderBlockLayer(RenderLayer blockLayerIn) {
         this.mc.entityRenderer.enableLightmap();
 
         if (OpenGlHelper.useVbo()) {
@@ -2203,7 +2202,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         }
     }
 
-    private void spawnParticle(EnumParticleTypes particleIn, double xCoord, double yCoord, double zCoord, double xOffset, double yOffset, double zOffset, int... parameters) {
+    private void spawnParticle(ParticleTypes particleIn, double xCoord, double yCoord, double zCoord, double xOffset, double yOffset, double zOffset, int... parameters) {
         this.spawnParticle(particleIn.getParticleID(), particleIn.getShouldIgnoreRange(), xCoord, yCoord, zCoord, xOffset, yOffset, zOffset, parameters);
     }
 
@@ -2219,47 +2218,47 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             double d1 = this.mc.getRenderViewEntity().posY - yCoord;
             double d2 = this.mc.getRenderViewEntity().posZ - zCoord;
 
-            if (particleID == EnumParticleTypes.EXPLOSION_HUGE.getParticleID() && !Config.isAnimatedExplosion()) {
+            if (particleID == ParticleTypes.EXPLOSION_HUGE.getParticleID() && !Config.isAnimatedExplosion()) {
                 return null;
-            } else if (particleID == EnumParticleTypes.EXPLOSION_LARGE.getParticleID() && !Config.isAnimatedExplosion()) {
+            } else if (particleID == ParticleTypes.EXPLOSION_LARGE.getParticleID() && !Config.isAnimatedExplosion()) {
                 return null;
-            } else if (particleID == EnumParticleTypes.EXPLOSION_NORMAL.getParticleID() && !Config.isAnimatedExplosion()) {
+            } else if (particleID == ParticleTypes.EXPLOSION_NORMAL.getParticleID() && !Config.isAnimatedExplosion()) {
                 return null;
-            } else if (particleID == EnumParticleTypes.SUSPENDED.getParticleID() && !Config.isWaterParticles()) {
+            } else if (particleID == ParticleTypes.SUSPENDED.getParticleID() && !Config.isWaterParticles()) {
                 return null;
-            } else if (particleID == EnumParticleTypes.SUSPENDED_DEPTH.getParticleID() && !Config.isVoidParticles()) {
+            } else if (particleID == ParticleTypes.SUSPENDED_DEPTH.getParticleID() && !Config.isVoidParticles()) {
                 return null;
-            } else if (particleID == EnumParticleTypes.SMOKE_NORMAL.getParticleID() && !Config.isAnimatedSmoke()) {
+            } else if (particleID == ParticleTypes.SMOKE_NORMAL.getParticleID() && !Config.isAnimatedSmoke()) {
                 return null;
-            } else if (particleID == EnumParticleTypes.SMOKE_LARGE.getParticleID() && !Config.isAnimatedSmoke()) {
+            } else if (particleID == ParticleTypes.SMOKE_LARGE.getParticleID() && !Config.isAnimatedSmoke()) {
                 return null;
-            } else if (particleID == EnumParticleTypes.SPELL_MOB.getParticleID() && !Config.isPotionParticles()) {
+            } else if (particleID == ParticleTypes.SPELL_MOB.getParticleID() && !Config.isPotionParticles()) {
                 return null;
-            } else if (particleID == EnumParticleTypes.SPELL_MOB_AMBIENT.getParticleID() && !Config.isPotionParticles()) {
+            } else if (particleID == ParticleTypes.SPELL_MOB_AMBIENT.getParticleID() && !Config.isPotionParticles()) {
                 return null;
-            } else if (particleID == EnumParticleTypes.SPELL.getParticleID() && !Config.isPotionParticles()) {
+            } else if (particleID == ParticleTypes.SPELL.getParticleID() && !Config.isPotionParticles()) {
                 return null;
-            } else if (particleID == EnumParticleTypes.SPELL_INSTANT.getParticleID() && !Config.isPotionParticles()) {
+            } else if (particleID == ParticleTypes.SPELL_INSTANT.getParticleID() && !Config.isPotionParticles()) {
                 return null;
-            } else if (particleID == EnumParticleTypes.SPELL_WITCH.getParticleID() && !Config.isPotionParticles()) {
+            } else if (particleID == ParticleTypes.SPELL_WITCH.getParticleID() && !Config.isPotionParticles()) {
                 return null;
-            } else if (particleID == EnumParticleTypes.PORTAL.getParticleID() && !Config.isPortalParticles()) {
+            } else if (particleID == ParticleTypes.PORTAL.getParticleID() && !Config.isPortalParticles()) {
                 return null;
-            } else if (particleID == EnumParticleTypes.FLAME.getParticleID() && !Config.isAnimatedFlame()) {
+            } else if (particleID == ParticleTypes.FLAME.getParticleID() && !Config.isAnimatedFlame()) {
                 return null;
-            } else if (particleID == EnumParticleTypes.REDSTONE.getParticleID() && !Config.isAnimatedRedstone()) {
+            } else if (particleID == ParticleTypes.REDSTONE.getParticleID() && !Config.isAnimatedRedstone()) {
                 return null;
-            } else if (particleID == EnumParticleTypes.DRIP_WATER.getParticleID() && !Config.isDrippingWaterLava()) {
+            } else if (particleID == ParticleTypes.DRIP_WATER.getParticleID() && !Config.isDrippingWaterLava()) {
                 return null;
-            } else if (particleID == EnumParticleTypes.DRIP_LAVA.getParticleID() && !Config.isDrippingWaterLava()) {
+            } else if (particleID == ParticleTypes.DRIP_LAVA.getParticleID() && !Config.isDrippingWaterLava()) {
                 return null;
-            } else if (particleID == EnumParticleTypes.FIREWORKS_SPARK.getParticleID() && !Config.isFireworkParticles()) {
+            } else if (particleID == ParticleTypes.FIREWORKS_SPARK.getParticleID() && !Config.isFireworkParticles()) {
                 return null;
             } else {
                 if (!ignoreRange) {
                     double d3 = 256.0D;
 
-                    if (particleID == EnumParticleTypes.CRIT.getParticleID()) {
+                    if (particleID == ParticleTypes.CRIT.getParticleID()) {
                         d3 = 38416.0D;
                     }
 
@@ -2274,27 +2273,27 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
                 EntityFX entityfx = this.mc.effectRenderer.spawnEffectParticle(particleID, xCoord, yCoord, zCoord, xOffset, yOffset, zOffset, parameters);
 
-                if (particleID == EnumParticleTypes.WATER_BUBBLE.getParticleID()) {
+                if (particleID == ParticleTypes.WATER_BUBBLE.getParticleID()) {
                     CustomColors.updateWaterFX(entityfx, this.theWorld, xCoord, yCoord, zCoord, this.renderEnv);
                 }
 
-                if (particleID == EnumParticleTypes.WATER_SPLASH.getParticleID()) {
+                if (particleID == ParticleTypes.WATER_SPLASH.getParticleID()) {
                     CustomColors.updateWaterFX(entityfx, this.theWorld, xCoord, yCoord, zCoord, this.renderEnv);
                 }
 
-                if (particleID == EnumParticleTypes.WATER_DROP.getParticleID()) {
+                if (particleID == ParticleTypes.WATER_DROP.getParticleID()) {
                     CustomColors.updateWaterFX(entityfx, this.theWorld, xCoord, yCoord, zCoord, this.renderEnv);
                 }
 
-                if (particleID == EnumParticleTypes.TOWN_AURA.getParticleID()) {
+                if (particleID == ParticleTypes.TOWN_AURA.getParticleID()) {
                     CustomColors.updateMyceliumFX(entityfx);
                 }
 
-                if (particleID == EnumParticleTypes.PORTAL.getParticleID()) {
+                if (particleID == ParticleTypes.PORTAL.getParticleID()) {
                     CustomColors.updatePortalFX(entityfx);
                 }
 
-                if (particleID == EnumParticleTypes.REDSTONE.getParticleID()) {
+                if (particleID == ParticleTypes.REDSTONE.getParticleID()) {
                     CustomColors.updateReddustFX(entityfx, this.theWorld, xCoord, yCoord, zCoord);
                 }
 
@@ -2458,7 +2457,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                     double d19 = i * d15 + random.nextGaussian() * 0.01D;
                     double d20 = -0.03D + random.nextGaussian() * 0.01D;
                     double d21 = j * d15 + random.nextGaussian() * 0.01D;
-                    this.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d16, d17, d18, d19, d20, d21);
+                    this.spawnParticle(ParticleTypes.SMOKE_NORMAL, d16, d17, d18, d19, d20, d21);
                 }
 
                 return;
@@ -2479,17 +2478,17 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 double d5 = blockPosIn.getZ();
 
                 for (int k = 0; k < 8; ++k) {
-                    this.spawnParticle(EnumParticleTypes.ITEM_CRACK, d3, d4, d5, random.nextGaussian() * 0.15D, random.nextDouble() * 0.2D, random.nextGaussian() * 0.15D, Item.getIdFromItem(Items.potionitem), data);
+                    this.spawnParticle(ParticleTypes.ITEM_CRACK, d3, d4, d5, random.nextGaussian() * 0.15D, random.nextDouble() * 0.2D, random.nextGaussian() * 0.15D, Item.getIdFromItem(Items.potionitem), data);
                 }
 
                 int j1 = Items.potionitem.getColorFromDamage(data);
                 float f = (j1 >> 16 & 255) / 255.0F;
                 float f1 = (j1 >> 8 & 255) / 255.0F;
                 float f2 = (j1 & 255) / 255.0F;
-                EnumParticleTypes enumparticletypes = EnumParticleTypes.SPELL;
+                ParticleTypes enumparticletypes = ParticleTypes.SPELL;
 
                 if (Items.potionitem.isEffectInstant(data)) {
-                    enumparticletypes = EnumParticleTypes.SPELL_INSTANT;
+                    enumparticletypes = ParticleTypes.SPELL_INSTANT;
                 }
 
                 for (int k1 = 0; k1 < 100; ++k1) {
@@ -2516,12 +2515,12 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 double d10 = blockPosIn.getZ() + 0.5D;
 
                 for (int l1 = 0; l1 < 8; ++l1) {
-                    this.spawnParticle(EnumParticleTypes.ITEM_CRACK, d6, d8, d10, random.nextGaussian() * 0.15D, random.nextDouble() * 0.2D, random.nextGaussian() * 0.15D, Item.getIdFromItem(Items.ender_eye));
+                    this.spawnParticle(ParticleTypes.ITEM_CRACK, d6, d8, d10, random.nextGaussian() * 0.15D, random.nextDouble() * 0.2D, random.nextGaussian() * 0.15D, Item.getIdFromItem(Items.ender_eye));
                 }
 
                 for (double d22 = 0.0D; d22 < (Math.PI * 2.0D); d22 += 0.15707963267948966D) {
-                    this.spawnParticle(EnumParticleTypes.PORTAL, d6 + Math.cos(d22) * 5.0D, d8 - 0.4D, d10 + Math.sin(d22) * 5.0D, Math.cos(d22) * -5.0D, 0.0D, Math.sin(d22) * -5.0D);
-                    this.spawnParticle(EnumParticleTypes.PORTAL, d6 + Math.cos(d22) * 5.0D, d8 - 0.4D, d10 + Math.sin(d22) * 5.0D, Math.cos(d22) * -7.0D, 0.0D, Math.sin(d22) * -7.0D);
+                    this.spawnParticle(ParticleTypes.PORTAL, d6 + Math.cos(d22) * 5.0D, d8 - 0.4D, d10 + Math.sin(d22) * 5.0D, Math.cos(d22) * -5.0D, 0.0D, Math.sin(d22) * -5.0D);
+                    this.spawnParticle(ParticleTypes.PORTAL, d6 + Math.cos(d22) * 5.0D, d8 - 0.4D, d10 + Math.sin(d22) * 5.0D, Math.cos(d22) * -7.0D, 0.0D, Math.sin(d22) * -7.0D);
                 }
 
                 return;
@@ -2531,8 +2530,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                     double d12 = blockPosIn.getX() + 0.5D + (this.theWorld.rand.nextFloat() - 0.5D) * 2.0D;
                     double d13 = blockPosIn.getY() + 0.5D + (this.theWorld.rand.nextFloat() - 0.5D) * 2.0D;
                     double d14 = blockPosIn.getZ() + 0.5D + (this.theWorld.rand.nextFloat() - 0.5D) * 2.0D;
-                    this.theWorld.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d12, d13, d14, 0.0D, 0.0D, 0.0D);
-                    this.theWorld.spawnParticle(EnumParticleTypes.FLAME, d12, d13, d14, 0.0D, 0.0D, 0.0D);
+                    this.theWorld.spawnParticle(ParticleTypes.SMOKE_NORMAL, d12, d13, d14, 0.0D, 0.0D, 0.0D);
+                    this.theWorld.spawnParticle(ParticleTypes.FLAME, d12, d13, d14, 0.0D, 0.0D, 0.0D);
                 }
 
                 return;
@@ -2657,24 +2656,24 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
     public static class ContainerLocalRenderInformation {
         final RenderChunk renderChunk;
-        EnumFacing facing;
+        Direction facing;
         int setFacing;
 
-        public ContainerLocalRenderInformation(RenderChunk p_i2_1_, EnumFacing p_i2_2_, int p_i2_3_) {
+        public ContainerLocalRenderInformation(RenderChunk p_i2_1_, Direction p_i2_2_, int p_i2_3_) {
             this.renderChunk = p_i2_1_;
             this.facing = p_i2_2_;
             this.setFacing = p_i2_3_;
         }
 
-        public void setFacingBit(byte p_setFacingBit_1_, EnumFacing p_setFacingBit_2_) {
+        public void setFacingBit(byte p_setFacingBit_1_, Direction p_setFacingBit_2_) {
             this.setFacing = this.setFacing | p_setFacingBit_1_ | 1 << p_setFacingBit_2_.ordinal();
         }
 
-        public boolean isFacingBit(EnumFacing p_isFacingBit_1_) {
+        public boolean isFacingBit(Direction p_isFacingBit_1_) {
             return (this.setFacing & 1 << p_isFacingBit_1_.ordinal()) > 0;
         }
 
-        private void initialize(EnumFacing p_initialize_1_, int p_initialize_2_) {
+        private void initialize(Direction p_initialize_1_, int p_initialize_2_) {
             this.facing = p_initialize_1_;
             this.setFacing = p_initialize_2_;
         }

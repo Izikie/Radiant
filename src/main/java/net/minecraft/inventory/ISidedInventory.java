@@ -1,12 +1,12 @@
 package net.minecraft.inventory;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 
 public interface ISidedInventory extends IInventory {
-    int[] getSlotsForFace(EnumFacing side);
+    int[] getSlotsForFace(Direction side);
 
-    boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction);
+    boolean canInsertItem(int index, ItemStack itemStackIn, Direction direction);
 
-    boolean canExtractItem(int index, ItemStack stack, EnumFacing direction);
+    boolean canExtractItem(int index, ItemStack stack, Direction direction);
 }

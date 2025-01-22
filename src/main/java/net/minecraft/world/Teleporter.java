@@ -12,7 +12,7 @@ import net.minecraft.block.state.pattern.BlockPattern;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.LongHashMap;
 import net.minecraft.util.MathHelper;
 
@@ -109,15 +109,15 @@ public class Teleporter {
             double d6;
             double d7 = blockpos.getZ() + 0.5D;
             BlockPattern.PatternHelper blockpattern$patternhelper = Blocks.portal.func_181089_f(this.worldServerInstance, blockpos);
-            boolean flag1 = blockpattern$patternhelper.getFinger().rotateY().getAxisDirection() == EnumFacing.AxisDirection.NEGATIVE;
-            double d2 = blockpattern$patternhelper.getFinger().getAxis() == EnumFacing.Axis.X ? blockpattern$patternhelper.getPos().getZ() : blockpattern$patternhelper.getPos().getX();
+            boolean flag1 = blockpattern$patternhelper.getFinger().rotateY().getAxisDirection() == Direction.AxisDirection.NEGATIVE;
+            double d2 = blockpattern$patternhelper.getFinger().getAxis() == Direction.Axis.X ? blockpattern$patternhelper.getPos().getZ() : blockpattern$patternhelper.getPos().getX();
             d6 = (blockpattern$patternhelper.getPos().getY() + 1) - entityIn.func_181014_aG().yCoord * blockpattern$patternhelper.func_181119_e();
 
             if (flag1) {
                 ++d2;
             }
 
-            if (blockpattern$patternhelper.getFinger().getAxis() == EnumFacing.Axis.X) {
+            if (blockpattern$patternhelper.getFinger().getAxis() == Direction.Axis.X) {
                 d7 = d2 + (1.0D - entityIn.func_181014_aG().xCoord) * blockpattern$patternhelper.func_181118_d() * blockpattern$patternhelper.getFinger().rotateY().getAxisDirection().getOffset();
             } else {
                 d5 = d2 + (1.0D - entityIn.func_181014_aG().xCoord) * blockpattern$patternhelper.func_181118_d() * blockpattern$patternhelper.getFinger().rotateY().getAxisDirection().getOffset();
@@ -296,7 +296,7 @@ public class Teleporter {
             }
         }
 
-        IBlockState iblockstate = Blocks.portal.getDefaultState().withProperty(BlockPortal.AXIS, l6 != 0 ? EnumFacing.Axis.X : EnumFacing.Axis.Z);
+        IBlockState iblockstate = Blocks.portal.getDefaultState().withProperty(BlockPortal.AXIS, l6 != 0 ? Direction.Axis.X : Direction.Axis.Z);
 
         for (int i8 = 0; i8 < 4; ++i8) {
             for (int l8 = 0; l8 < 4; ++l8) {

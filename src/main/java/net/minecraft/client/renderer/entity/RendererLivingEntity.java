@@ -20,11 +20,11 @@ import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EnumPlayerModelParts;
+import net.minecraft.entity.player.PlayerModelParts;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.src.Config;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.MathHelper;
 import net.optifine.EmissiveTextures;
 import net.optifine.entity.model.CustomEntityModels;
@@ -441,9 +441,9 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 
             GlStateManager.rotate(f * this.getDeathMaxRotation(bat), 0.0F, 0.0F, 1.0F);
         } else {
-            String s = EnumChatFormatting.getTextWithoutFormattingCodes(bat.getName());
+            String s = Formatting.getTextWithoutFormattingCodes(bat.getName());
 
-            if (s != null && (s.equals("Dinnerbone") || s.equals("Grumm")) && (!(bat instanceof EntityPlayer entityPlayer) || entityPlayer.isWearing(EnumPlayerModelParts.CAPE))) {
+            if (s != null && (s.equals("Dinnerbone") || s.equals("Grumm")) && (!(bat instanceof EntityPlayer entityPlayer) || entityPlayer.isWearing(PlayerModelParts.CAPE))) {
                 GlStateManager.translate(0.0F, bat.height + 0.1F, 0.0F);
                 GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
             }

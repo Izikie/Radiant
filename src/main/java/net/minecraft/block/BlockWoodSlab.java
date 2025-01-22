@@ -17,7 +17,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public abstract class BlockWoodSlab extends BlockSlab {
-    public static final PropertyEnum<BlockPlanks.EnumType> VARIANT = PropertyEnum.create("variant", BlockPlanks.EnumType.class);
+    public static final PropertyEnum<BlockPlanks.WoodType> VARIANT = PropertyEnum.create("variant", BlockPlanks.WoodType.class);
 
     public BlockWoodSlab() {
         super(Material.wood);
@@ -27,7 +27,7 @@ public abstract class BlockWoodSlab extends BlockSlab {
             iblockstate = iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
         }
 
-        this.setDefaultState(iblockstate.withProperty(VARIANT, BlockPlanks.EnumType.OAK));
+        this.setDefaultState(iblockstate.withProperty(VARIANT, BlockPlanks.WoodType.OAK));
         this.setCreativeTab(CreativeTabs.tabBlock);
     }
 
@@ -44,7 +44,7 @@ public abstract class BlockWoodSlab extends BlockSlab {
     }
 
     public String getUnlocalizedName(int meta) {
-        return super.getUnlocalizedName() + "." + BlockPlanks.EnumType.byMetadata(meta).getUnlocalizedName();
+        return super.getUnlocalizedName() + "." + BlockPlanks.WoodType.byMetadata(meta).getUnlocalizedName();
     }
 
     public IProperty<?> getVariantProperty() {
@@ -52,19 +52,19 @@ public abstract class BlockWoodSlab extends BlockSlab {
     }
 
     public Object getVariant(ItemStack stack) {
-        return BlockPlanks.EnumType.byMetadata(stack.getMetadata() & 7);
+        return BlockPlanks.WoodType.byMetadata(stack.getMetadata() & 7);
     }
 
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
         if (itemIn != Item.getItemFromBlock(Blocks.double_wooden_slab)) {
-            for (BlockPlanks.EnumType blockplanks$enumtype : BlockPlanks.EnumType.values()) {
+            for (BlockPlanks.WoodType blockplanks$enumtype : BlockPlanks.WoodType.values()) {
                 list.add(new ItemStack(itemIn, 1, blockplanks$enumtype.getMetadata()));
             }
         }
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        IBlockState iblockstate = this.getDefaultState().withProperty(VARIANT, BlockPlanks.EnumType.byMetadata(meta & 7));
+        IBlockState iblockstate = this.getDefaultState().withProperty(VARIANT, BlockPlanks.WoodType.byMetadata(meta & 7));
 
         if (!this.isDouble()) {
             iblockstate = iblockstate.withProperty(HALF, (meta & 8) == 0 ? BlockSlab.EnumBlockHalf.BOTTOM : BlockSlab.EnumBlockHalf.TOP);

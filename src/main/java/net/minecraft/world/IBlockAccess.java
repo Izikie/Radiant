@@ -3,7 +3,7 @@ package net.minecraft.world;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public interface IBlockAccess {
@@ -19,7 +19,7 @@ public interface IBlockAccess {
 
     boolean extendedLevelsInChunkCache();
 
-    int getStrongPower(BlockPos pos, EnumFacing direction);
+    int getStrongPower(BlockPos pos, Direction direction);
 
     WorldType getWorldType();
 }

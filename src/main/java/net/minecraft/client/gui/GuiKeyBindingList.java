@@ -6,7 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.Formatting;
 import org.apache.commons.lang3.ArrayUtils;
 
 public class GuiKeyBindingList extends GuiListExtended {
@@ -118,9 +118,9 @@ public class GuiKeyBindingList extends GuiListExtended {
             }
 
             if (flag) {
-                this.btnChangeKeyBinding.displayString = EnumChatFormatting.WHITE + "> " + EnumChatFormatting.YELLOW + this.btnChangeKeyBinding.displayString + EnumChatFormatting.WHITE + " <";
+                this.btnChangeKeyBinding.displayString = Formatting.WHITE + "> " + Formatting.YELLOW + this.btnChangeKeyBinding.displayString + Formatting.WHITE + " <";
             } else if (flag1) {
-                this.btnChangeKeyBinding.displayString = EnumChatFormatting.RED + this.btnChangeKeyBinding.displayString;
+                this.btnChangeKeyBinding.displayString = Formatting.RED + this.btnChangeKeyBinding.displayString;
             }
 
             this.btnChangeKeyBinding.drawButton(GuiKeyBindingList.this.mc, mouseX, mouseY);

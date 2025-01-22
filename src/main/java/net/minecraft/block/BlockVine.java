@@ -17,8 +17,8 @@ import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.Direction;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.world.ColorizerFoliage;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -124,7 +124,7 @@ public class BlockVine extends Block {
         return null;
     }
 
-    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side) {
+    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Direction side) {
         return switch (side) {
             case UP -> this.canPlaceOn(worldIn.getBlockState(pos.up()).getBlock());
             case NORTH, SOUTH, EAST, WEST ->
@@ -140,7 +140,7 @@ public class BlockVine extends Block {
     private boolean recheckGrownSides(World worldIn, BlockPos pos, IBlockState state) {
         IBlockState iblockstate = state;
 
-        for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+        for (Direction enumfacing : Direction.Plane.HORIZONTAL) {
             PropertyBool propertybool = getPropertyFor(enumfacing);
 
             if (state.getValue(propertybool) && !this.canPlaceOn(worldIn.getBlockState(pos.offset(enumfacing)).getBlock())) {
@@ -205,14 +205,14 @@ public class BlockVine extends Block {
                     }
                 }
 
-                EnumFacing enumfacing1 = EnumFacing.random(rand);
+                Direction enumfacing1 = Direction.random(rand);
                 BlockPos blockpos1 = pos.up();
 
-                if (enumfacing1 == EnumFacing.UP && pos.getY() < 255 && worldIn.isAirBlock(blockpos1)) {
+                if (enumfacing1 == Direction.UP && pos.getY() < 255 && worldIn.isAirBlock(blockpos1)) {
                     if (!flag) {
                         IBlockState iblockstate2 = state;
 
-                        for (EnumFacing enumfacing3 : EnumFacing.Plane.HORIZONTAL) {
+                        for (Direction enumfacing3 : Direction.Plane.HORIZONTAL) {
                             if (rand.nextBoolean() || !this.canPlaceOn(worldIn.getBlockState(blockpos1.offset(enumfacing3)).getBlock())) {
                                 iblockstate2 = iblockstate2.withProperty(getPropertyFor(enumfacing3), Boolean.FALSE);
                             }
@@ -228,8 +228,8 @@ public class BlockVine extends Block {
                         Block block1 = worldIn.getBlockState(blockpos3).getBlock();
 
                         if (block1.blockMaterial == Material.air) {
-                            EnumFacing enumfacing2 = enumfacing1.rotateY();
-                            EnumFacing enumfacing4 = enumfacing1.rotateYCCW();
+                            Direction enumfacing2 = enumfacing1.rotateY();
+                            Direction enumfacing4 = enumfacing1.rotateYCCW();
                             boolean flag1 = state.getValue(getPropertyFor(enumfacing2));
                             boolean flag2 = state.getValue(getPropertyFor(enumfacing4));
                             BlockPos blockpos4 = blockpos3.offset(enumfacing2);
@@ -259,7 +259,7 @@ public class BlockVine extends Block {
                         if (block.blockMaterial == Material.air) {
                             IBlockState iblockstate1 = state;
 
-                            for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+                            for (Direction enumfacing : Direction.Plane.HORIZONTAL) {
                                 if (rand.nextBoolean()) {
                                     iblockstate1 = iblockstate1.withProperty(getPropertyFor(enumfacing), Boolean.FALSE);
                                 }
@@ -271,7 +271,7 @@ public class BlockVine extends Block {
                         } else if (block == this) {
                             IBlockState iblockstate3 = iblockstate;
 
-                            for (EnumFacing enumfacing5 : EnumFacing.Plane.HORIZONTAL) {
+                            for (Direction enumfacing5 : Direction.Plane.HORIZONTAL) {
                                 PropertyBool propertybool = getPropertyFor(enumfacing5);
 
                                 if (rand.nextBoolean() && state.getValue(propertybool)) {
@@ -289,7 +289,7 @@ public class BlockVine extends Block {
         }
     }
 
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         IBlockState iblockstate = this.getDefaultState().withProperty(UP, Boolean.FALSE).withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE);
         return facing.getAxis().isHorizontal() ? iblockstate.withProperty(getPropertyFor(facing.getOpposite()), Boolean.TRUE) : iblockstate;
     }
@@ -311,8 +311,8 @@ public class BlockVine extends Block {
         }
     }
 
-    public EnumWorldBlockLayer getBlockLayer() {
-        return EnumWorldBlockLayer.CUTOUT;
+    public RenderLayer getBlockLayer() {
+        return RenderLayer.CUTOUT;
     }
 
     public IBlockState getStateFromMeta(int meta) {
@@ -345,7 +345,7 @@ public class BlockVine extends Block {
         return new BlockState(this, UP, NORTH, EAST, SOUTH, WEST);
     }
 
-    public static PropertyBool getPropertyFor(EnumFacing side) {
+    public static PropertyBool getPropertyFor(Direction side) {
         return switch (side) {
             case UP -> UP;
             case NORTH -> NORTH;

@@ -14,7 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityCommandBlock;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public class BlockCommandBlock extends BlockContainer {
@@ -56,7 +56,7 @@ public class BlockCommandBlock extends BlockContainer {
         return 1;
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
         return tileentity instanceof TileEntityCommandBlock tileEntityCommandBlock ? tileEntityCommandBlock.getCommandBlockLogic().tryOpenEditCommandBlock(playerIn) : false;
     }
@@ -112,7 +112,7 @@ public class BlockCommandBlock extends BlockContainer {
         return new BlockState(this, TRIGGERED);
     }
 
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return this.getDefaultState().withProperty(TRIGGERED, Boolean.FALSE);
     }
 }

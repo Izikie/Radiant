@@ -55,7 +55,7 @@ import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 
 public class BlockModelShapes {
     private final Map<IBlockState, IBakedModel> bakedModelStore = Maps.newIdentityHashMap();
@@ -195,7 +195,7 @@ public class BlockModelShapes {
         this.registerBlockWithStateMapper(Blocks.flower_pot, (new StateMap.Builder()).ignore(BlockFlowerPot.LEGACY_DATA).build());
         this.registerBlockWithStateMapper(Blocks.quartz_block, new StateMapperBase() {
             protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-                BlockQuartz.EnumType blockquartz$enumtype = state.getValue(BlockQuartz.VARIANT);
+                BlockQuartz.QuartzType blockquartz$enumtype = state.getValue(BlockQuartz.VARIANT);
 
                 return switch (blockquartz$enumtype) {
                     case CHISELED -> new ModelResourceLocation("chiseled_quartz_block", "normal");
@@ -215,7 +215,7 @@ public class BlockModelShapes {
             protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
                 Map<IProperty, Comparable> map = Maps.newLinkedHashMap(state.getProperties());
 
-                if (state.getValue(BlockStem.FACING) != EnumFacing.UP) {
+                if (state.getValue(BlockStem.FACING) != Direction.UP) {
                     map.remove(BlockStem.AGE);
                 }
 
@@ -226,7 +226,7 @@ public class BlockModelShapes {
             protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
                 Map<IProperty, Comparable> map = Maps.newLinkedHashMap(state.getProperties());
 
-                if (state.getValue(BlockStem.FACING) != EnumFacing.UP) {
+                if (state.getValue(BlockStem.FACING) != Direction.UP) {
                     map.remove(BlockStem.AGE);
                 }
 

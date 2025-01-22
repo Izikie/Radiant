@@ -1,18 +1,16 @@
 package net.minecraft.world.storage;
 
-import java.util.concurrent.Callable;
-
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.WorldSettings;
 import net.minecraft.world.WorldType;
 
 public class WorldInfo {
-    public static final EnumDifficulty DEFAULT_DIFFICULTY = EnumDifficulty.NORMAL;
+    public static final Difficulty DEFAULT_DIFFICULTY = Difficulty.NORMAL;
     private long randomSeed;
     private WorldType terrainType = WorldType.DEFAULT;
     private String generatorOptions = "";
@@ -37,7 +35,7 @@ public class WorldInfo {
     private boolean hardcore;
     private boolean allowCommands;
     private boolean initialized;
-    private EnumDifficulty difficulty;
+    private Difficulty difficulty;
     private boolean difficultyLocked;
     private double borderCenterX = 0.0D;
     private double borderCenterZ = 0.0D;
@@ -129,7 +127,7 @@ public class WorldInfo {
         }
 
         if (nbt.hasKey("Difficulty", 99)) {
-            this.difficulty = EnumDifficulty.getDifficultyEnum(nbt.getByte("Difficulty"));
+            this.difficulty = Difficulty.getDifficultyEnum(nbt.getByte("Difficulty"));
         }
 
         if (nbt.hasKey("DifficultyLocked", 1)) {
@@ -532,11 +530,11 @@ public class WorldInfo {
         this.borderWarningTime = ticks;
     }
 
-    public EnumDifficulty getDifficulty() {
+    public Difficulty getDifficulty() {
         return this.difficulty;
     }
 
-    public void setDifficulty(EnumDifficulty newDifficulty) {
+    public void setDifficulty(Difficulty newDifficulty) {
         this.difficulty = newDifficulty;
     }
 

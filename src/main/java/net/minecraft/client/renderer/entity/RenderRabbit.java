@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.entity;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.passive.EntityRabbit;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderRabbit extends RenderLiving<EntityRabbit> {
@@ -20,7 +20,7 @@ public class RenderRabbit extends RenderLiving<EntityRabbit> {
     }
 
     protected ResourceLocation getEntityTexture(EntityRabbit entity) {
-        String s = EnumChatFormatting.getTextWithoutFormattingCodes(entity.getName());
+        String s = Formatting.getTextWithoutFormattingCodes(entity.getName());
 
         if (s != null && s.equals("Toast")) {
             return TOAST;

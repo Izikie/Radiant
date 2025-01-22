@@ -5,7 +5,7 @@ import com.google.common.collect.AbstractIterator;
 import java.util.Iterator;
 
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3i;
 
@@ -66,16 +66,16 @@ public class BlockPosM extends BlockPos {
         return this;
     }
 
-    public BlockPos offsetMutable(EnumFacing facing) {
+    public BlockPos offsetMutable(Direction facing) {
         return this.offset(facing);
     }
 
-    public BlockPos offset(EnumFacing facing) {
+    public BlockPos offset(Direction facing) {
         if (this.level <= 0) {
             return super.offset(facing, 1);
         } else {
             if (this.facings == null) {
-                this.facings = new BlockPosM[EnumFacing.VALUES.length];
+                this.facings = new BlockPosM[Direction.VALUES.length];
             }
 
             if (this.needsUpdate) {
@@ -97,7 +97,7 @@ public class BlockPosM extends BlockPos {
         }
     }
 
-    public BlockPos offset(EnumFacing facing, int n) {
+    public BlockPos offset(Direction facing, int n) {
         return n == 1 ? this.offset(facing) : super.offset(facing, n);
     }
 
@@ -106,7 +106,7 @@ public class BlockPosM extends BlockPos {
             BlockPosM blockposm = this.facings[i];
 
             if (blockposm != null) {
-                EnumFacing enumfacing = EnumFacing.VALUES[i];
+                Direction enumfacing = Direction.VALUES[i];
                 int j = this.mx + enumfacing.getFrontOffsetX();
                 int k = this.my + enumfacing.getFrontOffsetY();
                 int l = this.mz + enumfacing.getFrontOffsetZ();

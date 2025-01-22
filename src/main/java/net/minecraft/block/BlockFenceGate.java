@@ -10,7 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -19,16 +19,16 @@ public class BlockFenceGate extends BlockDirectional {
     public static final PropertyBool POWERED = PropertyBool.create("powered");
     public static final PropertyBool IN_WALL = PropertyBool.create("in_wall");
 
-    public BlockFenceGate(BlockPlanks.EnumType p_i46394_1_) {
+    public BlockFenceGate(BlockPlanks.WoodType p_i46394_1_) {
         super(Material.wood, p_i46394_1_.getMapColor());
         this.setDefaultState(this.blockState.getBaseState().withProperty(OPEN, Boolean.FALSE).withProperty(POWERED, Boolean.FALSE).withProperty(IN_WALL, Boolean.FALSE));
         this.setCreativeTab(CreativeTabs.tabRedstone);
     }
 
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-        EnumFacing.Axis enumfacing$axis = state.getValue(FACING).getAxis();
+        Direction.Axis enumfacing$axis = state.getValue(FACING).getAxis();
 
-        if (enumfacing$axis == EnumFacing.Axis.Z && (worldIn.getBlockState(pos.west()).getBlock() == Blocks.cobblestone_wall || worldIn.getBlockState(pos.east()).getBlock() == Blocks.cobblestone_wall) || enumfacing$axis == EnumFacing.Axis.X && (worldIn.getBlockState(pos.north()).getBlock() == Blocks.cobblestone_wall || worldIn.getBlockState(pos.south()).getBlock() == Blocks.cobblestone_wall)) {
+        if (enumfacing$axis == Direction.Axis.Z && (worldIn.getBlockState(pos.west()).getBlock() == Blocks.cobblestone_wall || worldIn.getBlockState(pos.east()).getBlock() == Blocks.cobblestone_wall) || enumfacing$axis == Direction.Axis.X && (worldIn.getBlockState(pos.north()).getBlock() == Blocks.cobblestone_wall || worldIn.getBlockState(pos.south()).getBlock() == Blocks.cobblestone_wall)) {
             state = state.withProperty(IN_WALL, Boolean.TRUE);
         }
 
@@ -43,15 +43,15 @@ public class BlockFenceGate extends BlockDirectional {
         if (state.getValue(OPEN)) {
             return null;
         } else {
-            EnumFacing.Axis enumfacing$axis = state.getValue(FACING).getAxis();
-            return enumfacing$axis == EnumFacing.Axis.Z ? new AxisAlignedBB(pos.getX(), pos.getY(), (pos.getZ() + 0.375F), (pos.getX() + 1), (pos.getY() + 1.5F), (pos.getZ() + 0.625F)) : new AxisAlignedBB((pos.getX() + 0.375F), pos.getY(), pos.getZ(), (pos.getX() + 0.625F), (pos.getY() + 1.5F), (pos.getZ() + 1));
+            Direction.Axis enumfacing$axis = state.getValue(FACING).getAxis();
+            return enumfacing$axis == Direction.Axis.Z ? new AxisAlignedBB(pos.getX(), pos.getY(), (pos.getZ() + 0.375F), (pos.getX() + 1), (pos.getY() + 1.5F), (pos.getZ() + 0.625F)) : new AxisAlignedBB((pos.getX() + 0.375F), pos.getY(), pos.getZ(), (pos.getX() + 0.625F), (pos.getY() + 1.5F), (pos.getZ() + 1));
         }
     }
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-        EnumFacing.Axis enumfacing$axis = worldIn.getBlockState(pos).getValue(FACING).getAxis();
+        Direction.Axis enumfacing$axis = worldIn.getBlockState(pos).getValue(FACING).getAxis();
 
-        if (enumfacing$axis == EnumFacing.Axis.Z) {
+        if (enumfacing$axis == Direction.Axis.Z) {
             this.setBlockBounds(0.0F, 0.0F, 0.375F, 1.0F, 1.0F, 0.625F);
         } else {
             this.setBlockBounds(0.375F, 0.0F, 0.0F, 0.625F, 1.0F, 1.0F);
@@ -70,16 +70,16 @@ public class BlockFenceGate extends BlockDirectional {
         return worldIn.getBlockState(pos).getValue(OPEN);
     }
 
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing()).withProperty(OPEN, Boolean.FALSE).withProperty(POWERED, Boolean.FALSE).withProperty(IN_WALL, Boolean.FALSE);
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (state.getValue(OPEN)) {
             state = state.withProperty(OPEN, Boolean.FALSE);
             worldIn.setBlockState(pos, state, 2);
         } else {
-            EnumFacing enumfacing = EnumFacing.fromAngle(playerIn.rotationYaw);
+            Direction enumfacing = Direction.fromAngle(playerIn.rotationYaw);
 
             if (state.getValue(FACING) == enumfacing.getOpposite()) {
                 state = state.withProperty(FACING, enumfacing);
@@ -111,12 +111,12 @@ public class BlockFenceGate extends BlockDirectional {
         }
     }
 
-    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
+    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, Direction side) {
         return true;
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta)).withProperty(OPEN, (meta & 4) != 0).withProperty(POWERED, (meta & 8) != 0);
+        return this.getDefaultState().withProperty(FACING, Direction.getHorizontal(meta)).withProperty(OPEN, (meta & 4) != 0).withProperty(POWERED, (meta & 8) != 0);
     }
 
     public int getMetaFromState(IBlockState state) {

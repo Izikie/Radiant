@@ -14,7 +14,7 @@ import net.minecraft.network.play.server.S38PacketPlayerListItem;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.ILockableContainer;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -107,7 +107,7 @@ public class ItemInWorldManager {
         }
     }
 
-    public void onBlockClicked(BlockPos pos, EnumFacing side) {
+    public void onBlockClicked(BlockPos pos, Direction side) {
         if (this.isCreative()) {
             if (!this.theWorld.extinguishFire(null, pos, side)) {
                 this.tryHarvestBlock(pos);
@@ -278,7 +278,7 @@ public class ItemInWorldManager {
         }
     }
 
-    public boolean activateBlockOrUseItem(EntityPlayer player, World worldIn, ItemStack stack, BlockPos pos, EnumFacing side, float offsetX, float offsetY, float offsetZ) {
+    public boolean activateBlockOrUseItem(EntityPlayer player, World worldIn, ItemStack stack, BlockPos pos, Direction side, float offsetX, float offsetY, float offsetZ) {
         if (this.gameType == WorldSettings.GameType.SPECTATOR) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 

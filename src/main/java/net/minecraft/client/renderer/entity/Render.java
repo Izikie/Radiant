@@ -17,7 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.src.Config;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -109,7 +109,7 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
         boolean flag = Config.isMultiTexture();
 
         if (flag) {
-            worldrenderer.setBlockLayer(EnumWorldBlockLayer.SOLID);
+            worldrenderer.setBlockLayer(RenderLayer.SOLID);
         }
 
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);

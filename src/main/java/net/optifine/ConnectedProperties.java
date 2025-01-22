@@ -14,7 +14,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.init.Blocks;
 import net.minecraft.src.Config;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.optifine.config.ConnectedParser;
@@ -57,7 +57,7 @@ public class ConnectedProperties {
     public TextureAtlasSprite[] connectTileIcons = null;
     public int tintIndex = -1;
     public IBlockState tintBlockState = Blocks.air.getDefaultState();
-    public EnumWorldBlockLayer layer = null;
+    public RenderLayer layer = null;
     public static final int METHOD_NONE = 0;
     public static final int METHOD_CTM = 1;
     public static final int METHOD_HORIZONTAL = 2;
@@ -132,7 +132,7 @@ public class ConnectedProperties {
         this.connectTiles = this.parseMatchTiles(props.getProperty("connectTiles"));
         this.tintIndex = connectedparser.parseInt(props.getProperty("tintIndex"), -1);
         this.tintBlockState = connectedparser.parseBlockState(props.getProperty("tintBlock"), Blocks.air.getDefaultState());
-        this.layer = connectedparser.parseBlockRenderLayer(props.getProperty("layer"), EnumWorldBlockLayer.CUTOUT_MIPPED);
+        this.layer = connectedparser.parseBlockRenderLayer(props.getProperty("layer"), RenderLayer.CUTOUT_MIPPED);
     }
 
     private int[] parseCtmTileIndexes(Properties props) {
@@ -622,7 +622,7 @@ public class ConnectedProperties {
         if (this.tiles.length < 17) {
             Config.warn("Invalid tiles, must be at least 17: " + path);
             return false;
-        } else if (this.layer != null && this.layer != EnumWorldBlockLayer.SOLID) {
+        } else if (this.layer != null && this.layer != RenderLayer.SOLID) {
             return true;
         } else {
             Config.warn("Invalid overlay layer: " + this.layer);
@@ -633,7 +633,7 @@ public class ConnectedProperties {
     private boolean isValidOverlayFixed(String path) {
         if (!this.isValidFixed(path)) {
             return false;
-        } else if (this.layer != null && this.layer != EnumWorldBlockLayer.SOLID) {
+        } else if (this.layer != null && this.layer != RenderLayer.SOLID) {
             return true;
         } else {
             Config.warn("Invalid overlay layer: " + this.layer);
@@ -644,7 +644,7 @@ public class ConnectedProperties {
     private boolean isValidOverlayRandom(String path) {
         if (!this.isValidRandom(path)) {
             return false;
-        } else if (this.layer != null && this.layer != EnumWorldBlockLayer.SOLID) {
+        } else if (this.layer != null && this.layer != RenderLayer.SOLID) {
             return true;
         } else {
             Config.warn("Invalid overlay layer: " + this.layer);
@@ -655,7 +655,7 @@ public class ConnectedProperties {
     private boolean isValidOverlayRepeat(String path) {
         if (!this.isValidRepeat(path)) {
             return false;
-        } else if (this.layer != null && this.layer != EnumWorldBlockLayer.SOLID) {
+        } else if (this.layer != null && this.layer != RenderLayer.SOLID) {
             return true;
         } else {
             Config.warn("Invalid overlay layer: " + this.layer);
@@ -666,7 +666,7 @@ public class ConnectedProperties {
     private boolean isValidOverlayCtm(String path) {
         if (!this.isValidCtm(path)) {
             return false;
-        } else if (this.layer != null && this.layer != EnumWorldBlockLayer.SOLID) {
+        } else if (this.layer != null && this.layer != RenderLayer.SOLID) {
             return true;
         } else {
             Config.warn("Invalid overlay layer: " + this.layer);

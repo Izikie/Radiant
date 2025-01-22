@@ -122,14 +122,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
-import net.minecraft.network.EnumConnectionState;
+import net.minecraft.network.NetworkState;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.handshake.client.C00Handshake;
 import net.minecraft.network.login.client.C00PacketLoginStart;
 import net.minecraft.network.play.client.C16PacketClientStatus;
 import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.stats.AchievementList;
-import net.minecraft.stats.IStatStringFormat;
 import net.minecraft.stats.StatFileWriter;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
@@ -146,7 +145,7 @@ import net.minecraft.util.ScreenShotHelper;
 import net.minecraft.util.Session;
 import net.minecraft.util.Timer;
 import net.minecraft.util.Util;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.WorldProviderEnd;
 import net.minecraft.world.WorldProviderHell;
 import net.minecraft.world.WorldSettings;
@@ -173,7 +172,7 @@ import org.lwjgl.util.glu.GLU;
 public class Minecraft implements IThreadListener {
     private static final Logger logger = LogManager.getLogger();
     private static final ResourceLocation locationMojangPng = new ResourceLocation("textures/gui/title/mojang.png");
-    public static final boolean isRunningOnMac = Util.getOSType() == Util.EnumOS.OSX;
+    public static final boolean isRunningOnMac = Util.getOSType() == Util.OperatingSystem.OSX;
     public static byte[] memoryReserve = new byte[10485760];
     private static final List<DisplayMode> macDisplayModes = Lists.newArrayList(new DisplayMode(2560, 1600), new DisplayMode(2880, 1800));
     private final File fileResourcepacks;
@@ -1311,7 +1310,7 @@ public class Minecraft implements IThreadListener {
                 }
             }
 
-            boolean flag = this.gameSettings.chatVisibility != EntityPlayer.EnumChatVisibility.HIDDEN;
+            boolean flag = this.gameSettings.chatVisibility != EntityPlayer.ChatVisibility.HIDDEN;
 
             while (this.gameSettings.keyBindInventory.isPressed()) {
                 if (this.playerController.isRidingHorse()) {
@@ -1406,7 +1405,7 @@ public class Minecraft implements IThreadListener {
 
         if (this.theWorld != null) {
             if (!this.isGamePaused) {
-                this.theWorld.setAllowedSpawnTypes(this.theWorld.getDifficulty() != EnumDifficulty.PEACEFUL, true);
+                this.theWorld.setAllowedSpawnTypes(this.theWorld.getDifficulty() != Difficulty.PEACEFUL, true);
 
                 try {
                     this.theWorld.tick();
@@ -1486,7 +1485,7 @@ public class Minecraft implements IThreadListener {
         SocketAddress socketaddress = this.theIntegratedServer.getNetworkSystem().addLocalEndpoint();
         NetworkManager networkmanager = NetworkManager.provideLocalClient(socketaddress);
         networkmanager.setNetHandler(new NetHandlerLoginClient(networkmanager, this, null));
-        networkmanager.sendPacket(new C00Handshake(47, socketaddress.toString(), 0, EnumConnectionState.LOGIN));
+        networkmanager.sendPacket(new C00Handshake(47, socketaddress.toString(), 0, NetworkState.LOGIN));
         networkmanager.sendPacket(new C00PacketLoginStart(this.getSession().getProfile()));
         this.myNetworkManager = networkmanager;
     }

@@ -4,7 +4,6 @@ import com.google.common.collect.Sets;
 
 import java.util.Random;
 import java.util.Set;
-import java.util.concurrent.Callable;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -25,10 +24,10 @@ import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.ChunkCoordIntPair;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldSettings;
@@ -50,7 +49,7 @@ public class WorldClient extends World {
     private final Set<ChunkCoordIntPair> previousActiveChunkSet = Sets.newHashSet();
     private boolean playerUpdate = false;
 
-    public WorldClient(NetHandlerPlayClient netHandler, WorldSettings settings, int dimension, EnumDifficulty difficulty) {
+    public WorldClient(NetHandlerPlayClient netHandler, WorldSettings settings, int dimension, Difficulty difficulty) {
         super(new SaveHandlerMP(), new WorldInfo(settings, "MpServer"), WorldProvider.getProviderForDimension(dimension), true);
         this.sendQueue = netHandler;
         this.getWorldInfo().setDifficulty(difficulty);
@@ -238,7 +237,7 @@ public class WorldClient extends World {
             iblockstate.getBlock().randomDisplayTick(this, blockpos$mutableblockpos, iblockstate, random);
 
             if (flag && iblockstate.getBlock() == Blocks.barrier) {
-                this.spawnParticle(EnumParticleTypes.BARRIER, (k + 0.5F), (l + 0.5F), (i1 + 0.5F), 0.0D, 0.0D, 0.0D);
+                this.spawnParticle(ParticleTypes.BARRIER, (k + 0.5F), (l + 0.5F), (i1 + 0.5F), 0.0D, 0.0D, 0.0D);
             }
         }
     }

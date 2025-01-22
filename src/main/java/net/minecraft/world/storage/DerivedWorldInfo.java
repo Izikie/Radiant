@@ -2,7 +2,7 @@ package net.minecraft.world.storage;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.WorldSettings;
 import net.minecraft.world.WorldType;
@@ -155,11 +155,11 @@ public class DerivedWorldInfo extends WorldInfo {
         return this.theWorldInfo.getGameRulesInstance();
     }
 
-    public EnumDifficulty getDifficulty() {
+    public Difficulty getDifficulty() {
         return this.theWorldInfo.getDifficulty();
     }
 
-    public void setDifficulty(EnumDifficulty newDifficulty) {
+    public void setDifficulty(Difficulty newDifficulty) {
     }
 
     public boolean isDifficultyLocked() {

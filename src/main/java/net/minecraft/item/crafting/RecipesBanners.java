@@ -3,7 +3,7 @@ package net.minecraft.item.crafting;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 
 public class RecipesBanners {
     void addRecipes(CraftingManager p_179534_1_) {
-        for (EnumDyeColor enumdyecolor : EnumDyeColor.values()) {
+        for (DyeColor enumdyecolor : DyeColor.values()) {
             p_179534_1_.addRecipe(new ItemStack(Items.banner, 1, enumdyecolor.getDyeDamage()), "###", "###", " | ", '#', new ItemStack(Blocks.wool, 1, enumdyecolor.getMetadata()), '|', Items.stick);
         }
 
@@ -63,7 +63,7 @@ public class RecipesBanners {
                 }
             }
 
-            TileEntityBanner.EnumBannerPattern tileentitybanner$enumbannerpattern = this.func_179533_c(inv);
+            TileEntityBanner.BannerPattern tileentitybanner$enumbannerpattern = this.func_179533_c(inv);
 
             if (tileentitybanner$enumbannerpattern != null) {
                 int k = 0;
@@ -118,8 +118,8 @@ public class RecipesBanners {
             return aitemstack;
         }
 
-        private TileEntityBanner.EnumBannerPattern func_179533_c(InventoryCrafting p_179533_1_) {
-            for (TileEntityBanner.EnumBannerPattern tileentitybanner$enumbannerpattern : TileEntityBanner.EnumBannerPattern.values()) {
+        private TileEntityBanner.BannerPattern func_179533_c(InventoryCrafting p_179533_1_) {
+            for (TileEntityBanner.BannerPattern tileentitybanner$enumbannerpattern : TileEntityBanner.BannerPattern.values()) {
                 if (tileentitybanner$enumbannerpattern.hasValidCrafting()) {
                     boolean flag = true;
 

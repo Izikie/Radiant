@@ -3,7 +3,7 @@ package net.minecraft.entity.player;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IChatComponent;
 
-public enum EnumPlayerModelParts {
+public enum PlayerModelParts {
     CAPE(0, "cape"),
     JACKET(1, "jacket"),
     LEFT_SLEEVE(2, "left_sleeve"),
@@ -17,7 +17,7 @@ public enum EnumPlayerModelParts {
     private final String partName;
     private final IChatComponent field_179339_k;
 
-    EnumPlayerModelParts(int partIdIn, String partNameIn) {
+    PlayerModelParts(int partIdIn, String partNameIn) {
         this.partId = partIdIn;
         this.partMask = 1 << partIdIn;
         this.partName = partNameIn;

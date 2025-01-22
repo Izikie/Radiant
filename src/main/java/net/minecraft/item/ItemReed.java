@@ -6,7 +6,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public class ItemReed extends Item {
@@ -16,12 +16,12 @@ public class ItemReed extends Item {
         this.block = block;
     }
 
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
         IBlockState iblockstate = worldIn.getBlockState(pos);
         Block block = iblockstate.getBlock();
 
         if (block == Blocks.snow_layer && iblockstate.getValue(BlockSnow.LAYERS) < 1) {
-            side = EnumFacing.UP;
+            side = Direction.UP;
         } else if (!block.isReplaceable(worldIn, pos)) {
             pos = pos.offset(side);
         }

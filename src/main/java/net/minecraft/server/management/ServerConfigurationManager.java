@@ -48,7 +48,7 @@ import net.minecraft.stats.StatList;
 import net.minecraft.stats.StatisticsFile;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -135,7 +135,7 @@ public abstract class ServerConfigurationManager {
             chatcomponenttranslation = new ChatComponentTranslation("multiplayer.player.joined", playerIn.getDisplayName());
         }
 
-        chatcomponenttranslation.getChatStyle().setColor(EnumChatFormatting.YELLOW);
+        chatcomponenttranslation.getChatStyle().setColor(Formatting.YELLOW);
         this.sendChatMsg(chatcomponenttranslation);
         this.playerLoggedIn(playerIn);
         nethandlerplayserver.setPlayerLocation(playerIn.posX, playerIn.posY, playerIn.posZ, playerIn.rotationYaw, playerIn.rotationPitch);

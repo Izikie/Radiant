@@ -13,7 +13,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ITickable;
 
 import java.util.Arrays;
@@ -155,7 +155,7 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
     }
 
     @SuppressWarnings("incomplete-switch")
-    private void func_174910_a(TileEntityChest chestTe, EnumFacing side) {
+    private void func_174910_a(TileEntityChest chestTe, Direction side) {
         if (chestTe.isInvalid()) {
             this.adjacentChestChecked = false;
         } else if (this.adjacentChestChecked) {
@@ -192,14 +192,14 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
     public void checkForAdjacentChests() {
         if (!this.adjacentChestChecked) {
             this.adjacentChestChecked = true;
-            this.adjacentChestXNeg = this.getAdjacentChest(EnumFacing.WEST);
-            this.adjacentChestXPos = this.getAdjacentChest(EnumFacing.EAST);
-            this.adjacentChestZNeg = this.getAdjacentChest(EnumFacing.NORTH);
-            this.adjacentChestZPos = this.getAdjacentChest(EnumFacing.SOUTH);
+            this.adjacentChestXNeg = this.getAdjacentChest(Direction.WEST);
+            this.adjacentChestXPos = this.getAdjacentChest(Direction.EAST);
+            this.adjacentChestZNeg = this.getAdjacentChest(Direction.NORTH);
+            this.adjacentChestZPos = this.getAdjacentChest(Direction.SOUTH);
         }
     }
 
-    protected TileEntityChest getAdjacentChest(EnumFacing side) {
+    protected TileEntityChest getAdjacentChest(Direction side) {
         BlockPos blockpos = this.pos.offset(side);
 
         if (this.isChestAt(blockpos)) {

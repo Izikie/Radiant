@@ -9,7 +9,6 @@ import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
 import java.util.Arrays;
 import java.util.BitSet;
-import java.util.Comparator;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -17,7 +16,7 @@ import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
 import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.util.MathHelper;
 import net.optifine.SmartAnimations;
 import net.optifine.render.RenderEnv;
@@ -41,7 +40,7 @@ public class WorldRenderer {
     private double zOffset;
     private VertexFormat vertexFormat;
     private boolean isDrawing;
-    private EnumWorldBlockLayer blockLayer = null;
+    private RenderLayer blockLayer = null;
     private boolean[] drawnIcons = new boolean[256];
     private TextureAtlasSprite[] quadSprites = null;
     private TextureAtlasSprite[] quadSpritesPrev = null;
@@ -697,7 +696,7 @@ public class WorldRenderer {
                             i1 = this.drawForIcon(textureatlassprite, i1) - 1;
                             ++j;
 
-                            if (this.blockLayer != EnumWorldBlockLayer.TRANSLUCENT) {
+                            if (this.blockLayer != RenderLayer.TRANSLUCENT) {
                                 this.drawnIcons[j1] = true;
                             }
                         }
@@ -731,7 +730,7 @@ public class WorldRenderer {
             } else if (j >= 0) {
                 this.draw(j, l);
 
-                if (this.blockLayer == EnumWorldBlockLayer.TRANSLUCENT) {
+                if (this.blockLayer == RenderLayer.TRANSLUCENT) {
                     return l;
                 }
 
@@ -764,7 +763,7 @@ public class WorldRenderer {
         }
     }
 
-    public void setBlockLayer(EnumWorldBlockLayer p_setBlockLayer_1_) {
+    public void setBlockLayer(RenderLayer p_setBlockLayer_1_) {
         this.blockLayer = p_setBlockLayer_1_;
 
         if (p_setBlockLayer_1_ == null) {
@@ -806,7 +805,7 @@ public class WorldRenderer {
         return this.zOffset;
     }
 
-    public EnumWorldBlockLayer getBlockLayer() {
+    public RenderLayer getBlockLayer() {
         return this.blockLayer;
     }
 

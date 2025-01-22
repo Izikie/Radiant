@@ -6,7 +6,7 @@ import java.util.Map;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.src.Config;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.MathHelper;
 
 public class NaturalProperties {
@@ -66,7 +66,7 @@ public class NaturalProperties {
     private BakedQuad makeQuad(BakedQuad quad, int rotate, boolean flipU) {
         int[] aint = quad.getVertexData();
         int i = quad.getTintIndex();
-        EnumFacing enumfacing = quad.getFace();
+        Direction enumfacing = quad.getFace();
         TextureAtlasSprite textureatlassprite = quad.getSprite();
 
         if (!this.isFullSprite(quad)) {

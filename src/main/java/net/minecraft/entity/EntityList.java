@@ -128,7 +128,7 @@ public class EntityList {
         Entity entity = null;
 
         if ("Minecart".equals(nbt.getString("id"))) {
-            nbt.setString("id", EntityMinecart.EnumMinecartType.byNetworkID(nbt.getInteger("Type")).getName());
+            nbt.setString("id", EntityMinecart.MinecartType.byNetworkID(nbt.getInteger("Type")).getName());
             nbt.removeTag("Type");
         }
 
@@ -249,13 +249,13 @@ public class EntityList {
         addMapping(EntityFireworkRocket.class, "FireworksRocketEntity", 22);
         addMapping(EntityArmorStand.class, "ArmorStand", 30);
         addMapping(EntityBoat.class, "Boat", 41);
-        addMapping(EntityMinecartEmpty.class, EntityMinecart.EnumMinecartType.RIDEABLE.getName(), 42);
-        addMapping(EntityMinecartChest.class, EntityMinecart.EnumMinecartType.CHEST.getName(), 43);
-        addMapping(EntityMinecartFurnace.class, EntityMinecart.EnumMinecartType.FURNACE.getName(), 44);
-        addMapping(EntityMinecartTNT.class, EntityMinecart.EnumMinecartType.TNT.getName(), 45);
-        addMapping(EntityMinecartHopper.class, EntityMinecart.EnumMinecartType.HOPPER.getName(), 46);
-        addMapping(EntityMinecartMobSpawner.class, EntityMinecart.EnumMinecartType.SPAWNER.getName(), 47);
-        addMapping(EntityMinecartCommandBlock.class, EntityMinecart.EnumMinecartType.COMMAND_BLOCK.getName(), 40);
+        addMapping(EntityMinecartEmpty.class, EntityMinecart.MinecartType.RIDEABLE.getName(), 42);
+        addMapping(EntityMinecartChest.class, EntityMinecart.MinecartType.CHEST.getName(), 43);
+        addMapping(EntityMinecartFurnace.class, EntityMinecart.MinecartType.FURNACE.getName(), 44);
+        addMapping(EntityMinecartTNT.class, EntityMinecart.MinecartType.TNT.getName(), 45);
+        addMapping(EntityMinecartHopper.class, EntityMinecart.MinecartType.HOPPER.getName(), 46);
+        addMapping(EntityMinecartMobSpawner.class, EntityMinecart.MinecartType.SPAWNER.getName(), 47);
+        addMapping(EntityMinecartCommandBlock.class, EntityMinecart.MinecartType.COMMAND_BLOCK.getName(), 40);
         addMapping(EntityLiving.class, "Mob", 48);
         addMapping(EntityMob.class, "Monster", 49);
         addMapping(EntityCreeper.class, "Creeper", 50, 894731, 0);

@@ -13,11 +13,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
 
 public class BlockPlanks extends Block {
-    public static final PropertyEnum<BlockPlanks.EnumType> VARIANT = PropertyEnum.create("variant", BlockPlanks.EnumType.class);
+    public static final PropertyEnum<WoodType> VARIANT = PropertyEnum.create("variant", WoodType.class);
 
     public BlockPlanks() {
         super(Material.wood);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockPlanks.EnumType.OAK));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, WoodType.OAK));
         this.setCreativeTab(CreativeTabs.tabBlock);
     }
 
@@ -26,13 +26,13 @@ public class BlockPlanks extends Block {
     }
 
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-        for (BlockPlanks.EnumType blockplanks$enumtype : BlockPlanks.EnumType.values()) {
+        for (WoodType blockplanks$enumtype : WoodType.values()) {
             list.add(new ItemStack(itemIn, 1, blockplanks$enumtype.getMetadata()));
         }
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(VARIANT, BlockPlanks.EnumType.byMetadata(meta));
+        return this.getDefaultState().withProperty(VARIANT, WoodType.byMetadata(meta));
     }
 
     public MapColor getMapColor(IBlockState state) {
@@ -47,7 +47,7 @@ public class BlockPlanks extends Block {
         return new BlockState(this, VARIANT);
     }
 
-    public enum EnumType implements IStringSerializable {
+    public enum WoodType implements IStringSerializable {
         OAK(0, "oak", MapColor.woodColor),
         SPRUCE(1, "spruce", MapColor.obsidianColor),
         BIRCH(2, "birch", MapColor.sandColor),
@@ -55,17 +55,17 @@ public class BlockPlanks extends Block {
         ACACIA(4, "acacia", MapColor.adobeColor),
         DARK_OAK(5, "dark_oak", "big_oak", MapColor.brownColor);
 
-        private static final BlockPlanks.EnumType[] META_LOOKUP = new BlockPlanks.EnumType[values().length];
+        private static final WoodType[] META_LOOKUP = new WoodType[values().length];
         private final int meta;
         private final String name;
         private final String unlocalizedName;
         private final MapColor mapColor;
 
-        EnumType(int p_i46388_3_, String p_i46388_4_, MapColor p_i46388_5_) {
+        WoodType(int p_i46388_3_, String p_i46388_4_, MapColor p_i46388_5_) {
             this(p_i46388_3_, p_i46388_4_, p_i46388_4_, p_i46388_5_);
         }
 
-        EnumType(int p_i46389_3_, String p_i46389_4_, String p_i46389_5_, MapColor p_i46389_6_) {
+        WoodType(int p_i46389_3_, String p_i46389_4_, String p_i46389_5_, MapColor p_i46389_6_) {
             this.meta = p_i46389_3_;
             this.name = p_i46389_4_;
             this.unlocalizedName = p_i46389_5_;
@@ -84,7 +84,7 @@ public class BlockPlanks extends Block {
             return this.name;
         }
 
-        public static BlockPlanks.EnumType byMetadata(int meta) {
+        public static WoodType byMetadata(int meta) {
             if (meta < 0 || meta >= META_LOOKUP.length) {
                 meta = 0;
             }
@@ -101,7 +101,7 @@ public class BlockPlanks extends Block {
         }
 
         static {
-            for (BlockPlanks.EnumType blockplanks$enumtype : values()) {
+            for (WoodType blockplanks$enumtype : values()) {
                 META_LOOKUP[blockplanks$enumtype.getMetadata()] = blockplanks$enumtype;
             }
         }

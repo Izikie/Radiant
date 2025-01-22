@@ -6,7 +6,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class EnchantmentUntouching extends Enchantment {
     protected EnchantmentUntouching(int p_i45763_1_, ResourceLocation p_i45763_2_, int p_i45763_3_) {
-        super(p_i45763_1_, p_i45763_2_, p_i45763_3_, EnumEnchantmentType.DIGGER);
+        super(p_i45763_1_, p_i45763_2_, p_i45763_3_, EnchantmentTarget.DIGGER);
         this.setName("untouching");
     }
 

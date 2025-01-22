@@ -6,12 +6,12 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.IChatComponent;
 
 public class GuiUtilRenderComponents {
     public static String func_178909_a(String p_178909_0_, boolean p_178909_1_) {
-        return !p_178909_1_ && !Minecraft.getMinecraft().gameSettings.chatColours ? EnumChatFormatting.getTextWithoutFormattingCodes(p_178909_0_) : p_178909_0_;
+        return !p_178909_1_ && !Minecraft.getMinecraft().gameSettings.chatColours ? Formatting.getTextWithoutFormattingCodes(p_178909_0_) : p_178909_0_;
     }
 
     public static List<IChatComponent> splitText(IChatComponent p_178908_0_, int p_178908_1_, FontRenderer p_178908_2_, boolean p_178908_3_, boolean p_178908_4_) {

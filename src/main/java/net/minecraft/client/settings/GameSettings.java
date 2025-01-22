@@ -30,11 +30,11 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EnumPlayerModelParts;
+import net.minecraft.entity.player.PlayerModelParts;
 import net.minecraft.network.play.client.C15PacketClientSettings;
 import net.minecraft.src.Config;
 import net.minecraft.util.MathHelper;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.optifine.ClearWater;
 import net.optifine.CustomColors;
 import net.optifine.CustomGuis;
@@ -85,7 +85,7 @@ public class GameSettings {
     public int ambientOcclusion = 2;
     public List<String> resourcePacks = Lists.newArrayList();
     public List<String> incompatibleResourcePacks = Lists.newArrayList();
-    public EntityPlayer.EnumChatVisibility chatVisibility = EntityPlayer.EnumChatVisibility.FULL;
+    public EntityPlayer.ChatVisibility chatVisibility = EntityPlayer.ChatVisibility.FULL;
     public boolean chatColours = true;
     public boolean chatLinks = true;
     public boolean chatLinksPrompt = true;
@@ -98,7 +98,7 @@ public class GameSettings {
     public boolean hideServerAddress;
     public boolean advancedItemTooltips;
     public boolean pauseOnLostFocus = true;
-    private final Set<EnumPlayerModelParts> setModelParts = Sets.newHashSet(EnumPlayerModelParts.values());
+    private final Set<PlayerModelParts> setModelParts = Sets.newHashSet(PlayerModelParts.values());
     public int overrideWidth;
     public int overrideHeight;
     public boolean heldItemTooltips = true;
@@ -135,7 +135,7 @@ public class GameSettings {
     public KeyBinding[] keyBindings;
     protected Minecraft mc;
     private File optionsFile;
-    public EnumDifficulty difficulty;
+    public Difficulty difficulty;
     public boolean hideGUI;
     public int thirdPersonView;
     public boolean showDebugInfo;
@@ -235,7 +235,7 @@ public class GameSettings {
 
     public GameSettings(Minecraft mcIn, File optionsFileIn) {
         this.keyBindings = ArrayUtils.addAll(new KeyBinding[]{this.keyBindAttack, this.keyBindUseItem, this.keyBindForward, this.keyBindLeft, this.keyBindBack, this.keyBindRight, this.keyBindJump, this.keyBindSneak, this.keyBindSprint, this.keyBindDrop, this.keyBindInventory, this.keyBindChat, this.keyBindPlayerList, this.keyBindPickBlock, this.keyBindCommand, this.keyBindScreenshot, this.keyBindTogglePerspective, this.keyBindSmoothCamera, this.keyBindFullscreen, this.keyBindSpectatorOutlines}, this.keyBindsHotbar);
-        this.difficulty = EnumDifficulty.NORMAL;
+        this.difficulty = Difficulty.NORMAL;
         this.lastServer = "";
         this.fovSetting = 70.0F;
         this.language = "en_US";
@@ -271,7 +271,7 @@ public class GameSettings {
 
     public GameSettings() {
         this.keyBindings = ArrayUtils.addAll(new KeyBinding[]{this.keyBindAttack, this.keyBindUseItem, this.keyBindForward, this.keyBindLeft, this.keyBindBack, this.keyBindRight, this.keyBindJump, this.keyBindSneak, this.keyBindSprint, this.keyBindDrop, this.keyBindInventory, this.keyBindChat, this.keyBindPlayerList, this.keyBindPickBlock, this.keyBindCommand, this.keyBindScreenshot, this.keyBindTogglePerspective, this.keyBindSmoothCamera, this.keyBindFullscreen, this.keyBindSpectatorOutlines}, this.keyBindsHotbar);
-        this.difficulty = EnumDifficulty.NORMAL;
+        this.difficulty = Difficulty.NORMAL;
         this.lastServer = "";
         this.fovSetting = 70.0F;
         this.language = "en_US";
@@ -431,7 +431,7 @@ public class GameSettings {
         }
 
         if (settingsOption == GameSettings.Options.CHAT_VISIBILITY) {
-            this.chatVisibility = EntityPlayer.EnumChatVisibility.getEnumChatVisibility((this.chatVisibility.getChatVisibility() + value) % 3);
+            this.chatVisibility = EntityPlayer.ChatVisibility.getEnumChatVisibility((this.chatVisibility.getChatVisibility() + value) % 3);
         }
 
         if (settingsOption == GameSettings.Options.CHAT_COLOR) {
@@ -639,7 +639,7 @@ public class GameSettings {
                             }
 
                             if (astring[0].equals("difficulty")) {
-                                this.difficulty = EnumDifficulty.getDifficultyEnum(Integer.parseInt(astring[1]));
+                                this.difficulty = Difficulty.getDifficultyEnum(Integer.parseInt(astring[1]));
                             }
 
                             if (astring[0].equals("fancyGraphics")) {
@@ -690,7 +690,7 @@ public class GameSettings {
                             }
 
                             if (astring[0].equals("chatVisibility")) {
-                                this.chatVisibility = EntityPlayer.EnumChatVisibility.getEnumChatVisibility(Integer.parseInt(astring[1]));
+                                this.chatVisibility = EntityPlayer.ChatVisibility.getEnumChatVisibility(Integer.parseInt(astring[1]));
                             }
 
                             if (astring[0].equals("chatColors")) {
@@ -807,7 +807,7 @@ public class GameSettings {
                                 }
                             }
 
-                            for (EnumPlayerModelParts enumplayermodelparts : EnumPlayerModelParts.values()) {
+                            for (PlayerModelParts enumplayermodelparts : PlayerModelParts.values()) {
                                 if (astring[0].equals("modelPart_" + enumplayermodelparts.getPartName())) {
                                     this.setModelPartEnabled(enumplayermodelparts, astring[1].equals("true"));
                                 }
@@ -907,7 +907,7 @@ public class GameSettings {
                 printwriter.println("soundCategory_" + soundcategory.getCategoryName() + ":" + this.getSoundLevel(soundcategory));
             }
 
-            for (EnumPlayerModelParts enumplayermodelparts : EnumPlayerModelParts.values()) {
+            for (PlayerModelParts enumplayermodelparts : PlayerModelParts.values()) {
                 printwriter.println("modelPart_" + enumplayermodelparts.getPartName() + ":" + this.setModelParts.contains(enumplayermodelparts));
             }
 
@@ -933,7 +933,7 @@ public class GameSettings {
         if (this.mc.thePlayer != null) {
             int i = 0;
 
-            for (EnumPlayerModelParts enumplayermodelparts : this.setModelParts) {
+            for (PlayerModelParts enumplayermodelparts : this.setModelParts) {
                 i |= enumplayermodelparts.getPartMask();
             }
 
@@ -941,11 +941,11 @@ public class GameSettings {
         }
     }
 
-    public Set<EnumPlayerModelParts> getModelParts() {
+    public Set<PlayerModelParts> getModelParts() {
         return ImmutableSet.copyOf(this.setModelParts);
     }
 
-    public void setModelPartEnabled(EnumPlayerModelParts modelPart, boolean enable) {
+    public void setModelPartEnabled(PlayerModelParts modelPart, boolean enable) {
         if (enable) {
             this.setModelParts.add(modelPart);
         } else {
@@ -955,7 +955,7 @@ public class GameSettings {
         this.sendSettingsToServer();
     }
 
-    public void switchModelPartEnabled(EnumPlayerModelParts modelPart) {
+    public void switchModelPartEnabled(PlayerModelParts modelPart) {
         if (!this.getModelParts().contains(modelPart)) {
             this.setModelParts.add(modelPart);
         } else {

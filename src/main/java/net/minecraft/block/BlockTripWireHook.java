@@ -15,20 +15,20 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.Direction;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockTripWireHook extends Block {
-    public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+    public static final PropertyDirection FACING = PropertyDirection.create("facing", Direction.Plane.HORIZONTAL);
     public static final PropertyBool POWERED = PropertyBool.create("powered");
     public static final PropertyBool ATTACHED = PropertyBool.create("attached");
     public static final PropertyBool SUSPENDED = PropertyBool.create("suspended");
 
     public BlockTripWireHook() {
         super(Material.circuits);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, Boolean.FALSE).withProperty(ATTACHED, Boolean.FALSE).withProperty(SUSPENDED, Boolean.FALSE));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH).withProperty(POWERED, Boolean.FALSE).withProperty(ATTACHED, Boolean.FALSE).withProperty(SUSPENDED, Boolean.FALSE));
         this.setCreativeTab(CreativeTabs.tabRedstone);
         this.setTickRandomly(true);
     }
@@ -49,12 +49,12 @@ public class BlockTripWireHook extends Block {
         return false;
     }
 
-    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side) {
+    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Direction side) {
         return side.getAxis().isHorizontal() && worldIn.getBlockState(pos.offset(side.getOpposite())).getBlock().isNormalCube();
     }
 
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-        for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+        for (Direction enumfacing : Direction.Plane.HORIZONTAL) {
             if (worldIn.getBlockState(pos.offset(enumfacing)).getBlock().isNormalCube()) {
                 return true;
             }
@@ -63,7 +63,7 @@ public class BlockTripWireHook extends Block {
         return false;
     }
 
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         IBlockState iblockstate = this.getDefaultState().withProperty(POWERED, Boolean.FALSE).withProperty(ATTACHED, Boolean.FALSE).withProperty(SUSPENDED, Boolean.FALSE);
 
         if (facing.getAxis().isHorizontal()) {
@@ -80,7 +80,7 @@ public class BlockTripWireHook extends Block {
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         if (neighborBlock != this) {
             if (this.checkForDrop(worldIn, pos, state)) {
-                EnumFacing enumfacing = state.getValue(FACING);
+                Direction enumfacing = state.getValue(FACING);
 
                 if (!worldIn.getBlockState(pos.offset(enumfacing.getOpposite())).getBlock().isNormalCube()) {
                     this.dropBlockAsItem(worldIn, pos, state, 0);
@@ -91,7 +91,7 @@ public class BlockTripWireHook extends Block {
     }
 
     public void func_176260_a(World worldIn, BlockPos pos, IBlockState hookState, boolean p_176260_4_, boolean p_176260_5_, int p_176260_6_, IBlockState p_176260_7_) {
-        EnumFacing enumfacing = hookState.getValue(FACING);
+        Direction enumfacing = hookState.getValue(FACING);
         boolean flag = hookState.getValue(ATTACHED);
         boolean flag1 = hookState.getValue(POWERED);
         boolean flag2 = !World.doesBlockHaveSolidTopSurface(worldIn, pos.down());
@@ -140,7 +140,7 @@ public class BlockTripWireHook extends Block {
 
         if (i > 0) {
             BlockPos blockpos1 = pos.offset(enumfacing, i);
-            EnumFacing enumfacing1 = enumfacing.getOpposite();
+            Direction enumfacing1 = enumfacing.getOpposite();
             worldIn.setBlockState(blockpos1, iblockstate1.withProperty(FACING, enumfacing1), 3);
             this.func_176262_b(worldIn, blockpos1, enumfacing1);
             this.func_180694_a(worldIn, blockpos1, flag3, flag4, flag, flag1);
@@ -187,7 +187,7 @@ public class BlockTripWireHook extends Block {
         }
     }
 
-    private void func_176262_b(World worldIn, BlockPos p_176262_2_, EnumFacing p_176262_3_) {
+    private void func_176262_b(World worldIn, BlockPos p_176262_2_, Direction p_176262_3_) {
         worldIn.notifyNeighborsOfStateChange(p_176262_2_, this);
         worldIn.notifyNeighborsOfStateChange(p_176262_2_.offset(p_176262_3_.getOpposite()), this);
     }
@@ -240,11 +240,11 @@ public class BlockTripWireHook extends Block {
         super.breakBlock(worldIn, pos, state);
     }
 
-    public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side) {
+    public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
         return state.getValue(POWERED) ? 15 : 0;
     }
 
-    public int getStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side) {
+    public int getStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
         return !state.getValue(POWERED) ? 0 : (state.getValue(FACING) == side ? 15 : 0);
     }
 
@@ -252,12 +252,12 @@ public class BlockTripWireHook extends Block {
         return true;
     }
 
-    public EnumWorldBlockLayer getBlockLayer() {
-        return EnumWorldBlockLayer.CUTOUT_MIPPED;
+    public RenderLayer getBlockLayer() {
+        return RenderLayer.CUTOUT_MIPPED;
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta & 3)).withProperty(POWERED, (meta & 8) > 0).withProperty(ATTACHED, (meta & 4) > 0);
+        return this.getDefaultState().withProperty(FACING, Direction.getHorizontal(meta & 3)).withProperty(POWERED, (meta & 8) > 0).withProperty(ATTACHED, (meta & 4) > 0);
     }
 
     public int getMetaFromState(IBlockState state) {

@@ -17,7 +17,7 @@ import net.minecraft.tileentity.MobSpawnerBaseLogic;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
@@ -45,7 +45,7 @@ public class ItemMonsterPlacer extends Item {
         return entitylist$entityegginfo != null ? (renderPass == 0 ? entitylist$entityegginfo.primaryColor : entitylist$entityegginfo.secondaryColor) : 16777215;
     }
 
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
         if (worldIn.isRemote) {
             return true;
         } else if (!playerIn.canPlayerEdit(pos.offset(side), side, stack)) {
@@ -73,7 +73,7 @@ public class ItemMonsterPlacer extends Item {
             pos = pos.offset(side);
             double d0 = 0.0D;
 
-            if (side == EnumFacing.UP && iblockstate instanceof BlockFence) {
+            if (side == Direction.UP && iblockstate instanceof BlockFence) {
                 d0 = 0.5D;
             }
 

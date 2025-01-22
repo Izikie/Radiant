@@ -6,7 +6,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public class ItemSnow extends ItemBlock {
@@ -16,7 +16,7 @@ public class ItemSnow extends ItemBlock {
         this.setHasSubtypes(true);
     }
 
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
         if (stack.stackSize == 0) {
             return false;
         } else if (!playerIn.canPlayerEdit(pos, side, stack)) {
@@ -26,7 +26,7 @@ public class ItemSnow extends ItemBlock {
             Block block = iblockstate.getBlock();
             BlockPos blockpos = pos;
 
-            if ((side != EnumFacing.UP || block != this.block) && !block.isReplaceable(worldIn, pos)) {
+            if ((side != Direction.UP || block != this.block) && !block.isReplaceable(worldIn, pos)) {
                 blockpos = pos.offset(side);
                 iblockstate = worldIn.getBlockState(blockpos);
                 block = iblockstate.getBlock();

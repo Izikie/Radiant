@@ -6,7 +6,7 @@ import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.item.EntityPainting;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public class ItemHangingEntity extends Item {
@@ -17,10 +17,10 @@ public class ItemHangingEntity extends Item {
         this.setCreativeTab(CreativeTabs.tabDecorations);
     }
 
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-        if (side == EnumFacing.DOWN) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
+        if (side == Direction.DOWN) {
             return false;
-        } else if (side == EnumFacing.UP) {
+        } else if (side == Direction.UP) {
             return false;
         } else {
             BlockPos blockpos = pos.offset(side);
@@ -43,7 +43,7 @@ public class ItemHangingEntity extends Item {
         }
     }
 
-    private EntityHanging createEntity(World worldIn, BlockPos pos, EnumFacing clickedSide) {
+    private EntityHanging createEntity(World worldIn, BlockPos pos, Direction clickedSide) {
         return this.hangingEntityClass == EntityPainting.class ? new EntityPainting(worldIn, pos, clickedSide) : (this.hangingEntityClass == EntityItemFrame.class ? new EntityItemFrame(worldIn, pos, clickedSide) : null);
     }
 }

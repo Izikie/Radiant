@@ -31,7 +31,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.rcon.RConConsoleSource;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.IChatComponent;
 
 public class ServerCommandManager extends CommandHandler implements IAdminCommand {
@@ -112,7 +112,7 @@ public class ServerCommandManager extends CommandHandler implements IAdminComman
         }
 
         IChatComponent ichatcomponent = new ChatComponentTranslation("chat.type.admin", sender.getName(), new ChatComponentTranslation(msgFormat, msgParams));
-        ichatcomponent.getChatStyle().setColor(EnumChatFormatting.GRAY);
+        ichatcomponent.getChatStyle().setColor(Formatting.GRAY);
         ichatcomponent.getChatStyle().setItalic(Boolean.TRUE);
 
         if (flag) {

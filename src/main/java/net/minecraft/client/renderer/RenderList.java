@@ -5,7 +5,7 @@ import java.nio.IntBuffer;
 import net.minecraft.client.renderer.chunk.ListedRenderChunk;
 import net.minecraft.client.renderer.chunk.RenderChunk;
 import net.minecraft.src.Config;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.RenderLayer;
 import org.lwjgl.opengl.GL11;
 
 public class RenderList extends ChunkRenderContainer {
@@ -14,7 +14,7 @@ public class RenderList extends ChunkRenderContainer {
     private double viewEntityZ;
     IntBuffer bufferLists = GLAllocation.createDirectIntBuffer(16);
 
-    public void renderChunkLayer(EnumWorldBlockLayer layer) {
+    public void renderChunkLayer(RenderLayer layer) {
         if (this.initialized) {
             if (!Config.isRenderRegions()) {
                 for (RenderChunk renderchunk1 : this.renderChunks) {

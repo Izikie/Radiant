@@ -1,6 +1,6 @@
 package net.minecraft.server.network;
 
-import net.minecraft.network.EnumConnectionState;
+import net.minecraft.network.NetworkState;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.handshake.INetHandlerHandshakeServer;
 import net.minecraft.network.handshake.client.C00Handshake;
@@ -21,7 +21,7 @@ public class NetHandlerHandshakeTCP implements INetHandlerHandshakeServer {
     public void processHandshake(C00Handshake packetIn) {
         switch (packetIn.getRequestedState()) {
             case LOGIN:
-                this.networkManager.setConnectionState(EnumConnectionState.LOGIN);
+                this.networkManager.setConnectionState(NetworkState.LOGIN);
 
                 if (packetIn.getProtocolVersion() > 47) {
                     ChatComponentText chatcomponenttext = new ChatComponentText("Outdated server! I'm still on 1.8.9");
@@ -38,7 +38,7 @@ public class NetHandlerHandshakeTCP implements INetHandlerHandshakeServer {
                 break;
 
             case STATUS:
-                this.networkManager.setConnectionState(EnumConnectionState.STATUS);
+                this.networkManager.setConnectionState(NetworkState.STATUS);
                 this.networkManager.setNetHandler(new NetHandlerStatusServer(this.server, this.networkManager));
                 break;
 

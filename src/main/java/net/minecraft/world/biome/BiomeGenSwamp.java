@@ -41,8 +41,8 @@ public class BiomeGenSwamp extends BiomeGenBase {
         return 6975545;
     }
 
-    public BlockFlower.EnumFlowerType pickRandomFlower(Random rand, BlockPos pos) {
-        return BlockFlower.EnumFlowerType.BLUE_ORCHID;
+    public BlockFlower.FlowerType pickRandomFlower(Random rand, BlockPos pos) {
+        return BlockFlower.FlowerType.BLUE_ORCHID;
     }
 
     public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {

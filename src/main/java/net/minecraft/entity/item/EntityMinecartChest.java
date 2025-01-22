@@ -9,7 +9,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ContainerChest;
 import net.minecraft.item.Item;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public class EntityMinecartChest extends EntityMinecartContainer {
@@ -33,12 +33,12 @@ public class EntityMinecartChest extends EntityMinecartContainer {
         return 27;
     }
 
-    public EntityMinecart.EnumMinecartType getMinecartType() {
-        return EntityMinecart.EnumMinecartType.CHEST;
+    public MinecartType getMinecartType() {
+        return MinecartType.CHEST;
     }
 
     public IBlockState getDefaultDisplayTile() {
-        return Blocks.chest.getDefaultState().withProperty(BlockChest.FACING, EnumFacing.NORTH);
+        return Blocks.chest.getDefaultState().withProperty(BlockChest.FACING, Direction.NORTH);
     }
 
     public int getDefaultDisplayTileOffset() {

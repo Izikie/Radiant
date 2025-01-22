@@ -11,21 +11,21 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public class EntityPainting extends EntityHanging {
-    public EntityPainting.EnumArt art;
+    public PaintingType art;
 
     public EntityPainting(World worldIn) {
         super(worldIn);
     }
 
-    public EntityPainting(World worldIn, BlockPos pos, EnumFacing facing) {
+    public EntityPainting(World worldIn, BlockPos pos, Direction facing) {
         super(worldIn, pos);
-        List<EntityPainting.EnumArt> list = Lists.newArrayList();
+        List<PaintingType> list = Lists.newArrayList();
 
-        for (EntityPainting.EnumArt entitypainting$enumart : EntityPainting.EnumArt.values()) {
+        for (PaintingType entitypainting$enumart : PaintingType.values()) {
             this.art = entitypainting$enumart;
             this.updateFacingWithBoundingBox(facing);
 
@@ -41,10 +41,10 @@ public class EntityPainting extends EntityHanging {
         this.updateFacingWithBoundingBox(facing);
     }
 
-    public EntityPainting(World worldIn, BlockPos pos, EnumFacing facing, String title) {
+    public EntityPainting(World worldIn, BlockPos pos, Direction facing, String title) {
         this(worldIn, pos, facing);
 
-        for (EntityPainting.EnumArt entitypainting$enumart : EntityPainting.EnumArt.values()) {
+        for (PaintingType entitypainting$enumart : PaintingType.values()) {
             if (entitypainting$enumart.title.equals(title)) {
                 this.art = entitypainting$enumart;
                 break;
@@ -62,14 +62,14 @@ public class EntityPainting extends EntityHanging {
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         String s = tagCompund.getString("Motive");
 
-        for (EntityPainting.EnumArt entitypainting$enumart : EntityPainting.EnumArt.values()) {
+        for (PaintingType entitypainting$enumart : PaintingType.values()) {
             if (entitypainting$enumart.title.equals(s)) {
                 this.art = entitypainting$enumart;
             }
         }
 
         if (this.art == null) {
-            this.art = EntityPainting.EnumArt.KEBAB;
+            this.art = PaintingType.KEBAB;
         }
 
         super.readEntityFromNBT(tagCompund);
@@ -106,7 +106,7 @@ public class EntityPainting extends EntityHanging {
         this.setPosition(blockpos.getX(), blockpos.getY(), blockpos.getZ());
     }
 
-    public enum EnumArt {
+    public enum PaintingType {
         KEBAB("Kebab", 16, 16, 0, 0),
         AZTEC("Aztec", 16, 16, 16, 0),
         ALBAN("Alban", 16, 16, 32, 0),
@@ -141,7 +141,7 @@ public class EntityPainting extends EntityHanging {
         public final int offsetX;
         public final int offsetY;
 
-        EnumArt(String titleIn, int width, int height, int textureU, int textureV) {
+        PaintingType(String titleIn, int width, int height, int textureU, int textureV) {
             this.title = titleIn;
             this.sizeX = width;
             this.sizeY = height;

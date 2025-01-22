@@ -11,11 +11,11 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockStateHelper;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public class WorldGenDesertWells extends WorldGenerator {
-    private static final BlockStateHelper field_175913_a = BlockStateHelper.forBlock(Blocks.sand).where(BlockSand.VARIANT, Predicates.equalTo(BlockSand.EnumType.SAND));
+    private static final BlockStateHelper field_175913_a = BlockStateHelper.forBlock(Blocks.sand).where(BlockSand.VARIANT, Predicates.equalTo(BlockSand.SandType.SAND));
     private final IBlockState field_175911_b = Blocks.stone_slab.getDefaultState().withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.SAND).withProperty(BlockSlab.HALF, BlockSlab.EnumBlockHalf.BOTTOM);
     private final IBlockState field_175912_c = Blocks.sandstone.getDefaultState();
     private final IBlockState field_175910_d = Blocks.flowing_water.getDefaultState();
@@ -46,7 +46,7 @@ public class WorldGenDesertWells extends WorldGenerator {
 
             worldIn.setBlockState(position, this.field_175910_d, 2);
 
-            for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+            for (Direction enumfacing : Direction.Plane.HORIZONTAL) {
                 worldIn.setBlockState(position.offset(enumfacing), this.field_175910_d, 2);
             }
 

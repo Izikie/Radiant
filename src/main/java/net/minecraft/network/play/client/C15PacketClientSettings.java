@@ -10,13 +10,13 @@ import net.minecraft.network.play.INetHandlerPlayServer;
 public class C15PacketClientSettings implements Packet<INetHandlerPlayServer> {
     private String lang;
     private int view;
-    private EntityPlayer.EnumChatVisibility chatVisibility;
+    private EntityPlayer.ChatVisibility chatVisibility;
     private boolean enableColors;
     private int modelPartFlags;
 
     public C15PacketClientSettings() {}
 
-    public C15PacketClientSettings(String langIn, int viewIn, EntityPlayer.EnumChatVisibility chatVisibilityIn, boolean enableColorsIn, int modelPartFlagsIn) {
+    public C15PacketClientSettings(String langIn, int viewIn, EntityPlayer.ChatVisibility chatVisibilityIn, boolean enableColorsIn, int modelPartFlagsIn) {
         this.lang = langIn;
         this.view = viewIn;
         this.chatVisibility = chatVisibilityIn;
@@ -27,7 +27,7 @@ public class C15PacketClientSettings implements Packet<INetHandlerPlayServer> {
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.lang = buf.readStringFromBuffer(7);
         this.view = buf.readByte();
-        this.chatVisibility = EntityPlayer.EnumChatVisibility.getEnumChatVisibility(buf.readByte());
+        this.chatVisibility = EntityPlayer.ChatVisibility.getEnumChatVisibility(buf.readByte());
         this.enableColors = buf.readBoolean();
         this.modelPartFlags = buf.readUnsignedByte();
     }
@@ -48,7 +48,7 @@ public class C15PacketClientSettings implements Packet<INetHandlerPlayServer> {
         return this.lang;
     }
 
-    public EntityPlayer.EnumChatVisibility getChatVisibility() {
+    public EntityPlayer.ChatVisibility getChatVisibility() {
         return this.chatVisibility;
     }
 

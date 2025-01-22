@@ -9,18 +9,18 @@ import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public class BlockPistonStructureHelper {
     private final World world;
     private final BlockPos pistonPos;
     private final BlockPos blockToMove;
-    private final EnumFacing moveDirection;
+    private final Direction moveDirection;
     private final List<BlockPos> toMove = Lists.newArrayList();
     private final List<BlockPos> toDestroy = Lists.newArrayList();
 
-    public BlockPistonStructureHelper(World worldIn, BlockPos posIn, EnumFacing pistonFacing, boolean extending) {
+    public BlockPistonStructureHelper(World worldIn, BlockPos posIn, Direction pistonFacing, boolean extending) {
         this.world = worldIn;
         this.pistonPos = posIn;
 
@@ -159,7 +159,7 @@ public class BlockPistonStructureHelper {
     }
 
     private boolean func_177250_b(BlockPos p_177250_1_) {
-        for (EnumFacing enumfacing : EnumFacing.values()) {
+        for (Direction enumfacing : Direction.values()) {
             if (enumfacing.getAxis() != this.moveDirection.getAxis() && !this.func_177251_a(p_177250_1_.offset(enumfacing))) {
                 return false;
             }

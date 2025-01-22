@@ -30,7 +30,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EntitySelectors;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -121,7 +121,7 @@ public class PlayerSelector {
 
         if (s != null && !EntityList.isStringValidEntityName(s)) {
             ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation("commands.generic.entity.invalidType", s);
-            chatcomponenttranslation.getChatStyle().setColor(EnumChatFormatting.RED);
+            chatcomponenttranslation.getChatStyle().setColor(Formatting.RED);
             commandSender.addChatMessage(chatcomponenttranslation);
             return false;
         } else {

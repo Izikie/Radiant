@@ -9,8 +9,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.Direction;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -27,8 +27,8 @@ public class EntityMinecartFurnace extends EntityMinecart {
         super(worldIn, x, y, z);
     }
 
-    public EntityMinecart.EnumMinecartType getMinecartType() {
-        return EntityMinecart.EnumMinecartType.FURNACE;
+    public MinecartType getMinecartType() {
+        return MinecartType.FURNACE;
     }
 
     protected void entityInit() {
@@ -50,7 +50,7 @@ public class EntityMinecartFurnace extends EntityMinecart {
         this.setMinecartPowered(this.fuel > 0);
 
         if (this.isMinecartPowered() && this.rand.nextInt(4) == 0) {
-            this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_LARGE, this.posX, this.posY + 0.8D, this.posZ, 0.0D, 0.0D, 0.0D);
+            this.worldObj.spawnParticle(ParticleTypes.SMOKE_LARGE, this.posX, this.posY + 0.8D, this.posZ, 0.0D, 0.0D, 0.0D);
         }
     }
 
@@ -151,6 +151,6 @@ public class EntityMinecartFurnace extends EntityMinecart {
     }
 
     public IBlockState getDefaultDisplayTile() {
-        return (this.isMinecartPowered() ? Blocks.lit_furnace : Blocks.furnace).getDefaultState().withProperty(BlockFurnace.FACING, EnumFacing.NORTH);
+        return (this.isMinecartPowered() ? Blocks.lit_furnace : Blocks.furnace).getDefaultState().withProperty(BlockFurnace.FACING, Direction.NORTH);
     }
 }

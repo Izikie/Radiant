@@ -13,8 +13,8 @@ import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.Direction;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.world.World;
 
 public class ItemDye extends Item {
@@ -28,16 +28,16 @@ public class ItemDye extends Item {
 
     public String getUnlocalizedName(ItemStack stack) {
         int i = stack.getMetadata();
-        return super.getUnlocalizedName() + "." + EnumDyeColor.byDyeDamage(i).getUnlocalizedName();
+        return super.getUnlocalizedName() + "." + DyeColor.byDyeDamage(i).getUnlocalizedName();
     }
 
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
         if (!playerIn.canPlayerEdit(pos.offset(side), side, stack)) {
             return false;
         } else {
-            EnumDyeColor enumdyecolor = EnumDyeColor.byDyeDamage(stack.getMetadata());
+            DyeColor enumdyecolor = DyeColor.byDyeDamage(stack.getMetadata());
 
-            if (enumdyecolor == EnumDyeColor.WHITE) {
+            if (enumdyecolor == DyeColor.WHITE) {
                 if (applyBonemeal(stack, worldIn, pos)) {
                     if (!worldIn.isRemote) {
                         worldIn.playAuxSFX(2005, pos, 0);
@@ -45,16 +45,16 @@ public class ItemDye extends Item {
 
                     return true;
                 }
-            } else if (enumdyecolor == EnumDyeColor.BROWN) {
+            } else if (enumdyecolor == DyeColor.BROWN) {
                 IBlockState iblockstate = worldIn.getBlockState(pos);
                 Block block = iblockstate.getBlock();
 
-                if (block == Blocks.log && iblockstate.getValue(BlockPlanks.VARIANT) == BlockPlanks.EnumType.JUNGLE) {
-                    if (side == EnumFacing.DOWN) {
+                if (block == Blocks.log && iblockstate.getValue(BlockPlanks.VARIANT) == BlockPlanks.WoodType.JUNGLE) {
+                    if (side == Direction.DOWN) {
                         return false;
                     }
 
-                    if (side == EnumFacing.UP) {
+                    if (side == Direction.UP) {
                         return false;
                     }
 
@@ -112,14 +112,14 @@ public class ItemDye extends Item {
                 double d0 = itemRand.nextGaussian() * 0.02D;
                 double d1 = itemRand.nextGaussian() * 0.02D;
                 double d2 = itemRand.nextGaussian() * 0.02D;
-                worldIn.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, (pos.getX() + itemRand.nextFloat()), pos.getY() + itemRand.nextFloat() * block.getBlockBoundsMaxY(), (pos.getZ() + itemRand.nextFloat()), d0, d1, d2);
+                worldIn.spawnParticle(ParticleTypes.VILLAGER_HAPPY, (pos.getX() + itemRand.nextFloat()), pos.getY() + itemRand.nextFloat() * block.getBlockBoundsMaxY(), (pos.getZ() + itemRand.nextFloat()), d0, d1, d2);
             }
         }
     }
 
     public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target) {
         if (target instanceof EntitySheep entitysheep) {
-            EnumDyeColor enumdyecolor = EnumDyeColor.byDyeDamage(stack.getMetadata());
+            DyeColor enumdyecolor = DyeColor.byDyeDamage(stack.getMetadata());
 
             if (!entitysheep.getSheared() && entitysheep.getFleeceColor() != enumdyecolor) {
                 entitysheep.setFleeceColor(enumdyecolor);

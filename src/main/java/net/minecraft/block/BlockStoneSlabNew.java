@@ -109,7 +109,7 @@ public abstract class BlockStoneSlabNew extends BlockSlab {
     }
 
     public enum EnumType implements IStringSerializable {
-        RED_SANDSTONE(0, "red_sandstone", BlockSand.EnumType.RED_SAND.getMapColor());
+        RED_SANDSTONE(0, "red_sandstone", BlockSand.SandType.RED_SAND.getMapColor());
 
         private static final BlockStoneSlabNew.EnumType[] META_LOOKUP = new BlockStoneSlabNew.EnumType[values().length];
         private final int meta;

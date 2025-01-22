@@ -9,7 +9,7 @@ import net.minecraft.block.BlockSand;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
@@ -32,7 +32,7 @@ public class BiomeGenMesa extends BiomeGenBase {
         this.setDisableRain();
         this.setTemperatureRainfall(2.0F, 0.0F);
         this.spawnableCreatureList.clear();
-        this.topBlock = Blocks.sand.getDefaultState().withProperty(BlockSand.VARIANT, BlockSand.EnumType.RED_SAND);
+        this.topBlock = Blocks.sand.getDefaultState().withProperty(BlockSand.VARIANT, BlockSand.SandType.RED_SAND);
         this.fillerBlock = Blocks.stained_hardened_clay.getDefaultState();
         this.theBiomeDecorator.treesPerChunk = -999;
         this.theBiomeDecorator.deadBushPerChunk = 20;
@@ -139,7 +139,7 @@ public class BiomeGenMesa extends BiomeGenBase {
                             chunkPrimerIn.setBlockState(k1, i1, j1, iblockstate3);
 
                             if (iblockstate3.getBlock() == Blocks.stained_hardened_clay) {
-                                chunkPrimerIn.setBlockState(k1, i1, j1, iblockstate3.getBlock().getDefaultState().withProperty(BlockColored.COLOR, EnumDyeColor.ORANGE));
+                                chunkPrimerIn.setBlockState(k1, i1, j1, iblockstate3.getBlock().getDefaultState().withProperty(BlockColored.COLOR, DyeColor.ORANGE));
                             }
                         } else if (this.field_150620_aI && i1 > 86 + k * 2) {
                             if (flag) {
@@ -160,7 +160,7 @@ public class BiomeGenMesa extends BiomeGenBase {
                                     iblockstate4 = this.func_180629_a(x, i1, z);
                                 }
                             } else {
-                                iblockstate4 = Blocks.stained_hardened_clay.getDefaultState().withProperty(BlockColored.COLOR, EnumDyeColor.ORANGE);
+                                iblockstate4 = Blocks.stained_hardened_clay.getDefaultState().withProperty(BlockColored.COLOR, DyeColor.ORANGE);
                             }
 
                             chunkPrimerIn.setBlockState(k1, i1, j1, iblockstate4);
@@ -169,7 +169,7 @@ public class BiomeGenMesa extends BiomeGenBase {
                         --l;
 
                         if (flag1) {
-                            chunkPrimerIn.setBlockState(k1, i1, j1, Blocks.stained_hardened_clay.getDefaultState().withProperty(BlockColored.COLOR, EnumDyeColor.ORANGE));
+                            chunkPrimerIn.setBlockState(k1, i1, j1, Blocks.stained_hardened_clay.getDefaultState().withProperty(BlockColored.COLOR, DyeColor.ORANGE));
                         } else {
                             IBlockState iblockstate2 = this.func_180629_a(x, i1, z);
                             chunkPrimerIn.setBlockState(k1, i1, j1, iblockstate2);
@@ -190,7 +190,7 @@ public class BiomeGenMesa extends BiomeGenBase {
             l1 += random.nextInt(5) + 1;
 
             if (l1 < 64) {
-                this.field_150621_aC[l1] = Blocks.stained_hardened_clay.getDefaultState().withProperty(BlockColored.COLOR, EnumDyeColor.ORANGE);
+                this.field_150621_aC[l1] = Blocks.stained_hardened_clay.getDefaultState().withProperty(BlockColored.COLOR, DyeColor.ORANGE);
             }
         }
 
@@ -201,7 +201,7 @@ public class BiomeGenMesa extends BiomeGenBase {
             int k = random.nextInt(64);
 
             for (int l = 0; k + l < 64 && l < j; ++l) {
-                this.field_150621_aC[k + l] = Blocks.stained_hardened_clay.getDefaultState().withProperty(BlockColored.COLOR, EnumDyeColor.YELLOW);
+                this.field_150621_aC[k + l] = Blocks.stained_hardened_clay.getDefaultState().withProperty(BlockColored.COLOR, DyeColor.YELLOW);
             }
         }
 
@@ -212,7 +212,7 @@ public class BiomeGenMesa extends BiomeGenBase {
             int l3 = random.nextInt(64);
 
             for (int i1 = 0; l3 + i1 < 64 && i1 < i3; ++i1) {
-                this.field_150621_aC[l3 + i1] = Blocks.stained_hardened_clay.getDefaultState().withProperty(BlockColored.COLOR, EnumDyeColor.BROWN);
+                this.field_150621_aC[l3 + i1] = Blocks.stained_hardened_clay.getDefaultState().withProperty(BlockColored.COLOR, DyeColor.BROWN);
             }
         }
 
@@ -223,7 +223,7 @@ public class BiomeGenMesa extends BiomeGenBase {
             int k4 = random.nextInt(64);
 
             for (int j1 = 0; k4 + j1 < 64 && j1 < i4; ++j1) {
-                this.field_150621_aC[k4 + j1] = Blocks.stained_hardened_clay.getDefaultState().withProperty(BlockColored.COLOR, EnumDyeColor.RED);
+                this.field_150621_aC[k4 + j1] = Blocks.stained_hardened_clay.getDefaultState().withProperty(BlockColored.COLOR, DyeColor.RED);
             }
         }
 
@@ -235,14 +235,14 @@ public class BiomeGenMesa extends BiomeGenBase {
             j4 += random.nextInt(16) + 4;
 
             for (int k1 = 0; j4 + k1 < 64 && k1 < i5; ++k1) {
-                this.field_150621_aC[j4 + k1] = Blocks.stained_hardened_clay.getDefaultState().withProperty(BlockColored.COLOR, EnumDyeColor.WHITE);
+                this.field_150621_aC[j4 + k1] = Blocks.stained_hardened_clay.getDefaultState().withProperty(BlockColored.COLOR, DyeColor.WHITE);
 
                 if (j4 + k1 > 1 && random.nextBoolean()) {
-                    this.field_150621_aC[j4 + k1 - 1] = Blocks.stained_hardened_clay.getDefaultState().withProperty(BlockColored.COLOR, EnumDyeColor.SILVER);
+                    this.field_150621_aC[j4 + k1 - 1] = Blocks.stained_hardened_clay.getDefaultState().withProperty(BlockColored.COLOR, DyeColor.SILVER);
                 }
 
                 if (j4 + k1 < 63 && random.nextBoolean()) {
-                    this.field_150621_aC[j4 + k1 + 1] = Blocks.stained_hardened_clay.getDefaultState().withProperty(BlockColored.COLOR, EnumDyeColor.SILVER);
+                    this.field_150621_aC[j4 + k1 + 1] = Blocks.stained_hardened_clay.getDefaultState().withProperty(BlockColored.COLOR, DyeColor.SILVER);
                 }
             }
         }

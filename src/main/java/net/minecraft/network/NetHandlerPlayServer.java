@@ -5,14 +5,11 @@ import com.google.common.primitives.Doubles;
 import com.google.common.primitives.Floats;
 import com.google.common.util.concurrent.Futures;
 import io.netty.buffer.Unpooled;
-import io.netty.util.concurrent.Future;
-import io.netty.util.concurrent.GenericFutureListener;
 
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.Callable;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.command.server.CommandBlockLogic;
@@ -84,8 +81,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Direction;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.IntHashMap;
@@ -360,32 +357,32 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         this.setPlayerLocation(x, y, z, yaw, pitch, Collections.emptySet());
     }
 
-    public void setPlayerLocation(double x, double y, double z, float yaw, float pitch, Set<S08PacketPlayerPosLook.EnumFlags> relativeSet) {
+    public void setPlayerLocation(double x, double y, double z, float yaw, float pitch, Set<S08PacketPlayerPosLook.Flag> relativeSet) {
         this.hasMoved = false;
         this.lastPosX = x;
         this.lastPosY = y;
         this.lastPosZ = z;
 
-        if (relativeSet.contains(S08PacketPlayerPosLook.EnumFlags.X)) {
+        if (relativeSet.contains(S08PacketPlayerPosLook.Flag.X)) {
             this.lastPosX += this.playerEntity.posX;
         }
 
-        if (relativeSet.contains(S08PacketPlayerPosLook.EnumFlags.Y)) {
+        if (relativeSet.contains(S08PacketPlayerPosLook.Flag.Y)) {
             this.lastPosY += this.playerEntity.posY;
         }
 
-        if (relativeSet.contains(S08PacketPlayerPosLook.EnumFlags.Z)) {
+        if (relativeSet.contains(S08PacketPlayerPosLook.Flag.Z)) {
             this.lastPosZ += this.playerEntity.posZ;
         }
 
         float f = yaw;
         float f1 = pitch;
 
-        if (relativeSet.contains(S08PacketPlayerPosLook.EnumFlags.Y_ROT)) {
+        if (relativeSet.contains(S08PacketPlayerPosLook.Flag.Y_ROT)) {
             f = yaw + this.playerEntity.rotationYaw;
         }
 
-        if (relativeSet.contains(S08PacketPlayerPosLook.EnumFlags.X_ROT)) {
+        if (relativeSet.contains(S08PacketPlayerPosLook.Flag.X_ROT)) {
             f1 = pitch + this.playerEntity.rotationPitch;
         }
 
@@ -463,7 +460,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         ItemStack itemstack = this.playerEntity.inventory.getCurrentItem();
         boolean flag = false;
         BlockPos blockpos = packetIn.getPosition();
-        EnumFacing enumfacing = EnumFacing.getFront(packetIn.getPlacedBlockDirection());
+        Direction enumfacing = Direction.getFront(packetIn.getPlacedBlockDirection());
         this.playerEntity.markPlayerActive();
 
         if (packetIn.getPlacedBlockDirection() == 255) {
@@ -472,7 +469,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
             }
 
             this.playerEntity.theItemInWorldManager.tryUseItem(this.playerEntity, worldserver, itemstack);
-        } else if (blockpos.getY() < this.serverController.getBuildLimit() - 1 || enumfacing != EnumFacing.UP && blockpos.getY() < this.serverController.getBuildLimit()) {
+        } else if (blockpos.getY() < this.serverController.getBuildLimit() - 1 || enumfacing != Direction.UP && blockpos.getY() < this.serverController.getBuildLimit()) {
             if (this.hasMoved && this.playerEntity.getDistanceSq(blockpos.getX() + 0.5D, blockpos.getY() + 0.5D, blockpos.getZ() + 0.5D) < 64.0D && !this.serverController.isBlockProtected(worldserver, blockpos, this.playerEntity) && worldserver.getWorldBorder().contains(blockpos)) {
                 this.playerEntity.theItemInWorldManager.activateBlockOrUseItem(this.playerEntity, worldserver, itemstack, blockpos, enumfacing, packetIn.getPlacedBlockOffsetX(), packetIn.getPlacedBlockOffsetY(), packetIn.getPlacedBlockOffsetZ());
             }
@@ -480,7 +477,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
             flag = true;
         } else {
             ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation("build.tooHigh", this.serverController.getBuildLimit());
-            chatcomponenttranslation.getChatStyle().setColor(EnumChatFormatting.RED);
+            chatcomponenttranslation.getChatStyle().setColor(Formatting.RED);
             this.playerEntity.playerNetServerHandler.sendPacket(new S02PacketChat(chatcomponenttranslation));
             flag = true;
         }
@@ -565,7 +562,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         logger.info("{} lost connection: {}", this.playerEntity.getName(), reason);
         this.serverController.refreshStatusNextTick();
         ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation("multiplayer.player.left", this.playerEntity.getDisplayName());
-        chatcomponenttranslation.getChatStyle().setColor(EnumChatFormatting.YELLOW);
+        chatcomponenttranslation.getChatStyle().setColor(Formatting.YELLOW);
         this.serverController.getConfigurationManager().sendChatMsg(chatcomponenttranslation);
         this.playerEntity.mountEntityAndWakeUp();
         this.serverController.getConfigurationManager().playerLoggedOut(this.playerEntity);
@@ -578,13 +575,13 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 
     public void sendPacket(final Packet packetIn) {
         if (packetIn instanceof S02PacketChat s02packetchat) {
-            EntityPlayer.EnumChatVisibility entityplayer$enumchatvisibility = this.playerEntity.getChatVisibility();
+            EntityPlayer.ChatVisibility entityplayer$enumchatvisibility = this.playerEntity.getChatVisibility();
 
-            if (entityplayer$enumchatvisibility == EntityPlayer.EnumChatVisibility.HIDDEN) {
+            if (entityplayer$enumchatvisibility == EntityPlayer.ChatVisibility.HIDDEN) {
                 return;
             }
 
-            if (entityplayer$enumchatvisibility == EntityPlayer.EnumChatVisibility.SYSTEM && !s02packetchat.isChat()) {
+            if (entityplayer$enumchatvisibility == EntityPlayer.ChatVisibility.SYSTEM && !s02packetchat.isChat()) {
                 return;
             }
         }
@@ -613,9 +610,9 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
     public void processChatMessage(C01PacketChatMessage packetIn) {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.playerEntity.getServerForPlayer());
 
-        if (this.playerEntity.getChatVisibility() == EntityPlayer.EnumChatVisibility.HIDDEN) {
+        if (this.playerEntity.getChatVisibility() == EntityPlayer.ChatVisibility.HIDDEN) {
             ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation("chat.cannotSend");
-            chatcomponenttranslation.getChatStyle().setColor(EnumChatFormatting.RED);
+            chatcomponenttranslation.getChatStyle().setColor(Formatting.RED);
             this.sendPacket(new S02PacketChat(chatcomponenttranslation));
         } else {
             this.playerEntity.markPlayerActive();
@@ -896,7 +893,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
             IChatComponent[] aichatcomponent = packetIn.getLines();
 
             for (int i = 0; i < aichatcomponent.length; ++i) {
-                tileentitysign.signText[i] = new ChatComponentText(EnumChatFormatting.getTextWithoutFormattingCodes(aichatcomponent[i].getUnformattedText()));
+                tileentitysign.signText[i] = new ChatComponentText(Formatting.getTextWithoutFormattingCodes(aichatcomponent[i].getUnformattedText()));
             }
 
             tileentitysign.markDirty();

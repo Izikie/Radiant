@@ -31,7 +31,7 @@ import net.minecraft.entity.projectile.EntityEgg;
 import net.minecraft.entity.projectile.EntityPotion;
 import net.minecraft.entity.projectile.EntitySmallFireball;
 import net.minecraft.entity.projectile.EntitySnowball;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemDye;
@@ -45,7 +45,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityDispenser;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.LoggingPrintStream;
 import net.minecraft.util.StringUtils;
 import net.minecraft.world.World;
@@ -113,7 +113,7 @@ public class Bootstrap {
         });
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.spawn_egg, new BehaviorDefaultDispenseItem() {
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-                EnumFacing enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
+                Direction enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
                 double d0 = source.getX() + enumfacing.getFrontOffsetX();
                 double d1 = (source.getBlockPos().getY() + 0.2F);
                 double d2 = source.getZ() + enumfacing.getFrontOffsetZ();
@@ -129,7 +129,7 @@ public class Bootstrap {
         });
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.fireworks, new BehaviorDefaultDispenseItem() {
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-                EnumFacing enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
+                Direction enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
                 double d0 = source.getX() + enumfacing.getFrontOffsetX();
                 double d1 = (source.getBlockPos().getY() + 0.2F);
                 double d2 = source.getZ() + enumfacing.getFrontOffsetZ();
@@ -145,7 +145,7 @@ public class Bootstrap {
         });
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.fire_charge, new BehaviorDefaultDispenseItem() {
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-                EnumFacing enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
+                Direction enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
                 IPosition iposition = BlockDispenser.getDispensePosition(source);
                 double d0 = iposition.getX() + (enumfacing.getFrontOffsetX() * 0.3F);
                 double d1 = iposition.getY() + (enumfacing.getFrontOffsetY() * 0.3F);
@@ -168,7 +168,7 @@ public class Bootstrap {
             private final BehaviorDefaultDispenseItem field_150842_b = new BehaviorDefaultDispenseItem();
 
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-                EnumFacing enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
+                Direction enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
                 World world = source.getWorld();
                 double d0 = source.getX() + (enumfacing.getFrontOffsetX() * 1.125F);
                 double d1 = source.getY() + (enumfacing.getFrontOffsetY() * 1.125F);
@@ -283,7 +283,7 @@ public class Bootstrap {
             private boolean field_150838_b = true;
 
             protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-                if (EnumDyeColor.WHITE == EnumDyeColor.byDyeDamage(stack.getMetadata())) {
+                if (DyeColor.WHITE == DyeColor.byDyeDamage(stack.getMetadata())) {
                     World world = source.getWorld();
                     BlockPos blockpos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
 
@@ -325,13 +325,13 @@ public class Bootstrap {
 
             protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
                 World world = source.getWorld();
-                EnumFacing enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
+                Direction enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
                 BlockPos blockpos = source.getBlockPos().offset(enumfacing);
                 BlockSkull blockskull = Blocks.skull;
 
                 if (world.isAirBlock(blockpos) && blockskull.canDispenserPlace(world, blockpos, stack)) {
                     if (!world.isRemote) {
-                        world.setBlockState(blockpos, blockskull.getDefaultState().withProperty(BlockSkull.FACING, EnumFacing.UP), 3);
+                        world.setBlockState(blockpos, blockskull.getDefaultState().withProperty(BlockSkull.FACING, Direction.UP), 3);
                         TileEntity tileentity = world.getTileEntity(blockpos);
 
                         if (tileentity instanceof TileEntitySkull tileEntitySkull) {

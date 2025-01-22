@@ -4,7 +4,7 @@ import net.minecraft.client.model.ModelSheep1;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderSheep;
 import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.CustomColors;
@@ -25,16 +25,16 @@ public class LayerSheepWool implements LayerRenderer<EntitySheep> {
             if (entitylivingbaseIn.hasCustomName() && "jeb_".equals(entitylivingbaseIn.getCustomNameTag())) {
                 int i1 = 25;
                 int i = entitylivingbaseIn.ticksExisted / 25 + entitylivingbaseIn.getEntityId();
-                int j = EnumDyeColor.values().length;
+                int j = DyeColor.values().length;
                 int k = i % j;
                 int l = (i + 1) % j;
                 float f = ((entitylivingbaseIn.ticksExisted % 25) + partialTicks) / 25.0F;
-                float[] afloat1 = EntitySheep.getDyeRgb(EnumDyeColor.byMetadata(k));
-                float[] afloat2 = EntitySheep.getDyeRgb(EnumDyeColor.byMetadata(l));
+                float[] afloat1 = EntitySheep.getDyeRgb(DyeColor.byMetadata(k));
+                float[] afloat2 = EntitySheep.getDyeRgb(DyeColor.byMetadata(l));
 
                 if (Config.isCustomColors()) {
-                    afloat1 = CustomColors.getSheepColors(EnumDyeColor.byMetadata(k), afloat1);
-                    afloat2 = CustomColors.getSheepColors(EnumDyeColor.byMetadata(l), afloat2);
+                    afloat1 = CustomColors.getSheepColors(DyeColor.byMetadata(k), afloat1);
+                    afloat2 = CustomColors.getSheepColors(DyeColor.byMetadata(l), afloat2);
                 }
 
                 GlStateManager.color(afloat1[0] * (1.0F - f) + afloat2[0] * f, afloat1[1] * (1.0F - f) + afloat2[1] * f, afloat1[2] * (1.0F - f) + afloat2[2] * f);

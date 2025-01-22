@@ -21,7 +21,7 @@ import net.minecraft.client.resources.model.SimpleBakedModel;
 import net.minecraft.src.Config;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import org.lwjgl.util.vector.Vector3f;
 
 public class BlockModelUtils {
@@ -34,10 +34,10 @@ public class BlockModelUtils {
 
     public static IBakedModel makeModelCube(TextureAtlasSprite sprite, int tintIndex) {
         List list = new ArrayList();
-        EnumFacing[] aenumfacing = EnumFacing.VALUES;
+        Direction[] aenumfacing = Direction.VALUES;
         List<List<BakedQuad>> list1 = new ArrayList();
 
-        for (EnumFacing enumfacing : aenumfacing) {
+        for (Direction enumfacing : aenumfacing) {
             List list2 = new ArrayList();
             list2.add(makeBakedQuad(enumfacing, sprite, tintIndex));
             list1.add(list2);
@@ -50,10 +50,10 @@ public class BlockModelUtils {
         List<BakedQuad> list = new ArrayList();
         list.addAll(modelBase.getGeneralQuads());
         list.addAll(modelAdd.getGeneralQuads());
-        EnumFacing[] aenumfacing = EnumFacing.VALUES;
+        Direction[] aenumfacing = Direction.VALUES;
         List list1 = new ArrayList();
 
-        for (EnumFacing enumfacing : aenumfacing) {
+        for (Direction enumfacing : aenumfacing) {
             List list2 = new ArrayList();
             list2.addAll(modelBase.getFaceQuads(enumfacing));
             list2.addAll(modelAdd.getFaceQuads(enumfacing));
@@ -67,7 +67,7 @@ public class BlockModelUtils {
         return new SimpleBakedModel(list, list1, flag, flag1, textureatlassprite, itemcameratransforms);
     }
 
-    public static BakedQuad makeBakedQuad(EnumFacing facing, TextureAtlasSprite sprite, int tintIndex) {
+    public static BakedQuad makeBakedQuad(Direction facing, TextureAtlasSprite sprite, int tintIndex) {
         Vector3f vector3f = new Vector3f(0.0F, 0.0F, 0.0F);
         Vector3f vector3f1 = new Vector3f(16.0F, 16.0F, 16.0F);
         BlockFaceUV blockfaceuv = new BlockFaceUV(new float[]{0.0F, 0.0F, 16.0F, 16.0F}, 0);
@@ -99,9 +99,9 @@ public class BlockModelUtils {
 
                 if (ibakedmodel != null && ibakedmodel != modelmanager.getMissingModel()) {
                     IBakedModel ibakedmodel1 = ModelUtils.duplicateModel(ibakedmodel);
-                    EnumFacing[] aenumfacing = EnumFacing.VALUES;
+                    Direction[] aenumfacing = Direction.VALUES;
 
-                    for (EnumFacing enumfacing : aenumfacing) {
+                    for (Direction enumfacing : aenumfacing) {
                         List<BakedQuad> list = ibakedmodel1.getFaceQuads(enumfacing);
                         replaceTexture(list, spriteOld, spriteNew);
                     }

@@ -15,7 +15,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntitySkull;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 
 public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntitySkull> {
@@ -28,7 +28,7 @@ public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntit
     private final ModelSkeletonHead humanoidHead = new ModelHumanoidHead();
 
     public void renderTileEntityAt(TileEntitySkull te, double x, double y, double z, float partialTicks, int destroyStage) {
-        EnumFacing enumfacing = EnumFacing.getFront(te.getBlockMetadata() & 7);
+        Direction enumfacing = Direction.getFront(te.getBlockMetadata() & 7);
         this.renderSkull((float) x, (float) y, (float) z, enumfacing, (te.getSkullRotation() * 360) / 16.0F, te.getSkullType(), te.getPlayerProfile(), destroyStage);
     }
 
@@ -37,7 +37,7 @@ public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntit
         instance = this;
     }
 
-    public void renderSkull(float p_180543_1_, float p_180543_2_, float p_180543_3_, EnumFacing p_180543_4_, float p_180543_5_, int p_180543_6_, GameProfile p_180543_7_, int p_180543_8_) {
+    public void renderSkull(float p_180543_1_, float p_180543_2_, float p_180543_3_, Direction p_180543_4_, float p_180543_5_, int p_180543_6_, GameProfile p_180543_7_, int p_180543_8_) {
         ModelBase modelbase = this.skeletonHead;
 
         if (p_180543_8_ >= 0) {
@@ -91,7 +91,7 @@ public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntit
         GlStateManager.pushMatrix();
         GlStateManager.disableCull();
 
-        if (p_180543_4_ != EnumFacing.UP) {
+        if (p_180543_4_ != Direction.UP) {
             switch (p_180543_4_) {
                 case NORTH:
                     GlStateManager.translate(p_180543_1_ + 0.5F, p_180543_2_ + 0.25F, p_180543_3_ + 0.74F);

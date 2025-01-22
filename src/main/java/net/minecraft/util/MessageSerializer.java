@@ -6,7 +6,7 @@ import io.netty.handler.codec.MessageToByteEncoder;
 
 import java.io.IOException;
 
-import net.minecraft.network.EnumPacketDirection;
+import net.minecraft.network.PacketDirection;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
@@ -18,9 +18,9 @@ import org.apache.logging.log4j.MarkerManager;
 public class MessageSerializer extends MessageToByteEncoder<Packet> {
     private static final Logger logger = LogManager.getLogger();
     private static final Marker RECEIVED_PACKET_MARKER = MarkerManager.getMarker("PACKET_SENT", NetworkManager.logMarkerPackets);
-    private final EnumPacketDirection direction;
+    private final PacketDirection direction;
 
-    public MessageSerializer(EnumPacketDirection direction) {
+    public MessageSerializer(PacketDirection direction) {
         this.direction = direction;
     }
 

@@ -56,7 +56,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.Util;
 import net.minecraft.util.Vec3;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.MinecraftException;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldManager;
@@ -288,7 +288,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
 
     public abstract WorldSettings.GameType getGameType();
 
-    public abstract EnumDifficulty getDifficulty();
+    public abstract Difficulty getDifficulty();
 
     public abstract boolean isHardcore();
 
@@ -689,15 +689,15 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         this.serverKeyPair = keyPair;
     }
 
-    public void setDifficultyForAllWorlds(EnumDifficulty difficulty) {
+    public void setDifficultyForAllWorlds(Difficulty difficulty) {
         for (World world : this.worldServers) {
             if (world != null) {
                 if (world.getWorldInfo().isHardcoreModeEnabled()) {
-                    world.getWorldInfo().setDifficulty(EnumDifficulty.HARD);
+                    world.getWorldInfo().setDifficulty(Difficulty.HARD);
                     world.setAllowedSpawnTypes(true, true);
                 } else if (this.isSinglePlayer()) {
                     world.getWorldInfo().setDifficulty(difficulty);
-                    world.setAllowedSpawnTypes(world.getDifficulty() != EnumDifficulty.PEACEFUL, true);
+                    world.setAllowedSpawnTypes(world.getDifficulty() != Difficulty.PEACEFUL, true);
                 } else {
                     world.getWorldInfo().setDifficulty(difficulty);
                     world.setAllowedSpawnTypes(this.allowSpawnMonsters(), this.canSpawnAnimals);

@@ -20,9 +20,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityBrewingStand;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.Direction;
+import net.minecraft.util.ParticleTypes;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
@@ -65,7 +65,7 @@ public class BlockBrewingStand extends BlockContainer {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
@@ -92,7 +92,7 @@ public class BlockBrewingStand extends BlockContainer {
         double d0 = (pos.getX() + 0.4F + rand.nextFloat() * 0.2F);
         double d1 = (pos.getY() + 0.7F + rand.nextFloat() * 0.3F);
         double d2 = (pos.getZ() + 0.4F + rand.nextFloat() * 0.2F);
-        worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+        worldIn.spawnParticle(ParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D);
     }
 
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
@@ -121,8 +121,8 @@ public class BlockBrewingStand extends BlockContainer {
         return Container.calcRedstone(worldIn.getTileEntity(pos));
     }
 
-    public EnumWorldBlockLayer getBlockLayer() {
-        return EnumWorldBlockLayer.CUTOUT;
+    public RenderLayer getBlockLayer() {
+        return RenderLayer.CUTOUT;
     }
 
     public IBlockState getStateFromMeta(int meta) {

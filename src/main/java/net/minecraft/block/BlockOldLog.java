@@ -1,7 +1,5 @@
 package net.minecraft.block;
 
-import com.google.common.base.Predicate;
-
 import java.util.List;
 
 import net.minecraft.block.material.MapColor;
@@ -13,14 +11,14 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class BlockOldLog extends BlockLog {
-    public static final PropertyEnum<BlockPlanks.EnumType> VARIANT = PropertyEnum.create("variant", BlockPlanks.EnumType.class, p_apply_1_ -> p_apply_1_.getMetadata() < 4);
+    public static final PropertyEnum<BlockPlanks.WoodType> VARIANT = PropertyEnum.create("variant", BlockPlanks.WoodType.class, p_apply_1_ -> p_apply_1_.getMetadata() < 4);
 
     public BlockOldLog() {
-        this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockPlanks.EnumType.OAK).withProperty(LOG_AXIS, BlockLog.EnumAxis.Y));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockPlanks.WoodType.OAK).withProperty(LOG_AXIS, Axis.Y));
     }
 
     public MapColor getMapColor(IBlockState state) {
-        BlockPlanks.EnumType blockplanks$enumtype = state.getValue(VARIANT);
+        BlockPlanks.WoodType blockplanks$enumtype = state.getValue(VARIANT);
 
         switch (state.getValue(LOG_AXIS)) {
             case Y:
@@ -31,29 +29,29 @@ public class BlockOldLog extends BlockLog {
             case NONE:
             default:
                 return switch (blockplanks$enumtype) {
-                    case SPRUCE -> BlockPlanks.EnumType.DARK_OAK.getMapColor();
+                    case SPRUCE -> BlockPlanks.WoodType.DARK_OAK.getMapColor();
                     case BIRCH -> MapColor.quartzColor;
-                    case JUNGLE -> BlockPlanks.EnumType.SPRUCE.getMapColor();
-                    default -> BlockPlanks.EnumType.SPRUCE.getMapColor();
+                    case JUNGLE -> BlockPlanks.WoodType.SPRUCE.getMapColor();
+                    default -> BlockPlanks.WoodType.SPRUCE.getMapColor();
                 };
         }
     }
 
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-        list.add(new ItemStack(itemIn, 1, BlockPlanks.EnumType.OAK.getMetadata()));
-        list.add(new ItemStack(itemIn, 1, BlockPlanks.EnumType.SPRUCE.getMetadata()));
-        list.add(new ItemStack(itemIn, 1, BlockPlanks.EnumType.BIRCH.getMetadata()));
-        list.add(new ItemStack(itemIn, 1, BlockPlanks.EnumType.JUNGLE.getMetadata()));
+        list.add(new ItemStack(itemIn, 1, BlockPlanks.WoodType.OAK.getMetadata()));
+        list.add(new ItemStack(itemIn, 1, BlockPlanks.WoodType.SPRUCE.getMetadata()));
+        list.add(new ItemStack(itemIn, 1, BlockPlanks.WoodType.BIRCH.getMetadata()));
+        list.add(new ItemStack(itemIn, 1, BlockPlanks.WoodType.JUNGLE.getMetadata()));
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        IBlockState iblockstate = this.getDefaultState().withProperty(VARIANT, BlockPlanks.EnumType.byMetadata((meta & 3) % 4));
+        IBlockState iblockstate = this.getDefaultState().withProperty(VARIANT, BlockPlanks.WoodType.byMetadata((meta & 3) % 4));
 
         iblockstate = switch (meta & 12) {
-            case 0 -> iblockstate.withProperty(LOG_AXIS, EnumAxis.Y);
-            case 4 -> iblockstate.withProperty(LOG_AXIS, EnumAxis.X);
-            case 8 -> iblockstate.withProperty(LOG_AXIS, EnumAxis.Z);
-            default -> iblockstate.withProperty(LOG_AXIS, EnumAxis.NONE);
+            case 0 -> iblockstate.withProperty(LOG_AXIS, Axis.Y);
+            case 4 -> iblockstate.withProperty(LOG_AXIS, Axis.X);
+            case 8 -> iblockstate.withProperty(LOG_AXIS, Axis.Z);
+            default -> iblockstate.withProperty(LOG_AXIS, Axis.NONE);
         };
 
         return iblockstate;

@@ -8,7 +8,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
@@ -73,6 +73,6 @@ public class BlockOre extends Block {
     }
 
     public int damageDropped(IBlockState state) {
-        return this == Blocks.lapis_ore ? EnumDyeColor.BLUE.getDyeDamage() : 0;
+        return this == Blocks.lapis_ore ? DyeColor.BLUE.getDyeDamage() : 0;
     }
 }
