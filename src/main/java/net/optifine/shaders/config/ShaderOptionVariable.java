@@ -80,7 +80,7 @@ public class ShaderOptionVariable extends ShaderOption {
             valuesStr = StrUtils.removeSuffix(valuesStr, "]");
             valuesStr = valuesStr.trim();
 
-            if (valuesStr.length() == 0) {
+            if (valuesStr.isEmpty()) {
                 return astring;
             } else {
                 String[] astring1 = Config.tokenize(valuesStr, " ");

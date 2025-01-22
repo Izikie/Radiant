@@ -102,7 +102,7 @@ public class ConnectedParser {
         } else {
             blockStr = blockStr.trim();
 
-            if (blockStr.length() == 0) {
+            if (blockStr.isEmpty()) {
                 return null;
             } else {
                 String[] astring = Config.tokenize(blockStr, ":");

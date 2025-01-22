@@ -115,7 +115,7 @@ public class HttpPipelineConnection {
     }
 
     public synchronized HttpPipelineRequest getNextRequestSend() throws InterruptedException, IOException {
-        if (this.listRequestsSend.size() == 0 && this.outputStream != null) {
+        if (this.listRequestsSend.isEmpty() && this.outputStream != null) {
             this.outputStream.flush();
         }
 
@@ -127,7 +127,7 @@ public class HttpPipelineConnection {
     }
 
     private HttpPipelineRequest getNextRequest(List<HttpPipelineRequest> list, boolean remove) throws InterruptedException {
-        while (list.size() == 0) {
+        while (list.isEmpty()) {
             this.checkTimeout();
             this.wait(1000L);
         }

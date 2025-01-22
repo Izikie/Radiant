@@ -241,7 +241,7 @@ public class StrUtils {
     }
 
     public static boolean isEmpty(String string) {
-        return string == null ? true : string.trim().length() == 0;
+        return string == null ? true : string.trim().isEmpty();
     }
 
     public static String stringInc(String str) {

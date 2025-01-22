@@ -71,7 +71,7 @@ public class CompactArrayList {
     }
 
     public void compact() {
-        if (this.countValid <= 0 && this.list.size() == 0) {
+        if (this.countValid <= 0 && this.list.isEmpty()) {
             this.clear();
         } else if (this.list.size() > this.initialCapacity) {
             float f = this.countValid * 1.0F / this.list.size();

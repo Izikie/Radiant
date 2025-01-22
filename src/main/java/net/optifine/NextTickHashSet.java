@@ -122,7 +122,7 @@ public class NextTickHashSet extends TreeSet {
                 }
             }
 
-            if (list.size() == 0) {
+            if (list.isEmpty()) {
                 return Iterators.emptyIterator();
             } else if (list.size() == 1) {
                 return (Iterator) list.getFirst();

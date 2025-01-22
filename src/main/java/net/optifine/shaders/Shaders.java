@@ -969,7 +969,7 @@ public class Shaders {
             }
         }
 
-        if (list.size() == 0) {
+        if (list.isEmpty()) {
             return null;
         } else {
             return list.toArray(new ICustomTexture[0]);
@@ -4583,7 +4583,7 @@ public class Shaders {
     public static boolean isProgramPath(String path) {
         if (path == null) {
             return false;
-        } else if (path.length() == 0) {
+        } else if (path.isEmpty()) {
             return false;
         } else {
             int i = path.lastIndexOf("/");

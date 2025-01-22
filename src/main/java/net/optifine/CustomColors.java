@@ -432,7 +432,7 @@ public class CustomColors {
             }
         }
 
-        if (list.size() == 0) {
+        if (list.isEmpty()) {
             return null;
         } else {
             return (CustomColormap[]) list.toArray(new CustomColormap[0]);
@@ -476,7 +476,7 @@ public class CustomColors {
             }
         }
 
-        if (list.size() == 0) {
+        if (list.isEmpty()) {
             return null;
         } else {
             return blockListToArray(list);

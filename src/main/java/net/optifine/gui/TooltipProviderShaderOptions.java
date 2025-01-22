@@ -67,7 +67,7 @@ public class TooltipProviderShaderOptions extends TooltipProviderOptions {
     }
 
     private String[] splitDescription(String desc) {
-        if (desc.length() == 0) {
+        if (desc.isEmpty()) {
             return new String[0];
         } else {
             desc = StrUtils.removePrefix(desc, "//");
