@@ -8,7 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 public class ItemSaddle extends Item {
     public ItemSaddle() {
         this.maxStackSize = 1;
-        this.setCreativeTab(CreativeTabs.tabTransport);
+        this.setCreativeTab(CreativeTabs.TAB_TRANSPORT);
     }
 
     public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target) {

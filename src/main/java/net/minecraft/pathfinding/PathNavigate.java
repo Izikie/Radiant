@@ -28,7 +28,7 @@ public abstract class PathNavigate {
     public PathNavigate(EntityLiving entitylivingIn, World worldIn) {
         this.theEntity = entitylivingIn;
         this.worldObj = worldIn;
-        this.pathSearchRange = entitylivingIn.getEntityAttribute(SharedMonsterAttributes.followRange);
+        this.pathSearchRange = entitylivingIn.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE);
         this.pathFinder = this.getPathFinder();
     }
 

@@ -23,7 +23,7 @@ public class BlockGrass extends Block implements IGrowable {
         super(Material.GRASS);
         this.setDefaultState(this.blockState.getBaseState().withProperty(SNOWY, Boolean.FALSE));
         this.setTickRandomly(true);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {

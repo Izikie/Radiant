@@ -756,7 +756,7 @@ public class ShadersTex {
 
     public static void updateTextureMinMagFilter() {
         TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
-        ITextureObject itextureobject = texturemanager.getTexture(TextureMap.locationBlocksTexture);
+        ITextureObject itextureobject = texturemanager.getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
         if (itextureobject != null) {
             MultiTexID multitexid = itextureobject.getMultiTexID();

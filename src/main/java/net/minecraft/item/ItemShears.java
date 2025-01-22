@@ -12,7 +12,7 @@ public class ItemShears extends Item {
     public ItemShears() {
         this.setMaxStackSize(1);
         this.setMaxDamage(238);
-        this.setCreativeTab(CreativeTabs.tabTools);
+        this.setCreativeTab(CreativeTabs.TAB_TOOLS);
     }
 
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, BlockPos pos, EntityLivingBase playerIn) {

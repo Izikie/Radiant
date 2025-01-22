@@ -28,9 +28,9 @@ import net.minecraft.util.MathHelper;
 import java.util.Arrays;
 
 public class TileEntityFurnace extends TileEntityLockable implements ITickable, ISidedInventory {
-    private static final int[] slotsTop = new int[]{0};
-    private static final int[] slotsBottom = new int[]{2, 1};
-    private static final int[] slotsSides = new int[]{1};
+    private static final int[] SLOTS_TOP = new int[]{0};
+    private static final int[] SLOTS_BOTTOM = new int[]{2, 1};
+    private static final int[] SLOTS_SIDES = new int[]{1};
     private ItemStack[] furnaceItemStacks = new ItemStack[3];
     private int furnaceBurnTime;
     private int currentItemBurnTime;
@@ -296,7 +296,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
     }
 
     public int[] getSlotsForFace(Direction side) {
-        return side == Direction.DOWN ? slotsBottom : (side == Direction.UP ? slotsTop : slotsSides);
+        return side == Direction.DOWN ? SLOTS_BOTTOM : (side == Direction.UP ? SLOTS_TOP : SLOTS_SIDES);
     }
 
     public boolean canInsertItem(int index, ItemStack itemStackIn, Direction direction) {

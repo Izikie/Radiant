@@ -27,7 +27,7 @@ import org.apache.logging.log4j.Logger;
 
 public class ShaderManager {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final ShaderDefault defaultShaderUniform = new ShaderDefault();
+    private static final ShaderDefault DEFAULT_SHADER_UNIFORM = new ShaderDefault();
     private static ShaderManager staticShaderManager = null;
     private static int currentProgram = -1;
     private static boolean field_148000_e = true;
@@ -212,7 +212,7 @@ public class ShaderManager {
     }
 
     public ShaderUniform getShaderUniformOrDefault(String p_147984_1_) {
-        return this.mappedShaderUniforms.getOrDefault(p_147984_1_, defaultShaderUniform);
+        return this.mappedShaderUniforms.getOrDefault(p_147984_1_, DEFAULT_SHADER_UNIFORM);
     }
 
     private void setupUniforms() {

@@ -22,7 +22,7 @@ public class BlockPrismarine extends Block {
     public BlockPrismarine() {
         super(Material.ROCK);
         this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, PrismarineType.ROUGH));
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public String getLocalizedName() {

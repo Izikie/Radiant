@@ -15,7 +15,7 @@ public class BlockFalling extends Block {
 
     public BlockFalling() {
         super(Material.SAND);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public BlockFalling(Material materialIn) {

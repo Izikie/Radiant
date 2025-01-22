@@ -22,7 +22,7 @@ public class BlockFenceGate extends BlockDirectional {
     public BlockFenceGate(BlockPlanks.WoodType p_i46394_1_) {
         super(Material.WOOD, p_i46394_1_.getMapColor());
         this.setDefaultState(this.blockState.getBaseState().withProperty(OPEN, Boolean.FALSE).withProperty(POWERED, Boolean.FALSE).withProperty(IN_WALL, Boolean.FALSE));
-        this.setCreativeTab(CreativeTabs.tabRedstone);
+        this.setCreativeTab(CreativeTabs.TAB_REDSTONE);
     }
 
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {

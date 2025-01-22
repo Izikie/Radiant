@@ -20,7 +20,7 @@ public class ItemBucket extends Item {
     public ItemBucket(Block containedBlock) {
         this.maxStackSize = 1;
         this.isFull = containedBlock;
-        this.setCreativeTab(CreativeTabs.tabMisc);
+        this.setCreativeTab(CreativeTabs.TAB_MISC);
     }
 
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {

@@ -52,9 +52,9 @@ import org.apache.logging.log4j.MarkerManager;
 
 public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
     private static final Logger LOGGER = LogManager.getLogger();
-    public static final Marker logMarkerNetwork = MarkerManager.getMarker("NETWORK");
-    public static final Marker logMarkerPackets = MarkerManager.getMarker("NETWORK_PACKETS", logMarkerNetwork);
-    public static final AttributeKey<NetworkState> attrKeyConnectionState = AttributeKey.valueOf("protocol");
+    public static final Marker LOG_MARKER_NETWORK = MarkerManager.getMarker("NETWORK");
+    public static final Marker LOG_MARKER_PACKETS = MarkerManager.getMarker("NETWORK_PACKETS", LOG_MARKER_NETWORK);
+    public static final AttributeKey<NetworkState> ATTR_KEY_CONNECTION_STATE = AttributeKey.valueOf("protocol");
     public static final LazyLoadBase<NioEventLoopGroup> CLIENT_NIO_EVENTLOOP = new LazyLoadBase<>() {
         protected NioEventLoopGroup load() {
             return new NioEventLoopGroup(0, (new ThreadFactoryBuilder()).setNameFormat("Netty Client IO #%d").setDaemon(true).build());
@@ -97,7 +97,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
     }
 
     public void setConnectionState(NetworkState newState) {
-        this.channel.attr(attrKeyConnectionState).set(newState);
+        this.channel.attr(ATTR_KEY_CONNECTION_STATE).set(newState);
         this.channel.config().setAutoRead(true);
         LOGGER.debug("Enabled auto read");
     }
@@ -166,7 +166,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
 
     private void dispatchPacket(final Packet inPacket, final GenericFutureListener<? extends Future<? super Void>>[] futureListeners) {
         final NetworkState enumconnectionstate = NetworkState.getFromPacket(inPacket);
-        final NetworkState enumconnectionstate1 = this.channel.attr(attrKeyConnectionState).get();
+        final NetworkState enumconnectionstate1 = this.channel.attr(ATTR_KEY_CONNECTION_STATE).get();
 
         if (enumconnectionstate1 != enumconnectionstate) {
             LOGGER.debug("Disabled auto read");

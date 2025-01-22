@@ -717,7 +717,7 @@ public class CustomItems {
                     GlStateManager.enableLighting();
                     GlStateManager.depthFunc(515);
                     GlStateManager.depthMask(true);
-                    texturemanager.bindTexture(TextureMap.locationBlocksTexture);
+                    texturemanager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
                 }
 
                 return flag;

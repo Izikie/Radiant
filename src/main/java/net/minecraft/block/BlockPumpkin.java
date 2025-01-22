@@ -30,7 +30,7 @@ public class BlockPumpkin extends BlockDirectional {
         super(Material.GOURD, MapColor.ADOBE_COLOR);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH));
         this.setTickRandomly(true);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {

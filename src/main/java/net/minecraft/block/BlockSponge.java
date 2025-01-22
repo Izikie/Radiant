@@ -28,7 +28,7 @@ public class BlockSponge extends Block {
     protected BlockSponge() {
         super(Material.SPONGE);
         this.setDefaultState(this.blockState.getBaseState().withProperty(WET, Boolean.FALSE));
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public String getLocalizedName() {

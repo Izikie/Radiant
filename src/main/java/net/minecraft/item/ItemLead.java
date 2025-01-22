@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 public class ItemLead extends Item {
     public ItemLead() {
-        this.setCreativeTab(CreativeTabs.tabTools);
+        this.setCreativeTab(CreativeTabs.TAB_TOOLS);
     }
 
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {

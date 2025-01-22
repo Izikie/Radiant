@@ -49,6 +49,6 @@ public class RenderFireball extends Render<EntityFireball> {
     }
 
     protected ResourceLocation getEntityTexture(EntityFireball entity) {
-        return TextureMap.locationBlocksTexture;
+        return TextureMap.LOCATION_BLOCKS_TEXTURE;
     }
 }

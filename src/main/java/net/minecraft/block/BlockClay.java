@@ -11,7 +11,7 @@ import net.minecraft.item.Item;
 public class BlockClay extends Block {
     public BlockClay() {
         super(Material.CLAY);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {

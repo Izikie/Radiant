@@ -3750,7 +3750,7 @@ public class Shaders {
                 }
 
                 GlStateManager.setActiveTexture(33984);
-                mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
+                mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
             }
         }
     }

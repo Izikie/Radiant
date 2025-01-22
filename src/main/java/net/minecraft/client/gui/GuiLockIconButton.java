@@ -20,7 +20,7 @@ public class GuiLockIconButton extends GuiButton {
 
     public void drawButton(Minecraft mc, int mouseX, int mouseY) {
         if (this.visible) {
-            mc.getTextureManager().bindTexture(GuiButton.buttonTextures);
+            mc.getTextureManager().bindTexture(GuiButton.BUTTON_TEXTURES);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             boolean flag = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
             GuiLockIconButton.Icon guilockiconbutton$icon;

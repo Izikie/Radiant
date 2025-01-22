@@ -22,7 +22,7 @@ public class BlockQuartz extends Block {
     public BlockQuartz() {
         super(Material.ROCK);
         this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, QuartzType.DEFAULT));
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {

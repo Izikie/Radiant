@@ -8,8 +8,8 @@ import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderSkeleton extends RenderBiped<EntitySkeleton> {
-    private static final ResourceLocation skeletonTextures = new ResourceLocation("textures/entity/skeleton/skeleton.png");
-    private static final ResourceLocation witherSkeletonTextures = new ResourceLocation("textures/entity/skeleton/wither_skeleton.png");
+    private static final ResourceLocation SKELETON_TEXTURES = new ResourceLocation("textures/entity/skeleton/skeleton.png");
+    private static final ResourceLocation WITHER_SKELETON_TEXTURES = new ResourceLocation("textures/entity/skeleton/wither_skeleton.png");
 
     public RenderSkeleton(RenderManager renderManagerIn) {
         super(renderManagerIn, new ModelSkeleton(), 0.5F);
@@ -33,6 +33,6 @@ public class RenderSkeleton extends RenderBiped<EntitySkeleton> {
     }
 
     protected ResourceLocation getEntityTexture(EntitySkeleton entity) {
-        return entity.getSkeletonType() == 1 ? witherSkeletonTextures : skeletonTextures;
+        return entity.getSkeletonType() == 1 ? WITHER_SKELETON_TEXTURES : SKELETON_TEXTURES;
     }
 }

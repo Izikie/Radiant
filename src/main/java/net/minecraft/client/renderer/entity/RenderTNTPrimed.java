@@ -57,6 +57,6 @@ public class RenderTNTPrimed extends Render<EntityTNTPrimed> {
     }
 
     protected ResourceLocation getEntityTexture(EntityTNTPrimed entity) {
-        return TextureMap.locationBlocksTexture;
+        return TextureMap.LOCATION_BLOCKS_TEXTURE;
     }
 }

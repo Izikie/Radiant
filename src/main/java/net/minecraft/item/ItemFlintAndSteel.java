@@ -12,7 +12,7 @@ public class ItemFlintAndSteel extends Item {
     public ItemFlintAndSteel() {
         this.maxStackSize = 1;
         this.setMaxDamage(64);
-        this.setCreativeTab(CreativeTabs.tabTools);
+        this.setCreativeTab(CreativeTabs.TAB_TOOLS);
     }
 
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {

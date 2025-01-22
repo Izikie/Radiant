@@ -8,7 +8,7 @@ import net.minecraft.creativetab.CreativeTabs;
 public class BlockHardenedClay extends Block {
     public BlockHardenedClay() {
         super(Material.ROCK);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public MapColor getMapColor(IBlockState state) {

@@ -7,7 +7,7 @@ import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderWitch extends RenderLiving<EntityWitch> {
-    private static final ResourceLocation witchTextures = new ResourceLocation("textures/entity/witch.png");
+    private static final ResourceLocation WITCH_TEXTURES = new ResourceLocation("textures/entity/witch.png");
 
     public RenderWitch(RenderManager renderManagerIn) {
         super(renderManagerIn, new ModelWitch(0.0F), 0.5F);
@@ -20,7 +20,7 @@ public class RenderWitch extends RenderLiving<EntityWitch> {
     }
 
     protected ResourceLocation getEntityTexture(EntityWitch entity) {
-        return witchTextures;
+        return WITCH_TEXTURES;
     }
 
     public void transformHeldFull3DItemLayer() {

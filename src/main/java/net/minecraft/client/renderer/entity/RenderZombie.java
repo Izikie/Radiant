@@ -16,8 +16,8 @@ import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderZombie extends RenderBiped<EntityZombie> {
-    private static final ResourceLocation zombieTextures = new ResourceLocation("textures/entity/zombie/zombie.png");
-    private static final ResourceLocation zombieVillagerTextures = new ResourceLocation("textures/entity/zombie/zombie_villager.png");
+    private static final ResourceLocation ZOMBIE_TEXTURES = new ResourceLocation("textures/entity/zombie/zombie.png");
+    private static final ResourceLocation ZOMBIE_VILLAGER_TEXTURES = new ResourceLocation("textures/entity/zombie/zombie_villager.png");
     private final ModelBiped field_82434_o;
     private final ModelZombieVillager zombieVillagerModel;
     private final List<LayerRenderer<EntityZombie>> field_177121_n;
@@ -54,7 +54,7 @@ public class RenderZombie extends RenderBiped<EntityZombie> {
     }
 
     protected ResourceLocation getEntityTexture(EntityZombie entity) {
-        return entity.isVillager() ? zombieVillagerTextures : zombieTextures;
+        return entity.isVillager() ? ZOMBIE_VILLAGER_TEXTURES : ZOMBIE_TEXTURES;
     }
 
     private void func_82427_a(EntityZombie zombie) {

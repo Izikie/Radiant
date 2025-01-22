@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 public class BlockWorkbench extends Block {
     protected BlockWorkbench() {
         super(Material.WOOD);
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        this.setCreativeTab(CreativeTabs.TAB_DECORATIONS);
     }
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {

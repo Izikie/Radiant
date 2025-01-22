@@ -17,7 +17,7 @@ import org.apache.logging.log4j.MarkerManager;
 
 public class MessageSerializer extends MessageToByteEncoder<Packet> {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final Marker RECEIVED_PACKET_MARKER = MarkerManager.getMarker("PACKET_SENT", NetworkManager.logMarkerPackets);
+    private static final Marker RECEIVED_PACKET_MARKER = MarkerManager.getMarker("PACKET_SENT", NetworkManager.LOG_MARKER_PACKETS);
     private final PacketDirection direction;
 
     public MessageSerializer(PacketDirection direction) {
@@ -25,10 +25,10 @@ public class MessageSerializer extends MessageToByteEncoder<Packet> {
     }
 
     protected void encode(ChannelHandlerContext p_encode_1_, Packet p_encode_2_, ByteBuf p_encode_3_) throws IOException, Exception {
-        Integer integer = p_encode_1_.channel().attr(NetworkManager.attrKeyConnectionState).get().getPacketId(this.direction, p_encode_2_);
+        Integer integer = p_encode_1_.channel().attr(NetworkManager.ATTR_KEY_CONNECTION_STATE).get().getPacketId(this.direction, p_encode_2_);
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug(RECEIVED_PACKET_MARKER, "OUT: [{}:{}] {}", new Object[]{p_encode_1_.channel().attr(NetworkManager.attrKeyConnectionState).get(), integer, p_encode_2_.getClass().getName()});
+            LOGGER.debug(RECEIVED_PACKET_MARKER, "OUT: [{}:{}] {}", new Object[]{p_encode_1_.channel().attr(NetworkManager.ATTR_KEY_CONNECTION_STATE).get(), integer, p_encode_2_.getClass().getName()});
         }
 
         if (integer == null) {

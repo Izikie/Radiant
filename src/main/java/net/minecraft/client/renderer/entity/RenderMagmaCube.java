@@ -6,14 +6,14 @@ import net.minecraft.entity.monster.EntityMagmaCube;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderMagmaCube extends RenderLiving<EntityMagmaCube> {
-    private static final ResourceLocation magmaCubeTextures = new ResourceLocation("textures/entity/slime/magmacube.png");
+    private static final ResourceLocation MAGMA_CUBE_TEXTURES = new ResourceLocation("textures/entity/slime/magmacube.png");
 
     public RenderMagmaCube(RenderManager renderManagerIn) {
         super(renderManagerIn, new ModelMagmaCube(), 0.25F);
     }
 
     protected ResourceLocation getEntityTexture(EntityMagmaCube entity) {
-        return magmaCubeTextures;
+        return MAGMA_CUBE_TEXTURES;
     }
 
     protected void preRenderCallback(EntityMagmaCube entitylivingbaseIn, float partialTickTime) {

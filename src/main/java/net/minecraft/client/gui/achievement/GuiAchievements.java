@@ -261,7 +261,7 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
                     textureatlassprite = this.func_175371_a(block);
                 }
 
-                this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
+                this.mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
                 this.drawTexturedModalRect(i4 * 16 - i2, l3 * 16 - j2, textureatlassprite, 16, 16);
             }
         }

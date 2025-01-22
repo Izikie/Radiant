@@ -20,7 +20,7 @@ public abstract class BlockBasePressurePlate extends Block {
 
     protected BlockBasePressurePlate(Material p_i46401_1_, MapColor p_i46401_2_) {
         super(p_i46401_1_, p_i46401_2_);
-        this.setCreativeTab(CreativeTabs.tabRedstone);
+        this.setCreativeTab(CreativeTabs.TAB_REDSTONE);
         this.setTickRandomly(true);
     }
 

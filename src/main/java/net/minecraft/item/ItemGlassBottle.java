@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 
 public class ItemGlassBottle extends Item {
     public ItemGlassBottle() {
-        this.setCreativeTab(CreativeTabs.tabBrewing);
+        this.setCreativeTab(CreativeTabs.TAB_BREWING);
     }
 
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {

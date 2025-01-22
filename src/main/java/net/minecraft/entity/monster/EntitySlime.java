@@ -51,8 +51,8 @@ public class EntitySlime extends EntityLiving implements IMob {
         this.dataWatcher.updateObject(16, (byte) size);
         this.setSize(0.51000005F * size, 0.51000005F * size);
         this.setPosition(this.posX, this.posY, this.posZ);
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((size * size));
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((0.2F + 0.1F * size));
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((size * size));
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((0.2F + 0.1F * size));
         this.setHealth(this.getMaxHealth());
         this.experienceValue = size;
     }
@@ -407,7 +407,7 @@ public class EntitySlime extends EntityLiving implements IMob {
                 this.update = false;
 
                 if (this.entity.onGround) {
-                    this.entity.setAIMoveSpeed((float) (this.speed * this.entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue()));
+                    this.entity.setAIMoveSpeed((float) (this.speed * this.entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue()));
 
                     if (this.field_179924_h-- <= 0) {
                         this.field_179924_h = this.slime.getJumpDelay();
@@ -426,7 +426,7 @@ public class EntitySlime extends EntityLiving implements IMob {
                         this.entity.setAIMoveSpeed(0.0F);
                     }
                 } else {
-                    this.entity.setAIMoveSpeed((float) (this.speed * this.entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue()));
+                    this.entity.setAIMoveSpeed((float) (this.speed * this.entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue()));
                 }
             }
         }

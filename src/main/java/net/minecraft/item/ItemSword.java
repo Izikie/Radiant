@@ -20,7 +20,7 @@ public class ItemSword extends Item {
         this.material = material;
         this.maxStackSize = 1;
         this.setMaxDamage(material.getMaxUses());
-        this.setCreativeTab(CreativeTabs.tabCombat);
+        this.setCreativeTab(CreativeTabs.TAB_COMBAT);
         this.attackDamage = 4.0F + material.getDamageVsEntity();
     }
 
@@ -85,7 +85,7 @@ public class ItemSword extends Item {
 
     public Multimap<String, AttributeModifier> getItemAttributeModifiers() {
         Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers();
-        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(ITEM_MODIFIER_UUID, "Weapon modifier", this.attackDamage, 0));
+        multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(ITEM_MODIFIER_UUID, "Weapon modifier", this.attackDamage, 0));
         return multimap;
     }
 }

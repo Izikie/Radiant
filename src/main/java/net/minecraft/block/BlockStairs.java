@@ -44,7 +44,7 @@ public class BlockStairs extends Block {
         this.setResistance(this.modelBlock.blockResistance / 3.0F);
         this.setStepSound(this.modelBlock.stepSound);
         this.setLightOpacity(255);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {

@@ -23,7 +23,7 @@ public class BlockCactus extends Block {
         super(Material.CACTUS);
         this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0));
         this.setTickRandomly(true);
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        this.setCreativeTab(CreativeTabs.TAB_DECORATIONS);
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {

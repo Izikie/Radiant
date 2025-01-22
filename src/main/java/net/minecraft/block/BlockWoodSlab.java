@@ -28,7 +28,7 @@ public abstract class BlockWoodSlab extends BlockSlab {
         }
 
         this.setDefaultState(iblockstate.withProperty(VARIANT, BlockPlanks.WoodType.OAK));
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public MapColor getMapColor(IBlockState state) {

@@ -42,7 +42,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
     private static final boolean ENABLE_SKIP = Boolean.parseBoolean(System.getProperty("fml.skipFirstTextureLoad", "true"));
     private static final Logger LOGGER = LogManager.getLogger();
     public static final ResourceLocation LOCATION_MISSING_TEXTURE = new ResourceLocation("missingno");
-    public static final ResourceLocation locationBlocksTexture = new ResourceLocation("textures/atlas/blocks.png");
+    public static final ResourceLocation LOCATION_BLOCKS_TEXTURE = new ResourceLocation("textures/atlas/blocks.png");
     private final List<TextureAtlasSprite> listAnimatedSprites;
     private final Map<String, TextureAtlasSprite> mapRegisteredSprites;
     private final Map<String, TextureAtlasSprite> mapUploadedSprites;
@@ -378,7 +378,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                     }
                 }
 
-                Config.getMinecraft().getTextureManager().bindTexture(locationBlocksTexture);
+                Config.getMinecraft().getTextureManager().bindTexture(LOCATION_BLOCKS_TEXTURE);
             }
 
             this.updateIconGrid(stitcher.getCurrentWidth(), stitcher.getCurrentHeight());
@@ -699,7 +699,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 
     private int[] getMissingImageData(int p_getMissingImageData_1_) {
         BufferedImage bufferedimage = new BufferedImage(16, 16, 2);
-        bufferedimage.setRGB(0, 0, 16, 16, TextureUtil.missingTextureData, 0, 16);
+        bufferedimage.setRGB(0, 0, 16, 16, TextureUtil.MISSING_TEXTURE_DATA, 0, 16);
         BufferedImage bufferedimage1 = TextureUtils.scaleImage(bufferedimage, p_getMissingImageData_1_);
         int[] aint = new int[p_getMissingImageData_1_ * p_getMissingImageData_1_];
         bufferedimage1.getRGB(0, 0, p_getMissingImageData_1_, p_getMissingImageData_1_, aint, 0, p_getMissingImageData_1_);

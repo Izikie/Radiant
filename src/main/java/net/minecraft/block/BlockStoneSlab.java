@@ -33,7 +33,7 @@ public abstract class BlockStoneSlab extends BlockSlab {
         }
 
         this.setDefaultState(iblockstate.withProperty(VARIANT, BlockStoneSlab.EnumType.STONE));
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {

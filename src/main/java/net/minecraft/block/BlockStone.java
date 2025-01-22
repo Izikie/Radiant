@@ -21,7 +21,7 @@ public class BlockStone extends Block {
     public BlockStone() {
         super(Material.ROCK);
         this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, StoneType.STONE));
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public String getLocalizedName() {

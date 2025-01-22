@@ -26,7 +26,7 @@ import net.optifine.shaders.Shaders;
 import org.lwjgl.opengl.GL11;
 
 public abstract class Render<T extends Entity> implements IEntityRenderer {
-    private static final ResourceLocation shadowTextures = new ResourceLocation("textures/misc/shadow.png");
+    private static final ResourceLocation SHADOW_TEXTURES = new ResourceLocation("textures/misc/shadow.png");
     protected final RenderManager renderManager;
     public float shadowSize;
     protected float shadowOpaque = 1.0F;
@@ -117,7 +117,7 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
         while (f3 > 0.0F) {
             TextureAtlasSprite textureatlassprite2 = i % 2 == 0 ? textureatlassprite : textureatlassprite1;
             worldrenderer.setSprite(textureatlassprite2);
-            this.bindTexture(TextureMap.locationBlocksTexture);
+            this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
             float f6 = textureatlassprite2.getMinU();
             float f7 = textureatlassprite2.getMinV();
             float f8 = textureatlassprite2.getMaxU();
@@ -155,7 +155,7 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
         if (!Config.isShaders() || !Shaders.shouldSkipDefaultShadow) {
             GlStateManager.enableBlend();
             GlStateManager.blendFunc(770, 771);
-            this.renderManager.renderEngine.bindTexture(shadowTextures);
+            this.renderManager.renderEngine.bindTexture(SHADOW_TEXTURES);
             World world = this.getWorldFromRenderManager();
             GlStateManager.depthMask(false);
             float f = this.shadowSize;

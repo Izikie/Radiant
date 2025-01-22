@@ -22,8 +22,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.ITickable;
 
 public class TileEntityBrewingStand extends TileEntityLockable implements ITickable, ISidedInventory {
-    private static final int[] inputSlots = new int[]{3};
-    private static final int[] outputSlots = new int[]{0, 1, 2};
+    private static final int[] INPUT_SLOTS = new int[]{3};
+    private static final int[] OUTPUT_SLOTS = new int[]{0, 1, 2};
     private ItemStack[] brewingItemStacks = new ItemStack[4];
     private int brewTime;
     private boolean[] filledSlots;
@@ -261,7 +261,7 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
     }
 
     public int[] getSlotsForFace(Direction side) {
-        return side == Direction.UP ? inputSlots : outputSlots;
+        return side == Direction.UP ? INPUT_SLOTS : OUTPUT_SLOTS;
     }
 
     public boolean canInsertItem(int index, ItemStack itemStackIn, Direction direction) {

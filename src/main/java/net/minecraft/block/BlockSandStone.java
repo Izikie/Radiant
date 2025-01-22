@@ -18,7 +18,7 @@ public class BlockSandStone extends Block {
     public BlockSandStone() {
         super(Material.ROCK);
         this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, SandStoneType.DEFAULT));
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public int damageDropped(IBlockState state) {

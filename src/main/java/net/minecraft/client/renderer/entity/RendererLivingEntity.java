@@ -35,7 +35,7 @@ import org.lwjgl.opengl.GL11;
 
 public abstract class RendererLivingEntity<T extends EntityLivingBase> extends Render<T> {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final DynamicTexture textureBrightness = new DynamicTexture(16, 16);
+    private static final DynamicTexture TEXTURE_BRIGHTNESS = new DynamicTexture(16, 16);
     public ModelBase mainModel;
     protected final FloatBuffer brightnessBuffer = GLAllocation.createDirectFloatBuffer(4);
     protected List<LayerRenderer<T>> layerRenderers = Lists.newArrayList();
@@ -52,7 +52,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
     public float renderPartialTicks;
     private boolean renderModelPushMatrix;
     private boolean renderLayersPushMatrix;
-    public static final boolean animateModelLiving = Boolean.getBoolean("animate.model.living");
+    public static final boolean ANIMATE_MODEL_LIVING = Boolean.getBoolean("animate.model.living");
 
     public RendererLivingEntity(RenderManager renderManagerIn, ModelBase modelBaseIn, float shadowSizeIn) {
         super(renderManagerIn);
@@ -90,7 +90,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
     }
 
     public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
-        if (animateModelLiving) {
+        if (ANIMATE_MODEL_LIVING) {
             entity.limbSwingAmount = 1.0F;
         }
 
@@ -365,7 +365,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
             GL11.glTexEnv(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_COLOR, this.brightnessBuffer);
             GlStateManager.setActiveTexture(OpenGlHelper.GL_TEXTURE2);
             GlStateManager.enableTexture2D();
-            GlStateManager.bindTexture(textureBrightness.getGlTextureId());
+            GlStateManager.bindTexture(TEXTURE_BRIGHTNESS.getGlTextureId());
             GL11.glTexEnvi(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_MODE, OpenGlHelper.GL_COMBINE);
             GL11.glTexEnvi(GL11.GL_TEXTURE_ENV, OpenGlHelper.GL_COMBINE_RGB, GL11.GL_MODULATE);
             GL11.glTexEnvi(GL11.GL_TEXTURE_ENV, OpenGlHelper.GL_SOURCE0_RGB, OpenGlHelper.GL_PREVIOUS);
@@ -585,12 +585,12 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
     }
 
     static {
-        int[] aint = textureBrightness.getTextureData();
+        int[] aint = TEXTURE_BRIGHTNESS.getTextureData();
 
         for (int i = 0; i < 256; ++i) {
             aint[i] = -1;
         }
 
-        textureBrightness.updateDynamicTexture();
+        TEXTURE_BRIGHTNESS.updateDynamicTexture();
     }
 }

@@ -35,7 +35,7 @@ public abstract class BlockRailBase extends Block {
         super(Material.CIRCUITS);
         this.isPowered = isPowered;
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
-        this.setCreativeTab(CreativeTabs.tabTransport);
+        this.setCreativeTab(CreativeTabs.TAB_TRANSPORT);
     }
 
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {

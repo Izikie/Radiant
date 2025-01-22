@@ -13,7 +13,7 @@ import net.minecraft.util.MathHelper;
 public class BlockGlowstone extends Block {
     public BlockGlowstone(Material materialIn) {
         super(materialIn);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public int quantityDroppedWithBonus(int fortune, Random random) {

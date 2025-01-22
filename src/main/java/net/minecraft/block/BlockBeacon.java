@@ -23,7 +23,7 @@ public class BlockBeacon extends BlockContainer {
     public BlockBeacon() {
         super(Material.GLASS, MapColor.DIAMOND_COLOR);
         this.setHardness(3.0F);
-        this.setCreativeTab(CreativeTabs.tabMisc);
+        this.setCreativeTab(CreativeTabs.TAB_MISC);
     }
 
     public TileEntity createNewTileEntity(World worldIn, int meta) {

@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 public class ItemBoat extends Item {
     public ItemBoat() {
         this.maxStackSize = 1;
-        this.setCreativeTab(CreativeTabs.tabTransport);
+        this.setCreativeTab(CreativeTabs.TAB_TRANSPORT);
     }
 
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {

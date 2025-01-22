@@ -7,7 +7,7 @@ import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderSlime extends RenderLiving<EntitySlime> {
-    private static final ResourceLocation slimeTextures = new ResourceLocation("textures/entity/slime/slime.png");
+    private static final ResourceLocation SLIME_TEXTURES = new ResourceLocation("textures/entity/slime/slime.png");
 
     public RenderSlime(RenderManager renderManagerIn, ModelBase modelBaseIn, float shadowSizeIn) {
         super(renderManagerIn, modelBaseIn, shadowSizeIn);
@@ -27,6 +27,6 @@ public class RenderSlime extends RenderLiving<EntitySlime> {
     }
 
     protected ResourceLocation getEntityTexture(EntitySlime entity) {
-        return slimeTextures;
+        return SLIME_TEXTURES;
     }
 }

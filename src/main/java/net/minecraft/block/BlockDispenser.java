@@ -37,7 +37,7 @@ public class BlockDispenser extends BlockContainer {
     protected BlockDispenser() {
         super(Material.ROCK);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH).withProperty(TRIGGERED, Boolean.FALSE));
-        this.setCreativeTab(CreativeTabs.tabRedstone);
+        this.setCreativeTab(CreativeTabs.TAB_REDSTONE);
     }
 
     public int tickRate(World worldIn) {

@@ -33,7 +33,7 @@ public class ItemPotion extends Item {
         this.setMaxStackSize(1);
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
-        this.setCreativeTab(CreativeTabs.tabBrewing);
+        this.setCreativeTab(CreativeTabs.TAB_BREWING);
     }
 
     public List<PotionEffect> getEffects(ItemStack stack) {

@@ -33,7 +33,7 @@ public class UserList<K, V extends UserListEntry<K>> {
     private final File saveFile;
     private final Map<String, V> values = Maps.newHashMap();
     private boolean lanServer = true;
-    private static final ParameterizedType saveFileFormat = new ParameterizedType() {
+    private static final ParameterizedType SAVE_FILE_FORMAT = new ParameterizedType() {
         public Type[] getActualTypeArguments() {
             return new Type[]{UserListEntry.class};
         }

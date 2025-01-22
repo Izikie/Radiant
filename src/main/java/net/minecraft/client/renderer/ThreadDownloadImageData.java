@@ -28,7 +28,7 @@ import org.apache.logging.log4j.Logger;
 
 public class ThreadDownloadImageData extends SimpleTexture {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final AtomicInteger threadDownloadCounter = new AtomicInteger(0);
+    private static final AtomicInteger THREAD_DOWNLOAD_COUNTER = new AtomicInteger(0);
     private final File cacheFile;
     private final String imageUrl;
     private final IImageBuffer imageBuffer;
@@ -104,7 +104,7 @@ public class ThreadDownloadImageData extends SimpleTexture {
     }
 
     protected void loadTextureFromServer() {
-        this.imageThread = new Thread("Texture Downloader #" + threadDownloadCounter.incrementAndGet()) {
+        this.imageThread = new Thread("Texture Downloader #" + THREAD_DOWNLOAD_COUNTER.incrementAndGet()) {
             public void run() {
                 HttpURLConnection httpurlconnection = null;
                 ThreadDownloadImageData.LOGGER.debug("Downloading http texture from {} to {}", new Object[]{ThreadDownloadImageData.this.imageUrl, ThreadDownloadImageData.this.cacheFile});

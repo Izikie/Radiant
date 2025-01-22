@@ -83,7 +83,7 @@ public class Scoreboard {
             }
         }
 
-        list.sort(Score.scoreComparator);
+        list.sort(Score.SCORE_COMPARATOR);
         return list;
     }
 

@@ -236,7 +236,7 @@ public class EffectRenderer {
 
                     switch (i) {
                         case 1:
-                            this.renderer.bindTexture(TextureMap.locationBlocksTexture);
+                            this.renderer.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
                             break;
 
                         case 0:

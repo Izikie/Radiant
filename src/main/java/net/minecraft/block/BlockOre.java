@@ -21,7 +21,7 @@ public class BlockOre extends Block {
 
     public BlockOre(MapColor p_i46390_1_) {
         super(Material.ROCK, p_i46390_1_);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {

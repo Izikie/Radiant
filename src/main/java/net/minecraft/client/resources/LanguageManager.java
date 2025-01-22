@@ -19,13 +19,13 @@ public class LanguageManager implements IResourceManagerReloadListener {
     private static final Logger LOGGER = LogManager.getLogger();
     private final IMetadataSerializer theMetadataSerializer;
     private String currentLanguage;
-    protected static final Locale currentLocale = new Locale();
+    protected static final Locale CURRENT_LOCALE = new Locale();
     private final Map<String, Language> languageMap = Maps.newHashMap();
 
     public LanguageManager(IMetadataSerializer theMetadataSerializerIn, String currentLanguageIn) {
         this.theMetadataSerializer = theMetadataSerializerIn;
         this.currentLanguage = currentLanguageIn;
-        I18n.setLocale(currentLocale);
+        I18n.setLocale(CURRENT_LOCALE);
     }
 
     public void parseLanguageMetadata(List<IResourcePack> resourcesPacks) {
@@ -57,12 +57,12 @@ public class LanguageManager implements IResourceManagerReloadListener {
             list.add(this.currentLanguage);
         }
 
-        currentLocale.loadLocaleDataFiles(resourceManager, list);
-        StringTranslate.replaceWith(currentLocale.properties);
+        CURRENT_LOCALE.loadLocaleDataFiles(resourceManager, list);
+        StringTranslate.replaceWith(CURRENT_LOCALE.properties);
     }
 
     public boolean isCurrentLocaleUnicode() {
-        return currentLocale.isUnicode();
+        return CURRENT_LOCALE.isUnicode();
     }
 
     public boolean isCurrentLanguageBidirectional() {

@@ -24,7 +24,7 @@ public class ItemSkull extends Item {
     private static final String[] SKULL_TYPES = new String[]{"skeleton", "wither", "zombie", "char", "creeper"};
 
     public ItemSkull() {
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        this.setCreativeTab(CreativeTabs.TAB_DECORATIONS);
         this.setMaxDamage(0);
         this.setHasSubtypes(true);
     }

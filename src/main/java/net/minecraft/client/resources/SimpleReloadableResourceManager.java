@@ -19,7 +19,7 @@ import org.apache.logging.log4j.Logger;
 
 public class SimpleReloadableResourceManager implements IReloadableResourceManager {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final Joiner joinerResourcePacks = Joiner.on(", ");
+    private static final Joiner JOINER_RESOURCE_PACKS = Joiner.on(", ");
     private final Map<String, FallbackResourceManager> domainResourceManagers = Maps.newHashMap();
     private final List<IResourceManagerReloadListener> reloadListeners = Lists.newArrayList();
     private final Set<String> setResourceDomains = Sets.newLinkedHashSet();
@@ -74,7 +74,7 @@ public class SimpleReloadableResourceManager implements IReloadableResourceManag
 
     public void reloadResources(List<IResourcePack> resourcesPacksList) {
         this.clearResources();
-        LOGGER.info("Reloading ResourceManager: {}", joinerResourcePacks.join(Iterables.transform(resourcesPacksList, IResourcePack::getPackName)));
+        LOGGER.info("Reloading ResourceManager: {}", JOINER_RESOURCE_PACKS.join(Iterables.transform(resourcesPacksList, IResourcePack::getPackName)));
 
         for (IResourcePack iresourcepack : resourcesPacksList) {
             this.reloadResourcePack(iresourcepack);

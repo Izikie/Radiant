@@ -14,7 +14,7 @@ public class ItemSeeds extends Item {
     public ItemSeeds(Block crops, Block soil) {
         this.crops = crops;
         this.soilBlockID = soil;
-        this.setCreativeTab(CreativeTabs.tabMaterials);
+        this.setCreativeTab(CreativeTabs.TAB_MATERIALS);
     }
 
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {

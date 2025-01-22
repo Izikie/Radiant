@@ -21,7 +21,7 @@ public class BlockStainedGlassPane extends BlockPane {
     public BlockStainedGlassPane() {
         super(Material.GLASS, false);
         this.setDefaultState(this.blockState.getBaseState().withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE).withProperty(COLOR, DyeColor.WHITE));
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        this.setCreativeTab(CreativeTabs.TAB_DECORATIONS);
     }
 
     public int damageDropped(IBlockState state) {

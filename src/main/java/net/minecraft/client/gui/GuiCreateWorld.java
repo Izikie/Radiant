@@ -39,7 +39,7 @@ public class GuiCreateWorld extends GuiScreen {
     private String worldName;
     private int selectedIndex;
     public String chunkProviderSettingsJson = "";
-    private static final String[] disallowedFilenames = new String[]{"CON", "COM", "PRN", "AUX", "CLOCK$", "NUL", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9", "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"};
+    private static final String[] DISALLOWED_FILENAMES = new String[]{"CON", "COM", "PRN", "AUX", "CLOCK$", "NUL", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9", "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"};
 
     public GuiCreateWorld(GuiScreen p_i46320_1_) {
         this.parentScreen = p_i46320_1_;
@@ -126,7 +126,7 @@ public class GuiCreateWorld extends GuiScreen {
     public static String getUncollidingSaveDirName(ISaveFormat saveLoader, String name) {
         name = name.replaceAll("[\\./\"]", "_");
 
-        for (String s : disallowedFilenames) {
+        for (String s : DISALLOWED_FILENAMES) {
             if (name.equalsIgnoreCase(s)) {
                 name = "_" + name + "_";
             }

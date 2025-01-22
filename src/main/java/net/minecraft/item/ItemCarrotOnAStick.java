@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 
 public class ItemCarrotOnAStick extends Item {
     public ItemCarrotOnAStick() {
-        this.setCreativeTab(CreativeTabs.tabTransport);
+        this.setCreativeTab(CreativeTabs.TAB_TRANSPORT);
         this.setMaxStackSize(1);
         this.setMaxDamage(25);
     }

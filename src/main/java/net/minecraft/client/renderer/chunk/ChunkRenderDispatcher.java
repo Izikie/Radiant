@@ -30,7 +30,7 @@ import org.lwjgl.opengl.GL11;
 
 public class ChunkRenderDispatcher {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final ThreadFactory threadFactory = (new ThreadFactoryBuilder()).setNameFormat("Chunk Batcher %d").setDaemon(true).build();
+    private static final ThreadFactory THREAD_FACTORY = (new ThreadFactoryBuilder()).setNameFormat("Chunk Batcher %d").setDaemon(true).build();
     private final List<ChunkRenderWorker> listThreadedWorkers;
     private final BlockingQueue<ChunkCompileTaskGenerator> queueChunkUpdates;
     private final BlockingQueue<RegionRenderCacheBuilder> queueFreeRenderBuilders;
@@ -63,7 +63,7 @@ public class ChunkRenderDispatcher {
 
         for (int k = 0; k < j; ++k) {
             ChunkRenderWorker chunkrenderworker = new ChunkRenderWorker(this);
-            Thread thread = threadFactory.newThread(chunkrenderworker);
+            Thread thread = THREAD_FACTORY.newThread(chunkrenderworker);
             thread.start();
             this.listThreadedWorkers.add(chunkrenderworker);
         }

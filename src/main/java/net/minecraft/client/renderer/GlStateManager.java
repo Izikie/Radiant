@@ -36,10 +36,10 @@ public class GlStateManager {
     private static final GlStateManager.ColorMask colorMaskState = new GlStateManager.ColorMask();
     private static final GlStateManager.Color colorState = new GlStateManager.Color();
     public static final boolean CLEAR_ENABLED = true;
-    private static final LockCounter alphaLock = new LockCounter();
-    private static final GlAlphaState alphaLockState = new GlAlphaState();
-    private static final LockCounter blendLock = new LockCounter();
-    private static final GlBlendState blendLockState = new GlBlendState();
+    private static final LockCounter ALPHA_LOCK = new LockCounter();
+    private static final GlAlphaState ALPHA_LOCK_STATE = new GlAlphaState();
+    private static final LockCounter BLEND_LOCK = new LockCounter();
+    private static final GlBlendState BLEND_LOCK_STATE = new GlBlendState();
     private static boolean creatingDisplayList = false;
 
     public static void pushAttrib() {
@@ -51,24 +51,24 @@ public class GlStateManager {
     }
 
     public static void disableAlpha() {
-        if (alphaLock.isLocked()) {
-            alphaLockState.setDisabled();
+        if (ALPHA_LOCK.isLocked()) {
+            ALPHA_LOCK_STATE.setDisabled();
         } else {
             alphaState.alphaTest.setDisabled();
         }
     }
 
     public static void enableAlpha() {
-        if (alphaLock.isLocked()) {
-            alphaLockState.setEnabled();
+        if (ALPHA_LOCK.isLocked()) {
+            ALPHA_LOCK_STATE.setEnabled();
         } else {
             alphaState.alphaTest.setEnabled();
         }
     }
 
     public static void alphaFunc(int func, float ref) {
-        if (alphaLock.isLocked()) {
-            alphaLockState.setFuncRef(func, ref);
+        if (ALPHA_LOCK.isLocked()) {
+            ALPHA_LOCK_STATE.setFuncRef(func, ref);
         } else {
             if (func != alphaState.func || ref != alphaState.ref) {
                 alphaState.func = func;
@@ -133,24 +133,24 @@ public class GlStateManager {
     }
 
     public static void disableBlend() {
-        if (blendLock.isLocked()) {
-            blendLockState.setDisabled();
+        if (BLEND_LOCK.isLocked()) {
+            BLEND_LOCK_STATE.setDisabled();
         } else {
             blendState.blend.setDisabled();
         }
     }
 
     public static void enableBlend() {
-        if (blendLock.isLocked()) {
-            blendLockState.setEnabled();
+        if (BLEND_LOCK.isLocked()) {
+            BLEND_LOCK_STATE.setEnabled();
         } else {
             blendState.blend.setEnabled();
         }
     }
 
     public static void blendFunc(int srcFactor, int dstFactor) {
-        if (blendLock.isLocked()) {
-            blendLockState.setFactors(srcFactor, dstFactor);
+        if (BLEND_LOCK.isLocked()) {
+            BLEND_LOCK_STATE.setFactors(srcFactor, dstFactor);
         } else {
             if (srcFactor != blendState.srcFactor || dstFactor != blendState.dstFactor || srcFactor != blendState.srcFactorAlpha || dstFactor != blendState.dstFactorAlpha) {
                 blendState.srcFactor = srcFactor;
@@ -168,8 +168,8 @@ public class GlStateManager {
     }
 
     public static void tryBlendFuncSeparate(int srcFactor, int dstFactor, int srcFactorAlpha, int dstFactorAlpha) {
-        if (blendLock.isLocked()) {
-            blendLockState.setFactors(srcFactor, dstFactor, srcFactorAlpha, dstFactorAlpha);
+        if (BLEND_LOCK.isLocked()) {
+            BLEND_LOCK_STATE.setFactors(srcFactor, dstFactor, srcFactorAlpha, dstFactorAlpha);
         } else {
             if (srcFactor != blendState.srcFactor || dstFactor != blendState.dstFactor || srcFactorAlpha != blendState.srcFactorAlpha || dstFactorAlpha != blendState.dstFactorAlpha) {
                 blendState.srcFactor = srcFactor;
@@ -675,30 +675,30 @@ public class GlStateManager {
     }
 
     public static void lockAlpha(GlAlphaState p_lockAlpha_0_) {
-        if (!alphaLock.isLocked()) {
-            getAlphaState(alphaLockState);
+        if (!ALPHA_LOCK.isLocked()) {
+            getAlphaState(ALPHA_LOCK_STATE);
             setAlphaState(p_lockAlpha_0_);
-            alphaLock.lock();
+            ALPHA_LOCK.lock();
         }
     }
 
     public static void unlockAlpha() {
-        if (alphaLock.unlock()) {
-            setAlphaState(alphaLockState);
+        if (ALPHA_LOCK.unlock()) {
+            setAlphaState(ALPHA_LOCK_STATE);
         }
     }
 
     public static void getAlphaState(GlAlphaState p_getAlphaState_0_) {
-        if (alphaLock.isLocked()) {
-            p_getAlphaState_0_.setState(alphaLockState);
+        if (ALPHA_LOCK.isLocked()) {
+            p_getAlphaState_0_.setState(ALPHA_LOCK_STATE);
         } else {
             p_getAlphaState_0_.setState(alphaState.alphaTest.currentState, alphaState.func, alphaState.ref);
         }
     }
 
     public static void setAlphaState(GlAlphaState p_setAlphaState_0_) {
-        if (alphaLock.isLocked()) {
-            alphaLockState.setState(p_setAlphaState_0_);
+        if (ALPHA_LOCK.isLocked()) {
+            ALPHA_LOCK_STATE.setState(p_setAlphaState_0_);
         } else {
             alphaState.alphaTest.setState(p_setAlphaState_0_.isEnabled());
             alphaFunc(p_setAlphaState_0_.getFunc(), p_setAlphaState_0_.getRef());
@@ -706,30 +706,30 @@ public class GlStateManager {
     }
 
     public static void lockBlend(GlBlendState p_lockBlend_0_) {
-        if (!blendLock.isLocked()) {
-            getBlendState(blendLockState);
+        if (!BLEND_LOCK.isLocked()) {
+            getBlendState(BLEND_LOCK_STATE);
             setBlendState(p_lockBlend_0_);
-            blendLock.lock();
+            BLEND_LOCK.lock();
         }
     }
 
     public static void unlockBlend() {
-        if (blendLock.unlock()) {
-            setBlendState(blendLockState);
+        if (BLEND_LOCK.unlock()) {
+            setBlendState(BLEND_LOCK_STATE);
         }
     }
 
     public static void getBlendState(GlBlendState p_getBlendState_0_) {
-        if (blendLock.isLocked()) {
-            p_getBlendState_0_.setState(blendLockState);
+        if (BLEND_LOCK.isLocked()) {
+            p_getBlendState_0_.setState(BLEND_LOCK_STATE);
         } else {
             p_getBlendState_0_.setState(blendState.blend.currentState, blendState.srcFactor, blendState.dstFactor, blendState.srcFactorAlpha, blendState.dstFactorAlpha);
         }
     }
 
     public static void setBlendState(GlBlendState p_setBlendState_0_) {
-        if (blendLock.isLocked()) {
-            blendLockState.setState(p_setBlendState_0_);
+        if (BLEND_LOCK.isLocked()) {
+            BLEND_LOCK_STATE.setState(p_setBlendState_0_);
         } else {
             blendState.blend.setState(p_setBlendState_0_.isEnabled());
 

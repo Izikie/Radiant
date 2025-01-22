@@ -10,7 +10,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderEnderCrystal extends Render<EntityEnderCrystal> {
-    private static final ResourceLocation enderCrystalTextures = new ResourceLocation("textures/entity/endercrystal/endercrystal.png");
+    private static final ResourceLocation ENDER_CRYSTAL_TEXTURES = new ResourceLocation("textures/entity/endercrystal/endercrystal.png");
     private final ModelBase modelEnderCrystal = new ModelEnderCrystal(0.0F, true);
 
     public RenderEnderCrystal(RenderManager renderManagerIn) {
@@ -22,7 +22,7 @@ public class RenderEnderCrystal extends Render<EntityEnderCrystal> {
         float f = entity.innerRotation + partialTicks;
         GlStateManager.pushMatrix();
         GlStateManager.translate((float) x, (float) y, (float) z);
-        this.bindTexture(enderCrystalTextures);
+        this.bindTexture(ENDER_CRYSTAL_TEXTURES);
         float f1 = MathHelper.sin(f * 0.2F) / 2.0F + 0.5F;
         f1 = f1 * f1 + f1;
         this.modelEnderCrystal.render(entity, 0.0F, f * 3.0F, f1 * 0.2F, 0.0F, 0.0F, 0.0625F);
@@ -31,6 +31,6 @@ public class RenderEnderCrystal extends Render<EntityEnderCrystal> {
     }
 
     protected ResourceLocation getEntityTexture(EntityEnderCrystal entity) {
-        return enderCrystalTextures;
+        return ENDER_CRYSTAL_TEXTURES;
     }
 }

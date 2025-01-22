@@ -21,7 +21,7 @@ public class BlockNote extends BlockContainer {
 
     public BlockNote() {
         super(Material.WOOD);
-        this.setCreativeTab(CreativeTabs.tabRedstone);
+        this.setCreativeTab(CreativeTabs.TAB_REDSTONE);
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {

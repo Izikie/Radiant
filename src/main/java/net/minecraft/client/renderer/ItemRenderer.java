@@ -371,7 +371,7 @@ public class ItemRenderer {
     }
 
     private void renderBlockInHand(float partialTicks, TextureAtlasSprite atlas) {
-        this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
+        this.mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         float f = 0.1F;
@@ -439,7 +439,7 @@ public class ItemRenderer {
         for (int i = 0; i < 2; ++i) {
             GlStateManager.pushMatrix();
             TextureAtlasSprite textureatlassprite = this.mc.getTextureMapBlocks().getAtlasSprite("minecraft:blocks/fire_layer_1");
-            this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
+            this.mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
             float f1 = textureatlassprite.getMinU();
             float f2 = textureatlassprite.getMaxU();
             float f3 = textureatlassprite.getMinV();

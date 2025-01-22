@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public class ItemNameTag extends Item {
     public ItemNameTag() {
-        this.setCreativeTab(CreativeTabs.tabTools);
+        this.setCreativeTab(CreativeTabs.TAB_TOOLS);
     }
 
     public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target) {

@@ -33,7 +33,7 @@ public class BlockWall extends Block {
         this.setHardness(modelBlock.blockHardness);
         this.setResistance(modelBlock.blockResistance / 3.0F);
         this.setStepSound(modelBlock.stepSound);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public String getLocalizedName() {

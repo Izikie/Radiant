@@ -33,7 +33,7 @@ public class BlockAnvil extends BlockFalling {
         super(Material.ANVIL);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH).withProperty(DAMAGE, 0));
         this.setLightOpacity(0);
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        this.setCreativeTab(CreativeTabs.TAB_DECORATIONS);
     }
 
     public boolean isFullCube() {

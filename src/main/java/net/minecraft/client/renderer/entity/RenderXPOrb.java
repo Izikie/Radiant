@@ -12,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import net.optifine.CustomColors;
 
 public class RenderXPOrb extends Render<EntityXPOrb> {
-    private static final ResourceLocation experienceOrbTextures = new ResourceLocation("textures/entity/experience_orb.png");
+    private static final ResourceLocation EXPERIENCE_ORB_TEXTURES = new ResourceLocation("textures/entity/experience_orb.png");
 
     public RenderXPOrb(RenderManager renderManagerIn) {
         super(renderManagerIn);
@@ -80,6 +80,6 @@ public class RenderXPOrb extends Render<EntityXPOrb> {
     }
 
     protected ResourceLocation getEntityTexture(EntityXPOrb entity) {
-        return experienceOrbTextures;
+        return EXPERIENCE_ORB_TEXTURES;
     }
 }

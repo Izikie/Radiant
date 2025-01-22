@@ -45,9 +45,9 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 
 public class EntityZombie extends EntityMob {
-    protected static final IAttribute reinforcementChance = (new RangedAttribute(null, "zombie.spawnReinforcements", 0.0D, 0.0D, 1.0D)).setDescription("Spawn Reinforcements Chance");
-    private static final UUID babySpeedBoostUUID = UUID.fromString("B9766B59-9566-4402-BC1F-2EE2A276D836");
-    private static final AttributeModifier babySpeedBoostModifier = new AttributeModifier(babySpeedBoostUUID, "Baby speed boost", 0.5D, 1);
+    protected static final IAttribute REINFORCEMENT_CHANCE = (new RangedAttribute(null, "zombie.spawnReinforcements", 0.0D, 0.0D, 1.0D)).setDescription("Spawn Reinforcements Chance");
+    private static final UUID BABY_SPEED_BOOST_UUID = UUID.fromString("B9766B59-9566-4402-BC1F-2EE2A276D836");
+    private static final AttributeModifier BABY_SPEED_BOOST_MODIFIER = new AttributeModifier(BABY_SPEED_BOOST_UUID, "Baby speed boost", 0.5D, 1);
     private final EntityAIBreakDoor breakDoor = new EntityAIBreakDoor(this);
     private int conversionTime;
     private boolean isBreakDoorsTaskSet = false;
@@ -79,10 +79,10 @@ public class EntityZombie extends EntityMob {
 
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(35.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.23000000417232513D);
-        this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(3.0D);
-        this.getAttributeMap().registerAttribute(reinforcementChance).setBaseValue(this.rand.nextDouble() * 0.10000000149011612D);
+        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(35.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.23000000417232513D);
+        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3.0D);
+        this.getAttributeMap().registerAttribute(REINFORCEMENT_CHANCE).setBaseValue(this.rand.nextDouble() * 0.10000000149011612D);
     }
 
     protected void entityInit() {
@@ -134,11 +134,11 @@ public class EntityZombie extends EntityMob {
         this.getDataWatcher().updateObject(12, (byte) (childZombie ? 1 : 0));
 
         if (this.worldObj != null && !this.worldObj.isRemote) {
-            IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
-            iattributeinstance.removeModifier(babySpeedBoostModifier);
+            IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
+            iattributeinstance.removeModifier(BABY_SPEED_BOOST_MODIFIER);
 
             if (childZombie) {
-                iattributeinstance.applyModifier(babySpeedBoostModifier);
+                iattributeinstance.applyModifier(BABY_SPEED_BOOST_MODIFIER);
             }
         }
 
@@ -196,7 +196,7 @@ public class EntityZombie extends EntityMob {
                 entitylivingbase = entityLivingBase;
             }
 
-            if (entitylivingbase != null && this.worldObj.getDifficulty() == Difficulty.HARD && this.rand.nextFloat() < this.getEntityAttribute(reinforcementChance).getAttributeValue()) {
+            if (entitylivingbase != null && this.worldObj.getDifficulty() == Difficulty.HARD && this.rand.nextFloat() < this.getEntityAttribute(REINFORCEMENT_CHANCE).getAttributeValue()) {
                 int i = MathHelper.floor_double(this.posX);
                 int j = MathHelper.floor_double(this.posY);
                 int k = MathHelper.floor_double(this.posZ);
@@ -214,8 +214,8 @@ public class EntityZombie extends EntityMob {
                             this.worldObj.spawnEntityInWorld(entityzombie);
                             entityzombie.setAttackTarget(entitylivingbase);
                             entityzombie.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(entityzombie)), null);
-                            this.getEntityAttribute(reinforcementChance).applyModifier(new AttributeModifier("Zombie reinforcement caller charge", -0.05000000074505806D, 0));
-                            entityzombie.getEntityAttribute(reinforcementChance).applyModifier(new AttributeModifier("Zombie reinforcement callee charge", -0.05000000074505806D, 0));
+                            this.getEntityAttribute(REINFORCEMENT_CHANCE).applyModifier(new AttributeModifier("Zombie reinforcement caller charge", -0.05000000074505806D, 0));
+                            entityzombie.getEntityAttribute(REINFORCEMENT_CHANCE).applyModifier(new AttributeModifier("Zombie reinforcement callee charge", -0.05000000074505806D, 0));
                             break;
                         }
                     }
@@ -435,16 +435,16 @@ public class EntityZombie extends EntityMob {
             }
         }
 
-        this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextDouble() * 0.05000000074505806D, 0));
+        this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextDouble() * 0.05000000074505806D, 0));
         double d0 = this.rand.nextDouble() * 1.5D * f;
 
         if (d0 > 1.0D) {
-            this.getEntityAttribute(SharedMonsterAttributes.followRange).applyModifier(new AttributeModifier("Random zombie-spawn bonus", d0, 2));
+            this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random zombie-spawn bonus", d0, 2));
         }
 
         if (this.rand.nextFloat() < f * 0.05F) {
-            this.getEntityAttribute(reinforcementChance).applyModifier(new AttributeModifier("Leader zombie bonus", this.rand.nextDouble() * 0.25D + 0.5D, 0));
-            this.getEntityAttribute(SharedMonsterAttributes.maxHealth).applyModifier(new AttributeModifier("Leader zombie bonus", this.rand.nextDouble() * 3.0D + 1.0D, 2));
+            this.getEntityAttribute(REINFORCEMENT_CHANCE).applyModifier(new AttributeModifier("Leader zombie bonus", this.rand.nextDouble() * 0.25D + 0.5D, 0));
+            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(new AttributeModifier("Leader zombie bonus", this.rand.nextDouble() * 3.0D + 1.0D, 2));
             this.setBreakDoorsAItask(true);
         }
 

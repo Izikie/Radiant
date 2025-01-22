@@ -212,7 +212,7 @@ public class RenderItem implements IResourceManagerReloadListener {
                 GlStateManager.enableLighting();
                 GlStateManager.depthFunc(515);
                 GlStateManager.depthMask(true);
-                this.textureManager.bindTexture(TextureMap.locationBlocksTexture);
+                this.textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
                 if (Config.isShaders() && !this.renderItemGui) {
                     ShadersRender.renderEnchantedGlintEnd();
@@ -333,8 +333,8 @@ public class RenderItem implements IResourceManagerReloadListener {
     }
 
     protected void renderItemModelTransform(ItemStack stack, IBakedModel model, ItemCameraTransforms.TransformType cameraTransformType) {
-        this.textureManager.bindTexture(TextureMap.locationBlocksTexture);
-        this.textureManager.getTexture(TextureMap.locationBlocksTexture).setBlurMipmap(false, false);
+        this.textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+        this.textureManager.getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).setBlurMipmap(false, false);
         this.preTransform(stack);
         GlStateManager.enableRescaleNormal();
         GlStateManager.alphaFunc(516, 0.1F);
@@ -354,8 +354,8 @@ public class RenderItem implements IResourceManagerReloadListener {
         GlStateManager.popMatrix();
         GlStateManager.disableRescaleNormal();
         GlStateManager.disableBlend();
-        this.textureManager.bindTexture(TextureMap.locationBlocksTexture);
-        this.textureManager.getTexture(TextureMap.locationBlocksTexture).restoreLastBlurMipmap();
+        this.textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+        this.textureManager.getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).restoreLastBlurMipmap();
     }
 
     private boolean isThereOneNegativeScale(ItemTransformVec3f itemTranformVec) {
@@ -366,8 +366,8 @@ public class RenderItem implements IResourceManagerReloadListener {
         this.renderItemGui = true;
         IBakedModel ibakedmodel = this.itemModelMesher.getItemModel(stack);
         GlStateManager.pushMatrix();
-        this.textureManager.bindTexture(TextureMap.locationBlocksTexture);
-        this.textureManager.getTexture(TextureMap.locationBlocksTexture).setBlurMipmap(false, false);
+        this.textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+        this.textureManager.getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).setBlurMipmap(false, false);
         GlStateManager.enableRescaleNormal();
         GlStateManager.enableAlpha();
         GlStateManager.alphaFunc(516, 0.1F);
@@ -383,8 +383,8 @@ public class RenderItem implements IResourceManagerReloadListener {
         GlStateManager.disableRescaleNormal();
         GlStateManager.disableLighting();
         GlStateManager.popMatrix();
-        this.textureManager.bindTexture(TextureMap.locationBlocksTexture);
-        this.textureManager.getTexture(TextureMap.locationBlocksTexture).restoreLastBlurMipmap();
+        this.textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+        this.textureManager.getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).restoreLastBlurMipmap();
         this.renderItemGui = false;
     }
 

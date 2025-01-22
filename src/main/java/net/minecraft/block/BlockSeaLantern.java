@@ -13,7 +13,7 @@ import net.minecraft.util.MathHelper;
 public class BlockSeaLantern extends Block {
     public BlockSeaLantern(Material materialIn) {
         super(materialIn);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public int quantityDropped(Random random) {

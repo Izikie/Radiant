@@ -23,7 +23,7 @@ public class RenderFallingBlock extends Render<EntityFallingBlock> {
 
     public void doRender(EntityFallingBlock entity, double x, double y, double z, float entityYaw, float partialTicks) {
         if (entity.getBlock() != null) {
-            this.bindTexture(TextureMap.locationBlocksTexture);
+            this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
             IBlockState iblockstate = entity.getBlock();
             Block block = iblockstate.getBlock();
             BlockPos blockpos = new BlockPos(entity);
@@ -55,6 +55,6 @@ public class RenderFallingBlock extends Render<EntityFallingBlock> {
     }
 
     protected ResourceLocation getEntityTexture(EntityFallingBlock entity) {
-        return TextureMap.locationBlocksTexture;
+        return TextureMap.LOCATION_BLOCKS_TEXTURE;
     }
 }

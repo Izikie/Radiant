@@ -18,7 +18,7 @@ public class EntityCaveSpider extends EntitySpider {
 
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(12.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(12.0D);
     }
 
     public boolean attackEntityAsMob(Entity entityIn) {

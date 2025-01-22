@@ -23,7 +23,7 @@ public class BlockTNT extends Block {
     public BlockTNT() {
         super(Material.TNT);
         this.setDefaultState(this.blockState.getBaseState().withProperty(EXPLODE, Boolean.FALSE));
-        this.setCreativeTab(CreativeTabs.tabRedstone);
+        this.setCreativeTab(CreativeTabs.TAB_REDSTONE);
     }
 
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {

@@ -10,7 +10,7 @@ public class ItemFishingRod extends Item {
     public ItemFishingRod() {
         this.setMaxDamage(64);
         this.setMaxStackSize(1);
-        this.setCreativeTab(CreativeTabs.tabTools);
+        this.setCreativeTab(CreativeTabs.TAB_TOOLS);
     }
 
     public boolean isFull3D() {

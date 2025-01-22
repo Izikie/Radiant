@@ -18,7 +18,7 @@ public class BlockPlanks extends Block {
     public BlockPlanks() {
         super(Material.WOOD);
         this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, WoodType.OAK));
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public int damageDropped(IBlockState state) {

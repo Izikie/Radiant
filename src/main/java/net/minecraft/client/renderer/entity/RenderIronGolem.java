@@ -7,7 +7,7 @@ import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderIronGolem extends RenderLiving<EntityIronGolem> {
-    private static final ResourceLocation ironGolemTextures = new ResourceLocation("textures/entity/iron_golem.png");
+    private static final ResourceLocation IRON_GOLEM_TEXTURES = new ResourceLocation("textures/entity/iron_golem.png");
 
     public RenderIronGolem(RenderManager renderManagerIn) {
         super(renderManagerIn, new ModelIronGolem(), 0.5F);
@@ -15,7 +15,7 @@ public class RenderIronGolem extends RenderLiving<EntityIronGolem> {
     }
 
     protected ResourceLocation getEntityTexture(EntityIronGolem entity) {
-        return ironGolemTextures;
+        return IRON_GOLEM_TEXTURES;
     }
 
     protected void rotateCorpse(EntityIronGolem bat, float p_77043_2_, float p_77043_3_, float partialTicks) {

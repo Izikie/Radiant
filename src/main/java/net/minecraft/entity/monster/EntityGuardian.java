@@ -67,10 +67,10 @@ public class EntityGuardian extends EntityMob {
 
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(6.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.5D);
-        this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(16.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(30.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5D);
+        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(16.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30.0D);
     }
 
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
@@ -128,9 +128,9 @@ public class EntityGuardian extends EntityMob {
 
         if (elder) {
             this.setSize(1.9975F, 1.9975F);
-            this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.30000001192092896D);
-            this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(8.0D);
-            this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(80.0D);
+            this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
+            this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(8.0D);
+            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D);
             this.enablePersistence();
             this.wander.setExecutionChance(400);
         }
@@ -464,7 +464,7 @@ public class EntityGuardian extends EntityMob {
                     }
 
                     entitylivingbase.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this.theEntity, this.theEntity), f);
-                    entitylivingbase.attackEntityFrom(DamageSource.causeMobDamage(this.theEntity), (float) this.theEntity.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue());
+                    entitylivingbase.attackEntityFrom(DamageSource.causeMobDamage(this.theEntity), (float) this.theEntity.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue());
                     this.theEntity.setAttackTarget(null);
                 } else if (this.tickCounter >= 60 && this.tickCounter % 20 == 0) {
                 }
@@ -493,7 +493,7 @@ public class EntityGuardian extends EntityMob {
                 float f = (float) (MathHelper.atan2(d2, d0) * 180.0D / Math.PI) - 90.0F;
                 this.entityGuardian.rotationYaw = this.limitAngle(this.entityGuardian.rotationYaw, f, 30.0F);
                 this.entityGuardian.renderYawOffset = this.entityGuardian.rotationYaw;
-                float f1 = (float) (this.speed * this.entityGuardian.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue());
+                float f1 = (float) (this.speed * this.entityGuardian.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
                 this.entityGuardian.setAIMoveSpeed(this.entityGuardian.getAIMoveSpeed() + (f1 - this.entityGuardian.getAIMoveSpeed()) * 0.125F);
                 double d4 = Math.sin((this.entityGuardian.ticksExisted + this.entityGuardian.getEntityId()) * 0.5D) * 0.05D;
                 double d5 = Math.cos((this.entityGuardian.rotationYaw * (float) Math.PI / 180.0F));

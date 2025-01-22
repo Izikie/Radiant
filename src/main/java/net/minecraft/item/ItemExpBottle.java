@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 
 public class ItemExpBottle extends Item {
     public ItemExpBottle() {
-        this.setCreativeTab(CreativeTabs.tabMisc);
+        this.setCreativeTab(CreativeTabs.TAB_MISC);
     }
 
     public boolean hasEffect(ItemStack stack) {

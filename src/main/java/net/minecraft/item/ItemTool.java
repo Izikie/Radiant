@@ -25,7 +25,7 @@ public class ItemTool extends Item {
         this.setMaxDamage(material.getMaxUses());
         this.efficiencyOnProperMaterial = material.getEfficiencyOnProperMaterial();
         this.damageVsEntity = attackDamage + material.getDamageVsEntity();
-        this.setCreativeTab(CreativeTabs.tabTools);
+        this.setCreativeTab(CreativeTabs.TAB_TOOLS);
     }
 
     public float getStrVsBlock(ItemStack stack, Block state) {
@@ -67,7 +67,7 @@ public class ItemTool extends Item {
 
     public Multimap<String, AttributeModifier> getItemAttributeModifiers() {
         Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers();
-        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(ITEM_MODIFIER_UUID, "Tool modifier", this.damageVsEntity, 0));
+        multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(ITEM_MODIFIER_UUID, "Tool modifier", this.damageVsEntity, 0));
         return multimap;
     }
 }

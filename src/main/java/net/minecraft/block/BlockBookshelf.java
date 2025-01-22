@@ -11,7 +11,7 @@ import net.minecraft.item.Item;
 public class BlockBookshelf extends Block {
     public BlockBookshelf() {
         super(Material.WOOD);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public int quantityDropped(Random random) {

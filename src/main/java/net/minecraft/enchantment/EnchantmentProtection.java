@@ -6,10 +6,10 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 public class EnchantmentProtection extends Enchantment {
-    private static final String[] protectionName = new String[]{"all", "fire", "fall", "explosion", "projectile"};
-    private static final int[] baseEnchantability = new int[]{1, 10, 5, 5, 3};
-    private static final int[] levelEnchantability = new int[]{11, 8, 6, 8, 6};
-    private static final int[] thresholdEnchantability = new int[]{20, 12, 10, 12, 15};
+    private static final String[] PROTECTION_NAME = new String[]{"all", "fire", "fall", "explosion", "projectile"};
+    private static final int[] BASE_ENCHANTABILITY = new int[]{1, 10, 5, 5, 3};
+    private static final int[] LEVEL_ENCHANTABILITY = new int[]{11, 8, 6, 8, 6};
+    private static final int[] THRESHOLD_ENCHANTABILITY = new int[]{20, 12, 10, 12, 15};
     public final int protectionType;
 
     public EnchantmentProtection(int p_i45765_1_, ResourceLocation p_i45765_2_, int p_i45765_3_, int p_i45765_4_) {
@@ -22,11 +22,11 @@ public class EnchantmentProtection extends Enchantment {
     }
 
     public int getMinEnchantability(int enchantmentLevel) {
-        return baseEnchantability[this.protectionType] + (enchantmentLevel - 1) * levelEnchantability[this.protectionType];
+        return BASE_ENCHANTABILITY[this.protectionType] + (enchantmentLevel - 1) * LEVEL_ENCHANTABILITY[this.protectionType];
     }
 
     public int getMaxEnchantability(int enchantmentLevel) {
-        return this.getMinEnchantability(enchantmentLevel) + thresholdEnchantability[this.protectionType];
+        return this.getMinEnchantability(enchantmentLevel) + THRESHOLD_ENCHANTABILITY[this.protectionType];
     }
 
     public int getMaxLevel() {
@@ -43,7 +43,7 @@ public class EnchantmentProtection extends Enchantment {
     }
 
     public String getName() {
-        return "enchantment.protect." + protectionName[this.protectionType];
+        return "enchantment.protect." + PROTECTION_NAME[this.protectionType];
     }
 
     public boolean canApplyTogether(Enchantment ench) {

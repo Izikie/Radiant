@@ -62,7 +62,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
 
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(200.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(200.0D);
     }
 
     protected void entityInit() {

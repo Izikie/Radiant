@@ -16,7 +16,7 @@ public class BlockHay extends BlockRotatedPillar {
     public BlockHay() {
         super(Material.GRASS, MapColor.YELLOW_COLOR);
         this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, Direction.Axis.Y));
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public IBlockState getStateFromMeta(int meta) {

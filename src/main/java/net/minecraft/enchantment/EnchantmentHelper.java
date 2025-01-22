@@ -21,7 +21,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.WeightedRandom;
 
 public class EnchantmentHelper {
-    private static final Random enchantmentRand = new Random();
+    private static final Random ENCHANTMENT_RAND = new Random();
     private static final EnchantmentHelper.ModifierDamage enchantmentModifierDamage = new EnchantmentHelper.ModifierDamage();
     private static final EnchantmentHelper.ModifierLiving enchantmentModifierLiving = new EnchantmentHelper.ModifierLiving();
     private static final EnchantmentHelper.HurtIterator ENCHANTMENT_ITERATOR_HURT = new EnchantmentHelper.HurtIterator();
@@ -140,7 +140,7 @@ public class EnchantmentHelper {
             enchantmentModifierDamage.damageModifier = 0;
         }
 
-        return (enchantmentModifierDamage.damageModifier + 1 >> 1) + enchantmentRand.nextInt((enchantmentModifierDamage.damageModifier >> 1) + 1);
+        return (enchantmentModifierDamage.damageModifier + 1 >> 1) + ENCHANTMENT_RAND.nextInt((enchantmentModifierDamage.damageModifier >> 1) + 1);
     }
 
     public static float getModifierForCreature(ItemStack p_152377_0_, EntityGroup p_152377_1_) {

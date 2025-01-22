@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 public class ItemBucketMilk extends Item {
     public ItemBucketMilk() {
         this.setMaxStackSize(1);
-        this.setCreativeTab(CreativeTabs.tabMisc);
+        this.setCreativeTab(CreativeTabs.TAB_MISC);
     }
 
     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityPlayer playerIn) {

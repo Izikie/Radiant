@@ -8,7 +8,7 @@ import net.minecraft.creativetab.CreativeTabs;
 public class BlockNetherrack extends Block {
     public BlockNetherrack() {
         super(Material.ROCK);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public MapColor getMapColor(IBlockState state) {

@@ -47,7 +47,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
     private final int[] field_82223_h = new int[2];
     private final int[] field_82224_i = new int[2];
     private int blockBreakCounter;
-    private static final Predicate<Entity> attackEntitySelector = p_apply_1_ -> p_apply_1_ instanceof EntityLivingBase entityLivingBase && entityLivingBase.getCreatureAttribute() != EntityGroup.UNDEAD;
+    private static final Predicate<Entity> ATTACK_ENTITY_SELECTOR = p_apply_1_ -> p_apply_1_ instanceof EntityLivingBase entityLivingBase && entityLivingBase.getCreatureAttribute() != EntityGroup.UNDEAD;
 
     public EntityWither(World worldIn) {
         super(worldIn);
@@ -61,7 +61,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
         this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         this.tasks.addTask(7, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityLiving.class, 0, false, false, attackEntitySelector));
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityLiving.class, 0, false, false, ATTACK_ENTITY_SELECTOR));
         this.experienceValue = 50;
     }
 
@@ -232,7 +232,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
                             this.updateWatchedTargetId(i, 0);
                         }
                     } else {
-                        List<EntityLivingBase> list = this.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, this.getEntityBoundingBox().expand(20.0D, 8.0D, 20.0D), Predicates.and(attackEntitySelector, EntitySelectors.NOT_SPECTATING));
+                        List<EntityLivingBase> list = this.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, this.getEntityBoundingBox().expand(20.0D, 8.0D, 20.0D), Predicates.and(ATTACK_ENTITY_SELECTOR, EntitySelectors.NOT_SPECTATING));
 
                         for (int j2 = 0; j2 < 10 && !list.isEmpty(); ++j2) {
                             EntityLivingBase entitylivingbase = list.get(this.rand.nextInt(list.size()));
@@ -446,9 +446,9 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
 
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(300.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.6000000238418579D);
-        this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(40.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(300.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.6000000238418579D);
+        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(40.0D);
     }
 
     public float func_82207_a(int p_82207_1_) {

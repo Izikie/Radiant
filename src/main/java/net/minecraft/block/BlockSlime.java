@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 public class BlockSlime extends BlockBreakable {
     public BlockSlime() {
         super(Material.CLAY, false, MapColor.GRASS_COLOR);
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        this.setCreativeTab(CreativeTabs.TAB_DECORATIONS);
         this.slipperiness = 0.8F;
     }
 

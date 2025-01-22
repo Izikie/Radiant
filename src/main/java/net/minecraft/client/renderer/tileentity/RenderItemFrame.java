@@ -35,7 +35,7 @@ import net.optifine.shaders.Shaders;
 import org.lwjgl.opengl.GL11;
 
 public class RenderItemFrame extends Render<EntityItemFrame> {
-    private static final ResourceLocation mapBackgroundTextures = new ResourceLocation("textures/map/map_background.png");
+    private static final ResourceLocation MAP_BACKGROUND_TEXTURES = new ResourceLocation("textures/map/map_background.png");
     private final Minecraft mc = Minecraft.getMinecraft();
     private final ModelResourceLocation itemFrameModel = new ModelResourceLocation("item_frame", "normal");
     private final ModelResourceLocation mapModel = new ModelResourceLocation("item_frame", "map");
@@ -55,7 +55,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
         double d2 = blockpos.getZ() - entity.posZ + z;
         GlStateManager.translate(d0 + 0.5D, d1 + 0.5D, d2 + 0.5D);
         GlStateManager.rotate(180.0F - entity.rotationYaw, 0.0F, 1.0F, 0.0F);
-        this.renderManager.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+        this.renderManager.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         BlockRendererDispatcher blockrendererdispatcher = this.mc.getBlockRendererDispatcher();
         ModelManager modelmanager = blockrendererdispatcher.getBlockModelShapes().getModelManager();
         IBakedModel ibakedmodel;
@@ -112,7 +112,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
             GlStateManager.rotate(i * 360.0F / 8.0F, 0.0F, 0.0F, 1.0F);
 
             if (item instanceof ItemMap) {
-                this.renderManager.renderEngine.bindTexture(mapBackgroundTextures);
+                this.renderManager.renderEngine.bindTexture(MAP_BACKGROUND_TEXTURES);
                 GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
                 float f = 0.0078125F;
                 GlStateManager.scale(f, f, f);
@@ -128,7 +128,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
 
                 if (item == Items.COMPASS) {
                     textureatlassprite = this.mc.getTextureMapBlocks().getAtlasSprite(TextureCompass.locationSprite);
-                    this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
+                    this.mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
                     if (textureatlassprite instanceof TextureCompass texturecompass) {
                         double d1 = texturecompass.currentAngle;

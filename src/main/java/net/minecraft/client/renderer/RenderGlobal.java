@@ -113,11 +113,11 @@ import org.lwjgl.util.vector.Vector4f;
 
 public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListener {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final ResourceLocation locationMoonPhasesPng = new ResourceLocation("textures/environment/moon_phases.png");
-    private static final ResourceLocation locationSunPng = new ResourceLocation("textures/environment/sun.png");
-    private static final ResourceLocation locationCloudsPng = new ResourceLocation("textures/environment/clouds.png");
-    private static final ResourceLocation locationEndSkyPng = new ResourceLocation("textures/environment/end_sky.png");
-    private static final ResourceLocation locationForcefieldPng = new ResourceLocation("textures/misc/forcefield.png");
+    private static final ResourceLocation LOCATION_MOON_PHASES_PNG = new ResourceLocation("textures/environment/moon_phases.png");
+    private static final ResourceLocation LOCATION_SUN_PNG = new ResourceLocation("textures/environment/sun.png");
+    private static final ResourceLocation LOCATION_CLOUDS_PNG = new ResourceLocation("textures/environment/clouds.png");
+    private static final ResourceLocation LOCATION_END_SKY_PNG = new ResourceLocation("textures/environment/end_sky.png");
+    private static final ResourceLocation LOCATION_FORCEFIELD_PNG = new ResourceLocation("textures/misc/forcefield.png");
     public final Minecraft mc;
     private final TextureManager renderEngine;
     private final RenderManager renderManager;
@@ -198,7 +198,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         this.mc = mcIn;
         this.renderManager = mcIn.getRenderManager();
         this.renderEngine = mcIn.getTextureManager();
-        this.renderEngine.bindTexture(locationForcefieldPng);
+        this.renderEngine.bindTexture(LOCATION_FORCEFIELD_PNG);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_REPEAT);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_REPEAT);
         GlStateManager.bindTexture(0);
@@ -1240,7 +1240,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
             RenderHelper.disableStandardItemLighting();
             GlStateManager.depthMask(false);
-            this.renderEngine.bindTexture(locationEndSkyPng);
+            this.renderEngine.bindTexture(LOCATION_END_SKY_PNG);
             Tessellator tessellator = Tessellator.getInstance();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
 
@@ -1434,7 +1434,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             float f16 = 30.0F;
 
             if (Config.isSunTexture()) {
-                this.renderEngine.bindTexture(locationSunPng);
+                this.renderEngine.bindTexture(LOCATION_SUN_PNG);
                 worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
                 worldrenderer.pos(-f16, 100.0D, -f16).tex(0.0D, 0.0D).endVertex();
                 worldrenderer.pos(f16, 100.0D, -f16).tex(1.0D, 0.0D).endVertex();
@@ -1446,7 +1446,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             f16 = 20.0F;
 
             if (Config.isMoonTexture()) {
-                this.renderEngine.bindTexture(locationMoonPhasesPng);
+                this.renderEngine.bindTexture(LOCATION_MOON_PHASES_PNG);
                 int i = this.theWorld.getMoonPhase();
                 int k = i % 4;
                 int i1 = i / 4 % 2;
@@ -1561,7 +1561,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                     int j = 8;
                     Tessellator tessellator = Tessellator.getInstance();
                     WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-                    this.renderEngine.bindTexture(locationCloudsPng);
+                    this.renderEngine.bindTexture(LOCATION_CLOUDS_PNG);
                     GlStateManager.enableBlend();
                     GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
                     Vec3 vec3 = this.theWorld.getCloudColour(partialTicks);
@@ -1643,7 +1643,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         int j = MathHelper.floor_double(d2 / 2048.0D);
         d1 = d1 - (i * 2048);
         d2 = d2 - (j * 2048);
-        this.renderEngine.bindTexture(locationCloudsPng);
+        this.renderEngine.bindTexture(LOCATION_CLOUDS_PNG);
         GlStateManager.enableBlend();
         GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
         Vec3 vec3 = this.theWorld.getCloudColour(partialTicks);
@@ -1863,7 +1863,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             double d4 = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * partialTicks;
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(770, 1, 1, 0);
-            this.renderEngine.bindTexture(locationForcefieldPng);
+            this.renderEngine.bindTexture(LOCATION_FORCEFIELD_PNG);
             // TODO: PATCHER, GlStateManager.func_179127_m();
             GlStateManager.depthMask(false);
             GlStateManager.pushMatrix();
@@ -1998,7 +1998,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         double d2 = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * partialTicks;
 
         if (!this.damagedBlocks.isEmpty()) {
-            this.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+            this.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
             this.preRenderDamagedBlocks();
             worldRendererIn.begin(7, DefaultVertexFormats.BLOCK);
             worldRendererIn.setTranslation(-d0, -d1, -d2);

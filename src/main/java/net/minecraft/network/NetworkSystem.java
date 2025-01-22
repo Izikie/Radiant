@@ -45,7 +45,7 @@ import org.apache.logging.log4j.Logger;
 
 public class NetworkSystem {
     private static final Logger LOGGER = LogManager.getLogger();
-    public static final LazyLoadBase<NioEventLoopGroup> eventLoops = new LazyLoadBase<>() {
+    public static final LazyLoadBase<NioEventLoopGroup> EVENT_LOOPS = new LazyLoadBase<>() {
         protected NioEventLoopGroup load() {
             return new NioEventLoopGroup(0, (new ThreadFactoryBuilder()).setNameFormat("Netty Server IO #%d").setDaemon(true).build());
         }
@@ -81,7 +81,7 @@ public class NetworkSystem {
                 LOGGER.info("Using epoll channel type");
             } else {
                 oclass = NioServerSocketChannel.class;
-                lazyloadbase = eventLoops;
+                lazyloadbase = EVENT_LOOPS;
                 LOGGER.info("Using default channel type");
             }
 
@@ -113,7 +113,7 @@ public class NetworkSystem {
                     NetworkSystem.this.networkManagers.add(networkmanager);
                     p_initChannel_1_.pipeline().addLast("packet_handler", networkmanager);
                 }
-            }).group(eventLoops.getValue()).localAddress(LocalAddress.ANY).bind().syncUninterruptibly();
+            }).group(EVENT_LOOPS.getValue()).localAddress(LocalAddress.ANY).bind().syncUninterruptibly();
             this.endpoints.add(channelfuture);
         }
 

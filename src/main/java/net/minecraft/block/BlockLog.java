@@ -15,7 +15,7 @@ public abstract class BlockLog extends BlockRotatedPillar {
 
     public BlockLog() {
         super(Material.WOOD);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
         this.setHardness(2.0F);
         this.setStepSound(soundTypeWood);
     }

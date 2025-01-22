@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 public class BlockWeb extends Block {
     public BlockWeb() {
         super(Material.WEB);
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        this.setCreativeTab(CreativeTabs.TAB_DECORATIONS);
     }
 
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {

@@ -10,10 +10,10 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 
 public class EnchantmentDamage extends Enchantment {
-    private static final String[] protectionName = new String[]{"all", "undead", "arthropods"};
-    private static final int[] baseEnchantability = new int[]{1, 5, 5};
-    private static final int[] levelEnchantability = new int[]{11, 8, 8};
-    private static final int[] thresholdEnchantability = new int[]{20, 20, 20};
+    private static final String[] PROTECTION_NAME = new String[]{"all", "undead", "arthropods"};
+    private static final int[] BASE_ENCHANTABILITY = new int[]{1, 5, 5};
+    private static final int[] LEVEL_ENCHANTABILITY = new int[]{11, 8, 8};
+    private static final int[] THRESHOLD_ENCHANTABILITY = new int[]{20, 20, 20};
     public final int damageType;
 
     public EnchantmentDamage(int enchID, ResourceLocation enchName, int enchWeight, int classification) {
@@ -22,11 +22,11 @@ public class EnchantmentDamage extends Enchantment {
     }
 
     public int getMinEnchantability(int enchantmentLevel) {
-        return baseEnchantability[this.damageType] + (enchantmentLevel - 1) * levelEnchantability[this.damageType];
+        return BASE_ENCHANTABILITY[this.damageType] + (enchantmentLevel - 1) * LEVEL_ENCHANTABILITY[this.damageType];
     }
 
     public int getMaxEnchantability(int enchantmentLevel) {
-        return this.getMinEnchantability(enchantmentLevel) + thresholdEnchantability[this.damageType];
+        return this.getMinEnchantability(enchantmentLevel) + THRESHOLD_ENCHANTABILITY[this.damageType];
     }
 
     public int getMaxLevel() {
@@ -38,7 +38,7 @@ public class EnchantmentDamage extends Enchantment {
     }
 
     public String getName() {
-        return "enchantment.damage." + protectionName[this.damageType];
+        return "enchantment.damage." + PROTECTION_NAME[this.damageType];
     }
 
     public boolean canApplyTogether(Enchantment ench) {

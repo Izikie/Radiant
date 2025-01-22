@@ -22,7 +22,7 @@ public class BlockEnchantmentTable extends BlockContainer {
         super(Material.ROCK, MapColor.RED_COLOR);
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.75F, 1.0F);
         this.setLightOpacity(0);
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        this.setCreativeTab(CreativeTabs.TAB_DECORATIONS);
     }
 
     public boolean isFullCube() {

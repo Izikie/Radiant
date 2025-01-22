@@ -6,7 +6,7 @@ import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderSheep extends RenderLiving<EntitySheep> {
-    private static final ResourceLocation shearedSheepTextures = new ResourceLocation("textures/entity/sheep/sheep.png");
+    private static final ResourceLocation SHEARED_SHEEP_TEXTURES = new ResourceLocation("textures/entity/sheep/sheep.png");
 
     public RenderSheep(RenderManager renderManagerIn, ModelBase modelBaseIn, float shadowSizeIn) {
         super(renderManagerIn, modelBaseIn, shadowSizeIn);
@@ -14,6 +14,6 @@ public class RenderSheep extends RenderLiving<EntitySheep> {
     }
 
     protected ResourceLocation getEntityTexture(EntitySheep entity) {
-        return shearedSheepTextures;
+        return SHEARED_SHEEP_TEXTURES;
     }
 }

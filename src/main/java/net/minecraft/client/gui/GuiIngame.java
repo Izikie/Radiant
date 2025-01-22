@@ -476,7 +476,7 @@ public class GuiIngame extends Gui {
             FoodStats foodstats = entityplayer.getFoodStats();
             int k = foodstats.getFoodLevel();
             int l = foodstats.getPrevFoodLevel();
-            IAttributeInstance iattributeinstance = entityplayer.getEntityAttribute(SharedMonsterAttributes.maxHealth);
+            IAttributeInstance iattributeinstance = entityplayer.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH);
             int i1 = scaledRes.getScaledWidth() / 2 - 91;
             int j1 = scaledRes.getScaledWidth() / 2 + 91;
             int k1 = scaledRes.getScaledHeight() - 39;
@@ -774,7 +774,7 @@ public class GuiIngame extends Gui {
         GlStateManager.depthMask(false);
         GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
         GlStateManager.color(1.0F, 1.0F, 1.0F, timeInPortal);
-        this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
+        this.mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         TextureAtlasSprite textureatlassprite = this.mc.getBlockRendererDispatcher().getBlockModelShapes().getTexture(Blocks.PORTAL.getDefaultState());
         float f = textureatlassprite.getMinU();
         float f1 = textureatlassprite.getMinV();

@@ -30,7 +30,7 @@ public class BlockDaylightDetector extends BlockContainer {
         this.inverted = inverted;
         this.setDefaultState(this.blockState.getBaseState().withProperty(POWER, 0));
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.375F, 1.0F);
-        this.setCreativeTab(CreativeTabs.tabRedstone);
+        this.setCreativeTab(CreativeTabs.TAB_REDSTONE);
         this.setHardness(0.2F);
         this.setStepSound(soundTypeWood);
         this.setUnlocalizedName("daylightDetector");

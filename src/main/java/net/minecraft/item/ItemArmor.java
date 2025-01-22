@@ -62,7 +62,7 @@ public class ItemArmor extends Item {
         this.damageReduceAmount = material.getDamageReductionAmount(armorType);
         this.setMaxDamage(material.getDurability(armorType));
         this.maxStackSize = 1;
-        this.setCreativeTab(CreativeTabs.tabCombat);
+        this.setCreativeTab(CreativeTabs.TAB_COMBAT);
         BlockDispenser.dispenseBehaviorRegistry.putObject(this, DISPENSER_BEHAVIOR);
     }
 

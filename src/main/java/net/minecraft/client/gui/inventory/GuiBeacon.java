@@ -54,11 +54,11 @@ public class GuiBeacon extends GuiContainer {
             this.buttonsNotDrawn = false;
 
             for (int l = 0; l <= 2; ++l) {
-                int i1 = TileEntityBeacon.effectsList[l].length;
+                int i1 = TileEntityBeacon.EFFECTS_LIST[l].length;
                 int j1 = i1 * 22 + (i1 - 1) * 2;
 
                 for (int k1 = 0; k1 < i1; ++k1) {
-                    int l1 = TileEntityBeacon.effectsList[l][k1].id;
+                    int l1 = TileEntityBeacon.EFFECTS_LIST[l][k1].id;
                     GuiBeacon.PowerButton guibeacon$powerbutton = new GuiBeacon.PowerButton(l << 8 | l1, this.guiLeft + 76 + k1 * 24 - j1 / 2, this.guiTop + 22 + l * 25, l1, l);
                     this.buttonList.add(guibeacon$powerbutton);
 
@@ -71,11 +71,11 @@ public class GuiBeacon extends GuiContainer {
             }
 
             int i2 = 3;
-            int j2 = TileEntityBeacon.effectsList[i2].length + 1;
+            int j2 = TileEntityBeacon.EFFECTS_LIST[i2].length + 1;
             int k2 = j2 * 22 + (j2 - 1) * 2;
 
             for (int l2 = 0; l2 < j2 - 1; ++l2) {
-                int i3 = TileEntityBeacon.effectsList[i2][l2].id;
+                int i3 = TileEntityBeacon.EFFECTS_LIST[i2][l2].id;
                 GuiBeacon.PowerButton guibeacon$powerbutton2 = new GuiBeacon.PowerButton(i2 << 8 | i3, this.guiLeft + 167 + l2 * 24 - k2 / 2, this.guiTop + 47, i3, i2);
                 this.buttonList.add(guibeacon$powerbutton2);
 

@@ -23,7 +23,7 @@ public class ItemRecord extends Item {
     protected ItemRecord(String name) {
         this.recordName = name;
         this.maxStackSize = 1;
-        this.setCreativeTab(CreativeTabs.tabMisc);
+        this.setCreativeTab(CreativeTabs.TAB_MISC);
         RECORDS.put("records." + name, this);
     }
 

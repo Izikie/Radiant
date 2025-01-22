@@ -21,7 +21,7 @@ public class ItemBanner extends ItemBlock {
     public ItemBanner() {
         super(Blocks.STANDING_BANNER);
         this.maxStackSize = 16;
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        this.setCreativeTab(CreativeTabs.TAB_DECORATIONS);
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
     }
@@ -107,7 +107,7 @@ public class ItemBanner extends ItemBlock {
     }
 
     public CreativeTabs getCreativeTab() {
-        return CreativeTabs.tabDecorations;
+        return CreativeTabs.TAB_DECORATIONS;
     }
 
     private DyeColor getBaseColor(ItemStack stack) {

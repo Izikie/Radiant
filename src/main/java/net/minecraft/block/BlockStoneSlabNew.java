@@ -34,7 +34,7 @@ public abstract class BlockStoneSlabNew extends BlockSlab {
         }
 
         this.setDefaultState(iblockstate.withProperty(VARIANT, BlockStoneSlabNew.EnumType.RED_SANDSTONE));
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public String getLocalizedName() {

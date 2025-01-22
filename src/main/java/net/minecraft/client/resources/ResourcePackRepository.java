@@ -40,7 +40,7 @@ import org.apache.logging.log4j.Logger;
 
 public class ResourcePackRepository {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final FileFilter resourcePackFilter = p_accept_1_ -> {
+    private static final FileFilter RESOURCE_PACK_FILTER = p_accept_1_ -> {
         boolean flag = p_accept_1_.isFile() && p_accept_1_.getName().endsWith(".zip");
         boolean flag1 = p_accept_1_.isDirectory() && (new File(p_accept_1_, "pack.mcmeta")).isFile();
         return flag || flag1;
@@ -92,7 +92,7 @@ public class ResourcePackRepository {
     }
 
     private List<File> getResourcePackFiles() {
-        return this.dirResourcepacks.isDirectory() ? Arrays.asList(this.dirResourcepacks.listFiles(resourcePackFilter)) : Collections.emptyList();
+        return this.dirResourcepacks.isDirectory() ? Arrays.asList(this.dirResourcepacks.listFiles(RESOURCE_PACK_FILTER)) : Collections.emptyList();
     }
 
     public void updateRepositoryEntriesAll() {

@@ -70,7 +70,7 @@ public class ItemMinecart extends Item {
     public ItemMinecart(EntityMinecart.MinecartType type) {
         this.maxStackSize = 1;
         this.minecartType = type;
-        this.setCreativeTab(CreativeTabs.tabTransport);
+        this.setCreativeTab(CreativeTabs.TAB_TRANSPORT);
         BlockDispenser.dispenseBehaviorRegistry.putObject(this, DISPENSER_MINECART_BEHAVIOR);
     }
 

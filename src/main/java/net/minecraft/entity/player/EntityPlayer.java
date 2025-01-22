@@ -131,8 +131,8 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(1.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.10000000149011612D);
+        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.10000000149011612D);
     }
 
     protected void entityInit() {
@@ -437,7 +437,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         this.inventory.decrementAnimations();
         this.prevCameraYaw = this.cameraYaw;
         super.onLivingUpdate();
-        IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
+        IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
 
         if (!this.worldObj.isRemote) {
             iattributeinstance.setBaseValue(this.capabilities.getWalkSpeed());
@@ -917,7 +917,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
     public void attackTargetEntityWithCurrentItem(Entity targetEntity) {
         if (targetEntity.canAttackWithItem()) {
             if (!targetEntity.hitByEntity(this)) {
-                float f = (float) this.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
+                float f = (float) this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
                 int i = 0;
                 float f1;
 
@@ -1294,7 +1294,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
     }
 
     public float getAIMoveSpeed() {
-        return (float) this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue();
+        return (float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue();
     }
 
     public void addMovementStat(double p_71000_1_, double p_71000_3_, double p_71000_5_) {

@@ -9,7 +9,7 @@ import net.minecraft.world.storage.MapData;
 
 public class ItemEmptyMap extends ItemMapBase {
     protected ItemEmptyMap() {
-        this.setCreativeTab(CreativeTabs.tabMisc);
+        this.setCreativeTab(CreativeTabs.TAB_MISC);
     }
 
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {

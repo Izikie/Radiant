@@ -32,7 +32,7 @@ public class BlockHopper extends BlockContainer {
     public BlockHopper() {
         super(Material.IRON, MapColor.STONE_COLOR);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.DOWN).withProperty(ENABLED, Boolean.TRUE));
-        this.setCreativeTab(CreativeTabs.tabRedstone);
+        this.setCreativeTab(CreativeTabs.TAB_REDSTONE);
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 

@@ -108,7 +108,7 @@ public class Config {
     private static DefaultResourcePack defaultResourcePackLazy = null;
     public static final Float DEF_ALPHA_FUNC_LEVEL = 0.1F;
     private static final Logger LOGGER = LogManager.getLogger();
-    public static final boolean logDetail = System.getProperty("log.detail", "false").equals("true");
+    public static final boolean LOG_DETAIL = System.getProperty("log.detail", "false").equals("true");
     private static String mcDebugLast = null;
     private static int fpsMinLast = 0;
     public static float renderPartialTicks;
@@ -431,7 +431,7 @@ public class Config {
     }
 
     public static void detail(String p_detail_0_) {
-        if (logDetail) {
+        if (LOG_DETAIL) {
             LOGGER.info("[OptiFine] {}", p_detail_0_);
         }
     }

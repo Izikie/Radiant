@@ -53,8 +53,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
 public abstract class EntityLivingBase extends Entity {
-    private static final UUID sprintingSpeedBoostModifierUUID = UUID.fromString("662A6B8D-DA3E-4C1C-8813-96EA6097278D");
-    private static final AttributeModifier sprintingSpeedBoostModifier = (new AttributeModifier(sprintingSpeedBoostModifierUUID, "Sprinting speed boost", 0.30000001192092896D, 2)).setSaved(false);
+    private static final UUID SPRINTING_SPEED_BOOST_MODIFIER_UUID = UUID.fromString("662A6B8D-DA3E-4C1C-8813-96EA6097278D");
+    private static final AttributeModifier SPRINTING_SPEED_BOOST_MODIFIER = (new AttributeModifier(SPRINTING_SPEED_BOOST_MODIFIER_UUID, "Sprinting speed boost", 0.30000001192092896D, 2)).setSaved(false);
     private BaseAttributeMap attributeMap;
     private final CombatTracker _combatTracker = new CombatTracker(this);
     private final Map<Integer, PotionEffect> activePotionsMap = Maps.newHashMap();
@@ -136,9 +136,9 @@ public abstract class EntityLivingBase extends Entity {
     }
 
     protected void applyEntityAttributes() {
-        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.maxHealth);
-        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.knockbackResistance);
-        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.movementSpeed);
+        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.MAX_HEALTH);
+        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE);
+        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
     }
 
     protected void updateFallState(double y, boolean onGroundIn, Block blockIn, BlockPos pos) {
@@ -751,7 +751,7 @@ public abstract class EntityLivingBase extends Entity {
     }
 
     public void knockBack(Entity entityIn, float p_70653_2_, double p_70653_3_, double p_70653_5_) {
-        if (this.rand.nextDouble() >= this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).getAttributeValue()) {
+        if (this.rand.nextDouble() >= this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).getAttributeValue()) {
             this.isAirBorne = true;
             float f = MathHelper.sqrt_double(p_70653_3_ * p_70653_3_ + p_70653_5_ * p_70653_5_);
             float f1 = 0.4F;
@@ -908,7 +908,7 @@ public abstract class EntityLivingBase extends Entity {
     }
 
     public final float getMaxHealth() {
-        return (float) this.getEntityAttribute(SharedMonsterAttributes.maxHealth).getAttributeValue();
+        return (float) this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getAttributeValue();
     }
 
     public final int getArrowCountInEntity() {
@@ -1008,14 +1008,14 @@ public abstract class EntityLivingBase extends Entity {
 
     public void setSprinting(boolean sprinting) {
         super.setSprinting(sprinting);
-        IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
+        IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
 
-        if (iattributeinstance.getModifier(sprintingSpeedBoostModifierUUID) != null) {
-            iattributeinstance.removeModifier(sprintingSpeedBoostModifier);
+        if (iattributeinstance.getModifier(SPRINTING_SPEED_BOOST_MODIFIER_UUID) != null) {
+            iattributeinstance.removeModifier(SPRINTING_SPEED_BOOST_MODIFIER);
         }
 
         if (sprinting) {
-            iattributeinstance.applyModifier(sprintingSpeedBoostModifier);
+            iattributeinstance.applyModifier(SPRINTING_SPEED_BOOST_MODIFIER);
         }
     }
 
@@ -1542,7 +1542,7 @@ public abstract class EntityLivingBase extends Entity {
     }
 
     protected void setBeenAttacked() {
-        this.velocityChanged = this.rand.nextDouble() >= this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).getAttributeValue();
+        this.velocityChanged = this.rand.nextDouble() >= this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).getAttributeValue();
     }
 
     public float getRotationYawHead() {

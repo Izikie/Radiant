@@ -64,7 +64,7 @@ public abstract class EntityMob extends EntityCreature implements IMob {
     }
 
     public boolean attackEntityAsMob(Entity entityIn) {
-        float f = (float) this.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
+        float f = (float) this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
         int i = 0;
 
         if (entityIn instanceof EntityLivingBase entityLivingBase) {
@@ -122,7 +122,7 @@ public abstract class EntityMob extends EntityCreature implements IMob {
 
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.attackDamage);
+        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
     }
 
     protected boolean canDropLoot() {

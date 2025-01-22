@@ -9,7 +9,7 @@ import net.minecraft.entity.monster.EntityGiantZombie;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderGiantZombie extends RenderLiving<EntityGiantZombie> {
-    private static final ResourceLocation zombieTextures = new ResourceLocation("textures/entity/zombie/zombie.png");
+    private static final ResourceLocation ZOMBIE_TEXTURES = new ResourceLocation("textures/entity/zombie/zombie.png");
     private final float scale;
 
     public RenderGiantZombie(RenderManager renderManagerIn, ModelBase modelBaseIn, float shadowSizeIn, float scaleIn) {
@@ -33,6 +33,6 @@ public class RenderGiantZombie extends RenderLiving<EntityGiantZombie> {
     }
 
     protected ResourceLocation getEntityTexture(EntityGiantZombie entity) {
-        return zombieTextures;
+        return ZOMBIE_TEXTURES;
     }
 }

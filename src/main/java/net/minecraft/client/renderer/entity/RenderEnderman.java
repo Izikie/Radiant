@@ -10,7 +10,7 @@ import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderEnderman extends RenderLiving<EntityEnderman> {
-    private static final ResourceLocation endermanTextures = new ResourceLocation("textures/entity/enderman/enderman.png");
+    private static final ResourceLocation ENDERMAN_TEXTURES = new ResourceLocation("textures/entity/enderman/enderman.png");
     private final ModelEnderman endermanModel;
     private final Random rnd = new Random();
 
@@ -35,6 +35,6 @@ public class RenderEnderman extends RenderLiving<EntityEnderman> {
     }
 
     protected ResourceLocation getEntityTexture(EntityEnderman entity) {
-        return endermanTextures;
+        return ENDERMAN_TEXTURES;
     }
 }

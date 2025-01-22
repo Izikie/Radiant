@@ -43,7 +43,7 @@ public class LayerMooshroomMushroom implements LayerRenderer<EntityMooshroom> {
             if (hasTextureMushroom) {
                 this.mooshroomRenderer.bindTexture(LOCATION_MUSHROOM_RED);
             } else {
-                this.mooshroomRenderer.bindTexture(TextureMap.locationBlocksTexture);
+                this.mooshroomRenderer.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
             }
 
             GlStateManager.enableCull();

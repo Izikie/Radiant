@@ -41,7 +41,7 @@ import net.minecraft.server.MinecraftServer;
 import org.apache.commons.io.IOUtils;
 
 public class PlayerProfileCache {
-    public static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
     private final Map<String, PlayerProfileCache.ProfileEntry> usernameToProfileEntryMap = Maps.newHashMap();
     private final Map<UUID, PlayerProfileCache.ProfileEntry> uuidToProfileEntryMap = Maps.newHashMap();
     private final LinkedList<GameProfile> gameProfiles = Lists.newLinkedList();
@@ -251,7 +251,7 @@ public class PlayerProfileCache {
             jsonobject.addProperty("name", p_serialize_1_.getGameProfile().getName());
             UUID uuid = p_serialize_1_.getGameProfile().getId();
             jsonobject.addProperty("uuid", uuid == null ? "" : uuid.toString());
-            jsonobject.addProperty("expiresOn", PlayerProfileCache.dateFormat.format(p_serialize_1_.getExpirationDate()));
+            jsonobject.addProperty("expiresOn", PlayerProfileCache.DATE_FORMAT.format(p_serialize_1_.getExpirationDate()));
             return jsonobject;
         }
 
@@ -269,7 +269,7 @@ public class PlayerProfileCache {
 
                     if (jsonelement2 != null) {
                         try {
-                            date = PlayerProfileCache.dateFormat.parse(jsonelement2.getAsString());
+                            date = PlayerProfileCache.DATE_FORMAT.parse(jsonelement2.getAsString());
                         } catch (ParseException var14) {
                             date = null;
                         }

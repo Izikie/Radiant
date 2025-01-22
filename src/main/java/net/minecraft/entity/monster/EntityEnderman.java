@@ -40,9 +40,9 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 public class EntityEnderman extends EntityMob {
-    private static final UUID attackingSpeedBoostModifierUUID = UUID.fromString("020E0DFB-87AE-4653-9556-831010E291A0");
-    private static final AttributeModifier attackingSpeedBoostModifier = (new AttributeModifier(attackingSpeedBoostModifierUUID, "Attacking speed boost", 0.15000000596046448D, 0)).setSaved(false);
-    private static final Set<Block> carriableBlocks = Sets.newIdentityHashSet();
+    private static final UUID ATTACKING_SPEED_BOOST_MODIFIER_UUID = UUID.fromString("020E0DFB-87AE-4653-9556-831010E291A0");
+    private static final AttributeModifier ATTACKING_SPEED_BOOST_MODIFIER = (new AttributeModifier(ATTACKING_SPEED_BOOST_MODIFIER_UUID, "Attacking speed boost", 0.15000000596046448D, 0)).setSaved(false);
+    private static final Set<Block> CARRIABLE_BLOCKS = Sets.newIdentityHashSet();
     private boolean isAggressive;
 
     public EntityEnderman(World worldIn) {
@@ -63,10 +63,10 @@ public class EntityEnderman extends EntityMob {
 
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(40.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.30000001192092896D);
-        this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(7.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(64.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
+        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(7.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(64.0D);
     }
 
     protected void entityInit() {
@@ -308,20 +308,20 @@ public class EntityEnderman extends EntityMob {
     }
 
     static {
-        carriableBlocks.add(Blocks.GRASS);
-        carriableBlocks.add(Blocks.DIRT);
-        carriableBlocks.add(Blocks.SAND);
-        carriableBlocks.add(Blocks.GRAVEL);
-        carriableBlocks.add(Blocks.YELLOW_FLOWER);
-        carriableBlocks.add(Blocks.RED_FLOWER);
-        carriableBlocks.add(Blocks.BROWN_MUSHROOM);
-        carriableBlocks.add(Blocks.RED_MUSHROOM);
-        carriableBlocks.add(Blocks.TNT);
-        carriableBlocks.add(Blocks.CACTUS);
-        carriableBlocks.add(Blocks.CLAY);
-        carriableBlocks.add(Blocks.PUMPKIN);
-        carriableBlocks.add(Blocks.MELON_BLOCK);
-        carriableBlocks.add(Blocks.MYCELIUM);
+        CARRIABLE_BLOCKS.add(Blocks.GRASS);
+        CARRIABLE_BLOCKS.add(Blocks.DIRT);
+        CARRIABLE_BLOCKS.add(Blocks.SAND);
+        CARRIABLE_BLOCKS.add(Blocks.GRAVEL);
+        CARRIABLE_BLOCKS.add(Blocks.YELLOW_FLOWER);
+        CARRIABLE_BLOCKS.add(Blocks.RED_FLOWER);
+        CARRIABLE_BLOCKS.add(Blocks.BROWN_MUSHROOM);
+        CARRIABLE_BLOCKS.add(Blocks.RED_MUSHROOM);
+        CARRIABLE_BLOCKS.add(Blocks.TNT);
+        CARRIABLE_BLOCKS.add(Blocks.CACTUS);
+        CARRIABLE_BLOCKS.add(Blocks.CLAY);
+        CARRIABLE_BLOCKS.add(Blocks.PUMPKIN);
+        CARRIABLE_BLOCKS.add(Blocks.MELON_BLOCK);
+        CARRIABLE_BLOCKS.add(Blocks.MYCELIUM);
     }
 
     static class AIFindPlayer extends EntityAINearestAttackableTarget {
@@ -356,8 +356,8 @@ public class EntityEnderman extends EntityMob {
         public void resetTask() {
             this.player = null;
             this.enderman.setScreaming(false);
-            IAttributeInstance iattributeinstance = this.enderman.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
-            iattributeinstance.removeModifier(EntityEnderman.attackingSpeedBoostModifier);
+            IAttributeInstance iattributeinstance = this.enderman.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
+            iattributeinstance.removeModifier(EntityEnderman.ATTACKING_SPEED_BOOST_MODIFIER);
             super.resetTask();
         }
 
@@ -383,8 +383,8 @@ public class EntityEnderman extends EntityMob {
                     super.startExecuting();
                     this.enderman.playSound("mob.endermen.stare", 1.0F, 1.0F);
                     this.enderman.setScreaming(true);
-                    IAttributeInstance iattributeinstance = this.enderman.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
-                    iattributeinstance.applyModifier(EntityEnderman.attackingSpeedBoostModifier);
+                    IAttributeInstance iattributeinstance = this.enderman.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
+                    iattributeinstance.applyModifier(EntityEnderman.ATTACKING_SPEED_BOOST_MODIFIER);
                 }
             } else {
                 if (this.targetEntity != null) {
@@ -457,7 +457,7 @@ public class EntityEnderman extends EntityMob {
             IBlockState iblockstate = world.getBlockState(blockpos);
             Block block = iblockstate.getBlock();
 
-            if (EntityEnderman.carriableBlocks.contains(block)) {
+            if (EntityEnderman.CARRIABLE_BLOCKS.contains(block)) {
                 this.enderman.setHeldBlockState(iblockstate);
                 world.setBlockState(blockpos, Blocks.AIR.getDefaultState());
             }

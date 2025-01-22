@@ -21,11 +21,11 @@ import org.lwjgl.opengl.GL12;
 
 public class TextureUtil {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final IntBuffer dataBuffer = GLAllocation.createDirectIntBuffer(4194304);
-    public static final DynamicTexture missingTexture = new DynamicTexture(16, 16);
-    public static final int[] missingTextureData = missingTexture.getTextureData();
-    private static final int[] mipmapBuffer;
-    private static final int[] dataArray = new int[4194304];
+    private static final IntBuffer DATA_BUFFER = GLAllocation.createDirectIntBuffer(4194304);
+    public static final DynamicTexture MISSING_TEXTURE = new DynamicTexture(16, 16);
+    public static final int[] MISSING_TEXTURE_DATA = MISSING_TEXTURE.getTextureData();
+    private static final int[] MIPMAP_BUFFER;
+    private static final int[] DATA_ARRAY = new int[4194304];
 
     public static int glGenTextures() {
         return GlStateManager.generateTexture();
@@ -114,7 +114,7 @@ public class TextureUtil {
             j = Math.min(i, p_147947_3_ - l);
             int i1 = p_147947_2_ * j;
             copyToBufferPos(p_147947_1_, k, i1);
-            GL11.glTexSubImage2D(GL11.GL_TEXTURE_2D, p_147947_0_, p_147947_4_, p_147947_5_ + l, p_147947_2_, j, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, dataBuffer);
+            GL11.glTexSubImage2D(GL11.GL_TEXTURE_2D, p_147947_0_, p_147947_4_, p_147947_5_ + l, p_147947_2_, j, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, DATA_BUFFER);
         }
     }
 
@@ -155,7 +155,7 @@ public class TextureUtil {
         int i = p_110993_0_.getWidth();
         int j = p_110993_0_.getHeight();
         int k = 4194304 / i;
-        int[] aint = dataArray;
+        int[] aint = DATA_ARRAY;
         setTextureBlurred(p_110993_3_);
         setTextureClamped(p_110993_4_);
 
@@ -165,7 +165,7 @@ public class TextureUtil {
             int k1 = i * j1;
             p_110993_0_.getRGB(0, i1, i, j1, aint, 0, i);
             copyToBuffer(aint, k1);
-            GL11.glTexSubImage2D(GL11.GL_TEXTURE_2D, 0, p_110993_1_, p_110993_2_ + i1, i, j1, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, dataBuffer);
+            GL11.glTexSubImage2D(GL11.GL_TEXTURE_2D, 0, p_110993_1_, p_110993_2_ + i1, i, j1, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, DATA_BUFFER);
         }
     }
 
@@ -199,9 +199,9 @@ public class TextureUtil {
     }
 
     private static void copyToBufferPos(int[] p_110994_0_, int p_110994_1_, int p_110994_2_) {
-        dataBuffer.clear();
-        dataBuffer.put(p_110994_0_, p_110994_1_, p_110994_2_);
-        dataBuffer.position(0).limit(p_110994_2_);
+        DATA_BUFFER.clear();
+        DATA_BUFFER.put(p_110994_0_, p_110994_1_, p_110994_2_);
+        DATA_BUFFER.position(0).limit(p_110994_2_);
     }
 
     static void bindTexture(int p_94277_0_) {
@@ -257,11 +257,11 @@ public class TextureUtil {
         int k = aint.length;
 
         for (int l = 0; l < 16; ++l) {
-            System.arraycopy(l < k ? aint : aint1, 0, missingTextureData, 16 * l, k);
-            System.arraycopy(l < k ? aint1 : aint, 0, missingTextureData, 16 * l + k, k);
+            System.arraycopy(l < k ? aint : aint1, 0, MISSING_TEXTURE_DATA, 16 * l, k);
+            System.arraycopy(l < k ? aint1 : aint, 0, MISSING_TEXTURE_DATA, 16 * l + k, k);
         }
 
-        missingTexture.updateDynamicTexture();
-        mipmapBuffer = new int[4];
+        MISSING_TEXTURE.updateDynamicTexture();
+        MIPMAP_BUFFER = new int[4];
     }
 }

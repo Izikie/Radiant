@@ -31,7 +31,7 @@ public class ItemFishFood extends ItemFood {
     }
 
     public String getPotionEffect(ItemStack stack) {
-        return ItemFishFood.FishType.byItemStack(stack) == ItemFishFood.FishType.PUFFERFISH ? PotionHelper.pufferfishEffect : null;
+        return ItemFishFood.FishType.byItemStack(stack) == ItemFishFood.FishType.PUFFERFISH ? PotionHelper.PUFFERFISH_EFFECT : null;
     }
 
     protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {

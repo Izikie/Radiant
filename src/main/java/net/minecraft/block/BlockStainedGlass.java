@@ -22,7 +22,7 @@ public class BlockStainedGlass extends BlockBreakable {
     public BlockStainedGlass(Material materialIn) {
         super(materialIn, false);
         this.setDefaultState(this.blockState.getBaseState().withProperty(COLOR, DyeColor.WHITE));
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public int damageDropped(IBlockState state) {

@@ -64,7 +64,7 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob {
 
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.25D);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
     }
 
     protected void entityInit() {
@@ -207,7 +207,7 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob {
             this.tasks.addTask(4, this.aiAttackOnCollide);
             this.setSkeletonType(1);
             this.setCurrentItemOrArmor(0, new ItemStack(Items.STONE_SWORD));
-            this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(4.0D);
+            this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
         } else {
             this.tasks.addTask(4, this.aiArrowAttack);
             this.setEquipmentBasedOnDifficulty(difficulty);

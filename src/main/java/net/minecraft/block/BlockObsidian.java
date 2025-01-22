@@ -12,7 +12,7 @@ import net.minecraft.item.Item;
 public class BlockObsidian extends Block {
     public BlockObsidian() {
         super(Material.ROCK);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {

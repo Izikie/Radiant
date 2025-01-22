@@ -23,7 +23,7 @@ public class BlockSilverfish extends Block {
         super(Material.CLAY);
         this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockSilverfish.EnumType.STONE));
         this.setHardness(0.0F);
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        this.setCreativeTab(CreativeTabs.TAB_DECORATIONS);
     }
 
     public int quantityDropped(Random random) {

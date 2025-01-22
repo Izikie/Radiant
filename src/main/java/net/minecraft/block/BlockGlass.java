@@ -9,7 +9,7 @@ import net.minecraft.util.RenderLayer;
 public class BlockGlass extends BlockBreakable {
     public BlockGlass(Material materialIn, boolean ignoreSimilarity) {
         super(materialIn, ignoreSimilarity);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public int quantityDropped(Random random) {

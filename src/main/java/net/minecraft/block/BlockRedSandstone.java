@@ -17,7 +17,7 @@ public class BlockRedSandstone extends Block {
     public BlockRedSandstone() {
         super(Material.ROCK, BlockSand.SandType.RED_SAND.getMapColor());
         this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, RedSandStoneType.DEFAULT));
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public int damageDropped(IBlockState state) {

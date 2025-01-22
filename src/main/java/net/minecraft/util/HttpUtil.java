@@ -32,7 +32,6 @@ import org.apache.logging.log4j.Logger;
 
 public class HttpUtil {
     public static final ListeningExecutorService field_180193_a = MoreExecutors.listeningDecorator(Executors.newCachedThreadPool((new ThreadFactoryBuilder()).setDaemon(true).setNameFormat("Downloader %d").build()));
-    private static final AtomicInteger downloadThreadsStarted = new AtomicInteger(0);
     private static final Logger LOGGER = LogManager.getLogger();
 
     public static String buildPostString(Map<String, Object> data) {

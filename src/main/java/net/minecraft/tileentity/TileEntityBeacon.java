@@ -30,7 +30,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.ITickable;
 
 public class TileEntityBeacon extends TileEntityLockable implements ITickable, IInventory {
-    public static final Potion[][] effectsList = new Potion[][]{{Potion.MOVE_SPEED, Potion.DIG_SPEED}, {Potion.RESISTANCE, Potion.JUMP}, {Potion.DAMAGE_BOOST}, {Potion.REGENERATION}};
+    public static final Potion[][] EFFECTS_LIST = new Potion[][]{{Potion.MOVE_SPEED, Potion.DIG_SPEED}, {Potion.RESISTANCE, Potion.JUMP}, {Potion.DAMAGE_BOOST}, {Potion.REGENERATION}};
     private final List<TileEntityBeacon.BeamSegment> beamSegments = Lists.newArrayList();
     private long beamRenderCounter;
     private float field_146014_j;

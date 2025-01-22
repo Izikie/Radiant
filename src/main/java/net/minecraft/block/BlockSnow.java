@@ -29,7 +29,7 @@ public class BlockSnow extends Block {
         this.setDefaultState(this.blockState.getBaseState().withProperty(LAYERS, 1));
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
         this.setTickRandomly(true);
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        this.setCreativeTab(CreativeTabs.TAB_DECORATIONS);
         this.setBlockBoundsForItemRender();
     }
 

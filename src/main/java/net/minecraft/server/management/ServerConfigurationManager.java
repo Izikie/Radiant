@@ -67,7 +67,7 @@ public abstract class ServerConfigurationManager {
     public static final File FILE_OPS = new File("ops.json");
     public static final File FILE_WHITELIST = new File("whitelist.json");
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
     private final MinecraftServer mcServer;
     private final List<EntityPlayerMP> playerEntityList = Lists.newArrayList();
     private final Map<UUID, EntityPlayerMP> uuidToPlayerMap = Maps.newHashMap();
@@ -300,7 +300,7 @@ public abstract class ServerConfigurationManager {
             String s1 = "You are banned from this server!\nReason: " + userlistbansentry.getBanReason();
 
             if (userlistbansentry.getBanEndDate() != null) {
-                s1 = s1 + "\nYour ban will be removed on " + dateFormat.format(userlistbansentry.getBanEndDate());
+                s1 = s1 + "\nYour ban will be removed on " + DATE_FORMAT.format(userlistbansentry.getBanEndDate());
             }
 
             return s1;
@@ -311,7 +311,7 @@ public abstract class ServerConfigurationManager {
             String s = "Your IP address is banned from this server!\nReason: " + ipbanentry.getBanReason();
 
             if (ipbanentry.getBanEndDate() != null) {
-                s = s + "\nYour ban will be removed on " + dateFormat.format(ipbanentry.getBanEndDate());
+                s = s + "\nYour ban will be removed on " + DATE_FORMAT.format(ipbanentry.getBanEndDate());
             }
 
             return s;

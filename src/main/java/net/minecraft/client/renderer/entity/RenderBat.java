@@ -7,14 +7,14 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderBat extends RenderLiving<EntityBat> {
-    private static final ResourceLocation batTextures = new ResourceLocation("textures/entity/bat.png");
+    private static final ResourceLocation BAT_TEXTURES = new ResourceLocation("textures/entity/bat.png");
 
     public RenderBat(RenderManager renderManagerIn) {
         super(renderManagerIn, new ModelBat(), 0.25F);
     }
 
     protected ResourceLocation getEntityTexture(EntityBat entity) {
-        return batTextures;
+        return BAT_TEXTURES;
     }
 
     protected void preRenderCallback(EntityBat entitylivingbaseIn, float partialTickTime) {

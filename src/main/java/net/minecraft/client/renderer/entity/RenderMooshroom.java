@@ -6,7 +6,7 @@ import net.minecraft.entity.passive.EntityMooshroom;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderMooshroom extends RenderLiving<EntityMooshroom> {
-    private static final ResourceLocation mooshroomTextures = new ResourceLocation("textures/entity/cow/mooshroom.png");
+    private static final ResourceLocation MOOSHROOM_TEXTURES = new ResourceLocation("textures/entity/cow/mooshroom.png");
 
     public RenderMooshroom(RenderManager renderManagerIn, ModelBase modelBaseIn, float shadowSizeIn) {
         super(renderManagerIn, modelBaseIn, shadowSizeIn);
@@ -14,6 +14,6 @@ public class RenderMooshroom extends RenderLiving<EntityMooshroom> {
     }
 
     protected ResourceLocation getEntityTexture(EntityMooshroom entity) {
-        return mooshroomTextures;
+        return MOOSHROOM_TEXTURES;
     }
 }

@@ -6,7 +6,7 @@ import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderPig extends RenderLiving<EntityPig> {
-    private static final ResourceLocation pigTextures = new ResourceLocation("textures/entity/pig/pig.png");
+    private static final ResourceLocation PIG_TEXTURES = new ResourceLocation("textures/entity/pig/pig.png");
 
     public RenderPig(RenderManager renderManagerIn, ModelBase modelBaseIn, float shadowSizeIn) {
         super(renderManagerIn, modelBaseIn, shadowSizeIn);
@@ -14,6 +14,6 @@ public class RenderPig extends RenderLiving<EntityPig> {
     }
 
     protected ResourceLocation getEntityTexture(EntityPig entity) {
-        return pigTextures;
+        return PIG_TEXTURES;
     }
 }

@@ -6,10 +6,10 @@ import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderOcelot extends RenderLiving<EntityOcelot> {
-    private static final ResourceLocation blackOcelotTextures = new ResourceLocation("textures/entity/cat/black.png");
-    private static final ResourceLocation ocelotTextures = new ResourceLocation("textures/entity/cat/ocelot.png");
-    private static final ResourceLocation redOcelotTextures = new ResourceLocation("textures/entity/cat/red.png");
-    private static final ResourceLocation siameseOcelotTextures = new ResourceLocation("textures/entity/cat/siamese.png");
+    private static final ResourceLocation BLACK_OCELOT_TEXTURES = new ResourceLocation("textures/entity/cat/black.png");
+    private static final ResourceLocation OCELOT_TEXTURES = new ResourceLocation("textures/entity/cat/ocelot.png");
+    private static final ResourceLocation RED_OCELOT_TEXTURES = new ResourceLocation("textures/entity/cat/red.png");
+    private static final ResourceLocation SIAMESE_OCELOT_TEXTURES = new ResourceLocation("textures/entity/cat/siamese.png");
 
     public RenderOcelot(RenderManager renderManagerIn, ModelBase modelBaseIn, float shadowSizeIn) {
         super(renderManagerIn, modelBaseIn, shadowSizeIn);
@@ -17,10 +17,10 @@ public class RenderOcelot extends RenderLiving<EntityOcelot> {
 
     protected ResourceLocation getEntityTexture(EntityOcelot entity) {
         return switch (entity.getTameSkin()) {
-            case 1 -> blackOcelotTextures;
-            case 2 -> redOcelotTextures;
-            case 3 -> siameseOcelotTextures;
-            default -> ocelotTextures;
+            case 1 -> BLACK_OCELOT_TEXTURES;
+            case 2 -> RED_OCELOT_TEXTURES;
+            case 3 -> SIAMESE_OCELOT_TEXTURES;
+            default -> OCELOT_TEXTURES;
         };
     }
 

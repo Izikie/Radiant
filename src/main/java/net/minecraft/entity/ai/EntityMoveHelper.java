@@ -49,7 +49,7 @@ public class EntityMoveHelper {
             if (d3 >= 2.500000277905201E-7D) {
                 float f = (float) (MathHelper.atan2(d1, d0) * 180.0D / Math.PI) - 90.0F;
                 this.entity.rotationYaw = this.limitAngle(this.entity.rotationYaw, f, 30.0F);
-                this.entity.setAIMoveSpeed((float) (this.speed * this.entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue()));
+                this.entity.setAIMoveSpeed((float) (this.speed * this.entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue()));
 
                 if (d2 > 0.0D && d0 * d0 + d1 * d1 < 1.0D) {
                     this.entity.getJumpHelper().setJumping();

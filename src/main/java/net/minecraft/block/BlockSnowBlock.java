@@ -15,7 +15,7 @@ public class BlockSnowBlock extends Block {
     protected BlockSnowBlock() {
         super(Material.CRAFTED_SNOW);
         this.setTickRandomly(true);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {

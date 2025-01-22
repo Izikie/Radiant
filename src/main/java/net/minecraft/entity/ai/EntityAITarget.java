@@ -66,7 +66,7 @@ public abstract class EntityAITarget extends EntityAIBase {
     }
 
     protected double getTargetDistance() {
-        IAttributeInstance iattributeinstance = this.taskOwner.getEntityAttribute(SharedMonsterAttributes.followRange);
+        IAttributeInstance iattributeinstance = this.taskOwner.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE);
         return iattributeinstance == null ? 16.0D : iattributeinstance.getAttributeValue();
     }
 

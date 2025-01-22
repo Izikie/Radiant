@@ -2,7 +2,6 @@ package net.minecraft.entity.ai;
 
 import com.google.common.base.Predicate;
 
-import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
@@ -105,7 +104,7 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase {
     }
 
     protected double maxTargetRange() {
-        IAttributeInstance iattributeinstance = this.entityLiving.getEntityAttribute(SharedMonsterAttributes.followRange);
+        IAttributeInstance iattributeinstance = this.entityLiving.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE);
         return iattributeinstance == null ? 16.0D : iattributeinstance.getAttributeValue();
     }
 }

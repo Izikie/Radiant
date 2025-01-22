@@ -14,9 +14,9 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderDragon extends RenderLiving<EntityDragon> {
-    private static final ResourceLocation enderDragonCrystalBeamTextures = new ResourceLocation("textures/entity/endercrystal/endercrystal_beam.png");
-    private static final ResourceLocation enderDragonExplodingTextures = new ResourceLocation("textures/entity/enderdragon/dragon_exploding.png");
-    private static final ResourceLocation enderDragonTextures = new ResourceLocation("textures/entity/enderdragon/dragon.png");
+    private static final ResourceLocation ENDER_DRAGON_CRYSTAL_BEAM_TEXTURES = new ResourceLocation("textures/entity/endercrystal/endercrystal_beam.png");
+    private static final ResourceLocation ENDER_DRAGON_EXPLODING_TEXTURES = new ResourceLocation("textures/entity/enderdragon/dragon_exploding.png");
+    private static final ResourceLocation ENDER_DRAGON_TEXTURES = new ResourceLocation("textures/entity/enderdragon/dragon.png");
     protected final ModelDragon modelDragon;
 
     public RenderDragon(RenderManager renderManagerIn) {
@@ -51,7 +51,7 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
             GlStateManager.depthFunc(515);
             GlStateManager.enableAlpha();
             GlStateManager.alphaFunc(516, f);
-            this.bindTexture(enderDragonExplodingTextures);
+            this.bindTexture(ENDER_DRAGON_EXPLODING_TEXTURES);
             this.mainModel.render(entitylivingbaseIn, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, scaleFactor);
             GlStateManager.alphaFunc(516, 0.1F);
             GlStateManager.depthFunc(514);
@@ -99,7 +99,7 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         RenderHelper.disableStandardItemLighting();
         GlStateManager.disableCull();
-        this.bindTexture(enderDragonCrystalBeamTextures);
+        this.bindTexture(ENDER_DRAGON_CRYSTAL_BEAM_TEXTURES);
         GlStateManager.shadeModel(7425);
         float f7 = 0.0F - (dragon.ticksExisted + p_180574_8_) * 0.01F;
         float f8 = MathHelper.sqrt_float(f2 * f2 + f3 * f3 + f4 * f4) / 32.0F - (dragon.ticksExisted + p_180574_8_) * 0.01F;
@@ -122,6 +122,6 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
     }
 
     protected ResourceLocation getEntityTexture(EntityDragon entity) {
-        return enderDragonTextures;
+        return ENDER_DRAGON_TEXTURES;
     }
 }

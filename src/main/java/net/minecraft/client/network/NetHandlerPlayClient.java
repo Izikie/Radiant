@@ -796,7 +796,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
             boolean flag = false;
 
             if (this.gameController.currentScreen instanceof GuiContainerCreative guicontainercreative) {
-                flag = guicontainercreative.getSelectedTabIndex() != CreativeTabs.tabInventory.getTabIndex();
+                flag = guicontainercreative.getSelectedTabIndex() != CreativeTabs.TAB_INVENTORY.getTabIndex();
             }
 
             if (packetIn.func_149175_c() == 0 && packetIn.func_149173_d() >= 36 && packetIn.func_149173_d() < 45) {

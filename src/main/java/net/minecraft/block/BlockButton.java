@@ -28,7 +28,7 @@ public abstract class BlockButton extends Block {
         super(Material.CIRCUITS);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH).withProperty(POWERED, Boolean.FALSE));
         this.setTickRandomly(true);
-        this.setCreativeTab(CreativeTabs.tabRedstone);
+        this.setCreativeTab(CreativeTabs.TAB_REDSTONE);
         this.wooden = wooden;
     }
 

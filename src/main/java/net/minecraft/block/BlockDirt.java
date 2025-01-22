@@ -24,7 +24,7 @@ public class BlockDirt extends Block {
     protected BlockDirt() {
         super(Material.GROUND);
         this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockDirt.DirtType.DIRT).withProperty(SNOWY, Boolean.FALSE));
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public MapColor getMapColor(IBlockState state) {

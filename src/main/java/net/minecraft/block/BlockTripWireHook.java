@@ -29,7 +29,7 @@ public class BlockTripWireHook extends Block {
     public BlockTripWireHook() {
         super(Material.CIRCUITS);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH).withProperty(POWERED, Boolean.FALSE).withProperty(ATTACHED, Boolean.FALSE).withProperty(SUSPENDED, Boolean.FALSE));
-        this.setCreativeTab(CreativeTabs.tabRedstone);
+        this.setCreativeTab(CreativeTabs.TAB_REDSTONE);
         this.setTickRandomly(true);
     }
 

@@ -33,7 +33,7 @@ public class BlockPistonBase extends Block {
         this.isSticky = isSticky;
         this.setStepSound(soundTypePiston);
         this.setHardness(0.5F);
-        this.setCreativeTab(CreativeTabs.tabRedstone);
+        this.setCreativeTab(CreativeTabs.TAB_REDSTONE);
     }
 
     public boolean isOpaqueCube() {

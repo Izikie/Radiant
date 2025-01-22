@@ -6,15 +6,15 @@ import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderGhast extends RenderLiving<EntityGhast> {
-    private static final ResourceLocation ghastTextures = new ResourceLocation("textures/entity/ghast/ghast.png");
-    private static final ResourceLocation ghastShootingTextures = new ResourceLocation("textures/entity/ghast/ghast_shooting.png");
+    private static final ResourceLocation GHAST_TEXTURES = new ResourceLocation("textures/entity/ghast/ghast.png");
+    private static final ResourceLocation GHAST_SHOOTING_TEXTURES = new ResourceLocation("textures/entity/ghast/ghast_shooting.png");
 
     public RenderGhast(RenderManager renderManagerIn) {
         super(renderManagerIn, new ModelGhast(), 0.5F);
     }
 
     protected ResourceLocation getEntityTexture(EntityGhast entity) {
-        return entity.isAttacking() ? ghastShootingTextures : ghastTextures;
+        return entity.isAttacking() ? GHAST_SHOOTING_TEXTURES : GHAST_TEXTURES;
     }
 
     protected void preRenderCallback(EntityGhast entitylivingbaseIn, float partialTickTime) {

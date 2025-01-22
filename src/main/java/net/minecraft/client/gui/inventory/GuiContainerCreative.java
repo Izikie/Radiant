@@ -37,7 +37,7 @@ import org.lwjgl.input.Mouse;
 public class GuiContainerCreative extends InventoryEffectRenderer {
     private static final ResourceLocation CREATIVE_INVENTORY_TABS = new ResourceLocation("textures/gui/container/creative_inventory/tabs.png");
     private static final InventoryBasic field_147060_v = new InventoryBasic("tmp", true, 45);
-    private static int selectedTabIndex = CreativeTabs.tabBlock.getTabIndex();
+    private static int selectedTabIndex = CreativeTabs.TAB_BLOCK.getTabIndex();
     private float currentScroll;
     private boolean isScrolling;
     private boolean wasClicking;
@@ -68,7 +68,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         boolean flag = clickType == 1;
         clickType = slotId == -999 && clickType == 0 ? 4 : clickType;
 
-        if (slotIn == null && selectedTabIndex != CreativeTabs.tabInventory.getTabIndex() && clickType != 5) {
+        if (slotIn == null && selectedTabIndex != CreativeTabs.TAB_INVENTORY.getTabIndex() && clickType != 5) {
             InventoryPlayer inventoryplayer1 = this.mc.thePlayer.inventory;
 
             if (inventoryplayer1.getItemStack() != null) {
@@ -92,7 +92,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
             for (int j = 0; j < this.mc.thePlayer.inventoryContainer.getInventory().size(); ++j) {
                 this.mc.playerController.sendSlotPacket(null, j);
             }
-        } else if (selectedTabIndex == CreativeTabs.tabInventory.getTabIndex()) {
+        } else if (selectedTabIndex == CreativeTabs.TAB_INVENTORY.getTabIndex()) {
             if (slotIn == this.field_147064_C) {
                 this.mc.thePlayer.inventory.setItemStack(null);
             } else if (clickType == 4 && slotIn != null && slotIn.getHasStack()) {
@@ -201,7 +201,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
             this.searchField.setTextColor(16777215);
             int i = selectedTabIndex;
             selectedTabIndex = -1;
-            this.setCurrentCreativeTab(CreativeTabs.creativeTabArray[i]);
+            this.setCurrentCreativeTab(CreativeTabs.CREATIVE_TABS[i]);
             this.field_147059_E = new CreativeCrafting(this.mc);
             this.mc.thePlayer.inventoryContainer.onCraftGuiOpened(this.field_147059_E);
         } else {
@@ -220,9 +220,9 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
     }
 
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
-        if (selectedTabIndex != CreativeTabs.tabAllSearch.getTabIndex()) {
+        if (selectedTabIndex != CreativeTabs.TAB_ALL_SEARCH.getTabIndex()) {
             if (GameSettings.isKeyDown(this.mc.gameSettings.keyBindChat)) {
-                this.setCurrentCreativeTab(CreativeTabs.tabAllSearch);
+                this.setCurrentCreativeTab(CreativeTabs.TAB_ALL_SEARCH);
             } else {
                 super.keyTyped(typedChar, keyCode);
             }
@@ -282,7 +282,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
     }
 
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        CreativeTabs creativetabs = CreativeTabs.creativeTabArray[selectedTabIndex];
+        CreativeTabs creativetabs = CreativeTabs.CREATIVE_TABS[selectedTabIndex];
 
         if (creativetabs.drawInForegroundOfTab()) {
             GlStateManager.disableBlend();
@@ -295,7 +295,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
             int i = mouseX - this.guiLeft;
             int j = mouseY - this.guiTop;
 
-            for (CreativeTabs creativetabs : CreativeTabs.creativeTabArray) {
+            for (CreativeTabs creativetabs : CreativeTabs.CREATIVE_TABS) {
                 if (this.func_147049_a(creativetabs, i, j)) {
                     return;
                 }
@@ -310,7 +310,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
             int i = mouseX - this.guiLeft;
             int j = mouseY - this.guiTop;
 
-            for (CreativeTabs creativetabs : CreativeTabs.creativeTabArray) {
+            for (CreativeTabs creativetabs : CreativeTabs.CREATIVE_TABS) {
                 if (this.func_147049_a(creativetabs, i, j)) {
                     this.setCurrentCreativeTab(creativetabs);
                     return;
@@ -322,7 +322,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
     }
 
     private boolean needsScrollBars() {
-        return selectedTabIndex != CreativeTabs.tabInventory.getTabIndex() && CreativeTabs.creativeTabArray[selectedTabIndex].shouldHidePlayerInventory() && ((GuiContainerCreative.ContainerCreative) this.inventorySlots).func_148328_e();
+        return selectedTabIndex != CreativeTabs.TAB_INVENTORY.getTabIndex() && CreativeTabs.CREATIVE_TABS[selectedTabIndex].shouldHidePlayerInventory() && ((GuiContainerCreative.ContainerCreative) this.inventorySlots).func_148328_e();
     }
 
     private void setCurrentCreativeTab(CreativeTabs p_147050_1_) {
@@ -333,7 +333,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         guicontainercreative$containercreative.itemList.clear();
         p_147050_1_.displayAllReleventItems(guicontainercreative$containercreative.itemList);
 
-        if (p_147050_1_ == CreativeTabs.tabInventory) {
+        if (p_147050_1_ == CreativeTabs.TAB_INVENTORY) {
             Container container = this.mc.thePlayer.inventoryContainer;
 
             if (this.field_147063_B == null) {
@@ -371,13 +371,13 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 
             this.field_147064_C = new Slot(field_147060_v, 0, 173, 112);
             guicontainercreative$containercreative.inventorySlots.add(this.field_147064_C);
-        } else if (i == CreativeTabs.tabInventory.getTabIndex()) {
+        } else if (i == CreativeTabs.TAB_INVENTORY.getTabIndex()) {
             guicontainercreative$containercreative.inventorySlots = this.field_147063_B;
             this.field_147063_B = null;
         }
 
         if (this.searchField != null) {
-            if (p_147050_1_ == CreativeTabs.tabAllSearch) {
+            if (p_147050_1_ == CreativeTabs.TAB_ALL_SEARCH) {
                 this.searchField.setVisible(true);
                 this.searchField.setCanLoseFocus(false);
                 this.searchField.setFocused(true);
@@ -442,13 +442,13 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 
         super.drawScreen(mouseX, mouseY, partialTicks);
 
-        for (CreativeTabs creativetabs : CreativeTabs.creativeTabArray) {
+        for (CreativeTabs creativetabs : CreativeTabs.CREATIVE_TABS) {
             if (this.renderCreativeInventoryHoveringText(creativetabs, mouseX, mouseY)) {
                 break;
             }
         }
 
-        if (this.field_147064_C != null && selectedTabIndex == CreativeTabs.tabInventory.getTabIndex() && this.isPointInRegion(this.field_147064_C.xDisplayPosition, this.field_147064_C.yDisplayPosition, 16, 16, mouseX, mouseY)) {
+        if (this.field_147064_C != null && selectedTabIndex == CreativeTabs.TAB_INVENTORY.getTabIndex() && this.isPointInRegion(this.field_147064_C.xDisplayPosition, this.field_147064_C.yDisplayPosition, 16, 16, mouseX, mouseY)) {
             this.drawCreativeTabHoveringText(I18n.format("inventory.binSlot"), mouseX, mouseY);
         }
 
@@ -457,7 +457,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
     }
 
     protected void renderToolTip(ItemStack stack, int x, int y) {
-        if (selectedTabIndex == CreativeTabs.tabAllSearch.getTabIndex()) {
+        if (selectedTabIndex == CreativeTabs.TAB_ALL_SEARCH.getTabIndex()) {
             List<String> list = stack.getTooltip(this.mc.thePlayer, this.mc.gameSettings.advancedItemTooltips);
             CreativeTabs creativetabs = stack.getItem().getCreativeTab();
 
@@ -467,7 +467,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
                 if (map.size() == 1) {
                     Enchantment enchantment = Enchantment.getEnchantmentById(map.keySet().iterator().next());
 
-                    for (CreativeTabs creativetabs1 : CreativeTabs.creativeTabArray) {
+                    for (CreativeTabs creativetabs1 : CreativeTabs.CREATIVE_TABS) {
                         if (creativetabs1.hasRelevantEnchantmentType(enchantment.type)) {
                             creativetabs = creativetabs1;
                             break;
@@ -497,9 +497,9 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         RenderHelper.enableGUIStandardItemLighting();
-        CreativeTabs creativetabs = CreativeTabs.creativeTabArray[selectedTabIndex];
+        CreativeTabs creativetabs = CreativeTabs.CREATIVE_TABS[selectedTabIndex];
 
-        for (CreativeTabs creativetabs1 : CreativeTabs.creativeTabArray) {
+        for (CreativeTabs creativetabs1 : CreativeTabs.CREATIVE_TABS) {
             this.mc.getTextureManager().bindTexture(CREATIVE_INVENTORY_TABS);
 
             if (creativetabs1.getTabIndex() != selectedTabIndex) {
@@ -522,7 +522,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 
         this.func_147051_a(creativetabs);
 
-        if (creativetabs == CreativeTabs.tabInventory) {
+        if (creativetabs == CreativeTabs.TAB_INVENTORY) {
             GuiInventory.drawEntityOnScreen(this.guiLeft + 43, this.guiTop + 45, 20, (this.guiLeft + 43 - mouseX), (this.guiTop + 45 - 30 - mouseY), this.mc.thePlayer);
         }
     }

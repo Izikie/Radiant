@@ -88,8 +88,8 @@ import org.lwjgl.util.glu.Project;
 
 public class EntityRenderer implements IResourceManagerReloadListener {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final ResourceLocation locationRainPng = new ResourceLocation("textures/environment/rain.png");
-    private static final ResourceLocation locationSnowPng = new ResourceLocation("textures/environment/snow.png");
+    private static final ResourceLocation LOCATION_RAIN_PNG = new ResourceLocation("textures/environment/rain.png");
+    private static final ResourceLocation LOCATION_SNOW_PNG = new ResourceLocation("textures/environment/snow.png");
     private final Minecraft mc;
     private final IResourceManager resourceManager;
     private final Random random = new Random();
@@ -137,8 +137,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     private double cameraYaw;
     private double cameraPitch;
     private ShaderGroup theShaderGroup;
-    private static final ResourceLocation[] shaderResourceLocations = new ResourceLocation[]{new ResourceLocation("shaders/post/notch.json"), new ResourceLocation("shaders/post/fxaa.json"), new ResourceLocation("shaders/post/art.json"), new ResourceLocation("shaders/post/bumpy.json"), new ResourceLocation("shaders/post/blobs2.json"), new ResourceLocation("shaders/post/pencil.json"), new ResourceLocation("shaders/post/color_convolve.json"), new ResourceLocation("shaders/post/deconverge.json"), new ResourceLocation("shaders/post/flip.json"), new ResourceLocation("shaders/post/invert.json"), new ResourceLocation("shaders/post/ntsc.json"), new ResourceLocation("shaders/post/outline.json"), new ResourceLocation("shaders/post/phosphor.json"), new ResourceLocation("shaders/post/scan_pincushion.json"), new ResourceLocation("shaders/post/sobel.json"), new ResourceLocation("shaders/post/bits.json"), new ResourceLocation("shaders/post/desaturate.json"), new ResourceLocation("shaders/post/green.json"), new ResourceLocation("shaders/post/blur.json"), new ResourceLocation("shaders/post/wobble.json"), new ResourceLocation("shaders/post/blobs.json"), new ResourceLocation("shaders/post/antialias.json"), new ResourceLocation("shaders/post/creeper.json"), new ResourceLocation("shaders/post/spider.json")};
-    public static final int shaderCount = shaderResourceLocations.length;
+    private static final ResourceLocation[] SHADER_RESOURCE_LOCATIONS = new ResourceLocation[]{new ResourceLocation("shaders/post/notch.json"), new ResourceLocation("shaders/post/fxaa.json"), new ResourceLocation("shaders/post/art.json"), new ResourceLocation("shaders/post/bumpy.json"), new ResourceLocation("shaders/post/blobs2.json"), new ResourceLocation("shaders/post/pencil.json"), new ResourceLocation("shaders/post/color_convolve.json"), new ResourceLocation("shaders/post/deconverge.json"), new ResourceLocation("shaders/post/flip.json"), new ResourceLocation("shaders/post/invert.json"), new ResourceLocation("shaders/post/ntsc.json"), new ResourceLocation("shaders/post/outline.json"), new ResourceLocation("shaders/post/phosphor.json"), new ResourceLocation("shaders/post/scan_pincushion.json"), new ResourceLocation("shaders/post/sobel.json"), new ResourceLocation("shaders/post/bits.json"), new ResourceLocation("shaders/post/desaturate.json"), new ResourceLocation("shaders/post/green.json"), new ResourceLocation("shaders/post/blur.json"), new ResourceLocation("shaders/post/wobble.json"), new ResourceLocation("shaders/post/blobs.json"), new ResourceLocation("shaders/post/antialias.json"), new ResourceLocation("shaders/post/creeper.json"), new ResourceLocation("shaders/post/spider.json")};
+    public static final int SHADER_COUNT = SHADER_RESOURCE_LOCATIONS.length;
     private int shaderIndex;
     private boolean useShader;
     public int frameCount;
@@ -157,7 +157,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     private boolean loadVisibleChunks = false;
 
     public EntityRenderer(Minecraft mcIn, IResourceManager resourceManagerIn) {
-        this.shaderIndex = shaderCount;
+        this.shaderIndex = SHADER_COUNT;
         this.useShader = false;
         this.frameCount = 0;
         this.mc = mcIn;
@@ -190,7 +190,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         }
 
         this.theShaderGroup = null;
-        this.shaderIndex = shaderCount;
+        this.shaderIndex = SHADER_COUNT;
     }
 
     public void switchUseShader() {
@@ -221,10 +221,10 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 this.theShaderGroup.deleteShaderGroup();
             }
 
-            this.shaderIndex = (this.shaderIndex + 1) % (shaderResourceLocations.length + 1);
+            this.shaderIndex = (this.shaderIndex + 1) % (SHADER_RESOURCE_LOCATIONS.length + 1);
 
-            if (this.shaderIndex != shaderCount) {
-                this.loadShader(shaderResourceLocations[this.shaderIndex]);
+            if (this.shaderIndex != SHADER_COUNT) {
+                this.loadShader(SHADER_RESOURCE_LOCATIONS[this.shaderIndex]);
             } else {
                 this.theShaderGroup = null;
             }
@@ -239,11 +239,11 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 this.useShader = true;
             } catch (IOException ioexception) {
                 LOGGER.warn("Failed to load shader: {}", resourceLocationIn, ioexception);
-                this.shaderIndex = shaderCount;
+                this.shaderIndex = SHADER_COUNT;
                 this.useShader = false;
             } catch (JsonSyntaxException jsonsyntaxexception) {
                 LOGGER.warn("Failed to load shader: {}", resourceLocationIn, jsonsyntaxexception);
-                this.shaderIndex = shaderCount;
+                this.shaderIndex = SHADER_COUNT;
                 this.useShader = false;
             }
         }
@@ -256,8 +256,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
         this.theShaderGroup = null;
 
-        if (this.shaderIndex != shaderCount) {
-            this.loadShader(shaderResourceLocations[this.shaderIndex]);
+        if (this.shaderIndex != SHADER_COUNT) {
+            this.loadShader(SHADER_RESOURCE_LOCATIONS[this.shaderIndex]);
         } else {
             this.loadEntityShader(this.mc.getRenderViewEntity());
         }
@@ -1186,7 +1186,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         }
 
         this.setupFog(0, partialTicks);
-        this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
+        this.mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         RenderHelper.disableStandardItemLighting();
         this.checkLoadVisibleChunks(entity, partialTicks, icamera, this.mc.thePlayer.isSpectator());
 
@@ -1219,17 +1219,17 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             ShadersRender.beginTerrainCutoutMipped();
         }
 
-        this.mc.getTextureManager().getTexture(TextureMap.locationBlocksTexture).setBlurMipmap(false, this.mc.gameSettings.mipmapLevels > 0);
+        this.mc.getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).setBlurMipmap(false, this.mc.gameSettings.mipmapLevels > 0);
         renderglobal.renderBlockLayer(RenderLayer.CUTOUT_MIPPED, partialTicks, pass, entity);
-        this.mc.getTextureManager().getTexture(TextureMap.locationBlocksTexture).restoreLastBlurMipmap();
-        this.mc.getTextureManager().getTexture(TextureMap.locationBlocksTexture).setBlurMipmap(false, false);
+        this.mc.getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).restoreLastBlurMipmap();
+        this.mc.getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).setBlurMipmap(false, false);
 
         if (flag) {
             ShadersRender.beginTerrainCutout();
         }
 
         renderglobal.renderBlockLayer(RenderLayer.CUTOUT, partialTicks, pass, entity);
-        this.mc.getTextureManager().getTexture(TextureMap.locationBlocksTexture).restoreLastBlurMipmap();
+        this.mc.getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).restoreLastBlurMipmap();
 
         if (flag) {
             ShadersRender.endTerrain();
@@ -1277,9 +1277,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         if (!renderglobal.damagedBlocks.isEmpty()) {
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(770, 1, 1, 0);
-            this.mc.getTextureManager().getTexture(TextureMap.locationBlocksTexture).setBlurMipmap(false, false);
+            this.mc.getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).setBlurMipmap(false, false);
             renderglobal.drawBlockDamageTexture(Tessellator.getInstance(), Tessellator.getInstance().getWorldRenderer(), entity, partialTicks);
-            this.mc.getTextureManager().getTexture(TextureMap.locationBlocksTexture).restoreLastBlurMipmap();
+            this.mc.getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).restoreLastBlurMipmap();
             GlStateManager.disableBlend();
         }
 
@@ -1343,7 +1343,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         this.setupFog(0, partialTicks);
         GlStateManager.enableBlend();
         GlStateManager.depthMask(false);
-        this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
+        this.mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         GlStateManager.shadeModel(7425);
 
         if (flag) {
@@ -1546,7 +1546,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                                     }
 
                                     j1 = 0;
-                                    this.mc.getTextureManager().bindTexture(locationRainPng);
+                                    this.mc.getTextureManager().bindTexture(LOCATION_RAIN_PNG);
                                     worldrenderer.begin(7, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
                                 }
 
@@ -1570,7 +1570,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                                     }
 
                                     j1 = 1;
-                                    this.mc.getTextureManager().bindTexture(locationSnowPng);
+                                    this.mc.getTextureManager().bindTexture(LOCATION_SNOW_PNG);
                                     worldrenderer.begin(7, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
                                 }
 

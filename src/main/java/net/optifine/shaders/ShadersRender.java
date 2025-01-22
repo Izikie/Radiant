@@ -207,7 +207,7 @@ public class ShadersRender {
             GlStateManager.depthMask(true);
             GlStateManager.colorMask(true, true, true, true);
             GlStateManager.disableCull();
-            minecraft.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
+            minecraft.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
             int i;
             i = entityRenderer.frameCount;
             entityRenderer.frameCount = i + 1;
@@ -220,10 +220,10 @@ public class ShadersRender {
             GlStateManager.enableAlpha();
             renderglobal.renderBlockLayer(RenderLayer.CUTOUT_MIPPED, partialTicks, 2, entity);
             Shaders.checkGLError("shadow terrain cutoutmipped");
-            minecraft.getTextureManager().getTexture(TextureMap.locationBlocksTexture).setBlurMipmap(false, false);
+            minecraft.getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).setBlurMipmap(false, false);
             renderglobal.renderBlockLayer(RenderLayer.CUTOUT, partialTicks, 2, entity);
             Shaders.checkGLError("shadow terrain cutout");
-            minecraft.getTextureManager().getTexture(TextureMap.locationBlocksTexture).restoreLastBlurMipmap();
+            minecraft.getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).restoreLastBlurMipmap();
             GlStateManager.shadeModel(7424);
             GlStateManager.alphaFunc(516, 0.1F);
             GlStateManager.matrixMode(5888);
@@ -250,7 +250,7 @@ public class ShadersRender {
 
             GlStateManager.disableBlend();
             GlStateManager.depthMask(true);
-            minecraft.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
+            minecraft.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
             GlStateManager.shadeModel(7425);
             Shaders.checkGLError("shadow pre-translucent");
             GL20.glDrawBuffers(Shaders.SFB_DRAW_BUFFERS);
@@ -313,7 +313,7 @@ public class ShadersRender {
             EXTFramebufferObject.glBindFramebufferEXT(36160, Shaders.dfb);
             GL11.glViewport(0, 0, Shaders.renderWidth, Shaders.renderHeight);
             Shaders.activeDrawBuffers = null;
-            minecraft.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
+            minecraft.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
             Shaders.useProgram(Shaders.PROGRAM_TERRAIN);
             GL11.glMatrixMode(GL11.GL_MODELVIEW);
             GL11.glPopMatrix();

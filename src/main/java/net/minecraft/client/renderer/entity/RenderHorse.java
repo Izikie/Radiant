@@ -13,11 +13,11 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderHorse extends RenderLiving<EntityHorse> {
     private static final Map<String, ResourceLocation> field_110852_a = Maps.newHashMap();
-    private static final ResourceLocation whiteHorseTextures = new ResourceLocation("textures/entity/horse/horse_white.png");
-    private static final ResourceLocation muleTextures = new ResourceLocation("textures/entity/horse/mule.png");
-    private static final ResourceLocation donkeyTextures = new ResourceLocation("textures/entity/horse/donkey.png");
-    private static final ResourceLocation zombieHorseTextures = new ResourceLocation("textures/entity/horse/horse_zombie.png");
-    private static final ResourceLocation skeletonHorseTextures = new ResourceLocation("textures/entity/horse/horse_skeleton.png");
+    private static final ResourceLocation WHITE_HORSE_TEXTURES = new ResourceLocation("textures/entity/horse/horse_white.png");
+    private static final ResourceLocation MULE_TEXTURES = new ResourceLocation("textures/entity/horse/mule.png");
+    private static final ResourceLocation DONKEY_TEXTURES = new ResourceLocation("textures/entity/horse/donkey.png");
+    private static final ResourceLocation ZOMBIE_HORSE_TEXTURES = new ResourceLocation("textures/entity/horse/horse_zombie.png");
+    private static final ResourceLocation SKELETON_HORSE_TEXTURES = new ResourceLocation("textures/entity/horse/horse_skeleton.png");
 
     public RenderHorse(RenderManager rendermanagerIn, ModelHorse model, float shadowSizeIn) {
         super(rendermanagerIn, model, shadowSizeIn);
@@ -40,11 +40,11 @@ public class RenderHorse extends RenderLiving<EntityHorse> {
     protected ResourceLocation getEntityTexture(EntityHorse entity) {
         if (!entity.func_110239_cn()) {
             return switch (entity.getHorseType()) {
-                case 1 -> donkeyTextures;
-                case 2 -> muleTextures;
-                case 3 -> zombieHorseTextures;
-                case 4 -> skeletonHorseTextures;
-                default -> whiteHorseTextures;
+                case 1 -> DONKEY_TEXTURES;
+                case 2 -> MULE_TEXTURES;
+                case 3 -> ZOMBIE_HORSE_TEXTURES;
+                case 4 -> SKELETON_HORSE_TEXTURES;
+                default -> WHITE_HORSE_TEXTURES;
             };
         } else {
             return this.func_110848_b(entity);

@@ -18,7 +18,7 @@ public class ItemHoe extends Item {
         this.theToolMaterial = material;
         this.maxStackSize = 1;
         this.setMaxDamage(material.getMaxUses());
-        this.setCreativeTab(CreativeTabs.tabTools);
+        this.setCreativeTab(CreativeTabs.TAB_TOOLS);
     }
 
     @SuppressWarnings("incomplete-switch")

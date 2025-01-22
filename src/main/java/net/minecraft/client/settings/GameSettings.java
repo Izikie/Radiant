@@ -57,7 +57,7 @@ import org.lwjgl.opengl.DisplayMode;
 public class GameSettings {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final Gson GSON = new Gson();
-    private static final ParameterizedType typeListString = new ParameterizedType() {
+    private static final ParameterizedType TYPE_LIST_STRING = new ParameterizedType() {
         public Type[] getActualTypeArguments() {
             return new Type[]{String.class};
         }
@@ -349,7 +349,7 @@ public class GameSettings {
 
             if (i != value) {
                 this.mc.getTextureMapBlocks().setMipmapLevels(this.mipmapLevels);
-                this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
+                this.mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
                 this.mc.getTextureMapBlocks().setBlurMipmapDirect(false, this.mipmapLevels > 0);
                 this.mc.scheduleResourcesRefresh();
             }
@@ -666,7 +666,7 @@ public class GameSettings {
                             }
 
                             if (astring[0].equals("resourcePacks")) {
-                                this.resourcePacks = GSON.fromJson(s.substring(s.indexOf(58) + 1), typeListString);
+                                this.resourcePacks = GSON.fromJson(s.substring(s.indexOf(58) + 1), TYPE_LIST_STRING);
 
                                 if (this.resourcePacks == null) {
                                     this.resourcePacks = Lists.newArrayList();
@@ -674,7 +674,7 @@ public class GameSettings {
                             }
 
                             if (astring[0].equals("incompatibleResourcePacks")) {
-                                this.incompatibleResourcePacks = GSON.fromJson(s.substring(s.indexOf(58) + 1), typeListString);
+                                this.incompatibleResourcePacks = GSON.fromJson(s.substring(s.indexOf(58) + 1), TYPE_LIST_STRING);
 
                                 if (this.incompatibleResourcePacks == null) {
                                     this.incompatibleResourcePacks = Lists.newArrayList();

@@ -12,13 +12,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public abstract class CreativeTabs {
-    public static final CreativeTabs[] creativeTabArray = new CreativeTabs[12];
-    public static final CreativeTabs tabBlock = new CreativeTabs(0, "buildingBlocks") {
+    public static final CreativeTabs[] CREATIVE_TABS = new CreativeTabs[12];
+    public static final CreativeTabs TAB_BLOCK = new CreativeTabs(0, "buildingBlocks") {
         public Item getTabIconItem() {
             return Item.getItemFromBlock(Blocks.BRICK_BLOCK);
         }
     };
-    public static final CreativeTabs tabDecorations = new CreativeTabs(1, "decorations") {
+    public static final CreativeTabs TAB_DECORATIONS = new CreativeTabs(1, "decorations") {
         public Item getTabIconItem() {
             return Item.getItemFromBlock(Blocks.DOUBLE_PLANT);
         }
@@ -27,52 +27,52 @@ public abstract class CreativeTabs {
             return BlockDoublePlant.EnumPlantType.PAEONIA.getMeta();
         }
     };
-    public static final CreativeTabs tabRedstone = new CreativeTabs(2, "redstone") {
+    public static final CreativeTabs TAB_REDSTONE = new CreativeTabs(2, "redstone") {
         public Item getTabIconItem() {
             return Items.REDSTONE;
         }
     };
-    public static final CreativeTabs tabTransport = new CreativeTabs(3, "transportation") {
+    public static final CreativeTabs TAB_TRANSPORT = new CreativeTabs(3, "transportation") {
         public Item getTabIconItem() {
             return Item.getItemFromBlock(Blocks.GOLDEN_RAIL);
         }
     };
-    public static final CreativeTabs tabMisc = (new CreativeTabs(4, "misc") {
+    public static final CreativeTabs TAB_MISC = (new CreativeTabs(4, "misc") {
         public Item getTabIconItem() {
             return Items.LAVA_BUCKET;
         }
     }).setRelevantEnchantmentTypes(EnchantmentTarget.ALL);
-    public static final CreativeTabs tabAllSearch = (new CreativeTabs(5, "search") {
+    public static final CreativeTabs TAB_ALL_SEARCH = (new CreativeTabs(5, "search") {
         public Item getTabIconItem() {
             return Items.COMPASS;
         }
     }).setBackgroundImageName("item_search.png");
-    public static final CreativeTabs tabFood = new CreativeTabs(6, "food") {
+    public static final CreativeTabs TAB_FOOD = new CreativeTabs(6, "food") {
         public Item getTabIconItem() {
             return Items.APPLE;
         }
     };
-    public static final CreativeTabs tabTools = (new CreativeTabs(7, "tools") {
+    public static final CreativeTabs TAB_TOOLS = (new CreativeTabs(7, "tools") {
         public Item getTabIconItem() {
             return Items.IRON_AXE;
         }
     }).setRelevantEnchantmentTypes(EnchantmentTarget.DIGGER, EnchantmentTarget.FISHING_ROD, EnchantmentTarget.BREAKABLE);
-    public static final CreativeTabs tabCombat = (new CreativeTabs(8, "combat") {
+    public static final CreativeTabs TAB_COMBAT = (new CreativeTabs(8, "combat") {
         public Item getTabIconItem() {
             return Items.GOLDEN_SWORD;
         }
     }).setRelevantEnchantmentTypes(EnchantmentTarget.ARMOR, EnchantmentTarget.ARMOR_FEET, EnchantmentTarget.ARMOR_HEAD, EnchantmentTarget.ARMOR_LEGS, EnchantmentTarget.ARMOR_TORSO, EnchantmentTarget.BOW, EnchantmentTarget.WEAPON);
-    public static final CreativeTabs tabBrewing = new CreativeTabs(9, "brewing") {
+    public static final CreativeTabs TAB_BREWING = new CreativeTabs(9, "brewing") {
         public Item getTabIconItem() {
             return Items.POTION;
         }
     };
-    public static final CreativeTabs tabMaterials = new CreativeTabs(10, "materials") {
+    public static final CreativeTabs TAB_MATERIALS = new CreativeTabs(10, "materials") {
         public Item getTabIconItem() {
             return Items.STICK;
         }
     };
-    public static final CreativeTabs tabInventory = (new CreativeTabs(11, "inventory") {
+    public static final CreativeTabs TAB_INVENTORY = (new CreativeTabs(11, "inventory") {
         public Item getTabIconItem() {
             return Item.getItemFromBlock(Blocks.CHEST);
         }
@@ -88,7 +88,7 @@ public abstract class CreativeTabs {
     public CreativeTabs(int index, String label) {
         this.tabIndex = index;
         this.tabLabel = label;
-        creativeTabArray[index] = this;
+        CREATIVE_TABS[index] = this;
     }
 
     public int getTabIndex() {

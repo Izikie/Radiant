@@ -26,7 +26,7 @@ import net.minecraft.world.World;
 public class ItemMonsterPlacer extends Item {
     public ItemMonsterPlacer() {
         this.setHasSubtypes(true);
-        this.setCreativeTab(CreativeTabs.tabMisc);
+        this.setCreativeTab(CreativeTabs.TAB_MISC);
     }
 
     public String getItemStackDisplayName(ItemStack stack) {

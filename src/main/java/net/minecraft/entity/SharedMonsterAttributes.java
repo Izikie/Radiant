@@ -15,11 +15,11 @@ import org.apache.logging.log4j.Logger;
 
 public class SharedMonsterAttributes {
     private static final Logger LOGGER = LogManager.getLogger();
-    public static final IAttribute maxHealth = (new RangedAttribute(null, "generic.maxHealth", 20.0D, 0.0D, 1024.0D)).setDescription("Max Health").setShouldWatch(true);
-    public static final IAttribute followRange = (new RangedAttribute(null, "generic.followRange", 32.0D, 0.0D, 2048.0D)).setDescription("Follow Range");
-    public static final IAttribute knockbackResistance = (new RangedAttribute(null, "generic.knockbackResistance", 0.0D, 0.0D, 1.0D)).setDescription("Knockback Resistance");
-    public static final IAttribute movementSpeed = (new RangedAttribute(null, "generic.movementSpeed", 0.699999988079071D, 0.0D, 1024.0D)).setDescription("Movement Speed").setShouldWatch(true);
-    public static final IAttribute attackDamage = new RangedAttribute(null, "generic.attackDamage", 2.0D, 0.0D, 2048.0D);
+    public static final IAttribute MAX_HEALTH = (new RangedAttribute(null, "generic.maxHealth", 20.0D, 0.0D, 1024.0D)).setDescription("Max Health").setShouldWatch(true);
+    public static final IAttribute FOLLOW_RANGE = (new RangedAttribute(null, "generic.followRange", 32.0D, 0.0D, 2048.0D)).setDescription("Follow Range");
+    public static final IAttribute KNOCKBACK_RESISTANCE = (new RangedAttribute(null, "generic.knockbackResistance", 0.0D, 0.0D, 1.0D)).setDescription("Knockback Resistance");
+    public static final IAttribute MOVEMENT_SPEED = (new RangedAttribute(null, "generic.movementSpeed", 0.699999988079071D, 0.0D, 1024.0D)).setDescription("Movement Speed").setShouldWatch(true);
+    public static final IAttribute ATTACK_DAMAGE = new RangedAttribute(null, "generic.attackDamage", 2.0D, 0.0D, 2048.0D);
 
     public static NBTTagList writeBaseAttributeMapToNBT(BaseAttributeMap map) {
         NBTTagList nbttaglist = new NBTTagList();

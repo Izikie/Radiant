@@ -19,9 +19,9 @@ public class RegionRenderCache extends ChunkCache {
     private final BlockPos position;
     private final int[] combinedLights;
     private final IBlockState[] blockStates;
-    private static final ArrayDeque<int[]> cacheLights = new ArrayDeque();
-    private static final ArrayDeque<IBlockState[]> cacheStates = new ArrayDeque();
-    private static final int maxCacheSize = Config.limit(Runtime.getRuntime().availableProcessors(), 1, 32);
+    private static final ArrayDeque<int[]> CACHE_LIGHTS = new ArrayDeque();
+    private static final ArrayDeque<IBlockState[]> CACHE_STATES = new ArrayDeque();
+    private static final int MAX_CACHE_SIZE = Config.limit(Runtime.getRuntime().availableProcessors(), 1, 32);
 
     public RegionRenderCache(World worldIn, BlockPos posFromIn, BlockPos posToIn, int subIn) {
         super(worldIn, posFromIn, posToIn, subIn);
@@ -84,8 +84,8 @@ public class RegionRenderCache extends ChunkCache {
     }
 
     private static int[] allocateLights(int p_allocateLights_0_) {
-        synchronized (cacheLights) {
-            int[] aint = cacheLights.pollLast();
+        synchronized (CACHE_LIGHTS) {
+            int[] aint = CACHE_LIGHTS.pollLast();
 
             if (aint == null || aint.length < p_allocateLights_0_) {
                 aint = new int[p_allocateLights_0_];
@@ -96,16 +96,16 @@ public class RegionRenderCache extends ChunkCache {
     }
 
     public static void freeLights(int[] p_freeLights_0_) {
-        synchronized (cacheLights) {
-            if (cacheLights.size() < maxCacheSize) {
-                cacheLights.add(p_freeLights_0_);
+        synchronized (CACHE_LIGHTS) {
+            if (CACHE_LIGHTS.size() < MAX_CACHE_SIZE) {
+                CACHE_LIGHTS.add(p_freeLights_0_);
             }
         }
     }
 
     private static IBlockState[] allocateStates(int p_allocateStates_0_) {
-        synchronized (cacheStates) {
-            IBlockState[] aiblockstate = cacheStates.pollLast();
+        synchronized (CACHE_STATES) {
+            IBlockState[] aiblockstate = CACHE_STATES.pollLast();
 
             if (aiblockstate != null && aiblockstate.length >= p_allocateStates_0_) {
                 Arrays.fill(aiblockstate, null);
@@ -118,9 +118,9 @@ public class RegionRenderCache extends ChunkCache {
     }
 
     public static void freeStates(IBlockState[] p_freeStates_0_) {
-        synchronized (cacheStates) {
-            if (cacheStates.size() < maxCacheSize) {
-                cacheStates.add(p_freeStates_0_);
+        synchronized (CACHE_STATES) {
+            if (CACHE_STATES.size() < MAX_CACHE_SIZE) {
+                CACHE_STATES.add(p_freeStates_0_);
             }
         }
     }

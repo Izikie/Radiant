@@ -37,9 +37,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings;
 
 public class PlayerSelector {
-    private static final Pattern tokenPattern = Pattern.compile("^@([pare])(?:\\[([\\w=,!-]*)\\])?$");
-    private static final Pattern intListPattern = Pattern.compile("\\G([-!]?[\\w-]*)(?:$|,)");
-    private static final Pattern keyValueListPattern = Pattern.compile("\\G(\\w+)=([-!]?[\\w-]*)(?:$|,)");
+    private static final Pattern TOKEN_PATTERN = Pattern.compile("^@([pare])(?:\\[([\\w=,!-]*)\\])?$");
+    private static final Pattern INT_LIST_PATTERN = Pattern.compile("\\G([-!]?[\\w-]*)(?:$|,)");
+    private static final Pattern KEY_VALUE_LIST_PATTERN = Pattern.compile("\\G(\\w+)=([-!]?[\\w-]*)(?:$|,)");
     private static final Set<String> WORLD_BINDING_ARGS = Sets.newHashSet("x", "y", "z", "dx", "dy", "dz", "rm", "r");
 
     public static EntityPlayerMP matchOnePlayer(ICommandSender sender, String token) {
@@ -68,7 +68,7 @@ public class PlayerSelector {
     }
 
     public static <T extends Entity> List<T> matchEntities(ICommandSender sender, String token, Class<? extends T> targetClass) {
-        Matcher matcher = tokenPattern.matcher(token);
+        Matcher matcher = TOKEN_PATTERN.matcher(token);
 
         if (matcher.matches() && sender.canCommandSenderUseCommand(1, "@")) {
             Map<String, String> map = getArgumentMap(matcher.group(2));
@@ -464,7 +464,7 @@ public class PlayerSelector {
     }
 
     public static boolean matchesMultiplePlayers(String p_82377_0_) {
-        Matcher matcher = tokenPattern.matcher(p_82377_0_);
+        Matcher matcher = TOKEN_PATTERN.matcher(p_82377_0_);
 
         if (!matcher.matches()) {
             return false;
@@ -477,7 +477,7 @@ public class PlayerSelector {
     }
 
     public static boolean hasArguments(String p_82378_0_) {
-        return tokenPattern.matcher(p_82378_0_).matches();
+        return TOKEN_PATTERN.matcher(p_82378_0_).matches();
     }
 
     private static Map<String, String> getArgumentMap(String argumentString) {
@@ -487,7 +487,7 @@ public class PlayerSelector {
             int i = 0;
             int j = -1;
 
-            for (Matcher matcher = intListPattern.matcher(argumentString); matcher.find(); j = matcher.end()) {
+            for (Matcher matcher = INT_LIST_PATTERN.matcher(argumentString); matcher.find(); j = matcher.end()) {
                 String s = switch (i++) {
                     case 0 -> "x";
                     case 1 -> "y";
@@ -502,7 +502,7 @@ public class PlayerSelector {
             }
 
             if (j < argumentString.length()) {
-                Matcher matcher1 = keyValueListPattern.matcher(j == -1 ? argumentString : argumentString.substring(j));
+                Matcher matcher1 = KEY_VALUE_LIST_PATTERN.matcher(j == -1 ? argumentString : argumentString.substring(j));
 
                 while (matcher1.find()) {
                     map.put(matcher1.group(1), matcher1.group(2));

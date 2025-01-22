@@ -41,14 +41,14 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
 public class EntityHorse extends EntityAnimal implements IInvBasic {
-    private static final Predicate<Entity> horseBreedingSelector = p_apply_1_ -> p_apply_1_ instanceof EntityHorse entityHorse && entityHorse.isBreeding();
-    private static final IAttribute horseJumpStrength = (new RangedAttribute(null, "horse.jumpStrength", 0.7D, 0.0D, 2.0D)).setDescription("Jump Strength").setShouldWatch(true);
-    private static final String[] horseArmorTextures = new String[]{null, "textures/entity/horse/armor/horse_armor_iron.png", "textures/entity/horse/armor/horse_armor_gold.png", "textures/entity/horse/armor/horse_armor_diamond.png"};
+    private static final Predicate<Entity> HORSE_BREEDING_SELECTOR = p_apply_1_ -> p_apply_1_ instanceof EntityHorse entityHorse && entityHorse.isBreeding();
+    private static final IAttribute HORSE_JUMP_STRENGTH = (new RangedAttribute(null, "horse.jumpStrength", 0.7D, 0.0D, 2.0D)).setDescription("Jump Strength").setShouldWatch(true);
+    private static final String[] HORSE_ARMOR_TEXTURES = new String[]{null, "textures/entity/horse/armor/horse_armor_iron.png", "textures/entity/horse/armor/horse_armor_gold.png", "textures/entity/horse/armor/horse_armor_diamond.png"};
     private static final String[] HORSE_ARMOR_TEXTURES_ABBR = new String[]{"", "meo", "goo", "dio"};
-    private static final int[] armorValues = new int[]{0, 5, 7, 11};
-    private static final String[] horseTextures = new String[]{"textures/entity/horse/horse_white.png", "textures/entity/horse/horse_creamy.png", "textures/entity/horse/horse_chestnut.png", "textures/entity/horse/horse_brown.png", "textures/entity/horse/horse_black.png", "textures/entity/horse/horse_gray.png", "textures/entity/horse/horse_darkbrown.png"};
+    private static final int[] ARMOR_VALUES = new int[]{0, 5, 7, 11};
+    private static final String[] HORSE_TEXTURES = new String[]{"textures/entity/horse/horse_white.png", "textures/entity/horse/horse_creamy.png", "textures/entity/horse/horse_chestnut.png", "textures/entity/horse/horse_brown.png", "textures/entity/horse/horse_black.png", "textures/entity/horse/horse_gray.png", "textures/entity/horse/horse_darkbrown.png"};
     private static final String[] HORSE_TEXTURES_ABBR = new String[]{"hwh", "hcr", "hch", "hbr", "hbl", "hgr", "hdb"};
-    private static final String[] horseMarkingTextures = new String[]{null, "textures/entity/horse/horse_markings_white.png", "textures/entity/horse/horse_markings_whitefield.png", "textures/entity/horse/horse_markings_whitedots.png", "textures/entity/horse/horse_markings_blackdots.png"};
+    private static final String[] HORSE_MARKING_TEXTURES = new String[]{null, "textures/entity/horse/horse_markings_white.png", "textures/entity/horse/horse_markings_whitefield.png", "textures/entity/horse/horse_markings_whitedots.png", "textures/entity/horse/horse_markings_blackdots.png"};
     private static final String[] HORSE_MARKING_TEXTURES_ABBR = new String[]{"", "wo_", "wmo", "wdo", "bdo"};
     private int eatingHaystackCounter;
     private int openMouthCounter;
@@ -274,7 +274,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
     }
 
     public int getTotalArmorValue() {
-        return armorValues[this.getHorseArmorIndexSynced()];
+        return ARMOR_VALUES[this.getHorseArmorIndexSynced()];
     }
 
     public boolean canBePushed() {
@@ -390,7 +390,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         double d0 = Double.MAX_VALUE;
         Entity entity = null;
 
-        for (Entity entity1 : this.worldObj.getEntitiesInAABBexcluding(entityIn, entityIn.getEntityBoundingBox().addCoord(distance, distance, distance), horseBreedingSelector)) {
+        for (Entity entity1 : this.worldObj.getEntitiesInAABBexcluding(entityIn, entityIn.getEntityBoundingBox().addCoord(distance, distance, distance), HORSE_BREEDING_SELECTOR)) {
             double d1 = entity1.getDistanceSq(entityIn.posX, entityIn.posY, entityIn.posZ);
 
             if (d1 < d0) {
@@ -403,7 +403,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
     }
 
     public double getHorseJumpStrength() {
-        return this.getEntityAttribute(horseJumpStrength).getAttributeValue();
+        return this.getEntityAttribute(HORSE_JUMP_STRENGTH).getAttributeValue();
     }
 
     protected String getDeathSound() {
@@ -483,9 +483,9 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
 
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getAttributeMap().registerAttribute(horseJumpStrength);
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(53.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.22499999403953552D);
+        this.getAttributeMap().registerAttribute(HORSE_JUMP_STRENGTH);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(53.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.22499999403953552D);
     }
 
     public int getMaxSpawnedInChunk() {
@@ -528,20 +528,20 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
             int k = j & 255;
             int l = (j & 65280) >> 8;
 
-            if (k >= horseTextures.length) {
+            if (k >= HORSE_TEXTURES.length) {
                 this.field_175508_bO = false;
                 return;
             }
 
-            this.horseTexturesArray[0] = horseTextures[k];
+            this.horseTexturesArray[0] = HORSE_TEXTURES[k];
             this.texturePrefix = this.texturePrefix + HORSE_TEXTURES_ABBR[k];
 
-            if (l >= horseMarkingTextures.length) {
+            if (l >= HORSE_MARKING_TEXTURES.length) {
                 this.field_175508_bO = false;
                 return;
             }
 
-            this.horseTexturesArray[1] = horseMarkingTextures[l];
+            this.horseTexturesArray[1] = HORSE_MARKING_TEXTURES[l];
             this.texturePrefix = this.texturePrefix + HORSE_MARKING_TEXTURES_ABBR[l];
         } else {
             this.horseTexturesArray[0] = "";
@@ -550,10 +550,10 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
 
         int i1 = this.getHorseArmorIndexSynced();
 
-        if (i1 >= horseArmorTextures.length) {
+        if (i1 >= HORSE_ARMOR_TEXTURES.length) {
             this.field_175508_bO = false;
         } else {
-            this.horseTexturesArray[2] = horseArmorTextures[i1];
+            this.horseTexturesArray[2] = HORSE_ARMOR_TEXTURES[i1];
             this.texturePrefix = this.texturePrefix + HORSE_ARMOR_TEXTURES_ABBR[i1];
             this.field_175508_bO = true;
         }
@@ -994,7 +994,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
             this.jumpMovementFactor = this.getAIMoveSpeed() * 0.1F;
 
             if (!this.worldObj.isRemote) {
-                this.setAIMoveSpeed((float) this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue());
+                this.setAIMoveSpeed((float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
                 super.moveEntityWithHeading(strafe, forward);
             }
 
@@ -1085,7 +1085,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         IAttributeInstance iattributeinstance = this.getAttributeMap().getAttributeInstanceByName("Speed");
 
         if (iattributeinstance != null) {
-            this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(iattributeinstance.getBaseValue() * 0.25D);
+            this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(iattributeinstance.getBaseValue() * 0.25D);
         }
 
         if (this.isChested()) {
@@ -1180,12 +1180,12 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         }
 
         entityhorse1.setHorseType(k);
-        double d1 = this.getEntityAttribute(SharedMonsterAttributes.maxHealth).getBaseValue() + ageable.getEntityAttribute(SharedMonsterAttributes.maxHealth).getBaseValue() + this.getModifiedMaxHealth();
-        entityhorse1.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(d1 / 3.0D);
-        double d2 = this.getEntityAttribute(horseJumpStrength).getBaseValue() + ageable.getEntityAttribute(horseJumpStrength).getBaseValue() + this.getModifiedJumpStrength();
-        entityhorse1.getEntityAttribute(horseJumpStrength).setBaseValue(d2 / 3.0D);
-        double d0 = this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getBaseValue() + ageable.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getBaseValue() + this.getModifiedMovementSpeed();
-        entityhorse1.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(d0 / 3.0D);
+        double d1 = this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue() + ageable.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue() + this.getModifiedMaxHealth();
+        entityhorse1.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(d1 / 3.0D);
+        double d2 = this.getEntityAttribute(HORSE_JUMP_STRENGTH).getBaseValue() + ageable.getEntityAttribute(HORSE_JUMP_STRENGTH).getBaseValue() + this.getModifiedJumpStrength();
+        entityhorse1.getEntityAttribute(HORSE_JUMP_STRENGTH).setBaseValue(d2 / 3.0D);
+        double d0 = this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getBaseValue() + ageable.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getBaseValue() + this.getModifiedMovementSpeed();
+        entityhorse1.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(d0 / 3.0D);
         return entityhorse1;
     }
 
@@ -1218,22 +1218,22 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         }
 
         if (i != 4 && i != 3) {
-            this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(this.getModifiedMaxHealth());
+            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(this.getModifiedMaxHealth());
 
             if (i == 0) {
-                this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(this.getModifiedMovementSpeed());
+                this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(this.getModifiedMovementSpeed());
             } else {
-                this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.17499999701976776D);
+                this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.17499999701976776D);
             }
         } else {
-            this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(15.0D);
-            this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.20000000298023224D);
+            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(15.0D);
+            this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
         }
 
         if (i != 2 && i != 1) {
-            this.getEntityAttribute(horseJumpStrength).setBaseValue(this.getModifiedJumpStrength());
+            this.getEntityAttribute(HORSE_JUMP_STRENGTH).setBaseValue(this.getModifiedJumpStrength());
         } else {
-            this.getEntityAttribute(horseJumpStrength).setBaseValue(0.5D);
+            this.getEntityAttribute(HORSE_JUMP_STRENGTH).setBaseValue(0.5D);
         }
 
         this.setHealth(this.getMaxHealth());

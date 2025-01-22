@@ -128,6 +128,6 @@ public class RenderEntityItem extends Render<EntityItem> {
     }
 
     protected ResourceLocation getEntityTexture(EntityItem entity) {
-        return TextureMap.locationBlocksTexture;
+        return TextureMap.LOCATION_BLOCKS_TEXTURE;
     }
 }

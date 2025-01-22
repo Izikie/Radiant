@@ -31,7 +31,7 @@ import net.minecraft.world.World;
 public class EntityWitch extends EntityMob implements IRangedAttackMob {
     private static final UUID MODIFIER_UUID = UUID.fromString("5CD17E52-A79A-43D3-A529-90FDE04B181E");
     private static final AttributeModifier MODIFIER = (new AttributeModifier(MODIFIER_UUID, "Drinking speed penalty", -0.25D, 0)).setSaved(false);
-    private static final Item[] witchDrops = new Item[]{Items.GLOWSTONE_DUST, Items.SUGAR, Items.REDSTONE, Items.SPIDER_EYE, Items.GLASS_BOTTLE, Items.GUNPOWDER, Items.STICK, Items.STICK};
+    private static final Item[] WITCH_DROPS = new Item[]{Items.GLOWSTONE_DUST, Items.SUGAR, Items.REDSTONE, Items.SPIDER_EYE, Items.GLASS_BOTTLE, Items.GUNPOWDER, Items.STICK, Items.STICK};
     private int witchAttackTimer;
 
     public EntityWitch(World worldIn) {
@@ -73,8 +73,8 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
 
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(26.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.25D);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(26.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
     }
 
     public void onLivingUpdate() {
@@ -95,7 +95,7 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
                         }
                     }
 
-                    this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).removeModifier(MODIFIER);
+                    this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).removeModifier(MODIFIER);
                 }
             } else {
                 int i = -1;
@@ -116,7 +116,7 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
                     this.setCurrentItemOrArmor(0, new ItemStack(Items.POTION, 1, i));
                     this.witchAttackTimer = this.getHeldItem().getMaxItemUseDuration();
                     this.setAggressive(true);
-                    IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
+                    IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
                     iattributeinstance.removeModifier(MODIFIER);
                     iattributeinstance.applyModifier(MODIFIER);
                 }
@@ -159,7 +159,7 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
 
         for (int j = 0; j < i; ++j) {
             int k = this.rand.nextInt(3);
-            Item item = witchDrops[this.rand.nextInt(witchDrops.length)];
+            Item item = WITCH_DROPS[this.rand.nextInt(WITCH_DROPS.length)];
 
             if (lootingModifier > 0) {
                 k += this.rand.nextInt(lootingModifier + 1);

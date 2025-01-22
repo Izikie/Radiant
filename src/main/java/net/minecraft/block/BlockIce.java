@@ -21,7 +21,7 @@ public class BlockIce extends BlockBreakable {
         super(Material.ICE, false);
         this.slipperiness = 0.98F;
         this.setTickRandomly(true);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public RenderLayer getBlockLayer() {

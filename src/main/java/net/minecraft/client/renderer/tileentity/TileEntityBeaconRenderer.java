@@ -14,7 +14,7 @@ import net.optifine.shaders.Shaders;
 import org.lwjgl.opengl.GL11;
 
 public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEntityBeacon> {
-    private static final ResourceLocation beaconBeam = new ResourceLocation("textures/entity/beacon_beam.png");
+    private static final ResourceLocation BEACON_BEAM = new ResourceLocation("textures/entity/beacon_beam.png");
 
     public void renderTileEntityAt(TileEntityBeacon te, double x, double y, double z, float partialTicks, int destroyStage) {
         float f = te.shouldBeamRender();
@@ -35,7 +35,7 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
 
                 for (TileEntityBeacon.BeamSegment beamSegment : list) {
                     int k = i + beamSegment.getHeight();
-                    this.bindTexture(beaconBeam);
+                    this.bindTexture(BEACON_BEAM);
                     GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, 10497.0F);
                     GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, 10497.0F);
                     GlStateManager.disableLighting();

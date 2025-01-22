@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 public class ItemEgg extends Item {
     public ItemEgg() {
         this.maxStackSize = 16;
-        this.setCreativeTab(CreativeTabs.tabMaterials);
+        this.setCreativeTab(CreativeTabs.TAB_MATERIALS);
     }
 
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {

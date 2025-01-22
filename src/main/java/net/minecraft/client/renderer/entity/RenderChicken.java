@@ -6,14 +6,14 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderChicken extends RenderLiving<EntityChicken> {
-    private static final ResourceLocation chickenTextures = new ResourceLocation("textures/entity/chicken.png");
+    private static final ResourceLocation CHICKEN_TEXTURES = new ResourceLocation("textures/entity/chicken.png");
 
     public RenderChicken(RenderManager renderManagerIn, ModelBase modelBaseIn, float shadowSizeIn) {
         super(renderManagerIn, modelBaseIn, shadowSizeIn);
     }
 
     protected ResourceLocation getEntityTexture(EntityChicken entity) {
-        return chickenTextures;
+        return CHICKEN_TEXTURES;
     }
 
     protected float handleRotationFloat(EntityChicken livingBase, float partialTicks) {

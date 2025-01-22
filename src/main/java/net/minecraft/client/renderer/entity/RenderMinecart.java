@@ -12,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
 
 public class RenderMinecart<T extends EntityMinecart> extends Render<T> {
-    private static final ResourceLocation minecartTextures = new ResourceLocation("textures/entity/minecart.png");
+    private static final ResourceLocation MINECART_TEXTURES = new ResourceLocation("textures/entity/minecart.png");
     protected final ModelBase modelMinecart = new ModelMinecart();
 
     public RenderMinecart(RenderManager renderManagerIn) {
@@ -79,7 +79,7 @@ public class RenderMinecart<T extends EntityMinecart> extends Render<T> {
 
         if (iblockstate.getBlock().getRenderType() != -1) {
             GlStateManager.pushMatrix();
-            this.bindTexture(TextureMap.locationBlocksTexture);
+            this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
             float f4 = 0.75F;
             GlStateManager.scale(f4, f4, f4);
             GlStateManager.translate(-0.5F, (j - 8) / 16.0F, 0.5F);
@@ -96,7 +96,7 @@ public class RenderMinecart<T extends EntityMinecart> extends Render<T> {
     }
 
     protected ResourceLocation getEntityTexture(T entity) {
-        return minecartTextures;
+        return MINECART_TEXTURES;
     }
 
     protected void func_180560_a(T minecart, float partialTicks, IBlockState state) {

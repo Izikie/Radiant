@@ -31,7 +31,7 @@ public class BlockTrapDoor extends Block {
         float f = 0.5F;
         float f1 = 1.0F;
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-        this.setCreativeTab(CreativeTabs.tabRedstone);
+        this.setCreativeTab(CreativeTabs.TAB_REDSTONE);
     }
 
     public boolean isOpaqueCube() {

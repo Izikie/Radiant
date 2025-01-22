@@ -29,7 +29,7 @@ public class TileEntityPistonRenderer extends TileEntitySpecialRenderer<TileEnti
         if (block.getMaterial() != Material.AIR && te.getProgress(partialTicks) < 1.0F) {
             Tessellator tessellator = Tessellator.getInstance();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-            this.bindTexture(TextureMap.locationBlocksTexture);
+            this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
             RenderHelper.disableStandardItemLighting();
             GlStateManager.blendFunc(770, 771);
             GlStateManager.enableBlend();

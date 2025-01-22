@@ -4,7 +4,6 @@ import io.netty.buffer.ByteBuf;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.concurrent.Callable;
 
 import net.minecraft.command.CommandResultStats;
 import net.minecraft.command.ICommandManager;
@@ -20,7 +19,7 @@ import net.minecraft.util.ReportedException;
 import net.minecraft.world.World;
 
 public abstract class CommandBlockLogic implements ICommandSender {
-    private static final SimpleDateFormat timestampFormat = new SimpleDateFormat("HH:mm:ss");
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm:ss");
     private int successCount;
     private boolean trackOutput = true;
     private IChatComponent lastOutput = null;
@@ -120,7 +119,7 @@ public abstract class CommandBlockLogic implements ICommandSender {
 
     public void addChatMessage(IChatComponent component) {
         if (this.trackOutput && this.getEntityWorld() != null && !this.getEntityWorld().isRemote) {
-            this.lastOutput = (new ChatComponentText("[" + timestampFormat.format(new Date()) + "] ")).appendSibling(component);
+            this.lastOutput = (new ChatComponentText("[" + DATE_FORMAT.format(new Date()) + "] ")).appendSibling(component);
             this.updateCommand();
         }
     }

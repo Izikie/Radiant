@@ -18,7 +18,7 @@ public class BlockColored extends Block {
     public BlockColored(Material materialIn) {
         super(materialIn);
         this.setDefaultState(this.blockState.getBaseState().withProperty(COLOR, DyeColor.WHITE));
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
     public int damageDropped(IBlockState state) {

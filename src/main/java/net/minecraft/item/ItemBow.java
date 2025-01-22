@@ -15,7 +15,7 @@ public class ItemBow extends Item {
     public ItemBow() {
         this.maxStackSize = 1;
         this.setMaxDamage(384);
-        this.setCreativeTab(CreativeTabs.tabCombat);
+        this.setCreativeTab(CreativeTabs.TAB_COMBAT);
     }
 
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityPlayer playerIn, int timeLeft) {

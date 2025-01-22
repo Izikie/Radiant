@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 public class ItemEnderPearl extends Item {
     public ItemEnderPearl() {
         this.maxStackSize = 16;
-        this.setCreativeTab(CreativeTabs.tabMisc);
+        this.setCreativeTab(CreativeTabs.TAB_MISC);
     }
 
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {

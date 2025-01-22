@@ -27,7 +27,7 @@ public abstract class BlockLeaves extends BlockLeavesBase {
     public BlockLeaves() {
         super(Material.LEAVES, false);
         this.setTickRandomly(true);
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        this.setCreativeTab(CreativeTabs.TAB_DECORATIONS);
         this.setHardness(0.2F);
         this.setLightOpacity(1);
         this.setStepSound(soundTypeGrass);

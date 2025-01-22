@@ -35,7 +35,7 @@ public class LayerHeldBlock implements LayerRenderer<EntityEnderman> {
             int k = i / 65536;
             OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, j, k);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            this.endermanRenderer.bindTexture(TextureMap.locationBlocksTexture);
+            this.endermanRenderer.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
             blockrendererdispatcher.renderBlockBrightness(iblockstate, 1.0F);
             GlStateManager.popMatrix();
             GlStateManager.disableRescaleNormal();

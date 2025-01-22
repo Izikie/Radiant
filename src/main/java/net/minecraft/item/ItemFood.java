@@ -22,7 +22,7 @@ public class ItemFood extends Item {
         this.healAmount = amount;
         this.isWolfsFavoriteMeat = isWolfFood;
         this.saturationModifier = saturation;
-        this.setCreativeTab(CreativeTabs.tabFood);
+        this.setCreativeTab(CreativeTabs.TAB_FOOD);
     }
 
     public ItemFood(int amount, boolean isWolfFood) {

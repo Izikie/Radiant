@@ -8,7 +8,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderCreeper extends RenderLiving<EntityCreeper> {
-    private static final ResourceLocation creeperTextures = new ResourceLocation("textures/entity/creeper/creeper.png");
+    private static final ResourceLocation CREEPER_TEXTURES = new ResourceLocation("textures/entity/creeper/creeper.png");
 
     public RenderCreeper(RenderManager renderManagerIn) {
         super(renderManagerIn, new ModelCreeper(), 0.5F);
@@ -39,6 +39,6 @@ public class RenderCreeper extends RenderLiving<EntityCreeper> {
     }
 
     protected ResourceLocation getEntityTexture(EntityCreeper entity) {
-        return creeperTextures;
+        return CREEPER_TEXTURES;
     }
 }

@@ -6,14 +6,14 @@ import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderSquid extends RenderLiving<EntitySquid> {
-    private static final ResourceLocation squidTextures = new ResourceLocation("textures/entity/squid.png");
+    private static final ResourceLocation SQUID_TEXTURES = new ResourceLocation("textures/entity/squid.png");
 
     public RenderSquid(RenderManager renderManagerIn, ModelBase modelBaseIn, float shadowSizeIn) {
         super(renderManagerIn, modelBaseIn, shadowSizeIn);
     }
 
     protected ResourceLocation getEntityTexture(EntitySquid entity) {
-        return squidTextures;
+        return SQUID_TEXTURES;
     }
 
     protected void rotateCorpse(EntitySquid bat, float p_77043_2_, float p_77043_3_, float partialTicks) {

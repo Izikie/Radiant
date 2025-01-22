@@ -8,7 +8,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderBoat extends Render<EntityBoat> {
-    private static final ResourceLocation boatTextures = new ResourceLocation("textures/entity/boat.png");
+    private static final ResourceLocation BOAT_TEXTURES = new ResourceLocation("textures/entity/boat.png");
     protected final ModelBase modelBoat = new ModelBoat();
 
     public RenderBoat(RenderManager renderManagerIn) {
@@ -42,6 +42,6 @@ public class RenderBoat extends Render<EntityBoat> {
     }
 
     protected ResourceLocation getEntityTexture(EntityBoat entity) {
-        return boatTextures;
+        return BOAT_TEXTURES;
     }
 }

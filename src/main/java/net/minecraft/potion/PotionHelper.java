@@ -12,24 +12,24 @@ import net.minecraft.util.IntegerCache;
 import net.optifine.CustomColors;
 
 public class PotionHelper {
-    public static final String unusedString = null;
-    public static final String sugarEffect = "-0+1-2-3&4-4+13";
-    public static final String ghastTearEffect = "+0-1-2-3&4-4+13";
-    public static final String spiderEyeEffect = "-0-1+2-3&4-4+13";
-    public static final String fermentedSpiderEyeEffect = "-0+3-4+13";
-    public static final String speckledMelonEffect = "+0-1+2-3&4-4+13";
-    public static final String blazePowderEffect = "+0-1-2+3&4-4+13";
-    public static final String magmaCreamEffect = "+0+1-2-3&4-4+13";
-    public static final String redstoneEffect = "-5+6-7";
-    public static final String glowstoneEffect = "+5-6-7";
-    public static final String gunpowderEffect = "+14&13-13";
-    public static final String goldenCarrotEffect = "-0+1+2-3+13&4-4";
-    public static final String pufferfishEffect = "+0-1+2+3+13&4-4";
-    public static final String rabbitFootEffect = "+0+1-2+3&4-4+13";
-    private static final Map<Integer, String> potionRequirements = Maps.newHashMap();
-    private static final Map<Integer, String> potionAmplifiers = Maps.newHashMap();
+    public static final String UNUSED_STRING = null;
+    public static final String SUGAR_EFFECT = "-0+1-2-3&4-4+13";
+    public static final String GHAST_TEAR_EFFECT = "+0-1-2-3&4-4+13";
+    public static final String SPIDER_EYE_EFFECT = "-0-1+2-3&4-4+13";
+    public static final String FERMENTED_SPIDER_EYE_EFFECT = "-0+3-4+13";
+    public static final String SPECKLED_MELON_EFFECT = "+0-1+2-3&4-4+13";
+    public static final String BLAZE_POWDER_EFFECT = "+0-1-2+3&4-4+13";
+    public static final String MAGMA_CREAM_EFFECT = "+0+1-2-3&4-4+13";
+    public static final String REDSTONE_EFFECT = "-5+6-7";
+    public static final String GLOWSTONE_EFFECT = "+5-6-7";
+    public static final String GUNPOWDER_EFFECT = "+14&13-13";
+    public static final String GOLDEN_CARROT_EFFECT = "-0+1+2-3+13&4-4";
+    public static final String PUFFERFISH_EFFECT = "+0-1+2+3+13&4-4";
+    public static final String RABBIT_FOOT_EFFECT = "+0+1-2+3&4-4+13";
+    private static final Map<Integer, String> POTION_REQUIREMENTS = Maps.newHashMap();
+    private static final Map<Integer, String> POTION_AMPLIFIERS = Maps.newHashMap();
     private static final Map<Integer, Integer> DATAVALUE_COLORS = Maps.newHashMap();
-    private static final String[] potionPrefixes = new String[]{"potion.prefix.mundane", "potion.prefix.uninteresting", "potion.prefix.bland", "potion.prefix.clear", "potion.prefix.milky", "potion.prefix.diffuse", "potion.prefix.artless", "potion.prefix.thin", "potion.prefix.awkward", "potion.prefix.flat", "potion.prefix.bulky", "potion.prefix.bungling", "potion.prefix.buttered", "potion.prefix.smooth", "potion.prefix.suave", "potion.prefix.debonair", "potion.prefix.thick", "potion.prefix.elegant", "potion.prefix.fancy", "potion.prefix.charming", "potion.prefix.dashing", "potion.prefix.refined", "potion.prefix.cordial", "potion.prefix.sparkling", "potion.prefix.potent", "potion.prefix.foul", "potion.prefix.odorless", "potion.prefix.rank", "potion.prefix.harsh", "potion.prefix.acrid", "potion.prefix.gross", "potion.prefix.stinky"};
+    private static final String[] POTION_PREFIXES = new String[]{"potion.prefix.mundane", "potion.prefix.uninteresting", "potion.prefix.bland", "potion.prefix.clear", "potion.prefix.milky", "potion.prefix.diffuse", "potion.prefix.artless", "potion.prefix.thin", "potion.prefix.awkward", "potion.prefix.flat", "potion.prefix.bulky", "potion.prefix.bungling", "potion.prefix.buttered", "potion.prefix.smooth", "potion.prefix.suave", "potion.prefix.debonair", "potion.prefix.thick", "potion.prefix.elegant", "potion.prefix.fancy", "potion.prefix.charming", "potion.prefix.dashing", "potion.prefix.refined", "potion.prefix.cordial", "potion.prefix.sparkling", "potion.prefix.potent", "potion.prefix.foul", "potion.prefix.odorless", "potion.prefix.rank", "potion.prefix.harsh", "potion.prefix.acrid", "potion.prefix.gross", "potion.prefix.stinky"};
 
     public static boolean checkFlag(int p_77914_0_, int p_77914_1_) {
         return (p_77914_0_ & 1 << p_77914_1_) != 0;
@@ -114,7 +114,7 @@ public class PotionHelper {
 
     public static String getPotionPrefix(int dataValue) {
         int i = getPotionPrefixIndex(dataValue);
-        return potionPrefixes[i];
+        return POTION_PREFIXES[i];
     }
 
     private static int getPotionEffect(boolean p_77904_0_, boolean p_77904_1_, boolean p_77904_2_, int p_77904_3_, int p_77904_4_, int p_77904_5_, int p_77904_6_) {
@@ -283,14 +283,14 @@ public class PotionHelper {
 
         for (Potion potion : Potion.POTION_TYPES) {
             if (potion != null && (!potion.isUsable() || p_77917_1_)) {
-                String s = potionRequirements.get(potion.getId());
+                String s = POTION_REQUIREMENTS.get(potion.getId());
 
                 if (s != null) {
                     int i = parsePotionEffects(s, 0, s.length(), p_77917_0_);
 
                     if (i > 0) {
                         int j = 0;
-                        String s1 = potionAmplifiers.get(potion.getId());
+                        String s1 = POTION_AMPLIFIERS.get(potion.getId());
 
                         if (s1 != null) {
                             j = parsePotionEffects(s1, 0, s1.length(), p_77917_0_);
@@ -421,27 +421,27 @@ public class PotionHelper {
     }
 
     static {
-        potionRequirements.put(Potion.REGENERATION.getId(), "0 & !1 & !2 & !3 & 0+6");
-        potionRequirements.put(Potion.MOVE_SPEED.getId(), "!0 & 1 & !2 & !3 & 1+6");
-        potionRequirements.put(Potion.FIRE_RESISTANCE.getId(), "0 & 1 & !2 & !3 & 0+6");
-        potionRequirements.put(Potion.HEAL.getId(), "0 & !1 & 2 & !3");
-        potionRequirements.put(Potion.POISON.getId(), "!0 & !1 & 2 & !3 & 2+6");
-        potionRequirements.put(Potion.WEAKNESS.getId(), "!0 & !1 & !2 & 3 & 3+6");
-        potionRequirements.put(Potion.HARM.getId(), "!0 & !1 & 2 & 3");
-        potionRequirements.put(Potion.MOVE_SLOWDOWN.getId(), "!0 & 1 & !2 & 3 & 3+6");
-        potionRequirements.put(Potion.DAMAGE_BOOST.getId(), "0 & !1 & !2 & 3 & 3+6");
-        potionRequirements.put(Potion.NIGHT_VISION.getId(), "!0 & 1 & 2 & !3 & 2+6");
-        potionRequirements.put(Potion.INVISIBILITY.getId(), "!0 & 1 & 2 & 3 & 2+6");
-        potionRequirements.put(Potion.WATER_BREATHING.getId(), "0 & !1 & 2 & 3 & 2+6");
-        potionRequirements.put(Potion.JUMP.getId(), "0 & 1 & !2 & 3 & 3+6");
-        potionAmplifiers.put(Potion.MOVE_SPEED.getId(), "5");
-        potionAmplifiers.put(Potion.DIG_SPEED.getId(), "5");
-        potionAmplifiers.put(Potion.DAMAGE_BOOST.getId(), "5");
-        potionAmplifiers.put(Potion.REGENERATION.getId(), "5");
-        potionAmplifiers.put(Potion.HARM.getId(), "5");
-        potionAmplifiers.put(Potion.HEAL.getId(), "5");
-        potionAmplifiers.put(Potion.RESISTANCE.getId(), "5");
-        potionAmplifiers.put(Potion.POISON.getId(), "5");
-        potionAmplifiers.put(Potion.JUMP.getId(), "5");
+        POTION_REQUIREMENTS.put(Potion.REGENERATION.getId(), "0 & !1 & !2 & !3 & 0+6");
+        POTION_REQUIREMENTS.put(Potion.MOVE_SPEED.getId(), "!0 & 1 & !2 & !3 & 1+6");
+        POTION_REQUIREMENTS.put(Potion.FIRE_RESISTANCE.getId(), "0 & 1 & !2 & !3 & 0+6");
+        POTION_REQUIREMENTS.put(Potion.HEAL.getId(), "0 & !1 & 2 & !3");
+        POTION_REQUIREMENTS.put(Potion.POISON.getId(), "!0 & !1 & 2 & !3 & 2+6");
+        POTION_REQUIREMENTS.put(Potion.WEAKNESS.getId(), "!0 & !1 & !2 & 3 & 3+6");
+        POTION_REQUIREMENTS.put(Potion.HARM.getId(), "!0 & !1 & 2 & 3");
+        POTION_REQUIREMENTS.put(Potion.MOVE_SLOWDOWN.getId(), "!0 & 1 & !2 & 3 & 3+6");
+        POTION_REQUIREMENTS.put(Potion.DAMAGE_BOOST.getId(), "0 & !1 & !2 & 3 & 3+6");
+        POTION_REQUIREMENTS.put(Potion.NIGHT_VISION.getId(), "!0 & 1 & 2 & !3 & 2+6");
+        POTION_REQUIREMENTS.put(Potion.INVISIBILITY.getId(), "!0 & 1 & 2 & 3 & 2+6");
+        POTION_REQUIREMENTS.put(Potion.WATER_BREATHING.getId(), "0 & !1 & 2 & 3 & 2+6");
+        POTION_REQUIREMENTS.put(Potion.JUMP.getId(), "0 & 1 & !2 & 3 & 3+6");
+        POTION_AMPLIFIERS.put(Potion.MOVE_SPEED.getId(), "5");
+        POTION_AMPLIFIERS.put(Potion.DIG_SPEED.getId(), "5");
+        POTION_AMPLIFIERS.put(Potion.DAMAGE_BOOST.getId(), "5");
+        POTION_AMPLIFIERS.put(Potion.REGENERATION.getId(), "5");
+        POTION_AMPLIFIERS.put(Potion.HARM.getId(), "5");
+        POTION_AMPLIFIERS.put(Potion.HEAL.getId(), "5");
+        POTION_AMPLIFIERS.put(Potion.RESISTANCE.getId(), "5");
+        POTION_AMPLIFIERS.put(Potion.POISON.getId(), "5");
+        POTION_AMPLIFIERS.put(Potion.JUMP.getId(), "5");
     }
 }
