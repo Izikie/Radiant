@@ -17,7 +17,7 @@ import net.minecraft.util.Vec4b;
 import net.minecraft.world.storage.MapData;
 
 public class MapItemRenderer {
-    private static final ResourceLocation mapIcons = new ResourceLocation("textures/map/map_icons.png");
+    private static final ResourceLocation MAP_ICONS = new ResourceLocation("textures/map/map_icons.png");
     private final TextureManager textureManager;
     private final Map<String, MapItemRenderer.Instance> loadedMaps = Maps.newHashMap();
 
@@ -74,7 +74,7 @@ public class MapItemRenderer {
                 if (j / 4 == 0) {
                     this.mapTextureData[i] = (i + i / 128 & 1) * 8 + 16 << 24;
                 } else {
-                    this.mapTextureData[i] = MapColor.mapColorArray[j / 4].getMapColor(j & 3);
+                    this.mapTextureData[i] = MapColor.MAP_COLOR_ARRAY[j / 4].getMapColor(j & 3);
                 }
             }
 
@@ -99,7 +99,7 @@ public class MapItemRenderer {
             tessellator.draw();
             GlStateManager.enableAlpha();
             GlStateManager.disableBlend();
-            MapItemRenderer.this.textureManager.bindTexture(MapItemRenderer.mapIcons);
+            MapItemRenderer.this.textureManager.bindTexture(MapItemRenderer.MAP_ICONS);
             int k = 0;
 
             for (Vec4b vec4b : this.mapData.mapDecorations.values()) {

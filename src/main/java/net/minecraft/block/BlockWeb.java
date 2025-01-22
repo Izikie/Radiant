@@ -36,7 +36,7 @@ public class BlockWeb extends Block {
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Items.string;
+        return Items.STRING;
     }
 
     protected boolean canSilkHarvest() {

@@ -25,9 +25,9 @@ public class BlockRedstoneLight extends Block {
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         if (!worldIn.isRemote) {
             if (this.isOn && !worldIn.isBlockPowered(pos)) {
-                worldIn.setBlockState(pos, Blocks.redstone_lamp.getDefaultState(), 2);
+                worldIn.setBlockState(pos, Blocks.REDSTONE_LAMP.getDefaultState(), 2);
             } else if (!this.isOn && worldIn.isBlockPowered(pos)) {
-                worldIn.setBlockState(pos, Blocks.lit_redstone_lamp.getDefaultState(), 2);
+                worldIn.setBlockState(pos, Blocks.LIT_REDSTONE_LAMP.getDefaultState(), 2);
             }
         }
     }
@@ -37,7 +37,7 @@ public class BlockRedstoneLight extends Block {
             if (this.isOn && !worldIn.isBlockPowered(pos)) {
                 worldIn.scheduleUpdate(pos, this, 4);
             } else if (!this.isOn && worldIn.isBlockPowered(pos)) {
-                worldIn.setBlockState(pos, Blocks.lit_redstone_lamp.getDefaultState(), 2);
+                worldIn.setBlockState(pos, Blocks.LIT_REDSTONE_LAMP.getDefaultState(), 2);
             }
         }
     }
@@ -45,20 +45,20 @@ public class BlockRedstoneLight extends Block {
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (!worldIn.isRemote) {
             if (this.isOn && !worldIn.isBlockPowered(pos)) {
-                worldIn.setBlockState(pos, Blocks.redstone_lamp.getDefaultState(), 2);
+                worldIn.setBlockState(pos, Blocks.REDSTONE_LAMP.getDefaultState(), 2);
             }
         }
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Item.getItemFromBlock(Blocks.redstone_lamp);
+        return Item.getItemFromBlock(Blocks.REDSTONE_LAMP);
     }
 
     public Item getItem(World worldIn, BlockPos pos) {
-        return Item.getItemFromBlock(Blocks.redstone_lamp);
+        return Item.getItemFromBlock(Blocks.REDSTONE_LAMP);
     }
 
     protected ItemStack createStackedBlock(IBlockState state) {
-        return new ItemStack(Blocks.redstone_lamp);
+        return new ItemStack(Blocks.REDSTONE_LAMP);
     }
 }

@@ -28,7 +28,7 @@ public class BlockFenceGate extends BlockDirectional {
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         Direction.Axis enumfacing$axis = state.getValue(FACING).getAxis();
 
-        if (enumfacing$axis == Direction.Axis.Z && (worldIn.getBlockState(pos.west()).getBlock() == Blocks.cobblestone_wall || worldIn.getBlockState(pos.east()).getBlock() == Blocks.cobblestone_wall) || enumfacing$axis == Direction.Axis.X && (worldIn.getBlockState(pos.north()).getBlock() == Blocks.cobblestone_wall || worldIn.getBlockState(pos.south()).getBlock() == Blocks.cobblestone_wall)) {
+        if (enumfacing$axis == Direction.Axis.Z && (worldIn.getBlockState(pos.west()).getBlock() == Blocks.COBBLESTONE_WALL || worldIn.getBlockState(pos.east()).getBlock() == Blocks.COBBLESTONE_WALL) || enumfacing$axis == Direction.Axis.X && (worldIn.getBlockState(pos.north()).getBlock() == Blocks.COBBLESTONE_WALL || worldIn.getBlockState(pos.south()).getBlock() == Blocks.COBBLESTONE_WALL)) {
             state = state.withProperty(IN_WALL, Boolean.TRUE);
         }
 

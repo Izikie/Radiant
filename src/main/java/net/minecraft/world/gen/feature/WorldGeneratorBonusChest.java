@@ -35,7 +35,7 @@ public class WorldGeneratorBonusChest extends WorldGenerator {
                 BlockPos blockpos = position.add(rand.nextInt(4) - rand.nextInt(4), rand.nextInt(3) - rand.nextInt(3), rand.nextInt(4) - rand.nextInt(4));
 
                 if (worldIn.isAirBlock(blockpos) && World.doesBlockHaveSolidTopSurface(worldIn, blockpos.down())) {
-                    worldIn.setBlockState(blockpos, Blocks.chest.getDefaultState(), 2);
+                    worldIn.setBlockState(blockpos, Blocks.CHEST.getDefaultState(), 2);
                     TileEntity tileentity = worldIn.getTileEntity(blockpos);
 
                     if (tileentity instanceof TileEntityChest tileEntityChest) {
@@ -48,19 +48,19 @@ public class WorldGeneratorBonusChest extends WorldGenerator {
                     BlockPos blockpos4 = blockpos.south();
 
                     if (worldIn.isAirBlock(blockpos2) && World.doesBlockHaveSolidTopSurface(worldIn, blockpos2.down())) {
-                        worldIn.setBlockState(blockpos2, Blocks.torch.getDefaultState(), 2);
+                        worldIn.setBlockState(blockpos2, Blocks.TORCH.getDefaultState(), 2);
                     }
 
                     if (worldIn.isAirBlock(blockpos1) && World.doesBlockHaveSolidTopSurface(worldIn, blockpos1.down())) {
-                        worldIn.setBlockState(blockpos1, Blocks.torch.getDefaultState(), 2);
+                        worldIn.setBlockState(blockpos1, Blocks.TORCH.getDefaultState(), 2);
                     }
 
                     if (worldIn.isAirBlock(blockpos3) && World.doesBlockHaveSolidTopSurface(worldIn, blockpos3.down())) {
-                        worldIn.setBlockState(blockpos3, Blocks.torch.getDefaultState(), 2);
+                        worldIn.setBlockState(blockpos3, Blocks.TORCH.getDefaultState(), 2);
                     }
 
                     if (worldIn.isAirBlock(blockpos4) && World.doesBlockHaveSolidTopSurface(worldIn, blockpos4.down())) {
-                        worldIn.setBlockState(blockpos4, Blocks.torch.getDefaultState(), 2);
+                        worldIn.setBlockState(blockpos4, Blocks.TORCH.getDefaultState(), 2);
                     }
 
                     return true;

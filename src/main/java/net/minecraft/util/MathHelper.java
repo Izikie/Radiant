@@ -14,22 +14,22 @@ public class MathHelper {
     public static final float PI = MathUtils.roundToFloat(Math.PI);
     public static final float PI2 = MathUtils.roundToFloat((Math.PI * 2.0D));
     public static final float PId2 = MathUtils.roundToFloat((Math.PI / 2.0D));
-    private static final float radToIndex = MathUtils.roundToFloat(651.8986469044033D);
-    public static final float deg2Rad = MathUtils.roundToFloat(0.017453292519943295D);
+    private static final float RAD_TO_INDEX = MathUtils.roundToFloat(651.8986469044033D);
+    public static final float DEG_2_RAD = MathUtils.roundToFloat(0.017453292519943295D);
     private static final float[] SIN_TABLE_FAST = new float[4096];
     public static boolean fastMath = false;
     private static final float[] SIN_TABLE = new float[65536];
-    private static final int[] multiplyDeBruijnBitPosition;
+    private static final int[] MULTIPLY_DE_BRUIJN_BIT_POSITION;
     private static final double field_181163_d;
     private static final double[] field_181164_e;
     private static final double[] field_181165_f;
 
     public static float sin(float p_76126_0_) {
-        return fastMath ? SIN_TABLE_FAST[(int) (p_76126_0_ * radToIndex) & 4095] : SIN_TABLE[(int) (p_76126_0_ * 10430.378F) & 65535];
+        return fastMath ? SIN_TABLE_FAST[(int) (p_76126_0_ * RAD_TO_INDEX) & 4095] : SIN_TABLE[(int) (p_76126_0_ * 10430.378F) & 65535];
     }
 
     public static float cos(float value) {
-        return fastMath ? SIN_TABLE_FAST[(int) (value * radToIndex + 1024.0F) & 4095] : SIN_TABLE[(int) (value * 10430.378F + 16384.0F) & 65535];
+        return fastMath ? SIN_TABLE_FAST[(int) (value * RAD_TO_INDEX + 1024.0F) & 4095] : SIN_TABLE[(int) (value * 10430.378F + 16384.0F) & 65535];
     }
 
     public static float sqrt_float(float value) {
@@ -211,7 +211,7 @@ public class MathHelper {
 
     private static int calculateLogBaseTwoDeBruijn(int value) {
         value = isPowerOfTwo(value) ? value : roundUpToPowerOfTwo(value);
-        return multiplyDeBruijnBitPosition[(int) (value * 125613361L >> 27) & 31];
+        return MULTIPLY_DE_BRUIJN_BIT_POSITION[(int) (value * 125613361L >> 27) & 31];
     }
 
     public static int calculateLogBaseTwo(int value) {
@@ -409,7 +409,7 @@ public class MathHelper {
             SIN_TABLE_FAST[j] = MathUtils.roundToFloat(Math.sin(j * Math.PI * 2.0D / 4096.0D));
         }
 
-        multiplyDeBruijnBitPosition = new int[]{0, 1, 28, 2, 29, 14, 24, 3, 30, 22, 20, 15, 25, 17, 4, 8, 31, 27, 13, 23, 21, 19, 16, 7, 26, 12, 18, 6, 11, 5, 10, 9};
+        MULTIPLY_DE_BRUIJN_BIT_POSITION = new int[]{0, 1, 28, 2, 29, 14, 24, 3, 30, 22, 20, 15, 25, 17, 4, 8, 31, 27, 13, 23, 21, 19, 16, 7, 26, 12, 18, 6, 11, 5, 10, 9};
         field_181163_d = Double.longBitsToDouble(4805340802404319232L);
         field_181164_e = new double[257];
         field_181165_f = new double[257];

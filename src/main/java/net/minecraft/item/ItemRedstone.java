@@ -24,9 +24,9 @@ public class ItemRedstone extends Item {
 
             if (!worldIn.canBlockBePlaced(block, blockpos, false, side, null, stack)) {
                 return false;
-            } else if (Blocks.redstone_wire.canPlaceBlockAt(worldIn, blockpos)) {
+            } else if (Blocks.REDSTONE_WIRE.canPlaceBlockAt(worldIn, blockpos)) {
                 --stack.stackSize;
-                worldIn.setBlockState(blockpos, Blocks.redstone_wire.getDefaultState());
+                worldIn.setBlockState(blockpos, Blocks.REDSTONE_WIRE.getDefaultState());
                 return true;
             } else {
                 return false;

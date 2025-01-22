@@ -72,6 +72,6 @@ public class BlockEndPortal extends BlockContainer {
     }
 
     public MapColor getMapColor(IBlockState state) {
-        return MapColor.blackColor;
+        return MapColor.BLACK_COLOR;
     }
 }

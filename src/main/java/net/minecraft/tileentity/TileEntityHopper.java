@@ -436,7 +436,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
     }
 
     public static List<EntityItem> func_181556_a(World p_181556_0_, double p_181556_1_, double p_181556_3_, double p_181556_5_) {
-        return p_181556_0_.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(p_181556_1_ - 0.5D, p_181556_3_ - 0.5D, p_181556_5_ - 0.5D, p_181556_1_ + 0.5D, p_181556_3_ + 0.5D, p_181556_5_ + 0.5D), EntitySelectors.selectAnything);
+        return p_181556_0_.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(p_181556_1_ - 0.5D, p_181556_3_ - 0.5D, p_181556_5_ - 0.5D, p_181556_1_ + 0.5D, p_181556_3_ + 0.5D, p_181556_5_ + 0.5D), EntitySelectors.SELECT_ANYTHING);
     }
 
     public static IInventory getInventoryAtPosition(World worldIn, double x, double y, double z) {
@@ -460,7 +460,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
         }
 
         if (iinventory == null) {
-            List<Entity> list = worldIn.getEntitiesInAABBexcluding(null, new AxisAlignedBB(x - 0.5D, y - 0.5D, z - 0.5D, x + 0.5D, y + 0.5D, z + 0.5D), EntitySelectors.selectInventories);
+            List<Entity> list = worldIn.getEntitiesInAABBexcluding(null, new AxisAlignedBB(x - 0.5D, y - 0.5D, z - 0.5D, x + 0.5D, y + 0.5D, z + 0.5D), EntitySelectors.SELECT_INVENTORIES);
 
             if (!list.isEmpty()) {
                 iinventory = (IInventory) list.get(worldIn.rand.nextInt(list.size()));

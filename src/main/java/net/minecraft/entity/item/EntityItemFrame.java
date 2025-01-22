@@ -81,7 +81,7 @@ public class EntityItemFrame extends EntityHanging {
             }
 
             if (p_146065_2_) {
-                this.entityDropItem(new ItemStack(Items.item_frame), 0.0F);
+                this.entityDropItem(new ItemStack(Items.ITEM_FRAME), 0.0F);
             }
 
             if (itemstack != null && this.rand.nextFloat() < this.itemDropChance) {
@@ -94,7 +94,7 @@ public class EntityItemFrame extends EntityHanging {
 
     private void removeFrameFromMap(ItemStack p_110131_1_) {
         if (p_110131_1_ != null) {
-            if (p_110131_1_.getItem() == Items.filled_map) {
+            if (p_110131_1_.getItem() == Items.FILLED_MAP) {
                 MapData mapdata = ((ItemMap) p_110131_1_.getItem()).getMapData(p_110131_1_, this.worldObj);
                 mapdata.mapDecorations.remove("frame-" + this.getEntityId());
             }
@@ -122,7 +122,7 @@ public class EntityItemFrame extends EntityHanging {
         this.getDataWatcher().setObjectWatched(8);
 
         if (p_174864_2_ && this.hangingPosition != null) {
-            this.worldObj.updateComparatorOutputLevel(this.hangingPosition, Blocks.air);
+            this.worldObj.updateComparatorOutputLevel(this.hangingPosition, Blocks.AIR);
         }
     }
 
@@ -138,7 +138,7 @@ public class EntityItemFrame extends EntityHanging {
         this.getDataWatcher().updateObject(9, (byte) (p_174865_1_ % 8));
 
         if (p_174865_2_ && this.hangingPosition != null) {
-            this.worldObj.updateComparatorOutputLevel(this.hangingPosition, Blocks.air);
+            this.worldObj.updateComparatorOutputLevel(this.hangingPosition, Blocks.AIR);
         }
     }
 

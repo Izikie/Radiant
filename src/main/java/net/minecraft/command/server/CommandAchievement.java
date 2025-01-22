@@ -127,7 +127,7 @@ public class CommandAchievement extends CommandBase {
         } else {
             List<String> list = Lists.newArrayList();
 
-            for (StatBase statbase : StatList.allStats) {
+            for (StatBase statbase : StatList.ALL_STATS) {
                 list.add(statbase.statId);
             }
 

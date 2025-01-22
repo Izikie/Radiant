@@ -11,12 +11,12 @@ import net.minecraft.item.Item;
 
 public class BlockMelon extends Block {
     protected BlockMelon() {
-        super(Material.GOURD, MapColor.limeColor);
+        super(Material.GOURD, MapColor.LIME_COLOR);
         this.setCreativeTab(CreativeTabs.tabBlock);
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Items.melon;
+        return Items.MELON;
     }
 
     public int quantityDropped(Random random) {

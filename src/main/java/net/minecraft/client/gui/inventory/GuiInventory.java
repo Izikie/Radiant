@@ -54,7 +54,7 @@ public class GuiInventory extends InventoryEffectRenderer {
 
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(inventoryBackground);
+        this.mc.getTextureManager().bindTexture(INVENTORY_BACKGROUND);
         int i = this.guiLeft;
         int j = this.guiTop;
         this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);

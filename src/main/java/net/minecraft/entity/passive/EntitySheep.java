@@ -56,14 +56,14 @@ public class EntitySheep extends EntityAnimal {
         this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(1, new EntityAIPanic(this, 1.25D));
         this.tasks.addTask(2, new EntityAIMate(this, 1.0D));
-        this.tasks.addTask(3, new EntityAITempt(this, 1.1D, Items.wheat, false));
+        this.tasks.addTask(3, new EntityAITempt(this, 1.1D, Items.WHEAT, false));
         this.tasks.addTask(4, new EntityAIFollowParent(this, 1.1D));
         this.tasks.addTask(5, this.entityAIEatGrass);
         this.tasks.addTask(6, new EntityAIWander(this, 1.0D));
         this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
         this.tasks.addTask(8, new EntityAILookIdle(this));
-        this.inventoryCrafting.setInventorySlotContents(0, new ItemStack(Items.dye, 1, 0));
-        this.inventoryCrafting.setInventorySlotContents(1, new ItemStack(Items.dye, 1, 0));
+        this.inventoryCrafting.setInventorySlotContents(0, new ItemStack(Items.DYE, 1, 0));
+        this.inventoryCrafting.setInventorySlotContents(1, new ItemStack(Items.DYE, 1, 0));
     }
 
     protected void updateAITasks() {
@@ -92,22 +92,22 @@ public class EntitySheep extends EntityAnimal {
 
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
         if (!this.getSheared()) {
-            this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.wool), 1, this.getFleeceColor().getMetadata()), 0.0F);
+            this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1, this.getFleeceColor().getMetadata()), 0.0F);
         }
 
         int i = this.rand.nextInt(2) + 1 + this.rand.nextInt(1 + lootingModifier);
 
         for (int j = 0; j < i; ++j) {
             if (this.isBurning()) {
-                this.dropItem(Items.cooked_mutton, 1);
+                this.dropItem(Items.COOKED_MUTTON, 1);
             } else {
-                this.dropItem(Items.mutton, 1);
+                this.dropItem(Items.MUTTON, 1);
             }
         }
     }
 
     protected Item getDropItem() {
-        return Item.getItemFromBlock(Blocks.wool);
+        return Item.getItemFromBlock(Blocks.WOOL);
     }
 
     public void handleStatusUpdate(byte id) {
@@ -134,13 +134,13 @@ public class EntitySheep extends EntityAnimal {
     public boolean interact(EntityPlayer player) {
         ItemStack itemstack = player.inventory.getCurrentItem();
 
-        if (itemstack != null && itemstack.getItem() == Items.shears && !this.getSheared() && !this.isChild()) {
+        if (itemstack != null && itemstack.getItem() == Items.SHEARS && !this.getSheared() && !this.isChild()) {
             if (!this.worldObj.isRemote) {
                 this.setSheared(true);
                 int i = 1 + this.rand.nextInt(3);
 
                 for (int j = 0; j < i; ++j) {
-                    EntityItem entityitem = this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.wool), 1, this.getFleeceColor().getMetadata()), 1.0F);
+                    EntityItem entityitem = this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1, this.getFleeceColor().getMetadata()), 1.0F);
                     entityitem.motionY += (this.rand.nextFloat() * 0.05F);
                     entityitem.motionX += ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F);
                     entityitem.motionZ += ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F);
@@ -239,7 +239,7 @@ public class EntitySheep extends EntityAnimal {
         ItemStack itemstack = CraftingManager.getInstance().findMatchingRecipe(this.inventoryCrafting, father.worldObj);
         int k;
 
-        if (itemstack != null && itemstack.getItem() == Items.dye) {
+        if (itemstack != null && itemstack.getItem() == Items.DYE) {
             k = itemstack.getMetadata();
         } else {
             k = this.worldObj.rand.nextBoolean() ? i : j;

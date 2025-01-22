@@ -13,7 +13,7 @@ public class ItemEmptyMap extends ItemMapBase {
     }
 
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
-        ItemStack itemstack = new ItemStack(Items.filled_map, 1, worldIn.getUniqueDataId("map"));
+        ItemStack itemstack = new ItemStack(Items.FILLED_MAP, 1, worldIn.getUniqueDataId("map"));
         String s = "map_" + itemstack.getMetadata();
         MapData mapdata = new MapData(s);
         worldIn.setItemData(s, mapdata);
@@ -30,7 +30,7 @@ public class ItemEmptyMap extends ItemMapBase {
                 playerIn.dropPlayerItemWithRandomChoice(itemstack, false);
             }
 
-            playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
+            playerIn.triggerAchievement(StatList.OBJECT_USE_STATS[Item.getIdFromItem(this)]);
             return itemStackIn;
         }
     }

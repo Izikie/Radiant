@@ -1641,13 +1641,13 @@ public class Minecraft implements IThreadListener {
                 }
 
                 switch (this.objectMouseOver.entityHit) {
-                    case EntityPainting entityPainting -> item = Items.painting;
-                    case EntityLeashKnot entityLeashKnot -> item = Items.lead;
+                    case EntityPainting entityPainting -> item = Items.PAINTING;
+                    case EntityLeashKnot entityLeashKnot -> item = Items.LEAD;
                     case EntityItemFrame entityitemframe -> {
                         ItemStack itemstack = entityitemframe.getDisplayedItem();
 
                         if (itemstack == null) {
-                            item = Items.item_frame;
+                            item = Items.ITEM_FRAME;
                         } else {
                             item = itemstack.getItem();
                             i = itemstack.getMetadata();
@@ -1657,18 +1657,18 @@ public class Minecraft implements IThreadListener {
                     case EntityMinecart entityminecart -> {
 
                         item = switch (entityminecart.getMinecartType()) {
-                            case FURNACE -> Items.furnace_minecart;
-                            case CHEST -> Items.chest_minecart;
-                            case TNT -> Items.tnt_minecart;
-                            case HOPPER -> Items.hopper_minecart;
-                            case COMMAND_BLOCK -> Items.command_block_minecart;
-                            default -> Items.minecart;
+                            case FURNACE -> Items.FURNACE_MINECART;
+                            case CHEST -> Items.CHEST_MINECART;
+                            case TNT -> Items.TNT_MINECART;
+                            case HOPPER -> Items.HOPPER_MINECART;
+                            case COMMAND_BLOCK -> Items.COMMAND_BLOCK_MINECART;
+                            default -> Items.MINECART;
                         };
                     }
-                    case EntityBoat entityBoat -> item = Items.boat;
-                    case EntityArmorStand entityArmorStand -> item = Items.armor_stand;
+                    case EntityBoat entityBoat -> item = Items.BOAT;
+                    case EntityArmorStand entityArmorStand -> item = Items.ARMOR_STAND;
                     default -> {
-                        item = Items.spawn_egg;
+                        item = Items.SPAWN_EGG;
                         i = EntityList.getEntityID(this.objectMouseOver.entityHit);
                         flag1 = true;
 
@@ -1700,7 +1700,7 @@ public class Minecraft implements IThreadListener {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
         tileEntityIn.writeToNBT(nbttagcompound);
 
-        if (itemIn == Items.skull && nbttagcompound.hasKey("Owner")) {
+        if (itemIn == Items.SKULL && nbttagcompound.hasKey("Owner")) {
             NBTTagCompound nbttagcompound2 = nbttagcompound.getCompoundTag("Owner");
             NBTTagCompound nbttagcompound3 = new NBTTagCompound();
             nbttagcompound3.setTag("SkullOwner", nbttagcompound2);

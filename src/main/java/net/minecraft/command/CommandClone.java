@@ -90,7 +90,7 @@ public class CommandClone extends CommandBase {
                                         BlockPos blockpos5 = blockpos4.add(blockpos3);
                                         IBlockState iblockstate = world.getBlockState(blockpos4);
 
-                                        if ((!flag1 || iblockstate.getBlock() != Blocks.air) && (block == null || iblockstate.getBlock() == block && (j < 0 || iblockstate.getBlock().getMetaFromState(iblockstate) == j))) {
+                                        if ((!flag1 || iblockstate.getBlock() != Blocks.AIR) && (block == null || iblockstate.getBlock() == block && (j < 0 || iblockstate.getBlock().getMetaFromState(iblockstate) == j))) {
                                             TileEntity tileentity = world.getTileEntity(blockpos4);
 
                                             if (tileentity != null) {
@@ -118,11 +118,11 @@ public class CommandClone extends CommandBase {
                                         iInventory.clear();
                                     }
 
-                                    world.setBlockState(blockpos6, Blocks.barrier.getDefaultState(), 2);
+                                    world.setBlockState(blockpos6, Blocks.BARRIER.getDefaultState(), 2);
                                 }
 
                                 for (BlockPos blockpos7 : linkedlist) {
-                                    world.setBlockState(blockpos7, Blocks.air.getDefaultState(), 3);
+                                    world.setBlockState(blockpos7, Blocks.AIR.getDefaultState(), 3);
                                 }
                             }
 
@@ -139,7 +139,7 @@ public class CommandClone extends CommandBase {
                                     iInventory.clear();
                                 }
 
-                                world.setBlockState(commandclone$staticclonedata.pos, Blocks.barrier.getDefaultState(), 2);
+                                world.setBlockState(commandclone$staticclonedata.pos, Blocks.BARRIER.getDefaultState(), 2);
                             }
 
                             i = 0;

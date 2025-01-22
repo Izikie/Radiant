@@ -25,11 +25,11 @@ public class BlockOre extends Block {
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return this == Blocks.coal_ore ? Items.coal : (this == Blocks.diamond_ore ? Items.diamond : (this == Blocks.lapis_ore ? Items.dye : (this == Blocks.emerald_ore ? Items.emerald : (this == Blocks.quartz_ore ? Items.quartz : Item.getItemFromBlock(this)))));
+        return this == Blocks.COAL_ORE ? Items.COAL : (this == Blocks.DIAMOND_ORE ? Items.DIAMOND : (this == Blocks.LAPIS_ORE ? Items.DYE : (this == Blocks.EMERALD_ORE ? Items.EMERALD : (this == Blocks.QUARTZ_ORE ? Items.QUARTZ : Item.getItemFromBlock(this)))));
     }
 
     public int quantityDropped(Random random) {
-        return this == Blocks.lapis_ore ? 4 + random.nextInt(5) : 1;
+        return this == Blocks.LAPIS_ORE ? 4 + random.nextInt(5) : 1;
     }
 
     public int quantityDroppedWithBonus(int fortune, Random random) {
@@ -52,15 +52,15 @@ public class BlockOre extends Block {
         if (this.getItemDropped(state, worldIn.rand, fortune) != Item.getItemFromBlock(this)) {
             int i = 0;
 
-            if (this == Blocks.coal_ore) {
+            if (this == Blocks.COAL_ORE) {
                 i = MathHelper.getRandomIntegerInRange(worldIn.rand, 0, 2);
-            } else if (this == Blocks.diamond_ore) {
+            } else if (this == Blocks.DIAMOND_ORE) {
                 i = MathHelper.getRandomIntegerInRange(worldIn.rand, 3, 7);
-            } else if (this == Blocks.emerald_ore) {
+            } else if (this == Blocks.EMERALD_ORE) {
                 i = MathHelper.getRandomIntegerInRange(worldIn.rand, 3, 7);
-            } else if (this == Blocks.lapis_ore) {
+            } else if (this == Blocks.LAPIS_ORE) {
                 i = MathHelper.getRandomIntegerInRange(worldIn.rand, 2, 5);
-            } else if (this == Blocks.quartz_ore) {
+            } else if (this == Blocks.QUARTZ_ORE) {
                 i = MathHelper.getRandomIntegerInRange(worldIn.rand, 2, 5);
             }
 
@@ -73,6 +73,6 @@ public class BlockOre extends Block {
     }
 
     public int damageDropped(IBlockState state) {
-        return this == Blocks.lapis_ore ? DyeColor.BLUE.getDyeDamage() : 0;
+        return this == Blocks.LAPIS_ORE ? DyeColor.BLUE.getDyeDamage() : 0;
     }
 }

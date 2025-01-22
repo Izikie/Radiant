@@ -14,8 +14,8 @@ public class WorldGenVines extends WorldGenerator {
         for (; position.getY() < 128; position = position.up()) {
             if (worldIn.isAirBlock(position)) {
                 for (Direction enumfacing : Direction.Plane.HORIZONTAL.facings()) {
-                    if (Blocks.vine.canPlaceBlockOnSide(worldIn, position, enumfacing)) {
-                        IBlockState iblockstate = Blocks.vine.getDefaultState().withProperty(BlockVine.NORTH, enumfacing == Direction.NORTH).withProperty(BlockVine.EAST, enumfacing == Direction.EAST).withProperty(BlockVine.SOUTH, enumfacing == Direction.SOUTH).withProperty(BlockVine.WEST, enumfacing == Direction.WEST);
+                    if (Blocks.VINE.canPlaceBlockOnSide(worldIn, position, enumfacing)) {
+                        IBlockState iblockstate = Blocks.VINE.getDefaultState().withProperty(BlockVine.NORTH, enumfacing == Direction.NORTH).withProperty(BlockVine.EAST, enumfacing == Direction.EAST).withProperty(BlockVine.SOUTH, enumfacing == Direction.SOUTH).withProperty(BlockVine.WEST, enumfacing == Direction.WEST);
                         worldIn.setBlockState(position, iblockstate, 2);
                         break;
                     }

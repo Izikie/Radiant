@@ -95,7 +95,7 @@ public class BlockRedstoneTorch extends BlockTorch {
 
         if (this.isOn) {
             if (flag) {
-                worldIn.setBlockState(pos, Blocks.unlit_redstone_torch.getDefaultState().withProperty(FACING, state.getValue(FACING)), 3);
+                worldIn.setBlockState(pos, Blocks.UNLIT_REDSTONE_TORCH.getDefaultState().withProperty(FACING, state.getValue(FACING)), 3);
 
                 if (this.isBurnedOut(worldIn, pos, true)) {
                     worldIn.playSoundEffect((pos.getX() + 0.5F), (pos.getY() + 0.5F), (pos.getZ() + 0.5F), "random.fizz", 0.5F, 2.6F + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.8F);
@@ -111,7 +111,7 @@ public class BlockRedstoneTorch extends BlockTorch {
                 }
             }
         } else if (!flag && !this.isBurnedOut(worldIn, pos, false)) {
-            worldIn.setBlockState(pos, Blocks.redstone_torch.getDefaultState().withProperty(FACING, state.getValue(FACING)), 3);
+            worldIn.setBlockState(pos, Blocks.REDSTONE_TORCH.getDefaultState().withProperty(FACING, state.getValue(FACING)), 3);
         }
     }
 
@@ -128,7 +128,7 @@ public class BlockRedstoneTorch extends BlockTorch {
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Item.getItemFromBlock(Blocks.redstone_torch);
+        return Item.getItemFromBlock(Blocks.REDSTONE_TORCH);
     }
 
     public boolean canProvidePower() {
@@ -155,11 +155,11 @@ public class BlockRedstoneTorch extends BlockTorch {
     }
 
     public Item getItem(World worldIn, BlockPos pos) {
-        return Item.getItemFromBlock(Blocks.redstone_torch);
+        return Item.getItemFromBlock(Blocks.REDSTONE_TORCH);
     }
 
     public boolean isAssociatedBlock(Block other) {
-        return other == Blocks.unlit_redstone_torch || other == Blocks.redstone_torch;
+        return other == Blocks.UNLIT_REDSTONE_TORCH || other == Blocks.REDSTONE_TORCH;
     }
 
     static class Toggle {

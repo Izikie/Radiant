@@ -65,7 +65,7 @@ public abstract class WorldGenHugeTrees extends WorldGenAbstractTree {
         BlockPos blockpos = p_175927_1_.down();
         Block block = worldIn.getBlockState(blockpos).getBlock();
 
-        if ((block == Blocks.grass || block == Blocks.dirt) && p_175927_1_.getY() >= 2) {
+        if ((block == Blocks.GRASS || block == Blocks.DIRT) && p_175927_1_.getY() >= 2) {
             this.func_175921_a(worldIn, blockpos);
             this.func_175921_a(worldIn, blockpos.east());
             this.func_175921_a(worldIn, blockpos.south());

@@ -40,7 +40,7 @@ public class EntityOcelot extends EntityTameable {
         ((PathNavigateGround) this.getNavigator()).setAvoidsWater(true);
         this.tasks.addTask(1, new EntityAISwimming(this));
         this.tasks.addTask(2, this.aiSit);
-        this.tasks.addTask(3, this.aiTempt = new EntityAITempt(this, 0.6D, Items.fish, true));
+        this.tasks.addTask(3, this.aiTempt = new EntityAITempt(this, 0.6D, Items.FISH, true));
         this.tasks.addTask(5, new EntityAIFollowOwner(this, 1.0D, 10.0F, 5.0F));
         this.tasks.addTask(6, new EntityAIOcelotSit(this, 0.8D));
         this.tasks.addTask(7, new EntityAILeapAtTarget(this, 0.3F));
@@ -116,7 +116,7 @@ public class EntityOcelot extends EntityTameable {
     }
 
     protected Item getDropItem() {
-        return Items.leather;
+        return Items.LEATHER;
     }
 
     public boolean attackEntityAsMob(Entity entityIn) {
@@ -142,7 +142,7 @@ public class EntityOcelot extends EntityTameable {
             if (this.isOwner(player) && !this.worldObj.isRemote && !this.isBreedingItem(itemstack)) {
                 this.aiSit.setSitting(!this.isSitting());
             }
-        } else if (this.aiTempt.isRunning() && itemstack != null && itemstack.getItem() == Items.fish && player.getDistanceSqToEntity(this) < 9.0D) {
+        } else if (this.aiTempt.isRunning() && itemstack != null && itemstack.getItem() == Items.FISH && player.getDistanceSqToEntity(this) < 9.0D) {
             if (!player.capabilities.isCreativeMode) {
                 --itemstack.stackSize;
             }
@@ -184,7 +184,7 @@ public class EntityOcelot extends EntityTameable {
     }
 
     public boolean isBreedingItem(ItemStack stack) {
-        return stack != null && stack.getItem() == Items.fish;
+        return stack != null && stack.getItem() == Items.FISH;
     }
 
     public boolean canMateWith(EntityAnimal otherAnimal) {
@@ -221,7 +221,7 @@ public class EntityOcelot extends EntityTameable {
 
             Block block = this.worldObj.getBlockState(blockpos.down()).getBlock();
 
-            return block == Blocks.grass || block.getMaterial() == Material.LEAVES;
+            return block == Blocks.GRASS || block.getMaterial() == Material.LEAVES;
         }
 
         return false;

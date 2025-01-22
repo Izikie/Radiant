@@ -67,7 +67,7 @@ public class CommandSetBlock extends CommandBase {
                     if (args[5].equals("destroy")) {
                         world.destroyBlock(blockpos, true);
 
-                        if (block == Blocks.air) {
+                        if (block == Blocks.AIR) {
                             notifyOperators(sender, this, "commands.setblock.success");
                             return;
                         }
@@ -83,7 +83,7 @@ public class CommandSetBlock extends CommandBase {
                         iInventory.clear();
                     }
 
-                    world.setBlockState(blockpos, Blocks.air.getDefaultState(), block == Blocks.air ? 2 : 4);
+                    world.setBlockState(blockpos, Blocks.AIR.getDefaultState(), block == Blocks.AIR ? 2 : 4);
                 }
 
                 IBlockState iblockstate = block.getStateFromMeta(i);

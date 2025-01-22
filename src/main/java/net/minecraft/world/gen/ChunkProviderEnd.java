@@ -79,7 +79,7 @@ public class ChunkProviderEnd implements IChunkProvider {
                                 IBlockState iblockstate = null;
 
                                 if (d15 > 0.0D) {
-                                    iblockstate = Blocks.end_stone.getDefaultState();
+                                    iblockstate = Blocks.END_STONE.getDefaultState();
                                 }
 
                                 int k2 = i2 + i1 * 8;
@@ -108,19 +108,19 @@ public class ChunkProviderEnd implements IChunkProvider {
             for (int j = 0; j < 16; ++j) {
                 int k = 1;
                 int l = -1;
-                IBlockState iblockstate = Blocks.end_stone.getDefaultState();
-                IBlockState iblockstate1 = Blocks.end_stone.getDefaultState();
+                IBlockState iblockstate = Blocks.END_STONE.getDefaultState();
+                IBlockState iblockstate1 = Blocks.END_STONE.getDefaultState();
 
                 for (int i1 = 127; i1 >= 0; --i1) {
                     IBlockState iblockstate2 = p_180519_1_.getBlockState(i, i1, j);
 
                     if (iblockstate2.getBlock().getMaterial() == Material.AIR) {
                         l = -1;
-                    } else if (iblockstate2.getBlock() == Blocks.stone) {
+                    } else if (iblockstate2.getBlock() == Blocks.STONE) {
                         if (l == -1) {
                             if (k <= 0) {
-                                iblockstate = Blocks.air.getDefaultState();
-                                iblockstate1 = Blocks.end_stone.getDefaultState();
+                                iblockstate = Blocks.AIR.getDefaultState();
+                                iblockstate1 = Blocks.END_STONE.getDefaultState();
                             }
 
                             l = k;

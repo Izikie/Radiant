@@ -34,7 +34,7 @@ public class BlockDirt extends Block {
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         if (state.getValue(VARIANT) == BlockDirt.DirtType.PODZOL) {
             Block block = worldIn.getBlockState(pos.up()).getBlock();
-            state = state.withProperty(SNOWY, block == Blocks.snow || block == Blocks.snow_layer);
+            state = state.withProperty(SNOWY, block == Blocks.SNOW || block == Blocks.SNOW_LAYER);
         }
 
         return state;
@@ -74,9 +74,9 @@ public class BlockDirt extends Block {
     }
 
     public enum DirtType implements IStringSerializable {
-        DIRT(0, "dirt", "default", MapColor.dirtColor),
-        COARSE_DIRT(1, "coarse_dirt", "coarse", MapColor.dirtColor),
-        PODZOL(2, "podzol", MapColor.obsidianColor);
+        DIRT(0, "dirt", "default", MapColor.DIRT_COLOR),
+        COARSE_DIRT(1, "coarse_dirt", "coarse", MapColor.DIRT_COLOR),
+        PODZOL(2, "podzol", MapColor.OBSIDIAN_COLOR);
 
         private static final BlockDirt.DirtType[] METADATA_LOOKUP = new BlockDirt.DirtType[values().length];
         private final int metadata;

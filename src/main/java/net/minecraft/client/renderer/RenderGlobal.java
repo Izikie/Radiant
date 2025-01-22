@@ -187,7 +187,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     private IChunkProvider worldChunkProvider = null;
     private LongHashMap worldChunkProviderMap = null;
     private int countLoadedChunksPrev = 0;
-    private final RenderEnv renderEnv = new RenderEnv(Blocks.air.getDefaultState(), new BlockPos(0, 0, 0));
+    private final RenderEnv renderEnv = new RenderEnv(Blocks.AIR.getDefaultState(), new BlockPos(0, 0, 0));
     public boolean renderOverlayDamaged = false;
     public boolean renderOverlayEyes = false;
     private boolean firstWorldLoad = false;
@@ -470,8 +470,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     public void loadRenderers() {
         if (this.theWorld != null) {
             this.displayListEntitiesDirty = true;
-            Blocks.leaves.setGraphicsLevel(Config.isTreesFancy());
-            Blocks.leaves2.setGraphicsLevel(Config.isTreesFancy());
+            Blocks.LEAVES.setGraphicsLevel(Config.isTreesFancy());
+            Blocks.LEAVES_2.setGraphicsLevel(Config.isTreesFancy());
             BlockModelRenderer.updateAoLightValue();
 
             if (Config.isDynamicLights()) {
@@ -2478,16 +2478,16 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 double d5 = blockPosIn.getZ();
 
                 for (int k = 0; k < 8; ++k) {
-                    this.spawnParticle(ParticleTypes.ITEM_CRACK, d3, d4, d5, random.nextGaussian() * 0.15D, random.nextDouble() * 0.2D, random.nextGaussian() * 0.15D, Item.getIdFromItem(Items.potionitem), data);
+                    this.spawnParticle(ParticleTypes.ITEM_CRACK, d3, d4, d5, random.nextGaussian() * 0.15D, random.nextDouble() * 0.2D, random.nextGaussian() * 0.15D, Item.getIdFromItem(Items.POTION), data);
                 }
 
-                int j1 = Items.potionitem.getColorFromDamage(data);
+                int j1 = Items.POTION.getColorFromDamage(data);
                 float f = (j1 >> 16 & 255) / 255.0F;
                 float f1 = (j1 >> 8 & 255) / 255.0F;
                 float f2 = (j1 & 255) / 255.0F;
                 ParticleTypes enumparticletypes = ParticleTypes.SPELL;
 
-                if (Items.potionitem.isEffectInstant(data)) {
+                if (Items.POTION.isEffectInstant(data)) {
                     enumparticletypes = ParticleTypes.SPELL_INSTANT;
                 }
 
@@ -2515,7 +2515,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 double d10 = blockPosIn.getZ() + 0.5D;
 
                 for (int l1 = 0; l1 < 8; ++l1) {
-                    this.spawnParticle(ParticleTypes.ITEM_CRACK, d6, d8, d10, random.nextGaussian() * 0.15D, random.nextDouble() * 0.2D, random.nextGaussian() * 0.15D, Item.getIdFromItem(Items.ender_eye));
+                    this.spawnParticle(ParticleTypes.ITEM_CRACK, d6, d8, d10, random.nextGaussian() * 0.15D, random.nextDouble() * 0.2D, random.nextGaussian() * 0.15D, Item.getIdFromItem(Items.ENDER_EYE));
                 }
 
                 for (double d22 = 0.0D; d22 < (Math.PI * 2.0D); d22 += 0.15707963267948966D) {

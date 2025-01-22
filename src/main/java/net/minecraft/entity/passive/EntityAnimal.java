@@ -14,7 +14,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
-    protected Block spawnableBlock = Blocks.grass;
+    protected Block spawnableBlock = Blocks.GRASS;
     private int inLove;
     private EntityPlayer playerInLove;
 
@@ -59,7 +59,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
     }
 
     public float getBlockPathWeight(BlockPos pos) {
-        return this.worldObj.getBlockState(pos.down()).getBlock() == Blocks.grass ? 10.0F : this.worldObj.getLightBrightness(pos) - 0.5F;
+        return this.worldObj.getBlockState(pos.down()).getBlock() == Blocks.GRASS ? 10.0F : this.worldObj.getLightBrightness(pos) - 0.5F;
     }
 
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
@@ -93,7 +93,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
     }
 
     public boolean isBreedingItem(ItemStack stack) {
-        return stack == null ? false : stack.getItem() == Items.wheat;
+        return stack == null ? false : stack.getItem() == Items.WHEAT;
     }
 
     public boolean interact(EntityPlayer player) {

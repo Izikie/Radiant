@@ -29,7 +29,7 @@ public class BetterSnow {
     private static IBakedModel modelSnowLayer = null;
 
     public static void update() {
-        modelSnowLayer = Config.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelForState(Blocks.snow_layer.getDefaultState());
+        modelSnowLayer = Config.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelForState(Blocks.SNOW_LAYER.getDefaultState());
     }
 
     public static IBakedModel getModelSnowLayer() {
@@ -37,7 +37,7 @@ public class BetterSnow {
     }
 
     public static IBlockState getStateSnowLayer() {
-        return Blocks.snow_layer.getDefaultState();
+        return Blocks.SNOW_LAYER.getDefaultState();
     }
 
     public static boolean shouldRender(IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos) {
@@ -46,7 +46,7 @@ public class BetterSnow {
     }
 
     private static boolean hasSnowNeighbours(IBlockAccess blockAccess, BlockPos pos) {
-        Block block = Blocks.snow_layer;
+        Block block = Blocks.SNOW_LAYER;
         return blockAccess.getBlockState(pos.north()).getBlock() != block && blockAccess.getBlockState(pos.south()).getBlock() != block && blockAccess.getBlockState(pos.west()).getBlock() != block && blockAccess.getBlockState(pos.east()).getBlock() != block ? false : blockAccess.getBlockState(pos.down()).getBlock().isOpaqueCube();
     }
 

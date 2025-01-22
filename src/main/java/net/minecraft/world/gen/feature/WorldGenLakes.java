@@ -76,7 +76,7 @@ public class WorldGenLakes extends WorldGenerator {
                 for (int i3 = 0; i3 < 16; ++i3) {
                     for (int i4 = 0; i4 < 8; ++i4) {
                         if (aboolean[(l1 * 16 + i3) * 8 + i4]) {
-                            worldIn.setBlockState(position.add(l1, i4, i3), i4 >= 4 ? Blocks.air.getDefaultState() : this.block.getDefaultState(), 2);
+                            worldIn.setBlockState(position.add(l1, i4, i3), i4 >= 4 ? Blocks.AIR.getDefaultState() : this.block.getDefaultState(), 2);
                         }
                     }
                 }
@@ -88,13 +88,13 @@ public class WorldGenLakes extends WorldGenerator {
                         if (aboolean[(i2 * 16 + j3) * 8 + j4]) {
                             BlockPos blockpos = position.add(i2, j4 - 1, j3);
 
-                            if (worldIn.getBlockState(blockpos).getBlock() == Blocks.dirt && worldIn.getLightFor(LightType.SKY, position.add(i2, j4, j3)) > 0) {
+                            if (worldIn.getBlockState(blockpos).getBlock() == Blocks.DIRT && worldIn.getLightFor(LightType.SKY, position.add(i2, j4, j3)) > 0) {
                                 BiomeGenBase biomegenbase = worldIn.getBiomeGenForCoords(blockpos);
 
-                                if (biomegenbase.topBlock.getBlock() == Blocks.mycelium) {
-                                    worldIn.setBlockState(blockpos, Blocks.mycelium.getDefaultState(), 2);
+                                if (biomegenbase.topBlock.getBlock() == Blocks.MYCELIUM) {
+                                    worldIn.setBlockState(blockpos, Blocks.MYCELIUM.getDefaultState(), 2);
                                 } else {
-                                    worldIn.setBlockState(blockpos, Blocks.grass.getDefaultState(), 2);
+                                    worldIn.setBlockState(blockpos, Blocks.GRASS.getDefaultState(), 2);
                                 }
                             }
                         }
@@ -109,7 +109,7 @@ public class WorldGenLakes extends WorldGenerator {
                             boolean flag1 = !aboolean[(j2 * 16 + k3) * 8 + k4] && (j2 < 15 && aboolean[((j2 + 1) * 16 + k3) * 8 + k4] || j2 > 0 && aboolean[((j2 - 1) * 16 + k3) * 8 + k4] || k3 < 15 && aboolean[(j2 * 16 + k3 + 1) * 8 + k4] || k3 > 0 && aboolean[(j2 * 16 + (k3 - 1)) * 8 + k4] || k4 < 7 && aboolean[(j2 * 16 + k3) * 8 + k4 + 1] || k4 > 0 && aboolean[(j2 * 16 + k3) * 8 + (k4 - 1)]);
 
                             if (flag1 && (k4 < 4 || rand.nextInt(2) != 0) && worldIn.getBlockState(position.add(j2, k4, k3)).getBlock().getMaterial().isSolid()) {
-                                worldIn.setBlockState(position.add(j2, k4, k3), Blocks.stone.getDefaultState(), 2);
+                                worldIn.setBlockState(position.add(j2, k4, k3), Blocks.STONE.getDefaultState(), 2);
                             }
                         }
                     }
@@ -122,7 +122,7 @@ public class WorldGenLakes extends WorldGenerator {
                         int l4 = 4;
 
                         if (worldIn.canBlockFreezeWater(position.add(k2, l4, l3))) {
-                            worldIn.setBlockState(position.add(k2, l4, l3), Blocks.ice.getDefaultState(), 2);
+                            worldIn.setBlockState(position.add(k2, l4, l3), Blocks.ICE.getDefaultState(), 2);
                         }
                     }
                 }

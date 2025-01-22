@@ -51,7 +51,7 @@ public class SlotMerchantResult extends Slot {
 
             if (this.doTrade(merchantrecipe, itemstack, itemstack1) || this.doTrade(merchantrecipe, itemstack1, itemstack)) {
                 this.theMerchant.useRecipe(merchantrecipe);
-                playerIn.triggerAchievement(StatList.timesTradedWithVillagerStat);
+                playerIn.triggerAchievement(StatList.TIMES_TRADED_WITH_VILLAGER_STAT);
 
                 if (itemstack != null && itemstack.stackSize <= 0) {
                     itemstack = null;

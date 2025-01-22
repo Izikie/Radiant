@@ -45,12 +45,12 @@ public class TileEntityPistonRenderer extends TileEntitySpecialRenderer<TileEnti
             worldrenderer.setTranslation(((float) x - blockpos.getX() + te.getOffsetX(partialTicks)), ((float) y - blockpos.getY() + te.getOffsetY(partialTicks)), ((float) z - blockpos.getZ() + te.getOffsetZ(partialTicks)));
             World world = this.getWorld();
 
-            if (block == Blocks.piston_head && te.getProgress(partialTicks) < 0.5F) {
+            if (block == Blocks.PISTON_HEAD && te.getProgress(partialTicks) < 0.5F) {
                 iblockstate = iblockstate.withProperty(BlockPistonExtension.SHORT, Boolean.TRUE);
                 this.blockRenderer.getBlockModelRenderer().renderModel(world, this.blockRenderer.getModelFromBlockState(iblockstate, world, blockpos), iblockstate, blockpos, worldrenderer, true);
             } else if (te.shouldPistonHeadBeRendered() && !te.isExtending()) {
-                BlockPistonExtension.PistonType blockpistonextension$enumpistontype = block == Blocks.sticky_piston ? BlockPistonExtension.PistonType.STICKY : BlockPistonExtension.PistonType.DEFAULT;
-                IBlockState iblockstate1 = Blocks.piston_head.getDefaultState().withProperty(BlockPistonExtension.TYPE, blockpistonextension$enumpistontype).withProperty(BlockPistonExtension.FACING, iblockstate.getValue(BlockPistonBase.FACING));
+                BlockPistonExtension.PistonType blockpistonextension$enumpistontype = block == Blocks.STICKY_PISTON ? BlockPistonExtension.PistonType.STICKY : BlockPistonExtension.PistonType.DEFAULT;
+                IBlockState iblockstate1 = Blocks.PISTON_HEAD.getDefaultState().withProperty(BlockPistonExtension.TYPE, blockpistonextension$enumpistontype).withProperty(BlockPistonExtension.FACING, iblockstate.getValue(BlockPistonBase.FACING));
                 iblockstate1 = iblockstate1.withProperty(BlockPistonExtension.SHORT, te.getProgress(partialTicks) >= 0.5F);
                 this.blockRenderer.getBlockModelRenderer().renderModel(world, this.blockRenderer.getModelFromBlockState(iblockstate1, world, blockpos), iblockstate1, blockpos, worldrenderer, true);
                 worldrenderer.setTranslation(((float) x - blockpos.getX()), ((float) y - blockpos.getY()), ((float) z - blockpos.getZ()));

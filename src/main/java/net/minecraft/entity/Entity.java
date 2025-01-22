@@ -573,7 +573,7 @@ public abstract class Entity implements ICommandSender {
                 double d13 = this.posY - d1;
                 double d14 = this.posZ - d2;
 
-                if (block1 != Blocks.ladder) {
+                if (block1 != Blocks.LADDER) {
                     d13 = 0.0D;
                 }
 
@@ -671,8 +671,8 @@ public abstract class Entity implements ICommandSender {
     protected void playStepSound(BlockPos pos, Block blockIn) {
         Block.SoundType block$soundtype = blockIn.stepSound;
 
-        if (this.worldObj.getBlockState(pos.up()).getBlock() == Blocks.snow_layer) {
-            block$soundtype = Blocks.snow_layer.stepSound;
+        if (this.worldObj.getBlockState(pos.up()).getBlock() == Blocks.SNOW_LAYER) {
+            block$soundtype = Blocks.SNOW_LAYER.stepSound;
             this.playSound(block$soundtype.getStepSound(), block$soundtype.getVolume() * 0.15F, block$soundtype.getFrequency());
         } else if (!blockIn.getMaterial().isLiquid()) {
             this.playSound(block$soundtype.getStepSound(), block$soundtype.getVolume() * 0.15F, block$soundtype.getFrequency());
@@ -1401,7 +1401,7 @@ public abstract class Entity implements ICommandSender {
         } else {
             if (!this.worldObj.isRemote && !pos.equals(this.lastPortalPos)) {
                 this.lastPortalPos = pos;
-                BlockPattern.PatternHelper blockpattern$patternhelper = Blocks.portal.func_181089_f(this.worldObj, pos);
+                BlockPattern.PatternHelper blockpattern$patternhelper = Blocks.PORTAL.func_181089_f(this.worldObj, pos);
                 double d0 = blockpattern$patternhelper.getFinger().getAxis() == Direction.Axis.X ? blockpattern$patternhelper.getPos().getZ() : blockpattern$patternhelper.getPos().getX();
                 double d1 = blockpattern$patternhelper.getFinger().getAxis() == Direction.Axis.X ? this.posZ : this.posX;
                 d1 = Math.abs(MathHelper.func_181160_c(d1 - (blockpattern$patternhelper.getFinger().rotateY().getAxisDirection() == Direction.AxisDirection.NEGATIVE ? 1 : 0), d0, d0 - blockpattern$patternhelper.func_181118_d()));

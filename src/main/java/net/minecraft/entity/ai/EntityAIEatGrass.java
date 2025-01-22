@@ -12,7 +12,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class EntityAIEatGrass extends EntityAIBase {
-    private static final Predicate<IBlockState> field_179505_b = BlockStateHelper.forBlock(Blocks.tallgrass).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
+    private static final Predicate<IBlockState> field_179505_b = BlockStateHelper.forBlock(Blocks.TALL_GRASS).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
     private final EntityLiving grassEaterEntity;
     private final World entityWorld;
     int eatingGrassTimer;
@@ -28,7 +28,7 @@ public class EntityAIEatGrass extends EntityAIBase {
             return false;
         } else {
             BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY, this.grassEaterEntity.posZ);
-            return field_179505_b.apply(this.entityWorld.getBlockState(blockpos)) ? true : this.entityWorld.getBlockState(blockpos.down()).getBlock() == Blocks.grass;
+            return field_179505_b.apply(this.entityWorld.getBlockState(blockpos)) ? true : this.entityWorld.getBlockState(blockpos.down()).getBlock() == Blocks.GRASS;
         }
     }
 
@@ -65,10 +65,10 @@ public class EntityAIEatGrass extends EntityAIBase {
             } else {
                 BlockPos blockpos1 = blockpos.down();
 
-                if (this.entityWorld.getBlockState(blockpos1).getBlock() == Blocks.grass) {
+                if (this.entityWorld.getBlockState(blockpos1).getBlock() == Blocks.GRASS) {
                     if (this.entityWorld.getGameRules().getBoolean("mobGriefing")) {
-                        this.entityWorld.playAuxSFX(2001, blockpos1, Block.getIdFromBlock(Blocks.grass));
-                        this.entityWorld.setBlockState(blockpos1, Blocks.dirt.getDefaultState(), 2);
+                        this.entityWorld.playAuxSFX(2001, blockpos1, Block.getIdFromBlock(Blocks.GRASS));
+                        this.entityWorld.setBlockState(blockpos1, Blocks.DIRT.getDefaultState(), 2);
                     }
 
                     this.grassEaterEntity.eatGrassBonus();

@@ -64,7 +64,7 @@ public abstract class BlockFlower extends BlockBush {
         RED;
 
         public BlockFlower getBlock() {
-            return this == YELLOW ? Blocks.yellow_flower : Blocks.red_flower;
+            return this == YELLOW ? Blocks.YELLOW_FLOWER : Blocks.RED_FLOWER;
         }
     }
 

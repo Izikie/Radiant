@@ -18,7 +18,7 @@ import java.util.zip.InflaterInputStream;
 import net.minecraft.server.MinecraftServer;
 
 public class RegionFile {
-    private static final byte[] emptySector = new byte[4096];
+    private static final byte[] EMPTY_SECTOR = new byte[4096];
     private final File fileName;
     private RandomAccessFile dataFile;
     private final int[] offsets = new int[1024];
@@ -191,7 +191,7 @@ public class RegionFile {
                     j = this.sectorFree.size();
 
                     for (int i2 = 0; i2 < l; ++i2) {
-                        this.dataFile.write(emptySector);
+                        this.dataFile.write(EMPTY_SECTOR);
                         this.sectorFree.add(Boolean.FALSE);
                     }
 

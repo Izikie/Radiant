@@ -393,8 +393,8 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
             entitylivingbase.addToPlayerScore(this, this.scoreValue);
         }
 
-        this.triggerAchievement(StatList.deathsStat);
-        this.func_175145_a(StatList.timeSinceDeathStat);
+        this.triggerAchievement(StatList.DEATHS_STAT);
+        this.func_175145_a(StatList.TIME_SINCE_DEATH_STAT);
         this.getCombatTracker().reset();
     }
 
@@ -616,7 +616,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
     public void displayGUIBook(ItemStack bookStack) {
         Item item = bookStack.getItem();
 
-        if (item == Items.written_book) {
+        if (item == Items.WRITTEN_BOOK) {
             this.playerNetServerHandler.sendPacket(new S3FPacketCustomPayload("MC|BOpen", new PacketBuffer(Unpooled.buffer())));
         }
     }

@@ -21,7 +21,7 @@ public class BlockCommandBlock extends BlockContainer {
     public static final PropertyBool TRIGGERED = PropertyBool.create("triggered");
 
     public BlockCommandBlock() {
-        super(Material.IRON, MapColor.adobeColor);
+        super(Material.IRON, MapColor.ADOBE_COLOR);
         this.setDefaultState(this.blockState.getBaseState().withProperty(TRIGGERED, Boolean.FALSE));
     }
 

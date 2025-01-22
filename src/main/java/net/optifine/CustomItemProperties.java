@@ -709,7 +709,7 @@ public class CustomItemProperties {
         if (this.type == 1 && this.items.length == 1) {
             Item item = Item.getItemById(this.items[0]);
 
-            if (item == Items.potionitem && this.damage != null && this.damage.getCountRanges() > 0) {
+            if (item == Items.POTION && this.damage != null && this.damage.getCountRanges() > 0) {
                 RangeInt rangeint = this.damage.getRange(0);
                 int i = rangeint.getMin();
                 boolean flag = (i & 16384) != 0;

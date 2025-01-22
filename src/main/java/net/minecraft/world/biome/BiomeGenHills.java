@@ -13,7 +13,7 @@ import net.minecraft.world.gen.feature.WorldGenTaiga2;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class BiomeGenHills extends BiomeGenBase {
-    private final WorldGenerator theWorldGenerator = new WorldGenMinable(Blocks.monster_egg.getDefaultState().withProperty(BlockSilverfish.VARIANT, BlockSilverfish.EnumType.STONE), 9);
+    private final WorldGenerator theWorldGenerator = new WorldGenMinable(Blocks.MONSTER_EGG.getDefaultState().withProperty(BlockSilverfish.VARIANT, BlockSilverfish.EnumType.STONE), 9);
     private final WorldGenTaiga2 field_150634_aD = new WorldGenTaiga2(false);
     private final int field_150635_aE = 0;
     private final int field_150636_aF = 1;
@@ -44,8 +44,8 @@ public class BiomeGenHills extends BiomeGenBase {
             int i1 = rand.nextInt(16);
             BlockPos blockpos = pos.add(k, l, i1);
 
-            if (worldIn.getBlockState(blockpos).getBlock() == Blocks.stone) {
-                worldIn.setBlockState(blockpos, Blocks.emerald_ore.getDefaultState(), 2);
+            if (worldIn.getBlockState(blockpos).getBlock() == Blocks.STONE) {
+                worldIn.setBlockState(blockpos, Blocks.EMERALD_ORE.getDefaultState(), 2);
             }
         }
 
@@ -58,15 +58,15 @@ public class BiomeGenHills extends BiomeGenBase {
     }
 
     public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
-        this.topBlock = Blocks.grass.getDefaultState();
-        this.fillerBlock = Blocks.dirt.getDefaultState();
+        this.topBlock = Blocks.GRASS.getDefaultState();
+        this.fillerBlock = Blocks.DIRT.getDefaultState();
 
         if ((noiseVal < -1.0D || noiseVal > 2.0D) && this.field_150638_aH == this.field_150637_aG) {
-            this.topBlock = Blocks.gravel.getDefaultState();
-            this.fillerBlock = Blocks.gravel.getDefaultState();
+            this.topBlock = Blocks.GRAVEL.getDefaultState();
+            this.fillerBlock = Blocks.GRAVEL.getDefaultState();
         } else if (noiseVal > 1.0D && this.field_150638_aH != this.field_150636_aF) {
-            this.topBlock = Blocks.stone.getDefaultState();
-            this.fillerBlock = Blocks.stone.getDefaultState();
+            this.topBlock = Blocks.STONE.getDefaultState();
+            this.fillerBlock = Blocks.STONE.getDefaultState();
         }
 
         this.generateBiomeTerrain(worldIn, rand, chunkPrimerIn, x, z, noiseVal);

@@ -6,56 +6,56 @@ import java.util.List;
 
 public class IntCache {
     private static int intCacheSize = 256;
-    private static final List<int[]> freeSmallArrays = Lists.newArrayList();
-    private static final List<int[]> inUseSmallArrays = Lists.newArrayList();
-    private static final List<int[]> freeLargeArrays = Lists.newArrayList();
-    private static final List<int[]> inUseLargeArrays = Lists.newArrayList();
+    private static final List<int[]> FREE_SMALL_ARRAYS = Lists.newArrayList();
+    private static final List<int[]> IN_USE_SMALL_ARRAYS = Lists.newArrayList();
+    private static final List<int[]> FREE_LARGE_ARRAYS = Lists.newArrayList();
+    private static final List<int[]> IN_USE_LARGE_ARRAYS = Lists.newArrayList();
 
     public static synchronized int[] getIntCache(int p_76445_0_) {
         if (p_76445_0_ <= 256) {
-            if (freeSmallArrays.isEmpty()) {
+            if (FREE_SMALL_ARRAYS.isEmpty()) {
                 int[] aint4 = new int[256];
-                inUseSmallArrays.add(aint4);
+                IN_USE_SMALL_ARRAYS.add(aint4);
                 return aint4;
             } else {
-                int[] aint3 = freeSmallArrays.removeLast();
-                inUseSmallArrays.add(aint3);
+                int[] aint3 = FREE_SMALL_ARRAYS.removeLast();
+                IN_USE_SMALL_ARRAYS.add(aint3);
                 return aint3;
             }
         } else if (p_76445_0_ > intCacheSize) {
             intCacheSize = p_76445_0_;
-            freeLargeArrays.clear();
-            inUseLargeArrays.clear();
+            FREE_LARGE_ARRAYS.clear();
+            IN_USE_LARGE_ARRAYS.clear();
             int[] aint2 = new int[intCacheSize];
-            inUseLargeArrays.add(aint2);
+            IN_USE_LARGE_ARRAYS.add(aint2);
             return aint2;
-        } else if (freeLargeArrays.isEmpty()) {
+        } else if (FREE_LARGE_ARRAYS.isEmpty()) {
             int[] aint1 = new int[intCacheSize];
-            inUseLargeArrays.add(aint1);
+            IN_USE_LARGE_ARRAYS.add(aint1);
             return aint1;
         } else {
-            int[] aint = freeLargeArrays.removeLast();
-            inUseLargeArrays.add(aint);
+            int[] aint = FREE_LARGE_ARRAYS.removeLast();
+            IN_USE_LARGE_ARRAYS.add(aint);
             return aint;
         }
     }
 
     public static synchronized void resetIntCache() {
-        if (!freeLargeArrays.isEmpty()) {
-            freeLargeArrays.removeLast();
+        if (!FREE_LARGE_ARRAYS.isEmpty()) {
+            FREE_LARGE_ARRAYS.removeLast();
         }
 
-        if (!freeSmallArrays.isEmpty()) {
-            freeSmallArrays.removeLast();
+        if (!FREE_SMALL_ARRAYS.isEmpty()) {
+            FREE_SMALL_ARRAYS.removeLast();
         }
 
-        freeLargeArrays.addAll(inUseLargeArrays);
-        freeSmallArrays.addAll(inUseSmallArrays);
-        inUseLargeArrays.clear();
-        inUseSmallArrays.clear();
+        FREE_LARGE_ARRAYS.addAll(IN_USE_LARGE_ARRAYS);
+        FREE_SMALL_ARRAYS.addAll(IN_USE_SMALL_ARRAYS);
+        IN_USE_LARGE_ARRAYS.clear();
+        IN_USE_SMALL_ARRAYS.clear();
     }
 
     public static synchronized String getCacheSizes() {
-        return "cache: " + freeLargeArrays.size() + ", tcache: " + freeSmallArrays.size() + ", allocated: " + inUseLargeArrays.size() + ", tallocated: " + inUseSmallArrays.size();
+        return "cache: " + FREE_LARGE_ARRAYS.size() + ", tcache: " + FREE_SMALL_ARRAYS.size() + ", allocated: " + IN_USE_LARGE_ARRAYS.size() + ", tallocated: " + IN_USE_SMALL_ARRAYS.size();
     }
 }

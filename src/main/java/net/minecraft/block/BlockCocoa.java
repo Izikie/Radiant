@@ -43,7 +43,7 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
     public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state) {
         pos = pos.offset(state.getValue(FACING));
         IBlockState iblockstate = worldIn.getBlockState(pos);
-        return iblockstate.getBlock() == Blocks.log && iblockstate.getValue(BlockPlanks.VARIANT) == BlockPlanks.WoodType.JUNGLE;
+        return iblockstate.getBlock() == Blocks.LOG && iblockstate.getValue(BlockPlanks.VARIANT) == BlockPlanks.WoodType.JUNGLE;
     }
 
     public boolean isFullCube() {
@@ -111,7 +111,7 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
     }
 
     private void dropBlock(World worldIn, BlockPos pos, IBlockState state) {
-        worldIn.setBlockState(pos, Blocks.air.getDefaultState(), 3);
+        worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
         this.dropBlockAsItem(worldIn, pos, state, 0);
     }
 
@@ -124,12 +124,12 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
         }
 
         for (int k = 0; k < j; ++k) {
-            spawnAsEntity(worldIn, pos, new ItemStack(Items.dye, 1, DyeColor.BROWN.getDyeDamage()));
+            spawnAsEntity(worldIn, pos, new ItemStack(Items.DYE, 1, DyeColor.BROWN.getDyeDamage()));
         }
     }
 
     public Item getItem(World worldIn, BlockPos pos) {
-        return Items.dye;
+        return Items.DYE;
     }
 
     public int getDamageValue(World worldIn, BlockPos pos) {

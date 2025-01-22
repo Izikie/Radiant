@@ -47,11 +47,11 @@ public class ItemSkull extends Item {
 
             if (!playerIn.canPlayerEdit(pos, side, stack)) {
                 return false;
-            } else if (!Blocks.skull.canPlaceBlockAt(worldIn, pos)) {
+            } else if (!Blocks.SKULL.canPlaceBlockAt(worldIn, pos)) {
                 return false;
             } else {
                 if (!worldIn.isRemote) {
-                    worldIn.setBlockState(pos, Blocks.skull.getDefaultState().withProperty(BlockSkull.FACING, side), 3);
+                    worldIn.setBlockState(pos, Blocks.SKULL.getDefaultState().withProperty(BlockSkull.FACING, side), 3);
                     int i = 0;
 
                     if (side == Direction.UP) {
@@ -81,7 +81,7 @@ public class ItemSkull extends Item {
                         }
 
                         tileentityskull.setSkullRotation(i);
-                        Blocks.skull.checkWitherSpawn(worldIn, pos, tileentityskull);
+                        Blocks.SKULL.checkWitherSpawn(worldIn, pos, tileentityskull);
                     }
 
                     --stack.stackSize;

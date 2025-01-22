@@ -96,7 +96,7 @@ public class ItemBlock extends Item {
     public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Direction side, EntityPlayer player, ItemStack stack) {
         Block block = worldIn.getBlockState(pos).getBlock();
 
-        if (block == Blocks.snow_layer) {
+        if (block == Blocks.SNOW_LAYER) {
             side = Direction.UP;
         } else if (!block.isReplaceable(worldIn, pos)) {
             pos = pos.offset(side);

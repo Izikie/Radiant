@@ -114,7 +114,7 @@ public final class ItemStack {
         boolean flag = this.getItem().onItemUse(this, playerIn, worldIn, pos, side, hitX, hitY, hitZ);
 
         if (flag) {
-            playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this.item)]);
+            playerIn.triggerAchievement(StatList.OBJECT_USE_STATS[Item.getIdFromItem(this.item)]);
         }
 
         return flag;
@@ -242,7 +242,7 @@ public final class ItemStack {
                     --this.stackSize;
 
                     if (entityIn instanceof EntityPlayer entityplayer) {
-                        entityplayer.triggerAchievement(StatList.objectBreakStats[Item.getIdFromItem(this.item)]);
+                        entityplayer.triggerAchievement(StatList.OBJECT_BREAK_STATS[Item.getIdFromItem(this.item)]);
 
                         if (this.stackSize == 0 && this.getItem() instanceof ItemBow) {
                             entityplayer.destroyCurrentEquippedItem();
@@ -263,7 +263,7 @@ public final class ItemStack {
         boolean flag = this.item.hitEntity(this, entityIn, playerIn);
 
         if (flag) {
-            playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this.item)]);
+            playerIn.triggerAchievement(StatList.OBJECT_USE_STATS[Item.getIdFromItem(this.item)]);
         }
     }
 
@@ -271,7 +271,7 @@ public final class ItemStack {
         boolean flag = this.item.onBlockDestroyed(this, worldIn, blockIn, pos, playerIn);
 
         if (flag) {
-            playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this.item)]);
+            playerIn.triggerAchievement(StatList.OBJECT_USE_STATS[Item.getIdFromItem(this.item)]);
         }
     }
 
@@ -334,7 +334,7 @@ public final class ItemStack {
     }
 
     public void onCrafting(World worldIn, EntityPlayer playerIn, int amount) {
-        playerIn.addStat(StatList.objectCraftStats[Item.getIdFromItem(this.item)], amount);
+        playerIn.addStat(StatList.OBJECT_CRAFT_STATS[Item.getIdFromItem(this.item)], amount);
         this.item.onCreated(this, worldIn, playerIn);
     }
 
@@ -455,7 +455,7 @@ public final class ItemStack {
             } else {
                 s = s + String.format("#%04d%s", i, s1);
             }
-        } else if (!this.hasDisplayName() && this.item == Items.filled_map) {
+        } else if (!this.hasDisplayName() && this.item == Items.FILLED_MAP) {
             s = s + " #" + this.itemDamage;
         }
 
@@ -518,7 +518,7 @@ public final class ItemStack {
                 AttributeModifier attributemodifier = entry.getValue();
                 double d0 = attributemodifier.getAmount();
 
-                if (attributemodifier.getID() == Item.itemModifierUUID) {
+                if (attributemodifier.getID() == Item.ITEM_MODIFIER_UUID) {
                     d0 += EnchantmentHelper.getModifierForCreature(this, EntityGroup.UNDEFINED);
                 }
 

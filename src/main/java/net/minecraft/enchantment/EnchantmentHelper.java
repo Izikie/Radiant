@@ -48,7 +48,7 @@ public class EnchantmentHelper {
 
     public static Map<Integer, Integer> getEnchantments(ItemStack stack) {
         Map<Integer, Integer> map = Maps.newLinkedHashMap();
-        NBTTagList nbttaglist = stack.getItem() == Items.enchanted_book ? Items.enchanted_book.getEnchantments(stack) : stack.getEnchantmentTagList();
+        NBTTagList nbttaglist = stack.getItem() == Items.ENCHANTED_BOOK ? Items.ENCHANTED_BOOK.getEnchantments(stack) : stack.getEnchantmentTagList();
 
         if (nbttaglist != null) {
             for (int i = 0; i < nbttaglist.tagCount(); ++i) {
@@ -73,14 +73,14 @@ public class EnchantmentHelper {
                 nbttagcompound.setShort("lvl", (short) enchMap.get(i).intValue());
                 nbttaglist.appendTag(nbttagcompound);
 
-                if (stack.getItem() == Items.enchanted_book) {
-                    Items.enchanted_book.addEnchantment(stack, new EnchantmentData(enchantment, enchMap.get(i)));
+                if (stack.getItem() == Items.ENCHANTED_BOOK) {
+                    Items.ENCHANTED_BOOK.addEnchantment(stack, new EnchantmentData(enchantment, enchMap.get(i)));
                 }
             }
         }
 
         if (nbttaglist.tagCount() > 0) {
-            if (stack.getItem() != Items.enchanted_book) {
+            if (stack.getItem() != Items.ENCHANTED_BOOK) {
                 stack.setTagInfo("ench", nbttaglist);
             }
         } else if (stack.hasTagCompound()) {
@@ -248,16 +248,16 @@ public class EnchantmentHelper {
 
     public static ItemStack addRandomEnchantment(Random p_77504_0_, ItemStack p_77504_1_, int p_77504_2_) {
         List<EnchantmentData> list = buildEnchantmentList(p_77504_0_, p_77504_1_, p_77504_2_);
-        boolean flag = p_77504_1_.getItem() == Items.book;
+        boolean flag = p_77504_1_.getItem() == Items.BOOK;
 
         if (flag) {
-            p_77504_1_.setItem(Items.enchanted_book);
+            p_77504_1_.setItem(Items.ENCHANTED_BOOK);
         }
 
         if (list != null) {
             for (EnchantmentData enchantmentdata : list) {
                 if (flag) {
-                    Items.enchanted_book.addEnchantment(p_77504_1_, enchantmentdata);
+                    Items.ENCHANTED_BOOK.addEnchantment(p_77504_1_, enchantmentdata);
                 } else {
                     p_77504_1_.addEnchantment(enchantmentdata.enchantmentobj, enchantmentdata.enchantmentLevel);
                 }
@@ -328,7 +328,7 @@ public class EnchantmentHelper {
     public static Map<Integer, EnchantmentData> mapEnchantmentData(int p_77505_0_, ItemStack p_77505_1_) {
         Item item = p_77505_1_.getItem();
         Map<Integer, EnchantmentData> map = null;
-        boolean flag = p_77505_1_.getItem() == Items.book;
+        boolean flag = p_77505_1_.getItem() == Items.BOOK;
 
         for (Enchantment enchantment : Enchantment.ENCHANTMENTS_BOOK_LIST) {
             if (enchantment != null && (enchantment.type.canEnchantItem(item) || flag)) {

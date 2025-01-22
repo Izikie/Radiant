@@ -29,7 +29,7 @@ public class BlockIce extends BlockBreakable {
     }
 
     public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te) {
-        player.triggerAchievement(StatList.mineBlockStatArray[Block.getIdFromBlock(this)]);
+        player.triggerAchievement(StatList.MINE_BLOCK_STAT_ARRAY[Block.getIdFromBlock(this)]);
         player.addExhaustion(0.025F);
 
         if (this.canSilkHarvest() && EnchantmentHelper.getSilkTouchModifier(player)) {
@@ -49,7 +49,7 @@ public class BlockIce extends BlockBreakable {
             Material material = worldIn.getBlockState(pos.down()).getBlock().getMaterial();
 
             if (material.blocksMovement() || material.isLiquid()) {
-                worldIn.setBlockState(pos, Blocks.flowing_water.getDefaultState());
+                worldIn.setBlockState(pos, Blocks.FLOWING_WATER.getDefaultState());
             }
         }
     }
@@ -64,7 +64,7 @@ public class BlockIce extends BlockBreakable {
                 worldIn.setBlockToAir(pos);
             } else {
                 this.dropBlockAsItem(worldIn, pos, worldIn.getBlockState(pos), 0);
-                worldIn.setBlockState(pos, Blocks.water.getDefaultState());
+                worldIn.setBlockState(pos, Blocks.WATER.getDefaultState());
             }
         }
     }

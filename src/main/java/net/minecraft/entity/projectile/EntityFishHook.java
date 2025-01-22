@@ -31,9 +31,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
 public class EntityFishHook extends Entity {
-    private static final List<WeightedRandomFishable> JUNK = Arrays.asList((new WeightedRandomFishable(new ItemStack(Items.leather_boots), 10)).setMaxDamagePercent(0.9F), new WeightedRandomFishable(new ItemStack(Items.leather), 10), new WeightedRandomFishable(new ItemStack(Items.bone), 10), new WeightedRandomFishable(new ItemStack(Items.potionitem), 10), new WeightedRandomFishable(new ItemStack(Items.string), 5), (new WeightedRandomFishable(new ItemStack(Items.fishing_rod), 2)).setMaxDamagePercent(0.9F), new WeightedRandomFishable(new ItemStack(Items.bowl), 10), new WeightedRandomFishable(new ItemStack(Items.stick), 5), new WeightedRandomFishable(new ItemStack(Items.dye, 10, DyeColor.BLACK.getDyeDamage()), 1), new WeightedRandomFishable(new ItemStack(Blocks.tripwire_hook), 10), new WeightedRandomFishable(new ItemStack(Items.rotten_flesh), 10));
-    private static final List<WeightedRandomFishable> TREASURE = Arrays.asList(new WeightedRandomFishable(new ItemStack(Blocks.waterlily), 1), new WeightedRandomFishable(new ItemStack(Items.name_tag), 1), new WeightedRandomFishable(new ItemStack(Items.saddle), 1), (new WeightedRandomFishable(new ItemStack(Items.bow), 1)).setMaxDamagePercent(0.25F).setEnchantable(), (new WeightedRandomFishable(new ItemStack(Items.fishing_rod), 1)).setMaxDamagePercent(0.25F).setEnchantable(), (new WeightedRandomFishable(new ItemStack(Items.book), 1)).setEnchantable());
-    private static final List<WeightedRandomFishable> FISH = Arrays.asList(new WeightedRandomFishable(new ItemStack(Items.fish, 1, ItemFishFood.FishType.COD.getMetadata()), 60), new WeightedRandomFishable(new ItemStack(Items.fish, 1, ItemFishFood.FishType.SALMON.getMetadata()), 25), new WeightedRandomFishable(new ItemStack(Items.fish, 1, ItemFishFood.FishType.CLOWNFISH.getMetadata()), 2), new WeightedRandomFishable(new ItemStack(Items.fish, 1, ItemFishFood.FishType.PUFFERFISH.getMetadata()), 13));
+    private static final List<WeightedRandomFishable> JUNK = Arrays.asList((new WeightedRandomFishable(new ItemStack(Items.LEATHER_BOOTS), 10)).setMaxDamagePercent(0.9F), new WeightedRandomFishable(new ItemStack(Items.LEATHER), 10), new WeightedRandomFishable(new ItemStack(Items.BONE), 10), new WeightedRandomFishable(new ItemStack(Items.POTION), 10), new WeightedRandomFishable(new ItemStack(Items.STRING), 5), (new WeightedRandomFishable(new ItemStack(Items.FISHING_ROD), 2)).setMaxDamagePercent(0.9F), new WeightedRandomFishable(new ItemStack(Items.BOWL), 10), new WeightedRandomFishable(new ItemStack(Items.STICK), 5), new WeightedRandomFishable(new ItemStack(Items.DYE, 10, DyeColor.BLACK.getDyeDamage()), 1), new WeightedRandomFishable(new ItemStack(Blocks.TRIPWIRE_HOOK), 10), new WeightedRandomFishable(new ItemStack(Items.ROTTEN_FLESH), 10));
+    private static final List<WeightedRandomFishable> TREASURE = Arrays.asList(new WeightedRandomFishable(new ItemStack(Blocks.WATERLILY), 1), new WeightedRandomFishable(new ItemStack(Items.NAME_TAG), 1), new WeightedRandomFishable(new ItemStack(Items.SADDLE), 1), (new WeightedRandomFishable(new ItemStack(Items.BOW), 1)).setMaxDamagePercent(0.25F).setEnchantable(), (new WeightedRandomFishable(new ItemStack(Items.FISHING_ROD), 1)).setMaxDamagePercent(0.25F).setEnchantable(), (new WeightedRandomFishable(new ItemStack(Items.BOOK), 1)).setEnchantable());
+    private static final List<WeightedRandomFishable> FISH = Arrays.asList(new WeightedRandomFishable(new ItemStack(Items.FISH, 1, ItemFishFood.FishType.COD.getMetadata()), 60), new WeightedRandomFishable(new ItemStack(Items.FISH, 1, ItemFishFood.FishType.SALMON.getMetadata()), 25), new WeightedRandomFishable(new ItemStack(Items.FISH, 1, ItemFishFood.FishType.CLOWNFISH.getMetadata()), 2), new WeightedRandomFishable(new ItemStack(Items.FISH, 1, ItemFishFood.FishType.PUFFERFISH.getMetadata()), 13));
     private int xTile;
     private int yTile;
     private int zTile;
@@ -169,7 +169,7 @@ public class EntityFishHook extends Entity {
             if (!this.worldObj.isRemote) {
                 ItemStack itemstack = this.angler.getCurrentEquippedItem();
 
-                if (this.angler.isDead || !this.angler.isEntityAlive() || itemstack == null || itemstack.getItem() != Items.fishing_rod || this.getDistanceSqToEntity(this.angler) > 1024.0D) {
+                if (this.angler.isDead || !this.angler.isEntityAlive() || itemstack == null || itemstack.getItem() != Items.FISHING_ROD || this.getDistanceSqToEntity(this.angler) > 1024.0D) {
                     this.setDead();
                     this.angler.fishEntity = null;
                     return;
@@ -342,7 +342,7 @@ public class EntityFishHook extends Entity {
                             double d16 = this.posZ + (f11 * this.ticksCatchableDelay * 0.1F);
                             Block block1 = worldserver.getBlockState(new BlockPos((int) d13, (int) d15 - 1, (int) d16)).getBlock();
 
-                            if (block1 == Blocks.water || block1 == Blocks.flowing_water) {
+                            if (block1 == Blocks.WATER || block1 == Blocks.FLOWING_WATER) {
                                 if (this.rand.nextFloat() < 0.15F) {
                                     worldserver.spawnParticle(ParticleTypes.WATER_BUBBLE, d13, d15 - 0.10000000149011612D, d16, 1, f10, 0.1D, f11, 0.0D);
                                 }
@@ -373,7 +373,7 @@ public class EntityFishHook extends Entity {
                             double d6 = this.posZ + (MathHelper.cos(f9) * f2 * 0.1F);
                             Block block = worldserver.getBlockState(new BlockPos((int) d12, (int) d14 - 1, (int) d6)).getBlock();
 
-                            if (block == Blocks.water || block == Blocks.flowing_water) {
+                            if (block == Blocks.WATER || block == Blocks.FLOWING_WATER) {
                                 worldserver.spawnParticle(ParticleTypes.WATER_SPLASH, d12, d14, d6, 2 + this.rand.nextInt(2), 0.10000000149011612D, 0.0D, 0.10000000149011612D, 0.0D);
                             }
                         }
@@ -484,17 +484,17 @@ public class EntityFishHook extends Entity {
         f2 = MathHelper.clamp_float(f2, 0.0F, 1.0F);
 
         if (f < f1) {
-            this.angler.triggerAchievement(StatList.junkFishedStat);
+            this.angler.triggerAchievement(StatList.JUNK_FISHED_STAT);
             return WeightedRandom.getRandomItem(this.rand, JUNK).getItemStack(this.rand);
         } else {
             f = f - f1;
 
             if (f < f2) {
-                this.angler.triggerAchievement(StatList.treasureFishedStat);
+                this.angler.triggerAchievement(StatList.TREASURE_FISHED_STAT);
                 return WeightedRandom.getRandomItem(this.rand, TREASURE).getItemStack(this.rand);
             } else {
                 float f3 = f - f2;
-                this.angler.triggerAchievement(StatList.fishCaughtStat);
+                this.angler.triggerAchievement(StatList.FISH_CAUGHT_STAT);
                 return WeightedRandom.getRandomItem(this.rand, FISH).getItemStack(this.rand);
             }
         }

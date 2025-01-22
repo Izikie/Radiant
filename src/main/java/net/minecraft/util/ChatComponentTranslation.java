@@ -16,7 +16,7 @@ public class ChatComponentTranslation extends ChatComponentStyle {
     private final Object syncLock = new Object();
     private long lastTranslationUpdateTimeInMilliseconds = -1L;
     final List<IChatComponent> children = Lists.newArrayList();
-    public static final Pattern stringVariablePattern = Pattern.compile("%(?:(\\d+)\\$)?([A-Za-z%]|$)");
+    public static final Pattern STRING_VARIABLE_PATTERN = Pattern.compile("%(?:(\\d+)\\$)?([A-Za-z%]|$)");
 
     public ChatComponentTranslation(String translationKey, Object... args) {
         this.key = translationKey;
@@ -56,7 +56,7 @@ public class ChatComponentTranslation extends ChatComponentStyle {
 
     protected void initializeFromFormat(String format) {
         boolean flag = false;
-        Matcher matcher = stringVariablePattern.matcher(format);
+        Matcher matcher = STRING_VARIABLE_PATTERN.matcher(format);
         int i = 0;
         int j = 0;
 

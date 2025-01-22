@@ -94,7 +94,7 @@ public class ItemEnchantedBook extends Item {
     }
 
     public WeightedRandomChestContent getRandom(Random rand, int minChance, int maxChance, int weight) {
-        ItemStack itemstack = new ItemStack(Items.book, 1, 0);
+        ItemStack itemstack = new ItemStack(Items.BOOK, 1, 0);
         EnchantmentHelper.addRandomEnchantment(rand, itemstack, 30);
         return new WeightedRandomChestContent(itemstack, minChance, maxChance, weight);
     }

@@ -272,7 +272,7 @@ public class EntityZombie extends EntityMob {
     }
 
     protected Item getDropItem() {
-        return Items.rotten_flesh;
+        return Items.ROTTEN_FLESH;
     }
 
     public EntityGroup getCreatureAttribute() {
@@ -282,15 +282,15 @@ public class EntityZombie extends EntityMob {
     protected void addRandomDrop() {
         switch (this.rand.nextInt(3)) {
             case 0:
-                this.dropItem(Items.iron_ingot, 1);
+                this.dropItem(Items.IRON_INGOT, 1);
                 break;
 
             case 1:
-                this.dropItem(Items.carrot, 1);
+                this.dropItem(Items.CARROT, 1);
                 break;
 
             case 2:
-                this.dropItem(Items.potato, 1);
+                this.dropItem(Items.POTATO, 1);
         }
     }
 
@@ -301,9 +301,9 @@ public class EntityZombie extends EntityMob {
             int i = this.rand.nextInt(3);
 
             if (i == 0) {
-                this.setCurrentItemOrArmor(0, new ItemStack(Items.iron_sword));
+                this.setCurrentItemOrArmor(0, new ItemStack(Items.IRON_SWORD));
             } else {
-                this.setCurrentItemOrArmor(0, new ItemStack(Items.iron_shovel));
+                this.setCurrentItemOrArmor(0, new ItemStack(Items.IRON_SHOVEL));
             }
         }
     }
@@ -382,7 +382,7 @@ public class EntityZombie extends EntityMob {
     }
 
     protected boolean func_175448_a(ItemStack stack) {
-        return stack.getItem() == Items.egg && this.isChild() && this.isRiding() ? false : super.func_175448_a(stack);
+        return stack.getItem() == Items.EGG && this.isChild() && this.isRiding() ? false : super.func_175448_a(stack);
     }
 
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
@@ -430,7 +430,7 @@ public class EntityZombie extends EntityMob {
             Calendar calendar = this.worldObj.getCurrentDate();
 
             if (calendar.get(Calendar.MONTH) + 1 == 10 && calendar.get(Calendar.DATE) == 31 && this.rand.nextFloat() < 0.25F) {
-                this.setCurrentItemOrArmor(4, new ItemStack(this.rand.nextFloat() < 0.1F ? Blocks.lit_pumpkin : Blocks.pumpkin));
+                this.setCurrentItemOrArmor(4, new ItemStack(this.rand.nextFloat() < 0.1F ? Blocks.LIT_PUMPKIN : Blocks.PUMPKIN));
                 this.equipmentDropChances[4] = 0.0F;
             }
         }
@@ -454,7 +454,7 @@ public class EntityZombie extends EntityMob {
     public boolean interact(EntityPlayer player) {
         ItemStack itemstack = player.getCurrentEquippedItem();
 
-        if (itemstack != null && itemstack.getItem() == Items.golden_apple && itemstack.getMetadata() == 0 && this.isVillager() && this.isPotionActive(Potion.WEAKNESS)) {
+        if (itemstack != null && itemstack.getItem() == Items.GOLDEN_APPLE && itemstack.getMetadata() == 0 && this.isVillager() && this.isPotionActive(Potion.WEAKNESS)) {
             if (!player.capabilities.isCreativeMode) {
                 --itemstack.stackSize;
             }
@@ -534,7 +534,7 @@ public class EntityZombie extends EntityMob {
                     for (int i1 = (int) this.posZ - 4; i1 < (int) this.posZ + 4 && j < 14; ++i1) {
                         Block block = this.worldObj.getBlockState(blockpos$mutableblockpos.set(k, l, i1)).getBlock();
 
-                        if (block == Blocks.iron_bars || block == Blocks.bed) {
+                        if (block == Blocks.IRON_BARS || block == Blocks.BED) {
                             if (this.rand.nextFloat() < 0.3F) {
                                 ++i;
                             }
@@ -576,7 +576,7 @@ public class EntityZombie extends EntityMob {
 
         if (cause.getEntity() instanceof EntityCreeper entityCreeper && !(this instanceof EntityPigZombie) && entityCreeper.getPowered() && entityCreeper.isAIEnabled()) {
             entityCreeper.func_175493_co();
-            this.entityDropItem(new ItemStack(Items.skull, 1, 2), 0.0F);
+            this.entityDropItem(new ItemStack(Items.SKULL, 1, 2), 0.0F);
         }
     }
 

@@ -340,17 +340,17 @@ public class EntityGuardian extends EntityMob {
         int i = this.rand.nextInt(3) + this.rand.nextInt(lootingModifier + 1);
 
         if (i > 0) {
-            this.entityDropItem(new ItemStack(Items.prismarine_shard, i, 0), 1.0F);
+            this.entityDropItem(new ItemStack(Items.PRISMARINE_SHARD, i, 0), 1.0F);
         }
 
         if (this.rand.nextInt(3 + lootingModifier) > 1) {
-            this.entityDropItem(new ItemStack(Items.fish, 1, ItemFishFood.FishType.COD.getMetadata()), 1.0F);
+            this.entityDropItem(new ItemStack(Items.FISH, 1, ItemFishFood.FishType.COD.getMetadata()), 1.0F);
         } else if (this.rand.nextInt(3 + lootingModifier) > 1) {
-            this.entityDropItem(new ItemStack(Items.prismarine_crystals, 1, 0), 1.0F);
+            this.entityDropItem(new ItemStack(Items.PRISMARINE_CRYSTALS, 1, 0), 1.0F);
         }
 
         if (wasRecentlyHit && this.isElder()) {
-            this.entityDropItem(new ItemStack(Blocks.sponge, 1, 1), 1.0F);
+            this.entityDropItem(new ItemStack(Blocks.SPONGE, 1, 1), 1.0F);
         }
     }
 

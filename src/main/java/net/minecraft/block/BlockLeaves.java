@@ -92,7 +92,7 @@ public abstract class BlockLeaves extends BlockLeavesBase {
                             for (int k2 = -i; k2 <= i; ++k2) {
                                 Block block = worldIn.getBlockState(blockpos$mutableblockpos.set(k + i2, l + j2, i1 + k2)).getBlock();
 
-                                if (block != Blocks.log && block != Blocks.log2) {
+                                if (block != Blocks.LOG && block != Blocks.LOG_2) {
                                     if (block.getMaterial() == Material.LEAVES) {
                                         this.surroundings[(i2 + l1) * k1 + (j2 + l1) * j1 + k2 + l1] = -2;
                                     } else {
@@ -170,7 +170,7 @@ public abstract class BlockLeaves extends BlockLeavesBase {
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Item.getItemFromBlock(Blocks.sapling);
+        return Item.getItemFromBlock(Blocks.SAPLING);
     }
 
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {

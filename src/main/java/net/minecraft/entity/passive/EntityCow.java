@@ -27,7 +27,7 @@ public class EntityCow extends EntityAnimal {
         this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(1, new EntityAIPanic(this, 2.0D));
         this.tasks.addTask(2, new EntityAIMate(this, 1.0D));
-        this.tasks.addTask(3, new EntityAITempt(this, 1.25D, Items.wheat, false));
+        this.tasks.addTask(3, new EntityAITempt(this, 1.25D, Items.WHEAT, false));
         this.tasks.addTask(4, new EntityAIFollowParent(this, 1.25D));
         this.tasks.addTask(5, new EntityAIWander(this, 1.0D));
         this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
@@ -61,23 +61,23 @@ public class EntityCow extends EntityAnimal {
     }
 
     protected Item getDropItem() {
-        return Items.leather;
+        return Items.LEATHER;
     }
 
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
         int i = this.rand.nextInt(3) + this.rand.nextInt(1 + lootingModifier);
 
         for (int j = 0; j < i; ++j) {
-            this.dropItem(Items.leather, 1);
+            this.dropItem(Items.LEATHER, 1);
         }
 
         i = this.rand.nextInt(3) + 1 + this.rand.nextInt(1 + lootingModifier);
 
         for (int k = 0; k < i; ++k) {
             if (this.isBurning()) {
-                this.dropItem(Items.cooked_beef, 1);
+                this.dropItem(Items.COOKED_BEEF, 1);
             } else {
-                this.dropItem(Items.beef, 1);
+                this.dropItem(Items.BEEF, 1);
             }
         }
     }
@@ -85,11 +85,11 @@ public class EntityCow extends EntityAnimal {
     public boolean interact(EntityPlayer player) {
         ItemStack itemstack = player.inventory.getCurrentItem();
 
-        if (itemstack != null && itemstack.getItem() == Items.bucket && !player.capabilities.isCreativeMode && !this.isChild()) {
+        if (itemstack != null && itemstack.getItem() == Items.BUCKET && !player.capabilities.isCreativeMode && !this.isChild()) {
             if (itemstack.stackSize-- == 1) {
-                player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.milk_bucket));
-            } else if (!player.inventory.addItemStackToInventory(new ItemStack(Items.milk_bucket))) {
-                player.dropPlayerItemWithRandomChoice(new ItemStack(Items.milk_bucket, 1, 0), false);
+                player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.MILK_BUCKET));
+            } else if (!player.inventory.addItemStackToInventory(new ItemStack(Items.MILK_BUCKET))) {
+                player.dropPlayerItemWithRandomChoice(new ItemStack(Items.MILK_BUCKET, 1, 0), false);
             }
 
             return true;

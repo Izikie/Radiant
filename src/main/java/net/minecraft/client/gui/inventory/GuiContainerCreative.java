@@ -35,7 +35,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 public class GuiContainerCreative extends InventoryEffectRenderer {
-    private static final ResourceLocation creativeInventoryTabs = new ResourceLocation("textures/gui/container/creative_inventory/tabs.png");
+    private static final ResourceLocation CREATIVE_INVENTORY_TABS = new ResourceLocation("textures/gui/container/creative_inventory/tabs.png");
     private static final InventoryBasic field_147060_v = new InventoryBasic("tmp", true, 45);
     private static int selectedTabIndex = CreativeTabs.tabBlock.getTabIndex();
     private float currentScroll;
@@ -254,7 +254,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 
         for (Enchantment enchantment : Enchantment.ENCHANTMENTS_BOOK_LIST) {
             if (enchantment != null && enchantment.type != null) {
-                Items.enchanted_book.getAll(enchantment, guicontainercreative$containercreative.itemList);
+                Items.ENCHANTED_BOOK.getAll(enchantment, guicontainercreative$containercreative.itemList);
             }
         }
 
@@ -461,7 +461,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
             List<String> list = stack.getTooltip(this.mc.thePlayer, this.mc.gameSettings.advancedItemTooltips);
             CreativeTabs creativetabs = stack.getItem().getCreativeTab();
 
-            if (creativetabs == null && stack.getItem() == Items.enchanted_book) {
+            if (creativetabs == null && stack.getItem() == Items.ENCHANTED_BOOK) {
                 Map<Integer, Integer> map = EnchantmentHelper.getEnchantments(stack);
 
                 if (map.size() == 1) {
@@ -500,7 +500,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         CreativeTabs creativetabs = CreativeTabs.creativeTabArray[selectedTabIndex];
 
         for (CreativeTabs creativetabs1 : CreativeTabs.creativeTabArray) {
-            this.mc.getTextureManager().bindTexture(creativeInventoryTabs);
+            this.mc.getTextureManager().bindTexture(CREATIVE_INVENTORY_TABS);
 
             if (creativetabs1.getTabIndex() != selectedTabIndex) {
                 this.func_147051_a(creativetabs1);
@@ -514,7 +514,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         int i = this.guiLeft + 175;
         int j = this.guiTop + 18;
         int k = j + 112;
-        this.mc.getTextureManager().bindTexture(creativeInventoryTabs);
+        this.mc.getTextureManager().bindTexture(CREATIVE_INVENTORY_TABS);
 
         if (creativetabs.shouldHidePlayerInventory()) {
             this.drawTexturedModalRect(i, j + (int) ((k - j - 17) * this.currentScroll), 232 + (this.needsScrollBars() ? 0 : 12), 0, 12, 15);

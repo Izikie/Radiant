@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 
 public class RenderPotion extends RenderSnowball<EntityPotion> {
     public RenderPotion(RenderManager renderManagerIn, RenderItem itemRendererIn) {
-        super(renderManagerIn, Items.potionitem, itemRendererIn);
+        super(renderManagerIn, Items.POTION, itemRendererIn);
     }
 
     public ItemStack func_177082_d(EntityPotion entityIn) {

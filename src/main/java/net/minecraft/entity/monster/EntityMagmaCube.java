@@ -47,7 +47,7 @@ public class EntityMagmaCube extends EntitySlime {
     }
 
     protected Item getDropItem() {
-        return Items.magma_cream;
+        return Items.MAGMA_CREAM;
     }
 
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {

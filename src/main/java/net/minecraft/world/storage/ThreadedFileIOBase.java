@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class ThreadedFileIOBase implements Runnable {
-    private static final ThreadedFileIOBase threadedIOInstance = new ThreadedFileIOBase();
+    private static final ThreadedFileIOBase THREADED_IO_INSTANCE = new ThreadedFileIOBase();
     private final List<IThreadedFileIO> threadedIOQueue = Collections.synchronizedList(Lists.newArrayList());
     private volatile long writeQueuedCounter;
     private volatile long savedIOCounter;
@@ -19,7 +19,7 @@ public class ThreadedFileIOBase implements Runnable {
     }
 
     public static ThreadedFileIOBase getThreadedIOInstance() {
-        return threadedIOInstance;
+        return THREADED_IO_INSTANCE;
     }
 
     public void run() {

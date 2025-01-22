@@ -158,14 +158,14 @@ public class BetterGrass {
 
     private static List getFaceQuadsMycelium(IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, Direction facing, List quads) {
         Block block = blockAccess.getBlockState(blockPos.up()).getBlock();
-        boolean flag = block == Blocks.snow || block == Blocks.snow_layer;
+        boolean flag = block == Blocks.SNOW || block == Blocks.SNOW_LAYER;
 
         if (Config.isBetterGrassFancy()) {
             if (flag) {
-                if (betterMyceliumSnow && getBlockAt(blockPos, facing, blockAccess) == Blocks.snow_layer) {
+                if (betterMyceliumSnow && getBlockAt(blockPos, facing, blockAccess) == Blocks.SNOW_LAYER) {
                     return modelCubeSnow.getFaceQuads(facing);
                 }
-            } else if (betterMycelium && getBlockAt(blockPos.down(), facing, blockAccess) == Blocks.mycelium) {
+            } else if (betterMycelium && getBlockAt(blockPos.down(), facing, blockAccess) == Blocks.MYCELIUM) {
                 return modelCubeMycelium.getFaceQuads(facing);
             }
         } else if (flag) {
@@ -185,18 +185,18 @@ public class BetterGrass {
         if (blockState.getValue(BlockDirt.VARIANT) != BlockDirt.DirtType.PODZOL) {
             return quads;
         } else {
-            boolean flag = block == Blocks.snow || block == Blocks.snow_layer;
+            boolean flag = block == Blocks.SNOW || block == Blocks.SNOW_LAYER;
 
             if (Config.isBetterGrassFancy()) {
                 if (flag) {
-                    if (betterPodzolSnow && getBlockAt(blockPos, facing, blockAccess) == Blocks.snow_layer) {
+                    if (betterPodzolSnow && getBlockAt(blockPos, facing, blockAccess) == Blocks.SNOW_LAYER) {
                         return modelCubeSnow.getFaceQuads(facing);
                     }
                 } else if (betterPodzol) {
                     BlockPos blockpos = blockPos.down().offset(facing);
                     IBlockState iblockstate = blockAccess.getBlockState(blockpos);
 
-                    if (iblockstate.getBlock() == Blocks.dirt && iblockstate.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL) {
+                    if (iblockstate.getBlock() == Blocks.DIRT && iblockstate.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL) {
                         return modelCubePodzol.getFaceQuads(facing);
                     }
                 }
@@ -214,14 +214,14 @@ public class BetterGrass {
 
     private static List getFaceQuadsGrass(IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, Direction facing, List quads) {
         Block block = blockAccess.getBlockState(blockPos.up()).getBlock();
-        boolean flag = block == Blocks.snow || block == Blocks.snow_layer;
+        boolean flag = block == Blocks.SNOW || block == Blocks.SNOW_LAYER;
 
         if (Config.isBetterGrassFancy()) {
             if (flag) {
-                if (betterGrassSnow && getBlockAt(blockPos, facing, blockAccess) == Blocks.snow_layer) {
+                if (betterGrassSnow && getBlockAt(blockPos, facing, blockAccess) == Blocks.SNOW_LAYER) {
                     return modelCubeSnow.getFaceQuads(facing);
                 }
-            } else if (betterGrass && getBlockAt(blockPos.down(), facing, blockAccess) == Blocks.grass) {
+            } else if (betterGrass && getBlockAt(blockPos.down(), facing, blockAccess) == Blocks.GRASS) {
                 return modelCubeGrass.getFaceQuads(facing);
             }
         } else if (flag) {

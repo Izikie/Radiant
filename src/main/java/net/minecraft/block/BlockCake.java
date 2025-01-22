@@ -104,7 +104,7 @@ public class BlockCake extends Block {
     }
 
     public Item getItem(World worldIn, BlockPos pos) {
-        return Items.cake;
+        return Items.CAKE;
     }
 
     public RenderLayer getBlockLayer() {

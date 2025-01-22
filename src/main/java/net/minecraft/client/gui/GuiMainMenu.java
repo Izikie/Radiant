@@ -39,9 +39,9 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
     private String openGLWarning1;
     private String openGLWarning2;
     private String openGLWarningLink;
-    private static final ResourceLocation splashTexts = new ResourceLocation("texts/splashes.txt");
-    private static final ResourceLocation minecraftTitleTextures = new ResourceLocation("textures/gui/title/minecraft.png");
-    private static final ResourceLocation[] titlePanoramaPaths = new ResourceLocation[]{new ResourceLocation("textures/gui/title/background/panorama_0.png"), new ResourceLocation("textures/gui/title/background/panorama_1.png"), new ResourceLocation("textures/gui/title/background/panorama_2.png"), new ResourceLocation("textures/gui/title/background/panorama_3.png"), new ResourceLocation("textures/gui/title/background/panorama_4.png"), new ResourceLocation("textures/gui/title/background/panorama_5.png")};
+    private static final ResourceLocation SPLASH_TEXTS = new ResourceLocation("texts/splashes.txt");
+    private static final ResourceLocation MINECRAFT_TITLE_TEXTURES = new ResourceLocation("textures/gui/title/minecraft.png");
+    private static final ResourceLocation[] TITLE_PANORAMA_PATHS = new ResourceLocation[]{new ResourceLocation("textures/gui/title/background/panorama_0.png"), new ResourceLocation("textures/gui/title/background/panorama_1.png"), new ResourceLocation("textures/gui/title/background/panorama_2.png"), new ResourceLocation("textures/gui/title/background/panorama_3.png"), new ResourceLocation("textures/gui/title/background/panorama_4.png"), new ResourceLocation("textures/gui/title/background/panorama_5.png")};
     public static final String field_96138_a = "Please click " + Formatting.UNDERLINE + "here" + Formatting.RESET + " for more information.";
     private int field_92024_r;
     private int field_92023_s;
@@ -61,7 +61,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 
         try {
             List<String> list = Lists.newArrayList();
-            bufferedreader = new BufferedReader(new InputStreamReader(Minecraft.getMinecraft().getResourceManager().getResource(splashTexts).getInputStream(), Charsets.UTF_8));
+            bufferedreader = new BufferedReader(new InputStreamReader(Minecraft.getMinecraft().getResourceManager().getResource(SPLASH_TEXTS).getInputStream(), Charsets.UTF_8));
             String s;
 
             while ((s = bufferedreader.readLine()) != null) {
@@ -234,7 +234,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
                     GlStateManager.rotate(-90.0F, 1.0F, 0.0F, 0.0F);
                 }
 
-                ResourceLocation[] aresourcelocation = titlePanoramaPaths;
+                ResourceLocation[] aresourcelocation = TITLE_PANORAMA_PATHS;
 
                 if (custompanoramaproperties != null) {
                     aresourcelocation = custompanoramaproperties.getPanoramaLocations();
@@ -367,7 +367,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
             this.drawGradientRect(0, 0, this.width, this.height, j1, k1);
         }
 
-        this.mc.getTextureManager().bindTexture(minecraftTitleTextures);
+        this.mc.getTextureManager().bindTexture(MINECRAFT_TITLE_TEXTURES);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
         if (this.updateCounter < 1.0E-4D) {

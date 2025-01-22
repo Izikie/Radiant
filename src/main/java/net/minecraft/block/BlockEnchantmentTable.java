@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 
 public class BlockEnchantmentTable extends BlockContainer {
     protected BlockEnchantmentTable() {
-        super(Material.ROCK, MapColor.redColor);
+        super(Material.ROCK, MapColor.RED_COLOR);
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.75F, 1.0F);
         this.setLightOpacity(0);
         this.setCreativeTab(CreativeTabs.tabDecorations);
@@ -42,7 +42,7 @@ public class BlockEnchantmentTable extends BlockContainer {
                     for (int k = 0; k <= 1; ++k) {
                         BlockPos blockpos = pos.add(i, k, j);
 
-                        if (worldIn.getBlockState(blockpos).getBlock() == Blocks.bookshelf) {
+                        if (worldIn.getBlockState(blockpos).getBlock() == Blocks.BOOKSHELF) {
                             if (!worldIn.isAirBlock(pos.add(i / 2, 0, j / 2))) {
                                 break;
                             }

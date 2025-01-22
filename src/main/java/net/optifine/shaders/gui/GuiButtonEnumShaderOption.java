@@ -28,8 +28,8 @@ public class GuiButtonEnumShaderOption extends GuiButton {
             case SHADOW_RES_MUL -> s + GuiShaders.toStringQuality(Shaders.configShadowResMul);
             case HAND_DEPTH_MUL -> s + GuiShaders.toStringHandDepth(Shaders.configHandDepthMul);
             case CLOUD_SHADOW -> s + GuiShaders.toStringOnOff(Shaders.configCloudShadow);
-            case OLD_HAND_LIGHT -> s + Shaders.configOldHandLight.getUserValue();
-            case OLD_LIGHTING -> s + Shaders.configOldLighting.getUserValue();
+            case OLD_HAND_LIGHT -> s + Shaders.CONFIG_OLD_HAND_LIGHT.getUserValue();
+            case OLD_LIGHTING -> s + Shaders.CONFIG_OLD_LIGHTING.getUserValue();
             case SHADOW_CLIP_FRUSTRUM -> s + GuiShaders.toStringOnOff(Shaders.configShadowClipFrustrum);
             case TWEAK_BLOCK_DAMAGE -> s + GuiShaders.toStringOnOff(Shaders.configTweakBlockDamage);
             default -> s + Shaders.getEnumShaderOption(eso);

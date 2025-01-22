@@ -21,7 +21,7 @@ public class BlockJukebox extends BlockContainer {
     public static final PropertyBool HAS_RECORD = PropertyBool.create("has_record");
 
     protected BlockJukebox() {
-        super(Material.WOOD, MapColor.dirtColor);
+        super(Material.WOOD, MapColor.DIRT_COLOR);
         this.setDefaultState(this.blockState.getBaseState().withProperty(HAS_RECORD, Boolean.FALSE));
         this.setCreativeTab(CreativeTabs.tabDecorations);
     }
@@ -98,7 +98,7 @@ public class BlockJukebox extends BlockContainer {
             ItemStack itemstack = tileEntityJukebox.getRecord();
 
             if (itemstack != null) {
-                return Item.getIdFromItem(itemstack.getItem()) + 1 - Item.getIdFromItem(Items.record_13);
+                return Item.getIdFromItem(itemstack.getItem()) + 1 - Item.getIdFromItem(Items.RECORD_13);
             }
         }
 

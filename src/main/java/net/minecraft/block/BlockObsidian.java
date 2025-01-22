@@ -16,10 +16,10 @@ public class BlockObsidian extends Block {
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Item.getItemFromBlock(Blocks.obsidian);
+        return Item.getItemFromBlock(Blocks.OBSIDIAN);
     }
 
     public MapColor getMapColor(IBlockState state) {
-        return MapColor.blackColor;
+        return MapColor.BLACK_COLOR;
     }
 }

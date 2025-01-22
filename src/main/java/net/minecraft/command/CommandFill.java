@@ -109,7 +109,7 @@ public class CommandFill extends CommandBase {
                                     }
                                 } else if (k1 != blockpos2.getX() && k1 != blockpos3.getX() && j1 != blockpos2.getY() && j1 != blockpos3.getY() && i1 != blockpos2.getZ() && i1 != blockpos3.getZ()) {
                                     if (args[8].equals("hollow")) {
-                                        world.setBlockState(blockpos4, Blocks.air.getDefaultState(), 2);
+                                        world.setBlockState(blockpos4, Blocks.AIR.getDefaultState(), 2);
                                         list.add(blockpos4);
                                     }
 
@@ -124,7 +124,7 @@ public class CommandFill extends CommandBase {
                                     iInventory.clear();
                                 }
 
-                                world.setBlockState(blockpos4, Blocks.barrier.getDefaultState(), block == Blocks.barrier ? 2 : 4);
+                                world.setBlockState(blockpos4, Blocks.BARRIER.getDefaultState(), block == Blocks.BARRIER ? 2 : 4);
                             }
 
                             IBlockState iblockstate1 = block.getStateFromMeta(i);

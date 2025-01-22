@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 
 public class ItemBanner extends ItemBlock {
     public ItemBanner() {
-        super(Blocks.standing_banner);
+        super(Blocks.STANDING_BANNER);
         this.maxStackSize = 16;
         this.setCreativeTab(CreativeTabs.tabDecorations);
         this.setHasSubtypes(true);
@@ -36,16 +36,16 @@ public class ItemBanner extends ItemBlock {
 
             if (!playerIn.canPlayerEdit(pos, side, stack)) {
                 return false;
-            } else if (!Blocks.standing_banner.canPlaceBlockAt(worldIn, pos)) {
+            } else if (!Blocks.STANDING_BANNER.canPlaceBlockAt(worldIn, pos)) {
                 return false;
             } else if (worldIn.isRemote) {
                 return true;
             } else {
                 if (side == Direction.UP) {
                     int i = MathHelper.floor_double(((playerIn.rotationYaw + 180.0F) * 16.0F / 360.0F) + 0.5D) & 15;
-                    worldIn.setBlockState(pos, Blocks.standing_banner.getDefaultState().withProperty(BlockStandingSign.ROTATION, i), 3);
+                    worldIn.setBlockState(pos, Blocks.STANDING_BANNER.getDefaultState().withProperty(BlockStandingSign.ROTATION, i), 3);
                 } else {
-                    worldIn.setBlockState(pos, Blocks.wall_banner.getDefaultState().withProperty(BlockWallSign.FACING, side), 3);
+                    worldIn.setBlockState(pos, Blocks.WALL_BANNER.getDefaultState().withProperty(BlockWallSign.FACING, side), 3);
                 }
 
                 --stack.stackSize;

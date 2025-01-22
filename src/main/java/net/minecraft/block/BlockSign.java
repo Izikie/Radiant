@@ -53,11 +53,11 @@ public class BlockSign extends BlockContainer {
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Items.sign;
+        return Items.SIGN;
     }
 
     public Item getItem(World worldIn, BlockPos pos) {
-        return Items.sign;
+        return Items.SIGN;
     }
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {

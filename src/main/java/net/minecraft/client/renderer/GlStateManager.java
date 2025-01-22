@@ -35,7 +35,7 @@ public class GlStateManager {
     private static final GlStateManager.BooleanState rescaleNormalState = new GlStateManager.BooleanState(32826);
     private static final GlStateManager.ColorMask colorMaskState = new GlStateManager.ColorMask();
     private static final GlStateManager.Color colorState = new GlStateManager.Color();
-    public static final boolean clearEnabled = true;
+    public static final boolean CLEAR_ENABLED = true;
     private static final LockCounter alphaLock = new LockCounter();
     private static final GlAlphaState alphaLockState = new GlAlphaState();
     private static final LockCounter blendLock = new LockCounter();
@@ -159,7 +159,7 @@ public class GlStateManager {
                 blendState.dstFactorAlpha = dstFactor;
 
                 if (Config.isShaders()) {
-                    Shaders.uniform_blendFunc.setValue(srcFactor, dstFactor, srcFactor, dstFactor);
+                    Shaders.UNIFORM_BLEND_FUNC.setValue(srcFactor, dstFactor, srcFactor, dstFactor);
                 }
 
                 GL11.glBlendFunc(srcFactor, dstFactor);
@@ -178,7 +178,7 @@ public class GlStateManager {
                 blendState.dstFactorAlpha = dstFactorAlpha;
 
                 if (Config.isShaders()) {
-                    Shaders.uniform_blendFunc.setValue(srcFactor, dstFactor, srcFactorAlpha, dstFactorAlpha);
+                    Shaders.UNIFORM_BLEND_FUNC.setValue(srcFactor, dstFactor, srcFactorAlpha, dstFactorAlpha);
                 }
 
                 OpenGlHelper.glBlendFunc(srcFactor, dstFactor, srcFactorAlpha, dstFactorAlpha);
@@ -416,7 +416,7 @@ public class GlStateManager {
     }
 
     public static void clear(int mask) {
-        if (clearEnabled) {
+        if (CLEAR_ENABLED) {
             GL11.glClear(mask);
         }
     }
@@ -539,11 +539,11 @@ public class GlStateManager {
 
             if (i > 1) {
                 for (int j = 1; j < i; ++j) {
-                    Shaders.uniform_instanceId.setValue(j);
+                    Shaders.UNIFORM_INSTANCE_ID.setValue(j);
                     GL11.glDrawArrays(p_glDrawArrays_0_, p_glDrawArrays_1_, p_glDrawArrays_2_);
                 }
 
-                Shaders.uniform_instanceId.setValue(0);
+                Shaders.UNIFORM_INSTANCE_ID.setValue(0);
             }
         }
     }
@@ -556,11 +556,11 @@ public class GlStateManager {
 
             if (i > 1) {
                 for (int j = 1; j < i; ++j) {
-                    Shaders.uniform_instanceId.setValue(j);
+                    Shaders.UNIFORM_INSTANCE_ID.setValue(j);
                     GL11.glCallList(list);
                 }
 
-                Shaders.uniform_instanceId.setValue(0);
+                Shaders.UNIFORM_INSTANCE_ID.setValue(0);
             }
         }
     }
@@ -573,11 +573,11 @@ public class GlStateManager {
 
             if (i > 1) {
                 for (int j = 1; j < i; ++j) {
-                    Shaders.uniform_instanceId.setValue(j);
+                    Shaders.UNIFORM_INSTANCE_ID.setValue(j);
                     GL11.glCallLists(p_callLists_0_);
                 }
 
-                Shaders.uniform_instanceId.setValue(0);
+                Shaders.UNIFORM_INSTANCE_ID.setValue(0);
             }
         }
     }
@@ -749,11 +749,11 @@ public class GlStateManager {
 
             if (i > 1) {
                 for (int j = 1; j < i; ++j) {
-                    Shaders.uniform_instanceId.setValue(j);
+                    Shaders.UNIFORM_INSTANCE_ID.setValue(j);
                     GL14.glMultiDrawArrays(p_glMultiDrawArrays_0_, p_glMultiDrawArrays_1_, p_glMultiDrawArrays_2_);
                 }
 
-                Shaders.uniform_instanceId.setValue(0);
+                Shaders.UNIFORM_INSTANCE_ID.setValue(0);
             }
         }
     }

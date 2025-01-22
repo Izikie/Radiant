@@ -93,7 +93,7 @@ public class EntitySilverfish extends EntityMob {
     }
 
     public float getBlockPathWeight(BlockPos pos) {
-        return this.worldObj.getBlockState(pos.down()).getBlock() == Blocks.stone ? 10.0F : super.getBlockPathWeight(pos);
+        return this.worldObj.getBlockState(pos.down()).getBlock() == Blocks.STONE ? 10.0F : super.getBlockPathWeight(pos);
     }
 
     protected boolean isValidLightLevel() {
@@ -161,7 +161,7 @@ public class EntitySilverfish extends EntityMob {
                 IBlockState iblockstate = world.getBlockState(blockpos);
 
                 if (BlockSilverfish.canContainSilverfish(iblockstate)) {
-                    world.setBlockState(blockpos, Blocks.monster_egg.getDefaultState().withProperty(BlockSilverfish.VARIANT, BlockSilverfish.EnumType.forModelBlock(iblockstate)), 3);
+                    world.setBlockState(blockpos, Blocks.MONSTER_EGG.getDefaultState().withProperty(BlockSilverfish.VARIANT, BlockSilverfish.EnumType.forModelBlock(iblockstate)), 3);
                     this.silverfish.spawnExplosionParticle();
                     this.silverfish.setDead();
                 }
@@ -201,7 +201,7 @@ public class EntitySilverfish extends EntityMob {
                             BlockPos blockpos1 = blockpos.add(j, i, k);
                             IBlockState iblockstate = world.getBlockState(blockpos1);
 
-                            if (iblockstate.getBlock() == Blocks.monster_egg) {
+                            if (iblockstate.getBlock() == Blocks.MONSTER_EGG) {
                                 if (world.getGameRules().getBoolean("mobGriefing")) {
                                     world.destroyBlock(blockpos1, true);
                                 } else {

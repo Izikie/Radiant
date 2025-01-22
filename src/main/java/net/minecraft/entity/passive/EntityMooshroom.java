@@ -13,25 +13,25 @@ public class EntityMooshroom extends EntityCow {
     public EntityMooshroom(World worldIn) {
         super(worldIn);
         this.setSize(0.9F, 1.3F);
-        this.spawnableBlock = Blocks.mycelium;
+        this.spawnableBlock = Blocks.MYCELIUM;
     }
 
     public boolean interact(EntityPlayer player) {
         ItemStack itemstack = player.inventory.getCurrentItem();
 
-        if (itemstack != null && itemstack.getItem() == Items.bowl && this.getGrowingAge() >= 0) {
+        if (itemstack != null && itemstack.getItem() == Items.BOWL && this.getGrowingAge() >= 0) {
             if (itemstack.stackSize == 1) {
-                player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.mushroom_stew));
+                player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.MUSHROOM_STEW));
                 return true;
             }
 
-            if (player.inventory.addItemStackToInventory(new ItemStack(Items.mushroom_stew)) && !player.capabilities.isCreativeMode) {
+            if (player.inventory.addItemStackToInventory(new ItemStack(Items.MUSHROOM_STEW)) && !player.capabilities.isCreativeMode) {
                 player.inventory.decrStackSize(player.inventory.currentItem, 1);
                 return true;
             }
         }
 
-        if (itemstack != null && itemstack.getItem() == Items.shears && this.getGrowingAge() >= 0) {
+        if (itemstack != null && itemstack.getItem() == Items.SHEARS && this.getGrowingAge() >= 0) {
             this.setDead();
             this.worldObj.spawnParticle(ParticleTypes.EXPLOSION_LARGE, this.posX, this.posY + (this.height / 2.0F), this.posZ, 0.0D, 0.0D, 0.0D);
 
@@ -48,7 +48,7 @@ public class EntityMooshroom extends EntityCow {
                 this.worldObj.spawnEntityInWorld(entitycow);
 
                 for (int i = 0; i < 5; ++i) {
-                    this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.posX, this.posY + this.height, this.posZ, new ItemStack(Blocks.red_mushroom)));
+                    this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.posX, this.posY + this.height, this.posZ, new ItemStack(Blocks.RED_MUSHROOM)));
                 }
 
                 itemstack.damageItem(1, player);

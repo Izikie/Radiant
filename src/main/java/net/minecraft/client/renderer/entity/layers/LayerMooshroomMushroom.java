@@ -58,7 +58,7 @@ public class LayerMooshroomMushroom implements LayerRenderer<EntityMooshroom> {
             if (hasTextureMushroom) {
                 this.modelRendererMushroom.render(0.0625F);
             } else {
-                blockrendererdispatcher.renderBlockBrightness(Blocks.red_mushroom.getDefaultState(), 1.0F);
+                blockrendererdispatcher.renderBlockBrightness(Blocks.RED_MUSHROOM.getDefaultState(), 1.0F);
             }
 
             GlStateManager.popMatrix();
@@ -70,7 +70,7 @@ public class LayerMooshroomMushroom implements LayerRenderer<EntityMooshroom> {
             if (hasTextureMushroom) {
                 this.modelRendererMushroom.render(0.0625F);
             } else {
-                blockrendererdispatcher.renderBlockBrightness(Blocks.red_mushroom.getDefaultState(), 1.0F);
+                blockrendererdispatcher.renderBlockBrightness(Blocks.RED_MUSHROOM.getDefaultState(), 1.0F);
             }
 
             GlStateManager.popMatrix();
@@ -85,7 +85,7 @@ public class LayerMooshroomMushroom implements LayerRenderer<EntityMooshroom> {
             if (hasTextureMushroom) {
                 this.modelRendererMushroom.render(0.0625F);
             } else {
-                blockrendererdispatcher.renderBlockBrightness(Blocks.red_mushroom.getDefaultState(), 1.0F);
+                blockrendererdispatcher.renderBlockBrightness(Blocks.RED_MUSHROOM.getDefaultState(), 1.0F);
             }
 
             GlStateManager.popMatrix();

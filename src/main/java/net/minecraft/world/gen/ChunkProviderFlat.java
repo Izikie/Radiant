@@ -73,11 +73,11 @@ public class ChunkProviderFlat implements IChunkProvider {
         }
 
         if (this.flatWorldGenInfo.getWorldFeatures().containsKey("lake")) {
-            this.waterLakeGenerator = new WorldGenLakes(Blocks.water);
+            this.waterLakeGenerator = new WorldGenLakes(Blocks.WATER);
         }
 
         if (this.flatWorldGenInfo.getWorldFeatures().containsKey("lava_lake")) {
-            this.lavaLakeGenerator = new WorldGenLakes(Blocks.lava);
+            this.lavaLakeGenerator = new WorldGenLakes(Blocks.LAVA);
         }
 
         this.hasDungeons = this.flatWorldGenInfo.getWorldFeatures().containsKey("dungeon");
@@ -89,13 +89,13 @@ public class ChunkProviderFlat implements IChunkProvider {
             for (int i = flatlayerinfo.getMinY(); i < flatlayerinfo.getMinY() + flatlayerinfo.getLayerCount(); ++i) {
                 IBlockState iblockstate = flatlayerinfo.getLayerMaterial();
 
-                if (iblockstate.getBlock() != Blocks.air) {
+                if (iblockstate.getBlock() != Blocks.AIR) {
                     flag = false;
                     this.cachedBlockIDs[i] = iblockstate;
                 }
             }
 
-            if (flatlayerinfo.getLayerMaterial().getBlock() == Blocks.air) {
+            if (flatlayerinfo.getLayerMaterial().getBlock() == Blocks.AIR) {
                 k += flatlayerinfo.getLayerCount();
             } else {
                 j += flatlayerinfo.getLayerCount() + k;

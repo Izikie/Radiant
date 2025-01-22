@@ -1,7 +1,7 @@
 package net.minecraft.world;
 
 public class WorldType {
-    public static final WorldType[] worldTypes = new WorldType[16];
+    public static final WorldType[] WORLD_TYPES = new WorldType[16];
     public static final WorldType DEFAULT = (new WorldType(0, "default", 1)).setVersioned();
     public static final WorldType FLAT = new WorldType(1, "flat");
     public static final WorldType LARGE_BIOMES = new WorldType(2, "largeBiomes");
@@ -25,7 +25,7 @@ public class WorldType {
         this.generatorVersion = version;
         this.canBeCreated = true;
         this.worldTypeId = id;
-        worldTypes[id] = this;
+        WORLD_TYPES[id] = this;
     }
 
     public String getWorldTypeName() {
@@ -67,7 +67,7 @@ public class WorldType {
     }
 
     public static WorldType parseWorldType(String type) {
-        for (WorldType value : worldTypes) {
+        for (WorldType value : WORLD_TYPES) {
             if (value != null && value.worldType.equalsIgnoreCase(type)) {
                 return value;
             }

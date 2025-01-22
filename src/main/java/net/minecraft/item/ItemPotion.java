@@ -89,14 +89,14 @@ public class ItemPotion extends Item {
             }
         }
 
-        playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
+        playerIn.triggerAchievement(StatList.OBJECT_USE_STATS[Item.getIdFromItem(this)]);
 
         if (!playerIn.capabilities.isCreativeMode) {
             if (stack.stackSize <= 0) {
-                return new ItemStack(Items.glass_bottle);
+                return new ItemStack(Items.GLASS_BOTTLE);
             }
 
-            playerIn.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
+            playerIn.inventory.addItemStackToInventory(new ItemStack(Items.GLASS_BOTTLE));
         }
 
         return stack;
@@ -116,13 +116,13 @@ public class ItemPotion extends Item {
                 --itemStackIn.stackSize;
             }
 
-            worldIn.playSoundAtEntity(playerIn, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+            worldIn.playSoundAtEntity(playerIn, "random.bow", 0.5F, 0.4F / (ITEM_RAND.nextFloat() * 0.4F + 0.8F));
 
             if (!worldIn.isRemote) {
                 worldIn.spawnEntityInWorld(new EntityPotion(worldIn, playerIn, itemStackIn));
             }
 
-            playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
+            playerIn.triggerAchievement(StatList.OBJECT_USE_STATS[Item.getIdFromItem(this)]);
         } else {
             playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
         }
@@ -165,7 +165,7 @@ public class ItemPotion extends Item {
                 s = StatCollector.translateToLocal("potion.prefix.grenade").trim() + " ";
             }
 
-            List<PotionEffect> list = Items.potionitem.getEffects(stack);
+            List<PotionEffect> list = Items.POTION.getEffects(stack);
 
             if (list != null && !list.isEmpty()) {
                 String s2 = list.getFirst().getEffectName();
@@ -180,7 +180,7 @@ public class ItemPotion extends Item {
 
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
         if (stack.getMetadata() != 0) {
-            List<PotionEffect> list = Items.potionitem.getEffects(stack);
+            List<PotionEffect> list = Items.POTION.getEffects(stack);
             Multimap<String, AttributeModifier> multimap = HashMultimap.create();
 
             if (list != null && !list.isEmpty()) {

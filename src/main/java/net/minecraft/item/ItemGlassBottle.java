@@ -31,14 +31,14 @@ public class ItemGlassBottle extends Item {
 
                 if (worldIn.getBlockState(blockpos).getBlock().getMaterial() == Material.WATER) {
                     --itemStackIn.stackSize;
-                    playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
+                    playerIn.triggerAchievement(StatList.OBJECT_USE_STATS[Item.getIdFromItem(this)]);
 
                     if (itemStackIn.stackSize <= 0) {
-                        return new ItemStack(Items.potionitem);
+                        return new ItemStack(Items.POTION);
                     }
 
-                    if (!playerIn.inventory.addItemStackToInventory(new ItemStack(Items.potionitem))) {
-                        playerIn.dropPlayerItemWithRandomChoice(new ItemStack(Items.potionitem, 1, 0), false);
+                    if (!playerIn.inventory.addItemStackToInventory(new ItemStack(Items.POTION))) {
+                        playerIn.dropPlayerItemWithRandomChoice(new ItemStack(Items.POTION, 1, 0), false);
                     }
                 }
             }

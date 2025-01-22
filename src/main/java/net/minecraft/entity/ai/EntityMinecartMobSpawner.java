@@ -36,7 +36,7 @@ public class EntityMinecartMobSpawner extends EntityMinecart {
     }
 
     public IBlockState getDefaultDisplayTile() {
-        return Blocks.mob_spawner.getDefaultState();
+        return Blocks.MOB_SPAWNER.getDefaultState();
     }
 
     protected void readEntityFromNBT(NBTTagCompound tagCompund) {

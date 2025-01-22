@@ -34,7 +34,7 @@ public class ChunkProviderDebug implements IChunkProvider {
             for (int j = 0; j < 16; ++j) {
                 int k = x * 16 + i;
                 int l = z * 16 + j;
-                chunkprimer.setBlockState(i, 60, j, Blocks.barrier.getDefaultState());
+                chunkprimer.setBlockState(i, 60, j, Blocks.BARRIER.getDefaultState());
                 IBlockState iblockstate = func_177461_b(k, l);
 
                 if (iblockstate != null) {

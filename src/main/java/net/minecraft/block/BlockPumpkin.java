@@ -24,10 +24,10 @@ public class BlockPumpkin extends BlockDirectional {
     private BlockPattern snowmanPattern;
     private BlockPattern golemBasePattern;
     private BlockPattern golemPattern;
-    private static final Predicate<IBlockState> field_181085_Q = p_apply_1_ -> p_apply_1_ != null && (p_apply_1_.getBlock() == Blocks.pumpkin || p_apply_1_.getBlock() == Blocks.lit_pumpkin);
+    private static final Predicate<IBlockState> field_181085_Q = p_apply_1_ -> p_apply_1_ != null && (p_apply_1_.getBlock() == Blocks.PUMPKIN || p_apply_1_.getBlock() == Blocks.LIT_PUMPKIN);
 
     protected BlockPumpkin() {
-        super(Material.GOURD, MapColor.adobeColor);
+        super(Material.GOURD, MapColor.ADOBE_COLOR);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH));
         this.setTickRandomly(true);
         this.setCreativeTab(CreativeTabs.tabBlock);
@@ -48,7 +48,7 @@ public class BlockPumpkin extends BlockDirectional {
         if ((blockpattern$patternhelper = this.getSnowmanPattern().match(worldIn, pos)) != null) {
             for (int i = 0; i < this.getSnowmanPattern().getThumbLength(); ++i) {
                 BlockWorldState blockworldstate = blockpattern$patternhelper.translateOffset(0, i, 0);
-                worldIn.setBlockState(blockworldstate.getPos(), Blocks.air.getDefaultState(), 2);
+                worldIn.setBlockState(blockworldstate.getPos(), Blocks.AIR.getDefaultState(), 2);
             }
 
             EntitySnowman entitysnowman = new EntitySnowman(worldIn);
@@ -62,12 +62,12 @@ public class BlockPumpkin extends BlockDirectional {
 
             for (int i1 = 0; i1 < this.getSnowmanPattern().getThumbLength(); ++i1) {
                 BlockWorldState blockworldstate1 = blockpattern$patternhelper.translateOffset(0, i1, 0);
-                worldIn.notifyNeighborsRespectDebug(blockworldstate1.getPos(), Blocks.air);
+                worldIn.notifyNeighborsRespectDebug(blockworldstate1.getPos(), Blocks.AIR);
             }
         } else if ((blockpattern$patternhelper = this.getGolemPattern().match(worldIn, pos)) != null) {
             for (int k = 0; k < this.getGolemPattern().getPalmLength(); ++k) {
                 for (int l = 0; l < this.getGolemPattern().getThumbLength(); ++l) {
-                    worldIn.setBlockState(blockpattern$patternhelper.translateOffset(k, l, 0).getPos(), Blocks.air.getDefaultState(), 2);
+                    worldIn.setBlockState(blockpattern$patternhelper.translateOffset(k, l, 0).getPos(), Blocks.AIR.getDefaultState(), 2);
                 }
             }
 
@@ -84,7 +84,7 @@ public class BlockPumpkin extends BlockDirectional {
             for (int k1 = 0; k1 < this.getGolemPattern().getPalmLength(); ++k1) {
                 for (int l1 = 0; l1 < this.getGolemPattern().getThumbLength(); ++l1) {
                     BlockWorldState blockworldstate2 = blockpattern$patternhelper.translateOffset(k1, l1, 0);
-                    worldIn.notifyNeighborsRespectDebug(blockworldstate2.getPos(), Blocks.air);
+                    worldIn.notifyNeighborsRespectDebug(blockworldstate2.getPos(), Blocks.AIR);
                 }
             }
         }
@@ -112,7 +112,7 @@ public class BlockPumpkin extends BlockDirectional {
 
     protected BlockPattern getSnowmanBasePattern() {
         if (this.snowmanBasePattern == null) {
-            this.snowmanBasePattern = FactoryBlockPattern.start().aisle(" ", "#", "#").where('#', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.snow))).build();
+            this.snowmanBasePattern = FactoryBlockPattern.start().aisle(" ", "#", "#").where('#', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.SNOW))).build();
         }
 
         return this.snowmanBasePattern;
@@ -120,7 +120,7 @@ public class BlockPumpkin extends BlockDirectional {
 
     protected BlockPattern getSnowmanPattern() {
         if (this.snowmanPattern == null) {
-            this.snowmanPattern = FactoryBlockPattern.start().aisle("^", "#", "#").where('^', BlockWorldState.hasState(field_181085_Q)).where('#', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.snow))).build();
+            this.snowmanPattern = FactoryBlockPattern.start().aisle("^", "#", "#").where('^', BlockWorldState.hasState(field_181085_Q)).where('#', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.SNOW))).build();
         }
 
         return this.snowmanPattern;
@@ -128,7 +128,7 @@ public class BlockPumpkin extends BlockDirectional {
 
     protected BlockPattern getGolemBasePattern() {
         if (this.golemBasePattern == null) {
-            this.golemBasePattern = FactoryBlockPattern.start().aisle("~ ~", "###", "~#~").where('#', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.iron_block))).where('~', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.air))).build();
+            this.golemBasePattern = FactoryBlockPattern.start().aisle("~ ~", "###", "~#~").where('#', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.IRON_BLOCK))).where('~', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.AIR))).build();
         }
 
         return this.golemBasePattern;
@@ -136,7 +136,7 @@ public class BlockPumpkin extends BlockDirectional {
 
     protected BlockPattern getGolemPattern() {
         if (this.golemPattern == null) {
-            this.golemPattern = FactoryBlockPattern.start().aisle("~^~", "###", "~#~").where('^', BlockWorldState.hasState(field_181085_Q)).where('#', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.iron_block))).where('~', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.air))).build();
+            this.golemPattern = FactoryBlockPattern.start().aisle("~^~", "###", "~#~").where('^', BlockWorldState.hasState(field_181085_Q)).where('#', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.IRON_BLOCK))).where('~', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.AIR))).build();
         }
 
         return this.golemPattern;

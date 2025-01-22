@@ -56,7 +56,7 @@ public class CommandCompare extends CommandBase {
                                 boolean flag1 = false;
                                 IBlockState iblockstate = world.getBlockState(blockpos$mutableblockpos);
 
-                                if (!flag || iblockstate.getBlock() != Blocks.air) {
+                                if (!flag || iblockstate.getBlock() != Blocks.AIR) {
                                     if (iblockstate == world.getBlockState(blockpos$mutableblockpos1)) {
                                         TileEntity tileentity = world.getTileEntity(blockpos$mutableblockpos);
                                         TileEntity tileentity1 = world.getTileEntity(blockpos$mutableblockpos1);

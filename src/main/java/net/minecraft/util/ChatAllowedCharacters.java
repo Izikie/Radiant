@@ -1,7 +1,7 @@
 package net.minecraft.util;
 
 public class ChatAllowedCharacters {
-    public static final char[] allowedCharactersArray = new char[]{'/', '\n', '\r', '\t', '\u0000', '\f', '`', '?', '*', '\\', '<', '>', '|', '\"', ':'};
+    public static final char[] ALLOWED_CHARACTERS = new char[]{'/', '\n', '\r', '\t', '\u0000', '\f', '`', '?', '*', '\\', '<', '>', '|', '\"', ':'};
 
     public static boolean isAllowedCharacter(char character) {
         return character != 167 && character >= 32 && character != 127;

@@ -79,7 +79,7 @@ public class BlockRedstoneWire extends Block {
     }
 
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-        return World.doesBlockHaveSolidTopSurface(worldIn, pos.down()) || worldIn.getBlockState(pos.down()).getBlock() == Blocks.glowstone;
+        return World.doesBlockHaveSolidTopSurface(worldIn, pos.down()) || worldIn.getBlockState(pos.down()).getBlock() == Blocks.GLOWSTONE;
     }
 
     private IBlockState updateSurroundingRedstone(World worldIn, BlockPos pos, IBlockState state) {
@@ -236,7 +236,7 @@ public class BlockRedstoneWire extends Block {
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Items.redstone;
+        return Items.REDSTONE;
     }
 
     public int getStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
@@ -279,7 +279,7 @@ public class BlockRedstoneWire extends Block {
         Block block = iblockstate.getBlock();
         boolean flag = block.isNormalCube();
         boolean flag1 = worldIn.getBlockState(pos.up()).getBlock().isNormalCube();
-        return !flag1 && flag && canConnectUpwardsTo(worldIn, blockpos.up()) ? true : (canConnectTo(iblockstate, side) ? true : (block == Blocks.powered_repeater && iblockstate.getValue(BlockRedstoneDiode.FACING) == side ? true : !flag && canConnectUpwardsTo(worldIn, blockpos.down())));
+        return !flag1 && flag && canConnectUpwardsTo(worldIn, blockpos.up()) ? true : (canConnectTo(iblockstate, side) ? true : (block == Blocks.POWERED_REPEATER && iblockstate.getValue(BlockRedstoneDiode.FACING) == side ? true : !flag && canConnectUpwardsTo(worldIn, blockpos.down())));
     }
 
     protected static boolean canConnectUpwardsTo(IBlockAccess worldIn, BlockPos pos) {
@@ -293,9 +293,9 @@ public class BlockRedstoneWire extends Block {
     protected static boolean canConnectTo(IBlockState blockState, Direction side) {
         Block block = blockState.getBlock();
 
-        if (block == Blocks.redstone_wire) {
+        if (block == Blocks.REDSTONE_WIRE) {
             return true;
-        } else if (Blocks.unpowered_repeater.isAssociated(block)) {
+        } else if (Blocks.UNPOWERED_REPEATER.isAssociated(block)) {
             Direction enumfacing = blockState.getValue(BlockRedstoneRepeater.FACING);
             return enumfacing == side || enumfacing.getOpposite() == side;
         } else {
@@ -348,7 +348,7 @@ public class BlockRedstoneWire extends Block {
     }
 
     public Item getItem(World worldIn, BlockPos pos) {
-        return Items.redstone;
+        return Items.REDSTONE;
     }
 
     public RenderLayer getBlockLayer() {

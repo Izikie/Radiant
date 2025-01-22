@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 public class BlockHay extends BlockRotatedPillar {
     public BlockHay() {
-        super(Material.GRASS, MapColor.yellowColor);
+        super(Material.GRASS, MapColor.YELLOW_COLOR);
         this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, Direction.Axis.Y));
         this.setCreativeTab(CreativeTabs.tabBlock);
     }

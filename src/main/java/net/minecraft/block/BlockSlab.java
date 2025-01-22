@@ -99,7 +99,7 @@ public abstract class BlockSlab extends Block {
     }
 
     protected static boolean isSlab(Block blockIn) {
-        return blockIn == Blocks.stone_slab || blockIn == Blocks.wooden_slab || blockIn == Blocks.stone_slab2;
+        return blockIn == Blocks.STONE_SLAB || blockIn == Blocks.WOODEN_SLAB || blockIn == Blocks.BLOCK_SLAB;
     }
 
     public abstract String getUnlocalizedName(int meta);

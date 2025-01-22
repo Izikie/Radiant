@@ -330,7 +330,7 @@ public class PlayerSelector {
         int k = parseIntWithDefault(params, "dz", 0);
         int l = parseIntWithDefault(params, "r", -1);
         Predicate<Entity> predicate = Predicates.and(inputList);
-        Predicate<Entity> predicate1 = Predicates.and(EntitySelectors.selectAnything, predicate);
+        Predicate<Entity> predicate1 = Predicates.and(EntitySelectors.SELECT_ANYTHING, predicate);
 
         if (position != null) {
             int i1 = worldIn.playerEntities.size();

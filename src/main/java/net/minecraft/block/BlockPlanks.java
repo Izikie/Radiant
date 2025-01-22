@@ -48,12 +48,12 @@ public class BlockPlanks extends Block {
     }
 
     public enum WoodType implements IStringSerializable {
-        OAK(0, "oak", MapColor.woodColor),
-        SPRUCE(1, "spruce", MapColor.obsidianColor),
-        BIRCH(2, "birch", MapColor.sandColor),
-        JUNGLE(3, "jungle", MapColor.dirtColor),
-        ACACIA(4, "acacia", MapColor.adobeColor),
-        DARK_OAK(5, "dark_oak", "big_oak", MapColor.brownColor);
+        OAK(0, "oak", MapColor.WOOD_COLOR),
+        SPRUCE(1, "spruce", MapColor.OBSIDIAN_COLOR),
+        BIRCH(2, "birch", MapColor.SAND_COLOR),
+        JUNGLE(3, "jungle", MapColor.DIRT_COLOR),
+        ACACIA(4, "acacia", MapColor.ADOBE_COLOR),
+        DARK_OAK(5, "dark_oak", "big_oak", MapColor.BROWN_COLOR);
 
         private static final WoodType[] META_LOOKUP = new WoodType[values().length];
         private final int meta;

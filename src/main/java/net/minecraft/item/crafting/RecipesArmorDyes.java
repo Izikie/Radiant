@@ -29,7 +29,7 @@ public class RecipesArmorDyes implements IRecipe {
 
                     itemstack = itemstack1;
                 } else {
-                    if (itemstack1.getItem() != Items.dye) {
+                    if (itemstack1.getItem() != Items.DYE) {
                         return false;
                     }
 
@@ -74,7 +74,7 @@ public class RecipesArmorDyes implements IRecipe {
                         ++j;
                     }
                 } else {
-                    if (itemstack1.getItem() != Items.dye) {
+                    if (itemstack1.getItem() != Items.DYE) {
                         return null;
                     }
 

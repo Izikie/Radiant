@@ -159,12 +159,12 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob {
             }
         } else if (cause.getEntity() instanceof EntityCreeper entityCreeper && entityCreeper.getPowered() && entityCreeper.isAIEnabled()) {
             entityCreeper.func_175493_co();
-            this.entityDropItem(new ItemStack(Items.skull, 1, this.getSkeletonType() == 1 ? 1 : 0), 0.0F);
+            this.entityDropItem(new ItemStack(Items.SKULL, 1, this.getSkeletonType() == 1 ? 1 : 0), 0.0F);
         }
     }
 
     protected Item getDropItem() {
-        return Items.arrow;
+        return Items.ARROW;
     }
 
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
@@ -172,32 +172,32 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob {
             int i = this.rand.nextInt(3 + lootingModifier) - 1;
 
             for (int j = 0; j < i; ++j) {
-                this.dropItem(Items.coal, 1);
+                this.dropItem(Items.COAL, 1);
             }
         } else {
             int k = this.rand.nextInt(3 + lootingModifier);
 
             for (int i1 = 0; i1 < k; ++i1) {
-                this.dropItem(Items.arrow, 1);
+                this.dropItem(Items.ARROW, 1);
             }
         }
 
         int l = this.rand.nextInt(3 + lootingModifier);
 
         for (int j1 = 0; j1 < l; ++j1) {
-            this.dropItem(Items.bone, 1);
+            this.dropItem(Items.BONE, 1);
         }
     }
 
     protected void addRandomDrop() {
         if (this.getSkeletonType() == 1) {
-            this.entityDropItem(new ItemStack(Items.skull, 1, 1), 0.0F);
+            this.entityDropItem(new ItemStack(Items.SKULL, 1, 1), 0.0F);
         }
     }
 
     protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
         super.setEquipmentBasedOnDifficulty(difficulty);
-        this.setCurrentItemOrArmor(0, new ItemStack(Items.bow));
+        this.setCurrentItemOrArmor(0, new ItemStack(Items.BOW));
     }
 
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
@@ -206,7 +206,7 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob {
         if (this.worldObj.provider instanceof WorldProviderHell && this.getRNG().nextInt(5) > 0) {
             this.tasks.addTask(4, this.aiAttackOnCollide);
             this.setSkeletonType(1);
-            this.setCurrentItemOrArmor(0, new ItemStack(Items.stone_sword));
+            this.setCurrentItemOrArmor(0, new ItemStack(Items.STONE_SWORD));
             this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(4.0D);
         } else {
             this.tasks.addTask(4, this.aiArrowAttack);
@@ -220,7 +220,7 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob {
             Calendar calendar = this.worldObj.getCurrentDate();
 
             if (calendar.get(Calendar.MONTH) + 1 == 10 && calendar.get(Calendar.DATE) == 31 && this.rand.nextFloat() < 0.25F) {
-                this.setCurrentItemOrArmor(4, new ItemStack(this.rand.nextFloat() < 0.1F ? Blocks.lit_pumpkin : Blocks.pumpkin));
+                this.setCurrentItemOrArmor(4, new ItemStack(this.rand.nextFloat() < 0.1F ? Blocks.LIT_PUMPKIN : Blocks.PUMPKIN));
                 this.equipmentDropChances[4] = 0.0F;
             }
         }
@@ -233,7 +233,7 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob {
         this.tasks.removeTask(this.aiArrowAttack);
         ItemStack itemstack = this.getHeldItem();
 
-        if (itemstack != null && itemstack.getItem() == Items.bow) {
+        if (itemstack != null && itemstack.getItem() == Items.BOW) {
             this.tasks.addTask(4, this.aiArrowAttack);
         } else {
             this.tasks.addTask(4, this.aiAttackOnCollide);

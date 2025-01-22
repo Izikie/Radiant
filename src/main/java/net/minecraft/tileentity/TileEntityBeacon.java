@@ -96,11 +96,11 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
             IBlockState iblockstate = this.worldObj.getBlockState(blockpos$mutableblockpos.set(j, i1, l));
             float[] afloat;
 
-            if (iblockstate.getBlock() == Blocks.stained_glass) {
+            if (iblockstate.getBlock() == Blocks.STAINED_GLASS) {
                 afloat = EntitySheep.getDyeRgb(iblockstate.getValue(BlockStainedGlass.COLOR));
             } else {
-                if (iblockstate.getBlock() != Blocks.stained_glass_pane) {
-                    if (iblockstate.getBlock().getLightOpacity() >= 15 && iblockstate.getBlock() != Blocks.bedrock) {
+                if (iblockstate.getBlock() != Blocks.STAINED_GLASS_PANE) {
+                    if (iblockstate.getBlock().getLightOpacity() >= 15 && iblockstate.getBlock() != Blocks.BEDROCK) {
                         this.isComplete = false;
                         this.beamSegments.clear();
                         break;
@@ -141,7 +141,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
                     for (int k1 = l - l1; k1 <= l + l1; ++k1) {
                         Block block = this.worldObj.getBlockState(new BlockPos(j1, i2, k1)).getBlock();
 
-                        if (block != Blocks.emerald_block && block != Blocks.gold_block && block != Blocks.diamond_block && block != Blocks.iron_block) {
+                        if (block != Blocks.EMERALD_BLOCK && block != Blocks.GOLD_BLOCK && block != Blocks.DIAMOND_BLOCK && block != Blocks.IRON_BLOCK) {
                             flag1 = false;
                             break;
                         }
@@ -293,7 +293,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
     }
 
     public boolean isItemValidForSlot(int index, ItemStack stack) {
-        return stack.getItem() == Items.emerald || stack.getItem() == Items.diamond || stack.getItem() == Items.gold_ingot || stack.getItem() == Items.iron_ingot;
+        return stack.getItem() == Items.EMERALD || stack.getItem() == Items.DIAMOND || stack.getItem() == Items.GOLD_INGOT || stack.getItem() == Items.IRON_INGOT;
     }
 
     public String getGuiID() {

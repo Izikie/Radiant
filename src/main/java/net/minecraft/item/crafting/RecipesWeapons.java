@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 
 public class RecipesWeapons {
     private final String[][] recipePatterns = new String[][]{{"X", "X", "#"}};
-    private final Object[][] recipeItems = new Object[][]{{Blocks.planks, Blocks.cobblestone, Items.iron_ingot, Items.diamond, Items.gold_ingot}, {Items.wooden_sword, Items.stone_sword, Items.iron_sword, Items.diamond_sword, Items.golden_sword}};
+    private final Object[][] recipeItems = new Object[][]{{Blocks.PLANKS, Blocks.COBBLESTONE, Items.IRON_INGOT, Items.DIAMOND, Items.GOLD_INGOT}, {Items.WOODEN_SWORD, Items.STONE_SWORD, Items.IRON_SWORD, Items.DIAMOND_SWORD, Items.GOLDEN_SWORD}};
 
     public void addRecipes(CraftingManager p_77583_1_) {
         for (int i = 0; i < this.recipeItems[0].length; ++i) {
@@ -15,11 +15,11 @@ public class RecipesWeapons {
 
             for (int j = 0; j < this.recipeItems.length - 1; ++j) {
                 Item item = (Item) this.recipeItems[j + 1][i];
-                p_77583_1_.addRecipe(new ItemStack(item), this.recipePatterns[j], '#', Items.stick, 'X', object);
+                p_77583_1_.addRecipe(new ItemStack(item), this.recipePatterns[j], '#', Items.STICK, 'X', object);
             }
         }
 
-        p_77583_1_.addRecipe(new ItemStack(Items.bow, 1), " #X", "# X", " #X", 'X', Items.string, '#', Items.stick);
-        p_77583_1_.addRecipe(new ItemStack(Items.arrow, 4), "X", "#", "Y", 'Y', Items.feather, 'X', Items.flint, '#', Items.stick);
+        p_77583_1_.addRecipe(new ItemStack(Items.BOW, 1), " #X", "# X", " #X", 'X', Items.STRING, '#', Items.STICK);
+        p_77583_1_.addRecipe(new ItemStack(Items.ARROW, 4), "X", "#", "Y", 'Y', Items.FEATHER, 'X', Items.FLINT, '#', Items.STICK);
     }
 }

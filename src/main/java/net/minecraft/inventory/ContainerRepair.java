@@ -77,7 +77,7 @@ public class ContainerRepair extends Container {
                 ContainerRepair.this.maximumCost = 0;
                 IBlockState iblockstate = worldIn.getBlockState(blockPosIn);
 
-                if (!playerIn.capabilities.isCreativeMode && !worldIn.isRemote && iblockstate.getBlock() == Blocks.anvil && playerIn.getRNG().nextFloat() < 0.12F) {
+                if (!playerIn.capabilities.isCreativeMode && !worldIn.isRemote && iblockstate.getBlock() == Blocks.ANVIL && playerIn.getRNG().nextFloat() < 0.12F) {
                     int l = iblockstate.getValue(BlockAnvil.DAMAGE);
                     ++l;
 
@@ -139,7 +139,7 @@ public class ContainerRepair extends Container {
             this.materialCost = 0;
 
             if (itemstack2 != null) {
-                flag = itemstack2.getItem() == Items.enchanted_book && Items.enchanted_book.getEnchantments(itemstack2).tagCount() > 0;
+                flag = itemstack2.getItem() == Items.ENCHANTED_BOOK && Items.ENCHANTED_BOOK.getEnchantments(itemstack2).tagCount() > 0;
 
                 if (itemstack1.isItemStackDamageable() && itemstack1.getItem().getIsRepairable(itemstack, itemstack2)) {
                     int j4 = Math.min(itemstack1.getItemDamage(), itemstack1.getMaxDamage() / 4);
@@ -204,7 +204,7 @@ public class ContainerRepair extends Container {
                             l3 = i6;
                             boolean flag1 = enchantment.canApply(itemstack);
 
-                            if (this.thePlayer.capabilities.isCreativeMode || itemstack.getItem() == Items.enchanted_book) {
+                            if (this.thePlayer.capabilities.isCreativeMode || itemstack.getItem() == Items.ENCHANTED_BOOK) {
                                 flag1 = true;
                             }
 
@@ -330,7 +330,7 @@ public class ContainerRepair extends Container {
     }
 
     public boolean canInteractWith(EntityPlayer playerIn) {
-        return this.theWorld.getBlockState(this.selfPosition).getBlock() != Blocks.anvil ? false : playerIn.getDistanceSq(this.selfPosition.getX() + 0.5D, this.selfPosition.getY() + 0.5D, this.selfPosition.getZ() + 0.5D) <= 64.0D;
+        return this.theWorld.getBlockState(this.selfPosition).getBlock() != Blocks.ANVIL ? false : playerIn.getDistanceSq(this.selfPosition.getX() + 0.5D, this.selfPosition.getY() + 0.5D, this.selfPosition.getZ() + 0.5D) <= 64.0D;
     }
 
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {

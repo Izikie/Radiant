@@ -23,7 +23,7 @@ import net.minecraft.world.World;
 import org.lwjgl.input.Keyboard;
 
 public class GuiRepair extends GuiContainer implements ICrafting {
-    private static final ResourceLocation anvilResource = new ResourceLocation("textures/gui/container/anvil.png");
+    private static final ResourceLocation ANVIL_RESOURCE = new ResourceLocation("textures/gui/container/anvil.png");
     private final ContainerRepair anvil;
     private GuiTextField nameField;
     private final InventoryPlayer playerInventory;
@@ -128,7 +128,7 @@ public class GuiRepair extends GuiContainer implements ICrafting {
 
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(anvilResource);
+        this.mc.getTextureManager().bindTexture(ANVIL_RESOURCE);
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);

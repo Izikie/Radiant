@@ -42,11 +42,11 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Items.comparator;
+        return Items.COMPARATOR;
     }
 
     public Item getItem(World worldIn, BlockPos pos) {
-        return Items.comparator;
+        return Items.COMPARATOR;
     }
 
     protected int getDelay(IBlockState state) {
@@ -57,14 +57,14 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
         Boolean obool = unpoweredState.getValue(POWERED);
         BlockRedstoneComparator.Mode blockredstonecomparator$mode = unpoweredState.getValue(MODE);
         Direction enumfacing = unpoweredState.getValue(FACING);
-        return Blocks.powered_comparator.getDefaultState().withProperty(FACING, enumfacing).withProperty(POWERED, obool).withProperty(MODE, blockredstonecomparator$mode);
+        return Blocks.POWERED_COMPARATOR.getDefaultState().withProperty(FACING, enumfacing).withProperty(POWERED, obool).withProperty(MODE, blockredstonecomparator$mode);
     }
 
     protected IBlockState getUnpoweredState(IBlockState poweredState) {
         Boolean obool = poweredState.getValue(POWERED);
         BlockRedstoneComparator.Mode blockredstonecomparator$mode = poweredState.getValue(MODE);
         Direction enumfacing = poweredState.getValue(FACING);
-        return Blocks.unpowered_comparator.getDefaultState().withProperty(FACING, enumfacing).withProperty(POWERED, obool).withProperty(MODE, blockredstonecomparator$mode);
+        return Blocks.UNPOWERED_COMPARATOR.getDefaultState().withProperty(FACING, enumfacing).withProperty(POWERED, obool).withProperty(MODE, blockredstonecomparator$mode);
     }
 
     protected boolean isPowered(IBlockState state) {

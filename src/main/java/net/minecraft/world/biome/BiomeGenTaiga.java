@@ -23,7 +23,7 @@ public class BiomeGenTaiga extends BiomeGenBase {
     private static final WorldGenTaiga2 field_150640_aD = new WorldGenTaiga2(false);
     private static final WorldGenMegaPineTree field_150641_aE = new WorldGenMegaPineTree(false, false);
     private static final WorldGenMegaPineTree field_150642_aF = new WorldGenMegaPineTree(false, true);
-    private static final WorldGenBlockBlob field_150643_aG = new WorldGenBlockBlob(Blocks.mossy_cobblestone, 0);
+    private static final WorldGenBlockBlob field_150643_aG = new WorldGenBlockBlob(Blocks.MOSSY_COBBLESTONE, 0);
     private final int field_150644_aH;
 
     public BiomeGenTaiga(int id, int p_i45385_2_) {
@@ -76,13 +76,13 @@ public class BiomeGenTaiga extends BiomeGenBase {
 
     public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
         if (this.field_150644_aH == 1 || this.field_150644_aH == 2) {
-            this.topBlock = Blocks.grass.getDefaultState();
-            this.fillerBlock = Blocks.dirt.getDefaultState();
+            this.topBlock = Blocks.GRASS.getDefaultState();
+            this.fillerBlock = Blocks.DIRT.getDefaultState();
 
             if (noiseVal > 1.75D) {
-                this.topBlock = Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT);
+                this.topBlock = Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT);
             } else if (noiseVal > -0.95D) {
-                this.topBlock = Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL);
+                this.topBlock = Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL);
             }
         }
 

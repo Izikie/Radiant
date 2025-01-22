@@ -386,7 +386,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
     public void displayGUIBook(ItemStack bookStack) {
         Item item = bookStack.getItem();
 
-        if (item == Items.writable_book) {
+        if (item == Items.WRITABLE_BOOK) {
             this.mc.displayGuiScreen(new GuiScreenBook(this, bookStack, true));
         }
     }

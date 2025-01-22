@@ -29,7 +29,7 @@ public class BlockCauldron extends Block {
     public static final PropertyInteger LEVEL = PropertyInteger.create("level", 0, 3);
 
     public BlockCauldron() {
-        super(Material.IRON, MapColor.stoneColor);
+        super(Material.IRON, MapColor.STONE_COLOR);
         this.setDefaultState(this.blockState.getBaseState().withProperty(LEVEL, 0));
     }
 
@@ -82,10 +82,10 @@ public class BlockCauldron extends Block {
                 int i = state.getValue(LEVEL);
                 Item item = itemstack.getItem();
 
-                if (item == Items.water_bucket) {
+                if (item == Items.WATER_BUCKET) {
                     if (i < 3) {
                         if (!playerIn.capabilities.isCreativeMode) {
-                            playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, new ItemStack(Items.bucket));
+                            playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, new ItemStack(Items.BUCKET));
                         }
 
                         playerIn.triggerAchievement(StatList.field_181725_I);
@@ -93,10 +93,10 @@ public class BlockCauldron extends Block {
                     }
 
                     return true;
-                } else if (item == Items.glass_bottle) {
+                } else if (item == Items.GLASS_BOTTLE) {
                     if (i > 0) {
                         if (!playerIn.capabilities.isCreativeMode) {
-                            ItemStack itemstack2 = new ItemStack(Items.potionitem, 1, 0);
+                            ItemStack itemstack2 = new ItemStack(Items.POTION, 1, 0);
 
                             if (!playerIn.inventory.addItemStackToInventory(itemstack2)) {
                                 worldIn.spawnEntityInWorld(new EntityItem(worldIn, pos.getX() + 0.5D, pos.getY() + 1.5D, pos.getZ() + 0.5D, itemstack2));
@@ -177,11 +177,11 @@ public class BlockCauldron extends Block {
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Items.cauldron;
+        return Items.CAULDRON;
     }
 
     public Item getItem(World worldIn, BlockPos pos) {
-        return Items.cauldron;
+        return Items.CAULDRON;
     }
 
     public boolean hasComparatorInputOverride() {

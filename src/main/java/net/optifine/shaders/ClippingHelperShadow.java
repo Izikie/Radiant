@@ -109,8 +109,8 @@ public class ClippingHelperShadow extends ClippingHelper {
         float[] afloat = this.projectionMatrix;
         float[] afloat1 = this.modelviewMatrix;
         float[] afloat2 = this.clippingMatrix;
-        System.arraycopy(Shaders.faProjection, 0, afloat, 0, 16);
-        System.arraycopy(Shaders.faModelView, 0, afloat1, 0, 16);
+        System.arraycopy(Shaders.FA_PROJECTION, 0, afloat, 0, 16);
+        System.arraycopy(Shaders.FA_MODEL_VIEW, 0, afloat1, 0, 16);
         SMath.multiplyMat4xMat4(afloat2, afloat1, afloat);
         this.assignPlane(this.frustum[0], afloat2[3] - afloat2[0], afloat2[7] - afloat2[4], afloat2[11] - afloat2[8], afloat2[15] - afloat2[12]);
         this.assignPlane(this.frustum[1], afloat2[3] + afloat2[0], afloat2[7] + afloat2[4], afloat2[11] + afloat2[8], afloat2[15] + afloat2[12]);

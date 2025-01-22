@@ -106,7 +106,7 @@ public class ContainerBeacon extends Container {
         }
 
         public boolean isItemValid(ItemStack stack) {
-            return stack == null ? false : stack.getItem() == Items.emerald || stack.getItem() == Items.diamond || stack.getItem() == Items.gold_ingot || stack.getItem() == Items.iron_ingot;
+            return stack == null ? false : stack.getItem() == Items.EMERALD || stack.getItem() == Items.DIAMOND || stack.getItem() == Items.GOLD_INGOT || stack.getItem() == Items.IRON_INGOT;
         }
 
         public int getSlotStackLimit() {

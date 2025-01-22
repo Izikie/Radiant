@@ -44,7 +44,7 @@ public class LayerHeldItemWitch implements LayerRenderer<EntityWitch> {
                 GlStateManager.rotate(-5.0F, 0.0F, 1.0F, 0.0F);
                 float f4 = 0.375F;
                 GlStateManager.scale(f4, -f4, f4);
-            } else if (item == Items.bow) {
+            } else if (item == Items.BOW) {
                 GlStateManager.translate(0.0F, 0.125F, -0.125F);
                 GlStateManager.rotate(-45.0F, 0.0F, 1.0F, 0.0F);
                 float f1 = 0.625F;

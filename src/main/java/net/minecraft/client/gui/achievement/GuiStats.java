@@ -345,15 +345,15 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
             super(mcIn);
             this.statsHolder = Lists.newArrayList();
 
-            for (StatCrafting statcrafting : StatList.objectMineStats) {
+            for (StatCrafting statcrafting : StatList.OBJECT_MINE_STATS) {
                 boolean flag = false;
                 int i = Item.getIdFromItem(statcrafting.func_150959_a());
 
                 if (GuiStats.this.field_146546_t.readStat(statcrafting) > 0) {
                     flag = true;
-                } else if (StatList.objectUseStats[i] != null && GuiStats.this.field_146546_t.readStat(StatList.objectUseStats[i]) > 0) {
+                } else if (StatList.OBJECT_USE_STATS[i] != null && GuiStats.this.field_146546_t.readStat(StatList.OBJECT_USE_STATS[i]) > 0) {
                     flag = true;
-                } else if (StatList.objectCraftStats[i] != null && GuiStats.this.field_146546_t.readStat(StatList.objectCraftStats[i]) > 0) {
+                } else if (StatList.OBJECT_CRAFT_STATS[i] != null && GuiStats.this.field_146546_t.readStat(StatList.OBJECT_CRAFT_STATS[i]) > 0) {
                     flag = true;
                 }
 
@@ -369,14 +369,14 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
                 StatBase statbase1 = null;
 
                 if (StatsBlock.this.field_148217_o == 2) {
-                    statbase = StatList.mineBlockStatArray[j];
-                    statbase1 = StatList.mineBlockStatArray[k];
+                    statbase = StatList.MINE_BLOCK_STAT_ARRAY[j];
+                    statbase1 = StatList.MINE_BLOCK_STAT_ARRAY[k];
                 } else if (StatsBlock.this.field_148217_o == 0) {
-                    statbase = StatList.objectCraftStats[j];
-                    statbase1 = StatList.objectCraftStats[k];
+                    statbase = StatList.OBJECT_CRAFT_STATS[j];
+                    statbase1 = StatList.OBJECT_CRAFT_STATS[k];
                 } else if (StatsBlock.this.field_148217_o == 1) {
-                    statbase = StatList.objectUseStats[j];
-                    statbase1 = StatList.objectUseStats[k];
+                    statbase = StatList.OBJECT_USE_STATS[j];
+                    statbase1 = StatList.OBJECT_USE_STATS[k];
                 }
 
                 if (statbase != null || statbase1 != null) {
@@ -427,8 +427,8 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
             Item item = statcrafting.func_150959_a();
             GuiStats.this.drawStatsScreen(p_180791_2_ + 40, p_180791_3_, item);
             int i = Item.getIdFromItem(item);
-            this.func_148209_a(StatList.objectCraftStats[i], p_180791_2_ + 115, p_180791_3_, entryID % 2 == 0);
-            this.func_148209_a(StatList.objectUseStats[i], p_180791_2_ + 165, p_180791_3_, entryID % 2 == 0);
+            this.func_148209_a(StatList.OBJECT_CRAFT_STATS[i], p_180791_2_ + 115, p_180791_3_, entryID % 2 == 0);
+            this.func_148209_a(StatList.OBJECT_USE_STATS[i], p_180791_2_ + 165, p_180791_3_, entryID % 2 == 0);
             this.func_148209_a(statcrafting, p_180791_2_ + 215, p_180791_3_, entryID % 2 == 0);
         }
 
@@ -444,7 +444,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
         }
 
         protected int getSize() {
-            return StatList.generalStats.size();
+            return StatList.GENERAL_STATS.size();
         }
 
         protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY) {
@@ -463,7 +463,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
         }
 
         protected void drawSlot(int entryID, int p_180791_2_, int p_180791_3_, int p_180791_4_, int mouseXIn, int mouseYIn) {
-            StatBase statbase = StatList.generalStats.get(entryID);
+            StatBase statbase = StatList.GENERAL_STATS.get(entryID);
             GuiStats.this.drawString(GuiStats.this.fontRendererObj, statbase.getStatName().getUnformattedText(), p_180791_2_ + 2, p_180791_3_ + 1, entryID % 2 == 0 ? 16777215 : 9474192);
             String s = statbase.format(GuiStats.this.field_146546_t.readStat(statbase));
             GuiStats.this.drawString(GuiStats.this.fontRendererObj, s, p_180791_2_ + 2 + 213 - GuiStats.this.fontRendererObj.getStringWidth(s), p_180791_3_ + 1, entryID % 2 == 0 ? 16777215 : 9474192);
@@ -475,15 +475,15 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
             super(mcIn);
             this.statsHolder = Lists.newArrayList();
 
-            for (StatCrafting statcrafting : StatList.itemStats) {
+            for (StatCrafting statcrafting : StatList.ITEM_STATS) {
                 boolean flag = false;
                 int i = Item.getIdFromItem(statcrafting.func_150959_a());
 
                 if (GuiStats.this.field_146546_t.readStat(statcrafting) > 0) {
                     flag = true;
-                } else if (StatList.objectBreakStats[i] != null && GuiStats.this.field_146546_t.readStat(StatList.objectBreakStats[i]) > 0) {
+                } else if (StatList.OBJECT_BREAK_STATS[i] != null && GuiStats.this.field_146546_t.readStat(StatList.OBJECT_BREAK_STATS[i]) > 0) {
                     flag = true;
-                } else if (StatList.objectCraftStats[i] != null && GuiStats.this.field_146546_t.readStat(StatList.objectCraftStats[i]) > 0) {
+                } else if (StatList.OBJECT_CRAFT_STATS[i] != null && GuiStats.this.field_146546_t.readStat(StatList.OBJECT_CRAFT_STATS[i]) > 0) {
                     flag = true;
                 }
 
@@ -499,14 +499,14 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
                 StatBase statbase1 = null;
 
                 if (StatsItem.this.field_148217_o == 0) {
-                    statbase = StatList.objectBreakStats[j];
-                    statbase1 = StatList.objectBreakStats[k];
+                    statbase = StatList.OBJECT_BREAK_STATS[j];
+                    statbase1 = StatList.OBJECT_BREAK_STATS[k];
                 } else if (StatsItem.this.field_148217_o == 1) {
-                    statbase = StatList.objectCraftStats[j];
-                    statbase1 = StatList.objectCraftStats[k];
+                    statbase = StatList.OBJECT_CRAFT_STATS[j];
+                    statbase1 = StatList.OBJECT_CRAFT_STATS[k];
                 } else if (StatsItem.this.field_148217_o == 2) {
-                    statbase = StatList.objectUseStats[j];
-                    statbase1 = StatList.objectUseStats[k];
+                    statbase = StatList.OBJECT_USE_STATS[j];
+                    statbase1 = StatList.OBJECT_USE_STATS[k];
                 }
 
                 if (statbase != null || statbase1 != null) {
@@ -557,8 +557,8 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
             Item item = statcrafting.func_150959_a();
             GuiStats.this.drawStatsScreen(p_180791_2_ + 40, p_180791_3_, item);
             int i = Item.getIdFromItem(item);
-            this.func_148209_a(StatList.objectBreakStats[i], p_180791_2_ + 115, p_180791_3_, entryID % 2 == 0);
-            this.func_148209_a(StatList.objectCraftStats[i], p_180791_2_ + 165, p_180791_3_, entryID % 2 == 0);
+            this.func_148209_a(StatList.OBJECT_BREAK_STATS[i], p_180791_2_ + 115, p_180791_3_, entryID % 2 == 0);
+            this.func_148209_a(StatList.OBJECT_CRAFT_STATS[i], p_180791_2_ + 165, p_180791_3_, entryID % 2 == 0);
             this.func_148209_a(statcrafting, p_180791_2_ + 215, p_180791_3_, entryID % 2 == 0);
         }
 

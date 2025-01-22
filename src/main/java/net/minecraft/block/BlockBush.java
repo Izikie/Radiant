@@ -34,7 +34,7 @@ public class BlockBush extends Block {
     }
 
     protected boolean canPlaceBlockOn(Block ground) {
-        return ground == Blocks.grass || ground == Blocks.dirt || ground == Blocks.farmland;
+        return ground == Blocks.GRASS || ground == Blocks.DIRT || ground == Blocks.FARMLAND;
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
@@ -49,7 +49,7 @@ public class BlockBush extends Block {
     protected void checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state) {
         if (!this.canBlockStay(worldIn, pos, state)) {
             this.dropBlockAsItem(worldIn, pos, state, 0);
-            worldIn.setBlockState(pos, Blocks.air.getDefaultState(), 3);
+            worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
         }
     }
 

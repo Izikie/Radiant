@@ -14,8 +14,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class WorldGenTaiga2 extends WorldGenAbstractTree {
-    private static final IBlockState field_181645_a = Blocks.log.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.WoodType.SPRUCE);
-    private static final IBlockState field_181646_b = Blocks.leaves.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.WoodType.SPRUCE).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
+    private static final IBlockState field_181645_a = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.WoodType.SPRUCE);
+    private static final IBlockState field_181646_b = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.WoodType.SPRUCE).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
 
     public WorldGenTaiga2(boolean p_i2025_1_) {
         super(p_i2025_1_);
@@ -60,7 +60,7 @@ public class WorldGenTaiga2 extends WorldGenAbstractTree {
             } else {
                 Block block1 = worldIn.getBlockState(position.down()).getBlock();
 
-                if ((block1 == Blocks.grass || block1 == Blocks.dirt || block1 == Blocks.farmland) && position.getY() < 256 - i - 1) {
+                if ((block1 == Blocks.GRASS || block1 == Blocks.DIRT || block1 == Blocks.FARMLAND) && position.getY() < 256 - i - 1) {
                     this.func_175921_a(worldIn, position.down());
                     int i3 = rand.nextInt(2);
                     int j3 = 1;

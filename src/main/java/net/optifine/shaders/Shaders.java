@@ -249,57 +249,57 @@ public class Shaders {
     public static final ShaderUniform1i UNIFORM_TEX = SHADER_UNIFORMS.make1i("tex");
     public static final ShaderUniform1i UNIFORM_HELD_ITEM_ID = SHADER_UNIFORMS.make1i("heldItemId");
     public static final ShaderUniform1i UNIFORM_HELD_BLOCK_LIGHT_VALUE = SHADER_UNIFORMS.make1i("heldBlockLightValue");
-    public static final ShaderUniform1i uniform_heldItemId2 = SHADER_UNIFORMS.make1i("heldItemId2");
-    public static final ShaderUniform1i uniform_heldBlockLightValue2 = SHADER_UNIFORMS.make1i("heldBlockLightValue2");
-    public static final ShaderUniform1i uniform_fogMode = SHADER_UNIFORMS.make1i("fogMode");
-    public static final ShaderUniform1f uniform_fogDensity = SHADER_UNIFORMS.make1f("fogDensity");
-    public static final ShaderUniform3f uniform_fogColor = SHADER_UNIFORMS.make3f("fogColor");
-    public static final ShaderUniform3f uniform_skyColor = SHADER_UNIFORMS.make3f("skyColor");
-    public static final ShaderUniform1i uniform_worldTime = SHADER_UNIFORMS.make1i("worldTime");
-    public static final ShaderUniform1i uniform_worldDay = SHADER_UNIFORMS.make1i("worldDay");
-    public static final ShaderUniform1i uniform_moonPhase = SHADER_UNIFORMS.make1i("moonPhase");
-    public static final ShaderUniform1i uniform_frameCounter = SHADER_UNIFORMS.make1i("frameCounter");
-    public static final ShaderUniform1f uniform_frameTime = SHADER_UNIFORMS.make1f("frameTime");
-    public static final ShaderUniform1f uniform_frameTimeCounter = SHADER_UNIFORMS.make1f("frameTimeCounter");
-    public static final ShaderUniform1f uniform_sunAngle = SHADER_UNIFORMS.make1f("sunAngle");
-    public static final ShaderUniform1f uniform_shadowAngle = SHADER_UNIFORMS.make1f("shadowAngle");
-    public static final ShaderUniform1f uniform_rainStrength = SHADER_UNIFORMS.make1f("rainStrength");
-    public static final ShaderUniform1f uniform_aspectRatio = SHADER_UNIFORMS.make1f("aspectRatio");
-    public static final ShaderUniform1f uniform_viewWidth = SHADER_UNIFORMS.make1f("viewWidth");
-    public static final ShaderUniform1f uniform_viewHeight = SHADER_UNIFORMS.make1f("viewHeight");
-    public static final ShaderUniform1f uniform_near = SHADER_UNIFORMS.make1f("near");
-    public static final ShaderUniform1f uniform_far = SHADER_UNIFORMS.make1f("far");
-    public static final ShaderUniform3f uniform_sunPosition = SHADER_UNIFORMS.make3f("sunPosition");
-    public static final ShaderUniform3f uniform_moonPosition = SHADER_UNIFORMS.make3f("moonPosition");
-    public static final ShaderUniform3f uniform_shadowLightPosition = SHADER_UNIFORMS.make3f("shadowLightPosition");
-    public static final ShaderUniform3f uniform_upPosition = SHADER_UNIFORMS.make3f("upPosition");
-    public static final ShaderUniform3f uniform_previousCameraPosition = SHADER_UNIFORMS.make3f("previousCameraPosition");
-    public static final ShaderUniform3f uniform_cameraPosition = SHADER_UNIFORMS.make3f("cameraPosition");
-    public static final ShaderUniformM4 uniform_gbufferModelView = SHADER_UNIFORMS.makeM4("gbufferModelView");
-    public static final ShaderUniformM4 uniform_gbufferModelViewInverse = SHADER_UNIFORMS.makeM4("gbufferModelViewInverse");
-    public static final ShaderUniformM4 uniform_gbufferPreviousProjection = SHADER_UNIFORMS.makeM4("gbufferPreviousProjection");
-    public static final ShaderUniformM4 uniform_gbufferProjection = SHADER_UNIFORMS.makeM4("gbufferProjection");
-    public static final ShaderUniformM4 uniform_gbufferProjectionInverse = SHADER_UNIFORMS.makeM4("gbufferProjectionInverse");
-    public static final ShaderUniformM4 uniform_gbufferPreviousModelView = SHADER_UNIFORMS.makeM4("gbufferPreviousModelView");
-    public static final ShaderUniformM4 uniform_shadowProjection = SHADER_UNIFORMS.makeM4("shadowProjection");
-    public static final ShaderUniformM4 uniform_shadowProjectionInverse = SHADER_UNIFORMS.makeM4("shadowProjectionInverse");
-    public static final ShaderUniformM4 uniform_shadowModelView = SHADER_UNIFORMS.makeM4("shadowModelView");
-    public static final ShaderUniformM4 uniform_shadowModelViewInverse = SHADER_UNIFORMS.makeM4("shadowModelViewInverse");
-    public static final ShaderUniform1f uniform_wetness = SHADER_UNIFORMS.make1f("wetness");
-    public static final ShaderUniform1f uniform_eyeAltitude = SHADER_UNIFORMS.make1f("eyeAltitude");
-    public static final ShaderUniform2i uniform_eyeBrightness = SHADER_UNIFORMS.make2i("eyeBrightness");
-    public static final ShaderUniform2i uniform_eyeBrightnessSmooth = SHADER_UNIFORMS.make2i("eyeBrightnessSmooth");
-    public static final ShaderUniform2i uniform_terrainTextureSize = SHADER_UNIFORMS.make2i("terrainTextureSize");
-    public static final ShaderUniform1i uniform_terrainIconSize = SHADER_UNIFORMS.make1i("terrainIconSize");
-    public static final ShaderUniform1i uniform_isEyeInWater = SHADER_UNIFORMS.make1i("isEyeInWater");
-    public static final ShaderUniform1f uniform_nightVision = SHADER_UNIFORMS.make1f("nightVision");
-    public static final ShaderUniform1f uniform_blindness = SHADER_UNIFORMS.make1f("blindness");
-    public static final ShaderUniform1f uniform_screenBrightness = SHADER_UNIFORMS.make1f("screenBrightness");
-    public static final ShaderUniform1i uniform_hideGUI = SHADER_UNIFORMS.make1i("hideGUI");
-    public static final ShaderUniform1f uniform_centerDepthSmooth = SHADER_UNIFORMS.make1f("centerDepthSmooth");
-    public static final ShaderUniform2i uniform_atlasSize = SHADER_UNIFORMS.make2i("atlasSize");
-    public static final ShaderUniform4i uniform_blendFunc = SHADER_UNIFORMS.make4i("blendFunc");
-    public static final ShaderUniform1i uniform_instanceId = SHADER_UNIFORMS.make1i("instanceId");
+    public static final ShaderUniform1i UNIFORM_HELD_ITEM_ID_2 = SHADER_UNIFORMS.make1i("heldItemId2");
+    public static final ShaderUniform1i UNIFORM_HELD_BLOCK_LIGHT_VALUE_2 = SHADER_UNIFORMS.make1i("heldBlockLightValue2");
+    public static final ShaderUniform1i UNIFORM_FOG_MODE = SHADER_UNIFORMS.make1i("fogMode");
+    public static final ShaderUniform1f UNIFORM_FOG_DENSITY = SHADER_UNIFORMS.make1f("fogDensity");
+    public static final ShaderUniform3f UNIFORM_FOG_COLOR = SHADER_UNIFORMS.make3f("fogColor");
+    public static final ShaderUniform3f UNIFORM_SKY_COLOR = SHADER_UNIFORMS.make3f("skyColor");
+    public static final ShaderUniform1i UNIFORM_WORLD_TIME = SHADER_UNIFORMS.make1i("worldTime");
+    public static final ShaderUniform1i UNIFORM_WORLD_DAY = SHADER_UNIFORMS.make1i("worldDay");
+    public static final ShaderUniform1i UNIFORM_MOON_PHASE = SHADER_UNIFORMS.make1i("moonPhase");
+    public static final ShaderUniform1i UNIFORM_FRAME_COUNTER = SHADER_UNIFORMS.make1i("frameCounter");
+    public static final ShaderUniform1f UNIFORM_FRAME_TIME = SHADER_UNIFORMS.make1f("frameTime");
+    public static final ShaderUniform1f UNIFORM_FRAME_TIME_COUNTER = SHADER_UNIFORMS.make1f("frameTimeCounter");
+    public static final ShaderUniform1f UNIFORM_SUN_ANGLE = SHADER_UNIFORMS.make1f("sunAngle");
+    public static final ShaderUniform1f UNIFORM_SHADOW_ANGLE = SHADER_UNIFORMS.make1f("shadowAngle");
+    public static final ShaderUniform1f UNIFORM_RAIN_STRENGTH = SHADER_UNIFORMS.make1f("rainStrength");
+    public static final ShaderUniform1f UNIFORM_ASPECT_RATIO = SHADER_UNIFORMS.make1f("aspectRatio");
+    public static final ShaderUniform1f UNIFORM_VIEW_WIDTH = SHADER_UNIFORMS.make1f("viewWidth");
+    public static final ShaderUniform1f UNIFORM_VIEW_HEIGHT = SHADER_UNIFORMS.make1f("viewHeight");
+    public static final ShaderUniform1f UNIFORM_NEAR = SHADER_UNIFORMS.make1f("near");
+    public static final ShaderUniform1f UNIFORM_FAR = SHADER_UNIFORMS.make1f("far");
+    public static final ShaderUniform3f UNIFORM_SUN_POSITION = SHADER_UNIFORMS.make3f("sunPosition");
+    public static final ShaderUniform3f UNIFORM_MOON_POSITION = SHADER_UNIFORMS.make3f("moonPosition");
+    public static final ShaderUniform3f UNIFORM_SHADOW_LIGHT_POSITION = SHADER_UNIFORMS.make3f("shadowLightPosition");
+    public static final ShaderUniform3f UNIFORM_UP_POSITION = SHADER_UNIFORMS.make3f("upPosition");
+    public static final ShaderUniform3f UNIFORM_PREVIOUS_CAMERA_POSITION = SHADER_UNIFORMS.make3f("previousCameraPosition");
+    public static final ShaderUniform3f UNIFORM_CAMERA_POSITION = SHADER_UNIFORMS.make3f("cameraPosition");
+    public static final ShaderUniformM4 UNIFORM_GBUFFER_MODEL_VIEW = SHADER_UNIFORMS.makeM4("gbufferModelView");
+    public static final ShaderUniformM4 UNIFORM_GBUFFER_MODEL_VIEW_INVERSE = SHADER_UNIFORMS.makeM4("gbufferModelViewInverse");
+    public static final ShaderUniformM4 UNIFORM_GBUFFER_PREVIOUS_PROJECTION = SHADER_UNIFORMS.makeM4("gbufferPreviousProjection");
+    public static final ShaderUniformM4 UNIFORM_GBUFFER_PROJECTION = SHADER_UNIFORMS.makeM4("gbufferProjection");
+    public static final ShaderUniformM4 UNIFORM_GBUFFER_PROJECTION_INVERSE = SHADER_UNIFORMS.makeM4("gbufferProjectionInverse");
+    public static final ShaderUniformM4 UNIFORM_GBUFFER_PREVIOUS_MODEL_VIEW = SHADER_UNIFORMS.makeM4("gbufferPreviousModelView");
+    public static final ShaderUniformM4 UNIFORM_SHADOW_PROJECTION = SHADER_UNIFORMS.makeM4("shadowProjection");
+    public static final ShaderUniformM4 UNIFORM_SHADOW_PROJECTION_INVERSE = SHADER_UNIFORMS.makeM4("shadowProjectionInverse");
+    public static final ShaderUniformM4 UNIFORM_SHADOW_MODEL_VIEW = SHADER_UNIFORMS.makeM4("shadowModelView");
+    public static final ShaderUniformM4 UNIFORM_SHADOW_MODEL_VIEW_INVERSE = SHADER_UNIFORMS.makeM4("shadowModelViewInverse");
+    public static final ShaderUniform1f UNIFORM_WETNESS = SHADER_UNIFORMS.make1f("wetness");
+    public static final ShaderUniform1f UNIFORM_EYE_ALTITUDE = SHADER_UNIFORMS.make1f("eyeAltitude");
+    public static final ShaderUniform2i UNIFORM_EYE_BRIGHTNESS = SHADER_UNIFORMS.make2i("eyeBrightness");
+    public static final ShaderUniform2i UNIFORM_EYE_BRIGHTNESS_SMOOTH = SHADER_UNIFORMS.make2i("eyeBrightnessSmooth");
+    public static final ShaderUniform2i UNIFORM_TERRAIN_TEXTURE_SIZE = SHADER_UNIFORMS.make2i("terrainTextureSize");
+    public static final ShaderUniform1i UNIFORM_TERRAIN_ICON_SIZE = SHADER_UNIFORMS.make1i("terrainIconSize");
+    public static final ShaderUniform1i UNIFORM_IS_EYE_IN_WATER = SHADER_UNIFORMS.make1i("isEyeInWater");
+    public static final ShaderUniform1f UNIFORM_NIGHT_VISION = SHADER_UNIFORMS.make1f("nightVision");
+    public static final ShaderUniform1f UNIFORM_BLINDNESS = SHADER_UNIFORMS.make1f("blindness");
+    public static final ShaderUniform1f UNIFORM_SCREEN_BRIGHTNESS = SHADER_UNIFORMS.make1f("screenBrightness");
+    public static final ShaderUniform1i UNIFORM_HIDE_GUI = SHADER_UNIFORMS.make1i("hideGUI");
+    public static final ShaderUniform1f UNIFORM_CENTER_DEPTH_SMOOTH = SHADER_UNIFORMS.make1f("centerDepthSmooth");
+    public static final ShaderUniform2i UNIFORM_ATLAS_SIZE = SHADER_UNIFORMS.make2i("atlasSize");
+    public static final ShaderUniform4i UNIFORM_BLEND_FUNC = SHADER_UNIFORMS.make4i("blendFunc");
+    public static final ShaderUniform1i UNIFORM_INSTANCE_ID = SHADER_UNIFORMS.make1i("instanceId");
     static double previousCameraPositionX;
     static double previousCameraPositionY;
     static double previousCameraPositionZ;
@@ -376,7 +376,7 @@ public class Shaders {
     public static final Program[] PROGRAMS_ALL = PROGRAMS.getPrograms();
     public static Program activeProgram = PROGRAM_NONE;
     public static int activeProgramID = 0;
-    private static final ProgramStack programStack = new ProgramStack();
+    private static final ProgramStack PROGRAM_STACK = new ProgramStack();
     private static boolean hasDeferredPrograms = false;
     static IntBuffer activeDrawBuffers = null;
     private static int activeCompositeMipmapSetting = 0;
@@ -402,8 +402,8 @@ public class Shaders {
     public static boolean configShadowClipFrustrum = true;
     public static boolean configNormalMap = true;
     public static boolean configSpecularMap = true;
-    public static final PropertyDefaultTrueFalse configOldLighting = new PropertyDefaultTrueFalse("oldLighting", "Classic Lighting", 0);
-    public static final PropertyDefaultTrueFalse configOldHandLight = new PropertyDefaultTrueFalse("oldHandLight", "Old Hand Light", 0);
+    public static final PropertyDefaultTrueFalse CONFIG_OLD_LIGHTING = new PropertyDefaultTrueFalse("oldLighting", "Classic Lighting", 0);
+    public static final PropertyDefaultTrueFalse CONFIG_OLD_HAND_LIGHT = new PropertyDefaultTrueFalse("oldHandLight", "Old Hand Light", 0);
     public static int configAntialiasingLevel = 0;
     public static final int TEX_MIN_FIL_RANGE = 3;
     public static final int TEX_MAG_FIL_RANGE = 2;
@@ -419,7 +419,7 @@ public class Shaders {
     public static final String SHADER_PACKS_DIR_NAME = "shaderpacks";
     public static final String OPTIONS_FILE_NAME = "optionsshaders.txt";
     public static final File SHADER_PACKS_DIR;
-    static final File configFile;
+    static final File CONFIG_FILE;
     private static ShaderOption[] shaderPackOptions = null;
     private static Set<String> shaderPackOptionSliders = null;
     static ShaderProfile[] shaderPackProfiles = null;
@@ -445,7 +445,7 @@ public class Shaders {
     public static final PropertyDefaultTrueFalse SHADER_PACK_FRUSTUM_CULLING = new PropertyDefaultTrueFalse("frustum.culling", "Frustum Culling", 0);
     private static Map<String, String> shaderPackResources = new HashMap();
     private static World currentWorld = null;
-    private static final List<Integer> shaderPackDimensions = new ArrayList();
+    private static final List<Integer> SHADER_PACK_DIMENSIONS = new ArrayList();
     private static ICustomTexture[] customTexturesGbuffers = null;
     private static ICustomTexture[] customTexturesComposite = null;
     private static ICustomTexture[] customTexturesDeferred = null;
@@ -470,66 +470,66 @@ public class Shaders {
     public static float fogColorG;
     public static float fogColorB;
     public static float shadowIntervalSize = 2.0F;
-    public static final int terrainIconSize = 16;
-    public static final int[] terrainTextureSize = new int[2];
+    public static final int TERRAIN_ICON_SIZE = 16;
+    public static final int[] TERRAIN_TEXTURE_SIZE = new int[2];
     private static ICustomTexture noiseTexture;
     private static boolean noiseTextureEnabled = false;
     private static int noiseTextureResolution = 256;
-    static final int[] colorTextureImageUnit = new int[]{0, 1, 2, 3, 7, 8, 9, 10};
-    private static final int bigBufferSize = (285 + 8 * PROGRAM_COUNT) * 4;
-    private static final ByteBuffer bigBuffer = BufferUtils.createByteBuffer(bigBufferSize).limit(0);
-    static final float[] faProjection = new float[16];
-    static final float[] faProjectionInverse = new float[16];
-    static final float[] faModelView = new float[16];
-    static final float[] faModelViewInverse = new float[16];
-    static final float[] faShadowProjection = new float[16];
-    static final float[] faShadowProjectionInverse = new float[16];
-    static final float[] faShadowModelView = new float[16];
-    static final float[] faShadowModelViewInverse = new float[16];
-    static final FloatBuffer projection = nextFloatBuffer(16);
-    static final FloatBuffer projectionInverse = nextFloatBuffer(16);
-    static final FloatBuffer modelView = nextFloatBuffer(16);
-    static final FloatBuffer modelViewInverse = nextFloatBuffer(16);
-    static final FloatBuffer shadowProjection = nextFloatBuffer(16);
-    static final FloatBuffer shadowProjectionInverse = nextFloatBuffer(16);
-    static final FloatBuffer shadowModelView = nextFloatBuffer(16);
-    static final FloatBuffer shadowModelViewInverse = nextFloatBuffer(16);
-    static final FloatBuffer previousProjection = nextFloatBuffer(16);
-    static final FloatBuffer previousModelView = nextFloatBuffer(16);
-    static final FloatBuffer tempMatrixDirectBuffer = nextFloatBuffer(16);
-    static final FloatBuffer tempDirectFloatBuffer = nextFloatBuffer(16);
-    static final IntBuffer dfbColorTextures = nextIntBuffer(16);
-    static final IntBuffer dfbDepthTextures = nextIntBuffer(3);
-    static final IntBuffer sfbColorTextures = nextIntBuffer(8);
-    static final IntBuffer sfbDepthTextures = nextIntBuffer(2);
-    static final IntBuffer dfbDrawBuffers = nextIntBuffer(8);
-    static final IntBuffer sfbDrawBuffers = nextIntBuffer(8);
-    static final IntBuffer drawBuffersNone = nextIntBuffer(8).limit(0);
-    static final IntBuffer drawBuffersColorAtt0 = nextIntBuffer(8).put(36064).position(0).limit(1);
-    static final FlipTextures dfbColorTexturesFlip = new FlipTextures(dfbColorTextures, 8);
+    static final int[] COLOR_TEXTURE_IMAGE_UNIT = new int[]{0, 1, 2, 3, 7, 8, 9, 10};
+    private static final int BIG_BUFFER_SIZE = (285 + 8 * PROGRAM_COUNT) * 4;
+    private static final ByteBuffer BIG_BUFFER = BufferUtils.createByteBuffer(BIG_BUFFER_SIZE).limit(0);
+    static final float[] FA_PROJECTION = new float[16];
+    static final float[] FA_PROJECTION_INVERSE = new float[16];
+    static final float[] FA_MODEL_VIEW = new float[16];
+    static final float[] FA_MODEL_VIEW_INVERSE = new float[16];
+    static final float[] FA_SHADOW_PROJECTION = new float[16];
+    static final float[] FA_SHADOW_PROJECTION_INVERSE = new float[16];
+    static final float[] FA_SHADOW_MODEL_VIEW = new float[16];
+    static final float[] FA_SHADOW_MODEL_VIEW_INVERSE = new float[16];
+    static final FloatBuffer PROJECTION = nextFloatBuffer(16);
+    static final FloatBuffer PROJECTION_INVERSE = nextFloatBuffer(16);
+    static final FloatBuffer MODEL_VIEW = nextFloatBuffer(16);
+    static final FloatBuffer MODEL_VIEW_INVERSE = nextFloatBuffer(16);
+    static final FloatBuffer SHADOW_PROJECTION = nextFloatBuffer(16);
+    static final FloatBuffer SHADOW_PROJECTION_INVERSE = nextFloatBuffer(16);
+    static final FloatBuffer SHADOW_MODEL_VIEW = nextFloatBuffer(16);
+    static final FloatBuffer SHADOW_MODEL_VIEW_INVERSE = nextFloatBuffer(16);
+    static final FloatBuffer PREVIOUS_PROJECTION = nextFloatBuffer(16);
+    static final FloatBuffer PREVIOUS_MODEL_VIEW = nextFloatBuffer(16);
+    static final FloatBuffer TEMP_MATRIX_DIRECT_BUFFER = nextFloatBuffer(16);
+    static final FloatBuffer TEMP_DIRECT_FLOAT_BUFFER = nextFloatBuffer(16);
+    static final IntBuffer DFB_COLOR_TEXTURES = nextIntBuffer(16);
+    static final IntBuffer DFB_DEPTH_TEXTURES = nextIntBuffer(3);
+    static final IntBuffer SFB_COLOR_TEXTURES = nextIntBuffer(8);
+    static final IntBuffer SFB_DEPTH_TEXTURES = nextIntBuffer(2);
+    static final IntBuffer DFB_DRAW_BUFFERS = nextIntBuffer(8);
+    static final IntBuffer SFB_DRAW_BUFFERS = nextIntBuffer(8);
+    static final IntBuffer DRAW_BUFFERS_NONE = nextIntBuffer(8).limit(0);
+    static final IntBuffer DRAW_BUFFERS_COLOR_ATT_0 = nextIntBuffer(8).put(36064).position(0).limit(1);
+    static final FlipTextures DFB_COLOR_TEXTURES_FLIP = new FlipTextures(DFB_COLOR_TEXTURES, 8);
     static Map<Block, Integer> mapBlockToEntityData;
-    private static final String[] formatNames = new String[]{"R8", "RG8", "RGB8", "RGBA8", "R8_SNORM", "RG8_SNORM", "RGB8_SNORM", "RGBA8_SNORM", "R16", "RG16", "RGB16", "RGBA16", "R16_SNORM", "RG16_SNORM", "RGB16_SNORM", "RGBA16_SNORM", "R16F", "RG16F", "RGB16F", "RGBA16F", "R32F", "RG32F", "RGB32F", "RGBA32F", "R32I", "RG32I", "RGB32I", "RGBA32I", "R32UI", "RG32UI", "RGB32UI", "RGBA32UI", "R3_G3_B2", "RGB5_A1", "RGB10_A2", "R11F_G11F_B10F", "RGB9_E5"};
-    private static final int[] formatIds = new int[]{33321, 33323, 32849, 32856, 36756, 36757, 36758, 36759, 33322, 33324, 32852, 32859, 36760, 36761, 36762, 36763, 33325, 33327, 34843, 34842, 33326, 33328, 34837, 34836, 33333, 33339, 36227, 36226, 33334, 33340, 36209, 36208, 10768, 32855, 32857, 35898, 35901};
-    private static final Pattern patternLoadEntityDataMap = Pattern.compile("\\s*([\\w:]+)\\s*=\\s*([-]?\\d+)\\s*");
-    public static final int[] entityData = new int[32];
+    private static final String[] FORMAT_NAMES = new String[]{"R8", "RG8", "RGB8", "RGBA8", "R8_SNORM", "RG8_SNORM", "RGB8_SNORM", "RGBA8_SNORM", "R16", "RG16", "RGB16", "RGBA16", "R16_SNORM", "RG16_SNORM", "RGB16_SNORM", "RGBA16_SNORM", "R16F", "RG16F", "RGB16F", "RGBA16F", "R32F", "RG32F", "RGB32F", "RGBA32F", "R32I", "RG32I", "RGB32I", "RGBA32I", "R32UI", "RG32UI", "RGB32UI", "RGBA32UI", "R3_G3_B2", "RGB5_A1", "RGB10_A2", "R11F_G11F_B10F", "RGB9_E5"};
+    private static final int[] FORMAT_IDS = new int[]{33321, 33323, 32849, 32856, 36756, 36757, 36758, 36759, 33322, 33324, 32852, 32859, 36760, 36761, 36762, 36763, 33325, 33327, 34843, 34842, 33326, 33328, 34837, 34836, 33333, 33339, 36227, 36226, 33334, 33340, 36209, 36208, 10768, 32855, 32857, 35898, 35901};
+    private static final Pattern PATTERN_LOAD_ENTITY_DATA_MAP = Pattern.compile("\\s*([\\w:]+)\\s*=\\s*([-]?\\d+)\\s*");
+    public static final int[] ENTITY_DATA = new int[32];
     public static int entityDataIndex = 0;
 
     private static ByteBuffer nextByteBuffer(int size) {
-        ByteBuffer bytebuffer = bigBuffer;
+        ByteBuffer bytebuffer = BIG_BUFFER;
         int i = bytebuffer.limit();
         bytebuffer.position(i).limit(i + size);
         return bytebuffer.slice();
     }
 
     public static IntBuffer nextIntBuffer(int size) {
-        ByteBuffer bytebuffer = bigBuffer;
+        ByteBuffer bytebuffer = BIG_BUFFER;
         int i = bytebuffer.limit();
         bytebuffer.position(i).limit(i + size * 4);
         return bytebuffer.asIntBuffer();
     }
 
     private static FloatBuffer nextFloatBuffer(int size) {
-        ByteBuffer bytebuffer = bigBuffer;
+        ByteBuffer bytebuffer = BIG_BUFFER;
         int i = bytebuffer.limit();
         bytebuffer.position(i).limit(i + size * 4);
         return bytebuffer.asFloatBuffer();
@@ -559,16 +559,16 @@ public class Shaders {
         shadersConfig = new PropertiesOrdered();
         shadersConfig.setProperty(ShaderOptions.SHADER_PACK.getPropertyKey(), "");
 
-        if (configFile.exists()) {
+        if (CONFIG_FILE.exists()) {
             try {
-                FileReader filereader = new FileReader(configFile);
+                FileReader filereader = new FileReader(CONFIG_FILE);
                 shadersConfig.load(filereader);
                 filereader.close();
             } catch (Exception var7) {
             }
         }
 
-        if (!configFile.exists()) {
+        if (!CONFIG_FILE.exists()) {
             try {
                 storeConfig();
             } catch (Exception var6) {
@@ -622,11 +622,11 @@ public class Shaders {
                 break;
 
             case OLD_HAND_LIGHT:
-                configOldHandLight.setPropertyValue(str);
+                CONFIG_OLD_HAND_LIGHT.setPropertyValue(str);
                 break;
 
             case OLD_LIGHTING:
-                configOldLighting.setPropertyValue(str);
+                CONFIG_OLD_LIGHTING.setPropertyValue(str);
                 break;
 
             case SHADER_PACK:
@@ -686,7 +686,7 @@ public class Shaders {
         }
 
         try {
-            FileWriter filewriter = new FileWriter(configFile);
+            FileWriter filewriter = new FileWriter(CONFIG_FILE);
             shadersConfig.store(filewriter, null);
             filewriter.close();
         } catch (Exception exception) {
@@ -703,8 +703,8 @@ public class Shaders {
             case SHADOW_RES_MUL -> Float.toString(configShadowResMul);
             case HAND_DEPTH_MUL -> Float.toString(configHandDepthMul);
             case CLOUD_SHADOW -> Boolean.toString(configCloudShadow);
-            case OLD_HAND_LIGHT -> configOldHandLight.getPropertyValue();
-            case OLD_LIGHTING -> configOldLighting.getPropertyValue();
+            case OLD_HAND_LIGHT -> CONFIG_OLD_HAND_LIGHT.getPropertyValue();
+            case OLD_LIGHTING -> CONFIG_OLD_LIGHTING.getPropertyValue();
             case SHADER_PACK -> currentShaderName;
             case TWEAK_BLOCK_DAMAGE -> Boolean.toString(configTweakBlockDamage);
             case SHADOW_CLIP_FRUSTRUM -> Boolean.toString(configShadowClipFrustrum);
@@ -738,7 +738,7 @@ public class Shaders {
             shaderPack.close();
             shaderPack = null;
             shaderPackResources.clear();
-            shaderPackDimensions.clear();
+            SHADER_PACK_DIMENSIONS.clear();
             shaderPackOptions = null;
             shaderPackOptionSliders = null;
             shaderPackProfiles = null;
@@ -841,18 +841,18 @@ public class Shaders {
     }
 
     private static void loadShaderPackDimensions() {
-        shaderPackDimensions.clear();
+        SHADER_PACK_DIMENSIONS.clear();
 
         for (int i = -128; i <= 128; ++i) {
             String s = "/shaders/world" + i;
 
             if (shaderPack.hasDirectory(s)) {
-                shaderPackDimensions.add(i);
+                SHADER_PACK_DIMENSIONS.add(i);
             }
         }
 
-        if (!shaderPackDimensions.isEmpty()) {
-            Integer[] ainteger = shaderPackDimensions.toArray(new Integer[0]);
+        if (!SHADER_PACK_DIMENSIONS.isEmpty()) {
+            Integer[] ainteger = SHADER_PACK_DIMENSIONS.toArray(new Integer[0]);
             Config.dbg("[Shaders] Worlds: " + Config.arrayToString(ainteger));
         }
     }
@@ -1419,7 +1419,7 @@ public class Shaders {
     private static ShaderOption[] loadShaderPackOptions() {
         try {
             String[] astring = PROGRAMS.getProgramNames();
-            ShaderOption[] ashaderoption = ShaderPackParser.parseShaderPackOptions(shaderPack, astring, shaderPackDimensions);
+            ShaderOption[] ashaderoption = ShaderPackParser.parseShaderPackOptions(shaderPack, astring, SHADER_PACK_DIMENSIONS);
             Properties properties = loadOptionProperties(shaderPack);
 
             for (ShaderOption shaderoption : ashaderoption) {
@@ -1658,7 +1658,7 @@ public class Shaders {
     }
 
     public static boolean isOldHandLight() {
-        return !configOldHandLight.isDefault() ? configOldHandLight.isTrue() : (!SHADER_PACK_OLD_HAND_LIGHT.isDefault() ? SHADER_PACK_OLD_HAND_LIGHT.isTrue() : true);
+        return !CONFIG_OLD_HAND_LIGHT.isDefault() ? CONFIG_OLD_HAND_LIGHT.isTrue() : (!SHADER_PACK_OLD_HAND_LIGHT.isDefault() ? SHADER_PACK_OLD_HAND_LIGHT.isTrue() : true);
     }
 
     public static boolean isDynamicHandLight() {
@@ -1666,7 +1666,7 @@ public class Shaders {
     }
 
     public static boolean isOldLighting() {
-        return !configOldLighting.isDefault() ? configOldLighting.isTrue() : (!SHADER_PACK_OLD_LIGHTING.isDefault() ? SHADER_PACK_OLD_LIGHTING.isTrue() : true);
+        return !CONFIG_OLD_LIGHTING.isDefault() ? CONFIG_OLD_LIGHTING.isTrue() : (!SHADER_PACK_OLD_LIGHTING.isDefault() ? SHADER_PACK_OLD_LIGHTING.isTrue() : true);
     }
 
     public static boolean isRenderShadowTranslucent() {
@@ -1739,12 +1739,12 @@ public class Shaders {
                 printChatAndLogError("No EXT_framebuffer_object");
             }
 
-            dfbDrawBuffers.position(0).limit(8);
-            dfbColorTextures.position(0).limit(16);
-            dfbDepthTextures.position(0).limit(3);
-            sfbDrawBuffers.position(0).limit(8);
-            sfbDepthTextures.position(0).limit(2);
-            sfbColorTextures.position(0).limit(8);
+            DFB_DRAW_BUFFERS.position(0).limit(8);
+            DFB_COLOR_TEXTURES.position(0).limit(16);
+            DFB_DEPTH_TEXTURES.position(0).limit(3);
+            SFB_DRAW_BUFFERS.position(0).limit(8);
+            SFB_DEPTH_TEXTURES.position(0).limit(2);
+            SFB_COLOR_TEXTURES.position(0).limit(8);
             usedColorBuffers = 4;
             usedDepthBuffers = 1;
             usedShadowColorBuffers = 0;
@@ -1791,7 +1791,7 @@ public class Shaders {
             if (currentWorld != null) {
                 int i = currentWorld.provider.getDimensionId();
 
-                if (shaderPackDimensions.contains(i)) {
+                if (SHADER_PACK_DIMENSIONS.contains(i)) {
                     s = "world" + i + "/";
                 }
             }
@@ -1853,12 +1853,12 @@ public class Shaders {
             SMCLog.info("usedShadowDepthBuffers: " + usedShadowDepthBuffers);
             SMCLog.info("usedColorAttachs: " + usedColorAttachs);
             SMCLog.info("usedDrawBuffers: " + usedDrawBuffers);
-            dfbDrawBuffers.position(0).limit(usedDrawBuffers);
-            dfbColorTextures.position(0).limit(usedColorBuffers * 2);
-            dfbColorTexturesFlip.reset();
+            DFB_DRAW_BUFFERS.position(0).limit(usedDrawBuffers);
+            DFB_COLOR_TEXTURES.position(0).limit(usedColorBuffers * 2);
+            DFB_COLOR_TEXTURES_FLIP.reset();
 
             for (int i1 = 0; i1 < usedDrawBuffers; ++i1) {
-                dfbDrawBuffers.put(i1, 36064 + i1);
+                DFB_DRAW_BUFFERS.put(i1, 36064 + i1);
             }
 
             int j1 = GL11.glGetInteger(GL20.GL_MAX_DRAW_BUFFERS);
@@ -1867,10 +1867,10 @@ public class Shaders {
                 printChatAndLogError("[Shaders] Error: Not enough draw buffers, needed: " + usedDrawBuffers + ", available: " + j1);
             }
 
-            sfbDrawBuffers.position(0).limit(usedShadowColorBuffers);
+            SFB_DRAW_BUFFERS.position(0).limit(usedShadowColorBuffers);
 
             for (int k1 = 0; k1 < usedShadowColorBuffers; ++k1) {
-                sfbDrawBuffers.put(k1, 36064 + k1);
+                SFB_DRAW_BUFFERS.put(k1, 36064 + k1);
             }
 
             for (Program program1 : PROGRAMS_ALL) {
@@ -1919,20 +1919,20 @@ public class Shaders {
             p.setDrawBuffers(null);
         } else if (p.getId() == 0) {
             if (p == PROGRAM_SHADOW) {
-                p.setDrawBuffers(drawBuffersNone);
+                p.setDrawBuffers(DRAW_BUFFERS_NONE);
             } else {
-                p.setDrawBuffers(drawBuffersColorAtt0);
+                p.setDrawBuffers(DRAW_BUFFERS_COLOR_ATT_0);
             }
         } else {
             String s = p.getDrawBufSettings();
 
             if (s == null) {
                 if (p != PROGRAM_SHADOW && p != PROGRAM_SHADOW_SOLID && p != PROGRAM_SHADOW_CUTOUT) {
-                    p.setDrawBuffers(dfbDrawBuffers);
+                    p.setDrawBuffers(DFB_DRAW_BUFFERS);
                     usedDrawBuffers = usedColorBuffers;
                     Arrays.fill(p.getToggleColorTextures(), 0, usedColorBuffers, true);
                 } else {
-                    p.setDrawBuffers(sfbDrawBuffers);
+                    p.setDrawBuffers(SFB_DRAW_BUFFERS);
                 }
             } else {
                 IntBuffer intbuffer = p.getDrawBuffersBuffer();
@@ -2580,7 +2580,7 @@ public class Shaders {
 
     public static void setDrawBuffers(IntBuffer drawBuffers) {
         if (drawBuffers == null) {
-            drawBuffers = drawBuffersNone;
+            drawBuffers = DRAW_BUFFERS_NONE;
         }
 
         if (activeDrawBuffers != drawBuffers) {
@@ -2724,57 +2724,57 @@ public class Shaders {
                 int k = block != null ? block.getLightValue() : 0;
                 setProgramUniform1i(UNIFORM_HELD_ITEM_ID, j);
                 setProgramUniform1i(UNIFORM_HELD_BLOCK_LIGHT_VALUE, k);
-                setProgramUniform1i(uniform_fogMode, fogEnabled ? fogMode : 0);
-                setProgramUniform1f(uniform_fogDensity, fogEnabled ? fogDensity : 0.0F);
-                setProgramUniform3f(uniform_fogColor, fogColorR, fogColorG, fogColorB);
-                setProgramUniform3f(uniform_skyColor, skyColorR, skyColorG, skyColorB);
-                setProgramUniform1i(uniform_worldTime, (int) (worldTime % 24000L));
-                setProgramUniform1i(uniform_worldDay, (int) (worldTime / 24000L));
-                setProgramUniform1i(uniform_moonPhase, moonPhase);
-                setProgramUniform1i(uniform_frameCounter, frameCounter);
-                setProgramUniform1f(uniform_frameTime, frameTime);
-                setProgramUniform1f(uniform_frameTimeCounter, frameTimeCounter);
-                setProgramUniform1f(uniform_sunAngle, sunAngle);
-                setProgramUniform1f(uniform_shadowAngle, shadowAngle);
-                setProgramUniform1f(uniform_rainStrength, rainStrength);
-                setProgramUniform1f(uniform_aspectRatio, (float) renderWidth / renderHeight);
-                setProgramUniform1f(uniform_viewWidth, renderWidth);
-                setProgramUniform1f(uniform_viewHeight, renderHeight);
-                setProgramUniform1f(uniform_near, 0.05F);
-                setProgramUniform1f(uniform_far, (mc.gameSettings.renderDistanceChunks * 16));
-                setProgramUniform3f(uniform_sunPosition, SUN_POSITION[0], SUN_POSITION[1], SUN_POSITION[2]);
-                setProgramUniform3f(uniform_moonPosition, MOON_POSITION[0], MOON_POSITION[1], MOON_POSITION[2]);
-                setProgramUniform3f(uniform_shadowLightPosition, SHADOW_LIGHT_POSITION[0], SHADOW_LIGHT_POSITION[1], SHADOW_LIGHT_POSITION[2]);
-                setProgramUniform3f(uniform_upPosition, UP_POSITION[0], UP_POSITION[1], UP_POSITION[2]);
-                setProgramUniform3f(uniform_previousCameraPosition, (float) previousCameraPositionX, (float) previousCameraPositionY, (float) previousCameraPositionZ);
-                setProgramUniform3f(uniform_cameraPosition, (float) cameraPositionX, (float) cameraPositionY, (float) cameraPositionZ);
-                setProgramUniformMatrix4ARB(uniform_gbufferModelView, false, modelView);
-                setProgramUniformMatrix4ARB(uniform_gbufferModelViewInverse, false, modelViewInverse);
-                setProgramUniformMatrix4ARB(uniform_gbufferPreviousProjection, false, previousProjection);
-                setProgramUniformMatrix4ARB(uniform_gbufferProjection, false, projection);
-                setProgramUniformMatrix4ARB(uniform_gbufferProjectionInverse, false, projectionInverse);
-                setProgramUniformMatrix4ARB(uniform_gbufferPreviousModelView, false, previousModelView);
+                setProgramUniform1i(UNIFORM_FOG_MODE, fogEnabled ? fogMode : 0);
+                setProgramUniform1f(UNIFORM_FOG_DENSITY, fogEnabled ? fogDensity : 0.0F);
+                setProgramUniform3f(UNIFORM_FOG_COLOR, fogColorR, fogColorG, fogColorB);
+                setProgramUniform3f(UNIFORM_SKY_COLOR, skyColorR, skyColorG, skyColorB);
+                setProgramUniform1i(UNIFORM_WORLD_TIME, (int) (worldTime % 24000L));
+                setProgramUniform1i(UNIFORM_WORLD_DAY, (int) (worldTime / 24000L));
+                setProgramUniform1i(UNIFORM_MOON_PHASE, moonPhase);
+                setProgramUniform1i(UNIFORM_FRAME_COUNTER, frameCounter);
+                setProgramUniform1f(UNIFORM_FRAME_TIME, frameTime);
+                setProgramUniform1f(UNIFORM_FRAME_TIME_COUNTER, frameTimeCounter);
+                setProgramUniform1f(UNIFORM_SUN_ANGLE, sunAngle);
+                setProgramUniform1f(UNIFORM_SHADOW_ANGLE, shadowAngle);
+                setProgramUniform1f(UNIFORM_RAIN_STRENGTH, rainStrength);
+                setProgramUniform1f(UNIFORM_ASPECT_RATIO, (float) renderWidth / renderHeight);
+                setProgramUniform1f(UNIFORM_VIEW_WIDTH, renderWidth);
+                setProgramUniform1f(UNIFORM_VIEW_HEIGHT, renderHeight);
+                setProgramUniform1f(UNIFORM_NEAR, 0.05F);
+                setProgramUniform1f(UNIFORM_FAR, (mc.gameSettings.renderDistanceChunks * 16));
+                setProgramUniform3f(UNIFORM_SUN_POSITION, SUN_POSITION[0], SUN_POSITION[1], SUN_POSITION[2]);
+                setProgramUniform3f(UNIFORM_MOON_POSITION, MOON_POSITION[0], MOON_POSITION[1], MOON_POSITION[2]);
+                setProgramUniform3f(UNIFORM_SHADOW_LIGHT_POSITION, SHADOW_LIGHT_POSITION[0], SHADOW_LIGHT_POSITION[1], SHADOW_LIGHT_POSITION[2]);
+                setProgramUniform3f(UNIFORM_UP_POSITION, UP_POSITION[0], UP_POSITION[1], UP_POSITION[2]);
+                setProgramUniform3f(UNIFORM_PREVIOUS_CAMERA_POSITION, (float) previousCameraPositionX, (float) previousCameraPositionY, (float) previousCameraPositionZ);
+                setProgramUniform3f(UNIFORM_CAMERA_POSITION, (float) cameraPositionX, (float) cameraPositionY, (float) cameraPositionZ);
+                setProgramUniformMatrix4ARB(UNIFORM_GBUFFER_MODEL_VIEW, false, MODEL_VIEW);
+                setProgramUniformMatrix4ARB(UNIFORM_GBUFFER_MODEL_VIEW_INVERSE, false, MODEL_VIEW_INVERSE);
+                setProgramUniformMatrix4ARB(UNIFORM_GBUFFER_PREVIOUS_PROJECTION, false, PREVIOUS_PROJECTION);
+                setProgramUniformMatrix4ARB(UNIFORM_GBUFFER_PROJECTION, false, PROJECTION);
+                setProgramUniformMatrix4ARB(UNIFORM_GBUFFER_PROJECTION_INVERSE, false, PROJECTION_INVERSE);
+                setProgramUniformMatrix4ARB(UNIFORM_GBUFFER_PREVIOUS_MODEL_VIEW, false, PREVIOUS_MODEL_VIEW);
 
                 if (usedShadowDepthBuffers > 0) {
-                    setProgramUniformMatrix4ARB(uniform_shadowProjection, false, shadowProjection);
-                    setProgramUniformMatrix4ARB(uniform_shadowProjectionInverse, false, shadowProjectionInverse);
-                    setProgramUniformMatrix4ARB(uniform_shadowModelView, false, shadowModelView);
-                    setProgramUniformMatrix4ARB(uniform_shadowModelViewInverse, false, shadowModelViewInverse);
+                    setProgramUniformMatrix4ARB(UNIFORM_SHADOW_PROJECTION, false, SHADOW_PROJECTION);
+                    setProgramUniformMatrix4ARB(UNIFORM_SHADOW_PROJECTION_INVERSE, false, SHADOW_PROJECTION_INVERSE);
+                    setProgramUniformMatrix4ARB(UNIFORM_SHADOW_MODEL_VIEW, false, SHADOW_MODEL_VIEW);
+                    setProgramUniformMatrix4ARB(UNIFORM_SHADOW_MODEL_VIEW_INVERSE, false, SHADOW_MODEL_VIEW_INVERSE);
                 }
 
-                setProgramUniform1f(uniform_wetness, wetness);
-                setProgramUniform1f(uniform_eyeAltitude, eyePosY);
-                setProgramUniform2i(uniform_eyeBrightness, eyeBrightness & 65535, eyeBrightness >> 16);
-                setProgramUniform2i(uniform_eyeBrightnessSmooth, Math.round(eyeBrightnessFadeX), Math.round(eyeBrightnessFadeY));
-                setProgramUniform2i(uniform_terrainTextureSize, terrainTextureSize[0], terrainTextureSize[1]);
-                setProgramUniform1i(uniform_terrainIconSize, terrainIconSize);
-                setProgramUniform1i(uniform_isEyeInWater, isEyeInWater);
-                setProgramUniform1f(uniform_nightVision, nightVision);
-                setProgramUniform1f(uniform_blindness, blindness);
-                setProgramUniform1f(uniform_screenBrightness, mc.gameSettings.gammaSetting);
-                setProgramUniform1i(uniform_hideGUI, mc.gameSettings.hideGUI ? 1 : 0);
-                setProgramUniform1f(uniform_centerDepthSmooth, centerDepthSmooth);
-                setProgramUniform2i(uniform_atlasSize, atlasSizeX, atlasSizeY);
+                setProgramUniform1f(UNIFORM_WETNESS, wetness);
+                setProgramUniform1f(UNIFORM_EYE_ALTITUDE, eyePosY);
+                setProgramUniform2i(UNIFORM_EYE_BRIGHTNESS, eyeBrightness & 65535, eyeBrightness >> 16);
+                setProgramUniform2i(UNIFORM_EYE_BRIGHTNESS_SMOOTH, Math.round(eyeBrightnessFadeX), Math.round(eyeBrightnessFadeY));
+                setProgramUniform2i(UNIFORM_TERRAIN_TEXTURE_SIZE, TERRAIN_TEXTURE_SIZE[0], TERRAIN_TEXTURE_SIZE[1]);
+                setProgramUniform1i(UNIFORM_TERRAIN_ICON_SIZE, TERRAIN_ICON_SIZE);
+                setProgramUniform1i(UNIFORM_IS_EYE_IN_WATER, isEyeInWater);
+                setProgramUniform1f(UNIFORM_NIGHT_VISION, nightVision);
+                setProgramUniform1f(UNIFORM_BLINDNESS, blindness);
+                setProgramUniform1f(UNIFORM_SCREEN_BRIGHTNESS, mc.gameSettings.gammaSetting);
+                setProgramUniform1i(UNIFORM_HIDE_GUI, mc.gameSettings.hideGUI ? 1 : 0);
+                setProgramUniform1f(UNIFORM_CENTER_DEPTH_SMOOTH, centerDepthSmooth);
+                setProgramUniform2i(UNIFORM_ATLAS_SIZE, atlasSizeX, atlasSizeY);
 
                 if (customUniforms != null) {
                     customUniforms.update();
@@ -2834,11 +2834,11 @@ public class Shaders {
     private static int getTextureFormatFromString(String par) {
         par = par.trim();
 
-        for (int i = 0; i < formatNames.length; ++i) {
-            String s = formatNames[i];
+        for (int i = 0; i < FORMAT_NAMES.length; ++i) {
+            String s = FORMAT_NAMES[i];
 
             if (par.equals(s)) {
-                return formatIds[i];
+                return FORMAT_IDS[i];
             }
         }
 
@@ -2878,7 +2878,7 @@ public class Shaders {
 
             try {
                 while ((s1 = bufferedreader.readLine()) != null) {
-                    Matcher matcher = patternLoadEntityDataMap.matcher(s1);
+                    Matcher matcher = PATTERN_LOAD_ENTITY_DATA_MAP.matcher(s1);
 
                     if (matcher.matches()) {
                         String s2 = matcher.group(1);
@@ -2949,32 +2949,32 @@ public class Shaders {
                 checkGLError("del sfb");
             }
 
-            if (dfbDepthTextures != null) {
-                GlStateManager.deleteTextures(dfbDepthTextures);
-                fillIntBufferZero(dfbDepthTextures);
+            if (DFB_DEPTH_TEXTURES != null) {
+                GlStateManager.deleteTextures(DFB_DEPTH_TEXTURES);
+                fillIntBufferZero(DFB_DEPTH_TEXTURES);
                 checkGLError("del dfbDepthTextures");
             }
 
-            if (dfbColorTextures != null) {
-                GlStateManager.deleteTextures(dfbColorTextures);
-                fillIntBufferZero(dfbColorTextures);
+            if (DFB_COLOR_TEXTURES != null) {
+                GlStateManager.deleteTextures(DFB_COLOR_TEXTURES);
+                fillIntBufferZero(DFB_COLOR_TEXTURES);
                 checkGLError("del dfbTextures");
             }
 
-            if (sfbDepthTextures != null) {
-                GlStateManager.deleteTextures(sfbDepthTextures);
-                fillIntBufferZero(sfbDepthTextures);
+            if (SFB_DEPTH_TEXTURES != null) {
+                GlStateManager.deleteTextures(SFB_DEPTH_TEXTURES);
+                fillIntBufferZero(SFB_DEPTH_TEXTURES);
                 checkGLError("del shadow depth");
             }
 
-            if (sfbColorTextures != null) {
-                GlStateManager.deleteTextures(sfbColorTextures);
-                fillIntBufferZero(sfbColorTextures);
+            if (SFB_COLOR_TEXTURES != null) {
+                GlStateManager.deleteTextures(SFB_COLOR_TEXTURES);
+                fillIntBufferZero(SFB_COLOR_TEXTURES);
                 checkGLError("del shadow color");
             }
 
-            if (dfbDrawBuffers != null) {
-                fillIntBufferZero(dfbDrawBuffers);
+            if (DFB_DRAW_BUFFERS != null) {
+                fillIntBufferZero(DFB_DRAW_BUFFERS);
             }
 
             if (noiseTexture != null) {
@@ -3016,21 +3016,21 @@ public class Shaders {
     private static void setupFrameBuffer() {
         if (dfb != 0) {
             EXTFramebufferObject.glDeleteFramebuffersEXT(dfb);
-            GlStateManager.deleteTextures(dfbDepthTextures);
-            GlStateManager.deleteTextures(dfbColorTextures);
+            GlStateManager.deleteTextures(DFB_DEPTH_TEXTURES);
+            GlStateManager.deleteTextures(DFB_COLOR_TEXTURES);
         }
 
         dfb = EXTFramebufferObject.glGenFramebuffersEXT();
-        GL11.glGenTextures(dfbDepthTextures.clear().limit(usedDepthBuffers));
-        GL11.glGenTextures(dfbColorTextures.clear().limit(16));
-        dfbDepthTextures.position(0);
-        dfbColorTextures.position(0);
+        GL11.glGenTextures(DFB_DEPTH_TEXTURES.clear().limit(usedDepthBuffers));
+        GL11.glGenTextures(DFB_COLOR_TEXTURES.clear().limit(16));
+        DFB_DEPTH_TEXTURES.position(0);
+        DFB_COLOR_TEXTURES.position(0);
         EXTFramebufferObject.glBindFramebufferEXT(36160, dfb);
         GL20.glDrawBuffers(0);
         GL11.glReadBuffer(0);
 
         for (int i = 0; i < usedDepthBuffers; ++i) {
-            GlStateManager.bindTexture(dfbDepthTextures.get(i));
+            GlStateManager.bindTexture(DFB_DEPTH_TEXTURES.get(i));
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL12.GL_CLAMP_TO_EDGE);
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL12.GL_CLAMP_TO_EDGE);
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST);
@@ -3039,24 +3039,24 @@ public class Shaders {
             GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_DEPTH_COMPONENT, renderWidth, renderHeight, 0, GL11.GL_DEPTH_COMPONENT, GL11.GL_FLOAT, (FloatBuffer) null);
         }
 
-        EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36096, 3553, dfbDepthTextures.get(0), 0);
-        GL20.glDrawBuffers(dfbDrawBuffers);
+        EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36096, 3553, DFB_DEPTH_TEXTURES.get(0), 0);
+        GL20.glDrawBuffers(DFB_DRAW_BUFFERS);
         GL11.glReadBuffer(0);
         checkGLError("FT d");
 
         for (int k = 0; k < usedColorBuffers; ++k) {
-            GlStateManager.bindTexture(dfbColorTexturesFlip.getA(k));
+            GlStateManager.bindTexture(DFB_COLOR_TEXTURES_FLIP.getA(k));
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL12.GL_CLAMP_TO_EDGE);
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL12.GL_CLAMP_TO_EDGE);
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
             GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GBUFFERS_FORMAT[k], renderWidth, renderHeight, 0, getPixelFormat(GBUFFERS_FORMAT[k]), GL12.GL_UNSIGNED_INT_8_8_8_8_REV, (ByteBuffer) null);
-            EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36064 + k, 3553, dfbColorTexturesFlip.getA(k), 0);
+            EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36064 + k, 3553, DFB_COLOR_TEXTURES_FLIP.getA(k), 0);
             checkGLError("FT c");
         }
 
         for (int l = 0; l < usedColorBuffers; ++l) {
-            GlStateManager.bindTexture(dfbColorTexturesFlip.getB(l));
+            GlStateManager.bindTexture(DFB_COLOR_TEXTURES_FLIP.getB(l));
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL12.GL_CLAMP_TO_EDGE);
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL12.GL_CLAMP_TO_EDGE);
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
@@ -3071,9 +3071,9 @@ public class Shaders {
             printChatAndLogError("[Shaders] Error: Failed framebuffer incomplete formats");
 
             for (int j = 0; j < usedColorBuffers; ++j) {
-                GlStateManager.bindTexture(dfbColorTexturesFlip.getA(j));
+                GlStateManager.bindTexture(DFB_COLOR_TEXTURES_FLIP.getA(j));
                 GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, renderWidth, renderHeight, 0, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, (ByteBuffer) null);
-                EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36064 + j, 3553, dfbColorTexturesFlip.getA(j), 0);
+                EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36064 + j, 3553, DFB_COLOR_TEXTURES_FLIP.getA(j), 0);
                 checkGLError("FT c");
             }
 
@@ -3104,21 +3104,21 @@ public class Shaders {
         if (usedShadowDepthBuffers != 0) {
             if (sfb != 0) {
                 EXTFramebufferObject.glDeleteFramebuffersEXT(sfb);
-                GlStateManager.deleteTextures(sfbDepthTextures);
-                GlStateManager.deleteTextures(sfbColorTextures);
+                GlStateManager.deleteTextures(SFB_DEPTH_TEXTURES);
+                GlStateManager.deleteTextures(SFB_COLOR_TEXTURES);
             }
 
             sfb = EXTFramebufferObject.glGenFramebuffersEXT();
             EXTFramebufferObject.glBindFramebufferEXT(36160, sfb);
             GL11.glDrawBuffer(0);
             GL11.glReadBuffer(0);
-            GL11.glGenTextures(sfbDepthTextures.clear().limit(usedShadowDepthBuffers));
-            GL11.glGenTextures(sfbColorTextures.clear().limit(usedShadowColorBuffers));
-            sfbDepthTextures.position(0);
-            sfbColorTextures.position(0);
+            GL11.glGenTextures(SFB_DEPTH_TEXTURES.clear().limit(usedShadowDepthBuffers));
+            GL11.glGenTextures(SFB_COLOR_TEXTURES.clear().limit(usedShadowColorBuffers));
+            SFB_DEPTH_TEXTURES.position(0);
+            SFB_COLOR_TEXTURES.position(0);
 
             for (int i = 0; i < usedShadowDepthBuffers; ++i) {
-                GlStateManager.bindTexture(sfbDepthTextures.get(i));
+                GlStateManager.bindTexture(SFB_DEPTH_TEXTURES.get(i));
                 GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, 33071.0F);
                 GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, 33071.0F);
                 int j = SHADOW_FILTER_NEAREST[i] ? 9728 : 9729;
@@ -3132,25 +3132,25 @@ public class Shaders {
                 GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_DEPTH_COMPONENT, shadowMapWidth, shadowMapHeight, 0, GL11.GL_DEPTH_COMPONENT, GL11.GL_FLOAT, (FloatBuffer) null);
             }
 
-            EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36096, 3553, sfbDepthTextures.get(0), 0);
+            EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36096, 3553, SFB_DEPTH_TEXTURES.get(0), 0);
             checkGLError("FT sd");
 
             for (int k = 0; k < usedShadowColorBuffers; ++k) {
-                GlStateManager.bindTexture(sfbColorTextures.get(k));
+                GlStateManager.bindTexture(SFB_COLOR_TEXTURES.get(k));
                 GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, 33071.0F);
                 GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, 33071.0F);
                 int i1 = SHADOW_COLOR_FILTER_NEAREST[k] ? 9728 : 9729;
                 GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, i1);
                 GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, i1);
                 GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, shadowMapWidth, shadowMapHeight, 0, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, (ByteBuffer) null);
-                EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36064 + k, 3553, sfbColorTextures.get(k), 0);
+                EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36064 + k, 3553, SFB_COLOR_TEXTURES.get(k), 0);
                 checkGLError("FT sc");
             }
 
             GlStateManager.bindTexture(0);
 
             if (usedShadowColorBuffers > 0) {
-                GL20.glDrawBuffers(sfbDrawBuffers);
+                GL20.glDrawBuffers(SFB_DRAW_BUFFERS);
             }
 
             int l = EXTFramebufferObject.glCheckFramebufferStatusEXT(36160);
@@ -3274,22 +3274,22 @@ public class Shaders {
         previousCameraPositionX = cameraPositionX;
         previousCameraPositionY = cameraPositionY;
         previousCameraPositionZ = cameraPositionZ;
-        previousProjection.position(0);
-        projection.position(0);
-        previousProjection.put(projection);
-        previousProjection.position(0);
-        projection.position(0);
-        previousModelView.position(0);
-        modelView.position(0);
-        previousModelView.put(modelView);
-        previousModelView.position(0);
-        modelView.position(0);
+        PREVIOUS_PROJECTION.position(0);
+        PROJECTION.position(0);
+        PREVIOUS_PROJECTION.put(PROJECTION);
+        PREVIOUS_PROJECTION.position(0);
+        PROJECTION.position(0);
+        PREVIOUS_MODEL_VIEW.position(0);
+        MODEL_VIEW.position(0);
+        PREVIOUS_MODEL_VIEW.put(MODEL_VIEW);
+        PREVIOUS_MODEL_VIEW.position(0);
+        MODEL_VIEW.position(0);
         checkGLError("beginRender");
         ShadersRender.renderShadowMap(entityRenderer, 0, partialTicks, finishTimeNano);
         EXTFramebufferObject.glBindFramebufferEXT(36160, dfb);
 
         for (int j = 0; j < usedColorBuffers; ++j) {
-            EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36064 + j, 3553, dfbColorTexturesFlip.getA(j), 0);
+            EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36064 + j, 3553, DFB_COLOR_TEXTURES_FLIP.getA(j), 0);
         }
 
         checkGLError("end beginRender");
@@ -3298,21 +3298,21 @@ public class Shaders {
     private static void bindGbuffersTextures() {
         if (usedShadowDepthBuffers >= 1) {
             GlStateManager.setActiveTexture(33988);
-            GlStateManager.bindTexture(sfbDepthTextures.get(0));
+            GlStateManager.bindTexture(SFB_DEPTH_TEXTURES.get(0));
 
             if (usedShadowDepthBuffers >= 2) {
                 GlStateManager.setActiveTexture(33989);
-                GlStateManager.bindTexture(sfbDepthTextures.get(1));
+                GlStateManager.bindTexture(SFB_DEPTH_TEXTURES.get(1));
             }
         }
 
         GlStateManager.setActiveTexture(33984);
 
         for (int i = 0; i < usedColorBuffers; ++i) {
-            GlStateManager.bindTexture(dfbColorTexturesFlip.getA(i));
+            GlStateManager.bindTexture(DFB_COLOR_TEXTURES_FLIP.getA(i));
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
-            GlStateManager.bindTexture(dfbColorTexturesFlip.getB(i));
+            GlStateManager.bindTexture(DFB_COLOR_TEXTURES_FLIP.getB(i));
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
         }
@@ -3321,25 +3321,25 @@ public class Shaders {
 
         for (int j = 0; j < 4 && 4 + j < usedColorBuffers; ++j) {
             GlStateManager.setActiveTexture(33991 + j);
-            GlStateManager.bindTexture(dfbColorTexturesFlip.getA(4 + j));
+            GlStateManager.bindTexture(DFB_COLOR_TEXTURES_FLIP.getA(4 + j));
         }
 
         GlStateManager.setActiveTexture(33990);
-        GlStateManager.bindTexture(dfbDepthTextures.get(0));
+        GlStateManager.bindTexture(DFB_DEPTH_TEXTURES.get(0));
 
         if (usedDepthBuffers >= 2) {
             GlStateManager.setActiveTexture(33995);
-            GlStateManager.bindTexture(dfbDepthTextures.get(1));
+            GlStateManager.bindTexture(DFB_DEPTH_TEXTURES.get(1));
 
             if (usedDepthBuffers >= 3) {
                 GlStateManager.setActiveTexture(33996);
-                GlStateManager.bindTexture(dfbDepthTextures.get(2));
+                GlStateManager.bindTexture(DFB_DEPTH_TEXTURES.get(2));
             }
         }
 
         for (int k = 0; k < usedShadowColorBuffers; ++k) {
             GlStateManager.setActiveTexture(33997 + k);
-            GlStateManager.bindTexture(sfbColorTextures.get(k));
+            GlStateManager.bindTexture(SFB_COLOR_TEXTURES.get(k));
         }
 
         if (noiseTextureEnabled) {
@@ -3360,8 +3360,8 @@ public class Shaders {
             int j = getDimensionId(world);
 
             if (j != i) {
-                boolean flag = shaderPackDimensions.contains(i);
-                boolean flag1 = shaderPackDimensions.contains(j);
+                boolean flag = SHADER_PACK_DIMENSIONS.contains(i);
+                boolean flag1 = SHADER_PACK_DIMENSIONS.contains(j);
 
                 if (flag || flag1) {
                     uninit();
@@ -3398,7 +3398,7 @@ public class Shaders {
             isRenderingDfb = true;
             GlStateManager.enableCull();
             GlStateManager.enableDepth();
-            setDrawBuffers(drawBuffersNone);
+            setDrawBuffers(DRAW_BUFFERS_NONE);
             useProgram(PROGRAM_TEXTURED);
             checkGLError("beginRenderPass");
         }
@@ -3408,7 +3408,7 @@ public class Shaders {
         fogMode = value;
 
         if (fogEnabled) {
-            setProgramUniform1i(uniform_fogMode, value);
+            setProgramUniform1i(UNIFORM_FOG_MODE, value);
         }
     }
 
@@ -3416,7 +3416,7 @@ public class Shaders {
         fogColorR = r;
         fogColorG = g;
         fogColorB = b;
-        setProgramUniform3f(uniform_fogColor, fogColorR, fogColorG, fogColorB);
+        setProgramUniform3f(UNIFORM_FOG_COLOR, fogColorR, fogColorG, fogColorB);
     }
 
     public static void setClearColor(float red, float green, float blue, float alpha) {
@@ -3429,7 +3429,7 @@ public class Shaders {
     public static void clearRenderBuffer() {
         if (isShadowPass) {
             checkGLError("shadow clear pre");
-            EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36096, 3553, sfbDepthTextures.get(0), 0);
+            EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36096, 3553, SFB_DEPTH_TEXTURES.get(0), 0);
             GL11.glClearColor(1.0F, 1.0F, 1.0F, 1.0F);
             GL20.glDrawBuffers(PROGRAM_SHADOW.getDrawBuffers());
             checkFramebufferStatus("shadow clear");
@@ -3445,11 +3445,11 @@ public class Shaders {
                     GL11.glClearColor(vector4f.getX(), vector4f.getY(), vector4f.getZ(), vector4f.getW());
                 }
 
-                if (dfbColorTexturesFlip.isChanged(0)) {
-                    EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36064, 3553, dfbColorTexturesFlip.getB(0), 0);
+                if (DFB_COLOR_TEXTURES_FLIP.isChanged(0)) {
+                    EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36064, 3553, DFB_COLOR_TEXTURES_FLIP.getB(0), 0);
                     GL20.glDrawBuffers(36064);
                     GL11.glClear(16384);
-                    EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36064, 3553, dfbColorTexturesFlip.getA(0), 0);
+                    EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36064, 3553, DFB_COLOR_TEXTURES_FLIP.getA(0), 0);
                 }
 
                 GL20.glDrawBuffers(36064);
@@ -3464,11 +3464,11 @@ public class Shaders {
                     GL11.glClearColor(vector4f2.getX(), vector4f2.getY(), vector4f2.getZ(), vector4f2.getW());
                 }
 
-                if (dfbColorTexturesFlip.isChanged(1)) {
-                    EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36065, 3553, dfbColorTexturesFlip.getB(1), 0);
+                if (DFB_COLOR_TEXTURES_FLIP.isChanged(1)) {
+                    EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36065, 3553, DFB_COLOR_TEXTURES_FLIP.getB(1), 0);
                     GL20.glDrawBuffers(36065);
                     GL11.glClear(16384);
-                    EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36065, 3553, dfbColorTexturesFlip.getA(1), 0);
+                    EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36065, 3553, DFB_COLOR_TEXTURES_FLIP.getA(1), 0);
                 }
 
                 GL20.glDrawBuffers(36065);
@@ -3484,11 +3484,11 @@ public class Shaders {
                         GL11.glClearColor(vector4f1.getX(), vector4f1.getY(), vector4f1.getZ(), vector4f1.getW());
                     }
 
-                    if (dfbColorTexturesFlip.isChanged(i)) {
-                        EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36064 + i, 3553, dfbColorTexturesFlip.getB(i), 0);
+                    if (DFB_COLOR_TEXTURES_FLIP.isChanged(i)) {
+                        EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36064 + i, 3553, DFB_COLOR_TEXTURES_FLIP.getB(i), 0);
                         GL20.glDrawBuffers(36064 + i);
                         GL11.glClear(16384);
-                        EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36064 + i, 3553, dfbColorTexturesFlip.getA(i), 0);
+                        EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36064 + i, 3553, DFB_COLOR_TEXTURES_FLIP.getA(i), 0);
                     }
 
                     GL20.glDrawBuffers(36064 + i);
@@ -3496,7 +3496,7 @@ public class Shaders {
                 }
             }
 
-            setDrawBuffers(dfbDrawBuffers);
+            setDrawBuffers(DFB_DRAW_BUFFERS);
             checkFramebufferStatus("clear");
             checkGLError("clear");
         }
@@ -3511,14 +3511,14 @@ public class Shaders {
         cameraPositionX = d0 - cameraOffsetX;
         cameraPositionY = d1;
         cameraPositionZ = d2 - cameraOffsetZ;
-        GL11.glGetFloat(GL11.GL_PROJECTION_MATRIX, projection.position(0));
-        SMath.invertMat4FBFA(projectionInverse.position(0), projection.position(0), faProjectionInverse, faProjection);
-        projection.position(0);
-        projectionInverse.position(0);
-        GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, modelView.position(0));
-        SMath.invertMat4FBFA(modelViewInverse.position(0), modelView.position(0), faModelViewInverse, faModelView);
-        modelView.position(0);
-        modelViewInverse.position(0);
+        GL11.glGetFloat(GL11.GL_PROJECTION_MATRIX, PROJECTION.position(0));
+        SMath.invertMat4FBFA(PROJECTION_INVERSE.position(0), PROJECTION.position(0), FA_PROJECTION_INVERSE, FA_PROJECTION);
+        PROJECTION.position(0);
+        PROJECTION_INVERSE.position(0);
+        GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, MODEL_VIEW.position(0));
+        SMath.invertMat4FBFA(MODEL_VIEW_INVERSE.position(0), MODEL_VIEW.position(0), FA_MODEL_VIEW_INVERSE, FA_MODEL_VIEW);
+        MODEL_VIEW.position(0);
+        MODEL_VIEW_INVERSE.position(0);
         checkGLError("setCamera");
     }
 
@@ -3552,14 +3552,14 @@ public class Shaders {
         cameraPositionX = d0 - cameraOffsetX;
         cameraPositionY = d1;
         cameraPositionZ = d2 - cameraOffsetZ;
-        GL11.glGetFloat(GL11.GL_PROJECTION_MATRIX, projection.position(0));
-        SMath.invertMat4FBFA(projectionInverse.position(0), projection.position(0), faProjectionInverse, faProjection);
-        projection.position(0);
-        projectionInverse.position(0);
-        GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, modelView.position(0));
-        SMath.invertMat4FBFA(modelViewInverse.position(0), modelView.position(0), faModelViewInverse, faModelView);
-        modelView.position(0);
-        modelViewInverse.position(0);
+        GL11.glGetFloat(GL11.GL_PROJECTION_MATRIX, PROJECTION.position(0));
+        SMath.invertMat4FBFA(PROJECTION_INVERSE.position(0), PROJECTION.position(0), FA_PROJECTION_INVERSE, FA_PROJECTION);
+        PROJECTION.position(0);
+        PROJECTION_INVERSE.position(0);
+        GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, MODEL_VIEW.position(0));
+        SMath.invertMat4FBFA(MODEL_VIEW_INVERSE.position(0), MODEL_VIEW.position(0), FA_MODEL_VIEW_INVERSE, FA_MODEL_VIEW);
+        MODEL_VIEW.position(0);
+        MODEL_VIEW_INVERSE.position(0);
         GL11.glViewport(0, 0, shadowMapWidth, shadowMapHeight);
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
@@ -3612,24 +3612,24 @@ public class Shaders {
         SHADOW_LIGHT_POSITION_VECTOR[1] = f7;
         SHADOW_LIGHT_POSITION_VECTOR[2] = f8;
         SHADOW_LIGHT_POSITION_VECTOR[3] = 0.0F;
-        GL11.glGetFloat(GL11.GL_PROJECTION_MATRIX, shadowProjection.position(0));
-        SMath.invertMat4FBFA(shadowProjectionInverse.position(0), shadowProjection.position(0), faShadowProjectionInverse, faShadowProjection);
-        shadowProjection.position(0);
-        shadowProjectionInverse.position(0);
-        GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, shadowModelView.position(0));
-        SMath.invertMat4FBFA(shadowModelViewInverse.position(0), shadowModelView.position(0), faShadowModelViewInverse, faShadowModelView);
-        shadowModelView.position(0);
-        shadowModelViewInverse.position(0);
-        setProgramUniformMatrix4ARB(uniform_gbufferProjection, false, projection);
-        setProgramUniformMatrix4ARB(uniform_gbufferProjectionInverse, false, projectionInverse);
-        setProgramUniformMatrix4ARB(uniform_gbufferPreviousProjection, false, previousProjection);
-        setProgramUniformMatrix4ARB(uniform_gbufferModelView, false, modelView);
-        setProgramUniformMatrix4ARB(uniform_gbufferModelViewInverse, false, modelViewInverse);
-        setProgramUniformMatrix4ARB(uniform_gbufferPreviousModelView, false, previousModelView);
-        setProgramUniformMatrix4ARB(uniform_shadowProjection, false, shadowProjection);
-        setProgramUniformMatrix4ARB(uniform_shadowProjectionInverse, false, shadowProjectionInverse);
-        setProgramUniformMatrix4ARB(uniform_shadowModelView, false, shadowModelView);
-        setProgramUniformMatrix4ARB(uniform_shadowModelViewInverse, false, shadowModelViewInverse);
+        GL11.glGetFloat(GL11.GL_PROJECTION_MATRIX, SHADOW_PROJECTION.position(0));
+        SMath.invertMat4FBFA(SHADOW_PROJECTION_INVERSE.position(0), SHADOW_PROJECTION.position(0), FA_SHADOW_PROJECTION_INVERSE, FA_SHADOW_PROJECTION);
+        SHADOW_PROJECTION.position(0);
+        SHADOW_PROJECTION_INVERSE.position(0);
+        GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, SHADOW_MODEL_VIEW.position(0));
+        SMath.invertMat4FBFA(SHADOW_MODEL_VIEW_INVERSE.position(0), SHADOW_MODEL_VIEW.position(0), FA_SHADOW_MODEL_VIEW_INVERSE, FA_SHADOW_MODEL_VIEW);
+        SHADOW_MODEL_VIEW.position(0);
+        SHADOW_MODEL_VIEW_INVERSE.position(0);
+        setProgramUniformMatrix4ARB(UNIFORM_GBUFFER_PROJECTION, false, PROJECTION);
+        setProgramUniformMatrix4ARB(UNIFORM_GBUFFER_PROJECTION_INVERSE, false, PROJECTION_INVERSE);
+        setProgramUniformMatrix4ARB(UNIFORM_GBUFFER_PREVIOUS_PROJECTION, false, PREVIOUS_PROJECTION);
+        setProgramUniformMatrix4ARB(UNIFORM_GBUFFER_MODEL_VIEW, false, MODEL_VIEW);
+        setProgramUniformMatrix4ARB(UNIFORM_GBUFFER_MODEL_VIEW_INVERSE, false, MODEL_VIEW_INVERSE);
+        setProgramUniformMatrix4ARB(UNIFORM_GBUFFER_PREVIOUS_MODEL_VIEW, false, PREVIOUS_MODEL_VIEW);
+        setProgramUniformMatrix4ARB(UNIFORM_SHADOW_PROJECTION, false, SHADOW_PROJECTION);
+        setProgramUniformMatrix4ARB(UNIFORM_SHADOW_PROJECTION_INVERSE, false, SHADOW_PROJECTION_INVERSE);
+        setProgramUniformMatrix4ARB(UNIFORM_SHADOW_MODEL_VIEW, false, SHADOW_MODEL_VIEW);
+        setProgramUniformMatrix4ARB(UNIFORM_SHADOW_MODEL_VIEW_INVERSE, false, SHADOW_MODEL_VIEW_INVERSE);
         mc.gameSettings.thirdPersonView = 1;
         checkGLError("setCamera");
     }
@@ -3640,16 +3640,16 @@ public class Shaders {
     }
 
     public static void postCelestialRotate() {
-        FloatBuffer floatbuffer = tempMatrixDirectBuffer;
+        FloatBuffer floatbuffer = TEMP_MATRIX_DIRECT_BUFFER;
         floatbuffer.clear();
         GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, floatbuffer);
         floatbuffer.get(TEMP_MAT, 0, 16);
         SMath.multiplyMat4xVec4(SUN_POSITION, TEMP_MAT, SUN_POS_MODEL_VIEW);
         SMath.multiplyMat4xVec4(MOON_POSITION, TEMP_MAT, MOON_POS_MODEL_VIEW);
         System.arraycopy(shadowAngle == sunAngle ? SUN_POSITION : MOON_POSITION, 0, SHADOW_LIGHT_POSITION, 0, 3);
-        setProgramUniform3f(uniform_sunPosition, SUN_POSITION[0], SUN_POSITION[1], SUN_POSITION[2]);
-        setProgramUniform3f(uniform_moonPosition, MOON_POSITION[0], MOON_POSITION[1], MOON_POSITION[2]);
-        setProgramUniform3f(uniform_shadowLightPosition, SHADOW_LIGHT_POSITION[0], SHADOW_LIGHT_POSITION[1], SHADOW_LIGHT_POSITION[2]);
+        setProgramUniform3f(UNIFORM_SUN_POSITION, SUN_POSITION[0], SUN_POSITION[1], SUN_POSITION[2]);
+        setProgramUniform3f(UNIFORM_MOON_POSITION, MOON_POSITION[0], MOON_POSITION[1], MOON_POSITION[2]);
+        setProgramUniform3f(UNIFORM_SHADOW_LIGHT_POSITION, SHADOW_LIGHT_POSITION[0], SHADOW_LIGHT_POSITION[1], SHADOW_LIGHT_POSITION[2]);
 
         if (customUniforms != null) {
             customUniforms.update();
@@ -3659,12 +3659,12 @@ public class Shaders {
     }
 
     public static void setUpPosition() {
-        FloatBuffer floatbuffer = tempMatrixDirectBuffer;
+        FloatBuffer floatbuffer = TEMP_MATRIX_DIRECT_BUFFER;
         floatbuffer.clear();
         GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, floatbuffer);
         floatbuffer.get(TEMP_MAT, 0, 16);
         SMath.multiplyMat4xVec4(UP_POSITION, TEMP_MAT, UP_POS_MODEL_VIEW);
-        setProgramUniform3f(uniform_upPosition, UP_POSITION[0], UP_POSITION[1], UP_POSITION[2]);
+        setProgramUniform3f(UNIFORM_UP_POSITION, UP_POSITION[0], UP_POSITION[1], UP_POSITION[2]);
 
         if (customUniforms != null) {
             customUniforms.update();
@@ -3675,7 +3675,7 @@ public class Shaders {
         if (hasGlGenMipmap) {
             for (int i = 0; i < usedColorBuffers; ++i) {
                 if ((activeCompositeMipmapSetting & 1 << i) != 0) {
-                    GlStateManager.setActiveTexture(33984 + colorTextureImageUnit[i]);
+                    GlStateManager.setActiveTexture(33984 + COLOR_TEXTURE_IMAGE_UNIT[i]);
                     GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_LINEAR);
                     GL30.glGenerateMipmap(3553);
                 }
@@ -3692,11 +3692,11 @@ public class Shaders {
 
         if (i > 1) {
             for (int j = 1; j < i; ++j) {
-                uniform_instanceId.setValue(j);
+                UNIFORM_INSTANCE_ID.setValue(j);
                 drawCompositeQuad();
             }
 
-            uniform_instanceId.setValue(0);
+            UNIFORM_INSTANCE_ID.setValue(0);
         }
     }
 
@@ -3740,13 +3740,13 @@ public class Shaders {
                 bindGbuffersTextures();
 
                 for (int i = 0; i < usedColorBuffers; ++i) {
-                    EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36064 + i, 3553, dfbColorTexturesFlip.getA(i), 0);
+                    EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36064 + i, 3553, DFB_COLOR_TEXTURES_FLIP.getA(i), 0);
                 }
 
                 if (PROGRAM_WATER.getDrawBuffers() != null) {
                     setDrawBuffers(PROGRAM_WATER.getDrawBuffers());
                 } else {
-                    setDrawBuffers(dfbDrawBuffers);
+                    setDrawBuffers(DFB_DRAW_BUFFERS);
                 }
 
                 GlStateManager.setActiveTexture(33984);
@@ -3769,7 +3769,7 @@ public class Shaders {
 
         for (int i = 0; i < usedColorBuffers; ++i) {
             if (Config.isTrue(aboolean[i])) {
-                dfbColorTexturesFlip.flip(i);
+                DFB_COLOR_TEXTURES_FLIP.flip(i);
                 flag = true;
             }
         }
@@ -3796,35 +3796,35 @@ public class Shaders {
 
             if (usedShadowDepthBuffers >= 1) {
                 GlStateManager.setActiveTexture(33988);
-                GlStateManager.bindTexture(sfbDepthTextures.get(0));
+                GlStateManager.bindTexture(SFB_DEPTH_TEXTURES.get(0));
 
                 if (usedShadowDepthBuffers >= 2) {
                     GlStateManager.setActiveTexture(33989);
-                    GlStateManager.bindTexture(sfbDepthTextures.get(1));
+                    GlStateManager.bindTexture(SFB_DEPTH_TEXTURES.get(1));
                 }
             }
 
             for (int i = 0; i < usedColorBuffers; ++i) {
-                GlStateManager.setActiveTexture(33984 + colorTextureImageUnit[i]);
-                GlStateManager.bindTexture(dfbColorTexturesFlip.getA(i));
+                GlStateManager.setActiveTexture(33984 + COLOR_TEXTURE_IMAGE_UNIT[i]);
+                GlStateManager.bindTexture(DFB_COLOR_TEXTURES_FLIP.getA(i));
             }
 
             GlStateManager.setActiveTexture(33990);
-            GlStateManager.bindTexture(dfbDepthTextures.get(0));
+            GlStateManager.bindTexture(DFB_DEPTH_TEXTURES.get(0));
 
             if (usedDepthBuffers >= 2) {
                 GlStateManager.setActiveTexture(33995);
-                GlStateManager.bindTexture(dfbDepthTextures.get(1));
+                GlStateManager.bindTexture(DFB_DEPTH_TEXTURES.get(1));
 
                 if (usedDepthBuffers >= 3) {
                     GlStateManager.setActiveTexture(33996);
-                    GlStateManager.bindTexture(dfbDepthTextures.get(2));
+                    GlStateManager.bindTexture(DFB_DEPTH_TEXTURES.get(2));
                 }
             }
 
             for (int k = 0; k < usedShadowColorBuffers; ++k) {
                 GlStateManager.setActiveTexture(33997 + k);
-                GlStateManager.bindTexture(sfbColorTextures.get(k));
+                GlStateManager.bindTexture(SFB_COLOR_TEXTURES.get(k));
             }
 
             if (noiseTextureEnabled) {
@@ -3841,11 +3841,11 @@ public class Shaders {
             GlStateManager.setActiveTexture(33984);
 
             for (int l = 0; l < usedColorBuffers; ++l) {
-                EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36064 + l, 3553, dfbColorTexturesFlip.getB(l), 0);
+                EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36064 + l, 3553, DFB_COLOR_TEXTURES_FLIP.getB(l), 0);
             }
 
-            EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36096, 3553, dfbDepthTextures.get(0), 0);
-            GL20.glDrawBuffers(dfbDrawBuffers);
+            EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36096, 3553, DFB_DEPTH_TEXTURES.get(0), 0);
+            GL20.glDrawBuffers(DFB_DRAW_BUFFERS);
             checkGLError("pre-composite");
 
             for (Program program : ps) {
@@ -3863,10 +3863,10 @@ public class Shaders {
 
                     for (int j = 0; j < usedColorBuffers; ++j) {
                         if (program.getToggleColorTextures()[j]) {
-                            dfbColorTexturesFlip.flip(j);
-                            GlStateManager.setActiveTexture(33984 + colorTextureImageUnit[j]);
-                            GlStateManager.bindTexture(dfbColorTexturesFlip.getA(j));
-                            EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36064 + j, 3553, dfbColorTexturesFlip.getB(j), 0);
+                            DFB_COLOR_TEXTURES_FLIP.flip(j);
+                            GlStateManager.setActiveTexture(33984 + COLOR_TEXTURE_IMAGE_UNIT[j]);
+                            GlStateManager.bindTexture(DFB_COLOR_TEXTURES_FLIP.getA(j));
+                            EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36064 + j, 3553, DFB_COLOR_TEXTURES_FLIP.getB(j), 0);
                         }
                     }
 
@@ -3961,7 +3961,7 @@ public class Shaders {
     public static void beginSky() {
         isRenderingSky = true;
         fogEnabled = true;
-        setDrawBuffers(dfbDrawBuffers);
+        setDrawBuffers(DFB_DRAW_BUFFERS);
         useProgram(PROGRAM_SKY_TEXTURED);
         pushEntity(-2, 0);
     }
@@ -3970,7 +3970,7 @@ public class Shaders {
         skyColorR = (float) v3color.xCoord;
         skyColorG = (float) v3color.yCoord;
         skyColorB = (float) v3color.zCoord;
-        setProgramUniform3f(uniform_skyColor, skyColorR, skyColorG, skyColorB);
+        setProgramUniform3f(UNIFORM_SKY_COLOR, skyColorR, skyColorG, skyColorB);
     }
 
     public static void drawHorizon() {
@@ -4031,7 +4031,7 @@ public class Shaders {
 
     public static void endSky() {
         isRenderingSky = false;
-        setDrawBuffers(dfbDrawBuffers);
+        setDrawBuffers(DFB_DRAW_BUFFERS);
         useProgram(lightmapEnabled ? PROGRAM_TEXTURED_LIT : PROGRAM_TEXTURED);
         popEntity();
     }
@@ -4153,7 +4153,7 @@ public class Shaders {
             ShadersTex.bindTexture(defaultTexture);
 
             if (!isShadowPass) {
-                setDrawBuffers(drawBuffersColorAtt0);
+                setDrawBuffers(DRAW_BUFFERS_COLOR_ATT_0);
             }
         }
     }
@@ -4231,9 +4231,9 @@ public class Shaders {
 
     public static void readCenterDepth() {
         if (!isShadowPass && centerDepthSmoothEnabled) {
-            tempDirectFloatBuffer.clear();
-            GL11.glReadPixels(renderWidth / 2, renderHeight / 2, 1, 1, GL11.GL_DEPTH_COMPONENT, GL11.GL_FLOAT, tempDirectFloatBuffer);
-            centerDepth = tempDirectFloatBuffer.get(0);
+            TEMP_DIRECT_FLOAT_BUFFER.clear();
+            GL11.glReadPixels(renderWidth / 2, renderHeight / 2, 1, 1, GL11.GL_DEPTH_COMPONENT, GL11.GL_FLOAT, TEMP_DIRECT_FLOAT_BUFFER);
+            centerDepth = TEMP_DIRECT_FLOAT_BUFFER.get(0);
             float f = diffSystemTime * 0.01F;
             float f1 = (float) Math.exp(Math.log(0.5D) * f / centerDepthSmoothHalflife);
             centerDepthSmooth = centerDepthSmooth * f1 + centerDepth * (1.0F - f1);
@@ -4394,11 +4394,11 @@ public class Shaders {
     }
 
     public static void pushProgram() {
-        programStack.push(activeProgram);
+        PROGRAM_STACK.push(activeProgram);
     }
 
     public static void popProgram() {
-        Program program = programStack.pop();
+        Program program = PROGRAM_STACK.pop();
         useProgram(program);
     }
 
@@ -4413,20 +4413,20 @@ public class Shaders {
 
     public static void enableFog() {
         fogEnabled = true;
-        setProgramUniform1i(uniform_fogMode, fogMode);
-        setProgramUniform1f(uniform_fogDensity, fogDensity);
+        setProgramUniform1i(UNIFORM_FOG_MODE, fogMode);
+        setProgramUniform1f(UNIFORM_FOG_DENSITY, fogDensity);
     }
 
     public static void disableFog() {
         fogEnabled = false;
-        setProgramUniform1i(uniform_fogMode, 0);
+        setProgramUniform1i(UNIFORM_FOG_MODE, 0);
     }
 
     public static void setFogDensity(float value) {
         fogDensity = value;
 
         if (fogEnabled) {
-            setProgramUniform1f(uniform_fogDensity, value);
+            setProgramUniform1f(UNIFORM_FOG_DENSITY, value);
         }
     }
 
@@ -4437,7 +4437,7 @@ public class Shaders {
             fogMode = param;
 
             if (fogEnabled) {
-                setProgramUniform1i(uniform_fogMode, fogMode);
+                setProgramUniform1i(UNIFORM_FOG_MODE, fogMode);
             }
         }
     }
@@ -4459,45 +4459,45 @@ public class Shaders {
     }
 
     public static int getEntityData() {
-        return entityData[entityDataIndex * 2];
+        return ENTITY_DATA[entityDataIndex * 2];
     }
 
     public static int getEntityData2() {
-        return entityData[entityDataIndex * 2 + 1];
+        return ENTITY_DATA[entityDataIndex * 2 + 1];
     }
 
     public static int setEntityData1(int data1) {
-        entityData[entityDataIndex * 2] = entityData[entityDataIndex * 2] & 65535 | data1 << 16;
+        ENTITY_DATA[entityDataIndex * 2] = ENTITY_DATA[entityDataIndex * 2] & 65535 | data1 << 16;
         return data1;
     }
 
     public static int setEntityData2(int data2) {
-        entityData[entityDataIndex * 2 + 1] = entityData[entityDataIndex * 2 + 1] & -65536 | data2 & 65535;
+        ENTITY_DATA[entityDataIndex * 2 + 1] = ENTITY_DATA[entityDataIndex * 2 + 1] & -65536 | data2 & 65535;
         return data2;
     }
 
     public static void pushEntity(int data0, int data1) {
         ++entityDataIndex;
-        entityData[entityDataIndex * 2] = data0 & 65535 | data1 << 16;
-        entityData[entityDataIndex * 2 + 1] = 0;
+        ENTITY_DATA[entityDataIndex * 2] = data0 & 65535 | data1 << 16;
+        ENTITY_DATA[entityDataIndex * 2 + 1] = 0;
     }
 
     public static void pushEntity(int data0) {
         ++entityDataIndex;
-        entityData[entityDataIndex * 2] = data0 & 65535;
-        entityData[entityDataIndex * 2 + 1] = 0;
+        ENTITY_DATA[entityDataIndex * 2] = data0 & 65535;
+        ENTITY_DATA[entityDataIndex * 2 + 1] = 0;
     }
 
     public static void pushEntity(Block block) {
         ++entityDataIndex;
         int i = block.getRenderType();
-        entityData[entityDataIndex * 2] = Block.blockRegistry.getIDForObject(block) & 65535 | i << 16;
-        entityData[entityDataIndex * 2 + 1] = 0;
+        ENTITY_DATA[entityDataIndex * 2] = Block.blockRegistry.getIDForObject(block) & 65535 | i << 16;
+        ENTITY_DATA[entityDataIndex * 2 + 1] = 0;
     }
 
     public static void popEntity() {
-        entityData[entityDataIndex * 2] = 0;
-        entityData[entityDataIndex * 2 + 1] = 0;
+        ENTITY_DATA[entityDataIndex * 2] = 0;
+        ENTITY_DATA[entityDataIndex * 2 + 1] = 0;
         --entityDataIndex;
     }
 
@@ -4711,6 +4711,6 @@ public class Shaders {
 
     static {
         SHADER_PACKS_DIR = new File(Minecraft.getMinecraft().mcDataDir, "shaderpacks");
-        configFile = new File(Minecraft.getMinecraft().mcDataDir, "optionsshaders.txt");
+        CONFIG_FILE = new File(Minecraft.getMinecraft().mcDataDir, "optionsshaders.txt");
     }
 }

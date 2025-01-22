@@ -98,7 +98,7 @@ public class EntityFallingBlock extends Entity {
                     this.motionZ *= 0.699999988079071D;
                     this.motionY *= -0.5D;
 
-                    if (this.worldObj.getBlockState(blockpos1).getBlock() != Blocks.piston_extension) {
+                    if (this.worldObj.getBlockState(blockpos1).getBlock() != Blocks.PISTON_EXTENSION) {
                         this.setDead();
 
                         if (!this.canSetAsBlock) {
@@ -150,7 +150,7 @@ public class EntityFallingBlock extends Entity {
 
             if (i > 0) {
                 List<Entity> list = Lists.newArrayList(this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox()));
-                boolean flag = block == Blocks.anvil;
+                boolean flag = block == Blocks.ANVIL;
                 DamageSource damagesource = flag ? DamageSource.ANVIL : DamageSource.FALLING_BLOCK;
 
                 for (Entity entity : list) {
@@ -172,7 +172,7 @@ public class EntityFallingBlock extends Entity {
     }
 
     protected void writeEntityToNBT(NBTTagCompound tagCompound) {
-        Block block = this.fallTile != null ? this.fallTile.getBlock() : Blocks.air;
+        Block block = this.fallTile != null ? this.fallTile.getBlock() : Blocks.AIR;
         ResourceLocation resourcelocation = Block.blockRegistry.getNameForObject(block);
         tagCompound.setString("Block", resourcelocation == null ? "" : resourcelocation.toString());
         tagCompound.setByte("Data", (byte) block.getMetaFromState(this.fallTile));
@@ -205,7 +205,7 @@ public class EntityFallingBlock extends Entity {
             this.hurtEntities = tagCompund.getBoolean("HurtEntities");
             this.fallHurtAmount = tagCompund.getFloat("FallHurtAmount");
             this.fallHurtMax = tagCompund.getInteger("FallHurtMax");
-        } else if (block == Blocks.anvil) {
+        } else if (block == Blocks.ANVIL) {
             this.hurtEntities = true;
         }
 
@@ -218,7 +218,7 @@ public class EntityFallingBlock extends Entity {
         }
 
         if (block == null || block.getMaterial() == Material.AIR) {
-            this.fallTile = Blocks.sand.getDefaultState();
+            this.fallTile = Blocks.SAND.getDefaultState();
         }
     }
 

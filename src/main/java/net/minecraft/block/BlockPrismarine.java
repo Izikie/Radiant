@@ -30,7 +30,7 @@ public class BlockPrismarine extends Block {
     }
 
     public MapColor getMapColor(IBlockState state) {
-        return state.getValue(VARIANT) == PrismarineType.ROUGH ? MapColor.cyanColor : MapColor.diamondColor;
+        return state.getValue(VARIANT) == PrismarineType.ROUGH ? MapColor.CYAN_COLOR : MapColor.DIAMOND_COLOR;
     }
 
     public int damageDropped(IBlockState state) {

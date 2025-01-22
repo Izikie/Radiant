@@ -221,7 +221,7 @@ public class ShadersTex {
             }
 
             if (Shaders.atlasSizeX != j || Shaders.atlasSizeY != k) {
-                Shaders.uniform_atlasSize.setValue(Shaders.atlasSizeX, Shaders.atlasSizeY);
+                Shaders.UNIFORM_ATLAS_SIZE.setValue(Shaders.atlasSizeX, Shaders.atlasSizeY);
             }
         }
     }

@@ -47,7 +47,7 @@ public class BlockFarmland extends Block {
             if (i > 0) {
                 worldIn.setBlockState(pos, state.withProperty(MOISTURE, i - 1), 2);
             } else if (!this.hasCrops(worldIn, pos)) {
-                worldIn.setBlockState(pos, Blocks.dirt.getDefaultState());
+                worldIn.setBlockState(pos, Blocks.DIRT.getDefaultState());
             }
         } else if (i < 7) {
             worldIn.setBlockState(pos, state.withProperty(MOISTURE, 7), 2);
@@ -61,7 +61,7 @@ public class BlockFarmland extends Block {
                     return;
                 }
 
-                worldIn.setBlockState(pos, Blocks.dirt.getDefaultState());
+                worldIn.setBlockState(pos, Blocks.DIRT.getDefaultState());
             }
 
             super.onFallenUpon(worldIn, pos, entityIn, fallDistance);
@@ -87,7 +87,7 @@ public class BlockFarmland extends Block {
         super.onNeighborBlockChange(worldIn, pos, state, neighborBlock);
 
         if (worldIn.getBlockState(pos.up()).getBlock().getMaterial().isSolid()) {
-            worldIn.setBlockState(pos, Blocks.dirt.getDefaultState());
+            worldIn.setBlockState(pos, Blocks.DIRT.getDefaultState());
         }
     }
 
@@ -96,18 +96,18 @@ public class BlockFarmland extends Block {
             case UP -> true;
             case NORTH, SOUTH, WEST, EAST -> {
                 Block block = worldIn.getBlockState(pos).getBlock();
-                yield !block.isOpaqueCube() && block != Blocks.farmland;
+                yield !block.isOpaqueCube() && block != Blocks.FARMLAND;
             }
             default -> super.shouldSideBeRendered(worldIn, pos, side);
         };
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Blocks.dirt.getItemDropped(Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT), rand, fortune);
+        return Blocks.DIRT.getItemDropped(Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT), rand, fortune);
     }
 
     public Item getItem(World worldIn, BlockPos pos) {
-        return Item.getItemFromBlock(Blocks.dirt);
+        return Item.getItemFromBlock(Blocks.DIRT);
     }
 
     public IBlockState getStateFromMeta(int meta) {

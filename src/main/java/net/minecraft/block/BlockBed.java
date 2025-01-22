@@ -122,7 +122,7 @@ public class BlockBed extends BlockDirectional {
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return state.getValue(PART) == BlockBed.EnumPartType.HEAD ? null : Items.bed;
+        return state.getValue(PART) == BlockBed.EnumPartType.HEAD ? null : Items.BED;
     }
 
     private void setBedBounds() {
@@ -178,7 +178,7 @@ public class BlockBed extends BlockDirectional {
     }
 
     public Item getItem(World worldIn, BlockPos pos) {
-        return Items.bed;
+        return Items.BED;
     }
 
     public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {

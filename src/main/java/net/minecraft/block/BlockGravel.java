@@ -13,10 +13,10 @@ public class BlockGravel extends BlockFalling {
             fortune = 3;
         }
 
-        return rand.nextInt(10 - fortune * 3) == 0 ? Items.flint : Item.getItemFromBlock(this);
+        return rand.nextInt(10 - fortune * 3) == 0 ? Items.FLINT : Item.getItemFromBlock(this);
     }
 
     public MapColor getMapColor(IBlockState state) {
-        return MapColor.stoneColor;
+        return MapColor.STONE_COLOR;
     }
 }

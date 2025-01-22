@@ -24,10 +24,10 @@ public class TileEntityItemStackRenderer {
     private final TileEntitySkull skull = new TileEntitySkull();
 
     public void renderByItem(ItemStack itemStackIn) {
-        if (itemStackIn.getItem() == Items.banner) {
+        if (itemStackIn.getItem() == Items.BANNER) {
             this.banner.setItemValues(itemStackIn);
             TileEntityRendererDispatcher.INSTANCE.renderTileEntityAt(this.banner, 0.0D, 0.0D, 0.0D, 0.0F);
-        } else if (itemStackIn.getItem() == Items.skull) {
+        } else if (itemStackIn.getItem() == Items.SKULL) {
             GameProfile gameprofile = null;
 
             if (itemStackIn.hasTagCompound()) {
@@ -55,9 +55,9 @@ public class TileEntityItemStackRenderer {
         } else {
             Block block = Block.getBlockFromItem(itemStackIn.getItem());
 
-            if (block == Blocks.ender_chest) {
+            if (block == Blocks.ENDER_CHEST) {
                 TileEntityRendererDispatcher.INSTANCE.renderTileEntityAt(this.enderChest, 0.0D, 0.0D, 0.0D, 0.0F);
-            } else if (block == Blocks.trapped_chest) {
+            } else if (block == Blocks.TRAPPED_CHEST) {
                 TileEntityRendererDispatcher.INSTANCE.renderTileEntityAt(this.field_147718_c, 0.0D, 0.0D, 0.0D, 0.0F);
             } else {
                 TileEntityRendererDispatcher.INSTANCE.renderTileEntityAt(this.field_147717_b, 0.0D, 0.0D, 0.0D, 0.0F);

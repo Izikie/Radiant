@@ -65,7 +65,7 @@ public class DynamicLight {
                 this.blockPosMutable.set(MathHelper.floor_double(d6), MathHelper.floor_double(d0), MathHelper.floor_double(d1));
                 IBlockState iblockstate = world.getBlockState(this.blockPosMutable);
                 Block block = iblockstate.getBlock();
-                this.underwater = block == Blocks.water;
+                this.underwater = block == Blocks.WATER;
             }
 
             Set<BlockPos> set = new HashSet();

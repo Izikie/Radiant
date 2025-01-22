@@ -28,7 +28,7 @@ public class BlockBreakable extends Block {
         IBlockState iblockstate = worldIn.getBlockState(pos);
         Block block = iblockstate.getBlock();
 
-        if (this == Blocks.glass || this == Blocks.stained_glass) {
+        if (this == Blocks.GLASS || this == Blocks.STAINED_GLASS) {
             if (worldIn.getBlockState(pos.offset(side.getOpposite())) != iblockstate) {
                 return true;
             }

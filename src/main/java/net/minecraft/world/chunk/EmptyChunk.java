@@ -34,7 +34,7 @@ public class EmptyChunk extends Chunk {
     }
 
     public Block getBlock(BlockPos pos) {
-        return Blocks.air;
+        return Blocks.AIR;
     }
 
     public int getBlockLightOpacity(BlockPos pos) {

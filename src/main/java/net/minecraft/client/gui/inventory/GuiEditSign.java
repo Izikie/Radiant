@@ -94,7 +94,7 @@ public class GuiEditSign extends GuiScreen {
         GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
         Block block = this.tileSign.getBlockType();
 
-        if (block == Blocks.standing_sign) {
+        if (block == Blocks.STANDING_SIGN) {
             float f1 = (this.tileSign.getBlockMetadata() * 360) / 16.0F;
             GlStateManager.rotate(f1, 0.0F, 1.0F, 0.0F);
             GlStateManager.translate(0.0F, -1.0625F, 0.0F);

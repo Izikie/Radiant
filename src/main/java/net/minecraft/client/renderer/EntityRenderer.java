@@ -534,7 +534,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 IBlockState iblockstate = this.mc.theWorld.getBlockState(blockpos);
                 Block block = iblockstate.getBlock();
 
-                if (block == Blocks.bed) {
+                if (block == Blocks.BED) {
                     int j = iblockstate.getValue(BlockBed.FACING).getHorizontalIndex();
                     GlStateManager.rotate((j * 90), 0.0F, 1.0F, 0.0F);
                 }

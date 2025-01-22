@@ -96,7 +96,7 @@ public class EntityBoat extends Entity {
                     }
 
                     if (!flag && this.worldObj.getGameRules().getBoolean("doEntityDrops")) {
-                        this.dropItemWithOffset(Items.boat, 1, 0.0F);
+                        this.dropItemWithOffset(Items.BOAT, 1, 0.0F);
                     }
 
                     this.setDead();
@@ -290,10 +290,10 @@ public class EntityBoat extends Entity {
                     BlockPos blockpos = new BlockPos(l1, l, i2);
                     Block block = this.worldObj.getBlockState(blockpos).getBlock();
 
-                    if (block == Blocks.snow_layer) {
+                    if (block == Blocks.SNOW_LAYER) {
                         this.worldObj.setBlockToAir(blockpos);
                         this.isCollidedHorizontally = false;
-                    } else if (block == Blocks.waterlily) {
+                    } else if (block == Blocks.WATERLILY) {
                         this.worldObj.destroyBlock(blockpos, true);
                         this.isCollidedHorizontally = false;
                     }
@@ -314,11 +314,11 @@ public class EntityBoat extends Entity {
 
                     if (this.worldObj.getGameRules().getBoolean("doEntityDrops")) {
                         for (int j1 = 0; j1 < 3; ++j1) {
-                            this.dropItemWithOffset(Item.getItemFromBlock(Blocks.planks), 1, 0.0F);
+                            this.dropItemWithOffset(Item.getItemFromBlock(Blocks.PLANKS), 1, 0.0F);
                         }
 
                         for (int k1 = 0; k1 < 2; ++k1) {
-                            this.dropItemWithOffset(Items.stick, 1, 0.0F);
+                            this.dropItemWithOffset(Items.STICK, 1, 0.0F);
                         }
                     }
                 }
@@ -403,11 +403,11 @@ public class EntityBoat extends Entity {
 
                     if (this.worldObj.getGameRules().getBoolean("doEntityDrops")) {
                         for (int i = 0; i < 3; ++i) {
-                            this.dropItemWithOffset(Item.getItemFromBlock(Blocks.planks), 1, 0.0F);
+                            this.dropItemWithOffset(Item.getItemFromBlock(Blocks.PLANKS), 1, 0.0F);
                         }
 
                         for (int j = 0; j < 2; ++j) {
-                            this.dropItemWithOffset(Items.stick, 1, 0.0F);
+                            this.dropItemWithOffset(Items.STICK, 1, 0.0F);
                         }
                     }
                 }

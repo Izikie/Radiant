@@ -24,7 +24,7 @@ public class ItemBucket extends Item {
     }
 
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
-        boolean flag = this.isFull == Blocks.air;
+        boolean flag = this.isFull == Blocks.AIR;
         MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(worldIn, playerIn, flag);
 
         if (movingobjectposition != null) {
@@ -45,18 +45,18 @@ public class ItemBucket extends Item {
 
                     if (material == Material.WATER && iblockstate.getValue(BlockLiquid.LEVEL) == 0) {
                         worldIn.setBlockToAir(blockpos);
-                        playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
-                        return this.fillBucket(itemStackIn, playerIn, Items.water_bucket);
+                        playerIn.triggerAchievement(StatList.OBJECT_USE_STATS[Item.getIdFromItem(this)]);
+                        return this.fillBucket(itemStackIn, playerIn, Items.WATER_BUCKET);
                     }
 
                     if (material == Material.LAVA && iblockstate.getValue(BlockLiquid.LEVEL) == 0) {
                         worldIn.setBlockToAir(blockpos);
-                        playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
-                        return this.fillBucket(itemStackIn, playerIn, Items.lava_bucket);
+                        playerIn.triggerAchievement(StatList.OBJECT_USE_STATS[Item.getIdFromItem(this)]);
+                        return this.fillBucket(itemStackIn, playerIn, Items.LAVA_BUCKET);
                     }
                 } else {
-                    if (this.isFull == Blocks.air) {
-                        return new ItemStack(Items.bucket);
+                    if (this.isFull == Blocks.AIR) {
+                        return new ItemStack(Items.BUCKET);
                     }
 
                     BlockPos blockpos1 = blockpos.offset(movingobjectposition.sideHit);
@@ -66,8 +66,8 @@ public class ItemBucket extends Item {
                     }
 
                     if (this.tryPlaceContainedLiquid(worldIn, blockpos1) && !playerIn.capabilities.isCreativeMode) {
-                        playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
-                        return new ItemStack(Items.bucket);
+                        playerIn.triggerAchievement(StatList.OBJECT_USE_STATS[Item.getIdFromItem(this)]);
+                        return new ItemStack(Items.BUCKET);
                     }
                 }
             }
@@ -91,7 +91,7 @@ public class ItemBucket extends Item {
     }
 
     public boolean tryPlaceContainedLiquid(World worldIn, BlockPos pos) {
-        if (this.isFull == Blocks.air) {
+        if (this.isFull == Blocks.AIR) {
             return false;
         } else {
             Material material = worldIn.getBlockState(pos).getBlock().getMaterial();
@@ -100,7 +100,7 @@ public class ItemBucket extends Item {
             if (!worldIn.isAirBlock(pos) && !flag) {
                 return false;
             } else {
-                if (worldIn.provider.doesWaterVaporize() && this.isFull == Blocks.flowing_water) {
+                if (worldIn.provider.doesWaterVaporize() && this.isFull == Blocks.FLOWING_WATER) {
                     int i = pos.getX();
                     int j = pos.getY();
                     int k = pos.getZ();

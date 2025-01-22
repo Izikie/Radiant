@@ -1303,7 +1303,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         } else if ("MC|BOpen".equals(packetIn.getChannelName())) {
             ItemStack itemstack = this.gameController.thePlayer.getCurrentEquippedItem();
 
-            if (itemstack != null && itemstack.getItem() == Items.written_book) {
+            if (itemstack != null && itemstack.getItem() == Items.WRITTEN_BOOK) {
                 this.gameController.displayGuiScreen(new GuiScreenBook(this.gameController.thePlayer, itemstack, false));
             }
         }

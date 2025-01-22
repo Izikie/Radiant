@@ -14,7 +14,7 @@ public class WorldGenTallGrass extends WorldGenerator {
     private final IBlockState tallGrassState;
 
     public WorldGenTallGrass(BlockTallGrass.EnumType p_i45629_1_) {
-        this.tallGrassState = Blocks.tallgrass.getDefaultState().withProperty(BlockTallGrass.TYPE, p_i45629_1_);
+        this.tallGrassState = Blocks.TALL_GRASS.getDefaultState().withProperty(BlockTallGrass.TYPE, p_i45629_1_);
     }
 
     public boolean generate(World worldIn, Random rand, BlockPos position) {
@@ -27,7 +27,7 @@ public class WorldGenTallGrass extends WorldGenerator {
         for (int i = 0; i < 128; ++i) {
             BlockPos blockpos = position.add(rand.nextInt(8) - rand.nextInt(8), rand.nextInt(4) - rand.nextInt(4), rand.nextInt(8) - rand.nextInt(8));
 
-            if (worldIn.isAirBlock(blockpos) && Blocks.tallgrass.canBlockStay(worldIn, blockpos, this.tallGrassState)) {
+            if (worldIn.isAirBlock(blockpos) && Blocks.TALL_GRASS.canBlockStay(worldIn, blockpos, this.tallGrassState)) {
                 worldIn.setBlockState(blockpos, this.tallGrassState, 2);
             }
         }

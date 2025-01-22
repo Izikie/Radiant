@@ -58,9 +58,9 @@ public class EntityRabbit extends EntityAnimal {
         this.navigator.setHeightRequirement(2.5F);
         this.tasks.addTask(1, new EntityAISwimming(this));
         this.tasks.addTask(1, new EntityRabbit.AIPanic(this, 1.33D));
-        this.tasks.addTask(2, new EntityAITempt(this, 1.0D, Items.carrot, false));
-        this.tasks.addTask(2, new EntityAITempt(this, 1.0D, Items.golden_carrot, false));
-        this.tasks.addTask(2, new EntityAITempt(this, 1.0D, Item.getItemFromBlock(Blocks.yellow_flower), false));
+        this.tasks.addTask(2, new EntityAITempt(this, 1.0D, Items.CARROT, false));
+        this.tasks.addTask(2, new EntityAITempt(this, 1.0D, Items.GOLDEN_CARROT, false));
+        this.tasks.addTask(2, new EntityAITempt(this, 1.0D, Item.getItemFromBlock(Blocks.YELLOW_FLOWER), false));
         this.tasks.addTask(3, new EntityAIMate(this, 0.8D));
         this.tasks.addTask(5, new EntityRabbit.AIRaidFarm(this));
         this.tasks.addTask(5, new EntityAIWander(this, 0.6D));
@@ -266,29 +266,29 @@ public class EntityRabbit extends EntityAnimal {
     }
 
     protected void addRandomDrop() {
-        this.entityDropItem(new ItemStack(Items.rabbit_foot, 1), 0.0F);
+        this.entityDropItem(new ItemStack(Items.RABBIT_FOOT, 1), 0.0F);
     }
 
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
         int i = this.rand.nextInt(2) + this.rand.nextInt(1 + lootingModifier);
 
         for (int j = 0; j < i; ++j) {
-            this.dropItem(Items.rabbit_hide, 1);
+            this.dropItem(Items.RABBIT_HIDE, 1);
         }
 
         i = this.rand.nextInt(2);
 
         for (int k = 0; k < i; ++k) {
             if (this.isBurning()) {
-                this.dropItem(Items.cooked_rabbit, 1);
+                this.dropItem(Items.COOKED_RABBIT, 1);
             } else {
-                this.dropItem(Items.rabbit, 1);
+                this.dropItem(Items.RABBIT, 1);
             }
         }
     }
 
     private boolean isRabbitBreedingItem(Item itemIn) {
-        return itemIn == Items.carrot || itemIn == Items.golden_carrot || itemIn == Item.getItemFromBlock(Blocks.yellow_flower);
+        return itemIn == Items.CARROT || itemIn == Items.GOLDEN_CARROT || itemIn == Item.getItemFromBlock(Blocks.YELLOW_FLOWER);
     }
 
     public EntityRabbit createChild(EntityAgeable ageable) {
@@ -355,7 +355,7 @@ public class EntityRabbit extends EntityAnimal {
     }
 
     protected void createEatingParticles() {
-        this.worldObj.spawnParticle(ParticleTypes.BLOCK_DUST, this.posX + (this.rand.nextFloat() * this.width * 2.0F) - this.width, this.posY + 0.5D + (this.rand.nextFloat() * this.height), this.posZ + (this.rand.nextFloat() * this.width * 2.0F) - this.width, 0.0D, 0.0D, 0.0D, Block.getStateId(Blocks.carrots.getStateFromMeta(7)));
+        this.worldObj.spawnParticle(ParticleTypes.BLOCK_DUST, this.posX + (this.rand.nextFloat() * this.width * 2.0F) - this.width, this.posY + 0.5D + (this.rand.nextFloat() * this.height), this.posZ + (this.rand.nextFloat() * this.width * 2.0F) - this.width, 0.0D, 0.0D, 0.0D, Block.getStateId(Blocks.CARROTS.getStateFromMeta(7)));
         this.carrotTicks = 100;
     }
 
@@ -452,7 +452,7 @@ public class EntityRabbit extends EntityAnimal {
                 Block block = iblockstate.getBlock();
 
                 if (this.field_179499_e && block instanceof BlockCarrot && iblockstate.getValue(BlockCarrot.AGE) == 7) {
-                    world.setBlockState(blockpos, Blocks.air.getDefaultState(), 2);
+                    world.setBlockState(blockpos, Blocks.AIR.getDefaultState(), 2);
                     world.destroyBlock(blockpos, true);
                     this.rabbit.createEatingParticles();
                 }
@@ -465,7 +465,7 @@ public class EntityRabbit extends EntityAnimal {
         protected boolean shouldMoveTo(World worldIn, BlockPos pos) {
             Block block = worldIn.getBlockState(pos).getBlock();
 
-            if (block == Blocks.farmland) {
+            if (block == Blocks.FARMLAND) {
                 pos = pos.up();
                 IBlockState iblockstate = worldIn.getBlockState(pos);
                 block = iblockstate.getBlock();

@@ -132,12 +132,12 @@ public class EntityTrackerEntry {
             ItemStack itemstack = entityitemframe.getDisplayedItem();
 
             if (itemstack != null && itemstack.getItem() instanceof ItemMap) {
-                MapData mapdata = Items.filled_map.getMapData(itemstack, this.trackedEntity.worldObj);
+                MapData mapdata = Items.FILLED_MAP.getMapData(itemstack, this.trackedEntity.worldObj);
 
                 for (EntityPlayer entityplayer : players) {
                     EntityPlayerMP entityplayermp = (EntityPlayerMP) entityplayer;
                     mapdata.updateVisiblePlayers(entityplayermp, itemstack);
-                    Packet packet = Items.filled_map.createMapDataPacket(itemstack, this.trackedEntity.worldObj, entityplayermp);
+                    Packet packet = Items.FILLED_MAP.createMapDataPacket(itemstack, this.trackedEntity.worldObj, entityplayermp);
 
                     if (packet != null) {
                         entityplayermp.playerNetServerHandler.sendPacket(packet);

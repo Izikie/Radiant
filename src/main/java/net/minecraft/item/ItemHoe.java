@@ -30,17 +30,17 @@ public class ItemHoe extends Item {
             Block block = iblockstate.getBlock();
 
             if (side != Direction.DOWN && worldIn.getBlockState(pos.up()).getBlock().getMaterial() == Material.AIR) {
-                if (block == Blocks.grass) {
-                    return this.useHoe(stack, playerIn, worldIn, pos, Blocks.farmland.getDefaultState());
+                if (block == Blocks.GRASS) {
+                    return this.useHoe(stack, playerIn, worldIn, pos, Blocks.FARMLAND.getDefaultState());
                 }
 
-                if (block == Blocks.dirt) {
+                if (block == Blocks.DIRT) {
                     switch (iblockstate.getValue(BlockDirt.VARIANT)) {
                         case DIRT:
-                            return this.useHoe(stack, playerIn, worldIn, pos, Blocks.farmland.getDefaultState());
+                            return this.useHoe(stack, playerIn, worldIn, pos, Blocks.FARMLAND.getDefaultState());
 
                         case COARSE_DIRT:
-                            return this.useHoe(stack, playerIn, worldIn, pos, Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
+                            return this.useHoe(stack, playerIn, worldIn, pos, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
                     }
                 }
             }

@@ -30,7 +30,7 @@ public class BlockOldLog extends BlockLog {
             default:
                 return switch (blockplanks$enumtype) {
                     case SPRUCE -> BlockPlanks.WoodType.DARK_OAK.getMapColor();
-                    case BIRCH -> MapColor.quartzColor;
+                    case BIRCH -> MapColor.QUARTZ_COLOR;
                     case JUNGLE -> BlockPlanks.WoodType.SPRUCE.getMapColor();
                     default -> BlockPlanks.WoodType.SPRUCE.getMapColor();
                 };

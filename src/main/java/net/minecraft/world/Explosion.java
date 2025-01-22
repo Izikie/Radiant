@@ -184,7 +184,7 @@ public class Explosion {
                         block.dropBlockAsItemWithChance(this.worldObj, blockpos, this.worldObj.getBlockState(blockpos), 1.0F / this.explosionSize, 0);
                     }
 
-                    this.worldObj.setBlockState(blockpos, Blocks.air.getDefaultState(), 3);
+                    this.worldObj.setBlockState(blockpos, Blocks.AIR.getDefaultState(), 3);
                     block.onBlockDestroyedByExplosion(this.worldObj, blockpos, this);
                 }
             }
@@ -193,7 +193,7 @@ public class Explosion {
         if (this.isFlaming) {
             for (BlockPos blockpos1 : this.affectedBlockPositions) {
                 if (this.worldObj.getBlockState(blockpos1).getBlock().getMaterial() == Material.AIR && this.worldObj.getBlockState(blockpos1.down()).getBlock().isFullBlock() && this.explosionRNG.nextInt(3) == 0) {
-                    this.worldObj.setBlockState(blockpos1, Blocks.fire.getDefaultState());
+                    this.worldObj.setBlockState(blockpos1, Blocks.FIRE.getDefaultState());
                 }
             }
         }

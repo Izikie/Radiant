@@ -1173,7 +1173,7 @@ public class StructureOceanMonumentPieces {
             }
 
             this.fillWithBlocks(worldIn, structureBoundingBoxIn, 6, 3, 6, 9, 6, 9, field_175827_c, field_175827_c, false);
-            this.fillWithBlocks(worldIn, structureBoundingBoxIn, 7, 4, 7, 8, 5, 8, Blocks.gold_block.getDefaultState(), Blocks.gold_block.getDefaultState(), false);
+            this.fillWithBlocks(worldIn, structureBoundingBoxIn, 7, 4, 7, 8, 5, 8, Blocks.GOLD_BLOCK.getDefaultState(), Blocks.GOLD_BLOCK.getDefaultState(), false);
 
             for (i = 3; i <= 6; i += 3) {
                 for (int k = 6; k <= 9; k += 3) {
@@ -1275,12 +1275,12 @@ public class StructureOceanMonumentPieces {
     }
 
     public abstract static class Piece extends StructureComponent {
-        protected static final IBlockState field_175828_a = Blocks.prismarine.getStateFromMeta(BlockPrismarine.ROUGH_META);
-        protected static final IBlockState field_175826_b = Blocks.prismarine.getStateFromMeta(BlockPrismarine.BRICKS_META);
-        protected static final IBlockState field_175827_c = Blocks.prismarine.getStateFromMeta(BlockPrismarine.DARK_META);
+        protected static final IBlockState field_175828_a = Blocks.PRISMARINE.getStateFromMeta(BlockPrismarine.ROUGH_META);
+        protected static final IBlockState field_175826_b = Blocks.PRISMARINE.getStateFromMeta(BlockPrismarine.BRICKS_META);
+        protected static final IBlockState field_175827_c = Blocks.PRISMARINE.getStateFromMeta(BlockPrismarine.DARK_META);
         protected static final IBlockState field_175824_d = field_175826_b;
-        protected static final IBlockState field_175825_e = Blocks.sea_lantern.getDefaultState();
-        protected static final IBlockState field_175822_f = Blocks.water.getDefaultState();
+        protected static final IBlockState field_175825_e = Blocks.SEA_LANTERN.getDefaultState();
+        protected static final IBlockState field_175822_f = Blocks.WATER.getDefaultState();
         protected static final int field_175823_g = func_175820_a(2, 0, 0);
         protected static final int field_175831_h = func_175820_a(2, 2, 0);
         protected static final int field_175832_i = func_175820_a(0, 1, 0);
@@ -1350,7 +1350,7 @@ public class StructureOceanMonumentPieces {
                     for (int k = p_181655_5_; k <= p_181655_8_; ++k) {
                         if (!p_181655_9_ || this.getBlockStateFromPos(p_181655_1_, j, i, k, p_181655_2_).getBlock().getMaterial() != Material.AIR) {
                             if (this.getYWithOffset(i) >= p_181655_1_.getSeaLevel()) {
-                                this.setBlockState(p_181655_1_, Blocks.air.getDefaultState(), j, i, k, p_181655_2_);
+                                this.setBlockState(p_181655_1_, Blocks.AIR.getDefaultState(), j, i, k, p_181655_2_);
                             } else {
                                 this.setBlockState(p_181655_1_, field_175822_f, j, i, k, p_181655_2_);
                             }
@@ -1660,7 +1660,7 @@ public class StructureOceanMonumentPieces {
                 for (int j = 1; j <= 6; ++j) {
                     if (randomIn.nextInt(3) != 0) {
                         int k = 2 + (randomIn.nextInt(4) == 0 ? 0 : 1);
-                        this.fillWithBlocks(worldIn, structureBoundingBoxIn, i, k, j, i, 3, j, Blocks.sponge.getStateFromMeta(1), Blocks.sponge.getStateFromMeta(1), false);
+                        this.fillWithBlocks(worldIn, structureBoundingBoxIn, i, k, j, i, 3, j, Blocks.SPONGE.getStateFromMeta(1), Blocks.SPONGE.getStateFromMeta(1), false);
                     }
                 }
             }

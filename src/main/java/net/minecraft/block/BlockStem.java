@@ -45,7 +45,7 @@ public class BlockStem extends BlockBush implements IGrowable {
     }
 
     protected boolean canPlaceBlockOn(Block ground) {
-        return ground == Blocks.farmland;
+        return ground == Blocks.FARMLAND;
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
@@ -70,7 +70,7 @@ public class BlockStem extends BlockBush implements IGrowable {
                     pos = pos.offset(Direction.Plane.HORIZONTAL.random(rand));
                     Block block = worldIn.getBlockState(pos.down()).getBlock();
 
-                    if (worldIn.getBlockState(pos).getBlock().blockMaterial == Material.AIR && (block == Blocks.farmland || block == Blocks.dirt || block == Blocks.grass)) {
+                    if (worldIn.getBlockState(pos).getBlock().blockMaterial == Material.AIR && (block == Blocks.FARMLAND || block == Blocks.DIRT || block == Blocks.GRASS)) {
                         worldIn.setBlockState(pos, this.crop.getDefaultState());
                     }
                 }
@@ -129,7 +129,7 @@ public class BlockStem extends BlockBush implements IGrowable {
     }
 
     protected Item getSeedItem() {
-        return this.crop == Blocks.pumpkin ? Items.pumpkin_seeds : (this.crop == Blocks.melon_block ? Items.melon_seeds : null);
+        return this.crop == Blocks.PUMPKIN ? Items.PUMPKIN_SEEDS : (this.crop == Blocks.MELON_BLOCK ? Items.MELON_SEEDS : null);
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {

@@ -8,7 +8,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class WorldGenIcePath extends WorldGenerator {
-    private final Block block = Blocks.packed_ice;
+    private final Block block = Blocks.PACKED_ICE;
     private final int basePathWidth;
 
     public WorldGenIcePath(int p_i45454_1_) {
@@ -20,7 +20,7 @@ public class WorldGenIcePath extends WorldGenerator {
             position = position.down();
         }
 
-        if (worldIn.getBlockState(position).getBlock() != Blocks.snow) {
+        if (worldIn.getBlockState(position).getBlock() != Blocks.SNOW) {
             return false;
         } else {
             int i = rand.nextInt(this.basePathWidth - 2) + 2;
@@ -36,7 +36,7 @@ public class WorldGenIcePath extends WorldGenerator {
                             BlockPos blockpos = new BlockPos(k, k1, l);
                             Block block = worldIn.getBlockState(blockpos).getBlock();
 
-                            if (block == Blocks.dirt || block == Blocks.snow || block == Blocks.ice) {
+                            if (block == Blocks.DIRT || block == Blocks.SNOW || block == Blocks.ICE) {
                                 worldIn.setBlockState(blockpos, this.block.getDefaultState(), 2);
                             }
                         }

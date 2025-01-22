@@ -24,7 +24,7 @@ public class BlockNewLeaf extends BlockLeaves {
 
     protected void dropApple(World worldIn, BlockPos pos, IBlockState state, int chance) {
         if (state.getValue(VARIANT) == BlockPlanks.WoodType.DARK_OAK && worldIn.rand.nextInt(chance) == 0) {
-            spawnAsEntity(worldIn, pos, new ItemStack(Items.apple, 1, 0));
+            spawnAsEntity(worldIn, pos, new ItemStack(Items.APPLE, 1, 0));
         }
     }
 
@@ -74,8 +74,8 @@ public class BlockNewLeaf extends BlockLeaves {
     }
 
     public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te) {
-        if (!worldIn.isRemote && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.shears) {
-            player.triggerAchievement(StatList.mineBlockStatArray[Block.getIdFromBlock(this)]);
+        if (!worldIn.isRemote && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.SHEARS) {
+            player.triggerAchievement(StatList.MINE_BLOCK_STAT_ARRAY[Block.getIdFromBlock(this)]);
             spawnAsEntity(worldIn, pos, new ItemStack(Item.getItemFromBlock(this), 1, state.getValue(VARIANT).getMetadata() - 4));
         } else {
             super.harvestBlock(worldIn, player, pos, state, te);

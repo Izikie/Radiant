@@ -168,7 +168,7 @@ public class BlockTrapDoor extends Block {
     }
 
     private static boolean isValidSupportBlock(Block blockIn) {
-        return blockIn.blockMaterial.isOpaque() && blockIn.isFullCube() || blockIn == Blocks.glowstone || blockIn instanceof BlockSlab || blockIn instanceof BlockStairs;
+        return blockIn.blockMaterial.isOpaque() && blockIn.isFullCube() || blockIn == Blocks.GLOWSTONE || blockIn instanceof BlockSlab || blockIn instanceof BlockStairs;
     }
 
     public RenderLayer getBlockLayer() {

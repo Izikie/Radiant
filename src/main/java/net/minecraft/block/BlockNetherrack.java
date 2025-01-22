@@ -12,6 +12,6 @@ public class BlockNetherrack extends Block {
     }
 
     public MapColor getMapColor(IBlockState state) {
-        return MapColor.netherrackColor;
+        return MapColor.NETHERRACK_COLOR;
     }
 }

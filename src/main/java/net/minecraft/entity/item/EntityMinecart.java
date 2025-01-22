@@ -138,7 +138,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         this.setDead();
 
         if (this.worldObj.getGameRules().getBoolean("doEntityDrops")) {
-            ItemStack itemstack = new ItemStack(Items.minecart, 1);
+            ItemStack itemstack = new ItemStack(Items.MINECART, 1);
 
             if (this.entityName != null) {
                 itemstack.setStackDisplayName(this.entityName);
@@ -246,7 +246,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
             if (BlockRailBase.isRailBlock(iblockstate)) {
                 this.func_180460_a(blockpos, iblockstate);
 
-                if (iblockstate.getBlock() == Blocks.activator_rail) {
+                if (iblockstate.getBlock() == Blocks.ACTIVATOR_RAIL) {
                     this.onActivatorRailPass(k, l, i1, iblockstate.getValue(BlockRailPowered.POWERED));
                 }
             } else {
@@ -329,7 +329,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         boolean flag1 = false;
         BlockRailBase blockrailbase = (BlockRailBase) p_180460_2_.getBlock();
 
-        if (blockrailbase == Blocks.golden_rail) {
+        if (blockrailbase == Blocks.GOLDEN_RAIL) {
             flag = p_180460_2_.getValue(BlockRailPowered.POWERED);
             flag1 = !flag;
         }
@@ -619,7 +619,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
                 Block block = Block.getBlockFromName(tagCompund.getString("DisplayTile"));
 
                 if (block == null) {
-                    this.func_174899_a(Blocks.air.getDefaultState());
+                    this.func_174899_a(Blocks.AIR.getDefaultState());
                 } else {
                     this.func_174899_a(block.getStateFromMeta(i));
                 }
@@ -627,7 +627,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
                 Block block1 = Block.getBlockById(tagCompund.getInteger("DisplayTile"));
 
                 if (block1 == null) {
-                    this.func_174899_a(Blocks.air.getDefaultState());
+                    this.func_174899_a(Blocks.AIR.getDefaultState());
                 } else {
                     this.func_174899_a(block1.getStateFromMeta(i));
                 }
@@ -782,7 +782,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
     }
 
     public IBlockState getDefaultDisplayTile() {
-        return Blocks.air.getDefaultState();
+        return Blocks.AIR.getDefaultState();
     }
 
     public int getDisplayTileOffset() {

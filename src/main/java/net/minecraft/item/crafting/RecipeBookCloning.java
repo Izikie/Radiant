@@ -16,14 +16,14 @@ public class RecipeBookCloning implements IRecipe {
             ItemStack itemstack1 = inv.getStackInSlot(j);
 
             if (itemstack1 != null) {
-                if (itemstack1.getItem() == Items.written_book) {
+                if (itemstack1.getItem() == Items.WRITTEN_BOOK) {
                     if (itemstack != null) {
                         return false;
                     }
 
                     itemstack = itemstack1;
                 } else {
-                    if (itemstack1.getItem() != Items.writable_book) {
+                    if (itemstack1.getItem() != Items.WRITABLE_BOOK) {
                         return false;
                     }
 
@@ -43,14 +43,14 @@ public class RecipeBookCloning implements IRecipe {
             ItemStack itemstack1 = inv.getStackInSlot(j);
 
             if (itemstack1 != null) {
-                if (itemstack1.getItem() == Items.written_book) {
+                if (itemstack1.getItem() == Items.WRITTEN_BOOK) {
                     if (itemstack != null) {
                         return null;
                     }
 
                     itemstack = itemstack1;
                 } else {
-                    if (itemstack1.getItem() != Items.writable_book) {
+                    if (itemstack1.getItem() != Items.WRITABLE_BOOK) {
                         return null;
                     }
 
@@ -60,7 +60,7 @@ public class RecipeBookCloning implements IRecipe {
         }
 
         if (itemstack != null && i >= 1 && ItemEditableBook.getGeneration(itemstack) < 2) {
-            ItemStack itemstack2 = new ItemStack(Items.written_book, i);
+            ItemStack itemstack2 = new ItemStack(Items.WRITTEN_BOOK, i);
             itemstack2.setTagCompound((NBTTagCompound) itemstack.getTagCompound().copy());
             itemstack2.getTagCompound().setInteger("generation", ItemEditableBook.getGeneration(itemstack) + 1);
 

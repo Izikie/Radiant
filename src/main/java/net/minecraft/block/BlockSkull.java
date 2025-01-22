@@ -37,7 +37,7 @@ import net.minecraft.world.World;
 public class BlockSkull extends BlockContainer {
     public static final PropertyDirection FACING = PropertyDirection.create("facing");
     public static final PropertyBool NODROP = PropertyBool.create("nodrop");
-    private static final Predicate<BlockWorldState> IS_WITHER_SKELETON = p_apply_1_ -> p_apply_1_.getBlockState() != null && p_apply_1_.getBlockState().getBlock() == Blocks.skull && p_apply_1_.getTileEntity() instanceof TileEntitySkull tileEntitySkull && tileEntitySkull.getSkullType() == 1;
+    private static final Predicate<BlockWorldState> IS_WITHER_SKELETON = p_apply_1_ -> p_apply_1_.getBlockState() != null && p_apply_1_.getBlockState().getBlock() == Blocks.SKULL && p_apply_1_.getTileEntity() instanceof TileEntitySkull tileEntitySkull && tileEntitySkull.getSkullType() == 1;
     private BlockPattern witherBasePattern;
     private BlockPattern witherPattern;
 
@@ -98,7 +98,7 @@ public class BlockSkull extends BlockContainer {
     }
 
     public Item getItem(World worldIn, BlockPos pos) {
-        return Items.skull;
+        return Items.SKULL;
     }
 
     public int getDamageValue(World worldIn, BlockPos pos) {
@@ -124,7 +124,7 @@ public class BlockSkull extends BlockContainer {
                 TileEntity tileentity = worldIn.getTileEntity(pos);
 
                 if (tileentity instanceof TileEntitySkull tileentityskull) {
-                    ItemStack itemstack = new ItemStack(Items.skull, 1, this.getDamageValue(worldIn, pos));
+                    ItemStack itemstack = new ItemStack(Items.SKULL, 1, this.getDamageValue(worldIn, pos));
 
                     if (tileentityskull.getSkullType() == 3 && tileentityskull.getPlayerProfile() != null) {
                         itemstack.setTagCompound(new NBTTagCompound());
@@ -142,7 +142,7 @@ public class BlockSkull extends BlockContainer {
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Items.skull;
+        return Items.SKULL;
     }
 
     public boolean canDispenserPlace(World worldIn, BlockPos pos, ItemStack stack) {
@@ -163,7 +163,7 @@ public class BlockSkull extends BlockContainer {
                 for (int j = 0; j < blockpattern.getPalmLength(); ++j) {
                     for (int k = 0; k < blockpattern.getThumbLength(); ++k) {
                         BlockWorldState blockworldstate1 = blockpattern$patternhelper.translateOffset(j, k, 0);
-                        worldIn.setBlockState(blockworldstate1.getPos(), Blocks.air.getDefaultState(), 2);
+                        worldIn.setBlockState(blockworldstate1.getPos(), Blocks.AIR.getDefaultState(), 2);
                     }
                 }
 
@@ -187,7 +187,7 @@ public class BlockSkull extends BlockContainer {
                 for (int i1 = 0; i1 < blockpattern.getPalmLength(); ++i1) {
                     for (int j1 = 0; j1 < blockpattern.getThumbLength(); ++j1) {
                         BlockWorldState blockworldstate2 = blockpattern$patternhelper.translateOffset(i1, j1, 0);
-                        worldIn.notifyNeighborsRespectDebug(blockworldstate2.getPos(), Blocks.air);
+                        worldIn.notifyNeighborsRespectDebug(blockworldstate2.getPos(), Blocks.AIR);
                     }
                 }
             }
@@ -215,7 +215,7 @@ public class BlockSkull extends BlockContainer {
 
     protected BlockPattern getWitherBasePattern() {
         if (this.witherBasePattern == null) {
-            this.witherBasePattern = FactoryBlockPattern.start().aisle("   ", "###", "~#~").where('#', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.soul_sand))).where('~', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.air))).build();
+            this.witherBasePattern = FactoryBlockPattern.start().aisle("   ", "###", "~#~").where('#', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.SOUL_SAND))).where('~', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.AIR))).build();
         }
 
         return this.witherBasePattern;
@@ -223,7 +223,7 @@ public class BlockSkull extends BlockContainer {
 
     protected BlockPattern getWitherPattern() {
         if (this.witherPattern == null) {
-            this.witherPattern = FactoryBlockPattern.start().aisle("^^^", "###", "~#~").where('#', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.soul_sand))).where('^', IS_WITHER_SKELETON).where('~', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.air))).build();
+            this.witherPattern = FactoryBlockPattern.start().aisle("^^^", "###", "~#~").where('#', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.SOUL_SAND))).where('^', IS_WITHER_SKELETON).where('~', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.AIR))).build();
         }
 
         return this.witherPattern;

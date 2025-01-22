@@ -18,7 +18,7 @@ public class ShadowUtils {
         if (f > 0.0F && f < ((renderDistanceChunks - 1) * 16)) {
             int i = MathHelper.ceiling_float_int(f / 16.0F) + 1;
             float f6 = world.getCelestialAngleRadians((float) partialTicks);
-            float f1 = Shaders.sunPathRotation * MathHelper.deg2Rad;
+            float f1 = Shaders.sunPathRotation * MathHelper.DEG_2_RAD;
             float f2 = f6 > MathHelper.PId2 && f6 < 3.0F * MathHelper.PId2 ? f6 + MathHelper.PI : f6;
             float f3 = -MathHelper.sin(f2);
             float f4 = MathHelper.cos(f2) * MathHelper.cos(f1);

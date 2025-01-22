@@ -142,7 +142,7 @@ public class BlockPistonMoving extends BlockContainer {
 
             block.setBlockBoundsBasedOnState(worldIn, pos);
 
-            if (block == Blocks.piston || block == Blocks.sticky_piston) {
+            if (block == Blocks.PISTON || block == Blocks.STICKY_PISTON) {
                 f = 0.0F;
             }
 

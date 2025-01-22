@@ -24,9 +24,9 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class BiomeGenJungle extends BiomeGenBase {
     private final boolean field_150614_aC;
-    private static final IBlockState field_181620_aE = Blocks.log.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.WoodType.JUNGLE);
-    private static final IBlockState field_181621_aF = Blocks.leaves.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.WoodType.JUNGLE).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
-    private static final IBlockState field_181622_aG = Blocks.leaves.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.WoodType.OAK).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
+    private static final IBlockState field_181620_aE = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.WoodType.JUNGLE);
+    private static final IBlockState field_181621_aF = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.WoodType.JUNGLE).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
+    private static final IBlockState field_181622_aG = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.WoodType.OAK).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
 
     public BiomeGenJungle(int id, boolean p_i45379_2_) {
         super(id);

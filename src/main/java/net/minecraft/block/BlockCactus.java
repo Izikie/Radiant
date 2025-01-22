@@ -86,7 +86,7 @@ public class BlockCactus extends Block {
         }
 
         Block block = worldIn.getBlockState(pos.down()).getBlock();
-        return block == Blocks.cactus || block == Blocks.sand;
+        return block == Blocks.CACTUS || block == Blocks.SAND;
     }
 
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {

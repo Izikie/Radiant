@@ -21,7 +21,7 @@ import org.apache.logging.log4j.Logger;
 public class WorldGenDungeons extends WorldGenerator {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final String[] SPAWNERTYPES = new String[]{"Skeleton", "Zombie", "Zombie", "Spider"};
-    private static final List<WeightedRandomChestContent> CHESTCONTENT = Lists.newArrayList(new WeightedRandomChestContent(Items.saddle, 0, 1, 1, 10), new WeightedRandomChestContent(Items.iron_ingot, 0, 1, 4, 10), new WeightedRandomChestContent(Items.bread, 0, 1, 1, 10), new WeightedRandomChestContent(Items.wheat, 0, 1, 4, 10), new WeightedRandomChestContent(Items.gunpowder, 0, 1, 4, 10), new WeightedRandomChestContent(Items.string, 0, 1, 4, 10), new WeightedRandomChestContent(Items.bucket, 0, 1, 1, 10), new WeightedRandomChestContent(Items.golden_apple, 0, 1, 1, 1), new WeightedRandomChestContent(Items.redstone, 0, 1, 4, 10), new WeightedRandomChestContent(Items.record_13, 0, 1, 1, 4), new WeightedRandomChestContent(Items.record_cat, 0, 1, 1, 4), new WeightedRandomChestContent(Items.name_tag, 0, 1, 1, 10), new WeightedRandomChestContent(Items.golden_horse_armor, 0, 1, 1, 2), new WeightedRandomChestContent(Items.iron_horse_armor, 0, 1, 1, 5), new WeightedRandomChestContent(Items.diamond_horse_armor, 0, 1, 1, 1));
+    private static final List<WeightedRandomChestContent> CHESTCONTENT = Lists.newArrayList(new WeightedRandomChestContent(Items.SADDLE, 0, 1, 1, 10), new WeightedRandomChestContent(Items.IRON_INGOT, 0, 1, 4, 10), new WeightedRandomChestContent(Items.BREAD, 0, 1, 1, 10), new WeightedRandomChestContent(Items.WHEAT, 0, 1, 4, 10), new WeightedRandomChestContent(Items.GUNPOWDER, 0, 1, 4, 10), new WeightedRandomChestContent(Items.STRING, 0, 1, 4, 10), new WeightedRandomChestContent(Items.BUCKET, 0, 1, 1, 10), new WeightedRandomChestContent(Items.GOLDEN_APPLE, 0, 1, 1, 1), new WeightedRandomChestContent(Items.REDSTONE, 0, 1, 4, 10), new WeightedRandomChestContent(Items.RECORD_13, 0, 1, 1, 4), new WeightedRandomChestContent(Items.RECORD_CAT, 0, 1, 1, 4), new WeightedRandomChestContent(Items.NAME_TAG, 0, 1, 1, 10), new WeightedRandomChestContent(Items.GOLDEN_HORSE_ARMOR, 0, 1, 1, 2), new WeightedRandomChestContent(Items.IRON_HORSE_ARMOR, 0, 1, 1, 5), new WeightedRandomChestContent(Items.DIAMOND_HORSE_ARMOR, 0, 1, 1, 1));
 
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         int i = 3;
@@ -64,16 +64,16 @@ public class WorldGenDungeons extends WorldGenerator {
                         BlockPos blockpos1 = position.add(k3, i4, k4);
 
                         if (k3 != k && i4 != -1 && k4 != l1 && k3 != l && i4 != 4 && k4 != i2) {
-                            if (worldIn.getBlockState(blockpos1).getBlock() != Blocks.chest) {
+                            if (worldIn.getBlockState(blockpos1).getBlock() != Blocks.CHEST) {
                                 worldIn.setBlockToAir(blockpos1);
                             }
                         } else if (blockpos1.getY() >= 0 && !worldIn.getBlockState(blockpos1.down()).getBlock().getMaterial().isSolid()) {
                             worldIn.setBlockToAir(blockpos1);
-                        } else if (worldIn.getBlockState(blockpos1).getBlock().getMaterial().isSolid() && worldIn.getBlockState(blockpos1).getBlock() != Blocks.chest) {
+                        } else if (worldIn.getBlockState(blockpos1).getBlock().getMaterial().isSolid() && worldIn.getBlockState(blockpos1).getBlock() != Blocks.CHEST) {
                             if (i4 == -1 && rand.nextInt(4) != 0) {
-                                worldIn.setBlockState(blockpos1, Blocks.mossy_cobblestone.getDefaultState(), 2);
+                                worldIn.setBlockState(blockpos1, Blocks.MOSSY_COBBLESTONE.getDefaultState(), 2);
                             } else {
-                                worldIn.setBlockState(blockpos1, Blocks.cobblestone.getDefaultState(), 2);
+                                worldIn.setBlockState(blockpos1, Blocks.COBBLESTONE.getDefaultState(), 2);
                             }
                         }
                     }
@@ -97,8 +97,8 @@ public class WorldGenDungeons extends WorldGenerator {
                         }
 
                         if (j3 == 1) {
-                            worldIn.setBlockState(blockpos2, Blocks.chest.correctFacing(worldIn, blockpos2, Blocks.chest.getDefaultState()), 2);
-                            List<WeightedRandomChestContent> list = WeightedRandomChestContent.func_177629_a(CHESTCONTENT, Items.enchanted_book.getRandom(rand));
+                            worldIn.setBlockState(blockpos2, Blocks.CHEST.correctFacing(worldIn, blockpos2, Blocks.CHEST.getDefaultState()), 2);
+                            List<WeightedRandomChestContent> list = WeightedRandomChestContent.func_177629_a(CHESTCONTENT, Items.ENCHANTED_BOOK.getRandom(rand));
                             TileEntity tileentity1 = worldIn.getTileEntity(blockpos2);
 
                             if (tileentity1 instanceof TileEntityChest tileEntityChest) {
@@ -111,7 +111,7 @@ public class WorldGenDungeons extends WorldGenerator {
                 }
             }
 
-            worldIn.setBlockState(position, Blocks.mob_spawner.getDefaultState(), 2);
+            worldIn.setBlockState(position, Blocks.MOB_SPAWNER.getDefaultState(), 2);
             TileEntity tileentity = worldIn.getTileEntity(position);
 
             if (tileentity instanceof TileEntityMobSpawner tileEntityMobSpawner) {

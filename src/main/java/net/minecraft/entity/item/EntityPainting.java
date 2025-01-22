@@ -92,7 +92,7 @@ public class EntityPainting extends EntityHanging {
                 }
             }
 
-            this.entityDropItem(new ItemStack(Items.painting), 0.0F);
+            this.entityDropItem(new ItemStack(Items.PAINTING), 0.0F);
         }
     }
 

@@ -25,11 +25,11 @@ public class BlockSeaLantern extends Block {
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Items.prismarine_crystals;
+        return Items.PRISMARINE_CRYSTALS;
     }
 
     public MapColor getMapColor(IBlockState state) {
-        return MapColor.quartzColor;
+        return MapColor.QUARTZ_COLOR;
     }
 
     protected boolean canSilkHarvest() {

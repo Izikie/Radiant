@@ -198,17 +198,17 @@ public class DynamicLights {
                 }
             }
 
-            if (item == Items.lava_bucket) {
-                return Blocks.lava.getLightValue();
-            } else if (item != Items.blaze_rod && item != Items.blaze_powder) {
-                if (item == Items.glowstone_dust) {
+            if (item == Items.LAVA_BUCKET) {
+                return Blocks.LAVA.getLightValue();
+            } else if (item != Items.BLAZE_ROD && item != Items.BLAZE_POWDER) {
+                if (item == Items.GLOWSTONE_DUST) {
                     return 8;
-                } else if (item == Items.prismarine_crystals) {
+                } else if (item == Items.PRISMARINE_CRYSTALS) {
                     return 8;
-                } else if (item == Items.magma_cream) {
+                } else if (item == Items.MAGMA_CREAM) {
                     return 8;
-                } else if (item == Items.nether_star) {
-                    return Blocks.beacon.getLightValue() / 2;
+                } else if (item == Items.NETHER_STAR) {
+                    return Blocks.BEACON.getLightValue() / 2;
                 } else {
                     if (!ITEM_LIGHT_LEVELS.isEmpty()) {
                         Integer integer = ITEM_LIGHT_LEVELS.get(item);

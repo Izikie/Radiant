@@ -17,7 +17,7 @@ public class ContainerHorseInventory extends Container {
         int j = (i - 4) * 18;
         this.addSlotToContainer(new Slot(horseInventoryIn, 0, 8, 18) {
             public boolean isItemValid(ItemStack stack) {
-                return super.isItemValid(stack) && stack.getItem() == Items.saddle && !this.getHasStack();
+                return super.isItemValid(stack) && stack.getItem() == Items.SADDLE && !this.getHasStack();
             }
         });
         this.addSlotToContainer(new Slot(horseInventoryIn, 1, 8, 36) {

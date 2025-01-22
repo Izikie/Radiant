@@ -23,11 +23,11 @@ public class BlockDeadBush extends BlockBush {
     }
 
     public MapColor getMapColor(IBlockState state) {
-        return MapColor.woodColor;
+        return MapColor.WOOD_COLOR;
     }
 
     protected boolean canPlaceBlockOn(Block ground) {
-        return ground == Blocks.sand || ground == Blocks.hardened_clay || ground == Blocks.stained_hardened_clay || ground == Blocks.dirt;
+        return ground == Blocks.SAND || ground == Blocks.HARDENED_CLAY || ground == Blocks.STAINED_HARDENED_CLAY || ground == Blocks.DIRT;
     }
 
     public boolean isReplaceable(World worldIn, BlockPos pos) {
@@ -39,9 +39,9 @@ public class BlockDeadBush extends BlockBush {
     }
 
     public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te) {
-        if (!worldIn.isRemote && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.shears) {
-            player.triggerAchievement(StatList.mineBlockStatArray[Block.getIdFromBlock(this)]);
-            spawnAsEntity(worldIn, pos, new ItemStack(Blocks.deadbush, 1, 0));
+        if (!worldIn.isRemote && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.SHEARS) {
+            player.triggerAchievement(StatList.MINE_BLOCK_STAT_ARRAY[Block.getIdFromBlock(this)]);
+            spawnAsEntity(worldIn, pos, new ItemStack(Blocks.DEAD_BUSH, 1, 0));
         } else {
             super.harvestBlock(worldIn, player, pos, state, te);
         }

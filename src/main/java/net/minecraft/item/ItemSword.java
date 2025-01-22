@@ -29,7 +29,7 @@ public class ItemSword extends Item {
     }
 
     public float getStrVsBlock(ItemStack stack, Block state) {
-        if (state == Blocks.web) {
+        if (state == Blocks.WEB) {
             return 15.0F;
         } else {
             Material material = state.getMaterial();
@@ -68,7 +68,7 @@ public class ItemSword extends Item {
     }
 
     public boolean canHarvestBlock(Block blockIn) {
-        return blockIn == Blocks.web;
+        return blockIn == Blocks.WEB;
     }
 
     public int getItemEnchantability() {
@@ -85,7 +85,7 @@ public class ItemSword extends Item {
 
     public Multimap<String, AttributeModifier> getItemAttributeModifiers() {
         Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers();
-        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(itemModifierUUID, "Weapon modifier", this.attackDamage, 0));
+        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(ITEM_MODIFIER_UUID, "Weapon modifier", this.attackDamage, 0));
         return multimap;
     }
 }

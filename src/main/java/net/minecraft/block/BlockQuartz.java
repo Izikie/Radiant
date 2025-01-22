@@ -54,7 +54,7 @@ public class BlockQuartz extends Block {
     }
 
     public MapColor getMapColor(IBlockState state) {
-        return MapColor.quartzColor;
+        return MapColor.QUARTZ_COLOR;
     }
 
     public IBlockState getStateFromMeta(int meta) {

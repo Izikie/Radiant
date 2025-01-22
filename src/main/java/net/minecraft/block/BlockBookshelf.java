@@ -19,6 +19,6 @@ public class BlockBookshelf extends Block {
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Items.book;
+        return Items.BOOK;
     }
 }

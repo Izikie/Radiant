@@ -295,7 +295,7 @@ public class ConnectedParser {
         try {
             IBlockState iblockstate = block.getStateFromMeta(md);
 
-            if (block == Blocks.double_plant && md > 7) {
+            if (block == Blocks.DOUBLE_PLANT && md > 7) {
                 IBlockState iblockstate1 = block.getStateFromMeta(md & 7);
                 iblockstate = iblockstate.withProperty(BlockDoublePlant.VARIANT, iblockstate1.getValue(BlockDoublePlant.VARIANT));
             }

@@ -49,7 +49,7 @@ public class ItemDye extends Item {
                 IBlockState iblockstate = worldIn.getBlockState(pos);
                 Block block = iblockstate.getBlock();
 
-                if (block == Blocks.log && iblockstate.getValue(BlockPlanks.VARIANT) == BlockPlanks.WoodType.JUNGLE) {
+                if (block == Blocks.LOG && iblockstate.getValue(BlockPlanks.VARIANT) == BlockPlanks.WoodType.JUNGLE) {
                     if (side == Direction.DOWN) {
                         return false;
                     }
@@ -61,7 +61,7 @@ public class ItemDye extends Item {
                     pos = pos.offset(side);
 
                     if (worldIn.isAirBlock(pos)) {
-                        IBlockState iblockstate1 = Blocks.cocoa.onBlockPlaced(worldIn, pos, side, hitX, hitY, hitZ, 0, playerIn);
+                        IBlockState iblockstate1 = Blocks.COCOA.onBlockPlaced(worldIn, pos, side, hitX, hitY, hitZ, 0, playerIn);
                         worldIn.setBlockState(pos, iblockstate1, 2);
 
                         if (!playerIn.capabilities.isCreativeMode) {
@@ -109,10 +109,10 @@ public class ItemDye extends Item {
             block.setBlockBoundsBasedOnState(worldIn, pos);
 
             for (int i = 0; i < amount; ++i) {
-                double d0 = itemRand.nextGaussian() * 0.02D;
-                double d1 = itemRand.nextGaussian() * 0.02D;
-                double d2 = itemRand.nextGaussian() * 0.02D;
-                worldIn.spawnParticle(ParticleTypes.VILLAGER_HAPPY, (pos.getX() + itemRand.nextFloat()), pos.getY() + itemRand.nextFloat() * block.getBlockBoundsMaxY(), (pos.getZ() + itemRand.nextFloat()), d0, d1, d2);
+                double d0 = ITEM_RAND.nextGaussian() * 0.02D;
+                double d1 = ITEM_RAND.nextGaussian() * 0.02D;
+                double d2 = ITEM_RAND.nextGaussian() * 0.02D;
+                worldIn.spawnParticle(ParticleTypes.VILLAGER_HAPPY, (pos.getX() + ITEM_RAND.nextFloat()), pos.getY() + ITEM_RAND.nextFloat() * block.getBlockBoundsMaxY(), (pos.getZ() + ITEM_RAND.nextFloat()), d0, d1, d2);
             }
         }
     }

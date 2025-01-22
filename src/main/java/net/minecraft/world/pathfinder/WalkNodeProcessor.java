@@ -38,7 +38,7 @@ public class WalkNodeProcessor extends NodeProcessor {
             i = (int) entityIn.getEntityBoundingBox().minY;
             BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(MathHelper.floor_double(entityIn.posX), i, MathHelper.floor_double(entityIn.posZ));
 
-            for (Block block = this.blockaccess.getBlockState(blockpos$mutableblockpos).getBlock(); block == Blocks.flowing_water || block == Blocks.water; block = this.blockaccess.getBlockState(blockpos$mutableblockpos).getBlock()) {
+            for (Block block = this.blockaccess.getBlockState(blockpos$mutableblockpos).getBlock(); block == Blocks.FLOWING_WATER || block == Blocks.WATER; block = this.blockaccess.getBlockState(blockpos$mutableblockpos).getBlock()) {
                 ++i;
                 blockpos$mutableblockpos.set(MathHelper.floor_double(entityIn.posX), i, MathHelper.floor_double(entityIn.posZ));
             }
@@ -154,8 +154,8 @@ public class WalkNodeProcessor extends NodeProcessor {
                     Block block = blockaccessIn.getBlockState(blockpos$mutableblockpos).getBlock();
 
                     if (block.getMaterial() != Material.AIR) {
-                        if (block != Blocks.trapdoor && block != Blocks.iron_trapdoor) {
-                            if (block != Blocks.flowing_water && block != Blocks.water) {
+                        if (block != Blocks.TRAPDOOR && block != Blocks.IRON_TRAPDOOR) {
+                            if (block != Blocks.FLOWING_WATER && block != Blocks.WATER) {
                                 if (!enterDoors && block instanceof BlockDoor && block.getMaterial() == Material.WOOD) {
                                     return 0;
                                 }
@@ -179,7 +179,7 @@ public class WalkNodeProcessor extends NodeProcessor {
                                 return -3;
                             }
 
-                            if (block == Blocks.trapdoor || block == Blocks.iron_trapdoor) {
+                            if (block == Blocks.TRAPDOOR || block == Blocks.IRON_TRAPDOOR) {
                                 return -4;
                             }
 

@@ -132,11 +132,11 @@ public class EntityAIControlledByPlayer extends EntityAIBase {
         if (!entityplayer.capabilities.isCreativeMode && this.currentSpeed >= this.maxSpeed * 0.5F && this.thisEntity.getRNG().nextFloat() < 0.006F && !this.speedBoosted) {
             ItemStack itemstack = entityplayer.getHeldItem();
 
-            if (itemstack != null && itemstack.getItem() == Items.carrot_on_a_stick) {
+            if (itemstack != null && itemstack.getItem() == Items.CARROT_ON_A_STICK) {
                 itemstack.damageItem(1, entityplayer);
 
                 if (itemstack.stackSize == 0) {
-                    ItemStack itemstack1 = new ItemStack(Items.fishing_rod);
+                    ItemStack itemstack1 = new ItemStack(Items.FISHING_ROD);
                     itemstack1.setTagCompound(itemstack.getTagCompound());
                     entityplayer.inventory.mainInventory[entityplayer.inventory.currentItem] = itemstack1;
                 }

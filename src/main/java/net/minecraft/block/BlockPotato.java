@@ -9,11 +9,11 @@ import net.minecraft.world.World;
 
 public class BlockPotato extends BlockCrops {
     protected Item getSeed() {
-        return Items.potato;
+        return Items.POTATO;
     }
 
     protected Item getCrop() {
-        return Items.potato;
+        return Items.POTATO;
     }
 
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
@@ -21,7 +21,7 @@ public class BlockPotato extends BlockCrops {
 
         if (!worldIn.isRemote) {
             if (state.getValue(AGE) >= 7 && worldIn.rand.nextInt(50) == 0) {
-                spawnAsEntity(worldIn, pos, new ItemStack(Items.poisonous_potato));
+                spawnAsEntity(worldIn, pos, new ItemStack(Items.POISONOUS_POTATO));
             }
         }
     }

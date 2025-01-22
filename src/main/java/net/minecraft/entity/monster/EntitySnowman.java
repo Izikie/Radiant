@@ -61,22 +61,22 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
                 k = MathHelper.floor_double(this.posZ + ((l / 2 % 2 * 2 - 1) * 0.25F));
                 BlockPos blockpos = new BlockPos(i, j, k);
 
-                if (this.worldObj.getBlockState(blockpos).getBlock().getMaterial() == Material.AIR && this.worldObj.getBiomeGenForCoords(new BlockPos(i, 0, k)).getFloatTemperature(blockpos) < 0.8F && Blocks.snow_layer.canPlaceBlockAt(this.worldObj, blockpos)) {
-                    this.worldObj.setBlockState(blockpos, Blocks.snow_layer.getDefaultState());
+                if (this.worldObj.getBlockState(blockpos).getBlock().getMaterial() == Material.AIR && this.worldObj.getBiomeGenForCoords(new BlockPos(i, 0, k)).getFloatTemperature(blockpos) < 0.8F && Blocks.SNOW_LAYER.canPlaceBlockAt(this.worldObj, blockpos)) {
+                    this.worldObj.setBlockState(blockpos, Blocks.SNOW_LAYER.getDefaultState());
                 }
             }
         }
     }
 
     protected Item getDropItem() {
-        return Items.snowball;
+        return Items.SNOWBALL;
     }
 
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
         int i = this.rand.nextInt(16);
 
         for (int j = 0; j < i; ++j) {
-            this.dropItem(Items.snowball, 1);
+            this.dropItem(Items.SNOWBALL, 1);
         }
     }
 

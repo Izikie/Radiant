@@ -51,22 +51,22 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
         Integer integer = unpoweredState.getValue(DELAY);
         Boolean obool = unpoweredState.getValue(LOCKED);
         Direction enumfacing = unpoweredState.getValue(FACING);
-        return Blocks.powered_repeater.getDefaultState().withProperty(FACING, enumfacing).withProperty(DELAY, integer).withProperty(LOCKED, obool);
+        return Blocks.POWERED_REPEATER.getDefaultState().withProperty(FACING, enumfacing).withProperty(DELAY, integer).withProperty(LOCKED, obool);
     }
 
     protected IBlockState getUnpoweredState(IBlockState poweredState) {
         Integer integer = poweredState.getValue(DELAY);
         Boolean obool = poweredState.getValue(LOCKED);
         Direction enumfacing = poweredState.getValue(FACING);
-        return Blocks.unpowered_repeater.getDefaultState().withProperty(FACING, enumfacing).withProperty(DELAY, integer).withProperty(LOCKED, obool);
+        return Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(FACING, enumfacing).withProperty(DELAY, integer).withProperty(LOCKED, obool);
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Items.repeater;
+        return Items.REPEATER;
     }
 
     public Item getItem(World worldIn, BlockPos pos) {
-        return Items.repeater;
+        return Items.REPEATER;
     }
 
     public boolean isLocked(IBlockAccess worldIn, BlockPos pos, IBlockState state) {

@@ -56,7 +56,7 @@ public class ContainerEnchantment extends Container {
         });
         this.addSlotToContainer(new Slot(this.tableInventory, 1, 35, 47) {
             public boolean isItemValid(ItemStack stack) {
-                return stack.getItem() == Items.dye && DyeColor.byDyeDamage(stack.getMetadata()) == DyeColor.BLUE;
+                return stack.getItem() == Items.DYE && DyeColor.byDyeDamage(stack.getMetadata()) == DyeColor.BLUE;
             }
         });
 
@@ -119,28 +119,28 @@ public class ContainerEnchantment extends Container {
                     for (int j = -1; j <= 1; ++j) {
                         for (int k = -1; k <= 1; ++k) {
                             if ((j != 0 || k != 0) && this.worldPointer.isAirBlock(this.position.add(k, 0, j)) && this.worldPointer.isAirBlock(this.position.add(k, 1, j))) {
-                                if (this.worldPointer.getBlockState(this.position.add(k * 2, 0, j * 2)).getBlock() == Blocks.bookshelf) {
+                                if (this.worldPointer.getBlockState(this.position.add(k * 2, 0, j * 2)).getBlock() == Blocks.BOOKSHELF) {
                                     ++l;
                                 }
 
-                                if (this.worldPointer.getBlockState(this.position.add(k * 2, 1, j * 2)).getBlock() == Blocks.bookshelf) {
+                                if (this.worldPointer.getBlockState(this.position.add(k * 2, 1, j * 2)).getBlock() == Blocks.BOOKSHELF) {
                                     ++l;
                                 }
 
                                 if (k != 0 && j != 0) {
-                                    if (this.worldPointer.getBlockState(this.position.add(k * 2, 0, j)).getBlock() == Blocks.bookshelf) {
+                                    if (this.worldPointer.getBlockState(this.position.add(k * 2, 0, j)).getBlock() == Blocks.BOOKSHELF) {
                                         ++l;
                                     }
 
-                                    if (this.worldPointer.getBlockState(this.position.add(k * 2, 1, j)).getBlock() == Blocks.bookshelf) {
+                                    if (this.worldPointer.getBlockState(this.position.add(k * 2, 1, j)).getBlock() == Blocks.BOOKSHELF) {
                                         ++l;
                                     }
 
-                                    if (this.worldPointer.getBlockState(this.position.add(k, 0, j * 2)).getBlock() == Blocks.bookshelf) {
+                                    if (this.worldPointer.getBlockState(this.position.add(k, 0, j * 2)).getBlock() == Blocks.BOOKSHELF) {
                                         ++l;
                                     }
 
-                                    if (this.worldPointer.getBlockState(this.position.add(k, 1, j * 2)).getBlock() == Blocks.bookshelf) {
+                                    if (this.worldPointer.getBlockState(this.position.add(k, 1, j * 2)).getBlock() == Blocks.BOOKSHELF) {
                                         ++l;
                                     }
                                 }
@@ -191,19 +191,19 @@ public class ContainerEnchantment extends Container {
         } else if (this.enchantLevels[id] > 0 && itemstack != null && (playerIn.experienceLevel >= i && playerIn.experienceLevel >= this.enchantLevels[id] || playerIn.capabilities.isCreativeMode)) {
             if (!this.worldPointer.isRemote) {
                 List<EnchantmentData> list = this.func_178148_a(itemstack, id, this.enchantLevels[id]);
-                boolean flag = itemstack.getItem() == Items.book;
+                boolean flag = itemstack.getItem() == Items.BOOK;
 
                 if (list != null) {
                     playerIn.removeExperienceLevel(i);
 
                     if (flag) {
-                        itemstack.setItem(Items.enchanted_book);
+                        itemstack.setItem(Items.ENCHANTED_BOOK);
                     }
 
                     for (EnchantmentData enchantmentData : list) {
 
                         if (flag) {
-                            Items.enchanted_book.addEnchantment(itemstack, enchantmentData);
+                            Items.ENCHANTED_BOOK.addEnchantment(itemstack, enchantmentData);
                         } else {
                             itemstack.addEnchantment(enchantmentData.enchantmentobj, enchantmentData.enchantmentLevel);
                         }
@@ -234,7 +234,7 @@ public class ContainerEnchantment extends Container {
         this.rand.setSeed((this.xpSeed + p_178148_2_));
         List<EnchantmentData> list = EnchantmentHelper.buildEnchantmentList(this.rand, stack, p_178148_3_);
 
-        if (stack.getItem() == Items.book && list != null && list.size() > 1) {
+        if (stack.getItem() == Items.BOOK && list != null && list.size() > 1) {
             list.remove(this.rand.nextInt(list.size()));
         }
 
@@ -261,7 +261,7 @@ public class ContainerEnchantment extends Container {
     }
 
     public boolean canInteractWith(EntityPlayer playerIn) {
-        return this.worldPointer.getBlockState(this.position).getBlock() != Blocks.enchanting_table ? false : playerIn.getDistanceSq(this.position.getX() + 0.5D, this.position.getY() + 0.5D, this.position.getZ() + 0.5D) <= 64.0D;
+        return this.worldPointer.getBlockState(this.position).getBlock() != Blocks.ENCHANTING_TABLE ? false : playerIn.getDistanceSq(this.position.getX() + 0.5D, this.position.getY() + 0.5D, this.position.getZ() + 0.5D) <= 64.0D;
     }
 
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
@@ -280,7 +280,7 @@ public class ContainerEnchantment extends Container {
                 if (!this.mergeItemStack(itemstack1, 2, 38, true)) {
                     return null;
                 }
-            } else if (itemstack1.getItem() == Items.dye && DyeColor.byDyeDamage(itemstack1.getMetadata()) == DyeColor.BLUE) {
+            } else if (itemstack1.getItem() == Items.DYE && DyeColor.byDyeDamage(itemstack1.getMetadata()) == DyeColor.BLUE) {
                 if (!this.mergeItemStack(itemstack1, 1, 2, true)) {
                     return null;
                 }

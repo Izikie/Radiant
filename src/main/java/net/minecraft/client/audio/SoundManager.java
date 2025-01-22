@@ -258,7 +258,7 @@ public class SoundManager {
                 } else {
                     SoundPoolEntry soundpoolentry = soundeventaccessorcomposite.cloneEntry();
 
-                    if (soundpoolentry == SoundHandler.missing_sound) {
+                    if (soundpoolentry == SoundHandler.MISSING_SOUND) {
                         LOGGER.warn(LOG_MARKER, "Unable to play empty soundEvent: {}", new Object[]{soundeventaccessorcomposite.getSoundEventLocation()});
                     } else {
                         float f = p_sound.getVolume();

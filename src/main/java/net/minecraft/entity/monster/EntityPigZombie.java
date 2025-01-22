@@ -162,13 +162,13 @@ public class EntityPigZombie extends EntityZombie {
         int i = this.rand.nextInt(2 + lootingModifier);
 
         for (int j = 0; j < i; ++j) {
-            this.dropItem(Items.rotten_flesh, 1);
+            this.dropItem(Items.ROTTEN_FLESH, 1);
         }
 
         i = this.rand.nextInt(2 + lootingModifier);
 
         for (int k = 0; k < i; ++k) {
-            this.dropItem(Items.gold_nugget, 1);
+            this.dropItem(Items.GOLD_NUGGET, 1);
         }
     }
 
@@ -177,11 +177,11 @@ public class EntityPigZombie extends EntityZombie {
     }
 
     protected void addRandomDrop() {
-        this.dropItem(Items.gold_ingot, 1);
+        this.dropItem(Items.GOLD_INGOT, 1);
     }
 
     protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
-        this.setCurrentItemOrArmor(0, new ItemStack(Items.golden_sword));
+        this.setCurrentItemOrArmor(0, new ItemStack(Items.GOLDEN_SWORD));
     }
 
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {

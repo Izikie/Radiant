@@ -50,19 +50,19 @@ public class BlockRedstoneOre extends Block {
     private void activate(World worldIn, BlockPos pos) {
         this.spawnParticles(worldIn, pos);
 
-        if (this == Blocks.redstone_ore) {
-            worldIn.setBlockState(pos, Blocks.lit_redstone_ore.getDefaultState());
+        if (this == Blocks.REDSTONE_ORE) {
+            worldIn.setBlockState(pos, Blocks.LIT_REDSTONE_ORE.getDefaultState());
         }
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        if (this == Blocks.lit_redstone_ore) {
-            worldIn.setBlockState(pos, Blocks.redstone_ore.getDefaultState());
+        if (this == Blocks.LIT_REDSTONE_ORE) {
+            worldIn.setBlockState(pos, Blocks.REDSTONE_ORE.getDefaultState());
         }
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Items.redstone;
+        return Items.REDSTONE;
     }
 
     public int quantityDroppedWithBonus(int fortune, Random random) {
@@ -128,6 +128,6 @@ public class BlockRedstoneOre extends Block {
     }
 
     protected ItemStack createStackedBlock(IBlockState state) {
-        return new ItemStack(Blocks.redstone_ore);
+        return new ItemStack(Blocks.REDSTONE_ORE);
     }
 }

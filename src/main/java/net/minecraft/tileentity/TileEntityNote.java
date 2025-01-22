@@ -48,7 +48,7 @@ public class TileEntityNote extends TileEntity {
                 i = 4;
             }
 
-            worldIn.addBlockEvent(p_175108_2_, Blocks.noteblock, i, this.note);
+            worldIn.addBlockEvent(p_175108_2_, Blocks.NOTEBLOCK, i, this.note);
         }
     }
 }

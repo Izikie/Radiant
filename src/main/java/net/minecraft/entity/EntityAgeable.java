@@ -24,7 +24,7 @@ public abstract class EntityAgeable extends EntityCreature {
     public boolean interact(EntityPlayer player) {
         ItemStack itemstack = player.inventory.getCurrentItem();
 
-        if (itemstack != null && itemstack.getItem() == Items.spawn_egg) {
+        if (itemstack != null && itemstack.getItem() == Items.SPAWN_EGG) {
             if (!this.worldObj.isRemote) {
                 Class<? extends Entity> oclass = EntityList.getClassFromID(itemstack.getMetadata());
 

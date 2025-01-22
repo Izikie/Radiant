@@ -27,14 +27,14 @@ public class ItemFishingRod extends Item {
             itemStackIn.damageItem(i, playerIn);
             playerIn.swingItem();
         } else {
-            worldIn.playSoundAtEntity(playerIn, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+            worldIn.playSoundAtEntity(playerIn, "random.bow", 0.5F, 0.4F / (ITEM_RAND.nextFloat() * 0.4F + 0.8F));
 
             if (!worldIn.isRemote) {
                 worldIn.spawnEntityInWorld(new EntityFishHook(worldIn, playerIn));
             }
 
             playerIn.swingItem();
-            playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
+            playerIn.triggerAchievement(StatList.OBJECT_USE_STATS[Item.getIdFromItem(this)]);
         }
 
         return itemStackIn;

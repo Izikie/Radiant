@@ -261,7 +261,7 @@ public abstract class World implements IBlockAccess {
     }
 
     public boolean setBlockToAir(BlockPos pos) {
-        return this.setBlockState(pos, Blocks.air.getDefaultState(), 3);
+        return this.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
     }
 
     public boolean destroyBlock(BlockPos pos, boolean dropBlock) {
@@ -277,7 +277,7 @@ public abstract class World implements IBlockAccess {
                 block.dropBlockAsItem(this, pos, iblockstate, 0);
             }
 
-            return this.setBlockState(pos, Blocks.air.getDefaultState(), 3);
+            return this.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
         }
     }
 
@@ -587,7 +587,7 @@ public abstract class World implements IBlockAccess {
 
     public IBlockState getBlockState(BlockPos pos) {
         if (!this.isValid(pos)) {
-            return Blocks.air.getDefaultState();
+            return Blocks.AIR.getDefaultState();
         } else {
             Chunk chunk = this.getChunkFromBlockCoords(pos);
             return chunk.getBlockState(pos);
@@ -881,7 +881,7 @@ public abstract class World implements IBlockAccess {
         WorldBorder worldborder = this.getWorldBorder();
         boolean flag = entityIn.isOutsideBorder();
         boolean flag1 = this.isInsideBorder(worldborder, entityIn);
-        IBlockState iblockstate = Blocks.stone.getDefaultState();
+        IBlockState iblockstate = Blocks.STONE.getDefaultState();
         BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 
         for (int k1 = i; k1 < j; ++k1) {
@@ -971,7 +971,7 @@ public abstract class World implements IBlockAccess {
                         if (k1 >= -30000000 && k1 < 30000000 && l1 >= -30000000 && l1 < 30000000) {
                             iblockstate = this.getBlockState(blockpos$mutableblockpos);
                         } else {
-                            iblockstate = Blocks.bedrock.getDefaultState();
+                            iblockstate = Blocks.BEDROCK.getDefaultState();
                         }
 
                         iblockstate.getBlock().addCollisionBoxesToList(this, blockpos$mutableblockpos, iblockstate, bb, list, null);
@@ -1066,7 +1066,7 @@ public abstract class World implements IBlockAccess {
     }
 
     public float getCurrentMoonPhaseFactor() {
-        return WorldProvider.moonPhaseFactors[this.provider.getMoonPhase(this.worldInfo.getWorldTime())];
+        return WorldProvider.MOON_PHASE_FACTORS[this.provider.getMoonPhase(this.worldInfo.getWorldTime())];
     }
 
     public float getCelestialAngleRadians(float partialTicks) {
@@ -1464,7 +1464,7 @@ public abstract class World implements IBlockAccess {
                     for (int i2 = i1; i2 < j1; ++i2) {
                         Block block = this.getBlockState(blockpos$mutableblockpos.set(k1, l1, i2)).getBlock();
 
-                        if (block == Blocks.fire || block == Blocks.flowing_lava || block == Blocks.lava) {
+                        if (block == Blocks.FIRE || block == Blocks.FLOWING_LAVA || block == Blocks.LAVA) {
                             return true;
                         }
                     }
@@ -1624,7 +1624,7 @@ public abstract class World implements IBlockAccess {
     public boolean extinguishFire(EntityPlayer player, BlockPos pos, Direction side) {
         pos = pos.offset(side);
 
-        if (this.getBlockState(pos).getBlock() == Blocks.fire) {
+        if (this.getBlockState(pos).getBlock() == Blocks.FIRE) {
             this.playAuxSFXAtEntity(player, 1004, pos, 0);
             this.setBlockToAir(pos);
             return true;
@@ -1921,7 +1921,7 @@ public abstract class World implements IBlockAccess {
                 IBlockState iblockstate = this.getBlockState(pos);
                 Block block = iblockstate.getBlock();
 
-                if ((block == Blocks.water || block == Blocks.flowing_water) && iblockstate.getValue(BlockLiquid.LEVEL) == 0) {
+                if ((block == Blocks.WATER || block == Blocks.FLOWING_WATER) && iblockstate.getValue(BlockLiquid.LEVEL) == 0) {
                     if (!noWaterAdj) {
                         return true;
                     }
@@ -1952,7 +1952,7 @@ public abstract class World implements IBlockAccess {
             if (pos.getY() >= 0 && pos.getY() < 256 && this.getLightFor(LightType.BLOCK, pos) < 10) {
                 Block block = this.getBlockState(pos).getBlock();
 
-                return block.getMaterial() == Material.AIR && Blocks.snow_layer.canPlaceBlockAt(this, pos);
+                return block.getMaterial() == Material.AIR && Blocks.SNOW_LAYER.canPlaceBlockAt(this, pos);
             }
 
             return false;
@@ -2257,7 +2257,7 @@ public abstract class World implements IBlockAccess {
     public boolean canBlockBePlaced(Block blockIn, BlockPos pos, boolean p_175716_3_, Direction side, Entity entityIn, ItemStack itemStackIn) {
         Block block = this.getBlockState(pos).getBlock();
         AxisAlignedBB axisalignedbb = p_175716_3_ ? null : blockIn.getCollisionBoundingBox(this, pos, blockIn.getDefaultState());
-        return (axisalignedbb == null || this.checkNoEntityCollision(axisalignedbb, entityIn)) && (block.getMaterial() == Material.CIRCUITS && blockIn == Blocks.anvil || block.getMaterial().isReplaceable() && blockIn.canReplace(this, pos, side, itemStackIn));
+        return (axisalignedbb == null || this.checkNoEntityCollision(axisalignedbb, entityIn)) && (block.getMaterial() == Material.CIRCUITS && blockIn == Blocks.ANVIL || block.getMaterial().isReplaceable() && blockIn.canReplace(this, pos, side, itemStackIn));
     }
 
     public int getSeaLevel() {
@@ -2633,13 +2633,13 @@ public abstract class World implements IBlockAccess {
             if (this.isBlockLoaded(blockpos)) {
                 IBlockState iblockstate = this.getBlockState(blockpos);
 
-                if (Blocks.unpowered_comparator.isAssociated(iblockstate.getBlock())) {
+                if (Blocks.UNPOWERED_COMPARATOR.isAssociated(iblockstate.getBlock())) {
                     iblockstate.getBlock().onNeighborBlockChange(this, blockpos, iblockstate, blockIn);
                 } else if (iblockstate.getBlock().isNormalCube()) {
                     blockpos = blockpos.offset(enumfacing);
                     iblockstate = this.getBlockState(blockpos);
 
-                    if (Blocks.unpowered_comparator.isAssociated(iblockstate.getBlock())) {
+                    if (Blocks.UNPOWERED_COMPARATOR.isAssociated(iblockstate.getBlock())) {
                         iblockstate.getBlock().onNeighborBlockChange(this, blockpos, iblockstate, blockIn);
                     }
                 }

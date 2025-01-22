@@ -47,7 +47,7 @@ public class EntitySmallFireball extends EntityFireball {
                     BlockPos blockpos = movingObject.getBlockPos().offset(movingObject.sideHit);
 
                     if (this.worldObj.isAirBlock(blockpos)) {
-                        this.worldObj.setBlockState(blockpos, Blocks.fire.getDefaultState());
+                        this.worldObj.setBlockState(blockpos, Blocks.FIRE.getDefaultState());
                     }
                 }
             }

@@ -104,13 +104,13 @@ public class BlockPortal extends BlockBreakable {
             BlockPortal.Size blockportal$size = new BlockPortal.Size(worldIn, pos, Direction.Axis.X);
 
             if (!blockportal$size.func_150860_b() || blockportal$size.field_150864_e < blockportal$size.field_150868_h * blockportal$size.field_150862_g) {
-                worldIn.setBlockState(pos, Blocks.air.getDefaultState());
+                worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
             }
         } else if (enumfacing$axis == Direction.Axis.Z) {
             BlockPortal.Size blockportal$size1 = new BlockPortal.Size(worldIn, pos, Direction.Axis.Z);
 
             if (!blockportal$size1.func_150860_b() || blockportal$size1.field_150864_e < blockportal$size1.field_150868_h * blockportal$size1.field_150862_g) {
-                worldIn.setBlockState(pos, Blocks.air.getDefaultState());
+                worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
             }
         }
     }
@@ -291,13 +291,13 @@ public class BlockPortal extends BlockBreakable {
             for (i = 0; i < 22; ++i) {
                 BlockPos blockpos = p_180120_1_.offset(p_180120_2_, i);
 
-                if (!this.func_150857_a(this.world.getBlockState(blockpos).getBlock()) || this.world.getBlockState(blockpos.down()).getBlock() != Blocks.obsidian) {
+                if (!this.func_150857_a(this.world.getBlockState(blockpos).getBlock()) || this.world.getBlockState(blockpos.down()).getBlock() != Blocks.OBSIDIAN) {
                     break;
                 }
             }
 
             Block block = this.world.getBlockState(p_180120_1_.offset(p_180120_2_, i)).getBlock();
-            return block == Blocks.obsidian ? i : 0;
+            return block == Blocks.OBSIDIAN ? i : 0;
         }
 
         public int func_181100_a() {
@@ -320,20 +320,20 @@ public class BlockPortal extends BlockBreakable {
                         break label24;
                     }
 
-                    if (block == Blocks.portal) {
+                    if (block == Blocks.PORTAL) {
                         ++this.field_150864_e;
                     }
 
                     if (i == 0) {
                         block = this.world.getBlockState(blockpos.offset(this.field_150863_d)).getBlock();
 
-                        if (block != Blocks.obsidian) {
+                        if (block != Blocks.OBSIDIAN) {
                             break label24;
                         }
                     } else if (i == this.field_150868_h - 1) {
                         block = this.world.getBlockState(blockpos.offset(this.field_150866_c)).getBlock();
 
-                        if (block != Blocks.obsidian) {
+                        if (block != Blocks.OBSIDIAN) {
                             break label24;
                         }
                     }
@@ -341,7 +341,7 @@ public class BlockPortal extends BlockBreakable {
             }
 
             for (int j = 0; j < this.field_150868_h; ++j) {
-                if (this.world.getBlockState(this.field_150861_f.offset(this.field_150866_c, j).up(this.field_150862_g)).getBlock() != Blocks.obsidian) {
+                if (this.world.getBlockState(this.field_150861_f.offset(this.field_150866_c, j).up(this.field_150862_g)).getBlock() != Blocks.OBSIDIAN) {
                     this.field_150862_g = 0;
                     break;
                 }
@@ -358,7 +358,7 @@ public class BlockPortal extends BlockBreakable {
         }
 
         protected boolean func_150857_a(Block p_150857_1_) {
-            return p_150857_1_.blockMaterial == Material.AIR || p_150857_1_ == Blocks.fire || p_150857_1_ == Blocks.portal;
+            return p_150857_1_.blockMaterial == Material.AIR || p_150857_1_ == Blocks.FIRE || p_150857_1_ == Blocks.PORTAL;
         }
 
         public boolean func_150860_b() {
@@ -370,7 +370,7 @@ public class BlockPortal extends BlockBreakable {
                 BlockPos blockpos = this.field_150861_f.offset(this.field_150866_c, i);
 
                 for (int j = 0; j < this.field_150862_g; ++j) {
-                    this.world.setBlockState(blockpos.up(j), Blocks.portal.getDefaultState().withProperty(BlockPortal.AXIS, this.axis), 2);
+                    this.world.setBlockState(blockpos.up(j), Blocks.PORTAL.getDefaultState().withProperty(BlockPortal.AXIS, this.axis), 2);
                 }
             }
         }

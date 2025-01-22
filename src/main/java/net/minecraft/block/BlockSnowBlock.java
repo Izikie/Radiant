@@ -19,7 +19,7 @@ public class BlockSnowBlock extends Block {
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Items.snowball;
+        return Items.SNOWBALL;
     }
 
     public int quantityDropped(Random random) {

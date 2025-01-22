@@ -57,14 +57,14 @@ public class BiomeGenSavanna extends BiomeGenBase {
         }
 
         public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
-            this.topBlock = Blocks.grass.getDefaultState();
-            this.fillerBlock = Blocks.dirt.getDefaultState();
+            this.topBlock = Blocks.GRASS.getDefaultState();
+            this.fillerBlock = Blocks.DIRT.getDefaultState();
 
             if (noiseVal > 1.75D) {
-                this.topBlock = Blocks.stone.getDefaultState();
-                this.fillerBlock = Blocks.stone.getDefaultState();
+                this.topBlock = Blocks.STONE.getDefaultState();
+                this.fillerBlock = Blocks.STONE.getDefaultState();
             } else if (noiseVal > -0.5D) {
-                this.topBlock = Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT);
+                this.topBlock = Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT);
             }
 
             this.generateBiomeTerrain(worldIn, rand, chunkPrimerIn, x, z, noiseVal);

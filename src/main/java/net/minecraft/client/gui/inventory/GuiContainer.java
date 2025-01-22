@@ -22,7 +22,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
 
 public abstract class GuiContainer extends GuiScreen {
-    protected static final ResourceLocation inventoryBackground = new ResourceLocation("textures/gui/container/inventory.png");
+    protected static final ResourceLocation INVENTORY_BACKGROUND = new ResourceLocation("textures/gui/container/inventory.png");
     protected int xSize = 176;
     protected int ySize = 166;
     public final Container inventorySlots;

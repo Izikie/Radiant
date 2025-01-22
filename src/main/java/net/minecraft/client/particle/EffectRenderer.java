@@ -31,7 +31,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 public class EffectRenderer {
-    private static final ResourceLocation particleTextures = new ResourceLocation("textures/particle/particles.png");
+    private static final ResourceLocation PARTICLE_TEXTURES = new ResourceLocation("textures/particle/particles.png");
     protected World worldObj;
     private final List<EntityFX>[][] fxLayers = new List[4][];
     private final List<EntityParticleEmitter> particleEmitters = Lists.newArrayList();
@@ -241,7 +241,7 @@ public class EffectRenderer {
 
                         case 0:
                         default:
-                            this.renderer.bindTexture(particleTextures);
+                            this.renderer.bindTexture(PARTICLE_TEXTURES);
                             break;
                     }
 

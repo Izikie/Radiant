@@ -243,13 +243,13 @@ public abstract class BlockLiquid extends Block {
                 Integer integer = state.getValue(LEVEL);
 
                 if (integer == 0) {
-                    worldIn.setBlockState(pos, Blocks.obsidian.getDefaultState());
+                    worldIn.setBlockState(pos, Blocks.OBSIDIAN.getDefaultState());
                     this.triggerMixEffects(worldIn, pos);
                     return true;
                 }
 
                 if (integer <= 4) {
-                    worldIn.setBlockState(pos, Blocks.cobblestone.getDefaultState());
+                    worldIn.setBlockState(pos, Blocks.COBBLESTONE.getDefaultState());
                     this.triggerMixEffects(worldIn, pos);
                     return true;
                 }
@@ -284,9 +284,9 @@ public abstract class BlockLiquid extends Block {
 
     public static BlockDynamicLiquid getFlowingBlock(Material materialIn) {
         if (materialIn == Material.WATER) {
-            return Blocks.flowing_water;
+            return Blocks.FLOWING_WATER;
         } else if (materialIn == Material.LAVA) {
-            return Blocks.flowing_lava;
+            return Blocks.FLOWING_LAVA;
         } else {
             throw new IllegalArgumentException("Invalid material");
         }
@@ -294,9 +294,9 @@ public abstract class BlockLiquid extends Block {
 
     public static BlockStaticLiquid getStaticBlock(Material materialIn) {
         if (materialIn == Material.WATER) {
-            return Blocks.water;
+            return Blocks.WATER;
         } else if (materialIn == Material.LAVA) {
-            return Blocks.lava;
+            return Blocks.LAVA;
         } else {
             throw new IllegalArgumentException("Invalid material");
         }

@@ -299,7 +299,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
     }
 
     public static boolean canDestroyBlock(Block p_181033_0_) {
-        return p_181033_0_ != Blocks.bedrock && p_181033_0_ != Blocks.end_portal && p_181033_0_ != Blocks.end_portal_frame && p_181033_0_ != Blocks.command_block && p_181033_0_ != Blocks.barrier;
+        return p_181033_0_ != Blocks.BEDROCK && p_181033_0_ != Blocks.END_PORTAL && p_181033_0_ != Blocks.END_PORTAL_FRAME && p_181033_0_ != Blocks.COMMAND_BLOCK && p_181033_0_ != Blocks.BARRIER;
     }
 
     public void func_82206_m() {
@@ -417,7 +417,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
     }
 
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
-        EntityItem entityitem = this.dropItem(Items.nether_star, 1);
+        EntityItem entityitem = this.dropItem(Items.NETHER_STAR, 1);
 
         if (entityitem != null) {
             entityitem.setNoDespawn();

@@ -23,7 +23,7 @@ public class WorldGenBigMushroom extends WorldGenerator {
 
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         if (this.mushroomType == null) {
-            this.mushroomType = rand.nextBoolean() ? Blocks.brown_mushroom_block : Blocks.red_mushroom_block;
+            this.mushroomType = rand.nextBoolean() ? Blocks.BROWN_MUSHROOM_BLOCK : Blocks.RED_MUSHROOM_BLOCK;
         }
 
         int i = rand.nextInt(3) + 4;
@@ -59,12 +59,12 @@ public class WorldGenBigMushroom extends WorldGenerator {
             } else {
                 Block block1 = worldIn.getBlockState(position.down()).getBlock();
 
-                if (block1 != Blocks.dirt && block1 != Blocks.grass && block1 != Blocks.mycelium) {
+                if (block1 != Blocks.DIRT && block1 != Blocks.GRASS && block1 != Blocks.MYCELIUM) {
                     return false;
                 } else {
                     int k2 = position.getY() + i;
 
-                    if (this.mushroomType == Blocks.red_mushroom_block) {
+                    if (this.mushroomType == Blocks.RED_MUSHROOM_BLOCK) {
                         k2 = position.getY() + i - 3;
                     }
 
@@ -75,7 +75,7 @@ public class WorldGenBigMushroom extends WorldGenerator {
                             ++j3;
                         }
 
-                        if (this.mushroomType == Blocks.brown_mushroom_block) {
+                        if (this.mushroomType == Blocks.BROWN_MUSHROOM_BLOCK) {
                             j3 = 3;
                         }
 
@@ -102,7 +102,7 @@ public class WorldGenBigMushroom extends WorldGenerator {
 
                                 BlockHugeMushroom.EnumType blockhugemushroom$enumtype = BlockHugeMushroom.EnumType.byMetadata(j2);
 
-                                if (this.mushroomType == Blocks.brown_mushroom_block || l2 < position.getY() + i) {
+                                if (this.mushroomType == Blocks.BROWN_MUSHROOM_BLOCK || l2 < position.getY() + i) {
                                     if ((l1 == k3 || l1 == l3) && (i2 == j1 || i2 == k1)) {
                                         continue;
                                     }

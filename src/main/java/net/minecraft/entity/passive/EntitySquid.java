@@ -71,7 +71,7 @@ public class EntitySquid extends EntityWaterMob {
         int i = this.rand.nextInt(3 + lootingModifier) + 1;
 
         for (int j = 0; j < i; ++j) {
-            this.entityDropItem(new ItemStack(Items.dye, 1, DyeColor.BLACK.getDyeDamage()), 0.0F);
+            this.entityDropItem(new ItemStack(Items.DYE, 1, DyeColor.BLACK.getDyeDamage()), 0.0F);
         }
     }
 

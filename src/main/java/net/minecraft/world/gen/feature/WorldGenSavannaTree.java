@@ -15,8 +15,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public class WorldGenSavannaTree extends WorldGenAbstractTree {
-    private static final IBlockState field_181643_a = Blocks.log2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.WoodType.ACACIA);
-    private static final IBlockState field_181644_b = Blocks.leaves2.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.WoodType.ACACIA).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
+    private static final IBlockState field_181643_a = Blocks.LOG_2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.WoodType.ACACIA);
+    private static final IBlockState field_181644_b = Blocks.LEAVES_2.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.WoodType.ACACIA).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
 
     public WorldGenSavannaTree(boolean p_i45463_1_) {
         super(p_i45463_1_);
@@ -58,7 +58,7 @@ public class WorldGenSavannaTree extends WorldGenAbstractTree {
             } else {
                 Block block = worldIn.getBlockState(position.down()).getBlock();
 
-                if ((block == Blocks.grass || block == Blocks.dirt) && position.getY() < 256 - i - 1) {
+                if ((block == Blocks.GRASS || block == Blocks.DIRT) && position.getY() < 256 - i - 1) {
                     this.func_175921_a(worldIn, position.down());
                     Direction enumfacing = Direction.Plane.HORIZONTAL.random(rand);
                     int k2 = i - rand.nextInt(4) - 1;

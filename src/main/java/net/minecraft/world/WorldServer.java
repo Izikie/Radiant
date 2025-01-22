@@ -88,7 +88,7 @@ public class WorldServer extends World implements IThreadListener {
     protected final VillageSiege villageSiege = new VillageSiege(this);
     private final WorldServer.ServerBlockEventList[] blockEventQueue = new WorldServer.ServerBlockEventList[]{new WorldServer.ServerBlockEventList(), new WorldServer.ServerBlockEventList()};
     private int blockEventCacheIndex;
-    private static final List<WeightedRandomChestContent> bonusChestContent = Lists.newArrayList(new WeightedRandomChestContent(Items.stick, 0, 1, 3, 10), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.planks), 0, 1, 3, 10), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.log), 0, 1, 3, 10), new WeightedRandomChestContent(Items.stone_axe, 0, 1, 1, 3), new WeightedRandomChestContent(Items.wooden_axe, 0, 1, 1, 5), new WeightedRandomChestContent(Items.stone_pickaxe, 0, 1, 1, 3), new WeightedRandomChestContent(Items.wooden_pickaxe, 0, 1, 1, 5), new WeightedRandomChestContent(Items.apple, 0, 2, 3, 5), new WeightedRandomChestContent(Items.bread, 0, 2, 3, 3), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.log2), 0, 1, 3, 10));
+    private static final List<WeightedRandomChestContent> BONUS_CHEST_CONTENT = Lists.newArrayList(new WeightedRandomChestContent(Items.STICK, 0, 1, 3, 10), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.PLANKS), 0, 1, 3, 10), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.LOG), 0, 1, 3, 10), new WeightedRandomChestContent(Items.STONE_AXE, 0, 1, 1, 3), new WeightedRandomChestContent(Items.WOODEN_AXE, 0, 1, 1, 5), new WeightedRandomChestContent(Items.STONE_PICKAXE, 0, 1, 1, 3), new WeightedRandomChestContent(Items.WOODEN_PICKAXE, 0, 1, 1, 5), new WeightedRandomChestContent(Items.APPLE, 0, 2, 3, 5), new WeightedRandomChestContent(Items.BREAD, 0, 2, 3, 3), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.LOG_2), 0, 1, 3, 10));
     private final List<NextTickListEntry> pendingTickListEntriesThisTick = Lists.newArrayList();
 
     public WorldServer(MinecraftServer server, ISaveHandler saveHandlerIn, WorldInfo info, int dimensionId) {
@@ -307,11 +307,11 @@ public class WorldServer extends World implements IThreadListener {
                     BlockPos blockpos1 = blockpos2.down();
 
                     if (this.canBlockFreezeNoWater(blockpos1)) {
-                        this.setBlockState(blockpos1, Blocks.ice.getDefaultState());
+                        this.setBlockState(blockpos1, Blocks.ICE.getDefaultState());
                     }
 
                     if (this.isRaining() && this.canSnowAt(blockpos2, true)) {
-                        this.setBlockState(blockpos2, Blocks.snow_layer.getDefaultState());
+                        this.setBlockState(blockpos2, Blocks.SNOW_LAYER.getDefaultState());
                     }
 
                     if (this.isRaining() && this.getBiomeGenForCoords(blockpos1).canRain()) {
@@ -653,7 +653,7 @@ public class WorldServer extends World implements IThreadListener {
     }
 
     protected void createBonusChest() {
-        WorldGeneratorBonusChest worldgeneratorbonuschest = new WorldGeneratorBonusChest(bonusChestContent, 10);
+        WorldGeneratorBonusChest worldgeneratorbonuschest = new WorldGeneratorBonusChest(BONUS_CHEST_CONTENT, 10);
 
         for (int i = 0; i < 10; ++i) {
             int j = this.worldInfo.getSpawnX() + this.rand.nextInt(6) - this.rand.nextInt(6);

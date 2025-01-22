@@ -147,7 +147,7 @@ public class FlatGeneratorInfo {
                 }
             }
 
-            if (block == Blocks.air) {
+            if (block == Blocks.AIR) {
                 j = 0;
             }
 
@@ -249,9 +249,9 @@ public class FlatGeneratorInfo {
     public static FlatGeneratorInfo getDefaultFlatGenerator() {
         FlatGeneratorInfo flatgeneratorinfo = new FlatGeneratorInfo();
         flatgeneratorinfo.setBiome(BiomeGenBase.PLAINS.biomeID);
-        flatgeneratorinfo.getFlatLayers().add(new FlatLayerInfo(1, Blocks.bedrock));
-        flatgeneratorinfo.getFlatLayers().add(new FlatLayerInfo(2, Blocks.dirt));
-        flatgeneratorinfo.getFlatLayers().add(new FlatLayerInfo(1, Blocks.grass));
+        flatgeneratorinfo.getFlatLayers().add(new FlatLayerInfo(1, Blocks.BEDROCK));
+        flatgeneratorinfo.getFlatLayers().add(new FlatLayerInfo(2, Blocks.DIRT));
+        flatgeneratorinfo.getFlatLayers().add(new FlatLayerInfo(1, Blocks.GRASS));
         flatgeneratorinfo.func_82645_d();
         flatgeneratorinfo.getWorldFeatures().put("village", Maps.newHashMap());
         return flatgeneratorinfo;

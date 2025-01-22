@@ -14,14 +14,14 @@ public class RecipesMapCloning implements IRecipe {
             ItemStack itemstack1 = inv.getStackInSlot(j);
 
             if (itemstack1 != null) {
-                if (itemstack1.getItem() == Items.filled_map) {
+                if (itemstack1.getItem() == Items.FILLED_MAP) {
                     if (itemstack != null) {
                         return false;
                     }
 
                     itemstack = itemstack1;
                 } else {
-                    if (itemstack1.getItem() != Items.map) {
+                    if (itemstack1.getItem() != Items.MAP) {
                         return false;
                     }
 
@@ -41,14 +41,14 @@ public class RecipesMapCloning implements IRecipe {
             ItemStack itemstack1 = inv.getStackInSlot(j);
 
             if (itemstack1 != null) {
-                if (itemstack1.getItem() == Items.filled_map) {
+                if (itemstack1.getItem() == Items.FILLED_MAP) {
                     if (itemstack != null) {
                         return null;
                     }
 
                     itemstack = itemstack1;
                 } else {
-                    if (itemstack1.getItem() != Items.map) {
+                    if (itemstack1.getItem() != Items.MAP) {
                         return null;
                     }
 
@@ -58,7 +58,7 @@ public class RecipesMapCloning implements IRecipe {
         }
 
         if (itemstack != null && i >= 1) {
-            ItemStack itemstack2 = new ItemStack(Items.filled_map, i + 1, itemstack.getMetadata());
+            ItemStack itemstack2 = new ItemStack(Items.FILLED_MAP, i + 1, itemstack.getMetadata());
 
             if (itemstack.hasDisplayName()) {
                 itemstack2.setStackDisplayName(itemstack.getDisplayName());

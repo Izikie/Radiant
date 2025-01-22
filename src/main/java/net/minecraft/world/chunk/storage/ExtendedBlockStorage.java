@@ -25,7 +25,7 @@ public class ExtendedBlockStorage {
 
     public IBlockState get(int x, int y, int z) {
         IBlockState iblockstate = Block.BLOCK_STATE_IDS.getByValue(this.data[y << 8 | z << 4 | x]);
-        return iblockstate != null ? iblockstate : Blocks.air.getDefaultState();
+        return iblockstate != null ? iblockstate : Blocks.AIR.getDefaultState();
     }
 
     public void set(int x, int y, int z, IBlockState state) {
@@ -33,7 +33,7 @@ public class ExtendedBlockStorage {
         Block block = iblockstate.getBlock();
         Block block1 = state.getBlock();
 
-        if (block != Blocks.air) {
+        if (block != Blocks.AIR) {
             --this.blockRefCount;
 
             if (block.getTickRandomly()) {
@@ -41,7 +41,7 @@ public class ExtendedBlockStorage {
             }
         }
 
-        if (block1 != Blocks.air) {
+        if (block1 != Blocks.AIR) {
             ++this.blockRefCount;
 
             if (block1.getTickRandomly()) {
@@ -90,7 +90,7 @@ public class ExtendedBlockStorage {
     }
 
     public void removeInvalidBlocks() {
-        IBlockState iblockstate = Blocks.air.getDefaultState();
+        IBlockState iblockstate = Blocks.AIR.getDefaultState();
         int i = 0;
         int j = 0;
 
@@ -99,7 +99,7 @@ public class ExtendedBlockStorage {
                 for (int i1 = 0; i1 < 16; ++i1) {
                     Block block = this.getBlockByExtId(i1, k, l);
 
-                    if (block != Blocks.air) {
+                    if (block != Blocks.AIR) {
                         ++i;
 
                         if (block.getTickRandomly()) {

@@ -37,11 +37,11 @@ public abstract class BlockStoneSlab extends BlockSlab {
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Item.getItemFromBlock(Blocks.stone_slab);
+        return Item.getItemFromBlock(Blocks.STONE_SLAB);
     }
 
     public Item getItem(World worldIn, BlockPos pos) {
-        return Item.getItemFromBlock(Blocks.stone_slab);
+        return Item.getItemFromBlock(Blocks.STONE_SLAB);
     }
 
     public String getUnlocalizedName(int meta) {
@@ -57,7 +57,7 @@ public abstract class BlockStoneSlab extends BlockSlab {
     }
 
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-        if (itemIn != Item.getItemFromBlock(Blocks.double_stone_slab)) {
+        if (itemIn != Item.getItemFromBlock(Blocks.DOUBLE_STONE_SLAB)) {
             for (BlockStoneSlab.EnumType blockstoneslab$enumtype : BlockStoneSlab.EnumType.values()) {
                 if (blockstoneslab$enumtype != BlockStoneSlab.EnumType.WOOD) {
                     list.add(new ItemStack(itemIn, 1, blockstoneslab$enumtype.getMetadata()));
@@ -106,14 +106,14 @@ public abstract class BlockStoneSlab extends BlockSlab {
     }
 
     public enum EnumType implements IStringSerializable {
-        STONE(0, MapColor.stoneColor, "stone"),
-        SAND(1, MapColor.sandColor, "sandstone", "sand"),
-        WOOD(2, MapColor.woodColor, "wood_old", "wood"),
-        COBBLESTONE(3, MapColor.stoneColor, "cobblestone", "cobble"),
-        BRICK(4, MapColor.redColor, "brick"),
-        SMOOTHBRICK(5, MapColor.stoneColor, "stone_brick", "smoothStoneBrick"),
-        NETHERBRICK(6, MapColor.netherrackColor, "nether_brick", "netherBrick"),
-        QUARTZ(7, MapColor.quartzColor, "quartz");
+        STONE(0, MapColor.STONE_COLOR, "stone"),
+        SAND(1, MapColor.SAND_COLOR, "sandstone", "sand"),
+        WOOD(2, MapColor.WOOD_COLOR, "wood_old", "wood"),
+        COBBLESTONE(3, MapColor.STONE_COLOR, "cobblestone", "cobble"),
+        BRICK(4, MapColor.RED_COLOR, "brick"),
+        SMOOTHBRICK(5, MapColor.STONE_COLOR, "stone_brick", "smoothStoneBrick"),
+        NETHERBRICK(6, MapColor.NETHERRACK_COLOR, "nether_brick", "netherBrick"),
+        QUARTZ(7, MapColor.QUARTZ_COLOR, "quartz");
 
         private static final BlockStoneSlab.EnumType[] META_LOOKUP = new BlockStoneSlab.EnumType[values().length];
         private final int meta;

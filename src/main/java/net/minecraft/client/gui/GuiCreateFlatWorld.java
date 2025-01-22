@@ -164,16 +164,16 @@ public class GuiCreateFlatWorld extends GuiScreen {
             IBlockState iblockstate = flatlayerinfo.getLayerMaterial();
             Block block = iblockstate.getBlock();
             Item item = Item.getItemFromBlock(block);
-            ItemStack itemstack = block != Blocks.air && item != null ? new ItemStack(item, 1, block.getMetaFromState(iblockstate)) : null;
+            ItemStack itemstack = block != Blocks.AIR && item != null ? new ItemStack(item, 1, block.getMetaFromState(iblockstate)) : null;
             String s = itemstack == null ? "Air" : item.getItemStackDisplayName(itemstack);
 
             if (item == null) {
-                if (block != Blocks.water && block != Blocks.flowing_water) {
-                    if (block == Blocks.lava || block == Blocks.flowing_lava) {
-                        item = Items.lava_bucket;
+                if (block != Blocks.WATER && block != Blocks.FLOWING_WATER) {
+                    if (block == Blocks.LAVA || block == Blocks.FLOWING_LAVA) {
+                        item = Items.LAVA_BUCKET;
                     }
                 } else {
-                    item = Items.water_bucket;
+                    item = Items.WATER_BUCKET;
                 }
 
                 if (item != null) {

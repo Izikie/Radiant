@@ -122,7 +122,7 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
             f = 1.0F;
         }
 
-        if (this.isUsingItem() && this.getItemInUse().getItem() == Items.bow) {
+        if (this.isUsingItem() && this.getItemInUse().getItem() == Items.BOW) {
             int i = this.getItemInUseDuration();
             float f1 = i / 20.0F;
 

@@ -10,7 +10,7 @@ import net.minecraft.stats.StatList;
 import net.minecraft.world.World;
 
 public class ItemBow extends Item {
-    public static final String[] bowPullIconNameArray = new String[]{"pulling_0", "pulling_1", "pulling_2"};
+    public static final String[] BOW_PULL_ICON_NAMES = new String[]{"pulling_0", "pulling_1", "pulling_2"};
 
     public ItemBow() {
         this.maxStackSize = 1;
@@ -21,7 +21,7 @@ public class ItemBow extends Item {
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityPlayer playerIn, int timeLeft) {
         boolean flag = playerIn.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.INFINITY.effectId, stack) > 0;
 
-        if (flag || playerIn.inventory.hasItem(Items.arrow)) {
+        if (flag || playerIn.inventory.hasItem(Items.ARROW)) {
             int i = this.getMaxItemUseDuration(stack) - timeLeft;
             float f = i / 20.0F;
             f = (f * f + f * 2.0F) / 3.0F;
@@ -57,15 +57,15 @@ public class ItemBow extends Item {
             }
 
             stack.damageItem(1, playerIn);
-            worldIn.playSoundAtEntity(playerIn, "random.bow", 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+            worldIn.playSoundAtEntity(playerIn, "random.bow", 1.0F, 1.0F / (ITEM_RAND.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
 
             if (flag) {
                 entityarrow.canBePickedUp = 2;
             } else {
-                playerIn.inventory.consumeInventoryItem(Items.arrow);
+                playerIn.inventory.consumeInventoryItem(Items.ARROW);
             }
 
-            playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
+            playerIn.triggerAchievement(StatList.OBJECT_USE_STATS[Item.getIdFromItem(this)]);
 
             if (!worldIn.isRemote) {
                 worldIn.spawnEntityInWorld(entityarrow);
@@ -86,7 +86,7 @@ public class ItemBow extends Item {
     }
 
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
-        if (playerIn.capabilities.isCreativeMode || playerIn.inventory.hasItem(Items.arrow)) {
+        if (playerIn.capabilities.isCreativeMode || playerIn.inventory.hasItem(Items.ARROW)) {
             playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
         }
 

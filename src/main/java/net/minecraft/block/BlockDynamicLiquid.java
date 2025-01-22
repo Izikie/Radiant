@@ -92,7 +92,7 @@ public class BlockDynamicLiquid extends BlockLiquid {
 
         if (this.canFlowInto(worldIn, pos.down(), iblockstate)) {
             if (this.blockMaterial == Material.LAVA && worldIn.getBlockState(pos.down()).getBlock().getMaterial() == Material.WATER) {
-                worldIn.setBlockState(pos.down(), Blocks.stone.getDefaultState());
+                worldIn.setBlockState(pos.down(), Blocks.STONE.getDefaultState());
                 this.triggerMixEffects(worldIn, pos.down());
                 return;
             }
@@ -122,7 +122,7 @@ public class BlockDynamicLiquid extends BlockLiquid {
 
     private void tryFlowInto(World worldIn, BlockPos pos, IBlockState state, int level) {
         if (this.canFlowInto(worldIn, pos, state)) {
-            if (state.getBlock() != Blocks.air) {
+            if (state.getBlock() != Blocks.AIR) {
                 if (this.blockMaterial == Material.LAVA) {
                     this.triggerMixEffects(worldIn, pos);
                 } else {
@@ -194,7 +194,7 @@ public class BlockDynamicLiquid extends BlockLiquid {
 
     private boolean isBlocked(World worldIn, BlockPos pos, IBlockState state) {
         Block block = worldIn.getBlockState(pos).getBlock();
-        return !(block instanceof BlockDoor) && block != Blocks.standing_sign && block != Blocks.ladder && block != Blocks.reeds ? (block.blockMaterial == Material.PORTAL ? true : block.blockMaterial.blocksMovement()) : true;
+        return !(block instanceof BlockDoor) && block != Blocks.STANDING_SIGN && block != Blocks.LADDER && block != Blocks.REEDS ? (block.blockMaterial == Material.PORTAL ? true : block.blockMaterial.blocksMovement()) : true;
     }
 
     protected int checkAdjacentBlock(World worldIn, BlockPos pos, int currentMinLevel) {

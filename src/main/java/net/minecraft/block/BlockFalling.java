@@ -70,7 +70,7 @@ public class BlockFalling extends Block {
     public static boolean canFallInto(World worldIn, BlockPos pos) {
         Block block = worldIn.getBlockState(pos).getBlock();
         Material material = block.blockMaterial;
-        return block == Blocks.fire || material == Material.AIR || material == Material.WATER || material == Material.LAVA;
+        return block == Blocks.FIRE || material == Material.AIR || material == Material.WATER || material == Material.LAVA;
     }
 
     public void onEndFalling(World worldIn, BlockPos pos) {

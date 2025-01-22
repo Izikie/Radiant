@@ -239,8 +239,8 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
                 ++this.furnaceItemStacks[2].stackSize;
             }
 
-            if (this.furnaceItemStacks[0].getItem() == Item.getItemFromBlock(Blocks.sponge) && this.furnaceItemStacks[0].getMetadata() == 1 && this.furnaceItemStacks[1] != null && this.furnaceItemStacks[1].getItem() == Items.bucket) {
-                this.furnaceItemStacks[1] = new ItemStack(Items.water_bucket);
+            if (this.furnaceItemStacks[0].getItem() == Item.getItemFromBlock(Blocks.SPONGE) && this.furnaceItemStacks[0].getMetadata() == 1 && this.furnaceItemStacks[1] != null && this.furnaceItemStacks[1].getItem() == Items.BUCKET) {
+                this.furnaceItemStacks[1] = new ItemStack(Items.WATER_BUCKET);
             }
 
             --this.furnaceItemStacks[0].stackSize;
@@ -257,10 +257,10 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
         } else {
             Item item = p_145952_0_.getItem();
 
-            if (item instanceof ItemBlock && Block.getBlockFromItem(item) != Blocks.air) {
+            if (item instanceof ItemBlock && Block.getBlockFromItem(item) != Blocks.AIR) {
                 Block block = Block.getBlockFromItem(item);
 
-                if (block == Blocks.wooden_slab) {
+                if (block == Blocks.WOODEN_SLAB) {
                     return 150;
                 }
 
@@ -268,12 +268,12 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
                     return 300;
                 }
 
-                if (block == Blocks.coal_block) {
+                if (block == Blocks.COAL_BLOCK) {
                     return 16000;
                 }
             }
 
-            return item instanceof ItemTool itemTool && itemTool.getToolMaterialName().equals("WOOD") ? 200 : (item instanceof ItemSword itemSword && itemSword.getToolMaterialName().equals("WOOD") ? 200 : (item instanceof ItemHoe itemHoe && itemHoe.getMaterialName().equals("WOOD") ? 200 : (item == Items.stick ? 100 : (item == Items.coal ? 1600 : (item == Items.lava_bucket ? 20000 : (item == Item.getItemFromBlock(Blocks.sapling) ? 100 : (item == Items.blaze_rod ? 2400 : 0)))))));
+            return item instanceof ItemTool itemTool && itemTool.getToolMaterialName().equals("WOOD") ? 200 : (item instanceof ItemSword itemSword && itemSword.getToolMaterialName().equals("WOOD") ? 200 : (item instanceof ItemHoe itemHoe && itemHoe.getMaterialName().equals("WOOD") ? 200 : (item == Items.STICK ? 100 : (item == Items.COAL ? 1600 : (item == Items.LAVA_BUCKET ? 20000 : (item == Item.getItemFromBlock(Blocks.SAPLING) ? 100 : (item == Items.BLAZE_ROD ? 2400 : 0)))))));
         }
     }
 
@@ -307,7 +307,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
         if (direction == Direction.DOWN && index == 1) {
             Item item = stack.getItem();
 
-            return item == Items.water_bucket || item == Items.bucket;
+            return item == Items.WATER_BUCKET || item == Items.BUCKET;
         }
 
         return true;

@@ -11,8 +11,8 @@ public class WorldGenFire extends WorldGenerator {
         for (int i = 0; i < 64; ++i) {
             BlockPos blockpos = position.add(rand.nextInt(8) - rand.nextInt(8), rand.nextInt(4) - rand.nextInt(4), rand.nextInt(8) - rand.nextInt(8));
 
-            if (worldIn.isAirBlock(blockpos) && worldIn.getBlockState(blockpos.down()).getBlock() == Blocks.netherrack) {
-                worldIn.setBlockState(blockpos, Blocks.fire.getDefaultState(), 2);
+            if (worldIn.isAirBlock(blockpos) && worldIn.getBlockState(blockpos.down()).getBlock() == Blocks.NETHERRACK) {
+                worldIn.setBlockState(blockpos, Blocks.FIRE.getDefaultState(), 2);
             }
         }
 

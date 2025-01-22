@@ -106,11 +106,11 @@ public class BlockBrewingStand extends BlockContainer {
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Items.brewing_stand;
+        return Items.BREWING_STAND;
     }
 
     public Item getItem(World worldIn, BlockPos pos) {
-        return Items.brewing_stand;
+        return Items.BREWING_STAND;
     }
 
     public boolean hasComparatorInputOverride() {

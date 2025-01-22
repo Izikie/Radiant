@@ -56,7 +56,7 @@ public class ConnectedProperties {
     public String[] connectTiles = null;
     public TextureAtlasSprite[] connectTileIcons = null;
     public int tintIndex = -1;
-    public IBlockState tintBlockState = Blocks.air.getDefaultState();
+    public IBlockState tintBlockState = Blocks.AIR.getDefaultState();
     public RenderLayer layer = null;
     public static final int METHOD_NONE = 0;
     public static final int METHOD_CTM = 1;
@@ -131,7 +131,7 @@ public class ConnectedProperties {
         this.connectBlocks = connectedparser.parseMatchBlocks(props.getProperty("connectBlocks"));
         this.connectTiles = this.parseMatchTiles(props.getProperty("connectTiles"));
         this.tintIndex = connectedparser.parseInt(props.getProperty("tintIndex"), -1);
-        this.tintBlockState = connectedparser.parseBlockState(props.getProperty("tintBlock"), Blocks.air.getDefaultState());
+        this.tintBlockState = connectedparser.parseBlockState(props.getProperty("tintBlock"), Blocks.AIR.getDefaultState());
         this.layer = connectedparser.parseBlockRenderLayer(props.getProperty("layer"), RenderLayer.CUTOUT_MIPPED);
     }
 

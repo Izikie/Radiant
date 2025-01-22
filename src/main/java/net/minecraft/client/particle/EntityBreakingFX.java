@@ -27,7 +27,7 @@ public class EntityBreakingFX extends EntityFX {
         super(worldIn, posXIn, posYIn, posZIn, 0.0D, 0.0D, 0.0D);
         this.setParticleIcon(Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getParticleIcon(p_i1196_8_, p_i1196_9_));
         this.particleRed = this.particleGreen = this.particleBlue = 1.0F;
-        this.particleGravity = Blocks.snow.blockParticleGravity;
+        this.particleGravity = Blocks.SNOW.blockParticleGravity;
         this.particleScale /= 2.0F;
     }
 
@@ -70,13 +70,13 @@ public class EntityBreakingFX extends EntityFX {
 
     public static class SlimeFactory implements IParticleFactory {
         public EntityFX getEntityFX(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-            return new EntityBreakingFX(worldIn, xCoordIn, yCoordIn, zCoordIn, Items.slime_ball);
+            return new EntityBreakingFX(worldIn, xCoordIn, yCoordIn, zCoordIn, Items.SLIME_BALL);
         }
     }
 
     public static class SnowballFactory implements IParticleFactory {
         public EntityFX getEntityFX(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-            return new EntityBreakingFX(worldIn, xCoordIn, yCoordIn, zCoordIn, Items.snowball);
+            return new EntityBreakingFX(worldIn, xCoordIn, yCoordIn, zCoordIn, Items.SNOWBALL);
         }
     }
 }

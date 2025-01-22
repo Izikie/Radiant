@@ -35,7 +35,7 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
     }
 
     public IBlockState getDefaultDisplayTile() {
-        return Blocks.hopper.getDefaultState();
+        return Blocks.HOPPER.getDefaultState();
     }
 
     public int getDefaultDisplayTileOffset() {
@@ -113,7 +113,7 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
         if (TileEntityHopper.captureDroppedItems(this)) {
             return true;
         } else {
-            List<EntityItem> list = this.worldObj.getEntitiesWithinAABB(EntityItem.class, this.getEntityBoundingBox().expand(0.25D, 0.0D, 0.25D), EntitySelectors.selectAnything);
+            List<EntityItem> list = this.worldObj.getEntitiesWithinAABB(EntityItem.class, this.getEntityBoundingBox().expand(0.25D, 0.0D, 0.25D), EntitySelectors.SELECT_ANYTHING);
 
             if (!list.isEmpty()) {
                 TileEntityHopper.putDropInInventoryAllSlots(this, list.getFirst());
@@ -127,7 +127,7 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
         super.killMinecart(source);
 
         if (this.worldObj.getGameRules().getBoolean("doEntityDrops")) {
-            this.dropItemWithOffset(Item.getItemFromBlock(Blocks.hopper), 1, 0.0F);
+            this.dropItemWithOffset(Item.getItemFromBlock(Blocks.HOPPER), 1, 0.0F);
         }
     }
 

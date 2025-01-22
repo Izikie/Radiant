@@ -28,7 +28,7 @@ public class WorldGenBlockBlob extends WorldGenerator {
 
                     Block block = worldIn.getBlockState(position.down()).getBlock();
 
-                    if (block != Blocks.grass && block != Blocks.dirt && block != Blocks.stone) {
+                    if (block != Blocks.GRASS && block != Blocks.DIRT && block != Blocks.STONE) {
                         break label0;
                     }
                 }

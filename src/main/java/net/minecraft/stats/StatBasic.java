@@ -13,7 +13,7 @@ public class StatBasic extends StatBase {
 
     public StatBase registerStat() {
         super.registerStat();
-        StatList.generalStats.add(this);
+        StatList.GENERAL_STATS.add(this);
         return this;
     }
 }

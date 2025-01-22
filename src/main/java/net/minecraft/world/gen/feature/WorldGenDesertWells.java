@@ -15,10 +15,10 @@ import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public class WorldGenDesertWells extends WorldGenerator {
-    private static final BlockStateHelper field_175913_a = BlockStateHelper.forBlock(Blocks.sand).where(BlockSand.VARIANT, Predicates.equalTo(BlockSand.SandType.SAND));
-    private final IBlockState field_175911_b = Blocks.stone_slab.getDefaultState().withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.SAND).withProperty(BlockSlab.HALF, BlockSlab.EnumBlockHalf.BOTTOM);
-    private final IBlockState field_175912_c = Blocks.sandstone.getDefaultState();
-    private final IBlockState field_175910_d = Blocks.flowing_water.getDefaultState();
+    private static final BlockStateHelper field_175913_a = BlockStateHelper.forBlock(Blocks.SAND).where(BlockSand.VARIANT, Predicates.equalTo(BlockSand.SandType.SAND));
+    private final IBlockState field_175911_b = Blocks.STONE_SLAB.getDefaultState().withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.SAND).withProperty(BlockSlab.HALF, BlockSlab.EnumBlockHalf.BOTTOM);
+    private final IBlockState field_175912_c = Blocks.SANDSTONE.getDefaultState();
+    private final IBlockState field_175910_d = Blocks.FLOWING_WATER.getDefaultState();
 
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         while (worldIn.isAirBlock(position) && position.getY() > 2) {

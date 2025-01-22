@@ -38,7 +38,7 @@ public class BlockFire extends Block {
         int j = pos.getY();
         int k = pos.getZ();
 
-        if (!World.doesBlockHaveSolidTopSurface(worldIn, pos.down()) && !Blocks.fire.canCatchFire(worldIn, pos.down())) {
+        if (!World.doesBlockHaveSolidTopSurface(worldIn, pos.down()) && !Blocks.FIRE.canCatchFire(worldIn, pos.down())) {
             boolean flag = (i + j + k & 1) == 1;
             boolean flag1 = (i / 2 + j / 2 + k / 2 & 1) == 1;
             int l = 0;
@@ -60,41 +60,41 @@ public class BlockFire extends Block {
     }
 
     public static void init() {
-        Blocks.fire.setFireInfo(Blocks.planks, 5, 20);
-        Blocks.fire.setFireInfo(Blocks.double_wooden_slab, 5, 20);
-        Blocks.fire.setFireInfo(Blocks.wooden_slab, 5, 20);
-        Blocks.fire.setFireInfo(Blocks.oak_fence_gate, 5, 20);
-        Blocks.fire.setFireInfo(Blocks.spruce_fence_gate, 5, 20);
-        Blocks.fire.setFireInfo(Blocks.birch_fence_gate, 5, 20);
-        Blocks.fire.setFireInfo(Blocks.jungle_fence_gate, 5, 20);
-        Blocks.fire.setFireInfo(Blocks.dark_oak_fence_gate, 5, 20);
-        Blocks.fire.setFireInfo(Blocks.acacia_fence_gate, 5, 20);
-        Blocks.fire.setFireInfo(Blocks.oak_fence, 5, 20);
-        Blocks.fire.setFireInfo(Blocks.spruce_fence, 5, 20);
-        Blocks.fire.setFireInfo(Blocks.birch_fence, 5, 20);
-        Blocks.fire.setFireInfo(Blocks.jungle_fence, 5, 20);
-        Blocks.fire.setFireInfo(Blocks.dark_oak_fence, 5, 20);
-        Blocks.fire.setFireInfo(Blocks.acacia_fence, 5, 20);
-        Blocks.fire.setFireInfo(Blocks.oak_stairs, 5, 20);
-        Blocks.fire.setFireInfo(Blocks.birch_stairs, 5, 20);
-        Blocks.fire.setFireInfo(Blocks.spruce_stairs, 5, 20);
-        Blocks.fire.setFireInfo(Blocks.jungle_stairs, 5, 20);
-        Blocks.fire.setFireInfo(Blocks.log, 5, 5);
-        Blocks.fire.setFireInfo(Blocks.log2, 5, 5);
-        Blocks.fire.setFireInfo(Blocks.leaves, 30, 60);
-        Blocks.fire.setFireInfo(Blocks.leaves2, 30, 60);
-        Blocks.fire.setFireInfo(Blocks.bookshelf, 30, 20);
-        Blocks.fire.setFireInfo(Blocks.tnt, 15, 100);
-        Blocks.fire.setFireInfo(Blocks.tallgrass, 60, 100);
-        Blocks.fire.setFireInfo(Blocks.double_plant, 60, 100);
-        Blocks.fire.setFireInfo(Blocks.yellow_flower, 60, 100);
-        Blocks.fire.setFireInfo(Blocks.red_flower, 60, 100);
-        Blocks.fire.setFireInfo(Blocks.deadbush, 60, 100);
-        Blocks.fire.setFireInfo(Blocks.wool, 30, 60);
-        Blocks.fire.setFireInfo(Blocks.vine, 15, 100);
-        Blocks.fire.setFireInfo(Blocks.coal_block, 5, 5);
-        Blocks.fire.setFireInfo(Blocks.hay_block, 60, 20);
-        Blocks.fire.setFireInfo(Blocks.carpet, 60, 20);
+        Blocks.FIRE.setFireInfo(Blocks.PLANKS, 5, 20);
+        Blocks.FIRE.setFireInfo(Blocks.DOUBLE_WOODEN_SLAB, 5, 20);
+        Blocks.FIRE.setFireInfo(Blocks.WOODEN_SLAB, 5, 20);
+        Blocks.FIRE.setFireInfo(Blocks.OAK_FENCE_GATE, 5, 20);
+        Blocks.FIRE.setFireInfo(Blocks.SPRUCE_FENCE_GATE, 5, 20);
+        Blocks.FIRE.setFireInfo(Blocks.BIRCH_FENCE_GATE, 5, 20);
+        Blocks.FIRE.setFireInfo(Blocks.JUNGLE_FENCE_GATE, 5, 20);
+        Blocks.FIRE.setFireInfo(Blocks.DARK_OAK_FENCE_GATE, 5, 20);
+        Blocks.FIRE.setFireInfo(Blocks.ACACIA_FENCE_GATE, 5, 20);
+        Blocks.FIRE.setFireInfo(Blocks.OAK_FENCE, 5, 20);
+        Blocks.FIRE.setFireInfo(Blocks.SPRUCE_FENCE, 5, 20);
+        Blocks.FIRE.setFireInfo(Blocks.BIRCH_FENCE, 5, 20);
+        Blocks.FIRE.setFireInfo(Blocks.JUNGLE_FENCE, 5, 20);
+        Blocks.FIRE.setFireInfo(Blocks.DARK_OAK_FENCE, 5, 20);
+        Blocks.FIRE.setFireInfo(Blocks.ACACIA_FENCE, 5, 20);
+        Blocks.FIRE.setFireInfo(Blocks.OAK_STAIRS, 5, 20);
+        Blocks.FIRE.setFireInfo(Blocks.BIRCH_STAIRS, 5, 20);
+        Blocks.FIRE.setFireInfo(Blocks.SPRUCE_STAIRS, 5, 20);
+        Blocks.FIRE.setFireInfo(Blocks.JUNGLE_STAIRS, 5, 20);
+        Blocks.FIRE.setFireInfo(Blocks.LOG, 5, 5);
+        Blocks.FIRE.setFireInfo(Blocks.LOG_2, 5, 5);
+        Blocks.FIRE.setFireInfo(Blocks.LEAVES, 30, 60);
+        Blocks.FIRE.setFireInfo(Blocks.LEAVES_2, 30, 60);
+        Blocks.FIRE.setFireInfo(Blocks.BOOKSHELF, 30, 20);
+        Blocks.FIRE.setFireInfo(Blocks.TNT, 15, 100);
+        Blocks.FIRE.setFireInfo(Blocks.TALL_GRASS, 60, 100);
+        Blocks.FIRE.setFireInfo(Blocks.DOUBLE_PLANT, 60, 100);
+        Blocks.FIRE.setFireInfo(Blocks.YELLOW_FLOWER, 60, 100);
+        Blocks.FIRE.setFireInfo(Blocks.RED_FLOWER, 60, 100);
+        Blocks.FIRE.setFireInfo(Blocks.DEAD_BUSH, 60, 100);
+        Blocks.FIRE.setFireInfo(Blocks.WOOL, 30, 60);
+        Blocks.FIRE.setFireInfo(Blocks.VINE, 15, 100);
+        Blocks.FIRE.setFireInfo(Blocks.COAL_BLOCK, 5, 5);
+        Blocks.FIRE.setFireInfo(Blocks.HAY_BLOCK, 60, 20);
+        Blocks.FIRE.setFireInfo(Blocks.CARPET, 60, 20);
     }
 
     public void setFireInfo(Block blockIn, int encouragement, int flammability) {
@@ -129,9 +129,9 @@ public class BlockFire extends Block {
             }
 
             Block block = worldIn.getBlockState(pos.down()).getBlock();
-            boolean flag = block == Blocks.netherrack;
+            boolean flag = block == Blocks.NETHERRACK;
 
-            if (worldIn.provider instanceof WorldProviderEnd && block == Blocks.bedrock) {
+            if (worldIn.provider instanceof WorldProviderEnd && block == Blocks.BEDROCK) {
                 flag = true;
             }
 
@@ -250,8 +250,8 @@ public class BlockFire extends Block {
                 worldIn.setBlockToAir(pos);
             }
 
-            if (iblockstate.getBlock() == Blocks.tnt) {
-                Blocks.tnt.onBlockDestroyedByPlayer(worldIn, pos, iblockstate.withProperty(BlockTNT.EXPLODE, Boolean.TRUE));
+            if (iblockstate.getBlock() == Blocks.TNT) {
+                Blocks.TNT.onBlockDestroyedByPlayer(worldIn, pos, iblockstate.withProperty(BlockTNT.EXPLODE, Boolean.TRUE));
             }
         }
     }
@@ -299,7 +299,7 @@ public class BlockFire extends Block {
     }
 
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-        if (worldIn.provider.getDimensionId() > 0 || !Blocks.portal.func_176548_d(worldIn, pos)) {
+        if (worldIn.provider.getDimensionId() > 0 || !Blocks.PORTAL.func_176548_d(worldIn, pos)) {
             if (!World.doesBlockHaveSolidTopSurface(worldIn, pos.down()) && !this.canNeighborCatchFire(worldIn, pos)) {
                 worldIn.setBlockToAir(pos);
             } else {
@@ -313,8 +313,8 @@ public class BlockFire extends Block {
             worldIn.playSound((pos.getX() + 0.5F), (pos.getY() + 0.5F), (pos.getZ() + 0.5F), "fire.fire", 1.0F + rand.nextFloat(), rand.nextFloat() * 0.7F + 0.3F, false);
         }
 
-        if (!World.doesBlockHaveSolidTopSurface(worldIn, pos.down()) && !Blocks.fire.canCatchFire(worldIn, pos.down())) {
-            if (Blocks.fire.canCatchFire(worldIn, pos.west())) {
+        if (!World.doesBlockHaveSolidTopSurface(worldIn, pos.down()) && !Blocks.FIRE.canCatchFire(worldIn, pos.down())) {
+            if (Blocks.FIRE.canCatchFire(worldIn, pos.west())) {
                 for (int j = 0; j < 2; ++j) {
                     double d3 = pos.getX() + rand.nextDouble() * 0.10000000149011612D;
                     double d8 = pos.getY() + rand.nextDouble();
@@ -323,7 +323,7 @@ public class BlockFire extends Block {
                 }
             }
 
-            if (Blocks.fire.canCatchFire(worldIn, pos.east())) {
+            if (Blocks.FIRE.canCatchFire(worldIn, pos.east())) {
                 for (int k = 0; k < 2; ++k) {
                     double d4 = (pos.getX() + 1) - rand.nextDouble() * 0.10000000149011612D;
                     double d9 = pos.getY() + rand.nextDouble();
@@ -332,7 +332,7 @@ public class BlockFire extends Block {
                 }
             }
 
-            if (Blocks.fire.canCatchFire(worldIn, pos.north())) {
+            if (Blocks.FIRE.canCatchFire(worldIn, pos.north())) {
                 for (int l = 0; l < 2; ++l) {
                     double d5 = pos.getX() + rand.nextDouble();
                     double d10 = pos.getY() + rand.nextDouble();
@@ -341,7 +341,7 @@ public class BlockFire extends Block {
                 }
             }
 
-            if (Blocks.fire.canCatchFire(worldIn, pos.south())) {
+            if (Blocks.FIRE.canCatchFire(worldIn, pos.south())) {
                 for (int i1 = 0; i1 < 2; ++i1) {
                     double d6 = pos.getX() + rand.nextDouble();
                     double d11 = pos.getY() + rand.nextDouble();
@@ -350,7 +350,7 @@ public class BlockFire extends Block {
                 }
             }
 
-            if (Blocks.fire.canCatchFire(worldIn, pos.up())) {
+            if (Blocks.FIRE.canCatchFire(worldIn, pos.up())) {
                 for (int j1 = 0; j1 < 2; ++j1) {
                     double d7 = pos.getX() + rand.nextDouble();
                     double d12 = (pos.getY() + 1) - rand.nextDouble() * 0.10000000149011612D;
@@ -369,7 +369,7 @@ public class BlockFire extends Block {
     }
 
     public MapColor getMapColor(IBlockState state) {
-        return MapColor.tntColor;
+        return MapColor.TNT_COLOR;
     }
 
     public RenderLayer getBlockLayer() {

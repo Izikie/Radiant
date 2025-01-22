@@ -9,7 +9,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class WorldGenClay extends WorldGenerator {
-    private final Block field_150546_a = Blocks.clay;
+    private final Block field_150546_a = Blocks.CLAY;
     private final int numberOfBlocks;
 
     public WorldGenClay(int p_i2011_1_) {
@@ -33,7 +33,7 @@ public class WorldGenClay extends WorldGenerator {
                             BlockPos blockpos = new BlockPos(k, k1, l);
                             Block block = worldIn.getBlockState(blockpos).getBlock();
 
-                            if (block == Blocks.dirt || block == Blocks.clay) {
+                            if (block == Blocks.DIRT || block == Blocks.CLAY) {
                                 worldIn.setBlockState(blockpos, this.field_150546_a.getDefaultState(), 2);
                             }
                         }

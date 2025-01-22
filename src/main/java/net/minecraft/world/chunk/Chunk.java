@@ -372,7 +372,7 @@ public class Chunk {
     }
 
     private Block getBlock0(int x, int y, int z) {
-        Block block = Blocks.air;
+        Block block = Blocks.AIR;
 
         if (y >= 0 && y >> 4 < this.storageArrays.length) {
             ExtendedBlockStorage extendedblockstorage = this.storageArrays[y >> 4];
@@ -415,14 +415,14 @@ public class Chunk {
             IBlockState iblockstate = null;
 
             if (pos.getY() == 60) {
-                iblockstate = Blocks.barrier.getDefaultState();
+                iblockstate = Blocks.BARRIER.getDefaultState();
             }
 
             if (pos.getY() == 70) {
                 iblockstate = ChunkProviderDebug.func_177461_b(pos.getX(), pos.getZ());
             }
 
-            return iblockstate == null ? Blocks.air.getDefaultState() : iblockstate;
+            return iblockstate == null ? Blocks.AIR.getDefaultState() : iblockstate;
         } else {
             try {
                 if (pos.getY() >= 0 && pos.getY() >> 4 < this.storageArrays.length) {
@@ -436,7 +436,7 @@ public class Chunk {
                     }
                 }
 
-                return Blocks.air.getDefaultState();
+                return Blocks.AIR.getDefaultState();
             } catch (Throwable throwable) {
                 CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Getting block state");
                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Block being got");
@@ -481,7 +481,7 @@ public class Chunk {
             boolean flag = false;
 
             if (extendedblockstorage == null) {
-                if (block == Blocks.air) {
+                if (block == Blocks.AIR) {
                     return null;
                 }
 

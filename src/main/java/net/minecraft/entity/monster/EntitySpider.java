@@ -88,14 +88,14 @@ public class EntitySpider extends EntityMob {
     }
 
     protected Item getDropItem() {
-        return Items.string;
+        return Items.STRING;
     }
 
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
         super.dropFewItems(wasRecentlyHit, lootingModifier);
 
         if (wasRecentlyHit && (this.rand.nextInt(3) == 0 || this.rand.nextInt(1 + lootingModifier) > 0)) {
-            this.dropItem(Items.spider_eye, 1);
+            this.dropItem(Items.SPIDER_EYE, 1);
         }
     }
 

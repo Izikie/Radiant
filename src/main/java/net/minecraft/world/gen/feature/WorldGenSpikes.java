@@ -40,7 +40,7 @@ public class WorldGenSpikes extends WorldGenerator {
                         int k1 = j2 - position.getZ();
 
                         if (k2 * k2 + k1 * k1 <= j * j + 1) {
-                            worldIn.setBlockState(new BlockPos(i2, l1, j2), Blocks.obsidian.getDefaultState(), 2);
+                            worldIn.setBlockState(new BlockPos(i2, l1, j2), Blocks.OBSIDIAN.getDefaultState(), 2);
                         }
                     }
                 }
@@ -49,7 +49,7 @@ public class WorldGenSpikes extends WorldGenerator {
             Entity entity = new EntityEnderCrystal(worldIn);
             entity.setLocationAndAngles((position.getX() + 0.5F), (position.getY() + i), (position.getZ() + 0.5F), rand.nextFloat() * 360.0F, 0.0F);
             worldIn.spawnEntityInWorld(entity);
-            worldIn.setBlockState(position.up(i), Blocks.bedrock.getDefaultState(), 2);
+            worldIn.setBlockState(position.up(i), Blocks.BEDROCK.getDefaultState(), 2);
             return true;
         } else {
             return false;

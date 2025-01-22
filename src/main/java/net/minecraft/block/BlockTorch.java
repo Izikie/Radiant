@@ -45,7 +45,7 @@ public class BlockTorch extends Block {
             return true;
         } else {
             Block block = worldIn.getBlockState(pos).getBlock();
-            return block instanceof BlockFence || block == Blocks.glass || block == Blocks.cobblestone_wall || block == Blocks.stained_glass;
+            return block instanceof BlockFence || block == Blocks.GLASS || block == Blocks.COBBLESTONE_WALL || block == Blocks.STAINED_GLASS;
         }
     }
 

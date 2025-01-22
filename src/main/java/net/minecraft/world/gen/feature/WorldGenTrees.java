@@ -18,8 +18,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public class WorldGenTrees extends WorldGenAbstractTree {
-    private static final IBlockState field_181653_a = Blocks.log.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.WoodType.OAK);
-    private static final IBlockState field_181654_b = Blocks.leaves.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.WoodType.OAK).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
+    private static final IBlockState field_181653_a = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.WoodType.OAK);
+    private static final IBlockState field_181654_b = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.WoodType.OAK).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
     private final int minTreeHeight;
     private final boolean vinesGrow;
     private final IBlockState metaWood;
@@ -73,7 +73,7 @@ public class WorldGenTrees extends WorldGenAbstractTree {
             } else {
                 Block block1 = worldIn.getBlockState(position.down()).getBlock();
 
-                if ((block1 == Blocks.grass || block1 == Blocks.dirt || block1 == Blocks.farmland) && position.getY() < 256 - i - 1) {
+                if ((block1 == Blocks.GRASS || block1 == Blocks.DIRT || block1 == Blocks.FARMLAND) && position.getY() < 256 - i - 1) {
                     this.func_175921_a(worldIn, position.down());
                     int k2 = 3;
                     int l2 = 0;
@@ -185,11 +185,11 @@ public class WorldGenTrees extends WorldGenAbstractTree {
     }
 
     private void func_181652_a(World p_181652_1_, int p_181652_2_, BlockPos p_181652_3_, Direction p_181652_4_) {
-        this.setBlockAndNotifyAdequately(p_181652_1_, p_181652_3_, Blocks.cocoa.getDefaultState().withProperty(BlockCocoa.AGE, p_181652_2_).withProperty(BlockCocoa.FACING, p_181652_4_));
+        this.setBlockAndNotifyAdequately(p_181652_1_, p_181652_3_, Blocks.COCOA.getDefaultState().withProperty(BlockCocoa.AGE, p_181652_2_).withProperty(BlockCocoa.FACING, p_181652_4_));
     }
 
     private void func_181651_a(World p_181651_1_, BlockPos p_181651_2_, PropertyBool p_181651_3_) {
-        this.setBlockAndNotifyAdequately(p_181651_1_, p_181651_2_, Blocks.vine.getDefaultState().withProperty(p_181651_3_, Boolean.TRUE));
+        this.setBlockAndNotifyAdequately(p_181651_1_, p_181651_2_, Blocks.VINE.getDefaultState().withProperty(p_181651_3_, Boolean.TRUE));
     }
 
     private void func_181650_b(World p_181650_1_, BlockPos p_181650_2_, PropertyBool p_181650_3_) {

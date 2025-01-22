@@ -16,28 +16,28 @@ public class WorldGenLiquids extends WorldGenerator {
     }
 
     public boolean generate(World worldIn, Random rand, BlockPos position) {
-        if (worldIn.getBlockState(position.up()).getBlock() != Blocks.stone) {
+        if (worldIn.getBlockState(position.up()).getBlock() != Blocks.STONE) {
             return false;
-        } else if (worldIn.getBlockState(position.down()).getBlock() != Blocks.stone) {
+        } else if (worldIn.getBlockState(position.down()).getBlock() != Blocks.STONE) {
             return false;
-        } else if (worldIn.getBlockState(position).getBlock().getMaterial() != Material.AIR && worldIn.getBlockState(position).getBlock() != Blocks.stone) {
+        } else if (worldIn.getBlockState(position).getBlock().getMaterial() != Material.AIR && worldIn.getBlockState(position).getBlock() != Blocks.STONE) {
             return false;
         } else {
             int i = 0;
 
-            if (worldIn.getBlockState(position.west()).getBlock() == Blocks.stone) {
+            if (worldIn.getBlockState(position.west()).getBlock() == Blocks.STONE) {
                 ++i;
             }
 
-            if (worldIn.getBlockState(position.east()).getBlock() == Blocks.stone) {
+            if (worldIn.getBlockState(position.east()).getBlock() == Blocks.STONE) {
                 ++i;
             }
 
-            if (worldIn.getBlockState(position.north()).getBlock() == Blocks.stone) {
+            if (worldIn.getBlockState(position.north()).getBlock() == Blocks.STONE) {
                 ++i;
             }
 
-            if (worldIn.getBlockState(position.south()).getBlock() == Blocks.stone) {
+            if (worldIn.getBlockState(position.south()).getBlock() == Blocks.STONE) {
                 ++i;
             }
 

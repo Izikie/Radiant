@@ -58,7 +58,7 @@ public class BlockMushroom extends BlockBush implements IGrowable {
     public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state) {
         if (pos.getY() >= 0 && pos.getY() < 256) {
             IBlockState iblockstate = worldIn.getBlockState(pos.down());
-            return iblockstate.getBlock() == Blocks.mycelium ? true : (iblockstate.getBlock() == Blocks.dirt && iblockstate.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL ? true : worldIn.getLight(pos) < 13 && this.canPlaceBlockOn(iblockstate.getBlock()));
+            return iblockstate.getBlock() == Blocks.MYCELIUM ? true : (iblockstate.getBlock() == Blocks.DIRT && iblockstate.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL ? true : worldIn.getLight(pos) < 13 && this.canPlaceBlockOn(iblockstate.getBlock()));
         } else {
             return false;
         }
@@ -68,10 +68,10 @@ public class BlockMushroom extends BlockBush implements IGrowable {
         worldIn.setBlockToAir(pos);
         WorldGenerator worldgenerator = null;
 
-        if (this == Blocks.brown_mushroom) {
-            worldgenerator = new WorldGenBigMushroom(Blocks.brown_mushroom_block);
-        } else if (this == Blocks.red_mushroom) {
-            worldgenerator = new WorldGenBigMushroom(Blocks.red_mushroom_block);
+        if (this == Blocks.BROWN_MUSHROOM) {
+            worldgenerator = new WorldGenBigMushroom(Blocks.BROWN_MUSHROOM_BLOCK);
+        } else if (this == Blocks.RED_MUSHROOM) {
+            worldgenerator = new WorldGenBigMushroom(Blocks.RED_MUSHROOM_BLOCK);
         }
 
         if (worldgenerator != null && worldgenerator.generate(worldIn, rand, pos)) {

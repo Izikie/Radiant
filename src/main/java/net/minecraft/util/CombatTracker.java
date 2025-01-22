@@ -31,9 +31,9 @@ public class CombatTracker {
         if (this.fighter.isOnLadder()) {
             Block block = this.fighter.worldObj.getBlockState(new BlockPos(this.fighter.posX, this.fighter.getEntityBoundingBox().minY, this.fighter.posZ)).getBlock();
 
-            if (block == Blocks.ladder) {
+            if (block == Blocks.LADDER) {
                 this.field_94551_f = "ladder";
-            } else if (block == Blocks.vine) {
+            } else if (block == Blocks.VINE) {
                 this.field_94551_f = "vines";
             }
         } else if (this.fighter.isInWater()) {

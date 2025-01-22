@@ -43,7 +43,7 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
             return null;
         }
     };
-    public static final SoundPoolEntry missing_sound = new SoundPoolEntry(new ResourceLocation("meta:missing_sound"), 0.0D, 0.0D, false);
+    public static final SoundPoolEntry MISSING_SOUND = new SoundPoolEntry(new ResourceLocation("meta:missing_sound"), 0.0D, 0.0D, false);
     private final SoundRegistry sndRegistry = new SoundRegistry();
     private final SoundManager sndManager;
     private final IResourceManager mcResourceManager;
@@ -139,7 +139,7 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 
                         public SoundPoolEntry cloneEntry() {
                             SoundEventAccessorComposite soundeventaccessorcomposite1 = SoundHandler.this.sndRegistry.getObject(this.field_148726_a);
-                            return soundeventaccessorcomposite1 == null ? SoundHandler.missing_sound : soundeventaccessorcomposite1.cloneEntry();
+                            return soundeventaccessorcomposite1 == null ? SoundHandler.MISSING_SOUND : soundeventaccessorcomposite1.cloneEntry();
                         }
                     };
 

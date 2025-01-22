@@ -21,7 +21,7 @@ import net.minecraft.world.chunk.Chunk;
 
 public class BlockBeacon extends BlockContainer {
     public BlockBeacon() {
-        super(Material.GLASS, MapColor.diamondColor);
+        super(Material.GLASS, MapColor.DIAMOND_COLOR);
         this.setHardness(3.0F);
         this.setCreativeTab(CreativeTabs.tabMisc);
     }
@@ -93,13 +93,13 @@ public class BlockBeacon extends BlockContainer {
 
                 IBlockState iblockstate = worldIn.getBlockState(blockpos);
 
-                if (iblockstate.getBlock() == Blocks.beacon) {
+                if (iblockstate.getBlock() == Blocks.BEACON) {
                     ((WorldServer) worldIn).addScheduledTask(() -> {
                         TileEntity tileentity = worldIn.getTileEntity(blockpos);
 
                         if (tileentity instanceof TileEntityBeacon tileEntityBeacon) {
                             tileEntityBeacon.updateBeacon();
-                            worldIn.addBlockEvent(blockpos, Blocks.beacon, 1, 0);
+                            worldIn.addBlockEvent(blockpos, Blocks.BEACON, 1, 0);
                         }
                     });
                 }

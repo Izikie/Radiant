@@ -29,7 +29,7 @@ public class EntityMinecartTNT extends EntityMinecart {
     }
 
     public IBlockState getDefaultDisplayTile() {
-        return Blocks.tnt.getDefaultState();
+        return Blocks.TNT.getDefaultState();
     }
 
     public void onUpdate() {
@@ -69,7 +69,7 @@ public class EntityMinecartTNT extends EntityMinecart {
         double d0 = this.motionX * this.motionX + this.motionZ * this.motionZ;
 
         if (!source.isExplosion() && this.worldObj.getGameRules().getBoolean("doEntityDrops")) {
-            this.entityDropItem(new ItemStack(Blocks.tnt, 1), 0.0F);
+            this.entityDropItem(new ItemStack(Blocks.TNT, 1), 0.0F);
         }
 
         if (source.isFireDamage() || source.isExplosion() || d0 >= 0.009999999776482582D) {

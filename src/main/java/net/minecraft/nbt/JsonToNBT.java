@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 public class JsonToNBT {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final Pattern field_179273_b = Pattern.compile("\\[[-+\\d|,\\s]+\\]");
+    private static final Pattern PATTERN = Pattern.compile("\\[[-+\\d|,\\s]+\\]");
 
     public static NBTTagCompound getTagFromJson(String jsonString) throws NBTException {
         jsonString = jsonString.trim();
@@ -106,7 +106,7 @@ public class JsonToNBT {
             }
 
             return jsontonbt$compound;
-        } else if (p_150316_1_.startsWith("[") && !field_179273_b.matcher(p_150316_1_).matches()) {
+        } else if (p_150316_1_.startsWith("[") && !PATTERN.matcher(p_150316_1_).matches()) {
             p_150316_1_ = p_150316_1_.substring(1, p_150316_1_.length() - 1);
             JsonToNBT.List jsontonbt$list;
             String s;

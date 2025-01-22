@@ -44,7 +44,7 @@ public class BlockLilyPad extends BlockBush {
     }
 
     protected boolean canPlaceBlockOn(Block ground) {
-        return ground == Blocks.water;
+        return ground == Blocks.WATER;
     }
 
     public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state) {

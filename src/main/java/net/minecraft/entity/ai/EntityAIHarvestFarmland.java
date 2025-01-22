@@ -60,7 +60,7 @@ public class EntityAIHarvestFarmland extends EntityAIMoveToBlock {
 
             if (this.field_179501_f == 0 && block instanceof BlockCrops && iblockstate.getValue(BlockCrops.AGE) == 7) {
                 world.destroyBlock(blockpos, true);
-            } else if (this.field_179501_f == 1 && block == Blocks.air) {
+            } else if (this.field_179501_f == 1 && block == Blocks.AIR) {
                 InventoryBasic inventorybasic = this.theVillager.getVillagerInventory();
 
                 for (int i = 0; i < inventorybasic.getSizeInventory(); ++i) {
@@ -68,14 +68,14 @@ public class EntityAIHarvestFarmland extends EntityAIMoveToBlock {
                     boolean flag = false;
 
                     if (itemstack != null) {
-                        if (itemstack.getItem() == Items.wheat_seeds) {
-                            world.setBlockState(blockpos, Blocks.wheat.getDefaultState(), 3);
+                        if (itemstack.getItem() == Items.WHEAT_SEEDS) {
+                            world.setBlockState(blockpos, Blocks.WHEAT.getDefaultState(), 3);
                             flag = true;
-                        } else if (itemstack.getItem() == Items.potato) {
-                            world.setBlockState(blockpos, Blocks.potatoes.getDefaultState(), 3);
+                        } else if (itemstack.getItem() == Items.POTATO) {
+                            world.setBlockState(blockpos, Blocks.POTATOES.getDefaultState(), 3);
                             flag = true;
-                        } else if (itemstack.getItem() == Items.carrot) {
-                            world.setBlockState(blockpos, Blocks.carrots.getDefaultState(), 3);
+                        } else if (itemstack.getItem() == Items.CARROT) {
+                            world.setBlockState(blockpos, Blocks.CARROTS.getDefaultState(), 3);
                             flag = true;
                         }
                     }
@@ -100,7 +100,7 @@ public class EntityAIHarvestFarmland extends EntityAIMoveToBlock {
     protected boolean shouldMoveTo(World worldIn, BlockPos pos) {
         Block block = worldIn.getBlockState(pos).getBlock();
 
-        if (block == Blocks.farmland) {
+        if (block == Blocks.FARMLAND) {
             pos = pos.up();
             IBlockState iblockstate = worldIn.getBlockState(pos);
             block = iblockstate.getBlock();
@@ -110,7 +110,7 @@ public class EntityAIHarvestFarmland extends EntityAIMoveToBlock {
                 return true;
             }
 
-            if (block == Blocks.air && this.hasFarmItem && (this.field_179501_f == 1 || this.field_179501_f < 0)) {
+            if (block == Blocks.AIR && this.hasFarmItem && (this.field_179501_f == 1 || this.field_179501_f < 0)) {
                 this.field_179501_f = 1;
                 return true;
             }

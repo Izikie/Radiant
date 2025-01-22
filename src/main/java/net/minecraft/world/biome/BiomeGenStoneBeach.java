@@ -6,8 +6,8 @@ public class BiomeGenStoneBeach extends BiomeGenBase {
     public BiomeGenStoneBeach(int id) {
         super(id);
         this.spawnableCreatureList.clear();
-        this.topBlock = Blocks.stone.getDefaultState();
-        this.fillerBlock = Blocks.stone.getDefaultState();
+        this.topBlock = Blocks.STONE.getDefaultState();
+        this.fillerBlock = Blocks.STONE.getDefaultState();
         this.theBiomeDecorator.treesPerChunk = -999;
         this.theBiomeDecorator.deadBushPerChunk = 0;
         this.theBiomeDecorator.reedsPerChunk = 0;

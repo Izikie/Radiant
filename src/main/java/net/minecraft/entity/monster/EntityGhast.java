@@ -93,20 +93,20 @@ public class EntityGhast extends EntityFlying implements IMob {
     }
 
     protected Item getDropItem() {
-        return Items.gunpowder;
+        return Items.GUNPOWDER;
     }
 
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
         int i = this.rand.nextInt(2) + this.rand.nextInt(1 + lootingModifier);
 
         for (int j = 0; j < i; ++j) {
-            this.dropItem(Items.ghast_tear, 1);
+            this.dropItem(Items.GHAST_TEAR, 1);
         }
 
         i = this.rand.nextInt(3) + this.rand.nextInt(1 + lootingModifier);
 
         for (int k = 0; k < i; ++k) {
-            this.dropItem(Items.gunpowder, 1);
+            this.dropItem(Items.GUNPOWDER, 1);
         }
     }
 

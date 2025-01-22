@@ -76,7 +76,7 @@ public class EntityMinecartCommandBlock extends EntityMinecart {
     }
 
     public IBlockState getDefaultDisplayTile() {
-        return Blocks.command_block.getDefaultState();
+        return Blocks.COMMAND_BLOCK.getDefaultState();
     }
 
     public CommandBlockLogic getCommandBlockLogic() {

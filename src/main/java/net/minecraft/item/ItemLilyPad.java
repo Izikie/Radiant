@@ -35,13 +35,13 @@ public class ItemLilyPad extends ItemColored {
                 IBlockState iblockstate = worldIn.getBlockState(blockpos);
 
                 if (iblockstate.getBlock().getMaterial() == Material.WATER && iblockstate.getValue(BlockLiquid.LEVEL) == 0 && worldIn.isAirBlock(blockpos1)) {
-                    worldIn.setBlockState(blockpos1, Blocks.waterlily.getDefaultState());
+                    worldIn.setBlockState(blockpos1, Blocks.WATERLILY.getDefaultState());
 
                     if (!playerIn.capabilities.isCreativeMode) {
                         --itemStackIn.stackSize;
                     }
 
-                    playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
+                    playerIn.triggerAchievement(StatList.OBJECT_USE_STATS[Item.getIdFromItem(this)]);
                 }
             }
 
@@ -50,6 +50,6 @@ public class ItemLilyPad extends ItemColored {
     }
 
     public int getColorFromItemStack(ItemStack stack, int renderPass) {
-        return Blocks.waterlily.getRenderColor(Blocks.waterlily.getStateFromMeta(stack.getMetadata()));
+        return Blocks.WATERLILY.getRenderColor(Blocks.WATERLILY.getStateFromMeta(stack.getMetadata()));
     }
 }

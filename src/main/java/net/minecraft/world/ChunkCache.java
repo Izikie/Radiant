@@ -77,7 +77,7 @@ public class ChunkCache implements IBlockAccess {
             }
         }
 
-        return Blocks.air.getDefaultState();
+        return Blocks.AIR.getDefaultState();
     }
 
     public BiomeGenBase getBiomeGenForCoords(BlockPos pos) {

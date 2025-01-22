@@ -121,7 +121,7 @@ public class ShadersRender {
             GlStateManager.depthFunc(519);
             GL11.glPushMatrix();
             IntBuffer intbuffer = Shaders.activeDrawBuffers;
-            Shaders.setDrawBuffers(Shaders.drawBuffersNone);
+            Shaders.setDrawBuffers(Shaders.DRAW_BUFFERS_NONE);
             Shaders.renderItemKeepDepthMask = true;
             itemRenderer.renderItemInFirstPerson(par1);
             Shaders.renderItemKeepDepthMask = false;
@@ -148,7 +148,7 @@ public class ShadersRender {
             Shaders.useProgram(Shaders.PROGRAM_DAMAGED_BLOCK);
 
             if (Shaders.PROGRAM_DAMAGED_BLOCK.getId() == Shaders.PROGRAM_TERRAIN.getId()) {
-                Shaders.setDrawBuffers(Shaders.drawBuffersColorAtt0);
+                Shaders.setDrawBuffers(Shaders.DRAW_BUFFERS_COLOR_ATT_0);
                 GlStateManager.depthMask(false);
             }
         }
@@ -180,14 +180,14 @@ public class ShadersRender {
             Shaders.setCameraShadow(partialTicks);
             Shaders.checkGLError("shadow camera");
             Shaders.useProgram(Shaders.PROGRAM_SHADOW);
-            GL20.glDrawBuffers(Shaders.sfbDrawBuffers);
+            GL20.glDrawBuffers(Shaders.SFB_DRAW_BUFFERS);
             Shaders.checkGLError("shadow drawbuffers");
             GL11.glReadBuffer(0);
             Shaders.checkGLError("shadow readbuffer");
-            EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36096, 3553, Shaders.sfbDepthTextures.get(0), 0);
+            EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36096, 3553, Shaders.SFB_DEPTH_TEXTURES.get(0), 0);
 
             if (Shaders.usedShadowColorBuffers != 0) {
-                EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36064, 3553, Shaders.sfbColorTextures.get(0), 0);
+                EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36064, 3553, Shaders.SFB_COLOR_TEXTURES.get(0), 0);
             }
 
             Shaders.checkFramebufferStatus("shadow fb");
@@ -253,7 +253,7 @@ public class ShadersRender {
             minecraft.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
             GlStateManager.shadeModel(7425);
             Shaders.checkGLError("shadow pre-translucent");
-            GL20.glDrawBuffers(Shaders.sfbDrawBuffers);
+            GL20.glDrawBuffers(Shaders.SFB_DRAW_BUFFERS);
             Shaders.checkGLError("shadow drawbuffers pre-translucent");
             Shaders.checkFramebufferStatus("shadow pre-translucent");
 
@@ -275,14 +275,14 @@ public class ShadersRender {
                 if (Shaders.usedShadowDepthBuffers >= 1) {
                     if (Shaders.SHADOW_MIPMAP_ENABLED[0]) {
                         GlStateManager.setActiveTexture(33988);
-                        GlStateManager.bindTexture(Shaders.sfbDepthTextures.get(0));
+                        GlStateManager.bindTexture(Shaders.SFB_DEPTH_TEXTURES.get(0));
                         GL30.glGenerateMipmap(3553);
                         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, Shaders.SHADOW_FILTER_NEAREST[0] ? GL11.GL_NEAREST_MIPMAP_NEAREST : GL11.GL_LINEAR_MIPMAP_LINEAR);
                     }
 
                     if (Shaders.usedShadowDepthBuffers >= 2 && Shaders.SHADOW_MIPMAP_ENABLED[1]) {
                         GlStateManager.setActiveTexture(33989);
-                        GlStateManager.bindTexture(Shaders.sfbDepthTextures.get(1));
+                        GlStateManager.bindTexture(Shaders.SFB_DEPTH_TEXTURES.get(1));
                         GL30.glGenerateMipmap(3553);
                         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, Shaders.SHADOW_FILTER_NEAREST[1] ? GL11.GL_NEAREST_MIPMAP_NEAREST : GL11.GL_LINEAR_MIPMAP_LINEAR);
                     }
@@ -293,14 +293,14 @@ public class ShadersRender {
                 if (Shaders.usedShadowColorBuffers >= 1) {
                     if (Shaders.SHADOW_COLOR_MIPMAP_ENABLED[0]) {
                         GlStateManager.setActiveTexture(33997);
-                        GlStateManager.bindTexture(Shaders.sfbColorTextures.get(0));
+                        GlStateManager.bindTexture(Shaders.SFB_COLOR_TEXTURES.get(0));
                         GL30.glGenerateMipmap(3553);
                         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, Shaders.SHADOW_COLOR_FILTER_NEAREST[0] ? GL11.GL_NEAREST_MIPMAP_NEAREST : GL11.GL_LINEAR_MIPMAP_LINEAR);
                     }
 
                     if (Shaders.usedShadowColorBuffers >= 2 && Shaders.SHADOW_COLOR_MIPMAP_ENABLED[1]) {
                         GlStateManager.setActiveTexture(33998);
-                        GlStateManager.bindTexture(Shaders.sfbColorTextures.get(1));
+                        GlStateManager.bindTexture(Shaders.SFB_COLOR_TEXTURES.get(1));
                         GL30.glGenerateMipmap(3553);
                         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, Shaders.SHADOW_COLOR_FILTER_NEAREST[1] ? GL11.GL_NEAREST_MIPMAP_NEAREST : GL11.GL_LINEAR_MIPMAP_LINEAR);
                     }

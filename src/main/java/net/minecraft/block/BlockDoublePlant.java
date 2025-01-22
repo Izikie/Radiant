@@ -75,11 +75,11 @@ public class BlockDoublePlant extends BlockBush implements IGrowable {
             Block block1 = flag ? worldIn.getBlockState(blockpos1).getBlock() : this;
 
             if (block == this) {
-                worldIn.setBlockState(blockpos, Blocks.air.getDefaultState(), 2);
+                worldIn.setBlockState(blockpos, Blocks.AIR.getDefaultState(), 2);
             }
 
             if (block1 == this) {
-                worldIn.setBlockState(blockpos1, Blocks.air.getDefaultState(), 3);
+                worldIn.setBlockState(blockpos1, Blocks.AIR.getDefaultState(), 3);
 
                 if (!flag) {
                     this.dropBlockAsItem(worldIn, blockpos1, state, 0);
@@ -102,7 +102,7 @@ public class BlockDoublePlant extends BlockBush implements IGrowable {
             return null;
         } else {
             BlockDoublePlant.EnumPlantType blockdoubleplant$enumplanttype = state.getValue(VARIANT);
-            return blockdoubleplant$enumplanttype == BlockDoublePlant.EnumPlantType.FERN ? null : (blockdoubleplant$enumplanttype == BlockDoublePlant.EnumPlantType.GRASS ? (rand.nextInt(8) == 0 ? Items.wheat_seeds : null) : Item.getItemFromBlock(this));
+            return blockdoubleplant$enumplanttype == BlockDoublePlant.EnumPlantType.FERN ? null : (blockdoubleplant$enumplanttype == BlockDoublePlant.EnumPlantType.GRASS ? (rand.nextInt(8) == 0 ? Items.WHEAT_SEEDS : null) : Item.getItemFromBlock(this));
         }
     }
 
@@ -125,7 +125,7 @@ public class BlockDoublePlant extends BlockBush implements IGrowable {
     }
 
     public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te) {
-        if (worldIn.isRemote || player.getCurrentEquippedItem() == null || player.getCurrentEquippedItem().getItem() != Items.shears || state.getValue(HALF) != BlockDoublePlant.EnumBlockHalf.LOWER || !this.onHarvest(worldIn, pos, state, player)) {
+        if (worldIn.isRemote || player.getCurrentEquippedItem() == null || player.getCurrentEquippedItem().getItem() != Items.SHEARS || state.getValue(HALF) != BlockDoublePlant.EnumBlockHalf.LOWER || !this.onHarvest(worldIn, pos, state, player)) {
             super.harvestBlock(worldIn, player, pos, state, te);
         }
     }
@@ -140,7 +140,7 @@ public class BlockDoublePlant extends BlockBush implements IGrowable {
                     if (blockdoubleplant$enumplanttype != BlockDoublePlant.EnumPlantType.FERN && blockdoubleplant$enumplanttype != BlockDoublePlant.EnumPlantType.GRASS) {
                         worldIn.destroyBlock(pos.down(), true);
                     } else if (!worldIn.isRemote) {
-                        if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.shears) {
+                        if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.SHEARS) {
                             this.onHarvest(worldIn, pos, iblockstate, player);
                             worldIn.setBlockToAir(pos.down());
                         } else {
@@ -154,7 +154,7 @@ public class BlockDoublePlant extends BlockBush implements IGrowable {
                 }
             }
         } else if (player.capabilities.isCreativeMode && worldIn.getBlockState(pos.up()).getBlock() == this) {
-            worldIn.setBlockState(pos.up(), Blocks.air.getDefaultState(), 2);
+            worldIn.setBlockState(pos.up(), Blocks.AIR.getDefaultState(), 2);
         }
 
         super.onBlockHarvested(worldIn, pos, state, player);
@@ -166,9 +166,9 @@ public class BlockDoublePlant extends BlockBush implements IGrowable {
         if (blockdoubleplant$enumplanttype != BlockDoublePlant.EnumPlantType.FERN && blockdoubleplant$enumplanttype != BlockDoublePlant.EnumPlantType.GRASS) {
             return false;
         } else {
-            player.triggerAchievement(StatList.mineBlockStatArray[Block.getIdFromBlock(this)]);
+            player.triggerAchievement(StatList.MINE_BLOCK_STAT_ARRAY[Block.getIdFromBlock(this)]);
             int i = (blockdoubleplant$enumplanttype == BlockDoublePlant.EnumPlantType.GRASS ? BlockTallGrass.EnumType.GRASS : BlockTallGrass.EnumType.FERN).getMeta();
-            spawnAsEntity(worldIn, pos, new ItemStack(Blocks.tallgrass, 2, i));
+            spawnAsEntity(worldIn, pos, new ItemStack(Blocks.TALL_GRASS, 2, i));
             return true;
         }
     }

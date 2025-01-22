@@ -112,7 +112,7 @@ public class MapGenCavesHell extends MapGenBase {
                                 if (l1 >= 0 && l1 < 128) {
                                     IBlockState iblockstate = p_180704_5_.getBlockState(j1, l1, k1);
 
-                                    if (iblockstate.getBlock() == Blocks.flowing_lava || iblockstate.getBlock() == Blocks.lava) {
+                                    if (iblockstate.getBlock() == Blocks.FLOWING_LAVA || iblockstate.getBlock() == Blocks.LAVA) {
                                         flag2 = true;
                                     }
 
@@ -137,8 +137,8 @@ public class MapGenCavesHell extends MapGenBase {
                                     if (d9 > -0.7D && d10 * d10 + d9 * d9 + d8 * d8 < 1.0D) {
                                         IBlockState iblockstate1 = p_180704_5_.getBlockState(i3, i2, j3);
 
-                                        if (iblockstate1.getBlock() == Blocks.netherrack || iblockstate1.getBlock() == Blocks.dirt || iblockstate1.getBlock() == Blocks.grass) {
-                                            p_180704_5_.setBlockState(i3, i2, j3, Blocks.air.getDefaultState());
+                                        if (iblockstate1.getBlock() == Blocks.NETHERRACK || iblockstate1.getBlock() == Blocks.DIRT || iblockstate1.getBlock() == Blocks.GRASS) {
+                                            p_180704_5_.setBlockState(i3, i2, j3, Blocks.AIR.getDefaultState());
                                         }
                                     }
                                 }

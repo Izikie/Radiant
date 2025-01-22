@@ -16,9 +16,9 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class WorldGenMegaPineTree extends WorldGenHugeTrees {
-    private static final IBlockState field_181633_e = Blocks.log.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.WoodType.SPRUCE);
-    private static final IBlockState field_181634_f = Blocks.leaves.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.WoodType.SPRUCE).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
-    private static final IBlockState field_181635_g = Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL);
+    private static final IBlockState field_181633_e = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.WoodType.SPRUCE);
+    private static final IBlockState field_181634_f = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.WoodType.SPRUCE).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
+    private static final IBlockState field_181635_g = Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL);
     private final boolean useBaseHeight;
 
     public WorldGenMegaPineTree(boolean p_i45457_1_, boolean p_i45457_2_) {
@@ -110,7 +110,7 @@ public class WorldGenMegaPineTree extends WorldGenHugeTrees {
             BlockPos blockpos = p_175934_2_.up(i);
             Block block = worldIn.getBlockState(blockpos).getBlock();
 
-            if (block == Blocks.grass || block == Blocks.dirt) {
+            if (block == Blocks.GRASS || block == Blocks.DIRT) {
                 this.setBlockAndNotifyAdequately(worldIn, blockpos, field_181635_g);
                 break;
             }

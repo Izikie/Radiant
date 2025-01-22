@@ -61,7 +61,7 @@ public class ItemBoat extends Item {
                 if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                     BlockPos blockpos = movingobjectposition.getBlockPos();
 
-                    if (worldIn.getBlockState(blockpos).getBlock() == Blocks.snow_layer) {
+                    if (worldIn.getBlockState(blockpos).getBlock() == Blocks.SNOW_LAYER) {
                         blockpos = blockpos.down();
                     }
 
@@ -80,7 +80,7 @@ public class ItemBoat extends Item {
                         --itemStackIn.stackSize;
                     }
 
-                    playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
+                    playerIn.triggerAchievement(StatList.OBJECT_USE_STATS[Item.getIdFromItem(this)]);
                 }
 
             }

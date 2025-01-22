@@ -29,7 +29,7 @@ public class ListQuadsOverlay {
     }
 
     public IBlockState getBlockState(int index) {
-        return index >= 0 && index < this.listBlockStates.size() ? this.listBlockStates.get(index) : Blocks.air.getDefaultState();
+        return index >= 0 && index < this.listBlockStates.size() ? this.listBlockStates.get(index) : Blocks.AIR.getDefaultState();
     }
 
     public List<BakedQuad> getListQuadsSingle(BakedQuad quad) {

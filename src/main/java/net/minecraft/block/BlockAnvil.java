@@ -126,7 +126,7 @@ public class BlockAnvil extends BlockFalling {
         }
 
         public IChatComponent getDisplayName() {
-            return new ChatComponentTranslation(Blocks.anvil.getUnlocalizedName() + ".name");
+            return new ChatComponentTranslation(Blocks.ANVIL.getUnlocalizedName() + ".name");
         }
 
         public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {

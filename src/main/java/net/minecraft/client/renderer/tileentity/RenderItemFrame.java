@@ -60,7 +60,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
         ModelManager modelmanager = blockrendererdispatcher.getBlockModelShapes().getModelManager();
         IBakedModel ibakedmodel;
 
-        if (entity.getDisplayedItem() != null && entity.getDisplayedItem().getItem() == Items.filled_map) {
+        if (entity.getDisplayedItem() != null && entity.getDisplayedItem().getItem() == Items.FILLED_MAP) {
             ibakedmodel = modelmanager.getModel(this.mapModel);
         } else {
             ibakedmodel = modelmanager.getModel(this.itemFrameModel);
@@ -117,7 +117,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
                 float f = 0.0078125F;
                 GlStateManager.scale(f, f, f);
                 GlStateManager.translate(-64.0F, -64.0F, 0.0F);
-                MapData mapdata = Items.filled_map.getMapData(entityitem.getEntityItem(), itemFrame.worldObj);
+                MapData mapdata = Items.FILLED_MAP.getMapData(entityitem.getEntityItem(), itemFrame.worldObj);
                 GlStateManager.translate(0.0F, 0.0F, -1.0F);
 
                 if (mapdata != null) {
@@ -126,7 +126,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
             } else {
                 TextureAtlasSprite textureatlassprite = null;
 
-                if (item == Items.compass) {
+                if (item == Items.COMPASS) {
                     textureatlassprite = this.mc.getTextureMapBlocks().getAtlasSprite(TextureCompass.locationSprite);
                     this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
 

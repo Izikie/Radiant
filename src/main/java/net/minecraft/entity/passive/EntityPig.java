@@ -35,8 +35,8 @@ public class EntityPig extends EntityAnimal {
         this.tasks.addTask(1, new EntityAIPanic(this, 1.25D));
         this.tasks.addTask(2, this.aiControlledByPlayer = new EntityAIControlledByPlayer(this, 0.3F));
         this.tasks.addTask(3, new EntityAIMate(this, 1.0D));
-        this.tasks.addTask(4, new EntityAITempt(this, 1.2D, Items.carrot_on_a_stick, false));
-        this.tasks.addTask(4, new EntityAITempt(this, 1.2D, Items.carrot, false));
+        this.tasks.addTask(4, new EntityAITempt(this, 1.2D, Items.CARROT_ON_A_STICK, false));
+        this.tasks.addTask(4, new EntityAITempt(this, 1.2D, Items.CARROT, false));
         this.tasks.addTask(5, new EntityAIFollowParent(this, 1.1D));
         this.tasks.addTask(6, new EntityAIWander(this, 1.0D));
         this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
@@ -51,7 +51,7 @@ public class EntityPig extends EntityAnimal {
 
     public boolean canBeSteered() {
         ItemStack itemstack = ((EntityPlayer) this.riddenByEntity).getHeldItem();
-        return itemstack != null && itemstack.getItem() == Items.carrot_on_a_stick;
+        return itemstack != null && itemstack.getItem() == Items.CARROT_ON_A_STICK;
     }
 
     protected void entityInit() {
@@ -97,7 +97,7 @@ public class EntityPig extends EntityAnimal {
     }
 
     protected Item getDropItem() {
-        return this.isBurning() ? Items.cooked_porkchop : Items.porkchop;
+        return this.isBurning() ? Items.COOKED_PORKCHOP : Items.PORKCHOP;
     }
 
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
@@ -105,14 +105,14 @@ public class EntityPig extends EntityAnimal {
 
         for (int j = 0; j < i; ++j) {
             if (this.isBurning()) {
-                this.dropItem(Items.cooked_porkchop, 1);
+                this.dropItem(Items.COOKED_PORKCHOP, 1);
             } else {
-                this.dropItem(Items.porkchop, 1);
+                this.dropItem(Items.PORKCHOP, 1);
             }
         }
 
         if (this.getSaddled()) {
-            this.dropItem(Items.saddle, 1);
+            this.dropItem(Items.SADDLE, 1);
         }
     }
 
@@ -131,7 +131,7 @@ public class EntityPig extends EntityAnimal {
     public void onStruckByLightning(EntityLightningBolt lightningBolt) {
         if (!this.worldObj.isRemote && !this.isDead) {
             EntityPigZombie entitypigzombie = new EntityPigZombie(this.worldObj);
-            entitypigzombie.setCurrentItemOrArmor(0, new ItemStack(Items.golden_sword));
+            entitypigzombie.setCurrentItemOrArmor(0, new ItemStack(Items.GOLDEN_SWORD));
             entitypigzombie.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
             entitypigzombie.setNoAI(this.isAIDisabled());
 
@@ -158,7 +158,7 @@ public class EntityPig extends EntityAnimal {
     }
 
     public boolean isBreedingItem(ItemStack stack) {
-        return stack != null && stack.getItem() == Items.carrot;
+        return stack != null && stack.getItem() == Items.CARROT;
     }
 
     public EntityAIControlledByPlayer getAIControlledByPlayer() {

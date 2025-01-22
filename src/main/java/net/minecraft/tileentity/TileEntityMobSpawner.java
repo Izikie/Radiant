@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 public class TileEntityMobSpawner extends TileEntity implements ITickable {
     private final MobSpawnerBaseLogic spawnerLogic = new MobSpawnerBaseLogic() {
         public void func_98267_a(int id) {
-            TileEntityMobSpawner.this.worldObj.addBlockEvent(TileEntityMobSpawner.this.pos, Blocks.mob_spawner, id, 0);
+            TileEntityMobSpawner.this.worldObj.addBlockEvent(TileEntityMobSpawner.this.pos, Blocks.MOB_SPAWNER, id, 0);
         }
 
         public World getSpawnerWorld() {

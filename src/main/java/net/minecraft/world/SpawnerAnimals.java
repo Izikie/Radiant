@@ -212,7 +212,7 @@ public final class SpawnerAnimals {
                     return false;
                 } else {
                     Block block1 = worldIn.getBlockState(blockpos).getBlock();
-                    boolean flag1 = block1 != Blocks.bedrock && block1 != Blocks.barrier;
+                    boolean flag1 = block1 != Blocks.BEDROCK && block1 != Blocks.BARRIER;
                     return flag1 && !block.isNormalCube() && !block.getMaterial().isLiquid() && !worldIn.getBlockState(pos.up()).getBlock().isNormalCube();
                 }
             }

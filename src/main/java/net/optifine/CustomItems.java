@@ -230,9 +230,9 @@ public class CustomItems {
 
     private static Map makeAutoImageProperties(IResourcePack rp) {
         Map map = new HashMap();
-        map.putAll(makePotionImageProperties(rp, "normal", Item.getIdFromItem(Items.potionitem)));
-        map.putAll(makePotionImageProperties(rp, "splash", Item.getIdFromItem(Items.potionitem)));
-        map.putAll(makePotionImageProperties(rp, "linger", Item.getIdFromItem(Items.potionitem)));
+        map.putAll(makePotionImageProperties(rp, "normal", Item.getIdFromItem(Items.POTION)));
+        map.putAll(makePotionImageProperties(rp, "splash", Item.getIdFromItem(Items.POTION)));
+        map.putAll(makePotionImageProperties(rp, "linger", Item.getIdFromItem(Items.POTION)));
         return map;
     }
 
@@ -261,7 +261,7 @@ public class CustomItems {
         if (StrUtils.endsWith(name, new String[]{"_n", "_s"})) {
             return null;
         } else if (name.equals("empty") && type.equals("normal")) {
-            itemId = Item.getIdFromItem(Items.glass_bottle);
+            itemId = Item.getIdFromItem(Items.GLASS_BOTTLE);
             Properties properties = new PropertiesOrdered();
             properties.put("type", "item");
             properties.put("items", "" + itemId);
@@ -636,7 +636,7 @@ public class CustomItems {
 
     private static int[][] getEnchantmentIdLevels(ItemStack itemStack) {
         Item item = itemStack.getItem();
-        NBTTagList nbttaglist = item == Items.enchanted_book ? Items.enchanted_book.getEnchantments(itemStack) : itemStack.getEnchantmentTagList();
+        NBTTagList nbttaglist = item == Items.ENCHANTED_BOOK ? Items.ENCHANTED_BOOK.getEnchantments(itemStack) : itemStack.getEnchantmentTagList();
 
         if (nbttaglist != null && nbttaglist.tagCount() > 0) {
             int[][] aint = new int[nbttaglist.tagCount()][2];

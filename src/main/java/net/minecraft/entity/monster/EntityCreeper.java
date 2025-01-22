@@ -136,13 +136,13 @@ public class EntityCreeper extends EntityMob {
         super.onDeath(cause);
 
         if (cause.getEntity() instanceof EntitySkeleton) {
-            int i = Item.getIdFromItem(Items.record_13);
-            int j = Item.getIdFromItem(Items.record_wait);
+            int i = Item.getIdFromItem(Items.RECORD_13);
+            int j = Item.getIdFromItem(Items.RECORD_WAIT);
             int k = i + this.rand.nextInt(j - i + 1);
             this.dropItem(Item.getItemById(k), 1);
         } else if (cause.getEntity() instanceof EntityCreeper entityCreeper && cause.getEntity() != this && entityCreeper.getPowered() && entityCreeper.isAIEnabled()) {
             entityCreeper.func_175493_co();
-            this.entityDropItem(new ItemStack(Items.skull, 1, 4), 0.0F);
+            this.entityDropItem(new ItemStack(Items.SKULL, 1, 4), 0.0F);
         }
     }
 
@@ -159,7 +159,7 @@ public class EntityCreeper extends EntityMob {
     }
 
     protected Item getDropItem() {
-        return Items.gunpowder;
+        return Items.GUNPOWDER;
     }
 
     public int getCreeperState() {
@@ -178,7 +178,7 @@ public class EntityCreeper extends EntityMob {
     protected boolean interact(EntityPlayer player) {
         ItemStack itemstack = player.inventory.getCurrentItem();
 
-        if (itemstack != null && itemstack.getItem() == Items.flint_and_steel) {
+        if (itemstack != null && itemstack.getItem() == Items.FLINT_AND_STEEL) {
             this.worldObj.playSoundEffect(this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, "fire.ignite", 1.0F, this.rand.nextFloat() * 0.4F + 0.8F);
             player.swingItem();
 

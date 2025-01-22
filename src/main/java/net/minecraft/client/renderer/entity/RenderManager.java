@@ -168,13 +168,13 @@ public class RenderManager {
         this.entityRenderMap.put(EntityItemFrame.class, new RenderItemFrame(this, itemRendererIn));
         this.entityRenderMap.put(EntityLeashKnot.class, new RenderLeashKnot(this));
         this.entityRenderMap.put(EntityArrow.class, new RenderArrow(this));
-        this.entityRenderMap.put(EntitySnowball.class, new RenderSnowball(this, Items.snowball, itemRendererIn));
-        this.entityRenderMap.put(EntityEnderPearl.class, new RenderSnowball(this, Items.ender_pearl, itemRendererIn));
-        this.entityRenderMap.put(EntityEnderEye.class, new RenderSnowball(this, Items.ender_eye, itemRendererIn));
-        this.entityRenderMap.put(EntityEgg.class, new RenderSnowball(this, Items.egg, itemRendererIn));
+        this.entityRenderMap.put(EntitySnowball.class, new RenderSnowball(this, Items.SNOWBALL, itemRendererIn));
+        this.entityRenderMap.put(EntityEnderPearl.class, new RenderSnowball(this, Items.ENDER_PEARL, itemRendererIn));
+        this.entityRenderMap.put(EntityEnderEye.class, new RenderSnowball(this, Items.ENDER_EYE, itemRendererIn));
+        this.entityRenderMap.put(EntityEgg.class, new RenderSnowball(this, Items.EGG, itemRendererIn));
         this.entityRenderMap.put(EntityPotion.class, new RenderPotion(this, itemRendererIn));
-        this.entityRenderMap.put(EntityExpBottle.class, new RenderSnowball(this, Items.experience_bottle, itemRendererIn));
-        this.entityRenderMap.put(EntityFireworkRocket.class, new RenderSnowball(this, Items.fireworks, itemRendererIn));
+        this.entityRenderMap.put(EntityExpBottle.class, new RenderSnowball(this, Items.EXPERIENCE_BOTTLE, itemRendererIn));
+        this.entityRenderMap.put(EntityFireworkRocket.class, new RenderSnowball(this, Items.FIREWORKS, itemRendererIn));
         this.entityRenderMap.put(EntityLargeFireball.class, new RenderFireball(this, 2.0F));
         this.entityRenderMap.put(EntitySmallFireball.class, new RenderFireball(this, 0.5F));
         this.entityRenderMap.put(EntityWitherSkull.class, new RenderWitherSkull(this));
@@ -234,7 +234,7 @@ public class RenderManager {
             IBlockState iblockstate = worldIn.getBlockState(new BlockPos(livingPlayerIn));
             Block block = iblockstate.getBlock();
 
-            if (block == Blocks.bed) {
+            if (block == Blocks.BED) {
                 int j = iblockstate.getValue(BlockBed.FACING).getHorizontalIndex();
                 this.playerViewY = (j * 90 + 180);
                 this.playerViewX = 0.0F;

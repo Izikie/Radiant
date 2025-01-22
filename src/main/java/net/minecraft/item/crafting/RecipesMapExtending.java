@@ -9,7 +9,7 @@ import net.minecraft.world.storage.MapData;
 
 public class RecipesMapExtending extends ShapedRecipes {
     public RecipesMapExtending() {
-        super(3, 3, new ItemStack[]{new ItemStack(Items.paper), new ItemStack(Items.paper), new ItemStack(Items.paper), new ItemStack(Items.paper), new ItemStack(Items.filled_map, 0, 32767), new ItemStack(Items.paper), new ItemStack(Items.paper), new ItemStack(Items.paper), new ItemStack(Items.paper)}, new ItemStack(Items.map, 0, 0));
+        super(3, 3, new ItemStack[]{new ItemStack(Items.PAPER), new ItemStack(Items.PAPER), new ItemStack(Items.PAPER), new ItemStack(Items.PAPER), new ItemStack(Items.FILLED_MAP, 0, 32767), new ItemStack(Items.PAPER), new ItemStack(Items.PAPER), new ItemStack(Items.PAPER), new ItemStack(Items.PAPER)}, new ItemStack(Items.MAP, 0, 0));
     }
 
     public boolean matches(InventoryCrafting inv, World worldIn) {
@@ -21,7 +21,7 @@ public class RecipesMapExtending extends ShapedRecipes {
             for (int i = 0; i < inv.getSizeInventory() && itemstack == null; ++i) {
                 ItemStack itemstack1 = inv.getStackInSlot(i);
 
-                if (itemstack1 != null && itemstack1.getItem() == Items.filled_map) {
+                if (itemstack1 != null && itemstack1.getItem() == Items.FILLED_MAP) {
                     itemstack = itemstack1;
                 }
             }
@@ -29,7 +29,7 @@ public class RecipesMapExtending extends ShapedRecipes {
             if (itemstack == null) {
                 return false;
             } else {
-                MapData mapdata = Items.filled_map.getMapData(itemstack, worldIn);
+                MapData mapdata = Items.FILLED_MAP.getMapData(itemstack, worldIn);
                 return mapdata == null ? false : mapdata.scale < 4;
             }
         }
@@ -41,7 +41,7 @@ public class RecipesMapExtending extends ShapedRecipes {
         for (int i = 0; i < inv.getSizeInventory() && itemstack == null; ++i) {
             ItemStack itemstack1 = inv.getStackInSlot(i);
 
-            if (itemstack1 != null && itemstack1.getItem() == Items.filled_map) {
+            if (itemstack1 != null && itemstack1.getItem() == Items.FILLED_MAP) {
                 itemstack = itemstack1;
             }
         }

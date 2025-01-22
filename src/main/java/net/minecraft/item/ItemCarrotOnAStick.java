@@ -30,14 +30,14 @@ public class ItemCarrotOnAStick extends Item {
                 itemStackIn.damageItem(7, playerIn);
 
                 if (itemStackIn.stackSize == 0) {
-                    ItemStack itemstack = new ItemStack(Items.fishing_rod);
+                    ItemStack itemstack = new ItemStack(Items.FISHING_ROD);
                     itemstack.setTagCompound(itemStackIn.getTagCompound());
                     return itemstack;
                 }
             }
         }
 
-        playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
+        playerIn.triggerAchievement(StatList.OBJECT_USE_STATS[Item.getIdFromItem(this)]);
         return itemStackIn;
     }
 }

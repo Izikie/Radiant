@@ -57,11 +57,11 @@ public class BlockTripWire extends Block {
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Items.string;
+        return Items.STRING;
     }
 
     public Item getItem(World worldIn, BlockPos pos) {
-        return Items.string;
+        return Items.STRING;
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
@@ -100,7 +100,7 @@ public class BlockTripWire extends Block {
 
     public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
         if (!worldIn.isRemote) {
-            if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.shears) {
+            if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.SHEARS) {
                 worldIn.setBlockState(pos, state.withProperty(DISARMED, Boolean.TRUE), 4);
             }
         }
@@ -112,15 +112,15 @@ public class BlockTripWire extends Block {
                 BlockPos blockpos = pos.offset(enumfacing, i);
                 IBlockState iblockstate = worldIn.getBlockState(blockpos);
 
-                if (iblockstate.getBlock() == Blocks.tripwire_hook) {
+                if (iblockstate.getBlock() == Blocks.TRIPWIRE_HOOK) {
                     if (iblockstate.getValue(BlockTripWireHook.FACING) == enumfacing.getOpposite()) {
-                        Blocks.tripwire_hook.func_176260_a(worldIn, blockpos, iblockstate, false, true, i, state);
+                        Blocks.TRIPWIRE_HOOK.func_176260_a(worldIn, blockpos, iblockstate, false, true, i, state);
                     }
 
                     break;
                 }
 
-                if (iblockstate.getBlock() != Blocks.tripwire) {
+                if (iblockstate.getBlock() != Blocks.TRIPWIRE) {
                     break;
                 }
             }
@@ -177,10 +177,10 @@ public class BlockTripWire extends Block {
         IBlockState iblockstate = worldIn.getBlockState(blockpos);
         Block block = iblockstate.getBlock();
 
-        if (block == Blocks.tripwire_hook) {
+        if (block == Blocks.TRIPWIRE_HOOK) {
             Direction enumfacing = direction.getOpposite();
             return iblockstate.getValue(BlockTripWireHook.FACING) == enumfacing;
-        } else if (block == Blocks.tripwire) {
+        } else if (block == Blocks.TRIPWIRE) {
             boolean flag = state.getValue(SUSPENDED);
             boolean flag1 = iblockstate.getValue(SUSPENDED);
             return flag == flag1;

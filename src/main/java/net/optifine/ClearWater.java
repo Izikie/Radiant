@@ -22,8 +22,8 @@ public class ClearWater {
                 i = 1;
             }
 
-            BlockAir.setLightOpacity(Blocks.water, i);
-            BlockAir.setLightOpacity(Blocks.flowing_water, i);
+            BlockAir.setLightOpacity(Blocks.WATER, i);
+            BlockAir.setLightOpacity(Blocks.FLOWING_WATER, i);
         }
 
         if (world != null) {

@@ -28,7 +28,7 @@ public class BlockReed extends Block {
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        if (worldIn.getBlockState(pos.down()).getBlock() == Blocks.reeds || this.checkForDrop(worldIn, pos, state)) {
+        if (worldIn.getBlockState(pos.down()).getBlock() == Blocks.REEDS || this.checkForDrop(worldIn, pos, state)) {
             if (worldIn.isAirBlock(pos.up())) {
                 int i;
 
@@ -54,7 +54,7 @@ public class BlockReed extends Block {
 
         if (block == this) {
             return true;
-        } else if (block != Blocks.grass && block != Blocks.dirt && block != Blocks.sand) {
+        } else if (block != Blocks.GRASS && block != Blocks.DIRT && block != Blocks.SAND) {
             return false;
         } else {
             for (Direction enumfacing : Direction.Plane.HORIZONTAL) {
@@ -90,7 +90,7 @@ public class BlockReed extends Block {
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Items.reeds;
+        return Items.REEDS;
     }
 
     public boolean isOpaqueCube() {
@@ -102,7 +102,7 @@ public class BlockReed extends Block {
     }
 
     public Item getItem(World worldIn, BlockPos pos) {
-        return Items.reeds;
+        return Items.REEDS;
     }
 
     public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass) {

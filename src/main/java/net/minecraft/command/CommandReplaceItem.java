@@ -72,7 +72,7 @@ public class CommandReplaceItem extends CommandBase {
             try {
                 item = getItemByText(sender, args[i]);
             } catch (NumberInvalidException numberinvalidexception) {
-                if (Block.getBlockFromName(args[i]) != Blocks.air) {
+                if (Block.getBlockFromName(args[i]) != Blocks.AIR) {
                     throw numberinvalidexception;
                 }
 

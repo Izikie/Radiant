@@ -226,20 +226,20 @@ public class GuiShaders extends GuiScreenOF {
                         break;
 
                     case OLD_HAND_LIGHT:
-                        Shaders.configOldHandLight.nextValue(!rightClick);
+                        Shaders.CONFIG_OLD_HAND_LIGHT.nextValue(!rightClick);
 
                         if (this.hasShiftDown()) {
-                            Shaders.configOldHandLight.resetValue();
+                            Shaders.CONFIG_OLD_HAND_LIGHT.resetValue();
                         }
 
                         Shaders.uninit();
                         break;
 
                     case OLD_LIGHTING:
-                        Shaders.configOldLighting.nextValue(!rightClick);
+                        Shaders.CONFIG_OLD_LIGHTING.nextValue(!rightClick);
 
                         if (this.hasShiftDown()) {
-                            Shaders.configOldLighting.resetValue();
+                            Shaders.CONFIG_OLD_LIGHTING.resetValue();
                         }
 
                         Shaders.updateBlockLightLevel();

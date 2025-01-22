@@ -13,8 +13,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class WorldGenForest extends WorldGenAbstractTree {
-    private static final IBlockState field_181629_a = Blocks.log.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.WoodType.BIRCH);
-    private static final IBlockState field_181630_b = Blocks.leaves.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.WoodType.BIRCH).withProperty(BlockOldLeaf.CHECK_DECAY, Boolean.FALSE);
+    private static final IBlockState field_181629_a = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.WoodType.BIRCH);
+    private static final IBlockState field_181630_b = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.WoodType.BIRCH).withProperty(BlockOldLeaf.CHECK_DECAY, Boolean.FALSE);
     private final boolean useExtraRandomHeight;
 
     public WorldGenForest(boolean p_i45449_1_, boolean p_i45449_2_) {
@@ -63,7 +63,7 @@ public class WorldGenForest extends WorldGenAbstractTree {
             } else {
                 Block block1 = worldIn.getBlockState(position.down()).getBlock();
 
-                if ((block1 == Blocks.grass || block1 == Blocks.dirt || block1 == Blocks.farmland) && position.getY() < 256 - i - 1) {
+                if ((block1 == Blocks.GRASS || block1 == Blocks.DIRT || block1 == Blocks.FARMLAND) && position.getY() < 256 - i - 1) {
                     this.func_175921_a(worldIn, position.down());
 
                     for (int i2 = position.getY() - 3 + i; i2 <= position.getY() + i; ++i2) {

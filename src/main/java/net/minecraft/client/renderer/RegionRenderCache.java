@@ -15,7 +15,7 @@ import net.minecraft.world.chunk.Chunk;
 import net.optifine.DynamicLights;
 
 public class RegionRenderCache extends ChunkCache {
-    private static final IBlockState DEFAULT_STATE = Blocks.air.getDefaultState();
+    private static final IBlockState DEFAULT_STATE = Blocks.AIR.getDefaultState();
     private final BlockPos position;
     private final int[] combinedLights;
     private final IBlockState[] blockStates;

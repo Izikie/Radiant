@@ -31,7 +31,7 @@ import org.lwjgl.input.Keyboard;
 
 public class GuiScreenBook extends GuiScreen {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final ResourceLocation bookGuiTextures = new ResourceLocation("textures/gui/book.png");
+    private static final ResourceLocation BOOK_GUI_TEXTURES = new ResourceLocation("textures/gui/book.png");
     private final EntityPlayer editingPlayer;
     private final ItemStack bookObj;
     private final boolean bookIsUnsigned;
@@ -155,7 +155,7 @@ public class GuiScreenBook extends GuiScreen {
                         this.bookPages.set(i, new NBTTagString(s1));
                     }
 
-                    this.bookObj.setItem(Items.written_book);
+                    this.bookObj.setItem(Items.WRITTEN_BOOK);
                 }
 
                 PacketBuffer packetbuffer = new PacketBuffer(Unpooled.buffer());
@@ -295,7 +295,7 @@ public class GuiScreenBook extends GuiScreen {
 
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(bookGuiTextures);
+        this.mc.getTextureManager().bindTexture(BOOK_GUI_TEXTURES);
         int i = (this.width - this.bookImageWidth) / 2;
         int j = 2;
         this.drawTexturedModalRect(i, j, 0, 0, this.bookImageWidth, this.bookImageHeight);
@@ -464,7 +464,7 @@ public class GuiScreenBook extends GuiScreen {
             if (this.visible) {
                 boolean flag = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
                 GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-                mc.getTextureManager().bindTexture(GuiScreenBook.bookGuiTextures);
+                mc.getTextureManager().bindTexture(GuiScreenBook.BOOK_GUI_TEXTURES);
                 int i = 0;
                 int j = 192;
 

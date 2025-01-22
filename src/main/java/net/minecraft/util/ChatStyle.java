@@ -25,7 +25,7 @@ public class ChatStyle {
     private ClickEvent chatClickEvent;
     private HoverEvent chatHoverEvent;
     private String insertion;
-    private static final ChatStyle rootStyle = new ChatStyle() {
+    private static final ChatStyle ROOT_STYLE = new ChatStyle() {
         public Formatting getColor() {
             return null;
         }
@@ -240,7 +240,7 @@ public class ChatStyle {
     }
 
     private ChatStyle getParent() {
-        return this.parentStyle == null ? rootStyle : this.parentStyle;
+        return this.parentStyle == null ? ROOT_STYLE : this.parentStyle;
     }
 
     public String toString() {

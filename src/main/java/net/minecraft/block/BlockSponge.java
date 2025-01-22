@@ -51,7 +51,7 @@ public class BlockSponge extends Block {
     protected void tryAbsorb(World worldIn, BlockPos pos, IBlockState state) {
         if (!state.getValue(WET) && this.absorb(worldIn, pos)) {
             worldIn.setBlockState(pos, state.withProperty(WET, Boolean.TRUE), 2);
-            worldIn.playAuxSFX(2001, pos, Block.getIdFromBlock(Blocks.water));
+            worldIn.playAuxSFX(2001, pos, Block.getIdFromBlock(Blocks.WATER));
         }
     }
 
@@ -70,7 +70,7 @@ public class BlockSponge extends Block {
                 BlockPos blockpos1 = blockpos.offset(enumfacing);
 
                 if (worldIn.getBlockState(blockpos1).getBlock().getMaterial() == Material.WATER) {
-                    worldIn.setBlockState(blockpos1, Blocks.air.getDefaultState(), 2);
+                    worldIn.setBlockState(blockpos1, Blocks.AIR.getDefaultState(), 2);
                     arraylist.add(blockpos1);
                     ++i;
 
@@ -86,7 +86,7 @@ public class BlockSponge extends Block {
         }
 
         for (BlockPos blockpos2 : arraylist) {
-            worldIn.notifyNeighborsOfStateChange(blockpos2, Blocks.air);
+            worldIn.notifyNeighborsOfStateChange(blockpos2, Blocks.AIR);
         }
 
         return i > 0;

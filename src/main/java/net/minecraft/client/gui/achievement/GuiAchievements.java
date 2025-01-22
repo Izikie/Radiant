@@ -238,26 +238,26 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
             for (int i4 = 0; i4 * f1 - i2 < 224.0F; ++i4) {
                 random.setSeed((this.mc.getSession().getPlayerID().hashCode() + k1 + i4 + (l1 + l3) * 16));
                 int j4 = random.nextInt(1 + l1 + l3) + (l1 + l3) / 2;
-                TextureAtlasSprite textureatlassprite = this.func_175371_a(Blocks.sand);
+                TextureAtlasSprite textureatlassprite = this.func_175371_a(Blocks.SAND);
 
                 if (j4 <= 37 && l1 + l3 != 35) {
                     if (j4 == 22) {
                         if (random.nextInt(2) == 0) {
-                            textureatlassprite = this.func_175371_a(Blocks.diamond_ore);
+                            textureatlassprite = this.func_175371_a(Blocks.DIAMOND_ORE);
                         } else {
-                            textureatlassprite = this.func_175371_a(Blocks.redstone_ore);
+                            textureatlassprite = this.func_175371_a(Blocks.REDSTONE_ORE);
                         }
                     } else if (j4 == 10) {
-                        textureatlassprite = this.func_175371_a(Blocks.iron_ore);
+                        textureatlassprite = this.func_175371_a(Blocks.IRON_ORE);
                     } else if (j4 == 8) {
-                        textureatlassprite = this.func_175371_a(Blocks.coal_ore);
+                        textureatlassprite = this.func_175371_a(Blocks.COAL_ORE);
                     } else if (j4 > 4) {
-                        textureatlassprite = this.func_175371_a(Blocks.stone);
+                        textureatlassprite = this.func_175371_a(Blocks.STONE);
                     } else if (j4 > 0) {
-                        textureatlassprite = this.func_175371_a(Blocks.dirt);
+                        textureatlassprite = this.func_175371_a(Blocks.DIRT);
                     }
                 } else {
-                    Block block = Blocks.bedrock;
+                    Block block = Blocks.BEDROCK;
                     textureatlassprite = this.func_175371_a(block);
                 }
 

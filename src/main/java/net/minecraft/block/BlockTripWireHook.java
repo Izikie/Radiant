@@ -104,7 +104,7 @@ public class BlockTripWireHook extends Block {
             BlockPos blockpos = pos.offset(enumfacing, j);
             IBlockState iblockstate = worldIn.getBlockState(blockpos);
 
-            if (iblockstate.getBlock() == Blocks.tripwire_hook) {
+            if (iblockstate.getBlock() == Blocks.TRIPWIRE_HOOK) {
                 if (iblockstate.getValue(FACING) == enumfacing.getOpposite()) {
                     i = j;
                 }
@@ -112,7 +112,7 @@ public class BlockTripWireHook extends Block {
                 break;
             }
 
-            if (iblockstate.getBlock() != Blocks.tripwire && j != p_176260_6_) {
+            if (iblockstate.getBlock() != Blocks.TRIPWIRE && j != p_176260_6_) {
                 aiblockstate[j] = null;
                 flag3 = false;
             } else {
@@ -161,7 +161,7 @@ public class BlockTripWireHook extends Block {
                 BlockPos blockpos2 = pos.offset(enumfacing, k);
                 IBlockState iblockstate2 = aiblockstate[k];
 
-                if (iblockstate2 != null && worldIn.getBlockState(blockpos2).getBlock() != Blocks.air) {
+                if (iblockstate2 != null && worldIn.getBlockState(blockpos2).getBlock() != Blocks.AIR) {
                     worldIn.setBlockState(blockpos2, iblockstate2.withProperty(ATTACHED, flag3), 3);
                 }
             }

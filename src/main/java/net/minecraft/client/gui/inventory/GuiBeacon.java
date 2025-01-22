@@ -24,7 +24,7 @@ import org.apache.logging.log4j.Logger;
 
 public class GuiBeacon extends GuiContainer {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final ResourceLocation beaconGuiTextures = new ResourceLocation("textures/gui/container/beacon.png");
+    private static final ResourceLocation BEACON_GUI_TEXTURES = new ResourceLocation("textures/gui/container/beacon.png");
     private final IInventory tileBeacon;
     private GuiBeacon.ConfirmButton beaconConfirmButton;
     private boolean buttonsNotDrawn;
@@ -149,15 +149,15 @@ public class GuiBeacon extends GuiContainer {
 
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(beaconGuiTextures);
+        this.mc.getTextureManager().bindTexture(BEACON_GUI_TEXTURES);
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
         this.itemRender.zLevel = 100.0F;
-        this.itemRender.renderItemAndEffectIntoGUI(new ItemStack(Items.emerald), i + 42, j + 109);
-        this.itemRender.renderItemAndEffectIntoGUI(new ItemStack(Items.diamond), i + 42 + 22, j + 109);
-        this.itemRender.renderItemAndEffectIntoGUI(new ItemStack(Items.gold_ingot), i + 42 + 44, j + 109);
-        this.itemRender.renderItemAndEffectIntoGUI(new ItemStack(Items.iron_ingot), i + 42 + 66, j + 109);
+        this.itemRender.renderItemAndEffectIntoGUI(new ItemStack(Items.EMERALD), i + 42, j + 109);
+        this.itemRender.renderItemAndEffectIntoGUI(new ItemStack(Items.DIAMOND), i + 42 + 22, j + 109);
+        this.itemRender.renderItemAndEffectIntoGUI(new ItemStack(Items.GOLD_INGOT), i + 42 + 44, j + 109);
+        this.itemRender.renderItemAndEffectIntoGUI(new ItemStack(Items.IRON_INGOT), i + 42 + 66, j + 109);
         this.itemRender.zLevel = 0.0F;
     }
 
@@ -176,7 +176,7 @@ public class GuiBeacon extends GuiContainer {
 
         public void drawButton(Minecraft mc, int mouseX, int mouseY) {
             if (this.visible) {
-                mc.getTextureManager().bindTexture(GuiBeacon.beaconGuiTextures);
+                mc.getTextureManager().bindTexture(GuiBeacon.BEACON_GUI_TEXTURES);
                 GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                 this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
                 int i = 219;
@@ -192,7 +192,7 @@ public class GuiBeacon extends GuiContainer {
 
                 this.drawTexturedModalRect(this.xPosition, this.yPosition, j, i, this.width, this.height);
 
-                if (!GuiBeacon.beaconGuiTextures.equals(this.field_146145_o)) {
+                if (!GuiBeacon.BEACON_GUI_TEXTURES.equals(this.field_146145_o)) {
                     mc.getTextureManager().bindTexture(this.field_146145_o);
                 }
 
@@ -211,7 +211,7 @@ public class GuiBeacon extends GuiContainer {
 
     class CancelButton extends GuiBeacon.Button {
         public CancelButton(int p_i1074_2_, int p_i1074_3_, int p_i1074_4_) {
-            super(p_i1074_2_, p_i1074_3_, p_i1074_4_, GuiBeacon.beaconGuiTextures, 112, 220);
+            super(p_i1074_2_, p_i1074_3_, p_i1074_4_, GuiBeacon.BEACON_GUI_TEXTURES, 112, 220);
         }
 
         public void drawButtonForegroundLayer(int mouseX, int mouseY) {
@@ -221,7 +221,7 @@ public class GuiBeacon extends GuiContainer {
 
     class ConfirmButton extends GuiBeacon.Button {
         public ConfirmButton(int p_i1075_2_, int p_i1075_3_, int p_i1075_4_) {
-            super(p_i1075_2_, p_i1075_3_, p_i1075_4_, GuiBeacon.beaconGuiTextures, 90, 220);
+            super(p_i1075_2_, p_i1075_3_, p_i1075_4_, GuiBeacon.BEACON_GUI_TEXTURES, 90, 220);
         }
 
         public void drawButtonForegroundLayer(int mouseX, int mouseY) {
@@ -234,7 +234,7 @@ public class GuiBeacon extends GuiContainer {
         private final int field_146148_q;
 
         public PowerButton(int p_i1076_2_, int p_i1076_3_, int p_i1076_4_, int p_i1076_5_, int p_i1076_6_) {
-            super(p_i1076_2_, p_i1076_3_, p_i1076_4_, GuiContainer.inventoryBackground, Potion.POTION_TYPES[p_i1076_5_].getStatusIconIndex() % 8 * 18, 198 + Potion.POTION_TYPES[p_i1076_5_].getStatusIconIndex() / 8 * 18);
+            super(p_i1076_2_, p_i1076_3_, p_i1076_4_, GuiContainer.INVENTORY_BACKGROUND, Potion.POTION_TYPES[p_i1076_5_].getStatusIconIndex() % 8 * 18, 198 + Potion.POTION_TYPES[p_i1076_5_].getStatusIconIndex() / 8 * 18);
             this.field_146149_p = p_i1076_5_;
             this.field_146148_q = p_i1076_6_;
         }

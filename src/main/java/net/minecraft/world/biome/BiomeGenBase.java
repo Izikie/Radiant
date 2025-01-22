@@ -115,8 +115,8 @@ public abstract class BiomeGenBase {
     public String biomeName;
     public int color;
     public int field_150609_ah;
-    public IBlockState topBlock = Blocks.grass.getDefaultState();
-    public IBlockState fillerBlock = Blocks.dirt.getDefaultState();
+    public IBlockState topBlock = Blocks.GRASS.getDefaultState();
+    public IBlockState fillerBlock = Blocks.DIRT.getDefaultState();
     public int fillerBlockMetadata = 5169201;
     public float minHeight;
     public float maxHeight;
@@ -327,17 +327,17 @@ public abstract class BiomeGenBase {
 
         for (int j1 = 255; j1 >= 0; --j1) {
             if (j1 <= rand.nextInt(5)) {
-                chunkPrimerIn.setBlockState(i1, j1, l, Blocks.bedrock.getDefaultState());
+                chunkPrimerIn.setBlockState(i1, j1, l, Blocks.BEDROCK.getDefaultState());
             } else {
                 IBlockState iblockstate2 = chunkPrimerIn.getBlockState(i1, j1, l);
 
                 if (iblockstate2.getBlock().getMaterial() == Material.AIR) {
                     j = -1;
-                } else if (iblockstate2.getBlock() == Blocks.stone) {
+                } else if (iblockstate2.getBlock() == Blocks.STONE) {
                     if (j == -1) {
                         if (k <= 0) {
                             iblockstate = null;
-                            iblockstate1 = Blocks.stone.getDefaultState();
+                            iblockstate1 = Blocks.STONE.getDefaultState();
                         } else if (j1 >= i - 4 && j1 <= i + 1) {
                             iblockstate = this.topBlock;
                             iblockstate1 = this.fillerBlock;
@@ -345,9 +345,9 @@ public abstract class BiomeGenBase {
 
                         if (j1 < i && (iblockstate == null || iblockstate.getBlock().getMaterial() == Material.AIR)) {
                             if (this.getFloatTemperature(blockpos$mutableblockpos.set(x, j1, z)) < 0.15F) {
-                                iblockstate = Blocks.ice.getDefaultState();
+                                iblockstate = Blocks.ICE.getDefaultState();
                             } else {
-                                iblockstate = Blocks.water.getDefaultState();
+                                iblockstate = Blocks.WATER.getDefaultState();
                             }
                         }
 
@@ -357,8 +357,8 @@ public abstract class BiomeGenBase {
                             chunkPrimerIn.setBlockState(i1, j1, l, iblockstate);
                         } else if (j1 < i - 7 - k) {
                             iblockstate = null;
-                            iblockstate1 = Blocks.stone.getDefaultState();
-                            chunkPrimerIn.setBlockState(i1, j1, l, Blocks.gravel.getDefaultState());
+                            iblockstate1 = Blocks.STONE.getDefaultState();
+                            chunkPrimerIn.setBlockState(i1, j1, l, Blocks.GRAVEL.getDefaultState());
                         } else {
                             chunkPrimerIn.setBlockState(i1, j1, l, iblockstate1);
                         }
@@ -366,9 +366,9 @@ public abstract class BiomeGenBase {
                         --j;
                         chunkPrimerIn.setBlockState(i1, j1, l, iblockstate1);
 
-                        if (j == 0 && iblockstate1.getBlock() == Blocks.sand) {
+                        if (j == 0 && iblockstate1.getBlock() == Blocks.SAND) {
                             j = rand.nextInt(4) + Math.max(0, j1 - 63);
-                            iblockstate1 = iblockstate1.getValue(BlockSand.VARIANT) == BlockSand.SandType.RED_SAND ? Blocks.red_sandstone.getDefaultState() : Blocks.sandstone.getDefaultState();
+                            iblockstate1 = iblockstate1.getValue(BlockSand.VARIANT) == BlockSand.SandType.RED_SAND ? Blocks.RED_SANDSTONE.getDefaultState() : Blocks.SANDSTONE.getDefaultState();
                         }
                     }
                 }

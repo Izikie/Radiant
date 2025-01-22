@@ -8,7 +8,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiScreenHorseInventory extends GuiContainer {
-    private static final ResourceLocation horseGuiTextures = new ResourceLocation("textures/gui/container/horse.png");
+    private static final ResourceLocation HORSE_GUI_TEXTURES = new ResourceLocation("textures/gui/container/horse.png");
     private final IInventory playerInventory;
     private final IInventory horseInventory;
     private final EntityHorse horseEntity;
@@ -30,7 +30,7 @@ public class GuiScreenHorseInventory extends GuiContainer {
 
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(horseGuiTextures);
+        this.mc.getTextureManager().bindTexture(HORSE_GUI_TEXTURES);
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);

@@ -82,7 +82,7 @@ public class GuiCreateWorld extends GuiScreen {
     private void calcSaveDirName() {
         this.saveDirName = this.worldNameField.getText().trim();
 
-        for (char c0 : ChatAllowedCharacters.allowedCharactersArray) {
+        for (char c0 : ChatAllowedCharacters.ALLOWED_CHARACTERS) {
             this.saveDirName = this.saveDirName.replace(c0, '_');
         }
 
@@ -113,7 +113,7 @@ public class GuiCreateWorld extends GuiScreen {
             this.btnBonusItems.displayString = this.btnBonusItems.displayString + I18n.format("options.off");
         }
 
-        this.btnMapType.displayString = I18n.format("selectWorld.mapType") + " " + I18n.format(WorldType.worldTypes[this.selectedIndex].getTranslateName());
+        this.btnMapType.displayString = I18n.format("selectWorld.mapType") + " " + I18n.format(WorldType.WORLD_TYPES[this.selectedIndex].getTranslateName());
         this.btnAllowCommands.displayString = I18n.format("selectWorld.allowCommands") + " ";
 
         if (this.allowCheats && !this.hardCoreMode) {
@@ -171,7 +171,7 @@ public class GuiCreateWorld extends GuiScreen {
                 }
 
                 WorldSettings.GameType worldsettings$gametype = WorldSettings.GameType.getByName(this.gameMode);
-                WorldSettings worldsettings = new WorldSettings(i, worldsettings$gametype, this.generateStructuresEnabled, this.hardCoreMode, WorldType.worldTypes[this.selectedIndex]);
+                WorldSettings worldsettings = new WorldSettings(i, worldsettings$gametype, this.generateStructuresEnabled, this.hardCoreMode, WorldType.WORLD_TYPES[this.selectedIndex]);
                 worldsettings.setWorldName(this.chunkProviderSettingsJson);
 
                 if (this.bonusChestEnabled && !this.hardCoreMode) {
@@ -229,14 +229,14 @@ public class GuiCreateWorld extends GuiScreen {
             } else if (button.id == 5) {
                 ++this.selectedIndex;
 
-                if (this.selectedIndex >= WorldType.worldTypes.length) {
+                if (this.selectedIndex >= WorldType.WORLD_TYPES.length) {
                     this.selectedIndex = 0;
                 }
 
                 while (!this.canSelectCurWorldType()) {
                     ++this.selectedIndex;
 
-                    if (this.selectedIndex >= WorldType.worldTypes.length) {
+                    if (this.selectedIndex >= WorldType.WORLD_TYPES.length) {
                         this.selectedIndex = 0;
                     }
                 }
@@ -249,7 +249,7 @@ public class GuiCreateWorld extends GuiScreen {
                 this.allowCheats = !this.allowCheats;
                 this.updateDisplayState();
             } else if (button.id == 8) {
-                if (WorldType.worldTypes[this.selectedIndex] == WorldType.FLAT) {
+                if (WorldType.WORLD_TYPES[this.selectedIndex] == WorldType.FLAT) {
                     this.mc.displayGuiScreen(new GuiCreateFlatWorld(this, this.chunkProviderSettingsJson));
                 } else {
                     this.mc.displayGuiScreen(new GuiCustomizeWorldScreen(this, this.chunkProviderSettingsJson));
@@ -259,7 +259,7 @@ public class GuiCreateWorld extends GuiScreen {
     }
 
     private boolean canSelectCurWorldType() {
-        WorldType worldtype = WorldType.worldTypes[this.selectedIndex];
+        WorldType worldtype = WorldType.WORLD_TYPES[this.selectedIndex];
         return worldtype != null && worldtype.getCanBeCreated() ? (worldtype == WorldType.DEBUG_WORLD ? isShiftKeyDown() : true) : false;
     }
 
@@ -270,7 +270,7 @@ public class GuiCreateWorld extends GuiScreen {
     private void showMoreWorldOptions(boolean toggle) {
         this.inMoreWorldOptionsDisplay = toggle;
 
-        if (WorldType.worldTypes[this.selectedIndex] == WorldType.DEBUG_WORLD) {
+        if (WorldType.WORLD_TYPES[this.selectedIndex] == WorldType.DEBUG_WORLD) {
             this.btnGameMode.visible = !this.inMoreWorldOptionsDisplay;
             this.btnGameMode.enabled = false;
 
@@ -293,11 +293,11 @@ public class GuiCreateWorld extends GuiScreen {
                 this.savedGameMode = null;
             }
 
-            this.btnMapFeatures.visible = this.inMoreWorldOptionsDisplay && WorldType.worldTypes[this.selectedIndex] != WorldType.CUSTOMIZED;
+            this.btnMapFeatures.visible = this.inMoreWorldOptionsDisplay && WorldType.WORLD_TYPES[this.selectedIndex] != WorldType.CUSTOMIZED;
             this.btnBonusItems.visible = this.inMoreWorldOptionsDisplay;
             this.btnMapType.visible = this.inMoreWorldOptionsDisplay;
             this.btnAllowCommands.visible = this.inMoreWorldOptionsDisplay;
-            this.btnCustomizeType.visible = this.inMoreWorldOptionsDisplay && (WorldType.worldTypes[this.selectedIndex] == WorldType.FLAT || WorldType.worldTypes[this.selectedIndex] == WorldType.CUSTOMIZED);
+            this.btnCustomizeType.visible = this.inMoreWorldOptionsDisplay && (WorldType.WORLD_TYPES[this.selectedIndex] == WorldType.FLAT || WorldType.WORLD_TYPES[this.selectedIndex] == WorldType.CUSTOMIZED);
         }
 
         this.updateDisplayState();
@@ -354,8 +354,8 @@ public class GuiCreateWorld extends GuiScreen {
 
             this.worldSeedField.drawTextBox();
 
-            if (WorldType.worldTypes[this.selectedIndex].showWorldInfoNotice()) {
-                this.fontRendererObj.drawSplitString(I18n.format(WorldType.worldTypes[this.selectedIndex].getTranslatedInfo()), this.btnMapType.xPosition + 2, this.btnMapType.yPosition + 22, this.btnMapType.getButtonWidth(), 10526880);
+            if (WorldType.WORLD_TYPES[this.selectedIndex].showWorldInfoNotice()) {
+                this.fontRendererObj.drawSplitString(I18n.format(WorldType.WORLD_TYPES[this.selectedIndex].getTranslatedInfo()), this.btnMapType.xPosition + 2, this.btnMapType.yPosition + 22, this.btnMapType.getButtonWidth(), 10526880);
             }
         } else {
             this.drawString(this.fontRendererObj, I18n.format("selectWorld.enterName"), this.width / 2 - 100, 47, -6250336);

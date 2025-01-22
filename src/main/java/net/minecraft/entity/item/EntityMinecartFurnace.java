@@ -62,7 +62,7 @@ public class EntityMinecartFurnace extends EntityMinecart {
         super.killMinecart(source);
 
         if (!source.isExplosion() && this.worldObj.getGameRules().getBoolean("doEntityDrops")) {
-            this.entityDropItem(new ItemStack(Blocks.furnace, 1), 0.0F);
+            this.entityDropItem(new ItemStack(Blocks.FURNACE, 1), 0.0F);
         }
     }
 
@@ -111,7 +111,7 @@ public class EntityMinecartFurnace extends EntityMinecart {
     public boolean interactFirst(EntityPlayer playerIn) {
         ItemStack itemstack = playerIn.inventory.getCurrentItem();
 
-        if (itemstack != null && itemstack.getItem() == Items.coal) {
+        if (itemstack != null && itemstack.getItem() == Items.COAL) {
             if (!playerIn.capabilities.isCreativeMode && --itemstack.stackSize == 0) {
                 playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, null);
             }
@@ -151,6 +151,6 @@ public class EntityMinecartFurnace extends EntityMinecart {
     }
 
     public IBlockState getDefaultDisplayTile() {
-        return (this.isMinecartPowered() ? Blocks.lit_furnace : Blocks.furnace).getDefaultState().withProperty(BlockFurnace.FACING, Direction.NORTH);
+        return (this.isMinecartPowered() ? Blocks.LIT_FURNACE : Blocks.FURNACE).getDefaultState().withProperty(BlockFurnace.FACING, Direction.NORTH);
     }
 }

@@ -112,7 +112,7 @@ public class EntityBlaze extends EntityMob {
     }
 
     protected Item getDropItem() {
-        return Items.blaze_rod;
+        return Items.BLAZE_ROD;
     }
 
     public boolean isBurning() {
@@ -124,7 +124,7 @@ public class EntityBlaze extends EntityMob {
             int i = this.rand.nextInt(2 + lootingModifier);
 
             for (int j = 0; j < i; ++j) {
-                this.dropItem(Items.blaze_rod, 1);
+                this.dropItem(Items.BLAZE_ROD, 1);
             }
         }
     }

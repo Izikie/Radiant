@@ -15,8 +15,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public class WorldGenCanopyTree extends WorldGenAbstractTree {
-    private static final IBlockState field_181640_a = Blocks.log2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.WoodType.DARK_OAK);
-    private static final IBlockState field_181641_b = Blocks.leaves2.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.WoodType.DARK_OAK).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
+    private static final IBlockState field_181640_a = Blocks.LOG_2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.WoodType.DARK_OAK);
+    private static final IBlockState field_181641_b = Blocks.LEAVES_2.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.WoodType.DARK_OAK).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
 
     public WorldGenCanopyTree(boolean p_i45461_1_) {
         super(p_i45461_1_);
@@ -32,7 +32,7 @@ public class WorldGenCanopyTree extends WorldGenAbstractTree {
             BlockPos blockpos = position.down();
             Block block = worldIn.getBlockState(blockpos).getBlock();
 
-            if (block != Blocks.grass && block != Blocks.dirt) {
+            if (block != Blocks.GRASS && block != Blocks.DIRT) {
                 return false;
             } else if (!this.func_181638_a(worldIn, position, i)) {
                 return false;

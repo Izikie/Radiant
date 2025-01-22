@@ -53,7 +53,7 @@ public class ItemMonsterPlacer extends Item {
         } else {
             IBlockState iblockstate = worldIn.getBlockState(pos);
 
-            if (iblockstate.getBlock() == Blocks.mob_spawner) {
+            if (iblockstate.getBlock() == Blocks.MOB_SPAWNER) {
                 TileEntity tileentity = worldIn.getTileEntity(pos);
 
                 if (tileentity instanceof TileEntityMobSpawner tileEntityMobSpawner) {
@@ -121,7 +121,7 @@ public class ItemMonsterPlacer extends Item {
                                 --itemStackIn.stackSize;
                             }
 
-                            playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
+                            playerIn.triggerAchievement(StatList.OBJECT_USE_STATS[Item.getIdFromItem(this)]);
                         }
                     }
                 }

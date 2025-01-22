@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 
 public class RecipesTools {
     private final String[][] recipePatterns = new String[][]{{"XXX", " # ", " # "}, {"X", "#", "#"}, {"XX", "X#", " #"}, {"XX", " #", " #"}};
-    private final Object[][] recipeItems = new Object[][]{{Blocks.planks, Blocks.cobblestone, Items.iron_ingot, Items.diamond, Items.gold_ingot}, {Items.wooden_pickaxe, Items.stone_pickaxe, Items.iron_pickaxe, Items.diamond_pickaxe, Items.golden_pickaxe}, {Items.wooden_shovel, Items.stone_shovel, Items.iron_shovel, Items.diamond_shovel, Items.golden_shovel}, {Items.wooden_axe, Items.stone_axe, Items.iron_axe, Items.diamond_axe, Items.golden_axe}, {Items.wooden_hoe, Items.stone_hoe, Items.iron_hoe, Items.diamond_hoe, Items.golden_hoe}};
+    private final Object[][] recipeItems = new Object[][]{{Blocks.PLANKS, Blocks.COBBLESTONE, Items.IRON_INGOT, Items.DIAMOND, Items.GOLD_INGOT}, {Items.WOODEN_PICKAXE, Items.STONE_PICKAXE, Items.IRON_PICKAXE, Items.DIAMOND_PICKAXE, Items.GOLDEN_PICKAXE}, {Items.WOODEN_SHOVEL, Items.STONE_SHOVEL, Items.IRON_SHOVEL, Items.DIAMOND_SHOVEL, Items.GOLDEN_SHOVEL}, {Items.WOODEN_AXE, Items.STONE_AXE, Items.IRON_AXE, Items.DIAMOND_AXE, Items.GOLDEN_AXE}, {Items.WOODEN_HOE, Items.STONE_HOE, Items.IRON_HOE, Items.DIAMOND_HOE, Items.GOLDEN_HOE}};
 
     public void addRecipes(CraftingManager p_77586_1_) {
         for (int i = 0; i < this.recipeItems[0].length; ++i) {
@@ -15,10 +15,10 @@ public class RecipesTools {
 
             for (int j = 0; j < this.recipeItems.length - 1; ++j) {
                 Item item = (Item) this.recipeItems[j + 1][i];
-                p_77586_1_.addRecipe(new ItemStack(item), this.recipePatterns[j], '#', Items.stick, 'X', object);
+                p_77586_1_.addRecipe(new ItemStack(item), this.recipePatterns[j], '#', Items.STICK, 'X', object);
             }
         }
 
-        p_77586_1_.addRecipe(new ItemStack(Items.shears), " #", "# ", '#', Items.iron_ingot);
+        p_77586_1_.addRecipe(new ItemStack(Items.SHEARS), " #", "# ", '#', Items.IRON_INGOT);
     }
 }

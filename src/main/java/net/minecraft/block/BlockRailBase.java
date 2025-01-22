@@ -28,7 +28,7 @@ public abstract class BlockRailBase extends Block {
 
     public static boolean isRailBlock(IBlockState state) {
         Block block = state.getBlock();
-        return block == Blocks.rail || block == Blocks.golden_rail || block == Blocks.detector_rail || block == Blocks.activator_rail;
+        return block == Blocks.RAIL || block == Blocks.GOLDEN_RAIL || block == Blocks.DETECTOR_RAIL || block == Blocks.ACTIVATOR_RAIL;
     }
 
     protected BlockRailBase(boolean isPowered) {

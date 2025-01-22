@@ -11,8 +11,8 @@ public class BiomeGenDesert extends BiomeGenBase {
     public BiomeGenDesert(int id) {
         super(id);
         this.spawnableCreatureList.clear();
-        this.topBlock = Blocks.sand.getDefaultState();
-        this.fillerBlock = Blocks.sand.getDefaultState();
+        this.topBlock = Blocks.SAND.getDefaultState();
+        this.fillerBlock = Blocks.SAND.getDefaultState();
         this.theBiomeDecorator.treesPerChunk = -999;
         this.theBiomeDecorator.deadBushPerChunk = 2;
         this.theBiomeDecorator.reedsPerChunk = 50;

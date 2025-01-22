@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 public class RecipesBanners {
     void addRecipes(CraftingManager p_179534_1_) {
         for (DyeColor enumdyecolor : DyeColor.values()) {
-            p_179534_1_.addRecipe(new ItemStack(Items.banner, 1, enumdyecolor.getDyeDamage()), "###", "###", " | ", '#', new ItemStack(Blocks.wool, 1, enumdyecolor.getMetadata()), '|', Items.stick);
+            p_179534_1_.addRecipe(new ItemStack(Items.BANNER, 1, enumdyecolor.getDyeDamage()), "###", "###", " | ", '#', new ItemStack(Blocks.WOOL, 1, enumdyecolor.getMetadata()), '|', Items.STICK);
         }
 
         p_179534_1_.addRecipe(new RecipesBanners.RecipeDuplicatePattern());
@@ -30,7 +30,7 @@ public class RecipesBanners {
             for (int i = 0; i < inv.getSizeInventory(); ++i) {
                 ItemStack itemstack = inv.getStackInSlot(i);
 
-                if (itemstack != null && itemstack.getItem() == Items.banner) {
+                if (itemstack != null && itemstack.getItem() == Items.BANNER) {
                     if (flag) {
                         return false;
                     }
@@ -56,7 +56,7 @@ public class RecipesBanners {
             for (int i = 0; i < inv.getSizeInventory(); ++i) {
                 ItemStack itemstack1 = inv.getStackInSlot(i);
 
-                if (itemstack1 != null && itemstack1.getItem() == Items.banner) {
+                if (itemstack1 != null && itemstack1.getItem() == Items.BANNER) {
                     itemstack = itemstack1.copy();
                     itemstack.stackSize = 1;
                     break;
@@ -71,7 +71,7 @@ public class RecipesBanners {
                 for (int j = 0; j < inv.getSizeInventory(); ++j) {
                     ItemStack itemstack2 = inv.getStackInSlot(j);
 
-                    if (itemstack2 != null && itemstack2.getItem() == Items.dye) {
+                    if (itemstack2 != null && itemstack2.getItem() == Items.DYE) {
                         k = itemstack2.getMetadata();
                         break;
                     }
@@ -130,8 +130,8 @@ public class RecipesBanners {
                         for (int i = 0; i < p_179533_1_.getSizeInventory() && flag; ++i) {
                             ItemStack itemstack = p_179533_1_.getStackInSlot(i);
 
-                            if (itemstack != null && itemstack.getItem() != Items.banner) {
-                                if (itemstack.getItem() == Items.dye) {
+                            if (itemstack != null && itemstack.getItem() != Items.BANNER) {
+                                if (itemstack.getItem() == Items.DYE) {
                                     if (flag2) {
                                         flag = false;
                                         break;
@@ -160,8 +160,8 @@ public class RecipesBanners {
                             int i1 = k % 3;
                             ItemStack itemstack1 = p_179533_1_.getStackInSlot(k);
 
-                            if (itemstack1 != null && itemstack1.getItem() != Items.banner) {
-                                if (itemstack1.getItem() != Items.dye) {
+                            if (itemstack1 != null && itemstack1.getItem() != Items.BANNER) {
+                                if (itemstack1.getItem() != Items.DYE) {
                                     flag = false;
                                     break;
                                 }
@@ -208,7 +208,7 @@ public class RecipesBanners {
                 ItemStack itemstack2 = inv.getStackInSlot(i);
 
                 if (itemstack2 != null) {
-                    if (itemstack2.getItem() != Items.banner) {
+                    if (itemstack2.getItem() != Items.BANNER) {
                         return false;
                     }
 

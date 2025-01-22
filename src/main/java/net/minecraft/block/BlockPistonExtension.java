@@ -40,7 +40,7 @@ public class BlockPistonExtension extends Block {
                 BlockPos blockpos = pos.offset(enumfacing.getOpposite());
                 Block block = worldIn.getBlockState(blockpos).getBlock();
 
-                if (block == Blocks.piston || block == Blocks.sticky_piston) {
+                if (block == Blocks.PISTON || block == Blocks.STICKY_PISTON) {
                     worldIn.setBlockToAir(blockpos);
                 }
             }
@@ -55,7 +55,7 @@ public class BlockPistonExtension extends Block {
         pos = pos.offset(enumfacing);
         IBlockState iblockstate = worldIn.getBlockState(pos);
 
-        if ((iblockstate.getBlock() == Blocks.piston || iblockstate.getBlock() == Blocks.sticky_piston) && iblockstate.getValue(BlockPistonBase.EXTENDED)) {
+        if ((iblockstate.getBlock() == Blocks.PISTON || iblockstate.getBlock() == Blocks.STICKY_PISTON) && iblockstate.getValue(BlockPistonBase.EXTENDED)) {
             iblockstate.getBlock().dropBlockAsItem(worldIn, pos, iblockstate, 0);
             worldIn.setBlockToAir(pos);
         }
@@ -163,7 +163,7 @@ public class BlockPistonExtension extends Block {
         BlockPos blockpos = pos.offset(enumfacing.getOpposite());
         IBlockState iblockstate = worldIn.getBlockState(blockpos);
 
-        if (iblockstate.getBlock() != Blocks.piston && iblockstate.getBlock() != Blocks.sticky_piston) {
+        if (iblockstate.getBlock() != Blocks.PISTON && iblockstate.getBlock() != Blocks.STICKY_PISTON) {
             worldIn.setBlockToAir(pos);
         } else {
             iblockstate.getBlock().onNeighborBlockChange(worldIn, blockpos, iblockstate, neighborBlock);
@@ -180,7 +180,7 @@ public class BlockPistonExtension extends Block {
     }
 
     public Item getItem(World worldIn, BlockPos pos) {
-        return worldIn.getBlockState(pos).getValue(TYPE) == PistonType.STICKY ? Item.getItemFromBlock(Blocks.sticky_piston) : Item.getItemFromBlock(Blocks.piston);
+        return worldIn.getBlockState(pos).getValue(TYPE) == PistonType.STICKY ? Item.getItemFromBlock(Blocks.STICKY_PISTON) : Item.getItemFromBlock(Blocks.PISTON);
     }
 
     public IBlockState getStateFromMeta(int meta) {

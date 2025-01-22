@@ -12,6 +12,6 @@ public class BlockHardenedClay extends Block {
     }
 
     public MapColor getMapColor(IBlockState state) {
-        return MapColor.adobeColor;
+        return MapColor.ADOBE_COLOR;
     }
 }

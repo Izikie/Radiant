@@ -101,9 +101,9 @@ public class ItemMap extends ItemMapBase {
                                     l3 = l3 * l3 * 31287121 + l3 * 11;
 
                                     if ((l3 >> 20 & 1) == 0) {
-                                        multiset.add(Blocks.dirt.getMapColor(Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT)), 10);
+                                        multiset.add(Blocks.DIRT.getMapColor(Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT)), 10);
                                     } else {
-                                        multiset.add(Blocks.stone.getMapColor(Blocks.stone.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.StoneType.STONE)), 100);
+                                        multiset.add(Blocks.STONE.getMapColor(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.StoneType.STONE)), 100);
                                     }
 
                                     d1 = 100.0D;
@@ -113,7 +113,7 @@ public class ItemMap extends ItemMapBase {
                                     for (int i4 = 0; i4 < i; ++i4) {
                                         for (int j4 = 0; j4 < i; ++j4) {
                                             int k4 = chunk.getHeightValue(i4 + i3, j4 + j3) + 1;
-                                            IBlockState iblockstate = Blocks.air.getDefaultState();
+                                            IBlockState iblockstate = Blocks.AIR.getDefaultState();
 
                                             if (k4 > 1) {
                                                 label541:
@@ -122,7 +122,7 @@ public class ItemMap extends ItemMapBase {
                                                         --k4;
                                                         iblockstate = chunk.getBlockState(blockpos$mutableblockpos.set(i4 + i3, k4, j4 + j3));
 
-                                                        if (iblockstate.getBlock().getMapColor(iblockstate) != MapColor.airColor || k4 <= 0) {
+                                                        if (iblockstate.getBlock().getMapColor(iblockstate) != MapColor.AIR_COLOR || k4 <= 0) {
                                                             break;
                                                         }
                                                     }
@@ -160,9 +160,9 @@ public class ItemMap extends ItemMapBase {
                                     i5 = 0;
                                 }
 
-                                MapColor mapcolor = Iterables.getFirst(Multisets.copyHighestCountFirst(multiset), MapColor.airColor);
+                                MapColor mapcolor = Iterables.getFirst(Multisets.copyHighestCountFirst(multiset), MapColor.AIR_COLOR);
 
-                                if (mapcolor == MapColor.waterColor) {
+                                if (mapcolor == MapColor.WATER_COLOR) {
                                     d2 = k3 * 0.1D + (k1 + l1 & 1) * 0.2D;
                                     i5 = 1;
 
@@ -215,7 +215,7 @@ public class ItemMap extends ItemMapBase {
 
     public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn) {
         if (stack.hasTagCompound() && stack.getTagCompound().getBoolean("map_is_scaling")) {
-            MapData mapdata = Items.filled_map.getMapData(stack, worldIn);
+            MapData mapdata = Items.FILLED_MAP.getMapData(stack, worldIn);
             stack.setItemDamage(worldIn.getUniqueDataId("map"));
             MapData mapdata1 = new MapData("map_" + stack.getMetadata());
             mapdata1.scale = (byte) (mapdata.scale + 1);

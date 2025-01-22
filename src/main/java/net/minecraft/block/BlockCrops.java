@@ -28,7 +28,7 @@ public class BlockCrops extends BlockBush implements IGrowable {
     }
 
     protected boolean canPlaceBlockOn(Block ground) {
-        return ground == Blocks.farmland;
+        return ground == Blocks.FARMLAND;
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
@@ -66,7 +66,7 @@ public class BlockCrops extends BlockBush implements IGrowable {
                 float f1 = 0.0F;
                 IBlockState iblockstate = worldIn.getBlockState(blockpos.add(i, 0, j));
 
-                if (iblockstate.getBlock() == Blocks.farmland) {
+                if (iblockstate.getBlock() == Blocks.FARMLAND) {
                     f1 = 1.0F;
 
                     if (iblockstate.getValue(BlockFarmland.MOISTURE) > 0) {
@@ -107,11 +107,11 @@ public class BlockCrops extends BlockBush implements IGrowable {
     }
 
     protected Item getSeed() {
-        return Items.wheat_seeds;
+        return Items.WHEAT_SEEDS;
     }
 
     protected Item getCrop() {
-        return Items.wheat;
+        return Items.WHEAT;
     }
 
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {

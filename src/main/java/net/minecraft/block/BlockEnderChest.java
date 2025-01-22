@@ -44,7 +44,7 @@ public class BlockEnderChest extends BlockContainer {
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Item.getItemFromBlock(Blocks.obsidian);
+        return Item.getItemFromBlock(Blocks.OBSIDIAN);
     }
 
     public int quantityDropped(Random random) {

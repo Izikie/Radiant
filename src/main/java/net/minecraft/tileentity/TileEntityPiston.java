@@ -79,7 +79,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
             --p_145863_1_;
         }
 
-        AxisAlignedBB axisalignedbb = Blocks.piston_extension.getBoundingBox(this.worldObj, this.pos, this.pistonState, p_145863_1_, this.pistonFacing);
+        AxisAlignedBB axisalignedbb = Blocks.PISTON_EXTENSION.getBoundingBox(this.worldObj, this.pos, this.pistonState, p_145863_1_, this.pistonFacing);
 
         if (axisalignedbb != null) {
             List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(null, axisalignedbb);
@@ -88,7 +88,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
                 this.field_174933_k.addAll(list);
 
                 for (Entity entity : this.field_174933_k) {
-                    if (this.pistonState.getBlock() == Blocks.slime_block && this.extending) {
+                    if (this.pistonState.getBlock() == Blocks.SLIME_BLOCK && this.extending) {
                         switch (this.pistonFacing.getAxis()) {
                             case X:
                                 entity.motionX = this.pistonFacing.getFrontOffsetX();
@@ -117,7 +117,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
             this.worldObj.removeTileEntity(this.pos);
             this.invalidate();
 
-            if (this.worldObj.getBlockState(this.pos).getBlock() == Blocks.piston_extension) {
+            if (this.worldObj.getBlockState(this.pos).getBlock() == Blocks.PISTON_EXTENSION) {
                 this.worldObj.setBlockState(this.pos, this.pistonState, 3);
                 this.worldObj.notifyBlockOfStateChange(this.pos, this.pistonState.getBlock());
             }
@@ -132,7 +132,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
             this.worldObj.removeTileEntity(this.pos);
             this.invalidate();
 
-            if (this.worldObj.getBlockState(this.pos).getBlock() == Blocks.piston_extension) {
+            if (this.worldObj.getBlockState(this.pos).getBlock() == Blocks.PISTON_EXTENSION) {
                 this.worldObj.setBlockState(this.pos, this.pistonState, 3);
                 this.worldObj.notifyBlockOfStateChange(this.pos, this.pistonState.getBlock());
             }

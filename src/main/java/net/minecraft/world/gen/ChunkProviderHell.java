@@ -44,11 +44,11 @@ public class ChunkProviderHell implements IChunkProvider {
     private final WorldGenFire field_177470_t = new WorldGenFire();
     private final WorldGenGlowStone1 field_177469_u = new WorldGenGlowStone1();
     private final WorldGenGlowStone2 field_177468_v = new WorldGenGlowStone2();
-    private final WorldGenerator field_177467_w = new WorldGenMinable(Blocks.quartz_ore.getDefaultState(), 14, BlockHelper.forBlock(Blocks.netherrack));
-    private final WorldGenHellLava field_177473_x = new WorldGenHellLava(Blocks.flowing_lava, true);
-    private final WorldGenHellLava field_177472_y = new WorldGenHellLava(Blocks.flowing_lava, false);
-    private final GeneratorBushFeature field_177471_z = new GeneratorBushFeature(Blocks.brown_mushroom);
-    private final GeneratorBushFeature field_177465_A = new GeneratorBushFeature(Blocks.red_mushroom);
+    private final WorldGenerator field_177467_w = new WorldGenMinable(Blocks.QUARTZ_ORE.getDefaultState(), 14, BlockHelper.forBlock(Blocks.NETHERRACK));
+    private final WorldGenHellLava field_177473_x = new WorldGenHellLava(Blocks.FLOWING_LAVA, true);
+    private final WorldGenHellLava field_177472_y = new WorldGenHellLava(Blocks.FLOWING_LAVA, false);
+    private final GeneratorBushFeature field_177471_z = new GeneratorBushFeature(Blocks.BROWN_MUSHROOM);
+    private final GeneratorBushFeature field_177465_A = new GeneratorBushFeature(Blocks.RED_MUSHROOM);
     private final MapGenNetherBridge genNetherBridge = new MapGenNetherBridge();
     private final MapGenBase netherCaveGenerator = new MapGenCavesHell();
     double[] noiseData1;
@@ -108,11 +108,11 @@ public class ChunkProviderHell implements IChunkProvider {
                                 IBlockState iblockstate = null;
 
                                 if (l1 * 8 + i2 < j) {
-                                    iblockstate = Blocks.lava.getDefaultState();
+                                    iblockstate = Blocks.LAVA.getDefaultState();
                                 }
 
                                 if (d15 > 0.0D) {
-                                    iblockstate = Blocks.netherrack.getDefaultState();
+                                    iblockstate = Blocks.NETHERRACK.getDefaultState();
                                 }
 
                                 int l2 = j2 + j1 * 4;
@@ -149,36 +149,36 @@ public class ChunkProviderHell implements IChunkProvider {
                 boolean flag1 = this.gravelNoise[j + k * 16] + this.hellRNG.nextDouble() * 0.2D > 0.0D;
                 int l = (int) (this.netherrackExclusivityNoise[j + k * 16] / 3.0D + 3.0D + this.hellRNG.nextDouble() * 0.25D);
                 int i1 = -1;
-                IBlockState iblockstate = Blocks.netherrack.getDefaultState();
-                IBlockState iblockstate1 = Blocks.netherrack.getDefaultState();
+                IBlockState iblockstate = Blocks.NETHERRACK.getDefaultState();
+                IBlockState iblockstate1 = Blocks.NETHERRACK.getDefaultState();
 
                 for (int j1 = 127; j1 >= 0; --j1) {
                     if (j1 < 127 - this.hellRNG.nextInt(5) && j1 > this.hellRNG.nextInt(5)) {
                         IBlockState iblockstate2 = p_180516_3_.getBlockState(k, j1, j);
 
                         if (iblockstate2.getBlock() != null && iblockstate2.getBlock().getMaterial() != Material.AIR) {
-                            if (iblockstate2.getBlock() == Blocks.netherrack) {
+                            if (iblockstate2.getBlock() == Blocks.NETHERRACK) {
                                 if (i1 == -1) {
                                     if (l <= 0) {
                                         iblockstate = null;
-                                        iblockstate1 = Blocks.netherrack.getDefaultState();
+                                        iblockstate1 = Blocks.NETHERRACK.getDefaultState();
                                     } else if (j1 >= i - 4 && j1 <= i + 1) {
-                                        iblockstate = Blocks.netherrack.getDefaultState();
-                                        iblockstate1 = Blocks.netherrack.getDefaultState();
+                                        iblockstate = Blocks.NETHERRACK.getDefaultState();
+                                        iblockstate1 = Blocks.NETHERRACK.getDefaultState();
 
                                         if (flag1) {
-                                            iblockstate = Blocks.gravel.getDefaultState();
-                                            iblockstate1 = Blocks.netherrack.getDefaultState();
+                                            iblockstate = Blocks.GRAVEL.getDefaultState();
+                                            iblockstate1 = Blocks.NETHERRACK.getDefaultState();
                                         }
 
                                         if (flag) {
-                                            iblockstate = Blocks.soul_sand.getDefaultState();
-                                            iblockstate1 = Blocks.soul_sand.getDefaultState();
+                                            iblockstate = Blocks.SOUL_SAND.getDefaultState();
+                                            iblockstate1 = Blocks.SOUL_SAND.getDefaultState();
                                         }
                                     }
 
                                     if (j1 < i && (iblockstate == null || iblockstate.getBlock().getMaterial() == Material.AIR)) {
-                                        iblockstate = Blocks.lava.getDefaultState();
+                                        iblockstate = Blocks.LAVA.getDefaultState();
                                     }
 
                                     i1 = l;
@@ -197,7 +197,7 @@ public class ChunkProviderHell implements IChunkProvider {
                             i1 = -1;
                         }
                     } else {
-                        p_180516_3_.setBlockState(k, j1, j, Blocks.bedrock.getDefaultState());
+                        p_180516_3_.setBlockState(k, j1, j, Blocks.BEDROCK.getDefaultState());
                     }
                 }
             }
@@ -371,7 +371,7 @@ public class ChunkProviderHell implements IChunkProvider {
                 return this.genNetherBridge.getSpawnList();
             }
 
-            if (this.genNetherBridge.isPositionInStructure(this.worldObj, pos) && this.worldObj.getBlockState(pos.down()).getBlock() == Blocks.nether_brick) {
+            if (this.genNetherBridge.isPositionInStructure(this.worldObj, pos) && this.worldObj.getBlockState(pos.down()).getBlock() == Blocks.NETHER_BRICK) {
                 return this.genNetherBridge.getSpawnList();
             }
         }

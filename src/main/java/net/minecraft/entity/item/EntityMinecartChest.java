@@ -25,7 +25,7 @@ public class EntityMinecartChest extends EntityMinecartContainer {
         super.killMinecart(source);
 
         if (this.worldObj.getGameRules().getBoolean("doEntityDrops")) {
-            this.dropItemWithOffset(Item.getItemFromBlock(Blocks.chest), 1, 0.0F);
+            this.dropItemWithOffset(Item.getItemFromBlock(Blocks.CHEST), 1, 0.0F);
         }
     }
 
@@ -38,7 +38,7 @@ public class EntityMinecartChest extends EntityMinecartContainer {
     }
 
     public IBlockState getDefaultDisplayTile() {
-        return Blocks.chest.getDefaultState().withProperty(BlockChest.FACING, Direction.NORTH);
+        return Blocks.CHEST.getDefaultState().withProperty(BlockChest.FACING, Direction.NORTH);
     }
 
     public int getDefaultDisplayTileOffset() {

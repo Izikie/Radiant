@@ -223,7 +223,7 @@ public class EntitySlime extends EntityLiving implements IMob {
     }
 
     protected Item getDropItem() {
-        return this.getSlimeSize() == 1 ? Items.slime_ball : null;
+        return this.getSlimeSize() == 1 ? Items.SLIME_BALL : null;
     }
 
     public boolean getCanSpawnHere() {

@@ -213,7 +213,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
             return 0;
         } else {
             Item item = itemStackIn.getItem();
-            return item == Items.iron_horse_armor ? 1 : (item == Items.golden_horse_armor ? 2 : (item == Items.diamond_horse_armor ? 3 : 0));
+            return item == Items.IRON_HORSE_ARMOR ? 1 : (item == Items.GOLDEN_HORSE_ARMOR ? 2 : (item == Items.DIAMOND_HORSE_ARMOR ? 3 : 0));
         }
     }
 
@@ -290,7 +290,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
 
     public void dropChests() {
         if (!this.worldObj.isRemote && this.isChested()) {
-            this.dropItem(Item.getItemFromBlock(Blocks.chest), 1);
+            this.dropItem(Item.getItemFromBlock(Blocks.CHEST), 1);
             this.setChested(false);
         }
     }
@@ -415,7 +415,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
     protected Item getDropItem() {
         boolean flag = this.rand.nextInt(4) == 0;
         int i = this.getHorseType();
-        return i == 4 ? Items.bone : (i == 3 ? (flag ? null : Items.rotten_flesh) : Items.leather);
+        return i == 4 ? Items.BONE : (i == 3 ? (flag ? null : Items.ROTTEN_FLESH) : Items.LEATHER);
     }
 
     protected String getHurtSound() {
@@ -454,8 +454,8 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
     protected void playStepSound(BlockPos pos, Block blockIn) {
         Block.SoundType block$soundtype = blockIn.stepSound;
 
-        if (this.worldObj.getBlockState(pos.up()).getBlock() == Blocks.snow_layer) {
-            block$soundtype = Blocks.snow_layer.stepSound;
+        if (this.worldObj.getBlockState(pos.up()).getBlock() == Blocks.SNOW_LAYER) {
+            block$soundtype = Blocks.SNOW_LAYER.stepSound;
         }
 
         if (!blockIn.getMaterial().isLiquid()) {
@@ -585,7 +585,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
     public boolean interact(EntityPlayer player) {
         ItemStack itemstack = player.inventory.getCurrentItem();
 
-        if (itemstack != null && itemstack.getItem() == Items.spawn_egg) {
+        if (itemstack != null && itemstack.getItem() == Items.SPAWN_EGG) {
             return super.interact(player);
         } else if (!this.isTame() && this.isUndead()) {
             return false;
@@ -601,11 +601,11 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
                 if (this.canWearArmor()) {
                     int i = -1;
 
-                    if (itemstack.getItem() == Items.iron_horse_armor) {
+                    if (itemstack.getItem() == Items.IRON_HORSE_ARMOR) {
                         i = 1;
-                    } else if (itemstack.getItem() == Items.golden_horse_armor) {
+                    } else if (itemstack.getItem() == Items.GOLDEN_HORSE_ARMOR) {
                         i = 2;
-                    } else if (itemstack.getItem() == Items.diamond_horse_armor) {
+                    } else if (itemstack.getItem() == Items.DIAMOND_HORSE_ARMOR) {
                         i = 3;
                     }
 
@@ -625,22 +625,22 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
                     int j = 0;
                     int k = 0;
 
-                    if (itemstack.getItem() == Items.wheat) {
+                    if (itemstack.getItem() == Items.WHEAT) {
                         f = 2.0F;
                         j = 20;
                         k = 3;
-                    } else if (itemstack.getItem() == Items.sugar) {
+                    } else if (itemstack.getItem() == Items.SUGAR) {
                         f = 1.0F;
                         j = 30;
                         k = 3;
-                    } else if (Block.getBlockFromItem(itemstack.getItem()) == Blocks.hay_block) {
+                    } else if (Block.getBlockFromItem(itemstack.getItem()) == Blocks.HAY_BLOCK) {
                         f = 20.0F;
                         j = 180;
-                    } else if (itemstack.getItem() == Items.apple) {
+                    } else if (itemstack.getItem() == Items.APPLE) {
                         f = 3.0F;
                         j = 60;
                         k = 3;
-                    } else if (itemstack.getItem() == Items.golden_carrot) {
+                    } else if (itemstack.getItem() == Items.GOLDEN_CARROT) {
                         f = 4.0F;
                         j = 60;
                         k = 5;
@@ -649,7 +649,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
                             flag = true;
                             this.setInLove(player);
                         }
-                    } else if (itemstack.getItem() == Items.golden_apple) {
+                    } else if (itemstack.getItem() == Items.GOLDEN_APPLE) {
                         f = 10.0F;
                         j = 240;
                         k = 10;
@@ -689,14 +689,14 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
                     return true;
                 }
 
-                if (!flag && this.canCarryChest() && !this.isChested() && itemstack.getItem() == Item.getItemFromBlock(Blocks.chest)) {
+                if (!flag && this.canCarryChest() && !this.isChested() && itemstack.getItem() == Item.getItemFromBlock(Blocks.CHEST)) {
                     this.setChested(true);
                     this.playSound("mob.chickenplop", 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
                     flag = true;
                     this.initHorseChest();
                 }
 
-                if (!flag && this.func_110253_bW() && !this.isHorseSaddled() && itemstack.getItem() == Items.saddle) {
+                if (!flag && this.func_110253_bW() && !this.isHorseSaddled() && itemstack.getItem() == Items.SADDLE) {
                     this.openGUI(player);
                     return true;
                 }
@@ -784,7 +784,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
                 this.heal(1.0F);
             }
 
-            if (!this.isEatingHaystack() && this.riddenByEntity == null && this.rand.nextInt(300) == 0 && this.worldObj.getBlockState(new BlockPos(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY) - 1, MathHelper.floor_double(this.posZ))).getBlock() == Blocks.grass) {
+            if (!this.isEatingHaystack() && this.riddenByEntity == null && this.rand.nextInt(300) == 0 && this.worldObj.getBlockState(new BlockPos(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY) - 1, MathHelper.floor_double(this.posZ))).getBlock() == Blocks.GRASS) {
                 this.setEatingHaystack(true);
             }
 
@@ -1113,11 +1113,11 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         if (tagCompund.hasKey("SaddleItem", 10)) {
             ItemStack itemstack1 = ItemStack.loadItemStackFromNBT(tagCompund.getCompoundTag("SaddleItem"));
 
-            if (itemstack1 != null && itemstack1.getItem() == Items.saddle) {
+            if (itemstack1 != null && itemstack1.getItem() == Items.SADDLE) {
                 this.horseChest.setInventorySlotContents(0, itemstack1);
             }
         } else if (tagCompund.getBoolean("Saddle")) {
-            this.horseChest.setInventorySlotContents(0, new ItemStack(Items.saddle));
+            this.horseChest.setInventorySlotContents(0, new ItemStack(Items.SADDLE));
         }
 
         this.updateHorseSlots();
@@ -1319,7 +1319,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
     }
 
     public static boolean isArmorItem(Item p_146085_0_) {
-        return p_146085_0_ == Items.iron_horse_armor || p_146085_0_ == Items.golden_horse_armor || p_146085_0_ == Items.diamond_horse_armor;
+        return p_146085_0_ == Items.IRON_HORSE_ARMOR || p_146085_0_ == Items.GOLDEN_HORSE_ARMOR || p_146085_0_ == Items.DIAMOND_HORSE_ARMOR;
     }
 
     public boolean isOnLadder() {
@@ -1338,7 +1338,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
                 return true;
             }
 
-            if (itemStackIn != null && itemStackIn.getItem() == Item.getItemFromBlock(Blocks.chest) && !this.isChested()) {
+            if (itemStackIn != null && itemStackIn.getItem() == Item.getItemFromBlock(Blocks.CHEST) && !this.isChested()) {
                 this.setChested(true);
                 this.initHorseChest();
                 return true;
@@ -1348,7 +1348,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         int i = inventorySlot - 400;
 
         if (i >= 0 && i < 2 && i < this.horseChest.getSizeInventory()) {
-            if (i == 0 && itemStackIn != null && itemStackIn.getItem() != Items.saddle) {
+            if (i == 0 && itemStackIn != null && itemStackIn.getItem() != Items.SADDLE) {
                 return false;
             } else if (i != 1 || (itemStackIn == null || isArmorItem(itemStackIn.getItem())) && this.canWearArmor()) {
                 this.horseChest.setInventorySlotContents(i, itemStackIn);

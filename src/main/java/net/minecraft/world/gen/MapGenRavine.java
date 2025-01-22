@@ -109,7 +109,7 @@ public class MapGenRavine extends MapGenBase {
                                 if (l1 >= 0 && l1 < 256) {
                                     IBlockState iblockstate = p_180707_5_.getBlockState(j1, l1, k1);
 
-                                    if (iblockstate.getBlock() == Blocks.flowing_water || iblockstate.getBlock() == Blocks.water) {
+                                    if (iblockstate.getBlock() == Blocks.FLOWING_WATER || iblockstate.getBlock() == Blocks.WATER) {
                                         flag2 = true;
                                     }
 
@@ -138,17 +138,17 @@ public class MapGenRavine extends MapGenBase {
                                         if ((d10 * d10 + d7 * d7) * this.field_75046_d[j2 - 1] + d8 * d8 / 6.0D < 1.0D) {
                                             IBlockState iblockstate1 = p_180707_5_.getBlockState(j3, j2, i2);
 
-                                            if (iblockstate1.getBlock() == Blocks.grass) {
+                                            if (iblockstate1.getBlock() == Blocks.GRASS) {
                                                 flag = true;
                                             }
 
-                                            if (iblockstate1.getBlock() == Blocks.stone || iblockstate1.getBlock() == Blocks.dirt || iblockstate1.getBlock() == Blocks.grass) {
+                                            if (iblockstate1.getBlock() == Blocks.STONE || iblockstate1.getBlock() == Blocks.DIRT || iblockstate1.getBlock() == Blocks.GRASS) {
                                                 if (j2 - 1 < 10) {
-                                                    p_180707_5_.setBlockState(j3, j2, i2, Blocks.flowing_lava.getDefaultState());
+                                                    p_180707_5_.setBlockState(j3, j2, i2, Blocks.FLOWING_LAVA.getDefaultState());
                                                 } else {
-                                                    p_180707_5_.setBlockState(j3, j2, i2, Blocks.air.getDefaultState());
+                                                    p_180707_5_.setBlockState(j3, j2, i2, Blocks.AIR.getDefaultState());
 
-                                                    if (flag && p_180707_5_.getBlockState(j3, j2 - 1, i2).getBlock() == Blocks.dirt) {
+                                                    if (flag && p_180707_5_.getBlockState(j3, j2 - 1, i2).getBlock() == Blocks.DIRT) {
                                                         blockpos$mutableblockpos.set(j3 + p_180707_3_ * 16, 0, i2 + p_180707_4_ * 16);
                                                         p_180707_5_.setBlockState(j3, j2 - 1, i2, this.worldObj.getBiomeGenForCoords(blockpos$mutableblockpos).topBlock);
                                                     }

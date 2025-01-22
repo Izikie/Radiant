@@ -99,7 +99,7 @@ public class EntityEnderman extends EntityMob {
     private boolean shouldAttackPlayer(EntityPlayer player) {
         ItemStack itemstack = player.inventory.armorInventory[3];
 
-        if (itemstack != null && itemstack.getItem() == Item.getItemFromBlock(Blocks.pumpkin)) {
+        if (itemstack != null && itemstack.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN)) {
             return false;
         } else {
             Vec3 vec3 = player.getLook(1.0F).normalize();
@@ -236,7 +236,7 @@ public class EntityEnderman extends EntityMob {
     }
 
     protected Item getDropItem() {
-        return Items.ender_pearl;
+        return Items.ENDER_PEARL;
     }
 
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
@@ -308,20 +308,20 @@ public class EntityEnderman extends EntityMob {
     }
 
     static {
-        carriableBlocks.add(Blocks.grass);
-        carriableBlocks.add(Blocks.dirt);
-        carriableBlocks.add(Blocks.sand);
-        carriableBlocks.add(Blocks.gravel);
-        carriableBlocks.add(Blocks.yellow_flower);
-        carriableBlocks.add(Blocks.red_flower);
-        carriableBlocks.add(Blocks.brown_mushroom);
-        carriableBlocks.add(Blocks.red_mushroom);
-        carriableBlocks.add(Blocks.tnt);
-        carriableBlocks.add(Blocks.cactus);
-        carriableBlocks.add(Blocks.clay);
-        carriableBlocks.add(Blocks.pumpkin);
-        carriableBlocks.add(Blocks.melon_block);
-        carriableBlocks.add(Blocks.mycelium);
+        carriableBlocks.add(Blocks.GRASS);
+        carriableBlocks.add(Blocks.DIRT);
+        carriableBlocks.add(Blocks.SAND);
+        carriableBlocks.add(Blocks.GRAVEL);
+        carriableBlocks.add(Blocks.YELLOW_FLOWER);
+        carriableBlocks.add(Blocks.RED_FLOWER);
+        carriableBlocks.add(Blocks.BROWN_MUSHROOM);
+        carriableBlocks.add(Blocks.RED_MUSHROOM);
+        carriableBlocks.add(Blocks.TNT);
+        carriableBlocks.add(Blocks.CACTUS);
+        carriableBlocks.add(Blocks.CLAY);
+        carriableBlocks.add(Blocks.PUMPKIN);
+        carriableBlocks.add(Blocks.MELON_BLOCK);
+        carriableBlocks.add(Blocks.MYCELIUM);
     }
 
     static class AIFindPlayer extends EntityAINearestAttackableTarget {
@@ -427,7 +427,7 @@ public class EntityEnderman extends EntityMob {
 
             if (this.func_179474_a(world, blockpos, this.enderman.getHeldBlockState().getBlock(), block, block1)) {
                 world.setBlockState(blockpos, this.enderman.getHeldBlockState(), 3);
-                this.enderman.setHeldBlockState(Blocks.air.getDefaultState());
+                this.enderman.setHeldBlockState(Blocks.AIR.getDefaultState());
             }
         }
 
@@ -459,7 +459,7 @@ public class EntityEnderman extends EntityMob {
 
             if (EntityEnderman.carriableBlocks.contains(block)) {
                 this.enderman.setHeldBlockState(iblockstate);
-                world.setBlockState(blockpos, Blocks.air.getDefaultState());
+                world.setBlockState(blockpos, Blocks.AIR.getDefaultState());
             }
         }
     }

@@ -177,7 +177,7 @@ public class ItemRenderer {
         worldrenderer.pos(135.0D, -7.0D, 0.0D).tex(1.0D, 0.0D).endVertex();
         worldrenderer.pos(-7.0D, -7.0D, 0.0D).tex(0.0D, 0.0D).endVertex();
         tessellator.draw();
-        MapData mapdata = Items.filled_map.getMapData(this.itemToRender, this.mc.theWorld);
+        MapData mapdata = Items.FILLED_MAP.getMapData(this.itemToRender, this.mc.theWorld);
 
         if (mapdata != null) {
             this.mc.entityRenderer.getMapItemRenderer().renderMap(mapdata, false);

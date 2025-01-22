@@ -37,7 +37,7 @@ public class EntityChicken extends EntityAnimal {
         this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(1, new EntityAIPanic(this, 1.4D));
         this.tasks.addTask(2, new EntityAIMate(this, 1.0D));
-        this.tasks.addTask(3, new EntityAITempt(this, 1.0D, Items.wheat_seeds, false));
+        this.tasks.addTask(3, new EntityAITempt(this, 1.0D, Items.WHEAT_SEEDS, false));
         this.tasks.addTask(4, new EntityAIFollowParent(this, 1.1D));
         this.tasks.addTask(5, new EntityAIWander(this, 1.0D));
         this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
@@ -75,7 +75,7 @@ public class EntityChicken extends EntityAnimal {
 
         if (!this.worldObj.isRemote && !this.isChild() && !this.isChickenJockey() && --this.timeUntilNextEgg <= 0) {
             this.playSound("mob.chicken.plop", 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
-            this.dropItem(Items.egg, 1);
+            this.dropItem(Items.EGG, 1);
             this.timeUntilNextEgg = this.rand.nextInt(6000) + 6000;
         }
     }
@@ -100,20 +100,20 @@ public class EntityChicken extends EntityAnimal {
     }
 
     protected Item getDropItem() {
-        return Items.feather;
+        return Items.FEATHER;
     }
 
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
         int i = this.rand.nextInt(3) + this.rand.nextInt(1 + lootingModifier);
 
         for (int j = 0; j < i; ++j) {
-            this.dropItem(Items.feather, 1);
+            this.dropItem(Items.FEATHER, 1);
         }
 
         if (this.isBurning()) {
-            this.dropItem(Items.cooked_chicken, 1);
+            this.dropItem(Items.COOKED_CHICKEN, 1);
         } else {
-            this.dropItem(Items.chicken, 1);
+            this.dropItem(Items.CHICKEN, 1);
         }
     }
 
@@ -122,7 +122,7 @@ public class EntityChicken extends EntityAnimal {
     }
 
     public boolean isBreedingItem(ItemStack stack) {
-        return stack != null && stack.getItem() == Items.wheat_seeds;
+        return stack != null && stack.getItem() == Items.WHEAT_SEEDS;
     }
 
     public void readEntityFromNBT(NBTTagCompound tagCompund) {

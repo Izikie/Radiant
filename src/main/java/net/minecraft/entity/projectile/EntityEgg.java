@@ -45,7 +45,7 @@ public class EntityEgg extends EntityThrowable {
         double d0 = 0.08D;
 
         for (int k = 0; k < 8; ++k) {
-            this.worldObj.spawnParticle(ParticleTypes.ITEM_CRACK, this.posX, this.posY, this.posZ, (this.rand.nextFloat() - 0.5D) * 0.08D, (this.rand.nextFloat() - 0.5D) * 0.08D, (this.rand.nextFloat() - 0.5D) * 0.08D, Item.getIdFromItem(Items.egg));
+            this.worldObj.spawnParticle(ParticleTypes.ITEM_CRACK, this.posX, this.posY, this.posZ, (this.rand.nextFloat() - 0.5D) * 0.08D, (this.rand.nextFloat() - 0.5D) * 0.08D, (this.rand.nextFloat() - 0.5D) * 0.08D, Item.getIdFromItem(Items.EGG));
         }
 
         if (!this.worldObj.isRemote) {

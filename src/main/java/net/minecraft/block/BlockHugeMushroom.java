@@ -30,9 +30,9 @@ public class BlockHugeMushroom extends Block {
 
     public MapColor getMapColor(IBlockState state) {
         return switch (state.getValue(VARIANT)) {
-            case ALL_STEM -> MapColor.clothColor;
-            case ALL_INSIDE -> MapColor.sandColor;
-            case STEM -> MapColor.sandColor;
+            case ALL_STEM -> MapColor.CLOTH_COLOR;
+            case ALL_INSIDE -> MapColor.SAND_COLOR;
+            case STEM -> MapColor.SAND_COLOR;
             default -> super.getMapColor(state);
         };
     }

@@ -66,18 +66,18 @@ public class BlockBanner extends BlockContainer {
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Items.banner;
+        return Items.BANNER;
     }
 
     public Item getItem(World worldIn, BlockPos pos) {
-        return Items.banner;
+        return Items.BANNER;
     }
 
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
         if (tileentity instanceof TileEntityBanner tileEntityBanner) {
-            ItemStack itemstack = new ItemStack(Items.banner, 1, tileEntityBanner.getBaseColor());
+            ItemStack itemstack = new ItemStack(Items.BANNER, 1, tileEntityBanner.getBaseColor());
             NBTTagCompound nbttagcompound = new NBTTagCompound();
             tileentity.writeToNBT(nbttagcompound);
             nbttagcompound.removeTag("x");
@@ -97,7 +97,7 @@ public class BlockBanner extends BlockContainer {
 
     public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te) {
         if (te instanceof TileEntityBanner tileentitybanner) {
-            ItemStack itemstack = new ItemStack(Items.banner, 1, tileentitybanner.getBaseColor());
+            ItemStack itemstack = new ItemStack(Items.BANNER, 1, tileentitybanner.getBaseColor());
             NBTTagCompound nbttagcompound = new NBTTagCompound();
             TileEntityBanner.setBaseColorAndPatterns(nbttagcompound, tileentitybanner.getBaseColor(), tileentitybanner.getPatterns());
             itemstack.setTagInfo("BlockEntityTag", nbttagcompound);

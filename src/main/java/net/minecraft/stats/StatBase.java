@@ -18,23 +18,23 @@ public class StatBase {
     private final IStatType type;
     private final IScoreObjectiveCriteria objectiveCriteria;
     private Class<? extends IJsonSerializable> field_150956_d;
-    private static final NumberFormat numberFormat = NumberFormat.getIntegerInstance(Locale.US);
-    public static final IStatType simpleStatType = StatBase.numberFormat::format;
-    private static final DecimalFormat decimalFormat = new DecimalFormat("########0.00");
-    public static final IStatType timeStatType = number -> {
+    private static final NumberFormat NUMBER_FORMAT = NumberFormat.getIntegerInstance(Locale.US);
+    public static final IStatType SIMPLE_STAT_TYPE = StatBase.NUMBER_FORMAT::format;
+    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("########0.00");
+    public static final IStatType TIME_STAT_TYPE = number -> {
         double d0 = number / 20.0D;
         double d1 = d0 / 60.0D;
         double d2 = d1 / 60.0D;
         double d3 = d2 / 24.0D;
         double d4 = d3 / 365.0D;
-        return d4 > 0.5D ? StatBase.decimalFormat.format(d4) + " y" : (d3 > 0.5D ? StatBase.decimalFormat.format(d3) + " d" : (d2 > 0.5D ? StatBase.decimalFormat.format(d2) + " h" : (d1 > 0.5D ? StatBase.decimalFormat.format(d1) + " m" : d0 + " s")));
+        return d4 > 0.5D ? StatBase.DECIMAL_FORMAT.format(d4) + " y" : (d3 > 0.5D ? StatBase.DECIMAL_FORMAT.format(d3) + " d" : (d2 > 0.5D ? StatBase.DECIMAL_FORMAT.format(d2) + " h" : (d1 > 0.5D ? StatBase.DECIMAL_FORMAT.format(d1) + " m" : d0 + " s")));
     };
-    public static final IStatType distanceStatType = number -> {
+    public static final IStatType DISTANCE_STAT_TYPE = number -> {
         double d0 = number / 100.0D;
         double d1 = d0 / 1000.0D;
-        return d1 > 0.5D ? StatBase.decimalFormat.format(d1) + " km" : (d0 > 0.5D ? StatBase.decimalFormat.format(d0) + " m" : number + " cm");
+        return d1 > 0.5D ? StatBase.DECIMAL_FORMAT.format(d1) + " km" : (d0 > 0.5D ? StatBase.DECIMAL_FORMAT.format(d0) + " m" : number + " cm");
     };
-    public static final IStatType field_111202_k = number -> StatBase.decimalFormat.format(number * 0.1D);
+    public static final IStatType field_111202_k = number -> StatBase.DECIMAL_FORMAT.format(number * 0.1D);
 
     public StatBase(String statIdIn, IChatComponent statNameIn, IStatType typeIn) {
         this.statId = statIdIn;
@@ -45,7 +45,7 @@ public class StatBase {
     }
 
     public StatBase(String statIdIn, IChatComponent statNameIn) {
-        this(statIdIn, statNameIn, simpleStatType);
+        this(statIdIn, statNameIn, SIMPLE_STAT_TYPE);
     }
 
     public StatBase initIndependentStat() {
@@ -54,11 +54,11 @@ public class StatBase {
     }
 
     public StatBase registerStat() {
-        if (StatList.oneShotStats.containsKey(this.statId)) {
-            throw new RuntimeException("Duplicate stat id: \"" + StatList.oneShotStats.get(this.statId).statName + "\" and \"" + this.statName + "\" at id " + this.statId);
+        if (StatList.ONE_SHOT_STATS.containsKey(this.statId)) {
+            throw new RuntimeException("Duplicate stat id: \"" + StatList.ONE_SHOT_STATS.get(this.statId).statName + "\" and \"" + this.statName + "\" at id " + this.statId);
         } else {
-            StatList.allStats.add(this);
-            StatList.oneShotStats.put(this.statId, this);
+            StatList.ALL_STATS.add(this);
+            StatList.ONE_SHOT_STATS.put(this.statId, this);
             return this;
         }
     }

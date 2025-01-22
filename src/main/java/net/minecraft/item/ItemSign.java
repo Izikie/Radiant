@@ -28,16 +28,16 @@ public class ItemSign extends Item {
 
             if (!playerIn.canPlayerEdit(pos, side, stack)) {
                 return false;
-            } else if (!Blocks.standing_sign.canPlaceBlockAt(worldIn, pos)) {
+            } else if (!Blocks.STANDING_SIGN.canPlaceBlockAt(worldIn, pos)) {
                 return false;
             } else if (worldIn.isRemote) {
                 return true;
             } else {
                 if (side == Direction.UP) {
                     int i = MathHelper.floor_double(((playerIn.rotationYaw + 180.0F) * 16.0F / 360.0F) + 0.5D) & 15;
-                    worldIn.setBlockState(pos, Blocks.standing_sign.getDefaultState().withProperty(BlockStandingSign.ROTATION, i), 3);
+                    worldIn.setBlockState(pos, Blocks.STANDING_SIGN.getDefaultState().withProperty(BlockStandingSign.ROTATION, i), 3);
                 } else {
-                    worldIn.setBlockState(pos, Blocks.wall_sign.getDefaultState().withProperty(BlockWallSign.FACING, side), 3);
+                    worldIn.setBlockState(pos, Blocks.WALL_SIGN.getDefaultState().withProperty(BlockWallSign.FACING, side), 3);
                 }
 
                 --stack.stackSize;

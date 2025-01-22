@@ -64,7 +64,7 @@ public class EntityLeashKnot extends EntityHanging {
         ItemStack itemstack = playerIn.getHeldItem();
         boolean flag = false;
 
-        if (itemstack != null && itemstack.getItem() == Items.lead && !this.worldObj.isRemote) {
+        if (itemstack != null && itemstack.getItem() == Items.LEAD && !this.worldObj.isRemote) {
             double d0 = 7.0D;
 
             for (EntityLiving entityliving : this.worldObj.getEntitiesWithinAABB(EntityLiving.class, new AxisAlignedBB(this.posX - d0, this.posY - d0, this.posZ - d0, this.posX + d0, this.posY + d0, this.posZ + d0))) {

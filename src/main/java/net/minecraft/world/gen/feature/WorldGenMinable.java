@@ -17,7 +17,7 @@ public class WorldGenMinable extends WorldGenerator {
     private final Predicate<IBlockState> predicate;
 
     public WorldGenMinable(IBlockState state, int blockCount) {
-        this(state, blockCount, BlockHelper.forBlock(Blocks.stone));
+        this(state, blockCount, BlockHelper.forBlock(Blocks.STONE));
     }
 
     public WorldGenMinable(IBlockState state, int blockCount, Predicate<IBlockState> p_i45631_3_) {

@@ -52,7 +52,7 @@ public class EntityItem extends Entity {
         this.health = 5;
         this.hoverStart = (float) (Math.random() * Math.PI * 2.0D);
         this.setSize(0.25F, 0.25F);
-        this.setEntityItemStack(new ItemStack(Blocks.air, 0));
+        this.setEntityItemStack(new ItemStack(Blocks.AIR, 0));
     }
 
     protected void entityInit() {
@@ -189,7 +189,7 @@ public class EntityItem extends Entity {
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (this.isEntityInvulnerable(source)) {
             return false;
-        } else if (this.getEntityItem() != null && this.getEntityItem().getItem() == Items.nether_star && source.isExplosion()) {
+        } else if (this.getEntityItem() != null && this.getEntityItem().getItem() == Items.NETHER_STAR && source.isExplosion()) {
             return false;
         } else {
             this.setBeenAttacked();
@@ -251,27 +251,27 @@ public class EntityItem extends Entity {
             int i = itemstack.stackSize;
 
             if (this.delayBeforeCanPickup == 0 && (this.owner == null || 6000 - this.age <= 200 || this.owner.equals(entityIn.getName())) && entityIn.inventory.addItemStackToInventory(itemstack)) {
-                if (itemstack.getItem() == Item.getItemFromBlock(Blocks.log)) {
+                if (itemstack.getItem() == Item.getItemFromBlock(Blocks.LOG)) {
                     entityIn.triggerAchievement(AchievementList.MINE_WOOD);
                 }
 
-                if (itemstack.getItem() == Item.getItemFromBlock(Blocks.log2)) {
+                if (itemstack.getItem() == Item.getItemFromBlock(Blocks.LOG_2)) {
                     entityIn.triggerAchievement(AchievementList.MINE_WOOD);
                 }
 
-                if (itemstack.getItem() == Items.leather) {
+                if (itemstack.getItem() == Items.LEATHER) {
                     entityIn.triggerAchievement(AchievementList.KILL_COW);
                 }
 
-                if (itemstack.getItem() == Items.diamond) {
+                if (itemstack.getItem() == Items.DIAMOND) {
                     entityIn.triggerAchievement(AchievementList.DIAMONDS);
                 }
 
-                if (itemstack.getItem() == Items.blaze_rod) {
+                if (itemstack.getItem() == Items.BLAZE_ROD) {
                     entityIn.triggerAchievement(AchievementList.BLAZE_ROD);
                 }
 
-                if (itemstack.getItem() == Items.diamond && this.getThrower() != null) {
+                if (itemstack.getItem() == Items.DIAMOND && this.getThrower() != null) {
                     EntityPlayer entityplayer = this.worldObj.getPlayerEntityByName(this.getThrower());
 
                     if (entityplayer != null && entityplayer != entityIn) {
@@ -316,7 +316,7 @@ public class EntityItem extends Entity {
                 LOGGER.error("Item entity {} has no item?!", this.getEntityId());
             }
 
-            return new ItemStack(Blocks.stone);
+            return new ItemStack(Blocks.STONE);
         } else {
             return itemstack;
         }

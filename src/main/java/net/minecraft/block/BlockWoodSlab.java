@@ -36,11 +36,11 @@ public abstract class BlockWoodSlab extends BlockSlab {
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Item.getItemFromBlock(Blocks.wooden_slab);
+        return Item.getItemFromBlock(Blocks.WOODEN_SLAB);
     }
 
     public Item getItem(World worldIn, BlockPos pos) {
-        return Item.getItemFromBlock(Blocks.wooden_slab);
+        return Item.getItemFromBlock(Blocks.WOODEN_SLAB);
     }
 
     public String getUnlocalizedName(int meta) {
@@ -56,7 +56,7 @@ public abstract class BlockWoodSlab extends BlockSlab {
     }
 
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-        if (itemIn != Item.getItemFromBlock(Blocks.double_wooden_slab)) {
+        if (itemIn != Item.getItemFromBlock(Blocks.DOUBLE_WOODEN_SLAB)) {
             for (BlockPlanks.WoodType blockplanks$enumtype : BlockPlanks.WoodType.values()) {
                 list.add(new ItemStack(itemIn, 1, blockplanks$enumtype.getMetadata()));
             }

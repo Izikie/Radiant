@@ -21,8 +21,8 @@ public class ItemBucketMilk extends Item {
             playerIn.clearActivePotions();
         }
 
-        playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
-        return stack.stackSize <= 0 ? new ItemStack(Items.bucket) : stack;
+        playerIn.triggerAchievement(StatList.OBJECT_USE_STATS[Item.getIdFromItem(this)]);
+        return stack.stackSize <= 0 ? new ItemStack(Items.BUCKET) : stack;
     }
 
     public int getMaxItemUseDuration(ItemStack stack) {

@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 
 public class BlockDragonEgg extends Block {
     public BlockDragonEgg() {
-        super(Material.DRAGON_EGG, MapColor.blackColor);
+        super(Material.DRAGON_EGG, MapColor.BLACK_COLOR);
         this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 1.0F, 0.9375F);
     }
 

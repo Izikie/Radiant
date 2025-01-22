@@ -189,14 +189,14 @@ public class TileEntityBanner extends TileEntity {
         HALF_VERTICAL_MIRROR("half_vertical_right", "vhr", " ##", " ##", " ##"),
         HALF_HORIZONTAL_MIRROR("half_horizontal_bottom", "hhb", "   ", "###", "###"),
         BORDER("border", "bo", "###", "# #", "###"),
-        CURLY_BORDER("curly_border", "cbo", new ItemStack(Blocks.vine)),
-        CREEPER("creeper", "cre", new ItemStack(Items.skull, 1, 4)),
+        CURLY_BORDER("curly_border", "cbo", new ItemStack(Blocks.VINE)),
+        CREEPER("creeper", "cre", new ItemStack(Items.SKULL, 1, 4)),
         GRADIENT("gradient", "gra", "# #", " # ", " # "),
         GRADIENT_UP("gradient_up", "gru", " # ", " # ", "# #"),
-        BRICKS("bricks", "bri", new ItemStack(Blocks.brick_block)),
-        SKULL("skull", "sku", new ItemStack(Items.skull, 1, 1)),
-        FLOWER("flower", "flo", new ItemStack(Blocks.red_flower, 1, BlockFlower.FlowerType.OXEYE_DAISY.getMeta())),
-        MOJANG("mojang", "moj", new ItemStack(Items.golden_apple, 1, 1));
+        BRICKS("bricks", "bri", new ItemStack(Blocks.BRICK_BLOCK)),
+        SKULL("skull", "sku", new ItemStack(Items.SKULL, 1, 1)),
+        FLOWER("flower", "flo", new ItemStack(Blocks.RED_FLOWER, 1, BlockFlower.FlowerType.OXEYE_DAISY.getMeta())),
+        MOJANG("mojang", "moj", new ItemStack(Items.GOLDEN_APPLE, 1, 1));
 
         private final String patternName;
         private final String patternID;

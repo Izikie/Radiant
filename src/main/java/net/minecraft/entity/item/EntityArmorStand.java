@@ -297,7 +297,7 @@ public class EntityArmorStand extends EntityLivingBase {
                 }
             }
 
-            if (flag && (itemstack.getItem() == Items.skull || itemstack.getItem() == Item.getItemFromBlock(Blocks.pumpkin))) {
+            if (flag && (itemstack.getItem() == Items.SKULL || itemstack.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN))) {
                 i = 4;
             }
 
@@ -357,7 +357,7 @@ public class EntityArmorStand extends EntityLivingBase {
                 int i = p_175422_1_.inventory.currentItem;
                 ItemStack itemstack1 = p_175422_1_.inventory.getStackInSlot(i);
 
-                if (p_175422_1_.capabilities.isCreativeMode && (itemstack == null || itemstack.getItem() == Item.getItemFromBlock(Blocks.air)) && itemstack1 != null) {
+                if (p_175422_1_.capabilities.isCreativeMode && (itemstack == null || itemstack.getItem() == Item.getItemFromBlock(Blocks.AIR)) && itemstack1 != null) {
                     ItemStack itemstack3 = itemstack1.copy();
                     itemstack3.stackSize = 1;
                     this.setCurrentItemOrArmor(p_175422_2_, itemstack3);
@@ -448,7 +448,7 @@ public class EntityArmorStand extends EntityLivingBase {
 
     private void playParticles() {
         if (this.worldObj instanceof WorldServer worldServer) {
-            worldServer.spawnParticle(ParticleTypes.BLOCK_DUST, this.posX, this.posY + this.height / 1.5D, this.posZ, 10, (this.width / 4.0F), (this.height / 4.0F), (this.width / 4.0F), 0.05D, Block.getStateId(Blocks.planks.getDefaultState()));
+            worldServer.spawnParticle(ParticleTypes.BLOCK_DUST, this.posX, this.posY + this.height / 1.5D, this.posZ, 10, (this.width / 4.0F), (this.height / 4.0F), (this.width / 4.0F), 0.05D, Block.getStateId(Blocks.PLANKS.getDefaultState()));
         }
     }
 
@@ -465,7 +465,7 @@ public class EntityArmorStand extends EntityLivingBase {
     }
 
     private void dropBlock() {
-        Block.spawnAsEntity(this.worldObj, new BlockPos(this), new ItemStack(Items.armor_stand));
+        Block.spawnAsEntity(this.worldObj, new BlockPos(this), new ItemStack(Items.ARMOR_STAND));
         this.dropContents();
     }
 

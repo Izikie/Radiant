@@ -57,7 +57,7 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return rand.nextInt(8) == 0 ? Items.wheat_seeds : null;
+        return rand.nextInt(8) == 0 ? Items.WHEAT_SEEDS : null;
     }
 
     public int quantityDroppedWithBonus(int fortune, Random random) {
@@ -65,9 +65,9 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
     }
 
     public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te) {
-        if (!worldIn.isRemote && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.shears) {
-            player.triggerAchievement(StatList.mineBlockStatArray[Block.getIdFromBlock(this)]);
-            spawnAsEntity(worldIn, pos, new ItemStack(Blocks.tallgrass, 1, state.getValue(TYPE).getMeta()));
+        if (!worldIn.isRemote && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.SHEARS) {
+            player.triggerAchievement(StatList.MINE_BLOCK_STAT_ARRAY[Block.getIdFromBlock(this)]);
+            spawnAsEntity(worldIn, pos, new ItemStack(Blocks.TALL_GRASS, 1, state.getValue(TYPE).getMeta()));
         } else {
             super.harvestBlock(worldIn, player, pos, state, te);
         }
@@ -99,8 +99,8 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
             blockdoubleplant$enumplanttype = BlockDoublePlant.EnumPlantType.FERN;
         }
 
-        if (Blocks.double_plant.canPlaceBlockAt(worldIn, pos)) {
-            Blocks.double_plant.placeAt(worldIn, pos, blockdoubleplant$enumplanttype, 2);
+        if (Blocks.DOUBLE_PLANT.canPlaceBlockAt(worldIn, pos)) {
+            Blocks.DOUBLE_PLANT.placeAt(worldIn, pos, blockdoubleplant$enumplanttype, 2);
         }
     }
 

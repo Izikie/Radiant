@@ -951,7 +951,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
                         return;
                     }
 
-                    if (itemBook.getItem() == Items.writable_book && itemBook.getItem() == currentItem.getItem()) {
+                    if (itemBook.getItem() == Items.WRITABLE_BOOK && itemBook.getItem() == currentItem.getItem()) {
                         currentItem.setTagInfo("pages", itemBook.getTagCompound().getTagList("pages", 8));
                     }
                 }
@@ -977,11 +977,11 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
                         return;
                     }
 
-                    if (itemstack.getItem() == Items.written_book && currentItem.getItem() == Items.writable_book) {
+                    if (itemstack.getItem() == Items.WRITTEN_BOOK && currentItem.getItem() == Items.WRITABLE_BOOK) {
                         currentItem.setTagInfo("author", new NBTTagString(this.playerEntity.getName()));
                         currentItem.setTagInfo("title", new NBTTagString(itemstack.getTagCompound().getString("title")));
                         currentItem.setTagInfo("pages", itemstack.getTagCompound().getTagList("pages", 8));
-                        currentItem.setItem(Items.written_book);
+                        currentItem.setItem(Items.WRITTEN_BOOK);
                     }
                 }
             } catch (Exception exception4) {

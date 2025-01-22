@@ -33,7 +33,7 @@ public class BlockStone extends Block {
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return state.getValue(VARIANT) == StoneType.STONE ? Item.getItemFromBlock(Blocks.cobblestone) : Item.getItemFromBlock(Blocks.stone);
+        return state.getValue(VARIANT) == StoneType.STONE ? Item.getItemFromBlock(Blocks.COBBLESTONE) : Item.getItemFromBlock(Blocks.STONE);
     }
 
     public int damageDropped(IBlockState state) {
@@ -59,13 +59,13 @@ public class BlockStone extends Block {
     }
 
     public enum StoneType implements IStringSerializable {
-        STONE(0, MapColor.stoneColor, "stone"),
-        GRANITE(1, MapColor.dirtColor, "granite"),
-        GRANITE_SMOOTH(2, MapColor.dirtColor, "smooth_granite", "graniteSmooth"),
-        DIORITE(3, MapColor.quartzColor, "diorite"),
-        DIORITE_SMOOTH(4, MapColor.quartzColor, "smooth_diorite", "dioriteSmooth"),
-        ANDESITE(5, MapColor.stoneColor, "andesite"),
-        ANDESITE_SMOOTH(6, MapColor.stoneColor, "smooth_andesite", "andesiteSmooth");
+        STONE(0, MapColor.STONE_COLOR, "stone"),
+        GRANITE(1, MapColor.DIRT_COLOR, "granite"),
+        GRANITE_SMOOTH(2, MapColor.DIRT_COLOR, "smooth_granite", "graniteSmooth"),
+        DIORITE(3, MapColor.QUARTZ_COLOR, "diorite"),
+        DIORITE_SMOOTH(4, MapColor.QUARTZ_COLOR, "smooth_diorite", "dioriteSmooth"),
+        ANDESITE(5, MapColor.STONE_COLOR, "andesite"),
+        ANDESITE_SMOOTH(6, MapColor.STONE_COLOR, "smooth_andesite", "andesiteSmooth");
 
         private static final StoneType[] META_LOOKUP = new StoneType[values().length];
         private final int meta;

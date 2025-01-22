@@ -32,7 +32,7 @@ public class BlockSandStone extends Block {
     }
 
     public MapColor getMapColor(IBlockState state) {
-        return MapColor.sandColor;
+        return MapColor.SAND_COLOR;
     }
 
     public IBlockState getStateFromMeta(int meta) {

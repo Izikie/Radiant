@@ -95,8 +95,8 @@ public class CustomColors {
     private static int[] textColors = null;
     private static int[] mapColorsOriginal = null;
     private static int[] potionColors = null;
-    private static final IBlockState BLOCK_STATE_DIRT = Blocks.dirt.getDefaultState();
-    private static final IBlockState BLOCK_STATE_WATER = Blocks.water.getDefaultState();
+    private static final IBlockState BLOCK_STATE_DIRT = Blocks.DIRT.getDefaultState();
+    private static final IBlockState BLOCK_STATE_WATER = Blocks.WATER.getDefaultState();
     public static final Random RANDOM = new Random();
     private static final CustomColors.IColorizer COLORIZER_GRASS = new CustomColors.IColorizer() {
         public int getColor(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos) {
@@ -645,16 +645,16 @@ public class CustomColors {
 
         if (blockColormaps != null) {
             if (!quad.hasTintIndex()) {
-                if (block == Blocks.grass) {
+                if (block == Blocks.GRASS) {
                     iblockstate = BLOCK_STATE_DIRT;
                 }
 
-                if (block == Blocks.redstone_wire) {
+                if (block == Blocks.REDSTONE_WIRE) {
                     return -1;
                 }
             }
 
-            if (block == Blocks.double_plant && renderEnv.getMetadata() >= 8) {
+            if (block == Blocks.DOUBLE_PLANT && renderEnv.getMetadata() >= 8) {
                 blockPos = blockPos.down();
                 iblockstate = blockAccess.getBlockState(blockPos);
             }
@@ -672,9 +672,9 @@ public class CustomColors {
 
         if (!quad.hasTintIndex()) {
             return -1;
-        } else if (block == Blocks.waterlily) {
+        } else if (block == Blocks.WATERLILY) {
             return getLilypadColorMultiplier(blockAccess, blockPos);
-        } else if (block == Blocks.redstone_wire) {
+        } else if (block == Blocks.REDSTONE_WIRE) {
             return getRedstoneColor(renderEnv.getBlockState());
         } else if (block instanceof BlockStem) {
             return getStemColorMultiplier(block, blockAccess, blockPos, renderEnv);
@@ -684,24 +684,24 @@ public class CustomColors {
             int i = renderEnv.getMetadata();
             CustomColors.IColorizer customcolors$icolorizer;
 
-            if (block != Blocks.grass && block != Blocks.tallgrass && block != Blocks.double_plant) {
-                if (block == Blocks.double_plant) {
+            if (block != Blocks.GRASS && block != Blocks.TALL_GRASS && block != Blocks.DOUBLE_PLANT) {
+                if (block == Blocks.DOUBLE_PLANT) {
                     customcolors$icolorizer = COLORIZER_GRASS;
 
                     if (i >= 8) {
                         blockPos = blockPos.down();
                     }
-                } else if (block == Blocks.leaves) {
+                } else if (block == Blocks.LEAVES) {
                     customcolors$icolorizer = switch (i & 3) {
                         case 0 -> COLORIZER_FOLIAGE;
                         case 1 -> COLORIZER_FOLIAGE_PINE;
                         case 2 -> COLORIZER_FOLIAGE_BIRCH;
                         default -> COLORIZER_FOLIAGE;
                     };
-                } else if (block == Blocks.leaves2) {
+                } else if (block == Blocks.LEAVES_2) {
                     customcolors$icolorizer = COLORIZER_FOLIAGE;
                 } else {
-                    if (block != Blocks.vine) {
+                    if (block != Blocks.VINE) {
                         return -1;
                     }
 
@@ -903,7 +903,7 @@ public class CustomColors {
     }
 
     private static int getLilypadColorMultiplier(IBlockAccess blockAccess, BlockPos blockPos) {
-        return lilyPadColor < 0 ? Blocks.waterlily.colorMultiplier(blockAccess, blockPos) : lilyPadColor;
+        return lilyPadColor < 0 ? Blocks.WATERLILY.colorMultiplier(blockAccess, blockPos) : lilyPadColor;
     }
 
     private static Vec3 getFogColorNether(Vec3 col) {
@@ -986,11 +986,11 @@ public class CustomColors {
     private static int getStemColorMultiplier(Block blockStem, IBlockAccess blockAccess, BlockPos blockPos, RenderEnv renderEnv) {
         CustomColormap customcolormap = stemColors;
 
-        if (blockStem == Blocks.pumpkin_stem && stemPumpkinColors != null) {
+        if (blockStem == Blocks.PUMPKIN_STEM && stemPumpkinColors != null) {
             customcolormap = stemPumpkinColors;
         }
 
-        if (blockStem == Blocks.melon_stem && stemMelonColors != null) {
+        if (blockStem == Blocks.MELON_STEM && stemMelonColors != null) {
             customcolormap = stemMelonColors;
         }
 
@@ -1230,7 +1230,7 @@ public class CustomColors {
     }
 
     private static int[] readMapColors(Properties props, String fileName, String prefix, String logName) {
-        int[] aint = new int[MapColor.mapColorArray.length];
+        int[] aint = new int[MapColor.MAP_COLOR_ARRAY.length];
         Arrays.fill(aint, -1);
         int i = 0;
 
@@ -1318,11 +1318,11 @@ public class CustomColors {
     }
 
     private static int getMapColorIndex(String name) {
-        return name == null ? -1 : (name.equals("air") ? MapColor.airColor.colorIndex : (name.equals("grass") ? MapColor.grassColor.colorIndex : (name.equals("sand") ? MapColor.sandColor.colorIndex : (name.equals("cloth") ? MapColor.clothColor.colorIndex : (name.equals("tnt") ? MapColor.tntColor.colorIndex : (name.equals("ice") ? MapColor.iceColor.colorIndex : (name.equals("iron") ? MapColor.ironColor.colorIndex : (name.equals("foliage") ? MapColor.foliageColor.colorIndex : (name.equals("clay") ? MapColor.clayColor.colorIndex : (name.equals("dirt") ? MapColor.dirtColor.colorIndex : (name.equals("stone") ? MapColor.stoneColor.colorIndex : (name.equals("water") ? MapColor.waterColor.colorIndex : (name.equals("wood") ? MapColor.woodColor.colorIndex : (name.equals("quartz") ? MapColor.quartzColor.colorIndex : (name.equals("gold") ? MapColor.goldColor.colorIndex : (name.equals("diamond") ? MapColor.diamondColor.colorIndex : (name.equals("lapis") ? MapColor.lapisColor.colorIndex : (name.equals("emerald") ? MapColor.emeraldColor.colorIndex : (name.equals("podzol") ? MapColor.obsidianColor.colorIndex : (name.equals("netherrack") ? MapColor.netherrackColor.colorIndex : (!name.equals("snow") && !name.equals("white") ? (!name.equals("adobe") && !name.equals("orange") ? (name.equals("magenta") ? MapColor.magentaColor.colorIndex : (!name.equals("light_blue") && !name.equals("lightBlue") ? (name.equals("yellow") ? MapColor.yellowColor.colorIndex : (name.equals("lime") ? MapColor.limeColor.colorIndex : (name.equals("pink") ? MapColor.pinkColor.colorIndex : (name.equals("gray") ? MapColor.grayColor.colorIndex : (name.equals("silver") ? MapColor.silverColor.colorIndex : (name.equals("cyan") ? MapColor.cyanColor.colorIndex : (name.equals("purple") ? MapColor.purpleColor.colorIndex : (name.equals("blue") ? MapColor.blueColor.colorIndex : (name.equals("brown") ? MapColor.brownColor.colorIndex : (name.equals("green") ? MapColor.greenColor.colorIndex : (name.equals("red") ? MapColor.redColor.colorIndex : (name.equals("black") ? MapColor.blackColor.colorIndex : -1)))))))))))) : MapColor.lightBlueColor.colorIndex)) : MapColor.adobeColor.colorIndex) : MapColor.snowColor.colorIndex)))))))))))))))))))));
+        return name == null ? -1 : (name.equals("air") ? MapColor.AIR_COLOR.colorIndex : (name.equals("grass") ? MapColor.GRASS_COLOR.colorIndex : (name.equals("sand") ? MapColor.SAND_COLOR.colorIndex : (name.equals("cloth") ? MapColor.CLOTH_COLOR.colorIndex : (name.equals("tnt") ? MapColor.TNT_COLOR.colorIndex : (name.equals("ice") ? MapColor.ICE_COLOR.colorIndex : (name.equals("iron") ? MapColor.IRON_COLOR.colorIndex : (name.equals("foliage") ? MapColor.FOLIAGE_COLOR.colorIndex : (name.equals("clay") ? MapColor.CLAY_COLOR.colorIndex : (name.equals("dirt") ? MapColor.DIRT_COLOR.colorIndex : (name.equals("stone") ? MapColor.STONE_COLOR.colorIndex : (name.equals("water") ? MapColor.WATER_COLOR.colorIndex : (name.equals("wood") ? MapColor.WOOD_COLOR.colorIndex : (name.equals("quartz") ? MapColor.QUARTZ_COLOR.colorIndex : (name.equals("gold") ? MapColor.GOLD_COLOR.colorIndex : (name.equals("diamond") ? MapColor.DIAMOND_COLOR.colorIndex : (name.equals("lapis") ? MapColor.LAPIS_COLOR.colorIndex : (name.equals("emerald") ? MapColor.EMERALD_COLOR.colorIndex : (name.equals("podzol") ? MapColor.OBSIDIAN_COLOR.colorIndex : (name.equals("netherrack") ? MapColor.NETHERRACK_COLOR.colorIndex : (!name.equals("snow") && !name.equals("white") ? (!name.equals("adobe") && !name.equals("orange") ? (name.equals("magenta") ? MapColor.MAGENTA_COLOR.colorIndex : (!name.equals("light_blue") && !name.equals("lightBlue") ? (name.equals("yellow") ? MapColor.YELLOW_COLOR.colorIndex : (name.equals("lime") ? MapColor.LIME_COLOR.colorIndex : (name.equals("pink") ? MapColor.PINK_COLOR.colorIndex : (name.equals("gray") ? MapColor.GRAY_COLOR.colorIndex : (name.equals("silver") ? MapColor.SILVER_COLOR.colorIndex : (name.equals("cyan") ? MapColor.CYAN_COLOR.colorIndex : (name.equals("purple") ? MapColor.PURPLE_COLOR.colorIndex : (name.equals("blue") ? MapColor.BLUE_COLOR.colorIndex : (name.equals("brown") ? MapColor.BROWN_COLOR.colorIndex : (name.equals("green") ? MapColor.GREEN_COLOR.colorIndex : (name.equals("red") ? MapColor.RED_COLOR.colorIndex : (name.equals("black") ? MapColor.BLACK_COLOR.colorIndex : -1)))))))))))) : MapColor.LIGHT_BLUE_COLOR.colorIndex)) : MapColor.ADOBE_COLOR.colorIndex) : MapColor.SNOW_COLOR.colorIndex)))))))))))))))))))));
     }
 
     private static int[] getMapColors() {
-        MapColor[] amapcolor = MapColor.mapColorArray;
+        MapColor[] amapcolor = MapColor.MAP_COLOR_ARRAY;
         int[] aint = new int[amapcolor.length];
         Arrays.fill(aint, -1);
 
@@ -1339,7 +1339,7 @@ public class CustomColors {
 
     private static void setMapColors(int[] colors) {
         if (colors != null) {
-            MapColor[] amapcolor = MapColor.mapColorArray;
+            MapColor[] amapcolor = MapColor.MAP_COLOR_ARRAY;
             boolean flag = false;
 
             for (int i = 0; i < amapcolor.length && i < colors.length; ++i) {

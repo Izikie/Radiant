@@ -472,7 +472,7 @@ public class BlockStairs extends Block {
     }
 
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-        this.onNeighborBlockChange(worldIn, pos, this.modelState, Blocks.air);
+        this.onNeighborBlockChange(worldIn, pos, this.modelState, Blocks.AIR);
         this.modelBlock.onBlockAdded(worldIn, pos, this.modelState);
     }
 

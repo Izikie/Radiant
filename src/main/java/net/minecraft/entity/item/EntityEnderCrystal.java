@@ -44,8 +44,8 @@ public class EntityEnderCrystal extends Entity {
         int j = MathHelper.floor_double(this.posY);
         int k = MathHelper.floor_double(this.posZ);
 
-        if (this.worldObj.provider instanceof WorldProviderEnd && this.worldObj.getBlockState(new BlockPos(i, j, k)).getBlock() != Blocks.fire) {
-            this.worldObj.setBlockState(new BlockPos(i, j, k), Blocks.fire.getDefaultState());
+        if (this.worldObj.provider instanceof WorldProviderEnd && this.worldObj.getBlockState(new BlockPos(i, j, k)).getBlock() != Blocks.FIRE) {
+            this.worldObj.setBlockState(new BlockPos(i, j, k), Blocks.FIRE.getDefaultState());
         }
     }
 

@@ -33,7 +33,7 @@ public enum Formatting {
     RESET("RESET", 'r', -1);
 
     private static final Map<String, Formatting> nameMapping = Maps.newHashMap();
-    private static final Pattern formattingCodePattern = Pattern.compile("(?i)" + '\u00a7' + "[0-9A-FK-OR]");
+    private static final Pattern FORMATTING_CODE_PATTERN = Pattern.compile("(?i)" + '\u00a7' + "[0-9A-FK-OR]");
     private final String name;
     private final char formattingCode;
     private final boolean fancyStyling;
@@ -81,7 +81,7 @@ public enum Formatting {
     }
 
     public static String getTextWithoutFormattingCodes(String text) {
-        return text == null ? null : formattingCodePattern.matcher(text).replaceAll("");
+        return text == null ? null : FORMATTING_CODE_PATTERN.matcher(text).replaceAll("");
     }
 
     public static Formatting getValueByName(String friendlyName) {

@@ -95,7 +95,7 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
                 boolean flag = false;
 
                 for (int i = 0; i < 3; ++i) {
-                    if (this.brewingItemStacks[i] != null && this.brewingItemStacks[i].getItem() == Items.potionitem) {
+                    if (this.brewingItemStacks[i] != null && this.brewingItemStacks[i].getItem() == Items.POTION) {
                         int j = this.brewingItemStacks[i].getMetadata();
                         int k = this.getPotionResult(j, itemstack);
 
@@ -104,8 +104,8 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
                             break;
                         }
 
-                        List<PotionEffect> list = Items.potionitem.getEffects(j);
-                        List<PotionEffect> list1 = Items.potionitem.getEffects(k);
+                        List<PotionEffect> list = Items.POTION.getEffects(j);
+                        List<PotionEffect> list1 = Items.POTION.getEffects(k);
 
                         if ((j <= 0 || list != list1) && (list == null || !list.equals(list1) && list1 != null) && j != k) {
                             flag = true;
@@ -126,11 +126,11 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
             ItemStack itemstack = this.brewingItemStacks[3];
 
             for (int i = 0; i < 3; ++i) {
-                if (this.brewingItemStacks[i] != null && this.brewingItemStacks[i].getItem() == Items.potionitem) {
+                if (this.brewingItemStacks[i] != null && this.brewingItemStacks[i].getItem() == Items.POTION) {
                     int j = this.brewingItemStacks[i].getMetadata();
                     int k = this.getPotionResult(j, itemstack);
-                    List<PotionEffect> list = Items.potionitem.getEffects(j);
-                    List<PotionEffect> list1 = Items.potionitem.getEffects(k);
+                    List<PotionEffect> list = Items.POTION.getEffects(j);
+                    List<PotionEffect> list1 = Items.POTION.getEffects(k);
 
                     if (j > 0 && list == list1 || list != null && (list.equals(list1) || list1 == null)) {
                         if (!ItemPotion.isSplash(j) && ItemPotion.isSplash(k)) {
@@ -245,7 +245,7 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
     }
 
     public boolean isItemValidForSlot(int index, ItemStack stack) {
-        return index == 3 ? stack.getItem().isPotionIngredient(stack) : stack.getItem() == Items.potionitem || stack.getItem() == Items.glass_bottle;
+        return index == 3 ? stack.getItem().isPotionIngredient(stack) : stack.getItem() == Items.POTION || stack.getItem() == Items.GLASS_BOTTLE;
     }
 
     public boolean[] func_174902_m() {

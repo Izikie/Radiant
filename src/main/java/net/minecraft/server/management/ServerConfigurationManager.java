@@ -271,7 +271,7 @@ public abstract class ServerConfigurationManager {
     }
 
     public void playerLoggedOut(EntityPlayerMP playerIn) {
-        playerIn.triggerAchievement(StatList.leaveGameStat);
+        playerIn.triggerAchievement(StatList.LEAVE_GAME_STAT);
         this.writePlayerData(playerIn);
         WorldServer worldserver = playerIn.getServerForPlayer();
 

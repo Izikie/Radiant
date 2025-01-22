@@ -787,7 +787,7 @@ public abstract class EntityLivingBase extends Entity {
         int j = MathHelper.floor_double(this.getEntityBoundingBox().minY);
         int k = MathHelper.floor_double(this.posZ);
         Block block = this.worldObj.getBlockState(new BlockPos(i, j, k)).getBlock();
-        return (block == Blocks.ladder || block == Blocks.vine) && (!(this instanceof EntityPlayer entityPlayer) || !entityPlayer.isSpectator());
+        return (block == Blocks.LADDER || block == Blocks.VINE) && (!(this instanceof EntityPlayer entityPlayer) || !entityPlayer.isSpectator());
     }
 
     public boolean isEntityAlive() {

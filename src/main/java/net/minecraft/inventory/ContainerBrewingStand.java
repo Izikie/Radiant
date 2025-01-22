@@ -138,7 +138,7 @@ public class ContainerBrewingStand extends Container {
         }
 
         public void onPickupFromSlot(EntityPlayer playerIn, ItemStack stack) {
-            if (stack.getItem() == Items.potionitem && stack.getMetadata() > 0) {
+            if (stack.getItem() == Items.POTION && stack.getMetadata() > 0) {
                 this.player.triggerAchievement(AchievementList.POTION);
             }
 
@@ -146,7 +146,7 @@ public class ContainerBrewingStand extends Container {
         }
 
         public static boolean canHoldPotion(ItemStack stack) {
-            return stack != null && (stack.getItem() == Items.potionitem || stack.getItem() == Items.glass_bottle);
+            return stack != null && (stack.getItem() == Items.POTION || stack.getItem() == Items.GLASS_BOTTLE);
         }
     }
 }

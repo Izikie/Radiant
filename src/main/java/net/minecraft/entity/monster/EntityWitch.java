@@ -31,7 +31,7 @@ import net.minecraft.world.World;
 public class EntityWitch extends EntityMob implements IRangedAttackMob {
     private static final UUID MODIFIER_UUID = UUID.fromString("5CD17E52-A79A-43D3-A529-90FDE04B181E");
     private static final AttributeModifier MODIFIER = (new AttributeModifier(MODIFIER_UUID, "Drinking speed penalty", -0.25D, 0)).setSaved(false);
-    private static final Item[] witchDrops = new Item[]{Items.glowstone_dust, Items.sugar, Items.redstone, Items.spider_eye, Items.glass_bottle, Items.gunpowder, Items.stick, Items.stick};
+    private static final Item[] witchDrops = new Item[]{Items.GLOWSTONE_DUST, Items.SUGAR, Items.REDSTONE, Items.SPIDER_EYE, Items.GLASS_BOTTLE, Items.GUNPOWDER, Items.STICK, Items.STICK};
     private int witchAttackTimer;
 
     public EntityWitch(World worldIn) {
@@ -85,8 +85,8 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
                     ItemStack itemstack = this.getHeldItem();
                     this.setCurrentItemOrArmor(0, null);
 
-                    if (itemstack != null && itemstack.getItem() == Items.potionitem) {
-                        List<PotionEffect> list = Items.potionitem.getEffects(itemstack);
+                    if (itemstack != null && itemstack.getItem() == Items.POTION) {
+                        List<PotionEffect> list = Items.POTION.getEffects(itemstack);
 
                         if (list != null) {
                             for (PotionEffect potioneffect : list) {
@@ -113,7 +113,7 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
                 }
 
                 if (i > -1) {
-                    this.setCurrentItemOrArmor(0, new ItemStack(Items.potionitem, 1, i));
+                    this.setCurrentItemOrArmor(0, new ItemStack(Items.POTION, 1, i));
                     this.witchAttackTimer = this.getHeldItem().getMaxItemUseDuration();
                     this.setAggressive(true);
                     IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.movementSpeed);

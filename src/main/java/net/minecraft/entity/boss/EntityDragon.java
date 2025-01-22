@@ -403,7 +403,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
                     Block block = this.worldObj.getBlockState(blockpos).getBlock();
 
                     if (block.getMaterial() != Material.AIR) {
-                        if (block != Blocks.barrier && block != Blocks.obsidian && block != Blocks.end_stone && block != Blocks.bedrock && block != Blocks.command_block && this.worldObj.getGameRules().getBoolean("mobGriefing")) {
+                        if (block != Blocks.BARRIER && block != Blocks.OBSIDIAN && block != Blocks.END_STONE && block != Blocks.BEDROCK && block != Blocks.COMMAND_BLOCK && this.worldObj.getGameRules().getBoolean("mobGriefing")) {
                             flag1 = this.worldObj.setBlockToAir(blockpos) || flag1;
                         } else {
                             flag = true;
@@ -521,30 +521,30 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
 
                         if (j < 0) {
                             if (d2 <= 6.25D) {
-                                this.worldObj.setBlockState(blockpos, Blocks.bedrock.getDefaultState());
+                                this.worldObj.setBlockState(blockpos, Blocks.BEDROCK.getDefaultState());
                             }
                         } else if (j > 0) {
-                            this.worldObj.setBlockState(blockpos, Blocks.air.getDefaultState());
+                            this.worldObj.setBlockState(blockpos, Blocks.AIR.getDefaultState());
                         } else if (d2 > 6.25D) {
-                            this.worldObj.setBlockState(blockpos, Blocks.bedrock.getDefaultState());
+                            this.worldObj.setBlockState(blockpos, Blocks.BEDROCK.getDefaultState());
                         } else {
-                            this.worldObj.setBlockState(blockpos, Blocks.end_portal.getDefaultState());
+                            this.worldObj.setBlockState(blockpos, Blocks.END_PORTAL.getDefaultState());
                         }
                     }
                 }
             }
         }
 
-        this.worldObj.setBlockState(pos, Blocks.bedrock.getDefaultState());
-        this.worldObj.setBlockState(pos.up(), Blocks.bedrock.getDefaultState());
+        this.worldObj.setBlockState(pos, Blocks.BEDROCK.getDefaultState());
+        this.worldObj.setBlockState(pos.up(), Blocks.BEDROCK.getDefaultState());
         BlockPos blockpos1 = pos.up(2);
-        this.worldObj.setBlockState(blockpos1, Blocks.bedrock.getDefaultState());
-        this.worldObj.setBlockState(blockpos1.west(), Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, Direction.EAST));
-        this.worldObj.setBlockState(blockpos1.east(), Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, Direction.WEST));
-        this.worldObj.setBlockState(blockpos1.north(), Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, Direction.SOUTH));
-        this.worldObj.setBlockState(blockpos1.south(), Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, Direction.NORTH));
-        this.worldObj.setBlockState(pos.up(3), Blocks.bedrock.getDefaultState());
-        this.worldObj.setBlockState(pos.up(4), Blocks.dragon_egg.getDefaultState());
+        this.worldObj.setBlockState(blockpos1, Blocks.BEDROCK.getDefaultState());
+        this.worldObj.setBlockState(blockpos1.west(), Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, Direction.EAST));
+        this.worldObj.setBlockState(blockpos1.east(), Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, Direction.WEST));
+        this.worldObj.setBlockState(blockpos1.north(), Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, Direction.SOUTH));
+        this.worldObj.setBlockState(blockpos1.south(), Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, Direction.NORTH));
+        this.worldObj.setBlockState(pos.up(3), Blocks.BEDROCK.getDefaultState());
+        this.worldObj.setBlockState(pos.up(4), Blocks.DRAGON_EGG.getDefaultState());
     }
 
     protected void despawnEntity() {

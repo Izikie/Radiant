@@ -145,7 +145,7 @@ public class EntityEnderEye extends Entity {
                 this.setDead();
 
                 if (this.shatterOrDrop) {
-                    this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, new ItemStack(Items.ender_eye)));
+                    this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, new ItemStack(Items.ENDER_EYE)));
                 } else {
                     this.worldObj.playAuxSFX(2003, new BlockPos(this), 0);
                 }

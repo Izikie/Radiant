@@ -31,8 +31,8 @@ public class BiomeDecorator {
     protected BlockPos field_180294_c;
     protected ChunkProviderSettings chunkProviderSettings;
     protected final WorldGenerator clayGen = new WorldGenClay(4);
-    protected final WorldGenerator sandGen = new WorldGenSand(Blocks.sand, 7);
-    protected final WorldGenerator gravelAsSandGen = new WorldGenSand(Blocks.gravel, 6);
+    protected final WorldGenerator sandGen = new WorldGenSand(Blocks.SAND, 7);
+    protected final WorldGenerator gravelAsSandGen = new WorldGenSand(Blocks.GRAVEL, 6);
     protected WorldGenerator dirtGen;
     protected WorldGenerator gravelGen;
     protected WorldGenerator graniteGen;
@@ -44,9 +44,9 @@ public class BiomeDecorator {
     protected WorldGenerator redstoneGen;
     protected WorldGenerator diamondGen;
     protected WorldGenerator lapisGen;
-    protected final WorldGenFlowers yellowFlowerGen = new WorldGenFlowers(Blocks.yellow_flower, BlockFlower.FlowerType.DANDELION);
-    protected final WorldGenerator mushroomBrownGen = new GeneratorBushFeature(Blocks.brown_mushroom);
-    protected final WorldGenerator mushroomRedGen = new GeneratorBushFeature(Blocks.red_mushroom);
+    protected final WorldGenFlowers yellowFlowerGen = new WorldGenFlowers(Blocks.YELLOW_FLOWER, BlockFlower.FlowerType.DANDELION);
+    protected final WorldGenerator mushroomBrownGen = new GeneratorBushFeature(Blocks.BROWN_MUSHROOM);
+    protected final WorldGenerator mushroomRedGen = new GeneratorBushFeature(Blocks.RED_MUSHROOM);
     protected final WorldGenerator bigMushroomGen = new WorldGenBigMushroom();
     protected final WorldGenerator reedGen = new WorldGenReed();
     protected final WorldGenerator cactusGen = new WorldGenCactus();
@@ -76,17 +76,17 @@ public class BiomeDecorator {
 
             this.randomGenerator = random;
             this.field_180294_c = p_180292_4_;
-            this.dirtGen = new WorldGenMinable(Blocks.dirt.getDefaultState(), this.chunkProviderSettings.dirtSize);
-            this.gravelGen = new WorldGenMinable(Blocks.gravel.getDefaultState(), this.chunkProviderSettings.gravelSize);
-            this.graniteGen = new WorldGenMinable(Blocks.stone.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.StoneType.GRANITE), this.chunkProviderSettings.graniteSize);
-            this.dioriteGen = new WorldGenMinable(Blocks.stone.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.StoneType.DIORITE), this.chunkProviderSettings.dioriteSize);
-            this.andesiteGen = new WorldGenMinable(Blocks.stone.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.StoneType.ANDESITE), this.chunkProviderSettings.andesiteSize);
-            this.coalGen = new WorldGenMinable(Blocks.coal_ore.getDefaultState(), this.chunkProviderSettings.coalSize);
-            this.ironGen = new WorldGenMinable(Blocks.iron_ore.getDefaultState(), this.chunkProviderSettings.ironSize);
-            this.goldGen = new WorldGenMinable(Blocks.gold_ore.getDefaultState(), this.chunkProviderSettings.goldSize);
-            this.redstoneGen = new WorldGenMinable(Blocks.redstone_ore.getDefaultState(), this.chunkProviderSettings.redstoneSize);
-            this.diamondGen = new WorldGenMinable(Blocks.diamond_ore.getDefaultState(), this.chunkProviderSettings.diamondSize);
-            this.lapisGen = new WorldGenMinable(Blocks.lapis_ore.getDefaultState(), this.chunkProviderSettings.lapisSize);
+            this.dirtGen = new WorldGenMinable(Blocks.DIRT.getDefaultState(), this.chunkProviderSettings.dirtSize);
+            this.gravelGen = new WorldGenMinable(Blocks.GRAVEL.getDefaultState(), this.chunkProviderSettings.gravelSize);
+            this.graniteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.StoneType.GRANITE), this.chunkProviderSettings.graniteSize);
+            this.dioriteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.StoneType.DIORITE), this.chunkProviderSettings.dioriteSize);
+            this.andesiteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.StoneType.ANDESITE), this.chunkProviderSettings.andesiteSize);
+            this.coalGen = new WorldGenMinable(Blocks.COAL_ORE.getDefaultState(), this.chunkProviderSettings.coalSize);
+            this.ironGen = new WorldGenMinable(Blocks.IRON_ORE.getDefaultState(), this.chunkProviderSettings.ironSize);
+            this.goldGen = new WorldGenMinable(Blocks.GOLD_ORE.getDefaultState(), this.chunkProviderSettings.goldSize);
+            this.redstoneGen = new WorldGenMinable(Blocks.REDSTONE_ORE.getDefaultState(), this.chunkProviderSettings.redstoneSize);
+            this.diamondGen = new WorldGenMinable(Blocks.DIAMOND_ORE.getDefaultState(), this.chunkProviderSettings.diamondSize);
+            this.lapisGen = new WorldGenMinable(Blocks.LAPIS_ORE.getDefaultState(), this.chunkProviderSettings.lapisSize);
             this.genDecorations(biome);
             this.currentWorld = null;
             this.randomGenerator = null;
@@ -296,7 +296,7 @@ public class BiomeDecorator {
                 if (i17 > 0) {
                     int k19 = this.randomGenerator.nextInt(i17);
                     BlockPos blockpos6 = this.field_180294_c.add(i10, k19, l13);
-                    (new WorldGenLiquids(Blocks.flowing_water)).generate(this.currentWorld, this.randomGenerator, blockpos6);
+                    (new WorldGenLiquids(Blocks.FLOWING_WATER)).generate(this.currentWorld, this.randomGenerator, blockpos6);
                 }
             }
 
@@ -305,7 +305,7 @@ public class BiomeDecorator {
                 int i14 = this.randomGenerator.nextInt(16) + 8;
                 int j17 = this.randomGenerator.nextInt(this.randomGenerator.nextInt(this.randomGenerator.nextInt(240) + 8) + 8);
                 BlockPos blockpos3 = this.field_180294_c.add(j10, j17, i14);
-                (new WorldGenLiquids(Blocks.flowing_lava)).generate(this.currentWorld, this.randomGenerator, blockpos3);
+                (new WorldGenLiquids(Blocks.FLOWING_LAVA)).generate(this.currentWorld, this.randomGenerator, blockpos3);
             }
         }
     }

@@ -62,7 +62,7 @@ public class LayerCustomHead implements LayerRenderer<EntityLivingBase> {
                 }
 
                 minecraft.getItemRenderer().renderItem(entitylivingbaseIn, itemstack, ItemCameraTransforms.TransformType.HEAD);
-            } else if (item == Items.skull) {
+            } else if (item == Items.SKULL) {
                 float f3 = 1.1875F;
                 GlStateManager.scale(f3, -f3, -f3);
 

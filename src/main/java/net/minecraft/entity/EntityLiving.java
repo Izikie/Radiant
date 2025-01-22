@@ -371,7 +371,7 @@ public abstract class EntityLiving extends EntityLivingBase {
                     this.entityDropItem(itemstack1, 0.0F);
                 }
 
-                if (itemstack.getItem() == Items.diamond && itemEntity.getThrower() != null) {
+                if (itemstack.getItem() == Items.DIAMOND && itemEntity.getThrower() != null) {
                     EntityPlayer entityplayer = this.worldObj.getPlayerEntityByName(itemEntity.getThrower());
 
                     if (entityplayer != null) {
@@ -588,7 +588,7 @@ public abstract class EntityLiving extends EntityLivingBase {
     }
 
     public static int getArmorPosition(ItemStack stack) {
-        if (stack.getItem() != Item.getItemFromBlock(Blocks.pumpkin) && stack.getItem() != Items.skull) {
+        if (stack.getItem() != Item.getItemFromBlock(Blocks.PUMPKIN) && stack.getItem() != Items.SKULL) {
             if (stack.getItem() instanceof ItemArmor itemArmor) {
                 switch (itemArmor.armorType) {
                     case 0:
@@ -615,54 +615,54 @@ public abstract class EntityLiving extends EntityLivingBase {
         switch (armorSlot) {
             case 4:
                 if (itemTier == 0) {
-                    return Items.leather_helmet;
+                    return Items.LEATHER_HELMET;
                 } else if (itemTier == 1) {
-                    return Items.golden_helmet;
+                    return Items.GOLDEN_HELMET;
                 } else if (itemTier == 2) {
-                    return Items.chainmail_helmet;
+                    return Items.CHAINMAIL_HELMET;
                 } else if (itemTier == 3) {
-                    return Items.iron_helmet;
+                    return Items.IRON_HELMET;
                 } else if (itemTier == 4) {
-                    return Items.diamond_helmet;
+                    return Items.DIAMOND_HELMET;
                 }
 
             case 3:
                 if (itemTier == 0) {
-                    return Items.leather_chestplate;
+                    return Items.LEATHER_CHESTPLATE;
                 } else if (itemTier == 1) {
-                    return Items.golden_chestplate;
+                    return Items.GOLDEN_CHESTPLATE;
                 } else if (itemTier == 2) {
-                    return Items.chainmail_chestplate;
+                    return Items.CHAINMAIL_CHESTPLATE;
                 } else if (itemTier == 3) {
-                    return Items.iron_chestplate;
+                    return Items.IRON_CHESTPLATE;
                 } else if (itemTier == 4) {
-                    return Items.diamond_chestplate;
+                    return Items.DIAMOND_CHESTPLATE;
                 }
 
             case 2:
                 if (itemTier == 0) {
-                    return Items.leather_leggings;
+                    return Items.LEATHER_LEGGINGS;
                 } else if (itemTier == 1) {
-                    return Items.golden_leggings;
+                    return Items.GOLDEN_LEGGINGS;
                 } else if (itemTier == 2) {
-                    return Items.chainmail_leggings;
+                    return Items.CHAINMAIL_LEGGINGS;
                 } else if (itemTier == 3) {
-                    return Items.iron_leggings;
+                    return Items.IRON_LEGGINGS;
                 } else if (itemTier == 4) {
-                    return Items.diamond_leggings;
+                    return Items.DIAMOND_LEGGINGS;
                 }
 
             case 1:
                 if (itemTier == 0) {
-                    return Items.leather_boots;
+                    return Items.LEATHER_BOOTS;
                 } else if (itemTier == 1) {
-                    return Items.golden_boots;
+                    return Items.GOLDEN_BOOTS;
                 } else if (itemTier == 2) {
-                    return Items.chainmail_boots;
+                    return Items.CHAINMAIL_BOOTS;
                 } else if (itemTier == 3) {
-                    return Items.iron_boots;
+                    return Items.IRON_BOOTS;
                 } else if (itemTier == 4) {
-                    return Items.diamond_boots;
+                    return Items.DIAMOND_BOOTS;
                 }
 
             default:
@@ -722,7 +722,7 @@ public abstract class EntityLiving extends EntityLivingBase {
         } else {
             ItemStack itemstack = playerIn.inventory.getCurrentItem();
 
-            if (itemstack != null && itemstack.getItem() == Items.lead && this.allowLeashing()) {
+            if (itemstack != null && itemstack.getItem() == Items.LEAD && this.allowLeashing()) {
                 if (!(this instanceof EntityTameable entityTameable) || !entityTameable.isTamed()) {
                     this.setLeashedToEntity(playerIn, true);
                     --itemstack.stackSize;
@@ -770,7 +770,7 @@ public abstract class EntityLiving extends EntityLivingBase {
             this.leashedToEntity = null;
 
             if (!this.worldObj.isRemote && dropLead) {
-                this.dropItem(Items.lead, 1);
+                this.dropItem(Items.LEAD, 1);
             }
 
             if (!this.worldObj.isRemote && sendPacket && this.worldObj instanceof WorldServer worldServer) {

@@ -21,7 +21,7 @@ public class EntityPotion extends EntityThrowable {
     }
 
     public EntityPotion(World worldIn, EntityLivingBase throwerIn, int meta) {
-        this(worldIn, throwerIn, new ItemStack(Items.potionitem, 1, meta));
+        this(worldIn, throwerIn, new ItemStack(Items.POTION, 1, meta));
     }
 
     public EntityPotion(World worldIn, EntityLivingBase throwerIn, ItemStack potionDamageIn) {
@@ -30,7 +30,7 @@ public class EntityPotion extends EntityThrowable {
     }
 
     public EntityPotion(World worldIn, double x, double y, double z, int p_i1791_8_) {
-        this(worldIn, x, y, z, new ItemStack(Items.potionitem, 1, p_i1791_8_));
+        this(worldIn, x, y, z, new ItemStack(Items.POTION, 1, p_i1791_8_));
     }
 
     public EntityPotion(World worldIn, double x, double y, double z, ItemStack potionDamageIn) {
@@ -52,7 +52,7 @@ public class EntityPotion extends EntityThrowable {
 
     public void setPotionDamage(int potionId) {
         if (this.potionDamage == null) {
-            this.potionDamage = new ItemStack(Items.potionitem, 1, 0);
+            this.potionDamage = new ItemStack(Items.POTION, 1, 0);
         }
 
         this.potionDamage.setItemDamage(potionId);
@@ -60,7 +60,7 @@ public class EntityPotion extends EntityThrowable {
 
     public int getPotionDamage() {
         if (this.potionDamage == null) {
-            this.potionDamage = new ItemStack(Items.potionitem, 1, 0);
+            this.potionDamage = new ItemStack(Items.POTION, 1, 0);
         }
 
         return this.potionDamage.getMetadata();
@@ -68,7 +68,7 @@ public class EntityPotion extends EntityThrowable {
 
     protected void onImpact(MovingObjectPosition p_70184_1_) {
         if (!this.worldObj.isRemote) {
-            List<PotionEffect> list = Items.potionitem.getEffects(this.potionDamage);
+            List<PotionEffect> list = Items.POTION.getEffects(this.potionDamage);
 
             if (list != null && !list.isEmpty()) {
                 AxisAlignedBB axisalignedbb = this.getEntityBoundingBox().expand(4.0D, 2.0D, 4.0D);

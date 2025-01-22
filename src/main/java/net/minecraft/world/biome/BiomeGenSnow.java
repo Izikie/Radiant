@@ -20,7 +20,7 @@ public class BiomeGenSnow extends BiomeGenBase {
         this.field_150615_aC = p_i45378_2_;
 
         if (p_i45378_2_) {
-            this.topBlock = Blocks.snow.getDefaultState();
+            this.topBlock = Blocks.SNOW.getDefaultState();
         }
 
         this.spawnableCreatureList.clear();

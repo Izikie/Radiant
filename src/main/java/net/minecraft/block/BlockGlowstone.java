@@ -25,10 +25,10 @@ public class BlockGlowstone extends Block {
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Items.glowstone_dust;
+        return Items.GLOWSTONE_DUST;
     }
 
     public MapColor getMapColor(IBlockState state) {
-        return MapColor.sandColor;
+        return MapColor.SAND_COLOR;
     }
 }
