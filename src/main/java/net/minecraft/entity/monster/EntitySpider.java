@@ -111,7 +111,7 @@ public class EntitySpider extends EntityMob {
     }
 
     public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-        return potioneffectIn.getPotionID() == Potion.poison.id ? false : super.isPotionApplicable(potioneffectIn);
+        return potioneffectIn.getPotionID() == Potion.POISON.id ? false : super.isPotionApplicable(potioneffectIn);
     }
 
     public boolean isBesideClimbableBlock() {
@@ -152,7 +152,7 @@ public class EntitySpider extends EntityMob {
         if (livingdata instanceof GroupData groupData) {
             int i = groupData.potionEffectId;
 
-            if (i > 0 && Potion.potionTypes[i] != null) {
+            if (i > 0 && Potion.POTION_TYPES[i] != null) {
                 this.addPotionEffect(new PotionEffect(i, Integer.MAX_VALUE));
             }
         }
@@ -203,13 +203,13 @@ public class EntitySpider extends EntityMob {
             int i = rand.nextInt(5);
 
             if (i <= 1) {
-                this.potionEffectId = Potion.moveSpeed.id;
+                this.potionEffectId = Potion.MOVE_SPEED.id;
             } else if (i == 2) {
-                this.potionEffectId = Potion.damageBoost.id;
+                this.potionEffectId = Potion.DAMAGE_BOOST.id;
             } else if (i == 3) {
-                this.potionEffectId = Potion.regeneration.id;
+                this.potionEffectId = Potion.REGENERATION.id;
             } else if (i <= 4) {
-                this.potionEffectId = Potion.invisibility.id;
+                this.potionEffectId = Potion.INVISIBILITY.id;
             }
         }
     }

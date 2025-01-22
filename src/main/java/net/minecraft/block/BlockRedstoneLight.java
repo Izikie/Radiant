@@ -14,7 +14,7 @@ public class BlockRedstoneLight extends Block {
     private final boolean isOn;
 
     public BlockRedstoneLight(boolean isOn) {
-        super(Material.redstoneLight);
+        super(Material.REDSTONE_LIGHT);
         this.isOn = isOn;
 
         if (isOn) {

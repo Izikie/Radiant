@@ -53,7 +53,7 @@ public class BiomeGenSwamp extends BiomeGenBase {
             int j = z & 15;
 
             for (int k = 255; k >= 0; --k) {
-                if (chunkPrimerIn.getBlockState(j, k, i).getBlock().getMaterial() != Material.air) {
+                if (chunkPrimerIn.getBlockState(j, k, i).getBlock().getMaterial() != Material.AIR) {
                     if (k == 62 && chunkPrimerIn.getBlockState(j, k, i).getBlock() != Blocks.water) {
                         chunkPrimerIn.setBlockState(j, k, i, Blocks.water.getDefaultState());
 

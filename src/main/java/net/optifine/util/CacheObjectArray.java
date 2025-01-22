@@ -7,11 +7,11 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.src.Config;
 
 public class CacheObjectArray {
-    private static final ArrayDeque<int[]> arrays = new ArrayDeque();
-    private static final int maxCacheSize = 10;
+    private static final ArrayDeque<int[]> ARRAYS = new ArrayDeque();
+    private static final int MAX_CACHE_SIZE = 10;
 
     private static synchronized int[] allocateArray(int size) {
-        int[] aint = arrays.pollLast();
+        int[] aint = ARRAYS.pollLast();
 
         if (aint == null || aint.length < size) {
             aint = new int[size];
@@ -21,8 +21,8 @@ public class CacheObjectArray {
     }
 
     public static synchronized void freeArray(int[] ints) {
-        if (arrays.size() < maxCacheSize) {
-            arrays.add(ints);
+        if (ARRAYS.size() < MAX_CACHE_SIZE) {
+            ARRAYS.add(ints);
         }
     }
 

@@ -205,7 +205,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
             case 162:
                 if (p_175330_2_ < 0.0F) {
                     return I18n.format("gui.all");
-                } else if ((int) p_175330_2_ >= BiomeGenBase.hell.biomeID) {
+                } else if ((int) p_175330_2_ >= BiomeGenBase.HELL.biomeID) {
                     BiomeGenBase biomegenbase1 = BiomeGenBase.getBiomeGenArray()[(int) p_175330_2_ + 2];
                     return biomegenbase1 != null ? biomegenbase1.biomeName : "?";
                 } else {
@@ -833,7 +833,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
             GlStateManager.disableFog();
             Tessellator tessellator = Tessellator.getInstance();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-            this.mc.getTextureManager().bindTexture(optionsBackground);
+            this.mc.getTextureManager().bindTexture(OPTIONS_BACKGROUND);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             float f2 = 32.0F;
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);

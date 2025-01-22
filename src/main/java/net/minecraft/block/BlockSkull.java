@@ -42,7 +42,7 @@ public class BlockSkull extends BlockContainer {
     private BlockPattern witherPattern;
 
     protected BlockSkull() {
-        super(Material.circuits);
+        super(Material.CIRCUITS);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH).withProperty(NODROP, Boolean.FALSE));
         this.setBlockBounds(0.25F, 0.0F, 0.25F, 0.75F, 0.5F, 0.75F);
     }
@@ -175,7 +175,7 @@ public class BlockSkull extends BlockContainer {
                 entitywither.func_82206_m();
 
                 for (EntityPlayer entityplayer : worldIn.getEntitiesWithinAABB(EntityPlayer.class, entitywither.getEntityBoundingBox().expand(50.0D, 50.0D, 50.0D))) {
-                    entityplayer.triggerAchievement(AchievementList.spawnWither);
+                    entityplayer.triggerAchievement(AchievementList.SPAWN_WITHER);
                 }
 
                 worldIn.spawnEntityInWorld(entitywither);

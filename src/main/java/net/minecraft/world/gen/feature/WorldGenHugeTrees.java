@@ -92,7 +92,7 @@ public abstract class WorldGenHugeTrees extends WorldGenAbstractTree {
                     BlockPos blockpos = p_175925_2_.add(j, 0, k);
                     Material material = worldIn.getBlockState(blockpos).getBlock().getMaterial();
 
-                    if (material == Material.air || material == Material.leaves) {
+                    if (material == Material.AIR || material == Material.LEAVES) {
                         this.setBlockAndNotifyAdequately(worldIn, blockpos, this.leavesMetadata);
                     }
                 }
@@ -109,7 +109,7 @@ public abstract class WorldGenHugeTrees extends WorldGenAbstractTree {
                     BlockPos blockpos = p_175928_2_.add(j, 0, k);
                     Material material = worldIn.getBlockState(blockpos).getBlock().getMaterial();
 
-                    if (material == Material.air || material == Material.leaves) {
+                    if (material == Material.AIR || material == Material.LEAVES) {
                         this.setBlockAndNotifyAdequately(worldIn, blockpos, this.leavesMetadata);
                     }
                 }

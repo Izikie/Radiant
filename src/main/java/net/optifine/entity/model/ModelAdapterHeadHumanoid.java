@@ -32,7 +32,7 @@ public class ModelAdapterHeadHumanoid extends ModelAdapter {
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-        TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.instance;
+        TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.INSTANCE;
         TileEntitySpecialRenderer tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntitySkull.class);
 
         if (!(tileentityspecialrenderer instanceof TileEntitySkullRenderer)) {

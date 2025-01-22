@@ -20,7 +20,7 @@ public class WorldGenGlowStone2 extends WorldGenerator {
             for (int i = 0; i < 1500; ++i) {
                 BlockPos blockpos = position.add(rand.nextInt(8) - rand.nextInt(8), -rand.nextInt(12), rand.nextInt(8) - rand.nextInt(8));
 
-                if (worldIn.getBlockState(blockpos).getBlock().getMaterial() == Material.air) {
+                if (worldIn.getBlockState(blockpos).getBlock().getMaterial() == Material.AIR) {
                     int j = 0;
 
                     for (Direction enumfacing : Direction.values()) {

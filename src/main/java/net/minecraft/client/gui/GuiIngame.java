@@ -108,7 +108,7 @@ public class GuiIngame extends Gui {
             this.renderPumpkinOverlay(scaledresolution);
         }
 
-        if (!this.mc.thePlayer.isPotionActive(Potion.confusion)) {
+        if (!this.mc.thePlayer.isPotionActive(Potion.CONFUSION)) {
             float f = this.mc.thePlayer.prevTimeInPortal + (this.mc.thePlayer.timeInPortal - this.mc.thePlayer.prevTimeInPortal) * partialTicks;
 
             if (f > 0.0F) {
@@ -123,7 +123,7 @@ public class GuiIngame extends Gui {
         }
 
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(icons);
+        this.mc.getTextureManager().bindTexture(ICONS);
         GlStateManager.enableBlend();
 
         if (this.showCrosshair()) {
@@ -305,7 +305,7 @@ public class GuiIngame extends Gui {
     }
 
     public void renderHorseJumpBar(ScaledResolution scaledRes, int x) {
-        this.mc.getTextureManager().bindTexture(Gui.icons);
+        this.mc.getTextureManager().bindTexture(Gui.ICONS);
         float f = this.mc.thePlayer.getHorseJumpPower();
         int i = 182;
         int j = (int) (f * (i + 1));
@@ -319,7 +319,7 @@ public class GuiIngame extends Gui {
     }
 
     public void renderExpBar(ScaledResolution scaledRes, int x) {
-        this.mc.getTextureManager().bindTexture(Gui.icons);
+        this.mc.getTextureManager().bindTexture(Gui.ICONS);
         int i = this.mc.thePlayer.xpBarCap();
 
         if (i > 0) {
@@ -489,7 +489,7 @@ public class GuiIngame extends Gui {
             int k2 = entityplayer.getTotalArmorValue();
             int l2 = -1;
 
-            if (entityplayer.isPotionActive(Potion.regeneration)) {
+            if (entityplayer.isPotionActive(Potion.REGENERATION)) {
                 l2 = this.updateCounter % MathHelper.ceiling_float_int(f + 5.0F);
             }
 
@@ -514,9 +514,9 @@ public class GuiIngame extends Gui {
             for (int i6 = MathHelper.ceiling_float_int((f + f1) / 2.0F) - 1; i6 >= 0; --i6) {
                 int j6 = 16;
 
-                if (entityplayer.isPotionActive(Potion.poison)) {
+                if (entityplayer.isPotionActive(Potion.POISON)) {
                     j6 += 36;
-                } else if (entityplayer.isPotionActive(Potion.wither)) {
+                } else if (entityplayer.isPotionActive(Potion.WITHER)) {
                     j6 += 72;
                 }
 
@@ -583,7 +583,7 @@ public class GuiIngame extends Gui {
                     int l7 = 16;
                     int k8 = 0;
 
-                    if (entityplayer.isPotionActive(Potion.hunger)) {
+                    if (entityplayer.isPotionActive(Potion.HUNGER)) {
                         l7 += 36;
                         k8 = 13;
                     }
@@ -656,7 +656,7 @@ public class GuiIngame extends Gui {
                 }
             }
 
-            if (entityplayer.isInsideOfMaterial(Material.water)) {
+            if (entityplayer.isInsideOfMaterial(Material.WATER)) {
                 int l6 = this.mc.thePlayer.getAir();
                 int k7 = MathHelper.ceiling_double_int((l6 - 2) * 10.0D / 300.0D);
                 int i8 = MathHelper.ceiling_double_int(l6 * 10.0D / 300.0D) - k7;
@@ -692,7 +692,7 @@ public class GuiIngame extends Gui {
             String s = BossStatus.bossName;
             this.getFontRenderer().drawStringWithShadow(s, (i / 2 - this.getFontRenderer().getStringWidth(s) / 2), (i1 - 10), 16777215);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            this.mc.getTextureManager().bindTexture(icons);
+            this.mc.getTextureManager().bindTexture(ICONS);
         }
     }
 

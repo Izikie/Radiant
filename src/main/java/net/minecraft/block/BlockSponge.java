@@ -26,7 +26,7 @@ public class BlockSponge extends Block {
     public static final PropertyBool WET = PropertyBool.create("wet");
 
     protected BlockSponge() {
-        super(Material.sponge);
+        super(Material.SPONGE);
         this.setDefaultState(this.blockState.getBaseState().withProperty(WET, Boolean.FALSE));
         this.setCreativeTab(CreativeTabs.tabBlock);
     }
@@ -69,7 +69,7 @@ public class BlockSponge extends Block {
             for (Direction enumfacing : Direction.values()) {
                 BlockPos blockpos1 = blockpos.offset(enumfacing);
 
-                if (worldIn.getBlockState(blockpos1).getBlock().getMaterial() == Material.water) {
+                if (worldIn.getBlockState(blockpos1).getBlock().getMaterial() == Material.WATER) {
                     worldIn.setBlockState(blockpos1, Blocks.air.getDefaultState(), 2);
                     arraylist.add(blockpos1);
                     ++i;

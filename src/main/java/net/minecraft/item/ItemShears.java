@@ -16,7 +16,7 @@ public class ItemShears extends Item {
     }
 
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, BlockPos pos, EntityLivingBase playerIn) {
-        if (blockIn.getMaterial() != Material.leaves && blockIn != Blocks.web && blockIn != Blocks.tallgrass && blockIn != Blocks.vine && blockIn != Blocks.tripwire && blockIn != Blocks.wool) {
+        if (blockIn.getMaterial() != Material.LEAVES && blockIn != Blocks.web && blockIn != Blocks.tallgrass && blockIn != Blocks.vine && blockIn != Blocks.tripwire && blockIn != Blocks.wool) {
             return super.onBlockDestroyed(stack, worldIn, blockIn, pos, playerIn);
         } else {
             stack.damageItem(1, playerIn);
@@ -29,6 +29,6 @@ public class ItemShears extends Item {
     }
 
     public float getStrVsBlock(ItemStack stack, Block state) {
-        return state != Blocks.web && state.getMaterial() != Material.leaves ? (state == Blocks.wool ? 5.0F : super.getStrVsBlock(stack, state)) : 15.0F;
+        return state != Blocks.web && state.getMaterial() != Material.LEAVES ? (state == Blocks.wool ? 5.0F : super.getStrVsBlock(stack, state)) : 15.0F;
     }
 }

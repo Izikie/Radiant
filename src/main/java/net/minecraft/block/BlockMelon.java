@@ -11,7 +11,7 @@ import net.minecraft.item.Item;
 
 public class BlockMelon extends Block {
     protected BlockMelon() {
-        super(Material.gourd, MapColor.limeColor);
+        super(Material.GOURD, MapColor.limeColor);
         this.setCreativeTab(CreativeTabs.tabBlock);
     }
 

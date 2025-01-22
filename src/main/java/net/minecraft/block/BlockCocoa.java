@@ -23,7 +23,7 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
     public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 2);
 
     public BlockCocoa() {
-        super(Material.plants);
+        super(Material.PLANTS);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH).withProperty(AGE, 0));
         this.setTickRandomly(true);
     }

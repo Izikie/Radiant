@@ -92,7 +92,7 @@ public class WorldGenTrees extends WorldGenAbstractTree {
                                     BlockPos blockpos = new BlockPos(k1, i3, i2);
                                     Block block = worldIn.getBlockState(blockpos).getBlock();
 
-                                    if (block.getMaterial() == Material.air || block.getMaterial() == Material.leaves || block.getMaterial() == Material.vine) {
+                                    if (block.getMaterial() == Material.AIR || block.getMaterial() == Material.LEAVES || block.getMaterial() == Material.VINE) {
                                         this.setBlockAndNotifyAdequately(worldIn, blockpos, this.metaLeaves);
                                     }
                                 }
@@ -103,7 +103,7 @@ public class WorldGenTrees extends WorldGenAbstractTree {
                     for (int j3 = 0; j3 < i; ++j3) {
                         Block block2 = worldIn.getBlockState(position.up(j3)).getBlock();
 
-                        if (block2.getMaterial() == Material.air || block2.getMaterial() == Material.leaves || block2.getMaterial() == Material.vine) {
+                        if (block2.getMaterial() == Material.AIR || block2.getMaterial() == Material.LEAVES || block2.getMaterial() == Material.VINE) {
                             this.setBlockAndNotifyAdequately(worldIn, position.up(j3), this.metaWood);
 
                             if (this.vinesGrow && j3 > 0) {
@@ -136,25 +136,25 @@ public class WorldGenTrees extends WorldGenAbstractTree {
                                 for (int i5 = position.getZ() - k4; i5 <= position.getZ() + k4; ++i5) {
                                     blockpos$mutableblockpos1.set(l4, k3, i5);
 
-                                    if (worldIn.getBlockState(blockpos$mutableblockpos1).getBlock().getMaterial() == Material.leaves) {
+                                    if (worldIn.getBlockState(blockpos$mutableblockpos1).getBlock().getMaterial() == Material.LEAVES) {
                                         BlockPos blockpos2 = blockpos$mutableblockpos1.west();
                                         BlockPos blockpos3 = blockpos$mutableblockpos1.east();
                                         BlockPos blockpos4 = blockpos$mutableblockpos1.north();
                                         BlockPos blockpos1 = blockpos$mutableblockpos1.south();
 
-                                        if (rand.nextInt(4) == 0 && worldIn.getBlockState(blockpos2).getBlock().getMaterial() == Material.air) {
+                                        if (rand.nextInt(4) == 0 && worldIn.getBlockState(blockpos2).getBlock().getMaterial() == Material.AIR) {
                                             this.func_181650_b(worldIn, blockpos2, BlockVine.EAST);
                                         }
 
-                                        if (rand.nextInt(4) == 0 && worldIn.getBlockState(blockpos3).getBlock().getMaterial() == Material.air) {
+                                        if (rand.nextInt(4) == 0 && worldIn.getBlockState(blockpos3).getBlock().getMaterial() == Material.AIR) {
                                             this.func_181650_b(worldIn, blockpos3, BlockVine.WEST);
                                         }
 
-                                        if (rand.nextInt(4) == 0 && worldIn.getBlockState(blockpos4).getBlock().getMaterial() == Material.air) {
+                                        if (rand.nextInt(4) == 0 && worldIn.getBlockState(blockpos4).getBlock().getMaterial() == Material.AIR) {
                                             this.func_181650_b(worldIn, blockpos4, BlockVine.SOUTH);
                                         }
 
-                                        if (rand.nextInt(4) == 0 && worldIn.getBlockState(blockpos1).getBlock().getMaterial() == Material.air) {
+                                        if (rand.nextInt(4) == 0 && worldIn.getBlockState(blockpos1).getBlock().getMaterial() == Material.AIR) {
                                             this.func_181650_b(worldIn, blockpos1, BlockVine.NORTH);
                                         }
                                     }
@@ -196,7 +196,7 @@ public class WorldGenTrees extends WorldGenAbstractTree {
         this.func_181651_a(p_181650_1_, p_181650_2_, p_181650_3_);
         int i = 4;
 
-        for (p_181650_2_ = p_181650_2_.down(); p_181650_1_.getBlockState(p_181650_2_).getBlock().getMaterial() == Material.air && i > 0; --i) {
+        for (p_181650_2_ = p_181650_2_.down(); p_181650_1_.getBlockState(p_181650_2_).getBlock().getMaterial() == Material.AIR && i > 0; --i) {
             this.func_181651_a(p_181650_1_, p_181650_2_, p_181650_3_);
             p_181650_2_ = p_181650_2_.down();
         }

@@ -11,7 +11,7 @@ import net.minecraft.item.Item;
 
 public class BlockObsidian extends Block {
     public BlockObsidian() {
-        super(Material.rock);
+        super(Material.ROCK);
         this.setCreativeTab(CreativeTabs.tabBlock);
     }
 

@@ -128,7 +128,7 @@ public class EntityEnderman extends EntityMob {
 
     protected void updateAITasks() {
         if (this.isWet()) {
-            this.attackEntityFrom(DamageSource.drown, 1.0F);
+            this.attackEntityFrom(DamageSource.DROWN, 1.0F);
         }
 
         if (this.isScreaming() && !this.isAggressive && this.rand.nextInt(100) == 0) {
@@ -412,7 +412,7 @@ public class EntityEnderman extends EntityMob {
         }
 
         public boolean shouldExecute() {
-            return !this.enderman.worldObj.getGameRules().getBoolean("mobGriefing") ? false : (this.enderman.getHeldBlockState().getBlock().getMaterial() == Material.air ? false : this.enderman.getRNG().nextInt(2000) == 0);
+            return !this.enderman.worldObj.getGameRules().getBoolean("mobGriefing") ? false : (this.enderman.getHeldBlockState().getBlock().getMaterial() == Material.AIR ? false : this.enderman.getRNG().nextInt(2000) == 0);
         }
 
         public void updateTask() {
@@ -432,7 +432,7 @@ public class EntityEnderman extends EntityMob {
         }
 
         private boolean func_179474_a(World worldIn, BlockPos p_179474_2_, Block p_179474_3_, Block p_179474_4_, Block p_179474_5_) {
-            return !p_179474_3_.canPlaceBlockAt(worldIn, p_179474_2_) ? false : (p_179474_4_.getMaterial() != Material.air ? false : (p_179474_5_.getMaterial() == Material.air ? false : p_179474_5_.isFullCube()));
+            return !p_179474_3_.canPlaceBlockAt(worldIn, p_179474_2_) ? false : (p_179474_4_.getMaterial() != Material.AIR ? false : (p_179474_5_.getMaterial() == Material.AIR ? false : p_179474_5_.isFullCube()));
         }
     }
 
@@ -444,7 +444,7 @@ public class EntityEnderman extends EntityMob {
         }
 
         public boolean shouldExecute() {
-            return !this.enderman.worldObj.getGameRules().getBoolean("mobGriefing") ? false : (this.enderman.getHeldBlockState().getBlock().getMaterial() != Material.air ? false : this.enderman.getRNG().nextInt(20) == 0);
+            return !this.enderman.worldObj.getGameRules().getBoolean("mobGriefing") ? false : (this.enderman.getHeldBlockState().getBlock().getMaterial() != Material.AIR ? false : this.enderman.getRNG().nextInt(20) == 0);
         }
 
         public void updateTask() {

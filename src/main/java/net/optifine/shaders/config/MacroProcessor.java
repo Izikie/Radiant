@@ -22,7 +22,7 @@ public class MacroProcessor {
         if (!s1.isEmpty()) {
             s = s1 + s;
 
-            if (Shaders.saveFinalShaders) {
+            if (Shaders.SAVE_FINAL_SHADERS) {
                 String s2 = path.replace(':', '/') + ".pre";
                 Shaders.saveShader(s2, s);
             }
@@ -30,7 +30,7 @@ public class MacroProcessor {
             s = process(s);
         }
 
-        if (Shaders.saveFinalShaders) {
+        if (Shaders.SAVE_FINAL_SHADERS) {
             String s3 = path.replace(':', '/');
             Shaders.saveShader(s3, s);
         }

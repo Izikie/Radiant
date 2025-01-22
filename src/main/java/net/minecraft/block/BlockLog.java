@@ -14,7 +14,7 @@ public abstract class BlockLog extends BlockRotatedPillar {
     public static final PropertyEnum<Axis> LOG_AXIS = PropertyEnum.create("axis", Axis.class);
 
     public BlockLog() {
-        super(Material.wood);
+        super(Material.WOOD);
         this.setCreativeTab(CreativeTabs.tabBlock);
         this.setHardness(2.0F);
         this.setStepSound(soundTypeWood);
@@ -28,7 +28,7 @@ public abstract class BlockLog extends BlockRotatedPillar {
             for (BlockPos blockpos : BlockPos.getAllInBox(pos.add(-i, -i, -i), pos.add(i, i, i))) {
                 IBlockState iblockstate = worldIn.getBlockState(blockpos);
 
-                if (iblockstate.getBlock().getMaterial() == Material.leaves && !iblockstate.getValue(BlockLeaves.CHECK_DECAY)) {
+                if (iblockstate.getBlock().getMaterial() == Material.LEAVES && !iblockstate.getValue(BlockLeaves.CHECK_DECAY)) {
                     worldIn.setBlockState(blockpos, iblockstate.withProperty(BlockLeaves.CHECK_DECAY, Boolean.TRUE), 4);
                 }
             }

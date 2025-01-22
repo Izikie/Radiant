@@ -20,7 +20,7 @@ public class BlockPrismarine extends Block {
     public static final int DARK_META = PrismarineType.DARK.getMetadata();
 
     public BlockPrismarine() {
-        super(Material.rock);
+        super(Material.ROCK);
         this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, PrismarineType.ROUGH));
         this.setCreativeTab(CreativeTabs.tabBlock);
     }

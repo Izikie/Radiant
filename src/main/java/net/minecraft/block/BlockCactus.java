@@ -20,7 +20,7 @@ public class BlockCactus extends Block {
     public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 15);
 
     protected BlockCactus() {
-        super(Material.cactus);
+        super(Material.CACTUS);
         this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0));
         this.setTickRandomly(true);
         this.setCreativeTab(CreativeTabs.tabDecorations);
@@ -90,7 +90,7 @@ public class BlockCactus extends Block {
     }
 
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-        entityIn.attackEntityFrom(DamageSource.cactus, 1.0F);
+        entityIn.attackEntityFrom(DamageSource.CACTUS, 1.0F);
     }
 
     public RenderLayer getBlockLayer() {

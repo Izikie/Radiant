@@ -441,7 +441,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
                             this.playerEntity.theItemInWorldManager.cancelDestroyingBlock();
                         }
 
-                        if (worldserver.getBlockState(blockpos).getBlock().getMaterial() != Material.air) {
+                        if (worldserver.getBlockState(blockpos).getBlock().getMaterial() != Material.AIR) {
                             this.playerEntity.playerNetServerHandler.sendPacket(new S23PacketBlockChange(worldserver, blockpos));
                         }
                     }
@@ -761,7 +761,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
                 break;
 
             case OPEN_INVENTORY_ACHIEVEMENT:
-                this.playerEntity.triggerAchievement(AchievementList.openInventory);
+                this.playerEntity.triggerAchievement(AchievementList.OPEN_INVENTORY);
         }
     }
 

@@ -20,7 +20,7 @@ public class BlockNote extends BlockContainer {
     private static final List<String> INSTRUMENTS = Lists.newArrayList("harp", "bd", "snare", "hat", "bassattack");
 
     public BlockNote() {
-        super(Material.wood);
+        super(Material.WOOD);
         this.setCreativeTab(CreativeTabs.tabRedstone);
     }
 

@@ -33,7 +33,7 @@ public class HttpPipelineConnection {
     private static final String LF = "\n";
     public static final int TIMEOUT_CONNECT_MS = 5000;
     public static final int TIMEOUT_READ_MS = 5000;
-    private static final Pattern patternFullUrl = Pattern.compile("^[a-zA-Z]+://.*");
+    private static final Pattern PATTERN_FULL_URL = Pattern.compile("^[a-zA-Z]+://.*");
 
     public HttpPipelineConnection(String host, int port) {
         this(host, port, Proxy.NO_PROXY);
@@ -200,7 +200,7 @@ public class HttpPipelineConnection {
     }
 
     private String normalizeUrl(String url, HttpRequest hr) {
-        if (patternFullUrl.matcher(url).matches()) {
+        if (PATTERN_FULL_URL.matcher(url).matches()) {
             return url;
         } else if (url.startsWith("//")) {
             return "http:" + url;

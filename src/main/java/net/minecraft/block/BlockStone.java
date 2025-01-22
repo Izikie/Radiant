@@ -19,7 +19,7 @@ public class BlockStone extends Block {
     public static final PropertyEnum<StoneType> VARIANT = PropertyEnum.create("variant", StoneType.class);
 
     public BlockStone() {
-        super(Material.rock);
+        super(Material.ROCK);
         this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, StoneType.STONE));
         this.setCreativeTab(CreativeTabs.tabBlock);
     }

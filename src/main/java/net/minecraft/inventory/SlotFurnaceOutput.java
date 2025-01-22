@@ -68,11 +68,11 @@ public class SlotFurnaceOutput extends Slot {
         this.field_75228_b = 0;
 
         if (stack.getItem() == Items.iron_ingot) {
-            this.thePlayer.triggerAchievement(AchievementList.acquireIron);
+            this.thePlayer.triggerAchievement(AchievementList.ACQUIRE_IRON);
         }
 
         if (stack.getItem() == Items.cooked_fish) {
-            this.thePlayer.triggerAchievement(AchievementList.cookFish);
+            this.thePlayer.triggerAchievement(AchievementList.COOK_FISH);
         }
     }
 }

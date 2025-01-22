@@ -39,25 +39,25 @@ public class ShadersRender {
     public static void beginTerrainSolid() {
         if (Shaders.isRenderingWorld) {
             Shaders.fogEnabled = true;
-            Shaders.useProgram(Shaders.ProgramTerrain);
+            Shaders.useProgram(Shaders.PROGRAM_TERRAIN);
         }
     }
 
     public static void beginTerrainCutoutMipped() {
         if (Shaders.isRenderingWorld) {
-            Shaders.useProgram(Shaders.ProgramTerrain);
+            Shaders.useProgram(Shaders.PROGRAM_TERRAIN);
         }
     }
 
     public static void beginTerrainCutout() {
         if (Shaders.isRenderingWorld) {
-            Shaders.useProgram(Shaders.ProgramTerrain);
+            Shaders.useProgram(Shaders.PROGRAM_TERRAIN);
         }
     }
 
     public static void endTerrain() {
         if (Shaders.isRenderingWorld) {
-            Shaders.useProgram(Shaders.ProgramTexturedLit);
+            Shaders.useProgram(Shaders.PROGRAM_TEXTURED_LIT);
         }
     }
 
@@ -71,13 +71,13 @@ public class ShadersRender {
                 GlStateManager.setActiveTexture(33984);
             }
 
-            Shaders.useProgram(Shaders.ProgramWater);
+            Shaders.useProgram(Shaders.PROGRAM_WATER);
         }
     }
 
     public static void endTranslucent() {
         if (Shaders.isRenderingWorld) {
-            Shaders.useProgram(Shaders.ProgramTexturedLit);
+            Shaders.useProgram(Shaders.PROGRAM_TEXTURED_LIT);
         }
     }
 
@@ -145,9 +145,9 @@ public class ShadersRender {
 
     public static void beginBlockDamage() {
         if (Shaders.isRenderingWorld) {
-            Shaders.useProgram(Shaders.ProgramDamagedBlock);
+            Shaders.useProgram(Shaders.PROGRAM_DAMAGED_BLOCK);
 
-            if (Shaders.ProgramDamagedBlock.getId() == Shaders.ProgramTerrain.getId()) {
+            if (Shaders.PROGRAM_DAMAGED_BLOCK.getId() == Shaders.PROGRAM_TERRAIN.getId()) {
                 Shaders.setDrawBuffers(Shaders.drawBuffersColorAtt0);
                 GlStateManager.depthMask(false);
             }
@@ -157,7 +157,7 @@ public class ShadersRender {
     public static void endBlockDamage() {
         if (Shaders.isRenderingWorld) {
             GlStateManager.depthMask(true);
-            Shaders.useProgram(Shaders.ProgramTexturedLit);
+            Shaders.useProgram(Shaders.PROGRAM_TEXTURED_LIT);
         }
     }
 
@@ -179,7 +179,7 @@ public class ShadersRender {
             entityRenderer.setupCameraTransform(partialTicks, 2);
             Shaders.setCameraShadow(partialTicks);
             Shaders.checkGLError("shadow camera");
-            Shaders.useProgram(Shaders.ProgramShadow);
+            Shaders.useProgram(Shaders.PROGRAM_SHADOW);
             GL20.glDrawBuffers(Shaders.sfbDrawBuffers);
             Shaders.checkGLError("shadow drawbuffers");
             GL11.glReadBuffer(0);
@@ -273,36 +273,36 @@ public class ShadersRender {
 
             if (Shaders.hasGlGenMipmap) {
                 if (Shaders.usedShadowDepthBuffers >= 1) {
-                    if (Shaders.shadowMipmapEnabled[0]) {
+                    if (Shaders.SHADOW_MIPMAP_ENABLED[0]) {
                         GlStateManager.setActiveTexture(33988);
                         GlStateManager.bindTexture(Shaders.sfbDepthTextures.get(0));
                         GL30.glGenerateMipmap(3553);
-                        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, Shaders.shadowFilterNearest[0] ? GL11.GL_NEAREST_MIPMAP_NEAREST : GL11.GL_LINEAR_MIPMAP_LINEAR);
+                        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, Shaders.SHADOW_FILTER_NEAREST[0] ? GL11.GL_NEAREST_MIPMAP_NEAREST : GL11.GL_LINEAR_MIPMAP_LINEAR);
                     }
 
-                    if (Shaders.usedShadowDepthBuffers >= 2 && Shaders.shadowMipmapEnabled[1]) {
+                    if (Shaders.usedShadowDepthBuffers >= 2 && Shaders.SHADOW_MIPMAP_ENABLED[1]) {
                         GlStateManager.setActiveTexture(33989);
                         GlStateManager.bindTexture(Shaders.sfbDepthTextures.get(1));
                         GL30.glGenerateMipmap(3553);
-                        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, Shaders.shadowFilterNearest[1] ? GL11.GL_NEAREST_MIPMAP_NEAREST : GL11.GL_LINEAR_MIPMAP_LINEAR);
+                        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, Shaders.SHADOW_FILTER_NEAREST[1] ? GL11.GL_NEAREST_MIPMAP_NEAREST : GL11.GL_LINEAR_MIPMAP_LINEAR);
                     }
 
                     GlStateManager.setActiveTexture(33984);
                 }
 
                 if (Shaders.usedShadowColorBuffers >= 1) {
-                    if (Shaders.shadowColorMipmapEnabled[0]) {
+                    if (Shaders.SHADOW_COLOR_MIPMAP_ENABLED[0]) {
                         GlStateManager.setActiveTexture(33997);
                         GlStateManager.bindTexture(Shaders.sfbColorTextures.get(0));
                         GL30.glGenerateMipmap(3553);
-                        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, Shaders.shadowColorFilterNearest[0] ? GL11.GL_NEAREST_MIPMAP_NEAREST : GL11.GL_LINEAR_MIPMAP_LINEAR);
+                        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, Shaders.SHADOW_COLOR_FILTER_NEAREST[0] ? GL11.GL_NEAREST_MIPMAP_NEAREST : GL11.GL_LINEAR_MIPMAP_LINEAR);
                     }
 
-                    if (Shaders.usedShadowColorBuffers >= 2 && Shaders.shadowColorMipmapEnabled[1]) {
+                    if (Shaders.usedShadowColorBuffers >= 2 && Shaders.SHADOW_COLOR_MIPMAP_ENABLED[1]) {
                         GlStateManager.setActiveTexture(33998);
                         GlStateManager.bindTexture(Shaders.sfbColorTextures.get(1));
                         GL30.glGenerateMipmap(3553);
-                        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, Shaders.shadowColorFilterNearest[1] ? GL11.GL_NEAREST_MIPMAP_NEAREST : GL11.GL_LINEAR_MIPMAP_LINEAR);
+                        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, Shaders.SHADOW_COLOR_FILTER_NEAREST[1] ? GL11.GL_NEAREST_MIPMAP_NEAREST : GL11.GL_LINEAR_MIPMAP_LINEAR);
                     }
 
                     GlStateManager.setActiveTexture(33984);
@@ -314,7 +314,7 @@ public class ShadersRender {
             GL11.glViewport(0, 0, Shaders.renderWidth, Shaders.renderHeight);
             Shaders.activeDrawBuffers = null;
             minecraft.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
-            Shaders.useProgram(Shaders.ProgramTerrain);
+            Shaders.useProgram(Shaders.PROGRAM_TERRAIN);
             GL11.glMatrixMode(GL11.GL_MODELVIEW);
             GL11.glPopMatrix();
             GL11.glMatrixMode(GL11.GL_PROJECTION);
@@ -331,18 +331,18 @@ public class ShadersRender {
 
         if (OpenGlHelper.useVbo()) {
             GL11.glEnableClientState(GL11.GL_NORMAL_ARRAY);
-            GL20.glEnableVertexAttribArray(Shaders.midTexCoordAttrib);
-            GL20.glEnableVertexAttribArray(Shaders.tangentAttrib);
-            GL20.glEnableVertexAttribArray(Shaders.entityAttrib);
+            GL20.glEnableVertexAttribArray(Shaders.MID_TEX_COORD_ATTRIB);
+            GL20.glEnableVertexAttribArray(Shaders.TANGENT_ATTRIB);
+            GL20.glEnableVertexAttribArray(Shaders.ENTITY_ATTRIB);
         }
     }
 
     public static void postRenderChunkLayer(RenderLayer blockLayerIn) {
         if (OpenGlHelper.useVbo()) {
             GL11.glDisableClientState(GL11.GL_NORMAL_ARRAY);
-            GL20.glDisableVertexAttribArray(Shaders.midTexCoordAttrib);
-            GL20.glDisableVertexAttribArray(Shaders.tangentAttrib);
-            GL20.glDisableVertexAttribArray(Shaders.entityAttrib);
+            GL20.glDisableVertexAttribArray(Shaders.MID_TEX_COORD_ATTRIB);
+            GL20.glDisableVertexAttribArray(Shaders.TANGENT_ATTRIB);
+            GL20.glDisableVertexAttribArray(Shaders.ENTITY_ATTRIB);
         }
 
         if (Shaders.isRenderBackFace(blockLayerIn)) {
@@ -359,13 +359,13 @@ public class ShadersRender {
         GL11.glTexCoordPointer(2, GL11.GL_SHORT, 56, 24L);
         OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit);
         GL11.glNormalPointer(GL11.GL_BYTE, 56, 28L);
-        GL20.glVertexAttribPointer(Shaders.midTexCoordAttrib, 2, GL11.GL_FLOAT, false, 56, 32L);
-        GL20.glVertexAttribPointer(Shaders.tangentAttrib, 4, GL11.GL_SHORT, false, 56, 40L);
-        GL20.glVertexAttribPointer(Shaders.entityAttrib, 3, GL11.GL_SHORT, false, 56, 48L);
+        GL20.glVertexAttribPointer(Shaders.MID_TEX_COORD_ATTRIB, 2, GL11.GL_FLOAT, false, 56, 32L);
+        GL20.glVertexAttribPointer(Shaders.TANGENT_ATTRIB, 4, GL11.GL_SHORT, false, 56, 40L);
+        GL20.glVertexAttribPointer(Shaders.ENTITY_ATTRIB, 3, GL11.GL_SHORT, false, 56, 48L);
     }
 
     public static void beaconBeamBegin() {
-        Shaders.useProgram(Shaders.ProgramBeaconBeam);
+        Shaders.useProgram(Shaders.PROGRAM_BEACON_BEAM);
     }
 
     public static void beaconBeamStartQuad1() {
@@ -382,18 +382,18 @@ public class ShadersRender {
     }
 
     public static void renderEnchantedGlintBegin() {
-        Shaders.useProgram(Shaders.ProgramArmorGlint);
+        Shaders.useProgram(Shaders.PROGRAM_ARMOR_GLINT);
     }
 
     public static void renderEnchantedGlintEnd() {
         if (Shaders.isRenderingWorld) {
             if (Shaders.isRenderingFirstPersonHand() && Shaders.isRenderBothHands()) {
-                Shaders.useProgram(Shaders.ProgramHand);
+                Shaders.useProgram(Shaders.PROGRAM_HAND);
             } else {
-                Shaders.useProgram(Shaders.ProgramEntities);
+                Shaders.useProgram(Shaders.PROGRAM_ENTITIES);
             }
         } else {
-            Shaders.useProgram(Shaders.ProgramNone);
+            Shaders.useProgram(Shaders.PROGRAM_NONE);
         }
     }
 

@@ -10,7 +10,7 @@ import net.minecraft.item.Item;
 
 public class BlockBookshelf extends Block {
     public BlockBookshelf() {
-        super(Material.wood);
+        super(Material.WOOD);
         this.setCreativeTab(CreativeTabs.tabBlock);
     }
 

@@ -58,7 +58,7 @@ public class EntityEnderPearl extends EntityThrowable {
 
                     entitylivingbase.setPositionAndUpdate(this.posX, this.posY, this.posZ);
                     entitylivingbase.fallDistance = 0.0F;
-                    entitylivingbase.attackEntityFrom(DamageSource.fall, 5.0F);
+                    entitylivingbase.attackEntityFrom(DamageSource.FALL, 5.0F);
                 }
             } else if (entitylivingbase != null) {
                 entitylivingbase.setPositionAndUpdate(this.posX, this.posY, this.posZ);

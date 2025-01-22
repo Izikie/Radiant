@@ -28,23 +28,23 @@ public class TileEntityNote extends TileEntity {
     }
 
     public void triggerNote(World worldIn, BlockPos p_175108_2_) {
-        if (worldIn.getBlockState(p_175108_2_.up()).getBlock().getMaterial() == Material.air) {
+        if (worldIn.getBlockState(p_175108_2_.up()).getBlock().getMaterial() == Material.AIR) {
             Material material = worldIn.getBlockState(p_175108_2_.down()).getBlock().getMaterial();
             int i = 0;
 
-            if (material == Material.rock) {
+            if (material == Material.ROCK) {
                 i = 1;
             }
 
-            if (material == Material.sand) {
+            if (material == Material.SAND) {
                 i = 2;
             }
 
-            if (material == Material.glass) {
+            if (material == Material.GLASS) {
                 i = 3;
             }
 
-            if (material == Material.wood) {
+            if (material == Material.WOOD) {
                 i = 4;
             }
 

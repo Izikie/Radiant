@@ -24,7 +24,7 @@ public class BlockBed extends BlockDirectional {
     public static final PropertyBool OCCUPIED = PropertyBool.create("occupied");
 
     public BlockBed() {
-        super(Material.cloth);
+        super(Material.CLOTH);
         this.setDefaultState(this.blockState.getBaseState().withProperty(PART, BlockBed.EnumPartType.FOOT).withProperty(OCCUPIED, Boolean.FALSE));
         this.setBedBounds();
     }
@@ -42,7 +42,7 @@ public class BlockBed extends BlockDirectional {
                 }
             }
 
-            if (worldIn.provider.canRespawnHere() && worldIn.getBiomeGenForCoords(pos) != BiomeGenBase.hell) {
+            if (worldIn.provider.canRespawnHere() && worldIn.getBiomeGenForCoords(pos) != BiomeGenBase.HELL) {
                 if (state.getValue(OCCUPIED)) {
                     EntityPlayer entityplayer = this.getPlayerInBed(worldIn, pos);
 

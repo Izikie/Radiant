@@ -114,7 +114,7 @@ public class EntityIronGolem extends EntityGolem {
             IBlockState iblockstate = this.worldObj.getBlockState(new BlockPos(i, j, k));
             Block block = iblockstate.getBlock();
 
-            if (block.getMaterial() != Material.air) {
+            if (block.getMaterial() != Material.AIR) {
                 this.worldObj.spawnParticle(ParticleTypes.BLOCK_CRACK, this.posX + (this.rand.nextFloat() - 0.5D) * this.width, this.getEntityBoundingBox().minY + 0.1D, this.posZ + (this.rand.nextFloat() - 0.5D) * this.width, 4.0D * (this.rand.nextFloat() - 0.5D), 0.5D, (this.rand.nextFloat() - 0.5D) * 4.0D, Block.getStateId(iblockstate));
             }
         }

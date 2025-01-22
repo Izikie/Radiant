@@ -27,7 +27,7 @@ public class BlockFurnace extends BlockContainer {
     private static boolean keepInventory;
 
     protected BlockFurnace(boolean isBurning) {
-        super(Material.rock);
+        super(Material.ROCK);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH));
         this.isBurning = isBurning;
     }

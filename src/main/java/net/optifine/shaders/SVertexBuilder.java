@@ -277,19 +277,19 @@ public class SVertexBuilder {
             if (i == 56) {
                 ByteBuffer bytebuffer = wrr.getByteBuffer();
                 bytebuffer.position(32);
-                GL20.glVertexAttribPointer(Shaders.midTexCoordAttrib, 2, GL11.GL_FLOAT, false, i, bytebuffer);
+                GL20.glVertexAttribPointer(Shaders.MID_TEX_COORD_ATTRIB, 2, GL11.GL_FLOAT, false, i, bytebuffer);
                 bytebuffer.position(40);
-                GL20.glVertexAttribPointer(Shaders.tangentAttrib, 4, GL11.GL_SHORT, false, i, bytebuffer);
+                GL20.glVertexAttribPointer(Shaders.TANGENT_ATTRIB, 4, GL11.GL_SHORT, false, i, bytebuffer);
                 bytebuffer.position(48);
-                GL20.glVertexAttribPointer(Shaders.entityAttrib, 3, GL11.GL_SHORT, false, i, bytebuffer);
+                GL20.glVertexAttribPointer(Shaders.ENTITY_ATTRIB, 3, GL11.GL_SHORT, false, i, bytebuffer);
                 bytebuffer.position(0);
-                GL20.glEnableVertexAttribArray(Shaders.midTexCoordAttrib);
-                GL20.glEnableVertexAttribArray(Shaders.tangentAttrib);
-                GL20.glEnableVertexAttribArray(Shaders.entityAttrib);
+                GL20.glEnableVertexAttribArray(Shaders.MID_TEX_COORD_ATTRIB);
+                GL20.glEnableVertexAttribArray(Shaders.TANGENT_ATTRIB);
+                GL20.glEnableVertexAttribArray(Shaders.ENTITY_ATTRIB);
                 GlStateManager.glDrawArrays(drawMode, first, count);
-                GL20.glDisableVertexAttribArray(Shaders.midTexCoordAttrib);
-                GL20.glDisableVertexAttribArray(Shaders.tangentAttrib);
-                GL20.glDisableVertexAttribArray(Shaders.entityAttrib);
+                GL20.glDisableVertexAttribArray(Shaders.MID_TEX_COORD_ATTRIB);
+                GL20.glDisableVertexAttribArray(Shaders.TANGENT_ATTRIB);
+                GL20.glDisableVertexAttribArray(Shaders.ENTITY_ATTRIB);
             } else {
                 GlStateManager.glDrawArrays(drawMode, first, count);
             }

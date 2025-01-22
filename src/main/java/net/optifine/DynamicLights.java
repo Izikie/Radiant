@@ -25,9 +25,9 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class DynamicLights {
-    private static final DynamicLightsMap mapDynamicLights = new DynamicLightsMap();
-    private static final Map<Class, Integer> mapEntityLightLevels = new HashMap();
-    private static final Map<Item, Integer> mapItemLightLevels = new HashMap();
+    private static final DynamicLightsMap DYNAMIC_LIGHTS_MAP = new DynamicLightsMap();
+    private static final Map<Class, Integer> ENTITY_LIGHT_LEVELS = new HashMap();
+    private static final Map<Item, Integer> ITEM_LIGHT_LEVELS = new HashMap();
     private static long timeUpdateMs = 0L;
     private static final double MAX_DIST = 7.5D;
     private static final double MAX_DIST_SQ = 56.25D;
@@ -44,8 +44,8 @@ public class DynamicLights {
     }
 
     public static void entityRemoved(Entity entityIn, RenderGlobal renderGlobal) {
-        synchronized (mapDynamicLights) {
-            DynamicLight dynamiclight = mapDynamicLights.remove(entityIn.getEntityId());
+        synchronized (DYNAMIC_LIGHTS_MAP) {
+            DynamicLight dynamiclight = DYNAMIC_LIGHTS_MAP.remove(entityIn.getEntityId());
 
             if (dynamiclight != null) {
                 dynamiclight.updateLitChunks(renderGlobal);
@@ -63,11 +63,11 @@ public class DynamicLights {
                 initialize();
             }
 
-            synchronized (mapDynamicLights) {
+            synchronized (DYNAMIC_LIGHTS_MAP) {
                 updateMapDynamicLights(renderGlobal);
 
-                if (mapDynamicLights.size() > 0) {
-                    List<DynamicLight> list = mapDynamicLights.valueList();
+                if (DYNAMIC_LIGHTS_MAP.size() > 0) {
+                    List<DynamicLight> list = DYNAMIC_LIGHTS_MAP.valueList();
 
                     for (DynamicLight dynamicLight : list) {
                         dynamicLight.update(renderGlobal);
@@ -79,15 +79,15 @@ public class DynamicLights {
 
     private static void initialize() {
         initialized = true;
-        mapEntityLightLevels.clear();
-        mapItemLightLevels.clear();
+        ENTITY_LIGHT_LEVELS.clear();
+        ITEM_LIGHT_LEVELS.clear();
 
-        if (!mapEntityLightLevels.isEmpty()) {
-            Config.dbg("DynamicLights entities: " + mapEntityLightLevels.size());
+        if (!ENTITY_LIGHT_LEVELS.isEmpty()) {
+            Config.dbg("DynamicLights entities: " + ENTITY_LIGHT_LEVELS.size());
         }
 
-        if (!mapItemLightLevels.isEmpty()) {
-            Config.dbg("DynamicLights items: " + mapItemLightLevels.size());
+        if (!ITEM_LIGHT_LEVELS.isEmpty()) {
+            Config.dbg("DynamicLights items: " + ITEM_LIGHT_LEVELS.size());
         }
     }
 
@@ -100,15 +100,15 @@ public class DynamicLights {
 
                 if (i > 0) {
                     int j = entity.getEntityId();
-                    DynamicLight dynamiclight = mapDynamicLights.get(j);
+                    DynamicLight dynamiclight = DYNAMIC_LIGHTS_MAP.get(j);
 
                     if (dynamiclight == null) {
                         dynamiclight = new DynamicLight(entity);
-                        mapDynamicLights.put(j, dynamiclight);
+                        DYNAMIC_LIGHTS_MAP.put(j, dynamiclight);
                     }
                 } else {
                     int k = entity.getEntityId();
-                    DynamicLight dynamiclight1 = mapDynamicLights.remove(k);
+                    DynamicLight dynamiclight1 = DYNAMIC_LIGHTS_MAP.remove(k);
 
                     if (dynamiclight1 != null) {
                         dynamiclight1.updateLitChunks(renderGlobal);
@@ -147,8 +147,8 @@ public class DynamicLights {
     public static double getLightLevel(BlockPos pos) {
         double d0 = 0.0D;
 
-        synchronized (mapDynamicLights) {
-            List<DynamicLight> list = mapDynamicLights.valueList();
+        synchronized (DYNAMIC_LIGHTS_MAP) {
+            List<DynamicLight> list = DYNAMIC_LIGHTS_MAP.valueList();
             int i = list.size();
 
             for (DynamicLight dynamicLight : list) {
@@ -210,8 +210,8 @@ public class DynamicLights {
                 } else if (item == Items.nether_star) {
                     return Blocks.beacon.getLightValue() / 2;
                 } else {
-                    if (!mapItemLightLevels.isEmpty()) {
-                        Integer integer = mapItemLightLevels.get(item);
+                    if (!ITEM_LIGHT_LEVELS.isEmpty()) {
+                        Integer integer = ITEM_LIGHT_LEVELS.get(item);
 
                         if (integer != null) {
                             return integer;
@@ -240,8 +240,8 @@ public class DynamicLights {
             if (entity.isBurning()) {
                 return 15;
             } else {
-                if (!mapEntityLightLevels.isEmpty()) {
-                    Integer integer = mapEntityLightLevels.get(entity.getClass());
+                if (!ENTITY_LIGHT_LEVELS.isEmpty()) {
+                    Integer integer = ENTITY_LIGHT_LEVELS.get(entity.getClass());
 
                     if (integer != null) {
                         return integer;
@@ -288,26 +288,26 @@ public class DynamicLights {
     }
 
     public static void removeLights(RenderGlobal renderGlobal) {
-        synchronized (mapDynamicLights) {
-            List<DynamicLight> list = mapDynamicLights.valueList();
+        synchronized (DYNAMIC_LIGHTS_MAP) {
+            List<DynamicLight> list = DYNAMIC_LIGHTS_MAP.valueList();
 
             for (DynamicLight dynamicLight : list) {
                 dynamicLight.updateLitChunks(renderGlobal);
             }
 
-            mapDynamicLights.clear();
+            DYNAMIC_LIGHTS_MAP.clear();
         }
     }
 
     public static void clear() {
-        synchronized (mapDynamicLights) {
-            mapDynamicLights.clear();
+        synchronized (DYNAMIC_LIGHTS_MAP) {
+            DYNAMIC_LIGHTS_MAP.clear();
         }
     }
 
     public static int getCount() {
-        synchronized (mapDynamicLights) {
-            return mapDynamicLights.size();
+        synchronized (DYNAMIC_LIGHTS_MAP) {
+            return DYNAMIC_LIGHTS_MAP.size();
         }
     }
 

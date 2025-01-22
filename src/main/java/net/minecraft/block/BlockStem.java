@@ -70,7 +70,7 @@ public class BlockStem extends BlockBush implements IGrowable {
                     pos = pos.offset(Direction.Plane.HORIZONTAL.random(rand));
                     Block block = worldIn.getBlockState(pos.down()).getBlock();
 
-                    if (worldIn.getBlockState(pos).getBlock().blockMaterial == Material.air && (block == Blocks.farmland || block == Blocks.dirt || block == Blocks.grass)) {
+                    if (worldIn.getBlockState(pos).getBlock().blockMaterial == Material.AIR && (block == Blocks.farmland || block == Blocks.dirt || block == Blocks.grass)) {
                         worldIn.setBlockState(pos, this.crop.getDefaultState());
                     }
                 }

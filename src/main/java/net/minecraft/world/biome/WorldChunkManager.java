@@ -25,13 +25,13 @@ public class WorldChunkManager {
         this.biomeCache = new BiomeCache(this);
         this.generatorOptions = "";
         this.biomesToSpawnIn = Lists.newArrayList();
-        this.biomesToSpawnIn.add(BiomeGenBase.forest);
-        this.biomesToSpawnIn.add(BiomeGenBase.plains);
-        this.biomesToSpawnIn.add(BiomeGenBase.taiga);
-        this.biomesToSpawnIn.add(BiomeGenBase.taigaHills);
-        this.biomesToSpawnIn.add(BiomeGenBase.forestHills);
-        this.biomesToSpawnIn.add(BiomeGenBase.jungle);
-        this.biomesToSpawnIn.add(BiomeGenBase.jungleHills);
+        this.biomesToSpawnIn.add(BiomeGenBase.FOREST);
+        this.biomesToSpawnIn.add(BiomeGenBase.PLAINS);
+        this.biomesToSpawnIn.add(BiomeGenBase.TAIGA);
+        this.biomesToSpawnIn.add(BiomeGenBase.TAIGA_HILLS);
+        this.biomesToSpawnIn.add(BiomeGenBase.FOREST_HILLS);
+        this.biomesToSpawnIn.add(BiomeGenBase.JUNGLE);
+        this.biomesToSpawnIn.add(BiomeGenBase.JUNGLE_HILLS);
     }
 
     public WorldChunkManager(long seed, WorldType worldTypeIn, String options) {
@@ -69,7 +69,7 @@ public class WorldChunkManager {
 
         for (int i = 0; i < width * length; ++i) {
             try {
-                float f = BiomeGenBase.getBiomeFromBiomeList(aint[i], BiomeGenBase.field_180279_ad).getIntRainfall() / 65536.0F;
+                float f = BiomeGenBase.getBiomeFromBiomeList(aint[i], BiomeGenBase.OCEAN2).getIntRainfall() / 65536.0F;
 
                 if (f > 1.0F) {
                     f = 1.0F;
@@ -107,7 +107,7 @@ public class WorldChunkManager {
 
         try {
             for (int i = 0; i < width * height; ++i) {
-                biomes[i] = BiomeGenBase.getBiomeFromBiomeList(aint[i], BiomeGenBase.field_180279_ad);
+                biomes[i] = BiomeGenBase.getBiomeFromBiomeList(aint[i], BiomeGenBase.OCEAN2);
             }
 
             return biomes;
@@ -141,7 +141,7 @@ public class WorldChunkManager {
             int[] aint = this.biomeIndexLayer.getInts(x, z, width, length);
 
             for (int i = 0; i < width * length; ++i) {
-                listToReuse[i] = BiomeGenBase.getBiomeFromBiomeList(aint[i], BiomeGenBase.field_180279_ad);
+                listToReuse[i] = BiomeGenBase.getBiomeFromBiomeList(aint[i], BiomeGenBase.OCEAN2);
             }
 
         }

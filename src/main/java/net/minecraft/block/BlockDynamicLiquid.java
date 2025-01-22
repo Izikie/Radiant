@@ -26,7 +26,7 @@ public class BlockDynamicLiquid extends BlockLiquid {
         int i = state.getValue(LEVEL);
         int j = 1;
 
-        if (this.blockMaterial == Material.lava && !worldIn.provider.doesWaterVaporize()) {
+        if (this.blockMaterial == Material.LAVA && !worldIn.provider.doesWaterVaporize()) {
             j = 2;
         }
 
@@ -56,7 +56,7 @@ public class BlockDynamicLiquid extends BlockLiquid {
                 }
             }
 
-            if (this.adjacentSourceBlocks >= 2 && this.blockMaterial == Material.water) {
+            if (this.adjacentSourceBlocks >= 2 && this.blockMaterial == Material.WATER) {
                 IBlockState iblockstate1 = worldIn.getBlockState(pos.down());
 
                 if (iblockstate1.getBlock().getMaterial().isSolid()) {
@@ -66,7 +66,7 @@ public class BlockDynamicLiquid extends BlockLiquid {
                 }
             }
 
-            if (this.blockMaterial == Material.lava && i < 8 && i1 < 8 && i1 > i && rand.nextInt(4) != 0) {
+            if (this.blockMaterial == Material.LAVA && i < 8 && i1 < 8 && i1 > i && rand.nextInt(4) != 0) {
                 k *= 4;
             }
 
@@ -91,7 +91,7 @@ public class BlockDynamicLiquid extends BlockLiquid {
         IBlockState iblockstate = worldIn.getBlockState(pos.down());
 
         if (this.canFlowInto(worldIn, pos.down(), iblockstate)) {
-            if (this.blockMaterial == Material.lava && worldIn.getBlockState(pos.down()).getBlock().getMaterial() == Material.water) {
+            if (this.blockMaterial == Material.LAVA && worldIn.getBlockState(pos.down()).getBlock().getMaterial() == Material.WATER) {
                 worldIn.setBlockState(pos.down(), Blocks.stone.getDefaultState());
                 this.triggerMixEffects(worldIn, pos.down());
                 return;
@@ -123,7 +123,7 @@ public class BlockDynamicLiquid extends BlockLiquid {
     private void tryFlowInto(World worldIn, BlockPos pos, IBlockState state, int level) {
         if (this.canFlowInto(worldIn, pos, state)) {
             if (state.getBlock() != Blocks.air) {
-                if (this.blockMaterial == Material.lava) {
+                if (this.blockMaterial == Material.LAVA) {
                     this.triggerMixEffects(worldIn, pos);
                 } else {
                     state.getBlock().dropBlockAsItem(worldIn, pos, state, 0);
@@ -194,7 +194,7 @@ public class BlockDynamicLiquid extends BlockLiquid {
 
     private boolean isBlocked(World worldIn, BlockPos pos, IBlockState state) {
         Block block = worldIn.getBlockState(pos).getBlock();
-        return !(block instanceof BlockDoor) && block != Blocks.standing_sign && block != Blocks.ladder && block != Blocks.reeds ? (block.blockMaterial == Material.portal ? true : block.blockMaterial.blocksMovement()) : true;
+        return !(block instanceof BlockDoor) && block != Blocks.standing_sign && block != Blocks.ladder && block != Blocks.reeds ? (block.blockMaterial == Material.PORTAL ? true : block.blockMaterial.blocksMovement()) : true;
     }
 
     protected int checkAdjacentBlock(World worldIn, BlockPos pos, int currentMinLevel) {
@@ -217,7 +217,7 @@ public class BlockDynamicLiquid extends BlockLiquid {
 
     private boolean canFlowInto(World worldIn, BlockPos pos, IBlockState state) {
         Material material = state.getBlock().getMaterial();
-        return material != this.blockMaterial && material != Material.lava && !this.isBlocked(worldIn, pos, state);
+        return material != this.blockMaterial && material != Material.LAVA && !this.isBlocked(worldIn, pos, state);
     }
 
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {

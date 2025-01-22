@@ -16,7 +16,7 @@ public class EntityDropParticleFX extends EntityFX {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
         this.motionX = this.motionY = this.motionZ = 0.0D;
 
-        if (p_i1203_8_ == Material.water) {
+        if (p_i1203_8_ == Material.WATER) {
             this.particleRed = 0.0F;
             this.particleGreen = 0.0F;
             this.particleBlue = 1.0F;
@@ -36,11 +36,11 @@ public class EntityDropParticleFX extends EntityFX {
     }
 
     public int getBrightnessForRender(float partialTicks) {
-        return this.materialType == Material.water ? super.getBrightnessForRender(partialTicks) : 257;
+        return this.materialType == Material.WATER ? super.getBrightnessForRender(partialTicks) : 257;
     }
 
     public float getBrightness(float partialTicks) {
-        return this.materialType == Material.water ? super.getBrightness(partialTicks) : 1.0F;
+        return this.materialType == Material.WATER ? super.getBrightness(partialTicks) : 1.0F;
     }
 
     public void onUpdate() {
@@ -48,7 +48,7 @@ public class EntityDropParticleFX extends EntityFX {
         this.prevPosY = this.posY;
         this.prevPosZ = this.posZ;
 
-        if (this.materialType == Material.water) {
+        if (this.materialType == Material.WATER) {
             this.particleRed = 0.2F;
             this.particleGreen = 0.3F;
             this.particleBlue = 1.0F;
@@ -79,7 +79,7 @@ public class EntityDropParticleFX extends EntityFX {
         }
 
         if (this.onGround) {
-            if (this.materialType == Material.water) {
+            if (this.materialType == Material.WATER) {
                 this.setDead();
                 this.worldObj.spawnParticle(ParticleTypes.WATER_SPLASH, this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
             } else {
@@ -111,13 +111,13 @@ public class EntityDropParticleFX extends EntityFX {
 
     public static class LavaFactory implements IParticleFactory {
         public EntityFX getEntityFX(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-            return new EntityDropParticleFX(worldIn, xCoordIn, yCoordIn, zCoordIn, Material.lava);
+            return new EntityDropParticleFX(worldIn, xCoordIn, yCoordIn, zCoordIn, Material.LAVA);
         }
     }
 
     public static class WaterFactory implements IParticleFactory {
         public EntityFX getEntityFX(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-            return new EntityDropParticleFX(worldIn, xCoordIn, yCoordIn, zCoordIn, Material.water);
+            return new EntityDropParticleFX(worldIn, xCoordIn, yCoordIn, zCoordIn, Material.WATER);
         }
     }
 }

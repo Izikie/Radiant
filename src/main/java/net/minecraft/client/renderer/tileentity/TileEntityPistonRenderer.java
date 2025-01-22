@@ -26,7 +26,7 @@ public class TileEntityPistonRenderer extends TileEntitySpecialRenderer<TileEnti
         IBlockState iblockstate = te.getPistonState();
         Block block = iblockstate.getBlock();
 
-        if (block.getMaterial() != Material.air && te.getProgress(partialTicks) < 1.0F) {
+        if (block.getMaterial() != Material.AIR && te.getProgress(partialTicks) < 1.0F) {
             Tessellator tessellator = Tessellator.getInstance();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             this.bindTexture(TextureMap.locationBlocksTexture);

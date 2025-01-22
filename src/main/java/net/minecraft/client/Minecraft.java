@@ -376,7 +376,7 @@ public class Minecraft implements IThreadListener {
         this.mcResourceManager.registerReloadListener(this.standardGalacticFontRenderer);
         this.mcResourceManager.registerReloadListener(new GrassColorReloadListener());
         this.mcResourceManager.registerReloadListener(new FoliageColorReloadListener());
-        AchievementList.openInventory.setStatStringFormatter(str -> {
+        AchievementList.OPEN_INVENTORY.setStatStringFormatter(str -> {
             try {
                 return String.format(str, GameSettings.getKeyDisplayString(Minecraft.this.gameSettings.keyBindInventory.getKeyCode()));
             } catch (Exception exception) {
@@ -937,7 +937,7 @@ public class Minecraft implements IThreadListener {
             if (leftClick && this.objectMouseOver != null && this.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                 BlockPos blockpos = this.objectMouseOver.getBlockPos();
 
-                if (this.theWorld.getBlockState(blockpos).getBlock().getMaterial() != Material.air && this.playerController.onPlayerDamageBlock(blockpos, this.objectMouseOver.sideHit)) {
+                if (this.theWorld.getBlockState(blockpos).getBlock().getMaterial() != Material.AIR && this.playerController.onPlayerDamageBlock(blockpos, this.objectMouseOver.sideHit)) {
                     this.effectRenderer.addBlockHitEffects(blockpos, this.objectMouseOver.sideHit);
                     this.thePlayer.swingItem();
                 }
@@ -966,7 +966,7 @@ public class Minecraft implements IThreadListener {
                     case BLOCK:
                         BlockPos blockpos = this.objectMouseOver.getBlockPos();
 
-                        if (this.theWorld.getBlockState(blockpos).getBlock().getMaterial() != Material.air) {
+                        if (this.theWorld.getBlockState(blockpos).getBlock().getMaterial() != Material.AIR) {
                             this.playerController.clickBlock(blockpos, this.objectMouseOver.sideHit);
                             break;
                         }
@@ -1004,7 +1004,7 @@ public class Minecraft implements IThreadListener {
                     case BLOCK:
                         BlockPos blockpos = this.objectMouseOver.getBlockPos();
 
-                        if (this.theWorld.getBlockState(blockpos).getBlock().getMaterial() != Material.air) {
+                        if (this.theWorld.getBlockState(blockpos).getBlock().getMaterial() != Material.AIR) {
                             int i = itemstack != null ? itemstack.stackSize : 0;
 
                             if (this.playerController.onPlayerRightClick(this.thePlayer, this.theWorld, itemstack, blockpos, this.objectMouseOver.sideHit, this.objectMouseOver.hitVec)) {
@@ -1618,7 +1618,7 @@ public class Minecraft implements IThreadListener {
                 BlockPos blockpos = this.objectMouseOver.getBlockPos();
                 Block block = this.theWorld.getBlockState(blockpos).getBlock();
 
-                if (block.getMaterial() == Material.air) {
+                if (block.getMaterial() == Material.AIR) {
                     return;
                 }
 

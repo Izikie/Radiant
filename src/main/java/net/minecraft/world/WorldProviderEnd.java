@@ -10,7 +10,7 @@ import net.minecraft.world.gen.ChunkProviderEnd;
 
 public class WorldProviderEnd extends WorldProvider {
     public void registerWorldChunkManager() {
-        this.worldChunkMgr = new WorldChunkManagerHell(BiomeGenBase.sky, 0.0F);
+        this.worldChunkMgr = new WorldChunkManagerHell(BiomeGenBase.SKY, 0.0F);
         this.dimensionId = 1;
         this.hasNoSky = true;
     }

@@ -122,7 +122,7 @@ public class GuiEditSign extends GuiScreen {
             this.tileSign.lineBeingEdited = this.editLine;
         }
 
-        TileEntityRendererDispatcher.instance.renderTileEntityAt(this.tileSign, -0.5D, -0.75D, -0.5D, 0.0F);
+        TileEntityRendererDispatcher.INSTANCE.renderTileEntityAt(this.tileSign, -0.5D, -0.75D, -0.5D, 0.0F);
         this.tileSign.lineBeingEdited = -1;
         GlStateManager.popMatrix();
         super.drawScreen(mouseX, mouseY, partialTicks);

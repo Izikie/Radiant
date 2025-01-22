@@ -118,7 +118,7 @@ public class LoadingScreenRenderer implements IProgressUpdate {
                 if (customloadingscreen != null) {
                     customloadingscreen.drawBackground(scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight());
                 } else {
-                    this.mc.getTextureManager().bindTexture(Gui.optionsBackground);
+                    this.mc.getTextureManager().bindTexture(Gui.OPTIONS_BACKGROUND);
                     float f = 32.0F;
                     worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
                     worldrenderer.pos(0.0D, l, 0.0D).tex(0.0D, (l / f)).color(64, 64, 64, 255).endVertex();

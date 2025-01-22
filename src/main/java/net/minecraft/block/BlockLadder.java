@@ -17,7 +17,7 @@ public class BlockLadder extends Block {
     public static final PropertyDirection FACING = PropertyDirection.create("facing", Direction.Plane.HORIZONTAL);
 
     protected BlockLadder() {
-        super(Material.circuits);
+        super(Material.CIRCUITS);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH));
         this.setCreativeTab(CreativeTabs.tabDecorations);
     }

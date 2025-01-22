@@ -10,9 +10,9 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.util.IntHashMap;
 
 public class KeyBinding implements Comparable<KeyBinding> {
-    private static final List<KeyBinding> keybindArray = Lists.newArrayList();
-    private static final IntHashMap<KeyBinding> hash = new IntHashMap();
-    private static final Set<String> keybindSet = Sets.newHashSet();
+    private static final List<KeyBinding> KEYBIND_ARRAY = Lists.newArrayList();
+    private static final IntHashMap<KeyBinding> HASH = new IntHashMap();
+    private static final Set<String> KEYBIND_SET = Sets.newHashSet();
     private final String keyDescription;
     private final int keyCodeDefault;
     private final String keyCategory;
@@ -22,7 +22,7 @@ public class KeyBinding implements Comparable<KeyBinding> {
 
     public static void onTick(int keyCode) {
         if (keyCode != 0) {
-            KeyBinding keybinding = hash.lookup(keyCode);
+            KeyBinding keybinding = HASH.lookup(keyCode);
 
             if (keybinding != null) {
                 ++keybinding.pressTime;
@@ -32,7 +32,7 @@ public class KeyBinding implements Comparable<KeyBinding> {
 
     public static void setKeyBindState(int keyCode, boolean pressed) {
         if (keyCode != 0) {
-            KeyBinding keybinding = hash.lookup(keyCode);
+            KeyBinding keybinding = HASH.lookup(keyCode);
 
             if (keybinding != null) {
                 keybinding.pressed = pressed;
@@ -41,21 +41,21 @@ public class KeyBinding implements Comparable<KeyBinding> {
     }
 
     public static void unPressAllKeys() {
-        for (KeyBinding keybinding : keybindArray) {
+        for (KeyBinding keybinding : KEYBIND_ARRAY) {
             keybinding.unpressKey();
         }
     }
 
     public static void resetKeyBindingArrayAndHash() {
-        hash.clearMap();
+        HASH.clearMap();
 
-        for (KeyBinding keybinding : keybindArray) {
-            hash.addKey(keybinding.keyCode, keybinding);
+        for (KeyBinding keybinding : KEYBIND_ARRAY) {
+            HASH.addKey(keybinding.keyCode, keybinding);
         }
     }
 
     public static Set<String> getKeybinds() {
-        return keybindSet;
+        return KEYBIND_SET;
     }
 
     public KeyBinding(String description, int keyCode, String category) {
@@ -63,9 +63,9 @@ public class KeyBinding implements Comparable<KeyBinding> {
         this.keyCode = keyCode;
         this.keyCodeDefault = keyCode;
         this.keyCategory = category;
-        keybindArray.add(this);
-        hash.addKey(keyCode, this);
-        keybindSet.add(category);
+        KEYBIND_ARRAY.add(this);
+        HASH.addKey(keyCode, this);
+        KEYBIND_SET.add(category);
     }
 
     public boolean isKeyDown() {
@@ -91,7 +91,7 @@ public class KeyBinding implements Comparable<KeyBinding> {
     }
 
     public static List<KeyBinding> getKeybindArray() {
-        return keybindArray;
+        return KEYBIND_ARRAY;
     }
 
     public String getKeyDescription() {

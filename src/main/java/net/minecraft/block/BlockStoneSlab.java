@@ -23,7 +23,7 @@ public abstract class BlockStoneSlab extends BlockSlab {
     public static final PropertyEnum<BlockStoneSlab.EnumType> VARIANT = PropertyEnum.create("variant", BlockStoneSlab.EnumType.class);
 
     public BlockStoneSlab() {
-        super(Material.rock);
+        super(Material.ROCK);
         IBlockState iblockstate = this.blockState.getBaseState();
 
         if (this.isDouble()) {

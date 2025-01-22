@@ -16,8 +16,8 @@ import org.apache.commons.io.Charsets;
 import org.apache.commons.io.IOUtils;
 
 public class Locale {
-    private static final Splitter splitter = Splitter.on('=').limit(2);
-    private static final Pattern pattern = Pattern.compile("%(\\d+\\$)?[\\d\\.]*[df]");
+    private static final Splitter SPLITTER = Splitter.on('=').limit(2);
+    private static final Pattern PATTERN = Pattern.compile("%(\\d+\\$)?[\\d\\.]*[df]");
     final Map<String, String> properties = Maps.newHashMap();
     private boolean unicode;
 
@@ -76,11 +76,11 @@ public class Locale {
     private void loadLocaleData(InputStream inputStreamIn) throws IOException {
         for (String s : IOUtils.readLines(inputStreamIn, Charsets.UTF_8)) {
             if (!s.isEmpty() && s.charAt(0) != 35) {
-                String[] astring = Iterables.toArray(splitter.split(s), String.class);
+                String[] astring = Iterables.toArray(SPLITTER.split(s), String.class);
 
                 if (astring != null && astring.length == 2) {
                     String s1 = astring[0];
-                    String s2 = pattern.matcher(astring[1]).replaceAll("%$1s");
+                    String s2 = PATTERN.matcher(astring[1]).replaceAll("%$1s");
                     this.properties.put(s1, s2);
                 }
             }

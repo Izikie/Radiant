@@ -149,7 +149,7 @@ public class RenderItem implements IResourceManagerReloadListener {
                 GlStateManager.translate(-0.5F, -0.5F, -0.5F);
                 GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                 GlStateManager.enableRescaleNormal();
-                TileEntityItemStackRenderer.instance.renderByItem(stack);
+                TileEntityItemStackRenderer.INSTANCE.renderByItem(stack);
             } else {
                 GlStateManager.translate(-0.5F, -0.5F, -0.5F);
 

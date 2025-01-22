@@ -60,7 +60,7 @@ public class EntityWitherSkull extends EntityFireball {
                         }
                     }
                 } else {
-                    movingObject.entityHit.attackEntityFrom(DamageSource.magic, 5.0F);
+                    movingObject.entityHit.attackEntityFrom(DamageSource.MAGIC, 5.0F);
                 }
 
                 if (movingObject.entityHit instanceof EntityLivingBase) {
@@ -73,7 +73,7 @@ public class EntityWitherSkull extends EntityFireball {
                     }
 
                     if (i > 0) {
-                        ((EntityLivingBase) movingObject.entityHit).addPotionEffect(new PotionEffect(Potion.wither.id, 20 * i, 1));
+                        ((EntityLivingBase) movingObject.entityHit).addPotionEffect(new PotionEffect(Potion.WITHER.id, 20 * i, 1));
                     }
                 }
             }

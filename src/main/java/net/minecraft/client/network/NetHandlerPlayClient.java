@@ -1013,7 +1013,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
                     Achievement achievement = (Achievement) statbase;
                     this.gameController.guiAchievement.displayAchievement(achievement);
 
-                    if (statbase == AchievementList.openInventory) {
+                    if (statbase == AchievementList.OPEN_INVENTORY) {
                         this.gameController.gameSettings.showInventoryAchievementHint = false;
                         this.gameController.gameSettings.saveOptions();
                     }
@@ -1026,7 +1026,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         }
 
         if (!this.field_147308_k && !flag && this.gameController.gameSettings.showInventoryAchievementHint) {
-            this.gameController.guiAchievement.displayUnformattedAchievement(AchievementList.openInventory);
+            this.gameController.guiAchievement.displayUnformattedAchievement(AchievementList.OPEN_INVENTORY);
         }
 
         this.field_147308_k = true;

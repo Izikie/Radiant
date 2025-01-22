@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 public class BlockMobSpawner extends BlockContainer {
     protected BlockMobSpawner() {
-        super(Material.rock);
+        super(Material.ROCK);
     }
 
     public TileEntity createNewTileEntity(World worldIn, int meta) {

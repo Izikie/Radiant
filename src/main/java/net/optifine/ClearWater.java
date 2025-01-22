@@ -63,7 +63,7 @@ public class ClearWater {
                                                 blockposm1.setXyz(k3, i4, l3);
                                                 IBlockState iblockstate = world.getBlockState(blockposm1);
 
-                                                if (iblockstate.getBlock().getMaterial() == Material.water) {
+                                                if (iblockstate.getBlock().getMaterial() == Material.WATER) {
                                                     world.markBlocksDirtyVertical(k3, l3, blockposm1.getY(), blockpos.getY());
                                                     ++l1;
                                                     break;

@@ -29,7 +29,7 @@ public class ItemHoe extends Item {
             IBlockState iblockstate = worldIn.getBlockState(pos);
             Block block = iblockstate.getBlock();
 
-            if (side != Direction.DOWN && worldIn.getBlockState(pos.up()).getBlock().getMaterial() == Material.air) {
+            if (side != Direction.DOWN && worldIn.getBlockState(pos.up()).getBlock().getMaterial() == Material.AIR) {
                 if (block == Blocks.grass) {
                     return this.useHoe(stack, playerIn, worldIn, pos, Blocks.farmland.getDefaultState());
                 }

@@ -19,7 +19,7 @@ public class BlockRedstoneOre extends Block {
     private final boolean isOn;
 
     public BlockRedstoneOre(boolean isOn) {
-        super(Material.rock);
+        super(Material.ROCK);
 
         if (isOn) {
             this.setTickRandomly(true);

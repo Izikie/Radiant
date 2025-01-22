@@ -218,7 +218,7 @@ public class EffectRenderer {
         GlStateManager.blendFunc(770, 771);
         GlStateManager.alphaFunc(516, 0.003921569F);
         Block block = ActiveRenderInfo.getBlockAtEntityViewpoint(this.worldObj, entityIn, partialTicks);
-        boolean flag = block.getMaterial() == Material.water;
+        boolean flag = block.getMaterial() == Material.WATER;
 
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 2; ++j) {
@@ -311,7 +311,7 @@ public class EffectRenderer {
     }
 
     public void addBlockDestroyEffects(BlockPos pos, IBlockState state) {
-        if (state.getBlock().getMaterial() != Material.air) {
+        if (state.getBlock().getMaterial() != Material.AIR) {
             state = state.getBlock().getActualState(state, this.worldObj, pos);
             int l = 4;
 

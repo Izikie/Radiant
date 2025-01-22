@@ -139,7 +139,7 @@ public class ContainerBrewingStand extends Container {
 
         public void onPickupFromSlot(EntityPlayer playerIn, ItemStack stack) {
             if (stack.getItem() == Items.potionitem && stack.getMetadata() > 0) {
-                this.player.triggerAchievement(AchievementList.potion);
+                this.player.triggerAchievement(AchievementList.POTION);
             }
 
             super.onPickupFromSlot(playerIn, stack);

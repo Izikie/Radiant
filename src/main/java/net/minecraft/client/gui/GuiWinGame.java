@@ -118,7 +118,7 @@ public class GuiWinGame extends GuiScreen {
     private void drawWinGameScreen(int p_146575_1_, int p_146575_2_, float p_146575_3_) {
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-        this.mc.getTextureManager().bindTexture(Gui.optionsBackground);
+        this.mc.getTextureManager().bindTexture(Gui.OPTIONS_BACKGROUND);
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
         int i = this.width;
         float f = 0.0F - (this.field_146581_h + p_146575_3_) * 0.5F * this.field_146578_s;

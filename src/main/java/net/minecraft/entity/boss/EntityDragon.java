@@ -402,7 +402,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
                     BlockPos blockpos = new BlockPos(k1, l1, i2);
                     Block block = this.worldObj.getBlockState(blockpos).getBlock();
 
-                    if (block.getMaterial() != Material.air) {
+                    if (block.getMaterial() != Material.AIR) {
                         if (block != Blocks.barrier && block != Blocks.obsidian && block != Blocks.end_stone && block != Blocks.bedrock && block != Blocks.command_block && this.worldObj.getGameRules().getBoolean("mobGriefing")) {
                             flag1 = this.worldObj.setBlockToAir(blockpos) || flag1;
                         } else {

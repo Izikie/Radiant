@@ -33,7 +33,7 @@ public class EnchantmentThorns extends Enchantment {
 
     public void onUserHurt(EntityLivingBase user, Entity attacker, int level) {
         Random random = user.getRNG();
-        ItemStack itemstack = EnchantmentHelper.getEnchantedItem(Enchantment.thorns, user);
+        ItemStack itemstack = EnchantmentHelper.getEnchantedItem(Enchantment.THORNS, user);
 
         if (func_92094_a(level, random)) {
             if (attacker != null) {

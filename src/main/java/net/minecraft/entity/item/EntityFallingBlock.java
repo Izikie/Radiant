@@ -66,7 +66,7 @@ public class EntityFallingBlock extends Entity {
     public void onUpdate() {
         Block block = this.fallTile.getBlock();
 
-        if (block.getMaterial() == Material.air) {
+        if (block.getMaterial() == Material.AIR) {
             this.setDead();
         } else {
             this.prevPosX = this.posX;
@@ -151,7 +151,7 @@ public class EntityFallingBlock extends Entity {
             if (i > 0) {
                 List<Entity> list = Lists.newArrayList(this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox()));
                 boolean flag = block == Blocks.anvil;
-                DamageSource damagesource = flag ? DamageSource.anvil : DamageSource.fallingBlock;
+                DamageSource damagesource = flag ? DamageSource.ANVIL : DamageSource.FALLING_BLOCK;
 
                 for (Entity entity : list) {
                     entity.attackEntityFrom(damagesource, Math.min(MathHelper.floor_float(i * this.fallHurtAmount), this.fallHurtMax));
@@ -217,7 +217,7 @@ public class EntityFallingBlock extends Entity {
             this.tileEntityData = tagCompund.getCompoundTag("TileEntityData");
         }
 
-        if (block == null || block.getMaterial() == Material.air) {
+        if (block == null || block.getMaterial() == Material.AIR) {
             this.fallTile = Blocks.sand.getDefaultState();
         }
     }

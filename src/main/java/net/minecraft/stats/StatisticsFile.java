@@ -179,7 +179,7 @@ public class StatisticsFile extends StatFileWriter {
     public void sendAchievements(EntityPlayerMP player) {
         Map<StatBase, Integer> map = Maps.newHashMap();
 
-        for (Achievement achievement : AchievementList.achievementList) {
+        for (Achievement achievement : AchievementList.ACHIEVEMENT_LIST) {
             if (this.hasAchievementUnlocked(achievement)) {
                 map.put(achievement, this.readStat(achievement));
                 this.field_150888_e.remove(achievement);

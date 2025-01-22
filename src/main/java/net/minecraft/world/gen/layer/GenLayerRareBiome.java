@@ -18,8 +18,8 @@ public class GenLayerRareBiome extends GenLayer {
                 int k = aint[j + 1 + (i + 1) * (areaWidth + 2)];
 
                 if (this.nextInt(57) == 0) {
-                    if (k == BiomeGenBase.plains.biomeID) {
-                        aint1[j + i * areaWidth] = BiomeGenBase.plains.biomeID + 128;
+                    if (k == BiomeGenBase.PLAINS.biomeID) {
+                        aint1[j + i * areaWidth] = BiomeGenBase.PLAINS.biomeID + 128;
                     } else {
                         aint1[j + i * areaWidth] = k;
                     }

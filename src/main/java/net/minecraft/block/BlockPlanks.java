@@ -16,7 +16,7 @@ public class BlockPlanks extends Block {
     public static final PropertyEnum<WoodType> VARIANT = PropertyEnum.create("variant", WoodType.class);
 
     public BlockPlanks() {
-        super(Material.wood);
+        super(Material.WOOD);
         this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, WoodType.OAK));
         this.setCreativeTab(CreativeTabs.tabBlock);
     }

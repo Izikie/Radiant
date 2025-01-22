@@ -21,11 +21,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class CraftingManager {
-    private static final CraftingManager instance = new CraftingManager();
+    private static final CraftingManager INSTANCE = new CraftingManager();
     private final List<IRecipe> recipes = Lists.newArrayList();
 
     public static CraftingManager getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
     private CraftingManager() {

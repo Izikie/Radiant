@@ -311,15 +311,15 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         int i = MathHelper.ceiling_float_int((distance * 0.5F - 3.0F) * damageMultiplier);
 
         if (i > 0) {
-            this.attackEntityFrom(DamageSource.fall, i);
+            this.attackEntityFrom(DamageSource.FALL, i);
 
             if (this.riddenByEntity != null) {
-                this.riddenByEntity.attackEntityFrom(DamageSource.fall, i);
+                this.riddenByEntity.attackEntityFrom(DamageSource.FALL, i);
             }
 
             Block block = this.worldObj.getBlockState(new BlockPos(this.posX, this.posY - 0.2D - this.prevRotationYaw, this.posZ)).getBlock();
 
-            if (block.getMaterial() != Material.air && !this.isSilent()) {
+            if (block.getMaterial() != Material.AIR && !this.isSilent()) {
                 Block.SoundType block$soundtype = block.stepSound;
                 this.worldObj.playSoundAtEntity(this, block$soundtype.getStepSound(), block$soundtype.getVolume() * 0.5F, block$soundtype.getFrequency() * 0.75F);
             }
@@ -972,8 +972,8 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
             if (this.jumpPower > 0.0F && !this.isHorseJumping() && this.onGround) {
                 this.motionY = this.getHorseJumpStrength() * this.jumpPower;
 
-                if (this.isPotionActive(Potion.jump)) {
-                    this.motionY += ((this.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F);
+                if (this.isPotionActive(Potion.JUMP)) {
+                    this.motionY += ((this.getActivePotionEffect(Potion.JUMP).getAmplifier() + 1) * 0.1F);
                 }
 
                 this.setHorseJumping(true);

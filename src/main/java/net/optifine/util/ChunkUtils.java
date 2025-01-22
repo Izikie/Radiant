@@ -12,16 +12,16 @@ import net.optifine.reflect.ReflectorClass;
 import net.optifine.reflect.ReflectorField;
 
 public class ChunkUtils {
-    private static final ReflectorClass chunkClass = new ReflectorClass(Chunk.class);
-    private static final ReflectorField fieldHasEntities = findFieldHasEntities();
-    private static final ReflectorField fieldPrecipitationHeightMap = new ReflectorField(chunkClass, int[].class, 0);
+    private static final ReflectorClass CHUNK_CLASS = new ReflectorClass(Chunk.class);
+    private static final ReflectorField FIELD_HAS_ENTITIES = findFieldHasEntities();
+    private static final ReflectorField FIELD_PRECIPITATION_HEIGHT_MAP = new ReflectorField(CHUNK_CLASS, int[].class, 0);
 
     public static boolean hasEntities(Chunk chunk) {
-        return Reflector.getFieldValueBoolean(chunk, fieldHasEntities, true);
+        return Reflector.getFieldValueBoolean(chunk, FIELD_HAS_ENTITIES, true);
     }
 
     public static int getPrecipitationHeight(Chunk chunk, BlockPos pos) {
-        int[] aint = (int[]) Reflector.getFieldValue(chunk, fieldPrecipitationHeightMap);
+        int[] aint = (int[]) Reflector.getFieldValue(chunk, FIELD_PRECIPITATION_HEIGHT_MAP);
 
         if (aint != null && aint.length == 256) {
             int i = pos.getX() & 15;

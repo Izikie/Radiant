@@ -128,7 +128,7 @@ public class GuiCreateFlatWorld extends GuiScreen {
 
         private void func_148224_c(int p_148224_1_, int p_148224_2_, int p_148224_3_, int p_148224_4_) {
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            this.mc.getTextureManager().bindTexture(Gui.statIcons);
+            this.mc.getTextureManager().bindTexture(Gui.STAT_ICONS);
             float f = 0.0078125F;
             float f1 = 0.0078125F;
             int i = 18;

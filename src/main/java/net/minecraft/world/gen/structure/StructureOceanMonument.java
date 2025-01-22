@@ -23,7 +23,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class StructureOceanMonument extends MapGenStructure {
     private int field_175800_f;
     private int field_175801_g;
-    public static final List<BiomeGenBase> field_175802_d = Arrays.asList(BiomeGenBase.ocean, BiomeGenBase.deepOcean, BiomeGenBase.river, BiomeGenBase.frozenOcean, BiomeGenBase.frozenRiver);
+    public static final List<BiomeGenBase> field_175802_d = Arrays.asList(BiomeGenBase.OCEAN, BiomeGenBase.DEEP_OCEAN, BiomeGenBase.RIVER, BiomeGenBase.FROZEN_OCEAN, BiomeGenBase.FROZEN_RIVER);
     private static final List<BiomeGenBase.SpawnListEntry> field_175803_h = Lists.newArrayList();
 
     public StructureOceanMonument() {
@@ -68,7 +68,7 @@ public class StructureOceanMonument extends MapGenStructure {
         l = l + (random.nextInt(this.field_175800_f - this.field_175801_g) + random.nextInt(this.field_175800_f - this.field_175801_g)) / 2;
 
         if (i == k && j == l) {
-            if (this.worldObj.getWorldChunkManager().getBiomeGenerator(new BlockPos(i * 16 + 8, 64, j * 16 + 8), null) != BiomeGenBase.deepOcean) {
+            if (this.worldObj.getWorldChunkManager().getBiomeGenerator(new BlockPos(i * 16 + 8, 64, j * 16 + 8), null) != BiomeGenBase.DEEP_OCEAN) {
                 return false;
             }
 

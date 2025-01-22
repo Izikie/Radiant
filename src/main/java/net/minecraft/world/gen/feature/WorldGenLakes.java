@@ -102,7 +102,7 @@ public class WorldGenLakes extends WorldGenerator {
                 }
             }
 
-            if (this.block.getMaterial() == Material.lava) {
+            if (this.block.getMaterial() == Material.LAVA) {
                 for (int j2 = 0; j2 < 16; ++j2) {
                     for (int k3 = 0; k3 < 16; ++k3) {
                         for (int k4 = 0; k4 < 8; ++k4) {
@@ -116,7 +116,7 @@ public class WorldGenLakes extends WorldGenerator {
                 }
             }
 
-            if (this.block.getMaterial() == Material.water) {
+            if (this.block.getMaterial() == Material.WATER) {
                 for (int k2 = 0; k2 < 16; ++k2) {
                     for (int l3 = 0; l3 < 16; ++l3) {
                         int l4 = 4;

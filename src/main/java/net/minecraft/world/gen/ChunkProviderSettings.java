@@ -496,7 +496,7 @@ public class ChunkProviderSettings {
                 chunkprovidersettings$factory.fixedBiome = JsonUtils.getInt(jsonobject, "fixedBiome", chunkprovidersettings$factory.fixedBiome);
 
                 if (chunkprovidersettings$factory.fixedBiome < 38 && chunkprovidersettings$factory.fixedBiome >= -1) {
-                    if (chunkprovidersettings$factory.fixedBiome >= BiomeGenBase.hell.biomeID) {
+                    if (chunkprovidersettings$factory.fixedBiome >= BiomeGenBase.HELL.biomeID) {
                         chunkprovidersettings$factory.fixedBiome += 2;
                     }
                 } else {

@@ -71,7 +71,7 @@ public class ItemInWorldManager {
             int i = this.curblockDamage - this.initialBlockDamage;
             Block block = this.theWorld.getBlockState(this.field_180241_i).getBlock();
 
-            if (block.getMaterial() == Material.air) {
+            if (block.getMaterial() == Material.AIR) {
                 this.receivedFinishDiggingPacket = false;
             } else {
                 float f = block.getPlayerRelativeBlockHardness(this.thisPlayerMP, this.thisPlayerMP.worldObj, this.field_180241_i) * (i + 1);
@@ -90,7 +90,7 @@ public class ItemInWorldManager {
         } else if (this.isDestroyingBlock) {
             Block block1 = this.theWorld.getBlockState(this.field_180240_f).getBlock();
 
-            if (block1.getMaterial() == Material.air) {
+            if (block1.getMaterial() == Material.AIR) {
                 this.theWorld.sendBlockBreakProgress(this.thisPlayerMP.getEntityId(), this.field_180240_f, -1);
                 this.durabilityRemainingOnBlock = -1;
                 this.isDestroyingBlock = false;
@@ -137,12 +137,12 @@ public class ItemInWorldManager {
             this.initialDamage = this.curblockDamage;
             float f = 1.0F;
 
-            if (block.getMaterial() != Material.air) {
+            if (block.getMaterial() != Material.AIR) {
                 block.onBlockClicked(this.theWorld, pos, this.thisPlayerMP);
                 f = block.getPlayerRelativeBlockHardness(this.thisPlayerMP, this.thisPlayerMP.worldObj, pos);
             }
 
-            if (block.getMaterial() != Material.air && f >= 1.0F) {
+            if (block.getMaterial() != Material.AIR && f >= 1.0F) {
                 this.tryHarvestBlock(pos);
             } else {
                 this.isDestroyingBlock = true;
@@ -159,7 +159,7 @@ public class ItemInWorldManager {
             int i = this.curblockDamage - this.initialDamage;
             Block block = this.theWorld.getBlockState(pos).getBlock();
 
-            if (block.getMaterial() != Material.air) {
+            if (block.getMaterial() != Material.AIR) {
                 float f = block.getPlayerRelativeBlockHardness(this.thisPlayerMP, this.thisPlayerMP.worldObj, pos) * (i + 1);
 
                 if (f >= 0.7F) {

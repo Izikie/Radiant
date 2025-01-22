@@ -20,7 +20,7 @@ public class WorldGenHellLava extends WorldGenerator {
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         if (worldIn.getBlockState(position.up()).getBlock() != Blocks.netherrack) {
             return false;
-        } else if (worldIn.getBlockState(position).getBlock().getMaterial() != Material.air && worldIn.getBlockState(position).getBlock() != Blocks.netherrack) {
+        } else if (worldIn.getBlockState(position).getBlock().getMaterial() != Material.AIR && worldIn.getBlockState(position).getBlock() != Blocks.netherrack) {
             return false;
         } else {
             int i = 0;

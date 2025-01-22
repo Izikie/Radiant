@@ -20,7 +20,7 @@ public class BlockSilverfish extends Block {
     public static final PropertyEnum<BlockSilverfish.EnumType> VARIANT = PropertyEnum.create("variant", BlockSilverfish.EnumType.class);
 
     public BlockSilverfish() {
-        super(Material.clay);
+        super(Material.CLAY);
         this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockSilverfish.EnumType.STONE));
         this.setHardness(0.0F);
         this.setCreativeTab(CreativeTabs.tabDecorations);

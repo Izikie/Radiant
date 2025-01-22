@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 
 public class BlockWorkbench extends Block {
     protected BlockWorkbench() {
-        super(Material.wood);
+        super(Material.WOOD);
         this.setCreativeTab(CreativeTabs.tabDecorations);
     }
 

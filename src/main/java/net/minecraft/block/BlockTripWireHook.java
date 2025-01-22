@@ -27,7 +27,7 @@ public class BlockTripWireHook extends Block {
     public static final PropertyBool SUSPENDED = PropertyBool.create("suspended");
 
     public BlockTripWireHook() {
-        super(Material.circuits);
+        super(Material.CIRCUITS);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH).withProperty(POWERED, Boolean.FALSE).withProperty(ATTACHED, Boolean.FALSE).withProperty(SUSPENDED, Boolean.FALSE));
         this.setCreativeTab(CreativeTabs.tabRedstone);
         this.setTickRandomly(true);

@@ -64,7 +64,7 @@ public class Achievement extends StatBase {
 
     public Achievement registerStat() {
         super.registerStat();
-        AchievementList.achievementList.add(this);
+        AchievementList.ACHIEVEMENT_LIST.add(this);
         return this;
     }
 

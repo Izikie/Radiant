@@ -15,7 +15,7 @@ public class WorldGenReed extends WorldGenerator {
             if (worldIn.isAirBlock(blockpos)) {
                 BlockPos blockpos1 = blockpos.down();
 
-                if (worldIn.getBlockState(blockpos1.west()).getBlock().getMaterial() == Material.water || worldIn.getBlockState(blockpos1.east()).getBlock().getMaterial() == Material.water || worldIn.getBlockState(blockpos1.north()).getBlock().getMaterial() == Material.water || worldIn.getBlockState(blockpos1.south()).getBlock().getMaterial() == Material.water) {
+                if (worldIn.getBlockState(blockpos1.west()).getBlock().getMaterial() == Material.WATER || worldIn.getBlockState(blockpos1.east()).getBlock().getMaterial() == Material.WATER || worldIn.getBlockState(blockpos1.north()).getBlock().getMaterial() == Material.WATER || worldIn.getBlockState(blockpos1.south()).getBlock().getMaterial() == Material.WATER) {
                     int j = 2 + rand.nextInt(rand.nextInt(3) + 1);
 
                     for (int k = 0; k < j; ++k) {

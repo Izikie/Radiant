@@ -80,7 +80,7 @@ public class WorldGenForest extends WorldGenAbstractTree {
                                     BlockPos blockpos = new BlockPos(i3, i2, k1);
                                     Block block = worldIn.getBlockState(blockpos).getBlock();
 
-                                    if (block.getMaterial() == Material.air || block.getMaterial() == Material.leaves) {
+                                    if (block.getMaterial() == Material.AIR || block.getMaterial() == Material.LEAVES) {
                                         this.setBlockAndNotifyAdequately(worldIn, blockpos, field_181630_b);
                                     }
                                 }
@@ -91,7 +91,7 @@ public class WorldGenForest extends WorldGenAbstractTree {
                     for (int j2 = 0; j2 < i; ++j2) {
                         Block block2 = worldIn.getBlockState(position.up(j2)).getBlock();
 
-                        if (block2.getMaterial() == Material.air || block2.getMaterial() == Material.leaves) {
+                        if (block2.getMaterial() == Material.AIR || block2.getMaterial() == Material.LEAVES) {
                             this.setBlockAndNotifyAdequately(worldIn, position.up(j2), field_181629_a);
                         }
                     }

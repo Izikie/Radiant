@@ -106,7 +106,7 @@ public class BiomeGenMesa extends BiomeGenBase {
         boolean flag1 = false;
 
         for (int i1 = 255; i1 >= 0; --i1) {
-            if (chunkPrimerIn.getBlockState(k1, i1, j1).getBlock().getMaterial() == Material.air && i1 < (int) d4) {
+            if (chunkPrimerIn.getBlockState(k1, i1, j1).getBlock().getMaterial() == Material.AIR && i1 < (int) d4) {
                 chunkPrimerIn.setBlockState(k1, i1, j1, Blocks.stone.getDefaultState());
             }
 
@@ -115,7 +115,7 @@ public class BiomeGenMesa extends BiomeGenBase {
             } else {
                 IBlockState iblockstate1 = chunkPrimerIn.getBlockState(k1, i1, j1);
 
-                if (iblockstate1.getBlock().getMaterial() == Material.air) {
+                if (iblockstate1.getBlock().getMaterial() == Material.AIR) {
                     l = -1;
                 } else if (iblockstate1.getBlock() == Blocks.stone) {
                     if (l == -1) {
@@ -129,7 +129,7 @@ public class BiomeGenMesa extends BiomeGenBase {
                             iblockstate3 = this.fillerBlock;
                         }
 
-                        if (i1 < l1 && (iblockstate == null || iblockstate.getBlock().getMaterial() == Material.air)) {
+                        if (i1 < l1 && (iblockstate == null || iblockstate.getBlock().getMaterial() == Material.AIR)) {
                             iblockstate = Blocks.water.getDefaultState();
                         }
 
@@ -254,11 +254,11 @@ public class BiomeGenMesa extends BiomeGenBase {
     }
 
     protected BiomeGenBase createMutatedBiome(int p_180277_1_) {
-        boolean flag = this.biomeID == BiomeGenBase.mesa.biomeID;
+        boolean flag = this.biomeID == BiomeGenBase.MESA.biomeID;
         BiomeGenMesa biomegenmesa = new BiomeGenMesa(p_180277_1_, flag, this.field_150620_aI);
 
         if (!flag) {
-            biomegenmesa.setHeight(height_LowHills);
+            biomegenmesa.setHeight(HEIGHT_LOW_HILLS);
             biomegenmesa.setBiomeName(this.biomeName + " M");
         } else {
             biomegenmesa.setBiomeName(this.biomeName + " (Bryce)");

@@ -18,7 +18,7 @@ public class BlockNetherWart extends BlockBush {
     public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 3);
 
     protected BlockNetherWart() {
-        super(Material.plants, MapColor.redColor);
+        super(Material.PLANTS, MapColor.redColor);
         this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0));
         this.setTickRandomly(true);
         float f = 0.5F;

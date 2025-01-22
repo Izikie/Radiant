@@ -58,7 +58,7 @@ public class PotionHelper {
 
             for (PotionEffect potioneffect : p_77911_0_) {
                 if (potioneffect.getIsShowParticles()) {
-                    int j = Potion.potionTypes[potioneffect.getPotionID()].getLiquidColor();
+                    int j = Potion.POTION_TYPES[potioneffect.getPotionID()].getLiquidColor();
 
                     if (Config.isCustomColors()) {
                         j = CustomColors.getPotionColor(potioneffect.getPotionID(), j);
@@ -281,7 +281,7 @@ public class PotionHelper {
     public static List<PotionEffect> getPotionEffects(int p_77917_0_, boolean p_77917_1_) {
         List<PotionEffect> list = null;
 
-        for (Potion potion : Potion.potionTypes) {
+        for (Potion potion : Potion.POTION_TYPES) {
             if (potion != null && (!potion.isUsable() || p_77917_1_)) {
                 String s = potionRequirements.get(potion.getId());
 
@@ -421,27 +421,27 @@ public class PotionHelper {
     }
 
     static {
-        potionRequirements.put(Potion.regeneration.getId(), "0 & !1 & !2 & !3 & 0+6");
-        potionRequirements.put(Potion.moveSpeed.getId(), "!0 & 1 & !2 & !3 & 1+6");
-        potionRequirements.put(Potion.fireResistance.getId(), "0 & 1 & !2 & !3 & 0+6");
-        potionRequirements.put(Potion.heal.getId(), "0 & !1 & 2 & !3");
-        potionRequirements.put(Potion.poison.getId(), "!0 & !1 & 2 & !3 & 2+6");
-        potionRequirements.put(Potion.weakness.getId(), "!0 & !1 & !2 & 3 & 3+6");
-        potionRequirements.put(Potion.harm.getId(), "!0 & !1 & 2 & 3");
-        potionRequirements.put(Potion.moveSlowdown.getId(), "!0 & 1 & !2 & 3 & 3+6");
-        potionRequirements.put(Potion.damageBoost.getId(), "0 & !1 & !2 & 3 & 3+6");
-        potionRequirements.put(Potion.nightVision.getId(), "!0 & 1 & 2 & !3 & 2+6");
-        potionRequirements.put(Potion.invisibility.getId(), "!0 & 1 & 2 & 3 & 2+6");
-        potionRequirements.put(Potion.waterBreathing.getId(), "0 & !1 & 2 & 3 & 2+6");
-        potionRequirements.put(Potion.jump.getId(), "0 & 1 & !2 & 3 & 3+6");
-        potionAmplifiers.put(Potion.moveSpeed.getId(), "5");
-        potionAmplifiers.put(Potion.digSpeed.getId(), "5");
-        potionAmplifiers.put(Potion.damageBoost.getId(), "5");
-        potionAmplifiers.put(Potion.regeneration.getId(), "5");
-        potionAmplifiers.put(Potion.harm.getId(), "5");
-        potionAmplifiers.put(Potion.heal.getId(), "5");
-        potionAmplifiers.put(Potion.resistance.getId(), "5");
-        potionAmplifiers.put(Potion.poison.getId(), "5");
-        potionAmplifiers.put(Potion.jump.getId(), "5");
+        potionRequirements.put(Potion.REGENERATION.getId(), "0 & !1 & !2 & !3 & 0+6");
+        potionRequirements.put(Potion.MOVE_SPEED.getId(), "!0 & 1 & !2 & !3 & 1+6");
+        potionRequirements.put(Potion.FIRE_RESISTANCE.getId(), "0 & 1 & !2 & !3 & 0+6");
+        potionRequirements.put(Potion.HEAL.getId(), "0 & !1 & 2 & !3");
+        potionRequirements.put(Potion.POISON.getId(), "!0 & !1 & 2 & !3 & 2+6");
+        potionRequirements.put(Potion.WEAKNESS.getId(), "!0 & !1 & !2 & 3 & 3+6");
+        potionRequirements.put(Potion.HARM.getId(), "!0 & !1 & 2 & 3");
+        potionRequirements.put(Potion.MOVE_SLOWDOWN.getId(), "!0 & 1 & !2 & 3 & 3+6");
+        potionRequirements.put(Potion.DAMAGE_BOOST.getId(), "0 & !1 & !2 & 3 & 3+6");
+        potionRequirements.put(Potion.NIGHT_VISION.getId(), "!0 & 1 & 2 & !3 & 2+6");
+        potionRequirements.put(Potion.INVISIBILITY.getId(), "!0 & 1 & 2 & 3 & 2+6");
+        potionRequirements.put(Potion.WATER_BREATHING.getId(), "0 & !1 & 2 & 3 & 2+6");
+        potionRequirements.put(Potion.JUMP.getId(), "0 & 1 & !2 & 3 & 3+6");
+        potionAmplifiers.put(Potion.MOVE_SPEED.getId(), "5");
+        potionAmplifiers.put(Potion.DIG_SPEED.getId(), "5");
+        potionAmplifiers.put(Potion.DAMAGE_BOOST.getId(), "5");
+        potionAmplifiers.put(Potion.REGENERATION.getId(), "5");
+        potionAmplifiers.put(Potion.HARM.getId(), "5");
+        potionAmplifiers.put(Potion.HEAL.getId(), "5");
+        potionAmplifiers.put(Potion.RESISTANCE.getId(), "5");
+        potionAmplifiers.put(Potion.POISON.getId(), "5");
+        potionAmplifiers.put(Potion.JUMP.getId(), "5");
     }
 }

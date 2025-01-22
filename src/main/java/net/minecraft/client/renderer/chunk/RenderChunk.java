@@ -177,7 +177,7 @@ public class RenderChunk {
 
                 if (block.hasTileEntity()) {
                     TileEntity tileentity = chunkcacheof.getTileEntity(new BlockPos(blockposm));
-                    TileEntitySpecialRenderer<TileEntity> tileentityspecialrenderer = TileEntityRendererDispatcher.instance.getSpecialRenderer(tileentity);
+                    TileEntitySpecialRenderer<TileEntity> tileentityspecialrenderer = TileEntityRendererDispatcher.INSTANCE.getSpecialRenderer(tileentity);
 
                     if (tileentity != null && tileentityspecialrenderer != null) {
                         compiledchunk.addTileEntity(tileentity);

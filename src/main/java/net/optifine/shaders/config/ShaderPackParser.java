@@ -14,7 +14,6 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -49,9 +48,9 @@ import net.optifine.util.StrUtils;
 public class ShaderPackParser {
     private static final Pattern PATTERN_VERSION = Pattern.compile("^\\s*#version\\s+.*$");
     private static final Pattern PATTERN_INCLUDE = Pattern.compile("^\\s*#include\\s+\"([A-Za-z0-9_/\\.]+)\".*$");
-    private static final Set<String> setConstNames = makeSetConstNames();
-    private static final Map<String, Integer> mapAlphaFuncs = makeMapAlphaFuncs();
-    private static final Map<String, Integer> mapBlendFactors = makeMapBlendFactors();
+    private static final Set<String> SET_CONST_NAMES = makeSetConstNames();
+    private static final Map<String, Integer> ALPHA_FUNCS = makeMapAlphaFuncs();
+    private static final Map<String, Integer> BLEND_FACTORS = makeMapBlendFactors();
 
     public static ShaderOption[] parseShaderPackOptions(IShaderPack shaderPack, String[] programNames, List<Integer> listDimensions) {
         if (shaderPack == null) {
@@ -163,7 +162,7 @@ public class ShaderPackParser {
                 shaderoption = ShaderOptionVariableConst.parseOption(line, path);
             }
 
-            return shaderoption != null && setConstNames.contains(shaderoption.getName()) ? shaderoption : null;
+            return shaderoption != null && SET_CONST_NAMES.contains(shaderoption.getName()) ? shaderoption : null;
         }
     }
 
@@ -687,7 +686,7 @@ public class ShaderPackParser {
         } else if (astring.length == 2) {
             String s2 = astring[0];
             String s1 = astring[1];
-            Integer integer = mapAlphaFuncs.get(s2);
+            Integer integer = ALPHA_FUNCS.get(s2);
             float f = Config.parseFloat(s1, -1.0F);
 
             if (integer != null && f >= 0.0F) {
@@ -746,10 +745,10 @@ public class ShaderPackParser {
                 s3 = astring[3];
             }
 
-            Integer integer = mapBlendFactors.get(s4);
-            Integer integer1 = mapBlendFactors.get(s1);
-            Integer integer2 = mapBlendFactors.get(s2);
-            Integer integer3 = mapBlendFactors.get(s3);
+            Integer integer = BLEND_FACTORS.get(s4);
+            Integer integer1 = BLEND_FACTORS.get(s1);
+            Integer integer2 = BLEND_FACTORS.get(s2);
+            Integer integer3 = BLEND_FACTORS.get(s3);
 
             if (integer != null && integer1 != null && integer2 != null && integer3 != null) {
                 return new GlBlendState(true, integer, integer1, integer2, integer3);

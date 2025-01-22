@@ -20,7 +20,7 @@ public class BlockQuartz extends Block {
     public static final PropertyEnum<QuartzType> VARIANT = PropertyEnum.create("variant", QuartzType.class);
 
     public BlockQuartz() {
-        super(Material.rock);
+        super(Material.ROCK);
         this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, QuartzType.DEFAULT));
         this.setCreativeTab(CreativeTabs.tabBlock);
     }

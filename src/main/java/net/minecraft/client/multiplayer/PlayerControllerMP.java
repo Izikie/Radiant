@@ -100,7 +100,7 @@ public class PlayerControllerMP {
             IBlockState iblockstate = world.getBlockState(pos);
             Block block1 = iblockstate.getBlock();
 
-            if (block1.getMaterial() == Material.air) {
+            if (block1.getMaterial() == Material.AIR) {
                 return false;
             } else {
                 world.playAuxSFX(2001, pos, Block.getStateId(iblockstate));
@@ -163,7 +163,7 @@ public class PlayerControllerMP {
 
                 this.netClientHandler.addToSendQueue(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.START_DESTROY_BLOCK, loc, face));
                 Block block1 = this.mc.theWorld.getBlockState(loc).getBlock();
-                boolean flag = block1.getMaterial() != Material.air;
+                boolean flag = block1.getMaterial() != Material.AIR;
 
                 if (flag && this.curBlockDamageMP == 0.0F) {
                     block1.onBlockClicked(this.mc.theWorld, loc, this.mc.thePlayer);
@@ -208,7 +208,7 @@ public class PlayerControllerMP {
         } else if (this.isHittingPosition(posBlock)) {
             Block block = this.mc.theWorld.getBlockState(posBlock).getBlock();
 
-            if (block.getMaterial() == Material.air) {
+            if (block.getMaterial() == Material.AIR) {
                 this.isHittingBlock = false;
                 return false;
             } else {

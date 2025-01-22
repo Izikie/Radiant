@@ -114,14 +114,14 @@ public class AnvilSaveConverter extends SaveFormatOld {
         WorldChunkManager worldchunkmanager;
 
         if (worldinfo.getTerrainType() == WorldType.FLAT) {
-            worldchunkmanager = new WorldChunkManagerHell(BiomeGenBase.plains, 0.5F);
+            worldchunkmanager = new WorldChunkManagerHell(BiomeGenBase.PLAINS, 0.5F);
         } else {
             worldchunkmanager = new WorldChunkManager(worldinfo.getSeed(), worldinfo.getTerrainType(), worldinfo.getGeneratorOptions());
         }
 
         this.convertFile(new File(file1, "region"), list, worldchunkmanager, 0, i, progressCallback);
-        this.convertFile(new File(file2, "region"), list1, new WorldChunkManagerHell(BiomeGenBase.hell, 0.0F), list.size(), i, progressCallback);
-        this.convertFile(new File(file3, "region"), list2, new WorldChunkManagerHell(BiomeGenBase.sky, 0.0F), list.size() + list1.size(), i, progressCallback);
+        this.convertFile(new File(file2, "region"), list1, new WorldChunkManagerHell(BiomeGenBase.HELL, 0.0F), list.size(), i, progressCallback);
+        this.convertFile(new File(file3, "region"), list2, new WorldChunkManagerHell(BiomeGenBase.SKY, 0.0F), list.size() + list1.size(), i, progressCallback);
         worldinfo.setSaveVersion(19133);
 
         if (worldinfo.getTerrainType() == WorldType.DEFAULT_1_1) {

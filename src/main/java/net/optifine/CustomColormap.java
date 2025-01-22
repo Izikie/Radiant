@@ -117,7 +117,7 @@ public class CustomColormap implements CustomColors.IColorizer {
                 }
 
                 if (this.format == 1) {
-                    this.color = this.getColorGrid(BiomeGenBase.plains, new BlockPos(0, 64, 0));
+                    this.color = this.getColorGrid(BiomeGenBase.PLAINS, new BlockPos(0, 64, 0));
                 }
             }
         }
@@ -278,7 +278,7 @@ public class CustomColormap implements CustomColors.IColorizer {
         if (this.format == 2) {
             return this.color;
         } else {
-            int i = CustomColors.random.nextInt(this.colors.length);
+            int i = CustomColors.RANDOM.nextInt(this.colors.length);
             return this.colors[i];
         }
     }

@@ -106,7 +106,7 @@ public class GuiShaders extends GuiScreenOF {
                         case 201:
                             switch (getOSType()) {
                                 case 1:
-                                    String s = String.format("cmd.exe /C start \"Open file\" \"%s\"", Shaders.shaderPacksDir.getAbsolutePath());
+                                    String s = String.format("cmd.exe /C start \"Open file\" \"%s\"", Shaders.SHADER_PACKS_DIR.getAbsolutePath());
 
                                     try {
                                         Runtime.getRuntime().exec(s);
@@ -118,7 +118,7 @@ public class GuiShaders extends GuiScreenOF {
 
                                 case 2:
                                     try {
-                                        Runtime.getRuntime().exec(new String[]{"/usr/bin/open", Shaders.shaderPacksDir.getAbsolutePath()});
+                                        Runtime.getRuntime().exec(new String[]{"/usr/bin/open", Shaders.SHADER_PACKS_DIR.getAbsolutePath()});
                                         return;
                                     } catch (IOException ioexception1) {
                                         ioexception1.printStackTrace();
@@ -138,7 +138,7 @@ public class GuiShaders extends GuiScreenOF {
 
                             if (flag) {
                                 Config.dbg("Opening via system class!");
-                                Sys.openURL("file://" + Shaders.shaderPacksDir.getAbsolutePath());
+                                Sys.openURL("file://" + Shaders.SHADER_PACKS_DIR.getAbsolutePath());
                             }
 
                             break;
@@ -258,19 +258,19 @@ public class GuiShaders extends GuiScreenOF {
                     case TEX_MIN_FIL_B:
                         Shaders.configTexMinFilB = (Shaders.configTexMinFilB + 1) % 3;
                         Shaders.configTexMinFilN = Shaders.configTexMinFilS = Shaders.configTexMinFilB;
-                        button.displayString = "Tex Min: " + Shaders.texMinFilDesc[Shaders.configTexMinFilB];
+                        button.displayString = "Tex Min: " + Shaders.TEX_MIN_FIL_DESC[Shaders.configTexMinFilB];
                         ShadersTex.updateTextureMinMagFilter();
                         break;
 
                     case TEX_MAG_FIL_N:
                         Shaders.configTexMagFilN = (Shaders.configTexMagFilN + 1) % 2;
-                        button.displayString = "Tex_n Mag: " + Shaders.texMagFilDesc[Shaders.configTexMagFilN];
+                        button.displayString = "Tex_n Mag: " + Shaders.TEX_MAG_FIL_DESC[Shaders.configTexMagFilN];
                         ShadersTex.updateTextureMinMagFilter();
                         break;
 
                     case TEX_MAG_FIL_S:
                         Shaders.configTexMagFilS = (Shaders.configTexMagFilS + 1) % 2;
-                        button.displayString = "Tex_s Mag: " + Shaders.texMagFilDesc[Shaders.configTexMagFilS];
+                        button.displayString = "Tex_s Mag: " + Shaders.TEX_MAG_FIL_DESC[Shaders.configTexMagFilS];
                         ShadersTex.updateTextureMinMagFilter();
                         break;
 

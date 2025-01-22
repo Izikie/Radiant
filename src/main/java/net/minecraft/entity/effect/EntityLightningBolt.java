@@ -25,14 +25,14 @@ public class EntityLightningBolt extends EntityWeatherEffect {
         BlockPos blockpos = new BlockPos(this);
 
         if (!worldIn.isRemote && worldIn.getGameRules().getBoolean("doFireTick") && (worldIn.getDifficulty() == Difficulty.NORMAL || worldIn.getDifficulty() == Difficulty.HARD) && worldIn.isAreaLoaded(blockpos, 10)) {
-            if (worldIn.getBlockState(blockpos).getBlock().getMaterial() == Material.air && Blocks.fire.canPlaceBlockAt(worldIn, blockpos)) {
+            if (worldIn.getBlockState(blockpos).getBlock().getMaterial() == Material.AIR && Blocks.fire.canPlaceBlockAt(worldIn, blockpos)) {
                 worldIn.setBlockState(blockpos, Blocks.fire.getDefaultState());
             }
 
             for (int i = 0; i < 4; ++i) {
                 BlockPos blockpos1 = blockpos.add(this.rand.nextInt(3) - 1, this.rand.nextInt(3) - 1, this.rand.nextInt(3) - 1);
 
-                if (worldIn.getBlockState(blockpos1).getBlock().getMaterial() == Material.air && Blocks.fire.canPlaceBlockAt(worldIn, blockpos1)) {
+                if (worldIn.getBlockState(blockpos1).getBlock().getMaterial() == Material.AIR && Blocks.fire.canPlaceBlockAt(worldIn, blockpos1)) {
                     worldIn.setBlockState(blockpos1, Blocks.fire.getDefaultState());
                 }
             }
@@ -58,7 +58,7 @@ public class EntityLightningBolt extends EntityWeatherEffect {
                 this.boltVertex = this.rand.nextLong();
                 BlockPos blockpos = new BlockPos(this);
 
-                if (!this.worldObj.isRemote && this.worldObj.getGameRules().getBoolean("doFireTick") && this.worldObj.isAreaLoaded(blockpos, 10) && this.worldObj.getBlockState(blockpos).getBlock().getMaterial() == Material.air && Blocks.fire.canPlaceBlockAt(this.worldObj, blockpos)) {
+                if (!this.worldObj.isRemote && this.worldObj.getGameRules().getBoolean("doFireTick") && this.worldObj.isAreaLoaded(blockpos, 10) && this.worldObj.getBlockState(blockpos).getBlock().getMaterial() == Material.AIR && Blocks.fire.canPlaceBlockAt(this.worldObj, blockpos)) {
                     this.worldObj.setBlockState(blockpos, Blocks.fire.getDefaultState());
                 }
             }

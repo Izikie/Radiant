@@ -15,7 +15,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public class ItemMinecart extends Item {
-    private static final IBehaviorDispenseItem dispenserMinecartBehavior = new BehaviorDefaultDispenseItem() {
+    private static final IBehaviorDispenseItem DISPENSER_MINECART_BEHAVIOR = new BehaviorDefaultDispenseItem() {
         private final BehaviorDefaultDispenseItem behaviourDefaultDispenseItem = new BehaviorDefaultDispenseItem();
 
         public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
@@ -36,7 +36,7 @@ public class ItemMinecart extends Item {
                     d3 = 0.1D;
                 }
             } else {
-                if (iblockstate.getBlock().getMaterial() != Material.air || !BlockRailBase.isRailBlock(world.getBlockState(blockpos.down()))) {
+                if (iblockstate.getBlock().getMaterial() != Material.AIR || !BlockRailBase.isRailBlock(world.getBlockState(blockpos.down()))) {
                     return this.behaviourDefaultDispenseItem.dispense(source, stack);
                 }
 
@@ -71,7 +71,7 @@ public class ItemMinecart extends Item {
         this.maxStackSize = 1;
         this.minecartType = type;
         this.setCreativeTab(CreativeTabs.tabTransport);
-        BlockDispenser.dispenseBehaviorRegistry.putObject(this, dispenserMinecartBehavior);
+        BlockDispenser.dispenseBehaviorRegistry.putObject(this, DISPENSER_MINECART_BEHAVIOR);
     }
 
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {

@@ -364,7 +364,7 @@ public abstract class GuiSlot {
     protected void overlayBackground(int startY, int endY, int startAlpha, int endAlpha) {
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-        this.mc.getTextureManager().bindTexture(Gui.optionsBackground);
+        this.mc.getTextureManager().bindTexture(Gui.OPTIONS_BACKGROUND);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         float f = 32.0F;
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
@@ -386,7 +386,7 @@ public abstract class GuiSlot {
 
     protected void drawContainerBackground(Tessellator p_drawContainerBackground_1_) {
         WorldRenderer worldrenderer = p_drawContainerBackground_1_.getWorldRenderer();
-        this.mc.getTextureManager().bindTexture(Gui.optionsBackground);
+        this.mc.getTextureManager().bindTexture(Gui.OPTIONS_BACKGROUND);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         float f = 32.0F;
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);

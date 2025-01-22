@@ -38,9 +38,9 @@ public class ItemFishFood extends ItemFood {
         ItemFishFood.FishType itemfishfood$fishtype = ItemFishFood.FishType.byItemStack(stack);
 
         if (itemfishfood$fishtype == ItemFishFood.FishType.PUFFERFISH) {
-            player.addPotionEffect(new PotionEffect(Potion.poison.id, 1200, 3));
-            player.addPotionEffect(new PotionEffect(Potion.hunger.id, 300, 2));
-            player.addPotionEffect(new PotionEffect(Potion.confusion.id, 300, 1));
+            player.addPotionEffect(new PotionEffect(Potion.POISON.id, 1200, 3));
+            player.addPotionEffect(new PotionEffect(Potion.HUNGER.id, 300, 2));
+            player.addPotionEffect(new PotionEffect(Potion.CONFUSION.id, 300, 1));
         }
 
         super.onFoodEaten(stack, worldIn, player);

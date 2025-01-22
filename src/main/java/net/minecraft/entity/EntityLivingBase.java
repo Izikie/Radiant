@@ -112,7 +112,7 @@ public abstract class EntityLivingBase extends Entity {
     private float absorptionAmount;
 
     public void onKillCommand() {
-        this.attackEntityFrom(DamageSource.outOfWorld, Float.MAX_VALUE);
+        this.attackEntityFrom(DamageSource.OUT_OF_WORLD, Float.MAX_VALUE);
     }
 
     public EntityLivingBase(World worldIn) {
@@ -151,7 +151,7 @@ public abstract class EntityLivingBase extends Entity {
             Block block = iblockstate.getBlock();
             float f = MathHelper.ceiling_float_int(this.fallDistance - 3.0F);
 
-            if (block.getMaterial() != Material.air) {
+            if (block.getMaterial() != Material.AIR) {
                 double d0 = Math.min(0.2F + f / 15.0F, 10.0F);
 
                 if (d0 > 2.5D) {
@@ -177,12 +177,12 @@ public abstract class EntityLivingBase extends Entity {
 
         if (this.isEntityAlive()) {
             if (this.isEntityInsideOpaqueBlock()) {
-                this.attackEntityFrom(DamageSource.inWall, 1.0F);
+                this.attackEntityFrom(DamageSource.IN_WALL, 1.0F);
             } else if (flag && !this.worldObj.getWorldBorder().contains(this.getEntityBoundingBox())) {
                 double d0 = this.worldObj.getWorldBorder().getClosestDistance(this) + this.worldObj.getWorldBorder().getDamageBuffer();
 
                 if (d0 < 0.0D) {
-                    this.attackEntityFrom(DamageSource.inWall, Math.max(1, MathHelper.floor_double(-d0 * this.worldObj.getWorldBorder().getDamageAmount())));
+                    this.attackEntityFrom(DamageSource.IN_WALL, Math.max(1, MathHelper.floor_double(-d0 * this.worldObj.getWorldBorder().getDamageAmount())));
                 }
             }
         }
@@ -194,8 +194,8 @@ public abstract class EntityLivingBase extends Entity {
         boolean flag1 = flag && ((EntityPlayer) this).capabilities.disableDamage;
 
         if (this.isEntityAlive()) {
-            if (this.isInsideOfMaterial(Material.water)) {
-                if (!this.canBreatheUnderwater() && !this.isPotionActive(Potion.waterBreathing.id) && !flag1) {
+            if (this.isInsideOfMaterial(Material.WATER)) {
+                if (!this.canBreatheUnderwater() && !this.isPotionActive(Potion.WATER_BREATHING.id) && !flag1) {
                     this.setAir(this.decreaseAirSupply(this.getAir()));
 
                     if (this.getAir() == -20) {
@@ -208,7 +208,7 @@ public abstract class EntityLivingBase extends Entity {
                             this.worldObj.spawnParticle(ParticleTypes.WATER_BUBBLE, this.posX + f, this.posY + f1, this.posZ + f2, this.motionX, this.motionY, this.motionZ);
                         }
 
-                        this.attackEntityFrom(DamageSource.drown, 2.0F);
+                        this.attackEntityFrom(DamageSource.DROWN, 2.0F);
                     }
                 }
 
@@ -479,7 +479,7 @@ public abstract class EntityLivingBase extends Entity {
             int i = PotionHelper.calcPotionLiquidColor(this.activePotionsMap.values());
             this.dataWatcher.updateObject(8, (byte) (PotionHelper.getAreAmbient(this.activePotionsMap.values()) ? 1 : 0));
             this.dataWatcher.updateObject(7, i);
-            this.setInvisible(this.isPotionActive(Potion.invisibility.id));
+            this.setInvisible(this.isPotionActive(Potion.INVISIBILITY.id));
         }
     }
 
@@ -534,7 +534,7 @@ public abstract class EntityLivingBase extends Entity {
         if (this.getCreatureAttribute() == EntityGroup.UNDEAD) {
             int i = potioneffectIn.getPotionID();
 
-            return i != Potion.regeneration.id && i != Potion.poison.id;
+            return i != Potion.REGENERATION.id && i != Potion.POISON.id;
         }
 
         return true;
@@ -560,7 +560,7 @@ public abstract class EntityLivingBase extends Entity {
         this.potionsNeedUpdate = true;
 
         if (!this.worldObj.isRemote) {
-            Potion.potionTypes[id.getPotionID()].applyAttributesModifiersToEntity(this, this.getAttributeMap(), id.getAmplifier());
+            Potion.POTION_TYPES[id.getPotionID()].applyAttributesModifiersToEntity(this, this.getAttributeMap(), id.getAmplifier());
         }
     }
 
@@ -568,8 +568,8 @@ public abstract class EntityLivingBase extends Entity {
         this.potionsNeedUpdate = true;
 
         if (p_70695_2_ && !this.worldObj.isRemote) {
-            Potion.potionTypes[id.getPotionID()].removeAttributesModifiersFromEntity(this, this.getAttributeMap(), id.getAmplifier());
-            Potion.potionTypes[id.getPotionID()].applyAttributesModifiersToEntity(this, this.getAttributeMap(), id.getAmplifier());
+            Potion.POTION_TYPES[id.getPotionID()].removeAttributesModifiersFromEntity(this, this.getAttributeMap(), id.getAmplifier());
+            Potion.POTION_TYPES[id.getPotionID()].applyAttributesModifiersToEntity(this, this.getAttributeMap(), id.getAmplifier());
         }
     }
 
@@ -577,7 +577,7 @@ public abstract class EntityLivingBase extends Entity {
         this.potionsNeedUpdate = true;
 
         if (!this.worldObj.isRemote) {
-            Potion.potionTypes[effect.getPotionID()].removeAttributesModifiersFromEntity(this, this.getAttributeMap(), effect.getAmplifier());
+            Potion.POTION_TYPES[effect.getPotionID()].removeAttributesModifiersFromEntity(this, this.getAttributeMap(), effect.getAmplifier());
         }
     }
 
@@ -607,10 +607,10 @@ public abstract class EntityLivingBase extends Entity {
 
             if (this.getHealth() <= 0.0F) {
                 return false;
-            } else if (source.isFireDamage() && this.isPotionActive(Potion.fireResistance)) {
+            } else if (source.isFireDamage() && this.isPotionActive(Potion.FIRE_RESISTANCE)) {
                 return false;
             } else {
-                if ((source == DamageSource.anvil || source == DamageSource.fallingBlock) && this.getEquipmentInSlot(4) != null) {
+                if ((source == DamageSource.ANVIL || source == DamageSource.FALLING_BLOCK) && this.getEquipmentInSlot(4) != null) {
                     this.getEquipmentInSlot(4).damageItem((int) (amount * 4.0F + this.rand.nextFloat() * amount * 2.0F), this);
                     amount *= 0.75F;
                 }
@@ -656,7 +656,7 @@ public abstract class EntityLivingBase extends Entity {
                 if (flag) {
                     this.worldObj.setEntityState(this, (byte) 2);
 
-                    if (source != DamageSource.drown) {
+                    if (source != DamageSource.DROWN) {
                         this.setBeenAttacked();
                     }
 
@@ -796,19 +796,19 @@ public abstract class EntityLivingBase extends Entity {
 
     public void fall(float distance, float damageMultiplier) {
         super.fall(distance, damageMultiplier);
-        PotionEffect potioneffect = this.getActivePotionEffect(Potion.jump);
+        PotionEffect potioneffect = this.getActivePotionEffect(Potion.JUMP);
         float f = potioneffect != null ? (potioneffect.getAmplifier() + 1) : 0.0F;
         int i = MathHelper.ceiling_float_int((distance - 3.0F - f) * damageMultiplier);
 
         if (i > 0) {
             this.playSound(this.getFallSoundString(i), 1.0F, 1.0F);
-            this.attackEntityFrom(DamageSource.fall, i);
+            this.attackEntityFrom(DamageSource.FALL, i);
             int j = MathHelper.floor_double(this.posX);
             int k = MathHelper.floor_double(this.posY - 0.20000000298023224D);
             int l = MathHelper.floor_double(this.posZ);
             Block block = this.worldObj.getBlockState(new BlockPos(j, k, l)).getBlock();
 
-            if (block.getMaterial() != Material.air) {
+            if (block.getMaterial() != Material.AIR) {
                 Block.SoundType block$soundtype = block.stepSound;
                 this.playSound(block$soundtype.getStepSound(), block$soundtype.getVolume() * 0.5F, block$soundtype.getFrequency() * 0.75F);
             }
@@ -855,8 +855,8 @@ public abstract class EntityLivingBase extends Entity {
         if (source.isDamageAbsolute()) {
             return damage;
         } else {
-            if (this.isPotionActive(Potion.resistance) && source != DamageSource.outOfWorld) {
-                int i = (this.getActivePotionEffect(Potion.resistance).getAmplifier() + 1) * 5;
+            if (this.isPotionActive(Potion.RESISTANCE) && source != DamageSource.OUT_OF_WORLD) {
+                int i = (this.getActivePotionEffect(Potion.RESISTANCE).getAmplifier() + 1) * 5;
                 int j = 25 - i;
                 float f = damage * j;
                 damage = f / 25.0F;
@@ -920,7 +920,7 @@ public abstract class EntityLivingBase extends Entity {
     }
 
     private int getArmSwingAnimationEnd() {
-        return this.isPotionActive(Potion.digSpeed) ? 6 - (1 + this.getActivePotionEffect(Potion.digSpeed).getAmplifier()) : (this.isPotionActive(Potion.digSlowdown) ? 6 + (1 + this.getActivePotionEffect(Potion.digSlowdown).getAmplifier()) * 2 : 6);
+        return this.isPotionActive(Potion.DIG_SPEED) ? 6 - (1 + this.getActivePotionEffect(Potion.DIG_SPEED).getAmplifier()) : (this.isPotionActive(Potion.DIG_SLOWDOWN) ? 6 + (1 + this.getActivePotionEffect(Potion.DIG_SLOWDOWN).getAmplifier()) * 2 : 6);
     }
 
     public void swingItem() {
@@ -946,7 +946,7 @@ public abstract class EntityLivingBase extends Entity {
                 this.playSound(this.getHurtSound(), this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
             }
 
-            this.attackEntityFrom(DamageSource.generic, 0.0F);
+            this.attackEntityFrom(DamageSource.GENERIC, 0.0F);
         } else if (id == 3) {
             String s1 = this.getDeathSound();
 
@@ -955,14 +955,14 @@ public abstract class EntityLivingBase extends Entity {
             }
 
             this.setHealth(0.0F);
-            this.onDeath(DamageSource.generic);
+            this.onDeath(DamageSource.GENERIC);
         } else {
             super.handleStatusUpdate(id);
         }
     }
 
     protected void kill() {
-        this.attackEntityFrom(DamageSource.outOfWorld, 4.0F);
+        this.attackEntityFrom(DamageSource.OUT_OF_WORLD, 4.0F);
     }
 
     protected void updateArmSwingProgress() {
@@ -1052,7 +1052,7 @@ public abstract class EntityLivingBase extends Entity {
                             return;
                         }
 
-                        if (World.doesBlockHaveSolidTopSurface(this.worldObj, new BlockPos(l, (int) this.posY - 1, i1)) || this.worldObj.getBlockState(new BlockPos(l, (int) this.posY - 1, i1)).getBlock().getMaterial() == Material.water) {
+                        if (World.doesBlockHaveSolidTopSurface(this.worldObj, new BlockPos(l, (int) this.posY - 1, i1)) || this.worldObj.getBlockState(new BlockPos(l, (int) this.posY - 1, i1)).getBlock().getMaterial() == Material.WATER) {
                             d0 = this.posX + j;
                             d1 = this.posY + 1.0D;
                             d2 = this.posZ + k;
@@ -1076,8 +1076,8 @@ public abstract class EntityLivingBase extends Entity {
     protected void jump() {
         this.motionY = this.getJumpUpwardsMotion();
 
-        if (this.isPotionActive(Potion.jump)) {
-            this.motionY += (this.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F;
+        if (this.isPotionActive(Potion.JUMP)) {
+            this.motionY += (this.getActivePotionEffect(Potion.JUMP).getAmplifier() + 1) * 0.1F;
         }
 
         if (this.isSprinting()) {

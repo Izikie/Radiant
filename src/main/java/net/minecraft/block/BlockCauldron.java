@@ -29,7 +29,7 @@ public class BlockCauldron extends Block {
     public static final PropertyInteger LEVEL = PropertyInteger.create("level", 0, 3);
 
     public BlockCauldron() {
-        super(Material.iron, MapColor.stoneColor);
+        super(Material.IRON, MapColor.stoneColor);
         this.setDefaultState(this.blockState.getBaseState().withProperty(LEVEL, 0));
     }
 

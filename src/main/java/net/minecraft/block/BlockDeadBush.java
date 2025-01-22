@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 
 public class BlockDeadBush extends BlockBush {
     protected BlockDeadBush() {
-        super(Material.vine);
+        super(Material.VINE);
         float f = 0.4F;
         this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.8F, 0.5F + f);
     }

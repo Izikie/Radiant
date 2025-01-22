@@ -26,7 +26,7 @@ public class BlockPistonExtension extends Block {
     public static final PropertyBool SHORT = PropertyBool.create("short");
 
     public BlockPistonExtension() {
-        super(Material.piston);
+        super(Material.PISTON);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH).withProperty(TYPE, PistonType.DEFAULT).withProperty(SHORT, Boolean.FALSE));
         this.setStepSound(soundTypePiston);
         this.setHardness(0.5F);

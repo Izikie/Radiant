@@ -21,7 +21,7 @@ import net.minecraft.world.chunk.Chunk;
 
 public class BlockBeacon extends BlockContainer {
     public BlockBeacon() {
-        super(Material.glass, MapColor.diamondColor);
+        super(Material.GLASS, MapColor.diamondColor);
         this.setHardness(3.0F);
         this.setCreativeTab(CreativeTabs.tabMisc);
     }

@@ -340,7 +340,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
             this.oceanMonumentGenerator.generateStructure(this.worldObj, this.rand, chunkcoordintpair);
         }
 
-        if (biomegenbase != BiomeGenBase.desert && biomegenbase != BiomeGenBase.desertHills && this.settings.useWaterLakes && !flag && this.rand.nextInt(this.settings.waterLakeChance) == 0) {
+        if (biomegenbase != BiomeGenBase.DESERT && biomegenbase != BiomeGenBase.DESERT_HILLS && this.settings.useWaterLakes && !flag && this.rand.nextInt(this.settings.waterLakeChance) == 0) {
             int i1 = this.rand.nextInt(16) + 8;
             int j1 = this.rand.nextInt(256);
             int k1 = this.rand.nextInt(16) + 8;

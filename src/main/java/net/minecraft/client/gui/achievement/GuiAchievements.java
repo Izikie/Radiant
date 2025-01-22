@@ -51,8 +51,8 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
         this.statFileWriter = statFileWriterIn;
         int i = 141;
         int j = 141;
-        this.field_146569_s = this.field_146567_u = this.field_146565_w = (AchievementList.openInventory.displayColumn * 24 - i / 2 - 12);
-        this.field_146568_t = this.field_146566_v = this.field_146573_x = (AchievementList.openInventory.displayRow * 24 - j / 2);
+        this.field_146569_s = this.field_146567_u = this.field_146565_w = (AchievementList.OPEN_INVENTORY.displayColumn * 24 - i / 2 - 12);
+        this.field_146568_t = this.field_146566_v = this.field_146573_x = (AchievementList.OPEN_INVENTORY.displayRow * 24 - j / 2);
     }
 
     public void initGui() {
@@ -270,8 +270,8 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
         GlStateManager.depthFunc(515);
         this.mc.getTextureManager().bindTexture(ACHIEVEMENT_BACKGROUND);
 
-        for (int j5 = 0; j5 < AchievementList.achievementList.size(); ++j5) {
-            Achievement achievement1 = AchievementList.achievementList.get(j5);
+        for (int j5 = 0; j5 < AchievementList.ACHIEVEMENT_LIST.size(); ++j5) {
+            Achievement achievement1 = AchievementList.ACHIEVEMENT_LIST.get(j5);
 
             if (achievement1.parentAchievement != null) {
                 int k5 = achievement1.displayColumn * 24 - i + 11;
@@ -315,8 +315,8 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
         GlStateManager.enableRescaleNormal();
         GlStateManager.enableColorMaterial();
 
-        for (int i6 = 0; i6 < AchievementList.achievementList.size(); ++i6) {
-            Achievement achievement2 = AchievementList.achievementList.get(i6);
+        for (int i6 = 0; i6 < AchievementList.ACHIEVEMENT_LIST.size(); ++i6) {
+            Achievement achievement2 = AchievementList.ACHIEVEMENT_LIST.get(i6);
             int l6 = achievement2.displayColumn * 24 - i;
             int j7 = achievement2.displayRow * 24 - j;
 

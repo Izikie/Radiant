@@ -258,7 +258,7 @@ public class WorldServer extends World implements IThreadListener {
         int j = this.worldInfo.getSpawnZ();
         int k = 0;
 
-        while (this.getGroundAboveSeaLevel(new BlockPos(i, 0, j)).getMaterial() == Material.air) {
+        while (this.getGroundAboveSeaLevel(new BlockPos(i, 0, j)).getMaterial() == Material.AIR) {
             i += this.rand.nextInt(8) - this.rand.nextInt(8);
             j += this.rand.nextInt(8) - this.rand.nextInt(8);
             ++k;
@@ -366,14 +366,14 @@ public class WorldServer extends World implements IThreadListener {
         NextTickListEntry nextticklistentry = new NextTickListEntry(pos, blockIn);
         int i = 0;
 
-        if (this.scheduledUpdatesAreImmediate && blockIn.getMaterial() != Material.air) {
+        if (this.scheduledUpdatesAreImmediate && blockIn.getMaterial() != Material.AIR) {
             if (blockIn.requiresUpdates()) {
                 i = 8;
 
                 if (this.isAreaLoaded(nextticklistentry.position.add(-i, -i, -i), nextticklistentry.position.add(i, i, i))) {
                     IBlockState iblockstate = this.getBlockState(nextticklistentry.position);
 
-                    if (iblockstate.getBlock().getMaterial() != Material.air && iblockstate.getBlock() == nextticklistentry.getBlock()) {
+                    if (iblockstate.getBlock().getMaterial() != Material.AIR && iblockstate.getBlock() == nextticklistentry.getBlock()) {
                         iblockstate.getBlock().updateTick(this, nextticklistentry.position, iblockstate, this.rand);
                     }
                 }
@@ -385,7 +385,7 @@ public class WorldServer extends World implements IThreadListener {
         }
 
         if (this.isAreaLoaded(pos.add(-i, -i, -i), pos.add(i, i, i))) {
-            if (blockIn.getMaterial() != Material.air) {
+            if (blockIn.getMaterial() != Material.AIR) {
                 nextticklistentry.setScheduledTime(delay + this.worldInfo.getWorldTotalTime());
                 nextticklistentry.setPriority(priority);
             }
@@ -401,7 +401,7 @@ public class WorldServer extends World implements IThreadListener {
         NextTickListEntry nextticklistentry = new NextTickListEntry(pos, blockIn);
         nextticklistentry.setPriority(priority);
 
-        if (blockIn.getMaterial() != Material.air) {
+        if (blockIn.getMaterial() != Material.AIR) {
             nextticklistentry.setScheduledTime(delay + this.worldInfo.getWorldTotalTime());
         }
 
@@ -462,7 +462,7 @@ public class WorldServer extends World implements IThreadListener {
                     if (this.isAreaLoaded(nextticklistentry1.position.add(-k, -k, -k), nextticklistentry1.position.add(k, k, k))) {
                         IBlockState iblockstate = this.getBlockState(nextticklistentry1.position);
 
-                        if (iblockstate.getBlock().getMaterial() != Material.air && Block.isEqualTo(iblockstate.getBlock(), nextticklistentry1.getBlock())) {
+                        if (iblockstate.getBlock().getMaterial() != Material.AIR && Block.isEqualTo(iblockstate.getBlock(), nextticklistentry1.getBlock())) {
                             try {
                                 iblockstate.getBlock().updateTick(this, nextticklistentry1.position, iblockstate, this.rand);
                             } catch (Throwable throwable) {

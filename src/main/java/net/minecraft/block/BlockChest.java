@@ -29,7 +29,7 @@ public class BlockChest extends BlockContainer {
     public final int chestType;
 
     protected BlockChest(int type) {
-        super(Material.wood);
+        super(Material.WOOD);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH));
         this.chestType = type;
         this.setCreativeTab(CreativeTabs.tabDecorations);

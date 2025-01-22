@@ -7,14 +7,14 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.MathHelper;
 
 public class ClippingHelperImpl extends ClippingHelper {
-    private static final ClippingHelperImpl instance = new ClippingHelperImpl();
+    private static final ClippingHelperImpl INSTANCE = new ClippingHelperImpl();
     private final FloatBuffer projectionMatrixBuffer = GLAllocation.createDirectFloatBuffer(16);
     private final FloatBuffer modelviewMatrixBuffer = GLAllocation.createDirectFloatBuffer(16);
     private final FloatBuffer field_78564_h = GLAllocation.createDirectFloatBuffer(16);
 
     public static ClippingHelper getInstance() {
-        instance.init();
-        return instance;
+        INSTANCE.init();
+        return INSTANCE;
     }
 
     private void normalize(float[] p_180547_1_) {

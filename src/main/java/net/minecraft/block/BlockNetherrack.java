@@ -7,7 +7,7 @@ import net.minecraft.creativetab.CreativeTabs;
 
 public class BlockNetherrack extends Block {
     public BlockNetherrack() {
-        super(Material.rock);
+        super(Material.ROCK);
         this.setCreativeTab(CreativeTabs.tabBlock);
     }
 

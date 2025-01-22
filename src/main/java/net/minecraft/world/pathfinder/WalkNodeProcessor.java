@@ -153,10 +153,10 @@ public class WalkNodeProcessor extends NodeProcessor {
                     blockpos$mutableblockpos.set(i, j, k);
                     Block block = blockaccessIn.getBlockState(blockpos$mutableblockpos).getBlock();
 
-                    if (block.getMaterial() != Material.air) {
+                    if (block.getMaterial() != Material.AIR) {
                         if (block != Blocks.trapdoor && block != Blocks.iron_trapdoor) {
                             if (block != Blocks.flowing_water && block != Blocks.water) {
-                                if (!enterDoors && block instanceof BlockDoor && block.getMaterial() == Material.wood) {
+                                if (!enterDoors && block instanceof BlockDoor && block.getMaterial() == Material.WOOD) {
                                     return 0;
                                 }
                             } else {
@@ -174,7 +174,7 @@ public class WalkNodeProcessor extends NodeProcessor {
                             if (!(entityIn.worldObj.getBlockState(blockpos).getBlock() instanceof BlockRailBase) && !(entityIn.worldObj.getBlockState(blockpos.down()).getBlock() instanceof BlockRailBase)) {
                                 return -3;
                             }
-                        } else if (!block.isPassable(blockaccessIn, blockpos$mutableblockpos) && (!breakDoors || !(block instanceof BlockDoor) || block.getMaterial() != Material.wood)) {
+                        } else if (!block.isPassable(blockaccessIn, blockpos$mutableblockpos) && (!breakDoors || !(block instanceof BlockDoor) || block.getMaterial() != Material.WOOD)) {
                             if (block instanceof BlockFence || block instanceof BlockFenceGate || block instanceof BlockWall) {
                                 return -3;
                             }
@@ -185,7 +185,7 @@ public class WalkNodeProcessor extends NodeProcessor {
 
                             Material material = block.getMaterial();
 
-                            if (material != Material.lava) {
+                            if (material != Material.LAVA) {
                                 return 0;
                             }
 

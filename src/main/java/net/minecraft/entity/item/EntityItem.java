@@ -78,7 +78,7 @@ public class EntityItem extends Entity {
             boolean flag = (int) this.prevPosX != (int) this.posX || (int) this.prevPosY != (int) this.posY || (int) this.prevPosZ != (int) this.posZ;
 
             if (flag || this.ticksExisted % 25 == 0) {
-                if (this.worldObj.getBlockState(new BlockPos(this)).getBlock().getMaterial() == Material.lava) {
+                if (this.worldObj.getBlockState(new BlockPos(this)).getBlock().getMaterial() == Material.LAVA) {
                     this.motionY = 0.20000000298023224D;
                     this.motionX = ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
                     this.motionZ = ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
@@ -169,7 +169,7 @@ public class EntityItem extends Entity {
     }
 
     public boolean handleWaterMovement() {
-        if (this.worldObj.handleMaterialAcceleration(this.getEntityBoundingBox(), Material.water, this)) {
+        if (this.worldObj.handleMaterialAcceleration(this.getEntityBoundingBox(), Material.WATER, this)) {
             if (!this.inWater && !this.firstUpdate) {
                 this.resetHeight();
             }
@@ -183,7 +183,7 @@ public class EntityItem extends Entity {
     }
 
     protected void dealFireDamage(int amount) {
-        this.attackEntityFrom(DamageSource.inFire, amount);
+        this.attackEntityFrom(DamageSource.IN_FIRE, amount);
     }
 
     public boolean attackEntityFrom(DamageSource source, float amount) {
@@ -252,30 +252,30 @@ public class EntityItem extends Entity {
 
             if (this.delayBeforeCanPickup == 0 && (this.owner == null || 6000 - this.age <= 200 || this.owner.equals(entityIn.getName())) && entityIn.inventory.addItemStackToInventory(itemstack)) {
                 if (itemstack.getItem() == Item.getItemFromBlock(Blocks.log)) {
-                    entityIn.triggerAchievement(AchievementList.mineWood);
+                    entityIn.triggerAchievement(AchievementList.MINE_WOOD);
                 }
 
                 if (itemstack.getItem() == Item.getItemFromBlock(Blocks.log2)) {
-                    entityIn.triggerAchievement(AchievementList.mineWood);
+                    entityIn.triggerAchievement(AchievementList.MINE_WOOD);
                 }
 
                 if (itemstack.getItem() == Items.leather) {
-                    entityIn.triggerAchievement(AchievementList.killCow);
+                    entityIn.triggerAchievement(AchievementList.KILL_COW);
                 }
 
                 if (itemstack.getItem() == Items.diamond) {
-                    entityIn.triggerAchievement(AchievementList.diamonds);
+                    entityIn.triggerAchievement(AchievementList.DIAMONDS);
                 }
 
                 if (itemstack.getItem() == Items.blaze_rod) {
-                    entityIn.triggerAchievement(AchievementList.blazeRod);
+                    entityIn.triggerAchievement(AchievementList.BLAZE_ROD);
                 }
 
                 if (itemstack.getItem() == Items.diamond && this.getThrower() != null) {
                     EntityPlayer entityplayer = this.worldObj.getPlayerEntityByName(this.getThrower());
 
                     if (entityplayer != null && entityplayer != entityIn) {
-                        entityplayer.triggerAchievement(AchievementList.diamondsToYou);
+                        entityplayer.triggerAchievement(AchievementList.DIAMONDS_TO_YOU);
                     }
                 }
 

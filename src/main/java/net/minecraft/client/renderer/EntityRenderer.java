@@ -475,7 +475,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
             Block block = ActiveRenderInfo.getBlockAtEntityViewpoint(this.mc.theWorld, entity, partialTicks);
 
-            if (block.getMaterial() == Material.water) {
+            if (block.getMaterial() == Material.WATER) {
                 f = f * 60.0F / 70.0F;
             }
 
@@ -649,7 +649,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         if (f1 > 0.0F) {
             int i = 20;
 
-            if (this.mc.thePlayer.isPotionActive(Potion.confusion)) {
+            if (this.mc.thePlayer.isPotionActive(Potion.CONFUSION)) {
                 i = 7;
             }
 
@@ -792,7 +792,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             World world = this.mc.theWorld;
 
             if (world != null) {
-                if (Config.isCustomColors() && CustomColors.updateLightmap(world, this.torchFlickerX, this.lightmapColors, this.mc.thePlayer.isPotionActive(Potion.nightVision), partialTicks)) {
+                if (Config.isCustomColors() && CustomColors.updateLightmap(world, this.torchFlickerX, this.lightmapColors, this.mc.thePlayer.isPotionActive(Potion.NIGHT_VISION), partialTicks)) {
                     this.lightmapTexture.updateDynamicTexture();
                     this.lightmapUpdateNeeded = false;
                     return;
@@ -833,7 +833,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                         f10 = 0.25F + f7 * 0.75F;
                     }
 
-                    if (this.mc.thePlayer.isPotionActive(Potion.nightVision)) {
+                    if (this.mc.thePlayer.isPotionActive(Potion.NIGHT_VISION)) {
                         float f15 = this.getNightVisionBrightness(this.mc.thePlayer, partialTicks);
                         float f12 = 1.0F / f8;
 
@@ -914,7 +914,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     }
 
     public float getNightVisionBrightness(EntityLivingBase entitylivingbaseIn, float partialTicks) {
-        int i = entitylivingbaseIn.getActivePotionEffect(Potion.nightVision).getDuration();
+        int i = entitylivingbaseIn.getActivePotionEffect(Potion.NIGHT_VISION).getDuration();
         return i > 200 ? 1.0F : 0.7F + MathHelper.sin((i - partialTicks) * (float) Math.PI * 0.2F) * 0.3F;
     }
 
@@ -1012,8 +1012,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 GlStateManager.loadIdentity();
                 this.setupOverlayRendering();
                 this.renderEndNanoTime = System.nanoTime();
-                TileEntityRendererDispatcher.instance.renderEngine = this.mc.getTextureManager();
-                TileEntityRendererDispatcher.instance.fontRenderer = this.mc.fontRendererObj;
+                TileEntityRendererDispatcher.INSTANCE.renderEngine = this.mc.getTextureManager();
+                TileEntityRendererDispatcher.INSTANCE.fontRenderer = this.mc.fontRendererObj;
             }
 
             if (this.mc.currentScreen != null) {
@@ -1252,7 +1252,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             GlStateManager.popMatrix();
             GlStateManager.pushMatrix();
 
-            if (this.mc.objectMouseOver != null && entity.isInsideOfMaterial(Material.water) && flag1) {
+            if (this.mc.objectMouseOver != null && entity.isInsideOfMaterial(Material.WATER) && flag1) {
                 EntityPlayer entityplayer = (EntityPlayer) entity;
                 GlStateManager.disableAlpha();
                 renderglobal.drawSelectionBox(entityplayer, this.mc.objectMouseOver, 0, partialTicks);
@@ -1263,7 +1263,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         GlStateManager.matrixMode(5888);
         GlStateManager.popMatrix();
 
-        if (flag1 && this.mc.objectMouseOver != null && !entity.isInsideOfMaterial(Material.water)) {
+        if (flag1 && this.mc.objectMouseOver != null && !entity.isInsideOfMaterial(Material.WATER)) {
             EntityPlayer entityplayer1 = (EntityPlayer) entity;
             GlStateManager.disableAlpha();
 
@@ -1441,9 +1441,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                     double d3 = this.random.nextDouble();
                     double d4 = this.random.nextDouble();
 
-                    if (block.getMaterial() == Material.lava) {
+                    if (block.getMaterial() == Material.LAVA) {
                         this.mc.theWorld.spawnParticle(ParticleTypes.SMOKE_NORMAL, blockpos1.getX() + d3, (blockpos1.getY() + 0.1F) - block.getBlockBoundsMinY(), blockpos1.getZ() + d4, 0.0D, 0.0D, 0.0D);
-                    } else if (block.getMaterial() != Material.air) {
+                    } else if (block.getMaterial() != Material.AIR) {
                         block.setBlockBoundsBasedOnState(world, blockpos2);
                         ++j;
 
@@ -1684,11 +1684,11 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             this.fogColorRed = (float) vec33.xCoord;
             this.fogColorGreen = (float) vec33.yCoord;
             this.fogColorBlue = (float) vec33.zCoord;
-        } else if (block.getMaterial() == Material.water) {
+        } else if (block.getMaterial() == Material.WATER) {
             float f12 = EnchantmentHelper.getRespiration(entity) * 0.2F;
             f12 = Config.limit(f12, 0.0F, 0.6F);
 
-            if (entity instanceof EntityLivingBase entityLivingBase && entityLivingBase.isPotionActive(Potion.waterBreathing)) {
+            if (entity instanceof EntityLivingBase entityLivingBase && entityLivingBase.isPotionActive(Potion.WATER_BREATHING)) {
                 f12 = f12 * 0.3F + 0.6F;
             }
 
@@ -1702,7 +1702,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 this.fogColorGreen = (float) vec35.yCoord;
                 this.fogColorBlue = (float) vec35.zCoord;
             }
-        } else if (block.getMaterial() == Material.lava) {
+        } else if (block.getMaterial() == Material.LAVA) {
             this.fogColorRed = 0.6F;
             this.fogColorGreen = 0.1F;
             this.fogColorBlue = 0.0F;
@@ -1721,8 +1721,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         this.fogColorBlue *= f13;
         double d1 = (entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks) * world.provider.getVoidFogYFactor();
 
-        if (entity instanceof EntityLivingBase livingBase && livingBase.isPotionActive(Potion.blindness)) {
-            int i = livingBase.getActivePotionEffect(Potion.blindness).getDuration();
+        if (entity instanceof EntityLivingBase livingBase && livingBase.isPotionActive(Potion.BLINDNESS)) {
+            int i = livingBase.getActivePotionEffect(Potion.BLINDNESS).getDuration();
 
             if (i < 20) {
                 d1 *= 1.0F - i / 20.0F;
@@ -1749,7 +1749,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             this.fogColorBlue = this.fogColorBlue * (1.0F - f14) + this.fogColorBlue * 0.6F * f14;
         }
 
-        if (entity instanceof EntityLivingBase entityLivingBase && entityLivingBase.isPotionActive(Potion.nightVision)) {
+        if (entity instanceof EntityLivingBase entityLivingBase && entityLivingBase.isPotionActive(Potion.NIGHT_VISION)) {
             float f15 = this.getNightVisionBrightness(entityLivingBase, partialTicks);
             float f6 = 1.0F / this.fogColorRed;
 
@@ -1789,9 +1789,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
         if (f >= 0.0F) {
             GlStateManager.setFogDensity(f);
-        } else if (entity instanceof EntityLivingBase livingBase && livingBase.isPotionActive(Potion.blindness)) {
+        } else if (entity instanceof EntityLivingBase livingBase && livingBase.isPotionActive(Potion.BLINDNESS)) {
             float f4 = 5.0F;
-            int i = livingBase.getActivePotionEffect(Potion.blindness).getDuration();
+            int i = livingBase.getActivePotionEffect(Potion.BLINDNESS).getDuration();
 
             if (i < 20) {
                 f4 = 5.0F + (this.farPlaneDistance - 5.0F) * (1.0F - i / 20.0F);
@@ -1813,17 +1813,17 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         } else if (this.cloudFog) {
             GlStateManager.setFog(2048);
             GlStateManager.setFogDensity(0.1F);
-        } else if (block.getMaterial() == Material.water) {
+        } else if (block.getMaterial() == Material.WATER) {
             GlStateManager.setFog(2048);
             float f1 = Config.isClearWater() ? 0.02F : 0.1F;
 
-            if (entity instanceof EntityLivingBase entityLivingBase && entityLivingBase.isPotionActive(Potion.waterBreathing)) {
+            if (entity instanceof EntityLivingBase entityLivingBase && entityLivingBase.isPotionActive(Potion.WATER_BREATHING)) {
                 GlStateManager.setFogDensity(0.01F);
             } else {
                 float f2 = 0.1F - EnchantmentHelper.getRespiration(entity) * 0.03F;
                 GlStateManager.setFogDensity(Config.limit(f2, 0.0F, f1));
             }
-        } else if (block.getMaterial() == Material.lava) {
+        } else if (block.getMaterial() == Material.LAVA) {
             GlStateManager.setFog(2048);
             GlStateManager.setFogDensity(2.0F);
         } else {

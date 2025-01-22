@@ -19,7 +19,7 @@ public abstract class BlockContainer extends Block implements ITileEntityProvide
     }
 
     protected boolean isInvalidNeighbor(World p_181086_1_, BlockPos p_181086_2_, Direction p_181086_3_) {
-        return p_181086_1_.getBlockState(p_181086_2_.offset(p_181086_3_)).getBlock().getMaterial() == Material.cactus;
+        return p_181086_1_.getBlockState(p_181086_2_.offset(p_181086_3_)).getBlock().getMaterial() == Material.CACTUS;
     }
 
     protected boolean hasInvalidNeighbor(World p_181087_1_, BlockPos p_181087_2_) {

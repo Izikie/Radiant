@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 
 public class BlockSoulSand extends Block {
     public BlockSoulSand() {
-        super(Material.sand, MapColor.brownColor);
+        super(Material.SAND, MapColor.brownColor);
         this.setCreativeTab(CreativeTabs.tabBlock);
     }
 

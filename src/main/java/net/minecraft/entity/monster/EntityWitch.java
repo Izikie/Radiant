@@ -100,15 +100,15 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
             } else {
                 int i = -1;
 
-                if (this.rand.nextFloat() < 0.15F && this.isInsideOfMaterial(Material.water) && !this.isPotionActive(Potion.waterBreathing)) {
+                if (this.rand.nextFloat() < 0.15F && this.isInsideOfMaterial(Material.WATER) && !this.isPotionActive(Potion.WATER_BREATHING)) {
                     i = 8237;
-                } else if (this.rand.nextFloat() < 0.15F && this.isBurning() && !this.isPotionActive(Potion.fireResistance)) {
+                } else if (this.rand.nextFloat() < 0.15F && this.isBurning() && !this.isPotionActive(Potion.FIRE_RESISTANCE)) {
                     i = 16307;
                 } else if (this.rand.nextFloat() < 0.05F && this.getHealth() < this.getMaxHealth()) {
                     i = 16341;
-                } else if (this.rand.nextFloat() < 0.25F && this.getAttackTarget() != null && !this.isPotionActive(Potion.moveSpeed) && this.getAttackTarget().getDistanceSqToEntity(this) > 121.0D) {
+                } else if (this.rand.nextFloat() < 0.25F && this.getAttackTarget() != null && !this.isPotionActive(Potion.MOVE_SPEED) && this.getAttackTarget().getDistanceSqToEntity(this) > 121.0D) {
                     i = 16274;
-                } else if (this.rand.nextFloat() < 0.25F && this.getAttackTarget() != null && !this.isPotionActive(Potion.moveSpeed) && this.getAttackTarget().getDistanceSqToEntity(this) > 121.0D) {
+                } else if (this.rand.nextFloat() < 0.25F && this.getAttackTarget() != null && !this.isPotionActive(Potion.MOVE_SPEED) && this.getAttackTarget().getDistanceSqToEntity(this) > 121.0D) {
                     i = 16274;
                 }
 
@@ -181,11 +181,11 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
             double d3 = target.posZ + target.motionZ - this.posZ;
             float f = MathHelper.sqrt_double(d1 * d1 + d3 * d3);
 
-            if (f >= 8.0F && !target.isPotionActive(Potion.moveSlowdown)) {
+            if (f >= 8.0F && !target.isPotionActive(Potion.MOVE_SLOWDOWN)) {
                 entitypotion.setPotionDamage(32698);
-            } else if (target.getHealth() >= 8.0F && !target.isPotionActive(Potion.poison)) {
+            } else if (target.getHealth() >= 8.0F && !target.isPotionActive(Potion.POISON)) {
                 entitypotion.setPotionDamage(32660);
-            } else if (f <= 3.0F && !target.isPotionActive(Potion.weakness) && this.rand.nextFloat() < 0.25F) {
+            } else if (f <= 3.0F && !target.isPotionActive(Potion.WEAKNESS) && this.rand.nextFloat() < 0.25F) {
                 entitypotion.setPotionDamage(32696);
             }
 

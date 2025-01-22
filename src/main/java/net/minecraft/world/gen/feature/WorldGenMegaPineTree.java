@@ -37,26 +37,26 @@ public class WorldGenMegaPineTree extends WorldGenHugeTrees {
             for (int j = 0; j < i; ++j) {
                 Block block = worldIn.getBlockState(position.up(j)).getBlock();
 
-                if (block.getMaterial() == Material.air || block.getMaterial() == Material.leaves) {
+                if (block.getMaterial() == Material.AIR || block.getMaterial() == Material.LEAVES) {
                     this.setBlockAndNotifyAdequately(worldIn, position.up(j), this.woodMetadata);
                 }
 
                 if (j < i - 1) {
                     block = worldIn.getBlockState(position.add(1, j, 0)).getBlock();
 
-                    if (block.getMaterial() == Material.air || block.getMaterial() == Material.leaves) {
+                    if (block.getMaterial() == Material.AIR || block.getMaterial() == Material.LEAVES) {
                         this.setBlockAndNotifyAdequately(worldIn, position.add(1, j, 0), this.woodMetadata);
                     }
 
                     block = worldIn.getBlockState(position.add(1, j, 1)).getBlock();
 
-                    if (block.getMaterial() == Material.air || block.getMaterial() == Material.leaves) {
+                    if (block.getMaterial() == Material.AIR || block.getMaterial() == Material.LEAVES) {
                         this.setBlockAndNotifyAdequately(worldIn, position.add(1, j, 1), this.woodMetadata);
                     }
 
                     block = worldIn.getBlockState(position.add(0, j, 1)).getBlock();
 
-                    if (block.getMaterial() == Material.air || block.getMaterial() == Material.leaves) {
+                    if (block.getMaterial() == Material.AIR || block.getMaterial() == Material.LEAVES) {
                         this.setBlockAndNotifyAdequately(worldIn, position.add(0, j, 1), this.woodMetadata);
                     }
                 }
@@ -115,7 +115,7 @@ public class WorldGenMegaPineTree extends WorldGenHugeTrees {
                 break;
             }
 
-            if (block.getMaterial() != Material.air && i < 0) {
+            if (block.getMaterial() != Material.AIR && i < 0) {
                 break;
             }
         }

@@ -122,7 +122,7 @@ public class EntityAIControlledByPlayer extends EntityAIBase {
 
         if (i != l || k != i1) {
             Block block = this.thisEntity.worldObj.getBlockState(new BlockPos(i, j, k)).getBlock();
-            boolean flag = !this.isStairOrSlab(block) && (block.getMaterial() != Material.air || !this.isStairOrSlab(this.thisEntity.worldObj.getBlockState(new BlockPos(i, j - 1, k)).getBlock()));
+            boolean flag = !this.isStairOrSlab(block) && (block.getMaterial() != Material.AIR || !this.isStairOrSlab(this.thisEntity.worldObj.getBlockState(new BlockPos(i, j - 1, k)).getBlock()));
 
             if (flag && 0 == WalkNodeProcessor.func_176170_a(this.thisEntity.worldObj, this.thisEntity, l, j, i1, j1, k1, l1, false, false, true) && 1 == WalkNodeProcessor.func_176170_a(this.thisEntity.worldObj, this.thisEntity, i, j + 1, k, j1, k1, l1, false, false, true) && 1 == WalkNodeProcessor.func_176170_a(this.thisEntity.worldObj, this.thisEntity, l, j + 1, i1, j1, k1, l1, false, false, true)) {
                 entitycreature.getJumpHelper().setJumping();

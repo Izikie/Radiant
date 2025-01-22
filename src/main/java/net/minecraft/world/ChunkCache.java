@@ -115,7 +115,7 @@ public class ChunkCache implements IBlockAccess {
     }
 
     public boolean isAirBlock(BlockPos pos) {
-        return this.getBlockState(pos).getBlock().getMaterial() == Material.air;
+        return this.getBlockState(pos).getBlock().getMaterial() == Material.AIR;
     }
 
     public int getLightFor(LightType p_175628_1_, BlockPos pos) {

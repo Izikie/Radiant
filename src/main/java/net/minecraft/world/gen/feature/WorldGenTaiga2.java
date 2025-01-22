@@ -45,7 +45,7 @@ public class WorldGenTaiga2 extends WorldGenAbstractTree {
                         if (i1 >= 0 && i1 < 256) {
                             Block block = worldIn.getBlockState(blockpos$mutableblockpos.set(k1, i1, l1)).getBlock();
 
-                            if (block.getMaterial() != Material.air && block.getMaterial() != Material.leaves) {
+                            if (block.getMaterial() != Material.AIR && block.getMaterial() != Material.LEAVES) {
                                 flag = false;
                             }
                         } else {
@@ -103,7 +103,7 @@ public class WorldGenTaiga2 extends WorldGenAbstractTree {
                     for (int k4 = 0; k4 < i - i4; ++k4) {
                         Block block2 = worldIn.getBlockState(position.up(k4)).getBlock();
 
-                        if (block2.getMaterial() == Material.air || block2.getMaterial() == Material.leaves) {
+                        if (block2.getMaterial() == Material.AIR || block2.getMaterial() == Material.LEAVES) {
                             this.setBlockAndNotifyAdequately(worldIn, position.up(k4), field_181645_a);
                         }
                     }

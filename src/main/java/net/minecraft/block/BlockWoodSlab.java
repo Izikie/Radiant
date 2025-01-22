@@ -20,7 +20,7 @@ public abstract class BlockWoodSlab extends BlockSlab {
     public static final PropertyEnum<BlockPlanks.WoodType> VARIANT = PropertyEnum.create("variant", BlockPlanks.WoodType.class);
 
     public BlockWoodSlab() {
-        super(Material.wood);
+        super(Material.WOOD);
         IBlockState iblockstate = this.blockState.getBaseState();
 
         if (!this.isDouble()) {

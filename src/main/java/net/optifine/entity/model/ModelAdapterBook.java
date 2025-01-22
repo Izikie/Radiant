@@ -32,7 +32,7 @@ public class ModelAdapterBook extends ModelAdapter {
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-        TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.instance;
+        TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.INSTANCE;
         TileEntitySpecialRenderer tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntityEnchantmentTable.class);
 
         if (!(tileentityspecialrenderer instanceof TileEntityEnchantmentTableRenderer)) {

@@ -22,7 +22,7 @@ public class BlockTorch extends Block {
     public static final PropertyDirection FACING = PropertyDirection.create("facing", p_apply_1_ -> p_apply_1_ != Direction.DOWN);
 
     protected BlockTorch() {
-        super(Material.circuits);
+        super(Material.CIRCUITS);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.UP));
         this.setTickRandomly(true);
         this.setCreativeTab(CreativeTabs.tabDecorations);

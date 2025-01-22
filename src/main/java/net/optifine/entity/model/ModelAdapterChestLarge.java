@@ -33,7 +33,7 @@ public class ModelAdapterChestLarge extends ModelAdapter {
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-        TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.instance;
+        TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.INSTANCE;
         TileEntitySpecialRenderer tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntityChest.class);
 
         if (!(tileentityspecialrenderer instanceof TileEntityChestRenderer)) {

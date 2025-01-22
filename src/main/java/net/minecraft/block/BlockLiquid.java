@@ -31,11 +31,11 @@ public abstract class BlockLiquid extends Block {
     }
 
     public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
-        return this.blockMaterial != Material.lava;
+        return this.blockMaterial != Material.LAVA;
     }
 
     public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass) {
-        return this.blockMaterial == Material.water ? BiomeColorHelper.getWaterColorAtPos(worldIn, pos) : 16777215;
+        return this.blockMaterial == Material.WATER ? BiomeColorHelper.getWaterColorAtPos(worldIn, pos) : 16777215;
     }
 
     public static float getLiquidHeightPercent(int meta) {
@@ -69,7 +69,7 @@ public abstract class BlockLiquid extends Block {
 
     public boolean isBlockSolid(IBlockAccess worldIn, BlockPos pos, Direction side) {
         Material material = worldIn.getBlockState(pos).getBlock().getMaterial();
-        return material == this.blockMaterial ? false : (side == Direction.UP ? true : (material == Material.ice ? false : super.isBlockSolid(worldIn, pos, side)));
+        return material == this.blockMaterial ? false : (side == Direction.UP ? true : (material == Material.ICE ? false : super.isBlockSolid(worldIn, pos, side)));
     }
 
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, Direction side) {
@@ -150,7 +150,7 @@ public abstract class BlockLiquid extends Block {
     }
 
     public int tickRate(World worldIn) {
-        return this.blockMaterial == Material.water ? 5 : (this.blockMaterial == Material.lava ? (worldIn.provider.getHasNoSky() ? 10 : 30) : 0);
+        return this.blockMaterial == Material.WATER ? 5 : (this.blockMaterial == Material.LAVA ? (worldIn.provider.getHasNoSky() ? 10 : 30) : 0);
     }
 
     public int getMixedBrightnessForBlock(IBlockAccess worldIn, BlockPos pos) {
@@ -164,7 +164,7 @@ public abstract class BlockLiquid extends Block {
     }
 
     public RenderLayer getBlockLayer() {
-        return this.blockMaterial == Material.water ? RenderLayer.TRANSLUCENT : RenderLayer.SOLID;
+        return this.blockMaterial == Material.WATER ? RenderLayer.TRANSLUCENT : RenderLayer.SOLID;
     }
 
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
@@ -172,7 +172,7 @@ public abstract class BlockLiquid extends Block {
         double d1 = pos.getY();
         double d2 = pos.getZ();
 
-        if (this.blockMaterial == Material.water) {
+        if (this.blockMaterial == Material.WATER) {
             int i = state.getValue(LEVEL);
 
             if (i > 0 && i < 8) {
@@ -184,7 +184,7 @@ public abstract class BlockLiquid extends Block {
             }
         }
 
-        if (this.blockMaterial == Material.lava && worldIn.getBlockState(pos.up()).getBlock().getMaterial() == Material.air && !worldIn.getBlockState(pos.up()).getBlock().isOpaqueCube()) {
+        if (this.blockMaterial == Material.LAVA && worldIn.getBlockState(pos.up()).getBlock().getMaterial() == Material.AIR && !worldIn.getBlockState(pos.up()).getBlock().isOpaqueCube()) {
             if (rand.nextInt(100) == 0) {
                 double d8 = d0 + rand.nextFloat();
                 double d4 = d1 + this.maxY;
@@ -206,7 +206,7 @@ public abstract class BlockLiquid extends Block {
                 double d5 = d1 - 1.05D;
                 double d7 = d2 + rand.nextFloat();
 
-                if (this.blockMaterial == Material.water) {
+                if (this.blockMaterial == Material.WATER) {
                     worldIn.spawnParticle(ParticleTypes.DRIP_WATER, d3, d5, d7, 0.0D, 0.0D, 0.0D);
                 } else {
                     worldIn.spawnParticle(ParticleTypes.DRIP_LAVA, d3, d5, d7, 0.0D, 0.0D, 0.0D);
@@ -229,11 +229,11 @@ public abstract class BlockLiquid extends Block {
     }
 
     public boolean checkForMixing(World worldIn, BlockPos pos, IBlockState state) {
-        if (this.blockMaterial == Material.lava) {
+        if (this.blockMaterial == Material.LAVA) {
             boolean flag = false;
 
             for (Direction enumfacing : Direction.values()) {
-                if (enumfacing != Direction.DOWN && worldIn.getBlockState(pos.offset(enumfacing)).getBlock().getMaterial() == Material.water) {
+                if (enumfacing != Direction.DOWN && worldIn.getBlockState(pos.offset(enumfacing)).getBlock().getMaterial() == Material.WATER) {
                     flag = true;
                     break;
                 }
@@ -283,9 +283,9 @@ public abstract class BlockLiquid extends Block {
     }
 
     public static BlockDynamicLiquid getFlowingBlock(Material materialIn) {
-        if (materialIn == Material.water) {
+        if (materialIn == Material.WATER) {
             return Blocks.flowing_water;
-        } else if (materialIn == Material.lava) {
+        } else if (materialIn == Material.LAVA) {
             return Blocks.flowing_lava;
         } else {
             throw new IllegalArgumentException("Invalid material");
@@ -293,9 +293,9 @@ public abstract class BlockLiquid extends Block {
     }
 
     public static BlockStaticLiquid getStaticBlock(Material materialIn) {
-        if (materialIn == Material.water) {
+        if (materialIn == Material.WATER) {
             return Blocks.water;
-        } else if (materialIn == Material.lava) {
+        } else if (materialIn == Material.LAVA) {
             return Blocks.lava;
         } else {
             throw new IllegalArgumentException("Invalid material");

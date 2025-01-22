@@ -25,7 +25,7 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
     public float bookRotation;
     public float bookRotationPrev;
     public float field_145924_q;
-    private static final Random rand = new Random();
+    private static final Random RANDOM = new Random();
     private String customName;
 
     public void writeToNBT(NBTTagCompound compound) {
@@ -55,11 +55,11 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
             this.field_145924_q = (float) MathHelper.atan2(d1, d0);
             this.bookSpread += 0.1F;
 
-            if (this.bookSpread < 0.5F || rand.nextInt(40) == 0) {
+            if (this.bookSpread < 0.5F || RANDOM.nextInt(40) == 0) {
                 float f1 = this.field_145932_k;
 
                 while (true) {
-                    this.field_145932_k += (rand.nextInt(4) - rand.nextInt(4));
+                    this.field_145932_k += (RANDOM.nextInt(4) - RANDOM.nextInt(4));
 
                     if (f1 != this.field_145932_k) {
                         break;

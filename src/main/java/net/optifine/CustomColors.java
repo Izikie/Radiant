@@ -61,13 +61,13 @@ public class CustomColors {
     private static CustomColormap[] colorsBlockColormaps = null;
     private static CustomColormap[][] blockColormaps = null;
     private static CustomColormap skyColors = null;
-    private static final CustomColorFader skyColorFader = new CustomColorFader();
+    private static final CustomColorFader SKY_COLOR_FADER = new CustomColorFader();
     private static CustomColormap fogColors = null;
-    private static final CustomColorFader fogColorFader = new CustomColorFader();
+    private static final CustomColorFader FOG_COLOR_FADER = new CustomColorFader();
     private static CustomColormap underwaterColors = null;
-    private static final CustomColorFader underwaterColorFader = new CustomColorFader();
+    private static final CustomColorFader UNDERWATER_COLOR_FADER = new CustomColorFader();
     private static CustomColormap underlavaColors = null;
-    private static final CustomColorFader underlavaColorFader = new CustomColorFader();
+    private static final CustomColorFader UNDERLAVA_COLOR_FADER = new CustomColorFader();
     private static LightMapPack[] lightMapPacks = null;
     private static int lightmapMinDimensionId = 0;
     private static CustomColormap redstoneColors = null;
@@ -97,11 +97,11 @@ public class CustomColors {
     private static int[] potionColors = null;
     private static final IBlockState BLOCK_STATE_DIRT = Blocks.dirt.getDefaultState();
     private static final IBlockState BLOCK_STATE_WATER = Blocks.water.getDefaultState();
-    public static final Random random = new Random();
+    public static final Random RANDOM = new Random();
     private static final CustomColors.IColorizer COLORIZER_GRASS = new CustomColors.IColorizer() {
         public int getColor(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos) {
             BiomeGenBase biomegenbase = CustomColors.getColorBiome(blockAccess, blockPos);
-            return CustomColors.swampGrassColors != null && biomegenbase == BiomeGenBase.swampland ? CustomColors.swampGrassColors.getColor(biomegenbase, blockPos) : biomegenbase.getGrassColorAtPos(blockPos);
+            return CustomColors.swampGrassColors != null && biomegenbase == BiomeGenBase.SWAMPLAND ? CustomColors.swampGrassColors.getColor(biomegenbase, blockPos) : biomegenbase.getGrassColorAtPos(blockPos);
         }
 
         public boolean isColorConstant() {
@@ -111,7 +111,7 @@ public class CustomColors {
     private static final CustomColors.IColorizer COLORIZER_FOLIAGE = new CustomColors.IColorizer() {
         public int getColor(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos) {
             BiomeGenBase biomegenbase = CustomColors.getColorBiome(blockAccess, blockPos);
-            return CustomColors.swampFoliageColors != null && biomegenbase == BiomeGenBase.swampland ? CustomColors.swampFoliageColors.getColor(biomegenbase, blockPos) : biomegenbase.getFoliageColorAtPos(blockPos);
+            return CustomColors.swampFoliageColors != null && biomegenbase == BiomeGenBase.SWAMPLAND ? CustomColors.swampFoliageColors.getColor(biomegenbase, blockPos) : biomegenbase.getFoliageColorAtPos(blockPos);
         }
 
         public boolean isColorConstant() {
@@ -718,8 +718,8 @@ public class CustomColors {
     protected static BiomeGenBase getColorBiome(IBlockAccess blockAccess, BlockPos blockPos) {
         BiomeGenBase biomegenbase = blockAccess.getBiomeGenForCoords(blockPos);
 
-        if (biomegenbase == BiomeGenBase.swampland && !Config.isSwampColors()) {
-            biomegenbase = BiomeGenBase.plains;
+        if (biomegenbase == BiomeGenBase.SWAMPLAND && !Config.isSwampColors()) {
+            biomegenbase = BiomeGenBase.PLAINS;
         }
 
         return biomegenbase;
@@ -777,7 +777,7 @@ public class CustomColors {
         Block block = blockState.getBlock();
         CustomColors.IColorizer customcolors$icolorizer = getBlockColormap(blockState);
 
-        if (customcolors$icolorizer == null && blockState.getBlock().getMaterial() == Material.water) {
+        if (customcolors$icolorizer == null && blockState.getBlock().getMaterial() == Material.WATER) {
             customcolors$icolorizer = COLORIZER_WATER;
         }
 
@@ -935,7 +935,7 @@ public class CustomColors {
             f = f * f3;
             f1 = f1 * f4;
             f2 = f2 * f5;
-            return skyColorFader.getColor(f, f1, f2);
+            return SKY_COLOR_FADER.getColor(f, f1, f2);
         }
     }
 
@@ -956,16 +956,16 @@ public class CustomColors {
             f = f * f3;
             f1 = f1 * f4;
             f2 = f2 * f5;
-            return fogColorFader.getColor(f, f1, f2);
+            return FOG_COLOR_FADER.getColor(f, f1, f2);
         }
     }
 
     public static Vec3 getUnderwaterColor(IBlockAccess blockAccess, double x, double y, double z) {
-        return getUnderFluidColor(blockAccess, x, y, z, underwaterColors, underwaterColorFader);
+        return getUnderFluidColor(blockAccess, x, y, z, underwaterColors, UNDERWATER_COLOR_FADER);
     }
 
     public static Vec3 getUnderlavaColor(IBlockAccess blockAccess, double x, double y, double z) {
-        return getUnderFluidColor(blockAccess, x, y, z, underlavaColors, underlavaColorFader);
+        return getUnderFluidColor(blockAccess, x, y, z, underlavaColors, UNDERLAVA_COLOR_FADER);
     }
 
     public static Vec3 getUnderFluidColor(IBlockAccess blockAccess, double x, double y, double z, CustomColormap underFluidColors, CustomColorFader underFluidColorFader) {
@@ -1261,7 +1261,7 @@ public class CustomColors {
     }
 
     private static int[] readPotionColors(Properties props, String fileName, String prefix, String logName) {
-        int[] aint = new int[Potion.potionTypes.length];
+        int[] aint = new int[Potion.POTION_TYPES.length];
         Arrays.fill(aint, -1);
         int i = 0;
 
@@ -1294,7 +1294,7 @@ public class CustomColors {
         if (name.equals("potion.water")) {
             return 0;
         } else {
-            Potion[] apotion = Potion.potionTypes;
+            Potion[] apotion = Potion.POTION_TYPES;
 
             for (Potion potion : apotion) {
                 if (potion != null && potion.getName().equals(name)) {

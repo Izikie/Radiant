@@ -279,7 +279,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
                                 BlockPos blockpos = new BlockPos(i3, k, l);
                                 Block block = this.worldObj.getBlockState(blockpos).getBlock();
 
-                                if (block.getMaterial() != Material.air && canDestroyBlock(block)) {
+                                if (block.getMaterial() != Material.AIR && canDestroyBlock(block)) {
                                     flag = this.worldObj.destroyBlock(blockpos, true) || flag;
                                 }
                             }
@@ -383,8 +383,8 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (this.isEntityInvulnerable(source)) {
             return false;
-        } else if (source != DamageSource.drown && !(source.getEntity() instanceof EntityWither)) {
-            if (this.getInvulTime() > 0 && source != DamageSource.outOfWorld) {
+        } else if (source != DamageSource.DROWN && !(source.getEntity() instanceof EntityWither)) {
+            if (this.getInvulTime() > 0 && source != DamageSource.OUT_OF_WORLD) {
                 return false;
             } else {
                 if (this.isArmored()) {
@@ -425,7 +425,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
 
         if (!this.worldObj.isRemote) {
             for (EntityPlayer entityplayer : this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, this.getEntityBoundingBox().expand(50.0D, 100.0D, 50.0D))) {
-                entityplayer.triggerAchievement(AchievementList.killWither);
+                entityplayer.triggerAchievement(AchievementList.KILL_WITHER);
             }
         }
     }

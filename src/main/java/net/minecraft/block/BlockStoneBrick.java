@@ -19,7 +19,7 @@ public class BlockStoneBrick extends Block {
     public static final int CHISELED_META = BlockStoneBrick.EnumType.CHISELED.getMetadata();
 
     public BlockStoneBrick() {
-        super(Material.rock);
+        super(Material.ROCK);
         this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockStoneBrick.EnumType.DEFAULT));
         this.setCreativeTab(CreativeTabs.tabBlock);
     }

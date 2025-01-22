@@ -231,7 +231,7 @@ public class EntityFirework {
                 int[] aint1 = nbttagcompound1.getIntArray("FadeColors");
 
                 if (aint.length == 0) {
-                    aint = new int[]{ItemDye.dyeColors[0]};
+                    aint = new int[]{ItemDye.DYE_COLORS[0]};
                 }
 
                 if (l == 1) {

@@ -32,7 +32,7 @@ public abstract class BlockRailBase extends Block {
     }
 
     protected BlockRailBase(boolean isPowered) {
-        super(Material.circuits);
+        super(Material.CIRCUITS);
         this.isPowered = isPowered;
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
         this.setCreativeTab(CreativeTabs.tabTransport);

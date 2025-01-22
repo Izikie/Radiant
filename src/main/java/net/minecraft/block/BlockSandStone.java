@@ -16,7 +16,7 @@ public class BlockSandStone extends Block {
     public static final PropertyEnum<SandStoneType> TYPE = PropertyEnum.create("type", SandStoneType.class);
 
     public BlockSandStone() {
-        super(Material.rock);
+        super(Material.ROCK);
         this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, SandStoneType.DEFAULT));
         this.setCreativeTab(CreativeTabs.tabBlock);
     }

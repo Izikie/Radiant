@@ -94,7 +94,7 @@ public class Chunk {
                     int i1 = j * i * 16 | k * i | l;
                     IBlockState iblockstate = primer.getBlockState(i1);
 
-                    if (iblockstate.getBlock().getMaterial() != Material.air) {
+                    if (iblockstate.getBlock().getMaterial() != Material.AIR) {
                         int j1 = l >> 4;
 
                         if (this.storageArrays[j1] == null) {
@@ -1003,13 +1003,13 @@ public class Chunk {
         int k = this.blockBiomeArray[j << 4 | i] & 255;
 
         if (k == 255) {
-            BiomeGenBase biomegenbase = chunkManager.getBiomeGenerator(pos, BiomeGenBase.plains);
+            BiomeGenBase biomegenbase = chunkManager.getBiomeGenerator(pos, BiomeGenBase.PLAINS);
             k = biomegenbase.biomeID;
             this.blockBiomeArray[j << 4 | i] = (byte) (k & 255);
         }
 
         BiomeGenBase biomegenbase1 = BiomeGenBase.getBiome(k);
-        return biomegenbase1 == null ? BiomeGenBase.plains : biomegenbase1;
+        return biomegenbase1 == null ? BiomeGenBase.PLAINS : biomegenbase1;
     }
 
     public byte[] getBiomeArray() {
@@ -1045,7 +1045,7 @@ public class Chunk {
                 BlockPos blockpos1 = blockpos.add(k, (j << 4) + i1, l);
                 boolean flag = i1 == 0 || i1 == 15 || k == 0 || k == 15 || l == 0 || l == 15;
 
-                if (this.storageArrays[j] == null && flag || this.storageArrays[j] != null && this.storageArrays[j].getBlockByExtId(k, i1, l).getMaterial() == Material.air) {
+                if (this.storageArrays[j] == null && flag || this.storageArrays[j] != null && this.storageArrays[j].getBlockByExtId(k, i1, l).getMaterial() == Material.AIR) {
                     for (Direction enumfacing : Direction.values()) {
                         BlockPos blockpos2 = blockpos1.offset(enumfacing);
 

@@ -417,7 +417,7 @@ public class ConnectedParser {
         biomeName = biomeName.toLowerCase();
 
         if (biomeName.equals("nether")) {
-            return BiomeGenBase.hell;
+            return BiomeGenBase.HELL;
         } else {
             BiomeGenBase[] abiomegenbase = BiomeGenBase.getBiomeGenArray();
 

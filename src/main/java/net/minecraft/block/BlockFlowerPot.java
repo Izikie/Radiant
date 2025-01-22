@@ -29,7 +29,7 @@ public class BlockFlowerPot extends BlockContainer {
     public static final PropertyEnum<FlowerType> CONTENTS = PropertyEnum.create("contents", FlowerType.class);
 
     public BlockFlowerPot() {
-        super(Material.circuits);
+        super(Material.CIRCUITS);
         this.setDefaultState(this.blockState.getBaseState().withProperty(CONTENTS, FlowerType.EMPTY).withProperty(LEGACY_DATA, 0));
         this.setBlockBoundsForItemRender();
     }

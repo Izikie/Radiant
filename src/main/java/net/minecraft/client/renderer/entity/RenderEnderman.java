@@ -22,7 +22,7 @@ public class RenderEnderman extends RenderLiving<EntityEnderman> {
     }
 
     public void doRender(EntityEnderman entity, double x, double y, double z, float entityYaw, float partialTicks) {
-        this.endermanModel.isCarrying = entity.getHeldBlockState().getBlock().getMaterial() != Material.air;
+        this.endermanModel.isCarrying = entity.getHeldBlockState().getBlock().getMaterial() != Material.AIR;
         this.endermanModel.isAttacking = entity.isScreaming();
 
         if (entity.isScreaming()) {

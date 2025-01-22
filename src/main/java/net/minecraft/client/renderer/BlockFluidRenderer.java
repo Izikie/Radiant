@@ -42,7 +42,7 @@ public class BlockFluidRenderer {
 
             BlockLiquid blockliquid = (BlockLiquid) blockStateIn.getBlock();
             blockliquid.setBlockBoundsBasedOnState(blockAccess, blockPosIn);
-            TextureAtlasSprite[] atextureatlassprite = blockliquid.getMaterial() == Material.lava ? this.atlasSpritesLava : this.atlasSpritesWater;
+            TextureAtlasSprite[] atextureatlassprite = blockliquid.getMaterial() == Material.LAVA ? this.atlasSpritesLava : this.atlasSpritesWater;
             RenderEnv renderenv = worldRendererIn.getRenderEnv(blockStateIn, blockPosIn);
             int i = CustomColors.getFluidColor(blockAccess, blockStateIn, blockPosIn, renderenv);
             float f = (i >> 16 & 255) / 255.0F;

@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 public class BlockSnowBlock extends Block {
     protected BlockSnowBlock() {
-        super(Material.craftedSnow);
+        super(Material.CRAFTED_SNOW);
         this.setTickRandomly(true);
         this.setCreativeTab(CreativeTabs.tabBlock);
     }

@@ -88,7 +88,7 @@ public class EntityBlaze extends EntityMob {
 
     protected void updateAITasks() {
         if (this.isWet()) {
-            this.attackEntityFrom(DamageSource.drown, 1.0F);
+            this.attackEntityFrom(DamageSource.DROWN, 1.0F);
         }
 
         --this.heightOffsetUpdateTime;

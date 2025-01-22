@@ -91,7 +91,7 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob {
     public boolean attackEntityAsMob(Entity entityIn) {
         if (super.attackEntityAsMob(entityIn)) {
             if (this.getSkeletonType() == 1 && entityIn instanceof EntityLivingBase entityLivingBase) {
-                entityLivingBase.addPotionEffect(new PotionEffect(Potion.wither.id, 200));
+                entityLivingBase.addPotionEffect(new PotionEffect(Potion.WITHER.id, 200));
             }
 
             return true;
@@ -155,7 +155,7 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob {
             double d1 = entityplayer.posZ - this.posZ;
 
             if (d0 * d0 + d1 * d1 >= 2500.0D) {
-                entityplayer.triggerAchievement(AchievementList.snipeSkeleton);
+                entityplayer.triggerAchievement(AchievementList.SNIPE_SKELETON);
             }
         } else if (cause.getEntity() instanceof EntityCreeper entityCreeper && entityCreeper.getPowered() && entityCreeper.isAIEnabled()) {
             entityCreeper.func_175493_co();
@@ -242,8 +242,8 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob {
 
     public void attackEntityWithRangedAttack(EntityLivingBase target, float p_82196_2_) {
         EntityArrow entityarrow = new EntityArrow(this.worldObj, this, target, 1.6F, (14 - this.worldObj.getDifficulty().getDifficultyId() * 4));
-        int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, this.getHeldItem());
-        int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, this.getHeldItem());
+        int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.POWER.effectId, this.getHeldItem());
+        int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.PUNCH.effectId, this.getHeldItem());
         entityarrow.setDamage((p_82196_2_ * 2.0F) + this.rand.nextGaussian() * 0.25D + (this.worldObj.getDifficulty().getDifficultyId() * 0.11F));
 
         if (i > 0) {
@@ -254,7 +254,7 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob {
             entityarrow.setKnockbackStrength(j);
         }
 
-        if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, this.getHeldItem()) > 0 || this.getSkeletonType() == 1) {
+        if (EnchantmentHelper.getEnchantmentLevel(Enchantment.FLAME.effectId, this.getHeldItem()) > 0 || this.getSkeletonType() == 1) {
             entityarrow.setFire(100);
         }
 

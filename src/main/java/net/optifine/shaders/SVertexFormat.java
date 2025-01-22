@@ -4,11 +4,11 @@ import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
 
 public class SVertexFormat {
-    public static final int vertexSizeBlock = 14;
-    public static final int offsetMidTexCoord = 8;
-    public static final int offsetTangent = 10;
-    public static final int offsetEntity = 12;
-    public static final VertexFormat defVertexFormatTextured = makeDefVertexFormatTextured();
+    public static final int VERTEX_SIZE_BLOCK = 14;
+    public static final int OFFSET_MID_TEX_COORD = 8;
+    public static final int OFFSET_TANGENT = 10;
+    public static final int OFFSET_ENTITY = 12;
+    public static final VertexFormat DEF_VERTEX_FORMAT_TEXTURED = makeDefVertexFormatTextured();
 
     public static VertexFormat makeDefVertexFormatBlock() {
         VertexFormat vertexformat = new VertexFormat();

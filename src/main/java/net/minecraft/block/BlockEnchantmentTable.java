@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 
 public class BlockEnchantmentTable extends BlockContainer {
     protected BlockEnchantmentTable() {
-        super(Material.rock, MapColor.redColor);
+        super(Material.ROCK, MapColor.redColor);
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.75F, 1.0F);
         this.setLightOpacity(0);
         this.setCreativeTab(CreativeTabs.tabDecorations);

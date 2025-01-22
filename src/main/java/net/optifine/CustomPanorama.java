@@ -14,7 +14,7 @@ import net.optifine.util.PropertiesOrdered;
 
 public class CustomPanorama {
     private static CustomPanoramaProperties customPanoramaProperties = null;
-    private static final Random random = new Random();
+    private static final Random RANDOM = new Random();
 
     public static CustomPanoramaProperties getCustomPanoramaProperties() {
         return customPanoramaProperties;
@@ -114,7 +114,7 @@ public class CustomPanorama {
 
     private static int getRandomIndex(int[] weights) {
         int i = MathUtils.getSum(weights);
-        int j = random.nextInt(i);
+        int j = RANDOM.nextInt(i);
         int k = 0;
 
         for (int l = 0; l < weights.length; ++l) {

@@ -19,7 +19,7 @@ public class BlockMycelium extends Block {
     public static final PropertyBool SNOWY = PropertyBool.create("snowy");
 
     protected BlockMycelium() {
-        super(Material.grass, MapColor.purpleColor);
+        super(Material.GRASS, MapColor.purpleColor);
         this.setDefaultState(this.blockState.getBaseState().withProperty(SNOWY, Boolean.FALSE));
         this.setTickRandomly(true);
         this.setCreativeTab(CreativeTabs.tabBlock);

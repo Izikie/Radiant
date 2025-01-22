@@ -226,7 +226,7 @@ public class StructureMineshaftPieces {
         protected boolean generateChestContents(World worldIn, StructureBoundingBox boundingBoxIn, Random rand, int x, int y, int z, List<WeightedRandomChestContent> listIn, int max) {
             BlockPos blockpos = new BlockPos(this.getXWithOffset(x, z), this.getYWithOffset(y), this.getZWithOffset(x, z));
 
-            if (boundingBoxIn.isVecInside(blockpos) && worldIn.getBlockState(blockpos).getBlock().getMaterial() == Material.air) {
+            if (boundingBoxIn.isVecInside(blockpos) && worldIn.getBlockState(blockpos).getBlock().getMaterial() == Material.AIR) {
                 int i = rand.nextBoolean() ? 1 : 0;
                 worldIn.setBlockState(blockpos, Blocks.rail.getStateFromMeta(this.getMetadataWithOffset(Blocks.rail, i)), 2);
                 EntityMinecartChest entityminecartchest = new EntityMinecartChest(worldIn, (blockpos.getX() + 0.5F), (blockpos.getY() + 0.5F), (blockpos.getZ() + 0.5F));
@@ -309,7 +309,7 @@ public class StructureMineshaftPieces {
                         int j3 = -1;
                         IBlockState iblockstate1 = this.getBlockStateFromPos(worldIn, k2, j3, i3, structureBoundingBoxIn);
 
-                        if (iblockstate1.getBlock().getMaterial() == Material.air) {
+                        if (iblockstate1.getBlock().getMaterial() == Material.AIR) {
                             int k3 = -1;
                             this.setBlockState(worldIn, Blocks.planks.getDefaultState(), k2, k3, i3, structureBoundingBoxIn);
                         }
@@ -320,7 +320,7 @@ public class StructureMineshaftPieces {
                     for (int l2 = 0; l2 <= i1; ++l2) {
                         IBlockState iblockstate = this.getBlockStateFromPos(worldIn, 1, -1, l2, structureBoundingBoxIn);
 
-                        if (iblockstate.getBlock().getMaterial() != Material.air && iblockstate.getBlock().isFullBlock()) {
+                        if (iblockstate.getBlock().getMaterial() != Material.AIR && iblockstate.getBlock().isFullBlock()) {
                             this.randomlyPlaceBlock(worldIn, structureBoundingBoxIn, randomIn, 0.7F, 1, 0, l2, Blocks.rail.getStateFromMeta(this.getMetadataWithOffset(Blocks.rail, 0)));
                         }
                     }
@@ -459,7 +459,7 @@ public class StructureMineshaftPieces {
 
                 for (int i = this.boundingBox.minX; i <= this.boundingBox.maxX; ++i) {
                     for (int j = this.boundingBox.minZ; j <= this.boundingBox.maxZ; ++j) {
-                        if (this.getBlockStateFromPos(worldIn, i, this.boundingBox.minY - 1, j, structureBoundingBoxIn).getBlock().getMaterial() == Material.air) {
+                        if (this.getBlockStateFromPos(worldIn, i, this.boundingBox.minY - 1, j, structureBoundingBoxIn).getBlock().getMaterial() == Material.AIR) {
                             this.setBlockState(worldIn, Blocks.planks.getDefaultState(), i, this.boundingBox.minY - 1, j, structureBoundingBoxIn);
                         }
                     }

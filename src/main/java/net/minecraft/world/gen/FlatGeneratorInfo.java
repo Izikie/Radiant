@@ -201,7 +201,7 @@ public class FlatGeneratorInfo {
                 if (list != null && !list.isEmpty()) {
                     flatgeneratorinfo.getFlatLayers().addAll(list);
                     flatgeneratorinfo.func_82645_d();
-                    int k = BiomeGenBase.plains.biomeID;
+                    int k = BiomeGenBase.PLAINS.biomeID;
 
                     if (i > 0 && astring.length > j) {
                         k = MathHelper.parseIntWithDefault(astring[j++], k);
@@ -248,7 +248,7 @@ public class FlatGeneratorInfo {
 
     public static FlatGeneratorInfo getDefaultFlatGenerator() {
         FlatGeneratorInfo flatgeneratorinfo = new FlatGeneratorInfo();
-        flatgeneratorinfo.setBiome(BiomeGenBase.plains.biomeID);
+        flatgeneratorinfo.setBiome(BiomeGenBase.PLAINS.biomeID);
         flatgeneratorinfo.getFlatLayers().add(new FlatLayerInfo(1, Blocks.bedrock));
         flatgeneratorinfo.getFlatLayers().add(new FlatLayerInfo(2, Blocks.dirt));
         flatgeneratorinfo.getFlatLayers().add(new FlatLayerInfo(1, Blocks.grass));

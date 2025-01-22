@@ -54,7 +54,7 @@ public class EnchantmentDamage extends Enchantment {
 
             if (this.damageType == 2 && entitylivingbase.getCreatureAttribute() == EntityGroup.ARTHROPOD) {
                 int i = 20 + user.getRNG().nextInt(10 * level);
-                entitylivingbase.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, i, 3));
+                entitylivingbase.addPotionEffect(new PotionEffect(Potion.MOVE_SLOWDOWN.id, i, 3));
             }
         }
     }

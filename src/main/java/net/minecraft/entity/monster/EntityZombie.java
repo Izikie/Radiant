@@ -454,7 +454,7 @@ public class EntityZombie extends EntityMob {
     public boolean interact(EntityPlayer player) {
         ItemStack itemstack = player.getCurrentEquippedItem();
 
-        if (itemstack != null && itemstack.getItem() == Items.golden_apple && itemstack.getMetadata() == 0 && this.isVillager() && this.isPotionActive(Potion.weakness)) {
+        if (itemstack != null && itemstack.getItem() == Items.golden_apple && itemstack.getMetadata() == 0 && this.isVillager() && this.isPotionActive(Potion.WEAKNESS)) {
             if (!player.capabilities.isCreativeMode) {
                 --itemstack.stackSize;
             }
@@ -476,8 +476,8 @@ public class EntityZombie extends EntityMob {
     protected void startConversion(int ticks) {
         this.conversionTime = ticks;
         this.getDataWatcher().updateObject(14, (byte) 1);
-        this.removePotionEffect(Potion.weakness.id);
-        this.addPotionEffect(new PotionEffect(Potion.damageBoost.id, ticks, Math.min(this.worldObj.getDifficulty().getDifficultyId() - 1, 0)));
+        this.removePotionEffect(Potion.WEAKNESS.id);
+        this.addPotionEffect(new PotionEffect(Potion.DAMAGE_BOOST.id, ticks, Math.min(this.worldObj.getDifficulty().getDifficultyId() - 1, 0)));
         this.worldObj.setEntityState(this, (byte) 16);
     }
 
@@ -518,7 +518,7 @@ public class EntityZombie extends EntityMob {
         }
 
         this.worldObj.spawnEntityInWorld(entityvillager);
-        entityvillager.addPotionEffect(new PotionEffect(Potion.confusion.id, 200, 0));
+        entityvillager.addPotionEffect(new PotionEffect(Potion.CONFUSION.id, 200, 0));
         this.worldObj.playAuxSFXAtEntity(null, 1017, new BlockPos((int) this.posX, (int) this.posY, (int) this.posZ), 0);
     }
 

@@ -177,10 +177,10 @@ public class Bootstrap {
                 Material material = world.getBlockState(blockpos).getBlock().getMaterial();
                 double d3;
 
-                if (Material.water.equals(material)) {
+                if (Material.WATER.equals(material)) {
                     d3 = 1.0D;
                 } else {
-                    if (!Material.air.equals(material) || !Material.water.equals(world.getBlockState(blockpos.down()).getBlock().getMaterial())) {
+                    if (!Material.AIR.equals(material) || !Material.WATER.equals(world.getBlockState(blockpos.down()).getBlock().getMaterial())) {
                         return this.field_150842_b.dispense(source, stack);
                     }
 
@@ -226,10 +226,10 @@ public class Bootstrap {
                 Material material = block.getMaterial();
                 Item item;
 
-                if (Material.water.equals(material) && block instanceof BlockLiquid && iblockstate.getValue(BlockLiquid.LEVEL) == 0) {
+                if (Material.WATER.equals(material) && block instanceof BlockLiquid && iblockstate.getValue(BlockLiquid.LEVEL) == 0) {
                     item = Items.water_bucket;
                 } else {
-                    if (!Material.lava.equals(material) || !(block instanceof BlockLiquid) || iblockstate.getValue(BlockLiquid.LEVEL) != 0) {
+                    if (!Material.LAVA.equals(material) || !(block instanceof BlockLiquid) || iblockstate.getValue(BlockLiquid.LEVEL) != 0) {
                         return super.dispenseStack(source, stack);
                     }
 

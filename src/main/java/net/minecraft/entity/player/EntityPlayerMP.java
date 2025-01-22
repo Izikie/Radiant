@@ -317,7 +317,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
                 this.playerNetServerHandler.sendPacket(new S1FPacketSetExperience(this.experience, this.experienceTotal, this.experienceLevel));
             }
 
-            if (this.ticksExisted % 20 * 5 == 0 && !this.getStatFile().hasAchievementUnlocked(AchievementList.exploreAllBiomes)) {
+            if (this.ticksExisted % 20 * 5 == 0 && !this.getStatFile().hasAchievementUnlocked(AchievementList.EXPLORE_ALL_BIOMES)) {
                 this.updateBiomesExplored();
             }
         } catch (Throwable throwable) {
@@ -331,16 +331,16 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
     protected void updateBiomesExplored() {
         BiomeGenBase biomegenbase = this.worldObj.getBiomeGenForCoords(new BlockPos(MathHelper.floor_double(this.posX), 0, MathHelper.floor_double(this.posZ)));
         String s = biomegenbase.biomeName;
-        JsonSerializableSet jsonserializableset = this.getStatFile().func_150870_b(AchievementList.exploreAllBiomes);
+        JsonSerializableSet jsonserializableset = this.getStatFile().func_150870_b(AchievementList.EXPLORE_ALL_BIOMES);
 
         if (jsonserializableset == null) {
-            jsonserializableset = this.getStatFile().func_150872_a(AchievementList.exploreAllBiomes, new JsonSerializableSet());
+            jsonserializableset = this.getStatFile().func_150872_a(AchievementList.EXPLORE_ALL_BIOMES, new JsonSerializableSet());
         }
 
         jsonserializableset.add(s);
 
-        if (this.getStatFile().canUnlockAchievement(AchievementList.exploreAllBiomes) && jsonserializableset.size() >= BiomeGenBase.explorationBiomesList.size()) {
-            Set<BiomeGenBase> set = Sets.newHashSet(BiomeGenBase.explorationBiomesList);
+        if (this.getStatFile().canUnlockAchievement(AchievementList.EXPLORE_ALL_BIOMES) && jsonserializableset.size() >= BiomeGenBase.EXPLORATION_BIOMES_LIST.size()) {
+            Set<BiomeGenBase> set = Sets.newHashSet(BiomeGenBase.EXPLORATION_BIOMES_LIST);
 
             for (String s1 : jsonserializableset) {
 
@@ -352,7 +352,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
             }
 
             if (set.isEmpty()) {
-                this.triggerAchievement(AchievementList.exploreAllBiomes);
+                this.triggerAchievement(AchievementList.EXPLORE_ALL_BIOMES);
             }
         }
     }
@@ -404,7 +404,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         } else {
             boolean flag = this.mcServer.isDedicatedServer() && this.canPlayersAttack() && "fall".equals(source.damageType);
 
-            if (!flag && this.respawnInvulnerabilityTicks > 0 && source != DamageSource.outOfWorld) {
+            if (!flag && this.respawnInvulnerabilityTicks > 0 && source != DamageSource.OUT_OF_WORLD) {
                 return false;
             } else {
                 if (source instanceof EntityDamageSource) {
@@ -437,13 +437,13 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
 
     public void travelToDimension(int dimensionId) {
         if (this.dimension == 1 && dimensionId == 1) {
-            this.triggerAchievement(AchievementList.theEnd2);
+            this.triggerAchievement(AchievementList.THE_END_2);
             this.worldObj.removeEntity(this);
             this.playerConqueredTheEnd = true;
             this.playerNetServerHandler.sendPacket(new S2BPacketChangeGameState(4, 0.0F));
         } else {
             if (this.dimension == 0 && dimensionId == 1) {
-                this.triggerAchievement(AchievementList.theEnd);
+                this.triggerAchievement(AchievementList.THE_END);
                 BlockPos blockpos = this.mcServer.worldServerForDimension(dimensionId).getSpawnCoordinate();
 
                 if (blockpos != null) {
@@ -452,7 +452,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
 
                 dimensionId = 1;
             } else {
-                this.triggerAchievement(AchievementList.portal);
+                this.triggerAchievement(AchievementList.PORTAL);
             }
 
             this.mcServer.getConfigurationManager().transferPlayerToDimension(this, dimensionId);
@@ -526,7 +526,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         BlockPos blockpos = new BlockPos(i, j, k);
         Block block = this.worldObj.getBlockState(blockpos).getBlock();
 
-        if (block.getMaterial() == Material.air) {
+        if (block.getMaterial() == Material.AIR) {
             Block block1 = this.worldObj.getBlockState(blockpos.down()).getBlock();
 
             if (block1 instanceof BlockFence || block1 instanceof BlockWall || block1 instanceof BlockFenceGate) {

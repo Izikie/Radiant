@@ -30,7 +30,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.ITickable;
 
 public class TileEntityBeacon extends TileEntityLockable implements ITickable, IInventory {
-    public static final Potion[][] effectsList = new Potion[][]{{Potion.moveSpeed, Potion.digSpeed}, {Potion.resistance, Potion.jump}, {Potion.damageBoost}, {Potion.regeneration}};
+    public static final Potion[][] effectsList = new Potion[][]{{Potion.MOVE_SPEED, Potion.DIG_SPEED}, {Potion.RESISTANCE, Potion.JUMP}, {Potion.DAMAGE_BOOST}, {Potion.REGENERATION}};
     private final List<TileEntityBeacon.BeamSegment> beamSegments = Lists.newArrayList();
     private long beamRenderCounter;
     private float field_146014_j;
@@ -160,7 +160,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 
         if (!this.worldObj.isRemote && this.levels == 4 && i < this.levels) {
             for (EntityPlayer entityplayer : this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, (new AxisAlignedBB(j, k, l, j, (k - 4), l)).expand(10.0D, 5.0D, 10.0D))) {
-                entityplayer.triggerAchievement(AchievementList.fullBeacon);
+                entityplayer.triggerAchievement(AchievementList.FULL_BEACON);
             }
         }
     }
@@ -205,9 +205,9 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
     }
 
     private int func_183001_h(int p_183001_1_) {
-        if (p_183001_1_ >= 0 && p_183001_1_ < Potion.potionTypes.length && Potion.potionTypes[p_183001_1_] != null) {
-            Potion potion = Potion.potionTypes[p_183001_1_];
-            return potion != Potion.moveSpeed && potion != Potion.digSpeed && potion != Potion.resistance && potion != Potion.jump && potion != Potion.damageBoost && potion != Potion.regeneration ? 0 : p_183001_1_;
+        if (p_183001_1_ >= 0 && p_183001_1_ < Potion.POTION_TYPES.length && Potion.POTION_TYPES[p_183001_1_] != null) {
+            Potion potion = Potion.POTION_TYPES[p_183001_1_];
+            return potion != Potion.MOVE_SPEED && potion != Potion.DIG_SPEED && potion != Potion.RESISTANCE && potion != Potion.JUMP && potion != Potion.DAMAGE_BOOST && potion != Potion.REGENERATION ? 0 : p_183001_1_;
         } else {
             return 0;
         }

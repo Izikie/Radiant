@@ -21,7 +21,7 @@ public class BlockCake extends Block {
     public static final PropertyInteger BITES = PropertyInteger.create("bites", 0, 6);
 
     protected BlockCake() {
-        super(Material.cake);
+        super(Material.CAKE);
         this.setDefaultState(this.blockState.getBaseState().withProperty(BITES, 0));
         this.setTickRandomly(true);
     }

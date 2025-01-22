@@ -302,7 +302,7 @@ public abstract class Entity implements ICommandSender {
                 }
             } else {
                 if (this.fire % 20 == 0) {
-                    this.attackEntityFrom(DamageSource.onFire, 1.0F);
+                    this.attackEntityFrom(DamageSource.ON_FIRE, 1.0F);
                 }
 
                 --this.fire;
@@ -331,7 +331,7 @@ public abstract class Entity implements ICommandSender {
 
     protected void setOnFireFromLava() {
         if (!this.isImmuneToFire) {
-            this.attackEntityFrom(DamageSource.lava, 4.0F);
+            this.attackEntityFrom(DamageSource.LAVA, 4.0F);
             this.setFire(15);
         }
     }
@@ -545,7 +545,7 @@ public abstract class Entity implements ICommandSender {
             BlockPos blockpos = new BlockPos(i, j, k);
             Block block1 = this.worldObj.getBlockState(blockpos).getBlock();
 
-            if (block1.getMaterial() == Material.air) {
+            if (block1.getMaterial() == Material.AIR) {
                 Block block = this.worldObj.getBlockState(blockpos.down()).getBlock();
 
                 if (block instanceof BlockFence || block instanceof BlockWall || block instanceof BlockFenceGate) {
@@ -584,7 +584,7 @@ public abstract class Entity implements ICommandSender {
                 this.distanceWalkedModified = (float) (this.distanceWalkedModified + MathHelper.sqrt_double(d12 * d12 + d14 * d14) * 0.6D);
                 this.distanceWalkedOnStepModified = (float) (this.distanceWalkedOnStepModified + MathHelper.sqrt_double(d12 * d12 + d13 * d13 + d14 * d14) * 0.6D);
 
-                if (this.distanceWalkedOnStepModified > this.nextStepDistance && block1.getMaterial() != Material.air) {
+                if (this.distanceWalkedOnStepModified > this.nextStepDistance && block1.getMaterial() != Material.AIR) {
                     this.nextStepDistance = (int) this.distanceWalkedOnStepModified + 1;
 
                     if (this.isInWater()) {
@@ -719,7 +719,7 @@ public abstract class Entity implements ICommandSender {
 
     protected void dealFireDamage(int amount) {
         if (!this.isImmuneToFire) {
-            this.attackEntityFrom(DamageSource.inFire, amount);
+            this.attackEntityFrom(DamageSource.IN_FIRE, amount);
         }
     }
 
@@ -742,7 +742,7 @@ public abstract class Entity implements ICommandSender {
     }
 
     public boolean handleWaterMovement() {
-        if (this.worldObj.handleMaterialAcceleration(this.getEntityBoundingBox().expand(0.0D, -0.4000000059604645D, 0.0D).contract(0.001D, 0.001D, 0.001D), Material.water, this)) {
+        if (this.worldObj.handleMaterialAcceleration(this.getEntityBoundingBox().expand(0.0D, -0.4000000059604645D, 0.0D).contract(0.001D, 0.001D, 0.001D), Material.WATER, this)) {
             if (!this.inWater && !this.firstUpdate) {
                 this.resetHeight();
             }
@@ -820,7 +820,7 @@ public abstract class Entity implements ICommandSender {
     }
 
     public boolean isInLava() {
-        return this.worldObj.isMaterialInBB(this.getEntityBoundingBox().expand(-0.10000000149011612D, -0.4000000059604645D, -0.10000000149011612D), Material.lava);
+        return this.worldObj.isMaterialInBB(this.getEntityBoundingBox().expand(-0.10000000149011612D, -0.4000000059604645D, -0.10000000149011612D), Material.LAVA);
     }
 
     public void moveFlying(float strafe, float forward, float friction) {
@@ -1505,7 +1505,7 @@ public abstract class Entity implements ICommandSender {
     }
 
     public void onStruckByLightning(EntityLightningBolt lightningBolt) {
-        this.attackEntityFrom(DamageSource.lightningBolt, 5.0F);
+        this.attackEntityFrom(DamageSource.LIGHTNING_BOLT, 5.0F);
         ++this.fire;
 
         if (this.fire == 0) {
@@ -1629,7 +1629,7 @@ public abstract class Entity implements ICommandSender {
     }
 
     public boolean isEntityInvulnerable(DamageSource source) {
-        return this.invulnerable && source != DamageSource.outOfWorld && !source.isCreativePlayer();
+        return this.invulnerable && source != DamageSource.OUT_OF_WORLD && !source.isCreativePlayer();
     }
 
     public void copyLocationAndAnglesFrom(Entity entityIn) {

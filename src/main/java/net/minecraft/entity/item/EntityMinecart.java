@@ -35,7 +35,7 @@ import net.minecraft.world.WorldServer;
 public abstract class EntityMinecart extends Entity implements IWorldNameable {
     private boolean isInReverse;
     private String entityName;
-    private static final int[][][] matrix = new int[][][]{{{0, 0, -1}, {0, 0, 1}}, {{-1, 0, 0}, {1, 0, 0}}, {{-1, -1, 0}, {1, 0, 0}}, {{-1, 0, 0}, {1, -1, 0}}, {{0, 0, -1}, {0, -1, 1}}, {{0, -1, -1}, {0, 0, 1}}, {{0, 0, 1}, {1, 0, 0}}, {{0, 0, 1}, {-1, 0, 0}}, {{0, 0, -1}, {-1, 0, 0}}, {{0, 0, -1}, {1, 0, 0}}};
+    private static final int[][][] MATRIX = new int[][][]{{{0, 0, -1}, {0, 0, 1}}, {{-1, 0, 0}, {1, 0, 0}}, {{-1, -1, 0}, {1, 0, 0}}, {{-1, 0, 0}, {1, -1, 0}}, {{0, 0, -1}, {0, -1, 1}}, {{0, -1, -1}, {0, 0, 1}}, {{0, 0, 1}, {1, 0, 0}}, {{0, 0, 1}, {-1, 0, 0}}, {{0, 0, -1}, {-1, 0, 0}}, {{0, 0, -1}, {1, 0, 0}}};
     private int turnProgress;
     private double minecartX;
     private double minecartY;
@@ -358,7 +358,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
                 ++this.posY;
         }
 
-        int[][] aint = matrix[blockrailbase$enumraildirection.getMetadata()];
+        int[][] aint = MATRIX[blockrailbase$enumraildirection.getMetadata()];
         double d1 = (aint[1][0] - aint[0][0]);
         double d2 = (aint[1][2] - aint[0][2]);
         double d3 = Math.sqrt(d1 * d1 + d2 * d2);
@@ -537,7 +537,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
                 p_70495_3_ = (j + 1);
             }
 
-            int[][] aint = matrix[blockrailbase$enumraildirection.getMetadata()];
+            int[][] aint = MATRIX[blockrailbase$enumraildirection.getMetadata()];
             double d0 = (aint[1][0] - aint[0][0]);
             double d1 = (aint[1][2] - aint[0][2]);
             double d2 = Math.sqrt(d0 * d0 + d1 * d1);
@@ -571,7 +571,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 
         if (BlockRailBase.isRailBlock(iblockstate)) {
             BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = iblockstate.getValue(((BlockRailBase) iblockstate.getBlock()).getShapeProperty());
-            int[][] aint = matrix[blockrailbase$enumraildirection.getMetadata()];
+            int[][] aint = MATRIX[blockrailbase$enumraildirection.getMetadata()];
             double d0;
             double d1 = i + 0.5D + aint[0][0] * 0.5D;
             double d2 = j + 0.0625D + aint[0][1] * 0.5D;

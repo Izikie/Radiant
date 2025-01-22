@@ -29,7 +29,7 @@ public class ItemGlassBottle extends Item {
                     return itemStackIn;
                 }
 
-                if (worldIn.getBlockState(blockpos).getBlock().getMaterial() == Material.water) {
+                if (worldIn.getBlockState(blockpos).getBlock().getMaterial() == Material.WATER) {
                     --itemStackIn.stackSize;
                     playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
 

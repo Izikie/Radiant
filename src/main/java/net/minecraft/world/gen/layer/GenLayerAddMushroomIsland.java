@@ -26,7 +26,7 @@ public class GenLayerAddMushroomIsland extends GenLayer {
                 this.initChunkSeed((j1 + areaX), (i1 + areaY));
 
                 if (k2 == 0 && k1 == 0 && l1 == 0 && i2 == 0 && j2 == 0 && this.nextInt(100) == 0) {
-                    aint1[j1 + i1 * areaWidth] = BiomeGenBase.mushroomIsland.biomeID;
+                    aint1[j1 + i1 * areaWidth] = BiomeGenBase.MUSHROOM_ISLAND.biomeID;
                 } else {
                     aint1[j1 + i1 * areaWidth] = k2;
                 }

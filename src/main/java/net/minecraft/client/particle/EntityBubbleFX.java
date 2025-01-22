@@ -29,7 +29,7 @@ public class EntityBubbleFX extends EntityFX {
         this.motionY *= 0.8500000238418579D;
         this.motionZ *= 0.8500000238418579D;
 
-        if (this.worldObj.getBlockState(new BlockPos(this)).getBlock().getMaterial() != Material.water) {
+        if (this.worldObj.getBlockState(new BlockPos(this)).getBlock().getMaterial() != Material.WATER) {
             this.setDead();
         }
 

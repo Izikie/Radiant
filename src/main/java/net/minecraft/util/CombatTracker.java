@@ -67,10 +67,10 @@ public class CombatTracker {
             Entity entity = combatentry1.getDamageSrc().getEntity();
             IChatComponent ichatcomponent;
 
-            if (combatentry != null && combatentry1.getDamageSrc() == DamageSource.fall) {
+            if (combatentry != null && combatentry1.getDamageSrc() == DamageSource.FALL) {
                 IChatComponent ichatcomponent2 = combatentry.getDamageSrcDisplayName();
 
-                if (combatentry.getDamageSrc() != DamageSource.fall && combatentry.getDamageSrc() != DamageSource.outOfWorld) {
+                if (combatentry.getDamageSrc() != DamageSource.FALL && combatentry.getDamageSrc() != DamageSource.OUT_OF_WORLD) {
                     if (ichatcomponent2 != null && (ichatcomponent1 == null || !ichatcomponent2.equals(ichatcomponent1))) {
                         Entity entity1 = combatentry.getDamageSrc().getEntity();
                         ItemStack itemstack1 = entity1 instanceof EntityLivingBase entityLivingBase ? entityLivingBase.getHeldItem() : null;
@@ -137,7 +137,7 @@ public class CombatTracker {
             CombatEntry combatentry2 = this.combatEntries.get(j);
             CombatEntry combatentry3 = j > 0 ? this.combatEntries.get(j - 1) : null;
 
-            if ((combatentry2.getDamageSrc() == DamageSource.fall || combatentry2.getDamageSrc() == DamageSource.outOfWorld) && combatentry2.getDamageAmount() > 0.0F && (combatentry == null || combatentry2.getDamageAmount() > f)) {
+            if ((combatentry2.getDamageSrc() == DamageSource.FALL || combatentry2.getDamageSrc() == DamageSource.OUT_OF_WORLD) && combatentry2.getDamageAmount() > 0.0F && (combatentry == null || combatentry2.getDamageAmount() > f)) {
                 if (j > 0) {
                     combatentry = combatentry3;
                 } else {

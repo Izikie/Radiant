@@ -543,7 +543,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             double d0 = renderViewEntity.prevPosX + (renderViewEntity.posX - renderViewEntity.prevPosX) * partialTicks;
             double d1 = renderViewEntity.prevPosY + (renderViewEntity.posY - renderViewEntity.prevPosY) * partialTicks;
             double d2 = renderViewEntity.prevPosZ + (renderViewEntity.posZ - renderViewEntity.prevPosZ) * partialTicks;
-            TileEntityRendererDispatcher.instance.cacheActiveRenderInfo(this.theWorld, this.mc.getTextureManager(), this.mc.fontRendererObj, this.mc.getRenderViewEntity(), partialTicks);
+            TileEntityRendererDispatcher.INSTANCE.cacheActiveRenderInfo(this.theWorld, this.mc.getTextureManager(), this.mc.fontRendererObj, this.mc.getRenderViewEntity(), partialTicks);
             this.renderManager.cacheActiveRenderInfo(this.theWorld, this.mc.fontRendererObj, this.mc.getRenderViewEntity(), this.mc.pointedEntity, this.mc.gameSettings, partialTicks);
             ++renderEntitiesCounter;
 
@@ -714,7 +714,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                             Shaders.nextBlockEntity(tileentity1);
                         }
 
-                        TileEntityRendererDispatcher.instance.renderTileEntity(tileentity1, partialTicks, -1);
+                        TileEntityRendererDispatcher.INSTANCE.renderTileEntity(tileentity1, partialTicks, -1);
                         ++this.countTileEntitiesRendered;
                     }
                 }
@@ -726,7 +726,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                         Shaders.nextBlockEntity(tileentity);
                     }
 
-                    TileEntityRendererDispatcher.instance.renderTileEntity(tileentity, partialTicks, -1);
+                    TileEntityRendererDispatcher.INSTANCE.renderTileEntity(tileentity, partialTicks, -1);
                 }
             }
 
@@ -756,7 +756,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                         Shaders.nextBlockEntity(tileentity2);
                     }
 
-                    TileEntityRendererDispatcher.instance.renderTileEntity(tileentity2, partialTicks, destroyblockprogress.getPartialBlockDamage());
+                    TileEntityRendererDispatcher.INSTANCE.renderTileEntity(tileentity2, partialTicks, destroyblockprogress.getPartialBlockDamage());
                 }
             }
 
@@ -1852,7 +1852,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         if (entityIn.posX >= worldborder.maxX() - d0 || entityIn.posX <= worldborder.minX() + d0 || entityIn.posZ >= worldborder.maxZ() - d0 || entityIn.posZ <= worldborder.minZ() + d0) {
             if (Config.isShaders()) {
                 Shaders.pushProgram();
-                Shaders.useProgram(Shaders.ProgramTexturedLit);
+                Shaders.useProgram(Shaders.PROGRAM_TEXTURED_LIT);
             }
 
             // TODO: PATCHER, GlStateManager.func_179106_n();
@@ -2019,7 +2019,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                     } else {
                         IBlockState iblockstate = this.theWorld.getBlockState(blockpos);
 
-                        if (iblockstate.getBlock().getMaterial() != Material.air) {
+                        if (iblockstate.getBlock().getMaterial() != Material.AIR) {
                             int i = destroyblockprogress.getPartialBlockDamage();
                             TextureAtlasSprite textureatlassprite = this.destroyBlockIcons[i];
                             BlockRendererDispatcher blockrendererdispatcher = this.mc.getBlockRendererDispatcher();
@@ -2052,7 +2052,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             BlockPos blockpos = movingObjectPositionIn.getBlockPos();
             Block block = this.theWorld.getBlockState(blockpos).getBlock();
 
-            if (block.getMaterial() != Material.air && this.theWorld.getWorldBorder().contains(blockpos)) {
+            if (block.getMaterial() != Material.AIR && this.theWorld.getWorldBorder().contains(blockpos)) {
                 block.setBlockBoundsBasedOnState(this.theWorld, blockpos);
                 double d0 = player.lastTickPosX + (player.posX - player.lastTickPosX) * partialTicks;
                 double d1 = player.lastTickPosY + (player.posY - player.lastTickPosY) * partialTicks;
@@ -2465,7 +2465,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             case 2001:
                 Block block = Block.getBlockById(data & 4095);
 
-                if (block.getMaterial() != Material.air) {
+                if (block.getMaterial() != Material.AIR) {
                     this.mc.getSoundHandler().playSound(new PositionedSoundRecord(new ResourceLocation(block.stepSound.getBreakSound()), (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getFrequency() * 0.8F, blockPosIn.getX() + 0.5F, blockPosIn.getY() + 0.5F, blockPosIn.getZ() + 0.5F));
                 }
 

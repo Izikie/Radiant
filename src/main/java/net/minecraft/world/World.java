@@ -124,7 +124,7 @@ public abstract class World implements IBlockAccess {
                 throw new ReportedException(crashreport);
             }
         } else {
-            return this.provider.getWorldChunkManager().getBiomeGenerator(pos, BiomeGenBase.plains);
+            return this.provider.getWorldChunkManager().getBiomeGenerator(pos, BiomeGenBase.PLAINS);
         }
     }
 
@@ -156,7 +156,7 @@ public abstract class World implements IBlockAccess {
     }
 
     public boolean isAirBlock(BlockPos pos) {
-        return this.getBlockState(pos).getBlock().getMaterial() == Material.air;
+        return this.getBlockState(pos).getBlock().getMaterial() == Material.AIR;
     }
 
     public boolean isBlockLoaded(BlockPos pos) {
@@ -268,7 +268,7 @@ public abstract class World implements IBlockAccess {
         IBlockState iblockstate = this.getBlockState(pos);
         Block block = iblockstate.getBlock();
 
-        if (block.getMaterial() == Material.air) {
+        if (block.getMaterial() == Material.AIR) {
             return false;
         } else {
             this.playAuxSFX(2001, pos, Block.getStateId(iblockstate));
@@ -1125,7 +1125,7 @@ public abstract class World implements IBlockAccess {
             blockpos1 = blockpos.down();
             Material material = chunk.getBlock(blockpos1).getMaterial();
 
-            if (material.blocksMovement() && material != Material.leaves) {
+            if (material.blocksMovement() && material != Material.LEAVES) {
                 break;
             }
         }
@@ -1414,7 +1414,7 @@ public abstract class World implements IBlockAccess {
                 for (int i2 = i1; i2 <= j1; ++i2) {
                     Block block = this.getBlockState(blockpos$mutableblockpos.set(k1, l1, i2)).getBlock();
 
-                    if (block.getMaterial() != Material.air) {
+                    if (block.getMaterial() != Material.AIR) {
                         return true;
                     }
                 }
@@ -1881,7 +1881,7 @@ public abstract class World implements IBlockAccess {
             j = j + p_147467_1_;
             k = k + p_147467_2_;
 
-            if (block.getMaterial() == Material.air && this.getLight(blockpos) <= this.rand.nextInt(8) && this.getLightFor(LightType.SKY, blockpos) <= 0) {
+            if (block.getMaterial() == Material.AIR && this.getLight(blockpos) <= this.rand.nextInt(8) && this.getLightFor(LightType.SKY, blockpos) <= 0) {
                 EntityPlayer entityplayer = this.getClosestPlayer(j + 0.5D, l + 0.5D, k + 0.5D, 8.0D);
 
                 if (entityplayer != null && entityplayer.getDistanceSq(j + 0.5D, l + 0.5D, k + 0.5D) > 4.0D) {
@@ -1937,7 +1937,7 @@ public abstract class World implements IBlockAccess {
     }
 
     private boolean isWater(BlockPos pos) {
-        return this.getBlockState(pos).getBlock().getMaterial() == Material.water;
+        return this.getBlockState(pos).getBlock().getMaterial() == Material.WATER;
     }
 
     public boolean canSnowAt(BlockPos pos, boolean checkLight) {
@@ -1952,7 +1952,7 @@ public abstract class World implements IBlockAccess {
             if (pos.getY() >= 0 && pos.getY() < 256 && this.getLightFor(LightType.BLOCK, pos) < 10) {
                 Block block = this.getBlockState(pos).getBlock();
 
-                return block.getMaterial() == Material.air && Blocks.snow_layer.canPlaceBlockAt(this, pos);
+                return block.getMaterial() == Material.AIR && Blocks.snow_layer.canPlaceBlockAt(this, pos);
             }
 
             return false;
@@ -2257,7 +2257,7 @@ public abstract class World implements IBlockAccess {
     public boolean canBlockBePlaced(Block blockIn, BlockPos pos, boolean p_175716_3_, Direction side, Entity entityIn, ItemStack itemStackIn) {
         Block block = this.getBlockState(pos).getBlock();
         AxisAlignedBB axisalignedbb = p_175716_3_ ? null : blockIn.getCollisionBoundingBox(this, pos, blockIn.getDefaultState());
-        return (axisalignedbb == null || this.checkNoEntityCollision(axisalignedbb, entityIn)) && (block.getMaterial() == Material.circuits && blockIn == Blocks.anvil || block.getMaterial().isReplaceable() && blockIn.canReplace(this, pos, side, itemStackIn));
+        return (axisalignedbb == null || this.checkNoEntityCollision(axisalignedbb, entityIn)) && (block.getMaterial() == Material.CIRCUITS && blockIn == Blocks.anvil || block.getMaterial().isReplaceable() && blockIn.canReplace(this, pos, side, itemStackIn));
     }
 
     public int getSeaLevel() {

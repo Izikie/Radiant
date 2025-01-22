@@ -48,7 +48,7 @@ public abstract class InventoryEffectRenderer extends GuiContainer {
         }
 
         for (PotionEffect effect : this.mc.thePlayer.getActivePotionEffects()) {
-            Potion potion = Potion.potionTypes[effect.getPotionID()];
+            Potion potion = Potion.POTION_TYPES[effect.getPotionID()];
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             this.mc.getTextureManager().bindTexture(inventoryBackground);
             this.drawTexturedModalRect(x, y, 0, 166, 140, 32);

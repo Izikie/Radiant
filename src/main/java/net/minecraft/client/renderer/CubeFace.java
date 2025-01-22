@@ -10,11 +10,11 @@ public enum CubeFace {
     WEST(new CubeFace.VertexInformation[]{new CubeFace.VertexInformation(CubeFace.Constants.WEST_INDEX, CubeFace.Constants.UP_INDEX, CubeFace.Constants.NORTH_INDEX), new CubeFace.VertexInformation(CubeFace.Constants.WEST_INDEX, CubeFace.Constants.DOWN_INDEX, CubeFace.Constants.NORTH_INDEX), new CubeFace.VertexInformation(CubeFace.Constants.WEST_INDEX, CubeFace.Constants.DOWN_INDEX, CubeFace.Constants.SOUTH_INDEX), new CubeFace.VertexInformation(CubeFace.Constants.WEST_INDEX, CubeFace.Constants.UP_INDEX, CubeFace.Constants.SOUTH_INDEX)}),
     EAST(new CubeFace.VertexInformation[]{new CubeFace.VertexInformation(CubeFace.Constants.EAST_INDEX, CubeFace.Constants.UP_INDEX, CubeFace.Constants.SOUTH_INDEX), new CubeFace.VertexInformation(CubeFace.Constants.EAST_INDEX, CubeFace.Constants.DOWN_INDEX, CubeFace.Constants.SOUTH_INDEX), new CubeFace.VertexInformation(CubeFace.Constants.EAST_INDEX, CubeFace.Constants.DOWN_INDEX, CubeFace.Constants.NORTH_INDEX), new CubeFace.VertexInformation(CubeFace.Constants.EAST_INDEX, CubeFace.Constants.UP_INDEX, CubeFace.Constants.NORTH_INDEX)});
 
-    private static final CubeFace[] facings = new CubeFace[6];
+    private static final CubeFace[] CUBE_FACES = new CubeFace[6];
     private final CubeFace.VertexInformation[] vertexInfos;
 
     public static CubeFace getFacing(Direction facing) {
-        return facings[facing.getIndex()];
+        return CUBE_FACES[facing.getIndex()];
     }
 
     CubeFace(CubeFace.VertexInformation[] vertexInfosIn) {
@@ -26,12 +26,12 @@ public enum CubeFace {
     }
 
     static {
-        facings[CubeFace.Constants.DOWN_INDEX] = DOWN;
-        facings[CubeFace.Constants.UP_INDEX] = UP;
-        facings[CubeFace.Constants.NORTH_INDEX] = NORTH;
-        facings[CubeFace.Constants.SOUTH_INDEX] = SOUTH;
-        facings[CubeFace.Constants.WEST_INDEX] = WEST;
-        facings[CubeFace.Constants.EAST_INDEX] = EAST;
+        CUBE_FACES[CubeFace.Constants.DOWN_INDEX] = DOWN;
+        CUBE_FACES[CubeFace.Constants.UP_INDEX] = UP;
+        CUBE_FACES[CubeFace.Constants.NORTH_INDEX] = NORTH;
+        CUBE_FACES[CubeFace.Constants.SOUTH_INDEX] = SOUTH;
+        CUBE_FACES[CubeFace.Constants.WEST_INDEX] = WEST;
+        CUBE_FACES[CubeFace.Constants.EAST_INDEX] = EAST;
     }
 
     public static final class Constants {

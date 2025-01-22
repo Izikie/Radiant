@@ -52,7 +52,7 @@ public class TexturedQuad {
         }
 
         if (Config.isShaders()) {
-            renderer.begin(7, SVertexFormat.defVertexFormatTextured);
+            renderer.begin(7, SVertexFormat.DEF_VERTEX_FORMAT_TEXTURED);
         } else {
             renderer.begin(7, DefaultVertexFormats.OLDMODEL_POSITION_TEX_NORMAL);
         }

@@ -146,7 +146,7 @@ public class ItemPotion extends Item {
 
         if (list != null && !list.isEmpty()) {
             for (PotionEffect potioneffect : list) {
-                if (Potion.potionTypes[potioneffect.getPotionID()].isInstant()) {
+                if (Potion.POTION_TYPES[potioneffect.getPotionID()].isInstant()) {
                     return true;
                 }
             }
@@ -186,7 +186,7 @@ public class ItemPotion extends Item {
             if (list != null && !list.isEmpty()) {
                 for (PotionEffect potioneffect : list) {
                     String s1 = StatCollector.translateToLocal(potioneffect.getEffectName()).trim();
-                    Potion potion = Potion.potionTypes[potioneffect.getPotionID()];
+                    Potion potion = Potion.POTION_TYPES[potioneffect.getPotionID()];
                     Map<IAttribute, AttributeModifier> map = potion.getAttributeModifierMap();
 
                     if (map != null && !map.isEmpty()) {

@@ -17,8 +17,8 @@ import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 
 public class ChunkVisibility {
     public static final int MASK_FACINGS = 63;
-    public static final Direction[][] enumFacingArrays = makeEnumFacingArrays(false);
-    public static final Direction[][] enumFacingOppositeArrays = makeEnumFacingArrays(true);
+    public static final Direction[][] FACING_ARRAYS = makeEnumFacingArrays(false);
+    public static final Direction[][] FACING_OPPOSITE_ARRAYS = makeEnumFacingArrays(true);
     private static int counter = 0;
     private static int iMaxStatic = -1;
     private static int iMaxStaticFinal = 16;
@@ -164,7 +164,7 @@ public class ChunkVisibility {
 
     public static Direction[] getFacingsNotOpposite(int setDisabled) {
         int i = ~setDisabled & 63;
-        return enumFacingOppositeArrays[i];
+        return FACING_OPPOSITE_ARRAYS[i];
     }
 
     public static void reset() {

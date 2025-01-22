@@ -13,7 +13,7 @@ import net.minecraft.util.Session;
 import java.io.IOException;
 
 public class MicrosoftAuth extends GuiScreen {
-    private static final MicrosoftAuthenticator auth = new MicrosoftAuthenticator();
+    private static final MicrosoftAuthenticator AUTHENTICATOR = new MicrosoftAuthenticator();
     private String status = "Direct Login";
 
     private GuiTextField username, password;
@@ -72,7 +72,7 @@ public class MicrosoftAuth extends GuiScreen {
     public void login() {
         Thread loginThread = new Thread(() -> {
             try {
-                MicrosoftAuthResult result = auth.loginWithCredentials(username.getText(), password.getText());
+                MicrosoftAuthResult result = AUTHENTICATOR.loginWithCredentials(username.getText(), password.getText());
                 if (result != null) {
                     MinecraftProfile profile = result.getProfile();
                     mc.setSession(new Session(

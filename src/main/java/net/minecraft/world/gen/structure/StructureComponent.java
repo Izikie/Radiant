@@ -429,7 +429,7 @@ public abstract class StructureComponent {
         for (int i = yMin; i <= yMax; ++i) {
             for (int j = xMin; j <= xMax; ++j) {
                 for (int k = zMin; k <= zMax; ++k) {
-                    if (!existingOnly || this.getBlockStateFromPos(worldIn, j, i, k, boundingboxIn).getBlock().getMaterial() != Material.air) {
+                    if (!existingOnly || this.getBlockStateFromPos(worldIn, j, i, k, boundingboxIn).getBlock().getMaterial() != Material.AIR) {
                         if (i != yMin && i != yMax && j != xMin && j != xMax && k != zMin && k != zMax) {
                             this.setBlockState(worldIn, insideBlockState, j, i, k, boundingboxIn);
                         } else {
@@ -445,7 +445,7 @@ public abstract class StructureComponent {
         for (int i = minY; i <= maxY; ++i) {
             for (int j = minX; j <= maxX; ++j) {
                 for (int k = minZ; k <= maxZ; ++k) {
-                    if (!alwaysReplace || this.getBlockStateFromPos(worldIn, j, i, k, boundingboxIn).getBlock().getMaterial() != Material.air) {
+                    if (!alwaysReplace || this.getBlockStateFromPos(worldIn, j, i, k, boundingboxIn).getBlock().getMaterial() != Material.AIR) {
                         blockselector.selectBlocks(rand, j, i, k, i == minY || i == maxY || j == minX || j == maxX || k == minZ || k == maxZ);
                         this.setBlockState(worldIn, blockselector.getBlockState(), j, i, k, boundingboxIn);
                     }
@@ -458,7 +458,7 @@ public abstract class StructureComponent {
         for (int i = minY; i <= maxY; ++i) {
             for (int j = minX; j <= maxX; ++j) {
                 for (int k = minZ; k <= maxZ; ++k) {
-                    if (rand.nextFloat() <= chance && (!p_175805_13_ || this.getBlockStateFromPos(worldIn, j, i, k, boundingboxIn).getBlock().getMaterial() != Material.air)) {
+                    if (rand.nextFloat() <= chance && (!p_175805_13_ || this.getBlockStateFromPos(worldIn, j, i, k, boundingboxIn).getBlock().getMaterial() != Material.AIR)) {
                         if (i != minY && i != maxY && j != minX && j != maxX && k != minZ && k != maxZ) {
                             this.setBlockState(worldIn, blockstate2, j, i, k, boundingboxIn);
                         } else {
@@ -492,7 +492,7 @@ public abstract class StructureComponent {
                 for (int k = minZ; k <= maxZ; ++k) {
                     float f7 = (k - f4) / (f2 * 0.5F);
 
-                    if (!p_180777_10_ || this.getBlockStateFromPos(worldIn, j, i, k, boundingboxIn).getBlock().getMaterial() != Material.air) {
+                    if (!p_180777_10_ || this.getBlockStateFromPos(worldIn, j, i, k, boundingboxIn).getBlock().getMaterial() != Material.AIR) {
                         float f8 = f6 * f6 + f5 * f5 + f7 * f7;
 
                         if (f8 <= 1.05F) {

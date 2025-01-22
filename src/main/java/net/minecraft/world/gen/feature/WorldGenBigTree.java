@@ -89,7 +89,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
                     BlockPos blockpos = p_181631_1_.add(j, 0, k);
                     Material material = this.world.getBlockState(blockpos).getBlock().getMaterial();
 
-                    if (material == Material.air || material == Material.leaves) {
+                    if (material == Material.AIR || material == Material.LEAVES) {
                         this.setBlockAndNotifyAdequately(this.world, blockpos, p_181631_3_);
                     }
                 }

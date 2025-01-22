@@ -11,7 +11,7 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 public class RConConsoleSource implements ICommandSender {
-    private static final RConConsoleSource instance = new RConConsoleSource();
+    private static final RConConsoleSource INSTANCE = new RConConsoleSource();
     private final StringBuffer buffer = new StringBuffer();
 
     public String getName() {

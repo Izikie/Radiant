@@ -14,9 +14,9 @@ import org.apache.commons.io.Charsets;
 import org.apache.commons.io.IOUtils;
 
 public class StringTranslate {
-    private static final Pattern numericVariablePattern = Pattern.compile("%(\\d+\\$)?[\\d\\.]*[df]");
-    private static final Splitter equalSignSplitter = Splitter.on('=').limit(2);
-    private static final StringTranslate instance = new StringTranslate();
+    private static final Pattern NUMERIC_VARIABLE_PATTERN = Pattern.compile("%(\\d+\\$)?[\\d\\.]*[df]");
+    private static final Splitter EQUAL_SIGN_SPLITTER = Splitter.on('=').limit(2);
+    private static final StringTranslate INSTANCE = new StringTranslate();
     private final Map<String, String> languageList = Maps.newHashMap();
     private long lastUpdateTimeInMilliseconds;
 
@@ -26,11 +26,11 @@ public class StringTranslate {
 
             for (String s : IOUtils.readLines(inputstream, Charsets.UTF_8)) {
                 if (!s.isEmpty() && s.charAt(0) != 35) {
-                    String[] astring = Iterables.toArray(equalSignSplitter.split(s), String.class);
+                    String[] astring = Iterables.toArray(EQUAL_SIGN_SPLITTER.split(s), String.class);
 
                     if (astring != null && astring.length == 2) {
                         String s1 = astring[0];
-                        String s2 = numericVariablePattern.matcher(astring[1]).replaceAll("%$1s");
+                        String s2 = NUMERIC_VARIABLE_PATTERN.matcher(astring[1]).replaceAll("%$1s");
                         this.languageList.put(s1, s2);
                     }
                 }
@@ -42,13 +42,13 @@ public class StringTranslate {
     }
 
     static StringTranslate getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
     public static synchronized void replaceWith(Map<String, String> p_135063_0_) {
-        instance.languageList.clear();
-        instance.languageList.putAll(p_135063_0_);
-        instance.lastUpdateTimeInMilliseconds = System.currentTimeMillis();
+        INSTANCE.languageList.clear();
+        INSTANCE.languageList.putAll(p_135063_0_);
+        INSTANCE.lastUpdateTimeInMilliseconds = System.currentTimeMillis();
     }
 
     public synchronized String translateKey(String key) {

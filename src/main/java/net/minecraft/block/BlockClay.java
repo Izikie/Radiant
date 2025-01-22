@@ -10,7 +10,7 @@ import net.minecraft.item.Item;
 
 public class BlockClay extends Block {
     public BlockClay() {
-        super(Material.clay);
+        super(Material.CLAY);
         this.setCreativeTab(CreativeTabs.tabBlock);
     }
 

@@ -231,7 +231,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
                 this.lastDamage = f;
                 this.setHealth(this.getHealth());
                 this.hurtResistantTime = this.maxHurtResistantTime;
-                this.damageEntity(DamageSource.generic, f);
+                this.damageEntity(DamageSource.GENERIC, f);
                 this.hurtTime = this.maxHurtTime = 10;
             }
         } else {
@@ -493,7 +493,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
             }
 
             this.inPortal = false;
-        } else if (this.isPotionActive(Potion.confusion) && this.getActivePotionEffect(Potion.confusion).getDuration() > 60) {
+        } else if (this.isPotionActive(Potion.CONFUSION) && this.getActivePotionEffect(Potion.CONFUSION).getDuration() > 60) {
             this.timeInPortal += 0.006666667F;
 
             if (this.timeInPortal > 1.0F) {
@@ -531,7 +531,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
         this.pushOutOfBlocks(this.posX + this.width * 0.35D, this.getEntityBoundingBox().minY + 0.5D, this.posZ + this.width * 0.35D);
         boolean flag3 = this.getFoodStats().getFoodLevel() > 6.0F || this.capabilities.allowFlying;
 
-        if (this.onGround && !flag1 && !flag2 && this.movementInput.moveForward >= f && !this.isSprinting() && flag3 && !this.isUsingItem() && !this.isPotionActive(Potion.blindness)) {
+        if (this.onGround && !flag1 && !flag2 && this.movementInput.moveForward >= f && !this.isSprinting() && flag3 && !this.isUsingItem() && !this.isPotionActive(Potion.BLINDNESS)) {
             if (this.sprintToggleTimer <= 0 && !this.mc.gameSettings.keyBindSprint.isKeyDown()) {
                 this.sprintToggleTimer = 7;
             } else {
@@ -539,7 +539,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
             }
         }
 
-        if (!this.isSprinting() && this.movementInput.moveForward >= f && flag3 && !this.isUsingItem() && !this.isPotionActive(Potion.blindness) && this.mc.gameSettings.keyBindSprint.isKeyDown()) {
+        if (!this.isSprinting() && this.movementInput.moveForward >= f && flag3 && !this.isUsingItem() && !this.isPotionActive(Potion.BLINDNESS) && this.mc.gameSettings.keyBindSprint.isKeyDown()) {
             this.setSprinting(true);
         }
 

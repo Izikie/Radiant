@@ -22,7 +22,7 @@ public class BlockEndPortalFrame extends Block {
     public static final PropertyBool EYE = PropertyBool.create("eye");
 
     public BlockEndPortalFrame() {
-        super(Material.rock, MapColor.greenColor);
+        super(Material.ROCK, MapColor.greenColor);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH).withProperty(EYE, Boolean.FALSE));
     }
 

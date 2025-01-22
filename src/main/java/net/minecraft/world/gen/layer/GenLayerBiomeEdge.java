@@ -17,32 +17,32 @@ public class GenLayerBiomeEdge extends GenLayer {
                 this.initChunkSeed((j + areaX), (i + areaY));
                 int k = aint[j + 1 + (i + 1) * (areaWidth + 2)];
 
-                if (!this.replaceBiomeEdgeIfNecessary(aint, aint1, j, i, areaWidth, k, BiomeGenBase.extremeHills.biomeID, BiomeGenBase.extremeHillsEdge.biomeID) && !this.replaceBiomeEdge(aint, aint1, j, i, areaWidth, k, BiomeGenBase.mesaPlateau_F.biomeID, BiomeGenBase.mesa.biomeID) && !this.replaceBiomeEdge(aint, aint1, j, i, areaWidth, k, BiomeGenBase.mesaPlateau.biomeID, BiomeGenBase.mesa.biomeID) && !this.replaceBiomeEdge(aint, aint1, j, i, areaWidth, k, BiomeGenBase.megaTaiga.biomeID, BiomeGenBase.taiga.biomeID)) {
-                    if (k == BiomeGenBase.desert.biomeID) {
+                if (!this.replaceBiomeEdgeIfNecessary(aint, aint1, j, i, areaWidth, k, BiomeGenBase.EXTREME_HILLS.biomeID, BiomeGenBase.EXTREME_HILLS_EDGE.biomeID) && !this.replaceBiomeEdge(aint, aint1, j, i, areaWidth, k, BiomeGenBase.MESA_PLATEAU_F.biomeID, BiomeGenBase.MESA.biomeID) && !this.replaceBiomeEdge(aint, aint1, j, i, areaWidth, k, BiomeGenBase.MESA_PLATEAU.biomeID, BiomeGenBase.MESA.biomeID) && !this.replaceBiomeEdge(aint, aint1, j, i, areaWidth, k, BiomeGenBase.MEGA_TAIGA.biomeID, BiomeGenBase.TAIGA.biomeID)) {
+                    if (k == BiomeGenBase.DESERT.biomeID) {
                         int l1 = aint[j + 1 + (i + 1 - 1) * (areaWidth + 2)];
                         int i2 = aint[j + 1 + 1 + (i + 1) * (areaWidth + 2)];
                         int j2 = aint[j + 1 - 1 + (i + 1) * (areaWidth + 2)];
                         int k2 = aint[j + 1 + (i + 1 + 1) * (areaWidth + 2)];
 
-                        if (l1 != BiomeGenBase.icePlains.biomeID && i2 != BiomeGenBase.icePlains.biomeID && j2 != BiomeGenBase.icePlains.biomeID && k2 != BiomeGenBase.icePlains.biomeID) {
+                        if (l1 != BiomeGenBase.ICE_PLAINS.biomeID && i2 != BiomeGenBase.ICE_PLAINS.biomeID && j2 != BiomeGenBase.ICE_PLAINS.biomeID && k2 != BiomeGenBase.ICE_PLAINS.biomeID) {
                             aint1[j + i * areaWidth] = k;
                         } else {
-                            aint1[j + i * areaWidth] = BiomeGenBase.extremeHillsPlus.biomeID;
+                            aint1[j + i * areaWidth] = BiomeGenBase.EXTREME_HILLS_PLUS.biomeID;
                         }
-                    } else if (k == BiomeGenBase.swampland.biomeID) {
+                    } else if (k == BiomeGenBase.SWAMPLAND.biomeID) {
                         int l = aint[j + 1 + (i + 1 - 1) * (areaWidth + 2)];
                         int i1 = aint[j + 1 + 1 + (i + 1) * (areaWidth + 2)];
                         int j1 = aint[j + 1 - 1 + (i + 1) * (areaWidth + 2)];
                         int k1 = aint[j + 1 + (i + 1 + 1) * (areaWidth + 2)];
 
-                        if (l != BiomeGenBase.desert.biomeID && i1 != BiomeGenBase.desert.biomeID && j1 != BiomeGenBase.desert.biomeID && k1 != BiomeGenBase.desert.biomeID && l != BiomeGenBase.coldTaiga.biomeID && i1 != BiomeGenBase.coldTaiga.biomeID && j1 != BiomeGenBase.coldTaiga.biomeID && k1 != BiomeGenBase.coldTaiga.biomeID && l != BiomeGenBase.icePlains.biomeID && i1 != BiomeGenBase.icePlains.biomeID && j1 != BiomeGenBase.icePlains.biomeID && k1 != BiomeGenBase.icePlains.biomeID) {
-                            if (l != BiomeGenBase.jungle.biomeID && k1 != BiomeGenBase.jungle.biomeID && i1 != BiomeGenBase.jungle.biomeID && j1 != BiomeGenBase.jungle.biomeID) {
+                        if (l != BiomeGenBase.DESERT.biomeID && i1 != BiomeGenBase.DESERT.biomeID && j1 != BiomeGenBase.DESERT.biomeID && k1 != BiomeGenBase.DESERT.biomeID && l != BiomeGenBase.COLD_TAIGA.biomeID && i1 != BiomeGenBase.COLD_TAIGA.biomeID && j1 != BiomeGenBase.COLD_TAIGA.biomeID && k1 != BiomeGenBase.COLD_TAIGA.biomeID && l != BiomeGenBase.ICE_PLAINS.biomeID && i1 != BiomeGenBase.ICE_PLAINS.biomeID && j1 != BiomeGenBase.ICE_PLAINS.biomeID && k1 != BiomeGenBase.ICE_PLAINS.biomeID) {
+                            if (l != BiomeGenBase.JUNGLE.biomeID && k1 != BiomeGenBase.JUNGLE.biomeID && i1 != BiomeGenBase.JUNGLE.biomeID && j1 != BiomeGenBase.JUNGLE.biomeID) {
                                 aint1[j + i * areaWidth] = k;
                             } else {
-                                aint1[j + i * areaWidth] = BiomeGenBase.jungleEdge.biomeID;
+                                aint1[j + i * areaWidth] = BiomeGenBase.JUNGLE_EDGE.biomeID;
                             }
                         } else {
-                            aint1[j + i * areaWidth] = BiomeGenBase.plains.biomeID;
+                            aint1[j + i * areaWidth] = BiomeGenBase.PLAINS.biomeID;
                         }
                     } else {
                         aint1[j + i * areaWidth] = k;

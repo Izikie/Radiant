@@ -234,15 +234,15 @@ public class GuiBeacon extends GuiContainer {
         private final int field_146148_q;
 
         public PowerButton(int p_i1076_2_, int p_i1076_3_, int p_i1076_4_, int p_i1076_5_, int p_i1076_6_) {
-            super(p_i1076_2_, p_i1076_3_, p_i1076_4_, GuiContainer.inventoryBackground, Potion.potionTypes[p_i1076_5_].getStatusIconIndex() % 8 * 18, 198 + Potion.potionTypes[p_i1076_5_].getStatusIconIndex() / 8 * 18);
+            super(p_i1076_2_, p_i1076_3_, p_i1076_4_, GuiContainer.inventoryBackground, Potion.POTION_TYPES[p_i1076_5_].getStatusIconIndex() % 8 * 18, 198 + Potion.POTION_TYPES[p_i1076_5_].getStatusIconIndex() / 8 * 18);
             this.field_146149_p = p_i1076_5_;
             this.field_146148_q = p_i1076_6_;
         }
 
         public void drawButtonForegroundLayer(int mouseX, int mouseY) {
-            String s = I18n.format(Potion.potionTypes[this.field_146149_p].getName());
+            String s = I18n.format(Potion.POTION_TYPES[this.field_146149_p].getName());
 
-            if (this.field_146148_q >= 3 && this.field_146149_p != Potion.regeneration.id) {
+            if (this.field_146148_q >= 3 && this.field_146149_p != Potion.REGENERATION.id) {
                 s = s + " II";
             }
 

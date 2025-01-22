@@ -287,7 +287,7 @@ public class CommandSpreadPlayers extends CommandBase {
             while (blockpos.getY() > 0) {
                 blockpos = blockpos.down();
 
-                if (worldIn.getBlockState(blockpos).getBlock().getMaterial() != Material.air) {
+                if (worldIn.getBlockState(blockpos).getBlock().getMaterial() != Material.AIR) {
                     return blockpos.getY() + 1;
                 }
             }
@@ -302,8 +302,8 @@ public class CommandSpreadPlayers extends CommandBase {
                 blockpos = blockpos.down();
                 Material material = worldIn.getBlockState(blockpos).getBlock().getMaterial();
 
-                if (material != Material.air) {
-                    return !material.isLiquid() && material != Material.fire;
+                if (material != Material.AIR) {
+                    return !material.isLiquid() && material != Material.FIRE;
                 }
             }
 

@@ -31,14 +31,14 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 public class ShadersTex {
-    public static final int initialBufferSize = 1048576;
+    public static final int INITIAL_BUFFER_SIZE = 1048576;
     public static ByteBuffer byteBuffer = BufferUtils.createByteBuffer(4194304);
     public static IntBuffer intBuffer = byteBuffer.asIntBuffer();
     public static int[] intArray = new int[1048576];
-    public static final int defBaseTexColor = 0;
-    public static final int defNormTexColor = -8421377;
-    public static final int defSpecTexColor = 0;
-    public static final Map<Integer, MultiTexID> multiTexMap = new HashMap();
+    public static final int DEF_BASE_TEX_COLOR = 0;
+    public static final int DEF_NORM_TEX_COLOR = -8421377;
+    public static final int DEF_SPEC_TEX_COLOR = 0;
+    public static final Map<Integer, MultiTexID> MULTI_TEX_MAP = new HashMap();
 
     public static IntBuffer getIntBuffer(int size) {
         if (intBuffer.capacity() < size) {
@@ -131,11 +131,11 @@ public class ShadersTex {
 
         if (multitexid == null) {
             int i = tex.getGlTextureId();
-            multitexid = multiTexMap.get(i);
+            multitexid = MULTI_TEX_MAP.get(i);
 
             if (multitexid == null) {
                 multitexid = new MultiTexID(i, GL11.glGenTextures(), GL11.glGenTextures());
-                multiTexMap.put(i, multitexid);
+                MULTI_TEX_MAP.put(i, multitexid);
             }
 
             tex.multiTex = multitexid;
@@ -149,7 +149,7 @@ public class ShadersTex {
 
         if (multitexid != null) {
             atex.multiTex = null;
-            multiTexMap.remove(multitexid.base);
+            MULTI_TEX_MAP.remove(multitexid.base);
             GlStateManager.deleteTexture(multitexid.norm);
             GlStateManager.deleteTexture(multitexid.spec);
 
@@ -227,7 +227,7 @@ public class ShadersTex {
     }
 
     public static void bindTextures(int baseTex) {
-        MultiTexID multitexid = multiTexMap.get(baseTex);
+        MultiTexID multitexid = MULTI_TEX_MAP.get(baseTex);
         bindTextures(multitexid);
     }
 
@@ -761,14 +761,14 @@ public class ShadersTex {
         if (itextureobject != null) {
             MultiTexID multitexid = itextureobject.getMultiTexID();
             GlStateManager.bindTexture(multitexid.base);
-            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, Shaders.texMinFilValue[Shaders.configTexMinFilB]);
-            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, Shaders.texMagFilValue[Shaders.configTexMagFilB]);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, Shaders.TEX_MIN_FIL_VALUE[Shaders.configTexMinFilB]);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, Shaders.TEX_MAG_FIL_VALUE[Shaders.configTexMagFilB]);
             GlStateManager.bindTexture(multitexid.norm);
-            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, Shaders.texMinFilValue[Shaders.configTexMinFilN]);
-            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, Shaders.texMagFilValue[Shaders.configTexMagFilN]);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, Shaders.TEX_MIN_FIL_VALUE[Shaders.configTexMinFilN]);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, Shaders.TEX_MAG_FIL_VALUE[Shaders.configTexMagFilN]);
             GlStateManager.bindTexture(multitexid.spec);
-            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, Shaders.texMinFilValue[Shaders.configTexMinFilS]);
-            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, Shaders.texMagFilValue[Shaders.configTexMagFilS]);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, Shaders.TEX_MIN_FIL_VALUE[Shaders.configTexMinFilS]);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, Shaders.TEX_MAG_FIL_VALUE[Shaders.configTexMagFilS]);
             GlStateManager.bindTexture(0);
         }
     }

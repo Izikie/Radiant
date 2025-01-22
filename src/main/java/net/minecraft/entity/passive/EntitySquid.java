@@ -76,7 +76,7 @@ public class EntitySquid extends EntityWaterMob {
     }
 
     public boolean isInWater() {
-        return this.worldObj.handleMaterialAcceleration(this.getEntityBoundingBox().expand(0.0D, -0.6000000238418579D, 0.0D), Material.water, this);
+        return this.worldObj.handleMaterialAcceleration(this.getEntityBoundingBox().expand(0.0D, -0.6000000238418579D, 0.0D), Material.WATER, this);
     }
 
     public void onLivingUpdate() {

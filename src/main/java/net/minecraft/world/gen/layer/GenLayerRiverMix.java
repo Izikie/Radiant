@@ -24,14 +24,14 @@ public class GenLayerRiverMix extends GenLayer {
         int[] aint2 = IntCache.getIntCache(areaWidth * areaHeight);
 
         for (int i = 0; i < areaWidth * areaHeight; ++i) {
-            if (aint[i] != BiomeGenBase.ocean.biomeID && aint[i] != BiomeGenBase.deepOcean.biomeID) {
-                if (aint1[i] == BiomeGenBase.river.biomeID) {
-                    if (aint[i] == BiomeGenBase.icePlains.biomeID) {
-                        aint2[i] = BiomeGenBase.frozenRiver.biomeID;
-                    } else if (aint[i] != BiomeGenBase.mushroomIsland.biomeID && aint[i] != BiomeGenBase.mushroomIslandShore.biomeID) {
+            if (aint[i] != BiomeGenBase.OCEAN.biomeID && aint[i] != BiomeGenBase.DEEP_OCEAN.biomeID) {
+                if (aint1[i] == BiomeGenBase.RIVER.biomeID) {
+                    if (aint[i] == BiomeGenBase.ICE_PLAINS.biomeID) {
+                        aint2[i] = BiomeGenBase.FROZEN_RIVER.biomeID;
+                    } else if (aint[i] != BiomeGenBase.MUSHROOM_ISLAND.biomeID && aint[i] != BiomeGenBase.MUSHROOM_ISLAND_SHORE.biomeID) {
                         aint2[i] = aint1[i] & 255;
                     } else {
-                        aint2[i] = BiomeGenBase.mushroomIslandShore.biomeID;
+                        aint2[i] = BiomeGenBase.MUSHROOM_ISLAND_SHORE.biomeID;
                     }
                 } else {
                     aint2[i] = aint[i];

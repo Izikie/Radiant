@@ -264,7 +264,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
                     return 150;
                 }
 
-                if (block.getMaterial() == Material.wood) {
+                if (block.getMaterial() == Material.WOOD) {
                     return 300;
                 }
 

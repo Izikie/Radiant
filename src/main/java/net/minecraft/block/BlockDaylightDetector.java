@@ -26,7 +26,7 @@ public class BlockDaylightDetector extends BlockContainer {
     private final boolean inverted;
 
     public BlockDaylightDetector(boolean inverted) {
-        super(Material.wood);
+        super(Material.WOOD);
         this.inverted = inverted;
         this.setDefaultState(this.blockState.getBaseState().withProperty(POWER, 0));
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.375F, 1.0F);

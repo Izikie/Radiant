@@ -25,7 +25,7 @@ public class EntitySuspendFX extends EntityFX {
         this.prevPosZ = this.posZ;
         this.moveEntity(this.motionX, this.motionY, this.motionZ);
 
-        if (this.worldObj.getBlockState(new BlockPos(this)).getBlock().getMaterial() != Material.water) {
+        if (this.worldObj.getBlockState(new BlockPos(this)).getBlock().getMaterial() != Material.WATER) {
             this.setDead();
         }
 

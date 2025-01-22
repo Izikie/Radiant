@@ -25,7 +25,7 @@ public abstract class BlockLeaves extends BlockLeavesBase {
     protected boolean isTransparent;
 
     public BlockLeaves() {
-        super(Material.leaves, false);
+        super(Material.LEAVES, false);
         this.setTickRandomly(true);
         this.setCreativeTab(CreativeTabs.tabDecorations);
         this.setHardness(0.2F);
@@ -59,7 +59,7 @@ public abstract class BlockLeaves extends BlockLeavesBase {
                         BlockPos blockpos = pos.add(j1, k1, l1);
                         IBlockState iblockstate = worldIn.getBlockState(blockpos);
 
-                        if (iblockstate.getBlock().getMaterial() == Material.leaves && !iblockstate.getValue(CHECK_DECAY)) {
+                        if (iblockstate.getBlock().getMaterial() == Material.LEAVES && !iblockstate.getValue(CHECK_DECAY)) {
                             worldIn.setBlockState(blockpos, iblockstate.withProperty(CHECK_DECAY, Boolean.TRUE), 4);
                         }
                     }
@@ -93,7 +93,7 @@ public abstract class BlockLeaves extends BlockLeavesBase {
                                 Block block = worldIn.getBlockState(blockpos$mutableblockpos.set(k + i2, l + j2, i1 + k2)).getBlock();
 
                                 if (block != Blocks.log && block != Blocks.log2) {
-                                    if (block.getMaterial() == Material.leaves) {
+                                    if (block.getMaterial() == Material.LEAVES) {
                                         this.surroundings[(i2 + l1) * k1 + (j2 + l1) * j1 + k2 + l1] = -2;
                                     } else {
                                         this.surroundings[(i2 + l1) * k1 + (j2 + l1) * j1 + k2 + l1] = -1;

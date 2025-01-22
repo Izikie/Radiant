@@ -33,7 +33,7 @@ public class EntityCaveSpider extends EntitySpider {
                 }
 
                 if (i > 0) {
-                    ((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(Potion.poison.id, i * 20, 0));
+                    ((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(Potion.POISON.id, i * 20, 0));
                 }
             }
 

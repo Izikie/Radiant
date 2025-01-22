@@ -149,7 +149,7 @@ public class EntityPig extends EntityAnimal {
         super.fall(distance, damageMultiplier);
 
         if (distance > 5.0F && this.riddenByEntity instanceof EntityPlayer entityPlayer) {
-            entityPlayer.triggerAchievement(AchievementList.flyPig);
+            entityPlayer.triggerAchievement(AchievementList.FLY_PIG);
         }
     }
 

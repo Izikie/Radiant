@@ -1,6 +1,5 @@
 package net.minecraft.command.server;
 
-import com.google.common.base.Predicate;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 
@@ -47,13 +46,13 @@ public class CommandAchievement extends CommandBase {
                 if (flag || flag1) {
                     if (statbase == null) {
                         if (flag) {
-                            for (Achievement achievement4 : AchievementList.achievementList) {
+                            for (Achievement achievement4 : AchievementList.ACHIEVEMENT_LIST) {
                                 entityplayermp.triggerAchievement(achievement4);
                             }
 
                             notifyOperators(sender, this, "commands.achievement.give.success.all", entityplayermp.getName());
                         } else if (flag1) {
-                            for (Achievement achievement5 : Lists.reverse(AchievementList.achievementList)) {
+                            for (Achievement achievement5 : Lists.reverse(AchievementList.ACHIEVEMENT_LIST)) {
                                 entityplayermp.func_175145_a(achievement5);
                             }
 
@@ -81,7 +80,7 @@ public class CommandAchievement extends CommandBase {
                                     throw new CommandException("commands.achievement.dontHave", entityplayermp.getName(), statbase.createChatComponent());
                                 }
 
-                                List<Achievement> list1 = Lists.newArrayList(Iterators.filter(AchievementList.achievementList.iterator(), p_apply_1_ -> entityplayermp.getStatFile().hasAchievementUnlocked(p_apply_1_) && p_apply_1_ != statbase));
+                                List<Achievement> list1 = Lists.newArrayList(Iterators.filter(AchievementList.ACHIEVEMENT_LIST.iterator(), p_apply_1_ -> entityplayermp.getStatFile().hasAchievementUnlocked(p_apply_1_) && p_apply_1_ != statbase));
                                 List<Achievement> list2 = Lists.newArrayList(list1);
 
                                 for (Achievement achievement2 : list1) {

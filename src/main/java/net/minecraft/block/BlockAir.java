@@ -13,7 +13,7 @@ public class BlockAir extends Block {
     private static final Map mapOriginalOpacity = new IdentityHashMap();
 
     protected BlockAir() {
-        super(Material.air);
+        super(Material.AIR);
     }
 
     public int getRenderType() {

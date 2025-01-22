@@ -38,7 +38,7 @@ public class EnchantmentProtection extends Enchantment {
             return 0;
         } else {
             float f = (6 + level * level) / 3.0F;
-            return this.protectionType == 0 ? MathHelper.floor_float(f * 0.75F) : (this.protectionType == 1 && source.isFireDamage() ? MathHelper.floor_float(f * 1.25F) : (this.protectionType == 2 && source == DamageSource.fall ? MathHelper.floor_float(f * 2.5F) : (this.protectionType == 3 && source.isExplosion() ? MathHelper.floor_float(f * 1.5F) : (this.protectionType == 4 && source.isProjectile() ? MathHelper.floor_float(f * 1.5F) : 0))));
+            return this.protectionType == 0 ? MathHelper.floor_float(f * 0.75F) : (this.protectionType == 1 && source.isFireDamage() ? MathHelper.floor_float(f * 1.25F) : (this.protectionType == 2 && source == DamageSource.FALL ? MathHelper.floor_float(f * 2.5F) : (this.protectionType == 3 && source.isExplosion() ? MathHelper.floor_float(f * 1.5F) : (this.protectionType == 4 && source.isProjectile() ? MathHelper.floor_float(f * 1.5F) : 0))));
         }
     }
 
@@ -55,7 +55,7 @@ public class EnchantmentProtection extends Enchantment {
     }
 
     public static int getFireTimeForEntity(Entity p_92093_0_, int p_92093_1_) {
-        int i = EnchantmentHelper.getMaxEnchantmentLevel(Enchantment.fireProtection.effectId, p_92093_0_.getInventory());
+        int i = EnchantmentHelper.getMaxEnchantmentLevel(Enchantment.FIRE_PROTECTION.effectId, p_92093_0_.getInventory());
 
         if (i > 0) {
             p_92093_1_ -= MathHelper.floor_float((float) p_92093_1_ * i * 0.15F);
@@ -65,7 +65,7 @@ public class EnchantmentProtection extends Enchantment {
     }
 
     public static double func_92092_a(Entity p_92092_0_, double p_92092_1_) {
-        int i = EnchantmentHelper.getMaxEnchantmentLevel(Enchantment.blastProtection.effectId, p_92092_0_.getInventory());
+        int i = EnchantmentHelper.getMaxEnchantmentLevel(Enchantment.BLAST_PROTECTION.effectId, p_92092_0_.getInventory());
 
         if (i > 0) {
             p_92092_1_ -= MathHelper.floor_double(p_92092_1_ * (i * 0.15F));

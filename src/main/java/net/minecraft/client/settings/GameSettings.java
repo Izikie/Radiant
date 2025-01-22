@@ -56,7 +56,7 @@ import org.lwjgl.opengl.DisplayMode;
 
 public class GameSettings {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final Gson gson = new Gson();
+    private static final Gson GSON = new Gson();
     private static final ParameterizedType typeListString = new ParameterizedType() {
         public Type[] getActualTypeArguments() {
             return new Type[]{String.class};
@@ -666,7 +666,7 @@ public class GameSettings {
                             }
 
                             if (astring[0].equals("resourcePacks")) {
-                                this.resourcePacks = gson.fromJson(s.substring(s.indexOf(58) + 1), typeListString);
+                                this.resourcePacks = GSON.fromJson(s.substring(s.indexOf(58) + 1), typeListString);
 
                                 if (this.resourcePacks == null) {
                                     this.resourcePacks = Lists.newArrayList();
@@ -674,7 +674,7 @@ public class GameSettings {
                             }
 
                             if (astring[0].equals("incompatibleResourcePacks")) {
-                                this.incompatibleResourcePacks = gson.fromJson(s.substring(s.indexOf(58) + 1), typeListString);
+                                this.incompatibleResourcePacks = GSON.fromJson(s.substring(s.indexOf(58) + 1), typeListString);
 
                                 if (this.incompatibleResourcePacks == null) {
                                     this.incompatibleResourcePacks = Lists.newArrayList();
@@ -869,8 +869,8 @@ public class GameSettings {
                     printwriter.println("renderClouds:true");
             }
 
-            printwriter.println("resourcePacks:" + gson.toJson(this.resourcePacks));
-            printwriter.println("incompatibleResourcePacks:" + gson.toJson(this.incompatibleResourcePacks));
+            printwriter.println("resourcePacks:" + GSON.toJson(this.resourcePacks));
+            printwriter.println("incompatibleResourcePacks:" + GSON.toJson(this.incompatibleResourcePacks));
             printwriter.println("lastServer:" + this.lastServer);
             printwriter.println("lang:" + this.language);
             printwriter.println("chatVisibility:" + this.chatVisibility.getChatVisibility());

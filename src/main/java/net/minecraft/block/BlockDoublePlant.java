@@ -29,7 +29,7 @@ public class BlockDoublePlant extends BlockBush implements IGrowable {
     public static final PropertyEnum<Direction> FACING = BlockDirectional.FACING;
 
     public BlockDoublePlant() {
-        super(Material.vine);
+        super(Material.VINE);
         this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockDoublePlant.EnumPlantType.SUNFLOWER).withProperty(HALF, BlockDoublePlant.EnumBlockHalf.LOWER).withProperty(FACING, Direction.NORTH));
         this.setHardness(0.0F);
         this.setStepSound(soundTypeGrass);

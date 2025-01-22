@@ -19,7 +19,7 @@ public class ItemBow extends Item {
     }
 
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityPlayer playerIn, int timeLeft) {
-        boolean flag = playerIn.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, stack) > 0;
+        boolean flag = playerIn.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.INFINITY.effectId, stack) > 0;
 
         if (flag || playerIn.inventory.hasItem(Items.arrow)) {
             int i = this.getMaxItemUseDuration(stack) - timeLeft;
@@ -40,19 +40,19 @@ public class ItemBow extends Item {
                 entityarrow.setIsCritical(true);
             }
 
-            int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, stack);
+            int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.POWER.effectId, stack);
 
             if (j > 0) {
                 entityarrow.setDamage(entityarrow.getDamage() + j * 0.5D + 0.5D);
             }
 
-            int k = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, stack);
+            int k = EnchantmentHelper.getEnchantmentLevel(Enchantment.PUNCH.effectId, stack);
 
             if (k > 0) {
                 entityarrow.setKnockbackStrength(k);
             }
 
-            if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, stack) > 0) {
+            if (EnchantmentHelper.getEnchantmentLevel(Enchantment.FLAME.effectId, stack) > 0) {
                 entityarrow.setFire(100);
             }
 

@@ -21,7 +21,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 public class ItemSkull extends Item {
-    private static final String[] skullTypes = new String[]{"skeleton", "wither", "zombie", "char", "creeper"};
+    private static final String[] SKULL_TYPES = new String[]{"skeleton", "wither", "zombie", "char", "creeper"};
 
     public ItemSkull() {
         this.setCreativeTab(CreativeTabs.tabDecorations);
@@ -93,7 +93,7 @@ public class ItemSkull extends Item {
     }
 
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
-        for (int i = 0; i < skullTypes.length; ++i) {
+        for (int i = 0; i < SKULL_TYPES.length; ++i) {
             subItems.add(new ItemStack(itemIn, 1, i));
         }
     }
@@ -105,11 +105,11 @@ public class ItemSkull extends Item {
     public String getUnlocalizedName(ItemStack stack) {
         int i = stack.getMetadata();
 
-        if (i < 0 || i >= skullTypes.length) {
+        if (i < 0 || i >= SKULL_TYPES.length) {
             i = 0;
         }
 
-        return super.getUnlocalizedName() + "." + skullTypes[i];
+        return super.getUnlocalizedName() + "." + SKULL_TYPES[i];
     }
 
     public String getItemStackDisplayName(ItemStack stack) {

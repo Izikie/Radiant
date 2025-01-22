@@ -27,7 +27,7 @@ public class GenLayerRiver extends GenLayer {
                 if (k2 == k1 && k2 == i2 && k2 == l1 && k2 == j2) {
                     aint1[j1 + i1 * areaWidth] = -1;
                 } else {
-                    aint1[j1 + i1 * areaWidth] = BiomeGenBase.river.biomeID;
+                    aint1[j1 + i1 * areaWidth] = BiomeGenBase.RIVER.biomeID;
                 }
             }
         }

@@ -358,7 +358,7 @@ public class ItemRenderer {
         }
 
         if (!this.mc.thePlayer.isSpectator()) {
-            if (this.mc.thePlayer.isInsideOfMaterial(Material.water)) {
+            if (this.mc.thePlayer.isInsideOfMaterial(Material.WATER)) {
                 this.renderWaterOverlayTexture(partialTicks);
             }
 

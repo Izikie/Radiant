@@ -1348,7 +1348,7 @@ public class StructureOceanMonumentPieces {
             for (int i = p_181655_4_; i <= p_181655_7_; ++i) {
                 for (int j = p_181655_3_; j <= p_181655_6_; ++j) {
                     for (int k = p_181655_5_; k <= p_181655_8_; ++k) {
-                        if (!p_181655_9_ || this.getBlockStateFromPos(p_181655_1_, j, i, k, p_181655_2_).getBlock().getMaterial() != Material.air) {
+                        if (!p_181655_9_ || this.getBlockStateFromPos(p_181655_1_, j, i, k, p_181655_2_).getBlock().getMaterial() != Material.AIR) {
                             if (this.getYWithOffset(i) >= p_181655_1_.getSeaLevel()) {
                                 this.setBlockState(p_181655_1_, Blocks.air.getDefaultState(), j, i, k, p_181655_2_);
                             } else {

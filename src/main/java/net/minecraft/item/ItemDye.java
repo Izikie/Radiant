@@ -18,7 +18,7 @@ import net.minecraft.util.ParticleTypes;
 import net.minecraft.world.World;
 
 public class ItemDye extends Item {
-    public static final int[] dyeColors = new int[]{1973019, 11743532, 3887386, 5320730, 2437522, 8073150, 2651799, 11250603, 4408131, 14188952, 4312372, 14602026, 6719955, 12801229, 15435844, 15790320};
+    public static final int[] DYE_COLORS = new int[]{1973019, 11743532, 3887386, 5320730, 2437522, 8073150, 2651799, 11250603, 4408131, 14188952, 4312372, 14602026, 6719955, 12801229, 15435844, 15790320};
 
     public ItemDye() {
         this.setHasSubtypes(true);
@@ -105,7 +105,7 @@ public class ItemDye extends Item {
 
         Block block = worldIn.getBlockState(pos).getBlock();
 
-        if (block.getMaterial() != Material.air) {
+        if (block.getMaterial() != Material.AIR) {
             block.setBlockBoundsBasedOnState(worldIn, pos);
 
             for (int i = 0; i < amount; ++i) {

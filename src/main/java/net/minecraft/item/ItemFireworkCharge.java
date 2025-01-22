@@ -87,8 +87,8 @@ public class ItemFireworkCharge extends Item {
                 flag = false;
                 boolean flag1 = false;
 
-                for (int j = 0; j < ItemDye.dyeColors.length; ++j) {
-                    if (i == ItemDye.dyeColors[j]) {
+                for (int j = 0; j < ItemDye.DYE_COLORS.length; ++j) {
+                    if (i == ItemDye.DYE_COLORS[j]) {
                         flag1 = true;
                         s = s + StatCollector.translateToLocal("item.fireworksCharge." + DyeColor.byDyeDamage(j).getUnlocalizedName());
                         break;
@@ -118,7 +118,7 @@ public class ItemFireworkCharge extends Item {
                 boolean flag5 = false;
 
                 for (int k = 0; k < 16; ++k) {
-                    if (l == ItemDye.dyeColors[k]) {
+                    if (l == ItemDye.DYE_COLORS[k]) {
                         flag5 = true;
                         s1 = s1 + StatCollector.translateToLocal("item.fireworksCharge." + DyeColor.byDyeDamage(k).getUnlocalizedName());
                         break;

@@ -89,7 +89,7 @@ public class WorldGenTaiga1 extends WorldGenAbstractTree {
                     for (int i3 = 0; i3 < i - 1; ++i3) {
                         Block block1 = worldIn.getBlockState(position.up(i3)).getBlock();
 
-                        if (block1.getMaterial() == Material.air || block1.getMaterial() == Material.leaves) {
+                        if (block1.getMaterial() == Material.AIR || block1.getMaterial() == Material.LEAVES) {
                             this.setBlockAndNotifyAdequately(worldIn, position.up(i3), field_181636_a);
                         }
                     }

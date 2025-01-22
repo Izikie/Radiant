@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 
 public class BlockWeb extends Block {
     public BlockWeb() {
-        super(Material.web);
+        super(Material.WEB);
         this.setCreativeTab(CreativeTabs.tabDecorations);
     }
 

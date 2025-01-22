@@ -82,7 +82,7 @@ public class PotionEffect {
 
     public boolean onUpdate(EntityLivingBase entityIn) {
         if (this.duration > 0) {
-            if (Potion.potionTypes[this.potionID].isReady(this.duration, this.amplifier)) {
+            if (Potion.POTION_TYPES[this.potionID].isReady(this.duration, this.amplifier)) {
                 this.performEffect(entityIn);
             }
 
@@ -98,12 +98,12 @@ public class PotionEffect {
 
     public void performEffect(EntityLivingBase entityIn) {
         if (this.duration > 0) {
-            Potion.potionTypes[this.potionID].performEffect(entityIn, this.amplifier);
+            Potion.POTION_TYPES[this.potionID].performEffect(entityIn, this.amplifier);
         }
     }
 
     public String getEffectName() {
-        return Potion.potionTypes[this.potionID].getName();
+        return Potion.POTION_TYPES[this.potionID].getName();
     }
 
     public int hashCode() {
@@ -127,7 +127,7 @@ public class PotionEffect {
             s = s + ", Particles: false";
         }
 
-        return Potion.potionTypes[this.potionID].isUsable() ? "(" + s + ")" : s;
+        return Potion.POTION_TYPES[this.potionID].isUsable() ? "(" + s + ")" : s;
     }
 
     public boolean equals(Object p_equals_1_) {
@@ -150,7 +150,7 @@ public class PotionEffect {
     public static PotionEffect readCustomPotionEffectFromNBT(NBTTagCompound nbt) {
         int i = nbt.getByte("Id");
 
-        if (i >= 0 && i < Potion.potionTypes.length && Potion.potionTypes[i] != null) {
+        if (i >= 0 && i < Potion.POTION_TYPES.length && Potion.POTION_TYPES[i] != null) {
             int j = nbt.getByte("Amplifier");
             int k = nbt.getInteger("Duration");
             boolean flag = nbt.getBoolean("Ambient");

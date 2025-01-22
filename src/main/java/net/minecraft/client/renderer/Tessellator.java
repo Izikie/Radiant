@@ -5,10 +5,10 @@ import net.optifine.SmartAnimations;
 public class Tessellator {
     private final WorldRenderer worldRenderer;
     private final WorldVertexBufferUploader vboUploader = new WorldVertexBufferUploader();
-    private static final Tessellator instance = new Tessellator(2097152);
+    private static final Tessellator INSTANCE = new Tessellator(2097152);
 
     public static Tessellator getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
     public Tessellator(int bufferSize) {

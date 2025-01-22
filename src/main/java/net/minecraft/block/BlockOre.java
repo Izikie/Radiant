@@ -16,11 +16,11 @@ import net.minecraft.world.World;
 
 public class BlockOre extends Block {
     public BlockOre() {
-        this(Material.rock.getMaterialMapColor());
+        this(Material.ROCK.getMaterialMapColor());
     }
 
     public BlockOre(MapColor p_i46390_1_) {
-        super(Material.rock, p_i46390_1_);
+        super(Material.ROCK, p_i46390_1_);
         this.setCreativeTab(CreativeTabs.tabBlock);
     }
 

@@ -21,7 +21,7 @@ public class BlockTNT extends Block {
     public static final PropertyBool EXPLODE = PropertyBool.create("explode");
 
     public BlockTNT() {
-        super(Material.tnt);
+        super(Material.TNT);
         this.setDefaultState(this.blockState.getBaseState().withProperty(EXPLODE, Boolean.FALSE));
         this.setCreativeTab(CreativeTabs.tabRedstone);
     }

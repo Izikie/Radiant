@@ -9,7 +9,7 @@ import net.minecraft.world.gen.ChunkProviderHell;
 
 public class WorldProviderHell extends WorldProvider {
     public void registerWorldChunkManager() {
-        this.worldChunkMgr = new WorldChunkManagerHell(BiomeGenBase.hell, 0.0F);
+        this.worldChunkMgr = new WorldChunkManagerHell(BiomeGenBase.HELL, 0.0F);
         this.isHellWorld = true;
         this.hasNoSky = true;
         this.dimensionId = -1;

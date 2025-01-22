@@ -47,47 +47,47 @@ public class SlotCrafting extends Slot {
         this.amountCrafted = 0;
 
         if (stack.getItem() == Item.getItemFromBlock(Blocks.crafting_table)) {
-            this.thePlayer.triggerAchievement(AchievementList.buildWorkBench);
+            this.thePlayer.triggerAchievement(AchievementList.BUILD_WORK_BENCH);
         }
 
         if (stack.getItem() instanceof ItemPickaxe) {
-            this.thePlayer.triggerAchievement(AchievementList.buildPickaxe);
+            this.thePlayer.triggerAchievement(AchievementList.BUILD_PICKAXE);
         }
 
         if (stack.getItem() == Item.getItemFromBlock(Blocks.furnace)) {
-            this.thePlayer.triggerAchievement(AchievementList.buildFurnace);
+            this.thePlayer.triggerAchievement(AchievementList.BUILD_FURNACE);
         }
 
         if (stack.getItem() instanceof ItemHoe) {
-            this.thePlayer.triggerAchievement(AchievementList.buildHoe);
+            this.thePlayer.triggerAchievement(AchievementList.BUILD_HOE);
         }
 
         if (stack.getItem() == Items.bread) {
-            this.thePlayer.triggerAchievement(AchievementList.makeBread);
+            this.thePlayer.triggerAchievement(AchievementList.MAKE_BREAD);
         }
 
         if (stack.getItem() == Items.cake) {
-            this.thePlayer.triggerAchievement(AchievementList.bakeCake);
+            this.thePlayer.triggerAchievement(AchievementList.BAKE_CAKE);
         }
 
         if (stack.getItem() instanceof ItemPickaxe itemPickaxe && itemPickaxe.getToolMaterial() != Item.ToolMaterial.WOOD) {
-            this.thePlayer.triggerAchievement(AchievementList.buildBetterPickaxe);
+            this.thePlayer.triggerAchievement(AchievementList.BUILD_BETTER_PICKAXE);
         }
 
         if (stack.getItem() instanceof ItemSword) {
-            this.thePlayer.triggerAchievement(AchievementList.buildSword);
+            this.thePlayer.triggerAchievement(AchievementList.BUILD_SWORD);
         }
 
         if (stack.getItem() == Item.getItemFromBlock(Blocks.enchanting_table)) {
-            this.thePlayer.triggerAchievement(AchievementList.enchantments);
+            this.thePlayer.triggerAchievement(AchievementList.ENCHANTMENTS);
         }
 
         if (stack.getItem() == Item.getItemFromBlock(Blocks.bookshelf)) {
-            this.thePlayer.triggerAchievement(AchievementList.bookcase);
+            this.thePlayer.triggerAchievement(AchievementList.BOOKCASE);
         }
 
         if (stack.getItem() == Items.golden_apple && stack.getMetadata() == 1) {
-            this.thePlayer.triggerAchievement(AchievementList.overpowered);
+            this.thePlayer.triggerAchievement(AchievementList.OVERPOWERED);
         }
     }
 

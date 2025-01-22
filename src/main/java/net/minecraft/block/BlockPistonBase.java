@@ -28,7 +28,7 @@ public class BlockPistonBase extends Block {
     private final boolean isSticky;
 
     public BlockPistonBase(boolean isSticky) {
-        super(Material.piston);
+        super(Material.PISTON);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH).withProperty(EXTENDED, Boolean.FALSE));
         this.isSticky = isSticky;
         this.setStepSound(soundTypePiston);
@@ -150,7 +150,7 @@ public class BlockPistonBase extends Block {
                     }
                 }
 
-                if (!flag1 && block.getMaterial() != Material.air && canPush(block, worldIn, blockpos, enumfacing.getOpposite(), false) && (block.getMobilityFlag() == 0 || block == Blocks.piston || block == Blocks.sticky_piston)) {
+                if (!flag1 && block.getMaterial() != Material.AIR && canPush(block, worldIn, blockpos, enumfacing.getOpposite(), false) && (block.getMobilityFlag() == 0 || block == Blocks.piston || block == Blocks.sticky_piston)) {
                     this.doMove(worldIn, pos, enumfacing, false);
                 }
             } else {

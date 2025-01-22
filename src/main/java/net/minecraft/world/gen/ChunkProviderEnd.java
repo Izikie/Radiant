@@ -114,7 +114,7 @@ public class ChunkProviderEnd implements IChunkProvider {
                 for (int i1 = 127; i1 >= 0; --i1) {
                     IBlockState iblockstate2 = p_180519_1_.getBlockState(i, i1, j);
 
-                    if (iblockstate2.getBlock().getMaterial() == Material.air) {
+                    if (iblockstate2.getBlock().getMaterial() == Material.AIR) {
                         l = -1;
                     } else if (iblockstate2.getBlock() == Blocks.stone) {
                         if (l == -1) {

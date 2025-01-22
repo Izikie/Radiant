@@ -649,12 +649,12 @@ public abstract class EntityPlayer extends EntityLivingBase {
             }
         }
 
-        if (this.isPotionActive(Potion.digSpeed)) {
-            f *= 1.0F + (this.getActivePotionEffect(Potion.digSpeed).getAmplifier() + 1) * 0.2F;
+        if (this.isPotionActive(Potion.DIG_SPEED)) {
+            f *= 1.0F + (this.getActivePotionEffect(Potion.DIG_SPEED).getAmplifier() + 1) * 0.2F;
         }
 
-        if (this.isPotionActive(Potion.digSlowdown)) {
-            float f1 = switch (this.getActivePotionEffect(Potion.digSlowdown).getAmplifier()) {
+        if (this.isPotionActive(Potion.DIG_SLOWDOWN)) {
+            float f1 = switch (this.getActivePotionEffect(Potion.DIG_SLOWDOWN).getAmplifier()) {
                 case 0 -> 0.3F;
                 case 1 -> 0.09F;
                 case 2 -> 0.0027F;
@@ -664,7 +664,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
             f *= f1;
         }
 
-        if (this.isInsideOfMaterial(Material.water) && !EnchantmentHelper.getAquaAffinityModifier(this)) {
+        if (this.isInsideOfMaterial(Material.WATER) && !EnchantmentHelper.getAquaAffinityModifier(this)) {
             f /= 5.0F;
         }
 
@@ -934,7 +934,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
                 }
 
                 if (f > 0.0F || f1 > 0.0F) {
-                    boolean flag = this.fallDistance > 0.0F && !this.onGround && !this.isOnLadder() && !this.isInWater() && !this.isPotionActive(Potion.blindness) && this.ridingEntity == null && targetEntity instanceof EntityLivingBase;
+                    boolean flag = this.fallDistance > 0.0F && !this.onGround && !this.isOnLadder() && !this.isInWater() && !this.isPotionActive(Potion.BLINDNESS) && this.ridingEntity == null && targetEntity instanceof EntityLivingBase;
 
                     if (flag && f > 0.0F) {
                         f *= 1.5F;
@@ -979,7 +979,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
                         }
 
                         if (f >= 18.0F) {
-                            this.triggerAchievement(AchievementList.overkill);
+                            this.triggerAchievement(AchievementList.OVERKILL);
                         }
 
                         this.setLastAttacker(targetEntity);
@@ -1299,7 +1299,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
     public void addMovementStat(double p_71000_1_, double p_71000_3_, double p_71000_5_) {
         if (this.ridingEntity == null) {
-            if (this.isInsideOfMaterial(Material.water)) {
+            if (this.isInsideOfMaterial(Material.WATER)) {
                 int i = Math.round(MathHelper.sqrt_double(p_71000_1_ * p_71000_1_ + p_71000_3_ * p_71000_3_ + p_71000_5_ * p_71000_5_) * 100.0F);
 
                 if (i > 0) {
@@ -1356,7 +1356,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
                         if (this.startMinecartRidingCoordinate == null) {
                             this.startMinecartRidingCoordinate = new BlockPos(this);
                         } else if (this.startMinecartRidingCoordinate.distanceSq(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)) >= 1000000.0D) {
-                            this.triggerAchievement(AchievementList.onARail);
+                            this.triggerAchievement(AchievementList.ON_A_RAIL);
                         }
                     }
                     case EntityBoat entityBoat -> this.addStat(StatList.distanceByBoatStat, i);
@@ -1391,7 +1391,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
     public void onKillEntity(EntityLivingBase entityLivingIn) {
         if (entityLivingIn instanceof IMob) {
-            this.triggerAchievement(AchievementList.killEnemy);
+            this.triggerAchievement(AchievementList.KILL_ENEMY);
         }
 
         EntityList.EntityEggInfo entitylist$entityegginfo = EntityList.entityEggs.get(EntityList.getEntityID(entityLivingIn));

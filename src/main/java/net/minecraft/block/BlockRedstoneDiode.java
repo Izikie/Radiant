@@ -17,7 +17,7 @@ public abstract class BlockRedstoneDiode extends BlockDirectional {
     protected final boolean isRepeaterPowered;
 
     protected BlockRedstoneDiode(boolean powered) {
-        super(Material.circuits);
+        super(Material.CIRCUITS);
         this.isRepeaterPowered = powered;
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
     }

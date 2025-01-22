@@ -16,7 +16,7 @@ import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.Direction;
 
 public class TileEntityItemStackRenderer {
-    public static final TileEntityItemStackRenderer instance = new TileEntityItemStackRenderer();
+    public static final TileEntityItemStackRenderer INSTANCE = new TileEntityItemStackRenderer();
     private final TileEntityChest field_147717_b = new TileEntityChest(0);
     private final TileEntityChest field_147718_c = new TileEntityChest(1);
     private final TileEntityEnderChest enderChest = new TileEntityEnderChest();
@@ -26,7 +26,7 @@ public class TileEntityItemStackRenderer {
     public void renderByItem(ItemStack itemStackIn) {
         if (itemStackIn.getItem() == Items.banner) {
             this.banner.setItemValues(itemStackIn);
-            TileEntityRendererDispatcher.instance.renderTileEntityAt(this.banner, 0.0D, 0.0D, 0.0D, 0.0F);
+            TileEntityRendererDispatcher.INSTANCE.renderTileEntityAt(this.banner, 0.0D, 0.0D, 0.0D, 0.0F);
         } else if (itemStackIn.getItem() == Items.skull) {
             GameProfile gameprofile = null;
 
@@ -56,11 +56,11 @@ public class TileEntityItemStackRenderer {
             Block block = Block.getBlockFromItem(itemStackIn.getItem());
 
             if (block == Blocks.ender_chest) {
-                TileEntityRendererDispatcher.instance.renderTileEntityAt(this.enderChest, 0.0D, 0.0D, 0.0D, 0.0F);
+                TileEntityRendererDispatcher.INSTANCE.renderTileEntityAt(this.enderChest, 0.0D, 0.0D, 0.0D, 0.0F);
             } else if (block == Blocks.trapped_chest) {
-                TileEntityRendererDispatcher.instance.renderTileEntityAt(this.field_147718_c, 0.0D, 0.0D, 0.0D, 0.0F);
+                TileEntityRendererDispatcher.INSTANCE.renderTileEntityAt(this.field_147718_c, 0.0D, 0.0D, 0.0D, 0.0F);
             } else {
-                TileEntityRendererDispatcher.instance.renderTileEntityAt(this.field_147717_b, 0.0D, 0.0D, 0.0D, 0.0F);
+                TileEntityRendererDispatcher.INSTANCE.renderTileEntityAt(this.field_147717_b, 0.0D, 0.0D, 0.0D, 0.0F);
             }
         }
     }

@@ -20,7 +20,7 @@ public class BlockFenceGate extends BlockDirectional {
     public static final PropertyBool IN_WALL = PropertyBool.create("in_wall");
 
     public BlockFenceGate(BlockPlanks.WoodType p_i46394_1_) {
-        super(Material.wood, p_i46394_1_.getMapColor());
+        super(Material.WOOD, p_i46394_1_.getMapColor());
         this.setDefaultState(this.blockState.getBaseState().withProperty(OPEN, Boolean.FALSE).withProperty(POWERED, Boolean.FALSE).withProperty(IN_WALL, Boolean.FALSE));
         this.setCreativeTab(CreativeTabs.tabRedstone);
     }

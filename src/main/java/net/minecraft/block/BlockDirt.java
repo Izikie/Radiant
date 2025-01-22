@@ -22,7 +22,7 @@ public class BlockDirt extends Block {
     public static final PropertyBool SNOWY = PropertyBool.create("snowy");
 
     protected BlockDirt() {
-        super(Material.ground);
+        super(Material.GROUND);
         this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockDirt.DirtType.DIRT).withProperty(SNOWY, Boolean.FALSE));
         this.setCreativeTab(CreativeTabs.tabBlock);
     }

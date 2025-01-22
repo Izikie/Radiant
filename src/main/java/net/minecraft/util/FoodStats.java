@@ -49,7 +49,7 @@ public class FoodStats {
 
             if (this.foodTimer >= 80) {
                 if (player.getHealth() > 10.0F || enumdifficulty == Difficulty.HARD || player.getHealth() > 1.0F && enumdifficulty == Difficulty.NORMAL) {
-                    player.attackEntityFrom(DamageSource.starve, 1.0F);
+                    player.attackEntityFrom(DamageSource.STARVE, 1.0F);
                 }
 
                 this.foodTimer = 0;

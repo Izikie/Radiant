@@ -89,7 +89,7 @@ public class CustomEntityModels {
     }
 
     private static Map<Class, TileEntitySpecialRenderer> getTileEntityRenderMap() {
-        Map<Class, TileEntitySpecialRenderer> map = TileEntityRendererDispatcher.instance.mapSpecialRenderers;
+        Map<Class, TileEntitySpecialRenderer> map = TileEntityRendererDispatcher.INSTANCE.mapSpecialRenderers;
 
         if (originalTileEntityRenderMap == null) {
             originalTileEntityRenderMap = new HashMap<>(map);

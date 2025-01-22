@@ -79,7 +79,7 @@ public class WorldGenSavannaTree extends WorldGenAbstractTree {
                         BlockPos blockpos = new BlockPos(i3, i2, j1);
                         Material material = worldIn.getBlockState(blockpos).getBlock().getMaterial();
 
-                        if (material == Material.air || material == Material.leaves) {
+                        if (material == Material.AIR || material == Material.LEAVES) {
                             this.func_181642_b(worldIn, blockpos);
                             k1 = i2;
                         }
@@ -124,7 +124,7 @@ public class WorldGenSavannaTree extends WorldGenAbstractTree {
                                 BlockPos blockpos1 = new BlockPos(i3, j2, j1);
                                 Material material1 = worldIn.getBlockState(blockpos1).getBlock().getMaterial();
 
-                                if (material1 == Material.air || material1 == Material.leaves) {
+                                if (material1 == Material.AIR || material1 == Material.LEAVES) {
                                     this.func_181642_b(worldIn, blockpos1);
                                     k1 = j2;
                                 }
@@ -171,7 +171,7 @@ public class WorldGenSavannaTree extends WorldGenAbstractTree {
     private void func_175924_b(World worldIn, BlockPos p_175924_2_) {
         Material material = worldIn.getBlockState(p_175924_2_).getBlock().getMaterial();
 
-        if (material == Material.air || material == Material.leaves) {
+        if (material == Material.AIR || material == Material.LEAVES) {
             this.setBlockAndNotifyAdequately(worldIn, p_175924_2_, field_181644_b);
         }
     }

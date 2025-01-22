@@ -71,7 +71,7 @@ public class EntitySilverfish extends EntityMob {
         if (this.isEntityInvulnerable(source)) {
             return false;
         } else {
-            if (source instanceof EntityDamageSource || source == DamageSource.magic) {
+            if (source instanceof EntityDamageSource || source == DamageSource.MAGIC) {
                 this.summonSilverfish.func_179462_f();
             }
 

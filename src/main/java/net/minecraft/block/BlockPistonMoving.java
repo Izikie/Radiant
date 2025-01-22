@@ -25,7 +25,7 @@ public class BlockPistonMoving extends BlockContainer {
     public static final PropertyEnum<BlockPistonExtension.PistonType> TYPE = BlockPistonExtension.TYPE;
 
     public BlockPistonMoving() {
-        super(Material.piston);
+        super(Material.PISTON);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH).withProperty(TYPE, BlockPistonExtension.PistonType.DEFAULT));
         this.setHardness(-1.0F);
     }
@@ -130,7 +130,7 @@ public class BlockPistonMoving extends BlockContainer {
             IBlockState iblockstate = tileentitypiston.getPistonState();
             Block block = iblockstate.getBlock();
 
-            if (block == this || block.getMaterial() == Material.air) {
+            if (block == this || block.getMaterial() == Material.AIR) {
                 return;
             }
 
@@ -157,7 +157,7 @@ public class BlockPistonMoving extends BlockContainer {
     }
 
     public AxisAlignedBB getBoundingBox(World worldIn, BlockPos pos, IBlockState extendingBlock, float progress, Direction direction) {
-        if (extendingBlock.getBlock() != this && extendingBlock.getBlock().getMaterial() != Material.air) {
+        if (extendingBlock.getBlock() != this && extendingBlock.getBlock().getMaterial() != Material.AIR) {
             AxisAlignedBB axisalignedbb = extendingBlock.getBlock().getCollisionBoundingBox(worldIn, pos, extendingBlock);
 
             if (axisalignedbb == null) {

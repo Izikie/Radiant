@@ -62,7 +62,7 @@ public class BlockPistonStructureHelper {
     private boolean func_177251_a(BlockPos origin) {
         Block block = this.world.getBlockState(origin).getBlock();
 
-        if (block.getMaterial() == Material.air) {
+        if (block.getMaterial() == Material.AIR) {
             return true;
         } else if (!BlockPistonBase.canPush(block, this.world, origin, this.moveDirection, false)) {
             return true;
@@ -80,7 +80,7 @@ public class BlockPistonStructureHelper {
                     BlockPos blockpos = origin.offset(this.moveDirection.getOpposite(), i);
                     block = this.world.getBlockState(blockpos).getBlock();
 
-                    if (block.getMaterial() == Material.air || !BlockPistonBase.canPush(block, this.world, blockpos, this.moveDirection, false) || blockpos.equals(this.pistonPos)) {
+                    if (block.getMaterial() == Material.AIR || !BlockPistonBase.canPush(block, this.world, blockpos, this.moveDirection, false) || blockpos.equals(this.pistonPos)) {
                         break;
                     }
 
@@ -120,7 +120,7 @@ public class BlockPistonStructureHelper {
 
                     block = this.world.getBlockState(blockpos1).getBlock();
 
-                    if (block.getMaterial() == Material.air) {
+                    if (block.getMaterial() == Material.AIR) {
                         return true;
                     }
 

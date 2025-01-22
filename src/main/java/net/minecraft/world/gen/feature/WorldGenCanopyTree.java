@@ -59,7 +59,7 @@ public class WorldGenCanopyTree extends WorldGenAbstractTree {
                     BlockPos blockpos1 = new BlockPos(k1, k2, l1);
                     Material material = worldIn.getBlockState(blockpos1).getBlock().getMaterial();
 
-                    if (material == Material.air || material == Material.leaves) {
+                    if (material == Material.AIR || material == Material.LEAVES) {
                         this.func_181639_b(worldIn, blockpos1);
                         this.func_181639_b(worldIn, blockpos1.east());
                         this.func_181639_b(worldIn, blockpos1.south());
@@ -172,7 +172,7 @@ public class WorldGenCanopyTree extends WorldGenAbstractTree {
         BlockPos blockpos = new BlockPos(p_150526_2_, p_150526_3_, p_150526_4_);
         Block block = worldIn.getBlockState(blockpos).getBlock();
 
-        if (block.getMaterial() == Material.air) {
+        if (block.getMaterial() == Material.AIR) {
             this.setBlockAndNotifyAdequately(worldIn, blockpos, field_181641_b);
         }
     }

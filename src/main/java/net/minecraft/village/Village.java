@@ -296,7 +296,7 @@ public class Village {
 
     private boolean isWoodDoor(BlockPos pos) {
         Block block = this.worldObj.getBlockState(pos).getBlock();
-        return block instanceof BlockDoor ? block.getMaterial() == Material.wood : false;
+        return block instanceof BlockDoor ? block.getMaterial() == Material.WOOD : false;
     }
 
     private void updateVillageRadiusAndCenter() {

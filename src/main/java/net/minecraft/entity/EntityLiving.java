@@ -375,7 +375,7 @@ public abstract class EntityLiving extends EntityLivingBase {
                     EntityPlayer entityplayer = this.worldObj.getPlayerEntityByName(itemEntity.getThrower());
 
                     if (entityplayer != null) {
-                        entityplayer.triggerAchievement(AchievementList.diamondsToYou);
+                        entityplayer.triggerAchievement(AchievementList.DIAMONDS_TO_YOU);
                     }
                 }
 

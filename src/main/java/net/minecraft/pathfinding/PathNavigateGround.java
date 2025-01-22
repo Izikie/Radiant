@@ -155,15 +155,15 @@ public class PathNavigateGround extends PathNavigate {
                         Block block = this.worldObj.getBlockState(new BlockPos(k, y - 1, l)).getBlock();
                         Material material = block.getMaterial();
 
-                        if (material == Material.air) {
+                        if (material == Material.AIR) {
                             return false;
                         }
 
-                        if (material == Material.water && !this.theEntity.isInWater()) {
+                        if (material == Material.WATER && !this.theEntity.isInWater()) {
                             return false;
                         }
 
-                        if (material == Material.lava) {
+                        if (material == Material.LAVA) {
                             return false;
                         }
                     }

@@ -27,7 +27,7 @@ public class BlockPumpkin extends BlockDirectional {
     private static final Predicate<IBlockState> field_181085_Q = p_apply_1_ -> p_apply_1_ != null && (p_apply_1_.getBlock() == Blocks.pumpkin || p_apply_1_.getBlock() == Blocks.lit_pumpkin);
 
     protected BlockPumpkin() {
-        super(Material.gourd, MapColor.adobeColor);
+        super(Material.GOURD, MapColor.adobeColor);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH));
         this.setTickRandomly(true);
         this.setCreativeTab(CreativeTabs.tabBlock);

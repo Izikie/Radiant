@@ -110,7 +110,7 @@ public class BlockDoor extends Block {
     }
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
-        if (this.blockMaterial == Material.iron) {
+        if (this.blockMaterial == Material.IRON) {
             return true;
         } else {
             BlockPos blockpos = state.getValue(HALF) == BlockDoor.EnumDoorHalf.LOWER ? pos : pos.down();

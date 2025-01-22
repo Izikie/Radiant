@@ -35,33 +35,33 @@ import net.optifine.util.PropertiesOrdered;
 import net.optifine.util.ResUtils;
 
 public class CustomGuis {
-    private static final Minecraft mc = Config.getMinecraft();
-    private static final PlayerControllerOF playerControllerOF = null;
+    private static final Minecraft MINECRAFT = Config.getMinecraft();
+    private static final PlayerControllerOF PLAYER_CONTROLLER_OF = null;
     private static CustomGuiProperties[][] guiProperties = null;
-    public static final boolean isChristmas = isChristmas();
+    public static final boolean IS_CHRISTMAS = isChristmas();
 
     public static ResourceLocation getTextureLocation(ResourceLocation loc) {
         if (guiProperties == null) {
             return loc;
         } else {
-            GuiScreen guiscreen = mc.currentScreen;
+            GuiScreen guiscreen = MINECRAFT.currentScreen;
 
             if (!(guiscreen instanceof GuiContainer)) {
                 return loc;
             } else if (loc.getResourceDomain().equals("minecraft") && loc.getResourcePath().startsWith("textures/gui/")) {
-                if (playerControllerOF == null) {
+                if (PLAYER_CONTROLLER_OF == null) {
                     return loc;
                 } else {
-                    IBlockAccess iblockaccess = mc.theWorld;
+                    IBlockAccess iblockaccess = MINECRAFT.theWorld;
 
                     if (iblockaccess == null) {
                         return loc;
                     } else if (guiscreen instanceof GuiContainerCreative) {
-                        return getTexturePos(CustomGuiProperties.EnumContainer.CREATIVE, mc.thePlayer.getPosition(), iblockaccess, loc, guiscreen);
+                        return getTexturePos(CustomGuiProperties.EnumContainer.CREATIVE, MINECRAFT.thePlayer.getPosition(), iblockaccess, loc, guiscreen);
                     } else if (guiscreen instanceof GuiInventory) {
-                        return getTexturePos(CustomGuiProperties.EnumContainer.INVENTORY, mc.thePlayer.getPosition(), iblockaccess, loc, guiscreen);
+                        return getTexturePos(CustomGuiProperties.EnumContainer.INVENTORY, MINECRAFT.thePlayer.getPosition(), iblockaccess, loc, guiscreen);
                     } else {
-                        BlockPos blockpos = playerControllerOF.getLastClickBlockPos();
+                        BlockPos blockpos = PLAYER_CONTROLLER_OF.getLastClickBlockPos();
 
                         if (blockpos != null) {
                             if (guiscreen instanceof GuiRepair) {
@@ -101,7 +101,7 @@ public class CustomGuis {
                             }
                         }
 
-                        Entity entity = playerControllerOF.getLastClickEntity();
+                        Entity entity = PLAYER_CONTROLLER_OF.getLastClickEntity();
 
                         if (entity != null) {
                             if (guiscreen instanceof GuiScreenHorseInventory) {
@@ -240,7 +240,7 @@ public class CustomGuis {
     }
 
     public static PlayerControllerOF getPlayerControllerOF() {
-        return playerControllerOF;
+        return PLAYER_CONTROLLER_OF;
     }
 
     public static void setPlayerControllerOF(PlayerControllerOF playerControllerOF) {

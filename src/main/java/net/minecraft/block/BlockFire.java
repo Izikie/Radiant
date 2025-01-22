@@ -54,7 +54,7 @@ public class BlockFire extends Block {
     }
 
     protected BlockFire() {
-        super(Material.fire);
+        super(Material.FIRE);
         this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0).withProperty(FLIP, Boolean.FALSE).withProperty(ALT, Boolean.FALSE).withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE).withProperty(UPPER, 0));
         this.setTickRandomly(true);
     }

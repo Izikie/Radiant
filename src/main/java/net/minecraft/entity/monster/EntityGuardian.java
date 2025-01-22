@@ -208,7 +208,7 @@ public class EntityGuardian extends EntityMob {
     }
 
     public float getBlockPathWeight(BlockPos pos) {
-        return this.worldObj.getBlockState(pos).getBlock().getMaterial() == Material.water ? 10.0F + this.worldObj.getLightBrightness(pos) - 0.5F : super.getBlockPathWeight(pos);
+        return this.worldObj.getBlockState(pos).getBlock().getMaterial() == Material.WATER ? 10.0F + this.worldObj.getLightBrightness(pos) - 0.5F : super.getBlockPathWeight(pos);
     }
 
     public void onLivingUpdate() {
@@ -320,7 +320,7 @@ public class EntityGuardian extends EntityMob {
             int l = 2;
 
             if ((this.ticksExisted + this.getEntityId()) % 1200 == 0) {
-                Potion potion = Potion.digSlowdown;
+                Potion potion = Potion.DIG_SLOWDOWN;
 
                 for (EntityPlayerMP entityplayermp : this.worldObj.getPlayers(EntityPlayerMP.class, p_apply_1_ -> EntityGuardian.this.getDistanceSqToEntity(p_apply_1_) < 2500.0D && p_apply_1_.theItemInWorldManager.survivalOrAdventure())) {
                     if (!entityplayermp.isPotionActive(potion) || entityplayermp.getActivePotionEffect(potion).getAmplifier() < 2 || entityplayermp.getActivePotionEffect(potion).getDuration() < 1200) {

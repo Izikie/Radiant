@@ -30,7 +30,7 @@ public class BlockBrewingStand extends BlockContainer {
     public static final PropertyBool[] HAS_BOTTLE = new PropertyBool[]{PropertyBool.create("has_bottle_0"), PropertyBool.create("has_bottle_1"), PropertyBool.create("has_bottle_2")};
 
     public BlockBrewingStand() {
-        super(Material.iron);
+        super(Material.IRON);
         this.setDefaultState(this.blockState.getBaseState().withProperty(HAS_BOTTLE[0], Boolean.FALSE).withProperty(HAS_BOTTLE[1], Boolean.FALSE).withProperty(HAS_BOTTLE[2], Boolean.FALSE));
     }
 

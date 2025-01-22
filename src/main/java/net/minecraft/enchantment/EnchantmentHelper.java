@@ -177,47 +177,47 @@ public class EnchantmentHelper {
     }
 
     public static int getKnockbackModifier(EntityLivingBase player) {
-        return getEnchantmentLevel(Enchantment.knockback.effectId, player.getHeldItem());
+        return getEnchantmentLevel(Enchantment.KNOCKBACK.effectId, player.getHeldItem());
     }
 
     public static int getFireAspectModifier(EntityLivingBase player) {
-        return getEnchantmentLevel(Enchantment.fireAspect.effectId, player.getHeldItem());
+        return getEnchantmentLevel(Enchantment.FIRE_ASPECT.effectId, player.getHeldItem());
     }
 
     public static int getRespiration(Entity player) {
-        return getMaxEnchantmentLevel(Enchantment.respiration.effectId, player.getInventory());
+        return getMaxEnchantmentLevel(Enchantment.RESPIRATION.effectId, player.getInventory());
     }
 
     public static int getDepthStriderModifier(Entity player) {
-        return getMaxEnchantmentLevel(Enchantment.depthStrider.effectId, player.getInventory());
+        return getMaxEnchantmentLevel(Enchantment.DEPTH_STRIDER.effectId, player.getInventory());
     }
 
     public static int getEfficiencyModifier(EntityLivingBase player) {
-        return getEnchantmentLevel(Enchantment.efficiency.effectId, player.getHeldItem());
+        return getEnchantmentLevel(Enchantment.EFFICIENCY.effectId, player.getHeldItem());
     }
 
     public static boolean getSilkTouchModifier(EntityLivingBase player) {
-        return getEnchantmentLevel(Enchantment.silkTouch.effectId, player.getHeldItem()) > 0;
+        return getEnchantmentLevel(Enchantment.SILK_TOUCH.effectId, player.getHeldItem()) > 0;
     }
 
     public static int getFortuneModifier(EntityLivingBase player) {
-        return getEnchantmentLevel(Enchantment.fortune.effectId, player.getHeldItem());
+        return getEnchantmentLevel(Enchantment.FORTUNE.effectId, player.getHeldItem());
     }
 
     public static int getLuckOfSeaModifier(EntityLivingBase player) {
-        return getEnchantmentLevel(Enchantment.luckOfTheSea.effectId, player.getHeldItem());
+        return getEnchantmentLevel(Enchantment.LUCK_OF_THE_SEA.effectId, player.getHeldItem());
     }
 
     public static int getLureModifier(EntityLivingBase player) {
-        return getEnchantmentLevel(Enchantment.lure.effectId, player.getHeldItem());
+        return getEnchantmentLevel(Enchantment.LURE.effectId, player.getHeldItem());
     }
 
     public static int getLootingModifier(EntityLivingBase player) {
-        return getEnchantmentLevel(Enchantment.looting.effectId, player.getHeldItem());
+        return getEnchantmentLevel(Enchantment.LOOTING.effectId, player.getHeldItem());
     }
 
     public static boolean getAquaAffinityModifier(EntityLivingBase player) {
-        return getMaxEnchantmentLevel(Enchantment.aquaAffinity.effectId, player.getInventory()) > 0;
+        return getMaxEnchantmentLevel(Enchantment.AQUA_AFFINITY.effectId, player.getInventory()) > 0;
     }
 
     public static ItemStack getEnchantedItem(Enchantment p_92099_0_, EntityLivingBase p_92099_1_) {
@@ -330,7 +330,7 @@ public class EnchantmentHelper {
         Map<Integer, EnchantmentData> map = null;
         boolean flag = p_77505_1_.getItem() == Items.book;
 
-        for (Enchantment enchantment : Enchantment.enchantmentsBookList) {
+        for (Enchantment enchantment : Enchantment.ENCHANTMENTS_BOOK_LIST) {
             if (enchantment != null && (enchantment.type.canEnchantItem(item) || flag)) {
                 for (int i = enchantment.getMinLevel(); i <= enchantment.getMaxLevel(); ++i) {
                     if (p_77505_0_ >= enchantment.getMinEnchantability(i) && p_77505_0_ <= enchantment.getMaxEnchantability(i)) {

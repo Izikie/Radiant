@@ -35,7 +35,7 @@ public class BlockDispenser extends BlockContainer {
     protected Random rand = new Random();
 
     protected BlockDispenser() {
-        super(Material.rock);
+        super(Material.ROCK);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH).withProperty(TRIGGERED, Boolean.FALSE));
         this.setCreativeTab(CreativeTabs.tabRedstone);
     }

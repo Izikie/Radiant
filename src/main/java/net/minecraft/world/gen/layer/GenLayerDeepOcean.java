@@ -42,7 +42,7 @@ public class GenLayerDeepOcean extends GenLayer {
                 }
 
                 if (k2 == 0 && l2 > 3) {
-                    aint1[j1 + i1 * areaWidth] = BiomeGenBase.deepOcean.biomeID;
+                    aint1[j1 + i1 * areaWidth] = BiomeGenBase.DEEP_OCEAN.biomeID;
                 } else {
                     aint1[j1 + i1 * areaWidth] = k2;
                 }

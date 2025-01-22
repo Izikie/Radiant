@@ -107,7 +107,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
 
             if (block.hasComparatorInputOverride()) {
                 i = block.getComparatorInputOverride(worldIn, blockpos);
-            } else if (block.getMaterial() == Material.air) {
+            } else if (block.getMaterial() == Material.AIR) {
                 EntityItemFrame entityitemframe = this.findItemFrame(worldIn, enumfacing, blockpos);
 
                 if (entityitemframe != null) {

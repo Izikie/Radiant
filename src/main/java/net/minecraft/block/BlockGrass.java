@@ -20,7 +20,7 @@ public class BlockGrass extends Block implements IGrowable {
     public static final PropertyBool SNOWY = PropertyBool.create("snowy");
 
     protected BlockGrass() {
-        super(Material.grass);
+        super(Material.GRASS);
         this.setDefaultState(this.blockState.getBaseState().withProperty(SNOWY, Boolean.FALSE));
         this.setTickRandomly(true);
         this.setCreativeTab(CreativeTabs.tabBlock);
@@ -84,7 +84,7 @@ public class BlockGrass extends Block implements IGrowable {
 
             while (true) {
                 if (j >= i / 16) {
-                    if (worldIn.getBlockState(blockpos1).getBlock().blockMaterial == Material.air) {
+                    if (worldIn.getBlockState(blockpos1).getBlock().blockMaterial == Material.AIR) {
                         if (rand.nextInt(8) == 0) {
                             BlockFlower.FlowerType blockflower$enumflowertype = worldIn.getBiomeGenForCoords(blockpos1).pickRandomFlower(rand, blockpos1);
                             BlockFlower blockflower = blockflower$enumflowertype.getBlockType().getBlock();

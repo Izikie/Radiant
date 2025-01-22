@@ -190,7 +190,7 @@ public class GuiPlayerTabOverlay extends Gui {
 
     protected void drawPing(int p_175245_1_, int p_175245_2_, int p_175245_3_, NetworkPlayerInfo networkPlayerInfoIn) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(icons);
+        this.mc.getTextureManager().bindTexture(ICONS);
         int i = 0;
         int j;
 
@@ -217,7 +217,7 @@ public class GuiPlayerTabOverlay extends Gui {
         int i = p_175247_1_.getScoreboard().getValueFromObjective(p_175247_3_, p_175247_1_).getScorePoints();
 
         if (p_175247_1_.getRenderType() == IScoreObjectiveCriteria.EnumRenderType.HEARTS) {
-            this.mc.getTextureManager().bindTexture(icons);
+            this.mc.getTextureManager().bindTexture(ICONS);
 
             if (this.lastTimeOpened == p_175247_6_.func_178855_p()) {
                 if (i < p_175247_6_.func_178835_l()) {

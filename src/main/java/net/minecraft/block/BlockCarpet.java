@@ -20,7 +20,7 @@ public class BlockCarpet extends Block {
     public static final PropertyEnum<DyeColor> COLOR = PropertyEnum.create("color", DyeColor.class);
 
     protected BlockCarpet() {
-        super(Material.carpet);
+        super(Material.CARPET);
         this.setDefaultState(this.blockState.getBaseState().withProperty(COLOR, DyeColor.WHITE));
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.0625F, 1.0F);
         this.setTickRandomly(true);

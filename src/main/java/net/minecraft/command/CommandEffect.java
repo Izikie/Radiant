@@ -54,8 +54,8 @@ public class CommandEffect extends CommandBase {
                 int l = 30;
                 int k = 0;
 
-                if (i >= 0 && i < Potion.potionTypes.length && Potion.potionTypes[i] != null) {
-                    Potion potion1 = Potion.potionTypes[i];
+                if (i >= 0 && i < Potion.POTION_TYPES.length && Potion.POTION_TYPES[i] != null) {
+                    Potion potion1 = Potion.POTION_TYPES[i];
 
                     if (args.length >= 3) {
                         l = parseInt(args[2], 0, 1000000);

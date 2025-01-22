@@ -156,7 +156,7 @@ public class ChunkProviderHell implements IChunkProvider {
                     if (j1 < 127 - this.hellRNG.nextInt(5) && j1 > this.hellRNG.nextInt(5)) {
                         IBlockState iblockstate2 = p_180516_3_.getBlockState(k, j1, j);
 
-                        if (iblockstate2.getBlock() != null && iblockstate2.getBlock().getMaterial() != Material.air) {
+                        if (iblockstate2.getBlock() != null && iblockstate2.getBlock().getMaterial() != Material.AIR) {
                             if (iblockstate2.getBlock() == Blocks.netherrack) {
                                 if (i1 == -1) {
                                     if (l <= 0) {
@@ -177,7 +177,7 @@ public class ChunkProviderHell implements IChunkProvider {
                                         }
                                     }
 
-                                    if (j1 < i && (iblockstate == null || iblockstate.getBlock().getMaterial() == Material.air)) {
+                                    if (j1 < i && (iblockstate == null || iblockstate.getBlock().getMaterial() == Material.AIR)) {
                                         iblockstate = Blocks.lava.getDefaultState();
                                     }
 

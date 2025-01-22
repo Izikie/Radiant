@@ -21,7 +21,7 @@ public class BlockFarmland extends Block {
     public static final PropertyInteger MOISTURE = PropertyInteger.create("moisture", 0, 7);
 
     protected BlockFarmland() {
-        super(Material.ground);
+        super(Material.GROUND);
         this.setDefaultState(this.blockState.getBaseState().withProperty(MOISTURE, 0));
         this.setTickRandomly(true);
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.9375F, 1.0F);
@@ -75,7 +75,7 @@ public class BlockFarmland extends Block {
 
     private boolean hasWater(World worldIn, BlockPos pos) {
         for (BlockPos.MutableBlockPos blockpos$mutableblockpos : BlockPos.getAllInBoxMutable(pos.add(-4, 0, -4), pos.add(4, 1, 4))) {
-            if (worldIn.getBlockState(blockpos$mutableblockpos).getBlock().getMaterial() == Material.water) {
+            if (worldIn.getBlockState(blockpos$mutableblockpos).getBlock().getMaterial() == Material.WATER) {
                 return true;
             }
         }

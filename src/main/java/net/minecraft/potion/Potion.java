@@ -20,40 +20,31 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
 
 public class Potion {
-    public static final Potion[] potionTypes = new Potion[32];
+    public static final Potion[] POTION_TYPES = new Potion[32];
     private static final Map<ResourceLocation, Potion> field_180150_I = Maps.newHashMap();
-    public static final Potion field_180151_b = null;
-    public static final Potion moveSpeed = (new Potion(1, new ResourceLocation("speed"), false, 8171462)).setPotionName("potion.moveSpeed").setIconIndex(0, 0).registerPotionAttributeModifier(SharedMonsterAttributes.movementSpeed, "91AEAA56-376B-4498-935B-2F7F68070635", 0.20000000298023224D, 2);
-    public static final Potion moveSlowdown = (new Potion(2, new ResourceLocation("slowness"), true, 5926017)).setPotionName("potion.moveSlowdown").setIconIndex(1, 0).registerPotionAttributeModifier(SharedMonsterAttributes.movementSpeed, "7107DE5E-7CE8-4030-940E-514C1F160890", -0.15000000596046448D, 2);
-    public static final Potion digSpeed = (new Potion(3, new ResourceLocation("haste"), false, 14270531)).setPotionName("potion.digSpeed").setIconIndex(2, 0).setEffectiveness(1.5D);
-    public static final Potion digSlowdown = (new Potion(4, new ResourceLocation("mining_fatigue"), true, 4866583)).setPotionName("potion.digSlowDown").setIconIndex(3, 0);
-    public static final Potion damageBoost = (new PotionAttackDamage(5, new ResourceLocation("strength"), false, 9643043)).setPotionName("potion.damageBoost").setIconIndex(4, 0).registerPotionAttributeModifier(SharedMonsterAttributes.attackDamage, "648D7064-6A60-4F59-8ABE-C2C23A6DD7A9", 2.5D, 2);
-    public static final Potion heal = (new PotionHealth(6, new ResourceLocation("instant_health"), false, 16262179)).setPotionName("potion.heal");
-    public static final Potion harm = (new PotionHealth(7, new ResourceLocation("instant_damage"), true, 4393481)).setPotionName("potion.harm");
-    public static final Potion jump = (new Potion(8, new ResourceLocation("jump_boost"), false, 2293580)).setPotionName("potion.jump").setIconIndex(2, 1);
-    public static final Potion confusion = (new Potion(9, new ResourceLocation("nausea"), true, 5578058)).setPotionName("potion.confusion").setIconIndex(3, 1).setEffectiveness(0.25D);
-    public static final Potion regeneration = (new Potion(10, new ResourceLocation("regeneration"), false, 13458603)).setPotionName("potion.regeneration").setIconIndex(7, 0).setEffectiveness(0.25D);
-    public static final Potion resistance = (new Potion(11, new ResourceLocation("resistance"), false, 10044730)).setPotionName("potion.resistance").setIconIndex(6, 1);
-    public static final Potion fireResistance = (new Potion(12, new ResourceLocation("fire_resistance"), false, 14981690)).setPotionName("potion.fireResistance").setIconIndex(7, 1);
-    public static final Potion waterBreathing = (new Potion(13, new ResourceLocation("water_breathing"), false, 3035801)).setPotionName("potion.waterBreathing").setIconIndex(0, 2);
-    public static final Potion invisibility = (new Potion(14, new ResourceLocation("invisibility"), false, 8356754)).setPotionName("potion.invisibility").setIconIndex(0, 1);
-    public static final Potion blindness = (new Potion(15, new ResourceLocation("blindness"), true, 2039587)).setPotionName("potion.blindness").setIconIndex(5, 1).setEffectiveness(0.25D);
-    public static final Potion nightVision = (new Potion(16, new ResourceLocation("night_vision"), false, 2039713)).setPotionName("potion.nightVision").setIconIndex(4, 1);
-    public static final Potion hunger = (new Potion(17, new ResourceLocation("hunger"), true, 5797459)).setPotionName("potion.hunger").setIconIndex(1, 1);
-    public static final Potion weakness = (new PotionAttackDamage(18, new ResourceLocation("weakness"), true, 4738376)).setPotionName("potion.weakness").setIconIndex(5, 0).registerPotionAttributeModifier(SharedMonsterAttributes.attackDamage, "22653B89-116E-49DC-9B6B-9971489B5BE5", 2.0D, 0);
-    public static final Potion poison = (new Potion(19, new ResourceLocation("poison"), true, 5149489)).setPotionName("potion.poison").setIconIndex(6, 0).setEffectiveness(0.25D);
-    public static final Potion wither = (new Potion(20, new ResourceLocation("wither"), true, 3484199)).setPotionName("potion.wither").setIconIndex(1, 2).setEffectiveness(0.25D);
-    public static final Potion healthBoost = (new PotionHealthBoost(21, new ResourceLocation("health_boost"), false, 16284963)).setPotionName("potion.healthBoost").setIconIndex(2, 2).registerPotionAttributeModifier(SharedMonsterAttributes.maxHealth, "5D6F0BA2-1186-46AC-B896-C61C5CEE99CC", 4.0D, 0);
-    public static final Potion absorption = (new PotionAbsorption(22, new ResourceLocation("absorption"), false, 2445989)).setPotionName("potion.absorption").setIconIndex(2, 2);
-    public static final Potion saturation = (new PotionHealth(23, new ResourceLocation("saturation"), false, 16262179)).setPotionName("potion.saturation");
-    public static final Potion field_180153_z = null;
-    public static final Potion field_180147_A = null;
-    public static final Potion field_180148_B = null;
-    public static final Potion field_180149_C = null;
-    public static final Potion field_180143_D = null;
-    public static final Potion field_180144_E = null;
-    public static final Potion field_180145_F = null;
-    public static final Potion field_180146_G = null;
+    public static final Potion MOVE_SPEED = (new Potion(1, new ResourceLocation("speed"), false, 8171462)).setPotionName("potion.moveSpeed").setIconIndex(0, 0).registerPotionAttributeModifier(SharedMonsterAttributes.movementSpeed, "91AEAA56-376B-4498-935B-2F7F68070635", 0.20000000298023224D, 2);
+    public static final Potion MOVE_SLOWDOWN = (new Potion(2, new ResourceLocation("slowness"), true, 5926017)).setPotionName("potion.moveSlowdown").setIconIndex(1, 0).registerPotionAttributeModifier(SharedMonsterAttributes.movementSpeed, "7107DE5E-7CE8-4030-940E-514C1F160890", -0.15000000596046448D, 2);
+    public static final Potion DIG_SPEED = (new Potion(3, new ResourceLocation("haste"), false, 14270531)).setPotionName("potion.digSpeed").setIconIndex(2, 0).setEffectiveness(1.5D);
+    public static final Potion DIG_SLOWDOWN = (new Potion(4, new ResourceLocation("mining_fatigue"), true, 4866583)).setPotionName("potion.digSlowDown").setIconIndex(3, 0);
+    public static final Potion DAMAGE_BOOST = (new PotionAttackDamage(5, new ResourceLocation("strength"), false, 9643043)).setPotionName("potion.damageBoost").setIconIndex(4, 0).registerPotionAttributeModifier(SharedMonsterAttributes.attackDamage, "648D7064-6A60-4F59-8ABE-C2C23A6DD7A9", 2.5D, 2);
+    public static final Potion HEAL = (new PotionHealth(6, new ResourceLocation("instant_health"), false, 16262179)).setPotionName("potion.heal");
+    public static final Potion HARM = (new PotionHealth(7, new ResourceLocation("instant_damage"), true, 4393481)).setPotionName("potion.harm");
+    public static final Potion JUMP = (new Potion(8, new ResourceLocation("jump_boost"), false, 2293580)).setPotionName("potion.jump").setIconIndex(2, 1);
+    public static final Potion CONFUSION = (new Potion(9, new ResourceLocation("nausea"), true, 5578058)).setPotionName("potion.confusion").setIconIndex(3, 1).setEffectiveness(0.25D);
+    public static final Potion REGENERATION = (new Potion(10, new ResourceLocation("regeneration"), false, 13458603)).setPotionName("potion.regeneration").setIconIndex(7, 0).setEffectiveness(0.25D);
+    public static final Potion RESISTANCE = (new Potion(11, new ResourceLocation("resistance"), false, 10044730)).setPotionName("potion.resistance").setIconIndex(6, 1);
+    public static final Potion FIRE_RESISTANCE = (new Potion(12, new ResourceLocation("fire_resistance"), false, 14981690)).setPotionName("potion.fireResistance").setIconIndex(7, 1);
+    public static final Potion WATER_BREATHING = (new Potion(13, new ResourceLocation("water_breathing"), false, 3035801)).setPotionName("potion.waterBreathing").setIconIndex(0, 2);
+    public static final Potion INVISIBILITY = (new Potion(14, new ResourceLocation("invisibility"), false, 8356754)).setPotionName("potion.invisibility").setIconIndex(0, 1);
+    public static final Potion BLINDNESS = (new Potion(15, new ResourceLocation("blindness"), true, 2039587)).setPotionName("potion.blindness").setIconIndex(5, 1).setEffectiveness(0.25D);
+    public static final Potion NIGHT_VISION = (new Potion(16, new ResourceLocation("night_vision"), false, 2039713)).setPotionName("potion.nightVision").setIconIndex(4, 1);
+    public static final Potion HUNGER = (new Potion(17, new ResourceLocation("hunger"), true, 5797459)).setPotionName("potion.hunger").setIconIndex(1, 1);
+    public static final Potion WEAKNESS = (new PotionAttackDamage(18, new ResourceLocation("weakness"), true, 4738376)).setPotionName("potion.weakness").setIconIndex(5, 0).registerPotionAttributeModifier(SharedMonsterAttributes.attackDamage, "22653B89-116E-49DC-9B6B-9971489B5BE5", 2.0D, 0);
+    public static final Potion POISON = (new Potion(19, new ResourceLocation("poison"), true, 5149489)).setPotionName("potion.poison").setIconIndex(6, 0).setEffectiveness(0.25D);
+    public static final Potion WITHER = (new Potion(20, new ResourceLocation("wither"), true, 3484199)).setPotionName("potion.wither").setIconIndex(1, 2).setEffectiveness(0.25D);
+    public static final Potion HEALTH_BOOST = (new PotionHealthBoost(21, new ResourceLocation("health_boost"), false, 16284963)).setPotionName("potion.healthBoost").setIconIndex(2, 2).registerPotionAttributeModifier(SharedMonsterAttributes.maxHealth, "5D6F0BA2-1186-46AC-B896-C61C5CEE99CC", 4.0D, 0);
+    public static final Potion ABSORPTION = (new PotionAbsorption(22, new ResourceLocation("absorption"), false, 2445989)).setPotionName("potion.absorption").setIconIndex(2, 2);
+    public static final Potion SATURATION = (new PotionHealth(23, new ResourceLocation("saturation"), false, 16262179)).setPotionName("potion.saturation");
     public final int id;
     private final Map<IAttribute, AttributeModifier> attributeModifierMap = Maps.newHashMap();
     private final boolean isBadEffect;
@@ -65,7 +56,7 @@ public class Potion {
 
     protected Potion(int potionID, ResourceLocation location, boolean badEffect, int potionColor) {
         this.id = potionID;
-        potionTypes[potionID] = this;
+        POTION_TYPES[potionID] = this;
         field_180150_I.put(location, this);
         this.isBadEffect = badEffect;
 
@@ -96,25 +87,25 @@ public class Potion {
     }
 
     public void performEffect(EntityLivingBase entityLivingBaseIn, int p_76394_2_) {
-        if (this.id == regeneration.id) {
+        if (this.id == REGENERATION.id) {
             if (entityLivingBaseIn.getHealth() < entityLivingBaseIn.getMaxHealth()) {
                 entityLivingBaseIn.heal(1.0F);
             }
-        } else if (this.id == poison.id) {
+        } else if (this.id == POISON.id) {
             if (entityLivingBaseIn.getHealth() > 1.0F) {
-                entityLivingBaseIn.attackEntityFrom(DamageSource.magic, 1.0F);
+                entityLivingBaseIn.attackEntityFrom(DamageSource.MAGIC, 1.0F);
             }
-        } else if (this.id == wither.id) {
-            entityLivingBaseIn.attackEntityFrom(DamageSource.wither, 1.0F);
-        } else if (this.id == hunger.id && entityLivingBaseIn instanceof EntityPlayer entityPlayer) {
+        } else if (this.id == WITHER.id) {
+            entityLivingBaseIn.attackEntityFrom(DamageSource.WITHER, 1.0F);
+        } else if (this.id == HUNGER.id && entityLivingBaseIn instanceof EntityPlayer entityPlayer) {
             entityPlayer.addExhaustion(0.025F * (p_76394_2_ + 1));
-        } else if (this.id == saturation.id && entityLivingBaseIn instanceof EntityPlayer) {
+        } else if (this.id == SATURATION.id && entityLivingBaseIn instanceof EntityPlayer) {
             if (!entityLivingBaseIn.worldObj.isRemote) {
                 ((EntityPlayer) entityLivingBaseIn).getFoodStats().addStats(p_76394_2_ + 1, 1.0F);
             }
-        } else if ((this.id != heal.id || entityLivingBaseIn.isEntityUndead()) && (this.id != harm.id || !entityLivingBaseIn.isEntityUndead())) {
-            if (this.id == harm.id && !entityLivingBaseIn.isEntityUndead() || this.id == heal.id && entityLivingBaseIn.isEntityUndead()) {
-                entityLivingBaseIn.attackEntityFrom(DamageSource.magic, (6 << p_76394_2_));
+        } else if ((this.id != HEAL.id || entityLivingBaseIn.isEntityUndead()) && (this.id != HARM.id || !entityLivingBaseIn.isEntityUndead())) {
+            if (this.id == HARM.id && !entityLivingBaseIn.isEntityUndead() || this.id == HEAL.id && entityLivingBaseIn.isEntityUndead()) {
+                entityLivingBaseIn.attackEntityFrom(DamageSource.MAGIC, (6 << p_76394_2_));
             }
         } else {
             entityLivingBaseIn.heal(Math.max(4 << p_76394_2_, 0));
@@ -122,12 +113,12 @@ public class Potion {
     }
 
     public void affectEntity(Entity p_180793_1_, Entity p_180793_2_, EntityLivingBase entityLivingBaseIn, int p_180793_4_, double p_180793_5_) {
-        if ((this.id != heal.id || entityLivingBaseIn.isEntityUndead()) && (this.id != harm.id || !entityLivingBaseIn.isEntityUndead())) {
-            if (this.id == harm.id && !entityLivingBaseIn.isEntityUndead() || this.id == heal.id && entityLivingBaseIn.isEntityUndead()) {
+        if ((this.id != HEAL.id || entityLivingBaseIn.isEntityUndead()) && (this.id != HARM.id || !entityLivingBaseIn.isEntityUndead())) {
+            if (this.id == HARM.id && !entityLivingBaseIn.isEntityUndead() || this.id == HEAL.id && entityLivingBaseIn.isEntityUndead()) {
                 int j = (int) (p_180793_5_ * (6 << p_180793_4_) + 0.5D);
 
                 if (p_180793_1_ == null) {
-                    entityLivingBaseIn.attackEntityFrom(DamageSource.magic, j);
+                    entityLivingBaseIn.attackEntityFrom(DamageSource.MAGIC, j);
                 } else {
                     entityLivingBaseIn.attackEntityFrom(DamageSource.causeIndirectMagicDamage(p_180793_1_, p_180793_2_), j);
                 }
@@ -143,17 +134,17 @@ public class Potion {
     }
 
     public boolean isReady(int p_76397_1_, int p_76397_2_) {
-        if (this.id == regeneration.id) {
+        if (this.id == REGENERATION.id) {
             int k = 50 >> p_76397_2_;
             return k > 0 ? p_76397_1_ % k == 0 : true;
-        } else if (this.id == poison.id) {
+        } else if (this.id == POISON.id) {
             int j = 25 >> p_76397_2_;
             return j > 0 ? p_76397_1_ % j == 0 : true;
-        } else if (this.id == wither.id) {
+        } else if (this.id == WITHER.id) {
             int i = 40 >> p_76397_2_;
             return i > 0 ? p_76397_1_ % i == 0 : true;
         } else {
-            return this.id == hunger.id;
+            return this.id == HUNGER.id;
         }
     }
 

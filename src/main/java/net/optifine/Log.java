@@ -5,10 +5,10 @@ import org.apache.logging.log4j.Logger;
 
 public class Log {
     private static final Logger LOGGER = LogManager.getLogger();
-    public static final boolean logDetail = System.getProperty("log.detail", "false").equals("true");
+    public static final boolean LOG_DETAIL = System.getProperty("log.detail", "false").equals("true");
 
     public static void detail(String s) {
-        if (logDetail) {
+        if (LOG_DETAIL) {
             LOGGER.info("[OptiFine] {}", s);
         }
     }

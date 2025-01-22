@@ -328,7 +328,7 @@ public class CustomGuiProperties {
     private boolean matchesChest(TileEntityChest tec, BlockPos pos, IBlockAccess blockAccess) {
         boolean flag = tec.adjacentChestXNeg != null || tec.adjacentChestXPos != null || tec.adjacentChestZNeg != null || tec.adjacentChestZPos != null;
         boolean flag1 = tec.getChestType() == 1;
-        boolean flag2 = CustomGuis.isChristmas;
+        boolean flag2 = CustomGuis.IS_CHRISTMAS;
         boolean flag3 = false;
         return this.matchesChest(flag, flag1, flag2, flag3);
     }

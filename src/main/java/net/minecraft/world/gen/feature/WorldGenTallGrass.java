@@ -20,7 +20,7 @@ public class WorldGenTallGrass extends WorldGenerator {
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         Block block;
 
-        while (((block = worldIn.getBlockState(position).getBlock()).getMaterial() == Material.air || block.getMaterial() == Material.leaves) && position.getY() > 0) {
+        while (((block = worldIn.getBlockState(position).getBlock()).getMaterial() == Material.AIR || block.getMaterial() == Material.LEAVES) && position.getY() > 0) {
             position = position.down();
         }
 

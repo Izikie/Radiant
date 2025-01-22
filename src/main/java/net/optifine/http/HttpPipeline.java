@@ -12,7 +12,7 @@ import java.util.Map;
 import net.minecraft.src.Config;
 
 public class HttpPipeline {
-    private static final Map mapConnections = new HashMap();
+    private static final Map MAP_CONNECTIONS = new HashMap();
     public static final String HEADER_USER_AGENT = "User-Agent";
     public static final String HEADER_HOST = "Host";
     public static final String HEADER_ACCEPT = "Accept";
@@ -69,11 +69,11 @@ public class HttpPipeline {
 
     private static synchronized HttpPipelineConnection getConnection(String host, int port, Proxy proxy) {
         String s = makeConnectionKey(host, port, proxy);
-        HttpPipelineConnection httppipelineconnection = (HttpPipelineConnection) mapConnections.get(s);
+        HttpPipelineConnection httppipelineconnection = (HttpPipelineConnection) MAP_CONNECTIONS.get(s);
 
         if (httppipelineconnection == null) {
             httppipelineconnection = new HttpPipelineConnection(host, port, proxy);
-            mapConnections.put(s, httppipelineconnection);
+            MAP_CONNECTIONS.put(s, httppipelineconnection);
         }
 
         return httppipelineconnection;
@@ -81,10 +81,10 @@ public class HttpPipeline {
 
     private static synchronized void removeConnection(String host, int port, Proxy proxy, HttpPipelineConnection hpc) {
         String s = makeConnectionKey(host, port, proxy);
-        HttpPipelineConnection httppipelineconnection = (HttpPipelineConnection) mapConnections.get(s);
+        HttpPipelineConnection httppipelineconnection = (HttpPipelineConnection) MAP_CONNECTIONS.get(s);
 
         if (httppipelineconnection == hpc) {
-            mapConnections.remove(s);
+            MAP_CONNECTIONS.remove(s);
         }
     }
 
@@ -166,7 +166,7 @@ public class HttpPipeline {
     }
 
     public static boolean hasActiveRequests() {
-        for (Object o : mapConnections.values()) {
+        for (Object o : MAP_CONNECTIONS.values()) {
             HttpPipelineConnection httppipelineconnection = (HttpPipelineConnection) o;
             if (httppipelineconnection.hasActiveRequests()) {
                 return true;

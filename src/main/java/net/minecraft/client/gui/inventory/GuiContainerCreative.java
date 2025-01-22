@@ -252,7 +252,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
             }
         }
 
-        for (Enchantment enchantment : Enchantment.enchantmentsBookList) {
+        for (Enchantment enchantment : Enchantment.ENCHANTMENTS_BOOK_LIST) {
             if (enchantment != null && enchantment.type != null) {
                 Items.enchanted_book.getAll(enchantment, guicontainercreative$containercreative.itemList);
             }

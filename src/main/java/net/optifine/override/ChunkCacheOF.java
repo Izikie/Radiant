@@ -27,8 +27,8 @@ public class ChunkCacheOF implements IBlockAccess {
     private IBlockState[] blockStates;
     private final int arraySize;
     private final boolean dynamicLights = Config.isDynamicLights();
-    private static final ArrayCache cacheCombinedLights = new ArrayCache(Integer.TYPE, 16);
-    private static final ArrayCache cacheBlockStates = new ArrayCache(IBlockState.class, 16);
+    private static final ArrayCache CACHE_COMBINED_LIGHTS = new ArrayCache(Integer.TYPE, 16);
+    private static final ArrayCache CACHE_BLOCK_STATES = new ArrayCache(IBlockState.class, 16);
 
     public ChunkCacheOF(ChunkCache chunkCache, BlockPos posFromIn, BlockPos posToIn, int subIn) {
         this.chunkCache = chunkCache;
@@ -111,22 +111,22 @@ public class ChunkCacheOF implements IBlockAccess {
 
     public void renderStart() {
         if (this.combinedLights == null) {
-            this.combinedLights = (int[]) cacheCombinedLights.allocate(this.arraySize);
+            this.combinedLights = (int[]) CACHE_COMBINED_LIGHTS.allocate(this.arraySize);
         }
 
         Arrays.fill(this.combinedLights, -1);
 
         if (this.blockStates == null) {
-            this.blockStates = (IBlockState[]) cacheBlockStates.allocate(this.arraySize);
+            this.blockStates = (IBlockState[]) CACHE_BLOCK_STATES.allocate(this.arraySize);
         }
 
         Arrays.fill(this.blockStates, null);
     }
 
     public void renderFinish() {
-        cacheCombinedLights.free(this.combinedLights);
+        CACHE_COMBINED_LIGHTS.free(this.combinedLights);
         this.combinedLights = null;
-        cacheBlockStates.free(this.blockStates);
+        CACHE_BLOCK_STATES.free(this.blockStates);
         this.blockStates = null;
     }
 

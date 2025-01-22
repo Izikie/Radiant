@@ -68,7 +68,7 @@ public class EntityXPOrb extends Entity {
         this.prevPosZ = this.posZ;
         this.motionY -= 0.029999999329447746D;
 
-        if (this.worldObj.getBlockState(new BlockPos(this)).getBlock().getMaterial() == Material.lava) {
+        if (this.worldObj.getBlockState(new BlockPos(this)).getBlock().getMaterial() == Material.LAVA) {
             this.motionY = 0.20000000298023224D;
             this.motionX = ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
             this.motionZ = ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
@@ -129,11 +129,11 @@ public class EntityXPOrb extends Entity {
     }
 
     public boolean handleWaterMovement() {
-        return this.worldObj.handleMaterialAcceleration(this.getEntityBoundingBox(), Material.water, this);
+        return this.worldObj.handleMaterialAcceleration(this.getEntityBoundingBox(), Material.WATER, this);
     }
 
     protected void dealFireDamage(int amount) {
-        this.attackEntityFrom(DamageSource.inFire, amount);
+        this.attackEntityFrom(DamageSource.IN_FIRE, amount);
     }
 
     public boolean attackEntityFrom(DamageSource source, float amount) {

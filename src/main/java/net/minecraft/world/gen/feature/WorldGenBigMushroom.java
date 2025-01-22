@@ -44,7 +44,7 @@ public class WorldGenBigMushroom extends WorldGenerator {
                         if (j >= 0 && j < 256) {
                             Block block = worldIn.getBlockState(blockpos$mutableblockpos.set(l, j, i1)).getBlock();
 
-                            if (block.getMaterial() != Material.air && block.getMaterial() != Material.leaves) {
+                            if (block.getMaterial() != Material.AIR && block.getMaterial() != Material.LEAVES) {
                                 flag = false;
                             }
                         } else {

@@ -23,7 +23,7 @@ public class EnchantmentUntouching extends Enchantment {
     }
 
     public boolean canApplyTogether(Enchantment ench) {
-        return super.canApplyTogether(ench) && ench.effectId != fortune.effectId;
+        return super.canApplyTogether(ench) && ench.effectId != FORTUNE.effectId;
     }
 
     public boolean canApply(ItemStack stack) {

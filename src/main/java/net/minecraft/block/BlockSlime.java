@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 
 public class BlockSlime extends BlockBreakable {
     public BlockSlime() {
-        super(Material.clay, false, MapColor.grassColor);
+        super(Material.CLAY, false, MapColor.grassColor);
         this.setCreativeTab(CreativeTabs.tabDecorations);
         this.slipperiness = 0.8F;
     }

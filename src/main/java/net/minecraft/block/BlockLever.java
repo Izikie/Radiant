@@ -20,7 +20,7 @@ public class BlockLever extends Block {
     public static final PropertyBool POWERED = PropertyBool.create("powered");
 
     protected BlockLever() {
-        super(Material.circuits);
+        super(Material.CIRCUITS);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Orientation.NORTH).withProperty(POWERED, Boolean.FALSE));
         this.setCreativeTab(CreativeTabs.tabRedstone);
     }

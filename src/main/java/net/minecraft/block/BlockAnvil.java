@@ -30,7 +30,7 @@ public class BlockAnvil extends BlockFalling {
     public static final PropertyInteger DAMAGE = PropertyInteger.create("damage", 0, 2);
 
     protected BlockAnvil() {
-        super(Material.anvil);
+        super(Material.ANVIL);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH).withProperty(DAMAGE, 0));
         this.setLightOpacity(0);
         this.setCreativeTab(CreativeTabs.tabDecorations);

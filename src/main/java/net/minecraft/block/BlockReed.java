@@ -20,7 +20,7 @@ public class BlockReed extends Block {
     public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 15);
 
     protected BlockReed() {
-        super(Material.plants);
+        super(Material.PLANTS);
         this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0));
         float f = 0.375F;
         this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 1.0F, 0.5F + f);
@@ -58,7 +58,7 @@ public class BlockReed extends Block {
             return false;
         } else {
             for (Direction enumfacing : Direction.Plane.HORIZONTAL) {
-                if (worldIn.getBlockState(pos.offset(enumfacing).down()).getBlock().getMaterial() == Material.water) {
+                if (worldIn.getBlockState(pos.offset(enumfacing).down()).getBlock().getMaterial() == Material.WATER) {
                     return true;
                 }
             }

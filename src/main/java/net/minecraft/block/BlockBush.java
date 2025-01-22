@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 public class BlockBush extends Block {
     protected BlockBush() {
-        this(Material.plants);
+        this(Material.PLANTS);
     }
 
     protected BlockBush(Material materialIn) {

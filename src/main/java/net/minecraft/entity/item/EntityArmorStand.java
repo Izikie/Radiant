@@ -379,7 +379,7 @@ public class EntityArmorStand extends EntityLivingBase {
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (this.worldObj.isRemote) {
             return false;
-        } else if (DamageSource.outOfWorld.equals(source)) {
+        } else if (DamageSource.OUT_OF_WORLD.equals(source)) {
             this.setDead();
             return false;
         } else if (!this.isEntityInvulnerable(source) && !this.canInteract && !this.hasMarker()) {
@@ -387,7 +387,7 @@ public class EntityArmorStand extends EntityLivingBase {
                 this.dropContents();
                 this.setDead();
                 return false;
-            } else if (DamageSource.inFire.equals(source)) {
+            } else if (DamageSource.IN_FIRE.equals(source)) {
                 if (!this.isBurning()) {
                     this.setFire(5);
                 } else {
@@ -395,7 +395,7 @@ public class EntityArmorStand extends EntityLivingBase {
                 }
 
                 return false;
-            } else if (DamageSource.onFire.equals(source) && this.getHealth() > 0.5F) {
+            } else if (DamageSource.ON_FIRE.equals(source) && this.getHealth() > 0.5F) {
                 this.damageArmorStand(4.0F);
                 return false;
             } else {

@@ -32,7 +32,7 @@ public class BlockVine extends Block {
     public static final PropertyBool[] ALL_FACES = new PropertyBool[]{UP, NORTH, SOUTH, WEST, EAST};
 
     public BlockVine() {
-        super(Material.vine);
+        super(Material.VINE);
         this.setDefaultState(this.blockState.getBaseState().withProperty(UP, Boolean.FALSE).withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE));
         this.setTickRandomly(true);
         this.setCreativeTab(CreativeTabs.tabDecorations);
@@ -227,7 +227,7 @@ public class BlockVine extends Block {
                         BlockPos blockpos3 = pos.offset(enumfacing1);
                         Block block1 = worldIn.getBlockState(blockpos3).getBlock();
 
-                        if (block1.blockMaterial == Material.air) {
+                        if (block1.blockMaterial == Material.AIR) {
                             Direction enumfacing2 = enumfacing1.rotateY();
                             Direction enumfacing4 = enumfacing1.rotateYCCW();
                             boolean flag1 = state.getValue(getPropertyFor(enumfacing2));
@@ -256,7 +256,7 @@ public class BlockVine extends Block {
                         IBlockState iblockstate = worldIn.getBlockState(blockpos2);
                         Block block = iblockstate.getBlock();
 
-                        if (block.blockMaterial == Material.air) {
+                        if (block.blockMaterial == Material.AIR) {
                             IBlockState iblockstate1 = state;
 
                             for (Direction enumfacing : Direction.Plane.HORIZONTAL) {

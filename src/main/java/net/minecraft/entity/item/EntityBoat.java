@@ -186,7 +186,7 @@ public class EntityBoat extends Entity {
             double d3 = this.getEntityBoundingBox().minY + (this.getEntityBoundingBox().maxY - this.getEntityBoundingBox().minY) * (j + 1) / i - 0.125D;
             AxisAlignedBB axisalignedbb = new AxisAlignedBB(this.getEntityBoundingBox().minX, d1, this.getEntityBoundingBox().minZ, this.getEntityBoundingBox().maxX, d3, this.getEntityBoundingBox().maxZ);
 
-            if (this.worldObj.isAABBInMaterial(axisalignedbb, Material.water)) {
+            if (this.worldObj.isAABBInMaterial(axisalignedbb, Material.WATER)) {
                 d0 += 1.0D / i;
             }
         }
@@ -414,7 +414,7 @@ public class EntityBoat extends Entity {
 
                 this.fallDistance = 0.0F;
             }
-        } else if (this.worldObj.getBlockState((new BlockPos(this)).down()).getBlock().getMaterial() != Material.water && y < 0.0D) {
+        } else if (this.worldObj.getBlockState((new BlockPos(this)).down()).getBlock().getMaterial() != Material.WATER && y < 0.0D) {
             this.fallDistance = (float) (this.fallDistance - y);
         }
     }

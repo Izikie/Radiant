@@ -3,7 +3,6 @@ package net.minecraft.client.gui.achievement;
 import com.google.common.collect.Lists;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -152,7 +151,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
 
     private void drawSprite(int p_146527_1_, int p_146527_2_, int p_146527_3_, int p_146527_4_) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(statIcons);
+        this.mc.getTextureManager().bindTexture(STAT_ICONS);
         float f = 0.0078125F;
         float f1 = 0.0078125F;
         int i = 18;

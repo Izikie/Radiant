@@ -21,7 +21,7 @@ public class BlockJukebox extends BlockContainer {
     public static final PropertyBool HAS_RECORD = PropertyBool.create("has_record");
 
     protected BlockJukebox() {
-        super(Material.wood, MapColor.dirtColor);
+        super(Material.WOOD, MapColor.dirtColor);
         this.setDefaultState(this.blockState.getBaseState().withProperty(HAS_RECORD, Boolean.FALSE));
         this.setCreativeTab(CreativeTabs.tabDecorations);
     }

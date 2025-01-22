@@ -14,7 +14,7 @@ public class BlockStaticLiquid extends BlockLiquid {
         super(materialIn);
         this.setTickRandomly(false);
 
-        if (materialIn == Material.lava) {
+        if (materialIn == Material.LAVA) {
             this.setTickRandomly(true);
         }
     }
@@ -32,7 +32,7 @@ public class BlockStaticLiquid extends BlockLiquid {
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        if (this.blockMaterial == Material.lava) {
+        if (this.blockMaterial == Material.LAVA) {
             if (worldIn.getGameRules().getBoolean("doFireTick")) {
                 int i = rand.nextInt(3);
 
@@ -43,7 +43,7 @@ public class BlockStaticLiquid extends BlockLiquid {
                         blockpos = blockpos.add(rand.nextInt(3) - 1, 1, rand.nextInt(3) - 1);
                         Block block = worldIn.getBlockState(blockpos).getBlock();
 
-                        if (block.blockMaterial == Material.air) {
+                        if (block.blockMaterial == Material.AIR) {
                             if (this.isSurroundingBlockFlammable(worldIn, blockpos)) {
                                 worldIn.setBlockState(blockpos, Blocks.fire.getDefaultState());
                                 return;

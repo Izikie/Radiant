@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 
 public class BlockDragonEgg extends Block {
     public BlockDragonEgg() {
-        super(Material.dragonEgg, MapColor.blackColor);
+        super(Material.DRAGON_EGG, MapColor.blackColor);
         this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 1.0F, 0.9375F);
     }
 
@@ -68,7 +68,7 @@ public class BlockDragonEgg extends Block {
             for (int i = 0; i < 1000; ++i) {
                 BlockPos blockpos = pos.add(worldIn.rand.nextInt(16) - worldIn.rand.nextInt(16), worldIn.rand.nextInt(8) - worldIn.rand.nextInt(8), worldIn.rand.nextInt(16) - worldIn.rand.nextInt(16));
 
-                if (worldIn.getBlockState(blockpos).getBlock().blockMaterial == Material.air) {
+                if (worldIn.getBlockState(blockpos).getBlock().blockMaterial == Material.AIR) {
                     if (worldIn.isRemote) {
                         for (int j = 0; j < 128; ++j) {
                             double d0 = worldIn.rand.nextDouble();

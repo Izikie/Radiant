@@ -30,12 +30,12 @@ import net.optifine.util.ResUtils;
 import net.optifine.util.StrUtils;
 
 public class RandomEntities {
-    private static final Map<String, RandomEntityProperties> mapProperties = new HashMap();
+    private static final Map<String, RandomEntityProperties> MAP_PROPERTIES = new HashMap();
     private static boolean active = false;
     private static RenderGlobal renderGlobal;
-    private static final RandomEntity randomEntity = new RandomEntity();
+    private static final RandomEntity RANDOM_ENTITY = new RandomEntity();
     private static TileEntityRendererDispatcher tileEntityRendererDispatcher;
-    private static final RandomTileEntity randomTileEntity = new RandomTileEntity();
+    private static final RandomTileEntity RANDOM_TILE_ENTITY = new RandomTileEntity();
     private static boolean working = false;
     public static final String SUFFIX_PNG = ".png";
     public static final String SUFFIX_PROPERTIES = ".properties";
@@ -88,8 +88,8 @@ public class RandomEntities {
             }
         }
 
-        randomEntity.setEntity(null);
-        randomTileEntity.setTileEntity(null);
+        RANDOM_ENTITY.setEntity(null);
+        RANDOM_TILE_ENTITY.setTileEntity(null);
     }
 
     public static ResourceLocation getTextureLocation(ResourceLocation loc) {
@@ -115,7 +115,7 @@ public class RandomEntities {
                         return loc;
                     }
 
-                    RandomEntityProperties randomentityproperties = mapProperties.get(s);
+                    RandomEntityProperties randomentityproperties = MAP_PROPERTIES.get(s);
 
                     if (randomentityproperties == null) {
                         return loc;
@@ -149,15 +149,15 @@ public class RandomEntities {
 
     private static IRandomEntity getRandomEntityRendered() {
         if (renderGlobal.renderedEntity != null) {
-            randomEntity.setEntity(renderGlobal.renderedEntity);
-            return randomEntity;
+            RANDOM_ENTITY.setEntity(renderGlobal.renderedEntity);
+            return RANDOM_ENTITY;
         } else {
             if (tileEntityRendererDispatcher.tileEntityRendered != null) {
                 TileEntity tileentity = tileEntityRendererDispatcher.tileEntityRendered;
 
                 if (tileentity.getWorld() != null) {
-                    randomTileEntity.setTileEntity(tileentity);
-                    return randomTileEntity;
+                    RANDOM_TILE_ENTITY.setTileEntity(tileentity);
+                    return RANDOM_TILE_ENTITY;
                 }
             }
 
@@ -312,7 +312,7 @@ public class RandomEntities {
     }
 
     public static void update() {
-        mapProperties.clear();
+        MAP_PROPERTIES.clear();
         active = false;
 
         if (Config.isRandomEntities()) {
@@ -322,7 +322,7 @@ public class RandomEntities {
 
     private static void initialize() {
         renderGlobal = Config.getRenderGlobal();
-        tileEntityRendererDispatcher = TileEntityRendererDispatcher.instance;
+        tileEntityRendererDispatcher = TileEntityRendererDispatcher.INSTANCE;
         String[] astring = new String[]{"optifine/random/", "mcpatcher/mob/"};
         String[] astring1 = new String[]{".png", ".properties"};
         String[] astring2 = ResUtils.collectFiles(astring, astring1);
@@ -340,7 +340,7 @@ public class RandomEntities {
                 ResourceLocation resourcelocation = new ResourceLocation(s1);
 
                 if (Config.hasResource(resourcelocation)) {
-                    RandomEntityProperties randomentityproperties = mapProperties.get(s1);
+                    RandomEntityProperties randomentityproperties = MAP_PROPERTIES.get(s1);
 
                     if (randomentityproperties == null) {
                         randomentityproperties = makeProperties(resourcelocation, false);
@@ -350,14 +350,14 @@ public class RandomEntities {
                         }
 
                         if (randomentityproperties != null) {
-                            mapProperties.put(s1, randomentityproperties);
+                            MAP_PROPERTIES.put(s1, randomentityproperties);
                         }
                     }
                 }
             }
         }
 
-        active = !mapProperties.isEmpty();
+        active = !MAP_PROPERTIES.isEmpty();
     }
 
     public static void dbg(String str) {

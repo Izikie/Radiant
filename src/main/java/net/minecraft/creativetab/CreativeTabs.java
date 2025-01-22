@@ -186,7 +186,7 @@ public abstract class CreativeTabs {
     }
 
     public void addEnchantmentBooksToList(List<ItemStack> itemList, EnchantmentTarget... enchantmentType) {
-        for (Enchantment enchantment : Enchantment.enchantmentsBookList) {
+        for (Enchantment enchantment : Enchantment.ENCHANTMENTS_BOOK_LIST) {
             if (enchantment != null && enchantment.type != null) {
                 boolean flag = false;
 

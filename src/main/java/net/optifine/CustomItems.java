@@ -46,9 +46,9 @@ public class CustomItems {
     private static CustomItemProperties[][] itemProperties = null;
     private static CustomItemProperties[][] enchantmentProperties = null;
     private static Map mapPotionIds = null;
-    private static final ItemModelGenerator itemModelGenerator = new ItemModelGenerator();
+    private static final ItemModelGenerator ITEM_MODEL_GENERATOR = new ItemModelGenerator();
     private static boolean useGlint = true;
-    private static final boolean renderOffHand = false;
+    private static final boolean RENDER_OFF_HAND = false;
     public static final int MASK_POTION_SPLASH = 16384;
     public static final int MASK_POTION_NAME = 63;
     public static final int MASK_POTION_EXTENDED = 64;
@@ -201,7 +201,7 @@ public class CustomItems {
         for (CustomItemProperties customitemproperties : getAllProperties()) {
             if (customitemproperties.type == 1) {
                 TextureMap texturemap = Minecraft.getMinecraft().getTextureMapBlocks();
-                customitemproperties.updateModelTexture(texturemap, itemModelGenerator);
+                customitemproperties.updateModelTexture(texturemap, ITEM_MODEL_GENERATOR);
                 customitemproperties.updateModelsFull();
             }
         }
@@ -364,7 +364,7 @@ public class CustomItems {
 
     private static int getPotionNameDamage(String name) {
         String s = "potion." + name;
-        Potion[] apotion = Potion.potionTypes;
+        Potion[] apotion = Potion.POTION_TYPES;
 
         for (Potion potion : apotion) {
             if (potion != null) {
@@ -623,11 +623,11 @@ public class CustomItems {
             }
 
             if (cip.hand != 0) {
-                if (cip.hand == 1 && renderOffHand) {
+                if (cip.hand == 1 && RENDER_OFF_HAND) {
                     return false;
                 }
 
-                return cip.hand != 2 || renderOffHand;
+                return cip.hand != 2 || RENDER_OFF_HAND;
             }
 
             return true;

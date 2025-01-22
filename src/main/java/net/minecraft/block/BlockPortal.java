@@ -26,7 +26,7 @@ public class BlockPortal extends BlockBreakable {
     public static final PropertyEnum<Direction.Axis> AXIS = PropertyEnum.create("axis", Direction.Axis.class, Direction.Axis.X, Direction.Axis.Z);
 
     public BlockPortal() {
-        super(Material.portal, false);
+        super(Material.PORTAL, false);
         this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, Direction.Axis.X));
         this.setTickRandomly(true);
     }
@@ -224,7 +224,7 @@ public class BlockPortal extends BlockBreakable {
                     for (int j = 0; j < blockportal$size.func_181100_a(); ++j) {
                         BlockWorldState blockworldstate = blockpattern$patternhelper.translateOffset(i, j, 1);
 
-                        if (blockworldstate.getBlockState() != null && blockworldstate.getBlockState().getBlock().getMaterial() != Material.air) {
+                        if (blockworldstate.getBlockState() != null && blockworldstate.getBlockState().getBlock().getMaterial() != Material.AIR) {
                             ++aint[enumfacing$axisdirection.ordinal()];
                         }
                     }
@@ -358,7 +358,7 @@ public class BlockPortal extends BlockBreakable {
         }
 
         protected boolean func_150857_a(Block p_150857_1_) {
-            return p_150857_1_.blockMaterial == Material.air || p_150857_1_ == Blocks.fire || p_150857_1_ == Blocks.portal;
+            return p_150857_1_.blockMaterial == Material.AIR || p_150857_1_ == Blocks.fire || p_150857_1_ == Blocks.portal;
         }
 
         public boolean func_150860_b() {

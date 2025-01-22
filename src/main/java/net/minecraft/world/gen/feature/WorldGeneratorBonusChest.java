@@ -24,7 +24,7 @@ public class WorldGeneratorBonusChest extends WorldGenerator {
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         Block block;
 
-        while (((block = worldIn.getBlockState(position).getBlock()).getMaterial() == Material.air || block.getMaterial() == Material.leaves) && position.getY() > 1) {
+        while (((block = worldIn.getBlockState(position).getBlock()).getMaterial() == Material.AIR || block.getMaterial() == Material.LEAVES) && position.getY() > 1) {
             position = position.down();
         }
 

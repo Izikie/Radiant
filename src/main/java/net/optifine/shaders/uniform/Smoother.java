@@ -8,7 +8,7 @@ import net.optifine.util.SmoothFloat;
 
 public class Smoother {
     private static final Map<Integer, SmoothFloat> mapSmoothValues = new HashMap();
-    private static final CounterInt counterIds = new CounterInt(1);
+    private static final CounterInt COUNTER_IDS = new CounterInt(1);
 
     public static float getSmoothValue(int id, float value, float timeFadeUpSec, float timeFadeDownSec) {
         synchronized (mapSmoothValues) {
@@ -25,8 +25,8 @@ public class Smoother {
     }
 
     public static int getNextId() {
-        synchronized (counterIds) {
-            return counterIds.nextValue();
+        synchronized (COUNTER_IDS) {
+            return COUNTER_IDS.nextValue();
         }
     }
 

@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.culling.ClippingHelper;
 import net.minecraft.util.MathHelper;
 
 public class ClippingHelperShadow extends ClippingHelper {
-    private static final ClippingHelperShadow instance = new ClippingHelperShadow();
+    private static final ClippingHelperShadow INSTANCE = new ClippingHelperShadow();
     float[] frustumTest = new float[6];
     final float[][] shadowClipPlanes = new float[10][4];
     int shadowClipPlaneCount;
@@ -32,8 +32,8 @@ public class ClippingHelperShadow extends ClippingHelper {
     }
 
     public static ClippingHelper getInstance() {
-        instance.init();
-        return instance;
+        INSTANCE.init();
+        return INSTANCE;
     }
 
     private void normalizePlane(float[] plane) {
@@ -118,7 +118,7 @@ public class ClippingHelperShadow extends ClippingHelper {
         this.assignPlane(this.frustum[3], afloat2[3] - afloat2[1], afloat2[7] - afloat2[5], afloat2[11] - afloat2[9], afloat2[15] - afloat2[13]);
         this.assignPlane(this.frustum[4], afloat2[3] - afloat2[2], afloat2[7] - afloat2[6], afloat2[11] - afloat2[10], afloat2[15] - afloat2[14]);
         this.assignPlane(this.frustum[5], afloat2[3] + afloat2[2], afloat2[7] + afloat2[6], afloat2[11] + afloat2[10], afloat2[15] + afloat2[14]);
-        float[] afloat3 = Shaders.shadowLightPositionVector;
+        float[] afloat3 = Shaders.SHADOW_LIGHT_POSITION_VECTOR;
         float f = (float) this.dot3(this.frustum[0], afloat3);
         float f1 = (float) this.dot3(this.frustum[1], afloat3);
         float f2 = (float) this.dot3(this.frustum[2], afloat3);

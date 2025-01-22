@@ -21,7 +21,7 @@ public class ItemFlintAndSteel extends Item {
         if (!playerIn.canPlayerEdit(pos, side, stack)) {
             return false;
         } else {
-            if (worldIn.getBlockState(pos).getBlock().getMaterial() == Material.air) {
+            if (worldIn.getBlockState(pos).getBlock().getMaterial() == Material.AIR) {
                 worldIn.playSoundEffect(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
                 worldIn.setBlockState(pos, Blocks.fire.getDefaultState());
             }

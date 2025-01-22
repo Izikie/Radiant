@@ -20,7 +20,7 @@ public class LayerHeldBlock implements LayerRenderer<EntityEnderman> {
     public void doRenderLayer(EntityEnderman entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
         IBlockState iblockstate = entitylivingbaseIn.getHeldBlockState();
 
-        if (iblockstate.getBlock().getMaterial() != Material.air) {
+        if (iblockstate.getBlock().getMaterial() != Material.AIR) {
             BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
             GlStateManager.enableRescaleNormal();
             GlStateManager.pushMatrix();

@@ -1,7 +1,5 @@
 package net.minecraft.world.gen.layer;
 
-import java.util.concurrent.Callable;
-
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.util.ReportedException;
@@ -136,7 +134,7 @@ public abstract class GenLayer {
     protected static boolean biomesEqualOrMesaPlateau(int biomeIDA, int biomeIDB) {
         if (biomeIDA == biomeIDB) {
             return true;
-        } else if (biomeIDA != BiomeGenBase.mesaPlateau_F.biomeID && biomeIDA != BiomeGenBase.mesaPlateau.biomeID) {
+        } else if (biomeIDA != BiomeGenBase.MESA_PLATEAU_F.biomeID && biomeIDA != BiomeGenBase.MESA_PLATEAU.biomeID) {
             final BiomeGenBase biomegenbase = BiomeGenBase.getBiome(biomeIDA);
             final BiomeGenBase biomegenbase1 = BiomeGenBase.getBiome(biomeIDB);
 
@@ -152,12 +150,12 @@ public abstract class GenLayer {
                 throw new ReportedException(crashreport);
             }
         } else {
-            return biomeIDB == BiomeGenBase.mesaPlateau_F.biomeID || biomeIDB == BiomeGenBase.mesaPlateau.biomeID;
+            return biomeIDB == BiomeGenBase.MESA_PLATEAU_F.biomeID || biomeIDB == BiomeGenBase.MESA_PLATEAU.biomeID;
         }
     }
 
     protected static boolean isBiomeOceanic(int p_151618_0_) {
-        return p_151618_0_ == BiomeGenBase.ocean.biomeID || p_151618_0_ == BiomeGenBase.deepOcean.biomeID || p_151618_0_ == BiomeGenBase.frozenOcean.biomeID;
+        return p_151618_0_ == BiomeGenBase.OCEAN.biomeID || p_151618_0_ == BiomeGenBase.DEEP_OCEAN.biomeID || p_151618_0_ == BiomeGenBase.FROZEN_OCEAN.biomeID;
     }
 
     protected int selectRandom(int... p_151619_1_) {

@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 
 public class BlockIce extends BlockBreakable {
     public BlockIce() {
-        super(Material.ice, false);
+        super(Material.ICE, false);
         this.slipperiness = 0.98F;
         this.setTickRandomly(true);
         this.setCreativeTab(CreativeTabs.tabBlock);

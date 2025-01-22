@@ -149,7 +149,7 @@ public class BiomeDecorator {
                 BlockFlower.FlowerType blockflower$enumflowertype = biomeGenBaseIn.pickRandomFlower(this.randomGenerator, blockpos1);
                 BlockFlower blockflower = blockflower$enumflowertype.getBlockType().getBlock();
 
-                if (blockflower.getMaterial() != Material.air) {
+                if (blockflower.getMaterial() != Material.AIR) {
                     this.yellowFlowerGen.setGeneratedBlock(blockflower, blockflower$enumflowertype);
                     this.yellowFlowerGen.generate(this.currentWorld, this.randomGenerator, blockpos1);
                 }

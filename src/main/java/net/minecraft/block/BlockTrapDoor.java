@@ -99,7 +99,7 @@ public class BlockTrapDoor extends Block {
     }
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
-        if (this.blockMaterial != Material.iron) {
+        if (this.blockMaterial != Material.IRON) {
             state = state.cycleProperty(OPEN);
             worldIn.setBlockState(pos, state, 2);
             worldIn.playAuxSFXAtEntity(playerIn, state.getValue(OPEN) ? 1003 : 1006, pos, 0);

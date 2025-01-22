@@ -15,7 +15,7 @@ public class BlockRedSandstone extends Block {
     public static final PropertyEnum<RedSandStoneType> TYPE = PropertyEnum.create("type", RedSandStoneType.class);
 
     public BlockRedSandstone() {
-        super(Material.rock, BlockSand.SandType.RED_SAND.getMapColor());
+        super(Material.ROCK, BlockSand.SandType.RED_SAND.getMapColor());
         this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, RedSandStoneType.DEFAULT));
         this.setCreativeTab(CreativeTabs.tabBlock);
     }

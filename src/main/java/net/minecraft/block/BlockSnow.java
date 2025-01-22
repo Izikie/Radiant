@@ -25,7 +25,7 @@ public class BlockSnow extends Block {
     public static final PropertyInteger LAYERS = PropertyInteger.create("layers", 1, 8);
 
     protected BlockSnow() {
-        super(Material.snow);
+        super(Material.SNOW);
         this.setDefaultState(this.blockState.getBaseState().withProperty(LAYERS, 1));
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
         this.setTickRandomly(true);
@@ -67,7 +67,7 @@ public class BlockSnow extends Block {
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
         IBlockState iblockstate = worldIn.getBlockState(pos.down());
         Block block = iblockstate.getBlock();
-        return block != Blocks.ice && block != Blocks.packed_ice ? (block.getMaterial() == Material.leaves ? true : (block == this && iblockstate.getValue(LAYERS) >= 7 ? true : block.isOpaqueCube() && block.blockMaterial.blocksMovement())) : false;
+        return block != Blocks.ice && block != Blocks.packed_ice ? (block.getMaterial() == Material.LEAVES ? true : (block == this && iblockstate.getValue(LAYERS) >= 7 ? true : block.isOpaqueCube() && block.blockMaterial.blocksMovement())) : false;
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {

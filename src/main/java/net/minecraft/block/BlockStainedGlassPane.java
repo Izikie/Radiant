@@ -19,7 +19,7 @@ public class BlockStainedGlassPane extends BlockPane {
     public static final PropertyEnum<DyeColor> COLOR = PropertyEnum.create("color", DyeColor.class);
 
     public BlockStainedGlassPane() {
-        super(Material.glass, false);
+        super(Material.GLASS, false);
         this.setDefaultState(this.blockState.getBaseState().withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE).withProperty(COLOR, DyeColor.WHITE));
         this.setCreativeTab(CreativeTabs.tabDecorations);
     }

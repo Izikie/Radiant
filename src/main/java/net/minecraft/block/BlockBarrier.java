@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 
 public class BlockBarrier extends Block {
     protected BlockBarrier() {
-        super(Material.barrier);
+        super(Material.BARRIER);
         this.setBlockUnbreakable();
         this.setResistance(6000001.0F);
         this.disableStats();

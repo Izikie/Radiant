@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class MapGenScatteredFeature extends MapGenStructure {
-    private static final List<BiomeGenBase> biomelist = Arrays.asList(BiomeGenBase.desert, BiomeGenBase.desertHills, BiomeGenBase.jungle, BiomeGenBase.jungleHills, BiomeGenBase.swampland);
+    private static final List<BiomeGenBase> BIOME_LIST = Arrays.asList(BiomeGenBase.DESERT, BiomeGenBase.DESERT_HILLS, BiomeGenBase.JUNGLE, BiomeGenBase.JUNGLE_HILLS, BiomeGenBase.SWAMPLAND);
     private final List<BiomeGenBase.SpawnListEntry> scatteredFeatureSpawnList;
     private int maxDistanceBetweenScatteredFeatures;
     private final int minDistanceBetweenScatteredFeatures;
@@ -68,7 +68,7 @@ public class MapGenScatteredFeature extends MapGenStructure {
                 return false;
             }
 
-            for (BiomeGenBase biomegenbase1 : biomelist) {
+            for (BiomeGenBase biomegenbase1 : BIOME_LIST) {
                 if (biomegenbase == biomegenbase1) {
                     return true;
                 }
@@ -105,11 +105,11 @@ public class MapGenScatteredFeature extends MapGenStructure {
             super(p_i2060_3_, p_i2060_4_);
             BiomeGenBase biomegenbase = worldIn.getBiomeGenForCoords(new BlockPos(p_i2060_3_ * 16 + 8, 0, p_i2060_4_ * 16 + 8));
 
-            if (biomegenbase != BiomeGenBase.jungle && biomegenbase != BiomeGenBase.jungleHills) {
-                if (biomegenbase == BiomeGenBase.swampland) {
+            if (biomegenbase != BiomeGenBase.JUNGLE && biomegenbase != BiomeGenBase.JUNGLE_HILLS) {
+                if (biomegenbase == BiomeGenBase.SWAMPLAND) {
                     ComponentScatteredFeaturePieces.SwampHut componentscatteredfeaturepieces$swamphut = new ComponentScatteredFeaturePieces.SwampHut(p_i2060_2_, p_i2060_3_ * 16, p_i2060_4_ * 16);
                     this.components.add(componentscatteredfeaturepieces$swamphut);
-                } else if (biomegenbase == BiomeGenBase.desert || biomegenbase == BiomeGenBase.desertHills) {
+                } else if (biomegenbase == BiomeGenBase.DESERT || biomegenbase == BiomeGenBase.DESERT_HILLS) {
                     ComponentScatteredFeaturePieces.DesertPyramid componentscatteredfeaturepieces$desertpyramid = new ComponentScatteredFeaturePieces.DesertPyramid(p_i2060_2_, p_i2060_3_ * 16, p_i2060_4_ * 16);
                     this.components.add(componentscatteredfeaturepieces$desertpyramid);
                 }
