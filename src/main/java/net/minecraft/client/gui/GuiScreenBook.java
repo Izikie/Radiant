@@ -30,7 +30,7 @@ import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 
 public class GuiScreenBook extends GuiScreen {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final ResourceLocation bookGuiTextures = new ResourceLocation("textures/gui/book.png");
     private final EntityPlayer editingPlayer;
     private final ItemStack bookObj;

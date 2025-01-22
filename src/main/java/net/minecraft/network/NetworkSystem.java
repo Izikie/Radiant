@@ -44,7 +44,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class NetworkSystem {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     public static final LazyLoadBase<NioEventLoopGroup> eventLoops = new LazyLoadBase<>() {
         protected NioEventLoopGroup load() {
             return new NioEventLoopGroup(0, (new ThreadFactoryBuilder()).setNameFormat("Netty Server IO #%d").setDaemon(true).build());
@@ -78,11 +78,11 @@ public class NetworkSystem {
             if (Epoll.isAvailable() && this.mcServer.shouldUseNativeTransport()) {
                 oclass = EpollServerSocketChannel.class;
                 lazyloadbase = SERVER_EPOLL_EVENTLOOP;
-                logger.info("Using epoll channel type");
+                LOGGER.info("Using epoll channel type");
             } else {
                 oclass = NioServerSocketChannel.class;
                 lazyloadbase = eventLoops;
-                logger.info("Using default channel type");
+                LOGGER.info("Using default channel type");
             }
 
             this.endpoints.add((new ServerBootstrap()).channel(oclass).childHandler(new ChannelInitializer<>() {
@@ -127,7 +127,7 @@ public class NetworkSystem {
             try {
                 channelfuture.channel().close().sync();
             } catch (InterruptedException var4) {
-                logger.error("Interrupted whilst closing channel");
+                LOGGER.error("Interrupted whilst closing channel");
             }
         }
     }
@@ -154,7 +154,7 @@ public class NetworkSystem {
                                 throw new ReportedException(crashreport);
                             }
 
-                            logger.warn("Failed to handle packet for {}", networkmanager.getRemoteAddress(), exception);
+                            LOGGER.warn("Failed to handle packet for {}", networkmanager.getRemoteAddress(), exception);
                             final ChatComponentText chatcomponenttext = new ChatComponentText("Internal server error");
                             networkmanager.sendPacket(new S40PacketDisconnect(chatcomponenttext), p_operationComplete_1_ -> networkmanager.closeChannel(chatcomponenttext));
                             networkmanager.disableAutoRead();

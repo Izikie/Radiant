@@ -28,7 +28,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class ChunkProviderServer implements IChunkProvider {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private final Set<Long> droppedChunksSet = Collections.<Long>newSetFromMap(new ConcurrentHashMap());
     private final Chunk dummyChunk;
     private final IChunkProvider serverChunkGenerator;
@@ -125,7 +125,7 @@ public class ChunkProviderServer implements IChunkProvider {
 
                 return chunk;
             } catch (Exception exception) {
-                logger.error("Couldn't load chunk", exception);
+                LOGGER.error("Couldn't load chunk", exception);
                 return null;
             }
         }
@@ -136,7 +136,7 @@ public class ChunkProviderServer implements IChunkProvider {
             try {
                 this.chunkLoader.saveExtraChunkData(this.worldObj, chunkIn);
             } catch (Exception exception) {
-                logger.error("Couldn't save entities", exception);
+                LOGGER.error("Couldn't save entities", exception);
             }
         }
     }
@@ -147,9 +147,9 @@ public class ChunkProviderServer implements IChunkProvider {
                 chunkIn.setLastSaveTime(this.worldObj.getTotalWorldTime());
                 this.chunkLoader.saveChunk(this.worldObj, chunkIn);
             } catch (IOException ioexception) {
-                logger.error("Couldn't save chunk", ioexception);
+                LOGGER.error("Couldn't save chunk", ioexception);
             } catch (MinecraftException minecraftexception) {
-                logger.error("Couldn't save chunk; already in use by another instance of Minecraft?", minecraftexception);
+                LOGGER.error("Couldn't save chunk; already in use by another instance of Minecraft?", minecraftexception);
             }
         }
     }

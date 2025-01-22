@@ -63,7 +63,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class EntityTrackerEntry {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     public final Entity trackedEntity;
     public final int trackingDistanceThreshold;
     public final int updateFrequency;
@@ -388,7 +388,7 @@ public class EntityTrackerEntry {
 
     private Packet createSpawnPacket() {
         if (this.trackedEntity.isDead) {
-            logger.warn("Fetching addPacket for removed entity");
+            LOGGER.warn("Fetching addPacket for removed entity");
         }
 
         switch (this.trackedEntity) {

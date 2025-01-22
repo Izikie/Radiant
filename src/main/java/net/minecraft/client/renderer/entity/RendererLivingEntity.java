@@ -34,7 +34,7 @@ import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.GL11;
 
 public abstract class RendererLivingEntity<T extends EntityLivingBase> extends Render<T> {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final DynamicTexture textureBrightness = new DynamicTexture(16, 16);
     public ModelBase mainModel;
     protected final FloatBuffer brightnessBuffer = GLAllocation.createDirectFloatBuffer(4);
@@ -216,7 +216,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 
             GlStateManager.disableRescaleNormal();
         } catch (Exception exception) {
-            logger.error("Couldn't render entity", exception);
+            LOGGER.error("Couldn't render entity", exception);
         }
 
         GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);

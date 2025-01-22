@@ -14,7 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class SharedMonsterAttributes {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     public static final IAttribute maxHealth = (new RangedAttribute(null, "generic.maxHealth", 20.0D, 0.0D, 1024.0D)).setDescription("Max Health").setShouldWatch(true);
     public static final IAttribute followRange = (new RangedAttribute(null, "generic.followRange", 32.0D, 0.0D, 2048.0D)).setDescription("Follow Range");
     public static final IAttribute knockbackResistance = (new RangedAttribute(null, "generic.knockbackResistance", 0.0D, 0.0D, 1.0D)).setDescription("Knockback Resistance");
@@ -71,7 +71,7 @@ public class SharedMonsterAttributes {
             if (iattributeinstance != null) {
                 applyModifiersToAttributeInstance(iattributeinstance, nbttagcompound);
             } else {
-                logger.warn("Ignoring unknown attribute '{}'", nbttagcompound.getString("Name"));
+                LOGGER.warn("Ignoring unknown attribute '{}'", nbttagcompound.getString("Name"));
             }
         }
     }
@@ -104,7 +104,7 @@ public class SharedMonsterAttributes {
         try {
             return new AttributeModifier(uuid, compound.getString("Name"), compound.getDouble("Amount"), compound.getInteger("Operation"));
         } catch (Exception exception) {
-            logger.warn("Unable to create attribute: {}", exception.getMessage());
+            LOGGER.warn("Unable to create attribute: {}", exception.getMessage());
             return null;
         }
     }

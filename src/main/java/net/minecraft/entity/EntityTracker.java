@@ -5,7 +5,6 @@ import com.google.common.collect.Sets;
 
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.Callable;
 
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
@@ -43,7 +42,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class EntityTracker {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private final WorldServer theWorld;
     private final Set<EntityTrackerEntry> trackedEntities = Sets.newHashSet();
     private final IntHashMap<EntityTrackerEntry> trackedEntityHashTable = new IntHashMap();
@@ -154,7 +153,7 @@ public class EntityTracker {
             try {
                 throw new ReportedException(crashreport);
             } catch (ReportedException reportedexception) {
-                logger.error("\"Silently\" catching entity tracking error.", reportedexception);
+                LOGGER.error("\"Silently\" catching entity tracking error.", reportedexception);
             }
         }
     }

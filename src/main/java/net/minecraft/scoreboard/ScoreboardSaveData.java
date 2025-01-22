@@ -9,7 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class ScoreboardSaveData extends WorldSavedData {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private Scoreboard theScoreboard;
     private NBTTagCompound delayedInitNbt;
 
@@ -155,7 +155,7 @@ public class ScoreboardSaveData extends WorldSavedData {
 
     public void writeToNBT(NBTTagCompound nbt) {
         if (this.theScoreboard == null) {
-            logger.warn("Tried to save scoreboard without having a scoreboard...");
+            LOGGER.warn("Tried to save scoreboard without having a scoreboard...");
         } else {
             nbt.setTag("Objectives", this.objectivesToNbt());
             nbt.setTag("PlayerScores", this.scoresToNbt());

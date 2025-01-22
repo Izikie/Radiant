@@ -55,7 +55,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
 public class GameSettings {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final Gson gson = new Gson();
     private static final ParameterizedType typeListString = new ParameterizedType() {
         public Type[] getActualTypeArguments() {
@@ -813,7 +813,7 @@ public class GameSettings {
                                 }
                             }
                         } catch (Exception exception) {
-                            logger.warn("Skipping bad option: {}", s);
+                            LOGGER.warn("Skipping bad option: {}", s);
                             exception.printStackTrace();
                         }
                     }
@@ -823,7 +823,7 @@ public class GameSettings {
                     break label2;
                 }
             } catch (Exception exception1) {
-                logger.error("Failed to load options", exception1);
+                LOGGER.error("Failed to load options", exception1);
                 break label2;
             } finally {
                 IOUtils.closeQuietly(fileinputstream);
@@ -913,7 +913,7 @@ public class GameSettings {
 
             printwriter.close();
         } catch (Exception exception) {
-            logger.error("Failed to save options", exception);
+            LOGGER.error("Failed to save options", exception);
         }
 
         this.saveOfOptions();

@@ -22,7 +22,7 @@ import org.apache.logging.log4j.Logger;
 
 public class GuiConnecting extends GuiScreen {
     private static final AtomicInteger CONNECTION_ID = new AtomicInteger(0);
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private NetworkManager networkManager;
     private boolean cancel;
     private final GuiScreen previousGuiScreen;
@@ -44,7 +44,7 @@ public class GuiConnecting extends GuiScreen {
     }
 
     private void connect(final String ip, final int port) {
-        logger.info("Connecting to {}, {}", ip, port);
+        LOGGER.info("Connecting to {}, {}", ip, port);
         (new Thread("Server Connector #" + CONNECTION_ID.incrementAndGet()) {
             public void run() {
                 InetAddress inetaddress = null;
@@ -64,14 +64,14 @@ public class GuiConnecting extends GuiScreen {
                         return;
                     }
 
-                    GuiConnecting.logger.error("Couldn't connect to server", unknownhostexception);
+                    GuiConnecting.LOGGER.error("Couldn't connect to server", unknownhostexception);
                     GuiConnecting.this.mc.displayGuiScreen(new GuiDisconnected(GuiConnecting.this.previousGuiScreen, "connect.failed", new ChatComponentTranslation("disconnect.genericReason", "Unknown host")));
                 } catch (Exception exception) {
                     if (GuiConnecting.this.cancel) {
                         return;
                     }
 
-                    GuiConnecting.logger.error("Couldn't connect to server", exception);
+                    GuiConnecting.LOGGER.error("Couldn't connect to server", exception);
                     String s = exception.toString();
 
                     if (inetaddress != null) {

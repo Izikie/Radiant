@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class MapGenStructureIO {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final Map<String, Class<? extends StructureStart>> startNameToClassMap = Maps.newHashMap();
     private static final Map<Class<? extends StructureStart>, String> startClassToNameMap = Maps.newHashMap();
     private static final Map<String, Class<? extends StructureComponent>> componentNameToClassMap = Maps.newHashMap();
@@ -44,14 +44,14 @@ public class MapGenStructureIO {
                 structurestart = oclass.newInstance();
             }
         } catch (Exception exception) {
-            logger.warn("Failed Start with id {}", tagCompound.getString("id"));
+            LOGGER.warn("Failed Start with id {}", tagCompound.getString("id"));
             exception.printStackTrace();
         }
 
         if (structurestart != null) {
             structurestart.readStructureComponentsFromNBT(worldIn, tagCompound);
         } else {
-            logger.warn("Skipping Structure with id {}", tagCompound.getString("id"));
+            LOGGER.warn("Skipping Structure with id {}", tagCompound.getString("id"));
         }
 
         return structurestart;
@@ -67,14 +67,14 @@ public class MapGenStructureIO {
                 structurecomponent = oclass.newInstance();
             }
         } catch (Exception exception) {
-            logger.warn("Failed Piece with id {}", tagCompound.getString("id"));
+            LOGGER.warn("Failed Piece with id {}", tagCompound.getString("id"));
             exception.printStackTrace();
         }
 
         if (structurecomponent != null) {
             structurecomponent.readStructureBaseNBT(worldIn, tagCompound);
         } else {
-            logger.warn("Skipping Piece with id {}", tagCompound.getString("id"));
+            LOGGER.warn("Skipping Piece with id {}", tagCompound.getString("id"));
         }
 
         return structurecomponent;

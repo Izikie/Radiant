@@ -18,7 +18,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class ChunkProviderClient implements IChunkProvider {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private final Chunk blankChunk;
     private final LongHashMap<Chunk> chunkMapping = new LongHashMap();
     private final List<Chunk> chunkListing = Lists.newArrayList();
@@ -72,7 +72,7 @@ public class ChunkProviderClient implements IChunkProvider {
         }
 
         if (System.currentTimeMillis() - i > 100L) {
-            logger.info("Warning: Clientside chunk ticking took {} ms", new Object[]{System.currentTimeMillis() - i});
+            LOGGER.info("Warning: Clientside chunk ticking took {} ms", new Object[]{System.currentTimeMillis() - i});
         }
 
         return false;

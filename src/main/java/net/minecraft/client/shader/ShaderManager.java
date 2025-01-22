@@ -26,7 +26,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class ShaderManager {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final ShaderDefault defaultShaderUniform = new ShaderDefault();
     private static ShaderManager staticShaderManager = null;
     private static int currentProgram = -1;
@@ -223,7 +223,7 @@ public class ShaderManager {
             int k = OpenGlHelper.glGetUniformLocation(this.program, s);
 
             if (k == -1) {
-                logger.warn("Shader {}could not find sampler named {} in the specified shader program.", this.programFilename, s);
+                LOGGER.warn("Shader {}could not find sampler named {} in the specified shader program.", this.programFilename, s);
                 this.shaderSamplers.remove(s);
                 this.samplerNames.remove(j);
                 --j;
@@ -239,7 +239,7 @@ public class ShaderManager {
             int l = OpenGlHelper.glGetUniformLocation(this.program, s1);
 
             if (l == -1) {
-                logger.warn("Could not find uniform named {} in the specified shader program.", s1);
+                LOGGER.warn("Could not find uniform named {} in the specified shader program.", s1);
             } else {
                 this.shaderUniformLocations.add(l);
                 shaderuniform.setUniformLocation(l);

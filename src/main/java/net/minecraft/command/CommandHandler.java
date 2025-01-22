@@ -17,7 +17,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class CommandHandler implements ICommandManager {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private final Map<String, ICommand> commandMap = Maps.newHashMap();
     private final Set<ICommand> commandSet = Sets.newHashSet();
 
@@ -87,7 +87,7 @@ public class CommandHandler implements ICommandManager {
             ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation("commands.generic.exception");
             chatcomponenttranslation.getChatStyle().setColor(Formatting.RED);
             sender.addChatMessage(chatcomponenttranslation);
-            logger.warn("Couldn't process command: '{}'", input);
+            LOGGER.warn("Couldn't process command: '{}'", input);
         }
 
         return false;

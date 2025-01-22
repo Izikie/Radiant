@@ -13,7 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class ServerList {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private final Minecraft mc;
     private final List<ServerData> servers = Lists.newArrayList();
 
@@ -37,7 +37,7 @@ public class ServerList {
                 this.servers.add(ServerData.getServerDataFromNBTCompound(nbttaglist.getCompoundTagAt(i)));
             }
         } catch (Exception exception) {
-            logger.error("Couldn't load server list", exception);
+            LOGGER.error("Couldn't load server list", exception);
         }
     }
 
@@ -53,7 +53,7 @@ public class ServerList {
             nbttagcompound.setTag("servers", nbttaglist);
             CompressedStreamTools.safeWrite(nbttagcompound, new File(this.mc.mcDataDir, "servers.dat"));
         } catch (Exception exception) {
-            logger.error("Couldn't save server list", exception);
+            LOGGER.error("Couldn't save server list", exception);
         }
     }
 

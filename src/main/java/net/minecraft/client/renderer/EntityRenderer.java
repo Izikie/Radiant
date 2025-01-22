@@ -87,7 +87,7 @@ import org.lwjgl.opengl.GLContext;
 import org.lwjgl.util.glu.Project;
 
 public class EntityRenderer implements IResourceManagerReloadListener {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final ResourceLocation locationRainPng = new ResourceLocation("textures/environment/rain.png");
     private static final ResourceLocation locationSnowPng = new ResourceLocation("textures/environment/snow.png");
     private final Minecraft mc;
@@ -238,11 +238,11 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 this.theShaderGroup.createBindFramebuffers(this.mc.displayWidth, this.mc.displayHeight);
                 this.useShader = true;
             } catch (IOException ioexception) {
-                logger.warn("Failed to load shader: {}", resourceLocationIn, ioexception);
+                LOGGER.warn("Failed to load shader: {}", resourceLocationIn, ioexception);
                 this.shaderIndex = shaderCount;
                 this.useShader = false;
             } catch (JsonSyntaxException jsonsyntaxexception) {
-                logger.warn("Failed to load shader: {}", resourceLocationIn, jsonsyntaxexception);
+                LOGGER.warn("Failed to load shader: {}", resourceLocationIn, jsonsyntaxexception);
                 this.shaderIndex = shaderCount;
                 this.useShader = false;
             }
@@ -931,7 +931,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             this.prevFrameTime = Minecraft.getSystemTime();
         }
 
-        if (flag && Minecraft.isRunningOnMac && this.mc.inGameHasFocus && !Mouse.isInsideWindow()) {
+        if (flag && Minecraft.IS_RUNNING_ON_MAC && this.mc.inGameHasFocus && !Mouse.isInsideWindow()) {
             Mouse.setGrabbed(false);
             Mouse.setCursorPosition(Display.getWidth() / 2, Display.getHeight() / 2);
             Mouse.setGrabbed(true);

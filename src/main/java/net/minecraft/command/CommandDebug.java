@@ -13,7 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class CommandDebug extends CommandBase {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private long profileStartTime;
     private int profileStartTick;
 
@@ -69,7 +69,7 @@ public class CommandDebug extends CommandBase {
             filewriter.write(this.getProfileResults(timeSpan, tickSpan));
             filewriter.close();
         } catch (Throwable throwable) {
-            logger.error("Could not save profiler results to {}", file1, throwable);
+            LOGGER.error("Could not save profiler results to {}", file1, throwable);
         }
     }
 

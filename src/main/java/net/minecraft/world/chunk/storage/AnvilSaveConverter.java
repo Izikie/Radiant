@@ -5,7 +5,6 @@ import com.google.common.collect.Lists;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
@@ -28,7 +27,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class AnvilSaveConverter extends SaveFormatOld {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
 
     public AnvilSaveConverter(File savesDirectoryIn) {
         super(savesDirectoryIn);
@@ -98,7 +97,7 @@ public class AnvilSaveConverter extends SaveFormatOld {
         File file1 = new File(this.savesDirectory, filename);
         File file2 = new File(file1, "DIM-1");
         File file3 = new File(file1, "DIM1");
-        logger.info("Scanning folders...");
+        LOGGER.info("Scanning folders...");
         this.addRegionFilesToCollection(file1, list);
 
         if (file2.exists()) {
@@ -110,7 +109,7 @@ public class AnvilSaveConverter extends SaveFormatOld {
         }
 
         int i = list.size() + list1.size() + list2.size();
-        logger.info("Total conversion count is {}", i);
+        LOGGER.info("Total conversion count is {}", i);
         WorldInfo worldinfo = this.getWorldInfo(filename);
         WorldChunkManager worldchunkmanager;
 
@@ -139,17 +138,17 @@ public class AnvilSaveConverter extends SaveFormatOld {
         File file1 = new File(this.savesDirectory, filename);
 
         if (!file1.exists()) {
-            logger.warn("Unable to create level.dat_mcr backup");
+            LOGGER.warn("Unable to create level.dat_mcr backup");
         } else {
             File file2 = new File(file1, "level.dat");
 
             if (!file2.exists()) {
-                logger.warn("Unable to create level.dat_mcr backup");
+                LOGGER.warn("Unable to create level.dat_mcr backup");
             } else {
                 File file3 = new File(file1, "level.dat_mcr");
 
                 if (!file2.renameTo(file3)) {
-                    logger.warn("Unable to create level.dat_mcr backup");
+                    LOGGER.warn("Unable to create level.dat_mcr backup");
                 }
             }
         }
@@ -176,7 +175,7 @@ public class AnvilSaveConverter extends SaveFormatOld {
                         DataInputStream datainputstream = regionfile.getChunkDataInputStream(i, j);
 
                         if (datainputstream == null) {
-                            logger.warn("Failed to fetch input stream");
+                            LOGGER.warn("Failed to fetch input stream");
                         } else {
                             NBTTagCompound nbttagcompound = CompressedStreamTools.read(datainputstream);
                             datainputstream.close();

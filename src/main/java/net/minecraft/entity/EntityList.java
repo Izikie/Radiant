@@ -77,7 +77,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class EntityList {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final Map<String, Class<? extends Entity>> stringToClassMapping = Maps.newHashMap();
     private static final Map<Class<? extends Entity>, String> classToStringMapping = Maps.newHashMap();
     private static final Map<Integer, Class<? extends Entity>> idToClassMapping = Maps.newHashMap();
@@ -145,7 +145,7 @@ public class EntityList {
         if (entity != null) {
             entity.readFromNBT(nbt);
         } else {
-            logger.warn("Skipping Entity with id {}", nbt.getString("id"));
+            LOGGER.warn("Skipping Entity with id {}", nbt.getString("id"));
         }
 
         return entity;
@@ -165,7 +165,7 @@ public class EntityList {
         }
 
         if (entity == null) {
-            logger.warn("Skipping Entity with id {}", entityID);
+            LOGGER.warn("Skipping Entity with id {}", entityID);
         }
 
         return entity;

@@ -18,7 +18,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class SaveHandler implements ISaveHandler, IPlayerFileData {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private final File worldDirectory;
     private final File playersDirectory;
     private final File mapDataDir;
@@ -179,7 +179,7 @@ public class SaveHandler implements ISaveHandler, IPlayerFileData {
 
             file1.renameTo(file2);
         } catch (Exception var5) {
-            logger.warn("Failed to save player data for {}", player.getName());
+            LOGGER.warn("Failed to save player data for {}", player.getName());
         }
     }
 
@@ -193,7 +193,7 @@ public class SaveHandler implements ISaveHandler, IPlayerFileData {
                 nbttagcompound = CompressedStreamTools.readCompressed(new FileInputStream(file1));
             }
         } catch (Exception var4) {
-            logger.warn("Failed to load player data for {}", player.getName());
+            LOGGER.warn("Failed to load player data for {}", player.getName());
         }
 
         if (nbttagcompound != null) {

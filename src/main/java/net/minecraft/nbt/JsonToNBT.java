@@ -11,7 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class JsonToNBT {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final Pattern field_179273_b = Pattern.compile("\\[[-+\\d|,\\s]+\\]");
 
     public static NBTTagCompound getTagFromJson(String jsonString) throws NBTException {

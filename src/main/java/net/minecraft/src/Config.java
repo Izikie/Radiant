@@ -1475,7 +1475,7 @@ public class Config {
                 }
             }
 
-            if (!Minecraft.isRunningOnMac && getDefaultResourcePack() != null) {
+            if (!Minecraft.IS_RUNNING_ON_MAC && getDefaultResourcePack() != null) {
                 InputStream inputstream = null;
                 InputStream inputstream1 = null;
 

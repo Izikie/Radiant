@@ -14,7 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class ResourcePackListEntryDefault extends ResourcePackListEntry {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private final IResourcePack field_148320_d;
     private final ResourceLocation resourcePackIcon;
 
@@ -44,9 +44,9 @@ public class ResourcePackListEntryDefault extends ResourcePackListEntry {
                 return packmetadatasection.getPackDescription().getFormattedText();
             }
         } catch (JsonParseException jsonparseexception) {
-            logger.error("Couldn't load metadata info", jsonparseexception);
+            LOGGER.error("Couldn't load metadata info", jsonparseexception);
         } catch (IOException ioexception) {
-            logger.error("Couldn't load metadata info", ioexception);
+            LOGGER.error("Couldn't load metadata info", ioexception);
         }
 
         return Formatting.RED + "Missing " + "pack.mcmeta" + " :(";

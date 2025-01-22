@@ -18,7 +18,7 @@ import org.apache.logging.log4j.Logger;
 
 public class LanServerDetector {
     private static final AtomicInteger field_148551_a = new AtomicInteger(0);
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
 
     public static class LanServer {
         private final String lanServerMotd;
@@ -110,12 +110,12 @@ public class LanServerDetector {
                 } catch (SocketTimeoutException var5) {
                     continue;
                 } catch (IOException ioexception) {
-                    LanServerDetector.logger.error("Couldn't ping server", ioexception);
+                    LanServerDetector.LOGGER.error("Couldn't ping server", ioexception);
                     break;
                 }
 
                 String s = new String(datagrampacket.getData(), datagrampacket.getOffset(), datagrampacket.getLength());
-                LanServerDetector.logger.debug("{}: {}", datagrampacket.getAddress(), s);
+                LanServerDetector.LOGGER.debug("{}: {}", datagrampacket.getAddress(), s);
                 this.localServerList.func_77551_a(s, datagrampacket.getAddress());
             }
 

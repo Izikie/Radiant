@@ -11,7 +11,6 @@ import java.lang.management.RuntimeMXBean;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import net.minecraft.util.ReportedException;
 import net.minecraft.world.gen.layer.IntCache;
@@ -22,7 +21,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class CrashReport {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private final String description;
     private final Throwable cause;
     private final CrashReportCategory theReportCategory = new CrashReportCategory(this, "System Details");
@@ -186,7 +185,7 @@ public class CrashReport {
                 this.crashReportFile = toFile;
                 return true;
             } catch (Throwable throwable) {
-                logger.error("Could not save crash report to {}", toFile, throwable);
+                LOGGER.error("Could not save crash report to {}", toFile, throwable);
                 return false;
             }
         }

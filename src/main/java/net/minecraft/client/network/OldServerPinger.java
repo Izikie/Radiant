@@ -45,7 +45,7 @@ import org.apache.logging.log4j.Logger;
 
 public class OldServerPinger {
     private static final Splitter PING_RESPONSE_SPLITTER = Splitter.on('\u0000').limit(6);
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private final List<NetworkManager> pingDestinations = Collections.synchronizedList(Lists.newArrayList());
 
     public void ping(final ServerData server) throws UnknownHostException {
@@ -115,7 +115,7 @@ public class OldServerPinger {
                         if (s.startsWith("data:image/png;base64,")) {
                             server.setBase64EncodedIconData(s.substring("data:image/png;base64,".length()));
                         } else {
-                            OldServerPinger.logger.error("Invalid server icon (unknown format)");
+                            OldServerPinger.LOGGER.error("Invalid server icon (unknown format)");
                         }
                     } else {
                         server.setBase64EncodedIconData(null);
@@ -136,7 +136,7 @@ public class OldServerPinger {
 
             public void onDisconnect(IChatComponent reason) {
                 if (!this.field_147403_d) {
-                    OldServerPinger.logger.error("Can't ping {}: {}", server.serverIP, reason.getUnformattedText());
+                    OldServerPinger.LOGGER.error("Can't ping {}: {}", server.serverIP, reason.getUnformattedText());
                     server.serverMOTD = Formatting.DARK_RED + "Can't connect to server.";
                     server.populationInfo = "";
                     OldServerPinger.this.tryCompatibilityPing(server);
@@ -148,7 +148,7 @@ public class OldServerPinger {
             networkmanager.sendPacket(new C00Handshake(47, serveraddress.getIP(), serveraddress.getPort(), NetworkState.STATUS));
             networkmanager.sendPacket(new C00PacketServerQuery());
         } catch (Throwable throwable) {
-            logger.error(throwable);
+            LOGGER.error(throwable);
         }
     }
 

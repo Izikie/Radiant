@@ -1,6 +1,5 @@
 package net.minecraft.inventory;
 
-import java.util.Iterator;
 import java.util.Map;
 
 import net.minecraft.block.BlockAnvil;
@@ -19,7 +18,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class ContainerRepair extends Container {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private final IInventory outputSlot;
     private final IInventory inputSlots;
     private final World theWorld;

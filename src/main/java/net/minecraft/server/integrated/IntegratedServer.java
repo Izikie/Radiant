@@ -37,7 +37,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class IntegratedServer extends MinecraftServer {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private final Minecraft mc;
     private final WorldSettings theWorldSettings;
     private boolean isGamePaused;
@@ -128,13 +128,13 @@ public class IntegratedServer extends MinecraftServer {
     }
 
     protected boolean startServer() throws IOException {
-        logger.info("Starting integrated minecraft server version 1.9");
+        LOGGER.info("Starting integrated minecraft server version 1.9");
         this.setOnlineMode(true);
         this.setCanSpawnAnimals(true);
         this.setCanSpawnNPCs(true);
         this.setAllowPvp(true);
         this.setAllowFlight(true);
-        logger.info("Generating keypair");
+        LOGGER.info("Generating keypair");
         this.setKeyPair(CryptManager.generateKeyPair());
 
         this.loadAllWorlds(this.getFolderName(), this.getWorldName(), this.theWorldSettings.getSeed(), this.theWorldSettings.getTerrainType(), this.theWorldSettings.getWorldName());
@@ -149,7 +149,7 @@ public class IntegratedServer extends MinecraftServer {
         this.isGamePaused = Minecraft.getMinecraft().getNetHandler() != null && Minecraft.getMinecraft().isGamePaused();
 
         if (!flag && this.isGamePaused) {
-            logger.info("Saving and pausing game...");
+            LOGGER.info("Saving and pausing game...");
             this.getConfigurationManager().saveAllPlayerData();
             this.saveAllWorlds(false);
         }
@@ -157,14 +157,14 @@ public class IntegratedServer extends MinecraftServer {
         if (this.isGamePaused) {
             synchronized (this.futureTaskQueue) {
                 while (!this.futureTaskQueue.isEmpty()) {
-                    Util.runTask((FutureTask) this.futureTaskQueue.poll(), logger);
+                    Util.runTask((FutureTask) this.futureTaskQueue.poll(), LOGGER);
                 }
             }
         } else {
             super.tick();
 
             if (this.mc.gameSettings.renderDistanceChunks != this.getConfigurationManager().getViewDistance()) {
-                logger.info("Changing view distance to {}, from {}", new Object[]{this.mc.gameSettings.renderDistanceChunks, this.getConfigurationManager().getViewDistance()});
+                LOGGER.info("Changing view distance to {}, from {}", new Object[]{this.mc.gameSettings.renderDistanceChunks, this.getConfigurationManager().getViewDistance()});
                 this.getConfigurationManager().setViewDistance(this.mc.gameSettings.renderDistanceChunks);
             }
 
@@ -173,10 +173,10 @@ public class IntegratedServer extends MinecraftServer {
                 WorldInfo worldinfo = this.mc.theWorld.getWorldInfo();
 
                 if (!worldinfo1.isDifficultyLocked() && worldinfo.getDifficulty() != worldinfo1.getDifficulty()) {
-                    logger.info("Changing difficulty to {}, from {}", new Object[]{worldinfo.getDifficulty(), worldinfo1.getDifficulty()});
+                    LOGGER.info("Changing difficulty to {}, from {}", new Object[]{worldinfo.getDifficulty(), worldinfo1.getDifficulty()});
                     this.setDifficultyForAllWorlds(worldinfo.getDifficulty());
                 } else if (worldinfo.isDifficultyLocked() && !worldinfo1.isDifficultyLocked()) {
-                    logger.info("Locking difficulty to {}", new Object[]{worldinfo.getDifficulty()});
+                    LOGGER.info("Locking difficulty to {}", new Object[]{worldinfo.getDifficulty()});
 
                     for (WorldServer worldserver : this.worldServers) {
                         if (worldserver != null) {
@@ -281,7 +281,7 @@ public class IntegratedServer extends MinecraftServer {
             }
 
             this.getNetworkSystem().addLanEndpoint(null, i);
-            logger.info("Started on {}", i);
+            LOGGER.info("Started on {}", i);
             this.isPublic = true;
             this.lanServerPing = new ThreadLanServerPing(this.getMOTD(), i + "");
             this.lanServerPing.start();

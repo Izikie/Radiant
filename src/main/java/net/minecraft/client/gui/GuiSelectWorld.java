@@ -20,7 +20,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class GuiSelectWorld extends GuiScreen implements GuiYesNoCallback {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private final DateFormat field_146633_h = new SimpleDateFormat();
     protected final GuiScreen parentScreen;
     protected String screenTitle = "Select world";
@@ -47,7 +47,7 @@ public class GuiSelectWorld extends GuiScreen implements GuiYesNoCallback {
         try {
             this.loadLevelList();
         } catch (AnvilConverterException anvilconverterexception) {
-            logger.error("Couldn't load level list", anvilconverterexception);
+            LOGGER.error("Couldn't load level list", anvilconverterexception);
             this.mc.displayGuiScreen(new GuiErrorScreen("Unable to load worlds", anvilconverterexception.getMessage()));
             return;
         }
@@ -168,7 +168,7 @@ public class GuiSelectWorld extends GuiScreen implements GuiYesNoCallback {
                 try {
                     this.loadLevelList();
                 } catch (AnvilConverterException anvilconverterexception) {
-                    logger.error("Couldn't load level list", anvilconverterexception);
+                    LOGGER.error("Couldn't load level list", anvilconverterexception);
                 }
             }
 

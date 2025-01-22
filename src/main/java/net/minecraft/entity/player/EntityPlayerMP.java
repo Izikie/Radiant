@@ -99,7 +99,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class EntityPlayerMP extends EntityPlayer implements ICrafting {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private String translator = "en_US";
     public NetHandlerPlayServer playerNetServerHandler;
     public final MinecraftServer mcServer;

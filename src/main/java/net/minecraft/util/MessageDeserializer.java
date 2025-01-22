@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 
 public class MessageDeserializer extends ByteToMessageDecoder {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final Marker RECEIVED_PACKET_MARKER = MarkerManager.getMarker("PACKET_RECEIVED", NetworkManager.logMarkerPackets);
     private final PacketDirection direction;
 
@@ -41,8 +41,8 @@ public class MessageDeserializer extends ByteToMessageDecoder {
                 } else {
                     p_decode_3_.add(packet);
 
-                    if (logger.isDebugEnabled()) {
-                        logger.debug(RECEIVED_PACKET_MARKER, " IN: [{}:{}] {}", new Object[]{p_decode_1_.channel().attr(NetworkManager.attrKeyConnectionState).get(), i, packet.getClass().getName()});
+                    if (LOGGER.isDebugEnabled()) {
+                        LOGGER.debug(RECEIVED_PACKET_MARKER, " IN: [{}:{}] {}", new Object[]{p_decode_1_.channel().attr(NetworkManager.attrKeyConnectionState).get(), i, packet.getClass().getName()});
                     }
                 }
             }

@@ -206,7 +206,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class NetHandlerPlayClient implements INetHandlerPlayClient {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private final NetworkManager netManager;
     private final GameProfile profile;
     private final GuiScreen guiScreenServer;
@@ -1294,7 +1294,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
                     imerchant.setRecipes(merchantrecipelist);
                 }
             } catch (IOException ioexception) {
-                logger.error("Couldn't load trade info", ioexception);
+                LOGGER.error("Couldn't load trade info", ioexception);
             } finally {
                 packetbuffer.release();
             }
@@ -1412,7 +1412,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
             try {
                 this.clientWorldController.spawnParticle(packetIn.getParticleType(), packetIn.isLongDistance(), packetIn.getXCoordinate(), packetIn.getYCoordinate(), packetIn.getZCoordinate(), d0, d2, d4, packetIn.getParticleArgs());
             } catch (Throwable var17) {
-                logger.warn("Could not spawn particle effect {}", packetIn.getParticleType());
+                LOGGER.warn("Could not spawn particle effect {}", packetIn.getParticleType());
             }
         } else {
             for (int i = 0; i < packetIn.getParticleCount(); ++i) {
@@ -1426,7 +1426,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
                 try {
                     this.clientWorldController.spawnParticle(packetIn.getParticleType(), packetIn.isLongDistance(), packetIn.getXCoordinate() + d1, packetIn.getYCoordinate() + d3, packetIn.getZCoordinate() + d5, d6, d7, d8, packetIn.getParticleArgs());
                 } catch (Throwable var16) {
-                    logger.warn("Could not spawn particle effect {}", packetIn.getParticleType());
+                    LOGGER.warn("Could not spawn particle effect {}", packetIn.getParticleType());
                     return;
                 }
             }

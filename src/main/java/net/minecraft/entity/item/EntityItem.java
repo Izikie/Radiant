@@ -18,7 +18,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class EntityItem extends Entity {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private int age;
     private int delayBeforeCanPickup;
     private int health;
@@ -313,7 +313,7 @@ public class EntityItem extends Entity {
 
         if (itemstack == null) {
             if (this.worldObj != null) {
-                logger.error("Item entity {} has no item?!", this.getEntityId());
+                LOGGER.error("Item entity {} has no item?!", this.getEntityId());
             }
 
             return new ItemStack(Blocks.stone);

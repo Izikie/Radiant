@@ -27,7 +27,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class ThreadDownloadImageData extends SimpleTexture {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final AtomicInteger threadDownloadCounter = new AtomicInteger(0);
     private final File cacheFile;
     private final String imageUrl;
@@ -83,7 +83,7 @@ public class ThreadDownloadImageData extends SimpleTexture {
 
         if (this.imageThread == null) {
             if (this.cacheFile != null && this.cacheFile.isFile()) {
-                logger.debug("Loading http texture from local cache ({})", new Object[]{this.cacheFile});
+                LOGGER.debug("Loading http texture from local cache ({})", new Object[]{this.cacheFile});
 
                 try {
                     this.bufferedImage = ImageIO.read(this.cacheFile);
@@ -94,7 +94,7 @@ public class ThreadDownloadImageData extends SimpleTexture {
 
                     this.loadingFinished();
                 } catch (IOException ioexception) {
-                    logger.error("Couldn't load skin {}", this.cacheFile, ioexception);
+                    LOGGER.error("Couldn't load skin {}", this.cacheFile, ioexception);
                     this.loadTextureFromServer();
                 }
             } else {
@@ -107,7 +107,7 @@ public class ThreadDownloadImageData extends SimpleTexture {
         this.imageThread = new Thread("Texture Downloader #" + threadDownloadCounter.incrementAndGet()) {
             public void run() {
                 HttpURLConnection httpurlconnection = null;
-                ThreadDownloadImageData.logger.debug("Downloading http texture from {} to {}", new Object[]{ThreadDownloadImageData.this.imageUrl, ThreadDownloadImageData.this.cacheFile});
+                ThreadDownloadImageData.LOGGER.debug("Downloading http texture from {} to {}", new Object[]{ThreadDownloadImageData.this.imageUrl, ThreadDownloadImageData.this.cacheFile});
 
                 if (ThreadDownloadImageData.this.shouldPipeline()) {
                     ThreadDownloadImageData.this.loadPipelined();
@@ -141,7 +141,7 @@ public class ThreadDownloadImageData extends SimpleTexture {
 
                         ThreadDownloadImageData.this.setBufferedImage(bufferedimage);
                     } catch (Exception exception) {
-                        ThreadDownloadImageData.logger.error("Couldn't download http texture: {}: {}", exception.getClass().getName(), exception.getMessage());
+                        ThreadDownloadImageData.LOGGER.error("Couldn't download http texture: {}: {}", exception.getClass().getName(), exception.getMessage());
                         return;
                     } finally {
                         if (httpurlconnection != null) {
@@ -192,7 +192,7 @@ public class ThreadDownloadImageData extends SimpleTexture {
 
             this.setBufferedImage(bufferedimage);
         } catch (Exception exception) {
-            logger.error("Couldn't download http texture: {}: {}", exception.getClass().getName(), exception.getMessage());
+            LOGGER.error("Couldn't download http texture: {}: {}", exception.getClass().getName(), exception.getMessage());
             return;
         } finally {
             this.loadingFinished();

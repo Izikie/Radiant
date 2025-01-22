@@ -15,7 +15,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class LayeredTexture extends AbstractTexture {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     public final List<String> layeredTextureNames;
     private ResourceLocation textureLocation;
 
@@ -45,7 +45,7 @@ public class LayeredTexture extends AbstractTexture {
                 }
             }
         } catch (IOException ioexception) {
-            logger.error("Couldn't load layered image", ioexception);
+            LOGGER.error("Couldn't load layered image", ioexception);
             return;
         }
 

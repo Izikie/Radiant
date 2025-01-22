@@ -33,7 +33,7 @@ import org.apache.logging.log4j.Logger;
 public class HttpUtil {
     public static final ListeningExecutorService field_180193_a = MoreExecutors.listeningDecorator(Executors.newCachedThreadPool((new ThreadFactoryBuilder()).setDaemon(true).setNameFormat("Downloader %d").build()));
     private static final AtomicInteger downloadThreadsStarted = new AtomicInteger(0);
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
 
     public static String buildPostString(Map<String, Object> data) {
         StringBuilder stringbuilder = new StringBuilder();
@@ -92,7 +92,7 @@ public class HttpUtil {
             return stringbuffer.toString();
         } catch (Exception exception) {
             if (!skipLoggingErrors) {
-                logger.error("Could not post to {}", url, exception);
+                LOGGER.error("Could not post to {}", url, exception);
             }
 
             return "";
@@ -145,7 +145,7 @@ public class HttpUtil {
                             return;
                         }
 
-                        HttpUtil.logger.warn("Deleting {} as it does not match what we currently have ({} vs our {}).", saveFile, i, j);
+                        HttpUtil.LOGGER.warn("Deleting {} as it does not match what we currently have ({} vs our {}).", saveFile, i, j);
                         FileUtils.deleteQuietly(saveFile);
                     } else if (saveFile.getParentFile() != null) {
                         saveFile.getParentFile().mkdirs();
@@ -179,7 +179,7 @@ public class HttpUtil {
                         }
 
                         if (Thread.interrupted()) {
-                            HttpUtil.logger.error("INTERRUPTED");
+                            HttpUtil.LOGGER.error("INTERRUPTED");
 
                             if (p_180192_4_ != null) {
                                 p_180192_4_.setDoneWorking();
@@ -202,7 +202,7 @@ public class HttpUtil {
                         InputStream inputstream1 = httpurlconnection.getErrorStream();
 
                         try {
-                            HttpUtil.logger.error(IOUtils.toString(inputstream1));
+                            HttpUtil.LOGGER.error(IOUtils.toString(inputstream1));
                         } catch (IOException ioexception) {
                             ioexception.printStackTrace();
                         }

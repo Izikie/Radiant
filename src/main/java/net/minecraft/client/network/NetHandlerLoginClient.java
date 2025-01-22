@@ -28,7 +28,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class NetHandlerLoginClient implements INetHandlerLoginClient {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private final Minecraft mc;
     private final GuiScreen previousGuiScreen;
     private final NetworkManager networkManager;
@@ -50,7 +50,7 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
             try {
                 this.getSessionService().joinServer(this.mc.getSession().getProfile(), this.mc.getSession().getToken(), s1);
             } catch (AuthenticationException var10) {
-                logger.warn("Couldn't connect to auth servers but will continue to join LAN");
+                LOGGER.warn("Couldn't connect to auth servers but will continue to join LAN");
             }
         } else {
             try {

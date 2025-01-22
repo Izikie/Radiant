@@ -3,7 +3,6 @@ package net.minecraft.tileentity;
 import com.google.common.collect.Maps;
 
 import java.util.Map;
-import java.util.concurrent.Callable;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockJukebox;
@@ -18,7 +17,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public abstract class TileEntity {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final Map<String, Class<? extends TileEntity>> nameToClassMap = Maps.newHashMap();
     private static final Map<Class<? extends TileEntity>, String> classToNameMap = Maps.newHashMap();
     protected World worldObj;
@@ -81,7 +80,7 @@ public abstract class TileEntity {
         if (tileentity != null) {
             tileentity.readFromNBT(nbt);
         } else {
-            logger.warn("Skipping BlockEntity with id {}", nbt.getString("id"));
+            LOGGER.warn("Skipping BlockEntity with id {}", nbt.getString("id"));
         }
 
         return tileentity;

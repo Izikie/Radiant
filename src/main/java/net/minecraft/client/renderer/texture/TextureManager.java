@@ -9,7 +9,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.concurrent.Callable;
 
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
@@ -26,7 +25,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class TextureManager implements ITickable, IResourceManagerReloadListener {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private final Map<ResourceLocation, ITextureObject> mapTextureObjects = Maps.newHashMap();
     private final List<ITickable> listTickables = Lists.newArrayList();
     private final Map<String, Integer> mapTextureCounters = Maps.newHashMap();
@@ -83,7 +82,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
         try {
             textureObj.loadTexture(this.theResourceManager);
         } catch (IOException ioexception) {
-            logger.warn("Failed to load texture: {}", textureLocation, ioexception);
+            LOGGER.warn("Failed to load texture: {}", textureLocation, ioexception);
             textureObj = TextureUtil.missingTexture;
             this.mapTextureObjects.put(textureLocation, textureObj);
             flag = false;

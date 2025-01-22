@@ -12,7 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class RegistrySimple<K, V> implements IRegistry<K, V> {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     protected final Map<K, V> registryObjects = this.createUnderlyingMap();
 
     protected Map<K, V> createUnderlyingMap() {
@@ -28,7 +28,7 @@ public class RegistrySimple<K, V> implements IRegistry<K, V> {
         Validate.notNull(value);
 
         if (this.registryObjects.containsKey(key)) {
-            logger.debug("Adding duplicate key '{}' to registry", key);
+            LOGGER.debug("Adding duplicate key '{}' to registry", key);
         }
 
         this.registryObjects.put(key, value);

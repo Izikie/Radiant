@@ -28,7 +28,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class UserList<K, V extends UserListEntry<K>> {
-    protected static final Logger logger = LogManager.getLogger();
+    protected static final Logger LOGGER = LogManager.getLogger();
     protected final Gson gson;
     private final File saveFile;
     private final Map<String, V> values = Maps.newHashMap();
@@ -68,7 +68,7 @@ public class UserList<K, V extends UserListEntry<K>> {
         try {
             this.writeChanges();
         } catch (IOException ioexception) {
-            logger.warn("Could not save the list after adding a user.", ioexception);
+            LOGGER.warn("Could not save the list after adding a user.", ioexception);
         }
     }
 
@@ -83,7 +83,7 @@ public class UserList<K, V extends UserListEntry<K>> {
         try {
             this.writeChanges();
         } catch (IOException ioexception) {
-            logger.warn("Could not save the list after removing a user.", ioexception);
+            LOGGER.warn("Could not save the list after removing a user.", ioexception);
         }
     }
 

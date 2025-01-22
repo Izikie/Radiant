@@ -15,7 +15,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class SimpleTexture extends AbstractTexture {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     protected final ResourceLocation textureLocation;
     public ResourceLocation locationEmissive;
     public boolean isEmissive;
@@ -44,7 +44,7 @@ public class SimpleTexture extends AbstractTexture {
                         flag1 = texturemetadatasection.getTextureClamp();
                     }
                 } catch (RuntimeException runtimeexception) {
-                    logger.warn("Failed reading metadata of: {}", this.textureLocation, runtimeexception);
+                    LOGGER.warn("Failed reading metadata of: {}", this.textureLocation, runtimeexception);
                 }
             }
 

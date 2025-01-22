@@ -31,7 +31,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private final Map<ChunkCoordIntPair, NBTTagCompound> chunksToRemove = new ConcurrentHashMap();
     private final Set<ChunkCoordIntPair> pendingAnvilChunksCoordinates = Collections.<ChunkCoordIntPair>newSetFromMap(new ConcurrentHashMap());
     private final File chunkSaveLocation;
@@ -60,19 +60,19 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 
     protected Chunk checkedReadChunkFromNBT(World worldIn, int x, int z, NBTTagCompound p_75822_4_) {
         if (!p_75822_4_.hasKey("Level", 10)) {
-            logger.error("Chunk file at {},{} is missing level data, skipping", x, z);
+            LOGGER.error("Chunk file at {},{} is missing level data, skipping", x, z);
             return null;
         } else {
             NBTTagCompound nbttagcompound = p_75822_4_.getCompoundTag("Level");
 
             if (!nbttagcompound.hasKey("Sections", 9)) {
-                logger.error("Chunk file at {},{} is missing block data, skipping", x, z);
+                LOGGER.error("Chunk file at {},{} is missing block data, skipping", x, z);
                 return null;
             } else {
                 Chunk chunk = this.readChunkFromNBT(worldIn, nbttagcompound);
 
                 if (!chunk.isAtLocation(x, z)) {
-                    logger.error("Chunk file at {},{} is in the wrong location; relocating. (Expected {}, {}, got {}, {})", x, z, x, z, chunk.xPosition, chunk.zPosition);
+                    LOGGER.error("Chunk file at {},{} is in the wrong location; relocating. (Expected {}, {}, got {}, {})", x, z, x, z, chunk.xPosition, chunk.zPosition);
                     nbttagcompound.setInteger("xPos", x);
                     nbttagcompound.setInteger("zPos", z);
                     chunk = this.readChunkFromNBT(worldIn, nbttagcompound);
@@ -93,7 +93,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
             this.writeChunkToNBT(chunkIn, worldIn, nbttagcompound1);
             this.addChunkToPending(chunkIn.getChunkCoordIntPair(), nbttagcompound);
         } catch (Exception exception) {
-            logger.error("Failed to save chunk", exception);
+            LOGGER.error("Failed to save chunk", exception);
         }
     }
 
@@ -108,7 +108,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
     public boolean writeNextIO() {
         if (this.chunksToRemove.isEmpty()) {
             if (this.field_183014_e) {
-                logger.info("ThreadedAnvilChunkStorage ({}): All chunks are saved", new Object[]{this.chunkSaveLocation.getName()});
+                LOGGER.info("ThreadedAnvilChunkStorage ({}): All chunks are saved", new Object[]{this.chunkSaveLocation.getName()});
             }
 
             return false;
@@ -124,7 +124,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
                     try {
                         this.func_183013_b(chunkcoordintpair, nbttagcompound);
                     } catch (Exception exception) {
-                        logger.error("Failed to save chunk", exception);
+                        LOGGER.error("Failed to save chunk", exception);
                     }
                 }
 

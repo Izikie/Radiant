@@ -19,7 +19,7 @@ import org.apache.logging.log4j.Logger;
 import org.lwjgl.Sys;
 
 public class GuiScreenResourcePacks extends GuiScreen {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private final GuiScreen parentScreen;
     private List<ResourcePackListEntry> availableResourcePacks;
     private List<ResourcePackListEntry> selectedResourcePacks;
@@ -92,11 +92,11 @@ public class GuiScreenResourcePacks extends GuiScreen {
 
                 if (Util.getOSType() == Util.OperatingSystem.OSX) {
                     try {
-                        logger.info(s);
+                        LOGGER.info(s);
                         Runtime.getRuntime().exec(new String[]{"/usr/bin/open", s});
                         return;
                     } catch (IOException ioexception1) {
-                        logger.error("Couldn't open file", ioexception1);
+                        LOGGER.error("Couldn't open file", ioexception1);
                     }
                 } else if (Util.getOSType() == Util.OperatingSystem.WINDOWS) {
                     String s1 = String.format("cmd.exe /C start \"Open file\" \"%s\"", s);
@@ -105,7 +105,7 @@ public class GuiScreenResourcePacks extends GuiScreen {
                         Runtime.getRuntime().exec(s1);
                         return;
                     } catch (IOException ioexception) {
-                        logger.error("Couldn't open file", ioexception);
+                        LOGGER.error("Couldn't open file", ioexception);
                     }
                 }
 
@@ -116,12 +116,12 @@ public class GuiScreenResourcePacks extends GuiScreen {
                     Object object = oclass.getMethod("getDesktop", new Class[0]).invoke(null);
                     oclass.getMethod("browse", new Class[]{URI.class}).invoke(object, file1.toURI());
                 } catch (Throwable throwable) {
-                    logger.error("Couldn't open link", throwable);
+                    LOGGER.error("Couldn't open link", throwable);
                     flag = true;
                 }
 
                 if (flag) {
-                    logger.info("Opening via system class!");
+                    LOGGER.info("Opening via system class!");
                     Sys.openURL("file://" + s);
                 }
             } else if (button.id == 1) {

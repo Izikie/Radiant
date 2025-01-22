@@ -28,7 +28,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class SoundHandler implements IResourceManagerReloadListener, ITickable {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final Gson GSON = (new GsonBuilder()).registerTypeAdapter(SoundList.class, new SoundListSerializer()).create();
     private static final ParameterizedType TYPE = new ParameterizedType() {
         public Type[] getActualTypeArguments() {
@@ -67,7 +67,7 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
                             this.loadSoundResource(new ResourceLocation(s, entry.getKey()), entry.getValue());
                         }
                     } catch (RuntimeException runtimeexception) {
-                        logger.warn("Invalid sounds.json", runtimeexception);
+                        LOGGER.warn("Invalid sounds.json", runtimeexception);
                     }
                 }
             } catch (IOException var11) {
@@ -95,7 +95,7 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
             soundeventaccessorcomposite = this.sndRegistry.getObject(location);
         } else {
             if (!flag) {
-                logger.debug("Replaced sound event location {}", new Object[]{location});
+                LOGGER.debug("Replaced sound event location {}", new Object[]{location});
             }
 
             soundeventaccessorcomposite = new SoundEventAccessorComposite(location, 1.0D, 1.0D, sounds.getSoundCategory());
@@ -116,10 +116,10 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
                     try {
                         inputstream = this.mcResourceManager.getResource(resourcelocation1).getInputStream();
                     } catch (FileNotFoundException var18) {
-                        logger.warn("File {} does not exist, cannot add it to event {}", new Object[]{resourcelocation1, location});
+                        LOGGER.warn("File {} does not exist, cannot add it to event {}", new Object[]{resourcelocation1, location});
                         continue;
                     } catch (IOException ioexception) {
-                        logger.warn("Could not load sound file {}, cannot add it to event {}", resourcelocation1, location, ioexception);
+                        LOGGER.warn("Could not load sound file {}, cannot add it to event {}", resourcelocation1, location, ioexception);
                         continue;
                     } finally {
                         IOUtils.closeQuietly(inputstream);

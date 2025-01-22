@@ -51,7 +51,7 @@ import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 
 public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     public static final Marker logMarkerNetwork = MarkerManager.getMarker("NETWORK");
     public static final Marker logMarkerPackets = MarkerManager.getMarker("NETWORK_PACKETS", logMarkerNetwork);
     public static final AttributeKey<NetworkState> attrKeyConnectionState = AttributeKey.valueOf("protocol");
@@ -92,14 +92,14 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
         try {
             this.setConnectionState(NetworkState.HANDSHAKING);
         } catch (Throwable throwable) {
-            logger.fatal(throwable);
+            LOGGER.fatal(throwable);
         }
     }
 
     public void setConnectionState(NetworkState newState) {
         this.channel.attr(attrKeyConnectionState).set(newState);
         this.channel.config().setAutoRead(true);
-        logger.debug("Enabled auto read");
+        LOGGER.debug("Enabled auto read");
     }
 
     public void channelInactive(ChannelHandlerContext p_channelInactive_1_) throws Exception {
@@ -129,7 +129,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
 
     public void setNetHandler(INetHandler handler) {
         Validate.notNull(handler, "packetListener");
-        logger.debug("Set listener of {} to {}", new Object[]{this, handler});
+        LOGGER.debug("Set listener of {} to {}", new Object[]{this, handler});
         this.packetListener = handler;
     }
 
@@ -169,7 +169,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
         final NetworkState enumconnectionstate1 = this.channel.attr(attrKeyConnectionState).get();
 
         if (enumconnectionstate1 != enumconnectionstate) {
-            logger.debug("Disabled auto read");
+            LOGGER.debug("Disabled auto read");
             this.channel.config().setAutoRead(false);
         }
 
@@ -343,7 +343,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
                     this.getNetHandler().onDisconnect(new ChatComponentText("Disconnected"));
                 }
             } else {
-                logger.warn("handleDisconnection() called twice");
+                LOGGER.warn("handleDisconnection() called twice");
             }
         }
     }

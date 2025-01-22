@@ -32,7 +32,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class PlayerManager {
-    private static final Logger pmLogger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private final WorldServer theWorldServer;
     private final List<EntityPlayerMP> players = Lists.newArrayList();
     private final LongHashMap<PlayerManager.PlayerInstance> playerInstances = new LongHashMap();
@@ -393,7 +393,7 @@ public class PlayerManager {
 
         public void addPlayer(EntityPlayerMP player) {
             if (this.playersWatchingChunk.contains(player)) {
-                PlayerManager.pmLogger.debug("Failed to add player. {} already is in chunk {}, {}", new Object[]{player, this.chunkCoords.chunkXPos, this.chunkCoords.chunkZPos});
+                PlayerManager.LOGGER.debug("Failed to add player. {} already is in chunk {}, {}", new Object[]{player, this.chunkCoords.chunkXPos, this.chunkCoords.chunkZPos});
             } else {
                 if (this.playersWatchingChunk.isEmpty()) {
                     this.previousWorldTime = PlayerManager.this.theWorldServer.getTotalWorldTime();

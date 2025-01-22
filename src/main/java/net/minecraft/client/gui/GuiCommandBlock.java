@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 
 public class GuiCommandBlock extends GuiScreen {
-    private static final Logger field_146488_a = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private GuiTextField commandTextField;
     private GuiTextField previousOutputTextField;
     private final CommandBlockLogic localCommandBlock;

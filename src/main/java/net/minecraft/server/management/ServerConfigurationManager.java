@@ -66,7 +66,7 @@ public abstract class ServerConfigurationManager {
     public static final File FILE_IPBANS = new File("banned-ips.json");
     public static final File FILE_OPS = new File("ops.json");
     public static final File FILE_WHITELIST = new File("whitelist.json");
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
     private final MinecraftServer mcServer;
     private final List<EntityPlayerMP> playerEntityList = Lists.newArrayList();
@@ -111,7 +111,7 @@ public abstract class ServerConfigurationManager {
             s1 = netManager.getRemoteAddress().toString();
         }
 
-        logger.info("{}[{}] logged in with entity id {} at ({}, {}, {})", playerIn.getName(), s1, playerIn.getEntityId(), playerIn.posX, playerIn.posY, playerIn.posZ);
+        LOGGER.info("{}[{}] logged in with entity id {} at ({}, {}, {})", playerIn.getName(), s1, playerIn.getEntityId(), playerIn.posX, playerIn.posY, playerIn.posZ);
         WorldServer worldserver = this.mcServer.worldServerForDimension(playerIn.dimension);
         WorldInfo worldinfo = worldserver.getWorldInfo();
         BlockPos blockpos = worldserver.getSpawnPoint();
@@ -236,7 +236,7 @@ public abstract class ServerConfigurationManager {
         if (playerIn.getName().equals(this.mcServer.getServerOwner()) && nbttagcompound != null) {
             playerIn.readFromNBT(nbttagcompound);
             nbttagcompound1 = nbttagcompound;
-            logger.debug("loading single player");
+            LOGGER.debug("loading single player");
         } else {
             nbttagcompound1 = this.playerNBTManagerObj.readPlayerData(playerIn);
         }
@@ -277,7 +277,7 @@ public abstract class ServerConfigurationManager {
 
         if (playerIn.ridingEntity != null) {
             worldserver.removePlayerEntityDangerously(playerIn.ridingEntity);
-            logger.debug("removing player mount");
+            LOGGER.debug("removing player mount");
         }
 
         worldserver.removeEntity(playerIn);

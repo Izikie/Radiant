@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 public class ThreadLanServerPing extends Thread {
     private static final AtomicInteger field_148658_a = new AtomicInteger(0);
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private final String motd;
     private final DatagramSocket socket;
     private boolean isStopping = true;
@@ -35,7 +35,7 @@ public class ThreadLanServerPing extends Thread {
                 DatagramPacket datagrampacket = new DatagramPacket(abyte, abyte.length, inetaddress, 4445);
                 this.socket.send(datagrampacket);
             } catch (IOException ioexception) {
-                logger.warn("LanServerPinger: {}", ioexception.getMessage());
+                LOGGER.warn("LanServerPinger: {}", ioexception.getMessage());
                 break;
             }
 

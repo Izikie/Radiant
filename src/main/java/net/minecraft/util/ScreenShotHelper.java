@@ -23,7 +23,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 public class ScreenShotHelper {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss");
     private static IntBuffer pixelBuffer;
     private static int[] pixelValues;
@@ -115,7 +115,7 @@ public class ScreenShotHelper {
             ichatcomponent.getChatStyle().setUnderlined(Boolean.TRUE);
             return new ChatComponentTranslation("screenshot.success", ichatcomponent);
         } catch (Exception exception) {
-            logger.warn("Couldn't save screenshot", exception);
+            LOGGER.warn("Couldn't save screenshot", exception);
             return new ChatComponentTranslation("screenshot.failure", exception.getMessage());
         }
     }

@@ -17,7 +17,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class LayeredColorMaskTexture extends AbstractTexture {
-    private static final Logger LOG = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private final ResourceLocation textureLocation;
     private final List<String> field_174949_h;
     private final List<DyeColor> field_174950_i;
@@ -71,7 +71,7 @@ public class LayeredColorMaskTexture extends AbstractTexture {
                 }
             }
         } catch (IOException ioexception) {
-            LOG.error("Couldn't load layered image", ioexception);
+            LOGGER.error("Couldn't load layered image", ioexception);
             return;
         }
 
