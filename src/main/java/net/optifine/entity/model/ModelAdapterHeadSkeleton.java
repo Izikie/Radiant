@@ -20,10 +20,10 @@ public class ModelAdapterHeadSkeleton extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelSkeletonHead modelskeletonhead)) {
-            return null;
-        } else {
+        if (model instanceof ModelSkeletonHead modelskeletonhead) {
             return modelPart.equals("head") ? modelskeletonhead.skeletonHead : null;
+        } else {
+            return null;
         }
     }
 
@@ -43,12 +43,12 @@ public class ModelAdapterHeadSkeleton extends ModelAdapter {
                 tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
             }
 
-            if (!Reflector.TileEntitySkullRenderer_humanoidHead.exists()) {
-                Config.warn("Field not found: TileEntitySkullRenderer.humanoidHead");
-                return null;
-            } else {
+            if (Reflector.TileEntitySkullRenderer_humanoidHead.exists()) {
                 Reflector.setFieldValue(tileentityspecialrenderer, Reflector.TileEntitySkullRenderer_humanoidHead, modelBase);
                 return tileentityspecialrenderer;
+            } else {
+                Config.warn("Field not found: TileEntitySkullRenderer.humanoidHead");
+                return null;
             }
         }
     }

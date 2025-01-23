@@ -20,9 +20,7 @@ public class ModelAdapterWither extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelWither modelwither)) {
-            return null;
-        } else {
+        if (model instanceof ModelWither modelwither) {
             String s = "body";
 
             if (modelPart.startsWith(s)) {
@@ -54,6 +52,8 @@ public class ModelAdapterWither extends ModelAdapter {
                     return null;
                 }
             }
+        } else {
+            return null;
         }
     }
 

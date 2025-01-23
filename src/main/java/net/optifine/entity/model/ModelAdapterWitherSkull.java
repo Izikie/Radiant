@@ -20,10 +20,10 @@ public class ModelAdapterWitherSkull extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelSkeletonHead modelskeletonhead)) {
-            return null;
-        } else {
+        if (model instanceof ModelSkeletonHead modelskeletonhead) {
             return modelPart.equals("head") ? modelskeletonhead.skeletonHead : null;
+        } else {
+            return null;
         }
     }
 
@@ -35,13 +35,13 @@ public class ModelAdapterWitherSkull extends ModelAdapter {
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
         RenderWitherSkull renderwitherskull = new RenderWitherSkull(rendermanager);
 
-        if (!Reflector.RenderWitherSkull_model.exists()) {
-            Config.warn("Field not found: RenderWitherSkull_model");
-            return null;
-        } else {
+        if (Reflector.RenderWitherSkull_model.exists()) {
             Reflector.setFieldValue(renderwitherskull, Reflector.RenderWitherSkull_model, modelBase);
             renderwitherskull.shadowSize = shadowSize;
             return renderwitherskull;
+        } else {
+            Config.warn("Field not found: RenderWitherSkull_model");
+            return null;
         }
     }
 }

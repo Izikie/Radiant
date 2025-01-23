@@ -957,6 +957,6 @@ public class CustomItemProperties {
     }
 
     private static ResourceLocation getModelLocation(String modelName) {
-        return Reflector.ModelLoader.exists() && !modelName.startsWith("mcpatcher/") && !modelName.startsWith("optifine/") ? new ResourceLocation("models/" + modelName) : new ResourceLocation(modelName);
+        return new ResourceLocation(modelName);
     }
 }

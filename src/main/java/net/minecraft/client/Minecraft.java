@@ -1953,4 +1953,8 @@ public class Minecraft implements IThreadListener {
         map.put("X-Minecraft-Version", "1.8.9");
         return map;
     }
+
+    public DefaultResourcePack getDefaultResourcePack() {
+        return mcDefaultResourcePack;
+    }
 }

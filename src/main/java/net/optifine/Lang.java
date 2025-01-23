@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.src.Config;
@@ -35,7 +36,7 @@ public class Lang {
         }
 
         String[] astring = list.toArray(new String[0]);
-        loadResources(Config.getDefaultResourcePack(), astring, map);
+        loadResources(Minecraft.getMinecraft().getDefaultResourcePack(), astring, map);
         IResourcePack[] airesourcepack = Config.getResourcePacks();
 
         for (IResourcePack iresourcepack : airesourcepack) {

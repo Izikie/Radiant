@@ -20,10 +20,10 @@ public class ModelAdapterBanner extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelBanner modelbanner)) {
-            return null;
-        } else {
+        if (model instanceof ModelBanner modelbanner) {
             return modelPart.equals("slate") ? modelbanner.bannerSlate : (modelPart.equals("stand") ? modelbanner.bannerStand : (modelPart.equals("top") ? modelbanner.bannerTop : null));
+        } else {
+            return null;
         }
     }
 
@@ -43,12 +43,12 @@ public class ModelAdapterBanner extends ModelAdapter {
                 tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
             }
 
-            if (!Reflector.TileEntityBannerRenderer_bannerModel.exists()) {
-                Config.warn("Field not found: TileEntityBannerRenderer.bannerModel");
-                return null;
-            } else {
+            if (Reflector.TileEntityBannerRenderer_bannerModel.exists()) {
                 Reflector.setFieldValue(tileentityspecialrenderer, Reflector.TileEntityBannerRenderer_bannerModel, modelBase);
                 return tileentityspecialrenderer;
+            } else {
+                Config.warn("Field not found: TileEntityBannerRenderer.bannerModel");
+                return null;
             }
         }
     }

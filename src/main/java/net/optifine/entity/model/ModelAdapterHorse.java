@@ -28,9 +28,7 @@ public class ModelAdapterHorse extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelHorse modelhorse)) {
-            return null;
-        } else {
+        if (model instanceof ModelHorse modelhorse) {
             Map<String, Integer> map = getMapPartFields();
 
             if (map.containsKey(modelPart)) {
@@ -39,6 +37,8 @@ public class ModelAdapterHorse extends ModelAdapter {
             } else {
                 return null;
             }
+        } else {
+            return null;
         }
     }
 

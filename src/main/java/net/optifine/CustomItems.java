@@ -77,7 +77,7 @@ public class CustomItems {
                 update(iresourcepack);
             }
 
-            update(Config.getDefaultResourcePack());
+            update(Minecraft.getMinecraft().getDefaultResourcePack());
 
             if (itemProperties.length == 0) {
                 itemProperties = null;

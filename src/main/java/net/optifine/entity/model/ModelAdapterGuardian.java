@@ -20,9 +20,7 @@ public class ModelAdapterGuardian extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelGuardian modelguardian)) {
-            return null;
-        } else {
+        if (model instanceof ModelGuardian modelguardian) {
 
             if (modelPart.equals("body")) {
                 return (ModelRenderer) Reflector.getFieldValue(modelguardian, Reflector.ModelGuardian_body);
@@ -61,6 +59,8 @@ public class ModelAdapterGuardian extends ModelAdapter {
                     }
                 }
             }
+        } else {
+            return null;
         }
     }
 

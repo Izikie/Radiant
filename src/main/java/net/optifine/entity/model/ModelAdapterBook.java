@@ -20,10 +20,10 @@ public class ModelAdapterBook extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelBook modelbook)) {
-            return null;
-        } else {
+        if (model instanceof ModelBook modelbook) {
             return modelPart.equals("cover_right") ? modelbook.coverRight : (modelPart.equals("cover_left") ? modelbook.coverLeft : (modelPart.equals("pages_right") ? modelbook.pagesRight : (modelPart.equals("pages_left") ? modelbook.pagesLeft : (modelPart.equals("flipping_page_right") ? modelbook.flippingPageRight : (modelPart.equals("flipping_page_left") ? modelbook.flippingPageLeft : (modelPart.equals("book_spine") ? modelbook.bookSpine : null))))));
+        } else {
+            return null;
         }
     }
 
@@ -43,12 +43,12 @@ public class ModelAdapterBook extends ModelAdapter {
                 tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
             }
 
-            if (!Reflector.TileEntityEnchantmentTableRenderer_modelBook.exists()) {
-                Config.warn("Field not found: TileEntityEnchantmentTableRenderer.modelBook");
-                return null;
-            } else {
+            if (Reflector.TileEntityEnchantmentTableRenderer_modelBook.exists()) {
                 Reflector.setFieldValue(tileentityspecialrenderer, Reflector.TileEntityEnchantmentTableRenderer_modelBook, modelBase);
                 return tileentityspecialrenderer;
+            } else {
+                Config.warn("Field not found: TileEntityEnchantmentTableRenderer.modelBook");
+                return null;
             }
         }
     }

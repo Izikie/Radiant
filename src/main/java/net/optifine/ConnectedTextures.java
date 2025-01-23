@@ -1655,7 +1655,7 @@ public class ConnectedTextures {
                 updateIcons(textureMap, iresourcepack);
             }
 
-            updateIcons(textureMap, Config.getDefaultResourcePack());
+            updateIcons(textureMap, Minecraft.getMinecraft().getDefaultResourcePack());
             ResourceLocation resourcelocation = new ResourceLocation("mcpatcher/ctm/default/empty");
             emptySprite = textureMap.registerSprite(resourcelocation);
             spriteQuadMaps = new Map[textureMap.getCountRegisteredSprites() + 1];

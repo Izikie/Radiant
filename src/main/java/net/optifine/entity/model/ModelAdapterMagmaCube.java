@@ -20,9 +20,7 @@ public class ModelAdapterMagmaCube extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelMagmaCube modelmagmacube)) {
-            return null;
-        } else {
+        if (model instanceof ModelMagmaCube modelmagmacube) {
 
             if (modelPart.equals("core")) {
                 return (ModelRenderer) Reflector.getFieldValue(modelmagmacube, Reflector.ModelMagmaCube_core);
@@ -44,6 +42,8 @@ public class ModelAdapterMagmaCube extends ModelAdapter {
                     return null;
                 }
             }
+        } else {
+            return null;
         }
     }
 

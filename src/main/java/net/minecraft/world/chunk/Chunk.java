@@ -1208,6 +1208,10 @@ public class Chunk {
         this.hasEntities = hasEntitiesIn;
     }
 
+    public boolean hasEntities() {
+        return this.hasEntities;
+    }
+
     public void setLastSaveTime(long saveTime) {
         this.lastSaveTime = saveTime;
     }

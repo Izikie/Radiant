@@ -20,9 +20,7 @@ public class ModelAdapterEndermite extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelEnderMite modelendermite)) {
-            return null;
-        } else {
+        if (model instanceof ModelEnderMite modelendermite) {
             String s = "body";
 
             if (modelPart.startsWith(s)) {
@@ -39,6 +37,8 @@ public class ModelAdapterEndermite extends ModelAdapter {
             } else {
                 return null;
             }
+        } else {
+            return null;
         }
     }
 

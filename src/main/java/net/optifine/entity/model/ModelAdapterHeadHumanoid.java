@@ -20,11 +20,13 @@ public class ModelAdapterHeadHumanoid extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelHumanoidHead modelhumanoidhead)) {
-            return null;
-        } else {
-            return modelPart.equals("head") ? modelhumanoidhead.skeletonHead : (modelPart.equals("head2") ? (!Reflector.ModelHumanoidHead_head.exists() ? null : (ModelRenderer) Reflector.getFieldValue(modelhumanoidhead, Reflector.ModelHumanoidHead_head)) : null);
+        if (model instanceof ModelHumanoidHead modelhumanoidhead) {
+            if (modelPart.equals("head"))
+                return modelhumanoidhead.skeletonHead;
+            if (modelPart.equals("head2"))
+                return Reflector.ModelHumanoidHead_head.exists() ? (ModelRenderer) Reflector.getFieldValue(modelhumanoidhead, Reflector.ModelHumanoidHead_head) : null;
         }
+        return null;
     }
 
     public String[] getModelRendererNames() {
@@ -43,12 +45,12 @@ public class ModelAdapterHeadHumanoid extends ModelAdapter {
                 tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
             }
 
-            if (!Reflector.TileEntitySkullRenderer_humanoidHead.exists()) {
-                Config.warn("Field not found: TileEntitySkullRenderer.humanoidHead");
-                return null;
-            } else {
+            if (Reflector.TileEntitySkullRenderer_humanoidHead.exists()) {
                 Reflector.setFieldValue(tileentityspecialrenderer, Reflector.TileEntitySkullRenderer_humanoidHead, modelBase);
                 return tileentityspecialrenderer;
+            } else {
+                Config.warn("Field not found: TileEntitySkullRenderer.humanoidHead");
+                return null;
             }
         }
     }

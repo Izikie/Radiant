@@ -20,10 +20,10 @@ public class ModelAdapterSign extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelSign modelsign)) {
-            return null;
-        } else {
+        if (model instanceof ModelSign modelsign) {
             return modelPart.equals("board") ? modelsign.signBoard : (modelPart.equals("stick") ? modelsign.signStick : null);
+        } else {
+            return null;
         }
     }
 
@@ -43,12 +43,12 @@ public class ModelAdapterSign extends ModelAdapter {
                 tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
             }
 
-            if (!Reflector.TileEntitySignRenderer_model.exists()) {
-                Config.warn("Field not found: TileEntitySignRenderer.model");
-                return null;
-            } else {
+            if (Reflector.TileEntitySignRenderer_model.exists()) {
                 Reflector.setFieldValue(tileentityspecialrenderer, Reflector.TileEntitySignRenderer_model, modelBase);
                 return tileentityspecialrenderer;
+            } else {
+                Config.warn("Field not found: TileEntitySignRenderer.model");
+                return null;
             }
         }
     }

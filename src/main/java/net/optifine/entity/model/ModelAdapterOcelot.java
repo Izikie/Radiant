@@ -24,9 +24,7 @@ public class ModelAdapterOcelot extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelOcelot modelocelot)) {
-            return null;
-        } else {
+        if (model instanceof ModelOcelot modelocelot) {
             Map<String, Integer> map = getMapPartFields();
 
             if (map.containsKey(modelPart)) {
@@ -35,6 +33,8 @@ public class ModelAdapterOcelot extends ModelAdapter {
             } else {
                 return null;
             }
+        } else {
+            return null;
         }
     }
 

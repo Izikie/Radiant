@@ -76,7 +76,6 @@ import net.minecraft.util.ClassInheritanceMultiMap;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.RenderLayer;
-import net.minecraft.util.LongHashMap;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Matrix4f;
 import net.minecraft.util.MovingObjectPosition;
@@ -87,14 +86,12 @@ import net.minecraft.util.Vector3d;
 import net.minecraft.world.IWorldAccess;
 import net.minecraft.world.border.WorldBorder;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.chunk.IChunkProvider;
 import net.optifine.CustomColors;
 import net.optifine.CustomSky;
 import net.optifine.DynamicLights;
 import net.optifine.RandomEntities;
 import net.optifine.SmartAnimations;
 import net.optifine.model.BlockModelUtils;
-import net.optifine.reflect.Reflector;
 import net.optifine.render.ChunkVisibility;
 import net.optifine.render.CloudRenderer;
 import net.optifine.render.RenderEnv;
@@ -102,7 +99,6 @@ import net.optifine.shaders.Shaders;
 import net.optifine.shaders.ShadersRender;
 import net.optifine.shaders.ShadowUtils;
 import net.optifine.shaders.gui.GuiShaderOptions;
-import net.optifine.util.ChunkUtils;
 import net.optifine.util.RenderChunkUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -184,8 +180,6 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     private int renderDistanceSq = 0;
     private static final Set SET_ALL_FACINGS = Set.of(Direction.VALUES);
     private int countTileEntitiesRendered;
-    private IChunkProvider worldChunkProvider = null;
-    private LongHashMap worldChunkProviderMap = null;
     private int countLoadedChunksPrev = 0;
     private final RenderEnv renderEnv = new RenderEnv(Blocks.AIR.getDefaultState(), new BlockPos(0, 0, 0));
     public boolean renderOverlayDamaged = false;
@@ -447,8 +441,6 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         }
 
         ChunkVisibility.reset();
-        this.worldChunkProvider = null;
-        this.worldChunkProviderMap = null;
         this.renderEnv.reset(null, null);
         Shaders.checkWorldChanged(this.theWorld);
 
@@ -878,7 +870,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                             this.renderInfos.add(renderglobal$containerlocalrenderinformation);
                         }
 
-                        if (ChunkUtils.hasEntities(renderchunk2.getChunk())) {
+                        if (renderchunk2.getChunk().hasEntities()) {
                             this.renderInfosEntities.add(renderglobal$containerlocalrenderinformation);
                         }
 
@@ -959,7 +951,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                     this.renderInfos.add(renderglobal$containerlocalrenderinformation5);
                 }
 
-                if (ChunkUtils.hasEntities(renderchunk6.getChunk())) {
+                if (renderchunk6.getChunk().hasEntities()) {
                     this.renderInfosEntities.add(renderglobal$containerlocalrenderinformation5);
                 }
 
@@ -2586,22 +2578,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     }
 
     public int getCountLoadedChunks() {
-        if (this.theWorld == null) {
-            return 0;
-        } else {
-            IChunkProvider ichunkprovider = this.theWorld.getChunkProvider();
-
-            if (ichunkprovider == null) {
-                return 0;
-            } else {
-                if (ichunkprovider != this.worldChunkProvider) {
-                    this.worldChunkProvider = ichunkprovider;
-                    this.worldChunkProviderMap = (LongHashMap) Reflector.getFieldValue(ichunkprovider, Reflector.ChunkProviderClient_chunkMapping);
-                }
-
-                return this.worldChunkProviderMap == null ? 0 : this.worldChunkProviderMap.getNumHashElements();
-            }
-        }
+        return 0;
     }
 
     public int getCountChunksToUpdate() {

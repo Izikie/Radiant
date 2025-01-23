@@ -20,10 +20,10 @@ public class ModelAdapterLeadKnot extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelLeashKnot modelleashknot)) {
-            return null;
-        } else {
+        if (model instanceof ModelLeashKnot modelleashknot) {
             return modelPart.equals("knot") ? modelleashknot.field_110723_a : null;
+        } else {
+            return null;
         }
     }
 
@@ -35,13 +35,13 @@ public class ModelAdapterLeadKnot extends ModelAdapter {
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
         RenderLeashKnot renderleashknot = new RenderLeashKnot(rendermanager);
 
-        if (!Reflector.RenderLeashKnot_leashKnotModel.exists()) {
-            Config.warn("Field not found: RenderLeashKnot.leashKnotModel");
-            return null;
-        } else {
+        if (Reflector.RenderLeashKnot_leashKnotModel.exists()) {
             Reflector.setFieldValue(renderleashknot, Reflector.RenderLeashKnot_leashKnotModel, modelBase);
             renderleashknot.shadowSize = shadowSize;
             return renderleashknot;
+        } else {
+            Config.warn("Field not found: RenderLeashKnot.leashKnotModel");
+            return null;
         }
     }
 }

@@ -24,9 +24,7 @@ public class ModelAdapterRabbit extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelRabbit modelrabbit)) {
-            return null;
-        } else {
+        if (model instanceof ModelRabbit modelrabbit) {
             Map<String, Integer> map = getMapPartFields();
 
             if (map.containsKey(modelPart)) {
@@ -35,6 +33,8 @@ public class ModelAdapterRabbit extends ModelAdapter {
             } else {
                 return null;
             }
+        } else {
+            return null;
         }
     }
 

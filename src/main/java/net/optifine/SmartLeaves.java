@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockNewLeaf;
 import net.minecraft.block.BlockOldLeaf;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.client.resources.model.ModelManager;
@@ -93,12 +94,12 @@ public class SmartLeaves {
         } else {
             ResourceLocation resourcelocation = new ResourceLocation("blockstates/" + type + "_leaves.json");
 
-            if (Config.getDefiningResourcePack(resourcelocation) != Config.getDefaultResourcePack()) {
+            if (Config.getDefiningResourcePack(resourcelocation) != Minecraft.getMinecraft().getDefaultResourcePack()) {
                 return null;
             } else {
                 ResourceLocation resourcelocation1 = new ResourceLocation("models/block/" + type + "_leaves.json");
 
-                if (Config.getDefiningResourcePack(resourcelocation1) != Config.getDefaultResourcePack()) {
+                if (Config.getDefiningResourcePack(resourcelocation1) != Minecraft.getMinecraft().getDefaultResourcePack()) {
                     return null;
                 } else {
                     ModelResourceLocation modelresourcelocation = new ModelResourceLocation(type + "_leaves", "normal");

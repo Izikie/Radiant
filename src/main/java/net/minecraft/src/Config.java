@@ -38,7 +38,6 @@ import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.resources.DefaultResourcePack;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
@@ -56,7 +55,6 @@ import net.optifine.DynamicLights;
 import net.optifine.GlErrors;
 import net.optifine.config.GlVersion;
 import net.optifine.gui.GuiMessage;
-import net.optifine.reflect.Reflector;
 import net.optifine.shaders.Shaders;
 import net.optifine.util.DisplayModeComparator;
 import net.optifine.util.PropertiesOrdered;
@@ -105,7 +103,6 @@ public class Config {
     public static boolean waterOpacityChanged = false;
     private static boolean fullscreenModeChecked = false;
     private static boolean desktopModeChecked = false;
-    private static DefaultResourcePack defaultResourcePackLazy = null;
     public static final Float DEF_ALPHA_FUNC_LEVEL = 0.1F;
     private static final Logger LOGGER = LogManager.getLogger();
     public static final boolean LOG_DETAIL = System.getProperty("log.detail", "false").equals("true");
@@ -783,7 +780,7 @@ public class Config {
             IResourcePack[] airesourcepack = getResourcePacks();
 
             if (airesourcepack.length == 0) {
-                return getDefaultResourcePack().getPackName();
+                return getMinecraft().getDefaultResourcePack().getPackName();
             } else {
                 String[] astring = new String[airesourcepack.length];
 
@@ -796,26 +793,9 @@ public class Config {
         }
     }
 
-    public static DefaultResourcePack getDefaultResourcePack() {
-        if (defaultResourcePackLazy == null) {
-            Minecraft minecraft = Minecraft.getMinecraft();
-            defaultResourcePackLazy = (DefaultResourcePack) Reflector.getFieldValue(minecraft, Reflector.Minecraft_defaultResourcePack);
-
-            if (defaultResourcePackLazy == null) {
-                ResourcePackRepository resourcepackrepository = minecraft.getResourcePackRepository();
-
-                if (resourcepackrepository != null) {
-                    defaultResourcePackLazy = (DefaultResourcePack) resourcepackrepository.rprDefaultResourcePack;
-                }
-            }
-        }
-
-        return defaultResourcePackLazy;
-    }
-
     public static boolean isFromDefaultResourcePack(ResourceLocation p_isFromDefaultResourcePack_0_) {
         IResourcePack iresourcepack = getDefiningResourcePack(p_isFromDefaultResourcePack_0_);
-        return iresourcepack == getDefaultResourcePack();
+        return iresourcepack == getMinecraft().getDefaultResourcePack();
     }
 
     public static IResourcePack getDefiningResourcePack(ResourceLocation p_getDefiningResourcePack_0_) {
@@ -836,8 +816,8 @@ public class Config {
                 }
             }
 
-            if (getDefaultResourcePack().resourceExists(p_getDefiningResourcePack_0_)) {
-                return getDefaultResourcePack();
+            if (getMinecraft().getDefaultResourcePack().resourceExists(p_getDefiningResourcePack_0_)) {
+                return getMinecraft().getDefaultResourcePack();
             } else {
                 return null;
             }
@@ -1474,13 +1454,13 @@ public class Config {
                 }
             }
 
-            if (!Minecraft.IS_RUNNING_ON_MAC && getDefaultResourcePack() != null) {
+            if (!Minecraft.IS_RUNNING_ON_MAC && getMinecraft().getDefaultResourcePack() != null) {
                 InputStream inputstream = null;
                 InputStream inputstream1 = null;
 
                 try {
-                    inputstream = getDefaultResourcePack().getInputStreamAssets(new ResourceLocation("icons/icon_16x16.png"));
-                    inputstream1 = getDefaultResourcePack().getInputStreamAssets(new ResourceLocation("icons/icon_32x32.png"));
+                    inputstream = getMinecraft().getDefaultResourcePack().getInputStreamAssets(new ResourceLocation("icons/icon_16x16.png"));
+                    inputstream1 = getMinecraft().getDefaultResourcePack().getInputStreamAssets(new ResourceLocation("icons/icon_32x32.png"));
 
                     if (inputstream != null && inputstream1 != null) {
                         Display.setIcon(new ByteBuffer[]{readIconImage(inputstream), readIconImage(inputstream1)});

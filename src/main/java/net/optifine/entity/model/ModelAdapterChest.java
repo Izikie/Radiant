@@ -20,10 +20,10 @@ public class ModelAdapterChest extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelChest modelchest)) {
-            return null;
-        } else {
+        if (model instanceof ModelChest modelchest) {
             return modelPart.equals("lid") ? modelchest.chestLid : (modelPart.equals("base") ? modelchest.chestBelow : (modelPart.equals("knob") ? modelchest.chestKnob : null));
+        } else {
+            return null;
         }
     }
 
@@ -43,12 +43,12 @@ public class ModelAdapterChest extends ModelAdapter {
                 tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
             }
 
-            if (!Reflector.TileEntityChestRenderer_simpleChest.exists()) {
-                Config.warn("Field not found: TileEntityChestRenderer.simpleChest");
-                return null;
-            } else {
+            if (Reflector.TileEntityChestRenderer_simpleChest.exists()) {
                 Reflector.setFieldValue(tileentityspecialrenderer, Reflector.TileEntityChestRenderer_simpleChest, modelBase);
                 return tileentityspecialrenderer;
+            } else {
+                Config.warn("Field not found: TileEntityChestRenderer.simpleChest");
+                return null;
             }
         }
     }

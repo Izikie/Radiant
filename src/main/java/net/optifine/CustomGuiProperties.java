@@ -286,12 +286,23 @@ public class CustomGuiProperties {
     }
 
     private static IWorldNameable getWorldNameable(GuiScreen screen) {
-        return screen instanceof GuiBeacon ? getWorldNameable(screen, Reflector.GuiBeacon_tileBeacon) : (screen instanceof GuiBrewingStand ? getWorldNameable(screen, Reflector.GuiBrewingStand_tileBrewingStand) : (screen instanceof GuiChest ? getWorldNameable(screen, Reflector.GuiChest_lowerChestInventory) : (screen instanceof GuiDispenser guiDispenser ? guiDispenser.dispenserInventory : (screen instanceof GuiEnchantment ? getWorldNameable(screen, Reflector.GuiEnchantment_nameable) : (screen instanceof GuiFurnace ? getWorldNameable(screen, Reflector.GuiFurnace_tileFurnace) : (screen instanceof GuiHopper ? getWorldNameable(screen, Reflector.GuiHopper_hopperInventory) : null))))));
+        return switch (screen) {
+            case GuiBeacon ignored -> getWorldNameable(screen, Reflector.GuiBeacon_tileBeacon);
+            case GuiBrewingStand ignored -> getWorldNameable(screen, Reflector.GuiBrewingStand_tileBrewingStand);
+            case GuiChest ignored -> getWorldNameable(screen, Reflector.GuiChest_lowerChestInventory);
+            case GuiDispenser dispenser -> dispenser.dispenserInventory;
+            case GuiEnchantment ignored -> getWorldNameable(screen, Reflector.GuiEnchantment_nameable);
+            case GuiFurnace ignored -> getWorldNameable(screen, Reflector.GuiFurnace_tileFurnace);
+            case GuiHopper ignored -> getWorldNameable(screen, Reflector.GuiHopper_hopperInventory);
+            case null, default -> null;
+        };
     }
 
     private static IWorldNameable getWorldNameable(GuiScreen screen, ReflectorField fieldInventory) {
-        Object object = Reflector.getFieldValue(screen, fieldInventory);
-        return !(object instanceof IWorldNameable iWorldNameable) ? null : iWorldNameable;
+        if (Reflector.getFieldValue(screen, fieldInventory) instanceof IWorldNameable iWorldNameable)
+            return iWorldNameable;
+
+        return null;
     }
 
     private boolean matchesBeacon(BlockPos pos, IBlockAccess blockAccess) {

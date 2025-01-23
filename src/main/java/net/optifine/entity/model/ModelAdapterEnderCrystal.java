@@ -25,10 +25,10 @@ public class ModelAdapterEnderCrystal extends ModelAdapter {
     }
 
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (!(model instanceof ModelEnderCrystal modelendercrystal)) {
-            return null;
-        } else {
+        if (model instanceof ModelEnderCrystal modelendercrystal) {
             return modelPart.equals("cube") ? (ModelRenderer) Reflector.getFieldValue(modelendercrystal, Reflector.ModelEnderCrystal_ModelRenderers, 0) : (modelPart.equals("glass") ? (ModelRenderer) Reflector.getFieldValue(modelendercrystal, Reflector.ModelEnderCrystal_ModelRenderers, 1) : (modelPart.equals("base") ? (ModelRenderer) Reflector.getFieldValue(modelendercrystal, Reflector.ModelEnderCrystal_ModelRenderers, 2) : null));
+        } else {
+            return null;
         }
     }
 
@@ -45,13 +45,13 @@ public class ModelAdapterEnderCrystal extends ModelAdapter {
             return null;
         } else {
 
-            if (!Reflector.RenderEnderCrystal_modelEnderCrystal.exists()) {
-                Config.warn("Field not found: RenderEnderCrystal.modelEnderCrystal");
-                return null;
-            } else {
+            if (Reflector.RenderEnderCrystal_modelEnderCrystal.exists()) {
                 Reflector.setFieldValue(renderendercrystal, Reflector.RenderEnderCrystal_modelEnderCrystal, modelBase);
                 renderendercrystal.shadowSize = shadowSize;
                 return renderendercrystal;
+            } else {
+                Config.warn("Field not found: RenderEnderCrystal.modelEnderCrystal");
+                return null;
             }
         }
     }
