@@ -6,13 +6,13 @@ import com.google.common.collect.Maps;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.IllegalFormatException;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
 import net.minecraft.util.ResourceLocation;
-import org.apache.commons.io.Charsets;
 import org.apache.commons.io.IOUtils;
 
 public class Locale {
@@ -74,7 +74,7 @@ public class Locale {
     }
 
     private void loadLocaleData(InputStream inputStreamIn) throws IOException {
-        for (String s : IOUtils.readLines(inputStreamIn, Charsets.UTF_8)) {
+        for (String s : IOUtils.readLines(inputStreamIn, StandardCharsets.UTF_8)) {
             if (!s.isEmpty() && s.charAt(0) != 35) {
                 String[] astring = Iterables.toArray(SPLITTER.split(s), String.class);
 

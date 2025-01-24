@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +25,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.CustomPanorama;
 import net.optifine.CustomPanoramaProperties;
-import org.apache.commons.io.Charsets;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GLContext;
 import org.lwjgl.util.glu.Project;
@@ -61,7 +61,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 
         try {
             List<String> list = Lists.newArrayList();
-            bufferedreader = new BufferedReader(new InputStreamReader(Minecraft.getMinecraft().getResourceManager().getResource(SPLASH_TEXTS).getInputStream(), Charsets.UTF_8));
+            bufferedreader = new BufferedReader(new InputStreamReader(Minecraft.getMinecraft().getResourceManager().getResource(SPLASH_TEXTS).getInputStream(), StandardCharsets.UTF_8));
             String s;
 
             while ((s = bufferedreader.readLine()) != null) {
