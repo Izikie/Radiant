@@ -14,7 +14,7 @@ import net.minecraft.entity.EntityCategory;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.IProgressUpdate;
 import net.minecraft.util.LongHashMap;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.MinecraftException;
 import net.minecraft.world.World;
@@ -84,12 +84,12 @@ public class ChunkProviderServer implements IChunkProvider {
                     try {
                         chunk = this.serverChunkGenerator.provideChunk(chunkX, chunkZ);
                     } catch (Throwable throwable) {
-                        CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Exception generating new chunk");
-                        CrashReportCategory crashreportcategory = crashreport.makeCategory("Chunk to be generated");
-                        crashreportcategory.addCrashSection("Location", String.format("%d,%d", chunkX, chunkZ));
-                        crashreportcategory.addCrashSection("Position hash", i);
-                        crashreportcategory.addCrashSection("Generator", this.serverChunkGenerator.makeString());
-                        throw new ReportedException(crashreport);
+                        CrashReport report = CrashReport.makeCrashReport(throwable, "Exception generating new chunk");
+                        CrashReportCategory category = report.makeCategory("Chunk to be generated");
+                        category.addCrashSection("Location", String.format("%d,%d", chunkX, chunkZ));
+                        category.addCrashSection("Position Hash", i);
+                        category.addCrashSection("Generator", this.serverChunkGenerator.makeString());
+                        throw new ReportedException(report);
                     }
                 }
             }

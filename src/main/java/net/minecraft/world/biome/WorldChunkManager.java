@@ -8,7 +8,7 @@ import java.util.Random;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.gen.layer.GenLayer;
@@ -77,15 +77,15 @@ public class WorldChunkManager {
 
                 listToReuse[i] = f;
             } catch (Throwable throwable) {
-                CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Invalid Biome id");
-                CrashReportCategory crashreportcategory = crashreport.makeCategory("DownfallBlock");
-                crashreportcategory.addCrashSection("biome id", i);
-                crashreportcategory.addCrashSection("downfalls[] size", listToReuse.length);
-                crashreportcategory.addCrashSection("x", x);
-                crashreportcategory.addCrashSection("z", z);
-                crashreportcategory.addCrashSection("w", width);
-                crashreportcategory.addCrashSection("h", length);
-                throw new ReportedException(crashreport);
+                CrashReport report = CrashReport.makeCrashReport(throwable, "Invalid Biome ID");
+                CrashReportCategory category = report.makeCategory("DownfallBlock");
+                category.addCrashSection("Biome ID", i);
+                category.addCrashSection("DownFalls[] Size", listToReuse.length);
+                category.addCrashSection("X", x);
+                category.addCrashSection("Z", z);
+                category.addCrashSection("Width", width);
+                category.addCrashSection("Hight", length);
+                throw new ReportedException(report);
             }
         }
 
@@ -112,14 +112,14 @@ public class WorldChunkManager {
 
             return biomes;
         } catch (Throwable throwable) {
-            CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Invalid Biome id");
-            CrashReportCategory crashreportcategory = crashreport.makeCategory("RawBiomeBlock");
-            crashreportcategory.addCrashSection("biomes[] size", biomes.length);
-            crashreportcategory.addCrashSection("x", x);
-            crashreportcategory.addCrashSection("z", z);
-            crashreportcategory.addCrashSection("w", width);
-            crashreportcategory.addCrashSection("h", height);
-            throw new ReportedException(crashreport);
+            CrashReport report = CrashReport.makeCrashReport(throwable, "Invalid Biome id");
+            CrashReportCategory category = report.makeCategory("RawBiomeBlock");
+            category.addCrashSection("Biomes[] Size", biomes.length);
+            category.addCrashSection("X", x);
+            category.addCrashSection("Z", z);
+            category.addCrashSection("Width", width);
+            category.addCrashSection("Height", height);
+            throw new ReportedException(report);
         }
     }
 
@@ -169,14 +169,14 @@ public class WorldChunkManager {
 
             return true;
         } catch (Throwable throwable) {
-            CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Invalid Biome id");
-            CrashReportCategory crashreportcategory = crashreport.makeCategory("Layer");
-            crashreportcategory.addCrashSection("Layer", this.genBiomes.toString());
-            crashreportcategory.addCrashSection("x", p_76940_1_);
-            crashreportcategory.addCrashSection("z", p_76940_2_);
-            crashreportcategory.addCrashSection("radius", p_76940_3_);
-            crashreportcategory.addCrashSection("allowed", p_76940_4_);
-            throw new ReportedException(crashreport);
+            CrashReport report = CrashReport.makeCrashReport(throwable, "Invalid Biome id");
+            CrashReportCategory category = report.makeCategory("Layer");
+            category.addCrashSection("Layer", this.genBiomes.toString());
+            category.addCrashSection("X", p_76940_1_);
+            category.addCrashSection("Z", p_76940_2_);
+            category.addCrashSection("Radius", p_76940_3_);
+            category.addCrashSection("Allowed", p_76940_4_);
+            throw new ReportedException(report);
         }
     }
 

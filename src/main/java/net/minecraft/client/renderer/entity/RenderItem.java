@@ -54,7 +54,7 @@ import net.minecraft.src.Config;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Direction;
 import net.minecraft.util.RenderLayer;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3i;
 import net.optifine.CustomColors;
@@ -413,13 +413,13 @@ public class RenderItem implements IResourceManagerReloadListener {
             try {
                 this.renderItemIntoGUI(stack, xPosition, yPosition);
             } catch (Throwable throwable) {
-                CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Rendering item");
-                CrashReportCategory crashreportcategory = crashreport.makeCategory("Item being rendered");
-                crashreportcategory.addCrashSectionCallable("Item Type", () -> String.valueOf(stack.getItem()));
-                crashreportcategory.addCrashSectionCallable("Item Aux", () -> String.valueOf(stack.getMetadata()));
-                crashreportcategory.addCrashSectionCallable("Item NBT", () -> String.valueOf(stack.getTagCompound()));
-                crashreportcategory.addCrashSectionCallable("Item Foil", () -> String.valueOf(stack.hasEffect()));
-                throw new ReportedException(crashreport);
+                CrashReport report = CrashReport.makeCrashReport(throwable, "Rendering item");
+                CrashReportCategory category = report.makeCategory("Item being rendered");
+                category.addCrashSectionCallable("Item Type", () -> String.valueOf(stack.getItem()));
+                category.addCrashSectionCallable("Item Aux", () -> String.valueOf(stack.getMetadata()));
+                category.addCrashSectionCallable("Item NBT", () -> String.valueOf(stack.getTagCompound()));
+                category.addCrashSectionCallable("Item Foil", () -> String.valueOf(stack.hasEffect()));
+                throw new ReportedException(report);
             }
 
             this.zLevel -= 50.0F;

@@ -26,7 +26,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
@@ -196,12 +196,16 @@ public class EffectRenderer {
         try {
             particle.onUpdate();
         } catch (Throwable throwable) {
-            CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Ticking Particle");
-            CrashReportCategory crashreportcategory = crashreport.makeCategory("Particle being ticked");
-            final int i = particle.getFXLayer();
-            crashreportcategory.addCrashSectionCallable("Particle", particle::toString);
-            crashreportcategory.addCrashSectionCallable("Particle Type", () -> i == 0 ? "MISC_TEXTURE" : (i == 1 ? "TERRAIN_TEXTURE" : (i == 3 ? "ENTITY_PARTICLE_TEXTURE" : "Unknown - " + i)));
-            throw new ReportedException(crashreport);
+            CrashReport report = CrashReport.makeCrashReport(throwable, "Ticking Particle");
+            CrashReportCategory category = report.makeCategory("Particle being ticked");
+            category.addCrashSectionCallable("Particle", particle::toString);
+            category.addCrashSectionCallable("Particle Type", () -> switch (particle.getFXLayer()) {
+                case 0 -> "MISC_TEXTURE";
+                case 1 -> "TERRAIN_TEXTURE";
+                case 3 -> "ENTITY_PARTICLE_TEXTURE";
+                default -> "Unknown - " + particle.getFXLayer();
+            });
+            throw new ReportedException(report);
         }
     }
 
@@ -258,11 +262,16 @@ public class EffectRenderer {
                                 entityfx.renderParticle(worldrenderer, entityIn, partialTicks, f, f4, f1, f2, f3);
                             }
                         } catch (Throwable throwable) {
-                            CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Rendering Particle");
-                            CrashReportCategory crashreportcategory = crashreport.makeCategory("Particle being rendered");
-                            crashreportcategory.addCrashSectionCallable("Particle", () -> entityfx.toString());
-                            crashreportcategory.addCrashSectionCallable("Particle Type", () -> i_f == 0 ? "MISC_TEXTURE" : (i_f == 1 ? "TERRAIN_TEXTURE" : (i_f == 3 ? "ENTITY_PARTICLE_TEXTURE" : "Unknown - " + i_f)));
-                            throw new ReportedException(crashreport);
+                            CrashReport report = CrashReport.makeCrashReport(throwable, "Rendering Particle");
+                            CrashReportCategory category = report.makeCategory("Particle being rendered");
+                            category.addCrashSectionCallable("Particle", () -> entityfx.toString());
+                            category.addCrashSectionCallable("Particle Type", () -> switch (i_f) {
+                                case 0 -> "MISC_TEXTURE";
+                                case 1 -> "TERRAIN_TEXTURE";
+                                case 3 -> "ENTITY_PARTICLE_TEXTURE";
+                                default -> "Unknown - " + i_f;
+                            });
+                            throw new ReportedException(report);
                         }
                     }
 

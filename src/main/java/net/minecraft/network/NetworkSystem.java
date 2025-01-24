@@ -39,7 +39,7 @@ import net.minecraft.util.MessageDeserializer;
 import net.minecraft.util.MessageDeserializer2;
 import net.minecraft.util.MessageSerializer;
 import net.minecraft.util.MessageSerializer2;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -148,10 +148,10 @@ public class NetworkSystem {
                             networkmanager.processReceivedPackets();
                         } catch (Exception exception) {
                             if (networkmanager.isLocalChannel()) {
-                                CrashReport crashreport = CrashReport.makeCrashReport(exception, "Ticking memory connection");
-                                CrashReportCategory crashreportcategory = crashreport.makeCategory("Ticking connection");
-                                crashreportcategory.addCrashSectionCallable("Connection", networkmanager::toString);
-                                throw new ReportedException(crashreport);
+                                CrashReport report = CrashReport.makeCrashReport(exception, "Ticking memory connection");
+                                CrashReportCategory category = report.makeCategory("Ticking connection");
+                                category.addCrashSectionCallable("Connection", networkmanager::toString);
+                                throw new ReportedException(report);
                             }
 
                             LOGGER.warn("Failed to handle packet for {}", networkmanager.getRemoteAddress(), exception);

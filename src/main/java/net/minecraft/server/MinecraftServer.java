@@ -53,7 +53,7 @@ import net.minecraft.util.IProgressUpdate;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.util.Util;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.Difficulty;
@@ -517,17 +517,17 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
                 try {
                     worldserver.tick();
                 } catch (Throwable throwable1) {
-                    CrashReport crashreport = CrashReport.makeCrashReport(throwable1, "Exception ticking world");
-                    worldserver.addWorldInfoToCrashReport(crashreport);
-                    throw new ReportedException(crashreport);
+                    CrashReport report = CrashReport.makeCrashReport(throwable1, "Exception ticking world");
+                    worldserver.addWorldInfoToCrashReport(report);
+                    throw new ReportedException(report);
                 }
 
                 try {
                     worldserver.updateEntities();
                 } catch (Throwable throwable) {
-                    CrashReport crashreport1 = CrashReport.makeCrashReport(throwable, "Exception ticking world entities");
-                    worldserver.addWorldInfoToCrashReport(crashreport1);
-                    throw new ReportedException(crashreport1);
+                    CrashReport report = CrashReport.makeCrashReport(throwable, "Exception ticking world entities");
+                    worldserver.addWorldInfoToCrashReport(report);
+                    throw new ReportedException(report);
                 }
 
                 worldserver.getEntityTracker().updateTrackedEntities();

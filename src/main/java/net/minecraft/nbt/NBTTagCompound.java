@@ -8,11 +8,10 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
-import java.util.concurrent.Callable;
 
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 
 public class NBTTagCompound extends NBTBase {
     private final Map<String, NBTBase> tagMap = Maps.newHashMap();
@@ -247,12 +246,12 @@ public class NBTTagCompound extends NBTBase {
     }
 
     private CrashReport createCrashReport(final String key, final int expectedType, ClassCastException ex) {
-        CrashReport crashreport = CrashReport.makeCrashReport(ex, "Reading NBT data");
-        CrashReportCategory crashreportcategory = crashreport.makeCategoryDepth("Corrupt NBT tag", 1);
-        crashreportcategory.addCrashSectionCallable("Tag type found", () -> NBTBase.NBT_TYPES[NBTTagCompound.this.tagMap.get(key).getId()]);
-        crashreportcategory.addCrashSectionCallable("Tag type expected", () -> NBTBase.NBT_TYPES[expectedType]);
-        crashreportcategory.addCrashSection("Tag name", key);
-        return crashreport;
+        CrashReport report = CrashReport.makeCrashReport(ex, "Reading NBT data");
+        CrashReportCategory category = report.makeCategory("Corrupt NBT tag");
+        category.addCrashSectionCallable("Tag Type Found", () -> NBTBase.NBT_TYPES[NBTTagCompound.this.tagMap.get(key).getId()]);
+        category.addCrashSectionCallable("Tag Type Expected", () -> NBTBase.NBT_TYPES[expectedType]);
+        category.addCrashSection("Tag Name", key);
+        return report;
     }
 
     public NBTBase copy() {
@@ -302,11 +301,11 @@ public class NBTTagCompound extends NBTBase {
             nbtbase.read(input, depth, sizeTracker);
             return nbtbase;
         } catch (IOException ioexception) {
-            CrashReport crashreport = CrashReport.makeCrashReport(ioexception, "Loading NBT data");
-            CrashReportCategory crashreportcategory = crashreport.makeCategory("NBT Tag");
-            crashreportcategory.addCrashSection("Tag name", key);
-            crashreportcategory.addCrashSection("Tag type", id);
-            throw new ReportedException(crashreport);
+            CrashReport report = CrashReport.makeCrashReport(ioexception, "Loading NBT data");
+            CrashReportCategory category = report.makeCategory("NBT Tag");
+            category.addCrashSection("Tag Name", key);
+            category.addCrashSection("Tag Type", id);
+            throw new ReportedException(report);
         }
     }
 

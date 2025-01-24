@@ -86,7 +86,7 @@ import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.JsonSerializableSet;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.IInteractionObject;
@@ -321,10 +321,10 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
                 this.updateBiomesExplored();
             }
         } catch (Throwable throwable) {
-            CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Ticking player");
-            CrashReportCategory crashreportcategory = crashreport.makeCategory("Player being ticked");
-            this.addEntityCrashInfo(crashreportcategory);
-            throw new ReportedException(crashreport);
+            CrashReport report = CrashReport.makeCrashReport(throwable, "Ticking player");
+            CrashReportCategory category = report.makeCategory("Player being ticked");
+            this.addEntityCrashInfo(category);
+            throw new ReportedException(report);
         }
     }
 

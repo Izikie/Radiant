@@ -41,7 +41,7 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.IntHashMap;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.util.Vec3;
 import net.minecraft.village.VillageCollection;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -118,10 +118,10 @@ public abstract class World implements IBlockAccess {
             try {
                 return chunk.getBiome(pos, this.provider.getWorldChunkManager());
             } catch (Throwable throwable) {
-                CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Getting biome");
-                CrashReportCategory crashreportcategory = crashreport.makeCategory("Coordinates of biome request");
-                crashreportcategory.addCrashSectionCallable("Location", () -> CrashReportCategory.getCoordinateInfo(pos));
-                throw new ReportedException(crashreport);
+                CrashReport report = CrashReport.makeCrashReport(throwable, "Getting biome");
+                CrashReportCategory category = report.makeCategory("Coordinates of biome request");
+                category.addCrashSectionCallable("Location", () -> CrashReportCategory.getCoordinateInfo(pos));
+                throw new ReportedException(report);
             }
         } else {
             return this.provider.getWorldChunkManager().getBiomeGenerator(pos, BiomeGenBase.PLAINS);
@@ -365,17 +365,17 @@ public abstract class World implements IBlockAccess {
             try {
                 iblockstate.getBlock().onNeighborBlockChange(this, pos, iblockstate, blockIn);
             } catch (Throwable throwable) {
-                CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Exception while updating neighbours");
-                CrashReportCategory crashreportcategory = crashreport.makeCategory("Block being updated");
-                crashreportcategory.addCrashSectionCallable("Source block type", () -> {
+                CrashReport report = CrashReport.makeCrashReport(throwable, "Exception while updating neighbours");
+                CrashReportCategory category = report.makeCategory("Block being updated");
+                category.addCrashSectionCallable("Source Block Type", () -> {
                     try {
                         return String.format("ID #%d (%s // %s)", Block.getIdFromBlock(blockIn), blockIn.getUnlocalizedName(), blockIn.getClass().getCanonicalName());
                     } catch (Throwable var2) {
                         return "ID #" + Block.getIdFromBlock(blockIn);
                     }
                 });
-                CrashReportCategory.addBlockInfo(crashreportcategory, pos, iblockstate);
-                throw new ReportedException(crashreport);
+                CrashReportCategory.addBlockInfo(category, pos, iblockstate);
+                throw new ReportedException(report);
             }
         }
     }
@@ -1157,16 +1157,16 @@ public abstract class World implements IBlockAccess {
                 ++entity.ticksExisted;
                 entity.onUpdate();
             } catch (Throwable throwable2) {
-                CrashReport crashreport = CrashReport.makeCrashReport(throwable2, "Ticking entity");
-                CrashReportCategory crashreportcategory = crashreport.makeCategory("Entity being ticked");
+                CrashReport report = CrashReport.makeCrashReport(throwable2, "Ticking entity");
+                CrashReportCategory category = report.makeCategory("Entity being ticked");
 
                 if (entity == null) {
-                    crashreportcategory.addCrashSection("Entity", "~~NULL~~");
+                    category.addCrashSection("Entity", "~~NULL~~");
                 } else {
-                    entity.addEntityCrashInfo(crashreportcategory);
+                    entity.addEntityCrashInfo(category);
                 }
 
-                throw new ReportedException(crashreport);
+                throw new ReportedException(report);
             }
 
             if (entity.isDead) {
@@ -1208,10 +1208,10 @@ public abstract class World implements IBlockAccess {
                 try {
                     this.updateEntity(entity2);
                 } catch (Throwable throwable1) {
-                    CrashReport crashreport1 = CrashReport.makeCrashReport(throwable1, "Ticking entity");
-                    CrashReportCategory crashreportcategory2 = crashreport1.makeCategory("Entity being ticked");
-                    entity2.addEntityCrashInfo(crashreportcategory2);
-                    throw new ReportedException(crashreport1);
+                    CrashReport report = CrashReport.makeCrashReport(throwable1, "Ticking entity");
+                    CrashReportCategory category = report.makeCategory("Entity being ticked");
+                    entity2.addEntityCrashInfo(category);
+                    throw new ReportedException(report);
                 }
             }
 
@@ -1241,10 +1241,10 @@ public abstract class World implements IBlockAccess {
                     try {
                         ((ITickable) tileentity).update();
                     } catch (Throwable throwable) {
-                        CrashReport crashreport2 = CrashReport.makeCrashReport(throwable, "Ticking block entity");
-                        CrashReportCategory crashreportcategory1 = crashreport2.makeCategory("Block entity being ticked");
-                        tileentity.addInfoToCrashReport(crashreportcategory1);
-                        throw new ReportedException(crashreport2);
+                        CrashReport report = CrashReport.makeCrashReport(throwable, "Ticking block entity");
+                        CrashReportCategory category = report.makeCategory("Block entity being ticked");
+                        tileentity.addInfoToCrashReport(category);
+                        throw new ReportedException(report);
                     }
                 }
             }
@@ -2554,13 +2554,13 @@ public abstract class World implements IBlockAccess {
                 worldAccess.playAuxSFX(player, sfxType, pos, p_180498_4_);
             }
         } catch (Throwable throwable) {
-            CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Playing level event");
-            CrashReportCategory crashreportcategory = crashreport.makeCategory("Level event being played");
-            crashreportcategory.addCrashSection("Block coordinates", CrashReportCategory.getCoordinateInfo(pos));
-            crashreportcategory.addCrashSection("Event source", player);
-            crashreportcategory.addCrashSection("Event type", sfxType);
-            crashreportcategory.addCrashSection("Event data", p_180498_4_);
-            throw new ReportedException(crashreport);
+            CrashReport report = CrashReport.makeCrashReport(throwable, "Playing level event");
+            CrashReportCategory category = report.makeCategory("Level event being played");
+            category.addCrashSection("Block Coordinates", CrashReportCategory.getCoordinateInfo(pos));
+            category.addCrashSection("Event Source", player);
+            category.addCrashSection("Event Type", sfxType);
+            category.addCrashSection("Event Data", p_180498_4_);
+            throw new ReportedException(report);
         }
     }
 
@@ -2591,18 +2591,18 @@ public abstract class World implements IBlockAccess {
     }
 
     public CrashReportCategory addWorldInfoToCrashReport(CrashReport report) {
-        CrashReportCategory crashreportcategory = report.makeCategoryDepth("Affected level", 1);
-        crashreportcategory.addCrashSection("Level name", this.worldInfo == null ? "????" : this.worldInfo.getWorldName());
-        crashreportcategory.addCrashSectionCallable("All players", () -> World.this.playerEntities.size() + " total; " + World.this.playerEntities);
-        crashreportcategory.addCrashSectionCallable("Chunk stats", () -> World.this.chunkProvider.makeString());
+        CrashReportCategory category = report.makeCategory("Affected Level");
+        category.addCrashSection("Level Name", this.worldInfo == null ? "????" : this.worldInfo.getWorldName());
+        category.addCrashSectionCallable("All Players", () -> this.playerEntities.size() + " total; " + this.playerEntities);
+        category.addCrashSectionCallable("Chunk Stats", () -> this.chunkProvider.makeString());
 
         try {
-            this.worldInfo.addToCrashReport(crashreportcategory);
+            this.worldInfo.addToCrashReport(category);
         } catch (Throwable throwable) {
-            crashreportcategory.addCrashSectionThrowable("Level Data Unobtainable", throwable);
+            category.addCrashSectionThrowable("Level Data Unobtainable", throwable);
         }
 
-        return crashreportcategory;
+        return category;
     }
 
     public void sendBlockBreakProgress(int breakerId, BlockPos pos, int progress) {

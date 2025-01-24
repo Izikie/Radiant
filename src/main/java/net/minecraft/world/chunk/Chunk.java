@@ -24,7 +24,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.ClassInheritanceMultiMap;
 import net.minecraft.util.Direction;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
@@ -381,8 +381,8 @@ public class Chunk {
                 try {
                     block = extendedblockstorage.getBlockByExtId(x, y & 15, z);
                 } catch (Throwable throwable) {
-                    CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Getting block");
-                    throw new ReportedException(crashreport);
+                    CrashReport report = CrashReport.makeCrashReport(throwable, "Getting block");
+                    throw new ReportedException(report);
                 }
             }
         }
@@ -438,10 +438,10 @@ public class Chunk {
 
                 return Blocks.AIR.getDefaultState();
             } catch (Throwable throwable) {
-                CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Getting block state");
-                CrashReportCategory crashreportcategory = crashreport.makeCategory("Block being got");
-                crashreportcategory.addCrashSectionCallable("Location", () -> CrashReportCategory.getCoordinateInfo(pos));
-                throw new ReportedException(crashreport);
+                CrashReport report = CrashReport.makeCrashReport(throwable, "Getting block state");
+                CrashReportCategory category = report.makeCategory("Block being got");
+                category.addCrashSectionCallable("Location", () -> CrashReportCategory.getCoordinateInfo(pos));
+                throw new ReportedException(report);
             }
         }
     }

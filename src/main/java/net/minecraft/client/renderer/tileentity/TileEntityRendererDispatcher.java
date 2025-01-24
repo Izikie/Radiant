@@ -25,7 +25,7 @@ import net.minecraft.tileentity.TileEntityPiston;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.world.World;
 import net.optifine.EmissiveTextures;
 
@@ -141,10 +141,10 @@ public class TileEntityRendererDispatcher {
 
                 this.tileEntityRendered = null;
             } catch (Throwable throwable) {
-                CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Rendering Block Entity");
-                CrashReportCategory crashreportcategory = crashreport.makeCategory("Block Entity Details");
-                tileEntityIn.addInfoToCrashReport(crashreportcategory);
-                throw new ReportedException(crashreport);
+                CrashReport report = CrashReport.makeCrashReport(throwable, "Rendering Block Entity");
+                CrashReportCategory category = report.makeCategory("Block Entity Details");
+                tileEntityIn.addInfoToCrashReport(category);
+                throw new ReportedException(report);
             }
         }
     }

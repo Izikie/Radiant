@@ -239,8 +239,8 @@ public class EntityFallingBlock extends Entity {
 
         if (this.fallTile != null) {
             Block block = this.fallTile.getBlock();
-            category.addCrashSection("Immitating block ID", Block.getIdFromBlock(block));
-            category.addCrashSection("Immitating block data", block.getMetaFromState(this.fallTile));
+            category.addCrashSection("Imitating Block ID", Block.getIdFromBlock(block));
+            category.addCrashSection("Imitating Block Data", block.getMetaFromState(this.fallTile));
         }
     }
 

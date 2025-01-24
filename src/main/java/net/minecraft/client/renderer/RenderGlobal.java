@@ -79,7 +79,7 @@ import net.minecraft.util.RenderLayer;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Matrix4f;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
 import net.minecraft.util.Vector3d;
@@ -2181,16 +2181,16 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         try {
             this.spawnEntityFX(particleID, ignoreRange, xCoord, yCoord, zCoord, xOffset, yOffset, zOffset, parameters);
         } catch (Throwable throwable) {
-            CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Exception while adding particle");
-            CrashReportCategory crashreportcategory = crashreport.makeCategory("Particle being added");
-            crashreportcategory.addCrashSection("ID", particleID);
+            CrashReport report = CrashReport.makeCrashReport(throwable, "Exception while adding particle");
+            CrashReportCategory category = report.makeCategory("Particle being added");
+            category.addCrashSection("ID", particleID);
 
             if (parameters != null) {
-                crashreportcategory.addCrashSection("Parameters", parameters);
+                category.addCrashSection("Parameters", parameters);
             }
 
-            crashreportcategory.addCrashSectionCallable("Position", () -> CrashReportCategory.getCoordinateInfo(xCoord, yCoord, zCoord));
-            throw new ReportedException(crashreport);
+            category.addCrashSectionCallable("Position", () -> CrashReportCategory.getCoordinateInfo(xCoord, yCoord, zCoord));
+            throw new ReportedException(report);
         }
     }
 

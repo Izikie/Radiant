@@ -17,7 +17,7 @@ import java.util.zip.GZIPOutputStream;
 
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 
 public class CompressedStreamTools {
     public static NBTTagCompound readCompressed(InputStream is) throws IOException {
@@ -124,11 +124,11 @@ public class CompressedStreamTools {
                 nbtbase.read(p_152455_0_, p_152455_1_, p_152455_2_);
                 return nbtbase;
             } catch (IOException ioexception) {
-                CrashReport crashreport = CrashReport.makeCrashReport(ioexception, "Loading NBT data");
-                CrashReportCategory crashreportcategory = crashreport.makeCategory("NBT Tag");
-                crashreportcategory.addCrashSection("Tag name", "[UNNAMED TAG]");
-                crashreportcategory.addCrashSection("Tag type", b0);
-                throw new ReportedException(crashreport);
+                CrashReport report = CrashReport.makeCrashReport(ioexception, "Loading NBT data");
+                CrashReportCategory category = report.makeCategory("NBT Tag");
+                category.addCrashSection("Tag Name", "[UNNAMED TAG]");
+                category.addCrashSection("Tag Type", b0);
+                throw new ReportedException(report);
             }
         }
     }

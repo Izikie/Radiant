@@ -5,9 +5,7 @@ import com.google.common.collect.Lists;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.data.AnimationFrame;
@@ -15,7 +13,7 @@ import net.minecraft.client.resources.data.AnimationMetadataSection;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.src.Config;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.SmartAnimations;
 import net.optifine.shaders.Shaders;
@@ -369,23 +367,23 @@ public class TextureAtlasSprite {
                 try {
                     list.add(TextureUtil.generateMipmapData(level, this.width, aint));
                 } catch (Throwable throwable) {
-                    CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Generating mipmaps for frame");
-                    CrashReportCategory crashreportcategory = crashreport.makeCategory("Frame being iterated");
-                    crashreportcategory.addCrashSection("Frame index", i);
-                    crashreportcategory.addCrashSectionCallable("Frame sizes", () -> {
-                        StringBuilder stringbuilder = new StringBuilder();
+                    CrashReport report = CrashReport.makeCrashReport(throwable, "Generating mipmaps for frame");
+                    CrashReportCategory category = report.makeCategory("Frame being iterated");
+                    category.addCrashSection("Frame Index", i);
+                    category.addCrashSectionCallable("Frame Sizes", () -> {
+                        StringBuilder builder = new StringBuilder();
 
-                        for (int[] aint1 : aint) {
-                            if (!stringbuilder.isEmpty()) {
-                                stringbuilder.append(", ");
+                        for (int[] data : aint) {
+                            if (!builder.isEmpty()) {
+                                builder.append(", ");
                             }
 
-                            stringbuilder.append(aint1 == null ? "null" : Integer.valueOf(aint1.length));
+                            builder.append(data == null ? "null" : Integer.valueOf(data.length));
                         }
 
-                        return stringbuilder.toString();
+                        return builder.toString();
                     });
-                    throw new ReportedException(crashreport);
+                    throw new ReportedException(report);
                 }
             }
         }

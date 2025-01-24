@@ -51,7 +51,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.IProgressUpdate;
 import net.minecraft.util.IThreadListener;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.util.WeightedRandom;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.village.VillageCollection;
@@ -466,10 +466,10 @@ public class WorldServer extends World implements IThreadListener {
                             try {
                                 iblockstate.getBlock().updateTick(this, nextticklistentry1.position, iblockstate, this.rand);
                             } catch (Throwable throwable) {
-                                CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Exception while ticking a block");
-                                CrashReportCategory crashreportcategory = crashreport.makeCategory("Block being ticked");
-                                CrashReportCategory.addBlockInfo(crashreportcategory, nextticklistentry1.position, iblockstate);
-                                throw new ReportedException(crashreport);
+                                CrashReport report = CrashReport.makeCrashReport(throwable, "Exception while ticking a block");
+                                CrashReportCategory category = report.makeCategory("Block being ticked");
+                                CrashReportCategory.addBlockInfo(category, nextticklistentry1.position, iblockstate);
+                                throw new ReportedException(report);
                             }
                         }
                     } else {
@@ -581,14 +581,14 @@ public class WorldServer extends World implements IThreadListener {
 
                 super.initialize(settings);
             } catch (Throwable throwable) {
-                CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Exception initializing level");
+                CrashReport report = CrashReport.makeCrashReport(throwable, "Exception initializing level");
 
                 try {
-                    this.addWorldInfoToCrashReport(crashreport);
+                    this.addWorldInfoToCrashReport(report);
                 } catch (Throwable var5) {
                 }
 
-                throw new ReportedException(crashreport);
+                throw new ReportedException(report);
             }
 
             this.worldInfo.setServerInitialized(true);

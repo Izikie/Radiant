@@ -14,7 +14,7 @@ import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.util.Rotations;
 import net.minecraft.world.biome.BiomeGenBase;
 import org.apache.commons.lang3.ObjectUtils;
@@ -90,10 +90,10 @@ public class DataWatcher {
         try {
             datawatcher$watchableobject = this.watchedObjects.get(id);
         } catch (Throwable throwable) {
-            CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Getting synched entity data");
-            CrashReportCategory crashreportcategory = crashreport.makeCategory("Synched entity data");
-            crashreportcategory.addCrashSection("Data ID", id);
-            throw new ReportedException(crashreport);
+            CrashReport report = CrashReport.makeCrashReport(throwable, "Getting synched entity data");
+            CrashReportCategory category = report.makeCategory("Synched entity data");
+            category.addCrashSection("Data ID", id);
+            throw new ReportedException(report);
         }
 
         this.lock.readLock().unlock();

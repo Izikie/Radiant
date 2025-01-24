@@ -25,7 +25,7 @@ import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.src.Config;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.BetterGrass;
 import net.optifine.ConnectedTextures;
@@ -279,13 +279,13 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                 try {
                     textureatlassprite1.generateMipmaps(this.mipmapLevels);
                 } catch (Throwable throwable1) {
-                    CrashReport crashreport = CrashReport.makeCrashReport(throwable1, "Applying mipmap");
-                    CrashReportCategory crashreportcategory = crashreport.makeCategory("Sprite being mipmapped");
-                    crashreportcategory.addCrashSectionCallable("Sprite name", () -> textureatlassprite1.getIconName());
-                    crashreportcategory.addCrashSectionCallable("Sprite size", () -> textureatlassprite1.getIconWidth() + " x " + textureatlassprite1.getIconHeight());
-                    crashreportcategory.addCrashSectionCallable("Sprite frames", () -> textureatlassprite1.getFrameCount() + " frames");
-                    crashreportcategory.addCrashSection("Mipmap levels", this.mipmapLevels);
-                    throw new ReportedException(crashreport);
+                    CrashReport report = CrashReport.makeCrashReport(throwable1, "Applying mipmap");
+                    CrashReportCategory category = report.makeCategory("Sprite being mipmapped");
+                    category.addCrashSectionCallable("Sprite Name", () -> textureatlassprite1.getIconName());
+                    category.addCrashSectionCallable("Sprite Size", () -> textureatlassprite1.getIconWidth() + " x " + textureatlassprite1.getIconHeight());
+                    category.addCrashSectionCallable("Sprite Frames", () -> String.valueOf(textureatlassprite1.getFrameCount()));
+                    category.addCrashSection("Mipmap Levels", this.mipmapLevels);
+                    throw new ReportedException(report);
                 }
             }
 
@@ -321,11 +321,11 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                         TextureUtil.uploadTextureMipmap(textureatlassprite2.getFrameTextureData(0), textureatlassprite2.getIconWidth(), textureatlassprite2.getIconHeight(), textureatlassprite2.getOriginX(), textureatlassprite2.getOriginY(), false, false);
                     }
                 } catch (Throwable throwable) {
-                    CrashReport crashreport1 = CrashReport.makeCrashReport(throwable, "Stitching texture atlas");
-                    CrashReportCategory crashreportcategory1 = crashreport1.makeCategory("Texture being stitched together");
-                    crashreportcategory1.addCrashSection("Atlas path", this.basePath);
-                    crashreportcategory1.addCrashSection("Sprite", textureatlassprite2);
-                    throw new ReportedException(crashreport1);
+                    CrashReport report = CrashReport.makeCrashReport(throwable, "Stitching texture atlas");
+                    CrashReportCategory category = report.makeCategory("Texture being stitched together");
+                    category.addCrashSection("Atlas Path", this.basePath);
+                    category.addCrashSection("Sprite", textureatlassprite2);
+                    throw new ReportedException(report);
                 }
 
                 if (textureatlassprite2.hasAnimationMetadata()) {

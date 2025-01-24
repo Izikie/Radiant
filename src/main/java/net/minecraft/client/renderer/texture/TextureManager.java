@@ -15,7 +15,7 @@ import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.src.Config;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.CustomGuis;
 import net.optifine.EmissiveTextures;
@@ -88,11 +88,11 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
             flag = false;
         } catch (Throwable throwable) {
             final ITextureObject textureObjf = textureObj;
-            CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Registering texture");
-            CrashReportCategory crashreportcategory = crashreport.makeCategory("Resource location being registered");
-            crashreportcategory.addCrashSection("Resource location", textureLocation);
-            crashreportcategory.addCrashSectionCallable("Texture object class", () -> textureObjf.getClass().getName());
-            throw new ReportedException(crashreport);
+            CrashReport report = CrashReport.makeCrashReport(throwable, "Registering texture");
+            CrashReportCategory category = report.makeCategory("Resource location being registered");
+            category.addCrashSection("Resource Location", textureLocation);
+            category.addCrashSectionCallable("Texture Object Class", () -> textureObjf.getClass().getName());
+            throw new ReportedException(report);
         }
 
         this.mapTextureObjects.put(textureLocation, textureObj);

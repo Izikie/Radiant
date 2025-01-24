@@ -6,14 +6,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.Callable;
 
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
@@ -38,13 +37,13 @@ public abstract class MapGenStructure extends MapGenBase {
                     this.setStructureStart(chunkX, chunkZ, structurestart);
                 }
             } catch (Throwable throwable) {
-                CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Exception preparing structure feature");
-                CrashReportCategory crashreportcategory = crashreport.makeCategory("Feature being prepared");
-                crashreportcategory.addCrashSectionCallable("Is feature chunk", () -> MapGenStructure.this.canSpawnStructureAtCoords(chunkX, chunkZ) ? "True" : "False");
-                crashreportcategory.addCrashSection("Chunk location", String.format("%d,%d", chunkX, chunkZ));
-                crashreportcategory.addCrashSectionCallable("Chunk pos hash", () -> String.valueOf(ChunkCoordIntPair.chunkXZ2Int(chunkX, chunkZ)));
-                crashreportcategory.addCrashSectionCallable("Structure type", () -> MapGenStructure.this.getClass().getCanonicalName());
-                throw new ReportedException(crashreport);
+                CrashReport report = CrashReport.makeCrashReport(throwable, "Exception preparing structure feature");
+                CrashReportCategory category = report.makeCategory("Feature being prepared");
+                category.addCrashSectionCallable("Is Feature Chunk", () -> this.canSpawnStructureAtCoords(chunkX, chunkZ) ? "True" : "False");
+                category.addCrashSection("Chunk Location", String.format("%d,%d", chunkX, chunkZ));
+                category.addCrashSectionCallable("Chunk Pos Hash", () -> String.valueOf(ChunkCoordIntPair.chunkXZ2Int(chunkX, chunkZ)));
+                category.addCrashSectionCallable("Structure Type", () -> this.getClass().getCanonicalName());
+                throw new ReportedException(report);
             }
         }
     }

@@ -61,7 +61,7 @@ import net.minecraft.util.RenderLayer;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MouseFilter;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
@@ -1022,12 +1022,12 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 try {
                     this.mc.currentScreen.drawScreen(k1, l1, partialTicks);
                 } catch (Throwable throwable) {
-                    CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Rendering screen");
-                    CrashReportCategory crashreportcategory = crashreport.makeCategory("Screen render details");
-                    crashreportcategory.addCrashSectionCallable("Screen name", () -> EntityRenderer.this.mc.currentScreen.getClass().getCanonicalName());
-                    crashreportcategory.addCrashSectionCallable("Mouse location", () -> String.format("Scaled: (%d, %d). Absolute: (%d, %d)", k1, l1, Mouse.getX(), Mouse.getY()));
-                    crashreportcategory.addCrashSectionCallable("Screen size", () -> String.format("Scaled: (%d, %d). Absolute: (%d, %d). Scale factor of %d", scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight(), EntityRenderer.this.mc.displayWidth, EntityRenderer.this.mc.displayHeight, scaledresolution.getScaleFactor()));
-                    throw new ReportedException(crashreport);
+                    CrashReport report = CrashReport.makeCrashReport(throwable, "Rendering screen");
+                    CrashReportCategory category = report.makeCategory("Screen render details");
+                    category.addCrashSectionCallable("Screen name", () -> EntityRenderer.this.mc.currentScreen.getClass().getCanonicalName());
+                    category.addCrashSectionCallable("Mouse location", () -> String.format("Scaled: (%d, %d). Absolute: (%d, %d)", k1, l1, Mouse.getX(), Mouse.getY()));
+                    category.addCrashSectionCallable("Screen size", () -> String.format("Scaled: (%d, %d). Absolute: (%d, %d). Scale factor of %d", scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight(), EntityRenderer.this.mc.displayWidth, EntityRenderer.this.mc.displayHeight, scaledresolution.getScaleFactor()));
+                    throw new ReportedException(report);
                 }
             }
         }

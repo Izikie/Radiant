@@ -99,7 +99,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.optifine.entity.model.CustomEntityModels;
@@ -366,15 +366,16 @@ public class RenderManager {
 
             return true;
         } catch (Throwable throwable3) {
-            CrashReport crashreport = CrashReport.makeCrashReport(throwable3, "Rendering entity in world");
-            CrashReportCategory crashreportcategory = crashreport.makeCategory("Entity being rendered");
-            entity.addEntityCrashInfo(crashreportcategory);
-            CrashReportCategory crashreportcategory1 = crashreport.makeCategory("Renderer details");
-            crashreportcategory1.addCrashSection("Assigned renderer", render);
-            crashreportcategory1.addCrashSection("Location", CrashReportCategory.getCoordinateInfo(x, y, z));
-            crashreportcategory1.addCrashSection("Rotation", entityYaw);
-            crashreportcategory1.addCrashSection("Delta", partialTicks);
-            throw new ReportedException(crashreport);
+            CrashReport report = CrashReport.makeCrashReport(throwable3, "Rendering entity in world");
+            CrashReportCategory category = report.makeCategory("Entity being rendered");
+            entity.addEntityCrashInfo(category);
+
+            category = report.makeCategory("Renderer details");
+            category.addCrashSection("Assigned Renderer", render);
+            category.addCrashSection("Location", CrashReportCategory.getCoordinateInfo(x, y, z));
+            category.addCrashSection("Rotation", entityYaw);
+            category.addCrashSection("Delta", partialTicks);
+            throw new ReportedException(report);
         }
     }
 

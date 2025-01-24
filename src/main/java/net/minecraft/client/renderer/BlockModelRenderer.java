@@ -16,7 +16,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
 import net.minecraft.util.RenderLayer;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.util.Vec3i;
 import net.minecraft.world.IBlockAccess;
 import net.optifine.BetterSnow;
@@ -60,11 +60,11 @@ public class BlockModelRenderer {
 
             return flag1;
         } catch (Throwable throwable) {
-            CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Tesselating block model");
-            CrashReportCategory crashreportcategory = crashreport.makeCategory("Block model being tesselated");
-            CrashReportCategory.addBlockInfo(crashreportcategory, blockPosIn, blockStateIn);
-            crashreportcategory.addCrashSection("Using AO", flag);
-            throw new ReportedException(crashreport);
+            CrashReport report = CrashReport.makeCrashReport(throwable, "Tesselating block model");
+            CrashReportCategory category = report.makeCategory("Block model being tesselated");
+            CrashReportCategory.addBlockInfo(category, blockPosIn, blockStateIn);
+            category.addCrashSection("Using AO", flag);
+            throw new ReportedException(report);
         }
     }
 

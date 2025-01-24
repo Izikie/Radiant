@@ -15,7 +15,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.world.World;
 
 public abstract class CommandBlockLogic implements ICommandSender {
@@ -94,11 +94,11 @@ public abstract class CommandBlockLogic implements ICommandSender {
                 this.lastOutput = null;
                 this.successCount = icommandmanager.executeCommand(this, this.commandStored);
             } catch (Throwable throwable) {
-                CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Executing command block");
-                CrashReportCategory crashreportcategory = crashreport.makeCategory("Command to be executed");
-                crashreportcategory.addCrashSectionCallable("Command", CommandBlockLogic.this::getCommand);
-                crashreportcategory.addCrashSectionCallable("Name", CommandBlockLogic.this::getName);
-                throw new ReportedException(crashreport);
+                CrashReport report = CrashReport.makeCrashReport(throwable, "Executing command block");
+                CrashReportCategory category = report.makeCategory("Command to be executed");
+                category.addCrashSectionCallable("Command", CommandBlockLogic.this::getCommand);
+                category.addCrashSectionCallable("Name", CommandBlockLogic.this::getName);
+                throw new ReportedException(report);
             }
         } else {
             this.successCount = 0;

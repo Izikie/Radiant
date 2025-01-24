@@ -35,7 +35,7 @@ import net.minecraft.entity.projectile.EntitySmallFireball;
 import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.network.Packet;
 import net.minecraft.util.IntHashMap;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
 import org.apache.logging.log4j.LogManager;
@@ -134,10 +134,10 @@ public class EntityTracker {
             this.trackedEntityHashTable.addKey(entityIn.getEntityId(), entitytrackerentry);
             entitytrackerentry.updatePlayerEntities(this.theWorld.playerEntities);
         } catch (Throwable throwable) {
-            CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Adding entity to track");
-            CrashReportCategory crashreportcategory = crashreport.makeCategory("Entity To Track");
-            crashreportcategory.addCrashSection("Tracking range", trackingRange + " blocks");
-            crashreportcategory.addCrashSectionCallable("Update interval", () -> {
+            CrashReport report = CrashReport.makeCrashReport(throwable, "Adding entity to track");
+            CrashReportCategory category = report.makeCategory("Entity To Track");
+            category.addCrashSection("Tracking Range", trackingRange + " blocks");
+            category.addCrashSectionCallable("Update Interval", () -> {
                 String s = "Once per " + updateFrequency + " ticks";
 
                 if (updateFrequency == Integer.MAX_VALUE) {
@@ -146,12 +146,12 @@ public class EntityTracker {
 
                 return s;
             });
-            entityIn.addEntityCrashInfo(crashreportcategory);
-            CrashReportCategory crashreportcategory1 = crashreport.makeCategory("Entity That Is Already Tracked");
+            entityIn.addEntityCrashInfo(category);
+            CrashReportCategory crashreportcategory1 = report.makeCategory("Entity That Is Already Tracked");
             this.trackedEntityHashTable.lookup(entityIn.getEntityId()).trackedEntity.addEntityCrashInfo(crashreportcategory1);
 
             try {
-                throw new ReportedException(crashreport);
+                throw new ReportedException(report);
             } catch (ReportedException reportedexception) {
                 LOGGER.error("\"Silently\" catching entity tracking error.", reportedexception);
             }

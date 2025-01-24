@@ -39,8 +39,8 @@ public class ChunkRenderWorker implements Runnable {
                 LOGGER.debug("Stopping due to interrupt");
                 return;
             } catch (Throwable throwable) {
-                CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Batching chunks");
-                Minecraft.getMinecraft().crashed(Minecraft.getMinecraft().addGraphicsAndWorldToCrashReport(crashreport));
+                CrashReport report = CrashReport.makeCrashReport(throwable, "Batching chunks");
+                Minecraft.getMinecraft().crashed(Minecraft.getMinecraft().addGraphicsAndWorldToCrashReport(report));
                 return;
             }
         }

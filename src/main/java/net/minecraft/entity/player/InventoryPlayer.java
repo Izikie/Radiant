@@ -1,7 +1,6 @@
 package net.minecraft.entity.player;
 
 import java.util.Arrays;
-import java.util.concurrent.Callable;
 
 import net.minecraft.block.Block;
 import net.minecraft.crash.CrashReport;
@@ -16,7 +15,7 @@ import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IChatComponent;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 
 public class InventoryPlayer implements IInventory {
     public ItemStack[] mainInventory = new ItemStack[36];
@@ -302,12 +301,12 @@ public class InventoryPlayer implements IInventory {
                     }
                 }
             } catch (Throwable throwable) {
-                CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Adding item to inventory");
-                CrashReportCategory crashreportcategory = crashreport.makeCategory("Item being added");
-                crashreportcategory.addCrashSection("Item ID", Item.getIdFromItem(itemStackIn.getItem()));
-                crashreportcategory.addCrashSection("Item data", itemStackIn.getMetadata());
-                crashreportcategory.addCrashSectionCallable("Item name", itemStackIn::getDisplayName);
-                throw new ReportedException(crashreport);
+                CrashReport report = CrashReport.makeCrashReport(throwable, "Adding item to inventory");
+                CrashReportCategory category = report.makeCategory("Item being added");
+                category.addCrashSection("Item ID", Item.getIdFromItem(itemStackIn.getItem()));
+                category.addCrashSection("Item Data", itemStackIn.getMetadata());
+                category.addCrashSectionCallable("Item Name", itemStackIn::getDisplayName);
+                throw new ReportedException(report);
             }
         } else {
             return false;

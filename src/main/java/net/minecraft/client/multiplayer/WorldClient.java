@@ -287,12 +287,12 @@ public class WorldClient extends World {
     }
 
     public CrashReportCategory addWorldInfoToCrashReport(CrashReport report) {
-        CrashReportCategory crashreportcategory = super.addWorldInfoToCrashReport(report);
-        crashreportcategory.addCrashSectionCallable("Forced entities", () -> WorldClient.this.entityList.size() + " total; " + WorldClient.this.entityList);
-        crashreportcategory.addCrashSectionCallable("Retry entities", () -> WorldClient.this.entitySpawnQueue.size() + " total; " + WorldClient.this.entitySpawnQueue);
-        crashreportcategory.addCrashSectionCallable("Server brand", () -> WorldClient.this.mc.thePlayer.getClientBrand());
-        crashreportcategory.addCrashSectionCallable("Server type", () -> WorldClient.this.mc.getIntegratedServer() == null ? "Non-integrated multiplayer server" : "Integrated singleplayer server");
-        return crashreportcategory;
+        CrashReportCategory category = super.addWorldInfoToCrashReport(report);
+        category.addCrashSectionCallable("Forced Entities", () -> this.entityList.size() + " total; " + this.entityList);
+        category.addCrashSectionCallable("Retry Entities", () -> this.entitySpawnQueue.size() + " total; " + this.entitySpawnQueue);
+        category.addCrashSectionCallable("Server Brand", () -> this.mc.thePlayer.getClientBrand());
+        category.addCrashSectionCallable("Server Type", () -> this.mc.getIntegratedServer() == null ? "Non-integrated multiplayer server" : "Integrated singleplayer server");
+        return category;
     }
 
     public void playSoundAtPos(BlockPos pos, String soundName, float volume, float pitch, boolean distanceDelay) {

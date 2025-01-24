@@ -2,7 +2,7 @@ package net.minecraft.world.gen.layer;
 
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.ChunkProviderSettings;
@@ -141,13 +141,13 @@ public abstract class GenLayer {
             try {
                 return biomegenbase != null && biomegenbase1 != null ? biomegenbase.isEqualTo(biomegenbase1) : false;
             } catch (Throwable throwable) {
-                CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Comparing biomes");
-                CrashReportCategory crashreportcategory = crashreport.makeCategory("Biomes being compared");
-                crashreportcategory.addCrashSection("Biome A ID", biomeIDA);
-                crashreportcategory.addCrashSection("Biome B ID", biomeIDB);
-                crashreportcategory.addCrashSectionCallable("Biome A", () -> String.valueOf(biomegenbase));
-                crashreportcategory.addCrashSectionCallable("Biome B", () -> String.valueOf(biomegenbase1));
-                throw new ReportedException(crashreport);
+                CrashReport report = CrashReport.makeCrashReport(throwable, "Comparing biomes");
+                CrashReportCategory category = report.makeCategory("Biomes being compared");
+                category.addCrashSection("Biome A ID", biomeIDA);
+                category.addCrashSection("Biome B ID", biomeIDB);
+                category.addCrashSectionCallable("Biome A", () -> String.valueOf(biomegenbase));
+                category.addCrashSectionCallable("Biome B", () -> String.valueOf(biomegenbase1));
+                throw new ReportedException(report);
             }
         } else {
             return biomeIDB == BiomeGenBase.MESA_PLATEAU_F.biomeID || biomeIDB == BiomeGenBase.MESA_PLATEAU.biomeID;

@@ -547,27 +547,18 @@ public class WorldInfo {
     }
 
     public void addToCrashReport(CrashReportCategory category) {
-        category.addCrashSectionCallable("Level seed", () -> String.valueOf(WorldInfo.this.getSeed()));
-        category.addCrashSectionCallable("Level generator", () -> String.format("ID %02d - %s, ver %d. Features enabled: %b", WorldInfo.this.terrainType.getWorldTypeID(), WorldInfo.this.terrainType.getWorldTypeName(), WorldInfo.this.terrainType.getGeneratorVersion(), WorldInfo.this.mapFeaturesEnabled));
-        category.addCrashSectionCallable("Level generator options", () -> WorldInfo.this.generatorOptions);
-        category.addCrashSectionCallable("Level spawn location", () -> CrashReportCategory.getCoordinateInfo(WorldInfo.this.spawnX, WorldInfo.this.spawnY, WorldInfo.this.spawnZ));
-        category.addCrashSectionCallable("Level time", () -> String.format("%d game time, %d day time", WorldInfo.this.totalTime, WorldInfo.this.worldTime));
-        category.addCrashSectionCallable("Level dimension", () -> String.valueOf(WorldInfo.this.dimension));
-        category.addCrashSectionCallable("Level storage version", () -> {
-            String s = "Unknown?";
-
-            try {
-                s = switch (WorldInfo.this.saveVersion) {
-                    case 19132 -> "McRegion";
-                    case 19133 -> "Anvil";
-                    default -> s;
-                };
-            } catch (Throwable var3) {
-            }
-
-            return String.format("0x%05X - %s", WorldInfo.this.saveVersion, s);
-        });
-        category.addCrashSectionCallable("Level weather", () -> String.format("Rain time: %d (now: %b), thunder time: %d (now: %b)", WorldInfo.this.rainTime, WorldInfo.this.raining, WorldInfo.this.thunderTime, WorldInfo.this.thundering));
-        category.addCrashSectionCallable("Level game mode", () -> String.format("Game mode: %s (ID %d). Hardcore: %b. Cheats: %b", WorldInfo.this.theGameType.getName(), WorldInfo.this.theGameType.getID(), WorldInfo.this.hardcore, WorldInfo.this.allowCommands));
+        category.addCrashSectionCallable("Level Seed", () -> String.valueOf(this.getSeed()));
+        category.addCrashSectionCallable("Level Generator", () -> String.format("ID %02d - %s, ver %d. Features enabled: %b", this.terrainType.getWorldTypeID(), this.terrainType.getWorldTypeName(), this.terrainType.getGeneratorVersion(), this.mapFeaturesEnabled));
+        category.addCrashSectionCallable("Level Generator options", () -> this.generatorOptions);
+        category.addCrashSectionCallable("Level Spawn location", () -> CrashReportCategory.getCoordinateInfo(this.spawnX, this.spawnY, this.spawnZ));
+        category.addCrashSectionCallable("Level Time", () -> String.format("%d game time, %d day time", this.totalTime, this.worldTime));
+        category.addCrashSectionCallable("Level Dimension", () -> String.valueOf(this.dimension));
+        category.addCrashSectionCallable("Level Storage Version", () -> String.format("0x%05X - %s", this.saveVersion, switch (this.saveVersion) {
+            case 19132 -> "McRegion";
+            case 19133 -> "Anvil";
+            default -> "Unknown";
+        }));
+        category.addCrashSectionCallable("Level Weather", () -> String.format("Rain time: %d (now: %b), thunder time: %d (now: %b)", this.rainTime, this.raining, this.thunderTime, this.thundering));
+        category.addCrashSectionCallable("Level Gamemode", () -> String.format("Game mode: %s (ID %d). Hardcore: %b. Cheats: %b", this.theGameType.getName(), this.theGameType.getID(), this.hardcore, this.allowCommands));
     }
 }

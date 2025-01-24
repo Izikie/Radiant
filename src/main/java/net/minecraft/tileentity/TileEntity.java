@@ -160,7 +160,7 @@ public abstract class TileEntity {
 
         if (this.worldObj != null) {
             CrashReportCategory.addBlockInfo(reportCategory, this.pos, this.getBlockType(), this.getBlockMetadata());
-            reportCategory.addCrashSectionCallable("Actual block type", () -> {
+            reportCategory.addCrashSectionCallable("Actual Block Type", () -> {
                 int i = Block.getIdFromBlock(TileEntity.this.worldObj.getBlockState(TileEntity.this.pos).getBlock());
 
                 try {
@@ -169,7 +169,7 @@ public abstract class TileEntity {
                     return "ID #" + i;
                 }
             });
-            reportCategory.addCrashSectionCallable("Actual block data value", () -> {
+            reportCategory.addCrashSectionCallable("Actual Block Data Value", () -> {
                 IBlockState iblockstate = TileEntity.this.worldObj.getBlockState(TileEntity.this.pos);
                 int i = iblockstate.getBlock().getMetaFromState(iblockstate);
 

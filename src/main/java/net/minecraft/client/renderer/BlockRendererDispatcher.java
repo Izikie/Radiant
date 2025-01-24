@@ -13,7 +13,7 @@ import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.WorldType;
 
@@ -63,10 +63,10 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
                 };
             }
         } catch (Throwable throwable) {
-            CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Tesselating block in world");
-            CrashReportCategory crashreportcategory = crashreport.makeCategory("Block being tesselated");
-            CrashReportCategory.addBlockInfo(crashreportcategory, pos, state.getBlock(), state.getBlock().getMetaFromState(state));
-            throw new ReportedException(crashreport);
+            CrashReport report = CrashReport.makeCrashReport(throwable, "Tesselating block in world");
+            CrashReportCategory category = report.makeCategory("Block being tesselated");
+            CrashReportCategory.addBlockInfo(category, pos, state.getBlock(), state.getBlock().getMetaFromState(state));
+            throw new ReportedException(report);
         }
     }
 

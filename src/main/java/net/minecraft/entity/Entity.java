@@ -40,7 +40,7 @@ import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.Explosion;
@@ -604,10 +604,10 @@ public abstract class Entity implements ICommandSender {
             try {
                 this.doBlockCollisions();
             } catch (Throwable throwable) {
-                CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Checking entity block collision");
-                CrashReportCategory crashreportcategory = crashreport.makeCategory("Entity being checked for collision");
-                this.addEntityCrashInfo(crashreportcategory);
-                throw new ReportedException(crashreport);
+                CrashReport report = CrashReport.makeCrashReport(throwable, "Checking entity block collision");
+                CrashReportCategory category = report.makeCategory("Entity being checked for collision");
+                this.addEntityCrashInfo(category);
+                throw new ReportedException(report);
             }
 
             boolean flag2 = this.isWet();
@@ -657,10 +657,10 @@ public abstract class Entity implements ICommandSender {
                         try {
                             iblockstate.getBlock().onEntityCollidedWithBlock(this.worldObj, blockpos2, iblockstate, this);
                         } catch (Throwable throwable) {
-                            CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Colliding entity with block");
-                            CrashReportCategory crashreportcategory = crashreport.makeCategory("Block being collided with");
-                            CrashReportCategory.addBlockInfo(crashreportcategory, blockpos2, iblockstate);
-                            throw new ReportedException(crashreport);
+                            CrashReport report = CrashReport.makeCrashReport(throwable, "Colliding entity with block");
+                            CrashReportCategory category = report.makeCategory("Block being collided with");
+                            CrashReportCategory.addBlockInfo(category, blockpos2, iblockstate);
+                            throw new ReportedException(report);
                         }
                     }
                 }
@@ -1111,10 +1111,10 @@ public abstract class Entity implements ICommandSender {
                 }
             }
         } catch (Throwable throwable) {
-            CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Saving entity NBT");
-            CrashReportCategory crashreportcategory = crashreport.makeCategory("Entity being saved");
-            this.addEntityCrashInfo(crashreportcategory);
-            throw new ReportedException(crashreport);
+            CrashReport report = CrashReport.makeCrashReport(throwable, "Saving entity NBT");
+            CrashReportCategory category = report.makeCategory("Entity being saved");
+            this.addEntityCrashInfo(category);
+            throw new ReportedException(report);
         }
     }
 
@@ -1176,10 +1176,10 @@ public abstract class Entity implements ICommandSender {
                 this.setPosition(this.posX, this.posY, this.posZ);
             }
         } catch (Throwable throwable) {
-            CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Loading entity NBT");
-            CrashReportCategory crashreportcategory = crashreport.makeCategory("Entity being loaded");
-            this.addEntityCrashInfo(crashreportcategory);
-            throw new ReportedException(crashreport);
+            CrashReport report = CrashReport.makeCrashReport(throwable, "Loading entity NBT");
+            CrashReportCategory category = report.makeCategory("Entity being loaded");
+            this.addEntityCrashInfo(category);
+            throw new ReportedException(report);
         }
     }
 
@@ -1706,14 +1706,14 @@ public abstract class Entity implements ICommandSender {
     }
 
     public void addEntityCrashInfo(CrashReportCategory category) {
-        category.addCrashSectionCallable("Entity Type", () -> EntityList.getEntityString(Entity.this) + " (" + Entity.this.getClass().getCanonicalName() + ")");
+        category.addCrashSectionCallable("Entity Type", () -> EntityList.getEntityString(this) + " (" + this.getClass().getCanonicalName() + ")");
         category.addCrashSection("Entity ID", this.entityId);
-        category.addCrashSectionCallable("Entity Name", Entity.this::getName);
-        category.addCrashSection("Entity's Exact location", String.format("%.2f, %.2f, %.2f", this.posX, this.posY, this.posZ));
-        category.addCrashSection("Entity's Block location", CrashReportCategory.getCoordinateInfo(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)));
-        category.addCrashSection("Entity's Momentum", String.format("%.2f, %.2f, %.2f", this.motionX, this.motionY, this.motionZ));
-        category.addCrashSectionCallable("Entity's Rider", () -> Entity.this.riddenByEntity.toString());
-        category.addCrashSectionCallable("Entity's Vehicle", () -> Entity.this.ridingEntity.toString());
+        category.addCrashSectionCallable("Entity Name", this::getName);
+        category.addCrashSection("Entity Exact Location", String.format("%.2f, %.2f, %.2f", this.posX, this.posY, this.posZ));
+        category.addCrashSection("Entity Block Location", CrashReportCategory.getCoordinateInfo(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)));
+        category.addCrashSection("Entity Momentum", String.format("%.2f, %.2f, %.2f", this.motionX, this.motionY, this.motionZ));
+        category.addCrashSectionCallable("Entity Rider", () -> this.riddenByEntity.toString());
+        category.addCrashSectionCallable("Entity Vehicle", () -> this.ridingEntity.toString());
     }
 
     public boolean canRenderOnFire() {

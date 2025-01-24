@@ -86,7 +86,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.IntHashMap;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.world.WorldServer;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -589,10 +589,10 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         try {
             this.netManager.sendPacket(packetIn);
         } catch (Throwable throwable) {
-            CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Sending packet");
-            CrashReportCategory crashreportcategory = crashreport.makeCategory("Packet being sent");
-            crashreportcategory.addCrashSectionCallable("Packet class", () -> packetIn.getClass().getCanonicalName());
-            throw new ReportedException(crashreport);
+            CrashReport report = CrashReport.makeCrashReport(throwable, "Sending packet");
+            CrashReportCategory category = report.makeCategory("Packet being sent");
+            category.addCrashSectionCallable("Packet Class", () -> packetIn.getClass().getCanonicalName());
+            throw new ReportedException(report);
         }
     }
 

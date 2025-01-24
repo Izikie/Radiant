@@ -20,14 +20,7 @@ import java.net.Proxy;
 import java.net.SocketAddress;
 import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
@@ -139,7 +132,7 @@ import net.minecraft.util.MinecraftError;
 import net.minecraft.util.MouseHelper;
 import net.minecraft.util.MovementInputFromOptions;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.ReportedException;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.ScreenShotHelper;
 import net.minecraft.util.Session;
@@ -171,6 +164,7 @@ import org.lwjgl.util.glu.GLU;
 
 public class Minecraft implements IThreadListener {
     private static final Logger LOGGER = LogManager.getLogger();
+    public static final Random RANDOM = new Random();
     private static final ResourceLocation LOCATION_MOJANG_PNG = new ResourceLocation("textures/gui/title/mojang.png");
     public static final boolean IS_RUNNING_ON_MAC = Util.getOSType() == Util.OperatingSystem.OSX;
     public static byte[] memoryReserve = new byte[10485760];
@@ -291,9 +285,9 @@ public class Minecraft implements IThreadListener {
         try {
             this.startGame();
         } catch (Throwable throwable) {
-            CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Initializing game");
-            crashreport.makeCategory("Initialization");
-            this.displayCrashReport(this.addGraphicsAndWorldToCrashReport(crashreport));
+            CrashReport report = CrashReport.makeCrashReport(throwable, "Initializing game");
+            report.makeCategory("Initialization");
+            this.displayCrashReport(this.addGraphicsAndWorldToCrashReport(report));
             return;
         }
 
@@ -534,15 +528,15 @@ public class Minecraft implements IThreadListener {
     }
 
     public void displayCrashReport(CrashReport crashReportIn) {
-        File file1 = new File(getMinecraft().mcDataDir, "crash-reports");
-        File file2 = new File(file1, "crash-" + (new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss")).format(new Date()) + "-client.txt");
+        File directory = new File(getMinecraft().mcDataDir, "crash-reports");
+        File file = new File(directory, "crash-" + (new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss")).format(new Date()) + "-client.txt");
         Bootstrap.printToSYSOUT(crashReportIn.getCompleteReport());
 
         if (crashReportIn.getFile() != null) {
             Bootstrap.printToSYSOUT("#@!@# Game crashed! Crash report saved to: #@!@# " + crashReportIn.getFile());
             System.exit(-1);
-        } else if (crashReportIn.saveToFile(file2)) {
-            Bootstrap.printToSYSOUT("#@!@# Game crashed! Crash report saved to: #@!@# " + file2.getAbsolutePath());
+        } else if (crashReportIn.saveToFile(file)) {
+            Bootstrap.printToSYSOUT("#@!@# Game crashed! Crash report saved to: #@!@# " + file.getAbsolutePath());
             System.exit(-1);
         } else {
             Bootstrap.printToSYSOUT("#@?@# Game crashed! Crash report could not be saved. #@?@#");
@@ -1135,20 +1129,20 @@ public class Minecraft implements IThreadListener {
             try {
                 this.currentScreen.handleInput();
             } catch (Throwable throwable1) {
-                CrashReport crashreport = CrashReport.makeCrashReport(throwable1, "Updating screen events");
-                CrashReportCategory crashreportcategory = crashreport.makeCategory("Affected screen");
-                crashreportcategory.addCrashSectionCallable("Screen name", () -> Minecraft.this.currentScreen.getClass().getCanonicalName());
-                throw new ReportedException(crashreport);
+                CrashReport report = CrashReport.makeCrashReport(throwable1, "Updating screen events");
+                CrashReportCategory category = report.makeCategory("Affected screen");
+                category.addCrashSectionCallable("Screen Name", () -> this.currentScreen.getClass().getCanonicalName());
+                throw new ReportedException(report);
             }
 
             if (this.currentScreen != null) {
                 try {
                     this.currentScreen.updateScreen();
                 } catch (Throwable throwable) {
-                    CrashReport crashreport1 = CrashReport.makeCrashReport(throwable, "Ticking screen");
-                    CrashReportCategory crashreportcategory1 = crashreport1.makeCategory("Affected screen");
-                    crashreportcategory1.addCrashSectionCallable("Screen name", () -> Minecraft.this.currentScreen.getClass().getCanonicalName());
-                    throw new ReportedException(crashreport1);
+                    CrashReport report = CrashReport.makeCrashReport(throwable, "Ticking screen");
+                    CrashReportCategory category = report.makeCategory("Affected screen");
+                    category.addCrashSectionCallable("Screen Name", () -> this.currentScreen.getClass().getCanonicalName());
+                    throw new ReportedException(report);
                 }
             }
         }
@@ -1410,16 +1404,16 @@ public class Minecraft implements IThreadListener {
                 try {
                     this.theWorld.tick();
                 } catch (Throwable throwable2) {
-                    CrashReport crashreport2 = CrashReport.makeCrashReport(throwable2, "Exception in world tick");
+                    CrashReport report = CrashReport.makeCrashReport(throwable2, "Exception in world tick");
 
                     if (this.theWorld == null) {
-                        CrashReportCategory crashreportcategory2 = crashreport2.makeCategory("Affected level");
-                        crashreportcategory2.addCrashSection("Problem", "Level is null!");
+                        CrashReportCategory category = report.makeCategory("Affected level");
+                        category.addCrashSection("Problem", "Level is null!");
                     } else {
-                        this.theWorld.addWorldInfoToCrashReport(crashreport2);
+                        this.theWorld.addWorldInfoToCrashReport(report);
                     }
 
-                    throw new ReportedException(crashreport2);
+                    throw new ReportedException(report);
                 }
             }
 
@@ -1457,11 +1451,11 @@ public class Minecraft implements IThreadListener {
             this.theIntegratedServer.startServerThread();
             this.integratedServerIsRunning = true;
         } catch (Throwable throwable) {
-            CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Starting integrated server");
-            CrashReportCategory crashreportcategory = crashreport.makeCategory("Starting integrated server");
-            crashreportcategory.addCrashSection("Level ID", folderName);
-            crashreportcategory.addCrashSection("Level Name", worldName);
-            throw new ReportedException(crashreport);
+            CrashReport report = CrashReport.makeCrashReport(throwable, "Starting integrated server");
+            CrashReportCategory category = report.makeCategory("Starting integrated server");
+            category.addCrashSection("Level ID", folderName);
+            category.addCrashSection("Level Name", worldName);
+            throw new ReportedException(report);
         }
 
         this.loadingScreen.displaySavingString(I18n.format("menu.loadingLevel"));
@@ -1718,32 +1712,29 @@ public class Minecraft implements IThreadListener {
     }
 
     public CrashReport addGraphicsAndWorldToCrashReport(CrashReport theCrash) {
-        theCrash.getCategory().addCrashSectionCallable("Launched Version", () -> Minecraft.this.launchedVersion);
+        theCrash.getCategory().addCrashSectionCallable("Launched Version", () -> this.launchedVersion);
         theCrash.getCategory().addCrashSectionCallable("LWJGL", Sys::getVersion);
         theCrash.getCategory().addCrashSectionCallable("OpenGL", () -> GL11.glGetString(GL11.GL_RENDERER) + " GL version " + GL11.glGetString(GL11.GL_VERSION) + ", " + GL11.glGetString(GL11.GL_VENDOR));
         theCrash.getCategory().addCrashSectionCallable("GL Caps", OpenGlHelper::getLogText);
-        theCrash.getCategory().addCrashSectionCallable("Using VBOs", () -> Minecraft.this.gameSettings.useVbo ? "Yes" : "No");
-        theCrash.getCategory().addCrashSectionCallable("Is Modded", () -> {
-            String s = ClientBrandRetriever.getClientModName();
-            return !s.equals("vanilla") ? "Definitely; Client brand changed to '" + s + "'" : (Minecraft.class.getSigners() == null ? "Very likely; Jar signature invalidated" : "Probably not. Jar signature remains and client brand is untouched.");
-        });
+        theCrash.getCategory().addCrashSectionCallable("Using VBOs", () -> this.gameSettings.useVbo ? "Yes" : "No");
+        theCrash.getCategory().addCrashSectionCallable("Is Modded", () -> Minecraft.class.getSigners() == null ? "Very likely; Jar signature invalidated" : "Probably not. Jar signature remains.");
         theCrash.getCategory().addCrashSectionCallable("Type", () -> "Client (map_client.txt)");
         theCrash.getCategory().addCrashSectionCallable("Resource Packs", () -> {
-            StringBuilder stringbuilder = new StringBuilder();
+            StringBuilder builder = new StringBuilder();
 
-            for (String s : Minecraft.this.gameSettings.resourcePacks) {
-                if (!stringbuilder.isEmpty()) {
-                    stringbuilder.append(", ");
+            for (String pack : this.gameSettings.resourcePacks) {
+                if (!builder.isEmpty()) {
+                    builder.append(", ");
                 }
 
-                stringbuilder.append(s);
+                builder.append(pack);
 
-                if (Minecraft.this.gameSettings.incompatibleResourcePacks.contains(s)) {
-                    stringbuilder.append(" (incompatible)");
+                if (this.gameSettings.incompatibleResourcePacks.contains(pack)) {
+                    builder.append(" (incompatible)");
                 }
             }
 
-            return stringbuilder.toString();
+            return builder.toString();
         });
         theCrash.getCategory().addCrashSectionCallable("Current Language", () -> Minecraft.this.mcLanguageManager.getCurrentLanguage().toString());
 
