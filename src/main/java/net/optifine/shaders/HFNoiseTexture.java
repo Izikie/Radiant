@@ -64,7 +64,7 @@ public class HFNoiseTexture implements ICustomTexture {
         return this.texID;
     }
 
-    public int getTextureUnit() {
+    public int textureUnit() {
         return this.textureUnit;
     }
 

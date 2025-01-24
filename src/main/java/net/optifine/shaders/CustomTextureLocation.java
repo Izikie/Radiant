@@ -57,7 +57,7 @@ public class CustomTextureLocation implements ICustomTexture {
         return itextureobject.getGlTextureId();
     }
 
-    public int getTextureUnit() {
+    public int textureUnit() {
         return this.textureUnit;
     }
 

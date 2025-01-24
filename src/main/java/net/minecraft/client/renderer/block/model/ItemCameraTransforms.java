@@ -54,11 +54,11 @@ public class ItemCameraTransforms {
         ItemTransformVec3f itemtransformvec3f = this.getTransform(type);
 
         if (itemtransformvec3f != ItemTransformVec3f.DEFAULT) {
-            GlStateManager.translate(itemtransformvec3f.translation.x + field_181690_b, itemtransformvec3f.translation.y + field_181691_c, itemtransformvec3f.translation.z + field_181692_d);
-            GlStateManager.rotate(itemtransformvec3f.rotation.y + field_181694_f, 0.0F, 1.0F, 0.0F);
-            GlStateManager.rotate(itemtransformvec3f.rotation.x + field_181693_e, 1.0F, 0.0F, 0.0F);
-            GlStateManager.rotate(itemtransformvec3f.rotation.z + field_181695_g, 0.0F, 0.0F, 1.0F);
-            GlStateManager.scale(itemtransformvec3f.scale.x + field_181696_h, itemtransformvec3f.scale.y + field_181697_i, itemtransformvec3f.scale.z + field_181698_j);
+            GlStateManager.translate(itemtransformvec3f.translation().x + field_181690_b, itemtransformvec3f.translation().y + field_181691_c, itemtransformvec3f.translation().z + field_181692_d);
+            GlStateManager.rotate(itemtransformvec3f.rotation().y + field_181694_f, 0.0F, 1.0F, 0.0F);
+            GlStateManager.rotate(itemtransformvec3f.rotation().x + field_181693_e, 1.0F, 0.0F, 0.0F);
+            GlStateManager.rotate(itemtransformvec3f.rotation().z + field_181695_g, 0.0F, 0.0F, 1.0F);
+            GlStateManager.scale(itemtransformvec3f.scale().x + field_181696_h, itemtransformvec3f.scale().y + field_181697_i, itemtransformvec3f.scale().z + field_181698_j);
         }
     }
 

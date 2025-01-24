@@ -66,7 +66,7 @@ public class CustomTextureRaw implements ICustomTexture {
         return this.textureId;
     }
 
-    public int getTextureUnit() {
+    public int textureUnit() {
         return this.textureUnit;
     }
 

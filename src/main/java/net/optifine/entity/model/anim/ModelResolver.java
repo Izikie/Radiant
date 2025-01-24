@@ -70,7 +70,7 @@ public class ModelResolver implements IModelResolver {
                 return modelrenderer;
             } else {
                 for (CustomModelRenderer custommodelrenderer : this.customModelRenderers) {
-                    ModelRenderer modelrenderer1 = custommodelrenderer.getModelRenderer();
+                    ModelRenderer modelrenderer1 = custommodelrenderer.modelRenderer();
 
                     if (name.equals(modelrenderer1.getId())) {
                         return modelrenderer1;

@@ -70,7 +70,7 @@ public class ExpressionParser {
                     return this.makeInfix(list, list1);
                 }
 
-                if (token.getType() != TokenType.OPERATOR) {
+                if (token.type() != TokenType.OPERATOR) {
                     throw new ParseException("Invalid operator: " + token);
                 }
 
@@ -86,7 +86,7 @@ public class ExpressionParser {
         List<FunctionType> list = new LinkedList();
 
         for (Token token : listOper) {
-            FunctionType functiontype = FunctionType.parse(token.getText());
+            FunctionType functiontype = FunctionType.parse(token.text());
             checkNull(functiontype, "Invalid operator: " + token);
             list.add(functiontype);
         }
@@ -143,7 +143,7 @@ public class ExpressionParser {
         Token token = deque.poll();
         checkNull(token, "Missing expression");
 
-        switch (token.getType()) {
+        switch (token.type()) {
             case NUMBER:
                 return makeConstantFloat(token);
 
@@ -160,7 +160,7 @@ public class ExpressionParser {
                 return this.makeBracketed(token, deque);
 
             case OPERATOR:
-                FunctionType functiontype1 = FunctionType.parse(token.getText());
+                FunctionType functiontype1 = FunctionType.parse(token.text());
                 checkNull(functiontype1, "Invalid operator: " + token);
 
                 if (functiontype1 == FunctionType.PLUS) {
@@ -179,7 +179,7 @@ public class ExpressionParser {
     }
 
     private static IExpression makeConstantFloat(Token token) throws ParseException {
-        float f = Config.parseFloat(token.getText(), Float.NaN);
+        float f = Config.parseFloat(token.text(), Float.NaN);
 
         if (Float.isNaN(f)) {
             throw new ParseException("Invalid float value: " + token);
@@ -191,12 +191,12 @@ public class ExpressionParser {
     private FunctionType getFunctionType(Token token, Deque<Token> deque) throws ParseException {
         Token token1 = deque.peek();
 
-        if (token1 != null && token1.getType() == TokenType.BRACKET_OPEN) {
-            FunctionType enumfunctiontype1 = FunctionType.parse(token1.getText());
+        if (token1 != null && token1.type() == TokenType.BRACKET_OPEN) {
+            FunctionType enumfunctiontype1 = FunctionType.parse(token1.text());
             checkNull(enumfunctiontype1, "Unknown function: " + token1);
             return enumfunctiontype1;
         } else {
-            FunctionType functiontype = FunctionType.parse(token.getText());
+            FunctionType functiontype = FunctionType.parse(token.text());
 
             if (functiontype == null) {
                 return null;
@@ -212,7 +212,7 @@ public class ExpressionParser {
         if (type.getParameterCount(new IExpression[0]) == 0) {
             Token token = deque.peek();
 
-            if (token == null || token.getType() != TokenType.BRACKET_OPEN) {
+            if (token == null || token.type() != TokenType.BRACKET_OPEN) {
                 return makeFunction(type, new IExpression[0]);
             }
         }
@@ -270,7 +270,7 @@ public class ExpressionParser {
         if (this.expressionResolver == null) {
             throw new ParseException("Model variable not found: " + token);
         } else {
-            IExpression iexpression = this.expressionResolver.getExpression(token.getText());
+            IExpression iexpression = this.expressionResolver.getExpression(token.text());
 
             if (iexpression == null) {
                 throw new ParseException("Model variable not found: " + token);
@@ -294,17 +294,17 @@ public class ExpressionParser {
             Token token = (Token) iterator.next();
             iterator.remove();
 
-            if (i == 0 && token.getType() == tokenTypeEnd) {
+            if (i == 0 && token.type() == tokenTypeEnd) {
                 return deque3;
             }
 
             deque3.add(token);
 
-            if (token.getType() == TokenType.BRACKET_OPEN) {
+            if (token.type() == TokenType.BRACKET_OPEN) {
                 ++i;
             }
 
-            if (token.getType() == TokenType.BRACKET_CLOSE) {
+            if (token.type() == TokenType.BRACKET_CLOSE) {
                 --i;
             }
         }

@@ -34,7 +34,7 @@ public class RenderEntityItem extends Render<EntityItem> {
             int i = this.func_177078_a(itemstack);
             float f = 0.25F;
             float f1 = MathHelper.sin((itemIn.getAge() + p_177077_8_) / 10.0F + itemIn.hoverStart) * 0.1F + 0.1F;
-            float f2 = p_177077_9_.getItemCameraTransforms().getTransform(ItemCameraTransforms.TransformType.GROUND).scale.y;
+            float f2 = p_177077_9_.getItemCameraTransforms().getTransform(ItemCameraTransforms.TransformType.GROUND).scale().y;
             GlStateManager.translate((float) p_177077_2_, (float) p_177077_4_ + f1 + 0.25F * f2, (float) p_177077_6_);
 
             if (flag || this.renderManager.options != null) {
@@ -108,9 +108,9 @@ public class RenderEntityItem extends Render<EntityItem> {
                 ibakedmodel.getItemCameraTransforms().applyTransform(ItemCameraTransforms.TransformType.GROUND);
                 this.itemRenderer.renderItem(itemstack, ibakedmodel);
                 GlStateManager.popMatrix();
-                float f3 = ibakedmodel.getItemCameraTransforms().ground.scale.x;
-                float f4 = ibakedmodel.getItemCameraTransforms().ground.scale.y;
-                float f5 = ibakedmodel.getItemCameraTransforms().ground.scale.z;
+                float f3 = ibakedmodel.getItemCameraTransforms().ground.scale().x;
+                float f4 = ibakedmodel.getItemCameraTransforms().ground.scale().y;
+                float f5 = ibakedmodel.getItemCameraTransforms().ground.scale().z;
                 GlStateManager.translate(0.0F * f3, 0.0F * f4, 0.046875F * f5);
             }
         }

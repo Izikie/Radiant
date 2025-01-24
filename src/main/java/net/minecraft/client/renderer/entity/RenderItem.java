@@ -359,7 +359,7 @@ public class RenderItem implements IResourceManagerReloadListener {
     }
 
     private boolean isThereOneNegativeScale(ItemTransformVec3f itemTranformVec) {
-        return itemTranformVec.scale.x < 0.0F ^ itemTranformVec.scale.y < 0.0F ^ itemTranformVec.scale.z < 0.0F;
+        return itemTranformVec.scale().x < 0.0F ^ itemTranformVec.scale().y < 0.0F ^ itemTranformVec.scale().z < 0.0F;
     }
 
     public void renderItemIntoGUI(ItemStack stack, int x, int y) {

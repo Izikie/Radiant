@@ -1248,7 +1248,7 @@ public class Shaders {
     private static void bindCustomTextures(ICustomTexture[] cts) {
         if (cts != null) {
             for (ICustomTexture icustomtexture : cts) {
-                GlStateManager.setActiveTexture(33984 + icustomtexture.getTextureUnit());
+                GlStateManager.setActiveTexture(33984 + icustomtexture.textureUnit());
                 int j = icustomtexture.getTextureId();
                 int k = icustomtexture.getTarget();
 
@@ -1296,7 +1296,7 @@ public class Shaders {
             if (screenshaderoptions == null) {
                 return new ShaderOption[0];
             } else {
-                ShaderOption[] ashaderoption1 = screenshaderoptions.getShaderOptions();
+                ShaderOption[] ashaderoption1 = screenshaderoptions.shaderOptions();
                 List<ShaderOption> list = new ArrayList();
 
                 for (ShaderOption shaderoption : ashaderoption1) {
@@ -1322,7 +1322,7 @@ public class Shaders {
             return def;
         } else {
             ScreenShaderOptions screenshaderoptions = shaderPackGuiScreens.get(s);
-            return screenshaderoptions == null ? def : screenshaderoptions.getColumns();
+            return screenshaderoptions == null ? def : screenshaderoptions.columns();
         }
     }
 
@@ -1331,7 +1331,7 @@ public class Shaders {
 
         for (String s : mapScreens.keySet()) {
             ScreenShaderOptions screenshaderoptions = mapScreens.get(s);
-            ShaderOption[] ashaderoption = screenshaderoptions.getShaderOptions();
+            ShaderOption[] ashaderoption = screenshaderoptions.shaderOptions();
 
             for (ShaderOption shaderoption : ashaderoption) {
                 if (shaderoption != null) {
@@ -3343,7 +3343,7 @@ public class Shaders {
         }
 
         if (noiseTextureEnabled) {
-            GlStateManager.setActiveTexture(33984 + noiseTexture.getTextureUnit());
+            GlStateManager.setActiveTexture(33984 + noiseTexture.textureUnit());
             GlStateManager.bindTexture(noiseTexture.getTextureId());
         }
 
@@ -3828,7 +3828,7 @@ public class Shaders {
             }
 
             if (noiseTextureEnabled) {
-                GlStateManager.setActiveTexture(33984 + noiseTexture.getTextureUnit());
+                GlStateManager.setActiveTexture(33984 + noiseTexture.textureUnit());
                 GlStateManager.bindTexture(noiseTexture.getTextureId());
             }
 
@@ -3898,10 +3898,10 @@ public class Shaders {
         RenderScale renderscale = activeProgram.getRenderScale();
 
         if (renderscale != null) {
-            int i = (int) (renderWidth * renderscale.getOffsetX());
-            int j = (int) (renderHeight * renderscale.getOffsetY());
-            int k = (int) (renderWidth * renderscale.getScale());
-            int l = (int) (renderHeight * renderscale.getScale());
+            int i = (int) (renderWidth * renderscale.offsetX());
+            int j = (int) (renderHeight * renderscale.offsetY());
+            int k = (int) (renderWidth * renderscale.scale());
+            int l = (int) (renderHeight * renderscale.scale());
             GL11.glViewport(i, j, k, l);
         }
     }

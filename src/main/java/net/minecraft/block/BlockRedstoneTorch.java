@@ -162,13 +162,5 @@ public class BlockRedstoneTorch extends BlockTorch {
         return other == Blocks.UNLIT_REDSTONE_TORCH || other == Blocks.REDSTONE_TORCH;
     }
 
-    static class Toggle {
-        final BlockPos pos;
-        final long time;
-
-        public Toggle(BlockPos pos, long time) {
-            this.pos = pos;
-            this.time = time;
-        }
-    }
+    record Toggle(BlockPos pos, long time) {}
 }

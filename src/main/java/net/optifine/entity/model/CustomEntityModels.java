@@ -134,7 +134,7 @@ public class CustomEntityModels {
 
     private static IEntityRenderer parseEntityRender(JsonObject obj, String path) {
         CustomEntityRenderer customentityrenderer = CustomEntityModelParser.parseEntityRender(obj, path);
-        String s = customentityrenderer.getName();
+        String s = customentityrenderer.name();
         ModelAdapter modeladapter = CustomModelRegistry.getModelAdapter(s);
         checkNull(modeladapter, "Entity not found: " + s);
         Class oclass = modeladapter.getEntityClass();
@@ -150,9 +150,9 @@ public class CustomEntityModels {
     }
 
     private static IEntityRenderer makeEntityRender(ModelAdapter modelAdapter, CustomEntityRenderer cer) {
-        ResourceLocation resourcelocation = cer.getTextureLocation();
-        CustomModelRenderer[] acustommodelrenderer = cer.getCustomModelRenderers();
-        float f = cer.getShadowSize();
+        ResourceLocation resourcelocation = cer.textureLocation();
+        CustomModelRenderer[] acustommodelrenderer = cer.customModelRenderers();
+        float f = cer.shadowSize();
 
         if (f < 0.0F) {
             f = modelAdapter.getShadowSize();
@@ -194,14 +194,14 @@ public class CustomEntityModels {
     }
 
     private static boolean modifyModel(ModelAdapter modelAdapter, ModelBase model, CustomModelRenderer customModelRenderer, ModelResolver modelResolver) {
-        String s = customModelRenderer.getModelPart();
+        String s = customModelRenderer.modelPart();
         ModelRenderer modelrenderer = modelAdapter.getModelRenderer(model, s);
 
         if (modelrenderer == null) {
             Config.warn("Model part not found: " + s + ", model: " + model);
             return false;
         } else {
-            if (!customModelRenderer.isAttach()) {
+            if (!customModelRenderer.attach()) {
                 if (modelrenderer.cubeList != null) {
                     modelrenderer.cubeList.clear();
                 }
@@ -227,18 +227,18 @@ public class CustomEntityModels {
                 }
             }
 
-            modelrenderer.addChild(customModelRenderer.getModelRenderer());
-            ModelUpdater modelupdater = customModelRenderer.getModelUpdater();
+            modelrenderer.addChild(customModelRenderer.modelRenderer());
+            ModelUpdater modelupdater = customModelRenderer.modelUpdater();
 
             if (modelupdater != null) {
-                modelResolver.setThisModelRenderer(customModelRenderer.getModelRenderer());
+                modelResolver.setThisModelRenderer(customModelRenderer.modelRenderer());
                 modelResolver.setPartModelRenderer(modelrenderer);
 
                 if (!modelupdater.initialize(modelResolver)) {
                     return false;
                 }
 
-                customModelRenderer.getModelRenderer().setModelUpdater(modelupdater);
+                customModelRenderer.modelRenderer().setModelUpdater(modelupdater);
             }
 
             return true;

@@ -3,7 +3,7 @@ package net.optifine.shaders;
 public interface ICustomTexture {
     int getTextureId();
 
-    int getTextureUnit();
+    int textureUnit();
 
     void deleteTexture();
 

@@ -37,7 +37,6 @@ import net.optifine.config.NbtTagValue;
 import net.optifine.config.ParserEnchantmentId;
 import net.optifine.config.RangeInt;
 import net.optifine.config.RangeListInt;
-import net.optifine.reflect.Reflector;
 import net.optifine.render.Blender;
 import net.optifine.util.StrUtils;
 import net.optifine.util.TextureUtils;
@@ -711,7 +710,7 @@ public class CustomItemProperties {
 
             if (item == Items.POTION && this.damage != null && this.damage.getCountRanges() > 0) {
                 RangeInt rangeint = this.damage.getRange(0);
-                int i = rangeint.getMin();
+                int i = rangeint.min();
                 boolean flag = (i & 16384) != 0;
                 String s5 = this.getMapTexture(this.mapTextures, "texture.potion_overlay", "items/potion_overlay");
                 String s6;
