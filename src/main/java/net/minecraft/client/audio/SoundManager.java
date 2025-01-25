@@ -10,10 +10,7 @@ import io.netty.util.internal.ThreadLocalRandom;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLStreamHandler;
+import java.net.*;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -333,27 +330,38 @@ public class SoundManager {
         this.delayedSounds.put(sound, this.playTime + delay);
     }
 
-    private static URL getURLForSoundResource(final ResourceLocation p_148612_0_) {
-        String s = String.format("%s:%s:%s", "mcsounddomain", p_148612_0_.getResourceDomain(), p_148612_0_.getResourcePath());
-        URLStreamHandler urlstreamhandler = new URLStreamHandler() {
-            protected URLConnection openConnection(final URL p_openConnection_1_) {
-                return new URLConnection(p_openConnection_1_) {
+    private static URL getURLForSoundResource(final ResourceLocation resource) {
+        String protocol = "mcsounddomain";
+        String domain = resource.getResourceDomain();
+        String path = resource.getResourcePath();
+
+        String uriString = String.format("%s:%s:%s", protocol, domain, path);
+
+        URLStreamHandler urlStreamHandler = new URLStreamHandler() {
+            @Override
+            protected URLConnection openConnection(URL url) {
+                return new URLConnection(url) {
+                    @Override
                     public void connect() throws IOException {
+                        // No connection logic required
                     }
 
+                    @Override
                     public InputStream getInputStream() throws IOException {
-                        return Minecraft.getMinecraft().getResourceManager().getResource(p_148612_0_).getInputStream();
+                        return Minecraft.getMinecraft().getResourceManager()
+                                .getResource(resource).getInputStream();
                     }
                 };
             }
         };
 
         try {
-            return new URL(null, s, urlstreamhandler);
-        } catch (MalformedURLException var4) {
-            throw new Error("TODO: Sanely handle url exception! :D");
+            return URL.of(URI.create(uriString), urlStreamHandler);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Failed to create URL for sound resource", e);
         }
     }
+
 
     public void setListener(EntityPlayer player, float p_148615_2_) {
         if (this.loaded && player != null) {

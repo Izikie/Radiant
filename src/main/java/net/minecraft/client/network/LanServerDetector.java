@@ -3,10 +3,7 @@ package net.minecraft.client.network;
 import com.google.common.collect.Lists;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.InetAddress;
-import java.net.MulticastSocket;
-import java.net.SocketTimeoutException;
+import java.net.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -86,7 +83,8 @@ public class LanServerDetector {
 
     public static class ThreadLanServerFind extends Thread {
         private final LanServerDetector.LanServerList localServerList;
-        private final InetAddress broadcastAddress;
+        private final InetSocketAddress multicastGroupAddress;
+        private final NetworkInterface networkInterface;
         private final MulticastSocket socket;
 
         public ThreadLanServerFind(LanServerDetector.LanServerList p_i1320_1_) throws IOException {
@@ -94,9 +92,10 @@ public class LanServerDetector {
             this.localServerList = p_i1320_1_;
             this.setDaemon(true);
             this.socket = new MulticastSocket(4445);
-            this.broadcastAddress = InetAddress.getByName("224.0.2.60");
+            this.multicastGroupAddress = new InetSocketAddress(InetAddress.getByName("224.0.2.60"), 4445);
             this.socket.setSoTimeout(5000);
-            this.socket.joinGroup(this.broadcastAddress);
+            this.networkInterface = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
+            this.socket.joinGroup(multicastGroupAddress, networkInterface);
         }
 
         public void run() {
@@ -120,7 +119,7 @@ public class LanServerDetector {
             }
 
             try {
-                this.socket.leaveGroup(this.broadcastAddress);
+                this.socket.leaveGroup(this.multicastGroupAddress, networkInterface);
             } catch (IOException var4) {
             }
 

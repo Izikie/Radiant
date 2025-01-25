@@ -8,6 +8,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
 import java.lang.reflect.Type;
+import java.util.Objects;
 
 import net.minecraft.util.JsonUtils;
 import org.apache.commons.lang3.Validate;
@@ -19,7 +20,7 @@ public class SoundListSerializer implements JsonDeserializer<SoundList> {
         soundlist.setReplaceExisting(JsonUtils.getBoolean(jsonobject, "replace", false));
         SoundCategory soundcategory = SoundCategory.getCategory(JsonUtils.getString(jsonobject, "category", SoundCategory.MASTER.getCategoryName()));
         soundlist.setSoundCategory(soundcategory);
-        Validate.notNull(soundcategory, "Invalid category");
+        Objects.requireNonNull(soundcategory, "Invalid category");
 
         if (jsonobject.has("sounds")) {
             JsonArray jsonarray = JsonUtils.getJsonArray(jsonobject, "sounds");
@@ -36,7 +37,7 @@ public class SoundListSerializer implements JsonDeserializer<SoundList> {
 
                     if (jsonobject1.has("type")) {
                         SoundList.SoundEntry.Type soundlist$soundentry$type = SoundList.SoundEntry.Type.getType(JsonUtils.getString(jsonobject1, "type"));
-                        Validate.notNull(soundlist$soundentry$type, "Invalid type");
+                        Objects.requireNonNull(soundlist$soundentry$type, "Invalid type");
                         soundlist$soundentry.setSoundEntryType(soundlist$soundentry$type);
                     }
 

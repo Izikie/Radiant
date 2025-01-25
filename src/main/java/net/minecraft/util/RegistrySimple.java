@@ -2,10 +2,7 @@ package net.minecraft.util;
 
 import com.google.common.collect.Maps;
 
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
@@ -24,8 +21,8 @@ public class RegistrySimple<K, V> implements IRegistry<K, V> {
     }
 
     public void putObject(K key, V value) {
-        Validate.notNull(key);
-        Validate.notNull(value);
+        Objects.requireNonNull(key);
+        Objects.requireNonNull(value);
 
         if (this.registryObjects.containsKey(key)) {
             LOGGER.debug("Adding duplicate key '{}' to registry", key);

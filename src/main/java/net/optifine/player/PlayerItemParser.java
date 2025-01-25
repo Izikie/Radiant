@@ -22,7 +22,6 @@ import net.optifine.entity.model.CustomEntityModelParser;
 import net.optifine.util.Json;
 
 public class PlayerItemParser {
-    private static final JsonParser JSON_PARSER = new JsonParser();
     public static final String ITEM_TYPE = "type";
     public static final String ITEM_TEXTURE_SIZE = "textureSize";
     public static final String ITEM_USE_PLAYER_TEXTURE = "usePlayerTexture";

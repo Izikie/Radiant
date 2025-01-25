@@ -13,11 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.Proxy;
-import java.net.ServerSocket;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -112,7 +108,7 @@ public class HttpUtil {
             try {
                 try {
                     byte[] abyte = new byte[4096];
-                    URL url = new URL(packUrl);
+                    URL url = new URI(packUrl).toURL();
                     httpurlconnection = (HttpURLConnection) url.openConnection(p_180192_5_);
                     float f = 0.0F;
                     float f1 = p_180192_2_.size();
@@ -201,7 +197,7 @@ public class HttpUtil {
                         InputStream inputstream1 = httpurlconnection.getErrorStream();
 
                         try {
-                            HttpUtil.LOGGER.error(IOUtils.toString(inputstream1));
+                            HttpUtil.LOGGER.error(IOUtils.toString(inputstream1, StandardCharsets.UTF_8));
                         } catch (IOException ioexception) {
                             ioexception.printStackTrace();
                         }

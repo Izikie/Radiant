@@ -38,8 +38,8 @@ public class ShaderMacros {
     public static String getOs() {
         return switch (Util.getOSType()) {
             case WINDOWS -> "MC_OS_WINDOWS";
-            case OSX -> "MC_OS_MAC";
-            case LINUX -> "MC_OS_LINUX";
+            case MAC -> "MC_OS_MAC";
+            case UNIX -> "MC_OS_LINUX";
             default -> "MC_OS_OTHER";
         };
     }

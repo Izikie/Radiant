@@ -9,6 +9,7 @@ import com.google.gson.JsonParser;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import javax.imageio.ImageIO;
 
@@ -92,8 +93,8 @@ public class PlayerConfigurationParser {
         try {
             byte[] abyte = HttpPipeline.get(s, Minecraft.getMinecraft().getProxy());
             return ImageIO.read(new ByteArrayInputStream(abyte));
-        } catch (IOException ioexception) {
-            Config.warn("Error loading item texture " + texturePath + ": " + ioexception.getClass().getName() + ": " + ioexception.getMessage());
+        } catch (IOException | URISyntaxException exception) {
+            Config.warn("Error loading item texture " + texturePath + ": " + exception.getClass().getName() + ": " + exception.getMessage());
             return null;
         }
     }
@@ -104,8 +105,7 @@ public class PlayerConfigurationParser {
         try {
             byte[] abyte = HttpPipeline.get(s, Minecraft.getMinecraft().getProxy());
             String s1 = new String(abyte, StandardCharsets.US_ASCII);
-            JsonParser jsonparser = new JsonParser();
-            JsonObject jsonobject = (JsonObject) jsonparser.parse(s1);
+            JsonObject jsonobject = (JsonObject) JsonParser.parseString(s1);
             return PlayerItemParser.parseItemModel(jsonobject);
         } catch (Exception exception) {
             Config.warn("Error loading item model " + modelPath + ": " + exception.getClass().getName() + ": " + exception.getMessage());

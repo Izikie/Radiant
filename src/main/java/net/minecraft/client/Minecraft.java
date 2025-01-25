@@ -148,7 +148,6 @@ import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.WorldInfo;
 import net.optifine.Lang;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.LWJGLException;
@@ -166,7 +165,7 @@ public class Minecraft implements IThreadListener {
     private static final Logger LOGGER = LogManager.getLogger();
     public static final Random RANDOM = new Random();
     private static final ResourceLocation LOCATION_MOJANG_PNG = new ResourceLocation("textures/gui/title/mojang.png");
-    public static final boolean IS_RUNNING_ON_MAC = Util.getOSType() == Util.OperatingSystem.OSX;
+    public static final boolean IS_RUNNING_ON_MAC = Util.getOSType() == Util.OperatingSystem.MAC;
     public static byte[] memoryReserve = new byte[10485760];
     private static final List<DisplayMode> MAC_DISPLAY_MODES = Lists.newArrayList(new DisplayMode(2560, 1600), new DisplayMode(2880, 1800));
     private final File fileResourcepacks;
@@ -1886,7 +1885,7 @@ public class Minecraft implements IThreadListener {
     }
 
     public <V> ListenableFuture<V> addScheduledTask(Callable<V> callableToSchedule) {
-        Validate.notNull(callableToSchedule);
+        Objects.requireNonNull(callableToSchedule);
 
         if (!this.isCallingFromMinecraftThread()) {
             ListenableFutureTask<V> listenablefuturetask = ListenableFutureTask.create(callableToSchedule);
@@ -1905,7 +1904,7 @@ public class Minecraft implements IThreadListener {
     }
 
     public ListenableFuture<Object> addScheduledTask(Runnable runnableToSchedule) {
-        Validate.notNull(runnableToSchedule);
+        Objects.requireNonNull(runnableToSchedule);
         return this.addScheduledTask(Executors.callable(runnableToSchedule));
     }
 

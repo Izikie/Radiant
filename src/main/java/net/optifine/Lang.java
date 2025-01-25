@@ -5,6 +5,7 @@ import com.google.common.collect.Iterables;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -16,7 +17,6 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
-import org.apache.commons.io.Charsets;
 import org.apache.commons.io.IOUtils;
 
 public class Lang {
@@ -63,7 +63,7 @@ public class Lang {
     }
 
     public static void loadLocaleData(InputStream is, Map localeProperties) throws IOException {
-        Iterator iterator = IOUtils.readLines(is, Charsets.UTF_8).iterator();
+        Iterator iterator = IOUtils.readLines(is, StandardCharsets.UTF_8).iterator();
         is.close();
 
         while (iterator.hasNext()) {

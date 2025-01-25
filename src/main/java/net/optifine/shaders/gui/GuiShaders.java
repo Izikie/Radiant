@@ -10,6 +10,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.src.Config;
+import net.minecraft.util.Util;
 import net.optifine.Lang;
 import net.optifine.gui.GuiScreenOF;
 import net.optifine.gui.TooltipManager;
@@ -104,43 +105,7 @@ public class GuiShaders extends GuiScreenOF {
                 if (!rightClick) {
                     switch (button.id) {
                         case 201:
-                            switch (getOSType()) {
-                                case 1:
-                                    String s = String.format("cmd.exe /C start \"Open file\" \"%s\"", Shaders.SHADER_PACKS_DIR.getAbsolutePath());
-
-                                    try {
-                                        Runtime.getRuntime().exec(s);
-                                        return;
-                                    } catch (IOException ioexception) {
-                                        ioexception.printStackTrace();
-                                        break;
-                                    }
-
-                                case 2:
-                                    try {
-                                        Runtime.getRuntime().exec(new String[]{"/usr/bin/open", Shaders.SHADER_PACKS_DIR.getAbsolutePath()});
-                                        return;
-                                    } catch (IOException ioexception1) {
-                                        ioexception1.printStackTrace();
-                                    }
-                            }
-
-                            boolean flag = false;
-
-                            try {
-                                Class oclass1 = Class.forName("java.awt.Desktop");
-                                Object object1 = oclass1.getMethod("getDesktop", new Class[0]).invoke(null);
-                                oclass1.getMethod("browse", new Class[]{URI.class}).invoke(object1, (new File(this.mc.mcDataDir, "shaderpacks")).toURI());
-                            } catch (Throwable throwable1) {
-                                throwable1.printStackTrace();
-                                flag = true;
-                            }
-
-                            if (flag) {
-                                Config.dbg("Opening via system class!");
-                                Sys.openURL("file://" + Shaders.SHADER_PACKS_DIR.getAbsolutePath());
-                            }
-
+                            Util.openFolder(Shaders.SHADER_PACKS_DIR);
                             break;
 
                         case 202:

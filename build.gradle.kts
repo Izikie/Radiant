@@ -60,6 +60,8 @@ dependencies {
     implementation(group = "commons-logging", name = "commons-logging", version = "1.3.4")
     implementation(group = "org.apache.commons", name = "commons-lang3", version = "3.17.0")
     implementation(group = "org.apache.commons", name = "commons-compress", version = "1.27.1")
+    implementation(group = "org.apache.commons", name = "commons-text", version = "1.13.0")
+
 
     implementation(group = "org.apache.logging.log4j", name = "log4j-api", version = "2.24.3")
     implementation(group = "org.apache.logging.log4j", name = "log4j-core", version = "2.24.3")

@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Proxy;
 import java.net.Socket;
+import java.net.URISyntaxException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -184,7 +185,7 @@ public class HttpPipelineConnection {
                         httprequest.setRedirects(pr.getHttpRequest().getRedirects() + 1);
                         HttpPipelineRequest httppipelinerequest = new HttpPipelineRequest(httprequest, pr.getHttpListener());
                         HttpPipeline.addRequest(httppipelinerequest);
-                    } catch (IOException ioexception) {
+                    } catch (IOException | URISyntaxException ioexception) {
                         pr.getHttpListener().failed(pr.getHttpRequest(), ioexception);
                     }
                 } else {

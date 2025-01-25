@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
@@ -24,7 +26,7 @@ public class HttpUtils {
         byte[] abyte1;
 
         try {
-            URL url = new URL(urlStr);
+            URL url = new URI(urlStr).toURL();
             httpurlconnection = (HttpURLConnection) url.openConnection(Minecraft.getMinecraft().getProxy());
             httpurlconnection.setDoInput(true);
             httpurlconnection.setDoOutput(false);
@@ -57,6 +59,8 @@ public class HttpUtils {
             }
 
             abyte1 = abyte;
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
         } finally {
             if (httpurlconnection != null) {
                 httpurlconnection.disconnect();
@@ -66,12 +70,12 @@ public class HttpUtils {
         return abyte1;
     }
 
-    public static String post(String urlStr, Map headers, byte[] content) throws IOException {
+    public static String post(String urlStr, Map headers, byte[] content) throws IOException, URISyntaxException {
         HttpURLConnection httpurlconnection = null;
         String s3;
 
         try {
-            URL url = new URL(urlStr);
+            URL url = new URI(urlStr).toURL();
             httpurlconnection = (HttpURLConnection) url.openConnection(Minecraft.getMinecraft().getProxy());
             httpurlconnection.setRequestMethod("POST");
 

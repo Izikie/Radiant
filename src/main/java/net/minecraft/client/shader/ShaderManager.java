@@ -48,14 +48,13 @@ public class ShaderManager {
     private final ShaderLoader fragmentShaderLoader;
 
     public ShaderManager(IResourceManager resourceManager, String programName) throws JsonException, IOException {
-        JsonParser jsonparser = new JsonParser();
         ResourceLocation resourcelocation = new ResourceLocation("shaders/program/" + programName + ".json");
         this.programFilename = programName;
         InputStream inputstream = null;
 
         try {
             inputstream = resourceManager.getResource(resourcelocation).getInputStream();
-            JsonObject jsonobject = jsonparser.parse(IOUtils.toString(inputstream, Charsets.UTF_8)).getAsJsonObject();
+            JsonObject jsonobject = JsonParser.parseString(IOUtils.toString(inputstream, Charsets.UTF_8)).getAsJsonObject();
             String s = JsonUtils.getString(jsonobject, "vertex");
             String s1 = JsonUtils.getString(jsonobject, "fragment");
             JsonArray jsonarray = JsonUtils.getJsonArray(jsonobject, "samplers", null);

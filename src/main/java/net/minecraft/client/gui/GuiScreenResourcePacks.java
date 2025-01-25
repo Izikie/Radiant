@@ -87,43 +87,7 @@ public class GuiScreenResourcePacks extends GuiScreen {
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.enabled) {
             if (button.id == 2) {
-                File file1 = this.mc.getResourcePackRepository().getDirResourcepacks();
-                String s = file1.getAbsolutePath();
-
-                if (Util.getOSType() == Util.OperatingSystem.OSX) {
-                    try {
-                        LOGGER.info(s);
-                        Runtime.getRuntime().exec(new String[]{"/usr/bin/open", s});
-                        return;
-                    } catch (IOException ioexception1) {
-                        LOGGER.error("Couldn't open file", ioexception1);
-                    }
-                } else if (Util.getOSType() == Util.OperatingSystem.WINDOWS) {
-                    String s1 = String.format("cmd.exe /C start \"Open file\" \"%s\"", s);
-
-                    try {
-                        Runtime.getRuntime().exec(s1);
-                        return;
-                    } catch (IOException ioexception) {
-                        LOGGER.error("Couldn't open file", ioexception);
-                    }
-                }
-
-                boolean flag = false;
-
-                try {
-                    Class<?> oclass = Class.forName("java.awt.Desktop");
-                    Object object = oclass.getMethod("getDesktop", new Class[0]).invoke(null);
-                    oclass.getMethod("browse", new Class[]{URI.class}).invoke(object, file1.toURI());
-                } catch (Throwable throwable) {
-                    LOGGER.error("Couldn't open link", throwable);
-                    flag = true;
-                }
-
-                if (flag) {
-                    LOGGER.info("Opening via system class!");
-                    Sys.openURL("file://" + s);
-                }
+                Util.openFolder(mc.getResourcePackRepository().getDirResourcepacks());
             } else if (button.id == 1) {
                 if (this.changed) {
                     List<ResourcePackRepository.Entry> list = Lists.newArrayList();

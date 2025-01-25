@@ -1,6 +1,7 @@
 package net.minecraft.network.play.server;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
@@ -18,7 +19,7 @@ public class S29PacketSoundEffect implements Packet<INetHandlerPlayClient> {
     public S29PacketSoundEffect() {}
 
     public S29PacketSoundEffect(String soundNameIn, double soundX, double soundY, double soundZ, float volume, float pitch) {
-        Validate.notNull(soundNameIn, "name");
+        Objects.requireNonNull(soundNameIn, "name");
         this.soundName = soundNameIn;
         this.posX = (int) (soundX * 8.0D);
         this.posY = (int) (soundY * 8.0D);

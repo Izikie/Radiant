@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InterruptedIOException;
 import java.net.Proxy;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -23,18 +25,18 @@ public class HttpPipeline {
     public static final String HEADER_TRANSFER_ENCODING = "Transfer-Encoding";
     public static final String HEADER_VALUE_CHUNKED = "chunked";
 
-    public static void addRequest(String urlStr, HttpListener listener) throws IOException {
+    public static void addRequest(String urlStr, HttpListener listener) throws IOException, URISyntaxException {
         addRequest(urlStr, listener, Proxy.NO_PROXY);
     }
 
-    public static void addRequest(String urlStr, HttpListener listener, Proxy proxy) throws IOException {
+    public static void addRequest(String urlStr, HttpListener listener, Proxy proxy) throws IOException, URISyntaxException {
         HttpRequest httprequest = makeRequest(urlStr, proxy);
         HttpPipelineRequest httppipelinerequest = new HttpPipelineRequest(httprequest, listener);
         addRequest(httppipelinerequest);
     }
 
-    public static HttpRequest makeRequest(String urlStr, Proxy proxy) throws IOException {
-        URL url = new URL(urlStr);
+    public static HttpRequest makeRequest(String urlStr, Proxy proxy) throws IOException, URISyntaxException {
+        URL url = new URI(urlStr).toURL();
 
         if (!url.getProtocol().equals("http")) {
             throw new IOException("Only protocol http is supported: " + url);
@@ -92,13 +94,13 @@ public class HttpPipeline {
         return host + ":" + port + "-" + proxy;
     }
 
-    public static byte[] get(String urlStr) throws IOException {
+    public static byte[] get(String urlStr) throws IOException, URISyntaxException {
         return get(urlStr, Proxy.NO_PROXY);
     }
 
-    public static byte[] get(String urlStr, Proxy proxy) throws IOException {
+    public static byte[] get(String urlStr, Proxy proxy) throws IOException, URISyntaxException {
         if (urlStr.startsWith("file:")) {
-            URL url = new URL(urlStr);
+            URL url = new URI(urlStr).toURL();
             InputStream inputstream = url.openStream();
             return Config.readAll(inputstream);
         } else {

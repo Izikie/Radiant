@@ -29,6 +29,7 @@ import io.netty.util.concurrent.GenericFutureListener;
 
 import java.net.InetAddress;
 import java.net.SocketAddress;
+import java.util.Objects;
 import java.util.Queue;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import javax.crypto.SecretKey;
@@ -53,7 +54,7 @@ import org.apache.logging.log4j.MarkerManager;
 public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
     private static final Logger LOGGER = LogManager.getLogger();
     public static final Marker LOG_MARKER_NETWORK = MarkerManager.getMarker("NETWORK");
-    public static final Marker LOG_MARKER_PACKETS = MarkerManager.getMarker("NETWORK_PACKETS", LOG_MARKER_NETWORK);
+    public static final Marker LOG_MARKER_PACKETS = MarkerManager.getMarker("NETWORK_PACKETS").addParents(LOG_MARKER_NETWORK);
     public static final AttributeKey<NetworkState> ATTR_KEY_CONNECTION_STATE = AttributeKey.valueOf("protocol");
     public static final LazyLoadBase<NioEventLoopGroup> CLIENT_NIO_EVENTLOOP = new LazyLoadBase<>() {
         protected NioEventLoopGroup load() {
@@ -128,7 +129,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
     }
 
     public void setNetHandler(INetHandler handler) {
-        Validate.notNull(handler, "packetListener");
+        Objects.requireNonNull(handler, "packetListener");
         LOGGER.debug("Set listener of {} to {}", new Object[]{this, handler});
         this.packetListener = handler;
     }
@@ -152,12 +153,12 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
     public final void sendPacket(Packet packetIn, GenericFutureListener<? extends Future<? super Void>> listener, GenericFutureListener<? extends Future<? super Void>>... listeners) {
         if (this.isChannelOpen()) {
             this.flushOutboundQueue();
-            this.dispatchPacket(packetIn, ArrayUtils.add(listeners, 0, listener));
+            this.dispatchPacket(packetIn, ArrayUtils.insert(0, listeners, listener));
         } else {
             this.readWriteLock.writeLock().lock();
 
             try {
-                this.outboundPacketsQueue.add(new NetworkManager.InboundHandlerTuplePacketListener(packetIn, ArrayUtils.add(listeners, 0, listener)));
+                this.outboundPacketsQueue.add(new NetworkManager.InboundHandlerTuplePacketListener(packetIn, ArrayUtils.insert(0, listeners, listener)));
             } finally {
                 this.readWriteLock.writeLock().unlock();
             }

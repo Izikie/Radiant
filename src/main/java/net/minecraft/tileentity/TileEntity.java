@@ -71,7 +71,7 @@ public abstract class TileEntity {
             Class<? extends TileEntity> oclass = nameToClassMap.get(nbt.getString("id"));
 
             if (oclass != null) {
-                tileentity = oclass.newInstance();
+                tileentity = oclass.getDeclaredConstructor().newInstance();
             }
         } catch (Exception exception) {
             exception.printStackTrace();

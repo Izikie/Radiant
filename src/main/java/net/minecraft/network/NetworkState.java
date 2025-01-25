@@ -4,6 +4,7 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Maps;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 import net.minecraft.network.handshake.client.C00Handshake;
@@ -271,9 +272,9 @@ public enum NetworkState {
         return (Integer) ((BiMap) this.directionMaps.get(direction)).inverse().get(packetIn.getClass());
     }
 
-    public Packet getPacket(PacketDirection direction, int packetId) throws InstantiationException, IllegalAccessException {
+    public Packet getPacket(PacketDirection direction, int packetId) throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         Class<? extends Packet> oclass = (Class) ((BiMap) this.directionMaps.get(direction)).get(packetId);
-        return oclass == null ? null : oclass.newInstance();
+        return oclass == null ? null : oclass.getDeclaredConstructor().newInstance();
     }
 
     public int getId() {
@@ -305,7 +306,7 @@ public enum NetworkState {
                     }
 
                     try {
-                        oclass.newInstance();
+                        oclass.getConstructor().newInstance();
                     } catch (Throwable var10) {
                         throw new Error("Packet " + oclass + " fails instantiation checks! " + oclass);
                     }
