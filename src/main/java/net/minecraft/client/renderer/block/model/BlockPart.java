@@ -15,7 +15,7 @@ import java.util.Map.Entry;
 import net.minecraft.util.Direction;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.MathHelper;
-import org.lwjgl.util.vector.Vector3f;
+import org.joml.Vector3f;
 
 public class BlockPart {
     public final Vector3f positionFrom;
@@ -41,7 +41,7 @@ public class BlockPart {
     }
 
     private float[] getFaceUvs(Direction p_178236_1_) {
-        float[] afloat = switch (p_178236_1_) {
+        return switch (p_178236_1_) {
             case DOWN, UP ->
                     new float[]{this.positionFrom.x, this.positionFrom.z, this.positionTo.x, this.positionTo.z};
             case NORTH, SOUTH ->
@@ -50,8 +50,6 @@ public class BlockPart {
                     new float[]{this.positionFrom.z, 16.0F - this.positionTo.y, this.positionTo.z, 16.0F - this.positionFrom.y};
             default -> throw new NullPointerException();
         };
-
-        return afloat;
     }
 
     static class Deserializer implements JsonDeserializer<BlockPart> {
@@ -76,7 +74,7 @@ public class BlockPart {
             if (p_178256_1_.has("rotation")) {
                 JsonObject jsonobject = JsonUtils.getJsonObject(p_178256_1_, "rotation");
                 Vector3f vector3f = this.parsePosition(jsonobject, "origin");
-                vector3f.scale(0.0625F);
+                vector3f.mul(0.0625F);
                 Direction.Axis enumfacing$axis = this.parseAxis(jsonobject);
                 float f = this.parseAngle(jsonobject);
                 boolean flag = JsonUtils.getBoolean(jsonobject, "rescale", false);
@@ -165,13 +163,11 @@ public class BlockPart {
             if (jsonarray.size() != 3) {
                 throw new JsonParseException("Expected 3 " + p_178251_2_ + " values, found: " + jsonarray.size());
             } else {
-                float[] afloat = new float[3];
+                float x = JsonUtils.getFloat(jsonarray.get(0), p_178251_2_ + "[0]");
+                float y = JsonUtils.getFloat(jsonarray.get(1), p_178251_2_ + "[1]");
+                float z = JsonUtils.getFloat(jsonarray.get(2), p_178251_2_ + "[2]");
 
-                for (int i = 0; i < afloat.length; ++i) {
-                    afloat[i] = JsonUtils.getFloat(jsonarray.get(i), p_178251_2_ + "[" + i + "]");
-                }
-
-                return new Vector3f(afloat[0], afloat[1], afloat[2]);
+                return new Vector3f(x, y, z);
             }
         }
     }

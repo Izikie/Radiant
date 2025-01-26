@@ -4,10 +4,11 @@ import com.google.common.collect.Maps;
 
 import java.util.Map;
 
+import net.FastMath;
 import net.minecraft.util.Direction;
 import net.minecraft.util.MathHelper;
-import org.lwjgl.util.vector.Matrix4f;
-import org.lwjgl.util.vector.Vector3f;
+import org.joml.Matrix4f;
+import org.joml.Vector3f;
 
 public enum ModelRotation {
     X0_Y0(0, 0),
@@ -39,16 +40,12 @@ public enum ModelRotation {
 
     ModelRotation(int p_i46087_3_, int p_i46087_4_) {
         this.combinedXY = combineXY(p_i46087_3_, p_i46087_4_);
-        this.matrix4d = new Matrix4f();
-        Matrix4f matrix4f = new Matrix4f();
-        matrix4f.setIdentity();
-        Matrix4f.rotate((-p_i46087_3_) * 0.017453292F, new Vector3f(1.0F, 0.0F, 0.0F), matrix4f, matrix4f);
         this.quartersX = MathHelper.abs_int(p_i46087_3_ / 90);
-        Matrix4f matrix4f1 = new Matrix4f();
-        matrix4f1.setIdentity();
-        Matrix4f.rotate((-p_i46087_4_) * 0.017453292F, new Vector3f(0.0F, 1.0F, 0.0F), matrix4f1, matrix4f1);
         this.quartersY = MathHelper.abs_int(p_i46087_4_ / 90);
-        Matrix4f.mul(matrix4f1, matrix4f, this.matrix4d);
+        this.matrix4d = new Matrix4f()
+                .identity()
+                .rotate(FastMath.toRadians(-p_i46087_3_), new Vector3f(1.0F, 0.0F, 0.0F))
+                .rotate(FastMath.toRadians(-p_i46087_4_), new Vector3f(0.0F, 1.0F, 0.0F));
     }
 
     public Matrix4f getMatrix4d() {

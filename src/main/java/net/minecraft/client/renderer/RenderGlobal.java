@@ -77,7 +77,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.RenderLayer;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.Matrix4f;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.crash.ReportedException;
 import net.minecraft.util.ResourceLocation;
@@ -102,10 +101,11 @@ import net.optifine.shaders.gui.GuiShaderOptions;
 import net.optifine.util.RenderChunkUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.joml.Matrix4f;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.vector.Vector3f;
-import org.lwjgl.util.vector.Vector4f;
+import org.joml.Vector3f;
+import org.joml.Vector4f;
 
 public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListener {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -1051,16 +1051,16 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     private void fixTerrainFrustum(double x, double y, double z) {
         this.debugFixedClippingHelper = new ClippingHelperImpl();
         ((ClippingHelperImpl) this.debugFixedClippingHelper).init();
-        Matrix4f matrix4f = new Matrix4f(this.debugFixedClippingHelper.modelviewMatrix);
-        matrix4f.transpose();
-        Matrix4f matrix4f1 = new Matrix4f(this.debugFixedClippingHelper.projectionMatrix);
-        matrix4f1.transpose();
+
+        Matrix4f matrix4f = new Matrix4f().set(this.debugFixedClippingHelper.modelviewMatrix).transpose();
+        Matrix4f matrix4f1 = new Matrix4f().set(this.debugFixedClippingHelper.projectionMatrix).transpose();
         Matrix4f matrix4f2 = new Matrix4f();
-        Matrix4f.mul(matrix4f1, matrix4f, matrix4f2);
-        matrix4f2.invert();
+        matrix4f1.mul(matrix4f, matrix4f2).invert();
+
         this.debugTerrainFrustumPosition.x = x;
         this.debugTerrainFrustumPosition.y = y;
         this.debugTerrainFrustumPosition.z = z;
+
         this.debugTerrainMatrix[0] = new Vector4f(-1.0F, -1.0F, -1.0F, 1.0F);
         this.debugTerrainMatrix[1] = new Vector4f(1.0F, -1.0F, -1.0F, 1.0F);
         this.debugTerrainMatrix[2] = new Vector4f(1.0F, 1.0F, -1.0F, 1.0F);
@@ -1071,7 +1071,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         this.debugTerrainMatrix[7] = new Vector4f(-1.0F, 1.0F, 1.0F, 1.0F);
 
         for (int i = 0; i < 8; ++i) {
-            Matrix4f.transform(matrix4f2, this.debugTerrainMatrix[i], this.debugTerrainMatrix[i]);
+            this.debugTerrainMatrix[i].mul(matrix4f2);
             this.debugTerrainMatrix[i].x /= this.debugTerrainMatrix[i].w;
             this.debugTerrainMatrix[i].y /= this.debugTerrainMatrix[i].w;
             this.debugTerrainMatrix[i].z /= this.debugTerrainMatrix[i].w;

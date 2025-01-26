@@ -22,7 +22,7 @@ import net.minecraft.src.Config;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
-import org.lwjgl.util.vector.Vector3f;
+import org.joml.Vector3f;
 
 public class BlockModelUtils {
     private static final float VERTEX_COORD_ACCURACY = 1.0E-6F;
@@ -68,7 +68,7 @@ public class BlockModelUtils {
     }
 
     public static BakedQuad makeBakedQuad(Direction facing, TextureAtlasSprite sprite, int tintIndex) {
-        Vector3f vector3f = new Vector3f(0.0F, 0.0F, 0.0F);
+        Vector3f vector3f = new Vector3f();
         Vector3f vector3f1 = new Vector3f(16.0F, 16.0F, 16.0F);
         BlockFaceUV blockfaceuv = new BlockFaceUV(new float[]{0.0F, 0.0F, 16.0F, 16.0F}, 0);
         BlockPartFace blockpartface = new BlockPartFace(facing, tintIndex, "#" + facing.getName(), blockfaceuv);
@@ -134,9 +134,7 @@ public class BlockModelUtils {
     }
 
     public static void snapVertexPosition(Vector3f pos) {
-        pos.setX(snapVertexCoord(pos.getX()));
-        pos.setY(snapVertexCoord(pos.getY()));
-        pos.setZ(snapVertexCoord(pos.getZ()));
+        pos.set(snapVertexCoord(pos.x), snapVertexCoord(pos.y), snapVertexCoord(pos.z));
     }
 
     private static float snapVertexCoord(float x) {

@@ -24,7 +24,7 @@ import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.io.IOUtils;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.vector.Matrix4f;
+import org.joml.Matrix4f;
 
 public class ShaderGroup {
     private final Framebuffer mainFramebuffer;
@@ -281,15 +281,14 @@ public class ShaderGroup {
     }
 
     private void resetProjectionMatrix() {
-        this.projectionMatrix = new Matrix4f();
-        this.projectionMatrix.setIdentity();
-        this.projectionMatrix.m00 = 2.0F / this.mainFramebuffer.framebufferTextureWidth;
-        this.projectionMatrix.m11 = 2.0F / (-this.mainFramebuffer.framebufferTextureHeight);
-        this.projectionMatrix.m22 = -0.0020001999F;
-        this.projectionMatrix.m33 = 1.0F;
-        this.projectionMatrix.m03 = -1.0F;
-        this.projectionMatrix.m13 = 1.0F;
-        this.projectionMatrix.m23 = -1.0001999F;
+        this.projectionMatrix = new Matrix4f().identity()
+                .m00(2.0F / this.mainFramebuffer.framebufferTextureWidth)
+                .m11(2.0F / (-this.mainFramebuffer.framebufferTextureHeight))
+                .m22(-0.0020001999F)
+                .m33(1.0F)
+                .m03(-1.0F)
+                .m13(1.0F)
+                .m23(-1.0001999F);
     }
 
     public void createBindFramebuffers(int width, int height) {

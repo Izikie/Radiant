@@ -33,7 +33,7 @@ repositories {
 dependencies {
     // Third Party
     implementation(group = "fr.litarvan", name = "openauth", version = "1.1.6")
-    implementation(group = "javax.vecmath", name = "vecmath", version = "1.5.2")
+    implementation(group = "org.joml", name = "joml", version = "1.10.8")
 
     implementation(group = "net.java.dev.jna", name = "jna", version = "5.16.0")
     implementation(group = "net.java.dev.jna", name = "jna-platform", version = "5.16.0")

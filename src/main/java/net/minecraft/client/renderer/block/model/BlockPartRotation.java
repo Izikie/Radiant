@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.block.model;
 
 import net.minecraft.util.Direction;
-import org.lwjgl.util.vector.Vector3f;
+import org.joml.Vector3f;
 
 public class BlockPartRotation {
     public final Vector3f origin;
