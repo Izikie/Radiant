@@ -68,7 +68,7 @@ public class BlockModelUtils {
     }
 
     public static BakedQuad makeBakedQuad(Direction facing, TextureAtlasSprite sprite, int tintIndex) {
-        Vector3f vector3f = new Vector3f();
+        Vector3f vector3f = new Vector3f(0.0F, 0.0F, 0.0F);
         Vector3f vector3f1 = new Vector3f(16.0F, 16.0F, 16.0F);
         BlockFaceUV blockfaceuv = new BlockFaceUV(new float[]{0.0F, 0.0F, 16.0F, 16.0F}, 0);
         BlockPartFace blockpartface = new BlockPartFace(facing, tintIndex, "#" + facing.getName(), blockfaceuv);

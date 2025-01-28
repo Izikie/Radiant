@@ -1,10 +1,7 @@
 package net.minecraft.client.renderer.block.model;
 
-import net.FastMath;
 import net.optifine.model.BlockModelUtils;
 import net.optifine.shaders.Shaders;
-import org.joml.Matrix4f;
-import org.joml.Vector3f;
 
 import net.minecraft.client.renderer.CubeFace;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -13,16 +10,15 @@ import net.minecraft.src.Config;
 import net.minecraft.util.Direction;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3i;
+import org.joml.Matrix4f;
+import org.joml.Vector3f;
+import org.joml.Vector4f;
 
 import java.util.Objects;
 
 public class FaceBakery {
     private static final float SCALE_ROTATION_22_5 = 1.0F / (float) Math.cos(0.39269909262657166D) - 1.0F;
     private static final float SCALE_ROTATION_GENERAL = 1.0F / (float) Math.cos((Math.PI / 4.0D)) - 1.0F;
-
-    private static final Vector3f VEC_3F_X = new Vector3f(1.0F, 0.0F, 0.0F);
-    private static final Vector3f VEC_3F_Y = new Vector3f(0.0F, 1.0F, 0.0F);
-    private static final Vector3f VEC_3F_Z = new Vector3f(0.0F, 0.0F, 1.0F);
 
     public BakedQuad makeBakedQuad(Vector3f posFrom, Vector3f posTo, BlockPartFace face, TextureAtlasSprite sprite, Direction facing, ModelRotation modelRotationIn, BlockPartRotation partRotation, boolean uvLocked, boolean shade) {
         int[] aint = this.makeQuadVertexData(face, sprite, facing, this.getPositionsDiv16(posFrom, posTo), modelRotationIn, partRotation, uvLocked, shade);
@@ -122,37 +118,40 @@ public class FaceBakery {
         faceData[j + 4 + 1] = Float.floatToRawIntBits(sprite.getInterpolatedV(faceUV.func_178346_b(vertexIndex) * 0.999D + faceUV.func_178346_b((vertexIndex + 2) % 4) * 0.001D));
     }
 
-    private void rotatePart(Vector3f position, BlockPartRotation partRotation) {
+    private void rotatePart(Vector3f p_178407_1_, BlockPartRotation partRotation) {
         if (partRotation != null) {
             Matrix4f matrix4f = new Matrix4f().identity();
-            Vector3f scaleVector = new Vector3f(1.0F);
+            Vector3f vector3f = new Vector3f(0.0F, 0.0F, 0.0F);
 
             switch (partRotation.axis) {
-                case X -> {
-                    matrix4f.rotate(FastMath.toRadians(partRotation.angle), VEC_3F_X);
-                    scaleVector.set(0.0F, 1.0F, 1.0F);
-                }
-                case Y -> {
-                    matrix4f.rotate(FastMath.toRadians(partRotation.angle), VEC_3F_Y);
-                    scaleVector.set(1.0F, 0.0F, 1.0F);
-                }
-                case Z -> {
-                    matrix4f.rotate(FastMath.toRadians(partRotation.angle), VEC_3F_Z);
-                    scaleVector.set(1.0F, 1.0F, 0.0F);
-                }
+                case X:
+                    matrix4f.rotate(partRotation.angle * 0.017453292F, new Vector3f(1.0F, 0.0F, 0.0F));
+                    vector3f.set(0.0F, 1.0F, 1.0F);
+                    break;
+
+                case Y:
+                    matrix4f.rotate(partRotation.angle * 0.017453292F, new Vector3f(0.0F, 1.0F, 0.0F));
+                    vector3f.set(1.0F, 0.0F, 1.0F);
+                    break;
+
+                case Z:
+                    matrix4f.rotate(partRotation.angle * 0.017453292F, new Vector3f(0.0F, 0.0F, 1.0F));
+                    vector3f.set(1.0F, 1.0F, 0.0F);
             }
 
             if (partRotation.rescale) {
                 if (Math.abs(partRotation.angle) == 22.5F) {
-                    scaleVector.mul(SCALE_ROTATION_22_5);
+                    vector3f.mul(SCALE_ROTATION_22_5);
                 } else {
-                    scaleVector.mul(SCALE_ROTATION_GENERAL);
+                    vector3f.mul(SCALE_ROTATION_GENERAL);
                 }
 
-                scaleVector.add(1.0F, 1.0F, 1.0F);
+                vector3f.add(1.0F, 1.0F, 1.0F);
+            } else {
+                vector3f.set(1.0F, 1.0F, 1.0F);
             }
 
-            this.rotateScale(position, new Vector3f(partRotation.origin), matrix4f, scaleVector);
+            this.rotateScale(p_178407_1_, new Vector3f(partRotation.origin), matrix4f, vector3f);
         }
     }
 
@@ -160,31 +159,37 @@ public class FaceBakery {
         if (modelRotationIn == ModelRotation.X0_Y0) {
             return vertexIndex;
         } else {
-            this.rotateScale(position, new Vector3f(0.5F), modelRotationIn.getMatrix4d(), new Vector3f(1.0F));
+            this.rotateScale(position, new Vector3f(0.5F, 0.5F, 0.5F), modelRotationIn.getMatrix4d(), new Vector3f(1.0F, 1.0F, 1.0F));
             return modelRotationIn.rotateVertex(facing, vertexIndex);
         }
     }
 
     private void rotateScale(Vector3f position, Vector3f rotationOrigin, Matrix4f rotationMatrix, Vector3f scale) {
-        Vector3f vector3f = new Vector3f(position.x - rotationOrigin.x, position.y - rotationOrigin.y, position.z - rotationOrigin.z);
-        rotationMatrix.transformPosition(vector3f);
-        vector3f.mul(scale);
-        position.set(vector3f.x + rotationOrigin.x, vector3f.y + rotationOrigin.y, vector3f.z + rotationOrigin.z);
+        Vector4f vector4f = new Vector4f(position.x - rotationOrigin.x, position.y - rotationOrigin.y, position.z - rotationOrigin.z, 1.0F);
+        vector4f.mul(rotationMatrix);
+        vector4f.x *= scale.x;
+        vector4f.y *= scale.y;
+        vector4f.z *= scale.z;
+        position.set(vector4f.x + rotationOrigin.x, vector4f.y + rotationOrigin.y, vector4f.z + rotationOrigin.z);
     }
 
     public static Direction getFacingFromVertexData(int[] faceData) {
         int i = faceData.length / 4;
         int j = i * 2;
         int k = i * 3;
-
         Vector3f vector3f = new Vector3f(Float.intBitsToFloat(faceData[0]), Float.intBitsToFloat(faceData[1]), Float.intBitsToFloat(faceData[2]));
         Vector3f vector3f1 = new Vector3f(Float.intBitsToFloat(faceData[i]), Float.intBitsToFloat(faceData[i + 1]), Float.intBitsToFloat(faceData[i + 2]));
         Vector3f vector3f2 = new Vector3f(Float.intBitsToFloat(faceData[j]), Float.intBitsToFloat(faceData[j + 1]), Float.intBitsToFloat(faceData[j + 2]));
-
-        Vector3f vector3f3 = new Vector3f(vector3f).sub(vector3f1);
-        Vector3f vector3f4 = new Vector3f(vector3f2).sub(vector3f1);
-        Vector3f vector3f5 = new Vector3f(vector3f4).cross(vector3f3).normalize();
-
+        Vector3f vector3f3 = new Vector3f();
+        Vector3f vector3f4 = new Vector3f();
+        Vector3f vector3f5 = new Vector3f();
+        vector3f.sub(vector3f1, vector3f3);
+        vector3f2.sub(vector3f1, vector3f4);
+        vector3f4.cross(vector3f3, vector3f5);
+        float f = (float) Math.sqrt((vector3f5.x * vector3f5.x + vector3f5.y * vector3f5.y + vector3f5.z * vector3f5.z));
+        vector3f5.x /= f;
+        vector3f5.y /= f;
+        vector3f5.z /= f;
         Direction enumfacing = null;
         float f1 = 0.0F;
 

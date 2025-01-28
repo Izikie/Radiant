@@ -41,6 +41,7 @@ public class BlockPart {
     }
 
     private float[] getFaceUvs(Direction p_178236_1_) {
+
         return switch (p_178236_1_) {
             case DOWN, UP ->
                     new float[]{this.positionFrom.x, this.positionFrom.z, this.positionTo.x, this.positionTo.z};
@@ -48,7 +49,6 @@ public class BlockPart {
                     new float[]{this.positionFrom.x, 16.0F - this.positionTo.y, this.positionTo.x, 16.0F - this.positionFrom.y};
             case WEST, EAST ->
                     new float[]{this.positionFrom.z, 16.0F - this.positionTo.y, this.positionTo.z, 16.0F - this.positionFrom.y};
-            default -> throw new NullPointerException();
         };
     }
 
@@ -166,7 +166,6 @@ public class BlockPart {
                 float x = JsonUtils.getFloat(jsonarray.get(0), p_178251_2_ + "[0]");
                 float y = JsonUtils.getFloat(jsonarray.get(1), p_178251_2_ + "[1]");
                 float z = JsonUtils.getFloat(jsonarray.get(2), p_178251_2_ + "[2]");
-
                 return new Vector3f(x, y, z);
             }
         }

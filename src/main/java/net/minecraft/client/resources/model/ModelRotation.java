@@ -4,7 +4,6 @@ import com.google.common.collect.Maps;
 
 import java.util.Map;
 
-import net.FastMath;
 import net.minecraft.util.Direction;
 import net.minecraft.util.MathHelper;
 import org.joml.Matrix4f;
@@ -34,23 +33,26 @@ public enum ModelRotation {
     private final int quartersX;
     private final int quartersY;
 
-    private static int combineXY(int p_177521_0_, int p_177521_1_) {
-        return p_177521_0_ * 360 + p_177521_1_;
+    private static int combineXY(int x, int y) {
+        return x * 360 + y;
     }
 
-    ModelRotation(int p_i46087_3_, int p_i46087_4_) {
-        this.combinedXY = combineXY(p_i46087_3_, p_i46087_4_);
-        this.quartersX = MathHelper.abs_int(p_i46087_3_ / 90);
-        this.quartersY = MathHelper.abs_int(p_i46087_4_ / 90);
-        this.matrix4d = new Matrix4f()
-                .identity()
-                .rotate(FastMath.toRadians(-p_i46087_3_), new Vector3f(1.0F, 0.0F, 0.0F))
-                .rotate(FastMath.toRadians(-p_i46087_4_), new Vector3f(0.0F, 1.0F, 0.0F));
+    ModelRotation(int x, int y) {
+        this.combinedXY = combineXY(x, y);
+        this.quartersX = MathHelper.abs_int(x / 90);
+        this.quartersY = MathHelper.abs_int(y / 90);
+        this.matrix4d = new Matrix4f();
+        Matrix4f matrix4f = new Matrix4f().identity();
+        matrix4f.rotate((float) Math.toRadians(-x), new Vector3f(1.0F, 0.0F, 0.0F));
+
+        Matrix4f matrix4f1 = new Matrix4f().identity();
+        matrix4f1.rotate((float) Math.toRadians(-y), new Vector3f(0.0F, 1.0F, 0.0F));
+        matrix4f1.mul(matrix4f, this.matrix4d);
     }
 
-    public Matrix4f getMatrix4d() {
-        return this.matrix4d;
-    }
+   public Matrix4f getMatrix4d() {
+       return matrix4d;
+   }
 
     public Direction rotateFace(Direction facing) {
         Direction enumfacing = facing;
@@ -88,8 +90,8 @@ public enum ModelRotation {
         return i;
     }
 
-    public static ModelRotation getModelRotation(int p_177524_0_, int p_177524_1_) {
-        return mapRotations.get(combineXY(MathHelper.normalizeAngle(p_177524_0_, 360), MathHelper.normalizeAngle(p_177524_1_, 360)));
+    public static ModelRotation getModelRotation(int x, int y) {
+        return mapRotations.get(combineXY(MathHelper.normalizeAngle(x, 360), MathHelper.normalizeAngle(y, 360)));
     }
 
     static {

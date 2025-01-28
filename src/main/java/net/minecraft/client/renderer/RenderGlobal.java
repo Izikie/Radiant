@@ -101,9 +101,9 @@ import net.optifine.shaders.gui.GuiShaderOptions;
 import net.optifine.util.RenderChunkUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.joml.Matrix4f;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
+import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
@@ -1054,13 +1054,13 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
         Matrix4f matrix4f = new Matrix4f().set(this.debugFixedClippingHelper.modelviewMatrix).transpose();
         Matrix4f matrix4f1 = new Matrix4f().set(this.debugFixedClippingHelper.projectionMatrix).transpose();
-        Matrix4f matrix4f2 = new Matrix4f();
-        matrix4f1.mul(matrix4f, matrix4f2).invert();
+        Matrix4f matrix4f2 = new Matrix4f(matrix4f1)
+                .mul(matrix4f)
+                .invert();
 
         this.debugTerrainFrustumPosition.x = x;
         this.debugTerrainFrustumPosition.y = y;
         this.debugTerrainFrustumPosition.z = z;
-
         this.debugTerrainMatrix[0] = new Vector4f(-1.0F, -1.0F, -1.0F, 1.0F);
         this.debugTerrainMatrix[1] = new Vector4f(1.0F, -1.0F, -1.0F, 1.0F);
         this.debugTerrainMatrix[2] = new Vector4f(1.0F, 1.0F, -1.0F, 1.0F);
@@ -1071,7 +1071,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         this.debugTerrainMatrix[7] = new Vector4f(-1.0F, 1.0F, 1.0F, 1.0F);
 
         for (int i = 0; i < 8; ++i) {
-            this.debugTerrainMatrix[i].mul(matrix4f2);
+            this.debugTerrainMatrix[i] = matrix4f2.transform(this.debugTerrainMatrix[i]);
             this.debugTerrainMatrix[i].x /= this.debugTerrainMatrix[i].w;
             this.debugTerrainMatrix[i].y /= this.debugTerrainMatrix[i].w;
             this.debugTerrainMatrix[i].z /= this.debugTerrainMatrix[i].w;

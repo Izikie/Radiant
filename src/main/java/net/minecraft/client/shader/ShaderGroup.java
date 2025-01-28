@@ -23,8 +23,8 @@ import net.minecraft.client.util.JsonException;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.io.IOUtils;
-import org.lwjgl.opengl.GL11;
 import org.joml.Matrix4f;
+import org.lwjgl.opengl.GL11;
 
 public class ShaderGroup {
     private final Framebuffer mainFramebuffer;
@@ -281,7 +281,8 @@ public class ShaderGroup {
     }
 
     private void resetProjectionMatrix() {
-        this.projectionMatrix = new Matrix4f().identity()
+        this.projectionMatrix = new Matrix4f()
+                .identity()
                 .m00(2.0F / this.mainFramebuffer.framebufferTextureWidth)
                 .m11(2.0F / (-this.mainFramebuffer.framebufferTextureHeight))
                 .m22(-0.0020001999F)
