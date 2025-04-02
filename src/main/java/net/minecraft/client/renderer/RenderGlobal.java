@@ -36,9 +36,6 @@ import net.minecraft.client.renderer.chunk.ListChunkFactory;
 import net.minecraft.client.renderer.chunk.RenderChunk;
 import net.minecraft.client.renderer.chunk.VboChunkFactory;
 import net.minecraft.client.renderer.chunk.VisGraph;
-import net.minecraft.client.renderer.culling.ClippingHelper;
-import net.minecraft.client.renderer.culling.ClippingHelperImpl;
-import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -81,7 +78,6 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.crash.ReportedException;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
-import net.minecraft.util.Vector3d;
 import net.minecraft.world.IWorldAccess;
 import net.minecraft.world.border.WorldBorder;
 import net.minecraft.world.chunk.Chunk;
@@ -103,9 +99,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
-import org.joml.Matrix4f;
 import org.joml.Vector3f;
-import org.joml.Vector4f;
 
 public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListener {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -153,10 +147,6 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     private int countEntitiesTotal;
     private int countEntitiesRendered;
     private int countEntitiesHidden;
-    private boolean debugFixTerrainFrustum = false;
-    private ClippingHelper debugFixedClippingHelper;
-    private final Vector4f[] debugTerrainMatrix = new Vector4f[8];
-    private final Vector3d debugTerrainFrustumPosition = new Vector3d();
     private boolean vboEnabled = false;
     IRenderChunkFactory renderChunkFactory;
     private double prevRenderSortX;
@@ -811,12 +801,6 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         double d5 = viewEntity.lastTickPosZ + (viewEntity.posZ - viewEntity.lastTickPosZ) * partialTicks;
         this.renderContainer.initialize(d3, d4, d5);
 
-        if (this.debugFixedClippingHelper != null) {
-            Frustum frustum = new Frustum(this.debugFixedClippingHelper);
-            frustum.setPosition(this.debugTerrainFrustumPosition.x, this.debugTerrainFrustumPosition.y, this.debugTerrainFrustumPosition.z);
-            camera = frustum;
-        }
-
         BlockPos blockpos = new BlockPos(d3, d4 + viewEntity.getEyeHeight(), d5);
         RenderChunk renderchunk = this.viewFrustum.getRenderChunk(blockpos);
         new BlockPos(MathHelper.floor_double(d3 / 16.0D) * 16, MathHelper.floor_double(d4 / 16.0D) * 16, MathHelper.floor_double(d5 / 16.0D) * 16);
@@ -826,7 +810,6 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         this.lastViewEntityZ = viewEntity.posZ;
         this.lastViewEntityPitch = viewEntity.rotationPitch;
         this.lastViewEntityYaw = viewEntity.rotationYaw;
-        boolean flag = this.debugFixedClippingHelper != null;
         int i = this.getCountLoadedChunks();
 
         if (i != this.countLoadedChunksPrev) {
@@ -840,7 +823,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             this.displayListEntitiesDirty = true;
         }
 
-        if (!flag && this.displayListEntitiesDirty && Config.isIntegratedServerRunning()) {
+        if (this.displayListEntitiesDirty && Config.isIntegratedServerRunning()) {
             j = ChunkVisibility.getMaxChunkY(this.theWorld, viewEntity, this.renderDistanceChunks);
         }
 
@@ -851,7 +834,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             this.renderInfosEntities = this.renderInfosEntitiesShadow;
             this.renderInfosTileEntities = this.renderInfosTileEntitiesShadow;
 
-            if (!flag && this.displayListEntitiesDirty) {
+            if (this.displayListEntitiesDirty) {
                 this.clearRenderInfos();
 
                 if (renderchunk1 != null && renderchunk1.getPosition().getY() > j) {
@@ -886,7 +869,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             this.renderInfosTileEntities = this.renderInfosTileEntitiesNormal;
         }
 
-        if (!flag && this.displayListEntitiesDirty && !Shaders.isShadowPass) {
+        if (this.displayListEntitiesDirty && !Shaders.isShadowPass) {
             this.displayListEntitiesDirty = false;
             this.clearRenderInfos();
             this.visibilityDeque.clear();
@@ -974,11 +957,6 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             }
         }
 
-        if (this.debugFixTerrainFrustum) {
-            this.fixTerrainFrustum(d3, d4, d5);
-            this.debugFixTerrainFrustum = false;
-        }
-
         if (!Shaders.isShadowPass) {
             this.renderDispatcher.clearChunkUpdates();
             Set<RenderChunk> set = this.chunksToUpdate;
@@ -1045,37 +1023,6 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             }
 
             return renderchunk;
-        }
-    }
-
-    private void fixTerrainFrustum(double x, double y, double z) {
-        this.debugFixedClippingHelper = new ClippingHelperImpl();
-        ((ClippingHelperImpl) this.debugFixedClippingHelper).init();
-
-        Matrix4f matrix4f = new Matrix4f().set(this.debugFixedClippingHelper.modelviewMatrix).transpose();
-        Matrix4f matrix4f1 = new Matrix4f().set(this.debugFixedClippingHelper.projectionMatrix).transpose();
-        Matrix4f matrix4f2 = new Matrix4f(matrix4f1)
-                .mul(matrix4f)
-                .invert();
-
-        this.debugTerrainFrustumPosition.x = x;
-        this.debugTerrainFrustumPosition.y = y;
-        this.debugTerrainFrustumPosition.z = z;
-        this.debugTerrainMatrix[0] = new Vector4f(-1.0F, -1.0F, -1.0F, 1.0F);
-        this.debugTerrainMatrix[1] = new Vector4f(1.0F, -1.0F, -1.0F, 1.0F);
-        this.debugTerrainMatrix[2] = new Vector4f(1.0F, 1.0F, -1.0F, 1.0F);
-        this.debugTerrainMatrix[3] = new Vector4f(-1.0F, 1.0F, -1.0F, 1.0F);
-        this.debugTerrainMatrix[4] = new Vector4f(-1.0F, -1.0F, 1.0F, 1.0F);
-        this.debugTerrainMatrix[5] = new Vector4f(1.0F, -1.0F, 1.0F, 1.0F);
-        this.debugTerrainMatrix[6] = new Vector4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.debugTerrainMatrix[7] = new Vector4f(-1.0F, 1.0F, 1.0F, 1.0F);
-
-        for (int i = 0; i < 8; ++i) {
-            this.debugTerrainMatrix[i] = matrix4f2.transform(this.debugTerrainMatrix[i]);
-            this.debugTerrainMatrix[i].x /= this.debugTerrainMatrix[i].w;
-            this.debugTerrainMatrix[i].y /= this.debugTerrainMatrix[i].w;
-            this.debugTerrainMatrix[i].z /= this.debugTerrainMatrix[i].w;
-            this.debugTerrainMatrix[i].w = 1.0F;
         }
     }
 
