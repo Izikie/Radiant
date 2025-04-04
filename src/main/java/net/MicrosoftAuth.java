@@ -36,8 +36,8 @@ public class MicrosoftAuth extends GuiScreen {
         drawCenteredString(fontRendererObj, status, width / 2, height / 2 - 95 - fontRendererObj.FONT_HEIGHT * 2, -1);
         username.drawTextBox();
         password.drawTextBox();
-        if (username.getText().isEmpty()) drawString(fontRendererObj, "Email", width / 2 - 95, height / 2 - 44, -1);
-        if (password.getText().isEmpty()) drawString(fontRendererObj, "Password", width / 2 - 95, height / 2 - 74, -1);
+        if (username.getText().isEmpty()) drawString(fontRendererObj, "Email", width / 2 - 95, height / 2 - 74, -1);
+        if (password.getText().isEmpty()) drawString(fontRendererObj, "Password", width / 2 - 95, height / 2 - 44, -1);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
