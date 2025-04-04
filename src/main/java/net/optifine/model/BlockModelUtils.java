@@ -27,11 +27,6 @@ import org.joml.Vector3f;
 public class BlockModelUtils {
     private static final float VERTEX_COORD_ACCURACY = 1.0E-6F;
 
-    public static IBakedModel makeModelCube(String spriteName, int tintIndex) {
-        TextureAtlasSprite textureatlassprite = Config.getMinecraft().getTextureMapBlocks().getAtlasSprite(spriteName);
-        return makeModelCube(textureatlassprite, tintIndex);
-    }
-
     public static IBakedModel makeModelCube(TextureAtlasSprite sprite, int tintIndex) {
         List list = new ArrayList();
         Direction[] aenumfacing = Direction.VALUES;
@@ -68,16 +63,20 @@ public class BlockModelUtils {
     }
 
     public static BakedQuad makeBakedQuad(Direction facing, TextureAtlasSprite sprite, int tintIndex) {
-        Vector3f vector3f = new Vector3f(0.0F, 0.0F, 0.0F);
-        Vector3f vector3f1 = new Vector3f(16.0F, 16.0F, 16.0F);
-        BlockFaceUV blockfaceuv = new BlockFaceUV(new float[]{0.0F, 0.0F, 16.0F, 16.0F}, 0);
-        BlockPartFace blockpartface = new BlockPartFace(facing, tintIndex, "#" + facing.getName(), blockfaceuv);
-        ModelRotation modelrotation = ModelRotation.X0_Y0;
-        BlockPartRotation blockpartrotation = null;
-        boolean flag = false;
-        boolean flag1 = true;
-        FaceBakery facebakery = new FaceBakery();
-        return facebakery.makeBakedQuad(vector3f, vector3f1, blockpartface, sprite, facing, modelrotation, blockpartrotation, flag, flag1);
+        BlockFaceUV blockFaceUV = new BlockFaceUV(new float[]{0.0F, 0.0F, 16.0F, 16.0F}, 0);
+        BlockPartFace blockPartFace = new BlockPartFace(facing, tintIndex, "#" + facing.getName(), blockFaceUV);
+
+        return new FaceBakery().makeBakedQuad(
+                new Vector3f(0.0F, 0.0F, 0.0F),
+                new Vector3f(16.0F, 16.0F, 16.0F),
+                blockPartFace,
+                sprite,
+                facing,
+                ModelRotation.X0_Y0,
+                null,
+                false,
+                true
+        );
     }
 
     public static IBakedModel makeModel(String modelName, String spriteOldName, String spriteNewName) {

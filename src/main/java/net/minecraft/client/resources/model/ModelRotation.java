@@ -7,7 +7,6 @@ import java.util.Map;
 import net.minecraft.util.Direction;
 import net.minecraft.util.MathHelper;
 import org.joml.Matrix4f;
-import org.joml.Vector3f;
 
 public enum ModelRotation {
     X0_Y0(0, 0),
@@ -41,13 +40,10 @@ public enum ModelRotation {
         this.combinedXY = combineXY(x, y);
         this.quartersX = MathHelper.abs_int(x / 90);
         this.quartersY = MathHelper.abs_int(y / 90);
-        this.matrix4d = new Matrix4f();
-        Matrix4f matrix4f = new Matrix4f().identity();
-        matrix4f.rotate((float) Math.toRadians(-x), new Vector3f(1.0F, 0.0F, 0.0F));
-
-        Matrix4f matrix4f1 = new Matrix4f().identity();
-        matrix4f1.rotate((float) Math.toRadians(-y), new Vector3f(0.0F, 1.0F, 0.0F));
-        matrix4f1.mul(matrix4f, this.matrix4d);
+        this.matrix4d = new Matrix4f()
+                .identity()
+                .rotateY((float) Math.toRadians(-y))
+                .rotateX((float) Math.toRadians(-x));
     }
 
    public Matrix4f getMatrix4d() {

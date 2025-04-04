@@ -118,41 +118,41 @@ public class FaceBakery {
         faceData[j + 4 + 1] = Float.floatToRawIntBits(sprite.getInterpolatedV(faceUV.func_178346_b(vertexIndex) * 0.999D + faceUV.func_178346_b((vertexIndex + 2) % 4) * 0.001D));
     }
 
-    private void rotatePart(Vector3f p_178407_1_, BlockPartRotation partRotation) {
-        if (partRotation != null) {
-            Matrix4f matrix4f = new Matrix4f().identity();
-            Vector3f vector3f = new Vector3f(0.0F, 0.0F, 0.0F);
-
-            switch (partRotation.axis) {
-                case X:
-                    matrix4f.rotate(partRotation.angle * 0.017453292F, new Vector3f(1.0F, 0.0F, 0.0F));
-                    vector3f.set(0.0F, 1.0F, 1.0F);
-                    break;
-
-                case Y:
-                    matrix4f.rotate(partRotation.angle * 0.017453292F, new Vector3f(0.0F, 1.0F, 0.0F));
-                    vector3f.set(1.0F, 0.0F, 1.0F);
-                    break;
-
-                case Z:
-                    matrix4f.rotate(partRotation.angle * 0.017453292F, new Vector3f(0.0F, 0.0F, 1.0F));
-                    vector3f.set(1.0F, 1.0F, 0.0F);
-            }
-
-            if (partRotation.rescale) {
-                if (Math.abs(partRotation.angle) == 22.5F) {
-                    vector3f.mul(SCALE_ROTATION_22_5);
-                } else {
-                    vector3f.mul(SCALE_ROTATION_GENERAL);
-                }
-
-                vector3f.add(1.0F, 1.0F, 1.0F);
-            } else {
-                vector3f.set(1.0F, 1.0F, 1.0F);
-            }
-
-            this.rotateScale(p_178407_1_, new Vector3f(partRotation.origin), matrix4f, vector3f);
+    private void rotatePart(Vector3f point, BlockPartRotation partRotation) {
+        if (partRotation == null) {
+            return;
         }
+
+        Matrix4f matrix = new Matrix4f().identity();
+        Vector3f scaleVector = new Vector3f(1.0F, 1.0F, 1.0F);
+        float angle = partRotation.angle * 0.017453292F;
+
+        switch (partRotation.axis) {
+            case X -> {
+                matrix.rotateX(angle);
+                scaleVector.set(0.0F, 1.0F, 1.0F);
+            }
+            case Y -> {
+                matrix.rotateY(angle);
+                scaleVector.set(1.0F, 0.0F, 1.0F);
+            }
+            case Z -> {
+                matrix.rotateZ(angle);
+                scaleVector.set(1.0F, 1.0F, 0.0F);
+            }
+        }
+
+        if (partRotation.rescale) {
+            if (Math.abs(partRotation.angle) == 22.5F) {
+                scaleVector.mul(SCALE_ROTATION_22_5);
+            } else {
+                scaleVector.mul(SCALE_ROTATION_GENERAL);
+            }
+
+            scaleVector.add(1.0F, 1.0F, 1.0F);
+        }
+
+        this.rotateScale(point, new Vector3f(partRotation.origin), matrix, scaleVector);
     }
 
     public int rotateVertex(Vector3f position, Direction facing, int vertexIndex, ModelRotation modelRotationIn, boolean uvLocked) {

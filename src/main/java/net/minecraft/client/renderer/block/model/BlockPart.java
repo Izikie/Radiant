@@ -68,20 +68,22 @@ public class BlockPart {
             }
         }
 
-        private BlockPartRotation parseRotation(JsonObject p_178256_1_) {
-            BlockPartRotation blockpartrotation = null;
-
-            if (p_178256_1_.has("rotation")) {
-                JsonObject jsonobject = JsonUtils.getJsonObject(p_178256_1_, "rotation");
-                Vector3f vector3f = this.parsePosition(jsonobject, "origin");
-                vector3f.mul(0.0625F);
-                Direction.Axis enumfacing$axis = this.parseAxis(jsonobject);
-                float f = this.parseAngle(jsonobject);
-                boolean flag = JsonUtils.getBoolean(jsonobject, "rescale", false);
-                blockpartrotation = new BlockPartRotation(vector3f, enumfacing$axis, f, flag);
+        private BlockPartRotation parseRotation(JsonObject modelJson) {
+            if (!modelJson.has("rotation")) {
+                return null;
             }
 
-            return blockpartrotation;
+            JsonObject rotationJson = JsonUtils.getJsonObject(modelJson, "rotation");
+            Direction.Axis axis = this.parseAxis(rotationJson);
+            float angle = this.parseAngle(rotationJson);
+            boolean rescale = JsonUtils.getBoolean(rotationJson, "rescale", false);
+
+            return new BlockPartRotation(
+                    this.parsePosition(rotationJson, "origin").mul(0.0625F),
+                    axis,
+                    angle,
+                    rescale
+            );
         }
 
         private float parseAngle(JsonObject p_178255_1_) {
