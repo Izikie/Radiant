@@ -78,13 +78,14 @@ import net.optifine.util.TextureUtils;
 import net.optifine.util.TimedEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.joml.Matrix4f;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 import org.lwjgl.opengl.GLContext;
-import org.lwjgl.util.glu.Project;
 
 public class EntityRenderer implements IResourceManagerReloadListener {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -634,10 +635,19 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             GlStateManager.scale(this.cameraZoom, this.cameraZoom, 1.0D);
         }
 
-        Project.gluPerspective(this.getFOVModifier(partialTicks, true), (float) this.mc.displayWidth / this.mc.displayHeight, 0.05F, this.clipDistance);
+        Matrix4f projectionMatrix = new Matrix4f().perspective(
+                (float) Math.toRadians(this.getFOVModifier(partialTicks, true)),
+                (float) this.mc.displayWidth / this.mc.displayHeight,
+                0.05F,
+                this.clipDistance
+        );
+        FloatBuffer projectionBuffer = BufferUtils.createFloatBuffer(16);
+        projectionMatrix.get(projectionBuffer);
+        GlStateManager.multMatrix(projectionBuffer);
+
         GlStateManager.matrixMode(5888);
         GlStateManager.loadIdentity();
-    
+
         this.hurtCameraEffect(partialTicks);
 
         if (this.mc.gameSettings.viewBobbing) {
@@ -700,7 +710,16 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 Shaders.applyHandDepth();
             }
 
-            Project.gluPerspective(this.getFOVModifier(p_renderHand_1_, false), (float) this.mc.displayWidth / this.mc.displayHeight, 0.05F, this.farPlaneDistance * 2.0F);
+            Matrix4f projectionMatrix = new Matrix4f().perspective(
+                    (float) Math.toRadians(this.getFOVModifier(p_renderHand_1_, false)),
+                    (float) this.mc.displayWidth / this.mc.displayHeight,
+                    0.05F,
+                    this.farPlaneDistance * 2.0F
+            );
+            FloatBuffer projectionBuffer = BufferUtils.createFloatBuffer(16);
+            projectionMatrix.get(projectionBuffer);
+            GlStateManager.multMatrix(projectionBuffer);
+
             GlStateManager.matrixMode(5888);
             GlStateManager.loadIdentity();
 
@@ -1157,7 +1176,17 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             this.setupFog(-1, partialTicks);
             GlStateManager.matrixMode(5889);
             GlStateManager.loadIdentity();
-            Project.gluPerspective(this.getFOVModifier(partialTicks, true), (float) this.mc.displayWidth / this.mc.displayHeight, 0.05F, this.clipDistance);
+
+            Matrix4f projectionMatrix = new Matrix4f().perspective(
+                    (float) Math.toRadians(this.getFOVModifier(partialTicks, true)),
+                    (float) this.mc.displayWidth / this.mc.displayHeight,
+                    0.05F,
+                    this.clipDistance
+            );
+            FloatBuffer projectionBuffer = BufferUtils.createFloatBuffer(16);
+            projectionMatrix.get(projectionBuffer);
+            GlStateManager.multMatrix(projectionBuffer);
+
             GlStateManager.matrixMode(5888);
 
             if (flag) {
@@ -1172,7 +1201,17 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
             GlStateManager.matrixMode(5889);
             GlStateManager.loadIdentity();
-            Project.gluPerspective(this.getFOVModifier(partialTicks, true), (float) this.mc.displayWidth / this.mc.displayHeight, 0.05F, this.clipDistance);
+
+            Matrix4f projectionMatrix2 = new Matrix4f().perspective(
+                    (float) Math.toRadians(this.getFOVModifier(partialTicks, true)),
+                    (float) this.mc.displayWidth / this.mc.displayHeight,
+                    0.05F,
+                    this.clipDistance
+            );
+            FloatBuffer projectionBuffer2 = BufferUtils.createFloatBuffer(16);
+            projectionMatrix2.get(projectionBuffer2);
+            GlStateManager.multMatrix(projectionBuffer2);
+
             GlStateManager.matrixMode(5888);
         } else {
             GlStateManager.disableBlend();
@@ -1392,7 +1431,17 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         if (this.mc.gameSettings.renderDistanceChunks >= 4 && !Config.isCloudsOff() && Shaders.shouldRenderClouds(this.mc.gameSettings)) {
             GlStateManager.matrixMode(5889);
             GlStateManager.loadIdentity();
-            Project.gluPerspective(this.getFOVModifier(partialTicks, true), (float) this.mc.displayWidth / this.mc.displayHeight, 0.05F, this.clipDistance * 4.0F);
+
+            Matrix4f projectionMatrix = new Matrix4f().perspective(
+                    (float) Math.toRadians(this.getFOVModifier(partialTicks, true)),
+                    (float) this.mc.displayWidth / this.mc.displayHeight,
+                    0.05F,
+                    this.clipDistance * 4.0F
+            );
+            FloatBuffer projectionBuffer = BufferUtils.createFloatBuffer(16);
+            projectionMatrix.get(projectionBuffer);
+            GlStateManager.multMatrix(projectionBuffer);
+
             GlStateManager.matrixMode(5888);
             GlStateManager.pushMatrix();
             this.setupFog(0, partialTicks);
@@ -1401,7 +1450,17 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             GlStateManager.popMatrix();
             GlStateManager.matrixMode(5889);
             GlStateManager.loadIdentity();
-            Project.gluPerspective(this.getFOVModifier(partialTicks, true), (float) this.mc.displayWidth / this.mc.displayHeight, 0.05F, this.clipDistance);
+
+            Matrix4f projectionMatrix2 = new Matrix4f().perspective(
+                    (float) Math.toRadians(this.getFOVModifier(partialTicks, true)),
+                    (float) this.mc.displayWidth / this.mc.displayHeight,
+                    0.05F,
+                    this.clipDistance
+            );
+            FloatBuffer projectionBuffer2 = BufferUtils.createFloatBuffer(16);
+            projectionMatrix2.get(projectionBuffer2);
+            GlStateManager.multMatrix(projectionBuffer2);
+
             GlStateManager.matrixMode(5888);
         }
     }
@@ -1776,10 +1835,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     private void setupFog(int startCoords, float partialTicks) {
         this.fogStandard = false;
         Entity entity = this.mc.getRenderViewEntity();
-        boolean flag = false;
-
-        if (entity instanceof EntityPlayer entityPlayer) {
-        }
 
         GL11.glFog(GL11.GL_FOG_COLOR, this.setFogColorBuffer(this.fogColorRed, this.fogColorGreen, this.fogColorBlue, 1.0F));
         GL11.glNormal3f(0.0F, -1.0F, 0.0F);

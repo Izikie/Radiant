@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.FloatBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
 import java.util.Date;
@@ -25,9 +26,10 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.CustomPanorama;
 import net.optifine.CustomPanoramaProperties;
+import org.joml.Matrix4f;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GLContext;
-import org.lwjgl.util.glu.Project;
 
 public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
     private static final Random RANDOM = new Random();
@@ -182,7 +184,17 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         GlStateManager.matrixMode(5889);
         GlStateManager.pushMatrix();
         GlStateManager.loadIdentity();
-        Project.gluPerspective(120.0F, 1.0F, 0.05F, 10.0F);
+
+        Matrix4f projectionMatrix = new Matrix4f().perspective(
+                (float) Math.toRadians(120.0F),
+                1.0F,
+                0.05F,
+                10.0F
+        );
+        FloatBuffer projectionBuffer = BufferUtils.createFloatBuffer(16);
+        projectionMatrix.get(projectionBuffer);
+        GlStateManager.multMatrix(projectionBuffer);
+
         GlStateManager.matrixMode(5888);
         GlStateManager.pushMatrix();
         GlStateManager.loadIdentity();

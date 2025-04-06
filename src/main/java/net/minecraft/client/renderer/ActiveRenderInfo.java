@@ -13,8 +13,9 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.glu.GLU;
+import org.lwjgl.util.glu.Project;
 
+// TOOD: UnProject use JOML and possibly make this better
 public class ActiveRenderInfo {
     private static final IntBuffer VIEWPORT = GLAllocation.createDirectIntBuffer(16);
     private static final FloatBuffer MODELVIEW = GLAllocation.createDirectFloatBuffer(16);
@@ -27,51 +28,58 @@ public class ActiveRenderInfo {
     private static float rotationYZ;
     private static float rotationXY;
 
-    public static void updateRenderInfo(EntityPlayer entityplayerIn, boolean p_74583_1_) {
+    public static void updateRenderInfo(EntityPlayer player, boolean invertRotation) {
         GlStateManager.getFloat(2982, MODELVIEW);
         GlStateManager.getFloat(2983, PROJECTION);
         GL11.glGetInteger(GL11.GL_VIEWPORT, VIEWPORT);
-        float f = ((VIEWPORT.get(0) + VIEWPORT.get(2)) / 2);
-        float f1 = ((VIEWPORT.get(1) + VIEWPORT.get(3)) / 2);
-        GLU.gluUnProject(f, f1, 0.0F, MODELVIEW, PROJECTION, VIEWPORT, OBJECTCOORDS);
+
+        float viewCenterX = (VIEWPORT.get(0) + VIEWPORT.get(2)) / 2.0f;
+        float viewCenterY = (VIEWPORT.get(1) + VIEWPORT.get(3)) / 2.0f;
+
+        Project.gluUnProject(viewCenterX, viewCenterY, 0.0F, MODELVIEW, PROJECTION, VIEWPORT, OBJECTCOORDS);
+
         position = new Vec3(OBJECTCOORDS.get(0), OBJECTCOORDS.get(1), OBJECTCOORDS.get(2));
-        int i = p_74583_1_ ? 1 : 0;
-        float f2 = entityplayerIn.rotationPitch;
-        float f3 = entityplayerIn.rotationYaw;
-        rotationX = MathHelper.cos(f3 * (float) Math.PI / 180.0F) * (1 - i * 2);
-        rotationZ = MathHelper.sin(f3 * (float) Math.PI / 180.0F) * (1 - i * 2);
-        rotationYZ = -rotationZ * MathHelper.sin(f2 * (float) Math.PI / 180.0F) * (1 - i * 2);
-        rotationXY = rotationX * MathHelper.sin(f2 * (float) Math.PI / 180.0F) * (1 - i * 2);
-        rotationXZ = MathHelper.cos(f2 * (float) Math.PI / 180.0F);
+
+        float rotationFactor = invertRotation ? -1.0f : 1.0f;
+        float pitchRadians = (float) (player.rotationPitch * Math.PI / 180.0F);
+        float yawRadians = (float) (player.rotationYaw * Math.PI / 180.0F);
+
+        rotationX = MathHelper.cos(yawRadians) * rotationFactor;
+        rotationZ = MathHelper.sin(yawRadians) * rotationFactor;
+        rotationYZ = -rotationZ * MathHelper.sin(pitchRadians) * rotationFactor;
+        rotationXY = rotationX * MathHelper.sin(pitchRadians) * rotationFactor;
+        rotationXZ = MathHelper.cos(pitchRadians);
     }
 
-    public static Vec3 projectViewFromEntity(Entity p_178806_0_, double p_178806_1_) {
-        double d0 = p_178806_0_.prevPosX + (p_178806_0_.posX - p_178806_0_.prevPosX) * p_178806_1_;
-        double d1 = p_178806_0_.prevPosY + (p_178806_0_.posY - p_178806_0_.prevPosY) * p_178806_1_;
-        double d2 = p_178806_0_.prevPosZ + (p_178806_0_.posZ - p_178806_0_.prevPosZ) * p_178806_1_;
-        double d3 = d0 + position.xCoord;
-        double d4 = d1 + position.yCoord;
-        double d5 = d2 + position.zCoord;
-        return new Vec3(d3, d4, d5);
+    public static Vec3 projectViewFromEntity(Entity entity, double partialTicks) {
+        double entityX = entity.prevPosX + (entity.posX - entity.prevPosX) * partialTicks;
+        double entityY = entity.prevPosY + (entity.posY - entity.prevPosY) * partialTicks;
+        double entityZ = entity.prevPosZ + (entity.posZ - entity.prevPosZ) * partialTicks;
+
+        double viewpointX = entityX + position.xCoord;
+        double viewpointY = entityY + position.yCoord;
+        double viewpointZ = entityZ + position.zCoord;
+
+        return new Vec3(viewpointX, viewpointY, viewpointZ);
     }
 
-    public static Block getBlockAtEntityViewpoint(World worldIn, Entity p_180786_1_, float p_180786_2_) {
-        Vec3 vec3 = projectViewFromEntity(p_180786_1_, p_180786_2_);
-        BlockPos blockpos = new BlockPos(vec3);
-        IBlockState iblockstate = worldIn.getBlockState(blockpos);
-        Block block = iblockstate.getBlock();
+    public static Block getBlockAtEntityViewpoint(World world, Entity entity, float partialTicks) {
+        Vec3 vec3 = projectViewFromEntity(entity, partialTicks);
+        BlockPos blockPos = new BlockPos(vec3);
+        IBlockState blockState = world.getBlockState(blockPos);
+        Block block = blockState.getBlock();
 
         if (block.getMaterial().isLiquid()) {
             float f = 0.0F;
 
-            if (iblockstate.getBlock() instanceof BlockLiquid) {
-                f = BlockLiquid.getLiquidHeightPercent(iblockstate.getValue(BlockLiquid.LEVEL)) - 0.11111111F;
+            if (blockState.getBlock() instanceof BlockLiquid) {
+                f = BlockLiquid.getLiquidHeightPercent(blockState.getValue(BlockLiquid.LEVEL)) - 0.11111111F;
             }
 
-            float f1 = (blockpos.getY() + 1) - f;
+            float f1 = (blockPos.getY() + 1) - f;
 
             if (vec3.yCoord >= f1) {
-                block = worldIn.getBlockState(blockpos.up()).getBlock();
+                block = world.getBlockState(blockPos.up()).getBlock();
             }
         }
 

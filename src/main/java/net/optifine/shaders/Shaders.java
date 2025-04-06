@@ -101,6 +101,7 @@ import net.optifine.util.PropertiesOrdered;
 import net.optifine.util.StrUtils;
 import net.optifine.util.TimedEvent;
 import org.apache.commons.io.IOUtils;
+import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ARBGeometryShader4;
@@ -114,7 +115,6 @@ import org.lwjgl.opengl.GL12;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 import org.lwjgl.opengl.GLContext;
-import org.lwjgl.util.glu.GLU;
 import org.lwjgl.util.vector.Vector4f;
 
 public class Shaders {
@@ -3567,7 +3567,15 @@ public class Shaders {
         if (shadowMapIsOrtho) {
             GL11.glOrtho((-shadowMapHalfPlane), shadowMapHalfPlane, (-shadowMapHalfPlane), shadowMapHalfPlane, 0.05000000074505806D, 256.0D);
         } else {
-            GLU.gluPerspective(shadowMapFOV, (float) shadowMapWidth / shadowMapHeight, 0.05F, 256.0F);
+            Matrix4f projectionMatrix = new Matrix4f().perspective(
+                    (float) Math.toRadians(shadowMapFOV),
+                    (float) shadowMapWidth / shadowMapHeight,
+                    0.05F,
+                    256.0F
+            );
+            FloatBuffer projectionBuffer = BufferUtils.createFloatBuffer(16);
+            projectionMatrix.get(projectionBuffer);
+            GlStateManager.multMatrix(projectionBuffer);
         }
 
         GL11.glMatrixMode(GL11.GL_MODELVIEW);

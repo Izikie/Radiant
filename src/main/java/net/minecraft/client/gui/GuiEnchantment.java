@@ -3,6 +3,7 @@ package net.minecraft.client.gui;
 import com.google.common.collect.Lists;
 
 import java.io.IOException;
+import java.nio.FloatBuffer;
 import java.util.List;
 import java.util.Random;
 
@@ -21,7 +22,8 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IWorldNameable;
 import net.minecraft.world.World;
-import org.lwjgl.util.glu.Project;
+import org.joml.Matrix4f;
+import org.lwjgl.BufferUtils;
 
 public class GuiEnchantment extends GuiContainer {
     private static final ResourceLocation ENCHANTMENT_TABLE_GUI_TEXTURE = new ResourceLocation("textures/gui/container/enchanting_table.png");
@@ -85,7 +87,17 @@ public class GuiEnchantment extends GuiContainer {
         ScaledResolution scaledresolution = new ScaledResolution(this.mc);
         GlStateManager.viewport((scaledresolution.getScaledWidth() - 320) / 2 * scaledresolution.getScaleFactor(), (scaledresolution.getScaledHeight() - 240) / 2 * scaledresolution.getScaleFactor(), 320 * scaledresolution.getScaleFactor(), 240 * scaledresolution.getScaleFactor());
         GlStateManager.translate(-0.34F, 0.23F, 0.0F);
-        Project.gluPerspective(90.0F, 1.3333334F, 9.0F, 80.0F);
+
+        Matrix4f projectionMatrix = new Matrix4f().perspective(
+                (float) Math.toRadians(90.0F),
+                1.3333334F,
+                9.0F,
+                80.0F
+        );
+        FloatBuffer projectionBuffer = BufferUtils.createFloatBuffer(16);
+        projectionMatrix.get(projectionBuffer);
+        GlStateManager.multMatrix(projectionBuffer);
+
         float f = 1.0F;
         GlStateManager.matrixMode(5888);
         GlStateManager.loadIdentity();
