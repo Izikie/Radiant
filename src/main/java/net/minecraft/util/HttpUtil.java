@@ -18,7 +18,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import net.minecraft.server.MinecraftServer;
 import org.apache.commons.io.FileUtils;

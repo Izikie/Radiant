@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.Proxy;
 import java.net.URI;
-import java.net.URL;
 import java.net.Proxy.Type;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.imageio.ImageIO;

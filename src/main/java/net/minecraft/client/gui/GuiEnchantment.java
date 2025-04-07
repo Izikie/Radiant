@@ -271,6 +271,7 @@ public class GuiEnchantment extends GuiContainer {
         for (int i = 0; i < 3; ++i) {
             if (this.container.enchantLevels[i] != 0) {
                 flag = true;
+                break;
             }
         }
 

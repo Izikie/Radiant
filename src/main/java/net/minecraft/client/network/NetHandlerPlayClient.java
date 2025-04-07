@@ -960,22 +960,13 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
                 this.clientWorldController.getWorldInfo().setRaining(false);
                 this.clientWorldController.setRainStrength(1.0F);
             }
-            case 3 -> {
-                this.gameController.playerController.setGameType(WorldSettings.GameType.getByID(j));
-            }
-            case 4 -> {
-                this.gameController.displayGuiScreen(new GuiWinGame()); // TODO: Only allow once per session
-            }
+            case 3 -> this.gameController.playerController.setGameType(WorldSettings.GameType.getByID(j));
+            case 4 -> this.gameController.displayGuiScreen(new GuiWinGame()); // TODO: Only allow once per session
             // BUGFIX: Action 5, Shows Demo Screen
-            case 6 -> {
-                this.clientWorldController.playSound(entityplayer.posX, entityplayer.posY + entityplayer.getEyeHeight(), entityplayer.posZ, "random.successful_hit", 0.18F, 0.45F, false);
-            }
-            case 7 -> { // BUGFIX: HIGH VALUE -> LAG/CRASH | LOW VALUE -> WORLD COLOR CHANGES
-                this.clientWorldController.setRainStrength(Math.clamp(f, -2.0F, 2F)); // Allow leniency for servers to use.
-            }
-            case 8 -> {
-                this.clientWorldController.setThunderStrength(f);
-            }
+            case 6 -> this.clientWorldController.playSound(entityplayer.posX, entityplayer.posY + entityplayer.getEyeHeight(), entityplayer.posZ, "random.successful_hit", 0.18F, 0.45F, false);
+            case 7 -> // BUGFIX: HIGH VALUE -> LAG/CRASH | LOW VALUE -> WORLD COLOR CHANGES
+                    this.clientWorldController.setRainStrength(Math.clamp(f, -2.0F, 2F)); // Allow leniency for servers to use.
+            case 8 -> this.clientWorldController.setThunderStrength(f);
             case 10 -> {
                 this.clientWorldController.spawnParticle(ParticleTypes.MOB_APPEARANCE, entityplayer.posX, entityplayer.posY, entityplayer.posZ, 0.0D, 0.0D, 0.0D);
                 this.clientWorldController.playSound(entityplayer.posX, entityplayer.posY, entityplayer.posZ, "mob.guardian.curse", 1.0F, 1.0F, false);

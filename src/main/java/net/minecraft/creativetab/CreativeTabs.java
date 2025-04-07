@@ -185,19 +185,15 @@ public abstract class CreativeTabs {
         }
     }
 
-    public void addEnchantmentBooksToList(List<ItemStack> itemList, EnchantmentTarget... enchantmentType) {
+    public void addEnchantmentBooksToList(List<ItemStack> itemList, EnchantmentTarget... enchantmentTypes) {
         for (Enchantment enchantment : Enchantment.ENCHANTMENTS_BOOK_LIST) {
-            if (enchantment != null && enchantment.type != null) {
-                boolean flag = false;
+            if (enchantment == null || enchantment.type == null)
+                continue;
 
-                for (int i = 0; i < enchantmentType.length && !flag; ++i) {
-                    if (enchantment.type == enchantmentType[i]) {
-                        flag = true;
-                    }
-                }
-
-                if (flag) {
+            for (EnchantmentTarget target : enchantmentTypes) {
+                if (enchantment.type == target) {
                     itemList.add(Items.ENCHANTED_BOOK.getEnchantedItemStack(new EnchantmentData(enchantment, enchantment.getMaxLevel())));
+                    break;
                 }
             }
         }

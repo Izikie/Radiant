@@ -210,66 +210,27 @@ public abstract class BlockButton extends Block {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        Direction enumfacing;
-
-        switch (meta & 7) {
-            case 0:
-                enumfacing = Direction.DOWN;
-                break;
-
-            case 1:
-                enumfacing = Direction.EAST;
-                break;
-
-            case 2:
-                enumfacing = Direction.WEST;
-                break;
-
-            case 3:
-                enumfacing = Direction.SOUTH;
-                break;
-
-            case 4:
-                enumfacing = Direction.NORTH;
-                break;
-
-            case 5:
-            default:
-                enumfacing = Direction.UP;
-        }
+        Direction enumfacing = switch (meta & 7) {
+            case 0 -> Direction.DOWN;
+            case 1 -> Direction.EAST;
+            case 2 -> Direction.WEST;
+            case 3 -> Direction.SOUTH;
+            case 4 -> Direction.NORTH;
+            default -> Direction.UP;
+        };
 
         return this.getDefaultState().withProperty(FACING, enumfacing).withProperty(POWERED, (meta & 8) > 0);
     }
 
     public int getMetaFromState(IBlockState state) {
-        int i;
-
-        switch (state.getValue(FACING)) {
-            case EAST:
-                i = 1;
-                break;
-
-            case WEST:
-                i = 2;
-                break;
-
-            case SOUTH:
-                i = 3;
-                break;
-
-            case NORTH:
-                i = 4;
-                break;
-
-            case DOWN:
-                i = 0;
-                break;
-
-            case UP:
-            default:
-                i = 5;
-                break;
-        }
+        int i = switch (state.getValue(FACING)) {
+            case EAST -> 1;
+            case WEST -> 2;
+            case SOUTH -> 3;
+            case NORTH -> 4;
+            case DOWN -> 0;
+            default -> 5;
+        };
 
         if (state.getValue(POWERED)) {
             i |= 8;

@@ -120,7 +120,7 @@ public class ServerStatusResponse {
                 if (JsonUtils.isJsonArray(jsonobject, "sample")) {
                     JsonArray jsonarray = JsonUtils.getJsonArray(jsonobject, "sample");
 
-                    if (jsonarray.size() > 0) {
+                    if (!jsonarray.isEmpty()) {
                         GameProfile[] agameprofile = new GameProfile[jsonarray.size()];
 
                         for (int i = 0; i < agameprofile.length; ++i) {

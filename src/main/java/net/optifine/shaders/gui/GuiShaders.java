@@ -1,6 +1,5 @@
 package net.optifine.shaders.gui;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 
@@ -18,7 +17,6 @@ import net.optifine.gui.TooltipProviderEnumShaderOptions;
 import net.optifine.shaders.Shaders;
 import net.optifine.shaders.ShadersTex;
 import net.optifine.shaders.config.ShaderOptions;
-import org.lwjgl.Sys;
 
 public class GuiShaders extends GuiScreenOF {
     protected final GuiScreen parentGui;

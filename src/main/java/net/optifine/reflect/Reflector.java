@@ -7,7 +7,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiEnchantment;
 import net.minecraft.client.gui.GuiHopper;
 import net.minecraft.client.gui.inventory.GuiBeacon;
@@ -40,7 +39,6 @@ import net.minecraft.client.model.ModelSquid;
 import net.minecraft.client.model.ModelWitch;
 import net.minecraft.client.model.ModelWither;
 import net.minecraft.client.model.ModelWolf;
-import net.minecraft.client.multiplayer.ChunkProviderClient;
 import net.minecraft.client.renderer.block.model.ModelBlock;
 import net.minecraft.client.renderer.entity.RenderBoat;
 import net.minecraft.client.renderer.entity.RenderLeashKnot;
@@ -53,7 +51,6 @@ import net.minecraft.client.renderer.tileentity.TileEntityEnchantmentTableRender
 import net.minecraft.client.renderer.tileentity.TileEntityEnderChestRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySignRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
-import net.minecraft.client.resources.DefaultResourcePack;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryBasic;

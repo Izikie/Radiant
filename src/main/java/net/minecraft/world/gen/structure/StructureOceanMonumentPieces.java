@@ -1287,7 +1287,7 @@ public class StructureOceanMonumentPieces {
         protected static final int field_175829_j = func_175820_a(4, 1, 0);
         protected StructureOceanMonumentPieces.RoomDefinition field_175830_k;
 
-        protected static final int func_175820_a(int p_175820_0_, int p_175820_1_, int p_175820_2_) {
+        protected static int func_175820_a(int p_175820_0_, int p_175820_1_, int p_175820_2_) {
             return p_175820_1_ * 25 + p_175820_2_ * 5 + p_175820_0_;
         }
 

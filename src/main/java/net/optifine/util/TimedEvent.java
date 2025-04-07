@@ -9,9 +9,8 @@ public class TimedEvent {
     public static boolean isActive(String name, long timeIntervalMs) {
         synchronized (mapEventTimes) {
             long i = System.currentTimeMillis();
-            Long olong = mapEventTimes.computeIfAbsent(name, k -> i);
 
-            long j = olong;
+            long j = mapEventTimes.computeIfAbsent(name, k -> i);
 
             if (i < j + timeIntervalMs) {
                 return false;

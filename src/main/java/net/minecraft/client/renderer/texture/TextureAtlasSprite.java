@@ -580,8 +580,7 @@ public class TextureAtlasSprite {
     }
 
     public List<int[][]> getFramesTextureData() {
-        List<int[][]> list = new ArrayList(this.framesTextureData);
-        return list;
+        return (List<int[][]>) new ArrayList(this.framesTextureData);
     }
 
     public AnimationMetadataSection getAnimationMetadata() {

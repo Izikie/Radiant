@@ -23,7 +23,7 @@ public class VertexFormatElement {
         this.elementCount = count;
     }
 
-    private final boolean func_177372_a(int p_177372_1_, VertexFormatElement.EnumUsage p_177372_2_) {
+    private boolean func_177372_a(int p_177372_1_, VertexFormatElement.EnumUsage p_177372_2_) {
         return p_177372_1_ == 0 || p_177372_2_ == VertexFormatElement.EnumUsage.UV;
     }
 

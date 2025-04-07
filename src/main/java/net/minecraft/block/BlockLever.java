@@ -232,38 +232,24 @@ public class BlockLever extends Block {
         }
 
         public static Orientation forFacings(Direction clickedSide, Direction entityFacing) {
-            switch (clickedSide) {
-                case DOWN:
-                    return switch (entityFacing.getAxis()) {
-                        case X -> DOWN_X;
-                        case Z -> DOWN_Z;
-                        default ->
-                                throw new IllegalArgumentException("Invalid entityFacing " + entityFacing + " for facing " + clickedSide);
-                    };
-
-                case UP:
-                    return switch (entityFacing.getAxis()) {
-                        case X -> UP_X;
-                        case Z -> UP_Z;
-                        default ->
-                                throw new IllegalArgumentException("Invalid entityFacing " + entityFacing + " for facing " + clickedSide);
-                    };
-
-                case NORTH:
-                    return NORTH;
-
-                case SOUTH:
-                    return SOUTH;
-
-                case WEST:
-                    return WEST;
-
-                case EAST:
-                    return EAST;
-
-                default:
-                    throw new IllegalArgumentException("Invalid facing: " + clickedSide);
-            }
+            return switch (clickedSide) {
+                case DOWN -> switch (entityFacing.getAxis()) {
+                    case X -> DOWN_X;
+                    case Z -> DOWN_Z;
+                    default ->
+                            throw new IllegalArgumentException("Invalid entityFacing " + entityFacing + " for facing " + clickedSide);
+                };
+                case UP -> switch (entityFacing.getAxis()) {
+                    case X -> UP_X;
+                    case Z -> UP_Z;
+                    default ->
+                            throw new IllegalArgumentException("Invalid entityFacing " + entityFacing + " for facing " + clickedSide);
+                };
+                case NORTH -> NORTH;
+                case SOUTH -> SOUTH;
+                case WEST -> WEST;
+                case EAST -> EAST;
+            };
         }
 
         public String getName() {

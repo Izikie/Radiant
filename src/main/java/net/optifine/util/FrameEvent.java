@@ -11,9 +11,8 @@ public class FrameEvent {
     public static boolean isActive(String name, int frameInterval) {
         synchronized (mapEventFrames) {
             int i = Minecraft.getMinecraft().entityRenderer.frameCount;
-            Integer integer = mapEventFrames.computeIfAbsent(name, k -> i);
 
-            int j = integer;
+            int j = mapEventFrames.computeIfAbsent(name, k -> i);
 
             if (i > j && i < j + frameInterval) {
                 return false;

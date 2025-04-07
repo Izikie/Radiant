@@ -10,6 +10,7 @@ import com.google.gson.JsonParser;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
@@ -42,7 +43,7 @@ public class StatisticsFile extends StatFileWriter {
         if (this.statsFile.isFile()) {
             try {
                 this.statsData.clear();
-                this.statsData.putAll(this.parseJson(FileUtils.readFileToString(this.statsFile)));
+                this.statsData.putAll(this.parseJson(FileUtils.readFileToString(this.statsFile, StandardCharsets.UTF_8)));
             } catch (IOException ioexception) {
                 LOGGER.error("Couldn't read statistics file {}", this.statsFile, ioexception);
             } catch (JsonParseException jsonparseexception) {
@@ -53,7 +54,7 @@ public class StatisticsFile extends StatFileWriter {
 
     public void saveStatFile() {
         try {
-            FileUtils.writeStringToFile(this.statsFile, dumpJson(this.statsData));
+            FileUtils.writeStringToFile(this.statsFile, dumpJson(this.statsData), StandardCharsets.UTF_8);
         } catch (IOException ioexception) {
             LOGGER.error("Couldn't save stats", ioexception);
         }
@@ -89,7 +90,7 @@ public class StatisticsFile extends StatFileWriter {
     }
 
     public Map<StatBase, TupleIntJsonSerializable> parseJson(String p_150881_1_) {
-        JsonElement jsonelement = (new JsonParser()).parse(p_150881_1_);
+        JsonElement jsonelement = JsonParser.parseString(p_150881_1_);
 
         if (!jsonelement.isJsonObject()) {
             return Maps.newHashMap();

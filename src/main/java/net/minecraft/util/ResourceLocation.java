@@ -1,7 +1,5 @@
 package net.minecraft.util;
 
-import org.apache.commons.lang3.Validate;
-
 import java.util.Objects;
 
 public class ResourceLocation {
