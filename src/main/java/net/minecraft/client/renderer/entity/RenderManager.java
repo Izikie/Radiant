@@ -289,9 +289,9 @@ public class RenderManager {
             entity.lastTickPosZ = entity.posZ;
         }
 
-        double d0 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
-        double d1 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
-        double d2 = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
+        double xPos = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
+        double zPos = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
+        double yPos = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
         float f = entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks;
         int i = entity.getBrightnessForRender(partialTicks);
 
@@ -303,7 +303,7 @@ public class RenderManager {
         int k = i / 65536;
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, j, k);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        return this.doRenderEntity(entity, d0 - this.renderPosX, d1 - this.renderPosY, d2 - this.renderPosZ, f, partialTicks, hideDebugBox);
+        return this.doRenderEntity(entity, xPos - this.renderPosX, zPos - this.renderPosY, yPos - this.renderPosZ, f, partialTicks, hideDebugBox);
     }
 
     public void renderWitherSkull(Entity entityIn, float partialTicks) {

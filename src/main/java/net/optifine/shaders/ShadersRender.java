@@ -197,10 +197,10 @@ public class ShadersRender {
             ClippingHelper clippinghelper = ClippingHelperShadow.getInstance();
             Frustum frustum = new Frustum(clippinghelper);
             Entity entity = minecraft.getRenderViewEntity();
-            double d0 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
-            double d1 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
-            double d2 = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
-            frustum.setPosition(d0, d1, d2);
+            double xPos = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
+            double yPos = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
+            double zPos = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
+            frustum.setPosition(xPos, yPos, zPos);
             GlStateManager.shadeModel(7425);
             GlStateManager.enableDepth();
             GlStateManager.depthFunc(515);

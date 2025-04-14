@@ -29,16 +29,16 @@ public class RenderMinecart<T extends EntityMinecart> extends Render<T> {
         float f1 = (((i >> 20 & 7L) + 0.5F) / 8.0F - 0.5F) * 0.004F;
         float f2 = (((i >> 24 & 7L) + 0.5F) / 8.0F - 0.5F) * 0.004F;
         GlStateManager.translate(f, f1, f2);
-        double d0 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
-        double d1 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
-        double d2 = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
+        double xPos = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
+        double yPos = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
+        double zPos = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
         double d3 = 0.30000001192092896D;
-        Vec3 vec3 = entity.func_70489_a(d0, d1, d2);
+        Vec3 vec3 = entity.func_70489_a(xPos, yPos, zPos);
         float f3 = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks;
 
         if (vec3 != null) {
-            Vec3 vec31 = entity.func_70495_a(d0, d1, d2, d3);
-            Vec3 vec32 = entity.func_70495_a(d0, d1, d2, -d3);
+            Vec3 vec31 = entity.func_70495_a(xPos, yPos, zPos, d3);
+            Vec3 vec32 = entity.func_70495_a(xPos, yPos, zPos, -d3);
 
             if (vec31 == null) {
                 vec31 = vec3;
@@ -48,9 +48,9 @@ public class RenderMinecart<T extends EntityMinecart> extends Render<T> {
                 vec32 = vec3;
             }
 
-            x += vec3.xCoord - d0;
-            y += (vec31.yCoord + vec32.yCoord) / 2.0D - d1;
-            z += vec3.zCoord - d2;
+            x += vec3.xCoord - xPos;
+            y += (vec31.yCoord + vec32.yCoord) / 2.0D - yPos;
+            z += vec3.zCoord - zPos;
             Vec3 vec33 = vec32.addVector(-vec31.xCoord, -vec31.yCoord, -vec31.zCoord);
 
             if (vec33.lengthVector() != 0.0D) {

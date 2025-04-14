@@ -3504,13 +3504,13 @@ public class Shaders {
 
     public static void setCamera(float partialTicks) {
         Entity entity = mc.getRenderViewEntity();
-        double d0 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
-        double d1 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
-        double d2 = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
+        double xPos = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
+        double yPos = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
+        double zPos = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
         updateCameraOffset(entity);
-        cameraPositionX = d0 - cameraOffsetX;
-        cameraPositionY = d1;
-        cameraPositionZ = d2 - cameraOffsetZ;
+        cameraPositionX = xPos - cameraOffsetX;
+        cameraPositionY = yPos;
+        cameraPositionZ = zPos - cameraOffsetZ;
         GL11.glGetFloat(GL11.GL_PROJECTION_MATRIX, PROJECTION.position(0));
         SMath.invertMat4FBFA(PROJECTION_INVERSE.position(0), PROJECTION.position(0), FA_PROJECTION_INVERSE, FA_PROJECTION);
         PROJECTION.position(0);
@@ -3545,13 +3545,13 @@ public class Shaders {
 
     public static void setCameraShadow(float partialTicks) {
         Entity entity = mc.getRenderViewEntity();
-        double d0 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
-        double d1 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
-        double d2 = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
+        double xPos = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
+        double yPos = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
+        double zPos = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
         updateCameraOffset(entity);
-        cameraPositionX = d0 - cameraOffsetX;
-        cameraPositionY = d1;
-        cameraPositionZ = d2 - cameraOffsetZ;
+        cameraPositionX = xPos - cameraOffsetX;
+        cameraPositionY = yPos;
+        cameraPositionZ = zPos - cameraOffsetZ;
         GL11.glGetFloat(GL11.GL_PROJECTION_MATRIX, PROJECTION.position(0));
         SMath.invertMat4FBFA(PROJECTION_INVERSE.position(0), PROJECTION.position(0), FA_PROJECTION_INVERSE, FA_PROJECTION);
         PROJECTION.position(0);
@@ -3599,7 +3599,7 @@ public class Shaders {
         if (shadowMapIsOrtho) {
             float f2 = shadowIntervalSize;
             float f3 = f2 / 2.0F;
-            GL11.glTranslatef((float) d0 % f2 - f3, (float) d1 % f2 - f3, (float) d2 % f2 - f3);
+            GL11.glTranslatef((float) xPos % f2 - f3, (float) yPos % f2 - f3, (float) zPos % f2 - f3);
         }
 
         float f9 = sunAngle * ((float) Math.PI * 2.0F);

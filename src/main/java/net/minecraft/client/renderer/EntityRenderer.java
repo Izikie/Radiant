@@ -1162,14 +1162,14 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         clippinghelper.disabled = Config.isShaders() && !Shaders.isFrustumCulling();
         ICamera icamera = new Frustum(clippinghelper);
         Entity entity = this.mc.getRenderViewEntity();
-        double d0 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
-        double d1 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
-        double d2 = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
+        double xPos = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
+        double yPos = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
+        double zPos = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
 
         if (flag) {
-            ShadersRender.setFrustrumPosition(icamera, d0, d1, d2);
+            ShadersRender.setFrustrumPosition(icamera, xPos, yPos, zPos);
         } else {
-            icamera.setPosition(d0, d1, d2);
+            icamera.setPosition(xPos, yPos, zPos);
         }
 
         if ((Config.isSkyEnabled() || Config.isSunMoonEnabled() || Config.isStarsEnabled()) && !Shaders.isShadowPass) {
@@ -1550,10 +1550,10 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
             GlStateManager.alphaFunc(516, 0.1F);
-            double d0 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
-            double d1 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
-            double d2 = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
-            int l = MathHelper.floor_double(d1);
+            double xPos = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
+            double yPos = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
+            double zPos = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
+            int l = MathHelper.floor_double(yPos);
             int i1 = 5;
 
             if (Config.isRainFancy()) {
@@ -1562,7 +1562,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
             int j1 = -1;
             float f = this.rendererUpdateCount + partialTicks;
-            worldrenderer.setTranslation(-d0, -d1, -d2);
+            worldrenderer.setTranslation(-xPos, -yPos, -zPos);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 

@@ -535,13 +535,13 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             this.countTileEntitiesRendered = 0;
 
             Entity entity = this.mc.getRenderViewEntity();
-            double d3 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
-            double d4 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
-            double d5 = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
-            TileEntityRendererDispatcher.staticPlayerX = d3;
-            TileEntityRendererDispatcher.staticPlayerY = d4;
-            TileEntityRendererDispatcher.staticPlayerZ = d5;
-            this.renderManager.setRenderPosition(d3, d4, d5);
+            double xPos = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
+            double yPos = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
+            double zPos = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
+            TileEntityRendererDispatcher.staticPlayerX = xPos;
+            TileEntityRendererDispatcher.staticPlayerY = yPos;
+            TileEntityRendererDispatcher.staticPlayerZ = zPos;
+            this.renderManager.setRenderPosition(xPos, yPos, zPos);
             this.mc.entityRenderer.enableLightmap();
             List<Entity> list = this.theWorld.getLoadedEntityList();
 
@@ -796,14 +796,14 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             DynamicLights.update(this);
         }
 
-        double d3 = viewEntity.lastTickPosX + (viewEntity.posX - viewEntity.lastTickPosX) * partialTicks;
-        double d4 = viewEntity.lastTickPosY + (viewEntity.posY - viewEntity.lastTickPosY) * partialTicks;
-        double d5 = viewEntity.lastTickPosZ + (viewEntity.posZ - viewEntity.lastTickPosZ) * partialTicks;
-        this.renderContainer.initialize(d3, d4, d5);
+        double xPos = viewEntity.lastTickPosX + (viewEntity.posX - viewEntity.lastTickPosX) * partialTicks;
+        double yPos = viewEntity.lastTickPosY + (viewEntity.posY - viewEntity.lastTickPosY) * partialTicks;
+        double zPos = viewEntity.lastTickPosZ + (viewEntity.posZ - viewEntity.lastTickPosZ) * partialTicks;
+        this.renderContainer.initialize(xPos, yPos, zPos);
 
-        BlockPos blockpos = new BlockPos(d3, d4 + viewEntity.getEyeHeight(), d5);
+        BlockPos blockpos = new BlockPos(xPos, yPos + viewEntity.getEyeHeight(), zPos);
         RenderChunk renderchunk = this.viewFrustum.getRenderChunk(blockpos);
-        new BlockPos(MathHelper.floor_double(d3 / 16.0D) * 16, MathHelper.floor_double(d4 / 16.0D) * 16, MathHelper.floor_double(d5 / 16.0D) * 16);
+        new BlockPos(MathHelper.floor_double(xPos / 16.0D) * 16, MathHelper.floor_double(yPos / 16.0D) * 16, MathHelper.floor_double(zPos / 16.0D) * 16);
         this.displayListEntitiesDirty = this.displayListEntitiesDirty || !this.chunksToUpdate.isEmpty() || viewEntity.posX != this.lastViewEntityX || viewEntity.posY != this.lastViewEntityY || viewEntity.posZ != this.lastViewEntityZ || viewEntity.rotationPitch != this.lastViewEntityPitch || viewEntity.rotationYaw != this.lastViewEntityYaw;
         this.lastViewEntityX = viewEntity.posX;
         this.lastViewEntityY = viewEntity.posY;
