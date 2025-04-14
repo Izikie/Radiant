@@ -446,7 +446,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             boolean flag = false;
 
             if (this.mc.currentScreen == null) {
-                GameSettings gamesettings = this.mc.gameSettings;
                 flag = GameSettings.isKeyDown(this.mc.gameSettings.ofKeyBindZoom);
             }
 
@@ -701,69 +700,70 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     }
 
     public void renderHand(float p_renderHand_1_, int p_renderHand_2_, boolean p_renderHand_3_, boolean p_renderHand_4_, boolean p_renderHand_5_) {
-        if (!this.debugView) {
-            GlStateManager.matrixMode(5889);
-            GlStateManager.loadIdentity();
-            float f = 0.07F;
+        if (this.debugView)
+            return;
 
-            if (Config.isShaders()) {
-                Shaders.applyHandDepth();
-            }
+        GlStateManager.matrixMode(5889);
+        GlStateManager.loadIdentity();
+        float f = 0.07F;
 
-            Matrix4f projectionMatrix = new Matrix4f().perspective(
-                    (float) Math.toRadians(this.getFOVModifier(p_renderHand_1_, false)),
-                    (float) this.mc.displayWidth / this.mc.displayHeight,
-                    0.05F,
-                    this.farPlaneDistance * 2.0F
-            );
-            FloatBuffer projectionBuffer = BufferUtils.createFloatBuffer(16);
-            projectionMatrix.get(projectionBuffer);
-            GlStateManager.multMatrix(projectionBuffer);
+        if (Config.isShaders()) {
+            Shaders.applyHandDepth();
+        }
 
-            GlStateManager.matrixMode(5888);
-            GlStateManager.loadIdentity();
+        Matrix4f projectionMatrix = new Matrix4f().perspective(
+                (float) Math.toRadians(this.getFOVModifier(p_renderHand_1_, false)),
+                (float) this.mc.displayWidth / this.mc.displayHeight,
+                0.05F,
+                this.farPlaneDistance * 2.0F
+        );
+        FloatBuffer projectionBuffer = BufferUtils.createFloatBuffer(16);
+        projectionMatrix.get(projectionBuffer);
+        GlStateManager.multMatrix(projectionBuffer);
 
-            boolean flag = false;
+        GlStateManager.matrixMode(5888);
+        GlStateManager.loadIdentity();
 
-            if (p_renderHand_3_) {
-                GlStateManager.pushMatrix();
-                this.hurtCameraEffect(p_renderHand_1_);
+        boolean flag = false;
 
-                if (this.mc.gameSettings.viewBobbing) {
-                    this.setupViewBobbing(p_renderHand_1_);
-                }
-
-                flag = this.mc.getRenderViewEntity() instanceof EntityLivingBase entityLivingBase && entityLivingBase.isPlayerSleeping();
-
-                if (this.mc.gameSettings.thirdPersonView == 0 && !flag && !this.mc.gameSettings.hideGUI && !this.mc.playerController.isSpectator()) {
-                    this.enableLightmap();
-
-                    if (Config.isShaders()) {
-                        ShadersRender.renderItemFP(this.itemRenderer, p_renderHand_1_, p_renderHand_5_);
-                    } else {
-                        this.itemRenderer.renderItemInFirstPerson(p_renderHand_1_);
-                    }
-
-                    this.disableLightmap();
-                }
-
-                GlStateManager.popMatrix();
-            }
-
-            if (!p_renderHand_4_) {
-                return;
-            }
-
-            this.disableLightmap();
-
-            if (this.mc.gameSettings.thirdPersonView == 0 && !flag) {
-                this.itemRenderer.renderOverlays(p_renderHand_1_);
-                this.hurtCameraEffect(p_renderHand_1_);
-            }
+        if (p_renderHand_3_) {
+            GlStateManager.pushMatrix();
+            this.hurtCameraEffect(p_renderHand_1_);
 
             if (this.mc.gameSettings.viewBobbing) {
                 this.setupViewBobbing(p_renderHand_1_);
             }
+
+            flag = this.mc.getRenderViewEntity() instanceof EntityLivingBase entityLivingBase && entityLivingBase.isPlayerSleeping();
+
+            if (this.mc.gameSettings.thirdPersonView == 0 && !flag && !this.mc.gameSettings.hideGUI && !this.mc.playerController.isSpectator()) {
+                this.enableLightmap();
+
+                if (Config.isShaders()) {
+                    ShadersRender.renderItemFP(this.itemRenderer, p_renderHand_1_, p_renderHand_5_);
+                } else {
+                    this.itemRenderer.renderItemInFirstPerson(p_renderHand_1_);
+                }
+
+                this.disableLightmap();
+            }
+
+            GlStateManager.popMatrix();
+        }
+
+        if (!p_renderHand_4_) {
+            return;
+        }
+
+        this.disableLightmap();
+
+        if (this.mc.gameSettings.thirdPersonView == 0 && !flag) {
+            this.itemRenderer.renderOverlays(p_renderHand_1_);
+            this.hurtCameraEffect(p_renderHand_1_);
+        }
+
+        if (this.mc.gameSettings.viewBobbing) {
+            this.setupViewBobbing(p_renderHand_1_);
         }
     }
 
