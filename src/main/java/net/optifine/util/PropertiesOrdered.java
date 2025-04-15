@@ -7,7 +7,7 @@ import java.util.Properties;
 import java.util.Set;
 
 public class PropertiesOrdered extends Properties {
-    private final Set<Object> keysOrdered = new LinkedHashSet();
+    private final Set<Object> keysOrdered = new LinkedHashSet<>();
 
     public synchronized Object put(Object key, Object value) {
         this.keysOrdered.add(key);

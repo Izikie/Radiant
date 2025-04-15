@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShaderUniforms {
-    private final List<ShaderUniformBase> listUniforms = new ArrayList();
+    private final List<ShaderUniformBase> listUniforms = new ArrayList<>();
 
     public void setProgram(int program) {
         for (ShaderUniformBase listUniform : this.listUniforms) {

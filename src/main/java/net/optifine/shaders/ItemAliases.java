@@ -39,7 +39,7 @@ public class ItemAliases {
         reset();
 
         if (shaderPack != null) {
-            List<Integer> list = new ArrayList();
+            List<Integer> list = new ArrayList<>();
             String s = "/shaders/item.properties";
             InputStream inputstream = shaderPack.getResourceAsStream(s);
 

@@ -8,13 +8,13 @@ import net.minecraft.client.settings.KeyBinding;
 
 public class KeyUtils {
     public static void fixKeyConflicts(KeyBinding[] keys, KeyBinding[] keysPrio) {
-        Set<Integer> set = new HashSet();
+        Set<Integer> set = new HashSet<>();
 
         for (KeyBinding keybinding : keysPrio) {
             set.add(keybinding.getKeyCode());
         }
 
-        Set<KeyBinding> set1 = new HashSet(Arrays.asList(keys));
+        Set<KeyBinding> set1 = new HashSet<>(Arrays.asList(keys));
         set1.removeAll(Arrays.asList(keysPrio));
 
         for (KeyBinding keybinding1 : set1) {

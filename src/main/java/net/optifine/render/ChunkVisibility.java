@@ -143,7 +143,7 @@ public class ChunkVisibility {
         Direction[][] aenumfacing = new Direction[i][];
 
         for (int j = 0; j < i; ++j) {
-            List<Direction> list = new ArrayList();
+            List<Direction> list = new ArrayList<>();
 
             for (int k = 0; k < Direction.VALUES.length; ++k) {
                 Direction enumfacing = Direction.VALUES[k];

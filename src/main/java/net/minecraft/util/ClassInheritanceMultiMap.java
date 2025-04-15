@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import net.optifine.util.IteratorCache;
 
 public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
-    private static final Set<Class<?>> field_181158_a = Collections.<Class<?>>newSetFromMap(new ConcurrentHashMap());
+    private static final Set<Class<?>> field_181158_a = Collections.<Class<?>>newSetFromMap(new ConcurrentHashMap<>());
     private final Map<Class<?>, List<T>> map = Maps.newHashMap();
     private final Set<Class<?>> knownKeys = Sets.newIdentityHashSet();
     private final Class<T> baseClass;

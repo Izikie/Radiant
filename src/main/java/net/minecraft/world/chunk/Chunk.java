@@ -76,7 +76,7 @@ public class Chunk {
         this.heightMap = new int[256];
 
         for (int i = 0; i < this.entityLists.length; ++i) {
-            this.entityLists[i] = new ClassInheritanceMultiMap(Entity.class);
+            this.entityLists[i] = new ClassInheritanceMultiMap<>(Entity.class);
         }
 
         Arrays.fill(this.precipitationHeightMap, -999);

@@ -35,8 +35,8 @@ public class RenderEnv {
     private boolean[] borderFlags2 = null;
     private boolean[] borderFlags3 = null;
     private Direction[] borderDirections = null;
-    private final List<BakedQuad> listQuadsCustomizer = new ArrayList();
-    private final List<BakedQuad> listQuadsCtmMultipass = new ArrayList();
+    private final List<BakedQuad> listQuadsCustomizer = new ArrayList<>();
+    private final List<BakedQuad> listQuadsCtmMultipass = new ArrayList<>();
     private final BakedQuad[] arrayQuadsCtm1 = new BakedQuad[1];
     private final BakedQuad[] arrayQuadsCtm2 = new BakedQuad[2];
     private final BakedQuad[] arrayQuadsCtm3 = new BakedQuad[3];

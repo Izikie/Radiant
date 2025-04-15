@@ -266,7 +266,7 @@ public class CustomColors {
         String s = "mcpatcher/lightmap/world";
         String s1 = ".png";
         String[] astring = ResUtils.collectFiles(s, s1);
-        Map<Integer, String> map = new HashMap();
+        Map<Integer, String> map = new HashMap<>();
 
         for (String s2 : astring) {
             String s3 = StrUtils.removePrefixSuffix(s2, s, s1);
@@ -284,7 +284,7 @@ public class CustomColors {
         Arrays.sort(ainteger);
 
         if (ainteger.length == 0) {
-            return new ImmutablePair(null, 0);
+            return new ImmutablePair<>(null, 0);
         } else {
             int j1 = ainteger[0];
             int k1 = ainteger[ainteger.length - 1];
@@ -323,7 +323,7 @@ public class CustomColors {
                 }
             }
 
-            return new ImmutablePair(alightmappack, j1);
+            return new ImmutablePair<>(alightmappack, j1);
         }
     }
 

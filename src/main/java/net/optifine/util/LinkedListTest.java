@@ -9,8 +9,8 @@ import net.optifine.render.VboRange;
 public class LinkedListTest {
     public static void main(String[] args) throws Exception {
         LinkedList<VboRange> linkedlist = new LinkedList();
-        List<VboRange> list = new ArrayList();
-        List<VboRange> list1 = new ArrayList();
+        List<VboRange> list = new ArrayList<>();
+        List<VboRange> list1 = new ArrayList<>();
         Random random = new Random();
         int i = 100;
 

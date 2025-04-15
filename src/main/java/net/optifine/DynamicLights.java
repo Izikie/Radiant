@@ -26,8 +26,8 @@ import net.minecraft.world.World;
 
 public class DynamicLights {
     private static final DynamicLightsMap DYNAMIC_LIGHTS_MAP = new DynamicLightsMap();
-    private static final Map<Class, Integer> ENTITY_LIGHT_LEVELS = new HashMap();
-    private static final Map<Item, Integer> ITEM_LIGHT_LEVELS = new HashMap();
+    private static final Map<Class, Integer> ENTITY_LIGHT_LEVELS = new HashMap<>();
+    private static final Map<Item, Integer> ITEM_LIGHT_LEVELS = new HashMap<>();
     private static long timeUpdateMs = 0L;
     private static final double MAX_DIST = 7.5D;
     private static final double MAX_DIST_SQ = 56.25D;

@@ -58,7 +58,7 @@ public class EntityEnderman extends EntityMob {
         this.tasks.addTask(11, new EntityEnderman.AITakeBlock(this));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
         this.targetTasks.addTask(2, new EntityEnderman.AIFindPlayer(this));
-        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityEndermite.class, 10, true, false, (Predicate<EntityEndermite>) EntityEndermite::isSpawnedByPlayer));
+        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityEndermite.class, 10, true, false, (Predicate<EntityEndermite>) EntityEndermite::isSpawnedByPlayer));
     }
 
     protected void applyEntityAttributes() {

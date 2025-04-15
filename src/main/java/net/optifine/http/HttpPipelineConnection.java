@@ -44,8 +44,8 @@ public class HttpPipelineConnection {
         this.host = null;
         this.port = 0;
         this.proxy = Proxy.NO_PROXY;
-        this.listRequests = new LinkedList();
-        this.listRequestsSend = new LinkedList();
+        this.listRequests = new LinkedList<>();
+        this.listRequestsSend = new LinkedList<>();
         this.socket = null;
         this.inputStream = null;
         this.outputStream = null;

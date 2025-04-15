@@ -7,7 +7,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.src.Config;
 
 public class CacheObjectArray {
-    private static final ArrayDeque<int[]> ARRAYS = new ArrayDeque();
+    private static final ArrayDeque<int[]> ARRAYS = new ArrayDeque<>();
     private static final int MAX_CACHE_SIZE = 10;
 
     private static synchronized int[] allocateArray(int size) {

@@ -29,7 +29,7 @@ public class JsonToNBT {
     static int func_150310_b(String p_150310_0_) throws NBTException {
         int i = 0;
         boolean flag = false;
-        Stack<Character> stack = new Stack();
+        Stack<Character> stack = new Stack<>();
 
         for (int j = 0; j < p_150310_0_.length(); ++j) {
             char c0 = p_150310_0_.charAt(j);
@@ -162,7 +162,7 @@ public class JsonToNBT {
     }
 
     private static String func_179269_a(String p_179269_0_, int p_179269_1_) throws NBTException {
-        Stack<Character> stack = new Stack();
+        Stack<Character> stack = new Stack<>();
         int i = p_179269_1_ + 1;
         boolean flag = false;
         boolean flag1 = false;

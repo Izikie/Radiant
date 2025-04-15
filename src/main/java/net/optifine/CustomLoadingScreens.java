@@ -45,7 +45,7 @@ public class CustomLoadingScreens {
         String s = "optifine/gui/loading/background";
         String s1 = ".png";
         String[] astring = ResUtils.collectFiles(s, s1);
-        Map<Integer, String> map = new HashMap();
+        Map<Integer, String> map = new HashMap<>();
 
         for (String s2 : astring) {
             String s3 = StrUtils.removePrefixSuffix(s2, s, s1);
@@ -63,7 +63,7 @@ public class CustomLoadingScreens {
         Arrays.sort(ainteger);
 
         if (ainteger.length == 0) {
-            return new ImmutablePair(null, 0);
+            return new ImmutablePair<>(null, 0);
         } else {
             String s5 = "optifine/gui/loading/loading.properties";
             Properties properties = ResUtils.readProperties(s5, "CustomLoadingScreens");
@@ -77,7 +77,7 @@ public class CustomLoadingScreens {
                 acustomloadingscreen[integer - k] = CustomLoadingScreen.parseScreen(s4, integer, properties);
             }
 
-            return new ImmutablePair(acustomloadingscreen, k);
+            return new ImmutablePair<>(acustomloadingscreen, k);
         }
     }
 

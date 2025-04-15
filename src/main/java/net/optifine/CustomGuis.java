@@ -154,7 +154,7 @@ public class CustomGuis {
         guiProperties = null;
 
         if (Config.isCustomGuis()) {
-            List<List<CustomGuiProperties>> list = new ArrayList();
+            List<List<CustomGuiProperties>> list = new ArrayList<>();
             IResourcePack[] airesourcepack = Config.getResourcePacks();
 
             for (int i = airesourcepack.length - 1; i >= 0; --i) {
@@ -231,7 +231,7 @@ public class CustomGuis {
             List<CustomGuiProperties> list = listProps.get(i);
 
             if (list == null) {
-                list = new ArrayList();
+                list = new ArrayList<>();
                 listProps.set(i, list);
             }
 

@@ -32,7 +32,7 @@ public class BlockAlias {
     }
 
     public int[] getMatchBlockIds() {
-        Set<Integer> set = new HashSet();
+        Set<Integer> set = new HashSet<>();
 
         for (MatchBlock matchblock : this.matchBlocks) {
             int j = matchblock.getBlockId();
@@ -44,7 +44,7 @@ public class BlockAlias {
     }
 
     public MatchBlock[] getMatchBlocks(int matchBlockId) {
-        List<MatchBlock> list = new ArrayList();
+        List<MatchBlock> list = new ArrayList<>();
 
         for (MatchBlock matchblock : this.matchBlocks) {
             if (matchblock.getBlockId() == matchBlockId) {

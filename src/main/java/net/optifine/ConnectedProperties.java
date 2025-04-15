@@ -139,7 +139,7 @@ public class ConnectedProperties {
         if (this.tiles == null) {
             return null;
         } else {
-            Map<Integer, Integer> map = new HashMap();
+            Map<Integer, Integer> map = new HashMap<>();
 
             for (Object object : props.keySet()) {
                 if (object instanceof String s) {

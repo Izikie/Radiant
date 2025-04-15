@@ -677,7 +677,7 @@ public class CustomItemProperties {
                         IBakedModel ibakedmodel = makeBakedModel(textureMap, itemModelGenerator, astring1, flag);
 
                         if (this.mapBakedModelsTexture == null) {
-                            this.mapBakedModelsTexture = new HashMap();
+                            this.mapBakedModelsTexture = new HashMap<>();
                         }
 
                         this.mapBakedModelsTexture.put(s2, ibakedmodel);
@@ -932,7 +932,7 @@ public class CustomItemProperties {
                         Config.warn("Custom Items: Model not found " + modelresourcelocation1.getResourcePath());
                     } else {
                         if (this.mapBakedModelsFull == null) {
-                            this.mapBakedModelsFull = new HashMap();
+                            this.mapBakedModelsFull = new HashMap<>();
                         }
 
                         this.mapBakedModelsFull.put(s2, ibakedmodel1);

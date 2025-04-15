@@ -5,7 +5,7 @@ import net.optifine.util.LinkedList;
 public class VboRange {
     private int position = -1;
     private int size = 0;
-    private final LinkedList.Node<VboRange> node = new LinkedList.Node(this);
+    private final LinkedList.Node<VboRange> node = new LinkedList.Node<>(this);
 
     public int getPosition() {
         return this.position;

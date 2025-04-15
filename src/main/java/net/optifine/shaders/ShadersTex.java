@@ -38,7 +38,7 @@ public class ShadersTex {
     public static final int DEF_BASE_TEX_COLOR = 0;
     public static final int DEF_NORM_TEX_COLOR = -8421377;
     public static final int DEF_SPEC_TEX_COLOR = 0;
-    public static final Map<Integer, MultiTexID> MULTI_TEX_MAP = new HashMap();
+    public static final Map<Integer, MultiTexID> MULTI_TEX_MAP = new HashMap<>();
 
     public static IntBuffer getIntBuffer(int size) {
         if (intBuffer.capacity() < size) {

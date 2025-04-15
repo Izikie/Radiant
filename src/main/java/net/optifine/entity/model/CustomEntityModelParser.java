@@ -180,7 +180,7 @@ public class CustomEntityModelParser {
         JsonArray jsonarray = (JsonArray) elem.get("animations");
 
         if (jsonarray != null) {
-            List<ModelVariableUpdater> list = new ArrayList();
+            List<ModelVariableUpdater> list = new ArrayList<>();
 
             for (int i = 0; i < jsonarray.size(); ++i) {
                 JsonObject jsonobject = (JsonObject) jsonarray.get(i);

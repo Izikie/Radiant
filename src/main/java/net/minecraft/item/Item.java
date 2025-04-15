@@ -46,7 +46,7 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 public class Item {
-    public static final RegistryNamespaced<ResourceLocation, Item> itemRegistry = new RegistryNamespaced();
+    public static final RegistryNamespaced<ResourceLocation, Item> itemRegistry = new RegistryNamespaced<>();
     private static final Map<Block, Item> BLOCK_TO_ITEM = Maps.newHashMap();
     protected static final UUID ITEM_MODIFIER_UUID = UUID.fromString("CB3F55D3-645C-4F38-A497-9C13A33DB5CF");
     private CreativeTabs tabToDisplayOn;

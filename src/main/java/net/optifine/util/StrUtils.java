@@ -444,7 +444,7 @@ public class StrUtils {
             if (start >= end) {
                 return strs;
             } else {
-                List<String> list = new ArrayList(strs.length);
+                List<String> list = new ArrayList<>(strs.length);
 
                 for (int i = 0; i < strs.length; ++i) {
                     String s = strs[i];

@@ -61,7 +61,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
         this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         this.tasks.addTask(7, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityLiving.class, 0, false, false, ATTACK_ENTITY_SELECTOR));
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityLiving.class, 0, false, false, ATTACK_ENTITY_SELECTOR));
         this.experienceValue = 50;
     }
 

@@ -56,7 +56,7 @@ public class ShaderPackParser {
         if (shaderPack == null) {
             return new ShaderOption[0];
         } else {
-            Map<String, ShaderOption> map = new HashMap();
+            Map<String, ShaderOption> map = new HashMap<>();
             collectShaderOptions(shaderPack, "/shaders", programNames, map);
 
             for (int i : listDimensions) {
@@ -125,7 +125,7 @@ public class ShaderPackParser {
 
     private static String[] getLines(IShaderPack sp, String path) {
         try {
-            List<String> list = new ArrayList();
+            List<String> list = new ArrayList<>();
             String s = loadFile(path, sp, 0, list, 0);
 
             if (s == null) {
@@ -167,7 +167,7 @@ public class ShaderPackParser {
     }
 
     private static Set<String> makeSetConstNames() {
-        Set<String> set = new HashSet();
+        Set<String> set = new HashSet<>();
         set.add("shadowMapResolution");
         set.add("shadowMapFov");
         set.add("shadowDistance");
@@ -209,14 +209,14 @@ public class ShaderPackParser {
 
     public static ShaderProfile[] parseProfiles(Properties props, ShaderOption[] shaderOptions) {
         String s = "profile.";
-        List<ShaderProfile> list = new ArrayList();
+        List<ShaderProfile> list = new ArrayList<>();
 
         for (Object o : props.keySet()) {
             String s1 = (String) o;
             if (s1.startsWith(s)) {
                 String s2 = s1.substring(s.length());
                 props.getProperty(s1);
-                Set<String> set = new HashSet();
+                Set<String> set = new HashSet<>();
                 ShaderProfile shaderprofile = parseProfile(s2, props, set, shaderOptions);
 
                 if (shaderprofile != null) {
@@ -235,7 +235,7 @@ public class ShaderPackParser {
     public static Map<String, IExpressionBool> parseProgramConditions(Properties props, ShaderOption[] shaderOptions) {
         String s = "program.";
         Pattern pattern = Pattern.compile("program\\.([^.]+)\\.enabled");
-        Map<String, IExpressionBool> map = new HashMap();
+        Map<String, IExpressionBool> map = new HashMap<>();
 
         for (Object o : props.keySet()) {
             String s1 = (String) o;
@@ -269,7 +269,7 @@ public class ShaderPackParser {
     }
 
     public static Set<String> parseOptionSliders(Properties props, ShaderOption[] shaderOptions) {
-        Set<String> set = new HashSet();
+        Set<String> set = new HashSet<>();
         String s = props.getProperty("sliders");
 
         if (s != null) {
@@ -369,7 +369,7 @@ public class ShaderPackParser {
     }
 
     public static Map<String, ScreenShaderOptions> parseGuiScreens(Properties props, ShaderProfile[] shaderProfiles, ShaderOption[] shaderOptions) {
-        Map<String, ScreenShaderOptions> map = new HashMap();
+        Map<String, ScreenShaderOptions> map = new HashMap<>();
         parseGuiScreen("screen", props, map, shaderProfiles, shaderOptions);
         return map.isEmpty() ? null : map;
     }
@@ -380,8 +380,8 @@ public class ShaderPackParser {
         if (s == null) {
             return false;
         } else {
-            List<ShaderOption> list = new ArrayList();
-            Set<String> set = new HashSet();
+            List<ShaderOption> list = new ArrayList<>();
+            Set<String> set = new HashSet<>();
             String[] astring = Config.tokenize(s, " ");
 
             for (String s1 : astring) {
@@ -446,7 +446,7 @@ public class ShaderPackParser {
 
         CharArrayWriter chararraywriter = new CharArrayWriter();
         int j = -1;
-        Set<ShaderMacro> set = new LinkedHashSet();
+        Set<ShaderMacro> set = new LinkedHashSet<>();
         int k = 1;
 
         while (true) {
@@ -533,7 +533,7 @@ public class ShaderPackParser {
     }
 
     private static ShaderMacro[] findMacros(String line, ShaderMacro[] macros) {
-        List<ShaderMacro> list = new ArrayList();
+        List<ShaderMacro> list = new ArrayList<>();
 
         for (ShaderMacro shadermacro : macros) {
             if (line.contains(shadermacro.name())) {
@@ -578,8 +578,8 @@ public class ShaderPackParser {
         String s1 = "variable";
         String s2 = s + ".";
         String s3 = s1 + ".";
-        Map<String, IExpression> map = new HashMap();
-        List<CustomUniform> list = new ArrayList();
+        Map<String, IExpression> map = new HashMap<>();
+        List<CustomUniform> list = new ArrayList<>();
 
         for (Object o : props.keySet()) {
             String s4 = (String) o;

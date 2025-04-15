@@ -11,7 +11,7 @@ public class TokenParser {
     public static Token[] parse(String str) throws IOException, ParseException {
         Reader reader = new StringReader(str);
         PushbackReader pushbackreader = new PushbackReader(reader);
-        List<Token> list = new ArrayList();
+        List<Token> list = new ArrayList<>();
 
         while (true) {
             int i = pushbackreader.read();

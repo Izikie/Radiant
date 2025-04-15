@@ -34,7 +34,7 @@ public class CustomBlockLayers {
     public static void update() {
         renderLayers = null;
         active = false;
-        List<RenderLayer> list = new ArrayList();
+        List<RenderLayer> list = new ArrayList<>();
         String s = "optifine/block.properties";
         Properties properties = ResUtils.readProperties(s, "CustomBlockLayers");
 

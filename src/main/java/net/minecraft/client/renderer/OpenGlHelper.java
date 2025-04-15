@@ -105,7 +105,7 @@ public class OpenGlHelper {
         vboRegions = flag && flag1;
 
         if (!vboRegions) {
-            List<String> list = new ArrayList();
+            List<String> list = new ArrayList<>();
 
             if (!flag) {
                 list.add("OpenGL 1.3, ARB_copy_buffer");

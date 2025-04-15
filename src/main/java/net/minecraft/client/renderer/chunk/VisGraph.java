@@ -55,7 +55,7 @@ public class VisGraph {
 
     private Set<Direction> func_178604_a(int p_178604_1_) {
         Set<Direction> set = EnumSet.noneOf(Direction.class);
-        Queue<Integer> queue = new ArrayDeque(384);
+        Queue<Integer> queue = new ArrayDeque<>(384);
         queue.add(IntegerCache.getInteger(p_178604_1_));
         this.field_178612_d.set(p_178604_1_, true);
 

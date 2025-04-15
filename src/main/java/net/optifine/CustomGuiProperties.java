@@ -155,7 +155,7 @@ public class CustomGuiProperties {
     }
 
     private static Map<ResourceLocation, ResourceLocation> parseTextureLocations(Properties props, String property, CustomGuiProperties.EnumContainer container, String pathPrefix, String basePath) {
-        Map<ResourceLocation, ResourceLocation> map = new HashMap();
+        Map<ResourceLocation, ResourceLocation> map = new HashMap<>();
         String s = props.getProperty(property);
 
         if (s != null) {

@@ -44,7 +44,7 @@ public class ModelAdapterRabbit extends ModelAdapter {
 
     private static Map<String, Integer> getMapPartFields() {
         if (mapPartFields == null) {
-            mapPartFields = new HashMap();
+            mapPartFields = new HashMap<>();
             mapPartFields.put("left_foot", 0);
             mapPartFields.put("right_foot", 1);
             mapPartFields.put("left_thigh", 2);

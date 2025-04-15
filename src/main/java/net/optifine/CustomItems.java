@@ -208,7 +208,7 @@ public class CustomItems {
     }
 
     private static List<CustomItemProperties> getAllProperties() {
-        List<CustomItemProperties> list = new ArrayList();
+        List<CustomItemProperties> list = new ArrayList<>();
         addAll(itemProperties, list);
         addAll(enchantmentProperties, list);
         return list;

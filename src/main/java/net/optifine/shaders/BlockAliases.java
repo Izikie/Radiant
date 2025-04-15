@@ -49,7 +49,7 @@ public class BlockAliases {
         reset();
 
         if (shaderPack != null) {
-            List<List<BlockAlias>> list = new ArrayList();
+            List<List<BlockAlias>> list = new ArrayList<>();
             String s = "/shaders/block.properties";
             InputStream inputstream = shaderPack.getResourceAsStream(s);
 
@@ -125,7 +125,7 @@ public class BlockAliases {
             List<BlockAlias> list = blocksAliases.get(j);
 
             if (list == null) {
-                list = new ArrayList();
+                list = new ArrayList<>();
                 blocksAliases.set(j, list);
             }
 
