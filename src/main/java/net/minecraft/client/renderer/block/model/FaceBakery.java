@@ -123,8 +123,8 @@ public class FaceBakery {
             return;
         }
 
-        Matrix4f matrix = new Matrix4f().identity();
-        Vector3f scaleVector = new Vector3f(1.0F, 1.0F, 1.0F);
+        Matrix4f matrix = new Matrix4f();
+        Vector3f scaleVector = new Vector3f(0.0F, 0.0F, 0.0F);
         float angle = partRotation.angle * 0.017453292F;
 
         switch (partRotation.axis) {
@@ -150,6 +150,8 @@ public class FaceBakery {
             }
 
             scaleVector.add(1.0F, 1.0F, 1.0F);
+        } else {
+            scaleVector.set(1.0F, 1.0F, 1.0F);
         }
 
         this.rotateScale(point, new Vector3f(partRotation.origin), matrix, scaleVector);
