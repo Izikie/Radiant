@@ -1,5 +1,6 @@
 package net.minecraft.client.renderer.chunk;
 
+import java.util.EnumSet;
 import java.util.Set;
 
 import net.minecraft.util.Direction;
@@ -8,7 +9,7 @@ public class SetVisibility {
     private static final int COUNT_FACES = Direction.values().length;
     private long bits;
 
-    public void setManyVisible(Set<Direction> p_178620_1_) {
+    public void setManyVisible(EnumSet<Direction> p_178620_1_) {
         for (Direction enumfacing : p_178620_1_) {
             for (Direction enumfacing1 : p_178620_1_) {
                 this.setVisible(enumfacing, enumfacing1, true);

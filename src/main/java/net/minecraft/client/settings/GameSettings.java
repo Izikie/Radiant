@@ -17,10 +17,7 @@ import java.io.PrintWriter;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundCategory;
@@ -100,7 +97,7 @@ public class GameSettings {
     public boolean hideServerAddress;
     public boolean advancedItemTooltips;
     public boolean pauseOnLostFocus = true;
-    private final Set<PlayerModelParts> setModelParts = Sets.newHashSet(PlayerModelParts.values()); // TODO: Make this a EnumSet
+    private final EnumSet<PlayerModelParts> setModelParts = EnumSet.allOf(PlayerModelParts.class);
     public int overrideWidth;
     public int overrideHeight;
     public boolean heldItemTooltips = true;
@@ -948,16 +945,16 @@ public class GameSettings {
         if (this.mc.thePlayer != null) {
             int i = 0;
 
-            for (PlayerModelParts enumplayermodelparts : this.setModelParts) {
-                i |= enumplayermodelparts.getPartMask();
+            for (PlayerModelParts part : this.setModelParts) {
+                i |= part.getPartMask();
             }
 
             this.mc.thePlayer.sendQueue.addToSendQueue(new C15PacketClientSettings(this.language, this.renderDistanceChunks, this.chatVisibility, this.chatColours, i));
         }
     }
 
-    public Set<PlayerModelParts> getModelParts() {
-        return ImmutableSet.copyOf(this.setModelParts);
+    public EnumSet<PlayerModelParts> getModelParts() {
+        return this.setModelParts;
     }
 
     public void setModelPartEnabled(PlayerModelParts modelPart, boolean enable) {

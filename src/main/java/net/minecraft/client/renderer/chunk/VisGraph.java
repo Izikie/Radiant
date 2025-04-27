@@ -49,12 +49,12 @@ public class VisGraph {
         return setvisibility;
     }
 
-    public Set<Direction> func_178609_b(BlockPos pos) {
+    public EnumSet<Direction> func_178609_b(BlockPos pos) {
         return this.func_178604_a(getIndex(pos));
     }
 
-    private Set<Direction> func_178604_a(int p_178604_1_) {
-        Set<Direction> set = EnumSet.noneOf(Direction.class);
+    private EnumSet<Direction> func_178604_a(int p_178604_1_) {
+        EnumSet<Direction> set = EnumSet.noneOf(Direction.class);
         Queue<Integer> queue = new ArrayDeque<>(384);
         queue.add(IntegerCache.getInteger(p_178604_1_));
         this.field_178612_d.set(p_178604_1_, true);
@@ -76,7 +76,7 @@ public class VisGraph {
         return set;
     }
 
-    private void func_178610_a(int p_178610_1_, Set<Direction> p_178610_2_) {
+    private void func_178610_a(int p_178610_1_, EnumSet<Direction> p_178610_2_) {
         int i = p_178610_1_ & 15;
 
         if (i == 0) {

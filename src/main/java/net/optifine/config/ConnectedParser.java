@@ -501,7 +501,7 @@ public class ConnectedParser {
         if (str == null) {
             return defVal;
         } else {
-            EnumSet enumset = EnumSet.allOf(Direction.class);
+            EnumSet<Direction> enumset = EnumSet.allOf(Direction.class);
             String[] astring = Config.tokenize(str, " ,");
 
             for (String s : astring) {

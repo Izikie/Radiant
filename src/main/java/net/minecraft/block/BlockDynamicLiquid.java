@@ -103,7 +103,7 @@ public class BlockDynamicLiquid extends BlockLiquid {
                 this.tryFlowInto(worldIn, pos.down(), iblockstate, i + 8);
             }
         } else if (i >= 0 && (i == 0 || this.isBlocked(worldIn, pos.down(), iblockstate))) {
-            Set<Direction> set = this.getPossibleFlowDirections(worldIn, pos);
+            EnumSet<Direction> set = this.getPossibleFlowDirections(worldIn, pos);
             int k1 = i + j;
 
             if (i >= 8) {
@@ -161,9 +161,9 @@ public class BlockDynamicLiquid extends BlockLiquid {
         return i;
     }
 
-    private Set<Direction> getPossibleFlowDirections(World worldIn, BlockPos pos) {
+    private EnumSet<Direction> getPossibleFlowDirections(World worldIn, BlockPos pos) {
         int i = 1000;
-        Set<Direction> set = EnumSet.noneOf(Direction.class);
+        EnumSet<Direction> set = EnumSet.noneOf(Direction.class);
 
         for (Direction enumfacing : Direction.Plane.HORIZONTAL) {
             BlockPos blockpos = pos.offset(enumfacing);

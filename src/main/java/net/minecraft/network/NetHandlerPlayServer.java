@@ -8,6 +8,7 @@ import io.netty.buffer.Unpooled;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
@@ -354,10 +355,10 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
     }
 
     public void setPlayerLocation(double x, double y, double z, float yaw, float pitch) {
-        this.setPlayerLocation(x, y, z, yaw, pitch, Collections.emptySet());
+        this.setPlayerLocation(x, y, z, yaw, pitch, EnumSet.noneOf(S08PacketPlayerPosLook.Flag.class));
     }
 
-    public void setPlayerLocation(double x, double y, double z, float yaw, float pitch, Set<S08PacketPlayerPosLook.Flag> relativeSet) {
+    public void setPlayerLocation(double x, double y, double z, float yaw, float pitch, EnumSet<S08PacketPlayerPosLook.Flag> relativeSet) {
         this.hasMoved = false;
         this.lastPosX = x;
         this.lastPosY = y;

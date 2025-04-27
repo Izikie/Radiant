@@ -6,16 +6,7 @@ import com.google.common.collect.Sets;
 import com.google.gson.JsonSyntaxException;
 
 import java.io.IOException;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Deque;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
@@ -990,7 +981,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         return MathHelper.abs_int(pos.getX() - blockpos.getX()) <= 16 && (MathHelper.abs_int(pos.getY() - blockpos.getY()) <= 16 && MathHelper.abs_int(pos.getZ() - blockpos.getZ()) <= 16);
     }
 
-    private Set<Direction> getVisibleFacings(BlockPos pos) {
+    private EnumSet<Direction> getVisibleFacings(BlockPos pos) {
         VisGraph visgraph = new VisGraph();
         BlockPos blockpos = new BlockPos(pos.getX() >> 4 << 4, pos.getY() >> 4 << 4, pos.getZ() >> 4 << 4);
         Chunk chunk = this.theWorld.getChunkFromBlockCoords(blockpos);
