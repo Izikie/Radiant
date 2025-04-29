@@ -1,9 +1,7 @@
 package net.minecraft.client.resources.model;
 
-import com.google.common.collect.Maps;
-
-import java.util.Map;
-
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.util.Direction;
 import net.minecraft.util.MathHelper;
 import org.joml.Matrix4f;
@@ -26,7 +24,7 @@ public enum ModelRotation {
     X270_Y180(270, 180),
     X270_Y270(270, 270);
 
-    private static final Map<Integer, ModelRotation> mapRotations = Maps.newHashMap();
+    private static final Int2ObjectMap<ModelRotation> mapRotations = new Int2ObjectOpenHashMap<>();
     private final int combinedXY;
     private final Matrix4f matrix4d;
     private final int quartersX;
