@@ -14,6 +14,8 @@ import java.util.Random;
 import java.util.Set;
 import javax.imageio.ImageIO;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRedstoneWire;
 import net.minecraft.block.BlockStem;
@@ -266,7 +268,7 @@ public class CustomColors {
         String s = "mcpatcher/lightmap/world";
         String s1 = ".png";
         String[] astring = ResUtils.collectFiles(s, s1);
-        Map<Integer, String> map = new HashMap<>();
+        Int2ObjectMap<String> map = new Int2ObjectOpenHashMap<>();
 
         for (String s2 : astring) {
             String s3 = StrUtils.removePrefixSuffix(s2, s, s1);
@@ -279,19 +281,18 @@ public class CustomColors {
             }
         }
 
-        Set<Integer> set = map.keySet();
-        Integer[] ainteger = set.toArray(new Integer[0]);
-        Arrays.sort(ainteger);
+        int[] keys = map.keySet().toIntArray();
+        Arrays.sort(keys);
 
-        if (ainteger.length == 0) {
+        if (keys.length == 0) {
             return new ImmutablePair<>(null, 0);
         } else {
-            int j1 = ainteger[0];
-            int k1 = ainteger[ainteger.length - 1];
+            int j1 = keys[0];
+            int k1 = keys[keys.length - 1];
             int k = k1 - j1 + 1;
             CustomColormap[] acustomcolormap = new CustomColormap[k];
 
-            for (Integer integer : ainteger) {
+            for (int integer : keys) {
                 String s4 = map.get(integer);
                 CustomColormap customcolormap = getCustomColors(s4, -1, -1);
 

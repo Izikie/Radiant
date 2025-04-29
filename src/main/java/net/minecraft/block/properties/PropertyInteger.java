@@ -1,10 +1,10 @@
 package net.minecraft.block.properties;
 
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
+import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
+import it.unimi.dsi.fastutil.ints.IntSet;
 
 import java.util.Collection;
-import java.util.Set;
 
 public class PropertyInteger extends PropertyHelper<Integer> {
     private final ImmutableSet<Integer> allowedValues;
@@ -17,7 +17,7 @@ public class PropertyInteger extends PropertyHelper<Integer> {
         } else if (max <= min) {
             throw new IllegalArgumentException("Max value of " + name + " must be greater than min (" + min + ")");
         } else {
-            Set<Integer> set = Sets.newHashSet();
+            IntSet set = new IntOpenHashSet();
 
             for (int i = min; i <= max; ++i) {
                 set.add(i);

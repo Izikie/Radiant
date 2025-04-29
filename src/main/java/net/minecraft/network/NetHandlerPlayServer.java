@@ -7,10 +7,8 @@ import com.google.common.util.concurrent.Futures;
 import io.netty.buffer.Unpooled;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Set;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.command.server.CommandBlockLogic;

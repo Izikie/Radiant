@@ -1,17 +1,11 @@
 package net.optifine.config;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
+import it.unimi.dsi.fastutil.ints.IntAVLTreeSet;
+import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
+import it.unimi.dsi.fastutil.ints.IntSet;
 import net.optifine.ConnectedProperties;
 import net.optifine.util.EntityUtils;
 
@@ -826,7 +820,7 @@ public class ConnectedParser {
     }
 
     private static int[] parseCareerIds(int prof, String str) {
-        Set<Integer> set = new HashSet();
+        IntSet set = new IntOpenHashSet();
         String[] astring = Config.tokenize(str, ",");
 
         for (String s : astring) {
@@ -839,14 +833,7 @@ public class ConnectedParser {
             set.add(j);
         }
 
-        Integer[] ainteger = set.toArray(new Integer[0]);
-        int[] aint = new int[ainteger.length];
-
-        for (int k = 0; k < aint.length; ++k) {
-            aint[k] = ainteger[k];
-        }
-
-        return aint;
+        return set.toIntArray();
     }
 
     private static int parseCareerId(int prof, String str) {
@@ -918,7 +905,7 @@ public class ConnectedParser {
 
     public int[] parseItems(String str) {
         str = str.trim();
-        Set<Integer> set = new TreeSet();
+        IntSet set = new IntAVLTreeSet();
         String[] astring = Config.tokenize(str, " ");
 
         for (String s : astring) {
@@ -938,13 +925,12 @@ public class ConnectedParser {
             }
         }
 
-        Integer[] ainteger = set.toArray(new Integer[0]);
-        return Config.toPrimitive(ainteger);
+        return set.toIntArray();
     }
 
     public int[] parseEntities(String str) {
         str = str.trim();
-        Set<Integer> set = new TreeSet();
+        IntAVLTreeSet set = new IntAVLTreeSet();
         String[] astring = Config.tokenize(str, " ");
 
         for (String s : astring) {
@@ -957,7 +943,7 @@ public class ConnectedParser {
             }
         }
 
-        Integer[] ainteger = set.toArray(new Integer[0]);
-        return Config.toPrimitive(ainteger);
+        return set.toIntArray();
     }
+
 }

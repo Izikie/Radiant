@@ -1,11 +1,10 @@
 package net.optifine;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.network.PacketThreadUtil;
 import net.minecraft.src.Config;
 import net.optifine.util.ResUtils;
@@ -45,7 +44,7 @@ public class CustomLoadingScreens {
         String s = "optifine/gui/loading/background";
         String s1 = ".png";
         String[] astring = ResUtils.collectFiles(s, s1);
-        Map<Integer, String> map = new HashMap<>();
+        Int2ObjectMap<String> map = new Int2ObjectOpenHashMap<>();
 
         for (String s2 : astring) {
             String s3 = StrUtils.removePrefixSuffix(s2, s, s1);
@@ -58,21 +57,20 @@ public class CustomLoadingScreens {
             }
         }
 
-        Set<Integer> set = map.keySet();
-        Integer[] ainteger = set.toArray(new Integer[0]);
-        Arrays.sort(ainteger);
+        int[] keys = map.keySet().toIntArray();
+        Arrays.sort(keys);
 
-        if (ainteger.length == 0) {
+        if (keys.length == 0) {
             return new ImmutablePair<>(null, 0);
         } else {
             String s5 = "optifine/gui/loading/loading.properties";
             Properties properties = ResUtils.readProperties(s5, "CustomLoadingScreens");
-            int k = ainteger[0];
-            int l = ainteger[ainteger.length - 1];
+            int k = keys[0];
+            int l = keys[keys.length - 1];
             int i1 = l - k + 1;
             CustomLoadingScreen[] acustomloadingscreen = new CustomLoadingScreen[i1];
 
-            for (Integer integer : ainteger) {
+            for (int integer : keys) {
                 String s4 = map.get(integer);
                 acustomloadingscreen[integer - k] = CustomLoadingScreen.parseScreen(s4, integer, properties);
             }

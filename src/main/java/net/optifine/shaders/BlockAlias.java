@@ -1,10 +1,10 @@
 package net.optifine.shaders;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
+import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
+import it.unimi.dsi.fastutil.ints.IntSet;
 import net.minecraft.src.Config;
 import net.optifine.config.MatchBlock;
 
@@ -32,15 +32,13 @@ public class BlockAlias {
     }
 
     public int[] getMatchBlockIds() {
-        Set<Integer> set = new HashSet<>();
+        IntSet blockIDs = new IntOpenHashSet();
 
-        for (MatchBlock matchblock : this.matchBlocks) {
-            int j = matchblock.getBlockId();
-            set.add(j);
+        for (MatchBlock matchBlock : this.matchBlocks) {
+            blockIDs.add(matchBlock.getBlockId());
         }
 
-        Integer[] ainteger = set.toArray(new Integer[0]);
-        return Config.toPrimitive(ainteger);
+        return blockIDs.toIntArray();
     }
 
     public MatchBlock[] getMatchBlocks(int matchBlockId) {

@@ -34,6 +34,7 @@ dependencies {
     // Third Party
     implementation(group = "fr.litarvan", name = "openauth", version = "1.1.6")
     implementation(group = "org.joml", name = "joml", version = "1.10.8")
+    implementation(group = "it.unimi.dsi", name = "fastutil", version = "8.5.15")
 
     implementation(group = "net.java.dev.jna", name = "jna", version = "5.16.0")
     implementation(group = "net.java.dev.jna", name = "jna-platform", version = "5.16.0")

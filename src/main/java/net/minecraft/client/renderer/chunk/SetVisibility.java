@@ -1,7 +1,6 @@
 package net.minecraft.client.renderer.chunk;
 
 import java.util.EnumSet;
-import java.util.Set;
 
 import net.minecraft.util.Direction;
 

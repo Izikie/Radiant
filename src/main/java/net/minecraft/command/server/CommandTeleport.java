@@ -2,7 +2,6 @@ package net.minecraft.command.server;
 
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Set;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;

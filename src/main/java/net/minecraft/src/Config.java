@@ -1796,22 +1796,6 @@ public class Config {
         return gameSettings.ofScreenshotSize;
     }
 
-    public static int[] toPrimitive(Integer[] p_toPrimitive_0_) {
-        if (p_toPrimitive_0_ == null) {
-            return null;
-        } else if (p_toPrimitive_0_.length == 0) {
-            return new int[0];
-        } else {
-            int[] aint = new int[p_toPrimitive_0_.length];
-
-            for (int i = 0; i < aint.length; ++i) {
-                aint[i] = p_toPrimitive_0_[i];
-            }
-
-            return aint;
-        }
-    }
-
     public static boolean isRenderRegions() {
         return gameSettings.ofRenderRegions;
     }

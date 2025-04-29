@@ -1,9 +1,6 @@
 package net.minecraft.client.settings;
 
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -97,7 +94,7 @@ public class GameSettings {
     public boolean hideServerAddress;
     public boolean advancedItemTooltips;
     public boolean pauseOnLostFocus = true;
-    private final EnumSet<PlayerModelParts> setModelParts = EnumSet.allOf(PlayerModelParts.class);
+    private final Set<PlayerModelParts> setModelParts = EnumSet.allOf(PlayerModelParts.class);
     public int overrideWidth;
     public int overrideHeight;
     public boolean heldItemTooltips = true;
@@ -107,7 +104,7 @@ public class GameSettings {
     public float chatHeightFocused = 1.0F;
     public boolean showInventoryAchievementHint = true;
     public int mipmapLevels = 4;
-    private final Map<SoundCategory, Float> mapSoundLevels = Maps.newEnumMap(SoundCategory.class);
+    private final Map<SoundCategory, Float> mapSoundLevels = new EnumMap<>(SoundCategory.class);
     public boolean useNativeTransport = true;
     public boolean entityShadows = true;
     public final KeyBinding keyBindAttack = new KeyBinding("key.attack", -100, "key.categories.gameplay");
@@ -275,7 +272,6 @@ public class GameSettings {
         this.renderDistanceChunks = mcIn.isJava64bit() ? 12 : 8;
         this.optionsFileOF = new File(optionsFileIn, "optionsof.txt");
         this.limitFramerate = (int) GameSettings.Options.FRAMERATE_LIMIT.getValueMax();
-        KeyUtils.fixKeyConflicts(this.keyBindings, new KeyBinding[]{this.ofKeyBindZoom});
         this.renderDistanceChunks = 8;
         this.loadOptions();
         Config.initGameSettings(this);
@@ -953,7 +949,7 @@ public class GameSettings {
         }
     }
 
-    public EnumSet<PlayerModelParts> getModelParts() {
+    public Set<PlayerModelParts> getModelParts() {
         return this.setModelParts;
     }
 

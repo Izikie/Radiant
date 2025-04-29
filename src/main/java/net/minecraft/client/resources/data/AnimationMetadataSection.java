@@ -1,9 +1,9 @@
 package net.minecraft.client.resources.data;
 
-import com.google.common.collect.Sets;
+import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
+import it.unimi.dsi.fastutil.ints.IntSet;
 
 import java.util.List;
-import java.util.Set;
 
 public class AnimationMetadataSection implements IMetadataSection {
     private final List<AnimationFrame> animationFrames;
@@ -57,13 +57,13 @@ public class AnimationMetadataSection implements IMetadataSection {
         return this.animationFrames.get(p_110468_1_).getFrameIndex();
     }
 
-    public Set<Integer> getFrameIndexSet() {
-        Set<Integer> set = Sets.newHashSet();
+    public IntSet getFrameIndexSet() {
+        IntSet frames = new IntOpenHashSet(this.animationFrames.size());
 
-        for (AnimationFrame animationframe : this.animationFrames) {
-            set.add(animationframe.getFrameIndex());
+        for (AnimationFrame frame : this.animationFrames) {
+            frames.add(frame.getFrameIndex());
         }
 
-        return set;
+        return frames;
     }
 }
