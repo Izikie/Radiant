@@ -1,6 +1,5 @@
 package net.minecraft.world.chunk.storage;
 
-import com.google.common.collect.Lists;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
@@ -10,11 +9,12 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.List;
 import java.util.zip.DeflaterOutputStream;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.InflaterInputStream;
 
+import it.unimi.dsi.fastutil.booleans.BooleanArrayList;
+import it.unimi.dsi.fastutil.booleans.BooleanList;
 import net.minecraft.server.MinecraftServer;
 
 public class RegionFile {
@@ -23,7 +23,7 @@ public class RegionFile {
     private RandomAccessFile dataFile;
     private final int[] offsets = new int[1024];
     private final int[] chunkTimestamps = new int[1024];
-    private List<Boolean> sectorFree;
+    private BooleanList sectorFree;
     private int sizeDelta;
     private long lastModified;
 
@@ -57,7 +57,7 @@ public class RegionFile {
             }
 
             int k1 = (int) this.dataFile.length() / 4096;
-            this.sectorFree = Lists.newArrayListWithCapacity(k1);
+            this.sectorFree = new BooleanArrayList(k1);
 
             for (int j = 0; j < k1; ++j) {
                 this.sectorFree.add(Boolean.TRUE);
