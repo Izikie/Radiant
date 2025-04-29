@@ -310,14 +310,14 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
 
     public void setCompressionTreshold(int treshold) {
         if (treshold >= 0) {
-            if (this.channel.pipeline().get("decompress") instanceof NettyCompressionDecoder nettyCompressionDecoder) {
-                nettyCompressionDecoder.setCompressionTreshold(treshold);
+            if (this.channel.pipeline().get("decompress") instanceof NettyCompressionDecoder encoder) {
+                encoder.setCompressionTreshold(treshold);
             } else {
                 this.channel.pipeline().addBefore("decoder", "decompress", new NettyCompressionDecoder(treshold));
             }
 
-            if (this.channel.pipeline().get("compress") instanceof NettyCompressionEncoder) {
-                ((NettyCompressionEncoder) this.channel.pipeline().get("decompress")).setCompressionTreshold(treshold);
+            if (this.channel.pipeline().get("compress") instanceof NettyCompressionEncoder encoder) {
+                encoder.setCompressionTreshold(treshold);
             } else {
                 this.channel.pipeline().addBefore("encoder", "compress", new NettyCompressionEncoder(treshold));
             }
