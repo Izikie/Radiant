@@ -5,6 +5,10 @@ import com.google.common.collect.Lists;
 import java.io.IOException;
 import java.util.List;
 
+import it.unimi.dsi.fastutil.ints.IntArrayList;
+import it.unimi.dsi.fastutil.ints.IntList;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import it.unimi.dsi.fastutil.objects.ObjectList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -18,10 +22,10 @@ public class Shader {
     private final ShaderManager manager;
     public final Framebuffer framebufferIn;
     public final Framebuffer framebufferOut;
-    private final List<Object> listAuxFramebuffers = Lists.newArrayList();
+    private final ObjectList<Object> listAuxFramebuffers = new ObjectArrayList<>();
     private final List<String> listAuxNames = Lists.newArrayList();
-    private final List<Integer> listAuxWidths = Lists.newArrayList();
-    private final List<Integer> listAuxHeights = Lists.newArrayList();
+    private final IntList listAuxWidths = new IntArrayList();
+    private final IntList listAuxHeights = new IntArrayList();
     private Matrix4f projectionMatrix;
 
     public Shader(IResourceManager p_i45089_1_, String p_i45089_2_, Framebuffer p_i45089_3_, Framebuffer p_i45089_4_) throws JsonException, IOException {

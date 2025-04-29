@@ -2,10 +2,10 @@ package net.optifine.shaders;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
+import it.unimi.dsi.fastutil.ints.IntArrayList;
+import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.src.Config;
 import net.optifine.config.ConnectedParser;
 import net.optifine.shaders.config.MacroProcessor;
@@ -37,7 +37,7 @@ public class EntityAliases {
         reset();
 
         if (shaderPack != null) {
-            List<Integer> list = new ArrayList<>();
+            IntList list = new IntArrayList();
             String s = "/shaders/entity.properties";
             InputStream inputstream = shaderPack.getResourceAsStream(s);
 
@@ -51,7 +51,7 @@ public class EntityAliases {
         }
     }
 
-    private static void loadEntityAliases(InputStream in, String path, List<Integer> listEntityAliases) {
+    private static void loadEntityAliases(InputStream in, String path, IntList listEntityAliases) {
         if (in != null) {
             try {
                 in = MacroProcessor.process(in, path);
@@ -93,7 +93,7 @@ public class EntityAliases {
         }
     }
 
-    private static void addToList(List<Integer> list, int index, int val) {
+    private static void addToList(IntList list, int index, int val) {
         while (list.size() <= index) {
             list.add(-1);
         }
@@ -101,7 +101,7 @@ public class EntityAliases {
         list.set(index, val);
     }
 
-    private static int[] toArray(List<Integer> list) {
+    private static int[] toArray(IntList list) {
         int[] aint = new int[list.size()];
 
         for (int i = 0; i < aint.length; ++i) {

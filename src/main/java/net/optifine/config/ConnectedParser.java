@@ -3,9 +3,7 @@ package net.optifine.config;
 import java.lang.reflect.Array;
 import java.util.*;
 
-import it.unimi.dsi.fastutil.ints.IntAVLTreeSet;
-import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
-import it.unimi.dsi.fastutil.ints.IntSet;
+import it.unimi.dsi.fastutil.ints.*;
 import net.optifine.ConnectedProperties;
 import net.optifine.util.EntityUtils;
 
@@ -255,7 +253,7 @@ public class ConnectedParser {
                 if (map.isEmpty()) {
                     return null;
                 } else {
-                    List<Integer> list1 = new ArrayList();
+                    IntList list1 = new IntArrayList();
 
                     for (int k = 0; k < 16; ++k) {
 
@@ -449,7 +447,7 @@ public class ConnectedParser {
         if (str == null) {
             return null;
         } else {
-            List<Integer> list = new ArrayList();
+            IntList list = new IntArrayList();
             String[] astring = Config.tokenize(str, " ,");
 
             for (String s : astring) {

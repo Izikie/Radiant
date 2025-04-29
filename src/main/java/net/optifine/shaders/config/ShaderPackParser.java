@@ -22,6 +22,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.src.Config;
 import net.optifine.expr.ExpressionFloatArrayCached;
 import net.optifine.expr.ExpressionFloatCached;
@@ -52,7 +53,7 @@ public class ShaderPackParser {
     private static final Map<String, Integer> ALPHA_FUNCS = makeMapAlphaFuncs();
     private static final Map<String, Integer> BLEND_FACTORS = makeMapBlendFactors();
 
-    public static ShaderOption[] parseShaderPackOptions(IShaderPack shaderPack, String[] programNames, List<Integer> listDimensions) {
+    public static ShaderOption[] parseShaderPackOptions(IShaderPack shaderPack, String[] programNames, IntList listDimensions) {
         if (shaderPack == null) {
             return new ShaderOption[0];
         } else {
