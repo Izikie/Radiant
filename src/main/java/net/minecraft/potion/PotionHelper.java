@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,9 +27,9 @@ public class PotionHelper {
     public static final String GOLDEN_CARROT_EFFECT = "-0+1+2-3+13&4-4";
     public static final String PUFFERFISH_EFFECT = "+0-1+2+3+13&4-4";
     public static final String RABBIT_FOOT_EFFECT = "+0+1-2+3&4-4+13";
-    private static final Map<Integer, String> POTION_REQUIREMENTS = Maps.newHashMap();
-    private static final Map<Integer, String> POTION_AMPLIFIERS = Maps.newHashMap();
-    private static final Map<Integer, Integer> DATAVALUE_COLORS = Maps.newHashMap();
+    private static final Map<Integer, String> POTION_REQUIREMENTS = new HashMap<>();
+    private static final Map<Integer, String> POTION_AMPLIFIERS = new HashMap<>();
+    private static final Map<Integer, Integer> DATAVALUE_COLORS = new HashMap<>();
     private static final String[] POTION_PREFIXES = new String[]{"potion.prefix.mundane", "potion.prefix.uninteresting", "potion.prefix.bland", "potion.prefix.clear", "potion.prefix.milky", "potion.prefix.diffuse", "potion.prefix.artless", "potion.prefix.thin", "potion.prefix.awkward", "potion.prefix.flat", "potion.prefix.bulky", "potion.prefix.bungling", "potion.prefix.buttered", "potion.prefix.smooth", "potion.prefix.suave", "potion.prefix.debonair", "potion.prefix.thick", "potion.prefix.elegant", "potion.prefix.fancy", "potion.prefix.charming", "potion.prefix.dashing", "potion.prefix.refined", "potion.prefix.cordial", "potion.prefix.sparkling", "potion.prefix.potent", "potion.prefix.foul", "potion.prefix.odorless", "potion.prefix.rank", "potion.prefix.harsh", "potion.prefix.acrid", "potion.prefix.gross", "potion.prefix.stinky"};
 
     public static boolean checkFlag(int p_77914_0_, int p_77914_1_) {

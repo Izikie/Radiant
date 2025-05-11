@@ -5,6 +5,7 @@ import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Maps;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.Map;
 
 import net.minecraft.network.handshake.client.C00Handshake;
@@ -246,7 +247,7 @@ public enum NetworkState {
     private static final int field_181136_e = -1;
     private static final int field_181137_f = 2;
     private static final NetworkState[] STATES_BY_ID = new NetworkState[field_181137_f - field_181136_e + 1];
-    private static final Map<Class<? extends Packet>, NetworkState> STATES_BY_CLASS = Maps.newHashMap();
+    private static final Map<Class<? extends Packet>, NetworkState> STATES_BY_CLASS = new HashMap<>();
     private final int id;
     private final Map<PacketDirection, BiMap<Integer, Class<? extends Packet>>> directionMaps;
 

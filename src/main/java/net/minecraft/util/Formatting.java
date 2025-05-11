@@ -1,9 +1,9 @@
 package net.minecraft.util;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -32,7 +32,7 @@ public enum Formatting {
     ITALIC("ITALIC", 'o', true),
     RESET("RESET", 'r', -1);
 
-    private static final Map<String, Formatting> nameMapping = Maps.newHashMap();
+    private static final Map<String, Formatting> nameMapping = new HashMap<>();
     private static final Pattern FORMATTING_CODE_PATTERN = Pattern.compile("(?i)" + '\u00a7' + "[0-9A-FK-OR]");
     private final String name;
     private final char formattingCode;

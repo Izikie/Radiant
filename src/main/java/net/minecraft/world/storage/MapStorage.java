@@ -1,13 +1,13 @@
 package net.minecraft.world.storage;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,9 +19,9 @@ import net.minecraft.world.WorldSavedData;
 
 public class MapStorage {
     private final ISaveHandler saveHandler;
-    protected final Map<String, WorldSavedData> loadedDataMap = Maps.newHashMap();
+    protected final Map<String, WorldSavedData> loadedDataMap = new HashMap<>();
     private final List<WorldSavedData> loadedDataList = Lists.newArrayList();
-    private final Map<String, Short> idCounts = Maps.newHashMap();
+    private final Map<String, Short> idCounts = new HashMap<>();
 
     public MapStorage(ISaveHandler saveHandlerIn) {
         this.saveHandler = saveHandlerIn;

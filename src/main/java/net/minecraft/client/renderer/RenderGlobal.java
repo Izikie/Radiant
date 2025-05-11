@@ -115,8 +115,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     private VertexBuffer skyVBO;
     private VertexBuffer sky2VBO;
     private int cloudTickCounter;
-    public final Map<Integer, DestroyBlockProgress> damagedBlocks = Maps.newHashMap();
-    private final Map<BlockPos, ISound> mapSoundPositions = Maps.newHashMap();
+    public final Map<Integer, DestroyBlockProgress> damagedBlocks = new HashMap<>();
+    private final Map<BlockPos, ISound> mapSoundPositions = new HashMap<>();
     private final TextureAtlasSprite[] destroyBlockIcons = new TextureAtlasSprite[10];
     private Framebuffer entityOutlineFramebuffer;
     private ShaderGroup entityOutlineShader;

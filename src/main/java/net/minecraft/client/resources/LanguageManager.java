@@ -5,6 +5,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
@@ -20,7 +21,7 @@ public class LanguageManager implements IResourceManagerReloadListener {
     private final IMetadataSerializer theMetadataSerializer;
     private String currentLanguage;
     protected static final Locale CURRENT_LOCALE = new Locale();
-    private final Map<String, Language> languageMap = Maps.newHashMap();
+    private final Map<String, Language> languageMap = new HashMap<>();
 
     public LanguageManager(IMetadataSerializer theMetadataSerializerIn, String currentLanguageIn) {
         this.theMetadataSerializer = theMetadataSerializerIn;

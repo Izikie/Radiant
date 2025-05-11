@@ -3,6 +3,7 @@ package net.minecraft.entity;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -78,11 +79,11 @@ import org.apache.logging.log4j.Logger;
 
 public class EntityList {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final Map<String, Class<? extends Entity>> stringToClassMapping = Maps.newHashMap();
-    private static final Map<Class<? extends Entity>, String> classToStringMapping = Maps.newHashMap();
-    private static final Map<Integer, Class<? extends Entity>> idToClassMapping = Maps.newHashMap();
-    private static final Map<Class<? extends Entity>, Integer> classToIDMapping = Maps.newHashMap();
-    private static final Map<String, Integer> stringToIDMapping = Maps.newHashMap();
+    private static final Map<String, Class<? extends Entity>> stringToClassMapping = new HashMap<>();
+    private static final Map<Class<? extends Entity>, String> classToStringMapping = new HashMap<>();
+    private static final Map<Integer, Class<? extends Entity>> idToClassMapping = new HashMap<>();
+    private static final Map<Class<? extends Entity>, Integer> classToIDMapping = new HashMap<>();
+    private static final Map<String, Integer> stringToIDMapping = new HashMap<>();
     public static final Map<Integer, EntityList.EntityEggInfo> entityEggs = Maps.newLinkedHashMap();
 
     private static void addMapping(Class<? extends Entity> entityClass, String entityName, int id) {

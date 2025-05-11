@@ -4,13 +4,13 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import io.netty.util.internal.ThreadLocalRandom;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.*;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -51,11 +51,11 @@ public class SoundManager {
 
     public SoundManager(SoundHandler p_i45119_1_, GameSettings p_i45119_2_) {
         this.invPlayingSounds = ((BiMap) this.playingSounds).inverse();
-        this.playingSoundPoolEntries = Maps.newHashMap();
+        this.playingSoundPoolEntries = new HashMap<>();
         this.categorySounds = HashMultimap.create();
         this.tickableSounds = Lists.newArrayList();
-        this.delayedSounds = Maps.newHashMap();
-        this.playingSoundsStopTime = Maps.newHashMap();
+        this.delayedSounds = new HashMap<>();
+        this.playingSoundsStopTime = new HashMap<>();
         this.sndHandler = p_i45119_1_;
         this.options = p_i45119_2_;
 

@@ -3,6 +3,7 @@ package net.minecraft.enchantment;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,7 +19,7 @@ import net.minecraft.util.StatCollector;
 public abstract class Enchantment {
     private static final Enchantment[] ENCHANTMENTS_LIST = new Enchantment[256];
     public static final Enchantment[] ENCHANTMENTS_BOOK_LIST;
-    private static final Map<ResourceLocation, Enchantment> LOCATION_ENCHANTMENTS = Maps.newHashMap();
+    private static final Map<ResourceLocation, Enchantment> LOCATION_ENCHANTMENTS = new HashMap<>();
     public static final Enchantment PROTECTION = new EnchantmentProtection(0, new ResourceLocation("protection"), 10, 0);
     public static final Enchantment FIRE_PROTECTION = new EnchantmentProtection(1, new ResourceLocation("fire_protection"), 5, 1);
     public static final Enchantment FEATHER_FALLING = new EnchantmentProtection(2, new ResourceLocation("feather_falling"), 5, 2);

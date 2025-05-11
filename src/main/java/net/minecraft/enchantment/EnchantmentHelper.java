@@ -3,10 +3,7 @@ package net.minecraft.enchantment;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -335,7 +332,7 @@ public class EnchantmentHelper {
                 for (int i = enchantment.getMinLevel(); i <= enchantment.getMaxLevel(); ++i) {
                     if (p_77505_0_ >= enchantment.getMinEnchantability(i) && p_77505_0_ <= enchantment.getMaxEnchantability(i)) {
                         if (map == null) {
-                            map = Maps.newHashMap();
+                            map = new HashMap<>();
                         }
 
                         map.put(enchantment.effectId, new EnchantmentData(enchantment, i));

@@ -3,10 +3,7 @@ package net.minecraft.client.particle;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -37,7 +34,7 @@ public class EffectRenderer {
     private final List<EntityParticleEmitter> particleEmitters = Lists.newArrayList();
     private final TextureManager renderer;
     private final Random rand = new Random();
-    private final Map<Integer, IParticleFactory> particleTypes = Maps.newHashMap();
+    private final Map<Integer, IParticleFactory> particleTypes = new HashMap<>();
 
     public EffectRenderer(World worldIn, TextureManager rendererIn) {
         this.worldObj = worldIn;

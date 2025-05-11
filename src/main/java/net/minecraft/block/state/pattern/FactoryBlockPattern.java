@@ -7,6 +7,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import java.lang.reflect.Array;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -18,7 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 public class FactoryBlockPattern {
     private static final Joiner COMMA_JOIN = Joiner.on(",");
     private final List<String[]> depth = Lists.newArrayList();
-    private final Map<Character, Predicate<BlockWorldState>> symbolMap = Maps.newHashMap();
+    private final Map<Character, Predicate<BlockWorldState>> symbolMap = new HashMap<>();
     private int aisleHeight;
     private int rowWidth;
 

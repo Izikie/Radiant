@@ -2,6 +2,7 @@ package net.minecraft.world.gen.structure;
 
 import com.google.common.collect.Maps;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import net.minecraft.nbt.NBTTagCompound;
@@ -11,10 +12,10 @@ import org.apache.logging.log4j.Logger;
 
 public class MapGenStructureIO {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final Map<String, Class<? extends StructureStart>> startNameToClassMap = Maps.newHashMap();
-    private static final Map<Class<? extends StructureStart>, String> startClassToNameMap = Maps.newHashMap();
-    private static final Map<String, Class<? extends StructureComponent>> componentNameToClassMap = Maps.newHashMap();
-    private static final Map<Class<? extends StructureComponent>, String> componentClassToNameMap = Maps.newHashMap();
+    private static final Map<String, Class<? extends StructureStart>> startNameToClassMap = new HashMap<>();
+    private static final Map<Class<? extends StructureStart>, String> startClassToNameMap = new HashMap<>();
+    private static final Map<String, Class<? extends StructureComponent>> componentNameToClassMap = new HashMap<>();
+    private static final Map<Class<? extends StructureComponent>, String> componentClassToNameMap = new HashMap<>();
 
     private static void registerStructure(Class<? extends StructureStart> startClass, String structureName) {
         startNameToClassMap.put(structureName, startClass);

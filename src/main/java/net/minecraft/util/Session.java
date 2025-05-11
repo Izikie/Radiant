@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import com.mojang.authlib.GameProfile;
 import com.mojang.util.UUIDTypeAdapter;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -53,7 +54,7 @@ public class Session {
         LEGACY("legacy"),
         MOJANG("mojang");
 
-        private static final Map<String, Session.Type> SESSION_TYPES = Maps.newHashMap();
+        private static final Map<String, Session.Type> SESSION_TYPES = new HashMap<>();
         private final String sessionType;
 
         Type(String sessionTypeIn) {

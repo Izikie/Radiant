@@ -10,6 +10,7 @@ import com.google.gson.JsonParser;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,12 +34,12 @@ public class ShaderManager {
     private static ShaderManager staticShaderManager = null;
     private static int currentProgram = -1;
     private static boolean field_148000_e = true;
-    private final Map<String, Object> shaderSamplers = Maps.newHashMap();
+    private final Map<String, Object> shaderSamplers = new HashMap<>();
     private final List<String> samplerNames = Lists.newArrayList();
     private final IntList shaderSamplerLocations = new IntArrayList();
     private final List<ShaderUniform> shaderUniforms = Lists.newArrayList();
     private final IntList shaderUniformLocations = new IntArrayList();
-    private final Map<String, ShaderUniform> mappedShaderUniforms = Maps.newHashMap();
+    private final Map<String, ShaderUniform> mappedShaderUniforms = new HashMap<>();
     private final int program;
     private final String programFilename;
     private final boolean useFaceCulling;

@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
@@ -93,10 +94,10 @@ public class StatisticsFile extends StatFileWriter {
         JsonElement jsonelement = JsonParser.parseString(p_150881_1_);
 
         if (!jsonelement.isJsonObject()) {
-            return Maps.newHashMap();
+            return new HashMap<>();
         } else {
             JsonObject jsonobject = jsonelement.getAsJsonObject();
-            Map<StatBase, TupleIntJsonSerializable> map = Maps.newHashMap();
+            Map<StatBase, TupleIntJsonSerializable> map = new HashMap<>();
 
             for (Entry<String, JsonElement> entry : jsonobject.entrySet()) {
                 StatBase statbase = StatList.getOneShotStat(entry.getKey());
@@ -164,7 +165,7 @@ public class StatisticsFile extends StatFileWriter {
 
     public void func_150876_a(EntityPlayerMP entityPlayerMP) {
         int i = this.mcServer.getTickCounter();
-        Map<StatBase, Integer> map = Maps.newHashMap();
+        Map<StatBase, Integer> map = new HashMap<>();
 
         if (this.field_150886_g || i - this.field_150885_f > 300) {
             this.field_150885_f = i;
@@ -178,7 +179,7 @@ public class StatisticsFile extends StatFileWriter {
     }
 
     public void sendAchievements(EntityPlayerMP player) {
-        Map<StatBase, Integer> map = Maps.newHashMap();
+        Map<StatBase, Integer> map = new HashMap<>();
 
         for (Achievement achievement : AchievementList.ACHIEVEMENT_LIST) {
             if (this.hasAchievementUnlocked(achievement)) {

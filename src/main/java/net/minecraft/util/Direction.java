@@ -2,8 +2,8 @@ package net.minecraft.util;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterators;
-import com.google.common.collect.Maps;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
@@ -25,7 +25,7 @@ public enum Direction implements IStringSerializable {
     private final Vec3i directionVec;
     public static final Direction[] VALUES = new Direction[6];
     private static final Direction[] HORIZONTALS = new Direction[4];
-    private static final Map<String, Direction> NAME_LOOKUP = Maps.newHashMap();
+    private static final Map<String, Direction> NAME_LOOKUP = new HashMap<>();
 
     Direction(int indexIn, int oppositeIn, int horizontalIndexIn, String nameIn, Direction.AxisDirection axisDirectionIn, Direction.Axis axisIn, Vec3i directionVecIn) {
         this.index = indexIn;
@@ -215,7 +215,7 @@ public enum Direction implements IStringSerializable {
         Y("y", Direction.Plane.VERTICAL),
         Z("z", Direction.Plane.HORIZONTAL);
 
-        private static final Map<String, Direction.Axis> NAME_LOOKUP = Maps.newHashMap();
+        private static final Map<String, Direction.Axis> NAME_LOOKUP = new HashMap<>();
         private final String name;
         private final Direction.Plane plane;
 

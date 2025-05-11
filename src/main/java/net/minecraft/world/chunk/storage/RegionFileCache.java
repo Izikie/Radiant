@@ -6,10 +6,11 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 public class RegionFileCache {
-    private static final Map<File, RegionFile> regionsByFilename = Maps.newHashMap();
+    private static final Map<File, RegionFile> regionsByFilename = new HashMap<>();
 
     public static synchronized RegionFile createOrLoadRegionFile(File worldDir, int chunkX, int chunkZ) {
         File file1 = new File(worldDir, "region");

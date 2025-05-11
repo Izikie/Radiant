@@ -3,6 +3,7 @@ package net.minecraft.client.renderer.block.model;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,7 @@ public class ItemModelGenerator {
     public static final List<String> LAYERS = Lists.newArrayList("layer0", "layer1", "layer2", "layer3", "layer4");
 
     public ModelBlock makeItemModel(TextureMap textureMapIn, ModelBlock blockModel) {
-        Map<String, String> map = Maps.newHashMap();
+        Map<String, String> map = new HashMap<>();
         List<BlockPart> list = Lists.newArrayList();
 
         for (int i = 0; i < LAYERS.size(); ++i) {
@@ -41,7 +42,7 @@ public class ItemModelGenerator {
     }
 
     private List<BlockPart> func_178394_a(int p_178394_1_, String p_178394_2_, TextureAtlasSprite p_178394_3_) {
-        Map<Direction, BlockPartFace> map = Maps.newHashMap();
+        Map<Direction, BlockPartFace> map = new HashMap<>();
         map.put(Direction.SOUTH, new BlockPartFace(null, p_178394_1_, p_178394_2_, new BlockFaceUV(new float[]{0.0F, 0.0F, 16.0F, 16.0F}, 0)));
         map.put(Direction.NORTH, new BlockPartFace(null, p_178394_1_, p_178394_2_, new BlockFaceUV(new float[]{16.0F, 0.0F, 0.0F, 16.0F}, 0)));
         List<BlockPart> list = Lists.newArrayList();
@@ -132,7 +133,7 @@ public class ItemModelGenerator {
             f7 = f7 * f10;
             f8 = f8 * f11;
             f9 = f9 * f11;
-            Map<Direction, BlockPartFace> map = Maps.newHashMap();
+            Map<Direction, BlockPartFace> map = new HashMap<>();
             map.put(itemmodelgenerator$spanfacing.getFacing(), new BlockPartFace(null, p_178397_3_, p_178397_2_, new BlockFaceUV(new float[]{f6, f8, f7, f9}, 0)));
 
             switch (itemmodelgenerator$spanfacing) {

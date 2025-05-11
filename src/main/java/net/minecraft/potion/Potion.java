@@ -2,6 +2,7 @@ package net.minecraft.potion;
 
 import com.google.common.collect.Maps;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -21,7 +22,7 @@ import net.minecraft.util.StringUtils;
 
 public class Potion {
     public static final Potion[] POTION_TYPES = new Potion[32];
-    private static final Map<ResourceLocation, Potion> field_180150_I = Maps.newHashMap();
+    private static final Map<ResourceLocation, Potion> field_180150_I = new HashMap<>();
     public static final Potion MOVE_SPEED = (new Potion(1, new ResourceLocation("speed"), false, 8171462)).setPotionName("potion.moveSpeed").setIconIndex(0, 0).registerPotionAttributeModifier(SharedMonsterAttributes.MOVEMENT_SPEED, "91AEAA56-376B-4498-935B-2F7F68070635", 0.20000000298023224D, 2);
     public static final Potion MOVE_SLOWDOWN = (new Potion(2, new ResourceLocation("slowness"), true, 5926017)).setPotionName("potion.moveSlowdown").setIconIndex(1, 0).registerPotionAttributeModifier(SharedMonsterAttributes.MOVEMENT_SPEED, "7107DE5E-7CE8-4030-940E-514C1F160890", -0.15000000596046448D, 2);
     public static final Potion DIG_SPEED = (new Potion(3, new ResourceLocation("haste"), false, 14270531)).setPotionName("potion.digSpeed").setIconIndex(2, 0).setEffectiveness(1.5D);
@@ -46,7 +47,7 @@ public class Potion {
     public static final Potion ABSORPTION = (new PotionAbsorption(22, new ResourceLocation("absorption"), false, 2445989)).setPotionName("potion.absorption").setIconIndex(2, 2);
     public static final Potion SATURATION = (new PotionHealth(23, new ResourceLocation("saturation"), false, 16262179)).setPotionName("potion.saturation");
     public final int id;
-    private final Map<IAttribute, AttributeModifier> attributeModifierMap = Maps.newHashMap();
+    private final Map<IAttribute, AttributeModifier> attributeModifierMap = new HashMap<>();
     private final boolean isBadEffect;
     private final int liquidColor;
     private String name = "";

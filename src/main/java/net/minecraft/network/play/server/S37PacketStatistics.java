@@ -3,6 +3,7 @@ package net.minecraft.network.play.server;
 import com.google.common.collect.Maps;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -27,7 +28,7 @@ public class S37PacketStatistics implements Packet<INetHandlerPlayClient> {
 
     public void readPacketData(PacketBuffer buf) throws IOException {
         int i = buf.readVarIntFromBuffer();
-        this.field_148976_a = Maps.newHashMap();
+        this.field_148976_a = new HashMap<>();
 
         for (int j = 0; j < i; ++j) {
             StatBase statbase = StatList.getOneShotStat(buf.readStringFromBuffer(32767));

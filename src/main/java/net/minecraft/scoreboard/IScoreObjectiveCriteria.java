@@ -1,7 +1,6 @@
 package net.minecraft.scoreboard;
 
-import com.google.common.collect.Maps;
-
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,7 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.Formatting;
 
 public interface IScoreObjectiveCriteria {
-    Map<String, IScoreObjectiveCriteria> INSTANCES = Maps.newHashMap();
+    Map<String, IScoreObjectiveCriteria> INSTANCES = new HashMap<>();
     IScoreObjectiveCriteria DUMMY = new ScoreDummyCriteria("dummy");
     IScoreObjectiveCriteria TRIGGER = new ScoreDummyCriteria("trigger");
     IScoreObjectiveCriteria deathCount = new ScoreDummyCriteria("deathCount");
@@ -31,7 +30,7 @@ public interface IScoreObjectiveCriteria {
         INTEGER("integer"),
         HEARTS("hearts");
 
-        private static final Map<String, IScoreObjectiveCriteria.EnumRenderType> field_178801_c = Maps.newHashMap();
+        private static final Map<String, IScoreObjectiveCriteria.EnumRenderType> field_178801_c = new HashMap<>();
         private final String field_178798_d;
 
         EnumRenderType(String p_i45548_3_) {

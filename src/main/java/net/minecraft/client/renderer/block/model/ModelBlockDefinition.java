@@ -13,6 +13,7 @@ import com.google.gson.JsonParseException;
 import java.io.Reader;
 import java.lang.reflect.Type;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -23,7 +24,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class ModelBlockDefinition {
     static final Gson GSON = (new GsonBuilder()).registerTypeAdapter(ModelBlockDefinition.class, new ModelBlockDefinition.Deserializer()).registerTypeAdapter(ModelBlockDefinition.Variant.class, new ModelBlockDefinition.Variant.Deserializer()).create();
-    private final Map<String, ModelBlockDefinition.Variants> mapVariants = Maps.newHashMap();
+    private final Map<String, ModelBlockDefinition.Variants> mapVariants = new HashMap<>();
 
     public static ModelBlockDefinition parseFromReader(Reader p_178331_0_) {
         return GSON.fromJson(p_178331_0_, ModelBlockDefinition.class);

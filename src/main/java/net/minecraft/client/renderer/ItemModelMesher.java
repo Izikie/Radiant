@@ -1,7 +1,6 @@
 package net.minecraft.client.renderer;
 
-import com.google.common.collect.Maps;
-
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -15,9 +14,9 @@ import net.minecraft.src.Config;
 import net.optifine.CustomItems;
 
 public class ItemModelMesher {
-    private final Map<Integer, ModelResourceLocation> simpleShapes = Maps.newHashMap();
-    private final Map<Integer, IBakedModel> simpleShapesCache = Maps.newHashMap();
-    private final Map<Item, ItemMeshDefinition> shapers = Maps.newHashMap();
+    private final Map<Integer, ModelResourceLocation> simpleShapes = new HashMap<>();
+    private final Map<Integer, IBakedModel> simpleShapesCache = new HashMap<>();
+    private final Map<Item, ItemMeshDefinition> shapers = new HashMap<>();
     private final ModelManager modelManager;
 
     public ItemModelMesher(ModelManager modelManager) {

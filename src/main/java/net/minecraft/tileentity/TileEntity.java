@@ -1,7 +1,6 @@
 package net.minecraft.tileentity;
 
-import com.google.common.collect.Maps;
-
+import java.util.HashMap;
 import java.util.Map;
 
 import net.minecraft.block.Block;
@@ -18,8 +17,8 @@ import org.apache.logging.log4j.Logger;
 
 public abstract class TileEntity {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final Map<String, Class<? extends TileEntity>> nameToClassMap = Maps.newHashMap();
-    private static final Map<Class<? extends TileEntity>, String> classToNameMap = Maps.newHashMap();
+    private static final Map<String, Class<? extends TileEntity>> nameToClassMap = new HashMap<>();
+    private static final Map<Class<? extends TileEntity>, String> classToNameMap = new HashMap<>();
     protected World worldObj;
     protected BlockPos pos = BlockPos.ORIGIN;
     protected boolean tileEntityInvalid;

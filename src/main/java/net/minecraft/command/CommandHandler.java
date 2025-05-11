@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,7 +19,7 @@ import org.apache.logging.log4j.Logger;
 
 public class CommandHandler implements ICommandManager {
     private static final Logger LOGGER = LogManager.getLogger();
-    private final Map<String, ICommand> commandMap = Maps.newHashMap();
+    private final Map<String, ICommand> commandMap = new HashMap<>();
     private final Set<ICommand> commandSet = Sets.newHashSet();
 
     public int executeCommand(ICommandSender sender, String rawCommand) {

@@ -2,6 +2,7 @@ package net.minecraft.client.renderer.entity;
 
 import com.google.common.collect.Maps;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import net.minecraft.client.Minecraft;
@@ -12,7 +13,7 @@ import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderHorse extends RenderLiving<EntityHorse> {
-    private static final Map<String, ResourceLocation> field_110852_a = Maps.newHashMap();
+    private static final Map<String, ResourceLocation> field_110852_a = new HashMap<>();
     private static final ResourceLocation WHITE_HORSE_TEXTURES = new ResourceLocation("textures/entity/horse/horse_white.png");
     private static final ResourceLocation MULE_TEXTURES = new ResourceLocation("textures/entity/horse/mule.png");
     private static final ResourceLocation DONKEY_TEXTURES = new ResourceLocation("textures/entity/horse/donkey.png");

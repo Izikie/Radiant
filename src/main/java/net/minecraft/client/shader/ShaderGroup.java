@@ -12,6 +12,7 @@ import com.google.gson.JsonSyntaxException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +32,7 @@ public class ShaderGroup {
     private final IResourceManager resourceManager;
     private final String shaderGroupName;
     private final List<Shader> listShaders = Lists.newArrayList();
-    private final Map<String, Framebuffer> mapFramebuffers = Maps.newHashMap();
+    private final Map<String, Framebuffer> mapFramebuffers = new HashMap<>();
     private final List<Framebuffer> listFramebuffers = Lists.newArrayList();
     private Matrix4f projectionMatrix;
     private int mainFramebufferWidth;

@@ -3,6 +3,7 @@ package net.minecraft.block.state.pattern;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Maps;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -13,7 +14,7 @@ import net.minecraft.block.state.IBlockState;
 
 public class BlockStateHelper implements Predicate<IBlockState> {
     private final BlockState blockstate;
-    private final Map<IProperty, Predicate> propertyPredicates = Maps.newHashMap();
+    private final Map<IProperty, Predicate> propertyPredicates = new HashMap<>();
 
     private BlockStateHelper(BlockState blockStateIn) {
         this.blockstate = blockStateIn;

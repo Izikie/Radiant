@@ -7,6 +7,7 @@ import com.google.common.collect.Maps;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.IllegalFormatException;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +19,7 @@ import org.apache.commons.io.IOUtils;
 public class Locale {
     private static final Splitter SPLITTER = Splitter.on('=').limit(2);
     private static final Pattern PATTERN = Pattern.compile("%(\\d+\\$)?[\\d\\.]*[df]");
-    final Map<String, String> properties = Maps.newHashMap();
+    final Map<String, String> properties = new HashMap<>();
     private boolean unicode;
 
     public synchronized void loadLocaleDataFiles(IResourceManager resourceManager, List<String> languageList) {

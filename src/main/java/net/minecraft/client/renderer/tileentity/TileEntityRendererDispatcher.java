@@ -2,6 +2,7 @@ package net.minecraft.client.renderer.tileentity;
 
 import com.google.common.collect.Maps;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import net.minecraft.client.gui.FontRenderer;
@@ -30,7 +31,7 @@ import net.minecraft.world.World;
 import net.optifine.EmissiveTextures;
 
 public class TileEntityRendererDispatcher {
-    public final Map<Class, TileEntitySpecialRenderer> mapSpecialRenderers = Maps.newHashMap();
+    public final Map<Class, TileEntitySpecialRenderer> mapSpecialRenderers = new HashMap<>();
     public static final TileEntityRendererDispatcher INSTANCE = new TileEntityRendererDispatcher();
     public FontRenderer fontRenderer;
     public static double staticPlayerX;

@@ -2,6 +2,7 @@ package net.minecraft.item;
 
 import com.google.common.collect.Maps;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +18,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 public class ItemRecord extends Item {
-    private static final Map<String, ItemRecord> RECORDS = Maps.newHashMap();
+    private static final Map<String, ItemRecord> RECORDS = new HashMap<>();
     public final String recordName;
 
     protected ItemRecord(String name) {

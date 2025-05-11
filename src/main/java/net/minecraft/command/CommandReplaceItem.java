@@ -2,6 +2,7 @@ package net.minecraft.command;
 
 import com.google.common.collect.Maps;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class CommandReplaceItem extends CommandBase {
-    private static final Map<String, Integer> SHORTCUTS = Maps.newHashMap();
+    private static final Map<String, Integer> SHORTCUTS = new HashMap<>();
 
     public String getCommandName() {
         return "replaceitem";

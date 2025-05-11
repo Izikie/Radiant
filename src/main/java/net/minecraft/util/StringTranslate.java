@@ -6,6 +6,7 @@ import com.google.common.collect.Maps;
 
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.IllegalFormatException;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -16,7 +17,7 @@ public class StringTranslate {
     private static final Pattern NUMERIC_VARIABLE_PATTERN = Pattern.compile("%(\\d+\\$)?[\\d\\.]*[df]");
     private static final Splitter EQUAL_SIGN_SPLITTER = Splitter.on('=').limit(2);
     private static final StringTranslate INSTANCE = new StringTranslate();
-    private final Map<String, String> languageList = Maps.newHashMap();
+    private final Map<String, String> languageList = new HashMap<>();
     private long lastUpdateTimeInMilliseconds;
 
     public StringTranslate() {

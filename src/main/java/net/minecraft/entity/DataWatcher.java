@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -22,8 +23,8 @@ import org.apache.commons.lang3.ObjectUtils;
 public class DataWatcher {
     private final Entity owner;
     private boolean isBlank = true;
-    private static final Map<Class<?>, Integer> dataTypes = Maps.newHashMap();
-    private final Map<Integer, DataWatcher.WatchableObject> watchedObjects = Maps.newHashMap();
+    private static final Map<Class<?>, Integer> dataTypes = new HashMap<>();
+    private final Map<Integer, DataWatcher.WatchableObject> watchedObjects = new HashMap<>();
     private boolean objectChanged;
     private final ReadWriteLock lock = new ReentrantReadWriteLock();
     public BiomeGenBase spawnBiome = BiomeGenBase.PLAINS;

@@ -3,6 +3,7 @@ package net.minecraft.item.crafting;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -205,7 +206,7 @@ public class CraftingManager {
 
         Map<Character, ItemStack> map;
 
-        for (map = Maps.newHashMap(); i < recipeComponents.length; i += 2) {
+        for (map = new HashMap<>(); i < recipeComponents.length; i += 2) {
             Character character = (Character) recipeComponents[i];
             ItemStack itemstack = null;
 

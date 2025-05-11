@@ -7,11 +7,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -452,7 +448,7 @@ public class PlayerSelector {
     }
 
     public static Map<String, Integer> func_96560_a(Map<String, String> p_96560_0_) {
-        Map<String, Integer> map = Maps.newHashMap();
+        Map<String, Integer> map = new HashMap<>();
 
         for (String s : p_96560_0_.keySet()) {
             if (s.startsWith("score_") && s.length() > "score_".length()) {
@@ -481,7 +477,7 @@ public class PlayerSelector {
     }
 
     private static Map<String, String> getArgumentMap(String argumentString) {
-        Map<String, String> map = Maps.newHashMap();
+        Map<String, String> map = new HashMap<>();
 
         if (argumentString != null) {
             int i = 0;

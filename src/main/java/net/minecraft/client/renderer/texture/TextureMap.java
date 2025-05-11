@@ -88,8 +88,8 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
         this.atlasWidth = 0;
         this.atlasHeight = 0;
         this.listAnimatedSprites = Lists.newArrayList();
-        this.mapRegisteredSprites = Maps.newHashMap();
-        this.mapUploadedSprites = Maps.newHashMap();
+        this.mapRegisteredSprites = new HashMap<>();
+        this.mapUploadedSprites = new HashMap<>();
         this.missingImage = new TextureAtlasSprite("missingno");
         this.basePath = p_i6_1_;
         this.iconCreator = p_i6_2_;

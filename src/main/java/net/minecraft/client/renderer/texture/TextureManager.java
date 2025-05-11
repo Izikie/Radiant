@@ -4,10 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 import net.minecraft.client.resources.IResourceManager;
@@ -26,9 +23,9 @@ import org.apache.logging.log4j.Logger;
 
 public class TextureManager implements ITickable, IResourceManagerReloadListener {
     private static final Logger LOGGER = LogManager.getLogger();
-    private final Map<ResourceLocation, ITextureObject> mapTextureObjects = Maps.newHashMap();
+    private final Map<ResourceLocation, ITextureObject> mapTextureObjects = new HashMap<>();
     private final List<ITickable> listTickables = Lists.newArrayList();
-    private final Map<String, Integer> mapTextureCounters = Maps.newHashMap();
+    private final Map<String, Integer> mapTextureCounters = new HashMap<>();
     private final IResourceManager theResourceManager;
     private ITextureObject boundTexture;
     private ResourceLocation boundTextureLocation;

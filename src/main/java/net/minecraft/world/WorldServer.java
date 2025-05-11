@@ -5,14 +5,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.common.util.concurrent.ListenableFuture;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.UUID;
+import java.util.*;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEventData;
@@ -78,7 +71,7 @@ public class WorldServer extends World implements IThreadListener {
     private final PlayerManager thePlayerManager;
     private final Set<NextTickListEntry> pendingTickListEntriesHashSet = Sets.newHashSet();
     private final TreeSet<NextTickListEntry> pendingTickListEntriesTreeSet = new TreeSet<>();
-    private final Map<UUID, Entity> entitiesByUuid = Maps.newHashMap();
+    private final Map<UUID, Entity> entitiesByUuid = new HashMap<>();
     public ChunkProviderServer theChunkProviderServer;
     public boolean disableLevelSaving;
     private boolean allPlayersSleeping;

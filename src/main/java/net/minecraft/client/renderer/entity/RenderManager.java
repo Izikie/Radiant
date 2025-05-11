@@ -3,6 +3,7 @@ package net.minecraft.client.renderer.entity;
 import com.google.common.collect.Maps;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 import net.minecraft.block.Block;
@@ -107,8 +108,8 @@ import net.optifine.player.PlayerItemsLayer;
 import net.optifine.shaders.Shaders;
 
 public class RenderManager {
-    private Map<Class, Render> entityRenderMap = Maps.newHashMap();
-    private final Map<String, RenderPlayer> skinMap = Maps.newHashMap();
+    private Map<Class, Render> entityRenderMap = new HashMap<>();
+    private final Map<String, RenderPlayer> skinMap = new HashMap<>();
     private final RenderPlayer playerRenderer;
     private FontRenderer textRenderer;
     private double renderPosX;

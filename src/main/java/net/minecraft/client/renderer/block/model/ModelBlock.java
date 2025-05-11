@@ -14,6 +14,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.lang.reflect.Type;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -202,7 +203,7 @@ public class ModelBlock {
         }
 
         private Map<String, String> getTextures(JsonObject jsonObject) {
-            Map<String, String> map = Maps.newHashMap();
+            Map<String, String> map = new HashMap<>();
 
             if (jsonObject.has("textures")) {
                 JsonObject jsonobject = jsonObject.getAsJsonObject("textures");

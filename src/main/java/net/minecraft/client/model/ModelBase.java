@@ -3,6 +3,7 @@ package net.minecraft.client.model;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -15,7 +16,7 @@ public abstract class ModelBase {
     public boolean isRiding;
     public boolean isChild = true;
     public final List<ModelRenderer> boxList = Lists.newArrayList();
-    private final Map<String, TextureOffset> modelTextureMap = Maps.newHashMap();
+    private final Map<String, TextureOffset> modelTextureMap = new HashMap<>();
     public int textureWidth = 64;
     public int textureHeight = 32;
 

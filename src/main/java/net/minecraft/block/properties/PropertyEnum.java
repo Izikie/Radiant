@@ -8,13 +8,14 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 import net.minecraft.util.IStringSerializable;
 
 public class PropertyEnum<T extends Enum<T> & IStringSerializable> extends PropertyHelper<T> {
     private final ImmutableSet<T> allowedValues;
-    private final Map<String, T> nameToValue = Maps.newHashMap();
+    private final Map<String, T> nameToValue = new HashMap<>();
 
     protected PropertyEnum(String name, Class<T> valueClass, Collection<T> allowedValues) {
         super(name, valueClass);

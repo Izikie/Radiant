@@ -2,6 +2,7 @@ package net.minecraft.item.crafting;
 
 import com.google.common.collect.Maps;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -16,8 +17,8 @@ import net.minecraft.item.ItemStack;
 
 public class FurnaceRecipes {
     private static final FurnaceRecipes SMELTING_BASE = new FurnaceRecipes();
-    private final Map<ItemStack, ItemStack> smeltingList = Maps.newHashMap();
-    private final Map<ItemStack, Float> experienceList = Maps.newHashMap();
+    private final Map<ItemStack, ItemStack> smeltingList = new HashMap<>();
+    private final Map<ItemStack, Float> experienceList = new HashMap<>();
 
     public static FurnaceRecipes instance() {
         return SMELTING_BASE;

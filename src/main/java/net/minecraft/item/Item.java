@@ -1,13 +1,9 @@
 package net.minecraft.item;
 
 import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
@@ -47,7 +43,7 @@ import net.minecraft.world.World;
 
 public class Item {
     public static final RegistryNamespaced<ResourceLocation, Item> itemRegistry = new RegistryNamespaced<>();
-    private static final Map<Block, Item> BLOCK_TO_ITEM = Maps.newHashMap();
+    private static final Map<Block, Item> BLOCK_TO_ITEM = new HashMap<>();
     protected static final UUID ITEM_MODIFIER_UUID = UUID.fromString("CB3F55D3-645C-4F38-A497-9C13A33DB5CF");
     private CreativeTabs tabToDisplayOn;
     protected static final Random ITEM_RAND = new Random();

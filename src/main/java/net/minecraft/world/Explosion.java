@@ -1,13 +1,9 @@
 package net.minecraft.world;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -50,7 +46,7 @@ public class Explosion {
     public Explosion(World worldIn, Entity entityIn, double x, double y, double z, float size, boolean flaming, boolean smoking) {
         this.explosionRNG = new Random();
         this.affectedBlockPositions = Lists.newArrayList();
-        this.playerKnockbackMap = Maps.newHashMap();
+        this.playerKnockbackMap = new HashMap<>();
         this.worldObj = worldIn;
         this.exploder = entityIn;
         this.explosionSize = size;

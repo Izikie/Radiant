@@ -1,9 +1,9 @@
 package net.minecraft.scoreboard;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,12 +12,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.Formatting;
 
 public class Scoreboard {
-    private final Map<String, ScoreObjective> scoreObjectives = Maps.newHashMap();
-    private final Map<IScoreObjectiveCriteria, List<ScoreObjective>> scoreObjectiveCriterias = Maps.newHashMap();
-    private final Map<String, Map<ScoreObjective, Score>> entitiesScoreObjectives = Maps.newHashMap();
+    private final Map<String, ScoreObjective> scoreObjectives = new HashMap<>();
+    private final Map<IScoreObjectiveCriteria, List<ScoreObjective>> scoreObjectiveCriterias = new HashMap<>();
+    private final Map<String, Map<ScoreObjective, Score>> entitiesScoreObjectives = new HashMap<>();
     private final ScoreObjective[] objectiveDisplaySlots = new ScoreObjective[19];
-    private final Map<String, ScorePlayerTeam> teams = Maps.newHashMap();
-    private final Map<String, ScorePlayerTeam> teamMemberships = Maps.newHashMap();
+    private final Map<String, ScorePlayerTeam> teams = new HashMap<>();
+    private final Map<String, ScorePlayerTeam> teamMemberships = new HashMap<>();
     private static String[] field_178823_g = null;
 
     public ScoreObjective getObjective(String name) {
@@ -64,7 +64,7 @@ public class Scoreboard {
         if (name.length() > 40) {
             throw new IllegalArgumentException("The player name '" + name + "' is too long!");
         } else {
-            Map<ScoreObjective, Score> map = this.entitiesScoreObjectives.computeIfAbsent(name, k -> Maps.newHashMap());
+            Map<ScoreObjective, Score> map = this.entitiesScoreObjectives.computeIfAbsent(name, k -> new HashMap<>());
 
             return map.computeIfAbsent(objective, o -> new Score(this, o, name));
         }
@@ -134,7 +134,7 @@ public class Scoreboard {
         Map<ScoreObjective, Score> map = this.entitiesScoreObjectives.get(name);
 
         if (map == null) {
-            map = Maps.newHashMap();
+            map = new HashMap<>();
         }
 
         return map;

@@ -1934,7 +1934,7 @@ public class Minecraft implements IThreadListener {
     }
 
     public static Map<String, String> getSessionInfo() {
-        Map<String, String> map = Maps.newHashMap();
+        Map<String, String> map = new HashMap<>();
         map.put("X-Minecraft-Username", getMinecraft().getSession().getUsername());
         map.put("X-Minecraft-UUID", getMinecraft().getSession().getPlayerID());
         map.put("X-Minecraft-Version", "1.8.9");

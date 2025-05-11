@@ -38,7 +38,7 @@ import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.passive.EntityWolf;
 
 public class EntitySpawnPlacementRegistry {
-    private static final HashMap<Class, EntityLiving.SpawnPlacementType> ENTITY_PLACEMENTS = Maps.newHashMap();
+    private static final HashMap<Class, EntityLiving.SpawnPlacementType> ENTITY_PLACEMENTS = new HashMap<>();
 
     public static EntityLiving.SpawnPlacementType getPlacementForEntity(Class entityClass) {
         return ENTITY_PLACEMENTS.get(entityClass);

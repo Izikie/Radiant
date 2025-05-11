@@ -3,6 +3,7 @@ package net.minecraft.util;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,7 +55,7 @@ public enum ParticleTypes {
     private final int particleID;
     private final boolean shouldIgnoreRange;
     private final int argumentCount;
-    private static final Map<Integer, ParticleTypes> PARTICLES = Maps.newHashMap();
+    private static final Map<Integer, ParticleTypes> PARTICLES = new HashMap<>();
     private static final String[] PARTICLE_NAMES;
 
     ParticleTypes(String particleNameIn, int particleIDIn, boolean p_i46011_5_, int argumentCountIn) {

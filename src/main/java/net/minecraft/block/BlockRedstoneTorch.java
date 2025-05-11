@@ -3,6 +3,7 @@ package net.minecraft.block;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -17,7 +18,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockRedstoneTorch extends BlockTorch {
-    private static final Map<World, List<BlockRedstoneTorch.Toggle>> toggles = Maps.newHashMap();
+    private static final Map<World, List<BlockRedstoneTorch.Toggle>> toggles = new HashMap<>();
     private final boolean isOn;
 
     private boolean isBurnedOut(World worldIn, BlockPos pos, boolean turnOff) {

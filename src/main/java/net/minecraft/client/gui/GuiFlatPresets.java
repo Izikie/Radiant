@@ -5,6 +5,7 @@ import com.google.common.collect.Maps;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import net.minecraft.block.BlockTallGrass;
@@ -124,7 +125,7 @@ public class GuiFlatPresets extends GuiScreen {
 
         if (p_175354_4_ != null) {
             for (String s : p_175354_4_) {
-                flatgeneratorinfo.getWorldFeatures().put(s, Maps.newHashMap());
+                flatgeneratorinfo.getWorldFeatures().put(s, new HashMap<>());
             }
         }
 

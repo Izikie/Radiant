@@ -1,14 +1,9 @@
 package net.minecraft.world.biome;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockSand;
@@ -67,7 +62,7 @@ public abstract class BiomeGenBase {
     protected static final BiomeGenBase.Height HEIGHT_PARTIALLY_SUBMERGED = new BiomeGenBase.Height(-0.2F, 0.1F);
     private static final BiomeGenBase[] BIOME_LIST = new BiomeGenBase[256];
     public static final Set<BiomeGenBase> EXPLORATION_BIOMES_LIST = Sets.newHashSet();
-    public static final Map<String, BiomeGenBase> BIOME_ID_MAP = Maps.newHashMap();
+    public static final Map<String, BiomeGenBase> BIOME_ID_MAP = new HashMap<>();
     public static final BiomeGenBase OCEAN = (new BiomeGenOcean(0)).setColor(112).setBiomeName("Ocean").setHeight(HEIGHT_OCEANS);
     public static final BiomeGenBase PLAINS = (new BiomeGenPlains(1)).setColor(9286496).setBiomeName("Plains");
     public static final BiomeGenBase DESERT = (new BiomeGenDesert(2)).setColor(16421912).setBiomeName("Desert").setDisableRain().setTemperatureRainfall(2.0F, 0.0F).setHeight(HEIGHT_LOW_PLAINS);

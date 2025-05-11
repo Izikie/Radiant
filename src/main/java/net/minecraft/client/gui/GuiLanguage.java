@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import net.minecraft.client.Minecraft;
@@ -78,7 +79,7 @@ public class GuiLanguage extends GuiScreen {
 
     class List extends GuiSlot {
         private final java.util.List<String> langCodeList = Lists.newArrayList();
-        private final Map<String, Language> languageMap = Maps.newHashMap();
+        private final Map<String, Language> languageMap = new HashMap<>();
 
         public List(Minecraft mcIn) {
             super(mcIn, GuiLanguage.this.width, GuiLanguage.this.height, 32, GuiLanguage.this.height - 65 + 4, 18);

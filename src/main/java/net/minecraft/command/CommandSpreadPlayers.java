@@ -4,10 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -176,7 +173,7 @@ public class CommandSpreadPlayers extends CommandBase {
     private double func_110671_a(List<Entity> p_110671_1_, World worldIn, CommandSpreadPlayers.Position[] p_110671_3_, boolean p_110671_4_) {
         double d0 = 0.0D;
         int i = 0;
-        Map<Team, CommandSpreadPlayers.Position> map = Maps.newHashMap();
+        Map<Team, CommandSpreadPlayers.Position> map = new HashMap<>();
 
         for (Entity value : p_110671_1_) {
             Position commandspreadplayers$position;

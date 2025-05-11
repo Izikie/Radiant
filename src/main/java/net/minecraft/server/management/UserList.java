@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +32,7 @@ public class UserList<K, V extends UserListEntry<K>> {
     protected static final Logger LOGGER = LogManager.getLogger();
     protected final Gson gson;
     private final File saveFile;
-    private final Map<String, V> values = Maps.newHashMap();
+    private final Map<String, V> values = new HashMap<>();
     private boolean lanServer = true;
     private static final ParameterizedType SAVE_FILE_FORMAT = new ParameterizedType() {
         public Type[] getActualTypeArguments() {

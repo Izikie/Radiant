@@ -1,8 +1,7 @@
 package net.minecraft.scoreboard;
 
-import com.google.common.collect.Maps;
-
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Team {
@@ -30,7 +29,7 @@ public abstract class Team {
         HIDE_FOR_OTHER_TEAMS("hideForOtherTeams", 2),
         HIDE_FOR_OWN_TEAM("hideForOwnTeam", 3);
 
-        private static final Map<String, Team.EnumVisible> field_178828_g = Maps.newHashMap();
+        private static final Map<String, Team.EnumVisible> field_178828_g = new HashMap<>();
         public final String internalName;
         public final int id;
 

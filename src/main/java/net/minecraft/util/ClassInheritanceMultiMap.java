@@ -5,19 +5,14 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
-import java.util.AbstractSet;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 import net.optifine.util.IteratorCache;
 
 public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
     private static final Set<Class<?>> field_181158_a = Collections.<Class<?>>newSetFromMap(new ConcurrentHashMap<>());
-    private final Map<Class<?>, List<T>> map = Maps.newHashMap();
+    private final Map<Class<?>, List<T>> map = new HashMap<>();
     private final Set<Class<?>> knownKeys = Sets.newIdentityHashSet();
     private final Class<T> baseClass;
     private final List<T> values = Lists.newArrayList();

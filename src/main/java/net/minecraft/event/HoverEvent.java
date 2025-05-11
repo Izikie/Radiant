@@ -1,7 +1,6 @@
 package net.minecraft.event;
 
-import com.google.common.collect.Maps;
-
+import java.util.HashMap;
 import java.util.Map;
 
 import net.minecraft.util.IChatComponent;
@@ -57,7 +56,7 @@ public class HoverEvent {
         SHOW_ITEM("show_item", true),
         SHOW_ENTITY("show_entity", true);
 
-        private static final Map<String, HoverEvent.Action> nameMapping = Maps.newHashMap();
+        private static final Map<String, HoverEvent.Action> nameMapping = new HashMap<>();
         private final boolean allowedInChat;
         private final String canonicalName;
 

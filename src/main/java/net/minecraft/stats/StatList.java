@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -21,7 +22,7 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ResourceLocation;
 
 public class StatList {
-    protected static final Map<String, StatBase> ONE_SHOT_STATS = Maps.newHashMap();
+    protected static final Map<String, StatBase> ONE_SHOT_STATS = new HashMap<>();
     public static final List<StatBase> ALL_STATS = Lists.newArrayList();
     public static final List<StatBase> GENERAL_STATS = Lists.newArrayList();
     public static final List<StatCrafting> ITEM_STATS = Lists.newArrayList();

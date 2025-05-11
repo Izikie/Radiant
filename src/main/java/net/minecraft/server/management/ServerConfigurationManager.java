@@ -9,10 +9,7 @@ import io.netty.buffer.Unpooled;
 import java.io.File;
 import java.net.SocketAddress;
 import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
@@ -70,7 +67,7 @@ public abstract class ServerConfigurationManager {
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
     private final MinecraftServer mcServer;
     private final List<EntityPlayerMP> playerEntityList = Lists.newArrayList();
-    private final Map<UUID, EntityPlayerMP> uuidToPlayerMap = Maps.newHashMap();
+    private final Map<UUID, EntityPlayerMP> uuidToPlayerMap = new HashMap<>();
     private final UserListBans bannedPlayers;
     private final BanList bannedIPs;
     private final UserListOps ops;
@@ -89,7 +86,7 @@ public abstract class ServerConfigurationManager {
         this.bannedIPs = new BanList(FILE_IPBANS);
         this.ops = new UserListOps(FILE_OPS);
         this.whiteListedPlayers = new UserListWhitelist(FILE_WHITELIST);
-        this.playerStatFiles = Maps.newHashMap();
+        this.playerStatFiles = new HashMap<>();
         this.mcServer = server;
         this.bannedPlayers.setLanServer(false);
         this.bannedIPs.setLanServer(false);

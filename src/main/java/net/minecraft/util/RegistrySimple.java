@@ -12,7 +12,7 @@ public class RegistrySimple<K, V> implements IRegistry<K, V> {
     protected final Map<K, V> registryObjects = this.createUnderlyingMap();
 
     protected Map<K, V> createUnderlyingMap() {
-        return Maps.newHashMap();
+        return new HashMap<>();
     }
 
     public V getObject(K name) {

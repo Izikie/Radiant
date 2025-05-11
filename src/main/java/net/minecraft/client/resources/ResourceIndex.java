@@ -11,6 +11,7 @@ import com.google.gson.JsonParser;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -21,7 +22,7 @@ import org.apache.logging.log4j.Logger;
 
 public class ResourceIndex {
     private static final Logger LOGGER = LogManager.getLogger();
-    private final Map<String, File> resourceMap = Maps.newHashMap();
+    private final Map<String, File> resourceMap = new HashMap<>();
 
     public ResourceIndex(File p_i1047_1_, String p_i1047_2_) {
         if (p_i1047_2_ != null) {
