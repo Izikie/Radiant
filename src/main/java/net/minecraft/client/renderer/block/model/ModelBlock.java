@@ -201,11 +201,11 @@ public class ModelBlock {
             }
         }
 
-        private Map<String, String> getTextures(JsonObject p_178329_1_) {
+        private Map<String, String> getTextures(JsonObject jsonObject) {
             Map<String, String> map = Maps.newHashMap();
 
-            if (p_178329_1_.has("textures")) {
-                JsonObject jsonobject = p_178329_1_.getAsJsonObject("textures");
+            if (jsonObject.has("textures")) {
+                JsonObject jsonobject = jsonObject.getAsJsonObject("textures");
 
                 for (Entry<String, JsonElement> entry : jsonobject.entrySet()) {
                     map.put(entry.getKey(), entry.getValue().getAsString());
@@ -215,19 +215,19 @@ public class ModelBlock {
             return map;
         }
 
-        private String getParent(JsonObject p_178326_1_) {
-            return JsonUtils.getString(p_178326_1_, "parent", "");
+        private String getParent(JsonObject jsonObject) {
+            return JsonUtils.getString(jsonObject, "parent", "");
         }
 
-        protected boolean getAmbientOcclusionEnabled(JsonObject p_178328_1_) {
-            return JsonUtils.getBoolean(p_178328_1_, "ambientocclusion", true);
+        protected boolean getAmbientOcclusionEnabled(JsonObject jsonObject) {
+            return JsonUtils.getBoolean(jsonObject, "ambientocclusion", true);
         }
 
-        protected List<BlockPart> getModelElements(JsonDeserializationContext p_178325_1_, JsonObject p_178325_2_) {
+        protected List<BlockPart> getModelElements(JsonDeserializationContext p_178325_1_, JsonObject jsonObject) {
             List<BlockPart> list = Lists.newArrayList();
 
-            if (p_178325_2_.has("elements")) {
-                for (JsonElement jsonelement : JsonUtils.getJsonArray(p_178325_2_, "elements")) {
+            if (jsonObject.has("elements")) {
+                for (JsonElement jsonelement : JsonUtils.getJsonArray(jsonObject, "elements")) {
                     list.add(p_178325_1_.deserialize(jsonelement, BlockPart.class));
                 }
             }

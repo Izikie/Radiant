@@ -35,16 +35,16 @@ public class BlockPartFace {
             return new BlockPartFace(enumfacing, i, s, blockfaceuv);
         }
 
-        protected int parseTintIndex(JsonObject p_178337_1_) {
-            return JsonUtils.getInt(p_178337_1_, "tintindex", -1);
+        protected int parseTintIndex(JsonObject jsonObject) {
+            return JsonUtils.getInt(jsonObject, "tintindex", -1);
         }
 
-        private String parseTexture(JsonObject p_178340_1_) {
-            return JsonUtils.getString(p_178340_1_, "texture");
+        private String parseTexture(JsonObject jsonObject) {
+            return JsonUtils.getString(jsonObject, "texture");
         }
 
-        private Direction parseCullFace(JsonObject p_178339_1_) {
-            String s = JsonUtils.getString(p_178339_1_, "cullface", "");
+        private Direction parseCullFace(JsonObject jsonObject) {
+            String s = JsonUtils.getString(jsonObject, "cullface", "");
             return Direction.byName(s);
         }
     }

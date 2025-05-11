@@ -35,6 +35,7 @@ dependencies {
     implementation(group = "fr.litarvan", name = "openauth", version = "1.1.6")
     implementation(group = "org.joml", name = "joml", version = "1.10.8")
     implementation(group = "it.unimi.dsi", name = "fastutil", version = "8.5.15")
+    implementation(group = "com.alibaba.fastjson2", name = "fastjson2", version = "2.0.57")
 
     implementation(group = "net.java.dev.jna", name = "jna", version = "5.16.0")
     implementation(group = "net.java.dev.jna", name = "jna-platform", version = "5.16.0")
@@ -54,7 +55,7 @@ dependencies {
     implementation(group = "net.java.jutils", name = "jutils", version = "1.0.0")
 
     implementation(group = "com.google.guava", name = "guava", version = "17.0")
-    implementation(group = "com.google.code.gson", name = "gson", version = "2.11.0") // Move to another faster more modern JSON library
+    implementation(group = "com.google.code.gson", name = "gson", version = "2.11.0")
 
     implementation(group = "commons-io", name = "commons-io", version = "2.18.0")
     implementation(group = "commons-codec", name = "commons-codec", version = "1.17.2")

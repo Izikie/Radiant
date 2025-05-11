@@ -60,8 +60,8 @@ public class BlockFaceUV {
             return new BlockFaceUV(afloat, i);
         }
 
-        protected int parseRotation(JsonObject p_178291_1_) {
-            int i = JsonUtils.getInt(p_178291_1_, "rotation", 0);
+        protected int parseRotation(JsonObject jsonObject) {
+            int i = JsonUtils.getInt(jsonObject, "rotation", 0);
 
             if (i >= 0 && i % 90 == 0 && i / 90 <= 3) {
                 return i;
@@ -70,11 +70,11 @@ public class BlockFaceUV {
             }
         }
 
-        private float[] parseUV(JsonObject p_178292_1_) {
-            if (!p_178292_1_.has("uv")) {
+        private float[] parseUV(JsonObject jsonObject) {
+            if (!jsonObject.has("uv")) {
                 return null;
             } else {
-                JsonArray jsonarray = JsonUtils.getJsonArray(p_178292_1_, "uv");
+                JsonArray jsonarray = JsonUtils.getJsonArray(jsonObject, "uv");
 
                 if (jsonarray.size() != 4) {
                     throw new JsonParseException("Expected 4 uv values, found: " + jsonarray.size());

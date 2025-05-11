@@ -90,8 +90,8 @@ public class ItemCameraTransforms {
             return new ItemCameraTransforms(itemtransformvec3f, itemtransformvec3f1, itemtransformvec3f2, itemtransformvec3f3, itemtransformvec3f4, itemtransformvec3f5);
         }
 
-        private ItemTransformVec3f func_181683_a(JsonDeserializationContext p_181683_1_, JsonObject p_181683_2_, String p_181683_3_) {
-            return p_181683_2_.has(p_181683_3_) ? (ItemTransformVec3f) p_181683_1_.deserialize(p_181683_2_.get(p_181683_3_), ItemTransformVec3f.class) : ItemTransformVec3f.DEFAULT;
+        private ItemTransformVec3f func_181683_a(JsonDeserializationContext p_181683_1_, JsonObject jsonObject, String p_181683_3_) {
+            return jsonObject.has(p_181683_3_) ? (ItemTransformVec3f) p_181683_1_.deserialize(jsonObject.get(p_181683_3_), ItemTransformVec3f.class) : ItemTransformVec3f.DEFAULT;
         }
     }
 

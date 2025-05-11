@@ -85,8 +85,8 @@ public class JsonBlendingMode {
         return this.field_148119_h;
     }
 
-    public static JsonBlendingMode func_148110_a(JsonObject p_148110_0_) {
-        if (p_148110_0_ == null) {
+    public static JsonBlendingMode func_148110_a(JsonObject jsonObject) {
+        if (jsonObject == null) {
             return new JsonBlendingMode();
         } else {
             int i = 32774;
@@ -97,32 +97,32 @@ public class JsonBlendingMode {
             boolean flag = true;
             boolean flag1 = false;
 
-            if (JsonUtils.isString(p_148110_0_, "func")) {
-                i = func_148108_a(p_148110_0_.get("func").getAsString());
+            if (JsonUtils.isString(jsonObject, "func")) {
+                i = func_148108_a(jsonObject.get("func").getAsString());
 
                 if (i != 32774) {
                     flag = false;
                 }
             }
 
-            if (JsonUtils.isString(p_148110_0_, "srcrgb")) {
-                j = func_148107_b(p_148110_0_.get("srcrgb").getAsString());
+            if (JsonUtils.isString(jsonObject, "srcrgb")) {
+                j = func_148107_b(jsonObject.get("srcrgb").getAsString());
 
                 if (j != 1) {
                     flag = false;
                 }
             }
 
-            if (JsonUtils.isString(p_148110_0_, "dstrgb")) {
-                k = func_148107_b(p_148110_0_.get("dstrgb").getAsString());
+            if (JsonUtils.isString(jsonObject, "dstrgb")) {
+                k = func_148107_b(jsonObject.get("dstrgb").getAsString());
 
                 if (k != 0) {
                     flag = false;
                 }
             }
 
-            if (JsonUtils.isString(p_148110_0_, "srcalpha")) {
-                l = func_148107_b(p_148110_0_.get("srcalpha").getAsString());
+            if (JsonUtils.isString(jsonObject, "srcalpha")) {
+                l = func_148107_b(jsonObject.get("srcalpha").getAsString());
 
                 if (l != 1) {
                     flag = false;
@@ -131,8 +131,8 @@ public class JsonBlendingMode {
                 flag1 = true;
             }
 
-            if (JsonUtils.isString(p_148110_0_, "dstalpha")) {
-                i1 = func_148107_b(p_148110_0_.get("dstalpha").getAsString());
+            if (JsonUtils.isString(jsonObject, "dstalpha")) {
+                i1 = func_148107_b(jsonObject.get("dstalpha").getAsString());
 
                 if (i1 != 0) {
                     flag = false;

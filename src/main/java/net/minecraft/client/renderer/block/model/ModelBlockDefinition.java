@@ -72,8 +72,8 @@ public class ModelBlockDefinition {
             return new ModelBlockDefinition(list);
         }
 
-        protected List<ModelBlockDefinition.Variants> parseVariantsList(JsonDeserializationContext p_178334_1_, JsonObject p_178334_2_) {
-            JsonObject jsonobject = JsonUtils.getJsonObject(p_178334_2_, "variants");
+        protected List<ModelBlockDefinition.Variants> parseVariantsList(JsonDeserializationContext p_178334_1_, JsonObject jsonObject) {
+            JsonObject jsonobject = JsonUtils.getJsonObject(jsonObject, "variants");
             List<ModelBlockDefinition.Variants> list = Lists.newArrayList();
 
             for (Entry<String, JsonElement> entry : jsonobject.entrySet()) {
@@ -165,13 +165,13 @@ public class ModelBlockDefinition {
                 return resourcelocation;
             }
 
-            private boolean parseUvLock(JsonObject p_178429_1_) {
-                return JsonUtils.getBoolean(p_178429_1_, "uvlock", false);
+            private boolean parseUvLock(JsonObject jsonObject) {
+                return JsonUtils.getBoolean(jsonObject, "uvlock", false);
             }
 
-            protected ModelRotation parseRotation(JsonObject p_178428_1_) {
-                int i = JsonUtils.getInt(p_178428_1_, "x", 0);
-                int j = JsonUtils.getInt(p_178428_1_, "y", 0);
+            protected ModelRotation parseRotation(JsonObject jsonObject) {
+                int i = JsonUtils.getInt(jsonObject, "x", 0);
+                int j = JsonUtils.getInt(jsonObject, "y", 0);
                 ModelRotation modelrotation = ModelRotation.getModelRotation(i, j);
 
                 if (modelrotation == null) {
@@ -181,12 +181,12 @@ public class ModelBlockDefinition {
                 }
             }
 
-            protected String parseModel(JsonObject p_178424_1_) {
-                return JsonUtils.getString(p_178424_1_, "model");
+            protected String parseModel(JsonObject jsonObject) {
+                return JsonUtils.getString(jsonObject, "model");
             }
 
-            protected int parseWeight(JsonObject p_178427_1_) {
-                return JsonUtils.getInt(p_178427_1_, "weight", 1);
+            protected int parseWeight(JsonObject jsonObject) {
+                return JsonUtils.getInt(jsonObject, "weight", 1);
             }
         }
     }
