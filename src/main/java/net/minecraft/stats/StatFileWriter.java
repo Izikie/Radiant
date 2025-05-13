@@ -1,15 +1,14 @@
 package net.minecraft.stats;
 
-import com.google.common.collect.Maps;
-
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IJsonSerializable;
 import net.minecraft.util.TupleIntJsonSerializable;
 
 public class StatFileWriter {
-    protected final Map<StatBase, TupleIntJsonSerializable> statsData = Maps.newConcurrentMap();
+    protected final Map<StatBase, TupleIntJsonSerializable> statsData = new ConcurrentHashMap<>();
 
     public boolean hasAchievementUnlocked(Achievement achievementIn) {
         return this.readStat(achievementIn) > 0;

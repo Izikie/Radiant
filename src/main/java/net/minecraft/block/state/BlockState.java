@@ -9,7 +9,6 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableTable;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Table;
 
 import java.util.*;
@@ -30,7 +29,7 @@ public class BlockState {
         this.block = blockIn;
         Arrays.sort(properties, Comparator.comparing(IProperty::getName));
         this.properties = ImmutableList.copyOf(properties);
-        Map<Map<IProperty, Comparable>, BlockState.StateImplementation> map = Maps.newLinkedHashMap();
+        Map<Map<IProperty, Comparable>, BlockState.StateImplementation> map = new LinkedHashMap<>();
         List<BlockState.StateImplementation> list = Lists.newArrayList();
 
         for (List<Comparable> list1 : Cartesian.cartesianProduct(this.getAllowedValues())) {

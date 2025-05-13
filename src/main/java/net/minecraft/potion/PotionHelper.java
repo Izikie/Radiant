@@ -1,7 +1,6 @@
 package net.minecraft.potion;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 import java.util.Collection;
 import java.util.HashMap;

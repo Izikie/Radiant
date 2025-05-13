@@ -1,7 +1,6 @@
 package net.minecraft.world.chunk;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Queues;
 
 import java.util.*;

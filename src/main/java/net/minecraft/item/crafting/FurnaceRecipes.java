@@ -1,7 +1,5 @@
 package net.minecraft.item.crafting;
 
-import com.google.common.collect.Maps;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;

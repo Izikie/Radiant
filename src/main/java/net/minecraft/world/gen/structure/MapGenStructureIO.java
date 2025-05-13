@@ -1,7 +1,5 @@
 package net.minecraft.world.gen.structure;
 
-import com.google.common.collect.Maps;
-
 import java.util.HashMap;
 import java.util.Map;
 

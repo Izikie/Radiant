@@ -1,7 +1,5 @@
 package net.minecraft.item;
 
-import com.google.common.collect.Maps;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

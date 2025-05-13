@@ -2,7 +2,6 @@ package net.minecraft.client.resources;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Maps;
 
 import java.io.IOException;
 import java.io.InputStream;

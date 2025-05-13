@@ -1,7 +1,5 @@
 package net.minecraft.client.renderer.tileentity;
 
-import com.google.common.collect.Maps;
-
 import java.util.HashMap;
 import java.util.Map;
 

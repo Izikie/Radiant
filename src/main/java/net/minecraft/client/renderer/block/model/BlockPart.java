@@ -1,6 +1,5 @@
 package net.minecraft.client.renderer.block.model;
 
-import com.google.common.collect.Maps;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -9,6 +8,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
 import java.lang.reflect.Type;
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -118,7 +118,7 @@ public class BlockPart {
         }
 
         private Map<Direction, BlockPartFace> parseFaces(JsonDeserializationContext p_178253_1_, JsonObject jsonObject) {
-            Map<Direction, BlockPartFace> map = Maps.newEnumMap(Direction.class);
+            Map<Direction, BlockPartFace> map = new EnumMap<>(Direction.class);
             JsonObject jsonobject = JsonUtils.getJsonObject(jsonObject, "faces");
 
             for (Entry<String, JsonElement> entry : jsonobject.entrySet()) {

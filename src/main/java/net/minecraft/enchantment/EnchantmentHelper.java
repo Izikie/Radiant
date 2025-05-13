@@ -1,7 +1,6 @@
 package net.minecraft.enchantment;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 import java.util.*;
 
@@ -44,7 +43,7 @@ public class EnchantmentHelper {
     }
 
     public static Map<Integer, Integer> getEnchantments(ItemStack stack) {
-        Map<Integer, Integer> map = Maps.newLinkedHashMap();
+        Map<Integer, Integer> map = new LinkedHashMap<>();
         NBTTagList nbttaglist = stack.getItem() == Items.ENCHANTED_BOOK ? Items.ENCHANTED_BOOK.getEnchantments(stack) : stack.getEnchantmentTagList();
 
         if (nbttaglist != null) {

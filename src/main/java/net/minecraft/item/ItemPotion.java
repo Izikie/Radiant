@@ -2,10 +2,10 @@ package net.minecraft.item;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -28,7 +28,7 @@ import net.minecraft.world.World;
 
 public class ItemPotion extends Item {
     private final Map<Integer, List<PotionEffect>> effectCache = new HashMap<>();
-    private static final Map<List<PotionEffect>, Integer> SUB_ITEMS_CACHE = Maps.newLinkedHashMap();
+    private static final Map<List<PotionEffect>, Integer> SUB_ITEMS_CACHE = new LinkedHashMap<>();
 
     public ItemPotion() {
         this.setMaxStackSize(1);

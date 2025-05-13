@@ -1,7 +1,5 @@
 package net.minecraft.network.play.server;
 
-import com.google.common.collect.Maps;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;

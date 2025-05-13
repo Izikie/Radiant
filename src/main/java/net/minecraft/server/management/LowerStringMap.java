@@ -1,14 +1,12 @@
 package net.minecraft.server.management;
 
-import com.google.common.collect.Maps;
-
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.Map.Entry;
 
 public class LowerStringMap<V> implements Map<String, V> {
-    private final Map<String, V> internalMap = Maps.newLinkedHashMap();
+    private final Map<String, V> internalMap = new LinkedHashMap<>();
 
     public int size() {
         return this.internalMap.size();

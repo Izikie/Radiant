@@ -12,7 +12,6 @@ import java.util.Map.Entry;
 import com.google.common.base.Charsets;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Queues;
 import com.google.common.collect.Sets;
 import net.optifine.CustomItems;
@@ -52,8 +51,8 @@ public class ModelBakery {
     private static final Joiner JOINER = Joiner.on(" -> ");
     private final IResourceManager resourceManager;
     private final Map<ResourceLocation, TextureAtlasSprite> sprites = new HashMap<>();
-    private final Map<ResourceLocation, ModelBlock> models = Maps.newLinkedHashMap();
-    private final Map<ModelResourceLocation, ModelBlockDefinition.Variants> variants = Maps.newLinkedHashMap();
+    private final Map<ResourceLocation, ModelBlock> models = new LinkedHashMap<>();
+    private final Map<ModelResourceLocation, ModelBlockDefinition.Variants> variants = new LinkedHashMap<>();
     private final TextureMap textureMap;
     private final BlockModelShapes blockModelShapes;
     private final FaceBakery faceBakery = new FaceBakery();
@@ -63,9 +62,9 @@ public class ModelBakery {
     private static final ModelBlock MODEL_COMPASS = ModelBlock.deserialize("{\"elements\":[{  \"from\": [0, 0, 0],   \"to\": [16, 16, 16],   \"faces\": {       \"down\": {\"uv\": [0, 0, 16, 16], \"texture\":\"\"}   }}]}");
     private static final ModelBlock MODEL_CLOCK = ModelBlock.deserialize("{\"elements\":[{  \"from\": [0, 0, 0],   \"to\": [16, 16, 16],   \"faces\": {       \"down\": {\"uv\": [0, 0, 16, 16], \"texture\":\"\"}   }}]}");
     private static final ModelBlock MODEL_ENTITY = ModelBlock.deserialize("{\"elements\":[{  \"from\": [0, 0, 0],   \"to\": [16, 16, 16],   \"faces\": {       \"down\": {\"uv\": [0, 0, 16, 16], \"texture\":\"\"}   }}]}");
-    private final Map<String, ResourceLocation> itemLocations = Maps.newLinkedHashMap();
+    private final Map<String, ResourceLocation> itemLocations = new LinkedHashMap<>();
     private final Map<ResourceLocation, ModelBlockDefinition> blockDefinitions = new HashMap<>();
-    private final Map<Item, List<String>> variantNames = Maps.newIdentityHashMap();
+    private final Map<Item, List<String>> variantNames = new IdentityHashMap<>();
 
     public ModelBakery(IResourceManager p_i46085_1_, TextureMap p_i46085_2_, BlockModelShapes p_i46085_3_) {
         this.resourceManager = p_i46085_1_;

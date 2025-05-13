@@ -1,7 +1,6 @@
 package net.minecraft.entity.passive;
 
-import com.google.common.collect.Maps;
-
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -41,7 +40,7 @@ public class EntitySheep extends EntityAnimal {
             return false;
         }
     }, 2, 1);
-    private static final Map<DyeColor, float[]> DYE_TO_RGB = Maps.newEnumMap(DyeColor.class);
+    private static final Map<DyeColor, float[]> DYE_TO_RGB = new EnumMap<>(DyeColor.class);
     private int sheepTimer;
     private final EntityAIEatGrass entityAIEatGrass = new EntityAIEatGrass(this);
 

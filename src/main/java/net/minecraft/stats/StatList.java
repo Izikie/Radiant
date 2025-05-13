@@ -1,7 +1,6 @@
 package net.minecraft.stats;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import java.util.HashMap;

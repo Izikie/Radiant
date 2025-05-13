@@ -1,7 +1,6 @@
 package net.minecraft.client.model;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 import java.util.HashMap;
 import java.util.List;

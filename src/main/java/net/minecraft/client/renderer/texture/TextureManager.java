@@ -1,7 +1,6 @@
 package net.minecraft.client.renderer.texture;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 import java.io.IOException;
 import java.util.*;

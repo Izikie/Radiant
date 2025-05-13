@@ -1,7 +1,5 @@
 package net.minecraft.entity;
 
-import com.google.common.collect.Maps;
-
 import java.util.HashMap;
 
 import net.minecraft.entity.boss.EntityDragon;

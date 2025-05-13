@@ -1,12 +1,8 @@
 package net.minecraft.entity;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import net.minecraft.entity.ai.EntityMinecartMobSpawner;
 import net.minecraft.entity.boss.EntityDragon;
@@ -84,7 +80,7 @@ public class EntityList {
     private static final Map<Integer, Class<? extends Entity>> idToClassMapping = new HashMap<>();
     private static final Map<Class<? extends Entity>, Integer> classToIDMapping = new HashMap<>();
     private static final Map<String, Integer> stringToIDMapping = new HashMap<>();
-    public static final Map<Integer, EntityList.EntityEggInfo> entityEggs = Maps.newLinkedHashMap();
+    public static final Map<Integer, EntityList.EntityEggInfo> entityEggs = new LinkedHashMap<>();
 
     private static void addMapping(Class<? extends Entity> entityClass, String entityName, int id) {
         if (stringToClassMapping.containsKey(entityName)) {

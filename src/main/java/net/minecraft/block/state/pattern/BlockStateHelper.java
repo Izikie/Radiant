@@ -1,7 +1,6 @@
 package net.minecraft.block.state.pattern;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.Maps;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,7 +1,5 @@
 package net.minecraft.util;
 
-import com.google.common.collect.Maps;
-
 import java.util.*;
 
 import org.apache.logging.log4j.LogManager;

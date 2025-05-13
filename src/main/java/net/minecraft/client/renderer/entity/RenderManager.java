@@ -1,7 +1,5 @@
 package net.minecraft.client.renderer.entity;
 
-import com.google.common.collect.Maps;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;

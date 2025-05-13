@@ -1,7 +1,5 @@
 package net.minecraft.client.shader;
 
-import com.google.common.collect.Maps;
-
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;

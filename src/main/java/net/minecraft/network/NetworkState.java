@@ -2,9 +2,9 @@ package net.minecraft.network;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import com.google.common.collect.Maps;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -252,7 +252,7 @@ public enum NetworkState {
     private final Map<PacketDirection, BiMap<Integer, Class<? extends Packet>>> directionMaps;
 
     NetworkState(int protocolId) {
-        this.directionMaps = Maps.newEnumMap(PacketDirection.class);
+        this.directionMaps = new EnumMap<>(PacketDirection.class);
         this.id = protocolId;
     }
 

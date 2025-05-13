@@ -1,7 +1,6 @@
 package net.minecraft.client.renderer.texture;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
@@ -308,7 +307,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                 TextureUtil.allocateTextureImpl(this.getGlTextureId(), this.mipmapLevels, stitcher.getCurrentWidth(), stitcher.getCurrentHeight());
             }
 
-            Map<String, TextureAtlasSprite> map = Maps.newHashMap(this.mapRegisteredSprites);
+            Map<String, TextureAtlasSprite> map = new HashMap<>(this.mapRegisteredSprites);
 
             for (TextureAtlasSprite textureatlassprite2 : stitcher.getStichSlots()) {
                 String s = textureatlassprite2.getIconName();

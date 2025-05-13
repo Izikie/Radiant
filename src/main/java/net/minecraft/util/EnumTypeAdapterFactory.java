@@ -1,6 +1,5 @@
 package net.minecraft.util;
 
-import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;

@@ -1,6 +1,5 @@
 package net.minecraft.client.resources;
 
-import com.google.common.collect.Maps;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 

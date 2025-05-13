@@ -1,7 +1,6 @@
 package net.minecraft.entity.ai.attributes;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import java.util.*;

@@ -1,10 +1,10 @@
 package net.minecraft.client.renderer.block.statemap;
 
 import com.google.common.base.Objects;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import java.util.Collections;
+import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -13,7 +13,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 
 public class BlockStateMapper {
-    private final Map<Block, IStateMapper> blockStateMap = Maps.newIdentityHashMap();
+    private final Map<Block, IStateMapper> blockStateMap = new IdentityHashMap<>();
     private final Set<Block> setBuiltInBlocks = Sets.newIdentityHashSet();
 
     public void registerBlockStateMapper(Block p_178447_1_, IStateMapper p_178447_2_) {
@@ -25,7 +25,7 @@ public class BlockStateMapper {
     }
 
     public Map<IBlockState, ModelResourceLocation> putAllStateModelLocations() {
-        Map<IBlockState, ModelResourceLocation> map = Maps.newIdentityHashMap();
+        Map<IBlockState, ModelResourceLocation> map = new IdentityHashMap<>();
 
         for (Block block : Block.blockRegistry) {
             if (!this.setBuiltInBlocks.contains(block)) {
