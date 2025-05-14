@@ -3,8 +3,8 @@ package net.minecraft.entity.projectile;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.world.World;
 
 public class EntitySnowball extends EntityThrowable {

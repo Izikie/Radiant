@@ -1,19 +1,14 @@
 package net.minecraft.client.gui;
 
 import com.google.common.collect.Lists;
+import net.minecraft.client.resources.*;
+import net.minecraft.util.Util;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
-
-import net.minecraft.client.resources.I18n;
-import net.minecraft.client.resources.ResourcePackListEntry;
-import net.minecraft.client.resources.ResourcePackListEntryDefault;
-import net.minecraft.client.resources.ResourcePackListEntryFound;
-import net.minecraft.client.resources.ResourcePackRepository;
-import net.minecraft.util.Util;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class GuiScreenResourcePacks extends GuiScreen {
     private static final Logger LOGGER = LogManager.getLogger();

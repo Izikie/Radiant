@@ -1,18 +1,6 @@
 package net.minecraft.server.management;
 
 import com.google.common.collect.Lists;
-
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Set;
-import java.util.Map.Entry;
-
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S21PacketChunkData;
@@ -31,13 +19,16 @@ import net.optifine.ChunkPosComparator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.*;
+import java.util.Map.Entry;
+
 public class PlayerManager {
     private static final Logger LOGGER = LogManager.getLogger();
     private final WorldServer theWorldServer;
     private final List<EntityPlayerMP> players = Lists.newArrayList();
-    private final LongHashMap<PlayerManager.PlayerInstance> playerInstances = new LongHashMap();
-    private final List<PlayerManager.PlayerInstance> playerInstancesToUpdate = Lists.newArrayList();
-    private final List<PlayerManager.PlayerInstance> playerInstanceList = Lists.newArrayList();
+    private final LongHashMap<PlayerInstance> playerInstances = new LongHashMap();
+    private final List<PlayerInstance> playerInstancesToUpdate = Lists.newArrayList();
+    private final List<PlayerInstance> playerInstanceList = Lists.newArrayList();
     private int playerViewRadius;
     private long previousTotalWorldTime;
     private final int[][] xzDirectionsConst = new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
@@ -73,7 +64,7 @@ public class PlayerManager {
                     }
 
                     for (ChunkCoordIntPair chunkcoordintpair : this.getNearest(set1, entityplayermp, i)) {
-                        PlayerManager.PlayerInstance playermanager$playerinstance = this.getPlayerInstance(chunkcoordintpair.chunkXPos, chunkcoordintpair.chunkZPos, true);
+                        PlayerInstance playermanager$playerinstance = this.getPlayerInstance(chunkcoordintpair.chunkXPos, chunkcoordintpair.chunkZPos, true);
                         playermanager$playerinstance.addPlayer(entityplayermp);
                         set1.remove(chunkcoordintpair);
                     }
@@ -112,12 +103,12 @@ public class PlayerManager {
         return this.playerInstances.getValueByKey(i) != null;
     }
 
-    private PlayerManager.PlayerInstance getPlayerInstance(int chunkX, int chunkZ, boolean createIfAbsent) {
+    private PlayerInstance getPlayerInstance(int chunkX, int chunkZ, boolean createIfAbsent) {
         long i = chunkX + 2147483647L | chunkZ + 2147483647L << 32;
-        PlayerManager.PlayerInstance playermanager$playerinstance = this.playerInstances.getValueByKey(i);
+        PlayerInstance playermanager$playerinstance = this.playerInstances.getValueByKey(i);
 
         if (playermanager$playerinstance == null && createIfAbsent) {
-            playermanager$playerinstance = new PlayerManager.PlayerInstance(chunkX, chunkZ);
+            playermanager$playerinstance = new PlayerInstance(chunkX, chunkZ);
             this.playerInstances.add(i, playermanager$playerinstance);
             this.playerInstanceList.add(playermanager$playerinstance);
         }
@@ -128,7 +119,7 @@ public class PlayerManager {
     public void markBlockForUpdate(BlockPos pos) {
         int i = pos.getX() >> 4;
         int j = pos.getZ() >> 4;
-        PlayerManager.PlayerInstance playermanager$playerinstance = this.getPlayerInstance(i, j, false);
+        PlayerInstance playermanager$playerinstance = this.getPlayerInstance(i, j, false);
 
         if (playermanager$playerinstance != null) {
             playermanager$playerinstance.flagChunkForUpdate(pos.getX() & 15, pos.getY(), pos.getZ() & 15);
@@ -212,7 +203,7 @@ public class PlayerManager {
 
         for (int k = i - this.playerViewRadius; k <= i + this.playerViewRadius; ++k) {
             for (int l = j - this.playerViewRadius; l <= j + this.playerViewRadius; ++l) {
-                PlayerManager.PlayerInstance playermanager$playerinstance = this.getPlayerInstance(k, l, false);
+                PlayerInstance playermanager$playerinstance = this.getPlayerInstance(k, l, false);
 
                 if (playermanager$playerinstance != null) {
                     playermanager$playerinstance.removePlayer(player);
@@ -258,7 +249,7 @@ public class PlayerManager {
 
                         if (!this.overlaps(l1 - j1, i2 - k1, i, j, i1)) {
                             set.remove(new ChunkCoordIntPair(l1 - j1, i2 - k1));
-                            PlayerManager.PlayerInstance playermanager$playerinstance = this.getPlayerInstance(l1 - j1, i2 - k1, false);
+                            PlayerInstance playermanager$playerinstance = this.getPlayerInstance(l1 - j1, i2 - k1, false);
 
                             if (playermanager$playerinstance != null) {
                                 playermanager$playerinstance.removePlayer(player);
@@ -275,7 +266,7 @@ public class PlayerManager {
     }
 
     public boolean isPlayerWatchingChunk(EntityPlayerMP player, int chunkX, int chunkZ) {
-        PlayerManager.PlayerInstance playermanager$playerinstance = this.getPlayerInstance(chunkX, chunkZ, false);
+        PlayerInstance playermanager$playerinstance = this.getPlayerInstance(chunkX, chunkZ, false);
         return playermanager$playerinstance != null && playermanager$playerinstance.playersWatchingChunk.contains(player) && !player.loadedChunks.contains(playermanager$playerinstance.chunkCoords);
     }
 
@@ -296,7 +287,7 @@ public class PlayerManager {
                             if (Config.isLazyChunkLoading()) {
                                 set.add(new ChunkCoordIntPair(j1, k1));
                             } else {
-                                PlayerManager.PlayerInstance playermanager$playerinstance1 = this.getPlayerInstance(j1, k1, true);
+                                PlayerInstance playermanager$playerinstance1 = this.getPlayerInstance(j1, k1, true);
 
                                 if (!playermanager$playerinstance1.playersWatchingChunk.contains(entityplayermp)) {
                                     playermanager$playerinstance1.addPlayer(entityplayermp);
@@ -309,7 +300,7 @@ public class PlayerManager {
                         for (int i1 = k - this.playerViewRadius; i1 <= k + this.playerViewRadius; ++i1) {
                             if (!this.overlaps(l, i1, j, k, radius)) {
                                 set.remove(new ChunkCoordIntPair(l, i1));
-                                PlayerManager.PlayerInstance playermanager$playerinstance = this.getPlayerInstance(l, i1, true);
+                                PlayerInstance playermanager$playerinstance = this.getPlayerInstance(l, i1, true);
 
                                 if (playermanager$playerinstance != null) {
                                     playermanager$playerinstance.removePlayer(entityplayermp);

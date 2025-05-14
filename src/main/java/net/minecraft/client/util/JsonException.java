@@ -1,25 +1,24 @@
 package net.minecraft.client.util;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
-
 public class JsonException extends IOException {
-    private final List<JsonException.Entry> field_151383_a = Lists.newArrayList();
+    private final List<Entry> field_151383_a = Lists.newArrayList();
     private final String exceptionMessage;
 
     public JsonException(String message) {
-        this.field_151383_a.add(new JsonException.Entry());
+        this.field_151383_a.add(new Entry());
         this.exceptionMessage = message;
     }
 
     public JsonException(String message, Throwable cause) {
         super(cause);
-        this.field_151383_a.add(new JsonException.Entry());
+        this.field_151383_a.add(new Entry());
         this.exceptionMessage = message;
     }
 
@@ -29,7 +28,7 @@ public class JsonException extends IOException {
 
     public void func_151381_b(String p_151381_1_) {
         this.field_151383_a.getFirst().field_151376_a = p_151381_1_;
-        this.field_151383_a.addFirst(new JsonException.Entry());
+        this.field_151383_a.addFirst(new Entry());
     }
 
     public String getMessage() {

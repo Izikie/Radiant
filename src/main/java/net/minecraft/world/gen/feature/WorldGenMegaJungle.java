@@ -1,7 +1,5 @@
 package net.minecraft.world.gen.feature;
 
-import java.util.Random;
-
 import net.minecraft.block.BlockVine;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
@@ -9,6 +7,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class WorldGenMegaJungle extends WorldGenHugeTrees {
     public WorldGenMegaJungle(boolean p_i46448_1_, int p_i46448_2_, int p_i46448_3_, IBlockState p_i46448_4_, IBlockState p_i46448_5_) {

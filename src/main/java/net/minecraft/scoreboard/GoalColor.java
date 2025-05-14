@@ -1,9 +1,9 @@
 package net.minecraft.scoreboard;
 
-import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.Formatting;
+
+import java.util.List;
 
 public class GoalColor implements IScoreObjectiveCriteria {
     private final String goalName;
@@ -25,7 +25,7 @@ public class GoalColor implements IScoreObjectiveCriteria {
         return false;
     }
 
-    public IScoreObjectiveCriteria.EnumRenderType getRenderType() {
-        return IScoreObjectiveCriteria.EnumRenderType.INTEGER;
+    public EnumRenderType getRenderType() {
+        return EnumRenderType.INTEGER;
     }
 }

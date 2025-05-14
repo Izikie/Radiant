@@ -1,12 +1,12 @@
 package net.minecraft.util;
 
-import java.util.List;
-
 import net.minecraft.command.CommandException;
 import net.minecraft.command.EntityNotFoundException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.PlayerSelector;
 import net.minecraft.entity.Entity;
+
+import java.util.List;
 
 public class ChatComponentProcessor {
     public static IChatComponent processComponent(ICommandSender commandSender, IChatComponent component, Entity entityIn) throws CommandException {

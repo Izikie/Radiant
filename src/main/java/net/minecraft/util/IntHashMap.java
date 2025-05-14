@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class IntHashMap<V> {
-    private transient IntHashMap.Entry<V>[] slots = new IntHashMap.Entry[16];
+    private transient Entry<V>[] slots = new Entry[16];
     private transient int count;
     private int threshold = 12;
     private final float growFactor = 0.75F;
@@ -21,7 +21,7 @@ public class IntHashMap<V> {
     public V lookup(int p_76041_1_) {
         int i = computeHash(p_76041_1_);
 
-        for (IntHashMap.Entry<V> entry = this.slots[getSlotIndex(i, this.slots.length)]; entry != null; entry = entry.nextEntry) {
+        for (Entry<V> entry = this.slots[getSlotIndex(i, this.slots.length)]; entry != null; entry = entry.nextEntry) {
             if (entry.hashEntry == p_76041_1_) {
                 return entry.valueEntry;
             }
@@ -34,10 +34,10 @@ public class IntHashMap<V> {
         return this.lookupEntry(p_76037_1_) != null;
     }
 
-    final IntHashMap.Entry<V> lookupEntry(int p_76045_1_) {
+    final Entry<V> lookupEntry(int p_76045_1_) {
         int i = computeHash(p_76045_1_);
 
-        for (IntHashMap.Entry<V> entry = this.slots[getSlotIndex(i, this.slots.length)]; entry != null; entry = entry.nextEntry) {
+        for (Entry<V> entry = this.slots[getSlotIndex(i, this.slots.length)]; entry != null; entry = entry.nextEntry) {
             if (entry.hashEntry == p_76045_1_) {
                 return entry;
             }
@@ -50,7 +50,7 @@ public class IntHashMap<V> {
         int i = computeHash(p_76038_1_);
         int j = getSlotIndex(i, this.slots.length);
 
-        for (IntHashMap.Entry<V> entry = this.slots[j]; entry != null; entry = entry.nextEntry) {
+        for (Entry<V> entry = this.slots[j]; entry != null; entry = entry.nextEntry) {
             if (entry.hashEntry == p_76038_1_) {
                 entry.valueEntry = p_76038_2_;
                 return;
@@ -61,31 +61,31 @@ public class IntHashMap<V> {
     }
 
     private void grow(int p_76047_1_) {
-        IntHashMap.Entry<V>[] entry = this.slots;
+        Entry<V>[] entry = this.slots;
         int i = entry.length;
 
         if (i == 1073741824) {
             this.threshold = Integer.MAX_VALUE;
         } else {
-            IntHashMap.Entry<V>[] entry1 = new IntHashMap.Entry[p_76047_1_];
+            Entry<V>[] entry1 = new Entry[p_76047_1_];
             this.copyTo(entry1);
             this.slots = entry1;
             this.threshold = (int) (p_76047_1_ * this.growFactor);
         }
     }
 
-    private void copyTo(IntHashMap.Entry<V>[] p_76048_1_) {
-        IntHashMap.Entry<V>[] entry = this.slots;
+    private void copyTo(Entry<V>[] p_76048_1_) {
+        Entry<V>[] entry = this.slots;
         int i = p_76048_1_.length;
 
         for (int j = 0; j < entry.length; ++j) {
-            IntHashMap.Entry<V> entry1 = entry[j];
+            Entry<V> entry1 = entry[j];
 
             if (entry1 != null) {
                 entry[j] = null;
 
                 while (true) {
-                    IntHashMap.Entry<V> entry2 = entry1.nextEntry;
+                    Entry<V> entry2 = entry1.nextEntry;
                     int k = getSlotIndex(entry1.slotHash, i);
                     entry1.nextEntry = p_76048_1_[k];
                     p_76048_1_[k] = entry1;
@@ -100,16 +100,16 @@ public class IntHashMap<V> {
     }
 
     public V removeObject(int p_76049_1_) {
-        IntHashMap.Entry<V> entry = this.removeEntry(p_76049_1_);
+        Entry<V> entry = this.removeEntry(p_76049_1_);
         return entry == null ? null : entry.valueEntry;
     }
 
-    final IntHashMap.Entry<V> removeEntry(int p_76036_1_) {
+    final Entry<V> removeEntry(int p_76036_1_) {
         int i = computeHash(p_76036_1_);
         int j = getSlotIndex(i, this.slots.length);
-        IntHashMap.Entry<V> entry = this.slots[j];
-        IntHashMap.Entry<V> entry1;
-        IntHashMap.Entry<V> entry2;
+        Entry<V> entry = this.slots[j];
+        Entry<V> entry1;
+        Entry<V> entry2;
 
         for (entry1 = entry; entry1 != null; entry1 = entry2) {
             entry2 = entry1.nextEntry;
@@ -133,7 +133,7 @@ public class IntHashMap<V> {
     }
 
     public void clearMap() {
-        IntHashMap.Entry<V>[] entry = this.slots;
+        Entry<V>[] entry = this.slots;
 
         Arrays.fill(entry, null);
 
@@ -141,8 +141,8 @@ public class IntHashMap<V> {
     }
 
     private void insert(int p_76040_1_, int p_76040_2_, V p_76040_3_, int p_76040_4_) {
-        IntHashMap.Entry<V> entry = this.slots[p_76040_4_];
-        this.slots[p_76040_4_] = new IntHashMap.Entry<>(p_76040_1_, p_76040_2_, p_76040_3_, entry);
+        Entry<V> entry = this.slots[p_76040_4_];
+        this.slots[p_76040_4_] = new Entry<>(p_76040_1_, p_76040_2_, p_76040_3_, entry);
 
         if (this.count++ >= this.threshold) {
             this.grow(2 * this.slots.length);
@@ -152,10 +152,10 @@ public class IntHashMap<V> {
     static class Entry<V> {
         final int hashEntry;
         V valueEntry;
-        IntHashMap.Entry<V> nextEntry;
+        Entry<V> nextEntry;
         final int slotHash;
 
-        Entry(int p_i1552_1_, int p_i1552_2_, V p_i1552_3_, IntHashMap.Entry<V> p_i1552_4_) {
+        Entry(int p_i1552_1_, int p_i1552_2_, V p_i1552_3_, Entry<V> p_i1552_4_) {
             this.valueEntry = p_i1552_3_;
             this.nextEntry = p_i1552_4_;
             this.hashEntry = p_i1552_2_;

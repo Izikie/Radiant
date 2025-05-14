@@ -1,6 +1,13 @@
 package net.minecraft.crash;
 
 import com.google.common.collect.Lists;
+import net.minecraft.client.Minecraft;
+import net.minecraft.src.Config;
+import net.minecraft.world.gen.layer.IntCache;
+import net.optifine.shaders.Shaders;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.lang.management.ManagementFactory;
@@ -9,14 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.src.Config;
-import net.minecraft.world.gen.layer.IntCache;
-import net.optifine.shaders.Shaders;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class CrashReport {
     private static final Logger LOGGER = LogManager.getLogger();

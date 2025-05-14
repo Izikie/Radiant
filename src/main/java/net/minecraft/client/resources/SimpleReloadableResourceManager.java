@@ -4,6 +4,10 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import net.minecraft.client.resources.data.IMetadataSerializer;
+import net.minecraft.util.ResourceLocation;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,11 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import net.minecraft.client.resources.data.IMetadataSerializer;
-import net.minecraft.util.ResourceLocation;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class SimpleReloadableResourceManager implements IReloadableResourceManager {
     private static final Logger LOGGER = LogManager.getLogger();

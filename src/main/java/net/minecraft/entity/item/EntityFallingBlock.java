@@ -1,9 +1,6 @@
 package net.minecraft.entity.item;
 
 import com.google.common.collect.Lists;
-
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAnvil;
 import net.minecraft.block.BlockFalling;
@@ -17,12 +14,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Direction;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class EntityFallingBlock extends Entity {
     private IBlockState fallTile;

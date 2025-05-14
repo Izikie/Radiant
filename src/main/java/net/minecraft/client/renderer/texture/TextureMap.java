@@ -1,19 +1,6 @@
 package net.minecraft.client.renderer.texture;
 
 import com.google.common.collect.Lists;
-
-import java.awt.Dimension;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.Map.Entry;
-
 import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.StitcherException;
@@ -23,20 +10,24 @@ import net.minecraft.client.resources.data.AnimationMetadataSection;
 import net.minecraft.client.resources.data.TextureMetadataSection;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.src.Config;
 import net.minecraft.util.MathHelper;
-import net.minecraft.crash.ReportedException;
 import net.minecraft.util.ResourceLocation;
-import net.optifine.BetterGrass;
-import net.optifine.ConnectedTextures;
-import net.optifine.CustomItems;
-import net.optifine.EmissiveTextures;
-import net.optifine.SmartAnimations;
+import net.optifine.*;
 import net.optifine.shaders.ShadersTex;
 import net.optifine.util.CounterInt;
 import net.optifine.util.TextureUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
+import java.util.List;
+import java.util.Map.Entry;
 
 public class TextureMap extends AbstractTexture implements ITickableTextureObject {
     private static final boolean ENABLE_SKIP = Boolean.parseBoolean(System.getProperty("fml.skipFirstTextureLoad", "true"));

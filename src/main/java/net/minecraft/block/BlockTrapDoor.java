@@ -10,24 +10,18 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.Direction;
-import net.minecraft.util.RenderLayer;
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockTrapDoor extends Block {
     public static final PropertyDirection FACING = PropertyDirection.create("facing", Direction.Plane.HORIZONTAL);
     public static final PropertyBool OPEN = PropertyBool.create("open");
-    public static final PropertyEnum<BlockTrapDoor.DoorHalf> HALF = PropertyEnum.create("half", BlockTrapDoor.DoorHalf.class);
+    public static final PropertyEnum<DoorHalf> HALF = PropertyEnum.create("half", DoorHalf.class);
 
     protected BlockTrapDoor(Material materialIn) {
         super(materialIn);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH).withProperty(OPEN, Boolean.FALSE).withProperty(HALF, BlockTrapDoor.DoorHalf.BOTTOM));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH).withProperty(OPEN, Boolean.FALSE).withProperty(HALF, DoorHalf.BOTTOM));
         float f = 0.5F;
         float f1 = 1.0F;
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
@@ -67,7 +61,7 @@ public class BlockTrapDoor extends Block {
 
     public void setBounds(IBlockState state) {
         if (state.getBlock() == this) {
-            boolean flag = state.getValue(HALF) == BlockTrapDoor.DoorHalf.TOP;
+            boolean flag = state.getValue(HALF) == DoorHalf.TOP;
             Boolean obool = state.getValue(OPEN);
             Direction enumfacing = state.getValue(FACING);
             float f = 0.1875F;
@@ -139,7 +133,7 @@ public class BlockTrapDoor extends Block {
 
         if (facing.getAxis().isHorizontal()) {
             iblockstate = iblockstate.withProperty(FACING, facing).withProperty(OPEN, Boolean.FALSE);
-            iblockstate = iblockstate.withProperty(HALF, hitY > 0.5F ? BlockTrapDoor.DoorHalf.TOP : BlockTrapDoor.DoorHalf.BOTTOM);
+            iblockstate = iblockstate.withProperty(HALF, hitY > 0.5F ? DoorHalf.TOP : DoorHalf.BOTTOM);
         }
 
         return iblockstate;
@@ -176,7 +170,7 @@ public class BlockTrapDoor extends Block {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(OPEN, (meta & 4) != 0).withProperty(HALF, (meta & 8) == 0 ? BlockTrapDoor.DoorHalf.BOTTOM : BlockTrapDoor.DoorHalf.TOP);
+        return this.getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(OPEN, (meta & 4) != 0).withProperty(HALF, (meta & 8) == 0 ? DoorHalf.BOTTOM : DoorHalf.TOP);
     }
 
     public int getMetaFromState(IBlockState state) {
@@ -187,7 +181,7 @@ public class BlockTrapDoor extends Block {
             i |= 4;
         }
 
-        if (state.getValue(HALF) == BlockTrapDoor.DoorHalf.TOP) {
+        if (state.getValue(HALF) == DoorHalf.TOP) {
             i |= 8;
         }
 

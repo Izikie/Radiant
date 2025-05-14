@@ -3,13 +3,6 @@ package net.minecraft.item;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
-
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttribute;
@@ -25,6 +18,12 @@ import net.minecraft.stats.StatList;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class ItemPotion extends Item {
     private final Map<Integer, List<PotionEffect>> effectCache = new HashMap<>();

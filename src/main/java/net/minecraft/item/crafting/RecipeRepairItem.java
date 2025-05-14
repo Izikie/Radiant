@@ -1,13 +1,12 @@
 package net.minecraft.item.crafting;
 
 import com.google.common.collect.Lists;
-
-import java.util.List;
-
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class RecipeRepairItem implements IRecipe {
     public boolean matches(InventoryCrafting inv, World worldIn) {

@@ -1,23 +1,22 @@
 package net.minecraft.client.resources;
 
-import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import net.minecraft.util.JsonUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class ResourceIndex {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -30,7 +29,7 @@ public class ResourceIndex {
             BufferedReader bufferedreader = null;
 
             try {
-                bufferedreader = Files.newReader(file2, Charsets.UTF_8);
+                bufferedreader = Files.newReader(file2, StandardCharsets.UTF_8);
                 JsonObject jsonobject = JsonParser.parseReader(bufferedreader).getAsJsonObject();
                 JsonObject jsonobject1 = JsonUtils.getJsonObject(jsonobject, "objects", null);
 

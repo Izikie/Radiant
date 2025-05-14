@@ -1,12 +1,6 @@
 package net.optifine.config;
 
-import java.lang.reflect.Array;
-import java.util.*;
-
 import it.unimi.dsi.fastutil.ints.*;
-import net.optifine.ConnectedProperties;
-import net.optifine.util.EntityUtils;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.properties.IProperty;
@@ -16,10 +10,15 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.src.Config;
 import net.minecraft.util.Direction;
-import net.minecraft.util.RenderLayer;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.optifine.ConnectedProperties;
+import net.optifine.util.EntityUtils;
+
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class ConnectedParser {
     private final String context;
@@ -273,7 +272,7 @@ public class ConnectedParser {
                         int[] aint1 = new int[list1.size()];
 
                         for (int i1 = 0; i1 < aint1.length; ++i1) {
-                            aint1[i1] = list1.get(i1);
+                            aint1[i1] = list1.getInt(i1);
                         }
 
                         return aint1;
@@ -482,7 +481,7 @@ public class ConnectedParser {
             int[] aint = new int[list.size()];
 
             for (int j1 = 0; j1 < aint.length; ++j1) {
-                aint[j1] = list.get(j1);
+                aint[j1] = list.getInt(j1);
             }
 
             return aint;

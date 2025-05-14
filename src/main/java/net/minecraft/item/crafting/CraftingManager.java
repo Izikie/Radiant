@@ -1,17 +1,7 @@
 package net.minecraft.item.crafting;
 
 import com.google.common.collect.Lists;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockPlanks;
-import net.minecraft.block.BlockStone;
-import net.minecraft.block.BlockStoneSlab;
-import net.minecraft.block.BlockStoneSlabNew;
-import net.minecraft.block.BlockWall;
+import net.minecraft.block.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
@@ -19,6 +9,10 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CraftingManager {
     private static final CraftingManager INSTANCE = new CraftingManager();

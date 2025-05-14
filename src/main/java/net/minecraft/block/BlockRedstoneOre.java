@@ -1,7 +1,5 @@
 package net.minecraft.block;
 
-import java.util.Random;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -14,6 +12,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ParticleTypes;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class BlockRedstoneOre extends Block {
     private final boolean isOn;

@@ -1,10 +1,7 @@
 package net.minecraft.client.gui.spectator;
 
-import com.google.common.base.Objects;
+import com.google.common.base.MoreObjects;
 import com.google.common.collect.Lists;
-
-import java.util.List;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiSpectator;
@@ -12,11 +9,13 @@ import net.minecraft.client.gui.spectator.categories.SpectatorDetails;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 
+import java.util.List;
+
 public class SpectatorMenu {
-    private static final ISpectatorMenuObject field_178655_b = new SpectatorMenu.EndSpectatorObject();
-    private static final ISpectatorMenuObject field_178656_c = new SpectatorMenu.MoveMenuObject(-1, true);
-    private static final ISpectatorMenuObject field_178653_d = new SpectatorMenu.MoveMenuObject(1, true);
-    private static final ISpectatorMenuObject field_178654_e = new SpectatorMenu.MoveMenuObject(1, false);
+    private static final ISpectatorMenuObject field_178655_b = new EndSpectatorObject();
+    private static final ISpectatorMenuObject field_178656_c = new MoveMenuObject(-1, true);
+    private static final ISpectatorMenuObject field_178653_d = new MoveMenuObject(1, true);
+    private static final ISpectatorMenuObject field_178654_e = new MoveMenuObject(1, false);
     public static final ISpectatorMenuObject field_178657_a = new ISpectatorMenuObject() {
         public void func_178661_a(SpectatorMenu menu) {
         }
@@ -44,7 +43,7 @@ public class SpectatorMenu {
 
     public ISpectatorMenuObject func_178643_a(int p_178643_1_) {
         int i = p_178643_1_ + this.field_178658_j * 6;
-        return this.field_178658_j > 0 && p_178643_1_ == 0 ? field_178656_c : (p_178643_1_ == 7 ? (i < this.field_178659_h.func_178669_a().size() ? field_178653_d : field_178654_e) : (p_178643_1_ == 8 ? field_178655_b : (i >= 0 && i < this.field_178659_h.func_178669_a().size() ? Objects.firstNonNull(this.field_178659_h.func_178669_a().get(i), field_178657_a) : field_178657_a)));
+        return this.field_178658_j > 0 && p_178643_1_ == 0 ? field_178656_c : (p_178643_1_ == 7 ? (i < this.field_178659_h.func_178669_a().size() ? field_178653_d : field_178654_e) : (p_178643_1_ == 8 ? field_178655_b : (i >= 0 && i < this.field_178659_h.func_178669_a().size() ? MoreObjects.firstNonNull(this.field_178659_h.func_178669_a().get(i), field_178657_a) : field_178657_a)));
     }
 
     public List<ISpectatorMenuObject> func_178642_a() {

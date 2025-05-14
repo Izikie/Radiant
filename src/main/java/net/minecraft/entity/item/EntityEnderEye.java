@@ -5,8 +5,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.world.World;
 
 public class EntityEnderEye extends Entity {

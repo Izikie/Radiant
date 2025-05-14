@@ -12,9 +12,9 @@ import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public class ItemHoe extends Item {
-    protected final Item.ToolMaterial theToolMaterial;
+    protected final ToolMaterial theToolMaterial;
 
-    public ItemHoe(Item.ToolMaterial material) {
+    public ItemHoe(ToolMaterial material) {
         this.theToolMaterial = material;
         this.maxStackSize = 1;
         this.setMaxDamage(material.getMaxUses());

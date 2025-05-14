@@ -1,12 +1,12 @@
 package net.optifine.shaders.config;
 
-import java.util.Arrays;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import net.minecraft.src.Config;
 import net.optifine.shaders.Shaders;
 import net.optifine.util.StrUtils;
+
+import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ShaderOptionVariable extends ShaderOption {
     private static final Pattern PATTERN_VARIABLE = Pattern.compile("^\\s*#define\\s+(\\w+)\\s+(-?[0-9\\.Ff]+|\\w+)\\s*(//.*)?$");

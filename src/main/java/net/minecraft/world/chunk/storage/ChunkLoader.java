@@ -8,10 +8,10 @@ import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.chunk.NibbleArray;
 
 public class ChunkLoader {
-    public static ChunkLoader.AnvilConverterData load(NBTTagCompound nbt) {
+    public static AnvilConverterData load(NBTTagCompound nbt) {
         int i = nbt.getInteger("xPos");
         int j = nbt.getInteger("zPos");
-        ChunkLoader.AnvilConverterData chunkloader$anvilconverterdata = new ChunkLoader.AnvilConverterData(i, j);
+        AnvilConverterData chunkloader$anvilconverterdata = new AnvilConverterData(i, j);
         chunkloader$anvilconverterdata.blocks = nbt.getByteArray("Blocks");
         chunkloader$anvilconverterdata.data = new NibbleArrayReader(nbt.getByteArray("Data"), 7);
         chunkloader$anvilconverterdata.skyLight = new NibbleArrayReader(nbt.getByteArray("SkyLight"), 7);
@@ -31,7 +31,7 @@ public class ChunkLoader {
         return chunkloader$anvilconverterdata;
     }
 
-    public static void convertToAnvilFormat(ChunkLoader.AnvilConverterData p_76690_0_, NBTTagCompound compound, WorldChunkManager p_76690_2_) {
+    public static void convertToAnvilFormat(AnvilConverterData p_76690_0_, NBTTagCompound compound, WorldChunkManager p_76690_2_) {
         compound.setInteger("xPos", p_76690_0_.x);
         compound.setInteger("zPos", p_76690_0_.z);
         compound.setLong("LastUpdate", p_76690_0_.lastUpdated);

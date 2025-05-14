@@ -1,8 +1,5 @@
 package net.optifine.entity.model;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelHorse;
@@ -11,6 +8,9 @@ import net.minecraft.client.renderer.entity.RenderHorse;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.passive.EntityHorse;
 import net.optifine.reflect.Reflector;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ModelAdapterHorse extends ModelAdapter {
     private static Map<String, Integer> mapPartFields = null;

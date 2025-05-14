@@ -8,19 +8,6 @@ import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
-
-import java.awt.image.BufferedImage;
-import java.io.Closeable;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.locks.ReentrantLock;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreenWorking;
 import net.minecraft.client.renderer.texture.DynamicTexture;
@@ -38,6 +25,14 @@ import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.awt.image.BufferedImage;
+import java.io.Closeable;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.IOException;
+import java.util.*;
+import java.util.concurrent.locks.ReentrantLock;
+
 public class ResourcePackRepository {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final FileFilter RESOURCE_PACK_FILTER = p_accept_1_ -> {
@@ -52,8 +47,8 @@ public class ResourcePackRepository {
     private IResourcePack resourcePackInstance;
     private final ReentrantLock lock = new ReentrantLock();
     private ListenableFuture<Object> downloadingPacks;
-    private List<ResourcePackRepository.Entry> repositoryEntriesAll = Lists.newArrayList();
-    public final List<ResourcePackRepository.Entry> repositoryEntries = Lists.newArrayList();
+    private List<Entry> repositoryEntriesAll = Lists.newArrayList();
+    public final List<Entry> repositoryEntries = Lists.newArrayList();
 
     public ResourcePackRepository(File dirResourcepacksIn, File dirServerResourcepacksIn, IResourcePack rprDefaultResourcePackIn, IMetadataSerializer rprMetadataSerializerIn, GameSettings settings) {
         this.dirResourcepacks = dirResourcepacksIn;
@@ -67,7 +62,7 @@ public class ResourcePackRepository {
         while (iterator.hasNext()) {
             String s = iterator.next();
 
-            for (ResourcePackRepository.Entry resourcepackrepository$entry : this.repositoryEntriesAll) {
+            for (Entry resourcepackrepository$entry : this.repositoryEntriesAll) {
                 if (resourcepackrepository$entry.getResourcePackName().equals(s)) {
                     if (resourcepackrepository$entry.func_183027_f() == 1 || settings.incompatibleResourcePacks.contains(resourcepackrepository$entry.getResourcePackName())) {
                         this.repositoryEntries.add(resourcepackrepository$entry);
@@ -96,10 +91,10 @@ public class ResourcePackRepository {
     }
 
     public void updateRepositoryEntriesAll() {
-        List<ResourcePackRepository.Entry> list = Lists.newArrayList();
+        List<Entry> list = Lists.newArrayList();
 
         for (File file1 : this.getResourcePackFiles()) {
-            ResourcePackRepository.Entry resourcepackrepository$entry = new ResourcePackRepository.Entry(file1);
+            Entry resourcepackrepository$entry = new Entry(file1);
 
             if (!this.repositoryEntriesAll.contains(resourcepackrepository$entry)) {
                 try {
@@ -119,22 +114,22 @@ public class ResourcePackRepository {
 
         this.repositoryEntriesAll.removeAll(list);
 
-        for (ResourcePackRepository.Entry resourcepackrepository$entry1 : this.repositoryEntriesAll) {
+        for (Entry resourcepackrepository$entry1 : this.repositoryEntriesAll) {
             resourcepackrepository$entry1.closeResourcePack();
         }
 
         this.repositoryEntriesAll = list;
     }
 
-    public List<ResourcePackRepository.Entry> getRepositoryEntriesAll() {
+    public List<Entry> getRepositoryEntriesAll() {
         return ImmutableList.copyOf(this.repositoryEntriesAll);
     }
 
-    public List<ResourcePackRepository.Entry> getRepositoryEntries() {
+    public List<Entry> getRepositoryEntries() {
         return ImmutableList.copyOf(this.repositoryEntries);
     }
 
-    public void setRepositories(List<ResourcePackRepository.Entry> repositories) {
+    public void setRepositories(List<Entry> repositories) {
         this.repositoryEntries.clear();
         this.repositoryEntries.addAll(repositories);
     }
@@ -160,7 +155,7 @@ public class ResourcePackRepository {
 
             if (file1.exists() && hash.length() == 40) {
                 try {
-                    String s1 = Hashing.sha1().hashBytes(Files.toByteArray(file1)).toString();
+                    String s1 = Hashing.sha256().hashBytes(Files.toByteArray(file1)).toString();
 
                     if (s1.equals(hash)) {
                         return this.setResourcePackInstance(file1);
@@ -190,7 +185,7 @@ public class ResourcePackRepository {
                 public void onFailure(Throwable p_onFailure_1_) {
                     settablefuture.setException(p_onFailure_1_);
                 }
-            });
+            }, Runnable::run);
             return this.downloadingPacks;
         } finally {
             this.lock.unlock();
@@ -296,7 +291,7 @@ public class ResourcePackRepository {
         }
 
         public boolean equals(Object p_equals_1_) {
-            return this == p_equals_1_ ? true : (p_equals_1_ instanceof ResourcePackRepository.Entry ? this.toString().equals(p_equals_1_.toString()) : false);
+            return this == p_equals_1_ ? true : (p_equals_1_ instanceof Entry ? this.toString().equals(p_equals_1_.toString()) : false);
         }
 
         public int hashCode() {

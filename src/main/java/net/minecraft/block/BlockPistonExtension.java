@@ -1,8 +1,5 @@
 package net.minecraft.block;
 
-import java.util.List;
-import java.util.Random;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
@@ -19,6 +16,9 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import java.util.List;
+import java.util.Random;
 
 public class BlockPistonExtension extends Block {
     public static final PropertyDirection FACING = PropertyDirection.create("facing");

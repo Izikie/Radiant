@@ -1,7 +1,5 @@
 package net.minecraft.block;
 
-import java.util.Random;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
@@ -17,9 +15,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
-import net.minecraft.world.LightType;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.LightType;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class BlockSnow extends Block {
     public static final PropertyInteger LAYERS = PropertyInteger.create("layers", 1, 8);

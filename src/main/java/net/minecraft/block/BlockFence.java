@@ -1,7 +1,5 @@
 package net.minecraft.block;
 
-import java.util.List;
-
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -17,6 +15,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class BlockFence extends Block {
     public static final PropertyBool NORTH = PropertyBool.create("north");

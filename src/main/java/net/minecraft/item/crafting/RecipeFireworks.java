@@ -112,7 +112,7 @@ public class RecipeFireworks implements IRecipe {
                 int[] aint1 = new int[list.size()];
 
                 for (int l2 = 0; l2 < aint1.length; ++l2) {
-                    aint1[l2] = list.get(l2);
+                    aint1[l2] = list.getInt(l2);
                 }
 
                 nbttagcompound2.setIntArray("Colors", aint1);
@@ -139,7 +139,7 @@ public class RecipeFireworks implements IRecipe {
                 int[] aint = new int[list1.size()];
 
                 for (int j2 = 0; j2 < aint.length; ++j2) {
-                    aint[j2] = list1.get(j2);
+                    aint[j2] = list1.getInt(j2);
                 }
 
                 if (this.field_92102_a != null && this.field_92102_a.hasTagCompound()) {

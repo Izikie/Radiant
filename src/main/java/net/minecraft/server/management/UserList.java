@@ -1,31 +1,22 @@
 package net.minecraft.server.management;
 
-import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 import com.google.common.io.Files;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
+import com.google.gson.*;
+import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.io.IOUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class UserList<K, V extends UserListEntry<K>> {
     protected static final Logger LOGGER = LogManager.getLogger();
@@ -50,7 +41,7 @@ public class UserList<K, V extends UserListEntry<K>> {
     public UserList(File saveFile) {
         this.saveFile = saveFile;
         GsonBuilder gsonbuilder = (new GsonBuilder()).setPrettyPrinting();
-        gsonbuilder.registerTypeHierarchyAdapter(UserListEntry.class, new UserList.Serializer());
+        gsonbuilder.registerTypeHierarchyAdapter(UserListEntry.class, new Serializer());
         this.gson = gsonbuilder.create();
     }
 
@@ -127,7 +118,7 @@ public class UserList<K, V extends UserListEntry<K>> {
         BufferedWriter bufferedwriter = null;
 
         try {
-            bufferedwriter = Files.newWriter(this.saveFile, Charsets.UTF_8);
+            bufferedwriter = Files.newWriter(this.saveFile, StandardCharsets.UTF_8);
             bufferedwriter.write(s);
         } finally {
             IOUtils.closeQuietly(bufferedwriter);

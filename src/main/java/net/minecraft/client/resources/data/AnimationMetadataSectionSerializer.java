@@ -1,20 +1,12 @@
 package net.minecraft.client.resources.data;
 
 import com.google.common.collect.Lists;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
+import com.google.gson.*;
+import net.minecraft.util.JsonUtils;
+import org.apache.commons.lang3.Validate;
 
 import java.lang.reflect.Type;
 import java.util.List;
-
-import net.minecraft.util.JsonUtils;
-import org.apache.commons.lang3.Validate;
 
 public class AnimationMetadataSectionSerializer extends BaseMetadataSectionSerializer<AnimationMetadataSection> implements JsonSerializer<AnimationMetadataSection> {
     public AnimationMetadataSection deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {

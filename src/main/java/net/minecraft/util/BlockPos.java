@@ -1,10 +1,9 @@
 package net.minecraft.util;
 
 import com.google.common.collect.AbstractIterator;
+import net.minecraft.entity.Entity;
 
 import java.util.Iterator;
-
-import net.minecraft.entity.Entity;
 
 public class BlockPos extends Vec3i {
     public static final BlockPos ORIGIN = new BlockPos(0, 0, 0);
@@ -163,17 +162,17 @@ public class BlockPos extends Vec3i {
         };
     }
 
-    public static Iterable<BlockPos.MutableBlockPos> getAllInBoxMutable(BlockPos from, BlockPos to) {
+    public static Iterable<MutableBlockPos> getAllInBoxMutable(BlockPos from, BlockPos to) {
         final BlockPos blockpos = new BlockPos(Math.min(from.getX(), to.getX()), Math.min(from.getY(), to.getY()), Math.min(from.getZ(), to.getZ()));
         final BlockPos blockpos1 = new BlockPos(Math.max(from.getX(), to.getX()), Math.max(from.getY(), to.getY()), Math.max(from.getZ(), to.getZ()));
         return new Iterable<>() {
-            public Iterator<BlockPos.MutableBlockPos> iterator() {
+            public Iterator<MutableBlockPos> iterator() {
                 return new AbstractIterator<>() {
-                    private BlockPos.MutableBlockPos theBlockPos = null;
+                    private MutableBlockPos theBlockPos = null;
 
-                    protected BlockPos.MutableBlockPos computeNext() {
+                    protected MutableBlockPos computeNext() {
                         if (this.theBlockPos == null) {
-                            this.theBlockPos = new BlockPos.MutableBlockPos(blockpos.getX(), blockpos.getY(), blockpos.getZ());
+                            this.theBlockPos = new MutableBlockPos(blockpos.getX(), blockpos.getY(), blockpos.getZ());
                             return this.theBlockPos;
                         } else if (this.theBlockPos.equals(blockpos1)) {
                             return this.endOfData();
@@ -232,7 +231,7 @@ public class BlockPos extends Vec3i {
             return this.z;
         }
 
-        public BlockPos.MutableBlockPos set(int xIn, int yIn, int zIn) {
+        public MutableBlockPos set(int xIn, int yIn, int zIn) {
             this.x = xIn;
             this.y = yIn;
             this.z = zIn;

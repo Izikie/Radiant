@@ -2,11 +2,6 @@ package net.minecraft.client.gui;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.Random;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -34,15 +29,13 @@ import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.src.Config;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.FoodStats;
-import net.minecraft.util.IChatComponent;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import net.minecraft.world.border.WorldBorder;
 import net.optifine.CustomColors;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Random;
 
 public class GuiIngame extends Gui {
     private static final ResourceLocation VIGNETTE_TEX_PATH = new ResourceLocation("textures/misc/vignette.png");

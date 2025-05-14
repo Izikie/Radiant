@@ -1,7 +1,5 @@
 package net.minecraft.item;
 
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.IGrowable;
@@ -16,6 +14,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ParticleTypes;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class ItemDye extends Item {
     public static final int[] DYE_COLORS = new int[]{1973019, 11743532, 3887386, 5320730, 2437522, 8073150, 2651799, 11250603, 4408131, 14188952, 4312372, 14602026, 6719955, 12801229, 15435844, 15790320};

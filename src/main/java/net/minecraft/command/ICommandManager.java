@@ -1,9 +1,9 @@
 package net.minecraft.command;
 
+import net.minecraft.util.BlockPos;
+
 import java.util.List;
 import java.util.Map;
-
-import net.minecraft.util.BlockPos;
 
 public interface ICommandManager {
     int executeCommand(ICommandSender sender, String rawCommand);

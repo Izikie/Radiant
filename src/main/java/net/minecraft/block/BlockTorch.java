@@ -1,7 +1,5 @@
 package net.minecraft.block;
 
-import java.util.Random;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockState;
@@ -9,14 +7,10 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ParticleTypes;
-import net.minecraft.util.RenderLayer;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class BlockTorch extends Block {
     public static final PropertyDirection FACING = PropertyDirection.create("facing", p_apply_1_ -> p_apply_1_ != Direction.DOWN);

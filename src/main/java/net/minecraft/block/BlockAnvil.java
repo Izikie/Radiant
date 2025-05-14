@@ -1,7 +1,5 @@
 package net.minecraft.block;
 
-import java.util.List;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyInteger;
@@ -24,6 +22,8 @@ import net.minecraft.util.IChatComponent;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class BlockAnvil extends BlockFalling {
     public static final PropertyDirection FACING = PropertyDirection.create("facing", Direction.Plane.HORIZONTAL);
@@ -51,7 +51,7 @@ public class BlockAnvil extends BlockFalling {
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote) {
-            playerIn.displayGui(new BlockAnvil.Anvil(worldIn, pos));
+            playerIn.displayGui(new Anvil(worldIn, pos));
         }
 
         return true;

@@ -1,9 +1,9 @@
 package net.minecraft.world.gen.layer;
 
 public class GenLayerEdge extends GenLayer {
-    private final GenLayerEdge.Mode field_151627_c;
+    private final Mode field_151627_c;
 
-    public GenLayerEdge(long p_i45474_1_, GenLayer p_i45474_3_, GenLayerEdge.Mode p_i45474_4_) {
+    public GenLayerEdge(long p_i45474_1_, GenLayer p_i45474_3_, Mode p_i45474_4_) {
         super(p_i45474_1_);
         this.parent = p_i45474_3_;
         this.field_151627_c = p_i45474_4_;

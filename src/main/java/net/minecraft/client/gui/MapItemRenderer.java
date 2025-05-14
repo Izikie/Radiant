@@ -1,9 +1,5 @@
 package net.minecraft.client.gui;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
 import net.minecraft.block.material.MapColor;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -15,10 +11,14 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec4b;
 import net.minecraft.world.storage.MapData;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 public class MapItemRenderer {
     private static final ResourceLocation MAP_ICONS = new ResourceLocation("textures/map/map_icons.png");
     private final TextureManager textureManager;
-    private final Map<String, MapItemRenderer.Instance> loadedMaps = new HashMap<>();
+    private final Map<String, Instance> loadedMaps = new HashMap<>();
 
     public MapItemRenderer(TextureManager textureManagerIn) {
         this.textureManager = textureManagerIn;
@@ -32,11 +32,11 @@ public class MapItemRenderer {
         this.getMapRendererInstance(mapdataIn).render(p_148250_2_);
     }
 
-    private MapItemRenderer.Instance getMapRendererInstance(MapData mapdataIn) {
-        MapItemRenderer.Instance mapitemrenderer$instance = this.loadedMaps.get(mapdataIn.mapName);
+    private Instance getMapRendererInstance(MapData mapdataIn) {
+        Instance mapitemrenderer$instance = this.loadedMaps.get(mapdataIn.mapName);
 
         if (mapitemrenderer$instance == null) {
-            mapitemrenderer$instance = new MapItemRenderer.Instance(mapdataIn);
+            mapitemrenderer$instance = new Instance(mapdataIn);
             this.loadedMaps.put(mapdataIn.mapName, mapitemrenderer$instance);
         }
 
@@ -44,7 +44,7 @@ public class MapItemRenderer {
     }
 
     public void clearLoadedMaps() {
-        for (MapItemRenderer.Instance mapitemrenderer$instance : this.loadedMaps.values()) {
+        for (Instance mapitemrenderer$instance : this.loadedMaps.values()) {
             this.textureManager.deleteTexture(mapitemrenderer$instance.location);
         }
 

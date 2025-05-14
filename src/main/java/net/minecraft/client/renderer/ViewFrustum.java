@@ -1,18 +1,18 @@
 package net.minecraft.client.renderer;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import net.minecraft.client.renderer.chunk.IRenderChunkFactory;
 import net.minecraft.client.renderer.chunk.RenderChunk;
 import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
-import net.minecraft.util.RenderLayer;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import net.optifine.render.VboRegion;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ViewFrustum {
     protected final RenderGlobal renderGlobal;

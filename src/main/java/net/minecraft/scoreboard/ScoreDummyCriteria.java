@@ -1,8 +1,8 @@
 package net.minecraft.scoreboard;
 
-import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
+
+import java.util.List;
 
 public class ScoreDummyCriteria implements IScoreObjectiveCriteria {
     private final String dummyName;
@@ -24,7 +24,7 @@ public class ScoreDummyCriteria implements IScoreObjectiveCriteria {
         return false;
     }
 
-    public IScoreObjectiveCriteria.EnumRenderType getRenderType() {
-        return IScoreObjectiveCriteria.EnumRenderType.INTEGER;
+    public EnumRenderType getRenderType() {
+        return EnumRenderType.INTEGER;
     }
 }

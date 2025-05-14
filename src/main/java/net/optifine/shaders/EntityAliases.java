@@ -1,9 +1,5 @@
 package net.optifine.shaders;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.src.Config;
@@ -11,6 +7,10 @@ import net.optifine.config.ConnectedParser;
 import net.optifine.shaders.config.MacroProcessor;
 import net.optifine.util.PropertiesOrdered;
 import net.optifine.util.StrUtils;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 public class EntityAliases {
     private static int[] entityAliases = null;
@@ -105,7 +105,7 @@ public class EntityAliases {
         int[] aint = new int[list.size()];
 
         for (int i = 0; i < aint.length; ++i) {
-            aint[i] = list.get(i);
+            aint[i] = list.getInt(i);
         }
 
         return aint;

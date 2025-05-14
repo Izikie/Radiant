@@ -1,18 +1,17 @@
 package net.minecraft.world.gen.structure;
 
 import com.google.common.collect.Lists;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Map.Entry;
-
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Random;
 
 public class MapGenScatteredFeature extends MapGenStructure {
     private static final List<BiomeGenBase> BIOME_LIST = Arrays.asList(BiomeGenBase.DESERT, BiomeGenBase.DESERT_HILLS, BiomeGenBase.JUNGLE, BiomeGenBase.JUNGLE_HILLS, BiomeGenBase.SWAMPLAND);
@@ -79,13 +78,13 @@ public class MapGenScatteredFeature extends MapGenStructure {
     }
 
     protected StructureStart getStructureStart(int chunkX, int chunkZ) {
-        return new MapGenScatteredFeature.Start(this.worldObj, this.rand, chunkX, chunkZ);
+        return new Start(this.worldObj, this.rand, chunkX, chunkZ);
     }
 
     public boolean func_175798_a(BlockPos p_175798_1_) {
         StructureStart structurestart = this.func_175797_c(p_175798_1_);
 
-        if (structurestart != null && structurestart instanceof MapGenScatteredFeature.Start && !structurestart.components.isEmpty()) {
+        if (structurestart != null && structurestart instanceof Start && !structurestart.components.isEmpty()) {
             StructureComponent structurecomponent = structurestart.components.getFirst();
             return structurecomponent instanceof ComponentScatteredFeaturePieces.SwampHut;
         } else {

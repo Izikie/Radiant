@@ -1,12 +1,6 @@
 package net.minecraft.entity.monster;
 
-import java.util.UUID;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -16,9 +10,11 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
+
+import java.util.UUID;
 
 public class EntityPigZombie extends EntityZombie {
     private static final UUID ATTACK_SPEED_BOOST_MODIFIER_UUID = UUID.fromString("49455A49-7EC5-45BA-B886-3B90B23A1718");
@@ -41,8 +37,8 @@ public class EntityPigZombie extends EntityZombie {
     }
 
     protected void applyEntityAI() {
-        this.targetTasks.addTask(1, new EntityPigZombie.AIHurtByAggressor(this));
-        this.targetTasks.addTask(2, new EntityPigZombie.AITargetAggressor(this));
+        this.targetTasks.addTask(1, new AIHurtByAggressor(this));
+        this.targetTasks.addTask(2, new AITargetAggressor(this));
     }
 
     protected void applyEntityAttributes() {

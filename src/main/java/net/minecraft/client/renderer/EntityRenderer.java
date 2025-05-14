@@ -2,12 +2,6 @@ package net.minecraft.client.renderer;
 
 import com.google.common.base.Predicates;
 import com.google.gson.JsonSyntaxException;
-
-import java.io.IOException;
-import java.nio.FloatBuffer;
-import java.util.List;
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
 import net.minecraft.block.material.Material;
@@ -36,6 +30,7 @@ import net.minecraft.client.shader.ShaderGroup;
 import net.minecraft.client.shader.ShaderLinkHelper;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -52,18 +47,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.src.Config;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.EntitySelectors;
-import net.minecraft.util.ParticleTypes;
-import net.minecraft.util.RenderLayer;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MouseFilter;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.crash.ReportedException;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -86,6 +70,11 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 import org.lwjgl.opengl.GLContext;
+
+import java.io.IOException;
+import java.nio.FloatBuffer;
+import java.util.List;
+import java.util.Random;
 
 public class EntityRenderer implements IResourceManagerReloadListener {
     private static final Logger LOGGER = LogManager.getLogger();

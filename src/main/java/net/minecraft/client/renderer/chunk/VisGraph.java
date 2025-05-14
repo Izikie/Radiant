@@ -1,13 +1,13 @@
 package net.minecraft.client.renderer.chunk;
 
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.Direction;
+import net.minecraft.util.IntegerCache;
+
 import java.util.ArrayDeque;
 import java.util.BitSet;
 import java.util.EnumSet;
 import java.util.Queue;
-
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.Direction;
-import net.minecraft.util.IntegerCache;
 
 public class VisGraph {
     private static final int field_178616_a = (int) Math.pow(16.0D, 0.0D);

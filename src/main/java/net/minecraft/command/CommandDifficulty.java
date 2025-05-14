@@ -1,11 +1,11 @@
 package net.minecraft.command;
 
-import java.util.List;
-
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.Difficulty;
+
+import java.util.List;
 
 public class CommandDifficulty extends CommandBase {
     public String getCommandName() {

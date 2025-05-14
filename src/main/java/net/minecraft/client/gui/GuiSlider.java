@@ -11,9 +11,9 @@ public class GuiSlider extends GuiButton {
     private final float min;
     private final float max;
     private final GuiPageButtonList.GuiResponder responder;
-    private final GuiSlider.FormatHelper formatHelper;
+    private final FormatHelper formatHelper;
 
-    public GuiSlider(GuiPageButtonList.GuiResponder guiResponder, int idIn, int x, int y, String name, float min, float max, float defaultValue, GuiSlider.FormatHelper formatter) {
+    public GuiSlider(GuiPageButtonList.GuiResponder guiResponder, int idIn, int x, int y, String name, float min, float max, float defaultValue, FormatHelper formatter) {
         super(idIn, x, y, 150, 20, "");
         this.name = name;
         this.min = min;

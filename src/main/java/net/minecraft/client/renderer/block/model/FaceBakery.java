@@ -1,8 +1,5 @@
 package net.minecraft.client.renderer.block.model;
 
-import net.optifine.model.BlockModelUtils;
-import net.optifine.shaders.Shaders;
-
 import net.minecraft.client.renderer.CubeFace;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.ModelRotation;
@@ -10,6 +7,8 @@ import net.minecraft.src.Config;
 import net.minecraft.util.Direction;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3i;
+import net.optifine.model.BlockModelUtils;
+import net.optifine.shaders.Shaders;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;

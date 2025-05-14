@@ -1,8 +1,8 @@
 package net.minecraft.client.renderer.chunk;
 
-import java.util.EnumSet;
-
 import net.minecraft.util.Direction;
+
+import java.util.EnumSet;
 
 public class SetVisibility {
     private static final int COUNT_FACES = Direction.values().length;

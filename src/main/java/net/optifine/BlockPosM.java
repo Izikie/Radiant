@@ -1,13 +1,12 @@
 package net.optifine;
 
 import com.google.common.collect.AbstractIterator;
-
-import java.util.Iterator;
-
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3i;
+
+import java.util.Iterator;
 
 public class BlockPosM extends BlockPos {
     private int mx;

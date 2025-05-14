@@ -6,6 +6,14 @@ import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListenableFutureTask;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.vertex.VertexBuffer;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.RenderLayer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,20 +21,6 @@ import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RegionRenderCacheBuilder;
-import net.minecraft.client.renderer.VertexBufferUploader;
-import net.minecraft.client.renderer.WorldRenderer;
-import net.minecraft.client.renderer.WorldVertexBufferUploader;
-import net.minecraft.client.renderer.vertex.VertexBuffer;
-import net.minecraft.util.RenderLayer;
-import net.minecraft.util.MathHelper;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.lwjgl.opengl.GL11;
 
 public class ChunkRenderDispatcher {
     private static final Logger LOGGER = LogManager.getLogger();

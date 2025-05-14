@@ -1,9 +1,9 @@
 package net.minecraft.util;
 
-import java.util.*;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.*;
 
 public class RegistrySimple<K, V> implements IRegistry<K, V> {
     private static final Logger LOGGER = LogManager.getLogger();

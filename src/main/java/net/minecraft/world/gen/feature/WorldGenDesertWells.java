@@ -1,9 +1,6 @@
 package net.minecraft.world.gen.feature;
 
 import com.google.common.base.Predicates;
-
-import java.util.Random;
-
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.BlockStoneSlab;
@@ -13,6 +10,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class WorldGenDesertWells extends WorldGenerator {
     private static final BlockStateHelper field_175913_a = BlockStateHelper.forBlock(Blocks.SAND).where(BlockSand.VARIANT, Predicates.equalTo(BlockSand.SandType.SAND));

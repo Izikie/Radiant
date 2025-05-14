@@ -9,12 +9,12 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class BlockRailPowered extends BlockRailBase {
-    public static final PropertyEnum<BlockRailBase.EnumRailDirection> SHAPE = PropertyEnum.create("shape", BlockRailBase.EnumRailDirection.class, p_apply_1_ -> p_apply_1_ != EnumRailDirection.NORTH_EAST && p_apply_1_ != EnumRailDirection.NORTH_WEST && p_apply_1_ != EnumRailDirection.SOUTH_EAST && p_apply_1_ != EnumRailDirection.SOUTH_WEST);
+    public static final PropertyEnum<EnumRailDirection> SHAPE = PropertyEnum.create("shape", EnumRailDirection.class, p_apply_1_ -> p_apply_1_ != EnumRailDirection.NORTH_EAST && p_apply_1_ != EnumRailDirection.NORTH_WEST && p_apply_1_ != EnumRailDirection.SOUTH_EAST && p_apply_1_ != EnumRailDirection.SOUTH_WEST);
     public static final PropertyBool POWERED = PropertyBool.create("powered");
 
     protected BlockRailPowered() {
         super(true);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(SHAPE, BlockRailBase.EnumRailDirection.NORTH_SOUTH).withProperty(POWERED, Boolean.FALSE));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(SHAPE, EnumRailDirection.NORTH_SOUTH).withProperty(POWERED, Boolean.FALSE));
     }
 
     @SuppressWarnings("incomplete-switch")
@@ -26,7 +26,7 @@ public class BlockRailPowered extends BlockRailBase {
             int j = pos.getY();
             int k = pos.getZ();
             boolean flag = true;
-            BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = state.getValue(SHAPE);
+            EnumRailDirection blockrailbase$enumraildirection = state.getValue(SHAPE);
 
             switch (blockrailbase$enumraildirection) {
                 case NORTH_SOUTH:
@@ -56,7 +56,7 @@ public class BlockRailPowered extends BlockRailBase {
                         flag = false;
                     }
 
-                    blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.EAST_WEST;
+                    blockrailbase$enumraildirection = EnumRailDirection.EAST_WEST;
                     break;
 
                 case ASCENDING_WEST:
@@ -68,7 +68,7 @@ public class BlockRailPowered extends BlockRailBase {
                         ++i;
                     }
 
-                    blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.EAST_WEST;
+                    blockrailbase$enumraildirection = EnumRailDirection.EAST_WEST;
                     break;
 
                 case ASCENDING_NORTH:
@@ -80,7 +80,7 @@ public class BlockRailPowered extends BlockRailBase {
                         flag = false;
                     }
 
-                    blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.NORTH_SOUTH;
+                    blockrailbase$enumraildirection = EnumRailDirection.NORTH_SOUTH;
                     break;
 
                 case ASCENDING_SOUTH:
@@ -92,21 +92,21 @@ public class BlockRailPowered extends BlockRailBase {
                         --k;
                     }
 
-                    blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.NORTH_SOUTH;
+                    blockrailbase$enumraildirection = EnumRailDirection.NORTH_SOUTH;
             }
 
             return this.func_176567_a(worldIn, new BlockPos(i, j, k), p_176566_4_, p_176566_5_, blockrailbase$enumraildirection) ? true : flag && this.func_176567_a(worldIn, new BlockPos(i, j - 1, k), p_176566_4_, p_176566_5_, blockrailbase$enumraildirection);
         }
     }
 
-    protected boolean func_176567_a(World worldIn, BlockPos p_176567_2_, boolean p_176567_3_, int distance, BlockRailBase.EnumRailDirection p_176567_5_) {
+    protected boolean func_176567_a(World worldIn, BlockPos p_176567_2_, boolean p_176567_3_, int distance, EnumRailDirection p_176567_5_) {
         IBlockState iblockstate = worldIn.getBlockState(p_176567_2_);
 
         if (iblockstate.getBlock() != this) {
             return false;
         } else {
-            BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = iblockstate.getValue(SHAPE);
-            return p_176567_5_ != BlockRailBase.EnumRailDirection.EAST_WEST || blockrailbase$enumraildirection != BlockRailBase.EnumRailDirection.NORTH_SOUTH && blockrailbase$enumraildirection != BlockRailBase.EnumRailDirection.ASCENDING_NORTH && blockrailbase$enumraildirection != BlockRailBase.EnumRailDirection.ASCENDING_SOUTH ? (p_176567_5_ != BlockRailBase.EnumRailDirection.NORTH_SOUTH || blockrailbase$enumraildirection != BlockRailBase.EnumRailDirection.EAST_WEST && blockrailbase$enumraildirection != BlockRailBase.EnumRailDirection.ASCENDING_EAST && blockrailbase$enumraildirection != BlockRailBase.EnumRailDirection.ASCENDING_WEST ? (iblockstate.getValue(POWERED) ? (worldIn.isBlockPowered(p_176567_2_) ? true : this.func_176566_a(worldIn, p_176567_2_, iblockstate, p_176567_3_, distance + 1)) : false) : false) : false;
+            EnumRailDirection blockrailbase$enumraildirection = iblockstate.getValue(SHAPE);
+            return p_176567_5_ != EnumRailDirection.EAST_WEST || blockrailbase$enumraildirection != EnumRailDirection.NORTH_SOUTH && blockrailbase$enumraildirection != EnumRailDirection.ASCENDING_NORTH && blockrailbase$enumraildirection != EnumRailDirection.ASCENDING_SOUTH ? (p_176567_5_ != EnumRailDirection.NORTH_SOUTH || blockrailbase$enumraildirection != EnumRailDirection.EAST_WEST && blockrailbase$enumraildirection != EnumRailDirection.ASCENDING_EAST && blockrailbase$enumraildirection != EnumRailDirection.ASCENDING_WEST ? (iblockstate.getValue(POWERED) ? (worldIn.isBlockPowered(p_176567_2_) ? true : this.func_176566_a(worldIn, p_176567_2_, iblockstate, p_176567_3_, distance + 1)) : false) : false) : false;
         }
     }
 
@@ -124,12 +124,12 @@ public class BlockRailPowered extends BlockRailBase {
         }
     }
 
-    public IProperty<BlockRailBase.EnumRailDirection> getShapeProperty() {
+    public IProperty<EnumRailDirection> getShapeProperty() {
         return SHAPE;
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(SHAPE, BlockRailBase.EnumRailDirection.byMetadata(meta & 7)).withProperty(POWERED, (meta & 8) > 0);
+        return this.getDefaultState().withProperty(SHAPE, EnumRailDirection.byMetadata(meta & 7)).withProperty(POWERED, (meta & 8) > 0);
     }
 
     public int getMetaFromState(IBlockState state) {

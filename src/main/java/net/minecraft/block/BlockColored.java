@@ -1,7 +1,5 @@
 package net.minecraft.block;
 
-import java.util.List;
-
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
@@ -11,6 +9,8 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+
+import java.util.List;
 
 public class BlockColored extends Block {
     public static final PropertyEnum<DyeColor> COLOR = PropertyEnum.create("color", DyeColor.class);

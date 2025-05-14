@@ -1,10 +1,9 @@
 package net.minecraft.entity.player;
 
-import java.util.Arrays;
-
 import net.minecraft.block.Block;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
@@ -15,7 +14,8 @@ import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IChatComponent;
-import net.minecraft.crash.ReportedException;
+
+import java.util.Arrays;
 
 public class InventoryPlayer implements IInventory {
     public ItemStack[] mainInventory = new ItemStack[36];

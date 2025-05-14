@@ -1,23 +1,16 @@
 package net.minecraft.block;
 
 import com.google.common.collect.Lists;
-
-import java.util.List;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.Direction;
-import net.minecraft.util.RenderLayer;
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public abstract class BlockRailBase extends Block {
     protected final boolean isPowered;
@@ -53,7 +46,7 @@ public abstract class BlockRailBase extends Block {
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         IBlockState iblockstate = worldIn.getBlockState(pos);
-        BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = iblockstate.getBlock() == this ? iblockstate.getValue(this.getShapeProperty()) : null;
+        EnumRailDirection blockrailbase$enumraildirection = iblockstate.getBlock() == this ? iblockstate.getValue(this.getShapeProperty()) : null;
 
         if (blockrailbase$enumraildirection != null && blockrailbase$enumraildirection.isAscending()) {
             this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.625F, 1.0F);
@@ -82,16 +75,16 @@ public abstract class BlockRailBase extends Block {
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         if (!worldIn.isRemote) {
-            BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = state.getValue(this.getShapeProperty());
+            EnumRailDirection blockrailbase$enumraildirection = state.getValue(this.getShapeProperty());
             boolean flag = !World.doesBlockHaveSolidTopSurface(worldIn, pos.down());
 
-            if (blockrailbase$enumraildirection == BlockRailBase.EnumRailDirection.ASCENDING_EAST && !World.doesBlockHaveSolidTopSurface(worldIn, pos.east())) {
+            if (blockrailbase$enumraildirection == EnumRailDirection.ASCENDING_EAST && !World.doesBlockHaveSolidTopSurface(worldIn, pos.east())) {
                 flag = true;
-            } else if (blockrailbase$enumraildirection == BlockRailBase.EnumRailDirection.ASCENDING_WEST && !World.doesBlockHaveSolidTopSurface(worldIn, pos.west())) {
+            } else if (blockrailbase$enumraildirection == EnumRailDirection.ASCENDING_WEST && !World.doesBlockHaveSolidTopSurface(worldIn, pos.west())) {
                 flag = true;
-            } else if (blockrailbase$enumraildirection == BlockRailBase.EnumRailDirection.ASCENDING_NORTH && !World.doesBlockHaveSolidTopSurface(worldIn, pos.north())) {
+            } else if (blockrailbase$enumraildirection == EnumRailDirection.ASCENDING_NORTH && !World.doesBlockHaveSolidTopSurface(worldIn, pos.north())) {
                 flag = true;
-            } else if (blockrailbase$enumraildirection == BlockRailBase.EnumRailDirection.ASCENDING_SOUTH && !World.doesBlockHaveSolidTopSurface(worldIn, pos.south())) {
+            } else if (blockrailbase$enumraildirection == EnumRailDirection.ASCENDING_SOUTH && !World.doesBlockHaveSolidTopSurface(worldIn, pos.south())) {
                 flag = true;
             }
 
@@ -108,7 +101,7 @@ public abstract class BlockRailBase extends Block {
     }
 
     protected IBlockState func_176564_a(World worldIn, BlockPos p_176564_2_, IBlockState p_176564_3_, boolean p_176564_4_) {
-        return worldIn.isRemote ? p_176564_3_ : (new BlockRailBase.Rail(worldIn, p_176564_2_, p_176564_3_)).func_180364_a(worldIn.isBlockPowered(p_176564_2_), p_176564_4_).getBlockState();
+        return worldIn.isRemote ? p_176564_3_ : (new Rail(worldIn, p_176564_2_, p_176564_3_)).func_180364_a(worldIn.isBlockPowered(p_176564_2_), p_176564_4_).getBlockState();
     }
 
     public int getMobilityFlag() {
@@ -132,7 +125,7 @@ public abstract class BlockRailBase extends Block {
         }
     }
 
-    public abstract IProperty<BlockRailBase.EnumRailDirection> getShapeProperty();
+    public abstract IProperty<EnumRailDirection> getShapeProperty();
 
     public enum EnumRailDirection implements IStringSerializable {
         NORTH_SOUTH(0, "north_south"),
@@ -146,7 +139,7 @@ public abstract class BlockRailBase extends Block {
         NORTH_WEST(8, "north_west"),
         NORTH_EAST(9, "north_east");
 
-        private static final BlockRailBase.EnumRailDirection[] META_LOOKUP = new BlockRailBase.EnumRailDirection[values().length];
+        private static final EnumRailDirection[] META_LOOKUP = new EnumRailDirection[values().length];
         private final int meta;
         private final String name;
 
@@ -167,7 +160,7 @@ public abstract class BlockRailBase extends Block {
             return this == ASCENDING_NORTH || this == ASCENDING_EAST || this == ASCENDING_SOUTH || this == ASCENDING_WEST;
         }
 
-        public static BlockRailBase.EnumRailDirection byMetadata(int meta) {
+        public static EnumRailDirection byMetadata(int meta) {
             if (meta < 0 || meta >= META_LOOKUP.length) {
                 meta = 0;
             }
@@ -180,7 +173,7 @@ public abstract class BlockRailBase extends Block {
         }
 
         static {
-            for (BlockRailBase.EnumRailDirection blockrailbase$enumraildirection : values()) {
+            for (EnumRailDirection blockrailbase$enumraildirection : values()) {
                 META_LOOKUP[blockrailbase$enumraildirection.getMetadata()] = blockrailbase$enumraildirection;
             }
         }
@@ -199,12 +192,12 @@ public abstract class BlockRailBase extends Block {
             this.pos = pos;
             this.state = state;
             this.block = (BlockRailBase) state.getBlock();
-            BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = state.getValue(BlockRailBase.this.getShapeProperty());
+            EnumRailDirection blockrailbase$enumraildirection = state.getValue(BlockRailBase.this.getShapeProperty());
             this.isPowered = this.block.isPowered;
             this.func_180360_a(blockrailbase$enumraildirection);
         }
 
-        private void func_180360_a(BlockRailBase.EnumRailDirection p_180360_1_) {
+        private void func_180360_a(EnumRailDirection p_180360_1_) {
             this.field_150657_g.clear();
 
             switch (p_180360_1_) {
@@ -261,7 +254,7 @@ public abstract class BlockRailBase extends Block {
 
         private void func_150651_b() {
             for (int i = 0; i < this.field_150657_g.size(); ++i) {
-                BlockRailBase.Rail blockrailbase$rail = this.findRailAt(this.field_150657_g.get(i));
+                Rail blockrailbase$rail = this.findRailAt(this.field_150657_g.get(i));
 
                 if (blockrailbase$rail != null && blockrailbase$rail.func_150653_a(this)) {
                     this.field_150657_g.set(i, blockrailbase$rail.pos);
@@ -275,7 +268,7 @@ public abstract class BlockRailBase extends Block {
             return BlockRailBase.isRailBlock(this.world, pos) || BlockRailBase.isRailBlock(this.world, pos.up()) || BlockRailBase.isRailBlock(this.world, pos.down());
         }
 
-        private BlockRailBase.Rail findRailAt(BlockPos pos) {
+        private Rail findRailAt(BlockPos pos) {
             IBlockState iblockstate = this.world.getBlockState(pos);
 
             if (BlockRailBase.isRailBlock(iblockstate)) {
@@ -294,7 +287,7 @@ public abstract class BlockRailBase extends Block {
             }
         }
 
-        private boolean func_150653_a(BlockRailBase.Rail p_150653_1_) {
+        private boolean func_150653_a(Rail p_150653_1_) {
             return this.func_180363_c(p_150653_1_.pos);
         }
 
@@ -321,11 +314,11 @@ public abstract class BlockRailBase extends Block {
             return i;
         }
 
-        private boolean func_150649_b(BlockRailBase.Rail rail) {
+        private boolean func_150649_b(Rail rail) {
             return this.func_150653_a(rail) || this.field_150657_g.size() != 2;
         }
 
-        private void func_150645_c(BlockRailBase.Rail p_150645_1_) {
+        private void func_150645_c(Rail p_150645_1_) {
             this.field_150657_g.add(p_150645_1_.pos);
             BlockPos blockpos = this.pos.north();
             BlockPos blockpos1 = this.pos.south();
@@ -335,56 +328,56 @@ public abstract class BlockRailBase extends Block {
             boolean flag1 = this.func_180363_c(blockpos1);
             boolean flag2 = this.func_180363_c(blockpos2);
             boolean flag3 = this.func_180363_c(blockpos3);
-            BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = null;
+            EnumRailDirection blockrailbase$enumraildirection = null;
 
             if (flag || flag1) {
-                blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.NORTH_SOUTH;
+                blockrailbase$enumraildirection = EnumRailDirection.NORTH_SOUTH;
             }
 
             if (flag2 || flag3) {
-                blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.EAST_WEST;
+                blockrailbase$enumraildirection = EnumRailDirection.EAST_WEST;
             }
 
             if (!this.isPowered) {
                 if (flag1 && flag3 && !flag && !flag2) {
-                    blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.SOUTH_EAST;
+                    blockrailbase$enumraildirection = EnumRailDirection.SOUTH_EAST;
                 }
 
                 if (flag1 && flag2 && !flag && !flag3) {
-                    blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.SOUTH_WEST;
+                    blockrailbase$enumraildirection = EnumRailDirection.SOUTH_WEST;
                 }
 
                 if (flag && flag2 && !flag1 && !flag3) {
-                    blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.NORTH_WEST;
+                    blockrailbase$enumraildirection = EnumRailDirection.NORTH_WEST;
                 }
 
                 if (flag && flag3 && !flag1 && !flag2) {
-                    blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.NORTH_EAST;
+                    blockrailbase$enumraildirection = EnumRailDirection.NORTH_EAST;
                 }
             }
 
-            if (blockrailbase$enumraildirection == BlockRailBase.EnumRailDirection.NORTH_SOUTH) {
+            if (blockrailbase$enumraildirection == EnumRailDirection.NORTH_SOUTH) {
                 if (BlockRailBase.isRailBlock(this.world, blockpos.up())) {
-                    blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.ASCENDING_NORTH;
+                    blockrailbase$enumraildirection = EnumRailDirection.ASCENDING_NORTH;
                 }
 
                 if (BlockRailBase.isRailBlock(this.world, blockpos1.up())) {
-                    blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.ASCENDING_SOUTH;
+                    blockrailbase$enumraildirection = EnumRailDirection.ASCENDING_SOUTH;
                 }
             }
 
-            if (blockrailbase$enumraildirection == BlockRailBase.EnumRailDirection.EAST_WEST) {
+            if (blockrailbase$enumraildirection == EnumRailDirection.EAST_WEST) {
                 if (BlockRailBase.isRailBlock(this.world, blockpos3.up())) {
-                    blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.ASCENDING_EAST;
+                    blockrailbase$enumraildirection = EnumRailDirection.ASCENDING_EAST;
                 }
 
                 if (BlockRailBase.isRailBlock(this.world, blockpos2.up())) {
-                    blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.ASCENDING_WEST;
+                    blockrailbase$enumraildirection = EnumRailDirection.ASCENDING_WEST;
                 }
             }
 
             if (blockrailbase$enumraildirection == null) {
-                blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.NORTH_SOUTH;
+                blockrailbase$enumraildirection = EnumRailDirection.NORTH_SOUTH;
             }
 
             this.state = this.state.withProperty(this.block.getShapeProperty(), blockrailbase$enumraildirection);
@@ -392,7 +385,7 @@ public abstract class BlockRailBase extends Block {
         }
 
         private boolean func_180361_d(BlockPos p_180361_1_) {
-            BlockRailBase.Rail blockrailbase$rail = this.findRailAt(p_180361_1_);
+            Rail blockrailbase$rail = this.findRailAt(p_180361_1_);
 
             if (blockrailbase$rail == null) {
                 return false;
@@ -402,7 +395,7 @@ public abstract class BlockRailBase extends Block {
             }
         }
 
-        public BlockRailBase.Rail func_180364_a(boolean p_180364_1_, boolean p_180364_2_) {
+        public Rail func_180364_a(boolean p_180364_1_, boolean p_180364_2_) {
             BlockPos blockpos = this.pos.north();
             BlockPos blockpos1 = this.pos.south();
             BlockPos blockpos2 = this.pos.west();
@@ -411,102 +404,102 @@ public abstract class BlockRailBase extends Block {
             boolean flag1 = this.func_180361_d(blockpos1);
             boolean flag2 = this.func_180361_d(blockpos2);
             boolean flag3 = this.func_180361_d(blockpos3);
-            BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = null;
+            EnumRailDirection blockrailbase$enumraildirection = null;
 
             if ((flag || flag1) && !flag2 && !flag3) {
-                blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.NORTH_SOUTH;
+                blockrailbase$enumraildirection = EnumRailDirection.NORTH_SOUTH;
             }
 
             if ((flag2 || flag3) && !flag && !flag1) {
-                blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.EAST_WEST;
+                blockrailbase$enumraildirection = EnumRailDirection.EAST_WEST;
             }
 
             if (!this.isPowered) {
                 if (flag1 && flag3 && !flag && !flag2) {
-                    blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.SOUTH_EAST;
+                    blockrailbase$enumraildirection = EnumRailDirection.SOUTH_EAST;
                 }
 
                 if (flag1 && flag2 && !flag && !flag3) {
-                    blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.SOUTH_WEST;
+                    blockrailbase$enumraildirection = EnumRailDirection.SOUTH_WEST;
                 }
 
                 if (flag && flag2 && !flag1 && !flag3) {
-                    blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.NORTH_WEST;
+                    blockrailbase$enumraildirection = EnumRailDirection.NORTH_WEST;
                 }
 
                 if (flag && flag3 && !flag1 && !flag2) {
-                    blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.NORTH_EAST;
+                    blockrailbase$enumraildirection = EnumRailDirection.NORTH_EAST;
                 }
             }
 
             if (blockrailbase$enumraildirection == null) {
                 if (flag || flag1) {
-                    blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.NORTH_SOUTH;
+                    blockrailbase$enumraildirection = EnumRailDirection.NORTH_SOUTH;
                 }
 
                 if (flag2 || flag3) {
-                    blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.EAST_WEST;
+                    blockrailbase$enumraildirection = EnumRailDirection.EAST_WEST;
                 }
 
                 if (!this.isPowered) {
                     if (p_180364_1_) {
                         if (flag1 && flag3) {
-                            blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.SOUTH_EAST;
+                            blockrailbase$enumraildirection = EnumRailDirection.SOUTH_EAST;
                         }
 
                         if (flag2 && flag1) {
-                            blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.SOUTH_WEST;
+                            blockrailbase$enumraildirection = EnumRailDirection.SOUTH_WEST;
                         }
 
                         if (flag3 && flag) {
-                            blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.NORTH_EAST;
+                            blockrailbase$enumraildirection = EnumRailDirection.NORTH_EAST;
                         }
 
                         if (flag && flag2) {
-                            blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.NORTH_WEST;
+                            blockrailbase$enumraildirection = EnumRailDirection.NORTH_WEST;
                         }
                     } else {
                         if (flag && flag2) {
-                            blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.NORTH_WEST;
+                            blockrailbase$enumraildirection = EnumRailDirection.NORTH_WEST;
                         }
 
                         if (flag3 && flag) {
-                            blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.NORTH_EAST;
+                            blockrailbase$enumraildirection = EnumRailDirection.NORTH_EAST;
                         }
 
                         if (flag2 && flag1) {
-                            blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.SOUTH_WEST;
+                            blockrailbase$enumraildirection = EnumRailDirection.SOUTH_WEST;
                         }
 
                         if (flag1 && flag3) {
-                            blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.SOUTH_EAST;
+                            blockrailbase$enumraildirection = EnumRailDirection.SOUTH_EAST;
                         }
                     }
                 }
             }
 
-            if (blockrailbase$enumraildirection == BlockRailBase.EnumRailDirection.NORTH_SOUTH) {
+            if (blockrailbase$enumraildirection == EnumRailDirection.NORTH_SOUTH) {
                 if (BlockRailBase.isRailBlock(this.world, blockpos.up())) {
-                    blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.ASCENDING_NORTH;
+                    blockrailbase$enumraildirection = EnumRailDirection.ASCENDING_NORTH;
                 }
 
                 if (BlockRailBase.isRailBlock(this.world, blockpos1.up())) {
-                    blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.ASCENDING_SOUTH;
+                    blockrailbase$enumraildirection = EnumRailDirection.ASCENDING_SOUTH;
                 }
             }
 
-            if (blockrailbase$enumraildirection == BlockRailBase.EnumRailDirection.EAST_WEST) {
+            if (blockrailbase$enumraildirection == EnumRailDirection.EAST_WEST) {
                 if (BlockRailBase.isRailBlock(this.world, blockpos3.up())) {
-                    blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.ASCENDING_EAST;
+                    blockrailbase$enumraildirection = EnumRailDirection.ASCENDING_EAST;
                 }
 
                 if (BlockRailBase.isRailBlock(this.world, blockpos2.up())) {
-                    blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.ASCENDING_WEST;
+                    blockrailbase$enumraildirection = EnumRailDirection.ASCENDING_WEST;
                 }
             }
 
             if (blockrailbase$enumraildirection == null) {
-                blockrailbase$enumraildirection = BlockRailBase.EnumRailDirection.NORTH_SOUTH;
+                blockrailbase$enumraildirection = EnumRailDirection.NORTH_SOUTH;
             }
 
             this.func_180360_a(blockrailbase$enumraildirection);

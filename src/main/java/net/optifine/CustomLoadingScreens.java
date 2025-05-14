@@ -1,8 +1,5 @@
 package net.optifine;
 
-import java.util.Arrays;
-import java.util.Properties;
-
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.network.PacketThreadUtil;
@@ -11,6 +8,9 @@ import net.optifine.util.ResUtils;
 import net.optifine.util.StrUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+
+import java.util.Arrays;
+import java.util.Properties;
 
 public class CustomLoadingScreens {
     private static CustomLoadingScreen[] screens = null;

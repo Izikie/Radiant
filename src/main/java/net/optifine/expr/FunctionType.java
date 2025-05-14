@@ -1,15 +1,14 @@
 package net.optifine.expr;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import net.optifine.shaders.uniform.Smoother;
-import net.optifine.util.MathUtils;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.Config;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.optifine.shaders.uniform.Smoother;
+import net.optifine.util.MathUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public enum FunctionType {
     PLUS(10, ExpressionType.FLOAT, "+", new ExpressionType[]{ExpressionType.FLOAT, ExpressionType.FLOAT}),

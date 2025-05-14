@@ -1,12 +1,6 @@
 package net.minecraft.client.renderer.tileentity;
 
 import com.google.common.collect.Lists;
-
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBanner;
 import net.minecraft.client.renderer.GlStateManager;
@@ -18,8 +12,13 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEntityBanner> {
-    private static final Map<String, TileEntityBannerRenderer.TimedBannerTexture> DESIGNS = new HashMap<>();
+    private static final Map<String, TimedBannerTexture> DESIGNS = new HashMap<>();
     private static final ResourceLocation BANNERTEXTURES = new ResourceLocation("textures/entity/banner_base.png");
     private final ModelBanner bannerModel = new ModelBanner();
 
@@ -81,7 +80,7 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEnti
         if (s.isEmpty()) {
             return null;
         } else {
-            TileEntityBannerRenderer.TimedBannerTexture tileentitybannerrenderer$timedbannertexture = DESIGNS.get(s);
+            TimedBannerTexture tileentitybannerrenderer$timedbannertexture = DESIGNS.get(s);
 
             if (tileentitybannerrenderer$timedbannertexture == null) {
                 if (DESIGNS.size() >= 256) {
@@ -90,7 +89,7 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEnti
 
                     while (iterator.hasNext()) {
                         String s1 = iterator.next();
-                        TileEntityBannerRenderer.TimedBannerTexture tileentitybannerrenderer$timedbannertexture1 = DESIGNS.get(s1);
+                        TimedBannerTexture tileentitybannerrenderer$timedbannertexture1 = DESIGNS.get(s1);
 
                         if (i - tileentitybannerrenderer$timedbannertexture1.systemTime > 60000L) {
                             Minecraft.getMinecraft().getTextureManager().deleteTexture(tileentitybannerrenderer$timedbannertexture1.bannerTexture);
@@ -111,7 +110,7 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEnti
                     list2.add("textures/entity/banner/" + tileentitybanner$enumbannerpattern.getPatternName() + ".png");
                 }
 
-                tileentitybannerrenderer$timedbannertexture = new TileEntityBannerRenderer.TimedBannerTexture();
+                tileentitybannerrenderer$timedbannertexture = new TimedBannerTexture();
                 tileentitybannerrenderer$timedbannertexture.bannerTexture = new ResourceLocation(s);
                 Minecraft.getMinecraft().getTextureManager().loadTexture(tileentitybannerrenderer$timedbannertexture.bannerTexture, new LayeredColorMaskTexture(BANNERTEXTURES, list2, list));
                 DESIGNS.put(s, tileentitybannerrenderer$timedbannertexture);

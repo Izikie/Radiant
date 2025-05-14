@@ -1,9 +1,5 @@
 package net.minecraft.block;
 
-import java.util.IdentityHashMap;
-import java.util.Map;
-import java.util.Random;
-
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -11,14 +7,14 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ParticleTypes;
-import net.minecraft.util.RenderLayer;
+import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProviderEnd;
+
+import java.util.IdentityHashMap;
+import java.util.Map;
+import java.util.Random;
 
 public class BlockFire extends Block {
     public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 15);

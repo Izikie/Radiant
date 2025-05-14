@@ -1,13 +1,12 @@
 package net.minecraft.client.gui;
 
 import com.google.common.collect.Lists;
-
-import java.util.List;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.IChatComponent;
+
+import java.util.List;
 
 public class GuiUtilRenderComponents {
     public static String func_178909_a(String p_178909_0_, boolean p_178909_1_) {

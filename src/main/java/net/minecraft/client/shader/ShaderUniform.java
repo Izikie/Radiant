@@ -1,13 +1,13 @@
 package net.minecraft.client.shader;
 
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
-
 import net.minecraft.client.renderer.OpenGlHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
+
+import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 
 public class ShaderUniform {
     private static final Logger LOGGER = LogManager.getLogger();
