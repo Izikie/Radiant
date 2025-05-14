@@ -1,10 +1,5 @@
 package net.optifine.render;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.BitSet;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.state.BlockStateBase;
@@ -19,6 +14,11 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.RenderLayer;
 import net.optifine.BlockPosM;
 import net.optifine.model.ListQuadsOverlay;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.BitSet;
+import java.util.List;
 
 public class RenderEnv {
     private IBlockState blockState;

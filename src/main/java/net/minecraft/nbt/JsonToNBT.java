@@ -3,12 +3,11 @@ package net.minecraft.nbt;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Stack;
 import java.util.regex.Pattern;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class JsonToNBT {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -74,19 +73,19 @@ public class JsonToNBT {
         }
     }
 
-    static JsonToNBT.Any func_179272_a(String... p_179272_0_) throws NBTException {
+    static Any func_179272_a(String... p_179272_0_) throws NBTException {
         return func_150316_a(p_179272_0_[0], p_179272_0_[1]);
     }
 
-    static JsonToNBT.Any func_150316_a(String p_150316_0_, String p_150316_1_) throws NBTException {
+    static Any func_150316_a(String p_150316_0_, String p_150316_1_) throws NBTException {
         p_150316_1_ = p_150316_1_.trim();
 
         if (p_150316_1_.startsWith("{")) {
             p_150316_1_ = p_150316_1_.substring(1, p_150316_1_.length() - 1);
-            JsonToNBT.Compound jsontonbt$compound;
+            Compound jsontonbt$compound;
             String s1;
 
-            for (jsontonbt$compound = new JsonToNBT.Compound(p_150316_0_); !p_150316_1_.isEmpty(); p_150316_1_ = p_150316_1_.substring(s1.length() + 1)) {
+            for (jsontonbt$compound = new Compound(p_150316_0_); !p_150316_1_.isEmpty(); p_150316_1_ = p_150316_1_.substring(s1.length() + 1)) {
                 s1 = func_150314_a(p_150316_1_, true);
 
                 if (!s1.isEmpty()) {
@@ -108,10 +107,10 @@ public class JsonToNBT {
             return jsontonbt$compound;
         } else if (p_150316_1_.startsWith("[") && !PATTERN.matcher(p_150316_1_).matches()) {
             p_150316_1_ = p_150316_1_.substring(1, p_150316_1_.length() - 1);
-            JsonToNBT.List jsontonbt$list;
+            List jsontonbt$list;
             String s;
 
-            for (jsontonbt$list = new JsonToNBT.List(p_150316_0_); !p_150316_1_.isEmpty(); p_150316_1_ = p_150316_1_.substring(s.length() + 1)) {
+            for (jsontonbt$list = new List(p_150316_0_); !p_150316_1_.isEmpty(); p_150316_1_ = p_150316_1_.substring(s.length() + 1)) {
                 s = func_150314_a(p_150316_1_, false);
 
                 if (!s.isEmpty()) {
@@ -132,11 +131,11 @@ public class JsonToNBT {
 
             return jsontonbt$list;
         } else {
-            return new JsonToNBT.Primitive(p_150316_0_, p_150316_1_);
+            return new Primitive(p_150316_0_, p_150316_1_);
         }
     }
 
-    private static JsonToNBT.Any func_179270_a(String p_179270_0_, boolean p_179270_1_) throws NBTException {
+    private static Any func_179270_a(String p_179270_0_, boolean p_179270_1_) throws NBTException {
         String s = func_150313_b(p_179270_0_, p_179270_1_);
         String s1 = func_150311_c(p_179270_0_, p_179270_1_);
         return func_179272_a(s, s1);
@@ -295,8 +294,8 @@ public class JsonToNBT {
         public abstract NBTBase parse() throws NBTException;
     }
 
-    static class Compound extends JsonToNBT.Any {
-        protected final java.util.List<JsonToNBT.Any> field_150491_b = Lists.newArrayList();
+    static class Compound extends Any {
+        protected final java.util.List<Any> field_150491_b = Lists.newArrayList();
 
         public Compound(String p_i45137_1_) {
             this.json = p_i45137_1_;
@@ -305,7 +304,7 @@ public class JsonToNBT {
         public NBTBase parse() throws NBTException {
             NBTTagCompound nbttagcompound = new NBTTagCompound();
 
-            for (JsonToNBT.Any jsontonbt$any : this.field_150491_b) {
+            for (Any jsontonbt$any : this.field_150491_b) {
                 nbttagcompound.setTag(jsontonbt$any.json, jsontonbt$any.parse());
             }
 
@@ -313,8 +312,8 @@ public class JsonToNBT {
         }
     }
 
-    static class List extends JsonToNBT.Any {
-        protected final java.util.List<JsonToNBT.Any> field_150492_b = Lists.newArrayList();
+    static class List extends Any {
+        protected final java.util.List<Any> field_150492_b = Lists.newArrayList();
 
         public List(String json) {
             this.json = json;
@@ -323,7 +322,7 @@ public class JsonToNBT {
         public NBTBase parse() throws NBTException {
             NBTTagList nbttaglist = new NBTTagList();
 
-            for (JsonToNBT.Any jsontonbt$any : this.field_150492_b) {
+            for (Any jsontonbt$any : this.field_150492_b) {
                 nbttaglist.appendTag(jsontonbt$any.parse());
             }
 
@@ -331,7 +330,7 @@ public class JsonToNBT {
         }
     }
 
-    static class Primitive extends JsonToNBT.Any {
+    static class Primitive extends Any {
         private static final Pattern DOUBLE = Pattern.compile("[-+]?[0-9]*\\.?[0-9]+[d|D]");
         private static final Pattern FLOAT = Pattern.compile("[-+]?[0-9]*\\.?[0-9]+[f|F]");
         private static final Pattern BYTE = Pattern.compile("[-+]?[0-9]+[b|B]");

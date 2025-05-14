@@ -1,12 +1,12 @@
 package net.minecraft.world.biome;
 
-import java.util.Random;
-
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class BiomeGenPlains extends BiomeGenBase {
     protected boolean field_150628_aC;
@@ -15,7 +15,7 @@ public class BiomeGenPlains extends BiomeGenBase {
         super(id);
         this.setTemperatureRainfall(0.8F, 0.4F);
         this.setHeight(HEIGHT_LOW_PLAINS);
-        this.spawnableCreatureList.add(new BiomeGenBase.SpawnListEntry(EntityHorse.class, 5, 2, 6));
+        this.spawnableCreatureList.add(new SpawnListEntry(EntityHorse.class, 5, 2, 6));
         this.theBiomeDecorator.treesPerChunk = -999;
         this.theBiomeDecorator.flowersPerChunk = 4;
         this.theBiomeDecorator.grassPerChunk = 10;

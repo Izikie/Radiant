@@ -1,8 +1,5 @@
 package net.optifine.render;
 
-import java.nio.ByteBuffer;
-import java.nio.IntBuffer;
-
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.VboRenderList;
@@ -10,6 +7,9 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.src.Config;
 import net.minecraft.util.RenderLayer;
 import net.optifine.util.LinkedList;
+
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
 
 public class VboRegion {
     private final RenderLayer layer;

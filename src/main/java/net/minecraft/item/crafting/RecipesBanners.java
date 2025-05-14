@@ -16,8 +16,8 @@ public class RecipesBanners {
             p_179534_1_.addRecipe(new ItemStack(Items.BANNER, 1, enumdyecolor.getDyeDamage()), "###", "###", " | ", '#', new ItemStack(Blocks.WOOL, 1, enumdyecolor.getMetadata()), '|', Items.STICK);
         }
 
-        p_179534_1_.addRecipe(new RecipesBanners.RecipeDuplicatePattern());
-        p_179534_1_.addRecipe(new RecipesBanners.RecipeAddPattern());
+        p_179534_1_.addRecipe(new RecipeDuplicatePattern());
+        p_179534_1_.addRecipe(new RecipeAddPattern());
     }
 
     static class RecipeAddPattern implements IRecipe {

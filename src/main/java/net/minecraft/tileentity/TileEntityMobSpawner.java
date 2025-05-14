@@ -22,7 +22,7 @@ public class TileEntityMobSpawner extends TileEntity implements ITickable {
             return TileEntityMobSpawner.this.pos;
         }
 
-        public void setRandomEntity(MobSpawnerBaseLogic.WeightedRandomMinecart p_98277_1_) {
+        public void setRandomEntity(WeightedRandomMinecart p_98277_1_) {
             super.setRandomEntity(p_98277_1_);
 
             if (this.getSpawnerWorld() != null) {

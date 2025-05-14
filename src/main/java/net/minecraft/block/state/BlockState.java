@@ -2,21 +2,14 @@ package net.minecraft.block.state;
 
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
-import com.google.common.base.Objects;
-import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableTable;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Table;
-
-import java.util.*;
-
+import com.google.common.base.MoreObjects;
+import com.google.common.collect.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.util.Cartesian;
 import net.minecraft.util.MapPopulator;
+
+import java.util.*;
 
 public class BlockState {
     private static final Joiner COMMA_JOINER = Joiner.on(", ");
@@ -29,17 +22,17 @@ public class BlockState {
         this.block = blockIn;
         Arrays.sort(properties, Comparator.comparing(IProperty::getName));
         this.properties = ImmutableList.copyOf(properties);
-        Map<Map<IProperty, Comparable>, BlockState.StateImplementation> map = new LinkedHashMap<>();
-        List<BlockState.StateImplementation> list = Lists.newArrayList();
+        Map<Map<IProperty, Comparable>, StateImplementation> map = new LinkedHashMap<>();
+        List<StateImplementation> list = Lists.newArrayList();
 
         for (List<Comparable> list1 : Cartesian.cartesianProduct(this.getAllowedValues())) {
             Map<IProperty, Comparable> map1 = MapPopulator.createMap(this.properties, list1);
-            BlockState.StateImplementation blockstate$stateimplementation = new BlockState.StateImplementation(blockIn, ImmutableMap.copyOf(map1));
+            StateImplementation blockstate$stateimplementation = new StateImplementation(blockIn, ImmutableMap.copyOf(map1));
             map.put(map1, blockstate$stateimplementation);
             list.add(blockstate$stateimplementation);
         }
 
-        for (BlockState.StateImplementation blockstate$stateimplementation1 : list) {
+        for (StateImplementation blockstate$stateimplementation1 : list) {
             blockstate$stateimplementation1.buildPropertyValueTable(map);
         }
 
@@ -73,7 +66,7 @@ public class BlockState {
     }
 
     public String toString() {
-        return Objects.toStringHelper(this).add("block", Block.blockRegistry.getNameForObject(this.block)).add("properties", Iterables.transform(this.properties, GET_NAME_FUNC)).toString();
+        return MoreObjects.toStringHelper(this).add("block", Block.blockRegistry.getNameForObject(this.block)).add("properties", Iterables.transform(this.properties, GET_NAME_FUNC)).toString();
     }
 
     static class StateImplementation extends BlockStateBase {
@@ -124,7 +117,7 @@ public class BlockState {
             return this.properties.hashCode();
         }
 
-        public void buildPropertyValueTable(Map<Map<IProperty, Comparable>, BlockState.StateImplementation> map) {
+        public void buildPropertyValueTable(Map<Map<IProperty, Comparable>, StateImplementation> map) {
             if (this.propertyValueTable != null) {
                 throw new IllegalStateException();
             }

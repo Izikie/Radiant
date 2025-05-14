@@ -1,10 +1,6 @@
 package net.minecraft.client.shader;
 
 import com.google.common.collect.Lists;
-
-import java.io.IOException;
-import java.util.List;
-
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -17,6 +13,9 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.util.JsonException;
 import org.joml.Matrix4f;
+
+import java.io.IOException;
+import java.util.List;
 
 public class Shader {
     private final ShaderManager manager;
@@ -71,7 +70,7 @@ public class Shader {
 
         for (int i = 0; i < this.listAuxFramebuffers.size(); ++i) {
             this.manager.addSamplerTexture(this.listAuxNames.get(i), this.listAuxFramebuffers.get(i));
-            this.manager.getShaderUniformOrDefault("AuxSize" + i).set(this.listAuxWidths.get(i), this.listAuxHeights.get(i));
+            this.manager.getShaderUniformOrDefault("AuxSize" + i).set(this.listAuxWidths.getInt(i), this.listAuxHeights.getInt(i));
         }
 
         this.manager.getShaderUniformOrDefault("ProjMat").set(this.projectionMatrix);

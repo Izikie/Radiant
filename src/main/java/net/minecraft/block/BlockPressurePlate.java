@@ -1,7 +1,5 @@
 package net.minecraft.block;
 
-import java.util.List;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockState;
@@ -12,11 +10,13 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.List;
+
 public class BlockPressurePlate extends BlockBasePressurePlate {
     public static final PropertyBool POWERED = PropertyBool.create("powered");
-    private final BlockPressurePlate.Sensitivity sensitivity;
+    private final Sensitivity sensitivity;
 
-    protected BlockPressurePlate(Material materialIn, BlockPressurePlate.Sensitivity sensitivityIn) {
+    protected BlockPressurePlate(Material materialIn, Sensitivity sensitivityIn) {
         super(materialIn);
         this.setDefaultState(this.blockState.getBaseState().withProperty(POWERED, Boolean.FALSE));
         this.sensitivity = sensitivityIn;

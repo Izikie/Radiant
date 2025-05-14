@@ -31,7 +31,7 @@ public class EntitySquid extends EntityWaterMob {
         this.setSize(0.95F, 0.95F);
         this.rand.setSeed((1 + this.getEntityId()));
         this.rotationVelocity = 1.0F / (this.rand.nextFloat() + 1.0F) * 0.2F;
-        this.tasks.addTask(0, new EntitySquid.AIMoveRandom(this));
+        this.tasks.addTask(0, new AIMoveRandom(this));
     }
 
     protected void applyEntityAttributes() {

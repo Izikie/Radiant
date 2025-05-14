@@ -1,7 +1,5 @@
 package net.minecraft.block;
 
-import java.util.Random;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -10,6 +8,8 @@ import net.minecraft.item.Item;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class BlockSnowBlock extends Block {
     protected BlockSnowBlock() {

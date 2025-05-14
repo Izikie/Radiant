@@ -1,30 +1,29 @@
 package net.minecraft.world.biome;
 
 import com.google.common.collect.Lists;
-
-import java.util.List;
-
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.LongHashMap;
+
+import java.util.List;
 
 public class BiomeCache {
     private final WorldChunkManager chunkManager;
     private long lastCleanupTime;
-    private final LongHashMap<BiomeCache.Block> cacheMap = new LongHashMap<>();
-    private final List<BiomeCache.Block> cache = Lists.newArrayList();
+    private final LongHashMap<Block> cacheMap = new LongHashMap<>();
+    private final List<Block> cache = Lists.newArrayList();
 
     public BiomeCache(WorldChunkManager chunkManagerIn) {
         this.chunkManager = chunkManagerIn;
     }
 
-    public BiomeCache.Block getBiomeCacheBlock(int x, int z) {
+    public Block getBiomeCacheBlock(int x, int z) {
         x = x >> 4;
         z = z >> 4;
         long i = x & 4294967295L | (z & 4294967295L) << 32;
-        BiomeCache.Block biomecache$block = this.cacheMap.getValueByKey(i);
+        Block biomecache$block = this.cacheMap.getValueByKey(i);
 
         if (biomecache$block == null) {
-            biomecache$block = new BiomeCache.Block(x, z);
+            biomecache$block = new Block(x, z);
             this.cacheMap.add(i, biomecache$block);
             this.cache.add(biomecache$block);
         }
@@ -46,7 +45,7 @@ public class BiomeCache {
             this.lastCleanupTime = i;
 
             for (int k = 0; k < this.cache.size(); ++k) {
-                BiomeCache.Block biomecache$block = this.cache.get(k);
+                Block biomecache$block = this.cache.get(k);
                 long l = i - biomecache$block.lastAccessTime;
 
                 if (l > 30000L || l < 0L) {

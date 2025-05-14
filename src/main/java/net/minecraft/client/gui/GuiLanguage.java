@@ -1,20 +1,19 @@
 package net.minecraft.client.gui;
 
 import com.google.common.collect.Lists;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.resources.Language;
 import net.minecraft.client.resources.LanguageManager;
 import net.minecraft.client.settings.GameSettings;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 public class GuiLanguage extends GuiScreen {
     protected final GuiScreen parentScreen;
-    private GuiLanguage.List list;
+    private List list;
     private final GameSettings game_settings_3;
     private final LanguageManager languageManager;
     private GuiOptionButton forceUnicodeFontBtn;
@@ -29,7 +28,7 @@ public class GuiLanguage extends GuiScreen {
     public void initGui() {
         this.buttonList.add(this.forceUnicodeFontBtn = new GuiOptionButton(100, this.width / 2 - 155, this.height - 38, GameSettings.Options.FORCE_UNICODE_FONT, this.game_settings_3.getKeyBinding(GameSettings.Options.FORCE_UNICODE_FONT)));
         this.buttonList.add(this.confirmSettingsBtn = new GuiOptionButton(6, this.width / 2 - 155 + 160, this.height - 38, I18n.format("gui.done")));
-        this.list = new GuiLanguage.List(this.mc);
+        this.list = new List(this.mc);
         this.list.registerScrollButtons(7, 8);
     }
 

@@ -9,8 +9,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
-import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.world.World;
 
 public class ItemEnderEye extends Item {

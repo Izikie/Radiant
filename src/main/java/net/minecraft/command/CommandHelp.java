@@ -1,10 +1,5 @@
 package net.minecraft.command;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.server.MinecraftServer;
@@ -12,6 +7,11 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.MathHelper;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class CommandHelp extends CommandBase {
     public String getCommandName() {

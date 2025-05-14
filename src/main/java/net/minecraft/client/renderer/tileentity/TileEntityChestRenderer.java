@@ -1,7 +1,5 @@
 package net.minecraft.client.renderer.tileentity;
 
-import java.util.Calendar;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
 import net.minecraft.client.model.ModelChest;
@@ -9,6 +7,8 @@ import net.minecraft.client.model.ModelLargeChest;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.ResourceLocation;
+
+import java.util.Calendar;
 
 public class TileEntityChestRenderer extends TileEntitySpecialRenderer<TileEntityChest> {
     private static final ResourceLocation TEXTURE_TRAPPED_DOUBLE = new ResourceLocation("textures/entity/chest/trapped_double.png");

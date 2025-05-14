@@ -4,11 +4,11 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.IBlockAccess;
 
 public class BiomeColorHelper {
-    private static final BiomeColorHelper.ColorResolver GRASS_COLOR = BiomeGenBase::getGrassColorAtPos;
-    private static final BiomeColorHelper.ColorResolver FOLIAGE_COLOR = BiomeGenBase::getFoliageColorAtPos;
-    private static final BiomeColorHelper.ColorResolver WATER_COLOR_MULTIPLIER = (biome, blockPosition) -> biome.waterColorMultiplier;
+    private static final ColorResolver GRASS_COLOR = BiomeGenBase::getGrassColorAtPos;
+    private static final ColorResolver FOLIAGE_COLOR = BiomeGenBase::getFoliageColorAtPos;
+    private static final ColorResolver WATER_COLOR_MULTIPLIER = (biome, blockPosition) -> biome.waterColorMultiplier;
 
-    private static int getColorAtPos(IBlockAccess blockAccess, BlockPos pos, BiomeColorHelper.ColorResolver colorResolver) {
+    private static int getColorAtPos(IBlockAccess blockAccess, BlockPos pos, ColorResolver colorResolver) {
         int i = 0;
         int j = 0;
         int k = 0;

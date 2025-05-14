@@ -1,21 +1,8 @@
 package net.minecraft.entity.monster;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EntityGroup;
-import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackOnCollide;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILeapAtTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWander;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -24,9 +11,11 @@ import net.minecraft.pathfinding.PathNavigateClimber;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.BlockPos;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class EntitySpider extends EntityMob {
     public EntitySpider(World worldIn) {
@@ -34,14 +23,14 @@ public class EntitySpider extends EntityMob {
         this.setSize(1.4F, 0.9F);
         this.tasks.addTask(1, new EntityAISwimming(this));
         this.tasks.addTask(3, new EntityAILeapAtTarget(this, 0.4F));
-        this.tasks.addTask(4, new EntitySpider.AISpiderAttack(this, EntityPlayer.class));
-        this.tasks.addTask(4, new EntitySpider.AISpiderAttack(this, EntityIronGolem.class));
+        this.tasks.addTask(4, new AISpiderAttack(this, EntityPlayer.class));
+        this.tasks.addTask(4, new AISpiderAttack(this, EntityIronGolem.class));
         this.tasks.addTask(5, new EntityAIWander(this, 0.8D));
         this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         this.tasks.addTask(6, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-        this.targetTasks.addTask(2, new EntitySpider.AISpiderTarget<>(this, EntityPlayer.class));
-        this.targetTasks.addTask(3, new EntitySpider.AISpiderTarget<>(this, EntityIronGolem.class));
+        this.targetTasks.addTask(2, new AISpiderTarget<>(this, EntityPlayer.class));
+        this.targetTasks.addTask(3, new AISpiderTarget<>(this, EntityIronGolem.class));
     }
 
     public double getMountedYOffset() {
@@ -142,10 +131,10 @@ public class EntitySpider extends EntityMob {
         }
 
         if (livingdata == null) {
-            livingdata = new EntitySpider.GroupData();
+            livingdata = new GroupData();
 
             if (this.worldObj.getDifficulty() == Difficulty.HARD && this.worldObj.rand.nextFloat() < 0.1F * difficulty.getClampedAdditionalDifficulty()) {
-                ((EntitySpider.GroupData) livingdata).func_111104_a(this.worldObj.rand);
+                ((GroupData) livingdata).func_111104_a(this.worldObj.rand);
             }
         }
 

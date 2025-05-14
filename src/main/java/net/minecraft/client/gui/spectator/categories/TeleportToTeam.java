@@ -1,10 +1,6 @@
 package net.minecraft.client.gui.spectator.categories;
 
 import com.google.common.collect.Lists;
-
-import java.util.List;
-import java.util.Random;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.gui.FontRenderer;
@@ -22,6 +18,9 @@ import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
+import java.util.List;
+import java.util.Random;
+
 public class TeleportToTeam implements ISpectatorMenuView, ISpectatorMenuObject {
     private final List<ISpectatorMenuObject> field_178672_a = Lists.newArrayList();
 
@@ -29,7 +28,7 @@ public class TeleportToTeam implements ISpectatorMenuView, ISpectatorMenuObject 
         Minecraft minecraft = Minecraft.getMinecraft();
 
         for (ScorePlayerTeam scoreplayerteam : minecraft.theWorld.getScoreboard().getTeams()) {
-            this.field_178672_a.add(new TeleportToTeam.TeamSelectionObject(scoreplayerteam));
+            this.field_178672_a.add(new TeamSelectionObject(scoreplayerteam));
         }
     }
 

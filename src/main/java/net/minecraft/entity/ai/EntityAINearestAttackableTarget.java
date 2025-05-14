@@ -2,20 +2,19 @@ package net.minecraft.entity.ai;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-
-import java.util.Comparator;
-import java.util.List;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EntitySelectors;
 
+import java.util.Comparator;
+import java.util.List;
+
 public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends EntityAITarget {
     protected final Class<T> targetClass;
     private final int targetChance;
-    protected final EntityAINearestAttackableTarget.Sorter theNearestAttackableTargetSorter;
+    protected final Sorter theNearestAttackableTargetSorter;
     protected Predicate<? super T> targetEntitySelector;
     protected EntityLivingBase targetEntity;
 
@@ -31,7 +30,7 @@ public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends
         super(creature, checkSight, onlyNearby);
         this.targetClass = classTarget;
         this.targetChance = chance;
-        this.theNearestAttackableTargetSorter = new EntityAINearestAttackableTarget.Sorter(creature);
+        this.theNearestAttackableTargetSorter = new Sorter(creature);
         this.setMutexBits(1);
         this.targetEntitySelector = (Predicate<T>) p_apply_1_ -> {
             if (targetSelector != null && !targetSelector.apply(p_apply_1_)) {

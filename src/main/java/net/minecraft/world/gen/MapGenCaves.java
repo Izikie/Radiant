@@ -1,9 +1,6 @@
 package net.minecraft.world.gen;
 
-import com.google.common.base.Objects;
-
-import java.util.Random;
-
+import com.google.common.base.MoreObjects;
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -12,6 +9,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
+
+import java.util.Random;
 
 public class MapGenCaves extends MapGenBase {
     protected void func_180703_a(long p_180703_1_, int p_180703_3_, int p_180703_4_, ChunkPrimer p_180703_5_, double p_180703_6_, double p_180703_8_, double p_180703_10_) {
@@ -145,7 +144,7 @@ public class MapGenCaves extends MapGenBase {
 
                                         if (d9 > -0.7D && d10 * d10 + d9 * d9 + d8 * d8 < 1.0D) {
                                             IBlockState iblockstate1 = p_180702_5_.getBlockState(j3, j2, i2);
-                                            IBlockState iblockstate2 = Objects.firstNonNull(p_180702_5_.getBlockState(j3, j2 + 1, i2), Blocks.AIR.getDefaultState());
+                                            IBlockState iblockstate2 = MoreObjects.firstNonNull(p_180702_5_.getBlockState(j3, j2 + 1, i2), Blocks.AIR.getDefaultState());
 
                                             if (iblockstate1.getBlock() == Blocks.GRASS || iblockstate1.getBlock() == Blocks.MYCELIUM) {
                                                 flag1 = true;

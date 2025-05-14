@@ -1,11 +1,11 @@
 package net.minecraft.network.play.server;
 
-import java.io.IOException;
-import java.util.Objects;
-
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
+
+import java.io.IOException;
+import java.util.Objects;
 
 public class S29PacketSoundEffect implements Packet<INetHandlerPlayClient> {
     private String soundName;

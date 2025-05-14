@@ -2,22 +2,21 @@ package net.minecraft.client.resources.model;
 
 import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.Lists;
-
-import java.util.Collections;
-import java.util.List;
-
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.Direction;
 import net.minecraft.util.WeightedRandom;
 
+import java.util.Collections;
+import java.util.List;
+
 public class WeightedBakedModel implements IBakedModel {
     private final int totalWeight;
-    private final List<WeightedBakedModel.MyWeighedRandomItem> models;
+    private final List<MyWeighedRandomItem> models;
     private final IBakedModel baseModel;
 
-    public WeightedBakedModel(List<WeightedBakedModel.MyWeighedRandomItem> p_i46073_1_) {
+    public WeightedBakedModel(List<MyWeighedRandomItem> p_i46073_1_) {
         this.models = p_i46073_1_;
         this.totalWeight = WeightedRandom.getTotalWeight(p_i46073_1_);
         this.baseModel = p_i46073_1_.getFirst().model;
@@ -56,10 +55,10 @@ public class WeightedBakedModel implements IBakedModel {
     }
 
     public static class Builder {
-        private final List<WeightedBakedModel.MyWeighedRandomItem> listItems = Lists.newArrayList();
+        private final List<MyWeighedRandomItem> listItems = Lists.newArrayList();
 
-        public WeightedBakedModel.Builder add(IBakedModel p_177677_1_, int p_177677_2_) {
-            this.listItems.add(new WeightedBakedModel.MyWeighedRandomItem(p_177677_1_, p_177677_2_));
+        public Builder add(IBakedModel p_177677_1_, int p_177677_2_) {
+            this.listItems.add(new MyWeighedRandomItem(p_177677_1_, p_177677_2_));
             return this;
         }
 
@@ -73,7 +72,7 @@ public class WeightedBakedModel implements IBakedModel {
         }
     }
 
-    static class MyWeighedRandomItem extends WeightedRandom.Item implements Comparable<WeightedBakedModel.MyWeighedRandomItem> {
+    static class MyWeighedRandomItem extends WeightedRandom.Item implements Comparable<MyWeighedRandomItem> {
         protected final IBakedModel model;
 
         public MyWeighedRandomItem(IBakedModel p_i46072_1_, int p_i46072_2_) {
@@ -81,7 +80,7 @@ public class WeightedBakedModel implements IBakedModel {
             this.model = p_i46072_1_;
         }
 
-        public int compareTo(WeightedBakedModel.MyWeighedRandomItem p_compareTo_1_) {
+        public int compareTo(MyWeighedRandomItem p_compareTo_1_) {
             return ComparisonChain.start().compare(p_compareTo_1_.itemWeight, this.itemWeight).compare(this.getCountQuads(), p_compareTo_1_.getCountQuads()).result();
         }
 

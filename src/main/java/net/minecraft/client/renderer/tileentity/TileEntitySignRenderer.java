@@ -1,7 +1,5 @@
 package net.minecraft.client.renderer.tileentity;
 
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -18,6 +16,8 @@ import net.minecraft.util.ResourceLocation;
 import net.optifine.CustomColors;
 import net.optifine.shaders.Shaders;
 import org.lwjgl.opengl.GL11;
+
+import java.util.List;
 
 public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntitySign> {
     private static final ResourceLocation SIGN_TEXTURE = new ResourceLocation("textures/entity/sign.png");

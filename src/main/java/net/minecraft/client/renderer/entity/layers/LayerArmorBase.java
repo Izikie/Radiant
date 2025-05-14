@@ -1,8 +1,5 @@
 package net.minecraft.client.renderer.entity.layers;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RendererLivingEntity;
@@ -14,6 +11,9 @@ import net.minecraft.util.ResourceLocation;
 import net.optifine.CustomItems;
 import net.optifine.shaders.Shaders;
 import net.optifine.shaders.ShadersRender;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class LayerArmorBase<T extends ModelBase> implements LayerRenderer<EntityLivingBase> {
     protected static final ResourceLocation ENCHANTED_ITEM_GLINT_RES = new ResourceLocation("textures/misc/enchanted_item_glint.png");

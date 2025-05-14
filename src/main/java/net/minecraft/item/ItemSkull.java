@@ -1,9 +1,6 @@
 package net.minecraft.item;
 
 import com.mojang.authlib.GameProfile;
-
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSkull;
 import net.minecraft.block.state.IBlockState;
@@ -19,6 +16,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class ItemSkull extends Item {
     private static final String[] SKULL_TYPES = new String[]{"skeleton", "wither", "zombie", "char", "creeper"};

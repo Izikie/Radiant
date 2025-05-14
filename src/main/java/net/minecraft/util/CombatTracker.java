@@ -1,15 +1,14 @@
 package net.minecraft.util;
 
 import com.google.common.collect.Lists;
-
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+
+import java.util.List;
 
 public class CombatTracker {
     private final List<CombatEntry> combatEntries = Lists.newArrayList();

@@ -1,11 +1,11 @@
 package net.minecraft.client.gui;
 
-import java.io.IOException;
-
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerModelParts;
 import net.optifine.gui.GuiButtonOF;
 import net.optifine.gui.GuiScreenCapeOF;
+
+import java.io.IOException;
 
 public class GuiCustomizeSkin extends GuiScreen {
     private final GuiScreen parentScreen;
@@ -20,7 +20,7 @@ public class GuiCustomizeSkin extends GuiScreen {
         this.title = I18n.format("options.skinCustomisation.title");
 
         for (PlayerModelParts enumplayermodelparts : PlayerModelParts.values()) {
-            this.buttonList.add(new GuiCustomizeSkin.ButtonPart(enumplayermodelparts.getPartId(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 + 24 * (i >> 1), 150, 20, enumplayermodelparts));
+            this.buttonList.add(new ButtonPart(enumplayermodelparts.getPartId(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 + 24 * (i >> 1), 150, 20, enumplayermodelparts));
             ++i;
         }
 

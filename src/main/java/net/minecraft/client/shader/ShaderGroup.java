@@ -1,20 +1,7 @@
 package net.minecraft.client.shader;
 
-import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.google.gson.*;
 import net.minecraft.client.renderer.texture.ITextureObject;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.IResource;
@@ -25,6 +12,14 @@ import net.minecraft.util.ResourceLocation;
 import org.apache.commons.io.IOUtils;
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ShaderGroup {
     private final Framebuffer mainFramebuffer;
@@ -57,7 +52,7 @@ public class ShaderGroup {
         try {
             IResource iresource = this.resourceManager.getResource(p_152765_2_);
             inputstream = iresource.getInputStream();
-            JsonObject jsonobject = JsonParser.parseString(IOUtils.toString(inputstream, Charsets.UTF_8)).getAsJsonObject();
+            JsonObject jsonobject = JsonParser.parseString(IOUtils.toString(inputstream, StandardCharsets.UTF_8)).getAsJsonObject();
 
             if (JsonUtils.isJsonArray(jsonobject, "targets")) {
                 JsonArray jsonarray = jsonobject.getAsJsonArray("targets");

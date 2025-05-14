@@ -5,7 +5,7 @@ import net.minecraft.world.storage.WorldInfo;
 
 public final class WorldSettings {
     private final long seed;
-    private final WorldSettings.GameType theGameType;
+    private final GameType theGameType;
     private final boolean mapFeaturesEnabled;
     private final boolean hardcoreEnabled;
     private final WorldType terrainType;
@@ -13,7 +13,7 @@ public final class WorldSettings {
     private boolean bonusChestEnabled;
     private String worldName;
 
-    public WorldSettings(long seedIn, WorldSettings.GameType gameType, boolean enableMapFeatures, boolean hardcoreMode, WorldType worldTypeIn) {
+    public WorldSettings(long seedIn, GameType gameType, boolean enableMapFeatures, boolean hardcoreMode, WorldType worldTypeIn) {
         this.worldName = "";
         this.seed = seedIn;
         this.theGameType = gameType;
@@ -49,7 +49,7 @@ public final class WorldSettings {
         return this.seed;
     }
 
-    public WorldSettings.GameType getGameType() {
+    public GameType getGameType() {
         return this.theGameType;
     }
 
@@ -69,8 +69,8 @@ public final class WorldSettings {
         return this.commandsAllowed;
     }
 
-    public static WorldSettings.GameType getGameTypeById(int id) {
-        return WorldSettings.GameType.getByID(id);
+    public static GameType getGameTypeById(int id) {
+        return GameType.getByID(id);
     }
 
     public String getWorldName() {
@@ -132,8 +132,8 @@ public final class WorldSettings {
             return this == SURVIVAL || this == ADVENTURE;
         }
 
-        public static WorldSettings.GameType getByID(int idIn) {
-            for (WorldSettings.GameType worldsettings$gametype : values()) {
+        public static GameType getByID(int idIn) {
+            for (GameType worldsettings$gametype : values()) {
                 if (worldsettings$gametype.id == idIn) {
                     return worldsettings$gametype;
                 }
@@ -142,8 +142,8 @@ public final class WorldSettings {
             return SURVIVAL;
         }
 
-        public static WorldSettings.GameType getByName(String gamemodeName) {
-            for (WorldSettings.GameType worldsettings$gametype : values()) {
+        public static GameType getByName(String gamemodeName) {
+            for (GameType worldsettings$gametype : values()) {
                 if (worldsettings$gametype.name.equals(gamemodeName)) {
                     return worldsettings$gametype;
                 }
