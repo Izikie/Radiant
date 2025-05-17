@@ -1,9 +1,6 @@
 package net.minecraft.item;
 
 import com.google.common.collect.Multimap;
-
-import java.util.Set;
-
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -12,13 +9,15 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.Set;
+
 public class ItemTool extends Item {
     private final Set<Block> effectiveBlocks;
     protected final float efficiencyOnProperMaterial;
     private final float damageVsEntity;
-    protected final Item.ToolMaterial toolMaterial;
+    protected final ToolMaterial toolMaterial;
 
-    protected ItemTool(float attackDamage, Item.ToolMaterial material, Set<Block> effectiveBlocks) {
+    protected ItemTool(float attackDamage, ToolMaterial material, Set<Block> effectiveBlocks) {
         this.toolMaterial = material;
         this.effectiveBlocks = effectiveBlocks;
         this.maxStackSize = 1;
@@ -49,7 +48,7 @@ public class ItemTool extends Item {
         return true;
     }
 
-    public Item.ToolMaterial getToolMaterial() {
+    public ToolMaterial getToolMaterial() {
         return this.toolMaterial;
     }
 

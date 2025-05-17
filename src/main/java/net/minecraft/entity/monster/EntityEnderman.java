@@ -2,25 +2,12 @@ package net.minecraft.entity.monster;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Sets;
-
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-import java.util.UUID;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackOnCollide;
-import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWander;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,14 +17,13 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EntityDamageSource;
-import net.minecraft.util.EntityDamageSourceIndirect;
-import net.minecraft.util.ParticleTypes;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
+
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+import java.util.UUID;
 
 public class EntityEnderman extends EntityMob {
     private static final UUID ATTACKING_SPEED_BOOST_MODIFIER_UUID = UUID.fromString("020E0DFB-87AE-4653-9556-831010E291A0");
@@ -54,10 +40,10 @@ public class EntityEnderman extends EntityMob {
         this.tasks.addTask(7, new EntityAIWander(this, 1.0D));
         this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         this.tasks.addTask(8, new EntityAILookIdle(this));
-        this.tasks.addTask(10, new EntityEnderman.AIPlaceBlock(this));
-        this.tasks.addTask(11, new EntityEnderman.AITakeBlock(this));
+        this.tasks.addTask(10, new AIPlaceBlock(this));
+        this.tasks.addTask(11, new AITakeBlock(this));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-        this.targetTasks.addTask(2, new EntityEnderman.AIFindPlayer(this));
+        this.targetTasks.addTask(2, new AIFindPlayer(this));
         this.targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityEndermite.class, 10, true, false, (Predicate<EntityEndermite>) EntityEndermite::isSpawnedByPlayer));
     }
 

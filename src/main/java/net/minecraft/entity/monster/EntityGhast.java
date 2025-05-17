@@ -1,7 +1,5 @@
 package net.minecraft.entity.monster;
 
-import java.util.Random;
-
 import net.minecraft.entity.EntityFlying;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -14,13 +12,11 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.stats.AchievementList;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class EntityGhast extends EntityFlying implements IMob {
     private int explosionStrength = 1;
@@ -30,10 +26,10 @@ public class EntityGhast extends EntityFlying implements IMob {
         this.setSize(4.0F, 4.0F);
         this.isImmuneToFire = true;
         this.experienceValue = 5;
-        this.moveHelper = new EntityGhast.GhastMoveHelper(this);
-        this.tasks.addTask(5, new EntityGhast.AIRandomFly(this));
-        this.tasks.addTask(7, new EntityGhast.AILookAround(this));
-        this.tasks.addTask(7, new EntityGhast.AIFireballAttack(this));
+        this.moveHelper = new GhastMoveHelper(this);
+        this.tasks.addTask(5, new AIRandomFly(this));
+        this.tasks.addTask(7, new AILookAround(this));
+        this.tasks.addTask(7, new AIFireballAttack(this));
         this.targetTasks.addTask(1, new EntityAIFindEntityNearestPlayer(this));
     }
 

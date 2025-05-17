@@ -1,11 +1,5 @@
 package net.minecraft.client.shader;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.util.HashMap;
-import java.util.Map;
-
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.util.JsonException;
@@ -14,13 +8,19 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.BufferUtils;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.util.HashMap;
+import java.util.Map;
+
 public class ShaderLoader {
-    private final ShaderLoader.ShaderType shaderType;
+    private final ShaderType shaderType;
     private final String shaderFilename;
     private final int shader;
     private int shaderAttachCount = 0;
 
-    private ShaderLoader(ShaderLoader.ShaderType type, int shaderId, String filename) {
+    private ShaderLoader(ShaderType type, int shaderId, String filename) {
         this.shaderType = type;
         this.shader = shaderId;
         this.shaderFilename = filename;
@@ -44,7 +44,7 @@ public class ShaderLoader {
         return this.shaderFilename;
     }
 
-    public static ShaderLoader loadShader(IResourceManager resourceManager, ShaderLoader.ShaderType type, String filename) throws IOException {
+    public static ShaderLoader loadShader(IResourceManager resourceManager, ShaderType type, String filename) throws IOException {
         ShaderLoader shaderloader = type.getLoadedShaders().get(filename);
 
         if (shaderloader == null) {

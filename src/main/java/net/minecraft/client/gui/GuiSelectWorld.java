@@ -1,11 +1,5 @@
 package net.minecraft.client.gui;
 
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Date;
-
 import net.minecraft.client.AnvilConverterException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
@@ -19,6 +13,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Date;
+
 public class GuiSelectWorld extends GuiScreen implements GuiYesNoCallback {
     private static final Logger LOGGER = LogManager.getLogger();
     private final DateFormat field_146633_h = new SimpleDateFormat();
@@ -27,7 +27,7 @@ public class GuiSelectWorld extends GuiScreen implements GuiYesNoCallback {
     private boolean field_146634_i;
     private int selectedIndex;
     private java.util.List<SaveFormatComparator> field_146639_s;
-    private GuiSelectWorld.List availableWorlds;
+    private List availableWorlds;
     private String field_146637_u;
     private String field_146636_v;
     private final String[] field_146635_w = new String[4];
@@ -58,7 +58,7 @@ public class GuiSelectWorld extends GuiScreen implements GuiYesNoCallback {
         this.field_146635_w[WorldSettings.GameType.CREATIVE.getID()] = I18n.format("gameMode.creative");
         this.field_146635_w[WorldSettings.GameType.ADVENTURE.getID()] = I18n.format("gameMode.adventure");
         this.field_146635_w[WorldSettings.GameType.SPECTATOR.getID()] = I18n.format("gameMode.spectator");
-        this.availableWorlds = new GuiSelectWorld.List(this.mc);
+        this.availableWorlds = new List(this.mc);
         this.availableWorlds.registerScrollButtons(4, 5);
         this.addWorldSelectionButtons();
     }

@@ -1,20 +1,19 @@
 package net.minecraft.network.play.server;
 
 import com.google.common.collect.Lists;
-
-import java.io.IOException;
-import java.util.List;
-
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 
+import java.io.IOException;
+import java.util.List;
+
 public class S21PacketChunkData implements Packet<INetHandlerPlayClient> {
     private int chunkX;
     private int chunkZ;
-    private S21PacketChunkData.Extracted extractedData;
+    private Extracted extractedData;
     private boolean field_149279_g;
 
     public S21PacketChunkData() {}
@@ -30,7 +29,7 @@ public class S21PacketChunkData implements Packet<INetHandlerPlayClient> {
         this.chunkX = buf.readInt();
         this.chunkZ = buf.readInt();
         this.field_149279_g = buf.readBoolean();
-        this.extractedData = new S21PacketChunkData.Extracted();
+        this.extractedData = new Extracted();
         this.extractedData.dataSize = buf.readShort();
         this.extractedData.data = buf.readByteArray();
     }
@@ -59,9 +58,9 @@ public class S21PacketChunkData implements Packet<INetHandlerPlayClient> {
         return i + j + k + l;
     }
 
-    public static S21PacketChunkData.Extracted getExtractedData(Chunk p_179756_0_, boolean p_179756_1_, boolean p_179756_2_, int p_179756_3_) {
+    public static Extracted getExtractedData(Chunk p_179756_0_, boolean p_179756_1_, boolean p_179756_2_, int p_179756_3_) {
         ExtendedBlockStorage[] aextendedblockstorage = p_179756_0_.getBlockStorageArray();
-        S21PacketChunkData.Extracted s21packetchunkdata$extracted = new S21PacketChunkData.Extracted();
+        Extracted s21packetchunkdata$extracted = new Extracted();
         List<ExtendedBlockStorage> list = Lists.newArrayList();
 
         for (int i = 0; i < aextendedblockstorage.length; ++i) {

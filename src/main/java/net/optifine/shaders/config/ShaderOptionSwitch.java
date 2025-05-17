@@ -1,11 +1,11 @@
 package net.optifine.shaders.config;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import net.minecraft.src.Config;
 import net.optifine.Lang;
 import net.optifine.util.StrUtils;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ShaderOptionSwitch extends ShaderOption {
     private static final Pattern PATTERN_DEFINE = Pattern.compile("^\\s*(//)?\\s*#define\\s+([A-Za-z0-9_]+)\\s*(//.*)?$");

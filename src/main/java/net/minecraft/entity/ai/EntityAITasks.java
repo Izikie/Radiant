@@ -6,20 +6,20 @@ import java.util.Iterator;
 import java.util.List;
 
 public class EntityAITasks {
-    private final List<EntityAITasks.EntityAITaskEntry> taskEntries = Lists.newArrayList();
-    private final List<EntityAITasks.EntityAITaskEntry> executingTaskEntries = Lists.newArrayList();
+    private final List<EntityAITaskEntry> taskEntries = Lists.newArrayList();
+    private final List<EntityAITaskEntry> executingTaskEntries = Lists.newArrayList();
     private int tickCount;
     private final int tickRate = 3;
 
     public void addTask(int priority, EntityAIBase task) {
-        this.taskEntries.add(new EntityAITasks.EntityAITaskEntry(priority, task));
+        this.taskEntries.add(new EntityAITaskEntry(priority, task));
     }
 
     public void removeTask(EntityAIBase task) {
-        Iterator<EntityAITasks.EntityAITaskEntry> iterator = this.taskEntries.iterator();
+        Iterator<EntityAITaskEntry> iterator = this.taskEntries.iterator();
 
         while (iterator.hasNext()) {
-            EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry = iterator.next();
+            EntityAITaskEntry entityaitasks$entityaitaskentry = iterator.next();
             EntityAIBase entityaibase = entityaitasks$entityaitaskentry.action;
 
             if (entityaibase == task) {
@@ -39,14 +39,14 @@ public class EntityAITasks {
             label38:
 
             while (true) {
-                EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry;
+                EntityAITaskEntry entityaitasks$entityaitaskentry;
 
                 while (true) {
                     if (!iterator.hasNext()) {
                         break label38;
                     }
 
-                    entityaitasks$entityaitaskentry = (EntityAITasks.EntityAITaskEntry) iterator.next();
+                    entityaitasks$entityaitaskentry = (EntityAITaskEntry) iterator.next();
                     boolean flag = this.executingTaskEntries.contains(entityaitasks$entityaitaskentry);
 
                     if (!flag) {
@@ -66,10 +66,10 @@ public class EntityAITasks {
                 }
             }
         } else {
-            Iterator<EntityAITasks.EntityAITaskEntry> iterator1 = this.executingTaskEntries.iterator();
+            Iterator<EntityAITaskEntry> iterator1 = this.executingTaskEntries.iterator();
 
             while (iterator1.hasNext()) {
-                EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry1 = iterator1.next();
+                EntityAITaskEntry entityaitasks$entityaitaskentry1 = iterator1.next();
 
                 if (!this.canContinue(entityaitasks$entityaitaskentry1)) {
                     entityaitasks$entityaitaskentry1.action.resetTask();
@@ -78,17 +78,17 @@ public class EntityAITasks {
             }
         }
 
-        for (EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry2 : this.executingTaskEntries) {
+        for (EntityAITaskEntry entityaitasks$entityaitaskentry2 : this.executingTaskEntries) {
             entityaitasks$entityaitaskentry2.action.updateTask();
         }
     }
 
-    private boolean canContinue(EntityAITasks.EntityAITaskEntry taskEntry) {
+    private boolean canContinue(EntityAITaskEntry taskEntry) {
         return taskEntry.action.continueExecuting();
     }
 
-    private boolean canUse(EntityAITasks.EntityAITaskEntry taskEntry) {
-        for (EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry : this.taskEntries) {
+    private boolean canUse(EntityAITaskEntry taskEntry) {
+        for (EntityAITaskEntry entityaitasks$entityaitaskentry : this.taskEntries) {
             if (entityaitasks$entityaitaskentry != taskEntry) {
                 if (taskEntry.priority >= entityaitasks$entityaitaskentry.priority) {
                     if (!this.areTasksCompatible(taskEntry, entityaitasks$entityaitaskentry) && this.executingTaskEntries.contains(entityaitasks$entityaitaskentry)) {
@@ -103,7 +103,7 @@ public class EntityAITasks {
         return true;
     }
 
-    private boolean areTasksCompatible(EntityAITasks.EntityAITaskEntry taskEntry1, EntityAITasks.EntityAITaskEntry taskEntry2) {
+    private boolean areTasksCompatible(EntityAITaskEntry taskEntry1, EntityAITaskEntry taskEntry2) {
         return (taskEntry1.action.getMutexBits() & taskEntry2.action.getMutexBits()) == 0;
     }
 

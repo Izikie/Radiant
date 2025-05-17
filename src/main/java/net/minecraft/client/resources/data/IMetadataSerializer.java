@@ -3,14 +3,10 @@ package net.minecraft.client.resources.data;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import net.minecraft.util.ChatStyle;
-import net.minecraft.util.EnumTypeAdapterFactory;
-import net.minecraft.util.IChatComponent;
-import net.minecraft.util.IRegistry;
-import net.minecraft.util.RegistrySimple;
+import net.minecraft.util.*;
 
 public class IMetadataSerializer {
-    private final IRegistry<String, IMetadataSerializer.Registration<? extends IMetadataSection>> metadataSectionSerializerRegistry = new RegistrySimple();
+    private final IRegistry<String, Registration<? extends IMetadataSection>> metadataSectionSerializerRegistry = new RegistrySimple();
     private final GsonBuilder gsonBuilder = new GsonBuilder();
     private Gson gson;
 
@@ -21,7 +17,7 @@ public class IMetadataSerializer {
     }
 
     public <T extends IMetadataSection> void registerMetadataSectionType(IMetadataSectionSerializer<T> metadataSectionSerializer, Class<T> clazz) {
-        this.metadataSectionSerializerRegistry.putObject(metadataSectionSerializer.getSectionName(), new IMetadataSerializer.Registration<>(metadataSectionSerializer, clazz));
+        this.metadataSectionSerializerRegistry.putObject(metadataSectionSerializer.getSectionName(), new Registration<>(metadataSectionSerializer, clazz));
         this.gsonBuilder.registerTypeAdapter(clazz, metadataSectionSerializer);
         this.gson = null;
     }
@@ -34,7 +30,7 @@ public class IMetadataSerializer {
         } else if (!json.get(sectionName).isJsonObject()) {
             throw new IllegalArgumentException("Invalid metadata for '" + sectionName + "' - expected object, found " + json.get(sectionName));
         } else {
-            IMetadataSerializer.Registration<?> registration = this.metadataSectionSerializerRegistry.getObject(sectionName);
+            Registration<?> registration = this.metadataSectionSerializerRegistry.getObject(sectionName);
 
             if (registration == null) {
                 throw new IllegalArgumentException("Don't know how to handle metadata section '" + sectionName + "'");

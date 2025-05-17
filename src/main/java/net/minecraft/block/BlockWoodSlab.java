@@ -1,8 +1,5 @@
 package net.minecraft.block;
 
-import java.util.List;
-import java.util.Random;
-
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -16,6 +13,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.List;
+import java.util.Random;
+
 public abstract class BlockWoodSlab extends BlockSlab {
     public static final PropertyEnum<BlockPlanks.WoodType> VARIANT = PropertyEnum.create("variant", BlockPlanks.WoodType.class);
 
@@ -24,7 +24,7 @@ public abstract class BlockWoodSlab extends BlockSlab {
         IBlockState iblockstate = this.blockState.getBaseState();
 
         if (!this.isDouble()) {
-            iblockstate = iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
+            iblockstate = iblockstate.withProperty(HALF, EnumBlockHalf.BOTTOM);
         }
 
         this.setDefaultState(iblockstate.withProperty(VARIANT, BlockPlanks.WoodType.OAK));
@@ -67,7 +67,7 @@ public abstract class BlockWoodSlab extends BlockSlab {
         IBlockState iblockstate = this.getDefaultState().withProperty(VARIANT, BlockPlanks.WoodType.byMetadata(meta & 7));
 
         if (!this.isDouble()) {
-            iblockstate = iblockstate.withProperty(HALF, (meta & 8) == 0 ? BlockSlab.EnumBlockHalf.BOTTOM : BlockSlab.EnumBlockHalf.TOP);
+            iblockstate = iblockstate.withProperty(HALF, (meta & 8) == 0 ? EnumBlockHalf.BOTTOM : EnumBlockHalf.TOP);
         }
 
         return iblockstate;
@@ -77,7 +77,7 @@ public abstract class BlockWoodSlab extends BlockSlab {
         int i = 0;
         i = i | state.getValue(VARIANT).getMetadata();
 
-        if (!this.isDouble() && state.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP) {
+        if (!this.isDouble() && state.getValue(HALF) == EnumBlockHalf.TOP) {
             i |= 8;
         }
 

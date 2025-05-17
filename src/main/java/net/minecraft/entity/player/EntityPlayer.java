@@ -1,13 +1,7 @@
 package net.minecraft.entity.player;
 
-import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
 import net.minecraft.block.BlockDirectional;
@@ -15,14 +9,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.command.server.CommandBlockLogic;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EntityGroup;
-import net.minecraft.entity.IEntityMultiPart;
-import net.minecraft.entity.IMerchant;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.boss.EntityDragonPart;
 import net.minecraft.entity.item.EntityBoat;
@@ -41,41 +28,24 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ContainerPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryEnderChest;
-import net.minecraft.item.UseAction;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.play.server.S12PacketEntityVelocity;
 import net.minecraft.potion.Potion;
-import net.minecraft.scoreboard.IScoreObjectiveCriteria;
-import net.minecraft.scoreboard.Score;
-import net.minecraft.scoreboard.ScoreObjective;
-import net.minecraft.scoreboard.ScorePlayerTeam;
-import net.minecraft.scoreboard.Scoreboard;
-import net.minecraft.scoreboard.Team;
+import net.minecraft.scoreboard.*;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntitySign;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ParticleTypes;
-import net.minecraft.util.FoodStats;
-import net.minecraft.util.IChatComponent;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.IInteractionObject;
-import net.minecraft.world.LockCode;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldSettings;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
 
 @SuppressWarnings("incomplete-switch")
 public abstract class EntityPlayer extends EntityLivingBase {
@@ -1055,22 +1025,22 @@ public abstract class EntityPlayer extends EntityLivingBase {
         return this.gameProfile;
     }
 
-    public EntityPlayer.EnumStatus trySleep(BlockPos bedLocation) {
+    public EnumStatus trySleep(BlockPos bedLocation) {
         if (!this.worldObj.isRemote) {
             if (this.isPlayerSleeping() || !this.isEntityAlive()) {
-                return EntityPlayer.EnumStatus.OTHER_PROBLEM;
+                return EnumStatus.OTHER_PROBLEM;
             }
 
             if (!this.worldObj.provider.isSurfaceWorld()) {
-                return EntityPlayer.EnumStatus.NOT_POSSIBLE_HERE;
+                return EnumStatus.NOT_POSSIBLE_HERE;
             }
 
             if (this.worldObj.isDaytime()) {
-                return EntityPlayer.EnumStatus.NOT_POSSIBLE_NOW;
+                return EnumStatus.NOT_POSSIBLE_NOW;
             }
 
             if (Math.abs(this.posX - bedLocation.getX()) > 3.0D || Math.abs(this.posY - bedLocation.getY()) > 2.0D || Math.abs(this.posZ - bedLocation.getZ()) > 3.0D) {
-                return EntityPlayer.EnumStatus.TOO_FAR_AWAY;
+                return EnumStatus.TOO_FAR_AWAY;
             }
 
             double d0 = 8.0D;
@@ -1078,7 +1048,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
             List<EntityMob> list = this.worldObj.getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB(bedLocation.getX() - d0, bedLocation.getY() - d1, bedLocation.getZ() - d0, bedLocation.getX() + d0, bedLocation.getY() + d1, bedLocation.getZ() + d0));
 
             if (!list.isEmpty()) {
-                return EntityPlayer.EnumStatus.NOT_SAFE;
+                return EnumStatus.NOT_SAFE;
             }
         }
 
@@ -1125,7 +1095,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
             this.worldObj.updateAllPlayersSleepingFlag();
         }
 
-        return EntityPlayer.EnumStatus.OK;
+        return EnumStatus.OK;
     }
 
     private void func_175139_a(Direction p_175139_1_) {
@@ -1656,7 +1626,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
     }
 
     public static UUID getOfflineUUID(String username) {
-        return UUID.nameUUIDFromBytes(("OfflinePlayer:" + username).getBytes(Charsets.UTF_8));
+        return UUID.nameUUIDFromBytes(("OfflinePlayer:" + username).getBytes(StandardCharsets.UTF_8));
     }
 
     public boolean canOpen(LockCode code) {

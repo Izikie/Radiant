@@ -1,15 +1,15 @@
 package net.minecraft.world.gen.structure;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Map.Entry;
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Random;
 
 public class MapGenVillage extends MapGenStructure {
     public static final List<BiomeGenBase> VILLAGE_SPAWN_BIOMES = Arrays.asList(BiomeGenBase.PLAINS, BiomeGenBase.DESERT, BiomeGenBase.SAVANNA);
@@ -67,7 +67,7 @@ public class MapGenVillage extends MapGenStructure {
     }
 
     protected StructureStart getStructureStart(int chunkX, int chunkZ) {
-        return new MapGenVillage.Start(this.worldObj, this.rand, chunkX, chunkZ, this.terrainType);
+        return new Start(this.worldObj, this.rand, chunkX, chunkZ, this.terrainType);
     }
 
     public static class Start extends StructureStart {

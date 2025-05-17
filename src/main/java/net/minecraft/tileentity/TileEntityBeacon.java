@@ -1,10 +1,6 @@
 package net.minecraft.tileentity;
 
 import com.google.common.collect.Lists;
-
-import java.util.Arrays;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStainedGlass;
 import net.minecraft.block.BlockStainedGlassPane;
@@ -29,9 +25,12 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ITickable;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class TileEntityBeacon extends TileEntityLockable implements ITickable, IInventory {
     public static final Potion[][] EFFECTS_LIST = new Potion[][]{{Potion.MOVE_SPEED, Potion.DIG_SPEED}, {Potion.RESISTANCE, Potion.JUMP}, {Potion.DAMAGE_BOOST}, {Potion.REGENERATION}};
-    private final List<TileEntityBeacon.BeamSegment> beamSegments = Lists.newArrayList();
+    private final List<BeamSegment> beamSegments = Lists.newArrayList();
     private long beamRenderCounter;
     private float field_146014_j;
     private boolean isComplete;
@@ -87,7 +86,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
         this.levels = 0;
         this.beamSegments.clear();
         this.isComplete = true;
-        TileEntityBeacon.BeamSegment tileentitybeacon$beamsegment = new TileEntityBeacon.BeamSegment(EntitySheep.getDyeRgb(DyeColor.WHITE));
+        BeamSegment tileentitybeacon$beamsegment = new BeamSegment(EntitySheep.getDyeRgb(DyeColor.WHITE));
         this.beamSegments.add(tileentitybeacon$beamsegment);
         boolean flag = true;
         BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
@@ -120,7 +119,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
             if (Arrays.equals(afloat, tileentitybeacon$beamsegment.getColors())) {
                 tileentitybeacon$beamsegment.incrementHeight();
             } else {
-                tileentitybeacon$beamsegment = new TileEntityBeacon.BeamSegment(afloat);
+                tileentitybeacon$beamsegment = new BeamSegment(afloat);
                 this.beamSegments.add(tileentitybeacon$beamsegment);
             }
 
@@ -165,7 +164,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
         }
     }
 
-    public List<TileEntityBeacon.BeamSegment> getBeamSegments() {
+    public List<BeamSegment> getBeamSegments() {
         return this.beamSegments;
     }
 

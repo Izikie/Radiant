@@ -4,15 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ClickEvent {
-    private final ClickEvent.Action action;
+    private final Action action;
     private final String value;
 
-    public ClickEvent(ClickEvent.Action theAction, String theValue) {
+    public ClickEvent(Action theAction, String theValue) {
         this.action = theAction;
         this.value = theValue;
     }
 
-    public ClickEvent.Action getAction() {
+    public Action getAction() {
         return this.action;
     }
 
@@ -55,7 +55,7 @@ public class ClickEvent {
         SUGGEST_COMMAND("suggest_command", true),
         CHANGE_PAGE("change_page", true);
 
-        private static final Map<String, ClickEvent.Action> nameMapping = new HashMap<>();
+        private static final Map<String, Action> nameMapping = new HashMap<>();
         private final boolean allowedInChat;
         private final String canonicalName;
 
@@ -72,12 +72,12 @@ public class ClickEvent {
             return this.canonicalName;
         }
 
-        public static ClickEvent.Action getValueByCanonicalName(String canonicalNameIn) {
+        public static Action getValueByCanonicalName(String canonicalNameIn) {
             return nameMapping.get(canonicalNameIn);
         }
 
         static {
-            for (ClickEvent.Action clickevent$action : values()) {
+            for (Action clickevent$action : values()) {
                 nameMapping.put(clickevent$action.getCanonicalName(), clickevent$action);
             }
         }

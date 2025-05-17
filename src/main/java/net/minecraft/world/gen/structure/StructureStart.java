@@ -1,12 +1,12 @@
 package net.minecraft.world.gen.structure;
 
-import java.util.LinkedList;
-import java.util.Random;
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
+
+import java.util.LinkedList;
+import java.util.Random;
 
 public abstract class StructureStart {
     protected final LinkedList<StructureComponent> components = new LinkedList<>();

@@ -2,11 +2,6 @@ package net.minecraft.server.integrated;
 
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.Futures;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.concurrent.FutureTask;
-
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ThreadLanServerPing;
@@ -22,19 +17,16 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.CryptManager;
 import net.minecraft.util.HttpUtil;
 import net.minecraft.util.Util;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldManager;
-import net.minecraft.world.WorldServer;
-import net.minecraft.world.WorldServerMulti;
-import net.minecraft.world.WorldSettings;
-import net.minecraft.world.WorldType;
+import net.minecraft.world.*;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.WorldInfo;
 import net.optifine.ClearWater;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.concurrent.FutureTask;
 
 public class IntegratedServer extends MinecraftServer {
     private static final Logger LOGGER = LogManager.getLogger();
