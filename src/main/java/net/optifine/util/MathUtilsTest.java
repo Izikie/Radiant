@@ -4,7 +4,7 @@ import net.minecraft.util.MathHelper;
 
 public class MathUtilsTest {
     public static void main(String[] args) throws Exception {
-        OPER[] amathutilstest$oper = OPER.values();
+        MathUtilsTest.OPER[] amathutilstest$oper = MathUtilsTest.OPER.values();
 
         for (OPER mathutilstest$oper : amathutilstest$oper) {
             dbg("******** " + mathutilstest$oper + " ***********");
@@ -12,7 +12,7 @@ public class MathUtilsTest {
         }
     }
 
-    private static void test(OPER oper, boolean fast) {
+    private static void test(MathUtilsTest.OPER oper, boolean fast) {
         MathHelper.fastMath = fast;
         double d0;
         double d1;

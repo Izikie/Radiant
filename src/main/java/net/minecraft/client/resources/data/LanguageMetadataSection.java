@@ -1,8 +1,8 @@
 package net.minecraft.client.resources.data;
 
-import net.minecraft.client.resources.Language;
-
 import java.util.Collection;
+
+import net.minecraft.client.resources.Language;
 
 public class LanguageMetadataSection implements IMetadataSection {
     private final Collection<Language> languages;

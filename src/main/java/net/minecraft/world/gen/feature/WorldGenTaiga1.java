@@ -1,13 +1,17 @@
 package net.minecraft.world.gen.feature;
 
-import net.minecraft.block.*;
+import java.util.Random;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockLeaves;
+import net.minecraft.block.BlockOldLeaf;
+import net.minecraft.block.BlockOldLog;
+import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
-
-import java.util.Random;
 
 public class WorldGenTaiga1 extends WorldGenAbstractTree {
     private static final IBlockState field_181636_a = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.WoodType.SPRUCE);

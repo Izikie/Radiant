@@ -1,13 +1,14 @@
 package net.minecraft.client.renderer;
 
 import com.google.common.collect.Lists;
+
+import java.util.BitSet;
+import java.util.List;
+
 import net.minecraft.client.renderer.chunk.RenderChunk;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.RenderLayer;
 import net.optifine.SmartAnimations;
-
-import java.util.BitSet;
-import java.util.List;
 
 public abstract class ChunkRenderContainer {
     private double viewEntityX;

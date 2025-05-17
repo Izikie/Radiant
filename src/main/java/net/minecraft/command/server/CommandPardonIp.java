@@ -1,11 +1,15 @@
 package net.minecraft.command.server;
 
-import net.minecraft.command.*;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.BlockPos;
-
 import java.util.List;
 import java.util.regex.Matcher;
+
+import net.minecraft.command.CommandBase;
+import net.minecraft.command.CommandException;
+import net.minecraft.command.ICommandSender;
+import net.minecraft.command.SyntaxErrorException;
+import net.minecraft.command.WrongUsageException;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.BlockPos;
 
 public class CommandPardonIp extends CommandBase {
     public String getCommandName() {

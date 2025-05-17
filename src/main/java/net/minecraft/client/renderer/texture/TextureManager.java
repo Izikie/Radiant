@@ -1,12 +1,17 @@
 package net.minecraft.client.renderer.texture;
 
 import com.google.common.collect.Lists;
+
+import java.io.IOException;
+import java.util.*;
+import java.util.Map.Entry;
+
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.crash.ReportedException;
 import net.minecraft.src.Config;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.CustomGuis;
 import net.optifine.EmissiveTextures;
@@ -14,10 +19,6 @@ import net.optifine.RandomEntities;
 import net.optifine.shaders.ShadersTex;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.io.IOException;
-import java.util.*;
-import java.util.Map.Entry;
 
 public class TextureManager implements ITickable, IResourceManagerReloadListener {
     private static final Logger LOGGER = LogManager.getLogger();

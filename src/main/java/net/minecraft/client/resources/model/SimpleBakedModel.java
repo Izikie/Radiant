@@ -1,14 +1,15 @@
 package net.minecraft.client.resources.model;
 
 import com.google.common.collect.Lists;
+
+import java.util.List;
+
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BreakingFour;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ModelBlock;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.Direction;
-
-import java.util.List;
 
 public class SimpleBakedModel implements IBakedModel {
     protected final List<BakedQuad> generalQuads;
@@ -103,17 +104,17 @@ public class SimpleBakedModel implements IBakedModel {
             this.builderCameraTransforms = cameraTransforms;
         }
 
-        public Builder addFaceQuad(Direction facing, BakedQuad quad) {
+        public SimpleBakedModel.Builder addFaceQuad(Direction facing, BakedQuad quad) {
             this.builderFaceQuads.get(facing.ordinal()).add(quad);
             return this;
         }
 
-        public Builder addGeneralQuad(BakedQuad quad) {
+        public SimpleBakedModel.Builder addGeneralQuad(BakedQuad quad) {
             this.builderGeneralQuads.add(quad);
             return this;
         }
 
-        public Builder setTexture(TextureAtlasSprite texture) {
+        public SimpleBakedModel.Builder setTexture(TextureAtlasSprite texture) {
             this.builderTexture = texture;
             return this;
         }

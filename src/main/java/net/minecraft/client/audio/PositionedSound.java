@@ -11,7 +11,7 @@ public abstract class PositionedSound implements ISound {
     protected float zPosF;
     protected boolean repeat = false;
     protected int repeatDelay = 0;
-    protected AttenuationType attenuationType = AttenuationType.LINEAR;
+    protected ISound.AttenuationType attenuationType = ISound.AttenuationType.LINEAR;
 
     protected PositionedSound(ResourceLocation soundResource) {
         this.positionedSoundLocation = soundResource;
@@ -49,7 +49,7 @@ public abstract class PositionedSound implements ISound {
         return this.zPosF;
     }
 
-    public AttenuationType getAttenuationType() {
+    public ISound.AttenuationType getAttenuationType() {
         return this.attenuationType;
     }
 }

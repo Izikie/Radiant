@@ -1,8 +1,6 @@
 package net.optifine.shaders;
 
 import com.google.common.base.Joiner;
-import net.minecraft.src.Config;
-import net.optifine.util.StrUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +12,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+
+import net.minecraft.src.Config;
+import net.optifine.util.StrUtils;
 
 public class ShaderPackZip implements IShaderPack {
     protected final File packFile;

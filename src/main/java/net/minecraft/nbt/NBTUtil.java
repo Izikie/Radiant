@@ -2,9 +2,10 @@ package net.minecraft.nbt;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import net.minecraft.util.StringUtils;
 
 import java.util.UUID;
+
+import net.minecraft.util.StringUtils;
 
 public final class NBTUtil {
     public static GameProfile readGameProfileFromNBT(NBTTagCompound compound) {

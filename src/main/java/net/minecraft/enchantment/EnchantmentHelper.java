@@ -1,9 +1,12 @@
 package net.minecraft.enchantment;
 
 import com.google.common.collect.Lists;
+
+import java.util.*;
+
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -13,14 +16,12 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.WeightedRandom;
 
-import java.util.*;
-
 public class EnchantmentHelper {
     private static final Random ENCHANTMENT_RAND = new Random();
-    private static final ModifierDamage enchantmentModifierDamage = new ModifierDamage();
-    private static final ModifierLiving enchantmentModifierLiving = new ModifierLiving();
-    private static final HurtIterator ENCHANTMENT_ITERATOR_HURT = new HurtIterator();
-    private static final DamageIterator ENCHANTMENT_ITERATOR_DAMAGE = new DamageIterator();
+    private static final EnchantmentHelper.ModifierDamage enchantmentModifierDamage = new EnchantmentHelper.ModifierDamage();
+    private static final EnchantmentHelper.ModifierLiving enchantmentModifierLiving = new EnchantmentHelper.ModifierLiving();
+    private static final EnchantmentHelper.HurtIterator ENCHANTMENT_ITERATOR_HURT = new EnchantmentHelper.HurtIterator();
+    private static final EnchantmentHelper.DamageIterator ENCHANTMENT_ITERATOR_DAMAGE = new EnchantmentHelper.DamageIterator();
 
     public static int getEnchantmentLevel(int enchID, ItemStack stack) {
         if (stack != null) {
@@ -101,7 +102,7 @@ public class EnchantmentHelper {
         }
     }
 
-    private static void applyEnchantmentModifier(IModifier modifier, ItemStack stack) {
+    private static void applyEnchantmentModifier(EnchantmentHelper.IModifier modifier, ItemStack stack) {
         if (stack != null) {
             NBTTagList nbttaglist = stack.getEnchantmentTagList();
 
@@ -118,7 +119,7 @@ public class EnchantmentHelper {
         }
     }
 
-    private static void applyEnchantmentModifierArray(IModifier modifier, ItemStack[] stacks) {
+    private static void applyEnchantmentModifierArray(EnchantmentHelper.IModifier modifier, ItemStack[] stacks) {
         for (ItemStack itemstack : stacks) {
             applyEnchantmentModifier(modifier, itemstack);
         }
@@ -342,7 +343,7 @@ public class EnchantmentHelper {
         return map;
     }
 
-    static final class DamageIterator implements IModifier {
+    static final class DamageIterator implements EnchantmentHelper.IModifier {
         public EntityLivingBase user;
         public Entity target;
 
@@ -354,7 +355,7 @@ public class EnchantmentHelper {
         }
     }
 
-    static final class HurtIterator implements IModifier {
+    static final class HurtIterator implements EnchantmentHelper.IModifier {
         public EntityLivingBase user;
         public Entity attacker;
 
@@ -370,7 +371,7 @@ public class EnchantmentHelper {
         void calculateModifier(Enchantment enchantmentIn, int enchantmentLevel);
     }
 
-    static final class ModifierDamage implements IModifier {
+    static final class ModifierDamage implements EnchantmentHelper.IModifier {
         public int damageModifier;
         public DamageSource source;
 
@@ -382,7 +383,7 @@ public class EnchantmentHelper {
         }
     }
 
-    static final class ModifierLiving implements IModifier {
+    static final class ModifierLiving implements EnchantmentHelper.IModifier {
         public float livingModifier;
         public EntityGroup entityLiving;
 

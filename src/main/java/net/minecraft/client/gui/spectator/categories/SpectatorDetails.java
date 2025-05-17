@@ -1,11 +1,12 @@
 package net.minecraft.client.gui.spectator.categories;
 
-import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
+
+import java.util.List;
+
 import net.minecraft.client.gui.spectator.ISpectatorMenuObject;
 import net.minecraft.client.gui.spectator.ISpectatorMenuView;
 import net.minecraft.client.gui.spectator.SpectatorMenu;
-
-import java.util.List;
 
 public class SpectatorDetails {
     private final ISpectatorMenuView field_178684_a;
@@ -19,7 +20,7 @@ public class SpectatorDetails {
     }
 
     public ISpectatorMenuObject func_178680_a(int p_178680_1_) {
-        return p_178680_1_ >= 0 && p_178680_1_ < this.field_178682_b.size() ? MoreObjects.firstNonNull(this.field_178682_b.get(p_178680_1_), SpectatorMenu.field_178657_a) : SpectatorMenu.field_178657_a;
+        return p_178680_1_ >= 0 && p_178680_1_ < this.field_178682_b.size() ? Objects.firstNonNull(this.field_178682_b.get(p_178680_1_), SpectatorMenu.field_178657_a) : SpectatorMenu.field_178657_a;
     }
 
     public int func_178681_b() {

@@ -1,5 +1,9 @@
 package net.optifine.player;
 
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.util.regex.Pattern;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.ThreadDownloadImageData;
@@ -8,10 +12,6 @@ import net.minecraft.client.renderer.texture.SimpleTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
-
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.regex.Pattern;
 
 public class CapeUtils {
     private static final Pattern PATTERN_USERNAME = Pattern.compile("[a-zA-Z0-9_]+");

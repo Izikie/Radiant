@@ -1,5 +1,12 @@
 package net.optifine;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -10,11 +17,14 @@ import net.minecraft.src.Config;
 import net.minecraft.util.RenderLayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.optifine.config.*;
+import net.optifine.config.ConnectedParser;
+import net.optifine.config.MatchBlock;
+import net.optifine.config.Matches;
+import net.optifine.config.NbtTagValue;
+import net.optifine.config.RangeInt;
+import net.optifine.config.RangeListInt;
 import net.optifine.util.MathUtils;
 import net.optifine.util.TextureUtils;
-
-import java.util.*;
 
 public class ConnectedProperties {
     public final String name;

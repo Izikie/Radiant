@@ -2,17 +2,25 @@ package net.minecraft.world.chunk;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Queues;
+
+import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.crash.ReportedException;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.ClassInheritanceMultiMap;
+import net.minecraft.util.Direction;
+import net.minecraft.util.MathHelper;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
@@ -23,9 +31,6 @@ import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 import net.minecraft.world.gen.ChunkProviderDebug;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.*;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Chunk {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -513,7 +518,7 @@ public class Chunk {
                 }
 
                 if (block1 instanceof ITileEntityProvider) {
-                    TileEntity tileentity = this.getTileEntity(pos, EnumCreateEntityType.CHECK);
+                    TileEntity tileentity = this.getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK);
 
                     if (tileentity != null) {
                         tileentity.updateContainingBlockInfo();
@@ -525,7 +530,7 @@ public class Chunk {
                 }
 
                 if (block instanceof ITileEntityProvider) {
-                    TileEntity tileentity1 = this.getTileEntity(pos, EnumCreateEntityType.CHECK);
+                    TileEntity tileentity1 = this.getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK);
 
                     if (tileentity1 == null) {
                         tileentity1 = ((ITileEntityProvider) block).createNewTileEntity(this.worldObj, block.getMetaFromState(state));
@@ -649,14 +654,14 @@ public class Chunk {
         return !block.hasTileEntity() ? null : ((ITileEntityProvider) block).createNewTileEntity(this.worldObj, this.getBlockMetadata(pos));
     }
 
-    public TileEntity getTileEntity(BlockPos pos, EnumCreateEntityType p_177424_2_) {
+    public TileEntity getTileEntity(BlockPos pos, Chunk.EnumCreateEntityType p_177424_2_) {
         TileEntity tileentity = this.chunkTileEntityMap.get(pos);
 
         if (tileentity == null) {
-            if (p_177424_2_ == EnumCreateEntityType.IMMEDIATE) {
+            if (p_177424_2_ == Chunk.EnumCreateEntityType.IMMEDIATE) {
                 tileentity = this.createNewTileEntity(pos);
                 this.worldObj.setTileEntity(pos, tileentity);
-            } else if (p_177424_2_ == EnumCreateEntityType.QUEUED) {
+            } else if (p_177424_2_ == Chunk.EnumCreateEntityType.QUEUED) {
                 this.tileEntityPosQueue.add(pos);
             }
         } else if (tileentity.isInvalid()) {
@@ -885,7 +890,7 @@ public class Chunk {
         while (!this.tileEntityPosQueue.isEmpty()) {
             BlockPos blockpos = this.tileEntityPosQueue.poll();
 
-            if (this.getTileEntity(blockpos, EnumCreateEntityType.CHECK) == null && this.getBlock(blockpos).hasTileEntity()) {
+            if (this.getTileEntity(blockpos, Chunk.EnumCreateEntityType.CHECK) == null && this.getBlock(blockpos).hasTileEntity()) {
                 TileEntity tileentity = this.createNewTileEntity(blockpos);
                 this.worldObj.setTileEntity(blockpos, tileentity);
                 this.worldObj.markBlockRangeForRenderUpdate(blockpos, blockpos);

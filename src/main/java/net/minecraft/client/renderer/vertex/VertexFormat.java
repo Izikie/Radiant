@@ -1,12 +1,13 @@
 package net.minecraft.client.renderer.vertex;
 
 import com.google.common.collect.Lists;
+
+import java.util.List;
+
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.List;
 
 public class VertexFormat {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -93,7 +94,7 @@ public class VertexFormat {
     }
 
     public int getUvOffsetById(int id) {
-        return this.uvOffsetsById.getInt(id);
+        return this.uvOffsetsById.get(id);
     }
 
     public String toString() {
@@ -145,7 +146,7 @@ public class VertexFormat {
     }
 
     public int getOffset(int p_181720_1_) {
-        return this.offsets.getInt(p_181720_1_);
+        return this.offsets.get(p_181720_1_);
     }
 
     public boolean equals(Object p_equals_1_) {

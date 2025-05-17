@@ -1,10 +1,10 @@
 package net.optifine.shaders.config;
 
-import net.optifine.expr.IExpression;
-import net.optifine.expr.IExpressionResolver;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import net.optifine.expr.IExpression;
+import net.optifine.expr.IExpressionResolver;
 
 public class ShaderOptionResolver implements IExpressionResolver {
     private final Map<String, ExpressionShaderOptionSwitch> mapOptions = new HashMap<>();

@@ -1,9 +1,9 @@
 package net.minecraft.scoreboard;
 
-import net.minecraft.entity.player.EntityPlayer;
-
 import java.util.Comparator;
 import java.util.List;
+
+import net.minecraft.entity.player.EntityPlayer;
 
 public class Score {
     public static final Comparator<Score> SCORE_COMPARATOR = (p_compare_1_, p_compare_2_) -> p_compare_1_.getScorePoints() > p_compare_2_.getScorePoints() ? 1 : (p_compare_1_.getScorePoints() < p_compare_2_.getScorePoints() ? -1 : p_compare_2_.getPlayerName().compareToIgnoreCase(p_compare_1_.getPlayerName()));

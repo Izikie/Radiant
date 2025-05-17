@@ -4,9 +4,10 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
-import net.minecraft.util.Direction;
 
 import java.util.Collection;
+
+import net.minecraft.util.Direction;
 
 public class PropertyDirection extends PropertyEnum<Direction> {
     protected PropertyDirection(String name, Collection<Direction> values) {

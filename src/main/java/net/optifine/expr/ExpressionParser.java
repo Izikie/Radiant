@@ -1,9 +1,15 @@
 package net.optifine.expr;
 
-import net.minecraft.src.Config;
-
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
+import net.minecraft.src.Config;
 
 public class ExpressionParser {
     private final IExpressionResolver expressionResolver;

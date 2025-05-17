@@ -1,6 +1,9 @@
 package net.minecraft.client.resources;
 
 import com.google.gson.JsonParseException;
+
+import java.io.IOException;
+
 import net.minecraft.client.gui.GuiScreenResourcePacks;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureUtil;
@@ -9,8 +12,6 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.io.IOException;
 
 public class ResourcePackListEntryDefault extends ResourcePackListEntry {
     private static final Logger LOGGER = LogManager.getLogger();

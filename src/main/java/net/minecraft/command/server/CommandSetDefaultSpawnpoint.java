@@ -1,5 +1,7 @@
 package net.minecraft.command.server;
 
+import java.util.List;
+
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -7,8 +9,6 @@ import net.minecraft.command.WrongUsageException;
 import net.minecraft.network.play.server.S05PacketSpawnPosition;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
-
-import java.util.List;
 
 public class CommandSetDefaultSpawnpoint extends CommandBase {
     public String getCommandName() {

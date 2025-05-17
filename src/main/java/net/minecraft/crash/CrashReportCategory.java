@@ -1,17 +1,18 @@
 package net.minecraft.crash;
 
 import com.google.common.collect.Lists;
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.BlockPos;
 
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.BlockPos;
+
 public class CrashReportCategory {
     private final CrashReport crashReport;
     private final String name;
-    private final List<Entry> children = Lists.newArrayList();
+    private final List<CrashReportCategory.Entry> children = Lists.newArrayList();
     private StackTraceElement[] stackTrace = new StackTraceElement[0];
 
     public CrashReportCategory(CrashReport report, String name) {
@@ -82,7 +83,7 @@ public class CrashReportCategory {
     }
 
     public void addCrashSection(String sectionName, Object value) {
-        this.children.add(new Entry(sectionName, value));
+        this.children.add(new CrashReportCategory.Entry(sectionName, value));
     }
 
     public void addCrashSectionThrowable(String sectionName, Throwable throwable) {
@@ -132,7 +133,7 @@ public class CrashReportCategory {
         builder.append("-- ").append(this.name).append(" --\n");
         builder.append("Details:");
 
-        for (Entry entry : this.children) {
+        for (CrashReportCategory.Entry entry : this.children) {
             builder.append("\n\t");
             builder.append(entry.getKey());
             builder.append(": ");

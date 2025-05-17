@@ -1,18 +1,56 @@
 package net.optifine.reflect;
 
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Map;
+
 import net.minecraft.client.gui.GuiEnchantment;
 import net.minecraft.client.gui.GuiHopper;
 import net.minecraft.client.gui.inventory.GuiBeacon;
 import net.minecraft.client.gui.inventory.GuiBrewingStand;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.client.gui.inventory.GuiFurnace;
-import net.minecraft.client.model.*;
+import net.minecraft.client.model.ModelBanner;
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.model.ModelBat;
+import net.minecraft.client.model.ModelBlaze;
+import net.minecraft.client.model.ModelBook;
+import net.minecraft.client.model.ModelChest;
+import net.minecraft.client.model.ModelDragon;
+import net.minecraft.client.model.ModelEnderCrystal;
+import net.minecraft.client.model.ModelEnderMite;
+import net.minecraft.client.model.ModelGhast;
+import net.minecraft.client.model.ModelGuardian;
+import net.minecraft.client.model.ModelHorse;
+import net.minecraft.client.model.ModelHumanoidHead;
+import net.minecraft.client.model.ModelLeashKnot;
+import net.minecraft.client.model.ModelMagmaCube;
+import net.minecraft.client.model.ModelOcelot;
+import net.minecraft.client.model.ModelRabbit;
+import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.model.ModelSign;
+import net.minecraft.client.model.ModelSilverfish;
+import net.minecraft.client.model.ModelSkeletonHead;
+import net.minecraft.client.model.ModelSlime;
+import net.minecraft.client.model.ModelSquid;
+import net.minecraft.client.model.ModelWitch;
+import net.minecraft.client.model.ModelWither;
+import net.minecraft.client.model.ModelWolf;
 import net.minecraft.client.renderer.block.model.ModelBlock;
 import net.minecraft.client.renderer.entity.RenderBoat;
 import net.minecraft.client.renderer.entity.RenderLeashKnot;
 import net.minecraft.client.renderer.entity.RenderMinecart;
-import net.minecraft.client.renderer.tileentity.*;
+import net.minecraft.client.renderer.tileentity.RenderEnderCrystal;
+import net.minecraft.client.renderer.tileentity.RenderWitherSkull;
+import net.minecraft.client.renderer.tileentity.TileEntityBannerRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityChestRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityEnchantmentTableRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityEnderChestRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntitySignRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryBasic;
@@ -24,12 +62,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IWorldNameable;
 import net.optifine.Log;
 import net.optifine.util.ArrayUtils;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Map;
 
 public class Reflector {
     // Reflector Vanilla

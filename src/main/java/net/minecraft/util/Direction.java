@@ -9,25 +9,25 @@ import java.util.Map;
 import java.util.Random;
 
 public enum Direction implements IStringSerializable {
-    DOWN(0, 1, -1, "Down", AxisDirection.NEGATIVE, Axis.Y, new Vec3i(0, -1, 0)),
-    UP(1, 0, -1, "Up", AxisDirection.POSITIVE, Axis.Y, new Vec3i(0, 1, 0)),
-    NORTH(2, 3, 2, "North", AxisDirection.NEGATIVE, Axis.Z, new Vec3i(0, 0, -1)),
-    SOUTH(3, 2, 0, "South", AxisDirection.POSITIVE, Axis.Z, new Vec3i(0, 0, 1)),
-    WEST(4, 5, 1, "West", AxisDirection.NEGATIVE, Axis.X, new Vec3i(-1, 0, 0)),
-    EAST(5, 4, 3, "East", AxisDirection.POSITIVE, Axis.X, new Vec3i(1, 0, 0));
+    DOWN(0, 1, -1, "Down", Direction.AxisDirection.NEGATIVE, Direction.Axis.Y, new Vec3i(0, -1, 0)),
+    UP(1, 0, -1, "Up", Direction.AxisDirection.POSITIVE, Direction.Axis.Y, new Vec3i(0, 1, 0)),
+    NORTH(2, 3, 2, "North", Direction.AxisDirection.NEGATIVE, Direction.Axis.Z, new Vec3i(0, 0, -1)),
+    SOUTH(3, 2, 0, "South", Direction.AxisDirection.POSITIVE, Direction.Axis.Z, new Vec3i(0, 0, 1)),
+    WEST(4, 5, 1, "West", Direction.AxisDirection.NEGATIVE, Direction.Axis.X, new Vec3i(-1, 0, 0)),
+    EAST(5, 4, 3, "East", Direction.AxisDirection.POSITIVE, Direction.Axis.X, new Vec3i(1, 0, 0));
 
     private final int index;
     private final int opposite;
     private final int horizontalIndex;
     private final String name;
-    private final Axis axis;
-    private final AxisDirection axisDirection;
+    private final Direction.Axis axis;
+    private final Direction.AxisDirection axisDirection;
     private final Vec3i directionVec;
     public static final Direction[] VALUES = new Direction[6];
     private static final Direction[] HORIZONTALS = new Direction[4];
     private static final Map<String, Direction> NAME_LOOKUP = new HashMap<>();
 
-    Direction(int indexIn, int oppositeIn, int horizontalIndexIn, String nameIn, AxisDirection axisDirectionIn, Axis axisIn, Vec3i directionVecIn) {
+    Direction(int indexIn, int oppositeIn, int horizontalIndexIn, String nameIn, Direction.AxisDirection axisDirectionIn, Direction.Axis axisIn, Vec3i directionVecIn) {
         this.index = indexIn;
         this.horizontalIndex = horizontalIndexIn;
         this.opposite = oppositeIn;
@@ -45,7 +45,7 @@ public enum Direction implements IStringSerializable {
         return this.horizontalIndex;
     }
 
-    public AxisDirection getAxisDirection() {
+    public Direction.AxisDirection getAxisDirection() {
         return this.axisDirection;
     }
 
@@ -53,7 +53,7 @@ public enum Direction implements IStringSerializable {
         return VALUES[this.opposite];
     }
 
-    public Direction rotateAround(Axis axis) {
+    public Direction rotateAround(Direction.Axis axis) {
         return switch (axis) {
             case X -> {
                 if (this != WEST && this != EAST) {
@@ -121,22 +121,22 @@ public enum Direction implements IStringSerializable {
     }
 
     public int getFrontOffsetX() {
-        return this.axis == Axis.X ? this.axisDirection.getOffset() : 0;
+        return this.axis == Direction.Axis.X ? this.axisDirection.getOffset() : 0;
     }
 
     public int getFrontOffsetY() {
-        return this.axis == Axis.Y ? this.axisDirection.getOffset() : 0;
+        return this.axis == Direction.Axis.Y ? this.axisDirection.getOffset() : 0;
     }
 
     public int getFrontOffsetZ() {
-        return this.axis == Axis.Z ? this.axisDirection.getOffset() : 0;
+        return this.axis == Direction.Axis.Z ? this.axisDirection.getOffset() : 0;
     }
 
     public String getName2() {
         return this.name;
     }
 
-    public Axis getAxis() {
+    public Direction.Axis getAxis() {
         return this.axis;
     }
 
@@ -184,7 +184,7 @@ public enum Direction implements IStringSerializable {
         return this.name;
     }
 
-    public static Direction getFacingFromAxis(AxisDirection p_181076_0_, Axis p_181076_1_) {
+    public static Direction getFacingFromAxis(Direction.AxisDirection p_181076_0_, Direction.Axis p_181076_1_) {
         for (Direction enumfacing : values()) {
             if (enumfacing.getAxisDirection() == p_181076_0_ && enumfacing.getAxis() == p_181076_1_) {
                 return enumfacing;
@@ -211,20 +211,20 @@ public enum Direction implements IStringSerializable {
     }
 
     public enum Axis implements Predicate<Direction>, IStringSerializable {
-        X("x", Plane.HORIZONTAL),
-        Y("y", Plane.VERTICAL),
-        Z("z", Plane.HORIZONTAL);
+        X("x", Direction.Plane.HORIZONTAL),
+        Y("y", Direction.Plane.VERTICAL),
+        Z("z", Direction.Plane.HORIZONTAL);
 
-        private static final Map<String, Axis> NAME_LOOKUP = new HashMap<>();
+        private static final Map<String, Direction.Axis> NAME_LOOKUP = new HashMap<>();
         private final String name;
-        private final Plane plane;
+        private final Direction.Plane plane;
 
-        Axis(String name, Plane plane) {
+        Axis(String name, Direction.Plane plane) {
             this.name = name;
             this.plane = plane;
         }
 
-        public static Axis byName(String name) {
+        public static Direction.Axis byName(String name) {
             return name == null ? null : NAME_LOOKUP.get(name.toLowerCase());
         }
 
@@ -233,11 +233,11 @@ public enum Direction implements IStringSerializable {
         }
 
         public boolean isVertical() {
-            return this.plane == Plane.VERTICAL;
+            return this.plane == Direction.Plane.VERTICAL;
         }
 
         public boolean isHorizontal() {
-            return this.plane == Plane.HORIZONTAL;
+            return this.plane == Direction.Plane.HORIZONTAL;
         }
 
         public String toString() {
@@ -248,7 +248,7 @@ public enum Direction implements IStringSerializable {
             return p_apply_1_ != null && p_apply_1_.getAxis() == this;
         }
 
-        public Plane getPlane() {
+        public Direction.Plane getPlane() {
             return this.plane;
         }
 
@@ -257,7 +257,7 @@ public enum Direction implements IStringSerializable {
         }
 
         static {
-            for (Axis enumfacing$axis : values()) {
+            for (Direction.Axis enumfacing$axis : values()) {
                 NAME_LOOKUP.put(enumfacing$axis.getName2().toLowerCase(), enumfacing$axis);
             }
         }

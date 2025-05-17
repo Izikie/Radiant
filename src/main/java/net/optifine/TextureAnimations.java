@@ -1,15 +1,7 @@
 package net.optifine;
 
-import net.minecraft.client.resources.IResourcePack;
-import net.minecraft.client.settings.GameSettings;
-import net.minecraft.src.Config;
-import net.minecraft.util.ResourceLocation;
-import net.optifine.util.PropertiesOrdered;
-import net.optifine.util.ResUtils;
-import net.optifine.util.TextureUtils;
-
-import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -18,6 +10,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import javax.imageio.ImageIO;
+
+import net.minecraft.client.resources.IResourcePack;
+import net.minecraft.client.settings.GameSettings;
+import net.minecraft.src.Config;
+import net.minecraft.util.ResourceLocation;
+import net.optifine.util.PropertiesOrdered;
+import net.optifine.util.ResUtils;
+import net.optifine.util.TextureUtils;
 
 public class TextureAnimations {
     private static TextureAnimation[] textureAnimations = null;

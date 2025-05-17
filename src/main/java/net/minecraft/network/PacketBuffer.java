@@ -1,15 +1,13 @@
 package net.minecraft.network;
 
-import io.netty.buffer.*;
+import com.google.common.base.Charsets;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufAllocator;
+import io.netty.buffer.ByteBufInputStream;
+import io.netty.buffer.ByteBufOutputStream;
+import io.netty.buffer.ByteBufProcessor;
 import io.netty.handler.codec.DecoderException;
 import io.netty.handler.codec.EncoderException;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompressedStreamTools;
-import net.minecraft.nbt.NBTSizeTracker;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.IChatComponent;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,8 +17,15 @@ import java.nio.ByteOrder;
 import java.nio.channels.GatheringByteChannel;
 import java.nio.channels.ScatteringByteChannel;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.UUID;
+
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompressedStreamTools;
+import net.minecraft.nbt.NBTSizeTracker;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.IChatComponent;
 
 public class PacketBuffer extends ByteBuf {
     private final ByteBuf buf;
@@ -204,7 +209,7 @@ public class PacketBuffer extends ByteBuf {
         } else if (i < 0) {
             throw new DecoderException("The received encoded string buffer length is less than zero! Weird string!");
         } else {
-            String s = new String(this.readBytes(i).array(), StandardCharsets.UTF_8);
+            String s = new String(this.readBytes(i).array(), Charsets.UTF_8);
 
             if (s.length() > maxLength) {
                 throw new DecoderException("The received string length is longer than maximum allowed (" + i + " > " + maxLength + ")");
@@ -215,7 +220,7 @@ public class PacketBuffer extends ByteBuf {
     }
 
     public PacketBuffer writeString(String string) {
-        byte[] abyte = string.getBytes(StandardCharsets.UTF_8);
+        byte[] abyte = string.getBytes(Charsets.UTF_8);
 
         if (abyte.length > 32767) {
             throw new EncoderException("String too big (was " + string.length() + " bytes encoded, max " + 32767 + ")");

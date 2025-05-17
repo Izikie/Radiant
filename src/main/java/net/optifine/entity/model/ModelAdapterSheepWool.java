@@ -1,5 +1,8 @@
 package net.optifine.entity.model;
 
+import java.util.Iterator;
+import java.util.List;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelSheep1;
@@ -11,9 +14,6 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerSheepWool;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.src.Config;
-
-import java.util.Iterator;
-import java.util.List;
 
 public class ModelAdapterSheepWool extends ModelAdapterQuadruped {
     public ModelAdapterSheepWool() {

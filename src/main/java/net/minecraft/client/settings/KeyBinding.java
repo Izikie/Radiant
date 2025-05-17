@@ -2,11 +2,12 @@ package net.minecraft.client.settings;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.util.IntHashMap;
 
 import java.util.List;
 import java.util.Set;
+
+import net.minecraft.client.resources.I18n;
+import net.minecraft.util.IntHashMap;
 
 public class KeyBinding implements Comparable<KeyBinding> {
     private static final List<KeyBinding> KEYBIND_ARRAY = Lists.newArrayList();

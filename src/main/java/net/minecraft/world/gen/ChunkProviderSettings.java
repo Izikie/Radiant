@@ -1,10 +1,19 @@
 package net.minecraft.world.gen;
 
-import com.google.gson.*;
-import net.minecraft.util.JsonUtils;
-import net.minecraft.world.biome.BiomeGenBase;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 
 import java.lang.reflect.Type;
+
+import net.minecraft.util.JsonUtils;
+import net.minecraft.world.biome.BiomeGenBase;
 
 public class ChunkProviderSettings {
     public final float coordinateScale;
@@ -86,7 +95,7 @@ public class ChunkProviderSettings {
     public final int lapisCenterHeight;
     public final int lapisSpread;
 
-    private ChunkProviderSettings(Factory settingsFactory) {
+    private ChunkProviderSettings(ChunkProviderSettings.Factory settingsFactory) {
         this.coordinateScale = settingsFactory.coordinateScale;
         this.heightScale = settingsFactory.heightScale;
         this.upperLimitScale = settingsFactory.upperLimitScale;
@@ -168,7 +177,7 @@ public class ChunkProviderSettings {
     }
 
     public static class Factory {
-        static final Gson JSON_ADAPTER = (new GsonBuilder()).registerTypeAdapter(Factory.class, new Serializer()).create();
+        static final Gson JSON_ADAPTER = (new GsonBuilder()).registerTypeAdapter(ChunkProviderSettings.Factory.class, new ChunkProviderSettings.Serializer()).create();
         public float coordinateScale = 684.412F;
         public float heightScale = 684.412F;
         public float upperLimitScale = 512.0F;
@@ -248,14 +257,14 @@ public class ChunkProviderSettings {
         public int lapisCenterHeight = 16;
         public int lapisSpread = 16;
 
-        public static Factory jsonToFactory(String p_177865_0_) {
+        public static ChunkProviderSettings.Factory jsonToFactory(String p_177865_0_) {
             if (p_177865_0_.isEmpty()) {
-                return new Factory();
+                return new ChunkProviderSettings.Factory();
             } else {
                 try {
                     return JSON_ADAPTER.fromJson(p_177865_0_, Factory.class);
                 } catch (Exception var2) {
-                    return new Factory();
+                    return new ChunkProviderSettings.Factory();
                 }
             }
         }
@@ -353,7 +362,7 @@ public class ChunkProviderSettings {
             if (this == p_equals_1_) {
                 return true;
             } else if (p_equals_1_ != null && this.getClass() == p_equals_1_.getClass()) {
-                Factory chunkprovidersettings$factory = (Factory) p_equals_1_;
+                ChunkProviderSettings.Factory chunkprovidersettings$factory = (ChunkProviderSettings.Factory) p_equals_1_;
                 return this.andesiteCount != chunkprovidersettings$factory.andesiteCount ? false : (this.andesiteMaxHeight != chunkprovidersettings$factory.andesiteMaxHeight ? false : (this.andesiteMinHeight != chunkprovidersettings$factory.andesiteMinHeight ? false : (this.andesiteSize != chunkprovidersettings$factory.andesiteSize ? false : (Float.compare(chunkprovidersettings$factory.baseSize, this.baseSize) != 0 ? false : (Float.compare(chunkprovidersettings$factory.biomeDepthOffset, this.biomeDepthOffset) != 0 ? false : (Float.compare(chunkprovidersettings$factory.biomeDepthWeight, this.biomeDepthWeight) != 0 ? false : (Float.compare(chunkprovidersettings$factory.biomeScaleOffset, this.biomeScaleOffset) != 0 ? false : (Float.compare(chunkprovidersettings$factory.biomeScaleWeight, this.biomeScaleWeight) != 0 ? false : (this.biomeSize != chunkprovidersettings$factory.biomeSize ? false : (this.coalCount != chunkprovidersettings$factory.coalCount ? false : (this.coalMaxHeight != chunkprovidersettings$factory.coalMaxHeight ? false : (this.coalMinHeight != chunkprovidersettings$factory.coalMinHeight ? false : (this.coalSize != chunkprovidersettings$factory.coalSize ? false : (Float.compare(chunkprovidersettings$factory.coordinateScale, this.coordinateScale) != 0 ? false : (Float.compare(chunkprovidersettings$factory.depthNoiseScaleExponent, this.depthNoiseScaleExponent) != 0 ? false : (Float.compare(chunkprovidersettings$factory.depthNoiseScaleX, this.depthNoiseScaleX) != 0 ? false : (Float.compare(chunkprovidersettings$factory.depthNoiseScaleZ, this.depthNoiseScaleZ) != 0 ? false : (this.diamondCount != chunkprovidersettings$factory.diamondCount ? false : (this.diamondMaxHeight != chunkprovidersettings$factory.diamondMaxHeight ? false : (this.diamondMinHeight != chunkprovidersettings$factory.diamondMinHeight ? false : (this.diamondSize != chunkprovidersettings$factory.diamondSize ? false : (this.dioriteCount != chunkprovidersettings$factory.dioriteCount ? false : (this.dioriteMaxHeight != chunkprovidersettings$factory.dioriteMaxHeight ? false : (this.dioriteMinHeight != chunkprovidersettings$factory.dioriteMinHeight ? false : (this.dioriteSize != chunkprovidersettings$factory.dioriteSize ? false : (this.dirtCount != chunkprovidersettings$factory.dirtCount ? false : (this.dirtMaxHeight != chunkprovidersettings$factory.dirtMaxHeight ? false : (this.dirtMinHeight != chunkprovidersettings$factory.dirtMinHeight ? false : (this.dirtSize != chunkprovidersettings$factory.dirtSize ? false : (this.dungeonChance != chunkprovidersettings$factory.dungeonChance ? false : (this.fixedBiome != chunkprovidersettings$factory.fixedBiome ? false : (this.goldCount != chunkprovidersettings$factory.goldCount ? false : (this.goldMaxHeight != chunkprovidersettings$factory.goldMaxHeight ? false : (this.goldMinHeight != chunkprovidersettings$factory.goldMinHeight ? false : (this.goldSize != chunkprovidersettings$factory.goldSize ? false : (this.graniteCount != chunkprovidersettings$factory.graniteCount ? false : (this.graniteMaxHeight != chunkprovidersettings$factory.graniteMaxHeight ? false : (this.graniteMinHeight != chunkprovidersettings$factory.graniteMinHeight ? false : (this.graniteSize != chunkprovidersettings$factory.graniteSize ? false : (this.gravelCount != chunkprovidersettings$factory.gravelCount ? false : (this.gravelMaxHeight != chunkprovidersettings$factory.gravelMaxHeight ? false : (this.gravelMinHeight != chunkprovidersettings$factory.gravelMinHeight ? false : (this.gravelSize != chunkprovidersettings$factory.gravelSize ? false : (Float.compare(chunkprovidersettings$factory.heightScale, this.heightScale) != 0 ? false : (this.ironCount != chunkprovidersettings$factory.ironCount ? false : (this.ironMaxHeight != chunkprovidersettings$factory.ironMaxHeight ? false : (this.ironMinHeight != chunkprovidersettings$factory.ironMinHeight ? false : (this.ironSize != chunkprovidersettings$factory.ironSize ? false : (this.lapisCenterHeight != chunkprovidersettings$factory.lapisCenterHeight ? false : (this.lapisCount != chunkprovidersettings$factory.lapisCount ? false : (this.lapisSize != chunkprovidersettings$factory.lapisSize ? false : (this.lapisSpread != chunkprovidersettings$factory.lapisSpread ? false : (this.lavaLakeChance != chunkprovidersettings$factory.lavaLakeChance ? false : (Float.compare(chunkprovidersettings$factory.lowerLimitScale, this.lowerLimitScale) != 0 ? false : (Float.compare(chunkprovidersettings$factory.mainNoiseScaleX, this.mainNoiseScaleX) != 0 ? false : (Float.compare(chunkprovidersettings$factory.mainNoiseScaleY, this.mainNoiseScaleY) != 0 ? false : (Float.compare(chunkprovidersettings$factory.mainNoiseScaleZ, this.mainNoiseScaleZ) != 0 ? false : (this.redstoneCount != chunkprovidersettings$factory.redstoneCount ? false : (this.redstoneMaxHeight != chunkprovidersettings$factory.redstoneMaxHeight ? false : (this.redstoneMinHeight != chunkprovidersettings$factory.redstoneMinHeight ? false : (this.redstoneSize != chunkprovidersettings$factory.redstoneSize ? false : (this.riverSize != chunkprovidersettings$factory.riverSize ? false : (this.seaLevel != chunkprovidersettings$factory.seaLevel ? false : (Float.compare(chunkprovidersettings$factory.stretchY, this.stretchY) != 0 ? false : (Float.compare(chunkprovidersettings$factory.upperLimitScale, this.upperLimitScale) != 0 ? false : (this.useCaves != chunkprovidersettings$factory.useCaves ? false : (this.useDungeons != chunkprovidersettings$factory.useDungeons ? false : (this.useLavaLakes != chunkprovidersettings$factory.useLavaLakes ? false : (this.useLavaOceans != chunkprovidersettings$factory.useLavaOceans ? false : (this.useMineShafts != chunkprovidersettings$factory.useMineShafts ? false : (this.useRavines != chunkprovidersettings$factory.useRavines ? false : (this.useStrongholds != chunkprovidersettings$factory.useStrongholds ? false : (this.useTemples != chunkprovidersettings$factory.useTemples ? false : (this.useMonuments != chunkprovidersettings$factory.useMonuments ? false : (this.useVillages != chunkprovidersettings$factory.useVillages ? false : (this.useWaterLakes != chunkprovidersettings$factory.useWaterLakes ? false : this.waterLakeChance == chunkprovidersettings$factory.waterLakeChance))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
             } else {
                 return false;
@@ -447,10 +456,10 @@ public class ChunkProviderSettings {
         }
     }
 
-    public static class Serializer implements JsonDeserializer<Factory>, JsonSerializer<Factory> {
-        public Factory deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
+    public static class Serializer implements JsonDeserializer<ChunkProviderSettings.Factory>, JsonSerializer<ChunkProviderSettings.Factory> {
+        public ChunkProviderSettings.Factory deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
             JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
-            Factory chunkprovidersettings$factory = new Factory();
+            ChunkProviderSettings.Factory chunkprovidersettings$factory = new ChunkProviderSettings.Factory();
 
             try {
                 chunkprovidersettings$factory.coordinateScale = JsonUtils.getFloat(jsonobject, "coordinateScale", chunkprovidersettings$factory.coordinateScale);
@@ -546,7 +555,7 @@ public class ChunkProviderSettings {
             return chunkprovidersettings$factory;
         }
 
-        public JsonElement serialize(Factory p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
+        public JsonElement serialize(ChunkProviderSettings.Factory p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
             JsonObject jsonobject = new JsonObject();
             jsonobject.addProperty("coordinateScale", p_serialize_1_.coordinateScale);
             jsonobject.addProperty("heightScale", p_serialize_1_.heightScale);

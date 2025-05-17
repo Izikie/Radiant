@@ -1,14 +1,15 @@
 package net.minecraft.block.state.pattern;
 
 import com.google.common.base.Predicate;
-import net.minecraft.block.Block;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.BlockState;
-import net.minecraft.block.state.IBlockState;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 
 public class BlockStateHelper implements Predicate<IBlockState> {
     private final BlockState blockstate;

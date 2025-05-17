@@ -1,6 +1,10 @@
 package net.minecraft.world.gen.structure;
 
 import com.google.common.collect.Lists;
+
+import java.util.List;
+import java.util.Random;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityMinecartChest;
@@ -17,40 +21,37 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
 
-import java.util.List;
-import java.util.Random;
-
 @SuppressWarnings("incomplete-switch")
 public class StructureMineshaftPieces {
     private static final List<WeightedRandomChestContent> CHEST_CONTENT_WEIGHT_LIST = Lists.newArrayList(new WeightedRandomChestContent(Items.IRON_INGOT, 0, 1, 5, 10), new WeightedRandomChestContent(Items.GOLD_INGOT, 0, 1, 3, 5), new WeightedRandomChestContent(Items.REDSTONE, 0, 4, 9, 5), new WeightedRandomChestContent(Items.DYE, DyeColor.BLUE.getDyeDamage(), 4, 9, 5), new WeightedRandomChestContent(Items.DIAMOND, 0, 1, 2, 3), new WeightedRandomChestContent(Items.COAL, 0, 3, 8, 10), new WeightedRandomChestContent(Items.BREAD, 0, 1, 3, 15), new WeightedRandomChestContent(Items.IRON_PICKAXE, 0, 1, 1, 1), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.RAIL), 0, 4, 8, 1), new WeightedRandomChestContent(Items.MELON_SEEDS, 0, 2, 4, 10), new WeightedRandomChestContent(Items.PUMPKIN_SEEDS, 0, 2, 4, 10), new WeightedRandomChestContent(Items.SADDLE, 0, 1, 1, 3), new WeightedRandomChestContent(Items.IRON_HORSE_ARMOR, 0, 1, 1, 1));
 
     public static void registerStructurePieces() {
-        MapGenStructureIO.registerStructureComponent(Corridor.class, "MSCorridor");
-        MapGenStructureIO.registerStructureComponent(Cross.class, "MSCrossing");
-        MapGenStructureIO.registerStructureComponent(Room.class, "MSRoom");
-        MapGenStructureIO.registerStructureComponent(Stairs.class, "MSStairs");
+        MapGenStructureIO.registerStructureComponent(StructureMineshaftPieces.Corridor.class, "MSCorridor");
+        MapGenStructureIO.registerStructureComponent(StructureMineshaftPieces.Cross.class, "MSCrossing");
+        MapGenStructureIO.registerStructureComponent(StructureMineshaftPieces.Room.class, "MSRoom");
+        MapGenStructureIO.registerStructureComponent(StructureMineshaftPieces.Stairs.class, "MSStairs");
     }
 
     private static StructureComponent func_175892_a(List<StructureComponent> listIn, Random rand, int x, int y, int z, Direction facing, int type) {
         int i = rand.nextInt(100);
 
         if (i >= 80) {
-            StructureBoundingBox structureboundingbox = Cross.func_175813_a(listIn, rand, x, y, z, facing);
+            StructureBoundingBox structureboundingbox = StructureMineshaftPieces.Cross.func_175813_a(listIn, rand, x, y, z, facing);
 
             if (structureboundingbox != null) {
-                return new Cross(type, rand, structureboundingbox, facing);
+                return new StructureMineshaftPieces.Cross(type, rand, structureboundingbox, facing);
             }
         } else if (i >= 70) {
-            StructureBoundingBox structureboundingbox1 = Stairs.func_175812_a(listIn, rand, x, y, z, facing);
+            StructureBoundingBox structureboundingbox1 = StructureMineshaftPieces.Stairs.func_175812_a(listIn, rand, x, y, z, facing);
 
             if (structureboundingbox1 != null) {
-                return new Stairs(type, rand, structureboundingbox1, facing);
+                return new StructureMineshaftPieces.Stairs(type, rand, structureboundingbox1, facing);
             }
         } else {
-            StructureBoundingBox structureboundingbox2 = Corridor.func_175814_a(listIn, rand, x, y, z, facing);
+            StructureBoundingBox structureboundingbox2 = StructureMineshaftPieces.Corridor.func_175814_a(listIn, rand, x, y, z, facing);
 
             if (structureboundingbox2 != null) {
-                return new Corridor(type, rand, structureboundingbox2, facing);
+                return new StructureMineshaftPieces.Corridor(type, rand, structureboundingbox2, facing);
             }
         }
 

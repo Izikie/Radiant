@@ -1,5 +1,8 @@
 package net.minecraft.block;
 
+import java.util.List;
+import java.util.Random;
+
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
@@ -12,9 +15,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.RenderLayer;
 import net.minecraft.world.World;
-
-import java.util.List;
-import java.util.Random;
 
 public class BlockStainedGlass extends BlockBreakable {
     public static final PropertyEnum<DyeColor> COLOR = PropertyEnum.create("color", DyeColor.class);

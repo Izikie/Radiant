@@ -1,5 +1,7 @@
 package net.minecraft.world.biome;
 
+import java.util.Random;
+
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.entity.passive.EntityWolf;
@@ -10,8 +12,6 @@ import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenBigMushroom;
 import net.minecraft.world.gen.feature.WorldGenCanopyTree;
 import net.minecraft.world.gen.feature.WorldGenForest;
-
-import java.util.Random;
 
 public class BiomeGenForest extends BiomeGenBase {
     private final int field_150632_aF;
@@ -41,7 +41,7 @@ public class BiomeGenForest extends BiomeGenBase {
         }
 
         if (this.field_150632_aF == 0) {
-            this.spawnableCreatureList.add(new SpawnListEntry(EntityWolf.class, 5, 4, 4));
+            this.spawnableCreatureList.add(new BiomeGenBase.SpawnListEntry(EntityWolf.class, 5, 4, 4));
         }
 
         if (this.field_150632_aF == 3) {
@@ -140,7 +140,7 @@ public class BiomeGenForest extends BiomeGenBase {
     protected BiomeGenBase createMutatedBiome(final int p_180277_1_) {
         if (this.biomeID == BiomeGenBase.FOREST.biomeID) {
             BiomeGenForest biomegenforest = new BiomeGenForest(p_180277_1_, 1);
-            biomegenforest.setHeight(new Height(this.minHeight, this.maxHeight + 0.2F));
+            biomegenforest.setHeight(new BiomeGenBase.Height(this.minHeight, this.maxHeight + 0.2F));
             biomegenforest.setBiomeName("Flower Forest");
             biomegenforest.func_150557_a(6976549, true);
             biomegenforest.setFillerBlockMetadata(8233509);

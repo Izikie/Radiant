@@ -1,5 +1,8 @@
 package net.minecraft.client.renderer;
 
+import java.util.ArrayDeque;
+import java.util.Arrays;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.src.Config;
@@ -10,9 +13,6 @@ import net.minecraft.world.ChunkCache;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.optifine.DynamicLights;
-
-import java.util.ArrayDeque;
-import java.util.Arrays;
 
 public class RegionRenderCache extends ChunkCache {
     private static final IBlockState DEFAULT_STATE = Blocks.AIR.getDefaultState();

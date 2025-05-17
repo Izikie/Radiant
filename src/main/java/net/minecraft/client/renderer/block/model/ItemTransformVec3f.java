@@ -1,11 +1,17 @@
 package net.minecraft.client.renderer.block.model;
 
-import com.google.gson.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+
+import java.lang.reflect.Type;
+
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.MathHelper;
 import org.joml.Vector3f;
-
-import java.lang.reflect.Type;
 
 public record ItemTransformVec3f(Vector3f rotation, Vector3f translation, Vector3f scale) {
     public static final ItemTransformVec3f DEFAULT = new ItemTransformVec3f(new Vector3f(), new Vector3f(), new Vector3f(1.0F, 1.0F, 1.0F));

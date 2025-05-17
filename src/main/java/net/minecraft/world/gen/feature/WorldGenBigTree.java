@@ -1,6 +1,10 @@
 package net.minecraft.world.gen.feature;
 
 import com.google.common.collect.Lists;
+
+import java.util.List;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLog;
@@ -10,9 +14,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-
-import java.util.List;
-import java.util.Random;
 
 public class WorldGenBigTree extends WorldGenAbstractTree {
     private Random rand;
@@ -27,7 +28,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
     final int trunkSize = 1;
     final int heightLimitLimit = 12;
     int leafDistanceLimit = 4;
-    List<FoliageCoordinates> field_175948_j;
+    List<WorldGenBigTree.FoliageCoordinates> field_175948_j;
 
     public WorldGenBigTree(boolean p_i2008_1_) {
         super(p_i2008_1_);
@@ -49,7 +50,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
         int j = this.basePos.getY() + this.height;
         int k = this.heightLimit - this.leafDistanceLimit;
         this.field_175948_j = Lists.newArrayList();
-        this.field_175948_j.add(new FoliageCoordinates(this.basePos.up(k), j));
+        this.field_175948_j.add(new WorldGenBigTree.FoliageCoordinates(this.basePos.up(k), j));
 
         for (; k >= 0; --k) {
             float f = this.layerSize(k);
@@ -71,7 +72,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
                         BlockPos blockpos2 = new BlockPos(this.basePos.getX(), k1, this.basePos.getZ());
 
                         if (this.checkBlockLine(blockpos2, blockpos) == -1) {
-                            this.field_175948_j.add(new FoliageCoordinates(blockpos, blockpos2.getY()));
+                            this.field_175948_j.add(new WorldGenBigTree.FoliageCoordinates(blockpos, blockpos2.getY()));
                         }
                     }
                 }
@@ -163,7 +164,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
     }
 
     void generateLeaves() {
-        for (FoliageCoordinates worldgenbigtree$foliagecoordinates : this.field_175948_j) {
+        for (WorldGenBigTree.FoliageCoordinates worldgenbigtree$foliagecoordinates : this.field_175948_j) {
             this.generateLeafNode(worldgenbigtree$foliagecoordinates);
         }
     }
@@ -186,7 +187,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
     }
 
     void generateLeafNodeBases() {
-        for (FoliageCoordinates worldgenbigtree$foliagecoordinates : this.field_175948_j) {
+        for (WorldGenBigTree.FoliageCoordinates worldgenbigtree$foliagecoordinates : this.field_175948_j) {
             int i = worldgenbigtree$foliagecoordinates.func_177999_q();
             BlockPos blockpos = new BlockPos(this.basePos.getX(), i, this.basePos.getZ());
 

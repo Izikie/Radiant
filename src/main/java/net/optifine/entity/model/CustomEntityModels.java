@@ -2,6 +2,18 @@ package net.optifine.entity.model;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.IdentityHashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -13,9 +25,6 @@ import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.entity.model.anim.ModelResolver;
 import net.optifine.entity.model.anim.ModelUpdater;
-
-import java.io.IOException;
-import java.util.*;
 
 public class CustomEntityModels {
     private static boolean active = false;

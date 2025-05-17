@@ -1,6 +1,12 @@
 package net.minecraft.block;
 
 import com.google.common.collect.Lists;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -10,13 +16,8 @@ import net.minecraft.util.ParticleTypes;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
 public class BlockRedstoneTorch extends BlockTorch {
-    private static final Map<World, List<Toggle>> toggles = new HashMap<>();
+    private static final Map<World, List<BlockRedstoneTorch.Toggle>> toggles = new HashMap<>();
     private final boolean isOn;
 
     private boolean isBurnedOut(World worldIn, BlockPos pos, boolean turnOff) {
@@ -24,10 +25,10 @@ public class BlockRedstoneTorch extends BlockTorch {
             toggles.put(worldIn, Lists.newArrayList());
         }
 
-        List<Toggle> list = toggles.get(worldIn);
+        List<BlockRedstoneTorch.Toggle> list = toggles.get(worldIn);
 
         if (turnOff) {
-            list.add(new Toggle(pos, worldIn.getTotalWorldTime()));
+            list.add(new BlockRedstoneTorch.Toggle(pos, worldIn.getTotalWorldTime()));
         }
 
         int i = 0;
@@ -86,7 +87,7 @@ public class BlockRedstoneTorch extends BlockTorch {
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         boolean flag = this.shouldBeOff(worldIn, pos, state);
-        List<Toggle> list = toggles.get(worldIn);
+        List<BlockRedstoneTorch.Toggle> list = toggles.get(worldIn);
 
         while (list != null && !list.isEmpty() && worldIn.getTotalWorldTime() - list.getFirst().time > 60L) {
             list.removeFirst();

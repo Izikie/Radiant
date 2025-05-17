@@ -1,5 +1,8 @@
 package net.optifine.shaders.gui;
 
+import java.io.IOException;
+import java.net.URI;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -14,9 +17,6 @@ import net.optifine.gui.TooltipProviderEnumShaderOptions;
 import net.optifine.shaders.Shaders;
 import net.optifine.shaders.ShadersTex;
 import net.optifine.shaders.config.ShaderOptions;
-
-import java.io.IOException;
-import java.net.URI;
 
 public class GuiShaders extends GuiScreenOF {
     protected final GuiScreen parentGui;

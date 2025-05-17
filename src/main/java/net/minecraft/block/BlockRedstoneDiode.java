@@ -1,5 +1,7 @@
 package net.minecraft.block;
 
+import java.util.Random;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -10,8 +12,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.RenderLayer;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import java.util.Random;
 
 public abstract class BlockRedstoneDiode extends BlockDirectional {
     protected final boolean isRepeaterPowered;

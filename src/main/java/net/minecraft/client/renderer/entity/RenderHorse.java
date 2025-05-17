@@ -1,14 +1,14 @@
 package net.minecraft.client.renderer.entity;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelHorse;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.LayeredTexture;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.util.ResourceLocation;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class RenderHorse extends RenderLiving<EntityHorse> {
     private static final Map<String, ResourceLocation> field_110852_a = new HashMap<>();

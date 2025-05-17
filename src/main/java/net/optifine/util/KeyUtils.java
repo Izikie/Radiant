@@ -1,12 +1,12 @@
 package net.optifine.util;
 
-import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
-import it.unimi.dsi.fastutil.ints.IntSet;
-import net.minecraft.client.settings.KeyBinding;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+
+import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
+import it.unimi.dsi.fastutil.ints.IntSet;
+import net.minecraft.client.settings.KeyBinding;
 
 public class KeyUtils {
     public static void fixKeyConflicts(KeyBinding[] keys, KeyBinding[] priorityKeys) {

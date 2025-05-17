@@ -2,6 +2,14 @@ package net.minecraft.world.gen.structure;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+import java.util.Map.Entry;
+
 import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -11,9 +19,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-
-import java.util.*;
-import java.util.Map.Entry;
 
 public class StructureOceanMonument extends MapGenStructure {
     private int field_175800_f;
@@ -74,7 +79,7 @@ public class StructureOceanMonument extends MapGenStructure {
     }
 
     protected StructureStart getStructureStart(int chunkX, int chunkZ) {
-        return new StartMonument(this.worldObj, this.rand, chunkX, chunkZ);
+        return new StructureOceanMonument.StartMonument(this.worldObj, this.rand, chunkX, chunkZ);
     }
 
     public List<BiomeGenBase.SpawnListEntry> getScatteredFeatureSpawnList() {

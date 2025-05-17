@@ -1,8 +1,8 @@
 package net.minecraft.client.renderer.block.model;
 
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-
 import java.util.Arrays;
+
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
 public class BreakingFour extends BakedQuad {
     private final TextureAtlasSprite texture;

@@ -1,20 +1,21 @@
 package net.minecraft.network.play.server;
 
 import com.google.common.collect.Lists;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.IAttributeInstance;
-import net.minecraft.network.Packet;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.network.play.INetHandlerPlayClient;
 
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.IAttributeInstance;
+import net.minecraft.network.Packet;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.play.INetHandlerPlayClient;
+
 public class S20PacketEntityProperties implements Packet<INetHandlerPlayClient> {
     private int entityId;
-    private final List<Snapshot> field_149444_b = Lists.newArrayList();
+    private final List<S20PacketEntityProperties.Snapshot> field_149444_b = Lists.newArrayList();
 
     public S20PacketEntityProperties() {}
 
@@ -22,7 +23,7 @@ public class S20PacketEntityProperties implements Packet<INetHandlerPlayClient> 
         this.entityId = entityIdIn;
 
         for (IAttributeInstance iattributeinstance : p_i45236_2_) {
-            this.field_149444_b.add(new Snapshot(iattributeinstance.getAttribute().getAttributeUnlocalizedName(), iattributeinstance.getBaseValue(), iattributeinstance.func_111122_c()));
+            this.field_149444_b.add(new S20PacketEntityProperties.Snapshot(iattributeinstance.getAttribute().getAttributeUnlocalizedName(), iattributeinstance.getBaseValue(), iattributeinstance.func_111122_c()));
         }
     }
 
@@ -41,7 +42,7 @@ public class S20PacketEntityProperties implements Packet<INetHandlerPlayClient> 
                 list.add(new AttributeModifier(uuid, "Unknown synced attribute modifier", buf.readDouble(), buf.readByte()));
             }
 
-            this.field_149444_b.add(new Snapshot(s, d0, list));
+            this.field_149444_b.add(new S20PacketEntityProperties.Snapshot(s, d0, list));
         }
     }
 
@@ -49,7 +50,7 @@ public class S20PacketEntityProperties implements Packet<INetHandlerPlayClient> 
         buf.writeVarIntToBuffer(this.entityId);
         buf.writeInt(this.field_149444_b.size());
 
-        for (Snapshot s20packetentityproperties$snapshot : this.field_149444_b) {
+        for (S20PacketEntityProperties.Snapshot s20packetentityproperties$snapshot : this.field_149444_b) {
             buf.writeString(s20packetentityproperties$snapshot.func_151409_a());
             buf.writeDouble(s20packetentityproperties$snapshot.func_151410_b());
             buf.writeVarIntToBuffer(s20packetentityproperties$snapshot.func_151408_c().size());
@@ -70,7 +71,7 @@ public class S20PacketEntityProperties implements Packet<INetHandlerPlayClient> 
         return this.entityId;
     }
 
-    public List<Snapshot> func_149441_d() {
+    public List<S20PacketEntityProperties.Snapshot> func_149441_d() {
         return this.field_149444_b;
     }
 

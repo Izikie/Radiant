@@ -1,15 +1,19 @@
 package net.minecraft.command.server;
 
-import net.minecraft.command.*;
+import java.util.Arrays;
+import java.util.List;
+
+import net.minecraft.command.CommandBase;
+import net.minecraft.command.CommandException;
+import net.minecraft.command.ICommandSender;
+import net.minecraft.command.PlayerNotFoundException;
+import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.IChatComponent;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class CommandMessage extends CommandBase {
     public List<String> getCommandAliases() {

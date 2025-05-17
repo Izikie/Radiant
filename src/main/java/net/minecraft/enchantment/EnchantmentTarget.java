@@ -1,6 +1,11 @@
 package net.minecraft.enchantment;
 
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemBow;
+import net.minecraft.item.ItemFishingRod;
+import net.minecraft.item.ItemSword;
+import net.minecraft.item.ItemTool;
 
 public enum EnchantmentTarget {
     ALL,

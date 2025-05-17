@@ -13,7 +13,7 @@ public class MovingSoundMinecartRiding extends MovingSound {
         super(new ResourceLocation("minecraft:minecart.inside"));
         this.player = playerRiding;
         this.minecart = minecart;
-        this.attenuationType = AttenuationType.NONE;
+        this.attenuationType = ISound.AttenuationType.NONE;
         this.repeat = true;
         this.repeatDelay = 0;
     }

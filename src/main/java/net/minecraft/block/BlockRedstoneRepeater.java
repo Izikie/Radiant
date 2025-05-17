@@ -1,5 +1,7 @@
 package net.minecraft.block;
 
+import java.util.Random;
+
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
@@ -14,8 +16,6 @@ import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import java.util.Random;
 
 public class BlockRedstoneRepeater extends BlockRedstoneDiode {
     public static final PropertyBool LOCKED = PropertyBool.create("locked");

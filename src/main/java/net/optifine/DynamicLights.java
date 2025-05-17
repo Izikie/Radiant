@@ -1,5 +1,9 @@
 package net.optifine;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.entity.Entity;
@@ -19,10 +23,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class DynamicLights {
     private static final DynamicLightsMap DYNAMIC_LIGHTS_MAP = new DynamicLightsMap();

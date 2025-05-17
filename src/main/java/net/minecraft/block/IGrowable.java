@@ -1,10 +1,10 @@
 package net.minecraft.block;
 
+import java.util.Random;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
-
-import java.util.Random;
 
 public interface IGrowable {
     boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient);

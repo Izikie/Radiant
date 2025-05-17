@@ -1,5 +1,8 @@
 package net.minecraft.tileentity;
 
+import java.util.Arrays;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
 import net.minecraft.block.BlockHopper;
@@ -14,11 +17,13 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EntitySelectors;
+import net.minecraft.util.Direction;
+import net.minecraft.util.ITickable;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class TileEntityHopper extends TileEntityLockable implements IHopper, ITickable {
     private ItemStack[] inventory = new ItemStack[5];

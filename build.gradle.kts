@@ -37,10 +37,10 @@ dependencies {
     implementation(group = "it.unimi.dsi", name = "fastutil", version = "8.5.15")
     implementation(group = "com.alibaba.fastjson2", name = "fastjson2", version = "2.0.57")
 
-    implementation(group = "net.java.dev.jna", name = "jna", version = "5.17.0")
-    implementation(group = "net.java.dev.jna", name = "jna-platform", version = "5.17.0")
+    implementation(group = "net.java.dev.jna", name = "jna", version = "5.16.0")
+    implementation(group = "net.java.dev.jna", name = "jna-platform", version = "5.16.0")
 
-    implementation(group = "com.ibm.icu", name = "icu4j", version = "77.1")
+    implementation(group = "com.ibm.icu", name = "icu4j", version = "76.1")
     implementation(group = "net.sf.jopt-simple", name = "jopt-simple", version = "5.0.4")
 
     implementation(group = "com.paulscode", name = "codecjorbis", version = "20101023")
@@ -49,36 +49,27 @@ dependencies {
     implementation(group = "com.paulscode", name = "librarylwjglopenal", version = "20100824")
     implementation(group = "com.paulscode", name = "soundsystem", version = "20120107")
 
-    implementation(group = "io.netty", name = "netty-all", version = "4.0.23.Final")
+    implementation(group = "io.netty", name = "netty-all", version = "4.0.23.Final") // Update To Newer Rewriten Netty Versions Or Use Another Library
 
     implementation(group = "net.java.jinput", name = "jinput", version = "2.0.7")
     implementation(group = "net.java.jutils", name = "jutils", version = "1.0.0")
 
-    implementation(group = "com.google.guava", name = "guava", version = "33.4.8-jre")
-    implementation(group = "com.google.code.gson", name = "gson", version = "2.13.1")
+    implementation(group = "com.google.guava", name = "guava", version = "17.0")
+    implementation(group = "com.google.code.gson", name = "gson", version = "2.11.0")
 
-    implementation(group = "commons-io", name = "commons-io", version = "2.19.0")
-    implementation(group = "commons-codec", name = "commons-codec", version = "1.18.0")
-    //implementation(group = "commons-logging", name = "commons-logging", version = "1.3.4")
-    // I think we didn't use commons-logging
+    implementation(group = "commons-io", name = "commons-io", version = "2.18.0")
+    implementation(group = "commons-codec", name = "commons-codec", version = "1.17.2")
+    implementation(group = "commons-logging", name = "commons-logging", version = "1.3.4")
     implementation(group = "org.apache.commons", name = "commons-lang3", version = "3.17.0")
     implementation(group = "org.apache.commons", name = "commons-compress", version = "1.27.1")
     implementation(group = "org.apache.commons", name = "commons-text", version = "1.13.0")
 
+
     implementation(group = "org.apache.logging.log4j", name = "log4j-api", version = "2.24.3")
     implementation(group = "org.apache.logging.log4j", name = "log4j-core", version = "2.24.3")
 
-    // org.lwjgl 3 latest with org.lwjgl 2 compatibility layer
-    implementation(group = "org.lwjgl", name = "lwjgl", version = "3.3.6")
-    implementation(group = "org.lwjgl", name = "lwjgl-glfw", version = "3.3.6")
-    implementation(group = "org.lwjgl", name = "lwjgl-openal", version = "3.3.6")
-    implementation(group = "org.lwjgl", name = "lwjgl-opengl", version = "3.3.6")
-
-    // org.lwjgl windows natives
-    runtimeOnly(group = "org.lwjgl", name = "lwjgl", classifier = "natives-windows")
-    runtimeOnly(group = "org.lwjgl", name = "lwjgl-glfw", classifier = "natives-windows")
-    runtimeOnly(group = "org.lwjgl", name = "lwjgl-openal", classifier = "natives-windows")
-    runtimeOnly(group = "org.lwjgl", name = "lwjgl-opengl", classifier = "natives-windows")
+    implementation(group = "org.lwjgl.lwjgl", name = "lwjgl", version = "2.9.3") // Update To 3.0 Properly
+    implementation(group = "org.lwjgl.lwjgl", name = "lwjgl_util", version = "2.9.3") // Update To 3.0 Properly
 
     implementation(group = "com.mojang", name = "authlib", version = "1.5.21")
 }

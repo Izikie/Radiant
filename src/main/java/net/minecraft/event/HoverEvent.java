@@ -1,20 +1,20 @@
 package net.minecraft.event;
 
-import net.minecraft.util.IChatComponent;
-
 import java.util.HashMap;
 import java.util.Map;
 
+import net.minecraft.util.IChatComponent;
+
 public class HoverEvent {
-    private final Action action;
+    private final HoverEvent.Action action;
     private final IChatComponent value;
 
-    public HoverEvent(Action actionIn, IChatComponent valueIn) {
+    public HoverEvent(HoverEvent.Action actionIn, IChatComponent valueIn) {
         this.action = actionIn;
         this.value = valueIn;
     }
 
-    public Action getAction() {
+    public HoverEvent.Action getAction() {
         return this.action;
     }
 
@@ -56,7 +56,7 @@ public class HoverEvent {
         SHOW_ITEM("show_item", true),
         SHOW_ENTITY("show_entity", true);
 
-        private static final Map<String, Action> nameMapping = new HashMap<>();
+        private static final Map<String, HoverEvent.Action> nameMapping = new HashMap<>();
         private final boolean allowedInChat;
         private final String canonicalName;
 
@@ -73,12 +73,12 @@ public class HoverEvent {
             return this.canonicalName;
         }
 
-        public static Action getValueByCanonicalName(String canonicalNameIn) {
+        public static HoverEvent.Action getValueByCanonicalName(String canonicalNameIn) {
             return nameMapping.get(canonicalNameIn);
         }
 
         static {
-            for (Action hoverevent$action : values()) {
+            for (HoverEvent.Action hoverevent$action : values()) {
                 nameMapping.put(hoverevent$action.getCanonicalName(), hoverevent$action);
             }
         }

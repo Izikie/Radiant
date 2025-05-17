@@ -1,12 +1,12 @@
 package net.minecraft.client.gui;
 
+import java.io.IOException;
+
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.world.WorldSettings;
-
-import java.io.IOException;
 
 public class GuiShareToLan extends GuiScreen {
     private final GuiScreen field_146598_a;

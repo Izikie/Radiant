@@ -1,8 +1,8 @@
 package net.minecraft.client.resources;
 
-import net.minecraft.util.ResourceLocation;
-
 import java.util.UUID;
+
+import net.minecraft.util.ResourceLocation;
 
 public class DefaultPlayerSkin {
     private static final ResourceLocation TEXTURE_STEVE = new ResourceLocation("textures/entity/steve.png");

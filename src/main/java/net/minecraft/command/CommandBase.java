@@ -4,6 +4,13 @@ import com.google.common.base.Functions;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Doubles;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -13,8 +20,6 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.ResourceLocation;
-
-import java.util.*;
 
 public abstract class CommandBase implements ICommand {
     private static IAdminCommand theAdmin;
@@ -266,11 +271,11 @@ public abstract class CommandBase implements ICommand {
         return stringbuilder.toString();
     }
 
-    public static CoordinateArg parseCoordinate(double base, String p_175770_2_, boolean centerBlock) throws NumberInvalidException {
+    public static CommandBase.CoordinateArg parseCoordinate(double base, String p_175770_2_, boolean centerBlock) throws NumberInvalidException {
         return parseCoordinate(base, p_175770_2_, -30000000, 30000000, centerBlock);
     }
 
-    public static CoordinateArg parseCoordinate(double p_175767_0_, String p_175767_2_, int min, int max, boolean centerBlock) throws NumberInvalidException {
+    public static CommandBase.CoordinateArg parseCoordinate(double p_175767_0_, String p_175767_2_, int min, int max, boolean centerBlock) throws NumberInvalidException {
         boolean flag = p_175767_2_.startsWith("~");
 
         if (flag && Double.isNaN(p_175767_0_)) {
@@ -302,7 +307,7 @@ public abstract class CommandBase implements ICommand {
                 }
             }
 
-            return new CoordinateArg(d0 + (flag ? p_175767_0_ : 0.0D), d0, flag);
+            return new CommandBase.CoordinateArg(d0 + (flag ? p_175767_0_ : 0.0D), d0, flag);
         }
     }
 

@@ -1,24 +1,29 @@
 package net.minecraft.client.renderer;
 
 import com.google.common.primitives.Floats;
+
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
+import java.nio.ShortBuffer;
+import java.util.Arrays;
+import java.util.BitSet;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
 import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.RenderLayer;
+import net.minecraft.util.MathHelper;
 import net.optifine.SmartAnimations;
 import net.optifine.render.RenderEnv;
 import net.optifine.shaders.SVertexBuilder;
 import net.optifine.util.TextureUtils;
 import org.apache.logging.log4j.LogManager;
 import org.lwjgl.opengl.GL11;
-
-import java.nio.*;
-import java.util.Arrays;
-import java.util.BitSet;
 
 public class WorldRenderer {
     private ByteBuffer byteBuffer;
@@ -146,7 +151,7 @@ public class WorldRenderer {
         }
     }
 
-    public State getVertexState() {
+    public WorldRenderer.State getVertexState() {
         this.rawIntBuffer.rewind();
         int i = this.getBufferSize();
         this.rawIntBuffer.limit(i);
@@ -162,7 +167,7 @@ public class WorldRenderer {
             System.arraycopy(this.quadSprites, 0, atextureatlassprite, 0, j);
         }
 
-        return new State(aint, new VertexFormat(this.vertexFormat), atextureatlassprite);
+        return new WorldRenderer.State(aint, new VertexFormat(this.vertexFormat), atextureatlassprite);
     }
 
     public int getBufferSize() {
@@ -188,7 +193,7 @@ public class WorldRenderer {
         return f12 * f12 + f13 * f13 + f14 * f14;
     }
 
-    public void setVertexState(State state) {
+    public void setVertexState(WorldRenderer.State state) {
         this.rawIntBuffer.clear();
         this.growBuffer(state.getRawBuffer().length);
         this.rawIntBuffer.put(state.getRawBuffer());

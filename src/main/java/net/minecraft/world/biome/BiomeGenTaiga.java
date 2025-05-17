@@ -1,5 +1,7 @@
 package net.minecraft.world.biome;
 
+import java.util.Random;
+
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.BlockTallGrass;
@@ -8,9 +10,13 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.gen.feature.*;
-
-import java.util.Random;
+import net.minecraft.world.gen.feature.WorldGenAbstractTree;
+import net.minecraft.world.gen.feature.WorldGenBlockBlob;
+import net.minecraft.world.gen.feature.WorldGenMegaPineTree;
+import net.minecraft.world.gen.feature.WorldGenTaiga1;
+import net.minecraft.world.gen.feature.WorldGenTaiga2;
+import net.minecraft.world.gen.feature.WorldGenTallGrass;
+import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class BiomeGenTaiga extends BiomeGenBase {
     private static final WorldGenTaiga1 field_150639_aC = new WorldGenTaiga1();
@@ -23,7 +29,7 @@ public class BiomeGenTaiga extends BiomeGenBase {
     public BiomeGenTaiga(int id, int p_i45385_2_) {
         super(id);
         this.field_150644_aH = p_i45385_2_;
-        this.spawnableCreatureList.add(new SpawnListEntry(EntityWolf.class, 8, 4, 4));
+        this.spawnableCreatureList.add(new BiomeGenBase.SpawnListEntry(EntityWolf.class, 8, 4, 4));
         this.theBiomeDecorator.treesPerChunk = 10;
 
         if (p_i45385_2_ != 1 && p_i45385_2_ != 2) {
@@ -84,6 +90,6 @@ public class BiomeGenTaiga extends BiomeGenBase {
     }
 
     protected BiomeGenBase createMutatedBiome(int p_180277_1_) {
-        return this.biomeID == BiomeGenBase.MEGA_TAIGA.biomeID ? (new BiomeGenTaiga(p_180277_1_, 2)).func_150557_a(5858897, true).setBiomeName("Mega Spruce Taiga").setFillerBlockMetadata(5159473).setTemperatureRainfall(0.25F, 0.8F).setHeight(new Height(this.minHeight, this.maxHeight)) : super.createMutatedBiome(p_180277_1_);
+        return this.biomeID == BiomeGenBase.MEGA_TAIGA.biomeID ? (new BiomeGenTaiga(p_180277_1_, 2)).func_150557_a(5858897, true).setBiomeName("Mega Spruce Taiga").setFillerBlockMetadata(5159473).setTemperatureRainfall(0.25F, 0.8F).setHeight(new BiomeGenBase.Height(this.minHeight, this.maxHeight)) : super.createMutatedBiome(p_180277_1_);
     }
 }

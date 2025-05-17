@@ -1,5 +1,7 @@
 package net.minecraft.client.gui;
 
+import java.io.IOException;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.GlStateManager;
@@ -15,15 +17,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.gen.FlatGeneratorInfo;
 import net.minecraft.world.gen.FlatLayerInfo;
 
-import java.io.IOException;
-
 public class GuiCreateFlatWorld extends GuiScreen {
     private final GuiCreateWorld createWorldGui;
     private FlatGeneratorInfo theFlatGeneratorInfo = FlatGeneratorInfo.getDefaultFlatGenerator();
     private String flatWorldTitle;
     private String field_146394_i;
     private String field_146391_r;
-    private Details createFlatWorldListSlotGui;
+    private GuiCreateFlatWorld.Details createFlatWorldListSlotGui;
     private GuiButton field_146389_t;
     private GuiButton field_146388_u;
     private GuiButton field_146386_v;
@@ -46,7 +46,7 @@ public class GuiCreateFlatWorld extends GuiScreen {
         this.flatWorldTitle = I18n.format("createWorld.customize.flat.title");
         this.field_146394_i = I18n.format("createWorld.customize.flat.tile");
         this.field_146391_r = I18n.format("createWorld.customize.flat.height");
-        this.createFlatWorldListSlotGui = new Details();
+        this.createFlatWorldListSlotGui = new GuiCreateFlatWorld.Details();
         this.buttonList.add(this.field_146389_t = new GuiButton(2, this.width / 2 - 154, this.height - 52, 100, 20, I18n.format("createWorld.customize.flat.addLayer") + " (NYI)"));
         this.buttonList.add(this.field_146388_u = new GuiButton(3, this.width / 2 - 50, this.height - 52, 100, 20, I18n.format("createWorld.customize.flat.editLayer") + " (NYI)"));
         this.buttonList.add(this.field_146386_v = new GuiButton(4, this.width / 2 - 155, this.height - 52, 150, 20, I18n.format("createWorld.customize.flat.removeLayer")));

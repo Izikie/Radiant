@@ -1,14 +1,15 @@
 package net.minecraft.inventory;
 
 import com.google.common.collect.Lists;
+
+import java.util.Arrays;
+import java.util.List;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IChatComponent;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class InventoryBasic implements IInventory {
     private String inventoryTitle;

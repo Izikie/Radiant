@@ -1,8 +1,8 @@
 package net.optifine;
 
-import net.minecraft.src.Config;
-
 import java.util.Comparator;
+
+import net.minecraft.src.Config;
 
 public class CustomItemsComparator implements Comparator {
     public int compare(Object o1, Object o2) {

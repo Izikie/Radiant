@@ -1,6 +1,9 @@
 package net.minecraft.world.gen;
 
 import com.google.common.collect.Lists;
+
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityCategory;
@@ -13,8 +16,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.chunk.IChunkProvider;
-
-import java.util.List;
 
 public class ChunkProviderDebug implements IChunkProvider {
     private static final List<IBlockState> field_177464_a = Lists.newArrayList();

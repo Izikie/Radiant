@@ -1,15 +1,20 @@
 package net.optifine.http;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.src.Config;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.src.Config;
 
 public class HttpUtils {
     private static String playerItemsUrl = null;

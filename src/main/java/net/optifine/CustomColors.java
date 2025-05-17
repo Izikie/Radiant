@@ -1,5 +1,19 @@
 package net.optifine;
 
+import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Random;
+import java.util.Set;
+import javax.imageio.ImageIO;
+
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
@@ -33,16 +47,13 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.optifine.config.ConnectedParser;
 import net.optifine.config.MatchBlock;
 import net.optifine.render.RenderEnv;
-import net.optifine.util.*;
+import net.optifine.util.EntityUtils;
+import net.optifine.util.PropertiesOrdered;
+import net.optifine.util.ResUtils;
+import net.optifine.util.StrUtils;
+import net.optifine.util.TextureUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.*;
 
 public class CustomColors {
     private static String paletteFormatDefault = "vanilla";
@@ -91,7 +102,7 @@ public class CustomColors {
     private static final IBlockState BLOCK_STATE_DIRT = Blocks.DIRT.getDefaultState();
     private static final IBlockState BLOCK_STATE_WATER = Blocks.WATER.getDefaultState();
     public static final Random RANDOM = new Random();
-    private static final IColorizer COLORIZER_GRASS = new IColorizer() {
+    private static final CustomColors.IColorizer COLORIZER_GRASS = new CustomColors.IColorizer() {
         public int getColor(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos) {
             BiomeGenBase biomegenbase = CustomColors.getColorBiome(blockAccess, blockPos);
             return CustomColors.swampGrassColors != null && biomegenbase == BiomeGenBase.SWAMPLAND ? CustomColors.swampGrassColors.getColor(biomegenbase, blockPos) : biomegenbase.getGrassColorAtPos(blockPos);
@@ -101,7 +112,7 @@ public class CustomColors {
             return false;
         }
     };
-    private static final IColorizer COLORIZER_FOLIAGE = new IColorizer() {
+    private static final CustomColors.IColorizer COLORIZER_FOLIAGE = new CustomColors.IColorizer() {
         public int getColor(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos) {
             BiomeGenBase biomegenbase = CustomColors.getColorBiome(blockAccess, blockPos);
             return CustomColors.swampFoliageColors != null && biomegenbase == BiomeGenBase.SWAMPLAND ? CustomColors.swampFoliageColors.getColor(biomegenbase, blockPos) : biomegenbase.getFoliageColorAtPos(blockPos);
@@ -111,7 +122,7 @@ public class CustomColors {
             return false;
         }
     };
-    private static final IColorizer COLORIZER_FOLIAGE_PINE = new IColorizer() {
+    private static final CustomColors.IColorizer COLORIZER_FOLIAGE_PINE = new CustomColors.IColorizer() {
         public int getColor(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos) {
             return CustomColors.foliagePineColors != null ? CustomColors.foliagePineColors.getColor(blockAccess, blockPos) : ColorizerFoliage.getFoliageColorPine();
         }
@@ -120,7 +131,7 @@ public class CustomColors {
             return CustomColors.foliagePineColors == null;
         }
     };
-    private static final IColorizer COLORIZER_FOLIAGE_BIRCH = new IColorizer() {
+    private static final CustomColors.IColorizer COLORIZER_FOLIAGE_BIRCH = new CustomColors.IColorizer() {
         public int getColor(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos) {
             return CustomColors.foliageBirchColors != null ? CustomColors.foliageBirchColors.getColor(blockAccess, blockPos) : ColorizerFoliage.getFoliageColorBirch();
         }
@@ -129,7 +140,7 @@ public class CustomColors {
             return CustomColors.foliageBirchColors == null;
         }
     };
-    private static final IColorizer COLORIZER_WATER = new IColorizer() {
+    private static final CustomColors.IColorizer COLORIZER_WATER = new CustomColors.IColorizer() {
         public int getColor(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos) {
             BiomeGenBase biomegenbase = CustomColors.getColorBiome(blockAccess, blockPos);
             return CustomColors.waterColors != null ? CustomColors.waterColors.getColor(biomegenbase, blockPos) : (biomegenbase.waterColorMultiplier);
@@ -674,7 +685,7 @@ public class CustomColors {
             return -1;
         } else {
             int i = renderEnv.getMetadata();
-            IColorizer customcolors$icolorizer;
+            CustomColors.IColorizer customcolors$icolorizer;
 
             if (block != Blocks.GRASS && block != Blocks.TALL_GRASS && block != Blocks.DOUBLE_PLANT) {
                 if (block == Blocks.DOUBLE_PLANT) {
@@ -741,7 +752,7 @@ public class CustomColors {
         }
     }
 
-    private static int getSmoothColorMultiplier(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos, IColorizer colorizer, BlockPosM blockPosM) {
+    private static int getSmoothColorMultiplier(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos, CustomColors.IColorizer colorizer, BlockPosM blockPosM) {
         int i = 0;
         int j = 0;
         int k = 0;
@@ -767,7 +778,7 @@ public class CustomColors {
 
     public static int getFluidColor(IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, RenderEnv renderEnv) {
         Block block = blockState.getBlock();
-        IColorizer customcolors$icolorizer = getBlockColormap(blockState);
+        CustomColors.IColorizer customcolors$icolorizer = getBlockColormap(blockState);
 
         if (customcolors$icolorizer == null && blockState.getBlock().getMaterial() == Material.WATER) {
             customcolors$icolorizer = COLORIZER_WATER;
@@ -1087,7 +1098,7 @@ public class CustomColors {
             int[] aint = new int[list.size()];
 
             for (int l = 0; l < aint.length; ++l) {
-                aint[l] = list.getInt(l);
+                aint[l] = list.get(l);
             }
 
             return aint;

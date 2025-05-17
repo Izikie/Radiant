@@ -1,5 +1,7 @@
 package net.minecraft.pathfinding;
 
+import java.util.List;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -10,8 +12,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.ChunkCache;
 import net.minecraft.world.World;
-
-import java.util.List;
 
 public abstract class PathNavigate {
     protected final EntityLiving theEntity;

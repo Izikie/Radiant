@@ -1,5 +1,8 @@
 package net.minecraft.village;
 
+import java.util.Iterator;
+import java.util.List;
+
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
@@ -8,9 +11,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.SpawnerAnimals;
 import net.minecraft.world.World;
-
-import java.util.Iterator;
-import java.util.List;
 
 public class VillageSiege {
     private final World worldObj;

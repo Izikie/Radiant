@@ -1,10 +1,10 @@
 package net.minecraft.client.audio;
 
-import net.minecraft.util.RegistrySimple;
-import net.minecraft.util.ResourceLocation;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import net.minecraft.util.RegistrySimple;
+import net.minecraft.util.ResourceLocation;
 
 public class SoundRegistry extends RegistrySimple<ResourceLocation, SoundEventAccessorComposite> {
     private Map<ResourceLocation, SoundEventAccessorComposite> soundRegistry;

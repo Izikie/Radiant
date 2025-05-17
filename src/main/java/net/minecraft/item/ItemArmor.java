@@ -1,6 +1,9 @@
 package net.minecraft.item;
 
 import com.google.common.base.Predicates;
+
+import java.util.List;
+
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
@@ -15,8 +18,6 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.world.World;
-
-import java.util.List;
 
 public class ItemArmor extends Item {
     private static final int[] MAX_DAMAGE_ARRAY = new int[]{11, 16, 15, 13};
@@ -52,9 +53,9 @@ public class ItemArmor extends Item {
     public final int armorType;
     public final int damageReduceAmount;
     public final int renderIndex;
-    private final ArmorMaterial material;
+    private final ItemArmor.ArmorMaterial material;
 
-    public ItemArmor(ArmorMaterial material, int renderIndex, int armorType) {
+    public ItemArmor(ItemArmor.ArmorMaterial material, int renderIndex, int armorType) {
         this.material = material;
         this.armorType = armorType;
         this.renderIndex = renderIndex;
@@ -83,16 +84,16 @@ public class ItemArmor extends Item {
         return this.material.getEnchantability();
     }
 
-    public ArmorMaterial getArmorMaterial() {
+    public ItemArmor.ArmorMaterial getArmorMaterial() {
         return this.material;
     }
 
     public boolean hasColor(ItemStack stack) {
-        return this.material != ArmorMaterial.LEATHER ? false : (!stack.hasTagCompound() ? false : (!stack.getTagCompound().hasKey("display", 10) ? false : stack.getTagCompound().getCompoundTag("display").hasKey("color", 3)));
+        return this.material != ItemArmor.ArmorMaterial.LEATHER ? false : (!stack.hasTagCompound() ? false : (!stack.getTagCompound().hasKey("display", 10) ? false : stack.getTagCompound().getCompoundTag("display").hasKey("color", 3)));
     }
 
     public int getColor(ItemStack stack) {
-        if (this.material != ArmorMaterial.LEATHER) {
+        if (this.material != ItemArmor.ArmorMaterial.LEATHER) {
             return -1;
         } else {
             NBTTagCompound nbttagcompound = stack.getTagCompound();
@@ -110,7 +111,7 @@ public class ItemArmor extends Item {
     }
 
     public void removeColor(ItemStack stack) {
-        if (this.material == ArmorMaterial.LEATHER) {
+        if (this.material == ItemArmor.ArmorMaterial.LEATHER) {
             NBTTagCompound nbttagcompound = stack.getTagCompound();
 
             if (nbttagcompound != null) {
@@ -124,7 +125,7 @@ public class ItemArmor extends Item {
     }
 
     public void setColor(ItemStack stack, int color) {
-        if (this.material != ArmorMaterial.LEATHER) {
+        if (this.material != ItemArmor.ArmorMaterial.LEATHER) {
             throw new UnsupportedOperationException("Can't dye non-leather!");
         } else {
             NBTTagCompound nbttagcompound = stack.getTagCompound();

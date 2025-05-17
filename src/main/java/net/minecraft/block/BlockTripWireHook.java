@@ -1,6 +1,9 @@
 package net.minecraft.block;
 
-import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
+
+import java.util.Random;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
@@ -16,8 +19,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.RenderLayer;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import java.util.Random;
 
 public class BlockTripWireHook extends Block {
     public static final PropertyDirection FACING = PropertyDirection.create("facing", Direction.Plane.HORIZONTAL);
@@ -116,7 +117,7 @@ public class BlockTripWireHook extends Block {
                 flag3 = false;
             } else {
                 if (j == p_176260_6_) {
-                    iblockstate = MoreObjects.firstNonNull(p_176260_7_, iblockstate);
+                    iblockstate = Objects.firstNonNull(p_176260_7_, iblockstate);
                 }
 
                 boolean flag5 = !iblockstate.getValue(BlockTripWire.DISARMED);

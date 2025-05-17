@@ -1,5 +1,8 @@
 package net.minecraft.client.player.inventory;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -7,9 +10,6 @@ import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.world.ILockableContainer;
 import net.minecraft.world.LockCode;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class ContainerLocalMenu extends InventoryBasic implements ILockableContainer {
     private final String guiID;

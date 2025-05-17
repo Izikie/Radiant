@@ -1,5 +1,8 @@
 package net.minecraft.block;
 
+import java.util.List;
+import java.util.Random;
+
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockState;
@@ -16,26 +19,32 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.Direction;
+import net.minecraft.util.RenderLayer;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.ObjectIntIdentityMap;
+import net.minecraft.util.RegistryNamespacedDefaultedByKey;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import java.util.List;
-import java.util.Random;
 
 public class Block {
     private static final ResourceLocation AIR_ID = new ResourceLocation("air");
     public static final RegistryNamespacedDefaultedByKey<ResourceLocation, Block> blockRegistry = new RegistryNamespacedDefaultedByKey<>(AIR_ID);
     public static final ObjectIntIdentityMap<IBlockState> BLOCK_STATE_IDS = new ObjectIntIdentityMap();
     private CreativeTabs displayOnCreativeTab;
-    public static final SoundType soundTypeStone = new SoundType("stone", 1.0F, 1.0F);
-    public static final SoundType soundTypeWood = new SoundType("wood", 1.0F, 1.0F);
-    public static final SoundType soundTypeGravel = new SoundType("gravel", 1.0F, 1.0F);
-    public static final SoundType soundTypeGrass = new SoundType("grass", 1.0F, 1.0F);
-    public static final SoundType soundTypePiston = new SoundType("stone", 1.0F, 1.0F);
-    public static final SoundType soundTypeMetal = new SoundType("stone", 1.0F, 1.5F);
-    public static final SoundType soundTypeGlass = new SoundType("stone", 1.0F, 1.0F) {
+    public static final Block.SoundType soundTypeStone = new Block.SoundType("stone", 1.0F, 1.0F);
+    public static final Block.SoundType soundTypeWood = new Block.SoundType("wood", 1.0F, 1.0F);
+    public static final Block.SoundType soundTypeGravel = new Block.SoundType("gravel", 1.0F, 1.0F);
+    public static final Block.SoundType soundTypeGrass = new Block.SoundType("grass", 1.0F, 1.0F);
+    public static final Block.SoundType soundTypePiston = new Block.SoundType("stone", 1.0F, 1.0F);
+    public static final Block.SoundType soundTypeMetal = new Block.SoundType("stone", 1.0F, 1.5F);
+    public static final Block.SoundType soundTypeGlass = new Block.SoundType("stone", 1.0F, 1.0F) {
         public String getBreakSound() {
             return "dig.glass";
         }
@@ -44,15 +53,15 @@ public class Block {
             return "step.stone";
         }
     };
-    public static final SoundType soundTypeCloth = new SoundType("cloth", 1.0F, 1.0F);
-    public static final SoundType soundTypeSand = new SoundType("sand", 1.0F, 1.0F);
-    public static final SoundType soundTypeSnow = new SoundType("snow", 1.0F, 1.0F);
-    public static final SoundType soundTypeLadder = new SoundType("ladder", 1.0F, 1.0F) {
+    public static final Block.SoundType soundTypeCloth = new Block.SoundType("cloth", 1.0F, 1.0F);
+    public static final Block.SoundType soundTypeSand = new Block.SoundType("sand", 1.0F, 1.0F);
+    public static final Block.SoundType soundTypeSnow = new Block.SoundType("snow", 1.0F, 1.0F);
+    public static final Block.SoundType soundTypeLadder = new Block.SoundType("ladder", 1.0F, 1.0F) {
         public String getBreakSound() {
             return "dig.wood";
         }
     };
-    public static final SoundType soundTypeAnvil = new SoundType("anvil", 0.3F, 1.0F) {
+    public static final Block.SoundType soundTypeAnvil = new Block.SoundType("anvil", 0.3F, 1.0F) {
         public String getBreakSound() {
             return "dig.stone";
         }
@@ -61,7 +70,7 @@ public class Block {
             return "random.anvil_land";
         }
     };
-    public static final SoundType SLIME_SOUND = new SoundType("slime", 1.0F, 1.0F) {
+    public static final Block.SoundType SLIME_SOUND = new Block.SoundType("slime", 1.0F, 1.0F) {
         public String getBreakSound() {
             return "mob.slime.big";
         }
@@ -90,7 +99,7 @@ public class Block {
     protected double maxX;
     protected double maxY;
     protected double maxZ;
-    public SoundType stepSound;
+    public Block.SoundType stepSound;
     public final float blockParticleGravity;
     protected final Material blockMaterial;
     protected final MapColor blockMapColor;
@@ -199,7 +208,7 @@ public class Block {
         this(materialIn, materialIn.getMaterialMapColor());
     }
 
-    protected Block setStepSound(SoundType sound) {
+    protected Block setStepSound(Block.SoundType sound) {
         this.stepSound = sound;
         return this;
     }
@@ -789,8 +798,8 @@ public class Block {
         return this.defaultBlockState;
     }
 
-    public EnumOffsetType getOffsetType() {
-        return EnumOffsetType.NONE;
+    public Block.EnumOffsetType getOffsetType() {
+        return Block.EnumOffsetType.NONE;
     }
 
     public String toString() {

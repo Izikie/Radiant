@@ -1,5 +1,7 @@
 package net.minecraft.block;
 
+import java.util.List;
+
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
@@ -9,8 +11,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
-
-import java.util.List;
 
 public class BlockPlanks extends Block {
     public static final PropertyEnum<WoodType> VARIANT = PropertyEnum.create("variant", WoodType.class);

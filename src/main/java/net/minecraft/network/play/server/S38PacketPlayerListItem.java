@@ -1,9 +1,13 @@
 package net.minecraft.network.play.server;
 
-import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
+
+import java.io.IOException;
+import java.util.List;
+
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
@@ -11,28 +15,25 @@ import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.world.WorldSettings;
 
-import java.io.IOException;
-import java.util.List;
-
 public class S38PacketPlayerListItem implements Packet<INetHandlerPlayClient> {
-    private Action action;
-    private final List<AddPlayerData> players = Lists.newArrayList();
+    private S38PacketPlayerListItem.Action action;
+    private final List<S38PacketPlayerListItem.AddPlayerData> players = Lists.newArrayList();
 
     public S38PacketPlayerListItem() {}
 
-    public S38PacketPlayerListItem(Action actionIn, EntityPlayerMP... players) {
+    public S38PacketPlayerListItem(S38PacketPlayerListItem.Action actionIn, EntityPlayerMP... players) {
         this.action = actionIn;
 
         for (EntityPlayerMP entityplayermp : players) {
-            this.players.add(new AddPlayerData(entityplayermp.getGameProfile(), entityplayermp.ping, entityplayermp.theItemInWorldManager.getGameType(), entityplayermp.getTabListDisplayName()));
+            this.players.add(new S38PacketPlayerListItem.AddPlayerData(entityplayermp.getGameProfile(), entityplayermp.ping, entityplayermp.theItemInWorldManager.getGameType(), entityplayermp.getTabListDisplayName()));
         }
     }
 
-    public S38PacketPlayerListItem(Action actionIn, Iterable<EntityPlayerMP> players) {
+    public S38PacketPlayerListItem(S38PacketPlayerListItem.Action actionIn, Iterable<EntityPlayerMP> players) {
         this.action = actionIn;
 
         for (EntityPlayerMP entityplayermp : players) {
-            this.players.add(new AddPlayerData(entityplayermp.getGameProfile(), entityplayermp.ping, entityplayermp.theItemInWorldManager.getGameType(), entityplayermp.getTabListDisplayName()));
+            this.players.add(new S38PacketPlayerListItem.AddPlayerData(entityplayermp.getGameProfile(), entityplayermp.ping, entityplayermp.theItemInWorldManager.getGameType(), entityplayermp.getTabListDisplayName()));
         }
     }
 
@@ -95,7 +96,7 @@ public class S38PacketPlayerListItem implements Packet<INetHandlerPlayClient> {
                     gameprofile = new GameProfile(buf.readUuid(), null);
             }
 
-            this.players.add(new AddPlayerData(gameprofile, k, worldsettings$gametype, ichatcomponent));
+            this.players.add(new S38PacketPlayerListItem.AddPlayerData(gameprofile, k, worldsettings$gametype, ichatcomponent));
         }
     }
 
@@ -103,7 +104,7 @@ public class S38PacketPlayerListItem implements Packet<INetHandlerPlayClient> {
         buf.writeEnumValue(this.action);
         buf.writeVarIntToBuffer(this.players.size());
 
-        for (AddPlayerData s38packetplayerlistitem$addplayerdata : this.players) {
+        for (S38PacketPlayerListItem.AddPlayerData s38packetplayerlistitem$addplayerdata : this.players) {
             switch (this.action) {
                 case ADD_PLAYER:
                     buf.writeUuid(s38packetplayerlistitem$addplayerdata.getProfile().getId());
@@ -166,16 +167,16 @@ public class S38PacketPlayerListItem implements Packet<INetHandlerPlayClient> {
         handler.handlePlayerListItem(this);
     }
 
-    public List<AddPlayerData> getEntries() {
+    public List<S38PacketPlayerListItem.AddPlayerData> getEntries() {
         return this.players;
     }
 
-    public Action getAction() {
+    public S38PacketPlayerListItem.Action getAction() {
         return this.action;
     }
 
     public String toString() {
-        return MoreObjects.toStringHelper(this).add("action", this.action).add("entries", this.players).toString();
+        return Objects.toStringHelper(this).add("action", this.action).add("entries", this.players).toString();
     }
 
     public enum Action {
@@ -216,7 +217,7 @@ public class S38PacketPlayerListItem implements Packet<INetHandlerPlayClient> {
         }
 
         public String toString() {
-            return MoreObjects.toStringHelper(this).add("latency", this.ping).add("gameMode", this.gamemode).add("profile", this.profile).add("displayName", this.displayName == null ? null : IChatComponent.Serializer.componentToJson(this.displayName)).toString();
+            return Objects.toStringHelper(this).add("latency", this.ping).add("gameMode", this.gamemode).add("profile", this.profile).add("displayName", this.displayName == null ? null : IChatComponent.Serializer.componentToJson(this.displayName)).toString();
         }
     }
 }

@@ -1,8 +1,8 @@
 package net.minecraft.client.gui;
 
-import net.minecraft.client.resources.I18n;
-
 import java.io.IOException;
+
+import net.minecraft.client.resources.I18n;
 
 public class GuiConfirmOpenLink extends GuiYesNo {
     private final String openLinkWarning;

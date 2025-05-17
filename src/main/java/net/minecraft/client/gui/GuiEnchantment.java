@@ -1,6 +1,12 @@
 package net.minecraft.client.gui;
 
 import com.google.common.collect.Lists;
+
+import java.io.IOException;
+import java.nio.FloatBuffer;
+import java.util.List;
+import java.util.Random;
+
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.model.ModelBook;
 import net.minecraft.client.renderer.GlStateManager;
@@ -18,11 +24,6 @@ import net.minecraft.world.IWorldNameable;
 import net.minecraft.world.World;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
-
-import java.io.IOException;
-import java.nio.FloatBuffer;
-import java.util.List;
-import java.util.Random;
 
 public class GuiEnchantment extends GuiContainer {
     private static final ResourceLocation ENCHANTMENT_TABLE_GUI_TEXTURE = new ResourceLocation("textures/gui/container/enchanting_table.png");

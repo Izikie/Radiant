@@ -1,57 +1,57 @@
 package net.minecraft.world;
 
-import net.minecraft.nbt.NBTTagCompound;
-
 import java.util.Set;
 import java.util.TreeMap;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 public class GameRules {
-    private final TreeMap<String, Value> theGameRules = new TreeMap<>();
+    private final TreeMap<String, GameRules.Value> theGameRules = new TreeMap<>();
 
     public GameRules() {
-        this.addGameRule("doFireTick", "true", ValueType.BOOLEAN_VALUE);
-        this.addGameRule("mobGriefing", "true", ValueType.BOOLEAN_VALUE);
-        this.addGameRule("keepInventory", "false", ValueType.BOOLEAN_VALUE);
-        this.addGameRule("doMobSpawning", "true", ValueType.BOOLEAN_VALUE);
-        this.addGameRule("doMobLoot", "true", ValueType.BOOLEAN_VALUE);
-        this.addGameRule("doTileDrops", "true", ValueType.BOOLEAN_VALUE);
-        this.addGameRule("doEntityDrops", "true", ValueType.BOOLEAN_VALUE);
-        this.addGameRule("commandBlockOutput", "true", ValueType.BOOLEAN_VALUE);
-        this.addGameRule("naturalRegeneration", "true", ValueType.BOOLEAN_VALUE);
-        this.addGameRule("doDaylightCycle", "true", ValueType.BOOLEAN_VALUE);
-        this.addGameRule("logAdminCommands", "true", ValueType.BOOLEAN_VALUE);
-        this.addGameRule("showDeathMessages", "true", ValueType.BOOLEAN_VALUE);
-        this.addGameRule("randomTickSpeed", "3", ValueType.NUMERICAL_VALUE);
-        this.addGameRule("sendCommandFeedback", "true", ValueType.BOOLEAN_VALUE);
-        this.addGameRule("reducedDebugInfo", "false", ValueType.BOOLEAN_VALUE);
+        this.addGameRule("doFireTick", "true", GameRules.ValueType.BOOLEAN_VALUE);
+        this.addGameRule("mobGriefing", "true", GameRules.ValueType.BOOLEAN_VALUE);
+        this.addGameRule("keepInventory", "false", GameRules.ValueType.BOOLEAN_VALUE);
+        this.addGameRule("doMobSpawning", "true", GameRules.ValueType.BOOLEAN_VALUE);
+        this.addGameRule("doMobLoot", "true", GameRules.ValueType.BOOLEAN_VALUE);
+        this.addGameRule("doTileDrops", "true", GameRules.ValueType.BOOLEAN_VALUE);
+        this.addGameRule("doEntityDrops", "true", GameRules.ValueType.BOOLEAN_VALUE);
+        this.addGameRule("commandBlockOutput", "true", GameRules.ValueType.BOOLEAN_VALUE);
+        this.addGameRule("naturalRegeneration", "true", GameRules.ValueType.BOOLEAN_VALUE);
+        this.addGameRule("doDaylightCycle", "true", GameRules.ValueType.BOOLEAN_VALUE);
+        this.addGameRule("logAdminCommands", "true", GameRules.ValueType.BOOLEAN_VALUE);
+        this.addGameRule("showDeathMessages", "true", GameRules.ValueType.BOOLEAN_VALUE);
+        this.addGameRule("randomTickSpeed", "3", GameRules.ValueType.NUMERICAL_VALUE);
+        this.addGameRule("sendCommandFeedback", "true", GameRules.ValueType.BOOLEAN_VALUE);
+        this.addGameRule("reducedDebugInfo", "false", GameRules.ValueType.BOOLEAN_VALUE);
     }
 
-    public void addGameRule(String key, String value, ValueType type) {
-        this.theGameRules.put(key, new Value(value, type));
+    public void addGameRule(String key, String value, GameRules.ValueType type) {
+        this.theGameRules.put(key, new GameRules.Value(value, type));
     }
 
     public void setOrCreateGameRule(String key, String ruleValue) {
-        Value gamerules$value = this.theGameRules.get(key);
+        GameRules.Value gamerules$value = this.theGameRules.get(key);
 
         if (gamerules$value != null) {
             gamerules$value.setValue(ruleValue);
         } else {
-            this.addGameRule(key, ruleValue, ValueType.ANY_VALUE);
+            this.addGameRule(key, ruleValue, GameRules.ValueType.ANY_VALUE);
         }
     }
 
     public String getString(String name) {
-        Value gamerules$value = this.theGameRules.get(name);
+        GameRules.Value gamerules$value = this.theGameRules.get(name);
         return gamerules$value != null ? gamerules$value.getString() : "";
     }
 
     public boolean getBoolean(String name) {
-        Value gamerules$value = this.theGameRules.get(name);
+        GameRules.Value gamerules$value = this.theGameRules.get(name);
         return gamerules$value != null ? gamerules$value.getBoolean() : false;
     }
 
     public int getInt(String name) {
-        Value gamerules$value = this.theGameRules.get(name);
+        GameRules.Value gamerules$value = this.theGameRules.get(name);
         return gamerules$value != null ? gamerules$value.getInt() : 0;
     }
 
@@ -59,7 +59,7 @@ public class GameRules {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
 
         for (String s : this.theGameRules.keySet()) {
-            Value gamerules$value = this.theGameRules.get(s);
+            GameRules.Value gamerules$value = this.theGameRules.get(s);
             nbttagcompound.setString(s, gamerules$value.getString());
         }
 
@@ -82,9 +82,9 @@ public class GameRules {
         return this.theGameRules.containsKey(name);
     }
 
-    public boolean areSameType(String key, ValueType otherValue) {
-        Value gamerules$value = this.theGameRules.get(key);
-        return gamerules$value != null && (gamerules$value.getType() == otherValue || otherValue == ValueType.ANY_VALUE);
+    public boolean areSameType(String key, GameRules.ValueType otherValue) {
+        GameRules.Value gamerules$value = this.theGameRules.get(key);
+        return gamerules$value != null && (gamerules$value.getType() == otherValue || otherValue == GameRules.ValueType.ANY_VALUE);
     }
 
     static class Value {
@@ -92,9 +92,9 @@ public class GameRules {
         private boolean valueBoolean;
         private int valueInteger;
         private double valueDouble;
-        private final ValueType type;
+        private final GameRules.ValueType type;
 
-        public Value(String value, ValueType type) {
+        public Value(String value, GameRules.ValueType type) {
             this.type = type;
             this.setValue(value);
         }
@@ -140,7 +140,7 @@ public class GameRules {
             return this.valueInteger;
         }
 
-        public ValueType getType() {
+        public GameRules.ValueType getType() {
             return this.type;
         }
     }

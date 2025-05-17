@@ -1,13 +1,14 @@
 package net.minecraft.client.renderer.chunk;
 
 import com.google.common.collect.Lists;
+
+import java.util.BitSet;
+import java.util.List;
+
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.RenderLayer;
-
-import java.util.BitSet;
-import java.util.List;
 
 public class CompiledChunk {
     public static final CompiledChunk DUMMY = new CompiledChunk() {

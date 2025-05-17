@@ -1,13 +1,13 @@
 package net.minecraft.client.gui;
 
+import java.io.IOException;
+
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.world.Difficulty;
-
-import java.io.IOException;
 
 public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
     private static final GameSettings.Options[] field_146440_f = new GameSettings.Options[]{GameSettings.Options.FOV};

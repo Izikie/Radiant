@@ -1,5 +1,7 @@
 package net.minecraft.command.server;
 
+import java.util.List;
+
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -11,8 +13,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
-
-import java.util.List;
 
 public class CommandTestFor extends CommandBase {
     public String getCommandName() {

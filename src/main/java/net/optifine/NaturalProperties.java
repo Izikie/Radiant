@@ -1,13 +1,13 @@
 package net.optifine;
 
+import java.util.IdentityHashMap;
+import java.util.Map;
+
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.src.Config;
 import net.minecraft.util.Direction;
 import net.minecraft.util.MathHelper;
-
-import java.util.IdentityHashMap;
-import java.util.Map;
 
 public class NaturalProperties {
     public int rotation = 1;

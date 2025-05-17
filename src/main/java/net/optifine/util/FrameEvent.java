@@ -1,9 +1,9 @@
 package net.optifine.util;
 
-import net.minecraft.client.Minecraft;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import net.minecraft.client.Minecraft;
 
 public class FrameEvent {
     private static final Map<String, Integer> mapEventFrames = new HashMap<>();

@@ -2,6 +2,9 @@ package net.minecraft.world;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+
+import java.util.*;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -11,9 +14,12 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.*;
-
-import java.util.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.ParticleTypes;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3;
 
 public class Explosion {
     private final boolean isFlaming;

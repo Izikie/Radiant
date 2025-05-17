@@ -2,6 +2,10 @@ package net.minecraft.block;
 
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
+
+import java.util.Collection;
+import java.util.List;
+
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
@@ -11,9 +15,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
-
-import java.util.Collection;
-import java.util.List;
 
 public abstract class BlockFlower extends BlockBush {
     protected PropertyEnum<FlowerType> type;
@@ -54,8 +55,8 @@ public abstract class BlockFlower extends BlockBush {
         return new BlockState(this, this.getTypeProperty());
     }
 
-    public EnumOffsetType getOffsetType() {
-        return EnumOffsetType.XZ;
+    public Block.EnumOffsetType getOffsetType() {
+        return Block.EnumOffsetType.XZ;
     }
 
     public enum FlowerColor {

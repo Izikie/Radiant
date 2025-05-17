@@ -1,7 +1,7 @@
 package net.minecraft.server.network;
 
-import net.minecraft.network.NetworkManager;
 import net.minecraft.network.NetworkState;
+import net.minecraft.network.NetworkManager;
 import net.minecraft.network.handshake.INetHandlerHandshakeServer;
 import net.minecraft.network.handshake.client.C00Handshake;
 import net.minecraft.network.login.server.S00PacketDisconnect;

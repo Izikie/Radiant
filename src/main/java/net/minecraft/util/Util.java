@@ -1,11 +1,11 @@
 package net.minecraft.util;
 
-import org.apache.logging.log4j.Logger;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
+
+import org.apache.logging.log4j.Logger;
 
 public class Util {
     public static OperatingSystem getOSType() {

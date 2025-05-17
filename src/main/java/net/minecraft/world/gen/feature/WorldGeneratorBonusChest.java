@@ -1,5 +1,8 @@
 package net.minecraft.world.gen.feature;
 
+import java.util.List;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
@@ -8,9 +11,6 @@ import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
-
-import java.util.List;
-import java.util.Random;
 
 public class WorldGeneratorBonusChest extends WorldGenerator {
     private final List<WeightedRandomChestContent> chestItems;

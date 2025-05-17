@@ -1,6 +1,6 @@
 package net.minecraft.util;
 
-import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
 
 public class Vec3i implements Comparable<Vec3i> {
     public static final Vec3i NULL_VECTOR = new Vec3i(0, 0, 0);
@@ -71,6 +71,6 @@ public class Vec3i implements Comparable<Vec3i> {
     }
 
     public String toString() {
-        return MoreObjects.toStringHelper(this).add("x", this.getX()).add("y", this.getY()).add("z", this.getZ()).toString();
+        return Objects.toStringHelper(this).add("x", this.getX()).add("y", this.getY()).add("z", this.getZ()).toString();
     }
 }

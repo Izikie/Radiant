@@ -1,6 +1,6 @@
 package net.minecraft.client.network;
 
-import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.DefaultPlayerSkin;
@@ -69,7 +69,7 @@ public class NetworkPlayerInfo {
             this.loadPlayerTextures();
         }
 
-        return MoreObjects.firstNonNull(this.locationSkin, DefaultPlayerSkin.getDefaultSkin(this.gameProfile.getId()));
+        return Objects.firstNonNull(this.locationSkin, DefaultPlayerSkin.getDefaultSkin(this.gameProfile.getId()));
     }
 
     public ResourceLocation getLocationCape() {

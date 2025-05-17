@@ -1,5 +1,8 @@
 package net.minecraft.command.server;
 
+import java.util.EnumSet;
+import java.util.List;
+
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -10,9 +13,6 @@ import net.minecraft.network.play.server.S08PacketPlayerPosLook;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
-
-import java.util.EnumSet;
-import java.util.List;
 
 public class CommandTeleport extends CommandBase {
     public String getCommandName() {
@@ -46,11 +46,11 @@ public class CommandTeleport extends CommandBase {
                     throw new WrongUsageException("commands.tp.usage");
                 } else if (entity.worldObj != null) {
                     int lvt_5_2_ = i + 1;
-                    CoordinateArg commandbase$coordinatearg = parseCoordinate(entity.posX, args[i], true);
-                    CoordinateArg commandbase$coordinatearg1 = parseCoordinate(entity.posY, args[lvt_5_2_++], 0, 0, false);
-                    CoordinateArg commandbase$coordinatearg2 = parseCoordinate(entity.posZ, args[lvt_5_2_++], true);
-                    CoordinateArg commandbase$coordinatearg3 = parseCoordinate(entity.rotationYaw, args.length > lvt_5_2_ ? args[lvt_5_2_++] : "~", false);
-                    CoordinateArg commandbase$coordinatearg4 = parseCoordinate(entity.rotationPitch, args.length > lvt_5_2_ ? args[lvt_5_2_] : "~", false);
+                    CommandBase.CoordinateArg commandbase$coordinatearg = parseCoordinate(entity.posX, args[i], true);
+                    CommandBase.CoordinateArg commandbase$coordinatearg1 = parseCoordinate(entity.posY, args[lvt_5_2_++], 0, 0, false);
+                    CommandBase.CoordinateArg commandbase$coordinatearg2 = parseCoordinate(entity.posZ, args[lvt_5_2_++], true);
+                    CommandBase.CoordinateArg commandbase$coordinatearg3 = parseCoordinate(entity.rotationYaw, args.length > lvt_5_2_ ? args[lvt_5_2_++] : "~", false);
+                    CommandBase.CoordinateArg commandbase$coordinatearg4 = parseCoordinate(entity.rotationPitch, args.length > lvt_5_2_ ? args[lvt_5_2_] : "~", false);
 
                     if (entity instanceof EntityPlayerMP entityPlayerMP) {
                         EnumSet<S08PacketPlayerPosLook.Flag> set = EnumSet.noneOf(S08PacketPlayerPosLook.Flag.class);

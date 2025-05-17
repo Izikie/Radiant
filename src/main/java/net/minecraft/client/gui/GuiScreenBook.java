@@ -3,6 +3,10 @@ package net.minecraft.client.gui;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonParseException;
 import io.netty.buffer.Unpooled;
+
+import java.io.IOException;
+import java.util.List;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
@@ -16,13 +20,14 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.client.C17PacketCustomPayload;
-import net.minecraft.util.*;
+import net.minecraft.util.ChatAllowedCharacters;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.IChatComponent;
+import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
-
-import java.io.IOException;
-import java.util.List;
 
 public class GuiScreenBook extends GuiScreen {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -41,8 +46,8 @@ public class GuiScreenBook extends GuiScreen {
     private String bookTitle = "";
     private List<IChatComponent> field_175386_A;
     private int field_175387_B = -1;
-    private NextPageButton buttonNextPage;
-    private NextPageButton buttonPreviousPage;
+    private GuiScreenBook.NextPageButton buttonNextPage;
+    private GuiScreenBook.NextPageButton buttonPreviousPage;
     private GuiButton buttonDone;
     private GuiButton buttonSign;
     private GuiButton buttonFinalize;
@@ -94,8 +99,8 @@ public class GuiScreenBook extends GuiScreen {
 
         int i = (this.width - this.bookImageWidth) / 2;
         int j = 2;
-        this.buttonList.add(this.buttonNextPage = new NextPageButton(1, i + 120, j + 154, true));
-        this.buttonList.add(this.buttonPreviousPage = new NextPageButton(2, i + 38, j + 154, false));
+        this.buttonList.add(this.buttonNextPage = new GuiScreenBook.NextPageButton(1, i + 120, j + 154, true));
+        this.buttonList.add(this.buttonPreviousPage = new GuiScreenBook.NextPageButton(2, i + 38, j + 154, false));
         this.updateButtons();
     }
 

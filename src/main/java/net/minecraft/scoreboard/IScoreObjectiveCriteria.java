@@ -1,11 +1,11 @@
 package net.minecraft.scoreboard;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.Formatting;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.Formatting;
 
 public interface IScoreObjectiveCriteria {
     Map<String, IScoreObjectiveCriteria> INSTANCES = new HashMap<>();
@@ -24,13 +24,13 @@ public interface IScoreObjectiveCriteria {
 
     boolean isReadOnly();
 
-    EnumRenderType getRenderType();
+    IScoreObjectiveCriteria.EnumRenderType getRenderType();
 
     enum EnumRenderType {
         INTEGER("integer"),
         HEARTS("hearts");
 
-        private static final Map<String, EnumRenderType> field_178801_c = new HashMap<>();
+        private static final Map<String, IScoreObjectiveCriteria.EnumRenderType> field_178801_c = new HashMap<>();
         private final String field_178798_d;
 
         EnumRenderType(String p_i45548_3_) {
@@ -41,13 +41,13 @@ public interface IScoreObjectiveCriteria {
             return this.field_178798_d;
         }
 
-        public static EnumRenderType func_178795_a(String p_178795_0_) {
-            EnumRenderType iscoreobjectivecriteria$enumrendertype = field_178801_c.get(p_178795_0_);
+        public static IScoreObjectiveCriteria.EnumRenderType func_178795_a(String p_178795_0_) {
+            IScoreObjectiveCriteria.EnumRenderType iscoreobjectivecriteria$enumrendertype = field_178801_c.get(p_178795_0_);
             return iscoreobjectivecriteria$enumrendertype == null ? INTEGER : iscoreobjectivecriteria$enumrendertype;
         }
 
         static {
-            for (EnumRenderType iscoreobjectivecriteria$enumrendertype : values()) {
+            for (IScoreObjectiveCriteria.EnumRenderType iscoreobjectivecriteria$enumrendertype : values()) {
                 field_178801_c.put(iscoreobjectivecriteria$enumrendertype.func_178796_a(), iscoreobjectivecriteria$enumrendertype);
             }
         }

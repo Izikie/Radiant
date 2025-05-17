@@ -1,5 +1,7 @@
 package net.optifine;
 
+import java.util.Properties;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.passive.EntityVillager;
@@ -10,12 +12,16 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.optifine.config.*;
+import net.optifine.config.ConnectedParser;
+import net.optifine.config.Matches;
+import net.optifine.config.NbtTagValue;
+import net.optifine.config.RangeInt;
+import net.optifine.config.RangeListInt;
+import net.optifine.config.VillagerProfession;
+import net.optifine.config.Weather;
 import net.optifine.reflect.Reflector;
 import net.optifine.util.ArrayUtils;
 import net.optifine.util.MathUtils;
-
-import java.util.Properties;
 
 public class RandomEntityRule {
     private final String pathProps;

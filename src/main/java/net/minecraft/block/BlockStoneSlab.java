@@ -1,5 +1,8 @@
 package net.minecraft.block;
 
+import java.util.List;
+import java.util.Random;
+
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -15,12 +18,9 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.World;
 
-import java.util.List;
-import java.util.Random;
-
 public abstract class BlockStoneSlab extends BlockSlab {
     public static final PropertyBool SEAMLESS = PropertyBool.create("seamless");
-    public static final PropertyEnum<EnumType> VARIANT = PropertyEnum.create("variant", EnumType.class);
+    public static final PropertyEnum<BlockStoneSlab.EnumType> VARIANT = PropertyEnum.create("variant", BlockStoneSlab.EnumType.class);
 
     public BlockStoneSlab() {
         super(Material.ROCK);
@@ -29,10 +29,10 @@ public abstract class BlockStoneSlab extends BlockSlab {
         if (this.isDouble()) {
             iblockstate = iblockstate.withProperty(SEAMLESS, Boolean.FALSE);
         } else {
-            iblockstate = iblockstate.withProperty(HALF, EnumBlockHalf.BOTTOM);
+            iblockstate = iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
         }
 
-        this.setDefaultState(iblockstate.withProperty(VARIANT, EnumType.STONE));
+        this.setDefaultState(iblockstate.withProperty(VARIANT, BlockStoneSlab.EnumType.STONE));
         this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
@@ -45,7 +45,7 @@ public abstract class BlockStoneSlab extends BlockSlab {
     }
 
     public String getUnlocalizedName(int meta) {
-        return super.getUnlocalizedName() + "." + EnumType.byMetadata(meta).getUnlocalizedName();
+        return super.getUnlocalizedName() + "." + BlockStoneSlab.EnumType.byMetadata(meta).getUnlocalizedName();
     }
 
     public IProperty<?> getVariantProperty() {
@@ -53,13 +53,13 @@ public abstract class BlockStoneSlab extends BlockSlab {
     }
 
     public Object getVariant(ItemStack stack) {
-        return EnumType.byMetadata(stack.getMetadata() & 7);
+        return BlockStoneSlab.EnumType.byMetadata(stack.getMetadata() & 7);
     }
 
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
         if (itemIn != Item.getItemFromBlock(Blocks.DOUBLE_STONE_SLAB)) {
-            for (EnumType blockstoneslab$enumtype : EnumType.values()) {
-                if (blockstoneslab$enumtype != EnumType.WOOD) {
+            for (BlockStoneSlab.EnumType blockstoneslab$enumtype : BlockStoneSlab.EnumType.values()) {
+                if (blockstoneslab$enumtype != BlockStoneSlab.EnumType.WOOD) {
                     list.add(new ItemStack(itemIn, 1, blockstoneslab$enumtype.getMetadata()));
                 }
             }
@@ -67,12 +67,12 @@ public abstract class BlockStoneSlab extends BlockSlab {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        IBlockState iblockstate = this.getDefaultState().withProperty(VARIANT, EnumType.byMetadata(meta & 7));
+        IBlockState iblockstate = this.getDefaultState().withProperty(VARIANT, BlockStoneSlab.EnumType.byMetadata(meta & 7));
 
         if (this.isDouble()) {
             iblockstate = iblockstate.withProperty(SEAMLESS, (meta & 8) != 0);
         } else {
-            iblockstate = iblockstate.withProperty(HALF, (meta & 8) == 0 ? EnumBlockHalf.BOTTOM : EnumBlockHalf.TOP);
+            iblockstate = iblockstate.withProperty(HALF, (meta & 8) == 0 ? BlockSlab.EnumBlockHalf.BOTTOM : BlockSlab.EnumBlockHalf.TOP);
         }
 
         return iblockstate;
@@ -86,7 +86,7 @@ public abstract class BlockStoneSlab extends BlockSlab {
             if (state.getValue(SEAMLESS)) {
                 i |= 8;
             }
-        } else if (state.getValue(HALF) == EnumBlockHalf.TOP) {
+        } else if (state.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP) {
             i |= 8;
         }
 
@@ -115,7 +115,7 @@ public abstract class BlockStoneSlab extends BlockSlab {
         NETHERBRICK(6, MapColor.NETHERRACK_COLOR, "nether_brick", "netherBrick"),
         QUARTZ(7, MapColor.QUARTZ_COLOR, "quartz");
 
-        private static final EnumType[] META_LOOKUP = new EnumType[values().length];
+        private static final BlockStoneSlab.EnumType[] META_LOOKUP = new BlockStoneSlab.EnumType[values().length];
         private final int meta;
         private final MapColor field_181075_k;
         private final String name;
@@ -144,7 +144,7 @@ public abstract class BlockStoneSlab extends BlockSlab {
             return this.name;
         }
 
-        public static EnumType byMetadata(int meta) {
+        public static BlockStoneSlab.EnumType byMetadata(int meta) {
             if (meta < 0 || meta >= META_LOOKUP.length) {
                 meta = 0;
             }
@@ -161,7 +161,7 @@ public abstract class BlockStoneSlab extends BlockSlab {
         }
 
         static {
-            for (EnumType blockstoneslab$enumtype : values()) {
+            for (BlockStoneSlab.EnumType blockstoneslab$enumtype : values()) {
                 META_LOOKUP[blockstoneslab$enumtype.getMetadata()] = blockstoneslab$enumtype;
             }
         }

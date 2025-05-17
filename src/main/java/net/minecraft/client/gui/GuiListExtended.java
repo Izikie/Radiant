@@ -58,7 +58,7 @@ public abstract class GuiListExtended extends GuiSlot {
         return false;
     }
 
-    public abstract IGuiListEntry getListEntry(int index);
+    public abstract GuiListExtended.IGuiListEntry getListEntry(int index);
 
     public interface IGuiListEntry {
         void setSelected(int p_178011_1_, int p_178011_2_, int p_178011_3_);

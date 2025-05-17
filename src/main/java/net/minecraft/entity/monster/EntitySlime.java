@@ -1,6 +1,10 @@
 package net.minecraft.entity.monster;
 
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIFindEntityNearest;
 import net.minecraft.entity.ai.EntityAIFindEntityNearestPlayer;
@@ -12,10 +16,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.ParticleTypes;
-import net.minecraft.world.Difficulty;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -29,11 +33,11 @@ public class EntitySlime extends EntityLiving implements IMob {
 
     public EntitySlime(World worldIn) {
         super(worldIn);
-        this.moveHelper = new SlimeMoveHelper(this);
-        this.tasks.addTask(1, new AISlimeFloat(this));
-        this.tasks.addTask(2, new AISlimeAttack(this));
-        this.tasks.addTask(3, new AISlimeFaceRandom(this));
-        this.tasks.addTask(5, new AISlimeHop(this));
+        this.moveHelper = new EntitySlime.SlimeMoveHelper(this);
+        this.tasks.addTask(1, new EntitySlime.AISlimeFloat(this));
+        this.tasks.addTask(2, new EntitySlime.AISlimeAttack(this));
+        this.tasks.addTask(3, new EntitySlime.AISlimeFaceRandom(this));
+        this.tasks.addTask(5, new EntitySlime.AISlimeHop(this));
         this.targetTasks.addTask(1, new EntityAIFindEntityNearestPlayer(this));
         this.targetTasks.addTask(3, new EntityAIFindEntityNearest(this, EntityIronGolem.class));
     }
@@ -304,7 +308,7 @@ public class EntitySlime extends EntityLiving implements IMob {
 
         public void updateTask() {
             this.slime.faceEntity(this.slime.getAttackTarget(), 10.0F, 10.0F);
-            ((SlimeMoveHelper) this.slime.getMoveHelper()).func_179920_a(this.slime.rotationYaw, this.slime.canDamagePlayer());
+            ((EntitySlime.SlimeMoveHelper) this.slime.getMoveHelper()).func_179920_a(this.slime.rotationYaw, this.slime.canDamagePlayer());
         }
     }
 
@@ -328,7 +332,7 @@ public class EntitySlime extends EntityLiving implements IMob {
                 this.field_179459_b = this.slime.getRNG().nextInt(360);
             }
 
-            ((SlimeMoveHelper) this.slime.getMoveHelper()).func_179920_a(this.field_179459_b, false);
+            ((EntitySlime.SlimeMoveHelper) this.slime.getMoveHelper()).func_179920_a(this.field_179459_b, false);
         }
     }
 
@@ -350,7 +354,7 @@ public class EntitySlime extends EntityLiving implements IMob {
                 this.slime.getJumpHelper().setJumping();
             }
 
-            ((SlimeMoveHelper) this.slime.getMoveHelper()).setSpeed(1.2D);
+            ((EntitySlime.SlimeMoveHelper) this.slime.getMoveHelper()).setSpeed(1.2D);
         }
     }
 
@@ -367,7 +371,7 @@ public class EntitySlime extends EntityLiving implements IMob {
         }
 
         public void updateTask() {
-            ((SlimeMoveHelper) this.slime.getMoveHelper()).setSpeed(1.0D);
+            ((EntitySlime.SlimeMoveHelper) this.slime.getMoveHelper()).setSpeed(1.0D);
         }
     }
 

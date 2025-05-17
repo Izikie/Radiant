@@ -10,7 +10,7 @@ public class BiomeGenEnd extends BiomeGenBase {
         this.spawnableCreatureList.clear();
         this.spawnableWaterCreatureList.clear();
         this.spawnableCaveCreatureList.clear();
-        this.spawnableMonsterList.add(new SpawnListEntry(EntityEnderman.class, 10, 4, 4));
+        this.spawnableMonsterList.add(new BiomeGenBase.SpawnListEntry(EntityEnderman.class, 10, 4, 4));
         this.topBlock = Blocks.DIRT.getDefaultState();
         this.fillerBlock = Blocks.DIRT.getDefaultState();
         this.theBiomeDecorator = new BiomeEndDecorator();

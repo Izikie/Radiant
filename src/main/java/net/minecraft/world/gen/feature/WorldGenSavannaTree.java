@@ -1,14 +1,18 @@
 package net.minecraft.world.gen.feature;
 
-import net.minecraft.block.*;
+import java.util.Random;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockLeaves;
+import net.minecraft.block.BlockNewLeaf;
+import net.minecraft.block.BlockNewLog;
+import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
 import net.minecraft.world.World;
-
-import java.util.Random;
 
 public class WorldGenSavannaTree extends WorldGenAbstractTree {
     private static final IBlockState field_181643_a = Blocks.LOG_2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.WoodType.ACACIA);

@@ -1,5 +1,7 @@
 package net.minecraft.block;
 
+import java.util.Random;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockState;
@@ -18,8 +20,6 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ParticleTypes;
 import net.minecraft.world.World;
-
-import java.util.Random;
 
 public class BlockEnderChest extends BlockContainer {
     public static final PropertyDirection FACING = PropertyDirection.create("facing", Direction.Plane.HORIZONTAL);

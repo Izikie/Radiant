@@ -1,5 +1,6 @@
 package net.minecraft.server;
 
+import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;
 import com.google.common.util.concurrent.Futures;
@@ -13,9 +14,25 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufOutputStream;
 import io.netty.buffer.Unpooled;
 import io.netty.handler.codec.base64.Base64;
-import net.minecraft.command.*;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.Proxy;
+import java.security.KeyPair;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executors;
+import java.util.concurrent.FutureTask;
+import javax.imageio.ImageIO;
+
+import net.minecraft.command.CommandBase;
+import net.minecraft.command.CommandResultStats;
+import net.minecraft.command.ICommandManager;
+import net.minecraft.command.ICommandSender;
+import net.minecraft.command.ServerCommandManager;
 import net.minecraft.crash.CrashReport;
-import net.minecraft.crash.ReportedException;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.NetworkSystem;
@@ -23,8 +40,24 @@ import net.minecraft.network.ServerStatusResponse;
 import net.minecraft.network.play.server.S03PacketTimeUpdate;
 import net.minecraft.server.management.PlayerProfileCache;
 import net.minecraft.server.management.ServerConfigurationManager;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IChatComponent;
+import net.minecraft.util.IProgressUpdate;
+import net.minecraft.util.IThreadListener;
+import net.minecraft.util.ITickable;
+import net.minecraft.util.MathHelper;
+import net.minecraft.crash.ReportedException;
+import net.minecraft.util.Util;
+import net.minecraft.util.Vec3;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.MinecraftException;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldManager;
+import net.minecraft.world.WorldServer;
+import net.minecraft.world.WorldServerMulti;
+import net.minecraft.world.WorldSettings;
+import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.storage.AnvilSaveConverter;
 import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.ISaveHandler;
@@ -32,19 +65,6 @@ import net.minecraft.world.storage.WorldInfo;
 import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.Proxy;
-import java.nio.charset.StandardCharsets;
-import java.security.KeyPair;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.concurrent.Callable;
-import java.util.concurrent.Executors;
-import java.util.concurrent.FutureTask;
 
 public abstract class MinecraftServer implements Runnable, ICommandSender, IThreadListener {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -424,7 +444,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
                 Validate.validState(bufferedimage.getHeight() == 64, "Must be 64 pixels high");
                 ImageIO.write(bufferedimage, "PNG", new ByteBufOutputStream(bytebuf));
                 ByteBuf bytebuf1 = Base64.encode(bytebuf);
-                response.setFavicon("data:image/png;base64," + bytebuf1.toString(StandardCharsets.UTF_8));
+                response.setFavicon("data:image/png;base64," + bytebuf1.toString(Charsets.UTF_8));
             } catch (Exception exception) {
                 LOGGER.error("Couldn't load server icon", exception);
             } finally {
@@ -932,7 +952,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
             try {
                 return Futures.immediateFuture(callable.call());
             } catch (Exception exception) {
-                return Futures.immediateFailedFuture(exception);
+                return Futures.immediateFailedCheckedFuture(exception);
             }
         }
     }

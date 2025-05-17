@@ -1,9 +1,14 @@
 package net.minecraft.client.renderer.block.model;
 
-import com.google.gson.*;
-import net.minecraft.client.renderer.GlStateManager;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 
 import java.lang.reflect.Type;
+
+import net.minecraft.client.renderer.GlStateManager;
 
 public class ItemCameraTransforms {
     public static final ItemCameraTransforms DEFAULT = new ItemCameraTransforms();
@@ -45,7 +50,7 @@ public class ItemCameraTransforms {
         this.fixed = fixedIn;
     }
 
-    public void applyTransform(TransformType type) {
+    public void applyTransform(ItemCameraTransforms.TransformType type) {
         ItemTransformVec3f itemtransformvec3f = this.getTransform(type);
 
         if (itemtransformvec3f != ItemTransformVec3f.DEFAULT) {
@@ -57,7 +62,7 @@ public class ItemCameraTransforms {
         }
     }
 
-    public ItemTransformVec3f getTransform(TransformType type) {
+    public ItemTransformVec3f getTransform(ItemCameraTransforms.TransformType type) {
         return switch (type) {
             case THIRD_PERSON -> this.thirdPerson;
             case FIRST_PERSON -> this.firstPerson;
@@ -69,7 +74,7 @@ public class ItemCameraTransforms {
         };
     }
 
-    public boolean func_181687_c(TransformType type) {
+    public boolean func_181687_c(ItemCameraTransforms.TransformType type) {
         return !this.getTransform(type).equals(ItemTransformVec3f.DEFAULT);
     }
 

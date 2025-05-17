@@ -1,11 +1,11 @@
 package net.minecraft.stats;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IJsonSerializable;
 import net.minecraft.util.TupleIntJsonSerializable;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class StatFileWriter {
     protected final Map<StatBase, TupleIntJsonSerializable> statsData = new ConcurrentHashMap<>();

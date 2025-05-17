@@ -1,5 +1,8 @@
 package net.minecraft.block;
 
+import java.util.List;
+import java.util.Random;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
@@ -13,15 +16,12 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.World;
 
-import java.util.List;
-import java.util.Random;
-
 public class BlockSilverfish extends Block {
-    public static final PropertyEnum<EnumType> VARIANT = PropertyEnum.create("variant", EnumType.class);
+    public static final PropertyEnum<BlockSilverfish.EnumType> VARIANT = PropertyEnum.create("variant", BlockSilverfish.EnumType.class);
 
     public BlockSilverfish() {
         super(Material.CLAY);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, EnumType.STONE));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockSilverfish.EnumType.STONE));
         this.setHardness(0.0F);
         this.setCreativeTab(CreativeTabs.TAB_DECORATIONS);
     }
@@ -63,13 +63,13 @@ public class BlockSilverfish extends Block {
     }
 
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-        for (EnumType blocksilverfish$enumtype : EnumType.values()) {
+        for (BlockSilverfish.EnumType blocksilverfish$enumtype : BlockSilverfish.EnumType.values()) {
             list.add(new ItemStack(itemIn, 1, blocksilverfish$enumtype.getMetadata()));
         }
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(VARIANT, EnumType.byMetadata(meta));
+        return this.getDefaultState().withProperty(VARIANT, BlockSilverfish.EnumType.byMetadata(meta));
     }
 
     public int getMetaFromState(IBlockState state) {
@@ -112,7 +112,7 @@ public class BlockSilverfish extends Block {
             }
         };
 
-        private static final EnumType[] META_LOOKUP = new EnumType[values().length];
+        private static final BlockSilverfish.EnumType[] META_LOOKUP = new BlockSilverfish.EnumType[values().length];
         private final int meta;
         private final String name;
         private final String unlocalizedName;
@@ -135,7 +135,7 @@ public class BlockSilverfish extends Block {
             return this.name;
         }
 
-        public static EnumType byMetadata(int meta) {
+        public static BlockSilverfish.EnumType byMetadata(int meta) {
             if (meta < 0 || meta >= META_LOOKUP.length) {
                 meta = 0;
             }
@@ -153,8 +153,8 @@ public class BlockSilverfish extends Block {
 
         public abstract IBlockState getModelBlock();
 
-        public static EnumType forModelBlock(IBlockState model) {
-            for (EnumType blocksilverfish$enumtype : values()) {
+        public static BlockSilverfish.EnumType forModelBlock(IBlockState model) {
+            for (BlockSilverfish.EnumType blocksilverfish$enumtype : values()) {
                 if (model == blocksilverfish$enumtype.getModelBlock()) {
                     return blocksilverfish$enumtype;
                 }
@@ -164,7 +164,7 @@ public class BlockSilverfish extends Block {
         }
 
         static {
-            for (EnumType blocksilverfish$enumtype : values()) {
+            for (BlockSilverfish.EnumType blocksilverfish$enumtype : values()) {
                 META_LOOKUP[blocksilverfish$enumtype.getMetadata()] = blocksilverfish$enumtype;
             }
         }

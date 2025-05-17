@@ -84,7 +84,7 @@ public class BlockJukebox extends BlockContainer {
     }
 
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileEntityJukebox();
+        return new BlockJukebox.TileEntityJukebox();
     }
 
     public boolean hasComparatorInputOverride() {

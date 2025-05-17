@@ -1,9 +1,13 @@
 package net.optifine.shaders.config;
 
-import net.minecraft.src.Config;
-import net.optifine.expr.*;
-
 import java.util.Map;
+
+import net.minecraft.src.Config;
+import net.optifine.expr.ConstantFloat;
+import net.optifine.expr.FunctionBool;
+import net.optifine.expr.FunctionType;
+import net.optifine.expr.IExpression;
+import net.optifine.expr.IExpressionResolver;
 
 public class MacroExpressionResolver implements IExpressionResolver {
     private final Map<String, String> mapMacroValues;

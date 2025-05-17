@@ -1,21 +1,21 @@
 package net.minecraft.network.play.client;
 
+import java.io.IOException;
+
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
 
-import java.io.IOException;
-
 public class C07PacketPlayerDigging implements Packet<INetHandlerPlayServer> {
     private BlockPos position;
     private Direction facing;
-    private Action status;
+    private C07PacketPlayerDigging.Action status;
 
     public C07PacketPlayerDigging() {}
 
-    public C07PacketPlayerDigging(Action statusIn, BlockPos posIn, Direction facingIn) {
+    public C07PacketPlayerDigging(C07PacketPlayerDigging.Action statusIn, BlockPos posIn, Direction facingIn) {
         this.status = statusIn;
         this.position = posIn;
         this.facing = facingIn;
@@ -45,7 +45,7 @@ public class C07PacketPlayerDigging implements Packet<INetHandlerPlayServer> {
         return this.facing;
     }
 
-    public Action getStatus() {
+    public C07PacketPlayerDigging.Action getStatus() {
         return this.status;
     }
 

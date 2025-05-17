@@ -1,6 +1,9 @@
 package net.minecraft.block;
 
 import com.google.common.cache.LoadingCache;
+
+import java.util.Random;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
@@ -11,11 +14,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemMonsterPlacer;
-import net.minecraft.util.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.Direction;
+import net.minecraft.util.ParticleTypes;
+import net.minecraft.util.RenderLayer;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import java.util.Random;
 
 public class BlockPortal extends BlockBreakable {
     public static final PropertyEnum<Direction.Axis> AXIS = PropertyEnum.create("axis", Direction.Axis.class, Direction.Axis.X, Direction.Axis.Z);
@@ -75,13 +80,13 @@ public class BlockPortal extends BlockBreakable {
     }
 
     public boolean func_176548_d(World worldIn, BlockPos p_176548_2_) {
-        Size blockportal$size = new Size(worldIn, p_176548_2_, Direction.Axis.X);
+        BlockPortal.Size blockportal$size = new BlockPortal.Size(worldIn, p_176548_2_, Direction.Axis.X);
 
         if (blockportal$size.func_150860_b() && blockportal$size.field_150864_e == 0) {
             blockportal$size.func_150859_c();
             return true;
         } else {
-            Size blockportal$size1 = new Size(worldIn, p_176548_2_, Direction.Axis.Z);
+            BlockPortal.Size blockportal$size1 = new BlockPortal.Size(worldIn, p_176548_2_, Direction.Axis.Z);
 
             if (blockportal$size1.func_150860_b() && blockportal$size1.field_150864_e == 0) {
                 blockportal$size1.func_150859_c();
@@ -96,13 +101,13 @@ public class BlockPortal extends BlockBreakable {
         Direction.Axis enumfacing$axis = state.getValue(AXIS);
 
         if (enumfacing$axis == Direction.Axis.X) {
-            Size blockportal$size = new Size(worldIn, pos, Direction.Axis.X);
+            BlockPortal.Size blockportal$size = new BlockPortal.Size(worldIn, pos, Direction.Axis.X);
 
             if (!blockportal$size.func_150860_b() || blockportal$size.field_150864_e < blockportal$size.field_150868_h * blockportal$size.field_150862_g) {
                 worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
             }
         } else if (enumfacing$axis == Direction.Axis.Z) {
-            Size blockportal$size1 = new Size(worldIn, pos, Direction.Axis.Z);
+            BlockPortal.Size blockportal$size1 = new BlockPortal.Size(worldIn, pos, Direction.Axis.Z);
 
             if (!blockportal$size1.func_150860_b() || blockportal$size1.field_150864_e < blockportal$size1.field_150868_h * blockportal$size1.field_150862_g) {
                 worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
@@ -197,12 +202,12 @@ public class BlockPortal extends BlockBreakable {
 
     public BlockPattern.PatternHelper func_181089_f(World p_181089_1_, BlockPos p_181089_2_) {
         Direction.Axis enumfacing$axis = Direction.Axis.Z;
-        Size blockportal$size = new Size(p_181089_1_, p_181089_2_, Direction.Axis.X);
+        BlockPortal.Size blockportal$size = new BlockPortal.Size(p_181089_1_, p_181089_2_, Direction.Axis.X);
         LoadingCache<BlockPos, BlockWorldState> loadingcache = BlockPattern.func_181627_a(p_181089_1_, true);
 
         if (!blockportal$size.func_150860_b()) {
             enumfacing$axis = Direction.Axis.X;
-            blockportal$size = new Size(p_181089_1_, p_181089_2_, Direction.Axis.Z);
+            blockportal$size = new BlockPortal.Size(p_181089_1_, p_181089_2_, Direction.Axis.Z);
         }
 
         if (!blockportal$size.func_150860_b()) {

@@ -3,7 +3,15 @@ package net.minecraft.client.renderer;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonSyntaxException;
-import net.minecraft.block.*;
+
+import java.io.IOException;
+import java.util.*;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockChest;
+import net.minecraft.block.BlockEnderChest;
+import net.minecraft.block.BlockSign;
+import net.minecraft.block.BlockSkull;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -11,7 +19,13 @@ import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.particle.EntityFX;
-import net.minecraft.client.renderer.chunk.*;
+import net.minecraft.client.renderer.chunk.ChunkRenderDispatcher;
+import net.minecraft.client.renderer.chunk.CompiledChunk;
+import net.minecraft.client.renderer.chunk.IRenderChunkFactory;
+import net.minecraft.client.renderer.chunk.ListChunkFactory;
+import net.minecraft.client.renderer.chunk.RenderChunk;
+import net.minecraft.client.renderer.chunk.VboChunkFactory;
+import net.minecraft.client.renderer.chunk.VisGraph;
 import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -31,7 +45,6 @@ import net.minecraft.client.shader.ShaderGroup;
 import net.minecraft.client.shader.ShaderLinkHelper;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.crash.ReportedException;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -44,11 +57,25 @@ import net.minecraft.item.ItemRecord;
 import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
-import net.minecraft.util.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.ClassInheritanceMultiMap;
+import net.minecraft.util.Direction;
+import net.minecraft.util.ParticleTypes;
+import net.minecraft.util.RenderLayer;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.crash.ReportedException;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.IWorldAccess;
 import net.minecraft.world.border.WorldBorder;
 import net.minecraft.world.chunk.Chunk;
-import net.optifine.*;
+import net.optifine.CustomColors;
+import net.optifine.CustomSky;
+import net.optifine.DynamicLights;
+import net.optifine.RandomEntities;
+import net.optifine.SmartAnimations;
 import net.optifine.model.BlockModelUtils;
 import net.optifine.render.ChunkVisibility;
 import net.optifine.render.CloudRenderer;
@@ -60,12 +87,9 @@ import net.optifine.shaders.gui.GuiShaderOptions;
 import net.optifine.util.RenderChunkUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.joml.Vector3f;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
-
-import java.io.IOException;
-import java.util.*;
+import org.joml.Vector3f;
 
 public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListener {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -79,7 +103,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     private final RenderManager renderManager;
     private WorldClient theWorld;
     private Set<RenderChunk> chunksToUpdate = Sets.newLinkedHashSet();
-    private List<ContainerLocalRenderInformation> renderInfos = Lists.newArrayListWithCapacity(69696);
+    private List<RenderGlobal.ContainerLocalRenderInformation> renderInfos = Lists.newArrayListWithCapacity(69696);
     private final Set<TileEntity> setTileEntities = Sets.newHashSet();
     private ViewFrustum viewFrustum;
     private int starGLCallList = -1;
@@ -572,7 +596,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             label926:
 
             for (Object o : this.renderInfosEntities) {
-                ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation = (ContainerLocalRenderInformation) o;
+                RenderGlobal.ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation = (ContainerLocalRenderInformation) o;
                 Chunk chunk = renderglobal$containerlocalrenderinformation.renderChunk.getChunk();
                 ClassInheritanceMultiMap<Entity> classinheritancemultimap = chunk.getEntityLists()[renderglobal$containerlocalrenderinformation.renderChunk.getPosition().getY() / 16];
 
@@ -639,7 +663,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             label1408:
 
             for (Object o : this.renderInfosTileEntities) {
-                ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation1 = (ContainerLocalRenderInformation) o;
+                RenderGlobal.ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation1 = (ContainerLocalRenderInformation) o;
                 List<TileEntity> list1 = renderglobal$containerlocalrenderinformation1.renderChunk.getCompiledChunk().getTileEntities();
 
                 if (!list1.isEmpty()) {
@@ -724,7 +748,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         int i = this.viewFrustum.renderChunks.length;
         int j = 0;
 
-        for (ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation : this.renderInfos) {
+        for (RenderGlobal.ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation : this.renderInfos) {
             CompiledChunk compiledchunk = renderglobal$containerlocalrenderinformation.renderChunk.compiledChunk;
 
             if (compiledchunk != CompiledChunk.DUMMY && !compiledchunk.isEmpty()) {
@@ -813,7 +837,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                     RenderChunk renderchunk2 = iterator.next();
 
                     if (renderchunk2 != null && renderchunk2.getPosition().getY() <= j) {
-                        ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation = renderchunk2.getRenderInfo();
+                        RenderGlobal.ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation = renderchunk2.getRenderInfo();
 
                         if (!renderchunk2.compiledChunk.isEmpty() || renderchunk2.isNeedsUpdate()) {
                             this.renderInfos.add(renderglobal$containerlocalrenderinformation);
@@ -844,7 +868,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
             if (renderchunk != null && renderchunk.getPosition().getY() <= j) {
                 boolean flag2 = false;
-                ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation4 = new ContainerLocalRenderInformation(renderchunk, null, 0);
+                RenderGlobal.ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation4 = new RenderGlobal.ContainerLocalRenderInformation(renderchunk, null, 0);
                 Set set1 = SET_ALL_FACINGS;
 
                 if (set1.size() == 1) {
@@ -880,7 +904,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
                         if (renderchunk3 != null && renderchunk3.isBoundingBoxInFrustum(camera, frameCount)) {
                             renderchunk3.setFrameIndex(frameCount);
-                            ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation1 = renderchunk3.getRenderInfo();
+                            RenderGlobal.ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation1 = renderchunk3.getRenderInfo();
                             renderglobal$containerlocalrenderinformation1.initialize(null, 0);
                             deque.add(renderglobal$containerlocalrenderinformation1);
                         }
@@ -891,7 +915,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             boolean flag3 = Config.isFogOn();
 
             while (!deque.isEmpty()) {
-                ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation5 = (ContainerLocalRenderInformation) deque.poll();
+                RenderGlobal.ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation5 = (RenderGlobal.ContainerLocalRenderInformation) deque.poll();
                 RenderChunk renderchunk6 = renderglobal$containerlocalrenderinformation5.renderChunk;
                 Direction enumfacing1 = renderglobal$containerlocalrenderinformation5.facing;
                 CompiledChunk compiledchunk = renderchunk6.compiledChunk;
@@ -914,7 +938,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
                         if (renderchunk4 != null && renderchunk4.setFrameIndex(frameCount) && renderchunk4.isBoundingBoxInFrustum(camera, frameCount)) {
                             int i1 = renderglobal$containerlocalrenderinformation5.setFacing | 1 << enumfacing.ordinal();
-                            ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation2 = renderchunk4.getRenderInfo();
+                            RenderGlobal.ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation2 = renderchunk4.getRenderInfo();
                             renderglobal$containerlocalrenderinformation2.initialize(enumfacing, i1);
                             deque.add(renderglobal$containerlocalrenderinformation2);
                         }
@@ -1022,7 +1046,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 int k = 0;
                 this.chunksToResortTransparency.clear();
 
-                for (ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation : this.renderInfos) {
+                for (RenderGlobal.ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation : this.renderInfos) {
                     if (renderglobal$containerlocalrenderinformation.renderChunk.compiledChunk.isLayerStarted(blockLayerIn) && k++ < 15) {
                         this.chunksToResortTransparency.add(renderglobal$containerlocalrenderinformation.renderChunk);
                     }

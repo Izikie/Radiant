@@ -1,15 +1,16 @@
 package net.minecraft.client.renderer.block.model;
 
 import com.google.common.collect.Lists;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import org.joml.Vector3f;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class ItemModelGenerator {
     public static final List<String> LAYERS = Lists.newArrayList("layer0", "layer1", "layer2", "layer3", "layer4");
@@ -54,7 +55,7 @@ public class ItemModelGenerator {
         float f1 = p_178397_1_.getIconHeight();
         List<BlockPart> list = Lists.newArrayList();
 
-        for (Span itemmodelgenerator$span : this.func_178393_a(p_178397_1_)) {
+        for (ItemModelGenerator.Span itemmodelgenerator$span : this.func_178393_a(p_178397_1_)) {
             float f2 = 0.0F;
             float f3 = 0.0F;
             float f4 = 0.0F;
@@ -68,7 +69,7 @@ public class ItemModelGenerator {
             float f12 = itemmodelgenerator$span.func_178385_b();
             float f13 = itemmodelgenerator$span.func_178384_c();
             float f14 = itemmodelgenerator$span.func_178381_d();
-            SpanFacing itemmodelgenerator$spanfacing = itemmodelgenerator$span.func_178383_a();
+            ItemModelGenerator.SpanFacing itemmodelgenerator$spanfacing = itemmodelgenerator$span.func_178383_a();
 
             switch (itemmodelgenerator$spanfacing) {
                 case UP:
@@ -155,10 +156,10 @@ public class ItemModelGenerator {
         return list;
     }
 
-    private List<Span> func_178393_a(TextureAtlasSprite p_178393_1_) {
+    private List<ItemModelGenerator.Span> func_178393_a(TextureAtlasSprite p_178393_1_) {
         int i = p_178393_1_.getIconWidth();
         int j = p_178393_1_.getIconHeight();
-        List<Span> list = Lists.newArrayList();
+        List<ItemModelGenerator.Span> list = Lists.newArrayList();
 
         for (int k = 0; k < p_178393_1_.getFrameCount(); ++k) {
             int[] aint = p_178393_1_.getFrameTextureData(k)[0];
@@ -166,10 +167,10 @@ public class ItemModelGenerator {
             for (int l = 0; l < j; ++l) {
                 for (int i1 = 0; i1 < i; ++i1) {
                     boolean flag = !this.func_178391_a(aint, i1, l, i, j);
-                    this.func_178396_a(SpanFacing.UP, list, aint, i1, l, i, j, flag);
-                    this.func_178396_a(SpanFacing.DOWN, list, aint, i1, l, i, j, flag);
-                    this.func_178396_a(SpanFacing.LEFT, list, aint, i1, l, i, j, flag);
-                    this.func_178396_a(SpanFacing.RIGHT, list, aint, i1, l, i, j, flag);
+                    this.func_178396_a(ItemModelGenerator.SpanFacing.UP, list, aint, i1, l, i, j, flag);
+                    this.func_178396_a(ItemModelGenerator.SpanFacing.DOWN, list, aint, i1, l, i, j, flag);
+                    this.func_178396_a(ItemModelGenerator.SpanFacing.LEFT, list, aint, i1, l, i, j, flag);
+                    this.func_178396_a(ItemModelGenerator.SpanFacing.RIGHT, list, aint, i1, l, i, j, flag);
                 }
             }
         }
@@ -177,7 +178,7 @@ public class ItemModelGenerator {
         return list;
     }
 
-    private void func_178396_a(SpanFacing p_178396_1_, List<Span> p_178396_2_, int[] p_178396_3_, int p_178396_4_, int p_178396_5_, int p_178396_6_, int p_178396_7_, boolean p_178396_8_) {
+    private void func_178396_a(ItemModelGenerator.SpanFacing p_178396_1_, List<ItemModelGenerator.Span> p_178396_2_, int[] p_178396_3_, int p_178396_4_, int p_178396_5_, int p_178396_6_, int p_178396_7_, boolean p_178396_8_) {
         boolean flag = this.func_178391_a(p_178396_3_, p_178396_4_ + p_178396_1_.func_178372_b(), p_178396_5_ + p_178396_1_.func_178371_c(), p_178396_6_, p_178396_7_) && p_178396_8_;
 
         if (flag) {
@@ -185,10 +186,10 @@ public class ItemModelGenerator {
         }
     }
 
-    private void func_178395_a(List<Span> p_178395_1_, SpanFacing p_178395_2_, int p_178395_3_, int p_178395_4_) {
-        Span itemmodelgenerator$span = null;
+    private void func_178395_a(List<ItemModelGenerator.Span> p_178395_1_, ItemModelGenerator.SpanFacing p_178395_2_, int p_178395_3_, int p_178395_4_) {
+        ItemModelGenerator.Span itemmodelgenerator$span = null;
 
-        for (Span itemmodelgenerator$span1 : p_178395_1_) {
+        for (ItemModelGenerator.Span itemmodelgenerator$span1 : p_178395_1_) {
             if (itemmodelgenerator$span1.func_178383_a() == p_178395_2_) {
                 int i = p_178395_2_.func_178369_d() ? p_178395_4_ : p_178395_3_;
 
@@ -203,7 +204,7 @@ public class ItemModelGenerator {
         int k = p_178395_2_.func_178369_d() ? p_178395_3_ : p_178395_4_;
 
         if (itemmodelgenerator$span == null) {
-            p_178395_1_.add(new Span(p_178395_2_, k, j));
+            p_178395_1_.add(new ItemModelGenerator.Span(p_178395_2_, k, j));
         } else {
             itemmodelgenerator$span.func_178382_a(k);
         }
@@ -214,12 +215,12 @@ public class ItemModelGenerator {
     }
 
     static class Span {
-        private final SpanFacing spanFacing;
+        private final ItemModelGenerator.SpanFacing spanFacing;
         private int field_178387_b;
         private int field_178388_c;
         private final int field_178386_d;
 
-        public Span(SpanFacing spanFacingIn, int p_i46216_2_, int p_i46216_3_) {
+        public Span(ItemModelGenerator.SpanFacing spanFacingIn, int p_i46216_2_, int p_i46216_3_) {
             this.spanFacing = spanFacingIn;
             this.field_178387_b = p_i46216_2_;
             this.field_178388_c = p_i46216_2_;
@@ -234,7 +235,7 @@ public class ItemModelGenerator {
             }
         }
 
-        public SpanFacing func_178383_a() {
+        public ItemModelGenerator.SpanFacing func_178383_a() {
             return this.spanFacing;
         }
 

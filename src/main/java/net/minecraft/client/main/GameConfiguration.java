@@ -1,19 +1,20 @@
 package net.minecraft.client.main;
 
 import com.mojang.authlib.properties.PropertyMap;
-import net.minecraft.util.Session;
 
 import java.io.File;
 import java.net.Proxy;
 
-public class GameConfiguration {
-    public final UserInformation userInfo;
-    public final DisplayInformation displayInfo;
-    public final FolderInformation folderInfo;
-    public final GameInformation gameInfo;
-    public final ServerInformation serverInfo;
+import net.minecraft.util.Session;
 
-    public GameConfiguration(UserInformation userInfoIn, DisplayInformation displayInfoIn, FolderInformation folderInfoIn, GameInformation gameInfoIn, ServerInformation serverInfoIn) {
+public class GameConfiguration {
+    public final GameConfiguration.UserInformation userInfo;
+    public final GameConfiguration.DisplayInformation displayInfo;
+    public final GameConfiguration.FolderInformation folderInfo;
+    public final GameConfiguration.GameInformation gameInfo;
+    public final GameConfiguration.ServerInformation serverInfo;
+
+    public GameConfiguration(GameConfiguration.UserInformation userInfoIn, GameConfiguration.DisplayInformation displayInfoIn, GameConfiguration.FolderInformation folderInfoIn, GameConfiguration.GameInformation gameInfoIn, GameConfiguration.ServerInformation serverInfoIn) {
         this.userInfo = userInfoIn;
         this.displayInfo = displayInfoIn;
         this.folderInfo = folderInfoIn;

@@ -2,6 +2,20 @@ package net.minecraft.client.settings;
 
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundCategory;
 import net.minecraft.client.gui.GuiNewChat;
@@ -15,7 +29,14 @@ import net.minecraft.network.play.client.C15PacketClientSettings;
 import net.minecraft.src.Config;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.Difficulty;
-import net.optifine.*;
+import net.optifine.ClearWater;
+import net.optifine.CustomColors;
+import net.optifine.CustomGuis;
+import net.optifine.CustomSky;
+import net.optifine.DynamicLights;
+import net.optifine.Lang;
+import net.optifine.NaturalTextures;
+import net.optifine.RandomEntities;
 import net.optifine.shaders.Shaders;
 import net.optifine.util.KeyUtils;
 import org.apache.commons.io.IOUtils;
@@ -26,12 +47,6 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
-
-import java.io.*;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.nio.charset.StandardCharsets;
-import java.util.*;
 
 public class GameSettings {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -240,23 +255,23 @@ public class GameSettings {
         this.optionsFile = new File(optionsFileIn, "options.txt");
 
         if (mcIn.isJava64bit() && Runtime.getRuntime().maxMemory() >= 1000000000L) {
-            Options.RENDER_DISTANCE.setValueMax(32.0F);
+            GameSettings.Options.RENDER_DISTANCE.setValueMax(32.0F);
             long i = 1000000L;
 
             if (Runtime.getRuntime().maxMemory() >= 1500L * i) {
-                Options.RENDER_DISTANCE.setValueMax(48.0F);
+                GameSettings.Options.RENDER_DISTANCE.setValueMax(48.0F);
             }
 
             if (Runtime.getRuntime().maxMemory() >= 2500L * i) {
-                Options.RENDER_DISTANCE.setValueMax(64.0F);
+                GameSettings.Options.RENDER_DISTANCE.setValueMax(64.0F);
             }
         } else {
-            Options.RENDER_DISTANCE.setValueMax(16.0F);
+            GameSettings.Options.RENDER_DISTANCE.setValueMax(16.0F);
         }
 
         this.renderDistanceChunks = mcIn.isJava64bit() ? 12 : 8;
         this.optionsFileOF = new File(optionsFileIn, "optionsof.txt");
-        this.limitFramerate = (int) Options.FRAMERATE_LIMIT.getValueMax();
+        this.limitFramerate = (int) GameSettings.Options.FRAMERATE_LIMIT.getValueMax();
         this.renderDistanceChunks = 8;
         this.loadOptions();
         Config.initGameSettings(this);
@@ -284,59 +299,59 @@ public class GameSettings {
         this.saveOptions();
     }
 
-    public void setOptionFloatValue(Options settingsOption, float value) {
+    public void setOptionFloatValue(GameSettings.Options settingsOption, float value) {
         this.setOptionFloatValueOF(settingsOption, value);
 
-        if (settingsOption == Options.SENSITIVITY) {
+        if (settingsOption == GameSettings.Options.SENSITIVITY) {
             this.mouseSensitivity = value;
         }
 
-        if (settingsOption == Options.FOV) {
+        if (settingsOption == GameSettings.Options.FOV) {
             this.fovSetting = value;
         }
 
-        if (settingsOption == Options.GAMMA) {
+        if (settingsOption == GameSettings.Options.GAMMA) {
             this.gammaSetting = value;
         }
 
-        if (settingsOption == Options.FRAMERATE_LIMIT) {
+        if (settingsOption == GameSettings.Options.FRAMERATE_LIMIT) {
             this.limitFramerate = (int) value;
             this.enableVsync = false;
 
             if (this.limitFramerate <= 0) {
-                this.limitFramerate = (int) Options.FRAMERATE_LIMIT.getValueMax();
+                this.limitFramerate = (int) GameSettings.Options.FRAMERATE_LIMIT.getValueMax();
                 this.enableVsync = true;
             }
 
             this.updateVSync();
         }
 
-        if (settingsOption == Options.CHAT_OPACITY) {
+        if (settingsOption == GameSettings.Options.CHAT_OPACITY) {
             this.chatOpacity = value;
             this.mc.ingameGUI.getChatGUI().refreshChat();
         }
 
-        if (settingsOption == Options.CHAT_HEIGHT_FOCUSED) {
+        if (settingsOption == GameSettings.Options.CHAT_HEIGHT_FOCUSED) {
             this.chatHeightFocused = value;
             this.mc.ingameGUI.getChatGUI().refreshChat();
         }
 
-        if (settingsOption == Options.CHAT_HEIGHT_UNFOCUSED) {
+        if (settingsOption == GameSettings.Options.CHAT_HEIGHT_UNFOCUSED) {
             this.chatHeightUnfocused = value;
             this.mc.ingameGUI.getChatGUI().refreshChat();
         }
 
-        if (settingsOption == Options.CHAT_WIDTH) {
+        if (settingsOption == GameSettings.Options.CHAT_WIDTH) {
             this.chatWidth = value;
             this.mc.ingameGUI.getChatGUI().refreshChat();
         }
 
-        if (settingsOption == Options.CHAT_SCALE) {
+        if (settingsOption == GameSettings.Options.CHAT_SCALE) {
             this.chatScale = value;
             this.mc.ingameGUI.getChatGUI().refreshChat();
         }
 
-        if (settingsOption == Options.MIPMAP_LEVELS) {
+        if (settingsOption == GameSettings.Options.MIPMAP_LEVELS) {
             int i = this.mipmapLevels;
             this.mipmapLevels = (int) value;
 
@@ -348,25 +363,25 @@ public class GameSettings {
             }
         }
 
-        if (settingsOption == Options.BLOCK_ALTERNATIVES) {
+        if (settingsOption == GameSettings.Options.BLOCK_ALTERNATIVES) {
             this.allowBlockAlternatives = !this.allowBlockAlternatives;
             this.mc.renderGlobal.loadRenderers();
         }
 
-        if (settingsOption == Options.RENDER_DISTANCE) {
+        if (settingsOption == GameSettings.Options.RENDER_DISTANCE) {
             this.renderDistanceChunks = (int) value;
             this.mc.renderGlobal.setDisplayListEntitiesDirty();
         }
     }
 
-    public void setOptionValue(Options settingsOption, int value) {
+    public void setOptionValue(GameSettings.Options settingsOption, int value) {
         this.setOptionValueOF(settingsOption, value);
 
-        if (settingsOption == Options.INVERT_MOUSE) {
+        if (settingsOption == GameSettings.Options.INVERT_MOUSE) {
             this.invertMouse = !this.invertMouse;
         }
 
-        if (settingsOption == Options.GUI_SCALE) {
+        if (settingsOption == GameSettings.Options.GUI_SCALE) {
             this.guiScale += value;
 
             if (GuiScreen.isShiftKeyDown()) {
@@ -391,55 +406,55 @@ public class GameSettings {
             }
         }
 
-        if (settingsOption == Options.PARTICLES) {
+        if (settingsOption == GameSettings.Options.PARTICLES) {
             this.particleSetting = (this.particleSetting + value) % 3;
         }
 
-        if (settingsOption == Options.VIEW_BOBBING) {
+        if (settingsOption == GameSettings.Options.VIEW_BOBBING) {
             this.viewBobbing = !this.viewBobbing;
         }
 
-        if (settingsOption == Options.RENDER_CLOUDS) {
+        if (settingsOption == GameSettings.Options.RENDER_CLOUDS) {
             this.clouds = (this.clouds + value) % 3;
         }
 
-        if (settingsOption == Options.FORCE_UNICODE_FONT) {
+        if (settingsOption == GameSettings.Options.FORCE_UNICODE_FONT) {
             this.forceUnicodeFont = !this.forceUnicodeFont;
             this.mc.fontRendererObj.setUnicodeFlag(this.mc.getLanguageManager().isCurrentLocaleUnicode() || this.forceUnicodeFont);
         }
 
-        if (settingsOption == Options.FBO_ENABLE) {
+        if (settingsOption == GameSettings.Options.FBO_ENABLE) {
             this.fboEnable = !this.fboEnable;
         }
 
-        if (settingsOption == Options.GRAPHICS) {
+        if (settingsOption == GameSettings.Options.GRAPHICS) {
             this.fancyGraphics = !this.fancyGraphics;
             this.updateRenderClouds();
             this.mc.renderGlobal.loadRenderers();
         }
 
-        if (settingsOption == Options.AMBIENT_OCCLUSION) {
+        if (settingsOption == GameSettings.Options.AMBIENT_OCCLUSION) {
             this.ambientOcclusion = (this.ambientOcclusion + value) % 3;
             this.mc.renderGlobal.loadRenderers();
         }
 
-        if (settingsOption == Options.CHAT_VISIBILITY) {
+        if (settingsOption == GameSettings.Options.CHAT_VISIBILITY) {
             this.chatVisibility = EntityPlayer.ChatVisibility.getEnumChatVisibility((this.chatVisibility.getChatVisibility() + value) % 3);
         }
 
-        if (settingsOption == Options.CHAT_COLOR) {
+        if (settingsOption == GameSettings.Options.CHAT_COLOR) {
             this.chatColours = !this.chatColours;
         }
 
-        if (settingsOption == Options.CHAT_LINKS) {
+        if (settingsOption == GameSettings.Options.CHAT_LINKS) {
             this.chatLinks = !this.chatLinks;
         }
 
-        if (settingsOption == Options.CHAT_LINKS_PROMPT) {
+        if (settingsOption == GameSettings.Options.CHAT_LINKS_PROMPT) {
             this.chatLinksPrompt = !this.chatLinksPrompt;
         }
 
-        if (settingsOption == Options.USE_FULLSCREEN) {
+        if (settingsOption == GameSettings.Options.USE_FULLSCREEN) {
             this.fullScreen = !this.fullScreen;
 
             if (this.mc.isFullScreen() != this.fullScreen) {
@@ -447,49 +462,49 @@ public class GameSettings {
             }
         }
 
-        if (settingsOption == Options.ENABLE_VSYNC) {
+        if (settingsOption == GameSettings.Options.ENABLE_VSYNC) {
             this.enableVsync = !this.enableVsync;
             Display.setVSyncEnabled(this.enableVsync);
         }
 
-        if (settingsOption == Options.USE_VBO) {
+        if (settingsOption == GameSettings.Options.USE_VBO) {
             this.useVbo = !this.useVbo;
             this.mc.renderGlobal.loadRenderers();
         }
 
-        if (settingsOption == Options.BLOCK_ALTERNATIVES) {
+        if (settingsOption == GameSettings.Options.BLOCK_ALTERNATIVES) {
             this.allowBlockAlternatives = !this.allowBlockAlternatives;
             this.mc.renderGlobal.loadRenderers();
         }
 
-        if (settingsOption == Options.REDUCED_DEBUG_INFO) {
+        if (settingsOption == GameSettings.Options.REDUCED_DEBUG_INFO) {
             this.reducedDebugInfo = !this.reducedDebugInfo;
         }
 
-        if (settingsOption == Options.ENTITY_SHADOWS) {
+        if (settingsOption == GameSettings.Options.ENTITY_SHADOWS) {
             this.entityShadows = !this.entityShadows;
         }
 
         this.saveOptions();
     }
 
-    public float getOptionFloatValue(Options settingOption) {
+    public float getOptionFloatValue(GameSettings.Options settingOption) {
         float f = this.getOptionFloatValueOF(settingOption);
-        return f != Float.MAX_VALUE ? f : (settingOption == Options.FOV ? this.fovSetting
-                : (settingOption == Options.GAMMA ? this.gammaSetting
-                : (settingOption == Options.SATURATION ? this.saturation
-                : (settingOption == Options.SENSITIVITY ? this.mouseSensitivity
-                : (settingOption == Options.CHAT_OPACITY ? this.chatOpacity
-                : (settingOption == Options.CHAT_HEIGHT_FOCUSED ? this.chatHeightFocused
-                : (settingOption == Options.CHAT_HEIGHT_UNFOCUSED ? this.chatHeightUnfocused
-                : (settingOption == Options.CHAT_SCALE ? this.chatScale
-                : (settingOption == Options.CHAT_WIDTH ? this.chatWidth
-                : (settingOption == Options.FRAMERATE_LIMIT ? this.limitFramerate
-                : (settingOption == Options.MIPMAP_LEVELS ? this.mipmapLevels
-                : (settingOption == Options.RENDER_DISTANCE ? this.renderDistanceChunks : 0.0F))))))))))));
+        return f != Float.MAX_VALUE ? f : (settingOption == GameSettings.Options.FOV ? this.fovSetting
+                : (settingOption == GameSettings.Options.GAMMA ? this.gammaSetting
+                : (settingOption == GameSettings.Options.SATURATION ? this.saturation
+                : (settingOption == GameSettings.Options.SENSITIVITY ? this.mouseSensitivity
+                : (settingOption == GameSettings.Options.CHAT_OPACITY ? this.chatOpacity
+                : (settingOption == GameSettings.Options.CHAT_HEIGHT_FOCUSED ? this.chatHeightFocused
+                : (settingOption == GameSettings.Options.CHAT_HEIGHT_UNFOCUSED ? this.chatHeightUnfocused
+                : (settingOption == GameSettings.Options.CHAT_SCALE ? this.chatScale
+                : (settingOption == GameSettings.Options.CHAT_WIDTH ? this.chatWidth
+                : (settingOption == GameSettings.Options.FRAMERATE_LIMIT ? this.limitFramerate
+                : (settingOption == GameSettings.Options.MIPMAP_LEVELS ? this.mipmapLevels
+                : (settingOption == GameSettings.Options.RENDER_DISTANCE ? this.renderDistanceChunks : 0.0F))))))))))));
     }
 
-    public boolean getOptionOrdinalValue(Options settingOption) {
+    public boolean getOptionOrdinalValue(GameSettings.Options settingOption) {
         return switch (settingOption) {
             case INVERT_MOUSE -> this.invertMouse;
             case VIEW_BOBBING -> this.viewBobbing;
@@ -516,7 +531,7 @@ public class GameSettings {
         return I18n.format(strArray[index]);
     }
 
-    public String getKeyBinding(Options settingOption) {
+    public String getKeyBinding(GameSettings.Options settingOption) {
         String s = this.getKeyBindingOF(settingOption);
 
         if (s != null) {
@@ -527,32 +542,32 @@ public class GameSettings {
             if (settingOption.getEnumFloat()) {
                 float f1 = this.getOptionFloatValue(settingOption);
                 float f = settingOption.normalizeValue(f1);
-                return settingOption == Options.MIPMAP_LEVELS && f1 >= 4.0D ? s1 + Lang.get("of.general.max")
-                        : (settingOption == Options.SENSITIVITY ? (f == 0.0F ? s1 + I18n.format("options.sensitivity.min") : (f == 1.0F ? s1 + I18n.format("options.sensitivity.max") : s1 + (int) (f * 200.0F) + "%"))
-                        : (settingOption == Options.FOV ? (f1 == 70.0F ? s1 + I18n.format("options.fov.min") : (f1 == 110.0F ? s1 + I18n.format("options.fov.max") : s1 + (int) f1))
-                        : (settingOption == Options.FRAMERATE_LIMIT ? (f1 == settingOption.valueMax ? s1 + I18n.format("options.framerateLimit.max") : s1 + (int) f1 + " fps")
-                        : (settingOption == Options.RENDER_CLOUDS ? (f1 == settingOption.valueMin ? s1 + I18n.format("options.cloudHeight.min") : s1 + ((int) f1 + 128))
-                        : (settingOption == Options.GAMMA ? (f == 0.0F ? s1 + I18n.format("options.gamma.min") : (f == 1.0F ? s1 + I18n.format("options.gamma.max") : s1 + "+" + (int) (f * 100.0F) + "%"))
-                        : (settingOption == Options.SATURATION ? s1 + (int) (f * 400.0F) + "%" : (settingOption == Options.CHAT_OPACITY ? s1 + (int) (f * 90.0F + 10.0F) + "%"
-                        : (settingOption == Options.CHAT_HEIGHT_UNFOCUSED ? s1 + GuiNewChat.calculateChatboxHeight(f) + "px" : (settingOption == Options.CHAT_HEIGHT_FOCUSED ? s1 + GuiNewChat.calculateChatboxHeight(f) + "px"
-                        : (settingOption == Options.CHAT_WIDTH ? s1 + GuiNewChat.calculateChatboxWidth(f) + "px"
-                        : (settingOption == Options.RENDER_DISTANCE ? s1 + (int) f1 + " chunks"
-                        : (settingOption == Options.MIPMAP_LEVELS ? (f1 == 0.0F ? s1 + I18n.format("options.off") : s1 + (int) f1)
+                return settingOption == GameSettings.Options.MIPMAP_LEVELS && f1 >= 4.0D ? s1 + Lang.get("of.general.max")
+                        : (settingOption == GameSettings.Options.SENSITIVITY ? (f == 0.0F ? s1 + I18n.format("options.sensitivity.min") : (f == 1.0F ? s1 + I18n.format("options.sensitivity.max") : s1 + (int) (f * 200.0F) + "%"))
+                        : (settingOption == GameSettings.Options.FOV ? (f1 == 70.0F ? s1 + I18n.format("options.fov.min") : (f1 == 110.0F ? s1 + I18n.format("options.fov.max") : s1 + (int) f1))
+                        : (settingOption == GameSettings.Options.FRAMERATE_LIMIT ? (f1 == settingOption.valueMax ? s1 + I18n.format("options.framerateLimit.max") : s1 + (int) f1 + " fps")
+                        : (settingOption == GameSettings.Options.RENDER_CLOUDS ? (f1 == settingOption.valueMin ? s1 + I18n.format("options.cloudHeight.min") : s1 + ((int) f1 + 128))
+                        : (settingOption == GameSettings.Options.GAMMA ? (f == 0.0F ? s1 + I18n.format("options.gamma.min") : (f == 1.0F ? s1 + I18n.format("options.gamma.max") : s1 + "+" + (int) (f * 100.0F) + "%"))
+                        : (settingOption == GameSettings.Options.SATURATION ? s1 + (int) (f * 400.0F) + "%" : (settingOption == GameSettings.Options.CHAT_OPACITY ? s1 + (int) (f * 90.0F + 10.0F) + "%"
+                        : (settingOption == GameSettings.Options.CHAT_HEIGHT_UNFOCUSED ? s1 + GuiNewChat.calculateChatboxHeight(f) + "px" : (settingOption == GameSettings.Options.CHAT_HEIGHT_FOCUSED ? s1 + GuiNewChat.calculateChatboxHeight(f) + "px"
+                        : (settingOption == GameSettings.Options.CHAT_WIDTH ? s1 + GuiNewChat.calculateChatboxWidth(f) + "px"
+                        : (settingOption == GameSettings.Options.RENDER_DISTANCE ? s1 + (int) f1 + " chunks"
+                        : (settingOption == GameSettings.Options.MIPMAP_LEVELS ? (f1 == 0.0F ? s1 + I18n.format("options.off") : s1 + (int) f1)
                         : (f == 0.0F ? s1 + I18n.format("options.off") : s1 + (int) (f * 100.0F) + "%")))))))))))));
             } else if (settingOption.getEnumBoolean()) {
                 boolean flag = this.getOptionOrdinalValue(settingOption);
                 return flag ? s1 + I18n.format("options.on") : s1 + I18n.format("options.off");
-            } else if (settingOption == Options.GUI_SCALE) {
+            } else if (settingOption == GameSettings.Options.GUI_SCALE) {
                 return this.guiScale >= GUISCALES.length ? s1 + this.guiScale + "x" : s1 + getTranslation(GUISCALES, this.guiScale);
-            } else if (settingOption == Options.CHAT_VISIBILITY) {
+            } else if (settingOption == GameSettings.Options.CHAT_VISIBILITY) {
                 return s1 + I18n.format(this.chatVisibility.getResourceKey());
-            } else if (settingOption == Options.PARTICLES) {
+            } else if (settingOption == GameSettings.Options.PARTICLES) {
                 return s1 + getTranslation(PARTICLES, this.particleSetting);
-            } else if (settingOption == Options.AMBIENT_OCCLUSION) {
+            } else if (settingOption == GameSettings.Options.AMBIENT_OCCLUSION) {
                 return s1 + getTranslation(AMBIENT_OCCLUSIONS, this.ambientOcclusion);
-            } else if (settingOption == Options.RENDER_CLOUDS) {
+            } else if (settingOption == GameSettings.Options.RENDER_CLOUDS) {
                 return s1 + getTranslation(CLOUDS_TYPES, this.clouds);
-            } else if (settingOption == Options.GRAPHICS) {
+            } else if (settingOption == GameSettings.Options.GRAPHICS) {
                 if (this.fancyGraphics) {
                     return s1 + I18n.format("options.graphics.fancy");
                 } else {
@@ -619,11 +634,11 @@ public class GameSettings {
                                 this.limitFramerate = Integer.parseInt(astring[1]);
 
                                 if (this.enableVsync) {
-                                    this.limitFramerate = (int) Options.FRAMERATE_LIMIT.getValueMax();
+                                    this.limitFramerate = (int) GameSettings.Options.FRAMERATE_LIMIT.getValueMax();
                                 }
 
                                 if (this.limitFramerate <= 0) {
-                                    this.limitFramerate = (int) Options.FRAMERATE_LIMIT.getValueMax();
+                                    this.limitFramerate = (int) GameSettings.Options.FRAMERATE_LIMIT.getValueMax();
                                 }
                             }
 
@@ -710,7 +725,7 @@ public class GameSettings {
                                 this.enableVsync = astring[1].equals("true");
 
                                 if (this.enableVsync) {
-                                    this.limitFramerate = (int) Options.FRAMERATE_LIMIT.getValueMax();
+                                    this.limitFramerate = (int) GameSettings.Options.FRAMERATE_LIMIT.getValueMax();
                                 }
 
                                 this.updateVSync();
@@ -966,18 +981,18 @@ public class GameSettings {
         return this.useNativeTransport;
     }
 
-    private void setOptionFloatValueOF(Options p_setOptionFloatValueOF_1_, float p_setOptionFloatValueOF_2_) {
-        if (p_setOptionFloatValueOF_1_ == Options.CLOUD_HEIGHT) {
+    private void setOptionFloatValueOF(GameSettings.Options p_setOptionFloatValueOF_1_, float p_setOptionFloatValueOF_2_) {
+        if (p_setOptionFloatValueOF_1_ == GameSettings.Options.CLOUD_HEIGHT) {
             this.ofCloudsHeight = p_setOptionFloatValueOF_2_;
             this.mc.renderGlobal.resetClouds();
         }
 
-        if (p_setOptionFloatValueOF_1_ == Options.AO_LEVEL) {
+        if (p_setOptionFloatValueOF_1_ == GameSettings.Options.AO_LEVEL) {
             this.ofAoLevel = p_setOptionFloatValueOF_2_;
             this.mc.renderGlobal.loadRenderers();
         }
 
-        if (p_setOptionFloatValueOF_1_ == Options.AA_LEVEL) {
+        if (p_setOptionFloatValueOF_1_ == GameSettings.Options.AA_LEVEL) {
             int i = (int) p_setOptionFloatValueOF_2_;
 
             if (i > 0 && Config.isShaders()) {
@@ -997,7 +1012,7 @@ public class GameSettings {
             this.ofAaLevel = Config.limit(this.ofAaLevel, 0, 16);
         }
 
-        if (p_setOptionFloatValueOF_1_ == Options.AF_LEVEL) {
+        if (p_setOptionFloatValueOF_1_ == GameSettings.Options.AF_LEVEL) {
             int k = (int) p_setOptionFloatValueOF_2_;
 
             if (k > 1 && Config.isShaders()) {
@@ -1012,13 +1027,13 @@ public class GameSettings {
             this.mc.refreshResources();
         }
 
-        if (p_setOptionFloatValueOF_1_ == Options.MIPMAP_TYPE) {
+        if (p_setOptionFloatValueOF_1_ == GameSettings.Options.MIPMAP_TYPE) {
             int l = (int) p_setOptionFloatValueOF_2_;
             this.ofMipmapType = Config.limit(l, 0, 3);
             this.mc.refreshResources();
         }
 
-        if (p_setOptionFloatValueOF_1_ == Options.FULLSCREEN_MODE) {
+        if (p_setOptionFloatValueOF_1_ == GameSettings.Options.FULLSCREEN_MODE) {
             int i1 = (int) p_setOptionFloatValueOF_2_ - 1;
             String[] astring = Config.getDisplayModeNames();
 
@@ -1031,20 +1046,20 @@ public class GameSettings {
         }
     }
 
-    private float getOptionFloatValueOF(Options p_getOptionFloatValueOF_1_) {
-        if (p_getOptionFloatValueOF_1_ == Options.CLOUD_HEIGHT) {
+    private float getOptionFloatValueOF(GameSettings.Options p_getOptionFloatValueOF_1_) {
+        if (p_getOptionFloatValueOF_1_ == GameSettings.Options.CLOUD_HEIGHT) {
             return this.ofCloudsHeight;
-        } else if (p_getOptionFloatValueOF_1_ == Options.AO_LEVEL) {
+        } else if (p_getOptionFloatValueOF_1_ == GameSettings.Options.AO_LEVEL) {
             return this.ofAoLevel;
-        } else if (p_getOptionFloatValueOF_1_ == Options.AA_LEVEL) {
+        } else if (p_getOptionFloatValueOF_1_ == GameSettings.Options.AA_LEVEL) {
             return this.ofAaLevel;
-        } else if (p_getOptionFloatValueOF_1_ == Options.AF_LEVEL) {
+        } else if (p_getOptionFloatValueOF_1_ == GameSettings.Options.AF_LEVEL) {
             return this.ofAfLevel;
-        } else if (p_getOptionFloatValueOF_1_ == Options.MIPMAP_TYPE) {
+        } else if (p_getOptionFloatValueOF_1_ == GameSettings.Options.MIPMAP_TYPE) {
             return this.ofMipmapType;
-        } else if (p_getOptionFloatValueOF_1_ == Options.FRAMERATE_LIMIT) {
-            return this.limitFramerate == Options.FRAMERATE_LIMIT.getValueMax() && this.enableVsync ? 0.0F : this.limitFramerate;
-        } else if (p_getOptionFloatValueOF_1_ == Options.FULLSCREEN_MODE) {
+        } else if (p_getOptionFloatValueOF_1_ == GameSettings.Options.FRAMERATE_LIMIT) {
+            return this.limitFramerate == GameSettings.Options.FRAMERATE_LIMIT.getValueMax() && this.enableVsync ? 0.0F : this.limitFramerate;
+        } else if (p_getOptionFloatValueOF_1_ == GameSettings.Options.FULLSCREEN_MODE) {
             if (this.ofFullscreenMode.equals("Default")) {
                 return 0.0F;
             } else {
@@ -1057,8 +1072,8 @@ public class GameSettings {
         }
     }
 
-    private void setOptionValueOF(Options p_setOptionValueOF_1_, int p_setOptionValueOF_2_) {
-        if (p_setOptionValueOF_1_ == Options.FOG_FANCY) {
+    private void setOptionValueOF(GameSettings.Options p_setOptionValueOF_1_, int p_setOptionValueOF_2_) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.FOG_FANCY) {
             switch (this.ofFogType) {
                 case 1:
                     this.ofFogType = 2;
@@ -1082,7 +1097,7 @@ public class GameSettings {
             }
         }
 
-        if (p_setOptionValueOF_1_ == Options.FOG_START) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.FOG_START) {
             this.ofFogStart += 0.2F;
 
             if (this.ofFogStart > 0.81F) {
@@ -1090,16 +1105,16 @@ public class GameSettings {
             }
         }
 
-        if (p_setOptionValueOF_1_ == Options.SMOOTH_FPS) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.SMOOTH_FPS) {
             this.ofSmoothFps = !this.ofSmoothFps;
         }
 
-        if (p_setOptionValueOF_1_ == Options.SMOOTH_WORLD) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.SMOOTH_WORLD) {
             this.ofSmoothWorld = !this.ofSmoothWorld;
             Config.updateThreadPriorities();
         }
 
-        if (p_setOptionValueOF_1_ == Options.CLOUDS) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.CLOUDS) {
             ++this.ofClouds;
 
             if (this.ofClouds > 3) {
@@ -1110,12 +1125,12 @@ public class GameSettings {
             this.mc.renderGlobal.resetClouds();
         }
 
-        if (p_setOptionValueOF_1_ == Options.TREES) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.TREES) {
             this.ofTrees = nextValue(this.ofTrees, OF_TREES_VALUES);
             this.mc.renderGlobal.loadRenderers();
         }
 
-        if (p_setOptionValueOF_1_ == Options.DROPPED_ITEMS) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.DROPPED_ITEMS) {
             ++this.ofDroppedItems;
 
             if (this.ofDroppedItems > 2) {
@@ -1123,7 +1138,7 @@ public class GameSettings {
             }
         }
 
-        if (p_setOptionValueOF_1_ == Options.RAIN) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.RAIN) {
             ++this.ofRain;
 
             if (this.ofRain > 3) {
@@ -1131,7 +1146,7 @@ public class GameSettings {
             }
         }
 
-        if (p_setOptionValueOF_1_ == Options.ANIMATED_WATER) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.ANIMATED_WATER) {
             ++this.ofAnimatedWater;
 
             if (this.ofAnimatedWater == 1) {
@@ -1143,7 +1158,7 @@ public class GameSettings {
             }
         }
 
-        if (p_setOptionValueOF_1_ == Options.ANIMATED_LAVA) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.ANIMATED_LAVA) {
             ++this.ofAnimatedLava;
 
             if (this.ofAnimatedLava == 1) {
@@ -1155,71 +1170,71 @@ public class GameSettings {
             }
         }
 
-        if (p_setOptionValueOF_1_ == Options.ANIMATED_FIRE) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.ANIMATED_FIRE) {
             this.ofAnimatedFire = !this.ofAnimatedFire;
         }
 
-        if (p_setOptionValueOF_1_ == Options.ANIMATED_PORTAL) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.ANIMATED_PORTAL) {
             this.ofAnimatedPortal = !this.ofAnimatedPortal;
         }
 
-        if (p_setOptionValueOF_1_ == Options.ANIMATED_REDSTONE) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.ANIMATED_REDSTONE) {
             this.ofAnimatedRedstone = !this.ofAnimatedRedstone;
         }
 
-        if (p_setOptionValueOF_1_ == Options.ANIMATED_EXPLOSION) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.ANIMATED_EXPLOSION) {
             this.ofAnimatedExplosion = !this.ofAnimatedExplosion;
         }
 
-        if (p_setOptionValueOF_1_ == Options.ANIMATED_FLAME) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.ANIMATED_FLAME) {
             this.ofAnimatedFlame = !this.ofAnimatedFlame;
         }
 
-        if (p_setOptionValueOF_1_ == Options.ANIMATED_SMOKE) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.ANIMATED_SMOKE) {
             this.ofAnimatedSmoke = !this.ofAnimatedSmoke;
         }
 
-        if (p_setOptionValueOF_1_ == Options.VOID_PARTICLES) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.VOID_PARTICLES) {
             this.ofVoidParticles = !this.ofVoidParticles;
         }
 
-        if (p_setOptionValueOF_1_ == Options.WATER_PARTICLES) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.WATER_PARTICLES) {
             this.ofWaterParticles = !this.ofWaterParticles;
         }
 
-        if (p_setOptionValueOF_1_ == Options.PORTAL_PARTICLES) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.PORTAL_PARTICLES) {
             this.ofPortalParticles = !this.ofPortalParticles;
         }
 
-        if (p_setOptionValueOF_1_ == Options.POTION_PARTICLES) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.POTION_PARTICLES) {
             this.ofPotionParticles = !this.ofPotionParticles;
         }
 
-        if (p_setOptionValueOF_1_ == Options.FIREWORK_PARTICLES) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.FIREWORK_PARTICLES) {
             this.ofFireworkParticles = !this.ofFireworkParticles;
         }
 
-        if (p_setOptionValueOF_1_ == Options.DRIPPING_WATER_LAVA) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.DRIPPING_WATER_LAVA) {
             this.ofDrippingWaterLava = !this.ofDrippingWaterLava;
         }
 
-        if (p_setOptionValueOF_1_ == Options.ANIMATED_TERRAIN) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.ANIMATED_TERRAIN) {
             this.ofAnimatedTerrain = !this.ofAnimatedTerrain;
         }
 
-        if (p_setOptionValueOF_1_ == Options.ANIMATED_TEXTURES) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.ANIMATED_TEXTURES) {
             this.ofAnimatedTextures = !this.ofAnimatedTextures;
         }
 
-        if (p_setOptionValueOF_1_ == Options.RAIN_SPLASH) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.RAIN_SPLASH) {
             this.ofRainSplash = !this.ofRainSplash;
         }
 
-        if (p_setOptionValueOF_1_ == Options.SHOW_FPS) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.SHOW_FPS) {
             this.ofShowFps = !this.ofShowFps;
         }
 
-        if (p_setOptionValueOF_1_ == Options.AUTOSAVE_TICKS) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.AUTOSAVE_TICKS) {
             int i = 900;
             this.ofAutoSaveTicks = Math.max(this.ofAutoSaveTicks / i * i, i);
             this.ofAutoSaveTicks *= 2;
@@ -1229,7 +1244,7 @@ public class GameSettings {
             }
         }
 
-        if (p_setOptionValueOF_1_ == Options.BETTER_GRASS) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.BETTER_GRASS) {
             ++this.ofBetterGrass;
 
             if (this.ofBetterGrass > 3) {
@@ -1239,7 +1254,7 @@ public class GameSettings {
             this.mc.renderGlobal.loadRenderers();
         }
 
-        if (p_setOptionValueOF_1_ == Options.CONNECTED_TEXTURES) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.CONNECTED_TEXTURES) {
             ++this.ofConnectedTextures;
 
             if (this.ofConnectedTextures > 3) {
@@ -1253,23 +1268,23 @@ public class GameSettings {
             }
         }
 
-        if (p_setOptionValueOF_1_ == Options.WEATHER) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.WEATHER) {
             this.ofWeather = !this.ofWeather;
         }
 
-        if (p_setOptionValueOF_1_ == Options.SKY) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.SKY) {
             this.ofSky = !this.ofSky;
         }
 
-        if (p_setOptionValueOF_1_ == Options.STARS) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.STARS) {
             this.ofStars = !this.ofStars;
         }
 
-        if (p_setOptionValueOF_1_ == Options.SUN_MOON) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.SUN_MOON) {
             this.ofSunMoon = !this.ofSunMoon;
         }
 
-        if (p_setOptionValueOF_1_ == Options.VIGNETTE) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.VIGNETTE) {
             ++this.ofVignette;
 
             if (this.ofVignette > 2) {
@@ -1277,7 +1292,7 @@ public class GameSettings {
             }
         }
 
-        if (p_setOptionValueOF_1_ == Options.CHUNK_UPDATES) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.CHUNK_UPDATES) {
             ++this.ofChunkUpdates;
 
             if (this.ofChunkUpdates > 5) {
@@ -1285,11 +1300,11 @@ public class GameSettings {
             }
         }
 
-        if (p_setOptionValueOF_1_ == Options.CHUNK_UPDATES_DYNAMIC) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.CHUNK_UPDATES_DYNAMIC) {
             this.ofChunkUpdatesDynamic = !this.ofChunkUpdatesDynamic;
         }
 
-        if (p_setOptionValueOF_1_ == Options.TIME) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.TIME) {
             ++this.ofTime;
 
             if (this.ofTime > 2) {
@@ -1297,76 +1312,76 @@ public class GameSettings {
             }
         }
 
-        if (p_setOptionValueOF_1_ == Options.CLEAR_WATER) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.CLEAR_WATER) {
             this.ofClearWater = !this.ofClearWater;
             this.updateWaterOpacity();
         }
 
-        if (p_setOptionValueOF_1_ == Options.BETTER_SNOW) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.BETTER_SNOW) {
             this.ofBetterSnow = !this.ofBetterSnow;
             this.mc.renderGlobal.loadRenderers();
         }
 
-        if (p_setOptionValueOF_1_ == Options.SWAMP_COLORS) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.SWAMP_COLORS) {
             this.ofSwampColors = !this.ofSwampColors;
             CustomColors.updateUseDefaultGrassFoliageColors();
             this.mc.renderGlobal.loadRenderers();
         }
 
-        if (p_setOptionValueOF_1_ == Options.RANDOM_ENTITIES) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.RANDOM_ENTITIES) {
             this.ofRandomEntities = !this.ofRandomEntities;
             RandomEntities.update();
         }
 
-        if (p_setOptionValueOF_1_ == Options.SMOOTH_BIOMES) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.SMOOTH_BIOMES) {
             this.ofSmoothBiomes = !this.ofSmoothBiomes;
             CustomColors.updateUseDefaultGrassFoliageColors();
             this.mc.renderGlobal.loadRenderers();
         }
 
-        if (p_setOptionValueOF_1_ == Options.CUSTOM_FONTS) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.CUSTOM_FONTS) {
             this.ofCustomFonts = !this.ofCustomFonts;
             this.mc.fontRendererObj.onResourceManagerReload(Config.getResourceManager());
             this.mc.standardGalacticFontRenderer.onResourceManagerReload(Config.getResourceManager());
         }
 
-        if (p_setOptionValueOF_1_ == Options.CUSTOM_COLORS) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.CUSTOM_COLORS) {
             this.ofCustomColors = !this.ofCustomColors;
             CustomColors.update();
             this.mc.renderGlobal.loadRenderers();
         }
 
-        if (p_setOptionValueOF_1_ == Options.CUSTOM_ITEMS) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.CUSTOM_ITEMS) {
             this.ofCustomItems = !this.ofCustomItems;
             this.mc.refreshResources();
         }
 
-        if (p_setOptionValueOF_1_ == Options.CUSTOM_SKY) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.CUSTOM_SKY) {
             this.ofCustomSky = !this.ofCustomSky;
             CustomSky.update();
         }
 
-        if (p_setOptionValueOF_1_ == Options.SHOW_CAPES) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.SHOW_CAPES) {
             this.ofShowCapes = !this.ofShowCapes;
         }
 
-        if (p_setOptionValueOF_1_ == Options.NATURAL_TEXTURES) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.NATURAL_TEXTURES) {
             this.ofNaturalTextures = !this.ofNaturalTextures;
             NaturalTextures.update();
             this.mc.renderGlobal.loadRenderers();
         }
 
-        if (p_setOptionValueOF_1_ == Options.EMISSIVE_TEXTURES) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.EMISSIVE_TEXTURES) {
             this.ofEmissiveTextures = !this.ofEmissiveTextures;
             this.mc.refreshResources();
         }
 
-        if (p_setOptionValueOF_1_ == Options.FAST_MATH) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.FAST_MATH) {
             this.ofFastMath = !this.ofFastMath;
             MathHelper.fastMath = this.ofFastMath;
         }
 
-        if (p_setOptionValueOF_1_ == Options.FAST_RENDER) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.FAST_RENDER) {
             if (!this.ofFastRender && Config.isShaders()) {
                 Config.showGuiMessage(Lang.get("of.message.fr.shaders1"), Lang.get("of.message.fr.shaders2"));
                 return;
@@ -1381,7 +1396,7 @@ public class GameSettings {
             Config.updateFramebufferSize();
         }
 
-        if (p_setOptionValueOF_1_ == Options.TRANSLUCENT_BLOCKS) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.TRANSLUCENT_BLOCKS) {
             if (this.ofTranslucentBlocks == 0) {
                 this.ofTranslucentBlocks = 1;
             } else if (this.ofTranslucentBlocks == 1) {
@@ -1395,35 +1410,35 @@ public class GameSettings {
             this.mc.renderGlobal.loadRenderers();
         }
 
-        if (p_setOptionValueOF_1_ == Options.LAZY_CHUNK_LOADING) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.LAZY_CHUNK_LOADING) {
             this.ofLazyChunkLoading = !this.ofLazyChunkLoading;
         }
 
-        if (p_setOptionValueOF_1_ == Options.RENDER_REGIONS) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.RENDER_REGIONS) {
             this.ofRenderRegions = !this.ofRenderRegions;
             this.mc.renderGlobal.loadRenderers();
         }
 
-        if (p_setOptionValueOF_1_ == Options.SMART_ANIMATIONS) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.SMART_ANIMATIONS) {
             this.ofSmartAnimations = !this.ofSmartAnimations;
             this.mc.renderGlobal.loadRenderers();
         }
 
-        if (p_setOptionValueOF_1_ == Options.DYNAMIC_FOV) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.DYNAMIC_FOV) {
             this.ofDynamicFov = !this.ofDynamicFov;
         }
 
-        if (p_setOptionValueOF_1_ == Options.ALTERNATE_BLOCKS) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.ALTERNATE_BLOCKS) {
             this.ofAlternateBlocks = !this.ofAlternateBlocks;
             this.mc.refreshResources();
         }
 
-        if (p_setOptionValueOF_1_ == Options.DYNAMIC_LIGHTS) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.DYNAMIC_LIGHTS) {
             this.ofDynamicLights = nextValue(this.ofDynamicLights, OF_DYNAMIC_LIGHTS);
             DynamicLights.removeLights(this.mc.renderGlobal);
         }
 
-        if (p_setOptionValueOF_1_ == Options.SCREENSHOT_SIZE) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.SCREENSHOT_SIZE) {
             ++this.ofScreenshotSize;
 
             if (this.ofScreenshotSize > 4) {
@@ -1435,37 +1450,37 @@ public class GameSettings {
             }
         }
 
-        if (p_setOptionValueOF_1_ == Options.CUSTOM_ENTITY_MODELS) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.CUSTOM_ENTITY_MODELS) {
             this.ofCustomEntityModels = !this.ofCustomEntityModels;
             this.mc.refreshResources();
         }
 
-        if (p_setOptionValueOF_1_ == Options.CUSTOM_GUIS) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.CUSTOM_GUIS) {
             this.ofCustomGuis = !this.ofCustomGuis;
             CustomGuis.update();
         }
 
-        if (p_setOptionValueOF_1_ == Options.SHOW_GL_ERRORS) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.SHOW_GL_ERRORS) {
             this.ofShowGlErrors = !this.ofShowGlErrors;
         }
 
-        if (p_setOptionValueOF_1_ == Options.HELD_ITEM_TOOLTIPS) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.HELD_ITEM_TOOLTIPS) {
             this.heldItemTooltips = !this.heldItemTooltips;
         }
 
-        if (p_setOptionValueOF_1_ == Options.ADVANCED_TOOLTIPS) {
+        if (p_setOptionValueOF_1_ == GameSettings.Options.ADVANCED_TOOLTIPS) {
             this.advancedItemTooltips = !this.advancedItemTooltips;
         }
     }
 
-    private String getKeyBindingOF(Options p_getKeyBindingOF_1_) {
+    private String getKeyBindingOF(GameSettings.Options p_getKeyBindingOF_1_) {
         String s = I18n.format(p_getKeyBindingOF_1_.getEnumString()) + ": ";
 
         if (s == null) {
             s = p_getKeyBindingOF_1_.getEnumString();
         }
 
-        if (p_getKeyBindingOF_1_ == Options.RENDER_DISTANCE) {
+        if (p_getKeyBindingOF_1_ == GameSettings.Options.RENDER_DISTANCE) {
             int i1 = (int) this.getOptionFloatValue(p_getKeyBindingOF_1_);
             String s1 = I18n.format("options.renderDistance.tiny");
             int i = 2;
@@ -1508,16 +1523,16 @@ public class GameSettings {
             }
 
             return s + i1 + " " + s2;
-        } else if (p_getKeyBindingOF_1_ == Options.FOG_FANCY) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.FOG_FANCY) {
             return switch (this.ofFogType) {
                 case 1 -> s + Lang.getFast();
                 case 2 -> s + Lang.getFancy();
                 case 3 -> s + Lang.getOff();
                 default -> s + Lang.getOff();
             };
-        } else if (p_getKeyBindingOF_1_ == Options.FOG_START) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.FOG_START) {
             return s + this.ofFogStart;
-        } else if (p_getKeyBindingOF_1_ == Options.MIPMAP_TYPE) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.MIPMAP_TYPE) {
             return switch (this.ofMipmapType) {
                 case 0 -> s + Lang.get("of.options.mipmap.nearest");
                 case 1 -> s + Lang.get("of.options.mipmap.linear");
@@ -1525,119 +1540,119 @@ public class GameSettings {
                 case 3 -> s + Lang.get("of.options.mipmap.trilinear");
                 default -> s + "of.options.mipmap.nearest";
             };
-        } else if (p_getKeyBindingOF_1_ == Options.SMOOTH_FPS) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.SMOOTH_FPS) {
             return this.ofSmoothFps ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.SMOOTH_WORLD) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.SMOOTH_WORLD) {
             return this.ofSmoothWorld ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.CLOUDS) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.CLOUDS) {
             return switch (this.ofClouds) {
                 case 1 -> s + Lang.getFast();
                 case 2 -> s + Lang.getFancy();
                 case 3 -> s + Lang.getOff();
                 default -> s + Lang.getDefault();
             };
-        } else if (p_getKeyBindingOF_1_ == Options.TREES) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.TREES) {
             return switch (this.ofTrees) {
                 case 1 -> s + Lang.getFast();
                 case 2 -> s + Lang.getFancy();
                 case 4 -> s + Lang.get("of.general.smart");
                 default -> s + Lang.getDefault();
             };
-        } else if (p_getKeyBindingOF_1_ == Options.DROPPED_ITEMS) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.DROPPED_ITEMS) {
             return switch (this.ofDroppedItems) {
                 case 1 -> s + Lang.getFast();
                 case 2 -> s + Lang.getFancy();
                 default -> s + Lang.getDefault();
             };
-        } else if (p_getKeyBindingOF_1_ == Options.RAIN) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.RAIN) {
             return switch (this.ofRain) {
                 case 1 -> s + Lang.getFast();
                 case 2 -> s + Lang.getFancy();
                 case 3 -> s + Lang.getOff();
                 default -> s + Lang.getDefault();
             };
-        } else if (p_getKeyBindingOF_1_ == Options.ANIMATED_WATER) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.ANIMATED_WATER) {
             return switch (this.ofAnimatedWater) {
                 case 1 -> s + Lang.get("of.options.animation.dynamic");
                 case 2 -> s + Lang.getOff();
                 default -> s + Lang.getOn();
             };
-        } else if (p_getKeyBindingOF_1_ == Options.ANIMATED_LAVA) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.ANIMATED_LAVA) {
             return switch (this.ofAnimatedLava) {
                 case 1 -> s + Lang.get("of.options.animation.dynamic");
                 case 2 -> s + Lang.getOff();
                 default -> s + Lang.getOn();
             };
-        } else if (p_getKeyBindingOF_1_ == Options.ANIMATED_FIRE) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.ANIMATED_FIRE) {
             return this.ofAnimatedFire ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.ANIMATED_PORTAL) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.ANIMATED_PORTAL) {
             return this.ofAnimatedPortal ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.ANIMATED_REDSTONE) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.ANIMATED_REDSTONE) {
             return this.ofAnimatedRedstone ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.ANIMATED_EXPLOSION) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.ANIMATED_EXPLOSION) {
             return this.ofAnimatedExplosion ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.ANIMATED_FLAME) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.ANIMATED_FLAME) {
             return this.ofAnimatedFlame ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.ANIMATED_SMOKE) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.ANIMATED_SMOKE) {
             return this.ofAnimatedSmoke ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.VOID_PARTICLES) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.VOID_PARTICLES) {
             return this.ofVoidParticles ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.WATER_PARTICLES) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.WATER_PARTICLES) {
             return this.ofWaterParticles ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.PORTAL_PARTICLES) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.PORTAL_PARTICLES) {
             return this.ofPortalParticles ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.POTION_PARTICLES) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.POTION_PARTICLES) {
             return this.ofPotionParticles ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.FIREWORK_PARTICLES) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.FIREWORK_PARTICLES) {
             return this.ofFireworkParticles ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.DRIPPING_WATER_LAVA) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.DRIPPING_WATER_LAVA) {
             return this.ofDrippingWaterLava ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.ANIMATED_TERRAIN) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.ANIMATED_TERRAIN) {
             return this.ofAnimatedTerrain ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.ANIMATED_TEXTURES) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.ANIMATED_TEXTURES) {
             return this.ofAnimatedTextures ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.RAIN_SPLASH) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.RAIN_SPLASH) {
             return this.ofRainSplash ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.SHOW_FPS) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.SHOW_FPS) {
             return this.ofShowFps ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.AUTOSAVE_TICKS) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.AUTOSAVE_TICKS) {
             int l = 900;
             return this.ofAutoSaveTicks <= l ? s + Lang.get("of.options.save.45s") : (this.ofAutoSaveTicks <= 2 * l ? s + Lang.get("of.options.save.90s") : (this.ofAutoSaveTicks <= 4 * l ? s + Lang.get("of.options.save.3min") : (this.ofAutoSaveTicks <= 8 * l ? s + Lang.get("of.options.save.6min") : (this.ofAutoSaveTicks <= 16 * l ? s + Lang.get("of.options.save.12min") : s + Lang.get("of.options.save.24min")))));
-        } else if (p_getKeyBindingOF_1_ == Options.BETTER_GRASS) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.BETTER_GRASS) {
             return switch (this.ofBetterGrass) {
                 case 1 -> s + Lang.getFast();
                 case 2 -> s + Lang.getFancy();
                 default -> s + Lang.getOff();
             };
-        } else if (p_getKeyBindingOF_1_ == Options.CONNECTED_TEXTURES) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.CONNECTED_TEXTURES) {
             return switch (this.ofConnectedTextures) {
                 case 1 -> s + Lang.getFast();
                 case 2 -> s + Lang.getFancy();
                 default -> s + Lang.getOff();
             };
-        } else if (p_getKeyBindingOF_1_ == Options.WEATHER) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.WEATHER) {
             return this.ofWeather ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.SKY) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.SKY) {
             return this.ofSky ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.STARS) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.STARS) {
             return this.ofStars ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.SUN_MOON) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.SUN_MOON) {
             return this.ofSunMoon ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.VIGNETTE) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.VIGNETTE) {
             return switch (this.ofVignette) {
                 case 1 -> s + Lang.getFast();
                 case 2 -> s + Lang.getFancy();
                 default -> s + Lang.getDefault();
             };
-        } else if (p_getKeyBindingOF_1_ == Options.CHUNK_UPDATES) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.CHUNK_UPDATES) {
             return s + this.ofChunkUpdates;
-        } else if (p_getKeyBindingOF_1_ == Options.CHUNK_UPDATES_DYNAMIC) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.CHUNK_UPDATES_DYNAMIC) {
             return this.ofChunkUpdatesDynamic ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.TIME) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.TIME) {
             return this.ofTime == 1 ? s + Lang.get("of.options.time.dayOnly") : (this.ofTime == 2 ? s + Lang.get("of.options.time.nightOnly") : s + Lang.getDefault());
-        } else if (p_getKeyBindingOF_1_ == Options.CLEAR_WATER) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.CLEAR_WATER) {
             return this.ofClearWater ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.AA_LEVEL) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.AA_LEVEL) {
             String s3 = "";
 
             if (this.ofAaLevel != Config.getAntialiasingLevel()) {
@@ -1645,64 +1660,64 @@ public class GameSettings {
             }
 
             return this.ofAaLevel == 0 ? s + Lang.getOff() + s3 : s + this.ofAaLevel + s3;
-        } else if (p_getKeyBindingOF_1_ == Options.AF_LEVEL) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.AF_LEVEL) {
             return this.ofAfLevel == 1 ? s + Lang.getOff() : s + this.ofAfLevel;
-        } else if (p_getKeyBindingOF_1_ == Options.BETTER_SNOW) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.BETTER_SNOW) {
             return this.ofBetterSnow ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.SWAMP_COLORS) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.SWAMP_COLORS) {
             return this.ofSwampColors ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.RANDOM_ENTITIES) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.RANDOM_ENTITIES) {
             return this.ofRandomEntities ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.SMOOTH_BIOMES) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.SMOOTH_BIOMES) {
             return this.ofSmoothBiomes ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.CUSTOM_FONTS) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.CUSTOM_FONTS) {
             return this.ofCustomFonts ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.CUSTOM_COLORS) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.CUSTOM_COLORS) {
             return this.ofCustomColors ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.CUSTOM_SKY) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.CUSTOM_SKY) {
             return this.ofCustomSky ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.SHOW_CAPES) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.SHOW_CAPES) {
             return this.ofShowCapes ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.CUSTOM_ITEMS) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.CUSTOM_ITEMS) {
             return this.ofCustomItems ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.NATURAL_TEXTURES) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.NATURAL_TEXTURES) {
             return this.ofNaturalTextures ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.EMISSIVE_TEXTURES) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.EMISSIVE_TEXTURES) {
             return this.ofEmissiveTextures ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.FAST_MATH) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.FAST_MATH) {
             return this.ofFastMath ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.FAST_RENDER) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.FAST_RENDER) {
             return this.ofFastRender ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.TRANSLUCENT_BLOCKS) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.TRANSLUCENT_BLOCKS) {
             return this.ofTranslucentBlocks == 1 ? s + Lang.getFast() : (this.ofTranslucentBlocks == 2 ? s + Lang.getFancy() : s + Lang.getDefault());
-        } else if (p_getKeyBindingOF_1_ == Options.LAZY_CHUNK_LOADING) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.LAZY_CHUNK_LOADING) {
             return this.ofLazyChunkLoading ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.RENDER_REGIONS) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.RENDER_REGIONS) {
             return this.ofRenderRegions ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.SMART_ANIMATIONS) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.SMART_ANIMATIONS) {
             return this.ofSmartAnimations ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.DYNAMIC_FOV) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.DYNAMIC_FOV) {
             return this.ofDynamicFov ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.ALTERNATE_BLOCKS) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.ALTERNATE_BLOCKS) {
             return this.ofAlternateBlocks ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.DYNAMIC_LIGHTS) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.DYNAMIC_LIGHTS) {
             int k = indexOf(this.ofDynamicLights, OF_DYNAMIC_LIGHTS);
             return s + getTranslation(KEYS_DYNAMIC_LIGHTS, k);
-        } else if (p_getKeyBindingOF_1_ == Options.SCREENSHOT_SIZE) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.SCREENSHOT_SIZE) {
             return this.ofScreenshotSize <= 1 ? s + Lang.getDefault() : s + this.ofScreenshotSize + "x";
-        } else if (p_getKeyBindingOF_1_ == Options.CUSTOM_ENTITY_MODELS) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.CUSTOM_ENTITY_MODELS) {
             return this.ofCustomEntityModels ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.CUSTOM_GUIS) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.CUSTOM_GUIS) {
             return this.ofCustomGuis ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.SHOW_GL_ERRORS) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.SHOW_GL_ERRORS) {
             return this.ofShowGlErrors ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.FULLSCREEN_MODE) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.FULLSCREEN_MODE) {
             return this.ofFullscreenMode.equals("Default") ? s + Lang.getDefault() : s + this.ofFullscreenMode;
-        } else if (p_getKeyBindingOF_1_ == Options.HELD_ITEM_TOOLTIPS) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.HELD_ITEM_TOOLTIPS) {
             return this.heldItemTooltips ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.ADVANCED_TOOLTIPS) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.ADVANCED_TOOLTIPS) {
             return this.advancedItemTooltips ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.FRAMERATE_LIMIT) {
+        } else if (p_getKeyBindingOF_1_ == GameSettings.Options.FRAMERATE_LIMIT) {
             float f = this.getOptionFloatValue(p_getKeyBindingOF_1_);
             return f == 0.0F ? s + Lang.get("of.options.framerateLimit.vsync") : (f == p_getKeyBindingOF_1_.valueMax ? s + I18n.format("options.framerateLimit.max") : s + (int) f + " fps");
         } else {
@@ -2166,7 +2181,7 @@ public class GameSettings {
     public void resetSettings() {
         this.renderDistanceChunks = 8;
         this.viewBobbing = true;
-        this.limitFramerate = (int) Options.FRAMERATE_LIMIT.getValueMax();
+        this.limitFramerate = (int) GameSettings.Options.FRAMERATE_LIMIT.getValueMax();
         this.enableVsync = false;
         this.updateVSync();
         this.mipmapLevels = 4;
@@ -2433,8 +2448,8 @@ public class GameSettings {
         private final float valueMin;
         private float valueMax;
 
-        public static Options getEnumOptions(int ordinal) {
-            for (Options gamesettings$options : values()) {
+        public static GameSettings.Options getEnumOptions(int ordinal) {
+            for (GameSettings.Options gamesettings$options : values()) {
                 if (gamesettings$options.returnEnumOrdinal() == ordinal) {
                     return gamesettings$options;
                 }
