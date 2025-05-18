@@ -9,7 +9,8 @@ import java.io.IOException;
 public class S3APacketTabComplete implements Packet<INetHandlerPlayClient> {
     private String[] matches;
 
-    public S3APacketTabComplete() {}
+    public S3APacketTabComplete() {
+    }
 
     public S3APacketTabComplete(String[] matchesIn) {
         this.matches = matchesIn;

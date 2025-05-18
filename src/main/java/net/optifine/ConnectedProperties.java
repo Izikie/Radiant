@@ -879,7 +879,7 @@ public class ConnectedProperties {
     }
 
     public boolean matchesBlock(int blockId, int metadata) {
-        return !Matches.block(blockId, metadata, this.matchBlocks) ? false : Matches.metadata(metadata, this.metadatas);
+        return Matches.block(blockId, metadata, this.matchBlocks) && Matches.metadata(metadata, this.metadatas);
     }
 
     public boolean matchesIcon(TextureAtlasSprite icon) {

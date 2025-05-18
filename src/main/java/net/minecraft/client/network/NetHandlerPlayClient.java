@@ -122,23 +122,30 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         switch (packetIn.getType()) {
             case 1 -> entity = new EntityBoat(this.clientWorldController, d0, d1, d2);
             case 2 -> entity = new EntityItem(this.clientWorldController, d0, d1, d2);
-            case 10 -> entity = EntityMinecart.getMinecart(this.clientWorldController, d0, d1, d2, EntityMinecart.MinecartType.byNetworkID(packetIn.getExtraData()));
+            case 10 ->
+                    entity = EntityMinecart.getMinecart(this.clientWorldController, d0, d1, d2, EntityMinecart.MinecartType.byNetworkID(packetIn.getExtraData()));
             case 50 -> entity = new EntityTNTPrimed(this.clientWorldController, d0, d1, d2, null);
             case 51 -> entity = new EntityEnderCrystal(this.clientWorldController, d0, d1, d2);
             case 60 -> entity = new EntityArrow(this.clientWorldController, d0, d1, d2);
             case 61 -> entity = new EntitySnowball(this.clientWorldController, d0, d1, d2);
             case 62 -> entity = new EntityEgg(this.clientWorldController, d0, d1, d2);
-            case 63 -> entity = new EntityLargeFireball(this.clientWorldController, d0, d1, d2, packetIn.getSpeedX() / 8000.0D, packetIn.getSpeedY() / 8000.0D, packetIn.getSpeedZ() / 8000.0D);
-            case 64 -> entity = new EntitySmallFireball(this.clientWorldController, d0, d1, d2, packetIn.getSpeedX() / 8000.0D, packetIn.getSpeedY() / 8000.0D, packetIn.getSpeedZ() / 8000.0D);
+            case 63 ->
+                    entity = new EntityLargeFireball(this.clientWorldController, d0, d1, d2, packetIn.getSpeedX() / 8000.0D, packetIn.getSpeedY() / 8000.0D, packetIn.getSpeedZ() / 8000.0D);
+            case 64 ->
+                    entity = new EntitySmallFireball(this.clientWorldController, d0, d1, d2, packetIn.getSpeedX() / 8000.0D, packetIn.getSpeedY() / 8000.0D, packetIn.getSpeedZ() / 8000.0D);
             case 65 -> entity = new EntityEnderPearl(this.clientWorldController, d0, d1, d2);
-            case 66 -> entity = new EntityWitherSkull(this.clientWorldController, d0, d1, d2, packetIn.getSpeedX() / 8000.0D, packetIn.getSpeedY() / 8000.0D, packetIn.getSpeedZ() / 8000.0D);
-            case 70 -> entity = new EntityFallingBlock(this.clientWorldController, d0, d1, d2, Block.getStateById(packetIn.getExtraData() & 65535));
-            case 71 -> entity = new EntityItemFrame(this.clientWorldController, new BlockPos(MathHelper.floor_double(d0), MathHelper.floor_double(d1), MathHelper.floor_double(d2)), Direction.getHorizontal(packetIn.getExtraData()));
+            case 66 ->
+                    entity = new EntityWitherSkull(this.clientWorldController, d0, d1, d2, packetIn.getSpeedX() / 8000.0D, packetIn.getSpeedY() / 8000.0D, packetIn.getSpeedZ() / 8000.0D);
+            case 70 ->
+                    entity = new EntityFallingBlock(this.clientWorldController, d0, d1, d2, Block.getStateById(packetIn.getExtraData() & 65535));
+            case 71 ->
+                    entity = new EntityItemFrame(this.clientWorldController, new BlockPos(MathHelper.floor_double(d0), MathHelper.floor_double(d1), MathHelper.floor_double(d2)), Direction.getHorizontal(packetIn.getExtraData()));
             case 72 -> entity = new EntityEnderEye(this.clientWorldController, d0, d1, d2);
             case 73 -> entity = new EntityPotion(this.clientWorldController, d0, d1, d2, packetIn.getExtraData());
             case 75 -> entity = new EntityExpBottle(this.clientWorldController, d0, d1, d2);
             case 76 -> entity = new EntityFireworkRocket(this.clientWorldController, d0, d1, d2, null);
-            case 77 -> entity = new EntityLeashKnot(this.clientWorldController, new BlockPos(MathHelper.floor_double(d0), MathHelper.floor_double(d1), MathHelper.floor_double(d2)));
+            case 77 ->
+                    entity = new EntityLeashKnot(this.clientWorldController, new BlockPos(MathHelper.floor_double(d0), MathHelper.floor_double(d1), MathHelper.floor_double(d2)));
             case 78 -> entity = new EntityArmorStand(this.clientWorldController, d0, d1, d2);
             case 90 -> {
                 Entity entity1 = this.clientWorldController.getEntityByID(packetIn.getExtraData());
@@ -830,7 +837,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
             case 3 -> this.gameController.playerController.setGameType(WorldSettings.GameType.getByID(j));
             case 4 -> this.gameController.displayGuiScreen(new GuiWinGame()); // TODO: Only allow once per session
             // BUGFIX: Action 5, Shows Demo Screen
-            case 6 -> this.clientWorldController.playSound(entityplayer.posX, entityplayer.posY + entityplayer.getEyeHeight(), entityplayer.posZ, "random.successful_hit", 0.18F, 0.45F, false);
+            case 6 ->
+                    this.clientWorldController.playSound(entityplayer.posX, entityplayer.posY + entityplayer.getEyeHeight(), entityplayer.posZ, "random.successful_hit", 0.18F, 0.45F, false);
             case 7 -> // BUGFIX: HIGH VALUE -> LAG/CRASH | LOW VALUE -> WORLD COLOR CHANGES
                     this.clientWorldController.setRainStrength(Math.clamp(f, -2.0F, 2F)); // Allow leniency for servers to use.
             case 8 -> this.clientWorldController.setThunderStrength(f);
@@ -905,7 +913,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         }
     }
 
-    public void handleCombatEvent(S42PacketCombatEvent packetIn) {}// TODO: Possibly Fully remove packet?
+    public void handleCombatEvent(S42PacketCombatEvent packetIn) {
+    }// TODO: Possibly Fully remove packet?
 
     public void handleServerDifficulty(S41PacketServerDifficulty packetIn) {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.gameController);

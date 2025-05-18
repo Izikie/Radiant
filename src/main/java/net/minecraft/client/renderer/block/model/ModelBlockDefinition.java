@@ -203,7 +203,7 @@ public class ModelBlockDefinition {
             } else if (!(p_equals_1_ instanceof Variants modelblockdefinition$variants)) {
                 return false;
             } else {
-                return !this.name.equals(modelblockdefinition$variants.name) ? false : this.listVariants.equals(modelblockdefinition$variants.listVariants);
+                return this.name.equals(modelblockdefinition$variants.name) && this.listVariants.equals(modelblockdefinition$variants.listVariants);
             }
         }
 

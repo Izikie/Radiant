@@ -75,10 +75,8 @@ public class PingResponseHandler extends ChannelInboundHandlerAdapter {
 
                 bytebuf.release();
                 flag = false;
-                return;
             }
         } catch (RuntimeException var21) {
-            return;
         } finally {
             if (flag) {
                 bytebuf.resetReaderIndex();

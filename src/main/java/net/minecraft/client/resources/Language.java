@@ -26,7 +26,7 @@ public class Language implements Comparable<Language> {
     }
 
     public boolean equals(Object p_equals_1_) {
-        return this == p_equals_1_ ? true : (!(p_equals_1_ instanceof Language language) ? false : this.languageCode.equals(language.languageCode));
+        return this == p_equals_1_ || (p_equals_1_ instanceof Language language && this.languageCode.equals(language.languageCode));
     }
 
     public int hashCode() {

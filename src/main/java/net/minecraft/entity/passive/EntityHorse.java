@@ -255,7 +255,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
 
     public boolean attackEntityFrom(DamageSource source, float amount) {
         Entity entity = source.getEntity();
-        return this.riddenByEntity != null && this.riddenByEntity.equals(entity) ? false : super.attackEntityFrom(source, amount);
+        return (this.riddenByEntity == null || !this.riddenByEntity.equals(entity)) && super.attackEntityFrom(source, amount);
     }
 
     public int getTotalArmorValue() {
@@ -729,7 +729,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
     }
 
     protected boolean isMovementBlocked() {
-        return this.riddenByEntity != null && this.isHorseSaddled() ? true : this.isEatingHaystack() || this.isRearing();
+        return this.riddenByEntity != null && this.isHorseSaddled() || this.isEatingHaystack() || this.isRearing();
     }
 
     public boolean isUndead() {

@@ -100,7 +100,7 @@ public class BlockFlowerPot extends BlockContainer {
     }
 
     private boolean canNotContain(Block blockIn, int meta) {
-        return blockIn != Blocks.YELLOW_FLOWER && blockIn != Blocks.RED_FLOWER && blockIn != Blocks.CACTUS && blockIn != Blocks.BROWN_MUSHROOM && blockIn != Blocks.RED_MUSHROOM && blockIn != Blocks.SAPLING && blockIn != Blocks.DEAD_BUSH ? blockIn == Blocks.TALL_GRASS && meta == BlockTallGrass.EnumType.FERN.getMeta() : true;
+        return blockIn == Blocks.YELLOW_FLOWER || blockIn == Blocks.RED_FLOWER || blockIn == Blocks.CACTUS || blockIn == Blocks.BROWN_MUSHROOM || blockIn == Blocks.RED_MUSHROOM || blockIn == Blocks.SAPLING || blockIn == Blocks.DEAD_BUSH || blockIn == Blocks.TALL_GRASS && meta == BlockTallGrass.EnumType.FERN.getMeta();
     }
 
     public Item getItem(World worldIn, BlockPos pos) {

@@ -31,7 +31,7 @@ public class SmartAnimations {
     }
 
     public static boolean isSpriteRendered(int animationIndex) {
-        return animationIndex < 0 ? false : SPRITES_RENDERED.get(animationIndex);
+        return animationIndex >= 0 && SPRITES_RENDERED.get(animationIndex);
     }
 
     public static void resetSpritesRendered() {
@@ -45,7 +45,7 @@ public class SmartAnimations {
     }
 
     public static boolean isTextureRendered(int texId) {
-        return texId < 0 ? false : TEXTURES_RENDERED.get(texId);
+        return texId >= 0 && TEXTURES_RENDERED.get(texId);
     }
 
     public static void resetTexturesRendered() {

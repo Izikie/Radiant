@@ -15,7 +15,7 @@ import java.util.Objects;
 
 public class Display {
 
-    private static final org.lwjgl.opengl.DisplayMode desktop_mode;
+    private static final DisplayMode desktop_mode;
 
     private static String title = "Game";
 
@@ -23,7 +23,7 @@ public class Display {
 
     private static boolean resizable = false;
 
-    private static org.lwjgl.opengl.DisplayMode current_mode;
+    private static DisplayMode current_mode;
 
     private static int width = 0;
 
@@ -51,9 +51,6 @@ public class Display {
         GLFWVidMode vidMode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
         desktop_mode = new org.lwjgl.opengl.DisplayMode(vidMode.width(), vidMode.height(), vidMode.redBits() + vidMode.greenBits() + vidMode.blueBits(), vidMode.refreshRate());
         current_mode = desktop_mode;
-    }
-
-    private Display() {
     }
 
     public static org.lwjgl.opengl.DisplayMode getDisplayMode() {

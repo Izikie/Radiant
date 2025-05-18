@@ -12,7 +12,8 @@ public class S2FPacketSetSlot implements Packet<INetHandlerPlayClient> {
     private int slot;
     private ItemStack item;
 
-    public S2FPacketSetSlot() {}
+    public S2FPacketSetSlot() {
+    }
 
     public S2FPacketSetSlot(int windowIdIn, int slotIn, ItemStack itemIn) {
         this.windowId = windowIdIn;

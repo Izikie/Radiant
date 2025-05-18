@@ -94,7 +94,7 @@ public abstract class BlockSlab extends Block {
             IBlockState iblockstate1 = worldIn.getBlockState(blockpos);
             boolean flag = isSlab(iblockstate.getBlock()) && iblockstate.getValue(HALF) == EnumBlockHalf.TOP;
             boolean flag1 = isSlab(iblockstate1.getBlock()) && iblockstate1.getValue(HALF) == EnumBlockHalf.TOP;
-            return flag1 ? (side == Direction.DOWN ? true : (side == Direction.UP && super.shouldSideBeRendered(worldIn, pos, side) ? true : !isSlab(iblockstate.getBlock()) || !flag)) : (side == Direction.UP ? true : (side == Direction.DOWN && super.shouldSideBeRendered(worldIn, pos, side) ? true : !isSlab(iblockstate.getBlock()) || flag));
+            return flag1 ? (side == Direction.DOWN || (side == Direction.UP && super.shouldSideBeRendered(worldIn, pos, side) || !isSlab(iblockstate.getBlock()) || !flag)) : (side == Direction.UP || (side == Direction.DOWN && super.shouldSideBeRendered(worldIn, pos, side) || !isSlab(iblockstate.getBlock()) || flag));
         }
     }
 

@@ -84,7 +84,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
             return false;
         } else {
             int j = this.getPowerOnSides(worldIn, pos, state);
-            return j == 0 ? true : i >= j;
+            return j == 0 || i >= j;
         }
     }
 
@@ -193,7 +193,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
     public boolean onBlockEventReceived(World worldIn, BlockPos pos, IBlockState state, int eventID, int eventParam) {
         super.onBlockEventReceived(worldIn, pos, state, eventID, eventParam);
         TileEntity tileentity = worldIn.getTileEntity(pos);
-        return tileentity == null ? false : tileentity.receiveClientEvent(eventID, eventParam);
+        return tileentity != null && tileentity.receiveClientEvent(eventID, eventParam);
     }
 
     public TileEntity createNewTileEntity(World worldIn, int meta) {

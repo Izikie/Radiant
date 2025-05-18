@@ -387,7 +387,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
     }
 
     public boolean canAttackPlayer(EntityPlayer other) {
-        return !this.canPlayersAttack() ? false : super.canAttackPlayer(other);
+        return this.canPlayersAttack() && super.canAttackPlayer(other);
     }
 
     private boolean canPlayersAttack() {
@@ -422,7 +422,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
     }
 
     public boolean isSpectatedByPlayer(EntityPlayerMP player) {
-        return player.isSpectator() ? this.getSpectatingEntity() == this : (this.isSpectator() ? false : super.isSpectatedByPlayer(player));
+        return player.isSpectator() ? this.getSpectatingEntity() == this : (!this.isSpectator() && super.isSpectatedByPlayer(player));
     }
 
     private void sendTileEntityUpdate(TileEntity p_147097_1_) {

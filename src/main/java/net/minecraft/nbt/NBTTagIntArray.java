@@ -26,7 +26,7 @@ public class NBTTagIntArray extends NBTBase {
     void read(DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException {
         sizeTracker.read(192L);
         int i = input.readInt();
-        sizeTracker.read((32 * i));
+        sizeTracker.read((32L * i));
         this.intArray = new int[i];
 
         for (int j = 0; j < i; ++j) {
@@ -55,7 +55,7 @@ public class NBTTagIntArray extends NBTBase {
     }
 
     public boolean equals(Object p_equals_1_) {
-        return super.equals(p_equals_1_) ? Arrays.equals(this.intArray, ((NBTTagIntArray) p_equals_1_).intArray) : false;
+        return super.equals(p_equals_1_) && Arrays.equals(this.intArray, ((NBTTagIntArray) p_equals_1_).intArray);
     }
 
     public int hashCode() {

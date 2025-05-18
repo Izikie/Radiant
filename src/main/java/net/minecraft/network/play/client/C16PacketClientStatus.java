@@ -9,7 +9,8 @@ import java.io.IOException;
 public class C16PacketClientStatus implements Packet<INetHandlerPlayServer> {
     private EnumState status;
 
-    public C16PacketClientStatus() {}
+    public C16PacketClientStatus() {
+    }
 
     public C16PacketClientStatus(EnumState statusIn) {
         this.status = statusIn;

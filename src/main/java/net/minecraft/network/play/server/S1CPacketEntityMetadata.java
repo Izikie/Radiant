@@ -12,7 +12,8 @@ public class S1CPacketEntityMetadata implements Packet<INetHandlerPlayClient> {
     private int entityId;
     private List<DataWatcher.WatchableObject> field_149378_b;
 
-    public S1CPacketEntityMetadata() {}
+    public S1CPacketEntityMetadata() {
+    }
 
     public S1CPacketEntityMetadata(int entityIdIn, DataWatcher p_i45217_2_, boolean p_i45217_3_) {
         this.entityId = entityIdIn;

@@ -9,7 +9,8 @@ import java.io.IOException;
 public class C0DPacketCloseWindow implements Packet<INetHandlerPlayServer> {
     private int windowId;
 
-    public C0DPacketCloseWindow() {}
+    public C0DPacketCloseWindow() {
+    }
 
     public C0DPacketCloseWindow(int windowId) {
         this.windowId = windowId;

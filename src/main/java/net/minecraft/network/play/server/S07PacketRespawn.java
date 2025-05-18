@@ -15,7 +15,8 @@ public class S07PacketRespawn implements Packet<INetHandlerPlayClient> {
     private WorldSettings.GameType gameType;
     private WorldType worldType;
 
-    public S07PacketRespawn() {}
+    public S07PacketRespawn() {
+    }
 
     public S07PacketRespawn(int dimensionIDIn, Difficulty difficultyIn, WorldType worldTypeIn, WorldSettings.GameType gameTypeIn) {
         this.dimensionID = dimensionIDIn;

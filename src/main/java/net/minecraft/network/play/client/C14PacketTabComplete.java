@@ -12,7 +12,8 @@ public class C14PacketTabComplete implements Packet<INetHandlerPlayServer> {
     private String message;
     private BlockPos targetBlock;
 
-    public C14PacketTabComplete() {}
+    public C14PacketTabComplete() {
+    }
 
     public C14PacketTabComplete(String msg) {
         this(msg, null);

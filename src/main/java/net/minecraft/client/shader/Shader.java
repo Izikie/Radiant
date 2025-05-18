@@ -11,7 +11,6 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.IResourceManager;
-import net.minecraft.client.util.JsonException;
 import org.joml.Matrix4f;
 
 import java.io.IOException;
@@ -27,7 +26,7 @@ public class Shader {
     private final IntList listAuxHeights = new IntArrayList();
     private Matrix4f projectionMatrix;
 
-    public Shader(IResourceManager p_i45089_1_, String p_i45089_2_, Framebuffer p_i45089_3_, Framebuffer p_i45089_4_) throws JsonException, IOException {
+    public Shader(IResourceManager p_i45089_1_, String p_i45089_2_, Framebuffer p_i45089_3_, Framebuffer p_i45089_4_) throws IOException {
         this.manager = new ShaderManager(p_i45089_1_, p_i45089_2_);
         this.framebufferIn = p_i45089_3_;
         this.framebufferOut = p_i45089_4_;

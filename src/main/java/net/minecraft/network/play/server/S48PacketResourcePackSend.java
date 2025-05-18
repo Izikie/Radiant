@@ -10,7 +10,8 @@ public class S48PacketResourcePackSend implements Packet<INetHandlerPlayClient> 
     private String url;
     private String hash;
 
-    public S48PacketResourcePackSend() {}
+    public S48PacketResourcePackSend() {
+    }
 
     public S48PacketResourcePackSend(String url, String hash) {
         this.url = url;

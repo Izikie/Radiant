@@ -12,7 +12,8 @@ public class S1BPacketEntityAttach implements Packet<INetHandlerPlayClient> {
     private int entityId;
     private int vehicleEntityId;
 
-    public S1BPacketEntityAttach() {}
+    public S1BPacketEntityAttach() {
+    }
 
     public S1BPacketEntityAttach(int leashIn, Entity entityIn, Entity vehicle) {
         this.leash = leashIn;

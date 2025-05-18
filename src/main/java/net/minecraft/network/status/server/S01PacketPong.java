@@ -9,7 +9,8 @@ import java.io.IOException;
 public class S01PacketPong implements Packet<INetHandlerStatusClient> {
     private long time;
 
-    public S01PacketPong() {}
+    public S01PacketPong() {
+    }
 
     public S01PacketPong(long time) {
         this.time = time;

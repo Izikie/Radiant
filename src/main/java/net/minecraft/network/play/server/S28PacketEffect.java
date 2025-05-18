@@ -13,7 +13,8 @@ public class S28PacketEffect implements Packet<INetHandlerPlayClient> {
     private int soundData;
     private boolean serverWide;
 
-    public S28PacketEffect() {}
+    public S28PacketEffect() {
+    }
 
     public S28PacketEffect(int soundTypeIn, BlockPos soundPosIn, int soundDataIn, boolean serverWideIn) {
         this.soundType = soundTypeIn;

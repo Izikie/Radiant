@@ -15,7 +15,8 @@ public class S11PacketSpawnExperienceOrb implements Packet<INetHandlerPlayClient
     private int posZ;
     private int xpValue;
 
-    public S11PacketSpawnExperienceOrb() {}
+    public S11PacketSpawnExperienceOrb() {
+    }
 
     public S11PacketSpawnExperienceOrb(EntityXPOrb xpOrb) {
         this.entityID = xpOrb.getEntityId();

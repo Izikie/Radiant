@@ -290,8 +290,7 @@ public enum Direction implements IStringSerializable {
 
         public Direction[] facings() {
             return switch (this) {
-                case HORIZONTAL ->
-                        new Direction[]{Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
+                case HORIZONTAL -> new Direction[]{Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
                 case VERTICAL -> new Direction[]{Direction.UP, Direction.DOWN};
                 default -> throw new Error("Someone's been tampering with the universe!");
             };

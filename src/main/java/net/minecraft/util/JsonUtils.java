@@ -5,27 +5,27 @@ import org.apache.commons.lang3.StringUtils;
 
 public class JsonUtils {
     public static boolean isString(JsonObject jsonObject, String key) {
-        return isJsonPrimitive(jsonObject, key) ? jsonObject.getAsJsonPrimitive(key).isString() : false;
+        return isJsonPrimitive(jsonObject, key) && jsonObject.getAsJsonPrimitive(key).isString();
     }
 
     public static boolean isString(JsonElement jsonElement) {
-        return jsonElement.isJsonPrimitive() ? jsonElement.getAsJsonPrimitive().isString() : false;
+        return jsonElement.isJsonPrimitive() && jsonElement.getAsJsonPrimitive().isString();
     }
 
     public static boolean isBoolean(JsonObject jsonObject, String key) {
-        return isJsonPrimitive(jsonObject, key) ? jsonObject.getAsJsonPrimitive(key).isBoolean() : false;
+        return isJsonPrimitive(jsonObject, key) && jsonObject.getAsJsonPrimitive(key).isBoolean();
     }
 
     public static boolean isJsonArray(JsonObject jsonObject, String key) {
-        return hasField(jsonObject, key) ? jsonObject.get(key).isJsonArray() : false;
+        return hasField(jsonObject, key) && jsonObject.get(key).isJsonArray();
     }
 
     public static boolean isJsonPrimitive(JsonObject jsonObject, String key) {
-        return hasField(jsonObject, key) ? jsonObject.get(key).isJsonPrimitive() : false;
+        return hasField(jsonObject, key) && jsonObject.get(key).isJsonPrimitive();
     }
 
     public static boolean hasField(JsonObject jsonObject, String key) {
-        return jsonObject == null ? false : jsonObject.get(key) != null;
+        return jsonObject != null && jsonObject.get(key) != null;
     }
 
     public static String getString(JsonElement jsonElement, String key) {

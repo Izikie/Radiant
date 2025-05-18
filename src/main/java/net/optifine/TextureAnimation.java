@@ -137,7 +137,7 @@ public class TextureAnimation {
                 this.srcData = null;
             }
 
-            this.active = SmartAnimations.isActive() ? SmartAnimations.isTextureRendered(this.dstTextId) : true;
+            this.active = !SmartAnimations.isActive() || SmartAnimations.isTextureRendered(this.dstTextId);
 
             if (this.nextFrame()) {
                 if (this.active) {

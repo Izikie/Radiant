@@ -10,7 +10,8 @@ import java.io.IOException;
 public class C00PacketLoginStart implements Packet<INetHandlerLoginServer> {
     private GameProfile profile;
 
-    public C00PacketLoginStart() {}
+    public C00PacketLoginStart() {
+    }
 
     public C00PacketLoginStart(GameProfile profileIn) {
         this.profile = profileIn;

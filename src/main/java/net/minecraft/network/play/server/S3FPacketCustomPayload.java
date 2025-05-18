@@ -10,7 +10,8 @@ public class S3FPacketCustomPayload implements Packet<INetHandlerPlayClient> {
     private String channel;
     private PacketBuffer data;
 
-    public S3FPacketCustomPayload() {}
+    public S3FPacketCustomPayload() {
+    }
 
     public S3FPacketCustomPayload(String channelName, PacketBuffer dataIn) {
         this.channel = channelName;

@@ -402,14 +402,14 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
     }
 
     public void handleKeyboardInput() throws IOException {
-		final char character = Keyboard.getEventCharacter();
+        final char character = Keyboard.getEventCharacter();
 
-		if ((Keyboard.getEventKey() == 0 && character >= ' ') || Keyboard.getEventKeyState()) {
-			this.keyTyped(character, Keyboard.getEventKey());
-		}
+        if ((Keyboard.getEventKey() == 0 && character >= ' ') || Keyboard.getEventKeyState()) {
+            this.keyTyped(character, Keyboard.getEventKey());
+        }
 
-		this.mc.dispatchKeypresses();
-	}
+        this.mc.dispatchKeypresses();
+    }
 
     public void updateScreen() {
     }

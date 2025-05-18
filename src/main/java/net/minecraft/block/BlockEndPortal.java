@@ -33,7 +33,7 @@ public class BlockEndPortal extends BlockContainer {
     }
 
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, Direction side) {
-        return side == Direction.DOWN ? super.shouldSideBeRendered(worldIn, pos, side) : false;
+        return side == Direction.DOWN && super.shouldSideBeRendered(worldIn, pos, side);
     }
 
     public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {

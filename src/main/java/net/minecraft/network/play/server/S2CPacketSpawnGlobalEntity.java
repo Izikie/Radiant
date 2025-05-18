@@ -16,7 +16,8 @@ public class S2CPacketSpawnGlobalEntity implements Packet<INetHandlerPlayClient>
     private int z;
     private int type;
 
-    public S2CPacketSpawnGlobalEntity() {}
+    public S2CPacketSpawnGlobalEntity() {
+    }
 
     public S2CPacketSpawnGlobalEntity(Entity entityIn) {
         this.entityId = entityIn.getEntityId();

@@ -230,7 +230,7 @@ public class GameSettings {
 
     public GameSettings(Minecraft mcIn, File optionsFileIn) {
         this.keyBindings = ArrayUtils.addAll(new KeyBinding[]{
-                this.keyBindAttack, this.keyBindUseItem, this.keyBindForward, this.keyBindLeft, this.keyBindBack, this.keyBindRight, this.keyBindJump, this.keyBindSneak, this.keyBindSprint, this.keyBindDrop, this.keyBindInventory, this.keyBindChat, this.keyBindPlayerList, this.keyBindPickBlock, this.keyBindCommand, this.keyBindScreenshot, this.keyBindTogglePerspective, this.keyBindSmoothCamera, this.keyBindFullscreen, this.keyBindSpectatorOutlines, this.ofKeyBindZoom},this.keyBindsHotbar);
+                this.keyBindAttack, this.keyBindUseItem, this.keyBindForward, this.keyBindLeft, this.keyBindBack, this.keyBindRight, this.keyBindJump, this.keyBindSneak, this.keyBindSprint, this.keyBindDrop, this.keyBindInventory, this.keyBindChat, this.keyBindPlayerList, this.keyBindPickBlock, this.keyBindCommand, this.keyBindScreenshot, this.keyBindTogglePerspective, this.keyBindSmoothCamera, this.keyBindFullscreen, this.keyBindSpectatorOutlines, this.ofKeyBindZoom}, this.keyBindsHotbar);
         this.difficulty = Difficulty.NORMAL;
         this.lastServer = "";
         this.fovSetting = 70.0F;
@@ -276,7 +276,7 @@ public class GameSettings {
     }
 
     public static boolean isKeyDown(KeyBinding key) {
-        return key.getKeyCode() == 0 ? false : (key.getKeyCode() < 0 ? Mouse.isButtonDown(key.getKeyCode() + 100) : Keyboard.isKeyDown(key.getKeyCode()));
+        return key.getKeyCode() != 0 && (key.getKeyCode() < 0 ? Mouse.isButtonDown(key.getKeyCode() + 100) : Keyboard.isKeyDown(key.getKeyCode()));
     }
 
     public void setOptionKeyBinding(KeyBinding key, int keyCode) {
@@ -2493,7 +2493,7 @@ public class GameSettings {
             return MathHelper.clamp_float(value, this.valueMin, this.valueMax);
         }
 
-        protected float snapToStep(float value) {
+        private float snapToStep(float value) {
             if (this.valueStep > 0.0F) {
                 value = this.valueStep * Math.round(value / this.valueStep);
             }

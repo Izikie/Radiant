@@ -44,9 +44,9 @@ public enum ModelRotation {
                 .rotateX((float) Math.toRadians(-x));
     }
 
-   public Matrix4f getMatrix4d() {
-       return matrix4d;
-   }
+    public Matrix4f getMatrix4d() {
+        return matrix4d;
+    }
 
     public Direction rotateFace(Direction facing) {
         Direction enumfacing = facing;

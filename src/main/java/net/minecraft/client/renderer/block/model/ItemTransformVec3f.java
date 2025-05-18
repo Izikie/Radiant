@@ -23,7 +23,7 @@ public record ItemTransformVec3f(Vector3f rotation, Vector3f translation, Vector
             return false;
         } else {
             ItemTransformVec3f itemtransformvec3f = (ItemTransformVec3f) p_equals_1_;
-            return !this.rotation.equals(itemtransformvec3f.rotation) ? false : (!this.scale.equals(itemtransformvec3f.scale) ? false : this.translation.equals(itemtransformvec3f.translation));
+            return this.rotation.equals(itemtransformvec3f.rotation) && (this.scale.equals(itemtransformvec3f.scale) && this.translation.equals(itemtransformvec3f.translation));
         }
     }
 

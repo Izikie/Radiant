@@ -136,7 +136,7 @@ public class BlockState {
         }
 
         private Map<IProperty, Comparable> getPropertiesWithValue(IProperty property, Comparable value) {
-            return new HashMap<>(this.properties){{
+            return new HashMap<>(this.properties) {{
                 put(property, value);
             }};
         }

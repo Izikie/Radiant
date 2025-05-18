@@ -70,7 +70,7 @@ public class CombatTracker {
                 IChatComponent ichatcomponent2 = combatentry.getDamageSrcDisplayName();
 
                 if (combatentry.getDamageSrc() != DamageSource.FALL && combatentry.getDamageSrc() != DamageSource.OUT_OF_WORLD) {
-                    if (ichatcomponent2 != null && (ichatcomponent1 == null || !ichatcomponent2.equals(ichatcomponent1))) {
+                    if (ichatcomponent2 != null && (!ichatcomponent2.equals(ichatcomponent1))) {
                         Entity entity1 = combatentry.getDamageSrc().getEntity();
                         ItemStack itemstack1 = entity1 instanceof EntityLivingBase entityLivingBase ? entityLivingBase.getHeldItem() : null;
 

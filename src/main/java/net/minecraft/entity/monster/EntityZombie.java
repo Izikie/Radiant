@@ -368,7 +368,7 @@ public class EntityZombie extends EntityMob {
     }
 
     protected boolean func_175448_a(ItemStack stack) {
-        return stack.getItem() == Items.EGG && this.isChild() && this.isRiding() ? false : super.func_175448_a(stack);
+        return (stack.getItem() != Items.EGG || !this.isChild() || !this.isRiding()) && super.func_175448_a(stack);
     }
 
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {

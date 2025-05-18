@@ -183,7 +183,7 @@ public class TextureAtlasSprite {
 
     public void updateAnimation() {
         if (this.animationMetadata != null) {
-            this.animationActive = SmartAnimations.isActive() ? SmartAnimations.isSpriteRendered(this.animationIndex) : true;
+            this.animationActive = !SmartAnimations.isActive() || SmartAnimations.isSpriteRendered(this.animationIndex);
             ++this.tickCounter;
 
             if (this.tickCounter >= this.animationMetadata.getFrameTimeSingle(this.frameCounter)) {

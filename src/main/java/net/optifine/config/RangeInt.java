@@ -7,7 +7,7 @@ public record RangeInt(int min, int max) {
     }
 
     public boolean isInRange(int val) {
-        return val < this.min ? false : val <= this.max;
+        return val >= this.min && val <= this.max;
     }
 
     public String toString() {

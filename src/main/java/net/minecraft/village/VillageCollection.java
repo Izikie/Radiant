@@ -204,7 +204,7 @@ public class VillageCollection extends WorldSavedData {
 
     private boolean isWoodDoor(BlockPos doorPos) {
         Block block = this.worldObj.getBlockState(doorPos).getBlock();
-        return block instanceof BlockDoor ? block.getMaterial() == Material.WOOD : false;
+        return block instanceof BlockDoor && block.getMaterial() == Material.WOOD;
     }
 
     public void readFromNBT(NBTTagCompound nbt) {

@@ -96,7 +96,7 @@ public class BlockWall extends Block {
 
     public boolean canConnectTo(IBlockAccess worldIn, BlockPos pos) {
         Block block = worldIn.getBlockState(pos).getBlock();
-        return block == Blocks.BARRIER ? false : (block != this && !(block instanceof BlockFenceGate) ? (block.blockMaterial.isOpaque() && block.isFullCube() ? block.blockMaterial != Material.GOURD : false) : true);
+        return block != Blocks.BARRIER && (block == this || block instanceof BlockFenceGate || (block.blockMaterial.isOpaque() && block.isFullCube() && block.blockMaterial != Material.GOURD));
     }
 
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
@@ -110,7 +110,7 @@ public class BlockWall extends Block {
     }
 
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, Direction side) {
-        return side == Direction.DOWN ? super.shouldSideBeRendered(worldIn, pos, side) : true;
+        return side != Direction.DOWN || super.shouldSideBeRendered(worldIn, pos, side);
     }
 
     public IBlockState getStateFromMeta(int meta) {

@@ -13,7 +13,8 @@ public class C07PacketPlayerDigging implements Packet<INetHandlerPlayServer> {
     private Direction facing;
     private Action status;
 
-    public C07PacketPlayerDigging() {}
+    public C07PacketPlayerDigging() {
+    }
 
     public C07PacketPlayerDigging(Action statusIn, BlockPos posIn, Direction facingIn) {
         this.status = statusIn;

@@ -381,7 +381,7 @@ public class Config {
     }
 
     public static boolean isFogFancy() {
-        return !isFancyFogAvailable() ? false : gameSettings.ofFogType == 2;
+        return isFancyFogAvailable() && gameSettings.ofFogType == 2;
     }
 
     public static boolean isFogFast() {
@@ -443,7 +443,7 @@ public class Config {
     }
 
     public static boolean isCloudsOff() {
-        return gameSettings.ofClouds != 0 ? gameSettings.ofClouds == 3 : (isShaders() && !Shaders.SHADER_PACK_CLOUDS.isDefault() ? Shaders.SHADER_PACK_CLOUDS.isOff() : (texturePackClouds != 0 ? texturePackClouds == 3 : false));
+        return gameSettings.ofClouds != 0 ? gameSettings.ofClouds == 3 : (isShaders() && !Shaders.SHADER_PACK_CLOUDS.isDefault() ? Shaders.SHADER_PACK_CLOUDS.isOff() : (texturePackClouds != 0 && texturePackClouds == 3));
     }
 
     public static void updateTexturePackClouds() {
@@ -822,15 +822,15 @@ public class Config {
     }
 
     public static boolean isSunTexture() {
-        return !isSunMoonEnabled() ? false : !isShaders() || Shaders.isSun();
+        return isSunMoonEnabled() && (!isShaders() || Shaders.isSun());
     }
 
     public static boolean isMoonTexture() {
-        return !isSunMoonEnabled() ? false : !isShaders() || Shaders.isMoon();
+        return isSunMoonEnabled() && (!isShaders() || Shaders.isMoon());
     }
 
     public static boolean isVignetteEnabled() {
-        return isShaders() && !Shaders.isVignette() ? false : (gameSettings.ofVignette == 0 ? gameSettings.fancyGraphics : gameSettings.ofVignette == 2);
+        return (!isShaders() || Shaders.isVignette()) && (gameSettings.ofVignette == 0 ? gameSettings.fancyGraphics : gameSettings.ofVignette == 2);
     }
 
     public static boolean isStarsEnabled() {
@@ -882,7 +882,7 @@ public class Config {
     }
 
     public static boolean isMultiTexture() {
-        return getAnisotropicFilterLevel() > 1 ? true : getAntialiasingLevel() > 0;
+        return getAnisotropicFilterLevel() > 1 || getAntialiasingLevel() > 0;
     }
 
     public static boolean between(int p_between_0_, int p_between_1_, int p_between_2_) {
@@ -1341,7 +1341,7 @@ public class Config {
     }
 
     public static boolean equals(Object p_equals_0_, Object p_equals_1_) {
-        return p_equals_0_ == p_equals_1_ ? true : (p_equals_0_ == null ? false : p_equals_0_.equals(p_equals_1_));
+        return p_equals_0_ == p_equals_1_ || (p_equals_0_ != null && p_equals_0_.equals(p_equals_1_));
     }
 
     public static boolean equalsOne(Object p_equalsOne_0_, Object[] p_equalsOne_1_) {
@@ -1754,7 +1754,7 @@ public class Config {
     }
 
     public static boolean isDynamicHandLight() {
-        return !isDynamicLights() ? false : (isShaders() ? Shaders.isDynamicHandLight() : true);
+        return isDynamicLights() && (!isShaders() || Shaders.isDynamicHandLight());
     }
 
     public static boolean isCustomEntityModels() {
@@ -1817,7 +1817,7 @@ public class Config {
     }
 
     public static boolean isIntegratedServerRunning() {
-        return MINECRAFT.getIntegratedServer() == null ? false : MINECRAFT.isIntegratedServerRunning();
+        return MINECRAFT.getIntegratedServer() != null && MINECRAFT.isIntegratedServerRunning();
     }
 
     public static IntBuffer createDirectIntBuffer(int p_createDirectIntBuffer_0_) {
@@ -1843,7 +1843,7 @@ public class Config {
     }
 
     public static boolean isQuadsToTriangles() {
-        return !isShaders() ? false : !Shaders.canRenderQuads();
+        return isShaders() && !Shaders.canRenderQuads();
     }
 
     public static void checkNull(Object p_checkNull_0_, String p_checkNull_1_) throws NullPointerException {

@@ -26,7 +26,8 @@ public class S0FPacketSpawnMob implements Packet<INetHandlerPlayClient> {
     private DataWatcher field_149043_l;
     private List<DataWatcher.WatchableObject> watcher;
 
-    public S0FPacketSpawnMob() {}
+    public S0FPacketSpawnMob() {
+    }
 
     public S0FPacketSpawnMob(EntityLivingBase entityIn) {
         this.entityId = entityIn.getEntityId();

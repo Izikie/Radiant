@@ -179,7 +179,6 @@ public class HttpUtil {
 
                     if (p_180192_4_ != null) {
                         p_180192_4_.setDoneWorking();
-                        return;
                     }
                 } catch (Throwable throwable) {
                     throwable.printStackTrace();
@@ -196,7 +195,6 @@ public class HttpUtil {
 
                     if (p_180192_4_ != null) {
                         p_180192_4_.setDoneWorking();
-                        return;
                     }
                 }
             } finally {

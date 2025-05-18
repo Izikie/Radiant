@@ -14,7 +14,8 @@ public class S3CPacketUpdateScore implements Packet<INetHandlerPlayClient> {
     private int value;
     private Action action;
 
-    public S3CPacketUpdateScore() {}
+    public S3CPacketUpdateScore() {
+    }
 
     public S3CPacketUpdateScore(Score scoreIn) {
         this.name = scoreIn.getPlayerName();

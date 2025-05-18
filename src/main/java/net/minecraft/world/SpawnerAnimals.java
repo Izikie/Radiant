@@ -171,7 +171,7 @@ public final class SpawnerAnimals {
         }
     }
 
-    protected static BlockPos getRandomChunkPosition(World worldIn, int x, int z) {
+    private static BlockPos getRandomChunkPosition(World worldIn, int x, int z) {
         Chunk chunk = worldIn.getChunkFromChunkCoords(x, z);
         int i = x * 16 + worldIn.rand.nextInt(16);
         int j = z * 16 + worldIn.rand.nextInt(16);

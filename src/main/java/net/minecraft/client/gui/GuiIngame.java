@@ -464,7 +464,7 @@ public class GuiIngame extends Gui {
 
             this.playerHealth = i;
             int j = this.lastPlayerHealth;
-            this.rand.setSeed((this.updateCounter * 312871));
+            this.rand.setSeed((this.updateCounter * 312871L));
             boolean flag1 = false;
             FoodStats foodstats = entityplayer.getFoodStats();
             int k = foodstats.getFoodLevel();

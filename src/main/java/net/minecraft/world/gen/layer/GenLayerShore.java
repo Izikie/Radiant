@@ -107,7 +107,7 @@ public class GenLayerShore extends GenLayer {
     }
 
     private boolean func_151631_c(int p_151631_1_) {
-        return BiomeGenBase.getBiome(p_151631_1_) != null && BiomeGenBase.getBiome(p_151631_1_).getBiomeClass() == BiomeGenJungle.class ? true : p_151631_1_ == BiomeGenBase.JUNGLE_EDGE.biomeID || p_151631_1_ == BiomeGenBase.JUNGLE.biomeID || p_151631_1_ == BiomeGenBase.JUNGLE_HILLS.biomeID || p_151631_1_ == BiomeGenBase.FOREST.biomeID || p_151631_1_ == BiomeGenBase.TAIGA.biomeID || isBiomeOceanic(p_151631_1_);
+        return BiomeGenBase.getBiome(p_151631_1_) != null && BiomeGenBase.getBiome(p_151631_1_).getBiomeClass() == BiomeGenJungle.class || p_151631_1_ == BiomeGenBase.JUNGLE_EDGE.biomeID || p_151631_1_ == BiomeGenBase.JUNGLE.biomeID || p_151631_1_ == BiomeGenBase.JUNGLE_HILLS.biomeID || p_151631_1_ == BiomeGenBase.FOREST.biomeID || p_151631_1_ == BiomeGenBase.TAIGA.biomeID || isBiomeOceanic(p_151631_1_);
     }
 
     private boolean func_151633_d(int p_151633_1_) {

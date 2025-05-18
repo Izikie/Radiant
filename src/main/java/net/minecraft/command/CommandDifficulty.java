@@ -30,7 +30,7 @@ public class CommandDifficulty extends CommandBase {
         }
     }
 
-    protected Difficulty getDifficultyFromCommand(String p_180531_1_) throws CommandException, NumberInvalidException {
+    protected Difficulty getDifficultyFromCommand(String p_180531_1_) throws CommandException {
         return !p_180531_1_.equalsIgnoreCase("peaceful") && !p_180531_1_.equalsIgnoreCase("p") ? (!p_180531_1_.equalsIgnoreCase("easy") && !p_180531_1_.equalsIgnoreCase("e") ? (!p_180531_1_.equalsIgnoreCase("normal") && !p_180531_1_.equalsIgnoreCase("n") ? (!p_180531_1_.equalsIgnoreCase("hard") && !p_180531_1_.equalsIgnoreCase("h") ? Difficulty.getDifficultyEnum(parseInt(p_180531_1_, 0, 3)) : Difficulty.HARD) : Difficulty.NORMAL) : Difficulty.EASY) : Difficulty.PEACEFUL;
     }
 

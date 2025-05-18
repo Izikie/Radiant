@@ -14,6 +14,6 @@ public class ItemSpade extends ItemTool {
     }
 
     public boolean canHarvestBlock(Block blockIn) {
-        return blockIn == Blocks.SNOW_LAYER ? true : blockIn == Blocks.SNOW;
+        return blockIn == Blocks.SNOW_LAYER || blockIn == Blocks.SNOW;
     }
 }

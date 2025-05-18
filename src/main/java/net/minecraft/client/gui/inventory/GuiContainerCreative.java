@@ -143,7 +143,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
                 return;
             }
 
-            if (itemstack1 != null && itemstack2 != null && itemstack1.isItemEqual(itemstack2)) {
+            if (itemstack1 != null && itemstack1.isItemEqual(itemstack2)) {
                 if (clickedButton == 0) {
                     if (flag) {
                         itemstack1.stackSize = itemstack1.getMaxStackSize();

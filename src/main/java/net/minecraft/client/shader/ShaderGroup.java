@@ -34,7 +34,7 @@ public class ShaderGroup {
     private float field_148036_j;
     private float field_148037_k;
 
-    public ShaderGroup(TextureManager p_i1050_1_, IResourceManager p_i1050_2_, Framebuffer p_i1050_3_, ResourceLocation p_i1050_4_) throws JsonException, IOException, JsonSyntaxException {
+    public ShaderGroup(TextureManager p_i1050_1_, IResourceManager p_i1050_2_, Framebuffer p_i1050_3_, ResourceLocation p_i1050_4_) throws IOException, JsonSyntaxException {
         this.resourceManager = p_i1050_2_;
         this.mainFramebuffer = p_i1050_3_;
         this.field_148036_j = 0.0F;
@@ -46,7 +46,7 @@ public class ShaderGroup {
         this.parseGroup(p_i1050_1_, p_i1050_4_);
     }
 
-    public void parseGroup(TextureManager p_152765_1_, ResourceLocation p_152765_2_) throws JsonException, IOException, JsonSyntaxException {
+    public void parseGroup(TextureManager p_152765_1_, ResourceLocation p_152765_2_) throws IOException, JsonSyntaxException {
         InputStream inputstream = null;
 
         try {
@@ -113,7 +113,7 @@ public class ShaderGroup {
         }
     }
 
-    private void parsePass(TextureManager p_152764_1_, JsonElement p_152764_2_) throws JsonException, IOException {
+    private void parsePass(TextureManager p_152764_1_, JsonElement p_152764_2_) throws IOException {
         JsonObject jsonobject = JsonUtils.getJsonObject(p_152764_2_, "pass");
         String s = JsonUtils.getString(jsonobject, "name");
         String s1 = JsonUtils.getString(jsonobject, "intarget");
@@ -269,7 +269,7 @@ public class ShaderGroup {
         this.listShaders.clear();
     }
 
-    public Shader addShader(String p_148023_1_, Framebuffer p_148023_2_, Framebuffer p_148023_3_) throws JsonException, IOException {
+    public Shader addShader(String p_148023_1_, Framebuffer p_148023_2_, Framebuffer p_148023_3_) throws IOException {
         Shader shader = new Shader(this.resourceManager, p_148023_1_, p_148023_2_, p_148023_3_);
         this.listShaders.add(this.listShaders.size(), shader);
         return shader;

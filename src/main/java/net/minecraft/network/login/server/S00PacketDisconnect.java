@@ -10,7 +10,8 @@ import java.io.IOException;
 public class S00PacketDisconnect implements Packet<INetHandlerLoginClient> {
     private IChatComponent reason;
 
-    public S00PacketDisconnect() {}
+    public S00PacketDisconnect() {
+    }
 
     public S00PacketDisconnect(IChatComponent reasonIn) {
         this.reason = reasonIn;
