@@ -42,9 +42,9 @@ import net.optifine.util.StrUtils;
 import net.optifine.util.TimedEvent;
 import org.apache.commons.io.IOUtils;
 import org.joml.Matrix4f;
+import org.joml.Vector4f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
-import org.lwjgl.util.vector.Vector4f;
 
 import java.io.*;
 import java.nio.ByteBuffer;
@@ -2353,7 +2353,7 @@ public class Shaders {
 
                                                                 if (vector4f != null) {
                                                                     GBUFFERS_CLEAR_COLOR[j1] = vector4f;
-                                                                    SMCLog.info("%s clear color: %s %s %s %s", s3, vector4f.getX(), vector4f.getY(), vector4f.getZ(), vector4f.getW());
+                                                                    SMCLog.info("%s clear color: %s %s %s %s", s3, vector4f.x, vector4f.y, vector4f.z, vector4f.w);
                                                                 } else {
                                                                     SMCLog.warning("Invalid color value: " + shaderline.getValue());
                                                                 }
@@ -3380,7 +3380,7 @@ public class Shaders {
                 Vector4f vector4f = GBUFFERS_CLEAR_COLOR[0];
 
                 if (vector4f != null) {
-                    GL11.glClearColor(vector4f.getX(), vector4f.getY(), vector4f.getZ(), vector4f.getW());
+                    GL11.glClearColor(vector4f.x, vector4f.y, vector4f.z, vector4f.w);
                 }
 
                 if (DFB_COLOR_TEXTURES_FLIP.isChanged(0)) {
@@ -3399,7 +3399,7 @@ public class Shaders {
                 Vector4f vector4f2 = GBUFFERS_CLEAR_COLOR[1];
 
                 if (vector4f2 != null) {
-                    GL11.glClearColor(vector4f2.getX(), vector4f2.getY(), vector4f2.getZ(), vector4f2.getW());
+                    GL11.glClearColor(vector4f2.x, vector4f2.y, vector4f2.z, vector4f2.w);
                 }
 
                 if (DFB_COLOR_TEXTURES_FLIP.isChanged(1)) {
@@ -3419,7 +3419,7 @@ public class Shaders {
                     Vector4f vector4f1 = GBUFFERS_CLEAR_COLOR[i];
 
                     if (vector4f1 != null) {
-                        GL11.glClearColor(vector4f1.getX(), vector4f1.getY(), vector4f1.getZ(), vector4f1.getW());
+                        GL11.glClearColor(vector4f1.x, vector4f1.y, vector4f1.z, vector4f1.w);
                     }
 
                     if (DFB_COLOR_TEXTURES_FLIP.isChanged(i)) {

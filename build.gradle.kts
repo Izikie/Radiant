@@ -15,6 +15,33 @@ version = "1.0"
 description = "Optimized Minecraft Java Client for 1.8.9"
 
 var lwjglVersion = "3.3.6"
+val lwjglNatives = Pair(
+    System.getProperty("os.name")!!,
+    System.getProperty("os.arch")!!
+).let { (name, arch) ->
+    when {
+        "FreeBSD" == name ->
+            "natives-freebsd"
+        arrayOf("Linux", "SunOS", "Unit").any { name.startsWith(it) } ->
+            if (arrayOf("arm", "aarch64").any { arch.startsWith(it) })
+                "natives-linux${if (arch.contains("64") || arch.startsWith("armv8")) "-arm64" else "-arm32"}"
+            else if (arch.startsWith("ppc"))
+                "natives-linux-ppc64le"
+            else if (arch.startsWith("riscv"))
+                "natives-linux-riscv64"
+            else
+                "natives-linux"
+        arrayOf("Mac OS X", "Darwin").any { name.startsWith(it) } ->
+            "natives-macos${if (arch.startsWith("aarch64")) "-arm64" else ""}"
+        arrayOf("Windows").any { name.startsWith(it) } ->
+            if (arch.contains("64"))
+                "natives-windows${if (arch.startsWith("aarch64")) "-arm64" else ""}"
+            else
+                "natives-windows-x86"
+        else ->
+            throw Error("Unrecognized or unsupported platform: $name $arch")
+    }
+}
 
 buildscript {
     repositories {
@@ -32,7 +59,7 @@ repositories {
     maven { url = uri("https://litarvan.github.io/maven") }
 }
 
-    dependencies {
+dependencies {
     implementation(group = "net.java.dev.jna", name = "jna", version = "5.17.0")
     implementation(group = "net.java.dev.jna", name = "jna-platform", version = "5.17.0")
 
@@ -58,7 +85,6 @@ repositories {
 
     implementation(group = "commons-io", name = "commons-io", version = "2.19.0")
     implementation(group = "commons-codec", name = "commons-codec", version = "1.18.0")
-    //implementation(group = "commons-logging", name = "commons-logging", version = "1.3.4") Pretty Sure Not Needed
 
     implementation(group = "org.apache.commons", name = "commons-lang3", version = "3.17.0")
     implementation(group = "org.apache.commons", name = "commons-compress", version = "1.27.1")
@@ -72,10 +98,10 @@ repositories {
     implementation(group = "org.lwjgl", name = "lwjgl-openal", version = lwjglVersion)
     implementation(group = "org.lwjgl", name = "lwjgl-opengl", version = lwjglVersion)
 
-    runtimeOnly(group = "org.lwjgl", name = "lwjgl", classifier = "natives-windows")
-    runtimeOnly(group = "org.lwjgl", name = "lwjgl-glfw", classifier = "natives-windows")
-    runtimeOnly(group = "org.lwjgl", name = "lwjgl-openal", classifier = "natives-windows")
-    runtimeOnly(group = "org.lwjgl", name = "lwjgl-opengl", classifier = "natives-windows")
+    runtimeOnly(group = "org.lwjgl", name = "lwjgl", version = lwjglVersion, classifier = lwjglNatives)
+    runtimeOnly(group = "org.lwjgl", name = "lwjgl-glfw", version = lwjglVersion, classifier = lwjglNatives)
+    runtimeOnly(group = "org.lwjgl", name = "lwjgl-openal", version = lwjglVersion, classifier = lwjglNatives)
+    runtimeOnly(group = "org.lwjgl", name = "lwjgl-opengl", version = lwjglVersion, classifier = lwjglNatives)
 
     // Third Party
     implementation(group = "fr.litarvan", name = "openauth", version = "1.1.6")

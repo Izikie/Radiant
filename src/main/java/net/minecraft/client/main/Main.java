@@ -39,7 +39,6 @@ public class Main {
         OptionSpec<String> usernameOption = optionParser.accepts("username").withRequiredArg().defaultsTo("Player");
         OptionSpec<String> uuidOption = optionParser.accepts("uuid").withRequiredArg();
         OptionSpec<String> accessTokenOption = optionParser.accepts("accessToken").withRequiredArg().required();
-        OptionSpec<String> versionOption = optionParser.accepts("version").withRequiredArg().required();
         OptionSpec<Integer> widthOption = optionParser.accepts("width").withRequiredArg().ofType(Integer.class).defaultsTo(854);
         OptionSpec<Integer> heightOption = optionParser.accepts("height").withRequiredArg().ofType(Integer.class).defaultsTo(480);
         OptionSpec<String> userPropertiesOption = optionParser.accepts("userProperties").withRequiredArg().defaultsTo("{}");
@@ -80,7 +79,6 @@ public class Main {
         int height = optionSet.valueOf(heightOption);
         boolean fullscreen = optionSet.has("fullscreen");
         boolean checkGlErrors = optionSet.has("checkGlErrors");
-        String version = optionSet.valueOf(versionOption);
         Gson gson = (new GsonBuilder()).registerTypeAdapter(PropertyMap.class, new Serializer()).create();
         PropertyMap userProperties = gson.fromJson(optionSet.valueOf(userPropertiesOption), PropertyMap.class);
         PropertyMap profileProperties = gson.fromJson(optionSet.valueOf(profilePropertiesOption), PropertyMap.class);
@@ -96,7 +94,6 @@ public class Main {
                 new GameConfiguration.UserInformation(session, userProperties, profileProperties, proxy),
                 new GameConfiguration.DisplayInformation(width, height, fullscreen, checkGlErrors),
                 new GameConfiguration.FolderInformation(gameDir, resourcePackDir, assetsDir, assetIndex),
-                new GameConfiguration.GameInformation(version),
                 new GameConfiguration.ServerInformation(server, port));
         Runtime.getRuntime().addShutdownHook(new Thread("Client Shutdown Thread") {
             public void run() {

@@ -10,14 +10,12 @@ public class GameConfiguration {
     public final UserInformation userInfo;
     public final DisplayInformation displayInfo;
     public final FolderInformation folderInfo;
-    public final GameInformation gameInfo;
     public final ServerInformation serverInfo;
 
-    public GameConfiguration(UserInformation userInfoIn, DisplayInformation displayInfoIn, FolderInformation folderInfoIn, GameInformation gameInfoIn, ServerInformation serverInfoIn) {
+    public GameConfiguration(UserInformation userInfoIn, DisplayInformation displayInfoIn, FolderInformation folderInfoIn, ServerInformation serverInfoIn) {
         this.userInfo = userInfoIn;
         this.displayInfo = displayInfoIn;
         this.folderInfo = folderInfoIn;
-        this.gameInfo = gameInfoIn;
         this.serverInfo = serverInfoIn;
     }
 
@@ -46,14 +44,6 @@ public class GameConfiguration {
             this.resourcePacksDir = resourcePacksDirIn;
             this.assetsDir = assetsDirIn;
             this.assetIndex = assetIndexIn;
-        }
-    }
-
-    public static class GameInformation {
-        public final String version;
-
-        public GameInformation(String versionIn) {
-            this.version = versionIn;
         }
     }
 

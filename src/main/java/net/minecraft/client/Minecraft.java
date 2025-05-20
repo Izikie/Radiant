@@ -151,7 +151,6 @@ public class Minecraft implements IThreadListener {
     public MouseHelper mouseHelper;
     public final File mcDataDir;
     private final File fileAssets;
-    private final String launchedVersion;
     private final Proxy proxy;
     private ISaveFormat saveLoader;
     private static int debugFPS;
@@ -195,7 +194,6 @@ public class Minecraft implements IThreadListener {
         this.mcDataDir = gameConfig.folderInfo.mcDataDir;
         this.fileAssets = gameConfig.folderInfo.assetsDir;
         this.fileResourcepacks = gameConfig.folderInfo.resourcePacksDir;
-        this.launchedVersion = gameConfig.gameInfo.version;
         this.profileProperties = gameConfig.userInfo.profileProperties;
         this.mcDefaultResourcePack = new DefaultResourcePack((new ResourceIndex(gameConfig.folderInfo.assetsDir, gameConfig.folderInfo.assetIndex)).getResourceMap());
         this.proxy = gameConfig.userInfo.proxy == null ? Proxy.NO_PROXY : gameConfig.userInfo.proxy;
@@ -460,7 +458,7 @@ public class Minecraft implements IThreadListener {
     }
 
     public String getVersion() {
-        return this.launchedVersion;
+        return "Radiant-1.8.9";
     }
 
     public void crashed(CrashReport crash) {
@@ -1650,7 +1648,7 @@ public class Minecraft implements IThreadListener {
     }
 
     public CrashReport addGraphicsAndWorldToCrashReport(CrashReport theCrash) {
-        theCrash.getCategory().addCrashSectionCallable("Launched Version", () -> this.launchedVersion);
+        theCrash.getCategory().addCrashSectionCallable("Launched Version", this::getVersion);
         theCrash.getCategory().addCrashSectionCallable("LWJGL", Sys::getVersion);
         theCrash.getCategory().addCrashSectionCallable("OpenGL", () -> GL11.glGetString(GL11.GL_RENDERER) + " GL version " + GL11.glGetString(GL11.GL_VERSION) + ", " + GL11.glGetString(GL11.GL_VENDOR));
         theCrash.getCategory().addCrashSectionCallable("GL Caps", OpenGlHelper::getLogText);
