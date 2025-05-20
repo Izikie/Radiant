@@ -138,7 +138,7 @@ public class BlockStem extends BlockBush implements IGrowable {
 
     public Item getItem(World worldIn, BlockPos pos) {
         Item item = this.getSeedItem();
-        return item != null ? item : null;
+        return item;
     }
 
     public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {

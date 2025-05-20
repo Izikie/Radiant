@@ -13,7 +13,8 @@ public class C00Handshake implements Packet<INetHandlerHandshakeServer> {
     private int port;
     private NetworkState requestedState;
 
-    public C00Handshake() {}
+    public C00Handshake() {
+    }
 
     public C00Handshake(int version, String ip, int port, NetworkState requestedState) {
         this.protocolVersion = version;

@@ -13,7 +13,8 @@ public class S0APacketUseBed implements Packet<INetHandlerPlayClient> {
     private int playerID;
     private BlockPos pos;
 
-    public S0APacketUseBed() {}
+    public S0APacketUseBed() {
+    }
 
     public S0APacketUseBed(EntityPlayer player, BlockPos bedPosIn) {
         this.playerID = player.getEntityId();

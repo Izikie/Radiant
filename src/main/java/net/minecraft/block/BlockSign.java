@@ -65,7 +65,7 @@ public class BlockSign extends BlockContainer {
             return true;
         } else {
             TileEntity tileentity = worldIn.getTileEntity(pos);
-            return tileentity instanceof TileEntitySign tileEntitySign ? tileEntitySign.executeCommand(playerIn) : false;
+            return tileentity instanceof TileEntitySign tileEntitySign && tileEntitySign.executeCommand(playerIn);
         }
     }
 

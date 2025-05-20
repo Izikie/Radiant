@@ -100,7 +100,7 @@ public class EntitySpider extends EntityMob {
     }
 
     public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-        return potioneffectIn.getPotionID() == Potion.POISON.id ? false : super.isPotionApplicable(potioneffectIn);
+        return potioneffectIn.getPotionID() != Potion.POISON.id && super.isPotionApplicable(potioneffectIn);
     }
 
     public boolean isBesideClimbableBlock() {
@@ -181,7 +181,7 @@ public class EntitySpider extends EntityMob {
 
         public boolean shouldExecute() {
             float f = this.taskOwner.getBrightness(1.0F);
-            return f >= 0.5F ? false : super.shouldExecute();
+            return !(f >= 0.5F) && super.shouldExecute();
         }
     }
 

@@ -1302,7 +1302,7 @@ public class Shaders {
     }
 
     public static boolean isShaderPackOptionSlider(String name) {
-        return shaderPackOptionSliders == null ? false : shaderPackOptionSliders.contains(name);
+        return shaderPackOptionSliders != null && shaderPackOptionSliders.contains(name);
     }
 
     private static ShaderOption[] getVisibleOptions(ShaderOption[] ops) {
@@ -1408,7 +1408,7 @@ public class Shaders {
     }
 
     private static String applyOptions(String line, ShaderOption[] ops) {
-        if (ops != null && ops.length > 0) {
+        if (ops != null) {
             for (ShaderOption shaderoption : ops) {
                 if (shaderoption.matchesLine(line)) {
                     line = shaderoption.getSourceLine();
@@ -1596,15 +1596,15 @@ public class Shaders {
     }
 
     public static boolean isOldHandLight() {
-        return !CONFIG_OLD_HAND_LIGHT.isDefault() ? CONFIG_OLD_HAND_LIGHT.isTrue() : (!SHADER_PACK_OLD_HAND_LIGHT.isDefault() ? SHADER_PACK_OLD_HAND_LIGHT.isTrue() : true);
+        return !CONFIG_OLD_HAND_LIGHT.isDefault() ? CONFIG_OLD_HAND_LIGHT.isTrue() : (SHADER_PACK_OLD_HAND_LIGHT.isDefault() || SHADER_PACK_OLD_HAND_LIGHT.isTrue());
     }
 
     public static boolean isDynamicHandLight() {
-        return !SHADER_PACK_DYNAMIC_HAND_LIGHT.isDefault() ? SHADER_PACK_DYNAMIC_HAND_LIGHT.isTrue() : true;
+        return SHADER_PACK_DYNAMIC_HAND_LIGHT.isDefault() || SHADER_PACK_DYNAMIC_HAND_LIGHT.isTrue();
     }
 
     public static boolean isOldLighting() {
-        return !CONFIG_OLD_LIGHTING.isDefault() ? CONFIG_OLD_LIGHTING.isTrue() : (!SHADER_PACK_OLD_LIGHTING.isDefault() ? SHADER_PACK_OLD_LIGHTING.isTrue() : true);
+        return !CONFIG_OLD_LIGHTING.isDefault() ? CONFIG_OLD_LIGHTING.isTrue() : (SHADER_PACK_OLD_LIGHTING.isDefault() || SHADER_PACK_OLD_LIGHTING.isTrue());
     }
 
     public static boolean isRenderShadowTranslucent() {
@@ -4652,7 +4652,7 @@ public class Shaders {
     }
 
     public static boolean canRenderQuads() {
-        return hasGeometryShaders ? capabilities.GL_NV_geometry_shader4 : true;
+        return !hasGeometryShaders || capabilities.GL_NV_geometry_shader4;
     }
 
     static {

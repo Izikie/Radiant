@@ -236,7 +236,7 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
             GlStateManager.color(f2, f2, f2, 1.0F);
 
             for (int i4 = 0; i4 * f1 - i2 < 224.0F; ++i4) {
-                random.setSeed((this.mc.getSession().getPlayerID().hashCode() + k1 + i4 + (l1 + l3) * 16));
+                random.setSeed((this.mc.getSession().getPlayerID().hashCode() + k1 + i4 + (l1 + l3) * 16L));
                 int j4 = random.nextInt(1 + l1 + l3) + (l1 + l3) / 2;
                 TextureAtlasSprite textureatlassprite = this.func_175371_a(Blocks.SAND);
 

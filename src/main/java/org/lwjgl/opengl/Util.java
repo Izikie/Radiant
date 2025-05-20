@@ -43,11 +43,6 @@ import static org.lwjgl.opengl.GL30.GL_INVALID_FRAMEBUFFER_OPERATION;
  */
 
 public final class Util {
-    /**
-     * No c'tor
-     */
-    private Util() {
-    }
 
     /**
      * Throws OpenGLException if glGetError() returns anything else than GL_NO_ERROR

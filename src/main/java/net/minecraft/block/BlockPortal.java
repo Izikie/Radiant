@@ -136,7 +136,7 @@ public class BlockPortal extends BlockBreakable {
         boolean flag3 = worldIn.getBlockState(pos.south()).getBlock() == this && worldIn.getBlockState(pos.south(2)).getBlock() != this;
         boolean flag4 = flag || flag1 || enumfacing$axis == Direction.Axis.X;
         boolean flag5 = flag2 || flag3 || enumfacing$axis == Direction.Axis.Z;
-        return flag4 && side == Direction.WEST ? true : (flag4 && side == Direction.EAST ? true : (flag5 && side == Direction.NORTH ? true : flag5 && side == Direction.SOUTH));
+        return flag4 && side == Direction.WEST || (flag4 && side == Direction.EAST || (flag5 && side == Direction.NORTH || flag5 && side == Direction.SOUTH));
     }
 
     public int quantityDropped(Random random) {

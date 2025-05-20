@@ -300,7 +300,7 @@ public class BlockModelRenderer {
         if (block$enumoffsettype != Block.EnumOffsetType.NONE) {
             int i = p_renderQuadsFlat_3_.getX();
             int j = p_renderQuadsFlat_3_.getZ();
-            long k = (i * 3129871) ^ j * 116129781L;
+            long k = (i * 3129871L) ^ j * 116129781L;
             k = k * k * 42317861L + k * 11L;
             d0 += (((k >> 16 & 15L) / 15.0F) - 0.5D) * 0.5D;
             d2 += (((k >> 24 & 15L) / 15.0F) - 0.5D) * 0.5D;
@@ -637,13 +637,13 @@ public class BlockModelRenderer {
         WEST(new Direction[]{Direction.UP, Direction.DOWN, Direction.NORTH, Direction.SOUTH}, 0.6F, true, new Orientation[]{Orientation.UP, Orientation.SOUTH, Orientation.UP, Orientation.FLIP_SOUTH, Orientation.FLIP_UP, Orientation.FLIP_SOUTH, Orientation.FLIP_UP, Orientation.SOUTH}, new Orientation[]{Orientation.UP, Orientation.NORTH, Orientation.UP, Orientation.FLIP_NORTH, Orientation.FLIP_UP, Orientation.FLIP_NORTH, Orientation.FLIP_UP, Orientation.NORTH}, new Orientation[]{Orientation.DOWN, Orientation.NORTH, Orientation.DOWN, Orientation.FLIP_NORTH, Orientation.FLIP_DOWN, Orientation.FLIP_NORTH, Orientation.FLIP_DOWN, Orientation.NORTH}, new Orientation[]{Orientation.DOWN, Orientation.SOUTH, Orientation.DOWN, Orientation.FLIP_SOUTH, Orientation.FLIP_DOWN, Orientation.FLIP_SOUTH, Orientation.FLIP_DOWN, Orientation.SOUTH}),
         EAST(new Direction[]{Direction.DOWN, Direction.UP, Direction.NORTH, Direction.SOUTH}, 0.6F, true, new Orientation[]{Orientation.FLIP_DOWN, Orientation.SOUTH, Orientation.FLIP_DOWN, Orientation.FLIP_SOUTH, Orientation.DOWN, Orientation.FLIP_SOUTH, Orientation.DOWN, Orientation.SOUTH}, new Orientation[]{Orientation.FLIP_DOWN, Orientation.NORTH, Orientation.FLIP_DOWN, Orientation.FLIP_NORTH, Orientation.DOWN, Orientation.FLIP_NORTH, Orientation.DOWN, Orientation.NORTH}, new Orientation[]{Orientation.FLIP_UP, Orientation.NORTH, Orientation.FLIP_UP, Orientation.FLIP_NORTH, Orientation.UP, Orientation.FLIP_NORTH, Orientation.UP, Orientation.NORTH}, new Orientation[]{Orientation.FLIP_UP, Orientation.SOUTH, Orientation.FLIP_UP, Orientation.FLIP_SOUTH, Orientation.UP, Orientation.FLIP_SOUTH, Orientation.UP, Orientation.SOUTH});
 
-        protected final Direction[] field_178276_g;
-        protected final float field_178288_h;
-        protected final boolean field_178289_i;
-        protected final Orientation[] field_178286_j;
-        protected final Orientation[] field_178287_k;
-        protected final Orientation[] field_178284_l;
-        protected final Orientation[] field_178285_m;
+        private final Direction[] field_178276_g;
+        private final float field_178288_h;
+        private final boolean field_178289_i;
+        private final Orientation[] field_178286_j;
+        private final Orientation[] field_178287_k;
+        private final Orientation[] field_178284_l;
+        private final Orientation[] field_178285_m;
         private static final EnumNeighborInfo[] VALUES = new EnumNeighborInfo[6];
 
         EnumNeighborInfo(Direction[] p_i46236_3_, float p_i46236_4_, boolean p_i46236_5_, Orientation[] p_i46236_6_, Orientation[] p_i46236_7_, Orientation[] p_i46236_8_, Orientation[] p_i46236_9_) {
@@ -684,7 +684,7 @@ public class BlockModelRenderer {
         FLIP_WEST(Direction.WEST, true),
         FLIP_EAST(Direction.EAST, true);
 
-        protected final int field_178229_m;
+        private final int field_178229_m;
 
         Orientation(Direction p_i46233_3_, boolean p_i46233_4_) {
             this.field_178229_m = p_i46233_3_.getIndex() + (p_i46233_4_ ? Direction.values().length : 0);

@@ -14,7 +14,8 @@ public class S24PacketBlockAction implements Packet<INetHandlerPlayClient> {
     private int pitch;
     private Block block;
 
-    public S24PacketBlockAction() {}
+    public S24PacketBlockAction() {
+    }
 
     public S24PacketBlockAction(BlockPos blockPositionIn, Block blockIn, int instrumentIn, int pitchIn) {
         this.blockPosition = blockPositionIn;

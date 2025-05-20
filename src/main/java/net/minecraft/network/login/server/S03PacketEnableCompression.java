@@ -9,7 +9,8 @@ import java.io.IOException;
 public class S03PacketEnableCompression implements Packet<INetHandlerLoginClient> {
     private int compressionThreshold;
 
-    public S03PacketEnableCompression() {}
+    public S03PacketEnableCompression() {
+    }
 
     public S03PacketEnableCompression(int compressionTresholdIn) {
         this.compressionThreshold = compressionTresholdIn;

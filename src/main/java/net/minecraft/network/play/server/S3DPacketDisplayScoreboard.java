@@ -11,7 +11,8 @@ public class S3DPacketDisplayScoreboard implements Packet<INetHandlerPlayClient>
     private int position;
     private String scoreName;
 
-    public S3DPacketDisplayScoreboard() {}
+    public S3DPacketDisplayScoreboard() {
+    }
 
     public S3DPacketDisplayScoreboard(int positionIn, ScoreObjective scoreIn) {
         this.position = positionIn;

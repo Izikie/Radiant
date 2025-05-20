@@ -32,7 +32,8 @@ public class MouseHelper {
             try {
                 final int keyCode = keybinding.getKeyCode();
                 KeyBinding.setKeyBindState(keyCode, keyCode < 256 && Keyboard.isKeyDown(keyCode));
-            } catch (IndexOutOfBoundsException ignored) {}
+            } catch (IndexOutOfBoundsException ignored) {
+            }
         }
     }
 }

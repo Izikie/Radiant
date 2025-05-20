@@ -153,7 +153,7 @@ public class VertexFormat {
             return true;
         } else if (p_equals_1_ != null && this.getClass() == p_equals_1_.getClass()) {
             VertexFormat vertexformat = (VertexFormat) p_equals_1_;
-            return this.nextOffset != vertexformat.nextOffset ? false : (!this.elements.equals(vertexformat.elements) ? false : this.offsets.equals(vertexformat.offsets));
+            return this.nextOffset == vertexformat.nextOffset && (this.elements.equals(vertexformat.elements) && this.offsets.equals(vertexformat.offsets));
         } else {
             return false;
         }

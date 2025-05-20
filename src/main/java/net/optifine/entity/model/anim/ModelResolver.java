@@ -36,7 +36,7 @@ public class ModelResolver implements IModelResolver {
             return iexpression;
         } else {
             IExpression iexpression1 = this.renderResolver.getParameter(name);
-            return iexpression1 != null ? iexpression1 : null;
+            return iexpression1;
         }
     }
 

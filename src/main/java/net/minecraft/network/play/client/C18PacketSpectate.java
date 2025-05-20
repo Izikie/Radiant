@@ -12,7 +12,8 @@ import java.util.UUID;
 public class C18PacketSpectate implements Packet<INetHandlerPlayServer> {
     private UUID id;
 
-    public C18PacketSpectate() {}
+    public C18PacketSpectate() {
+    }
 
     public C18PacketSpectate(UUID id) {
         this.id = id;

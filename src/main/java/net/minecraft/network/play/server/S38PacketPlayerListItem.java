@@ -18,7 +18,8 @@ public class S38PacketPlayerListItem implements Packet<INetHandlerPlayClient> {
     private Action action;
     private final List<AddPlayerData> players = Lists.newArrayList();
 
-    public S38PacketPlayerListItem() {}
+    public S38PacketPlayerListItem() {
+    }
 
     public S38PacketPlayerListItem(Action actionIn, EntityPlayerMP... players) {
         this.action = actionIn;

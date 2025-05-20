@@ -11,7 +11,8 @@ public class S06PacketUpdateHealth implements Packet<INetHandlerPlayClient> {
     private int foodLevel;
     private float saturationLevel;
 
-    public S06PacketUpdateHealth() {}
+    public S06PacketUpdateHealth() {
+    }
 
     public S06PacketUpdateHealth(float healthIn, int foodLevelIn, float saturationIn) {
         this.health = healthIn;

@@ -141,7 +141,7 @@ public class BlockSkull extends BlockContainer {
     }
 
     public boolean canDispenserPlace(World worldIn, BlockPos pos, ItemStack stack) {
-        return stack.getMetadata() == 1 && pos.getY() >= 2 && worldIn.getDifficulty() != Difficulty.PEACEFUL && !worldIn.isRemote ? this.getWitherBasePattern().match(worldIn, pos) != null : false;
+        return stack.getMetadata() == 1 && pos.getY() >= 2 && worldIn.getDifficulty() != Difficulty.PEACEFUL && !worldIn.isRemote && this.getWitherBasePattern().match(worldIn, pos) != null;
     }
 
     public void checkWitherSpawn(World worldIn, BlockPos pos, TileEntitySkull te) {

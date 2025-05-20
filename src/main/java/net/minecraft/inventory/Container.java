@@ -495,7 +495,7 @@ public abstract class Container {
     }
 
     public static boolean isValidDragMode(int dragModeIn, EntityPlayer player) {
-        return dragModeIn == 0 ? true : (dragModeIn == 1 ? true : dragModeIn == 2 && player.capabilities.isCreativeMode);
+        return dragModeIn == 0 || (dragModeIn == 1 || dragModeIn == 2 && player.capabilities.isCreativeMode);
     }
 
     protected void resetDrag() {

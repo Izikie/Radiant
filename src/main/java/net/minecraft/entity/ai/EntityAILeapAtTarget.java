@@ -22,7 +22,7 @@ public class EntityAILeapAtTarget extends EntityAIBase {
             return false;
         } else {
             double d0 = this.leaper.getDistanceSqToEntity(this.leapTarget);
-            return d0 >= 4.0D && d0 <= 16.0D ? (!this.leaper.onGround ? false : this.leaper.getRNG().nextInt(5) == 0) : false;
+            return d0 >= 4.0D && d0 <= 16.0D && (this.leaper.onGround && this.leaper.getRNG().nextInt(5) == 0);
         }
     }
 

@@ -15,7 +15,8 @@ public class C0EPacketClickWindow implements Packet<INetHandlerPlayServer> {
     private ItemStack clickedItem;
     private int mode;
 
-    public C0EPacketClickWindow() {}
+    public C0EPacketClickWindow() {
+    }
 
     public C0EPacketClickWindow(int windowId, int slotId, int usedButton, int mode, ItemStack clickedItem, short actionNumber) {
         this.windowId = windowId;

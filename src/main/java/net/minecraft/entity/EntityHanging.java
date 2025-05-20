@@ -127,7 +127,7 @@ public abstract class EntityHanging extends Entity {
     }
 
     public boolean hitByEntity(Entity entityIn) {
-        return entityIn instanceof EntityPlayer entityPlayer ? this.attackEntityFrom(DamageSource.causePlayerDamage(entityPlayer), 0.0F) : false;
+        return entityIn instanceof EntityPlayer entityPlayer && this.attackEntityFrom(DamageSource.causePlayerDamage(entityPlayer), 0.0F);
     }
 
     public Direction getHorizontalFacing() {

@@ -35,7 +35,7 @@ public class EntityAIFindEntityNearest extends EntityAIBase {
                 d0 *= 0.800000011920929D;
             }
 
-            return p_apply_1_.isInvisible() ? false : (p_apply_1_.getDistanceToEntity(EntityAIFindEntityNearest.this.mob) > d0 ? false : EntityAITarget.isSuitableTarget(EntityAIFindEntityNearest.this.mob, p_apply_1_, false, true));
+            return !p_apply_1_.isInvisible() && (!(p_apply_1_.getDistanceToEntity(EntityAIFindEntityNearest.this.mob) > d0) && EntityAITarget.isSuitableTarget(EntityAIFindEntityNearest.this.mob, p_apply_1_, false, true));
         };
         this.field_179440_d = new EntityAINearestAttackableTarget.Sorter(mobIn);
     }
@@ -62,7 +62,7 @@ public class EntityAIFindEntityNearest extends EntityAIBase {
             return false;
         } else {
             double d0 = this.getFollowRange();
-            return this.mob.getDistanceSqToEntity(entitylivingbase) > d0 * d0 ? false : !(entitylivingbase instanceof EntityPlayerMP entityPlayerMP) || !entityPlayerMP.theItemInWorldManager.isCreative();
+            return !(this.mob.getDistanceSqToEntity(entitylivingbase) > d0 * d0) && (!(entitylivingbase instanceof EntityPlayerMP entityPlayerMP) || !entityPlayerMP.theItemInWorldManager.isCreative());
         }
     }
 

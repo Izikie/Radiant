@@ -91,7 +91,8 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
                     this.button.displayString = this.getDifficultyString(this.mc.theWorld.getDifficulty());
                 }
 
-                case 2 -> this.mc.displayGuiScreen(new GuiYesNo(this, (new ChatComponentTranslation("difficulty.lock.title")).getFormattedText(), (new ChatComponentTranslation("difficulty.lock.question", new ChatComponentTranslation(this.mc.theWorld.getWorldInfo().getDifficulty().getDifficultyResourceKey()))).getFormattedText(), 109));
+                case 2 ->
+                        this.mc.displayGuiScreen(new GuiYesNo(this, (new ChatComponentTranslation("difficulty.lock.title")).getFormattedText(), (new ChatComponentTranslation("difficulty.lock.question", new ChatComponentTranslation(this.mc.theWorld.getWorldInfo().getDifficulty().getDifficultyResourceKey()))).getFormattedText(), 109));
 
                 case 3 -> {
                     this.mc.gameSettings.saveOptions();

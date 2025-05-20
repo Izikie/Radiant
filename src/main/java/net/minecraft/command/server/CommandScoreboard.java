@@ -954,6 +954,6 @@ public class CommandScoreboard extends CommandBase {
     }
 
     public boolean isUsernameIndex(String[] args, int index) {
-        return !args[0].equalsIgnoreCase("players") ? (args[0].equalsIgnoreCase("teams") ? index == 2 : false) : (args.length > 1 && args[1].equalsIgnoreCase("operation") ? index == 2 || index == 5 : index == 2);
+        return !args[0].equalsIgnoreCase("players") ? (args[0].equalsIgnoreCase("teams") && index == 2) : (args.length > 1 && args[1].equalsIgnoreCase("operation") ? index == 2 || index == 5 : index == 2);
     }
 }

@@ -192,7 +192,7 @@ public class Scoreboard {
 
     public void removeTeam(ScorePlayerTeam team) {
         if (team == null) return;
-        
+
         this.teams.remove(team.getRegisteredName());
 
         for (String s : team.getMembershipCollection()) {

@@ -223,7 +223,7 @@ public class SoundManager {
             return false;
         } else {
             String s = this.invPlayingSounds.get(sound);
-            return s == null ? false : this.sndSystem.playing(s) || this.playingSoundsStopTime.containsKey(s) && this.playingSoundsStopTime.get(s) <= this.playTime;
+            return s != null && (this.sndSystem.playing(s) || this.playingSoundsStopTime.containsKey(s) && this.playingSoundsStopTime.get(s) <= this.playTime);
         }
     }
 
@@ -389,7 +389,7 @@ public class SoundManager {
                     return false;
                 } else {
                     Source source = this.soundLibrary.getSources().get(p_playing_1_);
-                    return source == null ? false : source.playing() || source.paused() || source.preLoad;
+                    return source != null && (source.playing() || source.paused() || source.preLoad);
                 }
             }
         }

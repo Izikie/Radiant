@@ -28,7 +28,7 @@ public class EntityAIEatGrass extends EntityAIBase {
             return false;
         } else {
             BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY, this.grassEaterEntity.posZ);
-            return field_179505_b.apply(this.entityWorld.getBlockState(blockpos)) ? true : this.entityWorld.getBlockState(blockpos.down()).getBlock() == Blocks.GRASS;
+            return field_179505_b.apply(this.entityWorld.getBlockState(blockpos)) || this.entityWorld.getBlockState(blockpos.down()).getBlock() == Blocks.GRASS;
         }
     }
 

@@ -161,5 +161,6 @@ public class BlockRedstoneTorch extends BlockTorch {
         return other == Blocks.UNLIT_REDSTONE_TORCH || other == Blocks.REDSTONE_TORCH;
     }
 
-    record Toggle(BlockPos pos, long time) {}
+    record Toggle(BlockPos pos, long time) {
+    }
 }

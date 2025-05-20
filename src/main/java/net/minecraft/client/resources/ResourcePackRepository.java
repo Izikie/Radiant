@@ -291,7 +291,7 @@ public class ResourcePackRepository {
         }
 
         public boolean equals(Object p_equals_1_) {
-            return this == p_equals_1_ ? true : (p_equals_1_ instanceof Entry ? this.toString().equals(p_equals_1_.toString()) : false);
+            return this == p_equals_1_ || (p_equals_1_ instanceof Entry && this.toString().equals(p_equals_1_.toString()));
         }
 
         public int hashCode() {

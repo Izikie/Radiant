@@ -169,7 +169,7 @@ public class WorldServer extends World implements IThreadListener {
 
     public boolean canCreatureTypeSpawnHere(EntityCategory creatureType, BiomeGenBase.SpawnListEntry spawnListEntry, BlockPos pos) {
         List<BiomeGenBase.SpawnListEntry> list = this.getChunkProvider().getPossibleCreatures(creatureType, pos);
-        return list != null && !list.isEmpty() ? list.contains(spawnListEntry) : false;
+        return list != null && !list.isEmpty() && list.contains(spawnListEntry);
     }
 
     public void updateAllPlayersSleepingFlag() {
@@ -774,7 +774,7 @@ public class WorldServer extends World implements IThreadListener {
 
     private boolean fireBlockEvent(BlockEventData event) {
         IBlockState iblockstate = this.getBlockState(event.getPosition());
-        return iblockstate.getBlock() == event.getBlock() ? iblockstate.getBlock().onBlockEventReceived(this, event.getPosition(), iblockstate, event.getEventID(), event.getEventParameter()) : false;
+        return iblockstate.getBlock() == event.getBlock() && iblockstate.getBlock().onBlockEventReceived(this, event.getPosition(), iblockstate, event.getEventID(), event.getEventParameter());
     }
 
     public void flush() {

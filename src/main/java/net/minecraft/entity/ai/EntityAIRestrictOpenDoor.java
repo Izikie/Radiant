@@ -29,13 +29,13 @@ public class EntityAIRestrictOpenDoor extends EntityAIBase {
                 return false;
             } else {
                 this.frontDoor = village.getNearestDoor(blockpos);
-                return this.frontDoor == null ? false : this.frontDoor.getDistanceToInsideBlockSq(blockpos) < 2.25D;
+                return this.frontDoor != null && this.frontDoor.getDistanceToInsideBlockSq(blockpos) < 2.25D;
             }
         }
     }
 
     public boolean continueExecuting() {
-        return this.entityObj.worldObj.isDaytime() ? false : !this.frontDoor.getIsDetachedFromVillageFlag() && this.frontDoor.func_179850_c(new BlockPos(this.entityObj));
+        return !this.entityObj.worldObj.isDaytime() && !this.frontDoor.getIsDetachedFromVillageFlag() && this.frontDoor.func_179850_c(new BlockPos(this.entityObj));
     }
 
     public void startExecuting() {

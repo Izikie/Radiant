@@ -25,7 +25,7 @@ public class NextTickHashSet extends TreeSet {
             return false;
         } else {
             Set set = this.getSubSet(nextticklistentry, false);
-            return set == null ? false : set.contains(nextticklistentry);
+            return set != null && set.contains(nextticklistentry);
         }
     }
 

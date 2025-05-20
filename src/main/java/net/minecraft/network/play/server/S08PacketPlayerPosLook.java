@@ -16,7 +16,8 @@ public class S08PacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
     private float pitch;
     private EnumSet<Flag> field_179835_f;
 
-    public S08PacketPlayerPosLook() {}
+    public S08PacketPlayerPosLook() {
+    }
 
     public S08PacketPlayerPosLook(double xIn, double yIn, double zIn, float yawIn, float pitchIn, EnumSet<Flag> p_i45993_9_) {
         this.x = xIn;

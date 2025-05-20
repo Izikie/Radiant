@@ -13,7 +13,8 @@ public class S01PacketEncryptionRequest implements Packet<INetHandlerLoginClient
     private PublicKey publicKey;
     private byte[] verifyToken;
 
-    public S01PacketEncryptionRequest() {}
+    public S01PacketEncryptionRequest() {
+    }
 
     public S01PacketEncryptionRequest(String serverId, PublicKey key, byte[] verifyToken) {
         this.hashedServerId = serverId;

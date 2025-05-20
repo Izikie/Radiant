@@ -156,7 +156,7 @@ public abstract class Entity implements ICommandSender {
     }
 
     public boolean equals(Object p_equals_1_) {
-        return p_equals_1_ instanceof Entity entity ? entity.entityId == this.entityId : false;
+        return p_equals_1_ instanceof Entity entity && entity.entityId == this.entityId;
     }
 
     public int hashCode() {
@@ -799,7 +799,7 @@ public abstract class Entity implements ICommandSender {
             float f = BlockLiquid.getLiquidHeightPercent(iblockstate.getBlock().getMetaFromState(iblockstate)) - 0.11111111F;
             float f1 = (blockpos.getY() + 1) - f;
             boolean flag = d0 < f1;
-            return !flag && this instanceof EntityPlayer ? false : flag;
+            return (flag || !(this instanceof EntityPlayer)) && flag;
         } else {
             return false;
         }
@@ -1453,7 +1453,7 @@ public abstract class Entity implements ICommandSender {
     }
 
     public boolean isInvisibleToPlayer(EntityPlayer player) {
-        return player.isSpectator() ? false : this.isInvisible();
+        return !player.isSpectator() && this.isInvisible();
     }
 
     public void setInvisible(boolean invisible) {

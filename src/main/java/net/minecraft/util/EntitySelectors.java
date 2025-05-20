@@ -28,7 +28,7 @@ public final class EntitySelectors {
             } else if (!(p_apply_1_ instanceof EntityLivingBase entitylivingbase)) {
                 return false;
             } else {
-                return entitylivingbase.getEquipmentInSlot(EntityLiving.getArmorPosition(this.armor)) != null ? false : (entitylivingbase instanceof EntityLiving entityLiving ? entityLiving.canPickUpLoot() : (entitylivingbase instanceof EntityArmorStand ? true : entitylivingbase instanceof EntityPlayer));
+                return entitylivingbase.getEquipmentInSlot(EntityLiving.getArmorPosition(this.armor)) == null && (entitylivingbase instanceof EntityLiving entityLiving ? entityLiving.canPickUpLoot() : (entitylivingbase instanceof EntityArmorStand || entitylivingbase instanceof EntityPlayer));
             }
         }
     }

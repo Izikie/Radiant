@@ -345,7 +345,7 @@ public class PlayerSelector {
                 final AxisAlignedBB axisalignedbb = func_179661_a(position, i, j, k);
 
                 if (flag && flag2 && !flag1) {
-                    Predicate<Entity> predicate2 = p_apply_1_ -> p_apply_1_.posX >= axisalignedbb.minX && p_apply_1_.posY >= axisalignedbb.minY && p_apply_1_.posZ >= axisalignedbb.minZ ? p_apply_1_.posX < axisalignedbb.maxX && p_apply_1_.posY < axisalignedbb.maxY && p_apply_1_.posZ < axisalignedbb.maxZ : false;
+                    Predicate<Entity> predicate2 = p_apply_1_ -> p_apply_1_.posX >= axisalignedbb.minX && p_apply_1_.posY >= axisalignedbb.minY && p_apply_1_.posZ >= axisalignedbb.minZ && p_apply_1_.posX < axisalignedbb.maxX && p_apply_1_.posY < axisalignedbb.maxY && p_apply_1_.posZ < axisalignedbb.maxZ;
                     list.addAll(worldIn.<T>getPlayers(entityClass, Predicates.and(predicate1, predicate2)));
                 } else {
                     list.addAll(worldIn.<T>getEntitiesWithinAABB(entityClass, axisalignedbb, predicate1));

@@ -265,7 +265,7 @@ public class MathHelper {
     }
 
     public static long getCoordinateRandom(int x, int y, int z) {
-        long i = (x * 3129871) ^ z * 116129781L ^ y;
+        long i = (x * 3129871L) ^ z * 116129781L ^ y;
         i = i * i * 42317861L + i * 11L;
         return i;
     }

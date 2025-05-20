@@ -145,7 +145,7 @@ public class ConnectedParser {
             return false;
         } else {
             String s = parts[1];
-            return s.isEmpty() ? false : (this.startsWithDigit(s) ? false : !s.contains("="));
+            return !s.isEmpty() && (!this.startsWithDigit(s) && !s.contains("="));
         }
     }
 

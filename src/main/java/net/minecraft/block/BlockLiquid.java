@@ -63,11 +63,11 @@ public abstract class BlockLiquid extends Block {
 
     public boolean isBlockSolid(IBlockAccess worldIn, BlockPos pos, Direction side) {
         Material material = worldIn.getBlockState(pos).getBlock().getMaterial();
-        return material == this.blockMaterial ? false : (side == Direction.UP ? true : (material == Material.ICE ? false : super.isBlockSolid(worldIn, pos, side)));
+        return material != this.blockMaterial && (side == Direction.UP || (material != Material.ICE && super.isBlockSolid(worldIn, pos, side)));
     }
 
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, Direction side) {
-        return worldIn.getBlockState(pos).getBlock().getMaterial() == this.blockMaterial ? false : (side == Direction.UP ? true : super.shouldSideBeRendered(worldIn, pos, side));
+        return worldIn.getBlockState(pos).getBlock().getMaterial() != this.blockMaterial && (side == Direction.UP || super.shouldSideBeRendered(worldIn, pos, side));
     }
 
     public boolean shouldRenderSides(IBlockAccess blockAccess, BlockPos pos) {

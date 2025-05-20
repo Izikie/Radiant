@@ -27,7 +27,7 @@ public abstract class BlockRedstoneDiode extends BlockDirectional {
     }
 
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-        return World.doesBlockHaveSolidTopSurface(worldIn, pos.down()) ? super.canPlaceBlockAt(worldIn, pos) : false;
+        return World.doesBlockHaveSolidTopSurface(worldIn, pos.down()) && super.canPlaceBlockAt(worldIn, pos);
     }
 
     public boolean canBlockStay(World worldIn, BlockPos pos) {
@@ -192,7 +192,7 @@ public abstract class BlockRedstoneDiode extends BlockDirectional {
     public boolean isFacingTowardsRepeater(World worldIn, BlockPos pos, IBlockState state) {
         Direction enumfacing = state.getValue(FACING).getOpposite();
         BlockPos blockpos = pos.offset(enumfacing);
-        return isRedstoneRepeaterBlockID(worldIn.getBlockState(blockpos).getBlock()) ? worldIn.getBlockState(blockpos).getValue(FACING) != enumfacing : false;
+        return isRedstoneRepeaterBlockID(worldIn.getBlockState(blockpos).getBlock()) && worldIn.getBlockState(blockpos).getValue(FACING) != enumfacing;
     }
 
     protected int getTickDelay(IBlockState state) {

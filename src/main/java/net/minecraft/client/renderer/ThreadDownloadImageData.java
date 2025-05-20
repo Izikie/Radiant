@@ -142,7 +142,6 @@ public class ThreadDownloadImageData extends SimpleTexture {
                         ThreadDownloadImageData.this.setBufferedImage(bufferedimage);
                     } catch (Exception exception) {
                         ThreadDownloadImageData.LOGGER.error("Couldn't download http texture: {}: {}", exception.getClass().getName(), exception.getMessage());
-                        return;
                     } finally {
                         if (httpurlconnection != null) {
                             httpurlconnection.disconnect();
@@ -162,7 +161,7 @@ public class ThreadDownloadImageData extends SimpleTexture {
             return false;
         } else {
             Proxy proxy = Minecraft.getMinecraft().getProxy();
-            return proxy.type() != Type.DIRECT && proxy.type() != Type.SOCKS ? false : this.imageUrl.startsWith("http://");
+            return (proxy.type() == Type.DIRECT || proxy.type() == Type.SOCKS) && this.imageUrl.startsWith("http://");
         }
     }
 
@@ -193,7 +192,6 @@ public class ThreadDownloadImageData extends SimpleTexture {
             this.setBufferedImage(bufferedimage);
         } catch (Exception exception) {
             LOGGER.error("Couldn't download http texture: {}: {}", exception.getClass().getName(), exception.getMessage());
-            return;
         } finally {
             this.loadingFinished();
         }

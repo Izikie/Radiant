@@ -1274,7 +1274,7 @@ public class ConnectedTextures {
             }
 
             IBlockState iblockstate1 = iblockaccess.getBlockState(blockPos.offset(getFacing(side)));
-            return iblockstate1.getBlock().isOpaqueCube() ? false : (side == 1 && iblockstate1.getBlock() == Blocks.SNOW_LAYER ? false : !isNeighbour(cp, iblockaccess, blockState, blockPos, iblockstate, side, icon, metadata));
+            return !iblockstate1.getBlock().isOpaqueCube() && ((side != 1 || iblockstate1.getBlock() != Blocks.SNOW_LAYER) && !isNeighbour(cp, iblockaccess, blockState, blockPos, iblockstate, side, icon, metadata));
         }
     }
 
@@ -1283,7 +1283,7 @@ public class ConnectedTextures {
             return true;
         } else {
             Block block = state.getBlock();
-            return block instanceof BlockGlass ? true : block instanceof BlockStainedGlass;
+            return block instanceof BlockGlass || block instanceof BlockStainedGlass;
         }
     }
 
@@ -1309,7 +1309,7 @@ public class ConnectedTextures {
             }
 
             IBlockState iblockstate1 = iblockaccess.getBlockState(blockPos.offset(getFacing(side)));
-            return iblockstate1.getBlock().isOpaqueCube() ? false : side != 1 || iblockstate1.getBlock() != Blocks.SNOW_LAYER;
+            return !iblockstate1.getBlock().isOpaqueCube() && (side != 1 || iblockstate1.getBlock() != Blocks.SNOW_LAYER);
         }
     }
 
@@ -1331,7 +1331,7 @@ public class ConnectedTextures {
                 return textureatlassprite == icon;
             }
         } else if (cp.connect == 3) {
-            return neighbourState == null ? false : (neighbourState == AIR_DEFAULT_STATE ? false : neighbourState.getBlock().getMaterial() == blockState.getBlock().getMaterial());
+            return neighbourState != null && (neighbourState != AIR_DEFAULT_STATE && neighbourState.getBlock().getMaterial() == blockState.getBlock().getMaterial());
         } else if (!(neighbourState instanceof BlockStateBase blockstatebase)) {
             return false;
         } else {

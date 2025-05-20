@@ -35,7 +35,7 @@ public class DefaultResourcePack implements IResourcePack {
         }
     }
 
-    public InputStream getInputStreamAssets(ResourceLocation location) throws IOException, FileNotFoundException {
+    public InputStream getInputStreamAssets(ResourceLocation location) throws IOException {
         File file1 = this.mapAssets.get(location.toString());
         return file1 != null && file1.isFile() ? new FileInputStream(file1) : null;
     }

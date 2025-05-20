@@ -12,7 +12,8 @@ public class C0CPacketInput implements Packet<INetHandlerPlayServer> {
     private boolean jumping;
     private boolean sneaking;
 
-    public C0CPacketInput() {}
+    public C0CPacketInput() {
+    }
 
     public C0CPacketInput(float strafeSpeed, float forwardSpeed, boolean jumping, boolean sneaking) {
         this.strafeSpeed = strafeSpeed;

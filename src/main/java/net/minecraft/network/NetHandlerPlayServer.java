@@ -91,7 +91,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
             --this.itemDropThreshold;
         }
 
-        if (this.playerEntity.getLastActiveTime() > 0L && this.serverController.getMaxPlayerIdleMinutes() > 0 && MinecraftServer.getCurrentTimeMillis() - this.playerEntity.getLastActiveTime() > (this.serverController.getMaxPlayerIdleMinutes() * 1000 * 60)) {
+        if (this.playerEntity.getLastActiveTime() > 0L && this.serverController.getMaxPlayerIdleMinutes() > 0 && MinecraftServer.getCurrentTimeMillis() - this.playerEntity.getLastActiveTime() > ((long) this.serverController.getMaxPlayerIdleMinutes() * 1000 * 60)) {
             this.kickPlayerFromServer("You have been idle for too long!");
         }
     }

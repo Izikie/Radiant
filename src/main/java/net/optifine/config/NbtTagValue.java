@@ -65,7 +65,7 @@ public class NbtTagValue {
     }
 
     public boolean matches(NBTTagCompound nbt) {
-        return this.negative ? !this.matchesCompound(nbt) : this.matchesCompound(nbt);
+        return this.negative != this.matchesCompound(nbt);
     }
 
     public boolean matchesCompound(NBTTagCompound nbt) {

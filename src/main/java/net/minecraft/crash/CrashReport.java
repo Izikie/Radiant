@@ -93,7 +93,8 @@ public class CrashReport {
                 case NullPointerException ignore -> throwable = new NullPointerException(this.description);
                 case StackOverflowError ignore -> throwable = new StackOverflowError(this.description);
                 case OutOfMemoryError ignore -> throwable = new OutOfMemoryError(this.description);
-                default -> {}
+                default -> {
+                }
             }
             throwable.setStackTrace(this.cause.getStackTrace());
         }

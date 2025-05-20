@@ -58,7 +58,7 @@ public class BlockCommandBlock extends BlockContainer {
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
-        return tileentity instanceof TileEntityCommandBlock tileEntityCommandBlock ? tileEntityCommandBlock.getCommandBlockLogic().tryOpenEditCommandBlock(playerIn) : false;
+        return tileentity instanceof TileEntityCommandBlock tileEntityCommandBlock && tileEntityCommandBlock.getCommandBlockLogic().tryOpenEditCommandBlock(playerIn);
     }
 
     public boolean hasComparatorInputOverride() {

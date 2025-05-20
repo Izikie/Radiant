@@ -272,7 +272,7 @@ public class BlockRedstoneWire extends Block {
         Block block = iblockstate.getBlock();
         boolean flag = block.isNormalCube();
         boolean flag1 = worldIn.getBlockState(pos.up()).getBlock().isNormalCube();
-        return !flag1 && flag && canConnectUpwardsTo(worldIn, blockpos.up()) ? true : (canConnectTo(iblockstate, side) ? true : (block == Blocks.POWERED_REPEATER && iblockstate.getValue(BlockRedstoneDiode.FACING) == side ? true : !flag && canConnectUpwardsTo(worldIn, blockpos.down())));
+        return !flag1 && flag && canConnectUpwardsTo(worldIn, blockpos.up()) || (canConnectTo(iblockstate, side) || (block == Blocks.POWERED_REPEATER && iblockstate.getValue(BlockRedstoneDiode.FACING) == side || !flag && canConnectUpwardsTo(worldIn, blockpos.down())));
     }
 
     protected static boolean canConnectUpwardsTo(IBlockAccess worldIn, BlockPos pos) {

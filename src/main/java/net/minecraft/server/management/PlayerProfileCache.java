@@ -180,10 +180,8 @@ public class PlayerProfileCache {
         try {
             bufferedwriter = Files.newWriter(this.usercacheFile, StandardCharsets.UTF_8);
             bufferedwriter.write(s);
-            return;
         } catch (FileNotFoundException var8) {
         } catch (IOException var9) {
-            return;
         } finally {
             IOUtils.closeQuietly(bufferedwriter);
         }

@@ -182,7 +182,7 @@ public class MapGenCaves extends MapGenBase {
     }
 
     protected boolean func_175793_a(IBlockState p_175793_1_, IBlockState p_175793_2_) {
-        return p_175793_1_.getBlock() == Blocks.STONE ? true : (p_175793_1_.getBlock() == Blocks.DIRT ? true : (p_175793_1_.getBlock() == Blocks.GRASS ? true : (p_175793_1_.getBlock() == Blocks.HARDENED_CLAY ? true : (p_175793_1_.getBlock() == Blocks.STAINED_HARDENED_CLAY ? true : (p_175793_1_.getBlock() == Blocks.SANDSTONE ? true : (p_175793_1_.getBlock() == Blocks.RED_SANDSTONE ? true : (p_175793_1_.getBlock() == Blocks.MYCELIUM ? true : (p_175793_1_.getBlock() == Blocks.SNOW_LAYER ? true : (p_175793_1_.getBlock() == Blocks.SAND || p_175793_1_.getBlock() == Blocks.GRAVEL) && p_175793_2_.getBlock().getMaterial() != Material.WATER))))))));
+        return p_175793_1_.getBlock() == Blocks.STONE || (p_175793_1_.getBlock() == Blocks.DIRT || (p_175793_1_.getBlock() == Blocks.GRASS || (p_175793_1_.getBlock() == Blocks.HARDENED_CLAY || (p_175793_1_.getBlock() == Blocks.STAINED_HARDENED_CLAY || (p_175793_1_.getBlock() == Blocks.SANDSTONE || (p_175793_1_.getBlock() == Blocks.RED_SANDSTONE || (p_175793_1_.getBlock() == Blocks.MYCELIUM || (p_175793_1_.getBlock() == Blocks.SNOW_LAYER || (p_175793_1_.getBlock() == Blocks.SAND || p_175793_1_.getBlock() == Blocks.GRAVEL) && p_175793_2_.getBlock().getMaterial() != Material.WATER))))))));
     }
 
     protected void recursiveGenerate(World worldIn, int chunkX, int chunkZ, int p_180701_4_, int p_180701_5_, ChunkPrimer chunkPrimerIn) {

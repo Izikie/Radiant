@@ -14,7 +14,8 @@ public class S26PacketMapChunkBulk implements Packet<INetHandlerPlayClient> {
     private S21PacketChunkData.Extracted[] chunksData;
     private boolean isOverworld;
 
-    public S26PacketMapChunkBulk() {}
+    public S26PacketMapChunkBulk() {
+    }
 
     public S26PacketMapChunkBulk(List<Chunk> chunks) {
         int i = chunks.size();

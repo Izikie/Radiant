@@ -12,7 +12,8 @@ public class S19PacketEntityStatus implements Packet<INetHandlerPlayClient> {
     private int entityId;
     private byte logicOpcode;
 
-    public S19PacketEntityStatus() {}
+    public S19PacketEntityStatus() {
+    }
 
     public S19PacketEntityStatus(Entity entityIn, byte opCodeIn) {
         this.entityId = entityIn.getEntityId();

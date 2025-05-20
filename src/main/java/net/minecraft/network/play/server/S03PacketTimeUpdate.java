@@ -10,7 +10,8 @@ public class S03PacketTimeUpdate implements Packet<INetHandlerPlayClient> {
     private long totalWorldTime;
     private long worldTime;
 
-    public S03PacketTimeUpdate() {}
+    public S03PacketTimeUpdate() {
+    }
 
     public S03PacketTimeUpdate(long totalWorldTimeIn, long totalTimeIn, boolean doDayLightCycle) {
         this.totalWorldTime = totalWorldTimeIn;

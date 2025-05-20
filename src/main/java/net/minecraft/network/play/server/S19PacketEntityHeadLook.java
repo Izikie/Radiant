@@ -12,7 +12,8 @@ public class S19PacketEntityHeadLook implements Packet<INetHandlerPlayClient> {
     private int entityId;
     private byte yaw;
 
-    public S19PacketEntityHeadLook() {}
+    public S19PacketEntityHeadLook() {
+    }
 
     public S19PacketEntityHeadLook(Entity entityIn, byte p_i45214_2_) {
         this.entityId = entityIn.getEntityId();

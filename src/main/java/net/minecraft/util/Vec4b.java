@@ -42,7 +42,7 @@ public class Vec4b {
         } else if (!(p_equals_1_ instanceof Vec4b vec4b)) {
             return false;
         } else {
-            return this.field_176117_a != vec4b.field_176117_a ? false : (this.field_176114_d != vec4b.field_176114_d ? false : (this.field_176115_b != vec4b.field_176115_b ? false : this.field_176116_c == vec4b.field_176116_c));
+            return this.field_176117_a == vec4b.field_176117_a && (this.field_176114_d == vec4b.field_176114_d && (this.field_176115_b == vec4b.field_176115_b && this.field_176116_c == vec4b.field_176116_c));
         }
     }
 

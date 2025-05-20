@@ -104,7 +104,7 @@ public class Property {
             return false;
         } else {
             String s = props.getProperty(this.propertyName);
-            return s == null ? false : this.setPropertyValue(s);
+            return s != null && this.setPropertyValue(s);
         }
     }
 

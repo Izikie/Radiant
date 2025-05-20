@@ -67,7 +67,7 @@ public class BlockSnow extends Block {
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
         IBlockState iblockstate = worldIn.getBlockState(pos.down());
         Block block = iblockstate.getBlock();
-        return block != Blocks.ICE && block != Blocks.PACKED_ICE ? (block.getMaterial() == Material.LEAVES ? true : (block == this && iblockstate.getValue(LAYERS) >= 7 ? true : block.isOpaqueCube() && block.blockMaterial.blocksMovement())) : false;
+        return block != Blocks.ICE && block != Blocks.PACKED_ICE && (block.getMaterial() == Material.LEAVES || (block == this && iblockstate.getValue(LAYERS) >= 7 || block.isOpaqueCube() && block.blockMaterial.blocksMovement()));
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
@@ -106,7 +106,7 @@ public class BlockSnow extends Block {
     }
 
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, Direction side) {
-        return side == Direction.UP ? true : super.shouldSideBeRendered(worldIn, pos, side);
+        return side == Direction.UP || super.shouldSideBeRendered(worldIn, pos, side);
     }
 
     public IBlockState getStateFromMeta(int meta) {

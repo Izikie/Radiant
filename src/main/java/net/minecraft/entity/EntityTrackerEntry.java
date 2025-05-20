@@ -68,7 +68,7 @@ public class EntityTrackerEntry {
     }
 
     public boolean equals(Object p_equals_1_) {
-        return p_equals_1_ instanceof EntityTrackerEntry entityTrackerEntry ? entityTrackerEntry.trackedEntity.getEntityId() == this.trackedEntity.getEntityId() : false;
+        return p_equals_1_ instanceof EntityTrackerEntry entityTrackerEntry && entityTrackerEntry.trackedEntity.getEntityId() == this.trackedEntity.getEntityId();
     }
 
     public int hashCode() {

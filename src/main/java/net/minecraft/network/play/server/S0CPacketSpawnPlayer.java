@@ -25,7 +25,8 @@ public class S0CPacketSpawnPlayer implements Packet<INetHandlerPlayClient> {
     private DataWatcher watcher;
     private List<DataWatcher.WatchableObject> metadata;
 
-    public S0CPacketSpawnPlayer() {}
+    public S0CPacketSpawnPlayer() {
+    }
 
     public S0CPacketSpawnPlayer(EntityPlayer player) {
         this.entityId = player.getEntityId();

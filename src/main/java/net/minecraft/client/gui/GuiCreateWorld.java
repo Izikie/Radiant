@@ -260,7 +260,7 @@ public class GuiCreateWorld extends GuiScreen {
 
     private boolean canSelectCurWorldType() {
         WorldType worldtype = WorldType.WORLD_TYPES[this.selectedIndex];
-        return worldtype != null && worldtype.getCanBeCreated() ? (worldtype == WorldType.DEBUG_WORLD ? isShiftKeyDown() : true) : false;
+        return worldtype != null && worldtype.getCanBeCreated() && (worldtype != WorldType.DEBUG_WORLD || isShiftKeyDown());
     }
 
     private void toggleMoreWorldOptions() {

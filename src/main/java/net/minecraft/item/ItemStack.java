@@ -170,7 +170,7 @@ public final class ItemStack {
     }
 
     public boolean isItemStackDamageable() {
-        return this.item == null ? false : (this.item.getMaxDamage() <= 0 ? false : !this.hasTagCompound() || !this.getTagCompound().getBoolean("Unbreakable"));
+        return this.item != null && (this.item.getMaxDamage() > 0 && (!this.hasTagCompound() || !this.getTagCompound().getBoolean("Unbreakable")));
     }
 
     public boolean getHasSubtypes() {
@@ -287,19 +287,19 @@ public final class ItemStack {
     }
 
     public static boolean areItemStackTagsEqual(ItemStack stackA, ItemStack stackB) {
-        return stackA == null && stackB == null ? true : (stackA != null && stackB != null ? (stackA.stackTagCompound == null && stackB.stackTagCompound != null ? false : stackA.stackTagCompound == null || stackA.stackTagCompound.equals(stackB.stackTagCompound)) : false);
+        return stackA == null && stackB == null || (stackA != null && stackB != null && ((stackA.stackTagCompound != null || stackB.stackTagCompound == null) && (stackA.stackTagCompound == null || stackA.stackTagCompound.equals(stackB.stackTagCompound))));
     }
 
     public static boolean areItemStacksEqual(ItemStack stackA, ItemStack stackB) {
-        return stackA == null && stackB == null ? true : (stackA != null && stackB != null ? stackA.isItemStackEqual(stackB) : false);
+        return stackA == null && stackB == null || (stackA != null && stackB != null && stackA.isItemStackEqual(stackB));
     }
 
     private boolean isItemStackEqual(ItemStack other) {
-        return this.stackSize != other.stackSize ? false : (this.item != other.item ? false : (this.itemDamage != other.itemDamage ? false : (this.stackTagCompound == null && other.stackTagCompound != null ? false : this.stackTagCompound == null || this.stackTagCompound.equals(other.stackTagCompound))));
+        return this.stackSize == other.stackSize && (this.item == other.item && (this.itemDamage == other.itemDamage && ((this.stackTagCompound != null || other.stackTagCompound == null) && (this.stackTagCompound == null || this.stackTagCompound.equals(other.stackTagCompound)))));
     }
 
     public static boolean areItemsEqual(ItemStack stackA, ItemStack stackB) {
-        return stackA == null && stackB == null ? true : (stackA != null && stackB != null ? stackA.isItemEqual(stackB) : false);
+        return stackA == null && stackB == null || (stackA != null && stackB != null && stackA.isItemEqual(stackB));
     }
 
     public boolean isItemEqual(ItemStack other) {
@@ -420,7 +420,7 @@ public final class ItemStack {
     }
 
     public boolean hasDisplayName() {
-        return this.stackTagCompound == null ? false : (!this.stackTagCompound.hasKey("display", 10) ? false : this.stackTagCompound.getCompoundTag("display").hasKey("Name", 8));
+        return this.stackTagCompound != null && (this.stackTagCompound.hasKey("display", 10) && this.stackTagCompound.getCompoundTag("display").hasKey("Name", 8));
     }
 
     public List<String> getTooltip(EntityPlayer playerIn, boolean advanced) {
@@ -598,7 +598,7 @@ public final class ItemStack {
     }
 
     public boolean isItemEnchantable() {
-        return !this.getItem().isItemTool(this) ? false : !this.isItemEnchanted();
+        return this.getItem().isItemTool(this) && !this.isItemEnchanted();
     }
 
     public void addEnchantment(Enchantment ench, int level) {

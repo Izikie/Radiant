@@ -15,7 +15,8 @@ public class S22PacketMultiBlockChange implements Packet<INetHandlerPlayClient> 
     private ChunkCoordIntPair chunkPosCoord;
     private BlockUpdateData[] changedBlocks;
 
-    public S22PacketMultiBlockChange() {}
+    public S22PacketMultiBlockChange() {
+    }
 
     public S22PacketMultiBlockChange(int p_i45181_1_, short[] crammedPositionsIn, Chunk chunkIn) {
         this.chunkPosCoord = new ChunkCoordIntPair(chunkIn.xPosition, chunkIn.zPosition);

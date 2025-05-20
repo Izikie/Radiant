@@ -77,7 +77,7 @@ public class BlockCarpet extends Block {
     }
 
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, Direction side) {
-        return side == Direction.UP ? true : super.shouldSideBeRendered(worldIn, pos, side);
+        return side == Direction.UP || super.shouldSideBeRendered(worldIn, pos, side);
     }
 
     public int damageDropped(IBlockState state) {

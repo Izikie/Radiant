@@ -10,7 +10,8 @@ public class S0DPacketCollectItem implements Packet<INetHandlerPlayClient> {
     private int collectedItemEntityId;
     private int entityId;
 
-    public S0DPacketCollectItem() {}
+    public S0DPacketCollectItem() {
+    }
 
     public S0DPacketCollectItem(int collectedItemEntityIdIn, int entityIdIn) {
         this.collectedItemEntityId = collectedItemEntityIdIn;

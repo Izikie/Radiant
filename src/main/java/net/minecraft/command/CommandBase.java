@@ -219,7 +219,7 @@ public abstract class CommandBase implements ICommand {
         }
     }
 
-    public static IChatComponent getChatComponentFromNthArg(ICommandSender sender, String[] args, int p_147178_2_) throws CommandException, PlayerNotFoundException {
+    public static IChatComponent getChatComponentFromNthArg(ICommandSender sender, String[] args, int p_147178_2_) throws CommandException {
         return getChatComponentFromNthArg(sender, args, p_147178_2_, false);
     }
 

@@ -239,7 +239,7 @@ public abstract class BiomeGenBase {
     }
 
     public boolean canRain() {
-        return this.isSnowyBiome() ? false : this.enableRain;
+        return !this.isSnowyBiome() && this.enableRain;
     }
 
     public boolean isHighHumidity() {
@@ -365,7 +365,7 @@ public abstract class BiomeGenBase {
     }
 
     public boolean isEqualTo(BiomeGenBase biome) {
-        return biome == this ? true : (biome == null ? false : this.getBiomeClass() == biome.getBiomeClass());
+        return biome == this || (biome != null && this.getBiomeClass() == biome.getBiomeClass());
     }
 
     public TempCategory getTempCategory() {

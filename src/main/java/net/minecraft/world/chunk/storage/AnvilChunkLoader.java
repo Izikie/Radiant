@@ -33,7 +33,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
     private static final Logger LOGGER = LogManager.getLogger();
     private final Map<ChunkCoordIntPair, NBTTagCompound> chunksToRemove = new ConcurrentHashMap<>();
-    private final Set<ChunkCoordIntPair> pendingAnvilChunksCoordinates = Collections.<ChunkCoordIntPair>newSetFromMap(new ConcurrentHashMap<>());
+    private final Set<ChunkCoordIntPair> pendingAnvilChunksCoordinates = Collections.newSetFromMap(new ConcurrentHashMap<>());
     private final File chunkSaveLocation;
     private boolean field_183014_e = false;
 

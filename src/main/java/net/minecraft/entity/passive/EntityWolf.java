@@ -343,7 +343,7 @@ public class EntityWolf extends EntityTameable {
     }
 
     public boolean isBreedingItem(ItemStack stack) {
-        return stack == null ? false : (!(stack.getItem() instanceof ItemFood itemFood) ? false : itemFood.isWolfsFavoriteMeat());
+        return stack != null && (stack.getItem() instanceof ItemFood itemFood && itemFood.isWolfsFavoriteMeat());
     }
 
     public int getMaxSpawnedInChunk() {
@@ -400,7 +400,7 @@ public class EntityWolf extends EntityTameable {
         } else if (!(otherAnimal instanceof EntityWolf entitywolf)) {
             return false;
         } else {
-            return !entitywolf.isTamed() ? false : (entitywolf.isSitting() ? false : this.isInLove() && entitywolf.isInLove());
+            return entitywolf.isTamed() && (!entitywolf.isSitting() && this.isInLove() && entitywolf.isInLove());
         }
     }
 
@@ -421,7 +421,7 @@ public class EntityWolf extends EntityTameable {
                 }
             }
 
-            return p_142018_1_ instanceof EntityPlayer entityPlayer && p_142018_2_ instanceof EntityPlayer player && !player.canAttackPlayer(entityPlayer) ? false : !(p_142018_1_ instanceof EntityHorse entityHorse) || !entityHorse.isTame();
+            return (!(p_142018_1_ instanceof EntityPlayer entityPlayer) || !(p_142018_2_ instanceof EntityPlayer player) || player.canAttackPlayer(entityPlayer)) && (!(p_142018_1_ instanceof EntityHorse entityHorse) || !entityHorse.isTame());
         } else {
             return false;
         }

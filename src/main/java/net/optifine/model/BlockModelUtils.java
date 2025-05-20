@@ -133,7 +133,7 @@ public class BlockModelUtils {
     public static AxisAlignedBB getOffsetBoundingBox(AxisAlignedBB aabb, Block.EnumOffsetType offsetType, BlockPos pos) {
         int i = pos.getX();
         int j = pos.getZ();
-        long k = (i * 3129871) ^ j * 116129781L;
+        long k = (i * 3129871L) ^ j * 116129781L;
         k = k * k * 42317861L + k * 11L;
         double d0 = (((k >> 16 & 15L) / 15.0F) - 0.5D) * 0.5D;
         double d1 = (((k >> 24 & 15L) / 15.0F) - 0.5D) * 0.5D;

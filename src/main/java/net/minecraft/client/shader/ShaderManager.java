@@ -48,7 +48,7 @@ public class ShaderManager {
     private final ShaderLoader vertexShaderLoader;
     private final ShaderLoader fragmentShaderLoader;
 
-    public ShaderManager(IResourceManager resourceManager, String programName) throws JsonException, IOException {
+    public ShaderManager(IResourceManager resourceManager, String programName) throws IOException {
         ResourceLocation resourcelocation = new ResourceLocation("shaders/program/" + programName + ".json");
         this.programFilename = programName;
         InputStream inputstream = null;

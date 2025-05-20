@@ -139,7 +139,7 @@ public abstract class GenLayer {
             final BiomeGenBase biomegenbase1 = BiomeGenBase.getBiome(biomeIDB);
 
             try {
-                return biomegenbase != null && biomegenbase1 != null ? biomegenbase.isEqualTo(biomegenbase1) : false;
+                return biomegenbase != null && biomegenbase1 != null && biomegenbase.isEqualTo(biomegenbase1);
             } catch (Throwable throwable) {
                 CrashReport report = CrashReport.makeCrashReport(throwable, "Comparing biomes");
                 CrashReportCategory category = report.makeCategory("Biomes being compared");

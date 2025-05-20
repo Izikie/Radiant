@@ -11,7 +11,8 @@ public class S2BPacketChangeGameState implements Packet<INetHandlerPlayClient> {
     private int state;
     private float field_149141_c;
 
-    public S2BPacketChangeGameState() {}
+    public S2BPacketChangeGameState() {
+    }
 
     public S2BPacketChangeGameState(int stateIn, float p_i45194_2_) {
         this.state = stateIn;

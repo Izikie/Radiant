@@ -9,7 +9,8 @@ import java.io.IOException;
 public class S2EPacketCloseWindow implements Packet<INetHandlerPlayClient> {
     private int windowId;
 
-    public S2EPacketCloseWindow() {}
+    public S2EPacketCloseWindow() {
+    }
 
     public S2EPacketCloseWindow(int windowIdIn) {
         this.windowId = windowIdIn;

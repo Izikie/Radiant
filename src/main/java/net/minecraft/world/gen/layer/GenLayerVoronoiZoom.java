@@ -24,16 +24,16 @@ public class GenLayerVoronoiZoom extends GenLayer {
 
             for (int j2 = aint[l1 + (k1 + 1) * k]; l1 < k - 1; ++l1) {
                 double d0 = 3.6D;
-                this.initChunkSeed((l1 + i << 2), (k1 + j << 2));
+                this.initChunkSeed(((long) l1 + i << 2), ((long) k1 + j << 2));
                 double d1 = (this.nextInt(1024) / 1024.0D - 0.5D) * 3.6D;
                 double d2 = (this.nextInt(1024) / 1024.0D - 0.5D) * 3.6D;
-                this.initChunkSeed((l1 + i + 1 << 2), (k1 + j << 2));
+                this.initChunkSeed(((long) l1 + i + 1 << 2), ((long) k1 + j << 2));
                 double d3 = (this.nextInt(1024) / 1024.0D - 0.5D) * 3.6D + 4.0D;
                 double d4 = (this.nextInt(1024) / 1024.0D - 0.5D) * 3.6D;
-                this.initChunkSeed((l1 + i << 2), (k1 + j + 1 << 2));
+                this.initChunkSeed(((long) l1 + i << 2), ((long) k1 + j + 1 << 2));
                 double d5 = (this.nextInt(1024) / 1024.0D - 0.5D) * 3.6D;
                 double d6 = (this.nextInt(1024) / 1024.0D - 0.5D) * 3.6D + 4.0D;
-                this.initChunkSeed((l1 + i + 1 << 2), (k1 + j + 1 << 2));
+                this.initChunkSeed(((long) l1 + i + 1 << 2), ((long) k1 + j + 1 << 2));
                 double d7 = (this.nextInt(1024) / 1024.0D - 0.5D) * 3.6D + 4.0D;
                 double d8 = (this.nextInt(1024) / 1024.0D - 0.5D) * 3.6D + 4.0D;
                 int k2 = aint[l1 + 1 + (k1) * k] & 255;

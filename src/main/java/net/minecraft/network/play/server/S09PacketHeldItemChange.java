@@ -9,7 +9,8 @@ import java.io.IOException;
 public class S09PacketHeldItemChange implements Packet<INetHandlerPlayClient> {
     private int heldItemHotbarIndex;
 
-    public S09PacketHeldItemChange() {}
+    public S09PacketHeldItemChange() {
+    }
 
     public S09PacketHeldItemChange(int hotbarIndexIn) {
         this.heldItemHotbarIndex = hotbarIndexIn;

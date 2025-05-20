@@ -97,6 +97,6 @@ public class RandomEntityProperties {
     }
 
     public boolean isDefault() {
-        return this.rules != null ? false : this.resourceLocations == null;
+        return this.rules == null && this.resourceLocations == null;
     }
 }

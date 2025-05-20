@@ -217,7 +217,7 @@ public class PlayerManager {
     private boolean overlaps(int x1, int z1, int x2, int z2, int radius) {
         int i = x1 - x2;
         int j = z1 - z2;
-        return i >= -radius && i <= radius ? j >= -radius && j <= radius : false;
+        return i >= -radius && i <= radius && j >= -radius && j <= radius;
     }
 
     public void updateMountedMovingPlayer(EntityPlayerMP player) {

@@ -302,7 +302,7 @@ public class Block {
     }
 
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, Direction side) {
-        return side == Direction.DOWN && this.minY > 0.0D ? true : (side == Direction.UP && this.maxY < 1.0D ? true : (side == Direction.NORTH && this.minZ > 0.0D ? true : (side == Direction.SOUTH && this.maxZ < 1.0D ? true : (side == Direction.WEST && this.minX > 0.0D ? true : (side == Direction.EAST && this.maxX < 1.0D ? true : !worldIn.getBlockState(pos).getBlock().isOpaqueCube())))));
+        return side == Direction.DOWN && this.minY > 0.0D || (side == Direction.UP && this.maxY < 1.0D || (side == Direction.NORTH && this.minZ > 0.0D || (side == Direction.SOUTH && this.maxZ < 1.0D || (side == Direction.WEST && this.minX > 0.0D || (side == Direction.EAST && this.maxX < 1.0D || !worldIn.getBlockState(pos).getBlock().isOpaqueCube())))));
     }
 
     public boolean isBlockSolid(IBlockAccess worldIn, BlockPos pos, Direction side) {
@@ -521,15 +521,15 @@ public class Block {
     }
 
     private boolean isVecInsideYZBounds(Vec3 point) {
-        return point == null ? false : point.yCoord >= this.minY && point.yCoord <= this.maxY && point.zCoord >= this.minZ && point.zCoord <= this.maxZ;
+        return point != null && point.yCoord >= this.minY && point.yCoord <= this.maxY && point.zCoord >= this.minZ && point.zCoord <= this.maxZ;
     }
 
     private boolean isVecInsideXZBounds(Vec3 point) {
-        return point == null ? false : point.xCoord >= this.minX && point.xCoord <= this.maxX && point.zCoord >= this.minZ && point.zCoord <= this.maxZ;
+        return point != null && point.xCoord >= this.minX && point.xCoord <= this.maxX && point.zCoord >= this.minZ && point.zCoord <= this.maxZ;
     }
 
     private boolean isVecInsideXYBounds(Vec3 point) {
-        return point == null ? false : point.xCoord >= this.minX && point.xCoord <= this.maxX && point.yCoord >= this.minY && point.yCoord <= this.maxY;
+        return point != null && point.xCoord >= this.minX && point.xCoord <= this.maxX && point.yCoord >= this.minY && point.yCoord <= this.maxY;
     }
 
     public void onBlockDestroyedByExplosion(World worldIn, BlockPos pos, Explosion explosionIn) {
@@ -758,7 +758,7 @@ public class Block {
     }
 
     public static boolean isEqualTo(Block blockIn, Block other) {
-        return blockIn != null && other != null ? (blockIn == other ? true : blockIn.isAssociatedBlock(other)) : false;
+        return blockIn != null && other != null && (blockIn == other || blockIn.isAssociatedBlock(other));
     }
 
     public boolean hasComparatorInputOverride() {

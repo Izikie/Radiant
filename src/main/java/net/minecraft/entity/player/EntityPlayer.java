@@ -762,7 +762,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
     public boolean canAttackPlayer(EntityPlayer other) {
         Team team = this.getTeam();
         Team team1 = other.getTeam();
-        return team == null ? true : (!team.isSameTeam(team1) ? true : team.getAllowFriendlyFire());
+        return team == null || (!team.isSameTeam(team1) || team.getAllowFriendlyFire());
     }
 
     protected void damageArmor(float p_70675_1_) {
@@ -1634,7 +1634,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
             return true;
         } else {
             ItemStack itemstack = this.getCurrentEquippedItem();
-            return itemstack != null && itemstack.hasDisplayName() ? itemstack.getDisplayName().equals(code.getLock()) : false;
+            return itemstack != null && itemstack.hasDisplayName() && itemstack.getDisplayName().equals(code.getLock());
         }
     }
 

@@ -9,7 +9,8 @@ import java.io.IOException;
 public class S00PacketKeepAlive implements Packet<INetHandlerPlayClient> {
     private int id;
 
-    public S00PacketKeepAlive() {}
+    public S00PacketKeepAlive() {
+    }
 
     public S00PacketKeepAlive(int idIn) {
         this.id = idIn;

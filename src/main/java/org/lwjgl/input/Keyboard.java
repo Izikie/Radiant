@@ -234,6 +234,7 @@ public class Keyboard {
      */
     private static boolean initialized;
     private static InputImplementation implementation;
+
     /**
      * Keyboard cannot be constructed.
      */

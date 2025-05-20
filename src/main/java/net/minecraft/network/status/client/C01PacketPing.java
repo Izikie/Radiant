@@ -9,7 +9,8 @@ import java.io.IOException;
 public class C01PacketPing implements Packet<INetHandlerStatusServer> {
     private long time;
 
-    public C01PacketPing() {}
+    public C01PacketPing() {
+    }
 
     public C01PacketPing(long ping) {
         this.time = ping;

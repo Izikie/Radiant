@@ -11,7 +11,8 @@ import java.util.UUID;
 public class S02PacketLoginSuccess implements Packet<INetHandlerLoginClient> {
     private GameProfile profile;
 
-    public S02PacketLoginSuccess() {}
+    public S02PacketLoginSuccess() {
+    }
 
     public S02PacketLoginSuccess(GameProfile profileIn) {
         this.profile = profileIn;

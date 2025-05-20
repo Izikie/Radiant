@@ -11,7 +11,8 @@ public class S0BPacketAnimation implements Packet<INetHandlerPlayClient> {
     private int entityId;
     private int type;
 
-    public S0BPacketAnimation() {}
+    public S0BPacketAnimation() {
+    }
 
     public S0BPacketAnimation(Entity ent, int animationType) {
         this.entityId = ent.getEntityId();

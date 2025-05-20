@@ -32,7 +32,7 @@ public class ShaderOptionProfile extends ShaderOption {
     public void updateProfile() {
         ShaderProfile shaderprofile = this.getProfile(this.getValue());
 
-        if (shaderprofile == null || !ShaderUtils.matchProfile(shaderprofile, this.options, false)) {
+        if (!ShaderUtils.matchProfile(shaderprofile, this.options, false)) {
             String s = detectProfileName(this.profiles, this.options);
             this.setValue(s);
         }

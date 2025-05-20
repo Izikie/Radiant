@@ -11,7 +11,8 @@ public class S02PacketChat implements Packet<INetHandlerPlayClient> {
     private IChatComponent chatComponent;
     private byte type;
 
-    public S02PacketChat() {}
+    public S02PacketChat() {
+    }
 
     public S02PacketChat(IChatComponent component) {
         this(component, (byte) 1);

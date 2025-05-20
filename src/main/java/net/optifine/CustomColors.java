@@ -376,7 +376,6 @@ public class CustomColors {
             potionColors = readPotionColors(properties, fileName, "potion.", "Potion");
             xpOrbTime = Config.parseInt(properties.getProperty("xporb.time"), -1);
         } catch (FileNotFoundException var5) {
-            return;
         } catch (IOException ioexception) {
             ioexception.printStackTrace();
         }
@@ -1005,7 +1004,7 @@ public class CustomColors {
 
             if (j >= 0 && j < lightMapPacks.length) {
                 LightMapPack lightmappack = lightMapPacks[j];
-                return lightmappack == null ? false : lightmappack.updateLightmap(world, torchFlickerX, lmColors, nightvision, partialTicks);
+                return lightmappack != null && lightmappack.updateLightmap(world, torchFlickerX, lmColors, nightvision, partialTicks);
             } else {
                 return false;
             }

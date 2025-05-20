@@ -140,7 +140,7 @@ public class GuiOverlayDebug extends Gui {
         String textureAnimInfo = textureAnimBuilder.toString();
 
         List<String> debugInfo = Lists.newArrayList(
-            String.format("Minecraft 1.8.9 (%s)", mc.getVersion()),
+                String.format("Minecraft 1.8.9 (%s)", mc.getVersion()),
                 mc.debug,
                 mc.renderGlobal.getDebugInfoRenders(),
                 mc.renderGlobal.getDebugInfoEntities(),

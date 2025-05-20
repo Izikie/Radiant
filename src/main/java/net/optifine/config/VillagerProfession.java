@@ -20,11 +20,11 @@ public class VillagerProfession {
     }
 
     public boolean matches(int prof, int car) {
-        return this.profession != prof ? false : this.careers == null || Config.equalsOne(car, this.careers);
+        return this.profession == prof && (this.careers == null || Config.equalsOne(car, this.careers));
     }
 
     private boolean hasCareer(int car) {
-        return this.careers == null ? false : Config.equalsOne(car, this.careers);
+        return this.careers != null && Config.equalsOne(car, this.careers);
     }
 
     public boolean addCareer(int car) {

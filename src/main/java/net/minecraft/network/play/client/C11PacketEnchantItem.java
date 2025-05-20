@@ -10,7 +10,8 @@ public class C11PacketEnchantItem implements Packet<INetHandlerPlayServer> {
     private int windowId;
     private int button;
 
-    public C11PacketEnchantItem() {}
+    public C11PacketEnchantItem() {
+    }
 
     public C11PacketEnchantItem(int windowId, int button) {
         this.windowId = windowId;

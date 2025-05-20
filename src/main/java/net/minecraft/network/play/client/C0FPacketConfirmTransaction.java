@@ -11,7 +11,8 @@ public class C0FPacketConfirmTransaction implements Packet<INetHandlerPlayServer
     private short uid;
     private boolean accepted;
 
-    public C0FPacketConfirmTransaction() {}
+    public C0FPacketConfirmTransaction() {
+    }
 
     public C0FPacketConfirmTransaction(int windowId, short uid, boolean accepted) {
         this.windowId = windowId;
