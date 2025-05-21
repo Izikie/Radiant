@@ -93,7 +93,10 @@ dependencies {
     implementation(group = "org.apache.logging.log4j", name = "log4j-api", version = "2.24.3")
     implementation(group = "org.apache.logging.log4j", name = "log4j-core", version = "2.24.3")
 
-    implementation(group = "org.lwjgl", name = "lwjgl", version = lwjglVersion)
+    implementation(group = "org.lwjgl.lwjgl", name = "lwjgl", version = "2.9.3") // Update To 3.0 Properly
+    implementation(group = "org.lwjgl.lwjgl", name = "lwjgl_util", version = "2.9.3") // Update To 3.0 Properly
+
+    /*implementation(group = "org.lwjgl", name = "lwjgl", version = lwjglVersion)
     implementation(group = "org.lwjgl", name = "lwjgl-glfw", version = lwjglVersion)
     implementation(group = "org.lwjgl", name = "lwjgl-openal", version = lwjglVersion)
     implementation(group = "org.lwjgl", name = "lwjgl-opengl", version = lwjglVersion)
@@ -101,7 +104,7 @@ dependencies {
     runtimeOnly(group = "org.lwjgl", name = "lwjgl", version = lwjglVersion, classifier = lwjglNatives)
     runtimeOnly(group = "org.lwjgl", name = "lwjgl-glfw", version = lwjglVersion, classifier = lwjglNatives)
     runtimeOnly(group = "org.lwjgl", name = "lwjgl-openal", version = lwjglVersion, classifier = lwjglNatives)
-    runtimeOnly(group = "org.lwjgl", name = "lwjgl-opengl", version = lwjglVersion, classifier = lwjglNatives)
+    runtimeOnly(group = "org.lwjgl", name = "lwjgl-opengl", version = lwjglVersion, classifier = lwjglNatives)*/
 
     // Third Party
     implementation(group = "fr.litarvan", name = "openauth", version = "1.1.6")
