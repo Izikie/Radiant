@@ -9,37 +9,37 @@ import java.util.zip.Deflater;
 public class NettyCompressionEncoder extends MessageToByteEncoder<ByteBuf> {
     private final byte[] buffer = new byte[8192];
     private final Deflater deflater;
-    private int treshold;
+    private int threshold;
 
-    public NettyCompressionEncoder(int treshold) {
-        this.treshold = treshold;
+    public NettyCompressionEncoder(int threshold) {
+        this.threshold = threshold;
         this.deflater = new Deflater();
     }
 
-    protected void encode(ChannelHandlerContext p_encode_1_, ByteBuf p_encode_2_, ByteBuf p_encode_3_) throws Exception {
-        int i = p_encode_2_.readableBytes();
-        PacketBuffer packetbuffer = new PacketBuffer(p_encode_3_);
+    protected void encode(ChannelHandlerContext context, ByteBuf in, ByteBuf out) throws Exception {
+        int length = in.readableBytes();
+        PacketBuffer pBuffer = new PacketBuffer(out);
 
-        if (i < this.treshold) {
-            packetbuffer.writeVarIntToBuffer(0);
-            packetbuffer.writeBytes(p_encode_2_);
+        if (length < this.threshold) {
+            pBuffer.writeVarIntToBuffer(0);
+            pBuffer.writeBytes(in);
         } else {
-            byte[] abyte = new byte[i];
-            p_encode_2_.readBytes(abyte);
-            packetbuffer.writeVarIntToBuffer(abyte.length);
-            this.deflater.setInput(abyte, 0, i);
+            byte[] decompressedData = new byte[length];
+            in.readBytes(decompressedData);
+            pBuffer.writeVarIntToBuffer(decompressedData.length);
+            this.deflater.setInput(decompressedData, 0, length);
             this.deflater.finish();
 
             while (!this.deflater.finished()) {
-                int j = this.deflater.deflate(this.buffer);
-                packetbuffer.writeBytes(this.buffer, 0, j);
+                int compressed = this.deflater.deflate(this.buffer);
+                pBuffer.writeBytes(this.buffer, 0, compressed);
             }
 
             this.deflater.reset();
         }
     }
 
-    public void setCompressionTreshold(int treshold) {
-        this.treshold = treshold;
+    public void setCompressionThreshold(int threshold) {
+        this.threshold = threshold;
     }
 }

@@ -225,7 +225,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
     }
 
     public static NetworkManager createNetworkManagerAndConnect(InetAddress address, int serverPort, boolean useNativeTransport) {
-        final NetworkManager networkmanager = new NetworkManager(PacketDirection.CLIENTBOUND);
+        NetworkManager networkManager = new NetworkManager(PacketDirection.CLIENTBOUND);
         Class<? extends SocketChannel> oclass;
         LazyLoadBase<? extends EventLoopGroup> lazyloadbase;
 
@@ -238,23 +238,23 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
         }
 
         (new Bootstrap()).group(lazyloadbase.getValue()).handler(new ChannelInitializer<>() {
-            protected void initChannel(Channel p_initChannel_1_) throws Exception {
+            protected void initChannel(Channel channel) throws Exception {
                 try {
-                    p_initChannel_1_.config().setOption(ChannelOption.TCP_NODELAY, Boolean.TRUE);
+                    channel.config().setOption(ChannelOption.TCP_NODELAY, Boolean.TRUE);
                 } catch (ChannelException var3) {
                 }
 
-                p_initChannel_1_.pipeline().addLast("timeout", new ReadTimeoutHandler(30)).addLast("splitter", new MessageDeserializer2()).addLast("decoder", new MessageDeserializer(PacketDirection.CLIENTBOUND)).addLast("prepender", new MessageSerializer2()).addLast("encoder", new MessageSerializer(PacketDirection.SERVERBOUND)).addLast("packet_handler", networkmanager);
+                channel.pipeline().addLast("timeout", new ReadTimeoutHandler(30)).addLast("splitter", new MessageDeserializer2()).addLast("decoder", new MessageDeserializer(PacketDirection.CLIENTBOUND)).addLast("prepender", new MessageSerializer2()).addLast("encoder", new MessageSerializer(PacketDirection.SERVERBOUND)).addLast("packet_handler", networkManager);
             }
         }).channel(oclass).connect(address, serverPort).syncUninterruptibly();
-        return networkmanager;
+        return networkManager;
     }
 
     public static NetworkManager provideLocalClient(SocketAddress address) {
         final NetworkManager networkmanager = new NetworkManager(PacketDirection.CLIENTBOUND);
         (new Bootstrap()).group(CLIENT_LOCAL_EVENTLOOP.getValue()).handler(new ChannelInitializer<>() {
-            protected void initChannel(Channel p_initChannel_1_) throws Exception {
-                p_initChannel_1_.pipeline().addLast("packet_handler", networkmanager);
+            protected void initChannel(Channel channel) throws Exception {
+                channel.pipeline().addLast("packet_handler", networkmanager);
             }
         }).channel(LocalChannel.class).connect(address).syncUninterruptibly();
         return networkmanager;
@@ -290,18 +290,18 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
         this.channel.config().setAutoRead(false);
     }
 
-    public void setCompressionTreshold(int treshold) {
-        if (treshold >= 0) {
-            if (this.channel.pipeline().get("decompress") instanceof NettyCompressionDecoder encoder) {
-                encoder.setCompressionTreshold(treshold);
+    public void setCompressionThreshold(int threshold) {
+        if (threshold >= 0) {
+            if (this.channel.pipeline().get("decompress") instanceof NettyCompressionDecoder decoder) {
+                decoder.setCompressionThreshold(threshold);
             } else {
-                this.channel.pipeline().addBefore("decoder", "decompress", new NettyCompressionDecoder(treshold));
+                this.channel.pipeline().addBefore("decoder", "decompress", new NettyCompressionDecoder(threshold));
             }
 
             if (this.channel.pipeline().get("compress") instanceof NettyCompressionEncoder encoder) {
-                encoder.setCompressionTreshold(treshold);
+                encoder.setCompressionThreshold(threshold);
             } else {
-                this.channel.pipeline().addBefore("encoder", "compress", new NettyCompressionEncoder(treshold));
+                this.channel.pipeline().addBefore("encoder", "compress", new NettyCompressionEncoder(threshold));
             }
         } else {
             if (this.channel.pipeline().get("decompress") instanceof NettyCompressionDecoder) {
@@ -335,8 +335,8 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
         private final GenericFutureListener<? extends Future<? super Void>>[] futureListeners;
 
         @SafeVarargs
-        public InboundHandlerTuplePacketListener(Packet inPacket, GenericFutureListener<? extends Future<? super Void>>... inFutureListeners) {
-            this.packet = inPacket;
+        public InboundHandlerTuplePacketListener(Packet packet, GenericFutureListener<? extends Future<? super Void>>... inFutureListeners) {
+            this.packet = packet;
             this.futureListeners = inFutureListeners;
         }
     }

@@ -22,6 +22,7 @@ public class Main {
     public static void main(String[] args) {
         System.setProperty("java.net.preferIPv4Stack", "true");
         System.setProperty("log4j2.formatMsgNoLookups", "true");
+        System.setProperty("io.netty.allocator.maxOrder", "9"); // IMPROVEMENT: Default is 16MiB, Minecraft uses 2Mib, use 4Mib as safe default
 
         OptionParser optionParser = new OptionParser();
         optionParser.allowsUnrecognizedOptions();

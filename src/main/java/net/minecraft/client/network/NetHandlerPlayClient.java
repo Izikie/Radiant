@@ -963,7 +963,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 
     public void handleSetCompressionLevel(S46PacketSetCompressionLevel packetIn) {
         if (!this.netManager.isLocalChannel()) {
-            this.netManager.setCompressionTreshold(packetIn.getThreshold());
+            this.netManager.setCompressionThreshold(packetIn.getThreshold());
         }
     }
 

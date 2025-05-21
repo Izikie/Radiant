@@ -89,7 +89,7 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
 
     public void handleEnableCompression(S03PacketEnableCompression packetIn) {
         if (!this.networkManager.isLocalChannel()) {
-            this.networkManager.setCompressionTreshold(packetIn.getCompressionThreshold());
+            this.networkManager.setCompressionThreshold(packetIn.getCompressionThreshold());
         }
     }
 }

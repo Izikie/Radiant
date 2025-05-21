@@ -117,10 +117,10 @@ public class BlockPos extends Vec3i {
     }
 
     public static BlockPos fromLong(long serialized) {
-        int i = (int) (serialized << 64 - X_SHIFT - NUM_X_BITS >> 64 - NUM_X_BITS);
-        int j = (int) (serialized << 64 - Y_SHIFT - NUM_Y_BITS >> 64 - NUM_Y_BITS);
-        int k = (int) (serialized << 64 - NUM_Z_BITS >> 64 - NUM_Z_BITS);
-        return new BlockPos(i, j, k);
+        int x = (int) (serialized << 64 - X_SHIFT - NUM_X_BITS >> 64 - NUM_X_BITS);
+        int y = (int) (serialized << 64 - Y_SHIFT - NUM_Y_BITS >> 64 - NUM_Y_BITS);
+        int z = (int) (serialized << 64 - NUM_Z_BITS >> 64 - NUM_Z_BITS);
+        return new BlockPos(x, y, z);
     }
 
     public static Iterable<BlockPos> getAllInBox(BlockPos from, BlockPos to) {

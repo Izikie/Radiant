@@ -45,9 +45,9 @@ public class PacketBuffer extends ByteBuf {
     }
 
     public byte[] readByteArray() {
-        byte[] abyte = new byte[this.readVarIntFromBuffer()];
-        this.readBytes(abyte);
-        return abyte;
+        byte[] bytes = new byte[this.readVarIntFromBuffer()];
+        this.readBytes(bytes);
+        return bytes;
     }
 
     public BlockPos readBlockPos() {
@@ -75,43 +75,43 @@ public class PacketBuffer extends ByteBuf {
     }
 
     public int readVarIntFromBuffer() {
-        int i = 0;
-        int j = 0;
+        int result = 0;
+        int shift = 0;
 
         while (true) {
-            byte b0 = this.readByte();
-            i |= (b0 & 127) << j++ * 7;
+            byte currentByte = this.readByte();
+            result |= (currentByte & 127) << shift++ * 7;
 
-            if (j > 5) {
+            if (shift > 5) {
                 throw new RuntimeException("VarInt too big");
             }
 
-            if ((b0 & 128) != 128) {
+            if ((currentByte & 128) != 128) {
                 break;
             }
         }
 
-        return i;
+        return result;
     }
 
     public long readVarLong() {
-        long i = 0L;
-        int j = 0;
+        long result = 0L;
+        int shift = 0;
 
         while (true) {
-            byte b0 = this.readByte();
-            i |= (long) (b0 & 127) << j++ * 7;
+            byte currentByte = this.readByte();
+            result |= (long) (currentByte & 127) << shift++ * 7;
 
-            if (j > 10) {
+            if (shift > 10) {
                 throw new RuntimeException("VarLong too big");
             }
 
-            if ((b0 & 128) != 128) {
+            if ((currentByte & 128) != 128) {
                 break;
             }
         }
 
-        return i;
+        return result;
     }
 
     public void writeUuid(UUID uuid) {

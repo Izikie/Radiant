@@ -64,16 +64,16 @@ public class ServerStatusResponse {
         }
 
         public static class Serializer implements JsonDeserializer<MinecraftProtocolVersionIdentifier>, JsonSerializer<MinecraftProtocolVersionIdentifier> {
-            public MinecraftProtocolVersionIdentifier deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-                JsonObject jsonobject = JsonUtils.getJsonObject(p_deserialize_1_, "version");
-                return new MinecraftProtocolVersionIdentifier(JsonUtils.getString(jsonobject, "name"), JsonUtils.getInt(jsonobject, "protocol"));
+            public MinecraftProtocolVersionIdentifier deserialize(JsonElement jsonElement, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
+                JsonObject jsonObject = JsonUtils.getJsonObject(jsonElement, "version");
+                return new MinecraftProtocolVersionIdentifier(JsonUtils.getString(jsonObject, "name"), JsonUtils.getInt(jsonObject, "protocol"));
             }
 
             public JsonElement serialize(MinecraftProtocolVersionIdentifier p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
-                JsonObject jsonobject = new JsonObject();
-                jsonobject.addProperty("name", p_serialize_1_.getName());
-                jsonobject.addProperty("protocol", p_serialize_1_.getProtocol());
-                return jsonobject;
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("name", p_serialize_1_.getName());
+                jsonObject.addProperty("protocol", p_serialize_1_.getProtocol());
+                return jsonObject;
             }
         }
     }

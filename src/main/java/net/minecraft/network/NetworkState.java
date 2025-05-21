@@ -151,9 +151,9 @@ public enum NetworkState {
         }
     };
 
-    private static final int field_181136_e = -1;
-    private static final int field_181137_f = 2;
-    private static final NetworkState[] STATES_BY_ID = new NetworkState[field_181137_f - field_181136_e + 1];
+    private static final int STATE_ID_MIN = -1;
+    private static final int STATE_ID_MAX = 2;
+    private static final NetworkState[] STATES_BY_ID = new NetworkState[STATE_ID_MAX - STATE_ID_MIN + 1];
     private static final Map<Class<? extends Packet>, NetworkState> STATES_BY_CLASS = new HashMap<>();
     private final int id;
     private final Map<PacketDirection, BiMap<Integer, Class<? extends Packet>>> directionMaps;
@@ -163,7 +163,7 @@ public enum NetworkState {
         this.id = protocolId;
     }
 
-    protected NetworkState registerPacket(PacketDirection direction, Class<? extends Packet> packetClass) {
+    protected void registerPacket(PacketDirection direction, Class<? extends Packet> packetClass) {
         BiMap<Integer, Class<? extends Packet>> bimap = this.directionMaps.computeIfAbsent(direction, k -> HashBiMap.create());
 
         if (bimap.containsValue(packetClass)) {
@@ -172,7 +172,6 @@ public enum NetworkState {
             throw new IllegalArgumentException(s);
         } else {
             bimap.put(bimap.size(), packetClass);
-            return this;
         }
     }
 
@@ -190,36 +189,36 @@ public enum NetworkState {
     }
 
     public static NetworkState getById(int stateId) {
-        return stateId >= field_181136_e && stateId <= field_181137_f ? STATES_BY_ID[stateId - field_181136_e] : null;
+        return stateId >= STATE_ID_MIN && stateId <= STATE_ID_MAX ? STATES_BY_ID[stateId - STATE_ID_MIN] : null;
     }
 
-    public static NetworkState getFromPacket(Packet packetIn) {
-        return STATES_BY_CLASS.get(packetIn.getClass());
+    public static NetworkState getFromPacket(Packet packet) {
+        return STATES_BY_CLASS.get(packet.getClass());
     }
 
     static {
-        for (NetworkState enumconnectionstate : values()) {
-            int i = enumconnectionstate.getId();
+        for (NetworkState connectionState : values()) {
+            int stateID = connectionState.getId();
 
-            if (i < field_181136_e || i > field_181137_f) {
-                throw new Error("Invalid protocol ID " + i);
+            if (stateID < STATE_ID_MIN || stateID > STATE_ID_MAX) {
+                throw new Error("Invalid protocol ID " + stateID);
             }
 
-            STATES_BY_ID[i - field_181136_e] = enumconnectionstate;
+            STATES_BY_ID[stateID - STATE_ID_MIN] = connectionState;
 
-            for (PacketDirection enumpacketdirection : enumconnectionstate.directionMaps.keySet()) {
-                for (Class<? extends Packet> oclass : (enumconnectionstate.directionMaps.get(enumpacketdirection)).values()) {
-                    if (STATES_BY_CLASS.containsKey(oclass) && STATES_BY_CLASS.get(oclass) != enumconnectionstate) {
-                        throw new Error("Packet " + oclass + " is already assigned to protocol " + STATES_BY_CLASS.get(oclass) + " - can't reassign to " + enumconnectionstate);
+            for (PacketDirection direction : connectionState.directionMaps.keySet()) {
+                for (Class<? extends Packet> oclass : (connectionState.directionMaps.get(direction)).values()) {
+                    if (STATES_BY_CLASS.containsKey(oclass) && STATES_BY_CLASS.get(oclass) != connectionState) {
+                        throw new Error("Packet " + oclass + " is already assigned to protocol " + STATES_BY_CLASS.get(oclass) + " - can't reassign to " + connectionState);
                     }
 
                     try {
                         oclass.getConstructor().newInstance();
-                    } catch (Throwable var10) {
+                    } catch (Throwable ignore) {
                         throw new Error("Packet " + oclass + " fails instantiation checks! " + oclass);
                     }
 
-                    STATES_BY_CLASS.put(oclass, enumconnectionstate);
+                    STATES_BY_CLASS.put(oclass, connectionState);
                 }
             }
         }

@@ -75,16 +75,16 @@ public class NetworkSystem {
             }
 
             this.endpoints.add((new ServerBootstrap()).channel(oclass).childHandler(new ChannelInitializer<>() {
-                protected void initChannel(Channel p_initChannel_1_) throws Exception {
+                protected void initChannel(Channel channel) throws Exception {
                     try {
-                        p_initChannel_1_.config().setOption(ChannelOption.TCP_NODELAY, Boolean.TRUE);
+                        channel.config().setOption(ChannelOption.TCP_NODELAY, Boolean.TRUE);
                     } catch (ChannelException var3) {
                     }
 
-                    p_initChannel_1_.pipeline().addLast("timeout", new ReadTimeoutHandler(30)).addLast("legacy_query", new PingResponseHandler(NetworkSystem.this)).addLast("splitter", new MessageDeserializer2()).addLast("decoder", new MessageDeserializer(PacketDirection.SERVERBOUND)).addLast("prepender", new MessageSerializer2()).addLast("encoder", new MessageSerializer(PacketDirection.CLIENTBOUND));
+                    channel.pipeline().addLast("timeout", new ReadTimeoutHandler(30)).addLast("legacy_query", new PingResponseHandler(NetworkSystem.this)).addLast("splitter", new MessageDeserializer2()).addLast("decoder", new MessageDeserializer(PacketDirection.SERVERBOUND)).addLast("prepender", new MessageSerializer2()).addLast("encoder", new MessageSerializer(PacketDirection.CLIENTBOUND));
                     NetworkManager networkmanager = new NetworkManager(PacketDirection.SERVERBOUND);
                     NetworkSystem.this.networkManagers.add(networkmanager);
-                    p_initChannel_1_.pipeline().addLast("packet_handler", networkmanager);
+                    channel.pipeline().addLast("packet_handler", networkmanager);
                     networkmanager.setNetHandler(new NetHandlerHandshakeTCP(NetworkSystem.this.mcServer, networkmanager));
                 }
             }).group(lazyloadbase.getValue()).localAddress(address, port).bind().syncUninterruptibly());
@@ -96,11 +96,11 @@ public class NetworkSystem {
 
         synchronized (this.endpoints) {
             channelfuture = (new ServerBootstrap()).channel(LocalServerChannel.class).childHandler(new ChannelInitializer<>() {
-                protected void initChannel(Channel p_initChannel_1_) throws Exception {
-                    NetworkManager networkmanager = new NetworkManager(PacketDirection.SERVERBOUND);
-                    networkmanager.setNetHandler(new NetHandlerHandshakeMemory(NetworkSystem.this.mcServer, networkmanager));
-                    NetworkSystem.this.networkManagers.add(networkmanager);
-                    p_initChannel_1_.pipeline().addLast("packet_handler", networkmanager);
+                protected void initChannel(Channel channel) throws Exception {
+                    NetworkManager networkManager = new NetworkManager(PacketDirection.SERVERBOUND);
+                    networkManager.setNetHandler(new NetHandlerHandshakeMemory(NetworkSystem.this.mcServer, networkManager));
+                    NetworkSystem.this.networkManagers.add(networkManager);
+                    channel.pipeline().addLast("packet_handler", networkManager);
                 }
             }).group(EVENT_LOOPS.getValue()).localAddress(LocalAddress.ANY).bind().syncUninterruptibly();
             this.endpoints.add(channelfuture);
@@ -115,7 +115,7 @@ public class NetworkSystem {
         for (ChannelFuture channelfuture : this.endpoints) {
             try {
                 channelfuture.channel().close().sync();
-            } catch (InterruptedException var4) {
+            } catch (InterruptedException ignore) {
                 LOGGER.error("Interrupted whilst closing channel");
             }
         }
@@ -144,8 +144,8 @@ public class NetworkSystem {
                             }
 
                             LOGGER.warn("Failed to handle packet for {}", networkmanager.getRemoteAddress(), exception);
-                            final ChatComponentText chatcomponenttext = new ChatComponentText("Internal server error");
-                            networkmanager.sendPacket(new S40PacketDisconnect(chatcomponenttext), p_operationComplete_1_ -> networkmanager.closeChannel(chatcomponenttext));
+                            final ChatComponentText component = new ChatComponentText("Internal server error");
+                            networkmanager.sendPacket(new S40PacketDisconnect(component), p_operationComplete_1_ -> networkmanager.closeChannel(component));
                             networkmanager.disableAutoRead();
                         }
                     }

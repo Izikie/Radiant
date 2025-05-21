@@ -26,10 +26,10 @@ public class NettyEncryptionTranslator {
         return this.field_150505_b;
     }
 
-    protected ByteBuf decipher(ChannelHandlerContext ctx, ByteBuf buffer) throws ShortBufferException {
+    protected ByteBuf decipher(ChannelHandlerContext context, ByteBuf buffer) throws ShortBufferException {
         int i = buffer.readableBytes();
         byte[] abyte = this.func_150502_a(buffer);
-        ByteBuf bytebuf = ctx.alloc().heapBuffer(this.cipher.getOutputSize(i));
+        ByteBuf bytebuf = context.alloc().heapBuffer(this.cipher.getOutputSize(i));
         bytebuf.writerIndex(this.cipher.update(abyte, 0, i, bytebuf.array(), bytebuf.arrayOffset()));
         return bytebuf;
     }
