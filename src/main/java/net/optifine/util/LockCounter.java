@@ -21,10 +21,6 @@ public class LockCounter {
         return this.lockCount > 0;
     }
 
-    public int getLockCount() {
-        return this.lockCount;
-    }
-
     public String toString() {
         return "lockCount: " + this.lockCount;
     }

@@ -3,7 +3,6 @@ package net.optifine.util;
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -28,7 +27,6 @@ public class FontUtils {
                 Config.log("Loading " + s2);
                 properties.load(inputstream);
                 inputstream.close();
-            } catch (FileNotFoundException var7) {
             } catch (IOException ioexception) {
                 ioexception.printStackTrace();
             }
@@ -100,7 +98,7 @@ public class FontUtils {
         if (!Config.isCustomFonts()) {
             return fontLoc;
         } else if (fontLoc == null) {
-            return fontLoc;
+            return null;
         } else if (!Config.isMinecraftThread()) {
             return fontLoc;
         } else {

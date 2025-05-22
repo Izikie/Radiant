@@ -20,7 +20,7 @@ public class ResUtils {
     }
 
     public static String[] collectFiles(String[] prefixes, String[] suffixes) {
-        Set<String> set = new LinkedHashSet();
+        Set<String> set = new LinkedHashSet<>();
         IResourcePack[] airesourcepack = Config.getResourcePacks();
 
         for (IResourcePack iresourcepack : airesourcepack) {
@@ -65,7 +65,7 @@ public class ResUtils {
         if (paths == null) {
             return new String[0];
         } else {
-            List list = new ArrayList();
+            List<String> list = new ArrayList<>();
 
             for (String s : paths) {
                 ResourceLocation resourcelocation = new ResourceLocation(s);
@@ -75,12 +75,12 @@ public class ResUtils {
                 }
             }
 
-            return (String[]) list.toArray(new String[0]);
+            return list.toArray(new String[0]);
         }
     }
 
     private static String[] collectFilesFolder(File tpFile, String basePath, String[] prefixes, String[] suffixes) {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         String s = "assets/minecraft/";
         File[] afile = tpFile.listFiles();
 
@@ -106,20 +106,20 @@ public class ResUtils {
                 }
             }
 
-            return (String[]) list.toArray(new String[0]);
+            return list.toArray(new String[0]);
         }
     }
 
     private static String[] collectFilesZIP(File tpFile, String[] prefixes, String[] suffixes) {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         String s = "assets/minecraft/";
 
         try {
             ZipFile zipfile = new ZipFile(tpFile);
-            Enumeration enumeration = zipfile.entries();
+            Enumeration<? extends ZipEntry> enumeration = zipfile.entries();
 
             while (enumeration.hasMoreElements()) {
-                ZipEntry zipentry = (ZipEntry) enumeration.nextElement();
+                ZipEntry zipentry = enumeration.nextElement();
                 String s1 = zipentry.getName();
 
                 if (s1.startsWith(s)) {
@@ -132,15 +132,11 @@ public class ResUtils {
             }
 
             zipfile.close();
-            return (String[]) list.toArray(new String[0]);
+            return list.toArray(new String[0]);
         } catch (IOException ioexception) {
             ioexception.printStackTrace();
             return new String[0];
         }
-    }
-
-    private static boolean isLowercase(String str) {
-        return str.equals(str.toLowerCase(Locale.ROOT));
     }
 
     public static Properties readProperties(String path, String module) {
@@ -166,7 +162,7 @@ public class ResUtils {
         }
     }
 
-    public static Properties readProperties(InputStream in, String module) {
+    public static Properties readProperties(InputStream in) {
         if (in == null) {
             return null;
         } else {
@@ -175,8 +171,6 @@ public class ResUtils {
                 properties.load(in);
                 in.close();
                 return properties;
-            } catch (FileNotFoundException var3) {
-                return null;
             } catch (IOException var4) {
                 return null;
             }

@@ -2,6 +2,7 @@ package net.optifine.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.StringTokenizer;
 
 public class StrUtils {
@@ -10,7 +11,7 @@ public class StrUtils {
             if (mask.indexOf(wildChar) < 0) {
                 return mask.indexOf(wildCharSingle) < 0 ? mask.equals(str) : equalsMaskSingle(str, mask, wildCharSingle);
             } else {
-                List list = new ArrayList();
+                List<String> list = new ArrayList<>();
                 String s = "" + wildChar;
 
                 if (mask.startsWith(s)) {
@@ -27,29 +28,28 @@ public class StrUtils {
                     list.add("");
                 }
 
-                String s1 = (String) list.getFirst();
+                String s1 = list.getFirst();
 
                 if (!startsWithMaskSingle(str, s1, wildCharSingle)) {
                     return false;
                 } else {
-                    String s2 = (String) list.getLast();
+                    String s2 = list.getLast();
 
                     if (!endsWithMaskSingle(str, s2, wildCharSingle)) {
                         return false;
                     } else {
                         int i = 0;
 
-                        for (Object o : list) {
-                            String s3 = (String) o;
+                        for (String o : list) {
 
-                            if (!s3.isEmpty()) {
-                                int k = indexOfMaskSingle(str, s3, i, wildCharSingle);
+                            if (!o.isEmpty()) {
+                                int k = indexOfMaskSingle(str, o, i, wildCharSingle);
 
                                 if (k < 0) {
                                     return false;
                                 }
 
-                                i = k + s3.length();
+                                i = k + o.length();
                             }
                         }
 
@@ -58,7 +58,7 @@ public class StrUtils {
                 }
             }
         } else {
-            return mask == str;
+            return Objects.equals(mask, str);
         }
     }
 
@@ -78,7 +78,7 @@ public class StrUtils {
                 return true;
             }
         } else {
-            return str == mask;
+            return Objects.equals(str, mask);
         }
     }
 
@@ -109,7 +109,7 @@ public class StrUtils {
                 return equalsMaskSingle(s, mask, wildCharSingle);
             }
         } else {
-            return str == mask;
+            return Objects.equals(str, mask);
         }
     }
 
@@ -122,74 +122,7 @@ public class StrUtils {
                 return equalsMaskSingle(s, mask, wildCharSingle);
             }
         } else {
-            return str == mask;
-        }
-    }
-
-    public static boolean equalsMask(String str, String[] masks, char wildChar) {
-        for (String s : masks) {
-            if (equalsMask(str, s, wildChar)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public static boolean equalsMask(String str, String mask, char wildChar) {
-        if (mask != null && str != null) {
-            if (mask.indexOf(wildChar) < 0) {
-                return mask.equals(str);
-            } else {
-                List list = new ArrayList();
-                String s = "" + wildChar;
-
-                if (mask.startsWith(s)) {
-                    list.add("");
-                }
-
-                StringTokenizer stringtokenizer = new StringTokenizer(mask, s);
-
-                while (stringtokenizer.hasMoreElements()) {
-                    list.add(stringtokenizer.nextToken());
-                }
-
-                if (mask.endsWith(s)) {
-                    list.add("");
-                }
-
-                String s1 = (String) list.getFirst();
-
-                if (!str.startsWith(s1)) {
-                    return false;
-                } else {
-                    String s2 = (String) list.getLast();
-
-                    if (!str.endsWith(s2)) {
-                        return false;
-                    } else {
-                        int i = 0;
-
-                        for (Object o : list) {
-                            String s3 = (String) o;
-
-                            if (!s3.isEmpty()) {
-                                int k = str.indexOf(s3, i);
-
-                                if (k < 0) {
-                                    return false;
-                                }
-
-                                i = k + s3.length();
-                            }
-                        }
-
-                        return true;
-                    }
-                }
-            }
-        } else {
-            return mask == str;
+            return Objects.equals(str, mask);
         }
     }
 
@@ -198,7 +131,7 @@ public class StrUtils {
             if (separators == null) {
                 return new String[]{str};
             } else {
-                List list = new ArrayList();
+                List<String> list = new ArrayList<>();
                 int i = 0;
 
                 for (int j = 0; j < str.length(); ++j) {
@@ -211,7 +144,7 @@ public class StrUtils {
                 }
 
                 list.add(str.substring(i));
-                return (String[]) list.toArray(new String[0]);
+                return list.toArray(new String[0]);
             }
         } else {
             return new String[0];
@@ -228,32 +161,8 @@ public class StrUtils {
         return false;
     }
 
-    public static boolean equalsTrim(String a, String b) {
-        if (a != null) {
-            a = a.trim();
-        }
-
-        if (b != null) {
-            b = b.trim();
-        }
-
-        return equals(a, b);
-    }
-
     public static boolean isEmpty(String string) {
         return string == null || string.trim().isEmpty();
-    }
-
-    public static String stringInc(String str) {
-        int i = parseInt(str, -1);
-
-        if (i == -1) {
-            return "";
-        } else {
-            ++i;
-            String s = "" + i;
-            return s.length() > str.length() ? "" : fillLeft("" + i, str.length(), '0');
-        }
     }
 
     public static int parseInt(String s, int defVal) {
@@ -266,20 +175,6 @@ public class StrUtils {
                 return defVal;
             }
         }
-    }
-
-    public static boolean isFilled(String string) {
-        return !isEmpty(string);
-    }
-
-    public static String addIfNotContains(String target, String source) {
-        for (int i = 0; i < source.length(); ++i) {
-            if (target.indexOf(source.charAt(i)) < 0) {
-                target = target + source.charAt(i);
-            }
-        }
-
-        return target;
     }
 
     public static String fillLeft(String s, int len, char fillChar) {
@@ -298,24 +193,6 @@ public class StrUtils {
             }
 
             return stringbuffer + s;
-        }
-    }
-
-    public static String fillRight(String s, int len, char fillChar) {
-        if (s == null) {
-            s = "";
-        }
-
-        if (s.length() >= len) {
-            return s;
-        } else {
-            StringBuilder stringbuffer = new StringBuilder(s);
-
-            while (stringbuffer.length() < len) {
-                stringbuffer.append(fillChar);
-            }
-
-            return stringbuffer.toString();
         }
     }
 
@@ -409,37 +286,9 @@ public class StrUtils {
         }
     }
 
-    public static int findPrefix(String[] strs, String prefix) {
-        if (strs != null && prefix != null) {
-            for (int i = 0; i < strs.length; ++i) {
-                String s = strs[i];
-
-                if (s.startsWith(prefix)) {
-                    return i;
-                }
-            }
-
-        }
-        return -1;
-    }
-
-    public static int findSuffix(String[] strs, String suffix) {
-        if (strs != null && suffix != null) {
-            for (int i = 0; i < strs.length; ++i) {
-                String s = strs[i];
-
-                if (s.endsWith(suffix)) {
-                    return i;
-                }
-            }
-
-        }
-        return -1;
-    }
-
     public static String[] remove(String[] strs, int start, int end) {
         if (strs == null) {
-            return strs;
+            return null;
         } else if (end > 0 && start < strs.length) {
             if (start >= end) {
                 return strs;
@@ -520,10 +369,6 @@ public class StrUtils {
 
     public static String addSuffixCheck(String str, String suffix) {
         return str != null && suffix != null ? (str.endsWith(suffix) ? str : str + suffix) : str;
-    }
-
-    public static String addPrefixCheck(String str, String prefix) {
-        return str != null && prefix != null ? (str.endsWith(prefix) ? str : prefix + str) : str;
     }
 
     public static String trim(String str, String chars) {
