@@ -78,7 +78,7 @@ class GuiSlotShaders extends GuiSlot {
             return true;
         } else {
             InputStream inputstream = sp.getResourceAsStream("/shaders/shaders.properties");
-            Properties properties = ResUtils.readProperties(inputstream, "Shaders");
+            Properties properties = ResUtils.readProperties(inputstream);
 
             if (properties == null) {
                 return true;

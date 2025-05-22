@@ -8,13 +8,13 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.optifine.config.ConnectedParser;
 import net.optifine.config.Matches;
 import net.optifine.config.RangeListInt;
 import net.optifine.render.Blender;
-import net.optifine.util.NumUtils;
 import net.optifine.util.SmoothFloat;
 import net.optifine.util.TextureUtils;
 
@@ -45,9 +45,6 @@ public class CustomSkyLayer {
     public int textureId;
     private World lastWorld;
     public static final float[] DEFAULT_AXIS = new float[]{1.0F, 0.0F, 0.0F};
-    private static final String WEATHER_CLEAR = "clear";
-    private static final String WEATHER_RAIN = "rain";
-    private static final String WEATHER_THUNDER = "thunder";
 
     public CustomSkyLayer(Properties props, String defSource) {
         this.axis = DEFAULT_AXIS;
@@ -69,9 +66,9 @@ public class CustomSkyLayer {
         this.startFadeOut = this.parseTime(props.getProperty("startFadeOut"));
         this.endFadeOut = this.parseTime(props.getProperty("endFadeOut"));
         this.blend = Blender.parseBlend(props.getProperty("blend"));
-        this.rotate = this.parseBoolean(props.getProperty("rotate"), true);
-        this.speed = this.parseFloat(props.getProperty("speed"), 1.0F);
-        this.axis = this.parseAxis(props.getProperty("axis"), DEFAULT_AXIS);
+        this.rotate = this.parseBoolean(props.getProperty("rotate"));
+        this.speed = this.parseFloat(props.getProperty("speed"));
+        this.axis = this.parseAxis(props.getProperty("axis"));
         this.days = connectedparser.parseRangeListInt(props.getProperty("days"));
         this.daysLoop = connectedparser.parseInt(props.getProperty("daysLoop"), 8);
         List<String> list = this.parseWeatherList(props.getProperty("weather", "clear"));
@@ -80,7 +77,7 @@ public class CustomSkyLayer {
         this.weatherThunder = list.contains("thunder");
         this.biomes = connectedparser.parseBiomes(props.getProperty("biomes"));
         this.heights = connectedparser.parseRangeListInt(props.getProperty("heights"));
-        this.transition = this.parseFloat(props.getProperty("transition"), 1.0F);
+        this.transition = this.parseFloat(props.getProperty("transition"));
     }
 
     private List<String> parseWeatherList(String str) {
@@ -130,43 +127,43 @@ public class CustomSkyLayer {
         }
     }
 
-    private boolean parseBoolean(String str, boolean defVal) {
+    private boolean parseBoolean(String str) {
         if (str == null) {
-            return defVal;
+            return true;
         } else if (str.equalsIgnoreCase("true")) {
             return true;
         } else if (str.equalsIgnoreCase("false")) {
             return false;
         } else {
             Config.warn("Unknown boolean: " + str);
-            return defVal;
+            return true;
         }
     }
 
-    private float parseFloat(String str, float defVal) {
+    private float parseFloat(String str) {
         if (str == null) {
-            return defVal;
+            return (float) 1.0;
         } else {
             float f = Config.parseFloat(str, Float.MIN_VALUE);
 
             if (f == Float.MIN_VALUE) {
                 Config.warn("Invalid value: " + str);
-                return defVal;
+                return (float) 1.0;
             } else {
                 return f;
             }
         }
     }
 
-    private float[] parseAxis(String str, float[] defVal) {
+    private float[] parseAxis(String str) {
         if (str == null) {
-            return defVal;
+            return CustomSkyLayer.DEFAULT_AXIS;
         } else {
             String[] astring = Config.tokenize(str, " ");
 
             if (astring.length != 3) {
                 Config.warn("Invalid axis: " + str);
-                return defVal;
+                return CustomSkyLayer.DEFAULT_AXIS;
             } else {
                 float[] afloat = new float[3];
 
@@ -175,12 +172,12 @@ public class CustomSkyLayer {
 
                     if (afloat[i] == Float.MIN_VALUE) {
                         Config.warn("Invalid axis: " + str);
-                        return defVal;
+                        return CustomSkyLayer.DEFAULT_AXIS;
                     }
 
                     if (afloat[i] < -1.0F || afloat[i] > 1.0F) {
                         Config.warn("Invalid axis values: " + str);
-                        return defVal;
+                        return CustomSkyLayer.DEFAULT_AXIS;
                     }
                 }
 
@@ -190,7 +187,7 @@ public class CustomSkyLayer {
 
                 if (f2 * f2 + f * f + f1 * f1 < 1.0E-5F) {
                     Config.warn("Invalid axis values: " + str);
-                    return defVal;
+                    return CustomSkyLayer.DEFAULT_AXIS;
                 } else {
                     return new float[]{f1, f, -f2};
                 }
@@ -355,7 +352,7 @@ public class CustomSkyLayer {
             f2 += thunderStrength;
         }
 
-        f2 = NumUtils.limit(f2, 0.0F, 1.0F);
+        f2 = MathHelper.clamp_float(f2, 0.0F, 1.0F);
         return f2;
     }
 
@@ -378,7 +375,7 @@ public class CustomSkyLayer {
     private void renderSide(Tessellator tess, int side) {
         WorldRenderer worldrenderer = tess.getWorldRenderer();
         double d0 = (side % 3) / 3.0D;
-        double d1 = (side / 3) / 2.0D;
+        double d1 = (side / 3.0) / 2.0D;
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
         worldrenderer.pos(-100.0D, -100.0D, -100.0D).tex(d0, d1).endVertex();
         worldrenderer.pos(-100.0D, -100.0D, 100.0D).tex(d0, d1 + 0.5D).endVertex();

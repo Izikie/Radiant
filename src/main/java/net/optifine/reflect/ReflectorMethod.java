@@ -9,11 +9,11 @@ import java.util.List;
 public class ReflectorMethod {
     private final ReflectorClass reflectorClass;
     private final String targetMethodName;
-    private final Class[] targetMethodParameterTypes;
+    private final Class<?>[] targetMethodParameterTypes;
     private boolean checked;
     private Method targetMethod;
 
-    public ReflectorMethod(ReflectorClass reflectorClass, String targetMethodName, Class[] targetMethodParameterTypes) {
+    public ReflectorMethod(ReflectorClass reflectorClass, String targetMethodName, Class<?>[] targetMethodParameterTypes) {
         this.checked = false;
         this.targetMethod = null;
         this.reflectorClass = reflectorClass;
@@ -26,7 +26,7 @@ public class ReflectorMethod {
             return this.targetMethod;
         } else {
             this.checked = true;
-            Class oclass = this.reflectorClass.getTargetClass();
+            Class<?> oclass = this.reflectorClass.getTargetClass();
 
             if (oclass == null) {
                 return null;
@@ -87,12 +87,12 @@ public class ReflectorMethod {
         return Reflector.call(this, param);
     }
 
-    public static Method getMethod(Class cls, String methodName, Class[] paramTypes) {
+    public static Method getMethod(Class<?> cls, String methodName, Class<?>[] paramTypes) {
         Method[] amethod = cls.getDeclaredMethods();
 
         for (Method method : amethod) {
             if (method.getName().equals(methodName)) {
-                Class[] aclass = method.getParameterTypes();
+                Class<?>[] aclass = method.getParameterTypes();
 
                 if (Reflector.matchesTypes(paramTypes, aclass)) {
                     return method;
@@ -103,8 +103,8 @@ public class ReflectorMethod {
         return null;
     }
 
-    public static Method[] getMethods(Class cls, String methodName) {
-        List list = new ArrayList<>();
+    public static Method[] getMethods(Class<?> cls, String methodName) {
+        List<Method> list = new ArrayList<>();
         Method[] amethod = cls.getDeclaredMethods();
 
         for (Method method : amethod) {
@@ -113,6 +113,6 @@ public class ReflectorMethod {
             }
         }
 
-        return (Method[]) list.toArray(new Method[0]);
+        return list.toArray(new Method[0]);
     }
 }

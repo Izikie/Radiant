@@ -187,7 +187,7 @@ public class ViewFrustum {
             avboregion = new VboRegion[aenumworldblocklayer.length];
 
             for (int k = 0; k < aenumworldblocklayer.length; ++k) {
-                avboregion[k] = new VboRegion(aenumworldblocklayer[k]);
+                avboregion[k] = new VboRegion();
             }
 
             this.mapVboRegions.put(chunkcoordintpair, avboregion);
