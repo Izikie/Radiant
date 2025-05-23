@@ -60,13 +60,11 @@ repositories {
 }
 
 dependencies {
-    implementation(group = "net.java.dev.jna", name = "jna", version = "5.17.0")
-    implementation(group = "net.java.dev.jna", name = "jna-platform", version = "5.17.0")
-
+    // no need to add jna and jutils as they are already included in lwjgl
     implementation(group = "net.java.jinput", name = "jinput", version = "2.0.7")
-    implementation(group = "net.java.jutils", name = "jutils", version = "1.0.0")
 
-    implementation(group = "net.sf.jopt-simple", name = "jopt-simple", version = "5.0.4")
+    implementation(group = "org.jcommander", name = "jcommander", version = "2.0")
+    // a little bit heavier jar file but offer higher performance, no vulnerability and up-to-date
 
     implementation(group = "com.ibm.icu", name = "icu4j", version = "77.1")
 
