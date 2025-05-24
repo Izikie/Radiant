@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.src.Config;
+import net.optifine.Log;
 
 import java.util.Map;
 import java.util.Set;
@@ -55,7 +56,7 @@ public class PlayerItemsLayer implements LayerRenderer {
         }
 
         if (!flag) {
-            Config.warn("PlayerItemsLayer not registered");
+            Log.error("PlayerItemsLayer not registered");
         }
     }
 }

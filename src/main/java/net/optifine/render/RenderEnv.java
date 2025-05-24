@@ -34,7 +34,6 @@ public class RenderEnv {
     private boolean[] borderFlags = null;
     private boolean[] borderFlags2 = null;
     private boolean[] borderFlags3 = null;
-    private Direction[] borderDirections = null;
     private final List<BakedQuad> listQuadsCustomizer = new ArrayList<>();
     private final List<BakedQuad> listQuadsCtmMultipass = new ArrayList<>();
     private final BakedQuad[] arrayQuadsCtm1 = new BakedQuad[1];
@@ -44,9 +43,6 @@ public class RenderEnv {
     private RegionRenderCacheBuilder regionRenderCacheBuilder = null;
     private final ListQuadsOverlay[] listsQuadsOverlay = new ListQuadsOverlay[RenderLayer.values().length];
     private boolean overlaysRendered = false;
-    private static final int UNKNOWN = -1;
-    private static final int FALSE = 0;
-    private static final int TRUE = 1;
 
     public RenderEnv(IBlockState blockState, BlockPos blockPos) {
         this.blockState = blockState;
@@ -101,7 +97,7 @@ public class RenderEnv {
         return this.aoFace;
     }
 
-    public boolean isBreakingAnimation(List listQuads) {
+    public boolean isBreakingAnimation(List<BakedQuad> listQuads) {
         if (this.breakingAnimation == -1 && !listQuads.isEmpty()) {
             if (listQuads.getFirst() instanceof BreakingFour) {
                 this.breakingAnimation = 1;
@@ -163,23 +159,6 @@ public class RenderEnv {
         }
 
         return this.borderFlags3;
-    }
-
-    public Direction[] getBorderDirections() {
-        if (this.borderDirections == null) {
-            this.borderDirections = new Direction[4];
-        }
-
-        return this.borderDirections;
-    }
-
-    public Direction[] getBorderDirections(Direction dir0, Direction dir1, Direction dir2, Direction dir3) {
-        Direction[] aenumfacing = this.getBorderDirections();
-        aenumfacing[0] = dir0;
-        aenumfacing[1] = dir1;
-        aenumfacing[2] = dir2;
-        aenumfacing[3] = dir3;
-        return aenumfacing;
     }
 
     public boolean isSmartLeaves() {

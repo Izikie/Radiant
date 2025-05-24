@@ -2,7 +2,6 @@ package net.optifine;
 
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.src.Config;
 import net.minecraft.util.Direction;
 import net.minecraft.util.MathHelper;
 
@@ -27,7 +26,7 @@ public class NaturalProperties {
                 this.rotation = 2;
                 this.flip = true;
             }
-            default -> Config.warn("NaturalTextures: Unknown type: " + type);
+            default -> Log.error("NaturalTextures: Unknown type: " + type);
         }
     }
 

@@ -4,7 +4,7 @@ import org.lwjgl.opengl.DisplayMode;
 
 import java.util.Comparator;
 
-public class DisplayModeComparator implements Comparator {
+public class DisplayModeComparator implements Comparator<Object> {
     public int compare(Object o1, Object o2) {
         DisplayMode displaymode = (DisplayMode) o1;
         DisplayMode displaymode1 = (DisplayMode) o2;

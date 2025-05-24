@@ -2,6 +2,7 @@ package net.optifine.shaders.config;
 
 import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.src.Config;
+import net.optifine.Log;
 import net.optifine.expr.*;
 import net.optifine.render.GlAlphaState;
 import net.optifine.render.GlBlendState;
@@ -68,9 +69,9 @@ public class ShaderPackParser {
 
                 if (shaderoption1 != null) {
                     if (!Config.equals(shaderoption1.getValueDefault(), shaderoption.getValueDefault())) {
-                        Config.warn("Ambiguous shader option: " + shaderoption.getName());
-                        Config.warn(" - in " + Config.arrayToString(shaderoption1.getPaths()) + ": " + shaderoption1.getValueDefault());
-                        Config.warn(" - in " + Config.arrayToString(shaderoption.getPaths()) + ": " + shaderoption.getValueDefault());
+                        Log.error("Ambiguous shader option: " + shaderoption.getName());
+                        Log.error(" - in " + Config.arrayToString(shaderoption1.getPaths()) + ": " + shaderoption1.getValueDefault());
+                        Log.error(" - in " + Config.arrayToString(shaderoption.getPaths()) + ": " + shaderoption.getValueDefault());
                         shaderoption1.setEnabled(false);
                     }
 
@@ -108,7 +109,7 @@ public class ShaderPackParser {
                 return Config.readLines(bytearrayinputstream);
             }
         } catch (IOException ioexception) {
-            Config.dbg(ioexception.getClass().getName() + ": " + ioexception.getMessage());
+            Log.info(ioexception.getClass().getName() + ": " + ioexception.getMessage());
             return new String[0];
         }
     }
@@ -220,7 +221,7 @@ public class ShaderPackParser {
                 IExpressionBool iexpressionbool = parseOptionExpression(s3, shaderOptions);
 
                 if (iexpressionbool == null) {
-                    SMCLog.severe("Error parsing program condition: " + s1);
+                    Log.error("Error parsing program condition: " + s1);
                 } else {
                     map.put(s2, iexpressionbool);
                 }
@@ -236,7 +237,7 @@ public class ShaderPackParser {
             ExpressionParser expressionparser = new ExpressionParser(shaderoptionresolver);
             return expressionparser.parseBool(val);
         } catch (ParseException parseexception) {
-            SMCLog.warning(parseexception.getClass().getName() + ": " + parseexception.getMessage());
+            Log.warn(parseexception.getClass().getName() + ": " + parseexception.getMessage());
             return null;
         }
     }
@@ -252,7 +253,7 @@ public class ShaderPackParser {
                 ShaderOption shaderoption = ShaderUtils.getShaderOption(s1, shaderOptions);
 
                 if (shaderoption == null) {
-                    Config.warn("Invalid shader option: " + s1);
+                    Log.error("Invalid shader option: " + s1);
                 } else {
                     set.add(s1);
                 }
@@ -267,7 +268,7 @@ public class ShaderPackParser {
         String s1 = s + name;
 
         if (parsedProfiles.contains(s1)) {
-            Config.warn("[Shaders] Profile already parsed: " + name);
+            Log.error("[Shaders] Profile already parsed: " + name);
             return null;
         } else {
             parsedProfiles.add(name);
@@ -302,7 +303,7 @@ public class ShaderPackParser {
                             String s6 = s7.substring(s5.length());
 
                             if (!Shaders.isProgramPath(s6)) {
-                                Config.warn("Invalid program: " + s6 + " in profile: " + shaderprofile.getName());
+                                Log.error("Invalid program: " + s6 + " in profile: " + shaderprofile.getName());
                             } else if (flag) {
                                 shaderprofile.removeDisabledProgram(s6);
                             } else {
@@ -312,23 +313,23 @@ public class ShaderPackParser {
                             ShaderOption shaderoption1 = ShaderUtils.getShaderOption(s7, shaderOptions);
 
                             if (!(shaderoption1 instanceof ShaderOptionSwitch)) {
-                                Config.warn("[Shaders] Invalid option: " + s7);
+                                Log.error("[Shaders] Invalid option: " + s7);
                             } else {
                                 shaderprofile.addOptionValue(s7, String.valueOf(flag));
                                 shaderoption1.setVisible(true);
                             }
                         }
                     } else if (astring1.length != 2) {
-                        Config.warn("[Shaders] Invalid option value: " + s3);
+                        Log.error("[Shaders] Invalid option value: " + s3);
                     } else {
                         String s8 = astring1[0];
                         String s9 = astring1[1];
                         ShaderOption shaderoption = ShaderUtils.getShaderOption(s8, shaderOptions);
 
                         if (shaderoption == null) {
-                            Config.warn("[Shaders] Invalid option: " + s3);
+                            Log.error("[Shaders] Invalid option: " + s3);
                         } else if (!shaderoption.isValidValue(s9)) {
-                            Config.warn("[Shaders] Invalid value: " + s3);
+                            Log.error("[Shaders] Invalid value: " + s3);
                         } else {
                             shaderoption.setVisible(true);
                             shaderprofile.addOptionValue(s8, s9);
@@ -361,13 +362,13 @@ public class ShaderPackParser {
                 if (s1.equals("<empty>")) {
                     list.add(null);
                 } else if (set.contains(s1)) {
-                    Config.warn("[Shaders] Duplicate option: " + s1 + ", key: " + key);
+                    Log.error("[Shaders] Duplicate option: " + s1 + ", key: " + key);
                 } else {
                     set.add(s1);
 
                     if (s1.equals("<profile>")) {
                         if (shaderProfiles == null) {
-                            Config.warn("[Shaders] Option profile can not be used, no profiles defined: " + s1 + ", key: " + key);
+                            Log.error("[Shaders] Option profile can not be used, no profiles defined: " + s1 + ", key: " + key);
                         } else {
                             ShaderOptionProfile shaderoptionprofile = new ShaderOptionProfile(shaderProfiles, shaderOptions);
                             list.add(shaderoptionprofile);
@@ -379,9 +380,9 @@ public class ShaderPackParser {
                         String s3 = StrUtils.removePrefixSuffix(s1, "[", "]");
 
                         if (!s3.matches("^[a-zA-Z0-9_]+$")) {
-                            Config.warn("[Shaders] Invalid screen: " + s1 + ", key: " + key);
+                            Log.error("[Shaders] Invalid screen: " + s1 + ", key: " + key);
                         } else if (!parseGuiScreen("screen." + s3, props, map, shaderProfiles, shaderOptions)) {
-                            Config.warn("[Shaders] Invalid screen: " + s1 + ", key: " + key);
+                            Log.error("[Shaders] Invalid screen: " + s1 + ", key: " + key);
                         } else {
                             ShaderOptionScreen shaderoptionscreen = new ShaderOptionScreen(s3);
                             list.add(shaderoptionscreen);
@@ -390,7 +391,7 @@ public class ShaderPackParser {
                         ShaderOption shaderoption = ShaderUtils.getShaderOption(s1, shaderOptions);
 
                         if (shaderoption == null) {
-                            Config.warn("[Shaders] Invalid option: " + s1 + ", key: " + key);
+                            Log.error("[Shaders] Invalid option: " + s1 + ", key: " + key);
                             list.add(null);
                         } else {
                             shaderoption.setVisible(true);
@@ -565,9 +566,9 @@ public class ShaderPackParser {
                 String s8 = props.getProperty(s4).trim();
 
                 if (map.containsKey(s7)) {
-                    SMCLog.warning("Expression already defined: " + s7);
+                    Log.warn("Expression already defined: " + s7);
                 } else if (s5.equals(s) || s5.equals(s1)) {
-                    SMCLog.info("Custom " + s5 + ": " + s7);
+                    Log.warn("Custom " + s5 + ": " + s7);
                     CustomUniform customuniform = parseCustomUniform(s5, s7, s6, s8, map);
 
                     if (customuniform != null) {
@@ -594,7 +595,7 @@ public class ShaderPackParser {
             UniformType uniformtype = UniformType.parse(type);
 
             if (uniformtype == null) {
-                SMCLog.warning("Unknown " + kind + " type: " + uniformtype);
+                Log.warn("Unknown " + kind + " type: " + uniformtype);
                 return null;
             } else {
                 ShaderExpressionResolver shaderexpressionresolver = new ShaderExpressionResolver(mapExpressions);
@@ -603,7 +604,7 @@ public class ShaderPackParser {
                 ExpressionType expressiontype = iexpression.getExpressionType();
 
                 if (!uniformtype.matchesExpressionType(expressiontype)) {
-                    SMCLog.warning("Expression type does not match " + kind + " type, expression: " + expressiontype + ", " + kind + ": " + uniformtype + " " + name);
+                    Log.warn("Expression type does not match " + kind + " type, expression: " + expressiontype + ", " + kind + ": " + uniformtype + " " + name);
                     return null;
                 } else {
                     iexpression = makeExpressionCached(iexpression);
@@ -611,7 +612,7 @@ public class ShaderPackParser {
                 }
             }
         } catch (ParseException parseexception) {
-            SMCLog.warning(parseexception.getClass().getName() + ": " + parseexception.getMessage());
+            Log.warn(parseexception.getClass().getName() + ": " + parseexception.getMessage());
             return null;
         }
     }
@@ -633,7 +634,7 @@ public class ShaderPackParser {
                     Program program = Shaders.getProgram(s2);
 
                     if (program == null) {
-                        SMCLog.severe("Invalid program name: " + s2);
+                        Log.error("Invalid program name: " + s2);
                     } else {
                         String s3 = props.getProperty(s).trim();
                         GlAlphaState glalphastate = parseAlphaState(s3);
@@ -667,7 +668,7 @@ public class ShaderPackParser {
             }
         }
 
-        SMCLog.severe("Invalid alpha test: " + str);
+        Log.error("Invalid alpha test: " + str);
         return null;
     }
 
@@ -684,7 +685,7 @@ public class ShaderPackParser {
                     Program program = Shaders.getProgram(s2);
 
                     if (program == null) {
-                        SMCLog.severe("Invalid program name: " + s2);
+                        Log.error("Invalid program name: " + s2);
                     } else {
                         String s3 = props.getProperty(s).trim();
                         GlBlendState glblendstate = parseBlendState(s3);
@@ -728,7 +729,7 @@ public class ShaderPackParser {
             }
         }
 
-        SMCLog.severe("Invalid blend mode: " + str);
+        Log.error("Invalid blend mode: " + str);
         return null;
     }
 
@@ -745,7 +746,7 @@ public class ShaderPackParser {
                     Program program = Shaders.getProgram(s2);
 
                     if (program == null) {
-                        SMCLog.severe("Invalid program name: " + s2);
+                        Log.error("Invalid program name: " + s2);
                     } else {
                         String s3 = props.getProperty(s).trim();
                         RenderScale renderscale = parseRenderScale(s3);
@@ -767,7 +768,7 @@ public class ShaderPackParser {
 
         if (astring.length > 1) {
             if (astring.length != 3) {
-                SMCLog.severe("Invalid render scale: " + str);
+                Log.error("Invalid render scale: " + str);
                 return null;
             }
 
@@ -778,7 +779,7 @@ public class ShaderPackParser {
         if (Config.between(f, 0.0F, 1.0F) && Config.between(f1, 0.0F, 1.0F) && Config.between(f2, 0.0F, 1.0F)) {
             return new RenderScale(f, f1, f2);
         } else {
-            SMCLog.severe("Invalid render scale: " + str);
+            Log.error("Invalid render scale: " + str);
             return null;
         }
     }
@@ -797,7 +798,7 @@ public class ShaderPackParser {
                     Program program = Shaders.getProgram(s2);
 
                     if (program == null) {
-                        SMCLog.severe("Invalid program name: " + s2);
+                        Log.error("Invalid program name: " + s2);
                     } else {
                         Boolean[] aboolean = program.getBuffersFlip();
                         int i = Shaders.getBufferIndexFromString(s3);
@@ -807,12 +808,12 @@ public class ShaderPackParser {
                             Boolean obool = Config.parseBoolean(s4, null);
 
                             if (obool == null) {
-                                SMCLog.severe("Invalid boolean value: " + s4);
+                                Log.error("Invalid boolean value: " + s4);
                             } else {
                                 aboolean[i] = obool;
                             }
                         } else {
-                            SMCLog.severe("Invalid buffer name: " + s3);
+                            Log.error("Invalid buffer name: " + s3);
                         }
                     }
                 }

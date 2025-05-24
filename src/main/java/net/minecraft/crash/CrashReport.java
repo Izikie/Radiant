@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.Config;
 import net.minecraft.world.gen.layer.IntCache;
+import net.optifine.Log;
 import net.optifine.shaders.Shaders;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
@@ -129,7 +130,7 @@ public class CrashReport {
 
     public void onOptifineData() {
         try {
-            this.theReportCategory.addCrashSection("OptiFine Version/Build", Config.getVersion());
+            this.theReportCategory.addCrashSection("OptiFine Version/Build", Config.VERSION);
 
             if (Config.getGameSettings() != null) {
                 this.theReportCategory.addCrashSection("Render Distance Chunks", Config.getChunkViewDistance());
@@ -145,7 +146,7 @@ public class CrashReport {
             this.theReportCategory.addCrashSection("OpenGlVendor", Config.openGlVendor);
             this.theReportCategory.addCrashSection("CpuCount", Config.getAvailableProcessors());
         } catch (Exception exception) {
-            Config.dbg(exception.getClass().getName() + ": " + exception.getMessage());
+            Log.info(exception.getClass().getName() + ": " + exception.getMessage());
         }
     }
 

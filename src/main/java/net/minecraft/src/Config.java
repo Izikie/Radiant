@@ -17,6 +17,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.Util;
 import net.optifine.DynamicLights;
 import net.optifine.GlErrors;
+import net.optifine.Log;
 import net.optifine.config.GlVersion;
 import net.optifine.gui.GuiMessage;
 import net.optifine.shaders.Shaders;
@@ -47,11 +48,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Config {
-    public static final String OF_NAME = "OptiFine";
-    public static final String MC_VERSION = "1.8.9";
-    public static final String OF_EDITION = "HD_U";
-    public static final String OF_RELEASE = "M6_pre2";
-    public static final String VERSION = "OptiFine_1.8.9_HD_U_M6_pre2";
+    public static final String VERSION = "OptiFine 1.8.9 HD U M6-pre2";
     private static boolean notify64BitJava = false;
     public static String openGlVersion = null;
     public static String openGlRenderer = null;
@@ -77,15 +74,9 @@ public class Config {
     private static boolean fullscreenModeChecked = false;
     private static boolean desktopModeChecked = false;
     public static final Float DEF_ALPHA_FUNC_LEVEL = 0.1F;
-    private static final Logger LOGGER = LogManager.getLogger();
-    public static final boolean LOG_DETAIL = System.getProperty("log.detail", "false").equals("true");
     private static String mcDebugLast = null;
     private static int fpsMinLast = 0;
     public static float renderPartialTicks;
-
-    public static String getVersion() {
-        return "OptiFine 1.8.9 HD U M6 Pre-2";
-    }
 
     public static String getVersionDebug() {
         StringBuilder stringBuilder = new StringBuilder(32);
@@ -133,36 +124,35 @@ public class Config {
     }
 
     private static void checkOpenGlCaps() {
-        log(getVersion());
-        log("Build: " + getVersion());
-        log("OS: " + System.getProperty("os.name") + " (" + System.getProperty("os.arch") + ") version " + System.getProperty("os.version"));
-        log("Java: " + System.getProperty("java.version") + ", " + System.getProperty("java.vendor"));
-        log("VM: " + System.getProperty("java.vm.name") + " (" + System.getProperty("java.vm.info") + "), " + System.getProperty("java.vm.vendor"));
-        log("LWJGL: " + Sys.getVersion());
+        Log.info("Build: " + VERSION);
+        Log.info("OS: " + System.getProperty("os.name") + " (" + System.getProperty("os.arch") + ") version " + System.getProperty("os.version"));
+        Log.info("Java: " + System.getProperty("java.version") + ", " + System.getProperty("java.vendor"));
+        Log.info("VM: " + System.getProperty("java.vm.name") + " (" + System.getProperty("java.vm.info") + "), " + System.getProperty("java.vm.vendor"));
+        Log.info("LWJGL: " + Sys.getVersion());
         openGlVersion = GL11.glGetString(GL11.GL_VERSION);
         openGlRenderer = GL11.glGetString(GL11.GL_RENDERER);
         openGlVendor = GL11.glGetString(GL11.GL_VENDOR);
-        log("OpenGL: " + openGlRenderer + ", version " + openGlVersion + ", " + openGlVendor);
-        log("OpenGL Version: " + getOpenGlVersionString());
+        Log.info("OpenGL: " + openGlRenderer + ", version " + openGlVersion + ", " + openGlVendor);
+        Log.info("OpenGL Version: " + getOpenGlVersionString());
 
         if (!GLContext.getCapabilities().OpenGL12) {
-            log("OpenGL Mipmap levels: Not available (GL12.GL_TEXTURE_MAX_LEVEL)");
+            Log.info("OpenGL Mipmap levels: Not available (GL12.GL_TEXTURE_MAX_LEVEL)");
         }
 
         fancyFogAvailable = GLContext.getCapabilities().GL_NV_fog_distance;
 
         if (!fancyFogAvailable) {
-            log("OpenGL Fancy fog: Not available (GL_NV_fog_distance)");
+            Log.info("OpenGL Fancy fog: Not available (GL_NV_fog_distance)");
         }
 
         occlusionAvailable = GLContext.getCapabilities().GL_ARB_occlusion_query;
 
         if (!occlusionAvailable) {
-            log("OpenGL Occlussion culling: Not available (GL_ARB_occlusion_query)");
+            Log.info("OpenGL Occlussion culling: Not available (GL_ARB_occlusion_query)");
         }
 
         int i = TextureUtils.getGLMaximumTextureSize();
-        dbg("Maximum texture size: " + i + "x" + i);
+        Log.info("Maximum texture size: " + i + "x" + i);
     }
 
     public static boolean isFancyFogAvailable() {
@@ -333,7 +323,7 @@ public class Config {
                 }
             }
         } catch (Throwable throwable) {
-            warn(throwable.getClass().getName() + ": " + throwable.getMessage());
+            Log.warn(throwable.getClass().getName() + ": " + throwable.getMessage());
         }
     }
 
@@ -400,28 +390,6 @@ public class Config {
         return gameSettings.ofFogStart;
     }
 
-    public static void detail(String p_detail_0_) {
-        if (LOG_DETAIL) {
-            LOGGER.info("[OptiFine] {}", p_detail_0_);
-        }
-    }
-
-    public static void dbg(String p_dbg_0_) {
-        LOGGER.info("[OptiFine] {}", p_dbg_0_);
-    }
-
-    public static void warn(String p_warn_0_) {
-        LOGGER.warn("[OptiFine] {}", p_warn_0_);
-    }
-
-    public static void error(String p_error_0_) {
-        LOGGER.error("[OptiFine] {}", p_error_0_);
-    }
-
-    public static void log(String p_log_0_) {
-        dbg(p_log_0_);
-    }
-
     public static int getUpdatesPerFrame() {
         return gameSettings.ofChunkUpdates;
     }
@@ -467,7 +435,7 @@ public class Config {
                     return;
                 }
 
-                dbg("Texture pack clouds: " + s);
+                Log.info("Texture pack clouds: " + s);
                 s = s.toLowerCase();
 
                 if (s.equals("fast")) {
@@ -1112,7 +1080,7 @@ public class Config {
         if (i != 0 && GlErrors.isEnabled(i)) {
             String s = getGlErrorString(i);
             String s1 = String.format("OpenGL error: %s (%s), at: %s", i, s, p_checkGlError_0_);
-            error(s1);
+            Log.error(s1);
 
             if (isShowGlErrors() && TimedEvent.isActive("ShowGlError", 10000L)) {
                 String s2 = I18n.format("of.message.openglError", i, s);
@@ -1387,7 +1355,7 @@ public class Config {
 
         if (i > 0) {
             DisplayMode displaymode = Display.getDisplayMode();
-            dbg("FSAA Samples: " + i);
+            Log.info("FSAA Samples: " + i);
 
             try {
                 Display.destroy();
@@ -1399,7 +1367,7 @@ public class Config {
                     Display.setResizable(true);
                 }
             } catch (LWJGLException lwjglexception2) {
-                warn("Error setting FSAA: " + i + "x");
+                Log.warn("Error setting FSAA: " + i + "x");
                 lwjglexception2.printStackTrace();
 
                 try {
@@ -1439,7 +1407,7 @@ public class Config {
                         Display.setIcon(new ByteBuffer[]{readIconImage(inputstream), readIconImage(inputstream1)});
                     }
                 } catch (IOException ioexception) {
-                    warn("Error setting window icon: " + ioexception.getClass().getName() + ": " + ioexception.getMessage());
+                    Log.warn("Error setting window icon: " + ioexception.getClass().getName() + ": " + ioexception.getMessage());
                 } finally {
                     IOUtils.closeQuietly(inputstream);
                     IOUtils.closeQuietly(inputstream1);
@@ -1729,7 +1697,7 @@ public class Config {
                 }
             }
         } catch (Exception exception) {
-            warn(exception.getClass().getName() + ": " + exception.getMessage());
+            Log.warn(exception.getClass().getName() + ": " + exception.getMessage());
             return p_getMojangLogoTexture_0_;
         }
     }
@@ -1786,8 +1754,8 @@ public class Config {
             Desktop.getDesktop().browse(p_openWebLink_0_);
             return true;
         } catch (Exception exception) {
-            warn("Error opening link: " + p_openWebLink_0_);
-            warn(exception.getClass().getName() + ": " + exception.getMessage());
+            Log.warn("Error opening link: " + p_openWebLink_0_);
+            Log.warn(exception.getClass().getName() + ": " + exception.getMessage());
             return false;
         }
     }

@@ -7,6 +7,7 @@ import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
+import net.optifine.Log;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -146,7 +147,7 @@ public class ShadersTex {
             GlStateManager.deleteTexture(multitexid.spec);
 
             if (multitexid.base != texid) {
-                SMCLog.warning("Error : MultiTexID.base mismatch: " + multitexid.base + ", texid: " + texid);
+                Log.warn("Error : MultiTexID.base mismatch: " + multitexid.base + ", texid: " + texid);
                 GlStateManager.deleteTexture(multitexid.base);
             }
         }
@@ -273,7 +274,7 @@ public class ShadersTex {
     }
 
     public static void allocateTextureMap(int texID, int mipmapLevels, int width, int height, Stitcher stitcher, TextureMap tex) {
-        SMCLog.info("allocateTextureMap " + mipmapLevels + " " + width + " " + height + " ");
+        Log.info("allocateTextureMap " + mipmapLevels + " " + width + " " + height + " ");
         tex.atlasWidth = width;
         tex.atlasHeight = height;
         MultiTexID multitexid = getMultiTexID(tex);

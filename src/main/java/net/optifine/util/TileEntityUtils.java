@@ -40,16 +40,16 @@ public class TileEntityUtils {
 
     public static String getTileEntityRawName(TileEntity te) {
         switch (te) {
-            case TileEntityBeacon tileEntityBeacon -> {
+            case TileEntityBeacon ignored -> {
                 return (String) Reflector.getFieldValue(te, Reflector.TileEntityBeacon_customName);
             }
-            case TileEntityBrewingStand tileEntityBrewingStand -> {
+            case TileEntityBrewingStand ignored -> {
                 return (String) Reflector.getFieldValue(te, Reflector.TileEntityBrewingStand_customName);
             }
-            case TileEntityEnchantmentTable tileEntityEnchantmentTable -> {
+            case TileEntityEnchantmentTable ignored -> {
                 return (String) Reflector.getFieldValue(te, Reflector.TileEntityEnchantmentTable_customName);
             }
-            case TileEntityFurnace tileEntityFurnace -> {
+            case TileEntityFurnace ignored -> {
                 return (String) Reflector.getFieldValue(te, Reflector.TileEntityFurnace_customName);
             }
             case null, default -> {
@@ -65,34 +65,16 @@ public class TileEntityUtils {
         }
     }
 
-    public static boolean setTileEntityRawName(TileEntity te, String name) {
+    public static void setTileEntityRawName(TileEntity te, String name) {
         switch (te) {
-            case TileEntityBeacon tileEntityBeacon -> {
-                return Reflector.setFieldValue(te, Reflector.TileEntityBeacon_customName, name);
-            }
-            case TileEntityBrewingStand tileEntityBrewingStand -> {
-                return Reflector.setFieldValue(te, Reflector.TileEntityBrewingStand_customName, name);
-            }
-            case TileEntityEnchantmentTable tileEntityEnchantmentTable -> {
-                return Reflector.setFieldValue(te, Reflector.TileEntityEnchantmentTable_customName, name);
-            }
-            case TileEntityFurnace tileEntityFurnace -> {
-                return Reflector.setFieldValue(te, Reflector.TileEntityFurnace_customName, name);
-            }
-            case TileEntityChest tileEntityChest -> {
-                tileEntityChest.setCustomName(name);
-                return true;
-            }
-            case TileEntityDispenser tileEntityDispenser -> {
-                tileEntityDispenser.setCustomName(name);
-                return true;
-            }
-            case TileEntityHopper tileEntityHopper -> {
-                tileEntityHopper.setCustomName(name);
-                return true;
-            }
+            case TileEntityBeacon ignored -> Reflector.setFieldValue(te, Reflector.TileEntityBeacon_customName, name);
+            case TileEntityBrewingStand ignored -> Reflector.setFieldValue(te, Reflector.TileEntityBrewingStand_customName, name);
+            case TileEntityEnchantmentTable ignored -> Reflector.setFieldValue(te, Reflector.TileEntityEnchantmentTable_customName, name);
+            case TileEntityFurnace ignored -> Reflector.setFieldValue(te, Reflector.TileEntityFurnace_customName, name);
+            case TileEntityChest tileEntityChest -> tileEntityChest.setCustomName(name);
+            case TileEntityDispenser tileEntityDispenser -> tileEntityDispenser.setCustomName(name);
+            case TileEntityHopper tileEntityHopper -> tileEntityHopper.setCustomName(name);
             case null, default -> {
-                return false;
             }
         }
     }

@@ -4,36 +4,35 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Log {
-    private static final Logger LOGGER = LogManager.getLogger();
-    public static final boolean LOG_DETAIL = System.getProperty("log.detail", "false").equals("true");
+    private static final Logger LOGGER = LogManager.getLogger("Optifine");
 
-    public static void detail(String s) {
-        if (LOG_DETAIL) {
-            LOGGER.info("[OptiFine] {}", s);
-        }
+    public static void info(String s) {
+        LOGGER.info("{}", s);
     }
 
-    public static void dbg(String s) {
-        LOGGER.info("[OptiFine] {}", s);
+    public static void info(String format, Object... args) {
+        String s = String.format(format, args);
+        LOGGER.info(s);
     }
 
     public static void warn(String s) {
-        LOGGER.warn("[OptiFine] {}", s);
+        LOGGER.warn(s);
+    }
+
+    public static void warn(String format, Object... args) {
+        String s = String.format(format, args);
+        LOGGER.warn(s);
     }
 
     public static void warn(String s, Throwable t) {
-        LOGGER.warn("[OptiFine] {}", s, t);
+        LOGGER.warn(s, t);
     }
 
     public static void error(String s) {
-        LOGGER.error("[OptiFine] {}", s);
+        LOGGER.error(s);
     }
 
     public static void error(String s, Throwable t) {
-        LOGGER.error("[OptiFine] {}", s, t);
-    }
-
-    public static void log(String s) {
-        dbg(s);
+        LOGGER.error(s, t);
     }
 }

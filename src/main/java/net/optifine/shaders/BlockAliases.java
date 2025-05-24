@@ -1,6 +1,7 @@
 package net.optifine.shaders;
 
 import net.minecraft.src.Config;
+import net.optifine.Log;
 import net.optifine.config.ConnectedParser;
 import net.optifine.config.MatchBlock;
 import net.optifine.shaders.config.MacroProcessor;
@@ -71,7 +72,7 @@ public class BlockAliases {
                 Properties properties = new PropertiesOrdered();
                 properties.load(in);
                 in.close();
-                Config.dbg("[Shaders] Parsing block mappings: " + path);
+                Log.info("[Shaders] Parsing block mappings: " + path);
                 ConnectedParser connectedparser = new ConnectedParser("Shaders");
 
                 for (Object o : properties.keySet()) {
@@ -88,13 +89,13 @@ public class BlockAliases {
                         String s2 = "block.";
 
                         if (!s.startsWith(s2)) {
-                            Config.warn("[Shaders] Invalid block ID: " + s);
+                            Log.error("[Shaders] Invalid block ID: " + s);
                         } else {
                             String s3 = StrUtils.removePrefix(s, s2);
                             int i = Config.parseInt(s3, -1);
 
                             if (i < 0) {
-                                Config.warn("[Shaders] Invalid block ID: " + s);
+                                Log.error("[Shaders] Invalid block ID: " + s);
                             } else {
                                 MatchBlock[] amatchblock = connectedparser.parseMatchBlocks(s1);
 
@@ -102,14 +103,14 @@ public class BlockAliases {
                                     BlockAlias blockalias = new BlockAlias(i, amatchblock);
                                     addToList(listBlockAliases, blockalias);
                                 } else {
-                                    Config.warn("[Shaders] Invalid block ID mapping: " + s + "=" + s1);
+                                    Log.error("[Shaders] Invalid block ID mapping: " + s + "=" + s1);
                                 }
                             }
                         }
                     }
                 }
             } catch (IOException var14) {
-                Config.warn("[Shaders] Error reading: " + path);
+                Log.error("[Shaders] Error reading: " + path);
             }
         }
     }

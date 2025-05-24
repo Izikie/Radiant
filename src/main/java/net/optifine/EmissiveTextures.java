@@ -126,11 +126,11 @@ public class EmissiveTextures {
     }
 
     private static void dbg(String str) {
-        Config.dbg("EmissiveTextures: " + str);
+        Log.info("EmissiveTextures: " + str);
     }
 
     private static void warn(String str) {
-        Config.warn("EmissiveTextures: " + str);
+        Log.error("EmissiveTextures: " + str);
     }
 
     public static boolean isEmissive(ResourceLocation loc) {

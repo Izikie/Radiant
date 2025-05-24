@@ -1,7 +1,7 @@
 package net.optifine.entity.model.anim;
 
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.src.Config;
+import net.optifine.Log;
 
 public enum ModelVariableType {
     POS_X("tx"),
@@ -43,7 +43,7 @@ public enum ModelVariableType {
             case SCALE_Y -> mr.scaleY;
             case SCALE_Z -> mr.scaleZ;
             default -> {
-                Config.warn("GetFloat not supported for: " + this);
+                Log.error("GetFloat not supported for: " + this);
                 yield 0.0F;
             }
         };
@@ -100,7 +100,7 @@ public enum ModelVariableType {
                 return;
 
             default:
-                Config.warn("SetFloat not supported for: " + this);
+                Log.error("SetFloat not supported for: " + this);
         }
     }
 

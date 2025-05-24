@@ -175,14 +175,14 @@ public class CustomGuis {
         Arrays.sort(astring);
 
         for (String s : astring) {
-            Config.dbg("CustomGuis: " + s);
+            Log.info("CustomGuis: " + s);
 
             try {
                 ResourceLocation resourcelocation = new ResourceLocation(s);
                 InputStream inputstream = rp.getInputStream(resourcelocation);
 
                 if (inputstream == null) {
-                    Config.warn("CustomGuis file not found: " + s);
+                    Log.error("CustomGuis file not found: " + s);
                 } else {
                     Properties properties = new PropertiesOrdered();
                     properties.load(inputstream);
@@ -194,7 +194,7 @@ public class CustomGuis {
                     }
                 }
             } catch (FileNotFoundException var9) {
-                Config.warn("CustomGuis file not found: " + s);
+                Log.error("CustomGuis file not found: " + s);
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -235,6 +235,6 @@ public class CustomGuis {
     }
 
     private static void warn(String str) {
-        Config.warn("[CustomGuis] " + str);
+        Log.error("[CustomGuis] " + str);
     }
 }

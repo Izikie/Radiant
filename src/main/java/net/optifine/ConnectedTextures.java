@@ -1668,14 +1668,14 @@ public class ConnectedTextures {
         List list1 = makePropertyList(blockProperties);
 
         for (String s : astring) {
-            Config.dbg("ConnectedTextures: " + s);
+            Log.info("ConnectedTextures: " + s);
 
             try {
                 ResourceLocation resourcelocation = new ResourceLocation(s);
                 InputStream inputstream = rp.getInputStream(resourcelocation);
 
                 if (inputstream == null) {
-                    Config.warn("ConnectedTextures file not found: " + s);
+                    Log.error("ConnectedTextures file not found: " + s);
                 } else {
                     Properties properties = new PropertiesOrdered();
                     properties.load(inputstream);
@@ -1689,7 +1689,7 @@ public class ConnectedTextures {
                     }
                 }
             } catch (FileNotFoundException var11) {
-                Config.warn("ConnectedTextures file not found: " + s);
+                Log.error("ConnectedTextures file not found: " + s);
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -1698,7 +1698,7 @@ public class ConnectedTextures {
         blockProperties = propertyListToArray(list1);
         tileProperties = propertyListToArray(list);
         multipass = detectMultipass();
-        Config.dbg("Multipass connected textures: " + multipass);
+        Log.info("Multipass connected textures: " + multipass);
     }
 
     private static List makePropertyList(ConnectedProperties[][] propsArr) {
@@ -1773,12 +1773,12 @@ public class ConnectedTextures {
                 TextureAtlasSprite textureatlassprite = cp.matchTileIcons[i];
 
                 if (!(textureatlassprite instanceof TextureAtlasSprite)) {
-                    Config.warn("TextureAtlasSprite is not TextureAtlasSprite: " + textureatlassprite + ", name: " + textureatlassprite.getIconName());
+                    Log.error("TextureAtlasSprite is not TextureAtlasSprite: " + textureatlassprite + ", name: " + textureatlassprite.getIconName());
                 } else {
                     int j = textureatlassprite.getIndexInMap();
 
                     if (j < 0) {
-                        Config.warn("Invalid tile ID: " + j + ", icon: " + textureatlassprite.getIconName());
+                        Log.error("Invalid tile ID: " + j + ", icon: " + textureatlassprite.getIconName());
                     } else {
                         addToList(cp, tileList, j);
                     }
@@ -1793,7 +1793,7 @@ public class ConnectedTextures {
                 int j = cp.matchBlocks[i].getBlockId();
 
                 if (j < 0) {
-                    Config.warn("Invalid block ID: " + j);
+                    Log.error("Invalid block ID: " + j);
                 } else {
                     addToList(cp, blockList, j);
                 }

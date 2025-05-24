@@ -356,10 +356,10 @@ public class RandomEntities {
     }
 
     public static void dbg(String str) {
-        Config.dbg("RandomEntities: " + str);
+        Log.info("RandomEntities: " + str);
     }
 
     public static void warn(String str) {
-        Config.warn("RandomEntities: " + str);
+        Log.error("RandomEntities: " + str);
     }
 }

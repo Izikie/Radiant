@@ -5,6 +5,7 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
+import net.optifine.Log;
 import net.optifine.config.ConnectedParser;
 import net.optifine.entity.model.anim.ModelUpdater;
 import net.optifine.entity.model.anim.ModelVariableUpdater;
@@ -90,7 +91,7 @@ public class CustomEntityModelParser {
             JsonObject jsonobject = (JsonObject) mapModelJsons.get(s);
 
             if (jsonobject == null) {
-                Config.warn("BaseID not found: " + s);
+                Log.error("BaseID not found: " + s);
             } else {
                 copyJsonElements(jsonobject, elem);
             }
@@ -107,15 +108,15 @@ public class CustomEntityModelParser {
                 JsonObject jsonobject = loadJson(resourcelocation);
 
                 if (jsonobject == null) {
-                    Config.warn("Model not found: " + resourcelocation);
+                    Log.error("Model not found: " + resourcelocation);
                     return;
                 }
 
                 copyJsonElements(jsonobject, elem);
             } catch (IOException ioexception) {
-                Config.error(ioexception.getClass().getName() + ": " + ioexception.getMessage());
+                Log.error(ioexception.getClass().getName() + ": " + ioexception.getMessage());
             } catch (JsonParseException jsonparseexception) {
-                Config.error(jsonparseexception.getClass().getName() + ": " + jsonparseexception.getMessage());
+                Log.error(jsonparseexception.getClass().getName() + ": " + jsonparseexception.getMessage());
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -151,9 +152,9 @@ public class CustomEntityModelParser {
 
         if (s != null) {
             if (s.isEmpty()) {
-                Config.warn("Empty model ID: " + s);
+                Log.error("Empty model ID: " + s);
             } else if (mapModelJsons.containsKey(s)) {
-                Config.warn("Duplicate model ID: " + s);
+                Log.error("Duplicate model ID: " + s);
             } else {
                 mapModelJsons.put(s, elem);
             }

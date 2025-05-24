@@ -89,7 +89,7 @@ public class CustomItems {
                 return;
             }
 
-            Config.dbg("CustomItems: Loading " + fileName);
+            Log.info("CustomItems: Loading " + fileName);
             Properties properties = new PropertiesOrdered();
             properties.load(inputstream);
             inputstream.close();
@@ -115,7 +115,7 @@ public class CustomItems {
         List list1 = makePropertyList(enchantmentProperties);
 
         for (String s : astring) {
-            Config.dbg("CustomItems: " + s);
+            Log.info("CustomItems: " + s);
 
             try {
                 CustomItemProperties customitemproperties = null;
@@ -129,7 +129,7 @@ public class CustomItems {
                     InputStream inputstream = rp.getInputStream(resourcelocation);
 
                     if (inputstream == null) {
-                        Config.warn("CustomItems file not found: " + s);
+                        Log.error("CustomItems file not found: " + s);
                         continue;
                     }
 
@@ -144,7 +144,7 @@ public class CustomItems {
                     addToEnchantmentList(customitemproperties, list1);
                 }
             } catch (FileNotFoundException var11) {
-                Config.warn("CustomItems file not found: " + s);
+                Log.error("CustomItems file not found: " + s);
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -260,7 +260,7 @@ public class CustomItems {
             int[] aint = (int[]) getMapPotionIds().get(name);
 
             if (aint == null) {
-                Config.warn("Potion not found for image: " + path);
+                Log.error("Potion not found for image: " + path);
                 return null;
             } else {
                 StringBuilder stringbuffer = new StringBuilder();
@@ -409,7 +409,7 @@ public class CustomItems {
                 int j = cp.items[i];
 
                 if (j <= 0) {
-                    Config.warn("Invalid item ID: " + j);
+                    Log.error("Invalid item ID: " + j);
                 } else {
                     addToList(cp, itemList, j);
                 }

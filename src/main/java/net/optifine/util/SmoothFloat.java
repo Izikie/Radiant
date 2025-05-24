@@ -1,5 +1,7 @@
 package net.optifine.util;
 
+import net.minecraft.util.MathHelper;
+
 public class SmoothFloat {
     private float valueLast;
     private float timeFadeUpSec;
@@ -15,22 +17,6 @@ public class SmoothFloat {
         this.timeFadeUpSec = timeFadeUpSec;
         this.timeFadeDownSec = timeFadeDownSec;
         this.timeLastMs = System.currentTimeMillis();
-    }
-
-    public float getValueLast() {
-        return this.valueLast;
-    }
-
-    public float getTimeFadeUpSec() {
-        return this.timeFadeUpSec;
-    }
-
-    public float getTimeFadeDownSec() {
-        return this.timeFadeDownSec;
-    }
-
-    public long getTimeLastMs() {
-        return this.timeLastMs;
     }
 
     public float getSmoothValue(float value, float timeFadeUpSec, float timeFadeDownSec) {
@@ -65,7 +51,7 @@ public class SmoothFloat {
                 float f5 = 10.0F;
                 float f6 = f3 - 1.0F / (f4 + f2 / f5);
                 float f7 = timeDeltaSec / timeFadeSec * f6;
-                f7 = NumUtils.limit(f7, 0.0F, 1.0F);
+                f7 = MathHelper.clamp_float(f7, 0.0F, 1.0F);
                 f1 = valPrev + f * f7;
             } else {
                 f1 = value;

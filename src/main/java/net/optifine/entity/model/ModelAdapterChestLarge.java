@@ -7,8 +7,8 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityChestRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntityChest;
+import net.optifine.Log;
 import net.optifine.reflect.Reflector;
 
 public class ModelAdapterChestLarge extends ModelAdapter {
@@ -48,7 +48,7 @@ public class ModelAdapterChestLarge extends ModelAdapter {
                 Reflector.setFieldValue(tileentityspecialrenderer, Reflector.TileEntityChestRenderer_largeChest, modelBase);
                 return tileentityspecialrenderer;
             } else {
-                Config.warn("Field not found: TileEntityChestRenderer.largeChest");
+                Log.error("Field not found: TileEntityChestRenderer.largeChest");
                 return null;
             }
         }

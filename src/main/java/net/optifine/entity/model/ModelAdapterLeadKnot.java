@@ -7,7 +7,7 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.RenderLeashKnot;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLeashKnot;
-import net.minecraft.src.Config;
+import net.optifine.Log;
 import net.optifine.reflect.Reflector;
 
 public class ModelAdapterLeadKnot extends ModelAdapter {
@@ -40,7 +40,7 @@ public class ModelAdapterLeadKnot extends ModelAdapter {
             renderleashknot.shadowSize = shadowSize;
             return renderleashknot;
         } else {
-            Config.warn("Field not found: RenderLeashKnot.leashKnotModel");
+            Log.error("Field not found: RenderLeashKnot.leashKnotModel");
             return null;
         }
     }
