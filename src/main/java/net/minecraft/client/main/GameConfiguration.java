@@ -11,48 +11,10 @@ public class GameConfiguration {
     public final DisplayInformation displayInfo;
     public final FolderInformation folderInfo;
 
-    public GameConfiguration(UserInformation userInfoIn, DisplayInformation displayInfoIn, FolderInformation folderInfoIn) {
-        this.userInfo = userInfoIn;
-        this.displayInfo = displayInfoIn;
-        this.folderInfo = folderInfoIn;
-    }
-
-    public static class DisplayInformation {
-        public final int width;
-        public final int height;
-        public final boolean fullscreen;
-        public final boolean checkGlErrors;
-
-        public DisplayInformation(int widthIn, int heightIn, boolean fullscreenIn, boolean checkGlErrorsIn) {
-            this.width = widthIn;
-            this.height = heightIn;
-            this.fullscreen = fullscreenIn;
-            this.checkGlErrors = checkGlErrorsIn;
-        }
-    }
-
-    public static class FolderInformation {
-        public final File mcDataDir;
-        public final File resourcePacksDir;
-        public final File assetsDir;
-        public final String assetIndex;
-
-        public FolderInformation(File mcDataDirIn, File resourcePacksDirIn, File assetsDirIn, String assetIndexIn) {
-            this.mcDataDir = mcDataDirIn;
-            this.resourcePacksDir = resourcePacksDirIn;
-            this.assetsDir = assetsDirIn;
-            this.assetIndex = assetIndexIn;
-        }
-    }
-
-    public static class ServerInformation {
-        public final String serverName;
-        public final int serverPort;
-
-        public ServerInformation(String serverNameIn, int serverPortIn) {
-            this.serverName = serverNameIn;
-            this.serverPort = serverPortIn;
-        }
+    public GameConfiguration(UserInformation userInformation, DisplayInformation displayInformation, FolderInformation folderInformation, ServerInformation serverInformation) {
+        this.userInfo = userInformation;
+        this.displayInfo = displayInformation;
+        this.folderInfo = folderInformation;
     }
 
     public static class UserInformation {
@@ -67,5 +29,44 @@ public class GameConfiguration {
             this.profileProperties = profilePropertiesIn;
             this.proxy = proxyIn;
         }
+    }
+
+    public static class DisplayInformation {
+        public final int width;
+        public final int height;
+        public final boolean fullscreen;
+        public final boolean checkGlErrors;
+
+        public DisplayInformation(int widthIn, int heightIn, boolean fullscreenIn, boolean checkGlErrorsIn) {
+            this.width = widthIn;
+            this.height = heightIn;
+            this.fullscreen = fullscreenIn;
+            this.checkGlErrors = checkGlErrorsIn;
+        }
+
+    }
+    public static class FolderInformation {
+        public final File mcDataDir;
+        public final File resourcePacksDir;
+        public final File assetsDir;
+        public final String assetIndex;
+
+        public FolderInformation(File mcDataDirIn, File resourcePacksDirIn, File assetsDirIn, String assetIndexIn) {
+            this.mcDataDir = mcDataDirIn;
+            this.resourcePacksDir = resourcePacksDirIn;
+            this.assetsDir = assetsDirIn;
+            this.assetIndex = assetIndexIn;
+        }
+
+    }
+    public static class ServerInformation {
+        public final String serverName;
+        public final int serverPort;
+
+        public ServerInformation(String serverNameIn, int serverPortIn) {
+            this.serverName = serverNameIn;
+            this.serverPort = serverPortIn;
+        }
+
     }
 }

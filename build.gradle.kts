@@ -60,11 +60,7 @@ repositories {
 }
 
 dependencies {
-    // no need to add jna and jutils as they are already included in lwjgl
-    implementation(group = "net.java.jinput", name = "jinput", version = "2.0.10")
-
-    implementation(group = "org.jcommander", name = "jcommander", version = "2.0")
-    // a little bit heavier jar file but offer higher performance, no vulnerability and up-to-date
+    implementation(group = "net.java.jinput", name = "jinput", version = "2.0.10") // Apparently unneeded with lwjgl3
 
     implementation(group = "com.ibm.icu", name = "icu4j", version = "77.1")
 
@@ -84,13 +80,15 @@ dependencies {
     implementation(group = "commons-io", name = "commons-io", version = "2.19.0")
     implementation(group = "commons-codec", name = "commons-codec", version = "1.18.0")
 
+    implementation(group = "org.jcommander", name = "jcommander", version = "2.0")
+
     implementation(group = "org.apache.commons", name = "commons-lang3", version = "3.17.0")
     implementation(group = "org.apache.commons", name = "commons-compress", version = "1.27.1")
-    implementation(group = "org.apache.commons", name = "commons-text", version = "1.13.0")
+    implementation(group = "org.apache.commons", name = "commons-text", version = "1.13.1")
 
     implementation(group = "org.apache.logging.log4j", name = "log4j-api", version = "2.24.3")
     implementation(group = "org.apache.logging.log4j", name = "log4j-core", version = "2.24.3")
-    // might be switched to logback??? lighter than log4j
+    // Switch to alternative logback, tinylog,
 
     implementation(group = "org.lwjgl.lwjgl", name = "lwjgl", version = "2.9.3") // Update To 3.0 Properly
     implementation(group = "org.lwjgl.lwjgl", name = "lwjgl_util", version = "2.9.3") // Update To 3.0 Properly
@@ -108,7 +106,7 @@ dependencies {
     implementation(group = "fr.litarvan", name = "openauth", version = "1.1.6")
 
     //implementation(group = "com.alibaba.fastjson2", name = "fastjson2", version = "2.0.57")
-    // i think we don't need to adapt a new json library, because i think gson is fast enough
+    // Look into, how adapter stuff works, and if the code rework is worth the speedup
     implementation(group = "it.unimi.dsi", name = "fastutil", version = "8.5.15")
     implementation(group = "org.joml", name = "joml", version = "1.10.8")
 }
