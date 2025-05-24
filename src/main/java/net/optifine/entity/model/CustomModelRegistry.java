@@ -2,7 +2,7 @@ package net.optifine.entity.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.src.Config;
+import net.optifine.Log;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -81,14 +81,14 @@ public class CustomModelRegistry {
             ModelRenderer modelrenderer = modelAdapter.getModelRenderer(modelbase, s1);
 
             if (modelrenderer == null) {
-                Config.warn("Model renderer not found, model: " + modelAdapter.getName() + ", name: " + s1);
+                Log.error("Model renderer not found, model: " + modelAdapter.getName() + ", name: " + s1);
             }
         }
     }
 
     private static void addModelAdapter(Map<String, ModelAdapter> map, ModelAdapter modelAdapter, String name) {
         if (map.containsKey(name)) {
-            Config.warn("Model adapter already registered for id: " + name + ", class: " + modelAdapter.getEntityClass().getName());
+            Log.error("Model adapter already registered for id: " + name + ", class: " + modelAdapter.getEntityClass().getName());
         }
 
         map.put(name, modelAdapter);

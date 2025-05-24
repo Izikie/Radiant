@@ -2,6 +2,7 @@ package net.optifine.http;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.Config;
+import net.optifine.Log;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -124,7 +125,7 @@ public class HttpUtils {
                     playerItemsUrl = file2.toURI().toURL().toExternalForm();
                 }
             } catch (Exception exception) {
-                Config.warn(exception.getClass().getName() + ": " + exception.getMessage());
+                Log.error(exception.getClass().getName() + ": " + exception.getMessage());
             }
 
             if (playerItemsUrl == null) {

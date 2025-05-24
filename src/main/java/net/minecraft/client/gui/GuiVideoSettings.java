@@ -146,7 +146,7 @@ public class GuiVideoSettings extends GuiScreenOF {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRendererObj, this.screenTitle, this.width / 2, 15, 16777215);
-        this.drawString(this.fontRendererObj, Config.getVersion(), 2, this.height - 10, 8421504);
+        this.drawString(this.fontRendererObj, Config.VERSION, 2, this.height - 10, 8421504);
 
         String s2 = "Minecraft 1.8.9";
         int i = this.fontRendererObj.getStringWidth(s2);

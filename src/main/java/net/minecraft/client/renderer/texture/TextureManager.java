@@ -10,6 +10,7 @@ import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.CustomGuis;
 import net.optifine.EmissiveTextures;
+import net.optifine.Log;
 import net.optifine.RandomEntities;
 import net.optifine.shaders.ShadersTex;
 import org.apache.logging.log4j.LogManager;
@@ -133,8 +134,8 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
     }
 
     public void onResourceManagerReload(IResourceManager resourceManager) {
-        Config.dbg("*** Reloading textures ***");
-        Config.log("Resource packs: " + Config.getResourcePackNames());
+        Log.info("*** Reloading textures ***");
+        Log.info("Resource packs: " + Config.getResourcePackNames());
         Iterator iterator = this.mapTextureObjects.keySet().iterator();
 
         while (iterator.hasNext()) {

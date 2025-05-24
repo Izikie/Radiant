@@ -1,6 +1,6 @@
 package net.optifine.entity.model.anim;
 
-import net.minecraft.src.Config;
+import net.optifine.Log;
 import net.optifine.expr.ExpressionParser;
 import net.optifine.expr.IExpressionFloat;
 import net.optifine.expr.ParseException;
@@ -15,7 +15,7 @@ public class ModelVariableUpdater {
         this.modelVariable = mr.getModelVariable(this.modelVariableName);
 
         if (this.modelVariable == null) {
-            Config.warn("Model variable not found: " + this.modelVariableName);
+            Log.error("Model variable not found: " + this.modelVariableName);
             return false;
         } else {
             try {
@@ -23,8 +23,8 @@ public class ModelVariableUpdater {
                 this.expression = expressionparser.parseFloat(this.expressionText);
                 return true;
             } catch (ParseException parseexception) {
-                Config.warn("Error parsing expression: " + this.expressionText);
-                Config.warn(parseexception.getClass().getName() + ": " + parseexception.getMessage());
+                Log.error("Error parsing expression: " + this.expressionText);
+                Log.error(parseexception.getClass().getName() + ": " + parseexception.getMessage());
                 return false;
             }
         }

@@ -30,7 +30,7 @@ public class ReflectorConstructor {
                     this.targetConstructor = findConstructor(oclass, this.parameterTypes);
 
                     if (this.targetConstructor == null) {
-                        Log.dbg("(Reflector) Constructor not present: " + oclass.getName() + ", params: " + ArrayUtils.arrayToString(this.parameterTypes));
+                        Log.info("(Reflector) Constructor not present: " + oclass.getName() + ", params: " + ArrayUtils.arrayToString(this.parameterTypes));
                     }
 
                     if (this.targetConstructor != null) {

@@ -87,7 +87,7 @@ public class CustomSkyLayer {
 
         for (String s : astring) {
             if (!list.contains(s)) {
-                Config.warn("Unknown weather: " + s);
+                Log.error("Unknown weather: " + s);
             } else {
                 list1.add(s);
             }
@@ -103,7 +103,7 @@ public class CustomSkyLayer {
             String[] astring = Config.tokenize(str, ":");
 
             if (astring.length != 2) {
-                Config.warn("Invalid time: " + str);
+                Log.error("Invalid time: " + str);
                 return -1;
             } else {
                 String s = astring[0];
@@ -120,7 +120,7 @@ public class CustomSkyLayer {
 
                     return i * 1000 + (int) (j / 60.0D * 1000.0D);
                 } else {
-                    Config.warn("Invalid time: " + str);
+                    Log.error("Invalid time: " + str);
                     return -1;
                 }
             }
@@ -135,7 +135,7 @@ public class CustomSkyLayer {
         } else if (str.equalsIgnoreCase("false")) {
             return false;
         } else {
-            Config.warn("Unknown boolean: " + str);
+            Log.error("Unknown boolean: " + str);
             return true;
         }
     }
@@ -147,7 +147,7 @@ public class CustomSkyLayer {
             float f = Config.parseFloat(str, Float.MIN_VALUE);
 
             if (f == Float.MIN_VALUE) {
-                Config.warn("Invalid value: " + str);
+                Log.error("Invalid value: " + str);
                 return (float) 1.0;
             } else {
                 return f;
@@ -162,7 +162,7 @@ public class CustomSkyLayer {
             String[] astring = Config.tokenize(str, " ");
 
             if (astring.length != 3) {
-                Config.warn("Invalid axis: " + str);
+                Log.error("Invalid axis: " + str);
                 return CustomSkyLayer.DEFAULT_AXIS;
             } else {
                 float[] afloat = new float[3];
@@ -171,12 +171,12 @@ public class CustomSkyLayer {
                     afloat[i] = Config.parseFloat(astring[i], Float.MIN_VALUE);
 
                     if (afloat[i] == Float.MIN_VALUE) {
-                        Config.warn("Invalid axis: " + str);
+                        Log.error("Invalid axis: " + str);
                         return CustomSkyLayer.DEFAULT_AXIS;
                     }
 
                     if (afloat[i] < -1.0F || afloat[i] > 1.0F) {
-                        Config.warn("Invalid axis values: " + str);
+                        Log.error("Invalid axis values: " + str);
                         return CustomSkyLayer.DEFAULT_AXIS;
                     }
                 }
@@ -186,7 +186,7 @@ public class CustomSkyLayer {
                 float f1 = afloat[2];
 
                 if (f2 * f2 + f * f + f1 * f1 < 1.0E-5F) {
-                    Config.warn("Invalid axis values: " + str);
+                    Log.error("Invalid axis values: " + str);
                     return CustomSkyLayer.DEFAULT_AXIS;
                 } else {
                     return new float[]{f1, f, -f2};
@@ -197,7 +197,7 @@ public class CustomSkyLayer {
 
     public boolean isValid(String path) {
         if (this.source == null) {
-            Config.warn("No source texture: " + path);
+            Log.error("No source texture: " + path);
             return false;
         } else {
             this.source = TextureUtils.fixResourcePath(this.source, TextureUtils.getBasePath(path));
@@ -219,19 +219,19 @@ public class CustomSkyLayer {
                 int i1 = i + j + k + l;
 
                 if (i1 != 24000) {
-                    Config.warn("Invalid fadeIn/fadeOut times, sum is not 24h: " + i1);
+                    Log.error("Invalid fadeIn/fadeOut times, sum is not 24h: " + i1);
                     return false;
                 } else if (this.speed < 0.0F) {
-                    Config.warn("Invalid speed: " + this.speed);
+                    Log.error("Invalid speed: " + this.speed);
                     return false;
                 } else if (this.daysLoop <= 0) {
-                    Config.warn("Invalid daysLoop: " + this.daysLoop);
+                    Log.error("Invalid daysLoop: " + this.daysLoop);
                     return false;
                 } else {
                     return true;
                 }
             } else {
-                Config.warn("Invalid times, required are: startFadeIn, endFadeIn and endFadeOut.");
+                Log.error("Invalid times, required are: startFadeIn, endFadeIn and endFadeOut.");
                 return false;
             }
         }

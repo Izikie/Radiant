@@ -69,7 +69,7 @@ public class CustomPanorama {
             if (i == 0) {
                 s = "optifine/gui";
             } else {
-                Config.dbg("CustomPanorama: " + s);
+                Log.info("CustomPanorama: " + s);
             }
 
             ResourceLocation resourcelocation = new ResourceLocation(s + "/background.properties");
@@ -80,7 +80,7 @@ public class CustomPanorama {
                 if (inputstream != null) {
                     Properties properties = new PropertiesOrdered();
                     properties.load(inputstream);
-                    Config.dbg("CustomPanorama: " + resourcelocation.getResourcePath());
+                    Log.info("CustomPanorama: " + resourcelocation.getResourcePath());
                     aproperties[i] = properties;
                     inputstream.close();
                 }

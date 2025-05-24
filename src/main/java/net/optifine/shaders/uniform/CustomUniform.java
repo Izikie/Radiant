@@ -1,7 +1,7 @@
 package net.optifine.shaders.uniform;
 
+import net.optifine.Log;
 import net.optifine.expr.IExpression;
-import net.optifine.shaders.SMCLog;
 
 public class CustomUniform {
     private final String name;
@@ -25,10 +25,10 @@ public class CustomUniform {
             try {
                 this.type.updateUniform(this.expression, this.shaderUniform);
             } catch (RuntimeException runtimeexception) {
-                SMCLog.severe("Error updating custom uniform: " + this.shaderUniform.getName());
-                SMCLog.severe(runtimeexception.getClass().getName() + ": " + runtimeexception.getMessage());
+                Log.error("Error updating custom uniform: " + this.shaderUniform.getName());
+                Log.error(runtimeexception.getClass().getName() + ": " + runtimeexception.getMessage());
                 this.shaderUniform.disable();
-                SMCLog.severe("Custom uniform disabled: " + this.shaderUniform.getName());
+                Log.error("Custom uniform disabled: " + this.shaderUniform.getName());
             }
         }
     }
@@ -47,10 +47,6 @@ public class CustomUniform {
 
     public IExpression getExpression() {
         return this.expression;
-    }
-
-    public ShaderUniformBase getShaderUniform() {
-        return this.shaderUniform;
     }
 
     public String toString() {

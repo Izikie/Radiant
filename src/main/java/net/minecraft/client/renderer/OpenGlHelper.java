@@ -3,6 +3,7 @@ package net.minecraft.client.renderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.src.Config;
+import net.optifine.Log;
 import org.lwjgl.opengl.*;
 
 import java.nio.ByteBuffer;
@@ -100,7 +101,7 @@ public class OpenGlHelper {
             }
 
             String s = "VboRegions not supported, missing: " + Config.listToString(list);
-            Config.dbg(s);
+            Log.info(s);
             logText = logText + s + "\n";
         }
 

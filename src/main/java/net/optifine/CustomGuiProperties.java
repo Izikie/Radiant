@@ -227,7 +227,7 @@ public class CustomGuiProperties {
     }
 
     private static void warn(String str) {
-        Config.warn("[CustomGuis] " + str);
+        Log.error("[CustomGuis] " + str);
     }
 
     private boolean matchesGeneral(EnumContainer ec, BlockPos pos, IBlockAccess blockAccess) {

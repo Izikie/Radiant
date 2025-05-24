@@ -2,6 +2,7 @@ package net.optifine.util;
 
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
+import net.optifine.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +15,7 @@ public class FontUtils {
         String s1 = ".png";
 
         if (s.endsWith(s1)) {
-            String s2 = s.substring(0, s.length() - s1.length()) + ".properties";
+            String s2 = s.substring(0, s.length() - s1.length()) + ".png";
 
             try {
                 ResourceLocation resourcelocation = new ResourceLocation(locationFontTexture.getResourceDomain(), s2);
@@ -24,7 +25,7 @@ public class FontUtils {
                     return properties;
                 }
 
-                Config.log("Loading " + s2);
+                Log.info("Loading " + s2);
                 properties.load(inputstream);
                 inputstream.close();
             } catch (IOException ioexception) {
@@ -65,7 +66,7 @@ public class FontUtils {
             float f = Config.parseFloat(s, Float.MIN_VALUE);
 
             if (f == Float.MIN_VALUE) {
-                Config.warn("Invalid value for " + key + ": " + s);
+                Log.error("Invalid value for " + key + ": " + s);
                 return defOffset;
             } else {
                 return f;
@@ -83,7 +84,7 @@ public class FontUtils {
 
             if (!s1.equals("true") && !s1.equals("on")) {
                 if (!s1.equals("false") && !s1.equals("off")) {
-                    Config.warn("Invalid value for " + key + ": " + s);
+                    Log.error("Invalid value for " + key + ": " + s);
                     return defVal;
                 } else {
                     return false;

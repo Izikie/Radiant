@@ -102,7 +102,7 @@ public class TextureUtils {
 
     public static void resourcesReloaded(IResourceManager rm) {
         if (getTextureMapBlocks() != null) {
-            Config.dbg("*** Reloading custom textures ***");
+            Log.info("*** Reloading custom textures ***");
             CustomSky.reset();
             TextureAnimations.reset();
             update();
@@ -324,10 +324,10 @@ public class TextureUtils {
 
             try {
                 ImageIO.write(bufferedimage, "png", file4);
-                Config.dbg("Exported: " + file4);
+                Log.info("Exported: " + file4);
             } catch (Exception exception) {
-                Config.warn("Error writing: " + file4);
-                Config.warn(exception.getClass().getName() + ": " + exception.getMessage());
+                Log.warn("Error writing: " + file4);
+                Log.warn(exception.getClass().getName() + ": " + exception.getMessage());
             }
         }
     }

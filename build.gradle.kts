@@ -61,7 +61,7 @@ repositories {
 
 dependencies {
     // no need to add jna and jutils as they are already included in lwjgl
-    implementation(group = "net.java.jinput", name = "jinput", version = "2.0.7")
+    implementation(group = "net.java.jinput", name = "jinput", version = "2.0.10")
 
     implementation(group = "org.jcommander", name = "jcommander", version = "2.0")
     // a little bit heavier jar file but offer higher performance, no vulnerability and up-to-date
@@ -90,6 +90,7 @@ dependencies {
 
     implementation(group = "org.apache.logging.log4j", name = "log4j-api", version = "2.24.3")
     implementation(group = "org.apache.logging.log4j", name = "log4j-core", version = "2.24.3")
+    // might be switched to logback??? lighter than log4j
 
     implementation(group = "org.lwjgl.lwjgl", name = "lwjgl", version = "2.9.3") // Update To 3.0 Properly
     implementation(group = "org.lwjgl.lwjgl", name = "lwjgl_util", version = "2.9.3") // Update To 3.0 Properly
@@ -104,10 +105,10 @@ dependencies {
     runtimeOnly(group = "org.lwjgl", name = "lwjgl-openal", version = lwjglVersion, classifier = lwjglNatives)
     runtimeOnly(group = "org.lwjgl", name = "lwjgl-opengl", version = lwjglVersion, classifier = lwjglNatives)*/
 
-    // Third Party
     implementation(group = "fr.litarvan", name = "openauth", version = "1.1.6")
 
-    implementation(group = "com.alibaba.fastjson2", name = "fastjson2", version = "2.0.57")
+    //implementation(group = "com.alibaba.fastjson2", name = "fastjson2", version = "2.0.57")
+    // i think we don't need to adapt a new json library, because i think gson is fast enough
     implementation(group = "it.unimi.dsi", name = "fastutil", version = "8.5.15")
     implementation(group = "org.joml", name = "joml", version = "1.10.8")
 }

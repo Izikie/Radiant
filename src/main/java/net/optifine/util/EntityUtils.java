@@ -2,7 +2,7 @@ package net.optifine.util;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
-import net.minecraft.src.Config;
+import net.optifine.Log;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,15 +39,15 @@ public class EntityUtils {
 
                 if (s != null) {
                     if (mapIdByClass.containsKey(oclass)) {
-                        Config.warn("Duplicate entity class: " + oclass + ", id1: " + mapIdByClass.get(oclass) + ", id2: " + i);
+                        Log.error("Duplicate entity class: " + oclass + ", id1: " + mapIdByClass.get(oclass) + ", id2: " + i);
                     }
 
                     if (mapIdByName.containsKey(s)) {
-                        Config.warn("Duplicate entity name: " + s + ", id1: " + mapIdByName.get(s) + ", id2: " + i);
+                        Log.error("Duplicate entity name: " + s + ", id1: " + mapIdByName.get(s) + ", id2: " + i);
                     }
 
                     if (mapClassByName.containsKey(s)) {
-                        Config.warn("Duplicate entity name: " + s + ", class1: " + mapClassByName.get(s) + ", class2: " + oclass);
+                        Log.error("Duplicate entity name: " + s + ", class1: " + mapClassByName.get(s) + ", class2: " + oclass);
                     }
 
                     mapIdByClass.put(oclass, i);

@@ -5,6 +5,7 @@ import net.minecraft.client.resources.DefaultResourcePack;
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
+import net.optifine.Log;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -43,7 +44,7 @@ public class ResUtils {
         if (rp instanceof DefaultResourcePack) {
             return collectFilesFixed(rp, defaultPaths);
         } else if (!(rp instanceof AbstractResourcePack abstractresourcepack)) {
-            Config.warn("Unknown resource pack type: " + rp);
+            Log.error("Unknown resource pack type: " + rp);
             return new String[0];
         } else {
             File file1 = abstractresourcepack.resourcePackFile;
@@ -55,7 +56,7 @@ public class ResUtils {
             } else if (file1.isFile()) {
                 return collectFilesZIP(file1, prefixes, suffixes);
             } else {
-                Config.warn("Unknown resource pack file: " + file1);
+                Log.error("Unknown resource pack file: " + file1);
                 return new String[0];
             }
         }
@@ -151,13 +152,13 @@ public class ResUtils {
                 Properties properties = new PropertiesOrdered();
                 properties.load(inputstream);
                 inputstream.close();
-                Config.dbg(module + ": Loading " + path);
+                Log.info(module + ": Loading " + path);
                 return properties;
             }
         } catch (FileNotFoundException var5) {
             return null;
         } catch (IOException var6) {
-            Config.warn(module + ": Error reading " + path);
+            Log.error(module + ": Error reading " + path);
             return null;
         }
     }

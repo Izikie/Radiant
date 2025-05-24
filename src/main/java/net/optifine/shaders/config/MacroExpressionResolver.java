@@ -1,6 +1,7 @@
 package net.optifine.shaders.config;
 
 import net.minecraft.src.Config;
+import net.optifine.Log;
 import net.optifine.expr.*;
 
 import java.util.Map;
@@ -32,7 +33,7 @@ public class MacroExpressionResolver implements IExpressionResolver {
             int i = Config.parseInt(name, Integer.MIN_VALUE);
 
             if (i == Integer.MIN_VALUE) {
-                Config.warn("Unknown macro value: " + name);
+                Log.error("Unknown macro value: " + name);
                 return new ConstantFloat(0.0F);
             } else {
                 return new ConstantFloat(i);

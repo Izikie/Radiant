@@ -100,9 +100,9 @@ public class BetterGrass {
             boolean flag = Config.isFromDefaultResourcePack(resourcelocation);
 
             if (flag) {
-                Config.dbg("BetterGrass: Parsing default configuration " + s);
+                Log.info("BetterGrass: Parsing default configuration " + s);
             } else {
-                Config.dbg("BetterGrass: Parsing configuration " + s);
+                Log.info("BetterGrass: Parsing configuration " + s);
             }
 
             Properties properties = new PropertiesOrdered();
@@ -121,7 +121,7 @@ public class BetterGrass {
             spritePodzol = registerSprite(properties, "texture.podzol", "blocks/dirt_podzol_top", textureMap);
             spriteSnow = registerSprite(properties, "texture.snow", "blocks/snow", textureMap);
         } catch (IOException ioexception) {
-            Config.warn("Error reading: " + s + ", " + ioexception.getClass().getName() + ": " + ioexception.getMessage());
+            Log.error("Error reading: " + s + ", " + ioexception.getClass().getName() + ": " + ioexception.getMessage());
         }
     }
 
@@ -135,7 +135,7 @@ public class BetterGrass {
         ResourceLocation resourcelocation = new ResourceLocation("textures/" + s + ".png");
 
         if (!Config.hasResource(resourcelocation)) {
-            Config.warn("BetterGrass texture not found: " + resourcelocation);
+            Log.error("BetterGrass texture not found: " + resourcelocation);
             s = textureDefault;
         }
 

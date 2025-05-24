@@ -36,7 +36,7 @@ public class ReflectorMethod {
                         Method[] amethod = getMethods(oclass, this.targetMethodName);
 
                         if (amethod.length == 0) {
-                            Log.log("(Reflector) Method not present: " + oclass.getName() + "." + this.targetMethodName);
+                            Log.info("(Reflector) Method not present: " + oclass.getName() + "." + this.targetMethodName);
                             return null;
                         }
 
@@ -56,7 +56,7 @@ public class ReflectorMethod {
                     }
 
                     if (this.targetMethod == null) {
-                        Log.log("(Reflector) Method not present: " + oclass.getName() + "." + this.targetMethodName);
+                        Log.info("(Reflector) Method not present: " + oclass.getName() + "." + this.targetMethodName);
                         return null;
                     } else {
                         this.targetMethod.setAccessible(true);

@@ -1,8 +1,8 @@
 package net.optifine.shaders.uniform;
 
-import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.optifine.Log;
 import net.optifine.shaders.Shaders;
 
 public enum ShaderParameterFloat {
@@ -144,11 +144,11 @@ public enum ShaderParameterFloat {
                         };
                 }
             } else {
-                Config.warn("Invalid index2, parameter: " + this + ", index: " + index2);
+                Log.error("Invalid index2, parameter: " + this + ", index: " + index2);
                 return 0.0F;
             }
         } else {
-            Config.warn("Invalid index1, parameter: " + this + ", index: " + index1);
+            Log.error("Invalid index1, parameter: " + this + ", index: " + index1);
             return 0.0F;
         }
     }

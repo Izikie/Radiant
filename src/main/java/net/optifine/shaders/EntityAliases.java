@@ -3,6 +3,7 @@ package net.optifine.shaders;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.src.Config;
+import net.optifine.Log;
 import net.optifine.config.ConnectedParser;
 import net.optifine.shaders.config.MacroProcessor;
 import net.optifine.util.PropertiesOrdered;
@@ -58,7 +59,7 @@ public class EntityAliases {
                 Properties properties = new PropertiesOrdered();
                 properties.load(in);
                 in.close();
-                Config.dbg("[Shaders] Parsing entity mappings: " + path);
+                Log.info("[Shaders] Parsing entity mappings: " + path);
                 ConnectedParser connectedparser = new ConnectedParser("Shaders");
 
                 for (Object o : properties.keySet()) {
@@ -67,13 +68,13 @@ public class EntityAliases {
                     String s2 = "entity.";
 
                     if (!s.startsWith(s2)) {
-                        Config.warn("[Shaders] Invalid entity ID: " + s);
+                        Log.error("[Shaders] Invalid entity ID: " + s);
                     } else {
                         String s3 = StrUtils.removePrefix(s, s2);
                         int i = Config.parseInt(s3, -1);
 
                         if (i < 0) {
-                            Config.warn("[Shaders] Invalid entity alias ID: " + i);
+                            Log.error("[Shaders] Invalid entity alias ID: " + i);
                         } else {
                             int[] aint = connectedparser.parseEntities(s1);
 
@@ -82,13 +83,13 @@ public class EntityAliases {
                                     addToList(listEntityAliases, k, i);
                                 }
                             } else {
-                                Config.warn("[Shaders] Invalid entity ID mapping: " + s + "=" + s1);
+                                Log.error("[Shaders] Invalid entity ID mapping: " + s + "=" + s1);
                             }
                         }
                     }
                 }
             } catch (IOException var15) {
-                Config.warn("[Shaders] Error reading: " + path);
+                Log.error("[Shaders] Error reading: " + path);
             }
         }
     }

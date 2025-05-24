@@ -2046,8 +2046,7 @@ public class GameSettings {
                         this.ofKeyBindZoom.setKeyCode(Integer.parseInt(astring[1]));
                     }
                 } catch (Exception exception) {
-                    Config.dbg("Skipping bad option: " + s);
-                    exception.printStackTrace();
+                    Log.warn("Skipping bad option: " + s, exception);
                 }
             }
 
@@ -2055,8 +2054,7 @@ public class GameSettings {
             KeyBinding.resetKeyBindingArrayAndHash();
             bufferedreader.close();
         } catch (Exception exception1) {
-            Config.warn("Failed to load options");
-            exception1.printStackTrace();
+            Log.warn("Failed to load options", exception1);
         }
     }
 
@@ -2135,7 +2133,7 @@ public class GameSettings {
             printwriter.println("key_" + this.ofKeyBindZoom.getKeyDescription() + ":" + this.ofKeyBindZoom.getKeyCode());
             printwriter.close();
         } catch (Exception exception) {
-            Config.warn("Failed to save options");
+            Log.error("Failed to save options");
             exception.printStackTrace();
         }
     }

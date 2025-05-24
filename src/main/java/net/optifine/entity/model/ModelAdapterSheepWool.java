@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.entity.RenderSheep;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerSheepWool;
 import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.src.Config;
+import net.optifine.Log;
 
 import java.util.Iterator;
 import java.util.List;
@@ -29,7 +29,7 @@ public class ModelAdapterSheepWool extends ModelAdapterQuadruped {
         Render render = rendermanager.getEntityRenderMap().get(EntitySheep.class);
 
         if (!(render instanceof RenderSheep)) {
-            Config.warn("Not a RenderSheep: " + render);
+            Log.error("Not a RenderSheep: " + render);
             return null;
         } else {
             if (render.getEntityClass() == null) {

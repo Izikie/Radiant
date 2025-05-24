@@ -20,7 +20,7 @@ public class ReflectorClass {
             try {
                 this.targetClass = Class.forName(this.targetClassName);
             } catch (ClassNotFoundException var2) {
-                Log.log("(Reflector) Class not present: " + this.targetClassName);
+                Log.info("(Reflector) Class not present: " + this.targetClassName);
             } catch (Throwable throwable) {
                 throwable.printStackTrace();
             }

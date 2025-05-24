@@ -1,7 +1,7 @@
 package net.optifine.render;
 
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.src.Config;
+import net.optifine.Log;
 
 public class Blender {
     public static int parseBlend(String str) {
@@ -39,7 +39,7 @@ public class Blender {
                     return 8;
                 }
                 default -> {
-                    Config.warn("Unknown blend: " + str);
+                    Log.error("Unknown blend: " + str);
                     return 1;
                 }
             }

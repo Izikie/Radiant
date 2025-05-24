@@ -209,11 +209,11 @@ public class CustomColormap implements CustomColors.IColorizer {
     }
 
     private static void dbg(String str) {
-        Config.dbg("CustomColors: " + str);
+        Log.info("CustomColors: " + str);
     }
 
     private static void warn(String str) {
-        Config.warn("CustomColors: " + str);
+        Log.error("CustomColors: " + str);
     }
 
     private static String parseTexture(String texStr, String path, String basePath) {

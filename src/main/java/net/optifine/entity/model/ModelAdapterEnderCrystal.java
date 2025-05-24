@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.RenderEnderCrystal;
 import net.minecraft.entity.item.EntityEnderCrystal;
-import net.minecraft.src.Config;
+import net.optifine.Log;
 import net.optifine.reflect.Reflector;
 
 public class ModelAdapterEnderCrystal extends ModelAdapter {
@@ -41,7 +41,7 @@ public class ModelAdapterEnderCrystal extends ModelAdapter {
         Render render = rendermanager.getEntityRenderMap().get(EntityEnderCrystal.class);
 
         if (!(render instanceof RenderEnderCrystal renderendercrystal)) {
-            Config.warn("Not an instance of RenderEnderCrystal: " + render);
+            Log.error("Not an instance of RenderEnderCrystal: " + render);
             return null;
         } else {
 
@@ -50,7 +50,7 @@ public class ModelAdapterEnderCrystal extends ModelAdapter {
                 renderendercrystal.shadowSize = shadowSize;
                 return renderendercrystal;
             } else {
-                Config.warn("Field not found: RenderEnderCrystal.modelEnderCrystal");
+                Log.error("Field not found: RenderEnderCrystal.modelEnderCrystal");
                 return null;
             }
         }

@@ -86,7 +86,7 @@ public class TextureAnimations {
             List list = new ArrayList();
 
             for (String s : astring) {
-                Config.dbg("Texture animation: " + s);
+                Log.info("Texture animation: " + s);
 
                 try {
                     ResourceLocation resourcelocation = new ResourceLocation(s);
@@ -100,13 +100,13 @@ public class TextureAnimations {
                         ResourceLocation resourcelocation1 = new ResourceLocation(textureanimation.getDstTex());
 
                         if (Config.getDefiningResourcePack(resourcelocation1) != rp) {
-                            Config.dbg("Skipped: " + s + ", target texture not loaded from same resource pack");
+                            Log.info("Skipped: " + s + ", target texture not loaded from same resource pack");
                         } else {
                             list.add(textureanimation);
                         }
                     }
                 } catch (FileNotFoundException filenotfoundexception) {
-                    Config.warn("File not found: " + filenotfoundexception.getMessage());
+                    Log.error("File not found: " + filenotfoundexception.getMessage());
                 } catch (IOException ioexception) {
                     ioexception.printStackTrace();
                 }
@@ -134,7 +134,7 @@ public class TextureAnimations {
                 byte[] abyte = getCustomTextureData(s, k);
 
                 if (abyte == null) {
-                    Config.warn("TextureAnimation: Source texture not found: " + s1);
+                    Log.error("TextureAnimation: Source texture not found: " + s1);
                     return null;
                 } else {
                     int i1 = abyte.length / 4;
@@ -142,7 +142,7 @@ public class TextureAnimations {
                     int k1 = j1 * k * l;
 
                     if (i1 != k1) {
-                        Config.warn("TextureAnimation: Source texture has invalid number of frames: " + s + ", frames: " + (float) i1 / (k * l));
+                        Log.error("TextureAnimation: Source texture has invalid number of frames: " + s + ", frames: " + (float) i1 / (k * l));
                         return null;
                     } else {
                         ResourceLocation resourcelocation = new ResourceLocation(s1);
@@ -151,7 +151,7 @@ public class TextureAnimations {
                             InputStream inputstream = Config.getResourceStream(resourcelocation);
 
                             if (inputstream == null) {
-                                Config.warn("TextureAnimation: Target texture not found: " + s1);
+                                Log.error("TextureAnimation: Target texture not found: " + s1);
                                 return null;
                             } else {
                                 BufferedImage bufferedimage = readTextureImage(inputstream);
@@ -159,22 +159,22 @@ public class TextureAnimations {
                                 if (i + k <= bufferedimage.getWidth() && j + l <= bufferedimage.getHeight()) {
                                     return new TextureAnimation(s, abyte, s1, resourcelocation, i, j, k, l, props);
                                 } else {
-                                    Config.warn("TextureAnimation: Animation coordinates are outside the target texture: " + s1);
+                                    Log.error("TextureAnimation: Animation coordinates are outside the target texture: " + s1);
                                     return null;
                                 }
                             }
                         } catch (IOException var17) {
-                            Config.warn("TextureAnimation: Target texture not found: " + s1);
+                            Log.error("TextureAnimation: Target texture not found: " + s1);
                             return null;
                         }
                     }
                 }
             } else {
-                Config.warn("TextureAnimation: Invalid coordinates");
+                Log.error("TextureAnimation: Invalid coordinates");
                 return null;
             }
         } else {
-            Config.warn("TextureAnimation: Source or target texture not specified");
+            Log.error("TextureAnimation: Source or target texture not specified");
             return null;
         }
     }

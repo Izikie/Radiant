@@ -1,6 +1,6 @@
 package net.optifine.shaders.config;
 
-import net.minecraft.src.Config;
+import net.optifine.Log;
 import net.optifine.expr.*;
 
 import java.util.*;
@@ -150,7 +150,7 @@ public class MacroState {
         }
 
         if (i == 100) {
-            Config.warn("Too many iterations: " + i + ", when resolving: " + str);
+            Log.error("Too many iterations: " + i + ", when resolving: " + str);
             return true;
         } else {
             try {
@@ -169,8 +169,8 @@ public class MacroState {
                     throw new ParseException("Not a boolean or float expression: " + iexpression.getExpressionType());
                 }
             } catch (ParseException parseexception) {
-                Config.warn("Invalid macro expression: " + str);
-                Config.warn("Error: " + parseexception.getMessage());
+                Log.error("Invalid macro expression: " + str);
+                Log.error("Error: " + parseexception.getMessage());
                 return false;
             }
         }

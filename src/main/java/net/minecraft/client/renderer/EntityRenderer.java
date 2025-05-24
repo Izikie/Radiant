@@ -53,6 +53,7 @@ import net.minecraft.world.WorldSettings;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.optifine.CustomColors;
 import net.optifine.GlErrors;
+import net.optifine.Log;
 import net.optifine.RandomEntities;
 import net.optifine.gui.GuiChatOF;
 import net.optifine.shaders.Shaders;
@@ -2091,7 +2092,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             RenderGlobal renderglobal = Config.getRenderGlobal();
             int j = renderglobal.getCountLoadedChunks();
             long k = System.currentTimeMillis();
-            Config.dbg("Loading visible chunks");
+            Log.info("Loading visible chunks");
             long l = System.currentTimeMillis() + 5000L;
             int i1 = 0;
             boolean flag1;
@@ -2126,7 +2127,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 }
 
                 if (System.currentTimeMillis() > l) {
-                    Config.log("Chunks loaded: " + i1);
+                    Log.info("Chunks loaded: " + i1);
                     l = System.currentTimeMillis() + 5000L;
                 }
 
@@ -2135,8 +2136,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 }
             }
 
-            Config.log("Chunks loaded: " + i1);
-            Config.log("Finished loading visible chunks");
+            Log.info("Chunks loaded: " + i1);
+            Log.info("Finished loading visible chunks");
             RenderChunk.renderChunksUpdated = 0;
         } finally {
             this.mc.gameSettings.ofChunkUpdates = i;

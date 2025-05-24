@@ -54,7 +54,7 @@ public class CustomSky {
                     Properties properties = new PropertiesOrdered();
                     properties.load(inputstream);
                     inputstream.close();
-                    Config.dbg("CustomSky properties: " + s2);
+                    Log.info("CustomSky properties: " + s2);
                     String s3 = s1 + k + ".png";
                     CustomSkyLayer customskylayer = new CustomSkyLayer(properties, s3);
 
@@ -63,7 +63,7 @@ public class CustomSky {
                         ITextureObject itextureobject = TextureUtils.getTexture(resourcelocation1);
 
                         if (itextureobject == null) {
-                            Config.log("CustomSky: Texture not found: " + resourcelocation1);
+                            Log.info("CustomSky: Texture not found: " + resourcelocation1);
                         } else {
                             customskylayer.textureId = itextureobject.getGlTextureId();
                             list.add(customskylayer);

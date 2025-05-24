@@ -3,8 +3,8 @@ package net.optifine.model;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.client.resources.model.SimpleBakedModel;
-import net.minecraft.src.Config;
 import net.minecraft.util.Direction;
+import net.optifine.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
 public class ModelUtils {
     public static void dbgModel(IBakedModel model) {
         if (model != null) {
-            Config.dbg("Model: " + model + ", ao: " + model.isAmbientOcclusion() + ", gui3d: " + model.isGui3d() + ", builtIn: " + model.isBuiltInRenderer() + ", particle: " + model.getParticleTexture());
+            Log.info("Model: " + model + ", ao: " + model.isAmbientOcclusion() + ", gui3d: " + model.isGui3d() + ", builtIn: " + model.isBuiltInRenderer() + ", particle: " + model.getParticleTexture());
             Direction[] aenumfacing = Direction.VALUES;
 
             for (Direction enumfacing : aenumfacing) {
@@ -33,13 +33,13 @@ public class ModelUtils {
     }
 
     public static void dbgQuad(String name, BakedQuad quad, String prefix) {
-        Config.dbg(prefix + "Quad: " + quad.getClass().getName() + ", type: " + name + ", face: " + quad.getFace() + ", tint: " + quad.getTintIndex() + ", sprite: " + quad.getSprite());
+        Log.info(prefix + "Quad: " + quad.getClass().getName() + ", type: " + name + ", face: " + quad.getFace() + ", tint: " + quad.getTintIndex() + ", sprite: " + quad.getSprite());
         dbgVertexData(quad.getVertexData(), "  " + prefix);
     }
 
     public static void dbgVertexData(int[] vd, String prefix) {
         int i = vd.length / 4;
-        Config.dbg(prefix + "Length: " + vd.length + ", step: " + i);
+        Log.info(prefix + "Length: " + vd.length + ", step: " + i);
 
         for (int j = 0; j < 4; ++j) {
             int k = j * i;
@@ -49,7 +49,7 @@ public class ModelUtils {
             int l = vd[k + 3];
             float f3 = Float.intBitsToFloat(vd[k + 4]);
             float f4 = Float.intBitsToFloat(vd[k + 5]);
-            Config.dbg(prefix + j + " xyz: " + f + "," + f1 + "," + f2 + " col: " + l + " u,v: " + f3 + "," + f4);
+            Log.info(prefix + j + " xyz: " + f + "," + f1 + "," + f2 + " col: " + l + " u,v: " + f3 + "," + f4);
         }
     }
 

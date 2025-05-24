@@ -25,12 +25,12 @@ public class FieldLocatorTypes implements IFieldLocator {
         int l = Collections.indexOfSubList(list, list1);
 
         if (l < 0) {
-            Log.log("(Reflector) Field not found: " + errorName);
+            Log.info("(Reflector) Field not found: " + errorName);
         } else {
             int j = Collections.indexOfSubList(list.subList(l + 1, list.size()), list1);
 
             if (j >= 0) {
-                Log.log("(Reflector) More than one match found for field: " + errorName);
+                Log.info("(Reflector) More than one match found for field: " + errorName);
             } else {
                 int k = l + preTypes.length;
                 this.field = afield[k];
