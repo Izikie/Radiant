@@ -28,7 +28,7 @@ public class MessageDeserializer extends ByteToMessageDecoder {
         if (p_decode_2_.readableBytes() != 0) {
             PacketBuffer packetbuffer = new PacketBuffer(p_decode_2_);
             int i = packetbuffer.readVarIntFromBuffer();
-            Packet packet = p_decode_1_.channel().attr(NetworkManager.ATTR_KEY_CONNECTION_STATE).get().getPacket(this.direction, i);
+            Packet<?> packet = p_decode_1_.channel().attr(NetworkManager.ATTR_KEY_CONNECTION_STATE).get().getPacket(this.direction, i);
 
             if (packet == null) {
                 throw new IOException("Bad packet id " + i);

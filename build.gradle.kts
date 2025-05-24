@@ -79,7 +79,7 @@ dependencies {
     implementation(group = "com.google.guava", name = "guava", version = "33.4.8-jre")
     implementation(group = "com.google.code.gson", name = "gson", version = "2.13.1")
 
-    implementation(group = "io.netty", name = "netty-all", version = "4.0.23.Final") // Update
+    implementation(group = "io.netty", name = "netty-all", version = "4.2.1.Final")
 
     implementation(group = "commons-io", name = "commons-io", version = "2.19.0")
     implementation(group = "commons-codec", name = "commons-codec", version = "1.18.0")
