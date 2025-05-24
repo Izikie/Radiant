@@ -191,23 +191,28 @@ public class Minecraft implements IThreadListener {
 
     public Minecraft(GameConfiguration gameConfig) {
         theMinecraft = this;
-        this.mcDataDir = gameConfig.folderInfo.mcDataDir;
-        this.fileAssets = gameConfig.folderInfo.assetsDir;
-        this.fileResourcepacks = gameConfig.folderInfo.resourcePacksDir;
-        this.profileProperties = gameConfig.userInfo.profileProperties;
-        this.mcDefaultResourcePack = new DefaultResourcePack((new ResourceIndex(gameConfig.folderInfo.assetsDir, gameConfig.folderInfo.assetIndex)).getResourceMap());
-        this.proxy = gameConfig.userInfo.proxy == null ? Proxy.NO_PROXY : gameConfig.userInfo.proxy;
-        this.sessionService = (new YggdrasilAuthenticationService(gameConfig.userInfo.proxy, UUID.randomUUID().toString())).createMinecraftSessionService();
-        this.session = gameConfig.userInfo.session;
+        this.mcDataDir = gameConfig.folderInfo().mcDataDir();
+        this.fileAssets = gameConfig.folderInfo().assetsDir();
+        this.fileResourcepacks = gameConfig.folderInfo().resourcePacksDir();
+        this.profileProperties = gameConfig.userInfo().profileProperties();
+        this.mcDefaultResourcePack = new DefaultResourcePack((new ResourceIndex(gameConfig.folderInfo().assetsDir(), gameConfig.folderInfo().assetIndex())).getResourceMap());
+        this.proxy = gameConfig.userInfo().proxy() == null ? Proxy.NO_PROXY : gameConfig.userInfo().proxy();
+        this.sessionService = (new YggdrasilAuthenticationService(gameConfig.userInfo().proxy(), UUID.randomUUID().toString())).createMinecraftSessionService();
+        this.session = gameConfig.userInfo().session();
         LOGGER.info("Setting user: {}", this.session.getUsername());
         LOGGER.info("(Session ID is {})", this.session.getSessionID());
-        this.displayWidth = gameConfig.displayInfo.width > 0 ? gameConfig.displayInfo.width : 1;
-        this.displayHeight = gameConfig.displayInfo.height > 0 ? gameConfig.displayInfo.height : 1;
-        this.tempDisplayWidth = gameConfig.displayInfo.width;
-        this.tempDisplayHeight = gameConfig.displayInfo.height;
-        this.fullscreen = gameConfig.displayInfo.fullscreen;
+        this.displayWidth = gameConfig.displayInfo().width() > 0 ? gameConfig.displayInfo().width() : 1;
+        this.displayHeight = gameConfig.displayInfo().height() > 0 ? gameConfig.displayInfo().height() : 1;
+        this.tempDisplayWidth = gameConfig.displayInfo().width();
+        this.tempDisplayHeight = gameConfig.displayInfo().height();
+        this.fullscreen = gameConfig.displayInfo().fullscreen();
         this.jvm64bit = isJvm64bit();
         this.theIntegratedServer = new IntegratedServer(this);
+
+        if (gameConfig.serverInfo().address() != null) {
+            this.serverName = gameConfig.serverInfo().address();
+            this.serverPort = gameConfig.serverInfo().port();
+        }
 
         ImageIO.setUseCache(false);
         Bootstrap.register();

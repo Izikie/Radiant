@@ -6,67 +6,36 @@ import net.minecraft.util.Session;
 import java.io.File;
 import java.net.Proxy;
 
-public class GameConfiguration {
-    public final UserInformation userInfo;
-    public final DisplayInformation displayInfo;
-    public final FolderInformation folderInfo;
+public record GameConfiguration(
+        UserInformation userInfo,
+        DisplayInformation displayInfo,
+        FolderInformation folderInfo,
+        ServerInformation serverInfo
+) {
 
-    public GameConfiguration(UserInformation userInformation, DisplayInformation displayInformation, FolderInformation folderInformation, ServerInformation serverInformation) {
-        this.userInfo = userInformation;
-        this.displayInfo = displayInformation;
-        this.folderInfo = folderInformation;
-    }
+    public record UserInformation(
+            Session session,
+            PropertyMap userProperties,
+            PropertyMap profileProperties,
+            Proxy proxy
+    ) {}
 
-    public static class UserInformation {
-        public final Session session;
-        public final PropertyMap userProperties;
-        public final PropertyMap profileProperties;
-        public final Proxy proxy;
+    public record DisplayInformation(
+            int width,
+            int height,
+            boolean fullscreen,
+            boolean checkGlErrors
+    ) {}
 
-        public UserInformation(Session sessionIn, PropertyMap userPropertiesIn, PropertyMap profilePropertiesIn, Proxy proxyIn) {
-            this.session = sessionIn;
-            this.userProperties = userPropertiesIn;
-            this.profileProperties = profilePropertiesIn;
-            this.proxy = proxyIn;
-        }
-    }
+    public record FolderInformation(
+            File mcDataDir,
+            File resourcePacksDir,
+            File assetsDir,
+            String assetIndex
+    ) {}
 
-    public static class DisplayInformation {
-        public final int width;
-        public final int height;
-        public final boolean fullscreen;
-        public final boolean checkGlErrors;
-
-        public DisplayInformation(int widthIn, int heightIn, boolean fullscreenIn, boolean checkGlErrorsIn) {
-            this.width = widthIn;
-            this.height = heightIn;
-            this.fullscreen = fullscreenIn;
-            this.checkGlErrors = checkGlErrorsIn;
-        }
-
-    }
-    public static class FolderInformation {
-        public final File mcDataDir;
-        public final File resourcePacksDir;
-        public final File assetsDir;
-        public final String assetIndex;
-
-        public FolderInformation(File mcDataDirIn, File resourcePacksDirIn, File assetsDirIn, String assetIndexIn) {
-            this.mcDataDir = mcDataDirIn;
-            this.resourcePacksDir = resourcePacksDirIn;
-            this.assetsDir = assetsDirIn;
-            this.assetIndex = assetIndexIn;
-        }
-
-    }
-    public static class ServerInformation {
-        public final String serverName;
-        public final int serverPort;
-
-        public ServerInformation(String serverNameIn, int serverPortIn) {
-            this.serverName = serverNameIn;
-            this.serverPort = serverPortIn;
-        }
-
-    }
+    public record ServerInformation(
+            String address,
+            int port
+    ) {}
 }
