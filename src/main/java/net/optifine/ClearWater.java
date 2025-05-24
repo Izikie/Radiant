@@ -83,7 +83,7 @@ public class ClearWater {
                             s = "client";
                         }
 
-                        Config.dbg("ClearWater (" + s + ") relighted " + l1 + " chunks");
+                        Log.info("ClearWater (" + s + ") relighted " + l1 + " chunks");
                     }
                 }
             }

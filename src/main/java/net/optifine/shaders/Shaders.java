@@ -22,10 +22,7 @@ import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
-import net.optifine.CustomBlockLayers;
-import net.optifine.CustomColors;
-import net.optifine.GlErrors;
-import net.optifine.Lang;
+import net.optifine.*;
 import net.optifine.config.ConnectedParser;
 import net.optifine.expr.IExpressionBool;
 import net.optifine.render.GlAlphaState;
@@ -113,13 +110,11 @@ public class Shaders {
     static int frameCounter = 0;
     static float frameTime = 0.0F;
     static float frameTimeCounter = 0.0F;
-    static int systemTimeInt32 = 0;
     static float rainStrength = 0.0F;
     static float wetness = 0.0F;
     public static float wetnessHalfLife = 600.0F;
     public static float drynessHalfLife = 200.0F;
     public static float eyeBrightnessHalflife = 10.0F;
-    static boolean usewetness = false;
     static int isEyeInWater = 0;
     static int eyeBrightness = 0;
     static float eyeBrightnessFadeX = 0.0F;
@@ -260,11 +255,6 @@ public class Shaders {
     static int preShadowPassThirdPersonView;
     public static boolean shouldSkipDefaultShadow = false;
     static boolean waterShadowEnabled = false;
-    static final int MAX_DRAW_BUFFERS = 8;
-    static final int MAX_COLOR_BUFFERS = 8;
-    static final int MAX_DEPTH_BUFFERS = 3;
-    static final int MAX_SHADOW_COLOR_BUFFERS = 8;
-    static final int MAX_SHADOW_DEPTH_BUFFERS = 2;
     static int usedColorBuffers = 0;
     static int usedDepthBuffers = 0;
     static int usedShadowColorBuffers = 0;
@@ -288,13 +278,9 @@ public class Shaders {
     public static final Program PROGRAM_SKY_TEXTURED = PROGRAMS.makeGbuffers("gbuffers_skytextured", PROGRAM_TEXTURED);
     public static final Program PROGRAM_CLOUDS = PROGRAMS.makeGbuffers("gbuffers_clouds", PROGRAM_TEXTURED);
     public static final Program PROGRAM_TERRAIN = PROGRAMS.makeGbuffers("gbuffers_terrain", PROGRAM_TEXTURED_LIT);
-    public static final Program PROGRAM_TERRAIN_SOLID = PROGRAMS.makeGbuffers("gbuffers_terrain_solid", PROGRAM_TERRAIN);
-    public static final Program PROGRAM_TERRAIN_CUTOUT_MIP = PROGRAMS.makeGbuffers("gbuffers_terrain_cutout_mip", PROGRAM_TERRAIN);
-    public static final Program PROGRAM_TERRAIN_CUTOUT = PROGRAMS.makeGbuffers("gbuffers_terrain_cutout", PROGRAM_TERRAIN);
     public static final Program PROGRAM_DAMAGED_BLOCK = PROGRAMS.makeGbuffers("gbuffers_damagedblock", PROGRAM_TERRAIN);
     public static final Program PROGRAM_BLOCK = PROGRAMS.makeGbuffers("gbuffers_block", PROGRAM_TERRAIN);
     public static final Program PROGRAM_BEACON_BEAM = PROGRAMS.makeGbuffers("gbuffers_beaconbeam", PROGRAM_TEXTURED);
-    public static final Program PROGRAM_ITEM = PROGRAMS.makeGbuffers("gbuffers_item", PROGRAM_TEXTURED_LIT);
     public static final Program PROGRAM_ENTITIES = PROGRAMS.makeGbuffers("gbuffers_entities", PROGRAM_TEXTURED_LIT);
     public static final Program PROGRAM_ENTITIES_GLOWING = PROGRAMS.makeGbuffers("gbuffers_entities_glowing", PROGRAM_ENTITIES);
     public static final Program PROGRAM_ARMOR_GLINT = PROGRAMS.makeGbuffers("gbuffers_armor_glint", PROGRAM_TEXTURED);
@@ -303,12 +289,10 @@ public class Shaders {
     public static final Program PROGRAM_WEATHER = PROGRAMS.makeGbuffers("gbuffers_weather", PROGRAM_TEXTURED_LIT);
     public static final Program PROGRAM_DEFERRED_PRE = PROGRAMS.makeVirtual("deferred_pre");
     public static final Program[] PROGRAMS_DEFERRED = PROGRAMS.makeDeferreds("deferred", 16);
-    public static final Program PROGRAM_DEFERRED = PROGRAMS_DEFERRED[0];
     public static final Program PROGRAM_WATER = PROGRAMS.makeGbuffers("gbuffers_water", PROGRAM_TERRAIN);
     public static final Program PROGRAM_HAND_WATER = PROGRAMS.makeGbuffers("gbuffers_hand_water", PROGRAM_HAND);
     public static final Program PROGRAM_COMPOSITE_PRE = PROGRAMS.makeVirtual("composite_pre");
     public static final Program[] PROGRAMS_COMPOSITE = PROGRAMS.makeComposites("composite", 16);
-    public static final Program PROGRAM_COMPOSITE = PROGRAMS_COMPOSITE[0];
     public static final Program PROGRAM_FINAL = PROGRAMS.makeComposite("final");
     public static final int PROGRAM_COUNT = PROGRAMS.getCount();
     public static final Program[] PROGRAMS_ALL = PROGRAMS.getPrograms();
@@ -318,7 +302,6 @@ public class Shaders {
     private static boolean hasDeferredPrograms = false;
     static IntBuffer activeDrawBuffers = null;
     private static int activeCompositeMipmapSetting = 0;
-    public static Properties loadedShaders = null;
     public static Properties shadersConfig = null;
     public static ITextureObject defaultTexture = null;
     public static final boolean[] SHADOW_HARDWARE_FILTERING_ENABLED = new boolean[2];
@@ -343,8 +326,6 @@ public class Shaders {
     public static final PropertyDefaultTrueFalse CONFIG_OLD_LIGHTING = new PropertyDefaultTrueFalse("oldLighting", "Classic Lighting", 0);
     public static final PropertyDefaultTrueFalse CONFIG_OLD_HAND_LIGHT = new PropertyDefaultTrueFalse("oldHandLight", "Old Hand Light", 0);
     public static int configAntialiasingLevel = 0;
-    public static final int TEX_MIN_FIL_RANGE = 3;
-    public static final int TEX_MAG_FIL_RANGE = 2;
     public static final String[] TEX_MIN_FIL_DESC = new String[]{"Nearest", "Nearest-Nearest", "Nearest-Linear"};
     public static final String[] TEX_MAG_FIL_DESC = new String[]{"Nearest", "Linear"};
     public static final int[] TEX_MIN_FIL_VALUE = new int[]{9728, 9984, 9986};
@@ -352,18 +333,13 @@ public class Shaders {
     private static IShaderPack shaderPack = null;
     public static boolean shaderPackLoaded = false;
     public static String currentShaderName;
-    public static final String SHADER_PACK_NAME_NONE = "OFF";
-    public static final String SHADER_PACK_NAME_DEFAULT = "(internal)";
-    public static final String SHADER_PACKS_DIR_NAME = "shaderpacks";
-    public static final String OPTIONS_FILE_NAME = "optionsshaders.txt";
     public static final File SHADER_PACKS_DIR;
     static final File CONFIG_FILE;
     private static ShaderOption[] shaderPackOptions = null;
     private static Set<String> shaderPackOptionSliders = null;
     static ShaderProfile[] shaderPackProfiles = null;
     static Map<String, ScreenShaderOptions> shaderPackGuiScreens = null;
-    static Map<String, IExpressionBool> shaderPackProgramConditions = new HashMap();
-    public static final String PATH_SHADERS_PROPERTIES = "/shaders/shaders.properties";
+    static Map<String, IExpressionBool> shaderPackProgramConditions = new HashMap<>();
     public static final PropertyDefaultFastFancyOff SHADER_PACK_CLOUDS = new PropertyDefaultFastFancyOff("clouds", "Clouds", 0);
     public static final PropertyDefaultTrueFalse SHADER_PACK_OLD_LIGHTING = new PropertyDefaultTrueFalse("oldLighting", "Classic Lighting", 0);
     public static final PropertyDefaultTrueFalse SHADER_PACK_OLD_HAND_LIGHT = new PropertyDefaultTrueFalse("oldHandLight", "Old Hand Light", 0);
@@ -381,7 +357,7 @@ public class Shaders {
     public static final PropertyDefaultTrueFalse SHADER_PACK_BEACON_BEAM_DEPTH = new PropertyDefaultTrueFalse("beacon.beam.depth", "Rain Depth", 0);
     public static final PropertyDefaultTrueFalse SHADER_PACK_SEPARATE_AO = new PropertyDefaultTrueFalse("separateAo", "Separate AO", 0);
     public static final PropertyDefaultTrueFalse SHADER_PACK_FRUSTUM_CULLING = new PropertyDefaultTrueFalse("frustum.culling", "Frustum Culling", 0);
-    private static Map<String, String> shaderPackResources = new HashMap();
+    private static Map<String, String> shaderPackResources = new HashMap<>();
     private static World currentWorld = null;
     private static final IntList SHADER_PACK_DIMENSIONS = new IntArrayList();
     private static ICustomTexture[] customTexturesGbuffers = null;
@@ -389,19 +365,13 @@ public class Shaders {
     private static ICustomTexture[] customTexturesDeferred = null;
     private static String noiseTexturePath = null;
     private static CustomUniforms customUniforms = null;
-    private static final int STAGE_GBUFFERS = 0;
-    private static final int STAGE_COMPOSITE = 1;
-    private static final int STAGE_DEFERRED = 2;
     private static final String[] STAGE_NAMES = new String[]{"gbuffers", "composite", "deferred"};
-    public static final boolean ENABLE_SHADERS_OPTION = true;
-    private static final boolean ENABLE_SHADERS_DEBUG = true;
     public static final boolean SAVE_FINAL_SHADERS = System.getProperty("shaders.debug.save", "false").equals("true");
     public static float blockLightLevel05 = 0.5F;
     public static float blockLightLevel06 = 0.6F;
     public static float blockLightLevel08 = 0.8F;
     public static float aoLevel = -1.0F;
     public static float sunPathRotation = 0.0F;
-    public static final float SHADOW_ANGLE_INTERVAL = 0.0F;
     public static int fogMode = 0;
     public static float fogDensity = 0.0F;
     public static float fogColorR;
@@ -452,13 +422,6 @@ public class Shaders {
     public static final int[] ENTITY_DATA = new int[32];
     public static int entityDataIndex = 0;
 
-    private static ByteBuffer nextByteBuffer(int size) {
-        ByteBuffer bytebuffer = BIG_BUFFER;
-        int i = bytebuffer.limit();
-        bytebuffer.position(i).limit(i + size);
-        return bytebuffer.slice();
-    }
-
     public static IntBuffer nextIntBuffer(int size) {
         ByteBuffer bytebuffer = BIG_BUFFER;
         int i = bytebuffer.limit();
@@ -473,25 +436,15 @@ public class Shaders {
         return bytebuffer.asFloatBuffer();
     }
 
-    private static IntBuffer[] nextIntBufferArray(int count, int size) {
-        IntBuffer[] aintbuffer = new IntBuffer[count];
-
-        for (int i = 0; i < count; ++i) {
-            aintbuffer[i] = nextIntBuffer(size);
-        }
-
-        return aintbuffer;
-    }
-
     public static void loadConfig() {
-        SMCLog.info("Load shaders configuration.");
+        Log.info("Load shaders configuration.");
 
         try {
             if (!SHADER_PACKS_DIR.exists()) {
                 SHADER_PACKS_DIR.mkdir();
             }
         } catch (Exception var8) {
-            SMCLog.severe("Failed to open the shaderpacks directory: " + SHADER_PACKS_DIR);
+            Log.error("Failed to open the shaderpacks directory: " + SHADER_PACKS_DIR);
         }
 
         shadersConfig = new PropertiesOrdered();
@@ -531,85 +484,30 @@ public class Shaders {
         }
 
         switch (eso) {
-            case ANTIALIASING:
-                configAntialiasingLevel = Config.parseInt(str, 0);
-                break;
-
-            case NORMAL_MAP:
-                configNormalMap = Config.parseBoolean(str, true);
-                break;
-
-            case SPECULAR_MAP:
-                configSpecularMap = Config.parseBoolean(str, true);
-                break;
-
-            case RENDER_RES_MUL:
-                configRenderResMul = Config.parseFloat(str, 1.0F);
-                break;
-
-            case SHADOW_RES_MUL:
-                configShadowResMul = Config.parseFloat(str, 1.0F);
-                break;
-
-            case HAND_DEPTH_MUL:
-                configHandDepthMul = Config.parseFloat(str, 0.125F);
-                break;
-
-            case CLOUD_SHADOW:
-                configCloudShadow = Config.parseBoolean(str, true);
-                break;
-
-            case OLD_HAND_LIGHT:
-                CONFIG_OLD_HAND_LIGHT.setPropertyValue(str);
-                break;
-
-            case OLD_LIGHTING:
-                CONFIG_OLD_LIGHTING.setPropertyValue(str);
-                break;
-
-            case SHADER_PACK:
-                currentShaderName = str;
-                break;
-
-            case TWEAK_BLOCK_DAMAGE:
-                configTweakBlockDamage = Config.parseBoolean(str, true);
-                break;
-
-            case SHADOW_CLIP_FRUSTRUM:
-                configShadowClipFrustrum = Config.parseBoolean(str, true);
-                break;
-
-            case TEX_MIN_FIL_B:
-                configTexMinFilB = Config.parseInt(str, 0);
-                break;
-
-            case TEX_MIN_FIL_N:
-                configTexMinFilN = Config.parseInt(str, 0);
-                break;
-
-            case TEX_MIN_FIL_S:
-                configTexMinFilS = Config.parseInt(str, 0);
-                break;
-
-            case TEX_MAG_FIL_B:
-                configTexMagFilB = Config.parseInt(str, 0);
-                break;
-
-            case TEX_MAG_FIL_N:
-                configTexMagFilB = Config.parseInt(str, 0);
-                break;
-
-            case TEX_MAG_FIL_S:
-                configTexMagFilB = Config.parseInt(str, 0);
-                break;
-
-            default:
-                throw new IllegalArgumentException("Unknown option: " + eso);
+            case ANTIALIASING -> configAntialiasingLevel = Config.parseInt(str, 0);
+            case NORMAL_MAP -> configNormalMap = Config.parseBoolean(str, true);
+            case SPECULAR_MAP -> configSpecularMap = Config.parseBoolean(str, true);
+            case RENDER_RES_MUL -> configRenderResMul = Config.parseFloat(str, 1.0F);
+            case SHADOW_RES_MUL -> configShadowResMul = Config.parseFloat(str, 1.0F);
+            case HAND_DEPTH_MUL -> configHandDepthMul = Config.parseFloat(str, 0.125F);
+            case CLOUD_SHADOW -> configCloudShadow = Config.parseBoolean(str, true);
+            case OLD_HAND_LIGHT -> CONFIG_OLD_HAND_LIGHT.setPropertyValue(str);
+            case OLD_LIGHTING -> CONFIG_OLD_LIGHTING.setPropertyValue(str);
+            case SHADER_PACK -> currentShaderName = str;
+            case TWEAK_BLOCK_DAMAGE -> configTweakBlockDamage = Config.parseBoolean(str, true);
+            case SHADOW_CLIP_FRUSTRUM -> configShadowClipFrustrum = Config.parseBoolean(str, true);
+            case TEX_MIN_FIL_B -> configTexMinFilB = Config.parseInt(str, 0);
+            case TEX_MIN_FIL_N -> configTexMinFilN = Config.parseInt(str, 0);
+            case TEX_MIN_FIL_S -> configTexMinFilS = Config.parseInt(str, 0);
+            case TEX_MAG_FIL_B -> configTexMagFilB = Config.parseInt(str, 0);
+            case TEX_MAG_FIL_N -> configTexMagFilB = Config.parseInt(str, 0);
+            case TEX_MAG_FIL_S -> configTexMagFilB = Config.parseInt(str, 0);
+            default -> throw new IllegalArgumentException("Unknown option: " + eso);
         }
     }
 
     public static void storeConfig() {
-        SMCLog.info("Save shaders configuration.");
+        Log.info("Save shaders configuration.");
 
         if (shadersConfig == null) {
             shadersConfig = new PropertiesOrdered();
@@ -628,7 +526,7 @@ public class Shaders {
             shadersConfig.store(filewriter, null);
             filewriter.close();
         } catch (Exception exception) {
-            SMCLog.severe("Error saving configuration: " + exception.getClass().getName() + ": " + exception.getMessage());
+            Log.error("Error saving configuration: " + exception.getClass().getName() + ": " + exception.getMessage());
         }
     }
 
@@ -649,10 +547,7 @@ public class Shaders {
             case TEX_MIN_FIL_B -> Integer.toString(configTexMinFilB);
             case TEX_MIN_FIL_N -> Integer.toString(configTexMinFilN);
             case TEX_MIN_FIL_S -> Integer.toString(configTexMinFilS);
-            case TEX_MAG_FIL_B -> Integer.toString(configTexMagFilB);
-            case TEX_MAG_FIL_N -> Integer.toString(configTexMagFilB);
-            case TEX_MAG_FIL_S -> Integer.toString(configTexMagFilB);
-            default -> throw new IllegalArgumentException("Unknown option: " + eso);
+            case TEX_MAG_FIL_B, TEX_MAG_FIL_N, TEX_MAG_FIL_S -> Integer.toString(configTexMagFilB);
         };
     }
 
@@ -693,17 +588,17 @@ public class Shaders {
         boolean flag2 = false;
 
         if (Config.isAntialiasing()) {
-            SMCLog.info("Shaders can not be loaded, Antialiasing is enabled: " + Config.getAntialiasingLevel() + "x");
+            Log.info("Shaders can not be loaded, Antialiasing is enabled: " + Config.getAntialiasingLevel() + "x");
             flag2 = true;
         }
 
         if (Config.isAnisotropicFiltering()) {
-            SMCLog.info("Shaders can not be loaded, Anisotropic Filtering is enabled: " + Config.getAnisotropicFilterLevel() + "x");
+            Log.info("Shaders can not be loaded, Anisotropic Filtering is enabled: " + Config.getAnisotropicFilterLevel() + "x");
             flag2 = true;
         }
 
         if (Config.isFastRender()) {
-            SMCLog.info("Shaders can not be loaded, Fast Render is enabled.");
+            Log.info("Shaders can not be loaded, Fast Render is enabled.");
             flag2 = true;
         }
 
@@ -715,9 +610,9 @@ public class Shaders {
         }
 
         if (shaderPackLoaded) {
-            SMCLog.info("Loaded shaderpack: " + getShaderPackName());
+            Log.info("Loaded shaderpack: " + getShaderPackName());
         } else {
-            SMCLog.info("No shaderpack loaded.");
+            Log.info("No shaderpack loaded.");
             shaderPack = new ShaderPackNone();
         }
 
@@ -791,7 +686,7 @@ public class Shaders {
 
         if (!SHADER_PACK_DIMENSIONS.isEmpty()) {
             Integer[] ainteger = SHADER_PACK_DIMENSIONS.toArray(new Integer[0]);
-            Config.dbg("[Shaders] Worlds: " + Config.arrayToString(ainteger));
+            Log.info("[Shaders] Worlds: " + Config.arrayToString(ainteger));
         }
     }
 
@@ -875,15 +770,15 @@ public class Shaders {
                 ShaderPackParser.parseRenderScales(properties);
                 ShaderPackParser.parseBuffersFlip(properties);
             } catch (IOException var3) {
-                Config.warn("[Shaders] Error reading: " + s);
+                Log.error("[Shaders] Error reading: " + s);
             }
         }
     }
 
     private static ICustomTexture[] loadCustomTextures(Properties props, int stage) {
         String s = "texture." + STAGE_NAMES[stage] + ".";
-        Set set = props.keySet();
-        List<ICustomTexture> list = new ArrayList();
+        Set<Object> set = props.keySet();
+        List<ICustomTexture> list = new ArrayList<>();
 
         for (Object o : set) {
             String s1 = (String) o;
@@ -894,12 +789,12 @@ public class Shaders {
                 int i = getTextureIndex(stage, s2);
 
                 if (i < 0) {
-                    SMCLog.warning("Invalid texture name: " + s1);
+                    Log.warn("Invalid texture name: " + s1);
                 } else {
                     ICustomTexture icustomtexture = loadCustomTexture(i, s3);
 
                     if (icustomtexture != null) {
-                        SMCLog.info("Custom texture: " + s1 + " = " + s3);
+                        Log.info("Custom texture: " + s1 + " = " + s3);
                         list.add(icustomtexture);
                     }
                 }
@@ -945,18 +840,18 @@ public class Shaders {
     private static ICustomTexture loadCustomTextureRaw(int textureUnit, String line) {
         ConnectedParser connectedparser = new ConnectedParser("Shaders");
         String[] astring = Config.tokenize(line, " ");
-        Deque<String> deque = new ArrayDeque(Arrays.asList(astring));
+        Deque<String> deque = new ArrayDeque<>(Arrays.asList(astring));
         String s = deque.poll();
         TextureType texturetype = (TextureType) connectedparser.parseEnum(deque.poll(), TextureType.values(), "texture type");
 
         if (texturetype == null) {
-            SMCLog.warning("Invalid raw texture type: " + line);
+            Log.warn("Invalid raw texture type: " + line);
             return null;
         } else {
             InternalFormat internalformat = (InternalFormat) connectedparser.parseEnum(deque.poll(), InternalFormat.values(), "internal format");
 
             if (internalformat == null) {
-                SMCLog.warning("Invalid raw texture internal format: " + line);
+                Log.warn("Invalid raw texture internal format: " + line);
                 return null;
             } else {
                 int i;
@@ -985,7 +880,7 @@ public class Shaders {
                         break;
 
                     default:
-                        SMCLog.warning("Invalid raw texture type: " + texturetype);
+                        Log.warn("Invalid raw texture type: " + texturetype);
                         return null;
                 }
 
@@ -993,23 +888,23 @@ public class Shaders {
                     PixelFormat pixelformat = (PixelFormat) connectedparser.parseEnum(deque.poll(), PixelFormat.values(), "pixel format");
 
                     if (pixelformat == null) {
-                        SMCLog.warning("Invalid raw texture pixel format: " + line);
+                        Log.warn("Invalid raw texture pixel format: " + line);
                         return null;
                     } else {
                         PixelType pixeltype = (PixelType) connectedparser.parseEnum(deque.poll(), PixelType.values(), "pixel type");
 
                         if (pixeltype == null) {
-                            SMCLog.warning("Invalid raw texture pixel type: " + line);
+                            Log.warn("Invalid raw texture pixel type: " + line);
                             return null;
                         } else if (!deque.isEmpty()) {
-                            SMCLog.warning("Invalid raw texture, too many parameters: " + line);
+                            Log.warn("Invalid raw texture, too many parameters: " + line);
                             return null;
                         } else {
                             return loadCustomTextureRaw(textureUnit, line, s, texturetype, internalformat, i, j, k, pixelformat, pixeltype);
                         }
                     }
                 } else {
-                    SMCLog.warning("Invalid raw texture size: " + line);
+                    Log.warn("Invalid raw texture size: " + line);
                     return null;
                 }
             }
@@ -1022,7 +917,7 @@ public class Shaders {
             InputStream inputstream = shaderPack.getResourceAsStream(s);
 
             if (inputstream == null) {
-                SMCLog.warning("Raw texture not found: " + path);
+                Log.warn("Raw texture not found: " + path);
                 return null;
             } else {
                 byte[] abyte = Config.readAll(inputstream);
@@ -1034,8 +929,8 @@ public class Shaders {
                 return new CustomTextureRaw(type, internalFormat, width, height, depth, pixelFormat, pixelType, bytebuffer, textureUnit, texturemetadatasection.getTextureBlur(), texturemetadatasection.getTextureClamp());
             }
         } catch (IOException ioexception) {
-            SMCLog.warning("Error loading raw texture: " + path);
-            SMCLog.warning(ioexception.getClass().getName() + ": " + ioexception.getMessage());
+            Log.warn("Error loading raw texture: " + path);
+            Log.warn(ioexception.getClass().getName() + ": " + ioexception.getMessage());
             return null;
         }
     }
@@ -1052,7 +947,7 @@ public class Shaders {
             InputStream inputstream = shaderPack.getResourceAsStream(s);
 
             if (inputstream == null) {
-                SMCLog.warning("Texture not found: " + path);
+                Log.warn("Texture not found: " + path);
                 return null;
             } else {
                 IOUtils.closeQuietly(inputstream);
@@ -1061,8 +956,8 @@ public class Shaders {
                 return new CustomTexture(textureUnit, s, simpleshadertexture);
             }
         } catch (IOException ioexception) {
-            SMCLog.warning("Error loading texture: " + path);
-            SMCLog.warning(ioexception.getClass().getName() + ": " + ioexception.getMessage());
+            Log.warn("Error loading texture: " + path);
+            Log.warn(ioexception.getClass().getName() + ": " + ioexception.getMessage());
             return null;
         }
     }
@@ -1123,7 +1018,7 @@ public class Shaders {
         }
 
         if (stage == 1 || stage == 2) {
-            if (name.equals("colortex0") || name.equals("colortex0")) {
+            if (name.equals("colortex0")) {
                 return 0;
             }
 
@@ -1235,7 +1130,7 @@ public class Shaders {
                 return new ShaderOption[0];
             } else {
                 ShaderOption[] ashaderoption1 = screenshaderoptions.shaderOptions();
-                List<ShaderOption> list = new ArrayList();
+                List<ShaderOption> list = new ArrayList<>();
 
                 for (ShaderOption shaderoption : ashaderoption1) {
                     if (shaderoption == null) {
@@ -1265,7 +1160,7 @@ public class Shaders {
     }
 
     private static ShaderOption[] getShaderOptionsRest(Map<String, ScreenShaderOptions> mapScreens, ShaderOption[] ops) {
-        Set<String> set = new HashSet();
+        Set<String> set = new HashSet<>();
 
         for (String s : mapScreens.keySet()) {
             ScreenShaderOptions screenshaderoptions = mapScreens.get(s);
@@ -1278,7 +1173,7 @@ public class Shaders {
             }
         }
 
-        List<ShaderOption> list = new ArrayList();
+        List<ShaderOption> list = new ArrayList<>();
 
         for (ShaderOption shaderoption1 : ops) {
             if (shaderoption1.isVisible()) {
@@ -1306,7 +1201,7 @@ public class Shaders {
     }
 
     private static ShaderOption[] getVisibleOptions(ShaderOption[] ops) {
-        List<ShaderOption> list = new ArrayList();
+        List<ShaderOption> list = new ArrayList<>();
 
         for (ShaderOption shaderoption : ops) {
             if (shaderoption.isVisible()) {
@@ -1335,7 +1230,7 @@ public class Shaders {
         try {
             saveOptionProperties(sp, properties);
         } catch (IOException ioexception) {
-            Config.warn("[Shaders] Error saving configuration for " + shaderPack.getName());
+            Log.error("[Shaders] Error saving configuration for " + shaderPack.getName());
             ioexception.printStackTrace();
         }
     }
@@ -1367,14 +1262,14 @@ public class Shaders {
                     shaderoption.resetValue();
 
                     if (!shaderoption.setValue(s)) {
-                        Config.warn("[Shaders] Invalid value, option: " + shaderoption.getName() + ", value: " + s);
+                        Log.error("[Shaders] Invalid value, option: " + shaderoption.getName() + ", value: " + s);
                     }
                 }
             }
 
             return ashaderoption;
         } catch (IOException ioexception) {
-            Config.warn("[Shaders] Error reading configuration for " + shaderPack.getName());
+            Log.error("[Shaders] Error reading configuration for " + shaderPack.getName());
             ioexception.printStackTrace();
             return null;
         }
@@ -1396,7 +1291,7 @@ public class Shaders {
     }
 
     public static ShaderOption[] getChangedOptions(ShaderOption[] ops) {
-        List<ShaderOption> list = new ArrayList();
+        List<ShaderOption> list = new ArrayList<>();
 
         for (ShaderOption shaderoption : ops) {
             if (shaderoption.isEnabled() && shaderoption.isChanged()) {
@@ -1420,8 +1315,8 @@ public class Shaders {
         return line;
     }
 
-    public static ArrayList listOfShaders() {
-        ArrayList<String> arraylist = new ArrayList();
+    public static ArrayList<String> listOfShaders() {
+        ArrayList<String> arraylist = new ArrayList<>();
         arraylist.add("OFF");
         arraylist.add("(internal)");
         int i = arraylist.size();
@@ -1473,7 +1368,7 @@ public class Shaders {
             String s = Config.getGlErrorString(i);
             String s1 = getErrorInfo(i, location);
             String s2 = String.format("OpenGL error: %s (%s)%s, at: %s", i, s, s1, location);
-            SMCLog.severe(s2);
+            Log.error(s2);
 
             if (Config.isShowGlErrors() && TimedEvent.isActive("ShowGlErrorShaders", 10000L)) {
                 String s3 = I18n.format("of.message.openglError", i, s);
@@ -1500,7 +1395,7 @@ public class Shaders {
             s2 = "none";
         }
 
-        stringbuilder.append(", program: " + s2);
+        stringbuilder.append(", program: ").append(s2);
         Program program = getProgramById(activeProgramID);
 
         if (program != activeProgram) {
@@ -1510,11 +1405,11 @@ public class Shaders {
                 s3 = "none";
             }
 
-            stringbuilder.append(" (" + s3 + ")");
+            stringbuilder.append(" (").append(s3).append(")");
         }
 
         if (location.equals("setDrawBuffers")) {
-            stringbuilder.append(", drawBuffers: " + activeProgram.getDrawBufSettings());
+            stringbuilder.append(", drawBuffers: ").append(activeProgram.getDrawBufSettings());
         }
 
         return stringbuilder.toString();
@@ -1550,7 +1445,7 @@ public class Shaders {
     }
 
     private static void printChatAndLogError(String str) {
-        SMCLog.severe(str);
+        Log.error(str);
         mc.ingameGUI.getChatGUI().printChatMessage(new ChatComponentText(str));
     }
 
@@ -1564,7 +1459,7 @@ public class Shaders {
         }
 
         stringbuilder.append("]");
-        SMCLog.info(stringbuilder.toString());
+        Log.info(stringbuilder.toString());
     }
 
     public static void startup() {
@@ -1572,13 +1467,13 @@ public class Shaders {
         glVersionString = GL11.glGetString(GL11.GL_VERSION);
         glVendorString = GL11.glGetString(GL11.GL_VENDOR);
         glRendererString = GL11.glGetString(GL11.GL_RENDERER);
-        SMCLog.info("OpenGL Version: " + glVersionString);
-        SMCLog.info("Vendor:  " + glVendorString);
-        SMCLog.info("Renderer: " + glRendererString);
-        SMCLog.info("Capabilities: " + (capabilities.OpenGL20 ? " 2.0 " : " - ") + (capabilities.OpenGL21 ? " 2.1 " : " - ") + (capabilities.OpenGL30 ? " 3.0 " : " - ") + (capabilities.OpenGL32 ? " 3.2 " : " - ") + (capabilities.OpenGL40 ? " 4.0 " : " - "));
-        SMCLog.info("GL_MAX_DRAW_BUFFERS: " + GL11.glGetInteger(GL20.GL_MAX_DRAW_BUFFERS));
-        SMCLog.info("GL_MAX_COLOR_ATTACHMENTS_EXT: " + GL11.glGetInteger(36063));
-        SMCLog.info("GL_MAX_TEXTURE_IMAGE_UNITS: " + GL11.glGetInteger(GL20.GL_MAX_TEXTURE_IMAGE_UNITS));
+        Log.info("OpenGL Version: " + glVersionString);
+        Log.info("Vendor:  " + glVendorString);
+        Log.info("Renderer: " + glRendererString);
+        Log.info("Capabilities: " + (capabilities.OpenGL20 ? " 2.0 " : " - ") + (capabilities.OpenGL21 ? " 2.1 " : " - ") + (capabilities.OpenGL30 ? " 3.0 " : " - ") + (capabilities.OpenGL32 ? " 3.2 " : " - ") + (capabilities.OpenGL40 ? " 4.0 " : " - "));
+        Log.info("GL_MAX_DRAW_BUFFERS: " + GL11.glGetInteger(GL20.GL_MAX_DRAW_BUFFERS));
+        Log.info("GL_MAX_COLOR_ATTACHMENTS_EXT: " + GL11.glGetInteger(36063));
+        Log.info("GL_MAX_TEXTURE_IMAGE_UNITS: " + GL11.glGetInteger(GL20.GL_MAX_TEXTURE_IMAGE_UNITS));
         hasGlGenMipmap = capabilities.OpenGL30;
         loadConfig();
     }
@@ -1633,7 +1528,6 @@ public class Shaders {
             case CUTOUT -> SHADER_PACK_BACK_FACE_CUTOUT.isTrue();
             case CUTOUT_MIPPED -> SHADER_PACK_BACK_FACE_CUTOUT_MIPPED.isTrue();
             case TRANSLUCENT -> SHADER_PACK_BACK_FACE_TRANSLUCENT.isTrue();
-            default -> false;
         };
     }
 
@@ -1752,7 +1646,7 @@ public class Shaders {
                     }
 
                     if (!flag1) {
-                        SMCLog.info("Program disabled: " + s2);
+                        Log.info("Program disabled: " + s2);
                         s1 = "<disabled>";
                         s2 = s + s1;
                     }
@@ -1765,7 +1659,7 @@ public class Shaders {
                     int j = program.getId();
 
                     if (j > 0) {
-                        SMCLog.info("Program loaded: " + s2);
+                        Log.info("Program loaded: " + s2);
                     }
 
                     initDrawBuffers(program);
@@ -1785,12 +1679,12 @@ public class Shaders {
             usedColorAttachs = usedColorBuffers;
             shadowPassInterval = usedShadowDepthBuffers > 0 ? 1 : 0;
             shouldSkipDefaultShadow = usedShadowDepthBuffers > 0;
-            SMCLog.info("usedColorBuffers: " + usedColorBuffers);
-            SMCLog.info("usedDepthBuffers: " + usedDepthBuffers);
-            SMCLog.info("usedShadowColorBuffers: " + usedShadowColorBuffers);
-            SMCLog.info("usedShadowDepthBuffers: " + usedShadowDepthBuffers);
-            SMCLog.info("usedColorAttachs: " + usedColorAttachs);
-            SMCLog.info("usedDrawBuffers: " + usedDrawBuffers);
+            Log.info("usedColorBuffers: " + usedColorBuffers);
+            Log.info("usedDepthBuffers: " + usedDepthBuffers);
+            Log.info("usedShadowColorBuffers: " + usedShadowColorBuffers);
+            Log.info("usedShadowDepthBuffers: " + usedShadowDepthBuffers);
+            Log.info("usedColorAttachs: " + usedColorAttachs);
+            Log.info("usedDrawBuffers: " + usedDrawBuffers);
             DFB_DRAW_BUFFERS.position(0).limit(usedDrawBuffers);
             DFB_COLOR_TEXTURES.position(0).limit(usedColorBuffers * 2);
             DFB_COLOR_TEXTURES_FLIP.reset();
@@ -1927,9 +1821,9 @@ public class Shaders {
     }
 
     public static void resetDisplayLists() {
-        SMCLog.info("Reset model renderers");
+        Log.info("Reset model renderers");
         ++countResetDisplayLists;
-        SMCLog.info("Reset world renderers");
+        Log.info("Reset world renderers");
         mc.renderGlobal.loadRenderers();
     }
 
@@ -1993,7 +1887,7 @@ public class Shaders {
                 ARBShaderObjects.glLinkProgramARB(i);
 
                 if (GL20.glGetProgrami(i, 35714) != 1) {
-                    SMCLog.severe("Error linking program: " + i + " (" + program.getName() + ")");
+                    Log.error("Error linking program: " + i + " (" + program.getName() + ")");
                 }
 
                 printLogInfo(i, program.getName());
@@ -2048,7 +1942,7 @@ public class Shaders {
             }
 
             ShaderOption[] ashaderoption = getChangedOptions(shaderPackOptions);
-            List<String> list = new ArrayList();
+            List<String> list = new ArrayList<>();
 
             if (bufferedreader != null) {
                 try {
@@ -2083,13 +1977,13 @@ public class Shaders {
 
                                 if (shaderline.isConstInt("countInstances")) {
                                     program.setCountInstances(shaderline.getValueInt());
-                                    SMCLog.info("countInstances: " + program.getCountInstances());
+                                    Log.info("countInstances: " + program.getCountInstances());
                                 }
                             }
                         }
                     }
                 } catch (Exception exception) {
-                    SMCLog.severe("Couldn't read " + filename + "!");
+                    Log.error("Couldn't read " + filename + "!");
                     exception.printStackTrace();
                     ARBShaderObjects.glDeleteObjectARB(i);
                     return 0;
@@ -2104,7 +1998,7 @@ public class Shaders {
             ARBShaderObjects.glCompileShaderARB(i);
 
             if (GL20.glGetShaderi(i, 35713) != 1) {
-                SMCLog.severe("Error compiling vertex shader: " + filename);
+                Log.error("Error compiling vertex shader: " + filename);
             }
 
             printShaderLogInfo(i, filename, list);
@@ -2129,7 +2023,7 @@ public class Shaders {
             }
 
             ShaderOption[] ashaderoption = getChangedOptions(shaderPackOptions);
-            List<String> list = new ArrayList();
+            List<String> list = new ArrayList<>();
             progArbGeometryShader4 = false;
             progMaxVerticesOut = 3;
 
@@ -2168,7 +2062,7 @@ public class Shaders {
                         }
                     }
                 } catch (Exception exception) {
-                    SMCLog.severe("Couldn't read " + filename + "!");
+                    Log.error("Couldn't read " + filename + "!");
                     exception.printStackTrace();
                     ARBShaderObjects.glDeleteObjectARB(i);
                     return 0;
@@ -2183,7 +2077,7 @@ public class Shaders {
             ARBShaderObjects.glCompileShaderARB(i);
 
             if (GL20.glGetShaderi(i, 35713) != 1) {
-                SMCLog.severe("Error compiling geometry shader: " + filename);
+                Log.error("Error compiling geometry shader: " + filename);
             }
 
             printShaderLogInfo(i, filename, list);
@@ -2208,7 +2102,7 @@ public class Shaders {
             }
 
             ShaderOption[] ashaderoption = getChangedOptions(shaderPackOptions);
-            List<String> list = new ArrayList();
+            List<String> list = new ArrayList<>();
 
             if (bufferedreader != null) {
                 try {
@@ -2252,68 +2146,68 @@ public class Shaders {
                                         if (!shaderline.isConstFloat("shadowDistance") && !shaderline.isProperty("SHADOWHPL")) {
                                             if (shaderline.isConstFloat("shadowDistanceRenderMul")) {
                                                 shadowDistanceRenderMul = shaderline.getValueFloat();
-                                                SMCLog.info("Shadow distance render mul: " + shadowDistanceRenderMul);
+                                                Log.info("Shadow distance render mul: " + shadowDistanceRenderMul);
                                             } else if (shaderline.isConstFloat("shadowIntervalSize")) {
                                                 shadowIntervalSize = shaderline.getValueFloat();
-                                                SMCLog.info("Shadow map interval size: " + shadowIntervalSize);
+                                                Log.info("Shadow map interval size: " + shadowIntervalSize);
                                             } else if (shaderline.isConstBool("generateShadowMipmap", true)) {
                                                 Arrays.fill(SHADOW_MIPMAP_ENABLED, true);
-                                                SMCLog.info("Generate shadow mipmap");
+                                                Log.info("Generate shadow mipmap");
                                             } else if (shaderline.isConstBool("generateShadowColorMipmap", true)) {
                                                 Arrays.fill(SHADOW_COLOR_MIPMAP_ENABLED, true);
-                                                SMCLog.info("Generate shadow color mipmap");
+                                                Log.info("Generate shadow color mipmap");
                                             } else if (shaderline.isConstBool("shadowHardwareFiltering", true)) {
                                                 Arrays.fill(SHADOW_HARDWARE_FILTERING_ENABLED, true);
-                                                SMCLog.info("Hardware shadow filtering enabled.");
+                                                Log.info("Hardware shadow filtering enabled.");
                                             } else if (shaderline.isConstBool("shadowHardwareFiltering0", true)) {
                                                 SHADOW_HARDWARE_FILTERING_ENABLED[0] = true;
-                                                SMCLog.info("shadowHardwareFiltering0");
+                                                Log.info("shadowHardwareFiltering0");
                                             } else if (shaderline.isConstBool("shadowHardwareFiltering1", true)) {
                                                 SHADOW_HARDWARE_FILTERING_ENABLED[1] = true;
-                                                SMCLog.info("shadowHardwareFiltering1");
+                                                Log.info("shadowHardwareFiltering1");
                                             } else if (shaderline.isConstBool("shadowtex0Mipmap", "shadowtexMipmap", true)) {
                                                 SHADOW_MIPMAP_ENABLED[0] = true;
-                                                SMCLog.info("shadowtex0Mipmap");
+                                                Log.info("shadowtex0Mipmap");
                                             } else if (shaderline.isConstBool("shadowtex1Mipmap", true)) {
                                                 SHADOW_MIPMAP_ENABLED[1] = true;
-                                                SMCLog.info("shadowtex1Mipmap");
+                                                Log.info("shadowtex1Mipmap");
                                             } else if (shaderline.isConstBool("shadowcolor0Mipmap", "shadowColor0Mipmap", true)) {
                                                 SHADOW_COLOR_MIPMAP_ENABLED[0] = true;
-                                                SMCLog.info("shadowcolor0Mipmap");
+                                                Log.info("shadowcolor0Mipmap");
                                             } else if (shaderline.isConstBool("shadowcolor1Mipmap", "shadowColor1Mipmap", true)) {
                                                 SHADOW_COLOR_MIPMAP_ENABLED[1] = true;
-                                                SMCLog.info("shadowcolor1Mipmap");
+                                                Log.info("shadowcolor1Mipmap");
                                             } else if (shaderline.isConstBool("shadowtex0Nearest", "shadowtexNearest", "shadow0MinMagNearest", true)) {
                                                 SHADOW_FILTER_NEAREST[0] = true;
-                                                SMCLog.info("shadowtex0Nearest");
+                                                Log.info("shadowtex0Nearest");
                                             } else if (shaderline.isConstBool("shadowtex1Nearest", "shadow1MinMagNearest", true)) {
                                                 SHADOW_FILTER_NEAREST[1] = true;
-                                                SMCLog.info("shadowtex1Nearest");
+                                                Log.info("shadowtex1Nearest");
                                             } else if (shaderline.isConstBool("shadowcolor0Nearest", "shadowColor0Nearest", "shadowColor0MinMagNearest", true)) {
                                                 SHADOW_COLOR_FILTER_NEAREST[0] = true;
-                                                SMCLog.info("shadowcolor0Nearest");
+                                                Log.info("shadowcolor0Nearest");
                                             } else if (shaderline.isConstBool("shadowcolor1Nearest", "shadowColor1Nearest", "shadowColor1MinMagNearest", true)) {
                                                 SHADOW_COLOR_FILTER_NEAREST[1] = true;
-                                                SMCLog.info("shadowcolor1Nearest");
+                                                Log.info("shadowcolor1Nearest");
                                             } else if (!shaderline.isConstFloat("wetnessHalflife") && !shaderline.isProperty("WETNESSHL")) {
                                                 if (!shaderline.isConstFloat("drynessHalflife") && !shaderline.isProperty("DRYNESSHL")) {
                                                     if (shaderline.isConstFloat("eyeBrightnessHalflife")) {
                                                         eyeBrightnessHalflife = shaderline.getValueFloat();
-                                                        SMCLog.info("Eye brightness halflife: " + eyeBrightnessHalflife);
+                                                        Log.info("Eye brightness halflife: " + eyeBrightnessHalflife);
                                                     } else if (shaderline.isConstFloat("centerDepthHalflife")) {
                                                         centerDepthSmoothHalflife = shaderline.getValueFloat();
-                                                        SMCLog.info("Center depth halflife: " + centerDepthSmoothHalflife);
+                                                        Log.info("Center depth halflife: " + centerDepthSmoothHalflife);
                                                     } else if (shaderline.isConstFloat("sunPathRotation")) {
                                                         sunPathRotation = shaderline.getValueFloat();
-                                                        SMCLog.info("Sun path rotation: " + sunPathRotation);
+                                                        Log.info("Sun path rotation: " + sunPathRotation);
                                                     } else if (shaderline.isConstFloat("ambientOcclusionLevel")) {
                                                         aoLevel = Config.limit(shaderline.getValueFloat(), 0.0F, 1.0F);
-                                                        SMCLog.info("AO Level: " + aoLevel);
+                                                        Log.info("AO Level: " + aoLevel);
                                                     } else if (shaderline.isConstInt("superSamplingLevel")) {
                                                         int i1 = shaderline.getValueInt();
 
                                                         if (i1 > 1) {
-                                                            SMCLog.info("Super sampling level: " + i1 + "x");
+                                                            Log.info("Super sampling level: " + i1 + "x");
                                                             superSamplingLevel = i1;
                                                         } else {
                                                             superSamplingLevel = 1;
@@ -2321,8 +2215,8 @@ public class Shaders {
                                                     } else if (shaderline.isConstInt("noiseTextureResolution")) {
                                                         noiseTextureResolution = shaderline.getValueInt();
                                                         noiseTextureEnabled = true;
-                                                        SMCLog.info("Noise texture enabled");
-                                                        SMCLog.info("Noise texture resolution: " + noiseTextureResolution);
+                                                        Log.info("Noise texture enabled");
+                                                        Log.info("Noise texture resolution: " + noiseTextureResolution);
                                                     } else if (shaderline.isConstIntSuffix("Format")) {
                                                         String s5 = StrUtils.removeSuffix(shaderline.getName(), "Format");
                                                         String s7 = shaderline.getValue();
@@ -2331,7 +2225,7 @@ public class Shaders {
 
                                                         if (i2 >= 0 && l != 0) {
                                                             GBUFFERS_FORMAT[i2] = l;
-                                                            SMCLog.info("%s format: %s", s5, s7);
+                                                            Log.info("%s format: %s", s5, s7);
                                                         }
                                                     } else if (shaderline.isConstBoolSuffix("Clear", false)) {
                                                         if (ShaderParser.isComposite(filename) || ShaderParser.isDeferred(filename)) {
@@ -2340,7 +2234,7 @@ public class Shaders {
 
                                                             if (k1 >= 0) {
                                                                 GBUFFERS_CLEAR[k1] = false;
-                                                                SMCLog.info("%s clear disabled", s4);
+                                                                Log.info("%s clear disabled", s4);
                                                             }
                                                         }
                                                     } else if (shaderline.isConstVec4Suffix("ClearColor")) {
@@ -2353,21 +2247,21 @@ public class Shaders {
 
                                                                 if (vector4f != null) {
                                                                     GBUFFERS_CLEAR_COLOR[j1] = vector4f;
-                                                                    SMCLog.info("%s clear color: %s %s %s %s", s3, vector4f.x, vector4f.y, vector4f.z, vector4f.w);
+                                                                    Log.info("%s clear color: %s %s %s %s", s3, vector4f.x, vector4f.y, vector4f.z, vector4f.w);
                                                                 } else {
-                                                                    SMCLog.warning("Invalid color value: " + shaderline.getValue());
+                                                                    Log.warn("Invalid color value: " + shaderline.getValue());
                                                                 }
                                                             }
                                                         }
                                                     } else if (shaderline.isProperty("GAUX4FORMAT", "RGBA32F")) {
                                                         GBUFFERS_FORMAT[7] = 34836;
-                                                        SMCLog.info("gaux4 format : RGB32AF");
+                                                        Log.info("gaux4 format : RGB32AF");
                                                     } else if (shaderline.isProperty("GAUX4FORMAT", "RGB32F")) {
                                                         GBUFFERS_FORMAT[7] = 34837;
-                                                        SMCLog.info("gaux4 format : RGB32F");
+                                                        Log.info("gaux4 format : RGB32F");
                                                     } else if (shaderline.isProperty("GAUX4FORMAT", "RGB16")) {
                                                         GBUFFERS_FORMAT[7] = 32852;
-                                                        SMCLog.info("gaux4 format : RGB16");
+                                                        Log.info("gaux4 format : RGB16");
                                                     } else if (shaderline.isConstBoolSuffix("MipmapEnabled", true)) {
                                                         if (ShaderParser.isComposite(filename) || ShaderParser.isDeferred(filename) || ShaderParser.isFinal(filename)) {
                                                             String s2 = StrUtils.removeSuffix(shaderline.getName(), "MipmapEnabled");
@@ -2377,7 +2271,7 @@ public class Shaders {
                                                                 int k = program.getCompositeMipmapSetting();
                                                                 k = k | 1 << j;
                                                                 program.setCompositeMipmapSetting(k);
-                                                                SMCLog.info("%s mipmap enabled", s2);
+                                                                Log.info("%s mipmap enabled", s2);
                                                             }
                                                         }
                                                     } else if (shaderline.isProperty("DRAWBUFFERS")) {
@@ -2386,37 +2280,37 @@ public class Shaders {
                                                         if (ShaderParser.isValidDrawBuffers(s1)) {
                                                             program.setDrawBufSettings(s1);
                                                         } else {
-                                                            SMCLog.warning("Invalid draw buffers: " + s1);
+                                                            Log.warn("Invalid draw buffers: " + s1);
                                                         }
                                                     }
                                                 } else {
                                                     drynessHalfLife = shaderline.getValueFloat();
-                                                    SMCLog.info("Dryness halflife: " + drynessHalfLife);
+                                                    Log.info("Dryness halflife: " + drynessHalfLife);
                                                 }
                                             } else {
                                                 wetnessHalfLife = shaderline.getValueFloat();
-                                                SMCLog.info("Wetness halflife: " + wetnessHalfLife);
+                                                Log.info("Wetness halflife: " + wetnessHalfLife);
                                             }
                                         } else {
                                             shadowMapHalfPlane = shaderline.getValueFloat();
                                             shadowMapIsOrtho = true;
-                                            SMCLog.info("Shadow map distance: " + shadowMapHalfPlane);
+                                            Log.info("Shadow map distance: " + shadowMapHalfPlane);
                                         }
                                     } else {
                                         shadowMapFOV = shaderline.getValueFloat();
                                         shadowMapIsOrtho = false;
-                                        SMCLog.info("Shadow map field of view: " + shadowMapFOV);
+                                        Log.info("Shadow map field of view: " + shadowMapFOV);
                                     }
                                 } else {
                                     spShadowMapWidth = spShadowMapHeight = shaderline.getValueInt();
                                     shadowMapWidth = shadowMapHeight = Math.round(spShadowMapWidth * configShadowResMul);
-                                    SMCLog.info("Shadow map resolution: " + spShadowMapWidth);
+                                    Log.info("Shadow map resolution: " + spShadowMapWidth);
                                 }
                             }
                         }
                     }
                 } catch (Exception exception) {
-                    SMCLog.severe("Couldn't read " + filename + "!");
+                    Log.error("Couldn't read " + filename + "!");
                     exception.printStackTrace();
                     ARBShaderObjects.glDeleteObjectARB(i);
                     return 0;
@@ -2431,7 +2325,7 @@ public class Shaders {
             ARBShaderObjects.glCompileShaderARB(i);
 
             if (GL20.glGetShaderi(i, 35713) != 1) {
-                SMCLog.severe("Error compiling fragment shader: " + filename);
+                Log.error("Error compiling fragment shader: " + filename);
             }
 
             printShaderLogInfo(i, filename, list);
@@ -2449,7 +2343,7 @@ public class Shaders {
             file1.getParentFile().mkdirs();
             Config.writeFile(file1, code);
         } catch (IOException ioexception) {
-            Config.warn("Error saving: " + filename);
+            Log.error("Error saving: " + filename);
             ioexception.printStackTrace();
         }
     }
@@ -2490,7 +2384,7 @@ public class Shaders {
 
             String s = new String(abyte, StandardCharsets.US_ASCII);
             s = StrUtils.trim(s, " \n\r\t");
-            SMCLog.info("Info log: " + name + "\n" + s);
+            Log.info("Info log: " + name + "\n" + s);
             return false;
         } else {
             return true;
@@ -2506,12 +2400,12 @@ public class Shaders {
         } else {
             for (int j = 0; j < listFiles.size(); ++j) {
                 String s = listFiles.get(j);
-                SMCLog.info("File: " + (j + 1) + " = " + s);
+                Log.info("File: " + (j + 1) + " = " + s);
             }
 
             String s1 = GL20.glGetShaderInfoLog(shader, i);
             s1 = StrUtils.trim(s1, " \n\r\t");
-            SMCLog.info("Shader info log: " + name + "\n" + s1);
+            Log.info("Shader info log: " + name + "\n" + s1);
             return false;
         }
     }
@@ -2794,7 +2688,7 @@ public class Shaders {
     }
 
     private static void loadEntityDataMap() {
-        mapBlockToEntityData = new IdentityHashMap(300);
+        mapBlockToEntityData = new IdentityHashMap<>(300);
 
         if (mapBlockToEntityData.isEmpty()) {
             for (ResourceLocation resourcelocation : Block.blockRegistry.getKeys()) {
@@ -2827,14 +2721,14 @@ public class Shaders {
                         if (block1 != null) {
                             mapBlockToEntityData.put(block1, j);
                         } else {
-                            SMCLog.warning("Unknown block name %s", s2);
+                            Log.warn("Unknown block name %s", s2);
                         }
                     } else {
-                        SMCLog.warning("unmatched %s\n", s1);
+                        Log.warn("unmatched %s\n", s1);
                     }
                 }
             } catch (Exception var9) {
-                SMCLog.warning("Error parsing mc_Entity_x.txt");
+                Log.warn("Error parsing mc_Entity_x.txt");
             }
         }
 
@@ -2920,7 +2814,7 @@ public class Shaders {
                 noiseTexture = null;
             }
 
-            SMCLog.info("Uninit");
+            Log.info("Uninit");
             shadowPassInterval = 0;
             shouldSkipDefaultShadow = false;
             isShaderPackInitialized = false;
@@ -3018,7 +2912,7 @@ public class Shaders {
             i1 = EXTFramebufferObject.glCheckFramebufferStatusEXT(36160);
 
             if (i1 == 36053) {
-                SMCLog.info("complete");
+                Log.info("complete");
             }
         }
 
@@ -3027,7 +2921,7 @@ public class Shaders {
         if (i1 != 36053) {
             printChatAndLogError("[Shaders] Error: Failed creating framebuffer! (Status " + i1 + ")");
         } else {
-            SMCLog.info("Framebuffer created.");
+            Log.info("Framebuffer created.");
         }
     }
 
@@ -3096,7 +2990,7 @@ public class Shaders {
             if (l != 36053) {
                 printChatAndLogError("[Shaders] Error: Failed creating shadow framebuffer! (Status " + l + ")");
             } else {
-                SMCLog.info("Shadow framebuffer created.");
+                Log.info("Shadow framebuffer created.");
             }
         }
     }
@@ -4485,10 +4379,10 @@ public class Shaders {
     }
 
     private static void loadShaderPackResources() {
-        shaderPackResources = new HashMap();
+        shaderPackResources = new HashMap<>();
 
         if (shaderPackLoaded) {
-            List<String> list = new ArrayList();
+            List<String> list = new ArrayList<>();
             String s = "/shaders/lang/";
             String s1 = "en_US";
             String s2 = ".lang";

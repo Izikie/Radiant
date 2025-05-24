@@ -6,8 +6,8 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntitySkull;
+import net.optifine.Log;
 import net.optifine.reflect.Reflector;
 
 public class ModelAdapterHeadHumanoid extends ModelAdapter {
@@ -49,7 +49,7 @@ public class ModelAdapterHeadHumanoid extends ModelAdapter {
                 Reflector.setFieldValue(tileentityspecialrenderer, Reflector.TileEntitySkullRenderer_humanoidHead, modelBase);
                 return tileentityspecialrenderer;
             } else {
-                Config.warn("Field not found: TileEntitySkullRenderer.humanoidHead");
+                Log.error("Field not found: TileEntitySkullRenderer.humanoidHead");
                 return null;
             }
         }

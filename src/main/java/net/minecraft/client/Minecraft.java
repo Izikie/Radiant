@@ -209,11 +209,6 @@ public class Minecraft implements IThreadListener {
         this.jvm64bit = isJvm64bit();
         this.theIntegratedServer = new IntegratedServer(this);
 
-        if (gameConfig.serverInfo.serverName != null) {
-            this.serverName = gameConfig.serverInfo.serverName;
-            this.serverPort = gameConfig.serverInfo.serverPort;
-        }
-
         ImageIO.setUseCache(false);
         Bootstrap.register();
     }

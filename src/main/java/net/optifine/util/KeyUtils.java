@@ -17,7 +17,7 @@ public class KeyUtils {
         }
 
         Set<KeyBinding> nonPriorityKeys = new HashSet<>(Arrays.asList(keys));
-        nonPriorityKeys.removeAll(Arrays.asList(priorityKeys));
+        Arrays.asList(priorityKeys).forEach(nonPriorityKeys::remove);
 
         for (KeyBinding keybinding1 : nonPriorityKeys) {
             if (keyCodes.contains(keybinding1.getKeyCode())) {

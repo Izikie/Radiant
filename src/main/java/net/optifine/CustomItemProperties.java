@@ -127,7 +127,7 @@ public class CustomItemProperties {
         } else if (str.equals("armor")) {
             return 3;
         } else {
-            Config.warn("Unknown method: " + str);
+            Log.error("Unknown method: " + str);
             return 0;
         }
     }
@@ -178,12 +178,12 @@ public class CustomItemProperties {
                     Item item = Item.getByNameOrId(s);
 
                     if (item == null) {
-                        Config.warn("Item not found: " + s);
+                        Log.error("Item not found: " + s);
                     } else {
                         int i2 = Item.getIdFromItem(item);
 
                         if (i2 <= 0) {
-                            Config.warn("Item not found: " + s);
+                            Log.error("Item not found: " + s);
                         } else {
                             set.add(i2);
                         }
@@ -367,7 +367,7 @@ public class CustomItemProperties {
             int i = Config.parseInt(str, Integer.MIN_VALUE);
 
             if (i == Integer.MIN_VALUE) {
-                Config.warn("Invalid integer: " + str);
+                Log.error("Invalid integer: " + str);
                 return defVal;
             } else {
                 return i;
@@ -383,7 +383,7 @@ public class CustomItemProperties {
             float f = Config.parseFloat(str, Float.MIN_VALUE);
 
             if (f == Float.MIN_VALUE) {
-                Config.warn("Invalid float: " + str);
+                Log.error("Invalid float: " + str);
                 return defVal;
             } else {
                 return f;
@@ -415,7 +415,7 @@ public class CustomItemProperties {
                 RangeInt rangeint = this.parseRangeInt(s);
 
                 if (rangeint == null) {
-                    Config.warn("Invalid range list: " + str);
+                    Log.error("Invalid range list: " + str);
                     return null;
                 }
 
@@ -434,7 +434,7 @@ public class CustomItemProperties {
             int i = str.length() - str.replace("-", "").length();
 
             if (i > 1) {
-                Config.warn("Invalid range: " + str);
+                Log.error("Invalid range: " + str);
                 return null;
             } else {
                 String[] astring = Config.tokenize(str, "- ");
@@ -445,7 +445,7 @@ public class CustomItemProperties {
                     int k = Config.parseInt(s, -1);
 
                     if (k < 0) {
-                        Config.warn("Invalid range: " + str);
+                        Log.error("Invalid range: " + str);
                         return null;
                     }
 
@@ -467,7 +467,7 @@ public class CustomItemProperties {
                     int j1 = Math.max(aint[0], aint[1]);
                     return new RangeInt(l, j1);
                 } else {
-                    Config.warn("Invalid range: " + str);
+                    Log.error("Invalid range: " + str);
                     return null;
                 }
             }
@@ -527,7 +527,7 @@ public class CustomItemProperties {
                     return 2;
                 }
                 default -> {
-                    Config.warn("Invalid hand: " + str);
+                    Log.error("Invalid hand: " + str);
                     return 0;
                 }
             }
@@ -537,10 +537,10 @@ public class CustomItemProperties {
     public boolean isValid(String path) {
         if (this.name != null && !this.name.isEmpty()) {
             if (this.basePath == null) {
-                Config.warn("No base path found: " + path);
+                Log.error("No base path found: " + path);
                 return false;
             } else if (this.type == 0) {
-                Config.warn("No type defined: " + path);
+                Log.error("No type defined: " + path);
                 return false;
             } else {
                 if (this.type == 1 || this.type == 3) {
@@ -549,23 +549,23 @@ public class CustomItemProperties {
                     }
 
                     if (this.items == null) {
-                        Config.warn("No items defined: " + path);
+                        Log.error("No items defined: " + path);
                         return false;
                     }
                 }
 
                 if (this.texture == null && this.mapTextures == null && this.model == null && this.mapModels == null) {
-                    Config.warn("No texture or model specified: " + path);
+                    Log.error("No texture or model specified: " + path);
                     return false;
                 } else if (this.type == 2 && this.enchantmentIds == null) {
-                    Config.warn("No enchantmentIDs specified: " + path);
+                    Log.error("No enchantmentIDs specified: " + path);
                     return false;
                 } else {
                     return true;
                 }
             }
         } else {
-            Config.warn("No name found: " + path);
+            Log.error("No name found: " + path);
             return false;
         }
     }
@@ -626,7 +626,7 @@ public class CustomItemProperties {
             boolean flag = Config.hasResource(resourcelocation1);
 
             if (!flag) {
-                Config.warn("File not found: " + s2);
+                Log.error("File not found: " + s2);
             }
 
             return resourcelocation1;
@@ -892,7 +892,7 @@ public class CustomItemProperties {
             this.bakedModelFull = modelmanager.getModel(modelresourcelocation);
 
             if (this.bakedModelFull == ibakedmodel) {
-                Config.warn("Custom Items: Model not found " + modelresourcelocation.getResourcePath());
+                Log.error("Custom Items: Model not found " + modelresourcelocation.getResourcePath());
                 this.bakedModelFull = null;
             }
         }
@@ -908,7 +908,7 @@ public class CustomItemProperties {
                     IBakedModel ibakedmodel1 = modelmanager.getModel(modelresourcelocation1);
 
                     if (ibakedmodel1 == ibakedmodel) {
-                        Config.warn("Custom Items: Model not found " + modelresourcelocation1.getResourcePath());
+                        Log.error("Custom Items: Model not found " + modelresourcelocation1.getResourcePath());
                     } else {
                         if (this.mapBakedModelsFull == null) {
                             this.mapBakedModelsFull = new HashMap<>();

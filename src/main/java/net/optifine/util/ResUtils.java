@@ -5,6 +5,7 @@ import net.minecraft.client.resources.DefaultResourcePack;
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
+import net.optifine.Log;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,7 +21,7 @@ public class ResUtils {
     }
 
     public static String[] collectFiles(String[] prefixes, String[] suffixes) {
-        Set<String> set = new LinkedHashSet();
+        Set<String> set = new LinkedHashSet<>();
         IResourcePack[] airesourcepack = Config.getResourcePacks();
 
         for (IResourcePack iresourcepack : airesourcepack) {
@@ -43,7 +44,7 @@ public class ResUtils {
         if (rp instanceof DefaultResourcePack) {
             return collectFilesFixed(rp, defaultPaths);
         } else if (!(rp instanceof AbstractResourcePack abstractresourcepack)) {
-            Config.warn("Unknown resource pack type: " + rp);
+            Log.error("Unknown resource pack type: " + rp);
             return new String[0];
         } else {
             File file1 = abstractresourcepack.resourcePackFile;
@@ -55,7 +56,7 @@ public class ResUtils {
             } else if (file1.isFile()) {
                 return collectFilesZIP(file1, prefixes, suffixes);
             } else {
-                Config.warn("Unknown resource pack file: " + file1);
+                Log.error("Unknown resource pack file: " + file1);
                 return new String[0];
             }
         }
@@ -65,7 +66,7 @@ public class ResUtils {
         if (paths == null) {
             return new String[0];
         } else {
-            List list = new ArrayList();
+            List<String> list = new ArrayList<>();
 
             for (String s : paths) {
                 ResourceLocation resourcelocation = new ResourceLocation(s);
@@ -75,12 +76,12 @@ public class ResUtils {
                 }
             }
 
-            return (String[]) list.toArray(new String[0]);
+            return list.toArray(new String[0]);
         }
     }
 
     private static String[] collectFilesFolder(File tpFile, String basePath, String[] prefixes, String[] suffixes) {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         String s = "assets/minecraft/";
         File[] afile = tpFile.listFiles();
 
@@ -106,20 +107,20 @@ public class ResUtils {
                 }
             }
 
-            return (String[]) list.toArray(new String[0]);
+            return list.toArray(new String[0]);
         }
     }
 
     private static String[] collectFilesZIP(File tpFile, String[] prefixes, String[] suffixes) {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         String s = "assets/minecraft/";
 
         try {
             ZipFile zipfile = new ZipFile(tpFile);
-            Enumeration enumeration = zipfile.entries();
+            Enumeration<? extends ZipEntry> enumeration = zipfile.entries();
 
             while (enumeration.hasMoreElements()) {
-                ZipEntry zipentry = (ZipEntry) enumeration.nextElement();
+                ZipEntry zipentry = enumeration.nextElement();
                 String s1 = zipentry.getName();
 
                 if (s1.startsWith(s)) {
@@ -132,15 +133,11 @@ public class ResUtils {
             }
 
             zipfile.close();
-            return (String[]) list.toArray(new String[0]);
+            return list.toArray(new String[0]);
         } catch (IOException ioexception) {
             ioexception.printStackTrace();
             return new String[0];
         }
-    }
-
-    private static boolean isLowercase(String str) {
-        return str.equals(str.toLowerCase(Locale.ROOT));
     }
 
     public static Properties readProperties(String path, String module) {
@@ -155,18 +152,18 @@ public class ResUtils {
                 Properties properties = new PropertiesOrdered();
                 properties.load(inputstream);
                 inputstream.close();
-                Config.dbg(module + ": Loading " + path);
+                Log.info(module + ": Loading " + path);
                 return properties;
             }
         } catch (FileNotFoundException var5) {
             return null;
         } catch (IOException var6) {
-            Config.warn(module + ": Error reading " + path);
+            Log.error(module + ": Error reading " + path);
             return null;
         }
     }
 
-    public static Properties readProperties(InputStream in, String module) {
+    public static Properties readProperties(InputStream in) {
         if (in == null) {
             return null;
         } else {
@@ -175,8 +172,6 @@ public class ResUtils {
                 properties.load(in);
                 in.close();
                 return properties;
-            } catch (FileNotFoundException var3) {
-                return null;
             } catch (IOException var4) {
                 return null;
             }

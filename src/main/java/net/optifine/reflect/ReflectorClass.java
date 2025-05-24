@@ -4,27 +4,23 @@ import net.optifine.Log;
 
 public class ReflectorClass {
     private final String targetClassName;
-    private boolean checked = false;
-    private Class targetClass = null;
+    private boolean checked;
+    private Class<?> targetClass;
 
-    public ReflectorClass(String targetClassName) {
-        this.targetClassName = targetClassName;
-    }
-
-    public ReflectorClass(Class targetClass) {
+    public ReflectorClass(Class<?> targetClass) {
         this.targetClass = targetClass;
         this.targetClassName = targetClass.getName();
         this.checked = true;
     }
 
-    public Class getTargetClass() {
+    public Class<?> getTargetClass() {
         if (!this.checked) {
             this.checked = true;
 
             try {
                 this.targetClass = Class.forName(this.targetClassName);
             } catch (ClassNotFoundException var2) {
-                Log.log("(Reflector) Class not present: " + this.targetClassName);
+                Log.info("(Reflector) Class not present: " + this.targetClassName);
             } catch (Throwable throwable) {
                 throwable.printStackTrace();
             }

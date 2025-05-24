@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
+import net.optifine.Log;
 import net.optifine.entity.model.anim.ModelResolver;
 import net.optifine.entity.model.anim.ModelUpdater;
 
@@ -27,9 +28,9 @@ public class CustomEntityModels {
         Map<Class, TileEntitySpecialRenderer> map1 = getTileEntityRenderMap();
 
         if (map == null) {
-            Config.warn("Entity render map not found, custom entity models are DISABLED.");
+            Log.error("Entity render map not found, custom entity models are DISABLED.");
         } else if (map1 == null) {
-            Config.warn("Tile entity render map not found, custom entity models are DISABLED.");
+            Log.error("Tile entity render map not found, custom entity models are DISABLED.");
         } else {
             active = false;
             map.clear();
@@ -41,7 +42,7 @@ public class CustomEntityModels {
                 ResourceLocation[] aresourcelocation = getModelLocations();
 
                 for (ResourceLocation resourcelocation : aresourcelocation) {
-                    Config.dbg("CustomEntityModel: " + resourcelocation.getResourcePath());
+                    Log.info("CustomEntityModel: " + resourcelocation.getResourcePath());
                     IEntityRenderer ientityrenderer = parseEntityRender(resourcelocation);
 
                     if (ientityrenderer != null) {
@@ -53,7 +54,7 @@ public class CustomEntityModels {
                             } else if (ientityrenderer instanceof TileEntitySpecialRenderer tileEntitySpecialRenderer) {
                                 map1.put(oclass, tileEntitySpecialRenderer);
                             } else {
-                                Config.warn("Unknown renderer type: " + ientityrenderer.getClass().getName());
+                                Log.error("Unknown renderer type: " + ientityrenderer.getClass().getName());
                             }
 
                             active = true;
@@ -112,10 +113,10 @@ public class CustomEntityModels {
             JsonObject jsonobject = CustomEntityModelParser.loadJson(location);
             return parseEntityRender(jsonobject, location.getResourcePath());
         } catch (IOException ioexception) {
-            Config.error(ioexception.getClass().getName() + ": " + ioexception.getMessage());
+            Log.error(ioexception.getClass().getName() + ": " + ioexception.getMessage());
             return null;
         } catch (JsonParseException jsonparseexception) {
-            Config.error(jsonparseexception.getClass().getName() + ": " + jsonparseexception.getMessage());
+            Log.error(jsonparseexception.getClass().getName() + ": " + jsonparseexception.getMessage());
             return null;
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -189,7 +190,7 @@ public class CustomEntityModels {
         ModelRenderer modelrenderer = modelAdapter.getModelRenderer(model, s);
 
         if (modelrenderer == null) {
-            Config.warn("Model part not found: " + s + ", model: " + model);
+            Log.error("Model part not found: " + s + ", model: " + model);
             return false;
         } else {
             if (!customModelRenderer.attach()) {

@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.src.Config;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.optifine.Log;
 import net.optifine.shaders.uniform.Smoother;
 import net.optifine.util.MathUtils;
 
@@ -243,7 +244,7 @@ public enum FunctionType {
                 return Smoother.getSmoothValue(j, f4, f5, f6);
 
             default:
-                Config.warn("Unknown function type: " + this);
+                Log.error("Unknown function type: " + this);
                 return 0.0F;
         }
     }
@@ -347,7 +348,7 @@ public enum FunctionType {
                 return false;
 
             default:
-                Config.warn("Unknown function type: " + this);
+                Log.error("Unknown function type: " + this);
                 return false;
         }
     }
@@ -363,7 +364,7 @@ public enum FunctionType {
             case VEC3 -> new float[]{evalFloat(args, 0), evalFloat(args, 1), evalFloat(args, 2)};
             case VEC4 -> new float[]{evalFloat(args, 0), evalFloat(args, 1), evalFloat(args, 2), evalFloat(args, 3)};
             default -> {
-                Config.warn("Unknown function type: " + this);
+                Log.error("Unknown function type: " + this);
                 yield null;
             }
         };

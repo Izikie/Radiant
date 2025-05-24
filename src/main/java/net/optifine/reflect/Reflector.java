@@ -194,7 +194,7 @@ public class Reflector {
     }
 
     public static Object newInstance(ReflectorConstructor constr, Object... params) {
-        Constructor constructor = constr.getTargetConstructor();
+        Constructor<?> constructor = constr.getTargetConstructor();
 
         if (constructor == null) {
             return null;
@@ -208,13 +208,13 @@ public class Reflector {
         }
     }
 
-    public static boolean matchesTypes(Class[] pTypes, Class[] cTypes) {
+    public static boolean matchesTypes(Class<?>[] pTypes, Class<?>[] cTypes) {
         if (pTypes.length != cTypes.length) {
             return false;
         } else {
             for (int i = 0; i < cTypes.length; ++i) {
-                Class oclass = pTypes[i];
-                Class oclass1 = cTypes[i];
+                Class<?> oclass = pTypes[i];
+                Class<?> oclass1 = cTypes[i];
 
                 if (oclass != oclass1) {
                     return false;
@@ -274,7 +274,7 @@ public class Reflector {
         if (objs == null) {
             return new Class[0];
         } else {
-            Class[] aclass = new Class[objs.length];
+            Class<?>[] aclass = new Class[objs.length];
 
             for (int i = 0; i < aclass.length; ++i) {
                 Object object = objs[i];

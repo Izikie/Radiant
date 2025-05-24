@@ -2,8 +2,8 @@ package net.optifine.player;
 
 import com.google.gson.*;
 import net.minecraft.client.Minecraft;
-import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
+import net.optifine.Log;
 import net.optifine.http.HttpPipeline;
 import net.optifine.http.HttpUtils;
 import net.optifine.util.Json;
@@ -42,7 +42,7 @@ public class PlayerConfigurationParser {
                         String s = Json.getString(jsonobject1, "type");
 
                         if (s == null) {
-                            Config.warn("Item type is null, player: " + this.player);
+                            Log.error("Item type is null, player: " + this.player);
                         } else {
                             String s1 = Json.getString(jsonobject1, "model");
 
@@ -89,7 +89,7 @@ public class PlayerConfigurationParser {
             byte[] abyte = HttpPipeline.get(s, Minecraft.getMinecraft().getProxy());
             return ImageIO.read(new ByteArrayInputStream(abyte));
         } catch (IOException | URISyntaxException exception) {
-            Config.warn("Error loading item texture " + texturePath + ": " + exception.getClass().getName() + ": " + exception.getMessage());
+            Log.error("Error loading item texture " + texturePath + ": " + exception.getClass().getName() + ": " + exception.getMessage());
             return null;
         }
     }
@@ -103,7 +103,7 @@ public class PlayerConfigurationParser {
             JsonObject jsonobject = (JsonObject) JsonParser.parseString(s1);
             return PlayerItemParser.parseItemModel(jsonobject);
         } catch (Exception exception) {
-            Config.warn("Error loading item model " + modelPath + ": " + exception.getClass().getName() + ": " + exception.getMessage());
+            Log.error("Error loading item model " + modelPath + ": " + exception.getClass().getName() + ": " + exception.getMessage());
             return null;
         }
     }

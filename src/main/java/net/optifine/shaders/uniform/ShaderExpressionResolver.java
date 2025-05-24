@@ -1,10 +1,10 @@
 package net.optifine.shaders.uniform;
 
 import net.minecraft.world.biome.BiomeGenBase;
+import net.optifine.Log;
 import net.optifine.expr.ConstantFloat;
 import net.optifine.expr.IExpression;
 import net.optifine.expr.IExpressionResolver;
-import net.optifine.shaders.SMCLog;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -65,21 +65,15 @@ public class ShaderExpressionResolver implements IExpressionResolver {
         }
     }
 
-    public boolean registerExpression(String name, IExpression expr) {
+    public void registerExpression(String name, IExpression expr) {
         if (this.mapExpressions.containsKey(name)) {
-            SMCLog.warning("Expression already defined: " + name);
-            return false;
+            Log.warn("Expression already defined: " + name);
         } else {
             this.mapExpressions.put(name, expr);
-            return true;
         }
     }
 
     public IExpression getExpression(String name) {
         return this.mapExpressions.get(name);
-    }
-
-    public boolean hasExpression(String name) {
-        return this.mapExpressions.containsKey(name);
     }
 }

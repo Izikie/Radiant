@@ -1,7 +1,6 @@
 package net.optifine;
 
 import net.minecraft.client.renderer.GLAllocation;
-import net.minecraft.src.Config;
 import net.optifine.util.TextureUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -65,7 +64,7 @@ public class Mipmaps {
                 list.add(dimension);
             }
         } else {
-            Config.warn("Mipmaps not possible (power of 2 dimensions needed), texture: " + iconName + ", dim: " + width + "x" + height);
+            Log.error("Mipmaps not possible (power of 2 dimensions needed), texture: " + iconName + ", dim: " + width + "x" + height);
             return new Dimension[0];
         }
     }

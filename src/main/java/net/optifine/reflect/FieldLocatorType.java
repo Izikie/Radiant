@@ -6,17 +6,17 @@ import java.lang.reflect.Field;
 
 public class FieldLocatorType implements IFieldLocator {
     private final ReflectorClass reflectorClass;
-    private final Class targetFieldType;
+    private final Class<?> targetFieldType;
     private final int targetFieldIndex;
 
-    public FieldLocatorType(ReflectorClass reflectorClass, Class targetFieldType, int targetFieldIndex) {
+    public FieldLocatorType(ReflectorClass reflectorClass, Class<?> targetFieldType, int targetFieldIndex) {
         this.reflectorClass = reflectorClass;
         this.targetFieldType = targetFieldType;
         this.targetFieldIndex = targetFieldIndex;
     }
 
     public Field field() {
-        Class oclass = this.reflectorClass.getTargetClass();
+        Class<?> oclass = this.reflectorClass.getTargetClass();
 
         if (oclass == null) {
             return null;
@@ -36,10 +36,7 @@ public class FieldLocatorType implements IFieldLocator {
                     }
                 }
 
-                Log.log("(Reflector) Field not present: " + oclass.getName() + ".(type: " + this.targetFieldType + ", index: " + this.targetFieldIndex + ")");
-                return null;
-            } catch (SecurityException securityexception) {
-                securityexception.printStackTrace();
+                Log.info("(Reflector) Field not present: " + oclass.getName() + ".(type: " + this.targetFieldType + ", index: " + this.targetFieldIndex + ")");
                 return null;
             } catch (Throwable throwable) {
                 throwable.printStackTrace();

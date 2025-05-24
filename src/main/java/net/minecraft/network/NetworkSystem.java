@@ -102,7 +102,7 @@ public class NetworkSystem {
                     NetworkSystem.this.networkManagers.add(networkManager);
                     channel.pipeline().addLast("packet_handler", networkManager);
                 }
-            }).group(EVENT_LOOPS.getValue()).localAddress(LocalAddress.ANY).bind().syncUninterruptibly();
+            }).group(SERVER_LOCAL_EVENTLOOP.getValue()).localAddress(LocalAddress.ANY).bind().syncUninterruptibly();
             this.endpoints.add(channelfuture);
         }
 

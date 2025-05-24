@@ -5,7 +5,7 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderTntMinecart;
 import net.minecraft.entity.item.EntityMinecartTNT;
-import net.minecraft.src.Config;
+import net.optifine.Log;
 import net.optifine.reflect.Reflector;
 
 public class ModelAdapterMinecartTnt extends ModelAdapterMinecart {
@@ -22,7 +22,7 @@ public class ModelAdapterMinecartTnt extends ModelAdapterMinecart {
             rendertntminecart.shadowSize = shadowSize;
             return rendertntminecart;
         } else {
-            Config.warn("Field not found: RenderMinecart.modelMinecart");
+            Log.error("Field not found: RenderMinecart.modelMinecart");
             return null;
         }
     }

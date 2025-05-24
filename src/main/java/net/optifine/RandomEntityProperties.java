@@ -72,7 +72,7 @@ public class RandomEntityProperties {
 
     public boolean isValid(String path) {
         if (this.resourceLocations == null && this.rules == null) {
-            Config.warn("No skins specified: " + path);
+            Log.error("No skins specified: " + path);
             return false;
         } else {
             if (this.rules != null) {
@@ -86,7 +86,7 @@ public class RandomEntityProperties {
             if (this.resourceLocations != null) {
                 for (ResourceLocation resourcelocation : this.resourceLocations) {
                     if (!Config.hasResource(resourcelocation)) {
-                        Config.warn("Texture not found: " + resourcelocation.getResourcePath());
+                        Log.error("Texture not found: " + resourcelocation.getResourcePath());
                         return false;
                     }
                 }

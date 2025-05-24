@@ -83,11 +83,11 @@ public class DynamicLights {
         ITEM_LIGHT_LEVELS.clear();
 
         if (!ENTITY_LIGHT_LEVELS.isEmpty()) {
-            Config.dbg("DynamicLights entities: " + ENTITY_LIGHT_LEVELS.size());
+            Log.info("DynamicLights entities: " + ENTITY_LIGHT_LEVELS.size());
         }
 
         if (!ITEM_LIGHT_LEVELS.isEmpty()) {
-            Config.dbg("DynamicLights items: " + ITEM_LIGHT_LEVELS.size());
+            Log.info("DynamicLights items: " + ITEM_LIGHT_LEVELS.size());
         }
     }
 

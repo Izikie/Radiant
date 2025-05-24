@@ -78,7 +78,7 @@ public class SmartLeaves {
         modelLeavesDoubleSpruce = getModelDoubleFace(modelLeavesCullSpruce);
 
         if (!list.isEmpty()) {
-            Config.dbg("Enable face culling: " + Config.arrayToString(list.toArray()));
+            Log.info("Enable face culling: " + Config.arrayToString(list.toArray()));
         }
     }
 
@@ -140,7 +140,7 @@ public class SmartLeaves {
         if (model == null) {
             return null;
         } else if (!model.getGeneralQuads().isEmpty()) {
-            Config.warn("SmartLeaves: Model is not cube, general quads: " + model.getGeneralQuads().size() + ", model: " + model);
+            Log.error("SmartLeaves: Model is not cube, general quads: " + model.getGeneralQuads().size() + ", model: " + model);
             return model;
         } else {
             Direction[] aenumfacing = Direction.VALUES;
@@ -149,7 +149,7 @@ public class SmartLeaves {
                 List<BakedQuad> list = model.getFaceQuads(enumfacing);
 
                 if (list.size() != 1) {
-                    Config.warn("SmartLeaves: Model is not cube, side: " + enumfacing + ", quads: " + list.size() + ", model: " + model);
+                    Log.error("SmartLeaves: Model is not cube, side: " + enumfacing + ", quads: " + list.size() + ", model: " + model);
                     return model;
                 }
             }

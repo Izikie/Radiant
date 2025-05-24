@@ -58,7 +58,7 @@ public class CustomBlockLayers {
     }
 
     private static void readLayers(String pathProps, Properties props, List<RenderLayer> list) {
-        Config.dbg("CustomBlockLayers: " + pathProps);
+        Log.info("CustomBlockLayers: " + pathProps);
         readLayer("solid", RenderLayer.SOLID, props, list);
         readLayer("cutout", RenderLayer.CUTOUT, props, list);
         readLayer("cutout_mipped", RenderLayer.CUTOUT_MIPPED, props, list);
@@ -83,7 +83,7 @@ public class CustomBlockLayers {
                         }
 
                         if (listLayers.get(j) != null) {
-                            Config.warn("CustomBlockLayers: Block layer is already set, block: " + j + ", layer: " + name);
+                            Log.error("CustomBlockLayers: Block layer is already set, block: " + j + ", layer: " + name);
                         }
 
                         listLayers.set(j, layer);

@@ -6,8 +6,8 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityBannerRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntityBanner;
+import net.optifine.Log;
 import net.optifine.reflect.Reflector;
 
 public class ModelAdapterBanner extends ModelAdapter {
@@ -47,7 +47,7 @@ public class ModelAdapterBanner extends ModelAdapter {
                 Reflector.setFieldValue(tileentityspecialrenderer, Reflector.TileEntityBannerRenderer_bannerModel, modelBase);
                 return tileentityspecialrenderer;
             } else {
-                Config.warn("Field not found: TileEntityBannerRenderer.bannerModel");
+                Log.error("Field not found: TileEntityBannerRenderer.bannerModel");
                 return null;
             }
         }

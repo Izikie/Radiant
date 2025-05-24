@@ -1,6 +1,7 @@
 package net.minecraft.client.renderer;
 
 import net.minecraft.src.Config;
+import net.optifine.Log;
 import net.optifine.SmartAnimations;
 import net.optifine.render.GlAlphaState;
 import net.optifine.render.GlBlendState;
@@ -649,7 +650,7 @@ public class GlStateManager {
 
             if (l > 0) {
                 if (i != k || j != l) {
-                    Config.dbg("checkTexture: act: " + k + ", glAct: " + i + ", tex: " + l + ", glTex: " + j);
+                    Log.info("checkTexture: act: " + k + ", glAct: " + i + ", tex: " + l + ", glTex: " + j);
                 }
             }
         }

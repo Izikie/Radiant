@@ -1353,11 +1353,11 @@ public class CustomColors {
     }
 
     private static void dbg(String str) {
-        Config.dbg("CustomColors: " + str);
+        Log.info("CustomColors: " + str);
     }
 
     private static void warn(String str) {
-        Config.warn("CustomColors: " + str);
+        Log.error("CustomColors: " + str);
     }
 
     public static int getExpBarTextColor(int color) {

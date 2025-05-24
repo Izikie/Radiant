@@ -7,21 +7,21 @@ import java.lang.reflect.Constructor;
 
 public class ReflectorConstructor {
     private final ReflectorClass reflectorClass;
-    private final Class[] parameterTypes;
+    private final Class<?>[] parameterTypes;
     private boolean checked = false;
-    private Constructor targetConstructor = null;
+    private Constructor<?> targetConstructor = null;
 
-    public ReflectorConstructor(ReflectorClass reflectorClass, Class[] parameterTypes) {
+    public ReflectorConstructor(ReflectorClass reflectorClass, Class<?>[] parameterTypes) {
         this.reflectorClass = reflectorClass;
         this.parameterTypes = parameterTypes;
     }
 
-    public Constructor getTargetConstructor() {
+    public Constructor<?> getTargetConstructor() {
         if (this.checked) {
             return this.targetConstructor;
         } else {
             this.checked = true;
-            Class oclass = this.reflectorClass.getTargetClass();
+            Class<?> oclass = this.reflectorClass.getTargetClass();
 
             if (oclass == null) {
                 return null;
@@ -30,7 +30,7 @@ public class ReflectorConstructor {
                     this.targetConstructor = findConstructor(oclass, this.parameterTypes);
 
                     if (this.targetConstructor == null) {
-                        Log.dbg("(Reflector) Constructor not present: " + oclass.getName() + ", params: " + ArrayUtils.arrayToString(this.parameterTypes));
+                        Log.info("(Reflector) Constructor not present: " + oclass.getName() + ", params: " + ArrayUtils.arrayToString(this.parameterTypes));
                     }
 
                     if (this.targetConstructor != null) {
@@ -45,11 +45,11 @@ public class ReflectorConstructor {
         }
     }
 
-    private static Constructor findConstructor(Class cls, Class[] paramTypes) {
-        Constructor[] aconstructor = cls.getDeclaredConstructors();
+    private static Constructor<?> findConstructor(Class<?> cls, Class<?>[] paramTypes) {
+        Constructor<?>[] aconstructor = cls.getDeclaredConstructors();
 
-        for (Constructor constructor : aconstructor) {
-            Class[] aclass = constructor.getParameterTypes();
+        for (Constructor<?> constructor : aconstructor) {
+            Class<?>[] aclass = constructor.getParameterTypes();
 
             if (Reflector.matchesTypes(paramTypes, aclass)) {
                 return constructor;

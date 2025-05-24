@@ -1,7 +1,5 @@
 package net.optifine;
 
-import net.minecraft.src.Config;
-
 public class GlErrors {
     private static boolean frameStarted = false;
     private static long timeCheckStartMs = -1L;
@@ -21,7 +19,7 @@ public class GlErrors {
 
         if (System.currentTimeMillis() > timeCheckStartMs + 3000L) {
             if (countErrorsSuppressed > 0) {
-                Config.error("Suppressed " + countErrors + " OpenGL errors");
+                Log.error("Suppressed " + countErrors + " OpenGL errors");
             }
 
             suppressed = countErrors > 10;

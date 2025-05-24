@@ -3,6 +3,7 @@ package net.minecraft.network;
 import io.netty.buffer.*;
 import io.netty.handler.codec.DecoderException;
 import io.netty.handler.codec.EncoderException;
+import io.netty.util.ByteProcessor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompressedStreamTools;
@@ -16,6 +17,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.nio.channels.FileChannel;
 import java.nio.channels.GatheringByteChannel;
 import java.nio.channels.ScatteringByteChannel;
 import java.nio.charset.Charset;
@@ -58,16 +60,16 @@ public class PacketBuffer extends ByteBuf {
         this.writeLong(pos.toLong());
     }
 
-    public IChatComponent readChatComponent() throws IOException {
+    public IChatComponent readChatComponent() {
         return IChatComponent.Serializer.jsonToComponent(this.readStringFromBuffer(32767));
     }
 
-    public void writeChatComponent(IChatComponent component) throws IOException {
+    public void writeChatComponent(IChatComponent component) {
         this.writeString(IChatComponent.Serializer.componentToJson(component));
     }
 
     public <T extends Enum<T>> T readEnumValue(Class<T> enumClass) {
-        return (T) ((Enum[]) enumClass.getEnumConstants())[this.readVarIntFromBuffer()];
+        return enumClass.getEnumConstants()[this.readVarIntFromBuffer()];
     }
 
     public void writeEnumValue(Enum<?> value) {
@@ -204,7 +206,23 @@ public class PacketBuffer extends ByteBuf {
         } else if (i < 0) {
             throw new DecoderException("The received encoded string buffer length is less than zero! Weird string!");
         } else {
-            String s = new String(this.readBytes(i).array(), StandardCharsets.UTF_8);
+            // Handle both direct and heap buffers safely
+            ByteBuf byteBuf = this.readBytes(i);
+            String s;
+
+            try {
+                if (byteBuf.hasArray()) {
+                    // Use array() for heap buffers
+                    s = new String(byteBuf.array(), byteBuf.arrayOffset() + byteBuf.readerIndex(), byteBuf.readableBytes(), StandardCharsets.UTF_8);
+                } else {
+                    // Use getBytes() for direct buffers
+                    byte[] bytes = new byte[byteBuf.readableBytes()];
+                    byteBuf.getBytes(byteBuf.readerIndex(), bytes);
+                    s = new String(bytes, StandardCharsets.UTF_8);
+                }
+            } finally {
+                byteBuf.release(); // Always release the buffer to prevent memory leaks
+            }
 
             if (s.length() > maxLength) {
                 throw new DecoderException("The received string length is longer than maximum allowed (" + i + " > " + maxLength + ")");
@@ -682,19 +700,19 @@ public class PacketBuffer extends ByteBuf {
         return this.buf.bytesBefore(p_bytesBefore_1_, p_bytesBefore_2_, p_bytesBefore_3_);
     }
 
-    public int forEachByte(ByteBufProcessor p_forEachByte_1_) {
+    public int forEachByte(ByteProcessor p_forEachByte_1_) {
         return this.buf.forEachByte(p_forEachByte_1_);
     }
 
-    public int forEachByte(int p_forEachByte_1_, int p_forEachByte_2_, ByteBufProcessor p_forEachByte_3_) {
+    public int forEachByte(int p_forEachByte_1_, int p_forEachByte_2_, ByteProcessor p_forEachByte_3_) {
         return this.buf.forEachByte(p_forEachByte_1_, p_forEachByte_2_, p_forEachByte_3_);
     }
 
-    public int forEachByteDesc(ByteBufProcessor p_forEachByteDesc_1_) {
+    public int forEachByteDesc(ByteProcessor p_forEachByteDesc_1_) {
         return this.buf.forEachByteDesc(p_forEachByteDesc_1_);
     }
 
-    public int forEachByteDesc(int p_forEachByteDesc_1_, int p_forEachByteDesc_2_, ByteBufProcessor p_forEachByteDesc_3_) {
+    public int forEachByteDesc(int p_forEachByteDesc_1_, int p_forEachByteDesc_2_, ByteProcessor p_forEachByteDesc_3_) {
         return this.buf.forEachByteDesc(p_forEachByteDesc_1_, p_forEachByteDesc_2_, p_forEachByteDesc_3_);
     }
 
@@ -747,11 +765,23 @@ public class PacketBuffer extends ByteBuf {
     }
 
     public byte[] array() {
-        return this.buf.array();
+        if (this.buf.hasArray()) {
+            return this.buf.array();
+        } else {
+            // For direct buffers, create a copy of the data
+            byte[] array = new byte[this.buf.readableBytes()];
+            this.buf.getBytes(this.buf.readerIndex(), array);
+            return array;
+        }
     }
 
     public int arrayOffset() {
-        return this.buf.arrayOffset();
+        if (this.buf.hasArray()) {
+            return this.buf.arrayOffset();
+        } else {
+            // For direct buffers, return 0 since we create a new array
+            return 0;
+        }
     }
 
     public boolean hasMemoryAddress() {
@@ -774,8 +804,8 @@ public class PacketBuffer extends ByteBuf {
         return this.buf.hashCode();
     }
 
-    public boolean equals(Object p_equals_1_) {
-        return this.buf.equals(p_equals_1_);
+    public boolean equals(Object object) {
+        return buf.equals(object);
     }
 
     public int compareTo(ByteBuf p_compareTo_1_) {
@@ -804,5 +834,237 @@ public class PacketBuffer extends ByteBuf {
 
     public boolean release(int p_release_1_) {
         return this.buf.release(p_release_1_);
+    }
+
+    @Override
+    public ByteBuf touch() {
+        return this.buf.touch();
+    }
+
+    @Override
+    public ByteBuf touch(Object hint) {
+        return this.buf.touch(hint);
+    }
+
+    @Override
+    public ByteBuf retainedDuplicate() {
+        return this.buf.retainedDuplicate();
+    }
+
+    @Override
+    public ByteBuf retainedSlice() {
+        return this.buf.retainedSlice();
+    }
+
+    @Override
+    public ByteBuf retainedSlice(int index, int length) {
+        return this.buf.retainedSlice(index, length);
+    }
+
+    // New methods added in Netty 4.1.x
+    @Override
+    public ByteBuf readRetainedSlice(int length) {
+        return this.buf.readRetainedSlice(length);
+    }
+
+    @Override
+    public CharSequence getCharSequence(int index, int length, Charset charset) {
+        return this.buf.getCharSequence(index, length, charset);
+    }
+
+    @Override
+    public int setCharSequence(int index, CharSequence sequence, Charset charset) {
+        return this.buf.setCharSequence(index, sequence, charset);
+    }
+
+    @Override
+    public CharSequence readCharSequence(int length, Charset charset) {
+        return this.buf.readCharSequence(length, charset);
+    }
+
+    @Override
+    public int writeCharSequence(CharSequence sequence, Charset charset) {
+        return this.buf.writeCharSequence(sequence, charset);
+    }
+
+    @Override
+    public int getBytes(int index, FileChannel out, long position, int length) throws IOException {
+        return this.buf.getBytes(index, out, position, length);
+    }
+
+    @Override
+    public int setBytes(int index, FileChannel in, long position, int length) throws IOException {
+        return this.buf.setBytes(index, in, position, length);
+    }
+
+    @Override
+    public int readBytes(FileChannel out, long position, int length) throws IOException {
+        return this.buf.readBytes(out, position, length);
+    }
+
+    @Override
+    public int writeBytes(FileChannel in, long position, int length) throws IOException {
+        return this.buf.writeBytes(in, position, length);
+    }
+
+    @Override
+    public boolean isReadOnly() {
+        return this.buf.isReadOnly();
+    }
+
+    @Override
+    public ByteBuf asReadOnly() {
+        return this.buf.asReadOnly();
+    }
+
+    // Little Endian methods added in Netty 4.1.x
+    @Override
+    public short getShortLE(int index) {
+        return this.buf.getShortLE(index);
+    }
+
+    @Override
+    public int getUnsignedShortLE(int index) {
+        return this.buf.getUnsignedShortLE(index);
+    }
+
+    @Override
+    public int getMediumLE(int index) {
+        return this.buf.getMediumLE(index);
+    }
+
+    @Override
+    public int getUnsignedMediumLE(int index) {
+        return this.buf.getUnsignedMediumLE(index);
+    }
+
+    @Override
+    public int getIntLE(int index) {
+        return this.buf.getIntLE(index);
+    }
+
+    @Override
+    public long getUnsignedIntLE(int index) {
+        return this.buf.getUnsignedIntLE(index);
+    }
+
+    @Override
+    public long getLongLE(int index) {
+        return this.buf.getLongLE(index);
+    }
+
+    @Override
+    public float getFloatLE(int index) {
+        return this.buf.getFloatLE(index);
+    }
+
+    @Override
+    public double getDoubleLE(int index) {
+        return this.buf.getDoubleLE(index);
+    }
+
+    @Override
+    public ByteBuf setShortLE(int index, int value) {
+        return this.buf.setShortLE(index, value);
+    }
+
+    @Override
+    public ByteBuf setMediumLE(int index, int value) {
+        return this.buf.setMediumLE(index, value);
+    }
+
+    @Override
+    public ByteBuf setIntLE(int index, int value) {
+        return this.buf.setIntLE(index, value);
+    }
+
+    @Override
+    public ByteBuf setLongLE(int index, long value) {
+        return this.buf.setLongLE(index, value);
+    }
+
+    @Override
+    public ByteBuf setFloatLE(int index, float value) {
+        return this.buf.setFloatLE(index, value);
+    }
+
+    @Override
+    public ByteBuf setDoubleLE(int index, double value) {
+        return this.buf.setDoubleLE(index, value);
+    }
+
+    @Override
+    public short readShortLE() {
+        return this.buf.readShortLE();
+    }
+
+    @Override
+    public int readUnsignedShortLE() {
+        return this.buf.readUnsignedShortLE();
+    }
+
+    @Override
+    public int readMediumLE() {
+        return this.buf.readMediumLE();
+    }
+
+    @Override
+    public int readUnsignedMediumLE() {
+        return this.buf.readUnsignedMediumLE();
+    }
+
+    @Override
+    public int readIntLE() {
+        return this.buf.readIntLE();
+    }
+
+    @Override
+    public long readUnsignedIntLE() {
+        return this.buf.readUnsignedIntLE();
+    }
+
+    @Override
+    public long readLongLE() {
+        return this.buf.readLongLE();
+    }
+
+    @Override
+    public float readFloatLE() {
+        return this.buf.readFloatLE();
+    }
+
+    @Override
+    public double readDoubleLE() {
+        return this.buf.readDoubleLE();
+    }
+
+    @Override
+    public ByteBuf writeShortLE(int value) {
+        return this.buf.writeShortLE(value);
+    }
+
+    @Override
+    public ByteBuf writeMediumLE(int value) {
+        return this.buf.writeMediumLE(value);
+    }
+
+    @Override
+    public ByteBuf writeIntLE(int value) {
+        return this.buf.writeIntLE(value);
+    }
+
+    @Override
+    public ByteBuf writeLongLE(long value) {
+        return this.buf.writeLongLE(value);
+    }
+
+    @Override
+    public ByteBuf writeFloatLE(float value) {
+        return this.buf.writeFloatLE(value);
+    }
+
+    @Override
+    public ByteBuf writeDoubleLE(double value) {
+        return this.buf.writeDoubleLE(value);
     }
 }

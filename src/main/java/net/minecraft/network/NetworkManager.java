@@ -32,7 +32,7 @@ import java.util.Objects;
 import java.util.Queue;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
+public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
     private static final Logger LOGGER = LogManager.getLogger();
     public static final Marker LOG_MARKER_NETWORK = MarkerManager.getMarker("NETWORK");
     public static final Marker LOG_MARKER_PACKETS = MarkerManager.getMarker("NETWORK_PACKETS").addParents(LOG_MARKER_NETWORK);

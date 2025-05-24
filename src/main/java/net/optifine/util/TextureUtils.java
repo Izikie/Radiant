@@ -1,7 +1,6 @@
 package net.optifine.util;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerMooshroomMushroom;
 import net.minecraft.client.renderer.texture.*;
@@ -29,76 +28,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.IntBuffer;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 public class TextureUtils {
-    public static final String TEX_GRASS_TOP = "grass_top";
-    public static final String TEX_STONE = "stone";
-    public static final String TEX_DIRT = "dirt";
-    public static final String TEX_COARSE_DIRT = "coarse_dirt";
-    public static final String TEX_GRASS_SIDE = "grass_side";
-    public static final String TEX_STONESLAB_SIDE = "stone_slab_side";
-    public static final String TEX_STONESLAB_TOP = "stone_slab_top";
-    public static final String TEX_BEDROCK = "bedrock";
-    public static final String TEX_SAND = "sand";
-    public static final String TEX_GRAVEL = "gravel";
-    public static final String TEX_LOG_OAK = "log_oak";
-    public static final String TEX_LOG_BIG_OAK = "log_big_oak";
-    public static final String TEX_LOG_ACACIA = "log_acacia";
-    public static final String TEX_LOG_SPRUCE = "log_spruce";
-    public static final String TEX_LOG_BIRCH = "log_birch";
-    public static final String TEX_LOG_JUNGLE = "log_jungle";
-    public static final String TEX_LOG_OAK_TOP = "log_oak_top";
-    public static final String TEX_LOG_BIG_OAK_TOP = "log_big_oak_top";
-    public static final String TEX_LOG_ACACIA_TOP = "log_acacia_top";
-    public static final String TEX_LOG_SPRUCE_TOP = "log_spruce_top";
-    public static final String TEX_LOG_BIRCH_TOP = "log_birch_top";
-    public static final String TEX_LOG_JUNGLE_TOP = "log_jungle_top";
-    public static final String TEX_LEAVES_OAK = "leaves_oak";
-    public static final String TEX_LEAVES_BIG_OAK = "leaves_big_oak";
-    public static final String TEX_LEAVES_ACACIA = "leaves_acacia";
-    public static final String TEX_LEAVES_BIRCH = "leaves_birch";
-    public static final String TEX_LEAVES_SPUCE = "leaves_spruce";
-    public static final String TEX_LEAVES_JUNGLE = "leaves_jungle";
-    public static final String TEX_GOLD_ORE = "gold_ore";
-    public static final String TEX_IRON_ORE = "iron_ore";
-    public static final String TEX_COAL_ORE = "coal_ore";
-    public static final String TEX_OBSIDIAN = "obsidian";
-    public static final String TEX_GRASS_SIDE_OVERLAY = "grass_side_overlay";
-    public static final String TEX_SNOW = "snow";
-    public static final String TEX_GRASS_SIDE_SNOWED = "grass_side_snowed";
-    public static final String TEX_MYCELIUM_SIDE = "mycelium_side";
-    public static final String TEX_MYCELIUM_TOP = "mycelium_top";
-    public static final String TEX_DIAMOND_ORE = "diamond_ore";
-    public static final String TEX_REDSTONE_ORE = "redstone_ore";
-    public static final String TEX_LAPIS_ORE = "lapis_ore";
-    public static final String TEX_CACTUS_SIDE = "cactus_side";
-    public static final String TEX_CLAY = "clay";
-    public static final String TEX_FARMLAND_WET = "farmland_wet";
-    public static final String TEX_FARMLAND_DRY = "farmland_dry";
-    public static final String TEX_NETHERRACK = "netherrack";
-    public static final String TEX_SOUL_SAND = "soul_sand";
-    public static final String TEX_GLOWSTONE = "glowstone";
-    public static final String TEX_LEAVES_SPRUCE = "leaves_spruce";
-    public static final String TEX_LEAVES_SPRUCE_OPAQUE = "leaves_spruce_opaque";
-    public static final String TEX_END_STONE = "end_stone";
-    public static final String TEX_SANDSTONE_TOP = "sandstone_top";
-    public static final String TEX_SANDSTONE_BOTTOM = "sandstone_bottom";
-    public static final String TEX_REDSTONE_LAMP_OFF = "redstone_lamp_off";
-    public static final String TEX_REDSTONE_LAMP_ON = "redstone_lamp_on";
-    public static final String TEX_WATER_STILL = "water_still";
-    public static final String TEX_WATER_FLOW = "water_flow";
-    public static final String TEX_LAVA_STILL = "lava_still";
-    public static final String TEX_LAVA_FLOW = "lava_flow";
-    public static final String TEX_FIRE_LAYER_0 = "fire_layer_0";
-    public static final String TEX_FIRE_LAYER_1 = "fire_layer_1";
-    public static final String TEX_PORTAL = "portal";
-    public static final String TEX_GLASS = "glass";
-    public static final String TEX_GLASS_PANE_TOP = "glass_pane_top";
-    public static final String TEX_COMPASS = "compass";
-    public static final String TEX_CLOCK = "clock";
     public static TextureAtlasSprite iconGrassTop;
     public static TextureAtlasSprite iconGrassSide;
     public static TextureAtlasSprite iconGrassSideOverlay;
@@ -117,9 +49,6 @@ public class TextureUtils {
     public static TextureAtlasSprite iconGlassPaneTop;
     public static TextureAtlasSprite iconCompass;
     public static TextureAtlasSprite iconClock;
-    public static final String SPRITE_PREFIX_BLOCKS = "minecraft:blocks/";
-    public static final String SPRITE_PREFIX_ITEMS = "minecraft:items/";
-    private static final IntBuffer STATIC_BUFFER = GLAllocation.createDirectIntBuffer(256);
 
     public static void update() {
         TextureMap texturemap = getTextureMapBlocks();
@@ -148,48 +77,10 @@ public class TextureUtils {
         }
     }
 
-    public static BufferedImage fixTextureDimensions(String name, BufferedImage bi) {
-        if (name.startsWith("/mob/zombie") || name.startsWith("/mob/pigzombie")) {
-            int i = bi.getWidth();
-            int j = bi.getHeight();
-
-            if (i == j * 2) {
-                BufferedImage bufferedimage = new BufferedImage(i, j * 2, 2);
-                Graphics2D graphics2d = bufferedimage.createGraphics();
-                graphics2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-                graphics2d.drawImage(bi, 0, 0, i, j, null);
-                return bufferedimage;
-            }
-        }
-
-        return bi;
-    }
-
     public static int ceilPowerOfTwo(int val) {
         int i;
 
         for (i = 1; i < val; i *= 2) {
-        }
-
-        return i;
-    }
-
-    public static int getPowerOfTwo(int val) {
-        int i = 1;
-        int j;
-
-        for (j = 0; i < val; ++j) {
-            i *= 2;
-        }
-
-        return j;
-    }
-
-    public static int twoToPower(int power) {
-        int i = 1;
-
-        for (int j = 0; j < power; ++j) {
-            i *= 2;
         }
 
         return i;
@@ -211,7 +102,7 @@ public class TextureUtils {
 
     public static void resourcesReloaded(IResourceManager rm) {
         if (getTextureMapBlocks() != null) {
-            Config.dbg("*** Reloading custom textures ***");
+            Log.info("*** Reloading custom textures ***");
             CustomSky.reset();
             TextureAnimations.reset();
             update();
@@ -254,7 +145,7 @@ public class TextureUtils {
                 TextureAnimations.updateAnimations();
             }
 
-            public void loadTexture(IResourceManager var1) throws IOException {
+            public void loadTexture(IResourceManager var1) {
             }
 
             public int getGlTextureId() {
@@ -273,19 +164,6 @@ public class TextureUtils {
         };
         ResourceLocation resourcelocation = new ResourceLocation("optifine/TickableTextures");
         Config.getTextureManager().loadTickableTexture(resourcelocation, itickabletextureobject);
-    }
-
-    public static ResourceLocation fixResourceLocation(ResourceLocation loc, String basePath) {
-        if (loc.getResourceDomain().equals("minecraft")) {
-            String s = loc.getResourcePath();
-            String s1 = fixResourcePath(s, basePath);
-
-            if (s1 != s) {
-                loc = new ResourceLocation(loc.getResourceDomain(), s1);
-            }
-
-        }
-        return loc;
     }
 
     public static String fixResourcePath(String path, String basePath) {
@@ -390,11 +268,11 @@ public class TextureUtils {
     }
 
     public static Dimension getImageSize(InputStream in, String suffix) {
-        Iterator iterator = ImageIO.getImageReadersBySuffix(suffix);
+        Iterator<ImageReader> iterator = ImageIO.getImageReadersBySuffix(suffix);
 
         while (true) {
             if (iterator.hasNext()) {
-                ImageReader imagereader = (ImageReader) iterator.next();
+                ImageReader imagereader = iterator.next();
                 Dimension dimension;
 
                 try {
@@ -413,20 +291,6 @@ public class TextureUtils {
             }
 
             return null;
-        }
-    }
-
-    public static void dbgMipmaps(TextureAtlasSprite textureatlassprite) {
-        int[][] aint = textureatlassprite.getFrameTextureData(0);
-
-        for (int i = 0; i < aint.length; ++i) {
-            int[] aint1 = aint[i];
-
-            if (aint1 == null) {
-                Config.dbg(i + ": " + aint1);
-            } else {
-                Config.dbg(i + ": " + aint1.length);
-            }
         }
     }
 
@@ -460,74 +324,10 @@ public class TextureUtils {
 
             try {
                 ImageIO.write(bufferedimage, "png", file4);
-                Config.dbg("Exported: " + file4);
+                Log.info("Exported: " + file4);
             } catch (Exception exception) {
-                Config.warn("Error writing: " + file4);
-                Config.warn(exception.getClass().getName() + ": " + exception.getMessage());
-            }
-        }
-    }
-
-    public static void generateCustomMipmaps(TextureAtlasSprite tas, int mipmaps) {
-        int i = tas.getIconWidth();
-        int j = tas.getIconHeight();
-
-        if (tas.getFrameCount() < 1) {
-            List<int[][]> list = new ArrayList();
-            int[][] aint = new int[mipmaps + 1][];
-            int[] aint1 = new int[i * j];
-            aint[0] = aint1;
-            list.add(aint);
-            tas.setFramesTextureData(list);
-        }
-
-        List<int[][]> list1 = new ArrayList();
-        int l = tas.getFrameCount();
-
-        for (int i1 = 0; i1 < l; ++i1) {
-            int[] aint2 = getFrameData(tas, i1, 0);
-
-            if (aint2 == null || aint2.length < 1) {
-                aint2 = new int[i * j];
-            }
-
-            if (aint2.length != i * j) {
-                int k = (int) Math.round(Math.sqrt(aint2.length));
-
-                if (k * k != aint2.length) {
-                    aint2 = new int[1];
-                    k = 1;
-                }
-
-                BufferedImage bufferedimage = new BufferedImage(k, k, 2);
-                bufferedimage.setRGB(0, 0, k, k, aint2, 0, k);
-                BufferedImage bufferedimage1 = scaleImage(bufferedimage, i);
-                int[] aint3 = new int[i * j];
-                bufferedimage1.getRGB(0, 0, i, j, aint3, 0, i);
-                aint2 = aint3;
-            }
-
-            int[][] aint4 = new int[mipmaps + 1][];
-            aint4[0] = aint2;
-            list1.add(aint4);
-        }
-
-        tas.setFramesTextureData(list1);
-        tas.generateMipmaps(mipmaps);
-    }
-
-    public static int[] getFrameData(TextureAtlasSprite tas, int frame, int level) {
-        List<int[][]> list = tas.getFramesTextureData();
-
-        if (list.size() <= frame) {
-            return null;
-        } else {
-            int[][] aint = list.get(frame);
-
-            if (aint != null && aint.length > level) {
-                return aint[level];
-            } else {
-                return null;
+                Log.warn("Error writing: " + file4);
+                Log.warn(exception.getClass().getName() + ": " + exception.getMessage());
             }
         }
     }
@@ -535,7 +335,6 @@ public class TextureUtils {
     public static int getGLMaximumTextureSize() {
         for (int i = 65536; i > 0; i >>= 1) {
             GlStateManager.glTexImage2D(32868, 0, 6408, i, i, 0, 6408, 5121, null);
-            int j = GL11.glGetError();
             int k = GlStateManager.glGetTexLevelParameteri(32868, 0, 4096);
 
             if (k != 0) {

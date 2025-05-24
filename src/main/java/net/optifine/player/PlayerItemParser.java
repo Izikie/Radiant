@@ -9,6 +9,7 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.src.Config;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import net.optifine.Log;
 import net.optifine.entity.model.CustomEntityModelParser;
 import net.optifine.util.Json;
 
@@ -79,7 +80,7 @@ public class PlayerItemParser {
                     JsonObject jsonobject1 = (JsonObject) map.get(s1);
 
                     if (jsonobject1 == null) {
-                        Config.warn("BaseID not found: " + s1);
+                        Log.error("BaseID not found: " + s1);
                         continue;
                     }
 
@@ -96,7 +97,7 @@ public class PlayerItemParser {
                     if (!map.containsKey(s2)) {
                         map.put(s2, jsonobject);
                     } else {
-                        Config.warn("Duplicate model ID: " + s2);
+                        Log.error("Duplicate model ID: " + s2);
                     }
                 }
 
@@ -148,7 +149,7 @@ public class PlayerItemParser {
         } else if (attachModelStr.equals("cape")) {
             return 6;
         } else {
-            Config.warn("Unknown attachModel: " + attachModelStr);
+            Log.error("Unknown attachModel: " + attachModelStr);
             return 0;
         }
     }
@@ -157,7 +158,7 @@ public class PlayerItemParser {
         String s = Json.getString(elem, "type");
 
         if (!Config.equals(s, "ModelBox")) {
-            Config.warn("Unknown model type: " + s);
+            Log.error("Unknown model type: " + s);
             return null;
         } else {
             String s1 = Json.getString(elem, "attachTo");
@@ -340,7 +341,7 @@ public class PlayerItemParser {
                     ModelRenderer modelrenderer1 = modelrenderer.getChild(modelrenderer3.getId());
 
                     if (modelrenderer1 != null) {
-                        Config.warn("Duplicate model ID: " + modelrenderer3.getId());
+                        Log.error("Duplicate model ID: " + modelrenderer3.getId());
                     }
                 }
 

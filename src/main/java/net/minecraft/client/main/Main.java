@@ -1,12 +1,14 @@
 package net.minecraft.client.main;
 
+import com.beust.jcommander.JCommander;
+import com.beust.jcommander.Parameter;
+import com.beust.jcommander.converters.FileConverter;
+import com.beust.jcommander.converters.IntegerConverter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.authlib.properties.PropertyMap;
 import com.mojang.authlib.properties.PropertyMap.Serializer;
-import joptsimple.OptionParser;
-import joptsimple.OptionSet;
-import joptsimple.OptionSpec;
+import net.minecraft.client.main.GameConfiguration.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Session;
 
@@ -16,96 +18,167 @@ import java.net.InetSocketAddress;
 import java.net.PasswordAuthentication;
 import java.net.Proxy;
 import java.net.Proxy.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
+    private static class MinecraftArgs {
+        @Parameter(names = { "--fullscreen", "-fullscreen" }, description = "Start in fullscreen mode")
+        private boolean fullscreen = false;
+
+        @Parameter(names = { "--width", "-width" }, description = "Window width", converter = IntegerConverter.class)
+        private Integer width = 854;
+
+        @Parameter(names = { "--height", "-height" }, description = "Window height", converter = IntegerConverter.class)
+        private Integer height = 480;
+
+        @Parameter(names = { "--checkGlErrors", "-checkGlErrors" }, description = "Check for OpenGL errors")
+        private boolean checkGlErrors = false;
+
+        @Parameter(names = { "--gameDir", "-gameDir" }, description = "Game directory", converter = FileConverter.class)
+        private File gameDir = new File(".");
+
+        @Parameter(names = { "--assetsDir", "-assetsDir" }, description = "Assets directory", converter = FileConverter.class)
+        private File assetsDir;
+
+        @Parameter(names = { "--resourcePackDir", "-resourcePackDir" }, description = "Resource pack directory", converter = FileConverter.class)
+        private File resourcePackDir;
+
+        @Parameter(names = { "--assetIndex", "-assetIndex" }, description = "Asset index")
+        private String assetIndex;
+
+        @Parameter(names = { "--proxyHost", "-proxyHost" }, description = "Proxy host")
+        private String proxyHost;
+
+        @Parameter(names = { "--proxyPort", "-proxyPort" }, description = "Proxy port", converter = IntegerConverter.class)
+        private Integer proxyPort = 8080;
+
+        @Parameter(names = { "--proxyUser", "-proxyUser" }, description = "Proxy username")
+        private String proxyUser;
+
+        @Parameter(names = { "--proxyPass", "-proxyPass" }, description = "Proxy password")
+        private String proxyPass;
+
+        @Parameter(names = { "--username", "-username" }, description = "Username")
+        private String username = "Player";
+
+        @Parameter(names = { "--uuid", "-uuid" }, description = "UUID")
+        private String uuid;
+
+        @Parameter(names = { "--accessToken", "-accessToken" }, description = "Access token", required = true)
+        private String accessToken;
+
+        @Parameter(names = { "--userType", "-userType" }, description = "User type")
+        private String userType = "legacy";
+
+        @Parameter(names = { "--userProperties", "-userProperties" }, description = "User properties")
+        private String userProperties = "{}";
+
+        @Parameter(names = { "--profileProperties", "-profileProperties" }, description = "Profile properties")
+        private String profileProperties = "{}";
+
+        @Parameter(description = "Other arguments")
+        private List<String> otherArgs = new ArrayList<>();
+    }
+
     public static void main(String[] args) {
         System.setProperty("java.net.preferIPv4Stack", "true");
         System.setProperty("log4j2.formatMsgNoLookups", "true");
-        System.setProperty("io.netty.allocator.maxOrder", "9"); // IMPROVEMENT: Default is 16MiB, Minecraft uses 2Mib, use 4Mib as safe default
+        System.setProperty("io.netty.allocator.maxOrder", "9"); // Default is 16MiB, Minecraft uses 2MiB, use 4MiB as safe default
 
-        OptionParser optionParser = new OptionParser();
-        optionParser.allowsUnrecognizedOptions();
-        optionParser.accepts("fullscreen");
-        optionParser.accepts("checkGlErrors");
-        OptionSpec<String> serverOption = optionParser.accepts("server").withRequiredArg();
-        OptionSpec<Integer> portOption = optionParser.accepts("port").withRequiredArg().ofType(Integer.class).defaultsTo(25565);
-        OptionSpec<File> gameDirOption = optionParser.accepts("gameDir").withRequiredArg().ofType(File.class).defaultsTo(new File("."));
-        OptionSpec<File> assetsDirOption = optionParser.accepts("assetsDir").withRequiredArg().ofType(File.class);
-        OptionSpec<File> resourcePackDirOption = optionParser.accepts("resourcePackDir").withRequiredArg().ofType(File.class);
-        OptionSpec<String> proxyHostOption = optionParser.accepts("proxyHost").withRequiredArg();
-        OptionSpec<Integer> proxyPortOption = optionParser.accepts("proxyPort").withRequiredArg().defaultsTo("8080").ofType(Integer.class);
-        OptionSpec<String> proxyUserOption = optionParser.accepts("proxyUser").withRequiredArg();
-        OptionSpec<String> proxyPassOption = optionParser.accepts("proxyPass").withRequiredArg();
-        OptionSpec<String> usernameOption = optionParser.accepts("username").withRequiredArg().defaultsTo("Player");
-        OptionSpec<String> uuidOption = optionParser.accepts("uuid").withRequiredArg();
-        OptionSpec<String> accessTokenOption = optionParser.accepts("accessToken").withRequiredArg().required();
-        OptionSpec<Integer> widthOption = optionParser.accepts("width").withRequiredArg().ofType(Integer.class).defaultsTo(854);
-        OptionSpec<Integer> heightOption = optionParser.accepts("height").withRequiredArg().ofType(Integer.class).defaultsTo(480);
-        OptionSpec<String> userPropertiesOption = optionParser.accepts("userProperties").withRequiredArg().defaultsTo("{}");
-        OptionSpec<String> profilePropertiesOption = optionParser.accepts("profileProperties").withRequiredArg().defaultsTo("{}");
-        OptionSpec<String> assetIndexOption = optionParser.accepts("assetIndex").withRequiredArg();
-        OptionSpec<String> userTypeOption = optionParser.accepts("userType").withRequiredArg().defaultsTo("legacy");
-        OptionSpec<String> nonOptionsOption = optionParser.nonOptions();
-        OptionSet optionSet = optionParser.parse(args);
-        List<String> ignoredArguments = optionSet.valuesOf(nonOptionsOption);
+        MinecraftArgs minecraftArgs = new MinecraftArgs();
+        JCommander jCommander = JCommander.newBuilder()
+                .addObject(minecraftArgs)
+                .allowParameterOverwriting(true)
+                .programName("Minecraft")
+                .build();
 
-        if (!ignoredArguments.isEmpty()) {
-            System.out.println("Completely ignored arguments: " + ignoredArguments);
+        try {
+            jCommander.parse(args);
+        } catch (Exception e) {
+            System.err.println("Error parsing command line arguments: " + e.getMessage());
+            jCommander.usage();
+            return;
         }
 
-        String proxyHost = optionSet.valueOf(proxyHostOption);
-        Proxy proxy = Proxy.NO_PROXY;
+        if (!minecraftArgs.otherArgs.isEmpty()) {
+            System.out.println("Completely ignored arguments: " + minecraftArgs.otherArgs);
+        }
 
-        if (proxyHost != null) {
+        Proxy proxy = Proxy.NO_PROXY;
+        if (minecraftArgs.proxyHost != null) {
             try {
-                proxy = new Proxy(Type.SOCKS, new InetSocketAddress(proxyHost, optionSet.valueOf(proxyPortOption)));
+                proxy = new Proxy(Type.SOCKS, new InetSocketAddress(minecraftArgs.proxyHost, minecraftArgs.proxyPort));
+
+                final String proxyUser = minecraftArgs.proxyUser;
+                final String proxyPass = minecraftArgs.proxyPass;
+
+                if (!proxy.equals(Proxy.NO_PROXY) && isNotNullOrEmpty(proxyUser) && isNotNullOrEmpty(proxyPass)) {
+                    Authenticator.setDefault(new Authenticator() {
+                        @Override
+                        protected PasswordAuthentication getPasswordAuthentication() {
+                            return new PasswordAuthentication(proxyUser, proxyPass.toCharArray());
+                        }
+                    });
+                }
             } catch (Exception exception) {
-                exception.getStackTrace();
+                System.err.println("Error configuring proxy: " + exception.getMessage());
             }
         }
 
-        final String proxyUser = optionSet.valueOf(proxyUserOption);
-        final String proxyPass = optionSet.valueOf(proxyPassOption);
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(PropertyMap.class, new Serializer())
+                .create();
+        PropertyMap userProperties = gson.fromJson(minecraftArgs.userProperties, PropertyMap.class);
+        PropertyMap profileProperties = gson.fromJson(minecraftArgs.profileProperties, PropertyMap.class);
 
-        if (!proxy.equals(Proxy.NO_PROXY) && isNullOrEmpty(proxyUser) && isNullOrEmpty(proxyPass)) {
-            Authenticator.setDefault(new Authenticator() {
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication(proxyUser, proxyPass.toCharArray());
-                }
-            });
-        }
+        File gameDir = minecraftArgs.gameDir;
+        File assetsDir = minecraftArgs.assetsDir != null ?
+                minecraftArgs.assetsDir : new File(gameDir, "assets/");
+        File resourcePackDir = minecraftArgs.resourcePackDir != null ?
+                minecraftArgs.resourcePackDir : new File(gameDir, "resourcepacks/");
 
-        int width = optionSet.valueOf(widthOption);
-        int height = optionSet.valueOf(heightOption);
-        boolean fullscreen = optionSet.has("fullscreen");
-        boolean checkGlErrors = optionSet.has("checkGlErrors");
-        Gson gson = (new GsonBuilder()).registerTypeAdapter(PropertyMap.class, new Serializer()).create();
-        PropertyMap userProperties = gson.fromJson(optionSet.valueOf(userPropertiesOption), PropertyMap.class);
-        PropertyMap profileProperties = gson.fromJson(optionSet.valueOf(profilePropertiesOption), PropertyMap.class);
-        File gameDir = optionSet.valueOf(gameDirOption);
-        File assetsDir = optionSet.has(assetsDirOption) ? optionSet.valueOf(assetsDirOption) : new File(gameDir, "assets/");
-        File resourcePackDir = optionSet.has(resourcePackDirOption) ? optionSet.valueOf(resourcePackDirOption) : new File(gameDir, "resourcepacks/");
-        String uuid = optionSet.has(uuidOption) ? uuidOption.value(optionSet) : usernameOption.value(optionSet);
-        String assetIndex = optionSet.has(assetIndexOption) ? assetIndexOption.value(optionSet) : null;
-        String server = optionSet.valueOf(serverOption);
-        Integer port = optionSet.valueOf(portOption);
-        Session session = new Session(usernameOption.value(optionSet), uuid, accessTokenOption.value(optionSet), userTypeOption.value(optionSet));
-        GameConfiguration gameconfiguration = new GameConfiguration(
-                new GameConfiguration.UserInformation(session, userProperties, profileProperties, proxy),
-                new GameConfiguration.DisplayInformation(width, height, fullscreen, checkGlErrors),
-                new GameConfiguration.FolderInformation(gameDir, resourcePackDir, assetsDir, assetIndex),
-                new GameConfiguration.ServerInformation(server, port));
+        String uuid = minecraftArgs.uuid != null ? minecraftArgs.uuid : minecraftArgs.username;
+        Session session = new Session(
+                minecraftArgs.username,
+                uuid,
+                minecraftArgs.accessToken,
+                minecraftArgs.userType
+        );
+
+        GameConfiguration gameConfiguration = new GameConfiguration(
+                new UserInformation(
+                        session,
+                        userProperties,
+                        profileProperties,
+                        proxy
+                ),
+                new DisplayInformation(
+                        minecraftArgs.width,
+                        minecraftArgs.height,
+                        minecraftArgs.fullscreen,
+                        minecraftArgs.checkGlErrors
+                ),
+                new FolderInformation(
+                        gameDir,
+                        resourcePackDir,
+                        assetsDir,
+                        minecraftArgs.assetIndex
+                )
+        );
+
         Runtime.getRuntime().addShutdownHook(new Thread("Client Shutdown Thread") {
+            @Override
             public void run() {
                 Minecraft.stopIntegratedServer();
             }
         });
+
         Thread.currentThread().setName("Client Thread");
-        (new Minecraft(gameconfiguration)).run();
+        new Minecraft(gameConfiguration).run();
     }
 
-    private static boolean isNullOrEmpty(String str) {
+    private static boolean isNotNullOrEmpty(String str) {
         return str != null && !str.isEmpty();
     }
 }

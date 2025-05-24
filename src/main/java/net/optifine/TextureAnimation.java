@@ -41,7 +41,7 @@ public class TextureAnimation {
         int i = frameWidth * frameHeight * 4;
 
         if (srcData.length % i != 0) {
-            Config.warn("Invalid animated texture length: " + srcData.length + ", frameWidth: " + frameWidth + ", frameHeight: " + frameHeight);
+            Log.error("Invalid animated texture length: " + srcData.length + ", frameWidth: " + frameWidth + ", frameHeight: " + frameHeight);
         }
 
         this.srcData = srcData;

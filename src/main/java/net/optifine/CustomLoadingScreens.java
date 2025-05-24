@@ -80,10 +80,10 @@ public class CustomLoadingScreens {
     }
 
     public static void warn(String str) {
-        Config.warn("CustomLoadingScreen: " + str);
+        Log.error("CustomLoadingScreen: " + str);
     }
 
     public static void dbg(String str) {
-        Config.dbg("CustomLoadingScreen: " + str);
+        Log.info("CustomLoadingScreen: " + str);
     }
 }

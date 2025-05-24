@@ -7,7 +7,7 @@ import net.minecraft.client.model.ModelSkeletonHead;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.RenderWitherSkull;
 import net.minecraft.entity.projectile.EntityWitherSkull;
-import net.minecraft.src.Config;
+import net.optifine.Log;
 import net.optifine.reflect.Reflector;
 
 public class ModelAdapterWitherSkull extends ModelAdapter {
@@ -40,7 +40,7 @@ public class ModelAdapterWitherSkull extends ModelAdapter {
             renderwitherskull.shadowSize = shadowSize;
             return renderwitherskull;
         } else {
-            Config.warn("Field not found: RenderWitherSkull_model");
+            Log.error("Field not found: RenderWitherSkull_model");
             return null;
         }
     }

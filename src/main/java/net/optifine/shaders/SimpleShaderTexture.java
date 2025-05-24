@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.data.*;
+import net.optifine.Log;
 import org.apache.commons.io.IOUtils;
 
 import java.awt.image.BufferedImage;
@@ -56,8 +57,8 @@ public class SimpleShaderTexture extends AbstractTexture {
 
                 texturemetadatasection1 = texturemetadatasection;
             } catch (RuntimeException runtimeexception) {
-                SMCLog.warning("Error reading metadata: " + s);
-                SMCLog.warning(runtimeexception.getClass().getName() + ": " + runtimeexception.getMessage());
+                Log.warn("Error reading metadata: " + s);
+                Log.warn(runtimeexception.getClass().getName() + ": " + runtimeexception.getMessage());
                 return def;
             } finally {
                 IOUtils.closeQuietly(bufferedreader);

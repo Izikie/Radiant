@@ -11,16 +11,12 @@ public class ReflectorField {
         this(new FieldLocatorName(reflectorClass, targetFieldName));
     }
 
-    public ReflectorField(ReflectorClass reflectorClass, Class targetFieldType) {
+    public ReflectorField(ReflectorClass reflectorClass, Class<?> targetFieldType) {
         this(reflectorClass, targetFieldType, 0);
     }
 
-    public ReflectorField(ReflectorClass reflectorClass, Class targetFieldType, int targetFieldIndex) {
+    public ReflectorField(ReflectorClass reflectorClass, Class<?> targetFieldType, int targetFieldIndex) {
         this(new FieldLocatorType(reflectorClass, targetFieldType, targetFieldIndex));
-    }
-
-    public ReflectorField(Field field) {
-        this(new FieldLocatorFixed(field));
     }
 
     public ReflectorField(IFieldLocator fieldLocator) {

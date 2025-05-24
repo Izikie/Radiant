@@ -25,7 +25,7 @@ public class NaturalTextures {
                 ResourceLocation resourcelocation = new ResourceLocation(s);
 
                 if (!Config.hasResource(resourcelocation)) {
-                    Config.dbg("NaturalTextures: configuration \"" + s + "\" not found");
+                    Log.info("NaturalTextures: configuration \"" + s + "\" not found");
                     return;
                 }
 
@@ -37,10 +37,10 @@ public class NaturalTextures {
                 String[] astring = Config.tokenize(s1, "\n\r");
 
                 if (flag) {
-                    Config.dbg("Natural Textures: Parsing default configuration \"" + s + "\"");
-                    Config.dbg("Natural Textures: Valid only for textures from default resource pack");
+                    Log.info("Natural Textures: Parsing default configuration \"" + s + "\"");
+                    Log.info("Natural Textures: Valid only for textures from default resource pack");
                 } else {
-                    Config.dbg("Natural Textures: Parsing configuration \"" + s + "\"");
+                    Log.info("Natural Textures: Parsing configuration \"" + s + "\"");
                 }
 
                 TextureMap texturemap = TextureUtils.getTextureMapBlocks();
@@ -52,19 +52,19 @@ public class NaturalTextures {
                         String[] astring1 = Config.tokenize(s2, "=");
 
                         if (astring1.length != 2) {
-                            Config.warn("Natural Textures: Invalid \"" + s + "\" line: " + s2);
+                            Log.error("Natural Textures: Invalid \"" + s + "\" line: " + s2);
                         } else {
                             String s3 = astring1[0].trim();
                             String s4 = astring1[1].trim();
                             TextureAtlasSprite textureatlassprite = texturemap.getSpriteSafe("minecraft:blocks/" + s3);
 
                             if (textureatlassprite == null) {
-                                Config.warn("Natural Textures: Texture not found: \"" + s + "\" line: " + s2);
+                                Log.error("Natural Textures: Texture not found: \"" + s + "\" line: " + s2);
                             } else {
                                 int j = textureatlassprite.getIndexInMap();
 
                                 if (j < 0) {
-                                    Config.warn("Natural Textures: Invalid \"" + s + "\" line: " + s2);
+                                    Log.error("Natural Textures: Invalid \"" + s + "\" line: " + s2);
                                 } else {
                                     if (flag && !Config.isFromDefaultResourcePack(new ResourceLocation("textures/blocks/" + s3 + ".png"))) {
                                         return;
@@ -78,7 +78,7 @@ public class NaturalTextures {
                                         }
 
                                         arraylist.set(j, naturalproperties);
-                                        Config.dbg("NaturalTextures: " + s3 + " = " + s4);
+                                        Log.info("NaturalTextures: " + s3 + " = " + s4);
                                     }
                                 }
                             }
@@ -88,7 +88,7 @@ public class NaturalTextures {
 
                 propertiesByIndex = (NaturalProperties[]) arraylist.toArray(new NaturalProperties[0]);
             } catch (FileNotFoundException var17) {
-                Config.warn("NaturalTextures: configuration \"" + s + "\" not found");
+                Log.error("NaturalTextures: configuration \"" + s + "\" not found");
             } catch (Exception exception) {
                 exception.printStackTrace();
             }

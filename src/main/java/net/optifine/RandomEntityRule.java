@@ -81,7 +81,7 @@ public class RandomEntityRule {
                 i = Config.parseInt(s, -1);
 
                 if (i < 0) {
-                    Config.warn("Invalid minHeight: " + s);
+                    Log.error("Invalid minHeight: " + s);
                     return null;
                 }
             }
@@ -92,13 +92,13 @@ public class RandomEntityRule {
                 j = Config.parseInt(s1, -1);
 
                 if (j < 0) {
-                    Config.warn("Invalid maxHeight: " + s1);
+                    Log.error("Invalid maxHeight: " + s1);
                     return null;
                 }
             }
 
             if (j < 0) {
-                Config.warn("Invalid minHeight, maxHeight: " + s + ", " + s1);
+                Log.error("Invalid minHeight, maxHeight: " + s + ", " + s1);
                 return null;
             } else {
                 RangeListInt rangelistint = new RangeListInt();
@@ -118,7 +118,7 @@ public class RandomEntityRule {
                 ResourceLocation resourcelocation = RandomEntities.getLocationRandom(this.baseResLoc, flag);
 
                 if (resourcelocation == null) {
-                    Config.warn("Invalid path: " + this.baseResLoc.getResourcePath());
+                    Log.error("Invalid path: " + this.baseResLoc.getResourcePath());
                     return false;
                 } else {
                     for (int i = 0; i < this.resourceLocations.length; ++i) {
@@ -130,12 +130,12 @@ public class RandomEntityRule {
                             ResourceLocation resourcelocation1 = RandomEntities.getLocationIndexed(resourcelocation, j);
 
                             if (resourcelocation1 == null) {
-                                Config.warn("Invalid path: " + this.baseResLoc.getResourcePath());
+                                Log.error("Invalid path: " + this.baseResLoc.getResourcePath());
                                 return false;
                             }
 
                             if (!Config.hasResource(resourcelocation1)) {
-                                Config.warn("Texture not found: " + resourcelocation1.getResourcePath());
+                                Log.error("Texture not found: " + resourcelocation1.getResourcePath());
                                 return false;
                             }
 
@@ -145,14 +145,14 @@ public class RandomEntityRule {
 
                     if (this.weights != null) {
                         if (this.weights.length > this.resourceLocations.length) {
-                            Config.warn("More weights defined than skins, trimming weights: " + path);
+                            Log.error("More weights defined than skins, trimming weights: " + path);
                             int[] aint = new int[this.resourceLocations.length];
                             System.arraycopy(this.weights, 0, aint, 0, aint.length);
                             this.weights = aint;
                         }
 
                         if (this.weights.length < this.resourceLocations.length) {
-                            Config.warn("Less weights defined than skins, expanding weights: " + path);
+                            Log.error("Less weights defined than skins, expanding weights: " + path);
                             int[] aint1 = new int[this.resourceLocations.length];
                             System.arraycopy(this.weights, 0, aint1, 0, this.weights.length);
                             int l = MathUtils.getAverage(this.weights);
@@ -169,7 +169,7 @@ public class RandomEntityRule {
 
                         for (int i1 = 0; i1 < this.weights.length; ++i1) {
                             if (this.weights[i1] < 0) {
-                                Config.warn("Invalid weight: " + this.weights[i1]);
+                                Log.error("Invalid weight: " + this.weights[i1]);
                                 return false;
                             }
 
@@ -180,16 +180,16 @@ public class RandomEntityRule {
                         this.sumAllWeights = k;
 
                         if (this.sumAllWeights <= 0) {
-                            Config.warn("Invalid sum of all weights: " + k);
+                            Log.error("Invalid sum of all weights: " + k);
                             this.sumAllWeights = 1;
                         }
                     }
 
                     if (this.professions == ConnectedParser.PROFESSIONS_INVALID) {
-                        Config.warn("Invalid professions or careers: " + path);
+                        Log.error("Invalid professions or careers: " + path);
                         return false;
                     } else if (this.collarColors == ConnectedParser.DYE_COLORS_INVALID) {
-                        Config.warn("Invalid collar colors: " + path);
+                        Log.error("Invalid collar colors: " + path);
                         return false;
                     } else {
                         return true;
@@ -197,7 +197,7 @@ public class RandomEntityRule {
                 }
             }
         } else {
-            Config.warn("Invalid skins for rule: " + this.index);
+            Log.error("Invalid skins for rule: " + this.index);
             return false;
         }
     }

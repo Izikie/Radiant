@@ -7,6 +7,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.src.Config;
 import net.optifine.Lang;
+import net.optifine.Log;
 
 import java.math.BigInteger;
 import java.net.URI;
@@ -69,11 +70,11 @@ public class GuiScreenCapeOF extends GuiScreenOF {
                     }
                 } catch (InvalidCredentialsException invalidcredentialsexception) {
                     Config.showGuiMessage(I18n.format("of.message.capeOF.error1"), I18n.format("of.message.capeOF.error2", invalidcredentialsexception.getMessage()));
-                    Config.warn("Mojang authentication failed");
-                    Config.warn(invalidcredentialsexception.getClass().getName() + ": " + invalidcredentialsexception.getMessage());
+                    Log.error("Mojang authentication failed");
+                    Log.error(invalidcredentialsexception.getClass().getName() + ": " + invalidcredentialsexception.getMessage());
                 } catch (Exception exception) {
-                    Config.warn("Error opening OptiFine cape link");
-                    Config.warn(exception.getClass().getName() + ": " + exception.getMessage());
+                    Log.error("Error opening OptiFine cape link");
+                    Log.error(exception.getClass().getName() + ": " + exception.getMessage());
                 }
             }
 

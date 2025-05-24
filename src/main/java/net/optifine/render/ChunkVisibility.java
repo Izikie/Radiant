@@ -16,9 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ChunkVisibility {
-    public static final int MASK_FACINGS = 63;
-    public static final Direction[][] FACING_ARRAYS = makeEnumFacingArrays(false);
-    public static final Direction[][] FACING_OPPOSITE_ARRAYS = makeEnumFacingArrays(true);
+    public static final Direction[][] FACING_OPPOSITE_ARRAYS = makeEnumFacingArrays();
     private static int counter = 0;
     private static int iMaxStatic = -1;
     private static int iMaxStaticFinal = 16;
@@ -82,9 +80,7 @@ public class ChunkVisibility {
                         ExtendedBlockStorage extendedblockstorage = aextendedblockstorage[k2];
 
                         if (extendedblockstorage != null && !extendedblockstorage.isEmpty()) {
-                            if (k2 > l1) {
-                                l1 = k2;
-                            }
+                            l1 = k2;
 
                             break;
                         }
@@ -102,7 +98,7 @@ public class ChunkVisibility {
                                 }
                             }
                         }
-                    } catch (ConcurrentModificationException var21) {
+                    } catch (ConcurrentModificationException ignored) {
                     }
 
                     ClassInheritanceMultiMap<Entity>[] classinheritancemultimap = chunk1.getEntityLists();
@@ -111,9 +107,7 @@ public class ChunkVisibility {
                         ClassInheritanceMultiMap<Entity> classinheritancemultimap1 = classinheritancemultimap[i3];
 
                         if (!classinheritancemultimap1.isEmpty() && (chunk1 != chunk || i3 != j || classinheritancemultimap1.size() != 1)) {
-                            if (i3 > l1) {
-                                l1 = i3;
-                            }
+                            l1 = i3;
 
                             break;
                         }
@@ -138,7 +132,7 @@ public class ChunkVisibility {
         return counter == 0;
     }
 
-    private static Direction[][] makeEnumFacingArrays(boolean opposite) {
+    private static Direction[][] makeEnumFacingArrays() {
         int i = 64;
         Direction[][] aenumfacing = new Direction[i][];
 
@@ -147,7 +141,7 @@ public class ChunkVisibility {
 
             for (int k = 0; k < Direction.VALUES.length; ++k) {
                 Direction enumfacing = Direction.VALUES[k];
-                Direction enumfacing1 = opposite ? enumfacing.getOpposite() : enumfacing;
+                Direction enumfacing1 = enumfacing.getOpposite();
                 int l = 1 << enumfacing1.ordinal();
 
                 if ((j & l) != 0) {

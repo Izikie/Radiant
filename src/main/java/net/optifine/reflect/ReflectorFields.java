@@ -3,7 +3,7 @@ package net.optifine.reflect;
 public class ReflectorFields {
     private ReflectorField[] reflectorFields;
 
-    public ReflectorFields(ReflectorClass reflectorClass, Class fieldType, int fieldCount) {
+    public ReflectorFields(ReflectorClass reflectorClass, Class<?> fieldType, int fieldCount) {
         if (reflectorClass.exists()) {
             if (fieldType != null) {
                 this.reflectorFields = new ReflectorField[fieldCount];

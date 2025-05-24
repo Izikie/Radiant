@@ -5,31 +5,28 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.VboRenderList;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.src.Config;
-import net.minecraft.util.RenderLayer;
 import net.optifine.util.LinkedList;
 
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
 public class VboRegion {
-    private final RenderLayer layer;
     private int glBufferId = OpenGlHelper.glGenBuffers();
     private int capacity = 4096;
     private int positionTop = 0;
     private int sizeUsed;
-    private final LinkedList<VboRange> rangeList = new LinkedList();
+    private final LinkedList<VboRange> rangeList = new LinkedList<>();
     private VboRange compactRangeLast = null;
     private IntBuffer bufferIndexVertex;
     private IntBuffer bufferCountVertex;
     private int drawMode;
     private final int vertexBytes;
 
-    public VboRegion(RenderLayer layer) {
+    public VboRegion() {
         this.bufferIndexVertex = Config.createDirectIntBuffer(this.capacity);
         this.bufferCountVertex = Config.createDirectIntBuffer(this.capacity);
         this.drawMode = 7;
         this.vertexBytes = DefaultVertexFormats.BLOCK.getNextOffset();
-        this.layer = layer;
         this.bindBuffer();
         long i = this.toBytes(this.capacity);
         OpenGlHelper.glBufferData(OpenGlHelper.GL_ARRAY_BUFFER, i, OpenGlHelper.GL_STATIC_DRAW);
@@ -70,12 +67,12 @@ public class VboRegion {
             this.unbindBuffer();
 
             if (this.positionTop > this.sizeUsed * 11 / 10) {
-                this.compactRanges(1);
+                this.compactRanges();
             }
         }
     }
 
-    private void compactRanges(int countMax) {
+    private void compactRanges() {
         if (!this.rangeList.isEmpty()) {
             VboRange vborange = this.compactRangeLast;
 
@@ -94,7 +91,7 @@ public class VboRegion {
 
             int j = 0;
 
-            while (vborange != null && j < countMax) {
+            while (vborange != null && j < 1) {
                 ++j;
 
                 if (vborange.getPosition() == i) {
@@ -126,38 +123,6 @@ public class VboRegion {
             }
 
             this.compactRangeLast = vborange;
-        }
-    }
-
-    private void checkRanges() {
-        int i = 0;
-        int j = 0;
-
-        for (VboRange vborange = this.rangeList.getFirst().getItem(); vborange != null; vborange = vborange.getNext()) {
-            ++i;
-            j += vborange.getSize();
-
-            if (vborange.getPosition() < 0 || vborange.getSize() <= 0 || vborange.getPositionNext() > this.positionTop) {
-                throw new RuntimeException("Invalid range: " + vborange);
-            }
-
-            VboRange vborange1 = vborange.getPrev();
-
-            if (vborange1 != null && vborange.getPosition() < vborange1.getPositionNext()) {
-                throw new RuntimeException("Invalid range: " + vborange);
-            }
-
-            VboRange vborange2 = vborange.getNext();
-
-            if (vborange2 != null && vborange.getPositionNext() > vborange2.getPosition()) {
-                throw new RuntimeException("Invalid range: " + vborange);
-            }
-        }
-
-        if (i != this.rangeList.getSize()) {
-            throw new RuntimeException("Invalid count: " + i + " <> " + this.rangeList.getSize());
-        } else if (j != this.sizeUsed) {
-            throw new RuntimeException("Invalid size: " + j + " <> " + this.sizeUsed);
         }
     }
 
@@ -232,7 +197,7 @@ public class VboRegion {
         this.bufferCountVertex.limit(this.bufferCountVertex.capacity());
 
         if (this.positionTop > this.sizeUsed * 11 / 10) {
-            this.compactRanges(1);
+            this.compactRanges();
         }
     }
 
@@ -253,9 +218,5 @@ public class VboRegion {
 
     private int toVertex(long bytes) {
         return (int) (bytes / this.vertexBytes);
-    }
-
-    public int getPositionTop() {
-        return this.positionTop;
     }
 }

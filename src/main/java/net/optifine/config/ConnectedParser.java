@@ -15,6 +15,7 @@ import net.minecraft.util.RenderLayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.optifine.ConnectedProperties;
+import net.optifine.Log;
 import net.optifine.util.EntityUtils;
 
 import java.lang.reflect.Array;
@@ -541,7 +542,7 @@ public class ConnectedParser {
                         return Direction.WEST;
                     }
                     default -> {
-                        Config.warn("Unknown face: " + str);
+                        Log.error("Unknown face: " + str);
                         return null;
                     }
                 }
@@ -554,11 +555,11 @@ public class ConnectedParser {
     }
 
     public void dbg(String str) {
-        Config.dbg(this.context + ": " + str);
+        Log.info(this.context + ": " + str);
     }
 
     public void warn(String str) {
-        Config.warn(this.context + ": " + str);
+        Log.error(this.context + ": " + str);
     }
 
     public RangeListInt parseRangeListInt(String str) {

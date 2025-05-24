@@ -6,8 +6,8 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityEnchantmentTableRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntityEnchantmentTable;
+import net.optifine.Log;
 import net.optifine.reflect.Reflector;
 
 public class ModelAdapterBook extends ModelAdapter {
@@ -47,7 +47,7 @@ public class ModelAdapterBook extends ModelAdapter {
                 Reflector.setFieldValue(tileentityspecialrenderer, Reflector.TileEntityEnchantmentTableRenderer_modelBook, modelBase);
                 return tileentityspecialrenderer;
             } else {
-                Config.warn("Field not found: TileEntityEnchantmentTableRenderer.modelBook");
+                Log.error("Field not found: TileEntityEnchantmentTableRenderer.modelBook");
                 return null;
             }
         }

@@ -4,11 +4,11 @@ import java.lang.reflect.Array;
 import java.util.ArrayDeque;
 
 public class ArrayCache {
-    private final Class elementClass;
+    private final Class<?> elementClass;
     private final int maxCacheSize;
-    private final ArrayDeque cache = new ArrayDeque();
+    private final ArrayDeque<Object> cache = new ArrayDeque<>();
 
-    public ArrayCache(Class elementClass, int maxCacheSize) {
+    public ArrayCache(Class<?> elementClass, int maxCacheSize) {
         this.elementClass = elementClass;
         this.maxCacheSize = maxCacheSize;
     }
@@ -25,7 +25,7 @@ public class ArrayCache {
 
     public synchronized void free(Object arr) {
         if (arr != null) {
-            Class oclass = arr.getClass();
+            Class<?> oclass = arr.getClass();
 
             if (oclass.getComponentType() != this.elementClass) {
                 throw new IllegalArgumentException("Wrong component type");

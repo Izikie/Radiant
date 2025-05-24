@@ -5,14 +5,13 @@ public class MemoryMonitor {
     private static long startMemory = getMemoryUsed();
     private static long lastTimeMs = startTimeMs;
     private static long lastMemory = startMemory;
-    private static boolean gcEvent = false;
     private static int memBytesSec = 0;
     private static final long MB = 1048576L;
 
     public static void update() {
         long i = System.currentTimeMillis();
         long j = getMemoryUsed();
-        gcEvent = j < lastMemory;
+        boolean gcEvent = j < lastMemory;
 
         if (gcEvent) {
             long k = lastTimeMs - startTimeMs;
@@ -35,18 +34,6 @@ public class MemoryMonitor {
     private static long getMemoryUsed() {
         Runtime runtime = Runtime.getRuntime();
         return runtime.totalMemory() - runtime.freeMemory();
-    }
-
-    public static long getStartTimeMs() {
-        return startTimeMs;
-    }
-
-    public static long getStartMemoryMb() {
-        return startMemory / MB;
-    }
-
-    public static boolean isGcEvent() {
-        return gcEvent;
     }
 
     public static long getAllocationRateMb() {
