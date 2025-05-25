@@ -83,10 +83,10 @@ public class TileEntitySign extends TileEntity {
 
                 try {
                     this.signText[i] = ChatComponentProcessor.processComponent(icommandsender, ichatcomponent, null);
-                } catch (CommandException var7) {
+                } catch (CommandException exception) {
                     this.signText[i] = ichatcomponent;
                 }
-            } catch (JsonParseException var8) {
+            } catch (JsonParseException exception) {
                 this.signText[i] = new ChatComponentText(s);
             }
         }

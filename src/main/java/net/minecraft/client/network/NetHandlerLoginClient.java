@@ -48,20 +48,20 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
         if (this.mc.getCurrentServerData() != null && this.mc.getCurrentServerData().isOnLAN()) {
             try {
                 this.getSessionService().joinServer(this.mc.getSession().getProfile(), this.mc.getSession().getToken(), s1);
-            } catch (AuthenticationException var10) {
+            } catch (AuthenticationException exception) {
                 LOGGER.warn("Couldn't connect to auth servers but will continue to join LAN");
             }
         } else {
             try {
                 this.getSessionService().joinServer(this.mc.getSession().getProfile(), this.mc.getSession().getToken(), s1);
-            } catch (AuthenticationUnavailableException var7) {
+            } catch (AuthenticationUnavailableException exception) {
                 this.networkManager.closeChannel(new ChatComponentTranslation("disconnect.loginFailedInfo", new ChatComponentTranslation("disconnect.loginFailedInfo.serversUnavailable")));
                 return;
-            } catch (InvalidCredentialsException var8) {
+            } catch (InvalidCredentialsException exception) {
                 this.networkManager.closeChannel(new ChatComponentTranslation("disconnect.loginFailedInfo", new ChatComponentTranslation("disconnect.loginFailedInfo.invalidSession")));
                 return;
-            } catch (AuthenticationException authenticationexception) {
-                this.networkManager.closeChannel(new ChatComponentTranslation("disconnect.loginFailedInfo", authenticationexception.getMessage()));
+            } catch (AuthenticationException exception) {
+                this.networkManager.closeChannel(new ChatComponentTranslation("disconnect.loginFailedInfo", exception.getMessage()));
                 return;
             }
         }

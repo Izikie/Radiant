@@ -254,7 +254,7 @@ public class ChunkProviderSettings {
             } else {
                 try {
                     return JSON_ADAPTER.fromJson(p_177865_0_, Factory.class);
-                } catch (Exception var2) {
+                } catch (Exception exception) {
                     return new Factory();
                 }
             }
@@ -540,7 +540,7 @@ public class ChunkProviderSettings {
                 chunkprovidersettings$factory.lapisCount = JsonUtils.getInt(jsonobject, "lapisCount", chunkprovidersettings$factory.lapisCount);
                 chunkprovidersettings$factory.lapisCenterHeight = JsonUtils.getInt(jsonobject, "lapisCenterHeight", chunkprovidersettings$factory.lapisCenterHeight);
                 chunkprovidersettings$factory.lapisSpread = JsonUtils.getInt(jsonobject, "lapisSpread", chunkprovidersettings$factory.lapisSpread);
-            } catch (Exception var7) {
+            } catch (Exception ignored) {
             }
 
             return chunkprovidersettings$factory;

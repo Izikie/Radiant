@@ -24,9 +24,9 @@ public class CustomUniform {
         if (this.shaderUniform.isDefined()) {
             try {
                 this.type.updateUniform(this.expression, this.shaderUniform);
-            } catch (RuntimeException runtimeexception) {
+            } catch (RuntimeException exception) {
                 Log.error("Error updating custom uniform: " + this.shaderUniform.getName());
-                Log.error(runtimeexception.getClass().getName() + ": " + runtimeexception.getMessage());
+                Log.error(exception.getClass().getName() + ": " + exception.getMessage());
                 this.shaderUniform.disable();
                 Log.error("Custom uniform disabled: " + this.shaderUniform.getName());
             }

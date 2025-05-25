@@ -130,7 +130,7 @@ public class Block {
         } else {
             try {
                 return blockRegistry.getObjectById(Integer.parseInt(name));
-            } catch (NumberFormatException var3) {
+            } catch (NumberFormatException exception) {
                 return null;
             }
         }

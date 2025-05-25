@@ -59,12 +59,12 @@ public class GuiConnecting extends GuiScreen {
                     GuiConnecting.this.networkManager.setNetHandler(new NetHandlerLoginClient(GuiConnecting.this.networkManager, GuiConnecting.this.mc, GuiConnecting.this.previousGuiScreen));
                     GuiConnecting.this.networkManager.sendPacket(new C00Handshake(47, ip, port, NetworkState.LOGIN));
                     GuiConnecting.this.networkManager.sendPacket(new C00PacketLoginStart(GuiConnecting.this.mc.getSession().getProfile()));
-                } catch (UnknownHostException unknownhostexception) {
+                } catch (UnknownHostException exception) {
                     if (GuiConnecting.this.cancel) {
                         return;
                     }
 
-                    GuiConnecting.LOGGER.error("Couldn't connect to server", unknownhostexception);
+                    GuiConnecting.LOGGER.error("Couldn't connect to server", exception);
                     GuiConnecting.this.mc.displayGuiScreen(new GuiDisconnected(GuiConnecting.this.previousGuiScreen, "connect.failed", new ChatComponentTranslation("disconnect.genericReason", "Unknown host")));
                 } catch (Exception exception) {
                     if (GuiConnecting.this.cancel) {

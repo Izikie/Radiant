@@ -45,8 +45,8 @@ public class CommandBlockData extends CommandBase {
 
                     try {
                         nbttagcompound2 = JsonToNBT.getTagFromJson(getChatComponentFromNthArg(sender, args, 3).getUnformattedText());
-                    } catch (NBTException nbtexception) {
-                        throw new CommandException("commands.blockdata.tagError", nbtexception.getMessage());
+                    } catch (NBTException exception) {
+                        throw new CommandException("commands.blockdata.tagError", exception.getMessage());
                     }
 
                     nbttagcompound.merge(nbttagcompound2);

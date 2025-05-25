@@ -94,9 +94,9 @@ public class CustomItems {
             properties.load(inputstream);
             inputstream.close();
             useGlint = Config.parseBoolean(properties.getProperty("useGlint"), true);
-        } catch (FileNotFoundException var4) {
-        } catch (IOException ioexception) {
-            ioexception.printStackTrace();
+        } catch (FileNotFoundException exception) {
+        } catch (IOException exception) {
+            exception.printStackTrace();
         }
     }
 
@@ -143,7 +143,7 @@ public class CustomItems {
                     addToItemList(customitemproperties, list);
                     addToEnchantmentList(customitemproperties, list1);
                 }
-            } catch (FileNotFoundException var11) {
+            } catch (FileNotFoundException exception) {
                 Log.error("CustomItems file not found: " + s);
             } catch (Exception exception) {
                 exception.printStackTrace();

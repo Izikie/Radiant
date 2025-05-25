@@ -236,7 +236,7 @@ public class Minecraft implements IThreadListener {
                     if (!this.hasCrashed || this.crashReporter == null) {
                         try {
                             this.runGameLoop();
-                        } catch (OutOfMemoryError var10) {
+                        } catch (OutOfMemoryError error) {
                             this.freeMemory();
                             this.displayGuiScreen(new GuiMemoryErrorScreen());
                             System.gc();
@@ -245,19 +245,19 @@ public class Minecraft implements IThreadListener {
                         this.displayCrashReport(this.crashReporter);
                     }
                 }
-            } catch (MinecraftError var12) {
+            } catch (MinecraftError error) {
                 break;
-            } catch (ReportedException reportedexception) {
-                this.addGraphicsAndWorldToCrashReport(reportedexception.getCrashReport());
+            } catch (ReportedException exception) {
+                this.addGraphicsAndWorldToCrashReport(exception.getCrashReport());
                 this.freeMemory();
-                LOGGER.fatal("Reported exception thrown!", reportedexception);
-                this.displayCrashReport(reportedexception.getCrashReport());
+                LOGGER.fatal("Reported exception thrown!", exception);
+                this.displayCrashReport(exception.getCrashReport());
                 break;
-            } catch (Throwable throwable1) {
-                CrashReport crashreport1 = this.addGraphicsAndWorldToCrashReport(new CrashReport("Unexpected error", throwable1));
+            } catch (Throwable throwable) {
+                CrashReport report = this.addGraphicsAndWorldToCrashReport(new CrashReport("Unexpected error", throwable));
                 this.freeMemory();
-                LOGGER.fatal("Unreported exception thrown!", throwable1);
-                this.displayCrashReport(crashreport1);
+                LOGGER.fatal("Unreported exception thrown!", throwable);
+                this.displayCrashReport(report);
                 break;
             } finally {
                 this.shutdownMinecraftApplet();
@@ -369,7 +369,7 @@ public class Minecraft implements IThreadListener {
 
         try {
             Display.setVSyncEnabled(this.gameSettings.enableVsync);
-        } catch (OpenGLException var2) {
+        } catch (OpenGLException exception) {
             this.gameSettings.enableVsync = false;
             this.gameSettings.saveOptions();
         }
@@ -391,12 +391,12 @@ public class Minecraft implements IThreadListener {
 
         try {
             Display.create((new PixelFormat()).withDepthBits(24));
-        } catch (LWJGLException lwjglexception) {
-            LOGGER.error("Couldn't set pixel format", lwjglexception);
+        } catch (LWJGLException exception) {
+            LOGGER.error("Couldn't set pixel format", exception);
 
             try {
                 Thread.sleep(1000L);
-            } catch (InterruptedException var3) {
+            } catch (InterruptedException interruptedException) {
             }
 
             if (this.fullscreen) {
@@ -430,8 +430,8 @@ public class Minecraft implements IThreadListener {
                 if (inputstream != null && inputstream1 != null) {
                     Display.setIcon(new ByteBuffer[]{this.readImageToBuffer(inputstream), this.readImageToBuffer(inputstream1)});
                 }
-            } catch (IOException ioexception) {
-                LOGGER.error("Couldn't set icon", ioexception);
+            } catch (IOException exception) {
+                LOGGER.error("Couldn't set icon", exception);
             } finally {
                 IOUtils.closeQuietly(inputstream);
                 IOUtils.closeQuietly(inputstream1);
@@ -505,8 +505,8 @@ public class Minecraft implements IThreadListener {
 
         try {
             this.mcResourceManager.reloadResources(list);
-        } catch (RuntimeException runtimeexception) {
-            LOGGER.info("Caught error stitching, removing all assigned resourcepacks", runtimeexception);
+        } catch (RuntimeException exception) {
+            LOGGER.info("Caught error stitching, removing all assigned resourcepacks", exception);
             list.clear();
             list.addAll(this.defaultResourcePacks);
             this.mcResourcePackRepository.setRepositories(Collections.emptyList());
@@ -601,8 +601,8 @@ public class Minecraft implements IThreadListener {
             inputstream = this.mcDefaultResourcePack.getInputStream(LOCATION_MOJANG_PNG);
             this.mojangLogo = textureManagerInstance.getDynamicTextureLocation("logo", new DynamicTexture(ImageIO.read(inputstream)));
             textureManagerInstance.bindTexture(this.mojangLogo);
-        } catch (IOException ioexception) {
-            LOGGER.error("Unable to load logo: {}", LOCATION_MOJANG_PNG, ioexception);
+        } catch (IOException exception) {
+            LOGGER.error("Unable to load logo: {}", LOCATION_MOJANG_PNG, exception);
         } finally {
             IOUtils.closeQuietly(inputstream);
         }
@@ -694,7 +694,7 @@ public class Minecraft implements IThreadListener {
 
             try {
                 this.loadWorld(null);
-            } catch (Throwable var5) {
+            } catch (Throwable throwable) {
             }
 
             this.mcSoundHandler.unloadSounds();
@@ -816,13 +816,13 @@ public class Minecraft implements IThreadListener {
         try {
             memoryReserve = new byte[0];
             this.renderGlobal.deleteAllDisplayLists();
-        } catch (Throwable var3) {
+        } catch (Throwable throwable) {
         }
 
         try {
             System.gc();
             this.loadWorld(null);
-        } catch (Throwable var2) {
+        } catch (Throwable throwable) {
         }
 
         System.gc();
@@ -1067,8 +1067,8 @@ public class Minecraft implements IThreadListener {
         if (this.currentScreen != null) {
             try {
                 this.currentScreen.handleInput();
-            } catch (Throwable throwable1) {
-                CrashReport report = CrashReport.makeCrashReport(throwable1, "Updating screen events");
+            } catch (Throwable throwable) {
+                CrashReport report = CrashReport.makeCrashReport(throwable, "Updating screen events");
                 CrashReportCategory category = report.makeCategory("Affected screen");
                 category.addCrashSectionCallable("Screen Name", () -> this.currentScreen.getClass().getCanonicalName());
                 throw new ReportedException(report);
@@ -1342,8 +1342,8 @@ public class Minecraft implements IThreadListener {
 
                 try {
                     this.theWorld.tick();
-                } catch (Throwable throwable2) {
-                    CrashReport report = CrashReport.makeCrashReport(throwable2, "Exception in world tick");
+                } catch (Throwable throwable) {
+                    CrashReport report = CrashReport.makeCrashReport(throwable, "Exception in world tick");
 
                     if (this.theWorld == null) {
                         CrashReportCategory category = report.makeCategory("Affected level");

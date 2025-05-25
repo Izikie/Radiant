@@ -379,7 +379,7 @@ public class JsonToNBT {
                 if (this.jsonValue.equalsIgnoreCase("true") || this.jsonValue.equalsIgnoreCase("false")) {
                     return new NBTTagByte((byte) (Boolean.parseBoolean(this.jsonValue) ? 1 : 0));
                 }
-            } catch (NumberFormatException var6) {
+            } catch (NumberFormatException exception) {
                 this.jsonValue = this.jsonValue.replaceAll("\\\\\"", "\"");
                 return new NBTTagString(this.jsonValue);
             }
@@ -396,7 +396,7 @@ public class JsonToNBT {
                     }
 
                     return new NBTTagIntArray(aint);
-                } catch (NumberFormatException var5) {
+                } catch (NumberFormatException exception) {
                     return new NBTTagString(this.jsonValue);
                 }
             } else {

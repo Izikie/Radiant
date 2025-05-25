@@ -39,8 +39,8 @@ public class CommandGive extends CommandBase {
 
                 try {
                     itemstack.setTagCompound(JsonToNBT.getTagFromJson(s));
-                } catch (NBTException nbtexception) {
-                    throw new CommandException("commands.give.tagError", nbtexception.getMessage());
+                } catch (NBTException exception) {
+                    throw new CommandException("commands.give.tagError", exception.getMessage());
                 }
             }
 

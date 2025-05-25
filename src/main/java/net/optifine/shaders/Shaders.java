@@ -443,7 +443,7 @@ public class Shaders {
             if (!SHADER_PACKS_DIR.exists()) {
                 SHADER_PACKS_DIR.mkdir();
             }
-        } catch (Exception var8) {
+        } catch (Exception exception) {
             Log.error("Failed to open the shaderpacks directory: " + SHADER_PACKS_DIR);
         }
 
@@ -455,14 +455,14 @@ public class Shaders {
                 FileReader filereader = new FileReader(CONFIG_FILE);
                 shadersConfig.load(filereader);
                 filereader.close();
-            } catch (Exception var7) {
+            } catch (Exception exception) {
             }
         }
 
         if (!CONFIG_FILE.exists()) {
             try {
                 storeConfig();
-            } catch (Exception var6) {
+            } catch (Exception exception) {
             }
         }
 
@@ -769,7 +769,7 @@ public class Shaders {
                 ShaderPackParser.parseBlendStates(properties);
                 ShaderPackParser.parseRenderScales(properties);
                 ShaderPackParser.parseBuffersFlip(properties);
-            } catch (IOException var3) {
+            } catch (IOException exception) {
                 Log.error("[Shaders] Error reading: " + s);
             }
         }
@@ -928,9 +928,9 @@ public class Shaders {
                 TextureMetadataSection texturemetadatasection = SimpleShaderTexture.loadTextureMetadataSection(s, new TextureMetadataSection(true, true, new IntArrayList()));
                 return new CustomTextureRaw(type, internalFormat, width, height, depth, pixelFormat, pixelType, bytebuffer, textureUnit, texturemetadatasection.getTextureBlur(), texturemetadatasection.getTextureClamp());
             }
-        } catch (IOException ioexception) {
+        } catch (IOException exception) {
             Log.warn("Error loading raw texture: " + path);
-            Log.warn(ioexception.getClass().getName() + ": " + ioexception.getMessage());
+            Log.warn(exception.getClass().getName() + ": " + exception.getMessage());
             return null;
         }
     }
@@ -955,9 +955,9 @@ public class Shaders {
                 simpleshadertexture.loadTexture(mc.getResourceManager());
                 return new CustomTexture(textureUnit, s, simpleshadertexture);
             }
-        } catch (IOException ioexception) {
+        } catch (IOException exception) {
             Log.warn("Error loading texture: " + path);
-            Log.warn(ioexception.getClass().getName() + ": " + ioexception.getMessage());
+            Log.warn(exception.getClass().getName() + ": " + exception.getMessage());
             return null;
         }
     }
@@ -1229,9 +1229,9 @@ public class Shaders {
 
         try {
             saveOptionProperties(sp, properties);
-        } catch (IOException ioexception) {
+        } catch (IOException exception) {
             Log.error("[Shaders] Error saving configuration for " + shaderPack.getName());
-            ioexception.printStackTrace();
+            exception.printStackTrace();
         }
     }
 
@@ -1268,9 +1268,9 @@ public class Shaders {
             }
 
             return ashaderoption;
-        } catch (IOException ioexception) {
+        } catch (IOException exception) {
             Log.error("[Shaders] Error reading configuration for " + shaderPack.getName());
-            ioexception.printStackTrace();
+            exception.printStackTrace();
             return null;
         }
     }
@@ -1343,7 +1343,7 @@ public class Shaders {
                     arraylist.add(s);
                 }
             }
-        } catch (Exception var7) {
+        } catch (Exception exception) {
         }
 
         List<String> list = arraylist.subList(i, arraylist.size());
@@ -1936,7 +1936,7 @@ public class Shaders {
 
             try {
                 bufferedreader = new BufferedReader(getShaderReader(filename));
-            } catch (Exception var10) {
+            } catch (Exception exception) {
                 ARBShaderObjects.glDeleteObjectARB(i);
                 return 0;
             }
@@ -2017,7 +2017,7 @@ public class Shaders {
 
             try {
                 bufferedreader = new BufferedReader(getShaderReader(filename));
-            } catch (Exception var11) {
+            } catch (Exception exception) {
                 ARBShaderObjects.glDeleteObjectARB(i);
                 return 0;
             }
@@ -2096,7 +2096,7 @@ public class Shaders {
 
             try {
                 bufferedreader = new BufferedReader(getShaderReader(filename));
-            } catch (Exception var14) {
+            } catch (Exception exception) {
                 ARBShaderObjects.glDeleteObjectARB(i);
                 return 0;
             }
@@ -2342,9 +2342,9 @@ public class Shaders {
             File file1 = new File(SHADER_PACKS_DIR, "debug/" + filename);
             file1.getParentFile().mkdirs();
             Config.writeFile(file1, code);
-        } catch (IOException ioexception) {
+        } catch (IOException exception) {
             Log.error("Error saving: " + filename);
-            ioexception.printStackTrace();
+            exception.printStackTrace();
         }
     }
 
@@ -2702,7 +2702,7 @@ public class Shaders {
 
         try {
             bufferedreader = new BufferedReader(new InputStreamReader(shaderPack.getResourceAsStream("/mc_Entity_x.txt")));
-        } catch (Exception var8) {
+        } catch (Exception exception) {
         }
 
         if (bufferedreader != null) {
@@ -2727,7 +2727,7 @@ public class Shaders {
                         Log.warn("unmatched %s\n", s1);
                     }
                 }
-            } catch (Exception var9) {
+            } catch (Exception exception) {
                 Log.warn("Error parsing mc_Entity_x.txt");
             }
         }
@@ -2735,7 +2735,7 @@ public class Shaders {
         if (bufferedreader != null) {
             try {
                 bufferedreader.close();
-            } catch (Exception var7) {
+            } catch (Exception exception) {
             }
         }
     }
@@ -3004,10 +3004,10 @@ public class Shaders {
         if (!isShaderPackInitialized) {
             try {
                 init();
-            } catch (IllegalStateException illegalstateexception) {
-                if (Config.normalize(illegalstateexception.getMessage()).equals("Function is not supported")) {
-                    printChatAndLogError("[Shaders] Error: " + illegalstateexception.getMessage());
-                    illegalstateexception.printStackTrace();
+            } catch (IllegalStateException exception) {
+                if (Config.normalize(exception.getMessage()).equals("Function is not supported")) {
+                    printChatAndLogError("[Shaders] Error: " + exception.getMessage());
+                    exception.printStackTrace();
                     setShaderPack("OFF");
                     return;
                 }
@@ -4408,8 +4408,8 @@ public class Shaders {
                         }
                     }
                 }
-            } catch (IOException ioexception) {
-                ioexception.printStackTrace();
+            } catch (IOException exception) {
+                exception.printStackTrace();
             }
         }
     }

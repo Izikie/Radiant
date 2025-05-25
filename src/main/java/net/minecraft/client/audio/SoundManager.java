@@ -56,8 +56,8 @@ public class SoundManager {
         try {
             SoundSystemConfig.addLibrary(LibraryLWJGLOpenAL.class);
             SoundSystemConfig.setCodec("ogg", CodecJOrbis.class);
-        } catch (SoundSystemException soundsystemexception) {
-            LOGGER.error(LOG_MARKER, "Error linking with the LibraryJavaSound plug-in", soundsystemexception);
+        } catch (SoundSystemException exception) {
+            LOGGER.error(LOG_MARKER, "Error linking with the LibraryJavaSound plug-in", exception);
         }
     }
 
@@ -95,8 +95,8 @@ public class SoundManager {
                     SoundManager.this.sndSystem.setMasterVolume(SoundManager.this.options.getSoundLevel(SoundCategory.MASTER));
                     SoundManager.LOGGER.info(SoundManager.LOG_MARKER, "Sound engine started");
                 }, "Sound Library Loader")).start();
-            } catch (RuntimeException runtimeexception) {
-                LOGGER.error(LOG_MARKER, "Error starting SoundSystem. Turning off sounds & music", runtimeexception);
+            } catch (RuntimeException exception) {
+                LOGGER.error(LOG_MARKER, "Error starting SoundSystem. Turning off sounds & music", exception);
                 this.options.setSoundLevel(SoundCategory.MASTER, 0.0F);
                 this.options.saveOptions();
             }
@@ -190,7 +190,7 @@ public class SoundManager {
 
                     try {
                         this.categorySounds.remove(this.sndHandler.getSound(isound.getSoundLocation()).getSoundCategory(), s1);
-                    } catch (RuntimeException var8) {
+                    } catch (RuntimeException exception) {
                     }
 
                     if (isound instanceof ITickableSound) {
@@ -351,8 +351,8 @@ public class SoundManager {
 
         try {
             return URL.of(URI.create(uriString), urlStreamHandler);
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Failed to create URL for sound resource", e);
+        } catch (Exception exception) {
+            throw new IllegalArgumentException("Failed to create URL for sound resource", exception);
         }
     }
 

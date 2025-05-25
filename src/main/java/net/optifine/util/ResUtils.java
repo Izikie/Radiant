@@ -134,8 +134,8 @@ public class ResUtils {
 
             zipfile.close();
             return list.toArray(new String[0]);
-        } catch (IOException ioexception) {
-            ioexception.printStackTrace();
+        } catch (IOException exception) {
+            exception.printStackTrace();
             return new String[0];
         }
     }
@@ -155,9 +155,9 @@ public class ResUtils {
                 Log.info(module + ": Loading " + path);
                 return properties;
             }
-        } catch (FileNotFoundException var5) {
+        } catch (FileNotFoundException exception) {
             return null;
-        } catch (IOException var6) {
+        } catch (IOException exception) {
             Log.error(module + ": Error reading " + path);
             return null;
         }
@@ -172,7 +172,7 @@ public class ResUtils {
                 properties.load(in);
                 in.close();
                 return properties;
-            } catch (IOException var4) {
+            } catch (IOException exception) {
                 return null;
             }
         }

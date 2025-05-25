@@ -30,7 +30,7 @@ public class ShaderPackZip implements IShaderPack {
         if (this.packZipFile != null) {
             try {
                 this.packZipFile.close();
-            } catch (Exception var2) {
+            } catch (Exception exception) {
             }
 
             this.packZipFile = null;
@@ -52,7 +52,7 @@ public class ShaderPackZip implements IShaderPack {
 
             ZipEntry zipentry = this.packZipFile.getEntry(this.baseFolder + s);
             return zipentry == null ? null : this.packZipFile.getInputStream(zipentry);
-        } catch (Exception var4) {
+        } catch (Exception exception) {
             return null;
         }
     }
@@ -115,7 +115,7 @@ public class ShaderPackZip implements IShaderPack {
             String s = StrUtils.removePrefix(resName, "/");
             ZipEntry zipentry = this.packZipFile.getEntry(this.baseFolder + s);
             return zipentry != null;
-        } catch (IOException var4) {
+        } catch (IOException exception) {
             return false;
         }
     }

@@ -65,11 +65,11 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
                         for (Entry<String, SoundList> entry : map.entrySet()) {
                             this.loadSoundResource(new ResourceLocation(s, entry.getKey()), entry.getValue());
                         }
-                    } catch (RuntimeException runtimeexception) {
-                        LOGGER.warn("Invalid sounds.json", runtimeexception);
+                    } catch (RuntimeException exception) {
+                        LOGGER.warn("Invalid sounds.json", exception);
                     }
                 }
-            } catch (IOException var11) {
+            } catch (IOException exception) {
             }
         }
     }
@@ -114,11 +114,11 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 
                     try {
                         inputstream = this.mcResourceManager.getResource(resourcelocation1).getInputStream();
-                    } catch (FileNotFoundException var18) {
+                    } catch (FileNotFoundException exception) {
                         LOGGER.warn("File {} does not exist, cannot add it to event {}", new Object[]{resourcelocation1, location});
                         continue;
-                    } catch (IOException ioexception) {
-                        LOGGER.warn("Could not load sound file {}, cannot add it to event {}", resourcelocation1, location, ioexception);
+                    } catch (IOException exception) {
+                        LOGGER.warn("Could not load sound file {}, cannot add it to event {}", resourcelocation1, location, exception);
                         continue;
                     } finally {
                         IOUtils.closeQuietly(inputstream);

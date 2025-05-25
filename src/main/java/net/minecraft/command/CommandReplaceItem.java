@@ -70,9 +70,9 @@ public class CommandReplaceItem extends CommandBase {
 
             try {
                 item = getItemByText(sender, args[i]);
-            } catch (NumberInvalidException numberinvalidexception) {
+            } catch (NumberInvalidException exception) {
                 if (Block.getBlockFromName(args[i]) != Blocks.AIR) {
-                    throw numberinvalidexception;
+                    throw exception;
                 }
 
                 item = null;
@@ -88,8 +88,8 @@ public class CommandReplaceItem extends CommandBase {
 
                 try {
                     itemstack.setTagCompound(JsonToNBT.getTagFromJson(s));
-                } catch (NBTException nbtexception) {
-                    throw new CommandException("commands.replaceitem.tagError", nbtexception.getMessage());
+                } catch (NBTException exception) {
+                    throw new CommandException("commands.replaceitem.tagError", exception.getMessage());
                 }
             }
 

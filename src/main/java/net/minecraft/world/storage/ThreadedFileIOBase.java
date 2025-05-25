@@ -40,16 +40,16 @@ public class ThreadedFileIOBase implements Runnable {
 
             try {
                 Thread.sleep(this.isThreadWaiting ? 0L : 10L);
-            } catch (InterruptedException interruptedexception1) {
-                interruptedexception1.printStackTrace();
+            } catch (InterruptedException exception) {
+                exception.printStackTrace();
             }
         }
 
         if (this.threadedIOQueue.isEmpty()) {
             try {
                 Thread.sleep(25L);
-            } catch (InterruptedException interruptedexception) {
-                interruptedexception.printStackTrace();
+            } catch (InterruptedException exception) {
+                exception.printStackTrace();
             }
         }
     }

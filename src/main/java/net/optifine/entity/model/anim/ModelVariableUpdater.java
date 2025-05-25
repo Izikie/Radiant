@@ -22,9 +22,9 @@ public class ModelVariableUpdater {
                 ExpressionParser expressionparser = new ExpressionParser(mr);
                 this.expression = expressionparser.parseFloat(this.expressionText);
                 return true;
-            } catch (ParseException parseexception) {
+            } catch (ParseException exception) {
                 Log.error("Error parsing expression: " + this.expressionText);
-                Log.error(parseexception.getClass().getName() + ": " + parseexception.getMessage());
+                Log.error(exception.getClass().getName() + ": " + exception.getMessage());
                 return false;
             }
         }

@@ -35,8 +35,8 @@ public class CommandEntityData extends CommandBase {
 
                 try {
                     nbttagcompound2 = JsonToNBT.getTagFromJson(getChatComponentFromNthArg(sender, args, 1).getUnformattedText());
-                } catch (NBTException nbtexception) {
-                    throw new CommandException("commands.entitydata.tagError", nbtexception.getMessage());
+                } catch (NBTException exception) {
+                    throw new CommandException("commands.entitydata.tagError", exception.getMessage());
                 }
 
                 nbttagcompound2.removeTag("UUIDMost");

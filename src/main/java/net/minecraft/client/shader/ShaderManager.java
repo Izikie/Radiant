@@ -66,8 +66,8 @@ public class ShaderManager {
                 for (JsonElement jsonelement : jsonarray) {
                     try {
                         this.parseSampler(jsonelement);
-                    } catch (Exception exception2) {
-                        JsonException jsonexception1 = JsonException.func_151379_a(exception2);
+                    } catch (Exception exception) {
+                        JsonException jsonexception1 = JsonException.func_151379_a(exception);
                         jsonexception1.func_151380_a("samplers[" + i + "]");
                         throw jsonexception1;
                     }
@@ -86,8 +86,8 @@ public class ShaderManager {
                 for (JsonElement jsonelement1 : jsonarray1) {
                     try {
                         this.attributes.add(JsonUtils.getString(jsonelement1, "attribute"));
-                    } catch (Exception exception1) {
-                        JsonException jsonexception2 = JsonException.func_151379_a(exception1);
+                    } catch (Exception exception) {
+                        JsonException jsonexception2 = JsonException.func_151379_a(exception);
                         jsonexception2.func_151380_a("attributes[" + j + "]");
                         throw jsonexception2;
                     }
@@ -131,8 +131,8 @@ public class ShaderManager {
                     this.attribLocations.add(l);
                 }
             }
-        } catch (Exception exception3) {
-            JsonException jsonexception = JsonException.func_151379_a(exception3);
+        } catch (Exception exception) {
+            JsonException jsonexception = JsonException.func_151379_a(exception);
             jsonexception.func_151381_b(resourcelocation.getResourcePath());
             throw jsonexception;
         } finally {

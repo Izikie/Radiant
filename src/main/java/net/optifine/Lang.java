@@ -56,8 +56,8 @@ public class Lang {
                     }
                 }
             }
-        } catch (IOException ioexception) {
-            ioexception.printStackTrace();
+        } catch (IOException exception) {
+            exception.printStackTrace();
         }
     }
 

@@ -44,9 +44,9 @@ public class ResourceIndex {
                         this.resourceMap.put(s1, file3);
                     }
                 }
-            } catch (JsonParseException var20) {
+            } catch (JsonParseException exception) {
                 LOGGER.error("Unable to parse resource index file: {}", file2);
-            } catch (FileNotFoundException var21) {
+            } catch (FileNotFoundException exception) {
                 LOGGER.error("Can't find the resource index file: {}", file2);
             } finally {
                 IOUtils.closeQuietly(bufferedreader);

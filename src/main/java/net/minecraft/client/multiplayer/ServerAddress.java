@@ -74,7 +74,7 @@ public class ServerAddress {
             Attributes attributes = dircontext.getAttributes("_minecraft._tcp." + p_78863_0_, new String[]{"SRV"});
             String[] astring = attributes.get("srv").get().toString().split(" ", 4);
             return new String[]{astring[3], astring[2]};
-        } catch (Throwable var6) {
+        } catch (Throwable throwable) {
             return new String[]{p_78863_0_, Integer.toString(25565)};
         }
     }
@@ -82,7 +82,7 @@ public class ServerAddress {
     private static int parseIntWithDefault(String p_78862_0_, int p_78862_1_) {
         try {
             return Integer.parseInt(p_78862_0_.trim());
-        } catch (Exception var3) {
+        } catch (Exception exception) {
             return p_78862_1_;
         }
     }

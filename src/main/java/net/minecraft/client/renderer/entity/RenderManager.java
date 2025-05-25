@@ -279,16 +279,16 @@ public class RenderManager {
                     }
 
                     render.doRender(entity, x, y, z, entityYaw, partialTicks);
-                } catch (Throwable throwable2) {
-                    throw new ReportedException(CrashReport.makeCrashReport(throwable2, "Rendering entity in world"));
+                } catch (Throwable throwable) {
+                    throw new ReportedException(CrashReport.makeCrashReport(throwable, "Rendering entity in world"));
                 }
 
                 try {
                     if (!this.renderOutlines) {
                         render.doRenderShadowAndFire(entity, x, y, z, entityYaw, partialTicks);
                     }
-                } catch (Throwable throwable1) {
-                    throw new ReportedException(CrashReport.makeCrashReport(throwable1, "Post-rendering entity in world"));
+                } catch (Throwable throwable) {
+                    throw new ReportedException(CrashReport.makeCrashReport(throwable, "Post-rendering entity in world"));
                 }
 
                 if (this.debugBoundingBox && !entity.isInvisible() && !hideDebugBox) {
@@ -301,8 +301,8 @@ public class RenderManager {
             } else return this.renderEngine == null;
 
             return true;
-        } catch (Throwable throwable3) {
-            CrashReport report = CrashReport.makeCrashReport(throwable3, "Rendering entity in world");
+        } catch (Throwable throwable) {
+            CrashReport report = CrashReport.makeCrashReport(throwable, "Rendering entity in world");
             CrashReportCategory category = report.makeCategory("Entity being rendered");
             entity.addEntityCrashInfo(category);
 

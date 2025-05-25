@@ -12,7 +12,7 @@ public class GrassColorReloadListener implements IResourceManagerReloadListener 
     public void onResourceManagerReload(IResourceManager resourceManager) {
         try {
             ColorizerGrass.setGrassBiomeColorizer(TextureUtil.readImageData(resourceManager, LOC_GRASS_PNG));
-        } catch (IOException var3) {
+        } catch (IOException exception) {
         }
     }
 }

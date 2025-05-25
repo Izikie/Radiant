@@ -265,7 +265,7 @@ public class IntegratedServer extends MinecraftServer {
 
             try {
                 i = HttpUtil.getSuitableLanPort();
-            } catch (IOException var5) {
+            } catch (IOException exception) {
             }
 
             if (i <= 0) {
@@ -280,7 +280,7 @@ public class IntegratedServer extends MinecraftServer {
             this.getConfigurationManager().setGameType(type);
             this.getConfigurationManager().setCommandsAllowedForAll(allowCheats);
             return i + "";
-        } catch (IOException var6) {
+        } catch (IOException exception) {
             return null;
         }
     }

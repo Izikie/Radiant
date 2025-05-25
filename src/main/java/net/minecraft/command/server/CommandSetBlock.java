@@ -54,8 +54,8 @@ public class CommandSetBlock extends CommandBase {
                     try {
                         nbttagcompound = JsonToNBT.getTagFromJson(s);
                         flag = true;
-                    } catch (NBTException nbtexception) {
-                        throw new CommandException("commands.setblock.tagError", nbtexception.getMessage());
+                    } catch (NBTException exception) {
+                        throw new CommandException("commands.setblock.tagError", exception.getMessage());
                     }
                 }
 

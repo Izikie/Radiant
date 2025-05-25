@@ -247,10 +247,10 @@ public class CustomColors {
                     }
                 }
             }
-        } catch (FileNotFoundException var9) {
+        } catch (FileNotFoundException exception) {
             return valDef;
-        } catch (IOException ioexception) {
-            ioexception.printStackTrace();
+        } catch (IOException exception) {
+            exception.printStackTrace();
             return valDef;
         }
     }
@@ -330,7 +330,7 @@ public class CustomColors {
                 inputstream.close();
                 return bufferedimage == null ? defHeight : bufferedimage.getHeight();
             }
-        } catch (IOException var4) {
+        } catch (IOException exception) {
             return defHeight;
         }
     }
@@ -375,9 +375,9 @@ public class CustomColors {
 
             potionColors = readPotionColors(properties, fileName, "potion.", "Potion");
             xpOrbTime = Config.parseInt(properties.getProperty("xporb.time"), -1);
-        } catch (FileNotFoundException var5) {
-        } catch (IOException ioexception) {
-            ioexception.printStackTrace();
+        } catch (FileNotFoundException exception) {
+        } catch (IOException exception) {
+            exception.printStackTrace();
         }
     }
 
@@ -454,7 +454,7 @@ public class CustomColors {
                         addToBlockList(customcolormap, list);
                     }
                 }
-            } catch (FileNotFoundException var12) {
+            } catch (FileNotFoundException exception) {
                 warn("File not found: " + s);
             } catch (Exception exception) {
                 exception.printStackTrace();
@@ -558,7 +558,7 @@ public class CustomColors {
 
             try {
                 return Integer.parseInt(str, 16) & 16777215;
-            } catch (NumberFormatException var2) {
+            } catch (NumberFormatException exception) {
                 return -1;
             }
         }

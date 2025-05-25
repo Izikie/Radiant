@@ -60,8 +60,8 @@ public class SaveFormatOld implements ISaveFormat {
                     NBTTagCompound nbttagcompound2 = CompressedStreamTools.readCompressed(new FileInputStream(file2));
                     NBTTagCompound nbttagcompound3 = nbttagcompound2.getCompoundTag("Data");
                     return new WorldInfo(nbttagcompound3);
-                } catch (Exception exception1) {
-                    LOGGER.error("Exception reading {}", file2, exception1);
+                } catch (Exception exception) {
+                    LOGGER.error("Exception reading {}", file2, exception);
                 }
             }
 
@@ -137,7 +137,7 @@ public class SaveFormatOld implements ISaveFormat {
                 if (i < 5) {
                     try {
                         Thread.sleep(500L);
-                    } catch (InterruptedException var5) {
+                    } catch (InterruptedException exception) {
                     }
                 }
             }

@@ -39,8 +39,8 @@ public class AnvilSaveHandler extends SaveHandler {
     public void flush() {
         try {
             ThreadedFileIOBase.getThreadedIOInstance().waitForFinish();
-        } catch (InterruptedException interruptedexception) {
-            interruptedexception.printStackTrace();
+        } catch (InterruptedException exception) {
+            exception.printStackTrace();
         }
 
         RegionFileCache.clearRegionFileReferences();

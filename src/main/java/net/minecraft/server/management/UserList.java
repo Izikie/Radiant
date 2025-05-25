@@ -58,8 +58,8 @@ public class UserList<K, V extends UserListEntry<K>> {
 
         try {
             this.writeChanges();
-        } catch (IOException ioexception) {
-            LOGGER.warn("Could not save the list after adding a user.", ioexception);
+        } catch (IOException exception) {
+            LOGGER.warn("Could not save the list after adding a user.", exception);
         }
     }
 
@@ -73,8 +73,8 @@ public class UserList<K, V extends UserListEntry<K>> {
 
         try {
             this.writeChanges();
-        } catch (IOException ioexception) {
-            LOGGER.warn("Could not save the list after removing a user.", ioexception);
+        } catch (IOException exception) {
+            LOGGER.warn("Could not save the list after removing a user.", exception);
         }
     }
 

@@ -24,15 +24,15 @@ public class TextureMetadataSectionSerializer extends BaseMetadataSectionSeriali
                     if (jsonelement.isJsonPrimitive()) {
                         try {
                             list.add(jsonelement.getAsInt());
-                        } catch (NumberFormatException numberformatexception) {
-                            throw new JsonParseException("Invalid texture->mipmap->" + i + ": expected number, was " + jsonelement, numberformatexception);
+                        } catch (NumberFormatException exception) {
+                            throw new JsonParseException("Invalid texture->mipmap->" + i + ": expected number, was " + jsonelement, exception);
                         }
                     } else if (jsonelement.isJsonObject()) {
                         throw new JsonParseException("Invalid texture->mipmap->" + i + ": expected number, was " + jsonelement);
                     }
                 }
-            } catch (ClassCastException classcastexception) {
-                throw new JsonParseException("Invalid texture->mipmaps: expected array, was " + jsonobject.get("mipmaps"), classcastexception);
+            } catch (ClassCastException exception) {
+                throw new JsonParseException("Invalid texture->mipmaps: expected array, was " + jsonobject.get("mipmaps"), exception);
             }
         }
 

@@ -203,8 +203,8 @@ public class CustomColormap implements CustomColors.IColorizer {
 
             this.colors = new int[i * j];
             bufferedimage.getRGB(0, 0, i, j, this.colors, 0, i);
-        } catch (IOException ioexception) {
-            ioexception.printStackTrace();
+        } catch (IOException exception) {
+            exception.printStackTrace();
         }
     }
 

@@ -293,8 +293,8 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
 
                     try {
                         worldserver.saveAllChunks(true, null);
-                    } catch (MinecraftException minecraftexception) {
-                        LOGGER.warn(minecraftexception.getMessage());
+                    } catch (MinecraftException exception) {
+                        LOGGER.warn(exception.getMessage());
                     }
                 }
             }
@@ -381,14 +381,14 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
             } else {
                 this.finalTick(null);
             }
-        } catch (Throwable throwable1) {
-            LOGGER.error("Encountered an unexpected exception", throwable1);
+        } catch (Throwable throwable) {
+            LOGGER.error("Encountered an unexpected exception", throwable);
             CrashReport crashreport;
 
-            if (throwable1 instanceof ReportedException reportedException) {
+            if (throwable instanceof ReportedException reportedException) {
                 crashreport = this.addServerInfoToCrashReport(reportedException.getCrashReport());
             } else {
-                crashreport = this.addServerInfoToCrashReport(new CrashReport("Exception in server tick loop", throwable1));
+                crashreport = this.addServerInfoToCrashReport(new CrashReport("Exception in server tick loop", throwable));
             }
 
             File file1 = new File(new File(this.getDataDirectory(), "crash-reports"), "crash-" + (new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss")).format(new Date()) + "-server.txt");
@@ -490,8 +490,8 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
 
                 try {
                     worldserver.tick();
-                } catch (Throwable throwable1) {
-                    CrashReport report = CrashReport.makeCrashReport(throwable1, "Exception ticking world");
+                } catch (Throwable throwable) {
+                    CrashReport report = CrashReport.makeCrashReport(throwable, "Exception ticking world");
                     worldserver.addWorldInfoToCrashReport(report);
                     throw new ReportedException(report);
                 }

@@ -105,10 +105,10 @@ public class LanServerDetector {
 
                 try {
                     this.socket.receive(datagrampacket);
-                } catch (SocketTimeoutException var5) {
+                } catch (SocketTimeoutException exception) {
                     continue;
-                } catch (IOException ioexception) {
-                    LanServerDetector.LOGGER.error("Couldn't ping server", ioexception);
+                } catch (IOException exception) {
+                    LanServerDetector.LOGGER.error("Couldn't ping server", exception);
                     break;
                 }
 
@@ -119,7 +119,7 @@ public class LanServerDetector {
 
             try {
                 this.socket.leaveGroup(this.multicastGroupAddress, networkInterface);
-            } catch (IOException var4) {
+            } catch (IOException exception) {
             }
 
             this.socket.close();

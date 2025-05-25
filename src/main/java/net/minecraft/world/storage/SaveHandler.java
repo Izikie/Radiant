@@ -42,8 +42,8 @@ public class SaveHandler implements ISaveHandler, IPlayerFileData {
             try (DataOutputStream dataoutputstream = new DataOutputStream(new FileOutputStream(file1))) {
                 dataoutputstream.writeLong(this.initializationTime);
             }
-        } catch (IOException ioexception) {
-            ioexception.printStackTrace();
+        } catch (IOException exception) {
+            exception.printStackTrace();
             throw new RuntimeException("Failed to check session lock, aborting");
         }
     }
@@ -61,7 +61,7 @@ public class SaveHandler implements ISaveHandler, IPlayerFileData {
                     throw new MinecraftException("The save is being accessed from another location, aborting");
                 }
             }
-        } catch (IOException var7) {
+        } catch (IOException exception) {
             throw new MinecraftException("Failed to check session lock, aborting");
         }
     }
@@ -78,8 +78,8 @@ public class SaveHandler implements ISaveHandler, IPlayerFileData {
                 NBTTagCompound nbttagcompound2 = CompressedStreamTools.readCompressed(new FileInputStream(file1));
                 NBTTagCompound nbttagcompound3 = nbttagcompound2.getCompoundTag("Data");
                 return new WorldInfo(nbttagcompound3);
-            } catch (Exception exception1) {
-                exception1.printStackTrace();
+            } catch (Exception exception) {
+                exception.printStackTrace();
             }
         }
 
@@ -173,7 +173,7 @@ public class SaveHandler implements ISaveHandler, IPlayerFileData {
             }
 
             file1.renameTo(file2);
-        } catch (Exception var5) {
+        } catch (Exception exception) {
             LOGGER.warn("Failed to save player data for {}", player.getName());
         }
     }
@@ -187,7 +187,7 @@ public class SaveHandler implements ISaveHandler, IPlayerFileData {
             if (file1.exists() && file1.isFile()) {
                 nbttagcompound = CompressedStreamTools.readCompressed(new FileInputStream(file1));
             }
-        } catch (Exception var4) {
+        } catch (Exception exception) {
             LOGGER.warn("Failed to load player data for {}", player.getName());
         }
 

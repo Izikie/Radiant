@@ -34,8 +34,8 @@ public class CommandClearInventory extends CommandBase {
         if (args.length >= 5) {
             try {
                 nbttagcompound = JsonToNBT.getTagFromJson(buildString(args, 4));
-            } catch (NBTException nbtexception) {
-                throw new CommandException("commands.clear.tagError", nbtexception.getMessage());
+            } catch (NBTException exception) {
+                throw new CommandException("commands.clear.tagError", exception.getMessage());
             }
         }
 

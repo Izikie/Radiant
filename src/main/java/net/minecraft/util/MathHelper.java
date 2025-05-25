@@ -174,7 +174,7 @@ public class MathHelper {
     public static int parseIntWithDefault(String p_82715_0_, int p_82715_1_) {
         try {
             return Integer.parseInt(p_82715_0_);
-        } catch (Throwable var3) {
+        } catch (Throwable throwable) {
             return p_82715_1_;
         }
     }
@@ -186,7 +186,7 @@ public class MathHelper {
     public static double parseDoubleWithDefault(String p_82712_0_, double p_82712_1_) {
         try {
             return Double.parseDouble(p_82712_0_);
-        } catch (Throwable var4) {
+        } catch (Throwable throwable) {
             return p_82712_1_;
         }
     }

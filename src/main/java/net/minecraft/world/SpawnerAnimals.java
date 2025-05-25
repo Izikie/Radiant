@@ -134,8 +134,8 @@ public final class SpawnerAnimals {
                                                         entityliving = biomegenbase$spawnlistentry.entityClass.getConstructor(new Class[]{World.class}).newInstance(worldServerIn);
                                                         this.mapSampleEntitiesByClass.put(biomegenbase$spawnlistentry.entityClass, entityliving);
                                                     }
-                                                } catch (Exception exception1) {
-                                                    exception1.printStackTrace();
+                                                } catch (Exception exception) {
+                                                    exception.printStackTrace();
                                                     return j4;
                                                 }
 
@@ -238,8 +238,8 @@ public final class SpawnerAnimals {
 
                             try {
                                 entityliving = biomegenbase$spawnlistentry.entityClass.getConstructor(new Class[]{World.class}).newInstance(worldIn);
-                            } catch (Exception exception1) {
-                                exception1.printStackTrace();
+                            } catch (Exception exception) {
+                                exception.printStackTrace();
                                 continue;
                             }
 

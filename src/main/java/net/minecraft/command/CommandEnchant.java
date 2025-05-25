@@ -32,11 +32,11 @@ public class CommandEnchant extends CommandBase {
 
             try {
                 i = parseInt(args[1], 0);
-            } catch (NumberInvalidException numberinvalidexception) {
+            } catch (NumberInvalidException exception) {
                 Enchantment enchantment = Enchantment.getEnchantmentByLocation(args[1]);
 
                 if (enchantment == null) {
-                    throw numberinvalidexception;
+                    throw exception;
                 }
 
                 i = enchantment.effectId;

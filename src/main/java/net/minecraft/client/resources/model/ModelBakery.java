@@ -90,8 +90,8 @@ public class ModelBakery {
                 } catch (Exception exception) {
                     LOGGER.warn("Unable to load variant: {} from {}", modelresourcelocation.getVariant(), modelresourcelocation, exception);
                 }
-            } catch (Exception exception1) {
-                LOGGER.warn("Unable to load definition {}", modelresourcelocation, exception1);
+            } catch (Exception exception) {
+                LOGGER.warn("Unable to load definition {}", modelresourcelocation, exception);
             }
         }
     }
@@ -121,8 +121,8 @@ public class ModelBakery {
                         IOUtils.closeQuietly(inputstream);
                     }
                 }
-            } catch (IOException ioexception) {
-                throw new RuntimeException("Encountered an exception when loading model definition of model " + resourcelocation, ioexception);
+            } catch (IOException exception) {
+                throw new RuntimeException("Encountered an exception when loading model definition of model " + resourcelocation, exception);
             }
 
             modelblockdefinition = new ModelBlockDefinition(list);
@@ -444,7 +444,7 @@ public class ModelBakery {
                 if (resourcelocation3 != null && !set.contains(resourcelocation3)) {
                     deque.add(resourcelocation3);
                 }
-            } catch (Exception var6) {
+            } catch (Exception exception) {
                 LOGGER.warn("In parent chain: {}; unable to load model: '{}'", JOINER.join(this.getParentPath(resourcelocation2)), resourcelocation2);
             }
 

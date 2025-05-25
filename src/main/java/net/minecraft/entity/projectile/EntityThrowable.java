@@ -284,7 +284,7 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
                     if (entity instanceof EntityLivingBase entityLivingBase) {
                         this.thrower = entityLivingBase;
                     }
-                } catch (Throwable var2) {
+                } catch (Throwable throwable) {
                     this.thrower = null;
                 }
             }

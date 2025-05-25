@@ -23,7 +23,7 @@ public class FieldLocatorName implements IFieldLocator {
                 Field field = this.getDeclaredField(oclass, this.targetFieldName);
                 field.setAccessible(true);
                 return field;
-            } catch (NoSuchFieldException var3) {
+            } catch (NoSuchFieldException exception) {
                 Log.info("(Reflector) Field not present: " + oclass.getName() + "." + this.targetFieldName);
                 return null;
             }catch (Throwable throwable) {

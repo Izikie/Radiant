@@ -274,8 +274,8 @@ public class Config {
                     return astring;
                 }
             }
-        } catch (Exception exception1) {
-            exception1.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
 
         try {
@@ -449,7 +449,7 @@ public class Config {
                 if (s.equals("off")) {
                     texturePackClouds = 3;
                 }
-            } catch (Exception var4) {
+            } catch (Exception exception) {
             }
         }
     }
@@ -692,7 +692,7 @@ public class Config {
         try {
             IResource iresource = p_hasResource_0_.getResource(p_hasResource_1_);
             return iresource != null;
-        } catch (IOException var3) {
+        } catch (IOException exception) {
             return false;
         }
     }
@@ -808,8 +808,8 @@ public class Config {
     public static void sleep(long p_sleep_0_) {
         try {
             Thread.sleep(p_sleep_0_);
-        } catch (InterruptedException interruptedexception) {
-            interruptedexception.printStackTrace();
+        } catch (InterruptedException exception) {
+            exception.printStackTrace();
         }
     }
 
@@ -894,7 +894,7 @@ public class Config {
                 p_parseInt_0_ = p_parseInt_0_.trim();
                 return Integer.parseInt(p_parseInt_0_);
             }
-        } catch (NumberFormatException var3) {
+        } catch (NumberFormatException exception) {
             return p_parseInt_1_;
         }
     }
@@ -907,7 +907,7 @@ public class Config {
                 p_parseFloat_0_ = p_parseFloat_0_.trim();
                 return Float.parseFloat(p_parseFloat_0_);
             }
-        } catch (NumberFormatException var3) {
+        } catch (NumberFormatException exception) {
             return p_parseFloat_1_;
         }
     }
@@ -920,7 +920,7 @@ public class Config {
                 p_parseBoolean_0_ = p_parseBoolean_0_.trim();
                 return Boolean.parseBoolean(p_parseBoolean_0_);
             }
-        } catch (NumberFormatException var3) {
+        } catch (NumberFormatException exception) {
             return p_parseBoolean_1_;
         }
     }
@@ -933,7 +933,7 @@ public class Config {
                 p_parseBoolean_0_ = p_parseBoolean_0_.trim().toLowerCase();
                 return p_parseBoolean_0_.equals("true") ? Boolean.TRUE : (p_parseBoolean_0_.equals("false") ? Boolean.FALSE : p_parseBoolean_1_);
             }
-        } catch (NumberFormatException var3) {
+        } catch (NumberFormatException exception) {
             return p_parseBoolean_1_;
         }
     }
@@ -1366,9 +1366,9 @@ public class Config {
                     Display.setResizable(false);
                     Display.setResizable(true);
                 }
-            } catch (LWJGLException lwjglexception2) {
+            } catch (LWJGLException exception) {
                 Log.warn("Error setting FSAA: " + i + "x");
-                lwjglexception2.printStackTrace();
+                exception.printStackTrace();
 
                 try {
                     Display.setDisplayMode(displaymode);
@@ -1378,8 +1378,8 @@ public class Config {
                         Display.setResizable(false);
                         Display.setResizable(true);
                     }
-                } catch (LWJGLException lwjglexception1) {
-                    lwjglexception1.printStackTrace();
+                } catch (LWJGLException exception2) {
+                    exception2.printStackTrace();
 
                     try {
                         Display.setDisplayMode(displaymode);
@@ -1389,8 +1389,8 @@ public class Config {
                             Display.setResizable(false);
                             Display.setResizable(true);
                         }
-                    } catch (LWJGLException lwjglexception) {
-                        lwjglexception.printStackTrace();
+                    } catch (LWJGLException exception3) {
+                        exception3.printStackTrace();
                     }
                 }
             }
@@ -1406,8 +1406,8 @@ public class Config {
                     if (inputstream != null && inputstream1 != null) {
                         Display.setIcon(new ByteBuffer[]{readIconImage(inputstream), readIconImage(inputstream1)});
                     }
-                } catch (IOException ioexception) {
-                    Log.warn("Error setting window icon: " + ioexception.getClass().getName() + ": " + ioexception.getMessage());
+                } catch (IOException exception) {
+                    Log.warn("Error setting window icon: " + exception.getClass().getName() + ": " + exception.getMessage());
                 } finally {
                     IOUtils.closeQuietly(inputstream);
                     IOUtils.closeQuietly(inputstream1);

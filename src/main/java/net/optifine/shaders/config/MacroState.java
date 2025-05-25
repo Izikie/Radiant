@@ -168,9 +168,9 @@ public class MacroState {
                 } else {
                     throw new ParseException("Not a boolean or float expression: " + iexpression.getExpressionType());
                 }
-            } catch (ParseException parseexception) {
+            } catch (ParseException exception) {
                 Log.error("Invalid macro expression: " + str);
-                Log.error("Error: " + parseexception.getMessage());
+                Log.error("Error: " + exception.getMessage());
                 return false;
             }
         }

@@ -45,7 +45,7 @@ public class FileResourcePack extends AbstractResourcePack implements Closeable 
     public boolean hasResourceName(String name) {
         try {
             return this.getResourcePackZipFile().getEntry(name) != null;
-        } catch (IOException var3) {
+        } catch (IOException exception) {
             return false;
         }
     }
@@ -55,7 +55,7 @@ public class FileResourcePack extends AbstractResourcePack implements Closeable 
 
         try {
             zipfile = this.getResourcePackZipFile();
-        } catch (IOException var8) {
+        } catch (IOException exception) {
             return Collections.emptySet();
         }
 

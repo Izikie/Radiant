@@ -1688,7 +1688,7 @@ public class ConnectedTextures {
                         addToBlockList(connectedproperties, list1);
                     }
                 }
-            } catch (FileNotFoundException var11) {
+            } catch (FileNotFoundException exception) {
                 Log.error("ConnectedTextures file not found: " + s);
             } catch (Exception exception) {
                 exception.printStackTrace();

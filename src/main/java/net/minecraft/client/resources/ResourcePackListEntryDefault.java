@@ -24,7 +24,7 @@ public class ResourcePackListEntryDefault extends ResourcePackListEntry {
 
         try {
             dynamictexture = new DynamicTexture(this.field_148320_d.getPackImage());
-        } catch (IOException var4) {
+        } catch (IOException exception) {
             dynamictexture = TextureUtil.MISSING_TEXTURE;
         }
 
@@ -42,10 +42,10 @@ public class ResourcePackListEntryDefault extends ResourcePackListEntry {
             if (packmetadatasection != null) {
                 return packmetadatasection.getPackDescription().getFormattedText();
             }
-        } catch (JsonParseException jsonparseexception) {
-            LOGGER.error("Couldn't load metadata info", jsonparseexception);
-        } catch (IOException ioexception) {
-            LOGGER.error("Couldn't load metadata info", ioexception);
+        } catch (JsonParseException exception) {
+            LOGGER.error("Couldn't load metadata info", exception);
+        } catch (IOException exception) {
+            LOGGER.error("Couldn't load metadata info", exception);
         }
 
         return Formatting.RED + "Missing " + "pack.mcmeta" + " :(";

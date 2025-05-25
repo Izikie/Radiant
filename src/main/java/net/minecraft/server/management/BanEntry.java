@@ -27,7 +27,7 @@ public abstract class BanEntry<T> extends UserListEntry<T> {
 
         try {
             date = json.has("created") ? DATE_FORMAT.parse(json.get("created").getAsString()) : new Date();
-        } catch (ParseException var7) {
+        } catch (ParseException exception) {
             date = new Date();
         }
 
@@ -37,7 +37,7 @@ public abstract class BanEntry<T> extends UserListEntry<T> {
 
         try {
             date1 = json.has("expires") ? DATE_FORMAT.parse(json.get("expires").getAsString()) : null;
-        } catch (ParseException var6) {
+        } catch (ParseException exception) {
             date1 = null;
         }
 

@@ -67,8 +67,8 @@ public class CommandFill extends CommandBase {
                     try {
                         nbttagcompound = JsonToNBT.getTagFromJson(s);
                         flag = true;
-                    } catch (NBTException nbtexception) {
-                        throw new CommandException("commands.fill.tagError", nbtexception.getMessage());
+                    } catch (NBTException exception) {
+                        throw new CommandException("commands.fill.tagError", exception.getMessage());
                     }
                 }
 

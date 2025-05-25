@@ -112,8 +112,8 @@ public class CompressedStreamTools {
             try {
                 nbtbase.read(p_152455_0_, p_152455_1_, p_152455_2_);
                 return nbtbase;
-            } catch (IOException ioexception) {
-                CrashReport report = CrashReport.makeCrashReport(ioexception, "Loading NBT data");
+            } catch (IOException exception) {
+                CrashReport report = CrashReport.makeCrashReport(exception, "Loading NBT data");
                 CrashReportCategory category = report.makeCategory("NBT Tag");
                 category.addCrashSection("Tag Name", "[UNNAMED TAG]");
                 category.addCrashSection("Tag Type", b0);

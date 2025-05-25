@@ -90,7 +90,7 @@ public class SkinManager {
 
             try {
                 map.putAll(SkinManager.this.sessionService.getTextures(profile, requireSecure));
-            } catch (InsecureTextureException var3) {
+            } catch (InsecureTextureException exception) {
             }
 
             if (map.isEmpty() && profile.getId().equals(Minecraft.getMinecraft().getSession().getProfile().getId())) {

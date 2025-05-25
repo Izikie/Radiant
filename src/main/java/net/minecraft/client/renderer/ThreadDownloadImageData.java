@@ -93,8 +93,8 @@ public class ThreadDownloadImageData extends SimpleTexture {
                     }
 
                     this.loadingFinished();
-                } catch (IOException ioexception) {
-                    LOGGER.error("Couldn't load skin {}", this.cacheFile, ioexception);
+                } catch (IOException exception) {
+                    LOGGER.error("Couldn't load skin {}", this.cacheFile, exception);
                     this.loadTextureFromServer();
                 }
             } else {

@@ -31,8 +31,8 @@ public class Util {
         };
         try {
             Runtime.getRuntime().exec(cmd.split(" "));
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException exception) {
+            exception.printStackTrace();
         }
     }
 
@@ -40,14 +40,14 @@ public class Util {
         try {
             task.run();
             return task.get();
-        } catch (ExecutionException executionexception) {
-            logger.fatal("Error executing task", executionexception);
+        } catch (ExecutionException exception) {
+            logger.fatal("Error executing task", exception);
 
-            if (executionexception.getCause() instanceof OutOfMemoryError outofmemoryerror) {
+            if (exception.getCause() instanceof OutOfMemoryError outofmemoryerror) {
                 throw outofmemoryerror;
             }
-        } catch (InterruptedException interruptedexception) {
-            logger.fatal("Error executing task", interruptedexception);
+        } catch (InterruptedException exception) {
+            logger.fatal("Error executing task", exception);
         }
 
         return null;

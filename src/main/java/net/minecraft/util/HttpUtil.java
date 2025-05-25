@@ -188,8 +188,8 @@ public class HttpUtil {
 
                         try {
                             HttpUtil.LOGGER.error(IOUtils.toString(inputstream1, StandardCharsets.UTF_8));
-                        } catch (IOException ioexception) {
-                            ioexception.printStackTrace();
+                        } catch (IOException exception) {
+                            exception.printStackTrace();
                         }
                     }
 
@@ -217,7 +217,7 @@ public class HttpUtil {
                 if (serversocket != null) {
                     serversocket.close();
                 }
-            } catch (IOException var8) {
+            } catch (IOException exception) {
             }
         }
 

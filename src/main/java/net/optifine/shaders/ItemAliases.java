@@ -90,7 +90,7 @@ public class ItemAliases {
                         }
                     }
                 }
-            } catch (IOException var15) {
+            } catch (IOException exception) {
                 Log.error("[Shaders] Error reading: " + path);
             }
         }

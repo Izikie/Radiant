@@ -171,7 +171,7 @@ public class StrUtils {
         } else {
             try {
                 return Integer.parseInt(s);
-            } catch (NumberFormatException var3) {
+            } catch (NumberFormatException exception) {
                 return defVal;
             }
         }

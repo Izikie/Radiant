@@ -181,8 +181,8 @@ public class HttpPipelineConnection {
                         httprequest.setRedirects(pr.getHttpRequest().getRedirects() + 1);
                         HttpPipelineRequest httppipelinerequest = new HttpPipelineRequest(httprequest, pr.getHttpListener());
                         HttpPipeline.addRequest(httppipelinerequest);
-                    } catch (IOException | URISyntaxException ioexception) {
-                        pr.getHttpListener().failed(pr.getHttpRequest(), ioexception);
+                    } catch (IOException | URISyntaxException exception) {
+                        pr.getHttpListener().failed(pr.getHttpRequest(), exception);
                     }
                 } else {
                     HttpListener httplistener = pr.getHttpListener();
@@ -291,7 +291,7 @@ public class HttpPipelineConnection {
                 if (this.socket != null) {
                     this.socket.close();
                 }
-            } catch (IOException var3) {
+            } catch (IOException exception) {
             }
 
             this.socket = null;

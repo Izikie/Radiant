@@ -201,8 +201,8 @@ public class AnvilSaveConverter extends SaveFormatOld {
 
             regionfile.close();
             regionfile1.close();
-        } catch (IOException ioexception) {
-            ioexception.printStackTrace();
+        } catch (IOException exception) {
+            exception.printStackTrace();
         }
     }
 

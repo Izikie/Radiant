@@ -129,7 +129,7 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
         try {
             UUID uuid = UUID.fromString(this.getOwnerId());
             return uuid == null ? null : this.worldObj.getPlayerEntityByUUID(uuid);
-        } catch (IllegalArgumentException var2) {
+        } catch (IllegalArgumentException exception) {
             return null;
         }
     }

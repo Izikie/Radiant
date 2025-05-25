@@ -38,7 +38,7 @@ public class CommandHelp extends CommandBase {
 
         try {
             k = args.length == 0 ? 0 : parseInt(args[0], 1, j + 1) - 1;
-        } catch (NumberInvalidException numberinvalidexception) {
+        } catch (NumberInvalidException exception) {
             Map<String, ICommand> map = this.getCommands();
             ICommand icommand = map.get(args[0]);
 
@@ -47,7 +47,7 @@ public class CommandHelp extends CommandBase {
             }
 
             if (MathHelper.parseIntWithDefault(args[0], -1) != -1) {
-                throw numberinvalidexception;
+                throw exception;
             }
 
             throw new CommandNotFoundException();

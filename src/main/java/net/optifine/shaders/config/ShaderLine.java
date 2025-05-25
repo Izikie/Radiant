@@ -140,7 +140,7 @@ public class ShaderLine {
     public int getValueInt() {
         try {
             return Integer.parseInt(this.value);
-        } catch (NumberFormatException var2) {
+        } catch (NumberFormatException exception) {
             throw new NumberFormatException("Invalid integer: " + this.value + ", line: " + this.line);
         }
     }
@@ -148,7 +148,7 @@ public class ShaderLine {
     public float getValueFloat() {
         try {
             return Float.parseFloat(this.value);
-        } catch (NumberFormatException var2) {
+        } catch (NumberFormatException exception) {
             throw new NumberFormatException("Invalid float: " + this.value + ", line: " + this.line);
         }
     }

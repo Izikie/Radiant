@@ -87,7 +87,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
             if (transferable != null && transferable.isDataFlavorSupported(DataFlavor.stringFlavor)) {
                 return (String) transferable.getTransferData(DataFlavor.stringFlavor);
             }
-        } catch (Exception var1) {
+        } catch (Exception exception) {
         }
 
         return "";
@@ -98,7 +98,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
             try {
                 StringSelection stringselection = new StringSelection(copyText);
                 Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringselection, null);
-            } catch (Exception var2) {
+            } catch (Exception exception) {
             }
         }
     }
@@ -201,7 +201,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
                     if (nbtbase instanceof NBTTagCompound nbtTagCompound) {
                         itemstack = ItemStack.loadItemStackFromNBT(nbtTagCompound);
                     }
-                } catch (NBTException var11) {
+                } catch (NBTException exception) {
                 }
 
                 if (itemstack != null) {
@@ -228,7 +228,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
                         } else {
                             this.drawCreativeTabHoveringText(Formatting.RED + "Invalid Entity!", x, y);
                         }
-                    } catch (NBTException var10) {
+                    } catch (NBTException exception) {
                         this.drawCreativeTabHoveringText(Formatting.RED + "Invalid Entity!", x, y);
                     }
                 }
@@ -293,8 +293,8 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
                         } else {
                             this.openWebLink(uri);
                         }
-                    } catch (URISyntaxException urisyntaxexception) {
-                        LOGGER.error("Can't open url for {}", clickevent, urisyntaxexception);
+                    } catch (URISyntaxException exception) {
+                        LOGGER.error("Can't open url for {}", clickevent, exception);
                     }
                 } else if (clickevent.getAction() == ClickEvent.Action.OPEN_FILE) {
                     URI uri1 = (new File(clickevent.getValue())).toURI();

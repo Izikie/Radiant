@@ -107,8 +107,8 @@ public class Main {
 
         try {
             jCommander.parse(args);
-        } catch (Exception e) {
-            System.err.println("Error parsing command line arguments: " + e.getMessage());
+        } catch (Exception exception) {
+            System.err.println("Error parsing command line arguments: " + exception.getMessage());
             jCommander.usage();
             return;
         }

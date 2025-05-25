@@ -120,8 +120,8 @@ public class BetterGrass {
             spriteMycelium = registerSprite(properties, "texture.mycelium", "blocks/mycelium_top", textureMap);
             spritePodzol = registerSprite(properties, "texture.podzol", "blocks/dirt_podzol_top", textureMap);
             spriteSnow = registerSprite(properties, "texture.snow", "blocks/snow", textureMap);
-        } catch (IOException ioexception) {
-            Log.error("Error reading: " + s + ", " + ioexception.getClass().getName() + ": " + ioexception.getMessage());
+        } catch (IOException exception) {
+            Log.error("Error reading: " + s + ", " + exception.getClass().getName() + ": " + exception.getMessage());
         }
     }
 

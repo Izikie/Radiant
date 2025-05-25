@@ -38,7 +38,7 @@ public abstract class CommandBase implements ICommand {
     public static int parseInt(String input) throws NumberInvalidException {
         try {
             return Integer.parseInt(input);
-        } catch (NumberFormatException var2) {
+        } catch (NumberFormatException exception) {
             throw new NumberInvalidException("commands.generic.num.invalid", input);
         }
     }
@@ -62,7 +62,7 @@ public abstract class CommandBase implements ICommand {
     public static long parseLong(String input) throws NumberInvalidException {
         try {
             return Long.parseLong(input);
-        } catch (NumberFormatException var2) {
+        } catch (NumberFormatException exception) {
             throw new NumberInvalidException("commands.generic.num.invalid", input);
         }
     }
@@ -93,7 +93,7 @@ public abstract class CommandBase implements ICommand {
             } else {
                 return d0;
             }
-        } catch (NumberFormatException var3) {
+        } catch (NumberFormatException exception) {
             throw new NumberInvalidException("commands.generic.num.invalid", input);
         }
     }
@@ -140,7 +140,7 @@ public abstract class CommandBase implements ICommand {
         if (entityplayermp == null) {
             try {
                 entityplayermp = MinecraftServer.getServer().getConfigurationManager().getPlayerByUUID(UUID.fromString(username));
-            } catch (IllegalArgumentException var4) {
+            } catch (IllegalArgumentException exception) {
             }
         }
 
@@ -175,7 +175,7 @@ public abstract class CommandBase implements ICommand {
                 if (entity == null) {
                     entity = minecraftserver.getConfigurationManager().getPlayerByUUID(uuid);
                 }
-            } catch (IllegalArgumentException var6) {
+            } catch (IllegalArgumentException exception) {
                 throw new EntityNotFoundException("commands.generic.entity.invalidUuid");
             }
         }
@@ -194,9 +194,9 @@ public abstract class CommandBase implements ICommand {
     public static String getPlayerName(ICommandSender sender, String query) throws PlayerNotFoundException {
         try {
             return getPlayer(sender, query).getName();
-        } catch (PlayerNotFoundException playernotfoundexception) {
+        } catch (PlayerNotFoundException exception) {
             if (PlayerSelector.hasArguments(query)) {
-                throw playernotfoundexception;
+                throw exception;
             } else {
                 return query;
             }
@@ -206,12 +206,12 @@ public abstract class CommandBase implements ICommand {
     public static String getEntityName(ICommandSender p_175758_0_, String p_175758_1_) throws EntityNotFoundException {
         try {
             return getPlayer(p_175758_0_, p_175758_1_).getName();
-        } catch (PlayerNotFoundException var5) {
+        } catch (PlayerNotFoundException exception) {
             try {
                 return getEntity(p_175758_0_, p_175758_1_).getUniqueID().toString();
-            } catch (EntityNotFoundException entitynotfoundexception) {
+            } catch (EntityNotFoundException exception2) {
                 if (PlayerSelector.hasArguments(p_175758_1_)) {
-                    throw entitynotfoundexception;
+                    throw exception2;
                 } else {
                     return p_175758_1_;
                 }

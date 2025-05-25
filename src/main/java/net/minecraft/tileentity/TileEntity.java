@@ -164,7 +164,7 @@ public abstract class TileEntity {
 
                 try {
                     return String.format("ID #%d (%s // %s)", i, Block.getBlockById(i).getUnlocalizedName(), Block.getBlockById(i).getClass().getCanonicalName());
-                } catch (Throwable var3) {
+                } catch (Throwable throwable) {
                     return "ID #" + i;
                 }
             });

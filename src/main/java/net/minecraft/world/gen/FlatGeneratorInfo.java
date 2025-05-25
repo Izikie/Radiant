@@ -109,7 +109,7 @@ public class FlatGeneratorInfo {
                 if (i < 0) {
                     i = 0;
                 }
-            } catch (Throwable var8) {
+            } catch (Throwable throwable) {
                 return null;
             }
         }
@@ -153,7 +153,7 @@ public class FlatGeneratorInfo {
             if (j < 0 || j > 15) {
                 j = 0;
             }
-        } catch (Throwable var9) {
+        } catch (Throwable throwable) {
             return null;
         }
 

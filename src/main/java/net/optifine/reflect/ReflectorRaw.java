@@ -17,7 +17,7 @@ public class ReflectorRaw {
             }
 
             return null;
-        } catch (Exception var5) {
+        } catch (Exception exception) {
             return null;
         }
     }
@@ -26,7 +26,7 @@ public class ReflectorRaw {
         try {
             Field[] afield = cls.getDeclaredFields();
             return getFields(afield, fieldType);
-        } catch (Exception var3) {
+        } catch (Exception exception) {
             return null;
         }
     }
@@ -43,7 +43,7 @@ public class ReflectorRaw {
             }
 
             return list.toArray(new Field[0]);
-        } catch (Exception var5) {
+        } catch (Exception exception) {
             return null;
         }
     }

@@ -70,7 +70,7 @@ public class CommandResultStats {
 
             try {
                 s1 = CommandBase.getEntityName(icommandsender, s);
-            } catch (EntityNotFoundException var11) {
+            } catch (EntityNotFoundException exception) {
                 return;
             }
 

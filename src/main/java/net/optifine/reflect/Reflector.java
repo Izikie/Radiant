@@ -225,21 +225,20 @@ public class Reflector {
         }
     }
 
-    private static void handleException(Throwable e, Object obj, ReflectorMethod refMethod, Object[] params) {
-        if (e instanceof InvocationTargetException) {
-            Throwable throwable = e.getCause();
+    private static void handleException(Throwable throwable, Object obj, ReflectorMethod refMethod, Object[] params) {
+        if (throwable instanceof InvocationTargetException) {
 
-            if (throwable instanceof RuntimeException runtimeException) {
-                throw runtimeException;
+            if (throwable.getCause() instanceof RuntimeException exception) {
+                throw exception;
             } else {
-                Log.error("", e);
+                Log.error("", throwable);
             }
         } else {
             Log.warn("*** Exception outside of method ***");
             Log.warn("Method deactivated: " + refMethod.getTargetMethod());
             refMethod.deactivate();
 
-            if (e instanceof IllegalArgumentException) {
+            if (throwable instanceof IllegalArgumentException) {
                 Log.warn("*** IllegalArgumentException ***");
                 Log.warn("Method: " + refMethod.getTargetMethod());
                 Log.warn("Object: " + obj);
@@ -247,26 +246,26 @@ public class Reflector {
                 Log.warn("Parameters: " + ArrayUtils.arrayToString(params));
             }
 
-            Log.warn("", e);
+            Log.warn("", throwable);
         }
     }
 
-    private static void handleException(Throwable e, ReflectorConstructor refConstr, Object[] params) {
-        if (e instanceof InvocationTargetException) {
-            Log.error("", e);
+    private static void handleException(Throwable throwable, ReflectorConstructor refConstr, Object[] params) {
+        if (throwable instanceof InvocationTargetException) {
+            Log.error("", throwable);
         } else {
             Log.warn("*** Exception outside of constructor ***");
             Log.warn("Constructor deactivated: " + refConstr.getTargetConstructor());
             refConstr.deactivate();
 
-            if (e instanceof IllegalArgumentException) {
+            if (throwable instanceof IllegalArgumentException) {
                 Log.warn("*** IllegalArgumentException ***");
                 Log.warn("Constructor: " + refConstr.getTargetConstructor());
                 Log.warn("Parameter classes: " + ArrayUtils.arrayToString(getClasses(params)));
                 Log.warn("Parameters: " + ArrayUtils.arrayToString(params));
             }
 
-            Log.warn("", e);
+            Log.warn("", throwable);
         }
     }
 

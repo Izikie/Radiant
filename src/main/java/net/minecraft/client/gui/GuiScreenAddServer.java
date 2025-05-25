@@ -26,7 +26,7 @@ public class GuiScreenAddServer extends GuiScreen {
                 try {
                     String s = IDN.toASCII(astring[0]);
                     return true;
-                } catch (IllegalArgumentException var4) {
+                } catch (IllegalArgumentException exception) {
                     return false;
                 }
             }

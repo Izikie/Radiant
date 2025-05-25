@@ -212,8 +212,8 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 
                                     try {
                                         abufferedimage[j4] = TextureUtil.readBufferedImage(resourceManager.getResource(resourcelocation).getInputStream());
-                                    } catch (IOException ioexception) {
-                                        LOGGER.error("Unable to load miplevel {} from: {}", new Object[]{j4, resourcelocation, ioexception});
+                                    } catch (IOException exception) {
+                                        LOGGER.error("Unable to load miplevel {} from: {}", new Object[]{j4, resourcelocation, exception});
                                     }
                                 }
                             }
@@ -221,11 +221,11 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 
                         AnimationMetadataSection animationmetadatasection = iresource.getMetadata("animation");
                         textureatlassprite3.loadSprite(abufferedimage, animationmetadatasection);
-                    } catch (RuntimeException runtimeexception) {
-                        LOGGER.error("Unable to parse metadata from {}", resourcelocation2, runtimeexception);
+                    } catch (RuntimeException exception) {
+                        LOGGER.error("Unable to parse metadata from {}", resourcelocation2, exception);
                         continue;
-                    } catch (IOException ioexception1) {
-                        LOGGER.error("Using missing texture, unable to load {}, {}", resourcelocation2, ioexception1.getClass().getName());
+                    } catch (IOException exception) {
+                        LOGGER.error("Using missing texture, unable to load {}, {}", resourcelocation2, exception.getClass().getName());
                         continue;
                     }
 
@@ -269,8 +269,8 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 
                 try {
                     textureatlassprite1.generateMipmaps(this.mipmapLevels);
-                } catch (Throwable throwable1) {
-                    CrashReport report = CrashReport.makeCrashReport(throwable1, "Applying mipmap");
+                } catch (Throwable throwable) {
+                    CrashReport report = CrashReport.makeCrashReport(throwable, "Applying mipmap");
                     CrashReportCategory category = report.makeCategory("Sprite being mipmapped");
                     category.addCrashSectionCallable("Sprite Name", () -> textureatlassprite1.getIconName());
                     category.addCrashSectionCallable("Sprite Size", () -> textureatlassprite1.getIconWidth() + " x " + textureatlassprite1.getIconHeight());
@@ -286,8 +286,8 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 
             try {
                 stitcher.doStitch();
-            } catch (StitcherException stitcherexception) {
-                throw stitcherexception;
+            } catch (StitcherException exception) {
+                throw exception;
             }
 
             LOGGER.info("Created: {}x{} {}-atlas", new Object[]{stitcher.getCurrentWidth(), stitcher.getCurrentHeight(), this.basePath});
@@ -642,7 +642,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                             }
                         }
                     }
-                } catch (Exception var17) {
+                } catch (Exception exception) {
                 }
             }
         }

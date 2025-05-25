@@ -1078,7 +1078,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
                             NetHandlerPlayClient.this.netManager.sendPacket(new C19PacketResourcePackStatus(hash, C19PacketResourcePackStatus.Action.SUCCESSFULLY_LOADED));
                         }
 
-                        public void onFailure(Throwable p_onFailure_1_) {
+                        public void onFailure(Throwable throwable) {
                             NetHandlerPlayClient.this.netManager.sendPacket(new C19PacketResourcePackStatus(hash, C19PacketResourcePackStatus.Action.FAILED_DOWNLOAD));
                         }
                     }, Runnable::run);
@@ -1093,7 +1093,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
                             NetHandlerPlayClient.this.netManager.sendPacket(new C19PacketResourcePackStatus(hash, C19PacketResourcePackStatus.Action.SUCCESSFULLY_LOADED));
                         }
 
-                        public void onFailure(Throwable p_onFailure_1_) {
+                        public void onFailure(Throwable throwable) {
                             NetHandlerPlayClient.this.netManager.sendPacket(new C19PacketResourcePackStatus(hash, C19PacketResourcePackStatus.Action.FAILED_DOWNLOAD));
                         }
                     }, Runnable::run);
@@ -1114,7 +1114,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
                                     NetHandlerPlayClient.this.netManager.sendPacket(new C19PacketResourcePackStatus(hash, C19PacketResourcePackStatus.Action.SUCCESSFULLY_LOADED));
                                 }
 
-                                public void onFailure(Throwable p_onFailure_1_) {
+                                public void onFailure(Throwable throwable) {
                                     NetHandlerPlayClient.this.netManager.sendPacket(new C19PacketResourcePackStatus(hash, C19PacketResourcePackStatus.Action.FAILED_DOWNLOAD));
                                 }
                             }, Runnable::run);
@@ -1131,8 +1131,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
                     }, I18n.format("multiplayer.texturePrompt.line1"), I18n.format("multiplayer.texturePrompt.line2"), 0)));
                 }
             }
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
+        } catch (URISyntaxException exception) {
+            exception.printStackTrace();
         }
     }
 
@@ -1160,8 +1160,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
                     MerchantRecipeList merchantrecipelist = MerchantRecipeList.readFromBuf(packetbuffer);
                     imerchant.setRecipes(merchantrecipelist);
                 }
-            } catch (IOException ioexception) {
-                LOGGER.error("Couldn't load trade info", ioexception);
+            } catch (IOException exception) {
+                LOGGER.error("Couldn't load trade info", exception);
             } finally {
                 packetbuffer.release();
             }
@@ -1278,7 +1278,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 
             try {
                 this.clientWorldController.spawnParticle(packetIn.getParticleType(), packetIn.isLongDistance(), packetIn.getXCoordinate(), packetIn.getYCoordinate(), packetIn.getZCoordinate(), d0, d2, d4, packetIn.getParticleArgs());
-            } catch (Throwable var17) {
+            } catch (Throwable throwable) {
                 LOGGER.warn("Could not spawn particle effect {}", packetIn.getParticleType());
             }
         } else {
@@ -1292,7 +1292,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 
                 try {
                     this.clientWorldController.spawnParticle(packetIn.getParticleType(), packetIn.isLongDistance(), packetIn.getXCoordinate() + d1, packetIn.getYCoordinate() + d3, packetIn.getZCoordinate() + d5, d6, d7, d8, packetIn.getParticleArgs());
-                } catch (Throwable var16) {
+                } catch (Throwable throwable) {
                     LOGGER.warn("Could not spawn particle effect {}", packetIn.getParticleType());
                     return;
                 }

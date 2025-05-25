@@ -337,7 +337,7 @@ public class GuiScreenBook extends GuiScreen {
                     try {
                         IChatComponent ichatcomponent = IChatComponent.Serializer.jsonToComponent(s5);
                         this.field_175386_A = ichatcomponent != null ? GuiUtilRenderComponents.splitText(ichatcomponent, 116, this.fontRendererObj, true, true) : null;
-                    } catch (JsonParseException var13) {
+                    } catch (JsonParseException exception) {
                         this.field_175386_A = null;
                     }
                 } else {
@@ -400,7 +400,7 @@ public class GuiScreenBook extends GuiScreen {
                     this.updateButtons();
                     return true;
                 }
-            } catch (Throwable var5) {
+            } catch (Throwable throwable) {
             }
 
             return false;

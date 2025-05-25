@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class CrashReport {
     private static final Logger LOGGER = LogManager.getLogger();
     private final String description;
-    private final Throwable cause;
+    private final Throwable throwable;
     private final CrashReportCategory theReportCategory = new CrashReportCategory(this, "System Details");
     private final List<CrashReportCategory> crashReportSections = Lists.newArrayList();
     private File crashReportFile;
@@ -29,9 +29,9 @@ public class CrashReport {
     private StackTraceElement[] stackTrace = new StackTraceElement[0];
     String[] comments = new String[]{"Who set us up the TNT?", "Everything's going to plan. No, really, that was supposed to happen.", "Uh... Did I do that?", "Oops.", "Why did you do that?", "I feel sad now :(", "My bad.", "I'm sorry, Dave.", "I let you down. Sorry :(", "On the bright side, I bought you a teddy bear!", "Daisy, daisy...", "Oh - I know what I did wrong!", "Hey, that tickles! Hehehe!", "I blame Dinnerbone.", "You should try our sister game, Minceraft!", "Don't be sad. I'll do better next time, I promise!", "Don't be sad, have a hug! <3", "I just don't know what went wrong :(", "Shall we play a game?", "Quite honestly, I wouldn't worry myself about that.", "I bet Cylons wouldn't have this problem.", "Sorry :(", "Surprise! Haha. Well, this is awkward.", "Would you like a cupcake?", "Hi. I'm Minecraft, and I'm a crashaholic.", "Ooh. Shiny.", "This doesn't make any sense!", "Why is it breaking :(", "Don't do that.", "Ouch. That hurt :(", "You're mean.", "This is a token for 1 free hug. Redeem at your nearest Mojangsta: [~~HUG~~]", "There are four lights!", "But it works on my machine."};
 
-    public CrashReport(String descriptionIn, Throwable causeThrowable) {
+    public CrashReport(String descriptionIn, Throwable throwable) {
         this.description = descriptionIn;
-        this.cause = causeThrowable;
+        this.throwable = throwable;
         this.populateEnvironment();
     }
 
@@ -87,7 +87,7 @@ public class CrashReport {
     }
 
     public String getCauseStackTraceOrString() {
-        Throwable throwable = this.cause;
+        Throwable throwable = this.throwable;
 
         if (throwable.getMessage() == null) {
             switch (throwable) {
@@ -97,15 +97,15 @@ public class CrashReport {
                 default -> {
                 }
             }
-            throwable.setStackTrace(this.cause.getStackTrace());
+            throwable.setStackTrace(this.throwable.getStackTrace());
         }
 
         try (StringWriter stringWriter = new StringWriter();
              PrintWriter printWriter = new PrintWriter(stringWriter)) {
             throwable.printStackTrace(printWriter);
             return stringWriter.toString();
-        } catch (IOException e) {
-            return "Failed to get stack trace: " + e.getMessage();
+        } catch (IOException exception) {
+            return "Failed to get stack trace: " + exception.getMessage();
         }
     }
 
@@ -121,8 +121,8 @@ public class CrashReport {
                 filewriter.write(this.getCompleteReport());
                 this.crashReportFile = toFile;
                 return true;
-            } catch (IOException e) {
-                LOGGER.error("Could not save crash report to {}", toFile, e);
+            } catch (IOException exception) {
+                LOGGER.error("Could not save crash report to {}", toFile, exception);
                 return false;
             }
         }
@@ -181,7 +181,7 @@ public class CrashReport {
     }
 
     public Throwable getCrashCause() {
-        return this.cause;
+        return this.throwable;
     }
 
     public File getFile() {
@@ -193,7 +193,7 @@ public class CrashReport {
 
         if (this.firstCategoryInCrashReport) {
             int i = category.getPrunedStackTrace(1);
-            StackTraceElement[] astacktraceelement = this.cause.getStackTrace();
+            StackTraceElement[] astacktraceelement = this.throwable.getStackTrace();
             StackTraceElement stacktraceelement = null;
             StackTraceElement stacktraceelement1 = null;
             int j = astacktraceelement.length - i;

@@ -34,7 +34,7 @@ public class ChunkRenderWorker implements Runnable {
         while (true) {
             try {
                 this.processTask(this.chunkRenderDispatcher.getNextChunkUpdate());
-            } catch (InterruptedException var3) {
+            } catch (InterruptedException exception) {
                 LOGGER.debug("Stopping due to interrupt");
                 return;
             } catch (Throwable throwable) {
@@ -135,11 +135,11 @@ public class ChunkRenderWorker implements Runnable {
                     generator.getRenderChunk().setCompiledChunk(lvt_7_1_);
                 }
 
-                public void onFailure(Throwable p_onFailure_1_) {
+                public void onFailure(Throwable throwable) {
                     ChunkRenderWorker.this.freeRenderBuilder(generator);
 
-                    if (!(p_onFailure_1_ instanceof CancellationException) && !(p_onFailure_1_ instanceof InterruptedException)) {
-                        Minecraft.getMinecraft().crashed(CrashReport.makeCrashReport(p_onFailure_1_, "Rendering chunk"));
+                    if (!(throwable instanceof CancellationException) && !(throwable instanceof InterruptedException)) {
+                        Minecraft.getMinecraft().crashed(CrashReport.makeCrashReport(throwable, "Rendering chunk"));
                     }
                 }
             }, Runnable::run);

@@ -127,9 +127,9 @@ public class HttpPipeline {
                 }
             }
 
-            public void failed(HttpRequest req, Exception e) {
+            public void failed(HttpRequest req, Exception exception) {
                 synchronized (map) {
-                    map.put("Exception", e);
+                    map.put("Exception", exception);
                     map.notifyAll();
                 }
             }
@@ -141,7 +141,7 @@ public class HttpPipeline {
 
             try {
                 map.wait();
-            } catch (InterruptedException var10) {
+            } catch (InterruptedException exception) {
                 throw new InterruptedIOException("Interrupted");
             }
 

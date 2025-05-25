@@ -40,7 +40,7 @@ public class Session {
         try {
             UUID uuid = UUIDTypeAdapter.fromString(this.getPlayerID());
             return new GameProfile(uuid, this.getUsername());
-        } catch (IllegalArgumentException var2) {
+        } catch (IllegalArgumentException exception) {
             return new GameProfile(null, this.getUsername());
         }
     }

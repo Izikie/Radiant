@@ -26,7 +26,7 @@ public final class NBTUtil {
 
             try {
                 uuid = UUID.fromString(s1);
-            } catch (Throwable var12) {
+            } catch (Throwable throwable) {
                 uuid = null;
             }
 

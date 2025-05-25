@@ -34,8 +34,8 @@ public class CommandMessageRaw extends CommandBase {
             try {
                 IChatComponent ichatcomponent = IChatComponent.Serializer.jsonToComponent(s);
                 entityplayer.addChatMessage(ChatComponentProcessor.processComponent(sender, ichatcomponent, entityplayer));
-            } catch (JsonParseException jsonparseexception) {
-                Throwable throwable = ExceptionUtils.getRootCause(jsonparseexception);
+            } catch (JsonParseException exception) {
+                Throwable throwable = ExceptionUtils.getRootCause(exception);
                 throw new SyntaxErrorException("commands.tellraw.jsonException", throwable == null ? "" : throwable.getMessage());
             }
         }

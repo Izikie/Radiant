@@ -104,8 +104,8 @@ public class FontRenderer implements IResourceManagerReloadListener {
 
         try {
             bufferedimage = TextureUtil.readBufferedImage(this.getResourceInputStream(this.locationFontTexture));
-        } catch (IOException ioexception1) {
-            throw new RuntimeException(ioexception1);
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
         }
 
         Properties properties = FontUtils.readFontProperties(this.locationFontTexture);
@@ -175,8 +175,8 @@ public class FontRenderer implements IResourceManagerReloadListener {
         try {
             inputstream = this.getResourceInputStream(new ResourceLocation("font/glyph_sizes.bin"));
             inputstream.read(this.glyphWidth);
-        } catch (IOException ioexception) {
-            throw new RuntimeException(ioexception);
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
         } finally {
             IOUtils.closeQuietly(inputstream);
         }
@@ -303,7 +303,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
             Bidi bidi = new Bidi((new ArabicShaping(8)).shape(text), 127);
             bidi.setReorderingMode(0);
             return bidi.writeReordered(2);
-        } catch (ArabicShapingException var3) {
+        } catch (ArabicShapingException exception) {
             return text;
         }
     }

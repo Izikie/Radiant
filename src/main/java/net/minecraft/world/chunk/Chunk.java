@@ -384,20 +384,20 @@ public class Chunk {
     public Block getBlock(final int x, final int y, final int z) {
         try {
             return this.getBlock0(x & 15, y, z & 15);
-        } catch (ReportedException reportedexception) {
-            CrashReportCategory crashreportcategory = reportedexception.getCrashReport().makeCategory("Block being got");
+        } catch (ReportedException exception) {
+            CrashReportCategory crashreportcategory = exception.getCrashReport().makeCategory("Block being got");
             crashreportcategory.addCrashSectionCallable("Location", () -> CrashReportCategory.getCoordinateInfo(new BlockPos(Chunk.this.xPosition * 16 + x, y, Chunk.this.zPosition * 16 + z)));
-            throw reportedexception;
+            throw exception;
         }
     }
 
     public Block getBlock(final BlockPos pos) {
         try {
             return this.getBlock0(pos.getX() & 15, pos.getY(), pos.getZ() & 15);
-        } catch (ReportedException reportedexception) {
-            CrashReportCategory crashreportcategory = reportedexception.getCrashReport().makeCategory("Block being got");
+        } catch (ReportedException exception) {
+            CrashReportCategory crashreportcategory = exception.getCrashReport().makeCategory("Block being got");
             crashreportcategory.addCrashSectionCallable("Location", () -> CrashReportCategory.getCoordinateInfo(pos));
-            throw reportedexception;
+            throw exception;
         }
     }
 

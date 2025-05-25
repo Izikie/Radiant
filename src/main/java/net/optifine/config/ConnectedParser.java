@@ -263,7 +263,7 @@ public class ConnectedParser {
                             if (this.matchState(iblockstate1, map)) {
                                 list1.add(k);
                             }
-                        } catch (IllegalArgumentException var18) {
+                        } catch (IllegalArgumentException exception) {
                         }
                     }
 
@@ -293,7 +293,7 @@ public class ConnectedParser {
             }
 
             return iblockstate;
-        } catch (IllegalArgumentException var5) {
+        } catch (IllegalArgumentException exception) {
             return block.getDefaultState();
         }
     }
@@ -657,7 +657,7 @@ public class ConnectedParser {
 
             try {
                 return Integer.parseInt(str, 16) & 16777215;
-            } catch (NumberFormatException var3) {
+            } catch (NumberFormatException exception) {
                 return defVal;
             }
         }
@@ -671,7 +671,7 @@ public class ConnectedParser {
 
             try {
                 return (int) (Long.parseLong(str, 16) & -1L);
-            } catch (NumberFormatException var3) {
+            } catch (NumberFormatException exception) {
                 return defVal;
             }
         }

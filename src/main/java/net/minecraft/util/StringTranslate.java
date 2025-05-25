@@ -55,7 +55,7 @@ public class StringTranslate {
 
         try {
             return String.format(s, format);
-        } catch (IllegalFormatException var5) {
+        } catch (IllegalFormatException exception) {
             return "Format error: " + s;
         }
     }

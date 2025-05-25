@@ -37,7 +37,7 @@ public class IntegratedServerUtils {
 
                     try {
                         return integratedserver.worldServerForDimension(i);
-                    } catch (NullPointerException var6) {
+                    } catch (NullPointerException exception) {
                         return null;
                     }
                 }

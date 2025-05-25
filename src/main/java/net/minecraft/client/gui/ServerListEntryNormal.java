@@ -53,10 +53,10 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
             field_148302_b.submit(() -> {
                 try {
                     ServerListEntryNormal.this.owner.getOldServerPinger().ping(ServerListEntryNormal.this.server);
-                } catch (UnknownHostException var2) {
+                } catch (UnknownHostException exception) {
                     ServerListEntryNormal.this.server.pingToServer = -1L;
                     ServerListEntryNormal.this.server.serverMOTD = Formatting.DARK_RED + "Can't resolve hostname";
-                } catch (Exception var3) {
+                } catch (Exception exception) {
                     ServerListEntryNormal.this.server.pingToServer = -1L;
                     ServerListEntryNormal.this.server.serverMOTD = Formatting.DARK_RED + "Can't connect to server.";
                 }

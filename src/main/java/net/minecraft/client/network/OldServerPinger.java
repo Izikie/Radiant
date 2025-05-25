@@ -151,7 +151,7 @@ public class OldServerPinger {
             protected void initChannel(Channel channel) throws Exception {
                 try {
                     channel.config().setOption(ChannelOption.TCP_NODELAY, Boolean.TRUE);
-                } catch (ChannelException var3) {
+                } catch (ChannelException exception) {
                 }
 
                 channel.pipeline().addLast(new SimpleChannelInboundHandler<ByteBuf>() {
@@ -209,7 +209,7 @@ public class OldServerPinger {
                         p_channelRead0_1_.close();
                     }
 
-                    public void exceptionCaught(ChannelHandlerContext p_exceptionCaught_1_, Throwable p_exceptionCaught_2_) throws Exception {
+                    public void exceptionCaught(ChannelHandlerContext p_exceptionCaught_1_, Throwable throwable) throws Exception {
                         p_exceptionCaught_1_.close();
                     }
                 });

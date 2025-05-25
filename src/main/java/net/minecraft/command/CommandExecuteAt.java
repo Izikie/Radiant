@@ -103,7 +103,7 @@ public class CommandExecuteAt extends CommandBase {
                 if (j < 1) {
                     throw new CommandException("commands.execute.allInvocationsFailed", s);
                 }
-            } catch (Throwable var23) {
+            } catch (Throwable throwable) {
                 throw new CommandException("commands.execute.failed", s, entity.getName());
             }
         }

@@ -37,8 +37,8 @@ public class CommandTestFor extends CommandBase {
             if (args.length >= 2) {
                 try {
                     nbttagcompound = JsonToNBT.getTagFromJson(buildString(args, 1));
-                } catch (NBTException nbtexception) {
-                    throw new CommandException("commands.testfor.tagError", nbtexception.getMessage());
+                } catch (NBTException exception) {
+                    throw new CommandException("commands.testfor.tagError", exception.getMessage());
                 }
             }
 

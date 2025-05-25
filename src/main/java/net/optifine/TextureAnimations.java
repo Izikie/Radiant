@@ -105,10 +105,10 @@ public class TextureAnimations {
                             list.add(textureanimation);
                         }
                     }
-                } catch (FileNotFoundException filenotfoundexception) {
-                    Log.error("File not found: " + filenotfoundexception.getMessage());
-                } catch (IOException ioexception) {
-                    ioexception.printStackTrace();
+                } catch (FileNotFoundException exception) {
+                    Log.error("File not found: " + exception.getMessage());
+                } catch (IOException exception) {
+                    exception.printStackTrace();
                 }
             }
 
@@ -163,7 +163,7 @@ public class TextureAnimations {
                                     return null;
                                 }
                             }
-                        } catch (IOException var17) {
+                        } catch (IOException exception) {
                             Log.error("TextureAnimation: Target texture not found: " + s1);
                             return null;
                         }
@@ -232,7 +232,7 @@ public class TextureAnimations {
                     return abyte;
                 }
             }
-        } catch (FileNotFoundException var18) {
+        } catch (FileNotFoundException exception) {
             return null;
         } catch (Exception exception) {
             exception.printStackTrace();

@@ -74,15 +74,15 @@ public class CommandHandler implements ICommandManager {
         try {
             command.processCommand(sender, args);
             return true;
-        } catch (WrongUsageException wrongusageexception) {
-            ChatComponentTranslation chatcomponenttranslation2 = new ChatComponentTranslation("commands.generic.usage", new ChatComponentTranslation(wrongusageexception.getMessage(), wrongusageexception.getErrorObjects()));
+        } catch (WrongUsageException exception) {
+            ChatComponentTranslation chatcomponenttranslation2 = new ChatComponentTranslation("commands.generic.usage", new ChatComponentTranslation(exception.getMessage(), exception.getErrorObjects()));
             chatcomponenttranslation2.getChatStyle().setColor(Formatting.RED);
             sender.addChatMessage(chatcomponenttranslation2);
-        } catch (CommandException commandexception) {
-            ChatComponentTranslation chatcomponenttranslation1 = new ChatComponentTranslation(commandexception.getMessage(), commandexception.getErrorObjects());
+        } catch (CommandException exception) {
+            ChatComponentTranslation chatcomponenttranslation1 = new ChatComponentTranslation(exception.getMessage(), exception.getErrorObjects());
             chatcomponenttranslation1.getChatStyle().setColor(Formatting.RED);
             sender.addChatMessage(chatcomponenttranslation1);
-        } catch (Throwable var9) {
+        } catch (Throwable throwable) {
             ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation("commands.generic.exception");
             chatcomponenttranslation.getChatStyle().setColor(Formatting.RED);
             sender.addChatMessage(chatcomponenttranslation);

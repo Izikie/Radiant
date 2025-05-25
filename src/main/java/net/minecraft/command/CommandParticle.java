@@ -73,7 +73,7 @@ public class CommandParticle extends CommandBase {
                         for (int j = 1; j < astring.length; ++j) {
                             try {
                                 aint[j - 1] = Integer.parseInt(astring[j]);
-                            } catch (NumberFormatException var29) {
+                            } catch (NumberFormatException exception) {
                                 throw new CommandException("commands.particle.notFound", args[0]);
                             }
                         }

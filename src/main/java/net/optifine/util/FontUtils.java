@@ -28,8 +28,8 @@ public class FontUtils {
                 Log.info("Loading " + s2);
                 properties.load(inputstream);
                 inputstream.close();
-            } catch (IOException ioexception) {
-                ioexception.printStackTrace();
+            } catch (IOException exception) {
+                exception.printStackTrace();
             }
 
         }

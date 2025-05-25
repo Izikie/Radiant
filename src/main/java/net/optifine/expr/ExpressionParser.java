@@ -42,8 +42,8 @@ public class ExpressionParser {
                 Deque<Token> deque = new ArrayDeque<>(Arrays.asList(atoken));
                 return this.parseInfix(deque);
             }
-        } catch (IOException ioexception) {
-            throw new ParseException(ioexception.getMessage(), ioexception);
+        } catch (IOException exception) {
+            throw new ParseException(exception.getMessage(), exception);
         }
     }
 

@@ -878,8 +878,8 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
                         currentItem.setTagInfo("pages", itemStack.getTagCompound().getTagList("pages", 8));
                     }
                 }
-            } catch (Exception exception3) {
-                LOGGER.error("Couldn't handle book info", exception3);
+            } catch (Exception exception) {
+                LOGGER.error("Couldn't handle book info", exception);
             } finally {
                 buffer.release();
             }
@@ -907,8 +907,8 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
                         currentItem.setItem(Items.WRITTEN_BOOK);
                     }
                 }
-            } catch (Exception exception4) {
-                LOGGER.error("Couldn't sign book", exception4);
+            } catch (Exception exception) {
+                LOGGER.error("Couldn't sign book", exception);
             } finally {
                 buffer.release();
             }
@@ -961,8 +961,8 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
                         commandblocklogic.updateCommand();
                         this.playerEntity.addChatMessage(new ChatComponentTranslation("advMode.setCommand.success", s1));
                     }
-                } catch (Exception exception1) {
-                    LOGGER.error("Couldn't set command block", exception1);
+                } catch (Exception exception) {
+                    LOGGER.error("Couldn't set command block", exception);
                 } finally {
                     packetBuffer.release();
                 }

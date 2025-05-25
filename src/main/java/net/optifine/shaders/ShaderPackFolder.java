@@ -22,7 +22,7 @@ public class ShaderPackFolder implements IShaderPack {
             String s = StrUtils.removePrefixSuffix(resName, "/", "/");
             File file1 = new File(this.packFile, s);
             return !file1.exists() ? null : new BufferedInputStream(new FileInputStream(file1));
-        } catch (Exception var4) {
+        } catch (Exception exception) {
             return null;
         }
     }

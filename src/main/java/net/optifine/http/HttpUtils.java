@@ -55,8 +55,8 @@ public class HttpUtils {
             }
 
             abyte1 = abyte;
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
+        } catch (URISyntaxException exception) {
+            throw new RuntimeException(exception);
         } finally {
             if (httpurlconnection != null) {
                 httpurlconnection.disconnect();

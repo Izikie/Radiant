@@ -14,7 +14,7 @@ public class PlayerConfigurationReceiver implements IFileDownloadListener {
         this.player = player;
     }
 
-    public void fileDownloadFinished(String url, byte[] bytes, Throwable exception) {
+    public void fileDownloadFinished(String url, byte[] bytes, Throwable throwable) {
         if (bytes != null) {
             try {
                 String s = new String(bytes, StandardCharsets.US_ASCII);
@@ -26,8 +26,8 @@ public class PlayerConfigurationReceiver implements IFileDownloadListener {
                     playerconfiguration.setInitialized(true);
                     PlayerConfigurations.setPlayerConfiguration(this.player, playerconfiguration);
                 }
-            } catch (Exception exception1) {
-                Log.info("Error parsing configuration: " + url + ", " + exception1.getClass().getName() + ": " + exception1.getMessage());
+            } catch (Exception exception) {
+                Log.info("Error parsing configuration: " + url + ", " + exception.getClass().getName() + ": " + exception.getMessage());
             }
         }
     }

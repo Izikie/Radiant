@@ -109,7 +109,7 @@ public class BlockAliases {
                         }
                     }
                 }
-            } catch (IOException var14) {
+            } catch (IOException exception) {
                 Log.error("[Shaders] Error reading: " + path);
             }
         }

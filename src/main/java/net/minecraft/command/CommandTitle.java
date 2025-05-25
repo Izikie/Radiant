@@ -65,8 +65,8 @@ public class CommandTitle extends CommandBase {
 
                     try {
                         ichatcomponent = IChatComponent.Serializer.jsonToComponent(s);
-                    } catch (JsonParseException jsonparseexception) {
-                        Throwable throwable = ExceptionUtils.getRootCause(jsonparseexception);
+                    } catch (JsonParseException exception) {
+                        Throwable throwable = ExceptionUtils.getRootCause(exception);
                         throw new SyntaxErrorException("commands.tellraw.jsonException", throwable == null ? "" : throwable.getMessage());
                     }
 

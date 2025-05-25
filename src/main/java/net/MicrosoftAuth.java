@@ -85,9 +85,9 @@ public class MicrosoftAuth extends GuiScreen {
                 } else {
                     status = "Login Failed";
                 }
-            } catch (MicrosoftAuthenticationException e) {
+            } catch (MicrosoftAuthenticationException exception) {
                 status = "Login Failed";
-                e.printStackTrace();
+                exception.printStackTrace();
             }
             System.gc();
         });

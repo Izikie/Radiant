@@ -211,8 +211,8 @@ public class CommandScoreboard extends CommandBase {
                 try {
                     this.processCommand(p_175780_1_, p_175780_2_);
                     list.add(s1);
-                } catch (CommandException commandexception) {
-                    ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation(commandexception.getMessage(), commandexception.getErrorObjects());
+                } catch (CommandException exception) {
+                    ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation(exception.getMessage(), exception.getErrorObjects());
                     chatcomponenttranslation.getChatStyle().setColor(Formatting.RED);
                     p_175780_1_.addChatMessage(chatcomponenttranslation);
                 }
@@ -662,8 +662,8 @@ public class CommandScoreboard extends CommandBase {
                     if (!NBTUtil.func_181123_a(nbttagcompound, nbttagcompound1, true)) {
                         throw new CommandException("commands.scoreboard.players.set.tagMismatch", s1);
                     }
-                } catch (NBTException nbtexception) {
-                    throw new CommandException("commands.scoreboard.players.set.tagError", nbtexception.getMessage());
+                } catch (NBTException exception) {
+                    throw new CommandException("commands.scoreboard.players.set.tagError", exception.getMessage());
                 }
             }
 

@@ -20,8 +20,8 @@ public class CryptManager {
             KeyGenerator keygenerator = KeyGenerator.getInstance("AES");
             keygenerator.init(128);
             return keygenerator.generateKey();
-        } catch (NoSuchAlgorithmException nosuchalgorithmexception) {
-            throw new Error(nosuchalgorithmexception);
+        } catch (NoSuchAlgorithmException exception) {
+            throw new Error(exception);
         }
     }
 
@@ -30,8 +30,8 @@ public class CryptManager {
             KeyPairGenerator keypairgenerator = KeyPairGenerator.getInstance("RSA");
             keypairgenerator.initialize(1024);
             return keypairgenerator.generateKeyPair();
-        } catch (NoSuchAlgorithmException nosuchalgorithmexception) {
-            nosuchalgorithmexception.printStackTrace();
+        } catch (NoSuchAlgorithmException exception) {
+            exception.printStackTrace();
             LOGGER.error("Key pair generation failed!");
             return null;
         }
@@ -40,8 +40,8 @@ public class CryptManager {
     public static byte[] getServerIdHash(String serverId, PublicKey publicKey, SecretKey secretKey) {
         try {
             return digestOperation("SHA-1", serverId.getBytes("ISO_8859_1"), secretKey.getEncoded(), publicKey.getEncoded());
-        } catch (UnsupportedEncodingException unsupportedencodingexception) {
-            unsupportedencodingexception.printStackTrace();
+        } catch (UnsupportedEncodingException exception) {
+            exception.printStackTrace();
             return null;
         }
     }
@@ -55,8 +55,8 @@ public class CryptManager {
             }
 
             return messagedigest.digest();
-        } catch (NoSuchAlgorithmException nosuchalgorithmexception) {
-            nosuchalgorithmexception.printStackTrace();
+        } catch (NoSuchAlgorithmException exception) {
+            exception.printStackTrace();
             return null;
         }
     }
@@ -66,8 +66,8 @@ public class CryptManager {
             EncodedKeySpec encodedkeyspec = new X509EncodedKeySpec(encodedKey);
             KeyFactory keyfactory = KeyFactory.getInstance("RSA");
             return keyfactory.generatePublic(encodedkeyspec);
-        } catch (NoSuchAlgorithmException var3) {
-        } catch (InvalidKeySpecException var4) {
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException exception) {
+            exception.printStackTrace();
         }
 
         LOGGER.error("Public key reconstitute failed!");
@@ -89,10 +89,8 @@ public class CryptManager {
     private static byte[] cipherOperation(int opMode, Key key, byte[] data) {
         try {
             return createTheCipherInstance(opMode, key.getAlgorithm(), key).doFinal(data);
-        } catch (IllegalBlockSizeException illegalblocksizeexception) {
-            illegalblocksizeexception.printStackTrace();
-        } catch (BadPaddingException badpaddingexception) {
-            badpaddingexception.printStackTrace();
+        } catch (IllegalBlockSizeException | BadPaddingException exception) {
+            exception.printStackTrace();
         }
 
         LOGGER.error("Cipher data failed!");
@@ -104,12 +102,8 @@ public class CryptManager {
             Cipher cipher = Cipher.getInstance(transformation);
             cipher.init(opMode, key);
             return cipher;
-        } catch (InvalidKeyException invalidkeyexception) {
-            invalidkeyexception.printStackTrace();
-        } catch (NoSuchAlgorithmException nosuchalgorithmexception) {
-            nosuchalgorithmexception.printStackTrace();
-        } catch (NoSuchPaddingException nosuchpaddingexception) {
-            nosuchpaddingexception.printStackTrace();
+        } catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException exception) {
+            exception.printStackTrace();
         }
 
         LOGGER.error("Cipher creation failed!");
@@ -121,8 +115,8 @@ public class CryptManager {
             Cipher cipher = Cipher.getInstance("AES/CFB8/NoPadding");
             cipher.init(opMode, key, new IvParameterSpec(key.getEncoded()));
             return cipher;
-        } catch (GeneralSecurityException generalsecurityexception) {
-            throw new RuntimeException(generalsecurityexception);
+        } catch (GeneralSecurityException exception) {
+            throw new RuntimeException(exception);
         }
     }
 }

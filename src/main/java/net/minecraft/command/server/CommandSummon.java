@@ -66,8 +66,8 @@ public class CommandSummon extends CommandBase {
                     try {
                         nbttagcompound = JsonToNBT.getTagFromJson(ichatcomponent.getUnformattedText());
                         flag = true;
-                    } catch (NBTException nbtexception) {
-                        throw new CommandException("commands.summon.tagError", nbtexception.getMessage());
+                    } catch (NBTException exception) {
+                        throw new CommandException("commands.summon.tagError", exception.getMessage());
                     }
                 }
 
@@ -76,7 +76,7 @@ public class CommandSummon extends CommandBase {
 
                 try {
                     entity2 = EntityList.createEntityFromNBT(nbttagcompound, world);
-                } catch (RuntimeException var19) {
+                } catch (RuntimeException exception) {
                     throw new CommandException("commands.summon.failed");
                 }
 

@@ -43,8 +43,8 @@ public class MapStorage {
                         fileinputstream.close();
                         worldsaveddata.readFromNBT(nbttagcompound.getCompoundTag("data"));
                     }
-                } catch (Exception exception1) {
-                    exception1.printStackTrace();
+                } catch (Exception exception) {
+                    exception.printStackTrace();
                 }
             }
 

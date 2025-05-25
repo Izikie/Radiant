@@ -29,7 +29,7 @@ public class Locale {
             for (String s2 : resourceManager.getResourceDomains()) {
                 try {
                     this.loadLocaleData(resourceManager.getAllResources(new ResourceLocation(s2, s1)));
-                } catch (IOException var9) {
+                } catch (IOException exception) {
                 }
             }
         }
@@ -96,7 +96,7 @@ public class Locale {
 
         try {
             return String.format(s, parameters);
-        } catch (IllegalFormatException var5) {
+        } catch (IllegalFormatException exception) {
             return "Format error: " + s;
         }
     }

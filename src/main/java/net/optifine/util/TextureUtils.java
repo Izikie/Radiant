@@ -281,7 +281,7 @@ public class TextureUtils {
                     int i = imagereader.getWidth(imagereader.getMinIndex());
                     int j = imagereader.getHeight(imagereader.getMinIndex());
                     dimension = new Dimension(i, j);
-                } catch (IOException var11) {
+                } catch (IOException exception) {
                     continue;
                 } finally {
                     imagereader.dispose();

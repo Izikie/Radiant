@@ -815,8 +815,8 @@ public class GameSettings {
                     bufferedreader.close();
                     break label2;
                 }
-            } catch (Exception exception1) {
-                LOGGER.error("Failed to load options", exception1);
+            } catch (Exception exception) {
+                LOGGER.error("Failed to load options", exception);
                 break label2;
             } finally {
                 IOUtils.closeQuietly(fileinputstream);
@@ -2053,8 +2053,8 @@ public class GameSettings {
             //KeyUtils.fixKeyConflicts(this.keyBindings, new KeyBinding[]{this.ofKeyBindZoom});
             KeyBinding.resetKeyBindingArrayAndHash();
             bufferedreader.close();
-        } catch (Exception exception1) {
-            Log.warn("Failed to load options", exception1);
+        } catch (Exception exception) {
+            Log.warn("Failed to load options", exception);
         }
     }
 

@@ -166,8 +166,8 @@ public class PlayerProfileCache {
                     this.addEntry(playerprofilecache$profileentry.getGameProfile(), playerprofilecache$profileentry.getExpirationDate());
                 }
             }
-        } catch (FileNotFoundException var9) {
-        } catch (JsonParseException var10) {
+        } catch (FileNotFoundException exception) {
+        } catch (JsonParseException exception) {
         } finally {
             IOUtils.closeQuietly(bufferedreader);
         }
@@ -180,8 +180,8 @@ public class PlayerProfileCache {
         try {
             bufferedwriter = Files.newWriter(this.usercacheFile, StandardCharsets.UTF_8);
             bufferedwriter.write(s);
-        } catch (FileNotFoundException var8) {
-        } catch (IOException var9) {
+        } catch (FileNotFoundException exception) {
+        } catch (IOException exception) {
         } finally {
             IOUtils.closeQuietly(bufferedwriter);
         }
@@ -247,7 +247,7 @@ public class PlayerProfileCache {
                     if (jsonelement2 != null) {
                         try {
                             date = PlayerProfileCache.DATE_FORMAT.parse(jsonelement2.getAsString());
-                        } catch (ParseException var14) {
+                        } catch (ParseException exception) {
                             date = null;
                         }
                     }
@@ -257,7 +257,7 @@ public class PlayerProfileCache {
 
                         try {
                             uuid = UUID.fromString(s);
-                        } catch (Throwable var13) {
+                        } catch (Throwable throwable) {
                             return null;
                         }
 

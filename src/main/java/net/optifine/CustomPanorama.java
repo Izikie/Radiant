@@ -84,7 +84,7 @@ public class CustomPanorama {
                     aproperties[i] = properties;
                     inputstream.close();
                 }
-            } catch (IOException var7) {
+            } catch (IOException exception) {
             }
         }
 

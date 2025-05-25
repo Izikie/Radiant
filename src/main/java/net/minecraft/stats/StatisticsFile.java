@@ -43,10 +43,10 @@ public class StatisticsFile extends StatFileWriter {
             try {
                 this.statsData.clear();
                 this.statsData.putAll(this.parseJson(FileUtils.readFileToString(this.statsFile, StandardCharsets.UTF_8)));
-            } catch (IOException ioexception) {
-                LOGGER.error("Couldn't read statistics file {}", this.statsFile, ioexception);
-            } catch (JsonParseException jsonparseexception) {
-                LOGGER.error("Couldn't parse statistics file {}", this.statsFile, jsonparseexception);
+            } catch (IOException exception) {
+                LOGGER.error("Couldn't read statistics file {}", this.statsFile, exception);
+            } catch (JsonParseException exception) {
+                LOGGER.error("Couldn't parse statistics file {}", this.statsFile, exception);
             }
         }
     }
@@ -54,8 +54,8 @@ public class StatisticsFile extends StatFileWriter {
     public void saveStatFile() {
         try {
             FileUtils.writeStringToFile(this.statsFile, dumpJson(this.statsData), StandardCharsets.UTF_8);
-        } catch (IOException ioexception) {
-            LOGGER.error("Couldn't save stats", ioexception);
+        } catch (IOException exception) {
+            LOGGER.error("Couldn't save stats", exception);
         }
     }
 

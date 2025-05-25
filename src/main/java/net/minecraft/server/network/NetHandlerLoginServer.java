@@ -156,7 +156,7 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
                             NetHandlerLoginServer.this.closeConnection("Failed to verify username!");
                             NetHandlerLoginServer.LOGGER.error("Username '{}' tried to join with an invalid session", NetHandlerLoginServer.this.loginGameProfile.getName());
                         }
-                    } catch (AuthenticationUnavailableException var3) {
+                    } catch (AuthenticationUnavailableException exception) {
                         if (NetHandlerLoginServer.this.server.isSinglePlayer()) {
                             NetHandlerLoginServer.LOGGER.warn("Authentication servers are down but will let them in anyway!");
                             NetHandlerLoginServer.this.loginGameProfile = NetHandlerLoginServer.this.getOfflineProfile(gameprofile);

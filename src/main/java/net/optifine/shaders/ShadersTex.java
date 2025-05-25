@@ -353,7 +353,7 @@ public class ShadersTex {
                     return bufferedimage;
                 }
             }
-        } catch (IOException var3) {
+        } catch (IOException exception) {
             return null;
         }
     }
@@ -682,7 +682,7 @@ public class ShadersTex {
                 } else {
                     return false;
                 }
-            } catch (IOException var8) {
+            } catch (IOException exception) {
                 return false;
             }
         }
@@ -738,8 +738,8 @@ public class ShadersTex {
                         aint[k + l] = blendColor(aint1[k + l], aint[k + l], i1);
                         aint[k * 2 + l] = blendColor(aint1[k * 2 + l], aint[k * 2 + l], i1);
                     }
-                } catch (IOException ioexception) {
-                    ioexception.printStackTrace();
+                } catch (IOException exception) {
+                    exception.printStackTrace();
                 }
             }
         }

@@ -46,9 +46,9 @@ public class GuiSelectWorld extends GuiScreen implements GuiYesNoCallback {
 
         try {
             this.loadLevelList();
-        } catch (AnvilConverterException anvilconverterexception) {
-            LOGGER.error("Couldn't load level list", anvilconverterexception);
-            this.mc.displayGuiScreen(new GuiErrorScreen("Unable to load worlds", anvilconverterexception.getMessage()));
+        } catch (AnvilConverterException exception) {
+            LOGGER.error("Couldn't load level list", exception);
+            this.mc.displayGuiScreen(new GuiErrorScreen("Unable to load worlds", exception.getMessage()));
             return;
         }
 
@@ -167,8 +167,8 @@ public class GuiSelectWorld extends GuiScreen implements GuiYesNoCallback {
 
                 try {
                     this.loadLevelList();
-                } catch (AnvilConverterException anvilconverterexception) {
-                    LOGGER.error("Couldn't load level list", anvilconverterexception);
+                } catch (AnvilConverterException exception) {
+                    LOGGER.error("Couldn't load level list", exception);
                 }
             }
 

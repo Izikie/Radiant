@@ -30,8 +30,8 @@ public class AnimationMetadataSectionSerializer extends BaseMetadataSectionSeria
                         list.add(animationframe);
                     }
                 }
-            } catch (ClassCastException classcastexception) {
-                throw new JsonParseException("Invalid animation->frames: expected array, was " + jsonobject.get("frames"), classcastexception);
+            } catch (ClassCastException exception) {
+                throw new JsonParseException("Invalid animation->frames: expected array, was " + jsonobject.get("frames"), exception);
             }
         }
 

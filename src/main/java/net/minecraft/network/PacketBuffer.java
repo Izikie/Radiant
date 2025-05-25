@@ -149,8 +149,8 @@ public class PacketBuffer extends ByteBuf {
         } else {
             try {
                 CompressedStreamTools.write(nbt, new ByteBufOutputStream(this));
-            } catch (IOException ioexception) {
-                throw new EncoderException(ioexception);
+            } catch (IOException exception) {
+                throw new EncoderException(exception);
             }
         }
     }

@@ -75,8 +75,8 @@ public class RegionFile {
                 int j2 = this.dataFile.readInt();
                 this.chunkTimestamps[i2] = j2;
             }
-        } catch (IOException ioexception) {
-            ioexception.printStackTrace();
+        } catch (IOException exception) {
+            exception.printStackTrace();
         }
     }
 
@@ -120,7 +120,7 @@ public class RegionFile {
                         }
                     }
                 }
-            } catch (IOException var9) {
+            } catch (IOException exception) {
                 return null;
             }
         }
@@ -195,8 +195,8 @@ public class RegionFile {
             }
 
             this.setChunkTimestamp(x, z, (int) (MinecraftServer.getCurrentTimeMillis() / 1000L));
-        } catch (IOException ioexception) {
-            ioexception.printStackTrace();
+        } catch (IOException exception) {
+            exception.printStackTrace();
         }
     }
 

@@ -43,8 +43,8 @@ public class LayeredTexture extends AbstractTexture {
                     bufferedimage.getGraphics().drawImage(bufferedimage1, 0, 0, null);
                 }
             }
-        } catch (IOException ioexception) {
-            LOGGER.error("Couldn't load layered image", ioexception);
+        } catch (IOException exception) {
+            LOGGER.error("Couldn't load layered image", exception);
             return;
         }
 

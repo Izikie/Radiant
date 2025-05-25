@@ -61,8 +61,8 @@ public class ShaderGroup {
                 for (JsonElement jsonelement : jsonarray) {
                     try {
                         this.initTarget(jsonelement);
-                    } catch (Exception exception1) {
-                        JsonException jsonexception1 = JsonException.func_151379_a(exception1);
+                    } catch (Exception exception) {
+                        JsonException jsonexception1 = JsonException.func_151379_a(exception);
                         jsonexception1.func_151380_a("targets[" + i + "]");
                         throw jsonexception1;
                     }
@@ -87,8 +87,8 @@ public class ShaderGroup {
                     ++j;
                 }
             }
-        } catch (Exception exception2) {
-            JsonException jsonexception = JsonException.func_151379_a(exception2);
+        } catch (Exception exception) {
+            JsonException jsonexception = JsonException.func_151379_a(exception);
             jsonexception.func_151381_b(p_152765_2_.getResourcePath());
             throw jsonexception;
         } finally {
@@ -144,7 +144,7 @@ public class ShaderGroup {
 
                             try {
                                 this.resourceManager.getResource(resourcelocation);
-                            } catch (FileNotFoundException var24) {
+                            } catch (FileNotFoundException exception) {
                                 throw new JsonException("Render target or texture '" + s3 + "' does not exist");
                             }
 
@@ -166,8 +166,8 @@ public class ShaderGroup {
                         } else {
                             shader.addAuxFramebuffer(s4, framebuffer2, framebuffer2.framebufferTextureWidth, framebuffer2.framebufferTextureHeight);
                         }
-                    } catch (Exception exception1) {
-                        JsonException jsonexception = JsonException.func_151379_a(exception1);
+                    } catch (Exception exception) {
+                        JsonException jsonexception = JsonException.func_151379_a(exception);
                         jsonexception.func_151380_a("auxtargets[" + i + "]");
                         throw jsonexception;
                     }

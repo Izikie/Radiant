@@ -118,9 +118,9 @@ public class EmissiveTextures {
                 }
 
                 active = suffixEmissive != null;
-            } catch (FileNotFoundException var4) {
-            } catch (IOException ioexception) {
-                ioexception.printStackTrace();
+            } catch (FileNotFoundException exception) {
+            } catch (IOException exception) {
+                exception.printStackTrace();
             }
         }
     }

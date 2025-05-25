@@ -46,7 +46,7 @@ public class UserListOpsEntry extends UserListEntry<GameProfile> {
 
             try {
                 uuid = UUID.fromString(s);
-            } catch (Throwable var4) {
+            } catch (Throwable throwable) {
                 return null;
             }
 

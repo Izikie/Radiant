@@ -87,7 +87,7 @@ public class CommandDebug extends CommandBase {
 
         try {
             return astring[(int) (System.nanoTime() % astring.length)];
-        } catch (Throwable var2) {
+        } catch (Throwable throwable) {
             return "Witty comment unavailable :(";
         }
     }

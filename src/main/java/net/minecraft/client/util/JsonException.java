@@ -16,8 +16,8 @@ public class JsonException extends IOException {
         this.exceptionMessage = message;
     }
 
-    public JsonException(String message, Throwable cause) {
-        super(cause);
+    public JsonException(String message, Throwable throwable) {
+        super(throwable);
         this.field_151383_a.add(new Entry());
         this.exceptionMessage = message;
     }

@@ -40,11 +40,11 @@ public class CommandEffect extends CommandBase {
 
                 try {
                     i = parseInt(args[1], 1);
-                } catch (NumberInvalidException numberinvalidexception) {
+                } catch (NumberInvalidException exception) {
                     Potion potion = Potion.getPotionFromResourceLocation(args[1]);
 
                     if (potion == null) {
-                        throw numberinvalidexception;
+                        throw exception;
                     }
 
                     i = potion.id;

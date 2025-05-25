@@ -154,7 +154,7 @@ public class ModelBlock {
                 }
 
                 throw new LoopException();
-            } catch (NullPointerException var5) {
+            } catch (NullPointerException exception) {
             }
         }
     }

@@ -51,8 +51,8 @@ public class CommandSaveAll extends CommandBase {
 
                 sender.addChatMessage(new ChatComponentTranslation("commands.save.flushEnd"));
             }
-        } catch (MinecraftException minecraftexception) {
-            notifyOperators(sender, this, "commands.save.failed", minecraftexception.getMessage());
+        } catch (MinecraftException exception) {
+            notifyOperators(sender, this, "commands.save.failed", exception.getMessage());
             return;
         }
 

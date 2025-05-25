@@ -68,10 +68,10 @@ public class GuiScreenCapeOF extends GuiScreenOF {
                         this.showMessage(Lang.get("of.message.capeOF.openEditorError"), 10000L);
                         this.setLinkUrl(s4);
                     }
-                } catch (InvalidCredentialsException invalidcredentialsexception) {
-                    Config.showGuiMessage(I18n.format("of.message.capeOF.error1"), I18n.format("of.message.capeOF.error2", invalidcredentialsexception.getMessage()));
+                } catch (InvalidCredentialsException exception) {
+                    Config.showGuiMessage(I18n.format("of.message.capeOF.error1"), I18n.format("of.message.capeOF.error2", exception.getMessage()));
                     Log.error("Mojang authentication failed");
-                    Log.error(invalidcredentialsexception.getClass().getName() + ": " + invalidcredentialsexception.getMessage());
+                    Log.error(exception.getClass().getName() + ": " + exception.getMessage());
                 } catch (Exception exception) {
                     Log.error("Error opening OptiFine cape link");
                     Log.error(exception.getClass().getName() + ": " + exception.getMessage());

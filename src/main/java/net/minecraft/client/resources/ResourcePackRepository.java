@@ -100,7 +100,7 @@ public class ResourcePackRepository {
                 try {
                     resourcepackrepository$entry.updateResourcePack();
                     list.add(resourcepackrepository$entry);
-                } catch (Exception var61) {
+                } catch (Exception exception) {
                     list.remove(resourcepackrepository$entry);
                 }
             } else {
@@ -163,8 +163,8 @@ public class ResourcePackRepository {
 
                     LOGGER.warn("File {} had wrong hash (expected {}, found {}). Deleting it.", file1, hash, s1);
                     FileUtils.deleteQuietly(file1);
-                } catch (IOException ioexception) {
-                    LOGGER.warn("File {} couldn't be hashed. Deleting it.", file1, ioexception);
+                } catch (IOException exception) {
+                    LOGGER.warn("File {} couldn't be hashed. Deleting it.", file1, exception);
                     FileUtils.deleteQuietly(file1);
                 }
             }
@@ -182,8 +182,8 @@ public class ResourcePackRepository {
                     settablefuture.set(null);
                 }
 
-                public void onFailure(Throwable p_onFailure_1_) {
-                    settablefuture.setException(p_onFailure_1_);
+                public void onFailure(Throwable throwable) {
+                    settablefuture.setException(throwable);
                 }
             }, Runnable::run);
             return this.downloadingPacks;
@@ -250,7 +250,7 @@ public class ResourcePackRepository {
 
             try {
                 this.texturePackIcon = this.reResourcePack.getPackImage();
-            } catch (IOException var2) {
+            } catch (IOException exception) {
             }
 
             if (this.texturePackIcon == null) {

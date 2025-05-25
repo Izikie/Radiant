@@ -53,7 +53,7 @@ public class Item {
         if (item == null) {
             try {
                 return getItemById(Integer.parseInt(id));
-            } catch (NumberFormatException var3) {
+            } catch (NumberFormatException exception) {
             }
         }
 

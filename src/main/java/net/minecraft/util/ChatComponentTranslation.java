@@ -43,13 +43,13 @@ public class ChatComponentTranslation extends ChatComponentStyle {
 
         try {
             this.initializeFromFormat(StatCollector.translateToLocal(this.key));
-        } catch (ChatComponentTranslationFormatException chatcomponenttranslationformatexception) {
+        } catch (ChatComponentTranslationFormatException exception) {
             this.children.clear();
 
             try {
                 this.initializeFromFormat(StatCollector.translateToFallback(this.key));
-            } catch (ChatComponentTranslationFormatException var5) {
-                throw chatcomponenttranslationformatexception;
+            } catch (ChatComponentTranslationFormatException translationException) {
+                throw exception;
             }
         }
     }
@@ -99,8 +99,8 @@ public class ChatComponentTranslation extends ChatComponentStyle {
                 chatcomponenttext1.getChatStyle().setParentStyle(this.getChatStyle());
                 this.children.add(chatcomponenttext1);
             }
-        } catch (IllegalFormatException illegalformatexception) {
-            throw new ChatComponentTranslationFormatException(this, illegalformatexception);
+        } catch (IllegalFormatException exception) {
+            throw new ChatComponentTranslationFormatException(this, exception);
         }
     }
 

@@ -43,8 +43,8 @@ public class SimpleTexture extends AbstractTexture {
                         flag = texturemetadatasection.getTextureBlur();
                         flag1 = texturemetadatasection.getTextureClamp();
                     }
-                } catch (RuntimeException runtimeexception) {
-                    LOGGER.warn("Failed reading metadata of: {}", this.textureLocation, runtimeexception);
+                } catch (RuntimeException exception) {
+                    LOGGER.warn("Failed reading metadata of: {}", this.textureLocation, exception);
                 }
             }
 

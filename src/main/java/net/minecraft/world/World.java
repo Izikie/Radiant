@@ -348,7 +348,7 @@ public abstract class World implements IBlockAccess {
                 category.addCrashSectionCallable("Source Block Type", () -> {
                     try {
                         return String.format("ID #%d (%s // %s)", Block.getIdFromBlock(blockIn), blockIn.getUnlocalizedName(), blockIn.getClass().getCanonicalName());
-                    } catch (Throwable var2) {
+                    } catch (Throwable sectionThrowable) {
                         return "ID #" + Block.getIdFromBlock(blockIn);
                     }
                 });
@@ -1134,8 +1134,8 @@ public abstract class World implements IBlockAccess {
             try {
                 ++entity.ticksExisted;
                 entity.onUpdate();
-            } catch (Throwable throwable2) {
-                CrashReport report = CrashReport.makeCrashReport(throwable2, "Ticking entity");
+            } catch (Throwable throwable) {
+                CrashReport report = CrashReport.makeCrashReport(throwable, "Ticking entity");
                 CrashReportCategory category = report.makeCategory("Entity being ticked");
 
                 if (entity == null) {
@@ -1185,8 +1185,8 @@ public abstract class World implements IBlockAccess {
             if (!entity2.isDead) {
                 try {
                     this.updateEntity(entity2);
-                } catch (Throwable throwable1) {
-                    CrashReport report = CrashReport.makeCrashReport(throwable1, "Ticking entity");
+                } catch (Throwable throwable) {
+                    CrashReport report = CrashReport.makeCrashReport(throwable, "Ticking entity");
                     CrashReportCategory category = report.makeCategory("Entity being ticked");
                     entity2.addEntityCrashInfo(category);
                     throw new ReportedException(report);

@@ -108,8 +108,8 @@ public class ShaderPackParser {
                 ByteArrayInputStream bytearrayinputstream = new ByteArrayInputStream(s.getBytes());
                 return Config.readLines(bytearrayinputstream);
             }
-        } catch (IOException ioexception) {
-            Log.info(ioexception.getClass().getName() + ": " + ioexception.getMessage());
+        } catch (IOException exception) {
+            Log.info(exception.getClass().getName() + ": " + exception.getMessage());
             return new String[0];
         }
     }
@@ -236,8 +236,8 @@ public class ShaderPackParser {
             ShaderOptionResolver shaderoptionresolver = new ShaderOptionResolver(shaderOptions);
             ExpressionParser expressionparser = new ExpressionParser(shaderoptionresolver);
             return expressionparser.parseBool(val);
-        } catch (ParseException parseexception) {
-            Log.warn(parseexception.getClass().getName() + ": " + parseexception.getMessage());
+        } catch (ParseException exception) {
+            Log.warn(exception.getClass().getName() + ": " + exception.getMessage());
             return null;
         }
     }
@@ -611,8 +611,8 @@ public class ShaderPackParser {
                     return new CustomUniform(name, uniformtype, iexpression);
                 }
             }
-        } catch (ParseException parseexception) {
-            Log.warn(parseexception.getClass().getName() + ": " + parseexception.getMessage());
+        } catch (ParseException exception) {
+            Log.warn(exception.getClass().getName() + ": " + exception.getMessage());
             return null;
         }
     }

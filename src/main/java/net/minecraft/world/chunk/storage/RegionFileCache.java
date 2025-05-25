@@ -38,8 +38,8 @@ public class RegionFileCache {
                 if (regionfile != null) {
                     regionfile.close();
                 }
-            } catch (IOException ioexception) {
-                ioexception.printStackTrace();
+            } catch (IOException exception) {
+                exception.printStackTrace();
             }
         }
 
