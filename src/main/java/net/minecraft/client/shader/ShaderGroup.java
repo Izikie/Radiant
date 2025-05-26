@@ -96,11 +96,11 @@ public class ShaderGroup {
         }
     }
 
-    private void initTarget(JsonElement p_148027_1_) throws JsonException {
-        if (JsonUtils.isString(p_148027_1_)) {
-            this.addFramebuffer(p_148027_1_.getAsString(), this.mainFramebufferWidth, this.mainFramebufferHeight);
+    private void initTarget(JsonElement jsonElement) throws JsonException {
+        if (JsonUtils.isString(jsonElement)) {
+            this.addFramebuffer(jsonElement.getAsString(), this.mainFramebufferWidth, this.mainFramebufferHeight);
         } else {
-            JsonObject jsonobject = JsonUtils.getJsonObject(p_148027_1_, "target");
+            JsonObject jsonobject = JsonUtils.getJsonObject(jsonElement, "target");
             String s = JsonUtils.getString(jsonobject, "name");
             int i = JsonUtils.getInt(jsonobject, "width", this.mainFramebufferWidth);
             int j = JsonUtils.getInt(jsonobject, "height", this.mainFramebufferHeight);
@@ -196,8 +196,8 @@ public class ShaderGroup {
         }
     }
 
-    private void initUniform(JsonElement p_148028_1_) throws JsonException {
-        JsonObject jsonobject = JsonUtils.getJsonObject(p_148028_1_, "uniform");
+    private void initUniform(JsonElement jsonElement) throws JsonException {
+        JsonObject jsonobject = JsonUtils.getJsonObject(jsonElement, "uniform");
         String s = JsonUtils.getString(jsonobject, "name");
         ShaderUniform shaderuniform = this.listShaders.getLast().getShaderManager().getShaderUniform(s);
 

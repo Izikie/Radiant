@@ -32,7 +32,7 @@ public record ItemTransformVec3f(Vector3f rotation, Vector3f translation, Vector
         private static final Vector3f TRANSLATION_DEFAULT = new Vector3f(0.0F, 0.0F, 0.0F);
         private static final Vector3f SCALE_DEFAULT = new Vector3f(1.0F, 1.0F, 1.0F);
 
-        public ItemTransformVec3f deserialize(JsonElement element, Type type, JsonDeserializationContext context) throws JsonParseException {
+        public ItemTransformVec3f deserialize(JsonElement element, Type type, JsonDeserializationContext ctx) throws JsonParseException {
             JsonObject jsonObject = element.getAsJsonObject();
 
             Vector3f rotation = this.parseVector3f(jsonObject, "rotation", ROTATION_DEFAULT);

@@ -11,7 +11,10 @@ import java.util.*;
 import java.util.Map.Entry;
 
 public class ModelBlockDefinition {
-    static final Gson GSON = (new GsonBuilder()).registerTypeAdapter(ModelBlockDefinition.class, new Deserializer()).registerTypeAdapter(Variant.class, new Variant.Deserializer()).create();
+    static final Gson GSON = new GsonBuilder()
+            .registerTypeAdapter(ModelBlockDefinition.class, new Deserializer())
+            .registerTypeAdapter(Variant.class, new Variant.Deserializer())
+            .create();
     private final Map<String, Variants> mapVariants = new HashMap<>();
 
     public static ModelBlockDefinition parseFromReader(Reader p_178331_0_) {
@@ -55,34 +58,34 @@ public class ModelBlockDefinition {
     }
 
     public static class Deserializer implements JsonDeserializer<ModelBlockDefinition> {
-        public ModelBlockDefinition deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-            JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
-            List<Variants> list = this.parseVariantsList(p_deserialize_3_, jsonobject);
+        public ModelBlockDefinition deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
+            JsonObject jsonobject = jsonElement.getAsJsonObject();
+            List<Variants> list = this.parseVariantsList(ctx, jsonobject);
             return new ModelBlockDefinition(list);
         }
 
-        protected List<Variants> parseVariantsList(JsonDeserializationContext p_178334_1_, JsonObject jsonObject) {
+        protected List<Variants> parseVariantsList(JsonDeserializationContext ctx, JsonObject jsonObject) {
             JsonObject jsonobject = JsonUtils.getJsonObject(jsonObject, "variants");
             List<Variants> list = new ArrayList<>();
 
             for (Entry<String, JsonElement> entry : jsonobject.entrySet()) {
-                list.add(this.parseVariants(p_178334_1_, entry));
+                list.add(this.parseVariants(ctx, entry));
             }
 
             return list;
         }
 
-        protected Variants parseVariants(JsonDeserializationContext p_178335_1_, Entry<String, JsonElement> p_178335_2_) {
+        protected Variants parseVariants(JsonDeserializationContext ctx, Entry<String, JsonElement> p_178335_2_) {
             String s = p_178335_2_.getKey();
             List<Variant> list = new ArrayList<>();
             JsonElement jsonelement = p_178335_2_.getValue();
 
             if (jsonelement.isJsonArray()) {
                 for (JsonElement jsonelement1 : jsonelement.getAsJsonArray()) {
-                    list.add(p_178335_1_.deserialize(jsonelement1, Variant.class));
+                    list.add(ctx.deserialize(jsonelement1, Variant.class));
                 }
             } else {
-                list.add(p_178335_1_.deserialize(jsonelement, Variant.class));
+                list.add(ctx.deserialize(jsonelement, Variant.class));
             }
 
             return new Variants(s, list);
@@ -139,8 +142,8 @@ public class ModelBlockDefinition {
         }
 
         public static class Deserializer implements JsonDeserializer<Variant> {
-            public Variant deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-                JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
+            public Variant deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
+                JsonObject jsonobject = jsonElement.getAsJsonObject();
                 String s = this.parseModel(jsonobject);
                 ModelRotation modelrotation = this.parseRotation(jsonobject);
                 boolean flag = this.parseUvLock(jsonobject);

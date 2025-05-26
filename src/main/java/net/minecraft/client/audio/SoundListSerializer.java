@@ -8,8 +8,8 @@ import java.lang.reflect.Type;
 import java.util.Objects;
 
 public class SoundListSerializer implements JsonDeserializer<SoundList> {
-    public SoundList deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-        JsonObject jsonobject = JsonUtils.getJsonObject(p_deserialize_1_, "entry");
+    public SoundList deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
+        JsonObject jsonobject = JsonUtils.getJsonObject(jsonElement, "entry");
         SoundList soundlist = new SoundList();
         soundlist.setReplaceExisting(JsonUtils.getBoolean(jsonobject, "replace", false));
         SoundCategory soundcategory = SoundCategory.getCategory(JsonUtils.getString(jsonobject, "category", SoundCategory.MASTER.getCategoryName()));

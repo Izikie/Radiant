@@ -10,8 +10,8 @@ import org.apache.commons.lang3.Validate;
 import java.lang.reflect.Type;
 
 public class FontMetadataSectionSerializer extends BaseMetadataSectionSerializer<FontMetadataSection> {
-    public FontMetadataSection deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-        JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
+    public FontMetadataSection deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
+        JsonObject jsonobject = jsonElement.getAsJsonObject();
         float[] afloat = new float[256];
         float[] afloat1 = new float[256];
         float[] afloat2 = new float[256];

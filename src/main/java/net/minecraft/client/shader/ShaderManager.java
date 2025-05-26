@@ -248,8 +248,8 @@ public class ShaderManager {
         }
     }
 
-    private void parseSampler(JsonElement p_147996_1_) throws JsonException {
-        JsonObject jsonobject = JsonUtils.getJsonObject(p_147996_1_, "sampler");
+    private void parseSampler(JsonElement jsonElement) throws JsonException {
+        JsonObject jsonobject = JsonUtils.getJsonObject(jsonElement, "sampler");
         String s = JsonUtils.getString(jsonobject, "name");
 
         if (!JsonUtils.isString(jsonobject, "file")) {
@@ -267,8 +267,8 @@ public class ShaderManager {
         this.markDirty();
     }
 
-    private void parseUniform(JsonElement p_147987_1_) throws JsonException {
-        JsonObject jsonobject = JsonUtils.getJsonObject(p_147987_1_, "uniform");
+    private void parseUniform(JsonElement jsonElement) throws JsonException {
+        JsonObject jsonobject = JsonUtils.getJsonObject(jsonElement, "uniform");
         String s = JsonUtils.getString(jsonobject, "name");
         int i = ShaderUniform.parseType(JsonUtils.getString(jsonobject, "type"));
         int j = JsonUtils.getInt(jsonobject, "count");

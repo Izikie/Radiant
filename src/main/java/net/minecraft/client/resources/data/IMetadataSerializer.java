@@ -7,14 +7,11 @@ import net.minecraft.util.*;
 
 public class IMetadataSerializer {
     private final IRegistry<String, Registration<? extends IMetadataSection>> metadataSectionSerializerRegistry = new RegistrySimple();
-    private final GsonBuilder gsonBuilder = new GsonBuilder();
+    private final GsonBuilder gsonBuilder = new GsonBuilder()
+            .registerTypeHierarchyAdapter(IChatComponent.class, new IChatComponent.Serializer())
+            .registerTypeHierarchyAdapter(ChatStyle.class, new ChatStyle.Serializer())
+            .registerTypeAdapterFactory(new EnumTypeAdapterFactory());
     private Gson gson;
-
-    public IMetadataSerializer() {
-        this.gsonBuilder.registerTypeHierarchyAdapter(IChatComponent.class, new IChatComponent.Serializer());
-        this.gsonBuilder.registerTypeHierarchyAdapter(ChatStyle.class, new ChatStyle.Serializer());
-        this.gsonBuilder.registerTypeAdapterFactory(new EnumTypeAdapterFactory());
-    }
 
     public <T extends IMetadataSection> void registerMetadataSectionType(IMetadataSectionSerializer<T> metadataSectionSerializer, Class<T> clazz) {
         this.metadataSectionSerializerRegistry.putObject(metadataSectionSerializer.getSectionName(), new Registration<>(metadataSectionSerializer, clazz));

@@ -69,7 +69,7 @@ public class AnimationMetadataSectionSerializer extends BaseMetadataSectionSeria
         }
     }
 
-    public JsonElement serialize(AnimationMetadataSection p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
+    public JsonElement serialize(AnimationMetadataSection p_serialize_1_, Type type, JsonSerializationContext ctx) {
         JsonObject jsonobject = new JsonObject();
         jsonobject.addProperty("frametime", p_serialize_1_.getFrameTime());
 

@@ -25,7 +25,9 @@ public class PlayerProfileCache {
     private final Map<UUID, ProfileEntry> uuidToProfileEntryMap = new HashMap<>();
     private final LinkedList<GameProfile> gameProfiles = new LinkedList<>();
     private final MinecraftServer mcServer;
-    protected final Gson gson;
+    protected final Gson gson = new GsonBuilder()
+            .registerTypeHierarchyAdapter(ProfileEntry.class, new Serializer())
+            .create();;
     private final File usercacheFile;
     private static final ParameterizedType TYPE = new ParameterizedType() {
         public Type[] getActualTypeArguments() {
@@ -44,9 +46,6 @@ public class PlayerProfileCache {
     public PlayerProfileCache(MinecraftServer server, File cacheFile) {
         this.mcServer = server;
         this.usercacheFile = cacheFile;
-        GsonBuilder gsonbuilder = new GsonBuilder();
-        gsonbuilder.registerTypeHierarchyAdapter(ProfileEntry.class, new Serializer());
-        this.gson = gsonbuilder.create();
         this.load();
     }
 
@@ -223,18 +222,18 @@ public class PlayerProfileCache {
         private Serializer() {
         }
 
-        public JsonElement serialize(ProfileEntry p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
+        public JsonElement serialize(ProfileEntry p_serialize_1_, Type type, JsonSerializationContext ctx) {
             JsonObject jsonobject = new JsonObject();
             jsonobject.addProperty("name", p_serialize_1_.getGameProfile().getName());
             UUID uuid = p_serialize_1_.getGameProfile().getId();
             jsonobject.addProperty("uuid", uuid == null ? "" : uuid.toString());
-            jsonobject.addProperty("expiresOn", PlayerProfileCache.DATE_FORMAT.format(p_serialize_1_.getExpirationDate()));
+            jsonobject.addProperty("expiresOn", DATE_FORMAT.format(p_serialize_1_.getExpirationDate()));
             return jsonobject;
         }
 
-        public ProfileEntry deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-            if (p_deserialize_1_.isJsonObject()) {
-                JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
+        public ProfileEntry deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
+            if (jsonElement.isJsonObject()) {
+                JsonObject jsonobject = jsonElement.getAsJsonObject();
                 JsonElement jsonelement = jsonobject.get("name");
                 JsonElement jsonelement1 = jsonobject.get("uuid");
                 JsonElement jsonelement2 = jsonobject.get("expiresOn");
@@ -246,7 +245,7 @@ public class PlayerProfileCache {
 
                     if (jsonelement2 != null) {
                         try {
-                            date = PlayerProfileCache.DATE_FORMAT.parse(jsonelement2.getAsString());
+                            date = DATE_FORMAT.parse(jsonelement2.getAsString());
                         } catch (ParseException exception) {
                             date = null;
                         }
@@ -261,7 +260,7 @@ public class PlayerProfileCache {
                             return null;
                         }
 
-                        return PlayerProfileCache.this.new ProfileEntry(new GameProfile(uuid, s1), date);
+                        return new ProfileEntry(new GameProfile(uuid, s1), date);
                     } else {
                         return null;
                     }

@@ -47,12 +47,12 @@ public class BlockPart {
     }
 
     static class Deserializer implements JsonDeserializer<BlockPart> {
-        public BlockPart deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-            JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
+        public BlockPart deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
+            JsonObject jsonobject = jsonElement.getAsJsonObject();
             Vector3f vector3f = this.parsePositionFrom(jsonobject);
             Vector3f vector3f1 = this.parsePositionTo(jsonobject);
             BlockPartRotation blockpartrotation = this.parseRotation(jsonobject);
-            Map<Direction, BlockPartFace> map = this.parseFacesCheck(p_deserialize_3_, jsonobject);
+            Map<Direction, BlockPartFace> map = this.parseFacesCheck(ctx, jsonobject);
 
             if (jsonobject.has("shade") && !JsonUtils.isBoolean(jsonobject, "shade")) {
                 throw new JsonParseException("Expected shade to be a Boolean");
@@ -101,8 +101,8 @@ public class BlockPart {
             }
         }
 
-        private Map<Direction, BlockPartFace> parseFacesCheck(JsonDeserializationContext p_178250_1_, JsonObject jsonObject) {
-            Map<Direction, BlockPartFace> map = this.parseFaces(p_178250_1_, jsonObject);
+        private Map<Direction, BlockPartFace> parseFacesCheck(JsonDeserializationContext ctx, JsonObject jsonObject) {
+            Map<Direction, BlockPartFace> map = this.parseFaces(ctx, jsonObject);
 
             if (map.isEmpty()) {
                 throw new JsonParseException("Expected between 1 and 6 unique faces, got 0");
@@ -111,13 +111,13 @@ public class BlockPart {
             }
         }
 
-        private Map<Direction, BlockPartFace> parseFaces(JsonDeserializationContext p_178253_1_, JsonObject jsonObject) {
+        private Map<Direction, BlockPartFace> parseFaces(JsonDeserializationContext ctx, JsonObject jsonObject) {
             Map<Direction, BlockPartFace> map = new EnumMap<>(Direction.class);
             JsonObject jsonobject = JsonUtils.getJsonObject(jsonObject, "faces");
 
             for (Entry<String, JsonElement> entry : jsonobject.entrySet()) {
                 Direction enumfacing = this.parseEnumFacing(entry.getKey());
-                map.put(enumfacing, p_178253_1_.deserialize(entry.getValue(), BlockPartFace.class));
+                map.put(enumfacing, ctx.deserialize(entry.getValue(), BlockPartFace.class));
             }
 
             return map;
