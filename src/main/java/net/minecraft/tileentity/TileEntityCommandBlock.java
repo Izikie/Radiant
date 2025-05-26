@@ -59,7 +59,7 @@ public class TileEntityCommandBlock extends TileEntity {
         this.commandBlockLogic.readDataFromNBT(compound);
     }
 
-    public Packet getDescriptionPacket() {
+    public Packet<?> getDescriptionPacket() {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
         this.writeToNBT(nbttagcompound);
         return new S35PacketUpdateTileEntity(this.pos, 2, nbttagcompound);

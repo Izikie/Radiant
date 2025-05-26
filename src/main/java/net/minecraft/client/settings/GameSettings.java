@@ -17,7 +17,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.Difficulty;
 import net.optifine.*;
 import net.optifine.shaders.Shaders;
-import net.optifine.util.KeyUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
@@ -287,206 +286,162 @@ public class GameSettings {
     public void setOptionFloatValue(Options settingsOption, float value) {
         this.setOptionFloatValueOF(settingsOption, value);
 
-        if (settingsOption == Options.SENSITIVITY) {
-            this.mouseSensitivity = value;
-        }
+        switch (settingsOption) {
+            case SENSITIVITY -> this.mouseSensitivity = value;
+            case FOV -> this.fovSetting = value;
+            case GAMMA -> this.gammaSetting = value;
+            case FRAMERATE_LIMIT -> {
+                this.limitFramerate = (int) value;
+                this.enableVsync = false;
 
-        if (settingsOption == Options.FOV) {
-            this.fovSetting = value;
-        }
+                if (this.limitFramerate <= 0) {
+                    this.limitFramerate = (int) Options.FRAMERATE_LIMIT.getValueMax();
+                    this.enableVsync = true;
+                }
 
-        if (settingsOption == Options.GAMMA) {
-            this.gammaSetting = value;
-        }
-
-        if (settingsOption == Options.FRAMERATE_LIMIT) {
-            this.limitFramerate = (int) value;
-            this.enableVsync = false;
-
-            if (this.limitFramerate <= 0) {
-                this.limitFramerate = (int) Options.FRAMERATE_LIMIT.getValueMax();
-                this.enableVsync = true;
+                this.updateVSync();
             }
-
-            this.updateVSync();
-        }
-
-        if (settingsOption == Options.CHAT_OPACITY) {
-            this.chatOpacity = value;
-            this.mc.ingameGUI.getChatGUI().refreshChat();
-        }
-
-        if (settingsOption == Options.CHAT_HEIGHT_FOCUSED) {
-            this.chatHeightFocused = value;
-            this.mc.ingameGUI.getChatGUI().refreshChat();
-        }
-
-        if (settingsOption == Options.CHAT_HEIGHT_UNFOCUSED) {
-            this.chatHeightUnfocused = value;
-            this.mc.ingameGUI.getChatGUI().refreshChat();
-        }
-
-        if (settingsOption == Options.CHAT_WIDTH) {
-            this.chatWidth = value;
-            this.mc.ingameGUI.getChatGUI().refreshChat();
-        }
-
-        if (settingsOption == Options.CHAT_SCALE) {
-            this.chatScale = value;
-            this.mc.ingameGUI.getChatGUI().refreshChat();
-        }
-
-        if (settingsOption == Options.MIPMAP_LEVELS) {
-            int i = this.mipmapLevels;
-            this.mipmapLevels = (int) value;
-
-            if (i != value) {
-                this.mc.getTextureMapBlocks().setMipmapLevels(this.mipmapLevels);
-                this.mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-                this.mc.getTextureMapBlocks().setBlurMipmapDirect(false, this.mipmapLevels > 0);
-                this.mc.scheduleResourcesRefresh();
+            case CHAT_OPACITY -> {
+                this.chatOpacity = value;
+                this.mc.ingameGUI.getChatGUI().refreshChat();
             }
-        }
+            case CHAT_HEIGHT_FOCUSED -> {
+                this.chatHeightFocused = value;
+                this.mc.ingameGUI.getChatGUI().refreshChat();
+            }
+            case CHAT_HEIGHT_UNFOCUSED -> {
+                this.chatHeightUnfocused = value;
+                this.mc.ingameGUI.getChatGUI().refreshChat();
+            }
+            case CHAT_WIDTH -> {
+                this.chatWidth = value;
+                this.mc.ingameGUI.getChatGUI().refreshChat();
+            }
+            case CHAT_SCALE -> {
+                this.chatScale = value;
+                this.mc.ingameGUI.getChatGUI().refreshChat();
+            }
+            case MIPMAP_LEVELS -> {
+                int oldLevels = this.mipmapLevels;
+                this.mipmapLevels = (int) value;
 
-        if (settingsOption == Options.BLOCK_ALTERNATIVES) {
-            this.allowBlockAlternatives = !this.allowBlockAlternatives;
-            this.mc.renderGlobal.loadRenderers();
-        }
-
-        if (settingsOption == Options.RENDER_DISTANCE) {
-            this.renderDistanceChunks = (int) value;
-            this.mc.renderGlobal.setDisplayListEntitiesDirty();
+                if (oldLevels != value) {
+                    this.mc.getTextureMapBlocks().setMipmapLevels(this.mipmapLevels);
+                    this.mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+                    this.mc.getTextureMapBlocks().setBlurMipmapDirect(false, this.mipmapLevels > 0);
+                    this.mc.scheduleResourcesRefresh();
+                }
+            }
+            case BLOCK_ALTERNATIVES -> {
+                this.allowBlockAlternatives = !this.allowBlockAlternatives;
+                this.mc.renderGlobal.loadRenderers();
+            }
+            case RENDER_DISTANCE -> {
+                this.renderDistanceChunks = (int) value;
+                this.mc.renderGlobal.setDisplayListEntitiesDirty();
+            }
         }
     }
 
     public void setOptionValue(Options settingsOption, int value) {
-        this.setOptionValueOF(settingsOption, value);
+        this.setOptionValueOF(settingsOption);
 
-        if (settingsOption == Options.INVERT_MOUSE) {
-            this.invertMouse = !this.invertMouse;
-        }
-
-        if (settingsOption == Options.GUI_SCALE) {
-            this.guiScale += value;
-
-            if (GuiScreen.isShiftKeyDown()) {
-                this.guiScale = 0;
-            }
-
-            DisplayMode displaymode = Config.getLargestDisplayMode();
-            int i = displaymode.getWidth() / 320;
-            int j = displaymode.getHeight() / 240;
-            int k = Math.min(i, j);
-
-            if (this.guiScale < 0) {
-                this.guiScale = k - 1;
-            }
-
-            if (this.mc.isUnicode() && this.guiScale % 2 != 0) {
+        switch (settingsOption) {
+            case INVERT_MOUSE -> this.invertMouse = !this.invertMouse;
+            case GUI_SCALE -> {
                 this.guiScale += value;
+
+                if (GuiScreen.isShiftKeyDown()) {
+                    this.guiScale = 0;
+                }
+
+                DisplayMode displaymode = Config.getLargestDisplayMode();
+                int i = displaymode.getWidth() / 320;
+                int j = displaymode.getHeight() / 240;
+                int k = Math.min(i, j);
+
+                if (this.guiScale < 0) {
+                    this.guiScale = k - 1;
+                }
+
+                if (this.mc.isUnicode() && this.guiScale % 2 != 0) {
+                    this.guiScale += value;
+                }
+
+                if (this.guiScale < 0 || this.guiScale >= k) {
+                    this.guiScale = 0;
+                }
             }
-
-            if (this.guiScale < 0 || this.guiScale >= k) {
-                this.guiScale = 0;
+            case PARTICLES -> this.particleSetting = (this.particleSetting + value) % 3;
+            case VIEW_BOBBING -> this.viewBobbing = !this.viewBobbing;
+            case RENDER_CLOUDS -> this.clouds = (this.clouds + value) % 3;
+            case FORCE_UNICODE_FONT -> {
+                this.forceUnicodeFont = !this.forceUnicodeFont;
+                this.mc.fontRendererObj.setUnicodeFlag(this.mc.getLanguageManager().isCurrentLocaleUnicode() || this.forceUnicodeFont);
             }
-        }
-
-        if (settingsOption == Options.PARTICLES) {
-            this.particleSetting = (this.particleSetting + value) % 3;
-        }
-
-        if (settingsOption == Options.VIEW_BOBBING) {
-            this.viewBobbing = !this.viewBobbing;
-        }
-
-        if (settingsOption == Options.RENDER_CLOUDS) {
-            this.clouds = (this.clouds + value) % 3;
-        }
-
-        if (settingsOption == Options.FORCE_UNICODE_FONT) {
-            this.forceUnicodeFont = !this.forceUnicodeFont;
-            this.mc.fontRendererObj.setUnicodeFlag(this.mc.getLanguageManager().isCurrentLocaleUnicode() || this.forceUnicodeFont);
-        }
-
-        if (settingsOption == Options.FBO_ENABLE) {
-            this.fboEnable = !this.fboEnable;
-        }
-
-        if (settingsOption == Options.GRAPHICS) {
-            this.fancyGraphics = !this.fancyGraphics;
-            this.updateRenderClouds();
-            this.mc.renderGlobal.loadRenderers();
-        }
-
-        if (settingsOption == Options.AMBIENT_OCCLUSION) {
-            this.ambientOcclusion = (this.ambientOcclusion + value) % 3;
-            this.mc.renderGlobal.loadRenderers();
-        }
-
-        if (settingsOption == Options.CHAT_VISIBILITY) {
-            this.chatVisibility = EntityPlayer.ChatVisibility.getEnumChatVisibility((this.chatVisibility.getChatVisibility() + value) % 3);
-        }
-
-        if (settingsOption == Options.CHAT_COLOR) {
-            this.chatColours = !this.chatColours;
-        }
-
-        if (settingsOption == Options.CHAT_LINKS) {
-            this.chatLinks = !this.chatLinks;
-        }
-
-        if (settingsOption == Options.CHAT_LINKS_PROMPT) {
-            this.chatLinksPrompt = !this.chatLinksPrompt;
-        }
-
-        if (settingsOption == Options.USE_FULLSCREEN) {
-            this.fullScreen = !this.fullScreen;
-
-            if (this.mc.isFullScreen() != this.fullScreen) {
-                this.mc.toggleFullscreen();
+            case FBO_ENABLE -> this.fboEnable = !this.fboEnable;
+            case GRAPHICS -> {
+                this.fancyGraphics = !this.fancyGraphics;
+                this.updateRenderClouds();
+                this.mc.renderGlobal.loadRenderers();
             }
-        }
+            case AMBIENT_OCCLUSION -> {
+                this.ambientOcclusion = (this.ambientOcclusion + value) % 3;
+                this.mc.renderGlobal.loadRenderers();
+            }
+            case CHAT_VISIBILITY ->
+                    this.chatVisibility = EntityPlayer.ChatVisibility.getEnumChatVisibility((this.chatVisibility.getChatVisibility() + value) % 3);
+            case CHAT_COLOR -> this.chatColours = !this.chatColours;
+            case CHAT_LINKS -> this.chatLinks = !this.chatLinks;
+            case CHAT_LINKS_PROMPT -> this.chatLinksPrompt = !this.chatLinksPrompt;
+            case USE_FULLSCREEN -> {
+                this.fullScreen = !this.fullScreen;
 
-        if (settingsOption == Options.ENABLE_VSYNC) {
-            this.enableVsync = !this.enableVsync;
-            Display.setVSyncEnabled(this.enableVsync);
-        }
-
-        if (settingsOption == Options.USE_VBO) {
-            this.useVbo = !this.useVbo;
-            this.mc.renderGlobal.loadRenderers();
-        }
-
-        if (settingsOption == Options.BLOCK_ALTERNATIVES) {
-            this.allowBlockAlternatives = !this.allowBlockAlternatives;
-            this.mc.renderGlobal.loadRenderers();
-        }
-
-        if (settingsOption == Options.REDUCED_DEBUG_INFO) {
-            this.reducedDebugInfo = !this.reducedDebugInfo;
-        }
-
-        if (settingsOption == Options.ENTITY_SHADOWS) {
-            this.entityShadows = !this.entityShadows;
+                if (this.mc.isFullScreen() != this.fullScreen) {
+                    this.mc.toggleFullscreen();
+                }
+            }
+            case ENABLE_VSYNC -> {
+                this.enableVsync = !this.enableVsync;
+                Display.setVSyncEnabled(this.enableVsync);
+            }
+            case USE_VBO -> {
+                this.useVbo = !this.useVbo;
+                this.mc.renderGlobal.loadRenderers();
+            }
+            case BLOCK_ALTERNATIVES -> {
+                this.allowBlockAlternatives = !this.allowBlockAlternatives;
+                this.mc.renderGlobal.loadRenderers();
+            }
+            case REDUCED_DEBUG_INFO -> this.reducedDebugInfo = !this.reducedDebugInfo;
+            case ENTITY_SHADOWS -> this.entityShadows = !this.entityShadows;
         }
 
         this.saveOptions();
     }
 
-    public float getOptionFloatValue(Options settingOption) {
-        float f = this.getOptionFloatValueOF(settingOption);
-        return f != Float.MAX_VALUE ? f : (settingOption == Options.FOV ? this.fovSetting
-                : (settingOption == Options.GAMMA ? this.gammaSetting
-                : (settingOption == Options.SATURATION ? this.saturation
-                : (settingOption == Options.SENSITIVITY ? this.mouseSensitivity
-                : (settingOption == Options.CHAT_OPACITY ? this.chatOpacity
-                : (settingOption == Options.CHAT_HEIGHT_FOCUSED ? this.chatHeightFocused
-                : (settingOption == Options.CHAT_HEIGHT_UNFOCUSED ? this.chatHeightUnfocused
-                : (settingOption == Options.CHAT_SCALE ? this.chatScale
-                : (settingOption == Options.CHAT_WIDTH ? this.chatWidth
-                : (settingOption == Options.FRAMERATE_LIMIT ? this.limitFramerate
-                : (settingOption == Options.MIPMAP_LEVELS ? this.mipmapLevels
-                : (settingOption == Options.RENDER_DISTANCE ? this.renderDistanceChunks : 0.0F))))))))))));
+    public float getOptionFloatValue(Options option) {
+        float f = this.getOptionFloatValueOF(option);
+
+        if (f != Float.MAX_VALUE) {
+            return f;
+        }
+
+        return switch (option) {
+            case FOV -> this.fovSetting;
+            case GAMMA -> this.gammaSetting;
+            case SATURATION -> this.saturation;
+            case SENSITIVITY -> this.mouseSensitivity;
+            case CHAT_OPACITY -> this.chatOpacity;
+            case CHAT_HEIGHT_FOCUSED -> this.chatHeightFocused;
+            case CHAT_HEIGHT_UNFOCUSED -> this.chatHeightUnfocused;
+            case CHAT_SCALE -> this.chatScale;
+            case CHAT_WIDTH -> this.chatWidth;
+            case FRAMERATE_LIMIT -> this.limitFramerate;
+            case MIPMAP_LEVELS -> this.mipmapLevels;
+            case RENDER_DISTANCE -> this.renderDistanceChunks;
+            case null, default -> 0.0F;
+        };
     }
 
     public boolean getOptionOrdinalValue(Options settingOption) {
@@ -542,7 +497,8 @@ public class GameSettings {
             } else if (settingOption.getEnumBoolean()) {
                 boolean flag = this.getOptionOrdinalValue(settingOption);
                 return flag ? s1 + I18n.format("options.on") : s1 + I18n.format("options.off");
-            } else if (settingOption == Options.GUI_SCALE) {
+            }
+            if (settingOption == Options.GUI_SCALE) {
                 return this.guiScale >= GUISCALES.length ? s1 + this.guiScale + "x" : s1 + getTranslation(GUISCALES, this.guiScale);
             } else if (settingOption == Options.CHAT_VISIBILITY) {
                 return s1 + I18n.format(this.chatVisibility.getResourceKey());
@@ -556,7 +512,6 @@ public class GameSettings {
                 if (this.fancyGraphics) {
                     return s1 + I18n.format("options.graphics.fancy");
                 } else {
-                    String s2 = "options.graphics.fast";
                     return s1 + I18n.format("options.graphics.fast");
                 }
             } else {
@@ -833,78 +788,71 @@ public class GameSettings {
 
     public void saveOptions() {
         try {
-            PrintWriter printwriter = new PrintWriter(new FileWriter(this.optionsFile));
-            printwriter.println("invertYMouse:" + this.invertMouse);
-            printwriter.println("mouseSensitivity:" + this.mouseSensitivity);
-            printwriter.println("fov:" + (this.fovSetting - 70.0F) / 40.0F);
-            printwriter.println("gamma:" + this.gammaSetting);
-            printwriter.println("saturation:" + this.saturation);
-            printwriter.println("renderDistance:" + this.renderDistanceChunks);
-            printwriter.println("guiScale:" + this.guiScale);
-            printwriter.println("particles:" + this.particleSetting);
-            printwriter.println("bobView:" + this.viewBobbing);
-            printwriter.println("maxFps:" + this.limitFramerate);
-            printwriter.println("fboEnable:" + this.fboEnable);
-            printwriter.println("difficulty:" + this.difficulty.getDifficultyId());
-            printwriter.println("fancyGraphics:" + this.fancyGraphics);
-            printwriter.println("ao:" + this.ambientOcclusion);
+            PrintWriter writer = new PrintWriter(new FileWriter(this.optionsFile));
+            writer.println("invertYMouse:" + this.invertMouse);
+            writer.println("mouseSensitivity:" + this.mouseSensitivity);
+            writer.println("fov:" + (this.fovSetting - 70.0F) / 40.0F);
+            writer.println("gamma:" + this.gammaSetting);
+            writer.println("saturation:" + this.saturation);
+            writer.println("renderDistance:" + this.renderDistanceChunks);
+            writer.println("guiScale:" + this.guiScale);
+            writer.println("particles:" + this.particleSetting);
+            writer.println("bobView:" + this.viewBobbing);
+            writer.println("maxFps:" + this.limitFramerate);
+            writer.println("fboEnable:" + this.fboEnable);
+            writer.println("difficulty:" + this.difficulty.getDifficultyId());
+            writer.println("fancyGraphics:" + this.fancyGraphics);
+            writer.println("ao:" + this.ambientOcclusion);
 
             switch (this.clouds) {
-                case 0:
-                    printwriter.println("renderClouds:false");
-                    break;
-
-                case 1:
-                    printwriter.println("renderClouds:fast");
-                    break;
-
-                case 2:
-                    printwriter.println("renderClouds:true");
+                case 0 -> writer.println("renderClouds:false");
+                case 1 -> writer.println("renderClouds:fast");
+                case 2 -> writer.println("renderClouds:true");
             }
 
-            printwriter.println("resourcePacks:" + GSON.toJson(this.resourcePacks));
-            printwriter.println("incompatibleResourcePacks:" + GSON.toJson(this.incompatibleResourcePacks));
-            printwriter.println("lastServer:" + this.lastServer);
-            printwriter.println("lang:" + this.language);
-            printwriter.println("chatVisibility:" + this.chatVisibility.getChatVisibility());
-            printwriter.println("chatColors:" + this.chatColours);
-            printwriter.println("chatLinks:" + this.chatLinks);
-            printwriter.println("chatLinksPrompt:" + this.chatLinksPrompt);
-            printwriter.println("chatOpacity:" + this.chatOpacity);
-            printwriter.println("fullscreen:" + this.fullScreen);
-            printwriter.println("enableVsync:" + this.enableVsync);
-            printwriter.println("useVbo:" + this.useVbo);
-            printwriter.println("hideServerAddress:" + this.hideServerAddress);
-            printwriter.println("advancedItemTooltips:" + this.advancedItemTooltips);
-            printwriter.println("pauseOnLostFocus:" + this.pauseOnLostFocus);
-            printwriter.println("overrideWidth:" + this.overrideWidth);
-            printwriter.println("overrideHeight:" + this.overrideHeight);
-            printwriter.println("heldItemTooltips:" + this.heldItemTooltips);
-            printwriter.println("chatHeightFocused:" + this.chatHeightFocused);
-            printwriter.println("chatHeightUnfocused:" + this.chatHeightUnfocused);
-            printwriter.println("chatScale:" + this.chatScale);
-            printwriter.println("chatWidth:" + this.chatWidth);
-            printwriter.println("showInventoryAchievementHint:" + this.showInventoryAchievementHint);
-            printwriter.println("mipmapLevels:" + this.mipmapLevels);
-            printwriter.println("forceUnicodeFont:" + this.forceUnicodeFont);
-            printwriter.println("allowBlockAlternatives:" + this.allowBlockAlternatives);
-            printwriter.println("reducedDebugInfo:" + this.reducedDebugInfo);
-            printwriter.println("useNativeTransport:" + this.useNativeTransport);
-            printwriter.println("entityShadows:" + this.entityShadows);
+            writer.println("resourcePacks:" + GSON.toJson(this.resourcePacks));
+            writer.println("incompatibleResourcePacks:" + GSON.toJson(this.incompatibleResourcePacks));
+            writer.println("lastServer:" + this.lastServer);
+            writer.println("lang:" + this.language);
+            writer.println("chatVisibility:" + this.chatVisibility.getChatVisibility());
+            writer.println("chatColors:" + this.chatColours);
+            writer.println("chatLinks:" + this.chatLinks);
+            writer.println("chatLinksPrompt:" + this.chatLinksPrompt);
+            writer.println("chatOpacity:" + this.chatOpacity);
+            writer.println("fullscreen:" + this.fullScreen);
+            writer.println("enableVsync:" + this.enableVsync);
+            writer.println("useVbo:" + this.useVbo);
+            writer.println("hideServerAddress:" + this.hideServerAddress);
+            writer.println("advancedItemTooltips:" + this.advancedItemTooltips);
+            writer.println("pauseOnLostFocus:" + this.pauseOnLostFocus);
+            writer.println("overrideWidth:" + this.overrideWidth);
+            writer.println("overrideHeight:" + this.overrideHeight);
+            writer.println("heldItemTooltips:" + this.heldItemTooltips);
+            writer.println("chatHeightFocused:" + this.chatHeightFocused);
+            writer.println("chatHeightUnfocused:" + this.chatHeightUnfocused);
+            writer.println("chatScale:" + this.chatScale);
+            writer.println("chatWidth:" + this.chatWidth);
+            writer.println("showInventoryAchievementHint:" + this.showInventoryAchievementHint);
+            writer.println("mipmapLevels:" + this.mipmapLevels);
+            writer.println("forceUnicodeFont:" + this.forceUnicodeFont);
+            writer.println("allowBlockAlternatives:" + this.allowBlockAlternatives);
+            writer.println("reducedDebugInfo:" + this.reducedDebugInfo);
+            writer.println("useNativeTransport:" + this.useNativeTransport);
+            writer.println("entityShadows:" + this.entityShadows);
 
-            for (KeyBinding keybinding : this.keyBindings) {
-                printwriter.println("key_" + keybinding.getKeyDescription() + ":" + keybinding.getKeyCode());
+            for (KeyBinding binding : this.keyBindings) {
+                writer.println("key_" + binding.getKeyDescription() + ":" + binding.getKeyCode());
             }
 
-            for (SoundCategory soundcategory : SoundCategory.values()) {
-                printwriter.println("soundCategory_" + soundcategory.getCategoryName() + ":" + this.getSoundLevel(soundcategory));
+            for (SoundCategory category : SoundCategory.values()) {
+                writer.println("soundCategory_" + category.getCategoryName() + ":" + this.getSoundLevel(category));
             }
 
-            for (PlayerModelParts enumplayermodelparts : PlayerModelParts.values()) {
-                printwriter.println("modelPart_" + enumplayermodelparts.getPartName() + ":" + this.setModelParts.contains(enumplayermodelparts));
+            for (PlayerModelParts modelPart : PlayerModelParts.values()) {
+                writer.println("modelPart_" + modelPart.getPartName() + ":" + this.setModelParts.contains(modelPart));
             }
 
-            printwriter.close();
+            writer.close();
         } catch (Exception exception) {
             LOGGER.error("Failed to save options", exception);
         }
@@ -913,24 +861,32 @@ public class GameSettings {
         this.sendSettingsToServer();
     }
 
-    public float getSoundLevel(SoundCategory sndCategory) {
-        return this.mapSoundLevels.getOrDefault(sndCategory, 1.0F);
+    public float getSoundLevel(SoundCategory soundCategory) {
+        return this.mapSoundLevels.getOrDefault(soundCategory, 1.0F);
     }
 
-    public void setSoundLevel(SoundCategory sndCategory, float soundLevel) {
-        this.mc.getSoundHandler().setSoundLevel(sndCategory, soundLevel);
-        this.mapSoundLevels.put(sndCategory, soundLevel);
+    public void setSoundLevel(SoundCategory soundCategory, float soundlevel) {
+        this.mc.getSoundHandler().setSoundLevel(soundCategory, soundlevel);
+        this.mapSoundLevels.put(soundCategory, soundlevel);
     }
 
     public void sendSettingsToServer() {
         if (this.mc.thePlayer != null) {
-            int i = 0;
+            int modelPart = 0;
 
             for (PlayerModelParts part : this.setModelParts) {
-                i |= part.getPartMask();
+                modelPart |= part.getPartMask();
             }
 
-            this.mc.thePlayer.sendQueue.addToSendQueue(new C15PacketClientSettings(this.language, this.renderDistanceChunks, this.chatVisibility, this.chatColours, i));
+            this.mc.thePlayer.sendQueue.addToSendQueue(
+                new C15PacketClientSettings(
+                        this.language,
+                        this.renderDistanceChunks,
+                        this.chatVisibility,
+                        this.chatColours,
+                        modelPart
+                )
+            );
         }
     }
 
@@ -949,10 +905,10 @@ public class GameSettings {
     }
 
     public void switchModelPartEnabled(PlayerModelParts modelPart) {
-        if (!this.getModelParts().contains(modelPart)) {
-            this.setModelParts.add(modelPart);
-        } else {
+        if (this.getModelParts().contains(modelPart)) {
             this.setModelParts.remove(modelPart);
+        } else {
+            this.setModelParts.add(modelPart);
         }
 
         this.sendSettingsToServer();
@@ -966,123 +922,108 @@ public class GameSettings {
         return this.useNativeTransport;
     }
 
-    private void setOptionFloatValueOF(Options p_setOptionFloatValueOF_1_, float p_setOptionFloatValueOF_2_) {
-        if (p_setOptionFloatValueOF_1_ == Options.CLOUD_HEIGHT) {
-            this.ofCloudsHeight = p_setOptionFloatValueOF_2_;
-            this.mc.renderGlobal.resetClouds();
-        }
-
-        if (p_setOptionFloatValueOF_1_ == Options.AO_LEVEL) {
-            this.ofAoLevel = p_setOptionFloatValueOF_2_;
-            this.mc.renderGlobal.loadRenderers();
-        }
-
-        if (p_setOptionFloatValueOF_1_ == Options.AA_LEVEL) {
-            int i = (int) p_setOptionFloatValueOF_2_;
-
-            if (i > 0 && Config.isShaders()) {
-                Config.showGuiMessage(Lang.get("of.message.aa.shaders1"), Lang.get("of.message.aa.shaders2"));
-                return;
+    private void setOptionFloatValueOF(Options option, float value) {
+        switch (option) {
+            case CLOUD_HEIGHT -> {
+                this.ofCloudsHeight = value;
+                this.mc.renderGlobal.resetClouds();
             }
+            case AO_LEVEL -> {
+                this.ofAoLevel = value;
+                this.mc.renderGlobal.loadRenderers();
+            }
+            case AA_LEVEL -> {
+                int valueInt = (int) value;
 
-            int[] aint = new int[]{0, 2, 4, 6, 8, 12, 16};
-            this.ofAaLevel = 0;
-
-            for (int k : aint) {
-                if (i >= k) {
-                    this.ofAaLevel = k;
+                if (valueInt > 0 && Config.isShaders()) {
+                    Config.showGuiMessage(Lang.get("of.message.aa.shaders1"), Lang.get("of.message.aa.shaders2"));
+                    return;
                 }
+
+                int[] levels = new int[]{0, 2, 4, 6, 8, 12, 16};
+                this.ofAaLevel = 0;
+
+                for (int level : levels) {
+                    if (valueInt >= level) {
+                        this.ofAaLevel = level;
+                    }
+                }
+
+                this.ofAaLevel = Config.limit(this.ofAaLevel, 0, 16);
             }
+            case AF_LEVEL -> {
+                int valueInt = (int) value;
 
-            this.ofAaLevel = Config.limit(this.ofAaLevel, 0, 16);
-        }
+                if (valueInt > 1 && Config.isShaders()) {
+                    Config.showGuiMessage(Lang.get("of.message.af.shaders1"), Lang.get("of.message.af.shaders2"));
+                    return;
+                }
 
-        if (p_setOptionFloatValueOF_1_ == Options.AF_LEVEL) {
-            int k = (int) p_setOptionFloatValueOF_2_;
+                for (this.ofAfLevel = 1; this.ofAfLevel * 2 <= valueInt; this.ofAfLevel *= 2) {
+                }
 
-            if (k > 1 && Config.isShaders()) {
-                Config.showGuiMessage(Lang.get("of.message.af.shaders1"), Lang.get("of.message.af.shaders2"));
-                return;
+                this.ofAfLevel = Config.limit(this.ofAfLevel, 1, 16);
+                this.mc.refreshResources();
             }
-
-            for (this.ofAfLevel = 1; this.ofAfLevel * 2 <= k; this.ofAfLevel *= 2) {
+            case MIPMAP_TYPE -> {
+                int valueInt = (int) value;
+                this.ofMipmapType = Config.limit(valueInt, 0, 3);
+                this.mc.refreshResources();
             }
+            case FULLSCREEN_MODE -> {
+                int i1 = (int) value - 1;
+                String[] astring = Config.getDisplayModeNames();
 
-            this.ofAfLevel = Config.limit(this.ofAfLevel, 1, 16);
-            this.mc.refreshResources();
-        }
+                if (i1 < 0 || i1 >= astring.length) {
+                    this.ofFullscreenMode = "Default";
+                    return;
+                }
 
-        if (p_setOptionFloatValueOF_1_ == Options.MIPMAP_TYPE) {
-            int l = (int) p_setOptionFloatValueOF_2_;
-            this.ofMipmapType = Config.limit(l, 0, 3);
-            this.mc.refreshResources();
-        }
-
-        if (p_setOptionFloatValueOF_1_ == Options.FULLSCREEN_MODE) {
-            int i1 = (int) p_setOptionFloatValueOF_2_ - 1;
-            String[] astring = Config.getDisplayModeNames();
-
-            if (i1 < 0 || i1 >= astring.length) {
-                this.ofFullscreenMode = "Default";
-                return;
+                this.ofFullscreenMode = astring[i1];
             }
-
-            this.ofFullscreenMode = astring[i1];
-        }
-    }
-
-    private float getOptionFloatValueOF(Options p_getOptionFloatValueOF_1_) {
-        if (p_getOptionFloatValueOF_1_ == Options.CLOUD_HEIGHT) {
-            return this.ofCloudsHeight;
-        } else if (p_getOptionFloatValueOF_1_ == Options.AO_LEVEL) {
-            return this.ofAoLevel;
-        } else if (p_getOptionFloatValueOF_1_ == Options.AA_LEVEL) {
-            return this.ofAaLevel;
-        } else if (p_getOptionFloatValueOF_1_ == Options.AF_LEVEL) {
-            return this.ofAfLevel;
-        } else if (p_getOptionFloatValueOF_1_ == Options.MIPMAP_TYPE) {
-            return this.ofMipmapType;
-        } else if (p_getOptionFloatValueOF_1_ == Options.FRAMERATE_LIMIT) {
-            return this.limitFramerate == Options.FRAMERATE_LIMIT.getValueMax() && this.enableVsync ? 0.0F : this.limitFramerate;
-        } else if (p_getOptionFloatValueOF_1_ == Options.FULLSCREEN_MODE) {
-            if (this.ofFullscreenMode.equals("Default")) {
-                return 0.0F;
-            } else {
-                List list = Arrays.asList(Config.getDisplayModeNames());
-                int i = list.indexOf(this.ofFullscreenMode);
-                return i < 0 ? 0.0F : (i + 1);
+            case null, default -> {
             }
-        } else {
-            return Float.MAX_VALUE;
         }
     }
 
-    private void setOptionValueOF(Options p_setOptionValueOF_1_, int p_setOptionValueOF_2_) {
-        if (p_setOptionValueOF_1_ == Options.FOG_FANCY) {
+    private float getOptionFloatValueOF(Options option) {
+        return switch (option) {
+            case CLOUD_HEIGHT -> this.ofCloudsHeight;
+            case AO_LEVEL -> this.ofAoLevel;
+            case AA_LEVEL -> this.ofAaLevel;
+            case AF_LEVEL -> this.ofAfLevel;
+            case MIPMAP_TYPE -> this.ofMipmapType;
+            case FRAMERATE_LIMIT -> this.limitFramerate == Options.FRAMERATE_LIMIT.getValueMax() && this.enableVsync ? 0.0F : this.limitFramerate;
+            case FULLSCREEN_MODE -> {
+                if (this.ofFullscreenMode.equals("Default")) {
+                    yield 0.0F;
+                }
+
+                List<String> modes = Arrays.asList(Config.getDisplayModeNames());
+                int id = modes.indexOf(this.ofFullscreenMode);
+
+                yield id < 0 ? 0.0F : (id + 1);
+            }
+            case null, default -> Float.MAX_VALUE;
+        };
+    }
+
+    private void setOptionValueOF(Options options) {
+        if (options == Options.FOG_FANCY) {
             switch (this.ofFogType) {
-                case 1:
+                case 1 -> {
                     this.ofFogType = 2;
 
                     if (!Config.isFancyFogAvailable()) {
                         this.ofFogType = 3;
                     }
-
-                    break;
-
-                case 2:
-                    this.ofFogType = 3;
-                    break;
-
-                case 3:
-                    this.ofFogType = 1;
-                    break;
-
-                default:
-                    this.ofFogType = 1;
+                }
+                case 2 -> this.ofFogType = 3;
+                default -> this.ofFogType = 1;
             }
         }
 
-        if (p_setOptionValueOF_1_ == Options.FOG_START) {
+        if (options == Options.FOG_START) {
             this.ofFogStart += 0.2F;
 
             if (this.ofFogStart > 0.81F) {
@@ -1090,16 +1031,16 @@ public class GameSettings {
             }
         }
 
-        if (p_setOptionValueOF_1_ == Options.SMOOTH_FPS) {
+        if (options == Options.SMOOTH_FPS) {
             this.ofSmoothFps = !this.ofSmoothFps;
         }
 
-        if (p_setOptionValueOF_1_ == Options.SMOOTH_WORLD) {
+        if (options == Options.SMOOTH_WORLD) {
             this.ofSmoothWorld = !this.ofSmoothWorld;
             Config.updateThreadPriorities();
         }
 
-        if (p_setOptionValueOF_1_ == Options.CLOUDS) {
+        if (options == Options.CLOUDS) {
             ++this.ofClouds;
 
             if (this.ofClouds > 3) {
@@ -1110,12 +1051,12 @@ public class GameSettings {
             this.mc.renderGlobal.resetClouds();
         }
 
-        if (p_setOptionValueOF_1_ == Options.TREES) {
+        if (options == Options.TREES) {
             this.ofTrees = nextValue(this.ofTrees, OF_TREES_VALUES);
             this.mc.renderGlobal.loadRenderers();
         }
 
-        if (p_setOptionValueOF_1_ == Options.DROPPED_ITEMS) {
+        if (options == Options.DROPPED_ITEMS) {
             ++this.ofDroppedItems;
 
             if (this.ofDroppedItems > 2) {
@@ -1123,7 +1064,7 @@ public class GameSettings {
             }
         }
 
-        if (p_setOptionValueOF_1_ == Options.RAIN) {
+        if (options == Options.RAIN) {
             ++this.ofRain;
 
             if (this.ofRain > 3) {
@@ -1131,7 +1072,7 @@ public class GameSettings {
             }
         }
 
-        if (p_setOptionValueOF_1_ == Options.ANIMATED_WATER) {
+        if (options == Options.ANIMATED_WATER) {
             ++this.ofAnimatedWater;
 
             if (this.ofAnimatedWater == 1) {
@@ -1143,7 +1084,7 @@ public class GameSettings {
             }
         }
 
-        if (p_setOptionValueOF_1_ == Options.ANIMATED_LAVA) {
+        if (options == Options.ANIMATED_LAVA) {
             ++this.ofAnimatedLava;
 
             if (this.ofAnimatedLava == 1) {
@@ -1155,71 +1096,71 @@ public class GameSettings {
             }
         }
 
-        if (p_setOptionValueOF_1_ == Options.ANIMATED_FIRE) {
+        if (options == Options.ANIMATED_FIRE) {
             this.ofAnimatedFire = !this.ofAnimatedFire;
         }
 
-        if (p_setOptionValueOF_1_ == Options.ANIMATED_PORTAL) {
+        if (options == Options.ANIMATED_PORTAL) {
             this.ofAnimatedPortal = !this.ofAnimatedPortal;
         }
 
-        if (p_setOptionValueOF_1_ == Options.ANIMATED_REDSTONE) {
+        if (options == Options.ANIMATED_REDSTONE) {
             this.ofAnimatedRedstone = !this.ofAnimatedRedstone;
         }
 
-        if (p_setOptionValueOF_1_ == Options.ANIMATED_EXPLOSION) {
+        if (options == Options.ANIMATED_EXPLOSION) {
             this.ofAnimatedExplosion = !this.ofAnimatedExplosion;
         }
 
-        if (p_setOptionValueOF_1_ == Options.ANIMATED_FLAME) {
+        if (options == Options.ANIMATED_FLAME) {
             this.ofAnimatedFlame = !this.ofAnimatedFlame;
         }
 
-        if (p_setOptionValueOF_1_ == Options.ANIMATED_SMOKE) {
+        if (options == Options.ANIMATED_SMOKE) {
             this.ofAnimatedSmoke = !this.ofAnimatedSmoke;
         }
 
-        if (p_setOptionValueOF_1_ == Options.VOID_PARTICLES) {
+        if (options == Options.VOID_PARTICLES) {
             this.ofVoidParticles = !this.ofVoidParticles;
         }
 
-        if (p_setOptionValueOF_1_ == Options.WATER_PARTICLES) {
+        if (options == Options.WATER_PARTICLES) {
             this.ofWaterParticles = !this.ofWaterParticles;
         }
 
-        if (p_setOptionValueOF_1_ == Options.PORTAL_PARTICLES) {
+        if (options == Options.PORTAL_PARTICLES) {
             this.ofPortalParticles = !this.ofPortalParticles;
         }
 
-        if (p_setOptionValueOF_1_ == Options.POTION_PARTICLES) {
+        if (options == Options.POTION_PARTICLES) {
             this.ofPotionParticles = !this.ofPotionParticles;
         }
 
-        if (p_setOptionValueOF_1_ == Options.FIREWORK_PARTICLES) {
+        if (options == Options.FIREWORK_PARTICLES) {
             this.ofFireworkParticles = !this.ofFireworkParticles;
         }
 
-        if (p_setOptionValueOF_1_ == Options.DRIPPING_WATER_LAVA) {
+        if (options == Options.DRIPPING_WATER_LAVA) {
             this.ofDrippingWaterLava = !this.ofDrippingWaterLava;
         }
 
-        if (p_setOptionValueOF_1_ == Options.ANIMATED_TERRAIN) {
+        if (options == Options.ANIMATED_TERRAIN) {
             this.ofAnimatedTerrain = !this.ofAnimatedTerrain;
         }
 
-        if (p_setOptionValueOF_1_ == Options.ANIMATED_TEXTURES) {
+        if (options == Options.ANIMATED_TEXTURES) {
             this.ofAnimatedTextures = !this.ofAnimatedTextures;
         }
 
-        if (p_setOptionValueOF_1_ == Options.RAIN_SPLASH) {
+        if (options == Options.RAIN_SPLASH) {
             this.ofRainSplash = !this.ofRainSplash;
         }
 
-        if (p_setOptionValueOF_1_ == Options.SHOW_FPS) {
+        if (options == Options.SHOW_FPS) {
             this.ofShowFps = !this.ofShowFps;
         }
 
-        if (p_setOptionValueOF_1_ == Options.AUTOSAVE_TICKS) {
+        if (options == Options.AUTOSAVE_TICKS) {
             int i = 900;
             this.ofAutoSaveTicks = Math.max(this.ofAutoSaveTicks / i * i, i);
             this.ofAutoSaveTicks *= 2;
@@ -1229,7 +1170,7 @@ public class GameSettings {
             }
         }
 
-        if (p_setOptionValueOF_1_ == Options.BETTER_GRASS) {
+        if (options == Options.BETTER_GRASS) {
             ++this.ofBetterGrass;
 
             if (this.ofBetterGrass > 3) {
@@ -1239,7 +1180,7 @@ public class GameSettings {
             this.mc.renderGlobal.loadRenderers();
         }
 
-        if (p_setOptionValueOF_1_ == Options.CONNECTED_TEXTURES) {
+        if (options == Options.CONNECTED_TEXTURES) {
             ++this.ofConnectedTextures;
 
             if (this.ofConnectedTextures > 3) {
@@ -1253,23 +1194,23 @@ public class GameSettings {
             }
         }
 
-        if (p_setOptionValueOF_1_ == Options.WEATHER) {
+        if (options == Options.WEATHER) {
             this.ofWeather = !this.ofWeather;
         }
 
-        if (p_setOptionValueOF_1_ == Options.SKY) {
+        if (options == Options.SKY) {
             this.ofSky = !this.ofSky;
         }
 
-        if (p_setOptionValueOF_1_ == Options.STARS) {
+        if (options == Options.STARS) {
             this.ofStars = !this.ofStars;
         }
 
-        if (p_setOptionValueOF_1_ == Options.SUN_MOON) {
+        if (options == Options.SUN_MOON) {
             this.ofSunMoon = !this.ofSunMoon;
         }
 
-        if (p_setOptionValueOF_1_ == Options.VIGNETTE) {
+        if (options == Options.VIGNETTE) {
             ++this.ofVignette;
 
             if (this.ofVignette > 2) {
@@ -1277,7 +1218,7 @@ public class GameSettings {
             }
         }
 
-        if (p_setOptionValueOF_1_ == Options.CHUNK_UPDATES) {
+        if (options == Options.CHUNK_UPDATES) {
             ++this.ofChunkUpdates;
 
             if (this.ofChunkUpdates > 5) {
@@ -1285,11 +1226,11 @@ public class GameSettings {
             }
         }
 
-        if (p_setOptionValueOF_1_ == Options.CHUNK_UPDATES_DYNAMIC) {
+        if (options == Options.CHUNK_UPDATES_DYNAMIC) {
             this.ofChunkUpdatesDynamic = !this.ofChunkUpdatesDynamic;
         }
 
-        if (p_setOptionValueOF_1_ == Options.TIME) {
+        if (options == Options.TIME) {
             ++this.ofTime;
 
             if (this.ofTime > 2) {
@@ -1297,76 +1238,76 @@ public class GameSettings {
             }
         }
 
-        if (p_setOptionValueOF_1_ == Options.CLEAR_WATER) {
+        if (options == Options.CLEAR_WATER) {
             this.ofClearWater = !this.ofClearWater;
             this.updateWaterOpacity();
         }
 
-        if (p_setOptionValueOF_1_ == Options.BETTER_SNOW) {
+        if (options == Options.BETTER_SNOW) {
             this.ofBetterSnow = !this.ofBetterSnow;
             this.mc.renderGlobal.loadRenderers();
         }
 
-        if (p_setOptionValueOF_1_ == Options.SWAMP_COLORS) {
+        if (options == Options.SWAMP_COLORS) {
             this.ofSwampColors = !this.ofSwampColors;
             CustomColors.updateUseDefaultGrassFoliageColors();
             this.mc.renderGlobal.loadRenderers();
         }
 
-        if (p_setOptionValueOF_1_ == Options.RANDOM_ENTITIES) {
+        if (options == Options.RANDOM_ENTITIES) {
             this.ofRandomEntities = !this.ofRandomEntities;
             RandomEntities.update();
         }
 
-        if (p_setOptionValueOF_1_ == Options.SMOOTH_BIOMES) {
+        if (options == Options.SMOOTH_BIOMES) {
             this.ofSmoothBiomes = !this.ofSmoothBiomes;
             CustomColors.updateUseDefaultGrassFoliageColors();
             this.mc.renderGlobal.loadRenderers();
         }
 
-        if (p_setOptionValueOF_1_ == Options.CUSTOM_FONTS) {
+        if (options == Options.CUSTOM_FONTS) {
             this.ofCustomFonts = !this.ofCustomFonts;
             this.mc.fontRendererObj.onResourceManagerReload(Config.getResourceManager());
             this.mc.standardGalacticFontRenderer.onResourceManagerReload(Config.getResourceManager());
         }
 
-        if (p_setOptionValueOF_1_ == Options.CUSTOM_COLORS) {
+        if (options == Options.CUSTOM_COLORS) {
             this.ofCustomColors = !this.ofCustomColors;
             CustomColors.update();
             this.mc.renderGlobal.loadRenderers();
         }
 
-        if (p_setOptionValueOF_1_ == Options.CUSTOM_ITEMS) {
+        if (options == Options.CUSTOM_ITEMS) {
             this.ofCustomItems = !this.ofCustomItems;
             this.mc.refreshResources();
         }
 
-        if (p_setOptionValueOF_1_ == Options.CUSTOM_SKY) {
+        if (options == Options.CUSTOM_SKY) {
             this.ofCustomSky = !this.ofCustomSky;
             CustomSky.update();
         }
 
-        if (p_setOptionValueOF_1_ == Options.SHOW_CAPES) {
+        if (options == Options.SHOW_CAPES) {
             this.ofShowCapes = !this.ofShowCapes;
         }
 
-        if (p_setOptionValueOF_1_ == Options.NATURAL_TEXTURES) {
+        if (options == Options.NATURAL_TEXTURES) {
             this.ofNaturalTextures = !this.ofNaturalTextures;
             NaturalTextures.update();
             this.mc.renderGlobal.loadRenderers();
         }
 
-        if (p_setOptionValueOF_1_ == Options.EMISSIVE_TEXTURES) {
+        if (options == Options.EMISSIVE_TEXTURES) {
             this.ofEmissiveTextures = !this.ofEmissiveTextures;
             this.mc.refreshResources();
         }
 
-        if (p_setOptionValueOF_1_ == Options.FAST_MATH) {
+        if (options == Options.FAST_MATH) {
             this.ofFastMath = !this.ofFastMath;
             MathHelper.fastMath = this.ofFastMath;
         }
 
-        if (p_setOptionValueOF_1_ == Options.FAST_RENDER) {
+        if (options == Options.FAST_RENDER) {
             if (!this.ofFastRender && Config.isShaders()) {
                 Config.showGuiMessage(Lang.get("of.message.fr.shaders1"), Lang.get("of.message.fr.shaders2"));
                 return;
@@ -1381,7 +1322,7 @@ public class GameSettings {
             Config.updateFramebufferSize();
         }
 
-        if (p_setOptionValueOF_1_ == Options.TRANSLUCENT_BLOCKS) {
+        if (options == Options.TRANSLUCENT_BLOCKS) {
             if (this.ofTranslucentBlocks == 0) {
                 this.ofTranslucentBlocks = 1;
             } else if (this.ofTranslucentBlocks == 1) {
@@ -1395,35 +1336,35 @@ public class GameSettings {
             this.mc.renderGlobal.loadRenderers();
         }
 
-        if (p_setOptionValueOF_1_ == Options.LAZY_CHUNK_LOADING) {
+        if (options == Options.LAZY_CHUNK_LOADING) {
             this.ofLazyChunkLoading = !this.ofLazyChunkLoading;
         }
 
-        if (p_setOptionValueOF_1_ == Options.RENDER_REGIONS) {
+        if (options == Options.RENDER_REGIONS) {
             this.ofRenderRegions = !this.ofRenderRegions;
             this.mc.renderGlobal.loadRenderers();
         }
 
-        if (p_setOptionValueOF_1_ == Options.SMART_ANIMATIONS) {
+        if (options == Options.SMART_ANIMATIONS) {
             this.ofSmartAnimations = !this.ofSmartAnimations;
             this.mc.renderGlobal.loadRenderers();
         }
 
-        if (p_setOptionValueOF_1_ == Options.DYNAMIC_FOV) {
+        if (options == Options.DYNAMIC_FOV) {
             this.ofDynamicFov = !this.ofDynamicFov;
         }
 
-        if (p_setOptionValueOF_1_ == Options.ALTERNATE_BLOCKS) {
+        if (options == Options.ALTERNATE_BLOCKS) {
             this.ofAlternateBlocks = !this.ofAlternateBlocks;
             this.mc.refreshResources();
         }
 
-        if (p_setOptionValueOF_1_ == Options.DYNAMIC_LIGHTS) {
+        if (options == Options.DYNAMIC_LIGHTS) {
             this.ofDynamicLights = nextValue(this.ofDynamicLights, OF_DYNAMIC_LIGHTS);
             DynamicLights.removeLights(this.mc.renderGlobal);
         }
 
-        if (p_setOptionValueOF_1_ == Options.SCREENSHOT_SIZE) {
+        if (options == Options.SCREENSHOT_SIZE) {
             ++this.ofScreenshotSize;
 
             if (this.ofScreenshotSize > 4) {
@@ -1435,38 +1376,38 @@ public class GameSettings {
             }
         }
 
-        if (p_setOptionValueOF_1_ == Options.CUSTOM_ENTITY_MODELS) {
+        if (options == Options.CUSTOM_ENTITY_MODELS) {
             this.ofCustomEntityModels = !this.ofCustomEntityModels;
             this.mc.refreshResources();
         }
 
-        if (p_setOptionValueOF_1_ == Options.CUSTOM_GUIS) {
+        if (options == Options.CUSTOM_GUIS) {
             this.ofCustomGuis = !this.ofCustomGuis;
             CustomGuis.update();
         }
 
-        if (p_setOptionValueOF_1_ == Options.SHOW_GL_ERRORS) {
+        if (options == Options.SHOW_GL_ERRORS) {
             this.ofShowGlErrors = !this.ofShowGlErrors;
         }
 
-        if (p_setOptionValueOF_1_ == Options.HELD_ITEM_TOOLTIPS) {
+        if (options == Options.HELD_ITEM_TOOLTIPS) {
             this.heldItemTooltips = !this.heldItemTooltips;
         }
 
-        if (p_setOptionValueOF_1_ == Options.ADVANCED_TOOLTIPS) {
+        if (options == Options.ADVANCED_TOOLTIPS) {
             this.advancedItemTooltips = !this.advancedItemTooltips;
         }
     }
 
-    private String getKeyBindingOF(Options p_getKeyBindingOF_1_) {
-        String s = I18n.format(p_getKeyBindingOF_1_.getEnumString()) + ": ";
+    private String getKeyBindingOF(Options option) {
+        String s = I18n.format(option.getEnumString()) + ": ";
 
         if (s == null) {
-            s = p_getKeyBindingOF_1_.getEnumString();
+            s = option.getEnumString();
         }
 
-        if (p_getKeyBindingOF_1_ == Options.RENDER_DISTANCE) {
-            int i1 = (int) this.getOptionFloatValue(p_getKeyBindingOF_1_);
+        if (option == Options.RENDER_DISTANCE) {
+            int i1 = (int) this.getOptionFloatValue(option);
             String s1 = I18n.format("options.renderDistance.tiny");
             int i = 2;
 
@@ -1508,136 +1449,134 @@ public class GameSettings {
             }
 
             return s + i1 + " " + s2;
-        } else if (p_getKeyBindingOF_1_ == Options.FOG_FANCY) {
+        } else if (option == Options.FOG_FANCY) {
             return switch (this.ofFogType) {
                 case 1 -> s + Lang.getFast();
                 case 2 -> s + Lang.getFancy();
-                case 3 -> s + Lang.getOff();
                 default -> s + Lang.getOff();
             };
-        } else if (p_getKeyBindingOF_1_ == Options.FOG_START) {
+        } else if (option == Options.FOG_START) {
             return s + this.ofFogStart;
-        } else if (p_getKeyBindingOF_1_ == Options.MIPMAP_TYPE) {
+        } else if (option == Options.MIPMAP_TYPE) {
             return switch (this.ofMipmapType) {
-                case 0 -> s + Lang.get("of.options.mipmap.nearest");
                 case 1 -> s + Lang.get("of.options.mipmap.linear");
                 case 2 -> s + Lang.get("of.options.mipmap.bilinear");
                 case 3 -> s + Lang.get("of.options.mipmap.trilinear");
-                default -> s + "of.options.mipmap.nearest";
+                default -> s + Lang.get("of.options.mipmap.nearest");
             };
-        } else if (p_getKeyBindingOF_1_ == Options.SMOOTH_FPS) {
+        } else if (option == Options.SMOOTH_FPS) {
             return this.ofSmoothFps ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.SMOOTH_WORLD) {
+        } else if (option == Options.SMOOTH_WORLD) {
             return this.ofSmoothWorld ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.CLOUDS) {
+        } else if (option == Options.CLOUDS) {
             return switch (this.ofClouds) {
                 case 1 -> s + Lang.getFast();
                 case 2 -> s + Lang.getFancy();
                 case 3 -> s + Lang.getOff();
                 default -> s + Lang.getDefault();
             };
-        } else if (p_getKeyBindingOF_1_ == Options.TREES) {
+        } else if (option == Options.TREES) {
             return switch (this.ofTrees) {
                 case 1 -> s + Lang.getFast();
                 case 2 -> s + Lang.getFancy();
                 case 4 -> s + Lang.get("of.general.smart");
                 default -> s + Lang.getDefault();
             };
-        } else if (p_getKeyBindingOF_1_ == Options.DROPPED_ITEMS) {
+        } else if (option == Options.DROPPED_ITEMS) {
             return switch (this.ofDroppedItems) {
                 case 1 -> s + Lang.getFast();
                 case 2 -> s + Lang.getFancy();
                 default -> s + Lang.getDefault();
             };
-        } else if (p_getKeyBindingOF_1_ == Options.RAIN) {
+        } else if (option == Options.RAIN) {
             return switch (this.ofRain) {
                 case 1 -> s + Lang.getFast();
                 case 2 -> s + Lang.getFancy();
                 case 3 -> s + Lang.getOff();
                 default -> s + Lang.getDefault();
             };
-        } else if (p_getKeyBindingOF_1_ == Options.ANIMATED_WATER) {
+        } else if (option == Options.ANIMATED_WATER) {
             return switch (this.ofAnimatedWater) {
                 case 1 -> s + Lang.get("of.options.animation.dynamic");
                 case 2 -> s + Lang.getOff();
                 default -> s + Lang.getOn();
             };
-        } else if (p_getKeyBindingOF_1_ == Options.ANIMATED_LAVA) {
+        } else if (option == Options.ANIMATED_LAVA) {
             return switch (this.ofAnimatedLava) {
                 case 1 -> s + Lang.get("of.options.animation.dynamic");
                 case 2 -> s + Lang.getOff();
                 default -> s + Lang.getOn();
             };
-        } else if (p_getKeyBindingOF_1_ == Options.ANIMATED_FIRE) {
+        } else if (option == Options.ANIMATED_FIRE) {
             return this.ofAnimatedFire ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.ANIMATED_PORTAL) {
+        } else if (option == Options.ANIMATED_PORTAL) {
             return this.ofAnimatedPortal ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.ANIMATED_REDSTONE) {
+        } else if (option == Options.ANIMATED_REDSTONE) {
             return this.ofAnimatedRedstone ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.ANIMATED_EXPLOSION) {
+        } else if (option == Options.ANIMATED_EXPLOSION) {
             return this.ofAnimatedExplosion ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.ANIMATED_FLAME) {
+        } else if (option == Options.ANIMATED_FLAME) {
             return this.ofAnimatedFlame ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.ANIMATED_SMOKE) {
+        } else if (option == Options.ANIMATED_SMOKE) {
             return this.ofAnimatedSmoke ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.VOID_PARTICLES) {
+        } else if (option == Options.VOID_PARTICLES) {
             return this.ofVoidParticles ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.WATER_PARTICLES) {
+        } else if (option == Options.WATER_PARTICLES) {
             return this.ofWaterParticles ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.PORTAL_PARTICLES) {
+        } else if (option == Options.PORTAL_PARTICLES) {
             return this.ofPortalParticles ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.POTION_PARTICLES) {
+        } else if (option == Options.POTION_PARTICLES) {
             return this.ofPotionParticles ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.FIREWORK_PARTICLES) {
+        } else if (option == Options.FIREWORK_PARTICLES) {
             return this.ofFireworkParticles ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.DRIPPING_WATER_LAVA) {
+        } else if (option == Options.DRIPPING_WATER_LAVA) {
             return this.ofDrippingWaterLava ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.ANIMATED_TERRAIN) {
+        } else if (option == Options.ANIMATED_TERRAIN) {
             return this.ofAnimatedTerrain ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.ANIMATED_TEXTURES) {
+        } else if (option == Options.ANIMATED_TEXTURES) {
             return this.ofAnimatedTextures ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.RAIN_SPLASH) {
+        } else if (option == Options.RAIN_SPLASH) {
             return this.ofRainSplash ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.SHOW_FPS) {
+        } else if (option == Options.SHOW_FPS) {
             return this.ofShowFps ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.AUTOSAVE_TICKS) {
+        } else if (option == Options.AUTOSAVE_TICKS) {
             int l = 900;
             return this.ofAutoSaveTicks <= l ? s + Lang.get("of.options.save.45s") : (this.ofAutoSaveTicks <= 2 * l ? s + Lang.get("of.options.save.90s") : (this.ofAutoSaveTicks <= 4 * l ? s + Lang.get("of.options.save.3min") : (this.ofAutoSaveTicks <= 8 * l ? s + Lang.get("of.options.save.6min") : (this.ofAutoSaveTicks <= 16 * l ? s + Lang.get("of.options.save.12min") : s + Lang.get("of.options.save.24min")))));
-        } else if (p_getKeyBindingOF_1_ == Options.BETTER_GRASS) {
+        } else if (option == Options.BETTER_GRASS) {
             return switch (this.ofBetterGrass) {
                 case 1 -> s + Lang.getFast();
                 case 2 -> s + Lang.getFancy();
                 default -> s + Lang.getOff();
             };
-        } else if (p_getKeyBindingOF_1_ == Options.CONNECTED_TEXTURES) {
+        } else if (option == Options.CONNECTED_TEXTURES) {
             return switch (this.ofConnectedTextures) {
                 case 1 -> s + Lang.getFast();
                 case 2 -> s + Lang.getFancy();
                 default -> s + Lang.getOff();
             };
-        } else if (p_getKeyBindingOF_1_ == Options.WEATHER) {
+        } else if (option == Options.WEATHER) {
             return this.ofWeather ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.SKY) {
+        } else if (option == Options.SKY) {
             return this.ofSky ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.STARS) {
+        } else if (option == Options.STARS) {
             return this.ofStars ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.SUN_MOON) {
+        } else if (option == Options.SUN_MOON) {
             return this.ofSunMoon ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.VIGNETTE) {
+        } else if (option == Options.VIGNETTE) {
             return switch (this.ofVignette) {
                 case 1 -> s + Lang.getFast();
                 case 2 -> s + Lang.getFancy();
                 default -> s + Lang.getDefault();
             };
-        } else if (p_getKeyBindingOF_1_ == Options.CHUNK_UPDATES) {
+        } else if (option == Options.CHUNK_UPDATES) {
             return s + this.ofChunkUpdates;
-        } else if (p_getKeyBindingOF_1_ == Options.CHUNK_UPDATES_DYNAMIC) {
+        } else if (option == Options.CHUNK_UPDATES_DYNAMIC) {
             return this.ofChunkUpdatesDynamic ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.TIME) {
+        } else if (option == Options.TIME) {
             return this.ofTime == 1 ? s + Lang.get("of.options.time.dayOnly") : (this.ofTime == 2 ? s + Lang.get("of.options.time.nightOnly") : s + Lang.getDefault());
-        } else if (p_getKeyBindingOF_1_ == Options.CLEAR_WATER) {
+        } else if (option == Options.CLEAR_WATER) {
             return this.ofClearWater ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.AA_LEVEL) {
+        } else if (option == Options.AA_LEVEL) {
             String s3 = "";
 
             if (this.ofAaLevel != Config.getAntialiasingLevel()) {
@@ -1645,66 +1584,66 @@ public class GameSettings {
             }
 
             return this.ofAaLevel == 0 ? s + Lang.getOff() + s3 : s + this.ofAaLevel + s3;
-        } else if (p_getKeyBindingOF_1_ == Options.AF_LEVEL) {
+        } else if (option == Options.AF_LEVEL) {
             return this.ofAfLevel == 1 ? s + Lang.getOff() : s + this.ofAfLevel;
-        } else if (p_getKeyBindingOF_1_ == Options.BETTER_SNOW) {
+        } else if (option == Options.BETTER_SNOW) {
             return this.ofBetterSnow ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.SWAMP_COLORS) {
+        } else if (option == Options.SWAMP_COLORS) {
             return this.ofSwampColors ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.RANDOM_ENTITIES) {
+        } else if (option == Options.RANDOM_ENTITIES) {
             return this.ofRandomEntities ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.SMOOTH_BIOMES) {
+        } else if (option == Options.SMOOTH_BIOMES) {
             return this.ofSmoothBiomes ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.CUSTOM_FONTS) {
+        } else if (option == Options.CUSTOM_FONTS) {
             return this.ofCustomFonts ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.CUSTOM_COLORS) {
+        } else if (option == Options.CUSTOM_COLORS) {
             return this.ofCustomColors ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.CUSTOM_SKY) {
+        } else if (option == Options.CUSTOM_SKY) {
             return this.ofCustomSky ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.SHOW_CAPES) {
+        } else if (option == Options.SHOW_CAPES) {
             return this.ofShowCapes ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.CUSTOM_ITEMS) {
+        } else if (option == Options.CUSTOM_ITEMS) {
             return this.ofCustomItems ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.NATURAL_TEXTURES) {
+        } else if (option == Options.NATURAL_TEXTURES) {
             return this.ofNaturalTextures ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.EMISSIVE_TEXTURES) {
+        } else if (option == Options.EMISSIVE_TEXTURES) {
             return this.ofEmissiveTextures ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.FAST_MATH) {
+        } else if (option == Options.FAST_MATH) {
             return this.ofFastMath ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.FAST_RENDER) {
+        } else if (option == Options.FAST_RENDER) {
             return this.ofFastRender ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.TRANSLUCENT_BLOCKS) {
+        } else if (option == Options.TRANSLUCENT_BLOCKS) {
             return this.ofTranslucentBlocks == 1 ? s + Lang.getFast() : (this.ofTranslucentBlocks == 2 ? s + Lang.getFancy() : s + Lang.getDefault());
-        } else if (p_getKeyBindingOF_1_ == Options.LAZY_CHUNK_LOADING) {
+        } else if (option == Options.LAZY_CHUNK_LOADING) {
             return this.ofLazyChunkLoading ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.RENDER_REGIONS) {
+        } else if (option == Options.RENDER_REGIONS) {
             return this.ofRenderRegions ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.SMART_ANIMATIONS) {
+        } else if (option == Options.SMART_ANIMATIONS) {
             return this.ofSmartAnimations ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.DYNAMIC_FOV) {
+        } else if (option == Options.DYNAMIC_FOV) {
             return this.ofDynamicFov ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.ALTERNATE_BLOCKS) {
+        } else if (option == Options.ALTERNATE_BLOCKS) {
             return this.ofAlternateBlocks ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.DYNAMIC_LIGHTS) {
+        } else if (option == Options.DYNAMIC_LIGHTS) {
             int k = indexOf(this.ofDynamicLights, OF_DYNAMIC_LIGHTS);
             return s + getTranslation(KEYS_DYNAMIC_LIGHTS, k);
-        } else if (p_getKeyBindingOF_1_ == Options.SCREENSHOT_SIZE) {
+        } else if (option == Options.SCREENSHOT_SIZE) {
             return this.ofScreenshotSize <= 1 ? s + Lang.getDefault() : s + this.ofScreenshotSize + "x";
-        } else if (p_getKeyBindingOF_1_ == Options.CUSTOM_ENTITY_MODELS) {
+        } else if (option == Options.CUSTOM_ENTITY_MODELS) {
             return this.ofCustomEntityModels ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.CUSTOM_GUIS) {
+        } else if (option == Options.CUSTOM_GUIS) {
             return this.ofCustomGuis ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.SHOW_GL_ERRORS) {
+        } else if (option == Options.SHOW_GL_ERRORS) {
             return this.ofShowGlErrors ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.FULLSCREEN_MODE) {
+        } else if (option == Options.FULLSCREEN_MODE) {
             return this.ofFullscreenMode.equals("Default") ? s + Lang.getDefault() : s + this.ofFullscreenMode;
-        } else if (p_getKeyBindingOF_1_ == Options.HELD_ITEM_TOOLTIPS) {
+        } else if (option == Options.HELD_ITEM_TOOLTIPS) {
             return this.heldItemTooltips ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.ADVANCED_TOOLTIPS) {
+        } else if (option == Options.ADVANCED_TOOLTIPS) {
             return this.advancedItemTooltips ? s + Lang.getOn() : s + Lang.getOff();
-        } else if (p_getKeyBindingOF_1_ == Options.FRAMERATE_LIMIT) {
-            float f = this.getOptionFloatValue(p_getKeyBindingOF_1_);
-            return f == 0.0F ? s + Lang.get("of.options.framerateLimit.vsync") : (f == p_getKeyBindingOF_1_.valueMax ? s + I18n.format("options.framerateLimit.max") : s + (int) f + " fps");
+        } else if (option == Options.FRAMERATE_LIMIT) {
+            float f = this.getOptionFloatValue(option);
+            return f == 0.0F ? s + Lang.get("of.options.framerateLimit.vsync") : (f == option.valueMax ? s + I18n.format("options.framerateLimit.max") : s + (int) f + " fps");
         } else {
             return null;
         }
@@ -2060,81 +1999,80 @@ public class GameSettings {
 
     public void saveOfOptions() {
         try {
-            PrintWriter printwriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(this.optionsFileOF), StandardCharsets.UTF_8));
-            printwriter.println("ofFogType:" + this.ofFogType);
-            printwriter.println("ofFogStart:" + this.ofFogStart);
-            printwriter.println("ofMipmapType:" + this.ofMipmapType);
-            printwriter.println("ofOcclusionFancy:" + this.ofOcclusionFancy);
-            printwriter.println("ofSmoothFps:" + this.ofSmoothFps);
-            printwriter.println("ofSmoothWorld:" + this.ofSmoothWorld);
-            printwriter.println("ofAoLevel:" + this.ofAoLevel);
-            printwriter.println("ofClouds:" + this.ofClouds);
-            printwriter.println("ofCloudsHeight:" + this.ofCloudsHeight);
-            printwriter.println("ofTrees:" + this.ofTrees);
-            printwriter.println("ofDroppedItems:" + this.ofDroppedItems);
-            printwriter.println("ofRain:" + this.ofRain);
-            printwriter.println("ofAnimatedWater:" + this.ofAnimatedWater);
-            printwriter.println("ofAnimatedLava:" + this.ofAnimatedLava);
-            printwriter.println("ofAnimatedFire:" + this.ofAnimatedFire);
-            printwriter.println("ofAnimatedPortal:" + this.ofAnimatedPortal);
-            printwriter.println("ofAnimatedRedstone:" + this.ofAnimatedRedstone);
-            printwriter.println("ofAnimatedExplosion:" + this.ofAnimatedExplosion);
-            printwriter.println("ofAnimatedFlame:" + this.ofAnimatedFlame);
-            printwriter.println("ofAnimatedSmoke:" + this.ofAnimatedSmoke);
-            printwriter.println("ofVoidParticles:" + this.ofVoidParticles);
-            printwriter.println("ofWaterParticles:" + this.ofWaterParticles);
-            printwriter.println("ofPortalParticles:" + this.ofPortalParticles);
-            printwriter.println("ofPotionParticles:" + this.ofPotionParticles);
-            printwriter.println("ofFireworkParticles:" + this.ofFireworkParticles);
-            printwriter.println("ofDrippingWaterLava:" + this.ofDrippingWaterLava);
-            printwriter.println("ofAnimatedTerrain:" + this.ofAnimatedTerrain);
-            printwriter.println("ofAnimatedTextures:" + this.ofAnimatedTextures);
-            printwriter.println("ofRainSplash:" + this.ofRainSplash);
-            printwriter.println("ofShowFps:" + this.ofShowFps);
-            printwriter.println("ofAutoSaveTicks:" + this.ofAutoSaveTicks);
-            printwriter.println("ofBetterGrass:" + this.ofBetterGrass);
-            printwriter.println("ofConnectedTextures:" + this.ofConnectedTextures);
-            printwriter.println("ofWeather:" + this.ofWeather);
-            printwriter.println("ofSky:" + this.ofSky);
-            printwriter.println("ofStars:" + this.ofStars);
-            printwriter.println("ofSunMoon:" + this.ofSunMoon);
-            printwriter.println("ofVignette:" + this.ofVignette);
-            printwriter.println("ofChunkUpdates:" + this.ofChunkUpdates);
-            printwriter.println("ofChunkUpdatesDynamic:" + this.ofChunkUpdatesDynamic);
-            printwriter.println("ofTime:" + this.ofTime);
-            printwriter.println("ofClearWater:" + this.ofClearWater);
-            printwriter.println("ofAaLevel:" + this.ofAaLevel);
-            printwriter.println("ofAfLevel:" + this.ofAfLevel);
-            printwriter.println("ofBetterSnow:" + this.ofBetterSnow);
-            printwriter.println("ofSwampColors:" + this.ofSwampColors);
-            printwriter.println("ofRandomEntities:" + this.ofRandomEntities);
-            printwriter.println("ofSmoothBiomes:" + this.ofSmoothBiomes);
-            printwriter.println("ofCustomFonts:" + this.ofCustomFonts);
-            printwriter.println("ofCustomColors:" + this.ofCustomColors);
-            printwriter.println("ofCustomItems:" + this.ofCustomItems);
-            printwriter.println("ofCustomSky:" + this.ofCustomSky);
-            printwriter.println("ofShowCapes:" + this.ofShowCapes);
-            printwriter.println("ofNaturalTextures:" + this.ofNaturalTextures);
-            printwriter.println("ofEmissiveTextures:" + this.ofEmissiveTextures);
-            printwriter.println("ofLazyChunkLoading:" + this.ofLazyChunkLoading);
-            printwriter.println("ofRenderRegions:" + this.ofRenderRegions);
-            printwriter.println("ofSmartAnimations:" + this.ofSmartAnimations);
-            printwriter.println("ofDynamicFov:" + this.ofDynamicFov);
-            printwriter.println("ofAlternateBlocks:" + this.ofAlternateBlocks);
-            printwriter.println("ofDynamicLights:" + this.ofDynamicLights);
-            printwriter.println("ofScreenshotSize:" + this.ofScreenshotSize);
-            printwriter.println("ofCustomEntityModels:" + this.ofCustomEntityModels);
-            printwriter.println("ofCustomGuis:" + this.ofCustomGuis);
-            printwriter.println("ofShowGlErrors:" + this.ofShowGlErrors);
-            printwriter.println("ofFullscreenMode:" + this.ofFullscreenMode);
-            printwriter.println("ofFastMath:" + this.ofFastMath);
-            printwriter.println("ofFastRender:" + this.ofFastRender);
-            printwriter.println("ofTranslucentBlocks:" + this.ofTranslucentBlocks);
-            printwriter.println("key_" + this.ofKeyBindZoom.getKeyDescription() + ":" + this.ofKeyBindZoom.getKeyCode());
-            printwriter.close();
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(this.optionsFileOF), StandardCharsets.UTF_8));
+            writer.println("ofFogType:" + this.ofFogType);
+            writer.println("ofFogStart:" + this.ofFogStart);
+            writer.println("ofMipmapType:" + this.ofMipmapType);
+            writer.println("ofOcclusionFancy:" + this.ofOcclusionFancy);
+            writer.println("ofSmoothFps:" + this.ofSmoothFps);
+            writer.println("ofSmoothWorld:" + this.ofSmoothWorld);
+            writer.println("ofAoLevel:" + this.ofAoLevel);
+            writer.println("ofClouds:" + this.ofClouds);
+            writer.println("ofCloudsHeight:" + this.ofCloudsHeight);
+            writer.println("ofTrees:" + this.ofTrees);
+            writer.println("ofDroppedItems:" + this.ofDroppedItems);
+            writer.println("ofRain:" + this.ofRain);
+            writer.println("ofAnimatedWater:" + this.ofAnimatedWater);
+            writer.println("ofAnimatedLava:" + this.ofAnimatedLava);
+            writer.println("ofAnimatedFire:" + this.ofAnimatedFire);
+            writer.println("ofAnimatedPortal:" + this.ofAnimatedPortal);
+            writer.println("ofAnimatedRedstone:" + this.ofAnimatedRedstone);
+            writer.println("ofAnimatedExplosion:" + this.ofAnimatedExplosion);
+            writer.println("ofAnimatedFlame:" + this.ofAnimatedFlame);
+            writer.println("ofAnimatedSmoke:" + this.ofAnimatedSmoke);
+            writer.println("ofVoidParticles:" + this.ofVoidParticles);
+            writer.println("ofWaterParticles:" + this.ofWaterParticles);
+            writer.println("ofPortalParticles:" + this.ofPortalParticles);
+            writer.println("ofPotionParticles:" + this.ofPotionParticles);
+            writer.println("ofFireworkParticles:" + this.ofFireworkParticles);
+            writer.println("ofDrippingWaterLava:" + this.ofDrippingWaterLava);
+            writer.println("ofAnimatedTerrain:" + this.ofAnimatedTerrain);
+            writer.println("ofAnimatedTextures:" + this.ofAnimatedTextures);
+            writer.println("ofRainSplash:" + this.ofRainSplash);
+            writer.println("ofShowFps:" + this.ofShowFps);
+            writer.println("ofAutoSaveTicks:" + this.ofAutoSaveTicks);
+            writer.println("ofBetterGrass:" + this.ofBetterGrass);
+            writer.println("ofConnectedTextures:" + this.ofConnectedTextures);
+            writer.println("ofWeather:" + this.ofWeather);
+            writer.println("ofSky:" + this.ofSky);
+            writer.println("ofStars:" + this.ofStars);
+            writer.println("ofSunMoon:" + this.ofSunMoon);
+            writer.println("ofVignette:" + this.ofVignette);
+            writer.println("ofChunkUpdates:" + this.ofChunkUpdates);
+            writer.println("ofChunkUpdatesDynamic:" + this.ofChunkUpdatesDynamic);
+            writer.println("ofTime:" + this.ofTime);
+            writer.println("ofClearWater:" + this.ofClearWater);
+            writer.println("ofAaLevel:" + this.ofAaLevel);
+            writer.println("ofAfLevel:" + this.ofAfLevel);
+            writer.println("ofBetterSnow:" + this.ofBetterSnow);
+            writer.println("ofSwampColors:" + this.ofSwampColors);
+            writer.println("ofRandomEntities:" + this.ofRandomEntities);
+            writer.println("ofSmoothBiomes:" + this.ofSmoothBiomes);
+            writer.println("ofCustomFonts:" + this.ofCustomFonts);
+            writer.println("ofCustomColors:" + this.ofCustomColors);
+            writer.println("ofCustomItems:" + this.ofCustomItems);
+            writer.println("ofCustomSky:" + this.ofCustomSky);
+            writer.println("ofShowCapes:" + this.ofShowCapes);
+            writer.println("ofNaturalTextures:" + this.ofNaturalTextures);
+            writer.println("ofEmissiveTextures:" + this.ofEmissiveTextures);
+            writer.println("ofLazyChunkLoading:" + this.ofLazyChunkLoading);
+            writer.println("ofRenderRegions:" + this.ofRenderRegions);
+            writer.println("ofSmartAnimations:" + this.ofSmartAnimations);
+            writer.println("ofDynamicFov:" + this.ofDynamicFov);
+            writer.println("ofAlternateBlocks:" + this.ofAlternateBlocks);
+            writer.println("ofDynamicLights:" + this.ofDynamicLights);
+            writer.println("ofScreenshotSize:" + this.ofScreenshotSize);
+            writer.println("ofCustomEntityModels:" + this.ofCustomEntityModels);
+            writer.println("ofCustomGuis:" + this.ofCustomGuis);
+            writer.println("ofShowGlErrors:" + this.ofShowGlErrors);
+            writer.println("ofFullscreenMode:" + this.ofFullscreenMode);
+            writer.println("ofFastMath:" + this.ofFastMath);
+            writer.println("ofFastRender:" + this.ofFastRender);
+            writer.println("ofTranslucentBlocks:" + this.ofTranslucentBlocks);
+            writer.println("key_" + this.ofKeyBindZoom.getKeyDescription() + ":" + this.ofKeyBindZoom.getKeyCode());
+            writer.close();
         } catch (Exception exception) {
-            Log.error("Failed to save options");
-            exception.printStackTrace();
+            Log.error("Failed to save options", exception);
         }
     }
 
@@ -2268,26 +2206,26 @@ public class GameSettings {
         ClearWater.updateWaterOpacity(this, this.mc.theWorld);
     }
 
-    public void setAllAnimations(boolean p_setAllAnimations_1_) {
-        int i = p_setAllAnimations_1_ ? 0 : 2;
-        this.ofAnimatedWater = i;
-        this.ofAnimatedLava = i;
-        this.ofAnimatedFire = p_setAllAnimations_1_;
-        this.ofAnimatedPortal = p_setAllAnimations_1_;
-        this.ofAnimatedRedstone = p_setAllAnimations_1_;
-        this.ofAnimatedExplosion = p_setAllAnimations_1_;
-        this.ofAnimatedFlame = p_setAllAnimations_1_;
-        this.ofAnimatedSmoke = p_setAllAnimations_1_;
-        this.ofVoidParticles = p_setAllAnimations_1_;
-        this.ofWaterParticles = p_setAllAnimations_1_;
-        this.ofRainSplash = p_setAllAnimations_1_;
-        this.ofPortalParticles = p_setAllAnimations_1_;
-        this.ofPotionParticles = p_setAllAnimations_1_;
-        this.ofFireworkParticles = p_setAllAnimations_1_;
-        this.particleSetting = p_setAllAnimations_1_ ? 0 : 2;
-        this.ofDrippingWaterLava = p_setAllAnimations_1_;
-        this.ofAnimatedTerrain = p_setAllAnimations_1_;
-        this.ofAnimatedTextures = p_setAllAnimations_1_;
+    public void setAllAnimations(boolean enabled) {
+        int enabledInt = enabled ? 0 : 2;
+        this.ofAnimatedWater = enabledInt;
+        this.ofAnimatedLava = enabledInt;
+        this.ofAnimatedFire = enabled;
+        this.ofAnimatedPortal = enabled;
+        this.ofAnimatedRedstone = enabled;
+        this.ofAnimatedExplosion = enabled;
+        this.ofAnimatedFlame = enabled;
+        this.ofAnimatedSmoke = enabled;
+        this.ofVoidParticles = enabled;
+        this.ofWaterParticles = enabled;
+        this.ofRainSplash = enabled;
+        this.ofPortalParticles = enabled;
+        this.ofPotionParticles = enabled;
+        this.ofFireworkParticles = enabled;
+        this.particleSetting = enabledInt;
+        this.ofDrippingWaterLava = enabled;
+        this.ofAnimatedTerrain = enabled;
+        this.ofAnimatedTextures = enabled;
     }
 
     private static int nextValue(int p_nextValue_0_, int[] p_nextValue_1_) {
@@ -2432,9 +2370,9 @@ public class GameSettings {
         private float valueMax;
 
         public static Options getEnumOptions(int ordinal) {
-            for (Options gamesettings$options : values()) {
-                if (gamesettings$options.returnEnumOrdinal() == ordinal) {
-                    return gamesettings$options;
+            for (Options option : values()) {
+                if (option.returnEnumOrdinal() == ordinal) {
+                    return option;
                 }
             }
 

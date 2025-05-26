@@ -8,8 +8,8 @@ import javax.crypto.ShortBufferException;
 
 public class NettyEncryptionTranslator {
     private final Cipher cipher;
-    private byte[] field_150505_b = new byte[0];
-    private byte[] field_150506_c = new byte[0];
+    private byte[] inputBuffer = new byte[0];
+    private byte[] outputBuffer = new byte[0];
 
     protected NettyEncryptionTranslator(Cipher cipherIn) {
         this.cipher = cipherIn;
@@ -18,18 +18,18 @@ public class NettyEncryptionTranslator {
     private byte[] func_150502_a(ByteBuf buf) {
         int i = buf.readableBytes();
 
-        if (this.field_150505_b.length < i) {
-            this.field_150505_b = new byte[i];
+        if (this.inputBuffer.length < i) {
+            this.inputBuffer = new byte[i];
         }
 
-        buf.readBytes(this.field_150505_b, 0, i);
-        return this.field_150505_b;
+        buf.readBytes(this.inputBuffer, 0, i);
+        return this.inputBuffer;
     }
 
-    protected ByteBuf decipher(ChannelHandlerContext context, ByteBuf buffer) throws ShortBufferException {
+    protected ByteBuf decipher(ChannelHandlerContext ctx, ByteBuf buffer) throws ShortBufferException {
         int i = buffer.readableBytes();
         byte[] abyte = this.func_150502_a(buffer);
-        ByteBuf bytebuf = context.alloc().heapBuffer(this.cipher.getOutputSize(i));
+        ByteBuf bytebuf = ctx.alloc().heapBuffer(this.cipher.getOutputSize(i));
         bytebuf.writerIndex(this.cipher.update(abyte, 0, i, bytebuf.array(), bytebuf.arrayOffset()));
         return bytebuf;
     }
@@ -39,10 +39,10 @@ public class NettyEncryptionTranslator {
         byte[] abyte = this.func_150502_a(in);
         int j = this.cipher.getOutputSize(i);
 
-        if (this.field_150506_c.length < j) {
-            this.field_150506_c = new byte[j];
+        if (this.outputBuffer.length < j) {
+            this.outputBuffer = new byte[j];
         }
 
-        out.writeBytes(this.field_150506_c, 0, this.cipher.update(abyte, 0, i, this.field_150506_c));
+        out.writeBytes(this.outputBuffer, 0, this.cipher.update(abyte, 0, i, this.outputBuffer));
     }
 }

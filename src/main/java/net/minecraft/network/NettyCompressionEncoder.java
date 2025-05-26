@@ -16,23 +16,23 @@ public class NettyCompressionEncoder extends MessageToByteEncoder<ByteBuf> {
         this.deflater = new Deflater();
     }
 
-    protected void encode(ChannelHandlerContext context, ByteBuf in, ByteBuf out) throws Exception {
+    protected void encode(ChannelHandlerContext ctx, ByteBuf in, ByteBuf out) {
         int length = in.readableBytes();
-        PacketBuffer pBuffer = new PacketBuffer(out);
+        PacketBuffer buffer = new PacketBuffer(out);
 
         if (length < this.threshold) {
-            pBuffer.writeVarIntToBuffer(0);
-            pBuffer.writeBytes(in);
+            buffer.writeVarIntToBuffer(0);
+            buffer.writeBytes(in);
         } else {
             byte[] decompressedData = new byte[length];
             in.readBytes(decompressedData);
-            pBuffer.writeVarIntToBuffer(decompressedData.length);
+            buffer.writeVarIntToBuffer(decompressedData.length);
             this.deflater.setInput(decompressedData, 0, length);
             this.deflater.finish();
 
             while (!this.deflater.finished()) {
                 int compressed = this.deflater.deflate(this.buffer);
-                pBuffer.writeBytes(this.buffer, 0, compressed);
+                buffer.writeBytes(this.buffer, 0, compressed);
             }
 
             this.deflater.reset();

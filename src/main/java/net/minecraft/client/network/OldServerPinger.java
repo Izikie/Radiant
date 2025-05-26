@@ -60,8 +60,8 @@ public class OldServerPinger {
                     this.field_183009_e = true;
                     ServerStatusResponse response = packet.getResponse();
 
-                    if (response.getServerDescription() != null) {
-                        server.serverMOTD = response.getServerDescription().getFormattedText();
+                    if (response.getMOTD() != null) {
+                        server.serverMOTD = response.getMOTD().getFormattedText();
                     } else {
                         server.serverMOTD = "";
                     }
@@ -75,7 +75,7 @@ public class OldServerPinger {
                     }
 
                     if (response.getPlayerCountData() != null) {
-                        server.populationInfo = Formatting.GRAY + "" + response.getPlayerCountData().getOnlinePlayerCount() + Formatting.DARK_GRAY + "/" + Formatting.GRAY + response.getPlayerCountData().getMaxPlayers();
+                        server.populationInfo = Formatting.GRAY + "" + response.getPlayerCountData().getOnlinePlayers() + Formatting.DARK_GRAY + "/" + Formatting.GRAY + response.getPlayerCountData().getMaxPlayers();
 
                         if (ArrayUtils.isNotEmpty(response.getPlayerCountData().getPlayers())) {
                             StringBuilder builder = new StringBuilder();
@@ -88,12 +88,12 @@ public class OldServerPinger {
                                 builder.append(gameprofile.getName());
                             }
 
-                            if (response.getPlayerCountData().getPlayers().length < response.getPlayerCountData().getOnlinePlayerCount()) {
+                            if (response.getPlayerCountData().getPlayers().length < response.getPlayerCountData().getOnlinePlayers()) {
                                 if (!builder.isEmpty()) {
                                     builder.append("\n");
                                 }
 
-                                builder.append("... and ").append(response.getPlayerCountData().getOnlinePlayerCount() - response.getPlayerCountData().getPlayers().length).append(" more ...");
+                                builder.append("... and ").append(response.getPlayerCountData().getOnlinePlayers() - response.getPlayerCountData().getPlayers().length).append(" more ...");
                             }
 
                             server.playerList = builder.toString();
@@ -155,8 +155,8 @@ public class OldServerPinger {
                 }
 
                 channel.pipeline().addLast(new SimpleChannelInboundHandler<ByteBuf>() {
-                    public void channelActive(ChannelHandlerContext p_channelActive_1_) throws Exception {
-                        super.channelActive(p_channelActive_1_);
+                    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+                        super.channelActive(ctx);
                         ByteBuf byteBuf = Unpooled.buffer();
 
                         try {
@@ -180,13 +180,13 @@ public class OldServerPinger {
                             }
 
                             byteBuf.writeInt(address.getPort());
-                            p_channelActive_1_.channel().writeAndFlush(byteBuf).addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
+                            ctx.channel().writeAndFlush(byteBuf).addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
                         } finally {
                             byteBuf.release();
                         }
                     }
 
-                    protected void channelRead0(ChannelHandlerContext p_channelRead0_1_, ByteBuf p_channelRead0_2_) throws Exception {
+                    protected void channelRead0(ChannelHandlerContext ctx, ByteBuf p_channelRead0_2_) {
                         short short1 = p_channelRead0_2_.readUnsignedByte();
 
                         if (short1 == 255) {
@@ -206,11 +206,11 @@ public class OldServerPinger {
                             }
                         }
 
-                        p_channelRead0_1_.close();
+                        ctx.close();
                     }
 
-                    public void exceptionCaught(ChannelHandlerContext p_exceptionCaught_1_, Throwable throwable) throws Exception {
-                        p_exceptionCaught_1_.close();
+                    public void exceptionCaught(ChannelHandlerContext ctx, Throwable throwable) throws Exception {
+                        ctx.close();
                     }
                 });
             }

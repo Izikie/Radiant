@@ -75,17 +75,17 @@ public class NetworkSystem {
             }
 
             this.endpoints.add((new ServerBootstrap()).channel(oclass).childHandler(new ChannelInitializer<>() {
-                protected void initChannel(Channel channel) throws Exception {
+                protected void initChannel(Channel channel) {
                     try {
                         channel.config().setOption(ChannelOption.TCP_NODELAY, Boolean.TRUE);
                     } catch (ChannelException exception) {
                     }
 
                     channel.pipeline().addLast("timeout", new ReadTimeoutHandler(30)).addLast("legacy_query", new PingResponseHandler(NetworkSystem.this)).addLast("splitter", new MessageDeserializer2()).addLast("decoder", new MessageDeserializer(PacketDirection.SERVERBOUND)).addLast("prepender", new MessageSerializer2()).addLast("encoder", new MessageSerializer(PacketDirection.CLIENTBOUND));
-                    NetworkManager networkmanager = new NetworkManager(PacketDirection.SERVERBOUND);
-                    NetworkSystem.this.networkManagers.add(networkmanager);
-                    channel.pipeline().addLast("packet_handler", networkmanager);
-                    networkmanager.setNetHandler(new NetHandlerHandshakeTCP(NetworkSystem.this.mcServer, networkmanager));
+                    NetworkManager manager = new NetworkManager();
+                    networkManagers.add(manager);
+                    channel.pipeline().addLast("packet_handler", manager);
+                    manager.setNetHandler(new NetHandlerHandshakeTCP(mcServer, manager));
                 }
             }).group(lazyloadbase.getValue()).localAddress(address, port).bind().syncUninterruptibly());
         }
@@ -96,11 +96,11 @@ public class NetworkSystem {
 
         synchronized (this.endpoints) {
             channelfuture = (new ServerBootstrap()).channel(LocalServerChannel.class).childHandler(new ChannelInitializer<>() {
-                protected void initChannel(Channel channel) throws Exception {
-                    NetworkManager networkManager = new NetworkManager(PacketDirection.SERVERBOUND);
-                    networkManager.setNetHandler(new NetHandlerHandshakeMemory(NetworkSystem.this.mcServer, networkManager));
-                    NetworkSystem.this.networkManagers.add(networkManager);
-                    channel.pipeline().addLast("packet_handler", networkManager);
+                protected void initChannel(Channel channel) {
+                    NetworkManager manager = new NetworkManager();
+                    manager.setNetHandler(new NetHandlerHandshakeMemory(mcServer, manager));
+                    networkManagers.add(manager);
+                    channel.pipeline().addLast("packet_handler", manager);
                 }
             }).group(SERVER_LOCAL_EVENTLOOP.getValue()).localAddress(LocalAddress.ANY).bind().syncUninterruptibly();
             this.endpoints.add(channelfuture);
@@ -126,27 +126,27 @@ public class NetworkSystem {
             Iterator<NetworkManager> iterator = this.networkManagers.iterator();
 
             while (iterator.hasNext()) {
-                final NetworkManager networkmanager = iterator.next();
+                final NetworkManager manager = iterator.next();
 
-                if (!networkmanager.hasNoChannel()) {
-                    if (!networkmanager.isChannelOpen()) {
+                if (!manager.hasNoChannel()) {
+                    if (!manager.isChannelOpen()) {
                         iterator.remove();
-                        networkmanager.checkDisconnected();
+                        manager.checkDisconnected();
                     } else {
                         try {
-                            networkmanager.processReceivedPackets();
+                            manager.processReceivedPackets();
                         } catch (Exception exception) {
-                            if (networkmanager.isLocalChannel()) {
+                            if (manager.isLocalChannel()) {
                                 CrashReport report = CrashReport.makeCrashReport(exception, "Ticking memory connection");
                                 CrashReportCategory category = report.makeCategory("Ticking connection");
-                                category.addCrashSectionCallable("Connection", networkmanager::toString);
+                                category.addCrashSectionCallable("Connection", manager::toString);
                                 throw new ReportedException(report);
                             }
 
-                            LOGGER.warn("Failed to handle packet for {}", networkmanager.getRemoteAddress(), exception);
+                            LOGGER.warn("Failed to handle packet for {}", manager.getRemoteAddress(), exception);
                             final ChatComponentText component = new ChatComponentText("Internal server error");
-                            networkmanager.sendPacket(new S40PacketDisconnect(component), p_operationComplete_1_ -> networkmanager.closeChannel(component));
-                            networkmanager.disableAutoRead();
+                            manager.sendPacket(new S40PacketDisconnect(component), p_operationComplete_1_ -> manager.closeChannel(component));
+                            manager.disableAutoRead();
                         }
                     }
                 }

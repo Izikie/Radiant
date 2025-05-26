@@ -526,7 +526,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         }
     }
 
-    public void sendPacket(Packet packet) {
+    public void sendPacket(Packet<?> packet) {
         if (packet instanceof S02PacketChat packetChat) {
             EntityPlayer.ChatVisibility chatVisibility = this.playerEntity.getChatVisibility();
 

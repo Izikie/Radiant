@@ -208,7 +208,7 @@ public class ItemMap extends ItemMapBase {
         }
     }
 
-    public Packet createMapDataPacket(ItemStack stack, World worldIn, EntityPlayer player) {
+    public Packet<?> createMapDataPacket(ItemStack stack, World worldIn, EntityPlayer player) {
         return this.getMapData(stack, worldIn).getMapPacket(stack, worldIn, player);
     }
 

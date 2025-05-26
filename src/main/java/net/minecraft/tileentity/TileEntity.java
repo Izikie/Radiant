@@ -129,7 +129,7 @@ public abstract class TileEntity {
         return this.blockType;
     }
 
-    public Packet getDescriptionPacket() {
+    public Packet<?> getDescriptionPacket() {
         return null;
     }
 

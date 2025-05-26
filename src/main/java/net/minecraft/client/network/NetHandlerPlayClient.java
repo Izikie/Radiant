@@ -435,8 +435,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         this.gameController.displayGuiScreen(new GuiDisconnected(Objects.requireNonNullElseGet(this.guiScreenServer, () -> new GuiMultiplayer(new GuiMainMenu())), "disconnect.lost", reason));
     }
 
-    public void addToSendQueue(Packet p_147297_1_) {
-        this.netManager.sendPacket(p_147297_1_);
+    public void addToSendQueue(Packet<?> packet) {
+        this.netManager.sendPacket(packet);
     }
 
     public void handleCollectItem(S0DPacketCollectItem packetIn) {
@@ -546,7 +546,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
     public void handleEntityAttach(S1BPacketEntityAttach packetIn) {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.gameController);
         Entity entity = this.clientWorldController.getEntityByID(packetIn.getEntityId());
-        Entity entity1 = this.clientWorldController.getEntityByID(packetIn.getVehicleEntityId());
+        Entity vehicle = this.clientWorldController.getEntityByID(packetIn.getVehicleEntityId());
 
         if (packetIn.getLeash() == 0) {
             boolean flag = false;
@@ -554,12 +554,12 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
             if (packetIn.getEntityId() == this.gameController.thePlayer.getEntityId()) {
                 entity = this.gameController.thePlayer;
 
-                if (entity1 instanceof EntityBoat entityBoat) {
+                if (vehicle instanceof EntityBoat entityBoat) {
                     entityBoat.setIsBoatEmpty(false);
                 }
 
-                flag = entity.ridingEntity == null && entity1 != null;
-            } else if (entity1 instanceof EntityBoat entityBoat) {
+                flag = entity.ridingEntity == null && vehicle != null;
+            } else if (vehicle instanceof EntityBoat entityBoat) {
                 entityBoat.setIsBoatEmpty(true);
             }
 
@@ -567,17 +567,20 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
                 return;
             }
 
-            entity.mountEntity(entity1);
+            entity.mountEntity(vehicle);
 
             if (flag) {
                 GameSettings gamesettings = this.gameController.gameSettings;
-                this.gameController.ingameGUI.setRecordPlaying(I18n.format("mount.onboard", GameSettings.getKeyDisplayString(gamesettings.keyBindSneak.getKeyCode())), false);
+                this.gameController.ingameGUI.setRecordPlaying(
+                    I18n.format("mount.onboard", GameSettings.getKeyDisplayString(gamesettings.keyBindSneak.getKeyCode())),
+                    false
+                );
             }
-        } else if (packetIn.getLeash() == 1 && entity instanceof EntityLiving) {
-            if (entity1 != null) {
-                ((EntityLiving) entity).setLeashedToEntity(entity1, false);
+        } else if (packetIn.getLeash() == 1 && entity instanceof EntityLiving entityLiving) {
+            if (vehicle != null) {
+                entityLiving.setLeashedToEntity(vehicle, false);
             } else {
-                ((EntityLiving) entity).clearLeashed(false, false);
+                entityLiving.clearLeashed(false, false);
             }
         }
     }

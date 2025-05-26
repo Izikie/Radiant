@@ -87,9 +87,9 @@ public class GuiMerchant extends GuiContainer {
 
         if (flag) {
             ((ContainerMerchant) this.inventorySlots).setCurrentRecipeIndex(this.selectedMerchantRecipe);
-            PacketBuffer packetbuffer = new PacketBuffer(Unpooled.buffer());
-            packetbuffer.writeInt(this.selectedMerchantRecipe);
-            this.mc.getNetHandler().addToSendQueue(new C17PacketCustomPayload("MC|TrSel", packetbuffer));
+            PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
+            buffer.writeInt(this.selectedMerchantRecipe);
+            this.mc.getNetHandler().addToSendQueue(new C17PacketCustomPayload("MC|TrSel", buffer));
         }
     }
 

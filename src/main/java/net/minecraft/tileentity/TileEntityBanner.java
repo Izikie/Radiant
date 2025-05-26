@@ -69,7 +69,7 @@ public class TileEntityBanner extends TileEntity {
         this.field_175119_g = true;
     }
 
-    public Packet getDescriptionPacket() {
+    public Packet<?> getDescriptionPacket() {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
         this.writeToNBT(nbttagcompound);
         return new S35PacketUpdateTileEntity(this.pos, 6, nbttagcompound);

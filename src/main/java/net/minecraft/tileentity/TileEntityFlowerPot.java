@@ -37,7 +37,7 @@ public class TileEntityFlowerPot extends TileEntity {
         this.flowerPotData = compound.getInteger("Data");
     }
 
-    public Packet getDescriptionPacket() {
+    public Packet<?> getDescriptionPacket() {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
         this.writeToNBT(nbttagcompound);
         nbttagcompound.removeTag("Item");

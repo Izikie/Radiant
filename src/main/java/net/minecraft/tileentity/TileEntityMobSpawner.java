@@ -45,7 +45,7 @@ public class TileEntityMobSpawner extends TileEntity implements ITickable {
         this.spawnerLogic.updateSpawner();
     }
 
-    public Packet getDescriptionPacket() {
+    public Packet<?> getDescriptionPacket() {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
         this.writeToNBT(nbttagcompound);
         nbttagcompound.removeTag("SpawnPotentials");

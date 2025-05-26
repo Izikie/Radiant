@@ -50,7 +50,7 @@ public class TileEntitySkull extends TileEntity {
         return this.playerProfile;
     }
 
-    public Packet getDescriptionPacket() {
+    public Packet<?> getDescriptionPacket() {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
         this.writeToNBT(nbttagcompound);
         return new S35PacketUpdateTileEntity(this.pos, 4, nbttagcompound);

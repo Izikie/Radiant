@@ -24,24 +24,24 @@ public class MessageDeserializer extends ByteToMessageDecoder {
         this.direction = direction;
     }
 
-    protected void decode(ChannelHandlerContext p_decode_1_, ByteBuf p_decode_2_, List<Object> p_decode_3_) throws Exception {
+    protected void decode(ChannelHandlerContext ctx, ByteBuf p_decode_2_, List<Object> p_decode_3_) throws Exception {
         if (p_decode_2_.readableBytes() != 0) {
-            PacketBuffer packetbuffer = new PacketBuffer(p_decode_2_);
-            int i = packetbuffer.readVarIntFromBuffer();
-            Packet<?> packet = p_decode_1_.channel().attr(NetworkManager.ATTR_KEY_CONNECTION_STATE).get().getPacket(this.direction, i);
+            PacketBuffer buffer = new PacketBuffer(p_decode_2_);
+            int i = buffer.readVarIntFromBuffer();
+            Packet<?> packet = ctx.channel().attr(NetworkManager.ATTR_KEY_CONNECTION_STATE).get().getPacket(this.direction, i);
 
             if (packet == null) {
                 throw new IOException("Bad packet id " + i);
             } else {
-                packet.readPacketData(packetbuffer);
+                packet.readPacketData(buffer);
 
-                if (packetbuffer.readableBytes() > 0) {
-                    throw new IOException("Packet " + p_decode_1_.channel().attr(NetworkManager.ATTR_KEY_CONNECTION_STATE).get().getId() + "/" + i + " (" + packet.getClass().getSimpleName() + ") was larger than I expected, found " + packetbuffer.readableBytes() + " bytes extra whilst reading packet " + i);
+                if (buffer.readableBytes() > 0) {
+                    throw new IOException("Packet " + ctx.channel().attr(NetworkManager.ATTR_KEY_CONNECTION_STATE).get().getId() + "/" + i + " (" + packet.getClass().getSimpleName() + ") was larger than I expected, found " + buffer.readableBytes() + " bytes extra whilst reading packet " + i);
                 } else {
                     p_decode_3_.add(packet);
 
                     if (LOGGER.isDebugEnabled()) {
-                        LOGGER.debug(RECEIVED_PACKET_MARKER, " IN: [{}:{}] {}", new Object[]{p_decode_1_.channel().attr(NetworkManager.ATTR_KEY_CONNECTION_STATE).get(), i, packet.getClass().getName()});
+                        LOGGER.debug(RECEIVED_PACKET_MARKER, " IN: [{}:{}] {}", new Object[]{ctx.channel().attr(NetworkManager.ATTR_KEY_CONNECTION_STATE).get(), i, packet.getClass().getName()});
                     }
                 }
             }
