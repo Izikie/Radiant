@@ -248,7 +248,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
                 ItemStack itemstack = this.inventory.getStackInSlot(i);
 
                 if (itemstack != null && itemstack.getItem().isMap()) {
-                    Packet packet = ((ItemMapBase) itemstack.getItem()).createMapDataPacket(itemstack, this.worldObj, this);
+                    Packet<?> packet = ((ItemMapBase) itemstack.getItem()).createMapDataPacket(itemstack, this.worldObj, this);
 
                     if (packet != null) {
                         this.playerNetServerHandler.sendPacket(packet);
@@ -427,7 +427,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
 
     private void sendTileEntityUpdate(TileEntity p_147097_1_) {
         if (p_147097_1_ != null) {
-            Packet packet = p_147097_1_.getDescriptionPacket();
+            Packet<?> packet = p_147097_1_.getDescriptionPacket();
 
             if (packet != null) {
                 this.playerNetServerHandler.sendPacket(packet);
@@ -444,7 +444,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         EnumStatus entityplayer$enumstatus = super.trySleep(bedLocation);
 
         if (entityplayer$enumstatus == EnumStatus.OK) {
-            Packet packet = new S0APacketUseBed(this, bedLocation);
+            Packet<?> packet = new S0APacketUseBed(this, bedLocation);
             this.getServerForPlayer().getEntityTracker().sendToAllTrackingEntity(this, packet);
             this.playerNetServerHandler.setPlayerLocation(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
             this.playerNetServerHandler.sendPacket(packet);
@@ -553,10 +553,10 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         MerchantRecipeList merchantrecipelist = villager.getRecipes(this);
 
         if (merchantrecipelist != null) {
-            PacketBuffer packetbuffer = new PacketBuffer(Unpooled.buffer());
-            packetbuffer.writeInt(this.currentWindowId);
-            merchantrecipelist.writeToBuf(packetbuffer);
-            this.playerNetServerHandler.sendPacket(new S3FPacketCustomPayload("MC|TrList", packetbuffer));
+            PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
+            buffer.writeInt(this.currentWindowId);
+            merchantrecipelist.writeToBuf(buffer);
+            this.playerNetServerHandler.sendPacket(new S3FPacketCustomPayload("MC|TrList", buffer));
         }
     }
 

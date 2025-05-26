@@ -10,7 +10,7 @@ import net.minecraft.network.PacketBuffer;
 import java.util.List;
 
 public class MessageDeserializer2 extends ByteToMessageDecoder {
-    protected void decode(ChannelHandlerContext p_decode_1_, ByteBuf p_decode_2_, List<Object> p_decode_3_) throws Exception {
+    protected void decode(ChannelHandlerContext ctx, ByteBuf p_decode_2_, List<Object> p_decode_3_) throws Exception {
         p_decode_2_.markReaderIndex();
         byte[] abyte = new byte[3];
 

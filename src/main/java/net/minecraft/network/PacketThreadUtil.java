@@ -9,11 +9,11 @@ import net.minecraft.util.IThreadListener;
 public class PacketThreadUtil {
     public static int lastDimensionId = Integer.MIN_VALUE;
 
-    public static <T extends INetHandler> void checkThreadAndEnqueue(final Packet<T> packet, final T p_180031_1_, IThreadListener p_180031_2_) throws ThreadQuickExitException {
-        if (!p_180031_2_.isCallingFromMinecraftThread()) {
-            p_180031_2_.addScheduledTask(() -> {
+    public static <T extends INetHandler> void checkThreadAndEnqueue(Packet<T> packet, T handler, IThreadListener listener) throws ThreadQuickExitException {
+        if (!listener.isCallingFromMinecraftThread()) {
+            listener.addScheduledTask(() -> {
                 PacketThreadUtil.clientPreProcessPacket(packet);
-                packet.processPacket(p_180031_1_);
+                packet.processPacket(handler);
             });
             throw ThreadQuickExitException.INSTANCE;
         } else {
@@ -21,7 +21,7 @@ public class PacketThreadUtil {
         }
     }
 
-    protected static void clientPreProcessPacket(Packet packet) {
+    protected static void clientPreProcessPacket(Packet<?> packet) {
         if (packet instanceof S08PacketPlayerPosLook) {
             Config.getRenderGlobal().onPlayerPositionSet();
         }

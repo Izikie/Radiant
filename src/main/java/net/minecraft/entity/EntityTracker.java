@@ -186,19 +186,19 @@ public class EntityTracker {
         }
     }
 
-    public void sendToAllTrackingEntity(Entity entityIn, Packet p_151247_2_) {
+    public void sendToAllTrackingEntity(Entity entityIn, Packet<?> packet) {
         EntityTrackerEntry entitytrackerentry = this.trackedEntityHashTable.lookup(entityIn.getEntityId());
 
         if (entitytrackerentry != null) {
-            entitytrackerentry.sendPacketToTrackedPlayers(p_151247_2_);
+            entitytrackerentry.sendPacketToTrackedPlayers(packet);
         }
     }
 
-    public void func_151248_b(Entity entityIn, Packet p_151248_2_) {
+    public void func_151248_b(Entity entityIn, Packet<?> packet) {
         EntityTrackerEntry entitytrackerentry = this.trackedEntityHashTable.lookup(entityIn.getEntityId());
 
         if (entitytrackerentry != null) {
-            entitytrackerentry.func_151261_b(p_151248_2_);
+            entitytrackerentry.func_151261_b(packet);
         }
     }
 

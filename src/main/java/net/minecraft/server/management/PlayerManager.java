@@ -450,7 +450,7 @@ public class PlayerManager {
             }
         }
 
-        public void sendToAllPlayersWatchingChunk(Packet thePacket) {
+        public void sendToAllPlayersWatchingChunk(Packet<?> thePacket) {
             for (EntityPlayerMP entityPlayerMP : this.playersWatchingChunk) {
 
                 if (!entityPlayerMP.loadedChunks.contains(this.chunkCoords)) {
@@ -508,7 +508,7 @@ public class PlayerManager {
 
         private void sendTileToAllPlayersWatchingChunk(TileEntity theTileEntity) {
             if (theTileEntity != null) {
-                Packet packet = theTileEntity.getDescriptionPacket();
+                Packet<?> packet = theTileEntity.getDescriptionPacket();
 
                 if (packet != null) {
                     this.sendToAllPlayersWatchingChunk(packet);

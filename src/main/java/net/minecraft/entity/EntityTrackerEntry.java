@@ -101,7 +101,7 @@ public class EntityTrackerEntry {
                 for (EntityPlayer entityplayer : players) {
                     EntityPlayerMP entityplayermp = (EntityPlayerMP) entityplayer;
                     mapdata.updateVisiblePlayers(entityplayermp, itemstack);
-                    Packet packet = Items.FILLED_MAP.createMapDataPacket(itemstack, this.trackedEntity.worldObj, entityplayermp);
+                    Packet<?> packet = Items.FILLED_MAP.createMapDataPacket(itemstack, this.trackedEntity.worldObj, entityplayermp);
 
                     if (packet != null) {
                         entityplayermp.playerNetServerHandler.sendPacket(packet);
@@ -123,7 +123,7 @@ public class EntityTrackerEntry {
                 int j2 = k - this.encodedPosX;
                 int k2 = j1 - this.encodedPosY;
                 int i = k1 - this.encodedPosZ;
-                Packet packet1 = null;
+                Packet<?> packet = null;
                 boolean flag = Math.abs(j2) >= 4 || Math.abs(k2) >= 4 || Math.abs(i) >= 4 || this.updateCounter % 60 == 0;
                 boolean flag1 = Math.abs(l1 - this.encodedRotationYaw) >= 4 || Math.abs(i2 - this.encodedRotationPitch) >= 4;
 
@@ -131,17 +131,17 @@ public class EntityTrackerEntry {
                     if (j2 >= -128 && j2 < 128 && k2 >= -128 && k2 < 128 && i >= -128 && i < 128 && this.ticksSinceLastForcedTeleport <= 400 && !this.ridingEntity && this.onGround == this.trackedEntity.onGround) {
                         if ((!flag || !flag1) && !(this.trackedEntity instanceof EntityArrow)) {
                             if (flag) {
-                                packet1 = new S14PacketEntity.S15PacketEntityRelMove(this.trackedEntity.getEntityId(), (byte) j2, (byte) k2, (byte) i, this.trackedEntity.onGround);
+                                packet = new S14PacketEntity.S15PacketEntityRelMove(this.trackedEntity.getEntityId(), (byte) j2, (byte) k2, (byte) i, this.trackedEntity.onGround);
                             } else if (flag1) {
-                                packet1 = new S14PacketEntity.S16PacketEntityLook(this.trackedEntity.getEntityId(), (byte) l1, (byte) i2, this.trackedEntity.onGround);
+                                packet = new S14PacketEntity.S16PacketEntityLook(this.trackedEntity.getEntityId(), (byte) l1, (byte) i2, this.trackedEntity.onGround);
                             }
                         } else {
-                            packet1 = new S14PacketEntity.S17PacketEntityLookMove(this.trackedEntity.getEntityId(), (byte) j2, (byte) k2, (byte) i, (byte) l1, (byte) i2, this.trackedEntity.onGround);
+                            packet = new S14PacketEntity.S17PacketEntityLookMove(this.trackedEntity.getEntityId(), (byte) j2, (byte) k2, (byte) i, (byte) l1, (byte) i2, this.trackedEntity.onGround);
                         }
                     } else {
                         this.onGround = this.trackedEntity.onGround;
                         this.ticksSinceLastForcedTeleport = 0;
-                        packet1 = new S18PacketEntityTeleport(this.trackedEntity.getEntityId(), k, j1, k1, (byte) l1, (byte) i2, this.trackedEntity.onGround);
+                        packet = new S18PacketEntityTeleport(this.trackedEntity.getEntityId(), k, j1, k1, (byte) l1, (byte) i2, this.trackedEntity.onGround);
                     }
                 }
 
@@ -160,8 +160,8 @@ public class EntityTrackerEntry {
                     }
                 }
 
-                if (packet1 != null) {
-                    this.sendPacketToTrackedPlayers(packet1);
+                if (packet != null) {
+                    this.sendPacketToTrackedPlayers(packet);
                 }
 
                 this.sendMetadataToAllAssociatedPlayers();
@@ -233,17 +233,17 @@ public class EntityTrackerEntry {
         }
     }
 
-    public void sendPacketToTrackedPlayers(Packet packetIn) {
+    public void sendPacketToTrackedPlayers(Packet<?> packet) {
         for (EntityPlayerMP entityplayermp : this.trackingPlayers) {
-            entityplayermp.playerNetServerHandler.sendPacket(packetIn);
+            entityplayermp.playerNetServerHandler.sendPacket(packet);
         }
     }
 
-    public void func_151261_b(Packet packetIn) {
-        this.sendPacketToTrackedPlayers(packetIn);
+    public void func_151261_b(Packet<?> packet) {
+        this.sendPacketToTrackedPlayers(packet);
 
         if (this.trackedEntity instanceof EntityPlayerMP entityPlayerMP) {
-            entityPlayerMP.playerNetServerHandler.sendPacket(packetIn);
+            entityPlayerMP.playerNetServerHandler.sendPacket(packet);
         }
     }
 
@@ -265,7 +265,7 @@ public class EntityTrackerEntry {
             if (this.func_180233_c(playerMP)) {
                 if (!this.trackingPlayers.contains(playerMP) && (this.isPlayerWatchingThisChunk(playerMP) || this.trackedEntity.forceSpawn)) {
                     this.trackingPlayers.add(playerMP);
-                    Packet packet = this.createSpawnPacket();
+                    Packet<?> packet = this.createSpawnPacket();
                     playerMP.playerNetServerHandler.sendPacket(packet);
 
                     if (!this.trackedEntity.getDataWatcher().getIsBlank()) {
@@ -350,7 +350,7 @@ public class EntityTrackerEntry {
         }
     }
 
-    private Packet createSpawnPacket() {
+    private Packet<?> createSpawnPacket() {
         if (this.trackedEntity.isDead) {
             LOGGER.warn("Fetching addPacket for removed entity");
         }

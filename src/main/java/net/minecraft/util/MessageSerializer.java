@@ -14,7 +14,7 @@ import org.apache.logging.log4j.MarkerManager;
 
 import java.io.IOException;
 
-public class MessageSerializer extends MessageToByteEncoder<Packet> {
+public class MessageSerializer extends MessageToByteEncoder<Packet<?>> {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final Marker RECEIVED_PACKET_MARKER = MarkerManager.getMarker("PACKET_SENT").addParents(NetworkManager.LOG_MARKER_PACKETS);
     private final PacketDirection direction;
@@ -23,21 +23,21 @@ public class MessageSerializer extends MessageToByteEncoder<Packet> {
         this.direction = direction;
     }
 
-    protected void encode(ChannelHandlerContext p_encode_1_, Packet p_encode_2_, ByteBuf p_encode_3_) throws Exception {
-        Integer integer = p_encode_1_.channel().attr(NetworkManager.ATTR_KEY_CONNECTION_STATE).get().getPacketId(this.direction, p_encode_2_);
+    protected void encode(ChannelHandlerContext ctx, Packet<?> packet, ByteBuf out) throws Exception {
+        Integer integer = ctx.channel().attr(NetworkManager.ATTR_KEY_CONNECTION_STATE).get().getPacketId(this.direction, packet);
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug(RECEIVED_PACKET_MARKER, "OUT: [{}:{}] {}", new Object[]{p_encode_1_.channel().attr(NetworkManager.ATTR_KEY_CONNECTION_STATE).get(), integer, p_encode_2_.getClass().getName()});
+            LOGGER.debug(RECEIVED_PACKET_MARKER, "OUT: [{}:{}] {}", new Object[]{ctx.channel().attr(NetworkManager.ATTR_KEY_CONNECTION_STATE).get(), integer, packet.getClass().getName()});
         }
 
         if (integer == null) {
             throw new IOException("Can't serialize unregistered packet");
         } else {
-            PacketBuffer packetbuffer = new PacketBuffer(p_encode_3_);
-            packetbuffer.writeVarIntToBuffer(integer);
+            PacketBuffer buffer = new PacketBuffer(out);
+            buffer.writeVarIntToBuffer(integer);
 
             try {
-                p_encode_2_.writePacketData(packetbuffer);
+                packet.writePacketData(buffer);
             } catch (Throwable throwable) {
                 LOGGER.error(throwable);
             }

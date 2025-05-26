@@ -193,7 +193,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
         }
     }
 
-    public Packet getDescriptionPacket() {
+    public Packet<?> getDescriptionPacket() {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
         this.writeToNBT(nbttagcompound);
         return new S35PacketUpdateTileEntity(this.pos, 3, nbttagcompound);

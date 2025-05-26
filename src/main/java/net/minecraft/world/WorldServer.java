@@ -830,7 +830,7 @@ public class WorldServer extends World implements IThreadListener {
     }
 
     public void spawnParticle(ParticleTypes particleType, boolean longDistance, double xCoord, double yCoord, double zCoord, int numberOfParticles, double xOffset, double yOffset, double zOffset, double particleSpeed, int... particleArguments) {
-        Packet packet = new S2APacketParticles(particleType, longDistance, (float) xCoord, (float) yCoord, (float) zCoord, (float) xOffset, (float) yOffset, (float) zOffset, (float) particleSpeed, numberOfParticles, particleArguments);
+        Packet<?> packet = new S2APacketParticles(particleType, longDistance, (float) xCoord, (float) yCoord, (float) zCoord, (float) xOffset, (float) yOffset, (float) zOffset, (float) particleSpeed, numberOfParticles, particleArguments);
 
         for (EntityPlayer playerEntity : this.playerEntities) {
             EntityPlayerMP entityplayermp = (EntityPlayerMP) playerEntity;

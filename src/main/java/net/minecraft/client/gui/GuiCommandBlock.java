@@ -58,12 +58,12 @@ public class GuiCommandBlock extends GuiScreen {
                 this.localCommandBlock.setTrackOutput(this.field_175389_t);
                 this.mc.displayGuiScreen(null);
             } else if (button.id == 0) {
-                PacketBuffer packetbuffer = new PacketBuffer(Unpooled.buffer());
-                packetbuffer.writeByte(this.localCommandBlock.func_145751_f());
-                this.localCommandBlock.func_145757_a(packetbuffer);
-                packetbuffer.writeString(this.commandTextField.getText());
-                packetbuffer.writeBoolean(this.localCommandBlock.shouldTrackOutput());
-                this.mc.getNetHandler().addToSendQueue(new C17PacketCustomPayload("MC|AdvCdm", packetbuffer));
+                PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
+                buffer.writeByte(this.localCommandBlock.func_145751_f());
+                this.localCommandBlock.func_145757_a(buffer);
+                buffer.writeString(this.commandTextField.getText());
+                buffer.writeBoolean(this.localCommandBlock.shouldTrackOutput());
+                this.mc.getNetHandler().addToSendQueue(new C17PacketCustomPayload("MC|AdvCdm", buffer));
 
                 if (!this.localCommandBlock.shouldTrackOutput()) {
                     this.localCommandBlock.setLastOutput(null);

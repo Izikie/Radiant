@@ -105,10 +105,10 @@ public class GuiBeacon extends GuiContainer {
             this.mc.displayGuiScreen(null);
         } else if (button.id == -1) {
             String s = "MC|Beacon";
-            PacketBuffer packetbuffer = new PacketBuffer(Unpooled.buffer());
-            packetbuffer.writeInt(this.tileBeacon.getField(1));
-            packetbuffer.writeInt(this.tileBeacon.getField(2));
-            this.mc.getNetHandler().addToSendQueue(new C17PacketCustomPayload(s, packetbuffer));
+            PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
+            buffer.writeInt(this.tileBeacon.getField(1));
+            buffer.writeInt(this.tileBeacon.getField(2));
+            this.mc.getNetHandler().addToSendQueue(new C17PacketCustomPayload(s, buffer));
             this.mc.displayGuiScreen(null);
         } else if (button instanceof PowerButton powerButton) {
             if (powerButton.func_146141_c()) {

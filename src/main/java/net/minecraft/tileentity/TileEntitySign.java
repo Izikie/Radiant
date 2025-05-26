@@ -94,7 +94,7 @@ public class TileEntitySign extends TileEntity {
         this.stats.readStatsFromNBT(compound);
     }
 
-    public Packet getDescriptionPacket() {
+    public Packet<?> getDescriptionPacket() {
         IChatComponent[] aichatcomponent = new IChatComponent[4];
         System.arraycopy(this.signText, 0, aichatcomponent, 0, 4);
         return new S33PacketUpdateSign(this.worldObj, this.pos, aichatcomponent);

@@ -13,7 +13,7 @@ public class NettyEncryptingEncoder extends MessageToByteEncoder<ByteBuf> {
         this.encryptionCodec = new NettyEncryptionTranslator(cipher);
     }
 
-    protected void encode(ChannelHandlerContext context, ByteBuf in, ByteBuf out) throws Exception {
+    protected void encode(ChannelHandlerContext ctx, ByteBuf in, ByteBuf out) throws Exception {
         this.encryptionCodec.cipher(in, out);
     }
 }

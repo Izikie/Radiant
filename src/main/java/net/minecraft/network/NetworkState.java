@@ -16,6 +16,7 @@ import net.minecraft.network.status.client.C01PacketPing;
 import net.minecraft.network.status.server.S00PacketServerInfo;
 import net.minecraft.network.status.server.S01PacketPong;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.EnumMap;
@@ -151,36 +152,38 @@ public enum NetworkState {
         }
     };
 
+    private static final Logger LOGGER = LogManager.getLogger();
+
     private static final int STATE_ID_MIN = -1;
     private static final int STATE_ID_MAX = 2;
     private static final NetworkState[] STATES_BY_ID = new NetworkState[STATE_ID_MAX - STATE_ID_MIN + 1];
-    private static final Map<Class<? extends Packet>, NetworkState> STATES_BY_CLASS = new HashMap<>();
+    private static final Map<Class<? extends Packet<?>>, NetworkState> STATES_BY_CLASS = new HashMap<>();
     private final int id;
-    private final Map<PacketDirection, BiMap<Integer, Class<? extends Packet>>> directionMaps;
+    private final Map<PacketDirection, BiMap<Integer, Class<? extends Packet<?>>>> directionMaps;
 
     NetworkState(int protocolId) {
         this.directionMaps = new EnumMap<>(PacketDirection.class);
         this.id = protocolId;
     }
 
-    protected void registerPacket(PacketDirection direction, Class<? extends Packet> packetClass) {
-        BiMap<Integer, Class<? extends Packet>> bimap = this.directionMaps.computeIfAbsent(direction, k -> HashBiMap.create());
+    protected void registerPacket(PacketDirection direction, Class<? extends Packet<?>> packetClass) {
+        BiMap<Integer, Class<? extends Packet<?>>> bimap = this.directionMaps.computeIfAbsent(direction, k -> HashBiMap.create());
 
         if (bimap.containsValue(packetClass)) {
             String s = direction + " packet " + packetClass + " is already known to ID " + bimap.inverse().get(packetClass);
-            LogManager.getLogger().fatal(s);
+            LOGGER.fatal(s);
             throw new IllegalArgumentException(s);
         } else {
             bimap.put(bimap.size(), packetClass);
         }
     }
 
-    public Integer getPacketId(PacketDirection direction, Packet packetIn) {
+    public Integer getPacketId(PacketDirection direction, Packet<?> packetIn) {
         return (Integer) ((BiMap) this.directionMaps.get(direction)).inverse().get(packetIn.getClass());
     }
 
-    public Packet getPacket(PacketDirection direction, int packetId) throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        Class<? extends Packet> oclass = (Class) ((BiMap) this.directionMaps.get(direction)).get(packetId);
+    public Packet<?> getPacket(PacketDirection direction, int packetId) throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+        Class<? extends Packet<?>> oclass = (Class) ((BiMap) this.directionMaps.get(direction)).get(packetId);
         return oclass == null ? null : oclass.getDeclaredConstructor().newInstance();
     }
 
@@ -192,7 +195,7 @@ public enum NetworkState {
         return stateId >= STATE_ID_MIN && stateId <= STATE_ID_MAX ? STATES_BY_ID[stateId - STATE_ID_MIN] : null;
     }
 
-    public static NetworkState getFromPacket(Packet packet) {
+    public static NetworkState getFromPacket(Packet<?> packet) {
         return STATES_BY_CLASS.get(packet.getClass());
     }
 
@@ -207,7 +210,7 @@ public enum NetworkState {
             STATES_BY_ID[stateID - STATE_ID_MIN] = connectionState;
 
             for (PacketDirection direction : connectionState.directionMaps.keySet()) {
-                for (Class<? extends Packet> oclass : (connectionState.directionMaps.get(direction)).values()) {
+                for (Class<? extends Packet<?>> oclass : (connectionState.directionMaps.get(direction)).values()) {
                     if (STATES_BY_CLASS.containsKey(oclass) && STATES_BY_CLASS.get(oclass) != connectionState) {
                         throw new Error("Packet " + oclass + " is already assigned to protocol " + STATES_BY_CLASS.get(oclass) + " - can't reassign to " + connectionState);
                     }

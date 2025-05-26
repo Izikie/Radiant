@@ -14,6 +14,7 @@ import net.optifine.render.RenderEnv;
 import net.optifine.shaders.SVertexBuilder;
 import net.optifine.util.TextureUtils;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.GL11;
 
 import java.nio.*;
@@ -21,6 +22,8 @@ import java.util.Arrays;
 import java.util.BitSet;
 
 public class WorldRenderer {
+    private static final Logger LOGGER = LogManager.getLogger();
+
     private ByteBuffer byteBuffer;
     public IntBuffer rawIntBuffer;
     private ShortBuffer rawShortBuffer;
@@ -60,7 +63,7 @@ public class WorldRenderer {
             int i = this.byteBuffer.capacity();
             int j = i % 2097152;
             int k = j + (((this.rawIntBuffer.position() + p_181670_1_) * 4 - j) / 2097152 + 1) * 2097152;
-            LogManager.getLogger().warn("Needed to grow BufferBuilder buffer: Old size {} bytes, new size {} bytes.", i, k);
+            LOGGER.warn("Needed to grow BufferBuilder buffer: Old size {} bytes, new size {} bytes.", i, k);
             int l = this.rawIntBuffer.position();
             ByteBuffer bytebuffer = GLAllocation.createDirectByteBuffer(k);
             this.byteBuffer.position(0);
