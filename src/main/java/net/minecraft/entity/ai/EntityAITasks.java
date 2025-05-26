@@ -1,13 +1,12 @@
 package net.minecraft.entity.ai;
 
-import com.google.common.collect.Lists;
-
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class EntityAITasks {
-    private final List<EntityAITaskEntry> taskEntries = Lists.newArrayList();
-    private final List<EntityAITaskEntry> executingTaskEntries = Lists.newArrayList();
+    private final List<EntityAITaskEntry> taskEntries = new ArrayList<>();
+    private final List<EntityAITaskEntry> executingTaskEntries = new ArrayList<>();
     private int tickCount;
     private final int tickRate = 3;
 

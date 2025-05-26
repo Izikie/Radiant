@@ -1,7 +1,5 @@
 package net.minecraft.command;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentTranslation;
@@ -9,16 +7,13 @@ import net.minecraft.util.Formatting;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
 
 public class CommandHandler implements ICommandManager {
     private static final Logger LOGGER = LogManager.getLogger();
     private final Map<String, ICommand> commandMap = new HashMap<>();
-    private final Set<ICommand> commandSet = Sets.newHashSet();
+    private final Set<ICommand> commandSet = new HashSet<>();
 
     public int executeCommand(ICommandSender sender, String rawCommand) {
         rawCommand = rawCommand.trim().toLowerCase(); // BUGFIX: Commands case-sensitive
@@ -118,7 +113,7 @@ public class CommandHandler implements ICommandManager {
         String s = astring[0];
 
         if (astring.length == 1) {
-            List<String> list = Lists.newArrayList();
+            List<String> list = new ArrayList<>();
 
             for (Entry<String, ICommand> entry : this.commandMap.entrySet()) {
                 if (CommandBase.doesStringStartWith(s, entry.getKey()) && entry.getValue().canCommandSenderUseCommand(sender)) {
@@ -141,7 +136,7 @@ public class CommandHandler implements ICommandManager {
     }
 
     public List<ICommand> getPossibleCommands(ICommandSender sender) {
-        List<ICommand> list = Lists.newArrayList();
+        List<ICommand> list = new ArrayList<>();
 
         for (ICommand icommand : this.commandSet) {
             if (icommand.canCommandSenderUseCommand(sender)) {

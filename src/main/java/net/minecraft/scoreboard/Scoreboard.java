@@ -1,14 +1,10 @@
 package net.minecraft.scoreboard;
 
-import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.Formatting;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Scoreboard {
     private final Map<String, ScoreObjective> scoreObjectives = new HashMap<>();
@@ -33,7 +29,7 @@ public class Scoreboard {
                 throw new IllegalArgumentException("An objective with the name '" + name + "' already exists!");
             } else {
                 scoreobjective = new ScoreObjective(this, name, criteria);
-                List<ScoreObjective> list = this.scoreObjectiveCriterias.computeIfAbsent(criteria, k -> Lists.newArrayList());
+                List<ScoreObjective> list = this.scoreObjectiveCriterias.computeIfAbsent(criteria, k -> new ArrayList<>());
 
                 list.add(scoreobjective);
                 this.scoreObjectives.put(name, scoreobjective);
@@ -45,7 +41,7 @@ public class Scoreboard {
 
     public Collection<ScoreObjective> getObjectivesFromCriteria(IScoreObjectiveCriteria criteria) {
         Collection<ScoreObjective> collection = this.scoreObjectiveCriterias.get(criteria);
-        return collection == null ? Lists.newArrayList() : Lists.newArrayList(collection);
+        return collection == null ? new ArrayList<>() : new ArrayList<>(collection);
     }
 
     public boolean entityHasObjective(String name, ScoreObjective p_178819_2_) {
@@ -70,7 +66,7 @@ public class Scoreboard {
     }
 
     public Collection<Score> getSortedScores(ScoreObjective objective) {
-        List<Score> list = Lists.newArrayList();
+        List<Score> list = new ArrayList<>();
 
         for (Map<ScoreObjective, Score> map : this.entitiesScoreObjectives.values()) {
             Score score = map.get(objective);
@@ -120,7 +116,7 @@ public class Scoreboard {
 
     public Collection<Score> getScores() {
         Collection<Map<ScoreObjective, Score>> collection = this.entitiesScoreObjectives.values();
-        List<Score> list = Lists.newArrayList();
+        List<Score> list = new ArrayList<>();
 
         for (Map<ScoreObjective, Score> map : collection) {
             list.addAll(map.values());

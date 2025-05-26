@@ -1,7 +1,5 @@
 package net.minecraft.scoreboard;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S3BPacketScoreboardObjective;
@@ -10,13 +8,11 @@ import net.minecraft.network.play.server.S3DPacketDisplayScoreboard;
 import net.minecraft.network.play.server.S3EPacketTeams;
 import net.minecraft.server.MinecraftServer;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class ServerScoreboard extends Scoreboard {
     private final MinecraftServer scoreboardMCServer;
-    private final Set<ScoreObjective> field_96553_b = Sets.newHashSet();
+    private final Set<ScoreObjective> field_96553_b = new HashSet<>();
     private ScoreboardSaveData scoreboardSaveData;
 
     public ServerScoreboard(MinecraftServer mcServer) {
@@ -139,7 +135,7 @@ public class ServerScoreboard extends Scoreboard {
     }
 
     public List<Packet<?>> func_96550_d(ScoreObjective p_96550_1_) {
-        List<Packet<?>> list = Lists.newArrayList();
+        List<Packet<?>> list = new ArrayList<>();
         list.add(new S3BPacketScoreboardObjective(p_96550_1_, 0));
 
         for (int i = 0; i < 19; ++i) {
@@ -168,7 +164,7 @@ public class ServerScoreboard extends Scoreboard {
     }
 
     public List<Packet<?>> func_96548_f(ScoreObjective p_96548_1_) {
-        List<Packet<?>> list = Lists.newArrayList();
+        List<Packet<?>> list = new ArrayList<>();
         list.add(new S3BPacketScoreboardObjective(p_96548_1_, 1));
 
         for (int i = 0; i < 19; ++i) {

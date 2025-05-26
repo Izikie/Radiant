@@ -1,11 +1,10 @@
 package net.minecraft.client.audio;
 
-import com.google.common.collect.Lists;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class SoundList {
-    private final List<SoundEntry> soundList = Lists.newArrayList();
+    private final List<SoundEntry> soundList = new ArrayList<>();
     private boolean replaceExisting;
     private SoundCategory category;
 

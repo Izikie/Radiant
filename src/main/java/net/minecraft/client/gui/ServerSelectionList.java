@@ -1,16 +1,16 @@
 package net.minecraft.client.gui;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerList;
 import net.minecraft.client.network.LanServerDetector;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ServerSelectionList extends GuiListExtended {
     private final GuiMultiplayer owner;
-    private final List<ServerListEntryNormal> serverListInternet = Lists.newArrayList();
-    private final List<ServerListEntryLanDetected> serverListLan = Lists.newArrayList();
+    private final List<ServerListEntryNormal> serverListInternet = new ArrayList<>();
+    private final List<ServerListEntryLanDetected> serverListLan = new ArrayList<>();
     private final IGuiListEntry lanScanEntry = new ServerListEntryLanScan();
     private int selectedSlotIndex = -1;
 

@@ -1,8 +1,6 @@
 package net.minecraft.client;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;
-import com.google.common.collect.Sets;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListenableFutureTask;
@@ -109,7 +107,7 @@ public class Minecraft implements IThreadListener {
     private static final ResourceLocation LOCATION_MOJANG_PNG = new ResourceLocation("textures/gui/title/mojang.png");
     public static final boolean IS_RUNNING_ON_MAC = Util.getOSType() == Util.OperatingSystem.MAC;
     public static byte[] memoryReserve = new byte[10485760];
-    private static final List<DisplayMode> MAC_DISPLAY_MODES = Lists.newArrayList(new DisplayMode(2560, 1600), new DisplayMode(2880, 1800));
+    private static final List<DisplayMode> MAC_DISPLAY_MODES = List.of(new DisplayMode(2560, 1600), new DisplayMode(2880, 1800));
     private final File fileResourcepacks;
     private final PropertyMap profileProperties;
     private ServerData currentServerData;
@@ -168,7 +166,7 @@ public class Minecraft implements IThreadListener {
     private long debugCrashKeyPressTime = -1L;
     private IReloadableResourceManager mcResourceManager;
     private final IMetadataSerializer metadataSerializer_ = new IMetadataSerializer();
-    private final List<IResourcePack> defaultResourcePacks = Lists.newArrayList();
+    private final List<IResourcePack> defaultResourcePacks = new ArrayList<>();
     private final DefaultResourcePack mcDefaultResourcePack;
     private ResourcePackRepository mcResourcePackRepository;
     private LanguageManager mcLanguageManager;
@@ -493,7 +491,7 @@ public class Minecraft implements IThreadListener {
     }
 
     public void refreshResources() {
-        List<IResourcePack> list = Lists.newArrayList(this.defaultResourcePacks);
+        List<IResourcePack> list = new ArrayList<>(this.defaultResourcePacks);
 
         for (ResourcePackRepository.Entry resourcepackrepository$entry : this.mcResourcePackRepository.getRepositoryEntries()) {
             list.add(resourcepackrepository$entry.getResourcePack());
@@ -537,7 +535,7 @@ public class Minecraft implements IThreadListener {
     }
 
     private void updateDisplayMode() throws LWJGLException {
-        Set<DisplayMode> set = Sets.newHashSet();
+        Set<DisplayMode> set = new HashSet<>();
         Collections.addAll(set, Display.getAvailableDisplayModes());
         DisplayMode displaymode = Display.getDesktopDisplayMode();
 

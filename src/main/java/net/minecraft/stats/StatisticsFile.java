@@ -1,6 +1,5 @@
 package net.minecraft.stats;
 
-import com.google.common.collect.Sets;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
@@ -21,6 +20,7 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -29,7 +29,7 @@ public class StatisticsFile extends StatFileWriter {
     private static final Logger LOGGER = LogManager.getLogger();
     private final MinecraftServer mcServer;
     private final File statsFile;
-    private final Set<StatBase> field_150888_e = Sets.newHashSet();
+    private final Set<StatBase> field_150888_e = new HashSet<>();
     private int field_150885_f = -300;
     private boolean field_150886_g = false;
 
@@ -82,7 +82,7 @@ public class StatisticsFile extends StatFileWriter {
     }
 
     public Set<StatBase> getStats() {
-        Set<StatBase> set = Sets.newHashSet(this.field_150888_e);
+        Set<StatBase> set = new HashSet<>(this.field_150888_e);
         this.field_150888_e.clear();
         this.field_150886_g = false;
         return set;

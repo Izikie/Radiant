@@ -1,6 +1,5 @@
 package net.minecraft.command;
 
-import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.scoreboard.IScoreObjectiveCriteria;
@@ -10,6 +9,7 @@ import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommandTrigger extends CommandBase {
@@ -83,7 +83,7 @@ public class CommandTrigger extends CommandBase {
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         if (args.length == 1) {
             Scoreboard scoreboard = MinecraftServer.getServer().worldServerForDimension(0).getScoreboard();
-            List<String> list = Lists.newArrayList();
+            List<String> list = new ArrayList<>();
 
             for (ScoreObjective scoreobjective : scoreboard.getScoreObjectives()) {
                 if (scoreobjective.getCriteria() == IScoreObjectiveCriteria.TRIGGER) {

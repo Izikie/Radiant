@@ -1,6 +1,5 @@
 package net.minecraft.client.gui.inventory;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.achievement.GuiAchievements;
@@ -29,6 +28,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -339,7 +339,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
                 this.field_147063_B = guicontainercreative$containercreative.inventorySlots;
             }
 
-            guicontainercreative$containercreative.inventorySlots = Lists.newArrayList();
+            guicontainercreative$containercreative.inventorySlots = new ArrayList<>();
 
             for (int j = 0; j < container.inventorySlots.size(); ++j) {
                 Slot slot = new CreativeSlot(container.inventorySlots.get(j), j);
@@ -629,7 +629,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
     }
 
     static class ContainerCreative extends Container {
-        public final List<ItemStack> itemList = Lists.newArrayList();
+        public final List<ItemStack> itemList = new ArrayList<>();
 
         public ContainerCreative(EntityPlayer p_i1086_1_) {
             InventoryPlayer inventoryplayer = p_i1086_1_.inventory;

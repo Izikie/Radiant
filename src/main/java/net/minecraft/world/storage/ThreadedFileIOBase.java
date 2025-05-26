@@ -1,13 +1,12 @@
 package net.minecraft.world.storage;
 
-import com.google.common.collect.Lists;
-
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class ThreadedFileIOBase implements Runnable {
     private static final ThreadedFileIOBase THREADED_IO_INSTANCE = new ThreadedFileIOBase();
-    private final List<IThreadedFileIO> threadedIOQueue = Collections.synchronizedList(Lists.newArrayList());
+    private final List<IThreadedFileIO> threadedIOQueue = Collections.synchronizedList(new ArrayList<>());
     private volatile long writeQueuedCounter;
     private volatile long savedIOCounter;
     private volatile boolean isThreadWaiting;

@@ -1,7 +1,5 @@
 package net.minecraft.world.biome;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.BlockTallGrass;
@@ -42,7 +40,7 @@ public abstract class BiomeGenBase {
     protected static final Height HEIGHT_LOW_ISLANDS = new Height(0.2F, 0.3F);
     protected static final Height HEIGHT_PARTIALLY_SUBMERGED = new Height(-0.2F, 0.1F);
     private static final BiomeGenBase[] BIOME_LIST = new BiomeGenBase[256];
-    public static final Set<BiomeGenBase> EXPLORATION_BIOMES_LIST = Sets.newHashSet();
+    public static final Set<BiomeGenBase> EXPLORATION_BIOMES_LIST = new HashSet<>();
     public static final Map<String, BiomeGenBase> BIOME_ID_MAP = new HashMap<>();
     public static final BiomeGenBase OCEAN = (new BiomeGenOcean(0)).setColor(112).setBiomeName("Ocean").setHeight(HEIGHT_OCEANS);
     public static final BiomeGenBase PLAINS = (new BiomeGenPlains(1)).setColor(9286496).setBiomeName("Plains");
@@ -117,10 +115,10 @@ public abstract class BiomeGenBase {
         this.temperature = 0.5F;
         this.rainfall = 0.5F;
         this.waterColorMultiplier = 16777215;
-        this.spawnableMonsterList = Lists.newArrayList();
-        this.spawnableCreatureList = Lists.newArrayList();
-        this.spawnableWaterCreatureList = Lists.newArrayList();
-        this.spawnableCaveCreatureList = Lists.newArrayList();
+        this.spawnableMonsterList = new ArrayList<>();
+        this.spawnableCreatureList = new ArrayList<>();
+        this.spawnableWaterCreatureList = new ArrayList<>();
+        this.spawnableCaveCreatureList = new ArrayList<>();
         this.enableRain = true;
         this.worldGeneratorTrees = new WorldGenTrees(false);
         this.worldGeneratorBigTree = new WorldGenBigTree(false);

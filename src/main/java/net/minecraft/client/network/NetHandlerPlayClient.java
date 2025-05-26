@@ -572,8 +572,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
             if (flag) {
                 GameSettings gamesettings = this.gameController.gameSettings;
                 this.gameController.ingameGUI.setRecordPlaying(
-                    I18n.format("mount.onboard", GameSettings.getKeyDisplayString(gamesettings.keyBindSneak.getKeyCode())),
-                    false
+                        I18n.format("mount.onboard", GameSettings.getKeyDisplayString(gamesettings.keyBindSneak.getKeyCode())),
+                        false
                 );
             }
         } else if (packetIn.getLeash() == 1 && entity instanceof EntityLiving entityLiving) {

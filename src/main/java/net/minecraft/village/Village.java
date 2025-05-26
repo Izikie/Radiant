@@ -1,6 +1,5 @@
 package net.minecraft.village;
 
-import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoor;
@@ -19,14 +18,11 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.TreeMap;
-import java.util.UUID;
+import java.util.*;
 
 public class Village {
     private World worldObj;
-    private final List<VillageDoorInfo> villageDoorInfoList = Lists.newArrayList();
+    private final List<VillageDoorInfo> villageDoorInfoList = new ArrayList<>();
     private BlockPos centerHelper = BlockPos.ORIGIN;
     private BlockPos center = BlockPos.ORIGIN;
     private int villageRadius;
@@ -35,7 +31,7 @@ public class Village {
     private int numVillagers;
     private int noBreedTicks;
     private final TreeMap<String, Integer> playerReputation = new TreeMap<>();
-    private final List<VillageAggressor> villageAgressors = Lists.newArrayList();
+    private final List<VillageAggressor> villageAgressors = new ArrayList<>();
     private int numIronGolems;
 
     public Village() {

@@ -1,6 +1,5 @@
 package net.minecraft.client.gui;
 
-import com.google.common.collect.Lists;
 import com.google.gson.JsonParseException;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
@@ -342,7 +341,7 @@ public class GuiScreenBook extends GuiScreen {
                     }
                 } else {
                     ChatComponentText chatcomponenttext = new ChatComponentText(Formatting.DARK_RED + "* Invalid book tag *");
-                    this.field_175386_A = Lists.newArrayList(chatcomponenttext);
+                    this.field_175386_A = List.of(chatcomponenttext);
                 }
 
                 this.field_175387_B = this.currPage;

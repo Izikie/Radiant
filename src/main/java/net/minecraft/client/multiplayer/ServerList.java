@@ -1,6 +1,5 @@
 package net.minecraft.client.multiplayer;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
@@ -9,12 +8,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ServerList {
     private static final Logger LOGGER = LogManager.getLogger();
     private final Minecraft mc;
-    private final List<ServerData> servers = Lists.newArrayList();
+    private final List<ServerData> servers = new ArrayList<>();
 
     public ServerList(Minecraft mcIn) {
         this.mc = mcIn;

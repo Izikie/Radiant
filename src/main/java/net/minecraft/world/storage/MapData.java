@@ -1,6 +1,5 @@
 package net.minecraft.world.storage;
 
-import com.google.common.collect.Lists;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -14,10 +13,7 @@ import net.minecraft.util.Vec4b;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSavedData;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MapData extends WorldSavedData {
     public int xCenter;
@@ -25,7 +21,7 @@ public class MapData extends WorldSavedData {
     public byte dimension;
     public byte scale;
     public byte[] colors = new byte[16384];
-    public final List<MapInfo> playersArrayList = Lists.newArrayList();
+    public final List<MapInfo> playersArrayList = new ArrayList<>();
     private final Map<EntityPlayer, MapInfo> playersHashMap = new HashMap<>();
     public final Map<String, Vec4b> mapDecorations = new LinkedHashMap<>();
 

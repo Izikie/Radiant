@@ -1,6 +1,5 @@
 package net.minecraft.client.gui.achievement;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiButton;
@@ -25,6 +24,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -342,7 +342,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
     class StatsBlock extends Stats {
         public StatsBlock(Minecraft mcIn) {
             super(mcIn);
-            this.statsHolder = Lists.newArrayList();
+            this.statsHolder = new ArrayList<>();
 
             for (StatCrafting statcrafting : StatList.OBJECT_MINE_STATS) {
                 boolean flag = false;
@@ -472,7 +472,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
     class StatsItem extends Stats {
         public StatsItem(Minecraft mcIn) {
             super(mcIn);
-            this.statsHolder = Lists.newArrayList();
+            this.statsHolder = new ArrayList<>();
 
             for (StatCrafting statcrafting : StatList.ITEM_STATS) {
                 boolean flag = false;
@@ -567,7 +567,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
     }
 
     class StatsMobsList extends GuiSlot {
-        private final List<EntityList.EntityEggInfo> field_148222_l = Lists.newArrayList();
+        private final List<EntityList.EntityEggInfo> field_148222_l = new ArrayList<>();
 
         public StatsMobsList(Minecraft mcIn) {
             super(mcIn, GuiStats.this.width, GuiStats.this.height, 32, GuiStats.this.height - 64, GuiStats.this.fontRendererObj.FONT_HEIGHT * 4);

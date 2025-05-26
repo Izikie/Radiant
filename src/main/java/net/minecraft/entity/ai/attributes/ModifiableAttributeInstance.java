@@ -1,8 +1,5 @@
 package net.minecraft.entity.ai.attributes;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-
 import java.util.*;
 
 public class ModifiableAttributeInstance implements IAttributeInstance {
@@ -21,7 +18,7 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
         this.baseValue = genericAttributeIn.getDefaultValue();
 
         for (int i = 0; i < 3; ++i) {
-            this.mapByOperation.put(i, Sets.newHashSet());
+            this.mapByOperation.put(i, new HashSet<>());
         }
     }
 
@@ -45,7 +42,7 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
     }
 
     public Collection<AttributeModifier> func_111122_c() {
-        Set<AttributeModifier> set = Sets.newHashSet();
+        Set<AttributeModifier> set = new HashSet<>();
 
         for (int i = 0; i < 3; ++i) {
             set.addAll(this.getModifiersByOperation(i));
@@ -66,7 +63,7 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
         if (this.getModifier(modifier.getID()) != null) {
             throw new IllegalArgumentException("Modifier is already applied on this attribute!");
         } else {
-            Set<AttributeModifier> set = this.mapByName.computeIfAbsent(modifier.getName(), k -> Sets.newHashSet());
+            Set<AttributeModifier> set = this.mapByName.computeIfAbsent(modifier.getName(), k -> new HashSet<>());
 
             this.mapByOperation.get(modifier.getOperation()).add(modifier);
             set.add(modifier);
@@ -104,7 +101,7 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
         Collection<AttributeModifier> collection = this.func_111122_c();
 
         if (collection != null) {
-            for (AttributeModifier attributemodifier : Lists.newArrayList(collection)) {
+            for (AttributeModifier attributemodifier : new ArrayList<>(collection)) {
                 this.removeModifier(attributemodifier);
             }
         }
@@ -140,7 +137,7 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
     }
 
     private Collection<AttributeModifier> func_180375_b(int operation) {
-        Set<AttributeModifier> set = Sets.newHashSet(this.getModifiersByOperation(operation));
+        Set<AttributeModifier> set = new HashSet<>(this.getModifiersByOperation(operation));
 
         for (IAttribute iattribute = this.genericAttribute.func_180372_d(); iattribute != null; iattribute = iattribute.func_180372_d()) {
             IAttributeInstance iattributeinstance = this.attributeMap.getAttributeInstance(iattribute);

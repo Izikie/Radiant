@@ -1,11 +1,6 @@
 package net.minecraft.util;
 
-import com.google.common.collect.Lists;
-
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public enum Formatting {
@@ -103,7 +98,7 @@ public enum Formatting {
     }
 
     public static Collection<String> getValidValues(boolean p_96296_0_, boolean p_96296_1_) {
-        List<String> list = Lists.newArrayList();
+        List<String> list = new ArrayList<>();
 
         for (Formatting enumchatformatting : values()) {
             if ((!enumchatformatting.isColor() || p_96296_0_) && (!enumchatformatting.isFancyStyling() || p_96296_1_)) {

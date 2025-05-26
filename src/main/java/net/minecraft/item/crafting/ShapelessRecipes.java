@@ -1,10 +1,10 @@
 package net.minecraft.item.crafting;
 
-import com.google.common.collect.Lists;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShapelessRecipes implements IRecipe {
@@ -35,7 +35,7 @@ public class ShapelessRecipes implements IRecipe {
     }
 
     public boolean matches(InventoryCrafting inv, World worldIn) {
-        List<ItemStack> list = Lists.newArrayList(this.recipeItems);
+        List<ItemStack> list = new ArrayList<>(this.recipeItems);
 
         for (int i = 0; i < inv.getHeight(); ++i) {
             for (int j = 0; j < inv.getWidth(); ++j) {

@@ -1,7 +1,6 @@
 package net.minecraft.client.resources;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.google.common.hash.Hashing;
 import com.google.common.io.Files;
 import com.google.common.util.concurrent.FutureCallback;
@@ -47,8 +46,8 @@ public class ResourcePackRepository {
     private IResourcePack resourcePackInstance;
     private final ReentrantLock lock = new ReentrantLock();
     private ListenableFuture<Object> downloadingPacks;
-    private List<Entry> repositoryEntriesAll = Lists.newArrayList();
-    public final List<Entry> repositoryEntries = Lists.newArrayList();
+    private List<Entry> repositoryEntriesAll = new ArrayList<>();
+    public final List<Entry> repositoryEntries = new ArrayList<>();
 
     public ResourcePackRepository(File dirResourcepacksIn, File dirServerResourcepacksIn, IResourcePack rprDefaultResourcePackIn, IMetadataSerializer rprMetadataSerializerIn, GameSettings settings) {
         this.dirResourcepacks = dirResourcepacksIn;
@@ -91,7 +90,7 @@ public class ResourcePackRepository {
     }
 
     public void updateRepositoryEntriesAll() {
-        List<Entry> list = Lists.newArrayList();
+        List<Entry> list = new ArrayList<>();
 
         for (File file1 : this.getResourcePackFiles()) {
             Entry resourcepackrepository$entry = new Entry(file1);
@@ -193,7 +192,7 @@ public class ResourcePackRepository {
     }
 
     private void deleteOldServerResourcesPacks() {
-        List<File> list = Lists.newArrayList(FileUtils.listFiles(this.dirServerResourcepacks, TrueFileFilter.TRUE, null));
+        List<File> list = new ArrayList<>(FileUtils.listFiles(this.dirServerResourcepacks, TrueFileFilter.TRUE, null));
         list.sort(LastModifiedFileComparator.LASTMODIFIED_REVERSE);
         int i = 0;
 

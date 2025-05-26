@@ -1,6 +1,5 @@
 package net.minecraft.command;
 
-import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.server.MinecraftServer;
@@ -10,6 +9,7 @@ import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -146,7 +146,7 @@ public class CommandStats extends CommandBase {
 
     protected List<String> func_175777_e() {
         Collection<ScoreObjective> collection = MinecraftServer.getServer().worldServerForDimension(0).getScoreboard().getScoreObjectives();
-        List<String> list = Lists.newArrayList();
+        List<String> list = new ArrayList<>();
 
         for (ScoreObjective scoreobjective : collection) {
             if (!scoreobjective.getCriteria().isReadOnly()) {

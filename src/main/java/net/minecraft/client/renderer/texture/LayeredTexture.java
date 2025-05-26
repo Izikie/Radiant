@@ -1,6 +1,5 @@
 package net.minecraft.client.renderer.texture;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
@@ -11,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.List;
 
 public class LayeredTexture extends AbstractTexture {
@@ -19,7 +19,7 @@ public class LayeredTexture extends AbstractTexture {
     private ResourceLocation textureLocation;
 
     public LayeredTexture(String... textureNames) {
-        this.layeredTextureNames = Lists.newArrayList(textureNames);
+        this.layeredTextureNames = Arrays.asList(textureNames);
 
         if (textureNames.length > 0 && textureNames[0] != null) {
             this.textureLocation = new ResourceLocation(textureNames[0]);

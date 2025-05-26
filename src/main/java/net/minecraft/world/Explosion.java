@@ -1,7 +1,5 @@
 package net.minecraft.world;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -39,7 +37,7 @@ public class Explosion {
 
     public Explosion(World worldIn, Entity entityIn, double x, double y, double z, float size, boolean flaming, boolean smoking) {
         this.explosionRNG = new Random();
-        this.affectedBlockPositions = Lists.newArrayList();
+        this.affectedBlockPositions = new ArrayList<>();
         this.playerKnockbackMap = new HashMap<>();
         this.worldObj = worldIn;
         this.exploder = entityIn;
@@ -52,7 +50,7 @@ public class Explosion {
     }
 
     public void doExplosionA() {
-        Set<BlockPos> set = Sets.newHashSet();
+        Set<BlockPos> set = new HashSet<>();
         int i = 16;
 
         for (int j = 0; j < 16; ++j) {

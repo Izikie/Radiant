@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,11 +29,11 @@ public class GuiScreenResourcePacks extends GuiScreen {
         this.buttonList.add(new GuiOptionButton(1, this.width / 2 + 4, this.height - 48, I18n.format("gui.done")));
 
         if (!this.changed) {
-            this.availableResourcePacks = Lists.newArrayList();
-            this.selectedResourcePacks = Lists.newArrayList();
+            this.availableResourcePacks = new ArrayList<>();
+            this.selectedResourcePacks = new ArrayList<>();
             ResourcePackRepository resourcepackrepository = this.mc.getResourcePackRepository();
             resourcepackrepository.updateRepositoryEntriesAll();
-            List<ResourcePackRepository.Entry> list = Lists.newArrayList(resourcepackrepository.getRepositoryEntriesAll());
+            List<ResourcePackRepository.Entry> list = new ArrayList<>(resourcepackrepository.getRepositoryEntriesAll());
             list.removeAll(resourcepackrepository.getRepositoryEntries());
 
             for (ResourcePackRepository.Entry resourcepackrepository$entry : list) {
@@ -82,7 +83,7 @@ public class GuiScreenResourcePacks extends GuiScreen {
                 Util.openFolder(mc.getResourcePackRepository().getDirResourcepacks());
             } else if (button.id == 1) {
                 if (this.changed) {
-                    List<ResourcePackRepository.Entry> list = Lists.newArrayList();
+                    List<ResourcePackRepository.Entry> list = new ArrayList<>();
 
                     for (ResourcePackListEntry resourcepacklistentry : this.selectedResourcePacks) {
                         if (resourcepacklistentry instanceof ResourcePackListEntryFound resourcePackListEntryFound) {

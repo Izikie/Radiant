@@ -23,7 +23,7 @@ public class PlayerProfileCache {
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
     private final Map<String, ProfileEntry> usernameToProfileEntryMap = new HashMap<>();
     private final Map<UUID, ProfileEntry> uuidToProfileEntryMap = new HashMap<>();
-    private final LinkedList<GameProfile> gameProfiles = Lists.newLinkedList();
+    private final LinkedList<GameProfile> gameProfiles = new LinkedList<>();
     private final MinecraftServer mcServer;
     protected final Gson gson;
     private final File usercacheFile;
@@ -130,7 +130,7 @@ public class PlayerProfileCache {
     }
 
     public String[] getUsernames() {
-        List<String> list = Lists.newArrayList(this.usernameToProfileEntryMap.keySet());
+        List<String> list = new ArrayList<>(this.usernameToProfileEntryMap.keySet());
         return list.toArray(new String[0]);
     }
 
@@ -188,7 +188,7 @@ public class PlayerProfileCache {
     }
 
     private List<ProfileEntry> getEntriesWithLimit(int limitSize) {
-        ArrayList<ProfileEntry> arraylist = Lists.newArrayList();
+        ArrayList<ProfileEntry> arraylist = new ArrayList<>();
 
         for (GameProfile gameprofile : Lists.newArrayList(Iterators.limit(this.gameProfiles.iterator(), limitSize))) {
             ProfileEntry playerprofilecache$profileentry = this.getByUUID(gameprofile.getId());

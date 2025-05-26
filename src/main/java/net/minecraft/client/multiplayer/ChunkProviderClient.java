@@ -1,6 +1,5 @@
 package net.minecraft.client.multiplayer;
 
-import com.google.common.collect.Lists;
 import net.minecraft.entity.EntityCategory;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.IProgressUpdate;
@@ -14,13 +13,14 @@ import net.minecraft.world.chunk.IChunkProvider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChunkProviderClient implements IChunkProvider {
     private static final Logger LOGGER = LogManager.getLogger();
     private final Chunk blankChunk;
     private final LongHashMap<Chunk> chunkMapping = new LongHashMap<>();
-    private final List<Chunk> chunkListing = Lists.newArrayList();
+    private final List<Chunk> chunkListing = new ArrayList<>();
     private final World worldObj;
 
     public ChunkProviderClient(World worldIn) {

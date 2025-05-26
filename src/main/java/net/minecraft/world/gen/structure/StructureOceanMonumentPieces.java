@@ -1,6 +1,5 @@
 package net.minecraft.world.gen.structure;
 
-import com.google.common.collect.Lists;
 import net.minecraft.block.BlockPrismarine;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -11,10 +10,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class StructureOceanMonumentPieces {
     public static void registerOceanMonumentPieces() {
@@ -573,7 +569,7 @@ public class StructureOceanMonumentPieces {
     public static class MonumentBuilding extends Piece {
         private RoomDefinition field_175845_o;
         private RoomDefinition field_175844_p;
-        private final List<Piece> field_175843_q = Lists.newArrayList();
+        private final List<Piece> field_175843_q = new ArrayList<>();
 
         public MonumentBuilding() {
         }
@@ -596,7 +592,7 @@ public class StructureOceanMonumentPieces {
             this.field_175845_o.field_175963_d = true;
             this.field_175843_q.add(new EntryRoom(this.coordBaseMode, this.field_175845_o));
             this.field_175843_q.add(new MonumentCoreRoom(this.coordBaseMode, this.field_175844_p, p_i45599_1_));
-            List<MonumentRoomFitHelper> list1 = Lists.newArrayList();
+            List<MonumentRoomFitHelper> list1 = new ArrayList<>();
             list1.add(new XYDoubleRoomFitHelper());
             list1.add(new YZDoubleRoomFitHelper());
             list1.add(new ZDoubleRoomFitHelper());
@@ -720,7 +716,7 @@ public class StructureOceanMonumentPieces {
             this.field_175844_p.field_175965_b[Direction.EAST.getIndex()].field_175965_b[Direction.UP.getIndex()].field_175963_d = true;
             this.field_175844_p.field_175965_b[Direction.NORTH.getIndex()].field_175965_b[Direction.UP.getIndex()].field_175963_d = true;
             this.field_175844_p.field_175965_b[Direction.EAST.getIndex()].field_175965_b[Direction.NORTH.getIndex()].field_175965_b[Direction.UP.getIndex()].field_175963_d = true;
-            List<RoomDefinition> list = Lists.newArrayList();
+            List<RoomDefinition> list = new ArrayList<>();
 
             for (RoomDefinition structureoceanmonumentpieces$roomdefinition4 : astructureoceanmonumentpieces$roomdefinition) {
                 if (structureoceanmonumentpieces$roomdefinition4 != null) {

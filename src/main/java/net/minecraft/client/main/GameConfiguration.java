@@ -18,24 +18,28 @@ public record GameConfiguration(
             PropertyMap userProperties,
             PropertyMap profileProperties,
             Proxy proxy
-    ) {}
+    ) {
+    }
 
     public record DisplayInformation(
             int width,
             int height,
             boolean fullscreen,
             boolean checkGlErrors
-    ) {}
+    ) {
+    }
 
     public record FolderInformation(
             File mcDataDir,
             File resourcePacksDir,
             File assetsDir,
             String assetIndex
-    ) {}
+    ) {
+    }
 
     public record ServerInformation(
             String address,
             int port
-    ) {}
+    ) {
+    }
 }

@@ -1,7 +1,5 @@
 package net.minecraft.command;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -38,7 +36,7 @@ public class CommandSpreadPlayers extends CommandBase {
             double d2 = parseDouble(args[i++], 0.0D);
             double d3 = parseDouble(args[i++], d2 + 1.0D);
             boolean flag = parseBoolean(args[i++]);
-            List<Entity> list = Lists.newArrayList();
+            List<Entity> list = new ArrayList<>();
 
             while (i < args.length) {
                 String s = args[i++];
@@ -90,7 +88,7 @@ public class CommandSpreadPlayers extends CommandBase {
     }
 
     private int func_110667_a(List<Entity> p_110667_1_) {
-        Set<Team> set = Sets.newHashSet();
+        Set<Team> set = new HashSet<>();
 
         for (Entity entity : p_110667_1_) {
             if (entity instanceof EntityPlayer entityPlayer) {

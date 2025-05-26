@@ -1,9 +1,9 @@
 package net.minecraft.client.resources;
 
-import com.google.common.collect.Sets;
 import org.apache.commons.io.filefilter.DirectoryFileFilter;
 
 import java.io.*;
+import java.util.HashSet;
 import java.util.Set;
 
 public class FolderResourcePack extends AbstractResourcePack {
@@ -20,7 +20,7 @@ public class FolderResourcePack extends AbstractResourcePack {
     }
 
     public Set<String> getResourceDomains() {
-        Set<String> set = Sets.newHashSet();
+        Set<String> set = new HashSet<>();
         File file1 = new File(this.resourcePackFile, "assets/");
 
         if (file1.isDirectory()) {

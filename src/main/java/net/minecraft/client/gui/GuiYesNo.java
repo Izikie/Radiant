@@ -1,16 +1,16 @@
 package net.minecraft.client.gui;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.resources.I18n;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GuiYesNo extends GuiScreen {
     protected final GuiYesNoCallback parentScreen;
     protected final String messageLine1;
     private final String messageLine2;
-    private final List<String> field_175298_s = Lists.newArrayList();
+    private final List<String> field_175298_s = new ArrayList<>();
     protected String confirmButtonText;
     protected String cancelButtonText;
     protected final int parentButtonClickedId;

@@ -1,6 +1,5 @@
 package net.minecraft.command;
 
-import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -12,6 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommandFill extends CommandBase {
@@ -72,7 +72,7 @@ public class CommandFill extends CommandBase {
                     }
                 }
 
-                List<BlockPos> list = Lists.newArrayList();
+                List<BlockPos> list = new ArrayList<>();
                 j = 0;
 
                 for (int i1 = blockpos2.getZ(); i1 <= blockpos3.getZ(); ++i1) {

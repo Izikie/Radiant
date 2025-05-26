@@ -1,6 +1,5 @@
 package net.minecraft.world.storage;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.AnvilConverterException;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
@@ -11,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SaveFormatOld implements ISaveFormat {
@@ -30,7 +30,7 @@ public class SaveFormatOld implements ISaveFormat {
     }
 
     public List<SaveFormatComparator> getSaveList() throws AnvilConverterException {
-        List<SaveFormatComparator> list = Lists.newArrayList();
+        List<SaveFormatComparator> list = new ArrayList<>();
 
         for (int i = 0; i < 5; ++i) {
             String s = "World" + (i + 1);

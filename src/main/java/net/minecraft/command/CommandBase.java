@@ -2,7 +2,6 @@ package net.minecraft.command;
 
 import com.google.common.base.Functions;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import com.google.common.primitives.Doubles;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -188,7 +187,7 @@ public abstract class CommandBase implements ICommand {
     }
 
     public static List<Entity> func_175763_c(ICommandSender p_175763_0_, String p_175763_1_) throws EntityNotFoundException {
-        return PlayerSelector.hasArguments(p_175763_1_) ? PlayerSelector.matchEntities(p_175763_0_, p_175763_1_, Entity.class) : Lists.newArrayList(getEntity(p_175763_0_, p_175763_1_));
+        return PlayerSelector.hasArguments(p_175763_1_) ? PlayerSelector.matchEntities(p_175763_0_, p_175763_1_, Entity.class) : List.of(getEntity(p_175763_0_, p_175763_1_));
     }
 
     public static String getPlayerName(ICommandSender sender, String query) throws PlayerNotFoundException {
@@ -434,7 +433,7 @@ public abstract class CommandBase implements ICommand {
                 s = Integer.toString(p_175771_2_.getZ());
             }
 
-            return Lists.newArrayList(s);
+            return List.of(s);
         }
     }
 
@@ -455,7 +454,7 @@ public abstract class CommandBase implements ICommand {
                 s = Integer.toString(p_181043_2_.getZ());
             }
 
-            return Lists.newArrayList(s);
+            return List.of(s);
         }
     }
 
@@ -469,7 +468,7 @@ public abstract class CommandBase implements ICommand {
 
     public static List<String> getListOfStringsMatchingLastWord(String[] p_175762_0_, Collection<?> p_175762_1_) {
         String s = p_175762_0_[p_175762_0_.length - 1];
-        List<String> list = Lists.newArrayList();
+        List<String> list = new ArrayList<>();
 
         if (!p_175762_1_.isEmpty()) {
             for (String s1 : Iterables.transform(p_175762_1_, Functions.toStringFunction())) {

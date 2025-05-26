@@ -1,6 +1,5 @@
 package net.minecraft.entity.boss;
 
-import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockTorch;
 import net.minecraft.block.material.Material;
@@ -13,6 +12,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EntityDragon extends EntityLiving implements IBossDisplayData, IEntityMultiPart, IMob {
@@ -343,7 +343,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
 
     private void setNewTarget() {
         this.forceNewTarget = false;
-        List<EntityPlayer> list = Lists.newArrayList(this.worldObj.playerEntities);
+        List<EntityPlayer> list = new ArrayList<>(this.worldObj.playerEntities);
 
         list.removeIf(EntityPlayer::isSpectator);
 

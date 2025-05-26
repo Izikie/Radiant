@@ -2,7 +2,6 @@ package net.minecraft.util;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import com.google.common.collect.UnmodifiableIterator;
 
 import java.lang.reflect.Array;
@@ -22,7 +21,7 @@ public class Cartesian {
     }
 
     private static <T> T[] toArray(Class<? super T> clazz, Iterable<? extends T> it) {
-        List<T> list = Lists.newArrayList();
+        List<T> list = new ArrayList<>();
 
         for (T t : it) {
             list.add(t);

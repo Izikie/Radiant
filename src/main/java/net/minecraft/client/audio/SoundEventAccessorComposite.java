@@ -1,13 +1,13 @@
 package net.minecraft.client.audio;
 
-import com.google.common.collect.Lists;
 import net.minecraft.util.ResourceLocation;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class SoundEventAccessorComposite implements ISoundEventAccessor<SoundPoolEntry> {
-    private final List<ISoundEventAccessor<SoundPoolEntry>> soundPool = Lists.newArrayList();
+    private final List<ISoundEventAccessor<SoundPoolEntry>> soundPool = new ArrayList<>();
     private final Random rnd = new Random();
     private final ResourceLocation soundLocation;
     private final SoundCategory category;

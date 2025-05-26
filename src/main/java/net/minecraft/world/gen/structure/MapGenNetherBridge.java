@@ -1,6 +1,5 @@
 package net.minecraft.world.gen.structure;
 
-import com.google.common.collect.Lists;
 import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.entity.monster.EntityMagmaCube;
 import net.minecraft.entity.monster.EntityPigZombie;
@@ -8,11 +7,12 @@ import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class MapGenNetherBridge extends MapGenStructure {
-    private final List<BiomeGenBase.SpawnListEntry> spawnList = Lists.newArrayList();
+    private final List<BiomeGenBase.SpawnListEntry> spawnList = new ArrayList<>();
 
     public MapGenNetherBridge() {
         this.spawnList.add(new BiomeGenBase.SpawnListEntry(EntityBlaze.class, 10, 2, 3));

@@ -3,12 +3,12 @@ package net.minecraft.block.state.pattern;
 import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-import com.google.common.collect.Lists;
 import net.minecraft.block.state.BlockWorldState;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +16,7 @@ import java.util.Map.Entry;
 
 public class FactoryBlockPattern {
     private static final Joiner COMMA_JOIN = Joiner.on(",");
-    private final List<String[]> depth = Lists.newArrayList();
+    private final List<String[]> depth = new ArrayList<>();
     private final Map<Character, Predicate<BlockWorldState>> symbolMap = new HashMap<>();
     private int aisleHeight;
     private int rowWidth;
@@ -84,7 +84,7 @@ public class FactoryBlockPattern {
     }
 
     private void checkMissingPredicates() {
-        List<Character> list = Lists.newArrayList();
+        List<Character> list = new ArrayList<>();
 
         for (Entry<Character, Predicate<BlockWorldState>> entry : this.symbolMap.entrySet()) {
             if (entry.getValue() == null) {

@@ -8,8 +8,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.authlib.properties.PropertyMap;
 import com.mojang.authlib.properties.PropertyMap.Serializer;
-import net.minecraft.client.main.GameConfiguration.*;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.main.GameConfiguration.DisplayInformation;
+import net.minecraft.client.main.GameConfiguration.FolderInformation;
+import net.minecraft.client.main.GameConfiguration.ServerInformation;
+import net.minecraft.client.main.GameConfiguration.UserInformation;
 import net.minecraft.util.Session;
 
 import java.io.File;
@@ -24,68 +27,68 @@ import java.util.List;
 public class Main {
     private static class MinecraftArgs {
         // User Information
-        @Parameter(names = { "--username", "-username" }, description = "Username")
+        @Parameter(names = {"--username", "-username"}, description = "Username")
         private String username = "Player";
 
-        @Parameter(names = { "--uuid", "-uuid" }, description = "UUID")
+        @Parameter(names = {"--uuid", "-uuid"}, description = "UUID")
         private String uuid;
 
-        @Parameter(names = { "--accessToken", "-accessToken" }, description = "Access token", required = true)
+        @Parameter(names = {"--accessToken", "-accessToken"}, description = "Access token", required = true)
         private String accessToken;
 
-        @Parameter(names = { "--userType", "-userType" }, description = "User type")
+        @Parameter(names = {"--userType", "-userType"}, description = "User type")
         private String userType = "legacy";
 
-        @Parameter(names = { "--userProperties", "-userProperties" }, description = "User properties")
+        @Parameter(names = {"--userProperties", "-userProperties"}, description = "User properties")
         private String userProperties = "{}";
 
-        @Parameter(names = { "--profileProperties", "-profileProperties" }, description = "Profile properties")
+        @Parameter(names = {"--profileProperties", "-profileProperties"}, description = "Profile properties")
         private String profileProperties = "{}";
 
         // Display Information
-        @Parameter(names = { "--width", "-width" }, description = "Window width", converter = IntegerConverter.class)
+        @Parameter(names = {"--width", "-width"}, description = "Window width", converter = IntegerConverter.class)
         private Integer width = 854;
 
-        @Parameter(names = { "--height", "-height" }, description = "Window height", converter = IntegerConverter.class)
+        @Parameter(names = {"--height", "-height"}, description = "Window height", converter = IntegerConverter.class)
         private Integer height = 480;
 
-        @Parameter(names = { "--fullscreen", "-fullscreen" }, description = "Start in fullscreen mode")
+        @Parameter(names = {"--fullscreen", "-fullscreen"}, description = "Start in fullscreen mode")
         private boolean fullscreen = false;
 
-        @Parameter(names = { "--checkGlErrors", "-checkGlErrors" }, description = "Check for OpenGL errors")
+        @Parameter(names = {"--checkGlErrors", "-checkGlErrors"}, description = "Check for OpenGL errors")
         private boolean checkGlErrors = false;
 
         // Folder Information
-        @Parameter(names = { "--gameDir", "-gameDir" }, description = "Game directory", converter = FileConverter.class)
+        @Parameter(names = {"--gameDir", "-gameDir"}, description = "Game directory", converter = FileConverter.class)
         private File gameDir = new File(".");
 
-        @Parameter(names = { "--resourcePackDir", "-resourcePackDir" }, description = "Resource pack directory", converter = FileConverter.class)
+        @Parameter(names = {"--resourcePackDir", "-resourcePackDir"}, description = "Resource pack directory", converter = FileConverter.class)
         private File resourcePackDir;
 
-        @Parameter(names = { "--assetsDir", "-assetsDir" }, description = "Assets directory", converter = FileConverter.class)
+        @Parameter(names = {"--assetsDir", "-assetsDir"}, description = "Assets directory", converter = FileConverter.class)
         private File assetsDir;
 
-        @Parameter(names = { "--assetIndex", "-assetIndex" }, description = "Asset index")
+        @Parameter(names = {"--assetIndex", "-assetIndex"}, description = "Asset index")
         private String assetIndex;
 
         // Server Information
-        @Parameter(names = { "--server", "-server" }, description = "Server address")
+        @Parameter(names = {"--server", "-server"}, description = "Server address")
         private String server;
 
-        @Parameter(names = { "--port", "-port" }, description = "Server port", converter = IntegerConverter.class)
+        @Parameter(names = {"--port", "-port"}, description = "Server port", converter = IntegerConverter.class)
         private Integer port = 25565;
 
         // Proxy Information
-        @Parameter(names = { "--proxyHost", "-proxyHost" }, description = "Proxy host")
+        @Parameter(names = {"--proxyHost", "-proxyHost"}, description = "Proxy host")
         private String proxyHost;
 
-        @Parameter(names = { "--proxyPort", "-proxyPort" }, description = "Proxy port", converter = IntegerConverter.class)
+        @Parameter(names = {"--proxyPort", "-proxyPort"}, description = "Proxy port", converter = IntegerConverter.class)
         private Integer proxyPort = 8080;
 
-        @Parameter(names = { "--proxyUser", "-proxyUser" }, description = "Proxy username")
+        @Parameter(names = {"--proxyUser", "-proxyUser"}, description = "Proxy username")
         private String proxyUser;
 
-        @Parameter(names = { "--proxyPass", "-proxyPass" }, description = "Proxy password")
+        @Parameter(names = {"--proxyPass", "-proxyPass"}, description = "Proxy password")
         private String proxyPass;
 
         // Other

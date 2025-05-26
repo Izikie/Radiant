@@ -1,7 +1,6 @@
 package net.minecraft.network.play.server;
 
 import com.google.common.base.MoreObjects;
-import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -12,11 +11,12 @@ import net.minecraft.util.IChatComponent;
 import net.minecraft.world.WorldSettings;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class S38PacketPlayerListItem implements Packet<INetHandlerPlayClient> {
     private Action action;
-    private final List<AddPlayerData> players = Lists.newArrayList();
+    private final List<AddPlayerData> players = new ArrayList<>();
 
     public S38PacketPlayerListItem() {
     }

@@ -1,6 +1,5 @@
 package net.minecraft.block;
 
-import com.google.common.collect.Lists;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockState;
@@ -12,10 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
-import java.util.Random;
+import java.util.*;
 
 public class BlockSponge extends Block {
     public static final PropertyBool WET = PropertyBool.create("wet");
@@ -51,8 +47,8 @@ public class BlockSponge extends Block {
     }
 
     private boolean absorb(World worldIn, BlockPos pos) {
-        Queue<Tuple<BlockPos, Integer>> queue = Lists.newLinkedList();
-        ArrayList<BlockPos> arraylist = Lists.newArrayList();
+        Queue<Tuple<BlockPos, Integer>> queue = new LinkedList<>();
+        ArrayList<BlockPos> arraylist = new ArrayList<>();
         queue.add(new Tuple<>(pos, 0));
         int i = 0;
 

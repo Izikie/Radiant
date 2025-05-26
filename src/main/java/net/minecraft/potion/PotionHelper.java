@@ -1,14 +1,10 @@
 package net.minecraft.potion;
 
-import com.google.common.collect.Lists;
 import net.minecraft.src.Config;
 import net.minecraft.util.IntegerCache;
 import net.optifine.CustomColors;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class PotionHelper {
     public static final String UNUSED_STRING = null;
@@ -312,7 +308,7 @@ public class PotionHelper {
                         }
 
                         if (list == null) {
-                            list = Lists.newArrayList();
+                            list = new ArrayList<>();
                         }
 
                         PotionEffect potioneffect = new PotionEffect(potion.getId(), i, j);

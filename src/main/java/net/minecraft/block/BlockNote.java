@@ -1,6 +1,5 @@
 package net.minecraft.block;
 
-import com.google.common.collect.Lists;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -16,7 +15,7 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class BlockNote extends BlockContainer {
-    private static final List<String> INSTRUMENTS = Lists.newArrayList("harp", "bd", "snare", "hat", "bassattack");
+    private static final List<String> INSTRUMENTS = List.of("harp", "bd", "snare", "hat", "bassattack");
 
     public BlockNote() {
         super(Material.WOOD);

@@ -1,6 +1,5 @@
 package net.minecraft.client.renderer.chunk;
 
-import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCactus;
 import net.minecraft.block.BlockRedstoneWire;
@@ -42,7 +41,7 @@ public class RenderChunk {
     private final ReentrantLock lockCompileTask = new ReentrantLock();
     private final ReentrantLock lockCompiledChunk = new ReentrantLock();
     private ChunkCompileTaskGenerator compileTask = null;
-    private final Set<TileEntity> setTileEntities = Sets.newHashSet();
+    private final Set<TileEntity> setTileEntities = new HashSet<>();
     private final int index;
     private final FloatBuffer modelviewMatrix = GLAllocation.createDirectFloatBuffer(16);
     private final VertexBuffer[] vertexBuffers = new VertexBuffer[RenderLayer.values().length];
@@ -148,7 +147,7 @@ public class RenderChunk {
         }
 
         VisGraph lvt_10_1_ = new VisGraph();
-        HashSet lvt_11_1_ = Sets.newHashSet();
+        HashSet<TileEntity> lvt_11_1_ = new HashSet<>();
 
         if (!this.isChunkRegionEmpty(blockpos)) {
             ++renderChunksUpdated;
@@ -240,8 +239,8 @@ public class RenderChunk {
         this.lockCompileTask.lock();
 
         try {
-            Set<TileEntity> set = Sets.newHashSet(lvt_11_1_);
-            Set<TileEntity> set1 = Sets.newHashSet(this.setTileEntities);
+            Set<TileEntity> set = new HashSet<>(lvt_11_1_);
+            Set<TileEntity> set1 = new HashSet<>(this.setTileEntities);
             set.removeAll(this.setTileEntities);
             set1.removeAll(lvt_11_1_);
             this.setTileEntities.clear();

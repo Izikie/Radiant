@@ -2,16 +2,12 @@ package net.minecraft.client.resources;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -60,7 +56,7 @@ public class FileResourcePack extends AbstractResourcePack implements Closeable 
         }
 
         Enumeration<? extends ZipEntry> enumeration = zipfile.entries();
-        Set<String> set = Sets.newHashSet();
+        Set<String> set = new HashSet<>();
 
         while (enumeration.hasMoreElements()) {
             ZipEntry zipentry = enumeration.nextElement();

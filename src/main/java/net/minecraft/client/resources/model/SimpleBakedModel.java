@@ -1,6 +1,5 @@
 package net.minecraft.client.resources.model;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BreakingFour;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -8,6 +7,7 @@ import net.minecraft.client.renderer.block.model.ModelBlock;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.Direction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleBakedModel implements IBakedModel {
@@ -91,11 +91,11 @@ public class SimpleBakedModel implements IBakedModel {
         }
 
         private Builder(boolean ambientOcclusion, boolean gui3d, ItemCameraTransforms cameraTransforms) {
-            this.builderGeneralQuads = Lists.newArrayList();
-            this.builderFaceQuads = Lists.newArrayListWithCapacity(6);
+            this.builderGeneralQuads = new ArrayList<>();
+            this.builderFaceQuads = new ArrayList<>(6);
 
             for (Direction enumfacing : Direction.values()) {
-                this.builderFaceQuads.add(Lists.newArrayList());
+                this.builderFaceQuads.add(new ArrayList<>());
             }
 
             this.builderAmbientOcclusion = ambientOcclusion;

@@ -1,6 +1,5 @@
 package net.minecraft.client.gui.inventory;
 
-import com.google.common.collect.Sets;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
@@ -18,6 +17,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Set;
 
 public abstract class GuiContainer extends GuiScreen {
@@ -38,7 +38,7 @@ public abstract class GuiContainer extends GuiScreen {
     private ItemStack returningStack;
     private Slot currentDragTargetSlot;
     private long dragItemDropDelay;
-    protected final Set<Slot> dragSplittingSlots = Sets.newHashSet();
+    protected final Set<Slot> dragSplittingSlots = new HashSet<>();
     protected boolean dragSplitting;
     private int dragSplittingLimit;
     private int dragSplittingButton;

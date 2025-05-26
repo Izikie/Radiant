@@ -14,6 +14,7 @@ import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.BlockPos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommandAchievement extends CommandBase {
@@ -67,7 +68,7 @@ public class CommandAchievement extends CommandBase {
 
                                 List<Achievement> list;
 
-                                for (list = Lists.newArrayList(); achievement.parentAchievement != null && !entityplayermp.getStatFile().hasAchievementUnlocked(achievement.parentAchievement); achievement = achievement.parentAchievement) {
+                                for (list = new ArrayList<>(); achievement.parentAchievement != null && !entityplayermp.getStatFile().hasAchievementUnlocked(achievement.parentAchievement); achievement = achievement.parentAchievement) {
                                     list.add(achievement.parentAchievement);
                                 }
 
@@ -80,7 +81,7 @@ public class CommandAchievement extends CommandBase {
                                 }
 
                                 List<Achievement> list1 = Lists.newArrayList(Iterators.filter(AchievementList.ACHIEVEMENT_LIST.iterator(), p_apply_1_ -> entityplayermp.getStatFile().hasAchievementUnlocked(p_apply_1_) && p_apply_1_ != statbase));
-                                List<Achievement> list2 = Lists.newArrayList(list1);
+                                List<Achievement> list2 = new ArrayList<>(list1);
 
                                 for (Achievement achievement2 : list1) {
                                     Achievement achievement3 = achievement2;
@@ -124,7 +125,7 @@ public class CommandAchievement extends CommandBase {
         } else if (args.length != 2) {
             return args.length == 3 ? getListOfStringsMatchingLastWord(args, MinecraftServer.getServer().getAllUsernames()) : null;
         } else {
-            List<String> list = Lists.newArrayList();
+            List<String> list = new ArrayList<>();
 
             for (StatBase statbase : StatList.ALL_STATS) {
                 list.add(statbase.statId);

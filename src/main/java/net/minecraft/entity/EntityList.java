@@ -1,6 +1,5 @@
 package net.minecraft.entity;
 
-import com.google.common.collect.Lists;
 import net.minecraft.entity.ai.EntityMinecartMobSpawner;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityWither;
@@ -141,7 +140,7 @@ public class EntityList {
 
     public static List<String> getEntityNameList() {
         Set<String> set = stringToClassMapping.keySet();
-        List<String> list = Lists.newArrayList();
+        List<String> list = new ArrayList<>();
 
         for (String s : set) {
             Class<? extends Entity> oclass = stringToClassMapping.get(s);

@@ -1,6 +1,5 @@
 package net.minecraft.network.play.server;
 
-import com.google.common.collect.Lists;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
@@ -8,6 +7,7 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class S21PacketChunkData implements Packet<INetHandlerPlayClient> {
@@ -62,7 +62,7 @@ public class S21PacketChunkData implements Packet<INetHandlerPlayClient> {
     public static Extracted getExtractedData(Chunk p_179756_0_, boolean p_179756_1_, boolean p_179756_2_, int p_179756_3_) {
         ExtendedBlockStorage[] aextendedblockstorage = p_179756_0_.getBlockStorageArray();
         Extracted s21packetchunkdata$extracted = new Extracted();
-        List<ExtendedBlockStorage> list = Lists.newArrayList();
+        List<ExtendedBlockStorage> list = new ArrayList<>();
 
         for (int i = 0; i < aextendedblockstorage.length; ++i) {
             ExtendedBlockStorage extendedblockstorage = aextendedblockstorage[i];

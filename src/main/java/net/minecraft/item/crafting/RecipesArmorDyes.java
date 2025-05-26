@@ -1,6 +1,5 @@
 package net.minecraft.item.crafting;
 
-import com.google.common.collect.Lists;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
@@ -9,12 +8,13 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecipesArmorDyes implements IRecipe {
     public boolean matches(InventoryCrafting inv, World worldIn) {
         ItemStack itemstack = null;
-        List<ItemStack> list = Lists.newArrayList();
+        List<ItemStack> list = new ArrayList<>();
 
         for (int i = 0; i < inv.getSizeInventory(); ++i) {
             ItemStack itemstack1 = inv.getStackInSlot(i);

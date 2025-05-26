@@ -1,6 +1,5 @@
 package net.minecraft.client.renderer.block.model;
 
-import com.google.common.collect.Lists;
 import com.google.gson.*;
 import net.minecraft.client.resources.model.ModelRotation;
 import net.minecraft.util.JsonUtils;
@@ -8,10 +7,7 @@ import net.minecraft.util.ResourceLocation;
 
 import java.io.Reader;
 import java.lang.reflect.Type;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 public class ModelBlockDefinition {
@@ -67,7 +63,7 @@ public class ModelBlockDefinition {
 
         protected List<Variants> parseVariantsList(JsonDeserializationContext p_178334_1_, JsonObject jsonObject) {
             JsonObject jsonobject = JsonUtils.getJsonObject(jsonObject, "variants");
-            List<Variants> list = Lists.newArrayList();
+            List<Variants> list = new ArrayList<>();
 
             for (Entry<String, JsonElement> entry : jsonobject.entrySet()) {
                 list.add(this.parseVariants(p_178334_1_, entry));
@@ -78,7 +74,7 @@ public class ModelBlockDefinition {
 
         protected Variants parseVariants(JsonDeserializationContext p_178335_1_, Entry<String, JsonElement> p_178335_2_) {
             String s = p_178335_2_.getKey();
-            List<Variant> list = Lists.newArrayList();
+            List<Variant> list = new ArrayList<>();
             JsonElement jsonelement = p_178335_2_.getValue();
 
             if (jsonelement.isJsonArray()) {

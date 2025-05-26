@@ -1,22 +1,22 @@
 package net.minecraft.client.renderer.block.model;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import org.joml.Vector3f;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ItemModelGenerator {
-    public static final List<String> LAYERS = Lists.newArrayList("layer0", "layer1", "layer2", "layer3", "layer4");
+    public static final List<String> LAYERS = List.of("layer0", "layer1", "layer2", "layer3", "layer4");
 
     public ModelBlock makeItemModel(TextureMap textureMapIn, ModelBlock blockModel) {
         Map<String, String> map = new HashMap<>();
-        List<BlockPart> list = Lists.newArrayList();
+        List<BlockPart> list = new ArrayList<>();
 
         for (int i = 0; i < LAYERS.size(); ++i) {
             String s = LAYERS.get(i);
@@ -43,7 +43,7 @@ public class ItemModelGenerator {
         Map<Direction, BlockPartFace> map = new HashMap<>();
         map.put(Direction.SOUTH, new BlockPartFace(null, p_178394_1_, p_178394_2_, new BlockFaceUV(new float[]{0.0F, 0.0F, 16.0F, 16.0F}, 0)));
         map.put(Direction.NORTH, new BlockPartFace(null, p_178394_1_, p_178394_2_, new BlockFaceUV(new float[]{16.0F, 0.0F, 0.0F, 16.0F}, 0)));
-        List<BlockPart> list = Lists.newArrayList();
+        List<BlockPart> list = new ArrayList<>();
         list.add(new BlockPart(new Vector3f(0.0F, 0.0F, 7.5F), new Vector3f(16.0F, 16.0F, 8.5F), map, null, true));
         list.addAll(this.func_178397_a(p_178394_3_, p_178394_2_, p_178394_1_));
         return list;
@@ -52,7 +52,7 @@ public class ItemModelGenerator {
     private List<BlockPart> func_178397_a(TextureAtlasSprite p_178397_1_, String p_178397_2_, int p_178397_3_) {
         float f = p_178397_1_.getIconWidth();
         float f1 = p_178397_1_.getIconHeight();
-        List<BlockPart> list = Lists.newArrayList();
+        List<BlockPart> list = new ArrayList<>();
 
         for (Span itemmodelgenerator$span : this.func_178393_a(p_178397_1_)) {
             float f2 = 0.0F;
@@ -158,7 +158,7 @@ public class ItemModelGenerator {
     private List<Span> func_178393_a(TextureAtlasSprite p_178393_1_) {
         int i = p_178393_1_.getIconWidth();
         int j = p_178393_1_.getIconHeight();
-        List<Span> list = Lists.newArrayList();
+        List<Span> list = new ArrayList<>();
 
         for (int k = 0; k < p_178393_1_.getFrameCount(); ++k) {
             int[] aint = p_178393_1_.getFrameTextureData(k)[0];

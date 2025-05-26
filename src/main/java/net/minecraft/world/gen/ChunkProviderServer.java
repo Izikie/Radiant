@@ -1,6 +1,5 @@
 package net.minecraft.world.gen;
 
-import com.google.common.collect.Lists;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.crash.ReportedException;
@@ -21,6 +20,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -34,7 +34,7 @@ public class ChunkProviderServer implements IChunkProvider {
     private final IChunkLoader chunkLoader;
     public final boolean chunkLoadOverride = true;
     private final LongHashMap<Chunk> id2ChunkMap = new LongHashMap<>();
-    private final List<Chunk> loadedChunks = Lists.newArrayList();
+    private final List<Chunk> loadedChunks = new ArrayList<>();
     private final WorldServer worldObj;
 
     public ChunkProviderServer(WorldServer p_i1520_1_, IChunkLoader p_i1520_2_, IChunkProvider p_i1520_3_) {
@@ -178,7 +178,7 @@ public class ChunkProviderServer implements IChunkProvider {
 
     public boolean saveChunks(boolean saveAllChunks, IProgressUpdate progressCallback) {
         int i = 0;
-        List<Chunk> list = Lists.newArrayList(this.loadedChunks);
+        List<Chunk> list = new ArrayList<>(this.loadedChunks);
 
         for (Chunk chunk : list) {
             if (saveAllChunks) {

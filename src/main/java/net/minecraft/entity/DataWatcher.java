@@ -1,6 +1,5 @@
 package net.minecraft.entity;
 
-import com.google.common.collect.Lists;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.crash.ReportedException;
@@ -12,6 +11,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import org.apache.commons.lang3.ObjectUtils;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -144,7 +144,7 @@ public class DataWatcher {
                     datawatcher$watchableobject.setWatched(false);
 
                     if (list == null) {
-                        list = Lists.newArrayList();
+                        list = new ArrayList<>();
                     }
 
                     list.add(datawatcher$watchableobject);
@@ -175,7 +175,7 @@ public class DataWatcher {
 
         for (WatchableObject datawatcher$watchableobject : this.watchedObjects.values()) {
             if (list == null) {
-                list = Lists.newArrayList();
+                list = new ArrayList<>();
             }
 
             list.add(datawatcher$watchableobject);
@@ -235,7 +235,7 @@ public class DataWatcher {
 
         for (int i = buffer.readByte(); i != 127; i = buffer.readByte()) {
             if (list == null) {
-                list = Lists.newArrayList();
+                list = new ArrayList<>();
             }
 
             int j = (i & 224) >> 5;
