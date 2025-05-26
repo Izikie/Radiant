@@ -21,13 +21,13 @@ public class BlockPartFace {
     }
 
     static class Deserializer implements JsonDeserializer<BlockPartFace> {
-        public BlockPartFace deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-            JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
-            Direction enumfacing = this.parseCullFace(jsonobject);
+        public BlockPartFace deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
+            JsonObject jsonobject = jsonElement.getAsJsonObject();
+            Direction direction = this.parseCullFace(jsonobject);
             int i = this.parseTintIndex(jsonobject);
             String s = this.parseTexture(jsonobject);
-            BlockFaceUV blockfaceuv = p_deserialize_3_.deserialize(jsonobject, BlockFaceUV.class);
-            return new BlockPartFace(enumfacing, i, s, blockfaceuv);
+            BlockFaceUV blockfaceuv = ctx.deserialize(jsonobject, BlockFaceUV.class);
+            return new BlockPartFace(direction, i, s, blockfaceuv);
         }
 
         protected int parseTintIndex(JsonObject jsonObject) {

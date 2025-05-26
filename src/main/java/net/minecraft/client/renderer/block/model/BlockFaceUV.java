@@ -47,8 +47,8 @@ public class BlockFaceUV {
     }
 
     static class Deserializer implements JsonDeserializer<BlockFaceUV> {
-        public BlockFaceUV deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-            JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
+        public BlockFaceUV deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
+            JsonObject jsonobject = jsonElement.getAsJsonObject();
             float[] afloat = this.parseUV(jsonobject);
             int i = this.parseRotation(jsonobject);
             return new BlockFaceUV(afloat, i);

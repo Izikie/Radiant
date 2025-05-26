@@ -8,8 +8,8 @@ import net.minecraft.util.JsonUtils;
 import java.lang.reflect.Type;
 
 public class TextureMetadataSectionSerializer extends BaseMetadataSectionSerializer<TextureMetadataSection> {
-    public TextureMetadataSection deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-        JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
+    public TextureMetadataSection deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
+        JsonObject jsonobject = jsonElement.getAsJsonObject();
         boolean flag = JsonUtils.getBoolean(jsonobject, "blur", false);
         boolean flag1 = JsonUtils.getBoolean(jsonobject, "clamp", false);
         IntList list = new IntArrayList();

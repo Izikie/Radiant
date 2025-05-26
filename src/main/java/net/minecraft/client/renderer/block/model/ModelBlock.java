@@ -19,7 +19,14 @@ import java.util.Map.Entry;
 
 public class ModelBlock {
     private static final Logger LOGGER = LogManager.getLogger();
-    static final Gson SERIALIZER = (new GsonBuilder()).registerTypeAdapter(ModelBlock.class, new Deserializer()).registerTypeAdapter(BlockPart.class, new BlockPart.Deserializer()).registerTypeAdapter(BlockPartFace.class, new BlockPartFace.Deserializer()).registerTypeAdapter(BlockFaceUV.class, new BlockFaceUV.Deserializer()).registerTypeAdapter(ItemTransformVec3f.class, new ItemTransformVec3f.Deserializer()).registerTypeAdapter(ItemCameraTransforms.class, new ItemCameraTransforms.Deserializer()).create();
+    static final Gson SERIALIZER = new GsonBuilder()
+            .registerTypeAdapter(ModelBlock.class, new Deserializer())
+            .registerTypeAdapter(BlockPart.class, new BlockPart.Deserializer())
+            .registerTypeAdapter(BlockPartFace.class, new BlockPartFace.Deserializer())
+            .registerTypeAdapter(BlockFaceUV.class, new BlockFaceUV.Deserializer())
+            .registerTypeAdapter(ItemTransformVec3f.class, new ItemTransformVec3f.Deserializer())
+            .registerTypeAdapter(ItemCameraTransforms.class, new ItemCameraTransforms.Deserializer())
+            .create();
     private final List<BlockPart> elements;
     private final boolean gui3d;
     private final boolean ambientOcclusion;
@@ -169,9 +176,9 @@ public class ModelBlock {
     }
 
     public static class Deserializer implements JsonDeserializer<ModelBlock> {
-        public ModelBlock deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-            JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
-            List<BlockPart> list = this.getModelElements(p_deserialize_3_, jsonobject);
+        public ModelBlock deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
+            JsonObject jsonobject = jsonElement.getAsJsonObject();
+            List<BlockPart> list = this.getModelElements(ctx, jsonobject);
             String s = this.getParent(jsonobject);
             boolean flag = StringUtils.isEmpty(s);
             boolean flag1 = list.isEmpty();
@@ -187,7 +194,7 @@ public class ModelBlock {
 
                 if (jsonobject.has("display")) {
                     JsonObject jsonobject1 = JsonUtils.getJsonObject(jsonobject, "display");
-                    itemcameratransforms = p_deserialize_3_.deserialize(jsonobject1, ItemCameraTransforms.class);
+                    itemcameratransforms = ctx.deserialize(jsonobject1, ItemCameraTransforms.class);
                 }
 
                 return flag1 ? new ModelBlock(new ResourceLocation(s), map, flag2, true, itemcameratransforms) : new ModelBlock(list, map, flag2, true, itemcameratransforms);
@@ -216,12 +223,12 @@ public class ModelBlock {
             return JsonUtils.getBoolean(jsonObject, "ambientocclusion", true);
         }
 
-        protected List<BlockPart> getModelElements(JsonDeserializationContext p_178325_1_, JsonObject jsonObject) {
+        protected List<BlockPart> getModelElements(JsonDeserializationContext ctx, JsonObject jsonObject) {
             List<BlockPart> list = Lists.newArrayList();
 
             if (jsonObject.has("elements")) {
                 for (JsonElement jsonelement : JsonUtils.getJsonArray(jsonObject, "elements")) {
-                    list.add(p_178325_1_.deserialize(jsonelement, BlockPart.class));
+                    list.add(ctx.deserialize(jsonelement, BlockPart.class));
                 }
             }
 

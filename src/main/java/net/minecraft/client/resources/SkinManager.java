@@ -43,8 +43,8 @@ public class SkinManager {
         });
     }
 
-    public ResourceLocation loadSkin(MinecraftProfileTexture profileTexture, Type p_152792_2_) {
-        return this.loadSkin(profileTexture, p_152792_2_, null);
+    public ResourceLocation loadSkin(MinecraftProfileTexture profileTexture, Type type) {
+        return this.loadSkin(profileTexture, type, null);
     }
 
     public ResourceLocation loadSkin(final MinecraftProfileTexture profileTexture, final Type p_152789_2_, final SkinAvailableCallback skinAvailableCallback) {

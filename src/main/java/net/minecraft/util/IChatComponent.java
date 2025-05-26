@@ -26,18 +26,22 @@ public interface IChatComponent extends Iterable<IChatComponent> {
     IChatComponent createCopy();
 
     class Serializer implements JsonDeserializer<IChatComponent>, JsonSerializer<IChatComponent> {
-        private static final Gson GSON;
+        private static final Gson GSON = new GsonBuilder()
+                    .registerTypeHierarchyAdapter(IChatComponent.class, new Serializer())
+                    .registerTypeHierarchyAdapter(ChatStyle.class, new ChatStyle.Serializer())
+                    .registerTypeAdapterFactory(new EnumTypeAdapterFactory())
+                    .create();
 
-        public IChatComponent deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-            if (p_deserialize_1_.isJsonPrimitive()) {
-                return new ChatComponentText(p_deserialize_1_.getAsString());
-            } else if (!p_deserialize_1_.isJsonObject()) {
-                if (p_deserialize_1_.isJsonArray()) {
-                    JsonArray jsonarray1 = p_deserialize_1_.getAsJsonArray();
+        public IChatComponent deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
+            if (jsonElement.isJsonPrimitive()) {
+                return new ChatComponentText(jsonElement.getAsString());
+            } else if (!jsonElement.isJsonObject()) {
+                if (jsonElement.isJsonArray()) {
+                    JsonArray jsonarray1 = jsonElement.getAsJsonArray();
                     IChatComponent ichatcomponent1 = null;
 
                     for (JsonElement jsonelement : jsonarray1) {
-                        IChatComponent ichatcomponent2 = this.deserialize(jsonelement, jsonelement.getClass(), p_deserialize_3_);
+                        IChatComponent ichatcomponent2 = this.deserialize(jsonelement, jsonelement.getClass(), ctx);
 
                         if (ichatcomponent1 == null) {
                             ichatcomponent1 = ichatcomponent2;
@@ -48,10 +52,10 @@ public interface IChatComponent extends Iterable<IChatComponent> {
 
                     return ichatcomponent1;
                 } else {
-                    throw new JsonParseException("Don't know how to turn " + p_deserialize_1_ + " into a Component");
+                    throw new JsonParseException("Don't know how to turn " + jsonElement + " into a Component");
                 }
             } else {
-                JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
+                JsonObject jsonobject = jsonElement.getAsJsonObject();
                 IChatComponent ichatcomponent;
 
                 if (jsonobject.has("text")) {
@@ -64,7 +68,7 @@ public interface IChatComponent extends Iterable<IChatComponent> {
                         Object[] aobject = new Object[jsonarray.size()];
 
                         for (int i = 0; i < aobject.length; ++i) {
-                            aobject[i] = this.deserialize(jsonarray.get(i), p_deserialize_2_, p_deserialize_3_);
+                            aobject[i] = this.deserialize(jsonarray.get(i), type, ctx);
 
                             if (aobject[i] instanceof ChatComponentText chatcomponenttext) {
 
@@ -92,7 +96,7 @@ public interface IChatComponent extends Iterable<IChatComponent> {
                     }
                 } else {
                     if (!jsonobject.has("selector")) {
-                        throw new JsonParseException("Don't know how to turn " + p_deserialize_1_ + " into a Component");
+                        throw new JsonParseException("Don't know how to turn " + jsonElement + " into a Component");
                     }
 
                     ichatcomponent = new ChatComponentSelector(JsonUtils.getString(jsonobject, "selector"));
@@ -106,11 +110,11 @@ public interface IChatComponent extends Iterable<IChatComponent> {
                     }
 
                     for (int j = 0; j < jsonarray2.size(); ++j) {
-                        ichatcomponent.appendSibling(this.deserialize(jsonarray2.get(j), p_deserialize_2_, p_deserialize_3_));
+                        ichatcomponent.appendSibling(this.deserialize(jsonarray2.get(j), type, ctx));
                     }
                 }
 
-                ichatcomponent.setChatStyle(p_deserialize_3_.deserialize(p_deserialize_1_, ChatStyle.class));
+                ichatcomponent.setChatStyle(ctx.deserialize(jsonElement, ChatStyle.class));
                 return ichatcomponent;
             }
         }
@@ -127,21 +131,21 @@ public interface IChatComponent extends Iterable<IChatComponent> {
             }
         }
 
-        public JsonElement serialize(IChatComponent p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
+        public JsonElement serialize(IChatComponent p_serialize_1_, Type type, JsonSerializationContext ctx) {
             if (p_serialize_1_ instanceof ChatComponentText chatComponents && p_serialize_1_.getChatStyle().isEmpty() && p_serialize_1_.getSiblings().isEmpty()) {
                 return new JsonPrimitive(chatComponents.getChatComponentText_TextValue());
             } else {
                 JsonObject jsonobject = new JsonObject();
 
                 if (!p_serialize_1_.getChatStyle().isEmpty()) {
-                    this.serializeChatStyle(p_serialize_1_.getChatStyle(), jsonobject, p_serialize_3_);
+                    this.serializeChatStyle(p_serialize_1_.getChatStyle(), jsonobject, ctx);
                 }
 
                 if (!p_serialize_1_.getSiblings().isEmpty()) {
                     JsonArray jsonarray = new JsonArray();
 
                     for (IChatComponent ichatcomponent : p_serialize_1_.getSiblings()) {
-                        jsonarray.add(this.serialize(ichatcomponent, ichatcomponent.getClass(), p_serialize_3_));
+                        jsonarray.add(this.serialize(ichatcomponent, ichatcomponent.getClass(), ctx));
                     }
 
                     jsonobject.add("extra", jsonarray);
@@ -158,7 +162,7 @@ public interface IChatComponent extends Iterable<IChatComponent> {
 
                             for (Object object : chatcomponenttranslation.getFormatArgs()) {
                                 if (object instanceof IChatComponent chatComponent) {
-                                    jsonarray1.add(this.serialize(chatComponent, object.getClass(), p_serialize_3_));
+                                    jsonarray1.add(this.serialize(chatComponent, object.getClass(), ctx));
                                 } else {
                                     jsonarray1.add(new JsonPrimitive(String.valueOf(object)));
                                 }
@@ -193,14 +197,6 @@ public interface IChatComponent extends Iterable<IChatComponent> {
 
         public static IChatComponent jsonToComponent(String json) {
             return GSON.fromJson(json, IChatComponent.class);
-        }
-
-        static {
-            GsonBuilder gsonbuilder = new GsonBuilder();
-            gsonbuilder.registerTypeHierarchyAdapter(IChatComponent.class, new Serializer());
-            gsonbuilder.registerTypeHierarchyAdapter(ChatStyle.class, new ChatStyle.Serializer());
-            gsonbuilder.registerTypeAdapterFactory(new EnumTypeAdapterFactory());
-            GSON = gsonbuilder.create();
         }
     }
 }

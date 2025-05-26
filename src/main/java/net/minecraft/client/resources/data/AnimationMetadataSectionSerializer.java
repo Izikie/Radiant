@@ -9,9 +9,9 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 public class AnimationMetadataSectionSerializer extends BaseMetadataSectionSerializer<AnimationMetadataSection> implements JsonSerializer<AnimationMetadataSection> {
-    public AnimationMetadataSection deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
+    public AnimationMetadataSection deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
         List<AnimationFrame> list = Lists.newArrayList();
-        JsonObject jsonobject = JsonUtils.getJsonObject(p_deserialize_1_, "metadata section");
+        JsonObject jsonobject = JsonUtils.getJsonObject(jsonElement, "metadata section");
         int i = JsonUtils.getInt(jsonobject, "frametime", 1);
 
         if (i != 1) {
@@ -69,7 +69,7 @@ public class AnimationMetadataSectionSerializer extends BaseMetadataSectionSeria
         }
     }
 
-    public JsonElement serialize(AnimationMetadataSection p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
+    public JsonElement serialize(AnimationMetadataSection p_serialize_1_, Type type, JsonSerializationContext ctx) {
         JsonObject jsonobject = new JsonObject();
         jsonobject.addProperty("frametime", p_serialize_1_.getFrameTime());
 

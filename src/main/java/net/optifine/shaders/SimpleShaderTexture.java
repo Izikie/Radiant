@@ -72,12 +72,12 @@ public class SimpleShaderTexture extends AbstractTexture {
     }
 
     private static IMetadataSerializer makeMetadataSerializer() {
-        IMetadataSerializer imetadataserializer = new IMetadataSerializer();
-        imetadataserializer.registerMetadataSectionType(new TextureMetadataSectionSerializer(), TextureMetadataSection.class);
-        imetadataserializer.registerMetadataSectionType(new FontMetadataSectionSerializer(), FontMetadataSection.class);
-        imetadataserializer.registerMetadataSectionType(new AnimationMetadataSectionSerializer(), AnimationMetadataSection.class);
-        imetadataserializer.registerMetadataSectionType(new PackMetadataSectionSerializer(), PackMetadataSection.class);
-        imetadataserializer.registerMetadataSectionType(new LanguageMetadataSectionSerializer(), LanguageMetadataSection.class);
-        return imetadataserializer;
+        IMetadataSerializer serializer = new IMetadataSerializer();
+        serializer.registerMetadataSectionType(new TextureMetadataSectionSerializer(), TextureMetadataSection.class);
+        serializer.registerMetadataSectionType(new FontMetadataSectionSerializer(), FontMetadataSection.class);
+        serializer.registerMetadataSectionType(new AnimationMetadataSectionSerializer(), AnimationMetadataSection.class);
+        serializer.registerMetadataSectionType(new PackMetadataSectionSerializer(), PackMetadataSection.class);
+        serializer.registerMetadataSectionType(new LanguageMetadataSectionSerializer(), LanguageMetadataSection.class);
+        return serializer;
     }
 }
