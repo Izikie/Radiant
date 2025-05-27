@@ -1,6 +1,5 @@
 package net.minecraft.client.renderer.entity;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelZombie;
 import net.minecraft.client.model.ModelZombieVillager;
@@ -8,6 +7,7 @@ import net.minecraft.client.renderer.entity.layers.*;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.util.ResourceLocation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RenderZombie extends RenderBiped<EntityZombie> {
@@ -31,7 +31,7 @@ public class RenderZombie extends RenderBiped<EntityZombie> {
             }
         };
         this.addLayer(layerbipedarmor);
-        this.field_177122_o = Lists.newArrayList(this.layerRenderers);
+        this.field_177122_o = new ArrayList<>(this.layerRenderers);
 
         if (layerrenderer instanceof LayerCustomHead) {
             this.removeLayer(layerrenderer);
@@ -40,7 +40,7 @@ public class RenderZombie extends RenderBiped<EntityZombie> {
 
         this.removeLayer(layerbipedarmor);
         this.addLayer(new LayerVillagerArmor(this));
-        this.field_177121_n = Lists.newArrayList(this.layerRenderers);
+        this.field_177121_n = new ArrayList<>(this.layerRenderers);
     }
 
     public void doRender(EntityZombie entity, double x, double y, double z, float entityYaw, float partialTicks) {

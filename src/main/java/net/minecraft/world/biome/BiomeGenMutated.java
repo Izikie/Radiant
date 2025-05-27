@@ -1,11 +1,11 @@
 package net.minecraft.world.biome;
 
-import com.google.common.collect.Lists;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class BiomeGenMutated extends BiomeGenBase {
@@ -26,10 +26,10 @@ public class BiomeGenMutated extends BiomeGenBase {
         this.waterColorMultiplier = biome.waterColorMultiplier;
         this.enableSnow = biome.enableSnow;
         this.enableRain = biome.enableRain;
-        this.spawnableCreatureList = Lists.newArrayList(biome.spawnableCreatureList);
-        this.spawnableMonsterList = Lists.newArrayList(biome.spawnableMonsterList);
-        this.spawnableCaveCreatureList = Lists.newArrayList(biome.spawnableCaveCreatureList);
-        this.spawnableWaterCreatureList = Lists.newArrayList(biome.spawnableWaterCreatureList);
+        this.spawnableCreatureList = new ArrayList<>(biome.spawnableCreatureList);
+        this.spawnableMonsterList = new ArrayList<>(biome.spawnableMonsterList);
+        this.spawnableCaveCreatureList = new ArrayList<>(biome.spawnableCaveCreatureList);
+        this.spawnableWaterCreatureList = new ArrayList<>(biome.spawnableWaterCreatureList);
         this.temperature = biome.temperature;
         this.rainfall = biome.rainfall;
         this.minHeight = biome.minHeight + 0.1F;

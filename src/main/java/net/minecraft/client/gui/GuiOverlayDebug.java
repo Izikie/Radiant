@@ -1,7 +1,6 @@
 package net.minecraft.client.gui;
 
 import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
@@ -139,7 +138,7 @@ public class GuiOverlayDebug extends Gui {
         textureAnimBuilder.append(textureMap.getCountAnimations() + TextureAnimations.getCountAnimations());
         String textureAnimInfo = textureAnimBuilder.toString();
 
-        List<String> debugInfo = Lists.newArrayList(
+        List<String> debugInfo = List.of(
                 String.format("Minecraft 1.8.9 (%s)", mc.getVersion()),
                 mc.debug,
                 mc.renderGlobal.getDebugInfoRenders(),
@@ -207,12 +206,13 @@ public class GuiOverlayDebug extends Gui {
         long freeMemory = Runtime.getRuntime().freeMemory();
         long usedMemory = totalMemory - freeMemory;
 
-        List<String> list = Lists.newArrayList(
+        List<String> list = List.of(
                 String.format("Java: %s %dbit", System.getProperty("java.version"), mc.isJava64bit() ? 64 : 32),
                 String.format("Mem: % 2d%% %03d/%03dMB", usedMemory * 100L / maxMemory, bytesToMb(usedMemory), bytesToMb(maxMemory)),
                 String.format("Allocated: % 2d%% %03dMB", totalMemory * 100L / maxMemory, bytesToMb(totalMemory)),
                 "GC: " + MemoryMonitor.getAllocationRateMb() + "MB/s",
                 "",
+                String.format("CPU: %s", System.getProperty("sun.cpu.endian")),
                 String.format("GPU: %s", GL11.glGetString(GL11.GL_RENDERER)),
                 String.format("Display: %dx%d (%s)", Display.getWidth(), Display.getHeight(), GL11.glGetString(GL11.GL_VENDOR)),
                 GL11.glGetString(GL11.GL_VERSION));

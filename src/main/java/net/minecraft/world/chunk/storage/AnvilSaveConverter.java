@@ -1,6 +1,5 @@
 package net.minecraft.world.chunk.storage;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.AnvilConverterException;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
@@ -21,6 +20,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -38,7 +38,7 @@ public class AnvilSaveConverter extends SaveFormatOld {
 
     public List<SaveFormatComparator> getSaveList() throws AnvilConverterException {
         if (this.savesDirectory != null && this.savesDirectory.exists() && this.savesDirectory.isDirectory()) {
-            List<SaveFormatComparator> list = Lists.newArrayList();
+            List<SaveFormatComparator> list = new ArrayList<>();
             File[] afile = this.savesDirectory.listFiles();
 
             for (File file1 : afile) {
@@ -90,9 +90,9 @@ public class AnvilSaveConverter extends SaveFormatOld {
 
     public boolean convertMapFormat(String filename, IProgressUpdate progressCallback) {
         progressCallback.setLoadingProgress(0);
-        List<File> list = Lists.newArrayList();
-        List<File> list1 = Lists.newArrayList();
-        List<File> list2 = Lists.newArrayList();
+        List<File> list = new ArrayList<>();
+        List<File> list1 = new ArrayList<>();
+        List<File> list2 = new ArrayList<>();
         File file1 = new File(this.savesDirectory, filename);
         File file2 = new File(file1, "DIM-1");
         File file3 = new File(file1, "DIM1");

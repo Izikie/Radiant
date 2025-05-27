@@ -1,6 +1,5 @@
 package net.minecraft.network.play.server;
 
-import com.google.common.collect.Lists;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
@@ -8,6 +7,7 @@ import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Team;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class S3EPacketTeams implements Packet<INetHandlerPlayClient> {
@@ -24,13 +24,13 @@ public class S3EPacketTeams implements Packet<INetHandlerPlayClient> {
     public S3EPacketTeams() {
         this.nameTagVisibility = Team.EnumVisible.ALWAYS.internalName;
         this.color = -1;
-        this.players = Lists.newArrayList();
+        this.players = new ArrayList<>();
     }
 
     public S3EPacketTeams(ScorePlayerTeam teamIn, int actionIn) {
         this.nameTagVisibility = Team.EnumVisible.ALWAYS.internalName;
         this.color = -1;
-        this.players = Lists.newArrayList();
+        this.players = new ArrayList<>();
         this.name = teamIn.getRegisteredName();
         this.action = actionIn;
 
@@ -51,7 +51,7 @@ public class S3EPacketTeams implements Packet<INetHandlerPlayClient> {
     public S3EPacketTeams(ScorePlayerTeam teamIn, Collection<String> playersIn, int actionIn) {
         this.nameTagVisibility = Team.EnumVisible.ALWAYS.internalName;
         this.color = -1;
-        this.players = Lists.newArrayList();
+        this.players = new ArrayList<>();
 
         if (actionIn != 3 && actionIn != 4) {
             throw new IllegalArgumentException("Method must be join or leave for player constructor");

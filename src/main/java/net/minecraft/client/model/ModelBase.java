@@ -1,19 +1,15 @@
 package net.minecraft.client.model;
 
-import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public abstract class ModelBase {
     public float swingProgress;
     public boolean isRiding;
     public boolean isChild = true;
-    public final List<ModelRenderer> boxList = Lists.newArrayList();
+    public final List<ModelRenderer> boxList = new ArrayList<>();
     private final Map<String, TextureOffset> modelTextureMap = new HashMap<>();
     public int textureWidth = 64;
     public int textureHeight = 32;

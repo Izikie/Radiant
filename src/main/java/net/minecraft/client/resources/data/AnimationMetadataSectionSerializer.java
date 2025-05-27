@@ -1,17 +1,17 @@
 package net.minecraft.client.resources.data;
 
-import com.google.common.collect.Lists;
 import com.google.gson.*;
 import net.minecraft.util.JsonUtils;
 import org.apache.commons.lang3.Validate;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AnimationMetadataSectionSerializer extends BaseMetadataSectionSerializer<AnimationMetadataSection> implements JsonSerializer<AnimationMetadataSection> {
-    public AnimationMetadataSection deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
-        List<AnimationFrame> list = Lists.newArrayList();
-        JsonObject jsonobject = JsonUtils.getJsonObject(jsonElement, "metadata section");
+    public AnimationMetadataSection deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
+        List<AnimationFrame> list = new ArrayList<>();
+        JsonObject jsonobject = JsonUtils.getJsonObject(p_deserialize_1_, "metadata section");
         int i = JsonUtils.getInt(jsonobject, "frametime", 1);
 
         if (i != 1) {

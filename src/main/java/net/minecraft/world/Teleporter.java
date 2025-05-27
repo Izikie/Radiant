@@ -1,6 +1,5 @@
 package net.minecraft.world;
 
-import com.google.common.collect.Lists;
 import net.minecraft.block.BlockPortal;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockPattern;
@@ -11,6 +10,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.LongHashMap;
 import net.minecraft.util.MathHelper;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -19,7 +19,7 @@ public class Teleporter {
     private final WorldServer worldServerInstance;
     private final Random random;
     private final LongHashMap<PortalPosition> destinationCoordinateCache = new LongHashMap<>();
-    private final List<Long> destinationCoordinateKeys = Lists.newArrayList();
+    private final List<Long> destinationCoordinateKeys = new ArrayList<>();
 
     public Teleporter(WorldServer worldIn) {
         this.worldServerInstance = worldIn;

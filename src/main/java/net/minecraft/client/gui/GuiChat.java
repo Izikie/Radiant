@@ -1,6 +1,5 @@
 package net.minecraft.client.gui;
 
-import com.google.common.collect.Lists;
 import net.minecraft.network.play.client.C14PacketTabComplete;
 import net.minecraft.util.*;
 import org.apache.commons.lang3.StringUtils;
@@ -10,6 +9,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GuiChat extends GuiScreen {
@@ -19,7 +19,7 @@ public class GuiChat extends GuiScreen {
     private boolean playerNamesFound;
     private boolean waitingOnAutocomplete;
     private int autocompleteIndex;
-    private final List<String> foundPlayerNames = Lists.newArrayList();
+    private final List<String> foundPlayerNames = new ArrayList<>();
     protected GuiTextField inputField;
     private String defaultInputFieldText = "";
 

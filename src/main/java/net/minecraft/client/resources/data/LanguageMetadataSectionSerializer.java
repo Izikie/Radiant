@@ -1,6 +1,5 @@
 package net.minecraft.client.resources.data;
 
-import com.google.common.collect.Sets;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -9,13 +8,14 @@ import net.minecraft.client.resources.Language;
 import net.minecraft.util.JsonUtils;
 
 import java.lang.reflect.Type;
+import java.util.HashSet;
 import java.util.Map.Entry;
 import java.util.Set;
 
 public class LanguageMetadataSectionSerializer extends BaseMetadataSectionSerializer<LanguageMetadataSection> {
-    public LanguageMetadataSection deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
-        JsonObject jsonobject = jsonElement.getAsJsonObject();
-        Set<Language> set = Sets.newHashSet();
+    public LanguageMetadataSection deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
+        JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
+        Set<Language> set = new HashSet<>();
 
         for (Entry<String, JsonElement> entry : jsonobject.entrySet()) {
             String s = entry.getKey();

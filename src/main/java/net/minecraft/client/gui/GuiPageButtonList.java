@@ -3,16 +3,16 @@ package net.minecraft.client.gui;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.IntHashMap;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GuiPageButtonList extends GuiListExtended {
-    private final List<GuiEntry> field_178074_u = Lists.newArrayList();
+    private final List<GuiEntry> field_178074_u = new ArrayList<>();
     private final IntHashMap<Gui> field_178073_v = new IntHashMap();
-    private final List<GuiTextField> field_178072_w = Lists.newArrayList();
+    private final List<GuiTextField> field_178072_w = new ArrayList<>();
     private final GuiListEntry[][] field_178078_x;
     private int field_178077_y;
     private final GuiResponder field_178076_z;

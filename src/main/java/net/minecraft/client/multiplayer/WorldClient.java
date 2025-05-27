@@ -1,6 +1,5 @@
 package net.minecraft.client.multiplayer;
 
-import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -31,16 +30,17 @@ import net.optifine.CustomGuis;
 import net.optifine.DynamicLights;
 import net.optifine.override.PlayerControllerOF;
 
+import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
 public class WorldClient extends World {
     private final NetHandlerPlayClient sendQueue;
     private ChunkProviderClient clientChunkProvider;
-    private final Set<Entity> entityList = Sets.newHashSet();
-    private final Set<Entity> entitySpawnQueue = Sets.newHashSet();
+    private final Set<Entity> entityList = new HashSet<>();
+    private final Set<Entity> entitySpawnQueue = new HashSet<>();
     private final Minecraft mc = Minecraft.getMinecraft();
-    private final Set<ChunkCoordIntPair> previousActiveChunkSet = Sets.newHashSet();
+    private final Set<ChunkCoordIntPair> previousActiveChunkSet = new HashSet<>();
     private boolean playerUpdate = false;
 
     public WorldClient(NetHandlerPlayClient netHandler, WorldSettings settings, int dimension, Difficulty difficulty) {

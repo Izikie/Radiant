@@ -1,6 +1,5 @@
 package net.minecraft.server;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -52,7 +51,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
     private static MinecraftServer mcServer;
     private final ISaveFormat anvilConverterForAnvilFile;
     private final File anvilFile;
-    private final List<ITickable> playersOnline = Lists.newArrayList();
+    private final List<ITickable> playersOnline = new ArrayList<>();
     protected final ICommandManager commandManager;
     private final NetworkSystem networkSystem;
     private final ServerStatusResponse statusResponse = new ServerStatusResponse();
@@ -572,7 +571,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
     }
 
     public List<String> getTabCompletions(ICommandSender sender, String input, BlockPos pos) {
-        List<String> list = Lists.newArrayList();
+        List<String> list = new ArrayList<>();
 
         if (input.startsWith("/")) {
             input = input.substring(1);

@@ -2,7 +2,6 @@ package net.minecraft.client.network;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
@@ -32,6 +31,7 @@ import org.apache.logging.log4j.Logger;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -39,7 +39,7 @@ import java.util.List;
 public class OldServerPinger {
     private static final Splitter PING_RESPONSE_SPLITTER = Splitter.on('\u0000').limit(6);
     private static final Logger LOGGER = LogManager.getLogger();
-    private final List<NetworkManager> pingDestinations = Collections.synchronizedList(Lists.newArrayList());
+    private final List<NetworkManager> pingDestinations = Collections.synchronizedList(new ArrayList<>());
 
     public void ping(final ServerData server) throws UnknownHostException {
         ServerAddress address = ServerAddress.fromString(server.serverIP);

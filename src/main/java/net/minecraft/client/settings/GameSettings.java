@@ -1,6 +1,5 @@
 package net.minecraft.client.settings;
 
-import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundCategory;
@@ -63,8 +62,8 @@ public class GameSettings {
     public int clouds = 2;
     public boolean fancyGraphics = true;
     public int ambientOcclusion = 2;
-    public List<String> resourcePacks = Lists.newArrayList();
-    public List<String> incompatibleResourcePacks = Lists.newArrayList();
+    public List<String> resourcePacks = new ArrayList<>();
+    public List<String> incompatibleResourcePacks = new ArrayList<>();
     public EntityPlayer.ChatVisibility chatVisibility = EntityPlayer.ChatVisibility.FULL;
     public boolean chatColours = true;
     public boolean chatLinks = true;
@@ -617,7 +616,7 @@ public class GameSettings {
                                 this.resourcePacks = GSON.fromJson(s.substring(s.indexOf(58) + 1), TYPE_LIST_STRING);
 
                                 if (this.resourcePacks == null) {
-                                    this.resourcePacks = Lists.newArrayList();
+                                    this.resourcePacks = new ArrayList<>();
                                 }
                             }
 
@@ -625,7 +624,7 @@ public class GameSettings {
                                 this.incompatibleResourcePacks = GSON.fromJson(s.substring(s.indexOf(58) + 1), TYPE_LIST_STRING);
 
                                 if (this.incompatibleResourcePacks == null) {
-                                    this.incompatibleResourcePacks = Lists.newArrayList();
+                                    this.incompatibleResourcePacks = new ArrayList<>();
                                 }
                             }
 
@@ -879,13 +878,13 @@ public class GameSettings {
             }
 
             this.mc.thePlayer.sendQueue.addToSendQueue(
-                new C15PacketClientSettings(
-                        this.language,
-                        this.renderDistanceChunks,
-                        this.chatVisibility,
-                        this.chatColours,
-                        modelPart
-                )
+                    new C15PacketClientSettings(
+                            this.language,
+                            this.renderDistanceChunks,
+                            this.chatVisibility,
+                            this.chatColours,
+                            modelPart
+                    )
             );
         }
     }
@@ -993,7 +992,8 @@ public class GameSettings {
             case AA_LEVEL -> this.ofAaLevel;
             case AF_LEVEL -> this.ofAfLevel;
             case MIPMAP_TYPE -> this.ofMipmapType;
-            case FRAMERATE_LIMIT -> this.limitFramerate == Options.FRAMERATE_LIMIT.getValueMax() && this.enableVsync ? 0.0F : this.limitFramerate;
+            case FRAMERATE_LIMIT ->
+                    this.limitFramerate == Options.FRAMERATE_LIMIT.getValueMax() && this.enableVsync ? 0.0F : this.limitFramerate;
             case FULLSCREEN_MODE -> {
                 if (this.ofFullscreenMode.equals("Default")) {
                     yield 0.0F;

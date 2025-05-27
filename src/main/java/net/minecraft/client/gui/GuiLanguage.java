@@ -1,6 +1,5 @@
 package net.minecraft.client.gui;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.resources.Language;
@@ -8,6 +7,7 @@ import net.minecraft.client.resources.LanguageManager;
 import net.minecraft.client.settings.GameSettings;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -76,7 +76,7 @@ public class GuiLanguage extends GuiScreen {
     }
 
     class List extends GuiSlot {
-        private final java.util.List<String> langCodeList = Lists.newArrayList();
+        private final java.util.List<String> langCodeList = new ArrayList<>();
         private final Map<String, Language> languageMap = new HashMap<>();
 
         public List(Minecraft mcIn) {

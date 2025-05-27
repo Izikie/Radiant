@@ -1,11 +1,11 @@
 package net.minecraft.client.renderer.chunk;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.RenderLayer;
 
+import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
 
@@ -30,7 +30,7 @@ public class CompiledChunk {
     private final boolean[] layersUsed = new boolean[RenderChunk.ENUM_WORLD_BLOCK_LAYERS.length];
     private final boolean[] layersStarted = new boolean[RenderChunk.ENUM_WORLD_BLOCK_LAYERS.length];
     private boolean empty = true;
-    private final List<TileEntity> tileEntities = Lists.newArrayList();
+    private final List<TileEntity> tileEntities = new ArrayList<>();
     private SetVisibility setVisibility = new SetVisibility();
     private WorldRenderer.State state;
     private final BitSet[] animatedSprites = new BitSet[RenderChunk.ENUM_WORLD_BLOCK_LAYERS.length];

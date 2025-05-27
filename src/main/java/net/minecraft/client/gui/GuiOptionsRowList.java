@@ -1,13 +1,13 @@
 package net.minecraft.client.gui;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GuiOptionsRowList extends GuiListExtended {
-    private final List<Row> field_148184_k = Lists.newArrayList();
+    private final List<Row> field_148184_k = new ArrayList<>();
 
     public GuiOptionsRowList(Minecraft mcIn, int p_i45015_2_, int p_i45015_3_, int p_i45015_4_, int p_i45015_5_, int p_i45015_6_, GameSettings.Options... p_i45015_7_) {
         super(mcIn, p_i45015_2_, p_i45015_3_, p_i45015_4_, p_i45015_5_, p_i45015_6_);

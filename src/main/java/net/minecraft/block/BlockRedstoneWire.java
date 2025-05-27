@@ -1,7 +1,5 @@
 package net.minecraft.block;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.properties.PropertyInteger;
@@ -14,10 +12,7 @@ import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class BlockRedstoneWire extends Block {
     public static final PropertyEnum<EnumAttachPosition> NORTH = PropertyEnum.create("north", EnumAttachPosition.class);
@@ -26,7 +21,7 @@ public class BlockRedstoneWire extends Block {
     public static final PropertyEnum<EnumAttachPosition> WEST = PropertyEnum.create("west", EnumAttachPosition.class);
     public static final PropertyInteger POWER = PropertyInteger.create("power", 0, 15);
     private boolean canProvidePower = true;
-    private final Set<BlockPos> blocksNeedingUpdate = Sets.newHashSet();
+    private final Set<BlockPos> blocksNeedingUpdate = new HashSet<>();
 
     public BlockRedstoneWire() {
         super(Material.CIRCUITS);
@@ -77,7 +72,7 @@ public class BlockRedstoneWire extends Block {
 
     private IBlockState updateSurroundingRedstone(World worldIn, BlockPos pos, IBlockState state) {
         state = this.calculateCurrentChanges(worldIn, pos, pos, state);
-        List<BlockPos> list = Lists.newArrayList(this.blocksNeedingUpdate);
+        List<BlockPos> list = new ArrayList<>(this.blocksNeedingUpdate);
         this.blocksNeedingUpdate.clear();
 
         for (BlockPos blockpos : list) {

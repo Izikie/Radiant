@@ -1,6 +1,5 @@
 package net.minecraft.client.shader;
 
-import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -22,6 +21,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,9 +33,9 @@ public class ShaderManager {
     private static int currentProgram = -1;
     private static boolean field_148000_e = true;
     private final Map<String, Object> shaderSamplers = new HashMap<>();
-    private final List<String> samplerNames = Lists.newArrayList();
+    private final List<String> samplerNames = new ArrayList<>();
     private final IntList shaderSamplerLocations = new IntArrayList();
-    private final List<ShaderUniform> shaderUniforms = Lists.newArrayList();
+    private final List<ShaderUniform> shaderUniforms = new ArrayList<>();
     private final IntList shaderUniformLocations = new IntArrayList();
     private final Map<String, ShaderUniform> mappedShaderUniforms = new HashMap<>();
     private final int program;
@@ -81,7 +81,7 @@ public class ShaderManager {
             if (jsonarray1 != null) {
                 int j = 0;
                 this.attribLocations = new IntArrayList(jsonarray1.size());
-                this.attributes = Lists.newArrayListWithCapacity(jsonarray1.size());
+                this.attributes = new ArrayList<>(jsonarray1.size());
 
                 for (JsonElement jsonelement1 : jsonarray1) {
                     try {

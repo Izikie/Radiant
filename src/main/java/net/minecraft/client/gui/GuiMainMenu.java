@@ -1,6 +1,5 @@
 package net.minecraft.client.gui;
 
-import com.google.common.collect.Lists;
 import net.MicrosoftAuth;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -25,10 +24,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.FloatBuffer;
 import java.nio.charset.StandardCharsets;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
     private static final Random RANDOM = new Random();
@@ -61,7 +57,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         BufferedReader bufferedreader = null;
 
         try {
-            List<String> list = Lists.newArrayList();
+            List<String> list = new ArrayList<>();
             bufferedreader = new BufferedReader(new InputStreamReader(Minecraft.getMinecraft().getResourceManager().getResource(SPLASH_TEXTS).getInputStream(), StandardCharsets.UTF_8));
             String s;
 

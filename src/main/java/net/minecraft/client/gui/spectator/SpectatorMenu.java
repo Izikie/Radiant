@@ -1,7 +1,6 @@
 package net.minecraft.client.gui.spectator;
 
 import com.google.common.base.MoreObjects;
-import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiSpectator;
@@ -9,6 +8,7 @@ import net.minecraft.client.gui.spectator.categories.SpectatorDetails;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SpectatorMenu {
@@ -32,7 +32,7 @@ public class SpectatorMenu {
         }
     };
     private final ISpectatorMenuRecipient field_178651_f;
-    private final List<SpectatorDetails> field_178652_g = Lists.newArrayList();
+    private final List<SpectatorDetails> field_178652_g = new ArrayList<>();
     private ISpectatorMenuView field_178659_h = new BaseSpectatorGroup();
     private int field_178660_i = -1;
     private int field_178658_j;
@@ -47,7 +47,7 @@ public class SpectatorMenu {
     }
 
     public List<ISpectatorMenuObject> func_178642_a() {
-        List<ISpectatorMenuObject> list = Lists.newArrayList();
+        List<ISpectatorMenuObject> list = new ArrayList<>();
 
         for (int i = 0; i <= 8; ++i) {
             list.add(this.func_178643_a(i));

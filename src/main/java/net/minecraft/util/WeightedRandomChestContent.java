@@ -1,11 +1,11 @@
 package net.minecraft.util;
 
-import com.google.common.collect.Lists;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityDispenser;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -68,7 +68,7 @@ public class WeightedRandomChestContent extends WeightedRandom.Item {
     }
 
     public static List<WeightedRandomChestContent> func_177629_a(List<WeightedRandomChestContent> p_177629_0_, WeightedRandomChestContent... p_177629_1_) {
-        List<WeightedRandomChestContent> list = Lists.newArrayList(p_177629_0_);
+        List<WeightedRandomChestContent> list = new ArrayList<>(p_177629_0_);
         Collections.addAll(list, p_177629_1_);
         return list;
     }

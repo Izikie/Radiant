@@ -1,6 +1,5 @@
 package net.minecraft.item.crafting;
 
-import com.google.common.collect.Lists;
 import net.minecraft.block.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -10,13 +9,14 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class CraftingManager {
     private static final CraftingManager INSTANCE = new CraftingManager();
-    private final List<IRecipe> recipes = Lists.newArrayList();
+    private final List<IRecipe> recipes = new ArrayList<>();
 
     public static CraftingManager getInstance() {
         return INSTANCE;
@@ -232,7 +232,7 @@ public class CraftingManager {
     }
 
     public void addShapelessRecipe(ItemStack stack, Object... recipeComponents) {
-        List<ItemStack> list = Lists.newArrayList();
+        List<ItemStack> list = new ArrayList<>();
 
         for (Object object : recipeComponents) {
             if (object instanceof ItemStack itemStack) {

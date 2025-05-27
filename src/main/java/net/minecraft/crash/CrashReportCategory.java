@@ -1,17 +1,17 @@
 package net.minecraft.crash;
 
-import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockPos;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
 public class CrashReportCategory {
     private final CrashReport crashReport;
     private final String name;
-    private final List<Entry> children = Lists.newArrayList();
+    private final List<Entry> children = new ArrayList<>();
     private StackTraceElement[] stackTrace = new StackTraceElement[0];
 
     public CrashReportCategory(CrashReport report, String name) {

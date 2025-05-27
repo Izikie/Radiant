@@ -1,7 +1,5 @@
 package net.minecraft.stats;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityList;
 import net.minecraft.init.Blocks;
@@ -14,17 +12,14 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ResourceLocation;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class StatList {
     protected static final Map<String, StatBase> ONE_SHOT_STATS = new HashMap<>();
-    public static final List<StatBase> ALL_STATS = Lists.newArrayList();
-    public static final List<StatBase> GENERAL_STATS = Lists.newArrayList();
-    public static final List<StatCrafting> ITEM_STATS = Lists.newArrayList();
-    public static final List<StatCrafting> OBJECT_MINE_STATS = Lists.newArrayList();
+    public static final List<StatBase> ALL_STATS = new ArrayList<>();
+    public static final List<StatBase> GENERAL_STATS = new ArrayList<>();
+    public static final List<StatCrafting> ITEM_STATS = new ArrayList<>();
+    public static final List<StatCrafting> OBJECT_MINE_STATS = new ArrayList<>();
     public static final StatBase LEAVE_GAME_STAT = (new StatBasic("stat.leaveGame", new ChatComponentTranslation("stat.leaveGame"))).initIndependentStat().registerStat();
     public static final StatBase MINUTES_PLAYED_STAT = (new StatBasic("stat.playOneMinute", new ChatComponentTranslation("stat.playOneMinute"), StatBase.TIME_STAT_TYPE)).initIndependentStat().registerStat();
     public static final StatBase TIME_SINCE_DEATH_STAT = (new StatBasic("stat.timeSinceDeath", new ChatComponentTranslation("stat.timeSinceDeath"), StatBase.TIME_STAT_TYPE)).initIndependentStat().registerStat();
@@ -88,7 +83,7 @@ public class StatList {
     }
 
     private static void initCraftableStats() {
-        Set<Item> set = Sets.newHashSet();
+        Set<Item> set = new HashSet<>();
 
         for (IRecipe irecipe : CraftingManager.getInstance().getRecipeList()) {
             if (irecipe.getRecipeOutput() != null) {

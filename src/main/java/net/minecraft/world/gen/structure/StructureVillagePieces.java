@@ -1,6 +1,5 @@
 package net.minecraft.world.gen.structure;
 
-import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSandStone;
 import net.minecraft.block.BlockStairs;
@@ -21,6 +20,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.WorldChunkManager;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -43,7 +43,7 @@ public class StructureVillagePieces {
     }
 
     public static List<PieceWeight> getStructureVillageWeightedPieceList(Random random, int size) {
-        List<PieceWeight> list = Lists.newArrayList();
+        List<PieceWeight> list = new ArrayList<>();
         list.add(new PieceWeight(House4Garden.class, 4, MathHelper.getRandomIntegerInRange(random, 2 + size, 4 + size * 2)));
         list.add(new PieceWeight(Church.class, 20, MathHelper.getRandomIntegerInRange(random, size, 1 + size)));
         list.add(new PieceWeight(House1.class, 20, MathHelper.getRandomIntegerInRange(random, size, 2 + size)));
@@ -692,7 +692,7 @@ public class StructureVillagePieces {
     }
 
     public static class House2 extends Village {
-        private static final List<WeightedRandomChestContent> VILLAGE_BLACKSMITH_CHEST_CONTENTS = Lists.newArrayList(new WeightedRandomChestContent(Items.DIAMOND, 0, 1, 3, 3), new WeightedRandomChestContent(Items.IRON_INGOT, 0, 1, 5, 10), new WeightedRandomChestContent(Items.GOLD_INGOT, 0, 1, 3, 5), new WeightedRandomChestContent(Items.BREAD, 0, 1, 3, 15), new WeightedRandomChestContent(Items.APPLE, 0, 1, 3, 15), new WeightedRandomChestContent(Items.IRON_PICKAXE, 0, 1, 1, 5), new WeightedRandomChestContent(Items.IRON_SWORD, 0, 1, 1, 5), new WeightedRandomChestContent(Items.IRON_CHESTPLATE, 0, 1, 1, 5), new WeightedRandomChestContent(Items.IRON_HELMET, 0, 1, 1, 5), new WeightedRandomChestContent(Items.IRON_LEGGINGS, 0, 1, 1, 5), new WeightedRandomChestContent(Items.IRON_BOOTS, 0, 1, 1, 5), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.OBSIDIAN), 0, 3, 7, 5), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.SAPLING), 0, 3, 7, 5), new WeightedRandomChestContent(Items.SADDLE, 0, 1, 1, 3), new WeightedRandomChestContent(Items.IRON_HORSE_ARMOR, 0, 1, 1, 1), new WeightedRandomChestContent(Items.GOLDEN_HORSE_ARMOR, 0, 1, 1, 1), new WeightedRandomChestContent(Items.DIAMOND_HORSE_ARMOR, 0, 1, 1, 1));
+        private static final List<WeightedRandomChestContent> VILLAGE_BLACKSMITH_CHEST_CONTENTS = List.of(new WeightedRandomChestContent(Items.DIAMOND, 0, 1, 3, 3), new WeightedRandomChestContent(Items.IRON_INGOT, 0, 1, 5, 10), new WeightedRandomChestContent(Items.GOLD_INGOT, 0, 1, 3, 5), new WeightedRandomChestContent(Items.BREAD, 0, 1, 3, 15), new WeightedRandomChestContent(Items.APPLE, 0, 1, 3, 15), new WeightedRandomChestContent(Items.IRON_PICKAXE, 0, 1, 1, 5), new WeightedRandomChestContent(Items.IRON_SWORD, 0, 1, 1, 5), new WeightedRandomChestContent(Items.IRON_CHESTPLATE, 0, 1, 1, 5), new WeightedRandomChestContent(Items.IRON_HELMET, 0, 1, 1, 5), new WeightedRandomChestContent(Items.IRON_LEGGINGS, 0, 1, 1, 5), new WeightedRandomChestContent(Items.IRON_BOOTS, 0, 1, 1, 5), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.OBSIDIAN), 0, 3, 7, 5), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.SAPLING), 0, 3, 7, 5), new WeightedRandomChestContent(Items.SADDLE, 0, 1, 1, 3), new WeightedRandomChestContent(Items.IRON_HORSE_ARMOR, 0, 1, 1, 1), new WeightedRandomChestContent(Items.GOLDEN_HORSE_ARMOR, 0, 1, 1, 1), new WeightedRandomChestContent(Items.DIAMOND_HORSE_ARMOR, 0, 1, 1, 1));
         private boolean hasMadeChest;
 
         public House2() {
@@ -1197,8 +1197,8 @@ public class StructureVillagePieces {
         public int terrainType;
         public PieceWeight structVillagePieceWeight;
         public List<PieceWeight> structureVillageWeightedPieceList;
-        public final List<StructureComponent> field_74932_i = Lists.newArrayList();
-        public final List<StructureComponent> field_74930_j = Lists.newArrayList();
+        public final List<StructureComponent> field_74932_i = new ArrayList<>();
+        public final List<StructureComponent> field_74930_j = new ArrayList<>();
 
         public Start() {
         }

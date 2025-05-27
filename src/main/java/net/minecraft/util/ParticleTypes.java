@@ -1,7 +1,6 @@
 package net.minecraft.util;
 
-import com.google.common.collect.Lists;
-
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -97,7 +96,7 @@ public enum ParticleTypes {
     }
 
     static {
-        List<String> list = Lists.newArrayList();
+        List<String> list = new ArrayList<>();
 
         for (ParticleTypes enumparticletypes : values()) {
             PARTICLES.put(enumparticletypes.getParticleID(), enumparticletypes);

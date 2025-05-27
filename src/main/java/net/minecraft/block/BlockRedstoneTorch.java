@@ -1,6 +1,5 @@
 package net.minecraft.block;
 
-import com.google.common.collect.Lists;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -10,10 +9,7 @@ import net.minecraft.util.ParticleTypes;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class BlockRedstoneTorch extends BlockTorch {
     private static final Map<World, List<Toggle>> toggles = new HashMap<>();
@@ -21,7 +17,7 @@ public class BlockRedstoneTorch extends BlockTorch {
 
     private boolean isBurnedOut(World worldIn, BlockPos pos, boolean turnOff) {
         if (!toggles.containsKey(worldIn)) {
-            toggles.put(worldIn, Lists.newArrayList());
+            toggles.put(worldIn, new ArrayList<>());
         }
 
         List<Toggle> list = toggles.get(worldIn);

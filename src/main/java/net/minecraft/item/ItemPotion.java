@@ -1,7 +1,6 @@
 package net.minecraft.item;
 
 import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -19,10 +18,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 public class ItemPotion extends Item {
@@ -38,7 +34,7 @@ public class ItemPotion extends Item {
 
     public List<PotionEffect> getEffects(ItemStack stack) {
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("CustomPotionEffects", 9)) {
-            List<PotionEffect> list1 = Lists.newArrayList();
+            List<PotionEffect> list1 = new ArrayList<>();
             NBTTagList nbttaglist = stack.getTagCompound().getTagList("CustomPotionEffects", 10);
 
             for (int i = 0; i < nbttaglist.tagCount(); ++i) {

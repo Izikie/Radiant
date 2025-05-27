@@ -1,6 +1,5 @@
 package net.minecraft.client.gui;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
@@ -11,10 +10,11 @@ import net.minecraft.world.gen.ChunkProviderSettings;
 import org.lwjgl.input.Keyboard;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GuiScreenCustomizePresets extends GuiScreen {
-    private static final List<Info> field_175310_f = Lists.newArrayList();
+    private static final List<Info> field_175310_f = new ArrayList<>();
     private ListPreset field_175311_g;
     private GuiButton field_175316_h;
     private GuiTextField field_175317_i;

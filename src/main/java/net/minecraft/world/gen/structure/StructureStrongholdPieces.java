@@ -15,6 +15,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -52,7 +53,7 @@ public class StructureStrongholdPieces {
     }
 
     public static void prepareStructurePieces() {
-        structurePieceList = Lists.newArrayList();
+        structurePieceList = new ArrayList<>();
 
         for (PieceWeight structurestrongholdpieces$pieceweight : pieceWeightArray) {
             structurestrongholdpieces$pieceweight.instancesSpawned = 0;
@@ -466,7 +467,7 @@ public class StructureStrongholdPieces {
     }
 
     public static class Library extends Stronghold {
-        private static final List<WeightedRandomChestContent> STRONGHOLD_LIBRARY_CHEST_CONTENTS = Lists.newArrayList(new WeightedRandomChestContent(Items.BOOK, 0, 1, 3, 20), new WeightedRandomChestContent(Items.PAPER, 0, 2, 7, 20), new WeightedRandomChestContent(Items.MAP, 0, 1, 1, 1), new WeightedRandomChestContent(Items.COMPASS, 0, 1, 1, 1));
+        private static final List<WeightedRandomChestContent> STRONGHOLD_LIBRARY_CHEST_CONTENTS = List.of(new WeightedRandomChestContent(Items.BOOK, 0, 1, 3, 20), new WeightedRandomChestContent(Items.PAPER, 0, 2, 7, 20), new WeightedRandomChestContent(Items.MAP, 0, 1, 1, 1), new WeightedRandomChestContent(Items.COMPASS, 0, 1, 1, 1));
         private boolean isLargeRoom;
 
         public Library() {
@@ -825,7 +826,7 @@ public class StructureStrongholdPieces {
     }
 
     public static class RoomCrossing extends Stronghold {
-        private static final List<WeightedRandomChestContent> STRONGHOLD_ROOM_CROSSING_CHEST_CONTENTS = Lists.newArrayList(new WeightedRandomChestContent(Items.IRON_INGOT, 0, 1, 5, 10), new WeightedRandomChestContent(Items.GOLD_INGOT, 0, 1, 3, 5), new WeightedRandomChestContent(Items.REDSTONE, 0, 4, 9, 5), new WeightedRandomChestContent(Items.COAL, 0, 3, 8, 10), new WeightedRandomChestContent(Items.BREAD, 0, 1, 3, 15), new WeightedRandomChestContent(Items.APPLE, 0, 1, 3, 15), new WeightedRandomChestContent(Items.IRON_PICKAXE, 0, 1, 1, 1));
+        private static final List<WeightedRandomChestContent> STRONGHOLD_ROOM_CROSSING_CHEST_CONTENTS = List.of(new WeightedRandomChestContent(Items.IRON_INGOT, 0, 1, 5, 10), new WeightedRandomChestContent(Items.GOLD_INGOT, 0, 1, 3, 5), new WeightedRandomChestContent(Items.REDSTONE, 0, 4, 9, 5), new WeightedRandomChestContent(Items.COAL, 0, 3, 8, 10), new WeightedRandomChestContent(Items.BREAD, 0, 1, 3, 15), new WeightedRandomChestContent(Items.APPLE, 0, 1, 3, 15), new WeightedRandomChestContent(Items.IRON_PICKAXE, 0, 1, 1, 1));
         protected int roomType;
 
         public RoomCrossing() {
@@ -1043,7 +1044,7 @@ public class StructureStrongholdPieces {
     public static class Stairs2 extends Stairs {
         public PieceWeight strongholdPieceWeight;
         public PortalRoom strongholdPortalRoom;
-        public final List<StructureComponent> field_75026_c = Lists.newArrayList();
+        public final List<StructureComponent> field_75026_c = new ArrayList<>();
 
         public Stairs2() {
         }

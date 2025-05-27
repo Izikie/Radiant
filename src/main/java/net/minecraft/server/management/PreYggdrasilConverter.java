@@ -1,7 +1,6 @@
 package net.minecraft.server.management;
 
 import com.google.common.collect.Iterators;
-import com.google.common.collect.Lists;
 import com.mojang.authlib.Agent;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.ProfileLookupCallback;
@@ -12,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -45,7 +45,7 @@ public class PreYggdrasilConverter {
             if (gameprofile != null && gameprofile.getId() != null) {
                 return gameprofile.getId().toString();
             } else if (!minecraftserver.isSinglePlayer() && minecraftserver.isServerInOnlineMode()) {
-                final List<GameProfile> list = Lists.newArrayList();
+                final List<GameProfile> list = new ArrayList<>();
                 ProfileLookupCallback profilelookupcallback = new ProfileLookupCallback() {
                     public void onProfileLookupSucceeded(GameProfile p_onProfileLookupSucceeded_1_) {
                         minecraftserver.getPlayerProfileCache().addEntry(p_onProfileLookupSucceeded_1_);
@@ -56,7 +56,7 @@ public class PreYggdrasilConverter {
                         PreYggdrasilConverter.LOGGER.warn("Could not lookup user whitelist entry for {}", p_onProfileLookupFailed_1_.getName(), p_onProfileLookupFailed_2_);
                     }
                 };
-                lookupNames(minecraftserver, Lists.newArrayList(p_152719_0_), profilelookupcallback);
+                lookupNames(minecraftserver, List.of(p_152719_0_), profilelookupcallback);
                 return !list.isEmpty() && list.getFirst().getId() != null ? list.getFirst().getId().toString() : "";
             } else {
                 return EntityPlayer.getUUID(new GameProfile(null, p_152719_0_)).toString();

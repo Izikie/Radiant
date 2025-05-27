@@ -1,6 +1,5 @@
 package net.minecraft.client.renderer.block.model;
 
-import com.google.common.collect.Lists;
 import com.google.gson.*;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
@@ -11,10 +10,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.Reader;
 import java.io.StringReader;
 import java.lang.reflect.Type;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 public class ModelBlock {
@@ -223,8 +219,8 @@ public class ModelBlock {
             return JsonUtils.getBoolean(jsonObject, "ambientocclusion", true);
         }
 
-        protected List<BlockPart> getModelElements(JsonDeserializationContext ctx, JsonObject jsonObject) {
-            List<BlockPart> list = Lists.newArrayList();
+        protected List<BlockPart> getModelElements(JsonDeserializationContext p_178325_1_, JsonObject jsonObject) {
+            List<BlockPart> list = new ArrayList<>();
 
             if (jsonObject.has("elements")) {
                 for (JsonElement jsonelement : JsonUtils.getJsonArray(jsonObject, "elements")) {
@@ -234,7 +230,6 @@ public class ModelBlock {
 
             return list;
         }
-    }
 
     public static class LoopException extends RuntimeException {
     }

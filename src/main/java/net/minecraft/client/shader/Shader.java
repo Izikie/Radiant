@@ -1,6 +1,5 @@
 package net.minecraft.client.shader;
 
-import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -14,6 +13,7 @@ import net.minecraft.client.resources.IResourceManager;
 import org.joml.Matrix4f;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Shader {
@@ -21,7 +21,7 @@ public class Shader {
     public final Framebuffer framebufferIn;
     public final Framebuffer framebufferOut;
     private final ObjectList<Object> listAuxFramebuffers = new ObjectArrayList<>();
-    private final List<String> listAuxNames = Lists.newArrayList();
+    private final List<String> listAuxNames = new ArrayList<>();
     private final IntList listAuxWidths = new IntArrayList();
     private final IntList listAuxHeights = new IntArrayList();
     private Matrix4f projectionMatrix;

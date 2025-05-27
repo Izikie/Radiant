@@ -1,18 +1,18 @@
 package net.minecraft.world.gen;
 
-import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.biome.BiomeGenBase;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 public class FlatGeneratorInfo {
-    private final List<FlatLayerInfo> flatLayers = Lists.newArrayList();
+    private final List<FlatLayerInfo> flatLayers = new ArrayList<>();
     private final Map<String, Map<String, String>> worldFeatures = new HashMap<>();
     private int biomeToUse;
 
@@ -164,7 +164,7 @@ public class FlatGeneratorInfo {
 
     private static List<FlatLayerInfo> func_180716_a(int p_180716_0_, String p_180716_1_) {
         if (p_180716_1_ != null && !p_180716_1_.isEmpty()) {
-            List<FlatLayerInfo> list = Lists.newArrayList();
+            List<FlatLayerInfo> list = new ArrayList<>();
             String[] astring = p_180716_1_.split(",");
             int i = 0;
 

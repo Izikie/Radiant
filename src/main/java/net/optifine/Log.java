@@ -7,7 +7,7 @@ public class Log {
     private static final Logger LOGGER = LogManager.getLogger("Optifine");
 
     public static void info(String message) {
-        LOGGER.info("{}", message);
+        LOGGER.info(message);
     }
 
     public static void info(String message, Object... args) {

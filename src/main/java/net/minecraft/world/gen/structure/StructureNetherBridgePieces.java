@@ -1,6 +1,5 @@
 package net.minecraft.world.gen.structure;
 
-import com.google.common.collect.Lists;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -12,6 +11,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -793,7 +793,7 @@ public class StructureNetherBridgePieces {
     }
 
     abstract static class Piece extends StructureComponent {
-        protected static final List<WeightedRandomChestContent> field_111019_a = Lists.newArrayList(new WeightedRandomChestContent(Items.DIAMOND, 0, 1, 3, 5), new WeightedRandomChestContent(Items.IRON_INGOT, 0, 1, 5, 5), new WeightedRandomChestContent(Items.GOLD_INGOT, 0, 1, 3, 15), new WeightedRandomChestContent(Items.GOLDEN_SWORD, 0, 1, 1, 5), new WeightedRandomChestContent(Items.GOLDEN_CHESTPLATE, 0, 1, 1, 5), new WeightedRandomChestContent(Items.FLINT_AND_STEEL, 0, 1, 1, 5), new WeightedRandomChestContent(Items.NETHER_WART, 0, 3, 7, 5), new WeightedRandomChestContent(Items.SADDLE, 0, 1, 1, 10), new WeightedRandomChestContent(Items.GOLDEN_HORSE_ARMOR, 0, 1, 1, 8), new WeightedRandomChestContent(Items.IRON_HORSE_ARMOR, 0, 1, 1, 5), new WeightedRandomChestContent(Items.DIAMOND_HORSE_ARMOR, 0, 1, 1, 3), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.OBSIDIAN), 0, 2, 4, 2));
+        protected static final List<WeightedRandomChestContent> field_111019_a = List.of(new WeightedRandomChestContent(Items.DIAMOND, 0, 1, 3, 5), new WeightedRandomChestContent(Items.IRON_INGOT, 0, 1, 5, 5), new WeightedRandomChestContent(Items.GOLD_INGOT, 0, 1, 3, 15), new WeightedRandomChestContent(Items.GOLDEN_SWORD, 0, 1, 1, 5), new WeightedRandomChestContent(Items.GOLDEN_CHESTPLATE, 0, 1, 1, 5), new WeightedRandomChestContent(Items.FLINT_AND_STEEL, 0, 1, 1, 5), new WeightedRandomChestContent(Items.NETHER_WART, 0, 3, 7, 5), new WeightedRandomChestContent(Items.SADDLE, 0, 1, 1, 10), new WeightedRandomChestContent(Items.GOLDEN_HORSE_ARMOR, 0, 1, 1, 8), new WeightedRandomChestContent(Items.IRON_HORSE_ARMOR, 0, 1, 1, 5), new WeightedRandomChestContent(Items.DIAMOND_HORSE_ARMOR, 0, 1, 1, 3), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.OBSIDIAN), 0, 2, 4, 2));
 
         public Piece() {
         }
@@ -1026,21 +1026,21 @@ public class StructureNetherBridgePieces {
         public PieceWeight theNetherBridgePieceWeight;
         public List<PieceWeight> primaryWeights;
         public List<PieceWeight> secondaryWeights;
-        public final List<StructureComponent> field_74967_d = Lists.newArrayList();
+        public final List<StructureComponent> field_74967_d = new ArrayList<>();
 
         public Start() {
         }
 
         public Start(Random p_i2059_1_, int p_i2059_2_, int p_i2059_3_) {
             super(p_i2059_1_, p_i2059_2_, p_i2059_3_);
-            this.primaryWeights = Lists.newArrayList();
+            this.primaryWeights = new ArrayList<>();
 
             for (PieceWeight structurenetherbridgepieces$pieceweight : StructureNetherBridgePieces.primaryComponents) {
                 structurenetherbridgepieces$pieceweight.field_78827_c = 0;
                 this.primaryWeights.add(structurenetherbridgepieces$pieceweight);
             }
 
-            this.secondaryWeights = Lists.newArrayList();
+            this.secondaryWeights = new ArrayList<>();
 
             for (PieceWeight structurenetherbridgepieces$pieceweight1 : StructureNetherBridgePieces.secondaryComponents) {
                 structurenetherbridgepieces$pieceweight1.field_78827_c = 0;

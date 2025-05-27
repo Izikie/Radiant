@@ -1,6 +1,5 @@
 package net.minecraft.client.renderer.entity;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
@@ -26,6 +25,7 @@ import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.GL11;
 
 import java.nio.FloatBuffer;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class RendererLivingEntity<T extends EntityLivingBase> extends Render<T> {
@@ -33,7 +33,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
     private static final DynamicTexture TEXTURE_BRIGHTNESS = new DynamicTexture(16, 16);
     public ModelBase mainModel;
     protected final FloatBuffer brightnessBuffer = GLAllocation.createDirectFloatBuffer(4);
-    protected List<LayerRenderer<T>> layerRenderers = Lists.newArrayList();
+    protected List<LayerRenderer<T>> layerRenderers = new ArrayList<>();
     protected boolean renderOutlines = false;
     public static final float NAME_TAG_RANGE = 64.0F;
     public static final float NAME_TAG_RANGE_SNEAK = 32.0F;

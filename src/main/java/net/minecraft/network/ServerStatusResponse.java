@@ -118,8 +118,8 @@ public class ServerStatusResponse {
                         for (int i = 0; i < profiles.length; ++i) {
                             JsonObject playerObject = JsonUtils.getJsonObject(jsonArray.get(i), "player[" + i + "]");
                             profiles[i] = new GameProfile(
-                                UUID.fromString(JsonUtils.getString(playerObject, "id")),
-                                JsonUtils.getString(playerObject, "name")
+                                    UUID.fromString(JsonUtils.getString(playerObject, "id")),
+                                    JsonUtils.getString(playerObject, "name")
                             );
                         }
 

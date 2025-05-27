@@ -1,6 +1,5 @@
 package net.minecraft.world.gen.structure;
 
-import com.google.common.collect.Lists;
 import net.minecraft.block.*;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.init.Blocks;
@@ -24,7 +23,7 @@ public class ComponentScatteredFeaturePieces {
 
     public static class DesertPyramid extends Feature {
         private final boolean[] hasPlacedChest = new boolean[4];
-        private static final List<WeightedRandomChestContent> ITEMS_TO_GENERATE_IN_TEMPLE = Lists.newArrayList(new WeightedRandomChestContent(Items.DIAMOND, 0, 1, 3, 3), new WeightedRandomChestContent(Items.IRON_INGOT, 0, 1, 5, 10), new WeightedRandomChestContent(Items.GOLD_INGOT, 0, 2, 7, 15), new WeightedRandomChestContent(Items.EMERALD, 0, 1, 3, 2), new WeightedRandomChestContent(Items.BONE, 0, 4, 6, 20), new WeightedRandomChestContent(Items.ROTTEN_FLESH, 0, 3, 7, 16), new WeightedRandomChestContent(Items.SADDLE, 0, 1, 1, 3), new WeightedRandomChestContent(Items.IRON_HORSE_ARMOR, 0, 1, 1, 1), new WeightedRandomChestContent(Items.GOLDEN_HORSE_ARMOR, 0, 1, 1, 1), new WeightedRandomChestContent(Items.DIAMOND_HORSE_ARMOR, 0, 1, 1, 1));
+        private static final List<WeightedRandomChestContent> ITEMS_TO_GENERATE_IN_TEMPLE = List.of(new WeightedRandomChestContent(Items.DIAMOND, 0, 1, 3, 3), new WeightedRandomChestContent(Items.IRON_INGOT, 0, 1, 5, 10), new WeightedRandomChestContent(Items.GOLD_INGOT, 0, 2, 7, 15), new WeightedRandomChestContent(Items.EMERALD, 0, 1, 3, 2), new WeightedRandomChestContent(Items.BONE, 0, 4, 6, 20), new WeightedRandomChestContent(Items.ROTTEN_FLESH, 0, 3, 7, 16), new WeightedRandomChestContent(Items.SADDLE, 0, 1, 1, 3), new WeightedRandomChestContent(Items.IRON_HORSE_ARMOR, 0, 1, 1, 1), new WeightedRandomChestContent(Items.GOLDEN_HORSE_ARMOR, 0, 1, 1, 1), new WeightedRandomChestContent(Items.DIAMOND_HORSE_ARMOR, 0, 1, 1, 1));
 
         public DesertPyramid() {
         }
@@ -319,8 +318,8 @@ public class ComponentScatteredFeaturePieces {
         private boolean placedHiddenChest;
         private boolean placedTrap1;
         private boolean placedTrap2;
-        private static final List<WeightedRandomChestContent> field_175816_i = Lists.newArrayList(new WeightedRandomChestContent(Items.DIAMOND, 0, 1, 3, 3), new WeightedRandomChestContent(Items.IRON_INGOT, 0, 1, 5, 10), new WeightedRandomChestContent(Items.GOLD_INGOT, 0, 2, 7, 15), new WeightedRandomChestContent(Items.EMERALD, 0, 1, 3, 2), new WeightedRandomChestContent(Items.BONE, 0, 4, 6, 20), new WeightedRandomChestContent(Items.ROTTEN_FLESH, 0, 3, 7, 16), new WeightedRandomChestContent(Items.SADDLE, 0, 1, 1, 3), new WeightedRandomChestContent(Items.IRON_HORSE_ARMOR, 0, 1, 1, 1), new WeightedRandomChestContent(Items.GOLDEN_HORSE_ARMOR, 0, 1, 1, 1), new WeightedRandomChestContent(Items.DIAMOND_HORSE_ARMOR, 0, 1, 1, 1));
-        private static final List<WeightedRandomChestContent> field_175815_j = Lists.newArrayList(new WeightedRandomChestContent(Items.ARROW, 0, 2, 7, 30));
+        private static final List<WeightedRandomChestContent> field_175816_i = List.of(new WeightedRandomChestContent(Items.DIAMOND, 0, 1, 3, 3), new WeightedRandomChestContent(Items.IRON_INGOT, 0, 1, 5, 10), new WeightedRandomChestContent(Items.GOLD_INGOT, 0, 2, 7, 15), new WeightedRandomChestContent(Items.EMERALD, 0, 1, 3, 2), new WeightedRandomChestContent(Items.BONE, 0, 4, 6, 20), new WeightedRandomChestContent(Items.ROTTEN_FLESH, 0, 3, 7, 16), new WeightedRandomChestContent(Items.SADDLE, 0, 1, 1, 3), new WeightedRandomChestContent(Items.IRON_HORSE_ARMOR, 0, 1, 1, 1), new WeightedRandomChestContent(Items.GOLDEN_HORSE_ARMOR, 0, 1, 1, 1), new WeightedRandomChestContent(Items.DIAMOND_HORSE_ARMOR, 0, 1, 1, 1));
+        private static final List<WeightedRandomChestContent> field_175815_j = List.of(new WeightedRandomChestContent(Items.ARROW, 0, 2, 7, 30));
         private static final Stones junglePyramidsRandomScatteredStones = new Stones();
 
         public JunglePyramid() {

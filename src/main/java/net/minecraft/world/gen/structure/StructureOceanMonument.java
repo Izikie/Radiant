@@ -1,7 +1,5 @@
 package net.minecraft.world.gen.structure;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -19,7 +17,7 @@ public class StructureOceanMonument extends MapGenStructure {
     private int field_175800_f;
     private int field_175801_g;
     public static final List<BiomeGenBase> field_175802_d = Arrays.asList(BiomeGenBase.OCEAN, BiomeGenBase.DEEP_OCEAN, BiomeGenBase.RIVER, BiomeGenBase.FROZEN_OCEAN, BiomeGenBase.FROZEN_RIVER);
-    private static final List<BiomeGenBase.SpawnListEntry> field_175803_h = Lists.newArrayList();
+    private static final List<BiomeGenBase.SpawnListEntry> field_175803_h = new ArrayList<>();
 
     public StructureOceanMonument() {
         this.field_175800_f = 32;
@@ -86,7 +84,7 @@ public class StructureOceanMonument extends MapGenStructure {
     }
 
     public static class StartMonument extends StructureStart {
-        private final Set<ChunkCoordIntPair> field_175791_c = Sets.newHashSet();
+        private final Set<ChunkCoordIntPair> field_175791_c = new HashSet<>();
         private boolean field_175790_d;
 
         public StartMonument() {

@@ -1,6 +1,5 @@
 package net.minecraft.server.integrated;
 
-import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.Futures;
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.Minecraft;
@@ -26,6 +25,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.FutureTask;
 
 public class IntegratedServer extends MinecraftServer {
@@ -297,7 +297,7 @@ public class IntegratedServer extends MinecraftServer {
     public void initiateShutdown() {
         if (this.isServerRunning()) {
             Futures.getUnchecked(this.addScheduledTask(() -> {
-                for (EntityPlayerMP entityplayermp : Lists.newArrayList(IntegratedServer.this.getConfigurationManager().getPlayerList())) {
+                for (EntityPlayerMP entityplayermp : new ArrayList<>(IntegratedServer.this.getConfigurationManager().getPlayerList())) {
                     IntegratedServer.this.getConfigurationManager().playerLoggedOut(entityplayermp);
                 }
             }));

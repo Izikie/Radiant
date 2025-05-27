@@ -1,6 +1,5 @@
 package net.minecraft.entity.item;
 
-import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAnvil;
 import net.minecraft.block.BlockFalling;
@@ -17,6 +16,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EntityFallingBlock extends Entity {
@@ -144,7 +144,7 @@ public class EntityFallingBlock extends Entity {
             int i = MathHelper.ceiling_float_int(distance - 1.0F);
 
             if (i > 0) {
-                List<Entity> list = Lists.newArrayList(this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox()));
+                List<Entity> list = new ArrayList<>(this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox()));
                 boolean flag = block == Blocks.ANVIL;
                 DamageSource damagesource = flag ? DamageSource.ANVIL : DamageSource.FALLING_BLOCK;
 

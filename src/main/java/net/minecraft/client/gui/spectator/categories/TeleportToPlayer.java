@@ -1,7 +1,6 @@
 package net.minecraft.client.gui.spectator.categories;
 
 import com.google.common.collect.ComparisonChain;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -15,6 +14,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.world.WorldSettings;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class TeleportToPlayer implements ISpectatorMenuView, ISpectatorMenuObjec
     }
 
     public TeleportToPlayer(Collection<NetworkPlayerInfo> p_i45493_1_) {
-        this.field_178673_b = Lists.newArrayList();
+        this.field_178673_b = new ArrayList<>();
 
         for (NetworkPlayerInfo networkplayerinfo : field_178674_a.sortedCopy(p_i45493_1_)) {
             if (networkplayerinfo.getGameType() != WorldSettings.GameType.SPECTATOR) {

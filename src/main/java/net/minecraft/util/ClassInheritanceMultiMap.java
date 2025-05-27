@@ -1,7 +1,6 @@
 package net.minecraft.util;
 
 import com.google.common.collect.Iterators;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.optifine.util.IteratorCache;
 
@@ -13,7 +12,7 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
     private final Map<Class<?>, List<T>> map = new HashMap<>();
     private final Set<Class<?>> knownKeys = Sets.newIdentityHashSet();
     private final Class<T> baseClass;
-    private final List<T> values = Lists.newArrayList();
+    private final List<T> values = new ArrayList<>();
     public boolean empty;
 
     public ClassInheritanceMultiMap(Class<T> baseClassIn) {
@@ -68,7 +67,7 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
         List<T> list = this.map.get(parentClass);
 
         if (list == null) {
-            this.map.put(parentClass, Lists.newArrayList(value));
+            this.map.put(parentClass, new ArrayList<>(List.of(value)));
         } else {
             list.add(value);
         }
@@ -112,7 +111,7 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
     }
 
     public Iterator<T> iterator() {
-        return (Iterator<T>) (this.values.isEmpty() ? Collections.emptyIterator() : IteratorCache.getReadOnly(this.values));
+        return this.values.isEmpty() ? Collections.emptyIterator() : (Iterator<T>) IteratorCache.getReadOnly(this.values);
     }
 
     public int size() {

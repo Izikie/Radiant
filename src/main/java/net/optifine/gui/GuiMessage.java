@@ -1,6 +1,5 @@
 package net.optifine.gui;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiOptionButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -8,13 +7,14 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.src.Config;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GuiMessage extends GuiScreen {
     private final GuiScreen parentScreen;
     private final String messageLine1;
     private final String messageLine2;
-    private final List listLines2 = Lists.newArrayList();
+    private final List listLines2 = new ArrayList<>();
     protected final String confirmButtonText;
     private int ticksUntilEnable;
 

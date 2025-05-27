@@ -1,6 +1,5 @@
 package net.minecraft.item;
 
-import com.google.common.collect.Lists;
 import net.minecraft.entity.item.EntityFireworkRocket;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -10,6 +9,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemFirework extends Item {
@@ -42,7 +42,7 @@ public class ItemFirework extends Item {
                 if (nbttaglist != null && nbttaglist.tagCount() > 0) {
                     for (int i = 0; i < nbttaglist.tagCount(); ++i) {
                         NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
-                        List<String> list = Lists.newArrayList();
+                        List<String> list = new ArrayList<>();
                         ItemFireworkCharge.addExplosionInfo(nbttagcompound1, list);
 
                         if (!list.isEmpty()) {

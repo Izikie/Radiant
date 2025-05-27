@@ -1,6 +1,5 @@
 package net.minecraft.client.gui.spectator.categories;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.gui.FontRenderer;
@@ -18,11 +17,12 @@ import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class TeleportToTeam implements ISpectatorMenuView, ISpectatorMenuObject {
-    private final List<ISpectatorMenuObject> field_178672_a = Lists.newArrayList();
+    private final List<ISpectatorMenuObject> field_178672_a = new ArrayList<>();
 
     public TeleportToTeam() {
         Minecraft minecraft = Minecraft.getMinecraft();
@@ -70,7 +70,7 @@ public class TeleportToTeam implements ISpectatorMenuView, ISpectatorMenuObject 
 
         public TeamSelectionObject(ScorePlayerTeam p_i45492_2_) {
             this.field_178676_b = p_i45492_2_;
-            this.field_178675_d = Lists.newArrayList();
+            this.field_178675_d = new ArrayList<>();
 
             for (String s : p_i45492_2_.getMembershipCollection()) {
                 NetworkPlayerInfo networkplayerinfo = Minecraft.getMinecraft().getNetHandler().getPlayerInfo(s);

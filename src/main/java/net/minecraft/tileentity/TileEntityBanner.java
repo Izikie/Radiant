@@ -1,6 +1,5 @@
 package net.minecraft.tileentity;
 
-import com.google.common.collect.Lists;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -11,6 +10,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TileEntityBanner extends TileEntity {
@@ -113,8 +113,8 @@ public class TileEntityBanner extends TileEntity {
             if (!this.field_175119_g) {
                 this.patternResourceLocation = "";
             } else {
-                this.patternList = Lists.newArrayList();
-                this.colorList = Lists.newArrayList();
+                this.patternList = new ArrayList<>();
+                this.colorList = new ArrayList<>();
                 this.patternList.add(BannerPattern.BASE);
                 this.colorList.add(DyeColor.byDyeDamage(this.baseColor));
                 this.patternResourceLocation = "b" + this.baseColor;

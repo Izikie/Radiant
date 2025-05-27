@@ -1,6 +1,5 @@
 package net.minecraft.client.renderer.texture;
 
-import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.StitcherException;
@@ -77,7 +76,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
         this.counterIndexInMap = new CounterInt(0);
         this.atlasWidth = 0;
         this.atlasHeight = 0;
-        this.listAnimatedSprites = Lists.newArrayList();
+        this.listAnimatedSprites = new ArrayList<>();
         this.mapRegisteredSprites = new HashMap<>();
         this.mapUploadedSprites = new HashMap<>();
         this.missingImage = new TextureAtlasSprite("missingno");
@@ -93,7 +92,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
         this.missingImage.setIconHeight(i);
         int[][] aint1 = new int[this.mipmapLevels + 1][];
         aint1[0] = aint;
-        this.missingImage.setFramesTextureData(Lists.newArrayList(new int[][][]{aint1}));
+        this.missingImage.setFramesTextureData(List.of(new int[][][]{aint1}));
         this.missingImage.setIndexInMap(this.counterIndexInMap.nextValue());
     }
 

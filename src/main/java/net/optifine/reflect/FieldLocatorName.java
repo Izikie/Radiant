@@ -26,7 +26,7 @@ public class FieldLocatorName implements IFieldLocator {
             } catch (NoSuchFieldException exception) {
                 Log.info("(Reflector) Field not present: " + oclass.getName() + "." + this.targetFieldName);
                 return null;
-            }catch (Throwable throwable) {
+            } catch (Throwable throwable) {
                 throwable.printStackTrace();
                 return null;
             }

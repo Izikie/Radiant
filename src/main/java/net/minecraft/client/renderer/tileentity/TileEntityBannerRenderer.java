@@ -1,6 +1,5 @@
 package net.minecraft.client.renderer.tileentity;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBanner;
 import net.minecraft.client.renderer.GlStateManager;
@@ -12,10 +11,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEntityBanner> {
     private static final Map<String, TimedBannerTexture> DESIGNS = new HashMap<>();
@@ -104,7 +100,7 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEnti
 
                 List<TileEntityBanner.BannerPattern> list1 = bannerObj.getPatternList();
                 List<DyeColor> list = bannerObj.getColorList();
-                List<String> list2 = Lists.newArrayList();
+                List<String> list2 = new ArrayList<>();
 
                 for (TileEntityBanner.BannerPattern tileentitybanner$enumbannerpattern : list1) {
                     list2.add("textures/entity/banner/" + tileentitybanner$enumbannerpattern.getPatternName() + ".png");

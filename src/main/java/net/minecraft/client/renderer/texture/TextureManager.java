@@ -1,6 +1,5 @@
 package net.minecraft.client.renderer.texture;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.crash.CrashReport;
@@ -23,7 +22,7 @@ import java.util.Map.Entry;
 public class TextureManager implements ITickable, IResourceManagerReloadListener {
     private static final Logger LOGGER = LogManager.getLogger();
     private final Map<ResourceLocation, ITextureObject> mapTextureObjects = new HashMap<>();
-    private final List<ITickable> listTickables = Lists.newArrayList();
+    private final List<ITickable> listTickables = new ArrayList<>();
     private final Map<String, Integer> mapTextureCounters = new HashMap<>();
     private final IResourceManager theResourceManager;
     private ITextureObject boundTexture;

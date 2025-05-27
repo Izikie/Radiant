@@ -1,6 +1,5 @@
 package net.minecraft.tileentity;
 
-import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -10,6 +9,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ITickable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TileEntityPiston extends TileEntity implements ITickable {
@@ -19,7 +19,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
     private boolean shouldHeadBeRendered;
     private float progress;
     private float lastProgress;
-    private final List<Entity> field_174933_k = Lists.newArrayList();
+    private final List<Entity> field_174933_k = new ArrayList<>();
 
     public TileEntityPiston() {
     }

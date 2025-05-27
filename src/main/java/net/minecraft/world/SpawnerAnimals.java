@@ -1,6 +1,5 @@
 package net.minecraft.world;
 
-import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCategory;
 import net.minecraft.entity.EntityLiving;
@@ -19,7 +18,7 @@ import java.util.*;
 
 public final class SpawnerAnimals {
     private static final int MOB_COUNT_DIV = (int) Math.pow(17.0D, 2.0D);
-    private final Set<ChunkCoordIntPair> eligibleChunksForSpawning = Sets.newHashSet();
+    private final Set<ChunkCoordIntPair> eligibleChunksForSpawning = new HashSet<>();
     private final Map<Class, EntityLiving> mapSampleEntitiesByClass = new HashMap<>();
     private int lastPlayerChunkX = Integer.MAX_VALUE;
     private int lastPlayerChunkZ = Integer.MAX_VALUE;

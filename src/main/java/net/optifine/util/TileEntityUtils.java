@@ -68,8 +68,10 @@ public class TileEntityUtils {
     public static void setTileEntityRawName(TileEntity te, String name) {
         switch (te) {
             case TileEntityBeacon ignored -> Reflector.setFieldValue(te, Reflector.TileEntityBeacon_customName, name);
-            case TileEntityBrewingStand ignored -> Reflector.setFieldValue(te, Reflector.TileEntityBrewingStand_customName, name);
-            case TileEntityEnchantmentTable ignored -> Reflector.setFieldValue(te, Reflector.TileEntityEnchantmentTable_customName, name);
+            case TileEntityBrewingStand ignored ->
+                    Reflector.setFieldValue(te, Reflector.TileEntityBrewingStand_customName, name);
+            case TileEntityEnchantmentTable ignored ->
+                    Reflector.setFieldValue(te, Reflector.TileEntityEnchantmentTable_customName, name);
             case TileEntityFurnace ignored -> Reflector.setFieldValue(te, Reflector.TileEntityFurnace_customName, name);
             case TileEntityChest tileEntityChest -> tileEntityChest.setCustomName(name);
             case TileEntityDispenser tileEntityDispenser -> tileEntityDispenser.setCustomName(name);

@@ -1,7 +1,6 @@
 package net.minecraft.item;
 
 import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
@@ -24,6 +23,7 @@ import net.minecraft.util.*;
 import net.minecraft.world.World;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Random;
@@ -424,7 +424,7 @@ public final class ItemStack {
     }
 
     public List<String> getTooltip(EntityPlayer playerIn, boolean advanced) {
-        List<String> list = Lists.newArrayList();
+        List<String> list = new ArrayList<>();
         String s = this.getDisplayName();
 
         if (this.hasDisplayName()) {

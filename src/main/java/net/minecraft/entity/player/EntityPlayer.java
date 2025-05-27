@@ -1,6 +1,5 @@
 package net.minecraft.entity.player;
 
-import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
@@ -43,6 +42,7 @@ import net.minecraft.util.*;
 import net.minecraft.world.*;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -550,7 +550,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
             }
         }
 
-        return Lists.newArrayList();
+        return new ArrayList<>();
     }
 
     public EntityItem dropOneItem(boolean dropAll) {

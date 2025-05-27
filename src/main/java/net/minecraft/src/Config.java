@@ -26,8 +26,6 @@ import net.optifine.util.PropertiesOrdered;
 import net.optifine.util.TextureUtils;
 import net.optifine.util.TimedEvent;
 import org.apache.commons.io.IOUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.*;

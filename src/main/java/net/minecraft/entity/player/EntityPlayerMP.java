@@ -1,7 +1,5 @@
 package net.minecraft.entity.player;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import com.mojang.authlib.GameProfile;
 import io.netty.buffer.Unpooled;
 import net.minecraft.block.Block;
@@ -52,10 +50,7 @@ import net.minecraft.world.chunk.Chunk;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class EntityPlayerMP extends EntityPlayer implements ICrafting {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -65,8 +60,8 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
     public final ItemInWorldManager theItemInWorldManager;
     public double managedPosX;
     public double managedPosZ;
-    public final List<ChunkCoordIntPair> loadedChunks = Lists.newLinkedList();
-    private final List<Integer> destroyedItemsNetCache = Lists.newLinkedList();
+    public final List<ChunkCoordIntPair> loadedChunks = new LinkedList<>();
+    private final List<Integer> destroyedItemsNetCache = new LinkedList<>();
     private final StatisticsFile statsFile;
     private float combinedHealth = Float.MIN_VALUE;
     private float lastHealth = -1.0E8F;
@@ -185,9 +180,9 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         }
 
         if (!this.loadedChunks.isEmpty()) {
-            List<Chunk> list = Lists.newArrayList();
+            List<Chunk> list = new ArrayList<>();
             Iterator<ChunkCoordIntPair> iterator1 = this.loadedChunks.iterator();
-            List<TileEntity> list1 = Lists.newArrayList();
+            List<TileEntity> list1 = new ArrayList<>();
 
             while (iterator1.hasNext() && list.size() < 10) {
                 ChunkCoordIntPair chunkcoordintpair = iterator1.next();
@@ -299,7 +294,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         jsonserializableset.add(s);
 
         if (this.getStatFile().canUnlockAchievement(AchievementList.EXPLORE_ALL_BIOMES) && jsonserializableset.size() >= BiomeGenBase.EXPLORATION_BIOMES_LIST.size()) {
-            Set<BiomeGenBase> set = Sets.newHashSet(BiomeGenBase.EXPLORATION_BIOMES_LIST);
+            Set<BiomeGenBase> set = new HashSet<>(BiomeGenBase.EXPLORATION_BIOMES_LIST);
 
             for (String s1 : jsonserializableset) {
 

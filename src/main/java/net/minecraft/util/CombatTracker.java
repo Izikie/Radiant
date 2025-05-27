@@ -1,6 +1,5 @@
 package net.minecraft.util;
 
-import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -8,10 +7,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CombatTracker {
-    private final List<CombatEntry> combatEntries = Lists.newArrayList();
+    private final List<CombatEntry> combatEntries = new ArrayList<>();
     private final EntityLivingBase fighter;
     private int field_94555_c;
     private int field_152775_d;

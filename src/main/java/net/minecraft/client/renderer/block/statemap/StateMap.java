@@ -1,15 +1,11 @@
 package net.minecraft.client.renderer.block.statemap;
 
-import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class StateMap extends StateMapperBase {
     private final IProperty<?> name;
@@ -46,7 +42,7 @@ public class StateMap extends StateMapperBase {
     public static class Builder {
         private IProperty<?> name;
         private String suffix;
-        private final List<IProperty<?>> ignored = Lists.newArrayList();
+        private final List<IProperty<?>> ignored = new ArrayList<>();
 
         public Builder withName(IProperty<?> builderPropertyIn) {
             this.name = builderPropertyIn;

@@ -1,8 +1,6 @@
 package net.minecraft.client.gui;
 
 import com.google.common.base.Splitter;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
@@ -45,14 +43,14 @@ import java.util.Set;
 
 public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final Set<String> PROTOCOLS = Sets.newHashSet("http", "https");
+    private static final Set<String> PROTOCOLS = Set.of("http", "https");
     private static final Splitter NEWLINE_SPLITTER = Splitter.on('\n');
     protected Minecraft mc;
     protected RenderItem itemRender;
     public int width;
     public int height;
-    protected final List<GuiButton> buttonList = Lists.newArrayList();
-    protected final List<GuiLabel> labelList = Lists.newArrayList();
+    protected final List<GuiButton> buttonList = new ArrayList<>();
+    protected final List<GuiLabel> labelList = new ArrayList<>();
     public boolean allowUserInput;
     protected FontRenderer fontRendererObj;
     private GuiButton selectedButton;
@@ -215,7 +213,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
                         NBTBase nbtbase1 = JsonToNBT.getTagFromJson(hoverevent.getValue().getUnformattedText());
 
                         if (nbtbase1 instanceof NBTTagCompound nbttagcompound) {
-                            List<String> list1 = Lists.newArrayList();
+                            List<String> list1 = new ArrayList<>();
                             list1.add(nbttagcompound.getString("name"));
 
                             if (nbttagcompound.hasKey("type", 8)) {
@@ -242,7 +240,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
                     IChatComponent ichatcomponent1 = new ChatComponentTranslation("stats.tooltip.type." + (statbase.isAchievement() ? "achievement" : "statistic"));
                     ichatcomponent1.getChatStyle().setItalic(Boolean.TRUE);
                     String s1 = statbase instanceof Achievement achievement ? achievement.getDescription() : null;
-                    List<String> list = Lists.newArrayList(ichatcomponent.getFormattedText(), ichatcomponent1.getFormattedText());
+                    List<String> list = List.of(ichatcomponent.getFormattedText(), ichatcomponent1.getFormattedText());
 
                     if (s1 != null) {
                         list.addAll(this.fontRendererObj.listFormattedStringToWidth(s1, 150));

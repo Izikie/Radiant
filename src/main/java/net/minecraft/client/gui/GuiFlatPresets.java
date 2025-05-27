@@ -1,6 +1,5 @@
 package net.minecraft.client.gui;
 
-import com.google.common.collect.Lists;
 import net.minecraft.block.BlockTallGrass;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
@@ -18,12 +17,13 @@ import net.minecraft.world.gen.FlatLayerInfo;
 import org.lwjgl.input.Keyboard;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 public class GuiFlatPresets extends GuiScreen {
-    private static final List<LayerItem> FLAT_WORLD_PRESETS = Lists.newArrayList();
+    private static final List<LayerItem> FLAT_WORLD_PRESETS = new ArrayList<>();
     private final GuiCreateFlatWorld parentScreen;
     private String presetsTitle;
     private String presetsShare;

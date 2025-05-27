@@ -1,7 +1,5 @@
 package net.minecraft.entity;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.crash.ReportedException;
@@ -20,13 +18,15 @@ import net.minecraft.world.chunk.Chunk;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class EntityTracker {
     private static final Logger LOGGER = LogManager.getLogger();
     private final WorldServer theWorld;
-    private final Set<EntityTrackerEntry> trackedEntities = Sets.newHashSet();
+    private final Set<EntityTrackerEntry> trackedEntities = new HashSet<>();
     private final IntHashMap<EntityTrackerEntry> trackedEntityHashTable = new IntHashMap();
     private final int maxTrackingDistanceThreshold;
 
@@ -157,7 +157,7 @@ public class EntityTracker {
     }
 
     public void updateTrackedEntities() {
-        List<EntityPlayerMP> list = Lists.newArrayList();
+        List<EntityPlayerMP> list = new ArrayList<>();
 
         for (EntityTrackerEntry entitytrackerentry : this.trackedEntities) {
             entitytrackerentry.updatePlayerList(this.theWorld.playerEntities);

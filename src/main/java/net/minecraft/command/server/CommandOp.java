@@ -1,6 +1,5 @@
 package net.minecraft.command.server;
 
-import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -9,6 +8,7 @@ import net.minecraft.command.WrongUsageException;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommandOp extends CommandBase {
@@ -43,7 +43,7 @@ public class CommandOp extends CommandBase {
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         if (args.length == 1) {
             String s = args[args.length - 1];
-            List<String> list = Lists.newArrayList();
+            List<String> list = new ArrayList<>();
 
             for (GameProfile gameprofile : MinecraftServer.getServer().getGameProfiles()) {
                 if (!MinecraftServer.getServer().getConfigurationManager().canSendCommands(gameprofile) && doesStringStartWith(s, gameprofile.getName())) {

@@ -1,11 +1,11 @@
 package net.minecraft.client.renderer.vertex;
 
-import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VertexFormat {
@@ -28,7 +28,7 @@ public class VertexFormat {
     }
 
     public VertexFormat() {
-        this.elements = Lists.newArrayList();
+        this.elements = new ArrayList<>();
         this.offsets = new IntArrayList();
         this.nextOffset = 0;
         this.colorElementOffset = -1;

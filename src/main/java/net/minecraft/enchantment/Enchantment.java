@@ -1,6 +1,5 @@
 package net.minecraft.enchantment;
 
-import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityLivingBase;
@@ -9,10 +8,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public abstract class Enchantment {
     private static final Enchantment[] ENCHANTMENTS_LIST = new Enchantment[256];
@@ -130,7 +126,7 @@ public abstract class Enchantment {
     }
 
     static {
-        List<Enchantment> list = Lists.newArrayList();
+        List<Enchantment> list = new ArrayList<>();
 
         for (Enchantment enchantment : ENCHANTMENTS_LIST) {
             if (enchantment != null) {

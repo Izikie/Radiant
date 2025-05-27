@@ -1,6 +1,5 @@
 package net.minecraft.entity.ai;
 
-import com.google.common.collect.Lists;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.pathfinding.PathNavigateGround;
@@ -10,6 +9,7 @@ import net.minecraft.util.Vec3;
 import net.minecraft.village.Village;
 import net.minecraft.village.VillageDoorInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EntityAIMoveThroughVillage extends EntityAIBase {
@@ -18,7 +18,7 @@ public class EntityAIMoveThroughVillage extends EntityAIBase {
     private PathEntity entityPathNavigate;
     private VillageDoorInfo doorInfo;
     private final boolean isNocturnal;
-    private final List<VillageDoorInfo> doorList = Lists.newArrayList();
+    private final List<VillageDoorInfo> doorList = new ArrayList<>();
 
     public EntityAIMoveThroughVillage(EntityCreature theEntityIn, double movementSpeedIn, boolean isNocturnalIn) {
         this.theEntity = theEntityIn;

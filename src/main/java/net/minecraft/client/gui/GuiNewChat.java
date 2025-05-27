@@ -1,6 +1,5 @@
 package net.minecraft.client.gui;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,15 +9,16 @@ import net.minecraft.util.MathHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class GuiNewChat extends Gui {
     private static final Logger LOGGER = LogManager.getLogger();
     private final Minecraft mc;
-    private final List<String> sentMessages = Lists.newArrayList();
-    private final List<ChatLine> chatLines = Lists.newArrayList();
-    private final List<ChatLine> drawnChatLines = Lists.newArrayList();
+    private final List<String> sentMessages = new ArrayList<>();
+    private final List<ChatLine> chatLines = new ArrayList<>();
+    private final List<ChatLine> drawnChatLines = new ArrayList<>();
     private int scrollPos;
     private boolean isScrolled;
 

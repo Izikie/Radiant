@@ -1,6 +1,5 @@
 package net.minecraft.client.audio;
 
-import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.minecraft.client.resources.IResource;
@@ -21,6 +20,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -202,7 +202,7 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
     }
 
     public SoundEventAccessorComposite getRandomSoundFromCategories(SoundCategory... categories) {
-        List<SoundEventAccessorComposite> list = Lists.newArrayList();
+        List<SoundEventAccessorComposite> list = new ArrayList<>();
 
         for (ResourceLocation resourcelocation : this.sndRegistry.getKeys()) {
             SoundEventAccessorComposite soundeventaccessorcomposite = this.sndRegistry.getObject(resourcelocation);

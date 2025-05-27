@@ -1,6 +1,5 @@
 package net.minecraft.enchantment;
 
-import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityLivingBase;
@@ -286,7 +285,7 @@ public class EnchantmentHelper {
                 EnchantmentData enchantmentdata = WeightedRandom.getRandomItem(randomIn, map.values());
 
                 if (enchantmentdata != null) {
-                    list = Lists.newArrayList();
+                    list = new ArrayList<>();
                     list.add(enchantmentdata);
 
                     for (int l = k; randomIn.nextInt(50) <= l; l >>= 1) {

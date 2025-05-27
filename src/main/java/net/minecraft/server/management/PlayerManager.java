@@ -1,6 +1,5 @@
 package net.minecraft.server.management;
 
-import com.google.common.collect.Lists;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S21PacketChunkData;
@@ -25,10 +24,10 @@ import java.util.Map.Entry;
 public class PlayerManager {
     private static final Logger LOGGER = LogManager.getLogger();
     private final WorldServer theWorldServer;
-    private final List<EntityPlayerMP> players = Lists.newArrayList();
+    private final List<EntityPlayerMP> players = new ArrayList<>();
     private final LongHashMap<PlayerInstance> playerInstances = new LongHashMap();
-    private final List<PlayerInstance> playerInstancesToUpdate = Lists.newArrayList();
-    private final List<PlayerInstance> playerInstanceList = Lists.newArrayList();
+    private final List<PlayerInstance> playerInstancesToUpdate = new ArrayList<>();
+    private final List<PlayerInstance> playerInstanceList = new ArrayList<>();
     private int playerViewRadius;
     private long previousTotalWorldTime;
     private final int[][] xzDirectionsConst = new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
@@ -153,7 +152,7 @@ public class PlayerManager {
     }
 
     public void filterChunkLoadQueue(EntityPlayerMP player) {
-        List<ChunkCoordIntPair> list = Lists.newArrayList(player.loadedChunks);
+        List<ChunkCoordIntPair> list = new ArrayList<>(player.loadedChunks);
         int i = 0;
         int j = this.playerViewRadius;
         int k = (int) player.posX >> 4;
@@ -276,7 +275,7 @@ public class PlayerManager {
         if (radius != this.playerViewRadius) {
             int i = radius - this.playerViewRadius;
 
-            for (EntityPlayerMP entityplayermp : Lists.newArrayList(this.players)) {
+            for (EntityPlayerMP entityplayermp : new ArrayList<>(this.players)) {
                 int j = (int) entityplayermp.posX >> 4;
                 int k = (int) entityplayermp.posZ >> 4;
                 Set<ChunkCoordIntPair> set = this.getPendingEntriesSafe(entityplayermp);
@@ -370,7 +369,7 @@ public class PlayerManager {
     }
 
     class PlayerInstance {
-        private final List<EntityPlayerMP> playersWatchingChunk = Lists.newArrayList();
+        private final List<EntityPlayerMP> playersWatchingChunk = new ArrayList<>();
         private final ChunkCoordIntPair chunkCoords;
         private final short[] locationOfBlockChange = new short[64];
         private int numBlocksToUpdate;

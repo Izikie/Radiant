@@ -1,6 +1,9 @@
 package net.minecraft.client.audio;
 
-import com.google.common.collect.*;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 import io.netty.util.internal.ThreadLocalRandom;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
@@ -21,10 +24,7 @@ import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLStreamHandler;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 public class SoundManager {
@@ -47,7 +47,7 @@ public class SoundManager {
         this.invPlayingSounds = ((BiMap) this.playingSounds).inverse();
         this.playingSoundPoolEntries = new HashMap<>();
         this.categorySounds = HashMultimap.create();
-        this.tickableSounds = Lists.newArrayList();
+        this.tickableSounds = new ArrayList<>();
         this.delayedSounds = new HashMap<>();
         this.playingSoundsStopTime = new HashMap<>();
         this.sndHandler = p_i45119_1_;

@@ -1,7 +1,6 @@
 package net.minecraft.block;
 
 import com.google.common.collect.Collections2;
-import com.google.common.collect.Lists;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
@@ -132,7 +131,7 @@ public abstract class BlockFlower extends BlockBush {
 
         static {
             for (final FlowerColor blockflower$enumflowercolor : FlowerColor.values()) {
-                Collection<FlowerType> collection = Collections2.filter(Lists.newArrayList(values()), p_apply_1_ -> p_apply_1_.getBlockType() == blockflower$enumflowercolor);
+                Collection<FlowerType> collection = Collections2.filter(List.of(values()), p_apply_1_ -> p_apply_1_.getBlockType() == blockflower$enumflowercolor);
                 TYPES_FOR_BLOCK[blockflower$enumflowercolor.ordinal()] = collection.toArray(new FlowerType[0]);
             }
         }

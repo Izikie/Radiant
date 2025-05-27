@@ -1,6 +1,5 @@
 package net.minecraft.entity.item;
 
-import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityHanging;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,6 +10,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EntityPainting extends EntityHanging {
@@ -22,7 +22,7 @@ public class EntityPainting extends EntityHanging {
 
     public EntityPainting(World worldIn, BlockPos pos, Direction facing) {
         super(worldIn, pos);
-        List<PaintingType> list = Lists.newArrayList();
+        List<PaintingType> list = new ArrayList<>();
 
         for (PaintingType entitypainting$enumart : PaintingType.values()) {
             this.art = entitypainting$enumart;

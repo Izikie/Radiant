@@ -1,7 +1,5 @@
 package net.minecraft.world;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import com.google.common.util.concurrent.ListenableFuture;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEventData;
@@ -51,7 +49,7 @@ public class WorldServer extends World implements IThreadListener {
     private final MinecraftServer mcServer;
     private final EntityTracker theEntityTracker;
     private final PlayerManager thePlayerManager;
-    private final Set<NextTickListEntry> pendingTickListEntriesHashSet = Sets.newHashSet();
+    private final Set<NextTickListEntry> pendingTickListEntriesHashSet = new HashSet<>();
     private final TreeSet<NextTickListEntry> pendingTickListEntriesTreeSet = new TreeSet<>();
     private final Map<UUID, Entity> entitiesByUuid = new HashMap<>();
     public ChunkProviderServer theChunkProviderServer;
@@ -63,8 +61,8 @@ public class WorldServer extends World implements IThreadListener {
     protected final VillageSiege villageSiege = new VillageSiege(this);
     private final ServerBlockEventList[] blockEventQueue = new ServerBlockEventList[]{new ServerBlockEventList(), new ServerBlockEventList()};
     private int blockEventCacheIndex;
-    private static final List<WeightedRandomChestContent> BONUS_CHEST_CONTENT = Lists.newArrayList(new WeightedRandomChestContent(Items.STICK, 0, 1, 3, 10), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.PLANKS), 0, 1, 3, 10), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.LOG), 0, 1, 3, 10), new WeightedRandomChestContent(Items.STONE_AXE, 0, 1, 1, 3), new WeightedRandomChestContent(Items.WOODEN_AXE, 0, 1, 1, 5), new WeightedRandomChestContent(Items.STONE_PICKAXE, 0, 1, 1, 3), new WeightedRandomChestContent(Items.WOODEN_PICKAXE, 0, 1, 1, 5), new WeightedRandomChestContent(Items.APPLE, 0, 2, 3, 5), new WeightedRandomChestContent(Items.BREAD, 0, 2, 3, 3), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.LOG_2), 0, 1, 3, 10));
-    private final List<NextTickListEntry> pendingTickListEntriesThisTick = Lists.newArrayList();
+    private static final List<WeightedRandomChestContent> BONUS_CHEST_CONTENT = List.of(new WeightedRandomChestContent(Items.STICK, 0, 1, 3, 10), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.PLANKS), 0, 1, 3, 10), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.LOG), 0, 1, 3, 10), new WeightedRandomChestContent(Items.STONE_AXE, 0, 1, 1, 3), new WeightedRandomChestContent(Items.WOODEN_AXE, 0, 1, 1, 5), new WeightedRandomChestContent(Items.STONE_PICKAXE, 0, 1, 1, 3), new WeightedRandomChestContent(Items.WOODEN_PICKAXE, 0, 1, 1, 5), new WeightedRandomChestContent(Items.APPLE, 0, 2, 3, 5), new WeightedRandomChestContent(Items.BREAD, 0, 2, 3, 3), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.LOG_2), 0, 1, 3, 10));
+    private final List<NextTickListEntry> pendingTickListEntriesThisTick = new ArrayList<>();
 
     public WorldServer(MinecraftServer server, ISaveHandler saveHandlerIn, WorldInfo info, int dimensionId) {
         super(saveHandlerIn, info, WorldProvider.getProviderForDimension(dimensionId), false);
@@ -490,7 +488,7 @@ public class WorldServer extends World implements IThreadListener {
                     }
 
                     if (list == null) {
-                        list = Lists.newArrayList();
+                        list = new ArrayList<>();
                     }
 
                     list.add(nextticklistentry);
@@ -528,7 +526,7 @@ public class WorldServer extends World implements IThreadListener {
     }
 
     public List<TileEntity> getTileEntitiesIn(int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {
-        List<TileEntity> list = Lists.newArrayList();
+        List<TileEntity> list = new ArrayList<>();
 
         for (TileEntity tileEntity : this.loadedTileEntityList) {
             BlockPos blockpos = tileEntity.getPos();
@@ -659,7 +657,7 @@ public class WorldServer extends World implements IThreadListener {
 
             this.chunkProvider.saveChunks(p_73044_1_, progressCallback);
 
-            for (Chunk chunk : Lists.newArrayList(this.theChunkProviderServer.func_152380_a())) {
+            for (Chunk chunk : new ArrayList<>(this.theChunkProviderServer.func_152380_a())) {
                 if (chunk != null && !this.thePlayerManager.hasPlayerInstance(chunk.xPosition, chunk.zPosition)) {
                     this.theChunkProviderServer.dropChunk(chunk.xPosition, chunk.zPosition);
                 }

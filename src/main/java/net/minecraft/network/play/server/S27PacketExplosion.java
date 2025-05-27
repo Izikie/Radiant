@@ -1,6 +1,5 @@
 package net.minecraft.network.play.server;
 
-import com.google.common.collect.Lists;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
@@ -8,6 +7,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.Vec3;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class S27PacketExplosion implements Packet<INetHandlerPlayClient> {
@@ -28,7 +28,7 @@ public class S27PacketExplosion implements Packet<INetHandlerPlayClient> {
         this.posY = y;
         this.posZ = z;
         this.strength = strengthIn;
-        this.affectedBlockPositions = Lists.newArrayList(affectedBlocksIn);
+        this.affectedBlockPositions = new ArrayList<>(affectedBlocksIn);
 
         if (p_i45193_9_ != null) {
             this.field_149152_f = (float) p_i45193_9_.xCoord;
@@ -43,7 +43,7 @@ public class S27PacketExplosion implements Packet<INetHandlerPlayClient> {
         this.posZ = buf.readFloat();
         this.strength = buf.readFloat();
         int i = buf.readInt();
-        this.affectedBlockPositions = Lists.newArrayListWithCapacity(i);
+        this.affectedBlockPositions = new ArrayList<>(i);
         int j = (int) this.posX;
         int k = (int) this.posY;
         int l = (int) this.posZ;
