@@ -8,14 +8,14 @@ public class ChatAllowedCharacters {
     }
 
     public static String filterAllowedCharacters(String input) {
-        StringBuilder stringbuilder = new StringBuilder();
+        StringBuilder builder = new StringBuilder();
 
         for (char c0 : input.toCharArray()) {
             if (isAllowedCharacter(c0)) {
-                stringbuilder.append(c0);
+                builder.append(c0);
             }
         }
 
-        return stringbuilder.toString();
+        return builder.toString();
     }
 }

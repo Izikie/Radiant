@@ -781,8 +781,8 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc {
     }
 
     static class PriceInfo extends Tuple<Integer, Integer> {
-        public PriceInfo(int p_i45810_1_, int p_i45810_2_) {
-            super(p_i45810_1_, p_i45810_2_);
+        public PriceInfo(int first, int second) {
+            super(first, second);
         }
 
         public int getPrice(Random rand) {

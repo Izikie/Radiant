@@ -22,11 +22,6 @@ public class FrameTimer {
         }
     }
 
-    public int getLagometerValue(long time, int multiplier) {
-        double d0 = time / 1.6666666E7D;
-        return (int) (d0 * multiplier);
-    }
-
     public int getLastIndex() {
         return this.lastIndex;
     }

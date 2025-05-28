@@ -77,8 +77,8 @@ public class ClickEvent {
         }
 
         static {
-            for (Action clickevent$action : values()) {
-                nameMapping.put(clickevent$action.getCanonicalName(), clickevent$action);
+            for (Action action : values()) {
+                nameMapping.put(action.getCanonicalName(), action);
             }
         }
     }

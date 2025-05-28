@@ -78,8 +78,8 @@ public class HoverEvent {
         }
 
         static {
-            for (Action hoverevent$action : values()) {
-                nameMapping.put(hoverevent$action.getCanonicalName(), hoverevent$action);
+            for (Action action : values()) {
+                nameMapping.put(action.getCanonicalName(), action);
             }
         }
     }

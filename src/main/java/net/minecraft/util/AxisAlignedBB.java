@@ -17,52 +17,52 @@ public class AxisAlignedBB {
         this.maxZ = Math.max(z1, z2);
     }
 
-    public AxisAlignedBB(BlockPos pos1, BlockPos pos2) {
-        this.minX = pos1.getX();
-        this.minY = pos1.getY();
-        this.minZ = pos1.getZ();
+    public AxisAlignedBB(BlockPos pos, BlockPos pos2) {
+        this.minX = pos.getX();
+        this.minY = pos.getY();
+        this.minZ = pos.getZ();
         this.maxX = pos2.getX();
         this.maxY = pos2.getY();
         this.maxZ = pos2.getZ();
     }
 
     public AxisAlignedBB addCoord(double x, double y, double z) {
-        double d0 = this.minX;
-        double d1 = this.minY;
-        double d2 = this.minZ;
-        double d3 = this.maxX;
-        double d4 = this.maxY;
-        double d5 = this.maxZ;
+        double newMinX = this.minX;
+        double newMinY = this.minY;
+        double newMinZ = this.minZ;
+        double newMaxX = this.maxX;
+        double newMaxY = this.maxY;
+        double newMaxZ = this.maxZ;
 
         if (x < 0.0D) {
-            d0 += x;
+            newMinX += x;
         } else if (x > 0.0D) {
-            d3 += x;
+            newMaxX += x;
         }
 
         if (y < 0.0D) {
-            d1 += y;
+            newMinY += y;
         } else if (y > 0.0D) {
-            d4 += y;
+            newMaxY += y;
         }
 
         if (z < 0.0D) {
-            d2 += z;
+            newMinZ += z;
         } else if (z > 0.0D) {
-            d5 += z;
+            newMaxZ += z;
         }
 
-        return new AxisAlignedBB(d0, d1, d2, d3, d4, d5);
+        return new AxisAlignedBB(newMinX, newMinY, newMinZ, newMaxX, newMaxY, newMaxZ);
     }
 
     public AxisAlignedBB expand(double x, double y, double z) {
-        double d0 = this.minX - x;
-        double d1 = this.minY - y;
-        double d2 = this.minZ - z;
-        double d3 = this.maxX + x;
-        double d4 = this.maxY + y;
-        double d5 = this.maxZ + z;
-        return new AxisAlignedBB(d0, d1, d2, d3, d4, d5);
+        double newMinX = this.minX - x;
+        double newMinY = this.minY - y;
+        double newMinZ = this.minZ - z;
+        double newMaxX = this.maxX + x;
+        double newMaxY = this.maxY + y;
+        double newMaxZ = this.maxZ + z;
+        return new AxisAlignedBB(newMinX, newMinY, newMinZ, newMaxX, newMaxY, newMaxZ);
     }
 
     public AxisAlignedBB union(AxisAlignedBB other) {

@@ -1,19 +1,19 @@
 package net.minecraft.util;
 
 public class Tuple<A, B> {
-    private final A a;
-    private final B b;
+    private final A first;
+    private final B second;
 
-    public Tuple(A aIn, B bIn) {
-        this.a = aIn;
-        this.b = bIn;
+    public Tuple(A first, B second) {
+        this.first = first;
+        this.second = second;
     }
 
     public A getFirst() {
-        return this.a;
+        return this.first;
     }
 
     public B getSecond() {
-        return this.b;
+        return this.second;
     }
 }

@@ -76,7 +76,6 @@ public enum Direction implements IStringSerializable {
 
                 yield this;
             }
-            default -> throw new IllegalStateException("Unable to get CW facing for axis " + axis);
         };
     }
 
@@ -185,9 +184,9 @@ public enum Direction implements IStringSerializable {
     }
 
     public static Direction getFacingFromAxis(AxisDirection p_181076_0_, Axis p_181076_1_) {
-        for (Direction enumfacing : values()) {
-            if (enumfacing.getAxisDirection() == p_181076_0_ && enumfacing.getAxis() == p_181076_1_) {
-                return enumfacing;
+        for (Direction direction : values()) {
+            if (direction.getAxisDirection() == p_181076_0_ && direction.getAxis() == p_181076_1_) {
+                return direction;
             }
         }
 
@@ -199,14 +198,14 @@ public enum Direction implements IStringSerializable {
     }
 
     static {
-        for (Direction enumfacing : values()) {
-            VALUES[enumfacing.index] = enumfacing;
+        for (Direction direction : values()) {
+            VALUES[direction.index] = direction;
 
-            if (enumfacing.getAxis().isHorizontal()) {
-                HORIZONTALS[enumfacing.horizontalIndex] = enumfacing;
+            if (direction.getAxis().isHorizontal()) {
+                HORIZONTALS[direction.horizontalIndex] = direction;
             }
 
-            NAME_LOOKUP.put(enumfacing.getName2().toLowerCase(), enumfacing);
+            NAME_LOOKUP.put(direction.getName2().toLowerCase(), direction);
         }
     }
 
@@ -257,8 +256,8 @@ public enum Direction implements IStringSerializable {
         }
 
         static {
-            for (Axis enumfacing$axis : values()) {
-                NAME_LOOKUP.put(enumfacing$axis.getName2().toLowerCase(), enumfacing$axis);
+            for (Axis axis : values()) {
+                NAME_LOOKUP.put(axis.getName2().toLowerCase(), axis);
             }
         }
     }
@@ -292,13 +291,12 @@ public enum Direction implements IStringSerializable {
             return switch (this) {
                 case HORIZONTAL -> new Direction[]{Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
                 case VERTICAL -> new Direction[]{Direction.UP, Direction.DOWN};
-                default -> throw new Error("Someone's been tampering with the universe!");
             };
         }
 
         public Direction random(Random rand) {
-            Direction[] aenumfacing = this.facings();
-            return aenumfacing[rand.nextInt(aenumfacing.length)];
+            Direction[] directions = this.facings();
+            return directions[rand.nextInt(directions.length)];
         }
 
         public boolean apply(Direction p_apply_1_) {

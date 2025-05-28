@@ -43,9 +43,9 @@ public class Bootstrap {
     static void registerDispenserBehaviors() {
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.ARROW, new BehaviorProjectileDispense() {
             protected IProjectile getProjectileEntity(World worldIn, IPosition position) {
-                EntityArrow entityarrow = new EntityArrow(worldIn, position.getX(), position.getY(), position.getZ());
-                entityarrow.canBePickedUp = 1;
-                return entityarrow;
+                EntityArrow arrow = new EntityArrow(worldIn, position.getX(), position.getY(), position.getZ());
+                arrow.canBePickedUp = 1;
+                return arrow;
             }
         });
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.EGG, new BehaviorProjectileDispense() {
@@ -92,11 +92,11 @@ public class Bootstrap {
         });
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.SPAWN_EGG, new BehaviorDefaultDispenseItem() {
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-                Direction enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
-                double d0 = source.getX() + enumfacing.getFrontOffsetX();
-                double d1 = (source.getBlockPos().getY() + 0.2F);
-                double d2 = source.getZ() + enumfacing.getFrontOffsetZ();
-                Entity entity = ItemMonsterPlacer.spawnCreature(source.getWorld(), stack.getMetadata(), d0, d1, d2);
+                Direction direction = BlockDispenser.getFacing(source.getBlockMetadata());
+                double x = source.getX() + direction.getFrontOffsetX();
+                double y = (source.getBlockPos().getY() + 0.2F);
+                double z = source.getZ() + direction.getFrontOffsetZ();
+                Entity entity = ItemMonsterPlacer.spawnCreature(source.getWorld(), stack.getMetadata(), x, y, z);
 
                 if (entity instanceof EntityLivingBase && stack.hasDisplayName()) {
                     entity.setCustomNameTag(stack.getDisplayName());
@@ -108,10 +108,10 @@ public class Bootstrap {
         });
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.FIREWORKS, new BehaviorDefaultDispenseItem() {
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-                Direction enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
-                double d0 = source.getX() + enumfacing.getFrontOffsetX();
+                Direction direction = BlockDispenser.getFacing(source.getBlockMetadata());
+                double d0 = source.getX() + direction.getFrontOffsetX();
                 double d1 = (source.getBlockPos().getY() + 0.2F);
-                double d2 = source.getZ() + enumfacing.getFrontOffsetZ();
+                double d2 = source.getZ() + direction.getFrontOffsetZ();
                 EntityFireworkRocket entityfireworkrocket = new EntityFireworkRocket(source.getWorld(), d0, d1, d2, stack);
                 source.getWorld().spawnEntityInWorld(entityfireworkrocket);
                 stack.splitStack(1);
@@ -124,17 +124,17 @@ public class Bootstrap {
         });
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.FIRE_CHARGE, new BehaviorDefaultDispenseItem() {
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-                Direction enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
-                IPosition iposition = BlockDispenser.getDispensePosition(source);
-                double d0 = iposition.getX() + (enumfacing.getFrontOffsetX() * 0.3F);
-                double d1 = iposition.getY() + (enumfacing.getFrontOffsetY() * 0.3F);
-                double d2 = iposition.getZ() + (enumfacing.getFrontOffsetZ() * 0.3F);
+                Direction direction = BlockDispenser.getFacing(source.getBlockMetadata());
+                IPosition position = BlockDispenser.getDispensePosition(source);
+                double x = position.getX() + (direction.getFrontOffsetX() * 0.3F);
+                double y = position.getY() + (direction.getFrontOffsetY() * 0.3F);
+                double z = position.getZ() + (direction.getFrontOffsetZ() * 0.3F);
                 World world = source.getWorld();
                 Random random = world.rand;
-                double d3 = random.nextGaussian() * 0.05D + enumfacing.getFrontOffsetX();
-                double d4 = random.nextGaussian() * 0.05D + enumfacing.getFrontOffsetY();
-                double d5 = random.nextGaussian() * 0.05D + enumfacing.getFrontOffsetZ();
-                world.spawnEntityInWorld(new EntitySmallFireball(world, d0, d1, d2, d3, d4, d5));
+                double accelX = random.nextGaussian() * 0.05D + direction.getFrontOffsetX();
+                double accelY = random.nextGaussian() * 0.05D + direction.getFrontOffsetY();
+                double accelZ = random.nextGaussian() * 0.05D + direction.getFrontOffsetZ();
+                world.spawnEntityInWorld(new EntitySmallFireball(world, x, y, z, accelX, accelY, accelZ));
                 stack.splitStack(1);
                 return stack;
             }
@@ -147,26 +147,26 @@ public class Bootstrap {
             private final BehaviorDefaultDispenseItem field_150842_b = new BehaviorDefaultDispenseItem();
 
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-                Direction enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
+                Direction direction = BlockDispenser.getFacing(source.getBlockMetadata());
                 World world = source.getWorld();
-                double d0 = source.getX() + (enumfacing.getFrontOffsetX() * 1.125F);
-                double d1 = source.getY() + (enumfacing.getFrontOffsetY() * 1.125F);
-                double d2 = source.getZ() + (enumfacing.getFrontOffsetZ() * 1.125F);
-                BlockPos blockpos = source.getBlockPos().offset(enumfacing);
-                Material material = world.getBlockState(blockpos).getBlock().getMaterial();
+                double x = source.getX() + (direction.getFrontOffsetX() * 1.125F);
+                double y = source.getY() + (direction.getFrontOffsetY() * 1.125F);
+                double z = source.getZ() + (direction.getFrontOffsetZ() * 1.125F);
+                BlockPos blockPos = source.getBlockPos().offset(direction);
+                Material material = world.getBlockState(blockPos).getBlock().getMaterial();
                 double d3;
 
                 if (Material.WATER.equals(material)) {
                     d3 = 1.0D;
                 } else {
-                    if (!Material.AIR.equals(material) || !Material.WATER.equals(world.getBlockState(blockpos.down()).getBlock().getMaterial())) {
+                    if (!Material.AIR.equals(material) || !Material.WATER.equals(world.getBlockState(blockPos.down()).getBlock().getMaterial())) {
                         return this.field_150842_b.dispense(source, stack);
                     }
 
                     d3 = 0.0D;
                 }
 
-                EntityBoat entityboat = new EntityBoat(world, d0, d1 + d3, d2);
+                EntityBoat entityboat = new EntityBoat(world, x, y + d3, z);
                 world.spawnEntityInWorld(entityboat);
                 stack.splitStack(1);
                 return stack;
@@ -180,10 +180,10 @@ public class Bootstrap {
             private final BehaviorDefaultDispenseItem field_150841_b = new BehaviorDefaultDispenseItem();
 
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-                ItemBucket itembucket = (ItemBucket) stack.getItem();
-                BlockPos blockpos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
+                ItemBucket bucket = (ItemBucket) stack.getItem();
+                BlockPos blockPos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
 
-                if (itembucket.tryPlaceContainedLiquid(source.getWorld(), blockpos)) {
+                if (bucket.tryPlaceContainedLiquid(source.getWorld(), blockPos)) {
                     stack.setItem(Items.BUCKET);
                     stack.stackSize = 1;
                     return stack;
@@ -199,8 +199,8 @@ public class Bootstrap {
 
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
                 World world = source.getWorld();
-                BlockPos blockpos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
-                IBlockState iblockstate = world.getBlockState(blockpos);
+                BlockPos blockPos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
+                IBlockState iblockstate = world.getBlockState(blockPos);
                 Block block = iblockstate.getBlock();
                 Material material = block.getMaterial();
                 Item item;
@@ -215,7 +215,7 @@ public class Bootstrap {
                     item = Items.LAVA_BUCKET;
                 }
 
-                world.setBlockToAir(blockpos);
+                world.setBlockToAir(blockPos);
 
                 if (--stack.stackSize == 0) {
                     stack.setItem(item);

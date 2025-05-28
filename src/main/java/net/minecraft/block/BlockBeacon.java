@@ -81,7 +81,7 @@ public class BlockBeacon extends BlockContainer {
     }
 
     public static void updateColorAsync(final World worldIn, final BlockPos glassPos) {
-        HttpUtil.field_180193_a.submit(() -> {
+        HttpUtil.DOWNLOAD_EXECUTOR.submit(() -> {
             Chunk chunk = worldIn.getChunkFromBlockCoords(glassPos);
 
             for (int i = glassPos.getY() - 1; i >= 0; --i) {

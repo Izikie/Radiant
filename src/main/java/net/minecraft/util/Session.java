@@ -65,8 +65,8 @@ public class Session {
         }
 
         static {
-            for (Type session$type : values()) {
-                SESSION_TYPES.put(session$type.sessionType, session$type);
+            for (Type type : values()) {
+                SESSION_TYPES.put(type.sessionType, type);
             }
         }
     }

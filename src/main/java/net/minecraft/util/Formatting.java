@@ -100,9 +100,9 @@ public enum Formatting {
     public static Collection<String> getValidValues(boolean p_96296_0_, boolean p_96296_1_) {
         List<String> list = new ArrayList<>();
 
-        for (Formatting enumchatformatting : values()) {
-            if ((!enumchatformatting.isColor() || p_96296_0_) && (!enumchatformatting.isFancyStyling() || p_96296_1_)) {
-                list.add(enumchatformatting.getFriendlyName());
+        for (Formatting format : values()) {
+            if ((!format.isColor() || p_96296_0_) && (!format.isFancyStyling() || p_96296_1_)) {
+                list.add(format.getFriendlyName());
             }
         }
 
@@ -110,8 +110,8 @@ public enum Formatting {
     }
 
     static {
-        for (Formatting enumchatformatting : values()) {
-            nameMapping.put(func_175745_c(enumchatformatting.name), enumchatformatting);
+        for (Formatting format : values()) {
+            nameMapping.put(func_175745_c(format.name), format);
         }
     }
 }

@@ -43,6 +43,7 @@ public enum CubeFace {
         public static final int WEST_INDEX = Direction.WEST.getIndex();
     }
 
+    // TODO: Record
     public static class VertexInformation {
         public final int xIndex;
         public final int yIndex;

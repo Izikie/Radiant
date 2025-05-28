@@ -47,8 +47,8 @@ public abstract class Container {
     public List<ItemStack> getInventory() {
         List<ItemStack> list = new ArrayList<>();
 
-        for (Slot inventorySlot : this.inventorySlots) {
-            list.add(inventorySlot.getStack());
+        for (Slot slots : this.inventorySlots) {
+            list.add(slots.getStack());
         }
 
         return list;
