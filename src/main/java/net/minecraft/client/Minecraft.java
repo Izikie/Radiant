@@ -309,7 +309,7 @@ public class Minecraft implements IThreadListener {
         this.mcResourceManager.registerReloadListener(new FoliageColorReloadListener());
         AchievementList.OPEN_INVENTORY.setStatStringFormatter(str -> {
             try {
-                return String.format(str, GameSettings.getKeyDisplayString(Minecraft.this.gameSettings.keyBindInventory.getKeyCode()));
+                return String.format(str, GameSettings.getKeyDisplayString(this.gameSettings.keyBindInventory.getKeyCode()));
             } catch (Exception exception) {
                 return "Error: " + exception.getLocalizedMessage();
             }
@@ -416,34 +416,35 @@ public class Minecraft implements IThreadListener {
         }
     }
 
+    // TODO: Try-With-Resource
     private void setWindowIcon() {
         if (!IS_RUNNING_ON_MAC) {
-            InputStream inputstream = null;
-            InputStream inputstream1 = null;
+            InputStream x16 = null;
+            InputStream x32 = null;
 
             try {
-                inputstream = this.mcDefaultResourcePack.getInputStreamAssets(new ResourceLocation("icons/icon_16x16.png"));
-                inputstream1 = this.mcDefaultResourcePack.getInputStreamAssets(new ResourceLocation("icons/icon_32x32.png"));
+                x16 = this.mcDefaultResourcePack.getInputStreamAssets(new ResourceLocation("icons/icon_16x16.png"));
+                x32 = this.mcDefaultResourcePack.getInputStreamAssets(new ResourceLocation("icons/icon_32x32.png"));
 
-                if (inputstream != null && inputstream1 != null) {
-                    Display.setIcon(new ByteBuffer[]{this.readImageToBuffer(inputstream), this.readImageToBuffer(inputstream1)});
+                if (x16 != null && x32 != null) {
+                    Display.setIcon(new ByteBuffer[]{this.readImageToBuffer(x16), this.readImageToBuffer(x32)});
                 }
             } catch (IOException exception) {
                 LOGGER.error("Couldn't set icon", exception);
             } finally {
-                IOUtils.closeQuietly(inputstream);
-                IOUtils.closeQuietly(inputstream1);
+                IOUtils.closeQuietly(x16);
+                IOUtils.closeQuietly(x32);
             }
         }
     }
 
     private static boolean isJvm64bit() {
-        String[] astring = new String[]{"sun.arch.data.model", "com.ibm.vm.bitmode", "os.arch"};
+        String[] keys = new String[]{"sun.arch.data.model", "com.ibm.vm.bitmode", "os.arch"};
 
-        for (String s : astring) {
-            String s1 = System.getProperty(s);
+        for (String key : keys) {
+            String value = System.getProperty(key);
 
-            if (s1 != null && s1.contains("64")) {
+            if (value != null && value.contains("64")) {
                 return true;
             }
         }
@@ -493,8 +494,8 @@ public class Minecraft implements IThreadListener {
     public void refreshResources() {
         List<IResourcePack> list = new ArrayList<>(this.defaultResourcePacks);
 
-        for (ResourcePackRepository.Entry resourcepackrepository$entry : this.mcResourcePackRepository.getRepositoryEntries()) {
-            list.add(resourcepackrepository$entry.getResourcePack());
+        for (ResourcePackRepository.Entry entry : this.mcResourcePackRepository.getRepositoryEntries()) {
+            list.add(entry.getResourcePack());
         }
 
         if (this.mcResourcePackRepository.getResourcePackInstance() != null) {
@@ -504,7 +505,7 @@ public class Minecraft implements IThreadListener {
         try {
             this.mcResourceManager.reloadResources(list);
         } catch (RuntimeException exception) {
-            LOGGER.info("Caught error stitching, removing all assigned resourcepacks", exception);
+            LOGGER.info("Caught error stitching, removing all assigned resource packs", exception);
             list.clear();
             list.addAll(this.defaultResourcePacks);
             this.mcResourcePackRepository.setRepositories(Collections.emptyList());
@@ -522,16 +523,16 @@ public class Minecraft implements IThreadListener {
     }
 
     private ByteBuffer readImageToBuffer(InputStream imageStream) throws IOException {
-        BufferedImage bufferedimage = ImageIO.read(imageStream);
-        int[] aint = bufferedimage.getRGB(0, 0, bufferedimage.getWidth(), bufferedimage.getHeight(), null, 0, bufferedimage.getWidth());
-        ByteBuffer bytebuffer = ByteBuffer.allocate(4 * aint.length);
+        BufferedImage image = ImageIO.read(imageStream);
+        int[] pixelData = image.getRGB(0, 0, image.getWidth(), image.getHeight(), null, 0, image.getWidth());
+        ByteBuffer buffer = ByteBuffer.allocate(4 * pixelData.length);
 
-        for (int i : aint) {
-            bytebuffer.putInt(i << 8 | i >> 24 & 255);
+        for (int pixel : pixelData) {
+            buffer.putInt(pixel << 8 | pixel >> 24 & 255);
         }
 
-        bytebuffer.flip();
-        return bytebuffer;
+        buffer.flip();
+        return buffer;
     }
 
     private void updateDisplayMode() throws LWJGLException {
@@ -579,13 +580,13 @@ public class Minecraft implements IThreadListener {
     }
 
     private void drawSplashScreen(TextureManager textureManagerInstance) throws LWJGLException {
-        ScaledResolution scaledresolution = new ScaledResolution(this);
-        int i = scaledresolution.getScaleFactor();
-        Framebuffer framebuffer = new Framebuffer(scaledresolution.getScaledWidth() * i, scaledresolution.getScaledHeight() * i, true);
+        ScaledResolution scaledResolution = new ScaledResolution(this);
+        int i = scaledResolution.getScaleFactor();
+        Framebuffer framebuffer = new Framebuffer(scaledResolution.getScaledWidth() * i, scaledResolution.getScaledHeight() * i, true);
         framebuffer.bindFramebuffer(false);
         GlStateManager.matrixMode(5889);
         GlStateManager.loadIdentity();
-        GlStateManager.ortho(0.0D, scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight(), 0.0D, 1000.0D, 3000.0D);
+        GlStateManager.ortho(0.0D, scaledResolution.getScaledWidth(), scaledResolution.getScaledHeight(), 0.0D, 1000.0D, 3000.0D);
         GlStateManager.matrixMode(5888);
         GlStateManager.loadIdentity();
         GlStateManager.translate(0.0F, 0.0F, -2000.0F);
@@ -593,6 +594,8 @@ public class Minecraft implements IThreadListener {
         GlStateManager.disableFog();
         GlStateManager.disableDepth();
         GlStateManager.enableTexture2D();
+
+        // TODO: Try-With-Resource
         InputStream inputstream = null;
 
         try {
@@ -606,21 +609,21 @@ public class Minecraft implements IThreadListener {
         }
 
         Tessellator tessellator = Tessellator.getInstance();
-        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        worldrenderer.pos(0.0D, this.displayHeight, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255).endVertex();
-        worldrenderer.pos(this.displayWidth, this.displayHeight, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255).endVertex();
-        worldrenderer.pos(this.displayWidth, 0.0D, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255).endVertex();
-        worldrenderer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255).endVertex();
+        WorldRenderer renderer = tessellator.getWorldRenderer();
+        renderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
+        renderer.pos(0.0D, this.displayHeight, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255).endVertex();
+        renderer.pos(this.displayWidth, this.displayHeight, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255).endVertex();
+        renderer.pos(this.displayWidth, 0.0D, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255).endVertex();
+        renderer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255).endVertex();
         tessellator.draw();
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         int j = 256;
         int k = 256;
-        this.draw((scaledresolution.getScaledWidth() - j) / 2, (scaledresolution.getScaledHeight() - k) / 2, 0, 0, j, k, 255, 255, 255, 255);
+        this.draw((scaledResolution.getScaledWidth() - j) / 2, (scaledResolution.getScaledHeight() - k) / 2, 0, 0, j, k, 255, 255, 255, 255);
         GlStateManager.disableLighting();
         GlStateManager.disableFog();
         framebuffer.unbindFramebuffer();
-        framebuffer.framebufferRender(scaledresolution.getScaledWidth() * i, scaledresolution.getScaledHeight() * i);
+        framebuffer.framebufferRender(scaledResolution.getScaledWidth() * i, scaledResolution.getScaledHeight() * i);
         GlStateManager.enableAlpha();
         GlStateManager.alphaFunc(516, 0.1F);
         this.updateDisplay();
@@ -642,30 +645,30 @@ public class Minecraft implements IThreadListener {
         return this.saveLoader;
     }
 
-    public void displayGuiScreen(GuiScreen guiScreenIn) {
+    public void displayGuiScreen(GuiScreen screen) {
         if (this.currentScreen != null) {
             this.currentScreen.onGuiClosed();
         }
 
-        if (guiScreenIn == null && this.theWorld == null) {
-            guiScreenIn = new GuiMainMenu();
-        } else if (guiScreenIn == null && this.thePlayer.getHealth() <= 0.0F) {
-            guiScreenIn = new GuiGameOver();
+        if (screen == null && this.theWorld == null) {
+            screen = new GuiMainMenu();
+        } else if (screen == null && this.thePlayer.getHealth() <= 0.0F) {
+            screen = new GuiGameOver();
         }
 
-        if (guiScreenIn instanceof GuiMainMenu) {
+        if (screen instanceof GuiMainMenu) {
             this.gameSettings.showDebugInfo = false;
             this.ingameGUI.getChatGUI().clearChatMessages();
         }
 
-        this.currentScreen = guiScreenIn;
+        this.currentScreen = screen;
 
-        if (guiScreenIn != null) {
+        if (screen != null) {
             this.setIngameNotInFocus();
-            ScaledResolution scaledresolution = new ScaledResolution(this);
-            int i = scaledresolution.getScaledWidth();
-            int j = scaledresolution.getScaledHeight();
-            guiScreenIn.setWorldAndResolution(this, i, j);
+            ScaledResolution scaledResolution = new ScaledResolution(this);
+            int i = scaledResolution.getScaledWidth();
+            int j = scaledResolution.getScaledHeight();
+            screen.setWorldAndResolution(this, i, j);
             this.skipRenderWorld = false;
         } else {
             this.mcSoundHandler.resumeSounds();
@@ -675,13 +678,13 @@ public class Minecraft implements IThreadListener {
 
     private void checkGLError(String message) {
         if (this.enableGLErrorChecking) {
-            int i = GL11.glGetError();
+            int error = GL11.glGetError();
 
-            if (i != 0) {
-                String s = GLU.gluErrorString(i);
+            if (error != 0) {
+                String errorMessage = GLU.gluErrorString(error);
                 LOGGER.error("########## GL ERROR ##########");
                 LOGGER.error("@ {}", message);
-                LOGGER.error("{}: {}", i, s);
+                LOGGER.error("{}: {}", error, errorMessage);
             }
         }
     }
@@ -866,10 +869,10 @@ public class Minecraft implements IThreadListener {
 
         if (this.leftClickCounter <= 0 && !this.thePlayer.isUsingItem()) {
             if (leftClick && this.objectMouseOver != null && this.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-                BlockPos blockpos = this.objectMouseOver.getBlockPos();
+                BlockPos blockPos = this.objectMouseOver.getBlockPos();
 
-                if (this.theWorld.getBlockState(blockpos).getBlock().getMaterial() != Material.AIR && this.playerController.onPlayerDamageBlock(blockpos, this.objectMouseOver.sideHit)) {
-                    this.effectRenderer.addBlockHitEffects(blockpos, this.objectMouseOver.sideHit);
+                if (this.theWorld.getBlockState(blockPos).getBlock().getMaterial() != Material.AIR && this.playerController.onPlayerDamageBlock(blockPos, this.objectMouseOver.sideHit)) {
+                    this.effectRenderer.addBlockHitEffects(blockPos, this.objectMouseOver.sideHit);
                     this.thePlayer.swingItem();
                 }
             } else {
@@ -1121,7 +1124,7 @@ public class Minecraft implements IThreadListener {
                         if (!this.inGameHasFocus && Mouse.getEventButtonState()) {
                             this.setIngameFocus();
                         }
-                    } else if (this.currentScreen != null) {
+                    } else {
                         this.currentScreen.handleMouseInput();
                     }
                 }
@@ -1368,23 +1371,23 @@ public class Minecraft implements IThreadListener {
         this.systemTime = getSystemTime();
     }
 
-    public void launchIntegratedServer(String folderName, String worldName, WorldSettings worldSettingsIn) {
+    public void launchIntegratedServer(String folderName, String worldName, WorldSettings worldSettings) {
         this.loadWorld(null);
         System.gc();
-        ISaveHandler isavehandler = this.saveLoader.getSaveLoader(folderName, false);
-        WorldInfo worldinfo = isavehandler.loadWorldInfo();
+        ISaveHandler saveHandler = this.saveLoader.getSaveLoader(folderName, false);
+        WorldInfo worldInfo = saveHandler.loadWorldInfo();
 
-        if (worldinfo == null && worldSettingsIn != null) {
-            worldinfo = new WorldInfo(worldSettingsIn, folderName);
-            isavehandler.saveWorldInfo(worldinfo);
+        if (worldInfo == null && worldSettings != null) {
+            worldInfo = new WorldInfo(worldSettings, folderName);
+            saveHandler.saveWorldInfo(worldInfo);
         }
 
-        if (worldSettingsIn == null) {
-            worldSettingsIn = new WorldSettings(worldinfo);
+        if (worldSettings == null) {
+            worldSettings = new WorldSettings(worldInfo);
         }
 
         try {
-            this.theIntegratedServer = new IntegratedServer(this, folderName, worldName, worldSettingsIn);
+            this.theIntegratedServer = new IntegratedServer(this, folderName, worldName, worldSettings);
             this.theIntegratedServer.startServerThread();
             this.integratedServerIsRunning = true;
         } catch (Throwable throwable) {
@@ -1398,10 +1401,10 @@ public class Minecraft implements IThreadListener {
         this.loadingScreen.displaySavingString(I18n.format("menu.loadingLevel"));
 
         while (!this.theIntegratedServer.serverIsInRunLoop()) {
-            String s = this.theIntegratedServer.getUserMessage();
+            String userMessage = this.theIntegratedServer.getUserMessage();
 
-            if (s != null) {
-                this.loadingScreen.displayLoadingString(I18n.format(s));
+            if (userMessage != null) {
+                this.loadingScreen.displayLoadingString(I18n.format(userMessage));
             } else {
                 this.loadingScreen.displayLoadingString("");
             }
@@ -1413,24 +1416,24 @@ public class Minecraft implements IThreadListener {
         }
 
         this.displayGuiScreen(null);
-        SocketAddress socketaddress = this.theIntegratedServer.getNetworkSystem().addLocalEndpoint();
-        NetworkManager networkmanager = NetworkManager.provideLocalClient(socketaddress);
-        networkmanager.setNetHandler(new NetHandlerLoginClient(networkmanager, this, null));
-        networkmanager.sendPacket(new C00Handshake(47, socketaddress.toString(), 0, NetworkState.LOGIN));
-        networkmanager.sendPacket(new C00PacketLoginStart(this.getSession().getProfile()));
-        this.myNetworkManager = networkmanager;
+        SocketAddress address = this.theIntegratedServer.getNetworkSystem().addLocalEndpoint();
+        NetworkManager manager = NetworkManager.provideLocalClient(address);
+        manager.setNetHandler(new NetHandlerLoginClient(manager, this, null));
+        manager.sendPacket(new C00Handshake(47, address.toString(), 0, NetworkState.LOGIN));
+        manager.sendPacket(new C00PacketLoginStart(this.getSession().getProfile()));
+        this.myNetworkManager = manager;
     }
 
-    public void loadWorld(WorldClient worldClientIn) {
-        this.loadWorld(worldClientIn, "");
+    public void loadWorld(WorldClient worldClient) {
+        this.loadWorld(worldClient, "");
     }
 
-    public void loadWorld(WorldClient worldClientIn, String loadingMessage) {
-        if (worldClientIn == null) {
-            NetHandlerPlayClient nethandlerplayclient = this.getNetHandler();
+    public void loadWorld(WorldClient worldClient, String loadingMessage) {
+        if (worldClient == null) {
+            NetHandlerPlayClient handlerPlayClient = this.getNetHandler();
 
-            if (nethandlerplayclient != null) {
-                nethandlerplayclient.cleanup();
+            if (handlerPlayClient != null) {
+                handlerPlayClient.cleanup();
             }
 
             if (this.theIntegratedServer != null && this.theIntegratedServer.isAnvilFileSet()) {
@@ -1451,7 +1454,7 @@ public class Minecraft implements IThreadListener {
             this.loadingScreen.displayLoadingString("");
         }
 
-        if (worldClientIn == null && this.theWorld != null) {
+        if (worldClient == null && this.theWorld != null) {
             this.mcResourcePackRepository.clearResourcePack();
             this.ingameGUI.resetPlayersOverlayFooterHeader();
             this.setServerData(null);
@@ -1459,24 +1462,24 @@ public class Minecraft implements IThreadListener {
         }
 
         this.mcSoundHandler.stopSounds();
-        this.theWorld = worldClientIn;
+        this.theWorld = worldClient;
 
-        if (worldClientIn != null) {
+        if (worldClient != null) {
             if (this.renderGlobal != null) {
-                this.renderGlobal.setWorldAndLoadRenderers(worldClientIn);
+                this.renderGlobal.setWorldAndLoadRenderers(worldClient);
             }
 
             if (this.effectRenderer != null) {
-                this.effectRenderer.clearEffects(worldClientIn);
+                this.effectRenderer.clearEffects(worldClient);
             }
 
             if (this.thePlayer == null) {
-                this.thePlayer = this.playerController.func_178892_a(worldClientIn, new StatFileWriter());
+                this.thePlayer = this.playerController.func_178892_a(worldClient, new StatFileWriter());
                 this.playerController.flipPlayer(this.thePlayer);
             }
 
             this.thePlayer.preparePlayerToSpawn();
-            worldClientIn.spawnEntityInWorld(this.thePlayer);
+            worldClient.spawnEntityInWorld(this.thePlayer);
             this.thePlayer.movementInput = new MovementInputFromOptions(this.gameSettings);
             this.playerController.setPlayerCapabilities(this.thePlayer);
             this.renderViewEntity = this.thePlayer;
@@ -1623,26 +1626,25 @@ public class Minecraft implements IThreadListener {
         }
     }
 
-    private ItemStack pickBlockWithNBT(Item itemIn, int meta, TileEntity tileEntityIn) {
-        ItemStack itemstack = new ItemStack(itemIn, 1, meta);
-        NBTTagCompound nbttagcompound = new NBTTagCompound();
-        tileEntityIn.writeToNBT(nbttagcompound);
+    private ItemStack pickBlockWithNBT(Item itemIn, int meta, TileEntity tileEntity) {
+        ItemStack itemStack = new ItemStack(itemIn, 1, meta);
+        NBTTagCompound tagCompound = new NBTTagCompound();
+        tileEntity.writeToNBT(tagCompound);
 
-        if (itemIn == Items.SKULL && nbttagcompound.hasKey("Owner")) {
-            NBTTagCompound nbttagcompound2 = nbttagcompound.getCompoundTag("Owner");
-            NBTTagCompound nbttagcompound3 = new NBTTagCompound();
-            nbttagcompound3.setTag("SkullOwner", nbttagcompound2);
-            itemstack.setTagCompound(nbttagcompound3);
-            return itemstack;
+        if (itemIn == Items.SKULL && tagCompound.hasKey("Owner")) {
+            NBTTagCompound owner = tagCompound.getCompoundTag("Owner");
+            NBTTagCompound finalCompound = new NBTTagCompound();
+            finalCompound.setTag("SkullOwner", owner);
+            itemStack.setTagCompound(finalCompound);
         } else {
-            itemstack.setTagInfo("BlockEntityTag", nbttagcompound);
+            itemStack.setTagInfo("BlockEntityTag", tagCompound);
             NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-            NBTTagList nbttaglist = new NBTTagList();
-            nbttaglist.appendTag(new NBTTagString("(+NBT)"));
-            nbttagcompound1.setTag("Lore", nbttaglist);
-            itemstack.setTagInfo("display", nbttagcompound1);
-            return itemstack;
+            NBTTagList tagList = new NBTTagList();
+            tagList.appendTag(new NBTTagString("(+NBT)"));
+            nbttagcompound1.setTag("Lore", tagList);
+            itemStack.setTagInfo("display", nbttagcompound1);
         }
+        return itemStack;
     }
 
     public CrashReport addGraphicsAndWorldToCrashReport(CrashReport theCrash) {
@@ -1670,7 +1672,7 @@ public class Minecraft implements IThreadListener {
 
             return builder.toString();
         });
-        theCrash.getCategory().addCrashSectionCallable("Current Language", () -> Minecraft.this.mcLanguageManager.getCurrentLanguage().toString());
+        theCrash.getCategory().addCrashSectionCallable("Current Language", () -> this.mcLanguageManager.getCurrentLanguage().toString());
 
         if (this.theWorld != null) {
             this.theWorld.addWorldInfoToCrashReport(theCrash);
@@ -1684,7 +1686,7 @@ public class Minecraft implements IThreadListener {
     }
 
     public ListenableFuture<Object> scheduleResourcesRefresh() {
-        return this.addScheduledTask(Minecraft.this::refreshResources);
+        return this.addScheduledTask(this::refreshResources);
     }
 
     private String getCurrentAction() {
@@ -1872,11 +1874,11 @@ public class Minecraft implements IThreadListener {
     }
 
     public static Map<String, String> getSessionInfo() {
-        Map<String, String> map = new HashMap<>();
-        map.put("X-Minecraft-Username", getMinecraft().getSession().getUsername());
-        map.put("X-Minecraft-UUID", getMinecraft().getSession().getPlayerID());
-        map.put("X-Minecraft-Version", "1.8.9");
-        return map;
+        return Map.of(
+                "X-Minecraft-Username", getMinecraft().getSession().getUsername(),
+                "X-Minecraft-UUID", getMinecraft().getSession().getPlayerID(),
+                "X-Minecraft-Version", "1.8.9"
+        );
     }
 
     public DefaultResourcePack getDefaultResourcePack() {

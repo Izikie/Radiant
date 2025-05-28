@@ -1,56 +1,56 @@
 package net.minecraft.util;
 
 public class Vec4b {
-    private final byte field_176117_a;
-    private final byte field_176115_b;
-    private final byte field_176116_c;
-    private final byte field_176114_d;
+    private final byte x;
+    private final byte y;
+    private final byte z;
+    private final byte w;
 
-    public Vec4b(byte p_i45555_1_, byte p_i45555_2_, byte p_i45555_3_, byte p_i45555_4_) {
-        this.field_176117_a = p_i45555_1_;
-        this.field_176115_b = p_i45555_2_;
-        this.field_176116_c = p_i45555_3_;
-        this.field_176114_d = p_i45555_4_;
+    public Vec4b(byte x, byte y, byte z, byte w) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.w = w;
     }
 
-    public Vec4b(Vec4b p_i45556_1_) {
-        this.field_176117_a = p_i45556_1_.field_176117_a;
-        this.field_176115_b = p_i45556_1_.field_176115_b;
-        this.field_176116_c = p_i45556_1_.field_176116_c;
-        this.field_176114_d = p_i45556_1_.field_176114_d;
+    public Vec4b(Vec4b vec4b) {
+        this.x = vec4b.x;
+        this.y = vec4b.y;
+        this.z = vec4b.z;
+        this.w = vec4b.w;
     }
 
-    public byte func_176110_a() {
-        return this.field_176117_a;
+    public byte x() {
+        return this.x;
     }
 
-    public byte func_176112_b() {
-        return this.field_176115_b;
+    public byte y() {
+        return this.y;
     }
 
-    public byte func_176113_c() {
-        return this.field_176116_c;
+    public byte z() {
+        return this.z;
     }
 
-    public byte func_176111_d() {
-        return this.field_176114_d;
+    public byte w() {
+        return this.w;
     }
 
-    public boolean equals(Object p_equals_1_) {
-        if (this == p_equals_1_) {
+    public boolean equals(Object object) {
+        if (this == object) {
             return true;
-        } else if (!(p_equals_1_ instanceof Vec4b vec4b)) {
+        } else if (!(object instanceof Vec4b vec4b)) {
             return false;
         } else {
-            return this.field_176117_a == vec4b.field_176117_a && (this.field_176114_d == vec4b.field_176114_d && (this.field_176115_b == vec4b.field_176115_b && this.field_176116_c == vec4b.field_176116_c));
+            return this.x == vec4b.x && (this.w == vec4b.w && (this.y == vec4b.y && this.z == vec4b.z));
         }
     }
 
     public int hashCode() {
-        int i = this.field_176117_a;
-        i = 31 * i + this.field_176115_b;
-        i = 31 * i + this.field_176116_c;
-        i = 31 * i + this.field_176114_d;
+        int i = this.x;
+        i = 31 * i + this.y;
+        i = 31 * i + this.z;
+        i = 31 * i + this.w;
         return i;
     }
 }

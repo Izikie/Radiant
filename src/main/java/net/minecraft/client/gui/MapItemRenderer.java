@@ -102,13 +102,13 @@ public class MapItemRenderer {
             int k = 0;
 
             for (Vec4b vec4b : this.mapData.mapDecorations.values()) {
-                if (!noOverlayRendering || vec4b.func_176110_a() == 1) {
+                if (!noOverlayRendering || vec4b.x() == 1) {
                     GlStateManager.pushMatrix();
-                    GlStateManager.translate(i + vec4b.func_176112_b() / 2.0F + 64.0F, j + vec4b.func_176113_c() / 2.0F + 64.0F, -0.02F);
-                    GlStateManager.rotate((vec4b.func_176111_d() * 360) / 16.0F, 0.0F, 0.0F, 1.0F);
+                    GlStateManager.translate(i + vec4b.y() / 2.0F + 64.0F, j + vec4b.z() / 2.0F + 64.0F, -0.02F);
+                    GlStateManager.rotate((vec4b.w() * 360) / 16.0F, 0.0F, 0.0F, 1.0F);
                     GlStateManager.scale(4.0F, 4.0F, 3.0F);
                     GlStateManager.translate(-0.125F, 0.125F, 0.0F);
-                    byte b0 = vec4b.func_176110_a();
+                    byte b0 = vec4b.x();
                     float f1 = (b0 % 4) / 4.0F;
                     float f2 = (b0 / 4) / 4.0F;
                     float f3 = (b0 % 4 + 1) / 4.0F;
