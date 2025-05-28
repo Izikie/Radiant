@@ -21,6 +21,7 @@ import net.optifine.util.MemoryMonitor;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -90,39 +91,39 @@ public class GuiOverlayDebug extends Gui {
         BlockPos blockPos = new BlockPos(mc.getRenderViewEntity().posX, mc.getRenderViewEntity().getEntityBoundingBox().minY, mc.getRenderViewEntity().posZ);
 
         if (mc.debug != debugOF) {
-            StringBuilder stringbuffer = new StringBuilder(mc.debug);
+            StringBuilder builder = new StringBuilder(mc.debug);
             int minFPS = Config.getFpsMin();
             int currentFPS = mc.debug.indexOf(" fps ");
 
             if (currentFPS >= 0) {
-                stringbuffer.insert(currentFPS, "/" + minFPS);
+                builder.insert(currentFPS, "/" + minFPS);
             }
 
             if (Config.isSmoothFps()) {
-                stringbuffer.append(" sf");
+                builder.append(" sf");
             }
 
             if (Config.isFastRender()) {
-                stringbuffer.append(" fr");
+                builder.append(" fr");
             }
 
             if (Config.isAnisotropicFiltering()) {
-                stringbuffer.append(" af");
+                builder.append(" af");
             }
 
             if (Config.isAntialiasing()) {
-                stringbuffer.append(" aa");
+                builder.append(" aa");
             }
 
             if (Config.isRenderRegions()) {
-                stringbuffer.append(" reg");
+                builder.append(" reg");
             }
 
             if (Config.isShaders()) {
-                stringbuffer.append(" sh");
+                builder.append(" sh");
             }
 
-            mc.debug = stringbuffer.toString();
+            mc.debug = builder.toString();
             debugOF = mc.debug;
         }
 
@@ -138,7 +139,7 @@ public class GuiOverlayDebug extends Gui {
         textureAnimBuilder.append(textureMap.getCountAnimations() + TextureAnimations.getCountAnimations());
         String textureAnimInfo = textureAnimBuilder.toString();
 
-        List<String> debugInfo = List.of(
+        List<String> debugInfo = new ArrayList<>(List.of(
                 String.format("Minecraft 1.8.9 (%s)", mc.getVersion()),
                 mc.debug,
                 mc.renderGlobal.getDebugInfoRenders(),
@@ -146,14 +147,14 @@ public class GuiOverlayDebug extends Gui {
                 "P: " + mc.effectRenderer.getStatistics() + ". T: " + mc.theWorld.getDebugLoadedEntities() + textureAnimInfo,
                 mc.theWorld.getProviderName(),
                 ""
-        );
+        ));
 
         if (isReducedDebug()) {
             debugInfo.add(String.format("Chunk-relative: %d %d %d", blockPos.getX() & 15, blockPos.getY() & 15, blockPos.getZ() & 15));
         } else {
             Entity entity = mc.getRenderViewEntity();
-            Direction enumFacing = entity.getHorizontalFacing();
-            String direction = switch (enumFacing) {
+            Direction direction = entity.getHorizontalFacing();
+            String facing = switch (direction) {
                 case NORTH -> "Towards -Z";
                 case SOUTH -> "Towards +Z";
                 case WEST -> "Towards -X";
@@ -164,7 +165,7 @@ public class GuiOverlayDebug extends Gui {
             debugInfo.add(String.format("XYZ: %.3f, %.3f, %.3f", mc.getRenderViewEntity().posX, mc.getRenderViewEntity().getEntityBoundingBox().minY, mc.getRenderViewEntity().posZ));
             debugInfo.add(String.format("Block: %d %d %d", blockPos.getX(), blockPos.getY(), blockPos.getZ()));
             debugInfo.add(String.format("Chunk: %d %d %d in %d %d %d", blockPos.getX() & 15, blockPos.getY() & 15, blockPos.getZ() & 15, blockPos.getX() >> 4, blockPos.getY() >> 4, blockPos.getZ() >> 4));
-            debugInfo.add(String.format("Facing: %s (%s) (%.1f / %.1f)", enumFacing.getName(), direction, MathHelper.wrapAngleTo180_float(entity.rotationYaw), MathHelper.wrapAngleTo180_float(entity.rotationPitch)));
+            debugInfo.add(String.format("Facing: %s (%s) (%.1f / %.1f)", direction.getName(), facing, MathHelper.wrapAngleTo180_float(entity.rotationYaw), MathHelper.wrapAngleTo180_float(entity.rotationPitch)));
 
             if (mc.theWorld != null && mc.theWorld.isBlockLoaded(blockPos)) {
                 Chunk chunk = mc.theWorld.getChunkFromBlockCoords(blockPos);
@@ -206,30 +207,30 @@ public class GuiOverlayDebug extends Gui {
         long freeMemory = Runtime.getRuntime().freeMemory();
         long usedMemory = totalMemory - freeMemory;
 
-        List<String> list = List.of(
+        List<String> list = new ArrayList<>(List.of(
                 String.format("Java: %s %dbit", System.getProperty("java.version"), mc.isJava64bit() ? 64 : 32),
                 String.format("Mem: % 2d%% %03d/%03dMB", usedMemory * 100L / maxMemory, bytesToMb(usedMemory), bytesToMb(maxMemory)),
                 String.format("Allocated: % 2d%% %03dMB", totalMemory * 100L / maxMemory, bytesToMb(totalMemory)),
                 "GC: " + MemoryMonitor.getAllocationRateMb() + "MB/s",
                 "",
-                String.format("CPU: %s", System.getProperty("sun.cpu.endian")),
+                // Get actual CPU name
                 String.format("GPU: %s", GL11.glGetString(GL11.GL_RENDERER)),
                 String.format("Display: %dx%d (%s)", Display.getWidth(), Display.getHeight(), GL11.glGetString(GL11.GL_VENDOR)),
-                GL11.glGetString(GL11.GL_VERSION));
+                GL11.glGetString(GL11.GL_VERSION)));
 
         if (!isReducedDebug()) {
             if (mc.objectMouseOver != null && mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && mc.objectMouseOver.getBlockPos() != null) {
                 BlockPos blockPos = mc.objectMouseOver.getBlockPos();
-                IBlockState iBlockState = mc.theWorld.getBlockState(blockPos);
+                IBlockState blockState = mc.theWorld.getBlockState(blockPos);
 
                 if (mc.theWorld.getWorldType() != WorldType.DEBUG_WORLD) {
-                    iBlockState = iBlockState.getBlock().getActualState(iBlockState, mc.theWorld, blockPos);
+                    blockState = blockState.getBlock().getActualState(blockState, mc.theWorld, blockPos);
                 }
 
                 list.add("");
-                list.add(String.valueOf(Block.blockRegistry.getNameForObject(iBlockState.getBlock())));
+                list.add(String.valueOf(Block.blockRegistry.getNameForObject(blockState.getBlock())));
 
-                for (Entry<IProperty, Comparable> entry : iBlockState.getProperties().entrySet()) {
+                for (Entry<IProperty, Comparable> entry : blockState.getProperties().entrySet()) {
                     String value = entry.getValue().toString();
 
                     if (entry.getValue() == Boolean.TRUE) {
@@ -243,6 +244,7 @@ public class GuiOverlayDebug extends Gui {
             }
 
         }
+
         return list;
     }
 

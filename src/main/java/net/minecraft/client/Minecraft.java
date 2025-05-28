@@ -456,7 +456,7 @@ public class Minecraft implements IThreadListener {
     }
 
     public String getVersion() {
-        return "Radiant-1.8.9";
+        return "Radiant/1.8.9-M6-Pre-2";
     }
 
     public void crashed(CrashReport crash) {

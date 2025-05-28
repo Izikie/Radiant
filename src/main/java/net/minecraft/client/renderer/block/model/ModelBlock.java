@@ -156,7 +156,7 @@ public class ModelBlock {
                     modelblock1 = modelblock1.parent;
                 }
 
-                throw new LoopException();
+                throw new Deserializer.LoopException();
             } catch (NullPointerException exception) {
             }
         }
@@ -219,7 +219,7 @@ public class ModelBlock {
             return JsonUtils.getBoolean(jsonObject, "ambientocclusion", true);
         }
 
-        protected List<BlockPart> getModelElements(JsonDeserializationContext p_178325_1_, JsonObject jsonObject) {
+        protected List<BlockPart> getModelElements(JsonDeserializationContext ctx, JsonObject jsonObject) {
             List<BlockPart> list = new ArrayList<>();
 
             if (jsonObject.has("elements")) {
@@ -231,6 +231,7 @@ public class ModelBlock {
             return list;
         }
 
-    public static class LoopException extends RuntimeException {
+        public static class LoopException extends RuntimeException {
+        }
     }
 }
