@@ -1,5 +1,6 @@
 package net.minecraft.entity;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.crash.ReportedException;
@@ -12,7 +13,6 @@ import net.minecraft.entity.passive.IAnimals;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.*;
 import net.minecraft.network.Packet;
-import net.minecraft.util.IntHashMap;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
 import org.apache.logging.log4j.LogManager;
@@ -27,7 +27,7 @@ public class EntityTracker {
     private static final Logger LOGGER = LogManager.getLogger();
     private final WorldServer theWorld;
     private final Set<EntityTrackerEntry> trackedEntities = new HashSet<>();
-    private final IntHashMap<EntityTrackerEntry> trackedEntityHashTable = new IntHashMap();
+    private final Int2ObjectOpenHashMap<EntityTrackerEntry> trackedEntityHashTable = new Int2ObjectOpenHashMap<>();
     private final int maxTrackingDistanceThreshold;
 
     public EntityTracker(WorldServer theWorldIn) {
@@ -107,13 +107,13 @@ public class EntityTracker {
         }
 
         try {
-            if (this.trackedEntityHashTable.containsItem(entityIn.getEntityId())) {
+            if (this.trackedEntityHashTable.containsKey(entityIn.getEntityId())) {
                 throw new IllegalStateException("Entity is already tracked!");
             }
 
             EntityTrackerEntry entitytrackerentry = new EntityTrackerEntry(entityIn, trackingRange, updateFrequency, sendVelocityUpdates);
             this.trackedEntities.add(entitytrackerentry);
-            this.trackedEntityHashTable.addKey(entityIn.getEntityId(), entitytrackerentry);
+            this.trackedEntityHashTable.put(entityIn.getEntityId(), entitytrackerentry);
             entitytrackerentry.updatePlayerEntities(this.theWorld.playerEntities);
         } catch (Throwable throwable) {
             CrashReport report = CrashReport.makeCrashReport(throwable, "Adding entity to track");
@@ -130,7 +130,7 @@ public class EntityTracker {
             });
             entityIn.addEntityCrashInfo(category);
             CrashReportCategory crashreportcategory1 = report.makeCategory("Entity That Is Already Tracked");
-            this.trackedEntityHashTable.lookup(entityIn.getEntityId()).trackedEntity.addEntityCrashInfo(crashreportcategory1);
+            this.trackedEntityHashTable.get(entityIn.getEntityId()).trackedEntity.addEntityCrashInfo(crashreportcategory1);
 
             try {
                 throw new ReportedException(report);
@@ -148,7 +148,7 @@ public class EntityTracker {
             }
         }
 
-        EntityTrackerEntry entitytrackerentry1 = this.trackedEntityHashTable.removeObject(entityIn.getEntityId());
+        EntityTrackerEntry entitytrackerentry1 = this.trackedEntityHashTable.remove(entityIn.getEntityId());
 
         if (entitytrackerentry1 != null) {
             this.trackedEntities.remove(entitytrackerentry1);
@@ -187,7 +187,7 @@ public class EntityTracker {
     }
 
     public void sendToAllTrackingEntity(Entity entityIn, Packet<?> packet) {
-        EntityTrackerEntry entitytrackerentry = this.trackedEntityHashTable.lookup(entityIn.getEntityId());
+        EntityTrackerEntry entitytrackerentry = this.trackedEntityHashTable.get(entityIn.getEntityId());
 
         if (entitytrackerentry != null) {
             entitytrackerentry.sendPacketToTrackedPlayers(packet);
@@ -195,7 +195,7 @@ public class EntityTracker {
     }
 
     public void func_151248_b(Entity entityIn, Packet<?> packet) {
-        EntityTrackerEntry entitytrackerentry = this.trackedEntityHashTable.lookup(entityIn.getEntityId());
+        EntityTrackerEntry entitytrackerentry = this.trackedEntityHashTable.get(entityIn.getEntityId());
 
         if (entitytrackerentry != null) {
             entitytrackerentry.func_151261_b(packet);

@@ -4,6 +4,7 @@ import com.google.common.primitives.Doubles;
 import com.google.common.primitives.Floats;
 import com.google.common.util.concurrent.Futures;
 import io.netty.buffer.Unpooled;
+import it.unimi.dsi.fastutil.ints.Int2ShortOpenHashMap;
 import net.minecraft.block.material.Material;
 import net.minecraft.command.server.CommandBlockLogic;
 import net.minecraft.crash.CrashReport;
@@ -58,7 +59,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
     private long lastSentPingPacket;
     private int chatSpamThresholdCount;
     private int itemDropThreshold;
-    private final IntHashMap<Short> field_147372_n = new IntHashMap(); // TODO: Replace with FastUtil
+    private final Int2ShortOpenHashMap field_147372_n = new Int2ShortOpenHashMap(); // TODO: Replace with FastUtil
     private double lastPosX;
     private double lastPosY;
     private double lastPosZ;
@@ -716,7 +717,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
                     this.playerEntity.updateHeldItem();
                     this.playerEntity.isChangingQuantityOnly = false;
                 } else {
-                    this.field_147372_n.addKey(this.playerEntity.openContainer.windowId, packet.getActionNumber());
+                    this.field_147372_n.put(this.playerEntity.openContainer.windowId, packet.getActionNumber());
                     this.playerEntity.playerNetServerHandler.sendPacket(new S32PacketConfirmTransaction(packet.getWindowId(), packet.getActionNumber(), false));
                     this.playerEntity.openContainer.setCanCraft(this.playerEntity, false);
                     List<ItemStack> stacks = new ArrayList<>();
@@ -788,7 +789,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 
     public void processConfirmTransaction(C0FPacketConfirmTransaction packet) {
         PacketThreadUtil.checkThreadAndEnqueue(packet, this, this.playerEntity.getServerForPlayer());
-        Short window = this.field_147372_n.lookup(this.playerEntity.openContainer.windowId);
+        Short window = this.field_147372_n.get(this.playerEntity.openContainer.windowId);
 
         if (window != null && packet.getUid() == window && this.playerEntity.openContainer.windowId == packet.getWindowId() && !this.playerEntity.openContainer.getCanCraft(this.playerEntity) && !this.playerEntity.isSpectator()) {
             this.playerEntity.openContainer.setCanCraft(this.playerEntity, true);

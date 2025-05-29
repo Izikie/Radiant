@@ -178,7 +178,7 @@ public class WorldClient extends World {
             this.entitySpawnQueue.add(entityToSpawn);
         }
 
-        this.entitiesById.addKey(entityID, entityToSpawn);
+        this.entitiesById.put(entityID, entityToSpawn);
     }
 
     public Entity getEntityByID(int id) {
@@ -186,7 +186,7 @@ public class WorldClient extends World {
     }
 
     public Entity removeEntityFromWorld(int entityID) {
-        Entity entity = this.entitiesById.removeObject(entityID);
+        Entity entity = this.entitiesById.remove(entityID);
 
         if (entity != null) {
             this.entityList.remove(entity);

@@ -1,5 +1,6 @@
 package net.minecraft.server.management;
 
+import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S21PacketChunkData;
@@ -8,7 +9,6 @@ import net.minecraft.network.play.server.S23PacketBlockChange;
 import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.LongHashMap;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.WorldProvider;
@@ -25,7 +25,7 @@ public class PlayerManager {
     private static final Logger LOGGER = LogManager.getLogger();
     private final WorldServer theWorldServer;
     private final List<EntityPlayerMP> players = new ArrayList<>();
-    private final LongHashMap<PlayerInstance> playerInstances = new LongHashMap();
+    private final Long2ObjectOpenHashMap<PlayerInstance> playerInstances = new Long2ObjectOpenHashMap<>();
     private final List<PlayerInstance> playerInstancesToUpdate = new ArrayList<>();
     private final List<PlayerInstance> playerInstanceList = new ArrayList<>();
     private int playerViewRadius;
@@ -99,16 +99,16 @@ public class PlayerManager {
 
     public boolean hasPlayerInstance(int chunkX, int chunkZ) {
         long i = chunkX + 2147483647L | chunkZ + 2147483647L << 32;
-        return this.playerInstances.getValueByKey(i) != null;
+        return this.playerInstances.get(i) != null;
     }
 
     private PlayerInstance getPlayerInstance(int chunkX, int chunkZ, boolean createIfAbsent) {
         long i = chunkX + 2147483647L | chunkZ + 2147483647L << 32;
-        PlayerInstance playermanager$playerinstance = this.playerInstances.getValueByKey(i);
+        PlayerInstance playermanager$playerinstance = this.playerInstances.get(i);
 
         if (playermanager$playerinstance == null && createIfAbsent) {
             playermanager$playerinstance = new PlayerInstance(chunkX, chunkZ);
-            this.playerInstances.add(i, playermanager$playerinstance);
+            this.playerInstances.put(i, playermanager$playerinstance);
             this.playerInstanceList.add(playermanager$playerinstance);
         }
 

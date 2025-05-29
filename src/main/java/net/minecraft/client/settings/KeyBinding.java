@@ -1,7 +1,7 @@
 package net.minecraft.client.settings;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.util.IntHashMap;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class KeyBinding implements Comparable<KeyBinding> {
     private static final List<KeyBinding> KEYBIND_ARRAY = new ArrayList<>();
-    private static final IntHashMap<KeyBinding> HASH = new IntHashMap();
+    private static final Int2ObjectOpenHashMap<KeyBinding> HASH = new Int2ObjectOpenHashMap<>();
     private static final Set<String> KEYBIND_SET = new HashSet<>();
     private final String keyDescription;
     private final int keyCodeDefault;
@@ -21,7 +21,7 @@ public class KeyBinding implements Comparable<KeyBinding> {
 
     public static void onTick(int keyCode) {
         if (keyCode != 0) {
-            KeyBinding keybinding = HASH.lookup(keyCode);
+            KeyBinding keybinding = HASH.get(keyCode);
 
             if (keybinding != null) {
                 ++keybinding.pressTime;
@@ -31,7 +31,7 @@ public class KeyBinding implements Comparable<KeyBinding> {
 
     public static void setKeyBindState(int keyCode, boolean pressed) {
         if (keyCode != 0) {
-            KeyBinding keybinding = HASH.lookup(keyCode);
+            KeyBinding keybinding = HASH.get(keyCode);
 
             if (keybinding != null) {
                 keybinding.pressed = pressed;
@@ -46,10 +46,10 @@ public class KeyBinding implements Comparable<KeyBinding> {
     }
 
     public static void resetKeyBindingArrayAndHash() {
-        HASH.clearMap();
+        HASH.clear();
 
         for (KeyBinding keybinding : KEYBIND_ARRAY) {
-            HASH.addKey(keybinding.keyCode, keybinding);
+            HASH.put(keybinding.keyCode, keybinding);
         }
     }
 
@@ -63,7 +63,7 @@ public class KeyBinding implements Comparable<KeyBinding> {
         this.keyCodeDefault = keyCode;
         this.keyCategory = category;
         KEYBIND_ARRAY.add(this);
-        HASH.addKey(keyCode, this);
+        HASH.put(keyCode, this);
         KEYBIND_SET.add(category);
     }
 
