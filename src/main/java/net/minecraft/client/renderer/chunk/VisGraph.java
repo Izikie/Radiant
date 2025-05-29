@@ -1,13 +1,11 @@
 package net.minecraft.client.renderer.chunk;
 
+import it.unimi.dsi.fastutil.ints.IntArrayFIFOQueue;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
-import net.minecraft.util.IntegerCache;
 
-import java.util.ArrayDeque;
 import java.util.BitSet;
 import java.util.EnumSet;
-import java.util.Queue;
 
 public class VisGraph {
     private static final int field_178616_a = (int) Math.pow(16.0D, 0.0D);
@@ -52,22 +50,22 @@ public class VisGraph {
         return this.func_178604_a(getIndex(pos));
     }
 
-    private EnumSet<Direction> func_178604_a(int p_178604_1_) {
+    private EnumSet<Direction> func_178604_a(int index) {
         EnumSet<Direction> set = EnumSet.noneOf(Direction.class);
-        Queue<Integer> queue = new ArrayDeque<>(384);
-        queue.add(IntegerCache.getInteger(p_178604_1_));
-        this.field_178612_d.set(p_178604_1_, true);
+        IntArrayFIFOQueue queue = new IntArrayFIFOQueue(384);
+        queue.enqueue(index);
+        this.field_178612_d.set(index, true);
 
         while (!queue.isEmpty()) {
-            int i = queue.poll();
+            int i = queue.dequeueInt();
             this.func_178610_a(i, set);
 
-            for (Direction enumfacing : Direction.VALUES) {
-                int j = this.func_178603_a(i, enumfacing);
+            for (Direction direction : Direction.VALUES) {
+                int j = this.func_178603_a(i, direction);
 
                 if (j >= 0 && !this.field_178612_d.get(j)) {
                     this.field_178612_d.set(j, true);
-                    queue.add(IntegerCache.getInteger(j));
+                    queue.enqueue(j);
                 }
             }
         }

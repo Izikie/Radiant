@@ -1,7 +1,7 @@
 package net.minecraft.potion;
 
+import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
 import net.minecraft.src.Config;
-import net.minecraft.util.IntegerCache;
 import net.optifine.CustomColors;
 
 import java.util.*;
@@ -23,7 +23,7 @@ public class PotionHelper {
     public static final String RABBIT_FOOT_EFFECT = "+0+1-2+3&4-4+13";
     private static final Map<Integer, String> POTION_REQUIREMENTS = new HashMap<>();
     private static final Map<Integer, String> POTION_AMPLIFIERS = new HashMap<>();
-    private static final Map<Integer, Integer> DATAVALUE_COLORS = new HashMap<>();
+    private static final Int2IntOpenHashMap DATAVALUE_COLORS = new Int2IntOpenHashMap();
     private static final String[] POTION_PREFIXES = new String[]{"potion.prefix.mundane", "potion.prefix.uninteresting", "potion.prefix.bland", "potion.prefix.clear", "potion.prefix.milky", "potion.prefix.diffuse", "potion.prefix.artless", "potion.prefix.thin", "potion.prefix.awkward", "potion.prefix.flat", "potion.prefix.bulky", "potion.prefix.bungling", "potion.prefix.buttered", "potion.prefix.smooth", "potion.prefix.suave", "potion.prefix.debonair", "potion.prefix.thick", "potion.prefix.elegant", "potion.prefix.fancy", "potion.prefix.charming", "potion.prefix.dashing", "potion.prefix.refined", "potion.prefix.cordial", "potion.prefix.sparkling", "potion.prefix.potent", "potion.prefix.foul", "potion.prefix.odorless", "potion.prefix.rank", "potion.prefix.harsh", "potion.prefix.acrid", "potion.prefix.gross", "potion.prefix.stinky"};
 
     public static boolean checkFlag(int p_77914_0_, int p_77914_1_) {
@@ -92,18 +92,16 @@ public class PotionHelper {
     }
 
     public static int getLiquidColor(int dataValue, boolean bypassCache) {
-        Integer integer = IntegerCache.getInteger(dataValue);
-
         if (!bypassCache) {
-            if (DATAVALUE_COLORS.containsKey(integer)) {
-                return DATAVALUE_COLORS.get(integer);
+            if (DATAVALUE_COLORS.containsKey(dataValue)) {
+                return DATAVALUE_COLORS.get(dataValue);
             } else {
-                int i = calcPotionLiquidColor(getPotionEffects(integer, false));
-                DATAVALUE_COLORS.put(integer, i);
+                int i = calcPotionLiquidColor(getPotionEffects(dataValue, false));
+                DATAVALUE_COLORS.put(dataValue, i);
                 return i;
             }
         } else {
-            return calcPotionLiquidColor(getPotionEffects(integer, true));
+            return calcPotionLiquidColor(getPotionEffects(dataValue, true));
         }
     }
 
