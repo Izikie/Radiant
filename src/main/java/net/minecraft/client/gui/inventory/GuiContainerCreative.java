@@ -1,5 +1,6 @@
 package net.minecraft.client.gui.inventory;
 
+import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.achievement.GuiAchievements;
@@ -461,7 +462,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
             CreativeTabs creativetabs = stack.getItem().getCreativeTab();
 
             if (creativetabs == null && stack.getItem() == Items.ENCHANTED_BOOK) {
-                Map<Integer, Integer> map = EnchantmentHelper.getEnchantments(stack);
+                Int2IntOpenHashMap map = EnchantmentHelper.getEnchantments(stack);
 
                 if (map.size() == 1) {
                     Enchantment enchantment = Enchantment.getEnchantmentById(map.keySet().iterator().next());

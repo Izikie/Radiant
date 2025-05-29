@@ -1,5 +1,6 @@
 package net.optifine;
 
+import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -129,7 +130,7 @@ public class ConnectedProperties {
         if (this.tiles == null) {
             return null;
         } else {
-            Map<Integer, Integer> map = new HashMap<>();
+            Int2IntOpenHashMap map = new Int2IntOpenHashMap();
 
             for (Object object : props.keySet()) {
                 if (object instanceof String s) {

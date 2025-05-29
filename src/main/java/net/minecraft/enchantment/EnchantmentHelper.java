@@ -1,5 +1,7 @@
 package net.minecraft.enchantment;
 
+import it.unimi.dsi.fastutil.ints.Int2IntLinkedOpenHashMap;
+import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityLivingBase;
@@ -40,8 +42,8 @@ public class EnchantmentHelper {
         return 0;
     }
 
-    public static Map<Integer, Integer> getEnchantments(ItemStack stack) {
-        Map<Integer, Integer> map = new LinkedHashMap<>();
+    public static Int2IntOpenHashMap getEnchantments(ItemStack stack) {
+        Int2IntLinkedOpenHashMap map = new Int2IntLinkedOpenHashMap();
         NBTTagList nbttaglist = stack.getItem() == Items.ENCHANTED_BOOK ? Items.ENCHANTED_BOOK.getEnchantments(stack) : stack.getEnchantmentTagList();
 
         if (nbttaglist != null) {
@@ -55,7 +57,7 @@ public class EnchantmentHelper {
         return map;
     }
 
-    public static void setEnchantments(Map<Integer, Integer> enchMap, ItemStack stack) {
+    public static void setEnchantments(Int2IntOpenHashMap enchMap, ItemStack stack) {
         NBTTagList nbttaglist = new NBTTagList();
 
         for (int i : enchMap.keySet()) {
@@ -64,7 +66,7 @@ public class EnchantmentHelper {
             if (enchantment != null) {
                 NBTTagCompound nbttagcompound = new NBTTagCompound();
                 nbttagcompound.setShort("id", (short) i);
-                nbttagcompound.setShort("lvl", (short) enchMap.get(i).intValue());
+                nbttagcompound.setShort("lvl", (short) enchMap.get(i));
                 nbttaglist.appendTag(nbttagcompound);
 
                 if (stack.getItem() == Items.ENCHANTED_BOOK) {
