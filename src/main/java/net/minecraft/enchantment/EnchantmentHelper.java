@@ -1,7 +1,6 @@
 package net.minecraft.enchantment;
 
 import it.unimi.dsi.fastutil.ints.Int2IntLinkedOpenHashMap;
-import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityLivingBase;
@@ -42,7 +41,7 @@ public class EnchantmentHelper {
         return 0;
     }
 
-    public static Int2IntOpenHashMap getEnchantments(ItemStack stack) {
+    public static Int2IntLinkedOpenHashMap getEnchantments(ItemStack stack) {
         Int2IntLinkedOpenHashMap map = new Int2IntLinkedOpenHashMap();
         NBTTagList nbttaglist = stack.getItem() == Items.ENCHANTED_BOOK ? Items.ENCHANTED_BOOK.getEnchantments(stack) : stack.getEnchantmentTagList();
 
@@ -57,7 +56,7 @@ public class EnchantmentHelper {
         return map;
     }
 
-    public static void setEnchantments(Int2IntOpenHashMap enchMap, ItemStack stack) {
+    public static void setEnchantments(Int2IntLinkedOpenHashMap enchMap, ItemStack stack) {
         NBTTagList nbttaglist = new NBTTagList();
 
         for (int i : enchMap.keySet()) {

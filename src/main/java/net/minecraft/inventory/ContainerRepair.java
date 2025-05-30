@@ -1,6 +1,6 @@
 package net.minecraft.inventory;
 
-import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
+import it.unimi.dsi.fastutil.ints.Int2IntLinkedOpenHashMap;
 import net.minecraft.block.BlockAnvil;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.Enchantment;
@@ -15,8 +15,6 @@ import net.minecraft.world.World;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.Map;
 
 public class ContainerRepair extends Container {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -134,7 +132,7 @@ public class ContainerRepair extends Container {
         } else {
             ItemStack itemstack1 = itemstack.copy();
             ItemStack itemstack2 = this.inputSlots.getStackInSlot(1);
-            Int2IntOpenHashMap map = EnchantmentHelper.getEnchantments(itemstack1);
+            Int2IntLinkedOpenHashMap map = EnchantmentHelper.getEnchantments(itemstack1);
             boolean flag;
             i2 = i2 + itemstack.getRepairCost() + (itemstack2 == null ? 0 : itemstack2.getRepairCost());
             this.materialCost = 0;
@@ -185,7 +183,7 @@ public class ContainerRepair extends Container {
                         }
                     }
 
-                    Int2IntOpenHashMap map1 = EnchantmentHelper.getEnchantments(itemstack2);
+                    Int2IntLinkedOpenHashMap map1 = EnchantmentHelper.getEnchantments(itemstack2);
 
                     for (int i5 : map1.keySet()) {
                         Enchantment enchantment = Enchantment.getEnchantmentById(i5);

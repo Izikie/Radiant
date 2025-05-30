@@ -1,5 +1,6 @@
 package net.minecraft.client.renderer;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.client.resources.model.ModelManager;
@@ -14,8 +15,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class ItemModelMesher {
-    private final Map<Integer, ModelResourceLocation> simpleShapes = new HashMap<>();
-    private final Map<Integer, IBakedModel> simpleShapesCache = new HashMap<>();
+    private final Int2ObjectOpenHashMap<ModelResourceLocation> simpleShapes = new Int2ObjectOpenHashMap<>();
+    private final Int2ObjectOpenHashMap<IBakedModel> simpleShapesCache = new Int2ObjectOpenHashMap<>();
     private final Map<Item, ItemMeshDefinition> shapers = new HashMap<>();
     private final ModelManager modelManager;
 

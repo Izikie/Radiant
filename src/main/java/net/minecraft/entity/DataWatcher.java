@@ -1,5 +1,6 @@
 package net.minecraft.entity;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.crash.ReportedException;
@@ -22,7 +23,7 @@ public class DataWatcher {
     private final Entity owner;
     private boolean isBlank = true;
     private static final Map<Class<?>, Integer> dataTypes = new HashMap<>();
-    private final Map<Integer, WatchableObject> watchedObjects = new HashMap<>();
+    private final Int2ObjectOpenHashMap<WatchableObject> watchedObjects = new Int2ObjectOpenHashMap<>();
     private boolean objectChanged;
     private final ReadWriteLock lock = new ReentrantReadWriteLock();
     public BiomeGenBase spawnBiome = BiomeGenBase.PLAINS;

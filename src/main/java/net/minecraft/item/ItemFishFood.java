@@ -1,5 +1,6 @@
 package net.minecraft.item;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
@@ -7,9 +8,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.world.World;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ItemFishFood extends ItemFood {
     private final boolean cooked;
@@ -64,7 +63,7 @@ public class ItemFishFood extends ItemFood {
         CLOWNFISH(2, "clownfish", 1, 0.1F),
         PUFFERFISH(3, "pufferfish", 1, 0.1F);
 
-        private static final Map<Integer, FishType> META_LOOKUP = new HashMap<>();
+        private static final Int2ObjectOpenHashMap<FishType> META_LOOKUP = new Int2ObjectOpenHashMap<>();
         private final int meta;
         private final String unlocalizedName;
         private final int uncookedHealAmount;

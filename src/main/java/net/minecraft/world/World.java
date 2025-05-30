@@ -1,7 +1,6 @@
 package net.minecraft.world;
 
 import com.google.common.base.Predicate;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;

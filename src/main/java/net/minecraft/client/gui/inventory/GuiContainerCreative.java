@@ -1,6 +1,6 @@
 package net.minecraft.client.gui.inventory;
 
-import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
+import it.unimi.dsi.fastutil.ints.Int2IntLinkedOpenHashMap;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.achievement.GuiAchievements;
@@ -32,7 +32,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public class GuiContainerCreative extends InventoryEffectRenderer {
     private static final ResourceLocation CREATIVE_INVENTORY_TABS = new ResourceLocation("textures/gui/container/creative_inventory/tabs.png");
@@ -462,7 +461,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
             CreativeTabs creativetabs = stack.getItem().getCreativeTab();
 
             if (creativetabs == null && stack.getItem() == Items.ENCHANTED_BOOK) {
-                Int2IntOpenHashMap map = EnchantmentHelper.getEnchantments(stack);
+                Int2IntLinkedOpenHashMap map = EnchantmentHelper.getEnchantments(stack);
 
                 if (map.size() == 1) {
                     Enchantment enchantment = Enchantment.getEnchantmentById(map.keySet().iterator().next());

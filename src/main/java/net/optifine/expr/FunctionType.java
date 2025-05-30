@@ -8,9 +8,6 @@ import net.optifine.Log;
 import net.optifine.shaders.uniform.Smoother;
 import net.optifine.util.MathUtils;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public enum FunctionType {
     PLUS(10, ExpressionType.FLOAT, "+", new ExpressionType[]{ExpressionType.FLOAT, ExpressionType.FLOAT}),
     MINUS(10, ExpressionType.FLOAT, "-", new ExpressionType[]{ExpressionType.FLOAT, ExpressionType.FLOAT}),
@@ -69,7 +66,6 @@ public enum FunctionType {
     private final String name;
     private final IParameters parameters;
     public static final FunctionType[] VALUES = values();
-    private static final Map<Integer, Float> mapSmooth = new HashMap<>();
 
     FunctionType(ExpressionType expressionType, String name, ExpressionType[] parameterTypes) {
         this(0, expressionType, name, parameterTypes);

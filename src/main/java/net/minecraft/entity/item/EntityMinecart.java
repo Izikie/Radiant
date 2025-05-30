@@ -1,5 +1,6 @@
 package net.minecraft.entity.item;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.block.BlockRailPowered;
@@ -19,9 +20,6 @@ import net.minecraft.util.*;
 import net.minecraft.world.IWorldNameable;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public abstract class EntityMinecart extends Entity implements IWorldNameable {
     private boolean isInReverse;
@@ -841,7 +839,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         HOPPER(5, "MinecartHopper"),
         COMMAND_BLOCK(6, "MinecartCommandBlock");
 
-        private static final Map<Integer, MinecartType> ID_LOOKUP = new HashMap<>();
+        private static final Int2ObjectOpenHashMap<MinecartType> ID_LOOKUP = new Int2ObjectOpenHashMap<>();
         private final int networkID;
         private final String name;
 

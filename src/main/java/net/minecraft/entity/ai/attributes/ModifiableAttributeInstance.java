@@ -1,11 +1,13 @@
 package net.minecraft.entity.ai.attributes;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+
 import java.util.*;
 
 public class ModifiableAttributeInstance implements IAttributeInstance {
     private final BaseAttributeMap attributeMap;
     private final IAttribute genericAttribute;
-    private final Map<Integer, Set<AttributeModifier>> mapByOperation = new HashMap<>();
+    private final Int2ObjectOpenHashMap<Set<AttributeModifier>> mapByOperation = new Int2ObjectOpenHashMap<>();
     private final Map<String, Set<AttributeModifier>> mapByName = new HashMap<>();
     private final Map<UUID, AttributeModifier> mapByUUID = new HashMap<>();
     private double baseValue;

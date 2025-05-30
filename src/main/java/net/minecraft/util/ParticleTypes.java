@@ -1,9 +1,9 @@
 package net.minecraft.util;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public enum ParticleTypes {
     EXPLOSION_NORMAL("explode", 0, true),
@@ -53,7 +53,7 @@ public enum ParticleTypes {
     private final int particleID;
     private final boolean shouldIgnoreRange;
     private final int argumentCount;
-    private static final Map<Integer, ParticleTypes> PARTICLES = new HashMap<>();
+    private static final Int2ObjectOpenHashMap<ParticleTypes> PARTICLES = new Int2ObjectOpenHashMap<>();
     private static final String[] PARTICLE_NAMES;
 
     ParticleTypes(String particleNameIn, int particleIDIn, boolean p_i46011_5_, int argumentCountIn) {

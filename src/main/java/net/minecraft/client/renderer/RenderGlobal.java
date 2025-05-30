@@ -1,6 +1,7 @@
 package net.minecraft.client.renderer;
 
 import com.google.gson.JsonSyntaxException;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -88,7 +89,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     private VertexBuffer skyVBO;
     private VertexBuffer sky2VBO;
     private int cloudTickCounter;
-    public final Map<Integer, DestroyBlockProgress> damagedBlocks = new HashMap<>();
+    public final Int2ObjectOpenHashMap<DestroyBlockProgress> damagedBlocks = new Int2ObjectOpenHashMap<>();
     private final Map<BlockPos, ISound> mapSoundPositions = new HashMap<>();
     private final TextureAtlasSprite[] destroyBlockIcons = new TextureAtlasSprite[10];
     private Framebuffer entityOutlineFramebuffer;

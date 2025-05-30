@@ -1,5 +1,6 @@
 package net.minecraft.client.particle;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -18,7 +19,10 @@ import net.minecraft.src.Config;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
 
 public class EffectRenderer {
     private static final ResourceLocation PARTICLE_TEXTURES = new ResourceLocation("textures/particle/particles.png");
@@ -27,7 +31,7 @@ public class EffectRenderer {
     private final List<EntityParticleEmitter> particleEmitters = new ArrayList<>();
     private final TextureManager renderer;
     private final Random rand = new Random();
-    private final Map<Integer, IParticleFactory> particleTypes = new HashMap<>();
+    private final Int2ObjectOpenHashMap<IParticleFactory> particleTypes = new Int2ObjectOpenHashMap<>();
 
     public EffectRenderer(World worldIn, TextureManager rendererIn) {
         this.worldObj = worldIn;

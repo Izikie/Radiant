@@ -1,5 +1,7 @@
 package net.minecraft.client.audio;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +17,7 @@ public enum SoundCategory {
     AMBIENT("ambient", 8);
 
     private static final Map<String, SoundCategory> NAME_CATEGORY_MAP = new HashMap<>();
-    private static final Map<Integer, SoundCategory> ID_CATEGORY_MAP = new HashMap<>();
+    private static final Int2ObjectOpenHashMap<SoundCategory> ID_CATEGORY_MAP = new Int2ObjectOpenHashMap<>();
     private final String categoryName;
     private final int categoryId;
 

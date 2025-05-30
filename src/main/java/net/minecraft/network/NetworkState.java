@@ -179,11 +179,11 @@ public enum NetworkState {
     }
 
     public Integer getPacketId(PacketDirection direction, Packet<?> packetIn) {
-        return (Integer) ((BiMap) this.directionMaps.get(direction)).inverse().get(packetIn.getClass());
+        return this.directionMaps.get(direction).inverse().get(packetIn.getClass());
     }
 
     public Packet<?> getPacket(PacketDirection direction, int packetId) throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        Class<? extends Packet<?>> oclass = (Class) ((BiMap) this.directionMaps.get(direction)).get(packetId);
+        Class<? extends Packet<?>> oclass = this.directionMaps.get(direction).get(packetId);
         return oclass == null ? null : oclass.getDeclaredConstructor().newInstance();
     }
 

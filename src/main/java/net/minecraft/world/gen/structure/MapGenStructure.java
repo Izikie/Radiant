@@ -1,5 +1,6 @@
 package net.minecraft.world.gen.structure;
 
+import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.crash.ReportedException;
@@ -11,11 +12,13 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.MapGenBase;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
 
 public abstract class MapGenStructure extends MapGenBase {
     private MapGenStructureData structureData;
-    protected final Map<Long, StructureStart> structureMap = new HashMap<>();
+    protected final Long2ObjectOpenHashMap<StructureStart> structureMap = new Long2ObjectOpenHashMap<>();
 
     public abstract String getStructureName();
 

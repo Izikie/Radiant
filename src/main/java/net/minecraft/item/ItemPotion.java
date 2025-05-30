@@ -2,6 +2,7 @@ package net.minecraft.item;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttribute;
@@ -18,11 +19,14 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 public class ItemPotion extends Item {
-    private final Map<Integer, List<PotionEffect>> effectCache = new HashMap<>();
+    private final Int2ObjectOpenHashMap<List<PotionEffect>> effectCache = new Int2ObjectOpenHashMap<>();
     private static final Map<List<PotionEffect>, Integer> SUB_ITEMS_CACHE = new LinkedHashMap<>();
 
     public ItemPotion() {

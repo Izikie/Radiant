@@ -15,7 +15,10 @@ import net.optifine.config.*;
 import net.optifine.util.MathUtils;
 import net.optifine.util.TextureUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Properties;
 
 public class ConnectedProperties {
     public final String name;
