@@ -18,38 +18,36 @@ public class BlockModelUtils {
     private static final float VERTEX_COORD_ACCURACY = 1.0E-6F;
 
     public static IBakedModel makeModelCube(TextureAtlasSprite sprite, int tintIndex) {
-        List list = new ArrayList();
-        Direction[] aenumfacing = Direction.VALUES;
-        List<List<BakedQuad>> list1 = new ArrayList<>();
+        List<BakedQuad> generalQuads = new ArrayList<>();
+        List<List<BakedQuad>> faceQuads = new ArrayList<>();
 
-        for (Direction enumfacing : aenumfacing) {
-            List list2 = new ArrayList();
-            list2.add(makeBakedQuad(enumfacing, sprite, tintIndex));
-            list1.add(list2);
+        for (Direction direction : Direction.VALUES) {
+            List<BakedQuad> list2 = new ArrayList<>();
+            list2.add(makeBakedQuad(direction, sprite, tintIndex));
+            faceQuads.add(list2);
         }
 
-        return new SimpleBakedModel(list, list1, true, true, sprite, ItemCameraTransforms.DEFAULT);
+        return new SimpleBakedModel(generalQuads, faceQuads, true, true, sprite, ItemCameraTransforms.DEFAULT);
     }
 
     public static IBakedModel joinModelsCube(IBakedModel modelBase, IBakedModel modelAdd) {
         List<BakedQuad> list = new ArrayList<>();
         list.addAll(modelBase.getGeneralQuads());
         list.addAll(modelAdd.getGeneralQuads());
-        Direction[] aenumfacing = Direction.VALUES;
-        List list1 = new ArrayList();
+        List<List<BakedQuad>> list1 = new ArrayList<>();
 
-        for (Direction enumfacing : aenumfacing) {
-            List list2 = new ArrayList();
-            list2.addAll(modelBase.getFaceQuads(enumfacing));
-            list2.addAll(modelAdd.getFaceQuads(enumfacing));
-            list1.add(list2);
+        for (Direction direction : Direction.VALUES) {
+            List<BakedQuad> quads = new ArrayList<>();
+            quads.addAll(modelBase.getFaceQuads(direction));
+            quads.addAll(modelAdd.getFaceQuads(direction));
+            list1.add(quads);
         }
 
-        boolean flag = modelBase.isAmbientOcclusion();
-        boolean flag1 = modelBase.isBuiltInRenderer();
-        TextureAtlasSprite textureatlassprite = modelBase.getParticleTexture();
-        ItemCameraTransforms itemcameratransforms = modelBase.getItemCameraTransforms();
-        return new SimpleBakedModel(list, list1, flag, flag1, textureatlassprite, itemcameratransforms);
+        boolean ambientOcclusion = modelBase.isAmbientOcclusion();
+        boolean builtInRenderer = modelBase.isBuiltInRenderer();
+        TextureAtlasSprite atlasSprite = modelBase.getParticleTexture();
+        ItemCameraTransforms cameraTransforms = modelBase.getItemCameraTransforms();
+        return new SimpleBakedModel(list, list1, ambientOcclusion, builtInRenderer, atlasSprite, cameraTransforms);
     }
 
     public static BakedQuad makeBakedQuad(Direction facing, TextureAtlasSprite sprite, int tintIndex) {
@@ -71,9 +69,9 @@ public class BlockModelUtils {
 
     public static IBakedModel makeModel(String modelName, String spriteOldName, String spriteNewName) {
         TextureMap texturemap = Config.getMinecraft().getTextureMapBlocks();
-        TextureAtlasSprite textureatlassprite = texturemap.getSpriteSafe(spriteOldName);
-        TextureAtlasSprite textureatlassprite1 = texturemap.getSpriteSafe(spriteNewName);
-        return makeModel(modelName, textureatlassprite, textureatlassprite1);
+        TextureAtlasSprite oldAtlasSprite = texturemap.getSpriteSafe(spriteOldName);
+        TextureAtlasSprite newAtlasSprite = texturemap.getSpriteSafe(spriteNewName);
+        return makeModel(modelName, oldAtlasSprite, newAtlasSprite);
     }
 
     public static IBakedModel makeModel(String modelName, TextureAtlasSprite spriteOld, TextureAtlasSprite spriteNew) {
@@ -88,10 +86,9 @@ public class BlockModelUtils {
 
                 if (ibakedmodel != null && ibakedmodel != modelmanager.getMissingModel()) {
                     IBakedModel ibakedmodel1 = ModelUtils.duplicateModel(ibakedmodel);
-                    Direction[] aenumfacing = Direction.VALUES;
 
-                    for (Direction enumfacing : aenumfacing) {
-                        List<BakedQuad> list = ibakedmodel1.getFaceQuads(enumfacing);
+                    for (Direction direction : Direction.VALUES) {
+                        List<BakedQuad> list = ibakedmodel1.getFaceQuads(direction);
                         replaceTexture(list, spriteOld, spriteNew);
                     }
 
@@ -126,8 +123,8 @@ public class BlockModelUtils {
         pos.set(snapVertexCoord(pos.x), snapVertexCoord(pos.y), snapVertexCoord(pos.z));
     }
 
-    private static float snapVertexCoord(float x) {
-        return x > -1.0E-6F && x < 1.0E-6F ? 0.0F : (x > 0.999999F && x < 1.000001F ? 1.0F : x);
+    private static float snapVertexCoord(float cord) {
+        return cord > -1.0E-6F && cord < 1.0E-6F ? 0.0F : (cord > 0.999999F && cord < 1.000001F ? 1.0F : cord);
     }
 
     public static AxisAlignedBB getOffsetBoundingBox(AxisAlignedBB aabb, Block.EnumOffsetType offsetType, BlockPos pos) {

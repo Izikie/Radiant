@@ -38,7 +38,7 @@ public class CustomSky {
 
         for (int j = 0; j < acustomskylayer.length; ++j) {
             String s1 = s + j + "/sky";
-            List list = new ArrayList();
+            List<CustomSkyLayer> list = new ArrayList<>();
 
             for (int k = 1; k < 1000; ++k) {
                 String s2 = s1 + k + ".properties";
@@ -78,7 +78,7 @@ public class CustomSky {
             }
 
             if (!list.isEmpty()) {
-                CustomSkyLayer[] acustomskylayer2 = (CustomSkyLayer[]) list.toArray(new CustomSkyLayer[0]);
+                CustomSkyLayer[] acustomskylayer2 = list.toArray(new CustomSkyLayer[0]);
                 acustomskylayer[j] = acustomskylayer2;
                 i = j;
             }

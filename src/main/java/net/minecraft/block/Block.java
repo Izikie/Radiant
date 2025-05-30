@@ -27,7 +27,7 @@ import java.util.Random;
 public class Block {
     private static final ResourceLocation AIR_ID = new ResourceLocation("air");
     public static final RegistryNamespacedDefaultedByKey<ResourceLocation, Block> blockRegistry = new RegistryNamespacedDefaultedByKey<>(AIR_ID);
-    public static final ObjectIntIdentityMap<IBlockState> BLOCK_STATE_IDS = new ObjectIntIdentityMap();
+    public static final ObjectIntIdentityMap<IBlockState> BLOCK_STATE_IDS = new ObjectIntIdentityMap<>();
     private CreativeTabs displayOnCreativeTab;
     public static final SoundType soundTypeStone = new SoundType("stone", 1.0F, 1.0F);
     public static final SoundType soundTypeWood = new SoundType("wood", 1.0F, 1.0F);

@@ -1349,7 +1349,7 @@ public class ConnectedTextures {
             return null;
         } else {
             Direction enumfacing = getFacing(side);
-            List list = ibakedmodel.getFaceQuads(enumfacing);
+            List<BakedQuad> list = ibakedmodel.getFaceQuads(enumfacing);
 
             if (list == null) {
                 return null;
@@ -1359,17 +1359,14 @@ public class ConnectedTextures {
                 }
 
                 if (!list.isEmpty()) {
-                    BakedQuad bakedquad1 = (BakedQuad) list.getFirst();
-                    return bakedquad1.getSprite();
+                    return list.getFirst().getSprite();
                 } else {
-                    List list1 = ibakedmodel.getGeneralQuads();
+                    List<BakedQuad> list1 = ibakedmodel.getGeneralQuads();
 
                     if (list1 != null) {
-                        for (Object o : list1) {
-                            BakedQuad bakedquad = (BakedQuad) o;
-
-                            if (bakedquad.getFace() == enumfacing) {
-                                return bakedquad.getSprite();
+                        for (BakedQuad quad : list1) {
+                            if (quad.getFace() == enumfacing) {
+                                return quad.getSprite();
                             }
                         }
 
@@ -1702,7 +1699,7 @@ public class ConnectedTextures {
     }
 
     private static List makePropertyList(ConnectedProperties[][] propsArr) {
-        List list = new ArrayList();
+        List list = new ArrayList<>();
 
         if (propsArr != null) {
             for (ConnectedProperties[] aconnectedproperties : propsArr) {
@@ -1720,7 +1717,7 @@ public class ConnectedTextures {
     }
 
     private static boolean detectMultipass() {
-        List list = new ArrayList();
+        List list = new ArrayList<>();
 
         for (ConnectedProperties[] aconnectedproperties : tileProperties) {
             if (aconnectedproperties != null) {
@@ -1809,7 +1806,7 @@ public class ConnectedTextures {
         List list = (List) lists.get(id);
 
         if (list == null) {
-            list = new ArrayList();
+            list = new ArrayList<>();
             lists.set(id, list);
         }
 
@@ -1817,7 +1814,7 @@ public class ConnectedTextures {
     }
 
     private static String[] getDefaultCtmPaths() {
-        List list = new ArrayList();
+        List list = new ArrayList<>();
         String s = "mcpatcher/ctm/default/";
 
         if (Config.isFromDefaultResourcePack(new ResourceLocation("textures/blocks/glass.png"))) {

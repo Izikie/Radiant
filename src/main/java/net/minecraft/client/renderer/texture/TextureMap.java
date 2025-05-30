@@ -609,7 +609,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
     }
 
     private int detectMinimumSpriteSize(Map p_detectMinimumSpriteSize_1_, IResourceManager p_detectMinimumSpriteSize_2_, int p_detectMinimumSpriteSize_3_) {
-        Map map = new HashMap();
+        Map map = new HashMap<>();
 
         for (Object o : p_detectMinimumSpriteSize_1_.entrySet()) {
             Entry entry = (Entry) o;

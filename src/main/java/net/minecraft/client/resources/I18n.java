@@ -13,7 +13,7 @@ public class I18n {
         return i18nLocale.formatMessage(translateKey, parameters);
     }
 
-    public static Map getLocaleProperties() {
+    public static Map<String, String> getLocaleProperties() {
         return i18nLocale.properties;
     }
 }

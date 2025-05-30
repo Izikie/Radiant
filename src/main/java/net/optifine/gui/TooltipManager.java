@@ -22,7 +22,7 @@ public class TooltipManager {
         this.tooltipProvider = tooltipProvider;
     }
 
-    public void drawTooltips(int x, int y, List buttonList) {
+    public void drawTooltips(int x, int y, List<GuiButton> buttonList) {
         if (Math.abs(x - this.lastMouseX) <= 5 && Math.abs(y - this.lastMouseY) <= 5) {
             int i = 700;
 

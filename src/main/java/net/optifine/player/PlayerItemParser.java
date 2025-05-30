@@ -68,9 +68,9 @@ public class PlayerItemParser {
             boolean flag = Json.getBoolean(obj, "usePlayerTexture", false);
             JsonArray jsonarray = (JsonArray) obj.get("models");
             checkNull(jsonarray, "Missing elements");
-            Map map = new HashMap();
-            List list = new ArrayList();
-            new ArrayList();
+            Map map = new HashMap<>();
+            List list = new ArrayList<>();
+            new ArrayList<>();
 
             for (int i = 0; i < jsonarray.size(); ++i) {
                 JsonObject jsonobject = (JsonObject) jsonarray.get(i);

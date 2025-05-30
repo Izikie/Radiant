@@ -93,7 +93,7 @@ public class CustomEntityModels {
     private static ResourceLocation[] getModelLocations() {
         String s = "optifine/cem/";
         String s1 = ".jem";
-        List<ResourceLocation> list = new ArrayList();
+        List<ResourceLocation> list = new ArrayList<>();
         String[] astring = CustomModelRegistry.getModelNames();
 
         for (String s2 : astring) {

@@ -39,7 +39,7 @@ public class Mipmaps {
         int j = TextureUtils.ceilPowerOfTwo(height);
 
         if (i == width && j == height) {
-            List list = new ArrayList();
+            List<Dimension> list = new ArrayList<>();
             int k = i;
             int l = j;
 
@@ -60,8 +60,7 @@ public class Mipmaps {
                 }
 
                 int i1 = k * l * 4;
-                Dimension dimension = new Dimension(k, l);
-                list.add(dimension);
+                list.add(new Dimension(k, l));
             }
         } else {
             Log.error("Mipmaps not possible (power of 2 dimensions needed), texture: " + iconName + ", dim: " + width + "x" + height);

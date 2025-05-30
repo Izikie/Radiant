@@ -23,8 +23,8 @@ public class Lang {
     private static final Pattern PATTERN = Pattern.compile("%(\\d+\\$)?[\\d\\.]*[df]");
 
     public static void resourcesReloaded() {
-        Map map = I18n.getLocaleProperties();
-        List<String> list = new ArrayList();
+        Map<String, String> map = I18n.getLocaleProperties();
+        List<String> list = new ArrayList<>();
         String s = "optifine/lang/";
         String s1 = "en_US";
         String s2 = ".lang";

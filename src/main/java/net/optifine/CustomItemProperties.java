@@ -481,7 +481,7 @@ public class CustomItemProperties {
         if (map.isEmpty()) {
             return null;
         } else {
-            List list = new ArrayList();
+            List list = new ArrayList<>();
 
             for (Object o : map.keySet()) {
                 String s1 = (String) o;
@@ -592,8 +592,8 @@ public class CustomItemProperties {
         }
 
         if (this.mapTextures != null) {
-            this.mapTextureLocations = new HashMap();
-            this.mapSprites = new HashMap();
+            this.mapTextureLocations = new HashMap<>();
+            this.mapSprites = new HashMap<>();
 
             for (String s : this.mapTextures.keySet()) {
                 String s1 = this.mapTextures.get(s);

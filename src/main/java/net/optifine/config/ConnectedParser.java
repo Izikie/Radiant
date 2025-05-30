@@ -58,7 +58,7 @@ public class ConnectedParser {
         if (propMatchBlocks == null) {
             return null;
         } else {
-            List list = new ArrayList();
+            List list = new ArrayList<>();
             String[] astring = Config.tokenize(propMatchBlocks, " ");
 
             for (String s : astring) {
@@ -208,7 +208,7 @@ public class ConnectedParser {
             } else {
                 IBlockState iblockstate = block.getDefaultState();
                 Collection collection = iblockstate.getPropertyNames();
-                Map<IProperty, List<Comparable>> map = new HashMap();
+                Map<IProperty, List<Comparable>> map = new HashMap<>();
 
                 for (String s1 : params) {
                     if (!s1.isEmpty()) {
@@ -231,7 +231,7 @@ public class ConnectedParser {
                         List<Comparable> list = map.get(s2);
 
                         if (list == null) {
-                            list = new ArrayList();
+                            list = new ArrayList<>();
                             map.put(iproperty, list);
                         }
 
@@ -383,7 +383,7 @@ public class ConnectedParser {
             }
 
             String[] astring = Config.tokenize(str, " ");
-            List list = new ArrayList();
+            List list = new ArrayList<>();
 
             for (String s : astring) {
                 BiomeGenBase biomegenbase = this.findBiome(s);
@@ -756,7 +756,7 @@ public class ConnectedParser {
         if (profStr == null) {
             return null;
         } else {
-            List<VillagerProfession> list = new ArrayList();
+            List<VillagerProfession> list = new ArrayList<>();
             String[] astring = Config.tokenize(profStr, " ");
 
             for (String s : astring) {

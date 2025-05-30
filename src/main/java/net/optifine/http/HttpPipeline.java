@@ -14,7 +14,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class HttpPipeline {
-    private static final Map MAP_CONNECTIONS = new HashMap();
+    private static final Map MAP_CONNECTIONS = new HashMap<>();
     public static final String HEADER_USER_AGENT = "User-Agent";
     public static final String HEADER_HOST = "Host";
     public static final String HEADER_ACCEPT = "Accept";

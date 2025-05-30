@@ -382,9 +382,9 @@ public class CustomColors {
     }
 
     private static CustomColormap[] readCustomColormaps(Properties props, String fileName) {
-        List list = new ArrayList();
+        List list = new ArrayList<>();
         String s = "palette.block.";
-        Map map = new HashMap();
+        Map map = new HashMap<>();
 
         for (Object o : props.keySet()) {
             String s1 = (String) o;
@@ -433,7 +433,7 @@ public class CustomColors {
     private static CustomColormap[][] readBlockColormaps(String[] basePaths, CustomColormap[] basePalettes, int width, int height) {
         String[] astring = ResUtils.collectFiles(basePaths, new String[]{".properties"});
         Arrays.sort(astring);
-        List list = new ArrayList();
+        List list = new ArrayList<>();
 
         for (String s : astring) {
             dbg("Block colormap: " + s);
@@ -498,7 +498,7 @@ public class CustomColors {
         List list = (List) lists.get(id);
 
         if (list == null) {
-            list = new ArrayList();
+            list = new ArrayList<>();
             list.set(id, list);
         }
 
@@ -1118,7 +1118,7 @@ public class CustomColors {
 
     private static float[][] readDyeColors(Properties props, String fileName, String prefix, String logName) {
         DyeColor[] aenumdyecolor = DyeColor.values();
-        Map<String, DyeColor> map = new HashMap();
+        Map<String, DyeColor> map = new HashMap<>();
 
         for (DyeColor enumdyecolor : aenumdyecolor) {
             map.put(enumdyecolor.getName(), enumdyecolor);

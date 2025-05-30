@@ -10,7 +10,7 @@ import java.util.IdentityHashMap;
 import java.util.Map;
 
 public class BlockAir extends Block {
-    private static final Map MAP_ORIGINAL_OPACITY = new IdentityHashMap();
+    private static final Map<Block, Integer> MAP_ORIGINAL_OPACITY = new IdentityHashMap<>();
 
     protected BlockAir() {
         super(Material.AIR);

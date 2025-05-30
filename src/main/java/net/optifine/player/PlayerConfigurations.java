@@ -58,7 +58,7 @@ public class PlayerConfigurations {
 
     private static Map getMapConfigurations() {
         if (mapConfigurations == null) {
-            mapConfigurations = new HashMap();
+            mapConfigurations = new HashMap<>();
         }
 
         return mapConfigurations;

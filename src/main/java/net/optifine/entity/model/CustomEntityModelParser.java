@@ -59,8 +59,8 @@ public class CustomEntityModelParser {
         float f = Json.getFloat(obj, "shadowSize", -1.0F);
         JsonArray jsonarray = (JsonArray) obj.get("models");
         checkNull(jsonarray, "Missing models");
-        Map map = new HashMap();
-        List list = new ArrayList();
+        Map map = new HashMap<>();
+        List list = new ArrayList<>();
 
         for (int i = 0; i < jsonarray.size(); ++i) {
             JsonObject jsonobject = (JsonObject) jsonarray.get(i);

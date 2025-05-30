@@ -102,17 +102,17 @@ public class CustomItems {
 
     private static void update(IResourcePack rp) {
         String[] astring = ResUtils.collectFiles(rp, "mcpatcher/cit/", ".properties", null);
-        Map map = makeAutoImageProperties(rp);
+        Map<String, CustomItemProperties> map = makeAutoImageProperties(rp);
 
         if (!map.isEmpty()) {
-            Set set = map.keySet();
-            String[] astring1 = (String[]) set.toArray(new String[0]);
+            Set<String> set = map.keySet();
+            String[] astring1 = set.toArray(new String[0]);
             astring = (String[]) Config.addObjectsToArray(astring, astring1);
         }
 
         Arrays.sort(astring);
-        List list = makePropertyList(itemProperties);
-        List list1 = makePropertyList(enchantmentProperties);
+        List<List<CustomItemProperties>> list = makePropertyList(itemProperties);
+        List<List<CustomItemProperties>> list1 = makePropertyList(enchantmentProperties);
 
         for (String s : astring) {
             Log.info("CustomItems: " + s);
@@ -121,7 +121,7 @@ public class CustomItems {
                 CustomItemProperties customitemproperties = null;
 
                 if (map.containsKey(s)) {
-                    customitemproperties = (CustomItemProperties) map.get(s);
+                    customitemproperties = map.get(s);
                 }
 
                 if (customitemproperties == null) {
@@ -152,7 +152,7 @@ public class CustomItems {
 
         itemProperties = propertyListToArray(list);
         enchantmentProperties = propertyListToArray(list1);
-        Comparator comparator = getPropertiesComparator();
+        Comparator<CustomItemProperties> comparator = getPropertiesComparator();
 
         for (CustomItemProperties[] acustomitemproperties : itemProperties) {
             if (acustomitemproperties != null) {
@@ -167,32 +167,28 @@ public class CustomItems {
         }
     }
 
-    private static Comparator getPropertiesComparator() {
-        return (o1, o2) -> {
-            CustomItemProperties customitemproperties = (CustomItemProperties) o1;
-            CustomItemProperties customitemproperties1 = (CustomItemProperties) o2;
-            return customitemproperties.layer != customitemproperties1.layer ? customitemproperties.layer - customitemproperties1.layer : (customitemproperties.weight != customitemproperties1.weight ? customitemproperties1.weight - customitemproperties.weight : (!customitemproperties.basePath.equals(customitemproperties1.basePath) ? customitemproperties.basePath.compareTo(customitemproperties1.basePath) : customitemproperties.name.compareTo(customitemproperties1.name)));
-        };
+    private static Comparator<CustomItemProperties> getPropertiesComparator() {
+        return (o1, o2) -> o1.layer != o2.layer ? o1.layer - o2.layer : (o1.weight != o2.weight ? o2.weight - o1.weight : (!o1.basePath.equals(o2.basePath) ? o1.basePath.compareTo(o2.basePath) : o1.name.compareTo(o2.name)));
     }
 
     public static void updateIcons(TextureMap textureMap) {
-        for (CustomItemProperties customitemproperties : getAllProperties()) {
-            customitemproperties.updateIcons(textureMap);
+        for (CustomItemProperties item : getAllProperties()) {
+            item.updateIcons(textureMap);
         }
     }
 
     public static void loadModels(ModelBakery modelBakery) {
-        for (CustomItemProperties customitemproperties : getAllProperties()) {
-            customitemproperties.loadModels(modelBakery);
+        for (CustomItemProperties item : getAllProperties()) {
+            item.loadModels(modelBakery);
         }
     }
 
     public static void updateModels() {
-        for (CustomItemProperties customitemproperties : getAllProperties()) {
-            if (customitemproperties.type == 1) {
+        for (CustomItemProperties item : getAllProperties()) {
+            if (item.type == 1) {
                 TextureMap texturemap = Minecraft.getMinecraft().getTextureMapBlocks();
-                customitemproperties.updateModelTexture(texturemap, ITEM_MODEL_GENERATOR);
-                customitemproperties.updateModelsFull();
+                item.updateModelTexture(texturemap, ITEM_MODEL_GENERATOR);
+                item.updateModelsFull();
             }
         }
     }
@@ -218,16 +214,16 @@ public class CustomItems {
         }
     }
 
-    private static Map makeAutoImageProperties(IResourcePack rp) {
-        Map map = new HashMap();
+    private static Map<String, CustomItemProperties> makeAutoImageProperties(IResourcePack rp) {
+        Map<String, CustomItemProperties> map = new HashMap<>();
         map.putAll(makePotionImageProperties(rp, "normal", Item.getIdFromItem(Items.POTION)));
         map.putAll(makePotionImageProperties(rp, "splash", Item.getIdFromItem(Items.POTION)));
         map.putAll(makePotionImageProperties(rp, "linger", Item.getIdFromItem(Items.POTION)));
         return map;
     }
 
-    private static Map makePotionImageProperties(IResourcePack rp, String type, int itemId) {
-        Map map = new HashMap();
+    private static Map<String, CustomItemProperties> makePotionImageProperties(IResourcePack rp, String type, int itemId) {
+        Map<String, CustomItemProperties> map = new HashMap<>();
         String s = type + "/";
         String[] astring = new String[]{"mcpatcher/cit/potion/" + s, "mcpatcher/cit/Potion/" + s};
         String[] astring1 = new String[]{".png"};
@@ -369,15 +365,15 @@ public class CustomItems {
         return -1;
     }
 
-    private static List makePropertyList(CustomItemProperties[][] propsArr) {
-        List list = new ArrayList();
+    private static List<List<CustomItemProperties>> makePropertyList(CustomItemProperties[][] propsArr) {
+        List<List<CustomItemProperties>> list = new ArrayList<>();
 
         if (propsArr != null) {
-            for (CustomItemProperties[] acustomitemproperties : propsArr) {
-                List list1 = null;
+            for (CustomItemProperties[] itemArray : propsArr) {
+                List<CustomItemProperties> list1 = null;
 
-                if (acustomitemproperties != null) {
-                    list1 = new ArrayList(Arrays.asList(acustomitemproperties));
+                if (itemArray != null) {
+                    list1 = new ArrayList<>(Arrays.asList(itemArray));
                 }
 
                 list.add(list1);
@@ -394,9 +390,9 @@ public class CustomItems {
             List list = (List) lists.get(i);
 
             if (list != null) {
-                CustomItemProperties[] acustomitemproperties1 = (CustomItemProperties[]) list.toArray(new CustomItemProperties[0]);
-                Arrays.sort(acustomitemproperties1, new CustomItemsComparator());
-                acustomitemproperties[i] = acustomitemproperties1;
+                CustomItemProperties[] itemArray = (CustomItemProperties[]) list.toArray(new CustomItemProperties[0]);
+                Arrays.sort(itemArray, new CustomItemsComparator());
+                acustomitemproperties[i] = itemArray;
             }
         }
 
@@ -437,7 +433,7 @@ public class CustomItems {
         List list = (List) lists.get(id);
 
         if (list == null) {
-            list = new ArrayList();
+            list = new ArrayList<>();
             list.set(id, list);
         }
 

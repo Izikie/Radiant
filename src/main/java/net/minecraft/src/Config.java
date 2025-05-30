@@ -698,7 +698,7 @@ public class Config {
     public static IResourcePack[] getResourcePacks() {
         ResourcePackRepository resourcepackrepository = MINECRAFT.getResourcePackRepository();
         List list = resourcepackrepository.getRepositoryEntries();
-        List list1 = new ArrayList();
+        List list1 = new ArrayList<>();
 
         for (Object o : list) {
             ResourcePackRepository.Entry resourcepackrepository$entry = (ResourcePackRepository.Entry) o;
@@ -938,7 +938,7 @@ public class Config {
 
     public static String[] tokenize(String p_tokenize_0_, String p_tokenize_1_) {
         StringTokenizer stringtokenizer = new StringTokenizer(p_tokenize_0_, p_tokenize_1_);
-        List list = new ArrayList();
+        List list = new ArrayList<>();
 
         while (stringtokenizer.hasMoreTokens()) {
             String s = stringtokenizer.nextToken();
@@ -957,7 +957,7 @@ public class Config {
             try {
                 DisplayMode[] adisplaymode = Display.getAvailableDisplayModes();
                 Set<Dimension> set = getDisplayModeDimensions(adisplaymode);
-                List list = new ArrayList();
+                List list = new ArrayList<>();
 
                 for (Dimension dimension : set) {
                     DisplayMode[] adisplaymode1 = getDisplayModes(adisplaymode, dimension);
@@ -1003,7 +1003,7 @@ public class Config {
     }
 
     private static DisplayMode[] getDisplayModes(DisplayMode[] p_getDisplayModes_0_, Dimension p_getDisplayModes_1_) {
-        List list = new ArrayList();
+        List list = new ArrayList<>();
 
         for (DisplayMode displaymode : p_getDisplayModes_0_) {
             if (displaymode.getWidth() == p_getDisplayModes_1_.getWidth() && displaymode.getHeight() == p_getDisplayModes_1_.getHeight()) {
@@ -1141,7 +1141,7 @@ public class Config {
     }
 
     public static String[] readLines(InputStream p_readLines_0_) throws IOException {
-        List list = new ArrayList();
+        List list = new ArrayList<>();
         InputStreamReader inputstreamreader = new InputStreamReader(p_readLines_0_, StandardCharsets.US_ASCII);
         BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
 

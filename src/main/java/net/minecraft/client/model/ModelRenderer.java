@@ -46,7 +46,7 @@ public class ModelRenderer {
     private final RenderGlobal renderGlobal;
 
     public ModelRenderer(ModelBase model, String boxNameIn) {
-        this.spriteList = new ArrayList();
+        this.spriteList = new ArrayList<>();
         this.mirrorV = false;
         this.scaleX = 1.0F;
         this.scaleY = 1.0F;

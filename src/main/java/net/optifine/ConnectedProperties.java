@@ -228,7 +228,7 @@ public class ConnectedProperties {
         if (str == null) {
             return null;
         } else {
-            List list = new ArrayList();
+            List list = new ArrayList<>();
             String[] astring = Config.tokenize(str, " ,");
             label32:
 
@@ -836,7 +836,7 @@ public class ConnectedProperties {
         if (tileNames == null) {
             return null;
         } else {
-            List list = new ArrayList();
+            List list = new ArrayList<>();
 
             for (String s : tileNames) {
                 ResourceLocation resourcelocation = new ResourceLocation(s);

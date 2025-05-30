@@ -73,17 +73,17 @@ public class VillageSiege {
 
     private boolean func_75529_b() {
         List<EntityPlayer> list = this.worldObj.playerEntities;
-        Iterator iterator = list.iterator();
+        Iterator<EntityPlayer> iterator = list.iterator();
 
         while (true) {
             if (!iterator.hasNext()) {
                 return false;
             }
 
-            EntityPlayer entityplayer = (EntityPlayer) iterator.next();
+            EntityPlayer player = iterator.next();
 
-            if (!entityplayer.isSpectator()) {
-                this.theVillage = this.worldObj.getVillageCollection().getNearestVillage(new BlockPos(entityplayer), 1);
+            if (!player.isSpectator()) {
+                this.theVillage = this.worldObj.getVillageCollection().getNearestVillage(new BlockPos(player), 1);
 
                 if (this.theVillage != null && this.theVillage.getNumVillageDoors() >= 10 && this.theVillage.getTicksSinceLastDoorAdding() >= 20 && this.theVillage.getNumVillagers() >= 20) {
                     BlockPos blockpos = this.theVillage.getCenter();

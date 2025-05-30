@@ -23,7 +23,7 @@ import java.io.InputStream;
 import java.util.*;
 
 public class RandomEntities {
-    private static final Map<String, RandomEntityProperties> MAP_PROPERTIES = new HashMap();
+    private static final Map<String, RandomEntityProperties> MAP_PROPERTIES = new HashMap<>();
     private static boolean active = false;
     private static RenderGlobal renderGlobal;
     private static final RandomEntity RANDOM_ENTITY = new RandomEntity();
@@ -280,7 +280,7 @@ public class RandomEntities {
     }
 
     private static ResourceLocation[] getLocationsVariants(ResourceLocation loc, boolean mcpatcher) {
-        List list = new ArrayList();
+        List list = new ArrayList<>();
         list.add(loc);
         ResourceLocation resourcelocation = getLocationRandom(loc, mcpatcher);
 
