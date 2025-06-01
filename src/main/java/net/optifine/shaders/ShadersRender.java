@@ -205,7 +205,7 @@ public class ShadersRender {
             int i;
             i = entityRenderer.frameCount;
             entityRenderer.frameCount = i + 1;
-            renderglobal.setupTerrain(entity, partialTicks, frustum, i, minecraft.thePlayer.isSpectator());
+            renderglobal.setupTerrain(entity, partialTicks, frustum, i, minecraft.player.isSpectator());
             GlStateManager.matrixMode(5888);
             GlStateManager.pushMatrix();
             GlStateManager.disableAlpha();

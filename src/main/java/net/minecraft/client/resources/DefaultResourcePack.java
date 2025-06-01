@@ -53,7 +53,7 @@ public class DefaultResourcePack implements IResourcePack {
         return DEFAULT_RESOURCE_DOMAINS;
     }
 
-    public <T extends IMetadataSection> T getPackMetadata(IMetadataSerializer metadataSerializer, String metadataSectionName) throws IOException {
+    public <T extends IMetadataSection> T getPackMetadata(IMetadataSerializer metadataSerializer, String metadataSectionName) {
         try {
             InputStream inputstream = new FileInputStream(this.mapAssets.get("pack.mcmeta"));
             return AbstractResourcePack.readMetadata(metadataSerializer, inputstream, metadataSectionName);
@@ -63,7 +63,7 @@ public class DefaultResourcePack implements IResourcePack {
     }
 
     public BufferedImage getPackImage() throws IOException {
-        return TextureUtil.readBufferedImage(DefaultResourcePack.class.getResourceAsStream("/" + (new ResourceLocation("pack.png")).getResourcePath()));
+        return TextureUtil.readBufferedImage(getClass().getResourceAsStream("/" + (new ResourceLocation("pack.png")).getResourcePath()));
     }
 
     public String getPackName() {

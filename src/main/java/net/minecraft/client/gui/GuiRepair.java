@@ -24,7 +24,7 @@ public class GuiRepair extends GuiContainer implements ICrafting {
     private final InventoryPlayer playerInventory;
 
     public GuiRepair(InventoryPlayer inventoryIn, World worldIn) {
-        super(new ContainerRepair(inventoryIn, worldIn, Minecraft.getMinecraft().thePlayer));
+        super(new ContainerRepair(inventoryIn, worldIn, Minecraft.getMinecraft().player));
         this.playerInventory = inventoryIn;
         this.anvil = (ContainerRepair) this.inventorySlots;
     }
@@ -59,7 +59,7 @@ public class GuiRepair extends GuiContainer implements ICrafting {
             boolean flag = true;
             String s = I18n.format("container.repair.cost", this.anvil.maximumCost);
 
-            if (this.anvil.maximumCost >= 40 && !this.mc.thePlayer.capabilities.isCreativeMode) {
+            if (this.anvil.maximumCost >= 40 && !this.mc.player.capabilities.isCreativeMode) {
                 s = I18n.format("container.repair.expensive");
                 i = 16736352;
             } else if (!this.anvil.getSlot(2).getHasStack()) {
@@ -106,7 +106,7 @@ public class GuiRepair extends GuiContainer implements ICrafting {
         }
 
         this.anvil.updateItemName(s);
-        this.mc.thePlayer.sendQueue.addToSendQueue(new C17PacketCustomPayload("MC|ItemName", (new PacketBuffer(Unpooled.buffer())).writeString(s)));
+        this.mc.player.sendQueue.addToSendQueue(new C17PacketCustomPayload("MC|ItemName", (new PacketBuffer(Unpooled.buffer())).writeString(s)));
     }
 
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {

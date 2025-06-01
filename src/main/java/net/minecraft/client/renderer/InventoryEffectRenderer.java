@@ -34,7 +34,7 @@ public abstract class InventoryEffectRenderer extends GuiContainer {
     private void drawActivePotionEffects() {
         int x = this.guiLeft - 124;
         int y = this.guiTop;
-        Collection<PotionEffect> collection = this.mc.thePlayer.getActivePotionEffects();
+        Collection<PotionEffect> collection = this.mc.player.getActivePotionEffects();
 
         if (collection.isEmpty())
             return;
@@ -47,7 +47,7 @@ public abstract class InventoryEffectRenderer extends GuiContainer {
             l = 132 / (collection.size() - 1);
         }
 
-        for (PotionEffect effect : this.mc.thePlayer.getActivePotionEffects()) {
+        for (PotionEffect effect : this.mc.player.getActivePotionEffects()) {
             Potion potion = Potion.POTION_TYPES[effect.getPotionID()];
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             this.mc.getTextureManager().bindTexture(INVENTORY_BACKGROUND);
@@ -76,6 +76,6 @@ public abstract class InventoryEffectRenderer extends GuiContainer {
     }
 
     private boolean hasActivePotionEffects() {
-        return !this.mc.thePlayer.getActivePotionEffects().isEmpty();
+        return !this.mc.player.getActivePotionEffects().isEmpty();
     }
 }

@@ -175,7 +175,7 @@ public class BlockModelShapes {
         });
         this.registerBlockWithStateMapper(Blocks.PUMPKIN_STEM, new StateMapperBase() {
             protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-                Map<IProperty, Comparable> map = new LinkedHashMap<>(state.getProperties());
+                Map<IProperty<?>, Comparable<?>> map = new LinkedHashMap<>(state.getProperties());
 
                 if (state.getValue(BlockStem.FACING) != Direction.UP) {
                     map.remove(BlockStem.AGE);
@@ -186,7 +186,7 @@ public class BlockModelShapes {
         });
         this.registerBlockWithStateMapper(Blocks.MELON_STEM, new StateMapperBase() {
             protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-                Map<IProperty, Comparable> map = new LinkedHashMap<>(state.getProperties());
+                Map<IProperty<?>, Comparable<?>> map = new LinkedHashMap<>(state.getProperties());
 
                 if (state.getValue(BlockStem.FACING) != Direction.UP) {
                     map.remove(BlockStem.AGE);
@@ -197,7 +197,7 @@ public class BlockModelShapes {
         });
         this.registerBlockWithStateMapper(Blocks.DIRT, new StateMapperBase() {
             protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-                Map<IProperty, Comparable> map = new LinkedHashMap<>(state.getProperties());
+                Map<IProperty<?>, Comparable<?>> map = new LinkedHashMap<>(state.getProperties());
                 String s = BlockDirt.VARIANT.getName((BlockDirt.DirtType) map.remove(BlockDirt.VARIANT));
 
                 if (BlockDirt.DirtType.PODZOL != state.getValue(BlockDirt.VARIANT)) {
@@ -209,7 +209,7 @@ public class BlockModelShapes {
         });
         this.registerBlockWithStateMapper(Blocks.DOUBLE_STONE_SLAB, new StateMapperBase() {
             protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-                Map<IProperty, Comparable> map = new LinkedHashMap<>(state.getProperties());
+                Map<IProperty<?>, Comparable<?>> map = new LinkedHashMap<>(state.getProperties());
                 String s = BlockStoneSlab.VARIANT.getName((BlockStoneSlab.EnumType) map.remove(BlockStoneSlab.VARIANT));
                 map.remove(BlockStoneSlab.SEAMLESS);
                 String s1 = state.getValue(BlockStoneSlab.SEAMLESS) ? "all" : "normal";
@@ -218,7 +218,7 @@ public class BlockModelShapes {
         });
         this.registerBlockWithStateMapper(Blocks.DOUBLE_STONE_SLAB_2, new StateMapperBase() {
             protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-                Map<IProperty, Comparable> map = new LinkedHashMap<>(state.getProperties());
+                Map<IProperty<?>, Comparable<?>> map = new LinkedHashMap<>(state.getProperties());
                 String s = BlockStoneSlabNew.VARIANT.getName((BlockStoneSlabNew.EnumType) map.remove(BlockStoneSlabNew.VARIANT));
                 map.remove(BlockStoneSlab.SEAMLESS);
                 String s1 = state.getValue(BlockStoneSlabNew.SEAMLESS) ? "all" : "normal";

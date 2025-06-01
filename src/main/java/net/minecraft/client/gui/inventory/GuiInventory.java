@@ -26,7 +26,7 @@ public class GuiInventory extends InventoryEffectRenderer {
 
     public void updateScreen() {
         if (this.mc.playerController.isInCreativeMode()) {
-            this.mc.displayGuiScreen(new GuiContainerCreative(this.mc.thePlayer));
+            this.mc.displayGuiScreen(new GuiContainerCreative(this.mc.player));
         }
 
         this.updateActivePotionEffects();
@@ -36,7 +36,7 @@ public class GuiInventory extends InventoryEffectRenderer {
         this.buttonList.clear();
 
         if (this.mc.playerController.isInCreativeMode()) {
-            this.mc.displayGuiScreen(new GuiContainerCreative(this.mc.thePlayer));
+            this.mc.displayGuiScreen(new GuiContainerCreative(this.mc.player));
         } else {
             super.initGui();
         }
@@ -58,7 +58,7 @@ public class GuiInventory extends InventoryEffectRenderer {
         int i = this.guiLeft;
         int j = this.guiTop;
         this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
-        drawEntityOnScreen(i + 51, j + 75, 30, (i + 51) - this.oldMouseX, (j + 75 - 50) - this.oldMouseY, this.mc.thePlayer);
+        drawEntityOnScreen(i + 51, j + 75, 30, (i + 51) - this.oldMouseX, (j + 75 - 50) - this.oldMouseY, this.mc.player);
     }
 
     public static void drawEntityOnScreen(int posX, int posY, int scale, float mouseX, float mouseY, EntityLivingBase ent) {
@@ -102,11 +102,11 @@ public class GuiInventory extends InventoryEffectRenderer {
 
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.id == 0) {
-            this.mc.displayGuiScreen(new GuiAchievements(this, this.mc.thePlayer.getStatFileWriter()));
+            this.mc.displayGuiScreen(new GuiAchievements(this, this.mc.player.getStatFileWriter()));
         }
 
         if (button.id == 1) {
-            this.mc.displayGuiScreen(new GuiStats(this, this.mc.thePlayer.getStatFileWriter()));
+            this.mc.displayGuiScreen(new GuiStats(this, this.mc.player.getStatFileWriter()));
         }
     }
 }

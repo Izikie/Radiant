@@ -56,7 +56,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 
     public void updateScreen() {
         if (!this.mc.playerController.isInCreativeMode()) {
-            this.mc.displayGuiScreen(new GuiInventory(this.mc.thePlayer));
+            this.mc.displayGuiScreen(new GuiInventory(this.mc.player));
         }
 
         this.updateActivePotionEffects();
@@ -68,18 +68,18 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         clickType = slotId == -999 && clickType == 0 ? 4 : clickType;
 
         if (slotIn == null && selectedTabIndex != CreativeTabs.TAB_INVENTORY.getTabIndex() && clickType != 5) {
-            InventoryPlayer inventoryplayer1 = this.mc.thePlayer.inventory;
+            InventoryPlayer inventoryplayer1 = this.mc.player.inventory;
 
             if (inventoryplayer1.getItemStack() != null) {
                 if (clickedButton == 0) {
-                    this.mc.thePlayer.dropPlayerItemWithRandomChoice(inventoryplayer1.getItemStack(), true);
+                    this.mc.player.dropPlayerItemWithRandomChoice(inventoryplayer1.getItemStack(), true);
                     this.mc.playerController.sendPacketDropItem(inventoryplayer1.getItemStack());
                     inventoryplayer1.setItemStack(null);
                 }
 
                 if (clickedButton == 1) {
                     ItemStack itemstack5 = inventoryplayer1.getItemStack().splitStack(1);
-                    this.mc.thePlayer.dropPlayerItemWithRandomChoice(itemstack5, true);
+                    this.mc.player.dropPlayerItemWithRandomChoice(itemstack5, true);
                     this.mc.playerController.sendPacketDropItem(itemstack5);
 
                     if (inventoryplayer1.getItemStack().stackSize == 0) {
@@ -88,26 +88,26 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
                 }
             }
         } else if (slotIn == this.field_147064_C && flag) {
-            for (int j = 0; j < this.mc.thePlayer.inventoryContainer.getInventory().size(); ++j) {
+            for (int j = 0; j < this.mc.player.inventoryContainer.getInventory().size(); ++j) {
                 this.mc.playerController.sendSlotPacket(null, j);
             }
         } else if (selectedTabIndex == CreativeTabs.TAB_INVENTORY.getTabIndex()) {
             if (slotIn == this.field_147064_C) {
-                this.mc.thePlayer.inventory.setItemStack(null);
+                this.mc.player.inventory.setItemStack(null);
             } else if (clickType == 4 && slotIn != null && slotIn.getHasStack()) {
                 ItemStack itemstack = slotIn.decrStackSize(clickedButton == 0 ? 1 : slotIn.getStack().getMaxStackSize());
-                this.mc.thePlayer.dropPlayerItemWithRandomChoice(itemstack, true);
+                this.mc.player.dropPlayerItemWithRandomChoice(itemstack, true);
                 this.mc.playerController.sendPacketDropItem(itemstack);
-            } else if (clickType == 4 && this.mc.thePlayer.inventory.getItemStack() != null) {
-                this.mc.thePlayer.dropPlayerItemWithRandomChoice(this.mc.thePlayer.inventory.getItemStack(), true);
-                this.mc.playerController.sendPacketDropItem(this.mc.thePlayer.inventory.getItemStack());
-                this.mc.thePlayer.inventory.setItemStack(null);
+            } else if (clickType == 4 && this.mc.player.inventory.getItemStack() != null) {
+                this.mc.player.dropPlayerItemWithRandomChoice(this.mc.player.inventory.getItemStack(), true);
+                this.mc.playerController.sendPacketDropItem(this.mc.player.inventory.getItemStack());
+                this.mc.player.inventory.setItemStack(null);
             } else {
-                this.mc.thePlayer.inventoryContainer.slotClick(slotIn == null ? slotId : ((CreativeSlot) slotIn).slot.slotNumber, clickedButton, clickType, this.mc.thePlayer);
-                this.mc.thePlayer.inventoryContainer.detectAndSendChanges();
+                this.mc.player.inventoryContainer.slotClick(slotIn == null ? slotId : ((CreativeSlot) slotIn).slot.slotNumber, clickedButton, clickType, this.mc.player);
+                this.mc.player.inventoryContainer.detectAndSendChanges();
             }
         } else if (clickType != 5 && slotIn.inventory == field_147060_v) {
-            InventoryPlayer inventoryplayer = this.mc.thePlayer.inventory;
+            InventoryPlayer inventoryplayer = this.mc.player.inventory;
             ItemStack itemstack1 = inventoryplayer.getItemStack();
             ItemStack itemstack2 = slotIn.getStack();
 
@@ -115,8 +115,8 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
                 if (itemstack2 != null && clickedButton >= 0 && clickedButton < 9) {
                     ItemStack itemstack7 = itemstack2.copy();
                     itemstack7.stackSize = itemstack7.getMaxStackSize();
-                    this.mc.thePlayer.inventory.setInventorySlotContents(clickedButton, itemstack7);
-                    this.mc.thePlayer.inventoryContainer.detectAndSendChanges();
+                    this.mc.player.inventory.setInventorySlotContents(clickedButton, itemstack7);
+                    this.mc.player.inventoryContainer.detectAndSendChanges();
                 }
 
                 return;
@@ -136,7 +136,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
                 if (itemstack2 != null) {
                     ItemStack itemstack3 = itemstack2.copy();
                     itemstack3.stackSize = clickedButton == 0 ? 1 : itemstack3.getMaxStackSize();
-                    this.mc.thePlayer.dropPlayerItemWithRandomChoice(itemstack3, true);
+                    this.mc.player.dropPlayerItemWithRandomChoice(itemstack3, true);
                     this.mc.playerController.sendPacketDropItem(itemstack3);
                 }
 
@@ -166,7 +166,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
                 inventoryplayer.setItemStack(null);
             }
         } else {
-            this.inventorySlots.slotClick(slotIn == null ? slotId : slotIn.slotNumber, clickedButton, clickType, this.mc.thePlayer);
+            this.inventorySlots.slotClick(slotIn == null ? slotId : slotIn.slotNumber, clickedButton, clickType, this.mc.player);
 
             if (Container.getDragEvent(clickedButton) == 2) {
                 for (int i = 0; i < 9; ++i) {
@@ -202,17 +202,17 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
             selectedTabIndex = -1;
             this.setCurrentCreativeTab(CreativeTabs.CREATIVE_TABS[i]);
             this.field_147059_E = new CreativeCrafting(this.mc);
-            this.mc.thePlayer.inventoryContainer.onCraftGuiOpened(this.field_147059_E);
+            this.mc.player.inventoryContainer.onCraftGuiOpened(this.field_147059_E);
         } else {
-            this.mc.displayGuiScreen(new GuiInventory(this.mc.thePlayer));
+            this.mc.displayGuiScreen(new GuiInventory(this.mc.player));
         }
     }
 
     public void onGuiClosed() {
         super.onGuiClosed();
 
-        if (this.mc.thePlayer != null && this.mc.thePlayer.inventory != null) {
-            this.mc.thePlayer.inventoryContainer.removeCraftingFromCrafters(this.field_147059_E);
+        if (this.mc.player != null && this.mc.player.inventory != null) {
+            this.mc.player.inventoryContainer.removeCraftingFromCrafters(this.field_147059_E);
         }
 
         Keyboard.enableRepeatEvents(false);
@@ -264,7 +264,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
             ItemStack itemstack = iterator.next();
             boolean flag = false;
 
-            for (String s : itemstack.getTooltip(this.mc.thePlayer, this.mc.gameSettings.advancedItemTooltips)) {
+            for (String s : itemstack.getTooltip(this.mc.player, this.mc.gameSettings.advancedItemTooltips)) {
                 if (Formatting.getTextWithoutFormattingCodes(s).toLowerCase().contains(s1)) {
                     flag = true;
                     break;
@@ -333,7 +333,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         p_147050_1_.displayAllReleventItems(guicontainercreative$containercreative.itemList);
 
         if (p_147050_1_ == CreativeTabs.TAB_INVENTORY) {
-            Container container = this.mc.thePlayer.inventoryContainer;
+            Container container = this.mc.player.inventoryContainer;
 
             if (this.field_147063_B == null) {
                 this.field_147063_B = guicontainercreative$containercreative.inventorySlots;
@@ -457,7 +457,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 
     protected void renderToolTip(ItemStack stack, int x, int y) {
         if (selectedTabIndex == CreativeTabs.TAB_ALL_SEARCH.getTabIndex()) {
-            List<String> list = stack.getTooltip(this.mc.thePlayer, this.mc.gameSettings.advancedItemTooltips);
+            List<String> list = stack.getTooltip(this.mc.player, this.mc.gameSettings.advancedItemTooltips);
             CreativeTabs creativetabs = stack.getItem().getCreativeTab();
 
             if (creativetabs == null && stack.getItem() == Items.ENCHANTED_BOOK) {
@@ -522,7 +522,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         this.func_147051_a(creativetabs);
 
         if (creativetabs == CreativeTabs.TAB_INVENTORY) {
-            GuiInventory.drawEntityOnScreen(this.guiLeft + 43, this.guiTop + 45, 20, (this.guiLeft + 43 - mouseX), (this.guiTop + 45 - 30 - mouseY), this.mc.thePlayer);
+            GuiInventory.drawEntityOnScreen(this.guiLeft + 43, this.guiTop + 45, 20, (this.guiLeft + 43 - mouseX), (this.guiTop + 45 - 30 - mouseY), this.mc.player);
         }
     }
 
@@ -616,11 +616,11 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.id == 0) {
-            this.mc.displayGuiScreen(new GuiAchievements(this, this.mc.thePlayer.getStatFileWriter()));
+            this.mc.displayGuiScreen(new GuiAchievements(this, this.mc.player.getStatFileWriter()));
         }
 
         if (button.id == 1) {
-            this.mc.displayGuiScreen(new GuiStats(this, this.mc.thePlayer.getStatFileWriter()));
+            this.mc.displayGuiScreen(new GuiStats(this, this.mc.player.getStatFileWriter()));
         }
     }
 

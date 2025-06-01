@@ -67,7 +67,7 @@ public class GuiEnchantment extends GuiContainer {
             int l = mouseX - (i + 60);
             int i1 = mouseY - (j + 14 + 19 * k);
 
-            if (l >= 0 && i1 >= 0 && l < 108 && i1 < 19 && this.container.enchantItem(this.mc.thePlayer, k)) {
+            if (l >= 0 && i1 >= 0 && l < 108 && i1 < 19 && this.container.enchantItem(this.mc.player, k)) {
                 this.mc.playerController.sendEnchantPacket(this.container.windowId, k);
             }
         }
@@ -164,7 +164,7 @@ public class GuiEnchantment extends GuiContainer {
                 FontRenderer fontrenderer = this.mc.standardGalacticFontRenderer;
                 int i2 = 6839882;
 
-                if ((k < l + 1 || this.mc.thePlayer.experienceLevel < l1) && !this.mc.thePlayer.capabilities.isCreativeMode) {
+                if ((k < l + 1 || this.mc.player.experienceLevel < l1) && !this.mc.player.capabilities.isCreativeMode) {
                     this.drawTexturedModalRect(i1, j + 14 + 19 * l, 0, 185, 108, 19);
                     this.drawTexturedModalRect(i1 + 1, j + 15 + 19 * l, 16 * l, 239, 16, 16);
                     fontrenderer.drawSplitString(s, j1, j + 16 + 19 * l, k1, (i2 & 16711422) >> 1);
@@ -193,7 +193,7 @@ public class GuiEnchantment extends GuiContainer {
 
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
-        boolean flag = this.mc.thePlayer.capabilities.isCreativeMode;
+        boolean flag = this.mc.player.capabilities.isCreativeMode;
         int i = this.container.getLapisAmount();
 
         for (int j = 0; j < 3; ++j) {
@@ -214,7 +214,7 @@ public class GuiEnchantment extends GuiContainer {
                         list.add("");
                     }
 
-                    if (this.mc.thePlayer.experienceLevel < k) {
+                    if (this.mc.player.experienceLevel < k) {
                         list.add(Formatting.RED + "Level Requirement: " + this.container.enchantLevels[j]);
                     } else {
                         String s1;

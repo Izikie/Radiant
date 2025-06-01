@@ -37,16 +37,16 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
             ++i;
         }
 
-        if (this.mc.theWorld != null) {
-            Difficulty enumdifficulty = this.mc.theWorld.getDifficulty();
+        if (this.mc.world != null) {
+            Difficulty enumdifficulty = this.mc.world.getDifficulty();
             this.button = new GuiButton(1, this.width / 2 - 155 + i % 2 * 160, this.height / 6 - 12 + 24 * (i >> 1), 150, 20, this.getDifficultyString(enumdifficulty));
             this.buttonList.add(this.button);
 
-            if (this.mc.isSingleplayer() && !this.mc.theWorld.getWorldInfo().isHardcoreModeEnabled()) {
+            if (this.mc.isSingleplayer() && !this.mc.world.getWorldInfo().isHardcoreModeEnabled()) {
                 this.button.setWidth(this.button.getButtonWidth() - 20);
                 this.guiLockIconButton = new GuiLockIconButton(2, this.button.xPosition + this.button.getButtonWidth(), this.button.yPosition);
                 this.buttonList.add(this.guiLockIconButton);
-                this.guiLockIconButton.setLocked(this.mc.theWorld.getWorldInfo().isDifficultyLocked());
+                this.guiLockIconButton.setLocked(this.mc.world.getWorldInfo().isDifficultyLocked());
                 this.guiLockIconButton.enabled = !this.guiLockIconButton.isLocked();
                 this.button.enabled = !this.guiLockIconButton.isLocked();
             } else {
@@ -75,8 +75,8 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
     public void confirmClicked(boolean result, int id) {
         this.mc.displayGuiScreen(this);
 
-        if (id == 2 && result && this.mc.theWorld != null) {
-            this.mc.theWorld.getWorldInfo().setDifficultyLocked(true);
+        if (id == 2 && result && this.mc.world != null) {
+            this.mc.world.getWorldInfo().setDifficultyLocked(true);
             this.guiLockIconButton.setLocked(true);
             this.guiLockIconButton.enabled = false;
             this.button.enabled = false;
@@ -87,12 +87,12 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
         if (button.enabled) {
             switch (button.id) {
                 case 1 -> {
-                    this.mc.theWorld.getWorldInfo().setDifficulty(Difficulty.getDifficultyEnum(this.mc.theWorld.getDifficulty().getDifficultyId() + 1));
-                    this.button.displayString = this.getDifficultyString(this.mc.theWorld.getDifficulty());
+                    this.mc.world.getWorldInfo().setDifficulty(Difficulty.getDifficultyEnum(this.mc.world.getDifficulty().getDifficultyId() + 1));
+                    this.button.displayString = this.getDifficultyString(this.mc.world.getDifficulty());
                 }
 
                 case 2 ->
-                        this.mc.displayGuiScreen(new GuiYesNo(this, (new ChatComponentTranslation("difficulty.lock.title")).getFormattedText(), (new ChatComponentTranslation("difficulty.lock.question", new ChatComponentTranslation(this.mc.theWorld.getWorldInfo().getDifficulty().getDifficultyResourceKey()))).getFormattedText(), 109));
+                        this.mc.displayGuiScreen(new GuiYesNo(this, (new ChatComponentTranslation("difficulty.lock.title")).getFormattedText(), (new ChatComponentTranslation("difficulty.lock.question", new ChatComponentTranslation(this.mc.world.getWorldInfo().getDifficulty().getDifficultyResourceKey()))).getFormattedText(), 109));
 
                 case 3 -> {
                     this.mc.gameSettings.saveOptions();

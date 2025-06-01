@@ -21,7 +21,7 @@ public class GuiSleepMP extends GuiChat {
             String s = this.inputField.getText().trim();
 
             if (!s.isEmpty()) {
-                this.mc.thePlayer.sendChatMessage(s);
+                this.mc.player.sendChatMessage(s);
             }
 
             this.inputField.setText("");
@@ -38,7 +38,7 @@ public class GuiSleepMP extends GuiChat {
     }
 
     private void wakeFromSleep() {
-        NetHandlerPlayClient nethandlerplayclient = this.mc.thePlayer.sendQueue;
-        nethandlerplayclient.addToSendQueue(new C0BPacketEntityAction(this.mc.thePlayer, C0BPacketEntityAction.Action.STOP_SLEEPING));
+        NetHandlerPlayClient nethandlerplayclient = this.mc.player.sendQueue;
+        nethandlerplayclient.addToSendQueue(new C0BPacketEntityAction(this.mc.player, C0BPacketEntityAction.Action.STOP_SLEEPING));
     }
 }

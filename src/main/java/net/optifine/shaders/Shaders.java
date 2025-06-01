@@ -2542,7 +2542,7 @@ public class Shaders {
                         setProgramUniform1i(UNIFORM_NOISETEX, 15);
                 }
 
-                ItemStack itemstack = mc.thePlayer != null ? mc.thePlayer.getHeldItem() : null;
+                ItemStack itemstack = mc.player != null ? mc.player.getHeldItem() : null;
                 Item item = itemstack != null ? itemstack.getItem() : null;
                 int j = -1;
                 Block block = null;
@@ -2997,7 +2997,7 @@ public class Shaders {
 
     public static void beginRender(Minecraft minecraft, float partialTicks, long finishTimeNano) {
         checkGLError("pre beginRender");
-        checkWorldChanged(mc.theWorld);
+        checkWorldChanged(mc.world);
         mc = minecraft;
         entityRenderer = mc.entityRenderer;
 
@@ -3022,7 +3022,7 @@ public class Shaders {
             resizeShadow();
         }
 
-        worldTime = mc.theWorld.getWorldTime();
+        worldTime = mc.world.getWorldTime();
         diffWorldTime = (worldTime - lastWorldTime) % 24000L;
 
         if (diffWorldTime < 0L) {
@@ -3030,7 +3030,7 @@ public class Shaders {
         }
 
         lastWorldTime = worldTime;
-        moonPhase = mc.theWorld.getMoonPhase();
+        moonPhase = mc.world.getMoonPhase();
         ++frameCounter;
 
         if (frameCounter >= 720720) {
@@ -3048,7 +3048,7 @@ public class Shaders {
         frameTime = diffSystemTime / 1000.0F;
         frameTimeCounter += frameTime;
         frameTimeCounter %= 3600.0F;
-        rainStrength = minecraft.theWorld.getRainStrength(partialTicks);
+        rainStrength = minecraft.world.getRainStrength(partialTicks);
         float f = diffSystemTime * 0.01F;
         float f1 = (float) Math.exp(Math.log(0.5D) * f / (wetness < rainStrength ? drynessHalfLife : wetnessHalfLife));
         wetness = wetness * f1 + rainStrength * (1.0F - f1);
@@ -3062,7 +3062,7 @@ public class Shaders {
             float f2 = (float) Math.exp(Math.log(0.5D) * f1 / eyeBrightnessHalflife);
             eyeBrightnessFadeX = eyeBrightnessFadeX * f2 + (eyeBrightness & 65535) * (1.0F - f2);
             eyeBrightnessFadeY = eyeBrightnessFadeY * f2 + (eyeBrightness >> 16) * (1.0F - f2);
-            Block block = ActiveRenderInfo.getBlockAtEntityViewpoint(mc.theWorld, entity, partialTicks);
+            Block block = ActiveRenderInfo.getBlockAtEntityViewpoint(mc.world, entity, partialTicks);
             Material material = block.getMaterial();
 
             if (material == Material.WATER) {
@@ -3073,22 +3073,22 @@ public class Shaders {
                 isEyeInWater = 0;
             }
 
-            if (mc.thePlayer != null) {
+            if (mc.player != null) {
                 nightVision = 0.0F;
 
-                if (mc.thePlayer.isPotionActive(Potion.NIGHT_VISION)) {
-                    nightVision = Config.getMinecraft().entityRenderer.getNightVisionBrightness(mc.thePlayer, partialTicks);
+                if (mc.player.isPotionActive(Potion.NIGHT_VISION)) {
+                    nightVision = Config.getMinecraft().entityRenderer.getNightVisionBrightness(mc.player, partialTicks);
                 }
 
                 blindness = 0.0F;
 
-                if (mc.thePlayer.isPotionActive(Potion.BLINDNESS)) {
-                    int i = mc.thePlayer.getActivePotionEffect(Potion.BLINDNESS).getDuration();
+                if (mc.player.isPotionActive(Potion.BLINDNESS)) {
+                    int i = mc.player.getActivePotionEffect(Potion.BLINDNESS).getDuration();
                     blindness = Config.limit(i / 20.0F, 0.0F, 1.0F);
                 }
             }
 
-            Vec3 vec3 = mc.theWorld.getSkyColor(entity, partialTicks);
+            Vec3 vec3 = mc.world.getSkyColor(entity, partialTicks);
             vec3 = CustomColors.getWorldSkyColor(vec3, currentWorld, entity, partialTicks);
             skyColorR = (float) vec3.xCoord;
             skyColorG = (float) vec3.yCoord;
@@ -3414,7 +3414,7 @@ public class Shaders {
         GL11.glLoadIdentity();
         GL11.glTranslatef(0.0F, 0.0F, -100.0F);
         GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
-        celestialAngle = mc.theWorld.getCelestialAngle(partialTicks);
+        celestialAngle = mc.world.getCelestialAngle(partialTicks);
         sunAngle = celestialAngle < 0.75F ? celestialAngle + 0.25F : celestialAngle - 0.75F;
         float f = celestialAngle * -360.0F;
 

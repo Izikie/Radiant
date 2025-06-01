@@ -19,13 +19,13 @@ public class StateMap extends StateMapperBase {
     }
 
     protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-        Map<IProperty, Comparable> map = new LinkedHashMap<>(state.getProperties());
+        Map<IProperty<?>, Comparable<?>> map = new LinkedHashMap<>(state.getProperties());
         String s;
 
         if (this.name == null) {
             s = Block.blockRegistry.getNameForObject(state.getBlock()).toString();
         } else {
-            s = ((IProperty) this.name).getName(map.remove(this.name));
+            s = ((IProperty)this.name).getName(map.remove(this.name));
         }
 
         if (this.suffix != null) {

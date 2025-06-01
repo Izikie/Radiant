@@ -85,7 +85,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
             }
 
             if (!Config.zoomMode) {
-                Entity entity = this.mc.thePlayer;
+                Entity entity = this.mc.player;
                 double d0 = itemFrame.getDistanceSq(entity.posX, entity.posY, entity.posZ);
 
                 if (d0 > 4096.0D) {

@@ -8,6 +8,8 @@ import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,8 +21,9 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 public class Lang {
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final Splitter SPLITTER = Splitter.on('=').limit(2);
-    private static final Pattern PATTERN = Pattern.compile("%(\\d+\\$)?[\\d\\.]*[df]");
+    private static final Pattern PATTERN = Pattern.compile("%(\\d+\\$)?[\\d.]*[df]");
 
     public static void resourcesReloaded() {
         Map<String, String> map = I18n.getLocaleProperties();
@@ -43,7 +46,7 @@ public class Lang {
         }
     }
 
-    private static void loadResources(IResourcePack rp, String[] files, Map localeProperties) {
+    private static void loadResources(IResourcePack rp, String[] files, Map<String, String> localeProperties) {
         try {
             for (String s : files) {
                 ResourceLocation resourcelocation = new ResourceLocation(s);
@@ -57,21 +60,21 @@ public class Lang {
                 }
             }
         } catch (IOException exception) {
-            exception.printStackTrace();
+            LOGGER.error("Couldn't read strings from {}", rp, exception);
         }
     }
 
     public static void loadLocaleData(InputStream is, Map localeProperties) throws IOException {
-        Iterator iterator = IOUtils.readLines(is, StandardCharsets.UTF_8).iterator();
+        Iterator<String> iterator = IOUtils.readLines(is, StandardCharsets.UTF_8).iterator();
         is.close();
 
         while (iterator.hasNext()) {
-            String s = (String) iterator.next();
+            String s = iterator.next();
 
             if (!s.isEmpty() && s.charAt(0) != 35) {
                 String[] astring = Iterables.toArray(SPLITTER.split(s), String.class);
 
-                if (astring != null && astring.length == 2) {
+                if (astring.length == 2) {
                     String s1 = astring[0];
                     String s2 = PATTERN.matcher(astring[1]).replaceAll("%$1s");
                     localeProperties.put(s1, s2);

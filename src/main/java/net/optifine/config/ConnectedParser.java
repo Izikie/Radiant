@@ -25,7 +25,7 @@ public class ConnectedParser {
     private final String context;
     public static final VillagerProfession[] PROFESSIONS_INVALID = new VillagerProfession[0];
     public static final DyeColor[] DYE_COLORS_INVALID = new DyeColor[0];
-    private static final INameGetter<Enum> NAME_GETTER_ENUM = Enum::name;
+    private static final INameGetter<Enum<?>> NAME_GETTER_ENUM = Enum::name;
     private static final INameGetter<DyeColor> NAME_GETTER_DYE_COLOR = DyeColor::getName;
 
     public ConnectedParser(String context) {
@@ -58,7 +58,7 @@ public class ConnectedParser {
         if (propMatchBlocks == null) {
             return null;
         } else {
-            List list = new ArrayList<>();
+            List<MatchBlock> list = new ArrayList<>();
             String[] astring = Config.tokenize(propMatchBlocks, " ");
 
             for (String s : astring) {
@@ -69,7 +69,7 @@ public class ConnectedParser {
                 }
             }
 
-            return (MatchBlock[]) list.toArray(new MatchBlock[0]);
+            return list.toArray(new MatchBlock[0]);
         }
     }
 
@@ -207,8 +207,8 @@ public class ConnectedParser {
                 return this.parseIntList(s);
             } else {
                 IBlockState iblockstate = block.getDefaultState();
-                Collection collection = iblockstate.getPropertyNames();
-                Map<IProperty, List<Comparable>> map = new HashMap<>();
+                Collection<?> collection = iblockstate.getPropertyNames();
+                Map<IProperty<?>, List<Comparable<?>>> map = new HashMap<>();
 
                 for (String s1 : params) {
                     if (!s1.isEmpty()) {
@@ -221,14 +221,14 @@ public class ConnectedParser {
 
                         String s2 = astring[0];
                         String s3 = astring[1];
-                        IProperty iproperty = ConnectedProperties.getProperty(s2, collection);
+                        IProperty<?> iproperty = ConnectedProperties.getProperty(s2, collection);
 
                         if (iproperty == null) {
                             this.warn("Property not found: " + s2 + ", block: " + block);
                             return null;
                         }
 
-                        List<Comparable> list = map.get(s2);
+                        List<Comparable<?>> list = map.get(s2);
 
                         if (list == null) {
                             list = new ArrayList<>();
@@ -238,7 +238,7 @@ public class ConnectedParser {
                         String[] astring1 = Config.tokenize(s3, ",");
 
                         for (String s4 : astring1) {
-                            Comparable comparable = parsePropertyValue(iproperty, s4);
+                            Comparable<?> comparable = parsePropertyValue(iproperty, s4);
 
                             if (comparable == null) {
                                 this.warn("Property value not found: " + s4 + ", property: " + s2 + ", block: " + block);
@@ -298,21 +298,21 @@ public class ConnectedParser {
         }
     }
 
-    public static Comparable parsePropertyValue(IProperty prop, String valStr) {
-        Class oclass = prop.getValueClass();
-        Comparable comparable = parseValue(valStr, oclass);
+    public static Comparable<?> parsePropertyValue(IProperty<?> prop, String valStr) {
+        Class<?> oclass = prop.getValueClass();
+        Comparable<?> comparable = parseValue(valStr, oclass);
 
         if (comparable == null) {
-            Collection collection = prop.getAllowedValues();
+            Collection<?> collection = prop.getAllowedValues();
             comparable = getPropertyValue(valStr, collection);
         }
 
         return comparable;
     }
 
-    public static Comparable getPropertyValue(String value, Collection propertyValues) {
+    public static Comparable<?> getPropertyValue(String value, Collection<?> propertyValues) {
         for (Object o : propertyValues) {
-            Comparable comparable = (Comparable) o;
+            Comparable<?> comparable = (Comparable<?>) o;
             if (getValueName(comparable).equals(value)) {
                 return comparable;
             }
@@ -321,7 +321,7 @@ public class ConnectedParser {
         return null;
     }
 
-    private static Object getValueName(Comparable obj) {
+    private static Object getValueName(Comparable<?> obj) {
         if (obj instanceof IStringSerializable istringserializable) {
             return istringserializable.getName();
         } else {
@@ -330,7 +330,7 @@ public class ConnectedParser {
     }
 
 
-    public static Comparable parseValue(String str, Class<?> cls) {
+    public static Comparable<?> parseValue(String str, Class<?> cls) {
         if (cls == String.class) {
             return str;
         }
@@ -353,10 +353,10 @@ public class ConnectedParser {
     }
 
 
-    public boolean matchState(IBlockState bs, Map<IProperty, List<Comparable>> mapPropValues) {
-        for (IProperty iproperty : mapPropValues.keySet()) {
-            List<Comparable> list = mapPropValues.get(iproperty);
-            Comparable comparable = bs.getValue(iproperty);
+    public boolean matchState(IBlockState bs, Map<IProperty<?>, List<Comparable<?>>> mapPropValues) {
+        for (IProperty<?> iproperty : mapPropValues.keySet()) {
+            List<Comparable<?>> list = mapPropValues.get(iproperty);
+            Comparable<?> comparable = bs.getValue(iproperty);
 
             if (comparable == null) {
                 return false;
@@ -383,7 +383,7 @@ public class ConnectedParser {
             }
 
             String[] astring = Config.tokenize(str, " ");
-            List list = new ArrayList<>();
+            List<BiomeGenBase> list = new ArrayList<>();
 
             for (String s : astring) {
                 BiomeGenBase biomegenbase = this.findBiome(s);
@@ -396,12 +396,12 @@ public class ConnectedParser {
             }
 
             if (flag) {
-                List<BiomeGenBase> list1 = new ArrayList(Arrays.asList(BiomeGenBase.getBiomeGenArray()));
+                List<BiomeGenBase> list1 = new ArrayList<>(Arrays.asList(BiomeGenBase.getBiomeGenArray()));
                 list1.removeAll(list);
                 list = list1;
             }
 
-            return (BiomeGenBase[]) list.toArray(new BiomeGenBase[0]);
+            return list.toArray(new BiomeGenBase[0]);
         }
     }
 
@@ -670,7 +670,7 @@ public class ConnectedParser {
             str = str.trim();
 
             try {
-                return (int) (Long.parseLong(str, 16) & -1L);
+                return (int) (Long.parseLong(str, 16));
             } catch (NumberFormatException exception) {
                 return defVal;
             }
@@ -692,7 +692,7 @@ public class ConnectedParser {
         return def;
     }
 
-    public <T> T parseObject(String str, T[] objs, INameGetter nameGetter, String property) {
+    public <T> T parseObject(String str, T[] objs, INameGetter<? super T> nameGetter, String property) {
         if (str != null) {
             String s = str.toLowerCase().trim();
 
@@ -709,7 +709,7 @@ public class ConnectedParser {
         return null;
     }
 
-    public <T> T[] parseObjects(String str, T[] objs, INameGetter nameGetter, String property, T[] errValue) {
+    public <T> T[] parseObjects(String str, T[] objs, INameGetter<? super T> nameGetter, String property, T[] errValue) {
         if (str == null) {
             return null;
         } else {
@@ -732,11 +732,11 @@ public class ConnectedParser {
         }
     }
 
-    public Enum parseEnum(String str, Enum[] enums, String property) {
+    public Enum<?> parseEnum(String str, Enum<?>[] enums, String property) {
         return this.parseObject(str, enums, NAME_GETTER_ENUM, property);
     }
 
-    public Enum[] parseEnums(String str, Enum[] enums, String property, Enum[] errValue) {
+    public Enum<?>[] parseEnums(String str, Enum<?>[] enums, String property, Enum<?>[] errValue) {
         return this.parseObjects(str, enums, NAME_GETTER_ENUM, property, errValue);
     }
 

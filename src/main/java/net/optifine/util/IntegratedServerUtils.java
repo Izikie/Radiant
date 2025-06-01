@@ -16,7 +16,7 @@ import java.util.UUID;
 public class IntegratedServerUtils {
     public static WorldServer getWorldServer() {
         Minecraft minecraft = Config.getMinecraft();
-        World world = minecraft.theWorld;
+        World world = minecraft.world;
 
         if (world == null) {
             return null;

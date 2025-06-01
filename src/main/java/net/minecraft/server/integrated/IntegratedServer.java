@@ -26,7 +26,6 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.FutureTask;
 
 public class IntegratedServer extends MinecraftServer {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -160,9 +159,9 @@ public class IntegratedServer extends MinecraftServer {
                 this.getConfigurationManager().setViewDistance(this.mc.gameSettings.renderDistanceChunks);
             }
 
-            if (this.mc.theWorld != null) {
+            if (this.mc.world != null) {
                 WorldInfo worldinfo1 = this.worldServers[0].getWorldInfo();
-                WorldInfo worldinfo = this.mc.theWorld.getWorldInfo();
+                WorldInfo worldinfo = this.mc.world.getWorldInfo();
 
                 if (!worldinfo1.isDifficultyLocked() && worldinfo.getDifficulty() != worldinfo1.getDifficulty()) {
                     LOGGER.info("Changing difficulty to {}, from {}", new Object[]{worldinfo.getDifficulty(), worldinfo1.getDifficulty()});
@@ -189,7 +188,7 @@ public class IntegratedServer extends MinecraftServer {
     }
 
     public Difficulty getDifficulty() {
-        return this.mc.theWorld == null ? this.mc.gameSettings.difficulty : this.mc.theWorld.getWorldInfo().getDifficulty();
+        return this.mc.world == null ? this.mc.gameSettings.difficulty : this.mc.world.getWorldInfo().getDifficulty();
     }
 
     public boolean isHardcore() {
@@ -250,8 +249,8 @@ public class IntegratedServer extends MinecraftServer {
     public void setDifficultyForAllWorlds(Difficulty difficulty) {
         super.setDifficultyForAllWorlds(difficulty);
 
-        if (this.mc.theWorld != null) {
-            this.mc.theWorld.getWorldInfo().setDifficulty(difficulty);
+        if (this.mc.world != null) {
+            this.mc.world.getWorldInfo().setDifficulty(difficulty);
         }
     }
 
