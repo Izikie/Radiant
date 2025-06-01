@@ -1,15 +1,14 @@
 package net.minecraft.network;
 
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.epoll.Epoll;
-import io.netty.channel.epoll.EpollEventLoopGroup;
+import io.netty.channel.epoll.EpollIoHandler;
 import io.netty.channel.epoll.EpollServerSocketChannel;
 import io.netty.channel.local.LocalAddress;
-import io.netty.channel.local.LocalEventLoopGroup;
+import io.netty.channel.local.LocalIoHandler;
 import io.netty.channel.local.LocalServerChannel;
-import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.nio.NioIoHandler;
 import io.netty.channel.socket.ServerSocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.timeout.ReadTimeoutHandler;
@@ -34,19 +33,14 @@ import java.util.List;
 
 public class NetworkSystem {
     private static final Logger LOGGER = LogManager.getLogger();
-    public static final LazyLoadBase<NioEventLoopGroup> EVENT_LOOPS = new LazyLoadBase<>() {
-        protected NioEventLoopGroup load() {
-            return new NioEventLoopGroup(0, (new ThreadFactoryBuilder()).setNameFormat("Netty Server IO #%d").setDaemon(true).build());
+    public static final LazyLoadBase<MultiThreadIoEventLoopGroup> EVENT_LOOPS = new LazyLoadBase<>() {
+        protected MultiThreadIoEventLoopGroup load() {
+            return new MultiThreadIoEventLoopGroup(0, Thread.ofVirtual().name("Netty Server IO #%d", 0).factory(), NioIoHandler.newFactory());
         }
     };
-    public static final LazyLoadBase<EpollEventLoopGroup> SERVER_EPOLL_EVENTLOOP = new LazyLoadBase<>() {
-        protected EpollEventLoopGroup load() {
-            return new EpollEventLoopGroup(0, (new ThreadFactoryBuilder()).setNameFormat("Netty Epoll Server IO #%d").setDaemon(true).build());
-        }
-    };
-    public static final LazyLoadBase<LocalEventLoopGroup> SERVER_LOCAL_EVENTLOOP = new LazyLoadBase<>() {
-        protected LocalEventLoopGroup load() {
-            return new LocalEventLoopGroup(0, (new ThreadFactoryBuilder()).setNameFormat("Netty Local Server IO #%d").setDaemon(true).build());
+    public static final LazyLoadBase<MultiThreadIoEventLoopGroup> SERVER_LOCAL_EVENTLOOP = new LazyLoadBase<>() {
+        protected MultiThreadIoEventLoopGroup load() {
+            return new MultiThreadIoEventLoopGroup(0, Thread.ofVirtual().name("Netty Local Server IO #%d", 0).factory(), LocalIoHandler.newFactory());
         }
     };
     private final MinecraftServer mcServer;
@@ -61,20 +55,9 @@ public class NetworkSystem {
 
     public void addLanEndpoint(InetAddress address, int port) throws IOException {
         synchronized (this.endpoints) {
-            Class<? extends ServerSocketChannel> oclass;
-            LazyLoadBase<? extends EventLoopGroup> lazyloadbase;
+            Class<? extends ServerSocketChannel> oclass = NioServerSocketChannel.class;
 
-            if (Epoll.isAvailable() && this.mcServer.shouldUseNativeTransport()) {
-                oclass = EpollServerSocketChannel.class;
-                lazyloadbase = SERVER_EPOLL_EVENTLOOP;
-                LOGGER.info("Using epoll channel type");
-            } else {
-                oclass = NioServerSocketChannel.class;
-                lazyloadbase = EVENT_LOOPS;
-                LOGGER.info("Using default channel type");
-            }
-
-            this.endpoints.add((new ServerBootstrap()).channel(oclass).childHandler(new ChannelInitializer<>() {
+	        this.endpoints.add((new ServerBootstrap()).channel(oclass).childHandler(new ChannelInitializer<>() {
                 protected void initChannel(Channel channel) {
                     try {
                         channel.config().setOption(ChannelOption.TCP_NODELAY, Boolean.TRUE);
@@ -87,7 +70,7 @@ public class NetworkSystem {
                     channel.pipeline().addLast("packet_handler", manager);
                     manager.setNetHandler(new NetHandlerHandshakeTCP(mcServer, manager));
                 }
-            }).group(lazyloadbase.getValue()).localAddress(address, port).bind().syncUninterruptibly());
+            }).group((EVENT_LOOPS).getValue()).localAddress(address, port).bind().syncUninterruptibly());
         }
     }
 

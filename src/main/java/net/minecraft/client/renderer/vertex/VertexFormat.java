@@ -45,7 +45,7 @@ public class VertexFormat {
         this.nextOffset = 0;
     }
 
-    @SuppressWarnings("incomplete-switch")
+    
     public VertexFormat addElement(VertexFormatElement element) {
         if (element.isPositionElement() && this.hasPosition()) {
             LOGGER.warn("VertexFormat error: Trying to add a position VertexFormatElement when one already exists, ignoring.");

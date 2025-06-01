@@ -382,7 +382,7 @@ public class PlayerSelector {
                 Collections.reverse(p_179658_0_);
             }
 
-            p_179658_0_ = ((List) p_179658_0_).subList(0, Math.min(Math.abs(i), p_179658_0_.size()));
+            p_179658_0_ = p_179658_0_.subList(0, Math.min(Math.abs(i), p_179658_0_.size()));
         }
 
         return p_179658_0_;

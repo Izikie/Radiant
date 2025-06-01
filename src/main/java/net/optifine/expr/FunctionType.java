@@ -111,138 +111,81 @@ public enum FunctionType {
     }
 
     public float evalFloat(IExpression[] args) {
-        switch (this) {
-            case PLUS:
-                return evalFloat(args, 0) + evalFloat(args, 1);
-
-            case MINUS:
-                return evalFloat(args, 0) - evalFloat(args, 1);
-
-            case MUL:
-                return evalFloat(args, 0) * evalFloat(args, 1);
-
-            case DIV:
-                return evalFloat(args, 0) / evalFloat(args, 1);
-
-            case MOD:
+        return switch (this) {
+            case PLUS -> evalFloat(args, 0) + evalFloat(args, 1);
+            case MINUS -> evalFloat(args, 0) - evalFloat(args, 1);
+            case MUL -> evalFloat(args, 0) * evalFloat(args, 1);
+            case DIV -> evalFloat(args, 0) / evalFloat(args, 1);
+            case MOD -> {
                 float f = evalFloat(args, 0);
                 float f1 = evalFloat(args, 1);
-                return f - f1 * ((int) (f / f1));
-
-            case NEG:
-                return -evalFloat(args, 0);
-
-            case PI:
-                return MathHelper.PI;
-
-            case SIN:
-                return MathHelper.sin(evalFloat(args, 0));
-
-            case COS:
-                return MathHelper.cos(evalFloat(args, 0));
-
-            case ASIN:
-                return MathUtils.asin(evalFloat(args, 0));
-
-            case ACOS:
-                return MathUtils.acos(evalFloat(args, 0));
-
-            case TAN:
-                return (float) Math.tan(evalFloat(args, 0));
-
-            case ATAN:
-                return (float) Math.atan(evalFloat(args, 0));
-
-            case ATAN2:
-                return (float) MathHelper.atan2(evalFloat(args, 0), evalFloat(args, 1));
-
-            case TORAD:
-                return MathUtils.toRad(evalFloat(args, 0));
-
-            case TODEG:
-                return MathUtils.toDeg(evalFloat(args, 0));
-
-            case MIN:
-                return this.getMin(args);
-
-            case MAX:
-                return this.getMax(args);
-
-            case CLAMP:
-                return MathHelper.clamp_float(evalFloat(args, 0), evalFloat(args, 1), evalFloat(args, 2));
-
-            case ABS:
-                return MathHelper.abs(evalFloat(args, 0));
-
-            case EXP:
-                return (float) Math.exp(evalFloat(args, 0));
-
-            case FLOOR:
-                return MathHelper.floor_float(evalFloat(args, 0));
-
-            case CEIL:
-                return MathHelper.ceiling_float_int(evalFloat(args, 0));
-
-            case FRAC:
-                return (float) MathHelper.func_181162_h(evalFloat(args, 0));
-
-            case LOG:
-                return (float) Math.log(evalFloat(args, 0));
-
-            case POW:
-                return (float) Math.pow(evalFloat(args, 0), evalFloat(args, 1));
-
-            case RANDOM:
-                return (float) Math.random();
-
-            case ROUND:
-                return Math.round(evalFloat(args, 0));
-
-            case SIGNUM:
-                return Math.signum(evalFloat(args, 0));
-
-            case SQRT:
-                return MathHelper.sqrt_float(evalFloat(args, 0));
-
-            case FMOD:
+                yield f - f1 * ((int) (f / f1));
+            }
+            case NEG -> -evalFloat(args, 0);
+            case PI -> MathHelper.PI;
+            case SIN -> MathHelper.sin(evalFloat(args, 0));
+            case COS -> MathHelper.cos(evalFloat(args, 0));
+            case ASIN -> MathUtils.asin(evalFloat(args, 0));
+            case ACOS -> MathUtils.acos(evalFloat(args, 0));
+            case TAN -> (float) Math.tan(evalFloat(args, 0));
+            case ATAN -> (float) Math.atan(evalFloat(args, 0));
+            case ATAN2 -> (float) MathHelper.atan2(evalFloat(args, 0), evalFloat(args, 1));
+            case TORAD -> MathUtils.toRad(evalFloat(args, 0));
+            case TODEG -> MathUtils.toDeg(evalFloat(args, 0));
+            case MIN -> this.getMin(args);
+            case MAX -> this.getMax(args);
+            case CLAMP -> MathHelper.clamp_float(evalFloat(args, 0), evalFloat(args, 1), evalFloat(args, 2));
+            case ABS -> MathHelper.abs(evalFloat(args, 0));
+            case EXP -> (float) Math.exp(evalFloat(args, 0));
+            case FLOOR -> MathHelper.floor_float(evalFloat(args, 0));
+            case CEIL -> MathHelper.ceiling_float_int(evalFloat(args, 0));
+            case FRAC -> (float) MathHelper.func_181162_h(evalFloat(args, 0));
+            case LOG -> (float) Math.log(evalFloat(args, 0));
+            case POW -> (float) Math.pow(evalFloat(args, 0), evalFloat(args, 1));
+            case RANDOM -> (float) Math.random();
+            case ROUND -> Math.round(evalFloat(args, 0));
+            case SIGNUM -> Math.signum(evalFloat(args, 0));
+            case SQRT -> MathHelper.sqrt_float(evalFloat(args, 0));
+            case FMOD -> {
                 float f2 = evalFloat(args, 0);
                 float f3 = evalFloat(args, 1);
-                return f2 - f3 * MathHelper.floor_float(f2 / f3);
-
-            case TIME:
+                yield f2 - f3 * MathHelper.floor_float(f2 / f3);
+            }
+            case TIME -> {
                 Minecraft minecraft = Minecraft.getMinecraft();
                 World world = minecraft.theWorld;
 
                 if (world == null) {
-                    return 0.0F;
+                    yield 0.0F;
                 }
 
-                return (world.getTotalWorldTime() % 24000L) + Config.renderPartialTicks;
-
-            case IF:
+                yield (world.getTotalWorldTime() % 24000L) + Config.renderPartialTicks;
+            }
+            case IF -> {
                 int i = (args.length - 1) / 2;
 
                 for (int k = 0; k < i; ++k) {
                     int l = k * 2;
 
                     if (evalBool(args, l)) {
-                        return evalFloat(args, l + 1);
+                        yield evalFloat(args, l + 1);
                     }
                 }
 
-                return evalFloat(args, i * 2);
-
-            case SMOOTH:
+                yield evalFloat(args, i * 2);
+            }
+            case SMOOTH -> {
                 int j = (int) evalFloat(args, 0);
                 float f4 = evalFloat(args, 1);
                 float f5 = args.length > 2 ? evalFloat(args, 2) : 1.0F;
                 float f6 = args.length > 3 ? evalFloat(args, 3) : f5;
-                return Smoother.getSmoothValue(j, f4, f5, f6);
-
-            default:
+                yield Smoother.getSmoothValue(j, f4, f5, f6);
+            }
+            default -> {
                 Log.error("Unknown function type: " + this);
-                return 0.0F;
-        }
+                yield 0.0F;
+            }
+        };
     }
 
     private float getMin(IExpression[] exprs) {

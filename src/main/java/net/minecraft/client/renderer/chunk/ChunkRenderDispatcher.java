@@ -79,7 +79,7 @@ public class ChunkRenderDispatcher {
 
         while (true) {
             boolean flag1 = false;
-            ListenableFutureTask listenablefuturetask;
+            ListenableFutureTask<?> listenablefuturetask;
 
             synchronized (this.queueChunkUploads) {
                 listenablefuturetask = this.queueChunkUploads.poll();

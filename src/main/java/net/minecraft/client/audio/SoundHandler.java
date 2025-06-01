@@ -77,7 +77,7 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
     }
 
     protected Map<String, SoundList> getSoundMap(InputStream stream) {
-        Map map;
+        Map<String, SoundList> map;
 
         try {
             map = GSON.fromJson(new InputStreamReader(stream), TYPE);

@@ -20,12 +20,15 @@ import java.awt.image.BufferedImage;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadPoolExecutor;
 
 public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final ThreadPoolExecutor field_148302_b = new ScheduledThreadPoolExecutor(5, (new ThreadFactoryBuilder()).setNameFormat("Server Pinger #%d").setDaemon(true).build());
+    //private static final ExecutorService field_148302_b = Executors.newVirtualThreadPerTaskExecutor();
     private static final ResourceLocation UNKNOWN_SERVER = new ResourceLocation("textures/misc/unknown_server.png");
     private static final ResourceLocation SERVER_SELECTION_BUTTONS = new ResourceLocation("textures/gui/server_selection.png");
     private final GuiMultiplayer owner;

@@ -4,7 +4,6 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import io.netty.util.internal.ThreadLocalRandom;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,6 +17,7 @@ import paulscode.sound.*;
 import paulscode.sound.codecs.CodecJOrbis;
 import paulscode.sound.libraries.LibraryLWJGLOpenAL;
 
+import java.util.concurrent.ThreadLocalRandom;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;

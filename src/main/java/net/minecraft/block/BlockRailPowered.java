@@ -17,7 +17,7 @@ public class BlockRailPowered extends BlockRailBase {
         this.setDefaultState(this.blockState.getBaseState().withProperty(SHAPE, EnumRailDirection.NORTH_SOUTH).withProperty(POWERED, Boolean.FALSE));
     }
 
-    @SuppressWarnings("incomplete-switch")
+    
     protected boolean func_176566_a(World worldIn, BlockPos pos, IBlockState state, boolean p_176566_4_, int p_176566_5_) {
         if (p_176566_5_ >= 8) {
             return false;

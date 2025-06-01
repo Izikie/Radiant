@@ -201,7 +201,7 @@ public class BlockTripWireHook extends Block {
         }
     }
 
-    @SuppressWarnings("incomplete-switch")
+    
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         float f = 0.1875F;
 

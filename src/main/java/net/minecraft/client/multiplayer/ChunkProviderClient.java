@@ -19,7 +19,7 @@ import java.util.List;
 public class ChunkProviderClient implements IChunkProvider {
     private static final Logger LOGGER = LogManager.getLogger();
     private final Chunk blankChunk;
-    private final Long2ObjectOpenHashMap<Chunk> chunkMapping = new Long2ObjectOpenHashMap<>();
+    private final Long2ObjectOpenHashMap<Chunk> chunkMapping = new Long2ObjectOpenHashMap<>(8192);
     private final List<Chunk> chunkListing = new ArrayList<>();
     private final World worldObj;
 

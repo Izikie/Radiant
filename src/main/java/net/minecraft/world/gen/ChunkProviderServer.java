@@ -209,7 +209,7 @@ public class ChunkProviderServer implements IChunkProvider {
         if (!this.worldObj.disableLevelSaving) {
             for (int i = 0; i < 100; ++i) {
                 if (!this.droppedChunksSet.isEmpty()) {
-                    Long olong = this.droppedChunksSet.iterator().next();
+                    long olong = this.droppedChunksSet.iterator().next();
                     Chunk chunk = this.id2ChunkMap.get(olong);
 
                     if (chunk != null) {

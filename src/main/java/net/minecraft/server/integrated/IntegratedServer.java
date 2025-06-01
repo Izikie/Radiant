@@ -149,7 +149,7 @@ public class IntegratedServer extends MinecraftServer {
         if (this.isGamePaused) {
             synchronized (this.futureTaskQueue) {
                 while (!this.futureTaskQueue.isEmpty()) {
-                    Util.runTask((FutureTask) this.futureTaskQueue.poll(), LOGGER);
+                    Util.runTask(futureTaskQueue.poll(), LOGGER);
                 }
             }
         } else {
@@ -224,10 +224,6 @@ public class IntegratedServer extends MinecraftServer {
     }
 
     public boolean isDedicatedServer() {
-        return false;
-    }
-
-    public boolean shouldUseNativeTransport() {
         return false;
     }
 

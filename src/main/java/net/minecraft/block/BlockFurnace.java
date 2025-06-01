@@ -62,7 +62,7 @@ public class BlockFurnace extends BlockContainer {
         }
     }
 
-    @SuppressWarnings("incomplete-switch")
+    
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (this.isBurning) {
             Direction enumfacing = state.getValue(FACING);

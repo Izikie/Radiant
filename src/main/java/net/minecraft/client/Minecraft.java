@@ -727,7 +727,7 @@ public class Minecraft implements IThreadListener {
 
         synchronized (this.scheduledTasks) {
             while (!this.scheduledTasks.isEmpty()) {
-                Util.runTask((FutureTask) this.scheduledTasks.poll(), LOGGER);
+                Util.runTask(scheduledTasks.poll(), LOGGER);
             }
         }
 
@@ -915,7 +915,7 @@ public class Minecraft implements IThreadListener {
         }
     }
 
-    @SuppressWarnings("incomplete-switch")
+    
     private void rightClickMouse() {
         if (!this.playerController.getIsHittingBlock()) {
             this.rightClickDelayTimer = 4;
