@@ -20,7 +20,11 @@ public abstract class PropertyHelper<T extends Comparable<T>> implements IProper
     }
 
     public String toString() {
-        return MoreObjects.toStringHelper(this).add("name", this.name).add("clazz", this.valueClass).add("values", this.getAllowedValues()).toString();
+        return MoreObjects.toStringHelper(this)
+                .add("name", this.name)
+                .add("clazz", this.valueClass)
+                .add("values", this.getAllowedValues())
+                .toString();
     }
 
     public boolean equals(Object p_equals_1_) {

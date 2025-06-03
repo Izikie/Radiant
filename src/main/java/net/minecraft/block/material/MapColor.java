@@ -51,28 +51,28 @@ public class MapColor {
         }
     }
 
-    public int getMapColor(int p_151643_1_) {
-        int i = 220;
+    public int getMapColor(int shade) {
+        int brightness = 220;
 
-        if (p_151643_1_ == 3) {
-            i = 135;
+        if (shade == 3) {
+            brightness = 135;
         }
 
-        if (p_151643_1_ == 2) {
-            i = 255;
+        if (shade == 2) {
+            brightness = 255;
         }
 
-        if (p_151643_1_ == 1) {
-            i = 220;
+        if (shade == 1) {
+            brightness = 220;
         }
 
-        if (p_151643_1_ == 0) {
-            i = 180;
+        if (shade == 0) {
+            brightness = 180;
         }
 
-        int j = (this.colorValue >> 16 & 255) * i / 255;
-        int k = (this.colorValue >> 8 & 255) * i / 255;
-        int l = (this.colorValue & 255) * i / 255;
-        return -16777216 | j << 16 | k << 8 | l;
+        int red = (this.colorValue >> 16 & 255) * brightness / 255;
+        int green = (this.colorValue >> 8 & 255) * brightness / 255;
+        int blue = (this.colorValue & 255) * brightness / 255;
+        return -16777216 | red << 16 | green << 8 | blue;
     }
 }

@@ -122,7 +122,6 @@ public class ConnectedTexturesCompact {
             case DOWN_LEFT -> getQuadCompact(sprite, dir, 0, 8, 8, 16, side, quad, renderEnv);
             case LEFT -> getQuadCompact(sprite, dir, 0, 0, 8, 16, side, quad, renderEnv);
             case UP_LEFT -> getQuadCompact(sprite, dir, 0, 0, 8, 8, side, quad, renderEnv);
-            default -> quad;
         };
     }
 

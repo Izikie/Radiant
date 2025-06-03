@@ -26,11 +26,11 @@ public class ItemMinecart extends Item {
             double d2 = source.getZ() + enumfacing.getFrontOffsetZ() * 1.125D;
             BlockPos blockpos = source.getBlockPos().offset(enumfacing);
             IBlockState iblockstate = world.getBlockState(blockpos);
-            BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = iblockstate.getBlock() instanceof BlockRailBase railBase ? iblockstate.getValue(railBase.getShapeProperty()) : BlockRailBase.EnumRailDirection.NORTH_SOUTH;
+            BlockRailBase.RailShape railShape = iblockstate.getBlock() instanceof BlockRailBase railBase ? iblockstate.getValue(railBase.getShapeProperty()) : BlockRailBase.RailShape.NORTH_SOUTH;
             double d3;
 
             if (BlockRailBase.isRailBlock(iblockstate)) {
-                if (blockrailbase$enumraildirection.isAscending()) {
+                if (railShape.isAscending()) {
                     d3 = 0.6D;
                 } else {
                     d3 = 0.1D;
@@ -41,9 +41,9 @@ public class ItemMinecart extends Item {
                 }
 
                 IBlockState iblockstate1 = world.getBlockState(blockpos.down());
-                BlockRailBase.EnumRailDirection blockrailbase$enumraildirection1 = iblockstate1.getBlock() instanceof BlockRailBase blockRailBase ? iblockstate1.getValue(blockRailBase.getShapeProperty()) : BlockRailBase.EnumRailDirection.NORTH_SOUTH;
+                BlockRailBase.RailShape railShape1 = iblockstate1.getBlock() instanceof BlockRailBase blockRailBase ? iblockstate1.getValue(blockRailBase.getShapeProperty()) : BlockRailBase.RailShape.NORTH_SOUTH;
 
-                if (enumfacing != Direction.DOWN && blockrailbase$enumraildirection1.isAscending()) {
+                if (enumfacing != Direction.DOWN && railShape1.isAscending()) {
                     d3 = -0.4D;
                 } else {
                     d3 = -0.9D;
@@ -79,10 +79,10 @@ public class ItemMinecart extends Item {
 
         if (BlockRailBase.isRailBlock(iblockstate)) {
             if (!worldIn.isRemote) {
-                BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = iblockstate.getBlock() instanceof BlockRailBase blockRailBase ? iblockstate.getValue(blockRailBase.getShapeProperty()) : BlockRailBase.EnumRailDirection.NORTH_SOUTH;
+                BlockRailBase.RailShape railShape = iblockstate.getBlock() instanceof BlockRailBase blockRailBase ? iblockstate.getValue(blockRailBase.getShapeProperty()) : BlockRailBase.RailShape.NORTH_SOUTH;
                 double d0 = 0.0D;
 
-                if (blockrailbase$enumraildirection.isAscending()) {
+                if (railShape.isAscending()) {
                     d0 = 0.5D;
                 }
 

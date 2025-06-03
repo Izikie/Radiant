@@ -324,9 +324,9 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         }
 
         double d0 = 0.0078125D;
-        BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = p_180460_2_.getValue(blockrailbase.getShapeProperty());
+        BlockRailBase.RailShape railShape = p_180460_2_.getValue(blockrailbase.getShapeProperty());
 
-        switch (blockrailbase$enumraildirection) {
+        switch (railShape) {
             case ASCENDING_EAST:
                 this.motionX -= 0.0078125D;
                 ++this.posY;
@@ -347,7 +347,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
                 ++this.posY;
         }
 
-        int[][] aint = MATRIX[blockrailbase$enumraildirection.getMetadata()];
+        int[][] aint = MATRIX[railShape.getMetadata()];
         double d1 = (aint[1][0] - aint[0][0]);
         double d2 = (aint[1][2] - aint[0][2]);
         double d3 = Math.sqrt(d1 * d1 + d2 * d2);
@@ -470,13 +470,13 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
                 double d16 = 0.06D;
                 this.motionX += this.motionX / d15 * d16;
                 this.motionZ += this.motionZ / d15 * d16;
-            } else if (blockrailbase$enumraildirection == BlockRailBase.EnumRailDirection.EAST_WEST) {
+            } else if (railShape == BlockRailBase.RailShape.EAST_WEST) {
                 if (this.worldObj.getBlockState(p_180460_1_.west()).getBlock().isNormalCube()) {
                     this.motionX = 0.02D;
                 } else if (this.worldObj.getBlockState(p_180460_1_.east()).getBlock().isNormalCube()) {
                     this.motionX = -0.02D;
                 }
-            } else if (blockrailbase$enumraildirection == BlockRailBase.EnumRailDirection.NORTH_SOUTH) {
+            } else if (railShape == BlockRailBase.RailShape.NORTH_SOUTH) {
                 if (this.worldObj.getBlockState(p_180460_1_.north()).getBlock().isNormalCube()) {
                     this.motionZ = 0.02D;
                 } else if (this.worldObj.getBlockState(p_180460_1_.south()).getBlock().isNormalCube()) {
@@ -519,14 +519,14 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         IBlockState iblockstate = this.worldObj.getBlockState(new BlockPos(i, j, k));
 
         if (BlockRailBase.isRailBlock(iblockstate)) {
-            BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = iblockstate.getValue(((BlockRailBase) iblockstate.getBlock()).getShapeProperty());
+            BlockRailBase.RailShape railShape = iblockstate.getValue(((BlockRailBase) iblockstate.getBlock()).getShapeProperty());
             p_70495_3_ = j;
 
-            if (blockrailbase$enumraildirection.isAscending()) {
+            if (railShape.isAscending()) {
                 p_70495_3_ = (j + 1);
             }
 
-            int[][] aint = MATRIX[blockrailbase$enumraildirection.getMetadata()];
+            int[][] aint = MATRIX[railShape.getMetadata()];
             double d0 = (aint[1][0] - aint[0][0]);
             double d1 = (aint[1][2] - aint[0][2]);
             double d2 = Math.sqrt(d0 * d0 + d1 * d1);
@@ -559,8 +559,8 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         IBlockState iblockstate = this.worldObj.getBlockState(new BlockPos(i, j, k));
 
         if (BlockRailBase.isRailBlock(iblockstate)) {
-            BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = iblockstate.getValue(((BlockRailBase) iblockstate.getBlock()).getShapeProperty());
-            int[][] aint = MATRIX[blockrailbase$enumraildirection.getMetadata()];
+            BlockRailBase.RailShape railShape = iblockstate.getValue(((BlockRailBase) iblockstate.getBlock()).getShapeProperty());
+            int[][] aint = MATRIX[railShape.getMetadata()];
             double d0;
             double d1 = i + 0.5D + aint[0][0] * 0.5D;
             double d2 = j + 0.0625D + aint[0][1] * 0.5D;

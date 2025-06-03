@@ -22,12 +22,12 @@ import java.util.List;
 import java.util.Random;
 
 public class BlockRailDetector extends BlockRailBase {
-    public static final PropertyEnum<EnumRailDirection> SHAPE = PropertyEnum.create("shape", EnumRailDirection.class, p_apply_1_ -> p_apply_1_ != EnumRailDirection.NORTH_EAST && p_apply_1_ != EnumRailDirection.NORTH_WEST && p_apply_1_ != EnumRailDirection.SOUTH_EAST && p_apply_1_ != EnumRailDirection.SOUTH_WEST);
+    public static final PropertyEnum<RailShape> SHAPE = PropertyEnum.create("shape", RailShape.class, p_apply_1_ -> p_apply_1_ != RailShape.NORTH_EAST && p_apply_1_ != RailShape.NORTH_WEST && p_apply_1_ != RailShape.SOUTH_EAST && p_apply_1_ != RailShape.SOUTH_WEST);
     public static final PropertyBool POWERED = PropertyBool.create("powered");
 
     public BlockRailDetector() {
         super(true);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(POWERED, Boolean.FALSE).withProperty(SHAPE, EnumRailDirection.NORTH_SOUTH));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(POWERED, Boolean.FALSE).withProperty(SHAPE, RailShape.NORTH_SOUTH));
         this.setTickRandomly(true);
     }
 
@@ -99,7 +99,7 @@ public class BlockRailDetector extends BlockRailBase {
         this.updatePoweredState(worldIn, pos, state);
     }
 
-    public IProperty<EnumRailDirection> getShapeProperty() {
+    public IProperty<RailShape> getShapeProperty() {
         return SHAPE;
     }
 
@@ -137,7 +137,7 @@ public class BlockRailDetector extends BlockRailBase {
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(SHAPE, EnumRailDirection.byMetadata(meta & 7)).withProperty(POWERED, (meta & 8) > 0);
+        return this.getDefaultState().withProperty(SHAPE, RailShape.byMetadata(meta & 7)).withProperty(POWERED, (meta & 8) > 0);
     }
 
     public int getMetaFromState(IBlockState state) {

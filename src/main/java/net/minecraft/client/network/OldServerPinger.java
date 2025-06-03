@@ -67,8 +67,8 @@ public class OldServerPinger {
                     }
 
                     if (response.getProtocolVersionInfo() != null) {
-                        server.gameVersion = response.getProtocolVersionInfo().getName();
-                        server.version = response.getProtocolVersionInfo().getProtocol();
+                        server.gameVersion = response.getProtocolVersionInfo().name();
+                        server.version = response.getProtocolVersionInfo().protocol();
                     } else {
                         server.gameVersion = "Old";
                         server.version = 0;

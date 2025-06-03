@@ -187,41 +187,44 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
     }
 
     protected void handleComponentHover(IChatComponent component, int x, int y) {
-        if (component != null && component.getChatStyle().getChatHoverEvent() != null) {
-            HoverEvent hoverevent = component.getChatStyle().getChatHoverEvent();
+        if (component == null || component.getChatStyle().getChatHoverEvent() == null)
+            return;
 
-            if (hoverevent.getAction() == HoverEvent.Action.SHOW_ITEM) {
-                ItemStack itemstack = null;
+        HoverEvent hoverEvent = component.getChatStyle().getChatHoverEvent();
+
+        switch (hoverEvent.getAction()) {
+            case SHOW_ITEM -> {
+                ItemStack stack = null;
 
                 try {
-                    NBTBase nbtbase = JsonToNBT.getTagFromJson(hoverevent.getValue().getUnformattedText());
+                    NBTBase nbt = JsonToNBT.getTagFromJson(hoverEvent.getValue().getUnformattedText());
 
-                    if (nbtbase instanceof NBTTagCompound nbtTagCompound) {
-                        itemstack = ItemStack.loadItemStackFromNBT(nbtTagCompound);
-                    }
+                    if (nbt instanceof NBTTagCompound tag)
+                        stack = ItemStack.loadItemStackFromNBT(tag);
                 } catch (NBTException exception) {
                 }
 
-                if (itemstack != null) {
-                    this.renderToolTip(itemstack, x, y);
+                if (stack != null) {
+                    this.renderToolTip(stack, x, y);
                 } else {
                     this.drawCreativeTabHoveringText(Formatting.RED + "Invalid Item!", x, y);
                 }
-            } else if (hoverevent.getAction() == HoverEvent.Action.SHOW_ENTITY) {
+            }
+            case SHOW_ENTITY -> {
                 if (this.mc.gameSettings.advancedItemTooltips) {
                     try {
-                        NBTBase nbtbase1 = JsonToNBT.getTagFromJson(hoverevent.getValue().getUnformattedText());
+                        NBTBase nbt = JsonToNBT.getTagFromJson(hoverEvent.getValue().getUnformattedText());
 
-                        if (nbtbase1 instanceof NBTTagCompound nbttagcompound) {
+                        if (nbt instanceof NBTTagCompound tag) {
                             List<String> list1 = new ArrayList<>();
-                            list1.add(nbttagcompound.getString("name"));
+                            list1.add(tag.getString("name"));
 
-                            if (nbttagcompound.hasKey("type", 8)) {
-                                String s = nbttagcompound.getString("type");
+                            if (tag.hasKey("type", 8)) {
+                                String s = tag.getString("type");
                                 list1.add("Type: " + s + " (" + EntityList.getIDFromString(s) + ")");
                             }
 
-                            list1.add(nbttagcompound.getString("id"));
+                            list1.add(tag.getString("id"));
                             this.drawHoveringText(list1, x, y);
                         } else {
                             this.drawCreativeTabHoveringText(Formatting.RED + "Invalid Entity!", x, y);
@@ -230,16 +233,16 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
                         this.drawCreativeTabHoveringText(Formatting.RED + "Invalid Entity!", x, y);
                     }
                 }
-            } else if (hoverevent.getAction() == HoverEvent.Action.SHOW_TEXT) {
-                this.drawHoveringText(NEWLINE_SPLITTER.splitToList(hoverevent.getValue().getFormattedText()), x, y);
-            } else if (hoverevent.getAction() == HoverEvent.Action.SHOW_ACHIEVEMENT) {
-                StatBase statbase = StatList.getOneShotStat(hoverevent.getValue().getUnformattedText());
+            }
+            case SHOW_TEXT -> this.drawHoveringText(NEWLINE_SPLITTER.splitToList(hoverEvent.getValue().getFormattedText()), x, y);
+            case SHOW_ACHIEVEMENT -> {
+                StatBase stat = StatList.getOneShotStat(hoverEvent.getValue().getUnformattedText());
 
-                if (statbase != null) {
-                    IChatComponent ichatcomponent = statbase.getStatName();
-                    IChatComponent ichatcomponent1 = new ChatComponentTranslation("stats.tooltip.type." + (statbase.isAchievement() ? "achievement" : "statistic"));
+                if (stat != null) {
+                    IChatComponent ichatcomponent = stat.getStatName();
+                    IChatComponent ichatcomponent1 = new ChatComponentTranslation("stats.tooltip.type." + (stat.isAchievement() ? "achievement" : "statistic"));
                     ichatcomponent1.getChatStyle().setItalic(Boolean.TRUE);
-                    String s1 = statbase instanceof Achievement achievement ? achievement.getDescription() : null;
+                    String s1 = stat instanceof Achievement achievement ? achievement.getDescription() : null;
                     List<String> list = List.of(ichatcomponent.getFormattedText(), ichatcomponent1.getFormattedText());
 
                     if (s1 != null) {
@@ -251,64 +254,64 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
                     this.drawCreativeTabHoveringText(Formatting.RED + "Invalid statistic/achievement!", x, y);
                 }
             }
-
-            GlStateManager.disableLighting();
+            case null, default -> {
+            }
         }
+
+        GlStateManager.disableLighting();
     }
 
     protected void setText(String newChatText, boolean shouldOverwrite) {
     }
 
     protected boolean handleComponentClick(IChatComponent component) {
-        if (component != null) {
-            ClickEvent clickevent = component.getChatStyle().getChatClickEvent();
+        if (component == null)
+            return false;
 
-            if (isShiftKeyDown()) {
-                if (component.getChatStyle().getInsertion() != null) {
-                    this.setText(component.getChatStyle().getInsertion(), false);
-                }
-            } else if (clickevent != null) {
-                if (clickevent.getAction() == ClickEvent.Action.OPEN_URL) {
+        ClickEvent clickEvent = component.getChatStyle().getChatClickEvent();
+
+        if (isShiftKeyDown()) {
+            if (component.getChatStyle().getInsertion() != null) {
+                this.setText(component.getChatStyle().getInsertion(), false);
+            }
+        } else if (clickEvent != null) {
+            switch (clickEvent.getAction()) {
+                case OPEN_URL -> {
                     if (!this.mc.gameSettings.chatLinks) {
                         return false;
                     }
 
                     try {
-                        URI uri = new URI(clickevent.getValue());
-                        String s = uri.getScheme();
+                        URI uri = new URI(clickEvent.getValue());
+                        String scheme = uri.getScheme();
 
-                        if (s == null) {
-                            throw new URISyntaxException(clickevent.getValue(), "Missing protocol");
+                        if (scheme == null) {
+                            throw new URISyntaxException(clickEvent.getValue(), "Missing protocol");
                         }
 
-                        if (!PROTOCOLS.contains(s.toLowerCase())) {
-                            throw new URISyntaxException(clickevent.getValue(), "Unsupported protocol: " + s.toLowerCase());
+                        if (!PROTOCOLS.contains(scheme.toLowerCase())) {
+                            throw new URISyntaxException(clickEvent.getValue(), "Unsupported protocol: " + scheme.toLowerCase());
                         }
 
                         if (this.mc.gameSettings.chatLinksPrompt) {
                             this.clickedLinkURI = uri;
-                            this.mc.displayGuiScreen(new GuiConfirmOpenLink(this, clickevent.getValue(), 31102009, false));
+                            this.mc.displayGuiScreen(new GuiConfirmOpenLink(this, clickEvent.getValue(), 31102009, false));
                         } else {
                             this.openWebLink(uri);
                         }
                     } catch (URISyntaxException exception) {
-                        LOGGER.error("Can't open url for {}", clickevent, exception);
+                        LOGGER.error("Can't open url for {}", clickEvent, exception);
                     }
-                } else if (clickevent.getAction() == ClickEvent.Action.OPEN_FILE) {
-                    URI uri1 = (new File(clickevent.getValue())).toURI();
-                    this.openWebLink(uri1);
-                } else if (clickevent.getAction() == ClickEvent.Action.SUGGEST_COMMAND) {
-                    this.setText(clickevent.getValue(), true);
-                } else if (clickevent.getAction() == ClickEvent.Action.RUN_COMMAND) {
-                    this.sendChatMessage(clickevent.getValue(), false);
-                } else {
-                    LOGGER.error("Don't know how to handle {}", clickevent);
                 }
-
-                return true;
+                case OPEN_FILE -> this.openWebLink(new File(clickEvent.getValue()).toURI());
+                case SUGGEST_COMMAND -> this.setText(clickEvent.getValue(), true);
+                case RUN_COMMAND -> this.sendChatMessage(clickEvent.getValue(), false);
+                case null, default -> LOGGER.error("Don't know how to handle {}", clickEvent);
             }
 
+            return true;
         }
+
         return false;
     }
 
@@ -326,11 +329,11 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         if (mouseButton == 0) {
-            for (GuiButton guibutton : new ArrayList<>(this.buttonList)) {
-                if (guibutton.mousePressed(this.mc, mouseX, mouseY)) {
-                    this.selectedButton = guibutton;
-                    guibutton.playPressSound(this.mc.getSoundHandler());
-                    this.actionPerformed(guibutton);
+            for (GuiButton button : new ArrayList<>(this.buttonList)) {
+                if (button.mousePressed(this.mc, mouseX, mouseY)) {
+                    this.selectedButton = button;
+                    button.playPressSound(this.mc.getSoundHandler());
+                    this.actionPerformed(button);
                 }
             }
         }
@@ -382,28 +385,29 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
     }
 
     public void handleMouseInput() throws IOException {
-        int i = Mouse.getEventX() * this.width / this.mc.displayWidth;
-        int j = this.height - Mouse.getEventY() * this.height / this.mc.displayHeight - 1;
-        int k = Mouse.getEventButton();
+        int x = Mouse.getEventX() * this.width / this.mc.displayWidth;
+        int y = this.height - Mouse.getEventY() * this.height / this.mc.displayHeight - 1;
+        int button = Mouse.getEventButton();
 
         if (Mouse.getEventButtonState()) {
-            this.eventButton = k;
+            this.eventButton = button;
             this.lastMouseEvent = Minecraft.getSystemTime();
-            this.mouseClicked(i, j, this.eventButton);
-        } else if (k != -1) {
+            this.mouseClicked(x, y, this.eventButton);
+        } else if (button != -1) {
             this.eventButton = -1;
-            this.mouseReleased(i, j, k);
+            this.mouseReleased(x, y, button);
         } else if (this.eventButton != -1 && this.lastMouseEvent > 0L) {
-            long l = Minecraft.getSystemTime() - this.lastMouseEvent;
-            this.mouseClickMove(i, j, this.eventButton, l);
+            long lastClick = Minecraft.getSystemTime() - this.lastMouseEvent;
+            this.mouseClickMove(x, y, this.eventButton, lastClick);
         }
     }
 
     public void handleKeyboardInput() throws IOException {
         final char character = Keyboard.getEventCharacter();
+        final int key = Keyboard.getEventKey();
 
-        if ((Keyboard.getEventKey() == 0 && character >= ' ') || Keyboard.getEventKeyState()) {
-            this.keyTyped(character, Keyboard.getEventKey());
+        if ((key == 0 && character >= ' ') || Keyboard.getEventKeyState()) {
+            this.keyTyped(character, key);
         }
 
         this.mc.dispatchKeypresses();
@@ -431,15 +435,14 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
         GlStateManager.disableLighting();
         GlStateManager.disableFog();
         Tessellator tessellator = Tessellator.getInstance();
-        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+        WorldRenderer renderer = tessellator.getWorldRenderer();
         this.mc.getTextureManager().bindTexture(OPTIONS_BACKGROUND);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        float f = 32.0F;
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        worldrenderer.pos(0.0D, this.height, 0.0D).tex(0.0D, this.height / 32.0F + tint).color(64, 64, 64, 255).endVertex();
-        worldrenderer.pos(this.width, this.height, 0.0D).tex(this.width / 32.0F, this.height / 32.0F + tint).color(64, 64, 64, 255).endVertex();
-        worldrenderer.pos(this.width, 0.0D, 0.0D).tex(this.width / 32.0F, tint).color(64, 64, 64, 255).endVertex();
-        worldrenderer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, tint).color(64, 64, 64, 255).endVertex();
+        renderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
+        renderer.pos(0.0D, this.height, 0.0D).tex(0.0D, this.height / 32.0F + tint).color(64, 64, 64, 255).endVertex();
+        renderer.pos(this.width, this.height, 0.0D).tex(this.width / 32.0F, this.height / 32.0F + tint).color(64, 64, 64, 255).endVertex();
+        renderer.pos(this.width, 0.0D, 0.0D).tex(this.width / 32.0F, tint).color(64, 64, 64, 255).endVertex();
+        renderer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, tint).color(64, 64, 64, 255).endVertex();
         tessellator.draw();
     }
 
