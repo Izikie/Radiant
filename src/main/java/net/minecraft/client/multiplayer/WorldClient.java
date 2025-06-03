@@ -182,7 +182,7 @@ public class WorldClient extends World {
     }
 
     public Entity getEntityByID(int id) {
-        return id == this.mc.thePlayer.getEntityId() ? this.mc.thePlayer : super.getEntityByID(id);
+        return id == this.mc.player.getEntityId() ? this.mc.player : super.getEntityByID(id);
     }
 
     public Entity removeEntityFromWorld(int entityID) {
@@ -218,7 +218,7 @@ public class WorldClient extends World {
     public void doVoidFogParticles(int posX, int posY, int posZ) {
         int i = 16;
         Random random = new Random();
-        ItemStack itemstack = this.mc.thePlayer.getHeldItem();
+        ItemStack itemstack = this.mc.player.getHeldItem();
         boolean flag = this.mc.playerController.getCurrentGameType() == WorldSettings.GameType.CREATIVE && itemstack != null && Block.getBlockFromItem(itemstack.getItem()) == Blocks.BARRIER;
         BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 
@@ -284,7 +284,7 @@ public class WorldClient extends World {
         CrashReportCategory category = super.addWorldInfoToCrashReport(report);
         category.addCrashSectionCallable("Forced Entities", () -> this.entityList.size() + " total; " + this.entityList);
         category.addCrashSectionCallable("Retry Entities", () -> this.entitySpawnQueue.size() + " total; " + this.entitySpawnQueue);
-        category.addCrashSectionCallable("Server Brand", () -> this.mc.thePlayer.getClientBrand());
+        category.addCrashSectionCallable("Server Brand", () -> this.mc.player.getClientBrand());
         category.addCrashSectionCallable("Server Type", () -> this.mc.getIntegratedServer() == null ? "Non-integrated multiplayer server" : "Integrated singleplayer server");
         return category;
     }

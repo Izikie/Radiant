@@ -15,7 +15,7 @@ public class BlockWallSign extends BlockSign {
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH));
     }
 
-    @SuppressWarnings("incomplete-switch")
+    
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         Direction enumfacing = worldIn.getBlockState(pos).getValue(FACING);
         float f = 0.28125F;

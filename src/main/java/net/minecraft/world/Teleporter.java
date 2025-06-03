@@ -328,7 +328,7 @@ public class Teleporter {
             long i = worldTime - 300L;
 
             while (iterator.hasNext()) {
-                Long olong = iterator.next();
+                long olong = iterator.next();
                 PortalPosition teleporter$portalposition = this.destinationCoordinateCache.get(olong);
 
                 if (teleporter$portalposition == null || teleporter$portalposition.lastUpdateTime < i) {

@@ -123,9 +123,9 @@ public class BlockPosM extends BlockPos {
     public static Iterable getAllInBoxMutable(BlockPos from, BlockPos to) {
         final BlockPos blockpos = new BlockPos(Math.min(from.getX(), to.getX()), Math.min(from.getY(), to.getY()), Math.min(from.getZ(), to.getZ()));
         final BlockPos blockpos1 = new BlockPos(Math.max(from.getX(), to.getX()), Math.max(from.getY(), to.getY()), Math.max(from.getZ(), to.getZ()));
-        return new Iterable() {
+        return new Iterable<>() {
             public Iterator iterator() {
-                return new AbstractIterator() {
+                return new AbstractIterator<>() {
                     private BlockPosM theBlockPosM = null;
 
                     private BlockPosM computeNext0() {
@@ -155,7 +155,7 @@ public class BlockPosM extends BlockPos {
                         }
                     }
 
-                    protected Object computeNext() {
+                    protected BlockPosM computeNext() {
                         return this.computeNext0();
                     }
                 };

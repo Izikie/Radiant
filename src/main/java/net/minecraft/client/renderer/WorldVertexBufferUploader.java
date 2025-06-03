@@ -10,7 +10,7 @@ import java.nio.ByteBuffer;
 import java.util.List;
 
 public class WorldVertexBufferUploader {
-    @SuppressWarnings("incomplete-switch")
+    
     public void draw(WorldRenderer p_181679_1_) {
         if (p_181679_1_.getVertexCount() > 0) {
             if (p_181679_1_.getDrawMode() == 7 && Config.isQuadsToTriangles()) {

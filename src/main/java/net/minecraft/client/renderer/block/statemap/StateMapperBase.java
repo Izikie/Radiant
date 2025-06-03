@@ -12,19 +12,19 @@ import java.util.Map.Entry;
 public abstract class StateMapperBase implements IStateMapper {
     protected final Map<IBlockState, ModelResourceLocation> mapStateModelLocations = new LinkedHashMap<>();
 
-    public String getPropertyString(Map<IProperty, Comparable> p_178131_1_) {
+    public String getPropertyString(Map<IProperty<?>, Comparable<?>> p_178131_1_) {
         StringBuilder stringbuilder = new StringBuilder();
 
-        for (Entry<IProperty, Comparable> entry : p_178131_1_.entrySet()) {
+        for (Entry<IProperty<?>, Comparable<?>> entry : p_178131_1_.entrySet()) {
             if (!stringbuilder.isEmpty()) {
                 stringbuilder.append(",");
             }
 
-            IProperty iproperty = entry.getKey();
-            Comparable comparable = entry.getValue();
+            IProperty<?> iproperty = entry.getKey();
+            Comparable<?> comparable = entry.getValue();
             stringbuilder.append(iproperty.getName());
             stringbuilder.append("=");
-            stringbuilder.append(iproperty.getName(comparable));
+            stringbuilder.append(((IProperty)iproperty).getName(comparable));
         }
 
         if (stringbuilder.isEmpty()) {

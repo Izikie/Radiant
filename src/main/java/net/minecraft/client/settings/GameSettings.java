@@ -870,14 +870,14 @@ public class GameSettings {
     }
 
     public void sendSettingsToServer() {
-        if (this.mc.thePlayer != null) {
+        if (this.mc.player != null) {
             int modelPart = 0;
 
             for (PlayerModelParts part : this.setModelParts) {
                 modelPart |= part.getPartMask();
             }
 
-            this.mc.thePlayer.sendQueue.addToSendQueue(
+            this.mc.player.sendQueue.addToSendQueue(
                     new C15PacketClientSettings(
                             this.language,
                             this.renderDistanceChunks,
@@ -2203,7 +2203,7 @@ public class GameSettings {
             Config.waterOpacityChanged = true;
         }
 
-        ClearWater.updateWaterOpacity(this, this.mc.theWorld);
+        ClearWater.updateWaterOpacity(this, this.mc.world);
     }
 
     public void setAllAnimations(boolean enabled) {

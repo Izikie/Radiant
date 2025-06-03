@@ -20,7 +20,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-@SuppressWarnings("incomplete-switch")
+
 public class StructureMineshaftPieces {
     private static final List<WeightedRandomChestContent> CHEST_CONTENT_WEIGHT_LIST = List.of(new WeightedRandomChestContent(Items.IRON_INGOT, 0, 1, 5, 10), new WeightedRandomChestContent(Items.GOLD_INGOT, 0, 1, 3, 5), new WeightedRandomChestContent(Items.REDSTONE, 0, 4, 9, 5), new WeightedRandomChestContent(Items.DYE, DyeColor.BLUE.getDyeDamage(), 4, 9, 5), new WeightedRandomChestContent(Items.DIAMOND, 0, 1, 2, 3), new WeightedRandomChestContent(Items.COAL, 0, 3, 8, 10), new WeightedRandomChestContent(Items.BREAD, 0, 1, 3, 15), new WeightedRandomChestContent(Items.IRON_PICKAXE, 0, 1, 1, 1), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.RAIL), 0, 4, 8, 1), new WeightedRandomChestContent(Items.MELON_SEEDS, 0, 2, 4, 10), new WeightedRandomChestContent(Items.PUMPKIN_SEEDS, 0, 2, 4, 10), new WeightedRandomChestContent(Items.SADDLE, 0, 1, 1, 3), new WeightedRandomChestContent(Items.IRON_HORSE_ARMOR, 0, 1, 1, 1));
 

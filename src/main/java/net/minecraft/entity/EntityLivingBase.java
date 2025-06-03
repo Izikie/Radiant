@@ -404,7 +404,7 @@ public abstract class EntityLivingBase extends Entity {
         Iterator<Integer> iterator = this.activePotionsMap.keySet().iterator();
 
         while (iterator.hasNext()) {
-            Integer integer = iterator.next();
+            int integer = iterator.next();
             PotionEffect potioneffect = this.activePotionsMap.get(integer);
 
             if (!potioneffect.onUpdate(this)) {
@@ -471,7 +471,7 @@ public abstract class EntityLivingBase extends Entity {
         Iterator<Integer> iterator = this.activePotionsMap.keySet().iterator();
 
         while (iterator.hasNext()) {
-            Integer integer = iterator.next();
+            int integer = iterator.next();
             PotionEffect potioneffect = this.activePotionsMap.get(integer);
 
             if (!this.worldObj.isRemote) {

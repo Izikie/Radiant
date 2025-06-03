@@ -53,7 +53,7 @@ public class BlockNewLog extends BlockLog {
         return iblockstate;
     }
 
-    @SuppressWarnings("incomplete-switch")
+    
     public int getMetaFromState(IBlockState state) {
         int i = 0;
         i = i | state.getValue(VARIANT).getMetadata() - 4;

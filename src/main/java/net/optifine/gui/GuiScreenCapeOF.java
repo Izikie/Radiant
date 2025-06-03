@@ -81,10 +81,10 @@ public class GuiScreenCapeOF extends GuiScreenOF {
             if (button.id == 220) {
                 this.showMessage(Lang.get("of.message.capeOF.reloadCape"), 15000L);
 
-                if (this.mc.thePlayer != null) {
+                if (this.mc.player != null) {
                     long i = 15000L;
                     long j = System.currentTimeMillis() + i;
-                    this.mc.thePlayer.setReloadCapeTimeMs(j);
+                    this.mc.player.setReloadCapeTimeMs(j);
                 }
             }
 

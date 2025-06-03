@@ -83,7 +83,7 @@ public class GuiOverlayDebug extends Gui {
     }
 
     private boolean isReducedDebug() {
-        return mc.thePlayer.hasReducedDebug() || mc.gameSettings.reducedDebugInfo;
+        return mc.player.hasReducedDebug() || mc.gameSettings.reducedDebugInfo;
     }
 
     @SuppressWarnings("incomplete-switch")
@@ -144,8 +144,8 @@ public class GuiOverlayDebug extends Gui {
                 mc.debug,
                 mc.renderGlobal.getDebugInfoRenders(),
                 mc.renderGlobal.getDebugInfoEntities(),
-                "P: " + mc.effectRenderer.getStatistics() + ". T: " + mc.theWorld.getDebugLoadedEntities() + textureAnimInfo,
-                mc.theWorld.getProviderName(),
+                "P: " + mc.effectRenderer.getStatistics() + ". T: " + mc.world.getDebugLoadedEntities() + textureAnimInfo,
+                mc.world.getProviderName(),
                 ""
         ));
 
@@ -167,14 +167,14 @@ public class GuiOverlayDebug extends Gui {
             debugInfo.add(String.format("Chunk: %d %d %d in %d %d %d", blockPos.getX() & 15, blockPos.getY() & 15, blockPos.getZ() & 15, blockPos.getX() >> 4, blockPos.getY() >> 4, blockPos.getZ() >> 4));
             debugInfo.add(String.format("Facing: %s (%s) (%.1f / %.1f)", direction.getName(), facing, MathHelper.wrapAngleTo180_float(entity.rotationYaw), MathHelper.wrapAngleTo180_float(entity.rotationPitch)));
 
-            if (mc.theWorld != null && mc.theWorld.isBlockLoaded(blockPos)) {
-                Chunk chunk = mc.theWorld.getChunkFromBlockCoords(blockPos);
-                debugInfo.add("Biome: " + chunk.getBiome(blockPos, mc.theWorld.getWorldChunkManager()).biomeName);
+            if (mc.world != null && mc.world.isBlockLoaded(blockPos)) {
+                Chunk chunk = mc.world.getChunkFromBlockCoords(blockPos);
+                debugInfo.add("Biome: " + chunk.getBiome(blockPos, mc.world.getWorldChunkManager()).biomeName);
                 debugInfo.add("Light: " + chunk.getLightSubtracted(blockPos, 0) + " (" + chunk.getLightFor(LightType.SKY, blockPos) + " sky, " + chunk.getLightFor(LightType.BLOCK, blockPos) + " block)");
-                DifficultyInstance localDifficulty = mc.theWorld.getDifficultyForLocation(blockPos);
+                DifficultyInstance localDifficulty = mc.world.getDifficultyForLocation(blockPos);
 
                 if (mc.isIntegratedServerRunning() && mc.getIntegratedServer() != null) {
-                    EntityPlayerMP entityPlayerMP = mc.getIntegratedServer().getConfigurationManager().getPlayerByUUID(mc.thePlayer.getUniqueID());
+                    EntityPlayerMP entityPlayerMP = mc.getIntegratedServer().getConfigurationManager().getPlayerByUUID(mc.player.getUniqueID());
 
                     if (entityPlayerMP != null) {
                         DifficultyInstance difficultyAsync = mc.getIntegratedServer().getDifficultyAsync(entityPlayerMP.worldObj, new BlockPos(entityPlayerMP));
@@ -185,7 +185,7 @@ public class GuiOverlayDebug extends Gui {
                     }
                 }
 
-                debugInfo.add(String.format("Local Difficulty: %.2f (Day %d)", localDifficulty.getAdditionalDifficulty(), mc.theWorld.getWorldTime() / 24000L));
+                debugInfo.add(String.format("Local Difficulty: %.2f (Day %d)", localDifficulty.getAdditionalDifficulty(), mc.world.getWorldTime() / 24000L));
             }
 
             if (mc.entityRenderer != null && mc.entityRenderer.isShaderActive()) {
@@ -221,16 +221,16 @@ public class GuiOverlayDebug extends Gui {
         if (!isReducedDebug()) {
             if (mc.objectMouseOver != null && mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && mc.objectMouseOver.getBlockPos() != null) {
                 BlockPos blockPos = mc.objectMouseOver.getBlockPos();
-                IBlockState blockState = mc.theWorld.getBlockState(blockPos);
+                IBlockState blockState = mc.world.getBlockState(blockPos);
 
-                if (mc.theWorld.getWorldType() != WorldType.DEBUG_WORLD) {
-                    blockState = blockState.getBlock().getActualState(blockState, mc.theWorld, blockPos);
+                if (mc.world.getWorldType() != WorldType.DEBUG_WORLD) {
+                    blockState = blockState.getBlock().getActualState(blockState, mc.world, blockPos);
                 }
 
                 list.add("");
                 list.add(String.valueOf(Block.blockRegistry.getNameForObject(blockState.getBlock())));
 
-                for (Entry<IProperty, Comparable> entry : blockState.getProperties().entrySet()) {
+                for (Entry<IProperty<?>, Comparable<?>> entry : blockState.getProperties().entrySet()) {
                     String value = entry.getValue().toString();
 
                     if (entry.getValue() == Boolean.TRUE) {

@@ -48,7 +48,7 @@ public class GuiPlayerTabOverlay extends Gui {
     }
 
     public void renderPlayerlist(int width, Scoreboard scoreboardIn, ScoreObjective scoreObjectiveIn) {
-        NetHandlerPlayClient nethandlerplayclient = this.mc.thePlayer.sendQueue;
+        NetHandlerPlayClient nethandlerplayclient = this.mc.player.sendQueue;
         List<NetworkPlayerInfo> list = field_175252_a.sortedCopy(nethandlerplayclient.getPlayerInfoMap());
         int i = 0;
         int j = 0;
@@ -139,7 +139,7 @@ public class GuiPlayerTabOverlay extends Gui {
                 GameProfile gameprofile = networkplayerinfo1.getGameProfile();
 
                 if (flag) {
-                    EntityPlayer entityplayer = this.mc.theWorld.getPlayerEntityByUUID(gameprofile.getId());
+                    EntityPlayer entityplayer = this.mc.world.getPlayerEntityByUUID(gameprofile.getId());
                     boolean flag1 = entityplayer != null && entityplayer.isWearing(PlayerModelParts.CAPE) && (gameprofile.getName().equals("Dinnerbone") || gameprofile.getName().equals("Grumm"));
                     this.mc.getTextureManager().bindTexture(networkplayerinfo1.getLocationSkin());
                     int l2 = 8 + (flag1 ? 8 : 0);

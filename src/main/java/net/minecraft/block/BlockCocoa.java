@@ -64,7 +64,7 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
         return super.getSelectedBoundingBox(worldIn, pos);
     }
 
-    @SuppressWarnings("incomplete-switch")
+    
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         IBlockState iblockstate = worldIn.getBlockState(pos);
         Direction enumfacing = iblockstate.getValue(FACING);

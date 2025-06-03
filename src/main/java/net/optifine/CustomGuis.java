@@ -35,14 +35,14 @@ public class CustomGuis {
                 if (PLAYER_CONTROLLER_OF == null) {
                     return loc;
                 } else {
-                    IBlockAccess iblockaccess = MINECRAFT.theWorld;
+                    IBlockAccess iblockaccess = MINECRAFT.world;
 
                     if (iblockaccess == null) {
                         return loc;
                     } else if (guiscreen instanceof GuiContainerCreative) {
-                        return getTexturePos(CustomGuiProperties.EnumContainer.CREATIVE, MINECRAFT.thePlayer.getPosition(), iblockaccess, loc, guiscreen);
+                        return getTexturePos(CustomGuiProperties.EnumContainer.CREATIVE, MINECRAFT.player.getPosition(), iblockaccess, loc, guiscreen);
                     } else if (guiscreen instanceof GuiInventory) {
-                        return getTexturePos(CustomGuiProperties.EnumContainer.INVENTORY, MINECRAFT.thePlayer.getPosition(), iblockaccess, loc, guiscreen);
+                        return getTexturePos(CustomGuiProperties.EnumContainer.INVENTORY, MINECRAFT.player.getPosition(), iblockaccess, loc, guiscreen);
                     } else {
                         BlockPos blockpos = PLAYER_CONTROLLER_OF.getLastClickBlockPos();
 

@@ -47,7 +47,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
-@SuppressWarnings("incomplete-switch")
+
 public abstract class EntityPlayer extends EntityLivingBase {
     public final InventoryPlayer inventory = new InventoryPlayer(this);
     private InventoryEnderChest theInventoryEnderChest = new InventoryEnderChest();

@@ -14,14 +14,15 @@ import java.util.Map.Entry;
 
 public abstract class BlockStateBase implements IBlockState {
     private static final Joiner COMMA_JOINER = Joiner.on(',');
-    private static final Function<Entry<IProperty, Comparable>, String> MAP_ENTRY_TO_STRING = p_apply_1_ -> {
+    private static final Function<Entry<IProperty<?>, Comparable<?>>, String> MAP_ENTRY_TO_STRING = p_apply_1_ -> {
         if (p_apply_1_ == null) {
             return "<NULL>";
         } else {
-            IProperty iproperty = p_apply_1_.getKey();
-            return iproperty.getName() + "=" + iproperty.getName(p_apply_1_.getValue());
+            IProperty<?> iproperty = p_apply_1_.getKey();
+            return iproperty.getName() + "=" + ((IProperty) iproperty).getName(p_apply_1_.getValue());
         }
     };
+
     private int blockId = -1;
     private int blockStateId = -1;
     private int metadata = -1;

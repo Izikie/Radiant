@@ -1,6 +1,6 @@
 package net.minecraft.entity.ai.attributes;
 
-import io.netty.util.internal.ThreadLocalRandom;
+import java.util.concurrent.ThreadLocalRandom;
 import net.minecraft.util.MathHelper;
 import org.apache.commons.lang3.Validate;
 

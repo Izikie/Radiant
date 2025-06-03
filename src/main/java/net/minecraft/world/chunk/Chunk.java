@@ -60,7 +60,7 @@ public class Chunk {
         this.chunkTileEntityMap = new HashMap<>();
         this.queuedLightChecks = 4096;
         this.tileEntityPosQueue = Queues.newConcurrentLinkedQueue();
-        this.entityLists = (ClassInheritanceMultiMap[]) (new ClassInheritanceMultiMap[16]);
+        this.entityLists = new ClassInheritanceMultiMap[16];
         this.worldObj = worldIn;
         this.xPosition = x;
         this.zPosition = z;

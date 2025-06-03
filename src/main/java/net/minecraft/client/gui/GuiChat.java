@@ -174,7 +174,7 @@ public class GuiChat extends GuiScreen {
                 blockpos = this.mc.objectMouseOver.getBlockPos();
             }
 
-            this.mc.thePlayer.sendQueue.addToSendQueue(new C14PacketTabComplete(p_146405_1_, blockpos));
+            this.mc.player.sendQueue.addToSendQueue(new C14PacketTabComplete(p_146405_1_, blockpos));
             this.waitingOnAutocomplete = true;
         }
     }

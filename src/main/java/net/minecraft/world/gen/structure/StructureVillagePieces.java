@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-@SuppressWarnings("incomplete-switch")
+
 public class StructureVillagePieces {
     public static void registerVillagePieces() {
         MapGenStructureIO.registerStructureComponent(House1.class, "ViBH");

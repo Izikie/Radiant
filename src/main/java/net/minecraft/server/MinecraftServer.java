@@ -473,7 +473,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
     public void updateTimeLightAndEntities() {
         synchronized (this.futureTaskQueue) {
             while (!this.futureTaskQueue.isEmpty()) {
-                Util.runTask((FutureTask) this.futureTaskQueue.poll(), LOGGER);
+                Util.runTask(futureTaskQueue.poll(), LOGGER);
             }
         }
 
@@ -743,8 +743,6 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
     public boolean getCanSpawnNPCs() {
         return this.canSpawnNPCs;
     }
-
-    public abstract boolean shouldUseNativeTransport();
 
     public void setCanSpawnNPCs(boolean spawnNpcs) {
         this.canSpawnNPCs = spawnNpcs;

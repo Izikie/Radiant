@@ -55,7 +55,7 @@ public class GuiMerchant extends GuiContainer {
 
     public void updateScreen() {
         super.updateScreen();
-        MerchantRecipeList merchantrecipelist = this.merchant.getRecipes(this.mc.thePlayer);
+        MerchantRecipeList merchantrecipelist = this.merchant.getRecipes(this.mc.player);
 
         if (merchantrecipelist != null) {
             this.nextButton.enabled = this.selectedMerchantRecipe < merchantrecipelist.size() - 1;
@@ -68,7 +68,7 @@ public class GuiMerchant extends GuiContainer {
 
         if (button == this.nextButton) {
             ++this.selectedMerchantRecipe;
-            MerchantRecipeList merchantrecipelist = this.merchant.getRecipes(this.mc.thePlayer);
+            MerchantRecipeList merchantrecipelist = this.merchant.getRecipes(this.mc.player);
 
             if (merchantrecipelist != null && this.selectedMerchantRecipe >= merchantrecipelist.size()) {
                 this.selectedMerchantRecipe = merchantrecipelist.size() - 1;
@@ -99,7 +99,7 @@ public class GuiMerchant extends GuiContainer {
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
-        MerchantRecipeList merchantrecipelist = this.merchant.getRecipes(this.mc.thePlayer);
+        MerchantRecipeList merchantrecipelist = this.merchant.getRecipes(this.mc.player);
 
         if (merchantrecipelist != null && !merchantrecipelist.isEmpty()) {
             int k = this.selectedMerchantRecipe;
@@ -122,7 +122,7 @@ public class GuiMerchant extends GuiContainer {
 
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
-        MerchantRecipeList merchantrecipelist = this.merchant.getRecipes(this.mc.thePlayer);
+        MerchantRecipeList merchantrecipelist = this.merchant.getRecipes(this.mc.player);
 
         if (merchantrecipelist != null && !merchantrecipelist.isEmpty()) {
             int i = (this.width - this.xSize) / 2;
