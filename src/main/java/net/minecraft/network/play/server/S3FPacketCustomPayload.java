@@ -13,21 +13,21 @@ public class S3FPacketCustomPayload implements Packet<INetHandlerPlayClient> {
     public S3FPacketCustomPayload() {
     }
 
-    public S3FPacketCustomPayload(String channelName, PacketBuffer dataIn) {
-        this.channel = channelName;
-        this.data = dataIn;
+    public S3FPacketCustomPayload(String channel, PacketBuffer data) {
+        this.channel = channel;
+        this.data = data;
 
-        if (dataIn.writerIndex() > 1048576) {
+        if (data.writerIndex() > 1048576) {
             throw new IllegalArgumentException("Payload may not be larger than 1048576 bytes");
         }
     }
 
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.channel = buf.readStringFromBuffer(20);
-        int i = buf.readableBytes();
+        int size = buf.readableBytes();
 
-        if (i >= 0 && i <= 1048576) {
-            this.data = new PacketBuffer(buf.readBytes(i));
+        if (size >= 0 && size <= 1048576) {
+            this.data = new PacketBuffer(buf.readBytes(size));
         } else {
             throw new IOException("Payload may not be larger than 1048576 bytes");
         }
@@ -42,11 +42,11 @@ public class S3FPacketCustomPayload implements Packet<INetHandlerPlayClient> {
         handler.handleCustomPayload(this);
     }
 
-    public String getChannelName() {
+    public String getChannel() {
         return this.channel;
     }
 
-    public PacketBuffer getBufferData() {
+    public PacketBuffer getData() {
         return this.data;
     }
 }

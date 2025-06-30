@@ -22,7 +22,7 @@ public interface INetHandlerPlayServer extends INetHandler {
 
     void processCloseWindow(C0DPacketCloseWindow packetIn);
 
-    void processVanilla250Packet(C17PacketCustomPayload packetIn);
+    void processCustomPayload(C17PacketCustomPayload packetIn);
 
     void processUseEntity(C02PacketUseEntity packetIn);
 

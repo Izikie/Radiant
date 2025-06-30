@@ -410,10 +410,10 @@ public class Minecraft implements IThreadListener {
 
 	private void setWindowIcon() {
 		try (
-				var x16 = mcDefaultResourcePack.getInputStream(new ResourceLocation("icons/icon_16x16.png"));
-				var x32 = mcDefaultResourcePack.getInputStream(new ResourceLocation("icons/icon_32x32.png"))
+				InputStream x16 = mcDefaultResourcePack.getInputStream(new ResourceLocation("icons/icon_16x16.png"));
+				InputStream x32 = mcDefaultResourcePack.getInputStream(new ResourceLocation("icons/icon_32x32.png"))
 		) {
-			var icons = new ByteBuffer[]{readImageToBuffer(x16), readImageToBuffer(x32)};
+			ByteBuffer[] icons = new ByteBuffer[]{readImageToBuffer(x16), readImageToBuffer(x32)};
 			if (x16 != null && x32 != null) Display.setIcon(icons);
 		} catch (IOException exception) {
 			LOGGER.error("Couldn't set icon", exception);

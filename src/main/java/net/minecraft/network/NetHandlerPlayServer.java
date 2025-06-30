@@ -377,9 +377,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
                 double d2 = this.playerEntity.posZ - (blockPos.getZ() + 0.5D);
                 double d3 = d0 * d0 + d1 * d1 + d2 * d2;
 
-                if (d3 > 36.0D) {
-                    return;
-                } else if (blockPos.getY() >= this.serverController.getBuildLimit()) {
+                if (d3 > 36.0D || blockPos.getY() >= this.serverController.getBuildLimit()) {
                     return;
                 } else {
                     if (packet.getStatus() == C07PacketPlayerDigging.Action.START_DESTROY_BLOCK) {
@@ -843,9 +841,8 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 
     public void processTabComplete(C14PacketTabComplete packet) {
         PacketThreadUtil.checkThreadAndEnqueue(packet, this, this.playerEntity.getServerForPlayer());
-        List<String> command = new ArrayList<>();
 
-        command.addAll(this.serverController.getTabCompletions(this.playerEntity, packet.getMessage(), packet.getTargetBlock()));
+        List<String> command = new ArrayList<>(this.serverController.getTabCompletions(this.playerEntity, packet.getMessage(), packet.getTargetBlock()));
 
         this.playerEntity.playerNetServerHandler.sendPacket(new S3APacketTabComplete(command.toArray(new String[0])));
     }
@@ -855,11 +852,11 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         this.playerEntity.handleClientSettings(packet);
     }
 
-    public void processVanilla250Packet(C17PacketCustomPayload packet) {
+    public void processCustomPayload(C17PacketCustomPayload packet) {
         PacketThreadUtil.checkThreadAndEnqueue(packet, this, this.playerEntity.getServerForPlayer());
 
-        if ("MC|BEdit".equals(packet.getChannelName())) {
-            PacketBuffer buffer = new PacketBuffer(Unpooled.wrappedBuffer(packet.getBufferData()));
+        if ("MC|BEdit".equals(packet.getChannel())) {
+            PacketBuffer buffer = new PacketBuffer(Unpooled.wrappedBuffer(packet.getData()));
 
             try {
                 ItemStack itemStack = buffer.readItemStackFromBuffer();
@@ -884,8 +881,8 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
             } finally {
                 buffer.release();
             }
-        } else if ("MC|BSign".equals(packet.getChannelName())) {
-            PacketBuffer buffer = new PacketBuffer(Unpooled.wrappedBuffer(packet.getBufferData()));
+        } else if ("MC|BSign".equals(packet.getChannel())) {
+            PacketBuffer buffer = new PacketBuffer(Unpooled.wrappedBuffer(packet.getData()));
 
             try {
                 ItemStack itemStack = buffer.readItemStackFromBuffer();
@@ -913,9 +910,9 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
             } finally {
                 buffer.release();
             }
-        } else if ("MC|TrSel".equals(packet.getChannelName())) {
+        } else if ("MC|TrSel".equals(packet.getChannel())) {
             try {
-                int i = packet.getBufferData().readInt();
+                int i = packet.getData().readInt();
                 Container container = this.playerEntity.openContainer;
 
                 if (container instanceof ContainerMerchant containerMerchant) {
@@ -924,32 +921,32 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
             } catch (Exception exception) {
                 LOGGER.error("Couldn't select trade", exception);
             }
-        } else if ("MC|AdvCdm".equals(packet.getChannelName())) {
+        } else if ("MC|AdvCdm".equals(packet.getChannel())) {
             if (!this.serverController.isCommandBlockEnabled()) {
                 this.playerEntity.addChatMessage(new ChatComponentTranslation("advMode.notEnabled"));
             } else if (this.playerEntity.canCommandSenderUseCommand(2, "") && this.playerEntity.capabilities.isCreativeMode) {
-                PacketBuffer packetBuffer = packet.getBufferData();
+                PacketBuffer buffer = packet.getData();
 
                 try {
-                    int j = packetBuffer.readByte();
+                    int j = buffer.readByte();
                     CommandBlockLogic commandblocklogic = null;
 
                     if (j == 0) {
-                        TileEntity tileentity = this.playerEntity.worldObj.getTileEntity(new BlockPos(packetBuffer.readInt(), packetBuffer.readInt(), packetBuffer.readInt()));
+                        TileEntity tileentity = this.playerEntity.worldObj.getTileEntity(new BlockPos(buffer.readInt(), buffer.readInt(), buffer.readInt()));
 
                         if (tileentity instanceof TileEntityCommandBlock tileEntityCommandBlock) {
                             commandblocklogic = tileEntityCommandBlock.getCommandBlockLogic();
                         }
                     } else if (j == 1) {
-                        Entity entity = this.playerEntity.worldObj.getEntityByID(packetBuffer.readInt());
+                        Entity entity = this.playerEntity.worldObj.getEntityByID(buffer.readInt());
 
                         if (entity instanceof EntityMinecartCommandBlock entityMinecartCommandBlock) {
                             commandblocklogic = entityMinecartCommandBlock.getCommandBlockLogic();
                         }
                     }
 
-                    String s1 = packetBuffer.readStringFromBuffer(packetBuffer.readableBytes());
-                    boolean flag = packetBuffer.readBoolean();
+                    String s1 = buffer.readStringFromBuffer(buffer.readableBytes());
+                    boolean flag = buffer.readBoolean();
 
                     if (commandblocklogic != null) {
                         commandblocklogic.setCommand(s1);
@@ -965,41 +962,39 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
                 } catch (Exception exception) {
                     LOGGER.error("Couldn't set command block", exception);
                 } finally {
-                    packetBuffer.release();
+                    buffer.release();
                 }
             } else {
                 this.playerEntity.addChatMessage(new ChatComponentTranslation("advMode.notAllowed"));
             }
-        } else if ("MC|Beacon".equals(packet.getChannelName())) {
-            if (this.playerEntity.openContainer instanceof ContainerBeacon) {
+        } else if ("MC|Beacon".equals(packet.getChannel())) {
+            if (this.playerEntity.openContainer instanceof ContainerBeacon container) {
                 try {
-                    PacketBuffer bufferData = packet.getBufferData();
-                    int k = bufferData.readInt();
-                    int l = bufferData.readInt();
-                    ContainerBeacon containerbeacon = (ContainerBeacon) this.playerEntity.openContainer;
-                    Slot slot = containerbeacon.getSlot(0);
+                    PacketBuffer buffer = packet.getData();
+                    int k = buffer.readInt();
+                    int l = buffer.readInt();
+                    Slot slot = container.getSlot(0);
 
                     if (slot.getHasStack()) {
                         slot.decrStackSize(1);
-                        IInventory iinventory = containerbeacon.func_180611_e();
-                        iinventory.setField(1, k);
-                        iinventory.setField(2, l);
-                        iinventory.markDirty();
+                        IInventory inventory = container.func_180611_e();
+                        inventory.setField(1, k);
+                        inventory.setField(2, l);
+                        inventory.markDirty();
                     }
                 } catch (Exception exception) {
                     LOGGER.error("Couldn't set beacon", exception);
                 }
             }
-        } else if ("MC|ItemName".equals(packet.getChannelName()) && this.playerEntity.openContainer instanceof ContainerRepair containerrepair) {
-
-            if (packet.getBufferData() != null && packet.getBufferData().readableBytes() >= 1) {
-                String allowedCharacters = ChatAllowedCharacters.filterAllowedCharacters(packet.getBufferData().readStringFromBuffer(32767));
+        } else if ("MC|ItemName".equals(packet.getChannel()) && this.playerEntity.openContainer instanceof ContainerRepair container) {
+            if (packet.getData() != null && packet.getData().readableBytes() >= 1) {
+                String allowedCharacters = ChatAllowedCharacters.filterAllowedCharacters(packet.getData().readStringFromBuffer(32767));
 
                 if (allowedCharacters.length() <= 30) {
-                    containerrepair.updateItemName(allowedCharacters);
+                    container.updateItemName(allowedCharacters);
                 }
             } else {
-                containerrepair.updateItemName("");
+                container.updateItemName("");
             }
         }
     }
