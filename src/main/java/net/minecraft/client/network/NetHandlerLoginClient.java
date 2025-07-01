@@ -39,10 +39,10 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
         this.previousGuiScreen = p_i45059_3_;
     }
 
-    public void handleEncryptionRequest(S01PacketEncryptionRequest packetIn) {
+    public void handleEncryptionRequest(S01PacketEncryptionRequest packet) {
         final SecretKey secretkey = CryptManager.createNewSharedKey();
-        String s = packetIn.getServerId();
-        PublicKey publickey = packetIn.getPublicKey();
+        String s = packet.getServerId();
+        PublicKey publickey = packet.getPublicKey();
         String s1 = (new BigInteger(CryptManager.getServerIdHash(s, publickey, secretkey))).toString(16);
 
         if (this.mc.getCurrentServerData() != null && this.mc.getCurrentServerData().isOnLAN()) {
@@ -66,15 +66,15 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
             }
         }
 
-        this.networkManager.sendPacket(new C01PacketEncryptionResponse(secretkey, publickey, packetIn.getVerifyToken()), p_operationComplete_1_ -> NetHandlerLoginClient.this.networkManager.enableEncryption(secretkey));
+        this.networkManager.sendPacket(new C01PacketEncryptionResponse(secretkey, publickey, packet.getVerifyToken()), p_operationComplete_1_ -> NetHandlerLoginClient.this.networkManager.enableEncryption(secretkey));
     }
 
     private MinecraftSessionService getSessionService() {
         return this.mc.getSessionService();
     }
 
-    public void handleLoginSuccess(S02PacketLoginSuccess packetIn) {
-        this.gameProfile = packetIn.getProfile();
+    public void handleLoginSuccess(S02PacketLoginSuccess packet) {
+        this.gameProfile = packet.getProfile();
         this.networkManager.setConnectionState(NetworkState.PLAY);
         this.networkManager.setNetHandler(new NetHandlerPlayClient(this.mc, this.previousGuiScreen, this.networkManager, this.gameProfile));
     }
@@ -83,13 +83,13 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
         this.mc.displayGuiScreen(new GuiDisconnected(this.previousGuiScreen, "connect.failed", reason));
     }
 
-    public void handleDisconnect(S00PacketDisconnect packetIn) {
-        this.networkManager.closeChannel(packetIn.getReason());
+    public void handleDisconnect(S00PacketDisconnect packet) {
+        this.networkManager.closeChannel(packet.getReason());
     }
 
-    public void handleEnableCompression(S03PacketEnableCompression packetIn) {
+    public void handleEnableCompression(S03PacketEnableCompression packet) {
         if (!this.networkManager.isLocalChannel()) {
-            this.networkManager.setCompressionThreshold(packetIn.getCompressionThreshold());
+            this.networkManager.setCompressionThreshold(packet.getCompressionThreshold());
         }
     }
 }

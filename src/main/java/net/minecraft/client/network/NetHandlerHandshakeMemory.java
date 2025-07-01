@@ -16,8 +16,8 @@ public class NetHandlerHandshakeMemory implements INetHandlerHandshakeServer {
         this.networkManager = networkManagerIn;
     }
 
-    public void processHandshake(C00Handshake packetIn) {
-        this.networkManager.setConnectionState(packetIn.getRequestedState());
+    public void processHandshake(C00Handshake packet) {
+        this.networkManager.setConnectionState(packet.getRequestedState());
         this.networkManager.setNetHandler(new NetHandlerLoginServer(this.mcServer, this.networkManager));
     }
 

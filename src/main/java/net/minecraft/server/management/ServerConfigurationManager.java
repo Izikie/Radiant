@@ -454,16 +454,16 @@ public abstract class ServerConfigurationManager {
         }
     }
 
-    public void sendPacketToAllPlayers(Packet<?> packetIn) {
+    public void sendPacketToAllPlayers(Packet<?> packet) {
         for (EntityPlayerMP entityPlayerMP : this.playerEntityList) {
-            entityPlayerMP.playerNetServerHandler.sendPacket(packetIn);
+            entityPlayerMP.playerNetServerHandler.sendPacket(packet);
         }
     }
 
-    public void sendPacketToAllPlayersInDimension(Packet<?> packetIn, int dimension) {
+    public void sendPacketToAllPlayersInDimension(Packet<?> packet, int dimension) {
         for (EntityPlayerMP entityplayermp : this.playerEntityList) {
             if (entityplayermp.dimension == dimension) {
-                entityplayermp.playerNetServerHandler.sendPacket(packetIn);
+                entityplayermp.playerNetServerHandler.sendPacket(packet);
             }
         }
     }
@@ -569,8 +569,8 @@ public abstract class ServerConfigurationManager {
         return null;
     }
 
-    public void sendToAllNear(double x, double y, double z, double radius, int dimension, Packet<?> packetIn) {
-        this.sendToAllNearExcept(null, x, y, z, radius, dimension, packetIn);
+    public void sendToAllNear(double x, double y, double z, double radius, int dimension, Packet<?> packet) {
+        this.sendToAllNearExcept(null, x, y, z, radius, dimension, packet);
     }
 
     public void sendToAllNearExcept(EntityPlayer p_148543_1_, double x, double y, double z, double radius, int dimension, Packet<?> p_148543_11_) {

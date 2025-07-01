@@ -178,8 +178,8 @@ public enum NetworkState {
         }
     }
 
-    public Integer getPacketId(PacketDirection direction, Packet<?> packetIn) {
-        return this.directionMaps.get(direction).inverse().get(packetIn.getClass());
+    public Integer getPacketId(PacketDirection direction, Packet<?> packet) {
+        return this.directionMaps.get(direction).inverse().get(packet.getClass());
     }
 
     public Packet<?> getPacket(PacketDirection direction, int packetId) throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {

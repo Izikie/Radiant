@@ -24,7 +24,7 @@ public class NetHandlerStatusServer implements INetHandlerStatusServer {
     public void onDisconnect(IChatComponent reason) {
     }
 
-    public void processServerQuery(C00PacketServerQuery packetIn) {
+    public void processServerQuery(C00PacketServerQuery packet) {
         if (this.handled) {
             this.networkManager.closeChannel(EXIT_MESSAGE);
         } else {
@@ -33,8 +33,8 @@ public class NetHandlerStatusServer implements INetHandlerStatusServer {
         }
     }
 
-    public void processPing(C01PacketPing packetIn) {
-        this.networkManager.sendPacket(new S01PacketPong(packetIn.getTime()));
+    public void processPing(C01PacketPing packet) {
+        this.networkManager.sendPacket(new S01PacketPong(packet.getTime()));
         this.networkManager.closeChannel(EXIT_MESSAGE);
     }
 }

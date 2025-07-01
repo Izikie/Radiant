@@ -4,5 +4,5 @@ import net.minecraft.network.INetHandler;
 import net.minecraft.network.handshake.client.C00Handshake;
 
 public interface INetHandlerHandshakeServer extends INetHandler {
-    void processHandshake(C00Handshake packetIn);
+    void processHandshake(C00Handshake packet);
 }

@@ -110,15 +110,15 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
         this.packetListener = handler;
     }
 
-    public void sendPacket(Packet<?> packetIn) {
+    public void sendPacket(Packet<?> packet) {
         if (this.isChannelOpen()) {
             this.flushOutboundQueue();
-            this.dispatchPacket(packetIn, null);
+            this.dispatchPacket(packet, null);
         } else {
             this.readWriteLock.writeLock().lock();
 
             try {
-                this.outboundPacketsQueue.add(new InboundHandlerTuplePacketListener(packetIn, (GenericFutureListener<? extends Future<? super Void>>) null));
+                this.outboundPacketsQueue.add(new InboundHandlerTuplePacketListener(packet, (GenericFutureListener<? extends Future<? super Void>>) null));
             } finally {
                 this.readWriteLock.writeLock().unlock();
             }
@@ -126,23 +126,23 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
     }
 
     @SafeVarargs
-    public final void sendPacket(Packet<?> packetIn, GenericFutureListener<? extends Future<? super Void>> listener, GenericFutureListener<? extends Future<? super Void>>... listeners) {
+    public final void sendPacket(Packet<?> packet, GenericFutureListener<? extends Future<? super Void>> listener, GenericFutureListener<? extends Future<? super Void>>... listeners) {
         if (this.isChannelOpen()) {
             this.flushOutboundQueue();
-            this.dispatchPacket(packetIn, ArrayUtils.insert(0, listeners, listener));
+            this.dispatchPacket(packet, ArrayUtils.insert(0, listeners, listener));
         } else {
             this.readWriteLock.writeLock().lock();
 
             try {
-                this.outboundPacketsQueue.add(new InboundHandlerTuplePacketListener(packetIn, ArrayUtils.insert(0, listeners, listener)));
+                this.outboundPacketsQueue.add(new InboundHandlerTuplePacketListener(packet, ArrayUtils.insert(0, listeners, listener)));
             } finally {
                 this.readWriteLock.writeLock().unlock();
             }
         }
     }
 
-    private void dispatchPacket(Packet<?> inPacket, GenericFutureListener<? extends Future<? super Void>>[] futureListeners) {
-        NetworkState packetState = NetworkState.getFromPacket(inPacket);
+    private void dispatchPacket(Packet<?> packet, GenericFutureListener<? extends Future<? super Void>>[] futureListeners) {
+        NetworkState packetState = NetworkState.getFromPacket(packet);
         NetworkState currentState = this.channel.attr(ATTR_KEY_CONNECTION_STATE).get();
 
         if (currentState != packetState) {
@@ -155,7 +155,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
                 this.setConnectionState(packetState);
             }
 
-            ChannelFuture future = this.channel.writeAndFlush(inPacket);
+            ChannelFuture future = this.channel.writeAndFlush(packet);
 
             if (futureListeners != null) {
                 future.addListeners(futureListeners);
@@ -168,7 +168,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
                     this.setConnectionState(packetState);
                 }
 
-                ChannelFuture future = this.channel.writeAndFlush(inPacket);
+                ChannelFuture future = this.channel.writeAndFlush(packet);
 
                 if (futureListeners != null) {
                     future.addListeners(futureListeners);

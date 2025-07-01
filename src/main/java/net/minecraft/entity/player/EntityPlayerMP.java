@@ -782,11 +782,11 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         return s;
     }
 
-    public void handleClientSettings(C15PacketClientSettings packetIn) {
-        this.translator = packetIn.getLang();
-        this.chatVisibility = packetIn.getChatVisibility();
-        this.chatColours = packetIn.isColorsEnabled();
-        this.getDataWatcher().updateObject(10, (byte) packetIn.getModelPartFlags());
+    public void handleClientSettings(C15PacketClientSettings packet) {
+        this.translator = packet.getLang();
+        this.chatVisibility = packet.getChatVisibility();
+        this.chatColours = packet.isColorsEnabled();
+        this.getDataWatcher().updateObject(10, (byte) packet.getModelPartFlags());
     }
 
     public ChatVisibility getChatVisibility() {
