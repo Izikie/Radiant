@@ -445,7 +445,7 @@ public abstract class EntityLiving extends EntityLivingBase {
             d2 = (entityIn.getEntityBoundingBox().minY + entityIn.getEntityBoundingBox().maxY) / 2.0D - (this.posY + this.getEyeHeight());
         }
 
-        double d3 = MathHelper.sqrt_double(d0 * d0 + d1 * d1);
+        double d3 = MathHelper.sqrt(d0 * d0 + d1 * d1);
         float f = (float) (MathHelper.atan2(d1, d0) * 180.0D / Math.PI) - 90.0F;
         float f1 = (float) (-(MathHelper.atan2(d2, d3) * 180.0D / Math.PI));
         this.rotationPitch = this.updateRotation(this.rotationPitch, f1, p_70625_3_);
@@ -453,7 +453,7 @@ public abstract class EntityLiving extends EntityLivingBase {
     }
 
     private float updateRotation(float p_70663_1_, float p_70663_2_, float p_70663_3_) {
-        float f = MathHelper.wrapAngleTo180_float(p_70663_2_ - p_70663_1_);
+        float f = MathHelper.wrapAngle(p_70663_2_ - p_70663_1_);
 
         if (f > p_70663_3_) {
             f = p_70663_3_;

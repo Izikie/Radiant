@@ -21,9 +21,9 @@ public class S2CPacketSpawnGlobalEntity implements Packet<INetHandlerPlayClient>
 
     public S2CPacketSpawnGlobalEntity(Entity entityIn) {
         this.entityId = entityIn.getEntityId();
-        this.x = MathHelper.floor_double(entityIn.posX * 32.0D);
-        this.y = MathHelper.floor_double(entityIn.posY * 32.0D);
-        this.z = MathHelper.floor_double(entityIn.posZ * 32.0D);
+        this.x = MathHelper.floor(entityIn.posX * 32.0D);
+        this.y = MathHelper.floor(entityIn.posY * 32.0D);
+        this.z = MathHelper.floor(entityIn.posZ * 32.0D);
 
         if (entityIn instanceof EntityLightningBolt) {
             this.type = 1;

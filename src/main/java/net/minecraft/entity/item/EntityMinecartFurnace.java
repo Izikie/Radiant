@@ -67,7 +67,7 @@ public class EntityMinecartFurnace extends EntityMinecart {
         double d0 = this.pushX * this.pushX + this.pushZ * this.pushZ;
 
         if (d0 > 1.0E-4D && this.motionX * this.motionX + this.motionZ * this.motionZ > 0.001D) {
-            d0 = MathHelper.sqrt_double(d0);
+            d0 = MathHelper.sqrt(d0);
             this.pushX /= d0;
             this.pushZ /= d0;
 
@@ -86,7 +86,7 @@ public class EntityMinecartFurnace extends EntityMinecart {
         double d0 = this.pushX * this.pushX + this.pushZ * this.pushZ;
 
         if (d0 > 1.0E-4D) {
-            d0 = MathHelper.sqrt_double(d0);
+            d0 = MathHelper.sqrt(d0);
             this.pushX /= d0;
             this.pushZ /= d0;
             double d1 = 1.0D;

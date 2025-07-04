@@ -48,7 +48,7 @@ public class EntityEnderEye extends Entity {
         double d1 = p_180465_1_.getZ();
         double d2 = d0 - this.posX;
         double d3 = d1 - this.posZ;
-        float f = MathHelper.sqrt_double(d2 * d2 + d3 * d3);
+        float f = MathHelper.sqrt(d2 * d2 + d3 * d3);
 
         if (f > 12.0F) {
             this.targetX = this.posX + d2 / f * 12.0D;
@@ -70,7 +70,7 @@ public class EntityEnderEye extends Entity {
         this.motionZ = z;
 
         if (this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F) {
-            float f = MathHelper.sqrt_double(x * x + z * z);
+            float f = MathHelper.sqrt(x * x + z * z);
             this.prevRotationYaw = this.rotationYaw = (float) (MathHelper.atan2(x, z) * 180.0D / Math.PI);
             this.prevRotationPitch = this.rotationPitch = (float) (MathHelper.atan2(y, f) * 180.0D / Math.PI);
         }
@@ -84,7 +84,7 @@ public class EntityEnderEye extends Entity {
         this.posX += this.motionX;
         this.posY += this.motionY;
         this.posZ += this.motionZ;
-        float f = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
+        float f = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
         this.rotationYaw = (float) (MathHelper.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
 
         for (this.rotationPitch = (float) (MathHelper.atan2(this.motionY, f) * 180.0D / Math.PI); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {

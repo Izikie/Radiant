@@ -8,53 +8,53 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EntityUtils {
-    private static final Map<Class<?>, Integer> mapIdByClass = new HashMap<>();
-    private static final Map<String, Integer> mapIdByName = new HashMap<>();
-    private static final Map<String, Class<?>> mapClassByName = new HashMap<>();
+	private static final Map<Class<?>, Integer> mapIdByClass = new HashMap<>();
+	private static final Map<String, Integer> mapIdByName = new HashMap<>();
+	private static final Map<String, Class<?>> mapClassByName = new HashMap<>();
 
-    public static int getEntityIdByClass(Entity entity) {
-        return entity == null ? -1 : getEntityIdByClass(entity.getClass());
-    }
+	static {
+		for (int i = 0; i < 1000; ++i) {
+			Class<?> oclass = EntityList.getClassFromID(i);
 
-    public static int getEntityIdByClass(Class<?> cls) {
-        Integer integer = mapIdByClass.get(cls);
-        return integer == null ? -1 : integer;
-    }
+			if (oclass != null) {
+				String s = EntityList.getStringFromID(i);
 
-    public static int getEntityIdByName(String name) {
-        Integer integer = mapIdByName.get(name);
-        return integer == null ? -1 : integer;
-    }
+				if (s != null) {
+					if (mapIdByClass.containsKey(oclass)) {
+						Log.error("Duplicate entity class: " + oclass + ", id1: " + mapIdByClass.get(oclass) + ", id2: " + i);
+					}
 
-    public static Class<?> getEntityClassByName(String name) {
-        return mapClassByName.get(name);
-    }
+					if (mapIdByName.containsKey(s)) {
+						Log.error("Duplicate entity name: " + s + ", id1: " + mapIdByName.get(s) + ", id2: " + i);
+					}
 
-    static {
-        for (int i = 0; i < 1000; ++i) {
-            Class<?> oclass = EntityList.getClassFromID(i);
+					if (mapClassByName.containsKey(s)) {
+						Log.error("Duplicate entity name: " + s + ", class1: " + mapClassByName.get(s) + ", class2: " + oclass);
+					}
 
-            if (oclass != null) {
-                String s = EntityList.getStringFromID(i);
+					mapIdByClass.put(oclass, i);
+					mapIdByName.put(s, i);
+					mapClassByName.put(s, oclass);
+				}
+			}
+		}
+	}
 
-                if (s != null) {
-                    if (mapIdByClass.containsKey(oclass)) {
-                        Log.error("Duplicate entity class: " + oclass + ", id1: " + mapIdByClass.get(oclass) + ", id2: " + i);
-                    }
+	public static int getEntityIdByClass(Entity entity) {
+		return entity == null ? -1 : getEntityIdByClass(entity.getClass());
+	}
 
-                    if (mapIdByName.containsKey(s)) {
-                        Log.error("Duplicate entity name: " + s + ", id1: " + mapIdByName.get(s) + ", id2: " + i);
-                    }
+	public static int getEntityIdByClass(Class<?> cls) {
+		Integer integer = mapIdByClass.get(cls);
+		return integer == null ? -1 : integer;
+	}
 
-                    if (mapClassByName.containsKey(s)) {
-                        Log.error("Duplicate entity name: " + s + ", class1: " + mapClassByName.get(s) + ", class2: " + oclass);
-                    }
+	public static int getEntityIdByName(String name) {
+		Integer integer = mapIdByName.get(name);
+		return integer == null ? -1 : integer;
+	}
 
-                    mapIdByClass.put(oclass, i);
-                    mapIdByName.put(s, i);
-                    mapClassByName.put(s, oclass);
-                }
-            }
-        }
-    }
+	public static Class<?> getEntityClassByName(String name) {
+		return mapClassByName.get(name);
+	}
 }

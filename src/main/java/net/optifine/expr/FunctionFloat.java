@@ -5,47 +5,47 @@ import net.optifine.shaders.uniform.Smoother;
 import java.util.Objects;
 
 public class FunctionFloat implements IExpressionFloat {
-    private final FunctionType type;
-    private final IExpression[] arguments;
-    private int smoothId = -1;
+	private final FunctionType type;
+	private final IExpression[] arguments;
+	private int smoothId = -1;
 
-    public FunctionFloat(FunctionType type, IExpression[] arguments) {
-        this.type = type;
-        this.arguments = arguments;
-    }
+	public FunctionFloat(FunctionType type, IExpression[] arguments) {
+		this.type = type;
+		this.arguments = arguments;
+	}
 
-    public float eval() {
-        IExpression[] aiexpression = this.arguments;
+	private static float evalFloat(IExpression[] exprs, int index) {
+		IExpressionFloat iexpressionfloat = (IExpressionFloat) exprs[index];
+		return iexpressionfloat.eval();
+	}
 
-        // TODO: check if requireNull is needed
-        if (Objects.requireNonNull(this.type) == FunctionType.SMOOTH) {
-            IExpression iexpression = aiexpression[0];
+	public float eval() {
+		IExpression[] aiexpression = this.arguments;
 
-            if (!(iexpression instanceof ConstantFloat)) {
-                float f = evalFloat(aiexpression, 0);
-                float f1 = aiexpression.length > 1 ? evalFloat(aiexpression, 1) : 1.0F;
-                float f2 = aiexpression.length > 2 ? evalFloat(aiexpression, 2) : f1;
+		// TODO: check if requireNull is needed
+		if (Objects.requireNonNull(this.type) == FunctionType.SMOOTH) {
+			IExpression iexpression = aiexpression[0];
 
-                if (this.smoothId < 0) {
-                    this.smoothId = Smoother.getNextId();
-                }
+			if (!(iexpression instanceof ConstantFloat)) {
+				float f = evalFloat(aiexpression, 0);
+				float f1 = aiexpression.length > 1 ? evalFloat(aiexpression, 1) : 1.0F;
+				float f2 = aiexpression.length > 2 ? evalFloat(aiexpression, 2) : f1;
 
-                return Smoother.getSmoothValue(this.smoothId, f, f1, f2);
-            }
-        }
-        return this.type.evalFloat(this.arguments);
-    }
+				if (this.smoothId < 0) {
+					this.smoothId = Smoother.getNextId();
+				}
 
-    private static float evalFloat(IExpression[] exprs, int index) {
-        IExpressionFloat iexpressionfloat = (IExpressionFloat) exprs[index];
-        return iexpressionfloat.eval();
-    }
+				return Smoother.getSmoothValue(this.smoothId, f, f1, f2);
+			}
+		}
+		return this.type.evalFloat(this.arguments);
+	}
 
-    public ExpressionType getExpressionType() {
-        return ExpressionType.FLOAT;
-    }
+	public ExpressionType getExpressionType() {
+		return ExpressionType.FLOAT;
+	}
 
-    public String toString() {
-        return this.type + "()";
-    }
+	public String toString() {
+		return this.type + "()";
+	}
 }

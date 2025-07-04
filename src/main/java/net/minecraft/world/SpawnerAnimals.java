@@ -45,8 +45,8 @@ public final class SpawnerAnimals {
 
                 for (EntityPlayer entityplayer1 : worldServerIn.playerEntities) {
                     if (!entityplayer1.isSpectator()) {
-                        int j = MathHelper.floor_double(entityplayer1.posX / 16.0D);
-                        int k = MathHelper.floor_double(entityplayer1.posZ / 16.0D);
+                        int j = MathHelper.floor(entityplayer1.posX / 16.0D);
+                        int k = MathHelper.floor(entityplayer1.posZ / 16.0D);
                         int l = 8;
 
                         for (int i1 = -l; i1 <= l; ++i1) {

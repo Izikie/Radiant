@@ -8,47 +8,47 @@ import net.minecraft.world.biome.BiomeGenBase;
 import java.util.UUID;
 
 public class RandomEntity implements IRandomEntity {
-    private Entity entity;
+	private Entity entity;
 
-    public int getId() {
-        UUID uuid = this.entity.getUniqueID();
-        long i = uuid.getLeastSignificantBits();
-        return (int) (i & 2147483647L);
-    }
+	public int getId() {
+		UUID uuid = this.entity.getUniqueID();
+		long i = uuid.getLeastSignificantBits();
+		return (int) (i & 2147483647L);
+	}
 
-    public BlockPos getSpawnPosition() {
-        return this.entity.getDataWatcher().spawnPosition;
-    }
+	public BlockPos getSpawnPosition() {
+		return this.entity.getDataWatcher().spawnPosition;
+	}
 
-    public BiomeGenBase getSpawnBiome() {
-        return this.entity.getDataWatcher().spawnBiome;
-    }
+	public BiomeGenBase getSpawnBiome() {
+		return this.entity.getDataWatcher().spawnBiome;
+	}
 
-    public String getName() {
-        return this.entity.hasCustomName() ? this.entity.getCustomNameTag() : null;
-    }
+	public String getName() {
+		return this.entity.hasCustomName() ? this.entity.getCustomNameTag() : null;
+	}
 
-    public int getHealth() {
-        if (!(this.entity instanceof EntityLiving entityliving)) {
-            return 0;
-        } else {
-            return (int) entityliving.getHealth();
-        }
-    }
+	public int getHealth() {
+		if (!(this.entity instanceof EntityLiving entityliving)) {
+			return 0;
+		} else {
+			return (int) entityliving.getHealth();
+		}
+	}
 
-    public int getMaxHealth() {
-        if (!(this.entity instanceof EntityLiving entityliving)) {
-            return 0;
-        } else {
-            return (int) entityliving.getMaxHealth();
-        }
-    }
+	public int getMaxHealth() {
+		if (!(this.entity instanceof EntityLiving entityliving)) {
+			return 0;
+		} else {
+			return (int) entityliving.getMaxHealth();
+		}
+	}
 
-    public Entity getEntity() {
-        return this.entity;
-    }
+	public Entity getEntity() {
+		return this.entity;
+	}
 
-    public void setEntity(Entity entity) {
-        this.entity = entity;
-    }
+	public void setEntity(Entity entity) {
+		this.entity = entity;
+	}
 }

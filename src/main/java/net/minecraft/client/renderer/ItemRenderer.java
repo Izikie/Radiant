@@ -105,7 +105,7 @@ public class ItemRenderer {
 
     private float getMapAngleFromPitch(float pitch) {
         float f = 1.0F - pitch / 45.0F + 0.1F;
-        f = MathHelper.clamp_float(f, 0.0F, 1.0F);
+        f = MathHelper.clamp(f, 0.0F, 1.0F);
         f = -MathHelper.cos(f * (float) Math.PI) * 0.5F + 0.5F;
         return f;
     }
@@ -144,8 +144,8 @@ public class ItemRenderer {
     }
 
     private void renderItemMap(AbstractClientPlayer clientPlayer, float pitch, float equipmentProgress, float swingProgress) {
-        float f = -0.4F * MathHelper.sin(MathHelper.sqrt_float(swingProgress) * (float) Math.PI);
-        float f1 = 0.2F * MathHelper.sin(MathHelper.sqrt_float(swingProgress) * (float) Math.PI * 2.0F);
+        float f = -0.4F * MathHelper.sin(MathHelper.sqrt(swingProgress) * (float) Math.PI);
+        float f1 = 0.2F * MathHelper.sin(MathHelper.sqrt(swingProgress) * (float) Math.PI * 2.0F);
         float f2 = -0.2F * MathHelper.sin(swingProgress * (float) Math.PI);
         GlStateManager.translate(f, f1, f2);
         float f3 = this.getMapAngleFromPitch(pitch);
@@ -157,7 +157,7 @@ public class ItemRenderer {
         GlStateManager.rotate(0.0F, 1.0F, 0.0F, 0.0F);
         this.renderPlayerArms(clientPlayer);
         float f4 = MathHelper.sin(swingProgress * swingProgress * (float) Math.PI);
-        float f5 = MathHelper.sin(MathHelper.sqrt_float(swingProgress) * (float) Math.PI);
+        float f5 = MathHelper.sin(MathHelper.sqrt(swingProgress) * (float) Math.PI);
         GlStateManager.rotate(f4 * -20.0F, 0.0F, 1.0F, 0.0F);
         GlStateManager.rotate(f5 * -20.0F, 0.0F, 0.0F, 1.0F);
         GlStateManager.rotate(f5 * -80.0F, 1.0F, 0.0F, 0.0F);
@@ -185,15 +185,15 @@ public class ItemRenderer {
     }
 
     private void renderPlayerArm(AbstractClientPlayer clientPlayer, float equipProgress, float swingProgress) {
-        float f = -0.3F * MathHelper.sin(MathHelper.sqrt_float(swingProgress) * (float) Math.PI);
-        float f1 = 0.4F * MathHelper.sin(MathHelper.sqrt_float(swingProgress) * (float) Math.PI * 2.0F);
+        float f = -0.3F * MathHelper.sin(MathHelper.sqrt(swingProgress) * (float) Math.PI);
+        float f1 = 0.4F * MathHelper.sin(MathHelper.sqrt(swingProgress) * (float) Math.PI * 2.0F);
         float f2 = -0.4F * MathHelper.sin(swingProgress * (float) Math.PI);
         GlStateManager.translate(f, f1, f2);
         GlStateManager.translate(0.64000005F, -0.6F, -0.71999997F);
         GlStateManager.translate(0.0F, equipProgress * -0.6F, 0.0F);
         GlStateManager.rotate(45.0F, 0.0F, 1.0F, 0.0F);
         float f3 = MathHelper.sin(swingProgress * swingProgress * (float) Math.PI);
-        float f4 = MathHelper.sin(MathHelper.sqrt_float(swingProgress) * (float) Math.PI);
+        float f4 = MathHelper.sin(MathHelper.sqrt(swingProgress) * (float) Math.PI);
         GlStateManager.rotate(f4 * 70.0F, 0.0F, 1.0F, 0.0F);
         GlStateManager.rotate(f3 * -20.0F, 0.0F, 0.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(clientPlayer.getLocationSkin());
@@ -211,8 +211,8 @@ public class ItemRenderer {
     }
 
     private void doItemUsedTransformations(float swingProgress) {
-        float f = -0.4F * MathHelper.sin(MathHelper.sqrt_float(swingProgress) * (float) Math.PI);
-        float f1 = 0.2F * MathHelper.sin(MathHelper.sqrt_float(swingProgress) * (float) Math.PI * 2.0F);
+        float f = -0.4F * MathHelper.sin(MathHelper.sqrt(swingProgress) * (float) Math.PI);
+        float f1 = 0.2F * MathHelper.sin(MathHelper.sqrt(swingProgress) * (float) Math.PI * 2.0F);
         float f2 = -0.2F * MathHelper.sin(swingProgress * (float) Math.PI);
         GlStateManager.translate(f, f1, f2);
     }
@@ -239,7 +239,7 @@ public class ItemRenderer {
         GlStateManager.translate(0.0F, equipProgress * -0.6F, 0.0F);
         GlStateManager.rotate(45.0F, 0.0F, 1.0F, 0.0F);
         float f = MathHelper.sin(swingProgress * swingProgress * (float) Math.PI);
-        float f1 = MathHelper.sin(MathHelper.sqrt_float(swingProgress) * (float) Math.PI);
+        float f1 = MathHelper.sin(MathHelper.sqrt(swingProgress) * (float) Math.PI);
         GlStateManager.rotate(f * -20.0F, 0.0F, 1.0F, 0.0F);
         GlStateManager.rotate(f1 * -20.0F, 0.0F, 0.0F, 1.0F);
         GlStateManager.rotate(f1 * -80.0F, 1.0F, 0.0F, 0.0F);
@@ -481,7 +481,7 @@ public class ItemRenderer {
 
         float f2 = 0.4F;
         float f = flag ? 0.0F : 1.0F;
-        float f1 = MathHelper.clamp_float(f - this.equippedProgress, -f2, f2);
+        float f1 = MathHelper.clamp(f - this.equippedProgress, -f2, f2);
         this.equippedProgress += f1;
 
         if (this.equippedProgress < 0.1F) {

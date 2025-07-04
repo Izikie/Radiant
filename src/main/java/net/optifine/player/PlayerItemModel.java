@@ -14,88 +14,88 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class PlayerItemModel {
-    private final Dimension textureSize;
-    private final boolean usePlayerTexture;
-    private final PlayerItemRenderer[] modelRenderers;
-    private ResourceLocation textureLocation = null;
-    private BufferedImage textureImage = null;
-    private DynamicTexture texture = null;
-    private final ResourceLocation locationMissing = new ResourceLocation("textures/blocks/wool_colored_red.png");
-    public static final int ATTACH_BODY = 0;
-    public static final int ATTACH_HEAD = 1;
-    public static final int ATTACH_LEFT_ARM = 2;
-    public static final int ATTACH_RIGHT_ARM = 3;
-    public static final int ATTACH_LEFT_LEG = 4;
-    public static final int ATTACH_RIGHT_LEG = 5;
-    public static final int ATTACH_CAPE = 6;
+	public static final int ATTACH_BODY = 0;
+	public static final int ATTACH_HEAD = 1;
+	public static final int ATTACH_LEFT_ARM = 2;
+	public static final int ATTACH_RIGHT_ARM = 3;
+	public static final int ATTACH_LEFT_LEG = 4;
+	public static final int ATTACH_RIGHT_LEG = 5;
+	public static final int ATTACH_CAPE = 6;
+	private final Dimension textureSize;
+	private final boolean usePlayerTexture;
+	private final PlayerItemRenderer[] modelRenderers;
+	private final ResourceLocation locationMissing = new ResourceLocation("textures/blocks/wool_colored_red.png");
+	private ResourceLocation textureLocation = null;
+	private BufferedImage textureImage = null;
+	private DynamicTexture texture = null;
 
-    public PlayerItemModel(Dimension textureSize, boolean usePlayerTexture, PlayerItemRenderer[] modelRenderers) {
-        this.textureSize = textureSize;
-        this.usePlayerTexture = usePlayerTexture;
-        this.modelRenderers = modelRenderers;
-    }
+	public PlayerItemModel(Dimension textureSize, boolean usePlayerTexture, PlayerItemRenderer[] modelRenderers) {
+		this.textureSize = textureSize;
+		this.usePlayerTexture = usePlayerTexture;
+		this.modelRenderers = modelRenderers;
+	}
 
-    public void render(ModelBiped modelBiped, AbstractClientPlayer player, float scale, float partialTicks) {
-        TextureManager texturemanager = Config.getTextureManager();
+	public static ModelRenderer getAttachModel(ModelBiped modelBiped, int attachTo) {
+		return switch (attachTo) {
+			case 0 -> modelBiped.bipedBody;
+			case 1 -> modelBiped.bipedHead;
+			case 2 -> modelBiped.bipedLeftArm;
+			case 3 -> modelBiped.bipedRightArm;
+			case 4 -> modelBiped.bipedLeftLeg;
+			case 5 -> modelBiped.bipedRightLeg;
+			default -> null;
+		};
+	}
 
-        if (this.usePlayerTexture) {
-            texturemanager.bindTexture(player.getLocationSkin());
-        } else if (this.textureLocation != null) {
-            if (this.texture == null && this.textureImage != null) {
-                this.texture = new DynamicTexture(this.textureImage);
-                Minecraft.getMinecraft().getTextureManager().loadTexture(this.textureLocation, this.texture);
-            }
+	public void render(ModelBiped modelBiped, AbstractClientPlayer player, float scale, float partialTicks) {
+		TextureManager texturemanager = Config.getTextureManager();
 
-            texturemanager.bindTexture(this.textureLocation);
-        } else {
-            texturemanager.bindTexture(this.locationMissing);
-        }
+		if (this.usePlayerTexture) {
+			texturemanager.bindTexture(player.getLocationSkin());
+		} else if (this.textureLocation != null) {
+			if (this.texture == null && this.textureImage != null) {
+				this.texture = new DynamicTexture(this.textureImage);
+				Minecraft.getMinecraft().getTextureManager().loadTexture(this.textureLocation, this.texture);
+			}
 
-        for (PlayerItemRenderer playeritemrenderer : this.modelRenderers) {
-            GlStateManager.pushMatrix();
+			texturemanager.bindTexture(this.textureLocation);
+		} else {
+			texturemanager.bindTexture(this.locationMissing);
+		}
 
-            if (player.isSneaking()) {
-                GlStateManager.translate(0.0F, 0.2F, 0.0F);
-            }
+		for (PlayerItemRenderer playeritemrenderer : this.modelRenderers) {
+			GlStateManager.pushMatrix();
 
-            playeritemrenderer.render(modelBiped, scale);
-            GlStateManager.popMatrix();
-        }
-    }
+			if (player.isSneaking()) {
+				GlStateManager.translate(0.0F, 0.2F, 0.0F);
+			}
 
-    public static ModelRenderer getAttachModel(ModelBiped modelBiped, int attachTo) {
-        return switch (attachTo) {
-            case 0 -> modelBiped.bipedBody;
-            case 1 -> modelBiped.bipedHead;
-            case 2 -> modelBiped.bipedLeftArm;
-            case 3 -> modelBiped.bipedRightArm;
-            case 4 -> modelBiped.bipedLeftLeg;
-            case 5 -> modelBiped.bipedRightLeg;
-            default -> null;
-        };
-    }
+			playeritemrenderer.render(modelBiped, scale);
+			GlStateManager.popMatrix();
+		}
+	}
 
-    public BufferedImage getTextureImage() {
-        return this.textureImage;
-    }
+	public BufferedImage getTextureImage() {
+		return this.textureImage;
+	}
 
-    public void setTextureImage(BufferedImage textureImage) {
-        this.textureImage = textureImage;
-    }
+	public void setTextureImage(BufferedImage textureImage) {
+		this.textureImage = textureImage;
+	}
 
-    public DynamicTexture getTexture() {
-        return this.texture;
-    }
+	public DynamicTexture getTexture() {
+		return this.texture;
+	}
 
-    public ResourceLocation getTextureLocation() {
-        return this.textureLocation;
-    }
+	public ResourceLocation getTextureLocation() {
+		return this.textureLocation;
+	}
 
-    public void setTextureLocation(ResourceLocation textureLocation) {
-        this.textureLocation = textureLocation;
-    }
+	public void setTextureLocation(ResourceLocation textureLocation) {
+		this.textureLocation = textureLocation;
+	}
 
-    public boolean isUsePlayerTexture() {
-        return this.usePlayerTexture;
-    }
+	public boolean isUsePlayerTexture() {
+		return this.usePlayerTexture;
+	}
 }

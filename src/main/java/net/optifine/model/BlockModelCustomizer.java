@@ -18,78 +18,78 @@ import net.optifine.render.RenderEnv;
 import java.util.List;
 
 public class BlockModelCustomizer {
-    private static final List<BakedQuad> NO_QUADS = ImmutableList.of();
+	private static final List<BakedQuad> NO_QUADS = ImmutableList.of();
 
-    public static IBakedModel getRenderModel(IBakedModel modelIn, IBlockState stateIn, RenderEnv renderEnv) {
-        if (renderEnv.isSmartLeaves()) {
-            modelIn = SmartLeaves.getLeavesModel(modelIn, stateIn);
-        }
+	public static IBakedModel getRenderModel(IBakedModel modelIn, IBlockState stateIn, RenderEnv renderEnv) {
+		if (renderEnv.isSmartLeaves()) {
+			modelIn = SmartLeaves.getLeavesModel(modelIn, stateIn);
+		}
 
-        return modelIn;
-    }
+		return modelIn;
+	}
 
-    public static List<BakedQuad> getRenderQuads(List<BakedQuad> quads, IBlockAccess worldIn, IBlockState stateIn, BlockPos posIn, Direction enumfacing, RenderLayer layer, long rand, RenderEnv renderEnv) {
-        if (enumfacing != null) {
-            if (renderEnv.isSmartLeaves() && SmartLeaves.isSameLeaves(worldIn.getBlockState(posIn.offset(enumfacing)), stateIn)) {
-                return NO_QUADS;
-            }
+	public static List<BakedQuad> getRenderQuads(List<BakedQuad> quads, IBlockAccess worldIn, IBlockState stateIn, BlockPos posIn, Direction enumfacing, RenderLayer layer, long rand, RenderEnv renderEnv) {
+		if (enumfacing != null) {
+			if (renderEnv.isSmartLeaves() && SmartLeaves.isSameLeaves(worldIn.getBlockState(posIn.offset(enumfacing)), stateIn)) {
+				return NO_QUADS;
+			}
 
-            if (!renderEnv.isBreakingAnimation(quads) && Config.isBetterGrass()) {
-                quads = BetterGrass.getFaceQuads(worldIn, stateIn, posIn, enumfacing, quads);
-            }
-        }
+			if (!renderEnv.isBreakingAnimation(quads) && Config.isBetterGrass()) {
+				quads = BetterGrass.getFaceQuads(worldIn, stateIn, posIn, enumfacing, quads);
+			}
+		}
 
-        List<BakedQuad> list = renderEnv.getListQuadsCustomizer();
-        list.clear();
+		List<BakedQuad> list = renderEnv.getListQuadsCustomizer();
+		list.clear();
 
-        for (int i = 0; i < quads.size(); ++i) {
-            BakedQuad bakedquad = quads.get(i);
-            BakedQuad[] abakedquad = getRenderQuads(bakedquad, worldIn, stateIn, posIn, enumfacing, rand, renderEnv);
+		for (int i = 0; i < quads.size(); ++i) {
+			BakedQuad bakedquad = quads.get(i);
+			BakedQuad[] abakedquad = getRenderQuads(bakedquad, worldIn, stateIn, posIn, enumfacing, rand, renderEnv);
 
-            if (i == 0 && quads.size() == 1 && abakedquad.length == 1 && abakedquad[0] == bakedquad && bakedquad.getQuadEmissive() == null) {
-                return quads;
-            }
+			if (i == 0 && quads.size() == 1 && abakedquad.length == 1 && abakedquad[0] == bakedquad && bakedquad.getQuadEmissive() == null) {
+				return quads;
+			}
 
-            for (BakedQuad bakedquad1 : abakedquad) {
-                list.add(bakedquad1);
+			for (BakedQuad bakedquad1 : abakedquad) {
+				list.add(bakedquad1);
 
-                if (bakedquad1.getQuadEmissive() != null) {
-                    renderEnv.getListQuadsOverlay(getEmissiveLayer(layer)).addQuad(bakedquad1.getQuadEmissive(), stateIn);
-                    renderEnv.setOverlaysRendered(true);
-                }
-            }
-        }
+				if (bakedquad1.getQuadEmissive() != null) {
+					renderEnv.getListQuadsOverlay(getEmissiveLayer(layer)).addQuad(bakedquad1.getQuadEmissive(), stateIn);
+					renderEnv.setOverlaysRendered(true);
+				}
+			}
+		}
 
-        return list;
-    }
+		return list;
+	}
 
-    private static RenderLayer getEmissiveLayer(RenderLayer layer) {
-        return layer != null && layer != RenderLayer.SOLID ? layer : RenderLayer.CUTOUT_MIPPED;
-    }
+	private static RenderLayer getEmissiveLayer(RenderLayer layer) {
+		return layer != null && layer != RenderLayer.SOLID ? layer : RenderLayer.CUTOUT_MIPPED;
+	}
 
-    private static BakedQuad[] getRenderQuads(BakedQuad quad, IBlockAccess worldIn, IBlockState stateIn, BlockPos posIn, Direction enumfacing, long rand, RenderEnv renderEnv) {
-        if (renderEnv.isBreakingAnimation(quad)) {
-            return renderEnv.getArrayQuadsCtm(quad);
-        } else {
-            BakedQuad bakedquad = quad;
+	private static BakedQuad[] getRenderQuads(BakedQuad quad, IBlockAccess worldIn, IBlockState stateIn, BlockPos posIn, Direction enumfacing, long rand, RenderEnv renderEnv) {
+		if (renderEnv.isBreakingAnimation(quad)) {
+			return renderEnv.getArrayQuadsCtm(quad);
+		} else {
+			BakedQuad bakedquad = quad;
 
-            if (Config.isConnectedTextures()) {
-                BakedQuad[] abakedquad = ConnectedTextures.getConnectedTexture(worldIn, stateIn, posIn, quad, renderEnv);
+			if (Config.isConnectedTextures()) {
+				BakedQuad[] abakedquad = ConnectedTextures.getConnectedTexture(worldIn, stateIn, posIn, quad, renderEnv);
 
-                if (abakedquad.length != 1 || abakedquad[0] != quad) {
-                    return abakedquad;
-                }
-            }
+				if (abakedquad.length != 1 || abakedquad[0] != quad) {
+					return abakedquad;
+				}
+			}
 
-            if (Config.isNaturalTextures()) {
-                quad = NaturalTextures.getNaturalTexture(posIn, quad);
+			if (Config.isNaturalTextures()) {
+				quad = NaturalTextures.getNaturalTexture(posIn, quad);
 
-                if (quad != bakedquad) {
-                    return renderEnv.getArrayQuadsCtm(quad);
-                }
-            }
+				if (quad != bakedquad) {
+					return renderEnv.getArrayQuadsCtm(quad);
+				}
+			}
 
-            return renderEnv.getArrayQuadsCtm(quad);
-        }
-    }
+			return renderEnv.getArrayQuadsCtm(quad);
+		}
+	}
 }

@@ -9,21 +9,21 @@ import net.optifine.Log;
 import net.optifine.reflect.Reflector;
 
 public class ModelAdapterMinecartTnt extends ModelAdapterMinecart {
-    public ModelAdapterMinecartTnt() {
-        super(EntityMinecartTNT.class, "tnt_minecart", 0.5F);
-    }
+	public ModelAdapterMinecartTnt() {
+		super(EntityMinecartTNT.class, "tnt_minecart", 0.5F);
+	}
 
-    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-        RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
-        RenderTntMinecart rendertntminecart = new RenderTntMinecart(rendermanager);
+	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+		RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
+		RenderTntMinecart rendertntminecart = new RenderTntMinecart(rendermanager);
 
-        if (Reflector.RenderMinecart_modelMinecart.exists()) {
-            Reflector.setFieldValue(rendertntminecart, Reflector.RenderMinecart_modelMinecart, modelBase);
-            rendertntminecart.shadowSize = shadowSize;
-            return rendertntminecart;
-        } else {
-            Log.error("Field not found: RenderMinecart.modelMinecart");
-            return null;
-        }
-    }
+		if (Reflector.RenderMinecart_modelMinecart.exists()) {
+			Reflector.setFieldValue(rendertntminecart, Reflector.RenderMinecart_modelMinecart, modelBase);
+			rendertntminecart.shadowSize = shadowSize;
+			return rendertntminecart;
+		} else {
+			Log.error("Field not found: RenderMinecart.modelMinecart");
+			return null;
+		}
+	}
 }

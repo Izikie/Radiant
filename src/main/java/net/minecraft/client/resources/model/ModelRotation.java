@@ -36,8 +36,8 @@ public enum ModelRotation {
 
     ModelRotation(int x, int y) {
         this.combinedXY = combineXY(x, y);
-        this.quartersX = MathHelper.abs_int(x / 90);
-        this.quartersY = MathHelper.abs_int(y / 90);
+        this.quartersX = MathHelper.abs(x / 90);
+        this.quartersY = MathHelper.abs(y / 90);
         this.matrix4d = new Matrix4f()
                 .identity()
                 .rotateY((float) Math.toRadians(-y))

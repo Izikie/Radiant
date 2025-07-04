@@ -202,7 +202,7 @@ public class GuiTextField extends Gui {
     public void setCursorPosition(int p_146190_1_) {
         this.cursorPosition = p_146190_1_;
         int i = this.text.length();
-        this.cursorPosition = MathHelper.clamp_int(this.cursorPosition, 0, i);
+        this.cursorPosition = MathHelper.clamp(this.cursorPosition, 0, i);
         this.setSelectionPos(this.cursorPosition);
     }
 
@@ -523,7 +523,7 @@ public class GuiTextField extends Gui {
                 this.lineScrollOffset -= this.lineScrollOffset - p_146199_1_;
             }
 
-            this.lineScrollOffset = MathHelper.clamp_int(this.lineScrollOffset, 0, i);
+            this.lineScrollOffset = MathHelper.clamp(this.lineScrollOffset, 0, i);
         }
     }
 

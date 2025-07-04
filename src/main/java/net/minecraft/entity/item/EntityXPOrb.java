@@ -43,7 +43,7 @@ public class EntityXPOrb extends Entity {
 
     public int getBrightnessForRender(float partialTicks) {
         float f = 0.5F;
-        f = MathHelper.clamp_float(f, 0.0F, 1.0F);
+        f = MathHelper.clamp(f, 0.0F, 1.0F);
         int i = super.getBrightnessForRender(partialTicks);
         int j = i & 255;
         int k = i >> 16 & 255;
@@ -109,7 +109,7 @@ public class EntityXPOrb extends Entity {
         float f = 0.98F;
 
         if (this.onGround) {
-            f = this.worldObj.getBlockState(new BlockPos(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.getEntityBoundingBox().minY) - 1, MathHelper.floor_double(this.posZ))).getBlock().slipperiness * 0.98F;
+            f = this.worldObj.getBlockState(new BlockPos(MathHelper.floor(this.posX), MathHelper.floor(this.getEntityBoundingBox().minY) - 1, MathHelper.floor(this.posZ))).getBlock().slipperiness * 0.98F;
         }
 
         this.motionX *= f;

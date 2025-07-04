@@ -299,7 +299,7 @@ public class EntityFirework {
                         double d3 = j + (this.rand.nextDouble() - this.rand.nextDouble()) * 0.5D;
                         double d4 = i + (this.rand.nextDouble() - this.rand.nextDouble()) * 0.5D;
                         double d5 = k + (this.rand.nextDouble() - this.rand.nextDouble()) * 0.5D;
-                        double d6 = MathHelper.sqrt_double(d3 * d3 + d4 * d4 + d5 * d5) / speed + this.rand.nextGaussian() * 0.05D;
+                        double d6 = MathHelper.sqrt(d3 * d3 + d4 * d4 + d5 * d5) / speed + this.rand.nextGaussian() * 0.05D;
                         this.createParticle(d0, d1, d2, d3 / d6, d4 / d6, d5 / d6, colours, fadeColours, trail, twinkleIn);
 
                         if (i != -size && i != size && j != -size && j != size) {

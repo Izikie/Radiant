@@ -39,14 +39,14 @@ public record ItemTransformVec3f(Vector3f rotation, Vector3f translation, Vector
 
             Vector3f translation = this.parseVector3f(jsonObject, "translation", TRANSLATION_DEFAULT)
                     .mul(0.0625F);
-            translation.x = MathHelper.clamp_float(translation.x, -1.5F, 1.5F);
-            translation.y = MathHelper.clamp_float(translation.y, -1.5F, 1.5F);
-            translation.z = MathHelper.clamp_float(translation.z, -1.5F, 1.5F);
+            translation.x = MathHelper.clamp(translation.x, -1.5F, 1.5F);
+            translation.y = MathHelper.clamp(translation.y, -1.5F, 1.5F);
+            translation.z = MathHelper.clamp(translation.z, -1.5F, 1.5F);
 
             Vector3f scale = this.parseVector3f(jsonObject, "scale", SCALE_DEFAULT);
-            scale.x = MathHelper.clamp_float(scale.x, -4.0F, 4.0F);
-            scale.y = MathHelper.clamp_float(scale.y, -4.0F, 4.0F);
-            scale.z = MathHelper.clamp_float(scale.z, -4.0F, 4.0F);
+            scale.x = MathHelper.clamp(scale.x, -4.0F, 4.0F);
+            scale.y = MathHelper.clamp(scale.y, -4.0F, 4.0F);
+            scale.z = MathHelper.clamp(scale.z, -4.0F, 4.0F);
 
             return new ItemTransformVec3f(rotation, translation, scale);
         }

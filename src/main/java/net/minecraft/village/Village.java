@@ -319,7 +319,7 @@ public class Village {
 
     public int setReputationForPlayer(String p_82688_1_, int p_82688_2_) {
         int i = this.getReputationForPlayer(p_82688_1_);
-        int j = MathHelper.clamp_int(i + p_82688_2_, -30, 10);
+        int j = MathHelper.clamp(i + p_82688_2_, -30, 10);
         this.playerReputation.put(p_82688_1_, j);
         return j;
     }

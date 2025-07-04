@@ -785,17 +785,11 @@ public class Minecraft implements IThreadListener {
 	}
 
 	public void freeMemory() {
-		try {
-			memoryReserve = new byte[0];
-			renderGlobal.deleteAllDisplayLists();
-		} catch (Throwable throwable) {
-		}
+		memoryReserve = new byte[0];
+		renderGlobal.deleteAllDisplayLists();
 
-		try {
-			System.gc();
-			loadWorld(null);
-		} catch (Throwable throwable) {
-		}
+		System.gc();
+		loadWorld(null);
 
 		System.gc();
 	}
@@ -1083,7 +1077,7 @@ public class Minecraft implements IThreadListener {
 							if (ingameGUI.getSpectatorGui().func_175262_a()) {
 								ingameGUI.getSpectatorGui().func_175259_b(-j);
 							} else {
-								float f = MathHelper.clamp_float(player.capabilities.getFlySpeed() + j * 0.005F, 0.0F, 0.2F);
+								float f = MathHelper.clamp(player.capabilities.getFlySpeed() + j * 0.005F, 0.0F, 0.2F);
 								player.capabilities.setFlySpeed(f);
 							}
 						} else {
@@ -1244,15 +1238,6 @@ public class Minecraft implements IThreadListener {
 				if (!gameSettings.keyBindUseItem.isKeyDown()) {
 					playerController.onStoppedUsingItem(player);
 				}
-
-				while (gameSettings.keyBindAttack.isPressed()) {
-				}
-
-				while (gameSettings.keyBindUseItem.isPressed()) {
-				}
-
-				while (gameSettings.keyBindPickBlock.isPressed()) {
-				}
 			} else {
 				while (gameSettings.keyBindAttack.isPressed()) {
 					clickMouse();
@@ -1329,7 +1314,7 @@ public class Minecraft implements IThreadListener {
 			}
 
 			if (!isGamePaused && world != null) {
-				world.doVoidFogParticles(MathHelper.floor_double(player.posX), MathHelper.floor_double(player.posY), MathHelper.floor_double(player.posZ));
+				world.doVoidFogParticles(MathHelper.floor(player.posX), MathHelper.floor(player.posY), MathHelper.floor(player.posZ));
 			}
 
 			if (!isGamePaused) {

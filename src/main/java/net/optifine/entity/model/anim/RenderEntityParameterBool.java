@@ -9,104 +9,104 @@ import net.optifine.expr.ExpressionType;
 import net.optifine.expr.IExpressionBool;
 
 public enum RenderEntityParameterBool implements IExpressionBool {
-    IS_ALIVE("is_alive"),
-    IS_BURNING("is_burning"),
-    IS_CHILD("is_child"),
-    IS_GLOWING("is_glowing"),
-    IS_HURT("is_hurt"),
-    IS_IN_LAVA("is_in_lava"),
-    IS_IN_WATER("is_in_water"),
-    IS_INVISIBLE("is_invisible"),
-    IS_ON_GROUND("is_on_ground"),
-    IS_RIDDEN("is_ridden"),
-    IS_RIDING("is_riding"),
-    IS_SNEAKING("is_sneaking"),
-    IS_SPRINTING("is_sprinting"),
-    IS_WET("is_wet");
+	IS_ALIVE("is_alive"),
+	IS_BURNING("is_burning"),
+	IS_CHILD("is_child"),
+	IS_GLOWING("is_glowing"),
+	IS_HURT("is_hurt"),
+	IS_IN_LAVA("is_in_lava"),
+	IS_IN_WATER("is_in_water"),
+	IS_INVISIBLE("is_invisible"),
+	IS_ON_GROUND("is_on_ground"),
+	IS_RIDDEN("is_ridden"),
+	IS_RIDING("is_riding"),
+	IS_SNEAKING("is_sneaking"),
+	IS_SPRINTING("is_sprinting"),
+	IS_WET("is_wet");
 
-    private final String name;
-    private final RenderManager renderManager;
-    private static final RenderEntityParameterBool[] VALUES = values();
+	private static final RenderEntityParameterBool[] VALUES = values();
+	private final String name;
+	private final RenderManager renderManager;
 
-    RenderEntityParameterBool(String name) {
-        this.name = name;
-        this.renderManager = Minecraft.getMinecraft().getRenderManager();
-    }
+	RenderEntityParameterBool(String name) {
+		this.name = name;
+		this.renderManager = Minecraft.getMinecraft().getRenderManager();
+	}
 
-    public String getName() {
-        return this.name;
-    }
+	public static RenderEntityParameterBool parse(String str) {
+		if (str != null) {
+			for (RenderEntityParameterBool renderentityparameterbool : VALUES) {
+				if (renderentityparameterbool.getName().equals(str)) {
+					return renderentityparameterbool;
+				}
+			}
 
-    public ExpressionType getExpressionType() {
-        return ExpressionType.BOOL;
-    }
+		}
+		return null;
+	}
 
-    public boolean eval() {
-        Render render = this.renderManager.renderRender;
+	public String getName() {
+		return this.name;
+	}
 
-        if (render != null) {
-            if (render instanceof RendererLivingEntity rendererlivingentity) {
-                EntityLivingBase entitylivingbase = rendererlivingentity.renderEntity;
+	public ExpressionType getExpressionType() {
+		return ExpressionType.BOOL;
+	}
 
-                if (entitylivingbase == null) {
-                    return false;
-                }
+	public boolean eval() {
+		Render render = this.renderManager.renderRender;
 
-                switch (this) {
-                    case IS_ALIVE:
-                        return entitylivingbase.isEntityAlive();
+		if (render != null) {
+			if (render instanceof RendererLivingEntity rendererlivingentity) {
+				EntityLivingBase entitylivingbase = rendererlivingentity.renderEntity;
 
-                    case IS_BURNING:
-                        return entitylivingbase.isBurning();
+				if (entitylivingbase == null) {
+					return false;
+				}
 
-                    case IS_CHILD:
-                        return entitylivingbase.isChild();
+				switch (this) {
+					case IS_ALIVE:
+						return entitylivingbase.isEntityAlive();
 
-                    case IS_HURT:
-                        return entitylivingbase.hurtTime > 0;
+					case IS_BURNING:
+						return entitylivingbase.isBurning();
 
-                    case IS_IN_LAVA:
-                        return entitylivingbase.isInLava();
+					case IS_CHILD:
+						return entitylivingbase.isChild();
 
-                    case IS_IN_WATER:
-                        return entitylivingbase.isInWater();
+					case IS_HURT:
+						return entitylivingbase.hurtTime > 0;
 
-                    case IS_INVISIBLE:
-                        return entitylivingbase.isInvisible();
+					case IS_IN_LAVA:
+						return entitylivingbase.isInLava();
 
-                    case IS_ON_GROUND:
-                        return entitylivingbase.onGround;
+					case IS_IN_WATER:
+						return entitylivingbase.isInWater();
 
-                    case IS_RIDDEN:
-                        return entitylivingbase.riddenByEntity != null;
+					case IS_INVISIBLE:
+						return entitylivingbase.isInvisible();
 
-                    case IS_RIDING:
-                        return entitylivingbase.isRiding();
+					case IS_ON_GROUND:
+						return entitylivingbase.onGround;
 
-                    case IS_SNEAKING:
-                        return entitylivingbase.isSneaking();
+					case IS_RIDDEN:
+						return entitylivingbase.riddenByEntity != null;
 
-                    case IS_SPRINTING:
-                        return entitylivingbase.isSprinting();
+					case IS_RIDING:
+						return entitylivingbase.isRiding();
 
-                    case IS_WET:
-                        return entitylivingbase.isWet();
-                }
-            }
+					case IS_SNEAKING:
+						return entitylivingbase.isSneaking();
 
-        }
-        return false;
-    }
+					case IS_SPRINTING:
+						return entitylivingbase.isSprinting();
 
-    public static RenderEntityParameterBool parse(String str) {
-        if (str != null) {
-            for (RenderEntityParameterBool renderentityparameterbool : VALUES) {
-                if (renderentityparameterbool.getName().equals(str)) {
-                    return renderentityparameterbool;
-                }
-            }
+					case IS_WET:
+						return entitylivingbase.isWet();
+				}
+			}
 
-        }
-        return null;
-    }
+		}
+		return false;
+	}
 }

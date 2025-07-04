@@ -131,7 +131,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
                         double d2 = texturecompass.angleDelta;
                         texturecompass.currentAngle = 0.0D;
                         texturecompass.angleDelta = 0.0D;
-                        texturecompass.updateCompass(itemFrame.worldObj, itemFrame.posX, itemFrame.posZ, MathHelper.wrapAngleTo180_float((180 + itemFrame.facingDirection.getHorizontalIndex() * 90)), false, true);
+                        texturecompass.updateCompass(itemFrame.worldObj, itemFrame.posX, itemFrame.posZ, MathHelper.wrapAngle((180 + itemFrame.facingDirection.getHorizontalIndex() * 90)), false, true);
                         texturecompass.currentAngle = d1;
                         texturecompass.angleDelta = d2;
                     } else {

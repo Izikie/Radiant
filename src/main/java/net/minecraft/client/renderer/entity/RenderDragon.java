@@ -35,7 +35,7 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
 
         if (bat.deathTime > 0) {
             float f2 = (bat.deathTime + partialTicks - 1.0F) / 20.0F * 1.6F;
-            f2 = MathHelper.sqrt_float(f2);
+            f2 = MathHelper.sqrt(f2);
 
             if (f2 > 1.0F) {
                 f2 = 1.0F;
@@ -89,8 +89,8 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
         float f2 = (float) (dragon.healingEnderCrystal.posX - dragon.posX - (dragon.prevPosX - dragon.posX) * (1.0F - p_180574_8_));
         float f3 = (float) (f1 + dragon.healingEnderCrystal.posY - 1.0D - dragon.posY - (dragon.prevPosY - dragon.posY) * (1.0F - p_180574_8_));
         float f4 = (float) (dragon.healingEnderCrystal.posZ - dragon.posZ - (dragon.prevPosZ - dragon.posZ) * (1.0F - p_180574_8_));
-        float f5 = MathHelper.sqrt_float(f2 * f2 + f4 * f4);
-        float f6 = MathHelper.sqrt_float(f2 * f2 + f3 * f3 + f4 * f4);
+        float f5 = MathHelper.sqrt(f2 * f2 + f4 * f4);
+        float f6 = MathHelper.sqrt(f2 * f2 + f3 * f3 + f4 * f4);
         GlStateManager.pushMatrix();
         GlStateManager.translate((float) p_180574_2_, (float) p_180574_4_ + 2.0F, (float) p_180574_6_);
         GlStateManager.rotate((float) (-Math.atan2(f4, f2)) * 180.0F / (float) Math.PI - 90.0F, 0.0F, 1.0F, 0.0F);
@@ -102,7 +102,7 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
         this.bindTexture(ENDER_DRAGON_CRYSTAL_BEAM_TEXTURES);
         GlStateManager.shadeModel(7425);
         float f7 = 0.0F - (dragon.ticksExisted + p_180574_8_) * 0.01F;
-        float f8 = MathHelper.sqrt_float(f2 * f2 + f3 * f3 + f4 * f4) / 32.0F - (dragon.ticksExisted + p_180574_8_) * 0.01F;
+        float f8 = MathHelper.sqrt(f2 * f2 + f3 * f3 + f4 * f4) / 32.0F - (dragon.ticksExisted + p_180574_8_) * 0.01F;
         worldrenderer.begin(5, DefaultVertexFormats.POSITION_TEX_COLOR);
         int i = 8;
 

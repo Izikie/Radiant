@@ -30,7 +30,7 @@ public class ItemBed extends Item {
                 pos = pos.up();
             }
 
-            int i = MathHelper.floor_double((playerIn.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+            int i = MathHelper.floor((playerIn.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
             Direction enumfacing = Direction.getHorizontal(i);
             BlockPos blockpos = pos.offset(enumfacing);
 

@@ -98,25 +98,25 @@ public class RenderPainting extends Render<EntityPainting> {
     }
 
     private void setLightmap(EntityPainting painting, float p_77008_2_, float p_77008_3_) {
-        int i = MathHelper.floor_double(painting.posX);
-        int j = MathHelper.floor_double(painting.posY + (p_77008_3_ / 16.0F));
-        int k = MathHelper.floor_double(painting.posZ);
+        int i = MathHelper.floor(painting.posX);
+        int j = MathHelper.floor(painting.posY + (p_77008_3_ / 16.0F));
+        int k = MathHelper.floor(painting.posZ);
         Direction enumfacing = painting.facingDirection;
 
         if (enumfacing == Direction.NORTH) {
-            i = MathHelper.floor_double(painting.posX + (p_77008_2_ / 16.0F));
+            i = MathHelper.floor(painting.posX + (p_77008_2_ / 16.0F));
         }
 
         if (enumfacing == Direction.WEST) {
-            k = MathHelper.floor_double(painting.posZ - (p_77008_2_ / 16.0F));
+            k = MathHelper.floor(painting.posZ - (p_77008_2_ / 16.0F));
         }
 
         if (enumfacing == Direction.SOUTH) {
-            i = MathHelper.floor_double(painting.posX - (p_77008_2_ / 16.0F));
+            i = MathHelper.floor(painting.posX - (p_77008_2_ / 16.0F));
         }
 
         if (enumfacing == Direction.EAST) {
-            k = MathHelper.floor_double(painting.posZ + (p_77008_2_ / 16.0F));
+            k = MathHelper.floor(painting.posZ + (p_77008_2_ / 16.0F));
         }
 
         int l = this.renderManager.worldObj.getCombinedLight(new BlockPos(i, j, k), 0);

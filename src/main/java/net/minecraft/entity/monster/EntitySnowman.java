@@ -39,9 +39,9 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
         super.onLivingUpdate();
 
         if (!this.worldObj.isRemote) {
-            int i = MathHelper.floor_double(this.posX);
-            int j = MathHelper.floor_double(this.posY);
-            int k = MathHelper.floor_double(this.posZ);
+            int i = MathHelper.floor(this.posX);
+            int j = MathHelper.floor(this.posY);
+            int k = MathHelper.floor(this.posZ);
 
             if (this.isWet()) {
                 this.attackEntityFrom(DamageSource.DROWN, 1.0F);
@@ -52,9 +52,9 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
             }
 
             for (int l = 0; l < 4; ++l) {
-                i = MathHelper.floor_double(this.posX + ((l % 2 * 2 - 1) * 0.25F));
-                j = MathHelper.floor_double(this.posY);
-                k = MathHelper.floor_double(this.posZ + ((l / 2 % 2 * 2 - 1) * 0.25F));
+                i = MathHelper.floor(this.posX + ((l % 2 * 2 - 1) * 0.25F));
+                j = MathHelper.floor(this.posY);
+                k = MathHelper.floor(this.posZ + ((l / 2 % 2 * 2 - 1) * 0.25F));
                 BlockPos blockpos = new BlockPos(i, j, k);
 
                 if (this.worldObj.getBlockState(blockpos).getBlock().getMaterial() == Material.AIR && this.worldObj.getBiomeGenForCoords(new BlockPos(i, 0, k)).getFloatTemperature(blockpos) < 0.8F && Blocks.SNOW_LAYER.canPlaceBlockAt(this.worldObj, blockpos)) {
@@ -82,7 +82,7 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
         double d1 = target.posX - this.posX;
         double d2 = d0 - entitysnowball.posY;
         double d3 = target.posZ - this.posZ;
-        float f = MathHelper.sqrt_double(d1 * d1 + d3 * d3) * 0.2F;
+        float f = MathHelper.sqrt(d1 * d1 + d3 * d3) * 0.2F;
         entitysnowball.setThrowableHeading(d1, d2 + f, d3, 1.6F, 12.0F);
         this.playSound("random.bow", 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
         this.worldObj.spawnEntityInWorld(entitysnowball);

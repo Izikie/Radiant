@@ -34,7 +34,7 @@ public class RandomPositionGenerator {
         boolean flag1;
 
         if (entitycreatureIn.hasHome()) {
-            double d0 = entitycreatureIn.getHomePosition().distanceSq(MathHelper.floor_double(entitycreatureIn.posX), MathHelper.floor_double(entitycreatureIn.posY), MathHelper.floor_double(entitycreatureIn.posZ)) + 4.0D;
+            double d0 = entitycreatureIn.getHomePosition().distanceSq(MathHelper.floor(entitycreatureIn.posX), MathHelper.floor(entitycreatureIn.posY), MathHelper.floor(entitycreatureIn.posZ)) + 4.0D;
             double d1 = (entitycreatureIn.getMaximumHomeDistance() + xz);
             flag1 = d0 < d1 * d1;
         } else {
@@ -63,9 +63,9 @@ public class RandomPositionGenerator {
                     }
                 }
 
-                l = l + MathHelper.floor_double(entitycreatureIn.posX);
-                k1 = k1 + MathHelper.floor_double(entitycreatureIn.posY);
-                i1 = i1 + MathHelper.floor_double(entitycreatureIn.posZ);
+                l = l + MathHelper.floor(entitycreatureIn.posX);
+                k1 = k1 + MathHelper.floor(entitycreatureIn.posY);
+                i1 = i1 + MathHelper.floor(entitycreatureIn.posZ);
                 BlockPos blockpos1 = new BlockPos(l, k1, i1);
 
                 if (!flag1 || entitycreatureIn.isWithinHomeDistanceFromPosition(blockpos1)) {

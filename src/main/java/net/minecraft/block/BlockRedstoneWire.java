@@ -314,9 +314,9 @@ public class BlockRedstoneWire extends Block {
             f3 = 0.0F;
         }
 
-        int i = MathHelper.clamp_int((int) (f1 * 255.0F), 0, 255);
-        int j = MathHelper.clamp_int((int) (f2 * 255.0F), 0, 255);
-        int k = MathHelper.clamp_int((int) (f3 * 255.0F), 0, 255);
+        int i = MathHelper.clamp((int) (f1 * 255.0F), 0, 255);
+        int j = MathHelper.clamp((int) (f2 * 255.0F), 0, 255);
+        int k = MathHelper.clamp((int) (f3 * 255.0F), 0, 255);
         return -16777216 | i << 16 | j << 8 | k;
     }
 

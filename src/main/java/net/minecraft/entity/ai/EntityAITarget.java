@@ -143,8 +143,8 @@ public abstract class EntityAITarget extends EntityAIBase {
             if (pathpoint == null) {
                 return false;
             } else {
-                int i = pathpoint.xCoord - MathHelper.floor_double(target.posX);
-                int j = pathpoint.zCoord - MathHelper.floor_double(target.posZ);
+                int i = pathpoint.xCoord - MathHelper.floor(target.posX);
+                int j = pathpoint.zCoord - MathHelper.floor(target.posZ);
                 return (i * i + j * j) <= 2.25D;
             }
         }

@@ -58,12 +58,12 @@ public class EntityTrackerEntry {
         this.trackingDistanceThreshold = trackingDistanceThresholdIn;
         this.updateFrequency = updateFrequencyIn;
         this.sendVelocityUpdates = sendVelocityUpdatesIn;
-        this.encodedPosX = MathHelper.floor_double(trackedEntityIn.posX * 32.0D);
-        this.encodedPosY = MathHelper.floor_double(trackedEntityIn.posY * 32.0D);
-        this.encodedPosZ = MathHelper.floor_double(trackedEntityIn.posZ * 32.0D);
-        this.encodedRotationYaw = MathHelper.floor_float(trackedEntityIn.rotationYaw * 256.0F / 360.0F);
-        this.encodedRotationPitch = MathHelper.floor_float(trackedEntityIn.rotationPitch * 256.0F / 360.0F);
-        this.lastHeadMotion = MathHelper.floor_float(trackedEntityIn.getRotationYawHead() * 256.0F / 360.0F);
+        this.encodedPosX = MathHelper.floor(trackedEntityIn.posX * 32.0D);
+        this.encodedPosY = MathHelper.floor(trackedEntityIn.posY * 32.0D);
+        this.encodedPosZ = MathHelper.floor(trackedEntityIn.posZ * 32.0D);
+        this.encodedRotationYaw = MathHelper.floor(trackedEntityIn.rotationYaw * 256.0F / 360.0F);
+        this.encodedRotationPitch = MathHelper.floor(trackedEntityIn.rotationPitch * 256.0F / 360.0F);
+        this.lastHeadMotion = MathHelper.floor(trackedEntityIn.getRotationYawHead() * 256.0F / 360.0F);
         this.onGround = trackedEntityIn.onGround;
     }
 
@@ -115,11 +115,11 @@ public class EntityTrackerEntry {
         if (this.updateCounter % this.updateFrequency == 0 || this.trackedEntity.isAirBorne || this.trackedEntity.getDataWatcher().hasObjectChanged()) {
             if (this.trackedEntity.ridingEntity == null) {
                 ++this.ticksSinceLastForcedTeleport;
-                int k = MathHelper.floor_double(this.trackedEntity.posX * 32.0D);
-                int j1 = MathHelper.floor_double(this.trackedEntity.posY * 32.0D);
-                int k1 = MathHelper.floor_double(this.trackedEntity.posZ * 32.0D);
-                int l1 = MathHelper.floor_float(this.trackedEntity.rotationYaw * 256.0F / 360.0F);
-                int i2 = MathHelper.floor_float(this.trackedEntity.rotationPitch * 256.0F / 360.0F);
+                int k = MathHelper.floor(this.trackedEntity.posX * 32.0D);
+                int j1 = MathHelper.floor(this.trackedEntity.posY * 32.0D);
+                int k1 = MathHelper.floor(this.trackedEntity.posZ * 32.0D);
+                int l1 = MathHelper.floor(this.trackedEntity.rotationYaw * 256.0F / 360.0F);
+                int i2 = MathHelper.floor(this.trackedEntity.rotationPitch * 256.0F / 360.0F);
                 int j2 = k - this.encodedPosX;
                 int k2 = j1 - this.encodedPosY;
                 int i = k1 - this.encodedPosZ;
@@ -179,8 +179,8 @@ public class EntityTrackerEntry {
 
                 this.ridingEntity = false;
             } else {
-                int j = MathHelper.floor_float(this.trackedEntity.rotationYaw * 256.0F / 360.0F);
-                int i1 = MathHelper.floor_float(this.trackedEntity.rotationPitch * 256.0F / 360.0F);
+                int j = MathHelper.floor(this.trackedEntity.rotationYaw * 256.0F / 360.0F);
+                int i1 = MathHelper.floor(this.trackedEntity.rotationPitch * 256.0F / 360.0F);
                 boolean flag2 = Math.abs(j - this.encodedRotationYaw) >= 4 || Math.abs(i1 - this.encodedRotationPitch) >= 4;
 
                 if (flag2) {
@@ -189,14 +189,14 @@ public class EntityTrackerEntry {
                     this.encodedRotationPitch = i1;
                 }
 
-                this.encodedPosX = MathHelper.floor_double(this.trackedEntity.posX * 32.0D);
-                this.encodedPosY = MathHelper.floor_double(this.trackedEntity.posY * 32.0D);
-                this.encodedPosZ = MathHelper.floor_double(this.trackedEntity.posZ * 32.0D);
+                this.encodedPosX = MathHelper.floor(this.trackedEntity.posX * 32.0D);
+                this.encodedPosY = MathHelper.floor(this.trackedEntity.posY * 32.0D);
+                this.encodedPosZ = MathHelper.floor(this.trackedEntity.posZ * 32.0D);
                 this.sendMetadataToAllAssociatedPlayers();
                 this.ridingEntity = true;
             }
 
-            int l = MathHelper.floor_float(this.trackedEntity.getRotationYawHead() * 256.0F / 360.0F);
+            int l = MathHelper.floor(this.trackedEntity.getRotationYawHead() * 256.0F / 360.0F);
 
             if (Math.abs(l - this.lastHeadMotion) >= 4) {
                 this.sendPacketToTrackedPlayers(new S19PacketEntityHeadLook(this.trackedEntity, (byte) l));
@@ -369,7 +369,7 @@ public class EntityTrackerEntry {
                 return new S0EPacketSpawnObject(this.trackedEntity, 1);
             }
             case IAnimals iAnimals -> {
-                this.lastHeadMotion = MathHelper.floor_float(this.trackedEntity.getRotationYawHead() * 256.0F / 360.0F);
+                this.lastHeadMotion = MathHelper.floor(this.trackedEntity.getRotationYawHead() * 256.0F / 360.0F);
                 return new S0FPacketSpawnMob((EntityLivingBase) this.trackedEntity);
             }
             case EntityFishHook entityFishHook -> {
@@ -440,17 +440,17 @@ public class EntityTrackerEntry {
             case EntityItemFrame entityitemframe -> {
                 S0EPacketSpawnObject s0epacketspawnobject1 = new S0EPacketSpawnObject(this.trackedEntity, 71, entityitemframe.facingDirection.getHorizontalIndex());
                 BlockPos blockpos1 = entityitemframe.getHangingPosition();
-                s0epacketspawnobject1.setX(MathHelper.floor_float((blockpos1.getX() * 32)));
-                s0epacketspawnobject1.setY(MathHelper.floor_float((blockpos1.getY() * 32)));
-                s0epacketspawnobject1.setZ(MathHelper.floor_float((blockpos1.getZ() * 32)));
+                s0epacketspawnobject1.setX(MathHelper.floor((blockpos1.getX() * 32)));
+                s0epacketspawnobject1.setY(MathHelper.floor((blockpos1.getY() * 32)));
+                s0epacketspawnobject1.setZ(MathHelper.floor((blockpos1.getZ() * 32)));
                 return s0epacketspawnobject1;
             }
             case EntityLeashKnot entityleashknot -> {
                 S0EPacketSpawnObject s0epacketspawnobject = new S0EPacketSpawnObject(this.trackedEntity, 77);
                 BlockPos blockpos = entityleashknot.getHangingPosition();
-                s0epacketspawnobject.setX(MathHelper.floor_float((blockpos.getX() * 32)));
-                s0epacketspawnobject.setY(MathHelper.floor_float((blockpos.getY() * 32)));
-                s0epacketspawnobject.setZ(MathHelper.floor_float((blockpos.getZ() * 32)));
+                s0epacketspawnobject.setX(MathHelper.floor((blockpos.getX() * 32)));
+                s0epacketspawnobject.setY(MathHelper.floor((blockpos.getY() * 32)));
+                s0epacketspawnobject.setZ(MathHelper.floor((blockpos.getZ() * 32)));
                 return s0epacketspawnobject;
             }
             case EntityXPOrb entityXPOrb -> {

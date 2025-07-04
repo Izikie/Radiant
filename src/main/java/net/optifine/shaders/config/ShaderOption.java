@@ -8,195 +8,195 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class ShaderOption {
-    private final String name;
-    private String description;
-    private String value;
-    private final String[] values;
-    private final String valueDefault;
-    private String[] paths = null;
-    private boolean enabled = true;
-    private boolean visible = true;
-    public static final String COLOR_GREEN = "\u00a7a";
-    public static final String COLOR_RED = "\u00a7c";
-    public static final String COLOR_BLUE = "\u00a79";
+	public static final String COLOR_GREEN = "\u00a7a";
+	public static final String COLOR_RED = "\u00a7c";
+	public static final String COLOR_BLUE = "\u00a79";
+	private final String name;
+	private final String[] values;
+	private final String valueDefault;
+	private String description;
+	private String value;
+	private String[] paths = null;
+	private boolean enabled = true;
+	private boolean visible = true;
 
-    public ShaderOption(String name, String description, String value, String[] values, String valueDefault, String path) {
-        this.name = name;
-        this.description = description;
-        this.value = value;
-        this.values = values;
-        this.valueDefault = valueDefault;
+	public ShaderOption(String name, String description, String value, String[] values, String valueDefault, String path) {
+		this.name = name;
+		this.description = description;
+		this.value = value;
+		this.values = values;
+		this.valueDefault = valueDefault;
 
-        if (path != null) {
-            this.paths = new String[]{path};
-        }
-    }
+		if (path != null) {
+			this.paths = new String[]{path};
+		}
+	}
 
-    public String getName() {
-        return this.name;
-    }
+	private static int getIndex(String str, String[] strs) {
+		for (int i = 0; i < strs.length; ++i) {
+			String s = strs[i];
 
-    public String getDescription() {
-        return this.description;
-    }
+			if (s.equals(str)) {
+				return i;
+			}
+		}
 
-    public String getDescriptionText() {
-        String s = Config.normalize(this.description);
-        s = StrUtils.removePrefix(s, "//");
-        s = Shaders.translate("option." + this.getName() + ".comment", s);
-        return s;
-    }
+		return -1;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public String getName() {
+		return this.name;
+	}
 
-    public String getValue() {
-        return this.value;
-    }
+	public String getDescription() {
+		return this.description;
+	}
 
-    public boolean setValue(String value) {
-        int i = getIndex(value, this.values);
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-        if (i < 0) {
-            return false;
-        } else {
-            this.value = value;
-            return true;
-        }
-    }
+	public String getDescriptionText() {
+		String s = Config.normalize(this.description);
+		s = StrUtils.removePrefix(s, "//");
+		s = Shaders.translate("option." + this.getName() + ".comment", s);
+		return s;
+	}
 
-    public String getValueDefault() {
-        return this.valueDefault;
-    }
+	public String getValue() {
+		return this.value;
+	}
 
-    public void resetValue() {
-        this.value = this.valueDefault;
-    }
+	public boolean setValue(String value) {
+		int i = getIndex(value, this.values);
 
-    public void nextValue() {
-        int i = getIndex(this.value, this.values);
+		if (i < 0) {
+			return false;
+		} else {
+			this.value = value;
+			return true;
+		}
+	}
 
-        if (i >= 0) {
-            i = (i + 1) % this.values.length;
-            this.value = this.values[i];
-        }
-    }
+	public String getValueDefault() {
+		return this.valueDefault;
+	}
 
-    public void prevValue() {
-        int i = getIndex(this.value, this.values);
+	public void resetValue() {
+		this.value = this.valueDefault;
+	}
 
-        if (i >= 0) {
-            i = (i - 1 + this.values.length) % this.values.length;
-            this.value = this.values[i];
-        }
-    }
+	public void nextValue() {
+		int i = getIndex(this.value, this.values);
 
-    private static int getIndex(String str, String[] strs) {
-        for (int i = 0; i < strs.length; ++i) {
-            String s = strs[i];
+		if (i >= 0) {
+			i = (i + 1) % this.values.length;
+			this.value = this.values[i];
+		}
+	}
 
-            if (s.equals(str)) {
-                return i;
-            }
-        }
+	public void prevValue() {
+		int i = getIndex(this.value, this.values);
 
-        return -1;
-    }
+		if (i >= 0) {
+			i = (i - 1 + this.values.length) % this.values.length;
+			this.value = this.values[i];
+		}
+	}
 
-    public String[] getPaths() {
-        return this.paths;
-    }
+	public String[] getPaths() {
+		return this.paths;
+	}
 
-    public void addPaths(String[] newPaths) {
-        List<String> list = Arrays.asList(this.paths);
+	public void addPaths(String[] newPaths) {
+		List<String> list = Arrays.asList(this.paths);
 
-        for (String s : newPaths) {
-            if (!list.contains(s)) {
-                this.paths = (String[]) Config.addObjectToArray(this.paths, s);
-            }
-        }
-    }
+		for (String s : newPaths) {
+			if (!list.contains(s)) {
+				this.paths = (String[]) Config.addObjectToArray(this.paths, s);
+			}
+		}
+	}
 
-    public boolean isEnabled() {
-        return this.enabled;
-    }
+	public boolean isEnabled() {
+		return this.enabled;
+	}
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 
-    public boolean isChanged() {
-        return !Config.equals(this.value, this.valueDefault);
-    }
+	public boolean isChanged() {
+		return !Config.equals(this.value, this.valueDefault);
+	}
 
-    public boolean isVisible() {
-        return this.visible;
-    }
+	public boolean isVisible() {
+		return this.visible;
+	}
 
-    public void setVisible(boolean visible) {
-        this.visible = visible;
-    }
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
 
-    public boolean isValidValue(String val) {
-        return getIndex(val, this.values) >= 0;
-    }
+	public boolean isValidValue(String val) {
+		return getIndex(val, this.values) >= 0;
+	}
 
-    public String getNameText() {
-        return Shaders.translate("option." + this.name, this.name);
-    }
+	public String getNameText() {
+		return Shaders.translate("option." + this.name, this.name);
+	}
 
-    public String getValueText(String val) {
-        return Shaders.translate("value." + this.name + "." + val, val);
-    }
+	public String getValueText(String val) {
+		return Shaders.translate("value." + this.name + "." + val, val);
+	}
 
-    public String getValueColor(String val) {
-        return "";
-    }
+	public String getValueColor(String val) {
+		return "";
+	}
 
-    public boolean matchesLine(String line) {
-        return false;
-    }
+	public boolean matchesLine(String line) {
+		return false;
+	}
 
-    public boolean checkUsed() {
-        return false;
-    }
+	public boolean checkUsed() {
+		return false;
+	}
 
-    public boolean isUsedInLine(String line) {
-        return false;
-    }
+	public boolean isUsedInLine(String line) {
+		return false;
+	}
 
-    public String getSourceLine() {
-        return null;
-    }
+	public String getSourceLine() {
+		return null;
+	}
 
-    public String[] getValues() {
-        return this.values.clone();
-    }
+	public String[] getValues() {
+		return this.values.clone();
+	}
 
-    public float getIndexNormalized() {
-        if (this.values.length <= 1) {
-            return 0.0F;
-        } else {
-            int i = getIndex(this.value, this.values);
+	public float getIndexNormalized() {
+		if (this.values.length <= 1) {
+			return 0.0F;
+		} else {
+			int i = getIndex(this.value, this.values);
 
-            if (i < 0) {
-                return 0.0F;
-            } else {
-                return 1.0F * i / (this.values.length - 1.0F);
-            }
-        }
-    }
+			if (i < 0) {
+				return 0.0F;
+			} else {
+				return 1.0F * i / (this.values.length - 1.0F);
+			}
+		}
+	}
 
-    public void setIndexNormalized(float f) {
-        if (this.values.length > 1) {
-            f = Config.limit(f, 0.0F, 1.0F);
-            int i = Math.round(f * (this.values.length - 1));
-            this.value = this.values[i];
-        }
-    }
+	public void setIndexNormalized(float f) {
+		if (this.values.length > 1) {
+			f = Config.limit(f, 0.0F, 1.0F);
+			int i = Math.round(f * (this.values.length - 1));
+			this.value = this.values[i];
+		}
+	}
 
-    public String toString() {
-        return this.name + ", value: " + this.value + ", valueDefault: " + this.valueDefault + ", paths: " + Config.arrayToString(this.paths);
-    }
+	public String toString() {
+		return this.name + ", value: " + this.value + ", valueDefault: " + this.valueDefault + ", paths: " + Config.arrayToString(this.paths);
+	}
 }

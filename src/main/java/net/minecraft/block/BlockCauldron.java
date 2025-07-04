@@ -162,7 +162,7 @@ public class BlockCauldron extends Block {
     }
 
     public void setWaterLevel(World worldIn, BlockPos pos, IBlockState state, int level) {
-        worldIn.setBlockState(pos, state.withProperty(LEVEL, MathHelper.clamp_int(level, 0, 3)), 2);
+        worldIn.setBlockState(pos, state.withProperty(LEVEL, MathHelper.clamp(level, 0, 3)), 2);
         worldIn.updateComparatorOutputLevel(pos, this);
     }
 

@@ -7,37 +7,37 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.optifine.util.TileEntityUtils;
 
 public class RandomTileEntity implements IRandomEntity {
-    private TileEntity tileEntity;
+	private TileEntity tileEntity;
 
-    public int getId() {
-        return Config.getRandom(this.tileEntity.getPos(), this.tileEntity.getBlockMetadata());
-    }
+	public int getId() {
+		return Config.getRandom(this.tileEntity.getPos(), this.tileEntity.getBlockMetadata());
+	}
 
-    public BlockPos getSpawnPosition() {
-        return this.tileEntity.getPos();
-    }
+	public BlockPos getSpawnPosition() {
+		return this.tileEntity.getPos();
+	}
 
-    public String getName() {
-        return TileEntityUtils.getTileEntityName(this.tileEntity);
-    }
+	public String getName() {
+		return TileEntityUtils.getTileEntityName(this.tileEntity);
+	}
 
-    public BiomeGenBase getSpawnBiome() {
-        return this.tileEntity.getWorld().getBiomeGenForCoords(this.tileEntity.getPos());
-    }
+	public BiomeGenBase getSpawnBiome() {
+		return this.tileEntity.getWorld().getBiomeGenForCoords(this.tileEntity.getPos());
+	}
 
-    public int getHealth() {
-        return -1;
-    }
+	public int getHealth() {
+		return -1;
+	}
 
-    public int getMaxHealth() {
-        return -1;
-    }
+	public int getMaxHealth() {
+		return -1;
+	}
 
-    public TileEntity getTileEntity() {
-        return this.tileEntity;
-    }
+	public TileEntity getTileEntity() {
+		return this.tileEntity;
+	}
 
-    public void setTileEntity(TileEntity tileEntity) {
-        this.tileEntity = tileEntity;
-    }
+	public void setTileEntity(TileEntity tileEntity) {
+		this.tileEntity = tileEntity;
+	}
 }

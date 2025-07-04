@@ -116,7 +116,7 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
                 this.field_146570_r -= 0.25F;
             }
 
-            this.field_146570_r = MathHelper.clamp_float(this.field_146570_r, 1.0F, 2.0F);
+            this.field_146570_r = MathHelper.clamp(this.field_146570_r, 1.0F, 2.0F);
 
             if (this.field_146570_r != f3) {
                 float f5 = f3 - this.field_146570_r;
@@ -186,8 +186,8 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
     }
 
     protected void drawAchievementScreen(int p_146552_1_, int p_146552_2_, float p_146552_3_) {
-        int i = MathHelper.floor_double(this.field_146569_s + (this.field_146567_u - this.field_146569_s) * p_146552_3_);
-        int j = MathHelper.floor_double(this.field_146568_t + (this.field_146566_v - this.field_146568_t) * p_146552_3_);
+        int i = MathHelper.floor(this.field_146569_s + (this.field_146567_u - this.field_146569_s) * p_146552_3_);
+        int j = MathHelper.floor(this.field_146568_t + (this.field_146566_v - this.field_146568_t) * p_146552_3_);
 
         if (i < field_146572_y) {
             i = field_146572_y;

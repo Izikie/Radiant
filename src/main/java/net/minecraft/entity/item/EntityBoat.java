@@ -213,7 +213,7 @@ public class EntityBoat extends Entity {
                 double d12 = this.posX + (this.boatX - this.posX) / this.boatPosRotationIncrements;
                 double d16 = this.posY + (this.boatY - this.posY) / this.boatPosRotationIncrements;
                 double d19 = this.posZ + (this.boatZ - this.posZ) / this.boatPosRotationIncrements;
-                double d22 = MathHelper.wrapAngleTo180_double(this.boatYaw - this.rotationYaw);
+                double d22 = MathHelper.wrapAngle(this.boatYaw - this.rotationYaw);
                 this.rotationYaw = (float) (this.rotationYaw + d22 / this.boatPosRotationIncrements);
                 this.rotationPitch = (float) (this.rotationPitch + (this.boatPitch - this.rotationPitch) / this.boatPosRotationIncrements);
                 --this.boatPosRotationIncrements;
@@ -277,11 +277,11 @@ public class EntityBoat extends Entity {
             }
 
             for (int i1 = 0; i1 < 4; ++i1) {
-                int l1 = MathHelper.floor_double(this.posX + ((i1 % 2) - 0.5D) * 0.8D);
-                int i2 = MathHelper.floor_double(this.posZ + ((i1 / 2) - 0.5D) * 0.8D);
+                int l1 = MathHelper.floor(this.posX + ((i1 % 2) - 0.5D) * 0.8D);
+                int i2 = MathHelper.floor(this.posZ + ((i1 / 2) - 0.5D) * 0.8D);
 
                 for (int j2 = 0; j2 < 2; ++j2) {
-                    int l = MathHelper.floor_double(this.posY) + j2;
+                    int l = MathHelper.floor(this.posY) + j2;
                     BlockPos blockpos = new BlockPos(l1, l, i2);
                     Block block = this.worldObj.getBlockState(blockpos).getBlock();
 
@@ -332,7 +332,7 @@ public class EntityBoat extends Entity {
                 d15 = ((float) (MathHelper.atan2(d21, d18) * 180.0D / Math.PI));
             }
 
-            double d23 = MathHelper.wrapAngleTo180_double(d15 - this.rotationYaw);
+            double d23 = MathHelper.wrapAngle(d15 - this.rotationYaw);
 
             if (d23 > 20.0D) {
                 d23 = 20.0D;

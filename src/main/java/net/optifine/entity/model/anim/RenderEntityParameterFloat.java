@@ -9,124 +9,124 @@ import net.optifine.expr.ExpressionType;
 import net.optifine.expr.IExpressionFloat;
 
 public enum RenderEntityParameterFloat implements IExpressionFloat {
-    LIMB_SWING("limb_swing"),
-    LIMB_SWING_SPEED("limb_speed"),
-    AGE("age"),
-    HEAD_YAW("head_yaw"),
-    HEAD_PITCH("head_pitch"),
-    SCALE("scale"),
-    HEALTH("health"),
-    HURT_TIME("hurt_time"),
-    IDLE_TIME("idle_time"),
-    MAX_HEALTH("max_health"),
-    MOVE_FORWARD("move_forward"),
-    MOVE_STRAFING("move_strafing"),
-    PARTIAL_TICKS("partial_ticks"),
-    POS_X("pos_x"),
-    POS_Y("pos_y"),
-    POS_Z("pos_z"),
-    REVENGE_TIME("revenge_time"),
-    SWING_PROGRESS("swing_progress");
+	LIMB_SWING("limb_swing"),
+	LIMB_SWING_SPEED("limb_speed"),
+	AGE("age"),
+	HEAD_YAW("head_yaw"),
+	HEAD_PITCH("head_pitch"),
+	SCALE("scale"),
+	HEALTH("health"),
+	HURT_TIME("hurt_time"),
+	IDLE_TIME("idle_time"),
+	MAX_HEALTH("max_health"),
+	MOVE_FORWARD("move_forward"),
+	MOVE_STRAFING("move_strafing"),
+	PARTIAL_TICKS("partial_ticks"),
+	POS_X("pos_x"),
+	POS_Y("pos_y"),
+	POS_Z("pos_z"),
+	REVENGE_TIME("revenge_time"),
+	SWING_PROGRESS("swing_progress");
 
-    private final String name;
-    private final RenderManager renderManager;
-    private static final RenderEntityParameterFloat[] VALUES = values();
+	private static final RenderEntityParameterFloat[] VALUES = values();
+	private final String name;
+	private final RenderManager renderManager;
 
-    RenderEntityParameterFloat(String name) {
-        this.name = name;
-        this.renderManager = Minecraft.getMinecraft().getRenderManager();
-    }
+	RenderEntityParameterFloat(String name) {
+		this.name = name;
+		this.renderManager = Minecraft.getMinecraft().getRenderManager();
+	}
 
-    public String getName() {
-        return this.name;
-    }
+	public static RenderEntityParameterFloat parse(String str) {
+		if (str != null) {
+			for (RenderEntityParameterFloat renderentityparameterfloat : VALUES) {
+				if (renderentityparameterfloat.getName().equals(str)) {
+					return renderentityparameterfloat;
+				}
+			}
 
-    public ExpressionType getExpressionType() {
-        return ExpressionType.FLOAT;
-    }
+		}
+		return null;
+	}
 
-    public float eval() {
-        Render render = this.renderManager.renderRender;
+	public String getName() {
+		return this.name;
+	}
 
-        if (render != null) {
-            if (render instanceof RendererLivingEntity rendererlivingentity) {
+	public ExpressionType getExpressionType() {
+		return ExpressionType.FLOAT;
+	}
 
-                switch (this) {
-                    case LIMB_SWING:
-                        return rendererlivingentity.renderLimbSwing;
+	public float eval() {
+		Render render = this.renderManager.renderRender;
 
-                    case LIMB_SWING_SPEED:
-                        return rendererlivingentity.renderLimbSwingAmount;
+		if (render != null) {
+			if (render instanceof RendererLivingEntity rendererlivingentity) {
 
-                    case AGE:
-                        return rendererlivingentity.renderAgeInTicks;
+				switch (this) {
+					case LIMB_SWING:
+						return rendererlivingentity.renderLimbSwing;
 
-                    case HEAD_YAW:
-                        return rendererlivingentity.renderHeadYaw;
+					case LIMB_SWING_SPEED:
+						return rendererlivingentity.renderLimbSwingAmount;
 
-                    case HEAD_PITCH:
-                        return rendererlivingentity.renderHeadPitch;
+					case AGE:
+						return rendererlivingentity.renderAgeInTicks;
 
-                    case SCALE:
-                        return rendererlivingentity.renderScaleFactor;
+					case HEAD_YAW:
+						return rendererlivingentity.renderHeadYaw;
 
-                    default:
-                        EntityLivingBase entitylivingbase = rendererlivingentity.renderEntity;
+					case HEAD_PITCH:
+						return rendererlivingentity.renderHeadPitch;
 
-                        if (entitylivingbase == null) {
-                            return 0.0F;
-                        }
+					case SCALE:
+						return rendererlivingentity.renderScaleFactor;
 
-                        switch (this) {
-                            case HEALTH:
-                                return entitylivingbase.getHealth();
+					default:
+						EntityLivingBase entitylivingbase = rendererlivingentity.renderEntity;
 
-                            case HURT_TIME:
-                                return entitylivingbase.hurtTime;
+						if (entitylivingbase == null) {
+							return 0.0F;
+						}
 
-                            case IDLE_TIME:
-                                return entitylivingbase.getAge();
+						switch (this) {
+							case HEALTH:
+								return entitylivingbase.getHealth();
 
-                            case MAX_HEALTH:
-                                return entitylivingbase.getMaxHealth();
+							case HURT_TIME:
+								return entitylivingbase.hurtTime;
 
-                            case MOVE_FORWARD:
-                                return entitylivingbase.moveForward;
+							case IDLE_TIME:
+								return entitylivingbase.getAge();
 
-                            case MOVE_STRAFING:
-                                return entitylivingbase.moveStrafing;
+							case MAX_HEALTH:
+								return entitylivingbase.getMaxHealth();
 
-                            case POS_X:
-                                return (float) entitylivingbase.posX;
+							case MOVE_FORWARD:
+								return entitylivingbase.moveForward;
 
-                            case POS_Y:
-                                return (float) entitylivingbase.posY;
+							case MOVE_STRAFING:
+								return entitylivingbase.moveStrafing;
 
-                            case POS_Z:
-                                return (float) entitylivingbase.posZ;
+							case POS_X:
+								return (float) entitylivingbase.posX;
 
-                            case REVENGE_TIME:
-                                return entitylivingbase.getRevengeTimer();
+							case POS_Y:
+								return (float) entitylivingbase.posY;
 
-                            case SWING_PROGRESS:
-                                return entitylivingbase.getSwingProgress(rendererlivingentity.renderPartialTicks);
-                        }
-                }
-            }
+							case POS_Z:
+								return (float) entitylivingbase.posZ;
 
-        }
-        return 0.0F;
-    }
+							case REVENGE_TIME:
+								return entitylivingbase.getRevengeTimer();
 
-    public static RenderEntityParameterFloat parse(String str) {
-        if (str != null) {
-            for (RenderEntityParameterFloat renderentityparameterfloat : VALUES) {
-                if (renderentityparameterfloat.getName().equals(str)) {
-                    return renderentityparameterfloat;
-                }
-            }
+							case SWING_PROGRESS:
+								return entitylivingbase.getSwingProgress(rendererlivingentity.renderPartialTicks);
+						}
+				}
+			}
 
-        }
-        return null;
-    }
+		}
+		return 0.0F;
+	}
 }
