@@ -206,7 +206,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
                 double d4 = this.posX + (this.minecartX - this.posX) / this.turnProgress;
                 double d5 = this.posY + (this.minecartY - this.posY) / this.turnProgress;
                 double d6 = this.posZ + (this.minecartZ - this.posZ) / this.turnProgress;
-                double d1 = MathHelper.wrapAngleTo180_double(this.minecartYaw - this.rotationYaw);
+                double d1 = MathHelper.wrapAngle(this.minecartYaw - this.rotationYaw);
                 this.rotationYaw = (float) (this.rotationYaw + d1 / this.turnProgress);
                 this.rotationPitch = (float) (this.rotationPitch + (this.minecartPitch - this.rotationPitch) / this.turnProgress);
                 --this.turnProgress;
@@ -221,9 +221,9 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
             this.prevPosY = this.posY;
             this.prevPosZ = this.posZ;
             this.motionY -= 0.03999999910593033D;
-            int k = MathHelper.floor_double(this.posX);
-            int l = MathHelper.floor_double(this.posY);
-            int i1 = MathHelper.floor_double(this.posZ);
+            int k = MathHelper.floor(this.posX);
+            int l = MathHelper.floor(this.posY);
+            int i1 = MathHelper.floor(this.posZ);
 
             if (BlockRailBase.isRailBlock(this.worldObj, new BlockPos(k, l - 1, i1))) {
                 --l;
@@ -255,7 +255,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
                 }
             }
 
-            double d3 = MathHelper.wrapAngleTo180_float(this.rotationYaw - this.prevRotationYaw);
+            double d3 = MathHelper.wrapAngle(this.rotationYaw - this.prevRotationYaw);
 
             if (d3 < -170.0D || d3 >= 170.0D) {
                 this.rotationYaw += 180.0F;
@@ -291,8 +291,8 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 
     protected void moveDerailedMinecart() {
         double d0 = this.getMaximumSpeed();
-        this.motionX = MathHelper.clamp_double(this.motionX, -d0, d0);
-        this.motionZ = MathHelper.clamp_double(this.motionZ, -d0, d0);
+        this.motionX = MathHelper.clamp(this.motionX, -d0, d0);
+        this.motionZ = MathHelper.clamp(this.motionZ, -d0, d0);
 
         if (this.onGround) {
             this.motionX *= 0.5D;
@@ -429,13 +429,13 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         }
 
         double d13 = this.getMaximumSpeed();
-        d22 = MathHelper.clamp_double(d22, -d13, d13);
-        d23 = MathHelper.clamp_double(d23, -d13, d13);
+        d22 = MathHelper.clamp(d22, -d13, d13);
+        d23 = MathHelper.clamp(d23, -d13, d13);
         this.moveEntity(d22, 0.0D, d23);
 
-        if (aint[0][1] != 0 && MathHelper.floor_double(this.posX) - p_180460_1_.getX() == aint[0][0] && MathHelper.floor_double(this.posZ) - p_180460_1_.getZ() == aint[0][2]) {
+        if (aint[0][1] != 0 && MathHelper.floor(this.posX) - p_180460_1_.getX() == aint[0][0] && MathHelper.floor(this.posZ) - p_180460_1_.getZ() == aint[0][2]) {
             this.setPosition(this.posX, this.posY + aint[0][1], this.posZ);
-        } else if (aint[1][1] != 0 && MathHelper.floor_double(this.posX) - p_180460_1_.getX() == aint[1][0] && MathHelper.floor_double(this.posZ) - p_180460_1_.getZ() == aint[1][2]) {
+        } else if (aint[1][1] != 0 && MathHelper.floor(this.posX) - p_180460_1_.getX() == aint[1][0] && MathHelper.floor(this.posZ) - p_180460_1_.getZ() == aint[1][2]) {
             this.setPosition(this.posX, this.posY + aint[1][1], this.posZ);
         }
 
@@ -454,8 +454,8 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
             this.setPosition(this.posX, vec31.yCoord, this.posZ);
         }
 
-        int j = MathHelper.floor_double(this.posX);
-        int i = MathHelper.floor_double(this.posZ);
+        int j = MathHelper.floor(this.posX);
+        int i = MathHelper.floor(this.posZ);
 
         if (j != p_180460_1_.getX() || i != p_180460_1_.getZ()) {
             d5 = Math.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
@@ -508,9 +508,9 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
     }
 
     public Vec3 func_70495_a(double p_70495_1_, double p_70495_3_, double p_70495_5_, double p_70495_7_) {
-        int i = MathHelper.floor_double(p_70495_1_);
-        int j = MathHelper.floor_double(p_70495_3_);
-        int k = MathHelper.floor_double(p_70495_5_);
+        int i = MathHelper.floor(p_70495_1_);
+        int j = MathHelper.floor(p_70495_3_);
+        int k = MathHelper.floor(p_70495_5_);
 
         if (BlockRailBase.isRailBlock(this.worldObj, new BlockPos(i, j - 1, k))) {
             --j;
@@ -535,9 +535,9 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
             p_70495_1_ = p_70495_1_ + d0 * p_70495_7_;
             p_70495_5_ = p_70495_5_ + d1 * p_70495_7_;
 
-            if (aint[0][1] != 0 && MathHelper.floor_double(p_70495_1_) - i == aint[0][0] && MathHelper.floor_double(p_70495_5_) - k == aint[0][2]) {
+            if (aint[0][1] != 0 && MathHelper.floor(p_70495_1_) - i == aint[0][0] && MathHelper.floor(p_70495_5_) - k == aint[0][2]) {
                 p_70495_3_ += aint[0][1];
-            } else if (aint[1][1] != 0 && MathHelper.floor_double(p_70495_1_) - i == aint[1][0] && MathHelper.floor_double(p_70495_5_) - k == aint[1][2]) {
+            } else if (aint[1][1] != 0 && MathHelper.floor(p_70495_1_) - i == aint[1][0] && MathHelper.floor(p_70495_5_) - k == aint[1][2]) {
                 p_70495_3_ += aint[1][1];
             }
 
@@ -548,9 +548,9 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
     }
 
     public Vec3 func_70489_a(double p_70489_1_, double p_70489_3_, double p_70489_5_) {
-        int i = MathHelper.floor_double(p_70489_1_);
-        int j = MathHelper.floor_double(p_70489_3_);
-        int k = MathHelper.floor_double(p_70489_5_);
+        int i = MathHelper.floor(p_70489_1_);
+        int j = MathHelper.floor(p_70489_3_);
+        int k = MathHelper.floor(p_70489_5_);
 
         if (BlockRailBase.isRailBlock(this.worldObj, new BlockPos(i, j - 1, k))) {
             --j;
@@ -658,7 +658,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
                     double d2 = d0 * d0 + d1 * d1;
 
                     if (d2 >= 9.999999747378752E-5D) {
-                        d2 = MathHelper.sqrt_double(d2);
+                        d2 = MathHelper.sqrt(d2);
                         d0 = d0 / d2;
                         d1 = d1 / d2;
                         double d3 = 1.0D / d2;

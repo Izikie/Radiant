@@ -43,7 +43,7 @@ public abstract class PathNavigate {
     }
 
     public final PathEntity getPathToXYZ(double x, double y, double z) {
-        return this.getPathToPos(new BlockPos(MathHelper.floor_double(x), (int) y, MathHelper.floor_double(z)));
+        return this.getPathToPos(new BlockPos(MathHelper.floor(x), (int) y, MathHelper.floor(z)));
     }
 
     public PathEntity getPathToPos(BlockPos pos) {
@@ -59,7 +59,7 @@ public abstract class PathNavigate {
     }
 
     public boolean tryMoveToXYZ(double x, double y, double z, double speedIn) {
-        PathEntity pathentity = this.getPathToXYZ(MathHelper.floor_double(x), ((int) y), MathHelper.floor_double(z));
+        PathEntity pathentity = this.getPathToXYZ(MathHelper.floor(x), ((int) y), MathHelper.floor(z));
         return this.setPath(pathentity, speedIn);
     }
 
@@ -121,7 +121,7 @@ public abstract class PathNavigate {
                 Vec3 vec3 = this.getEntityPosition();
                 Vec3 vec31 = this.currentPath.getVectorFromIndex(this.theEntity, this.currentPath.getCurrentPathIndex());
 
-                if (vec3.yCoord > vec31.yCoord && !this.theEntity.onGround && MathHelper.floor_double(vec3.xCoord) == MathHelper.floor_double(vec31.xCoord) && MathHelper.floor_double(vec3.zCoord) == MathHelper.floor_double(vec31.zCoord)) {
+                if (vec3.yCoord > vec31.yCoord && !this.theEntity.onGround && MathHelper.floor(vec3.xCoord) == MathHelper.floor(vec31.xCoord) && MathHelper.floor(vec3.zCoord) == MathHelper.floor(vec31.zCoord)) {
                     this.currentPath.setCurrentPathIndex(this.currentPath.getCurrentPathIndex() + 1);
                 }
             }
@@ -166,7 +166,7 @@ public abstract class PathNavigate {
             }
         }
 
-        int j1 = MathHelper.ceiling_float_int(this.theEntity.width);
+        int j1 = MathHelper.ceil(this.theEntity.width);
         int k1 = (int) this.theEntity.height + 1;
 
         for (int i1 = i - 1; i1 >= this.currentPath.getCurrentPathIndex(); --i1) {

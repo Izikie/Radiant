@@ -63,7 +63,7 @@ public class ChunkProviderDebug implements IChunkProvider {
             p_177461_1_ = p_177461_1_ / 2;
 
             if (p_177461_0_ <= field_177462_b && p_177461_1_ <= field_181039_c) {
-                int i = MathHelper.abs_int(p_177461_0_ * field_177462_b + p_177461_1_);
+                int i = MathHelper.abs(p_177461_0_ * field_177462_b + p_177461_1_);
 
                 if (i < field_177464_a.size()) {
                     iblockstate = field_177464_a.get(i);
@@ -129,7 +129,7 @@ public class ChunkProviderDebug implements IChunkProvider {
             field_177464_a.addAll(block.getBlockState().getValidStates());
         }
 
-        field_177462_b = MathHelper.ceiling_float_int(MathHelper.sqrt_float(field_177464_a.size()));
-        field_181039_c = MathHelper.ceiling_float_int((float) field_177464_a.size() / field_177462_b);
+        field_177462_b = MathHelper.ceil(MathHelper.sqrt(field_177464_a.size()));
+        field_181039_c = MathHelper.ceil((float) field_177464_a.size() / field_177462_b);
     }
 }

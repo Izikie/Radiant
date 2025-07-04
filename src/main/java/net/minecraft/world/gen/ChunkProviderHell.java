@@ -279,7 +279,7 @@ public class ChunkProviderHell implements IChunkProvider {
 
                     if (k < d3) {
                         double d10 = (d3 - k) / 4.0D;
-                        d10 = MathHelper.clamp_double(d10, 0.0D, 1.0D);
+                        d10 = MathHelper.clamp(d10, 0.0D, 1.0D);
                         d4 = d4 * (1.0D - d10) + -10.0D * d10;
                     }
 

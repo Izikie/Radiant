@@ -216,7 +216,7 @@ public abstract class Entity implements ICommandSender {
         float f1 = this.rotationYaw;
         this.rotationYaw = (float) (this.rotationYaw + yaw * 0.15D);
         this.rotationPitch = (float) (this.rotationPitch - pitch * 0.15D);
-        this.rotationPitch = MathHelper.clamp_float(this.rotationPitch, -90.0F, 90.0F);
+        this.rotationPitch = MathHelper.clamp(this.rotationPitch, -90.0F, 90.0F);
         this.prevRotationPitch += this.rotationPitch - f;
         this.prevRotationYaw += this.rotationYaw - f1;
     }
@@ -525,9 +525,9 @@ public abstract class Entity implements ICommandSender {
             this.isCollidedVertically = d4 != y;
             this.onGround = this.isCollidedVertically && d4 < 0.0D;
             this.isCollided = this.isCollidedHorizontally || this.isCollidedVertically;
-            int i = MathHelper.floor_double(this.posX);
-            int j = MathHelper.floor_double(this.posY - 0.20000000298023224D);
-            int k = MathHelper.floor_double(this.posZ);
+            int i = MathHelper.floor(this.posX);
+            int j = MathHelper.floor(this.posY - 0.20000000298023224D);
+            int k = MathHelper.floor(this.posZ);
             BlockPos blockpos = new BlockPos(i, j, k);
             Block block1 = this.worldObj.getBlockState(blockpos).getBlock();
 
@@ -567,14 +567,14 @@ public abstract class Entity implements ICommandSender {
                     block1.onEntityCollidedWithBlock(this.worldObj, blockpos, this);
                 }
 
-                this.distanceWalkedModified = (float) (this.distanceWalkedModified + MathHelper.sqrt_double(d12 * d12 + d14 * d14) * 0.6D);
-                this.distanceWalkedOnStepModified = (float) (this.distanceWalkedOnStepModified + MathHelper.sqrt_double(d12 * d12 + d13 * d13 + d14 * d14) * 0.6D);
+                this.distanceWalkedModified = (float) (this.distanceWalkedModified + MathHelper.sqrt(d12 * d12 + d14 * d14) * 0.6D);
+                this.distanceWalkedOnStepModified = (float) (this.distanceWalkedOnStepModified + MathHelper.sqrt(d12 * d12 + d13 * d13 + d14 * d14) * 0.6D);
 
                 if (this.distanceWalkedOnStepModified > this.nextStepDistance && block1.getMaterial() != Material.AIR) {
                     this.nextStepDistance = (int) this.distanceWalkedOnStepModified + 1;
 
                     if (this.isInWater()) {
-                        float f = MathHelper.sqrt_double(this.motionX * this.motionX * 0.20000000298023224D + this.motionY * this.motionY + this.motionZ * this.motionZ * 0.20000000298023224D) * 0.35F;
+                        float f = MathHelper.sqrt(this.motionX * this.motionX * 0.20000000298023224D + this.motionY * this.motionY + this.motionZ * this.motionZ * 0.20000000298023224D) * 0.35F;
 
                         if (f > 1.0F) {
                             f = 1.0F;
@@ -744,14 +744,14 @@ public abstract class Entity implements ICommandSender {
     }
 
     protected void resetHeight() {
-        float f = MathHelper.sqrt_double(this.motionX * this.motionX * 0.20000000298023224D + this.motionY * this.motionY + this.motionZ * this.motionZ * 0.20000000298023224D) * 0.2F;
+        float f = MathHelper.sqrt(this.motionX * this.motionX * 0.20000000298023224D + this.motionY * this.motionY + this.motionZ * this.motionZ * 0.20000000298023224D) * 0.2F;
 
         if (f > 1.0F) {
             f = 1.0F;
         }
 
         this.playSound(this.getSplashSound(), f, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.4F);
-        float f1 = MathHelper.floor_double(this.getEntityBoundingBox().minY);
+        float f1 = MathHelper.floor(this.getEntityBoundingBox().minY);
 
         for (int i = 0; i < 1.0F + this.width * 20.0F; ++i) {
             float f2 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width;
@@ -773,9 +773,9 @@ public abstract class Entity implements ICommandSender {
     }
 
     protected void createRunningParticles() {
-        int i = MathHelper.floor_double(this.posX);
-        int j = MathHelper.floor_double(this.posY - 0.20000000298023224D);
-        int k = MathHelper.floor_double(this.posZ);
+        int i = MathHelper.floor(this.posX);
+        int j = MathHelper.floor(this.posY - 0.20000000298023224D);
+        int k = MathHelper.floor(this.posZ);
         BlockPos blockpos = new BlockPos(i, j, k);
         IBlockState iblockstate = this.worldObj.getBlockState(blockpos);
         Block block = iblockstate.getBlock();
@@ -813,7 +813,7 @@ public abstract class Entity implements ICommandSender {
         float f = strafe * strafe + forward * forward;
 
         if (f >= 1.0E-4F) {
-            f = MathHelper.sqrt_float(f);
+            f = MathHelper.sqrt(f);
 
             if (f < 1.0F) {
                 f = 1.0F;
@@ -880,7 +880,7 @@ public abstract class Entity implements ICommandSender {
         float f = (float) (this.posX - entityIn.posX);
         float f1 = (float) (this.posY - entityIn.posY);
         float f2 = (float) (this.posZ - entityIn.posZ);
-        return MathHelper.sqrt_float(f * f + f1 * f1 + f2 * f2);
+        return MathHelper.sqrt(f * f + f1 * f1 + f2 * f2);
     }
 
     public double getDistanceSq(double x, double y, double z) {
@@ -902,7 +902,7 @@ public abstract class Entity implements ICommandSender {
         double d0 = this.posX - x;
         double d1 = this.posY - y;
         double d2 = this.posZ - z;
-        return MathHelper.sqrt_double(d0 * d0 + d1 * d1 + d2 * d2);
+        return MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
     }
 
     public double getDistanceSqToEntity(Entity entityIn) {
@@ -920,10 +920,10 @@ public abstract class Entity implements ICommandSender {
             if (!entityIn.noClip && !this.noClip) {
                 double d0 = entityIn.posX - this.posX;
                 double d1 = entityIn.posZ - this.posZ;
-                double d2 = MathHelper.abs_max(d0, d1);
+                double d2 = MathHelper.absMax(d0, d1);
 
                 if (d2 >= 0.009999999776482582D) {
-                    d2 = MathHelper.sqrt_double(d2);
+                    d2 = MathHelper.sqrt(d2);
                     d0 = d0 / d2;
                     d1 = d1 / d2;
                     double d3 = 1.0D / d2;
@@ -1232,9 +1232,9 @@ public abstract class Entity implements ICommandSender {
             BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE);
 
             for (int i = 0; i < 8; ++i) {
-                int j = MathHelper.floor_double(this.posY + ((((i) % 2) - 0.5F) * 0.1F) + this.getEyeHeight());
-                int k = MathHelper.floor_double(this.posX + ((((i >> 1) % 2) - 0.5F) * this.width * 0.8F));
-                int l = MathHelper.floor_double(this.posZ + ((((i >> 2) % 2) - 0.5F) * this.width * 0.8F));
+                int j = MathHelper.floor(this.posY + ((((i) % 2) - 0.5F) * 0.1F) + this.getEyeHeight());
+                int k = MathHelper.floor(this.posX + ((((i >> 1) % 2) - 0.5F) * this.width * 0.8F));
+                int l = MathHelper.floor(this.posZ + ((((i >> 2) % 2) - 0.5F) * this.width * 0.8F));
 
                 if (blockpos$mutableblockpos.getX() != k || blockpos$mutableblockpos.getY() != j || blockpos$mutableblockpos.getZ() != l) {
                     blockpos$mutableblockpos.set(k, j, l);
@@ -1390,8 +1390,8 @@ public abstract class Entity implements ICommandSender {
                 BlockPattern.PatternHelper blockpattern$patternhelper = Blocks.PORTAL.func_181089_f(this.worldObj, pos);
                 double d0 = blockpattern$patternhelper.getFinger().getAxis() == Direction.Axis.X ? blockpattern$patternhelper.getPos().getZ() : blockpattern$patternhelper.getPos().getX();
                 double d1 = blockpattern$patternhelper.getFinger().getAxis() == Direction.Axis.X ? this.posZ : this.posX;
-                d1 = Math.abs(MathHelper.func_181160_c(d1 - (blockpattern$patternhelper.getFinger().rotateY().getAxisDirection() == Direction.AxisDirection.NEGATIVE ? 1 : 0), d0, d0 - blockpattern$patternhelper.func_181118_d()));
-                double d2 = MathHelper.func_181160_c(this.posY - 1.0D, blockpattern$patternhelper.getPos().getY(), (blockpattern$patternhelper.getPos().getY() - blockpattern$patternhelper.func_181119_e()));
+                d1 = Math.abs(MathHelper.frac(d1 - (blockpattern$patternhelper.getFinger().rotateY().getAxisDirection() == Direction.AxisDirection.NEGATIVE ? 1 : 0), d0, d0 - blockpattern$patternhelper.func_181118_d()));
+                double d2 = MathHelper.frac(this.posY - 1.0D, blockpattern$patternhelper.getPos().getY(), (blockpattern$patternhelper.getPos().getY() - blockpattern$patternhelper.func_181119_e()));
                 this.lastPortalVec = new Vec3(d1, d2, 0.0D);
                 this.teleportDirection = blockpattern$patternhelper.getFinger();
             }
@@ -1696,7 +1696,7 @@ public abstract class Entity implements ICommandSender {
         category.addCrashSection("Entity ID", this.entityId);
         category.addCrashSectionCallable("Entity Name", this::getName);
         category.addCrashSection("Entity Exact Location", String.format("%.2f, %.2f, %.2f", this.posX, this.posY, this.posZ));
-        category.addCrashSection("Entity Block Location", CrashReportCategory.getCoordinateInfo(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)));
+        category.addCrashSection("Entity Block Location", CrashReportCategory.getCoordinateInfo(MathHelper.floor(this.posX), MathHelper.floor(this.posY), MathHelper.floor(this.posZ)));
         category.addCrashSection("Entity Momentum", String.format("%.2f, %.2f, %.2f", this.motionX, this.motionY, this.motionZ));
         category.addCrashSectionCallable("Entity Rider", () -> this.riddenByEntity.toString());
         category.addCrashSectionCallable("Entity Vehicle", () -> this.ridingEntity.toString());
@@ -1753,7 +1753,7 @@ public abstract class Entity implements ICommandSender {
     }
 
     public Direction getHorizontalFacing() {
-        return Direction.getHorizontal(MathHelper.floor_double((this.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3);
+        return Direction.getHorizontal(MathHelper.floor((this.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3);
     }
 
     protected HoverEvent getHoverEvent() {

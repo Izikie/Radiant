@@ -20,9 +20,9 @@ public class S11PacketSpawnExperienceOrb implements Packet<INetHandlerPlayClient
 
     public S11PacketSpawnExperienceOrb(EntityXPOrb xpOrb) {
         this.entityID = xpOrb.getEntityId();
-        this.posX = MathHelper.floor_double(xpOrb.posX * 32.0D);
-        this.posY = MathHelper.floor_double(xpOrb.posY * 32.0D);
-        this.posZ = MathHelper.floor_double(xpOrb.posZ * 32.0D);
+        this.posX = MathHelper.floor(xpOrb.posX * 32.0D);
+        this.posY = MathHelper.floor(xpOrb.posY * 32.0D);
+        this.posZ = MathHelper.floor(xpOrb.posZ * 32.0D);
         this.xpValue = xpOrb.getXpValue();
     }
 

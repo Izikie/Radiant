@@ -82,7 +82,7 @@ public class GuiScreenOptionsSounds extends GuiScreen {
             if (this.visible) {
                 if (this.field_146155_p) {
                     this.field_146156_o = (float) (mouseX - (this.xPosition + 4)) / (this.width - 8);
-                    this.field_146156_o = MathHelper.clamp_float(this.field_146156_o, 0.0F, 1.0F);
+                    this.field_146156_o = MathHelper.clamp(this.field_146156_o, 0.0F, 1.0F);
                     mc.gameSettings.setSoundLevel(this.field_146153_r, this.field_146156_o);
                     mc.gameSettings.saveOptions();
                     this.displayString = this.field_146152_s + ": " + GuiScreenOptionsSounds.this.getSoundVolume(this.field_146153_r);
@@ -97,7 +97,7 @@ public class GuiScreenOptionsSounds extends GuiScreen {
         public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
             if (super.mousePressed(mc, mouseX, mouseY)) {
                 this.field_146156_o = (float) (mouseX - (this.xPosition + 4)) / (this.width - 8);
-                this.field_146156_o = MathHelper.clamp_float(this.field_146156_o, 0.0F, 1.0F);
+                this.field_146156_o = MathHelper.clamp(this.field_146156_o, 0.0F, 1.0F);
                 mc.gameSettings.setSoundLevel(this.field_146153_r, this.field_146156_o);
                 mc.gameSettings.saveOptions();
                 this.displayString = this.field_146152_s + ": " + GuiScreenOptionsSounds.this.getSoundVolume(this.field_146153_r);

@@ -98,7 +98,7 @@ public class ModelGuardian extends ModelBase {
             vec32 = new Vec3(vec32.xCoord, 0.0D, vec32.zCoord);
             Vec3 vec33 = (new Vec3(vec31.xCoord - vec3.xCoord, 0.0D, vec31.zCoord - vec3.zCoord)).normalize().rotateYaw(((float) Math.PI / 2.0F));
             double d1 = vec32.dotProduct(vec33);
-            this.guardianEye.rotationPointX = MathHelper.sqrt_float((float) Math.abs(d1)) * 2.0F * (float) Math.signum(d1);
+            this.guardianEye.rotationPointX = MathHelper.sqrt((float) Math.abs(d1)) * 2.0F * (float) Math.signum(d1);
         }
 
         this.guardianEye.showModel = true;

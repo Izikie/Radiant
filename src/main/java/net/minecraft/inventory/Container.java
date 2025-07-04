@@ -516,7 +516,7 @@ public abstract class Container {
     public static void computeStackSize(Set<Slot> p_94525_0_, int p_94525_1_, ItemStack p_94525_2_, int p_94525_3_) {
         switch (p_94525_1_) {
             case 0:
-                p_94525_2_.stackSize = MathHelper.floor_float((float) p_94525_2_.stackSize / p_94525_0_.size());
+                p_94525_2_.stackSize = MathHelper.floor((float) p_94525_2_.stackSize / p_94525_0_.size());
                 break;
 
             case 1:
@@ -555,7 +555,7 @@ public abstract class Container {
             }
 
             f = f / inv.getSizeInventory();
-            return MathHelper.floor_float(f * 14.0F) + (i > 0 ? 1 : 0);
+            return MathHelper.floor(f * 14.0F) + (i > 0 ? 1 : 0);
         }
     }
 }

@@ -30,11 +30,11 @@ public class S0EPacketSpawnObject implements Packet<INetHandlerPlayClient> {
 
     public S0EPacketSpawnObject(Entity entityIn, int typeIn, int extraData) {
         this.entityId = entityIn.getEntityId();
-        this.x = MathHelper.floor_double(entityIn.posX * 32.0D);
-        this.y = MathHelper.floor_double(entityIn.posY * 32.0D);
-        this.z = MathHelper.floor_double(entityIn.posZ * 32.0D);
-        this.pitch = MathHelper.floor_float(entityIn.rotationPitch * 256.0F / 360.0F);
-        this.yaw = MathHelper.floor_float(entityIn.rotationYaw * 256.0F / 360.0F);
+        this.x = MathHelper.floor(entityIn.posX * 32.0D);
+        this.y = MathHelper.floor(entityIn.posY * 32.0D);
+        this.z = MathHelper.floor(entityIn.posZ * 32.0D);
+        this.pitch = MathHelper.floor(entityIn.rotationPitch * 256.0F / 360.0F);
+        this.yaw = MathHelper.floor(entityIn.rotationYaw * 256.0F / 360.0F);
         this.type = typeIn;
         this.extraData = extraData;
 

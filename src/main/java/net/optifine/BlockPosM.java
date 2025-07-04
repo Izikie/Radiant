@@ -21,7 +21,7 @@ public class BlockPosM extends BlockPos {
 	}
 
 	public BlockPosM(double xIn, double yIn, double zIn) {
-		this(MathHelper.floor_double(xIn), MathHelper.floor_double(yIn), MathHelper.floor_double(zIn));
+		this(MathHelper.floor(xIn), MathHelper.floor(yIn), MathHelper.floor(zIn));
 	}
 
 	public BlockPosM(int x, int y, int z, int level) {
@@ -95,7 +95,7 @@ public class BlockPosM extends BlockPos {
 	}
 
 	public void setXyz(double xIn, double yIn, double zIn) {
-		this.setXyz(MathHelper.floor_double(xIn), MathHelper.floor_double(yIn), MathHelper.floor_double(zIn));
+		this.setXyz(MathHelper.floor(xIn), MathHelper.floor(yIn), MathHelper.floor(zIn));
 	}
 
 	public BlockPosM set(Vec3i vec) {

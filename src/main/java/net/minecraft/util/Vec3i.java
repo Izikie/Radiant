@@ -15,7 +15,7 @@ public class Vec3i implements Comparable<Vec3i> {
     }
 
     public Vec3i(double xIn, double yIn, double zIn) {
-        this(MathHelper.floor_double(xIn), MathHelper.floor_double(yIn), MathHelper.floor_double(zIn));
+        this(MathHelper.floor(xIn), MathHelper.floor(yIn), MathHelper.floor(zIn));
     }
 
     public boolean equals(Object p_equals_1_) {

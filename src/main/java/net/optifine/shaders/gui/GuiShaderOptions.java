@@ -76,7 +76,7 @@ public class GuiShaderOptions extends GuiScreenOF {
 		ShaderOption[] ashaderoption = Shaders.getShaderPackOptions(this.screenName);
 
 		if (ashaderoption != null) {
-			int l1 = MathHelper.ceiling_double_int(ashaderoption.length / 9.0D);
+			int l1 = MathHelper.ceil(ashaderoption.length / 9.0D);
 
 			if (k1 < l1) {
 				k1 = l1;

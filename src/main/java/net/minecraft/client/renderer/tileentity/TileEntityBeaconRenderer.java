@@ -44,7 +44,7 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
                     GlStateManager.depthMask(true);
                     GlStateManager.tryBlendFuncSeparate(770, 1, 1, 0);
                     double d0 = (double) te.getWorld().getTotalWorldTime() + partialTicks;
-                    double d1 = MathHelper.func_181162_h(-d0 * 0.2D - MathHelper.floor_double(-d0 * 0.1D));
+                    double d1 = MathHelper.frac(-d0 * 0.2D - MathHelper.floor(-d0 * 0.1D));
                     float f1 = beamSegment.getColors()[0];
                     float f2 = beamSegment.getColors()[1];
                     float f3 = beamSegment.getColors()[2];

@@ -164,7 +164,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             for (int j = 0; j < 32; ++j) {
                 float f = (j - 16);
                 float f1 = (i - 16);
-                float f2 = MathHelper.sqrt_float(f * f + f1 * f1);
+                float f2 = MathHelper.sqrt(f * f + f1 * f1);
                 this.rainXCoords[i << 5 | j] = -f1 / f2;
                 this.rainYCoords[i << 5 | j] = f / f2;
             }
@@ -289,7 +289,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         double d1 = entity.posZ;
         float f2 = this.mc.world.getLightBrightness(new BlockPos(d2, d0, d1));
         float f3 = this.mc.gameSettings.renderDistanceChunks / 16.0F;
-        f3 = MathHelper.clamp_float(f3, 0.0F, 1.0F);
+        f3 = MathHelper.clamp(f3, 0.0F, 1.0F);
         float f4 = f2 * (1.0F - f3) + f3;
         this.fogColor1 += (f4 - this.fogColor1) * 0.1F;
         ++this.rendererUpdateCount;
@@ -1510,7 +1510,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             if (j > 0 && this.random.nextInt(3) < this.rainSoundCounter++) {
                 this.rainSoundCounter = 0;
 
-                if (d1 > (blockpos.getY() + 1) && world.getPrecipitationHeight(blockpos).getY() > MathHelper.floor_float(blockpos.getY())) {
+                if (d1 > (blockpos.getY() + 1) && world.getPrecipitationHeight(blockpos).getY() > MathHelper.floor(blockpos.getY())) {
                     this.mc.world.playSound(d0, d1, d2, "ambient.weather.rain", 0.1F, 0.5F, false);
                 } else {
                     this.mc.world.playSound(d0, d1, d2, "ambient.weather.rain", 0.2F, 1.0F, false);
@@ -1530,9 +1530,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             this.enableLightmap();
             Entity entity = this.mc.getRenderViewEntity();
             World world = this.mc.world;
-            int i = MathHelper.floor_double(entity.posX);
-            int j = MathHelper.floor_double(entity.posY);
-            int k = MathHelper.floor_double(entity.posZ);
+            int i = MathHelper.floor(entity.posX);
+            int j = MathHelper.floor(entity.posY);
+            int k = MathHelper.floor(entity.posZ);
             Tessellator tessellator = Tessellator.getInstance();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             GlStateManager.disableCull();
@@ -1543,7 +1543,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             double xPos = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
             double yPos = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
             double zPos = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
-            int l = MathHelper.floor_double(yPos);
+            int l = MathHelper.floor(yPos);
             int i1 = 5;
 
             if (Config.isRainFancy()) {
@@ -1602,7 +1602,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                                 double d5 = ((double) (this.rendererUpdateCount + l1 * l1 * 3121 + l1 * 45238971 + k1 * k1 * 418711 + k1 * 13761 & 31) + partialTicks) / 32.0D * (3.0D + this.random.nextDouble());
                                 double d6 = (l1 + 0.5F) - entity.posX;
                                 double d7 = (k1 + 0.5F) - entity.posZ;
-                                float f2 = MathHelper.sqrt_double(d6 * d6 + d7 * d7) / i1;
+                                float f2 = MathHelper.sqrt(d6 * d6 + d7 * d7) / i1;
                                 float f3 = ((1.0F - f2 * f2) * 0.5F + 0.5F) * f5;
                                 blockpos$mutableblockpos.set(l1, i3, k1);
                                 int j3 = world.getCombinedLight(blockpos$mutableblockpos, 0);
@@ -1628,7 +1628,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                                 double d10 = this.random.nextDouble() + (f * (float) this.random.nextGaussian()) * 0.001D;
                                 double d11 = (l1 + 0.5F) - entity.posX;
                                 double d12 = (k1 + 0.5F) - entity.posZ;
-                                float f6 = MathHelper.sqrt_double(d11 * d11 + d12 * d12) / i1;
+                                float f6 = MathHelper.sqrt(d11 * d11 + d12 * d12) / i1;
                                 float f4 = ((1.0F - f6 * f6) * 0.3F + 0.5F) * f5;
                                 blockpos$mutableblockpos.set(l1, i3, k1);
                                 int i4 = (world.getCombinedLight(blockpos$mutableblockpos, 0) * 3 + 15728880) / 4;

@@ -40,7 +40,7 @@ public class EntityMoveHelper {
 
         if (this.update) {
             this.update = false;
-            int i = MathHelper.floor_double(this.entity.getEntityBoundingBox().minY + 0.5D);
+            int i = MathHelper.floor(this.entity.getEntityBoundingBox().minY + 0.5D);
             double d0 = this.posX - this.entity.posX;
             double d1 = this.posZ - this.entity.posZ;
             double d2 = this.posY - i;
@@ -59,7 +59,7 @@ public class EntityMoveHelper {
     }
 
     protected float limitAngle(float p_75639_1_, float p_75639_2_, float p_75639_3_) {
-        float f = MathHelper.wrapAngleTo180_float(p_75639_2_ - p_75639_1_);
+        float f = MathHelper.wrapAngle(p_75639_2_ - p_75639_1_);
 
         if (f > p_75639_3_) {
             f = p_75639_3_;

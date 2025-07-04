@@ -37,7 +37,7 @@ public class ClippingHelperShadow extends ClippingHelper {
 	}
 
 	private void normalizePlane(float[] plane) {
-		float f = MathHelper.sqrt_float(plane[0] * plane[0] + plane[1] * plane[1] + plane[2] * plane[2]);
+		float f = MathHelper.sqrt(plane[0] * plane[0] + plane[1] * plane[1] + plane[2] * plane[2]);
 		plane[0] /= f;
 		plane[1] /= f;
 		plane[2] /= f;
@@ -45,7 +45,7 @@ public class ClippingHelperShadow extends ClippingHelper {
 	}
 
 	private void normalize3(float[] plane) {
-		float f = MathHelper.sqrt_float(plane[0] * plane[0] + plane[1] * plane[1] + plane[2] * plane[2]);
+		float f = MathHelper.sqrt(plane[0] * plane[0] + plane[1] * plane[1] + plane[2] * plane[2]);
 
 		if (f == 0.0F) {
 			f = 1.0F;

@@ -154,22 +154,22 @@ public enum FunctionType {
 			case TODEG -> MathUtils.toDeg(evalFloat(args, 0));
 			case MIN -> this.getMin(args);
 			case MAX -> this.getMax(args);
-			case CLAMP -> MathHelper.clamp_float(evalFloat(args, 0), evalFloat(args, 1), evalFloat(args, 2));
+			case CLAMP -> MathHelper.clamp(evalFloat(args, 0), evalFloat(args, 1), evalFloat(args, 2));
 			case ABS -> MathHelper.abs(evalFloat(args, 0));
 			case EXP -> (float) Math.exp(evalFloat(args, 0));
-			case FLOOR -> MathHelper.floor_float(evalFloat(args, 0));
-			case CEIL -> MathHelper.ceiling_float_int(evalFloat(args, 0));
-			case FRAC -> (float) MathHelper.func_181162_h(evalFloat(args, 0));
+			case FLOOR -> MathHelper.floor(evalFloat(args, 0));
+			case CEIL -> MathHelper.ceil(evalFloat(args, 0));
+			case FRAC -> (float) MathHelper.frac(evalFloat(args, 0));
 			case LOG -> (float) Math.log(evalFloat(args, 0));
 			case POW -> (float) Math.pow(evalFloat(args, 0), evalFloat(args, 1));
 			case RANDOM -> (float) Math.random();
 			case ROUND -> Math.round(evalFloat(args, 0));
 			case SIGNUM -> Math.signum(evalFloat(args, 0));
-			case SQRT -> MathHelper.sqrt_float(evalFloat(args, 0));
+			case SQRT -> MathHelper.sqrt(evalFloat(args, 0));
 			case FMOD -> {
 				float f2 = evalFloat(args, 0);
 				float f3 = evalFloat(args, 1);
-				yield f2 - f3 * MathHelper.floor_float(f2 / f3);
+				yield f2 - f3 * MathHelper.floor(f2 / f3);
 			}
 			case TIME -> {
 				Minecraft minecraft = Minecraft.getMinecraft();

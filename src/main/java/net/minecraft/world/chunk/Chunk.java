@@ -596,15 +596,15 @@ public class Chunk {
 
     public void addEntity(Entity entityIn) {
         this.hasEntities = true;
-        int i = MathHelper.floor_double(entityIn.posX / 16.0D);
-        int j = MathHelper.floor_double(entityIn.posZ / 16.0D);
+        int i = MathHelper.floor(entityIn.posX / 16.0D);
+        int j = MathHelper.floor(entityIn.posZ / 16.0D);
 
         if (i != this.xPosition || j != this.zPosition) {
             LOGGER.warn("Wrong location! ({}, {}) should be ({}, {}), {}", i, j, this.xPosition, this.zPosition, entityIn);
             entityIn.setDead();
         }
 
-        int k = MathHelper.floor_double(entityIn.posY / 16.0D);
+        int k = MathHelper.floor(entityIn.posY / 16.0D);
 
         if (k < 0) {
             k = 0;
@@ -729,10 +729,10 @@ public class Chunk {
     }
 
     public void getEntitiesWithinAABBForEntity(Entity entityIn, AxisAlignedBB aabb, List<Entity> listToFill, Predicate<? super Entity> p_177414_4_) {
-        int i = MathHelper.floor_double((aabb.minY - 2.0D) / 16.0D);
-        int j = MathHelper.floor_double((aabb.maxY + 2.0D) / 16.0D);
-        i = MathHelper.clamp_int(i, 0, this.entityLists.length - 1);
-        j = MathHelper.clamp_int(j, 0, this.entityLists.length - 1);
+        int i = MathHelper.floor((aabb.minY - 2.0D) / 16.0D);
+        int j = MathHelper.floor((aabb.maxY + 2.0D) / 16.0D);
+        i = MathHelper.clamp(i, 0, this.entityLists.length - 1);
+        j = MathHelper.clamp(j, 0, this.entityLists.length - 1);
 
         for (int k = i; k <= j; ++k) {
             if (!this.entityLists[k].isEmpty()) {
@@ -760,10 +760,10 @@ public class Chunk {
     }
 
     public <T extends Entity> void getEntitiesOfTypeWithinAAAB(Class<? extends T> entityClass, AxisAlignedBB aabb, List<T> listToFill, Predicate<? super T> p_177430_4_) {
-        int i = MathHelper.floor_double((aabb.minY - 2.0D) / 16.0D);
-        int j = MathHelper.floor_double((aabb.maxY + 2.0D) / 16.0D);
-        i = MathHelper.clamp_int(i, 0, this.entityLists.length - 1);
-        j = MathHelper.clamp_int(j, 0, this.entityLists.length - 1);
+        int i = MathHelper.floor((aabb.minY - 2.0D) / 16.0D);
+        int j = MathHelper.floor((aabb.maxY + 2.0D) / 16.0D);
+        i = MathHelper.clamp(i, 0, this.entityLists.length - 1);
+        j = MathHelper.clamp(j, 0, this.entityLists.length - 1);
 
         for (int k = i; k <= j; ++k) {
             for (T t : this.entityLists[k].getByClass(entityClass)) {

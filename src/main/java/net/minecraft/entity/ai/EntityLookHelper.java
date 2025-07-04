@@ -50,7 +50,7 @@ public class EntityLookHelper {
             double d0 = this.posX - this.entity.posX;
             double d1 = this.posY - (this.entity.posY + this.entity.getEyeHeight());
             double d2 = this.posZ - this.entity.posZ;
-            double d3 = MathHelper.sqrt_double(d0 * d0 + d2 * d2);
+            double d3 = MathHelper.sqrt(d0 * d0 + d2 * d2);
             float f = (float) (MathHelper.atan2(d2, d0) * 180.0D / Math.PI) - 90.0F;
             float f1 = (float) (-(MathHelper.atan2(d1, d3) * 180.0D / Math.PI));
             this.entity.rotationPitch = this.updateRotation(this.entity.rotationPitch, f1, this.deltaLookPitch);
@@ -59,7 +59,7 @@ public class EntityLookHelper {
             this.entity.rotationYawHead = this.updateRotation(this.entity.rotationYawHead, this.entity.renderYawOffset, 10.0F);
         }
 
-        float f2 = MathHelper.wrapAngleTo180_float(this.entity.rotationYawHead - this.entity.renderYawOffset);
+        float f2 = MathHelper.wrapAngle(this.entity.rotationYawHead - this.entity.renderYawOffset);
 
         if (!this.entity.getNavigator().noPath()) {
             if (f2 < -75.0F) {
@@ -73,7 +73,7 @@ public class EntityLookHelper {
     }
 
     private float updateRotation(float p_75652_1_, float p_75652_2_, float p_75652_3_) {
-        float f = MathHelper.wrapAngleTo180_float(p_75652_2_ - p_75652_1_);
+        float f = MathHelper.wrapAngle(p_75652_2_ - p_75652_1_);
 
         if (f > p_75652_3_) {
             f = p_75652_3_;

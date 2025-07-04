@@ -31,8 +31,8 @@ public class ScaledResolution {
 
         this.scaledWidthD = (double) this.scaledWidth / this.scaleFactor;
         this.scaledHeightD = (double) this.scaledHeight / this.scaleFactor;
-        this.scaledWidth = MathHelper.ceiling_double_int(this.scaledWidthD);
-        this.scaledHeight = MathHelper.ceiling_double_int(this.scaledHeightD);
+        this.scaledWidth = MathHelper.ceil(this.scaledWidthD);
+        this.scaledHeight = MathHelper.ceil(this.scaledHeightD);
     }
 
     public int getScaledWidth() {

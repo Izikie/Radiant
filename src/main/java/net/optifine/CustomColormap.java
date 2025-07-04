@@ -340,9 +340,9 @@ public class CustomColormap implements CustomColors.IColorizer {
 		if (this.format == 2) {
 			return this.color;
 		} else {
-			int i = MathHelper.floor_double(x);
-			int j = MathHelper.floor_double(y);
-			int k = MathHelper.floor_double(z);
+			int i = MathHelper.floor(x);
+			int j = MathHelper.floor(y);
+			int k = MathHelper.floor(z);
 			int l = 0;
 			int i1 = 0;
 			int j1 = 0;
@@ -368,8 +368,8 @@ public class CustomColormap implements CustomColors.IColorizer {
 	}
 
 	private int getColorVanilla(BiomeGenBase biome, BlockPos blockPos) {
-		double d0 = MathHelper.clamp_float(biome.getFloatTemperature(blockPos), 0.0F, 1.0F);
-		double d1 = MathHelper.clamp_float(biome.getFloatRainfall(), 0.0F, 1.0F);
+		double d0 = MathHelper.clamp(biome.getFloatTemperature(blockPos), 0.0F, 1.0F);
+		double d1 = MathHelper.clamp(biome.getFloatRainfall(), 0.0F, 1.0F);
 		d1 = d1 * d0;
 		int i = (int) ((1.0D - d0) * (this.width - 1));
 		int j = (int) ((1.0D - d1) * (this.height - 1));

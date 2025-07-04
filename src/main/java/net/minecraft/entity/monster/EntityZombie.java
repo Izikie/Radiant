@@ -183,9 +183,9 @@ public class EntityZombie extends EntityMob {
             }
 
             if (entitylivingbase != null && this.worldObj.getDifficulty() == Difficulty.HARD && this.rand.nextFloat() < this.getEntityAttribute(REINFORCEMENT_CHANCE).getAttributeValue()) {
-                int i = MathHelper.floor_double(this.posX);
-                int j = MathHelper.floor_double(this.posY);
-                int k = MathHelper.floor_double(this.posZ);
+                int i = MathHelper.floor(this.posX);
+                int j = MathHelper.floor(this.posY);
+                int k = MathHelper.floor(this.posZ);
                 EntityZombie entityzombie = new EntityZombie(this.worldObj);
 
                 for (int l = 0; l < 50; ++l) {

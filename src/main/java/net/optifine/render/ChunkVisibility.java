@@ -25,9 +25,9 @@ public class ChunkVisibility {
 	private static int pczLast = Integer.MIN_VALUE;
 
 	public static int getMaxChunkY(World world, Entity viewEntity, int renderDistanceChunks) {
-		int i = MathHelper.floor_double(viewEntity.posX) >> 4;
-		int j = MathHelper.floor_double(viewEntity.posY) >> 4;
-		int k = MathHelper.floor_double(viewEntity.posZ) >> 4;
+		int i = MathHelper.floor(viewEntity.posX) >> 4;
+		int j = MathHelper.floor(viewEntity.posY) >> 4;
+		int k = MathHelper.floor(viewEntity.posZ) >> 4;
 		Chunk chunk = world.getChunkFromChunkCoords(i, k);
 		int l = i - renderDistanceChunks;
 		int i1 = i + renderDistanceChunks;

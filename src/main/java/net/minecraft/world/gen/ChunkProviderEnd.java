@@ -176,7 +176,7 @@ public class ChunkProviderEnd implements IChunkProvider {
             for (int k = 0; k < p_73187_7_; ++k) {
                 float f = (j + p_73187_2_);
                 float f1 = (k + p_73187_4_);
-                float f2 = 100.0F - MathHelper.sqrt_float(f * f + f1 * f1) * 8.0F;
+                float f2 = 100.0F - MathHelper.sqrt(f * f + f1 * f1) * 8.0F;
 
                 if (f2 > 80.0F) {
                     f2 = 80.0F;
@@ -206,7 +206,7 @@ public class ChunkProviderEnd implements IChunkProvider {
 
                     if (l > p_73187_6_ / 2 - i1) {
                         double d6 = ((l - (p_73187_6_ / 2 - i1)) / 64.0F);
-                        d6 = MathHelper.clamp_double(d6, 0.0D, 1.0D);
+                        d6 = MathHelper.clamp(d6, 0.0D, 1.0D);
                         d2 = d2 * (1.0D - d6) + -3000.0D * d6;
                     }
 

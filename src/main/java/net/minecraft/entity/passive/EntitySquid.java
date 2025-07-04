@@ -124,7 +124,7 @@ public class EntitySquid extends EntityWaterMob {
                 this.motionZ = (this.randomMotionVecZ * this.randomMotionSpeed);
             }
 
-            float f1 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
+            float f1 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
             this.renderYawOffset += (-((float) MathHelper.atan2(this.motionX, this.motionZ)) * 180.0F / (float) Math.PI - this.renderYawOffset) * 0.1F;
             this.rotationYaw = this.renderYawOffset;
             this.squidYaw = (float) (this.squidYaw + Math.PI * this.field_70871_bB * 1.5D);
