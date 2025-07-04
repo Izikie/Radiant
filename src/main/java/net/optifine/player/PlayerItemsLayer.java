@@ -13,50 +13,50 @@ import java.util.Map;
 import java.util.Set;
 
 public class PlayerItemsLayer implements LayerRenderer {
-    private final RenderPlayer renderPlayer;
+	private final RenderPlayer renderPlayer;
 
-    public PlayerItemsLayer(RenderPlayer renderPlayer) {
-        this.renderPlayer = renderPlayer;
-    }
+	public PlayerItemsLayer(RenderPlayer renderPlayer) {
+		this.renderPlayer = renderPlayer;
+	}
 
-    public void doRenderLayer(EntityLivingBase entityLiving, float limbSwing, float limbSwingAmount, float partialTicks, float ticksExisted, float headYaw, float rotationPitch, float scale) {
-        this.renderEquippedItems(entityLiving, scale, partialTicks);
-    }
+	public static void register(Map renderPlayerMap) {
+		Set set = renderPlayerMap.keySet();
+		boolean flag = false;
 
-    protected void renderEquippedItems(EntityLivingBase entityLiving, float scale, float partialTicks) {
-        if (Config.isShowCapes()) {
-            if (!entityLiving.isInvisible()) {
-                if (entityLiving instanceof AbstractClientPlayer abstractclientplayer) {
-                    GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-                    GlStateManager.disableRescaleNormal();
-                    GlStateManager.enableCull();
-                    ModelBiped modelbiped = this.renderPlayer.getMainModel();
-                    PlayerConfigurations.renderPlayerItems(modelbiped, abstractclientplayer, scale, partialTicks);
-                    GlStateManager.disableCull();
-                }
-            }
-        }
-    }
+		for (Object object : set) {
+			Object object1 = renderPlayerMap.get(object);
 
-    public boolean shouldCombineTextures() {
-        return false;
-    }
+			if (object1 instanceof RenderPlayer renderplayer) {
+				renderplayer.addLayer(new PlayerItemsLayer(renderplayer));
+				flag = true;
+			}
+		}
 
-    public static void register(Map renderPlayerMap) {
-        Set set = renderPlayerMap.keySet();
-        boolean flag = false;
+		if (!flag) {
+			Log.error("PlayerItemsLayer not registered");
+		}
+	}
 
-        for (Object object : set) {
-            Object object1 = renderPlayerMap.get(object);
+	public void doRenderLayer(EntityLivingBase entityLiving, float limbSwing, float limbSwingAmount, float partialTicks, float ticksExisted, float headYaw, float rotationPitch, float scale) {
+		this.renderEquippedItems(entityLiving, scale, partialTicks);
+	}
 
-            if (object1 instanceof RenderPlayer renderplayer) {
-                renderplayer.addLayer(new PlayerItemsLayer(renderplayer));
-                flag = true;
-            }
-        }
+	protected void renderEquippedItems(EntityLivingBase entityLiving, float scale, float partialTicks) {
+		if (Config.isShowCapes()) {
+			if (!entityLiving.isInvisible()) {
+				if (entityLiving instanceof AbstractClientPlayer abstractclientplayer) {
+					GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+					GlStateManager.disableRescaleNormal();
+					GlStateManager.enableCull();
+					ModelBiped modelbiped = this.renderPlayer.getMainModel();
+					PlayerConfigurations.renderPlayerItems(modelbiped, abstractclientplayer, scale, partialTicks);
+					GlStateManager.disableCull();
+				}
+			}
+		}
+	}
 
-        if (!flag) {
-            Log.error("PlayerItemsLayer not registered");
-        }
-    }
+	public boolean shouldCombineTextures() {
+		return false;
+	}
 }

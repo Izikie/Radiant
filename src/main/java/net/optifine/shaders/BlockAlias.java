@@ -9,51 +9,51 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BlockAlias {
-    private final int blockAliasId;
-    private final MatchBlock[] matchBlocks;
+	private final int blockAliasId;
+	private final MatchBlock[] matchBlocks;
 
-    public BlockAlias(int blockAliasId, MatchBlock[] matchBlocks) {
-        this.blockAliasId = blockAliasId;
-        this.matchBlocks = matchBlocks;
-    }
+	public BlockAlias(int blockAliasId, MatchBlock[] matchBlocks) {
+		this.blockAliasId = blockAliasId;
+		this.matchBlocks = matchBlocks;
+	}
 
-    public int getBlockAliasId() {
-        return this.blockAliasId;
-    }
+	public int getBlockAliasId() {
+		return this.blockAliasId;
+	}
 
-    public boolean matches(int id, int metadata) {
-        for (MatchBlock matchblock : this.matchBlocks) {
-            if (matchblock.matches(id, metadata)) {
-                return true;
-            }
-        }
+	public boolean matches(int id, int metadata) {
+		for (MatchBlock matchblock : this.matchBlocks) {
+			if (matchblock.matches(id, metadata)) {
+				return true;
+			}
+		}
 
-        return false;
-    }
+		return false;
+	}
 
-    public int[] getMatchBlockIds() {
-        IntSet blockIDs = new IntOpenHashSet();
+	public int[] getMatchBlockIds() {
+		IntSet blockIDs = new IntOpenHashSet();
 
-        for (MatchBlock matchBlock : this.matchBlocks) {
-            blockIDs.add(matchBlock.getBlockId());
-        }
+		for (MatchBlock matchBlock : this.matchBlocks) {
+			blockIDs.add(matchBlock.getBlockId());
+		}
 
-        return blockIDs.toIntArray();
-    }
+		return blockIDs.toIntArray();
+	}
 
-    public MatchBlock[] getMatchBlocks(int matchBlockId) {
-        List<MatchBlock> list = new ArrayList<>();
+	public MatchBlock[] getMatchBlocks(int matchBlockId) {
+		List<MatchBlock> list = new ArrayList<>();
 
-        for (MatchBlock matchblock : this.matchBlocks) {
-            if (matchblock.getBlockId() == matchBlockId) {
-                list.add(matchblock);
-            }
-        }
+		for (MatchBlock matchblock : this.matchBlocks) {
+			if (matchblock.getBlockId() == matchBlockId) {
+				list.add(matchblock);
+			}
+		}
 
-        return list.toArray(new MatchBlock[0]);
-    }
+		return list.toArray(new MatchBlock[0]);
+	}
 
-    public String toString() {
-        return "block." + this.blockAliasId + "=" + Config.arrayToString(this.matchBlocks);
-    }
+	public String toString() {
+		return "block." + this.blockAliasId + "=" + Config.arrayToString(this.matchBlocks);
+	}
 }

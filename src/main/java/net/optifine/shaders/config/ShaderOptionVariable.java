@@ -9,92 +9,92 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ShaderOptionVariable extends ShaderOption {
-    private static final Pattern PATTERN_VARIABLE = Pattern.compile("^\\s*#define\\s+(\\w+)\\s+(-?[0-9\\.Ff]+|\\w+)\\s*(//.*)?$");
+	private static final Pattern PATTERN_VARIABLE = Pattern.compile("^\\s*#define\\s+(\\w+)\\s+(-?[0-9\\.Ff]+|\\w+)\\s*(//.*)?$");
 
-    public ShaderOptionVariable(String name, String description, String value, String[] values, String path) {
-        super(name, description, value, values, value, path);
-        this.setVisible(this.getValues().length > 1);
-    }
+	public ShaderOptionVariable(String name, String description, String value, String[] values, String path) {
+		super(name, description, value, values, value, path);
+		this.setVisible(this.getValues().length > 1);
+	}
 
-    public String getSourceLine() {
-        return "#define " + this.getName() + " " + this.getValue() + " // Shader option " + this.getValue();
-    }
+	public static ShaderOption parseOption(String line, String path) {
+		Matcher matcher = PATTERN_VARIABLE.matcher(line);
 
-    public String getValueText(String val) {
-        String s = Shaders.translate("prefix." + this.getName(), "");
-        String s1 = super.getValueText(val);
-        String s2 = Shaders.translate("suffix." + this.getName(), "");
-        return s + s1 + s2;
-    }
+		if (!matcher.matches()) {
+			return null;
+		} else {
+			String s = matcher.group(1);
+			String s1 = matcher.group(2);
+			String s2 = matcher.group(3);
+			String s3 = StrUtils.getSegment(s2, "[", "]");
 
-    public String getValueColor(String val) {
-        String s = val.toLowerCase();
-        return !s.equals("false") && !s.equals("off") ? "\u00a7a" : "\u00a7c";
-    }
+			if (s3 != null && !s3.isEmpty()) {
+				s2 = s2.replace(s3, "").trim();
+			}
 
-    public boolean matchesLine(String line) {
-        Matcher matcher = PATTERN_VARIABLE.matcher(line);
+			String[] astring = parseValues(s1, s3);
 
-        if (!matcher.matches()) {
-            return false;
-        } else {
-            String s = matcher.group(1);
-            return s.matches(this.getName());
-        }
-    }
+			if (s != null && !s.isEmpty()) {
+				path = StrUtils.removePrefix(path, "/shaders/");
+				return new ShaderOptionVariable(s, s2, s1, astring, path);
+			} else {
+				return null;
+			}
+		}
+	}
 
-    public static ShaderOption parseOption(String line, String path) {
-        Matcher matcher = PATTERN_VARIABLE.matcher(line);
+	public static String[] parseValues(String value, String valuesStr) {
+		String[] astring = new String[]{value};
 
-        if (!matcher.matches()) {
-            return null;
-        } else {
-            String s = matcher.group(1);
-            String s1 = matcher.group(2);
-            String s2 = matcher.group(3);
-            String s3 = StrUtils.getSegment(s2, "[", "]");
+		if (valuesStr == null) {
+			return astring;
+		} else {
+			valuesStr = valuesStr.trim();
+			valuesStr = StrUtils.removePrefix(valuesStr, "[");
+			valuesStr = StrUtils.removeSuffix(valuesStr, "]");
+			valuesStr = valuesStr.trim();
 
-            if (s3 != null && !s3.isEmpty()) {
-                s2 = s2.replace(s3, "").trim();
-            }
+			if (valuesStr.isEmpty()) {
+				return astring;
+			} else {
+				String[] astring1 = Config.tokenize(valuesStr, " ");
 
-            String[] astring = parseValues(s1, s3);
+				if (astring1.length == 0) {
+					return astring;
+				} else {
+					if (!Arrays.asList(astring1).contains(value)) {
+						astring1 = (String[]) Config.addObjectToArray(astring1, value, 0);
+					}
 
-            if (s != null && !s.isEmpty()) {
-                path = StrUtils.removePrefix(path, "/shaders/");
-                return new ShaderOptionVariable(s, s2, s1, astring, path);
-            } else {
-                return null;
-            }
-        }
-    }
+					return astring1;
+				}
+			}
+		}
+	}
 
-    public static String[] parseValues(String value, String valuesStr) {
-        String[] astring = new String[]{value};
+	public String getSourceLine() {
+		return "#define " + this.getName() + " " + this.getValue() + " // Shader option " + this.getValue();
+	}
 
-        if (valuesStr == null) {
-            return astring;
-        } else {
-            valuesStr = valuesStr.trim();
-            valuesStr = StrUtils.removePrefix(valuesStr, "[");
-            valuesStr = StrUtils.removeSuffix(valuesStr, "]");
-            valuesStr = valuesStr.trim();
+	public String getValueText(String val) {
+		String s = Shaders.translate("prefix." + this.getName(), "");
+		String s1 = super.getValueText(val);
+		String s2 = Shaders.translate("suffix." + this.getName(), "");
+		return s + s1 + s2;
+	}
 
-            if (valuesStr.isEmpty()) {
-                return astring;
-            } else {
-                String[] astring1 = Config.tokenize(valuesStr, " ");
+	public String getValueColor(String val) {
+		String s = val.toLowerCase();
+		return !s.equals("false") && !s.equals("off") ? "\u00a7a" : "\u00a7c";
+	}
 
-                if (astring1.length == 0) {
-                    return astring;
-                } else {
-                    if (!Arrays.asList(astring1).contains(value)) {
-                        astring1 = (String[]) Config.addObjectToArray(astring1, value, 0);
-                    }
+	public boolean matchesLine(String line) {
+		Matcher matcher = PATTERN_VARIABLE.matcher(line);
 
-                    return astring1;
-                }
-            }
-        }
-    }
+		if (!matcher.matches()) {
+			return false;
+		} else {
+			String s = matcher.group(1);
+			return s.matches(this.getName());
+		}
+	}
 }

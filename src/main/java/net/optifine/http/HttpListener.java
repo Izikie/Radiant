@@ -1,7 +1,7 @@
 package net.optifine.http;
 
 public interface HttpListener {
-    void finished(HttpRequest var1, HttpResponse var2);
+	void finished(HttpRequest var1, HttpResponse var2);
 
-    void failed(HttpRequest var1, Exception exception);
+	void failed(HttpRequest var1, Exception exception);
 }

@@ -8,189 +8,189 @@ import java.nio.IntBuffer;
 import java.util.Arrays;
 
 public class Program {
-    private final int index;
-    private final String name;
-    private final ProgramStage programStage;
-    private final Program programBackup;
-    private GlAlphaState alphaState;
-    private GlBlendState blendState;
-    private RenderScale renderScale;
-    private final Boolean[] buffersFlip = new Boolean[8];
-    private int id;
-    private int ref;
-    private String drawBufSettings;
-    private IntBuffer drawBuffers;
-    private IntBuffer drawBuffersBuffer;
-    private int compositeMipmapSetting;
-    private int countInstances;
-    private final boolean[] toggleColorTextures = new boolean[8];
+	private final int index;
+	private final String name;
+	private final ProgramStage programStage;
+	private final Program programBackup;
+	private final Boolean[] buffersFlip = new Boolean[8];
+	private final boolean[] toggleColorTextures = new boolean[8];
+	private GlAlphaState alphaState;
+	private GlBlendState blendState;
+	private RenderScale renderScale;
+	private int id;
+	private int ref;
+	private String drawBufSettings;
+	private IntBuffer drawBuffers;
+	private IntBuffer drawBuffersBuffer;
+	private int compositeMipmapSetting;
+	private int countInstances;
 
-    public Program(int index, String name, ProgramStage programStage, Program programBackup) {
-        this.index = index;
-        this.name = name;
-        this.programStage = programStage;
-        this.programBackup = programBackup;
-    }
+	public Program(int index, String name, ProgramStage programStage, Program programBackup) {
+		this.index = index;
+		this.name = name;
+		this.programStage = programStage;
+		this.programBackup = programBackup;
+	}
 
-    public Program(int index, String name, ProgramStage programStage, boolean ownBackup) {
-        this.index = index;
-        this.name = name;
-        this.programStage = programStage;
-        this.programBackup = ownBackup ? this : null;
-    }
+	public Program(int index, String name, ProgramStage programStage, boolean ownBackup) {
+		this.index = index;
+		this.name = name;
+		this.programStage = programStage;
+		this.programBackup = ownBackup ? this : null;
+	}
 
-    public void resetProperties() {
-        this.alphaState = null;
-        this.blendState = null;
-        this.renderScale = null;
-        Arrays.fill(this.buffersFlip, null);
-    }
+	public void resetProperties() {
+		this.alphaState = null;
+		this.blendState = null;
+		this.renderScale = null;
+		Arrays.fill(this.buffersFlip, null);
+	}
 
-    public void resetId() {
-        this.id = 0;
-        this.ref = 0;
-    }
+	public void resetId() {
+		this.id = 0;
+		this.ref = 0;
+	}
 
-    public void resetConfiguration() {
-        this.drawBufSettings = null;
-        this.compositeMipmapSetting = 0;
-        this.countInstances = 0;
+	public void resetConfiguration() {
+		this.drawBufSettings = null;
+		this.compositeMipmapSetting = 0;
+		this.countInstances = 0;
 
-        if (this.drawBuffersBuffer == null) {
-            this.drawBuffersBuffer = Shaders.nextIntBuffer(8);
-        }
-    }
+		if (this.drawBuffersBuffer == null) {
+			this.drawBuffersBuffer = Shaders.nextIntBuffer(8);
+		}
+	}
 
-    public void copyFrom(Program p) {
-        this.id = p.getId();
-        this.alphaState = p.getAlphaState();
-        this.blendState = p.getBlendState();
-        this.renderScale = p.getRenderScale();
-        System.arraycopy(p.getBuffersFlip(), 0, this.buffersFlip, 0, this.buffersFlip.length);
-        this.drawBufSettings = p.getDrawBufSettings();
-        this.drawBuffers = p.getDrawBuffers();
-        this.compositeMipmapSetting = p.getCompositeMipmapSetting();
-        this.countInstances = p.getCountInstances();
-        System.arraycopy(p.getToggleColorTextures(), 0, this.toggleColorTextures, 0, this.toggleColorTextures.length);
-    }
+	public void copyFrom(Program p) {
+		this.id = p.getId();
+		this.alphaState = p.getAlphaState();
+		this.blendState = p.getBlendState();
+		this.renderScale = p.getRenderScale();
+		System.arraycopy(p.getBuffersFlip(), 0, this.buffersFlip, 0, this.buffersFlip.length);
+		this.drawBufSettings = p.getDrawBufSettings();
+		this.drawBuffers = p.getDrawBuffers();
+		this.compositeMipmapSetting = p.getCompositeMipmapSetting();
+		this.countInstances = p.getCountInstances();
+		System.arraycopy(p.getToggleColorTextures(), 0, this.toggleColorTextures, 0, this.toggleColorTextures.length);
+	}
 
-    public int getIndex() {
-        return this.index;
-    }
+	public int getIndex() {
+		return this.index;
+	}
 
-    public String getName() {
-        return this.name;
-    }
+	public String getName() {
+		return this.name;
+	}
 
-    public ProgramStage getProgramStage() {
-        return this.programStage;
-    }
+	public ProgramStage getProgramStage() {
+		return this.programStage;
+	}
 
-    public Program getProgramBackup() {
-        return this.programBackup;
-    }
+	public Program getProgramBackup() {
+		return this.programBackup;
+	}
 
-    public int getId() {
-        return this.id;
-    }
+	public int getId() {
+		return this.id;
+	}
 
-    public int getRef() {
-        return this.ref;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public String getDrawBufSettings() {
-        return this.drawBufSettings;
-    }
+	public int getRef() {
+		return this.ref;
+	}
 
-    public IntBuffer getDrawBuffers() {
-        return this.drawBuffers;
-    }
+	public void setRef(int ref) {
+		this.ref = ref;
+	}
 
-    public IntBuffer getDrawBuffersBuffer() {
-        return this.drawBuffersBuffer;
-    }
+	public String getDrawBufSettings() {
+		return this.drawBufSettings;
+	}
 
-    public int getCompositeMipmapSetting() {
-        return this.compositeMipmapSetting;
-    }
+	public void setDrawBufSettings(String drawBufSettings) {
+		this.drawBufSettings = drawBufSettings;
+	}
 
-    public int getCountInstances() {
-        return this.countInstances;
-    }
+	public IntBuffer getDrawBuffers() {
+		return this.drawBuffers;
+	}
 
-    public GlAlphaState getAlphaState() {
-        return this.alphaState;
-    }
+	public void setDrawBuffers(IntBuffer drawBuffers) {
+		this.drawBuffers = drawBuffers;
+	}
 
-    public GlBlendState getBlendState() {
-        return this.blendState;
-    }
+	public IntBuffer getDrawBuffersBuffer() {
+		return this.drawBuffersBuffer;
+	}
 
-    public RenderScale getRenderScale() {
-        return this.renderScale;
-    }
+	public int getCompositeMipmapSetting() {
+		return this.compositeMipmapSetting;
+	}
 
-    public Boolean[] getBuffersFlip() {
-        return this.buffersFlip;
-    }
+	public void setCompositeMipmapSetting(int compositeMipmapSetting) {
+		this.compositeMipmapSetting = compositeMipmapSetting;
+	}
 
-    public boolean[] getToggleColorTextures() {
-        return this.toggleColorTextures;
-    }
+	public int getCountInstances() {
+		return this.countInstances;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setCountInstances(int countInstances) {
+		this.countInstances = countInstances;
+	}
 
-    public void setRef(int ref) {
-        this.ref = ref;
-    }
+	public GlAlphaState getAlphaState() {
+		return this.alphaState;
+	}
 
-    public void setDrawBufSettings(String drawBufSettings) {
-        this.drawBufSettings = drawBufSettings;
-    }
+	public void setAlphaState(GlAlphaState alphaState) {
+		this.alphaState = alphaState;
+	}
 
-    public void setDrawBuffers(IntBuffer drawBuffers) {
-        this.drawBuffers = drawBuffers;
-    }
+	public GlBlendState getBlendState() {
+		return this.blendState;
+	}
 
-    public void setCompositeMipmapSetting(int compositeMipmapSetting) {
-        this.compositeMipmapSetting = compositeMipmapSetting;
-    }
+	public void setBlendState(GlBlendState blendState) {
+		this.blendState = blendState;
+	}
 
-    public void setCountInstances(int countInstances) {
-        this.countInstances = countInstances;
-    }
+	public RenderScale getRenderScale() {
+		return this.renderScale;
+	}
 
-    public void setAlphaState(GlAlphaState alphaState) {
-        this.alphaState = alphaState;
-    }
+	public void setRenderScale(RenderScale renderScale) {
+		this.renderScale = renderScale;
+	}
 
-    public void setBlendState(GlBlendState blendState) {
-        this.blendState = blendState;
-    }
+	public Boolean[] getBuffersFlip() {
+		return this.buffersFlip;
+	}
 
-    public void setRenderScale(RenderScale renderScale) {
-        this.renderScale = renderScale;
-    }
+	public boolean[] getToggleColorTextures() {
+		return this.toggleColorTextures;
+	}
 
-    public String getRealProgramName() {
-        if (this.id == 0) {
-            return "none";
-        } else {
-            Program program;
+	public String getRealProgramName() {
+		if (this.id == 0) {
+			return "none";
+		} else {
+			Program program;
 
-            for (program = this; program.getRef() != this.id; program = program.getProgramBackup()) {
-                if (program.getProgramBackup() == null || program.getProgramBackup() == program) {
-                    return "unknown";
-                }
-            }
+			for (program = this; program.getRef() != this.id; program = program.getProgramBackup()) {
+				if (program.getProgramBackup() == null || program.getProgramBackup() == program) {
+					return "unknown";
+				}
+			}
 
-            return program.getName();
-        }
-    }
+			return program.getName();
+		}
+	}
 
-    public String toString() {
-        return "name: " + this.name + ", id: " + this.id + ", ref: " + this.ref + ", real: " + this.getRealProgramName();
-    }
+	public String toString() {
+		return "name: " + this.name + ", id: " + this.id + ", ref: " + this.ref + ", real: " + this.getRealProgramName();
+	}
 }

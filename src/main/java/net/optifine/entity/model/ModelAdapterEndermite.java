@@ -11,46 +11,46 @@ import net.minecraft.src.Config;
 import net.optifine.reflect.Reflector;
 
 public class ModelAdapterEndermite extends ModelAdapter {
-    public ModelAdapterEndermite() {
-        super(EntityEndermite.class, "endermite", 0.3F);
-    }
+	public ModelAdapterEndermite() {
+		super(EntityEndermite.class, "endermite", 0.3F);
+	}
 
-    public ModelBase makeModel() {
-        return new ModelEnderMite();
-    }
+	public ModelBase makeModel() {
+		return new ModelEnderMite();
+	}
 
-    public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-        if (model instanceof ModelEnderMite modelendermite) {
-            String s = "body";
+	public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
+		if (model instanceof ModelEnderMite modelendermite) {
+			String s = "body";
 
-            if (modelPart.startsWith(s)) {
-                ModelRenderer[] amodelrenderer = (ModelRenderer[]) Reflector.getFieldValue(modelendermite, Reflector.ModelEnderMite_bodyParts);
+			if (modelPart.startsWith(s)) {
+				ModelRenderer[] amodelrenderer = (ModelRenderer[]) Reflector.getFieldValue(modelendermite, Reflector.ModelEnderMite_bodyParts);
 
-                if (amodelrenderer == null) {
-                    return null;
-                } else {
-                    String s1 = modelPart.substring(s.length());
-                    int i = Config.parseInt(s1, -1);
-                    --i;
-                    return i >= 0 && i < amodelrenderer.length ? amodelrenderer[i] : null;
-                }
-            } else {
-                return null;
-            }
-        } else {
-            return null;
-        }
-    }
+				if (amodelrenderer == null) {
+					return null;
+				} else {
+					String s1 = modelPart.substring(s.length());
+					int i = Config.parseInt(s1, -1);
+					--i;
+					return i >= 0 && i < amodelrenderer.length ? amodelrenderer[i] : null;
+				}
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
+	}
 
-    public String[] getModelRendererNames() {
-        return new String[]{"body1", "body2", "body3", "body4"};
-    }
+	public String[] getModelRendererNames() {
+		return new String[]{"body1", "body2", "body3", "body4"};
+	}
 
-    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-        RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
-        RenderEndermite renderendermite = new RenderEndermite(rendermanager);
-        renderendermite.mainModel = modelBase;
-        renderendermite.shadowSize = shadowSize;
-        return renderendermite;
-    }
+	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+		RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
+		RenderEndermite renderendermite = new RenderEndermite(rendermanager);
+		renderendermite.mainModel = modelBase;
+		renderendermite.shadowSize = shadowSize;
+		return renderendermite;
+	}
 }

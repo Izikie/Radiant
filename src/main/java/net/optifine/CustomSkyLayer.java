@@ -24,397 +24,397 @@ import java.util.List;
 import java.util.Properties;
 
 public class CustomSkyLayer {
-    public String source;
-    private int startFadeIn = -1;
-    private int endFadeIn = -1;
-    private int startFadeOut = -1;
-    private int endFadeOut = -1;
-    private int blend = 1;
-    private boolean rotate = false;
-    private float speed = 1.0F;
-    private float[] axis;
-    private RangeListInt days;
-    private int daysLoop;
-    private boolean weatherClear;
-    private boolean weatherRain;
-    private boolean weatherThunder;
-    public BiomeGenBase[] biomes;
-    public RangeListInt heights;
-    private float transition;
-    private SmoothFloat smoothPositionBrightness;
-    public int textureId;
-    private World lastWorld;
-    public static final float[] DEFAULT_AXIS = new float[]{1.0F, 0.0F, 0.0F};
+	public static final float[] DEFAULT_AXIS = new float[]{1.0F, 0.0F, 0.0F};
+	public String source;
+	public BiomeGenBase[] biomes;
+	public RangeListInt heights;
+	public int textureId;
+	private int startFadeIn = -1;
+	private int endFadeIn = -1;
+	private int startFadeOut = -1;
+	private int endFadeOut = -1;
+	private int blend = 1;
+	private boolean rotate = false;
+	private float speed = 1.0F;
+	private float[] axis;
+	private RangeListInt days;
+	private int daysLoop;
+	private boolean weatherClear;
+	private boolean weatherRain;
+	private boolean weatherThunder;
+	private float transition;
+	private SmoothFloat smoothPositionBrightness;
+	private World lastWorld;
 
-    public CustomSkyLayer(Properties props, String defSource) {
-        this.axis = DEFAULT_AXIS;
-        this.days = null;
-        this.daysLoop = 8;
-        this.weatherClear = true;
-        this.weatherRain = false;
-        this.weatherThunder = false;
-        this.biomes = null;
-        this.heights = null;
-        this.transition = 1.0F;
-        this.smoothPositionBrightness = null;
-        this.textureId = -1;
-        this.lastWorld = null;
-        ConnectedParser connectedparser = new ConnectedParser("CustomSky");
-        this.source = props.getProperty("source", defSource);
-        this.startFadeIn = this.parseTime(props.getProperty("startFadeIn"));
-        this.endFadeIn = this.parseTime(props.getProperty("endFadeIn"));
-        this.startFadeOut = this.parseTime(props.getProperty("startFadeOut"));
-        this.endFadeOut = this.parseTime(props.getProperty("endFadeOut"));
-        this.blend = Blender.parseBlend(props.getProperty("blend"));
-        this.rotate = this.parseBoolean(props.getProperty("rotate"));
-        this.speed = this.parseFloat(props.getProperty("speed"));
-        this.axis = this.parseAxis(props.getProperty("axis"));
-        this.days = connectedparser.parseRangeListInt(props.getProperty("days"));
-        this.daysLoop = connectedparser.parseInt(props.getProperty("daysLoop"), 8);
-        List<String> list = this.parseWeatherList(props.getProperty("weather", "clear"));
-        this.weatherClear = list.contains("clear");
-        this.weatherRain = list.contains("rain");
-        this.weatherThunder = list.contains("thunder");
-        this.biomes = connectedparser.parseBiomes(props.getProperty("biomes"));
-        this.heights = connectedparser.parseRangeListInt(props.getProperty("heights"));
-        this.transition = this.parseFloat(props.getProperty("transition"));
-    }
+	public CustomSkyLayer(Properties props, String defSource) {
+		this.axis = DEFAULT_AXIS;
+		this.days = null;
+		this.daysLoop = 8;
+		this.weatherClear = true;
+		this.weatherRain = false;
+		this.weatherThunder = false;
+		this.biomes = null;
+		this.heights = null;
+		this.transition = 1.0F;
+		this.smoothPositionBrightness = null;
+		this.textureId = -1;
+		this.lastWorld = null;
+		ConnectedParser connectedparser = new ConnectedParser("CustomSky");
+		this.source = props.getProperty("source", defSource);
+		this.startFadeIn = this.parseTime(props.getProperty("startFadeIn"));
+		this.endFadeIn = this.parseTime(props.getProperty("endFadeIn"));
+		this.startFadeOut = this.parseTime(props.getProperty("startFadeOut"));
+		this.endFadeOut = this.parseTime(props.getProperty("endFadeOut"));
+		this.blend = Blender.parseBlend(props.getProperty("blend"));
+		this.rotate = this.parseBoolean(props.getProperty("rotate"));
+		this.speed = this.parseFloat(props.getProperty("speed"));
+		this.axis = this.parseAxis(props.getProperty("axis"));
+		this.days = connectedparser.parseRangeListInt(props.getProperty("days"));
+		this.daysLoop = connectedparser.parseInt(props.getProperty("daysLoop"), 8);
+		List<String> list = this.parseWeatherList(props.getProperty("weather", "clear"));
+		this.weatherClear = list.contains("clear");
+		this.weatherRain = list.contains("rain");
+		this.weatherThunder = list.contains("thunder");
+		this.biomes = connectedparser.parseBiomes(props.getProperty("biomes"));
+		this.heights = connectedparser.parseRangeListInt(props.getProperty("heights"));
+		this.transition = this.parseFloat(props.getProperty("transition"));
+	}
 
-    private List<String> parseWeatherList(String str) {
-        List<String> list = Arrays.asList("clear", "rain", "thunder");
-        List<String> list1 = new ArrayList<>();
-        String[] astring = Config.tokenize(str, " ");
+	private List<String> parseWeatherList(String str) {
+		List<String> list = Arrays.asList("clear", "rain", "thunder");
+		List<String> list1 = new ArrayList<>();
+		String[] astring = Config.tokenize(str, " ");
 
-        for (String s : astring) {
-            if (!list.contains(s)) {
-                Log.error("Unknown weather: " + s);
-            } else {
-                list1.add(s);
-            }
-        }
+		for (String s : astring) {
+			if (!list.contains(s)) {
+				Log.error("Unknown weather: " + s);
+			} else {
+				list1.add(s);
+			}
+		}
 
-        return list1;
-    }
+		return list1;
+	}
 
-    private int parseTime(String str) {
-        if (str == null) {
-            return -1;
-        } else {
-            String[] astring = Config.tokenize(str, ":");
+	private int parseTime(String str) {
+		if (str == null) {
+			return -1;
+		} else {
+			String[] astring = Config.tokenize(str, ":");
 
-            if (astring.length != 2) {
-                Log.error("Invalid time: " + str);
-                return -1;
-            } else {
-                String s = astring[0];
-                String s1 = astring[1];
-                int i = Config.parseInt(s, -1);
-                int j = Config.parseInt(s1, -1);
+			if (astring.length != 2) {
+				Log.error("Invalid time: " + str);
+				return -1;
+			} else {
+				String s = astring[0];
+				String s1 = astring[1];
+				int i = Config.parseInt(s, -1);
+				int j = Config.parseInt(s1, -1);
 
-                if (i >= 0 && i <= 23 && j >= 0 && j <= 59) {
-                    i = i - 6;
+				if (i >= 0 && i <= 23 && j >= 0 && j <= 59) {
+					i = i - 6;
 
-                    if (i < 0) {
-                        i += 24;
-                    }
+					if (i < 0) {
+						i += 24;
+					}
 
-                    return i * 1000 + (int) (j / 60.0D * 1000.0D);
-                } else {
-                    Log.error("Invalid time: " + str);
-                    return -1;
-                }
-            }
-        }
-    }
+					return i * 1000 + (int) (j / 60.0D * 1000.0D);
+				} else {
+					Log.error("Invalid time: " + str);
+					return -1;
+				}
+			}
+		}
+	}
 
-    private boolean parseBoolean(String str) {
-        if (str == null) {
-            return true;
-        } else if (str.equalsIgnoreCase("true")) {
-            return true;
-        } else if (str.equalsIgnoreCase("false")) {
-            return false;
-        } else {
-            Log.error("Unknown boolean: " + str);
-            return true;
-        }
-    }
+	private boolean parseBoolean(String str) {
+		if (str == null) {
+			return true;
+		} else if (str.equalsIgnoreCase("true")) {
+			return true;
+		} else if (str.equalsIgnoreCase("false")) {
+			return false;
+		} else {
+			Log.error("Unknown boolean: " + str);
+			return true;
+		}
+	}
 
-    private float parseFloat(String str) {
-        if (str == null) {
-            return (float) 1.0;
-        } else {
-            float f = Config.parseFloat(str, Float.MIN_VALUE);
+	private float parseFloat(String str) {
+		if (str == null) {
+			return (float) 1.0;
+		} else {
+			float f = Config.parseFloat(str, Float.MIN_VALUE);
 
-            if (f == Float.MIN_VALUE) {
-                Log.error("Invalid value: " + str);
-                return (float) 1.0;
-            } else {
-                return f;
-            }
-        }
-    }
+			if (f == Float.MIN_VALUE) {
+				Log.error("Invalid value: " + str);
+				return (float) 1.0;
+			} else {
+				return f;
+			}
+		}
+	}
 
-    private float[] parseAxis(String str) {
-        if (str == null) {
-            return CustomSkyLayer.DEFAULT_AXIS;
-        } else {
-            String[] astring = Config.tokenize(str, " ");
+	private float[] parseAxis(String str) {
+		if (str == null) {
+			return CustomSkyLayer.DEFAULT_AXIS;
+		} else {
+			String[] astring = Config.tokenize(str, " ");
 
-            if (astring.length != 3) {
-                Log.error("Invalid axis: " + str);
-                return CustomSkyLayer.DEFAULT_AXIS;
-            } else {
-                float[] afloat = new float[3];
+			if (astring.length != 3) {
+				Log.error("Invalid axis: " + str);
+				return CustomSkyLayer.DEFAULT_AXIS;
+			} else {
+				float[] afloat = new float[3];
 
-                for (int i = 0; i < astring.length; ++i) {
-                    afloat[i] = Config.parseFloat(astring[i], Float.MIN_VALUE);
+				for (int i = 0; i < astring.length; ++i) {
+					afloat[i] = Config.parseFloat(astring[i], Float.MIN_VALUE);
 
-                    if (afloat[i] == Float.MIN_VALUE) {
-                        Log.error("Invalid axis: " + str);
-                        return CustomSkyLayer.DEFAULT_AXIS;
-                    }
+					if (afloat[i] == Float.MIN_VALUE) {
+						Log.error("Invalid axis: " + str);
+						return CustomSkyLayer.DEFAULT_AXIS;
+					}
 
-                    if (afloat[i] < -1.0F || afloat[i] > 1.0F) {
-                        Log.error("Invalid axis values: " + str);
-                        return CustomSkyLayer.DEFAULT_AXIS;
-                    }
-                }
+					if (afloat[i] < -1.0F || afloat[i] > 1.0F) {
+						Log.error("Invalid axis values: " + str);
+						return CustomSkyLayer.DEFAULT_AXIS;
+					}
+				}
 
-                float f2 = afloat[0];
-                float f = afloat[1];
-                float f1 = afloat[2];
+				float f2 = afloat[0];
+				float f = afloat[1];
+				float f1 = afloat[2];
 
-                if (f2 * f2 + f * f + f1 * f1 < 1.0E-5F) {
-                    Log.error("Invalid axis values: " + str);
-                    return CustomSkyLayer.DEFAULT_AXIS;
-                } else {
-                    return new float[]{f1, f, -f2};
-                }
-            }
-        }
-    }
+				if (f2 * f2 + f * f + f1 * f1 < 1.0E-5F) {
+					Log.error("Invalid axis values: " + str);
+					return CustomSkyLayer.DEFAULT_AXIS;
+				} else {
+					return new float[]{f1, f, -f2};
+				}
+			}
+		}
+	}
 
-    public boolean isValid(String path) {
-        if (this.source == null) {
-            Log.error("No source texture: " + path);
-            return false;
-        } else {
-            this.source = TextureUtils.fixResourcePath(this.source, TextureUtils.getBasePath(path));
+	public boolean isValid(String path) {
+		if (this.source == null) {
+			Log.error("No source texture: " + path);
+			return false;
+		} else {
+			this.source = TextureUtils.fixResourcePath(this.source, TextureUtils.getBasePath(path));
 
-            if (this.startFadeIn >= 0 && this.endFadeIn >= 0 && this.endFadeOut >= 0) {
-                int i = this.normalizeTime(this.endFadeIn - this.startFadeIn);
+			if (this.startFadeIn >= 0 && this.endFadeIn >= 0 && this.endFadeOut >= 0) {
+				int i = this.normalizeTime(this.endFadeIn - this.startFadeIn);
 
-                if (this.startFadeOut < 0) {
-                    this.startFadeOut = this.normalizeTime(this.endFadeOut - i);
+				if (this.startFadeOut < 0) {
+					this.startFadeOut = this.normalizeTime(this.endFadeOut - i);
 
-                    if (this.timeBetween(this.startFadeOut, this.startFadeIn, this.endFadeIn)) {
-                        this.startFadeOut = this.endFadeIn;
-                    }
-                }
+					if (this.timeBetween(this.startFadeOut, this.startFadeIn, this.endFadeIn)) {
+						this.startFadeOut = this.endFadeIn;
+					}
+				}
 
-                int j = this.normalizeTime(this.startFadeOut - this.endFadeIn);
-                int k = this.normalizeTime(this.endFadeOut - this.startFadeOut);
-                int l = this.normalizeTime(this.startFadeIn - this.endFadeOut);
-                int i1 = i + j + k + l;
+				int j = this.normalizeTime(this.startFadeOut - this.endFadeIn);
+				int k = this.normalizeTime(this.endFadeOut - this.startFadeOut);
+				int l = this.normalizeTime(this.startFadeIn - this.endFadeOut);
+				int i1 = i + j + k + l;
 
-                if (i1 != 24000) {
-                    Log.error("Invalid fadeIn/fadeOut times, sum is not 24h: " + i1);
-                    return false;
-                } else if (this.speed < 0.0F) {
-                    Log.error("Invalid speed: " + this.speed);
-                    return false;
-                } else if (this.daysLoop <= 0) {
-                    Log.error("Invalid daysLoop: " + this.daysLoop);
-                    return false;
-                } else {
-                    return true;
-                }
-            } else {
-                Log.error("Invalid times, required are: startFadeIn, endFadeIn and endFadeOut.");
-                return false;
-            }
-        }
-    }
+				if (i1 != 24000) {
+					Log.error("Invalid fadeIn/fadeOut times, sum is not 24h: " + i1);
+					return false;
+				} else if (this.speed < 0.0F) {
+					Log.error("Invalid speed: " + this.speed);
+					return false;
+				} else if (this.daysLoop <= 0) {
+					Log.error("Invalid daysLoop: " + this.daysLoop);
+					return false;
+				} else {
+					return true;
+				}
+			} else {
+				Log.error("Invalid times, required are: startFadeIn, endFadeIn and endFadeOut.");
+				return false;
+			}
+		}
+	}
 
-    private int normalizeTime(int timeMc) {
-        while (timeMc >= 24000) {
-            timeMc -= 24000;
-        }
+	private int normalizeTime(int timeMc) {
+		while (timeMc >= 24000) {
+			timeMc -= 24000;
+		}
 
-        while (timeMc < 0) {
-            timeMc += 24000;
-        }
+		while (timeMc < 0) {
+			timeMc += 24000;
+		}
 
-        return timeMc;
-    }
+		return timeMc;
+	}
 
-    public void render(World world, int timeOfDay, float celestialAngle, float rainStrength, float thunderStrength) {
-        float f = this.getPositionBrightness(world);
-        float f1 = this.getWeatherBrightness(rainStrength, thunderStrength);
-        float f2 = this.getFadeBrightness(timeOfDay);
-        float f3 = f * f1 * f2;
-        f3 = Config.limit(f3, 0.0F, 1.0F);
+	public void render(World world, int timeOfDay, float celestialAngle, float rainStrength, float thunderStrength) {
+		float f = this.getPositionBrightness(world);
+		float f1 = this.getWeatherBrightness(rainStrength, thunderStrength);
+		float f2 = this.getFadeBrightness(timeOfDay);
+		float f3 = f * f1 * f2;
+		f3 = Config.limit(f3, 0.0F, 1.0F);
 
-        if (f3 >= 1.0E-4F) {
-            GlStateManager.bindTexture(this.textureId);
-            Blender.setupBlend(this.blend, f3);
-            GlStateManager.pushMatrix();
+		if (f3 >= 1.0E-4F) {
+			GlStateManager.bindTexture(this.textureId);
+			Blender.setupBlend(this.blend, f3);
+			GlStateManager.pushMatrix();
 
-            if (this.rotate) {
-                float f4 = 0.0F;
+			if (this.rotate) {
+				float f4 = 0.0F;
 
-                if (this.speed != Math.round(this.speed)) {
-                    long i = (world.getWorldTime() + 18000L) / 24000L;
-                    double d0 = (this.speed % 1.0F);
-                    double d1 = i * d0;
-                    f4 = (float) (d1 % 1.0D);
-                }
+				if (this.speed != Math.round(this.speed)) {
+					long i = (world.getWorldTime() + 18000L) / 24000L;
+					double d0 = (this.speed % 1.0F);
+					double d1 = i * d0;
+					f4 = (float) (d1 % 1.0D);
+				}
 
-                GlStateManager.rotate(360.0F * (f4 + celestialAngle * this.speed), this.axis[0], this.axis[1], this.axis[2]);
-            }
+				GlStateManager.rotate(360.0F * (f4 + celestialAngle * this.speed), this.axis[0], this.axis[1], this.axis[2]);
+			}
 
-            Tessellator tessellator = Tessellator.getInstance();
-            GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
-            GlStateManager.rotate(-90.0F, 0.0F, 0.0F, 1.0F);
-            this.renderSide(tessellator, 4);
-            GlStateManager.pushMatrix();
-            GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
-            this.renderSide(tessellator, 1);
-            GlStateManager.popMatrix();
-            GlStateManager.pushMatrix();
-            GlStateManager.rotate(-90.0F, 1.0F, 0.0F, 0.0F);
-            this.renderSide(tessellator, 0);
-            GlStateManager.popMatrix();
-            GlStateManager.rotate(90.0F, 0.0F, 0.0F, 1.0F);
-            this.renderSide(tessellator, 5);
-            GlStateManager.rotate(90.0F, 0.0F, 0.0F, 1.0F);
-            this.renderSide(tessellator, 2);
-            GlStateManager.rotate(90.0F, 0.0F, 0.0F, 1.0F);
-            this.renderSide(tessellator, 3);
-            GlStateManager.popMatrix();
-        }
-    }
+			Tessellator tessellator = Tessellator.getInstance();
+			GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
+			GlStateManager.rotate(-90.0F, 0.0F, 0.0F, 1.0F);
+			this.renderSide(tessellator, 4);
+			GlStateManager.pushMatrix();
+			GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
+			this.renderSide(tessellator, 1);
+			GlStateManager.popMatrix();
+			GlStateManager.pushMatrix();
+			GlStateManager.rotate(-90.0F, 1.0F, 0.0F, 0.0F);
+			this.renderSide(tessellator, 0);
+			GlStateManager.popMatrix();
+			GlStateManager.rotate(90.0F, 0.0F, 0.0F, 1.0F);
+			this.renderSide(tessellator, 5);
+			GlStateManager.rotate(90.0F, 0.0F, 0.0F, 1.0F);
+			this.renderSide(tessellator, 2);
+			GlStateManager.rotate(90.0F, 0.0F, 0.0F, 1.0F);
+			this.renderSide(tessellator, 3);
+			GlStateManager.popMatrix();
+		}
+	}
 
-    private float getPositionBrightness(World world) {
-        if (this.biomes == null && this.heights == null) {
-            return 1.0F;
-        } else {
-            float f = this.getPositionBrightnessRaw(world);
+	private float getPositionBrightness(World world) {
+		if (this.biomes == null && this.heights == null) {
+			return 1.0F;
+		} else {
+			float f = this.getPositionBrightnessRaw(world);
 
-            if (this.smoothPositionBrightness == null) {
-                this.smoothPositionBrightness = new SmoothFloat(f, this.transition);
-            }
+			if (this.smoothPositionBrightness == null) {
+				this.smoothPositionBrightness = new SmoothFloat(f, this.transition);
+			}
 
-            f = this.smoothPositionBrightness.getSmoothValue(f);
-            return f;
-        }
-    }
+			f = this.smoothPositionBrightness.getSmoothValue(f);
+			return f;
+		}
+	}
 
-    private float getPositionBrightnessRaw(World world) {
-        Entity entity = Minecraft.getMinecraft().getRenderViewEntity();
+	private float getPositionBrightnessRaw(World world) {
+		Entity entity = Minecraft.getMinecraft().getRenderViewEntity();
 
-        if (entity == null) {
-            return 0.0F;
-        } else {
-            BlockPos blockpos = entity.getPosition();
+		if (entity == null) {
+			return 0.0F;
+		} else {
+			BlockPos blockpos = entity.getPosition();
 
-            if (this.biomes != null) {
-                BiomeGenBase biomegenbase = world.getBiomeGenForCoords(blockpos);
+			if (this.biomes != null) {
+				BiomeGenBase biomegenbase = world.getBiomeGenForCoords(blockpos);
 
-                if (biomegenbase == null) {
-                    return 0.0F;
-                }
+				if (biomegenbase == null) {
+					return 0.0F;
+				}
 
-                if (!Matches.biome(biomegenbase, this.biomes)) {
-                    return 0.0F;
-                }
-            }
+				if (!Matches.biome(biomegenbase, this.biomes)) {
+					return 0.0F;
+				}
+			}
 
-            return this.heights != null && !this.heights.isInRange(blockpos.getY()) ? 0.0F : 1.0F;
-        }
-    }
+			return this.heights != null && !this.heights.isInRange(blockpos.getY()) ? 0.0F : 1.0F;
+		}
+	}
 
-    private float getWeatherBrightness(float rainStrength, float thunderStrength) {
-        float f = 1.0F - rainStrength;
-        float f1 = rainStrength - thunderStrength;
-        float f2 = 0.0F;
+	private float getWeatherBrightness(float rainStrength, float thunderStrength) {
+		float f = 1.0F - rainStrength;
+		float f1 = rainStrength - thunderStrength;
+		float f2 = 0.0F;
 
-        if (this.weatherClear) {
-            f2 += f;
-        }
+		if (this.weatherClear) {
+			f2 += f;
+		}
 
-        if (this.weatherRain) {
-            f2 += f1;
-        }
+		if (this.weatherRain) {
+			f2 += f1;
+		}
 
-        if (this.weatherThunder) {
-            f2 += thunderStrength;
-        }
+		if (this.weatherThunder) {
+			f2 += thunderStrength;
+		}
 
-        f2 = MathHelper.clamp_float(f2, 0.0F, 1.0F);
-        return f2;
-    }
+		f2 = MathHelper.clamp_float(f2, 0.0F, 1.0F);
+		return f2;
+	}
 
-    private float getFadeBrightness(int timeOfDay) {
-        if (this.timeBetween(timeOfDay, this.startFadeIn, this.endFadeIn)) {
-            int k = this.normalizeTime(this.endFadeIn - this.startFadeIn);
-            int l = this.normalizeTime(timeOfDay - this.startFadeIn);
-            return (float) l / k;
-        } else if (this.timeBetween(timeOfDay, this.endFadeIn, this.startFadeOut)) {
-            return 1.0F;
-        } else if (this.timeBetween(timeOfDay, this.startFadeOut, this.endFadeOut)) {
-            int i = this.normalizeTime(this.endFadeOut - this.startFadeOut);
-            int j = this.normalizeTime(timeOfDay - this.startFadeOut);
-            return 1.0F - (float) j / i;
-        } else {
-            return 0.0F;
-        }
-    }
+	private float getFadeBrightness(int timeOfDay) {
+		if (this.timeBetween(timeOfDay, this.startFadeIn, this.endFadeIn)) {
+			int k = this.normalizeTime(this.endFadeIn - this.startFadeIn);
+			int l = this.normalizeTime(timeOfDay - this.startFadeIn);
+			return (float) l / k;
+		} else if (this.timeBetween(timeOfDay, this.endFadeIn, this.startFadeOut)) {
+			return 1.0F;
+		} else if (this.timeBetween(timeOfDay, this.startFadeOut, this.endFadeOut)) {
+			int i = this.normalizeTime(this.endFadeOut - this.startFadeOut);
+			int j = this.normalizeTime(timeOfDay - this.startFadeOut);
+			return 1.0F - (float) j / i;
+		} else {
+			return 0.0F;
+		}
+	}
 
-    private void renderSide(Tessellator tess, int side) {
-        WorldRenderer worldrenderer = tess.getWorldRenderer();
-        double d0 = (side % 3) / 3.0D;
-        double d1 = (side / 3.0) / 2.0D;
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-        worldrenderer.pos(-100.0D, -100.0D, -100.0D).tex(d0, d1).endVertex();
-        worldrenderer.pos(-100.0D, -100.0D, 100.0D).tex(d0, d1 + 0.5D).endVertex();
-        worldrenderer.pos(100.0D, -100.0D, 100.0D).tex(d0 + 0.3333333333333333D, d1 + 0.5D).endVertex();
-        worldrenderer.pos(100.0D, -100.0D, -100.0D).tex(d0 + 0.3333333333333333D, d1).endVertex();
-        tess.draw();
-    }
+	private void renderSide(Tessellator tess, int side) {
+		WorldRenderer worldrenderer = tess.getWorldRenderer();
+		double d0 = (side % 3) / 3.0D;
+		double d1 = (side / 3.0) / 2.0D;
+		worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+		worldrenderer.pos(-100.0D, -100.0D, -100.0D).tex(d0, d1).endVertex();
+		worldrenderer.pos(-100.0D, -100.0D, 100.0D).tex(d0, d1 + 0.5D).endVertex();
+		worldrenderer.pos(100.0D, -100.0D, 100.0D).tex(d0 + 0.3333333333333333D, d1 + 0.5D).endVertex();
+		worldrenderer.pos(100.0D, -100.0D, -100.0D).tex(d0 + 0.3333333333333333D, d1).endVertex();
+		tess.draw();
+	}
 
-    public boolean isActive(World world, int timeOfDay) {
-        if (world != this.lastWorld) {
-            this.lastWorld = world;
-            this.smoothPositionBrightness = null;
-        }
+	public boolean isActive(World world, int timeOfDay) {
+		if (world != this.lastWorld) {
+			this.lastWorld = world;
+			this.smoothPositionBrightness = null;
+		}
 
-        if (this.timeBetween(timeOfDay, this.endFadeOut, this.startFadeIn)) {
-            return false;
-        } else {
-            if (this.days != null) {
-                long i = world.getWorldTime();
-                long j;
+		if (this.timeBetween(timeOfDay, this.endFadeOut, this.startFadeIn)) {
+			return false;
+		} else {
+			if (this.days != null) {
+				long i = world.getWorldTime();
+				long j;
 
-                for (j = i - this.startFadeIn; j < 0L; j += (24000L * this.daysLoop)) {
-                }
+				for (j = i - this.startFadeIn; j < 0L; j += (24000L * this.daysLoop)) {
+				}
 
-                int k = (int) (j / 24000L);
-                int l = k % this.daysLoop;
+				int k = (int) (j / 24000L);
+				int l = k % this.daysLoop;
 
-                return this.days.isInRange(l);
-            }
+				return this.days.isInRange(l);
+			}
 
-            return true;
-        }
-    }
+			return true;
+		}
+	}
 
-    private boolean timeBetween(int timeOfDay, int timeStart, int timeEnd) {
-        return timeStart <= timeEnd ? timeOfDay >= timeStart && timeOfDay <= timeEnd : timeOfDay >= timeStart || timeOfDay <= timeEnd;
-    }
+	private boolean timeBetween(int timeOfDay, int timeStart, int timeEnd) {
+		return timeStart <= timeEnd ? timeOfDay >= timeStart && timeOfDay <= timeEnd : timeOfDay >= timeStart || timeOfDay <= timeEnd;
+	}
 
-    public String toString() {
-        return this.source + ", " + this.startFadeIn + "-" + this.endFadeIn + " " + this.startFadeOut + "-" + this.endFadeOut;
-    }
+	public String toString() {
+		return this.source + ", " + this.startFadeIn + "-" + this.endFadeIn + " " + this.startFadeOut + "-" + this.endFadeOut;
+	}
 }
