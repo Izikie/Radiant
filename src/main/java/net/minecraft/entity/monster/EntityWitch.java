@@ -173,7 +173,7 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
             double d1 = target.posX + target.motionX - this.posX;
             double d2 = d0 - this.posY;
             double d3 = target.posZ + target.motionZ - this.posZ;
-            float f = MathHelper.sqrt_double(d1 * d1 + d3 * d3);
+            float f = MathHelper.sqrt(d1 * d1 + d3 * d3);
 
             if (f >= 8.0F && !target.isPotionActive(Potion.MOVE_SLOWDOWN)) {
                 entitypotion.setPotionDamage(32698);

@@ -186,7 +186,7 @@ public class CommandSpreadPlayers extends CommandBase {
                 commandspreadplayers$position = p_110671_3_[i++];
             }
 
-            value.setPositionAndUpdate((MathHelper.floor_double(commandspreadplayers$position.field_111101_a) + 0.5F), commandspreadplayers$position.func_111092_a(worldIn), MathHelper.floor_double(commandspreadplayers$position.field_111100_b) + 0.5D);
+            value.setPositionAndUpdate((MathHelper.floor(commandspreadplayers$position.field_111101_a) + 0.5F), commandspreadplayers$position.func_111092_a(worldIn), MathHelper.floor(commandspreadplayers$position.field_111100_b) + 0.5D);
             double d2 = Double.MAX_VALUE;
 
             for (Position position : p_110671_3_) {
@@ -244,7 +244,7 @@ public class CommandSpreadPlayers extends CommandBase {
         }
 
         float func_111096_b() {
-            return MathHelper.sqrt_double(this.field_111101_a * this.field_111101_a + this.field_111100_b * this.field_111100_b);
+            return MathHelper.sqrt(this.field_111101_a * this.field_111101_a + this.field_111100_b * this.field_111100_b);
         }
 
         public void func_111094_b(Position p_111094_1_) {

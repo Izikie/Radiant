@@ -99,7 +99,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
                 double d3 = d0 * d0 + d1 * d1;
 
                 if (d3 > 9.0D) {
-                    double d5 = MathHelper.sqrt_double(d3);
+                    double d5 = MathHelper.sqrt(d3);
                     this.motionX += (d0 / d5 * 0.5D - this.motionX) * 0.6000000238418579D;
                     this.motionZ += (d1 / d5 * 0.5D - this.motionZ) * 0.6000000238418579D;
                 }
@@ -132,7 +132,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
                 double d6 = entity1.posX - d11;
                 double d7 = entity1.posY + entity1.getEyeHeight() - d12;
                 double d8 = entity1.posZ - d13;
-                double d9 = MathHelper.sqrt_double(d6 * d6 + d8 * d8);
+                double d9 = MathHelper.sqrt(d6 * d6 + d8 * d8);
                 float f = (float) (MathHelper.atan2(d8, d6) * 180.0D / Math.PI) - 90.0F;
                 float f1 = (float) (-(MathHelper.atan2(d7, d9) * 180.0D / Math.PI));
                 this.field_82220_d[j] = this.func_82204_b(this.field_82220_d[j], f1, 40.0F);
@@ -249,9 +249,9 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
                 --this.blockBreakCounter;
 
                 if (this.blockBreakCounter == 0 && this.worldObj.getGameRules().getBoolean("mobGriefing")) {
-                    int i1 = MathHelper.floor_double(this.posY);
-                    int l1 = MathHelper.floor_double(this.posX);
-                    int i2 = MathHelper.floor_double(this.posZ);
+                    int i1 = MathHelper.floor(this.posY);
+                    int l1 = MathHelper.floor(this.posX);
+                    int i2 = MathHelper.floor(this.posZ);
                     boolean flag = false;
 
                     for (int k2 = -1; k2 <= 1; ++k2) {
@@ -323,7 +323,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
     }
 
     private float func_82204_b(float p_82204_1_, float p_82204_2_, float p_82204_3_) {
-        float f = MathHelper.wrapAngleTo180_float(p_82204_2_ - p_82204_1_);
+        float f = MathHelper.wrapAngle(p_82204_2_ - p_82204_1_);
 
         if (f > p_82204_3_) {
             f = p_82204_3_;

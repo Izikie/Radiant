@@ -248,7 +248,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
     }
 
     public int increaseTemper(int p_110198_1_) {
-        int i = MathHelper.clamp_int(this.getTemper() + p_110198_1_, 0, this.getMaxTemper());
+        int i = MathHelper.clamp(this.getTemper() + p_110198_1_, 0, this.getMaxTemper());
         this.setTemper(i);
         return i;
     }
@@ -267,8 +267,8 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
     }
 
     public boolean prepareChunkForSpawn() {
-        int i = MathHelper.floor_double(this.posX);
-        int j = MathHelper.floor_double(this.posZ);
+        int i = MathHelper.floor(this.posX);
+        int j = MathHelper.floor(this.posZ);
         this.worldObj.getBiomeGenForCoords(new BlockPos(i, 0, j));
         return true;
     }
@@ -293,7 +293,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
             this.playSound("mob.horse.land", 0.4F, 1.0F);
         }
 
-        int i = MathHelper.ceiling_float_int((distance * 0.5F - 3.0F) * damageMultiplier);
+        int i = MathHelper.ceil((distance * 0.5F - 3.0F) * damageMultiplier);
 
         if (i > 0) {
             this.attackEntityFrom(DamageSource.FALL, i);
@@ -769,7 +769,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
                 this.heal(1.0F);
             }
 
-            if (!this.isEatingHaystack() && this.riddenByEntity == null && this.rand.nextInt(300) == 0 && this.worldObj.getBlockState(new BlockPos(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY) - 1, MathHelper.floor_double(this.posZ))).getBlock() == Blocks.GRASS) {
+            if (!this.isEatingHaystack() && this.riddenByEntity == null && this.rand.nextInt(300) == 0 && this.worldObj.getBlockState(new BlockPos(MathHelper.floor(this.posX), MathHelper.floor(this.posY) - 1, MathHelper.floor(this.posZ))).getBlock() == Blocks.GRASS) {
                 this.setEatingHaystack(true);
             }
 
@@ -991,7 +991,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
             this.prevLimbSwingAmount = this.limbSwingAmount;
             double d1 = this.posX - this.prevPosX;
             double d0 = this.posZ - this.prevPosZ;
-            float f2 = MathHelper.sqrt_double(d1 * d1 + d0 * d0) * 4.0F;
+            float f2 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
 
             if (f2 > 1.0F) {
                 f2 = 1.0F;

@@ -31,23 +31,23 @@ public class WalkNodeProcessor extends NodeProcessor {
 
         if (this.canSwim && entityIn.isInWater()) {
             i = (int) entityIn.getEntityBoundingBox().minY;
-            BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(MathHelper.floor_double(entityIn.posX), i, MathHelper.floor_double(entityIn.posZ));
+            BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(MathHelper.floor(entityIn.posX), i, MathHelper.floor(entityIn.posZ));
 
             for (Block block = this.blockaccess.getBlockState(blockpos$mutableblockpos).getBlock(); block == Blocks.FLOWING_WATER || block == Blocks.WATER; block = this.blockaccess.getBlockState(blockpos$mutableblockpos).getBlock()) {
                 ++i;
-                blockpos$mutableblockpos.set(MathHelper.floor_double(entityIn.posX), i, MathHelper.floor_double(entityIn.posZ));
+                blockpos$mutableblockpos.set(MathHelper.floor(entityIn.posX), i, MathHelper.floor(entityIn.posZ));
             }
 
             this.avoidsWater = false;
         } else {
-            i = MathHelper.floor_double(entityIn.getEntityBoundingBox().minY + 0.5D);
+            i = MathHelper.floor(entityIn.getEntityBoundingBox().minY + 0.5D);
         }
 
-        return this.openPoint(MathHelper.floor_double(entityIn.getEntityBoundingBox().minX), i, MathHelper.floor_double(entityIn.getEntityBoundingBox().minZ));
+        return this.openPoint(MathHelper.floor(entityIn.getEntityBoundingBox().minX), i, MathHelper.floor(entityIn.getEntityBoundingBox().minZ));
     }
 
     public PathPoint getPathPointToCoords(Entity entityIn, double x, double y, double target) {
-        return this.openPoint(MathHelper.floor_double(x - (entityIn.width / 2.0F)), MathHelper.floor_double(y), MathHelper.floor_double(target - (entityIn.width / 2.0F)));
+        return this.openPoint(MathHelper.floor(x - (entityIn.width / 2.0F)), MathHelper.floor(y), MathHelper.floor(target - (entityIn.width / 2.0F)));
     }
 
     public int findPathOptions(PathPoint[] pathOptions, Entity entityIn, PathPoint currentPoint, PathPoint targetPoint, float maxDistance) {

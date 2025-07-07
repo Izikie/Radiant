@@ -165,7 +165,7 @@ public class GuiOverlayDebug extends Gui {
             debugInfo.add(String.format("XYZ: %.3f, %.3f, %.3f", mc.getRenderViewEntity().posX, mc.getRenderViewEntity().getEntityBoundingBox().minY, mc.getRenderViewEntity().posZ));
             debugInfo.add(String.format("Block: %d %d %d", blockPos.getX(), blockPos.getY(), blockPos.getZ()));
             debugInfo.add(String.format("Chunk: %d %d %d in %d %d %d", blockPos.getX() & 15, blockPos.getY() & 15, blockPos.getZ() & 15, blockPos.getX() >> 4, blockPos.getY() >> 4, blockPos.getZ() >> 4));
-            debugInfo.add(String.format("Facing: %s (%s) (%.1f / %.1f)", direction.getName(), facing, MathHelper.wrapAngleTo180_float(entity.rotationYaw), MathHelper.wrapAngleTo180_float(entity.rotationPitch)));
+            debugInfo.add(String.format("Facing: %s (%s) (%.1f / %.1f)", direction.getName(), facing, MathHelper.wrapAngle(entity.rotationYaw), MathHelper.wrapAngle(entity.rotationPitch)));
 
             if (mc.world != null && mc.world.isBlockLoaded(blockPos)) {
                 Chunk chunk = mc.world.getChunkFromBlockCoords(blockPos);

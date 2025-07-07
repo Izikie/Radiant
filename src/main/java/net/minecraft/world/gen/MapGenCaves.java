@@ -77,12 +77,12 @@ public class MapGenCaves extends MapGenBase {
                 }
 
                 if (p_180702_6_ >= d0 - 16.0D - d2 * 2.0D && p_180702_10_ >= d1 - 16.0D - d2 * 2.0D && p_180702_6_ <= d0 + 16.0D + d2 * 2.0D && p_180702_10_ <= d1 + 16.0D + d2 * 2.0D) {
-                    int k2 = MathHelper.floor_double(p_180702_6_ - d2) - p_180702_3_ * 16 - 1;
-                    int k = MathHelper.floor_double(p_180702_6_ + d2) - p_180702_3_ * 16 + 1;
-                    int l2 = MathHelper.floor_double(p_180702_8_ - d3) - 1;
-                    int l = MathHelper.floor_double(p_180702_8_ + d3) + 1;
-                    int i3 = MathHelper.floor_double(p_180702_10_ - d2) - p_180702_4_ * 16 - 1;
-                    int i1 = MathHelper.floor_double(p_180702_10_ + d2) - p_180702_4_ * 16 + 1;
+                    int k2 = MathHelper.floor(p_180702_6_ - d2) - p_180702_3_ * 16 - 1;
+                    int k = MathHelper.floor(p_180702_6_ + d2) - p_180702_3_ * 16 + 1;
+                    int l2 = MathHelper.floor(p_180702_8_ - d3) - 1;
+                    int l = MathHelper.floor(p_180702_8_ + d3) + 1;
+                    int i3 = MathHelper.floor(p_180702_10_ - d2) - p_180702_4_ * 16 - 1;
+                    int i1 = MathHelper.floor(p_180702_10_ + d2) - p_180702_4_ * 16 + 1;
 
                     if (k2 < 0) {
                         k2 = 0;

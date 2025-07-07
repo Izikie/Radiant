@@ -7,37 +7,37 @@ import net.optifine.expr.*;
 import java.util.Map;
 
 public class MacroExpressionResolver implements IExpressionResolver {
-    private final Map<String, String> mapMacroValues;
+	private final Map<String, String> mapMacroValues;
 
-    public MacroExpressionResolver(Map<String, String> mapMacroValues) {
-        this.mapMacroValues = mapMacroValues;
-    }
+	public MacroExpressionResolver(Map<String, String> mapMacroValues) {
+		this.mapMacroValues = mapMacroValues;
+	}
 
-    public IExpression getExpression(String name) {
-        String s = "defined_";
+	public IExpression getExpression(String name) {
+		String s = "defined_";
 
-        if (name.startsWith(s)) {
-            String s2 = name.substring(s.length());
-            return this.mapMacroValues.containsKey(s2) ? new FunctionBool(FunctionType.TRUE, null) : new FunctionBool(FunctionType.FALSE, null);
-        } else {
-            while (this.mapMacroValues.containsKey(name)) {
-                String s1 = this.mapMacroValues.get(name);
+		if (name.startsWith(s)) {
+			String s2 = name.substring(s.length());
+			return this.mapMacroValues.containsKey(s2) ? new FunctionBool(FunctionType.TRUE, null) : new FunctionBool(FunctionType.FALSE, null);
+		} else {
+			while (this.mapMacroValues.containsKey(name)) {
+				String s1 = this.mapMacroValues.get(name);
 
-                if (s1 == null || s1.equals(name)) {
-                    break;
-                }
+				if (s1 == null || s1.equals(name)) {
+					break;
+				}
 
-                name = s1;
-            }
+				name = s1;
+			}
 
-            int i = Config.parseInt(name, Integer.MIN_VALUE);
+			int i = Config.parseInt(name, Integer.MIN_VALUE);
 
-            if (i == Integer.MIN_VALUE) {
-                Log.error("Unknown macro value: " + name);
-                return new ConstantFloat(0.0F);
-            } else {
-                return new ConstantFloat(i);
-            }
-        }
-    }
+			if (i == Integer.MIN_VALUE) {
+				Log.error("Unknown macro value: " + name);
+				return new ConstantFloat(0.0F);
+			} else {
+				return new ConstantFloat(i);
+			}
+		}
+	}
 }

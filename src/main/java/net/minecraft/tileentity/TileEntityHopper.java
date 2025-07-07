@@ -436,9 +436,9 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
 
     public static IInventory getInventoryAtPosition(World worldIn, double x, double y, double z) {
         IInventory iinventory = null;
-        int i = MathHelper.floor_double(x);
-        int j = MathHelper.floor_double(y);
-        int k = MathHelper.floor_double(z);
+        int i = MathHelper.floor(x);
+        int j = MathHelper.floor(y);
+        int k = MathHelper.floor(z);
         BlockPos blockpos = new BlockPos(i, j, k);
         Block block = worldIn.getBlockState(blockpos).getBlock();
 

@@ -75,8 +75,8 @@ public class ViewFrustum {
     }
 
     public void updateChunkPositions(double viewEntityX, double viewEntityZ) {
-        int i = MathHelper.floor_double(viewEntityX) - 8;
-        int j = MathHelper.floor_double(viewEntityZ) - 8;
+        int i = MathHelper.floor(viewEntityX) - 8;
+        int j = MathHelper.floor(viewEntityZ) - 8;
         int k = this.countChunksX * 16;
 
         for (int l = 0; l < this.countChunksX; ++l) {

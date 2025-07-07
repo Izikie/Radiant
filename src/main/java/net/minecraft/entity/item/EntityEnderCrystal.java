@@ -40,9 +40,9 @@ public class EntityEnderCrystal extends Entity {
         this.prevPosZ = this.posZ;
         ++this.innerRotation;
         this.dataWatcher.updateObject(8, this.health);
-        int i = MathHelper.floor_double(this.posX);
-        int j = MathHelper.floor_double(this.posY);
-        int k = MathHelper.floor_double(this.posZ);
+        int i = MathHelper.floor(this.posX);
+        int j = MathHelper.floor(this.posY);
+        int k = MathHelper.floor(this.posZ);
 
         if (this.worldObj.provider instanceof WorldProviderEnd && this.worldObj.getBlockState(new BlockPos(i, j, k)).getBlock() != Blocks.FIRE) {
             this.worldObj.setBlockState(new BlockPos(i, j, k), Blocks.FIRE.getDefaultState());

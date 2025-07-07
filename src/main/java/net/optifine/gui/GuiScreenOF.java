@@ -8,35 +8,35 @@ import java.io.IOException;
 import java.util.List;
 
 public class GuiScreenOF extends GuiScreen {
-    protected void actionPerformedRightClick(GuiButton button) throws IOException {
-    }
+	public static GuiButton getSelectedButton(int x, int y, List<GuiButton> listButtons) {
+		for (GuiButton listButton : listButtons) {
 
-    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-        super.mouseClicked(mouseX, mouseY, mouseButton);
+			if (listButton.visible) {
+				int j = GuiVideoSettings.getButtonWidth(listButton);
+				int k = GuiVideoSettings.getButtonHeight(listButton);
 
-        if (mouseButton == 1) {
-            GuiButton guibutton = getSelectedButton(mouseX, mouseY, this.buttonList);
+				if (x >= listButton.xPosition && y >= listButton.yPosition && x < listButton.xPosition + j && y < listButton.yPosition + k) {
+					return listButton;
+				}
+			}
+		}
 
-            if (guibutton != null && guibutton.enabled) {
-                guibutton.playPressSound(this.mc.getSoundHandler());
-                this.actionPerformedRightClick(guibutton);
-            }
-        }
-    }
+		return null;
+	}
 
-    public static GuiButton getSelectedButton(int x, int y, List<GuiButton> listButtons) {
-        for (GuiButton listButton : listButtons) {
+	protected void actionPerformedRightClick(GuiButton button) throws IOException {
+	}
 
-            if (listButton.visible) {
-                int j = GuiVideoSettings.getButtonWidth(listButton);
-                int k = GuiVideoSettings.getButtonHeight(listButton);
+	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+		super.mouseClicked(mouseX, mouseY, mouseButton);
 
-                if (x >= listButton.xPosition && y >= listButton.yPosition && x < listButton.xPosition + j && y < listButton.yPosition + k) {
-                    return listButton;
-                }
-            }
-        }
+		if (mouseButton == 1) {
+			GuiButton guibutton = getSelectedButton(mouseX, mouseY, this.buttonList);
 
-        return null;
-    }
+			if (guibutton != null && guibutton.enabled) {
+				guibutton.playPressSound(this.mc.getSoundHandler());
+				this.actionPerformedRightClick(guibutton);
+			}
+		}
+	}
 }

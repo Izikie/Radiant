@@ -60,7 +60,7 @@ public class LayeredColorMaskTexture extends AbstractTexture {
                                 if ((i1 & -16777216) != 0) {
                                     int j1 = (i1 & 16711680) << 8 & -16777216;
                                     int k1 = bufferedimage1.getRGB(l, k);
-                                    int l1 = MathHelper.func_180188_d(k1, mapcolor.colorValue) & 16777215;
+                                    int l1 = MathHelper.mulColor(k1, mapcolor.colorValue) & 16777215;
                                     bufferedimage2.setRGB(l, k, j1 | l1);
                                 }
                             }

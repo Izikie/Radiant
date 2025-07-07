@@ -21,7 +21,7 @@ public class ScoreHealthCriteria extends ScoreDummyCriteria {
             f /= p_96635_1_.size();
         }
 
-        return MathHelper.ceiling_float_int(f);
+        return MathHelper.ceil(f);
     }
 
     public boolean isReadOnly() {

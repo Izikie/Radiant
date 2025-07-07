@@ -139,13 +139,13 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
             case 70 ->
                     entity = new EntityFallingBlock(this.clientWorldController, x, y, z, Block.getStateById(packet.getExtraData() & 65535));
             case 71 ->
-                    entity = new EntityItemFrame(this.clientWorldController, new BlockPos(MathHelper.floor_double(x), MathHelper.floor_double(y), MathHelper.floor_double(z)), Direction.getHorizontal(packet.getExtraData()));
+                    entity = new EntityItemFrame(this.clientWorldController, new BlockPos(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z)), Direction.getHorizontal(packet.getExtraData()));
             case 72 -> entity = new EntityEnderEye(this.clientWorldController, x, y, z);
             case 73 -> entity = new EntityPotion(this.clientWorldController, x, y, z, packet.getExtraData());
             case 75 -> entity = new EntityExpBottle(this.clientWorldController, x, y, z);
             case 76 -> entity = new EntityFireworkRocket(this.clientWorldController, x, y, z, null);
             case 77 ->
-                    entity = new EntityLeashKnot(this.clientWorldController, new BlockPos(MathHelper.floor_double(x), MathHelper.floor_double(y), MathHelper.floor_double(z)));
+                    entity = new EntityLeashKnot(this.clientWorldController, new BlockPos(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z)));
             case 78 -> entity = new EntityArmorStand(this.clientWorldController, x, y, z);
             case 90 -> {
                 Entity entity1 = this.clientWorldController.getEntityByID(packet.getExtraData());
@@ -822,7 +822,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         EntityPlayer entityplayer = this.gameController.player;
         int i = packet.getGameState();
         float f = packet.func_149137_d();
-        int j = MathHelper.floor_float(f + 0.5F);
+        int j = MathHelper.floor(f + 0.5F);
 
         if (i >= 0 && i < S2BPacketChangeGameState.MESSAGE_NAMES.length && S2BPacketChangeGameState.MESSAGE_NAMES[i] != null) {
             entityplayer.addChatComponentMessage(new ChatComponentTranslation(S2BPacketChangeGameState.MESSAGE_NAMES[i]));

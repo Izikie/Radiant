@@ -43,7 +43,7 @@ public class EntityAIControlledByPlayer extends EntityAIBase {
     public void updateTask() {
         EntityPlayer entityplayer = (EntityPlayer) this.thisEntity.riddenByEntity;
         EntityCreature entitycreature = (EntityCreature) this.thisEntity;
-        float f = MathHelper.wrapAngleTo180_float(entityplayer.rotationYaw - this.thisEntity.rotationYaw) * 0.5F;
+        float f = MathHelper.wrapAngle(entityplayer.rotationYaw - this.thisEntity.rotationYaw) * 0.5F;
 
         if (f > 5.0F) {
             f = 5.0F;
@@ -53,7 +53,7 @@ public class EntityAIControlledByPlayer extends EntityAIBase {
             f = -5.0F;
         }
 
-        this.thisEntity.rotationYaw = MathHelper.wrapAngleTo180_float(this.thisEntity.rotationYaw + f);
+        this.thisEntity.rotationYaw = MathHelper.wrapAngle(this.thisEntity.rotationYaw + f);
 
         if (this.currentSpeed < this.maxSpeed) {
             this.currentSpeed += (this.maxSpeed - this.currentSpeed) * 0.01F;
@@ -63,9 +63,9 @@ public class EntityAIControlledByPlayer extends EntityAIBase {
             this.currentSpeed = this.maxSpeed;
         }
 
-        int i = MathHelper.floor_double(this.thisEntity.posX);
-        int j = MathHelper.floor_double(this.thisEntity.posY);
-        int k = MathHelper.floor_double(this.thisEntity.posZ);
+        int i = MathHelper.floor(this.thisEntity.posX);
+        int j = MathHelper.floor(this.thisEntity.posY);
+        int k = MathHelper.floor(this.thisEntity.posZ);
         float f1 = this.currentSpeed;
 
         if (this.speedBoosted) {
@@ -79,7 +79,7 @@ public class EntityAIControlledByPlayer extends EntityAIBase {
         float f2 = 0.91F;
 
         if (this.thisEntity.onGround) {
-            f2 = this.thisEntity.worldObj.getBlockState(new BlockPos(MathHelper.floor_float(i), MathHelper.floor_float(j) - 1, MathHelper.floor_float(k))).getBlock().slipperiness * 0.91F;
+            f2 = this.thisEntity.worldObj.getBlockState(new BlockPos(MathHelper.floor(i), MathHelper.floor(j) - 1, MathHelper.floor(k))).getBlock().slipperiness * 0.91F;
         }
 
         float f3 = 0.16277136F / (f2 * f2 * f2);
@@ -114,11 +114,11 @@ public class EntityAIControlledByPlayer extends EntityAIBase {
             }
         }
 
-        int l = MathHelper.floor_double(this.thisEntity.posX + f9);
-        int i1 = MathHelper.floor_double(this.thisEntity.posZ + f10);
-        int j1 = MathHelper.floor_float(this.thisEntity.width + 1.0F);
-        int k1 = MathHelper.floor_float(this.thisEntity.height + entityplayer.height + 1.0F);
-        int l1 = MathHelper.floor_float(this.thisEntity.width + 1.0F);
+        int l = MathHelper.floor(this.thisEntity.posX + f9);
+        int i1 = MathHelper.floor(this.thisEntity.posZ + f10);
+        int j1 = MathHelper.floor(this.thisEntity.width + 1.0F);
+        int k1 = MathHelper.floor(this.thisEntity.height + entityplayer.height + 1.0F);
+        int l1 = MathHelper.floor(this.thisEntity.width + 1.0F);
 
         if (i != l || k != i1) {
             Block block = this.thisEntity.worldObj.getBlockState(new BlockPos(i, j, k)).getBlock();

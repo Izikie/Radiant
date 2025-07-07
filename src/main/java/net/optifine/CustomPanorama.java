@@ -13,118 +13,118 @@ import java.util.Properties;
 import java.util.Random;
 
 public class CustomPanorama {
-    private static CustomPanoramaProperties customPanoramaProperties = null;
-    private static final Random RANDOM = new Random();
+	private static final Random RANDOM = new Random();
+	private static CustomPanoramaProperties customPanoramaProperties = null;
 
-    public static CustomPanoramaProperties getCustomPanoramaProperties() {
-        return customPanoramaProperties;
-    }
+	public static CustomPanoramaProperties getCustomPanoramaProperties() {
+		return customPanoramaProperties;
+	}
 
-    public static void update() {
-        customPanoramaProperties = null;
-        String[] astring = getPanoramaFolders();
+	public static void update() {
+		customPanoramaProperties = null;
+		String[] astring = getPanoramaFolders();
 
-        if (astring.length > 1) {
-            Properties[] aproperties = getPanoramaProperties(astring);
-            int[] aint = getWeights(aproperties);
-            int i = getRandomIndex(aint);
-            String s = astring[i];
-            Properties properties = aproperties[i];
+		if (astring.length > 1) {
+			Properties[] aproperties = getPanoramaProperties(astring);
+			int[] aint = getWeights(aproperties);
+			int i = getRandomIndex(aint);
+			String s = astring[i];
+			Properties properties = aproperties[i];
 
-            if (properties == null) {
-                properties = aproperties[0];
-            }
+			if (properties == null) {
+				properties = aproperties[0];
+			}
 
-            if (properties == null) {
-                properties = new PropertiesOrdered();
-            }
+			if (properties == null) {
+				properties = new PropertiesOrdered();
+			}
 
-            customPanoramaProperties = new CustomPanoramaProperties(s, properties);
-        }
-    }
+			customPanoramaProperties = new CustomPanoramaProperties(s, properties);
+		}
+	}
 
-    private static String[] getPanoramaFolders() {
-        List<String> list = new ArrayList<>();
-        list.add("textures/gui/title/background");
+	private static String[] getPanoramaFolders() {
+		List<String> list = new ArrayList<>();
+		list.add("textures/gui/title/background");
 
-        for (int i = 0; i < 100; ++i) {
-            String s = "optifine/gui/background" + i;
-            String s1 = s + "/panorama_0.png";
-            ResourceLocation resourcelocation = new ResourceLocation(s1);
+		for (int i = 0; i < 100; ++i) {
+			String s = "optifine/gui/background" + i;
+			String s1 = s + "/panorama_0.png";
+			ResourceLocation resourcelocation = new ResourceLocation(s1);
 
-            if (Config.hasResource(resourcelocation)) {
-                list.add(s);
-            }
-        }
+			if (Config.hasResource(resourcelocation)) {
+				list.add(s);
+			}
+		}
 
-        return list.toArray(new String[0]);
-    }
+		return list.toArray(new String[0]);
+	}
 
-    private static Properties[] getPanoramaProperties(String[] folders) {
-        Properties[] aproperties = new Properties[folders.length];
+	private static Properties[] getPanoramaProperties(String[] folders) {
+		Properties[] aproperties = new Properties[folders.length];
 
-        for (int i = 0; i < folders.length; ++i) {
-            String s = folders[i];
+		for (int i = 0; i < folders.length; ++i) {
+			String s = folders[i];
 
-            if (i == 0) {
-                s = "optifine/gui";
-            } else {
-                Log.info("CustomPanorama: " + s);
-            }
+			if (i == 0) {
+				s = "optifine/gui";
+			} else {
+				Log.info("CustomPanorama: " + s);
+			}
 
-            ResourceLocation resourcelocation = new ResourceLocation(s + "/background.properties");
+			ResourceLocation resourcelocation = new ResourceLocation(s + "/background.properties");
 
-            try {
-                InputStream inputstream = Config.getResourceStream(resourcelocation);
+			try {
+				InputStream inputstream = Config.getResourceStream(resourcelocation);
 
-                if (inputstream != null) {
-                    Properties properties = new PropertiesOrdered();
-                    properties.load(inputstream);
-                    Log.info("CustomPanorama: " + resourcelocation.getResourcePath());
-                    aproperties[i] = properties;
-                    inputstream.close();
-                }
-            } catch (IOException exception) {
-            }
-        }
+				if (inputstream != null) {
+					Properties properties = new PropertiesOrdered();
+					properties.load(inputstream);
+					Log.info("CustomPanorama: " + resourcelocation.getResourcePath());
+					aproperties[i] = properties;
+					inputstream.close();
+				}
+			} catch (IOException exception) {
+			}
+		}
 
-        return aproperties;
-    }
+		return aproperties;
+	}
 
-    private static int[] getWeights(Properties[] propertiess) {
-        int[] aint = new int[propertiess.length];
+	private static int[] getWeights(Properties[] propertiess) {
+		int[] aint = new int[propertiess.length];
 
-        for (int i = 0; i < aint.length; ++i) {
-            Properties properties = propertiess[i];
+		for (int i = 0; i < aint.length; ++i) {
+			Properties properties = propertiess[i];
 
-            if (properties == null) {
-                properties = propertiess[0];
-            }
+			if (properties == null) {
+				properties = propertiess[0];
+			}
 
-            if (properties == null) {
-                aint[i] = 1;
-            } else {
-                String s = properties.getProperty("weight", null);
-                aint[i] = Config.parseInt(s, 1);
-            }
-        }
+			if (properties == null) {
+				aint[i] = 1;
+			} else {
+				String s = properties.getProperty("weight", null);
+				aint[i] = Config.parseInt(s, 1);
+			}
+		}
 
-        return aint;
-    }
+		return aint;
+	}
 
-    private static int getRandomIndex(int[] weights) {
-        int i = MathUtils.getSum(weights);
-        int j = RANDOM.nextInt(i);
-        int k = 0;
+	private static int getRandomIndex(int[] weights) {
+		int i = MathUtils.getSum(weights);
+		int j = RANDOM.nextInt(i);
+		int k = 0;
 
-        for (int l = 0; l < weights.length; ++l) {
-            k += weights[l];
+		for (int l = 0; l < weights.length; ++l) {
+			k += weights[l];
 
-            if (k > j) {
-                return l;
-            }
-        }
+			if (k > j) {
+				return l;
+			}
+		}
 
-        return weights.length - 1;
-    }
+		return weights.length - 1;
+	}
 }

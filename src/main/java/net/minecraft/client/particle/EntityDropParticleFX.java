@@ -101,7 +101,7 @@ public class EntityDropParticleFX extends EntityFX {
                 d0 = BlockLiquid.getLiquidHeightPercent(iblockstate.getValue(BlockLiquid.LEVEL));
             }
 
-            double d1 = (MathHelper.floor_double(this.posY) + 1) - d0;
+            double d1 = (MathHelper.floor(this.posY) + 1) - d0;
 
             if (this.posY < d1) {
                 this.setDead();

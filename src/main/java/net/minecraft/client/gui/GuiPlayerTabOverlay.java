@@ -236,8 +236,8 @@ public class GuiPlayerTabOverlay extends Gui {
 
             p_175247_6_.func_178843_c(this.lastTimeOpened);
             p_175247_6_.func_178836_b(i);
-            int j = MathHelper.ceiling_float_int(Math.max(i, p_175247_6_.func_178860_m()) / 2.0F);
-            int k = Math.max(MathHelper.ceiling_float_int((i / 2)), Math.max(MathHelper.ceiling_float_int((p_175247_6_.func_178860_m() / 2)), 10));
+            int j = MathHelper.ceil(Math.max(i, p_175247_6_.func_178860_m()) / 2.0F);
+            int k = Math.max(MathHelper.ceil((i / 2)), Math.max(MathHelper.ceil((p_175247_6_.func_178860_m() / 2)), 10));
             boolean flag = p_175247_6_.func_178858_o() > this.guiIngame.getUpdateCounter() && (p_175247_6_.func_178858_o() - this.guiIngame.getUpdateCounter()) / 3L % 2L == 1L;
 
             if (j > 0) {
@@ -270,7 +270,7 @@ public class GuiPlayerTabOverlay extends Gui {
                         }
                     }
                 } else {
-                    float f1 = MathHelper.clamp_float(i / 20.0F, 0.0F, 1.0F);
+                    float f1 = MathHelper.clamp(i / 20.0F, 0.0F, 1.0F);
                     int i1 = (int) ((1.0F - f1) * 255.0F) << 16 | (int) (f1 * 255.0F) << 8;
                     String s = "" + i / 2.0F;
 

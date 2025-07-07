@@ -209,7 +209,7 @@ public class GuiIngame extends Gui {
                 i2 = (int) (f3 * 255.0F / this.titleFadeOut);
             }
 
-            i2 = MathHelper.clamp_int(i2, 0, 255);
+            i2 = MathHelper.clamp(i2, 0, 255);
 
             if (i2 > 8) {
                 GlStateManager.pushMatrix();
@@ -445,7 +445,7 @@ public class GuiIngame extends Gui {
 
     private void renderPlayerStats(ScaledResolution scaledRes) {
         if (this.mc.getRenderViewEntity() instanceof EntityPlayer entityplayer) {
-            int i = MathHelper.ceiling_float_int(entityplayer.getHealth());
+            int i = MathHelper.ceil(entityplayer.getHealth());
             boolean flag = this.healthUpdateCounter > this.updateCounter && (this.healthUpdateCounter - this.updateCounter) / 3L % 2L == 1L;
 
             if (i < this.playerHealth && entityplayer.hurtResistantTime > 0) {
@@ -475,7 +475,7 @@ public class GuiIngame extends Gui {
             int k1 = scaledRes.getScaledHeight() - 39;
             float f = (float) iattributeinstance.getAttributeValue();
             float f1 = entityplayer.getAbsorptionAmount();
-            int l1 = MathHelper.ceiling_float_int((f + f1) / 2.0F / 10.0F);
+            int l1 = MathHelper.ceil((f + f1) / 2.0F / 10.0F);
             int i2 = Math.max(10 - (l1 - 2), 3);
             int j2 = k1 - (l1 - 1) * i2 - 10;
             float f2 = f1;
@@ -483,7 +483,7 @@ public class GuiIngame extends Gui {
             int l2 = -1;
 
             if (entityplayer.isPotionActive(Potion.REGENERATION)) {
-                l2 = this.updateCounter % MathHelper.ceiling_float_int(f + 5.0F);
+                l2 = this.updateCounter % MathHelper.ceil(f + 5.0F);
             }
 
             for (int i3 = 0; i3 < 10; ++i3) {
@@ -504,7 +504,7 @@ public class GuiIngame extends Gui {
                 }
             }
 
-            for (int i6 = MathHelper.ceiling_float_int((f + f1) / 2.0F) - 1; i6 >= 0; --i6) {
+            for (int i6 = MathHelper.ceil((f + f1) / 2.0F) - 1; i6 >= 0; --i6) {
                 int j6 = 16;
 
                 if (entityplayer.isPotionActive(Potion.POISON)) {
@@ -519,7 +519,7 @@ public class GuiIngame extends Gui {
                     k3 = 1;
                 }
 
-                int l3 = MathHelper.ceiling_float_int((i6 + 1) / 10.0F) - 1;
+                int l3 = MathHelper.ceil((i6 + 1) / 10.0F) - 1;
                 int i4 = i1 + i6 % 10 * 8;
                 int j4 = k1 - l3 * i2;
 
@@ -651,8 +651,8 @@ public class GuiIngame extends Gui {
 
             if (entityplayer.isInsideOfMaterial(Material.WATER)) {
                 int l6 = this.mc.player.getAir();
-                int k7 = MathHelper.ceiling_double_int((l6 - 2) * 10.0D / 300.0D);
-                int i8 = MathHelper.ceiling_double_int(l6 * 10.0D / 300.0D) - k7;
+                int k7 = MathHelper.ceil((l6 - 2) * 10.0D / 300.0D);
+                int i8 = MathHelper.ceil(l6 * 10.0D / 300.0D) - k7;
 
                 for (int l8 = 0; l8 < k7 + i8; ++l8) {
                     if (l8 < k7) {
@@ -716,7 +716,7 @@ public class GuiIngame extends Gui {
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
         } else {
             lightLevel = 1.0F - lightLevel;
-            lightLevel = MathHelper.clamp_float(lightLevel, 0.0F, 1.0F);
+            lightLevel = MathHelper.clamp(lightLevel, 0.0F, 1.0F);
             WorldBorder worldborder = this.mc.world.getWorldBorder();
             float f = (float) worldborder.getClosestDistance(this.mc.player);
             double d0 = Math.min(worldborder.getResizeSpeed() * worldborder.getWarningTime() * 1000.0D, Math.abs(worldborder.getTargetSize() - worldborder.getDiameter()));

@@ -86,7 +86,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
 
         if (!worldIn.provider.getHasNoSky() && worldIn.getWorldInfo().getGameType() != WorldSettings.GameType.ADVENTURE) {
             int i = Math.max(5, server.getSpawnProtectionSize() - 6);
-            int j = MathHelper.floor_double(worldIn.getWorldBorder().getClosestDistance(blockpos.getX(), blockpos.getZ()));
+            int j = MathHelper.floor(worldIn.getWorldBorder().getClosestDistance(blockpos.getX(), blockpos.getZ()));
 
             if (j < i) {
                 i = j;
@@ -283,7 +283,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
     }
 
     protected void updateBiomesExplored() {
-        BiomeGenBase biomegenbase = this.worldObj.getBiomeGenForCoords(new BlockPos(MathHelper.floor_double(this.posX), 0, MathHelper.floor_double(this.posZ)));
+        BiomeGenBase biomegenbase = this.worldObj.getBiomeGenForCoords(new BlockPos(MathHelper.floor(this.posX), 0, MathHelper.floor(this.posZ)));
         String s = biomegenbase.biomeName;
         JsonSerializableSet jsonserializableset = this.getStatFile().func_150870_b(AchievementList.EXPLORE_ALL_BIOMES);
 
@@ -474,9 +474,9 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
     }
 
     public void handleFalling(double p_71122_1_, boolean p_71122_3_) {
-        int i = MathHelper.floor_double(this.posX);
-        int j = MathHelper.floor_double(this.posY - 0.20000000298023224D);
-        int k = MathHelper.floor_double(this.posZ);
+        int i = MathHelper.floor(this.posX);
+        int j = MathHelper.floor(this.posY - 0.20000000298023224D);
+        int k = MathHelper.floor(this.posZ);
         BlockPos blockpos = new BlockPos(i, j, k);
         Block block = this.worldObj.getBlockState(blockpos).getBlock();
 
