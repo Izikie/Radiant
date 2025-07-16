@@ -1,17 +1,16 @@
 package net.minecraft.util;
 
-import net.optifine.util.MathUtils;
-
 import java.util.Random;
 import java.util.UUID;
 
 public class MathHelper {
-	public static final float PI = MathUtils.roundToFloat(Math.PI);
-	public static final float PId2 = MathUtils.roundToFloat((Math.PI / 2.0D));
-	public static final float DEG_2_RAD = MathUtils.roundToFloat(0.017453292519943295D);
-	private static final float RAD_TO_INDEX = MathUtils.roundToFloat(651.8986469044033D);
+	public static final float PI = roundToFloat(Math.PI);
+	public static final float PI_HALF = roundToFloat((Math.PI / 2.0D));
+	public static final float DEG_TO_RAD = roundToFloat(0.017453292519943295D);
+	private static final float RAD_TO_INDEX = roundToFloat(651.8986469044033D);
 	private static final float[] SIN_TABLE_FAST = new float[4096];
 	private static final float[] SIN_TABLE = new float[65536];
+	private static final float[] ASIN_TABLE = new float[65536];
 	private static final int[] MULTIPLY_DE_BRUIJN_BIT_POSITION;
 	public static boolean fastMath = false;
 
@@ -21,7 +20,15 @@ public class MathHelper {
 		}
 
 		for (int j = 0; j < SIN_TABLE_FAST.length; ++j) {
-			SIN_TABLE_FAST[j] = MathUtils.roundToFloat(Math.sin(j * Math.PI * 2.0D / 4096.0D));
+			SIN_TABLE_FAST[j] = roundToFloat(Math.sin(j * Math.PI * 2.0D / 4096.0D));
+		}
+
+		for (int i = 0; i < 65536; ++i) {
+			ASIN_TABLE[i] = (float) Math.asin(i / 32767.5D - 1.0D);
+		}
+
+		for (int j = -1; j < 2; ++j) {
+			ASIN_TABLE[(int) ((j + 1.0D) * 32767.5D) & 65535] = (float) Math.asin(j);
 		}
 
 		MULTIPLY_DE_BRUIJN_BIT_POSITION = new int[]{0, 1, 28, 2, 29, 14, 24, 3, 30, 22, 20, 15, 25, 17, 4, 8, 31, 27, 13, 23, 21, 19, 16, 7, 26, 12, 18, 6, 11, 5, 10, 9};
@@ -33,6 +40,49 @@ public class MathHelper {
 
 	public static float cos(float value) {
 		return fastMath ? SIN_TABLE_FAST[(int) (value * RAD_TO_INDEX + 1024.0F) & 4095] : SIN_TABLE[(int) (value * 10430.378F + 16384.0F) & 65535];
+	}
+
+	public static float asin(float value) {
+		return ASIN_TABLE[(int) ((value + 1.0F) * 32767.5D) & 65535];
+	}
+
+	public static float acos(float value) {
+		return PI_HALF - ASIN_TABLE[(int) ((value + 1.0F) * 32767.5D) & 65535];
+	}
+
+	public static int getAverage(int[] vals) {
+		if (vals.length == 0) {
+			return 0;
+		} else {
+			int i = getSum(vals);
+			return i / vals.length;
+		}
+	}
+
+	public static int getSum(int[] vals) {
+		if (vals.length == 0) {
+			return 0;
+		} else {
+			int i = 0;
+
+			for (int k : vals) {
+				i += k;
+			}
+
+			return i;
+		}
+	}
+
+	public static float toDeg(float angle) {
+		return angle * 180.0F / MathHelper.PI;
+	}
+
+	public static float toRad(float angle) {
+		return angle / 180.0F * MathHelper.PI;
+	}
+
+	public static float roundToFloat(double d) {
+		return (float) (Math.round(d * 1.0E8D) / 1.0E8D);
 	}
 
 	public static float sqrt(float value) {

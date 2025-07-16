@@ -6,7 +6,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.optifine.Log;
 import net.optifine.shaders.uniform.Smoother;
-import net.optifine.util.MathUtils;
+import net.minecraft.util.MathHelper;
 
 public enum FunctionType {
 	PLUS(10, ExpressionType.FLOAT, "+", new ExpressionType[]{ExpressionType.FLOAT, ExpressionType.FLOAT}),
@@ -145,13 +145,13 @@ public enum FunctionType {
 			case PI -> MathHelper.PI;
 			case SIN -> MathHelper.sin(evalFloat(args, 0));
 			case COS -> MathHelper.cos(evalFloat(args, 0));
-			case ASIN -> MathUtils.asin(evalFloat(args, 0));
-			case ACOS -> MathUtils.acos(evalFloat(args, 0));
+			case ASIN -> MathHelper.asin(evalFloat(args, 0));
+			case ACOS -> MathHelper.acos(evalFloat(args, 0));
 			case TAN -> (float) Math.tan(evalFloat(args, 0));
 			case ATAN -> (float) Math.atan(evalFloat(args, 0));
 			case ATAN2 -> (float) MathHelper.atan2(evalFloat(args, 0), evalFloat(args, 1));
-			case TORAD -> MathUtils.toRad(evalFloat(args, 0));
-			case TODEG -> MathUtils.toDeg(evalFloat(args, 0));
+			case TORAD -> MathHelper.toRad(evalFloat(args, 0));
+			case TODEG -> MathHelper.toDeg(evalFloat(args, 0));
 			case MIN -> this.getMin(args);
 			case MAX -> this.getMax(args);
 			case CLAMP -> MathHelper.clamp(evalFloat(args, 0), evalFloat(args, 1), evalFloat(args, 2));

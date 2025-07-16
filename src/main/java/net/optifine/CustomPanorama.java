@@ -2,7 +2,7 @@ package net.optifine;
 
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
-import net.optifine.util.MathUtils;
+import net.minecraft.util.MathHelper;
 import net.optifine.util.PropertiesOrdered;
 
 import java.io.IOException;
@@ -113,7 +113,7 @@ public class CustomPanorama {
 	}
 
 	private static int getRandomIndex(int[] weights) {
-		int i = MathUtils.getSum(weights);
+		int i = MathHelper.getSum(weights);
 		int j = RANDOM.nextInt(i);
 		int k = 0;
 

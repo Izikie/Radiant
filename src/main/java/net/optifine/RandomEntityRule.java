@@ -13,7 +13,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.optifine.config.*;
 import net.optifine.reflect.Reflector;
 import net.optifine.util.ArrayUtils;
-import net.optifine.util.MathUtils;
+import net.minecraft.util.MathHelper;
 
 import java.util.Properties;
 
@@ -155,7 +155,7 @@ public class RandomEntityRule {
 							Log.error("Less weights defined than skins, expanding weights: " + path);
 							int[] aint1 = new int[this.resourceLocations.length];
 							System.arraycopy(this.weights, 0, aint1, 0, this.weights.length);
-							int l = MathUtils.getAverage(this.weights);
+							int l = MathHelper.getAverage(this.weights);
 
 							for (int j1 = this.weights.length; j1 < aint1.length; ++j1) {
 								aint1[j1] = l;
