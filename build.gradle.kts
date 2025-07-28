@@ -1,13 +1,6 @@
-import org.objectweb.asm.ClassReader
-import org.objectweb.asm.ClassWriter
-import org.objectweb.asm.Opcodes
-import org.objectweb.asm.tree.AbstractInsnNode
-import org.objectweb.asm.tree.ClassNode
-import java.io.FileInputStream
-import java.lang.reflect.Modifier
-
 plugins {
     id("java")
+    id("org.graalvm.buildtools.native") version "0.11.0"
 }
 
 group = "com.github.izikie"
@@ -40,16 +33,6 @@ val lwjglNatives = Pair(
                 "natives-windows-x86"
         else ->
             throw Error("Unrecognized or unsupported platform: $name $arch")
-    }
-}
-
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.ow2.asm:asm:9.7.1")
-        classpath("org.ow2.asm:asm-tree:9.7.1")
     }
 }
 
@@ -120,9 +103,19 @@ dependencies {
 
     implementation(group = "org.jcommander", name = "jcommander", version = "2.0")
 
-    implementation(group = "org.apache.logging.log4j", name = "log4j-api", version = "2.24.3")
-    implementation(group = "org.apache.logging.log4j", name = "log4j-core", version = "2.24.3")
-    // Alternative: Switch to logback, tinylog, or java.util.logging if preferred
+    // Alternative: Switch to logback or tinylog
+    implementation(
+        group = "org.slf4j", name = "slf4j-api",
+        version = project.property("slf4j_version") as String
+    )
+    implementation(
+        group = "org.apache.logging.log4j", name = "log4j-api",
+        version = project.property("log4j_version") as String
+    )
+    implementation(
+        group = "org.apache.logging.log4j", name = "log4j-core",
+        version = project.property("log4j_version") as String
+    )
 
     // LWJGL 2.x for Minecraft 1.8.9 compatibility - excluding transitive jinput to avoid conflicts
     implementation(group = "org.lwjgl.lwjgl", name = "lwjgl", version = "2.9.3") {
@@ -179,98 +172,4 @@ tasks.register<JavaExec>("RunClient") {
     systemProperty("log4j2.formatMsgNoLookups", "true")
 
     mainClass = "net.minecraft.client.main.Main"
-}
-
-tasks.withType<JavaCompile> {
-    options.isIncremental = false
-    //dependsOn("transformEnumValues")
-}
-
-fun getOpcodeName(opcode: Int): String? {
-    val fields = Opcodes::class.java.fields
-    for (field in fields) {
-        if (Modifier.isStatic(field.modifiers) && field.type == Int::class.javaPrimitiveType) {
-            try {
-                if (field.getInt(null) == opcode) {
-                    return field.name
-                }
-            } catch (e: IllegalAccessException) {
-                e.printStackTrace()
-            }
-        }
-    }
-    return null
-}
-
-fun getTypeName(type: Int): String? {
-    val fields = AbstractInsnNode::class.java.fields
-    for (field in fields) {
-        if (Modifier.isStatic(field.modifiers) && field.type == Int::class.javaPrimitiveType) {
-            try {
-                if (field.getInt(null) == type) {
-                    return field.name
-                }
-            } catch (e: IllegalAccessException) {
-                e.printStackTrace()
-            }
-        }
-    }
-    return null
-}
-
-// Credit To: pOtAto__bOy, and his Redirector Mod for the optimization trick.
-// Still need to make sure it actually even works correctly and how much it actually optimizes.
-tasks.register("transformEnumValues") {
-    group = "optimization"
-    description = "Transforms enum classes to modify the 'values' method."
-
-    doFirst {
-        val classpath = sourceSets.getByName("main").runtimeClasspath
-
-        classpath.forEach fileLoop@{ file ->
-            if (!file.isDirectory)
-                return@fileLoop
-
-            file.walkTopDown().forEach classLoop@{ classFile ->
-                if (!classFile.name.endsWith(".class"))
-                    return@classLoop
-
-                val fileInputStream = FileInputStream(classFile)
-                val classReader = ClassReader(fileInputStream)
-                val classNode = ClassNode()
-                classReader.accept(classNode, 0)
-
-                if ("java/lang/Enum" != classNode.superName)
-                    return@classLoop
-
-                println("Optimized class: ${classNode.name.replace('/', '.')}")
-
-                for (methodNode in classNode.methods) {
-                    if ("values" != methodNode.name || ("()[L" + classNode.name + ";") != methodNode.desc)
-                        continue
-
-                    println("\tFound: ${methodNode.name} ${methodNode.desc}")
-
-                    val iterator = methodNode.instructions.iterator()
-                    while (iterator.hasNext()) {
-                        val node = iterator.next()
-                        val code = node.opcode
-
-                        if (code == Opcodes.GETSTATIC || code == Opcodes.ARETURN)
-                            continue
-
-                        println("\t\t Removed: TYPE(${getTypeName(node.type)}) OP(${getOpcodeName(node.opcode)})")
-
-                        iterator.remove()
-                    }
-                }
-
-                val classWriter = ClassWriter(0)
-                classNode.accept(classWriter)
-                val modifiedClassBytes = classWriter.toByteArray()
-
-                classFile.writeBytes(modifiedClassBytes)
-            }
-        }
-    }
 }
