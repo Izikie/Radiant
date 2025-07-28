@@ -17,13 +17,7 @@ public class ModelAdapterMinecartTnt extends ModelAdapterMinecart {
 		RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
 		RenderTntMinecart rendertntminecart = new RenderTntMinecart(rendermanager);
 
-		if (Reflector.RenderMinecart_modelMinecart.exists()) {
-			Reflector.setFieldValue(rendertntminecart, Reflector.RenderMinecart_modelMinecart, modelBase);
-			rendertntminecart.shadowSize = shadowSize;
-			return rendertntminecart;
-		} else {
-			Log.error("Field not found: RenderMinecart.modelMinecart");
-			return null;
-		}
-	}
+        Log.error("Field not found: RenderMinecart.modelMinecart");
+        return null;
+    }
 }

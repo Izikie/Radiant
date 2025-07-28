@@ -43,13 +43,8 @@ public class ModelAdapterHeadSkeleton extends ModelAdapter {
 				tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
 			}
 
-			if (Reflector.TileEntitySkullRenderer_humanoidHead.exists()) {
-				Reflector.setFieldValue(tileentityspecialrenderer, Reflector.TileEntitySkullRenderer_humanoidHead, modelBase);
-				return tileentityspecialrenderer;
-			} else {
-				Log.error("Field not found: TileEntitySkullRenderer.humanoidHead");
-				return null;
-			}
-		}
+            Log.error("Field not found: TileEntitySkullRenderer.humanoidHead");
+            return null;
+        }
 	}
 }

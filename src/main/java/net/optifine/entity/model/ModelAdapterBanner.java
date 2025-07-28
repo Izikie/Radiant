@@ -43,13 +43,8 @@ public class ModelAdapterBanner extends ModelAdapter {
 				tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
 			}
 
-			if (Reflector.TileEntityBannerRenderer_bannerModel.exists()) {
-				Reflector.setFieldValue(tileentityspecialrenderer, Reflector.TileEntityBannerRenderer_bannerModel, modelBase);
-				return tileentityspecialrenderer;
-			} else {
-				Log.error("Field not found: TileEntityBannerRenderer.bannerModel");
-				return null;
-			}
-		}
+            Log.error("Field not found: TileEntityBannerRenderer.bannerModel");
+            return null;
+        }
 	}
 }

@@ -44,13 +44,8 @@ public class ModelAdapterChestLarge extends ModelAdapter {
 				tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
 			}
 
-			if (Reflector.TileEntityChestRenderer_largeChest.exists()) {
-				Reflector.setFieldValue(tileentityspecialrenderer, Reflector.TileEntityChestRenderer_largeChest, modelBase);
-				return tileentityspecialrenderer;
-			} else {
-				Log.error("Field not found: TileEntityChestRenderer.largeChest");
-				return null;
-			}
-		}
+            Log.error("Field not found: TileEntityChestRenderer.largeChest");
+            return null;
+        }
 	}
 }

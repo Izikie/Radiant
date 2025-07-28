@@ -107,12 +107,4 @@ public class ReflectorMethod {
 		this.checked = true;
 		this.targetMethod = null;
 	}
-
-	public Object call(Object... params) {
-		return Reflector.call(this, params);
-	}
-
-	public Object call(Object param) {
-		return Reflector.call(this, param);
-	}
 }

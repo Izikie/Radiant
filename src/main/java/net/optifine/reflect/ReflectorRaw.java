@@ -63,16 +63,6 @@ public class ReflectorRaw {
 		return reflectorfield == null ? null : (!reflectorfield.exists() ? null : Reflector.getFieldValue(obj, reflectorfield));
 	}
 
-	public static boolean setFieldValue(Object obj, Class<?> cls, Class<?> fieldType, Object value) {
-		ReflectorField reflectorfield = getReflectorField(cls, fieldType);
-		return reflectorfield != null && (reflectorfield.exists() && Reflector.setFieldValue(obj, reflectorfield, value));
-	}
-
-	public static boolean setFieldValue(Object obj, Class<?> cls, Class<?> fieldType, int index, Object value) {
-		ReflectorField reflectorfield = getReflectorField(cls, fieldType, index);
-		return reflectorfield != null && (reflectorfield.exists() && Reflector.setFieldValue(obj, reflectorfield, value));
-	}
-
 	public static ReflectorField getReflectorField(Class<?> cls, Class<?> fieldType) {
 		Field field = getField(cls, fieldType);
 

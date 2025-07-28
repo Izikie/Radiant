@@ -35,13 +35,7 @@ public class ModelAdapterBoat extends ModelAdapter {
 		RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
 		RenderBoat renderboat = new RenderBoat(rendermanager);
 
-		if (Reflector.RenderBoat_modelBoat.exists()) {
-			Reflector.setFieldValue(renderboat, Reflector.RenderBoat_modelBoat, modelBase);
-			renderboat.shadowSize = shadowSize;
-			return renderboat;
-		} else {
-			Log.error("Field not found: RenderBoat.modelBoat");
-			return null;
-		}
-	}
+        Log.error("Field not found: RenderBoat.modelBoat");
+        return null;
+    }
 }

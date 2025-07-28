@@ -45,14 +45,8 @@ public class ModelAdapterEnderCrystal extends ModelAdapter {
 			return null;
 		} else {
 
-			if (Reflector.RenderEnderCrystal_modelEnderCrystal.exists()) {
-				Reflector.setFieldValue(renderendercrystal, Reflector.RenderEnderCrystal_modelEnderCrystal, modelBase);
-				renderendercrystal.shadowSize = shadowSize;
-				return renderendercrystal;
-			} else {
-				Log.error("Field not found: RenderEnderCrystal.modelEnderCrystal");
-				return null;
-			}
-		}
+            Log.error("Field not found: RenderEnderCrystal.modelEnderCrystal");
+            return null;
+        }
 	}
 }

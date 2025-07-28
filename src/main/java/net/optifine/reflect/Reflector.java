@@ -9,10 +9,6 @@ import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.client.gui.inventory.GuiFurnace;
 import net.minecraft.client.model.*;
 import net.minecraft.client.renderer.block.model.ModelBlock;
-import net.minecraft.client.renderer.entity.RenderBoat;
-import net.minecraft.client.renderer.entity.RenderLeashKnot;
-import net.minecraft.client.renderer.entity.RenderMinecart;
-import net.minecraft.client.renderer.tileentity.*;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryBasic;
@@ -43,7 +39,6 @@ public class Reflector {
 	public static final ReflectorField GuiFurnace_tileFurnace = new ReflectorField(new ReflectorClass(GuiFurnace.class), IInventory.class);
 	public static final ReflectorField GuiHopper_hopperInventory = new ReflectorField(new ReflectorClass(GuiHopper.class), IInventory.class, 1);
 
-	public static final ReflectorField ModelHumanoidHead_head = new ReflectorField(new ReflectorClass(ModelHumanoidHead.class), ModelRenderer.class);
 	public static final ReflectorFields ModelBat_ModelRenderers = new ReflectorFields(new ReflectorClass(ModelBat.class), ModelRenderer.class, 6);
 	public static final ReflectorClass ModelBlaze = new ReflectorClass(ModelBlaze.class);
 	public static final ReflectorField ModelBlaze_blazeHead = new ReflectorField(ModelBlaze, ModelRenderer.class);
@@ -53,7 +48,6 @@ public class Reflector {
 	public static final ReflectorField ModelBlock_textures = new ReflectorField(ModelBlock, Map.class);
 	public static final ReflectorFields ModelDragon_ModelRenderers = new ReflectorFields(new ReflectorClass(ModelDragon.class), ModelRenderer.class, 12);
 	public static final ReflectorFields ModelEnderCrystal_ModelRenderers = new ReflectorFields(new ReflectorClass(ModelEnderCrystal.class), ModelRenderer.class, 3);
-	public static final ReflectorField RenderEnderCrystal_modelEnderCrystal = new ReflectorField(new ReflectorClass(RenderEnderCrystal.class), ModelBase.class, 0);
 	public static final ReflectorField ModelEnderMite_bodyParts = new ReflectorField(new ReflectorClass(ModelEnderMite.class), ModelRenderer[].class);
 	public static final ReflectorClass ModelGhast = new ReflectorClass(ModelGhast.class);
 	public static final ReflectorField ModelGhast_body = new ReflectorField(ModelGhast, ModelRenderer.class);
@@ -64,7 +58,6 @@ public class Reflector {
 	public static final ReflectorField ModelGuardian_spines = new ReflectorField(ModelGuardian, ModelRenderer[].class, 0);
 	public static final ReflectorField ModelGuardian_tail = new ReflectorField(ModelGuardian, ModelRenderer[].class, 1);
 	public static final ReflectorFields ModelHorse_ModelRenderers = new ReflectorFields(new ReflectorClass(ModelHorse.class), ModelRenderer.class, 39);
-	public static final ReflectorField RenderLeashKnot_leashKnotModel = new ReflectorField(new ReflectorClass(RenderLeashKnot.class), ModelLeashKnot.class);
 	public static final ReflectorClass ModelMagmaCube = new ReflectorClass(ModelMagmaCube.class);
 	public static final ReflectorField ModelMagmaCube_core = new ReflectorField(ModelMagmaCube, ModelRenderer.class);
 	public static final ReflectorField ModelMagmaCube_segments = new ReflectorField(ModelMagmaCube, ModelRenderer[].class);
@@ -86,21 +79,10 @@ public class Reflector {
 	public static final ReflectorClass ModelWolf = new ReflectorClass(ModelWolf.class);
 	public static final ReflectorField ModelWolf_tail = new ReflectorField(ModelWolf, ModelRenderer.class, 6);
 	public static final ReflectorField ModelWolf_mane = new ReflectorField(ModelWolf, ModelRenderer.class, 7);
-	public static final ReflectorField RenderBoat_modelBoat = new ReflectorField(new ReflectorClass(RenderBoat.class), ModelBase.class);
-	public static final ReflectorField RenderMinecart_modelMinecart = new ReflectorField(new ReflectorClass(RenderMinecart.class), ModelBase.class);
-	public static final ReflectorField RenderWitherSkull_model = new ReflectorField(new ReflectorClass(RenderWitherSkull.class), ModelSkeletonHead.class);
-	public static final ReflectorField TileEntityBannerRenderer_bannerModel = new ReflectorField(new ReflectorClass(TileEntityBannerRenderer.class), ModelBanner.class);
 	public static final ReflectorField TileEntityBeacon_customName = new ReflectorField(new ReflectorClass(TileEntityBeacon.class), String.class);
 	public static final ReflectorField TileEntityBrewingStand_customName = new ReflectorField(new ReflectorClass(TileEntityBrewingStand.class), String.class);
-	public static final ReflectorClass TileEntityChestRenderer = new ReflectorClass(TileEntityChestRenderer.class);
-	public static final ReflectorField TileEntityChestRenderer_simpleChest = new ReflectorField(TileEntityChestRenderer, ModelChest.class, 0);
-	public static final ReflectorField TileEntityChestRenderer_largeChest = new ReflectorField(TileEntityChestRenderer, ModelChest.class, 1);
 	public static final ReflectorField TileEntityEnchantmentTable_customName = new ReflectorField(new ReflectorClass(TileEntityEnchantmentTable.class), String.class);
-	public static final ReflectorField TileEntityEnchantmentTableRenderer_modelBook = new ReflectorField(new ReflectorClass(TileEntityEnchantmentTableRenderer.class), ModelBook.class);
-	public static final ReflectorField TileEntityEnderChestRenderer_modelChest = new ReflectorField(new ReflectorClass(TileEntityEnderChestRenderer.class), ModelChest.class);
 	public static final ReflectorField TileEntityFurnace_customName = new ReflectorField(new ReflectorClass(TileEntityFurnace.class), String.class);
-	public static final ReflectorField TileEntitySignRenderer_model = new ReflectorField(new ReflectorClass(TileEntitySignRenderer.class), ModelSign.class);
-	public static final ReflectorField TileEntitySkullRenderer_humanoidHead = new ReflectorField(new ReflectorClass(TileEntitySkullRenderer.class), ModelSkeletonHead.class, 1);
 
 	public static Object call(ReflectorMethod refMethod, Object... params) {
 		try {

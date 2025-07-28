@@ -24,7 +24,7 @@ public class ModelAdapterHeadHumanoid extends ModelAdapter {
 			if (modelPart.equals("head"))
 				return modelhumanoidhead.skeletonHead;
 			if (modelPart.equals("head2"))
-				return Reflector.ModelHumanoidHead_head.exists() ? (ModelRenderer) Reflector.getFieldValue(modelhumanoidhead, Reflector.ModelHumanoidHead_head) : null;
+				return null;
 		}
 		return null;
 	}
@@ -45,13 +45,8 @@ public class ModelAdapterHeadHumanoid extends ModelAdapter {
 				tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
 			}
 
-			if (Reflector.TileEntitySkullRenderer_humanoidHead.exists()) {
-				Reflector.setFieldValue(tileentityspecialrenderer, Reflector.TileEntitySkullRenderer_humanoidHead, modelBase);
-				return tileentityspecialrenderer;
-			} else {
-				Log.error("Field not found: TileEntitySkullRenderer.humanoidHead");
-				return null;
-			}
-		}
+            Log.error("Field not found: TileEntitySkullRenderer.humanoidHead");
+            return null;
+        }
 	}
 }
