@@ -102,16 +102,17 @@ import java.util.concurrent.FutureTask;
 
 public class Minecraft implements IThreadListener {
 	private static final Logger LOGGER = LogManager.getLogger();
-	public static final Random RANDOM = new Random();
 	private static final ResourceLocation LOCATION_MOJANG_PNG = new ResourceLocation("textures/gui/title/mojang.png");
 	public static final boolean IS_RUNNING_ON_MAC = Util.getOSType() == Util.OperatingSystem.MAC;
-	public static byte[] memoryReserve = new byte[10485760];
 	private static final List<DisplayMode> MAC_DISPLAY_MODES = List.of(new DisplayMode(2560, 1600), new DisplayMode(2880, 1800));
+
+	public static final Random RANDOM = new Random();
+	public static byte[] memoryReserve = new byte[10485760];
 	private final File fileResourcepacks;
 	private final PropertyMap profileProperties;
 	private ServerData currentServerData;
 	private TextureManager renderEngine;
-	private static Minecraft minecraft;
+	private static Minecraft instance;
 	public PlayerControllerMP playerController;
 	private boolean fullscreen;
 	private boolean hasCrashed;
@@ -130,11 +131,14 @@ public class Minecraft implements IThreadListener {
 	public EffectRenderer effectRenderer;
 	private Session session;
 	private boolean isGamePaused;
+
 	public FontRenderer fontRendererObj;
 	public FontRenderer standardGalacticFontRenderer;
+
 	public GuiScreen currentScreen;
 	public LoadingScreenRenderer loadingScreen;
 	public EntityRenderer entityRenderer;
+
 	private int leftClickCounter;
 	private final int tempDisplayWidth;
 	private final int tempDisplayHeight;
@@ -185,22 +189,24 @@ public class Minecraft implements IThreadListener {
 	int fpsCounter;
 
 	public Minecraft(GameConfiguration gameConfig) {
-		minecraft = this;
+		instance = this;
+
 		mcDataDir = gameConfig.folderInfo().mcDataDir();
 		fileAssets = gameConfig.folderInfo().assetsDir();
 		fileResourcepacks = gameConfig.folderInfo().resourcePacksDir();
 		profileProperties = gameConfig.userInfo().profileProperties();
-		mcDefaultResourcePack = new DefaultResourcePack((new ResourceIndex(gameConfig.folderInfo().assetsDir(), gameConfig.folderInfo().assetIndex())).getResourceMap());
+		mcDefaultResourcePack = new DefaultResourcePack((new ResourceIndex(gameConfig.folderInfo().assetsDir(), "1.8")).getResourceMap());
 		proxy = gameConfig.userInfo().proxy() == null ? Proxy.NO_PROXY : gameConfig.userInfo().proxy();
 		sessionService = (new YggdrasilAuthenticationService(gameConfig.userInfo().proxy(), UUID.randomUUID().toString())).createMinecraftSessionService();
 		session = gameConfig.userInfo().session();
 		LOGGER.info("Setting user: {}", session.getUsername());
 		LOGGER.info("(Session ID is {})", session.getSessionID());
-		displayWidth = gameConfig.displayInfo().width() > 0 ? gameConfig.displayInfo().width() : 1;
-		displayHeight = gameConfig.displayInfo().height() > 0 ? gameConfig.displayInfo().height() : 1;
+		displayWidth = Math.max(1, gameConfig.displayInfo().width());
+		displayHeight = Math.max(1, gameConfig.displayInfo().height());
 		tempDisplayWidth = gameConfig.displayInfo().width();
 		tempDisplayHeight = gameConfig.displayInfo().height();
 		fullscreen = gameConfig.displayInfo().fullscreen();
+
 		jvm64bit = isJvm64bit();
 		theIntegratedServer = new IntegratedServer(this);
 
@@ -1480,11 +1486,11 @@ public class Minecraft implements IThreadListener {
 	}
 
 	public static boolean isGuiEnabled() {
-		return minecraft == null || !minecraft.gameSettings.hideGUI;
+		return instance == null || !instance.gameSettings.hideGUI;
 	}
 
 	public static boolean isAmbientOcclusionEnabled() {
-		return minecraft != null && minecraft.gameSettings.ambientOcclusion != 0;
+		return instance != null && instance.gameSettings.ambientOcclusion != 0;
 	}
 
 	private void middleClickMouse() {
@@ -1629,7 +1635,7 @@ public class Minecraft implements IThreadListener {
 	}
 
 	public static Minecraft getMinecraft() {
-		return minecraft;
+		return instance;
 	}
 
 	public ListenableFuture<Object> scheduleResourcesRefresh() {
@@ -1657,8 +1663,8 @@ public class Minecraft implements IThreadListener {
 	}
 
 	public static void stopIntegratedServer() {
-		if (minecraft != null) {
-			IntegratedServer integratedserver = minecraft.getIntegratedServer();
+		if (instance != null) {
+			IntegratedServer integratedserver = instance.getIntegratedServer();
 
 			if (integratedserver != null) {
 				integratedserver.stopServer();
