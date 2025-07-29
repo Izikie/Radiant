@@ -37,16 +37,14 @@ public class ModelAdapterHeadHumanoid extends ModelAdapter {
 		TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.INSTANCE;
 		TileEntitySpecialRenderer tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntitySkull.class);
 
-		if (!(tileentityspecialrenderer instanceof TileEntitySkullRenderer)) {
-			return null;
-		} else {
-			if (tileentityspecialrenderer.getEntityClass() == null) {
-				tileentityspecialrenderer = new TileEntitySkullRenderer();
-				tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
-			}
+        if (tileentityspecialrenderer instanceof TileEntitySkullRenderer) {
+            if (tileentityspecialrenderer.getEntityClass() == null) {
+                tileentityspecialrenderer = new TileEntitySkullRenderer();
+                tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
+            }
 
             Log.error("Field not found: TileEntitySkullRenderer.humanoidHead");
-            return null;
         }
-	}
+        return null;
+    }
 }

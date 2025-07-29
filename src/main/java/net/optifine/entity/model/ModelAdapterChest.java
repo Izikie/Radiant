@@ -35,16 +35,14 @@ public class ModelAdapterChest extends ModelAdapter {
 		TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.INSTANCE;
 		TileEntitySpecialRenderer tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntityChest.class);
 
-		if (!(tileentityspecialrenderer instanceof TileEntityChestRenderer)) {
-			return null;
-		} else {
-			if (tileentityspecialrenderer.getEntityClass() == null) {
-				tileentityspecialrenderer = new TileEntityChestRenderer();
-				tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
-			}
+        if (tileentityspecialrenderer instanceof TileEntityChestRenderer) {
+            if (tileentityspecialrenderer.getEntityClass() == null) {
+                tileentityspecialrenderer = new TileEntityChestRenderer();
+                tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
+            }
 
             Log.error("Field not found: TileEntityChestRenderer.simpleChest");
-            return null;
         }
-	}
+        return null;
+    }
 }

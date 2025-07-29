@@ -211,11 +211,10 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
                 this.rotationPitch = (float) (this.rotationPitch + (this.minecartPitch - this.rotationPitch) / this.turnProgress);
                 --this.turnProgress;
                 this.setPosition(d4, d5, d6);
-                this.setRotation(this.rotationYaw, this.rotationPitch);
             } else {
                 this.setPosition(this.posX, this.posY, this.posZ);
-                this.setRotation(this.rotationYaw, this.rotationPitch);
             }
+            this.setRotation(this.rotationYaw, this.rotationPitch);
         } else {
             this.prevPosX = this.posX;
             this.prevPosY = this.posY;

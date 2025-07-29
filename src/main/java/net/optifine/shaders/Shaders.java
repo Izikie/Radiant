@@ -3556,8 +3556,7 @@ public class Shaders {
 			GL11.glVertex3f(0.0F, 1.0F, 0.0F);
 			GL11.glTexCoord2f(1.0F, 1.0F);
 			GL11.glVertex3f(1.0F, 1.0F, 0.0F);
-			GL11.glEnd();
-		} else {
+        } else {
 			GL11.glBegin(GL11.GL_QUADS);
 			GL11.glTexCoord2f(0.0F, 0.0F);
 			GL11.glVertex3f(0.0F, 0.0F, 0.0F);
@@ -3567,9 +3566,9 @@ public class Shaders {
 			GL11.glVertex3f(1.0F, 1.0F, 0.0F);
 			GL11.glTexCoord2f(0.0F, 1.0F);
 			GL11.glVertex3f(0.0F, 1.0F, 0.0F);
-			GL11.glEnd();
-		}
-	}
+        }
+        GL11.glEnd();
+    }
 
 	public static void renderDeferred() {
 		if (!isShadowPass) {
@@ -4124,11 +4123,9 @@ public class Shaders {
 				renderDeferred();
 				useProgram(PROGRAM_WATER);
 				GlStateManager.enableBlend();
-				GlStateManager.depthMask(true);
-			} else {
-				GlStateManager.depthMask(true);
-			}
-		}
+            }
+            GlStateManager.depthMask(true);
+        }
 	}
 
 	public static void endWater() {

@@ -35,16 +35,14 @@ public class ModelAdapterBook extends ModelAdapter {
 		TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.INSTANCE;
 		TileEntitySpecialRenderer tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntityEnchantmentTable.class);
 
-		if (!(tileentityspecialrenderer instanceof TileEntityEnchantmentTableRenderer)) {
-			return null;
-		} else {
-			if (tileentityspecialrenderer.getEntityClass() == null) {
-				tileentityspecialrenderer = new TileEntityEnchantmentTableRenderer();
-				tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
-			}
+        if (tileentityspecialrenderer instanceof TileEntityEnchantmentTableRenderer) {
+            if (tileentityspecialrenderer.getEntityClass() == null) {
+                tileentityspecialrenderer = new TileEntityEnchantmentTableRenderer();
+                tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
+            }
 
             Log.error("Field not found: TileEntityEnchantmentTableRenderer.modelBook");
-            return null;
         }
-	}
+        return null;
+    }
 }

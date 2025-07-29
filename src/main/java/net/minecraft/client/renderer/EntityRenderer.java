@@ -965,12 +965,11 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 this.smoothCamPartialTicks = partialTicks;
                 f2 = this.smoothCamFilterX * f4;
                 f3 = this.smoothCamFilterY * f4;
-                this.mc.player.setAngles(f2, f3 * i);
             } else {
                 this.smoothCamYaw = 0.0F;
                 this.smoothCamPitch = 0.0F;
-                this.mc.player.setAngles(f2, f3 * i);
             }
+            this.mc.player.setAngles(f2, f3 * i);
         }
 
         if (!this.mc.skipRenderWorld) {
@@ -1878,11 +1877,10 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
             if (startCoords == -1) {
                 GlStateManager.setFogStart(0.0F);
-                GlStateManager.setFogEnd(f3);
             } else {
                 GlStateManager.setFogStart(f3 * Config.getFogStart());
-                GlStateManager.setFogEnd(f3);
             }
+            GlStateManager.setFogEnd(f3);
 
             if (GLContext.getCapabilities().GL_NV_fog_distance) {
                 if (Config.isFogFancy()) {

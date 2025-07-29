@@ -35,16 +35,14 @@ public class ModelAdapterBanner extends ModelAdapter {
 		TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.INSTANCE;
 		TileEntitySpecialRenderer tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntityBanner.class);
 
-		if (!(tileentityspecialrenderer instanceof TileEntityBannerRenderer)) {
-			return null;
-		} else {
-			if (tileentityspecialrenderer.getEntityClass() == null) {
-				tileentityspecialrenderer = new TileEntityBannerRenderer();
-				tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
-			}
+        if (tileentityspecialrenderer instanceof TileEntityBannerRenderer) {
+            if (tileentityspecialrenderer.getEntityClass() == null) {
+                tileentityspecialrenderer = new TileEntityBannerRenderer();
+                tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
+            }
 
             Log.error("Field not found: TileEntityBannerRenderer.bannerModel");
-            return null;
         }
-	}
+        return null;
+    }
 }

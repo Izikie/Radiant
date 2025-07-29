@@ -377,9 +377,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
                 double d2 = this.playerEntity.posZ - (blockPos.getZ() + 0.5D);
                 double d3 = d0 * d0 + d1 * d1 + d2 * d2;
 
-                if (d3 > 36.0D || blockPos.getY() >= this.serverController.getBuildLimit()) {
-                    return;
-                } else {
+                if (!(d3 > 36.0D) && blockPos.getY() < this.serverController.getBuildLimit()) {
                     if (packet.getStatus() == C07PacketPlayerDigging.Action.START_DESTROY_BLOCK) {
                         if (!this.serverController.isBlockProtected(worldServer, blockPos, this.playerEntity) && worldServer.getWorldBorder().contains(blockPos)) {
                             this.playerEntity.theItemInWorldManager.onBlockClicked(blockPos, packet.getFacing());
@@ -398,8 +396,8 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
                         }
                     }
 
-                    return;
                 }
+                return;
 
             default:
                 throw new IllegalArgumentException("Invalid player action");
