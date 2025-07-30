@@ -265,11 +265,6 @@
             "name": "\u0641\u0627\u0631\u0633\u06cc",
             "bidirectional": true
         },
-        "en_PT": {
-            "region": "PIRATE",
-            "name": "Pirate Speak",
-            "bidirectional": false
-        },
         "pl_PL": {
             "region": "Polska",
             "name": "Polski",

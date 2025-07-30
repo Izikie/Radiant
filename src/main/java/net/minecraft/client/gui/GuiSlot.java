@@ -1,6 +1,7 @@
 package net.minecraft.client.gui;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.resourcepack.GuiResourcePackList;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;

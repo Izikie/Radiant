@@ -8,6 +8,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GuiButton extends Gui {
     protected static final ResourceLocation BUTTON_TEXTURES = new ResourceLocation("textures/gui/widgets.png");
+    private static final ResourceLocation BUTTON_SOUND = new ResourceLocation("gui.button.press");
     protected int width;
     protected final int height;
     public int xPosition;
@@ -88,7 +89,7 @@ public class GuiButton extends Gui {
     }
 
     public void playPressSound(SoundHandler soundHandlerIn) {
-        soundHandlerIn.playSound(PositionedSoundRecord.create(new ResourceLocation("gui.button.press"), 1.0F));
+        soundHandlerIn.playSound(PositionedSoundRecord.create(BUTTON_SOUND, 1.0F));
     }
 
     public int getButtonWidth() {

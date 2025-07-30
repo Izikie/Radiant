@@ -1,6 +1,6 @@
 package net.minecraft.client.resources;
 
-import net.minecraft.client.gui.GuiScreenResourcePacks;
+import net.minecraft.client.gui.resourcepack.GuiScreenResourcePacks;
 
 public class ResourcePackListEntryFound extends ResourcePackListEntry {
     private final ResourcePackRepository.Entry field_148319_c;

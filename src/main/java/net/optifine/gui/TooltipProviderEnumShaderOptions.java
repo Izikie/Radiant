@@ -3,7 +3,6 @@ package net.optifine.gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.optifine.shaders.config.ShaderOptions;
-import net.optifine.shaders.gui.GuiButtonDownloadShaders;
 import net.optifine.shaders.gui.GuiButtonEnumShaderOption;
 
 import java.awt.*;
@@ -31,14 +30,12 @@ public class TooltipProviderEnumShaderOptions implements TooltipProvider {
 	}
 
 	public String[] getTooltipLines(GuiButton btn, int width) {
-		if (btn instanceof GuiButtonDownloadShaders) {
-			return TooltipProviderOptions.getTooltipLines("of.options.shaders.DOWNLOAD");
-		} else if (!(btn instanceof GuiButtonEnumShaderOption guibuttonenumshaderoption)) {
-			return null;
-		} else {
-			ShaderOptions enumshaderoption = guibuttonenumshaderoption.getEnumShaderOption();
-			return this.getTooltipLines(enumshaderoption);
-		}
+        if (!(btn instanceof GuiButtonEnumShaderOption guibuttonenumshaderoption)) {
+            return null;
+        } else {
+            ShaderOptions enumshaderoption = guibuttonenumshaderoption.getEnumShaderOption();
+            return this.getTooltipLines(enumshaderoption);
+        }
 	}
 
 	private String[] getTooltipLines(ShaderOptions option) {
