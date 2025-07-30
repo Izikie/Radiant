@@ -7,7 +7,6 @@ import net.minecraft.client.model.ModelWolf;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderWolf;
 import net.minecraft.entity.passive.EntityWolf;
-import net.optifine.reflect.Reflector;
 
 public class ModelAdapterWolf extends ModelAdapter {
 	public ModelAdapterWolf() {
@@ -20,7 +19,15 @@ public class ModelAdapterWolf extends ModelAdapter {
 
 	public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
 		if (model instanceof ModelWolf modelwolf) {
-			return modelPart.equals("head") ? modelwolf.wolfHeadMain : (modelPart.equals("body") ? modelwolf.wolfBody : (modelPart.equals("leg1") ? modelwolf.wolfLeg1 : (modelPart.equals("leg2") ? modelwolf.wolfLeg2 : (modelPart.equals("leg3") ? modelwolf.wolfLeg3 : (modelPart.equals("leg4") ? modelwolf.wolfLeg4 : (modelPart.equals("tail") ? (ModelRenderer) Reflector.getFieldValue(modelwolf, Reflector.ModelWolf_tail) : (modelPart.equals("mane") ? (ModelRenderer) Reflector.getFieldValue(modelwolf, Reflector.ModelWolf_mane) : null)))))));
+			return modelPart.equals("head") ? modelwolf.wolfHeadMain
+					: (modelPart.equals("body") ? modelwolf.wolfBody
+					: (modelPart.equals("leg1") ? modelwolf.wolfLeg1
+					: (modelPart.equals("leg2") ? modelwolf.wolfLeg2
+					: (modelPart.equals("leg3") ? modelwolf.wolfLeg3
+					: (modelPart.equals("leg4") ? modelwolf.wolfLeg4
+					: (modelPart.equals("tail") ? modelwolf.wolfTail
+					: (modelPart.equals("mane") ? modelwolf.wolfMane
+					: null)))))));
 		} else {
 			return null;
 		}

@@ -83,4 +83,28 @@ public class ModelBat extends ModelBase {
             this.batOuterLeftWing.rotateAngleY = -this.batRightWing.rotateAngleY * 0.5F;
         }
     }
+
+    public ModelRenderer getBatHead() {
+        return batHead;
+    }
+
+    public ModelRenderer getBatBody() {
+        return batBody;
+    }
+
+    public ModelRenderer getBatRightWing() {
+        return batRightWing;
+    }
+
+    public ModelRenderer getBatLeftWing() {
+        return batLeftWing;
+    }
+
+    public ModelRenderer getBatOuterRightWing() {
+        return batOuterRightWing;
+    }
+
+    public ModelRenderer getBatOuterLeftWing() {
+        return batOuterLeftWing;
+    }
 }

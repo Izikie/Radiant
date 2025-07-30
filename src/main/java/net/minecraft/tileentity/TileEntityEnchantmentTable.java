@@ -126,4 +126,12 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
     public String getGuiID() {
         return "minecraft:enchanting_table";
     }
+
+    public String getCustomName() {
+        return customName;
+    }
+
+
+
+
 }

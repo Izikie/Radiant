@@ -17,8 +17,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.IWorldNameable;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.optifine.config.*;
-import net.optifine.reflect.Reflector;
-import net.optifine.reflect.ReflectorField;
 import net.optifine.util.StrUtils;
 import net.optifine.util.TextureUtils;
 
@@ -208,19 +206,19 @@ public class CustomGuiProperties {
 
 	private static IWorldNameable getWorldNameable(GuiScreen screen) {
 		return switch (screen) {
-			case GuiBeacon ignored -> getWorldNameable(screen, Reflector.GuiBeacon_tileBeacon);
-			case GuiBrewingStand ignored -> getWorldNameable(screen, Reflector.GuiBrewingStand_tileBrewingStand);
-			case GuiChest ignored -> getWorldNameable(screen, Reflector.GuiChest_lowerChestInventory);
+			case GuiBeacon ignored -> getWorldNameable(ignored.getTileBeacon());
+			case GuiBrewingStand ignored -> getWorldNameable(ignored.getTileBrewingStand());
+			case GuiChest ignored -> getWorldNameable(ignored.getLowerChestInventory());
 			case GuiDispenser dispenser -> dispenser.dispenserInventory;
-			case GuiEnchantment ignored -> getWorldNameable(screen, Reflector.GuiEnchantment_nameable);
-			case GuiFurnace ignored -> getWorldNameable(screen, Reflector.GuiFurnace_tileFurnace);
-			case GuiHopper ignored -> getWorldNameable(screen, Reflector.GuiHopper_hopperInventory);
+			case GuiEnchantment ignored -> getWorldNameable(ignored.getNameable());
+			case GuiFurnace ignored -> getWorldNameable(ignored.getTileFurnace());
+			case GuiHopper ignored -> getWorldNameable(ignored.getHopperInventory());
 			case null, default -> null;
 		};
 	}
 
-	private static IWorldNameable getWorldNameable(GuiScreen screen, ReflectorField fieldInventory) {
-		if (Reflector.getFieldValue(screen, fieldInventory) instanceof IWorldNameable iWorldNameable)
+	private static IWorldNameable getWorldNameable(Object obj) {
+		if (obj instanceof IWorldNameable iWorldNameable)
 			return iWorldNameable;
 
 		return null;
@@ -387,7 +385,7 @@ public class CustomGuiProperties {
 
 			if (this.professions != null) {
 				int i = entityvillager.getProfession();
-				int j = Reflector.getFieldValueInt(entityvillager, Reflector.EntityVillager_careerId, -1);
+				int j = entityvillager.getCareerId();
 
 				if (j < 0) {
 					return false;

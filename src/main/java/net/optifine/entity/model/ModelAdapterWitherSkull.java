@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.RenderWitherSkull;
 import net.minecraft.entity.projectile.EntityWitherSkull;
 import net.optifine.Log;
-import net.optifine.reflect.Reflector;
 
 public class ModelAdapterWitherSkull extends ModelAdapter {
 	public ModelAdapterWitherSkull() {

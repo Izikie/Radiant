@@ -113,4 +113,20 @@ public class ModelGuardian extends ModelBase {
         this.guardianTail[2].rotationPointY = 0.5F;
         this.guardianTail[2].rotationPointZ = 6.0F;
     }
+
+    public ModelRenderer getGuardianBody() {
+        return guardianBody;
+    }
+
+    public ModelRenderer getGuardianEye() {
+        return guardianEye;
+    }
+
+    public ModelRenderer[] getGuardianSpines() {
+        return guardianSpines;
+    }
+
+    public ModelRenderer[] getGuardianTail() {
+        return guardianTail;
+    }
 }

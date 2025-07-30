@@ -55,4 +55,8 @@ public class GuiFurnace extends GuiContainer {
 
         return this.tileFurnace.getField(0) * pixels / i;
     }
+
+    public IInventory getTileFurnace() {
+        return tileFurnace;
+    }
 }

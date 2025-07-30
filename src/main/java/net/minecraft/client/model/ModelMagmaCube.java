@@ -50,4 +50,12 @@ public class ModelMagmaCube extends ModelBase {
             segment.render(scale);
         }
     }
+
+    public ModelRenderer[] getSegments() {
+        return segments;
+    }
+
+    public ModelRenderer getCore() {
+        return core;
+    }
 }

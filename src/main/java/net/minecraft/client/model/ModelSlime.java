@@ -34,4 +34,20 @@ public class ModelSlime extends ModelBase {
             this.slimeMouth.render(scale);
         }
     }
+
+    public ModelRenderer getSlimeBodies() {
+        return slimeBodies;
+    }
+
+    public ModelRenderer getSlimeRightEye() {
+        return slimeRightEye;
+    }
+
+    public ModelRenderer getSlimeLeftEye() {
+        return slimeLeftEye;
+    }
+
+    public ModelRenderer getSlimeMouth() {
+        return slimeMouth;
+    }
 }

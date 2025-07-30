@@ -10,8 +10,6 @@ import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.optifine.reflect.Reflector;
-import net.optifine.reflect.ReflectorRaw;
 import net.optifine.util.IntegratedServerUtils;
 import net.optifine.util.PropertiesOrdered;
 import net.optifine.util.ResUtils;
@@ -35,8 +33,8 @@ public class RandomEntities {
 	private static final RandomTileEntity RANDOM_TILE_ENTITY = new RandomTileEntity();
 	private static final String[] DEPENDANT_SUFFIXES = new String[]{"_armor", "_eyes", "_exploding", "_shooting", "_fur", "_eyes", "_invulnerable", "_angry", "_tame", "_collar"};
 	private static final String PREFIX_DYNAMIC_TEXTURE_HORSE = "horse/";
-	private static final String[] HORSE_TEXTURES = (String[]) ReflectorRaw.getFieldValue(null, EntityHorse.class, String[].class, 2);
-	private static final String[] HORSE_TEXTURES_ABBR = (String[]) ReflectorRaw.getFieldValue(null, EntityHorse.class, String[].class, 3);
+	private static final String[] HORSE_TEXTURES = EntityHorse.HORSE_TEXTURES;
+	private static final String[] HORSE_TEXTURES_ABBR = EntityHorse.HORSE_TEXTURES_ABBR;
 	private static boolean active = false;
 	private static RenderGlobal renderGlobal;
 	private static TileEntityRendererDispatcher tileEntityRendererDispatcher;
@@ -64,11 +62,11 @@ public class RandomEntities {
 		if (entity instanceof EntityVillager entityvillager) {
 			int i = entityvillager.getProfession();
 			ev.setProfession(i);
-			int j = Reflector.getFieldValueInt(entityvillager, Reflector.EntityVillager_careerId, 0);
+			int j = entityvillager.getCareerId();
 			System.out.println(j);
-			Reflector.setFieldValueInt(ev, Reflector.EntityVillager_careerId, j);
-			int k = Reflector.getFieldValueInt(entityvillager, Reflector.EntityVillager_careerLevel, 0);
-			Reflector.setFieldValueInt(ev, Reflector.EntityVillager_careerLevel, k);
+			ev.setCareerId(j);
+			int k = entityvillager.getCareerLevel();
+			ev.setCareerLevel(k);
 			System.out.println(k);
 		}
 	}
