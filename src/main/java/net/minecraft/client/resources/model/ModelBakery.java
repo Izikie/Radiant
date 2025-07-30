@@ -17,7 +17,6 @@ import net.minecraft.util.IRegistry;
 import net.minecraft.util.RegistrySimple;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.CustomItems;
-import net.optifine.reflect.Reflector;
 import net.optifine.util.StrUtils;
 import net.optifine.util.TextureUtils;
 import org.apache.commons.io.IOUtils;
@@ -590,10 +589,10 @@ public class ModelBakery {
         ResourceLocation resourcelocation = fixModelLocation(p_fixModelLocations_0_.getParentLocation(), p_fixModelLocations_1_);
 
         if (resourcelocation != p_fixModelLocations_0_.getParentLocation()) {
-            Reflector.setFieldValue(p_fixModelLocations_0_, Reflector.ModelBlock_parentLocation, resourcelocation);
+            p_fixModelLocations_0_.setParentLocation(resourcelocation);
         }
 
-        Map<String, String> map = (Map) Reflector.getFieldValue(p_fixModelLocations_0_, Reflector.ModelBlock_textures);
+        Map<String, String> map = p_fixModelLocations_0_.getTextures();
 
         if (map != null) {
             for (Entry<String, String> entry : map.entrySet()) {

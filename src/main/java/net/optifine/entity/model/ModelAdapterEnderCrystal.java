@@ -9,7 +9,6 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.RenderEnderCrystal;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.optifine.Log;
-import net.optifine.reflect.Reflector;
 
 public class ModelAdapterEnderCrystal extends ModelAdapter {
 	public ModelAdapterEnderCrystal() {
@@ -26,7 +25,10 @@ public class ModelAdapterEnderCrystal extends ModelAdapter {
 
 	public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
 		if (model instanceof ModelEnderCrystal modelendercrystal) {
-			return modelPart.equals("cube") ? (ModelRenderer) Reflector.getFieldValue(modelendercrystal, Reflector.ModelEnderCrystal_ModelRenderers, 0) : (modelPart.equals("glass") ? (ModelRenderer) Reflector.getFieldValue(modelendercrystal, Reflector.ModelEnderCrystal_ModelRenderers, 1) : (modelPart.equals("base") ? (ModelRenderer) Reflector.getFieldValue(modelendercrystal, Reflector.ModelEnderCrystal_ModelRenderers, 2) : null));
+			return modelPart.equals("cube") ? modelendercrystal.getCube()
+					: (modelPart.equals("glass") ? modelendercrystal.getGlass()
+					: (modelPart.equals("base") ? modelendercrystal.getBase()
+					: null));
 		} else {
 			return null;
 		}

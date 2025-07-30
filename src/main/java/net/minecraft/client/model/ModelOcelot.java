@@ -167,4 +167,36 @@ public class ModelOcelot extends ModelBase {
             this.field_78163_i = 1;
         }
     }
+
+    public ModelRenderer getOcelotBackLeftLeg() {
+        return ocelotBackLeftLeg;
+    }
+
+    public ModelRenderer getOcelotBackRightLeg() {
+        return ocelotBackRightLeg;
+    }
+
+    public ModelRenderer getOcelotFrontLeftLeg() {
+        return ocelotFrontLeftLeg;
+    }
+
+    public ModelRenderer getOcelotFrontRightLeg() {
+        return ocelotFrontRightLeg;
+    }
+
+    public ModelRenderer getOcelotTail() {
+        return ocelotTail;
+    }
+
+    public ModelRenderer getOcelotTail2() {
+        return ocelotTail2;
+    }
+
+    public ModelRenderer getOcelotHead() {
+        return ocelotHead;
+    }
+
+    public ModelRenderer getOcelotBody() {
+        return ocelotBody;
+    }
 }

@@ -9,7 +9,6 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntityChest;
 import net.optifine.Log;
-import net.optifine.reflect.Reflector;
 
 public class ModelAdapterChestLarge extends ModelAdapter {
 	public ModelAdapterChestLarge() {

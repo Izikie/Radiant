@@ -335,6 +335,10 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
         this.payment = null;
     }
 
+    public String getCustomName() {
+        return customName;
+    }
+
     public boolean receiveClientEvent(int id, int type) {
         if (id == 1) {
             this.updateBeacon();

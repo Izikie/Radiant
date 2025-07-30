@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.optifine.Log;
-import net.optifine.reflect.Reflector;
 
 public class ModelAdapterHeadHumanoid extends ModelAdapter {
 	public ModelAdapterHeadHumanoid() {

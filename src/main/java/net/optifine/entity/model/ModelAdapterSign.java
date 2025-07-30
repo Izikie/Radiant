@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.tileentity.TileEntitySignRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntitySign;
 import net.optifine.Log;
-import net.optifine.reflect.Reflector;
 
 public class ModelAdapterSign extends ModelAdapter {
 	public ModelAdapterSign() {

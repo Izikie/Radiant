@@ -5,7 +5,6 @@ import net.minecraft.tileentity.*;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.IWorldNameable;
-import net.optifine.reflect.Reflector;
 
 public class TileEntityUtils {
 	public static String getTileEntityName(IBlockAccess blockAccess, BlockPos blockPos) {
@@ -41,16 +40,16 @@ public class TileEntityUtils {
 	public static String getTileEntityRawName(TileEntity te) {
 		switch (te) {
 			case TileEntityBeacon ignored -> {
-				return (String) Reflector.getFieldValue(te, Reflector.TileEntityBeacon_customName);
+				return ignored.getCustomName();
 			}
 			case TileEntityBrewingStand ignored -> {
-				return (String) Reflector.getFieldValue(te, Reflector.TileEntityBrewingStand_customName);
+				return ignored.getCustomName();
 			}
 			case TileEntityEnchantmentTable ignored -> {
-				return (String) Reflector.getFieldValue(te, Reflector.TileEntityEnchantmentTable_customName);
+				return ignored.getCustomName();
 			}
 			case TileEntityFurnace ignored -> {
-				return (String) Reflector.getFieldValue(te, Reflector.TileEntityFurnace_customName);
+				return ignored.getFurnaceCustomName();
 			}
 			case null, default -> {
 				if (te instanceof IWorldNameable iworldnameable) {
@@ -67,12 +66,10 @@ public class TileEntityUtils {
 
 	public static void setTileEntityRawName(TileEntity te, String name) {
 		switch (te) {
-			case TileEntityBeacon ignored -> Reflector.setFieldValue(te, Reflector.TileEntityBeacon_customName, name);
-			case TileEntityBrewingStand ignored ->
-					Reflector.setFieldValue(te, Reflector.TileEntityBrewingStand_customName, name);
-			case TileEntityEnchantmentTable ignored ->
-					Reflector.setFieldValue(te, Reflector.TileEntityEnchantmentTable_customName, name);
-			case TileEntityFurnace ignored -> Reflector.setFieldValue(te, Reflector.TileEntityFurnace_customName, name);
+			case TileEntityBeacon ignored -> ignored.setName(name);
+			case TileEntityBrewingStand ignored -> ignored.setName(name);
+			case TileEntityEnchantmentTable ignored -> ignored.setCustomName(name);
+			case TileEntityFurnace ignored -> ignored.setFurnaceCustomName(name);
 			case TileEntityChest tileEntityChest -> tileEntityChest.setCustomName(name);
 			case TileEntityDispenser tileEntityDispenser -> tileEntityDispenser.setCustomName(name);
 			case TileEntityHopper tileEntityHopper -> tileEntityHopper.setCustomName(name);

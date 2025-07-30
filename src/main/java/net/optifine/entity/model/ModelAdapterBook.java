@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntityEnchantmentTable;
 import net.optifine.Log;
-import net.optifine.reflect.Reflector;
 
 public class ModelAdapterBook extends ModelAdapter {
 	public ModelAdapterBook() {

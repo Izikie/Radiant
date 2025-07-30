@@ -300,4 +300,8 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
     public void clear() {
         Arrays.fill(this.brewingItemStacks, null);
     }
+
+    public String getCustomName() {
+        return customName;
+    }
 }

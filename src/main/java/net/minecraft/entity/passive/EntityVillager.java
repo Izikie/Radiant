@@ -652,6 +652,22 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc {
         }
     }
 
+    public int getCareerId() {
+        return careerId;
+    }
+
+    public void setCareerId(int careerId) {
+        this.careerId = careerId;
+    }
+
+    public int getCareerLevel() {
+        return careerLevel;
+    }
+
+    public void setCareerLevel(int careerLevel) {
+        this.careerLevel = careerLevel;
+    }
+
     static class EmeraldForItems implements ITradeList {
         public final Item sellItem;
         public final PriceInfo price;

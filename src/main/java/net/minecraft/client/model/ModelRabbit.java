@@ -150,4 +150,52 @@ public class ModelRabbit extends ModelBase {
 
     public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
     }
+
+    public ModelRenderer getRabbitLeftFoot() {
+        return rabbitLeftFoot;
+    }
+
+    public ModelRenderer getRabbitRightFoot() {
+        return rabbitRightFoot;
+    }
+
+    public ModelRenderer getRabbitLeftThigh() {
+        return rabbitLeftThigh;
+    }
+
+    public ModelRenderer getRabbitRightThigh() {
+        return rabbitRightThigh;
+    }
+
+    public ModelRenderer getRabbitBody() {
+        return rabbitBody;
+    }
+
+    public ModelRenderer getRabbitLeftArm() {
+        return rabbitLeftArm;
+    }
+
+    public ModelRenderer getRabbitRightArm() {
+        return rabbitRightArm;
+    }
+
+    public ModelRenderer getRabbitHead() {
+        return rabbitHead;
+    }
+
+    public ModelRenderer getRabbitRightEar() {
+        return rabbitRightEar;
+    }
+
+    public ModelRenderer getRabbitLeftEar() {
+        return rabbitLeftEar;
+    }
+
+    public ModelRenderer getRabbitTail() {
+        return rabbitTail;
+    }
+
+    public ModelRenderer getRabbitNose() {
+        return rabbitNose;
+    }
 }

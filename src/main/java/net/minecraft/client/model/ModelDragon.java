@@ -212,4 +212,52 @@ public class ModelDragon extends ModelBase {
 
         return (float) p_78214_1_;
     }
+
+    public ModelRenderer getHead() {
+        return head;
+    }
+
+    public ModelRenderer getSpine() {
+        return spine;
+    }
+
+    public ModelRenderer getJaw() {
+        return jaw;
+    }
+
+    public ModelRenderer getBody() {
+        return body;
+    }
+
+    public ModelRenderer getRearLeg() {
+        return rearLeg;
+    }
+
+    public ModelRenderer getFrontLeg() {
+        return frontLeg;
+    }
+
+    public ModelRenderer getRearLegTip() {
+        return rearLegTip;
+    }
+
+    public ModelRenderer getFrontLegTip() {
+        return frontLegTip;
+    }
+
+    public ModelRenderer getRearFoot() {
+        return rearFoot;
+    }
+
+    public ModelRenderer getFrontFoot() {
+        return frontFoot;
+    }
+
+    public ModelRenderer getWing() {
+        return wing;
+    }
+
+    public ModelRenderer getWingTip() {
+        return wingTip;
+    }
 }
