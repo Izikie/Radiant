@@ -217,67 +217,6 @@ public class Project extends Util {
     }
 
     /**
-     * Method gluLookAt
-     *
-     * @param eyex
-     * @param eyey
-     * @param eyez
-     * @param centerx
-     * @param centery
-     * @param centerz
-     * @param upx
-     * @param upy
-     * @param upz
-     */
-    public static void gluLookAt(
-            float eyex,
-            float eyey,
-            float eyez,
-            float centerx,
-            float centery,
-            float centerz,
-            float upx,
-            float upy,
-            float upz) {
-        float[] forward = Project.forward;
-        float[] side = Project.side;
-        float[] up = Project.up;
-
-        forward[0] = centerx - eyex;
-        forward[1] = centery - eyey;
-        forward[2] = centerz - eyez;
-
-        up[0] = upx;
-        up[1] = upy;
-        up[2] = upz;
-
-        normalize(forward);
-
-        /* Side = forward x up */
-        cross(forward, up, side);
-        normalize(side);
-
-        /* Recompute up as: up = side x forward */
-        cross(side, forward, up);
-
-        __gluMakeIdentityf(matrix);
-        matrix.put(0 * 4 + 0, side[0]);
-        matrix.put(1 * 4 + 0, side[1]);
-        matrix.put(2 * 4 + 0, side[2]);
-
-        matrix.put(0 * 4 + 1, up[0]);
-        matrix.put(1 * 4 + 1, up[1]);
-        matrix.put(2 * 4 + 1, up[2]);
-
-        matrix.put(0 * 4 + 2, -forward[0]);
-        matrix.put(1 * 4 + 2, -forward[1]);
-        matrix.put(2 * 4 + 2, -forward[2]);
-
-        glMultMatrixf(matrix);
-        glTranslatef(-eyex, -eyey, -eyez);
-    }
-
-    /**
      * Method gluProject
      *
      * @param objx
@@ -379,32 +318,5 @@ public class Project extends Util {
         obj_pos.put(obj_pos.position() + 2, out[2] * out[3]);
 
         return true;
-    }
-
-    /**
-     * Method gluPickMatrix
-     *
-     * @param x
-     * @param y
-     * @param deltaX
-     * @param deltaY
-     * @param viewport
-     */
-    public static void gluPickMatrix(
-            float x,
-            float y,
-            float deltaX,
-            float deltaY,
-            IntBuffer viewport) {
-        if (deltaX <= 0 || deltaY <= 0) {
-            return;
-        }
-
-        /* Translate and scale the picked region to the entire window */
-        glTranslatef(
-                (viewport.get(viewport.position() + 2) - 2 * (x - viewport.get(viewport.position() + 0))) / deltaX,
-                (viewport.get(viewport.position() + 3) - 2 * (y - viewport.get(viewport.position() + 1))) / deltaY,
-                0);
-        glScalef(viewport.get(viewport.position() + 2) / deltaX, viewport.get(viewport.position() + 3) / deltaY, 1.0f);
     }
 }

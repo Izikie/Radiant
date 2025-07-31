@@ -624,12 +624,14 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             GlStateManager.scale(this.cameraZoom, this.cameraZoom, 1.0D);
         }
 
+        // IMPROVEMENT: Used JOML
         Matrix4f projectionMatrix = new Matrix4f().perspective(
                 (float) Math.toRadians(this.getFOVModifier(partialTicks, true)),
                 (float) this.mc.displayWidth / this.mc.displayHeight,
                 0.05F,
                 this.clipDistance
         );
+
         FloatBuffer projectionBuffer = BufferUtils.createFloatBuffer(16);
         projectionMatrix.get(projectionBuffer);
         GlStateManager.multMatrix(projectionBuffer);

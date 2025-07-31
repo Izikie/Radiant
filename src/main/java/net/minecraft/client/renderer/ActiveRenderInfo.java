@@ -36,6 +36,7 @@ public class ActiveRenderInfo {
         float viewCenterX = (VIEWPORT.get(0) + VIEWPORT.get(2)) / 2.0f;
         float viewCenterY = (VIEWPORT.get(1) + VIEWPORT.get(3)) / 2.0f;
 
+        // TODO: Use JOML for better performance and accuracy
         Project.gluUnProject(viewCenterX, viewCenterY, 0.0F, MODELVIEW, PROJECTION, VIEWPORT, OBJECTCOORDS);
 
         position = new Vec3(OBJECTCOORDS.get(0), OBJECTCOORDS.get(1), OBJECTCOORDS.get(2));
