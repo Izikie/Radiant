@@ -42,8 +42,8 @@ import org.joml.Matrix4f;
 import org.joml.Vector4f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
-import net.radiant.opengl.ContextCapabilities;
-import net.radiant.opengl.GLContext;
+import net.radiant.lwjgl.opengl.ContextCapabilities;
+import net.radiant.lwjgl.opengl.GLContext;
 
 import java.io.*;
 import java.nio.ByteBuffer;

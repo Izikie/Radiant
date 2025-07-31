@@ -11,22 +11,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GuiMessage extends GuiScreen {
-	protected final String confirmButtonText;
 	private final GuiScreen parentScreen;
 	private final String messageLine1;
 	private final String messageLine2;
 	private final List listLines2 = new ArrayList<>();
-	private int ticksUntilEnable;
 
 	public GuiMessage(GuiScreen parentScreen, String line1, String line2) {
 		this.parentScreen = parentScreen;
 		this.messageLine1 = line1;
 		this.messageLine2 = line2;
-		this.confirmButtonText = I18n.format("gui.done");
 	}
 
 	public void initGui() {
-		this.buttonList.add(new GuiOptionButton(0, this.width / 2 - 74, this.height / 6 + 96, this.confirmButtonText));
+		this.buttonList.add(new GuiOptionButton(0, this.width / 2 - 74, this.height / 6 + 96, I18n.format("gui.done")));
 		this.listLines2.clear();
 		this.listLines2.addAll(this.fontRendererObj.listFormattedStringToWidth(this.messageLine2, this.width - 50));
 	}
@@ -46,26 +43,5 @@ public class GuiMessage extends GuiScreen {
 		}
 
 		super.drawScreen(mouseX, mouseY, partialTicks);
-	}
-
-	public void setButtonDelay(int ticksUntilEnable) {
-		this.ticksUntilEnable = ticksUntilEnable;
-
-		for (GuiButton guibutton : this.buttonList) {
-			guibutton.enabled = false;
-		}
-	}
-
-	/**
-	 * Called from the main game loop to update the screen.
-	 */
-	public void updateScreen() {
-		super.updateScreen();
-
-		if (--this.ticksUntilEnable == 0) {
-			for (GuiButton guibutton : this.buttonList) {
-				guibutton.enabled = true;
-			}
-		}
 	}
 }

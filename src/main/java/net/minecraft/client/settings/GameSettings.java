@@ -20,10 +20,10 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import net.radiant.input.Keyboard;
-import net.radiant.input.Mouse;
-import net.radiant.opengl.Display;
-import net.radiant.opengl.DisplayMode;
+import net.radiant.lwjgl.input.Keyboard;
+import net.radiant.lwjgl.input.Mouse;
+import net.radiant.lwjgl.opengl.Display;
+import net.radiant.lwjgl.opengl.DisplayMode;
 
 import java.io.*;
 import java.lang.reflect.ParameterizedType;

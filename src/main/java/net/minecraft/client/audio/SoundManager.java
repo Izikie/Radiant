@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import paulscode.sound.*;
 import paulscode.sound.codecs.CodecJOrbis;
-import net.radiant.openal.paulscode.LibraryLWJGLOpenAL;
+import net.radiant.lwjgl.openal.paulscode.LibraryLWJGLOpenAL;
 
 import java.util.concurrent.ThreadLocalRandom;
 import java.io.IOException;

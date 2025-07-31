@@ -19,7 +19,7 @@ import net.minecraft.stats.StatFileWriter;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
-import net.radiant.input.Mouse;
+import net.radiant.lwjgl.input.Mouse;
 
 import java.io.IOException;
 import java.util.Random;

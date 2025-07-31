@@ -20,19 +20,20 @@ import net.optifine.GlErrors;
 import net.optifine.Log;
 import net.optifine.config.GlVersion;
 import net.optifine.gui.GuiMessage;
+import net.optifine.gui.GuiShaderMessage;
 import net.optifine.shaders.Shaders;
 import net.optifine.util.DisplayModeComparator;
 import net.optifine.util.PropertiesOrdered;
 import net.optifine.util.TextureUtils;
 import net.optifine.util.TimedEvent;
 import org.apache.commons.io.IOUtils;
-import net.radiant.LWJGLException;
-import net.radiant.opengl.Display;
-import net.radiant.opengl.DisplayMode;
+import net.radiant.lwjgl.LWJGLException;
+import net.radiant.lwjgl.opengl.Display;
+import net.radiant.lwjgl.opengl.DisplayMode;
 import org.lwjgl.Version;
 import org.lwjgl.opengl.*;
-import net.radiant.opengl.GLContext;
-import net.radiant.opengl.PixelFormat;
+import net.radiant.lwjgl.opengl.GLContext;
+import net.radiant.lwjgl.opengl.PixelFormat;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -1657,10 +1658,14 @@ public class Config {
         return false;
     }
 
-    public static void showGuiMessage(String p_showGuiMessage_0_, String p_showGuiMessage_1_) {
-        GuiMessage guimessage = new GuiMessage(MINECRAFT.currentScreen, p_showGuiMessage_0_, p_showGuiMessage_1_);
-        MINECRAFT.displayGuiScreen(guimessage);
+    public static void showGuiMessage(String main, String secondary) {
+        MINECRAFT.displayGuiScreen(new GuiMessage(MINECRAFT.currentScreen, main, secondary));
     }
+
+    public static void showGuiShaderMessage(String main, String secondary, int actionIndex) {
+        MINECRAFT.displayGuiScreen(new GuiShaderMessage(MINECRAFT.currentScreen, main, secondary, actionIndex));
+    }
+
 
     public static int[] addIntToArray(int[] p_addIntToArray_0_, int p_addIntToArray_1_) {
         return addIntsToArray(p_addIntToArray_0_, new int[]{p_addIntToArray_1_});

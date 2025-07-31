@@ -65,12 +65,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
-import net.radiant.input.Keyboard;
-import net.radiant.input.Mouse;
-import net.radiant.opengl.Display;
+import net.radiant.lwjgl.input.Keyboard;
+import net.radiant.lwjgl.input.Mouse;
+import net.radiant.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
-import net.radiant.opengl.GLContext;
+import net.radiant.lwjgl.opengl.GLContext;
 
 import java.io.IOException;
 import java.nio.FloatBuffer;

@@ -32,8 +32,7 @@ public record GameConfiguration(
     public record FolderInformation(
             File mcDataDir,
             File resourcePacksDir,
-            File assetsDir,
-            String assetIndex
+            File assetsDir
     ) {
     }
 

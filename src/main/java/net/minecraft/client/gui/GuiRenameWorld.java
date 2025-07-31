@@ -3,7 +3,7 @@ package net.minecraft.client.gui;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.WorldInfo;
-import net.radiant.input.Keyboard;
+import net.radiant.lwjgl.input.Keyboard;
 
 import java.io.IOException;
 

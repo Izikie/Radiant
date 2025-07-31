@@ -43,9 +43,6 @@ repositories {
 }
 
 dependencies {
-    // Excluding transitive jinput from lwjgl to avoid version conflicts (lwjgl brings 2.0.5, we want 2.0.10)
-//    implementation(group = "net.java.jinput", name = "jinput", version = "2.0.10")
-
     implementation(group = "com.ibm.icu", name = "icu4j", version = "77.1")
 
     implementation(group = "com.mojang", name = "authlib", version = "1.5.21") {
@@ -103,7 +100,6 @@ dependencies {
 
     implementation(group = "org.jcommander", name = "jcommander", version = "2.0")
 
-    // Alternative: Switch to logback or tinylog
     implementation(
         group = "org.slf4j", name = "slf4j-api",
         version = project.property("slf4j_version") as String
@@ -116,12 +112,6 @@ dependencies {
         group = "org.apache.logging.log4j", name = "log4j-core",
         version = project.property("log4j_version") as String
     )
-
-    // LWJGL 2.x for Minecraft 1.8.9 compatibility - excluding transitive jinput to avoid conflicts
-//    implementation(group = "org.lwjgl.lwjgl", name = "lwjgl", version = "2.9.3") {
-//        exclude(group = "net.java.jinput", module = "jinput") // We use explicit jinput 2.0.10 above
-//    }
-//    implementation(group = "org.lwjgl.lwjgl", name = "lwjgl_util", version = "2.9.3") // Depends on lwjgl above
 
     implementation(group = "org.lwjgl", name = "lwjgl", version = lwjglVersion)
     implementation(group = "org.lwjgl", name = "lwjgl-glfw", version = lwjglVersion)
@@ -168,11 +158,9 @@ tasks.register<JavaExec>("RunClient") {
 
     workingDir = file(minecraftDir)
     args("--assetsDir", "assets")
-    args("--assetIndex", "1.8")
     args("--accessToken", "0")
     args("--userProperties", "{}")
 
-    systemProperty("java.library.path", "${projectDir}/natives")
     systemProperty("log4j2.formatMsgNoLookups", "true")
 
     mainClass = "net.minecraft.client.main.Main"

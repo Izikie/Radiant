@@ -21,6 +21,7 @@
 - **Faster Language Selection** - Language selection now only reloads the language.
 - **Case Insensitive Commands**
 - **1.7 Potion Positioning** - Don't offset inventory when potion effects are active.
+- **LWJGL3 Translation Layer** - Use optimized LWJGL3 translation layer.
 </details>
 
 <details>
@@ -36,4 +37,7 @@
 - **Removed Touchscreen Support**
 - **Removed Snooper/Telemetry**
 - **Removed Anaglyph**
+- **Switch to SLF4j**
+- **Switch to JOML**
+- **Use FastUtil** - Faster collections for performance.
 </details>

@@ -37,7 +37,7 @@ public class GuiShaders extends GuiScreenOF {
 	private GuiSlotShaders shaderList;
 	private boolean saved = false;
 
-	public GuiShaders(GuiScreen par1GuiScreen, GameSettings par2GameSettings) {
+	public GuiShaders(GuiScreen par1GuiScreen) {
 		this.parentGui = par1GuiScreen;
 	}
 

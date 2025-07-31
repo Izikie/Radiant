@@ -122,23 +122,22 @@ public class GuiVideoSettings extends GuiScreenOF {
 
             if (p_actionPerformed_1_.id == 231) {
                 if (Config.isAntialiasing() || Config.isAntialiasingConfigured()) {
-                    Config.showGuiMessage(Lang.get("of.message.shaders.aa1"), Lang.get("of.message.shaders.aa2"));
+                    Config.showGuiShaderMessage(Lang.get("of.message.shaders.aa1"), Lang.get("of.message.shaders.aa2"), 0);
                     return;
                 }
 
                 if (Config.isAnisotropicFiltering()) {
-                    Config.showGuiMessage(Lang.get("of.message.shaders.af1"), Lang.get("of.message.shaders.af2"));
+                    Config.showGuiShaderMessage(Lang.get("of.message.shaders.af1"), Lang.get("of.message.shaders.af2"), 1);
                     return;
                 }
 
                 if (Config.isFastRender()) {
-                    Config.showGuiMessage(Lang.get("of.message.shaders.fr1"), Lang.get("of.message.shaders.fr2"));
+                    Config.showGuiShaderMessage(Lang.get("of.message.shaders.fr1"), Lang.get("of.message.shaders.fr2"), 2);
                     return;
                 }
 
                 this.mc.gameSettings.saveOptions();
-                GuiShaders guishaders = new GuiShaders(this, this.guiGameSettings);
-                this.mc.displayGuiScreen(guishaders);
+                this.mc.displayGuiScreen(new GuiShaders(this));
             }
         }
     }

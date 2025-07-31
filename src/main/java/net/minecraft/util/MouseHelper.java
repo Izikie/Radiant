@@ -1,9 +1,9 @@
 package net.minecraft.util;
 
 import net.minecraft.client.settings.KeyBinding;
-import net.radiant.input.Keyboard;
-import net.radiant.input.Mouse;
-import net.radiant.opengl.Display;
+import net.radiant.lwjgl.input.Keyboard;
+import net.radiant.lwjgl.input.Mouse;
+import net.radiant.lwjgl.opengl.Display;
 
 public class MouseHelper {
     public int deltaX;

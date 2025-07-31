@@ -68,9 +68,6 @@ public class Main {
         @Parameter(names = {"--assetsDir", "-assetsDir"}, description = "Assets directory", converter = FileConverter.class)
         private File assetsDir;
 
-        @Parameter(names = {"--assetIndex", "-assetIndex"}, description = "Asset index")
-        private String assetIndex;
-
         // Server Information
         @Parameter(names = {"--server", "-server"}, description = "Server address")
         private String server;
@@ -176,8 +173,7 @@ public class Main {
                 new FolderInformation(
                         gameDir,
                         resourcePackDir,
-                        assetsDir,
-                        minecraftArgs.assetIndex
+                        assetsDir
                 ),
                 new ServerInformation(
                         minecraftArgs.server,

@@ -10,7 +10,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
-import net.radiant.util.glu.Project;
+import net.radiant.lwjgl.util.glu.Project;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;

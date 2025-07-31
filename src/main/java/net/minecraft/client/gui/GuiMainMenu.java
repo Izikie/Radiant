@@ -1,6 +1,6 @@
 package net.minecraft.client.gui;
 
-import net.MicrosoftAuth;
+import net.radiant.MicrosoftAuth;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -17,7 +17,7 @@ import net.optifine.CustomPanoramaProperties;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
-import net.radiant.opengl.GLContext;
+import net.radiant.lwjgl.opengl.GLContext;
 
 import java.io.BufferedReader;
 import java.io.IOException;
