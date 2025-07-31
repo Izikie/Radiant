@@ -10,7 +10,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.glu.Project;
+import net.radiant.util.glu.Project;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -31,7 +31,7 @@ public class ActiveRenderInfo {
     public static void updateRenderInfo(EntityPlayer player, boolean invertRotation) {
         GlStateManager.getFloat(2982, MODELVIEW);
         GlStateManager.getFloat(2983, PROJECTION);
-        GL11.glGetInteger(GL11.GL_VIEWPORT, VIEWPORT);
+        GL11.glGetIntegerv(GL11.GL_VIEWPORT, VIEWPORT);
 
         float viewCenterX = (VIEWPORT.get(0) + VIEWPORT.get(2)) / 2.0f;
         float viewCenterY = (VIEWPORT.get(1) + VIEWPORT.get(3)) / 2.0f;

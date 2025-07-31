@@ -14,7 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.input.Keyboard;
+import net.radiant.input.Keyboard;
 
 import java.io.IOException;
 import java.util.HashSet;

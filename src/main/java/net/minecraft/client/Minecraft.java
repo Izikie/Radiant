@@ -65,9 +65,8 @@ import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.stats.StatFileWriter;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
 import net.minecraft.util.Timer;
-import net.minecraft.util.Util;
+import net.minecraft.util.*;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.WorldProviderEnd;
 import net.minecraft.world.WorldProviderHell;
@@ -79,12 +78,18 @@ import net.minecraft.world.storage.WorldInfo;
 import net.optifine.Lang;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.lwjgl.LWJGLException;
-import org.lwjgl.Sys;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.*;
-import org.lwjgl.util.glu.GLU;
+import org.lwjgl.Version;
+import org.lwjgl.glfw.GLFW;
+import org.lwjgl.opengl.GL11;
+import net.radiant.LWJGLException;
+import net.radiant.Sys;
+import net.radiant.input.Keyboard;
+import net.radiant.input.Mouse;
+import net.radiant.opengl.Display;
+import net.radiant.opengl.DisplayMode;
+import net.radiant.opengl.OpenGLException;
+import net.radiant.opengl.PixelFormat;
+import net.radiant.util.glu.GLU;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -108,6 +113,7 @@ public class Minecraft implements IThreadListener {
 
 	public static final Random RANDOM = new Random();
 	public static byte[] memoryReserve = new byte[10485760];
+
 	private final File fileResourcepacks;
 	private final PropertyMap profileProperties;
 	private ServerData currentServerData;
@@ -277,7 +283,8 @@ public class Minecraft implements IThreadListener {
 			displayHeight = gameSettings.overrideHeight;
 		}
 
-		LOGGER.info("LWJGL Version: {}", Sys.getVersion());
+		LOGGER.info("LWJGL Version: {}", Version.getVersion());
+
 		setWindowIcon();
 		setInitialDisplayMode();
 		createDisplay();
@@ -678,6 +685,7 @@ public class Minecraft implements IThreadListener {
 			mcSoundHandler.unloadSounds();
 		} finally {
 			Display.destroy();
+			GLFW.glfwTerminate();
 
 			if (!hasCrashed) {
 				System.exit(0);

@@ -65,12 +65,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.Display;
+import net.radiant.input.Keyboard;
+import net.radiant.input.Mouse;
+import net.radiant.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
-import org.lwjgl.opengl.GLContext;
+import net.radiant.opengl.GLContext;
 
 import java.io.IOException;
 import java.nio.FloatBuffer;
@@ -940,11 +940,11 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             this.prevFrameTime = Minecraft.getSystemTime();
         }
 
-        if (flag && Minecraft.IS_RUNNING_ON_MAC && this.mc.inGameHasFocus && !Mouse.isInsideWindow()) {
-            Mouse.setGrabbed(false);
-            Mouse.setCursorPosition(Display.getWidth() / 2, Display.getHeight() / 2);
-            Mouse.setGrabbed(true);
-        }
+//        if (flag && Minecraft.IS_RUNNING_ON_MAC && this.mc.inGameHasFocus && !Mouse.isInsideWindow()) {
+//            Mouse.setGrabbed(false);
+//            Mouse.setCursorPosition(Display.getWidth() / 2, Display.getHeight() / 2);
+//            Mouse.setGrabbed(true);
+//        }
 
         if (this.mc.inGameHasFocus && flag) {
             this.mc.mouseHelper.mouseXYChange();
@@ -1825,7 +1825,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         this.fogStandard = false;
         Entity entity = this.mc.getRenderViewEntity();
 
-        GL11.glFog(GL11.GL_FOG_COLOR, this.setFogColorBuffer(this.fogColorRed, this.fogColorGreen, this.fogColorBlue, 1.0F));
+        GL11.glFogfv(GL11.GL_FOG_COLOR, this.setFogColorBuffer(this.fogColorRed, this.fogColorGreen, this.fogColorBlue, 1.0F));
         GL11.glNormal3f(0.0F, -1.0F, 0.0F);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         Block block = ActiveRenderInfo.getBlockAtEntityViewpoint(this.mc.world, entity, partialTicks);

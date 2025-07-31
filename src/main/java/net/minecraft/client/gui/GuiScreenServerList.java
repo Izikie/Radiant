@@ -2,7 +2,7 @@ package net.minecraft.client.gui;
 
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.resources.I18n;
-import org.lwjgl.input.Keyboard;
+import net.radiant.input.Keyboard;
 
 import java.io.IOException;
 

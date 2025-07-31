@@ -44,7 +44,7 @@ repositories {
 
 dependencies {
     // Excluding transitive jinput from lwjgl to avoid version conflicts (lwjgl brings 2.0.5, we want 2.0.10)
-    implementation(group = "net.java.jinput", name = "jinput", version = "2.0.10")
+//    implementation(group = "net.java.jinput", name = "jinput", version = "2.0.10")
 
     implementation(group = "com.ibm.icu", name = "icu4j", version = "77.1")
 
@@ -118,20 +118,22 @@ dependencies {
     )
 
     // LWJGL 2.x for Minecraft 1.8.9 compatibility - excluding transitive jinput to avoid conflicts
-    implementation(group = "org.lwjgl.lwjgl", name = "lwjgl", version = "2.9.3") {
-        exclude(group = "net.java.jinput", module = "jinput") // We use explicit jinput 2.0.10 above
-    }
-    implementation(group = "org.lwjgl.lwjgl", name = "lwjgl_util", version = "2.9.3") // Depends on lwjgl above
+//    implementation(group = "org.lwjgl.lwjgl", name = "lwjgl", version = "2.9.3") {
+//        exclude(group = "net.java.jinput", module = "jinput") // We use explicit jinput 2.0.10 above
+//    }
+//    implementation(group = "org.lwjgl.lwjgl", name = "lwjgl_util", version = "2.9.3") // Depends on lwjgl above
 
-    /*implementation(group = "org.lwjgl", name = "lwjgl", version = lwjglVersion)
+    implementation(group = "org.lwjgl", name = "lwjgl", version = lwjglVersion)
     implementation(group = "org.lwjgl", name = "lwjgl-glfw", version = lwjglVersion)
     implementation(group = "org.lwjgl", name = "lwjgl-openal", version = lwjglVersion)
     implementation(group = "org.lwjgl", name = "lwjgl-opengl", version = lwjglVersion)
+    implementation(group = "org.lwjgl", name = "lwjgl-stb", version = lwjglVersion)
 
     runtimeOnly(group = "org.lwjgl", name = "lwjgl", version = lwjglVersion, classifier = lwjglNatives)
     runtimeOnly(group = "org.lwjgl", name = "lwjgl-glfw", version = lwjglVersion, classifier = lwjglNatives)
     runtimeOnly(group = "org.lwjgl", name = "lwjgl-openal", version = lwjglVersion, classifier = lwjglNatives)
-    runtimeOnly(group = "org.lwjgl", name = "lwjgl-opengl", version = lwjglVersion, classifier = lwjglNatives)*/
+    runtimeOnly(group = "org.lwjgl", name = "lwjgl-opengl", version = lwjglVersion, classifier = lwjglNatives)
+    runtimeOnly(group = "org.lwjgl", name = "lwjgl-stb", version = lwjglVersion, classifier = lwjglNatives)
 
     // Alternative authentication library - excluding gson to use our explicit version
     implementation(group = "fr.litarvan", name = "openauth", version = "1.1.6") {
@@ -149,6 +151,8 @@ dependencies {
 
     //implementation(group = "com.alibaba.fastjson2", name = "fastjson2", version = "2.0.57")
     // Look into, how adapter stuff works, and if the code rework is worth the speedup
+
+    compileOnly(group = "org.jetbrains", name = "annotations", version = "26.0.2")
 }
 
 val minecraftDir: String = when {

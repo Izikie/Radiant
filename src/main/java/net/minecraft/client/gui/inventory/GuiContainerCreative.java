@@ -25,8 +25,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
+import net.radiant.input.Keyboard;
+import net.radiant.input.Mouse;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -26,10 +26,13 @@ import net.optifine.util.PropertiesOrdered;
 import net.optifine.util.TextureUtils;
 import net.optifine.util.TimedEvent;
 import org.apache.commons.io.IOUtils;
-import org.lwjgl.LWJGLException;
-import org.lwjgl.Sys;
-import org.lwjgl.opengl.DisplayMode;
+import net.radiant.LWJGLException;
+import net.radiant.Sys;
+import net.radiant.opengl.Display;
+import net.radiant.opengl.DisplayMode;
 import org.lwjgl.opengl.*;
+import net.radiant.opengl.GLContext;
+import net.radiant.opengl.PixelFormat;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

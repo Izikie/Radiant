@@ -17,7 +17,7 @@ import net.optifine.CustomPanoramaProperties;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GLContext;
+import net.radiant.opengl.GLContext;
 
 import java.io.BufferedReader;
 import java.io.IOException;
