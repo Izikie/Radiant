@@ -112,6 +112,10 @@ dependencies {
         group = "org.apache.logging.log4j", name = "log4j-core",
         version = project.property("log4j_version") as String
     )
+    implementation(
+        group = "org.apache.logging.log4j", name = "log4j-slf4j2-impl",
+        version = project.property("log4j_version") as String
+    )
 
     implementation(group = "org.lwjgl", name = "lwjgl", version = lwjglVersion)
     implementation(group = "org.lwjgl", name = "lwjgl-glfw", version = lwjglVersion)

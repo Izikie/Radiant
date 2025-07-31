@@ -9,10 +9,10 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.Marker;
-import org.apache.logging.log4j.MarkerManager;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 import paulscode.sound.*;
 import paulscode.sound.codecs.CodecJOrbis;
 import net.radiant.lwjgl.openal.paulscode.LibraryLWJGLOpenAL;
@@ -28,8 +28,8 @@ import java.util.*;
 import java.util.Map.Entry;
 
 public class SoundManager {
-    private static final Marker LOG_MARKER = MarkerManager.getMarker("SOUNDS");
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Marker LOG_MARKER = MarkerFactory.getMarker("SOUNDS");
+    private static final Logger LOGGER = LoggerFactory.getLogger(SoundManager.class);
     private final SoundHandler sndHandler;
     private final GameSettings options;
     private SoundSystemStarterThread sndSystem;

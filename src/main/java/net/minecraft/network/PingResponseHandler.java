@@ -6,14 +6,14 @@ import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import net.minecraft.server.MinecraftServer;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 
 public class PingResponseHandler extends ChannelInboundHandlerAdapter {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(PingResponseHandler.class);
     private final NetworkSystem networkSystem;
 
     public PingResponseHandler(NetworkSystem networkSystem) {

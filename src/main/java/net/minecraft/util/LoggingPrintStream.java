@@ -1,13 +1,13 @@
 package net.minecraft.util;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
 
 public class LoggingPrintStream extends PrintStream {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoggingPrintStream.class);
     private final String domain;
 
     public LoggingPrintStream(String domainIn, OutputStream outStream) {

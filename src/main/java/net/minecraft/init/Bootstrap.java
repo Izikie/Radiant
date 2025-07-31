@@ -25,8 +25,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.LoggingPrintStream;
 import net.minecraft.util.StringUtils;
 import net.minecraft.world.World;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.PrintStream;
 import java.util.Random;
@@ -34,7 +34,7 @@ import java.util.Random;
 public class Bootstrap {
     private static final PrintStream SYSOUT = System.out;
     private static boolean alreadyRegistered = false;
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(Bootstrap.class);
 
     public static boolean isRegistered() {
         return alreadyRegistered;

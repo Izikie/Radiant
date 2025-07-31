@@ -4,8 +4,8 @@ import com.google.gson.*;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.Reader;
 import java.io.StringReader;
@@ -14,7 +14,7 @@ import java.util.*;
 import java.util.Map.Entry;
 
 public class ModelBlock {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(ModelBlock.class);
     static final Gson SERIALIZER = new GsonBuilder()
             .registerTypeAdapter(ModelBlock.class, new Deserializer())
             .registerTypeAdapter(BlockPart.class, new BlockPart.Deserializer())

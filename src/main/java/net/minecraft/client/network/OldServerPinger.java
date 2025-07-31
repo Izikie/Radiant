@@ -25,8 +25,8 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -38,7 +38,7 @@ import java.util.List;
 
 public class OldServerPinger {
     private static final Splitter PING_RESPONSE_SPLITTER = Splitter.on('\u0000').limit(6);
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(Object.class);
     private final List<NetworkManager> pingDestinations = Collections.synchronizedList(new ArrayList<>());
 
     public void ping(final ServerData server) throws UnknownHostException {
@@ -141,7 +141,7 @@ public class OldServerPinger {
             networkManager.sendPacket(new C00Handshake(47, address.getIP(), address.getPort(), NetworkState.STATUS));
             networkManager.sendPacket(new C00PacketServerQuery());
         } catch (Throwable throwable) {
-            LOGGER.error(throwable);
+            LOGGER.error("Handshake failed", throwable);
         }
     }
 

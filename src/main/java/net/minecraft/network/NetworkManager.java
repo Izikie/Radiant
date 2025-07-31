@@ -1,7 +1,6 @@
 package net.minecraft.network;
 
 import com.google.common.collect.Queues;
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.epoll.Epoll;
@@ -20,10 +19,10 @@ import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 import net.minecraft.util.*;
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.Marker;
-import org.apache.logging.log4j.MarkerManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 
 import javax.crypto.SecretKey;
 import java.net.InetAddress;
@@ -33,9 +32,9 @@ import java.util.Queue;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
-    private static final Logger LOGGER = LogManager.getLogger();
-    public static final Marker LOG_MARKER_NETWORK = MarkerManager.getMarker("NETWORK");
-    public static final Marker LOG_MARKER_PACKETS = MarkerManager.getMarker("NETWORK_PACKETS").addParents(LOG_MARKER_NETWORK);
+    private static final Logger LOGGER = LoggerFactory.getLogger(NetworkManager.class);
+    public static final Marker LOG_MARKER_NETWORK = MarkerFactory.getMarker("NETWORK");
+    public static final Marker LOG_MARKER_PACKETS = MarkerFactory.getMarker("NETWORK_PACKETS");
     public static final AttributeKey<NetworkState> ATTR_KEY_CONNECTION_STATE = AttributeKey.valueOf("protocol");
     public static final LazyLoadBase<MultiThreadIoEventLoopGroup> CLIENT_NIO_EVENTLOOP = new LazyLoadBase<>() {
         protected MultiThreadIoEventLoopGroup load() {
@@ -69,7 +68,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
         try {
             this.setConnectionState(NetworkState.HANDSHAKING);
         } catch (Throwable throwable) {
-            LOGGER.fatal(throwable);
+            LOGGER.error("Handshake failed", throwable);
         }
     }
 
@@ -334,5 +333,9 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
             this.packet = packet;
             this.futureListeners = inFutureListeners;
         }
+    }
+
+    static {
+        LOG_MARKER_PACKETS.add(LOG_MARKER_NETWORK);
     }
 }

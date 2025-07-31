@@ -29,8 +29,8 @@ import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.WorldInfo;
 import org.apache.commons.lang3.Validate;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -46,7 +46,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 
 public abstract class MinecraftServer implements Runnable, ICommandSender, IThreadListener {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(MinecraftServer.class);
     public static final File USER_CACHE_FILE = new File("usercache.json");
     private static MinecraftServer mcServer;
     private final ISaveFormat anvilConverterForAnvilFile;

@@ -61,8 +61,8 @@ import net.minecraft.world.WorldProviderSurface;
 import net.minecraft.world.WorldSettings;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.storage.MapData;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -73,7 +73,7 @@ import java.util.*;
 import java.util.Map.Entry;
 
 public class NetHandlerPlayClient implements INetHandlerPlayClient {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(NetHandlerPlayClient.class);
     private final NetworkManager netManager;
     private final GameProfile profile;
     private final GuiScreen guiScreenServer;

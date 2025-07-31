@@ -18,8 +18,8 @@ import net.optifine.*;
 import net.optifine.shaders.Shaders;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import net.radiant.lwjgl.input.Keyboard;
 import net.radiant.lwjgl.input.Mouse;
 import net.radiant.lwjgl.opengl.Display;
@@ -32,7 +32,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class GameSettings {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(GameSettings.class);
     private static final Gson GSON = new Gson();
     private static final ParameterizedType TYPE_LIST_STRING = new ParameterizedType() {
         public Type[] getActualTypeArguments() {

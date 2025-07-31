@@ -10,14 +10,14 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.util.List;
 import java.util.Random;
 
 public class WorldGenDungeons extends WorldGenerator {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(WorldGenDungeons.class);
     private static final String[] SPAWNERTYPES = new String[]{"Skeleton", "Zombie", "Zombie", "Spider"};
     private static final List<WeightedRandomChestContent> CHESTCONTENT = List.of(new WeightedRandomChestContent(Items.SADDLE, 0, 1, 1, 10), new WeightedRandomChestContent(Items.IRON_INGOT, 0, 1, 4, 10), new WeightedRandomChestContent(Items.BREAD, 0, 1, 1, 10), new WeightedRandomChestContent(Items.WHEAT, 0, 1, 4, 10), new WeightedRandomChestContent(Items.GUNPOWDER, 0, 1, 4, 10), new WeightedRandomChestContent(Items.STRING, 0, 1, 4, 10), new WeightedRandomChestContent(Items.BUCKET, 0, 1, 1, 10), new WeightedRandomChestContent(Items.GOLDEN_APPLE, 0, 1, 1, 1), new WeightedRandomChestContent(Items.REDSTONE, 0, 1, 4, 10), new WeightedRandomChestContent(Items.RECORD_13, 0, 1, 1, 4), new WeightedRandomChestContent(Items.RECORD_CAT, 0, 1, 1, 4), new WeightedRandomChestContent(Items.NAME_TAG, 0, 1, 1, 10), new WeightedRandomChestContent(Items.GOLDEN_HORSE_ARMOR, 0, 1, 1, 2), new WeightedRandomChestContent(Items.IRON_HORSE_ARMOR, 0, 1, 1, 5), new WeightedRandomChestContent(Items.DIAMOND_HORSE_ARMOR, 0, 1, 1, 1));
 
