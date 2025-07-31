@@ -594,7 +594,7 @@ public class Minecraft implements IThreadListener {
 		GlStateManager.disableDepth();
 		GlStateManager.enableTexture2D();
 
-		try (var inputstream = mcDefaultResourcePack.getInputStream(LOCATION_MOJANG_PNG)) {
+		try (InputStream inputstream = mcDefaultResourcePack.getInputStream(LOCATION_MOJANG_PNG)) {
 			mojangLogo = textureManagerInstance.getDynamicTextureLocation("logo", new DynamicTexture(ImageIO.read(inputstream)));
 			textureManagerInstance.bindTexture(mojangLogo);
 		} catch (IOException exception) {
@@ -692,7 +692,6 @@ public class Minecraft implements IThreadListener {
 			mcSoundHandler.unloadSounds();
 		} finally {
 			Display.destroy();
-			GLFW.glfwTerminate();
 
 			if (!hasCrashed) {
 				System.exit(0);
@@ -746,9 +745,11 @@ public class Minecraft implements IThreadListener {
 		guiAchievement.updateAchievementWindow();
 		framebufferMc.unbindFramebuffer();
 		GlStateManager.popMatrix();
+
 		GlStateManager.pushMatrix();
 		framebufferMc.framebufferRender(displayWidth, displayHeight);
 		GlStateManager.popMatrix();
+
 		updateDisplay();
 		Thread.yield();
 		checkGLError("Post render");
@@ -811,7 +812,6 @@ public class Minecraft implements IThreadListener {
 
 		System.gc();
 		loadWorld(null);
-
 		System.gc();
 	}
 
