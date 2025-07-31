@@ -57,8 +57,8 @@ import net.optifine.shaders.ShadersRender;
 import net.optifine.shaders.ShadowUtils;
 import net.optifine.shaders.gui.GuiShaderOptions;
 import net.optifine.util.RenderChunkUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.joml.Vector3f;
 import net.radiant.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -67,7 +67,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListener {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(RenderGlobal.class);
     private static final ResourceLocation LOCATION_MOON_PHASES_PNG = new ResourceLocation("textures/environment/moon_phases.png");
     private static final ResourceLocation LOCATION_SUN_PNG = new ResourceLocation("textures/environment/sun.png");
     private static final ResourceLocation LOCATION_CLOUDS_PNG = new ResourceLocation("textures/environment/clouds.png");

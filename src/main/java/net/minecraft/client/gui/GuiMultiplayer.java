@@ -8,15 +8,15 @@ import net.minecraft.client.multiplayer.ServerList;
 import net.minecraft.client.network.LanServerDetector;
 import net.minecraft.client.network.OldServerPinger;
 import net.minecraft.client.resources.I18n;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import net.radiant.lwjgl.input.Keyboard;
 
 import java.io.IOException;
 import java.util.List;
 
 public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(GuiMultiplayer.class);
     private final OldServerPinger oldServerPinger = new OldServerPinger();
     private final GuiScreen parentScreen;
     private ServerSelectionList serverListSelector;

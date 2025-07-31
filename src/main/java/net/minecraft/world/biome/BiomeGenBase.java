@@ -19,13 +19,13 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.NoiseGeneratorPerlin;
 import net.minecraft.world.gen.feature.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.util.*;
 
 public abstract class BiomeGenBase {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(BiomeGenBase.class);
     protected static final Height HEIGHT_DEFAULT = new Height(0.1F, 0.2F);
     protected static final Height HEIGHT_SHALLOW_WATERS = new Height(-0.5F, 0.0F);
     protected static final Height HEIGHT_OCEANS = new Height(-1.0F, 0.1F);

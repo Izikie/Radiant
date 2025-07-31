@@ -15,8 +15,8 @@ import net.minecraft.network.status.client.C00PacketServerQuery;
 import net.minecraft.network.status.client.C01PacketPing;
 import net.minecraft.network.status.server.S00PacketServerInfo;
 import net.minecraft.network.status.server.S01PacketPong;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.EnumMap;
@@ -152,7 +152,7 @@ public enum NetworkState {
         }
     };
 
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(NetworkState.class);
 
     private static final int STATE_ID_MIN = -1;
     private static final int STATE_ID_MAX = 2;
@@ -171,7 +171,7 @@ public enum NetworkState {
 
         if (bimap.containsValue(packetClass)) {
             String s = direction + " packet " + packetClass + " is already known to ID " + bimap.inverse().get(packetClass);
-            LOGGER.fatal(s);
+            LOGGER.error(s);
             throw new IllegalArgumentException(s);
         } else {
             bimap.put(bimap.size(), packetClass);

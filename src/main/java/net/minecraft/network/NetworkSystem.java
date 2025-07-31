@@ -20,8 +20,8 @@ import net.minecraft.network.play.server.S40PacketDisconnect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.NetHandlerHandshakeTCP;
 import net.minecraft.util.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -32,7 +32,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class NetworkSystem {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(NetworkSystem.class);
     public static final LazyLoadBase<MultiThreadIoEventLoopGroup> EVENT_LOOPS = new LazyLoadBase<>() {
         protected MultiThreadIoEventLoopGroup load() {
             return new MultiThreadIoEventLoopGroup(0, Thread.ofVirtual().name("Netty Server IO #%d", 0).factory(), NioIoHandler.newFactory());

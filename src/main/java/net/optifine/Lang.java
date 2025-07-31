@@ -8,8 +8,8 @@ import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.io.IOUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 public class Lang {
-	private static final Logger LOGGER = LogManager.getLogger();
+	private static final Logger LOGGER = LoggerFactory.getLogger(Lang.class);
 	private static final Splitter SPLITTER = Splitter.on('=').limit(2);
 	private static final Pattern PATTERN = Pattern.compile("%(\\d+\\$)?[\\d.]*[df]");
 

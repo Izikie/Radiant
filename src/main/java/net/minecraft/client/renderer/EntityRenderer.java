@@ -61,8 +61,8 @@ import net.optifine.shaders.ShadersRender;
 import net.optifine.util.MemoryMonitor;
 import net.optifine.util.TextureUtils;
 import net.optifine.util.TimedEvent;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
 import net.radiant.lwjgl.input.Keyboard;
@@ -78,7 +78,7 @@ import java.util.List;
 import java.util.Random;
 
 public class EntityRenderer implements IResourceManagerReloadListener {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(EntityRenderer.class);
     private static final ResourceLocation LOCATION_RAIN_PNG = new ResourceLocation("textures/environment/rain.png");
     private static final ResourceLocation LOCATION_SNOW_PNG = new ResourceLocation("textures/environment/snow.png");
     private final Minecraft mc;

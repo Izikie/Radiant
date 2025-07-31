@@ -15,14 +15,14 @@ import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
 import net.optifine.ChunkPosComparator;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.util.*;
 import java.util.Map.Entry;
 
 public class PlayerManager {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(PlayerManager.class);
     private final WorldServer theWorldServer;
     private final List<EntityPlayerMP> players = new ArrayList<>();
     private final Long2ObjectOpenHashMap<PlayerInstance> playerInstances = new Long2ObjectOpenHashMap<>();

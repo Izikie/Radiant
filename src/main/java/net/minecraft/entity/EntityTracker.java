@@ -15,8 +15,8 @@ import net.minecraft.entity.projectile.*;
 import net.minecraft.network.Packet;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Set;
 
 public class EntityTracker {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(EntityTracker.class);
     private final WorldServer theWorld;
     private final Set<EntityTrackerEntry> trackedEntities = new HashSet<>();
     private final Int2ObjectOpenHashMap<EntityTrackerEntry> trackedEntityHashTable = new Int2ObjectOpenHashMap<>();

@@ -8,13 +8,13 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentProcessor;
 import net.minecraft.util.IChatComponent;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.util.List;
 
 public class CommandTitle extends CommandBase {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(CommandTitle.class);
 
     public String getCommandName() {
         return "title";

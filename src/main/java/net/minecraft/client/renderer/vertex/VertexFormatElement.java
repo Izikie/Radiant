@@ -1,10 +1,10 @@
 package net.minecraft.client.renderer.vertex;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 public class VertexFormatElement {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(VertexFormatElement.class);
     private final EnumType type;
     private final EnumUsage usage;
     private final int index;

@@ -3,8 +3,8 @@ package net.minecraft.server.management;
 import com.google.common.io.Files;
 import com.google.gson.*;
 import org.apache.commons.io.IOUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -15,7 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class UserList<K, V extends UserListEntry<K>> {
-    protected static final Logger LOGGER = LogManager.getLogger();
+    protected static final Logger LOGGER = LoggerFactory.getLogger(UserList.class);
     protected final Gson gson;
     private final File saveFile;
     private final Map<String, V> values = new HashMap<>();

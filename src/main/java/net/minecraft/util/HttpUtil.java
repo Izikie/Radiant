@@ -6,8 +6,8 @@ import com.google.common.util.concurrent.MoreExecutors;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.*;
 import java.net.*;
@@ -26,7 +26,7 @@ public class HttpUtil {
                                 .build()
                     )
             );
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(HttpUtil.class);
 
     public static String buildPostString(Map<String, Object> data) {
         StringBuilder builder = new StringBuilder();

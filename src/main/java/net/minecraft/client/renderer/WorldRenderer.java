@@ -13,8 +13,8 @@ import net.optifine.SmartAnimations;
 import net.optifine.render.RenderEnv;
 import net.optifine.shaders.SVertexBuilder;
 import net.optifine.util.TextureUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.lwjgl.opengl.GL11;
 
 import java.nio.*;
@@ -22,7 +22,7 @@ import java.util.Arrays;
 import java.util.BitSet;
 
 public class WorldRenderer {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(WorldRenderer.class);
 
     private ByteBuffer byteBuffer;
     public IntBuffer rawIntBuffer;

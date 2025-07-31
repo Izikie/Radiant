@@ -20,8 +20,8 @@ import net.minecraft.util.MathHelper;
 import net.optifine.EmissiveTextures;
 import net.optifine.entity.model.CustomEntityModels;
 import net.optifine.shaders.Shaders;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.lwjgl.opengl.GL11;
 
 import java.nio.FloatBuffer;
@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class RendererLivingEntity<T extends EntityLivingBase> extends Render<T> {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(RendererLivingEntity.class);
     private static final DynamicTexture TEXTURE_BRIGHTNESS = new DynamicTexture(16, 16);
     public ModelBase mainModel;
     protected final FloatBuffer brightnessBuffer = GLAllocation.createDirectFloatBuffer(4);

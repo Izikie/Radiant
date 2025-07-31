@@ -76,8 +76,6 @@ import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.WorldInfo;
 import net.optifine.Lang;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
@@ -89,6 +87,8 @@ import net.radiant.lwjgl.opengl.DisplayMode;
 import net.radiant.lwjgl.opengl.OpenGLException;
 import net.radiant.lwjgl.opengl.PixelFormat;
 import net.radiant.lwjgl.util.glu.GLU;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -112,7 +112,7 @@ public class Minecraft implements IThreadListener {
 		}
 	}
 
-	private static final Logger LOGGER = LogManager.getLogger();
+	private static final Logger LOGGER = LoggerFactory.getLogger(Minecraft.class);
 	private static final ResourceLocation LOCATION_MOJANG_PNG = new ResourceLocation("textures/gui/title/mojang.png");
 	public static final boolean IS_RUNNING_ON_MAC = Util.getOSType() == Util.OperatingSystem.MAC;
 	private static final List<DisplayMode> MAC_DISPLAY_MODES = List.of(new DisplayMode(2560, 1600), new DisplayMode(2880, 1800));
@@ -264,13 +264,13 @@ public class Minecraft implements IThreadListener {
 			} catch (ReportedException exception) {
 				addGraphicsAndWorldToCrashReport(exception.getCrashReport());
 				freeMemory();
-				LOGGER.fatal("Reported exception thrown!", exception);
+				LOGGER.error("Reported exception thrown!", exception);
 				displayCrashReport(exception.getCrashReport());
 				break;
 			} catch (Throwable throwable) {
 				CrashReport report = addGraphicsAndWorldToCrashReport(new CrashReport("Unexpected error", throwable));
 				freeMemory();
-				LOGGER.fatal("Unreported exception thrown!", throwable);
+				LOGGER.error("Unreported exception thrown!", throwable);
 				displayCrashReport(report);
 				break;
 			} finally {

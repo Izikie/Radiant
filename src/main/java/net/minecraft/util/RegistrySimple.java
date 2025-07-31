@@ -1,12 +1,12 @@
 package net.minecraft.util;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.util.*;
 
 public class RegistrySimple<K, V> implements IRegistry<K, V> {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(RegistrySimple.class);
     protected final Map<K, V> registryObjects = this.createUnderlyingMap();
 
     protected Map<K, V> createUnderlyingMap() {

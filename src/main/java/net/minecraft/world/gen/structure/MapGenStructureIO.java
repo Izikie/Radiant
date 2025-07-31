@@ -2,14 +2,14 @@ package net.minecraft.world.gen.structure;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class MapGenStructureIO {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(MapGenStructureIO.class);
     private static final Map<String, Class<? extends StructureStart>> startNameToClassMap = new HashMap<>();
     private static final Map<Class<? extends StructureStart>, String> startClassToNameMap = new HashMap<>();
     private static final Map<String, Class<? extends StructureComponent>> componentNameToClassMap = new HashMap<>();

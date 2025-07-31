@@ -7,8 +7,8 @@ import net.minecraft.src.Config;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.shaders.ShadersTex;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -17,7 +17,7 @@ import java.io.InputStream;
 import java.util.List;
 
 public class LayeredColorMaskTexture extends AbstractTexture {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(LayeredColorMaskTexture.class);
     private final ResourceLocation textureLocation;
     private final List<String> field_174949_h;
     private final List<DyeColor> field_174950_i;

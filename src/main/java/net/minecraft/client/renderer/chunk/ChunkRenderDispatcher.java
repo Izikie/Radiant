@@ -10,8 +10,8 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.vertex.VertexBuffer;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.RenderLayer;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
 public class ChunkRenderDispatcher {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(ChunkRenderDispatcher.class);
     private static final ThreadFactory THREAD_FACTORY = (new ThreadFactoryBuilder()).setNameFormat("Chunk Batcher %d").setDaemon(true).build();
     private final List<ChunkRenderWorker> listThreadedWorkers;
     private final BlockingQueue<ChunkCompileTaskGenerator> queueChunkUpdates;

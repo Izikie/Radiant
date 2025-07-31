@@ -1,6 +1,6 @@
 package net.minecraft.util;
 
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,13 +41,13 @@ public class Util {
             task.run();
             return task.get();
         } catch (ExecutionException exception) {
-            logger.fatal("Error executing task", exception);
+            logger.error("Error executing task", exception);
 
             if (exception.getCause() instanceof OutOfMemoryError outofmemoryerror) {
                 throw outofmemoryerror;
             }
         } catch (InterruptedException exception) {
-            logger.fatal("Error executing task", exception);
+            logger.error("Error executing task", exception);
         }
 
         return null;

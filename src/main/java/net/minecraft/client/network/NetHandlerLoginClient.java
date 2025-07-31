@@ -19,15 +19,15 @@ import net.minecraft.network.login.server.S03PacketEnableCompression;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.CryptManager;
 import net.minecraft.util.IChatComponent;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import javax.crypto.SecretKey;
 import java.math.BigInteger;
 import java.security.PublicKey;
 
 public class NetHandlerLoginClient implements INetHandlerLoginClient {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(NetHandlerLoginClient.class);
     private final Minecraft mc;
     private final GuiScreen previousGuiScreen;
     private final NetworkManager networkManager;

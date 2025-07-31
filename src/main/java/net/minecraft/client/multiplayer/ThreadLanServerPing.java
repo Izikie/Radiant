@@ -1,7 +1,7 @@
 package net.minecraft.client.multiplayer;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class ThreadLanServerPing extends Thread {
     private static final AtomicInteger field_148658_a = new AtomicInteger(0);
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(ThreadLanServerPing.class);
     private final String motd;
     private final DatagramSocket socket;
     private boolean isStopping = true;

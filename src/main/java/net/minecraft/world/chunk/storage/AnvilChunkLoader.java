@@ -17,8 +17,8 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.NibbleArray;
 import net.minecraft.world.storage.IThreadedFileIO;
 import net.minecraft.world.storage.ThreadedFileIOBase;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -31,7 +31,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(AnvilChunkLoader.class);
     private final Map<ChunkCoordIntPair, NBTTagCompound> chunksToRemove = new ConcurrentHashMap<>();
     private final Set<ChunkCoordIntPair> pendingAnvilChunksCoordinates = Collections.newSetFromMap(new ConcurrentHashMap<>());
     private final File chunkSaveLocation;

@@ -7,8 +7,8 @@ import com.mojang.authlib.ProfileLookupCallback;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class PreYggdrasilConverter {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(PreYggdrasilConverter.class);
     public static final File OLD_IPBAN_FILE = new File("banned-ips.txt");
     public static final File OLD_PLAYERBAN_FILE = new File("banned-players.txt");
     public static final File OLD_OPS_FILE = new File("ops.txt");

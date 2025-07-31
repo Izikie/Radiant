@@ -2,8 +2,8 @@ package net.minecraft.command;
 
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 public class CommandDebug extends CommandBase {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(CommandDebug.class);
     private long profileStartTime;
     private int profileStartTick;
 

@@ -1,7 +1,7 @@
 package net.minecraft.util;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
@@ -13,7 +13,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 
 public class CryptManager {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(CryptManager.class);
 
     public static SecretKey createNewSharedKey() {
         try {
