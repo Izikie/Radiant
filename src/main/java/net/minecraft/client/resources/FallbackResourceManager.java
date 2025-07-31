@@ -2,8 +2,8 @@ package net.minecraft.client.resources;
 
 import net.minecraft.client.resources.data.IMetadataSerializer;
 import net.minecraft.util.ResourceLocation;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 public class FallbackResourceManager implements IResourceManager {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(FallbackResourceManager.class);
     protected final List<IResourcePack> resourcePacks = new ArrayList<>();
     private final IMetadataSerializer frmMetadataSerializer;
 

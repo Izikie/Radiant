@@ -12,15 +12,15 @@ import net.optifine.EmissiveTextures;
 import net.optifine.Log;
 import net.optifine.RandomEntities;
 import net.optifine.shaders.ShadersTex;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.util.*;
 import java.util.Map.Entry;
 
 public class TextureManager implements ITickable, IResourceManagerReloadListener {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(TextureManager.class);
     private final Map<ResourceLocation, ITextureObject> mapTextureObjects = new HashMap<>();
     private final List<ITickable> listTickables = new ArrayList<>();
     private final Map<String, Integer> mapTextureCounters = new HashMap<>();

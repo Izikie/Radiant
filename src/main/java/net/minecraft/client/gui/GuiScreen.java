@@ -23,8 +23,8 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.IChatComponent;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import net.radiant.lwjgl.input.Keyboard;
 import net.radiant.lwjgl.input.Mouse;
 
@@ -42,7 +42,7 @@ import java.util.List;
 import java.util.Set;
 
 public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(GuiScreen.class);
     private static final Set<String> PROTOCOLS = Set.of("http", "https");
     private static final Splitter NEWLINE_SPLITTER = Splitter.on('\n');
     protected Minecraft mc;

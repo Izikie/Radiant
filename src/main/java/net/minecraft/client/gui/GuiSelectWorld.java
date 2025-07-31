@@ -10,8 +10,8 @@ import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.SaveFormatComparator;
 import net.minecraft.world.storage.WorldInfo;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.Date;
 
 public class GuiSelectWorld extends GuiScreen implements GuiYesNoCallback {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(GuiSelectWorld.class);
     private final DateFormat field_146633_h = new SimpleDateFormat();
     protected final GuiScreen parentScreen;
     protected String screenTitle = "Select world";

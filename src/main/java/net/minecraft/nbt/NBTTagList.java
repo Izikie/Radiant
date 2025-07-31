@@ -1,7 +1,7 @@
 package net.minecraft.nbt;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NBTTagList extends NBTBase {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(NBTTagList.class);
     private List<NBTBase> tagList = new ArrayList<>();
     private byte tagType = 0;
 

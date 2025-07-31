@@ -7,16 +7,16 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.PacketDirection;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.Marker;
-import org.apache.logging.log4j.MarkerManager;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 
 import java.io.IOException;
 
 public class MessageSerializer extends MessageToByteEncoder<Packet<?>> {
-    private static final Logger LOGGER = LogManager.getLogger();
-    private static final Marker RECEIVED_PACKET_MARKER = MarkerManager.getMarker("PACKET_SENT").addParents(NetworkManager.LOG_MARKER_PACKETS);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MessageSerializer.class);
+    private static final Marker RECEIVED_PACKET_MARKER = MarkerFactory.getMarker("PACKET_SENT");
     private final PacketDirection direction;
 
     public MessageSerializer(PacketDirection direction) {
@@ -39,8 +39,12 @@ public class MessageSerializer extends MessageToByteEncoder<Packet<?>> {
             try {
                 packet.writePacketData(buffer);
             } catch (Throwable throwable) {
-                LOGGER.error(throwable);
+                LOGGER.error("Serialization failure", throwable);
             }
         }
+    }
+
+    static {
+        RECEIVED_PACKET_MARKER.add(NetworkManager.LOG_MARKER_PACKETS);
     }
 }

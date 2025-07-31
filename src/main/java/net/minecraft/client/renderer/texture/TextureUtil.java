@@ -7,8 +7,8 @@ import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.Mipmaps;
 import org.apache.commons.io.IOUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 import org.lwjgl.opengl.GL14;
@@ -20,7 +20,7 @@ import java.io.InputStream;
 import java.nio.IntBuffer;
 
 public class TextureUtil {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(TextureUtil.class);
     private static final IntBuffer DATA_BUFFER = GLAllocation.createDirectIntBuffer(4194304);
     public static final DynamicTexture MISSING_TEXTURE = new DynamicTexture(16, 16);
     public static final int[] MISSING_TEXTURE_DATA = MISSING_TEXTURE.getTextureData();

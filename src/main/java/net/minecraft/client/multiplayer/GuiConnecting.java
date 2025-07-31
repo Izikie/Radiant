@@ -12,8 +12,8 @@ import net.minecraft.network.handshake.client.C00Handshake;
 import net.minecraft.network.login.client.C00PacketLoginStart;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -22,7 +22,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class GuiConnecting extends GuiScreen {
     private static final AtomicInteger CONNECTION_ID = new AtomicInteger(0);
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(GuiConnecting.class);
     private NetworkManager networkManager;
     private boolean cancel;
     private final GuiScreen previousGuiScreen;

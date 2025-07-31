@@ -6,8 +6,8 @@ import net.minecraft.world.gen.layer.IntCache;
 import net.optifine.Log;
 import net.optifine.shaders.Shaders;
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.*;
 import java.lang.management.ManagementFactory;
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CrashReport {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(CrashReport.class);
     private final String description;
     private final Throwable throwable;
     private final CrashReportCategory theReportCategory = new CrashReportCategory(this, "System Details");

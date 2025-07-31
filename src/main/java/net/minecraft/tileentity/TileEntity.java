@@ -9,14 +9,14 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class TileEntity {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(TileEntity.class);
     private static final Map<String, Class<? extends TileEntity>> nameToClassMap = new HashMap<>();
     private static final Map<Class<? extends TileEntity>, String> classToNameMap = new HashMap<>();
     protected World worldObj;

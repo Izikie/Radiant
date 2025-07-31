@@ -18,8 +18,8 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.storage.MapData;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Set;
 
 public class EntityTrackerEntry {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(EntityTrackerEntry.class);
     public final Entity trackedEntity;
     public final int trackingDistanceThreshold;
     public final int updateFrequency;

@@ -2,8 +2,8 @@ package net.minecraft.client.network;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ThreadLanServerPing;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.net.*;
@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class LanServerDetector {
     private static final AtomicInteger field_148551_a = new AtomicInteger(0);
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(LanServerDetector.class);
 
     public static class LanServer {
         private final String lanServerMotd;
