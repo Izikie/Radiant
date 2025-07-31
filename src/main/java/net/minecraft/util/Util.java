@@ -36,6 +36,20 @@ public class Util {
         }
     }
 
+    public static void openUrl(String url) {
+        String[] cmd = switch (getOSType()) {
+            case WINDOWS -> new String[]{"start", "", url};
+            case MAC -> new String[]{"open", url};
+            case UNIX -> new String[]{"xdg-open", url};
+            default -> throw new UnsupportedOperationException("Unsupported OS");
+        };
+        try {
+            Runtime.getRuntime().exec(cmd);
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+    }
+
     public static <V> V runTask(FutureTask<V> task, Logger logger) {
         try {
             task.run();
