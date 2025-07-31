@@ -18,7 +18,7 @@ import net.minecraft.world.chunk.Chunk;
 import net.optifine.SmartAnimations;
 import net.optifine.TextureAnimations;
 import net.optifine.util.MemoryMonitor;
-import org.lwjgl.opengl.Display;
+import net.radiant.opengl.Display;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;

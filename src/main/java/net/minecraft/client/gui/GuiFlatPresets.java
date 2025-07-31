@@ -14,7 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.FlatGeneratorInfo;
 import net.minecraft.world.gen.FlatLayerInfo;
-import org.lwjgl.input.Keyboard;
+import net.radiant.input.Keyboard;
 
 import java.io.IOException;
 import java.util.ArrayList;

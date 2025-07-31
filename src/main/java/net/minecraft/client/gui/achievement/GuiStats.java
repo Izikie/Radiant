@@ -21,7 +21,7 @@ import net.minecraft.stats.StatCrafting;
 import net.minecraft.stats.StatFileWriter;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.input.Mouse;
+import net.radiant.input.Mouse;
 
 import java.io.IOException;
 import java.util.ArrayList;

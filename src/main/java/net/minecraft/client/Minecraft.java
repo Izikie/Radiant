@@ -65,9 +65,8 @@ import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.stats.StatFileWriter;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
 import net.minecraft.util.Timer;
-import net.minecraft.util.Util;
+import net.minecraft.util.*;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.WorldProviderEnd;
 import net.minecraft.world.WorldProviderHell;
@@ -79,12 +78,17 @@ import net.minecraft.world.storage.WorldInfo;
 import net.optifine.Lang;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.lwjgl.LWJGLException;
-import org.lwjgl.Sys;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.*;
-import org.lwjgl.util.glu.GLU;
+import org.lwjgl.Version;
+import org.lwjgl.glfw.GLFW;
+import org.lwjgl.opengl.GL11;
+import net.radiant.LWJGLException;
+import net.radiant.input.Keyboard;
+import net.radiant.input.Mouse;
+import net.radiant.opengl.Display;
+import net.radiant.opengl.DisplayMode;
+import net.radiant.opengl.OpenGLException;
+import net.radiant.opengl.PixelFormat;
+import net.radiant.util.glu.GLU;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -101,6 +105,13 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 
 public class Minecraft implements IThreadListener {
+
+	static {
+		if (!GLFW.glfwInit()) {
+			throw new IllegalStateException("Unable to initialize glfw");
+		}
+	}
+
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final ResourceLocation LOCATION_MOJANG_PNG = new ResourceLocation("textures/gui/title/mojang.png");
 	public static final boolean IS_RUNNING_ON_MAC = Util.getOSType() == Util.OperatingSystem.MAC;
@@ -108,6 +119,7 @@ public class Minecraft implements IThreadListener {
 
 	public static final Random RANDOM = new Random();
 	public static byte[] memoryReserve = new byte[10485760];
+
 	private final File fileResourcepacks;
 	private final PropertyMap profileProperties;
 	private ServerData currentServerData;
@@ -225,6 +237,7 @@ public class Minecraft implements IThreadListener {
 		try {
 			startGame();
 		} catch (Throwable throwable) {
+			throwable.printStackTrace();
 			CrashReport report = CrashReport.makeCrashReport(throwable, "Initializing game");
 			report.makeCategory("Initialization");
 			displayCrashReport(addGraphicsAndWorldToCrashReport(report));
@@ -277,7 +290,8 @@ public class Minecraft implements IThreadListener {
 			displayHeight = gameSettings.overrideHeight;
 		}
 
-		LOGGER.info("LWJGL Version: {}", Sys.getVersion());
+		LOGGER.info("LWJGL Version: {}", Version.getVersion());
+
 		setWindowIcon();
 		setInitialDisplayMode();
 		createDisplay();
@@ -678,6 +692,7 @@ public class Minecraft implements IThreadListener {
 			mcSoundHandler.unloadSounds();
 		} finally {
 			Display.destroy();
+			GLFW.glfwTerminate();
 
 			if (!hasCrashed) {
 				System.exit(0);
@@ -1602,7 +1617,7 @@ public class Minecraft implements IThreadListener {
 
 	public CrashReport addGraphicsAndWorldToCrashReport(CrashReport crash) {
 		crash.getCategory().addCrashSectionCallable("Launched Version", this::getVersion);
-		crash.getCategory().addCrashSectionCallable("LWJGL", Sys::getVersion);
+		crash.getCategory().addCrashSectionCallable("LWJGL", Version::getVersion);
 		crash.getCategory().addCrashSectionCallable("OpenGL", () -> GL11.glGetString(GL11.GL_RENDERER) + " GL version " + GL11.glGetString(GL11.GL_VERSION) + ", " + GL11.glGetString(GL11.GL_VENDOR));
 		crash.getCategory().addCrashSectionCallable("GL Caps", OpenGlHelper::getLogText);
 		crash.getCategory().addCrashSectionCallable("Using VBOs", () -> gameSettings.useVbo ? "Yes" : "No");
@@ -1673,7 +1688,7 @@ public class Minecraft implements IThreadListener {
 	}
 
 	public static long getSystemTime() {
-		return Sys.getTime() * 1000L / Sys.getTimerResolution();
+		return (long)(GLFW.glfwGetTime() * 1000.D);
 	}
 
 	public boolean isFullScreen() {

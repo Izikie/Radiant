@@ -26,10 +26,13 @@ import net.optifine.util.PropertiesOrdered;
 import net.optifine.util.TextureUtils;
 import net.optifine.util.TimedEvent;
 import org.apache.commons.io.IOUtils;
-import org.lwjgl.LWJGLException;
-import org.lwjgl.Sys;
-import org.lwjgl.opengl.DisplayMode;
+import net.radiant.LWJGLException;
+import net.radiant.opengl.Display;
+import net.radiant.opengl.DisplayMode;
+import org.lwjgl.Version;
 import org.lwjgl.opengl.*;
+import net.radiant.opengl.GLContext;
+import net.radiant.opengl.PixelFormat;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -126,7 +129,7 @@ public class Config {
         Log.info("OS: " + System.getProperty("os.name") + " (" + System.getProperty("os.arch") + ") version " + System.getProperty("os.version"));
         Log.info("Java: " + System.getProperty("java.version") + ", " + System.getProperty("java.vendor"));
         Log.info("VM: " + System.getProperty("java.vm.name") + " (" + System.getProperty("java.vm.info") + "), " + System.getProperty("java.vm.vendor"));
-        Log.info("LWJGL: " + Sys.getVersion());
+        Log.info("LWJGL: " + Version.getVersion());
         openGlVersion = GL11.glGetString(GL11.GL_VERSION);
         openGlRenderer = GL11.glGetString(GL11.GL_RENDERER);
         openGlVendor = GL11.glGetString(GL11.GL_VENDOR);
