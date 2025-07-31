@@ -77,7 +77,7 @@ public class ModelGuardian extends ModelBase {
         }
 
         this.guardianEye.rotationPointZ = -8.25F;
-        Entity entity = Minecraft.getMinecraft().getRenderViewEntity();
+        Entity entity = Minecraft.get().getRenderViewEntity();
 
         if (entityguardian.hasTargetedEntity()) {
             entity = entityguardian.getTargetedEntity();

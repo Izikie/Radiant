@@ -696,7 +696,7 @@ public class GuiIngame extends Gui {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.disableAlpha();
         this.mc.getTextureManager().bindTexture(PUMPKIN_BLUR_TEX_PATH);
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
         worldrenderer.pos(0.0D, scaledRes.getScaledHeight(), -90.0D).tex(0.0D, 1.0D).endVertex();
@@ -740,7 +740,7 @@ public class GuiIngame extends Gui {
             }
 
             this.mc.getTextureManager().bindTexture(VIGNETTE_TEX_PATH);
-            Tessellator tessellator = Tessellator.getInstance();
+            Tessellator tessellator = Tessellator.get();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
             worldrenderer.pos(0.0D, scaledRes.getScaledHeight(), -90.0D).tex(0.0D, 1.0D).endVertex();
@@ -773,7 +773,7 @@ public class GuiIngame extends Gui {
         float f1 = textureatlassprite.getMinV();
         float f2 = textureatlassprite.getMaxU();
         float f3 = textureatlassprite.getMaxV();
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
         worldrenderer.pos(0.0D, scaledRes.getScaledHeight(), -90.0D).tex(f, f3).endVertex();

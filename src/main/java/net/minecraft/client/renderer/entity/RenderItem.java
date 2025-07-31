@@ -86,9 +86,9 @@ public class RenderItem implements IResourceManagerReloadListener {
     }
 
     private void renderModel(IBakedModel model, int color, ItemStack stack) {
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-        boolean flag = Minecraft.getMinecraft().getTextureMapBlocks().isTextureBound();
+        boolean flag = Minecraft.get().getTextureMapBlocks().isTextureBound();
         boolean flag1 = Config.isMultiTexture() && flag;
 
         if (flag1) {
@@ -428,7 +428,7 @@ public class RenderItem implements IResourceManagerReloadListener {
                 GlStateManager.disableTexture2D();
                 GlStateManager.disableAlpha();
                 GlStateManager.disableBlend();
-                Tessellator tessellator = Tessellator.getInstance();
+                Tessellator tessellator = Tessellator.get();
                 WorldRenderer worldrenderer = tessellator.getWorldRenderer();
                 this.draw(worldrenderer, xPosition + 2, yPosition + 13, 13, 2, 0, 0, 0, 255);
                 this.draw(worldrenderer, xPosition + 2, yPosition + 13, 12, 1, (255 - i) / 4, 64, 0, 255);
@@ -462,7 +462,7 @@ public class RenderItem implements IResourceManagerReloadListener {
         renderer.pos((x), (y + height), 0.0D).color(red, green, blue, alpha).endVertex();
         renderer.pos((x + width), (y + height), 0.0D).color(red, green, blue, alpha).endVertex();
         renderer.pos((x + width), (y), 0.0D).color(red, green, blue, alpha).endVertex();
-        Tessellator.getInstance().draw();
+        Tessellator.get().draw();
     }
 
     private void registerItems() {

@@ -23,7 +23,7 @@ public class RenderArrow extends Render<EntityArrow> {
         GlStateManager.translate((float) x, (float) y, (float) z);
         GlStateManager.rotate(entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks - 90.0F, 0.0F, 1.0F, 0.0F);
         GlStateManager.rotate(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks, 0.0F, 0.0F, 1.0F);
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         int i = 0;
         float f = 0.0F;

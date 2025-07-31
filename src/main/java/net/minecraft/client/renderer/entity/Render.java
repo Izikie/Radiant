@@ -84,14 +84,14 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
 
     private void renderEntityOnFire(Entity entity, double x, double y, double z, float partialTicks) {
         GlStateManager.disableLighting();
-        TextureMap texturemap = Minecraft.getMinecraft().getTextureMapBlocks();
+        TextureMap texturemap = Minecraft.get().getTextureMapBlocks();
         TextureAtlasSprite textureatlassprite = texturemap.getAtlasSprite("minecraft:blocks/fire_layer_0");
         TextureAtlasSprite textureatlassprite1 = texturemap.getAtlasSprite("minecraft:blocks/fire_layer_1");
         GlStateManager.pushMatrix();
         GlStateManager.translate((float) x, (float) y, (float) z);
         float f = entity.width * 1.4F;
         GlStateManager.scale(f, f, f);
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         float f1 = 0.5F;
         float f2 = 0.0F;
@@ -176,7 +176,7 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
             double d2 = x - d5;
             double d3 = y - d0;
             double d4 = z - d1;
-            Tessellator tessellator = Tessellator.getInstance();
+            Tessellator tessellator = Tessellator.get();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
 
@@ -201,7 +201,7 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
 
     private void renderShadowBlock(Block blockIn, double p_180549_2_, double p_180549_4_, double p_180549_6_, BlockPos pos, float p_180549_9_, float p_180549_10_, double p_180549_11_, double p_180549_13_, double p_180549_15_) {
         if (blockIn.isFullCube()) {
-            Tessellator tessellator = Tessellator.getInstance();
+            Tessellator tessellator = Tessellator.get();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             double d0 = (p_180549_9_ - (p_180549_4_ - (pos.getY() + p_180549_13_)) / 2.0D) * 0.5D * this.getWorldFromRenderManager().getLightBrightness(pos);
 
@@ -229,7 +229,7 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
 
     public static void renderOffsetAABB(AxisAlignedBB boundingBox, double x, double y, double z) {
         GlStateManager.disableTexture2D();
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         worldrenderer.setTranslation(x, y, z);
@@ -302,7 +302,7 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
             GlStateManager.disableDepth();
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-            Tessellator tessellator = Tessellator.getInstance();
+            Tessellator tessellator = Tessellator.get();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             int i = 0;
 

@@ -23,7 +23,7 @@ public class RenderFish extends Render<EntityFishHook> {
         GlStateManager.enableRescaleNormal();
         GlStateManager.scale(0.5F, 0.5F, 0.5F);
         this.bindEntityTexture(entity);
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         int i = 1;
         int j = 2;
@@ -58,7 +58,7 @@ public class RenderFish extends Render<EntityFishHook> {
             double d2 = entity.angler.prevPosZ + (entity.angler.posZ - entity.angler.prevPosZ) * partialTicks + vec3.zCoord;
             double d3 = entity.angler.getEyeHeight();
 
-            if (this.renderManager.options != null && this.renderManager.options.thirdPersonView > 0 || entity.angler != Minecraft.getMinecraft().player) {
+            if (this.renderManager.options != null && this.renderManager.options.thirdPersonView > 0 || entity.angler != Minecraft.get().player) {
                 float f9 = (entity.angler.prevRenderYawOffset + (entity.angler.renderYawOffset - entity.angler.prevRenderYawOffset) * partialTicks) * (float) Math.PI / 180.0F;
                 double d4 = MathHelper.sin(f9);
                 double d6 = MathHelper.cos(f9);

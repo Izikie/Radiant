@@ -434,7 +434,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
     public void drawBackground(int tint) {
         GlStateManager.disableLighting();
         GlStateManager.disableFog();
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer renderer = tessellator.getWorldRenderer();
         this.mc.getTextureManager().bindTexture(OPTIONS_BACKGROUND);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);

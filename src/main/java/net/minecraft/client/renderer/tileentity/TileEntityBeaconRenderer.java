@@ -27,7 +27,7 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
             GlStateManager.alphaFunc(516, 0.1F);
 
             if (f > 0.0F) {
-                Tessellator tessellator = Tessellator.getInstance();
+                Tessellator tessellator = Tessellator.get();
                 WorldRenderer worldrenderer = tessellator.getWorldRenderer();
                 GlStateManager.disableFog();
                 List<TileEntityBeacon.BeamSegment> list = te.getBeamSegments();

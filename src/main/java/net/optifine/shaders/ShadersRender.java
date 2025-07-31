@@ -157,7 +157,7 @@ public class ShadersRender {
 
 	public static void renderShadowMap(EntityRenderer entityRenderer, int pass, float partialTicks, long finishTimeNano) {
 		if (Shaders.usedShadowDepthBuffers > 0 && --Shaders.shadowPassCounter <= 0) {
-			Minecraft minecraft = Minecraft.getMinecraft();
+			Minecraft minecraft = Minecraft.get();
 			RenderGlobal renderglobal = minecraft.renderGlobal;
 			Shaders.isShadowPass = true;
 			Shaders.shadowPassCounter = Shaders.shadowPassInterval;
@@ -397,7 +397,7 @@ public class ShadersRender {
 		} else {
 			GlStateManager.disableLighting();
 			Config.getTextureManager().bindTexture(END_PORTAL_TEXTURE);
-			Tessellator tessellator = Tessellator.getInstance();
+			Tessellator tessellator = Tessellator.get();
 			WorldRenderer worldrenderer = tessellator.getWorldRenderer();
 			worldrenderer.begin(7, DefaultVertexFormats.BLOCK);
 			float f = 0.5F;

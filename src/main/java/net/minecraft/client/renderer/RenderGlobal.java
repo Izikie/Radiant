@@ -218,7 +218,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     }
 
     private void generateSky2() {
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
 
         if (this.sky2VBO != null) {
@@ -246,7 +246,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     }
 
     private void generateSky() {
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
 
         if (this.skyVBO != null) {
@@ -296,7 +296,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     }
 
     private void generateStars() {
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
 
         if (this.starVBO != null) {
@@ -985,7 +985,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         float f = (float) (entityIn.prevRotationPitch + (entityIn.rotationPitch - entityIn.prevRotationPitch) * partialTicks);
         float f1 = (float) (entityIn.prevRotationYaw + (entityIn.rotationYaw - entityIn.prevRotationYaw) * partialTicks);
 
-        if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 2) {
+        if (Minecraft.get().gameSettings.thirdPersonView == 2) {
             f += 180.0F;
         }
 
@@ -1135,7 +1135,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             RenderHelper.disableStandardItemLighting();
             GlStateManager.depthMask(false);
             this.renderEngine.bindTexture(LOCATION_END_SKY_PNG);
-            Tessellator tessellator = Tessellator.getInstance();
+            Tessellator tessellator = Tessellator.get();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
 
             for (int i = 0; i < 6; ++i) {
@@ -1221,7 +1221,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             }
 
             GlStateManager.color(f, f1, f2);
-            Tessellator tessellator = Tessellator.getInstance();
+            Tessellator tessellator = Tessellator.get();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             GlStateManager.depthMask(false);
             GlStateManager.enableFog();
@@ -1450,7 +1450,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                     partialTicks = 0.0F;
                     GlStateManager.disableCull();
                     float f10 = (float) (this.mc.getRenderViewEntity().lastTickPosY + (this.mc.getRenderViewEntity().posY - this.mc.getRenderViewEntity().lastTickPosY) * partialTicks);
-                    Tessellator tessellator = Tessellator.getInstance();
+                    Tessellator tessellator = Tessellator.get();
                     WorldRenderer worldrenderer = tessellator.getWorldRenderer();
                     this.renderEngine.bindTexture(LOCATION_CLOUDS_PNG);
                     GlStateManager.enableBlend();
@@ -1520,7 +1520,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         partialTicks = 0.0F;
         GlStateManager.disableCull();
         float f = (float) (this.mc.getRenderViewEntity().lastTickPosY + (this.mc.getRenderViewEntity().posY - this.mc.getRenderViewEntity().lastTickPosY) * partialTicks);
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         double d0 = this.cloudTickCounter + partialTicks;
         double d1 = (this.mc.getRenderViewEntity().prevPosX + (this.mc.getRenderViewEntity().posX - this.mc.getRenderViewEntity().prevPosX) * partialTicks + d0 * 0.029999999329447746D) / 12.0D;
@@ -1728,7 +1728,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     }
 
     public void renderWorldBorder(Entity entityIn, float partialTicks) {
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         WorldBorder worldborder = this.theWorld.getWorldBorder();
         double d0 = this.mc.gameSettings.renderDistanceChunks * 16;
@@ -1959,7 +1959,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     }
 
     public static void drawSelectionBoundingBox(AxisAlignedBB boundingBox) {
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.begin(3, DefaultVertexFormats.POSITION);
         worldrenderer.pos(boundingBox.minX, boundingBox.minY, boundingBox.minZ).endVertex();
@@ -1988,7 +1988,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     }
 
     public static void drawOutlinedBoundingBox(AxisAlignedBB boundingBox, int red, int green, int blue, int alpha) {
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.begin(3, DefaultVertexFormats.POSITION_COLOR);
         worldrenderer.pos(boundingBox.minX, boundingBox.minY, boundingBox.minZ).color(red, green, blue, alpha).endVertex();

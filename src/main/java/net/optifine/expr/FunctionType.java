@@ -6,7 +6,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.optifine.Log;
 import net.optifine.shaders.uniform.Smoother;
-import net.minecraft.util.MathHelper;
 
 public enum FunctionType {
 	PLUS(10, ExpressionType.FLOAT, "+", new ExpressionType[]{ExpressionType.FLOAT, ExpressionType.FLOAT}),
@@ -172,7 +171,7 @@ public enum FunctionType {
 				yield f2 - f3 * MathHelper.floor(f2 / f3);
 			}
 			case TIME -> {
-				Minecraft minecraft = Minecraft.getMinecraft();
+				Minecraft minecraft = Minecraft.get();
 				World world = minecraft.world;
 
 				if (world == null) {

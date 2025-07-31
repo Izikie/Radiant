@@ -12,7 +12,7 @@ public class ClippingHelperImpl extends ClippingHelper {
     private final FloatBuffer modelviewMatrixBuffer = GLAllocation.createDirectFloatBuffer(16);
     private final FloatBuffer field_78564_h = GLAllocation.createDirectFloatBuffer(16);
 
-    public static ClippingHelper getInstance() {
+    public static ClippingHelper get() {
         INSTANCE.init();
         return INSTANCE;
     }

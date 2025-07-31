@@ -6,7 +6,6 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderTntMinecart;
 import net.minecraft.entity.item.EntityMinecartTNT;
 import net.optifine.Log;
-import net.optifine.reflect.Reflector;
 
 public class ModelAdapterMinecartTnt extends ModelAdapterMinecart {
 	public ModelAdapterMinecartTnt() {
@@ -14,7 +13,7 @@ public class ModelAdapterMinecartTnt extends ModelAdapterMinecart {
 	}
 
 	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
+		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		RenderTntMinecart rendertntminecart = new RenderTntMinecart(rendermanager);
 
         Log.error("Field not found: RenderMinecart.modelMinecart");

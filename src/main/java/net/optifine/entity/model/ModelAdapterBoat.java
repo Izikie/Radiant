@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.entity.RenderBoat;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.item.EntityBoat;
 import net.optifine.Log;
-import net.optifine.reflect.Reflector;
 
 public class ModelAdapterBoat extends ModelAdapter {
 	public ModelAdapterBoat() {
@@ -32,7 +31,7 @@ public class ModelAdapterBoat extends ModelAdapter {
 	}
 
 	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
+		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		RenderBoat renderboat = new RenderBoat(rendermanager);
 
         Log.error("Field not found: RenderBoat.modelBoat");

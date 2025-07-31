@@ -24,7 +24,7 @@ public class CustomTextureLocation implements ICustomTexture {
 
 	public ITextureObject getTexture() {
 		if (this.texture == null) {
-			TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
+			TextureManager texturemanager = Minecraft.get().getTextureManager();
 			this.texture = texturemanager.getTexture(this.location);
 
 			if (this.texture == null) {

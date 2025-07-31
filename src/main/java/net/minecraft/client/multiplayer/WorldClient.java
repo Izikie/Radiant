@@ -39,7 +39,7 @@ public class WorldClient extends World {
     private ChunkProviderClient clientChunkProvider;
     private final Set<Entity> entityList = new HashSet<>();
     private final Set<Entity> entitySpawnQueue = new HashSet<>();
-    private final Minecraft mc = Minecraft.getMinecraft();
+    private final Minecraft mc = Minecraft.get();
     private final Set<ChunkCoordIntPair> previousActiveChunkSet = new HashSet<>();
     private boolean playerUpdate = false;
 

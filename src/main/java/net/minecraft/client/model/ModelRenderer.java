@@ -313,7 +313,7 @@ public class ModelRenderer {
         }
 
         GL11.glNewList(this.displayList, GL11.GL_COMPILE);
-        WorldRenderer worldrenderer = Tessellator.getInstance().getWorldRenderer();
+        WorldRenderer worldrenderer = Tessellator.get().getWorldRenderer();
 
         for (ModelBox modelBox : this.cubeList) {
             modelBox.render(worldrenderer, scale);
@@ -321,7 +321,7 @@ public class ModelRenderer {
 
         for (Object o : this.spriteList) {
             ModelSprite modelsprite = (ModelSprite) o;
-            modelsprite.render(Tessellator.getInstance(), scale);
+            modelsprite.render(Tessellator.get(), scale);
         }
 
         GL11.glEndList();

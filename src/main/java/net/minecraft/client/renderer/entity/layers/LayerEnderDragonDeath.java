@@ -12,7 +12,7 @@ import java.util.Random;
 public class LayerEnderDragonDeath implements LayerRenderer<EntityDragon> {
     public void doRenderLayer(EntityDragon entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
         if (entitylivingbaseIn.deathTicks > 0) {
-            Tessellator tessellator = Tessellator.getInstance();
+            Tessellator tessellator = Tessellator.get();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             RenderHelper.disableStandardItemLighting();
             float f = (entitylivingbaseIn.deathTicks + partialTicks) / 200.0F;

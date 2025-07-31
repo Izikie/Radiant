@@ -342,7 +342,7 @@ public class SoundManager {
 
                     @Override
                     public InputStream getInputStream() throws IOException {
-                        return Minecraft.getMinecraft().getResourceManager()
+                        return Minecraft.get().getResourceManager()
                                 .getResource(resource).getInputStream();
                     }
                 };

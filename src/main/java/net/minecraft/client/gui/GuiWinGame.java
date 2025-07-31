@@ -115,7 +115,7 @@ public class GuiWinGame extends GuiScreen {
     }
 
     private void drawWinGameScreen(int p_146575_1_, int p_146575_2_, float p_146575_3_) {
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         this.mc.getTextureManager().bindTexture(Gui.OPTIONS_BACKGROUND);
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
@@ -146,7 +146,7 @@ public class GuiWinGame extends GuiScreen {
 
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawWinGameScreen(mouseX, mouseY, partialTicks);
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         int i = 274;
         int j = this.width / 2 - i / 2;

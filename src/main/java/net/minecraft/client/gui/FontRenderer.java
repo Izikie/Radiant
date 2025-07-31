@@ -422,7 +422,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
 
     protected void doDraw(float p_doDraw_1_) {
         if (this.strikethroughStyle) {
-            Tessellator tessellator = Tessellator.getInstance();
+            Tessellator tessellator = Tessellator.get();
             WorldRenderer worldRenderer = tessellator.getWorldRenderer();
             GlStateManager.disableTexture2D();
             worldRenderer.begin(7, DefaultVertexFormats.POSITION);
@@ -436,7 +436,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
 
         if (this.underlineStyle) {
             int i = this.underlineStyle ? -1 : 0;
-            Tessellator tessellator = Tessellator.getInstance();
+            Tessellator tessellator = Tessellator.get();
             WorldRenderer worldRenderer = tessellator.getWorldRenderer();
             GlStateManager.disableTexture2D();
             worldRenderer.begin(7, DefaultVertexFormats.POSITION);
@@ -786,6 +786,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
     }
 
     protected InputStream getResourceInputStream(ResourceLocation resource) throws IOException {
-        return Minecraft.getMinecraft().getResourceManager().getResource(resource).getInputStream();
+        return Minecraft.get().getResourceManager().getResource(resource).getInputStream();
     }
 }

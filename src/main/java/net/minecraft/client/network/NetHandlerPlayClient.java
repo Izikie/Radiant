@@ -1099,7 +1099,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
                     this.netManager.sendPacket(new C19PacketResourcePackStatus(hash, C19PacketResourcePackStatus.Action.DECLINED));
                 } else {
                     this.gameController.addScheduledTask(() -> gameController.displayGuiScreen(new GuiYesNo((result, id) -> {
-                        this.gameController = Minecraft.getMinecraft();
+                        this.gameController = Minecraft.get();
 
                         if (result) {
                             if (gameController.getCurrentServerData() != null) {

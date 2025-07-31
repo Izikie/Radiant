@@ -25,7 +25,7 @@ public class ModelAdapterSheepWool extends ModelAdapterQuadruped {
 	}
 
 	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
+		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		Render render = rendermanager.getEntityRenderMap().get(EntitySheep.class);
 
 		if (!(render instanceof RenderSheep)) {

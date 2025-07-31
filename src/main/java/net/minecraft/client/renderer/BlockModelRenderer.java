@@ -378,7 +378,7 @@ public class BlockModelRenderer {
     }
 
     private void renderModelBrightnessColorQuads(float brightness, float red, float green, float blue, List<BakedQuad> listQuads) {
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
 
         for (BakedQuad bakedquad : listQuads) {

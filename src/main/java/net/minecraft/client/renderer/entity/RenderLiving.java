@@ -55,7 +55,7 @@ public abstract class RenderLiving<T extends EntityLiving> extends RendererLivin
 
             if (entity != null) {
                 y = y - (1.6D - entityLivingIn.height) * 0.5D;
-                Tessellator tessellator = Tessellator.getInstance();
+                Tessellator tessellator = Tessellator.get();
                 WorldRenderer worldrenderer = tessellator.getWorldRenderer();
                 double d0 = this.interpolateValue(entity.prevRotationYaw, entity.rotationYaw, (partialTicks * 0.5F)) * 0.01745329238474369D;
                 double d1 = this.interpolateValue(entity.prevRotationPitch, entity.rotationPitch, (partialTicks * 0.5F)) * 0.01745329238474369D;

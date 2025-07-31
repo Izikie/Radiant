@@ -20,8 +20,6 @@ import java.awt.image.BufferedImage;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -42,7 +40,7 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
     protected ServerListEntryNormal(GuiMultiplayer p_i45048_1_, ServerData serverIn) {
         this.owner = p_i45048_1_;
         this.server = serverIn;
-        this.mc = Minecraft.getMinecraft();
+        this.mc = Minecraft.get();
         this.serverIcon = new ResourceLocation("servers/" + serverIn.serverIP + "/icon");
         this.field_148305_h = (DynamicTexture) this.mc.getTextureManager().getTexture(this.serverIcon);
     }

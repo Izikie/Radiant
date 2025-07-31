@@ -111,7 +111,7 @@ public class LoadingScreenRenderer implements IProgressUpdate {
                     GlStateManager.clear(16640);
                 }
 
-                Tessellator tessellator = Tessellator.getInstance();
+                Tessellator tessellator = Tessellator.get();
                 WorldRenderer worldrenderer = tessellator.getWorldRenderer();
                 CustomLoadingScreen customloadingscreen = CustomLoadingScreens.getCustomLoadingScreen();
 

@@ -58,7 +58,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 
         try {
             List<String> list = new ArrayList<>();
-            bufferedreader = new BufferedReader(new InputStreamReader(Minecraft.getMinecraft().getResourceManager().getResource(SPLASH_TEXTS).getInputStream(), StandardCharsets.UTF_8));
+            bufferedreader = new BufferedReader(new InputStreamReader(Minecraft.get().getResourceManager().getResource(SPLASH_TEXTS).getInputStream(), StandardCharsets.UTF_8));
             String s;
 
             while ((s = bufferedreader.readLine()) != null) {
@@ -174,7 +174,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
     }
 
     private void drawPanorama(int p_73970_1_, int p_73970_2_, float p_73970_3_) {
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         GlStateManager.matrixMode(5889);
         GlStateManager.pushMatrix();
@@ -282,7 +282,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         GlStateManager.enableBlend();
         GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
         GlStateManager.colorMask(true, true, true, false);
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
         GlStateManager.disableAlpha();
@@ -334,7 +334,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         float f1 = this.width * f2 / 256.0F;
         int k = this.width;
         int l = this.height;
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
         worldrenderer.pos(0.0D, l, this.zLevel).tex((0.5F - f), (0.5F + f1)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
@@ -348,7 +348,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         GlStateManager.disableAlpha();
         this.renderSkybox(mouseX, mouseY, partialTicks);
         GlStateManager.enableAlpha();
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         int i = 274;
         int j = this.width / 2 - i / 2;

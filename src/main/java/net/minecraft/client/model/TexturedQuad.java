@@ -62,6 +62,6 @@ public class TexturedQuad {
             renderer.pos(positiontexturevertex.vector3D.xCoord * scale, positiontexturevertex.vector3D.yCoord * scale, positiontexturevertex.vector3D.zCoord * scale).tex(positiontexturevertex.texturePositionX, positiontexturevertex.texturePositionY).normal(f, f1, f2).endVertex();
         }
 
-        Tessellator.getInstance().draw();
+        Tessellator.get().draw();
     }
 }

@@ -155,7 +155,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
         float f1 = 0.0078125F;
         int i = 18;
         int j = 18;
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
         worldrenderer.pos((p_146527_1_), (p_146527_2_ + 18), this.zLevel).tex(((p_146527_3_) * 0.0078125F), ((p_146527_4_ + 18) * 0.0078125F)).endVertex();

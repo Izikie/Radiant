@@ -91,7 +91,7 @@ public class CustomLoadingScreen {
 	public void drawBackground(int width, int height) {
 		GlStateManager.disableLighting();
 		GlStateManager.disableFog();
-		Tessellator tessellator = Tessellator.getInstance();
+		Tessellator tessellator = Tessellator.get();
 		WorldRenderer worldrenderer = tessellator.getWorldRenderer();
 		Config.getTextureManager().bindTexture(this.locationTexture);
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);

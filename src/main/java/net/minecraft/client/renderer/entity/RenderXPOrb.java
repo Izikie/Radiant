@@ -51,7 +51,7 @@ public class RenderXPOrb extends Render<EntityXPOrb> {
         GlStateManager.rotate(-this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
         float f9 = 0.3F;
         GlStateManager.scale(0.3F, 0.3F, 0.3F);
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL);
         int k1 = l;

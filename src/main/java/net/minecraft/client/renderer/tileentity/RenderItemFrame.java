@@ -32,7 +32,7 @@ import org.lwjgl.opengl.GL11;
 
 public class RenderItemFrame extends Render<EntityItemFrame> {
     private static final ResourceLocation MAP_BACKGROUND_TEXTURES = new ResourceLocation("textures/map/map_background.png");
-    private final Minecraft mc = Minecraft.getMinecraft();
+    private final Minecraft mc = Minecraft.get();
     private final ModelResourceLocation itemFrameModel = new ModelResourceLocation("item_frame", "normal");
     private final ModelResourceLocation mapModel = new ModelResourceLocation("item_frame", "map");
     private final RenderItem itemRenderer;
@@ -184,7 +184,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
                     GlStateManager.depthMask(false);
                     GlStateManager.enableBlend();
                     GlStateManager.blendFunc(770, 771);
-                    Tessellator tessellator = Tessellator.getInstance();
+                    Tessellator tessellator = Tessellator.get();
                     WorldRenderer worldrenderer = tessellator.getWorldRenderer();
                     int i = fontrenderer.getStringWidth(s) / 2;
                     GlStateManager.disableTexture2D();

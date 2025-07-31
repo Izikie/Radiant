@@ -197,7 +197,7 @@ public class ChunkRenderDispatcher {
     }
 
     public ListenableFuture<Object> uploadChunk(final RenderLayer player, final WorldRenderer p_178503_2_, final RenderChunk chunkRenderer, final CompiledChunk compiledChunkIn) {
-        if (Minecraft.getMinecraft().isCallingFromMinecraftThread()) {
+        if (Minecraft.get().isCallingFromMinecraftThread()) {
             if (OpenGlHelper.useVbo()) {
                 this.uploadVertexBuffer(p_178503_2_, chunkRenderer.getVertexBufferByLayer(player.ordinal()));
             } else {

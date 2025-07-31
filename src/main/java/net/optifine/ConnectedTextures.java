@@ -1343,7 +1343,7 @@ public class ConnectedTextures {
 
 	private static TextureAtlasSprite getNeighbourIcon(IBlockAccess iblockaccess, IBlockState blockState, BlockPos blockPos, IBlockState neighbourState, int side) {
 		neighbourState = neighbourState.getBlock().getActualState(neighbourState, iblockaccess, blockPos);
-		IBakedModel ibakedmodel = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelForState(neighbourState);
+		IBakedModel ibakedmodel = Minecraft.get().getBlockRendererDispatcher().getBlockModelShapes().getModelForState(neighbourState);
 
 		if (ibakedmodel == null) {
 			return null;
@@ -1638,7 +1638,7 @@ public class ConnectedTextures {
 				updateIcons(textureMap, iresourcepack);
 			}
 
-			updateIcons(textureMap, Minecraft.getMinecraft().getDefaultResourcePack());
+			updateIcons(textureMap, Minecraft.get().getDefaultResourcePack());
 			ResourceLocation resourcelocation = new ResourceLocation("mcpatcher/ctm/default/empty");
 			emptySprite = textureMap.registerSprite(resourcelocation);
 			spriteQuadMaps = new Map[textureMap.getCountRegisteredSprites() + 1];

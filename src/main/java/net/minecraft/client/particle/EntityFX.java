@@ -75,9 +75,9 @@ public class EntityFX extends Entity {
 
     public void setAlphaF(float alpha) {
         if (this.particleAlpha == 1.0F && alpha < 1.0F) {
-            Minecraft.getMinecraft().effectRenderer.moveToAlphaLayer(this);
+            Minecraft.get().effectRenderer.moveToAlphaLayer(this);
         } else if (this.particleAlpha < 1.0F && alpha == 1.0F) {
-            Minecraft.getMinecraft().effectRenderer.moveToNoAlphaLayer(this);
+            Minecraft.get().effectRenderer.moveToNoAlphaLayer(this);
         }
 
         this.particleAlpha = alpha;

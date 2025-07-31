@@ -41,7 +41,7 @@ public class LayerHeldItem implements LayerRenderer<EntityLivingBase> {
             }
 
             Item item = itemstack.getItem();
-            Minecraft minecraft = Minecraft.getMinecraft();
+            Minecraft minecraft = Minecraft.get();
 
             if (item instanceof ItemBlock && Block.getBlockFromItem(item).getRenderType() == 2) {
                 GlStateManager.translate(0.0F, 0.1875F, -0.3125F);

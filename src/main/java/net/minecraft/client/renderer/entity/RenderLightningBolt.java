@@ -15,7 +15,7 @@ public class RenderLightningBolt extends Render<EntityLightningBolt> {
     }
 
     public void doRender(EntityLightningBolt entity, double x, double y, double z, float entityYaw, float partialTicks) {
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         GlStateManager.disableTexture2D();
         GlStateManager.disableLighting();

@@ -16,7 +16,7 @@ public class RenderTNTPrimed extends Render<EntityTNTPrimed> {
     }
 
     public void doRender(EntityTNTPrimed entity, double x, double y, double z, float entityYaw, float partialTicks) {
-        BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
+        BlockRendererDispatcher blockrendererdispatcher = Minecraft.get().getBlockRendererDispatcher();
         GlStateManager.pushMatrix();
         GlStateManager.translate((float) x, (float) y + 0.5F, (float) z);
 

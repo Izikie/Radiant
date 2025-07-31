@@ -68,7 +68,7 @@ public class CustomItems {
 				update(iresourcepack);
 			}
 
-			update(Minecraft.getMinecraft().getDefaultResourcePack());
+			update(Minecraft.get().getDefaultResourcePack());
 
 			if (itemProperties.length == 0) {
 				itemProperties = null;
@@ -186,7 +186,7 @@ public class CustomItems {
 	public static void updateModels() {
 		for (CustomItemProperties item : getAllProperties()) {
 			if (item.type == 1) {
-				TextureMap texturemap = Minecraft.getMinecraft().getTextureMapBlocks();
+				TextureMap texturemap = Minecraft.get().getTextureMapBlocks();
 				item.updateModelTexture(texturemap, ITEM_MODEL_GENERATOR);
 				item.updateModelsFull();
 			}

@@ -28,7 +28,7 @@ public class RenderTntMinecart extends RenderMinecart<EntityMinecartTNT> {
         super.func_180560_a(minecart, partialTicks, state);
 
         if (i > -1 && i / 5 % 2 == 0) {
-            BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
+            BlockRendererDispatcher blockrendererdispatcher = Minecraft.get().getBlockRendererDispatcher();
             GlStateManager.disableTexture2D();
             GlStateManager.disableLighting();
             GlStateManager.enableBlend();

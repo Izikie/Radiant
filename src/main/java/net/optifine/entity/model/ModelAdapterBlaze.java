@@ -52,7 +52,7 @@ public class ModelAdapterBlaze extends ModelAdapter {
 	}
 
 	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
+		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		RenderBlaze renderblaze = new RenderBlaze(rendermanager);
 		renderblaze.mainModel = modelBase;
 		renderblaze.shadowSize = shadowSize;

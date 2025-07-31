@@ -19,7 +19,7 @@ public class ModelAdapterPigZombie extends ModelAdapterBiped {
 	}
 
 	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
+		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		RenderPigZombie renderpigzombie = new RenderPigZombie(rendermanager);
 		Render.setModelBipedMain(renderpigzombie, (ModelBiped) modelBase);
 		renderpigzombie.mainModel = modelBase;

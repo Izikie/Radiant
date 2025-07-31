@@ -245,7 +245,7 @@ public class EffectRenderer {
                     }
 
                     GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-                    Tessellator tessellator = Tessellator.getInstance();
+                    Tessellator tessellator = Tessellator.get();
                     WorldRenderer worldrenderer = tessellator.getWorldRenderer();
                     worldrenderer.begin(7, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
 
@@ -292,7 +292,7 @@ public class EffectRenderer {
             List<EntityFX> list = this.fxLayers[3][i];
 
             if (!list.isEmpty()) {
-                Tessellator tessellator = Tessellator.getInstance();
+                Tessellator tessellator = Tessellator.get();
                 WorldRenderer worldrenderer = tessellator.getWorldRenderer();
 
                 for (EntityFX entityFX : list) {

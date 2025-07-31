@@ -419,7 +419,7 @@ public class GuiTextField extends Gui {
             p_146188_1_ = this.xPosition + this.width;
         }
 
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         GlStateManager.color(0.0F, 0.0F, 255.0F, 255.0F);
         GlStateManager.disableTexture2D();

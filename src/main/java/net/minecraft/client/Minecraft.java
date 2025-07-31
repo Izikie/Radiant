@@ -454,7 +454,7 @@ public class Minecraft implements IThreadListener {
 	}
 
 	public void displayCrashReport(CrashReport crashReportIn) {
-		File directory = new File(getMinecraft().mcDataDir, "crash-reports");
+		File directory = new File(get().mcDataDir, "crash-reports");
 		File file = new File(directory, "crash-" + (new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss")).format(new Date()) + "-client.txt");
 		Bootstrap.printToSYSOUT(crashReportIn.getCompleteReport());
 
@@ -587,7 +587,7 @@ public class Minecraft implements IThreadListener {
 			LOGGER.error("Unable to load logo: {}", LOCATION_MOJANG_PNG, exception);
 		}
 
-		Tessellator tessellator = Tessellator.getInstance();
+		Tessellator tessellator = Tessellator.get();
 		WorldRenderer renderer = tessellator.getWorldRenderer();
 		renderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
 		renderer.pos(0.0D, displayHeight, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255).endVertex();
@@ -611,13 +611,13 @@ public class Minecraft implements IThreadListener {
 	public void draw(int posX, int posY, int texU, int texV, int width, int height, int red, int green, int blue, int alpha) {
 		float f = 0.00390625F;
 		float f1 = 0.00390625F;
-		WorldRenderer worldrenderer = Tessellator.getInstance().getWorldRenderer();
+		WorldRenderer worldrenderer = Tessellator.get().getWorldRenderer();
 		worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
 		worldrenderer.pos(posX, posY + height, 0.0D).tex(texU * f, (texV + height) * f1).color(red, green, blue, alpha).endVertex();
 		worldrenderer.pos(posX + width, posY + height, 0.0D).tex((texU + width) * f, (texV + height) * f1).color(red, green, blue, alpha).endVertex();
 		worldrenderer.pos(posX + width, posY, 0.0D).tex((texU + width) * f, texV * f1).color(red, green, blue, alpha).endVertex();
 		worldrenderer.pos(posX, posY, 0.0D).tex(texU * f, texV * f1).color(red, green, blue, alpha).endVertex();
-		Tessellator.getInstance().draw();
+		Tessellator.get().draw();
 	}
 
 	public ISaveFormat getSaveLoader() {
@@ -1634,7 +1634,7 @@ public class Minecraft implements IThreadListener {
 		return crash;
 	}
 
-	public static Minecraft getMinecraft() {
+	public static Minecraft get() {
 		return instance;
 	}
 
@@ -1824,8 +1824,8 @@ public class Minecraft implements IThreadListener {
 
 	public static Map<String, String> getSessionInfo() {
 		return Map.of(
-				"X-Minecraft-Username", getMinecraft().getSession().getUsername(),
-				"X-Minecraft-UUID", getMinecraft().getSession().getPlayerID(),
+				"X-Minecraft-Username", get().getSession().getUsername(),
+				"X-Minecraft-UUID", get().getSession().getPlayerID(),
 				"X-Minecraft-Version", "1.8.9"
 		);
 	}

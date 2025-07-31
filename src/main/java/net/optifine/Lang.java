@@ -38,7 +38,7 @@ public class Lang {
 		}
 
 		String[] astring = list.toArray(new String[0]);
-		loadResources(Minecraft.getMinecraft().getDefaultResourcePack(), astring, map);
+		loadResources(Minecraft.get().getDefaultResourcePack(), astring, map);
 		IResourcePack[] airesourcepack = Config.getResourcePacks();
 
 		for (IResourcePack iresourcepack : airesourcepack) {

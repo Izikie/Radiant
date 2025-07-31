@@ -167,7 +167,7 @@ public class GuiScreenCustomizePresets extends GuiScreen {
             this.mc.getTextureManager().bindTexture(p_178051_3_);
             int j = 32;
             int k = 32;
-            Tessellator tessellator = Tessellator.getInstance();
+            Tessellator tessellator = Tessellator.get();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
             worldrenderer.pos((i), (p_178051_2_ + 32), 0.0D).tex(0.0D, 1.0D).endVertex();

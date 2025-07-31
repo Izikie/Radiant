@@ -62,7 +62,7 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
 
         if (entitylivingbase != null) {
             float f = entity.func_175477_p(partialTicks);
-            Tessellator tessellator = Tessellator.getInstance();
+            Tessellator tessellator = Tessellator.get();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             this.bindTexture(GUARDIAN_BEAM_TEXTURE);
             GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, 10497.0F);

@@ -464,7 +464,7 @@ public class OpenGlHelper {
     }
 
     public static boolean useVbo() {
-        return !Config.isMultiTexture() && ((!Config.isRenderRegions() || vboRegions) && vboSupported && Minecraft.getMinecraft().gameSettings.useVbo);
+        return !Config.isMultiTexture() && ((!Config.isRenderRegions() || vboRegions) && vboSupported && Minecraft.get().gameSettings.useVbo);
     }
 
     public static void glBindFramebuffer(int target, int framebufferIn) {
@@ -667,7 +667,7 @@ public class OpenGlHelper {
     }
 
     public static boolean isFramebufferEnabled() {
-        return !Config.isFastRender() && (!Config.isAntialiasing() && framebufferSupported && Minecraft.getMinecraft().gameSettings.fboEnable);
+        return !Config.isFastRender() && (!Config.isAntialiasing() && framebufferSupported && Minecraft.get().gameSettings.fboEnable);
     }
 
     public static void glBufferData(int p_glBufferData_0_, long p_glBufferData_1_, int p_glBufferData_3_) {

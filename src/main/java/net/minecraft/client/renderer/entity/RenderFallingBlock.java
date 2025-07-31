@@ -34,14 +34,14 @@ public class RenderFallingBlock extends Render<EntityFallingBlock> {
                     GlStateManager.pushMatrix();
                     GlStateManager.translate((float) x, (float) y, (float) z);
                     GlStateManager.disableLighting();
-                    Tessellator tessellator = Tessellator.getInstance();
+                    Tessellator tessellator = Tessellator.get();
                     WorldRenderer worldrenderer = tessellator.getWorldRenderer();
                     worldrenderer.begin(7, DefaultVertexFormats.BLOCK);
                     int i = blockpos.getX();
                     int j = blockpos.getY();
                     int k = blockpos.getZ();
                     worldrenderer.setTranslation(((-i) - 0.5F), (-j), ((-k) - 0.5F));
-                    BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
+                    BlockRendererDispatcher blockrendererdispatcher = Minecraft.get().getBlockRendererDispatcher();
                     IBakedModel ibakedmodel = blockrendererdispatcher.getModelFromBlockState(iblockstate, world, null);
                     blockrendererdispatcher.getBlockModelRenderer().renderModel(world, ibakedmodel, iblockstate, blockpos, worldrenderer, false);
                     worldrenderer.setTranslation(0.0D, 0.0D, 0.0D);

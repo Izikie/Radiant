@@ -171,7 +171,7 @@ public class ResourcePackRepository {
             this.deleteOldServerResourcesPacks();
             final GuiScreenWorking guiscreenworking = new GuiScreenWorking();
             Map<String, String> map = Minecraft.getSessionInfo();
-            final Minecraft minecraft = Minecraft.getMinecraft();
+            final Minecraft minecraft = Minecraft.get();
             Futures.getUnchecked(minecraft.addScheduledTask(() -> minecraft.displayGuiScreen(guiscreenworking)));
             final SettableFuture<Object> settablefuture = SettableFuture.create();
             this.downloadingPacks = HttpUtil.downloadResourcePack(file1, url, map, 52428800, guiscreenworking, minecraft.getProxy());
@@ -206,7 +206,7 @@ public class ResourcePackRepository {
 
     public ListenableFuture<Object> setResourcePackInstance(File resourceFile) {
         this.resourcePackInstance = new FileResourcePack(resourceFile);
-        return Minecraft.getMinecraft().scheduleResourcesRefresh();
+        return Minecraft.get().scheduleResourcesRefresh();
     }
 
     public IResourcePack getResourcePackInstance() {
@@ -225,7 +225,7 @@ public class ResourcePackRepository {
 
             if (this.resourcePackInstance != null) {
                 this.resourcePackInstance = null;
-                Minecraft.getMinecraft().scheduleResourcesRefresh();
+                Minecraft.get().scheduleResourcesRefresh();
             }
         } finally {
             this.lock.unlock();

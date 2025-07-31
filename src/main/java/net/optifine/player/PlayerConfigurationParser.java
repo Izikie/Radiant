@@ -86,7 +86,7 @@ public class PlayerConfigurationParser {
 		String s = HttpUtils.getPlayerItemsUrl() + "/" + texturePath;
 
 		try {
-			byte[] abyte = HttpPipeline.get(s, Minecraft.getMinecraft().getProxy());
+			byte[] abyte = HttpPipeline.get(s, Minecraft.get().getProxy());
 			return ImageIO.read(new ByteArrayInputStream(abyte));
 		} catch (IOException | URISyntaxException exception) {
 			Log.error("Error loading item texture " + texturePath + ": " + exception.getClass().getName() + ": " + exception.getMessage());
@@ -98,7 +98,7 @@ public class PlayerConfigurationParser {
 		String s = HttpUtils.getPlayerItemsUrl() + "/" + modelPath;
 
 		try {
-			byte[] abyte = HttpPipeline.get(s, Minecraft.getMinecraft().getProxy());
+			byte[] abyte = HttpPipeline.get(s, Minecraft.get().getProxy());
 			String s1 = new String(abyte, StandardCharsets.US_ASCII);
 			JsonObject jsonobject = (JsonObject) JsonParser.parseString(s1);
 			return PlayerItemParser.parseItemModel(jsonobject);

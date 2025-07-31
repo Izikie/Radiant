@@ -38,7 +38,7 @@ public class MobAppearance extends EntityFX {
 
     public void renderParticle(WorldRenderer worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
         if (this.entity != null) {
-            RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
+            RenderManager rendermanager = Minecraft.get().getRenderManager();
             rendermanager.setRenderPosition(EntityFX.interpPosX, EntityFX.interpPosY, EntityFX.interpPosZ);
             float f = 0.42553192F;
             float f1 = (this.particleAge + partialTicks) / this.particleMaxAge;

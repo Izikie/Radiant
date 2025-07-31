@@ -133,7 +133,7 @@ public class GuiCreateFlatWorld extends GuiScreen {
             float f1 = 0.0078125F;
             int i = 18;
             int j = 18;
-            Tessellator tessellator = Tessellator.getInstance();
+            Tessellator tessellator = Tessellator.get();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
             worldrenderer.pos((p_148224_1_), (p_148224_2_ + 18), GuiCreateFlatWorld.this.zLevel).tex(((p_148224_3_) * 0.0078125F), ((p_148224_4_ + 18) * 0.0078125F)).endVertex();

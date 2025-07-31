@@ -182,7 +182,7 @@ public class GuiFlatPresets extends GuiScreen {
             float f1 = 0.0078125F;
             int i = 18;
             int j = 18;
-            Tessellator tessellator = Tessellator.getInstance();
+            Tessellator tessellator = Tessellator.get();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
             worldrenderer.pos((p_148171_1_), (p_148171_2_ + 18), GuiFlatPresets.this.zLevel).tex(((p_148171_3_) * 0.0078125F), ((p_148171_4_ + 18) * 0.0078125F)).endVertex();

@@ -54,7 +54,7 @@ public class TooltipManager {
 								k = 16719904;
 							}
 
-							FontRenderer fontrenderer = Minecraft.getMinecraft().fontRendererObj;
+							FontRenderer fontrenderer = Minecraft.get().fontRendererObj;
 							fontrenderer.drawStringWithShadow(s, (rectangle.x + 5), (rectangle.y + 5 + l * 11), k);
 						}
 					}

@@ -7,7 +7,7 @@ public class Tessellator {
     private final WorldVertexBufferUploader vboUploader = new WorldVertexBufferUploader();
     private static final Tessellator INSTANCE = new Tessellator(2097152);
 
-    public static Tessellator getInstance() {
+    public static Tessellator get() {
         return INSTANCE;
     }
 

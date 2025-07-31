@@ -31,7 +31,7 @@ public class ModelAdapterWitch extends ModelAdapter {
 	}
 
 	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
+		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		RenderWitch renderwitch = new RenderWitch(rendermanager);
 		renderwitch.mainModel = modelBase;
 		renderwitch.shadowSize = shadowSize;

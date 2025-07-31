@@ -1147,7 +1147,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         }
 
         ActiveRenderInfo.updateRenderInfo(this.mc.player, this.mc.gameSettings.thirdPersonView == 2);
-        ClippingHelper clippinghelper = ClippingHelperImpl.getInstance();
+        ClippingHelper clippinghelper = ClippingHelperImpl.get();
         clippinghelper.disabled = Config.isShaders() && !Shaders.isFrustumCulling();
         ICamera icamera = new Frustum(clippinghelper);
         Entity entity = this.mc.getRenderViewEntity();
@@ -1306,7 +1306,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(770, 1, 1, 0);
             this.mc.getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).setBlurMipmap(false, false);
-            renderglobal.drawBlockDamageTexture(Tessellator.getInstance(), Tessellator.getInstance().getWorldRenderer(), entity, partialTicks);
+            renderglobal.drawBlockDamageTexture(Tessellator.get(), Tessellator.get().getWorldRenderer(), entity, partialTicks);
             this.mc.getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).restoreLastBlurMipmap();
             GlStateManager.disableBlend();
         }
@@ -1532,7 +1532,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             int i = MathHelper.floor(entity.posX);
             int j = MathHelper.floor(entity.posY);
             int k = MathHelper.floor(entity.posZ);
-            Tessellator tessellator = Tessellator.getInstance();
+            Tessellator tessellator = Tessellator.get();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             GlStateManager.disableCull();
             GL11.glNormal3f(0.0F, 1.0F, 0.0F);

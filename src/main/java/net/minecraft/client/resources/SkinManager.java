@@ -38,7 +38,7 @@ public class SkinManager {
         this.sessionService = sessionService;
         this.skinCacheLoader = CacheBuilder.newBuilder().expireAfterAccess(15L, TimeUnit.SECONDS).build(new CacheLoader<>() {
             public Map<Type, MinecraftProfileTexture> load(GameProfile p_load_1_) throws Exception {
-                return Minecraft.getMinecraft().getSessionService().getTextures(p_load_1_, false);
+                return Minecraft.get().getSessionService().getTextures(p_load_1_, false);
             }
         });
     }
@@ -93,13 +93,13 @@ public class SkinManager {
             } catch (InsecureTextureException exception) {
             }
 
-            if (map.isEmpty() && profile.getId().equals(Minecraft.getMinecraft().getSession().getProfile().getId())) {
+            if (map.isEmpty() && profile.getId().equals(Minecraft.get().getSession().getProfile().getId())) {
                 profile.getProperties().clear();
-                profile.getProperties().putAll(Minecraft.getMinecraft().getProfileProperties());
+                profile.getProperties().putAll(Minecraft.get().getProfileProperties());
                 map.putAll(SkinManager.this.sessionService.getTextures(profile, false));
             }
 
-            Minecraft.getMinecraft().addScheduledTask(() -> {
+            Minecraft.get().addScheduledTask(() -> {
                 if (map.containsKey(Type.SKIN)) {
                     SkinManager.this.loadSkin(map.get(Type.SKIN), Type.SKIN, skinAvailableCallback);
                 }

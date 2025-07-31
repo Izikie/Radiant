@@ -94,12 +94,12 @@ public class SmartLeaves {
 		} else {
 			ResourceLocation resourcelocation = new ResourceLocation("blockstates/" + type + "_leaves.json");
 
-			if (Config.getDefiningResourcePack(resourcelocation) != Minecraft.getMinecraft().getDefaultResourcePack()) {
+			if (Config.getDefiningResourcePack(resourcelocation) != Minecraft.get().getDefaultResourcePack()) {
 				return null;
 			} else {
 				ResourceLocation resourcelocation1 = new ResourceLocation("models/block/" + type + "_leaves.json");
 
-				if (Config.getDefiningResourcePack(resourcelocation1) != Minecraft.getMinecraft().getDefaultResourcePack()) {
+				if (Config.getDefiningResourcePack(resourcelocation1) != Minecraft.get().getDefaultResourcePack()) {
 					return null;
 				} else {
 					ModelResourceLocation modelresourcelocation = new ModelResourceLocation(type + "_leaves", "normal");

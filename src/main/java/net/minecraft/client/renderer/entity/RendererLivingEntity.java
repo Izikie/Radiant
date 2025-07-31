@@ -264,7 +264,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 
     protected void renderModel(T entitylivingbaseIn, float p_77036_2_, float p_77036_3_, float p_77036_4_, float p_77036_5_, float p_77036_6_, float scaleFactor) {
         boolean flag = !entitylivingbaseIn.isInvisible();
-        boolean flag1 = !flag && !entitylivingbaseIn.isInvisibleToPlayer(Minecraft.getMinecraft().player);
+        boolean flag1 = !flag && !entitylivingbaseIn.isInvisibleToPlayer(Minecraft.get().player);
 
         if (flag || flag1) {
             if (!this.bindEntityTexture(entitylivingbaseIn)) {
@@ -526,7 +526,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                     GlStateManager.disableTexture2D();
                     GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
                     int i = fontrenderer.getStringWidth(s) / 2;
-                    Tessellator tessellator = Tessellator.getInstance();
+                    Tessellator tessellator = Tessellator.get();
                     WorldRenderer worldrenderer = tessellator.getWorldRenderer();
                     worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
                     worldrenderer.pos((-i - 1), -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
@@ -549,7 +549,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
     }
 
     protected boolean canRenderName(T entity) {
-        EntityPlayerSP entityplayersp = Minecraft.getMinecraft().player;
+        EntityPlayerSP entityplayersp = Minecraft.get().player;
 
         if (entity instanceof EntityPlayer && entity != entityplayersp) {
             Team team = entity.getTeam();

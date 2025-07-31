@@ -13,7 +13,7 @@ public class ServerListEntryLanDetected implements GuiListExtended.IGuiListEntry
     protected ServerListEntryLanDetected(GuiMultiplayer p_i45046_1_, LanServerDetector.LanServer p_i45046_2_) {
         this.field_148292_c = p_i45046_1_;
         this.field_148291_b = p_i45046_2_;
-        this.mc = Minecraft.getMinecraft();
+        this.mc = Minecraft.get();
     }
 
     public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected) {

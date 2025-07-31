@@ -144,14 +144,14 @@ public class GuiEnchantment extends GuiContainer {
         GlStateManager.popMatrix();
         RenderHelper.disableStandardItemLighting();
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        EnchantmentNameParts.getInstance().reseedRandomGenerator(this.container.xpSeed);
+        EnchantmentNameParts.get().reseedRandomGenerator(this.container.xpSeed);
         int k = this.container.getLapisAmount();
 
         for (int l = 0; l < 3; ++l) {
             int i1 = i + 60;
             int j1 = i1 + 20;
             int k1 = 86;
-            String s = EnchantmentNameParts.getInstance().generateNewRandomName();
+            String s = EnchantmentNameParts.get().generateNewRandomName();
             this.zLevel = 0.0F;
             this.mc.getTextureManager().bindTexture(ENCHANTMENT_TABLE_GUI_TEXTURE);
             int l1 = this.container.enchantLevels[l];

@@ -76,14 +76,14 @@ public class Shader {
         this.manager.getShaderUniformOrDefault("InSize").set(this.framebufferIn.framebufferTextureWidth, this.framebufferIn.framebufferTextureHeight);
         this.manager.getShaderUniformOrDefault("OutSize").set(f, f1);
         this.manager.getShaderUniformOrDefault("Time").set(p_148042_1_);
-        Minecraft minecraft = Minecraft.getMinecraft();
+        Minecraft minecraft = Minecraft.get();
         this.manager.getShaderUniformOrDefault("ScreenSize").set(minecraft.displayWidth, minecraft.displayHeight);
         this.manager.useShader();
         this.framebufferOut.framebufferClear();
         this.framebufferOut.bindFramebuffer(false);
         GlStateManager.depthMask(false);
         GlStateManager.colorMask(true, true, true, true);
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
         worldrenderer.pos(0.0D, f1, 500.0D).color(255, 255, 255, 255).endVertex();

@@ -9,7 +9,7 @@ public class Frustum implements ICamera {
     private double zPosition;
 
     public Frustum() {
-        this(ClippingHelperImpl.getInstance());
+        this(ClippingHelperImpl.get());
     }
 
     public Frustum(ClippingHelper p_i46196_1_) {

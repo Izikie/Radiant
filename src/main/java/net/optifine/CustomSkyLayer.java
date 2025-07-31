@@ -274,7 +274,7 @@ public class CustomSkyLayer {
 				GlStateManager.rotate(360.0F * (f4 + celestialAngle * this.speed), this.axis[0], this.axis[1], this.axis[2]);
 			}
 
-			Tessellator tessellator = Tessellator.getInstance();
+			Tessellator tessellator = Tessellator.get();
 			GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
 			GlStateManager.rotate(-90.0F, 0.0F, 0.0F, 1.0F);
 			this.renderSide(tessellator, 4);
@@ -312,7 +312,7 @@ public class CustomSkyLayer {
 	}
 
 	private float getPositionBrightnessRaw(World world) {
-		Entity entity = Minecraft.getMinecraft().getRenderViewEntity();
+		Entity entity = Minecraft.get().getRenderViewEntity();
 
 		if (entity == null) {
 			return 0.0F;

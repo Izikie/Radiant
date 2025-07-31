@@ -59,7 +59,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
     private long lastSentPingPacket;
     private int chatSpamThresholdCount;
     private int itemDropThreshold;
-    private final Int2ShortOpenHashMap field_147372_n = new Int2ShortOpenHashMap(); // TODO: Replace with FastUtil
+    private final Int2ShortOpenHashMap field_147372_n = new Int2ShortOpenHashMap();
     private double lastPosX;
     private double lastPosY;
     private double lastPosZ;

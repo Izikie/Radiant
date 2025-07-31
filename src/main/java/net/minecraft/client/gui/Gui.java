@@ -50,7 +50,7 @@ public class Gui {
         float f = (color >> 16 & 255) / 255.0F;
         float f1 = (color >> 8 & 255) / 255.0F;
         float f2 = (color & 255) / 255.0F;
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         GlStateManager.enableBlend();
         GlStateManager.disableTexture2D();
@@ -80,7 +80,7 @@ public class Gui {
         GlStateManager.disableAlpha();
         GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
         GlStateManager.shadeModel(7425);
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
         worldrenderer.pos(right, top, this.zLevel).color(f1, f2, f3, f).endVertex();
@@ -105,7 +105,7 @@ public class Gui {
     public void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height) {
         float f = 0.00390625F;
         float f1 = 0.00390625F;
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
         worldrenderer.pos((x), (y + height), this.zLevel).tex(((textureX) * f), ((textureY + height) * f1)).endVertex();
@@ -118,7 +118,7 @@ public class Gui {
     public void drawTexturedModalRect(float xCoord, float yCoord, int minU, int minV, int maxU, int maxV) {
         float f = 0.00390625F;
         float f1 = 0.00390625F;
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
         worldrenderer.pos((xCoord + 0.0F), (yCoord + maxV), this.zLevel).tex(((minU) * f), ((minV + maxV) * f1)).endVertex();
@@ -129,7 +129,7 @@ public class Gui {
     }
 
     public void drawTexturedModalRect(int xCoord, int yCoord, TextureAtlasSprite textureSprite, int widthIn, int heightIn) {
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
         worldrenderer.pos((xCoord), (yCoord + heightIn), this.zLevel).tex(textureSprite.getMinU(), textureSprite.getMaxV()).endVertex();
@@ -142,7 +142,7 @@ public class Gui {
     public static void drawModalRectWithCustomSizedTexture(int x, int y, float u, float v, int width, int height, float textureWidth, float textureHeight) {
         float f = 1.0F / textureWidth;
         float f1 = 1.0F / textureHeight;
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
         worldrenderer.pos(x, (y + height), 0.0D).tex((u * f), ((v + height) * f1)).endVertex();
@@ -155,7 +155,7 @@ public class Gui {
     public static void drawScaledCustomSizeModalRect(int x, int y, float u, float v, int uWidth, int vHeight, int width, int height, float tileWidth, float tileHeight) {
         float f = 1.0F / tileWidth;
         float f1 = 1.0F / tileHeight;
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
         worldrenderer.pos(x, (y + height), 0.0D).tex((u * f), ((v + vHeight) * f1)).endVertex();

@@ -17,7 +17,7 @@ public class ModelAdapterPig extends ModelAdapterQuadruped {
 	}
 
 	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
+		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		return new RenderPig(rendermanager, modelBase, shadowSize);
 	}
 }

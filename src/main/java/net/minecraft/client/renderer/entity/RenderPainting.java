@@ -65,7 +65,7 @@ public class RenderPainting extends Render<EntityPainting> {
                 float f20 = (textureU + width - (i + 1) * 16) / 256.0F;
                 float f21 = (textureV + height - j * 16) / 256.0F;
                 float f22 = (textureV + height - (j + 1) * 16) / 256.0F;
-                Tessellator tessellator = Tessellator.getInstance();
+                Tessellator tessellator = Tessellator.get();
                 WorldRenderer worldrenderer = tessellator.getWorldRenderer();
                 worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_NORMAL);
                 worldrenderer.pos(f15, f18, (-f2)).tex(f20, f21).normal(0.0F, 0.0F, -1.0F).endVertex();

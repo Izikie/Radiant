@@ -15,7 +15,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class TileEntityPistonRenderer extends TileEntitySpecialRenderer<TileEntityPiston> {
-    private final BlockRendererDispatcher blockRenderer = Minecraft.getMinecraft().getBlockRendererDispatcher();
+    private final BlockRendererDispatcher blockRenderer = Minecraft.get().getBlockRendererDispatcher();
 
     public void renderTileEntityAt(TileEntityPiston te, double x, double y, double z, float partialTicks, int destroyStage) {
         BlockPos blockpos = te.getPos();
@@ -23,7 +23,7 @@ public class TileEntityPistonRenderer extends TileEntitySpecialRenderer<TileEnti
         Block block = iblockstate.getBlock();
 
         if (block.getMaterial() != Material.AIR && te.getProgress(partialTicks) < 1.0F) {
-            Tessellator tessellator = Tessellator.getInstance();
+            Tessellator tessellator = Tessellator.get();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
             RenderHelper.disableStandardItemLighting();

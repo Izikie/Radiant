@@ -332,7 +332,7 @@ public class RenderManager {
                 RenderGlobal.drawOutlinedBoundingBox(new AxisAlignedBB(x - f, y + entityIn.getEyeHeight() - 0.009999999776482582D, z - f, x + f, y + entityIn.getEyeHeight() + 0.009999999776482582D, z + f), 255, 0, 0, 255);
             }
 
-            Tessellator tessellator = Tessellator.getInstance();
+            Tessellator tessellator = Tessellator.get();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             Vec3 vec3 = entityIn.getLook(partialTicks);
             worldrenderer.begin(3, DefaultVertexFormats.POSITION_COLOR);

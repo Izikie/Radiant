@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.entity.RenderLeashKnot;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLeashKnot;
 import net.optifine.Log;
-import net.optifine.reflect.Reflector;
 
 public class ModelAdapterLeadKnot extends ModelAdapter {
 	public ModelAdapterLeadKnot() {
@@ -32,7 +31,7 @@ public class ModelAdapterLeadKnot extends ModelAdapter {
 	}
 
 	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
+		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		RenderLeashKnot renderleashknot = new RenderLeashKnot(rendermanager);
 
         Log.error("Field not found: RenderLeashKnot.leashKnotModel");

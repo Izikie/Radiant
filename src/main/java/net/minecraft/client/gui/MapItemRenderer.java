@@ -83,7 +83,7 @@ public class MapItemRenderer {
         private void render(boolean noOverlayRendering) {
             int i = 0;
             int j = 0;
-            Tessellator tessellator = Tessellator.getInstance();
+            Tessellator tessellator = Tessellator.get();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             float f = 0.0F;
             MapItemRenderer.this.textureManager.bindTexture(this.location);

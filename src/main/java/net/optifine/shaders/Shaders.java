@@ -326,7 +326,7 @@ public class Shaders {
 	public static float fogColorB;
 	public static float shadowIntervalSize = 2.0F;
 	public static int entityDataIndex = 0;
-	static Minecraft mc = Minecraft.getMinecraft();
+	static Minecraft mc = Minecraft.get();
 	static EntityRenderer entityRenderer;
 	static float clearColorR;
 	static float clearColorG;
@@ -423,8 +423,8 @@ public class Shaders {
 	private static int noiseTextureResolution = 256;
 
 	static {
-		SHADER_PACKS_DIR = new File(Minecraft.getMinecraft().mcDataDir, "shaderpacks");
-		CONFIG_FILE = new File(Minecraft.getMinecraft().mcDataDir, "optionsshaders.txt");
+		SHADER_PACKS_DIR = new File(Minecraft.get().mcDataDir, "shaderpacks");
+		CONFIG_FILE = new File(Minecraft.get().mcDataDir, "optionsshaders.txt");
 	}
 
 	public static IntBuffer nextIntBuffer(int size) {
@@ -1242,7 +1242,7 @@ public class Shaders {
 
 	private static void saveOptionProperties(IShaderPack sp, Properties props) throws IOException {
 		String s = "shaderpacks/" + sp.getName() + ".txt";
-		File file1 = new File(Minecraft.getMinecraft().mcDataDir, s);
+		File file1 = new File(Minecraft.get().mcDataDir, s);
 
 		if (props.isEmpty()) {
 			file1.delete();
@@ -1283,7 +1283,7 @@ public class Shaders {
 	private static Properties loadOptionProperties(IShaderPack sp) throws IOException {
 		Properties properties = new PropertiesOrdered();
 		String s = "shaderpacks/" + sp.getName() + ".txt";
-		File file1 = new File(Minecraft.getMinecraft().mcDataDir, s);
+		File file1 = new File(Minecraft.get().mcDataDir, s);
 
 		if (file1.exists() && file1.isFile() && file1.canRead()) {
 			FileInputStream fileinputstream = new FileInputStream(file1);
@@ -3818,7 +3818,7 @@ public class Shaders {
 	}
 
 	public static void drawHorizon() {
-		WorldRenderer worldrenderer = Tessellator.getInstance().getWorldRenderer();
+		WorldRenderer worldrenderer = Tessellator.get().getWorldRenderer();
 		float f = (mc.gameSettings.renderDistanceChunks * 16);
 		double d0 = f * 0.9238D;
 		double d1 = f * 0.3826D;
@@ -3863,7 +3863,7 @@ public class Shaders {
 		worldrenderer.pos(d3, d5, d0).endVertex();
 		worldrenderer.pos(d0, d5, d0).endVertex();
 		worldrenderer.pos(d0, d5, d3).endVertex();
-		Tessellator.getInstance().draw();
+		Tessellator.get().draw();
 	}
 
 	public static void preSkyList() {

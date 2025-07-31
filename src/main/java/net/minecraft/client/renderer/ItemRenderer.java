@@ -168,7 +168,7 @@ public class ItemRenderer {
         GlStateManager.translate(-1.0F, -1.0F, 0.0F);
         GlStateManager.scale(0.015625F, 0.015625F, 0.015625F);
         this.mc.getTextureManager().bindTexture(RES_MAP_BACKGROUND);
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         GL11.glNormal3f(0.0F, 0.0F, -1.0F);
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
@@ -372,7 +372,7 @@ public class ItemRenderer {
 
     private void renderBlockInHand(float partialTicks, TextureAtlasSprite atlas) {
         this.mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         float f = 0.1F;
         GlStateManager.color(0.1F, 0.1F, 0.1F, 0.5F);
@@ -399,7 +399,7 @@ public class ItemRenderer {
     private void renderWaterOverlayTexture(float partialTicks) {
         if (!Config.isShaders() || Shaders.isUnderwaterOverlay()) {
             this.mc.getTextureManager().bindTexture(RES_UNDERWATER_OVERLAY);
-            Tessellator tessellator = Tessellator.getInstance();
+            Tessellator tessellator = Tessellator.get();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             float f = this.mc.player.getBrightness(partialTicks);
             GlStateManager.color(f, f, f, 0.5F);
@@ -427,7 +427,7 @@ public class ItemRenderer {
     }
 
     private void renderFireInFirstPerson(float partialTicks) {
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         GlStateManager.color(1.0F, 1.0F, 1.0F, 0.9F);
         GlStateManager.depthFunc(519);

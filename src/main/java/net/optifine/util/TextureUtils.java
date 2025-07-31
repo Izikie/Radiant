@@ -129,7 +129,7 @@ public class TextureUtils {
 	}
 
 	public static TextureMap getTextureMapBlocks() {
-		return Minecraft.getMinecraft().getTextureMapBlocks();
+		return Minecraft.get().getTextureMapBlocks();
 	}
 
 	public static void registerResourceListener() {

@@ -58,7 +58,7 @@ public class Config {
     public static boolean fancyFogAvailable = false;
     public static boolean occlusionAvailable = false;
     private static GameSettings gameSettings = null;
-    private static final Minecraft MINECRAFT = Minecraft.getMinecraft();
+    private static final Minecraft MINECRAFT = Minecraft.get();
     private static boolean initialized = false;
     private static Thread minecraftThread = null;
     private static DisplayMode desktopDisplayMode = null;

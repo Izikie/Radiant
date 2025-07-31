@@ -62,7 +62,7 @@ public class ModelAdapterRabbit extends ModelAdapter {
 	}
 
 	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
+		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		return new RenderRabbit(rendermanager, modelBase, shadowSize);
 	}
 }

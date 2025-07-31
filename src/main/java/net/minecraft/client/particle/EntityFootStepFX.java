@@ -48,7 +48,7 @@ public class EntityFootStepFX extends EntityFX {
         worldRendererIn.pos((f3 + 0.125F), f4, (f5 + 0.125F)).tex(1.0D, 1.0D).color(f6, f6, f6, f1).endVertex();
         worldRendererIn.pos((f3 + 0.125F), f4, (f5 - 0.125F)).tex(1.0D, 0.0D).color(f6, f6, f6, f1).endVertex();
         worldRendererIn.pos((f3 - 0.125F), f4, (f5 - 0.125F)).tex(0.0D, 0.0D).color(f6, f6, f6, f1).endVertex();
-        Tessellator.getInstance().draw();
+        Tessellator.get().draw();
         GlStateManager.disableBlend();
         GlStateManager.enableLighting();
     }
@@ -67,7 +67,7 @@ public class EntityFootStepFX extends EntityFX {
 
     public static class Factory implements IParticleFactory {
         public EntityFX getEntityFX(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-            return new EntityFootStepFX(Minecraft.getMinecraft().getTextureManager(), worldIn, xCoordIn, yCoordIn, zCoordIn);
+            return new EntityFootStepFX(Minecraft.get().getTextureManager(), worldIn, xCoordIn, yCoordIn, zCoordIn);
         }
     }
 }

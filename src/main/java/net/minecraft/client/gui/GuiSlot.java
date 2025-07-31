@@ -152,7 +152,7 @@ public abstract class GuiSlot {
             this.bindAmountScrolled();
             GlStateManager.disableLighting();
             GlStateManager.disableFog();
-            Tessellator tessellator = Tessellator.getInstance();
+            Tessellator tessellator = Tessellator.get();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             this.drawContainerBackground(tessellator);
             int k = this.left + this.width / 2 - this.getListWidth() / 2 + 2;
@@ -323,7 +323,7 @@ public abstract class GuiSlot {
 
     protected void drawSelectionBox(int p_148120_1_, int p_148120_2_, int mouseXIn, int mouseYIn) {
         int i = this.getSize();
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
 
         for (int j = 0; j < i; ++j) {
@@ -363,7 +363,7 @@ public abstract class GuiSlot {
     }
 
     protected void overlayBackground(int startY, int endY, int startAlpha, int endAlpha) {
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         this.mc.getTextureManager().bindTexture(Gui.OPTIONS_BACKGROUND);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);

@@ -95,7 +95,7 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
         GlStateManager.translate((float) p_180574_2_, (float) p_180574_4_ + 2.0F, (float) p_180574_6_);
         GlStateManager.rotate((float) (-Math.atan2(f4, f2)) * 180.0F / (float) Math.PI - 90.0F, 0.0F, 1.0F, 0.0F);
         GlStateManager.rotate((float) (-Math.atan2(f5, f3)) * 180.0F / (float) Math.PI - 90.0F, 1.0F, 0.0F, 0.0F);
-        Tessellator tessellator = Tessellator.getInstance();
+        Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         RenderHelper.disableStandardItemLighting();
         GlStateManager.disableCull();

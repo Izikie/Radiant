@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 public class EntityFirework {
     public static class Factory implements IParticleFactory {
         public EntityFX getEntityFX(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-            SparkFX entityfirework$sparkfx = new SparkFX(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn, Minecraft.getMinecraft().effectRenderer);
+            SparkFX entityfirework$sparkfx = new SparkFX(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn, Minecraft.get().effectRenderer);
             entityfirework$sparkfx.setAlphaF(0.99F);
             return entityfirework$sparkfx;
         }
@@ -269,7 +269,7 @@ public class EntityFirework {
         }
 
         private boolean func_92037_i() {
-            Minecraft minecraft = Minecraft.getMinecraft();
+            Minecraft minecraft = Minecraft.get();
             return minecraft == null || minecraft.getRenderViewEntity() == null || minecraft.getRenderViewEntity().getDistanceSq(this.posX, this.posY, this.posZ) >= 256.0D;
         }
 

@@ -22,7 +22,7 @@ public class CapeUtils {
 		if (s != null && !s.isEmpty() && !s.contains("\u0000") && PATTERN_USERNAME.matcher(s).matches()) {
 			String s1 = "http://s.optifine.net/capes/" + s + ".png";
 			ResourceLocation resourcelocation = new ResourceLocation("capeof/" + s);
-			TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
+			TextureManager texturemanager = Minecraft.get().getTextureManager();
 			ITextureObject itextureobject = texturemanager.getTexture(resourcelocation);
 
 			if (itextureobject != null && itextureobject instanceof ThreadDownloadImageData threaddownloadimagedata) {

@@ -202,7 +202,7 @@ public class Framebuffer {
             this.bindFramebufferTexture();
             float f2 = (float) this.framebufferWidth / this.framebufferTextureWidth;
             float f3 = (float) this.framebufferHeight / this.framebufferTextureHeight;
-            Tessellator tessellator = Tessellator.getInstance();
+            Tessellator tessellator = Tessellator.get();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
             worldrenderer.pos(0.0D, (float) p_178038_2_, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255).endVertex();
