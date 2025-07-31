@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderSquid;
 import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.src.Config;
-import net.optifine.reflect.Reflector;
 
 public class ModelAdapterSquid extends ModelAdapter {
 	public ModelAdapterSquid() {
@@ -23,12 +22,12 @@ public class ModelAdapterSquid extends ModelAdapter {
 		if (model instanceof ModelSquid modelsquid) {
 
 			if (modelPart.equals("body")) {
-				return (ModelRenderer) Reflector.getFieldValue(modelsquid, Reflector.ModelSquid_body);
+				return modelsquid.getSquidBody();
 			} else {
 				String s = "tentacle";
 
 				if (modelPart.startsWith(s)) {
-					ModelRenderer[] amodelrenderer = (ModelRenderer[]) Reflector.getFieldValue(modelsquid, Reflector.ModelSquid_tentacles);
+					ModelRenderer[] amodelrenderer = modelsquid.getSquidTentacles();
 
 					if (amodelrenderer == null) {
 						return null;

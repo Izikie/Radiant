@@ -7,13 +7,12 @@ import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.item.DyeColor;
 import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.optifine.config.*;
-import net.optifine.reflect.Reflector;
 import net.optifine.util.ArrayUtils;
-import net.minecraft.util.MathHelper;
 
 import java.util.Properties;
 
@@ -243,7 +242,7 @@ public class RandomEntityRule {
 
 				if (entity instanceof EntityVillager entityvillager) {
 					int j = entityvillager.getProfession();
-					int k = Reflector.getFieldValueInt(entityvillager, Reflector.EntityVillager_careerId, -1);
+					int k = entityvillager.getCareerId();
 
 					if (j < 0 || k < 0) {
 						return false;

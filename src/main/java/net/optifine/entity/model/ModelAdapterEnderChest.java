@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntityEnderChest;
 import net.optifine.Log;
-import net.optifine.reflect.Reflector;
 
 public class ModelAdapterEnderChest extends ModelAdapter {
 	public ModelAdapterEnderChest() {

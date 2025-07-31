@@ -8,8 +8,8 @@ import net.minecraft.util.MathHelper;
 
 public class ModelHorse extends ModelBase {
     private final ModelRenderer head;
-    private final ModelRenderer field_178711_b;
-    private final ModelRenderer field_178712_c;
+    private final ModelRenderer upperMouth;
+    private final ModelRenderer lowerMouth;
     private final ModelRenderer horseLeftEar;
     private final ModelRenderer horseRightEar;
     private final ModelRenderer muleLeftEar;
@@ -105,16 +105,16 @@ public class ModelHorse extends ModelBase {
         this.head.addBox(-2.5F, -10.0F, -1.5F, 5, 5, 7);
         this.head.setRotationPoint(0.0F, 4.0F, -10.0F);
         this.setBoxRotation(this.head, 0.5235988F, 0.0F, 0.0F);
-        this.field_178711_b = new ModelRenderer(this, 24, 18);
-        this.field_178711_b.addBox(-2.0F, -10.0F, -7.0F, 4, 3, 6);
-        this.field_178711_b.setRotationPoint(0.0F, 3.95F, -10.0F);
-        this.setBoxRotation(this.field_178711_b, 0.5235988F, 0.0F, 0.0F);
-        this.field_178712_c = new ModelRenderer(this, 24, 27);
-        this.field_178712_c.addBox(-2.0F, -7.0F, -6.5F, 4, 2, 5);
-        this.field_178712_c.setRotationPoint(0.0F, 4.0F, -10.0F);
-        this.setBoxRotation(this.field_178712_c, 0.5235988F, 0.0F, 0.0F);
-        this.head.addChild(this.field_178711_b);
-        this.head.addChild(this.field_178712_c);
+        this.upperMouth = new ModelRenderer(this, 24, 18);
+        this.upperMouth.addBox(-2.0F, -10.0F, -7.0F, 4, 3, 6);
+        this.upperMouth.setRotationPoint(0.0F, 3.95F, -10.0F);
+        this.setBoxRotation(this.upperMouth, 0.5235988F, 0.0F, 0.0F);
+        this.lowerMouth = new ModelRenderer(this, 24, 27);
+        this.lowerMouth.addBox(-2.0F, -7.0F, -6.5F, 4, 2, 5);
+        this.lowerMouth.setRotationPoint(0.0F, 4.0F, -10.0F);
+        this.setBoxRotation(this.lowerMouth, 0.5235988F, 0.0F, 0.0F);
+        this.head.addChild(this.upperMouth);
+        this.head.addChild(this.lowerMouth);
         this.horseLeftEar = new ModelRenderer(this, 0, 0);
         this.horseLeftEar.addBox(0.45F, -12.0F, 4.0F, 2, 3, 1);
         this.horseLeftEar.setRotationPoint(0.0F, 4.0F, -10.0F);
@@ -354,32 +354,32 @@ public class ModelHorse extends ModelBase {
         this.muleLeftEar.rotationPointY = this.head.rotationPointY;
         this.muleRightEar.rotationPointY = this.head.rotationPointY;
         this.neck.rotationPointY = this.head.rotationPointY;
-        this.field_178711_b.rotationPointY = 0.02F;
-        this.field_178712_c.rotationPointY = 0.0F;
+        this.upperMouth.rotationPointY = 0.02F;
+        this.lowerMouth.rotationPointY = 0.0F;
         this.mane.rotationPointY = this.head.rotationPointY;
         this.horseLeftEar.rotationPointZ = this.head.rotationPointZ;
         this.horseRightEar.rotationPointZ = this.head.rotationPointZ;
         this.muleLeftEar.rotationPointZ = this.head.rotationPointZ;
         this.muleRightEar.rotationPointZ = this.head.rotationPointZ;
         this.neck.rotationPointZ = this.head.rotationPointZ;
-        this.field_178711_b.rotationPointZ = 0.02F - f8;
-        this.field_178712_c.rotationPointZ = 0.0F + f8;
+        this.upperMouth.rotationPointZ = 0.02F - f8;
+        this.lowerMouth.rotationPointZ = 0.0F + f8;
         this.mane.rotationPointZ = this.head.rotationPointZ;
         this.horseLeftEar.rotateAngleX = this.head.rotateAngleX;
         this.horseRightEar.rotateAngleX = this.head.rotateAngleX;
         this.muleLeftEar.rotateAngleX = this.head.rotateAngleX;
         this.muleRightEar.rotateAngleX = this.head.rotateAngleX;
         this.neck.rotateAngleX = this.head.rotateAngleX;
-        this.field_178711_b.rotateAngleX = 0.0F - 0.09424778F * f8;
-        this.field_178712_c.rotateAngleX = 0.0F + 0.15707964F * f8;
+        this.upperMouth.rotateAngleX = 0.0F - 0.09424778F * f8;
+        this.lowerMouth.rotateAngleX = 0.0F + 0.15707964F * f8;
         this.mane.rotateAngleX = this.head.rotateAngleX;
         this.horseLeftEar.rotateAngleY = this.head.rotateAngleY;
         this.horseRightEar.rotateAngleY = this.head.rotateAngleY;
         this.muleLeftEar.rotateAngleY = this.head.rotateAngleY;
         this.muleRightEar.rotateAngleY = this.head.rotateAngleY;
         this.neck.rotateAngleY = this.head.rotateAngleY;
-        this.field_178711_b.rotateAngleY = 0.0F;
-        this.field_178712_c.rotateAngleY = 0.0F;
+        this.upperMouth.rotateAngleY = 0.0F;
+        this.lowerMouth.rotateAngleY = 0.0F;
         this.mane.rotateAngleY = this.head.rotateAngleY;
         this.muleLeftChest.rotateAngleX = f11 / 5.0F;
         this.muleRightChest.rotateAngleX = -f11 / 5.0F;
@@ -507,5 +507,161 @@ public class ModelHorse extends ModelBase {
         this.tailBase.rotateAngleX = f12;
         this.tailMiddle.rotateAngleX = f12;
         this.tailTip.rotateAngleX = -0.2618F + f12;
+    }
+
+    public ModelRenderer getHead() {
+        return head;
+    }
+
+    public ModelRenderer getUpperMouth() {
+        return upperMouth;
+    }
+
+    public ModelRenderer getLowerMouth() {
+        return lowerMouth;
+    }
+
+    public ModelRenderer getHorseLeftEar() {
+        return horseLeftEar;
+    }
+
+    public ModelRenderer getHorseRightEar() {
+        return horseRightEar;
+    }
+
+    public ModelRenderer getMuleLeftEar() {
+        return muleLeftEar;
+    }
+
+    public ModelRenderer getMuleRightEar() {
+        return muleRightEar;
+    }
+
+    public ModelRenderer getNeck() {
+        return neck;
+    }
+
+    public ModelRenderer getHorseFaceRopes() {
+        return horseFaceRopes;
+    }
+
+    public ModelRenderer getMane() {
+        return mane;
+    }
+
+    public ModelRenderer getBody() {
+        return body;
+    }
+
+    public ModelRenderer getTailBase() {
+        return tailBase;
+    }
+
+    public ModelRenderer getTailMiddle() {
+        return tailMiddle;
+    }
+
+    public ModelRenderer getTailTip() {
+        return tailTip;
+    }
+
+    public ModelRenderer getBackLeftLeg() {
+        return backLeftLeg;
+    }
+
+    public ModelRenderer getBackLeftShin() {
+        return backLeftShin;
+    }
+
+    public ModelRenderer getBackLeftHoof() {
+        return backLeftHoof;
+    }
+
+    public ModelRenderer getBackRightLeg() {
+        return backRightLeg;
+    }
+
+    public ModelRenderer getBackRightShin() {
+        return backRightShin;
+    }
+
+    public ModelRenderer getBackRightHoof() {
+        return backRightHoof;
+    }
+
+    public ModelRenderer getFrontLeftLeg() {
+        return frontLeftLeg;
+    }
+
+    public ModelRenderer getFrontLeftShin() {
+        return frontLeftShin;
+    }
+
+    public ModelRenderer getFrontLeftHoof() {
+        return frontLeftHoof;
+    }
+
+    public ModelRenderer getFrontRightLeg() {
+        return frontRightLeg;
+    }
+
+    public ModelRenderer getFrontRightShin() {
+        return frontRightShin;
+    }
+
+    public ModelRenderer getFrontRightHoof() {
+        return frontRightHoof;
+    }
+
+    public ModelRenderer getMuleLeftChest() {
+        return muleLeftChest;
+    }
+
+    public ModelRenderer getMuleRightChest() {
+        return muleRightChest;
+    }
+
+    public ModelRenderer getHorseSaddleBottom() {
+        return horseSaddleBottom;
+    }
+
+    public ModelRenderer getHorseSaddleFront() {
+        return horseSaddleFront;
+    }
+
+    public ModelRenderer getHorseSaddleBack() {
+        return horseSaddleBack;
+    }
+
+    public ModelRenderer getHorseLeftSaddleRope() {
+        return horseLeftSaddleRope;
+    }
+
+    public ModelRenderer getHorseLeftSaddleMetal() {
+        return horseLeftSaddleMetal;
+    }
+
+    public ModelRenderer getHorseRightSaddleRope() {
+        return horseRightSaddleRope;
+    }
+
+    public ModelRenderer getHorseRightSaddleMetal() {
+        return horseRightSaddleMetal;
+    }
+
+    public ModelRenderer getHorseLeftFaceMetal() {
+        return horseLeftFaceMetal;
+    }
+
+    public ModelRenderer getHorseRightFaceMetal() {
+        return horseRightFaceMetal;
+    }
+
+    public ModelRenderer getHorseLeftRein() {
+        return horseLeftRein;
+    }
+
+    public ModelRenderer getHorseRightRein() {
+        return horseRightRein;
     }
 }

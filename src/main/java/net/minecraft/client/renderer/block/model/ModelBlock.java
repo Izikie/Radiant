@@ -30,7 +30,7 @@ public class ModelBlock {
     public String name;
     protected final Map<String, String> textures;
     protected ModelBlock parent;
-    protected final ResourceLocation parentLocation;
+    protected ResourceLocation parentLocation;
 
     public static ModelBlock deserialize(Reader readerIn) {
         return SERIALIZER.fromJson(readerIn, ModelBlock.class);
@@ -129,6 +129,10 @@ public class ModelBlock {
         return this.parentLocation;
     }
 
+    public void setParentLocation(ResourceLocation parentLocation) {
+        this.parentLocation = parentLocation;
+    }
+
     public ModelBlock getRootModel() {
         return this.hasParent() ? this.parent.getRootModel() : this;
     }
@@ -145,6 +149,10 @@ public class ModelBlock {
 
     private ItemTransformVec3f getTransform(ItemCameraTransforms.TransformType type) {
         return this.parent != null && !this.cameraTransforms.func_181687_c(type) ? this.parent.getTransform(type) : this.cameraTransforms.getTransform(type);
+    }
+
+    public Map<String, String> getTextures() {
+        return textures;
     }
 
     public static void checkModelHierarchy(Map<ResourceLocation, ModelBlock> p_178312_0_) {

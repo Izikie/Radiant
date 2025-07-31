@@ -56,4 +56,8 @@ public class GuiBrewingStand extends GuiContainer {
             }
         }
     }
+
+    public IInventory getTileBrewingStand() {
+        return tileBrewingStand;
+    }
 }

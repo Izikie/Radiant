@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.entity.RenderBlaze;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.src.Config;
-import net.optifine.reflect.Reflector;
 
 public class ModelAdapterBlaze extends ModelAdapter {
 	public ModelAdapterBlaze() {
@@ -23,12 +22,12 @@ public class ModelAdapterBlaze extends ModelAdapter {
 		if (model instanceof ModelBlaze modelblaze) {
 
 			if (modelPart.equals("head")) {
-				return (ModelRenderer) Reflector.getFieldValue(modelblaze, Reflector.ModelBlaze_blazeHead);
+				return modelblaze.getBlazeHead();
 			} else {
 				String s = "stick";
 
 				if (modelPart.startsWith(s)) {
-					ModelRenderer[] amodelrenderer = (ModelRenderer[]) Reflector.getFieldValue(modelblaze, Reflector.ModelBlaze_blazeSticks);
+					ModelRenderer[] amodelrenderer = modelblaze.getBlazeSticks();
 
 					if (amodelrenderer == null) {
 						return null;

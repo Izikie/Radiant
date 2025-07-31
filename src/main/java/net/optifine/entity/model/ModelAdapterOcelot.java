@@ -7,7 +7,6 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderOcelot;
 import net.minecraft.entity.passive.EntityOcelot;
-import net.optifine.reflect.Reflector;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,7 +43,17 @@ public class ModelAdapterOcelot extends ModelAdapter {
 
 			if (map.containsKey(modelPart)) {
 				int i = map.get(modelPart);
-				return (ModelRenderer) Reflector.getFieldValue(modelocelot, Reflector.ModelOcelot_ModelRenderers, i);
+				return switch (i) {
+					case 0 -> modelocelot.getOcelotBackLeftLeg();
+					case 1 -> modelocelot.getOcelotBackRightLeg();
+					case 2 -> modelocelot.getOcelotFrontLeftLeg();
+					case 3 -> modelocelot.getOcelotFrontRightLeg();
+					case 4 -> modelocelot.getOcelotTail();
+					case 5 -> modelocelot.getOcelotTail2();
+					case 6 -> modelocelot.getOcelotHead();
+					case 7 -> modelocelot.getOcelotBody();
+					default -> null;
+				};
 			} else {
 				return null;
 			}

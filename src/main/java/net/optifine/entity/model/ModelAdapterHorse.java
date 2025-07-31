@@ -7,7 +7,6 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.RenderHorse;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.passive.EntityHorse;
-import net.optifine.reflect.Reflector;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -79,7 +78,48 @@ public class ModelAdapterHorse extends ModelAdapter {
 
 			if (map.containsKey(modelPart)) {
 				int i = map.get(modelPart);
-				return (ModelRenderer) Reflector.getFieldValue(modelhorse, Reflector.ModelHorse_ModelRenderers, i);
+				return switch (i) {
+					case 0 -> modelhorse.getHead();
+					case 1 -> modelhorse.getUpperMouth();
+					case 2 -> modelhorse.getLowerMouth();
+					case 3 -> modelhorse.getHorseLeftEar();
+					case 4 -> modelhorse.getHorseRightEar();
+					case 5 -> modelhorse.getMuleLeftEar();
+					case 6 -> modelhorse.getMuleRightEar();
+					case 7 -> modelhorse.getNeck();
+					case 8 -> modelhorse.getHorseFaceRopes();
+					case 9 -> modelhorse.getMane();
+					case 10 -> modelhorse.getBody();
+					case 11 -> modelhorse.getTailBase();
+					case 12 -> modelhorse.getTailMiddle();
+					case 13 -> modelhorse.getTailTip();
+					case 14 -> modelhorse.getBackLeftLeg();
+					case 15 -> modelhorse.getBackLeftShin();
+					case 16 -> modelhorse.getBackLeftHoof();
+					case 17 -> modelhorse.getBackRightLeg();
+					case 18 -> modelhorse.getBackRightShin();
+					case 19 -> modelhorse.getBackRightHoof();
+					case 20 -> modelhorse.getFrontLeftLeg();
+					case 21 -> modelhorse.getFrontLeftShin();
+					case 22 -> modelhorse.getFrontLeftHoof();
+					case 23 -> modelhorse.getFrontRightLeg();
+					case 24 -> modelhorse.getFrontRightShin();
+					case 25 -> modelhorse.getFrontRightHoof();
+					case 26 -> modelhorse.getMuleLeftChest();
+					case 27 -> modelhorse.getMuleRightChest();
+					case 28 -> modelhorse.getHorseSaddleBottom();
+					case 29 -> modelhorse.getHorseSaddleFront();
+					case 30 -> modelhorse.getHorseSaddleBack();
+					case 31 -> modelhorse.getHorseLeftSaddleRope();
+					case 32 -> modelhorse.getHorseLeftSaddleMetal();
+					case 33 -> modelhorse.getHorseRightSaddleRope();
+					case 34 -> modelhorse.getHorseRightSaddleMetal();
+					case 35 -> modelhorse.getHorseLeftFaceMetal();
+					case 36 -> modelhorse.getHorseRightFaceMetal();
+					case 37 -> modelhorse.getHorseLeftRein();
+					case 38 -> modelhorse.getHorseRightRein();
+					default -> null;
+				};
 			} else {
 				return null;
 			}

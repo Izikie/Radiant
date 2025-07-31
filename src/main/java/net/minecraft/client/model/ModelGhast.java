@@ -47,4 +47,12 @@ public class ModelGhast extends ModelBase {
 
         GlStateManager.popMatrix();
     }
+
+    public ModelRenderer getBody() {
+        return body;
+    }
+
+    public ModelRenderer[] getTentacles() {
+        return tentacles;
+    }
 }

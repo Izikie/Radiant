@@ -7,7 +7,6 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderRabbit;
 import net.minecraft.entity.passive.EntityRabbit;
-import net.optifine.reflect.Reflector;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,7 +47,22 @@ public class ModelAdapterRabbit extends ModelAdapter {
 
 			if (map.containsKey(modelPart)) {
 				int i = map.get(modelPart);
-				return (ModelRenderer) Reflector.getFieldValue(modelrabbit, Reflector.ModelRabbit_renderers, i);
+				return switch (i) {
+					case 0 -> modelrabbit.getRabbitLeftFoot();
+					case 1 -> modelrabbit.getRabbitRightFoot();
+					case 2 -> modelrabbit.getRabbitLeftThigh();
+					case 3 -> modelrabbit.getRabbitRightThigh();
+					case 4 -> modelrabbit.getRabbitBody();
+					case 5 -> modelrabbit.getRabbitLeftArm();
+					case 6 -> modelrabbit.getRabbitRightArm();
+					case 7 -> modelrabbit.getRabbitHead();
+					case 8 -> modelrabbit.getRabbitRightEar();
+					case 9 -> modelrabbit.getRabbitLeftEar();
+					case 10 -> modelrabbit.getRabbitTail();
+					case 11 -> modelrabbit.getRabbitNose();
+					default -> null;
+				};
+				//return (ModelRenderer) Reflector.getFieldValue(modelrabbit, Reflector.ModelRabbit_renderers, i);
 			} else {
 				return null;
 			}

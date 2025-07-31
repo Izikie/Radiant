@@ -160,6 +160,10 @@ public class GuiBeacon extends GuiContainer {
         this.itemRender.zLevel = 0.0F;
     }
 
+    public IInventory getTileBeacon() {
+        return tileBeacon;
+    }
+
     static class Button extends GuiButton {
         private final ResourceLocation field_146145_o;
         private final int field_146144_p;

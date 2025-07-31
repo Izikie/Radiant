@@ -7,7 +7,6 @@ import net.minecraft.client.model.ModelWitch;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderWitch;
 import net.minecraft.entity.monster.EntityWitch;
-import net.optifine.reflect.Reflector;
 
 public class ModelAdapterWitch extends ModelAdapter {
 	public ModelAdapterWitch() {
@@ -20,7 +19,15 @@ public class ModelAdapterWitch extends ModelAdapter {
 
 	public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
 		if (model instanceof ModelWitch modelwitch) {
-			return modelPart.equals("mole") ? (ModelRenderer) Reflector.getFieldValue(modelwitch, Reflector.ModelWitch_mole) : (modelPart.equals("hat") ? (ModelRenderer) Reflector.getFieldValue(modelwitch, Reflector.ModelWitch_hat) : (modelPart.equals("head") ? modelwitch.villagerHead : (modelPart.equals("body") ? modelwitch.villagerBody : (modelPart.equals("arms") ? modelwitch.villagerArms : (modelPart.equals("left_leg") ? modelwitch.leftVillagerLeg : (modelPart.equals("right_leg") ? modelwitch.rightVillagerLeg : (modelPart.equals("nose") ? modelwitch.villagerNose : null)))))));
+			return modelPart.equals("mole") ? modelwitch.getMole()
+					: (modelPart.equals("hat") ? modelwitch.getWitchHat()
+					: (modelPart.equals("head") ? modelwitch.villagerHead
+					: (modelPart.equals("body") ? modelwitch.villagerBody
+					: (modelPart.equals("arms") ? modelwitch.villagerArms
+					: (modelPart.equals("left_leg") ? modelwitch.leftVillagerLeg
+					: (modelPart.equals("right_leg") ? modelwitch.rightVillagerLeg
+					: (modelPart.equals("nose") ? modelwitch.villagerNose
+					: null)))))));
 		} else {
 			return null;
 		}

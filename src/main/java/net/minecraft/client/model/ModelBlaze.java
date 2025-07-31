@@ -57,4 +57,12 @@ public class ModelBlaze extends ModelBase {
         this.blazeHead.rotateAngleY = netHeadYaw / (180.0F / (float) Math.PI);
         this.blazeHead.rotateAngleX = headPitch / (180.0F / (float) Math.PI);
     }
+
+    public ModelRenderer[] getBlazeSticks() {
+        return blazeSticks;
+    }
+
+    public ModelRenderer getBlazeHead() {
+        return blazeHead;
+    }
 }
