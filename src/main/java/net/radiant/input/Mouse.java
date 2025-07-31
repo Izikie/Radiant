@@ -3,7 +3,6 @@ package net.radiant.input;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.system.MemoryUtil;
 import net.radiant.LWJGLException;
-import net.radiant.Sys;
 import net.radiant.opengl.Display;
 
 public class Mouse {
@@ -50,7 +49,7 @@ public class Mouse {
         buttonEvents[queue.getNextPos()] = -1;
         buttonEventStates[queue.getNextPos()] = false;
 
-        nanoTimeEvents[queue.getNextPos()] = Sys.getNanoTime();
+        nanoTimeEvents[queue.getNextPos()] = System.nanoTime();
 
         queue.add();
     }
@@ -65,7 +64,7 @@ public class Mouse {
         buttonEvents[queue.getNextPos()] = button;
         buttonEventStates[queue.getNextPos()] = pressed;
 
-        nanoTimeEvents[queue.getNextPos()] = Sys.getNanoTime();
+        nanoTimeEvents[queue.getNextPos()] = System.nanoTime();
 
         queue.add();
     }

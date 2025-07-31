@@ -82,7 +82,6 @@ import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 import net.radiant.LWJGLException;
-import net.radiant.Sys;
 import net.radiant.input.Keyboard;
 import net.radiant.input.Mouse;
 import net.radiant.opengl.Display;
@@ -106,6 +105,13 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 
 public class Minecraft implements IThreadListener {
+
+	static {
+		if (!GLFW.glfwInit()) {
+			throw new IllegalStateException("Unable to initialize glfw");
+		}
+	}
+
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final ResourceLocation LOCATION_MOJANG_PNG = new ResourceLocation("textures/gui/title/mojang.png");
 	public static final boolean IS_RUNNING_ON_MAC = Util.getOSType() == Util.OperatingSystem.MAC;
@@ -231,6 +237,7 @@ public class Minecraft implements IThreadListener {
 		try {
 			startGame();
 		} catch (Throwable throwable) {
+			throwable.printStackTrace();
 			CrashReport report = CrashReport.makeCrashReport(throwable, "Initializing game");
 			report.makeCategory("Initialization");
 			displayCrashReport(addGraphicsAndWorldToCrashReport(report));
@@ -1610,7 +1617,7 @@ public class Minecraft implements IThreadListener {
 
 	public CrashReport addGraphicsAndWorldToCrashReport(CrashReport crash) {
 		crash.getCategory().addCrashSectionCallable("Launched Version", this::getVersion);
-		crash.getCategory().addCrashSectionCallable("LWJGL", Sys::getVersion);
+		crash.getCategory().addCrashSectionCallable("LWJGL", Version::getVersion);
 		crash.getCategory().addCrashSectionCallable("OpenGL", () -> GL11.glGetString(GL11.GL_RENDERER) + " GL version " + GL11.glGetString(GL11.GL_VERSION) + ", " + GL11.glGetString(GL11.GL_VENDOR));
 		crash.getCategory().addCrashSectionCallable("GL Caps", OpenGlHelper::getLogText);
 		crash.getCategory().addCrashSectionCallable("Using VBOs", () -> gameSettings.useVbo ? "Yes" : "No");
@@ -1681,7 +1688,7 @@ public class Minecraft implements IThreadListener {
 	}
 
 	public static long getSystemTime() {
-		return Sys.getTime() * 1000L / Sys.getTimerResolution();
+		return (long)(GLFW.glfwGetTime() * 1000.D);
 	}
 
 	public boolean isFullScreen() {

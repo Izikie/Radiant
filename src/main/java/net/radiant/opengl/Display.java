@@ -17,13 +17,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import net.radiant.BufferUtils;
+import org.lwjgl.Version;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.GL;
 import net.radiant.LWJGLUtil;
 import org.lwjgl.opengl.GL46;
 import org.lwjgl.system.MemoryUtil;
 import net.radiant.LWJGLException;
-import net.radiant.Sys;
 import net.radiant.input.Cursor;
 import net.radiant.input.Keyboard;
 import net.radiant.input.Mouse;
@@ -82,7 +82,6 @@ public class Display {
     public static double xPos = 0, yPos = 0;
 
     static {
-        Sys.initialize(); // init using dummy sys method
 
         long monitor = glfwGetPrimaryMonitor();
         GLFWVidMode vidmode = glfwGetVideoMode(monitor);
@@ -606,7 +605,7 @@ public class Display {
             @Override
             public String getVersion() {
                 // TODO Auto-generated method stub
-                return Sys.getVersion();
+                return Version.getVersion();
             }
 
             @Override

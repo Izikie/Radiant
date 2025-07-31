@@ -31,11 +31,10 @@
  */
 package net.radiant.opengl;
 
-import java.nio.IntBuffer;
-
 import net.radiant.BufferUtils;
 import net.radiant.LWJGLException;
-import net.radiant.Sys;
+
+import java.nio.IntBuffer;
 
 /**
  * <p/>
@@ -143,10 +142,6 @@ public final class Pbuffer extends DrawableGL {
      * Height
      */
     private final int height;
-
-    static {
-        Sys.initialize();
-    }
 
     /**
      * Create an instance of a Pbuffer with a unique OpenGL context. The buffer is single-buffered.

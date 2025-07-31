@@ -3,7 +3,6 @@ package net.radiant.openal;
 import java.nio.IntBuffer;
 
 import net.radiant.LWJGLException;
-import net.radiant.Sys;
 import net.radiant.BufferUtils;
 
 public class AL {
@@ -11,10 +10,6 @@ public class AL {
     static ALCdevice alcDevice;
 
     private static boolean created = false;
-
-    static {
-        Sys.initialize(); // init using dummy sys method
-    }
 
     public static void create() throws LWJGLException {
         AL.create();

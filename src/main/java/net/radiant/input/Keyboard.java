@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.lwjgl.glfw.GLFW;
 import net.radiant.LWJGLException;
-import net.radiant.Sys;
 import net.radiant.opengl.Display;
 
 public class Keyboard {
@@ -208,7 +207,7 @@ public class Keyboard {
         keyEvents[queue.getNextPos()] = KeyCodes.toLwjglKey(key);
         keyEventStates[queue.getNextPos()] = pressed;
 
-        nanoTimeEvents[queue.getNextPos()] = Sys.getNanoTime();
+        nanoTimeEvents[queue.getNextPos()] = System.nanoTime();
 
         queue.add();
 		/*nextEventPos++;

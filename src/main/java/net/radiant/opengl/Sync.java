@@ -31,7 +31,7 @@
  */
 package net.radiant.opengl;
 
-import net.radiant.Sys;
+import org.lwjgl.glfw.GLFW;
 
 /**
  * A highly accurate sync method that continually adapts to the system
@@ -89,7 +89,7 @@ class Sync {
                 Thread.yield();
                 yieldDurations.add((t1 = getTime()) - t0); // update average yield time
             }
-        } catch (InterruptedException e) {
+        } catch (InterruptedException _) {
 
         }
 
@@ -136,7 +136,7 @@ class Sync {
      * @return will return the current time in nano's
      */
     private static long getTime() {
-        return (Sys.getTime() * NANOS_IN_SECOND) / Sys.getTimerResolution();
+        return (long)(GLFW.glfwGetTime() * NANOS_IN_SECOND);
     }
 
     private static class RunningAvg {
