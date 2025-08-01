@@ -14,16 +14,16 @@ import net.optifine.*;
 import net.optifine.entity.model.CustomEntityModels;
 import net.optifine.shaders.MultiTexID;
 import net.optifine.shaders.Shaders;
+import net.radiant.NativeImage;
+import net.radiant.lwjgl.opengl.GLContext;
+import org.joml.Vector2i;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
-import net.radiant.lwjgl.opengl.GLContext;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -224,21 +224,13 @@ public class TextureUtils {
 		return i == x;
 	}
 
-	public static BufferedImage scaleImage(BufferedImage bi, int w2) {
+	public static NativeImage scaleImage(NativeImage bi, int w2) {
 		int i = bi.getWidth();
 		int j = bi.getHeight();
+
 		int k = j * w2 / i;
-		BufferedImage bufferedimage = new BufferedImage(w2, k, 2);
-		Graphics2D graphics2d = bufferedimage.createGraphics();
-		Object object = RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR;
 
-		if (w2 < i || w2 % i != 0) {
-			object = RenderingHints.VALUE_INTERPOLATION_BILINEAR;
-		}
-
-		graphics2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, object);
-		graphics2d.drawImage(bi, 0, 0, w2, k, null);
-		return bufferedimage;
+		return bi.resized(w2, k);
 	}
 
 	public static int scaleToGrid(int size, int sizeGrid) {
@@ -267,20 +259,20 @@ public class TextureUtils {
 		}
 	}
 
-	public static Dimension getImageSize(InputStream in, String suffix) {
+	public static Vector2i getImageSize(InputStream in, String suffix) {
 		Iterator<ImageReader> iterator = ImageIO.getImageReadersBySuffix(suffix);
 
 		while (true) {
 			if (iterator.hasNext()) {
 				ImageReader imagereader = iterator.next();
-				Dimension dimension;
+				Vector2i dimension;
 
 				try {
 					ImageInputStream imageinputstream = ImageIO.createImageInputStream(in);
 					imagereader.setInput(imageinputstream);
 					int i = imagereader.getWidth(imagereader.getMinIndex());
 					int j = imagereader.getHeight(imagereader.getMinIndex());
-					dimension = new Dimension(i, j);
+					dimension = new Vector2i(i, j);
 				} catch (IOException exception) {
 					continue;
 				} finally {
@@ -319,11 +311,11 @@ public class TextureUtils {
 			int[] aint = new int[l];
 			GL11.glGetTexImage(GL11.GL_TEXTURE_2D, i1, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, intbuffer);
 			intbuffer.get(aint);
-			BufferedImage bufferedimage = new BufferedImage(j, k, 2);
-			bufferedimage.setRGB(0, 0, j, k, aint, 0, j);
+			NativeImage image = NativeImage.createBlankImage(j, k);
+			image.setRGB(0, 0, j, k, aint, 0, j);
 
 			try {
-				ImageIO.write(bufferedimage, "png", file4);
+				image.saveToFile(file4, NativeImage.FileFormat.PNG);
 				Log.info("Exported: " + file4);
 			} catch (Exception exception) {
 				Log.warn("Error writing: " + file4);

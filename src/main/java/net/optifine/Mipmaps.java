@@ -2,10 +2,10 @@ package net.optifine;
 
 import net.minecraft.client.renderer.GLAllocation;
 import net.optifine.util.TextureUtils;
+import org.joml.Vector2i;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import java.awt.*;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ public class Mipmaps {
 	private final int[] data;
 	private final boolean direct;
 	private final int[][] mipmapDatas;
-	private final Dimension[] mipmapDimensions;
+	private final Vector2i[] mipmapDimensions;
 	private IntBuffer[] mipmapBuffers;
 
 	public Mipmaps(String iconName, int width, int height, int[] data, boolean direct) {
@@ -34,12 +34,12 @@ public class Mipmaps {
 		}
 	}
 
-	public static Dimension[] makeMipmapDimensions(int width, int height, String iconName) {
+	public static Vector2i[] makeMipmapDimensions(int width, int height, String iconName) {
 		int i = TextureUtils.ceilPowerOfTwo(width);
 		int j = TextureUtils.ceilPowerOfTwo(height);
 
 		if (i == width && j == height) {
-			List<Dimension> list = new ArrayList<>();
+			List<Vector2i> list = new ArrayList<>();
 			int k = i;
 			int l = j;
 
@@ -48,7 +48,7 @@ public class Mipmaps {
 				l /= 2;
 
 				if (k <= 0 && l <= 0) {
-					return list.toArray(new Dimension[0]);
+					return list.toArray(Vector2i[]::new);
 				}
 
 				if (k <= 0) {
@@ -60,24 +60,24 @@ public class Mipmaps {
 				}
 
 				int i1 = k * l * 4;
-				list.add(new Dimension(k, l));
+				list.add(new Vector2i(k, l));
 			}
 		} else {
 			Log.error("Mipmaps not possible (power of 2 dimensions needed), texture: " + iconName + ", dim: " + width + "x" + height);
-			return new Dimension[0];
+			return new Vector2i[0];
 		}
 	}
 
-	public static int[][] generateMipMapData(int[] data, int width, int height, Dimension[] mipmapDimensions) {
+	public static int[][] generateMipMapData(int[] data, int width, int height, Vector2i[] mipmapDimensions) {
 		int[] aint = data;
 		int i = width;
 		boolean flag = true;
 		int[][] aint1 = new int[mipmapDimensions.length][];
 
 		for (int j = 0; j < mipmapDimensions.length; ++j) {
-			Dimension dimension = mipmapDimensions[j];
-			int k = dimension.width;
-			int l = dimension.height;
+			Vector2i dimension = mipmapDimensions[j];
+			int k = dimension.x;
+			int l = dimension.y;
 			int[] aint2 = new int[k * l];
 			aint1[j] = aint2;
 			int i1 = j + 1;
@@ -144,15 +144,15 @@ public class Mipmaps {
 		return k << 24 | j2 << 16 | k2 << 8 | l2;
 	}
 
-	public static IntBuffer[] makeMipmapBuffers(Dimension[] mipmapDimensions, int[][] mipmapDatas) {
+	public static IntBuffer[] makeMipmapBuffers(Vector2i[] mipmapDimensions, int[][] mipmapDatas) {
 		if (mipmapDimensions == null) {
 			return null;
 		} else {
 			IntBuffer[] aintbuffer = new IntBuffer[mipmapDimensions.length];
 
 			for (int i = 0; i < mipmapDimensions.length; ++i) {
-				Dimension dimension = mipmapDimensions[i];
-				int j = dimension.width * dimension.height;
+				Vector2i dimension = mipmapDimensions[i];
+				int j = dimension.x * dimension.y;
 				IntBuffer intbuffer = GLAllocation.createDirectIntBuffer(j);
 				int[] aint = mipmapDatas[i];
 				intbuffer.clear();
@@ -166,12 +166,12 @@ public class Mipmaps {
 	}
 
 	public static void allocateMipmapTextures(int width, int height, String name) {
-		Dimension[] adimension = makeMipmapDimensions(width, height, name);
+		Vector2i[] adimension = makeMipmapDimensions(width, height, name);
 
 		for (int i = 0; i < adimension.length; ++i) {
-			Dimension dimension = adimension[i];
-			int j = dimension.width;
-			int k = dimension.height;
+			Vector2i dimension = adimension[i];
+			int j = dimension.x;
+			int k = dimension.y;
 			int l = i + 1;
 			GL11.glTexImage2D(GL11.GL_TEXTURE_2D, l, GL11.GL_RGBA, j, k, 0, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, (IntBuffer) null);
 		}

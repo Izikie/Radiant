@@ -14,8 +14,8 @@ import net.optifine.config.ConnectedParser;
 import net.optifine.config.MatchBlock;
 import net.optifine.config.Matches;
 import net.optifine.util.TextureUtils;
+import net.radiant.NativeImage;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashSet;
@@ -257,14 +257,14 @@ public class CustomColormap implements CustomColors.IColorizer {
 				return;
 			}
 
-			BufferedImage bufferedimage = TextureUtil.readBufferedImage(inputstream);
+			NativeImage image = TextureUtil.readNativeImage(inputstream);
 
-			if (bufferedimage == null) {
+			if (image == null) {
 				return;
 			}
 
-			int i = bufferedimage.getWidth();
-			int j = bufferedimage.getHeight();
+			int i = image.getWidth();
+			int j = image.getHeight();
 			boolean flag = this.width < 0 || this.width == i;
 			boolean flag1 = this.height < 0 || this.height == j;
 
@@ -281,7 +281,7 @@ public class CustomColormap implements CustomColors.IColorizer {
 			}
 
 			this.colors = new int[i * j];
-			bufferedimage.getRGB(0, 0, i, j, this.colors, 0, i);
+			image.getRGB(0, 0, i, j, this.colors, 0, i);
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		}

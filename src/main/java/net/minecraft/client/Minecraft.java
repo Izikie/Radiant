@@ -76,6 +76,7 @@ import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.WorldInfo;
 import net.optifine.Lang;
+import net.radiant.NativeImage;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
@@ -91,7 +92,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -525,7 +525,7 @@ public class Minecraft implements IThreadListener {
 	}
 
 	private ByteBuffer readImageToBuffer(InputStream imageStream) throws IOException {
-		BufferedImage image = ImageIO.read(imageStream);
+		NativeImage image = NativeImage.loadFromInputStream(imageStream);
 		int[] pixelData = image.getRGB(0, 0, image.getWidth(), image.getHeight(), null, 0, image.getWidth());
 		ByteBuffer buffer = ByteBuffer.allocate(4 * pixelData.length);
 
@@ -595,7 +595,7 @@ public class Minecraft implements IThreadListener {
 		GlStateManager.enableTexture2D();
 
 		try (InputStream inputstream = mcDefaultResourcePack.getInputStream(LOCATION_MOJANG_PNG)) {
-			mojangLogo = textureManagerInstance.getDynamicTextureLocation("logo", new DynamicTexture(ImageIO.read(inputstream)));
+			mojangLogo = textureManagerInstance.getDynamicTextureLocation("logo", new DynamicTexture(NativeImage.loadFromInputStream(inputstream)));
 			textureManagerInstance.bindTexture(mojangLogo);
 		} catch (IOException exception) {
 			LOGGER.error("Unable to load logo: {}", LOCATION_MOJANG_PNG, exception);

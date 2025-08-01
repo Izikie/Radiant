@@ -4,10 +4,10 @@ import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.shaders.ShadersTex;
-import org.slf4j.LoggerFactory;
+import net.radiant.NativeImage;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -28,19 +28,19 @@ public class LayeredTexture extends AbstractTexture {
 
     public void loadTexture(IResourceManager resourceManager) throws IOException {
         this.deleteGlTexture();
-        BufferedImage bufferedimage = null;
+        NativeImage bufferedimage = null;
 
         try {
             for (String s : this.layeredTextureNames) {
                 if (s != null) {
                     InputStream inputstream = resourceManager.getResource(new ResourceLocation(s)).getInputStream();
-                    BufferedImage bufferedimage1 = TextureUtil.readBufferedImage(inputstream);
+                    NativeImage bufferedimage1 = TextureUtil.readNativeImage(inputstream);
 
                     if (bufferedimage == null) {
-                        bufferedimage = new BufferedImage(bufferedimage1.getWidth(), bufferedimage1.getHeight(), 2);
+                        bufferedimage = NativeImage.createBlankImage(bufferedimage1.getWidth(), bufferedimage1.getHeight());
                     }
 
-                    bufferedimage.getGraphics().drawImage(bufferedimage1, 0, 0, null);
+                    bufferedimage.copyFrom(bufferedimage1);
                 }
             }
         } catch (IOException exception) {

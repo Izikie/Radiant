@@ -17,11 +17,11 @@ import net.optifine.*;
 import net.optifine.shaders.ShadersTex;
 import net.optifine.util.CounterInt;
 import net.optifine.util.TextureUtils;
+import net.radiant.NativeImage;
+import org.joml.Vector2i;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -139,11 +139,11 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
         int k = 1 << this.mipmapLevels;
         int l = 0;
         int i1 = 0;
-        Iterator iterator = this.mapRegisteredSprites.entrySet().iterator();
+        Iterator<Entry<String, TextureAtlasSprite>> iterator = this.mapRegisteredSprites.entrySet().iterator();
 
         while (true) {
             if (iterator.hasNext()) {
-                Entry<String, TextureAtlasSprite> entry = (Entry) iterator.next();
+                Entry<String, TextureAtlasSprite> entry = iterator.next();
 
                 if (!this.skipFirst) {
                     TextureAtlasSprite textureatlassprite3 = entry.getValue();
@@ -166,8 +166,8 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 
                     try {
                         IResource iresource = resourceManager.getResource(resourcelocation2);
-                        BufferedImage[] abufferedimage = new BufferedImage[1 + this.mipmapLevels];
-                        abufferedimage[0] = TextureUtil.readBufferedImage(iresource.getInputStream());
+                        NativeImage[] abufferedimage = new NativeImage[1 + this.mipmapLevels];
+                        abufferedimage[0] = TextureUtil.readNativeImage(iresource.getInputStream());
                         int k3 = abufferedimage[0].getWidth();
                         int l3 = abufferedimage[0].getHeight();
 
@@ -210,7 +210,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                                     ResourceLocation resourcelocation = this.completeResourceLocation(resourcelocation1, j4);
 
                                     try {
-                                        abufferedimage[j4] = TextureUtil.readBufferedImage(resourceManager.getResource(resourcelocation).getInputStream());
+                                        abufferedimage[j4] = TextureUtil.readNativeImage(resourceManager.getResource(resourcelocation).getInputStream());
                                     } catch (IOException exception) {
                                         LOGGER.error("Unable to load miplevel {} from: {}", new Object[]{j4, resourcelocation, exception});
                                     }
@@ -625,11 +625,11 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                         InputStream inputstream = iresource.getInputStream();
 
                         if (inputstream != null) {
-                            Dimension dimension = TextureUtils.getImageSize(inputstream, "png");
+                            Vector2i dimension = TextureUtils.getImageSize(inputstream, "png");
                             inputstream.close();
 
                             if (dimension != null) {
-                                int i = dimension.width;
+                                int i = dimension.x;
                                 int j = MathHelper.roundUpToPowerOfTwo(i);
 
                                 if (!map.containsKey(j)) {
@@ -688,9 +688,9 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
     }
 
     private int[] getMissingImageData(int p_getMissingImageData_1_) {
-        BufferedImage bufferedimage = new BufferedImage(16, 16, 2);
-        bufferedimage.setRGB(0, 0, 16, 16, TextureUtil.MISSING_TEXTURE_DATA, 0, 16);
-        BufferedImage bufferedimage1 = TextureUtils.scaleImage(bufferedimage, p_getMissingImageData_1_);
+        NativeImage image = NativeImage.createBlankImage(16, 16);
+        image.setRGB(0, 0, 16, 16, TextureUtil.MISSING_TEXTURE_DATA, 0, 16);
+        NativeImage bufferedimage1 = TextureUtils.scaleImage(image, p_getMissingImageData_1_);
         int[] aint = new int[p_getMissingImageData_1_ * p_getMissingImageData_1_];
         bufferedimage1.getRGB(0, 0, p_getMissingImageData_1_, p_getMissingImageData_1_, aint, 0, p_getMissingImageData_1_);
         return aint;

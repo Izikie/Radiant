@@ -5,8 +5,8 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import org.joml.Vector4i;
 
-import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,8 +30,8 @@ public class TooltipManager {
 				GuiButton guibutton = GuiScreenOF.getSelectedButton(x, y, buttonList);
 
 				if (guibutton != null) {
-					Rectangle rectangle = this.tooltipProvider.getTooltipBounds(this.guiScreen, x, y);
-					String[] astring = this.tooltipProvider.getTooltipLines(guibutton, rectangle.width);
+					Vector4i rectangle = this.tooltipProvider.getTooltipBounds(this.guiScreen, x, y);
+					String[] astring = this.tooltipProvider.getTooltipLines(guibutton, rectangle.z);
 
 					if (astring != null) {
 						if (astring.length > 8) {
@@ -41,10 +41,10 @@ public class TooltipManager {
 
 						if (this.tooltipProvider.isRenderBorder()) {
 							int j = -528449408;
-							this.drawRectBorder(rectangle.x, rectangle.y, rectangle.x + rectangle.width, rectangle.y + rectangle.height, j);
+							this.drawRectBorder(rectangle.x, rectangle.y, rectangle.x + rectangle.z, rectangle.y + rectangle.w, j);
 						}
 
-						Gui.drawRect(rectangle.x, rectangle.y, rectangle.x + rectangle.width, rectangle.y + rectangle.height, -536870912);
+						Gui.drawRect(rectangle.x, rectangle.y, rectangle.x + rectangle.z, rectangle.y + rectangle.w, -536870912);
 
 						for (int l = 0; l < astring.length; ++l) {
 							String s = astring[l];

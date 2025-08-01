@@ -7,11 +7,10 @@ import net.minecraft.src.Config;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.shaders.ShadersTex;
-import org.slf4j.LoggerFactory;
+import net.radiant.NativeImage;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -30,19 +29,13 @@ public class LayeredColorMaskTexture extends AbstractTexture {
 
     public void loadTexture(IResourceManager resourceManager) throws IOException {
         this.deleteGlTexture();
-        BufferedImage bufferedimage;
+        NativeImage image;
 
         try {
-            BufferedImage bufferedimage1 = TextureUtil.readBufferedImage(resourceManager.getResource(this.textureLocation).getInputStream());
-            int i = bufferedimage1.getType();
+            NativeImage loadedImage = TextureUtil.readNativeImage(resourceManager.getResource(this.textureLocation).getInputStream());
 
-            if (i == 0) {
-                i = 6;
-            }
-
-            bufferedimage = new BufferedImage(bufferedimage1.getWidth(), bufferedimage1.getHeight(), i);
-            Graphics graphics = bufferedimage.getGraphics();
-            graphics.drawImage(bufferedimage1, 0, 0, null);
+            image = NativeImage.createBlankImage(loadedImage.getWidth(), loadedImage.getHeight());
+            image.copyFrom(loadedImage);
 
             for (int j = 0; j < 17 && j < this.field_174949_h.size() && j < this.field_174950_i.size(); ++j) {
                 String s = this.field_174949_h.get(j);
@@ -50,23 +43,23 @@ public class LayeredColorMaskTexture extends AbstractTexture {
 
                 if (s != null) {
                     InputStream inputstream = resourceManager.getResource(new ResourceLocation(s)).getInputStream();
-                    BufferedImage bufferedimage2 = TextureUtil.readBufferedImage(inputstream);
+                    NativeImage bruhImage = TextureUtil.readNativeImage(inputstream);
 
-                    if (bufferedimage2.getWidth() == bufferedimage.getWidth() && bufferedimage2.getHeight() == bufferedimage.getHeight() && bufferedimage2.getType() == 6) {
-                        for (int k = 0; k < bufferedimage2.getHeight(); ++k) {
-                            for (int l = 0; l < bufferedimage2.getWidth(); ++l) {
-                                int i1 = bufferedimage2.getRGB(l, k);
+                    if (bruhImage.getWidth() == image.getWidth() && bruhImage.getHeight() == image.getHeight()) {
+                        for (int y = 0; y < bruhImage.getHeight(); ++y) {
+                            for (int x = 0; x < bruhImage.getWidth(); ++x) {
+                                int i1 = bruhImage.getPixel(x, y);
 
-                                if ((i1 & -16777216) != 0) {
-                                    int j1 = (i1 & 16711680) << 8 & -16777216;
-                                    int k1 = bufferedimage1.getRGB(l, k);
-                                    int l1 = MathHelper.mulColor(k1, mapcolor.colorValue) & 16777215;
-                                    bufferedimage2.setRGB(l, k, j1 | l1);
+                                if ((i1 & 0xff000000) != 0) {
+                                    int j1 = (i1 & 0xff0000) << 8 & 0xff000000;
+                                    int k1 = loadedImage.getPixel(x, y);
+                                    int l1 = MathHelper.mulColor(k1, mapcolor.colorValue) & 0xffffff;
+                                    bruhImage.setPixel(x, y, j1 | l1);
                                 }
+
+                                image.overlayPixel(x, y, bruhImage.getPixel(x, y));
                             }
                         }
-
-                        bufferedimage.getGraphics().drawImage(bufferedimage2, 0, 0, null);
                     }
                 }
             }
@@ -76,9 +69,9 @@ public class LayeredColorMaskTexture extends AbstractTexture {
         }
 
         if (Config.isShaders()) {
-            ShadersTex.loadSimpleTexture(this.getGlTextureId(), bufferedimage, false, false, resourceManager, this.textureLocation, this.getMultiTexID());
+            ShadersTex.loadSimpleTexture(this.getGlTextureId(), image, false, false, resourceManager, this.textureLocation, this.getMultiTexID());
         } else {
-            TextureUtil.uploadTextureImage(this.getGlTextureId(), bufferedimage);
+            TextureUtil.uploadTextureImage(this.getGlTextureId(), image);
         }
     }
 }

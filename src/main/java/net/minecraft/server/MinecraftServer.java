@@ -8,10 +8,6 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.GameProfileRepository;
 import com.mojang.authlib.minecraft.MinecraftSessionService;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.ByteBufOutputStream;
-import io.netty.buffer.Unpooled;
-import io.netty.handler.codec.base64.Base64;
 import net.minecraft.command.*;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.ReportedException;
@@ -28,16 +24,12 @@ import net.minecraft.world.chunk.storage.AnvilSaveConverter;
 import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.WorldInfo;
-import org.apache.commons.lang3.Validate;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.Proxy;
-import java.nio.charset.StandardCharsets;
 import java.security.KeyPair;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -412,24 +404,25 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
     }
 
     private void addFaviconToStatusResponse(ServerStatusResponse response) {
-        File file1 = this.getFile("server-icon.png");
-
-        if (file1.isFile()) {
-            ByteBuf bytebuf = Unpooled.buffer();
-
-            try {
-                BufferedImage bufferedimage = ImageIO.read(file1);
-                Validate.validState(bufferedimage.getWidth() == 64, "Must be 64 pixels wide");
-                Validate.validState(bufferedimage.getHeight() == 64, "Must be 64 pixels high");
-                ImageIO.write(bufferedimage, "PNG", new ByteBufOutputStream(bytebuf));
-                ByteBuf bytebuf1 = Base64.encode(bytebuf);
-                response.setFavicon("data:image/png;base64," + bytebuf1.toString(StandardCharsets.UTF_8));
-            } catch (Exception exception) {
-                LOGGER.error("Couldn't load server icon", exception);
-            } finally {
-                bytebuf.release();
-            }
-        }
+//        File file1 = this.getFile("server-icon.png");
+//
+//        if (file1.isFile()) {
+//            ByteBuf bytebuf = Unpooled.buffer();
+//
+//            try {
+//                NativeImage bufferedimage = NativeImage.loadFromFile(file1);
+//                Validate.validState(bufferedimage.getWidth() == 64, "Must be 64 pixels wide");
+//                Validate.validState(bufferedimage.getHeight() == 64, "Must be 64 pixels high");
+//
+//                ImageIO.write(bufferedimage, "PNG", new ByteBufOutputStream(bytebuf));
+//                ByteBuf bytebuf1 = Base64.encode(bytebuf);
+//                response.setFavicon("data:image/png;base64," + bytebuf1.toString(StandardCharsets.UTF_8));
+//            } catch (Exception exception) {
+//                LOGGER.error("Couldn't load server icon", exception);
+//            } finally {
+//                bytebuf.release();
+//            }
+//        }
     }
 
     public File getDataDirectory() {

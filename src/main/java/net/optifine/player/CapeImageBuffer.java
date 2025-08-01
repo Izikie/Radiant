@@ -3,8 +3,7 @@ package net.optifine.player;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.ImageBufferDownload;
 import net.minecraft.util.ResourceLocation;
-
-import java.awt.image.BufferedImage;
+import net.radiant.NativeImage;
 
 public class CapeImageBuffer extends ImageBufferDownload {
 	private final ResourceLocation resourceLocation;
@@ -16,10 +15,10 @@ public class CapeImageBuffer extends ImageBufferDownload {
 		this.resourceLocation = resourceLocation;
 	}
 
-	public BufferedImage parseUserSkin(BufferedImage imageRaw) {
-		BufferedImage bufferedimage = CapeUtils.parseCape(imageRaw);
-		this.elytraOfCape = CapeUtils.isElytraCape(imageRaw, bufferedimage);
-		return bufferedimage;
+	public NativeImage parseUserSkin(NativeImage imageRaw) {
+		NativeImage image = CapeUtils.parseCape(imageRaw);
+		this.elytraOfCape = CapeUtils.isElytraCape(imageRaw, image);
+		return image;
 	}
 
 	public void skinAvailable() {

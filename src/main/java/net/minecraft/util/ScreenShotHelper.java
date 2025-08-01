@@ -8,14 +8,13 @@ import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.shader.Framebuffer;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.src.Config;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
+import net.radiant.NativeImage;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.IntBuffer;
 import java.text.DateFormat;
@@ -24,7 +23,7 @@ import java.util.Date;
 
 // TODO: Implement Better Screenshot Functionality
 public class ScreenShotHelper {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Object.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ScreenShotHelper.class);
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss");
     private static IntBuffer pixelBuffer;
     private static int[] pixelValues;
@@ -78,20 +77,20 @@ public class ScreenShotHelper {
 
             pixelBuffer.get(pixelValues);
             TextureUtil.processPixelValues(pixelValues, width, height);
-            BufferedImage bufferedimage;
 
+            NativeImage image;
             if (OpenGlHelper.isFramebufferEnabled()) {
-                bufferedimage = new BufferedImage(buffer.framebufferWidth, buffer.framebufferHeight, 1);
+                image = NativeImage.createBlankImage(buffer.framebufferWidth, buffer.framebufferHeight);
                 int i1 = buffer.framebufferTextureHeight - buffer.framebufferHeight;
 
                 for (int j1 = i1; j1 < buffer.framebufferTextureHeight; ++j1) {
                     for (int k1 = 0; k1 < buffer.framebufferWidth; ++k1) {
-                        bufferedimage.setRGB(k1, j1 - i1, pixelValues[j1 * buffer.framebufferTextureWidth + k1]);
+                        image.setPixel(k1, j1 - i1, pixelValues[j1 * buffer.framebufferTextureWidth + k1] | 0xFF000000);
                     }
                 }
             } else {
-                bufferedimage = new BufferedImage(width, height, 1);
-                bufferedimage.setRGB(0, 0, width, height, pixelValues, 0, width);
+                image = NativeImage.createBlankImage(width, height);
+                image.setRGBNoAlpha(0, 0, width, height, pixelValues);
             }
 
             if (flag) {
@@ -110,7 +109,7 @@ public class ScreenShotHelper {
             }
 
             file2 = file2.getCanonicalFile();
-            ImageIO.write(bufferedimage, "png", file2);
+            image.saveToFile(file2, NativeImage.FileFormat.PNG);
             IChatComponent ichatcomponent = new ChatComponentText(file2.getName());
             ichatcomponent.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, file2.getAbsolutePath()));
             ichatcomponent.getChatStyle().setUnderlined(Boolean.TRUE);

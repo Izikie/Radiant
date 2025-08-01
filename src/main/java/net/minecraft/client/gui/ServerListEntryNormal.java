@@ -12,11 +12,11 @@ import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.ResourceLocation;
+import net.radiant.NativeImage;
 import org.apache.commons.lang3.Validate;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.awt.image.BufferedImage;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -194,11 +194,11 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
         } else {
             ByteBuf bytebuf = Unpooled.copiedBuffer(this.server.getBase64EncodedIconData(), StandardCharsets.UTF_8);
             ByteBuf bytebuf1 = Base64.decode(bytebuf);
-            BufferedImage bufferedimage;
+            NativeImage bufferedimage;
             label101:
             {
                 try {
-                    bufferedimage = TextureUtil.readBufferedImage(new ByteBufInputStream(bytebuf1));
+                    bufferedimage = TextureUtil.readNativeImage(new ByteBufInputStream(bytebuf1));
                     Validate.validState(bufferedimage.getWidth() == 64, "Must be 64 pixels wide");
                     Validate.validState(bufferedimage.getHeight() == 64, "Must be 64 pixels high");
                     break label101;

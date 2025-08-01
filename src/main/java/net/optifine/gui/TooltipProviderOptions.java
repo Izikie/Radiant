@@ -4,8 +4,8 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.settings.GameSettings;
 import net.optifine.Lang;
+import org.joml.Vector4i;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +31,7 @@ public class TooltipProviderOptions implements TooltipProvider {
 		}
 	}
 
-	public Rectangle getTooltipBounds(GuiScreen guiScreen, int x, int y) {
+	public Vector4i getTooltipBounds(GuiScreen guiScreen, int x, int y) {
 		int i = guiScreen.width / 2 - 150;
 		int j = guiScreen.height / 6 - 7;
 
@@ -41,7 +41,7 @@ public class TooltipProviderOptions implements TooltipProvider {
 
 		int k = i + 150 + 150;
 		int l = j + 84 + 10;
-		return new Rectangle(i, j, k - i, l - j);
+		return new Vector4i(i, j, k - i, l - j);
 	}
 
 	public boolean isRenderBorder() {

@@ -7,11 +7,11 @@ import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.client.resources.data.IMetadataSerializer;
 import net.minecraft.util.ResourceLocation;
+import net.radiant.NativeImage;
 import org.apache.commons.io.IOUtils;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
@@ -67,8 +67,8 @@ public abstract class AbstractResourcePack implements IResourcePack {
         return p_110596_0_.parseMetadataSection(p_110596_2_, jsonobject);
     }
 
-    public BufferedImage getPackImage() throws IOException {
-        return TextureUtil.readBufferedImage(this.getInputStreamByName("pack.png"));
+    public NativeImage getPackImage() throws IOException {
+        return TextureUtil.readNativeImage(this.getInputStreamByName("pack.png"));
     }
 
     public String getPackName() {

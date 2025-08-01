@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
@@ -18,10 +17,9 @@ import net.minecraft.util.ResourceLocation;
 import net.optifine.CustomColors;
 import net.optifine.render.GlBlendState;
 import net.optifine.util.FontUtils;
-import org.apache.commons.io.IOUtils;
+import net.radiant.NativeImage;
 import org.lwjgl.opengl.GL11;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
@@ -99,10 +97,10 @@ public class FontRenderer implements IResourceManagerReloadListener {
     }
 
     private void readFontTexture() {
-        BufferedImage bufferedimage;
+        NativeImage bufferedimage;
 
-        try {
-            bufferedimage = TextureUtil.readBufferedImage(this.getResourceInputStream(this.locationFontTexture));
+        try (InputStream stream = this.getResourceInputStream(this.locationFontTexture)) {
+            bufferedimage = NativeImage.loadFromInputStream(stream);
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
@@ -169,15 +167,11 @@ public class FontRenderer implements IResourceManagerReloadListener {
     }
 
     private void readGlyphSizes() {
-        InputStream inputstream = null;
 
-        try {
-            inputstream = this.getResourceInputStream(new ResourceLocation("font/glyph_sizes.bin"));
+        try (InputStream inputstream  = this.getResourceInputStream(new ResourceLocation("font/glyph_sizes.bin"))) {
             inputstream.read(this.glyphWidth);
         } catch (IOException exception) {
             throw new RuntimeException(exception);
-        } finally {
-            IOUtils.closeQuietly(inputstream);
         }
     }
 

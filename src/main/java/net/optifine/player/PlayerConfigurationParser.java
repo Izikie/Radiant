@@ -7,11 +7,12 @@ import net.optifine.Log;
 import net.optifine.http.HttpPipeline;
 import net.optifine.http.HttpUtils;
 import net.optifine.util.Json;
+import net.radiant.NativeImage;
 
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 
@@ -60,7 +61,7 @@ public class PlayerConfigurationParser {
 										s2 = "items/" + s + "/users/" + this.player + ".png";
 									}
 
-									BufferedImage bufferedimage = this.downloadTextureImage(s2);
+									NativeImage bufferedimage = this.downloadTextureImage(s2);
 
 									if (bufferedimage == null) {
 										continue;
@@ -82,12 +83,14 @@ public class PlayerConfigurationParser {
 		}
 	}
 
-	private BufferedImage downloadTextureImage(String texturePath) {
+	private NativeImage downloadTextureImage(String texturePath) {
 		String s = HttpUtils.getPlayerItemsUrl() + "/" + texturePath;
 
 		try {
 			byte[] abyte = HttpPipeline.get(s, Minecraft.get().getProxy());
-			return ImageIO.read(new ByteArrayInputStream(abyte));
+			try (InputStream stream = new ByteArrayInputStream(abyte)) {
+				return NativeImage.loadFromInputStream(stream);
+			}
 		} catch (IOException | URISyntaxException exception) {
 			Log.error("Error loading item texture " + texturePath + ": " + exception.getClass().getName() + ": " + exception.getMessage());
 			return null;
