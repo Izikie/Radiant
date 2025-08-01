@@ -45,17 +45,17 @@ repositories {
 dependencies {
     implementation(group = "com.ibm.icu", name = "icu4j", version = "77.1")
 
-    implementation(group = "com.mojang", name = "authlib", version = "1.5.21") {
-        exclude(group = "org.apache.logging.log4j", module = "log4j-core")
-        exclude(group = "org.apache.logging.log4j", module = "log4j-api")
-
-        // Optimization: Exclude outdated transitive dependencies - we provide newer versions
-        exclude(group = "com.google.guava", module = "guava")           // authlib uses 17.0, we use 33.4.8-jre
-        exclude(group = "org.apache.commons", module = "commons-lang3") // authlib uses 3.3.2, we use 3.17.0
-        exclude(group = "commons-io", module = "commons-io")            // authlib uses 2.4, we use 2.19.0
-        exclude(group = "commons-codec", module = "commons-codec")      // authlib uses 1.9, we use 1.18.0
-        exclude(group = "com.google.code.gson", module = "gson")        // authlib uses 2.2.4, we use 2.13.1
-    }
+//    implementation(group = "com.mojang", name = "authlib", version = "1.5.21") {
+//        exclude(group = "org.apache.logging.log4j", module = "log4j-core")
+//        exclude(group = "org.apache.logging.log4j", module = "log4j-api")
+//
+//        // Optimization: Exclude outdated transitive dependencies - we provide newer versions
+//        exclude(group = "com.google.guava", module = "guava")           // authlib uses 17.0, we use 33.4.8-jre
+//        exclude(group = "org.apache.commons", module = "commons-lang3") // authlib uses 3.3.2, we use 3.17.0
+//        exclude(group = "commons-io", module = "commons-io")            // authlib uses 2.4, we use 2.19.0
+//        exclude(group = "commons-codec", module = "commons-codec")      // authlib uses 1.9, we use 1.18.0
+//        exclude(group = "com.google.code.gson", module = "gson")        // authlib uses 2.2.4, we use 2.13.1
+//    }
 
     // Audio codec libraries - all depend on soundsystem, so we exclude redundant transitive dependencies
     implementation(group = "com.paulscode", name = "codecjorbis", version = "20101023") {
