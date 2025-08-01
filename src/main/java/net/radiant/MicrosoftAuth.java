@@ -8,11 +8,16 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.crash.CrashReport;
 import net.minecraft.util.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 public class MicrosoftAuth extends GuiScreen {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MicrosoftAuth.class);
+
     private static final MicrosoftAuthenticator AUTHENTICATOR = new MicrosoftAuthenticator();
     private String status = "Direct Login";
 
@@ -80,14 +85,14 @@ public class MicrosoftAuth extends GuiScreen {
                             profile.getId(),
                             result.getAccessToken(),
                             "MICROSOFT"));
-                    System.out.printf("Logged: '%s'", profile.getName());
+                    LOGGER.info("Logged in as: {}", profile.getName());
                     status = "Logged in to " + profile.getName();
                 } else {
                     status = "Login Failed";
                 }
             } catch (MicrosoftAuthenticationException exception) {
                 status = "Login Failed";
-                exception.printStackTrace();
+                LOGGER.error("Microsoft authentication failed: {}", exception.getMessage());
             }
             System.gc();
         });

@@ -50,7 +50,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Config {
-    public static final String VERSION = "OptiFine 1.8.9 HD U M6-pre2";
+    public static final String VERSION = "OptiFine 1.8.9 HD U M6-Pre2";
     private static boolean notify64BitJava = false;
     public static String openGlVersion = null;
     public static String openGlRenderer = null;
@@ -130,7 +130,6 @@ public class Config {
         Log.info("OS: " + System.getProperty("os.name") + " (" + System.getProperty("os.arch") + ") version " + System.getProperty("os.version"));
         Log.info("Java: " + System.getProperty("java.version") + ", " + System.getProperty("java.vendor"));
         Log.info("VM: " + System.getProperty("java.vm.name") + " (" + System.getProperty("java.vm.info") + "), " + System.getProperty("java.vm.vendor"));
-        Log.info("LWJGL: " + Version.getVersion());
         openGlVersion = GL11.glGetString(GL11.GL_VERSION);
         openGlRenderer = GL11.glGetString(GL11.GL_RENDERER);
         openGlVendor = GL11.glGetString(GL11.GL_VENDOR);
