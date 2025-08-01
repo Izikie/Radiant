@@ -98,7 +98,7 @@ dependencies {
     // Commons-text depends on commons-lang3 3.17.0 which matches our version, so no exclusions needed
     implementation(group = "org.apache.commons", name = "commons-text", version = "1.13.1")
 
-    implementation(group = "org.jcommander", name = "jcommander", version = "2.0")
+    implementation(group = "net.sf.jopt-simple", name = "jopt-simple", version = "5.0.4")
 
     implementation(
         group = "org.slf4j", name = "slf4j-api",
@@ -168,4 +168,33 @@ tasks.register<JavaExec>("RunClient") {
     systemProperty("log4j2.formatMsgNoLookups", "true")
 
     mainClass = "net.minecraft.client.main.Main"
+}
+
+tasks.register<Jar>("AllJar") {
+    group = "GradleMCP"
+    description = "Builds a jar that includes all the libraries as well as the client classes."
+
+    archiveFileName.set("all.jar")
+
+    from(sourceSets.main.get().output)
+    from(configurations.runtimeClasspath.get().map {
+        if (it.isDirectory) it else zipTree(it)
+    })
+
+    exclude("META-INF/*.SF")
+    exclude("META-INF/*.DSA")
+    exclude("META-INF/*.RSA")
+
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+
+    manifest {
+        attributes(
+            mapOf(
+                "Main-Class" to "net.minecraft.client.main.Main",
+                "Multi-Release" to "true"
+            )
+        )
+    }
+
+    dependsOn(tasks.named("classes"))
 }
