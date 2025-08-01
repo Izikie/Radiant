@@ -6,6 +6,9 @@
       },
       {
         "pattern": "assets/.*"
+      },
+      {
+        "pattern": "yggdrasil_session_pubkey\\.der"
       }
     ]
   }
