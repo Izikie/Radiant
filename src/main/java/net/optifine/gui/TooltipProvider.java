@@ -2,11 +2,10 @@ package net.optifine.gui;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-
-import java.awt.*;
+import org.joml.Vector4i;
 
 public interface TooltipProvider {
-	Rectangle getTooltipBounds(GuiScreen var1, int var2, int var3);
+	Vector4i getTooltipBounds(GuiScreen var1, int var2, int var3);
 
 	String[] getTooltipLines(GuiButton var1, int var2);
 

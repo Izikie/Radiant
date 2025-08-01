@@ -12,8 +12,8 @@ import net.minecraft.util.ResourceLocation;
 import net.optifine.Log;
 import net.optifine.entity.model.CustomEntityModelParser;
 import net.optifine.util.Json;
+import org.joml.Vector2i;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -64,7 +64,7 @@ public class PlayerItemParser {
 		} else {
 			int[] aint = Json.parseIntArray(obj.get("textureSize"), 2);
 			checkNull(aint, "Missing texture size");
-			Dimension dimension = new Dimension(aint[0], aint[1]);
+			Vector2i dimension = new Vector2i(aint[0], aint[1]);
 			boolean flag = Json.getBoolean(obj, "usePlayerTexture", false);
 			JsonArray jsonarray = (JsonArray) obj.get("models");
 			checkNull(jsonarray, "Missing elements");
@@ -154,7 +154,7 @@ public class PlayerItemParser {
 		}
 	}
 
-	public static PlayerItemRenderer parseItemRenderer(JsonObject elem, Dimension textureDim) {
+	public static PlayerItemRenderer parseItemRenderer(JsonObject elem, Vector2i textureDim) {
 		String s = Json.getString(elem, "type");
 
 		if (!Config.equals(s, "ModelBox")) {
@@ -164,8 +164,8 @@ public class PlayerItemParser {
 			String s1 = Json.getString(elem, "attachTo");
 			int i = parseAttachModel(s1);
 			ModelBase modelbase = new ModelPlayerItem();
-			modelbase.textureWidth = textureDim.width;
-			modelbase.textureHeight = textureDim.height;
+			modelbase.textureWidth = textureDim.x;
+			modelbase.textureHeight = textureDim.y;
 			ModelRenderer modelrenderer = parseModelRenderer(elem, modelbase, null, null);
 			return new PlayerItemRenderer(i, modelrenderer);
 		}

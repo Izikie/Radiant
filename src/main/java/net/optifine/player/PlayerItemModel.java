@@ -9,9 +9,8 @@ import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
-
-import java.awt.*;
-import java.awt.image.BufferedImage;
+import net.radiant.NativeImage;
+import org.joml.Vector2i;
 
 public class PlayerItemModel {
 	public static final int ATTACH_BODY = 0;
@@ -21,15 +20,15 @@ public class PlayerItemModel {
 	public static final int ATTACH_LEFT_LEG = 4;
 	public static final int ATTACH_RIGHT_LEG = 5;
 	public static final int ATTACH_CAPE = 6;
-	private final Dimension textureSize;
+	private final Vector2i textureSize;
 	private final boolean usePlayerTexture;
 	private final PlayerItemRenderer[] modelRenderers;
 	private final ResourceLocation locationMissing = new ResourceLocation("textures/blocks/wool_colored_red.png");
 	private ResourceLocation textureLocation = null;
-	private BufferedImage textureImage = null;
+	private NativeImage textureImage = null;
 	private DynamicTexture texture = null;
 
-	public PlayerItemModel(Dimension textureSize, boolean usePlayerTexture, PlayerItemRenderer[] modelRenderers) {
+	public PlayerItemModel(Vector2i textureSize, boolean usePlayerTexture, PlayerItemRenderer[] modelRenderers) {
 		this.textureSize = textureSize;
 		this.usePlayerTexture = usePlayerTexture;
 		this.modelRenderers = modelRenderers;
@@ -75,11 +74,11 @@ public class PlayerItemModel {
 		}
 	}
 
-	public BufferedImage getTextureImage() {
+	public NativeImage getTextureImage() {
 		return this.textureImage;
 	}
 
-	public void setTextureImage(BufferedImage textureImage) {
+	public void setTextureImage(NativeImage textureImage) {
 		this.textureImage = textureImage;
 	}
 

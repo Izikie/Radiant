@@ -15,8 +15,8 @@ import net.minecraft.client.renderer.ThreadDownloadImageData;
 import net.minecraft.client.renderer.texture.ITextureObject;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.ResourceLocation;
+import net.radiant.NativeImage;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -60,7 +60,7 @@ public class SkinManager {
             File file2 = new File(file1, profileTexture.getHash());
             final IImageBuffer iimagebuffer = p_152789_2_ == Type.SKIN ? new ImageBufferDownload() : null;
             ThreadDownloadImageData threaddownloadimagedata = new ThreadDownloadImageData(file2, profileTexture.getUrl(), DefaultPlayerSkin.getDefaultSkinLegacy(), new IImageBuffer() {
-                public BufferedImage parseUserSkin(BufferedImage image) {
+                public NativeImage parseUserSkin(NativeImage image) {
                     if (iimagebuffer != null) {
                         image = iimagebuffer.parseUserSkin(image);
                     }

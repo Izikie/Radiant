@@ -8,9 +8,8 @@ import net.minecraft.client.renderer.texture.SimpleTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
+import net.radiant.NativeImage;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.regex.Pattern;
 
 public class CapeUtils {
@@ -25,7 +24,7 @@ public class CapeUtils {
 			TextureManager texturemanager = Minecraft.get().getTextureManager();
 			ITextureObject itextureobject = texturemanager.getTexture(resourcelocation);
 
-			if (itextureobject != null && itextureobject instanceof ThreadDownloadImageData threaddownloadimagedata) {
+			if (itextureobject instanceof ThreadDownloadImageData threaddownloadimagedata) {
 
 				if (threaddownloadimagedata.imageFound != null) {
 					if (threaddownloadimagedata.imageFound) {
@@ -47,7 +46,7 @@ public class CapeUtils {
 		}
 	}
 
-	public static BufferedImage parseCape(BufferedImage img) {
+	public static NativeImage parseCape(NativeImage img) {
 		int i = 64;
 		int j = 32;
 		int k = img.getWidth();
@@ -56,14 +55,12 @@ public class CapeUtils {
 			i *= 2;
 		}
 
-		BufferedImage bufferedimage = new BufferedImage(i, j, 2);
-		Graphics graphics = bufferedimage.getGraphics();
-		graphics.drawImage(img, 0, 0, null);
-		graphics.dispose();
-		return bufferedimage;
+		NativeImage image = NativeImage.createBlankImage(i, j);
+		image.copyFrom(img);
+		return image;
 	}
 
-	public static boolean isElytraCape(BufferedImage imageRaw, BufferedImage imageFixed) {
+	public static boolean isElytraCape(NativeImage imageRaw, NativeImage imageFixed) {
 		return imageRaw.getWidth() > imageFixed.getHeight();
 	}
 

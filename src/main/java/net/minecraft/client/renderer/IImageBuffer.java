@@ -1,9 +1,9 @@
 package net.minecraft.client.renderer;
 
-import java.awt.image.BufferedImage;
+import net.radiant.NativeImage;
 
 public interface IImageBuffer {
-    BufferedImage parseUserSkin(BufferedImage image);
+    NativeImage parseUserSkin(NativeImage image);
 
     void skinAvailable();
 }

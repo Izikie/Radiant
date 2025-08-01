@@ -34,11 +34,10 @@ import net.optifine.config.ConnectedParser;
 import net.optifine.config.MatchBlock;
 import net.optifine.render.RenderEnv;
 import net.optifine.util.*;
+import net.radiant.NativeImage;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -326,9 +325,9 @@ public class CustomColors {
 			if (inputstream == null) {
 				return defHeight;
 			} else {
-				BufferedImage bufferedimage = ImageIO.read(inputstream);
+				NativeImage image = NativeImage.loadFromInputStream(inputstream);
 				inputstream.close();
-				return bufferedimage == null ? defHeight : bufferedimage.getHeight();
+				return image.getHeight();
 			}
 		} catch (IOException exception) {
 			return defHeight;

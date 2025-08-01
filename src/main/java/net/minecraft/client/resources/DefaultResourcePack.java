@@ -5,8 +5,8 @@ import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.client.resources.data.IMetadataSerializer;
 import net.minecraft.util.ResourceLocation;
+import net.radiant.NativeImage;
 
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Map;
 import java.util.Set;
@@ -62,8 +62,8 @@ public class DefaultResourcePack implements IResourcePack {
         }
     }
 
-    public BufferedImage getPackImage() throws IOException {
-        return TextureUtil.readBufferedImage(getClass().getResourceAsStream("/" + (new ResourceLocation("pack.png")).getResourcePath()));
+    public NativeImage getPackImage() throws IOException {
+        return TextureUtil.readNativeImage(getClass().getResourceAsStream("/" + (new ResourceLocation("pack.png")).getResourcePath()));
     }
 
     public String getPackName() {

@@ -9,12 +9,11 @@ import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.Log;
+import net.radiant.NativeImage;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -316,15 +315,15 @@ public class ShadersTex {
 		int[] aint1;
 		aint[0] = aint1 = new int[width * height];
 		boolean flag = false;
-		BufferedImage bufferedimage = readImage(updatingTextureMap.completeResourceLocation(new ResourceLocation(name)));
+		NativeImage image = readImage(updatingTextureMap.completeResourceLocation(new ResourceLocation(name)));
 
-		if (bufferedimage != null) {
-			int i = bufferedimage.getWidth();
-			int j = bufferedimage.getHeight();
+		if (image != null) {
+			int i = image.getWidth();
+			int j = image.getHeight();
 
 			if (i + (border ? 16 : 0) == width) {
 				flag = true;
-				bufferedimage.getRGB(0, 0, i, i, aint1, 0, i);
+				image.getRGB(0, 0, i, i, aint1, 0, i);
 			}
 		}
 
@@ -337,19 +336,20 @@ public class ShadersTex {
 		return aint;
 	}
 
-	public static BufferedImage readImage(ResourceLocation resLoc) {
+	public static NativeImage readImage(ResourceLocation resLoc) {
 		try {
 			if (!Config.hasResource(resLoc)) {
 				return null;
 			} else {
-				InputStream inputstream = Config.getResourceStream(resLoc);
+				try (InputStream inputstream = Config.getResourceStream(resLoc)) {
 
-				if (inputstream == null) {
-					return null;
-				} else {
-					BufferedImage bufferedimage = ImageIO.read(inputstream);
-					inputstream.close();
-					return bufferedimage;
+					if (inputstream == null) {
+						return null;
+					} else {
+						NativeImage image = NativeImage.loadFromInputStream(inputstream);
+						inputstream.close();
+						return image;
+					}
 				}
 			}
 		} catch (IOException exception) {
@@ -671,28 +671,29 @@ public class ShadersTex {
 		} else {
 			try {
 				IResource iresource = manager.getResource(location);
-				BufferedImage bufferedimage = ImageIO.read(iresource.getInputStream());
-
-				if (bufferedimage == null) {
-					return false;
-				} else if (bufferedimage.getWidth() == width && bufferedimage.getHeight() == height) {
-					bufferedimage.getRGB(0, 0, width, height, aint, offset, width);
-					return true;
-				} else {
-					return false;
+				NativeImage image;
+				try (InputStream stream = iresource.getInputStream()) {
+					image = NativeImage.loadFromInputStream(stream);
 				}
+
+                if (image.getWidth() == width && image.getHeight() == height) {
+                    image.getRGB(0, 0, width, height, aint, offset, width);
+                    return true;
+                } else {
+                    return false;
+                }
 			} catch (IOException exception) {
 				return false;
 			}
 		}
 	}
 
-	public static int loadSimpleTexture(int textureID, BufferedImage bufferedimage, boolean linear, boolean clamp, IResourceManager resourceManager, ResourceLocation location, MultiTexID multiTex) {
-		int i = bufferedimage.getWidth();
-		int j = bufferedimage.getHeight();
+	public static int loadSimpleTexture(int textureID, NativeImage image, boolean linear, boolean clamp, IResourceManager resourceManager, ResourceLocation location, MultiTexID multiTex) {
+		int i = image.getWidth();
+		int j = image.getHeight();
 		int k = i * j;
 		int[] aint = getIntArray(k * 3);
-		bufferedimage.getRGB(0, 0, i, j, aint, 0, i);
+		image.getRGB(0, 0, i, j, aint, 0, i);
 		loadNSMap(resourceManager, location, i, j, aint);
 		setupTexture(multiTex, aint, i, j, linear, clamp);
 		return textureID;
@@ -706,29 +707,27 @@ public class ShadersTex {
 		return ((color1 >>> 24 & 255) * factor1 + (color2 >>> 24 & 255) * i) / 255 << 24 | ((color1 >>> 16 & 255) * factor1 + (color2 >>> 16 & 255) * i) / 255 << 16 | ((color1 >>> 8 & 255) * factor1 + (color2 >>> 8 & 255) * i) / 255 << 8 | ((color1 & 255) * factor1 + (color2 & 255) * i) / 255;
 	}
 
-	public static void loadLayeredTexture(LayeredTexture tex, IResourceManager manager, List list) {
+	public static void loadLayeredTexture(LayeredTexture tex, IResourceManager manager, List<String> list) {
 		int i = 0;
 		int j = 0;
 		int k = 0;
 		int[] aint = null;
 
-		for (Object o : list) {
-			String s = (String) o;
-			if (s != null) {
-				try {
-					ResourceLocation resourcelocation = new ResourceLocation(s);
-					InputStream inputstream = manager.getResource(resourcelocation).getInputStream();
-					BufferedImage bufferedimage = ImageIO.read(inputstream);
+		for (String s : list) {
+            if (s != null) {
+				ResourceLocation resourcelocation = new ResourceLocation(s);
+				try (InputStream inputstream = manager.getResource(resourcelocation).getInputStream()) {
+					NativeImage image = NativeImage.loadFromInputStream(inputstream);
 
 					if (k == 0) {
-						i = bufferedimage.getWidth();
-						j = bufferedimage.getHeight();
+						i = image.getWidth();
+						j = image.getHeight();
 						k = i * j;
 						aint = createAIntImage(k, 0);
 					}
 
 					int[] aint1 = getIntArray(k * 3);
-					bufferedimage.getRGB(0, 0, i, j, aint1, 0, i);
+					image.getRGB(0, 0, i, j, aint1, 0, i);
 					loadNSMap(manager, resourcelocation, i, j, aint1);
 
 					for (int l = 0; l < k; ++l) {

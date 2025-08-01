@@ -7,10 +7,8 @@ import net.minecraft.util.ResourceLocation;
 import net.optifine.util.PropertiesOrdered;
 import net.optifine.util.ResUtils;
 import net.optifine.util.TextureUtils;
+import net.radiant.NativeImage;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -154,7 +152,7 @@ public class TextureAnimations {
 								Log.error("TextureAnimation: Target texture not found: " + s1);
 								return null;
 							} else {
-								BufferedImage bufferedimage = readTextureImage(inputstream);
+								NativeImage bufferedimage = readTextureImage(inputstream);
 
 								if (i + k <= bufferedimage.getWidth() && j + l <= bufferedimage.getHeight()) {
 									return new TextureAnimation(s, abyte, s1, resourcelocation, i, j, k, l, props);
@@ -191,47 +189,42 @@ public class TextureAnimations {
 
 	private static byte[] loadImage(String name, int targetWidth) {
 		GameSettings gamesettings = Config.getGameSettings();
+		ResourceLocation resourcelocation = new ResourceLocation(name);
 
-		try {
-			ResourceLocation resourcelocation = new ResourceLocation(name);
-			InputStream inputstream = Config.getResourceStream(resourcelocation);
+		try (InputStream inputstream = Config.getResourceStream(resourcelocation)) {
 
 			if (inputstream == null) {
 				return null;
 			} else {
-				BufferedImage bufferedimage = readTextureImage(inputstream);
+				NativeImage bufferedimage = readTextureImage(inputstream);
 				inputstream.close();
 
-				if (bufferedimage == null) {
-					return null;
-				} else {
-					if (targetWidth > 0 && bufferedimage.getWidth() != targetWidth) {
-						double d0 = (bufferedimage.getHeight() / bufferedimage.getWidth());
-						int j = (int) (targetWidth * d0);
-						bufferedimage = scaleBufferedImage(bufferedimage, targetWidth, j);
-					}
+                if (targetWidth > 0 && bufferedimage.getWidth() != targetWidth) {
+                    double d0 = bufferedimage.getHeight() / bufferedimage.getWidth();
+                    int j = (int) (targetWidth * d0);
+                    bufferedimage = scaleBufferedImage(bufferedimage, targetWidth, j);
+                }
 
-					int k2 = bufferedimage.getWidth();
-					int i = bufferedimage.getHeight();
-					int[] aint = new int[k2 * i];
-					byte[] abyte = new byte[k2 * i * 4];
-					bufferedimage.getRGB(0, 0, k2, i, aint, 0, k2);
+                int k2 = bufferedimage.getWidth();
+                int i = bufferedimage.getHeight();
+                int[] aint = new int[k2 * i];
+                byte[] abyte = new byte[k2 * i * 4];
+                bufferedimage.getRGB(0, 0, k2, i, aint, 0, k2);
 
-					for (int k = 0; k < aint.length; ++k) {
-						int l = aint[k] >> 24 & 255;
-						int i1 = aint[k] >> 16 & 255;
-						int j1 = aint[k] >> 8 & 255;
-						int k1 = aint[k] & 255;
+                for (int k = 0; k < aint.length; ++k) {
+                    int l = aint[k] >> 24 & 255;
+                    int i1 = aint[k] >> 16 & 255;
+                    int j1 = aint[k] >> 8 & 255;
+                    int k1 = aint[k] & 255;
 
-						abyte[k * 4] = (byte) i1;
-						abyte[k * 4 + 1] = (byte) j1;
-						abyte[k * 4 + 2] = (byte) k1;
-						abyte[k * 4 + 3] = (byte) l;
-					}
+                    abyte[k * 4] = (byte) i1;
+                    abyte[k * 4 + 1] = (byte) j1;
+                    abyte[k * 4 + 2] = (byte) k1;
+                    abyte[k * 4 + 3] = (byte) l;
+                }
 
-					return abyte;
-				}
-			}
+                return abyte;
+            }
 		} catch (FileNotFoundException exception) {
 			return null;
 		} catch (Exception exception) {
@@ -240,18 +233,14 @@ public class TextureAnimations {
 		}
 	}
 
-	private static BufferedImage readTextureImage(InputStream par1InputStream) throws IOException {
-		BufferedImage bufferedimage = ImageIO.read(par1InputStream);
+	private static NativeImage readTextureImage(InputStream par1InputStream) throws IOException {
+		NativeImage bufferedimage = NativeImage.loadFromInputStream(par1InputStream);
 		par1InputStream.close();
 		return bufferedimage;
 	}
 
-	private static BufferedImage scaleBufferedImage(BufferedImage image, int width, int height) {
-		BufferedImage bufferedimage = new BufferedImage(width, height, 2);
-		Graphics2D graphics2d = bufferedimage.createGraphics();
-		graphics2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-		graphics2d.drawImage(image, 0, 0, width, height, null);
-		return bufferedimage;
+	private static NativeImage scaleBufferedImage(NativeImage image, int width, int height) {
+		return image.resized(width, height);
 	}
 
 	public static int getCountAnimations() {

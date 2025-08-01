@@ -22,16 +22,15 @@ import net.minecraft.stats.StatList;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.IChatComponent;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
+import net.minecraft.util.Util;
 import net.radiant.lwjgl.input.Keyboard;
 import net.radiant.lwjgl.input.Mouse;
+import org.apache.commons.lang3.StringUtils;
+import org.lwjgl.glfw.GLFW;
+import org.lwjgl.system.MemoryUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.awt.*;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.StringSelection;
-import java.awt.datatransfer.Transferable;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -80,12 +79,11 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 
     public static String getClipboardString() {
         try {
-            Transferable transferable = Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
-
-            if (transferable != null && transferable.isDataFlavorSupported(DataFlavor.stringFlavor)) {
-                return (String) transferable.getTransferData(DataFlavor.stringFlavor);
+            String clipboardString = GLFW.glfwGetClipboardString(MemoryUtil.NULL);
+            if (clipboardString != null) {
+                return clipboardString;
             }
-        } catch (Exception exception) {
+        } catch (Exception _) {
         }
 
         return "";
@@ -94,9 +92,8 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
     public static void setClipboardString(String copyText) {
         if (!StringUtils.isEmpty(copyText)) {
             try {
-                StringSelection stringselection = new StringSelection(copyText);
-                Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringselection, null);
-            } catch (Exception exception) {
+                GLFW.glfwSetClipboardString(MemoryUtil.NULL, copyText);
+            } catch (Exception _) {
             }
         }
     }
@@ -463,9 +460,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 
     private void openWebLink(URI url) {
         try {
-            Class<?> oclass = Class.forName("java.awt.Desktop");
-            Object object = oclass.getMethod("getDesktop", new Class[0]).invoke(null);
-            oclass.getMethod("browse", new Class[]{URI.class}).invoke(object, url);
+            Util.openUrl(url.toString());
         } catch (Throwable throwable) {
             LOGGER.error("Couldn't open link", throwable);
         }

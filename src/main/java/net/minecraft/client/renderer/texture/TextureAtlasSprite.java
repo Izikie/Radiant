@@ -12,8 +12,8 @@ import net.optifine.SmartAnimations;
 import net.optifine.shaders.Shaders;
 import net.optifine.util.CounterInt;
 import net.optifine.util.TextureUtils;
+import net.radiant.NativeImage;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -270,7 +270,7 @@ public class TextureAtlasSprite {
         }
     }
 
-    public void loadSprite(BufferedImage[] images, AnimationMetadataSection meta) throws IOException {
+    public void loadSprite(NativeImage[] images, AnimationMetadataSection meta) throws IOException {
         this.resetSprite();
         int i = images[0].getWidth();
         int j = images[0].getHeight();
@@ -285,7 +285,7 @@ public class TextureAtlasSprite {
         int[][] aint = new int[images.length][];
 
         for (int k = 0; k < images.length; ++k) {
-            BufferedImage bufferedimage = images[k];
+            NativeImage bufferedimage = images[k];
 
             if (bufferedimage != null) {
                 if (this.width >> k != bufferedimage.getWidth()) {

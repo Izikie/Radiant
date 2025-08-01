@@ -8,9 +8,9 @@ import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.data.*;
 import net.optifine.Log;
+import net.radiant.NativeImage;
 import org.apache.commons.io.IOUtils;
 
-import java.awt.image.BufferedImage;
 import java.io.*;
 
 public class SimpleShaderTexture extends AbstractTexture {
@@ -72,7 +72,7 @@ public class SimpleShaderTexture extends AbstractTexture {
 			throw new FileNotFoundException("Shader texture not found: " + this.texturePath);
 		} else {
 			try {
-				BufferedImage bufferedimage = TextureUtil.readBufferedImage(inputstream);
+				NativeImage bufferedimage = TextureUtil.readNativeImage(inputstream);
 				TextureMetadataSection texturemetadatasection = loadTextureMetadataSection(this.texturePath, new TextureMetadataSection(false, false, new IntArrayList()));
 				TextureUtil.uploadTextureImageAllocate(this.getGlTextureId(), bufferedimage, texturemetadatasection.getTextureBlur(), texturemetadatasection.getTextureClamp());
 			} finally {

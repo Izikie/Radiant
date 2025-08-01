@@ -278,14 +278,17 @@ public class CustomSkyLayer {
 			GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
 			GlStateManager.rotate(-90.0F, 0.0F, 0.0F, 1.0F);
 			this.renderSide(tessellator, 4);
+
 			GlStateManager.pushMatrix();
 			GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
 			this.renderSide(tessellator, 1);
 			GlStateManager.popMatrix();
+
 			GlStateManager.pushMatrix();
 			GlStateManager.rotate(-90.0F, 1.0F, 0.0F, 0.0F);
 			this.renderSide(tessellator, 0);
 			GlStateManager.popMatrix();
+
 			GlStateManager.rotate(90.0F, 0.0F, 0.0F, 1.0F);
 			this.renderSide(tessellator, 5);
 			GlStateManager.rotate(90.0F, 0.0F, 0.0F, 1.0F);
@@ -374,13 +377,13 @@ public class CustomSkyLayer {
 
 	private void renderSide(Tessellator tess, int side) {
 		WorldRenderer worldrenderer = tess.getWorldRenderer();
-		double d0 = (side % 3) / 3.0D;
-		double d1 = (side / 3.0) / 2.0D;
+		double u = (side % 3) / 3.0D;
+		double v = (side / 3.0) / 2.0D;
 		worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-		worldrenderer.pos(-100.0D, -100.0D, -100.0D).tex(d0, d1).endVertex();
-		worldrenderer.pos(-100.0D, -100.0D, 100.0D).tex(d0, d1 + 0.5D).endVertex();
-		worldrenderer.pos(100.0D, -100.0D, 100.0D).tex(d0 + 0.3333333333333333D, d1 + 0.5D).endVertex();
-		worldrenderer.pos(100.0D, -100.0D, -100.0D).tex(d0 + 0.3333333333333333D, d1).endVertex();
+		worldrenderer.pos(-100.0D, -100.0D, -100.0D).tex(u, v).endVertex();
+		worldrenderer.pos(-100.0D, -100.0D, 100.0D).tex(u, v + 0.5D).endVertex();
+		worldrenderer.pos(100.0D, -100.0D, 100.0D).tex(u + 0.3333333333333333D, v + 0.5D).endVertex();
+		worldrenderer.pos(100.0D, -100.0D, -100.0D).tex(u + 0.3333333333333333D, v).endVertex();
 		tess.draw();
 	}
 

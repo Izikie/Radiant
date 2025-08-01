@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class CustomSky {
-	private static CustomSkyLayer[][] worldSkyLayers = null;
+	public static CustomSkyLayer[][] worldSkyLayers = null;
 
 	public static void reset() {
 		worldSkyLayers = null;

@@ -7,10 +7,10 @@ import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.EmissiveTextures;
 import net.optifine.shaders.ShadersTex;
-import org.slf4j.LoggerFactory;
+import net.radiant.NativeImage;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -26,12 +26,10 @@ public class SimpleTexture extends AbstractTexture {
 
     public void loadTexture(IResourceManager resourceManager) throws IOException {
         this.deleteGlTexture();
-        InputStream inputstream = null;
+        IResource iresource = resourceManager.getResource(this.textureLocation);
 
-        try {
-            IResource iresource = resourceManager.getResource(this.textureLocation);
-            inputstream = iresource.getInputStream();
-            BufferedImage bufferedimage = TextureUtil.readBufferedImage(inputstream);
+        try (InputStream inputstream = iresource.getInputStream()) {
+            NativeImage bufferedimage = NativeImage.loadFromInputStream(inputstream);
             boolean flag = false;
             boolean flag1 = false;
 
@@ -56,10 +54,6 @@ public class SimpleTexture extends AbstractTexture {
 
             if (EmissiveTextures.isActive()) {
                 EmissiveTextures.loadTexture(this.textureLocation, this);
-            }
-        } finally {
-            if (inputstream != null) {
-                inputstream.close();
             }
         }
     }

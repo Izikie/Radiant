@@ -13,7 +13,6 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.*;
 import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.util.Util;
 import net.minecraft.util.*;
 import net.optifine.DynamicLights;
 import net.optifine.GlErrors;
@@ -26,18 +25,19 @@ import net.optifine.util.DisplayModeComparator;
 import net.optifine.util.PropertiesOrdered;
 import net.optifine.util.TextureUtils;
 import net.optifine.util.TimedEvent;
-import org.apache.commons.io.IOUtils;
+import net.radiant.NativeImage;
 import net.radiant.lwjgl.LWJGLException;
 import net.radiant.lwjgl.opengl.Display;
 import net.radiant.lwjgl.opengl.DisplayMode;
-import org.lwjgl.Version;
-import org.lwjgl.opengl.*;
 import net.radiant.lwjgl.opengl.GLContext;
 import net.radiant.lwjgl.opengl.PixelFormat;
+import org.apache.commons.io.IOUtils;
+import org.joml.Vector2i;
+import org.lwjgl.Version;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL20;
+import org.lwjgl.opengl.GL30;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.net.URI;
@@ -871,19 +871,19 @@ public class Config {
         return gameSettings.ofBetterSnow;
     }
 
-    public static Dimension getFullscreenDimension() {
+    public static Vector2i getFullscreenDimension() {
         if (desktopDisplayMode == null) {
             return null;
         } else if (gameSettings == null) {
-            return new Dimension(desktopDisplayMode.getWidth(), desktopDisplayMode.getHeight());
+            return new Vector2i(desktopDisplayMode.getWidth(), desktopDisplayMode.getHeight());
         } else {
             String s = gameSettings.ofFullscreenMode;
 
             if (s.equals("Default")) {
-                return new Dimension(desktopDisplayMode.getWidth(), desktopDisplayMode.getHeight());
+                return new Vector2i(desktopDisplayMode.getWidth(), desktopDisplayMode.getHeight());
             } else {
                 String[] astring = tokenize(s, " x");
-                return astring.length < 2 ? new Dimension(desktopDisplayMode.getWidth(), desktopDisplayMode.getHeight()) : new Dimension(parseInt(astring[0], -1), parseInt(astring[1], -1));
+                return astring.length < 2 ? new Vector2i(desktopDisplayMode.getWidth(), desktopDisplayMode.getHeight()) : new Vector2i(parseInt(astring[0], -1), parseInt(astring[1], -1));
             }
         }
     }
@@ -960,10 +960,10 @@ public class Config {
         if (displayModes == null) {
             try {
                 DisplayMode[] adisplaymode = Display.getAvailableDisplayModes();
-                Set<Dimension> set = getDisplayModeDimensions(adisplaymode);
+                Set<Vector2i> set = getDisplayModeDimensions(adisplaymode);
                 List list = new ArrayList<>();
 
-                for (Dimension dimension : set) {
+                for (Vector2i dimension : set) {
                     DisplayMode[] adisplaymode1 = getDisplayModes(adisplaymode, dimension);
                     DisplayMode displaymode = getDisplayMode(adisplaymode1, desktopDisplayMode);
 
@@ -995,27 +995,27 @@ public class Config {
         }
     }
 
-    private static Set<Dimension> getDisplayModeDimensions(DisplayMode[] p_getDisplayModeDimensions_0_) {
-        Set<Dimension> set = new HashSet();
+    private static Set<Vector2i> getDisplayModeDimensions(DisplayMode[] p_getDisplayModeDimensions_0_) {
+        Set<Vector2i> set = new HashSet<>();
 
         for (DisplayMode displaymode : p_getDisplayModeDimensions_0_) {
-            Dimension dimension = new Dimension(displaymode.getWidth(), displaymode.getHeight());
+            Vector2i dimension = new Vector2i(displaymode.getWidth(), displaymode.getHeight());
             set.add(dimension);
         }
 
         return set;
     }
 
-    private static DisplayMode[] getDisplayModes(DisplayMode[] p_getDisplayModes_0_, Dimension p_getDisplayModes_1_) {
-        List list = new ArrayList<>();
+    private static DisplayMode[] getDisplayModes(DisplayMode[] p_getDisplayModes_0_, Vector2i p_getDisplayModes_1_) {
+        List<DisplayMode> list = new ArrayList<>();
 
         for (DisplayMode displaymode : p_getDisplayModes_0_) {
-            if (displaymode.getWidth() == p_getDisplayModes_1_.getWidth() && displaymode.getHeight() == p_getDisplayModes_1_.getHeight()) {
+            if (displaymode.getWidth() == p_getDisplayModes_1_.x() && displaymode.getHeight() == p_getDisplayModes_1_.y()) {
                 list.add(displaymode);
             }
         }
 
-        return (DisplayMode[]) list.toArray(new DisplayMode[0]);
+        return list.toArray(DisplayMode[]::new);
     }
 
     private static DisplayMode getDisplayMode(DisplayMode[] p_getDisplayMode_0_, DisplayMode p_getDisplayMode_1_) {
@@ -1048,11 +1048,11 @@ public class Config {
         return astring;
     }
 
-    public static DisplayMode getDisplayMode(Dimension p_getDisplayMode_0_) throws LWJGLException {
+    public static DisplayMode getDisplayMode(Vector2i p_getDisplayMode_0_) throws LWJGLException {
         DisplayMode[] adisplaymode = getDisplayModes();
 
         for (DisplayMode displaymode : adisplaymode) {
-            if (displaymode.getWidth() == p_getDisplayMode_0_.width && displaymode.getHeight() == p_getDisplayMode_0_.height) {
+            if (displaymode.getWidth() == p_getDisplayMode_0_.x && displaymode.getHeight() == p_getDisplayMode_0_.y) {
                 return displaymode;
             }
         }
@@ -1418,9 +1418,9 @@ public class Config {
         }
     }
 
-    private static ByteBuffer readIconImage(InputStream p_readIconImage_0_) throws IOException {
-        BufferedImage bufferedimage = ImageIO.read(p_readIconImage_0_);
-        int[] aint = bufferedimage.getRGB(0, 0, bufferedimage.getWidth(), bufferedimage.getHeight(), null, 0, bufferedimage.getWidth());
+    private static ByteBuffer readIconImage(InputStream stream) throws IOException {
+        NativeImage image = NativeImage.loadFromInputStream(stream);
+        int[] aint = image.getRGB(0, 0, image.getWidth(), image.getHeight(), null, 0, image.getWidth());
         ByteBuffer bytebuffer = ByteBuffer.allocate(4 * aint.length);
 
         for (int i : aint) {
@@ -1441,13 +1441,13 @@ public class Config {
                 fullscreenModeChecked = true;
                 desktopModeChecked = false;
                 DisplayMode displaymode = Display.getDisplayMode();
-                Dimension dimension = getFullscreenDimension();
+                Vector2i dimension = getFullscreenDimension();
 
                 if (dimension == null) {
                     return;
                 }
 
-                if (displaymode.getWidth() == dimension.width && displaymode.getHeight() == dimension.height) {
+                if (displaymode.getWidth() == dimension.x && displaymode.getHeight() == dimension.y) {
                     return;
                 }
 
@@ -1694,13 +1694,9 @@ public class Config {
             if (inputstream == null) {
                 return p_getMojangLogoTexture_0_;
             } else {
-                BufferedImage bufferedimage = ImageIO.read(inputstream);
+                NativeImage image = NativeImage.loadFromInputStream(inputstream);
 
-                if (bufferedimage == null) {
-                    return p_getMojangLogoTexture_0_;
-                } else {
-                    return new DynamicTexture(bufferedimage);
-                }
+                return new DynamicTexture(image);
             }
         } catch (Exception exception) {
             Log.warn(exception.getClass().getName() + ": " + exception.getMessage());
@@ -1755,12 +1751,12 @@ public class Config {
         return gameSettings.ofSmoothFps;
     }
 
-    public static boolean openWebLink(URI p_openWebLink_0_) {
+    public static boolean openWebLink(URI uri) {
         try {
-            Desktop.getDesktop().browse(p_openWebLink_0_);
+            Util.openUrl(uri.toString());
             return true;
         } catch (Exception exception) {
-            Log.warn("Error opening link: " + p_openWebLink_0_);
+            Log.warn("Error opening link: " + uri);
             Log.warn(exception.getClass().getName() + ": " + exception.getMessage());
             return false;
         }

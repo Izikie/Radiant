@@ -17,14 +17,14 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.HttpUtil;
 import net.minecraft.util.ResourceLocation;
+import net.radiant.NativeImage;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.comparator.LastModifiedFileComparator;
 import org.apache.commons.io.filefilter.TrueFileFilter;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.awt.image.BufferedImage;
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileFilter;
@@ -236,7 +236,7 @@ public class ResourcePackRepository {
         private final File resourcePackFile;
         private IResourcePack reResourcePack;
         private PackMetadataSection rePackMetadataSection;
-        private BufferedImage texturePackIcon;
+        private NativeImage texturePackIcon;
         private ResourceLocation locationTexturePackIcon;
 
         private Entry(File resourcePackFileIn) {
