@@ -377,8 +377,8 @@ public class CustomSkyLayer {
 
 	private void renderSide(Tessellator tess, int side) {
 		WorldRenderer worldrenderer = tess.getWorldRenderer();
-		double u = (side % 3) / 3.0D;
-		double v = (side / 3.0) / 2.0D;
+		double u = (double) (side % 3) / 3.0D;
+		double v = (double) (side / 3) / 2.0D;
 		worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
 		worldrenderer.pos(-100.0D, -100.0D, -100.0D).tex(u, v).endVertex();
 		worldrenderer.pos(-100.0D, -100.0D, 100.0D).tex(u, v + 0.5D).endVertex();
