@@ -38,6 +38,9 @@ public class MinecraftProfileTexture {
 
 
     public String toString() {
-        return (new ToStringBuilder(this)).append("url", this.url).append("hash", getHash()).toString();
+        return new ToStringBuilder(this)
+                .append("url", this.url)
+                .append("hash", getHash())
+                .toString();
     }
 }

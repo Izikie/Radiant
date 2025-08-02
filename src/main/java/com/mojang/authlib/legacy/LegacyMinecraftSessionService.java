@@ -12,19 +12,18 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LegacyMinecraftSessionService
-        extends HttpMinecraftSessionService {
+public class LegacyMinecraftSessionService extends HttpMinecraftSessionService {
     private static final String BASE_URL = "http://session.minecraft.net/game/";
-    private static final URL JOIN_URL = HttpAuthenticationService.constantURL("http://session.minecraft.net/game/joinserver.jsp");
-    private static final URL CHECK_URL = HttpAuthenticationService.constantURL("http://session.minecraft.net/game/checkserver.jsp");
+    private static final URL JOIN_URL = HttpAuthenticationService.constantURL(BASE_URL + "joinserver.jsp");
+    private static final URL CHECK_URL = HttpAuthenticationService.constantURL(BASE_URL + "checkserver.jsp");
 
     protected LegacyMinecraftSessionService(LegacyAuthenticationService authenticationService) {
         super(authenticationService);
     }
 
-
+    @Override
     public void joinServer(GameProfile profile, String authenticationToken, String serverId) throws AuthenticationException {
-        Map<String, Object> arguments = new HashMap<String, Object>();
+        Map<String, Object> arguments = new HashMap<>();
 
         arguments.put("user", profile.getName());
         arguments.put("sessionId", authenticationToken);
@@ -43,9 +42,9 @@ public class LegacyMinecraftSessionService
         }
     }
 
-
+    @Override
     public GameProfile hasJoinedServer(GameProfile user, String serverId) throws AuthenticationUnavailableException {
-        Map<String, Object> arguments = new HashMap<String, Object>();
+        Map<String, Object> arguments = new HashMap<>();
 
         arguments.put("user", user.getName());
         arguments.put("serverId", serverId);
@@ -61,17 +60,17 @@ public class LegacyMinecraftSessionService
         }
     }
 
-
+    @Override
     public Map<MinecraftProfileTexture.Type, MinecraftProfileTexture> getTextures(GameProfile profile, boolean requireSecure) {
-        return new HashMap<MinecraftProfileTexture.Type, MinecraftProfileTexture>();
+        return new HashMap<>();
     }
 
-
+    @Override
     public GameProfile fillProfileProperties(GameProfile profile, boolean requireSecure) {
         return profile;
     }
 
-
+    @Override
     public LegacyAuthenticationService getAuthenticationService() {
         return (LegacyAuthenticationService) super.getAuthenticationService();
     }

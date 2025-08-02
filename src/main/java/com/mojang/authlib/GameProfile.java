@@ -2,6 +2,7 @@ package com.mojang.authlib;
 
 import com.mojang.authlib.properties.PropertyMap;
 
+import java.util.Objects;
 import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
@@ -49,14 +50,7 @@ public class GameProfile {
 
         GameProfile that = (GameProfile) o;
 
-        if ((this.id != null) ? !this.id.equals(that.id) : (that.id != null)) {
-            return false;
-        }
-        if ((this.name != null) ? !this.name.equals(that.name) : (that.name != null)) {
-            return false;
-        }
-
-        return true;
+        return Objects.equals(this.id, that.id) && Objects.equals(this.name, that.name);
     }
 
 
@@ -68,7 +62,12 @@ public class GameProfile {
 
 
     public String toString() {
-        return (new ToStringBuilder(this)).append("id", this.id).append("name", this.name).append("properties", this.properties).append("legacy", this.legacy).toString();
+        return new ToStringBuilder(this)
+                .append("id", this.id)
+                .append("name", this.name)
+                .append("properties", this.properties)
+                .append("legacy", this.legacy)
+                .toString();
     }
 
 

@@ -6,8 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
-public class InsecureTextureException
-        extends RuntimeException {
+public class InsecureTextureException extends RuntimeException {
     public InsecureTextureException(String message) {
         super(message);
     }

@@ -10,13 +10,12 @@ import org.apache.commons.codec.binary.Base64;
 
 public class Property {
     private final String name;
+    private final String value;
+    private final String signature;
 
     public Property(String value, String name) {
         this(value, name, null);
     }
-
-    private final String value;
-    private final String signature;
 
     public Property(String name, String value, String signature) {
         this.name = name;

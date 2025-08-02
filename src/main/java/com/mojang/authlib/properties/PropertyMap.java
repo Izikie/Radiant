@@ -31,8 +31,7 @@ public class PropertyMap extends ForwardingMultimap<String, Property> {
                 }
             } else if (json instanceof JsonArray array) {
                 for (JsonElement element : array) {
-                    if (element instanceof JsonObject) {
-                        JsonObject object = (JsonObject) element;
+                    if (element instanceof JsonObject object) {
                         String name = object.getAsJsonPrimitive("name").getAsString();
                         String value = object.getAsJsonPrimitive("value").getAsString();
 

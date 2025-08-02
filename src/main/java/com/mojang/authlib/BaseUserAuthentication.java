@@ -4,19 +4,15 @@ import com.google.common.collect.Multimap;
 import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;
 import com.mojang.util.UUIDTypeAdapter;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Validate;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
+import java.util.*;
 
 public abstract class BaseUserAuthentication implements UserAuthentication {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(BaseUserAuthentication.class);
 
     protected static final String STORAGE_KEY_PROFILE_NAME = "displayName";
 
@@ -34,8 +30,7 @@ public abstract class BaseUserAuthentication implements UserAuthentication {
     private UserType userType;
 
     protected BaseUserAuthentication(AuthenticationService authenticationService) {
-        Validate.notNull(authenticationService);
-        this.authenticationService = authenticationService;
+        this.authenticationService = Objects.requireNonNull(authenticationService);
     }
 
 

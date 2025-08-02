@@ -21,6 +21,7 @@ import java.util.UUID;
 
 public class YggdrasilAuthenticationService extends HttpAuthenticationService {
     private final String clientToken;
+    private final Gson gson;
 
     public YggdrasilAuthenticationService(Proxy proxy, String clientToken) {
         super(proxy);
@@ -33,18 +34,17 @@ public class YggdrasilAuthenticationService extends HttpAuthenticationService {
         this.gson = builder.create();
     }
 
-    private final Gson gson;
-
+    @Override
     public UserAuthentication createUserAuthentication(Agent agent) {
-        return (UserAuthentication) new YggdrasilUserAuthentication(this, agent);
+        return new YggdrasilUserAuthentication(this, agent);
     }
 
-
+    @Override
     public MinecraftSessionService createMinecraftSessionService() {
         return new YggdrasilMinecraftSessionService(this);
     }
 
-
+    @Override
     public GameProfileRepository createProfileRepository() {
         return new YggdrasilGameProfileRepository(this);
     }
@@ -52,7 +52,7 @@ public class YggdrasilAuthenticationService extends HttpAuthenticationService {
     protected <T extends Response> T makeRequest(URL url, Object input, Class<T> classOfT) throws AuthenticationException {
         try {
             String jsonResult = (input == null) ? performGetRequest(url) : performPostRequest(url, this.gson.toJson(input), "application/json");
-            Response response = (Response) this.gson.fromJson(jsonResult, classOfT);
+            Response response = this.gson.fromJson(jsonResult, classOfT);
 
             if (response == null) {
                 return null;
@@ -83,14 +83,15 @@ public class YggdrasilAuthenticationService extends HttpAuthenticationService {
         private GameProfileSerializer() {
         }
 
+        @Override
         public GameProfile deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             JsonObject object = (JsonObject) json;
-            UUID id = object.has("id") ? (UUID) context.deserialize(object.get("id"), UUID.class) : null;
+            UUID id = object.has("id") ? context.deserialize(object.get("id"), UUID.class) : null;
             String name = object.has("name") ? object.getAsJsonPrimitive("name").getAsString() : null;
             return new GameProfile(id, name);
         }
 
-
+        @Override
         public JsonElement serialize(GameProfile src, Type typeOfSrc, JsonSerializationContext context) {
             JsonObject result = new JsonObject();
             if (src.getId() != null) {

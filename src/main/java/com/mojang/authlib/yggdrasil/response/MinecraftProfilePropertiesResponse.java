@@ -4,8 +4,7 @@ import com.mojang.authlib.properties.PropertyMap;
 
 import java.util.UUID;
 
-public class MinecraftProfilePropertiesResponse
-        extends Response {
+public class MinecraftProfilePropertiesResponse extends Response {
     private UUID id;
     private String name;
     private PropertyMap properties;
