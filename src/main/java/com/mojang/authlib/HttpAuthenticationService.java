@@ -1,30 +1,24 @@
 package com.mojang.authlib;
 
+import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.Proxy;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.net.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
-
-import org.apache.commons.io.Charsets;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.Validate;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.util.Objects;
 
 public abstract class HttpAuthenticationService extends BaseAuthenticationService {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(HttpAuthenticationService.class);
 
     private final Proxy proxy;
 
     protected HttpAuthenticationService(Proxy proxy) {
-        Validate.notNull(proxy);
-        this.proxy = proxy;
+        this.proxy = Objects.requireNonNull(proxy);
     }
 
     public Proxy getProxy() {
@@ -32,8 +26,8 @@ public abstract class HttpAuthenticationService extends BaseAuthenticationServic
     }
 
     protected HttpURLConnection createUrlConnection(URL url) throws IOException {
-        Validate.notNull(url);
-        LOGGER.debug("Opening connection to " + url);
+        Objects.requireNonNull(url);
+        LOGGER.debug("Opening connection to {}", url);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection(this.proxy);
         connection.setConnectTimeout(15000);
         connection.setReadTimeout(15000);
@@ -42,17 +36,17 @@ public abstract class HttpAuthenticationService extends BaseAuthenticationServic
     }
 
     public String performPostRequest(URL url, String post, String contentType) throws IOException {
-        Validate.notNull(url);
-        Validate.notNull(post);
-        Validate.notNull(contentType);
+        Objects.requireNonNull(url);
+        Objects.requireNonNull(post);
+        Objects.requireNonNull(contentType);
         HttpURLConnection connection = createUrlConnection(url);
-        byte[] postAsBytes = post.getBytes(Charsets.UTF_8);
+        byte[] postAsBytes = post.getBytes(StandardCharsets.UTF_8);
 
         connection.setRequestProperty("Content-Type", contentType + "; charset=utf-8");
         connection.setRequestProperty("Content-Length", "" + postAsBytes.length);
         connection.setDoOutput(true);
 
-        LOGGER.debug("Writing POST data to " + url + ": " + post);
+        LOGGER.debug("Writing POST data to {}: {}", url, post);
 
         OutputStream outputStream = null;
         try {
@@ -62,24 +56,24 @@ public abstract class HttpAuthenticationService extends BaseAuthenticationServic
             IOUtils.closeQuietly(outputStream);
         }
 
-        LOGGER.debug("Reading data from " + url);
+        LOGGER.debug("Reading data from {}", url);
 
         InputStream inputStream = null;
         try {
             inputStream = connection.getInputStream();
-            String result = IOUtils.toString(inputStream, Charsets.UTF_8);
-            LOGGER.debug("Successful read, server response was " + connection.getResponseCode());
-            LOGGER.debug("Response: " + result);
+            String result = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+            LOGGER.debug("Successful read, server response was {}", connection.getResponseCode());
+            LOGGER.debug("Response: {}", result);
             return result;
         } catch (IOException e) {
             IOUtils.closeQuietly(inputStream);
             inputStream = connection.getErrorStream();
 
             if (inputStream != null) {
-                LOGGER.debug("Reading error page from " + url);
-                String result = IOUtils.toString(inputStream, Charsets.UTF_8);
-                LOGGER.debug("Successful read, server response was " + connection.getResponseCode());
-                LOGGER.debug("Response: " + result);
+                LOGGER.debug("Reading error page from {}", url);
+                String result = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+                LOGGER.debug("Successful read, server response was {}", connection.getResponseCode());
+                LOGGER.debug("Response: {}", result);
                 return result;
             }
             LOGGER.debug("Request failed", e);
@@ -92,27 +86,27 @@ public abstract class HttpAuthenticationService extends BaseAuthenticationServic
 
 
     public String performGetRequest(URL url) throws IOException {
-        Validate.notNull(url);
+        Objects.requireNonNull(url);
         HttpURLConnection connection = createUrlConnection(url);
 
-        LOGGER.debug("Reading data from " + url);
+        LOGGER.debug("Reading data from {}", url);
 
         InputStream inputStream = null;
         try {
             inputStream = connection.getInputStream();
-            String result = IOUtils.toString(inputStream, Charsets.UTF_8);
-            LOGGER.debug("Successful read, server response was " + connection.getResponseCode());
-            LOGGER.debug("Response: " + result);
+            String result = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+            LOGGER.debug("Successful read, server response was {}", connection.getResponseCode());
+            LOGGER.debug("Response: {}", result);
             return result;
         } catch (IOException e) {
             IOUtils.closeQuietly(inputStream);
             inputStream = connection.getErrorStream();
 
             if (inputStream != null) {
-                LOGGER.debug("Reading error page from " + url);
-                String result = IOUtils.toString(inputStream, Charsets.UTF_8);
-                LOGGER.debug("Successful read, server response was " + connection.getResponseCode());
-                LOGGER.debug("Response: " + result);
+                LOGGER.debug("Reading error page from {}", url);
+                String result = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+                LOGGER.debug("Successful read, server response was {}", connection.getResponseCode());
+                LOGGER.debug("Response: {}", result);
                 return result;
             }
             LOGGER.debug("Request failed", e);
@@ -126,8 +120,8 @@ public abstract class HttpAuthenticationService extends BaseAuthenticationServic
 
     public static URL constantURL(String url) {
         try {
-            return new URL(url);
-        } catch (MalformedURLException ex) {
+            return new URI(url).toURL();
+        } catch (MalformedURLException | URISyntaxException ex) {
             throw new Error("Couldn't create constant for " + url, ex);
         }
     }
@@ -140,23 +134,15 @@ public abstract class HttpAuthenticationService extends BaseAuthenticationServic
         StringBuilder builder = new StringBuilder();
 
         for (Map.Entry<String, Object> entry : query.entrySet()) {
-            if (builder.length() > 0) {
+            if (!builder.isEmpty()) {
                 builder.append('&');
             }
 
-            try {
-                builder.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
-            } catch (UnsupportedEncodingException e) {
-                LOGGER.error("Unexpected exception building query", e);
-            }
+            builder.append(URLEncoder.encode(entry.getKey(), StandardCharsets.UTF_8));
 
             if (entry.getValue() != null) {
                 builder.append('=');
-                try {
-                    builder.append(URLEncoder.encode(entry.getValue().toString(), "UTF-8"));
-                } catch (UnsupportedEncodingException e) {
-                    LOGGER.error("Unexpected exception building query", e);
-                }
+                builder.append(URLEncoder.encode(entry.getValue().toString(), StandardCharsets.UTF_8));
             }
         }
 
