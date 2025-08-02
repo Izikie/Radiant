@@ -6,18 +6,17 @@ import com.google.common.collect.Sets;
 import com.mojang.authlib.*;
 import com.mojang.authlib.exceptions.AuthenticationException;
 import com.mojang.authlib.yggdrasil.response.ProfileSearchResultsResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Set;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 public class YggdrasilGameProfileRepository implements GameProfileRepository {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(YggdrasilGameProfileRepository.class);
 
     private static final String BASE_URL = "https://api.mojang.com/";
-    private static final String SEARCH_PAGE_URL = "https://api.mojang.com/profiles/";
+    private static final String SEARCH_PAGE_URL = BASE_URL + "profiles/";
     private static final int ENTRIES_PER_PAGE = 2;
     private static final int MAX_FAIL_COUNT = 3;
     private static final int DELAY_BETWEEN_PAGES = 100;
@@ -41,7 +40,7 @@ public class YggdrasilGameProfileRepository implements GameProfileRepository {
         int page = 0;
 
         label48:
-        for (List<String> request : Iterables.partition(criteria, 2)) {
+        for (List<String> request : Iterables.partition(criteria, ENTRIES_PER_PAGE)) {
             int failCount = 0;
 
 
@@ -49,7 +48,7 @@ public class YggdrasilGameProfileRepository implements GameProfileRepository {
                 boolean failed = false;
 
                 try {
-                    ProfileSearchResultsResponse response = this.authenticationService.makeRequest(HttpAuthenticationService.constantURL("https://api.mojang.com/profiles/" + agent.getName().toLowerCase()), request, ProfileSearchResultsResponse.class);
+                    ProfileSearchResultsResponse response = this.authenticationService.makeRequest(HttpAuthenticationService.constantURL(SEARCH_PAGE_URL + agent.getName().toLowerCase()), request, ProfileSearchResultsResponse.class);
                     failCount = 0;
 
                     LOGGER.debug("Page {} returned {} results, parsing", new Object[]{page, (response.getProfiles()).length});
@@ -67,20 +66,20 @@ public class YggdrasilGameProfileRepository implements GameProfileRepository {
                     }
 
                     try {
-                        Thread.sleep(100L);
+                        Thread.sleep(DELAY_BETWEEN_PAGES);
                     } catch (InterruptedException ignored) {
                     }
                 } catch (AuthenticationException e) {
                     failCount++;
 
-                    if (failCount == 3) {
+                    if (failCount == MAX_FAIL_COUNT) {
                         for (String name : request) {
                             LOGGER.debug("Couldn't find profile {} because of a server error", new Object[]{name});
-                            callback.onProfileLookupFailed(new GameProfile(null, name), (Exception) e);
+                            callback.onProfileLookupFailed(new GameProfile(null, name), e);
                         }
                     } else {
                         try {
-                            Thread.sleep(750L);
+                            Thread.sleep(DELAY_BETWEEN_FAILURES);
                         } catch (InterruptedException ignored) {
                         }
 
