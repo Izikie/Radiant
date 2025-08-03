@@ -10,6 +10,7 @@ import joptsimple.OptionSpec;
 import joptsimple.ValueConverter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Session;
+import net.radiant.json.JsonRegistration;
 
 import java.io.File;
 import java.net.Authenticator;
@@ -21,12 +22,12 @@ import java.util.List;
 
 public class Main {
 
-
-
     public static void main(String[] args) {
         System.setProperty("java.net.preferIPv4Stack", "true");
         System.setProperty("log4j2.formatMsgNoLookups", "true");
         System.setProperty("io.netty.allocator.maxOrder", "9"); // Default is 16MiB, Minecraft uses 2MiB, use 4MiB as safe default
+
+        JsonRegistration.init();
 
         OptionParser parser = new OptionParser();
         parser.allowsUnrecognizedOptions();

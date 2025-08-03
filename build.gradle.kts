@@ -57,6 +57,20 @@ dependencies {
 //        exclude(group = "com.google.code.gson", module = "gson")        // authlib uses 2.2.4, we use 2.13.1
 //    }
 
+    // LWJGL libraries
+    implementation(group = "org.lwjgl", name = "lwjgl", version = lwjglVersion)
+    implementation(group = "org.lwjgl", name = "lwjgl-glfw", version = lwjglVersion)
+    implementation(group = "org.lwjgl", name = "lwjgl-openal", version = lwjglVersion)
+    implementation(group = "org.lwjgl", name = "lwjgl-opengl", version = lwjglVersion)
+    implementation(group = "org.lwjgl", name = "lwjgl-stb", version = lwjglVersion)
+
+    // LWJGL natives
+    runtimeOnly(group = "org.lwjgl", name = "lwjgl", version = lwjglVersion, classifier = lwjglNatives)
+    runtimeOnly(group = "org.lwjgl", name = "lwjgl-glfw", version = lwjglVersion, classifier = lwjglNatives)
+    runtimeOnly(group = "org.lwjgl", name = "lwjgl-openal", version = lwjglVersion, classifier = lwjglNatives)
+    runtimeOnly(group = "org.lwjgl", name = "lwjgl-opengl", version = lwjglVersion, classifier = lwjglNatives)
+    runtimeOnly(group = "org.lwjgl", name = "lwjgl-stb", version = lwjglVersion, classifier = lwjglNatives)
+
     // Audio codec libraries - all depend on soundsystem, so we exclude redundant transitive dependencies
     implementation(group = "com.paulscode", name = "codecjorbis", version = "20101023") {
         exclude(group = "com.paulscode", module = "soundsystem") // Provided explicitly below
@@ -117,18 +131,6 @@ dependencies {
         version = project.property("log4j_version") as String
     )
 
-    implementation(group = "org.lwjgl", name = "lwjgl", version = lwjglVersion)
-    implementation(group = "org.lwjgl", name = "lwjgl-glfw", version = lwjglVersion)
-    implementation(group = "org.lwjgl", name = "lwjgl-openal", version = lwjglVersion)
-    implementation(group = "org.lwjgl", name = "lwjgl-opengl", version = lwjglVersion)
-    implementation(group = "org.lwjgl", name = "lwjgl-stb", version = lwjglVersion)
-
-    runtimeOnly(group = "org.lwjgl", name = "lwjgl", version = lwjglVersion, classifier = lwjglNatives)
-    runtimeOnly(group = "org.lwjgl", name = "lwjgl-glfw", version = lwjglVersion, classifier = lwjglNatives)
-    runtimeOnly(group = "org.lwjgl", name = "lwjgl-openal", version = lwjglVersion, classifier = lwjglNatives)
-    runtimeOnly(group = "org.lwjgl", name = "lwjgl-opengl", version = lwjglVersion, classifier = lwjglNatives)
-    runtimeOnly(group = "org.lwjgl", name = "lwjgl-stb", version = lwjglVersion, classifier = lwjglNatives)
-
     // Alternative authentication library - excluding gson to use our explicit version
     implementation(group = "fr.litarvan", name = "openauth", version = "1.1.6") {
         exclude(group = "com.google.code.gson", module = "gson") // openauth uses 2.10.1, we use 2.13.1
@@ -143,7 +145,7 @@ dependencies {
         exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib")      // Not needed for Java-only project
     }
 
-    //implementation(group = "com.alibaba.fastjson2", name = "fastjson2", version = "2.0.57")
+    implementation(group = "com.alibaba.fastjson2", name = "fastjson2", version = "2.0.58")
     // Look into, how adapter stuff works, and if the code rework is worth the speedup
 
     compileOnly(group = "org.jetbrains", name = "annotations", version = "26.0.2")
