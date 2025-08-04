@@ -31,25 +31,36 @@ public class Main {
 
         OptionParser parser = new OptionParser();
         parser.allowsUnrecognizedOptions();
-        parser.accepts("fullscreen");
-        parser.accepts("checkGlErrors");
-        OptionSpec<String> optionServer = parser.accepts("server").withRequiredArg();
-        OptionSpec<Integer> optionPort = parser.accepts("port").withRequiredArg().withValuesConvertedBy(new IntegerConverter()).defaultsTo(25565);
-        OptionSpec<File> optionGameDir = parser.accepts("gameDir").withRequiredArg().withValuesConvertedBy(new FileConverter()).defaultsTo(new File("."));
-        OptionSpec<File> optionAssetsDir = parser.accepts("assetsDir").withRequiredArg().withValuesConvertedBy(new FileConverter());
-        OptionSpec<File> optionResourcePackDir = parser.accepts("resourcePackDir").withRequiredArg().withValuesConvertedBy(new FileConverter());
+
+        // Proxy Info
         OptionSpec<String> optionProxyHost = parser.accepts("proxyHost").withRequiredArg();
         OptionSpec<Integer> optionProxyPort = parser.accepts("proxyPort").withRequiredArg().withValuesConvertedBy(new IntegerConverter()).defaultsTo(8080);
         OptionSpec<String> optionProxyUser = parser.accepts("proxyUser").withRequiredArg();
         OptionSpec<String> optionProxyPass = parser.accepts("proxyPass").withRequiredArg();
+
+        // User Info
         OptionSpec<String> optionUsername = parser.accepts("username").withRequiredArg().defaultsTo("Player");
         OptionSpec<String> optionUuid = parser.accepts("uuid").withRequiredArg();
         OptionSpec<String> optionAccessToken = parser.accepts("accessToken").withRequiredArg().required();
-        OptionSpec<Integer> optionWidth = parser.accepts("width").withRequiredArg().withValuesConvertedBy(new IntegerConverter()).defaultsTo(854);
-        OptionSpec<Integer> optionHeight = parser.accepts("height").withRequiredArg().withValuesConvertedBy(new IntegerConverter()).defaultsTo(480);
         OptionSpec<String> optionUserProperties = parser.accepts("userProperties").withRequiredArg().defaultsTo("{}");
         OptionSpec<String> optionProfileProperties = parser.accepts("profileProperties").withRequiredArg().defaultsTo("{}");
         OptionSpec<String> optionUserType = parser.accepts("userType").withRequiredArg().defaultsTo("legacy");
+
+        // Display Info
+        OptionSpec<Integer> optionWidth = parser.accepts("width").withRequiredArg().withValuesConvertedBy(new IntegerConverter()).defaultsTo(854);
+        OptionSpec<Integer> optionHeight = parser.accepts("height").withRequiredArg().withValuesConvertedBy(new IntegerConverter()).defaultsTo(480);
+        parser.accepts("fullscreen");
+        parser.accepts("checkGlErrors");
+
+        // Folder Info
+        OptionSpec<File> optionGameDir = parser.accepts("gameDir").withRequiredArg().withValuesConvertedBy(new FileConverter()).defaultsTo(new File("."));
+        OptionSpec<File> optionResourcePackDir = parser.accepts("resourcePackDir").withRequiredArg().withValuesConvertedBy(new FileConverter());
+        OptionSpec<File> optionAssetsDir = parser.accepts("assetsDir").withRequiredArg().withValuesConvertedBy(new FileConverter());
+
+        // Server Info
+        OptionSpec<String> optionServer = parser.accepts("server").withRequiredArg();
+        OptionSpec<Integer> optionPort = parser.accepts("port").withRequiredArg().withValuesConvertedBy(new IntegerConverter()).defaultsTo(25565);
+
         OptionSpec<String> nonOptions = parser.nonOptions();
         OptionSet options = parser.parse(args);
 
@@ -105,7 +116,7 @@ public class Main {
         String server = options.valueOf(optionServer);
         Integer port = options.valueOf(optionPort);
 
-        GameConfiguration gameconfiguration = new GameConfiguration(
+        GameConfiguration gameConfiguration = new GameConfiguration(
                 new GameConfiguration.UserInformation(session, userProperties, profileProperties, proxy),
                 new GameConfiguration.DisplayInformation(width, height, fullscreen, checkGlErrors),
                 new GameConfiguration.FolderInformation(gameDir, resourcePackDir, assetsDir),
@@ -118,7 +129,7 @@ public class Main {
             }
         });
         Thread.currentThread().setName("Client thread");
-        new Minecraft(gameconfiguration).run();
+        new Minecraft(gameConfiguration).run();
     }
 
     private static boolean isNotNullOrEmpty(String str) {
