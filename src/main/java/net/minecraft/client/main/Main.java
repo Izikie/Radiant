@@ -27,6 +27,11 @@ public class Main {
         System.setProperty("log4j2.formatMsgNoLookups", "true");
         System.setProperty("io.netty.allocator.maxOrder", "9"); // Default is 16MiB, Minecraft uses 2MiB, use 4MiB as safe default
 
+        if (!System.getProperty("os.arch").contains("64")) {
+            System.err.println("❌ Radiant requires a 64-bit JVM to run, java is deprecated on 32-bit systems.");
+            System.exit(1);
+        }
+
         JsonRegistration.init();
 
         OptionParser parser = new OptionParser();

@@ -1,8 +1,9 @@
-package net.radiant.json.adapter;
+package net.radiant.json.adapter.impl;
 
 import com.alibaba.fastjson2.JSONReader;
 import com.alibaba.fastjson2.JSONWriter;
 import com.mojang.authlib.GameProfile;
+import net.radiant.json.adapter.AbstractJsonAdapter;
 
 import java.lang.reflect.Type;
 import java.util.UUID;
@@ -13,6 +14,7 @@ public class GameProfileAdapter extends AbstractJsonAdapter<GameProfile> {
     public GameProfile readObject(JSONReader reader, Type fieldType, Object fieldName, long features) {
         UUID id = null;
         String name = null;
+
         if (reader.nextIfObjectStart()) {
             while (!reader.nextIfObjectEnd()) {
                 String key = reader.readFieldName();
@@ -23,6 +25,7 @@ public class GameProfileAdapter extends AbstractJsonAdapter<GameProfile> {
                 }
             }
         }
+
         return new GameProfile(id, name);
     }
 

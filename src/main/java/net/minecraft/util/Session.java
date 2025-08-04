@@ -13,11 +13,11 @@ public class Session {
     private final String token;
     private final Type sessionType;
 
-    public Session(String usernameIn, String playerIDIn, String tokenIn, String sessionTypeIn) {
-        this.username = usernameIn;
-        this.playerID = playerIDIn;
-        this.token = tokenIn;
-        this.sessionType = Type.setSessionType(sessionTypeIn);
+    public Session(String username, String playerID, String token, String session) {
+        this.username = username;
+        this.playerID = playerID;
+        this.token = token;
+        this.sessionType = Type.setSessionType(session);
     }
 
     public String getSessionID() {

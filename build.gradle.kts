@@ -7,34 +7,34 @@ group = "com.github.izikie"
 version = "1.0"
 description = "Optimized Minecraft Java Client for 1.8.9"
 
-var lwjglVersion = "3.3.6"
-val lwjglNatives = Pair(
-    System.getProperty("os.name")!!,
-    System.getProperty("os.arch")!!
-).let { (name, arch) ->
-    when {
-        "FreeBSD" == name ->
-            "natives-freebsd"
-        arrayOf("Linux", "SunOS", "Unit").any { name.startsWith(it) } ->
-            if (arrayOf("arm", "aarch64").any { arch.startsWith(it) })
-                "natives-linux${if (arch.contains("64") || arch.startsWith("armv8")) "-arm64" else "-arm32"}"
-            else if (arch.startsWith("ppc"))
-                "natives-linux-ppc64le"
-            else if (arch.startsWith("riscv"))
-                "natives-linux-riscv64"
-            else
-                "natives-linux"
-        arrayOf("Mac OS X", "Darwin").any { name.startsWith(it) } ->
-            "natives-macos${if (arch.startsWith("aarch64")) "-arm64" else ""}"
-        arrayOf("Windows").any { name.startsWith(it) } ->
-            if (arch.contains("64"))
-                "natives-windows${if (arch.startsWith("aarch64")) "-arm64" else ""}"
-            else
-                "natives-windows-x86"
-        else ->
-            throw Error("Unrecognized or unsupported platform: $name $arch")
+val lwjglVersion = project.property("lwjgl_version") as String
+
+val osName = System.getProperty("os.name")
+val osArch = System.getProperty("os.arch")
+
+fun isArm(arch: String) = arch == "aarch64" || arch == "arm64" || arch.startsWith("armv8")
+fun isPpc(arch: String) = arch.startsWith("ppc") || arch.startsWith("powerpc")
+fun isRiscv(arch: String) = arch.startsWith("riscv")
+
+val lwjglNatives = "natives-${when {
+    osName == "FreeBSD" -> "freebsd"
+
+    osName.startsWith("Linux") || osName.startsWith("Unix") -> when {
+        isArm(osArch) -> "linux-arm64"
+        isPpc(osArch) -> "linux-ppc64le"
+        isRiscv(osArch) -> "linux-riscv64"
+        else -> "linux"
     }
-}
+
+    osName.startsWith("Mac OS X") || osName.startsWith("Darwin") ->
+        "macos${if (isArm(osArch)) "-arm64" else ""}"
+
+    osName.startsWith("Windows") ->
+        "windows${if (isArm(osArch)) "-arm64" else ""}"
+
+    else -> error("Unsupported platform: $osName $osArch")
+}}"
+
 
 repositories {
     mavenCentral()
@@ -151,25 +151,32 @@ dependencies {
     compileOnly(group = "org.jetbrains", name = "annotations", version = "26.0.2")
 }
 
-val minecraftDir: String = when {
-    System.getProperty("os.name").contains("Windows", ignoreCase = true) -> System.getenv("APPDATA") + "/.minecraft"
-    System.getProperty("os.name").contains("Mac", ignoreCase = true) -> System.getProperty("user.home") + "/Library/Application Support/minecraft"
-    else -> System.getProperty("user.home") + "/.minecraft"
+val os = System.getProperty("os.name").lowercase()
+val home = System.getProperty("user.home")
+val appData = System.getenv("APPDATA")
+
+val minecraftDir = when {
+    "windows" in os -> "$appData/.minecraft"
+    "mac" in os -> "$home/Library/Application Support/minecraft"
+    else -> "$home/.minecraft"
 }
+
 
 tasks.register<JavaExec>("RunClient") {
     group = "GradleMCP"
-    description = "Start's the client"
-    classpath(sourceSets.getByName("main").runtimeClasspath)
+    description = "Starts the Minecraft ."
 
+    mainClass.set("net.minecraft.client.main.Main")
+    classpath = sourceSets["main"].runtimeClasspath
     workingDir = file(minecraftDir)
-    args("--assetsDir", "assets")
-    args("--accessToken", "0")
-    args("--userProperties", "{}")
+
+    args = listOf(
+        "--assetsDir", "assets",
+        "--accessToken", "0",
+        "--userProperties", "{}"
+    )
 
     systemProperty("log4j2.formatMsgNoLookups", "true")
-
-    mainClass = "net.minecraft.client.main.Main"
 }
 
 tasks.register<Jar>("AllJar") {
@@ -183,9 +190,7 @@ tasks.register<Jar>("AllJar") {
         if (it.isDirectory) it else zipTree(it)
     })
 
-    exclude("META-INF/*.SF")
-    exclude("META-INF/*.DSA")
-    exclude("META-INF/*.RSA")
+    exclude("META-INF/*.SF", "META-INF/*.DSA", "META-INF/*.RSA")
 
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
 

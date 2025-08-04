@@ -1,13 +1,14 @@
-package net.radiant.json.adapter;
+package net.radiant.json.adapter.impl;
 
 import com.alibaba.fastjson2.JSONReader;
 import com.alibaba.fastjson2.JSONWriter;
 import com.mojang.util.UUIDTypeAdapter;
+import net.radiant.json.adapter.AbstractJsonAdapter;
 
 import java.lang.reflect.Type;
 import java.util.UUID;
 
-public class UuidAdapter extends AbstractJsonAdapter<UUID> {
+public class UUIDAdapter extends AbstractJsonAdapter<UUID> {
 
     @Override
     public UUID readObject(JSONReader reader, Type fieldType, Object fieldName, long features) {

@@ -33,7 +33,6 @@ import net.radiant.lwjgl.opengl.GLContext;
 import net.radiant.lwjgl.opengl.PixelFormat;
 import org.apache.commons.io.IOUtils;
 import org.joml.Vector2i;
-import org.lwjgl.Version;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
@@ -51,7 +50,6 @@ import java.util.regex.Pattern;
 
 public class Config {
     public static final String VERSION = "OptiFine 1.8.9 HD U M6-Pre2";
-    private static boolean notify64BitJava = false;
     public static String openGlVersion = null;
     public static String openGlRenderer = null;
     public static String openGlVendor = null;
@@ -1624,33 +1622,6 @@ public class Config {
             int j = p_getUpdates_0_.indexOf(32, i);
             return j < 0 ? "" : p_getUpdates_0_.substring(i + 1, j);
         }
-    }
-
-    public static int getBitsOs() {
-        String s = System.getenv("ProgramFiles(X86)");
-        return s != null ? 64 : 32;
-    }
-
-    public static int getBitsJre() {
-        String[] astring = new String[]{"sun.arch.data.model", "com.ibm.vm.bitmode", "os.arch"};
-
-        for (String s : astring) {
-            String s1 = System.getProperty(s);
-
-            if (s1 != null && s1.contains("64")) {
-                return 64;
-            }
-        }
-
-        return 32;
-    }
-
-    public static boolean isNotify64BitJava() {
-        return notify64BitJava;
-    }
-
-    public static void setNotify64BitJava(boolean p_setNotify64BitJava_0_) {
-        notify64BitJava = p_setNotify64BitJava_0_;
     }
 
     public static boolean isConnectedModels() {

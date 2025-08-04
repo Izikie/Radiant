@@ -29,7 +29,6 @@ public class MicrosoftAuth extends GuiScreen {
     }
 
     public void initGui() {
-        buttonList.clear();
         buttonList.add(new GuiButton(0, width / 2 - 155, height - 28, 150, 20, "Login"));
         buttonList.add(new GuiButton(1, width / 2 + 5, height - 28, 150, 20, I18n.format("gui.cancel")));
         username = new GuiTextField(0, fontRendererObj, width / 2 - 100, height / 2 - 80, 200, 20);
@@ -39,10 +38,15 @@ public class MicrosoftAuth extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         drawDefaultBackground();
         drawCenteredString(fontRendererObj, status, width / 2, height / 2 - 95 - fontRendererObj.FONT_HEIGHT * 2, -1);
+
         username.drawTextBox();
         password.drawTextBox();
-        if (username.getText().isEmpty()) drawString(fontRendererObj, "Email", width / 2 - 95, height / 2 - 74, -1);
-        if (password.getText().isEmpty()) drawString(fontRendererObj, "Password", width / 2 - 95, height / 2 - 44, -1);
+
+        if (username.getText().isEmpty())
+            drawString(fontRendererObj, "Email", width / 2 - 95, height / 2 - 74, -1);
+        if (password.getText().isEmpty())
+            drawString(fontRendererObj, "Password", width / 2 - 95, height / 2 - 44, -1);
+
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
@@ -52,8 +56,9 @@ public class MicrosoftAuth extends GuiScreen {
         switch (button.id) {
             case 0 -> {
                 status = "Logging in...";
+
                 if (username.getText().isEmpty() || password.getText().isEmpty()) {
-                    status = "Enter a email & username";
+                    status = "Enter an email & password";
                 } else {
                     login();
                 }
@@ -78,24 +83,30 @@ public class MicrosoftAuth extends GuiScreen {
         Thread loginThread = new Thread(() -> {
             try {
                 MicrosoftAuthResult result = AUTHENTICATOR.loginWithCredentials(username.getText(), password.getText());
+
                 if (result != null) {
                     MinecraftProfile profile = result.getProfile();
+
                     mc.setSession(new Session(
                             profile.getName(),
                             profile.getId(),
                             result.getAccessToken(),
                             "MICROSOFT"));
+
                     LOGGER.info("Logged in as: {}", profile.getName());
-                    status = "Logged in to " + profile.getName();
+                    status = "Logged in as " + profile.getName();
                 } else {
-                    status = "Login Failed";
+                    status = "Login failed";
+                    LOGGER.error("Login failed, result is null");
                 }
             } catch (MicrosoftAuthenticationException exception) {
                 status = "Login Failed";
                 LOGGER.error("Microsoft authentication failed: {}", exception.getMessage());
             }
+
             System.gc();
         });
+
         loginThread.start();
     }
 }

@@ -98,15 +98,18 @@ public class NativeImage {
     public int[] getRGB(int startX, int startY, int w, int h, int @Nullable [] rgbArray, int offset, int scansize) {
         int yOff = offset;
         int off;
+
         if (rgbArray == null) {
             rgbArray = new int[offset + h * scansize];
         }
+
         for (int y = startY; y < startY + h; y++, yOff += scansize) {
             off = yOff;
             for (int x = startX; x < startX + w; x++) {
                 rgbArray[off++] = this.getPixel(x, y);
             }
         }
+
         return rgbArray;
     }
 
@@ -274,7 +277,6 @@ public class NativeImage {
         imageBuffer.put(imageBytes).flip();
 
         try (MemoryStack stack = MemoryStack.stackPush()) {
-
             IntBuffer w = stack.mallocInt(1);
             IntBuffer h = stack.mallocInt(1);
             IntBuffer comp = stack.mallocInt(1); // Useless...

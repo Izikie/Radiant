@@ -1992,24 +1992,12 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
         if (!this.initialized) {
             TextureUtils.registerResourceListener();
-
-            if (Config.getBitsOs() == 64 && Config.getBitsJre() == 32) {
-                Config.setNotify64BitJava(true);
-            }
-
             this.initialized = true;
         }
 
         Config.checkDisplayMode();
         World world = this.mc.world;
 
-        if (world != null) {
-            if (Config.isNotify64BitJava()) {
-                Config.setNotify64BitJava(false);
-                ChatComponentText chatcomponenttext1 = new ChatComponentText(I18n.format("of.message.java64Bit"));
-                this.mc.ingameGUI.getChatGUI().printChatMessage(chatcomponenttext1);
-            }
-        }
 
         if (this.updatedWorld != world) {
             RandomEntities.worldChanged(this.updatedWorld, world);
