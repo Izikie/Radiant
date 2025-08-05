@@ -237,22 +237,18 @@ public class GameSettings {
         this.mc = mcIn;
         this.optionsFile = new File(optionsFileIn, "options.txt");
 
-        if (mcIn.isJava64bit() && Runtime.getRuntime().maxMemory() >= 1000000000L) {
-            Options.RENDER_DISTANCE.setValueMax(32.0F);
-            long i = 1000000L;
+        long maxMemory = Runtime.getRuntime().maxMemory();
+        Options.RENDER_DISTANCE.setValueMax(32.0F);
 
-            if (Runtime.getRuntime().maxMemory() >= 1500L * i) {
-                Options.RENDER_DISTANCE.setValueMax(48.0F);
-            }
-
-            if (Runtime.getRuntime().maxMemory() >= 2500L * i) {
-                Options.RENDER_DISTANCE.setValueMax(64.0F);
-            }
-        } else {
-            Options.RENDER_DISTANCE.setValueMax(16.0F);
+        if (maxMemory >= 1500L * 1_000_000L) {
+            Options.RENDER_DISTANCE.setValueMax(48.0F);
         }
 
-        this.renderDistanceChunks = mcIn.isJava64bit() ? 12 : 8;
+        if (maxMemory >= 2500L * 1_000_000L) {
+            Options.RENDER_DISTANCE.setValueMax(64.0F);
+        }
+
+        this.renderDistanceChunks = 12;
         this.optionsFileOF = new File(optionsFileIn, "optionsof.txt");
         this.limitFramerate = (int) Options.FRAMERATE_LIMIT.getValueMax();
         this.renderDistanceChunks = 8;

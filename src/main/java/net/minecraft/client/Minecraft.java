@@ -174,7 +174,6 @@ public class Minecraft implements IThreadListener {
 	private int joinPlayerCounter;
 	public final FrameTimer frameTimer = new FrameTimer();
 	long startNanoTime = System.nanoTime();
-	private final boolean jvm64bit;
 	private NetworkManager myNetworkManager;
 	private boolean integratedServerIsRunning;
 	private long debugCrashKeyPressTime = -1L;
@@ -219,7 +218,6 @@ public class Minecraft implements IThreadListener {
 		tempDisplayHeight = gameConfig.displayInfo().height();
 		fullscreen = gameConfig.displayInfo().fullscreen();
 
-		jvm64bit = isJvm64bit();
 		theIntegratedServer = new IntegratedServer(this);
 
 		if (gameConfig.serverInfo().address() != null) {
@@ -430,28 +428,14 @@ public class Minecraft implements IThreadListener {
 
 	private void setWindowIcon() {
 		try (
-				InputStream x16 = mcDefaultResourcePack.getInputStream(new ResourceLocation("icons/icon_16x16.png"));
-				InputStream x32 = mcDefaultResourcePack.getInputStream(new ResourceLocation("icons/icon_32x32.png"))
+			InputStream x16 = mcDefaultResourcePack.getInputStream(new ResourceLocation("icons/icon_16x16.png"));
+			InputStream x32 = mcDefaultResourcePack.getInputStream(new ResourceLocation("icons/icon_32x32.png"))
 		) {
 			ByteBuffer[] icons = new ByteBuffer[]{readImageToBuffer(x16), readImageToBuffer(x32)};
 			if (x16 != null && x32 != null) Display.setIcon(icons);
 		} catch (IOException exception) {
 			LOGGER.error("Couldn't set icon", exception);
 		}
-	}
-
-	private static boolean isJvm64bit() {
-		String[] keys = new String[]{"sun.arch.data.model", "com.ibm.vm.bitmode", "os.arch"};
-
-		for (String key : keys) {
-			String value = System.getProperty(key);
-
-			if (value != null && value.contains("64")) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	public Framebuffer getFramebuffer() {
@@ -1734,10 +1718,6 @@ public class Minecraft implements IThreadListener {
 
 	public TextureMap getTextureMapBlocks() {
 		return textureMapBlocks;
-	}
-
-	public boolean isJava64bit() {
-		return jvm64bit;
 	}
 
 	public boolean isGamePaused() {

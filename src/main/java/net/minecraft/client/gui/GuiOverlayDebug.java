@@ -162,7 +162,7 @@ public class GuiOverlayDebug extends Gui {
                 default -> "Invalid";
             };
 
-            debugInfo.add(String.format("XYZ: %.3f, %.3f, %.3f", mc.getRenderViewEntity().posX, mc.getRenderViewEntity().getEntityBoundingBox().minY, mc.getRenderViewEntity().posZ));
+            debugInfo.add(String.format("XYZ: %.3f / %.3f / %.3f", mc.getRenderViewEntity().posX, mc.getRenderViewEntity().getEntityBoundingBox().minY, mc.getRenderViewEntity().posZ));
             debugInfo.add(String.format("Block: %d %d %d", blockPos.getX(), blockPos.getY(), blockPos.getZ()));
             debugInfo.add(String.format("Chunk: %d %d %d in %d %d %d", blockPos.getX() & 15, blockPos.getY() & 15, blockPos.getZ() & 15, blockPos.getX() >> 4, blockPos.getY() >> 4, blockPos.getZ() >> 4));
             debugInfo.add(String.format("Facing: %s (%s) (%.1f / %.1f)", direction.getName(), facing, MathHelper.wrapAngle(entity.rotationYaw), MathHelper.wrapAngle(entity.rotationPitch)));
@@ -208,14 +208,13 @@ public class GuiOverlayDebug extends Gui {
         long usedMemory = totalMemory - freeMemory;
 
         List<String> list = new ArrayList<>(List.of(
-                String.format("Java: %s %dbit", System.getProperty("java.version"), mc.isJava64bit() ? 64 : 32),
+                String.format("Java: %s", System.getProperty("java.version")),
                 String.format("Mem: % 2d%% %03d/%03dMB", usedMemory * 100L / maxMemory, bytesToMb(usedMemory), bytesToMb(maxMemory)),
                 String.format("Allocated: % 2d%% %03dMB", totalMemory * 100L / maxMemory, bytesToMb(totalMemory)),
-                "GC: " + MemoryMonitor.getAllocationRateMb() + "MB/s",
+                String.format("GC: %dMB/s", MemoryMonitor.getAllocationRateMb()),
                 "",
-                // Get actual CPU name
-                String.format("GPU: %s", GL11.glGetString(GL11.GL_RENDERER)),
                 String.format("Display: %dx%d (%s)", Display.getWidth(), Display.getHeight(), GL11.glGetString(GL11.GL_VENDOR)),
+                GL11.glGetString(GL11.GL_RENDERER),
                 GL11.glGetString(GL11.GL_VERSION)));
 
         if (!isReducedDebug()) {
