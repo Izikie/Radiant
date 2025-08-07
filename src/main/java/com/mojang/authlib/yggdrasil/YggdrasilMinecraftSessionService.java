@@ -21,6 +21,7 @@ import com.mojang.authlib.yggdrasil.response.MinecraftProfilePropertiesResponse;
 import com.mojang.authlib.yggdrasil.response.MinecraftTexturesPayload;
 import com.mojang.authlib.yggdrasil.response.Response;
 import com.mojang.util.UUIDTypeAdapter;
+import net.radiant.json.adapter.impl.UUIDAdapter;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
@@ -49,7 +50,7 @@ public class YggdrasilMinecraftSessionService extends HttpMinecraftSessionServic
     private static final URL CHECK_URL = HttpAuthenticationService.constantURL(BASE_URL + "hasJoined");
 
     private final PublicKey publicKey;
-    private final Gson gson = (new GsonBuilder()).registerTypeAdapter(UUID.class, new UUIDTypeAdapter()).create();
+    private final Gson gson = new GsonBuilder().registerTypeAdapter(UUID.class, new UUIDTypeAdapter()).create();
     private final LoadingCache<GameProfile, GameProfile> insecureProfiles = CacheBuilder.newBuilder().expireAfterWrite(6L, TimeUnit.HOURS).build(new CacheLoader<>() {
         @Override
         public @NotNull GameProfile load(@NotNull GameProfile key) {
@@ -71,12 +72,11 @@ public class YggdrasilMinecraftSessionService extends HttpMinecraftSessionServic
 
     @Override
     public void joinServer(GameProfile profile, String authenticationToken, String serverId) throws AuthenticationException {
-        JoinMinecraftServerRequest request = new JoinMinecraftServerRequest();
-        request.accessToken = authenticationToken;
-        request.selectedProfile = profile.getId();
-        request.serverId = serverId;
-
-        getAuthenticationService().makeRequest(JOIN_URL, request, Response.class);
+        getAuthenticationService().makeRequest(
+            JOIN_URL,
+            new JoinMinecraftServerRequest(authenticationToken, profile.getId(), serverId),
+            Response.class
+        );
     }
 
     @Override
@@ -167,7 +167,7 @@ public class YggdrasilMinecraftSessionService extends HttpMinecraftSessionServic
 
     protected GameProfile fillGameProfile(GameProfile profile, boolean requireSecure) {
         try {
-            URL url = HttpAuthenticationService.constantURL("https://sessionserver.mojang.com/session/minecraft/profile/" + UUIDTypeAdapter.fromUUID(profile.getId()));
+            URL url = HttpAuthenticationService.constantURL("https://sessionserver.mojang.com/session/minecraft/profile/" + UUIDAdapter.fromUUID(profile.getId()));
             url = HttpAuthenticationService.concatenateURL(url, "unsigned=" + (!requireSecure ? 1 : 0));
             MinecraftProfilePropertiesResponse response = getAuthenticationService().makeRequest(url, null, MinecraftProfilePropertiesResponse.class);
 

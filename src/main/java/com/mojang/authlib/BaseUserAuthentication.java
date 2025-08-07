@@ -3,7 +3,7 @@ package com.mojang.authlib;
 import com.google.common.collect.Multimap;
 import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;
-import com.mojang.util.UUIDTypeAdapter;
+import net.radiant.json.adapter.impl.UUIDAdapter;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -112,7 +112,7 @@ public abstract class BaseUserAuthentication implements UserAuthentication {
         }
 
         if (credentials.containsKey("displayName") && credentials.containsKey("uuid")) {
-            GameProfile profile = new GameProfile(UUIDTypeAdapter.fromString(String.valueOf(credentials.get("uuid"))), String.valueOf(credentials.get("displayName")));
+            GameProfile profile = new GameProfile(UUIDAdapter.fromString(String.valueOf(credentials.get("uuid"))), String.valueOf(credentials.get("displayName")));
             if (credentials.containsKey("profileProperties")) {
                 try {
                     List<Map<String, String>> list = (List<Map<String, String>>) credentials.get("profileProperties");

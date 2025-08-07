@@ -1,5 +1,7 @@
 package net.radiant.json.adapter.impl;
 
+import com.alibaba.fastjson2.JSONArray;
+import com.alibaba.fastjson2.JSONObject;
 import com.alibaba.fastjson2.JSONReader;
 import com.alibaba.fastjson2.JSONWriter;
 import com.mojang.authlib.properties.Property;
@@ -12,43 +14,33 @@ public class PropertyMapAdapter extends AbstractJsonAdapter<PropertyMap> {
 
     @Override
     public PropertyMap readObject(JSONReader reader, Type fieldType, Object fieldName, long features) {
+        Object obj = reader.readAny(); // Read entire JSON into Java object tree
+
         PropertyMap result = new PropertyMap();
 
-        if (reader.nextIfObjectStart()) {
-            while (!reader.nextIfObjectEnd()) {
-                String key = reader.readFieldName();
+        if (obj instanceof JSONObject jsonObject) {
+            for (String key : jsonObject.keySet()) {
+                Object value = jsonObject.get(key);
 
-                if (reader.nextIfArrayStart()) {
-                    while (!reader.nextIfArrayEnd()) {
-                        result.put(key, new Property(key, reader.readString()));
+                if (value instanceof JSONArray jsonArray) {
+                    for (Object item : jsonArray) {
+                        if (item instanceof String str) {
+                            result.put(key, new Property(key, str));
+                        }
                     }
-                } else {
-                    reader.skipValue();
                 }
             }
-        } else if (reader.nextIfArrayStart()) {
-            while (!reader.nextIfArrayEnd()) {
-                if (reader.nextIfObjectStart()) {
-                    String name = null;
-                    String value = null;
-                    String signature = null;
+        } else if (obj instanceof JSONArray jsonArray) {
+            for (Object item : jsonArray) {
+                if (item instanceof JSONObject propObj) {
+                    String name = propObj.getString("name");
+                    String value = propObj.getString("value");
+                    String signature = propObj.getString("signature");
 
-                    while (!reader.nextIfObjectEnd()) {
-                        String key = reader.readFieldName();
-
-                        switch (key) {
-                            case "name" -> name = reader.readString();
-                            case "value" -> value = reader.readString();
-                            case "signature" -> signature = reader.readString();
-                        }
-                    }
-
-                    if (name != null && value != null) {
-                        if (signature != null) {
-                            result.put(name, new Property(name, value, signature));
-                        } else {
-                            result.put(name, new Property(name, value));
-                        }
+                    if (signature != null) {
+                        result.put(name, new Property(name, value, signature));
+                    } else {
+                        result.put(name, new Property(name, value));
                     }
                 }
             }
@@ -56,6 +48,7 @@ public class PropertyMapAdapter extends AbstractJsonAdapter<PropertyMap> {
 
         return result;
     }
+
 
     @Override
     public void writeObject(JSONWriter writer, PropertyMap object, Object fieldName, Type fieldType, long features) {

@@ -1,9 +1,7 @@
 package net.minecraft.client.main;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.alibaba.fastjson2.JSON;
 import com.mojang.authlib.properties.PropertyMap;
-import com.mojang.authlib.properties.PropertyMap.Serializer;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
@@ -96,15 +94,11 @@ public class Main {
             });
         }
 
-        Gson gson = new GsonBuilder()
-                .registerTypeAdapter(PropertyMap.class, new Serializer())
-                .create();
-
         // User Info
         String playerID = options.has(optionUuid) ? optionUuid.value(options) : optionUsername.value(options);
         Session session = new Session(optionUsername.value(options), playerID, optionAccessToken.value(options), optionUserType.value(options));
-        PropertyMap userProperties = gson.fromJson(options.valueOf(optionUserProperties), PropertyMap.class);
-        PropertyMap profileProperties = gson.fromJson(options.valueOf(optionProfileProperties), PropertyMap.class);
+        PropertyMap userProperties = JSON.parseObject(options.valueOf(optionUserProperties), PropertyMap.class);
+        PropertyMap profileProperties = JSON.parseObject(options.valueOf(optionProfileProperties), PropertyMap.class);
 
         // Display Info
         int width = options.valueOf(optionWidth);

@@ -26,12 +26,11 @@ public class YggdrasilAuthenticationService extends HttpAuthenticationService {
     public YggdrasilAuthenticationService(Proxy proxy, String clientToken) {
         super(proxy);
         this.clientToken = clientToken;
-        GsonBuilder builder = new GsonBuilder();
-        builder.registerTypeAdapter(GameProfile.class, new GameProfileSerializer());
-        builder.registerTypeAdapter(PropertyMap.class, new PropertyMap.Serializer());
-        builder.registerTypeAdapter(UUID.class, new UUIDTypeAdapter());
-        builder.registerTypeAdapter(ProfileSearchResultsResponse.class, new ProfileSearchResultsResponse.Serializer());
-        this.gson = builder.create();
+        this.gson = new GsonBuilder()
+                .registerTypeAdapter(GameProfile.class, new GameProfileSerializer())
+                .registerTypeAdapter(PropertyMap.class, new PropertyMap.Serializer())
+                .registerTypeAdapter(UUID.class, new UUIDTypeAdapter())
+                .registerTypeAdapter(ProfileSearchResultsResponse.class, new ProfileSearchResultsResponse.Serializer()).create();
     }
 
     @Override

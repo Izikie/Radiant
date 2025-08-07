@@ -6,7 +6,7 @@ import com.mojang.authlib.HttpUserAuthentication;
 import com.mojang.authlib.UserType;
 import com.mojang.authlib.exceptions.AuthenticationException;
 import com.mojang.authlib.exceptions.InvalidCredentialsException;
-import com.mojang.util.UUIDTypeAdapter;
+import net.radiant.json.adapter.impl.UUIDAdapter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
@@ -60,7 +60,7 @@ public class LegacyUserAuthentication extends HttpUserAuthentication {
                 throw new AuthenticationException("Unknown response from authentication server: " + response);
             }
 
-            setSelectedProfile(new GameProfile(UUIDTypeAdapter.fromString(profileId), profileName));
+            setSelectedProfile(new GameProfile(UUIDAdapter.fromString(profileId), profileName));
             this.sessionToken = sessionToken;
             setUserType(UserType.LEGACY);
         } else {
