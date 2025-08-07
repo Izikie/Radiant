@@ -187,6 +187,10 @@ public enum NetworkState {
         return oclass == null ? null : oclass.getDeclaredConstructor().newInstance();
     }
 
+    public Class<? extends Packet<?>> getPacketClass(PacketDirection direction, int packetId) {
+        return this.directionMaps.get(direction).get(packetId);
+    }
+
     public int getId() {
         return this.id;
     }
