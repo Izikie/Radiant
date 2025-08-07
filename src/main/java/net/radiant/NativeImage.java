@@ -179,35 +179,35 @@ public class NativeImage {
 
     public NativeImage resized(int width, int height) {
 
-        NativeImage newImage = createBlankImage(width, height);
-
-        for (int w = 0; w < width; w++) {
-            for (int h = 0; h < height; h++) {
-                int relativeW = (int)(((double)w / (double)width) * this.width);
-                int relativeH = (int)(((double)h / (double)height) * this.height);
-                newImage.setPixel(w, h, this.getPixel(relativeW, relativeH));
+        boolean scaleCleanly = (width % this.width == 0 && height % this.height == 0) || (this.width % width == 0 && this.height % height == 0);
+        if (scaleCleanly) {
+            NativeImage newImage = createBlankImage(width, height);
+            for (int w = 0; w < width; w++) {
+                for (int h = 0; h < height; h++) {
+                    int relativeW = (int)(((double)w / (double)width) * this.width);
+                    int relativeH = (int)(((double)h / (double)height) * this.height);
+                    newImage.setPixel(w, h, this.getPixel(relativeW, relativeH));
+                }
             }
+            return newImage;
         }
 
-//        try {
-//            inputPixels = MemoryUtil.memAlloc(srcSize);
-//            inputPixels.put(this.data).flip();
-//
-//            buffer = MemoryUtil.memAlloc(dstSize);
-//
-//            stbir_resize(
-//                    inputPixels, this.width, this.height, this.width * 4,
-//                    buffer, width, height, width * 4,
-//                    STBIR_ARGB, STBIR_TYPE_UINT8, STBIR_EDGE_CLAMP, STBIR_FILTER_DEFAULT
-//            );
-//        } finally {
-//            if (inputPixels != null) {
-//                MemoryUtil.memFree(inputPixels);
-//            }
-//            if (buffer != null) {
-//                MemoryUtil.memFree(buffer);
-//            }
-//        }
+        ByteBuffer input = MemoryUtil.memAlloc(this.width * this.height * 4);
+        input.put(this.data).flip();
+
+        ByteBuffer output = MemoryUtil.memAlloc(width * height * 4);
+
+        stbir_resize_uint8_linear(
+                input, this.width, this.height, this.width * 4,
+                output, width, height, width * 4,
+                STBIR_RGBA
+        );
+
+        NativeImage newImage = createBlankImage(width, height);
+        output.get(newImage.data);
+
+        MemoryUtil.memFree(input);
+        MemoryUtil.memFree(output);
 
         return newImage;
     }
