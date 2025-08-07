@@ -29,7 +29,7 @@ public class ReflectRegisterFeature implements Feature {
             }
         }
 
-        for (int i = 0; i < 200; i++) {
+        for (int i = 0; i <= 200; i++) {
             Class<? extends Entity> entityClass = EntityList.getClassFromID(i);
             if (entityClass != null) {
                 RuntimeReflection.register(entityClass);
