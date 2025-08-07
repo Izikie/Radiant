@@ -175,32 +175,36 @@ public class NativeImage {
     }
 
     public NativeImage resized(int width, int height) {
-        int srcSize = this.width * this.height * 4;
-        int dstSize = width * height * 4;
 
         NativeImage newImage = createBlankImage(width, height);
 
-        ByteBuffer inputPixels = null, buffer = null;
-
-        try {
-            inputPixels = MemoryUtil.memAlloc(srcSize);
-            inputPixels.put(this.data).flip();
-
-            buffer = MemoryUtil.memAlloc(dstSize);
-
-            stbir_resize(
-                    inputPixels, this.width, this.height, this.width * 4,
-                    buffer, width, height, width * 4,
-                    STBIR_ARGB, STBIR_TYPE_UINT8, STBIR_EDGE_CLAMP, STBIR_FILTER_DEFAULT
-            );
-        } finally {
-            if (inputPixels != null) {
-                MemoryUtil.memFree(inputPixels);
-            }
-            if (buffer != null) {
-                MemoryUtil.memFree(buffer);
+        for (int w = 0; w < width; w++) {
+            for (int h = 0; h < height; h++) {
+                int relativeW = (int)(((double)w / (double)width) * this.width);
+                int relativeH = (int)(((double)h / (double)height) * this.height);
+                newImage.setPixel(w, h, this.getPixel(relativeW, relativeH));
             }
         }
+
+//        try {
+//            inputPixels = MemoryUtil.memAlloc(srcSize);
+//            inputPixels.put(this.data).flip();
+//
+//            buffer = MemoryUtil.memAlloc(dstSize);
+//
+//            stbir_resize(
+//                    inputPixels, this.width, this.height, this.width * 4,
+//                    buffer, width, height, width * 4,
+//                    STBIR_ARGB, STBIR_TYPE_UINT8, STBIR_EDGE_CLAMP, STBIR_FILTER_DEFAULT
+//            );
+//        } finally {
+//            if (inputPixels != null) {
+//                MemoryUtil.memFree(inputPixels);
+//            }
+//            if (buffer != null) {
+//                MemoryUtil.memFree(buffer);
+//            }
+//        }
 
         return newImage;
     }
