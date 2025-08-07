@@ -5,7 +5,9 @@ import net.minecraft.world.World;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MapGenStructureIO {
@@ -77,6 +79,14 @@ public class MapGenStructureIO {
         }
 
         return structurecomponent;
+    }
+
+    public static List<Class<? extends StructureStart>> getStartClasses() {
+        return new ArrayList<>(startNameToClassMap.values());
+    }
+
+    public static List<Class<? extends StructureComponent>> getComponentClasses() {
+        return new ArrayList<>(componentNameToClassMap.values());
     }
 
     static {
