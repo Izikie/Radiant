@@ -184,8 +184,8 @@ public class NativeImage {
             NativeImage newImage = createBlankImage(width, height);
             for (int w = 0; w < width; w++) {
                 for (int h = 0; h < height; h++) {
-                    int relativeW = (int)(((double)w / (double)width) * this.width);
-                    int relativeH = (int)(((double)h / (double)height) * this.height);
+                    int relativeW = (int) (((double) w / (double) width) * this.width);
+                    int relativeH = (int) (((double) h / (double) height) * this.height);
                     newImage.setPixel(w, h, this.getPixel(relativeW, relativeH));
                 }
             }
