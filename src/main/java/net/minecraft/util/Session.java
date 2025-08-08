@@ -1,7 +1,7 @@
 package net.minecraft.util;
 
 import com.mojang.authlib.GameProfile;
-import com.mojang.util.UUIDAdapter;
+import com.mojang.util.UUIDTypeAdapter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,7 +38,7 @@ public class Session {
 
     public GameProfile getProfile() {
         try {
-            UUID uuid = UUIDAdapter.fromString(this.getPlayerID());
+            UUID uuid = UUIDTypeAdapter.fromString(this.getPlayerID());
             return new GameProfile(uuid, this.getUsername());
         } catch (IllegalArgumentException exception) {
             return new GameProfile(null, this.getUsername());
