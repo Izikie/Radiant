@@ -27,77 +27,79 @@ public class GuiNewChat extends Gui {
     }
 
     public void drawChat(int updateCounter) {
-        if (this.mc.gameSettings.chatVisibility != EntityPlayer.ChatVisibility.HIDDEN) {
-            int i = this.getLineCount();
-            boolean flag = false;
-            int j = 0;
-            int k = this.drawnChatLines.size();
-            float f = this.mc.gameSettings.chatOpacity * 0.9F + 0.1F;
+        if (this.mc.gameSettings.chatVisibility == EntityPlayer.ChatVisibility.HIDDEN) {
+            return;
+        }
 
-            if (k > 0) {
-                if (this.getChatOpen()) {
-                    flag = true;
-                }
+        int i = this.getLineCount();
+        boolean flag = false;
+        int j = 0;
+        int k = this.drawnChatLines.size();
+        float f = this.mc.gameSettings.chatOpacity * 0.9F + 0.1F;
 
-                float f1 = this.getChatScale();
-                int l = MathHelper.ceil(this.getChatWidth() / f1);
-                GlStateManager.pushMatrix();
-                GlStateManager.translate(2.0F, 20.0F, 0.0F);
-                GlStateManager.scale(f1, f1, 1.0F);
+        if (k > 0) {
+            if (this.getChatOpen()) {
+                flag = true;
+            }
 
-                for (int i1 = 0; i1 + this.scrollPos < this.drawnChatLines.size() && i1 < i; ++i1) {
-                    ChatLine chatline = this.drawnChatLines.get(i1 + this.scrollPos);
+            float f1 = this.getChatScale();
+            int l = MathHelper.ceil(this.getChatWidth() / f1);
+            GlStateManager.pushMatrix();
+            GlStateManager.translate(2.0F, 20.0F, 0.0F);
+            GlStateManager.scale(f1, f1, 1.0F);
 
-                    if (chatline != null) {
-                        int j1 = updateCounter - chatline.getUpdatedCounter();
+            for (int i1 = 0; i1 + this.scrollPos < this.drawnChatLines.size() && i1 < i; ++i1) {
+                ChatLine chatline = this.drawnChatLines.get(i1 + this.scrollPos);
 
-                        if (j1 < 200 || flag) {
-                            double d0 = j1 / 200.0D;
-                            d0 = 1.0D - d0;
-                            d0 = d0 * 10.0D;
-                            d0 = MathHelper.clamp(d0, 0.0D, 1.0D);
-                            d0 = d0 * d0;
-                            int l1 = (int) (255.0D * d0);
+                if (chatline != null) {
+                    int j1 = updateCounter - chatline.getUpdatedCounter();
 
-                            if (flag) {
-                                l1 = 255;
-                            }
+                    if (j1 < 200 || flag) {
+                        double d0 = j1 / 200.0D;
+                        d0 = 1.0D - d0;
+                        d0 = d0 * 10.0D;
+                        d0 = MathHelper.clamp(d0, 0.0D, 1.0D);
+                        d0 = d0 * d0;
+                        int l1 = (int) (255.0D * d0);
 
-                            l1 = (int) (l1 * f);
-                            ++j;
+                        if (flag) {
+                            l1 = 255;
+                        }
 
-                            if (l1 > 3) {
-                                int i2 = 0;
-                                int j2 = -i1 * 9;
-                                drawRect(i2, j2 - 9, i2 + l + 4, j2, l1 / 2 << 24);
-                                String s = chatline.getChatComponent().getFormattedText();
-                                GlStateManager.enableBlend();
-                                this.mc.fontRendererObj.drawStringWithShadow(s, i2, (j2 - 8), 16777215 + (l1 << 24));
-                                GlStateManager.disableAlpha();
-                                GlStateManager.disableBlend();
-                            }
+                        l1 = (int) (l1 * f);
+                        ++j;
+
+                        if (l1 > 3) {
+                            int i2 = 0;
+                            int j2 = -i1 * 9;
+                            drawRect(i2, j2 - 9, i2 + l + 4, j2, l1 / 2 << 24);
+                            String s = chatline.getChatComponent().getFormattedText();
+                            GlStateManager.enableBlend();
+                            this.mc.fontRendererObj.drawStringWithShadow(s, i2, (j2 - 8), 16777215 + (l1 << 24));
+                            GlStateManager.disableAlpha();
+                            GlStateManager.disableBlend();
                         }
                     }
                 }
-
-                if (flag) {
-                    int k2 = this.mc.fontRendererObj.FONT_HEIGHT;
-                    GlStateManager.translate(-3.0F, 0.0F, 0.0F);
-                    int l2 = k * k2 + k;
-                    int i3 = j * k2 + j;
-                    int j3 = this.scrollPos * i3 / k;
-                    int k1 = i3 * i3 / l2;
-
-                    if (l2 != i3) {
-                        int k3 = j3 > 0 ? 170 : 96;
-                        int l3 = this.isScrolled ? 13382451 : 3355562;
-                        drawRect(0, -j3, 2, -j3 - k1, l3 + (k3 << 24));
-                        drawRect(2, -j3, 1, -j3 - k1, 13421772 + (k3 << 24));
-                    }
-                }
-
-                GlStateManager.popMatrix();
             }
+
+            if (flag) {
+                int k2 = this.mc.fontRendererObj.FONT_HEIGHT;
+                GlStateManager.translate(-3.0F, 0.0F, 0.0F);
+                int l2 = k * k2 + k;
+                int i3 = j * k2 + j;
+                int j3 = this.scrollPos * i3 / k;
+                int k1 = i3 * i3 / l2;
+
+                if (l2 != i3) {
+                    int k3 = j3 > 0 ? 170 : 96;
+                    int l3 = this.isScrolled ? 13382451 : 3355562;
+                    drawRect(0, -j3, 2, -j3 - k1, l3 + (k3 << 24));
+                    drawRect(2, -j3, 1, -j3 - k1, 13421772 + (k3 << 24));
+                }
+            }
+
+            GlStateManager.popMatrix();
         }
     }
 
@@ -187,11 +189,9 @@ public class GuiNewChat extends Gui {
     }
 
     public IChatComponent getChatComponent(int mouseX, int mouseY) {
-        if (!this.getChatOpen()) {
-            return null;
-        } else {
-            ScaledResolution scaledresolution = new ScaledResolution(this.mc);
-            int i = scaledresolution.getScaleFactor();
+        if (this.getChatOpen()) {
+            ScaledResolution scaledRes = new ScaledResolution(this.mc);
+            int i = scaledRes.getScaleFactor();
             float f = this.getChatScale();
             int j = mouseX / i - 3;
             int k = mouseY / i - 27;
@@ -208,25 +208,22 @@ public class GuiNewChat extends Gui {
                         ChatLine chatline = this.drawnChatLines.get(i1);
                         int j1 = 0;
 
-                        for (IChatComponent ichatcomponent : chatline.getChatComponent()) {
-                            if (ichatcomponent instanceof ChatComponentText iChatComponents) {
-                                j1 += this.mc.fontRendererObj.getStringWidth(GuiUtilRenderComponents.func_178909_a(iChatComponents.getChatComponentText_TextValue(), false));
+                        for (IChatComponent chatComponent : chatline.getChatComponent()) {
+                            if (chatComponent instanceof ChatComponentText textComponent) {
+                                j1 += this.mc.fontRendererObj.getStringWidth(GuiUtilRenderComponents.func_178909_a(textComponent.getChatComponentText_TextValue(), false));
 
                                 if (j1 > j) {
-                                    return ichatcomponent;
+                                    return chatComponent;
                                 }
                             }
                         }
                     }
 
-                    return null;
-                } else {
-                    return null;
                 }
-            } else {
-                return null;
             }
         }
+
+        return null;
     }
 
     public boolean getChatOpen() {

@@ -23,6 +23,9 @@ import org.slf4j.Logger;
 
 import javax.crypto.SecretKey;
 import java.math.BigInteger;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
 import java.nio.charset.StandardCharsets;
 import java.security.PrivateKey;
 import java.util.Arrays;
@@ -143,7 +146,7 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
 
                     try {
                         String s = (new BigInteger(CryptManager.getServerIdHash(serverId, server.getKeyPair().getPublic(), secretKey))).toString(16);
-                        loginGameProfile = server.getMinecraftSessionService().hasJoinedServer(new GameProfile(null, gameprofile.getName()), s);
+                        loginGameProfile = server.getMinecraftSessionService().hasJoinedServer(new GameProfile(null, gameprofile.getName()), s, this.getAddress());
 
                         if (loginGameProfile != null) {
                             LOGGER.info("UUID of player {} is {}", loginGameProfile.getName(), loginGameProfile.getId());
@@ -167,6 +170,17 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
                         }
                     }
                 }
+
+                private InetAddress getAddress() {
+                    SocketAddress address = networkManager.getRemoteAddress();
+
+                    if (address instanceof InetSocketAddress socket) {
+                        return socket.getAddress();
+                    }
+
+                    return null;
+                }
+
             }).start();
         }
     }

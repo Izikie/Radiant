@@ -238,7 +238,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
                 } catch (ChannelException exception) {
                 }
 
-                channel.pipeline().addLast("timeout", new ReadTimeoutHandler(30)).addLast("splitter", new MessageDeserializer2()).addLast("decoder", new MessageDeserializer(PacketDirection.CLIENTBOUND)).addLast("prepender", new MessageSerializer2()).addLast("encoder", new MessageSerializer(PacketDirection.SERVERBOUND)).addLast("packet_handler", manager);
+                channel.pipeline().addLast("timeout", new ReadTimeoutHandler(30)).addLast("splitter", new MessageDeserializer2()).addLast("decoder", new MessageDeserializer(PacketDirection.INCOMING)).addLast("prepender", new MessageSerializer2()).addLast("encoder", new MessageSerializer(PacketDirection.OUTGOING)).addLast("packet_handler", manager);
             }
         }).channel(oclass).connect(address, port).syncUninterruptibly();
         return manager;

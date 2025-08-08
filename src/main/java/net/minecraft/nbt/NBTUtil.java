@@ -1,58 +1,89 @@
 package net.minecraft.nbt;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import net.minecraft.util.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.UUID;
 
 public final class NBTUtil {
-    public static GameProfile readGameProfileFromNBT(NBTTagCompound compound) {
-        String s = null;
-        String s1 = null;
+    private static final Logger LOGGER = LoggerFactory.getLogger(NBTUtil.class);
 
-        if (compound.hasKey("Name", 8)) {
-            s = compound.getString("Name");
-        }
+    // IMPROVEMENT: Fix skull crash
+    private static String fixSkullCrash(NBTTagCompound nbtTagCompound) {
+        try {
+            String valueURL = nbtTagCompound.getString("Value");
+            String decodedValueString = new String(Base64.getDecoder().decode(valueURL), StandardCharsets.UTF_8);
+            JsonObject jsonObject = JsonParser.parseString(decodedValueString).getAsJsonObject();
 
-        if (compound.hasKey("Id", 8)) {
-            s1 = compound.getString("Id");
-        }
-
-        if (StringUtils.isNullOrEmpty(s) && StringUtils.isNullOrEmpty(s1)) {
-            return null;
-        } else {
-            UUID uuid;
-
-            try {
-                uuid = UUID.fromString(s1);
-            } catch (Throwable throwable) {
-                uuid = null;
+            String url = jsonObject
+                    .getAsJsonObject("textures")
+                    .getAsJsonObject("SKIN")
+                    .get("url")
+                    .getAsString();
+            if (url.matches("(http|https)://textures.minecraft.net/texture/.*")) {
+                return valueURL;
+            } else {
+                jsonObject.remove("textures");
+                return Base64.getEncoder().encodeToString(jsonObject.toString().getBytes(StandardCharsets.UTF_8));
             }
+        } catch (IllegalArgumentException | IllegalStateException e) {
+            LOGGER.error("Failed to decode or parse skull value: {}", e.getMessage());
+            return "";
+        } catch (JsonParseException exception) {
+            LOGGER.error("Could not parse skull owner data: {}", exception.getMessage());
+            return "";
+        }
+    }
 
-            GameProfile gameprofile = new GameProfile(uuid, s);
+    public static GameProfile readGameProfileFromNBT(NBTTagCompound compound) {
+        String name = compound.hasKey("Name", 8)
+                ? compound.getString("Name")
+                : null;
+        String id = compound.hasKey("Id", 8)
+                ? compound.getString("Id")
+                : null;
 
-            if (compound.hasKey("Properties", 10)) {
-                NBTTagCompound nbttagcompound = compound.getCompoundTag("Properties");
+        if (StringUtils.isNullOrEmpty(name) && StringUtils.isNullOrEmpty(id)) {
+            return null;
+        }
 
-                for (String s2 : nbttagcompound.getKeySet()) {
-                    NBTTagList nbttaglist = nbttagcompound.getTagList(s2, 10);
+        UUID uuid;
+        try {
+            uuid = UUID.fromString(id);
+        } catch (IllegalArgumentException throwable) {
+            uuid = null;
+        }
 
-                    for (int i = 0; i < nbttaglist.tagCount(); ++i) {
-                        NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
-                        String s3 = nbttagcompound1.getString("Value");
+        GameProfile gameProfile = new GameProfile(uuid, name);
 
-                        if (nbttagcompound1.hasKey("Signature", 8)) {
-                            gameprofile.getProperties().put(s2, new Property(s2, s3, nbttagcompound1.getString("Signature")));
-                        } else {
-                            gameprofile.getProperties().put(s2, new Property(s2, s3));
-                        }
+        if (compound.hasKey("Properties", 10)) {
+            NBTTagCompound properties = compound.getCompoundTag("Properties");
+
+            for (String key : properties.getKeySet()) {
+                NBTTagList propertyList = properties.getTagList(key, 10);
+
+                for (int i = 0; i < propertyList.tagCount(); ++i) {
+                    NBTTagCompound propertyTag = propertyList.getCompoundTagAt(i);
+                    String value = fixSkullCrash(propertyTag);
+
+                    if (propertyTag.hasKey("Signature", 8)) {
+                        gameProfile.getProperties().put(key, new Property(key, value, propertyTag.getString("Signature")));
+                    } else {
+                        gameProfile.getProperties().put(key, new Property(key, value));
                     }
                 }
             }
-
-            return gameprofile;
         }
+
+        return gameProfile;
     }
 
     public static NBTTagCompound writeGameProfile(NBTTagCompound tagCompound, GameProfile profile) {
@@ -65,26 +96,26 @@ public final class NBTUtil {
         }
 
         if (!profile.getProperties().isEmpty()) {
-            NBTTagCompound nbttagcompound = new NBTTagCompound();
+            NBTTagCompound propertiesTag = new NBTTagCompound();
 
-            for (String s : profile.getProperties().keySet()) {
-                NBTTagList nbttaglist = new NBTTagList();
+            for (String key : profile.getProperties().keySet()) {
+                NBTTagList propertyList = new NBTTagList();
 
-                for (Property property : profile.getProperties().get(s)) {
-                    NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-                    nbttagcompound1.setString("Value", property.getValue());
+                for (Property property : profile.getProperties().get(key)) {
+                    NBTTagCompound propertyTag = new NBTTagCompound();
+                    propertyTag.setString("Value", fixSkullCrash(propertyTag));
 
                     if (property.hasSignature()) {
-                        nbttagcompound1.setString("Signature", property.getSignature());
+                        propertyTag.setString("Signature", property.getSignature());
                     }
 
-                    nbttaglist.appendTag(nbttagcompound1);
+                    propertyList.appendTag(propertyTag);
                 }
 
-                nbttagcompound.setTag(s, nbttaglist);
+                propertiesTag.setTag(key, propertyList);
             }
 
-            tagCompound.setTag("Properties", nbttagcompound);
+            tagCompound.setTag("Properties", propertiesTag);
         }
 
         return tagCompound;

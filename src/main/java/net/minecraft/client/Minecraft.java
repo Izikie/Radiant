@@ -1134,7 +1134,6 @@ public class Minecraft implements IThreadListener {
 					if (currentScreen != null) {
 						currentScreen.handleKeyboardInput();
 					} else {
-
 						switch (k) {
 							case 1 -> displayInGameMenu();
 
@@ -1242,6 +1241,17 @@ public class Minecraft implements IThreadListener {
 			if (player.isUsingItem()) {
 				if (!gameSettings.keyBindUseItem.isKeyDown()) {
 					playerController.onStoppedUsingItem(player);
+				}
+
+				// Apparently, this is needed to prevent incorrect behavior which could flag anticheats
+				while (this.gameSettings.keyBindAttack.isPressed()) {
+					;
+				}
+				while (this.gameSettings.keyBindUseItem.isPressed()) {
+					;
+				}
+				while (this.gameSettings.keyBindPickBlock.isPressed()) {
+					;
 				}
 			} else {
 				while (gameSettings.keyBindAttack.isPressed()) {
