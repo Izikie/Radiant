@@ -495,7 +495,7 @@ public class EntityRabbit extends EntityAnimal {
         }
     }
 
-    public class RabbitJumpHelper extends EntityJumpHelper {
+    public static class RabbitJumpHelper extends EntityJumpHelper {
         private final EntityRabbit theEntity;
         private boolean field_180068_d = false;
 

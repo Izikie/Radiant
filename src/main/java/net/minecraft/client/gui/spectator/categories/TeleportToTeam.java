@@ -63,7 +63,7 @@ public class TeleportToTeam implements ISpectatorMenuView, ISpectatorMenuObject 
         return false;
     }
 
-    class TeamSelectionObject implements ISpectatorMenuObject {
+    static class TeamSelectionObject implements ISpectatorMenuObject {
         private final ScorePlayerTeam field_178676_b;
         private final ResourceLocation field_178677_c;
         private final List<NetworkPlayerInfo> field_178675_d;

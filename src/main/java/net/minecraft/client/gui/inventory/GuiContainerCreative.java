@@ -700,7 +700,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         }
     }
 
-    class CreativeSlot extends Slot {
+    static class CreativeSlot extends Slot {
         private final Slot slot;
 
         public CreativeSlot(Slot p_i46313_2_, int p_i46313_3_) {

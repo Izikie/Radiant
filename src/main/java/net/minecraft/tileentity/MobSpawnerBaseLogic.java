@@ -303,7 +303,7 @@ public abstract class MobSpawnerBaseLogic {
         return this.prevMobRotation;
     }
 
-    public class WeightedRandomMinecart extends WeightedRandom.Item {
+    public static class WeightedRandomMinecart extends WeightedRandom.Item {
         private final NBTTagCompound nbtData;
         private final String entityType;
 

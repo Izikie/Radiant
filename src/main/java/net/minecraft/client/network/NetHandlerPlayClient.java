@@ -7,7 +7,6 @@ import io.netty.buffer.Unpooled;
 import net.minecraft.block.Block;
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.GuardianSound;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.*;
@@ -29,7 +28,6 @@ import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.*;
-import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -590,11 +588,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         Entity entity = packet.getEntity(this.clientWorldController);
 
         if (entity != null) {
-            if (packet.getOpCode() == 21) {
-                this.gameController.getSoundHandler().playSound(new GuardianSound((EntityGuardian) entity));
-            } else {
-                entity.handleStatusUpdate(packet.getOpCode());
-            }
+            entity.handleStatusUpdate(packet.getOpCode());
         }
     }
 

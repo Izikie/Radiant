@@ -2,6 +2,9 @@ package net.minecraft.entity.monster;
 
 import com.google.common.base.Predicate;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.ISound;
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -250,7 +253,7 @@ public class EntityGuardian extends EntityMob {
                 if (entitylivingbase != null) {
                     this.getLookHelper().setLookPositionWithEntity(entitylivingbase, 90.0F, 90.0F);
                     this.getLookHelper().onUpdateLook();
-                    double d5 = this.func_175477_p(0.0F);
+                    double d5 = this.getAttackAnimationScale(0.0F);
                     double d0 = entitylivingbase.posX - this.posX;
                     double d1 = entitylivingbase.posY + (entitylivingbase.height * 0.5F) - (this.posY + this.getEyeHeight());
                     double d2 = entitylivingbase.posZ - this.posZ;
@@ -286,6 +289,28 @@ public class EntityGuardian extends EntityMob {
         super.onLivingUpdate();
     }
 
+    public void handleStatusUpdate(byte id) {
+        if (id == 21) {
+            float scale = this.getAttackAnimationScale(0.0F);
+            float volume = scale * scale;
+            float pitch = 0.7F + 0.5F * scale;
+
+            Minecraft.get().getSoundHandler().playSound(
+                    new PositionedSoundRecord(
+                            new ResourceLocation("minecraft:mob.guardian.attack"),
+                            volume,
+                            pitch,
+                            true,
+                            0,
+                            ISound.AttenuationType.NONE,
+                            (float) this.posX, (float) this.posY, (float) this.posZ
+                    )
+            );
+        } else {
+            super.handleStatusUpdate(id);
+        }
+    }
+
     public float func_175471_a(float p_175471_1_) {
         return this.field_175484_c + (this.field_175482_b - this.field_175484_c) * p_175471_1_;
     }
@@ -294,7 +319,7 @@ public class EntityGuardian extends EntityMob {
         return this.field_175486_bm + (this.field_175485_bl - this.field_175486_bm) * p_175469_1_;
     }
 
-    public float func_175477_p(float p_175477_1_) {
+    public float getAttackAnimationScale(float p_175477_1_) {
         return (this.field_175479_bo + p_175477_1_) / this.func_175464_ck();
     }
 

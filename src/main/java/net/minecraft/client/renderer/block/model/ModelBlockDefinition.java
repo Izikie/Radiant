@@ -92,7 +92,7 @@ public class ModelBlockDefinition {
         }
     }
 
-    public class MissingVariantException extends RuntimeException {
+    public static class MissingVariantException extends RuntimeException {
     }
 
     public static class Variant {

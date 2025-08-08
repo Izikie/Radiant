@@ -870,7 +870,7 @@ public class WorldRenderer {
         return this.noColor;
     }
 
-    public class State {
+    public static class State {
         private final int[] stateRawBuffer;
         private final VertexFormat stateVertexFormat;
         private TextureAtlasSprite[] stateQuadSprites;

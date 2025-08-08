@@ -200,7 +200,7 @@ public class PlayerProfileCache {
         return arraylist;
     }
 
-    class ProfileEntry {
+    static class ProfileEntry {
         private final GameProfile gameProfile;
         private final Date expirationDate;
 

@@ -187,7 +187,7 @@ public class S38PacketPlayerListItem implements Packet<INetHandlerPlayClient> {
         REMOVE_PLAYER
     }
 
-    public class AddPlayerData {
+    public static class AddPlayerData {
         private final int ping;
         private final WorldSettings.GameType gamemode;
         private final GameProfile profile;

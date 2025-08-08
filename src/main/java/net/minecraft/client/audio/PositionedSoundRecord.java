@@ -19,7 +19,7 @@ public class PositionedSoundRecord extends PositionedSound {
         this(soundResource, volume, pitch, false, 0, AttenuationType.LINEAR, xPosition, yPosition, zPosition);
     }
 
-    private PositionedSoundRecord(ResourceLocation soundResource, float volume, float pitch, boolean repeat, int repeatDelay, AttenuationType attenuationType, float xPosition, float yPosition, float zPosition) {
+    public PositionedSoundRecord(ResourceLocation soundResource, float volume, float pitch, boolean repeat, int repeatDelay, AttenuationType attenuationType, float xPosition, float yPosition, float zPosition) {
         super(soundResource);
         this.volume = volume;
         this.pitch = pitch;

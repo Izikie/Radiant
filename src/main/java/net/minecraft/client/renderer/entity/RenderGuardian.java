@@ -61,7 +61,7 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
         EntityLivingBase entitylivingbase = entity.getTargetedEntity();
 
         if (entitylivingbase != null) {
-            float f = entity.func_175477_p(partialTicks);
+            float f = entity.getAttackAnimationScale(partialTicks);
             Tessellator tessellator = Tessellator.get();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             this.bindTexture(GUARDIAN_BEAM_TEXTURE);

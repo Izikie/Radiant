@@ -566,7 +566,7 @@ public class EntityZombie extends EntityMob {
         }
     }
 
-    class GroupData implements IEntityLivingData {
+    static class GroupData implements IEntityLivingData {
         public final boolean isChild;
         public final boolean isVillager;
 

@@ -339,7 +339,7 @@ public class Teleporter {
         }
     }
 
-    public class PortalPosition extends BlockPos {
+    public static class PortalPosition extends BlockPos {
         public long lastUpdateTime;
 
         public PortalPosition(BlockPos pos, long lastUpdate) {

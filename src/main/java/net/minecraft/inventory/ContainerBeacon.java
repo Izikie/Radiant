@@ -100,7 +100,7 @@ public class ContainerBeacon extends Container {
         return itemstack;
     }
 
-    class BeaconSlot extends Slot {
+    static class BeaconSlot extends Slot {
         public BeaconSlot(IInventory p_i1801_2_, int p_i1801_3_, int p_i1801_4_, int p_i1801_5_) {
             super(p_i1801_2_, p_i1801_3_, p_i1801_4_, p_i1801_5_);
         }

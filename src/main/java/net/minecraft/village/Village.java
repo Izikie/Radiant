@@ -421,7 +421,7 @@ public class Village {
         }
     }
 
-    class VillageAggressor {
+    static class VillageAggressor {
         public final EntityLivingBase agressor;
         public int agressionTime;
 

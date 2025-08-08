@@ -107,7 +107,7 @@ public class ContainerBrewingStand extends Container {
         return itemstack;
     }
 
-    class Ingredient extends Slot {
+    static class Ingredient extends Slot {
         public Ingredient(IInventory inventoryIn, int index, int xPosition, int yPosition) {
             super(inventoryIn, index, xPosition, yPosition);
         }

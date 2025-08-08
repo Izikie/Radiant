@@ -106,7 +106,7 @@ public class EntityAITasks {
         return (taskEntry1.action.getMutexBits() & taskEntry2.action.getMutexBits()) == 0;
     }
 
-    class EntityAITaskEntry {
+    static class EntityAITaskEntry {
         public final EntityAIBase action;
         public final int priority;
 

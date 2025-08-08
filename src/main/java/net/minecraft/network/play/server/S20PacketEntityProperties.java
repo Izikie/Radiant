@@ -75,7 +75,7 @@ public class S20PacketEntityProperties implements Packet<INetHandlerPlayClient> 
         return this.field_149444_b;
     }
 
-    public class Snapshot {
+    public static class Snapshot {
         private final String field_151412_b;
         private final double field_151413_c;
         private final Collection<AttributeModifier> field_151411_d;
