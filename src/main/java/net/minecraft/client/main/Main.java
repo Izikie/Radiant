@@ -1,6 +1,7 @@
 package net.minecraft.client.main;
 
-import com.alibaba.fastjson2.JSON;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mojang.authlib.properties.PropertyMap;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
@@ -8,7 +9,6 @@ import joptsimple.OptionSpec;
 import joptsimple.ValueConverter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Session;
-import net.radiant.json.JsonRegistration;
 
 import java.io.File;
 import java.net.Authenticator;
@@ -29,8 +29,6 @@ public class Main {
             System.err.println("❌ Radiant requires a 64-bit JVM to run, java is deprecated on 32-bit systems.");
             System.exit(1);
         }
-
-        JsonRegistration.init();
 
         OptionParser parser = new OptionParser();
         parser.allowsUnrecognizedOptions();
@@ -94,11 +92,15 @@ public class Main {
             });
         }
 
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(PropertyMap.class, new PropertyMap.Serializer())
+                .create();
+
         // User Info
         String playerID = options.has(optionUuid) ? optionUuid.value(options) : optionUsername.value(options);
         Session session = new Session(optionUsername.value(options), playerID, optionAccessToken.value(options), optionUserType.value(options));
-        PropertyMap userProperties = JSON.parseObject(options.valueOf(optionUserProperties), PropertyMap.class);
-        PropertyMap profileProperties = JSON.parseObject(options.valueOf(optionProfileProperties), PropertyMap.class);
+        PropertyMap userProperties = gson.fromJson(options.valueOf(optionUserProperties), PropertyMap.class);
+        PropertyMap profileProperties = gson.fromJson(options.valueOf(optionProfileProperties), PropertyMap.class);
 
         // Display Info
         int width = options.valueOf(optionWidth);

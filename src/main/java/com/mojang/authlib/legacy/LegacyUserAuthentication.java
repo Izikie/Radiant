@@ -6,7 +6,7 @@ import com.mojang.authlib.HttpUserAuthentication;
 import com.mojang.authlib.UserType;
 import com.mojang.authlib.exceptions.AuthenticationException;
 import com.mojang.authlib.exceptions.InvalidCredentialsException;
-import net.radiant.json.adapter.impl.UUIDAdapter;
+import com.mojang.util.UUIDAdapter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;

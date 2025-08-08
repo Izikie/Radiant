@@ -20,8 +20,7 @@ import com.mojang.authlib.yggdrasil.response.HasJoinedMinecraftServerResponse;
 import com.mojang.authlib.yggdrasil.response.MinecraftProfilePropertiesResponse;
 import com.mojang.authlib.yggdrasil.response.MinecraftTexturesPayload;
 import com.mojang.authlib.yggdrasil.response.Response;
-import com.mojang.util.UUIDTypeAdapter;
-import net.radiant.json.adapter.impl.UUIDAdapter;
+import com.mojang.util.UUIDAdapter;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
@@ -50,7 +49,7 @@ public class YggdrasilMinecraftSessionService extends HttpMinecraftSessionServic
     private static final URL CHECK_URL = HttpAuthenticationService.constantURL(BASE_URL + "hasJoined");
 
     private final PublicKey publicKey;
-    private final Gson gson = new GsonBuilder().registerTypeAdapter(UUID.class, new UUIDTypeAdapter()).create();
+    private final Gson gson = new GsonBuilder().registerTypeAdapter(UUID.class, new UUIDAdapter()).create();
     private final LoadingCache<GameProfile, GameProfile> insecureProfiles = CacheBuilder.newBuilder().expireAfterWrite(6L, TimeUnit.HOURS).build(new CacheLoader<>() {
         @Override
         public @NotNull GameProfile load(@NotNull GameProfile key) {

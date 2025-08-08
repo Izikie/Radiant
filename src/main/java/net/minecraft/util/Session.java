@@ -1,7 +1,7 @@
 package net.minecraft.util;
 
 import com.mojang.authlib.GameProfile;
-import net.radiant.json.adapter.impl.UUIDAdapter;
+import com.mojang.util.UUIDAdapter;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -10,7 +10,7 @@ import com.mojang.authlib.minecraft.MinecraftSessionService;
 import com.mojang.authlib.properties.PropertyMap;
 import com.mojang.authlib.yggdrasil.response.ProfileSearchResultsResponse;
 import com.mojang.authlib.yggdrasil.response.Response;
-import com.mojang.util.UUIDTypeAdapter;
+import com.mojang.util.UUIDAdapter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
@@ -29,7 +29,7 @@ public class YggdrasilAuthenticationService extends HttpAuthenticationService {
         this.gson = new GsonBuilder()
                 .registerTypeAdapter(GameProfile.class, new GameProfileSerializer())
                 .registerTypeAdapter(PropertyMap.class, new PropertyMap.Serializer())
-                .registerTypeAdapter(UUID.class, new UUIDTypeAdapter())
+                .registerTypeAdapter(UUID.class, new UUIDAdapter())
                 .registerTypeAdapter(ProfileSearchResultsResponse.class, new ProfileSearchResultsResponse.Serializer()).create();
     }
 

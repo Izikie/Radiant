@@ -91,6 +91,8 @@ dependencies {
 
     // Core utility libraries - latest versions to replace all transitive dependencies
     implementation(group = "com.google.guava", name = "guava", version = "33.4.8-jre")
+
+    // Although is slower but easier than fastjson2 and works with Native Image if proper setup is done
     implementation(group = "com.google.code.gson", name = "gson", version = "2.13.1")
 
     // Networking - using netty-all for simplicity, but could be optimized to specific modules if needed
@@ -144,9 +146,6 @@ dependencies {
         exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib-jdk7") // Not needed for Java-only project
         exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib")      // Not needed for Java-only project
     }
-
-    implementation(group = "com.alibaba.fastjson2", name = "fastjson2", version = "2.0.58")
-    // Look into, how adapter stuff works, and if the code rework is worth the speedup
 
     compileOnly(group = "org.jetbrains", name = "annotations", version = "26.0.2")
 }

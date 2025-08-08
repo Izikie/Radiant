@@ -3,7 +3,7 @@ package com.mojang.authlib;
 import com.google.common.collect.Multimap;
 import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;
-import net.radiant.json.adapter.impl.UUIDAdapter;
+import com.mojang.util.UUIDAdapter;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
