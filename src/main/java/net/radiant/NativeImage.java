@@ -42,10 +42,9 @@ public class NativeImage {
     }
 
     public ByteBuffer getPixelBuffer() {
-        ByteBuffer buffer = BufferUtils.createByteBuffer(this.data.length);
-        buffer.put(this.data);
-        buffer.flip();
-        return buffer;
+        return BufferUtils.createByteBuffer(this.data.length)
+                .put(this.data)
+                .flip();
     }
 
     /**

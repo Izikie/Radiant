@@ -7,6 +7,7 @@ import net.minecraft.util.IChatComponent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.StreamSupport;
 
 public class GuiUtilRenderComponents {
     public static String func_178909_a(String p_178909_0_, boolean p_178909_1_) {
@@ -17,7 +18,9 @@ public class GuiUtilRenderComponents {
         int i = 0;
         IChatComponent ichatcomponent = new ChatComponentText("");
         List<IChatComponent> list = new ArrayList<>();
-        List<IChatComponent> list1 = List.of(p_178908_0_);
+        List<IChatComponent> list1 = StreamSupport
+                .stream(p_178908_0_.spliterator(), false)
+                .toList();
 
         for (int j = 0; j < list1.size(); ++j) {
             IChatComponent ichatcomponent1 = list1.get(j);
