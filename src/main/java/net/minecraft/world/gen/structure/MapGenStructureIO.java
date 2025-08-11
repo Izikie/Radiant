@@ -12,10 +12,10 @@ import java.util.Map;
 
 public class MapGenStructureIO {
     private static final Logger LOGGER = LoggerFactory.getLogger(MapGenStructureIO.class);
-    private static final Map<String, Class<? extends StructureStart>> startNameToClassMap = new HashMap<>();
-    private static final Map<Class<? extends StructureStart>, String> startClassToNameMap = new HashMap<>();
-    private static final Map<String, Class<? extends StructureComponent>> componentNameToClassMap = new HashMap<>();
-    private static final Map<Class<? extends StructureComponent>, String> componentClassToNameMap = new HashMap<>();
+    public static final Map<String, Class<? extends StructureStart>> startNameToClassMap = new HashMap<>();
+    public static final Map<Class<? extends StructureStart>, String> startClassToNameMap = new HashMap<>();
+    public static final Map<String, Class<? extends StructureComponent>> componentNameToClassMap = new HashMap<>();
+    public static final Map<Class<? extends StructureComponent>, String> componentClassToNameMap = new HashMap<>();
 
     private static void registerStructure(Class<? extends StructureStart> startClass, String structureName) {
         startNameToClassMap.put(structureName, startClass);

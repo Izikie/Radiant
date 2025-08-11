@@ -1,4 +1,4 @@
-package net.radiant;
+package net.radiant.util;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;

@@ -14,7 +14,7 @@ import net.optifine.config.ConnectedParser;
 import net.optifine.config.MatchBlock;
 import net.optifine.config.Matches;
 import net.optifine.util.TextureUtils;
-import net.radiant.NativeImage;
+import net.radiant.util.NativeImage;
 
 import java.io.IOException;
 import java.io.InputStream;

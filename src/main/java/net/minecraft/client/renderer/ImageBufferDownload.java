@@ -1,6 +1,6 @@
 package net.minecraft.client.renderer;
 
-import net.radiant.NativeImage;
+import net.radiant.util.NativeImage;
 
 public class ImageBufferDownload implements IImageBuffer {
     private int[] imageData;

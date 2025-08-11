@@ -15,7 +15,7 @@ import net.minecraft.client.renderer.ThreadDownloadImageData;
 import net.minecraft.client.renderer.texture.ITextureObject;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.ResourceLocation;
-import net.radiant.NativeImage;
+import net.radiant.util.NativeImage;
 
 import java.io.File;
 import java.util.HashMap;

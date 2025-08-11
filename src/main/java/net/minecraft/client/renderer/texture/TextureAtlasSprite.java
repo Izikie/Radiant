@@ -12,7 +12,7 @@ import net.optifine.SmartAnimations;
 import net.optifine.shaders.Shaders;
 import net.optifine.util.CounterInt;
 import net.optifine.util.TextureUtils;
-import net.radiant.NativeImage;
+import net.radiant.util.NativeImage;
 
 import java.io.IOException;
 import java.util.ArrayList;

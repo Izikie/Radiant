@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.texture.SimpleTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
-import net.radiant.NativeImage;
+import net.radiant.util.NativeImage;
 
 import java.util.regex.Pattern;
 

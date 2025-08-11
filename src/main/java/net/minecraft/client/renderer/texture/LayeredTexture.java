@@ -4,7 +4,7 @@ import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.shaders.ShadersTex;
-import net.radiant.NativeImage;
+import net.radiant.util.NativeImage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

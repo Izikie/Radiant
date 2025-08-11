@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.ResourceLocation;
-import net.radiant.NativeImage;
+import net.radiant.util.NativeImage;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

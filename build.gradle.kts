@@ -160,22 +160,55 @@ val minecraftDir = when {
     else -> "$home/.minecraft"
 }
 
-
 tasks.register<JavaExec>("RunClient") {
     group = "GradleMCP"
-    description = "Starts the Minecraft ."
+    description = "Starts the Minecraft client."
+
+    doFirst {
+        val runDir = file("${layout.projectDirectory}/run")
+        if (!runDir.exists()) {
+            runDir.mkdirs()
+        }
+    }
 
     mainClass.set("net.minecraft.client.main.Main")
     classpath = sourceSets["main"].runtimeClasspath
-    workingDir = file(minecraftDir)
+    workingDir = file("${layout.projectDirectory}/run")
 
     args = listOf(
-        "--assetsDir", "assets",
+        "--gameDir", minecraftDir,
         "--accessToken", "0",
         "--userProperties", "{}"
     )
 
     systemProperty("log4j2.formatMsgNoLookups", "true")
+}
+
+tasks.register<JavaExec>("RunClientNativeAgent") {
+    group = "GradleMCP"
+    description = "Starts the Minecraft client with the native image tracing agent attached. This won't work if ran in debug mode."
+
+    doFirst {
+        val runDir = file("${layout.projectDirectory}/run")
+        if (!runDir.exists()) {
+            runDir.mkdirs()
+        }
+    }
+
+    mainClass.set("net.minecraft.client.main.Main")
+    classpath = sourceSets["main"].runtimeClasspath
+    workingDir = file("${layout.projectDirectory}/run")
+
+    args = listOf(
+        "--gameDir", minecraftDir,
+        "--accessToken", "0",
+        "--userProperties", "{}"
+    )
+
+    jvmArgs = listOf(
+        "-agentlib:native-image-agent=config-output-dir=../src/main/resources/META-INF/native-image",
+        "-Dradiant.exerciseClasses"
+    )
 }
 
 tasks.register<Jar>("AllJar") {
@@ -203,4 +236,23 @@ tasks.register<Jar>("AllJar") {
     }
 
     dependsOn(tasks.named("classes"))
+}
+
+graalvmNative {
+    binaries {
+        named("main") {
+            classpath.from(sourceSets.main.get().runtimeClasspath)
+            imageName.set("Minecraft")
+            mainClass.set("net.minecraft.client.main.Main")
+            verbose.set(true)
+            fallback.set(false)
+
+            buildArgs.addAll(
+                "--emit", "build-report",
+                "--initialize-at-run-time",
+                "--enable-url-protocols=http,https",
+                "-march=compatibility"
+            )
+        }
+    }
 }

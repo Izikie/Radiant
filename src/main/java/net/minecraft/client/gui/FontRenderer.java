@@ -17,7 +17,7 @@ import net.minecraft.util.ResourceLocation;
 import net.optifine.CustomColors;
 import net.optifine.render.GlBlendState;
 import net.optifine.util.FontUtils;
-import net.radiant.NativeImage;
+import net.radiant.util.NativeImage;
 import org.lwjgl.opengl.GL11;
 
 import java.io.IOException;

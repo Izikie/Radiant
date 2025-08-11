@@ -7,7 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import net.optifine.util.PropertiesOrdered;
 import net.optifine.util.ResUtils;
 import net.optifine.util.TextureUtils;
-import net.radiant.NativeImage;
+import net.radiant.util.NativeImage;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

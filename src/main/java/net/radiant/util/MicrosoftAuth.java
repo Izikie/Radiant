@@ -1,4 +1,4 @@
-package net.radiant;
+package net.radiant.util;
 
 import fr.litarvan.openauth.microsoft.MicrosoftAuthResult;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthenticationException;
@@ -8,7 +8,6 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.crash.CrashReport;
 import net.minecraft.util.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

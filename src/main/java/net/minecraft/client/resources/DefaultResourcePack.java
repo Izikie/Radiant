@@ -5,7 +5,7 @@ import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.client.resources.data.IMetadataSerializer;
 import net.minecraft.util.ResourceLocation;
-import net.radiant.NativeImage;
+import net.radiant.util.NativeImage;
 
 import java.io.*;
 import java.util.Map;

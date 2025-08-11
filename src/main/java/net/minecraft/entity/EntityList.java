@@ -26,7 +26,7 @@ public class EntityList {
     private static final Map<String, Class<? extends Entity>> stringToClassMapping = new HashMap<>();
     private static final Map<Class<? extends Entity>, String> classToStringMapping = new HashMap<>();
     private static final Int2ObjectOpenHashMap<Class<? extends Entity>> idToClassMapping = new Int2ObjectOpenHashMap<>();
-    private static final Map<Class<? extends Entity>, Integer> classToIDMapping = new HashMap<>();
+    public static final Map<Class<? extends Entity>, Integer> classToIDMapping = new HashMap<>();
     private static final Map<String, Integer> stringToIDMapping = new HashMap<>();
     public static final Int2ObjectMap<EntityEggInfo> entityEggs = new Int2ObjectLinkedOpenHashMap<>();
 
