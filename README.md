@@ -18,12 +18,25 @@ It focuses on pre-optimized tweaks, bug and exploit fixes, and quality-of-life i
 - [ ] Make build compatible with GraalVM native image
 
 ## Requirements
-- JDK/JRE: GraalVM 23
+- [JDK/JRE: GraalVM 23](https://www.graalvm.org/downloads/)
 
 ## Getting Started
 To run the client in development, use the `RunClient` Gradle task located under the `GradleMCP` task group in your IDE or via CLI:
 
+## Native Image
 
+### How to compile:
+1. Make sure you have a valid C/C++ compiler installed.<br>
+   - **Windows:** [Microsoft Visual C++](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170)
+   - **MacOS:** Clang
+   - **Linux:** GCC
+2. Run the `RunClientNativeAgent` gradle task, it is recommended that you load a world to make sure the tracing agent doesn't miss anything.
+   **ALWAYS DO THIS BEFORE DOING STEP 3!**
+3. Run the `nativeCompile` task. This may take a few minutes (depending on your computing power).
+
+### How to run the executable:
+The executable will be created in `build/native/nativeCompile`, it can be run with `Minecraft.exe --gameDir <game directory> --accessToken 0 --userProperties {}`.
+The game directory will be different depending on your operating system (example: `%APPDATA%/.minecraft` on Windows).
 
 ## License
 For legal info and disclaimers, see the [NOTICE](./NOTICE.md) file.  

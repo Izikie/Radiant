@@ -120,18 +120,6 @@ dependencies {
         group = "org.slf4j", name = "slf4j-api",
         version = project.property("slf4j_version") as String
     )
-//    implementation(
-//        group = "org.apache.logging.log4j", name = "log4j-api",
-//        version = project.property("log4j_version") as String
-//    )
-//    implementation(
-//        group = "org.apache.logging.log4j", name = "log4j-core",
-//        version = project.property("log4j_version") as String
-//    )
-//    implementation(
-//        group = "org.apache.logging.log4j", name = "log4j-slf4j2-impl",
-//        version = project.property("log4j_version") as String
-//    )
 
     // Alternative authentication library - excluding gson to use our explicit version
     implementation(group = "fr.litarvan", name = "openauth", version = "1.1.6") {
@@ -160,9 +148,8 @@ val minecraftDir = when {
     else -> "$home/.minecraft"
 }
 
-tasks.register<JavaExec>("RunClient") {
+fun JavaExec.configureRunClient() {
     group = "GradleMCP"
-    description = "Starts the Minecraft client."
 
     doFirst {
         val runDir = file("${layout.projectDirectory}/run")
@@ -180,62 +167,20 @@ tasks.register<JavaExec>("RunClient") {
         "--accessToken", "0",
         "--userProperties", "{}"
     )
+}
 
-    systemProperty("log4j2.formatMsgNoLookups", "true")
+tasks.register<JavaExec>("RunClient") {
+    description = "Starts the Minecraft client."
+    configureRunClient()
 }
 
 tasks.register<JavaExec>("RunClientNativeAgent") {
-    group = "GradleMCP"
     description = "Starts the Minecraft client with the native image tracing agent attached. This won't work if ran in debug mode."
-
-    doFirst {
-        val runDir = file("${layout.projectDirectory}/run")
-        if (!runDir.exists()) {
-            runDir.mkdirs()
-        }
-    }
-
-    mainClass.set("net.minecraft.client.main.Main")
-    classpath = sourceSets["main"].runtimeClasspath
-    workingDir = file("${layout.projectDirectory}/run")
-
-    args = listOf(
-        "--gameDir", minecraftDir,
-        "--accessToken", "0",
-        "--userProperties", "{}"
-    )
-
+    configureRunClient()
     jvmArgs = listOf(
         "-agentlib:native-image-agent=config-output-dir=../src/main/resources/META-INF/native-image",
         "-Dradiant.exerciseClasses"
     )
-}
-
-tasks.register<Jar>("AllJar") {
-    group = "GradleMCP"
-    description = "Builds a jar that includes all the libraries as well as the client classes."
-
-    archiveFileName.set("all.jar")
-
-    from(sourceSets.main.get().output)
-    from(configurations.runtimeClasspath.get().map {
-        if (it.isDirectory) it else zipTree(it)
-    })
-
-    exclude("META-INF/*.SF", "META-INF/*.DSA", "META-INF/*.RSA")
-
-    duplicatesStrategy = DuplicatesStrategy.INCLUDE
-
-    manifest {
-        attributes(
-            mapOf(
-                "Main-Class" to "net.minecraft.client.main.Main",
-                "Multi-Release" to "true"
-            )
-        )
-    }
-
-    dependsOn(tasks.named("classes"))
 }
 
 graalvmNative {
@@ -251,7 +196,9 @@ graalvmNative {
                 "--emit", "build-report",
                 "--initialize-at-run-time",
                 "--enable-url-protocols=http,https",
-                "-march=compatibility"
+                "-march=compatibility",
+                "--color=always",
+                "-Ob"
             )
         }
     }
