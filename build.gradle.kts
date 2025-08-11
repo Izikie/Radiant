@@ -120,18 +120,18 @@ dependencies {
         group = "org.slf4j", name = "slf4j-api",
         version = project.property("slf4j_version") as String
     )
-    implementation(
-        group = "org.apache.logging.log4j", name = "log4j-api",
-        version = project.property("log4j_version") as String
-    )
-    implementation(
-        group = "org.apache.logging.log4j", name = "log4j-core",
-        version = project.property("log4j_version") as String
-    )
-    implementation(
-        group = "org.apache.logging.log4j", name = "log4j-slf4j2-impl",
-        version = project.property("log4j_version") as String
-    )
+//    implementation(
+//        group = "org.apache.logging.log4j", name = "log4j-api",
+//        version = project.property("log4j_version") as String
+//    )
+//    implementation(
+//        group = "org.apache.logging.log4j", name = "log4j-core",
+//        version = project.property("log4j_version") as String
+//    )
+//    implementation(
+//        group = "org.apache.logging.log4j", name = "log4j-slf4j2-impl",
+//        version = project.property("log4j_version") as String
+//    )
 
     // Alternative authentication library - excluding gson to use our explicit version
     implementation(group = "fr.litarvan", name = "openauth", version = "1.1.6") {
