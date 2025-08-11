@@ -17,7 +17,7 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.HttpUtil;
 import net.minecraft.util.ResourceLocation;
-import net.radiant.NativeImage;
+import net.radiant.util.NativeImage;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.comparator.LastModifiedFileComparator;

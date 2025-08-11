@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.data.*;
 import net.optifine.Log;
-import net.radiant.NativeImage;
+import net.radiant.util.NativeImage;
 import org.apache.commons.io.IOUtils;
 
 import java.io.*;

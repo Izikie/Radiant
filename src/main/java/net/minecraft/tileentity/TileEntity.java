@@ -17,8 +17,8 @@ import java.util.Map;
 
 public abstract class TileEntity {
     private static final Logger LOGGER = LoggerFactory.getLogger(TileEntity.class);
-    private static final Map<String, Class<? extends TileEntity>> nameToClassMap = new HashMap<>();
-    private static final Map<Class<? extends TileEntity>, String> classToNameMap = new HashMap<>();
+    public static final Map<String, Class<? extends TileEntity>> nameToClassMap = new HashMap<>();
+    public static final Map<Class<? extends TileEntity>, String> classToNameMap = new HashMap<>();
     protected World worldObj;
     protected BlockPos pos = BlockPos.ORIGIN;
     protected boolean tileEntityInvalid;

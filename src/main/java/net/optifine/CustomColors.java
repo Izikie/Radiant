@@ -34,7 +34,7 @@ import net.optifine.config.ConnectedParser;
 import net.optifine.config.MatchBlock;
 import net.optifine.render.RenderEnv;
 import net.optifine.util.*;
-import net.radiant.NativeImage;
+import net.radiant.util.NativeImage;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 

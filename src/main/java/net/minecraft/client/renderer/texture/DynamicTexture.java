@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.texture;
 
 import net.minecraft.client.resources.IResourceManager;
-import net.radiant.NativeImage;
+import net.radiant.util.NativeImage;
 
 import java.io.IOException;
 

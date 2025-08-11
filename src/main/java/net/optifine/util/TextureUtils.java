@@ -14,7 +14,7 @@ import net.optifine.*;
 import net.optifine.entity.model.CustomEntityModels;
 import net.optifine.shaders.MultiTexID;
 import net.optifine.shaders.Shaders;
-import net.radiant.NativeImage;
+import net.radiant.util.NativeImage;
 import net.radiant.lwjgl.opengl.GLContext;
 import org.joml.Vector2i;
 import org.lwjgl.BufferUtils;

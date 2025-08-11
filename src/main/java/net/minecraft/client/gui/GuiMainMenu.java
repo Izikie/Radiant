@@ -1,6 +1,6 @@
 package net.minecraft.client.gui;
 
-import net.radiant.MicrosoftAuth;
+import net.radiant.util.MicrosoftAuth;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;

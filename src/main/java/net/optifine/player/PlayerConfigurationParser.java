@@ -7,9 +7,8 @@ import net.optifine.Log;
 import net.optifine.http.HttpPipeline;
 import net.optifine.http.HttpUtils;
 import net.optifine.util.Json;
-import net.radiant.NativeImage;
+import net.radiant.util.NativeImage;
 
-import javax.imageio.ImageIO;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
