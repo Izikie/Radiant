@@ -11,7 +11,7 @@ import net.optifine.http.HttpRequest;
 import net.optifine.http.HttpResponse;
 import net.optifine.player.CapeImageBuffer;
 import net.optifine.shaders.ShadersTex;
-import net.radiant.NativeImage;
+import net.radiant.util.NativeImage;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

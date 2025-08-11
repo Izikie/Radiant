@@ -9,3 +9,6 @@ build/
 *.ipr
 out/
 /run/
+
+# This may be changed whenever the agent is run, therefore it should be excluded
+/src/main/resources/META-INF/native-image/reachability-metadata.json

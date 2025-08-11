@@ -76,7 +76,8 @@ import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.WorldInfo;
 import net.optifine.Lang;
-import net.radiant.NativeImage;
+import net.radiant.nativeimage.NativeImageExerciser;
+import net.radiant.util.NativeImage;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
@@ -198,9 +199,12 @@ public class Minecraft implements IThreadListener {
 	public final boolean renderChunksMany = true;
 	long debugUpdateTime = getSystemTime();
 	int fpsCounter;
+	private final long startTime;
 
 	public Minecraft(GameConfiguration gameConfig) {
 		instance = this;
+
+		startTime = System.currentTimeMillis();
 
 		mcDataDir = gameConfig.folderInfo().mcDataDir();
 		fileAssets = gameConfig.folderInfo().assetsDir();
@@ -241,6 +245,8 @@ public class Minecraft implements IThreadListener {
 			displayCrashReport(addGraphicsAndWorldToCrashReport(report));
 			return;
 		}
+
+		LOGGER.info("Game launched in {}ms", System.currentTimeMillis() - startTime);
 
 		while (true) {
 			try {

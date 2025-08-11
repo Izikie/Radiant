@@ -3,7 +3,7 @@ package net.optifine.player;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.ImageBufferDownload;
 import net.minecraft.util.ResourceLocation;
-import net.radiant.NativeImage;
+import net.radiant.util.NativeImage;
 
 public class CapeImageBuffer extends ImageBufferDownload {
 	private final ResourceLocation resourceLocation;

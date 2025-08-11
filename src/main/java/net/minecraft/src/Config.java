@@ -25,7 +25,7 @@ import net.optifine.util.DisplayModeComparator;
 import net.optifine.util.PropertiesOrdered;
 import net.optifine.util.TextureUtils;
 import net.optifine.util.TimedEvent;
-import net.radiant.NativeImage;
+import net.radiant.util.NativeImage;
 import net.radiant.lwjgl.LWJGLException;
 import net.radiant.lwjgl.opengl.Display;
 import net.radiant.lwjgl.opengl.DisplayMode;
