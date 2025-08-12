@@ -72,6 +72,7 @@ public class RadiantLogger implements Logger {
                 String text;
                 if (argIndex < args.length) {
                     text = Objects.toString(args[argIndex]);
+                    argIndex++;
                 } else {
                     text = "{}";
                 }
