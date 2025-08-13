@@ -2,7 +2,7 @@ package net.minecraft.client.gui;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.util.Formatting;
+import net.minecraft.util.chat.Formatting;
 
 import java.io.IOException;
 

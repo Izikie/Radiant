@@ -1,7 +1,7 @@
 package net.optifine.shaders;
 
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3;
 import net.optifine.BlockPosM;
 
 import java.util.Iterator;

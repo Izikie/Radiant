@@ -1,7 +1,6 @@
 package net.optifine;
 
-import net.minecraft.src.Config;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3;
 
 public class CustomColorFader {
 	private Vec3 color = null;

@@ -7,8 +7,8 @@ import net.minecraft.network.status.client.C01PacketPing;
 import net.minecraft.network.status.server.S00PacketServerInfo;
 import net.minecraft.network.status.server.S01PacketPong;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.chat.ChatComponentText;
+import net.minecraft.util.chat.IChatComponent;
 
 public class NetHandlerStatusServer implements INetHandlerStatusServer {
     private static final IChatComponent EXIT_MESSAGE = new ChatComponentText("Status request has been handled.");

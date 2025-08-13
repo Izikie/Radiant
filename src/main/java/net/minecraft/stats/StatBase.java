@@ -1,11 +1,11 @@
 package net.minecraft.stats;
 
-import net.minecraft.event.HoverEvent;
+import net.minecraft.util.chat.HoverEvent;
 import net.minecraft.scoreboard.IScoreObjectiveCriteria;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.IChatComponent;
-import net.minecraft.util.IJsonSerializable;
+import net.minecraft.util.chat.ChatComponentText;
+import net.minecraft.util.chat.Formatting;
+import net.minecraft.util.chat.IChatComponent;
+import net.minecraft.util.json.IJsonSerializable;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

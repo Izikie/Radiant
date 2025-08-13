@@ -1,6 +1,6 @@
 package net.minecraft.client.resources.data;
 
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.chat.IChatComponent;
 
 public class PackMetadataSection implements IMetadataSection {
     private final IChatComponent packDescription;

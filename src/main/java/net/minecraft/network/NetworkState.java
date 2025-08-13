@@ -9,6 +9,8 @@ import net.minecraft.network.login.server.S00PacketDisconnect;
 import net.minecraft.network.login.server.S01PacketEncryptionRequest;
 import net.minecraft.network.login.server.S02PacketLoginSuccess;
 import net.minecraft.network.login.server.S03PacketEnableCompression;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.PacketDirection;
 import net.minecraft.network.play.client.*;
 import net.minecraft.network.play.server.*;
 import net.minecraft.network.status.client.C00PacketServerQuery;

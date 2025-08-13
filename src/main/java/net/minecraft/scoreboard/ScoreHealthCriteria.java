@@ -1,7 +1,7 @@
 package net.minecraft.scoreboard;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 
 import java.util.List;
 

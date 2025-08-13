@@ -1,7 +1,7 @@
 package net.minecraft.world.gen;
 
 import com.google.gson.*;
-import net.minecraft.util.JsonUtils;
+import net.minecraft.util.json.JsonUtils;
 import net.minecraft.world.biome.BiomeGenBase;
 
 import java.lang.reflect.Type;

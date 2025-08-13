@@ -2,8 +2,8 @@ package net.minecraft.client.gui.spectator;
 
 import net.minecraft.client.gui.spectator.categories.TeleportToPlayer;
 import net.minecraft.client.gui.spectator.categories.TeleportToTeam;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.chat.ChatComponentText;
+import net.minecraft.util.chat.IChatComponent;
 
 import java.util.ArrayList;
 import java.util.List;

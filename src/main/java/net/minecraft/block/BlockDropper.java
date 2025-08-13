@@ -1,7 +1,7 @@
 package net.minecraft.block;
 
-import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
-import net.minecraft.dispenser.IBehaviorDispenseItem;
+import net.minecraft.block.dispenser.BehaviorDefaultDispenseItem;
+import net.minecraft.block.dispenser.IBehaviorDispenseItem;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;

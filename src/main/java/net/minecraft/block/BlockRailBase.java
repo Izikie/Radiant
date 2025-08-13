@@ -3,9 +3,12 @@ package net.minecraft.block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.*;
+import net.minecraft.util.input.MovingObjectPosition;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 

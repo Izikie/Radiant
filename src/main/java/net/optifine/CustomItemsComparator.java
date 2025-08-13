@@ -1,7 +1,5 @@
 package net.optifine;
 
-import net.minecraft.src.Config;
-
 import java.util.Comparator;
 
 public class CustomItemsComparator implements Comparator<CustomItemProperties> {

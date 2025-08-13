@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.BlockModelRenderer;
 import net.minecraft.client.renderer.RegionRenderCacheBuilder;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BreakingFour;
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
 import net.minecraft.util.RenderLayer;

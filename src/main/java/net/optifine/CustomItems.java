@@ -18,7 +18,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
-import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.config.NbtTagValue;
 import net.optifine.render.Blender;

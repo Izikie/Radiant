@@ -1,7 +1,7 @@
 package net.minecraft.client.model;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 
 public class ModelBlaze extends ModelBase {
     private final ModelRenderer[] blazeSticks = new ModelRenderer[12];

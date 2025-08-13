@@ -1,6 +1,6 @@
 package net.minecraft.world;
 
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.chat.IChatComponent;
 
 public interface IWorldNameable {
     String getName();

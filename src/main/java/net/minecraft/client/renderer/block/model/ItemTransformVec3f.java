@@ -1,8 +1,8 @@
 package net.minecraft.client.renderer.block.model;
 
 import com.google.gson.*;
-import net.minecraft.util.JsonUtils;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.json.JsonUtils;
+import net.minecraft.util.math.MathHelper;
 import org.joml.Vector3f;
 
 import java.lang.reflect.Type;

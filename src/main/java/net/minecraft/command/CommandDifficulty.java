@@ -2,7 +2,7 @@ package net.minecraft.command;
 
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.chat.ChatComponentTranslation;
 import net.minecraft.world.Difficulty;
 
 import java.util.List;

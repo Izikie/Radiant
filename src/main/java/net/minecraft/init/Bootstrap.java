@@ -4,7 +4,7 @@ import com.mojang.authlib.GameProfile;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.dispenser.*;
+import net.minecraft.block.dispenser.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IProjectile;

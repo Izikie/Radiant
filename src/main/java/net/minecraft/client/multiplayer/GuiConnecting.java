@@ -10,8 +10,8 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.NetworkState;
 import net.minecraft.network.handshake.client.C00Handshake;
 import net.minecraft.network.login.client.C00PacketLoginStart;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.chat.ChatComponentText;
+import net.minecraft.util.chat.ChatComponentTranslation;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 

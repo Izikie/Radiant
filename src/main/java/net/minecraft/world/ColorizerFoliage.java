@@ -1,7 +1,7 @@
 package net.minecraft.world;
 
 public class ColorizerFoliage {
-    private static int[] foliageBuffer = new int[65536];
+    private static int[] foliageBuffer = new int[0x10000];
 
     public static void setFoliageBiomeColorizer(int[] p_77467_0_) {
         foliageBuffer = p_77467_0_;
@@ -15,14 +15,14 @@ public class ColorizerFoliage {
     }
 
     public static int getFoliageColorPine() {
-        return 6396257;
+        return 0x619961;
     }
 
     public static int getFoliageColorBirch() {
-        return 8431445;
+        return 0x80a755;
     }
 
     public static int getFoliageColorBasic() {
-        return 4764952;
+        return 0x48b518;
     }
 }

@@ -1,0 +1,1793 @@
+package net.optifine;
+
+import net.minecraft.client.LoadingScreenRenderer;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GLAllocation;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.RenderGlobal;
+import net.minecraft.client.renderer.texture.DynamicTexture;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.resources.*;
+import net.minecraft.client.resources.model.ModelManager;
+import net.minecraft.client.settings.GameSettings;
+import net.minecraft.util.*;
+import net.minecraft.util.chat.ChatComponentText;
+import net.minecraft.util.math.MathHelper;
+import net.optifine.config.GlVersion;
+import net.optifine.gui.GuiMessage;
+import net.optifine.gui.GuiShaderMessage;
+import net.optifine.shaders.Shaders;
+import net.optifine.util.DisplayModeComparator;
+import net.optifine.util.PropertiesOrdered;
+import net.optifine.util.TextureUtils;
+import net.optifine.util.TimedEvent;
+import net.radiant.util.NativeImage;
+import net.radiant.lwjgl.LWJGLException;
+import net.radiant.lwjgl.opengl.Display;
+import net.radiant.lwjgl.opengl.DisplayMode;
+import net.radiant.lwjgl.opengl.GLContext;
+import net.radiant.lwjgl.opengl.PixelFormat;
+import org.apache.commons.io.IOUtils;
+import org.joml.Vector2i;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL20;
+import org.lwjgl.opengl.GL30;
+
+import java.io.*;
+import java.lang.reflect.Array;
+import java.net.URI;
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class Config {
+    public static final String VERSION = "OptiFine 1.8.9 HD U M6-Pre2";
+    public static String openGlVersion = null;
+    public static String openGlRenderer = null;
+    public static String openGlVendor = null;
+    public static String[] openGlExtensions = null;
+    public static GlVersion glVersion = null;
+    public static GlVersion glslVersion = null;
+    public static int minecraftVersionInt = -1;
+    public static boolean fancyFogAvailable = false;
+    public static boolean occlusionAvailable = false;
+    private static GameSettings gameSettings = null;
+    private static final Minecraft MINECRAFT = Minecraft.get();
+    private static boolean initialized = false;
+    private static Thread minecraftThread = null;
+    private static DisplayMode desktopDisplayMode = null;
+    private static DisplayMode[] displayModes = null;
+    private static int antialiasingLevel = 0;
+    private static int availableProcessors = 0;
+    public static boolean zoomMode = false;
+    public static boolean zoomSmoothCamera = false;
+    private static int texturePackClouds = 0;
+    public static boolean waterOpacityChanged = false;
+    private static boolean fullscreenModeChecked = false;
+    private static boolean desktopModeChecked = false;
+    public static final Float DEF_ALPHA_FUNC_LEVEL = 0.1F;
+    private static String mcDebugLast = null;
+    private static int fpsMinLast = 0;
+    public static float renderPartialTicks;
+
+    public static String getVersionDebug() {
+        StringBuilder stringBuilder = new StringBuilder(32);
+
+        if (isDynamicLights()) {
+            stringBuilder.append("DL: ");
+            stringBuilder.append(DynamicLights.getCount());
+        }
+
+        String shaderName = Shaders.getShaderPackName();
+
+        if (shaderName != null) {
+            stringBuilder.append(", ");
+            stringBuilder.append(shaderName);
+        }
+
+        return stringBuilder.toString();
+    }
+
+    public static void initGameSettings(GameSettings p_initGameSettings_0_) {
+        if (gameSettings == null) {
+            gameSettings = p_initGameSettings_0_;
+            desktopDisplayMode = Display.getDesktopDisplayMode();
+            updateAvailableProcessors();
+        }
+    }
+
+    public static void initDisplay() {
+        checkInitialized();
+        antialiasingLevel = gameSettings.ofAaLevel;
+        checkDisplaySettings();
+        checkDisplayMode();
+        minecraftThread = Thread.currentThread();
+        updateThreadPriorities();
+        Shaders.startup();
+    }
+
+    public static void checkInitialized() {
+        if (!initialized) {
+            if (Display.isCreated()) {
+                initialized = true;
+                checkOpenGlCaps();
+            }
+        }
+    }
+
+    private static void checkOpenGlCaps() {
+        Log.info("Build: " + VERSION);
+        Log.info("OS: " + System.getProperty("os.name") + " (" + System.getProperty("os.arch") + ") version " + System.getProperty("os.version"));
+        Log.info("Java: " + System.getProperty("java.version") + ", " + System.getProperty("java.vendor"));
+        Log.info("VM: " + System.getProperty("java.vm.name") + " (" + System.getProperty("java.vm.info") + "), " + System.getProperty("java.vm.vendor"));
+        openGlVersion = GL11.glGetString(GL11.GL_VERSION);
+        openGlRenderer = GL11.glGetString(GL11.GL_RENDERER);
+        openGlVendor = GL11.glGetString(GL11.GL_VENDOR);
+        Log.info("OpenGL: " + openGlRenderer + ", version " + openGlVersion + ", " + openGlVendor);
+        Log.info("OpenGL Version: " + getOpenGlVersionString());
+
+        if (!GLContext.getCapabilities().OpenGL12) {
+            Log.info("OpenGL Mipmap levels: Not available (GL12.GL_TEXTURE_MAX_LEVEL)");
+        }
+
+        fancyFogAvailable = GLContext.getCapabilities().GL_NV_fog_distance;
+
+        if (!fancyFogAvailable) {
+            Log.info("OpenGL Fancy fog: Not available (GL_NV_fog_distance)");
+        }
+
+        occlusionAvailable = GLContext.getCapabilities().GL_ARB_occlusion_query;
+
+        if (!occlusionAvailable) {
+            Log.info("OpenGL Occlussion culling: Not available (GL_ARB_occlusion_query)");
+        }
+
+        int i = TextureUtils.getGLMaximumTextureSize();
+        Log.info("Maximum texture size: " + i + "x" + i);
+    }
+
+    public static boolean isFancyFogAvailable() {
+        return fancyFogAvailable;
+    }
+
+    public static boolean isOcclusionAvailable() {
+        return occlusionAvailable;
+    }
+
+    public static int getMinecraftVersionInt() {
+        if (minecraftVersionInt < 0) {
+            String[] astring = tokenize("1.8.9", ".");
+            int i = 0;
+
+            if (astring.length > 0) {
+                i += 10000 * parseInt(astring[0], 0);
+            }
+
+            if (astring.length > 1) {
+                i += 100 * parseInt(astring[1], 0);
+            }
+
+            if (astring.length > 2) {
+                i += parseInt(astring[2], 0);
+            }
+
+            minecraftVersionInt = i;
+        }
+
+        return minecraftVersionInt;
+    }
+
+    public static String getOpenGlVersionString() {
+        GlVersion glversion = getGlVersion();
+        return glversion.getMajor() + "." + glversion.getMinor() + "." + glversion.getRelease();
+    }
+
+    private static GlVersion getGlVersionLwjgl() {
+        return GLContext.getCapabilities().OpenGL44 ? new GlVersion(4, 4) : (GLContext.getCapabilities().OpenGL43 ? new GlVersion(4, 3) : (GLContext.getCapabilities().OpenGL42 ? new GlVersion(4, 2) : (GLContext.getCapabilities().OpenGL41 ? new GlVersion(4, 1) : (GLContext.getCapabilities().OpenGL40 ? new GlVersion(4, 0) : (GLContext.getCapabilities().OpenGL33 ? new GlVersion(3, 3) : (GLContext.getCapabilities().OpenGL32 ? new GlVersion(3, 2) : (GLContext.getCapabilities().OpenGL31 ? new GlVersion(3, 1) : (GLContext.getCapabilities().OpenGL30 ? new GlVersion(3, 0) : (GLContext.getCapabilities().OpenGL21 ? new GlVersion(2, 1) : (GLContext.getCapabilities().OpenGL20 ? new GlVersion(2, 0) : (GLContext.getCapabilities().OpenGL15 ? new GlVersion(1, 5) : (GLContext.getCapabilities().OpenGL14 ? new GlVersion(1, 4) : (GLContext.getCapabilities().OpenGL13 ? new GlVersion(1, 3) : (GLContext.getCapabilities().OpenGL12 ? new GlVersion(1, 2) : (GLContext.getCapabilities().OpenGL11 ? new GlVersion(1, 1) : new GlVersion(1, 0))))))))))))))));
+    }
+
+    public static GlVersion getGlVersion() {
+        if (glVersion == null) {
+            String s = GL11.glGetString(GL11.GL_VERSION);
+            glVersion = parseGlVersion(s, null);
+
+            if (glVersion == null) {
+                glVersion = getGlVersionLwjgl();
+            }
+
+            if (glVersion == null) {
+                glVersion = new GlVersion(1, 0);
+            }
+        }
+
+        return glVersion;
+    }
+
+    public static GlVersion getGlslVersion() {
+        if (glslVersion == null) {
+            String s = GL11.glGetString(GL20.GL_SHADING_LANGUAGE_VERSION);
+            glslVersion = parseGlVersion(s, null);
+
+            if (glslVersion == null) {
+                glslVersion = new GlVersion(1, 10);
+            }
+        }
+
+        return glslVersion;
+    }
+
+    public static GlVersion parseGlVersion(String p_parseGlVersion_0_, GlVersion p_parseGlVersion_1_) {
+        try {
+            if (p_parseGlVersion_0_ == null) {
+                return p_parseGlVersion_1_;
+            } else {
+                Pattern pattern = Pattern.compile("([0-9]+)\\.([0-9]+)(\\.([0-9]+))?(.+)?");
+                Matcher matcher = pattern.matcher(p_parseGlVersion_0_);
+
+                if (!matcher.matches()) {
+                    return p_parseGlVersion_1_;
+                } else {
+                    int i = Integer.parseInt(matcher.group(1));
+                    int j = Integer.parseInt(matcher.group(2));
+                    int k = matcher.group(4) != null ? Integer.parseInt(matcher.group(4)) : 0;
+                    String s = matcher.group(5);
+                    return new GlVersion(i, j, k, s);
+                }
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return p_parseGlVersion_1_;
+        }
+    }
+
+    public static String[] getOpenGlExtensions() {
+        if (openGlExtensions == null) {
+            openGlExtensions = detectOpenGlExtensions();
+        }
+
+        return openGlExtensions;
+    }
+
+    private static String[] detectOpenGlExtensions() {
+        try {
+            GlVersion glversion = getGlVersion();
+
+            if (glversion.getMajor() >= 3) {
+                int i = GL11.glGetInteger(33309);
+
+                if (i > 0) {
+                    String[] astring = new String[i];
+
+                    for (int j = 0; j < i; ++j) {
+                        astring[j] = GL30.glGetStringi(7939, j);
+                    }
+
+                    return astring;
+                }
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
+        try {
+            String s = GL11.glGetString(GL11.GL_EXTENSIONS);
+            return s.split(" ");
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return new String[0];
+        }
+    }
+
+    public static void updateThreadPriorities() {
+        updateAvailableProcessors();
+        int i = 8;
+
+        if (isSingleProcessor()) {
+            if (isSmoothWorld()) {
+                minecraftThread.setPriority(10);
+                setThreadPriority("Server thread", 1);
+            } else {
+                minecraftThread.setPriority(5);
+                setThreadPriority("Server thread", 5);
+            }
+        } else {
+            minecraftThread.setPriority(10);
+            setThreadPriority("Server thread", 5);
+        }
+    }
+
+    private static void setThreadPriority(String p_setThreadPriority_0_, int p_setThreadPriority_1_) {
+        try {
+            ThreadGroup threadgroup = Thread.currentThread().getThreadGroup();
+
+            if (threadgroup == null) {
+                return;
+            }
+
+            int i = (threadgroup.activeCount() + 10) * 2;
+            Thread[] athread = new Thread[i];
+            threadgroup.enumerate(athread, false);
+
+            for (Thread thread : athread) {
+                if (thread != null && thread.getName().startsWith(p_setThreadPriority_0_)) {
+                    thread.setPriority(p_setThreadPriority_1_);
+                }
+            }
+        } catch (Throwable throwable) {
+            Log.warn(throwable.getClass().getName() + ": " + throwable.getMessage());
+        }
+    }
+
+    public static boolean isMinecraftThread() {
+        return Thread.currentThread() == minecraftThread;
+    }
+
+    public static boolean isMipmaps() {
+        return gameSettings.mipmapLevels > 0;
+    }
+
+    public static int getMipmapLevels() {
+        return gameSettings.mipmapLevels;
+    }
+
+    public static int getMipmapType() {
+        return switch (gameSettings.ofMipmapType) {
+            case 0 -> 9986;
+            case 1 -> 9986;
+            case 2 -> {
+                if (isMultiTexture()) {
+                    yield 9985;
+                }
+
+                yield 9986;
+            }
+            case 3 -> {
+                if (isMultiTexture()) {
+                    yield 9987;
+                }
+
+                yield 9986;
+            }
+            default -> 9986;
+        };
+    }
+
+    public static boolean isUseAlphaFunc() {
+        float f = getAlphaFuncLevel();
+        return f > DEF_ALPHA_FUNC_LEVEL + 1.0E-5F;
+    }
+
+    public static float getAlphaFuncLevel() {
+        return DEF_ALPHA_FUNC_LEVEL;
+    }
+
+    public static boolean isFogFancy() {
+        return isFancyFogAvailable() && gameSettings.ofFogType == 2;
+    }
+
+    public static boolean isFogFast() {
+        return gameSettings.ofFogType == 1;
+    }
+
+    public static boolean isFogOff() {
+        return gameSettings.ofFogType == 3;
+    }
+
+    public static boolean isFogOn() {
+        return gameSettings.ofFogType != 3;
+    }
+
+    public static float getFogStart() {
+        return gameSettings.ofFogStart;
+    }
+
+    public static int getUpdatesPerFrame() {
+        return gameSettings.ofChunkUpdates;
+    }
+
+    public static boolean isDynamicUpdates() {
+        return gameSettings.ofChunkUpdatesDynamic;
+    }
+
+    public static boolean isRainFancy() {
+        return gameSettings.ofRain == 0 ? gameSettings.fancyGraphics : gameSettings.ofRain == 2;
+    }
+
+    public static boolean isRainOff() {
+        return gameSettings.ofRain == 3;
+    }
+
+    public static boolean isCloudsFancy() {
+        return gameSettings.ofClouds != 0 ? gameSettings.ofClouds == 2 : (isShaders() && !Shaders.SHADER_PACK_CLOUDS.isDefault() ? Shaders.SHADER_PACK_CLOUDS.isFancy() : (texturePackClouds != 0 ? texturePackClouds == 2 : gameSettings.fancyGraphics));
+    }
+
+    public static boolean isCloudsOff() {
+        return gameSettings.ofClouds != 0 ? gameSettings.ofClouds == 3 : (isShaders() && !Shaders.SHADER_PACK_CLOUDS.isDefault() ? Shaders.SHADER_PACK_CLOUDS.isOff() : (texturePackClouds != 0 && texturePackClouds == 3));
+    }
+
+    public static void updateTexturePackClouds() {
+        texturePackClouds = 0;
+        IResourceManager iresourcemanager = getResourceManager();
+
+        if (iresourcemanager != null) {
+            try {
+                InputStream inputstream = iresourcemanager.getResource(new ResourceLocation("mcpatcher/color.properties")).getInputStream();
+
+                if (inputstream == null) {
+                    return;
+                }
+
+                Properties properties = new PropertiesOrdered();
+                properties.load(inputstream);
+                inputstream.close();
+                String s = properties.getProperty("clouds");
+
+                if (s == null) {
+                    return;
+                }
+
+                Log.info("Texture pack clouds: " + s);
+                s = s.toLowerCase();
+
+                if (s.equals("fast")) {
+                    texturePackClouds = 1;
+                }
+
+                if (s.equals("fancy")) {
+                    texturePackClouds = 2;
+                }
+
+                if (s.equals("off")) {
+                    texturePackClouds = 3;
+                }
+            } catch (Exception exception) {
+            }
+        }
+    }
+
+    public static ModelManager getModelManager() {
+        return MINECRAFT.getRenderItem().modelManager;
+    }
+
+    public static boolean isTreesFancy() {
+        return gameSettings.ofTrees == 0 ? gameSettings.fancyGraphics : gameSettings.ofTrees != 1;
+    }
+
+    public static boolean isTreesSmart() {
+        return gameSettings.ofTrees == 4;
+    }
+
+    public static boolean isCullFacesLeaves() {
+        return gameSettings.ofTrees == 0 ? !gameSettings.fancyGraphics : gameSettings.ofTrees == 4;
+    }
+
+    public static boolean isDroppedItemsFancy() {
+        return gameSettings.ofDroppedItems == 0 ? gameSettings.fancyGraphics : gameSettings.ofDroppedItems == 2;
+    }
+
+    public static int limit(int p_limit_0_, int p_limit_1_, int p_limit_2_) {
+        return p_limit_0_ < p_limit_1_ ? p_limit_1_ : (p_limit_0_ > p_limit_2_ ? p_limit_2_ : p_limit_0_);
+    }
+
+    public static float limit(float p_limit_0_, float p_limit_1_, float p_limit_2_) {
+        return p_limit_0_ < p_limit_1_ ? p_limit_1_ : (p_limit_0_ > p_limit_2_ ? p_limit_2_ : p_limit_0_);
+    }
+
+    public static double limit(double p_limit_0_, double p_limit_2_, double p_limit_4_) {
+        return p_limit_0_ < p_limit_2_ ? p_limit_2_ : (p_limit_0_ > p_limit_4_ ? p_limit_4_ : p_limit_0_);
+    }
+
+    public static float limitTo1(float p_limitTo1_0_) {
+        return p_limitTo1_0_ < 0.0F ? 0.0F : (p_limitTo1_0_ > 1.0F ? 1.0F : p_limitTo1_0_);
+    }
+
+    public static boolean isAnimatedWater() {
+        return gameSettings.ofAnimatedWater != 2;
+    }
+
+    public static boolean isGeneratedWater() {
+        return gameSettings.ofAnimatedWater == 1;
+    }
+
+    public static boolean isAnimatedPortal() {
+        return gameSettings.ofAnimatedPortal;
+    }
+
+    public static boolean isAnimatedLava() {
+        return gameSettings.ofAnimatedLava != 2;
+    }
+
+    public static boolean isGeneratedLava() {
+        return gameSettings.ofAnimatedLava == 1;
+    }
+
+    public static boolean isAnimatedFire() {
+        return gameSettings.ofAnimatedFire;
+    }
+
+    public static boolean isAnimatedRedstone() {
+        return gameSettings.ofAnimatedRedstone;
+    }
+
+    public static boolean isAnimatedExplosion() {
+        return gameSettings.ofAnimatedExplosion;
+    }
+
+    public static boolean isAnimatedFlame() {
+        return gameSettings.ofAnimatedFlame;
+    }
+
+    public static boolean isAnimatedSmoke() {
+        return gameSettings.ofAnimatedSmoke;
+    }
+
+    public static boolean isVoidParticles() {
+        return gameSettings.ofVoidParticles;
+    }
+
+    public static boolean isWaterParticles() {
+        return gameSettings.ofWaterParticles;
+    }
+
+    public static boolean isRainSplash() {
+        return gameSettings.ofRainSplash;
+    }
+
+    public static boolean isPortalParticles() {
+        return gameSettings.ofPortalParticles;
+    }
+
+    public static boolean isPotionParticles() {
+        return gameSettings.ofPotionParticles;
+    }
+
+    public static boolean isFireworkParticles() {
+        return gameSettings.ofFireworkParticles;
+    }
+
+    public static float getAmbientOcclusionLevel() {
+        return isShaders() && Shaders.aoLevel >= 0.0F ? Shaders.aoLevel : gameSettings.ofAoLevel;
+    }
+
+    public static String listToString(List p_listToString_0_) {
+        return listToString(p_listToString_0_, ", ");
+    }
+
+    public static String listToString(List p_listToString_0_, String p_listToString_1_) {
+        if (p_listToString_0_ == null) {
+            return "";
+        } else {
+            StringBuilder stringbuffer = new StringBuilder(p_listToString_0_.size() * 5);
+
+            for (int i = 0; i < p_listToString_0_.size(); ++i) {
+                Object object = p_listToString_0_.get(i);
+
+                if (i > 0) {
+                    stringbuffer.append(p_listToString_1_);
+                }
+
+                stringbuffer.append(object);
+            }
+
+            return stringbuffer.toString();
+        }
+    }
+
+    public static String arrayToString(Object[] p_arrayToString_0_) {
+        return arrayToString(p_arrayToString_0_, ", ");
+    }
+
+    public static String arrayToString(Object[] p_arrayToString_0_, String p_arrayToString_1_) {
+        if (p_arrayToString_0_ == null) {
+            return "";
+        } else {
+            StringBuilder stringbuffer = new StringBuilder(p_arrayToString_0_.length * 5);
+
+            for (int i = 0; i < p_arrayToString_0_.length; ++i) {
+                Object object = p_arrayToString_0_[i];
+
+                if (i > 0) {
+                    stringbuffer.append(p_arrayToString_1_);
+                }
+
+                stringbuffer.append(object);
+            }
+
+            return stringbuffer.toString();
+        }
+    }
+
+    public static String arrayToString(int[] p_arrayToString_0_) {
+        return arrayToString(p_arrayToString_0_, ", ");
+    }
+
+    public static String arrayToString(int[] p_arrayToString_0_, String p_arrayToString_1_) {
+        if (p_arrayToString_0_ == null) {
+            return "";
+        } else {
+            StringBuilder stringbuffer = new StringBuilder(p_arrayToString_0_.length * 5);
+
+            for (int i = 0; i < p_arrayToString_0_.length; ++i) {
+                int j = p_arrayToString_0_[i];
+
+                if (i > 0) {
+                    stringbuffer.append(p_arrayToString_1_);
+                }
+
+                stringbuffer.append(j);
+            }
+
+            return stringbuffer.toString();
+        }
+    }
+
+    public static String arrayToString(float[] p_arrayToString_0_) {
+        return arrayToString(p_arrayToString_0_, ", ");
+    }
+
+    public static String arrayToString(float[] p_arrayToString_0_, String p_arrayToString_1_) {
+        if (p_arrayToString_0_ == null) {
+            return "";
+        } else {
+            StringBuilder stringbuffer = new StringBuilder(p_arrayToString_0_.length * 5);
+
+            for (int i = 0; i < p_arrayToString_0_.length; ++i) {
+                float f = p_arrayToString_0_[i];
+
+                if (i > 0) {
+                    stringbuffer.append(p_arrayToString_1_);
+                }
+
+                stringbuffer.append(f);
+            }
+
+            return stringbuffer.toString();
+        }
+    }
+
+    public static Minecraft getMinecraft() {
+        return MINECRAFT;
+    }
+
+    public static TextureManager getTextureManager() {
+        return MINECRAFT.getTextureManager();
+    }
+
+    public static IResourceManager getResourceManager() {
+        return MINECRAFT.getResourceManager();
+    }
+
+    public static InputStream getResourceStream(ResourceLocation p_getResourceStream_0_) throws IOException {
+        return getResourceStream(MINECRAFT.getResourceManager(), p_getResourceStream_0_);
+    }
+
+    public static InputStream getResourceStream(IResourceManager p_getResourceStream_0_, ResourceLocation p_getResourceStream_1_) throws IOException {
+        IResource iresource = p_getResourceStream_0_.getResource(p_getResourceStream_1_);
+        return iresource == null ? null : iresource.getInputStream();
+    }
+
+    public static IResource getResource(ResourceLocation p_getResource_0_) throws IOException {
+        return MINECRAFT.getResourceManager().getResource(p_getResource_0_);
+    }
+
+    public static boolean hasResource(ResourceLocation p_hasResource_0_) {
+        if (p_hasResource_0_ == null) {
+            return false;
+        } else {
+            IResourcePack iresourcepack = getDefiningResourcePack(p_hasResource_0_);
+            return iresourcepack != null;
+        }
+    }
+
+    public static boolean hasResource(IResourceManager p_hasResource_0_, ResourceLocation p_hasResource_1_) {
+        try {
+            IResource iresource = p_hasResource_0_.getResource(p_hasResource_1_);
+            return iresource != null;
+        } catch (IOException exception) {
+            return false;
+        }
+    }
+
+    public static IResourcePack[] getResourcePacks() {
+        ResourcePackRepository resourcepackrepository = MINECRAFT.getResourcePackRepository();
+        List list = resourcepackrepository.getRepositoryEntries();
+        List list1 = new ArrayList<>();
+
+        for (Object o : list) {
+            ResourcePackRepository.Entry resourcepackrepository$entry = (ResourcePackRepository.Entry) o;
+            list1.add(resourcepackrepository$entry.getResourcePack());
+        }
+
+        if (resourcepackrepository.getResourcePackInstance() != null) {
+            list1.add(resourcepackrepository.getResourcePackInstance());
+        }
+
+        return (IResourcePack[]) list1.toArray(new IResourcePack[0]);
+    }
+
+    public static String getResourcePackNames() {
+        if (MINECRAFT.getResourcePackRepository() == null) {
+            return "";
+        } else {
+            IResourcePack[] airesourcepack = getResourcePacks();
+
+            if (airesourcepack.length == 0) {
+                return getMinecraft().getDefaultResourcePack().getPackName();
+            } else {
+                String[] astring = new String[airesourcepack.length];
+
+                for (int i = 0; i < airesourcepack.length; ++i) {
+                    astring[i] = airesourcepack[i].getPackName();
+                }
+
+                return arrayToString(astring);
+            }
+        }
+    }
+
+    public static boolean isFromDefaultResourcePack(ResourceLocation p_isFromDefaultResourcePack_0_) {
+        IResourcePack iresourcepack = getDefiningResourcePack(p_isFromDefaultResourcePack_0_);
+        return iresourcepack == getMinecraft().getDefaultResourcePack();
+    }
+
+    public static IResourcePack getDefiningResourcePack(ResourceLocation p_getDefiningResourcePack_0_) {
+        ResourcePackRepository resourcepackrepository = MINECRAFT.getResourcePackRepository();
+        IResourcePack iresourcepack = resourcepackrepository.getResourcePackInstance();
+
+        if (iresourcepack != null && iresourcepack.resourceExists(p_getDefiningResourcePack_0_)) {
+            return iresourcepack;
+        } else {
+            List<ResourcePackRepository.Entry> list = resourcepackrepository.repositoryEntries;
+
+            for (int i = list.size() - 1; i >= 0; --i) {
+                ResourcePackRepository.Entry resourcepackrepository$entry = list.get(i);
+                IResourcePack iresourcepack1 = resourcepackrepository$entry.getResourcePack();
+
+                if (iresourcepack1.resourceExists(p_getDefiningResourcePack_0_)) {
+                    return iresourcepack1;
+                }
+            }
+
+            if (getMinecraft().getDefaultResourcePack().resourceExists(p_getDefiningResourcePack_0_)) {
+                return getMinecraft().getDefaultResourcePack();
+            } else {
+                return null;
+            }
+        }
+    }
+
+    public static RenderGlobal getRenderGlobal() {
+        return MINECRAFT.renderGlobal;
+    }
+
+    public static boolean isBetterGrass() {
+        return gameSettings.ofBetterGrass != 3;
+    }
+
+    public static boolean isBetterGrassFancy() {
+        return gameSettings.ofBetterGrass == 2;
+    }
+
+    public static boolean isWeatherEnabled() {
+        return gameSettings.ofWeather;
+    }
+
+    public static boolean isSkyEnabled() {
+        return gameSettings.ofSky;
+    }
+
+    public static boolean isSunMoonEnabled() {
+        return gameSettings.ofSunMoon;
+    }
+
+    public static boolean isSunTexture() {
+        return isSunMoonEnabled() && (!isShaders() || Shaders.isSun());
+    }
+
+    public static boolean isMoonTexture() {
+        return isSunMoonEnabled() && (!isShaders() || Shaders.isMoon());
+    }
+
+    public static boolean isVignetteEnabled() {
+        return (!isShaders() || Shaders.isVignette()) && (gameSettings.ofVignette == 0 ? gameSettings.fancyGraphics : gameSettings.ofVignette == 2);
+    }
+
+    public static boolean isStarsEnabled() {
+        return gameSettings.ofStars;
+    }
+
+    public static void sleep(long p_sleep_0_) {
+        try {
+            Thread.sleep(p_sleep_0_);
+        } catch (InterruptedException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    public static boolean isTimeDayOnly() {
+        return gameSettings.ofTime == 1;
+    }
+
+    public static boolean isTimeDefault() {
+        return gameSettings.ofTime == 0;
+    }
+
+    public static boolean isTimeNightOnly() {
+        return gameSettings.ofTime == 2;
+    }
+
+    public static boolean isClearWater() {
+        return gameSettings.ofClearWater;
+    }
+
+    public static int getAnisotropicFilterLevel() {
+        return gameSettings.ofAfLevel;
+    }
+
+    public static boolean isAnisotropicFiltering() {
+        return getAnisotropicFilterLevel() > 1;
+    }
+
+    public static int getAntialiasingLevel() {
+        return antialiasingLevel;
+    }
+
+    public static boolean isAntialiasing() {
+        return getAntialiasingLevel() > 0;
+    }
+
+    public static boolean isAntialiasingConfigured() {
+        return getGameSettings().ofAaLevel > 0;
+    }
+
+    public static boolean isMultiTexture() {
+        return getAnisotropicFilterLevel() > 1 || getAntialiasingLevel() > 0;
+    }
+
+    public static boolean between(int p_between_0_, int p_between_1_, int p_between_2_) {
+        return p_between_0_ >= p_between_1_ && p_between_0_ <= p_between_2_;
+    }
+
+    public static boolean between(float p_between_0_, float p_between_1_, float p_between_2_) {
+        return p_between_0_ >= p_between_1_ && p_between_0_ <= p_between_2_;
+    }
+
+    public static boolean isDrippingWaterLava() {
+        return gameSettings.ofDrippingWaterLava;
+    }
+
+    public static boolean isBetterSnow() {
+        return gameSettings.ofBetterSnow;
+    }
+
+    public static Vector2i getFullscreenDimension() {
+        if (desktopDisplayMode == null) {
+            return null;
+        } else if (gameSettings == null) {
+            return new Vector2i(desktopDisplayMode.getWidth(), desktopDisplayMode.getHeight());
+        } else {
+            String s = gameSettings.ofFullscreenMode;
+
+            if (s.equals("Default")) {
+                return new Vector2i(desktopDisplayMode.getWidth(), desktopDisplayMode.getHeight());
+            } else {
+                String[] astring = tokenize(s, " x");
+                return astring.length < 2 ? new Vector2i(desktopDisplayMode.getWidth(), desktopDisplayMode.getHeight()) : new Vector2i(parseInt(astring[0], -1), parseInt(astring[1], -1));
+            }
+        }
+    }
+
+    public static int parseInt(String p_parseInt_0_, int p_parseInt_1_) {
+        try {
+            if (p_parseInt_0_ == null) {
+                return p_parseInt_1_;
+            } else {
+                p_parseInt_0_ = p_parseInt_0_.trim();
+                return Integer.parseInt(p_parseInt_0_);
+            }
+        } catch (NumberFormatException exception) {
+            return p_parseInt_1_;
+        }
+    }
+
+    public static float parseFloat(String p_parseFloat_0_, float p_parseFloat_1_) {
+        try {
+            if (p_parseFloat_0_ == null) {
+                return p_parseFloat_1_;
+            } else {
+                p_parseFloat_0_ = p_parseFloat_0_.trim();
+                return Float.parseFloat(p_parseFloat_0_);
+            }
+        } catch (NumberFormatException exception) {
+            return p_parseFloat_1_;
+        }
+    }
+
+    public static boolean parseBoolean(String p_parseBoolean_0_, boolean p_parseBoolean_1_) {
+        try {
+            if (p_parseBoolean_0_ == null) {
+                return p_parseBoolean_1_;
+            } else {
+                p_parseBoolean_0_ = p_parseBoolean_0_.trim();
+                return Boolean.parseBoolean(p_parseBoolean_0_);
+            }
+        } catch (NumberFormatException exception) {
+            return p_parseBoolean_1_;
+        }
+    }
+
+    public static Boolean parseBoolean(String p_parseBoolean_0_, Boolean p_parseBoolean_1_) {
+        try {
+            if (p_parseBoolean_0_ == null) {
+                return p_parseBoolean_1_;
+            } else {
+                p_parseBoolean_0_ = p_parseBoolean_0_.trim().toLowerCase();
+                return p_parseBoolean_0_.equals("true") ? Boolean.TRUE : (p_parseBoolean_0_.equals("false") ? Boolean.FALSE : p_parseBoolean_1_);
+            }
+        } catch (NumberFormatException exception) {
+            return p_parseBoolean_1_;
+        }
+    }
+
+    public static String[] tokenize(String p_tokenize_0_, String p_tokenize_1_) {
+        StringTokenizer stringtokenizer = new StringTokenizer(p_tokenize_0_, p_tokenize_1_);
+        List list = new ArrayList<>();
+
+        while (stringtokenizer.hasMoreTokens()) {
+            String s = stringtokenizer.nextToken();
+            list.add(s);
+        }
+
+        return (String[]) list.toArray(new String[0]);
+    }
+
+    public static DisplayMode getDesktopDisplayMode() {
+        return desktopDisplayMode;
+    }
+
+    public static DisplayMode[] getDisplayModes() {
+        if (displayModes == null) {
+            try {
+                DisplayMode[] adisplaymode = Display.getAvailableDisplayModes();
+                Set<Vector2i> set = getDisplayModeDimensions(adisplaymode);
+                List list = new ArrayList<>();
+
+                for (Vector2i dimension : set) {
+                    DisplayMode[] adisplaymode1 = getDisplayModes(adisplaymode, dimension);
+                    DisplayMode displaymode = getDisplayMode(adisplaymode1, desktopDisplayMode);
+
+                    if (displaymode != null) {
+                        list.add(displaymode);
+                    }
+                }
+
+                DisplayMode[] adisplaymode2 = (DisplayMode[]) list.toArray(new DisplayMode[0]);
+                Arrays.sort(adisplaymode2, new DisplayModeComparator());
+                return adisplaymode2;
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                displayModes = new DisplayMode[]{desktopDisplayMode};
+            }
+        }
+
+        return displayModes;
+    }
+
+    public static DisplayMode getLargestDisplayMode() {
+        DisplayMode[] adisplaymode = getDisplayModes();
+
+        if (adisplaymode != null && adisplaymode.length >= 1) {
+            DisplayMode displaymode = adisplaymode[adisplaymode.length - 1];
+            return desktopDisplayMode.getWidth() > displaymode.getWidth() ? desktopDisplayMode : (desktopDisplayMode.getWidth() == displaymode.getWidth() && desktopDisplayMode.getHeight() > displaymode.getHeight() ? desktopDisplayMode : displaymode);
+        } else {
+            return desktopDisplayMode;
+        }
+    }
+
+    private static Set<Vector2i> getDisplayModeDimensions(DisplayMode[] p_getDisplayModeDimensions_0_) {
+        Set<Vector2i> set = new HashSet<>();
+
+        for (DisplayMode displaymode : p_getDisplayModeDimensions_0_) {
+            Vector2i dimension = new Vector2i(displaymode.getWidth(), displaymode.getHeight());
+            set.add(dimension);
+        }
+
+        return set;
+    }
+
+    private static DisplayMode[] getDisplayModes(DisplayMode[] p_getDisplayModes_0_, Vector2i p_getDisplayModes_1_) {
+        List<DisplayMode> list = new ArrayList<>();
+
+        for (DisplayMode displaymode : p_getDisplayModes_0_) {
+            if (displaymode.getWidth() == p_getDisplayModes_1_.x() && displaymode.getHeight() == p_getDisplayModes_1_.y()) {
+                list.add(displaymode);
+            }
+        }
+
+        return list.toArray(DisplayMode[]::new);
+    }
+
+    private static DisplayMode getDisplayMode(DisplayMode[] p_getDisplayMode_0_, DisplayMode p_getDisplayMode_1_) {
+        if (p_getDisplayMode_1_ != null) {
+            for (DisplayMode displaymode : p_getDisplayMode_0_) {
+                if (displaymode.getBitsPerPixel() == p_getDisplayMode_1_.getBitsPerPixel() && displaymode.getFrequency() == p_getDisplayMode_1_.getFrequency()) {
+                    return displaymode;
+                }
+            }
+        }
+
+        if (p_getDisplayMode_0_.length == 0) {
+            return null;
+        } else {
+            Arrays.sort(p_getDisplayMode_0_, new DisplayModeComparator());
+            return p_getDisplayMode_0_[p_getDisplayMode_0_.length - 1];
+        }
+    }
+
+    public static String[] getDisplayModeNames() {
+        DisplayMode[] adisplaymode = getDisplayModes();
+        String[] astring = new String[adisplaymode.length];
+
+        for (int i = 0; i < adisplaymode.length; ++i) {
+            DisplayMode displaymode = adisplaymode[i];
+            String s = displaymode.getWidth() + "x" + displaymode.getHeight();
+            astring[i] = s;
+        }
+
+        return astring;
+    }
+
+    public static DisplayMode getDisplayMode(Vector2i p_getDisplayMode_0_) throws LWJGLException {
+        DisplayMode[] adisplaymode = getDisplayModes();
+
+        for (DisplayMode displaymode : adisplaymode) {
+            if (displaymode.getWidth() == p_getDisplayMode_0_.x && displaymode.getHeight() == p_getDisplayMode_0_.y) {
+                return displaymode;
+            }
+        }
+
+        return desktopDisplayMode;
+    }
+
+    public static boolean isAnimatedTerrain() {
+        return gameSettings.ofAnimatedTerrain;
+    }
+
+    public static boolean isAnimatedTextures() {
+        return gameSettings.ofAnimatedTextures;
+    }
+
+    public static boolean isSwampColors() {
+        return gameSettings.ofSwampColors;
+    }
+
+    public static boolean isRandomEntities() {
+        return gameSettings.ofRandomEntities;
+    }
+
+    public static void checkGlError(String p_checkGlError_0_) {
+        int i = GlStateManager.glGetError();
+
+        if (i != 0 && GlErrors.isEnabled(i)) {
+            String s = getGlErrorString(i);
+            String s1 = String.format("OpenGL error: %s (%s), at: %s", i, s, p_checkGlError_0_);
+            Log.error(s1);
+
+            if (isShowGlErrors() && TimedEvent.isActive("ShowGlError", 10000L)) {
+                String s2 = I18n.format("of.message.openglError", i, s);
+                MINECRAFT.ingameGUI.getChatGUI().printChatMessage(new ChatComponentText(s2));
+            }
+        }
+    }
+
+    public static boolean isSmoothBiomes() {
+        return gameSettings.ofSmoothBiomes;
+    }
+
+    public static boolean isCustomColors() {
+        return gameSettings.ofCustomColors;
+    }
+
+    public static boolean isCustomSky() {
+        return gameSettings.ofCustomSky;
+    }
+
+    public static boolean isCustomFonts() {
+        return gameSettings.ofCustomFonts;
+    }
+
+    public static boolean isShowCapes() {
+        return gameSettings.ofShowCapes;
+    }
+
+    public static boolean isConnectedTextures() {
+        return gameSettings.ofConnectedTextures != 3;
+    }
+
+    public static boolean isNaturalTextures() {
+        return gameSettings.ofNaturalTextures;
+    }
+
+    public static boolean isEmissiveTextures() {
+        return gameSettings.ofEmissiveTextures;
+    }
+
+    public static boolean isConnectedTexturesFancy() {
+        return gameSettings.ofConnectedTextures == 2;
+    }
+
+    public static boolean isFastRender() {
+        return gameSettings.ofFastRender;
+    }
+
+    public static boolean isTranslucentBlocksFancy() {
+        return gameSettings.ofTranslucentBlocks == 0 ? gameSettings.fancyGraphics : gameSettings.ofTranslucentBlocks == 2;
+    }
+
+    public static boolean isShaders() {
+        return Shaders.shaderPackLoaded;
+    }
+
+    public static String[] readLines(File p_readLines_0_) throws IOException {
+        FileInputStream fileinputstream = new FileInputStream(p_readLines_0_);
+        return readLines(fileinputstream);
+    }
+
+    public static String[] readLines(InputStream p_readLines_0_) throws IOException {
+        List list = new ArrayList<>();
+        InputStreamReader inputstreamreader = new InputStreamReader(p_readLines_0_, StandardCharsets.US_ASCII);
+        BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
+
+        while (true) {
+            String s = bufferedreader.readLine();
+
+            if (s == null) {
+                return (String[]) list.toArray(new String[0]);
+            }
+
+            list.add(s);
+        }
+    }
+
+    public static String readFile(File p_readFile_0_) throws IOException {
+        FileInputStream fileinputstream = new FileInputStream(p_readFile_0_);
+        return readInputStream(fileinputstream, "ASCII");
+    }
+
+    public static String readInputStream(InputStream p_readInputStream_0_) throws IOException {
+        return readInputStream(p_readInputStream_0_, "ASCII");
+    }
+
+    public static String readInputStream(InputStream p_readInputStream_0_, String p_readInputStream_1_) throws IOException {
+        InputStreamReader inputstreamreader = new InputStreamReader(p_readInputStream_0_, p_readInputStream_1_);
+        BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
+        StringBuilder stringbuffer = new StringBuilder();
+
+        while (true) {
+            String s = bufferedreader.readLine();
+
+            if (s == null) {
+                return stringbuffer.toString();
+            }
+
+            stringbuffer.append(s);
+            stringbuffer.append("\n");
+        }
+    }
+
+    public static byte[] readAll(InputStream p_readAll_0_) throws IOException {
+        ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
+        byte[] abyte = new byte[1024];
+
+        while (true) {
+            int i = p_readAll_0_.read(abyte);
+
+            if (i < 0) {
+                p_readAll_0_.close();
+                return bytearrayoutputstream.toByteArray();
+            }
+
+            bytearrayoutputstream.write(abyte, 0, i);
+        }
+    }
+
+    public static GameSettings getGameSettings() {
+        return gameSettings;
+    }
+
+    public static int compareRelease(String p_compareRelease_0_, String p_compareRelease_1_) {
+        String[] astring = splitRelease(p_compareRelease_0_);
+        String[] astring1 = splitRelease(p_compareRelease_1_);
+        String s = astring[0];
+        String s1 = astring1[0];
+
+        if (!s.equals(s1)) {
+            return s.compareTo(s1);
+        } else {
+            int i = parseInt(astring[1], -1);
+            int j = parseInt(astring1[1], -1);
+
+            if (i != j) {
+                return i - j;
+            } else {
+                String s2 = astring[2];
+                String s3 = astring1[2];
+
+                if (!s2.equals(s3)) {
+                    if (s2.isEmpty()) {
+                        return 1;
+                    }
+
+                    if (s3.isEmpty()) {
+                        return -1;
+                    }
+                }
+
+                return s2.compareTo(s3);
+            }
+        }
+    }
+
+    private static String[] splitRelease(String p_splitRelease_0_) {
+        if (p_splitRelease_0_ != null && !p_splitRelease_0_.isEmpty()) {
+            Pattern pattern = Pattern.compile("([A-Z])([0-9]+)(.*)");
+            Matcher matcher = pattern.matcher(p_splitRelease_0_);
+
+            if (!matcher.matches()) {
+                return new String[]{"", "", ""};
+            } else {
+                String s = normalize(matcher.group(1));
+                String s1 = normalize(matcher.group(2));
+                String s2 = normalize(matcher.group(3));
+                return new String[]{s, s1, s2};
+            }
+        } else {
+            return new String[]{"", "", ""};
+        }
+    }
+
+    public static int intHash(int p_intHash_0_) {
+        p_intHash_0_ = p_intHash_0_ ^ 61 ^ p_intHash_0_ >> 16;
+        p_intHash_0_ = p_intHash_0_ + (p_intHash_0_ << 3);
+        p_intHash_0_ = p_intHash_0_ ^ p_intHash_0_ >> 4;
+        p_intHash_0_ = p_intHash_0_ * 668265261;
+        p_intHash_0_ = p_intHash_0_ ^ p_intHash_0_ >> 15;
+        return p_intHash_0_;
+    }
+
+    public static int getRandom(BlockPos p_getRandom_0_, int p_getRandom_1_) {
+        int i = intHash(p_getRandom_1_ + 37);
+        i = intHash(i + p_getRandom_0_.getX());
+        i = intHash(i + p_getRandom_0_.getZ());
+        i = intHash(i + p_getRandom_0_.getY());
+        return i;
+    }
+
+    public static int getAvailableProcessors() {
+        return availableProcessors;
+    }
+
+    public static void updateAvailableProcessors() {
+        availableProcessors = Runtime.getRuntime().availableProcessors();
+    }
+
+    public static boolean isSingleProcessor() {
+        return getAvailableProcessors() <= 1;
+    }
+
+    public static boolean isSmoothWorld() {
+        return gameSettings.ofSmoothWorld;
+    }
+
+    public static boolean isLazyChunkLoading() {
+        return gameSettings.ofLazyChunkLoading;
+    }
+
+    public static boolean isDynamicFov() {
+        return gameSettings.ofDynamicFov;
+    }
+
+    public static boolean isAlternateBlocks() {
+        return gameSettings.ofAlternateBlocks;
+    }
+
+    public static int getChunkViewDistance() {
+        if (gameSettings == null) {
+            return 10;
+        } else {
+            return gameSettings.renderDistanceChunks;
+        }
+    }
+
+    public static boolean equals(Object p_equals_0_, Object p_equals_1_) {
+        return p_equals_0_ == p_equals_1_ || (p_equals_0_ != null && p_equals_0_.equals(p_equals_1_));
+    }
+
+    public static boolean equalsOne(Object p_equalsOne_0_, Object[] p_equalsOne_1_) {
+        if (p_equalsOne_1_ != null) {
+            for (Object object : p_equalsOne_1_) {
+                if (equals(p_equalsOne_0_, object)) {
+                    return true;
+                }
+            }
+
+        }
+        return false;
+    }
+
+    public static boolean equalsOne(int p_equalsOne_0_, int[] p_equalsOne_1_) {
+        for (int j : p_equalsOne_1_) {
+            if (j == p_equalsOne_0_) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static boolean isSameOne(Object p_isSameOne_0_, Object[] p_isSameOne_1_) {
+        if (p_isSameOne_1_ != null) {
+            for (Object object : p_isSameOne_1_) {
+                if (p_isSameOne_0_ == object) {
+                    return true;
+                }
+            }
+
+        }
+        return false;
+    }
+
+    public static String normalize(String p_normalize_0_) {
+        return p_normalize_0_ == null ? "" : p_normalize_0_;
+    }
+
+    public static void checkDisplaySettings() {
+        int i = getAntialiasingLevel();
+
+        if (i > 0) {
+            DisplayMode displaymode = Display.getDisplayMode();
+            Log.info("FSAA Samples: " + i);
+
+            try {
+                Display.destroy();
+                Display.setDisplayMode(displaymode);
+                Display.create((new PixelFormat()).withDepthBits(24).withSamples(i));
+
+                if (Util.getOSType() == Util.OperatingSystem.WINDOWS) {
+                    Display.setResizable(false);
+                    Display.setResizable(true);
+                }
+            } catch (LWJGLException exception) {
+                Log.warn("Error setting FSAA: " + i + "x");
+                exception.printStackTrace();
+
+                try {
+                    Display.setDisplayMode(displaymode);
+                    Display.create((new PixelFormat()).withDepthBits(24));
+
+                    if (Util.getOSType() == Util.OperatingSystem.WINDOWS) {
+                        Display.setResizable(false);
+                        Display.setResizable(true);
+                    }
+                } catch (LWJGLException exception2) {
+                    exception2.printStackTrace();
+
+                    try {
+                        Display.setDisplayMode(displaymode);
+                        Display.create();
+
+                        if (Util.getOSType() == Util.OperatingSystem.WINDOWS) {
+                            Display.setResizable(false);
+                            Display.setResizable(true);
+                        }
+                    } catch (LWJGLException exception3) {
+                        exception3.printStackTrace();
+                    }
+                }
+            }
+
+            if (!Minecraft.IS_RUNNING_ON_MAC && getMinecraft().getDefaultResourcePack() != null) {
+                InputStream inputstream = null;
+                InputStream inputstream1 = null;
+
+                try {
+                    inputstream = getMinecraft().getDefaultResourcePack().getInputStreamAssets(new ResourceLocation("icons/icon_16x16.png"));
+                    inputstream1 = getMinecraft().getDefaultResourcePack().getInputStreamAssets(new ResourceLocation("icons/icon_32x32.png"));
+
+                    if (inputstream != null && inputstream1 != null) {
+                        Display.setIcon(new ByteBuffer[]{readIconImage(inputstream), readIconImage(inputstream1)});
+                    }
+                } catch (IOException exception) {
+                    Log.warn("Error setting window icon: " + exception.getClass().getName() + ": " + exception.getMessage());
+                } finally {
+                    IOUtils.closeQuietly(inputstream);
+                    IOUtils.closeQuietly(inputstream1);
+                }
+            }
+        }
+    }
+
+    private static ByteBuffer readIconImage(InputStream stream) throws IOException {
+        NativeImage image = NativeImage.loadFromInputStream(stream);
+        int[] aint = image.getRGB(0, 0, image.getWidth(), image.getHeight(), null, 0, image.getWidth());
+        ByteBuffer bytebuffer = ByteBuffer.allocate(4 * aint.length);
+
+        for (int i : aint) {
+            bytebuffer.putInt(i << 8 | i >> 24 & 255);
+        }
+
+        bytebuffer.flip();
+        return bytebuffer;
+    }
+
+    public static void checkDisplayMode() {
+        try {
+            if (MINECRAFT.isFullScreen()) {
+                if (fullscreenModeChecked) {
+                    return;
+                }
+
+                fullscreenModeChecked = true;
+                desktopModeChecked = false;
+                DisplayMode displaymode = Display.getDisplayMode();
+                Vector2i dimension = getFullscreenDimension();
+
+                if (dimension == null) {
+                    return;
+                }
+
+                if (displaymode.getWidth() == dimension.x && displaymode.getHeight() == dimension.y) {
+                    return;
+                }
+
+                DisplayMode displaymode1 = getDisplayMode(dimension);
+
+                if (displaymode1 == null) {
+                    return;
+                }
+
+                Display.setDisplayMode(displaymode1);
+                MINECRAFT.displayWidth = Display.getDisplayMode().getWidth();
+                MINECRAFT.displayHeight = Display.getDisplayMode().getHeight();
+
+                if (MINECRAFT.displayWidth <= 0) {
+                    MINECRAFT.displayWidth = 1;
+                }
+
+                if (MINECRAFT.displayHeight <= 0) {
+                    MINECRAFT.displayHeight = 1;
+                }
+
+                if (MINECRAFT.currentScreen != null) {
+                    ScaledResolution scaledresolution = new ScaledResolution(MINECRAFT);
+                    int i = scaledresolution.getScaledWidth();
+                    int j = scaledresolution.getScaledHeight();
+                    MINECRAFT.currentScreen.setWorldAndResolution(MINECRAFT, i, j);
+                }
+
+                updateFramebufferSize();
+                Display.setFullscreen(true);
+                MINECRAFT.gameSettings.updateVSync();
+                GlStateManager.enableTexture2D();
+            } else {
+                if (desktopModeChecked) {
+                    return;
+                }
+
+                desktopModeChecked = true;
+                fullscreenModeChecked = false;
+                MINECRAFT.gameSettings.updateVSync();
+                Display.update();
+                GlStateManager.enableTexture2D();
+
+                if (Util.getOSType() == Util.OperatingSystem.WINDOWS) {
+                    Display.setResizable(false);
+                    Display.setResizable(true);
+                }
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            gameSettings.ofFullscreenMode = "Default";
+            gameSettings.saveOfOptions();
+        }
+    }
+
+    public static void updateFramebufferSize() {
+        MINECRAFT.getFramebuffer().createBindFramebuffer(MINECRAFT.displayWidth, MINECRAFT.displayHeight);
+
+        if (MINECRAFT.entityRenderer != null) {
+            MINECRAFT.entityRenderer.updateShaderGroupSize(MINECRAFT.displayWidth, MINECRAFT.displayHeight);
+        }
+
+        MINECRAFT.loadingScreen = new LoadingScreenRenderer(MINECRAFT);
+    }
+
+    public static Object[] addObjectToArray(Object[] p_addObjectToArray_0_, Object p_addObjectToArray_1_) {
+        if (p_addObjectToArray_0_ == null) {
+            throw new NullPointerException("The given array is NULL");
+        } else {
+            int i = p_addObjectToArray_0_.length;
+            int j = i + 1;
+            Object[] aobject = (Object[]) Array.newInstance(p_addObjectToArray_0_.getClass().getComponentType(), j);
+            System.arraycopy(p_addObjectToArray_0_, 0, aobject, 0, i);
+            aobject[i] = p_addObjectToArray_1_;
+            return aobject;
+        }
+    }
+
+    public static Object[] addObjectToArray(Object[] p_addObjectToArray_0_, Object p_addObjectToArray_1_, int p_addObjectToArray_2_) {
+        List list = new ArrayList(Arrays.asList(p_addObjectToArray_0_));
+        list.add(p_addObjectToArray_2_, p_addObjectToArray_1_);
+        Object[] aobject = (Object[]) Array.newInstance(p_addObjectToArray_0_.getClass().getComponentType(), list.size());
+        return list.toArray(aobject);
+    }
+
+    public static Object[] addObjectsToArray(Object[] p_addObjectsToArray_0_, Object[] p_addObjectsToArray_1_) {
+        if (p_addObjectsToArray_0_ == null) {
+            throw new NullPointerException("The given array is NULL");
+        } else if (p_addObjectsToArray_1_.length == 0) {
+            return p_addObjectsToArray_0_;
+        } else {
+            int i = p_addObjectsToArray_0_.length;
+            int j = i + p_addObjectsToArray_1_.length;
+            Object[] aobject = (Object[]) Array.newInstance(p_addObjectsToArray_0_.getClass().getComponentType(), j);
+            System.arraycopy(p_addObjectsToArray_0_, 0, aobject, 0, i);
+            System.arraycopy(p_addObjectsToArray_1_, 0, aobject, i, p_addObjectsToArray_1_.length);
+            return aobject;
+        }
+    }
+
+    public static Object[] removeObjectFromArray(Object[] p_removeObjectFromArray_0_, Object p_removeObjectFromArray_1_) {
+        List list = new ArrayList(Arrays.asList(p_removeObjectFromArray_0_));
+        list.remove(p_removeObjectFromArray_1_);
+        return collectionToArray(list, p_removeObjectFromArray_0_.getClass().getComponentType());
+    }
+
+    public static Object[] collectionToArray(Collection p_collectionToArray_0_, Class p_collectionToArray_1_) {
+        if (p_collectionToArray_0_ == null) {
+            return null;
+        } else if (p_collectionToArray_1_ == null) {
+            return null;
+        } else if (p_collectionToArray_1_.isPrimitive()) {
+            throw new IllegalArgumentException("Can not make arrays with primitive elements (int, double), element class: " + p_collectionToArray_1_);
+        } else {
+            Object[] aobject = (Object[]) Array.newInstance(p_collectionToArray_1_, p_collectionToArray_0_.size());
+            return p_collectionToArray_0_.toArray(aobject);
+        }
+    }
+
+    public static boolean isCustomItems() {
+        return gameSettings.ofCustomItems;
+    }
+
+    public static void drawFps() {
+        int i = Minecraft.getDebugFPS();
+        String s = getUpdates(MINECRAFT.debug);
+        int j = MINECRAFT.renderGlobal.getCountActiveRenderers();
+        int k = MINECRAFT.renderGlobal.getCountEntitiesRendered();
+        int l = MINECRAFT.renderGlobal.getCountTileEntitiesRendered();
+        String s1 = i + "/" + getFpsMin() + " fps, C: " + j + ", E: " + k + "+" + l + ", U: " + s;
+        MINECRAFT.fontRendererObj.drawString(s1, 2, 2, -2039584);
+    }
+
+    public static int getFpsMin() {
+        if (MINECRAFT.debug != mcDebugLast) {
+            mcDebugLast = MINECRAFT.debug;
+            FrameTimer frametimer = MINECRAFT.getFrameTimer();
+            long[] along = frametimer.getFrames();
+            int i = frametimer.getIndex();
+            int j = frametimer.getLastIndex();
+
+            if (i != j) {
+                int k = Minecraft.getDebugFPS();
+
+                if (k <= 0) {
+                    k = 1;
+                }
+
+                long i1 = (long) (1.0D / k * 1.0E9D);
+                long j1 = 0L;
+
+                for (int k1 = MathHelper.normalizeAngle(i - 1, along.length); k1 != j && j1 < 1.0E9D; k1 = MathHelper.normalizeAngle(k1 - 1, along.length)) {
+                    long l1 = along[k1];
+
+                    if (l1 > i1) {
+                        i1 = l1;
+                    }
+
+                    j1 += l1;
+                }
+
+                double d0 = i1 / 1.0E9D;
+                fpsMinLast = (int) (1.0D / d0);
+            }
+        }
+        return fpsMinLast;
+    }
+
+    private static String getUpdates(String p_getUpdates_0_) {
+        int i = p_getUpdates_0_.indexOf(40);
+
+        if (i < 0) {
+            return "";
+        } else {
+            int j = p_getUpdates_0_.indexOf(32, i);
+            return j < 0 ? "" : p_getUpdates_0_.substring(i + 1, j);
+        }
+    }
+
+    public static boolean isConnectedModels() {
+        return false;
+    }
+
+    public static void showGuiMessage(String main, String secondary) {
+        MINECRAFT.displayGuiScreen(new GuiMessage(MINECRAFT.currentScreen, main, secondary));
+    }
+
+    public static void showGuiShaderMessage(String main, String secondary, int actionIndex) {
+        MINECRAFT.displayGuiScreen(new GuiShaderMessage(MINECRAFT.currentScreen, main, secondary, actionIndex));
+    }
+
+
+    public static int[] addIntToArray(int[] p_addIntToArray_0_, int p_addIntToArray_1_) {
+        return addIntsToArray(p_addIntToArray_0_, new int[]{p_addIntToArray_1_});
+    }
+
+    public static int[] addIntsToArray(int[] p_addIntsToArray_0_, int[] p_addIntsToArray_1_) {
+        if (p_addIntsToArray_0_ != null && p_addIntsToArray_1_ != null) {
+            int i = p_addIntsToArray_0_.length;
+            int j = i + p_addIntsToArray_1_.length;
+            int[] aint = new int[j];
+            System.arraycopy(p_addIntsToArray_0_, 0, aint, 0, i);
+
+            System.arraycopy(p_addIntsToArray_1_, 0, aint, i, p_addIntsToArray_1_.length);
+
+            return aint;
+        } else {
+            throw new NullPointerException("The given array is NULL");
+        }
+    }
+
+    public static DynamicTexture getMojangLogoTexture(DynamicTexture p_getMojangLogoTexture_0_) {
+        try {
+            ResourceLocation resourcelocation = new ResourceLocation("textures/gui/title/mojang.png");
+            InputStream inputstream = getResourceStream(resourcelocation);
+
+            if (inputstream == null) {
+                return p_getMojangLogoTexture_0_;
+            } else {
+                NativeImage image = NativeImage.loadFromInputStream(inputstream);
+
+                return new DynamicTexture(image);
+            }
+        } catch (Exception exception) {
+            Log.warn(exception.getClass().getName() + ": " + exception.getMessage());
+            return p_getMojangLogoTexture_0_;
+        }
+    }
+
+    public static void writeFile(File p_writeFile_0_, String p_writeFile_1_) throws IOException {
+        FileOutputStream fileoutputstream = new FileOutputStream(p_writeFile_0_);
+        byte[] abyte = p_writeFile_1_.getBytes(StandardCharsets.US_ASCII);
+        fileoutputstream.write(abyte);
+        fileoutputstream.close();
+    }
+
+    public static TextureMap getTextureMap() {
+        return getMinecraft().getTextureMapBlocks();
+    }
+
+    public static boolean isDynamicLights() {
+        return gameSettings.ofDynamicLights != 3;
+    }
+
+    public static boolean isDynamicLightsFast() {
+        return gameSettings.ofDynamicLights == 1;
+    }
+
+    public static boolean isDynamicHandLight() {
+        return isDynamicLights() && (!isShaders() || Shaders.isDynamicHandLight());
+    }
+
+    public static boolean isCustomEntityModels() {
+        return gameSettings.ofCustomEntityModels;
+    }
+
+    public static boolean isCustomGuis() {
+        return gameSettings.ofCustomGuis;
+    }
+
+    public static int getScreenshotSize() {
+        return gameSettings.ofScreenshotSize;
+    }
+
+    public static boolean isRenderRegions() {
+        return gameSettings.ofRenderRegions;
+    }
+
+    public static boolean isVbo() {
+        return OpenGlHelper.useVbo();
+    }
+
+    public static boolean isSmoothFps() {
+        return gameSettings.ofSmoothFps;
+    }
+
+    public static boolean openWebLink(URI uri) {
+        try {
+            Util.openUrl(uri.toString());
+            return true;
+        } catch (Exception exception) {
+            Log.warn("Error opening link: " + uri);
+            Log.warn(exception.getClass().getName() + ": " + exception.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean isShowGlErrors() {
+        return gameSettings.ofShowGlErrors;
+    }
+
+    public static String arrayToString(boolean[] p_arrayToString_0_, String p_arrayToString_1_) {
+        if (p_arrayToString_0_ == null) {
+            return "";
+        } else {
+            StringBuilder stringbuffer = new StringBuilder(p_arrayToString_0_.length * 5);
+
+            for (int i = 0; i < p_arrayToString_0_.length; ++i) {
+                boolean flag = p_arrayToString_0_[i];
+
+                if (i > 0) {
+                    stringbuffer.append(p_arrayToString_1_);
+                }
+
+                stringbuffer.append(flag);
+            }
+
+            return stringbuffer.toString();
+        }
+    }
+
+    public static boolean isIntegratedServerRunning() {
+        return MINECRAFT.getIntegratedServer() != null && MINECRAFT.isIntegratedServerRunning();
+    }
+
+    public static IntBuffer createDirectIntBuffer(int p_createDirectIntBuffer_0_) {
+        return GLAllocation.createDirectByteBuffer(p_createDirectIntBuffer_0_ << 2).asIntBuffer();
+    }
+
+    public static String getGlErrorString(int p_getGlErrorString_0_) {
+        return switch (p_getGlErrorString_0_) {
+            case 0 -> "No error";
+            case 1280 -> "Invalid enum";
+            case 1281 -> "Invalid value";
+            case 1282 -> "Invalid operation";
+            case 1283 -> "Stack overflow";
+            case 1284 -> "Stack underflow";
+            case 1285 -> "Out of memory";
+            case 1286 -> "Invalid framebuffer operation";
+            default -> "Unknown";
+        };
+    }
+
+    public static boolean isTrue(Boolean p_isTrue_0_) {
+        return p_isTrue_0_ != null && p_isTrue_0_;
+    }
+
+    public static boolean isQuadsToTriangles() {
+        return isShaders() && !Shaders.canRenderQuads();
+    }
+
+    public static void checkNull(Object p_checkNull_0_, String p_checkNull_1_) throws NullPointerException {
+        if (p_checkNull_0_ == null) {
+            throw new NullPointerException(p_checkNull_1_);
+        }
+    }
+}

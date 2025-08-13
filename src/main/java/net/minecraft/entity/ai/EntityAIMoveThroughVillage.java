@@ -4,10 +4,10 @@ import net.minecraft.entity.EntityCreature;
 import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3;
-import net.minecraft.village.Village;
-import net.minecraft.village.VillageDoorInfo;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3;
+import net.minecraft.world.village.Village;
+import net.minecraft.world.village.VillageDoorInfo;
 
 import java.util.ArrayList;
 import java.util.List;

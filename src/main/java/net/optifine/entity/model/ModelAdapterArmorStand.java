@@ -7,7 +7,7 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.ArmorStandRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.item.EntityArmorStand;
-import net.minecraft.src.Config;
+import net.optifine.Config;
 
 public class ModelAdapterArmorStand extends ModelAdapterBiped {
 	public ModelAdapterArmorStand() {

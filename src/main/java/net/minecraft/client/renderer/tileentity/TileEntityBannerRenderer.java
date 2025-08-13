@@ -8,7 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.DyeColor;
 import net.minecraft.tileentity.TileEntityBanner;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.*;

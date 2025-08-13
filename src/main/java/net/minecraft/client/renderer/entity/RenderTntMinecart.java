@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.item.EntityMinecartTNT;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 
 public class RenderTntMinecart extends RenderMinecart<EntityMinecartTNT> {
     public RenderTntMinecart(RenderManager renderManagerIn) {

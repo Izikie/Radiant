@@ -1,7 +1,7 @@
 package net.minecraft.client.model;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 
 public class ModelWitch extends ModelVillager {
     public boolean field_82900_g;

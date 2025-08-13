@@ -17,7 +17,13 @@ import io.netty.handler.timeout.TimeoutException;
 import io.netty.util.AttributeKey;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
+import net.minecraft.network.encoder.*;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.PacketDirection;
 import net.minecraft.util.*;
+import net.minecraft.util.chat.ChatComponentText;
+import net.minecraft.util.chat.ChatComponentTranslation;
+import net.minecraft.util.chat.IChatComponent;
 import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -238,7 +244,13 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
                 } catch (ChannelException exception) {
                 }
 
-                channel.pipeline().addLast("timeout", new ReadTimeoutHandler(30)).addLast("splitter", new MessageDeserializer2()).addLast("decoder", new MessageDeserializer(PacketDirection.INCOMING)).addLast("prepender", new MessageSerializer2()).addLast("encoder", new MessageSerializer(PacketDirection.OUTGOING)).addLast("packet_handler", manager);
+                channel.pipeline()
+                        .addLast("timeout", new ReadTimeoutHandler(30))
+                        .addLast("splitter", new MessageSplitter())
+                        .addLast("decoder", new MessageDeserializer(PacketDirection.INCOMING))
+                        .addLast("prepender", new MessagePrepender())
+                        .addLast("encoder", new MessageSerializer(PacketDirection.OUTGOING))
+                        .addLast("packet_handler", manager);
             }
         }).channel(oclass).connect(address, port).syncUninterruptibly();
         return manager;

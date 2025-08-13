@@ -2,8 +2,8 @@ package net.minecraft.command;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.Formatting;
+import net.minecraft.util.chat.ChatComponentTranslation;
+import net.minecraft.util.chat.Formatting;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 

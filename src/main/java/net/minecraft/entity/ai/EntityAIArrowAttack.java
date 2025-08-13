@@ -3,7 +3,7 @@ package net.minecraft.entity.ai;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IRangedAttackMob;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 
 public class EntityAIArrowAttack extends EntityAIBase {
     private final EntityLiving entityHost;

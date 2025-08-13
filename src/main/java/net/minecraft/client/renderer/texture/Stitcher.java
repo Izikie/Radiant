@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.texture;
 
 import net.minecraft.client.renderer.StitcherException;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 
 import java.util.*;
 

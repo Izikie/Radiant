@@ -1,7 +1,7 @@
 package net.minecraft.network.status.server;
 
-import net.minecraft.network.Packet;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.PacketBuffer;
 import net.minecraft.network.status.INetHandlerStatusClient;
 
 import java.io.IOException;

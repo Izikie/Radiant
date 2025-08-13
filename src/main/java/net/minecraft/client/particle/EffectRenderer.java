@@ -15,8 +15,10 @@ import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.crash.ReportedException;
 import net.minecraft.entity.Entity;
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import net.minecraft.util.*;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;

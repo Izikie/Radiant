@@ -3,7 +3,7 @@ package net.minecraft.client.resources.data;
 import com.google.gson.*;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
-import net.minecraft.util.JsonUtils;
+import net.minecraft.util.json.JsonUtils;
 
 import java.lang.reflect.Type;
 

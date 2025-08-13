@@ -7,7 +7,7 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.RenderGuardian;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.monster.EntityGuardian;
-import net.minecraft.src.Config;
+import net.optifine.Config;
 
 public class ModelAdapterGuardian extends ModelAdapter {
 	public ModelAdapterGuardian() {

@@ -3,7 +3,7 @@ package net.minecraft.client.resources.model;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.util.Direction;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import org.joml.Matrix4f;
 
 public enum ModelRotation {

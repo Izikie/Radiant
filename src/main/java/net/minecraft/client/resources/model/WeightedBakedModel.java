@@ -5,7 +5,7 @@ import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.Direction;
-import net.minecraft.util.WeightedRandom;
+import net.minecraft.util.random.WeightedRandom;
 
 import java.util.ArrayList;
 import java.util.Collections;

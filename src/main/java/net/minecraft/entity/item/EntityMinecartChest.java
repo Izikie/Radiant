@@ -8,7 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ContainerChest;
 import net.minecraft.item.Item;
-import net.minecraft.util.DamageSource;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 

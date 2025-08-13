@@ -1,6 +1,8 @@
 package net.minecraft.util;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.util.chat.IChatComponent;
 
 public class CombatEntry {
     private final DamageSource damageSrc;

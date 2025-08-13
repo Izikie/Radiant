@@ -1,7 +1,7 @@
 package net.minecraft.network.login.server;
 
-import net.minecraft.network.Packet;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.PacketBuffer;
 import net.minecraft.network.login.INetHandlerLoginClient;
 
 import java.io.IOException;

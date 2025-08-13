@@ -3,7 +3,7 @@ package net.minecraft.entity.ai;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityIronGolem;
-import net.minecraft.village.Village;
+import net.minecraft.world.village.Village;
 
 public class EntityAIDefendVillage extends EntityAITarget {
     final EntityIronGolem irongolem;

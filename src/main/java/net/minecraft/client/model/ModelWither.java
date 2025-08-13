@@ -3,7 +3,7 @@ package net.minecraft.client.model;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityWither;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 
 public class ModelWither extends ModelBase {
     private final ModelRenderer[] bodyParts;

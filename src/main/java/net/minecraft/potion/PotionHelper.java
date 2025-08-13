@@ -2,7 +2,7 @@ package net.minecraft.potion;
 
 import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import net.optifine.CustomColors;
 
 import java.util.ArrayList;

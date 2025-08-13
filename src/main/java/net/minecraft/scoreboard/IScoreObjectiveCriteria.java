@@ -1,7 +1,7 @@
 package net.minecraft.scoreboard;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.Formatting;
+import net.minecraft.util.chat.Formatting;
 
 import java.util.HashMap;
 import java.util.List;

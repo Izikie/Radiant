@@ -2,7 +2,7 @@ package net.minecraft.client.renderer;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import net.optifine.Log;
 import org.lwjgl.opengl.*;
 import net.radiant.lwjgl.opengl.ContextCapabilities;

@@ -2,7 +2,6 @@ package net.optifine;
 
 import net.minecraft.block.state.BlockStateBase;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.src.Config;
 import net.minecraft.util.RenderLayer;
 import net.optifine.config.ConnectedParser;
 import net.optifine.config.MatchBlock;

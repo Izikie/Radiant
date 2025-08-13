@@ -49,10 +49,10 @@ public class ResourceLocation {
         return this.resourceDomain + ':' + this.resourcePath;
     }
 
-    public boolean equals(Object p_equals_1_) {
-        if (this == p_equals_1_) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
-        } else if (!(p_equals_1_ instanceof ResourceLocation resourcelocation)) {
+        } else if (!(obj instanceof ResourceLocation resourcelocation)) {
             return false;
         } else {
             return this.resourceDomain.equals(resourcelocation.resourceDomain) && this.resourcePath.equals(resourcelocation.resourcePath);

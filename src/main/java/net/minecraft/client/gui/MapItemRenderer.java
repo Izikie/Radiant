@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Vec4b;
+import net.minecraft.util.math.Vec4b;
 import net.minecraft.world.storage.MapData;
 
 import java.util.Arrays;

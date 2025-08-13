@@ -1,6 +1,6 @@
 package net.optifine.shaders.config;
 
-import net.minecraft.src.Config;
+import net.optifine.Config;
 
 public class PropertyDefaultFastFancyOff extends Property {
 	public static final String[] PROPERTY_VALUES = new String[]{"default", "fast", "fancy", "off"};

@@ -1,6 +1,6 @@
 package net.minecraft.enchantment;
 
-import net.minecraft.util.WeightedRandom;
+import net.minecraft.util.random.WeightedRandom;
 
 public class EnchantmentData extends WeightedRandom.Item {
     public final Enchantment enchantmentobj;

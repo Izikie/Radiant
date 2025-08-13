@@ -1,6 +1,6 @@
 package net.minecraft.client.gui;
 
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.chat.IChatComponent;
 
 public class ChatLine {
     private final int updateCounterCreated;
