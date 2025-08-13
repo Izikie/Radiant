@@ -8,30 +8,25 @@ version = "1.0"
 description = "Optimized Minecraft Java Client for 1.8.9"
 
 val lwjglVersion = project.property("lwjgl_version") as String
+val osName = System.getProperty("os.name") as String
+val osArch = System.getProperty("os.arch") as String
 
-val osName = System.getProperty("os.name")
-val osArch = System.getProperty("os.arch")
-
-fun isArm(arch: String) = arch == "aarch64" || arch == "arm64" || arch.startsWith("armv8")
-fun isPpc(arch: String) = arch.startsWith("ppc") || arch.startsWith("powerpc")
-fun isRiscv(arch: String) = arch.startsWith("riscv")
+fun String.isArm() = startsWith("armv8") || this == "aarch64" || this == "arm64"
+fun String.isPpc() = startsWith("ppc") || startsWith("powerpc")
+fun String.isRiscv() = startsWith("riscv")
 
 val lwjglNatives = "natives-${when {
     osName == "FreeBSD" -> "freebsd"
-
     osName.startsWith("Linux") || osName.startsWith("Unix") -> when {
-        isArm(osArch) -> "linux-arm64"
-        isPpc(osArch) -> "linux-ppc64le"
-        isRiscv(osArch) -> "linux-riscv64"
+        osArch.isArm() -> "linux-arm64"
+        osArch.isPpc() -> "linux-ppc64le"
+        osArch.isRiscv() -> "linux-riscv64"
         else -> "linux"
     }
-
     osName.startsWith("Mac OS X") || osName.startsWith("Darwin") ->
-        "macos${if (isArm(osArch)) "-arm64" else ""}"
-
+        "macos${if (osArch.isArm()) "-arm64" else ""}"
     osName.startsWith("Windows") ->
-        "windows${if (isArm(osArch)) "-arm64" else ""}"
-
+        "windows${if (osArch.isArm()) "-arm64" else ""}"
     else -> error("Unsupported platform: $osName $osArch")
 }}"
 
@@ -42,105 +37,84 @@ repositories {
     maven { url = uri("https://litarvan.github.io/maven") }
 }
 
+
 dependencies {
-    implementation(group = "com.ibm.icu", name = "icu4j", version = "77.1")
-
-    implementation(group = "com.mojang", name = "authlib", version = "3.18.38") {
-        exclude(group = "org.apache.logging.log4j", module = "log4j-core")
-        exclude(group = "org.apache.logging.log4j", module = "log4j-api")
-
-        // Optimization: Exclude outdated transitive dependencies - we provide newer versions
-        exclude(group = "com.google.guava", module = "guava")           // authlib uses 17.0, we use 33.4.8-jre
-        exclude(group = "org.apache.commons", module = "commons-lang3") // authlib uses 3.3.2, we use 3.17.0
-        exclude(group = "commons-io", module = "commons-io")            // authlib uses 2.4, we use 2.19.0
-        exclude(group = "commons-codec", module = "commons-codec")      // authlib uses 1.9, we use 1.18.0
-        exclude(group = "com.google.code.gson", module = "gson")        // authlib uses 2.2.4, we use 2.13.1
+    val lwjglModules = listOf("lwjgl", "lwjgl-glfw", "lwjgl-openal", "lwjgl-opengl", "lwjgl-stb")
+    lwjglModules.forEach { module ->
+        impl(group = "org.lwjgl", name = module, version = lwjglVersion)
+        runtimeOnly(group = "org.lwjgl", name = module, version = lwjglVersion, classifier = lwjglNatives)
     }
 
-    // LWJGL libraries
-    implementation(group = "org.lwjgl", name = "lwjgl", version = lwjglVersion)
-    implementation(group = "org.lwjgl", name = "lwjgl-glfw", version = lwjglVersion)
-    implementation(group = "org.lwjgl", name = "lwjgl-openal", version = lwjglVersion)
-    implementation(group = "org.lwjgl", name = "lwjgl-opengl", version = lwjglVersion)
-    implementation(group = "org.lwjgl", name = "lwjgl-stb", version = lwjglVersion)
-
-    // LWJGL natives
-    runtimeOnly(group = "org.lwjgl", name = "lwjgl", version = lwjglVersion, classifier = lwjglNatives)
-    runtimeOnly(group = "org.lwjgl", name = "lwjgl-glfw", version = lwjglVersion, classifier = lwjglNatives)
-    runtimeOnly(group = "org.lwjgl", name = "lwjgl-openal", version = lwjglVersion, classifier = lwjglNatives)
-    runtimeOnly(group = "org.lwjgl", name = "lwjgl-opengl", version = lwjglVersion, classifier = lwjglNatives)
-    runtimeOnly(group = "org.lwjgl", name = "lwjgl-stb", version = lwjglVersion, classifier = lwjglNatives)
-
-    // Audio codec libraries - all depend on soundsystem, so we exclude redundant transitive dependencies
-    implementation(group = "com.paulscode", name = "codecjorbis", version = "20101023") {
-        exclude(group = "com.paulscode", module = "soundsystem") // Provided explicitly below
-    }
-    implementation(group = "com.paulscode", name = "codecwav", version = "20101023") {
-        exclude(group = "com.paulscode", module = "soundsystem") // Provided explicitly below
-    }
-    implementation(group = "com.paulscode", name = "libraryjavasound", version = "20101123") {
-        exclude(group = "com.paulscode", module = "soundsystem") // Provided explicitly below
-    }
-    implementation(group = "com.paulscode", name = "librarylwjglopenal", version = "20100824") {
-        exclude(group = "com.paulscode", module = "soundsystem") // Provided explicitly below
-        exclude(group = "org.lwjgl.lwjgl", module = "lwjgl")      // Provided explicitly below
-        exclude(group = "net.java.jinput", module = "jinput")    // Provided explicitly above
-    }
-    // Core sound system - single instance for all audio codecs
-    implementation(group = "com.paulscode", name = "soundsystem", version = "20120107")
-
-    // Core utility libraries - latest versions to replace all transitive dependencies
-    implementation(group = "com.google.guava", name = "guava", version = "33.4.8-jre")
-
-    // Although is slower but easier than fastjson2 and works with Native Image if proper setup is done
-    implementation(group = "com.google.code.gson", name = "gson", version = "2.13.1")
-
-    // Networking - using netty-all for simplicity, but could be optimized to specific modules if needed
-    implementation(group = "io.netty", name = "netty-all", version = "4.2.1.Final")
-
-    // Apache Commons utilities - optimized to exclude redundant transitive dependencies
-    implementation(group = "commons-io", name = "commons-io", version = "2.19.0")
-    implementation(group = "commons-codec", name = "commons-codec", version = "1.18.0")
-    implementation(group = "org.apache.commons", name = "commons-lang3", version = "3.17.0")
-
-    // Commons-compress brings older versions of commons-io (2.16.1), commons-codec (1.17.1), commons-lang3 (3.16.0)
-    // We exclude these to use our newer explicit versions
-    implementation(group = "org.apache.commons", name = "commons-compress", version = "1.27.1") {
-        exclude(group = "commons-io", module = "commons-io")            // We use 2.19.0 instead of 2.16.1
-        exclude(group = "commons-codec", module = "commons-codec")      // We use 1.18.0 instead of 1.17.1
-        exclude(group = "org.apache.commons", module = "commons-lang3") // We use 3.17.0 instead of 3.16.0
+    // TODO: Don't use paulscode as its ancient
+    listOf(
+        "codecjorbis" to "20101023",
+        "codecwav" to "20101023",
+        "libraryjavasound" to "20101123",
+        "librarylwjglopenal" to "20100824"
+    ).forEach { (n, v) ->
+        impl(group = "com.paulscode", name = n, version = v)
     }
 
-    // Commons-text depends on commons-lang3 3.17.0 which matches our version, so no exclusions needed
-    implementation(group = "org.apache.commons", name = "commons-text", version = "1.13.1")
+    impl(group = "com.paulscode", name = "soundsystem", version = "20120107")
 
-    implementation(group = "net.sf.jopt-simple", name = "jopt-simple", version = "5.0.4")
+    val nettyVersion = "4.2.3.Final"
+    val nettyModules = listOf("netty-buffer", "netty-handler", "netty-transport", "netty-common", "netty-codec")
+    nettyModules.forEach { module ->
+        impl(group = "io.netty", name = module, version = nettyVersion, isTransitive = true)
+    }
+    listOf("linux-x86_64", "linux-aarch_64").forEach { c ->
+        impl(group = "io.netty", name = "netty-transport-native-epoll", version = nettyVersion, classifier = c, isTransitive = true)
+    }
 
-    implementation(
+    impl(group = "com.ibm.icu", name = "icu4j", version = "77.1")
+
+    impl(group = "com.mojang", name = "authlib", version = "3.18.38")
+
+    impl(group = "com.google.guava", name = "guava", version = "33.4.8-jre", isTransitive = true)
+    impl(group = "com.google.code.gson", name = "gson", version = "2.13.1")
+
+    impl(group = "commons-io", name = "commons-io", version = "2.20.0")
+    impl(group = "commons-codec", name = "commons-codec", version = "1.19.0")
+
+    impl(group = "org.apache.commons", name = "commons-lang3", version = "3.18.0")
+    impl(group = "org.apache.commons", name = "commons-compress", version = "1.28.0")
+    impl(group = "org.apache.commons", name = "commons-text", version = "1.14.0")
+
+    impl(group = "net.sf.jopt-simple", name = "jopt-simple", version = "5.0.4")
+
+    impl(
         group = "org.slf4j", name = "slf4j-api",
         version = project.property("slf4j_version") as String
     )
+    impl(group = "fr.litarvan", name = "openauth", version = "1.1.6")
 
-    // Alternative authentication library - excluding gson to use our explicit version
-    implementation(group = "fr.litarvan", name = "openauth", version = "1.1.6") {
-        exclude(group = "com.google.code.gson", module = "gson") // openauth uses 2.10.1, we use 2.13.1
-    }
+    impl(group = "it.unimi.dsi", name = "fastutil", version = "8.5.16")
 
-    implementation(group = "it.unimi.dsi", name = "fastutil", version = "8.5.15")
-
-    // Math library for 3D operations - excluding kotlin stdlib to reduce dependency bloat
-    implementation(group = "org.joml", name = "joml", version = "1.10.8") {
-        exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib-jdk8") // Not needed for Java-only project
-        exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib-jdk7") // Not needed for Java-only project
-        exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib")      // Not needed for Java-only project
-    }
+    impl(group = "org.joml", name = "joml", version = "1.10.8")
 
     compileOnly(group = "org.jetbrains", name = "annotations", version = "26.0.2")
 }
 
+fun DependencyHandler.impl(
+    group: String,
+    name: String,
+    version: String,
+    classifier: String? = null,
+    isTransitive: Boolean = false
+) {
+    implementation(group = group, name = name, version = version) {
+        this.isTransitive = isTransitive
+        if (classifier != null) {
+            artifact {
+                this.classifier = classifier
+            }
+        }
+    }
+}
+
 val os = System.getProperty("os.name").lowercase()
-val home = System.getProperty("user.home")
-val appData = System.getenv("APPDATA")
+val home = System.getProperty("user.home") as String
+val appData = System.getenv("APPDATA") as String
 
 val minecraftDir = when {
     "windows" in os -> "$appData/.minecraft"
@@ -152,7 +126,7 @@ fun JavaExec.configureRunClient() {
     group = "GradleMCP"
 
     doFirst {
-        val runDir = file("${layout.projectDirectory}/run")
+        val runDir = file("run")
         if (!runDir.exists()) {
             runDir.mkdirs()
         }
@@ -160,7 +134,7 @@ fun JavaExec.configureRunClient() {
 
     mainClass.set("net.minecraft.client.main.Main")
     classpath = sourceSets["main"].runtimeClasspath
-    workingDir = file("${layout.projectDirectory}/run")
+    workingDir = file("run")
 
     args = listOf(
         "--gameDir", minecraftDir,
@@ -186,6 +160,8 @@ tasks.register<JavaExec>("RunClientNativeAgent") {
 graalvmNative {
     binaries {
         named("main") {
+            toolchainDetection.set(true)
+
             classpath.from(sourceSets.main.get().runtimeClasspath)
             imageName.set("Minecraft")
             mainClass.set("net.minecraft.client.main.Main")
@@ -196,10 +172,11 @@ graalvmNative {
                 "--emit", "build-report",
                 "--initialize-at-run-time",
                 "--enable-url-protocols=http,https",
-                "-march=compatibility",
+                "-march=x86-64-v3",
                 "--color=always",
                 "-Ob"
             )
+            quickBuild = true
         }
     }
 }
