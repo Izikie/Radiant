@@ -30,9 +30,6 @@ val lwjglNatives = "natives-${when {
     else -> error("Unsupported platform: $osName $osArch")
 }}"
 
-configurations.all {
-    isTransitive = false
-}
 
 repositories {
     mavenCentral()
@@ -40,64 +37,79 @@ repositories {
     maven { url = uri("https://litarvan.github.io/maven") }
 }
 
+
 dependencies {
     val lwjglModules = listOf("lwjgl", "lwjgl-glfw", "lwjgl-openal", "lwjgl-opengl", "lwjgl-stb")
     lwjglModules.forEach { module ->
-        implementation(group = "org.lwjgl", name = module, version = lwjglVersion)
+        impl(group = "org.lwjgl", name = module, version = lwjglVersion)
         runtimeOnly(group = "org.lwjgl", name = module, version = lwjglVersion, classifier = lwjglNatives)
     }
 
-    implementation(group = "com.paulscode", name = "soundsystem", version = "20120107")
-    implementation(group = "com.paulscode", name = "codecjorbis", version = "20101023")
-    implementation(group = "com.paulscode", name = "codecwav", version = "20101023")
-    implementation(group = "com.paulscode", name = "libraryjavasound", version = "20101123")
-    implementation(group = "com.paulscode", name = "librarylwjglopenal", version = "20100824")
+    // TODO: Don't use paulscode as its ancient
+    listOf(
+        "codecjorbis" to "20101023",
+        "codecwav" to "20101023",
+        "libraryjavasound" to "20101123",
+        "librarylwjglopenal" to "20100824"
+    ).forEach { (n, v) ->
+        impl(group = "com.paulscode", name = n, version = v)
+    }
 
-    /*val nettyModules = listOf("netty-buffer", "netty-handler", "netty-transport", "netty-common", "netty-codec")
+    impl(group = "com.paulscode", name = "soundsystem", version = "20120107")
+
+    val nettyVersion = "4.2.3.Final"
+    val nettyModules = listOf("netty-buffer", "netty-handler", "netty-transport", "netty-common", "netty-codec")
     nettyModules.forEach { module ->
-        implementation(group = "io.netty", name = module, version = "4.2.2.Final") {
-            isTransitive = true
-        }
+        impl(group = "io.netty", name = module, version = nettyVersion, isTransitive = true)
     }
-    implementation(group = "io.netty", name = "netty-transport-native-epoll", version = "4.2.2.Final", classifier = "linux-x86_64") {
-        isTransitive = true
-    }
-    implementation(group = "io.netty", name = "netty-transport-native-epoll", version = "4.2.2.Final", classifier = "linux-aarch_64") {
-        isTransitive = true
-    }*/
-
-    implementation("io.netty:netty-all:4.2.2.Final") {
-        isTransitive = true
+    listOf("linux-x86_64", "linux-aarch_64").forEach { c ->
+        impl(group = "io.netty", name = "netty-transport-native-epoll", version = nettyVersion, classifier = c, isTransitive = true)
     }
 
-    implementation(group = "com.ibm.icu", name = "icu4j", version = "77.1")
+    impl(group = "com.ibm.icu", name = "icu4j", version = "77.1")
 
-    implementation(group = "com.mojang", name = "authlib", version = "3.18.38")
+    impl(group = "com.mojang", name = "authlib", version = "3.18.38")
 
-    implementation(group = "com.google.guava", name = "guava", version = "33.4.8-jre")
-    implementation(group = "com.google.code.gson", name = "gson", version = "2.13.1")
+    impl(group = "com.google.guava", name = "guava", version = "33.4.8-jre", isTransitive = true)
+    impl(group = "com.google.code.gson", name = "gson", version = "2.13.1")
 
-    implementation(group = "commons-io", name = "commons-io", version = "2.20.0")
-    implementation(group = "commons-codec", name = "commons-codec", version = "1.19.0")
+    impl(group = "commons-io", name = "commons-io", version = "2.20.0")
+    impl(group = "commons-codec", name = "commons-codec", version = "1.19.0")
 
-    implementation(group = "org.apache.commons", name = "commons-lang3", version = "3.18.0")
-    implementation(group = "org.apache.commons", name = "commons-compress", version = "1.28.0")
-    implementation(group = "org.apache.commons", name = "commons-text", version = "1.14.0")
+    impl(group = "org.apache.commons", name = "commons-lang3", version = "3.18.0")
+    impl(group = "org.apache.commons", name = "commons-compress", version = "1.28.0")
+    impl(group = "org.apache.commons", name = "commons-text", version = "1.14.0")
 
-    implementation(group = "net.sf.jopt-simple", name = "jopt-simple", version = "5.0.4")
+    impl(group = "net.sf.jopt-simple", name = "jopt-simple", version = "5.0.4")
 
-    implementation(
+    impl(
         group = "org.slf4j", name = "slf4j-api",
         version = project.property("slf4j_version") as String
     )
+    impl(group = "fr.litarvan", name = "openauth", version = "1.1.6")
 
-    implementation(group = "fr.litarvan", name = "openauth", version = "1.1.6")
+    impl(group = "it.unimi.dsi", name = "fastutil", version = "8.5.16")
 
-    implementation(group = "it.unimi.dsi", name = "fastutil", version = "8.5.16")
-
-    implementation(group = "org.joml", name = "joml", version = "1.10.8")
+    impl(group = "org.joml", name = "joml", version = "1.10.8")
 
     compileOnly(group = "org.jetbrains", name = "annotations", version = "26.0.2")
+}
+
+fun DependencyHandler.impl(
+    group: String,
+    name: String,
+    version: String,
+    classifier: String? = null,
+    isTransitive: Boolean = false
+) {
+    implementation(group = group, name = name, version = version) {
+        this.isTransitive = isTransitive
+        if (classifier != null) {
+            artifact {
+                this.classifier = classifier
+            }
+        }
+    }
 }
 
 val os = System.getProperty("os.name").lowercase()
