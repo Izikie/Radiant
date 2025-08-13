@@ -1,6 +1,6 @@
 package net.minecraft.entity.boss;
 
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.chat.IChatComponent;
 
 public interface IBossDisplayData {
     float getMaxHealth();

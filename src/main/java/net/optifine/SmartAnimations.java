@@ -1,6 +1,5 @@
 package net.optifine;
 
-import net.minecraft.src.Config;
 import net.optifine.shaders.Shaders;
 
 import java.util.BitSet;

@@ -1,9 +1,9 @@
 package net.minecraft.network.login.client;
 
-import net.minecraft.network.Packet;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.PacketBuffer;
 import net.minecraft.network.login.INetHandlerLoginServer;
-import net.minecraft.util.CryptManager;
+import net.minecraft.network.CryptManager;
 
 import javax.crypto.SecretKey;
 import java.io.IOException;

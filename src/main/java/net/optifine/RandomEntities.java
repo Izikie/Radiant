@@ -6,7 +6,6 @@ import net.minecraft.entity.DataWatcher;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;

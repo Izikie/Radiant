@@ -4,8 +4,8 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.util.input.MovingObjectPosition;
 import net.minecraft.world.World;
 
 public class EntitySmallFireball extends EntityFireball {

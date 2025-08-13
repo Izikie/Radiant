@@ -3,7 +3,7 @@ package net.minecraft.item;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.creativetab.CreativeTabs;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,7 +15,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.Formatting;
+import net.minecraft.util.chat.Formatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 

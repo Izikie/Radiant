@@ -8,7 +8,7 @@ import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
-import net.minecraft.util.WeightedRandomChestContent;
+import net.minecraft.util.random.WeightedRandomChestContent;
 import net.minecraft.world.World;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;

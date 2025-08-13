@@ -5,8 +5,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IChatComponent;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.chat.IChatComponent;
+import net.minecraft.util.math.Vec3;
 import net.minecraft.world.World;
 
 import java.util.List;

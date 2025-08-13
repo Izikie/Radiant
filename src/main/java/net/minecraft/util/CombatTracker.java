@@ -3,9 +3,12 @@ package net.minecraft.util;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.chat.ChatComponentTranslation;
+import net.minecraft.util.chat.IChatComponent;
 
 import java.util.ArrayList;
 import java.util.List;

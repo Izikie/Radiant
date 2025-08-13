@@ -2,7 +2,7 @@ package net.optifine.gui;
 
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.GuiVideoSettings;
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import net.optifine.shaders.Shaders;
 
 public class GuiChatOF extends GuiChat {

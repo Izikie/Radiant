@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockSnow;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
 import net.minecraft.world.World;

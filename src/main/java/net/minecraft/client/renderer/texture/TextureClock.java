@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.texture;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 
 public class TextureClock extends TextureAtlasSprite {
     private double currentAngle;

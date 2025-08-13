@@ -3,9 +3,9 @@ package net.minecraft.client.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.IChatComponent;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.chat.ChatComponentText;
+import net.minecraft.util.chat.IChatComponent;
+import net.minecraft.util.math.MathHelper;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 

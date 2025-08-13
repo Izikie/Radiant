@@ -7,7 +7,7 @@ import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 import java.io.IOException;

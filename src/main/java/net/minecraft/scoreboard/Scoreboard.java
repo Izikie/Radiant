@@ -2,7 +2,7 @@ package net.minecraft.scoreboard;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.Formatting;
+import net.minecraft.util.chat.Formatting;
 
 import java.util.*;
 

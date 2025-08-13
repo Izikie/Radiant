@@ -13,23 +13,23 @@ public class ChunkCoordIntPair {
     }
 
     public static long chunkXZ2Int(int x, int z) {
-        return x & 4294967295L | (z & 4294967295L) << 32;
+        return x & 0xffffffffL | (z & 0xffffffffL) << 32;
     }
 
     public int hashCode() {
         if (this.cachedHashCode == 0) {
-            int i = 1664525 * this.chunkXPos + 1013904223;
-            int j = 1664525 * (this.chunkZPos ^ -559038737) + 1013904223;
+            int i = 0x19660d * this.chunkXPos + 0x3c6ef35f;
+            int j = 0x19660d * (this.chunkZPos ^ 0xdeadbeef) + 0x3c6ef35f;
             this.cachedHashCode = i ^ j;
         }
 
         return this.cachedHashCode;
     }
 
-    public boolean equals(Object p_equals_1_) {
-        if (this == p_equals_1_) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
-        } else if (!(p_equals_1_ instanceof ChunkCoordIntPair chunkcoordintpair)) {
+        } else if (!(obj instanceof ChunkCoordIntPair chunkcoordintpair)) {
             return false;
         } else {
             return this.chunkXPos == chunkcoordintpair.chunkXPos && this.chunkZPos == chunkcoordintpair.chunkZPos;

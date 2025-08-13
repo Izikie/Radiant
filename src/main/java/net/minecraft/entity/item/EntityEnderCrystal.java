@@ -4,8 +4,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProviderEnd;
 

@@ -13,9 +13,9 @@ import net.minecraft.scoreboard.IScoreObjectiveCriteria;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Scoreboard;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.IChatComponent;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.chat.Formatting;
+import net.minecraft.util.chat.IChatComponent;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.WorldSettings;
 
 import java.util.Comparator;

@@ -7,10 +7,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityEndPortal;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
-import net.minecraft.util.ParticleTypes;
+import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 

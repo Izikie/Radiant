@@ -1,7 +1,7 @@
 package net.optifine.util;
 
 import net.minecraft.client.renderer.chunk.RenderChunk;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 
 public class RenderChunkUtils {

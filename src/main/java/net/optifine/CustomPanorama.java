@@ -1,8 +1,7 @@
 package net.optifine;
 
-import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.optifine.util.PropertiesOrdered;
 
 import java.io.IOException;

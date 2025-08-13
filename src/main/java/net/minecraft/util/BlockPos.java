@@ -2,6 +2,10 @@ package net.minecraft.util;
 
 import com.google.common.collect.AbstractIterator;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3;
+import net.minecraft.util.math.Vec3i;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Iterator;
 
@@ -166,7 +170,7 @@ public class BlockPos extends Vec3i {
         final BlockPos blockpos = new BlockPos(Math.min(from.getX(), to.getX()), Math.min(from.getY(), to.getY()), Math.min(from.getZ(), to.getZ()));
         final BlockPos blockpos1 = new BlockPos(Math.max(from.getX(), to.getX()), Math.max(from.getY(), to.getY()), Math.max(from.getZ(), to.getZ()));
         return new Iterable<>() {
-            public Iterator<MutableBlockPos> iterator() {
+            public @NotNull Iterator<MutableBlockPos> iterator() {
                 return new AbstractIterator<>() {
                     private MutableBlockPos theBlockPos = null;
 

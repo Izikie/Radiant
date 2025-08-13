@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.block.model;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import net.minecraft.util.Direction;
 import net.optifine.model.QuadBounds;
 

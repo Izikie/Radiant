@@ -6,7 +6,7 @@ import net.minecraft.entity.EntityCategory;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.IProgressUpdate;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.SpawnerAnimals;
 import net.minecraft.world.World;

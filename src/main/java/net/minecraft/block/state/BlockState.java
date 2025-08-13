@@ -1,13 +1,12 @@
 package net.minecraft.block.state;
 
 import com.google.common.base.Function;
-import com.google.common.base.Joiner;
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.util.Cartesian;
-import net.minecraft.util.MapPopulator;
+import net.minecraft.util.collection.Cartesian;
+import net.minecraft.util.collection.MapPopulator;
 
 import java.util.*;
 

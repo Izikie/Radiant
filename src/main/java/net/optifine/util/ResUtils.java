@@ -3,7 +3,7 @@ package net.optifine.util;
 import net.minecraft.client.resources.AbstractResourcePack;
 import net.minecraft.client.resources.DefaultResourcePack;
 import net.minecraft.client.resources.IResourcePack;
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.Log;
 

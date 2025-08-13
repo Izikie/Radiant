@@ -7,12 +7,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.init.Blocks;
-import net.minecraft.src.Config;
 import net.minecraft.util.RenderLayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.optifine.config.*;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.optifine.util.TextureUtils;
 
 import java.util.ArrayList;

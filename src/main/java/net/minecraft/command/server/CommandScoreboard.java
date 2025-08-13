@@ -10,9 +10,9 @@ import net.minecraft.nbt.NBTUtil;
 import net.minecraft.scoreboard.*;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.Formatting;
+import net.minecraft.util.chat.ChatComponentText;
+import net.minecraft.util.chat.ChatComponentTranslation;
+import net.minecraft.util.chat.Formatting;
 
 import java.util.*;
 

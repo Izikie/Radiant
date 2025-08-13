@@ -2,7 +2,7 @@ package net.minecraft.entity.ai;
 
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3;
 
 public class EntityAIRunAroundLikeCrazy extends EntityAIBase {
     private final EntityHorse horseHost;

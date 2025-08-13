@@ -6,7 +6,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.WeightedRandomChestContent;
+import net.minecraft.util.random.WeightedRandomChestContent;
 import net.minecraft.world.World;
 
 import java.util.List;

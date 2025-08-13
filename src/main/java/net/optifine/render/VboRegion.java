@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.VboRenderList;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import net.optifine.util.LinkedList;
 
 import java.nio.ByteBuffer;

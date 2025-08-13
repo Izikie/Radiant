@@ -4,10 +4,10 @@ import com.google.common.base.MoreObjects;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.network.Packet;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.chat.IChatComponent;
 import net.minecraft.world.WorldSettings;
 
 import java.io.IOException;

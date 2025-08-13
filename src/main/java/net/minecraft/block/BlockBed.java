@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.*;
+import net.minecraft.util.chat.ChatComponentTranslation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;

@@ -1,6 +1,6 @@
 package net.minecraft.stats;
 
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.chat.IChatComponent;
 
 public class StatBasic extends StatBase {
     public StatBasic(String statIdIn, IChatComponent statNameIn, IStatType typeIn) {

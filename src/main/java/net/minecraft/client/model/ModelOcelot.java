@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityOcelot;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 
 public class ModelOcelot extends ModelBase {
     final ModelRenderer ocelotBackLeftLeg;

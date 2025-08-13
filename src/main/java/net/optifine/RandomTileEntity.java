@@ -1,6 +1,5 @@
 package net.optifine;
 
-import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.biome.BiomeGenBase;

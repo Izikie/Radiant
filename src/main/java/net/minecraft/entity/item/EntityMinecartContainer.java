@@ -6,7 +6,7 @@ import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.DamageSource;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.world.ILockableContainer;
 import net.minecraft.world.LockCode;
 import net.minecraft.world.World;

@@ -1,6 +1,6 @@
 package net.minecraft.client.renderer.vertex;
 
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import net.optifine.shaders.SVertexFormat;
 
 public class DefaultVertexFormats {

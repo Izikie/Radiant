@@ -1,6 +1,6 @@
 package net.optifine.util;
 
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 
 public class SmoothFloat {
 	private float valueLast;

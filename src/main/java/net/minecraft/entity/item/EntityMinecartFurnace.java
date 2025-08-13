@@ -2,12 +2,15 @@ package net.minecraft.entity.item;
 
 import net.minecraft.block.BlockFurnace;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.World;
 
 public class EntityMinecartFurnace extends EntityMinecart {

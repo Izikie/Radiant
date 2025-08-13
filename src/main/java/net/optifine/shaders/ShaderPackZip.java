@@ -1,7 +1,7 @@
 package net.optifine.shaders;
 
 import com.google.common.base.Joiner;
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import net.optifine.util.StrUtils;
 
 import java.io.File;

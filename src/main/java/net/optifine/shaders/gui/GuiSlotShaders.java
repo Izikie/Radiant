@@ -4,7 +4,7 @@ import net.minecraft.client.gui.GuiSlot;
 import net.minecraft.client.gui.GuiYesNo;
 import net.minecraft.client.gui.GuiYesNoCallback;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import net.optifine.Lang;
 import net.optifine.shaders.IShaderPack;
 import net.optifine.shaders.Shaders;

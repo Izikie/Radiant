@@ -11,10 +11,10 @@ import net.minecraft.entity.EntityMinecartCommandBlock;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
-import net.minecraft.util.EntitySelectors;
+import net.minecraft.entity.EntitySelectors;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 

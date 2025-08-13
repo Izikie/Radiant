@@ -1,6 +1,6 @@
 package net.optifine.http;
 
-import net.minecraft.src.Config;
+import net.optifine.Config;
 
 import java.io.IOException;
 import java.io.InputStream;

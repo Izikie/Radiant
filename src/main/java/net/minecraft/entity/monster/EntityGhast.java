@@ -6,6 +6,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIFindEntityNearestPlayer;
 import net.minecraft.entity.ai.EntityMoveHelper;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityLargeFireball;
 import net.minecraft.init.Items;
@@ -13,6 +14,9 @@ import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 

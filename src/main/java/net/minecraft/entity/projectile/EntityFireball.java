@@ -3,9 +3,15 @@ package net.minecraft.entity.projectile;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.*;
+import net.minecraft.util.input.MovingObjectPosition;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3;
+import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.World;
 
 import java.util.List;

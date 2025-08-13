@@ -21,7 +21,7 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.network.NetworkState;
 import net.minecraft.scoreboard.ScoreboardSaveData;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.village.VillageCollection;
+import net.minecraft.world.village.VillageCollection;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings;

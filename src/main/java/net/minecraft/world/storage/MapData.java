@@ -5,11 +5,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.Packet;
+import net.minecraft.network.packet.Packet;
 import net.minecraft.network.play.server.S34PacketMaps;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec4b;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec4b;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSavedData;
 

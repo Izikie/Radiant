@@ -2,14 +2,14 @@ package net.minecraft.server.management;
 
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.network.Packet;
+import net.minecraft.network.packet.Packet;
 import net.minecraft.network.play.server.S21PacketChunkData;
 import net.minecraft.network.play.server.S22PacketMultiBlockChange;
 import net.minecraft.network.play.server.S23PacketBlockChange;
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldServer;

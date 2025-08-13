@@ -10,7 +10,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
 import net.minecraft.util.RenderLayer;

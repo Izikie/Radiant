@@ -16,7 +16,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
-import net.minecraft.util.ParticleTypes;
+import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.World;
 
 import java.util.Random;

@@ -1,7 +1,7 @@
 package net.minecraft.client.model;
 
 import net.minecraft.client.renderer.*;
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.entity.model.anim.ModelUpdater;
 import net.optifine.model.ModelSprite;

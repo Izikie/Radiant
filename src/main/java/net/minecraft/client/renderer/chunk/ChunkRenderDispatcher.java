@@ -8,7 +8,7 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.vertex.VertexBuffer;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.RenderLayer;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;

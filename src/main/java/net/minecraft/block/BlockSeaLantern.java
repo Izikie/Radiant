@@ -3,10 +3,10 @@ package net.minecraft.block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 
 import java.util.Random;
 

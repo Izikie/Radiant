@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.block.model;
 
 import com.google.gson.*;
 import net.minecraft.client.resources.model.ModelRotation;
-import net.minecraft.util.JsonUtils;
+import net.minecraft.util.json.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 
 import java.io.Reader;

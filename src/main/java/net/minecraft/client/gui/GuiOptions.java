@@ -3,9 +3,9 @@ package net.minecraft.client.gui;
 import net.minecraft.client.gui.resourcepack.GuiScreenResourcePacks;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.chat.ChatComponentText;
+import net.minecraft.util.chat.ChatComponentTranslation;
+import net.minecraft.util.chat.IChatComponent;
 import net.minecraft.world.Difficulty;
 
 import java.io.IOException;

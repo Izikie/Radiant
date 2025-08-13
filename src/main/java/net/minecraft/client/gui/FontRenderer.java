@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.CustomColors;
 import net.optifine.render.GlBlendState;

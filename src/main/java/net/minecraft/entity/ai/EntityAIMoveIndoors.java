@@ -2,9 +2,9 @@ package net.minecraft.entity.ai;
 
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.Vec3;
-import net.minecraft.village.Village;
-import net.minecraft.village.VillageDoorInfo;
+import net.minecraft.util.math.Vec3;
+import net.minecraft.world.village.Village;
+import net.minecraft.world.village.VillageDoorInfo;
 
 public class EntityAIMoveIndoors extends EntityAIBase {
     private final EntityCreature entityObj;

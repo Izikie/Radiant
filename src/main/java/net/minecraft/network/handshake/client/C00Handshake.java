@@ -1,8 +1,8 @@
 package net.minecraft.network.handshake.client;
 
 import net.minecraft.network.NetworkState;
-import net.minecraft.network.Packet;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.PacketBuffer;
 import net.minecraft.network.handshake.INetHandlerHandshakeServer;
 
 import java.io.IOException;

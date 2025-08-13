@@ -2,15 +2,15 @@ package net.minecraft.item;
 
 import net.minecraft.block.BlockEndPortalFrame;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityEnderEye;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.ParticleTypes;
+import net.minecraft.util.input.MovingObjectPosition;
+import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.World;
 
 public class ItemEnderEye extends Item {

@@ -6,7 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EntitySelectors;
+import net.minecraft.entity.EntitySelectors;
 
 import java.util.Comparator;
 import java.util.List;

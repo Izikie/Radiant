@@ -1,8 +1,8 @@
 package net.minecraft.enchantment;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 public class EnchantmentProtection extends Enchantment {

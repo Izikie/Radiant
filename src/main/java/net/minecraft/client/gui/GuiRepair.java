@@ -8,7 +8,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.packet.PacketBuffer;
 import net.minecraft.network.play.client.C17PacketCustomPayload;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;

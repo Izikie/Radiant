@@ -3,7 +3,11 @@ package net.minecraft.client.resources.data;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import net.minecraft.util.*;
+import net.minecraft.util.chat.ChatStyle;
+import net.minecraft.util.chat.IChatComponent;
+import net.minecraft.util.json.EnumTypeAdapterFactory;
+import net.minecraft.util.registry.IRegistry;
+import net.minecraft.util.registry.RegistrySimple;
 
 public class IMetadataSerializer {
     private final IRegistry<String, Registration<? extends IMetadataSection>> metadataSectionSerializerRegistry = new RegistrySimple();

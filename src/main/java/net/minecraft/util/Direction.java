@@ -2,6 +2,9 @@ package net.minecraft.util;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterators;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3i;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -303,7 +306,7 @@ public enum Direction implements IStringSerializable {
             return p_apply_1_ != null && p_apply_1_.getAxis().getPlane() == this;
         }
 
-        public Iterator<Direction> iterator() {
+        public @NotNull Iterator<Direction> iterator() {
             return Iterators.forArray(this.facings());
         }
     }

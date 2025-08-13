@@ -2,7 +2,7 @@ package net.optifine.shaders;
 
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import it.unimi.dsi.fastutil.ints.IntSet;
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import net.optifine.config.MatchBlock;
 
 import java.util.ArrayList;

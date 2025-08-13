@@ -7,7 +7,7 @@ import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.ParticleTypes;
+import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.World;
 
 import java.util.List;

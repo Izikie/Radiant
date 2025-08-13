@@ -1,8 +1,8 @@
 package net.minecraft.network.play.server;
 
 import net.minecraft.entity.DataWatcher;
-import net.minecraft.network.Packet;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 
 import java.io.IOException;

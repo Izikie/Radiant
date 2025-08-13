@@ -2,7 +2,7 @@ package net.minecraft.client.audio;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ITickable;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.Random;

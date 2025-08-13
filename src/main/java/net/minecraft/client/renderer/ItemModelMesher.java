@@ -7,7 +7,7 @@ import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import net.optifine.CustomItems;
 
 import java.util.HashMap;

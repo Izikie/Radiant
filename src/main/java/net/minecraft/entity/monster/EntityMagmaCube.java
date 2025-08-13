@@ -3,7 +3,7 @@ package net.minecraft.entity.monster;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.util.ParticleTypes;
+import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 

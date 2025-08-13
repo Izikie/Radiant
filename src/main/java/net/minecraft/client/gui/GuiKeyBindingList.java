@@ -4,7 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.util.Formatting;
+import net.minecraft.util.chat.Formatting;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.Arrays;

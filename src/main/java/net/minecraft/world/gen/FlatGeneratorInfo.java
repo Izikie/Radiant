@@ -2,7 +2,7 @@ package net.minecraft.world.gen;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.BiomeGenBase;
 
 import java.util.ArrayList;

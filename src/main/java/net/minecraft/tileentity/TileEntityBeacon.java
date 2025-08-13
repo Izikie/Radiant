@@ -15,12 +15,12 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.Packet;
+import net.minecraft.network.packet.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.AchievementList;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ITickable;
 

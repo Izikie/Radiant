@@ -5,7 +5,7 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class EntityFX extends Entity {

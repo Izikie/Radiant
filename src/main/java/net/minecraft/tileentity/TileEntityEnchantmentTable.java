@@ -6,6 +6,10 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ContainerEnchantment;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
+import net.minecraft.util.chat.ChatComponentText;
+import net.minecraft.util.chat.ChatComponentTranslation;
+import net.minecraft.util.chat.IChatComponent;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IInteractionObject;
 
 import java.util.Random;

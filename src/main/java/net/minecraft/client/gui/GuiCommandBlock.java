@@ -3,7 +3,7 @@ package net.minecraft.client.gui;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.command.server.CommandBlockLogic;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.packet.PacketBuffer;
 import net.minecraft.network.play.client.C17PacketCustomPayload;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;

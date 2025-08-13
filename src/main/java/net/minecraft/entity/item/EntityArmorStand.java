@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
@@ -15,6 +16,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.*;
+import net.minecraft.util.math.Vec3;
+import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 

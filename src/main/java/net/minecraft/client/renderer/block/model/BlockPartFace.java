@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.block.model;
 
 import com.google.gson.*;
 import net.minecraft.util.Direction;
-import net.minecraft.util.JsonUtils;
+import net.minecraft.util.json.JsonUtils;
 
 import java.lang.reflect.Type;
 

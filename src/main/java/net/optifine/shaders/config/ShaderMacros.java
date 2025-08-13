@@ -1,6 +1,6 @@
 package net.optifine.shaders.config;
 
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import net.minecraft.util.Util;
 import net.optifine.shaders.Shaders;
 

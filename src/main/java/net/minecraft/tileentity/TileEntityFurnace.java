@@ -14,7 +14,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ITickable;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 
 import java.util.Arrays;
 

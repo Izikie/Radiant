@@ -5,7 +5,6 @@ import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.inventory.*;
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.entity.Entity;
-import net.minecraft.src.Config;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;

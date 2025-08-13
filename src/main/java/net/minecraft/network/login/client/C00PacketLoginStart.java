@@ -1,8 +1,8 @@
 package net.minecraft.network.login.client;
 
 import com.mojang.authlib.GameProfile;
-import net.minecraft.network.Packet;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.PacketBuffer;
 import net.minecraft.network.login.INetHandlerLoginServer;
 
 import java.io.IOException;

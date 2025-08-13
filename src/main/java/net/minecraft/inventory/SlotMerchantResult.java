@@ -4,7 +4,7 @@ import net.minecraft.entity.IMerchant;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
-import net.minecraft.village.MerchantRecipe;
+import net.minecraft.world.village.MerchantRecipe;
 
 public class SlotMerchantResult extends Slot {
     private final InventoryMerchant theMerchantInventory;

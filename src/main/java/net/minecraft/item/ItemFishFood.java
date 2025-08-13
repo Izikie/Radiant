@@ -1,7 +1,7 @@
 package net.minecraft.item;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;

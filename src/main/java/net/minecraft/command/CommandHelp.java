@@ -1,12 +1,12 @@
 package net.minecraft.command;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.event.ClickEvent;
+import net.minecraft.util.chat.ClickEvent;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.chat.ChatComponentTranslation;
+import net.minecraft.util.chat.Formatting;
+import net.minecraft.util.math.MathHelper;
 
 import java.util.Collections;
 import java.util.List;

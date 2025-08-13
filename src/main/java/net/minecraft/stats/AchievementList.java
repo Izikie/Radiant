@@ -3,7 +3,7 @@ package net.minecraft.stats;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.JsonSerializableSet;
+import net.minecraft.util.json.JsonSerializableSet;
 
 import java.util.ArrayList;
 import java.util.List;

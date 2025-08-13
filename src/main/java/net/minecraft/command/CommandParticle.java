@@ -1,8 +1,8 @@
 package net.minecraft.command;
 
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.ParticleTypes;
-import net.minecraft.util.Vec3;
+import net.minecraft.world.ParticleTypes;
+import net.minecraft.util.math.Vec3;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 

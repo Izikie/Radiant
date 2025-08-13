@@ -2,7 +2,7 @@ package net.minecraft.client.renderer;
 
 import net.minecraft.client.renderer.chunk.ListedRenderChunk;
 import net.minecraft.client.renderer.chunk.RenderChunk;
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import net.minecraft.util.RenderLayer;
 import org.lwjgl.opengl.GL11;
 

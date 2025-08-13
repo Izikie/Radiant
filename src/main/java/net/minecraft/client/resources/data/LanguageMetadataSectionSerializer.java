@@ -5,7 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import net.minecraft.client.resources.Language;
-import net.minecraft.util.JsonUtils;
+import net.minecraft.util.json.JsonUtils;
 
 import java.lang.reflect.Type;
 import java.util.HashSet;

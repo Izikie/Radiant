@@ -4,6 +4,10 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
+import net.minecraft.util.chat.ChatComponentTranslation;
+import net.minecraft.util.chat.Formatting;
+import net.minecraft.util.chat.IChatComponent;
+import net.minecraft.util.json.IJsonSerializable;
 
 public class Achievement extends StatBase {
     public final int displayColumn;

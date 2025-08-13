@@ -16,6 +16,8 @@ import net.minecraft.item.ItemSword;
 import net.minecraft.network.play.client.*;
 import net.minecraft.stats.StatFileWriter;
 import net.minecraft.util.*;
+import net.minecraft.util.input.MovingObjectPosition;
+import net.minecraft.util.math.Vec3;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings;
 

@@ -5,7 +5,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderSheep;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.item.DyeColor;
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.CustomColors;
 

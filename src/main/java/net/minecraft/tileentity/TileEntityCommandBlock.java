@@ -5,10 +5,10 @@ import net.minecraft.command.CommandResultStats;
 import net.minecraft.command.server.CommandBlockLogic;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.Packet;
+import net.minecraft.network.packet.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3;
 import net.minecraft.world.World;
 
 public class TileEntityCommandBlock extends TileEntity {

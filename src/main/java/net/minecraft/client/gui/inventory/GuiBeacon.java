@@ -11,7 +11,7 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.ContainerBeacon;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.packet.PacketBuffer;
 import net.minecraft.network.play.client.C17PacketCustomPayload;
 import net.minecraft.potion.Potion;
 import net.minecraft.tileentity.TileEntityBeacon;

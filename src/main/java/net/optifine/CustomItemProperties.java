@@ -10,7 +10,6 @@ import net.minecraft.client.resources.model.*;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
-import net.minecraft.src.Config;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.config.*;

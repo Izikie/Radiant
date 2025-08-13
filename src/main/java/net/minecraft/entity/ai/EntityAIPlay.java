@@ -2,7 +2,7 @@ package net.minecraft.entity.ai;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3;
 
 import java.util.List;
 

@@ -13,10 +13,16 @@ import net.minecraft.client.network.NetHandlerHandshakeMemory;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.crash.ReportedException;
+import net.minecraft.network.packet.PacketDirection;
 import net.minecraft.network.play.server.S40PacketDisconnect;
+import net.minecraft.network.encoder.MessageDeserializer;
+import net.minecraft.network.encoder.MessageSplitter;
+import net.minecraft.network.encoder.MessageSerializer;
+import net.minecraft.network.encoder.MessagePrepender;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.NetHandlerHandshakeTCP;
 import net.minecraft.util.*;
+import net.minecraft.util.chat.ChatComponentText;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
@@ -61,7 +67,7 @@ public class NetworkSystem {
                     } catch (ChannelException exception) {
                     }
 
-                    channel.pipeline().addLast("timeout", new ReadTimeoutHandler(30)).addLast("legacy_query", new PingResponseHandler(NetworkSystem.this)).addLast("splitter", new MessageDeserializer2()).addLast("decoder", new MessageDeserializer(PacketDirection.OUTGOING)).addLast("prepender", new MessageSerializer2()).addLast("encoder", new MessageSerializer(PacketDirection.INCOMING));
+                    channel.pipeline().addLast("timeout", new ReadTimeoutHandler(30)).addLast("legacy_query", new PingResponseHandler(NetworkSystem.this)).addLast("splitter", new MessageSplitter()).addLast("decoder", new MessageDeserializer(PacketDirection.OUTGOING)).addLast("prepender", new MessagePrepender()).addLast("encoder", new MessageSerializer(PacketDirection.INCOMING));
                     NetworkManager manager = new NetworkManager();
                     networkManagers.add(manager);
                     channel.pipeline().addLast("packet_handler", manager);
