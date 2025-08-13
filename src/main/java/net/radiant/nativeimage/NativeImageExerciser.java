@@ -123,8 +123,8 @@ public class NativeImageExerciser {
         for (Constructor<?> constructor : clazz.getDeclaredConstructors()) {
             try {
                 List<Object> paramsList = new ArrayList<>();
-                for (int i = 0; i < constructor.getParameterCount(); i++) {
-                    Class<?> parameter = constructor.getParameterTypes()[i];
+
+                for (Class<?> parameter : constructor.getParameterTypes()) {
                     if (Number.class.isAssignableFrom(parameter) || parameter.isPrimitive()) {
                         paramsList.add(0);
                     } else {
@@ -140,15 +140,16 @@ public class NativeImageExerciser {
     }
 
     private static void loadAllEntityClasses() {
-        AtomicInteger count = new AtomicInteger(0);
         List<Class<? extends AbstractChannel>> nio = List.of(LocalServerChannel.class, EpollSocketChannel.class, NioSocketChannel.class, EpollServerSocketChannel.class, NioServerSocketChannel.class);
+        AtomicInteger count = new AtomicInteger(0);
+
         for (Class<? extends AbstractChannel> aClass : nio) {
             Constructor<?>[] constructors = aClass.getConstructors();
             for (Constructor<?> constructor : constructors) {
                 try {
                     constructor.newInstance(new Object[constructor.getParameterCount()]);
                 } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-//                    new RuntimeException(e).printStackTrace();
+                    //new RuntimeException(e).printStackTrace();
                 } catch (Throwable throwable) {
                     // Ignore
                     LOGGER.warn("Woke {} up but had error", aClass.getName());
@@ -175,7 +176,7 @@ public class NativeImageExerciser {
                 continue;
             }
             try {
-                Constructor constructor = ((Class) value).getConstructor(World.class);
+                Constructor<? extends Entity> constructor = value.getConstructor(World.class);
                 constructor.setAccessible(true);
                 constructor.newInstance(worldClient);
             } catch (InstantiationException | IllegalAccessException | NoSuchMethodException |
@@ -186,12 +187,12 @@ public class NativeImageExerciser {
         }
     }
 
-    private static void wakeUpClassCollection(Iterable values, AtomicInteger count) {
-        for (Object value : values) {
+    private static void wakeUpClassCollection(Iterable<? extends Class<?>> values, AtomicInteger count) {
+        for (Class<?> clazz : values) {
             try {
-                ((Class) value).newInstance();
+                clazz.getDeclaredConstructor().newInstance();
             } catch (Throwable e) {
-                throw new RuntimeException("Waking up " + ((Class) value).getName(), e);
+                throw new RuntimeException("Waking up " + clazz.getName(), e);
             }
             count.incrementAndGet();
         }
@@ -202,16 +203,15 @@ public class NativeImageExerciser {
             Class<?>[] params = Arrays.stream(args).map(Object::getClass).toArray(Class[]::new);
             Constructor<?> constructor = clazz.getDeclaredConstructor(params);
             constructor.newInstance(args);
-        } catch (Throwable e) {
-            throw new RuntimeException("Waking up " + clazz.getName(), e);
+        } catch (Throwable throwable) {
+            throw new RuntimeException("Waking up " + clazz.getName(), throwable);
         }
 
         count.incrementAndGet();
     }
 
     private static void loadAllResources() {
-        File file = new File("../src/main/resources");
-        recurseResource(file);
+        recurseResource(new File("../src/main/resources"));
         LOGGER.info("Woke {} resources up", resourceCount);
     }
 
@@ -220,30 +220,31 @@ public class NativeImageExerciser {
         if (files == null) {
             return;
         }
+
         String pattern = "src/main/resources/".replace('/', File.separatorChar);
         for (File file : files) {
             if (file.isDirectory()) {
                 recurseResource(file);
                 continue;
             }
+
             String absolutePath = file.getAbsolutePath();
             absolutePath = absolutePath.substring(absolutePath.lastIndexOf(pattern) + pattern.length());
             String absolutePathSep = absolutePath.replace(File.separatorChar, '/');
             if (absolutePathSep.contains("META-INF/native-image")) {
                 continue;
             }
+
             loadResource(absolutePathSep);
             ++resourceCount;
         }
     }
 
     private static void loadResource(String path) {
-        InputStream stream = NativeImageExerciser.class.getClassLoader().getResourceAsStream(path);
-        try {
-            Objects.requireNonNull(stream, path).close();
+        try (InputStream stream = NativeImageExerciser.class.getClassLoader().getResourceAsStream(path)) {
+            Objects.requireNonNull(stream, path);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
 }

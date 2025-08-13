@@ -9,27 +9,26 @@ It focuses on pre-optimized tweaks, bug and exploit fixes, and quality-of-life i
 - Lowered/reduced memory usage
 - Exploit and bug fixes
 - QoL (Quality of Life) improvements and features
+- Native Image support
 
 ## Todo
 - [ ] Patch all known packet exploits
 - [ ] Optimize network stack heavily without sacrificing security (using velocity networking)
-- [ ] Replace Gson with FastJson2 for better speed
-- [ ] Update to a native LWJGL3 implementation, dropping the translation layer
-- [ ] Make build compatible with GraalVM native image
+- [ ] Optimize LWJGL3 translation layer
 
 ## Requirements
-- [JDK/JRE: GraalVM 23](https://www.graalvm.org/downloads/)
+- [JDK/JRE: Oracle GraalVM 24](https://www.graalvm.org/downloads/)
 
 ## Getting Started
-To run the client in development, use the `RunClient` Gradle task located under the `GradleMCP` task group in your IDE or via CLI:
+To run the client in development, use the `RunClient` Gradle task located under the `GradleMCP` task group in your IDE or via CLI.
 
 ## Native Image
 
 ### How to compile:
 1. Make sure you have a valid C/C++ compiler installed.<br>
-   - **Windows:** [Microsoft Visual C++](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170)
-   - **MacOS:** Clang
-   - **Linux:** GCC
+   - Clang
+   - GCC
+   - MSVC (Kinda bad but so is anything made by Microsoft)
 2. Run the `RunClientNativeAgent` gradle task, it is recommended that you load a world to make sure the tracing agent doesn't miss anything.
    **ALWAYS DO THIS BEFORE DOING STEP 3!**
 3. Run the `nativeCompile` task. This may take a few minutes (depending on your computing power).
