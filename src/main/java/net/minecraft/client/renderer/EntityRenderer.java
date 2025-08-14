@@ -540,7 +540,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 GlStateManager.rotate(entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks + 180.0F, 0.0F, -1.0F, 0.0F);
                 GlStateManager.rotate(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks, -1.0F, 0.0F, 0.0F);
             }
-        } else if (this.mc.gameSettings.thirdPersonView > 0) {
+        } else if (this.mc.gameSettings.thirdPersonView != GameSettings.Perspective.FIRST_PERSON) {
             double d3 = this.thirdPersonDistanceTemp + (this.thirdPersonDistance - this.thirdPersonDistanceTemp) * partialTicks;
 
             if (this.mc.gameSettings.debugCamEnable) {
@@ -549,7 +549,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 float f1 = entity.rotationYaw;
                 float f2 = entity.rotationPitch;
 
-                if (this.mc.gameSettings.thirdPersonView == 2) {
+                if (this.mc.gameSettings.thirdPersonView == GameSettings.Perspective.INVERTED_THIRD_PERSON) {
                     f2 += 180.0F;
                 }
 
@@ -575,7 +575,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                     }
                 }
 
-                if (this.mc.gameSettings.thirdPersonView == 2) {
+                if (this.mc.gameSettings.thirdPersonView == GameSettings.Perspective.INVERTED_THIRD_PERSON) {
                     GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
                 }
 
@@ -736,7 +736,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
             flag = this.mc.getRenderViewEntity() instanceof EntityLivingBase entityLivingBase && entityLivingBase.isPlayerSleeping();
 
-            if (this.mc.gameSettings.thirdPersonView == 0 && !flag && !this.mc.gameSettings.hideGUI && !this.mc.playerController.isSpectator()) {
+            if (this.mc.gameSettings.thirdPersonView == GameSettings.Perspective.FIRST_PERSON && !flag && !this.mc.gameSettings.hideGUI && !this.mc.playerController.isSpectator()) {
                 this.enableLightmap();
 
                 if (Config.isShaders()) {
@@ -757,7 +757,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
         this.disableLightmap();
 
-        if (this.mc.gameSettings.thirdPersonView == 0 && !flag) {
+        if (this.mc.gameSettings.thirdPersonView == GameSettings.Perspective.FIRST_PERSON && !flag) {
             this.itemRenderer.renderOverlays(p_renderHand_1_);
             this.hurtCameraEffect(p_renderHand_1_);
         }
@@ -1156,7 +1156,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             Shaders.setCamera(partialTicks);
         }
 
-        ActiveRenderInfo.updateRenderInfo(this.mc.player, this.mc.gameSettings.thirdPersonView == 2);
+        ActiveRenderInfo.updateRenderInfo(this.mc.player, this.mc.gameSettings.thirdPersonView == GameSettings.Perspective.INVERTED_THIRD_PERSON);
         ClippingHelper clippinghelper = ClippingHelperImpl.get();
         clippinghelper.disabled = Config.isShaders() && !Shaders.isFrustumCulling();
         ICamera icamera = new Frustum(clippinghelper);

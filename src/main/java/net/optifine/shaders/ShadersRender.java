@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.Entity;
 import net.optifine.Config;
 import net.minecraft.tileentity.TileEntityEndPortal;
@@ -162,7 +163,7 @@ public class ShadersRender {
 			Shaders.isShadowPass = true;
 			Shaders.shadowPassCounter = Shaders.shadowPassInterval;
 			Shaders.preShadowPassThirdPersonView = minecraft.gameSettings.thirdPersonView;
-			minecraft.gameSettings.thirdPersonView = 1;
+			minecraft.gameSettings.thirdPersonView = GameSettings.Perspective.THIRD_PERSON;
 			Shaders.checkGLError("pre shadow");
 			GL11.glMatrixMode(GL11.GL_PROJECTION);
 			GL11.glPushMatrix();

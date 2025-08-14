@@ -18,6 +18,7 @@ import net.optifine.*;
 import net.optifine.shaders.Shaders;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import net.radiant.lwjgl.input.Keyboard;
@@ -132,7 +133,7 @@ public class GameSettings {
     private File optionsFile;
     public Difficulty difficulty;
     public boolean hideGUI;
-    public int thirdPersonView;
+    public @NotNull Perspective thirdPersonView = Perspective.FIRST_PERSON;
     public boolean showDebugInfo;
     public String lastServer;
     public boolean smoothCamera;
@@ -2431,6 +2432,20 @@ public class GameSettings {
             }
 
             return value;
+        }
+    }
+
+    public enum Perspective {
+        FIRST_PERSON,
+        THIRD_PERSON,
+        INVERTED_THIRD_PERSON;
+
+        public Perspective next() {
+            return switch (this) {
+                case FIRST_PERSON -> THIRD_PERSON;
+                case THIRD_PERSON -> INVERTED_THIRD_PERSON;
+                case INVERTED_THIRD_PERSON -> FIRST_PERSON;
+            };
         }
     }
 }

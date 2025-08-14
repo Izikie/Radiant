@@ -40,6 +40,7 @@ import net.optifine.util.PropertiesOrdered;
 import net.optifine.util.StrUtils;
 import net.optifine.util.TimedEvent;
 import org.apache.commons.io.IOUtils;
+import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 import org.joml.Vector4f;
 import org.lwjgl.BufferUtils;
@@ -385,7 +386,7 @@ public class Shaders {
 	static boolean shadowMapIsOrtho = true;
 	static float shadowDistanceRenderMul = -1.0F;
 	static int shadowPassCounter = 0;
-	static int preShadowPassThirdPersonView;
+	static @NotNull GameSettings.Perspective preShadowPassThirdPersonView;
 	static boolean waterShadowEnabled = false;
 	static int usedColorBuffers = 0;
 	static int usedDepthBuffers = 0;
@@ -3479,7 +3480,7 @@ public class Shaders {
 		setProgramUniformMatrix4ARB(UNIFORM_SHADOW_PROJECTION_INVERSE, false, SHADOW_PROJECTION_INVERSE);
 		setProgramUniformMatrix4ARB(UNIFORM_SHADOW_MODEL_VIEW, false, SHADOW_MODEL_VIEW);
 		setProgramUniformMatrix4ARB(UNIFORM_SHADOW_MODEL_VIEW_INVERSE, false, SHADOW_MODEL_VIEW_INVERSE);
-		mc.gameSettings.thirdPersonView = 1;
+		mc.gameSettings.thirdPersonView = GameSettings.Perspective.THIRD_PERSON;
 		checkGLError("setCamera");
 	}
 

@@ -729,7 +729,7 @@ public class Minecraft implements IThreadListener {
 		GlStateManager.enableTexture2D();
 
 		if (player != null && player.isEntityInsideOpaqueBlock()) {
-			gameSettings.thirdPersonView = 0;
+			gameSettings.thirdPersonView = GameSettings.Perspective.FIRST_PERSON;
 		}
 
 
@@ -1193,13 +1193,10 @@ public class Minecraft implements IThreadListener {
 						}
 
 						if (gameSettings.keyBindTogglePerspective.isPressed()) {
-							++gameSettings.thirdPersonView;
 
-							if (gameSettings.thirdPersonView > 2) {
-								gameSettings.thirdPersonView = 0;
-							}
+							gameSettings.thirdPersonView = gameSettings.thirdPersonView.next();
 
-							if (gameSettings.thirdPersonView == 0) {
+							if (gameSettings.thirdPersonView == GameSettings.Perspective.FIRST_PERSON) {
 								entityRenderer.loadEntityShader(getRenderViewEntity());
 							}
 							// IMPROVEMENT: Don't reset the shader when switching to 3rd person view

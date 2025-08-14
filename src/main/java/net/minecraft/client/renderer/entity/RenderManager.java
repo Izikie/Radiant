@@ -180,7 +180,7 @@ public class RenderManager {
             this.playerViewX = livingPlayerIn.prevRotationPitch + (livingPlayerIn.rotationPitch - livingPlayerIn.prevRotationPitch) * partialTicks;
         }
 
-        if (optionsIn.thirdPersonView == 2) {
+        if (optionsIn.thirdPersonView == GameSettings.Perspective.INVERTED_THIRD_PERSON) {
             this.playerViewY += 180.0F;
         }
 
