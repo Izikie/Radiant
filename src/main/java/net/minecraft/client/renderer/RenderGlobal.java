@@ -25,6 +25,7 @@ import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
+import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.shader.Framebuffer;
 import net.minecraft.client.shader.ShaderGroup;
 import net.minecraft.client.shader.ShaderLinkHelper;
@@ -536,7 +537,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                     boolean flag2 = this.mc.getRenderViewEntity() instanceof EntityLivingBase entityLivingBase && entityLivingBase.isPlayerSleeping();
                     boolean flag3 = entity3.isInRangeToRender3d(d0, d1, d2) && (entity3.ignoreFrustumCheck || camera.isBoundingBoxInFrustum(entity3.getEntityBoundingBox()) || entity3.riddenByEntity == this.mc.player) && entity3 instanceof EntityPlayer;
 
-                    if ((entity3 != this.mc.getRenderViewEntity() || this.mc.gameSettings.thirdPersonView != 0 || flag2) && flag3) {
+                    if ((entity3 != this.mc.getRenderViewEntity() || this.mc.gameSettings.thirdPersonView != GameSettings.Perspective.FIRST_PERSON || flag2) && flag3) {
                         this.renderManager.renderEntitySimple(entity3, partialTicks);
                     }
                 }
@@ -594,7 +595,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
                             boolean flag5 = this.mc.getRenderViewEntity() instanceof EntityLivingBase entityLivingBase && entityLivingBase.isPlayerSleeping();
 
-                            if ((entity2 != this.mc.getRenderViewEntity() || flag8 || this.mc.gameSettings.thirdPersonView != 0 || flag5) && (entity2.posY < 0.0D || entity2.posY >= 256.0D || this.theWorld.isBlockLoaded(new BlockPos(entity2)))) {
+                            if ((entity2 != this.mc.getRenderViewEntity() || flag8 || this.mc.gameSettings.thirdPersonView != GameSettings.Perspective.FIRST_PERSON || flag5) && (entity2.posY < 0.0D || entity2.posY >= 256.0D || this.theWorld.isBlockLoaded(new BlockPos(entity2)))) {
                                 ++this.countEntitiesRendered;
                                 this.renderedEntity = entity2;
 
@@ -991,7 +992,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         float f = (float) (entityIn.prevRotationPitch + (entityIn.rotationPitch - entityIn.prevRotationPitch) * partialTicks);
         float f1 = (float) (entityIn.prevRotationYaw + (entityIn.rotationYaw - entityIn.prevRotationYaw) * partialTicks);
 
-        if (Minecraft.get().gameSettings.thirdPersonView == 2) {
+        if (Minecraft.get().gameSettings.thirdPersonView == GameSettings.Perspective.INVERTED_THIRD_PERSON) {
             f += 180.0F;
         }
 
