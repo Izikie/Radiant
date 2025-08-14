@@ -1,6 +1,6 @@
 package net.minecraft.network.rcon;
 
-import net.minecraft.command.CommandResultStats;
+import net.minecraft.command.client.CommandResultStats;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.MinecraftServer;

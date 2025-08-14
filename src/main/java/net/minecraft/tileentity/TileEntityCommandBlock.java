@@ -1,7 +1,7 @@
 package net.minecraft.tileentity;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.command.CommandResultStats;
+import net.minecraft.command.client.CommandResultStats;
 import net.minecraft.command.server.CommandBlockLogic;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;

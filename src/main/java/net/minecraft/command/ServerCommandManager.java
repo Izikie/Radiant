@@ -1,5 +1,6 @@
 package net.minecraft.command;
 
+import net.minecraft.command.client.*;
 import net.minecraft.command.server.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.rcon.RConConsoleSource;

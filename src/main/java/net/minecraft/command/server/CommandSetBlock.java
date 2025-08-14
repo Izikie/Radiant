@@ -3,6 +3,7 @@ package net.minecraft.command.server;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.command.*;
+import net.minecraft.command.client.CommandResultStats;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.JsonToNBT;

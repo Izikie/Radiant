@@ -3,6 +3,7 @@ package net.minecraft.command.server;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.command.*;
+import net.minecraft.command.client.CommandResultStats;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;

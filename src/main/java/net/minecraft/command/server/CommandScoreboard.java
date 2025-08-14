@@ -1,6 +1,7 @@
 package net.minecraft.command.server;
 
 import net.minecraft.command.*;
+import net.minecraft.command.client.CommandResultStats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.JsonToNBT;

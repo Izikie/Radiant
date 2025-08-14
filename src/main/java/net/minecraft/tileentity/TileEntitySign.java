@@ -2,7 +2,7 @@ package net.minecraft.tileentity;
 
 import com.google.gson.JsonParseException;
 import net.minecraft.command.CommandException;
-import net.minecraft.command.CommandResultStats;
+import net.minecraft.command.client.CommandResultStats;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
