@@ -168,60 +168,21 @@ public class Util {
     protected static int bytesPerPixel(int format, int type) {
         int n, m;
 
-        switch (format) {
-            case GL_COLOR_INDEX:
-            case GL_STENCIL_INDEX:
-            case GL_DEPTH_COMPONENT:
-            case GL_RED:
-            case GL_GREEN:
-            case GL_BLUE:
-            case GL_ALPHA:
-            case GL_LUMINANCE:
-                n = 1;
-                break;
-            case GL_LUMINANCE_ALPHA:
-                n = 2;
-                break;
-            case GL_RGB:
-            case GL_BGR:
-                n = 3;
-                break;
-            case GL_RGBA:
-            case GL_BGRA:
-                n = 4;
-                break;
-            default:
-                n = 0;
-        }
+        n = switch (format) {
+            case GL_COLOR_INDEX, GL_STENCIL_INDEX, GL_DEPTH_COMPONENT, GL_RED, GL_GREEN, GL_BLUE, GL_ALPHA,
+                 GL_LUMINANCE -> 1;
+            case GL_LUMINANCE_ALPHA -> 2;
+            case GL_RGB, GL_BGR -> 3;
+            case GL_RGBA, GL_BGRA -> 4;
+            default -> 0;
+        };
 
-        switch (type) {
-            case GL_UNSIGNED_BYTE:
-                m = 1;
-                break;
-            case GL_BYTE:
-                m = 1;
-                break;
-            case GL_BITMAP:
-                m = 1;
-                break;
-            case GL_UNSIGNED_SHORT:
-                m = 2;
-                break;
-            case GL_SHORT:
-                m = 2;
-                break;
-            case GL_UNSIGNED_INT:
-                m = 4;
-                break;
-            case GL_INT:
-                m = 4;
-                break;
-            case GL_FLOAT:
-                m = 4;
-                break;
-            default:
-                m = 0;
-        }
+        m = switch (type) {
+            case GL_UNSIGNED_BYTE, GL_BYTE, GL_BITMAP -> 1;
+            case GL_UNSIGNED_SHORT, GL_SHORT -> 2;
+            case GL_UNSIGNED_INT, GL_INT, GL_FLOAT -> 4;
+            default -> 0;
+        };
 
         return n * m;
     }
