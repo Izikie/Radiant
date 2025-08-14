@@ -35,7 +35,7 @@ public class LayeredColorMaskTexture extends AbstractTexture {
             NativeImage loadedImage = TextureUtil.readNativeImage(resourceManager.getResource(this.textureLocation).getInputStream());
 
             image = NativeImage.createBlankImage(loadedImage.getWidth(), loadedImage.getHeight());
-            image.copyFrom(loadedImage);
+            image.copyFrom(loadedImage, true);
 
             for (int j = 0; j < 17 && j < this.field_174949_h.size() && j < this.field_174950_i.size(); ++j) {
                 String s = this.field_174949_h.get(j);

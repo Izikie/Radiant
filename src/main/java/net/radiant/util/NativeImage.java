@@ -211,10 +211,16 @@ public class NativeImage {
         return newImage;
     }
 
-    public void copyFrom(NativeImage image) {
+    public void copyFrom(NativeImage image, boolean blend) {
         for (int x = 0; x < this.width && x < image.getWidth(); x++) {
             for (int y = 0; y < this.height && y < image.getHeight(); y++) {
-                this.setPixel(x, y, image.getPixel(x, y));
+                if (blend) {
+                    int oldPixel = this.getPixel(x, y);
+                    int newPixel = blendARGB(image.getPixel(x, y), oldPixel);
+                    this.setPixel(x, y, newPixel | 0xFF000000);
+                } else {
+                    this.setPixel(x, y, image.getPixel(x, y));
+                }
             }
         }
     }
@@ -341,7 +347,7 @@ public class NativeImage {
         int outB = Math.round(srcB * srcAlpha + dstB * invSrcAlpha);
 
         // Blend Alpha: GL_ONE, GL_ZERO = source alpha only
-        int outA = srcA;
+        int outA = dstA;
 
         // Clamp to 0..255 (Math.round already ensures that, but extra safety)
         outR = Math.min(255, Math.max(0, outR));

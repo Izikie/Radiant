@@ -56,7 +56,7 @@ public class CapeUtils {
 		}
 
 		NativeImage image = NativeImage.createBlankImage(i, j);
-		image.copyFrom(img);
+		image.copyFrom(img, false);
 		return image;
 	}
 

@@ -40,7 +40,7 @@ public class LayeredTexture extends AbstractTexture {
                         bufferedimage = NativeImage.createBlankImage(bufferedimage1.getWidth(), bufferedimage1.getHeight());
                     }
 
-                    bufferedimage.copyFrom(bufferedimage1);
+                    bufferedimage.copyFrom(bufferedimage1, true);
                 }
             }
         } catch (IOException exception) {

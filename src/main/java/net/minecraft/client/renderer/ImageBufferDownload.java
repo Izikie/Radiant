@@ -23,7 +23,7 @@ public class ImageBufferDownload implements IImageBuffer {
         }
 
         NativeImage image1 = NativeImage.createBlankImage(this.imageWidth, this.imageHeight);
-        image1.copyFrom(image);
+        image1.copyFrom(image, false);
 
 //        if (image.getHeight() == 32 * s) { // I hate this part, it's retarded
 //            image1.overwritePixels(image1, 24 * s, 48 * s, 20 * s, 52 * s, 4 * s, 16 * s, 8 * s, 20 * s);
