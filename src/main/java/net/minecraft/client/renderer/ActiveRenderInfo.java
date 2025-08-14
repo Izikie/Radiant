@@ -11,18 +11,17 @@ import net.minecraft.util.math.Vec3;
 import net.minecraft.world.World;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
-import org.joml.Vector4f;
 import org.lwjgl.opengl.GL11;
 
 import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 
-// TOOD: UnProject use JOML and possibly make this better
 public class ActiveRenderInfo {
-    private static final FloatBuffer VIEWPORT = GLAllocation.createDirectFloatBuffer(16);
+    private static final IntBuffer VIEWPORT = GLAllocation.createDirectIntBuffer(16);
     private static final FloatBuffer MODELVIEW = GLAllocation.createDirectFloatBuffer(16);
     private static final FloatBuffer PROJECTION = GLAllocation.createDirectFloatBuffer(16);
-    private static final FloatBuffer OBJECTCOORDS = GLAllocation.createDirectFloatBuffer(3);
-    private static Vec3 position = new Vec3(0.0D, 0.0D, 0.0D);
+
+    private static Vector3f position = new Vector3f(0.F, 0.F, 0.F);
     private static float rotationX;
     private static float rotationXZ;
     private static float rotationZ;
@@ -30,18 +29,22 @@ public class ActiveRenderInfo {
     private static float rotationXY;
 
     public static void updateRenderInfo(EntityPlayer player, boolean invertRotation) {
-        GlStateManager.getFloat(2982, MODELVIEW);
-        GlStateManager.getFloat(2983, PROJECTION);
-        GL11.glGetFloatv(GL11.GL_VIEWPORT, VIEWPORT);
+        GlStateManager.getFloat(GL11.GL_MODELVIEW_MATRIX, MODELVIEW);
+        GlStateManager.getFloat(GL11.GL_PROJECTION_MATRIX, PROJECTION);
+        GL11.glGetIntegerv(GL11.GL_VIEWPORT, VIEWPORT);
 
-        float viewCenterX = (VIEWPORT.get(0) + VIEWPORT.get(2)) / 2.0f;
-        float viewCenterY = (VIEWPORT.get(1) + VIEWPORT.get(3)) / 2.0f;
+        Matrix4f modelViewMat = new Matrix4f().set(MODELVIEW);
+        Matrix4f projectionMat = new Matrix4f().set(PROJECTION);
 
-        // TODO: Use JOML for better performance and accuracy
-//        Project.gluUnProject(viewCenterX, viewCenterY, 0.0F, MODELVIEW, PROJECTION, VIEWPORT, OBJECTCOORDS);
-        unproject(viewCenterX, viewCenterY);
+        int[] vp = new int[4];
+        VIEWPORT.get(vp).rewind();
 
-        position = new Vec3(OBJECTCOORDS.get(0), OBJECTCOORDS.get(1), OBJECTCOORDS.get(2));
+        float viewCenterX = (vp[0] + vp[2]) / 2.0f;
+        float viewCenterY = (vp[1] + vp[3]) / 2.0f;
+
+        Vector3f worldCoords = new Vector3f();
+        projectionMat.mul(modelViewMat, new Matrix4f()).unproject(viewCenterX, viewCenterY, 0f, vp, worldCoords);
+        position.set(worldCoords);
 
         float rotationFactor = invertRotation ? -1.0f : 1.0f;
         float pitchRadians = (float) (player.rotationPitch * Math.PI / 180.0F);
@@ -59,9 +62,9 @@ public class ActiveRenderInfo {
         double entityY = entity.prevPosY + (entity.posY - entity.prevPosY) * partialTicks;
         double entityZ = entity.prevPosZ + (entity.posZ - entity.prevPosZ) * partialTicks;
 
-        double viewpointX = entityX + position.xCoord;
-        double viewpointY = entityY + position.yCoord;
-        double viewpointZ = entityZ + position.zCoord;
+        double viewpointX = entityX + position.x;
+        double viewpointY = entityY + position.y;
+        double viewpointZ = entityZ + position.z;
 
         return new Vec3(viewpointX, viewpointY, viewpointZ);
     }
@@ -90,7 +93,7 @@ public class ActiveRenderInfo {
     }
 
     public static Vec3 getPosition() {
-        return position;
+        return new Vec3(position.x, position.y, position.z);
     }
 
     public static float getRotationX() {
@@ -113,39 +116,5 @@ public class ActiveRenderInfo {
         return rotationXY;
     }
 
-    private static void unproject(float winx, float winy) {
 
-        Matrix4f modelMatrix = new Matrix4f(MODELVIEW.position(0));
-        Matrix4f projMatrix = new Matrix4f(PROJECTION.position(0));
-        Matrix4f viewport = new Matrix4f(VIEWPORT.position(0));
-        Vector3f objPos = new Vector3f(OBJECTCOORDS.position(0));
-
-        Matrix4f finalMatrix = new Matrix4f();
-        modelMatrix.mul(projMatrix, finalMatrix);
-
-        finalMatrix.invert();
-
-        Vector4f in = new Vector4f(winx, winy, 0.F, 1.F);
-        in.x = (in.x - viewport.m00()) / viewport.m02();
-        in.y = (in.y - viewport.m01()) / viewport.m03();
-
-        in.x = in.x * 2 - 1;
-        in.y = in.y * 2 - 1;
-        in.z = in.z * 2 - 1;
-
-        Vector4f out = new Vector4f();
-        in.mul(finalMatrix);
-
-        if (out.w == 0.F) {
-            return;
-        }
-
-        out.w = 1.F / out.w;
-
-        objPos.x = out.x * out.w;
-        objPos.y = out.y * out.w;
-        objPos.z = out.z * out.w;
-
-        objPos.get(OBJECTCOORDS);
-    }
 }
