@@ -409,7 +409,7 @@ public class Minecraft implements IThreadListener {
 		Display.setTitle("Minecraft 1.8.9");
 
 		try {
-			Display.create((new PixelFormat()).withDepthBits(24));
+			Display.create(new PixelFormat().withDepthBits(24));
 		} catch (LWJGLException exception) {
 			LOGGER.error("Couldn't set pixel format", exception);
 
@@ -437,8 +437,10 @@ public class Minecraft implements IThreadListener {
 			InputStream x16 = mcDefaultResourcePack.getInputStream(new ResourceLocation("icons/icon_16x16.png"));
 			InputStream x32 = mcDefaultResourcePack.getInputStream(new ResourceLocation("icons/icon_32x32.png"))
 		) {
-			ByteBuffer[] icons = new ByteBuffer[]{readImageToBuffer(x16), readImageToBuffer(x32)};
-			if (x16 != null && x32 != null) Display.setIcon(icons);
+			if (x16 != null && x32 != null) {
+				ByteBuffer[] icons = new ByteBuffer[]{readImageToBuffer(x16), readImageToBuffer(x32)};
+				Display.setIcon(icons);
+			}
 		} catch (IOException exception) {
 			LOGGER.error("Couldn't set icon", exception);
 		}

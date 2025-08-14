@@ -57,14 +57,16 @@ dependencies {
 
     impl(group = "com.paulscode", name = "soundsystem", version = "20120107")
 
-    val nettyVersion = "4.2.3.Final"
+    /*val nettyVersion = "4.2.3.Final"
     val nettyModules = listOf("netty-buffer", "netty-handler", "netty-transport", "netty-common", "netty-codec")
     nettyModules.forEach { module ->
         impl(group = "io.netty", name = module, version = nettyVersion, isTransitive = true)
     }
     listOf("linux-x86_64", "linux-aarch_64").forEach { c ->
         impl(group = "io.netty", name = "netty-transport-native-epoll", version = nettyVersion, classifier = c, isTransitive = true)
-    }
+    }*/
+
+    implementation("io.netty", "netty-all","4.2.3.Final")
 
     impl(group = "com.ibm.icu", name = "icu4j", version = "77.1")
 
