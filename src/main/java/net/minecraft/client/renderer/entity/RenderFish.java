@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.projectile.EntityFishHook;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -58,7 +59,7 @@ public class RenderFish extends Render<EntityFishHook> {
             double d2 = entity.angler.prevPosZ + (entity.angler.posZ - entity.angler.prevPosZ) * partialTicks + vec3.zCoord;
             double d3 = entity.angler.getEyeHeight();
 
-            if (this.renderManager.options != null && this.renderManager.options.thirdPersonView > 0 || entity.angler != Minecraft.get().player) {
+            if (this.renderManager.options != null && this.renderManager.options.thirdPersonView != GameSettings.Perspective.FIRST_PERSON || entity.angler != Minecraft.get().player) {
                 float f9 = (entity.angler.prevRenderYawOffset + (entity.angler.renderYawOffset - entity.angler.prevRenderYawOffset) * partialTicks) * (float) Math.PI / 180.0F;
                 double d4 = MathHelper.sin(f9);
                 double d6 = MathHelper.cos(f9);
