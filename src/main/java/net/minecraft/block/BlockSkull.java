@@ -23,8 +23,10 @@ import net.minecraft.stats.AchievementList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.World;
 
 import java.util.Random;

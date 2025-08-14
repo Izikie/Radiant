@@ -1,7 +1,7 @@
 package net.optifine.http;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import net.optifine.Log;
 
 import java.io.*;

@@ -1,7 +1,7 @@
 package net.minecraft.pathfinding;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3;
 
 public class PathEntity {
     private final PathPoint[] points;

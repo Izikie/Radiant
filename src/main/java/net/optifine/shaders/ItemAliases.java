@@ -2,7 +2,7 @@ package net.optifine.shaders;
 
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import net.optifine.Log;
 import net.optifine.config.ConnectedParser;
 import net.optifine.shaders.config.MacroProcessor;

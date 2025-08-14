@@ -1,8 +1,8 @@
 package net.minecraft.pathfinding;
 
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.input.MovingObjectPosition;
+import net.minecraft.util.math.Vec3;
 import net.minecraft.world.World;
 import net.minecraft.world.pathfinder.SwimNodeProcessor;
 

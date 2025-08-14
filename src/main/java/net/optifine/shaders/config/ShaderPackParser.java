@@ -1,7 +1,7 @@
 package net.optifine.shaders.config;
 
 import it.unimi.dsi.fastutil.ints.IntList;
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import net.optifine.Log;
 import net.optifine.expr.*;
 import net.optifine.render.GlAlphaState;

@@ -3,8 +3,8 @@ package net.optifine;
 import com.google.common.collect.AbstractIterator;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3i;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3i;
 
 import java.util.Iterator;
 

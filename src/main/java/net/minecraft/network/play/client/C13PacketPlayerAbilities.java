@@ -1,8 +1,8 @@
 package net.minecraft.network.play.client;
 
 import net.minecraft.entity.player.PlayerCapabilities;
-import net.minecraft.network.Packet;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
 
 import java.io.IOException;

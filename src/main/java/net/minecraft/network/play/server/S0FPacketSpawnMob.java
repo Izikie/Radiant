@@ -3,10 +3,10 @@ package net.minecraft.network.play.server;
 import net.minecraft.entity.DataWatcher;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.network.Packet;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 
 import java.io.IOException;
 import java.util.List;

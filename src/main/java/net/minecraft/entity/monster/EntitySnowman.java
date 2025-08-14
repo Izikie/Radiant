@@ -13,8 +13,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class EntitySnowman extends EntityGolem implements IRangedAttackMob {

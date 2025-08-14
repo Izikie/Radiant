@@ -1,6 +1,6 @@
 package net.minecraft.scoreboard;
 
-import net.minecraft.util.Formatting;
+import net.minecraft.util.chat.Formatting;
 
 import java.util.Collection;
 import java.util.HashSet;

@@ -2,6 +2,10 @@ package net.minecraft.client.gui;
 
 import net.minecraft.network.play.client.C14PacketTabComplete;
 import net.minecraft.util.*;
+import net.minecraft.util.chat.ChatComponentText;
+import net.minecraft.util.chat.IChatComponent;
+import net.minecraft.util.input.MovingObjectPosition;
+import net.minecraft.util.math.MathHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;

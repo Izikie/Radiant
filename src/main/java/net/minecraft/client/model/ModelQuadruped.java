@@ -2,7 +2,7 @@ package net.minecraft.client.model;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 
 public class ModelQuadruped extends ModelBase {
     public ModelRenderer head = new ModelRenderer(this, 0, 0);

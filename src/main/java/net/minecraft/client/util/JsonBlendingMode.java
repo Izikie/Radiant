@@ -2,7 +2,7 @@ package net.minecraft.client.util;
 
 import com.google.gson.JsonObject;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.JsonUtils;
+import net.minecraft.util.json.JsonUtils;
 import org.lwjgl.opengl.GL14;
 
 public class JsonBlendingMode {

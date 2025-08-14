@@ -1,7 +1,7 @@
 package net.minecraft.client.audio;
 
 import com.google.gson.*;
-import net.minecraft.util.JsonUtils;
+import net.minecraft.util.json.JsonUtils;
 import org.apache.commons.lang3.Validate;
 
 import java.lang.reflect.Type;

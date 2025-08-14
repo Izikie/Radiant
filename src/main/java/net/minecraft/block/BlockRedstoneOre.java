@@ -10,7 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
-import net.minecraft.util.ParticleTypes;
+import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.World;
 
 import java.util.Random;

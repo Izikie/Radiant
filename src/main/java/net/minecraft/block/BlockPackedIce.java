@@ -1,7 +1,7 @@
 package net.minecraft.block;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.creativetab.CreativeTabs;
 
 import java.util.Random;
 

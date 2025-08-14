@@ -6,9 +6,9 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.projectile.EntityFishHook;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3;
 
 public class RenderFish extends Render<EntityFishHook> {
     private static final ResourceLocation FISH_PARTICLES = new ResourceLocation("textures/particle/particles.png");

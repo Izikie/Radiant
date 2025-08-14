@@ -1,6 +1,6 @@
 package net.minecraft.nbt;
 
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 
 import java.io.DataInput;
 import java.io.DataOutput;

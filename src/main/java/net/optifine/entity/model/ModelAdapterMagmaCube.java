@@ -7,7 +7,7 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.RenderMagmaCube;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.monster.EntityMagmaCube;
-import net.minecraft.src.Config;
+import net.optifine.Config;
 
 public class ModelAdapterMagmaCube extends ModelAdapter {
 	public ModelAdapterMagmaCube() {

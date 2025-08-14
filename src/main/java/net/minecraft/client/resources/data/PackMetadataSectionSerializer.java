@@ -1,8 +1,8 @@
 package net.minecraft.client.resources.data;
 
 import com.google.gson.*;
-import net.minecraft.util.IChatComponent;
-import net.minecraft.util.JsonUtils;
+import net.minecraft.util.chat.IChatComponent;
+import net.minecraft.util.json.JsonUtils;
 
 import java.lang.reflect.Type;
 

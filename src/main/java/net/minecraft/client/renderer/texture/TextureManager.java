@@ -5,7 +5,7 @@ import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.crash.ReportedException;
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.CustomGuis;
 import net.optifine.EmissiveTextures;

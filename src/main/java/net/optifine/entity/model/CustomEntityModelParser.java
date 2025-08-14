@@ -3,7 +3,7 @@ package net.optifine.entity.model;
 import com.google.gson.*;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.Log;
 import net.optifine.config.ConnectedParser;

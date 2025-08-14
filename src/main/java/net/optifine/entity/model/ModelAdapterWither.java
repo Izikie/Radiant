@@ -7,7 +7,7 @@ import net.minecraft.client.model.ModelWither;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderWither;
 import net.minecraft.entity.boss.EntityWither;
-import net.minecraft.src.Config;
+import net.optifine.Config;
 
 public class ModelAdapterWither extends ModelAdapter {
 	public ModelAdapterWither() {

@@ -14,7 +14,7 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.data.IMetadataSerializer;
 import net.minecraft.client.resources.data.PackMetadataSection;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.util.Formatting;
+import net.minecraft.util.chat.Formatting;
 import net.minecraft.util.HttpUtil;
 import net.minecraft.util.ResourceLocation;
 import net.radiant.util.NativeImage;

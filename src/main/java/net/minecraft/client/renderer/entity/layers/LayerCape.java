@@ -4,7 +4,7 @@ import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.player.PlayerModelParts;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 
 public class LayerCape implements LayerRenderer<AbstractClientPlayer> {
     private final RenderPlayer playerRenderer;

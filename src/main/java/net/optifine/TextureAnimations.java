@@ -2,7 +2,6 @@ package net.optifine;
 
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.util.PropertiesOrdered;
 import net.optifine.util.ResUtils;

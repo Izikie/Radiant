@@ -1,6 +1,6 @@
 package net.minecraft.inventory;
 
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.chat.IChatComponent;
 
 public class AnimalChest extends InventoryBasic {
     public AnimalChest(String inventoryName, int slotCount) {

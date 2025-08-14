@@ -9,7 +9,6 @@ import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.item.DyeColor;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.src.Config;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ResourceLocation;

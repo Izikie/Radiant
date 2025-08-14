@@ -1,6 +1,6 @@
 package net.minecraft.client.gui.spectator;
 
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.chat.IChatComponent;
 
 public interface ISpectatorMenuObject {
     void func_178661_a(SpectatorMenu menu);

@@ -7,8 +7,8 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.server.management.PreYggdrasilConverter;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.ParticleTypes;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.World;
 
 import java.util.UUID;

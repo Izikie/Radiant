@@ -5,8 +5,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiSpectator;
 import net.minecraft.client.gui.spectator.categories.SpectatorDetails;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.chat.ChatComponentText;
+import net.minecraft.util.chat.IChatComponent;
 
 import java.util.ArrayList;
 import java.util.List;

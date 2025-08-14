@@ -9,6 +9,9 @@ import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.random.WeightedRandom;
+import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package net.optifine.util;
 
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.IBlockAccess;

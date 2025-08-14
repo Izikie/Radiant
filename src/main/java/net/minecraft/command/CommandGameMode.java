@@ -3,8 +3,8 @@ package net.minecraft.command;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.chat.ChatComponentTranslation;
+import net.minecraft.util.chat.IChatComponent;
 import net.minecraft.world.WorldSettings;
 
 import java.util.List;

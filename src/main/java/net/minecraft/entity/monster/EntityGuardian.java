@@ -9,6 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -24,7 +25,11 @@ import net.minecraft.pathfinding.PathNavigateSwimmer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.*;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3;
+import net.minecraft.util.random.WeightedRandom;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.World;
 
 public class EntityGuardian extends EntityMob {

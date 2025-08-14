@@ -1,7 +1,7 @@
 package net.optifine.config;
 
 import net.minecraft.nbt.*;
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import net.optifine.util.StrUtils;
 import org.apache.commons.text.StringEscapeUtils;
 

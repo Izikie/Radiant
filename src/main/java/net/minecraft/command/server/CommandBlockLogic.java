@@ -10,8 +10,8 @@ import net.minecraft.crash.ReportedException;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.chat.ChatComponentText;
+import net.minecraft.util.chat.IChatComponent;
 import net.minecraft.world.World;
 
 import java.text.SimpleDateFormat;

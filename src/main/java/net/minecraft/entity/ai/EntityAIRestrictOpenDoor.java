@@ -3,8 +3,8 @@ package net.minecraft.entity.ai;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.BlockPos;
-import net.minecraft.village.Village;
-import net.minecraft.village.VillageDoorInfo;
+import net.minecraft.world.village.Village;
+import net.minecraft.world.village.VillageDoorInfo;
 
 public class EntityAIRestrictOpenDoor extends EntityAIBase {
     private final EntityCreature entityObj;

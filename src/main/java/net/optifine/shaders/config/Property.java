@@ -1,6 +1,6 @@
 package net.optifine.shaders.config;
 
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.Properties;

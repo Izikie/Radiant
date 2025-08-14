@@ -3,10 +3,10 @@ package net.minecraft.entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryMerchant;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.IChatComponent;
-import net.minecraft.village.MerchantRecipe;
-import net.minecraft.village.MerchantRecipeList;
+import net.minecraft.util.chat.ChatComponentTranslation;
+import net.minecraft.util.chat.IChatComponent;
+import net.minecraft.world.village.MerchantRecipe;
+import net.minecraft.world.village.MerchantRecipeList;
 
 public class NpcMerchant implements IMerchant {
     private final InventoryMerchant theMerchantInventory;

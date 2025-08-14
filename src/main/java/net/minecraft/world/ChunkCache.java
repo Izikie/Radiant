@@ -84,15 +84,15 @@ public class ChunkCache implements IBlockAccess {
         return this.worldObj.getBiomeGenForCoords(pos);
     }
 
-    private int getLightForExt(LightType p_175629_1_, BlockPos pos) {
-        if (p_175629_1_ == LightType.SKY && this.worldObj.provider.getHasNoSky()) {
+    private int getLightForExt(LightType type, BlockPos pos) {
+        if (type == LightType.SKY && this.worldObj.provider.getHasNoSky()) {
             return 0;
         } else if (pos.getY() >= 0 && pos.getY() < 256) {
             if (this.getBlockState(pos).getBlock().getUseNeighborBrightness()) {
                 int l = 0;
 
                 for (Direction enumfacing : Direction.values()) {
-                    int k = this.getLightFor(p_175629_1_, pos.offset(enumfacing));
+                    int k = this.getLightFor(type, pos.offset(enumfacing));
 
                     if (k > l) {
                         l = k;
@@ -107,10 +107,10 @@ public class ChunkCache implements IBlockAccess {
             } else {
                 int i = (pos.getX() >> 4) - this.chunkX;
                 int j = (pos.getZ() >> 4) - this.chunkZ;
-                return this.chunkArray[i][j].getLightFor(p_175629_1_, pos);
+                return this.chunkArray[i][j].getLightFor(type, pos);
             }
         } else {
-            return p_175629_1_.defaultLightValue;
+            return type.defaultLightValue;
         }
     }
 
@@ -118,13 +118,13 @@ public class ChunkCache implements IBlockAccess {
         return this.getBlockState(pos).getBlock().getMaterial() == Material.AIR;
     }
 
-    public int getLightFor(LightType p_175628_1_, BlockPos pos) {
+    public int getLightFor(LightType type, BlockPos pos) {
         if (pos.getY() >= 0 && pos.getY() < 256) {
             int i = (pos.getX() >> 4) - this.chunkX;
             int j = (pos.getZ() >> 4) - this.chunkZ;
-            return this.chunkArray[i][j].getLightFor(p_175628_1_, pos);
+            return this.chunkArray[i][j].getLightFor(type, pos);
         } else {
-            return p_175628_1_.defaultLightValue;
+            return type.defaultLightValue;
         }
     }
 

@@ -10,7 +10,7 @@ import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureUtil;
-import net.minecraft.util.Formatting;
+import net.minecraft.util.chat.Formatting;
 import net.minecraft.util.ResourceLocation;
 import net.radiant.util.NativeImage;
 import org.apache.commons.lang3.Validate;

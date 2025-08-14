@@ -7,7 +7,7 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.RenderEndermite;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.monster.EntityEndermite;
-import net.minecraft.src.Config;
+import net.optifine.Config;
 
 public class ModelAdapterEndermite extends ModelAdapter {
 	public ModelAdapterEndermite() {

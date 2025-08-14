@@ -5,6 +5,7 @@ import net.minecraft.block.BlockCarrot;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -14,7 +15,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.*;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.World;
 
 public class EntityRabbit extends EntityAnimal {

@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.block.model;
 
 import com.google.gson.*;
-import net.minecraft.util.JsonUtils;
+import net.minecraft.util.json.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.LoggerFactory;

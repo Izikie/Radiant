@@ -1,6 +1,7 @@
 package net.minecraft.util;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.math.MathHelper;
 
 public class Timer {
     final float ticksPerSecond;

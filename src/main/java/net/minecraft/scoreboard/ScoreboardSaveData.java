@@ -3,7 +3,7 @@ package net.minecraft.scoreboard;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
-import net.minecraft.util.Formatting;
+import net.minecraft.util.chat.Formatting;
 import net.minecraft.world.WorldSavedData;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;

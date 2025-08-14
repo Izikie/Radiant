@@ -1,7 +1,7 @@
 package net.minecraft.world.border;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.ChunkCoordIntPair;
 

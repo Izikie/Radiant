@@ -2,7 +2,7 @@ package net.minecraft.client.audio;
 
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 public class MovingSoundMinecartRiding extends MovingSound {

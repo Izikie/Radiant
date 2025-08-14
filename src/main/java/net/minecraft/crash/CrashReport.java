@@ -1,7 +1,7 @@
 package net.minecraft.crash;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import net.minecraft.world.gen.layer.IntCache;
 import net.optifine.Log;
 import net.optifine.shaders.Shaders;

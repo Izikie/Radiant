@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.WeightedRandomChestContent;
+import net.minecraft.util.random.WeightedRandomChestContent;
 
 import java.util.List;
 import java.util.Random;

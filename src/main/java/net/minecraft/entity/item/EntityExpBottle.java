@@ -3,7 +3,7 @@ package net.minecraft.entity.item;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.input.MovingObjectPosition;
 import net.minecraft.world.World;
 
 public class EntityExpBottle extends EntityThrowable {

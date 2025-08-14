@@ -1,6 +1,5 @@
 package net.optifine;
 
-import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.config.ConnectedParser;
 

@@ -2,7 +2,7 @@ package net.minecraft.client.particle;
 
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.ParticleTypes;
+import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.World;
 
 public class EntityParticleEmitter extends EntityFX {

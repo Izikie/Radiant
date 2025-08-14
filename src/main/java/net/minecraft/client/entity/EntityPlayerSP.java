@@ -9,6 +9,7 @@ import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.command.server.CommandBlockLogic;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IMerchant;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.passive.EntityHorse;
@@ -22,7 +23,10 @@ import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatFileWriter;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.*;
+import net.minecraft.util.chat.IChatComponent;
+import net.minecraft.util.input.MovementInput;
 import net.minecraft.world.IInteractionObject;
+import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.World;
 
 public class EntityPlayerSP extends AbstractClientPlayer {

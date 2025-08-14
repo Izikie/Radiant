@@ -8,7 +8,11 @@ import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeColorHelper;
 

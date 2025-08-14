@@ -4,9 +4,9 @@ import net.minecraft.command.server.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.rcon.RConConsoleSource;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.chat.ChatComponentTranslation;
+import net.minecraft.util.chat.Formatting;
+import net.minecraft.util.chat.IChatComponent;
 
 public class ServerCommandManager extends CommandHandler implements IAdminCommand {
     public ServerCommandManager() {

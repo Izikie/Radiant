@@ -1,6 +1,6 @@
 package net.optifine.util;
 
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.Log;
 

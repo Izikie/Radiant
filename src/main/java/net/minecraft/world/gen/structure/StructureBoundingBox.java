@@ -4,7 +4,7 @@ import com.google.common.base.MoreObjects;
 import net.minecraft.nbt.NBTTagIntArray;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Vec3i;
+import net.minecraft.util.math.Vec3i;
 
 public class StructureBoundingBox {
     public int minX;

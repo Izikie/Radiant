@@ -1,6 +1,6 @@
 package net.minecraft.item;
 
-import net.minecraft.util.Formatting;
+import net.minecraft.util.chat.Formatting;
 
 public enum Rarity {
     COMMON(Formatting.WHITE, "Common"),

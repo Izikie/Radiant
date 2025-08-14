@@ -1,6 +1,6 @@
 package net.minecraft.entity;
 
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 
 public class EntityBodyHelper {
     private final EntityLivingBase theLiving;

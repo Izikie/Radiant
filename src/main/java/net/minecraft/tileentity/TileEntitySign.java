@@ -6,12 +6,17 @@ import net.minecraft.command.CommandResultStats;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.event.ClickEvent;
+import net.minecraft.util.chat.IChatComponent;
+import net.minecraft.util.chat.ClickEvent;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.Packet;
+import net.minecraft.network.packet.Packet;
 import net.minecraft.network.play.server.S33PacketUpdateSign;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.*;
+import net.minecraft.util.chat.ChatComponentProcessor;
+import net.minecraft.util.chat.ChatComponentText;
+import net.minecraft.util.chat.ChatStyle;
+import net.minecraft.util.math.Vec3;
 import net.minecraft.world.World;
 
 public class TileEntitySign extends TileEntity {

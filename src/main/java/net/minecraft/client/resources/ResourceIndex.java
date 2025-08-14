@@ -5,7 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
-import net.minecraft.util.JsonUtils;
+import net.minecraft.util.json.JsonUtils;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;

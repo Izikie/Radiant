@@ -1,6 +1,6 @@
 package net.minecraft.client.model;
 
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3;
 
 public class PositionTextureVertex {
     public final Vec3 vector3D;

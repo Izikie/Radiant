@@ -4,7 +4,7 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import net.minecraft.util.JsonUtils;
+import net.minecraft.util.json.JsonUtils;
 import org.apache.commons.lang3.Validate;
 
 import java.lang.reflect.Type;

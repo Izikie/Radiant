@@ -5,7 +5,7 @@ import net.minecraft.client.gui.resourcepack.GuiScreenResourcePacks;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.data.PackMetadataSection;
-import net.minecraft.util.Formatting;
+import net.minecraft.util.chat.Formatting;
 import net.minecraft.util.ResourceLocation;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;

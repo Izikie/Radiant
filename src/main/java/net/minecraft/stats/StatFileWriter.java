@@ -1,8 +1,8 @@
 package net.minecraft.stats;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.IJsonSerializable;
-import net.minecraft.util.TupleIntJsonSerializable;
+import net.minecraft.util.json.IJsonSerializable;
+import net.minecraft.util.json.TupleIntJsonSerializable;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

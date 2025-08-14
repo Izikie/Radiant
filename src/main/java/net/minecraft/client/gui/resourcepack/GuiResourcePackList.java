@@ -4,7 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiListExtended;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.resources.ResourcePackListEntry;
-import net.minecraft.util.Formatting;
+import net.minecraft.util.chat.Formatting;
 
 import java.util.List;
 

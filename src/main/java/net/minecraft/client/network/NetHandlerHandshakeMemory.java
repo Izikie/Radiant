@@ -5,7 +5,7 @@ import net.minecraft.network.handshake.INetHandlerHandshakeServer;
 import net.minecraft.network.handshake.client.C00Handshake;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.NetHandlerLoginServer;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.chat.IChatComponent;
 
 public class NetHandlerHandshakeMemory implements INetHandlerHandshakeServer {
     private final MinecraftServer mcServer;

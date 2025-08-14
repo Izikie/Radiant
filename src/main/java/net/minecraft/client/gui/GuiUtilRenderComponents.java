@@ -1,9 +1,9 @@
 package net.minecraft.client.gui;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.chat.ChatComponentText;
+import net.minecraft.util.chat.Formatting;
+import net.minecraft.util.chat.IChatComponent;
 
 import java.util.ArrayList;
 import java.util.List;

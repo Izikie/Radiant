@@ -11,6 +11,9 @@ import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityPiston;
 import net.minecraft.util.*;
+import net.minecraft.util.input.MovingObjectPosition;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 

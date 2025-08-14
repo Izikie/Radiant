@@ -1,6 +1,6 @@
 package net.optifine.shaders;
 
-import net.minecraft.src.Config;
+import net.optifine.Config;
 import net.optifine.Log;
 import net.optifine.config.ConnectedParser;
 import net.optifine.config.MatchBlock;

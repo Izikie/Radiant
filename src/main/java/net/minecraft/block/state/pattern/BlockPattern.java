@@ -7,7 +7,7 @@ import com.google.common.cache.LoadingCache;
 import net.minecraft.block.state.BlockWorldState;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Vec3i;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 
 public class BlockPattern {
