@@ -7,6 +7,7 @@ import net.minecraft.util.chat.IChatComponent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 public class GuiUtilRenderComponents {
@@ -20,7 +21,7 @@ public class GuiUtilRenderComponents {
         List<IChatComponent> list = new ArrayList<>();
         List<IChatComponent> list1 = StreamSupport
                 .stream(p_178908_0_.spliterator(), false)
-                .toList();
+                .collect(Collectors.toCollection(ArrayList::new));
 
         for (int j = 0; j < list1.size(); ++j) {
             IChatComponent ichatcomponent1 = list1.get(j);

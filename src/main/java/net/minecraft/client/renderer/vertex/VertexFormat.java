@@ -49,7 +49,6 @@ public class VertexFormat {
     public VertexFormat addElement(VertexFormatElement element) {
         if (element.isPositionElement() && this.hasPosition()) {
             LOGGER.warn("VertexFormat error: Trying to add a position VertexFormatElement when one already exists, ignoring.");
-            return this;
         } else {
             this.elements.add(element);
             this.offsets.add(this.nextOffset);
@@ -68,8 +67,8 @@ public class VertexFormat {
             }
 
             this.nextOffset += element.getSize();
-            return this;
         }
+        return this;
     }
 
     public boolean hasNormal() {

@@ -564,10 +564,15 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                     f3 = f3 * 0.1F;
                     f4 = f4 * 0.1F;
                     f5 = f5 * 0.1F;
-                    MovingObjectPosition movingobjectposition = this.mc.world.rayTraceBlocks(new Vec3(d0 + f3, d1 + f4, d2 + f5), new Vec3(d0 - d4 + f3 + f5, d1 - d6 + f4, d2 - d5 + f5));
 
-                    if (movingobjectposition != null) {
-                        double d7 = movingobjectposition.hitVec.distanceTo(new Vec3(d0, d1, d2));
+                    // IMPROVEMENT: Stop tall grass, plants, etc. from affecting your FOV as done in 1.14+.
+                    MovingObjectPosition objectPosition = this.mc.world.rayTraceBlocks(
+                            new Vec3(d0 + f3, d1 + f4, d2 + f5),
+                            new Vec3(d0 - d4 + f3 + f5, d1 - d6 + f4, d2 - d5 + f5),
+                            false, true, true);
+
+                    if (objectPosition != null) {
+                        double d7 = objectPosition.hitVec.distanceTo(new Vec3(d0, d1, d2));
 
                         if (d7 < d3) {
                             d3 = d7;
@@ -592,8 +597,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         if (!this.mc.gameSettings.debugCamEnable) {
             GlStateManager.rotate(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks, 1.0F, 0.0F, 0.0F);
 
-            if (entity instanceof EntityAnimal entityanimal) {
-                GlStateManager.rotate(entityanimal.prevRotationYawHead + (entityanimal.rotationYawHead - entityanimal.prevRotationYawHead) * partialTicks + 180.0F, 0.0F, 1.0F, 0.0F);
+            if (entity instanceof EntityAnimal animal) {
+                GlStateManager.rotate(animal.prevRotationYawHead + (animal.rotationYawHead - animal.prevRotationYawHead) * partialTicks + 180.0F, 0.0F, 1.0F, 0.0F);
             } else {
                 GlStateManager.rotate(entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks + 180.0F, 0.0F, 1.0F, 0.0F);
             }
