@@ -78,7 +78,7 @@ public class Project extends Util {
     /**
      * Method __gluMultMatrixVecf
      *
-     * @param finalMatrix
+     * @param m
      * @param in
      * @param out
      */
@@ -175,10 +175,14 @@ public class Project extends Util {
      * @param r
      */
     private static void __gluMultMatricesf(FloatBuffer a, FloatBuffer b, FloatBuffer r) {
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                r.put(r.position() + i * 4 + j,
-                        a.get(a.position() + i * 4 + 0) * b.get(b.position() + 0 * 4 + j) + a.get(a.position() + i * 4 + 1) * b.get(b.position() + 1 * 4 + j) + a.get(a.position() + i * 4 + 2) * b.get(b.position() + 2 * 4 + j) + a.get(a.position() + i * 4 + 3) * b.get(b.position() + 3 * 4 + j));
+        for (int indexA = 0; indexA < 4; indexA++) {
+            for (int indexB = 0; indexB < 4; indexB++) {
+                r.put(r.position() + indexA * 4 + indexB,
+                        a.get(a.position() + indexA * 4) * b.get(b.position() + indexB) +
+                                a.get(a.position() + indexA * 4 + 1) * b.get(b.position() + 1 * 4 + indexB) +
+                                a.get(a.position() + indexA * 4 + 2) * b.get(b.position() + 2 * 4 + indexB) +
+                                a.get(a.position() + indexA * 4 + 3) * b.get(b.position() + 3 * 4 + indexB)
+                );
             }
         }
     }
@@ -247,8 +251,9 @@ public class Project extends Util {
         __gluMultMatrixVecf(modelMatrix, in, out);
         __gluMultMatrixVecf(projMatrix, out, in);
 
-        if (in[3] == 0.0)
+        if (in[3] == 0.0) {
             return false;
+        }
 
         in[3] = (1.0f / in[3]) * 0.5f;
 
@@ -289,8 +294,9 @@ public class Project extends Util {
 
         __gluMultMatricesf(modelMatrix, projMatrix, finalMatrix);
 
-        if (!__gluInvertMatrixf(finalMatrix, finalMatrix))
+        if (!__gluInvertMatrixf(finalMatrix, finalMatrix)) {
             return false;
+        }
 
         in[0] = winx;
         in[1] = winy;
@@ -308,8 +314,9 @@ public class Project extends Util {
 
         __gluMultMatrixVecf(finalMatrix, in, out);
 
-        if (out[3] == 0.0)
+        if (out[3] == 0.0) {
             return false;
+        }
 
         out[3] = 1.0f / out[3];
 
