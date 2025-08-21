@@ -1,8 +1,10 @@
 package net.radiant.audio;
 
+import org.lwjgl.BufferUtils;
 import org.lwjgl.openal.AL;
-import org.lwjgl.stb.STBVorbisInfo;
 import org.lwjgl.system.MemoryStack;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,14 +19,16 @@ import java.util.Map;
 import static org.lwjgl.openal.AL10.*;
 import static org.lwjgl.openal.AL11.alSpeedOfSound;
 import static org.lwjgl.openal.ALC10.*;
-import static org.lwjgl.stb.STBVorbis.*;
+import static org.lwjgl.stb.STBVorbis.stb_vorbis_decode_memory;
 
 public class SoundSystem {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SoundSystem.class);
+
     private long device;
     private long context;
     private float masterVolume = 1.0f;
-    private final Map<String, ISoundSource> staticSources = new HashMap<>();
-    private final Map<String, ISoundSource> streamingSources = new HashMap<>();
+    private final Map<String, ISoundSource> sources = new HashMap<>();
 
     // ---------------- Initialization ----------------
     public void init() {
@@ -39,11 +43,11 @@ public class SoundSystem {
             alcMakeContextCurrent(context);
         }
         AL.createCapabilities(org.lwjgl.openal.ALC.createCapabilities(device));
-        System.out.println("OpenAL initialized");
+        LOGGER.info("OpenAL initialized");
     }
 
     public void destroy() {
-        cleanup(); // system-level cleanup
+        cleanup();
         alcDestroyContext(context);
         alcCloseDevice(device);
     }
@@ -51,11 +55,8 @@ public class SoundSystem {
     // ---------------- Master Volume ----------------
     public void setMasterVolume(float volume) {
         masterVolume = Math.max(0f, Math.min(1f, volume));
-        for (ISoundSource src : staticSources.values()) {
+        for (ISoundSource src : sources.values()) {
             src.updateVolumeWithMaster(masterVolume);
-        }
-        for (ISoundSource s : streamingSources.values()) {
-            s.updateVolumeWithMaster(masterVolume);
         }
     }
 
@@ -92,10 +93,9 @@ public class SoundSystem {
         try (MemoryStack stack = MemoryStack.stackPush()) {
             IntBuffer channels = stack.mallocInt(1);
             IntBuffer sampleRate = stack.mallocInt(1);
-
             ShortBuffer pcm = decodeOgg(data, channels, sampleRate);
             SoundSource src = new SoundSource(pcm, channels.get(0), sampleRate.get(0));
-            staticSources.put(name, src);
+            sources.put(name, src);
         }
     }
 
@@ -105,22 +105,61 @@ public class SoundSystem {
 
     public void loadStreamingSound(String name, InputStream is) throws IOException {
         byte[] data = is.readAllBytes();
-        StreamingSound music = new StreamingSound(ByteBuffer.wrap(data));
-        streamingSources.put(name, music);
+        ByteBuffer buffer = BufferUtils.createByteBuffer(data.length);
+        buffer.put(data).flip();
+        StreamingSound music = new StreamingSound(buffer);
+        sources.put(name, music);
     }
 
     private ShortBuffer decodeOgg(byte[] oggData, IntBuffer channels, IntBuffer sampleRate) {
-        ByteBuffer buffer = ByteBuffer.allocateDirect(oggData.length);
+        ByteBuffer buffer = BufferUtils.createByteBuffer(oggData.length);
         buffer.put(oggData).flip();
         return stb_vorbis_decode_memory(buffer, channels, sampleRate);
     }
 
+    // ---------------- Loading with Parameters ----------------
+    public void loadStaticSound(String sourceName, InputStream stream, boolean toLoop, float x, float y, float z,
+                                int attModel, float distOrRoll) throws IOException {
+        byte[] data = stream.readAllBytes();
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            IntBuffer channels = stack.mallocInt(1);
+            IntBuffer sampleRate = stack.mallocInt(1);
+            ShortBuffer pcm = decodeOgg(data, channels, sampleRate);
+            SoundSource src = new SoundSource(pcm, channels.get(0), sampleRate.get(0));
+
+            src.setPosition(x, y, z);
+            src.setLooping(toLoop);
+            applyAttenuation(src, attModel, distOrRoll);
+
+            sources.put(sourceName, src);
+        }
+    }
+
+    public void loadStreamingSound(String sourceName, InputStream stream, boolean toLoop, float x, float y, float z,
+                                   int attModel, float distOrRoll) throws IOException {
+        byte[] data = stream.readAllBytes();
+        ByteBuffer buffer = BufferUtils.createByteBuffer(data.length);
+        buffer.put(data).flip();
+        StreamingSound music = new StreamingSound(buffer);
+
+        music.setPosition(x, y, z);
+        music.setLooping(toLoop);
+        applyAttenuation(music, attModel, distOrRoll);
+
+        sources.put(sourceName, music);
+    }
+
+    private void applyAttenuation(ISoundSource src, int attModel, float distOrRoll) {
+        switch (attModel) {
+            case 0 -> src.setAttenuation(distOrRoll, distOrRoll * 2, 1.0f);
+            case 1 -> src.setAttenuation(distOrRoll, distOrRoll * 2, 0.5f);
+            default -> src.setAttenuation(1, 100, 1);
+        }
+    }
+
     // ---------------- Playback ----------------
     public ISoundSource getSound(String name) {
-        if (staticSources.containsKey(name)) {
-            return staticSources.get(name);
-        }
-        return streamingSources.get(name);
+        return sources.get(name);
     }
 
     public void play(String name) {
@@ -173,266 +212,17 @@ public class SoundSystem {
     }
 
     public void removeSource(String name) {
-        ISoundSource src = staticSources.remove(name);
-        if (src == null) {
-            src = streamingSources.remove(name);
-        }
+        ISoundSource src = sources.remove(name);
         if (src != null) {
             src.cleanup();
         }
     }
 
     public void cleanup() {
-        for (ISoundSource src : staticSources.values()) {
+        for (ISoundSource src : sources.values()) {
             src.cleanup();
         }
-        staticSources.clear();
-        for (ISoundSource src : streamingSources.values()) {
-            src.cleanup();
-        }
-        streamingSources.clear();
+        sources.clear();
     }
 
-    // ---------------- Interface ----------------
-    public interface ISoundSource {
-        void play();
-
-        void stop();
-
-        void pause();        // new
-
-        void setVolume(float volume);
-
-        void setPitch(float pitch);
-
-        void setLooping(boolean loop);
-
-        void setPosition(float x, float y, float z);
-
-        void setVelocity(float vx, float vy, float vz);
-
-        void setAttenuation(float refDist, float maxDist, float rolloff);
-
-        void updateVolumeWithMaster(float masterVolume);
-
-        void cleanup();
-
-        boolean playing();
-
-        boolean paused();
-    }
-
-    // ---------------- SoundSource ----------------
-    public class SoundSource implements ISoundSource {
-        private final int buffer;
-        private final int source;
-        private float baseVolume = 1.0f;
-
-        SoundSource(ShortBuffer pcm, int channels, int sampleRate) {
-            buffer = alGenBuffers();
-            source = alGenSources();
-            int format = channels == 1 ? AL_FORMAT_MONO16 : AL_FORMAT_STEREO16;
-            alBufferData(buffer, format, pcm, sampleRate);
-            alSourcei(source, AL_BUFFER, buffer);
-        }
-
-        public void play() {
-            alSourcePlay(source);
-        }
-
-        public void stop() {
-            alSourceStop(source);
-        }
-
-        public void pause() {
-            alSourcePause(source);
-        }
-
-        public void setVolume(float volume) {
-            baseVolume = volume;
-            updateVolumeWithMaster(masterVolume);
-        }
-
-        public void setPitch(float pitch) {
-            alSourcef(source, AL_PITCH, pitch);
-        }
-
-        public void updateVolumeWithMaster(float masterVolume) {
-            alSourcef(source, AL_GAIN, baseVolume * masterVolume);
-        }
-
-        public void setLooping(boolean loop) {
-            alSourcei(source, AL_LOOPING, loop ? 1 : 0);
-        }
-
-        public void setPosition(float x, float y, float z) {
-            alSource3f(source, AL_POSITION, x, y, z);
-        }
-
-        public void setVelocity(float vx, float vy, float vz) {
-            alSource3f(source, AL_VELOCITY, vx, vy, vz);
-        }
-
-        public void setAttenuation(float refDist, float maxDist, float rolloff) {
-            alSourcef(source, AL_REFERENCE_DISTANCE, refDist);
-            alSourcef(source, AL_MAX_DISTANCE, maxDist);
-            alSourcef(source, AL_ROLLOFF_FACTOR, rolloff);
-        }
-
-        public void cleanup() {
-            alDeleteSources(source);
-            alDeleteBuffers(buffer);
-        }
-
-        public boolean playing() {
-            return alGetSourcei(source, AL_SOURCE_STATE) == AL_PLAYING;
-        }
-
-        public boolean paused() {
-            return alGetSourcei(source, AL_SOURCE_STATE) == AL_PAUSED;
-        }
-    }
-
-    // ---------------- StreamingSound ----------------
-    public class StreamingSound implements ISoundSource, Runnable {
-        private static final int BUFFER_COUNT = 4;
-        private static final int BUFFER_SIZE = 8192;
-
-        private final int source;
-        private final int[] buffers = new int[BUFFER_COUNT];
-        private long vorbis;
-        private int channels;
-        private int sampleRate;
-        private boolean running = true;
-        private boolean looping = true;
-        private float baseVolume = 1.0f;
-
-        public StreamingSound(ByteBuffer fileData) {
-            source = alGenSources();
-            for (int i = 0; i < BUFFER_COUNT; i++) {
-                buffers[i] = alGenBuffers();
-            }
-
-            try (MemoryStack stack = MemoryStack.stackPush()) {
-                int[] error = new int[1];
-                vorbis = stb_vorbis_open_memory(fileData, error, null);
-                if (vorbis == 0) {
-                    throw new RuntimeException("Failed to open OGG stream, error: " + error[0]);
-                }
-
-                STBVorbisInfo info = STBVorbisInfo.malloc(stack);
-                stb_vorbis_get_info(vorbis, info);
-                channels = info.channels();
-                sampleRate = info.sample_rate();
-            }
-
-            for (int buf : buffers) {
-                if (!streamBuffer(buf)) {
-                    break;
-                }
-            }
-            alSourceQueueBuffers(source, buffers);
-        }
-
-        private boolean streamBuffer(int bufferId) {
-            ShortBuffer pcm = ShortBuffer.allocate(BUFFER_SIZE * channels);
-            int samples = stb_vorbis_get_samples_short_interleaved(vorbis, channels, pcm);
-            if (samples <= 0) {
-                return false;
-            }
-
-            pcm.limit(samples * channels);
-            int format = channels == 1 ? AL_FORMAT_MONO16 : AL_FORMAT_STEREO16;
-            alBufferData(bufferId, format, pcm, sampleRate);
-            return true;
-        }
-
-        public void play() {
-            running = true;
-            alSourcePlay(source);
-            new Thread(this, "StreamingSoundThread").start();
-        }
-
-        public void stop() {
-            running = false;
-            alSourceStop(source);
-        }
-
-        public void pause() {
-            running = false;
-            alSourcePause(source);
-        }
-
-        public void setVolume(float volume) {
-            baseVolume = volume;
-            updateVolumeWithMaster(masterVolume);
-        }
-
-        public void setPitch(float pitch) {
-            alSourcef(source, AL_PITCH, pitch);
-        }
-
-        public void updateVolumeWithMaster(float masterVolume) {
-            alSourcef(source, AL_GAIN, baseVolume * masterVolume);
-        }
-
-        public void setLooping(boolean loop) {
-            looping = loop;
-        }
-
-        public void setPosition(float x, float y, float z) {
-            alSource3f(source, AL_POSITION, x, y, z);
-        }
-
-        public void setVelocity(float vx, float vy, float vz) {
-            alSource3f(source, AL_VELOCITY, vx, vy, vz);
-        }
-
-        public void setAttenuation(float refDist, float maxDist, float rolloff) {
-            alSourcef(source, AL_REFERENCE_DISTANCE, refDist);
-            alSourcef(source, AL_MAX_DISTANCE, maxDist);
-            alSourcef(source, AL_ROLLOFF_FACTOR, rolloff);
-        }
-
-        @Override
-        public void run() {
-            while (running) {
-                int processed = alGetSourcei(source, AL_BUFFERS_PROCESSED);
-                for (int i = 0; i < processed; i++) {
-                    int buf = alSourceUnqueueBuffers(source);
-                    if (!streamBuffer(buf)) {
-                        if (looping) {
-                            alSourceRewind(source);
-                        }
-                        continue;
-                    }
-                    alSourceQueueBuffers(source, buf);
-                }
-                if (alGetSourcei(source, AL_SOURCE_STATE) != AL_PLAYING) {
-                    alSourcePlay(source);
-                }
-                try {
-                    Thread.sleep(20);
-                } catch (InterruptedException ignored) {
-                }
-            }
-        }
-
-        public void cleanup() {
-            running = false;
-            for (int buf : buffers) {
-                alDeleteBuffers(buf);
-            }
-            alDeleteSources(source);
-        }
-
-        public boolean playing() {
-            return alGetSourcei(source, AL_SOURCE_STATE) == AL_PLAYING;
-        }
-
-        public boolean paused() {
-            return alGetSourcei(source, AL_SOURCE_STATE) == AL_PAUSED;
-        }
-    }
 }
-

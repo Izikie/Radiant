@@ -7,17 +7,15 @@ import com.google.common.collect.Multimap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.ResourceLocation;
-import org.slf4j.LoggerFactory;
+import net.minecraft.util.math.MathHelper;
+import net.radiant.audio.ISoundSource;
+import net.radiant.audio.SoundSystem;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
-import paulscode.sound.*;
-import paulscode.sound.codecs.CodecJOrbis;
-import net.radiant.lwjgl.openal.paulscode.LibraryLWJGLOpenAL;
 
-import java.util.concurrent.ThreadLocalRandom;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -26,6 +24,7 @@ import java.net.URLConnection;
 import java.net.URLStreamHandler;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class SoundManager {
     private static final Marker LOG_MARKER = MarkerFactory.getMarker("SOUNDS");
@@ -52,13 +51,6 @@ public class SoundManager {
         this.playingSoundsStopTime = new HashMap<>();
         this.sndHandler = handler;
         this.options = options;
-
-        try {
-            SoundSystemConfig.addLibrary(LibraryLWJGLOpenAL.class);
-            SoundSystemConfig.setCodec("ogg", CodecJOrbis.class);
-        } catch (SoundSystemException exception) {
-            LOGGER.error(LOG_MARKER, "Error linking with the LibraryJavaSound plug-in", exception);
-        }
     }
 
     public void reloadSoundSystem() {
@@ -70,27 +62,8 @@ public class SoundManager {
         if (!this.loaded) {
             try {
                 (new Thread(() -> {
-                    SoundSystemConfig.setLogger(new SoundSystemLogger() {
-                        public void message(String message, int indent) {
-                            if (!message.isEmpty()) {
-                                SoundManager.LOGGER.info(message);
-                            }
-                        }
-
-                        public void importantMessage(String message, int indent) {
-                            if (!message.isEmpty()) {
-                                SoundManager.LOGGER.warn(message);
-                            }
-                        }
-
-                        public void errorMessage(String classname, String message, int indent) {
-                            if (!message.isEmpty()) {
-                                SoundManager.LOGGER.error("Error in class '{}'", classname);
-                                SoundManager.LOGGER.error(message);
-                            }
-                        }
-                    });
                     SoundManager.this.sndSystem = new SoundSystemStarterThread();
+                    SoundManager.this.sndSystem.init();
                     SoundManager.this.loaded = true;
                     SoundManager.this.sndSystem.setMasterVolume(SoundManager.this.options.getSoundLevel(SoundCategory.MASTER));
                     SoundManager.LOGGER.info(SoundManager.LOG_MARKER, "Sound engine started");
@@ -269,10 +242,14 @@ public class SoundManager {
                             boolean flag = p_sound.canRepeat() && p_sound.getRepeatDelay() == 0;
                             String s = MathHelper.getRandomUuid(ThreadLocalRandom.current()).toString();
 
-                            if (soundpoolentry.isStreamingSound()) {
-                                this.sndSystem.newStreamingSource(false, s, getURLForSoundResource(resourcelocation), resourcelocation.toString(), flag, p_sound.getXPosF(), p_sound.getYPosF(), p_sound.getZPosF(), p_sound.getAttenuationType().getTypeInt(), f1);
-                            } else {
-                                this.sndSystem.newSource(false, s, getURLForSoundResource(resourcelocation), resourcelocation.toString(), flag, p_sound.getXPosF(), p_sound.getYPosF(), p_sound.getZPosF(), p_sound.getAttenuationType().getTypeInt(), f1);
+                            try (InputStream stream = Minecraft.get().getResourceManager().getResource(resourcelocation).getInputStream()) {
+                                if (soundpoolentry.isStreamingSound()) {
+                                    this.sndSystem.loadStreamingSound(s, stream, flag, p_sound.getXPosF(), p_sound.getYPosF(), p_sound.getZPosF(), p_sound.getAttenuationType().getTypeInt(), f1);
+                                } else {
+                                    this.sndSystem.loadStaticSound(s, stream, flag, p_sound.getXPosF(), p_sound.getYPosF(), p_sound.getZPosF(), p_sound.getAttenuationType().getTypeInt(), f1);
+                                }
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
                             }
 
                             LOGGER.debug(LOG_MARKER, "Playing sound {} for event {} as channel {}", soundpoolentry.getSoundPoolEntryLocation(), soundeventaccessorcomposite.getSoundEventLocation(), s);
@@ -315,7 +292,7 @@ public class SoundManager {
     public void resumeAllSounds() {
         for (String s : this.playingSounds.keySet()) {
             LOGGER.debug(LOG_MARKER, "Resuming channel {}", new Object[]{s});
-            this.sndSystem.play(s);
+            this.sndSystem.pause(s);
         }
     }
 
@@ -379,17 +356,16 @@ public class SoundManager {
     }
 
     static class SoundSystemStarterThread extends SoundSystem {
+
+        public static final Object SYNC = new Object();
+
         private SoundSystemStarterThread() {
         }
 
         public boolean playing(String p_playing_1_) {
-            synchronized (SoundSystemConfig.THREAD_SYNC) {
-                if (this.soundLibrary == null) {
-                    return false;
-                } else {
-                    Source source = this.soundLibrary.getSources().get(p_playing_1_);
-                    return source != null && (source.playing() || source.paused() || source.preLoad);
-                }
+            synchronized (SYNC) {
+                ISoundSource source = this.getSound(p_playing_1_);
+                return source != null && (source.playing() || source.paused());
             }
         }
     }

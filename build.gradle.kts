@@ -45,11 +45,6 @@ dependencies {
         runtimeOnly(group = "org.lwjgl", name = module, version = lwjglVersion, classifier = lwjglNatives)
     }
 
-    impl(group = "com.paulscode", name = "codecjorbis", version = "20101023")
-    impl(group = "com.paulscode", name = "soundsystem", version = "20120107")
-
-//    impl(group = "org.jcraft", name = "jorbis", version = "0.0.17")
-
     /*val nettyVersion = "4.2.3.Final"
     val nettyModules = listOf("netty-buffer", "netty-handler", "netty-transport", "netty-common", "netty-codec")
     nettyModules.forEach { module ->
