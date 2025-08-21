@@ -35,7 +35,7 @@ public class SoundManager {
     private SoundSystemStarterThread sndSystem;
     private boolean loaded;
     private int playTime = 0;
-    private final Map<String, ISound> playingSounds = HashBiMap.create();
+    private final BiMap<String, ISound> playingSounds = HashBiMap.create();
     private final Map<ISound, String> invPlayingSounds;
     private final Map<ISound, SoundPoolEntry> playingSoundPoolEntries;
     private final Multimap<SoundCategory, String> categorySounds;
@@ -43,15 +43,15 @@ public class SoundManager {
     private final Map<ISound, Integer> delayedSounds;
     private final Map<String, Integer> playingSoundsStopTime;
 
-    public SoundManager(SoundHandler p_i45119_1_, GameSettings p_i45119_2_) {
-        this.invPlayingSounds = ((BiMap) this.playingSounds).inverse();
+    public SoundManager(SoundHandler handler, GameSettings options) {
+        this.invPlayingSounds = this.playingSounds.inverse();
         this.playingSoundPoolEntries = new HashMap<>();
         this.categorySounds = HashMultimap.create();
         this.tickableSounds = new ArrayList<>();
         this.delayedSounds = new HashMap<>();
         this.playingSoundsStopTime = new HashMap<>();
-        this.sndHandler = p_i45119_1_;
-        this.options = p_i45119_2_;
+        this.sndHandler = handler;
+        this.options = options;
 
         try {
             SoundSystemConfig.addLibrary(LibraryLWJGLOpenAL.class);
@@ -71,22 +71,22 @@ public class SoundManager {
             try {
                 (new Thread(() -> {
                     SoundSystemConfig.setLogger(new SoundSystemLogger() {
-                        public void message(String p_message_1_, int p_message_2_) {
-                            if (!p_message_1_.isEmpty()) {
-                                SoundManager.LOGGER.info(p_message_1_);
+                        public void message(String message, int indent) {
+                            if (!message.isEmpty()) {
+                                SoundManager.LOGGER.info(message);
                             }
                         }
 
-                        public void importantMessage(String p_importantMessage_1_, int p_importantMessage_2_) {
-                            if (!p_importantMessage_1_.isEmpty()) {
-                                SoundManager.LOGGER.warn(p_importantMessage_1_);
+                        public void importantMessage(String message, int indent) {
+                            if (!message.isEmpty()) {
+                                SoundManager.LOGGER.warn(message);
                             }
                         }
 
-                        public void errorMessage(String p_errorMessage_1_, String p_errorMessage_2_, int p_errorMessage_3_) {
-                            if (!p_errorMessage_2_.isEmpty()) {
-                                SoundManager.LOGGER.error("Error in class '{}'", p_errorMessage_1_);
-                                SoundManager.LOGGER.error(p_errorMessage_2_);
+                        public void errorMessage(String classname, String message, int indent) {
+                            if (!message.isEmpty()) {
+                                SoundManager.LOGGER.error("Error in class '{}'", classname);
+                                SoundManager.LOGGER.error(message);
                             }
                         }
                     });
@@ -181,16 +181,15 @@ public class SoundManager {
                     if (isound.canRepeat() && j > 0) {
                         this.delayedSounds.put(isound, this.playTime + j);
                     }
-
                     iterator.remove();
-                    LOGGER.debug(LOG_MARKER, "Removed channel {} because it's not playing anymore", new Object[]{s1});
+                    LOGGER.debug(LOG_MARKER, "Removed channel {} because it's not playing anymore", s1);
                     this.sndSystem.removeSource(s1);
                     this.playingSoundsStopTime.remove(s1);
                     this.playingSoundPoolEntries.remove(isound);
 
                     try {
                         this.categorySounds.remove(this.sndHandler.getSound(isound.getSoundLocation()).getSoundCategory(), s1);
-                    } catch (RuntimeException exception) {
+                    } catch (RuntimeException _) {
                     }
 
                     if (isound instanceof ITickableSound) {
@@ -276,7 +275,7 @@ public class SoundManager {
                                 this.sndSystem.newSource(false, s, getURLForSoundResource(resourcelocation), resourcelocation.toString(), flag, p_sound.getXPosF(), p_sound.getYPosF(), p_sound.getZPosF(), p_sound.getAttenuationType().getTypeInt(), f1);
                             }
 
-                            LOGGER.debug(LOG_MARKER, "Playing sound {} for event {} as channel {}", new Object[]{soundpoolentry.getSoundPoolEntryLocation(), soundeventaccessorcomposite.getSoundEventLocation(), s});
+                            LOGGER.debug(LOG_MARKER, "Playing sound {} for event {} as channel {}", soundpoolentry.getSoundPoolEntryLocation(), soundeventaccessorcomposite.getSoundEventLocation(), s);
                             this.sndSystem.setPitch(s, (float) d0);
                             this.sndSystem.setVolume(s, f2);
                             this.sndSystem.play(s);
@@ -336,7 +335,7 @@ public class SoundManager {
             protected URLConnection openConnection(URL url) {
                 return new URLConnection(url) {
                     @Override
-                    public void connect() throws IOException {
+                    public void connect() {
                         // No connection logic required
                     }
 

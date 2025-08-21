@@ -45,17 +45,10 @@ dependencies {
         runtimeOnly(group = "org.lwjgl", name = module, version = lwjglVersion, classifier = lwjglNatives)
     }
 
-    // TODO: Don't use paulscode as its ancient
-    listOf(
-        "codecjorbis" to "20101023",
-        "codecwav" to "20101023",
-        "libraryjavasound" to "20101123",
-        "librarylwjglopenal" to "20100824"
-    ).forEach { (n, v) ->
-        impl(group = "com.paulscode", name = n, version = v)
-    }
-
+    impl(group = "com.paulscode", name = "codecjorbis", version = "20101023")
     impl(group = "com.paulscode", name = "soundsystem", version = "20120107")
+
+//    impl(group = "org.jcraft", name = "jorbis", version = "0.0.17")
 
     /*val nettyVersion = "4.2.3.Final"
     val nettyModules = listOf("netty-buffer", "netty-handler", "netty-transport", "netty-common", "netty-codec")
