@@ -7,28 +7,23 @@ import net.minecraft.client.renderer.texture.*;
 import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
-import net.optifine.Config;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.optifine.*;
 import net.optifine.entity.model.CustomEntityModels;
 import net.optifine.shaders.MultiTexID;
 import net.optifine.shaders.Shaders;
-import net.radiant.util.NativeImage;
 import net.radiant.lwjgl.opengl.GLContext;
+import net.radiant.util.NativeImage;
 import org.joml.Vector2i;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
-import javax.imageio.stream.ImageInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.IntBuffer;
-import java.util.Iterator;
 
 public class TextureUtils {
 	public static TextureAtlasSprite iconGrassTop;
@@ -260,30 +255,12 @@ public class TextureUtils {
 	}
 
 	public static Vector2i getImageSize(InputStream in, String suffix) {
-		Iterator<ImageReader> iterator = ImageIO.getImageReadersBySuffix(suffix);
+		try {
+			NativeImage image = NativeImage.loadFromInputStream(in);
+			return new Vector2i(image.getWidth(), image.getHeight());
+		} catch (IOException _) {}
 
-		while (true) {
-			if (iterator.hasNext()) {
-				ImageReader imagereader = iterator.next();
-				Vector2i dimension;
-
-				try {
-					ImageInputStream imageinputstream = ImageIO.createImageInputStream(in);
-					imagereader.setInput(imageinputstream);
-					int i = imagereader.getWidth(imagereader.getMinIndex());
-					int j = imagereader.getHeight(imagereader.getMinIndex());
-					dimension = new Vector2i(i, j);
-				} catch (IOException exception) {
-					continue;
-				} finally {
-					imagereader.dispose();
-				}
-
-				return dimension;
-			}
-
-			return null;
-		}
+		return null;
 	}
 
 	public static void saveGlTexture(String name, int textureId, int mipmapLevels, int width, int height) {

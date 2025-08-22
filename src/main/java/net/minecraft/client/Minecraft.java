@@ -80,10 +80,6 @@ import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.WorldInfo;
 import net.optifine.Lang;
-import net.radiant.util.NativeImage;
-import org.lwjgl.Version;
-import org.lwjgl.glfw.GLFW;
-import org.lwjgl.opengl.GL11;
 import net.radiant.lwjgl.LWJGLException;
 import net.radiant.lwjgl.input.Keyboard;
 import net.radiant.lwjgl.input.Mouse;
@@ -92,10 +88,13 @@ import net.radiant.lwjgl.opengl.DisplayMode;
 import net.radiant.lwjgl.opengl.OpenGLException;
 import net.radiant.lwjgl.opengl.PixelFormat;
 import net.radiant.lwjgl.util.glu.GLU;
+import net.radiant.util.NativeImage;
+import org.lwjgl.Version;
+import org.lwjgl.glfw.GLFW;
+import org.lwjgl.opengl.GL11;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -232,7 +231,6 @@ public class Minecraft implements IThreadListener {
 			serverPort = gameConfig.serverInfo().port();
 		}
 
-		ImageIO.setUseCache(false);
 		Bootstrap.register();
 	}
 
