@@ -23,15 +23,15 @@ public class Mouse {
 
     public static int lastDWheel = 0;
 
-    public static final EventQueue queue = new EventQueue(999999);
+    private static final EventQueue queue = new EventQueue(999999);
 
-    private static int[] buttonEvents = new int[queue.getMaxEvents()];
-    private static boolean[] buttonEventStates = new boolean[queue.getMaxEvents()];
-    private static int[] xEvents = new int[queue.getMaxEvents()];
-    private static int[] yEvents = new int[queue.getMaxEvents()];
-    private static int[] lastxEvents = new int[queue.getMaxEvents()];
-    private static int[] lastyEvents = new int[queue.getMaxEvents()];
-    private static long[] nanoTimeEvents = new long[queue.getMaxEvents()];
+    private static final int[] buttonEvents = new int[queue.getMaxEvents()];
+    private static final boolean[] buttonEventStates = new boolean[queue.getMaxEvents()];
+    private static final int[] xEvents = new int[queue.getMaxEvents()];
+    private static final int[] yEvents = new int[queue.getMaxEvents()];
+    private static final int[] lastxEvents = new int[queue.getMaxEvents()];
+    private static final int[] lastyEvents = new int[queue.getMaxEvents()];
+    private static final long[] nanoTimeEvents = new long[queue.getMaxEvents()];
     public static double[] scrollEvents = new double[queue.getMaxEvents()];
 
     private static boolean clipPostionToDisplay = true;

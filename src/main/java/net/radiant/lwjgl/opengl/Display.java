@@ -73,7 +73,7 @@ public class Display {
     /**
      * The Drawable instance that tracks the current Display context
      */
-    private static volatile DrawableLWJGL drawable = null;
+    private static final DrawableLWJGL drawable = null;
 
     private static ByteBuffer[] cached_icons = null;
 

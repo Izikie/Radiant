@@ -190,7 +190,24 @@ public class Config {
     }
 
     private static GlVersion getGlVersionLwjgl() {
-        return GLContext.getCapabilities().OpenGL44 ? new GlVersion(4, 4) : (GLContext.getCapabilities().OpenGL43 ? new GlVersion(4, 3) : (GLContext.getCapabilities().OpenGL42 ? new GlVersion(4, 2) : (GLContext.getCapabilities().OpenGL41 ? new GlVersion(4, 1) : (GLContext.getCapabilities().OpenGL40 ? new GlVersion(4, 0) : (GLContext.getCapabilities().OpenGL33 ? new GlVersion(3, 3) : (GLContext.getCapabilities().OpenGL32 ? new GlVersion(3, 2) : (GLContext.getCapabilities().OpenGL31 ? new GlVersion(3, 1) : (GLContext.getCapabilities().OpenGL30 ? new GlVersion(3, 0) : (GLContext.getCapabilities().OpenGL21 ? new GlVersion(2, 1) : (GLContext.getCapabilities().OpenGL20 ? new GlVersion(2, 0) : (GLContext.getCapabilities().OpenGL15 ? new GlVersion(1, 5) : (GLContext.getCapabilities().OpenGL14 ? new GlVersion(1, 4) : (GLContext.getCapabilities().OpenGL13 ? new GlVersion(1, 3) : (GLContext.getCapabilities().OpenGL12 ? new GlVersion(1, 2) : (GLContext.getCapabilities().OpenGL11 ? new GlVersion(1, 1) : new GlVersion(1, 0))))))))))))))));
+        if (GLContext.getCapabilities().OpenGL44) return new GlVersion(4, 4);
+        if (GLContext.getCapabilities().OpenGL43) return new GlVersion(4, 3);
+        if (GLContext.getCapabilities().OpenGL42) return new GlVersion(4, 2);
+        if (GLContext.getCapabilities().OpenGL41) return new GlVersion(4, 1);
+        if (GLContext.getCapabilities().OpenGL40) return new GlVersion(4, 0);
+        if (GLContext.getCapabilities().OpenGL33) return new GlVersion(3, 3);
+        if (GLContext.getCapabilities().OpenGL32) return new GlVersion(3, 2);
+        if (GLContext.getCapabilities().OpenGL31) return new GlVersion(3, 1);
+        if (GLContext.getCapabilities().OpenGL30) return new GlVersion(3, 0);
+        if (GLContext.getCapabilities().OpenGL21) return new GlVersion(2, 1);
+        if (GLContext.getCapabilities().OpenGL20) return new GlVersion(2, 0);
+        if (GLContext.getCapabilities().OpenGL15) return new GlVersion(1, 5);
+        if (GLContext.getCapabilities().OpenGL14) return new GlVersion(1, 4);
+        if (GLContext.getCapabilities().OpenGL13) return new GlVersion(1, 3);
+        if (GLContext.getCapabilities().OpenGL12) return new GlVersion(1, 2);
+        if (GLContext.getCapabilities().OpenGL11) return new GlVersion(1, 1);
+
+        return new GlVersion(1, 0);
     }
 
     public static GlVersion getGlVersion() {

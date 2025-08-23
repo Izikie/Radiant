@@ -13,14 +13,14 @@ val osArch = System.getProperty("os.arch") as String
 
 fun String.isArm() = startsWith("armv8") || this == "aarch64" || this == "arm64"
 fun String.isPpc() = startsWith("ppc") || startsWith("powerpc")
-fun String.isRiscv() = startsWith("riscv")
+fun String.isRiscV() = startsWith("riscv")
 
 val lwjglNatives = "natives-${when {
     osName == "FreeBSD" -> "freebsd"
     osName.startsWith("Linux") || osName.startsWith("Unix") -> when {
         osArch.isArm() -> "linux-arm64"
         osArch.isPpc() -> "linux-ppc64le"
-        osArch.isRiscv() -> "linux-riscv64"
+        osArch.isRiscV() -> "linux-riscv64"
         else -> "linux"
     }
     osName.startsWith("Mac OS X") || osName.startsWith("Darwin") ->
@@ -48,10 +48,10 @@ dependencies {
     /*val nettyVersion = "4.2.3.Final"
     val nettyModules = listOf("netty-buffer", "netty-handler", "netty-transport", "netty-common", "netty-codec")
     nettyModules.forEach { module ->
-        impl(group = "io.netty", name = module, version = nettyVersion, isTransitive = true)
+        implementation(group = "io.netty", name = module, version = nettyVersion)
     }
     listOf("linux-x86_64", "linux-aarch_64").forEach { c ->
-        impl(group = "io.netty", name = "netty-transport-native-epoll", version = nettyVersion, classifier = c, isTransitive = true)
+        implementation(group = "io.netty", name = "netty-transport-native-epoll", version = nettyVersion, classifier = c)
     }*/
 
     implementation("io.netty", "netty-all","4.2.3.Final")
@@ -60,7 +60,7 @@ dependencies {
 
     impl(group = "com.mojang", name = "authlib", version = "3.18.38")
 
-    impl(group = "com.google.guava", name = "guava", version = "33.4.8-jre", isTransitive = true)
+    implementation(group = "com.google.guava", name = "guava", version = "33.4.8-jre")
     impl(group = "com.google.code.gson", name = "gson", version = "2.13.1")
 
     impl(group = "commons-io", name = "commons-io", version = "2.20.0")
@@ -89,11 +89,9 @@ fun DependencyHandler.impl(
     group: String,
     name: String,
     version: String,
-    classifier: String? = null,
-    isTransitive: Boolean = false
+    classifier: String? = null
 ) {
     implementation(group = group, name = name, version = version) {
-        this.isTransitive = isTransitive
         if (classifier != null) {
             artifact {
                 this.classifier = classifier

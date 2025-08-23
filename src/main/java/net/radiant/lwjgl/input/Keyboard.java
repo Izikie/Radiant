@@ -160,17 +160,17 @@ public class Keyboard {
     public static final int KEY_SLEEP = 0xDF;
 
 
-    private static EventQueue queue = new EventQueue(32);
+    private static final EventQueue queue = new EventQueue(32);
     //private static int maxEvents = 32;
 
     //private static int eventCount = 0;
     //private static int currentEventPos = -1;
     //private static int nextEventPos = 0;
 
-    private static int[] keyEvents = new int[queue.getMaxEvents()];
-    private static boolean[] keyEventStates = new boolean[queue.getMaxEvents()];
-    private static long[] nanoTimeEvents = new long[queue.getMaxEvents()];
-    private static char[] keyEventChars = new char[256];
+    private static final int[] keyEvents = new int[queue.getMaxEvents()];
+    private static final boolean[] keyEventStates = new boolean[queue.getMaxEvents()];
+    private static final long[] nanoTimeEvents = new long[queue.getMaxEvents()];
+    private static final char[] keyEventChars = new char[256];
 
     public static final int KEYBOARD_SIZE = 256;
 

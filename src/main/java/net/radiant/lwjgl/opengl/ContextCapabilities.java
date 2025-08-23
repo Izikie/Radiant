@@ -23,8 +23,9 @@ public class ContextCapabilities {
                     boolean value = field.getBoolean(cap);
 
                     try {
-                        Field f = this.getClass().getField(name);
-                        f.setBoolean(this, value);
+                        this.getClass()
+                                .getField(name)
+                                .setBoolean(this, value);
                     } catch (Exception e) {
                     }
                 }

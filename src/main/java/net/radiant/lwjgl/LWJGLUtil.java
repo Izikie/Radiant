@@ -201,13 +201,11 @@ public class LWJGLUtil {
     private static String getPathFromClassLoader(final String libname, final ClassLoader classloader) {
         try {
             log("getPathFromClassLoader: searching for: " + libname);
-            Class<?> c = classloader.getClass();
-            while (c != null) {
-                final Class<?> clazz = c;
+            Class<?> clazz = classloader.getClass();
+            while (clazz != null) {
                 Method findLibrary = clazz.getDeclaredMethod("findLibrary", String.class);
                 findLibrary.setAccessible(true);
-                String path = (String) findLibrary.invoke(classloader, libname);
-                return path;
+                return (String) findLibrary.invoke(classloader, libname);
             }
         } catch (Exception e) {
             log("Failure locating " + e + " using classloader:" + e);
@@ -308,7 +306,7 @@ public class LWJGLUtil {
      */
     public static Map<Integer, String> getClassTokens(final TokenFilter filter, Map<Integer, String> target, final Iterable<Class> tokenClasses) {
         if (target == null)
-            target = new HashMap<Integer, String>();
+            target = new HashMap<>();
 
         final int TOKEN_MODIFIERS = Modifier.PUBLIC | Modifier.STATIC | Modifier.FINAL;
 

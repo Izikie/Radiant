@@ -132,7 +132,7 @@ public class Cursor {
     /**
      * Creates the actual cursor, using a platform specific class
      */
-    private static CursorElement[] createCursors(int width, int height, int xHotspot, int yHotspot, int numImages, IntBuffer images, IntBuffer delays) throws LWJGLException {
+    private static CursorElement[] wcreateCursors(int width, int height, int xHotspot, int yHotspot, int numImages, IntBuffer images, IntBuffer delays) throws LWJGLException {
         // TODO
         return null;
     }
