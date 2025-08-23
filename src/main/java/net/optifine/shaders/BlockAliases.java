@@ -5,7 +5,7 @@ import net.optifine.Log;
 import net.optifine.config.ConnectedParser;
 import net.optifine.config.MatchBlock;
 import net.optifine.shaders.config.MacroProcessor;
-import net.optifine.util.PropertiesOrdered;
+import net.optifine.util.collection.PropertiesOrdered;
 import net.optifine.util.StrUtils;
 
 import java.io.IOException;

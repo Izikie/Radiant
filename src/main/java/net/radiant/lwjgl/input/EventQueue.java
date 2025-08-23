@@ -9,12 +9,11 @@ import java.nio.ByteBuffer;
 class EventQueue {
 
     private static final int QUEUE_SIZE = 200;
+    private final ByteBuffer queue;
     private int maxEvents = 32;
     private int eventCount = 0;
     private int currentEventPos = -1;
     private int nextEventPos = 0;
-
-    private final ByteBuffer queue;
 
     EventQueue(int maxEvents) {
         this.maxEvents = maxEvents;

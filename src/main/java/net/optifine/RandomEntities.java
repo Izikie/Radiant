@@ -10,7 +10,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.optifine.util.IntegratedServerUtils;
-import net.optifine.util.PropertiesOrdered;
+import net.optifine.util.collection.PropertiesOrdered;
 import net.optifine.util.ResUtils;
 import net.optifine.util.StrUtils;
 

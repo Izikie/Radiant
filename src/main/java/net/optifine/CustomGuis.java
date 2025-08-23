@@ -9,7 +9,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
 import net.optifine.override.PlayerControllerOF;
-import net.optifine.util.PropertiesOrdered;
+import net.optifine.util.collection.PropertiesOrdered;
 import net.optifine.util.ResUtils;
 
 import java.io.FileNotFoundException;

@@ -89,37 +89,14 @@ import static net.radiant.lwjgl.util.glu.GLU.*;
 
 class Render {
     private static final boolean USE_OPTIMIZED_CODE_PATH = false;
-
-    private Render() {
-    }
-
     private static final RenderFan renderFan = new RenderFan();
     private static final RenderStrip renderStrip = new RenderStrip();
     private static final RenderTriangle renderTriangle = new RenderTriangle();
+    /************************ Quick-and-dirty decomposition ******************/
 
-    /* This structure remembers the information we need about a primitive
-     * to be able to render it later, once we have determined which
-     * primitive is able to use the most triangles.
-     */
-    private static class FaceCount {
-        private FaceCount() {
-        }
+    private static final int SIGN_INCONSISTENT = 2;
 
-        private FaceCount(long size, GLUhalfEdge eStart, renderCallBack render) {
-            this.size = size;
-            this.eStart = eStart;
-            this.render = render;
-        }
-
-        long size;        /* number of triangles used */
-        GLUhalfEdge eStart;    /* edge where this primitive starts */
-        renderCallBack render;
-    }
-
-    ;
-
-    private interface renderCallBack {
-        void render(GLUtessellatorImpl tess, GLUhalfEdge e, long size);
+    private Render() {
     }
 
     /************************ Strips and Fans decomposition ******************/
@@ -156,7 +133,6 @@ class Render {
             tess.lonelyTriList = null;
         }
     }
-
 
     static void RenderMaximumFaceGroup(GLUtessellatorImpl tess, GLUface fOrig) {
         /* We want to find the largest triangle fan or strip of unmarked faces
@@ -203,7 +179,6 @@ class Render {
         }
         max.render.render(tess, max.eStart, max.size);
     }
-
 
     /* Macros which keep track of faces we have marked temporarily, and allow
      * us to backtrack when necessary.  With triangle fans, this is not
@@ -255,7 +230,6 @@ class Render {
         FreeTrail(trail);
         return newFace;
     }
-
 
     private static boolean IsEven(long n) {
         return (n & 0x1L) == 0;
@@ -312,17 +286,6 @@ class Render {
         return newFace;
     }
 
-    private static class RenderTriangle implements renderCallBack {
-        public void render(GLUtessellatorImpl tess, GLUhalfEdge e, long size) {
-            /* Just add the triangle to a triangle list, so we can render all
-             * the separate triangles at once.
-             */
-            assert (size == 1);
-            tess.lonelyTriList = AddToTrail(e.Lface, tess.lonelyTriList);
-        }
-    }
-
-
     static void RenderLonelyTriangles(GLUtessellatorImpl tess, GLUface f) {
         /* Now we render all the separate triangles which could not be
          * grouped into a triangle fan or strip.
@@ -356,56 +319,6 @@ class Render {
         tess.callEndOrEndData();
     }
 
-    private static class RenderFan implements renderCallBack {
-        public void render(GLUtessellatorImpl tess, GLUhalfEdge e, long size) {
-            /* Render as many CCW triangles as possible in a fan starting from
-             * edge "e".  The fan *should* contain exactly "size" triangles
-             * (otherwise we've goofed up somewhere).
-             */
-            tess.callBeginOrBeginData(GL_TRIANGLE_FAN);
-            tess.callVertexOrVertexData(e.Org.data);
-            tess.callVertexOrVertexData(e.Sym.Org.data);
-
-            while (!Marked(e.Lface)) {
-                e.Lface.marked = true;
-                --size;
-                e = e.Onext;
-                tess.callVertexOrVertexData(e.Sym.Org.data);
-            }
-
-            assert (size == 0);
-            tess.callEndOrEndData();
-        }
-    }
-
-    private static class RenderStrip implements renderCallBack {
-        public void render(GLUtessellatorImpl tess, GLUhalfEdge e, long size) {
-            /* Render as many CCW triangles as possible in a strip starting from
-             * edge "e".  The strip *should* contain exactly "size" triangles
-             * (otherwise we've goofed up somewhere).
-             */
-            tess.callBeginOrBeginData(GL_TRIANGLE_STRIP);
-            tess.callVertexOrVertexData(e.Org.data);
-            tess.callVertexOrVertexData(e.Sym.Org.data);
-
-            while (!Marked(e.Lface)) {
-                e.Lface.marked = true;
-                --size;
-                e = e.Lnext.Sym;
-                tess.callVertexOrVertexData(e.Org.data);
-                if (Marked(e.Lface)) break;
-
-                e.Lface.marked = true;
-                --size;
-                e = e.Onext;
-                tess.callVertexOrVertexData(e.Sym.Org.data);
-            }
-
-            assert (size == 0);
-            tess.callEndOrEndData();
-        }
-    }
-
     /************************ Boundary contour decomposition ******************/
 
     /* __gl_renderBoundary( tess, mesh ) takes a mesh, and outputs one
@@ -428,11 +341,6 @@ class Render {
             }
         }
     }
-
-
-    /************************ Quick-and-dirty decomposition ******************/
-
-    private static final int SIGN_INCONSISTENT = 2;
 
     static int ComputeNormal(GLUtessellatorImpl tess, double[] norm, boolean check)
         /*
@@ -586,6 +494,89 @@ class Render {
             }
             tess.callEndOrEndData();
             return true;
+        }
+    }
+
+    private interface renderCallBack {
+        void render(GLUtessellatorImpl tess, GLUhalfEdge e, long size);
+    }
+
+    /* This structure remembers the information we need about a primitive
+     * to be able to render it later, once we have determined which
+     * primitive is able to use the most triangles.
+     */
+    private static class FaceCount {
+        long size;        /* number of triangles used */
+        GLUhalfEdge eStart;    /* edge where this primitive starts */
+        renderCallBack render;
+
+        private FaceCount() {
+        }
+
+        private FaceCount(long size, GLUhalfEdge eStart, renderCallBack render) {
+            this.size = size;
+            this.eStart = eStart;
+            this.render = render;
+        }
+    }
+
+    private static class RenderTriangle implements renderCallBack {
+        public void render(GLUtessellatorImpl tess, GLUhalfEdge e, long size) {
+            /* Just add the triangle to a triangle list, so we can render all
+             * the separate triangles at once.
+             */
+            assert (size == 1);
+            tess.lonelyTriList = AddToTrail(e.Lface, tess.lonelyTriList);
+        }
+    }
+
+    private static class RenderFan implements renderCallBack {
+        public void render(GLUtessellatorImpl tess, GLUhalfEdge e, long size) {
+            /* Render as many CCW triangles as possible in a fan starting from
+             * edge "e".  The fan *should* contain exactly "size" triangles
+             * (otherwise we've goofed up somewhere).
+             */
+            tess.callBeginOrBeginData(GL_TRIANGLE_FAN);
+            tess.callVertexOrVertexData(e.Org.data);
+            tess.callVertexOrVertexData(e.Sym.Org.data);
+
+            while (!Marked(e.Lface)) {
+                e.Lface.marked = true;
+                --size;
+                e = e.Onext;
+                tess.callVertexOrVertexData(e.Sym.Org.data);
+            }
+
+            assert (size == 0);
+            tess.callEndOrEndData();
+        }
+    }
+
+    private static class RenderStrip implements renderCallBack {
+        public void render(GLUtessellatorImpl tess, GLUhalfEdge e, long size) {
+            /* Render as many CCW triangles as possible in a strip starting from
+             * edge "e".  The strip *should* contain exactly "size" triangles
+             * (otherwise we've goofed up somewhere).
+             */
+            tess.callBeginOrBeginData(GL_TRIANGLE_STRIP);
+            tess.callVertexOrVertexData(e.Org.data);
+            tess.callVertexOrVertexData(e.Sym.Org.data);
+
+            while (!Marked(e.Lface)) {
+                e.Lface.marked = true;
+                --size;
+                e = e.Lnext.Sym;
+                tess.callVertexOrVertexData(e.Org.data);
+                if (Marked(e.Lface)) break;
+
+                e.Lface.marked = true;
+                --size;
+                e = e.Onext;
+                tess.callVertexOrVertexData(e.Sym.Org.data);
+            }
+
+            assert (size == 0);
+            tess.callEndOrEndData();
         }
     }
 }

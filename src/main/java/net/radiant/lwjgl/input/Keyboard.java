@@ -17,15 +17,11 @@ public class Keyboard {
      */
     public static final int EVENT_SIZE = 4 + 1 + 4 + 8 + 1;
     public static final int CHAR_NONE = '\0';
-
-    private static boolean repeatEvents;
-
     /**
      * The special keycode meaning that only the
      * translated character is valid.
      */
     public static final int KEY_NONE = 0x00;
-
     public static final int KEY_ESCAPE = 0x01;
     public static final int KEY_1 = 0x02;
     public static final int KEY_2 = 0x03;
@@ -158,8 +154,7 @@ public class Keyboard {
     public static final int KEY_APPS = 0xDD; /* AppMenu key */
     public static final int KEY_POWER = 0xDE;
     public static final int KEY_SLEEP = 0xDF;
-
-
+    public static final int KEYBOARD_SIZE = 256;
     private static final EventQueue queue = new EventQueue(32);
     //private static int maxEvents = 32;
 
@@ -171,11 +166,9 @@ public class Keyboard {
     private static final boolean[] keyEventStates = new boolean[queue.getMaxEvents()];
     private static final long[] nanoTimeEvents = new long[queue.getMaxEvents()];
     private static final char[] keyEventChars = new char[256];
-
-    public static final int KEYBOARD_SIZE = 256;
-
     private static final String[] keyName = new String[KEYBOARD_SIZE];
     private static final Map<String, Integer> keyMap = new HashMap<String, Integer>(253);
+    private static boolean repeatEvents;
 
     static {
         Field[] fields = Keyboard.class.getFields();

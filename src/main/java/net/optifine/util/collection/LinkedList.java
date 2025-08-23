@@ -1,4 +1,4 @@
-package net.optifine.util;
+package net.optifine.util.collection;
 
 import java.util.Iterator;
 

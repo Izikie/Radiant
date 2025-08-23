@@ -87,13 +87,10 @@ package net.radiant.lwjgl.util.glu.tessellation;
 import net.radiant.lwjgl.util.glu.GLU;
 
 class Normal {
-    private Normal() {
-    }
-
+    private static final boolean TRUE_PROJECT = false;
     static boolean SLANTED_SWEEP;
     static double S_UNIT_X;    /* Pre-normalized */
     static double S_UNIT_Y;
-    private static final boolean TRUE_PROJECT = false;
 
     static {
         if (SLANTED_SWEEP) {
@@ -112,6 +109,9 @@ class Normal {
             S_UNIT_X = 1.0;
             S_UNIT_Y = 0.0;
         }
+    }
+
+    private Normal() {
     }
 
     private static double Dot(double[] u, double[] v) {

@@ -10,7 +10,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.optifine.DynamicLights;
-import net.optifine.util.ArrayCache;
+import net.optifine.util.collection.ArrayCache;
 
 import java.util.Arrays;
 

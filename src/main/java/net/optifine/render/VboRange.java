@@ -1,6 +1,6 @@
 package net.optifine.render;
 
-import net.optifine.util.LinkedList;
+import net.optifine.util.collection.LinkedList;
 
 public class VboRange {
 	private final LinkedList.Node<VboRange> node = new LinkedList.Node<>(this);

@@ -7,34 +7,6 @@ import java.lang.reflect.Field;
 
 public class ContextCapabilities {
 
-    GLCapabilities cap = GL.getCapabilities();
-
-    public ContextCapabilities() {
-
-        Field[] fields = GLCapabilities.class.getFields();
-
-        try {
-            for (Field field : fields) {
-
-                String name = field.getName();
-
-                if (name.startsWith("GL_") || name.startsWith("OpenGL")) {
-
-                    boolean value = field.getBoolean(cap);
-
-                    try {
-                        this.getClass()
-                                .getField(name)
-                                .setBoolean(this, value);
-                    } catch (Exception e) {
-                    }
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
     public boolean GL_AMD_blend_minmax_factor;
     public boolean GL_AMD_conservative_depth;
     public boolean GL_AMD_debug_output;
@@ -182,7 +154,6 @@ public class ContextCapabilities {
     public boolean GL_ARB_texture_env_crossbar;
     public boolean GL_ARB_texture_env_dot3;
     public boolean GL_ARB_texture_float;
-    ;
     public boolean GL_ARB_texture_gather;
     public boolean GL_ARB_texture_mirror_clamp_to_edge;
     public boolean GL_ARB_texture_mirrored_repeat;
@@ -400,9 +371,31 @@ public class ContextCapabilities {
     public boolean GL_SGIS_texture_lod;
     public boolean GL_SUN_slice_accum;
 
-    public static void main(String[] arg) {
-        System.out.println("START!");
-        new ContextCapabilities();
-    }
+    GLCapabilities cap = GL.getCapabilities();
 
+    public ContextCapabilities() {
+
+        Field[] fields = GLCapabilities.class.getFields();
+
+        try {
+            for (Field field : fields) {
+
+                String name = field.getName();
+
+                if (name.startsWith("GL_") || name.startsWith("OpenGL")) {
+
+                    boolean value = field.getBoolean(cap);
+
+                    try {
+                        this.getClass()
+                                .getField(name)
+                                .setBoolean(this, value);
+                    } catch (Exception e) {
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 }

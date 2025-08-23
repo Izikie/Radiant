@@ -5,7 +5,7 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.VboRenderList;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.optifine.Config;
-import net.optifine.util.LinkedList;
+import net.optifine.util.collection.LinkedList;
 
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;

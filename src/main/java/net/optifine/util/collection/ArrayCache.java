@@ -1,4 +1,4 @@
-package net.optifine.util;
+package net.optifine.util.collection;
 
 import java.lang.reflect.Array;
 import java.util.ArrayDeque;

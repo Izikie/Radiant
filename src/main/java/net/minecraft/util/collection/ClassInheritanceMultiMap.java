@@ -2,7 +2,7 @@ package net.minecraft.util.collection;
 
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Sets;
-import net.optifine.util.IteratorCache;
+import net.optifine.util.collection.IteratorCache;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;

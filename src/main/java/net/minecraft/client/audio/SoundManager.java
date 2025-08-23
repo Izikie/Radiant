@@ -62,11 +62,11 @@ public class SoundManager {
         if (!this.loaded) {
             try {
                 (new Thread(() -> {
-                    SoundManager.this.sndSystem = new SoundSystemStarterThread();
-                    SoundManager.this.sndSystem.init();
-                    SoundManager.this.loaded = true;
-                    SoundManager.this.sndSystem.setMasterVolume(SoundManager.this.options.getSoundLevel(SoundCategory.MASTER));
-                    SoundManager.LOGGER.info(SoundManager.LOG_MARKER, "Sound engine started");
+                    this.sndSystem = new SoundSystemStarterThread();
+                    this.sndSystem.init();
+                    this.loaded = true;
+                    this.sndSystem.setMasterVolume(this.options.getSoundLevel(SoundCategory.MASTER));
+                    LOGGER.info(LOG_MARKER, "Sound engine started");
                 }, "Sound Library Loader")).start();
             } catch (RuntimeException exception) {
                 LOGGER.error(LOG_MARKER, "Error starting SoundSystem. Turning off sounds & music", exception);

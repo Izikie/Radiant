@@ -2,7 +2,7 @@ package net.optifine;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import net.optifine.util.PropertiesOrdered;
+import net.optifine.util.collection.PropertiesOrdered;
 
 import java.io.IOException;
 import java.io.InputStream;

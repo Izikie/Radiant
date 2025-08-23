@@ -45,61 +45,48 @@ import net.radiant.lwjgl.opengl.Util;
  * @author Erik Duijs
  */
 public class GLU {
-    static final float PI = (float) Math.PI;
-
     /* Errors: (return value 0 = no error) */
     public static final int GLU_INVALID_ENUM = 100900;
     public static final int GLU_INVALID_VALUE = 100901;
     public static final int GLU_OUT_OF_MEMORY = 100902;
     public static final int GLU_INCOMPATIBLE_GL_VERSION = 100903;
-
     /* StringName */
     public static final int GLU_VERSION = 100800;
     public static final int GLU_EXTENSIONS = 100801;
-
     /* Boolean */
     public static final boolean GLU_TRUE = true;
     public static final boolean GLU_FALSE = false;
-
-
     /****           Quadric constants               ****/
 
     /* QuadricNormal */
     public static final int GLU_SMOOTH = 100000;
     public static final int GLU_FLAT = 100001;
     public static final int GLU_NONE = 100002;
-
     /* QuadricDrawStyle */
     public static final int GLU_POINT = 100010;
     public static final int GLU_LINE = 100011;
     public static final int GLU_FILL = 100012;
     public static final int GLU_SILHOUETTE = 100013;
-
     /* QuadricOrientation */
     public static final int GLU_OUTSIDE = 100020;
     public static final int GLU_INSIDE = 100021;
-
-    /* Callback types: */
-    /*      ERROR               = 100103 */
-
-
     /****           Tesselation constants           ****/
 
     public static final double GLU_TESS_MAX_COORD = 1.0e150;
-    public static final double TESS_MAX_COORD = 1.0e150;
 
+    /* Callback types: */
+    /*      ERROR               = 100103 */
+    public static final double TESS_MAX_COORD = 1.0e150;
     /* TessProperty */
     public static final int GLU_TESS_WINDING_RULE = 100140;
     public static final int GLU_TESS_BOUNDARY_ONLY = 100141;
     public static final int GLU_TESS_TOLERANCE = 100142;
-
     /* TessWinding */
     public static final int GLU_TESS_WINDING_ODD = 100130;
     public static final int GLU_TESS_WINDING_NONZERO = 100131;
     public static final int GLU_TESS_WINDING_POSITIVE = 100132;
     public static final int GLU_TESS_WINDING_NEGATIVE = 100133;
     public static final int GLU_TESS_WINDING_ABS_GEQ_TWO = 100134;
-
     /* TessCallback */
     public static final int GLU_TESS_BEGIN = 100100;  /* void (CALLBACK*)(GLenum    type)  */
     public static final int GLU_TESS_VERTEX = 100101;  /* void (CALLBACK*)(void      *data) */
@@ -124,7 +111,6 @@ public class GLU {
 	                                                            GLfloat   weight[4],
 	                                                            void      **dataOut,
 	                                                            void      *polygon_data) */
-
     /* TessError */
     public static final int GLU_TESS_ERROR1 = 100151;
     public static final int GLU_TESS_ERROR2 = 100152;
@@ -134,13 +120,13 @@ public class GLU {
     public static final int GLU_TESS_ERROR6 = 100156;
     public static final int GLU_TESS_ERROR7 = 100157;
     public static final int GLU_TESS_ERROR8 = 100158;
-
     public static final int GLU_TESS_MISSING_BEGIN_POLYGON = GLU_TESS_ERROR1;
     public static final int GLU_TESS_MISSING_BEGIN_CONTOUR = GLU_TESS_ERROR2;
     public static final int GLU_TESS_MISSING_END_POLYGON = GLU_TESS_ERROR3;
     public static final int GLU_TESS_MISSING_END_CONTOUR = GLU_TESS_ERROR4;
     public static final int GLU_TESS_COORD_TOO_LARGE = GLU_TESS_ERROR5;
     public static final int GLU_TESS_NEED_COMBINE_CALLBACK = GLU_TESS_ERROR6;
+    static final float PI = (float) Math.PI;
 
     public static String gluErrorString(int error_code) {
         return switch (error_code) {
