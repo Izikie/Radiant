@@ -23,7 +23,7 @@ import net.optifine.config.NbtTagValue;
 import net.optifine.render.Blender;
 import net.optifine.shaders.Shaders;
 import net.optifine.shaders.ShadersRender;
-import net.optifine.util.PropertiesOrdered;
+import net.optifine.util.collection.PropertiesOrdered;
 import net.optifine.util.ResUtils;
 import net.optifine.util.StrUtils;
 

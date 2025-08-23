@@ -16,14 +16,13 @@ public final class MemoryUtil {
     private static final Charset ascii;
     private static final Charset utf8;
     private static final Charset utf16;
+    private static final Accessor memUtil;
 
     static {
         ascii = StandardCharsets.ISO_8859_1;
         utf8 = StandardCharsets.UTF_8;
         utf16 = StandardCharsets.UTF_16LE;
     }
-
-    private static final Accessor memUtil;
 
     static {
         Accessor util;
@@ -109,7 +108,7 @@ public final class MemoryUtil {
     }
 
     public static long getAddress(ShortBuffer buffer, int position) {
-        return getAddress0(buffer) + (position << 1);
+        return getAddress0(buffer) + ((long) position << 1);
     }
 
     public static long getAddress(CharBuffer buffer) {
@@ -117,7 +116,7 @@ public final class MemoryUtil {
     }
 
     public static long getAddress(CharBuffer buffer, int position) {
-        return getAddress0(buffer) + (position << 1);
+        return getAddress0(buffer) + ((long) position << 1);
     }
 
     public static long getAddress(IntBuffer buffer) {
@@ -125,7 +124,7 @@ public final class MemoryUtil {
     }
 
     public static long getAddress(IntBuffer buffer, int position) {
-        return getAddress0(buffer) + (position << 2);
+        return getAddress0(buffer) + ((long) position << 2);
     }
 
     public static long getAddress(FloatBuffer buffer) {
@@ -133,7 +132,7 @@ public final class MemoryUtil {
     }
 
     public static long getAddress(FloatBuffer buffer, int position) {
-        return getAddress0(buffer) + (position << 2);
+        return getAddress0(buffer) + ((long) position << 2);
     }
 
     public static long getAddress(LongBuffer buffer) {
@@ -141,7 +140,7 @@ public final class MemoryUtil {
     }
 
     public static long getAddress(LongBuffer buffer, int position) {
-        return getAddress0(buffer) + (position << 3);
+        return getAddress0(buffer) + ((long) position << 3);
     }
 
     public static long getAddress(DoubleBuffer buffer) {
@@ -149,7 +148,7 @@ public final class MemoryUtil {
     }
 
     public static long getAddress(DoubleBuffer buffer, int position) {
-        return getAddress0(buffer) + (position << 3);
+        return getAddress0(buffer) + ((long) position << 3);
     }
 
     public static long getAddress(PointerBuffer buffer) {
@@ -157,7 +156,7 @@ public final class MemoryUtil {
     }
 
     public static long getAddress(PointerBuffer buffer, int position) {
-        return getAddress0(buffer) + (position * PointerBuffer.getPointerSize());
+        return getAddress0(buffer) + ((long) position * PointerBuffer.getPointerSize());
     }
 
     // --- [ API utilities - Safe ] ---
@@ -374,6 +373,34 @@ public final class MemoryUtil {
         return out.toString();
     }
 
+    private static Accessor loadAccessor(final String className) throws Exception {
+        return (Accessor) Class.forName(className).newInstance();
+    }
+
+    static Field getAddressField() throws NoSuchFieldException {
+        return getDeclaredFieldRecursive(ByteBuffer.class, "address");
+    }
+
+    private static Field getDeclaredFieldRecursive(final Class<?> root, final String fieldName) throws NoSuchFieldException {
+        Class<?> type = root;
+
+        do {
+            try {
+                return type.getDeclaredField(fieldName);
+            } catch (NoSuchFieldException e) {
+                type = type.getSuperclass();
+            }
+        } while (type != null);
+
+        throw new NoSuchFieldException(fieldName + " does not exist in " + root.getSimpleName() + " or any of its superclasses.");
+    }
+
+    interface Accessor {
+
+        long getAddress(Buffer buffer);
+
+    }
+
     /**
      * A null-terminated CharSequence.
      */
@@ -399,16 +426,6 @@ public final class MemoryUtil {
             return new CharSequenceNT(source.subSequence(start, Math.min(end, source.length())));
         }
 
-    }
-
-    interface Accessor {
-
-        long getAddress(Buffer buffer);
-
-    }
-
-    private static Accessor loadAccessor(final String className) throws Exception {
-        return (Accessor) Class.forName(className).newInstance();
     }
 
     /**
@@ -447,24 +464,6 @@ public final class MemoryUtil {
             }
         }
 
-    }
-
-    static Field getAddressField() throws NoSuchFieldException {
-        return getDeclaredFieldRecursive(ByteBuffer.class, "address");
-    }
-
-    private static Field getDeclaredFieldRecursive(final Class<?> root, final String fieldName) throws NoSuchFieldException {
-        Class<?> type = root;
-
-        do {
-            try {
-                return type.getDeclaredField(fieldName);
-            } catch (NoSuchFieldException e) {
-                type = type.getSuperclass();
-            }
-        } while (type != null);
-
-        throw new NoSuchFieldException(fieldName + " does not exist in " + root.getSimpleName() + " or any of its superclasses.");
     }
 
 }

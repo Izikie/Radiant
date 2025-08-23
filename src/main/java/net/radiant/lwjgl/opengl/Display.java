@@ -35,51 +35,38 @@ import java.util.Arrays;
 
 public class Display {
 
+    /**
+     * The Drawable instance that tracks the current Display context
+     */
+    private static final DrawableLWJGL drawable = null;
+    public static double xPos = 0, yPos = 0;
     private static String windowTitle = "Game";
-
     private static long context;
-
     private static DisplayImplementation display_impl;
-
     private static boolean displayCreated = false;
     private static boolean displayFocused = true;
     private static boolean displayVisible = true;
     private static boolean displayDirty = false;
     private static boolean displayResizable = false;
-
     private static DisplayMode mode, desktopDisplayMode;
-
     private static int latestEventKey = 0;
-
     private static int displayX = -1;
     private static int displayY = -1;
-
     private static boolean displayResized = false;
     private static int displayWidth = 0;
     private static int displayHeight = 0;
     private static int displayFramebufferWidth = 0;
     private static int displayFramebufferHeight = 0;
-
     private static boolean latestResized = false;
     private static int latestWidth = 0;
     private static int latestHeight = 0;
-
     private static boolean vsyncEnabled = false;
     private static boolean displayFullscreen = false;
     private static float fps;
-
     private static boolean window_created;
-
-    /**
-     * The Drawable instance that tracks the current Display context
-     */
-    private static final DrawableLWJGL drawable = null;
-
     private static ByteBuffer[] cached_icons = null;
-
     private static int swap_interval;
-
-    public static double xPos = 0, yPos = 0;
+    private static boolean isCreated = false;
 
     static {
 
@@ -149,7 +136,6 @@ public class Display {
         }
     }
 
-
     private static void destroyWindow() {
         if (!window_created) {
             return;
@@ -191,8 +177,6 @@ public class Display {
         glfwWindowHint(GLFW_STENCIL_BITS, format.getStencilBits());
         create();
     }
-
-    private static boolean isCreated = false;
 
     public static void create() throws LWJGLException {
         if (isCreated) return;
@@ -751,13 +735,13 @@ public class Display {
         displayCreated = false;
     }
 
+    public static DisplayMode getDisplayMode() {
+        return mode;
+    }
+
     public static void setDisplayMode(DisplayMode dm) throws LWJGLException {
         mode = dm;
         if (isCreated) GLFW.glfwSetWindowSize(Window.handle, dm.getWidth(), dm.getHeight());
-    }
-
-    public static DisplayMode getDisplayMode() {
-        return mode;
     }
 
     public static DisplayMode[] getAvailableDisplayModes() throws LWJGLException {
@@ -814,14 +798,14 @@ public class Display {
         return displayFramebufferHeight;
     }
 
+    public static String getTitle() {
+        return windowTitle;
+    }
+
     public static void setTitle(String title) {
         windowTitle = title;
         if (Window.handle != NULL)
             glfwSetWindowTitle(Window.handle, windowTitle);
-    }
-
-    public static String getTitle() {
-        return windowTitle;
     }
 
     public static boolean isCloseRequested() {
@@ -849,7 +833,6 @@ public class Display {
             try (SeekableByteChannel fc = Files.newByteChannel(path)) {
                 buffer = createByteBuffer((int) fc.size() + 1);
                 while (fc.read(buffer) != -1) {
-                    ;
                 }
             }
         } else {
@@ -898,6 +881,10 @@ public class Display {
         return 0;
     }
 
+    public static boolean isResizable() {
+        return displayResizable;
+    }
+
     public static void setResizable(boolean resizable) {
         //displayResizable = resizable;
         if (displayResizable ^ resizable) {
@@ -919,15 +906,15 @@ public class Display {
         displayResizable = resizable;
     }
 
-    public static boolean isResizable() {
-        return displayResizable;
-    }
-
     public static void setDisplayModeAndFullscreen(DisplayMode dm) throws LWJGLException {
         if (Window.handle != 0) {
             Display.mode = dm;
             GLFW.glfwSetWindowSize(Window.handle, dm.getWidth(), dm.getHeight());
         }
+    }
+
+    public static boolean isFullscreen() {
+        return displayFullscreen;
     }
 
     public static void setFullscreen(boolean fullscreen) throws LWJGLException {
@@ -939,10 +926,6 @@ public class Display {
         }
 
         displayFullscreen = fullscreen;
-    }
-
-    public static boolean isFullscreen() {
-        return displayFullscreen;
     }
 
     public static void releaseContext() throws LWJGLException {
@@ -994,6 +977,29 @@ public class Display {
         return display_impl;
     }
 
+    private static ByteBuffer cloneByteBuffer(ByteBuffer original) {
+        ByteBuffer clone = BufferUtils.createByteBuffer(original.capacity());
+        int oldPosition = original.position();
+        clone.put(original);
+        ((Buffer) original).position(oldPosition);
+        ((Buffer) clone).flip();
+
+        return clone;
+    }
+
+    private static GLFWImage.Buffer iconsToGLFWBuffer(ByteBuffer[] icons) {
+        GLFWImage.Buffer buffer = GLFWImage.create(icons.length);
+        for (ByteBuffer icon : icons) {
+            int size = icon.limit() / 4;
+            int dimension = (int) Math.sqrt(size);
+            try (GLFWImage image = GLFWImage.malloc()) {
+                buffer.put(image.set(dimension, dimension, icon));
+            }
+        }
+        buffer.flip();
+        return buffer;
+    }
+
     public static class Window {
         public static long handle;
 
@@ -1041,28 +1047,5 @@ public class Display {
             scrollCallback = null;
             System.gc();
         }
-    }
-
-    private static ByteBuffer cloneByteBuffer(ByteBuffer original) {
-        ByteBuffer clone = BufferUtils.createByteBuffer(original.capacity());
-        int oldPosition = original.position();
-        clone.put(original);
-        ((Buffer) original).position(oldPosition);
-        ((Buffer) clone).flip();
-
-        return clone;
-    }
-
-    private static GLFWImage.Buffer iconsToGLFWBuffer(ByteBuffer[] icons) {
-        GLFWImage.Buffer buffer = GLFWImage.create(icons.length);
-        for (ByteBuffer icon : icons) {
-            int size = icon.limit() / 4;
-            int dimension = (int) Math.sqrt(size);
-            try (GLFWImage image = GLFWImage.malloc()) {
-                buffer.put(image.set(dimension, dimension, icon));
-            }
-        }
-        buffer.flip();
-        return buffer;
     }
 }

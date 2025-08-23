@@ -47,6 +47,14 @@ import net.radiant.lwjgl.PointerBuffer;
  */
 final class ContextGL implements Context {
 
+    public static void swapBuffers() throws LWJGLException {
+
+    }
+
+    public static void setSwapInterval(int value) {
+
+    }
+
     public void releaseCurrent() throws LWJGLException {
 
     }
@@ -59,20 +67,12 @@ final class ContextGL implements Context {
 
     }
 
-    public static void swapBuffers() throws LWJGLException {
-
-    }
-
     public synchronized void makeCurrent() throws LWJGLException {
 
     }
 
     public synchronized boolean isCurrent() throws LWJGLException {
         return false;
-    }
-
-    public static void setSwapInterval(int value) {
-
     }
 
     public synchronized void forceDestroy() throws LWJGLException {

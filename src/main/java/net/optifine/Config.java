@@ -21,7 +21,7 @@ import net.optifine.gui.GuiMessage;
 import net.optifine.gui.GuiShaderMessage;
 import net.optifine.shaders.Shaders;
 import net.optifine.util.DisplayModeComparator;
-import net.optifine.util.PropertiesOrdered;
+import net.optifine.util.collection.PropertiesOrdered;
 import net.optifine.util.TextureUtils;
 import net.optifine.util.TimedEvent;
 import net.radiant.util.NativeImage;
@@ -304,7 +304,6 @@ public class Config {
 
     public static void updateThreadPriorities() {
         updateAvailableProcessors();
-        int i = 8;
 
         if (isSingleProcessor()) {
             if (isSmoothWorld()) {
@@ -320,7 +319,7 @@ public class Config {
         }
     }
 
-    private static void setThreadPriority(String p_setThreadPriority_0_, int p_setThreadPriority_1_) {
+    private static void setThreadPriority(String threadName, int priority) {
         try {
             ThreadGroup threadgroup = Thread.currentThread().getThreadGroup();
 
@@ -333,8 +332,8 @@ public class Config {
             threadgroup.enumerate(athread, false);
 
             for (Thread thread : athread) {
-                if (thread != null && thread.getName().startsWith(p_setThreadPriority_0_)) {
-                    thread.setPriority(p_setThreadPriority_1_);
+                if (thread != null && thread.getName().startsWith(threadName)) {
+                    thread.setPriority(priority);
                 }
             }
         } catch (Throwable throwable) {
@@ -714,19 +713,18 @@ public class Config {
 
     public static IResourcePack[] getResourcePacks() {
         ResourcePackRepository resourcepackrepository = MINECRAFT.getResourcePackRepository();
-        List list = resourcepackrepository.getRepositoryEntries();
-        List list1 = new ArrayList<>();
+        List<ResourcePackRepository.Entry> list = resourcepackrepository.getRepositoryEntries();
+        List<IResourcePack> list1 = new ArrayList<>();
 
-        for (Object o : list) {
-            ResourcePackRepository.Entry resourcepackrepository$entry = (ResourcePackRepository.Entry) o;
-            list1.add(resourcepackrepository$entry.getResourcePack());
+        for (ResourcePackRepository.Entry o : list) {
+            list1.add(o.getResourcePack());
         }
 
         if (resourcepackrepository.getResourcePackInstance() != null) {
             list1.add(resourcepackrepository.getResourcePackInstance());
         }
 
-        return (IResourcePack[]) list1.toArray(new IResourcePack[0]);
+        return list1.toArray(new IResourcePack[0]);
     }
 
     public static String getResourcePackNames() {

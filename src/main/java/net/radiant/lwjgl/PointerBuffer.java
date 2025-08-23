@@ -1,6 +1,5 @@
 package net.radiant.lwjgl;
 
-import java.lang.reflect.Method;
 import java.nio.*;
 
 /**
@@ -11,25 +10,9 @@ import java.nio.*;
  */
 public class PointerBuffer implements Comparable {
 
-    private static final boolean is64Bit;
-
-    static {
-        // Use reflection so that we can compile this class for the Generator.
-        boolean is64 = false;
-        try {
-            Method m = Class.forName("net.radiant.Sys").getDeclaredMethod("is64Bit", (Class[]) null);
-            is64 = (Boolean) m.invoke(null, (Object[]) null);
-        } catch (Throwable t) {
-            // ignore
-        } finally {
-            is64Bit = is64;
-        }
-    }
-
     protected final ByteBuffer pointers;
 
     protected final Buffer view;
-    protected final IntBuffer view32;
     protected final LongBuffer view64;
 
     /**
@@ -54,22 +37,65 @@ public class PointerBuffer implements Comparable {
 
         pointers = source.slice().order(source.order());
 
-        if (is64Bit) {
-            view32 = null;
-            view = view64 = pointers.asLongBuffer();
-        } else {
-            view = view32 = pointers.asIntBuffer();
-            view64 = null;
-        }
+        view = view64 = pointers.asLongBuffer();
     }
 
     private static void checkSource(final ByteBuffer source) {
         if (!source.isDirect())
             throw new IllegalArgumentException("The source buffer is not direct.");
 
-        final int alignment = is64Bit ? 8 : 4;
+        final int alignment = 8;
         if ((MemoryUtil.getAddress0(source) + source.position()) % alignment != 0 || source.remaining() % alignment != 0)
             throw new IllegalArgumentException("The source buffer is not aligned to " + alignment + " bytes.");
+    }
+
+    /**
+     * Returns the pointer size in bytes, based on the underlying architecture.
+     *
+     * @return The pointer size in bytes
+     */
+    public static int getPointerSize() {
+        return 8;
+    }
+
+    /**
+     * Allocates a new pointer buffer.
+     * <p/>
+     * <p> The new buffer's position will be zero, its limit will be its
+     * capacity, and its mark will be undefined.  </p>
+     *
+     * @param capacity The new buffer's capacity, in pointers
+     * @return The new pointer buffer
+     * @throws IllegalArgumentException If the <tt>capacity</tt> is a negative integer
+     */
+    public static PointerBuffer allocateDirect(int capacity) {
+        return new PointerBuffer(capacity);
+    }
+
+    /**
+     * Convenience put on a target ByteBuffer.
+     *
+     * @param target the target ByteBuffer
+     * @param l      the long value to be written
+     */
+    public static void put(final ByteBuffer target, long l) {
+        target.putLong(l);
+    }
+
+    /**
+     * Convenience put on a target ByteBuffer.
+     *
+     * @param target the target ByteBuffer
+     * @param index  the index at which the long will be written
+     * @param l      the long value to be written
+     */
+    public static void put(final ByteBuffer target, int index, long l) {
+        target.putLong(index * 8, l);
+    }
+
+    private static void checkBounds(int off, int len, int size) {
+        if ((off | len | (off + len) | (size - (off + len))) < 0)
+            throw new IndexOutOfBoundsException();
     }
 
     /**
@@ -79,22 +105,6 @@ public class PointerBuffer implements Comparable {
      */
     public ByteBuffer getBuffer() {
         return pointers;
-    }
-
-    /**
-     * Returns true if the underlying architecture is 64bit.
-     */
-    public static boolean is64Bit() {
-        return is64Bit;
-    }
-
-    /**
-     * Returns the pointer size in bytes, based on the underlying architecture.
-     *
-     * @return The pointer size in bytes
-     */
-    public static int getPointerSize() {
-        return is64Bit ? 8 : 4;
     }
 
     /**
@@ -286,20 +296,6 @@ public class PointerBuffer implements Comparable {
     }
 
     /**
-     * Allocates a new pointer buffer.
-     * <p/>
-     * <p> The new buffer's position will be zero, its limit will be its
-     * capacity, and its mark will be undefined.  </p>
-     *
-     * @param capacity The new buffer's capacity, in pointers
-     * @return The new pointer buffer
-     * @throws IllegalArgumentException If the <tt>capacity</tt> is a negative integer
-     */
-    public static PointerBuffer allocateDirect(int capacity) {
-        return new PointerBuffer(capacity);
-    }
-
-    /**
      * This method is used in slice and duplicate instead of normal object construction,
      * so that subclasses can return themselves.
      *
@@ -404,10 +400,7 @@ public class PointerBuffer implements Comparable {
      * @throws BufferUnderflowException If the buffer's current position is not smaller than its limit
      */
     public long get() {
-        if (is64Bit)
-            return view64.get();
-        else
-            return view32.get() & 0x00000000FFFFFFFFL;
+        return view64.get();
     }
 
     /**
@@ -422,10 +415,7 @@ public class PointerBuffer implements Comparable {
      * @throws ReadOnlyBufferException If this buffer is read-only
      */
     public PointerBuffer put(long l) {
-        if (is64Bit)
-            view64.put(l);
-        else
-            view32.put((int) l);
+        view64.put(l);
         return this;
     }
 
@@ -439,19 +429,6 @@ public class PointerBuffer implements Comparable {
     }
 
     /**
-     * Convenience put on a target ByteBuffer.
-     *
-     * @param target the target ByteBuffer
-     * @param l      the long value to be written
-     */
-    public static void put(final ByteBuffer target, long l) {
-        if (is64Bit)
-            target.putLong(l);
-        else
-            target.putInt((int) l);
-    }
-
-    /**
      * Absolute <i>get</i> method.  Reads the long at the given
      * index. </p>
      *
@@ -461,10 +438,7 @@ public class PointerBuffer implements Comparable {
      *                                   or not smaller than the buffer's limit
      */
     public long get(int index) {
-        if (is64Bit)
-            return view64.get(index);
-        else
-            return view32.get(index) & 0x00000000FFFFFFFFL;
+        return view64.get(index);
     }
 
     /**
@@ -481,12 +455,11 @@ public class PointerBuffer implements Comparable {
      * @throws ReadOnlyBufferException   If this buffer is read-only
      */
     public PointerBuffer put(int index, long l) {
-        if (is64Bit)
-            view64.put(index, l);
-        else
-            view32.put(index, (int) l);
+        view64.put(index, l);
         return this;
     }
+
+    // -- Bulk get operations --
 
     /**
      * Convenience put that accepts PointerWrapper objects.
@@ -496,22 +469,6 @@ public class PointerBuffer implements Comparable {
     public PointerBuffer put(int index, PointerWrapper pointer) {
         return put(index, pointer.getPointer());
     }
-
-    /**
-     * Convenience put on a target ByteBuffer.
-     *
-     * @param target the target ByteBuffer
-     * @param index  the index at which the long will be written
-     * @param l      the long value to be written
-     */
-    public static void put(final ByteBuffer target, int index, long l) {
-        if (is64Bit)
-            target.putLong(index * 8, l);
-        else
-            target.putInt(index * 4, (int) l);
-    }
-
-    // -- Bulk get operations --
 
     /**
      * Relative bulk <i>get</i> method.
@@ -553,16 +510,7 @@ public class PointerBuffer implements Comparable {
      *                                   parameters do not hold
      */
     public PointerBuffer get(long[] dst, int offset, int length) {
-        if (is64Bit)
-            view64.get(dst, offset, length);
-        else {
-            checkBounds(offset, length, dst.length);
-            if (length > view32.remaining())
-                throw new BufferUnderflowException();
-            int end = offset + length;
-            for (int i = offset; i < end; i++)
-                dst[i] = view32.get() & 0x00000000FFFFFFFFL;
-        }
+        view64.get(dst, offset, length);
 
         return this;
     }
@@ -619,10 +567,7 @@ public class PointerBuffer implements Comparable {
      * @throws ReadOnlyBufferException  If this buffer is read-only
      */
     public PointerBuffer put(PointerBuffer src) {
-        if (is64Bit)
-            view64.put(src.view64);
-        else
-            view32.put(src.view32);
+        view64.put(src.view64);
         return this;
     }
 
@@ -665,16 +610,7 @@ public class PointerBuffer implements Comparable {
      * @throws ReadOnlyBufferException   If this buffer is read-only
      */
     public PointerBuffer put(long[] src, int offset, int length) {
-        if (is64Bit)
-            view64.put(src, offset, length);
-        else {
-            checkBounds(offset, length, src.length);
-            if (length > view32.remaining())
-                throw new BufferOverflowException();
-            int end = offset + length;
-            for (int i = offset; i < end; i++)
-                view32.put((int) src[i]);
-        }
+        view64.put(src, offset, length);
 
         return this;
     }
@@ -720,10 +656,7 @@ public class PointerBuffer implements Comparable {
      * @throws ReadOnlyBufferException If this buffer is read-only
      */
     public PointerBuffer compact() {
-        if (is64Bit)
-            view64.compact();
-        else
-            view32.compact();
+        view64.compact();
         return this;
     }
 
@@ -740,10 +673,7 @@ public class PointerBuffer implements Comparable {
      * @return This buffer's byte order
      */
     public ByteOrder order() {
-        if (is64Bit)
-            return view64.order();
-        else
-            return view32.order();
+        return view64.order();
     }
 
     /**
@@ -752,16 +682,15 @@ public class PointerBuffer implements Comparable {
      * @return A summary string
      */
     public String toString() {
-        StringBuilder sb = new StringBuilder(48);
-        sb.append(getClass().getName());
-        sb.append("[pos=");
-        sb.append(position());
-        sb.append(" lim=");
-        sb.append(limit());
-        sb.append(" cap=");
-        sb.append(capacity());
-        sb.append("]");
-        return sb.toString();
+        String sb = getClass().getName() +
+                "[pos=" +
+                position() +
+                " lim=" +
+                limit() +
+                " cap=" +
+                capacity() +
+                "]";
+        return sb;
     }
 
     /**
@@ -810,9 +739,8 @@ public class PointerBuffer implements Comparable {
      * given object
      */
     public boolean equals(Object ob) {
-        if (!(ob instanceof PointerBuffer))
+        if (!(ob instanceof PointerBuffer that))
             return false;
-        PointerBuffer that = (PointerBuffer) ob;
         if (this.remaining() != that.remaining())
             return false;
         int p = this.position();
@@ -851,11 +779,6 @@ public class PointerBuffer implements Comparable {
             return +1;
         }
         return this.remaining() - that.remaining();
-    }
-
-    private static void checkBounds(int off, int len, int size) {
-        if ((off | len | (off + len) | (size - (off + len))) < 0)
-            throw new IndexOutOfBoundsException();
     }
 
     /**

@@ -36,7 +36,7 @@ import net.optifine.texture.PixelFormat;
 import net.optifine.texture.PixelType;
 import net.optifine.texture.TextureType;
 import net.optifine.util.EntityUtils;
-import net.optifine.util.PropertiesOrdered;
+import net.optifine.util.collection.PropertiesOrdered;
 import net.optifine.util.StrUtils;
 import net.optifine.util.TimedEvent;
 import org.apache.commons.io.IOUtils;

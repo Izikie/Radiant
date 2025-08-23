@@ -107,11 +107,10 @@ public final class DisplayMode {
      * @see Object#equals(Object)
      */
     public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof DisplayMode)) {
+        if (obj == null || !(obj instanceof DisplayMode dm)) {
             return false;
         }
 
-        DisplayMode dm = (DisplayMode) obj;
         return dm.width == width
                 && dm.height == height
                 && dm.bpp == bpp
@@ -133,15 +132,14 @@ public final class DisplayMode {
      * @see Object#toString()
      */
     public String toString() {
-        StringBuilder sb = new StringBuilder(32);
-        sb.append(width);
-        sb.append(" x ");
-        sb.append(height);
-        sb.append(" x ");
-        sb.append(bpp);
-        sb.append(" @");
-        sb.append(freq);
-        sb.append("Hz");
-        return sb.toString();
+        String sb = width +
+                " x " +
+                height +
+                " x " +
+                bpp +
+                " @" +
+                freq +
+                "Hz";
+        return sb;
     }
 }

@@ -7,24 +7,8 @@ import net.radiant.lwjgl.opengl.Display;
 
 public class Mouse {
 
-    private static Cursor currentCursor = null;
-
-    private static boolean grabbed = false;
-
-    private static int lastX = 0;
-    private static int lastY = 0;
-
-    private static int latestX = 0;
-    private static int latestY = 0;
     public static final int EVENT_SIZE = 1 + 1 + 4 + 4 + 4 + 8;
-
-    private static int x = 0;
-    private static int y = 0;
-
-    public static int lastDWheel = 0;
-
     private static final EventQueue queue = new EventQueue(999999);
-
     private static final int[] buttonEvents = new int[queue.getMaxEvents()];
     private static final boolean[] buttonEventStates = new boolean[queue.getMaxEvents()];
     private static final int[] xEvents = new int[queue.getMaxEvents()];
@@ -32,8 +16,16 @@ public class Mouse {
     private static final int[] lastxEvents = new int[queue.getMaxEvents()];
     private static final int[] lastyEvents = new int[queue.getMaxEvents()];
     private static final long[] nanoTimeEvents = new long[queue.getMaxEvents()];
+    public static int lastDWheel = 0;
     public static double[] scrollEvents = new double[queue.getMaxEvents()];
-
+    private static Cursor currentCursor = null;
+    private static boolean grabbed = false;
+    private static int lastX = 0;
+    private static int lastY = 0;
+    private static int latestX = 0;
+    private static int latestY = 0;
+    private static int x = 0;
+    private static int y = 0;
     private static boolean clipPostionToDisplay = true;
 
     public static void addMoveEvent(double mouseX, double mouseY) {
@@ -97,6 +89,10 @@ public class Mouse {
         return Display.isCreated();
     }
 
+    public static boolean isGrabbed() {
+        return grabbed;
+    }
+
     public static void setGrabbed(boolean grab) {
         GLFW.glfwSetInputMode(Display.getHandle(),
                 GLFW.GLFW_CURSOR,
@@ -108,10 +104,6 @@ public class Mouse {
             y = lastY = latestY = Display.getHeight() / 2;
         }
         grabbed = grab;
-    }
-
-    public static boolean isGrabbed() {
-        return grabbed;
     }
 
     public static boolean isButtonDown(int button) {

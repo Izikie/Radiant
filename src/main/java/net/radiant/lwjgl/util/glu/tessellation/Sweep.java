@@ -87,15 +87,20 @@ package net.radiant.lwjgl.util.glu.tessellation;
 import static net.radiant.lwjgl.util.glu.GLU.*;
 
 class Sweep {
-    private Sweep() {
-    }
-
-    //    #ifdef FOR_TRITE_TEST_PROGRAM
-//    extern void DebugEvent( GLUtessellator *tess );
-//    #else
-    private static void DebugEvent(GLUtessellatorImpl tess) {
-
-    }
+    /* Because vertices at exactly the same location are merged together
+     * before we process the sweep event, some degenerate cases can't occur.
+     * However if someone eventually makes the modifications required to
+     * merge features which are close together, the cases below marked
+     * TOLERANCE_NONZERO will be useful.  They were debugged before the
+     * code to merge identical vertices in the main loop was added.
+     */
+    private static final boolean TOLERANCE_NONZERO = false;
+    /* Make the sentinel coordinates big enough that they will never be
+     * merged with real input features.  (Even with the largest possible
+     * input contour and the maximum tolerance of 1.0, no merging will be
+     * done with coordinates larger than 3 * GLU_TESS_MAX_COORD).
+     */
+    private static final double SENTINEL_COORD = (4.0 * GLU_TESS_MAX_COORD);
 //    #endif
 
     /*
@@ -128,6 +133,16 @@ class Sweep {
      *   when it is necessary.)
      */
 
+    private Sweep() {
+    }
+
+    //    #ifdef FOR_TRITE_TEST_PROGRAM
+//    extern void DebugEvent( GLUtessellator *tess );
+//    #else
+    private static void DebugEvent(GLUtessellatorImpl tess) {
+
+    }
+
     /* When we merge two edges into one, we need to compute the combined
      * winding of the new edge.
      */
@@ -135,7 +150,6 @@ class Sweep {
         eDst.winding += eSrc.winding;
         eDst.Sym.winding += eSrc.Sym.winding;
     }
-
 
     private static ActiveRegion RegionBelow(ActiveRegion r) {
         return ((ActiveRegion) Dict.dictKey(Dict.dictPred(r.nodeUp)));
@@ -186,19 +200,11 @@ class Sweep {
         return (t1 >= t2);
     }
 
-
     static void DeleteRegion(GLUtessellatorImpl tess, ActiveRegion reg) {
-        if (reg.fixUpperEdge) {
-            /* It was created with zero winding number, so it better be
-             * deleted with zero winding number (ie. it better not get merged
-             * with a real edge).
-             */
-            assert (reg.eUp.winding == 0);
-        }
+        assert !reg.fixUpperEdge || (reg.eUp.winding == 0);
         reg.eUp.activeRegion = null;
         Dict.dictDelete(tess.dict, reg.nodeUp); /* __gl_dictListDelete */
     }
-
 
     static boolean FixUpperEdge(ActiveRegion reg, GLUhalfEdge newEdge)
         /*
@@ -287,12 +293,10 @@ class Sweep {
         /*NOTREACHED*/
     }
 
-
     static void ComputeWinding(GLUtessellatorImpl tess, ActiveRegion reg) {
         reg.windingNumber = RegionAbove(reg).windingNumber + reg.eUp.winding;
         reg.inside = IsWindingInside(tess, reg.windingNumber);
     }
-
 
     static void FinishRegion(GLUtessellatorImpl tess, ActiveRegion reg)
         /*
@@ -309,7 +313,6 @@ class Sweep {
         f.anEdge = e;   /* optimization for __gl_meshTessellateMonoRegion() */
         DeleteRegion(tess, reg);
     }
-
 
     static GLUhalfEdge FinishLeftRegions(GLUtessellatorImpl tess,
                                          ActiveRegion regFirst, ActiveRegion regLast)
@@ -364,7 +367,6 @@ class Sweep {
         }
         return ePrev;
     }
-
 
     static void AddRightEdges(GLUtessellatorImpl tess, ActiveRegion regUp,
                               GLUhalfEdge eFirst, GLUhalfEdge eLast, GLUhalfEdge eTopLeft,
@@ -436,7 +438,6 @@ class Sweep {
         }
     }
 
-
     static void CallCombine(GLUtessellatorImpl tess, GLUvertex isect,
                             Object[] data, float[] weights, boolean needed) {
         double[] coords = new double[3];
@@ -496,7 +497,6 @@ class Sweep {
         isect.coords[1] += weights[0] * org.coords[1] + weights[1] * dst.coords[1];
         isect.coords[2] += weights[0] * org.coords[2] + weights[1] * dst.coords[2];
     }
-
 
     static void GetIntersectData(GLUtessellatorImpl tess, GLUvertex isect,
                                  GLUvertex orgUp, GLUvertex dstUp,
@@ -628,7 +628,6 @@ class Sweep {
         }
         return true;
     }
-
 
     static boolean CheckForIntersect(GLUtessellatorImpl tess, ActiveRegion regUp)
         /*
@@ -867,7 +866,6 @@ class Sweep {
         }
     }
 
-
     static void ConnectRightVertex(GLUtessellatorImpl tess, ActiveRegion regUp,
                                    GLUhalfEdge eBottomLeft)
         /*
@@ -952,15 +950,6 @@ class Sweep {
         WalkDirtyRegions(tess, regUp);
     }
 
-    /* Because vertices at exactly the same location are merged together
-     * before we process the sweep event, some degenerate cases can't occur.
-     * However if someone eventually makes the modifications required to
-     * merge features which are close together, the cases below marked
-     * TOLERANCE_NONZERO will be useful.  They were debugged before the
-     * code to merge identical vertices in the main loop was added.
-     */
-    private static final boolean TOLERANCE_NONZERO = false;
-
     static void ConnectLeftDegenerate(GLUtessellatorImpl tess,
                                       ActiveRegion regUp, GLUvertex vEvent)
         /*
@@ -1018,7 +1007,6 @@ class Sweep {
         }
         AddRightEdges(tess, regUp, eTopRight.Onext, eLast, eTopLeft, true);
     }
-
 
     static void ConnectLeftVertex(GLUtessellatorImpl tess, GLUvertex vEvent)
         /*
@@ -1085,7 +1073,6 @@ class Sweep {
         }
     }
 
-
     static void SweepEvent(GLUtessellatorImpl tess, GLUvertex vEvent)
         /*
          * Does everything necessary when the sweep line crosses a vertex.
@@ -1136,14 +1123,6 @@ class Sweep {
             AddRightEdges(tess, regUp, eBottomLeft.Onext, eTopLeft, eTopLeft, true);
         }
     }
-
-
-    /* Make the sentinel coordinates big enough that they will never be
-     * merged with real input features.  (Even with the largest possible
-     * input contour and the maximum tolerance of 1.0, no merging will be
-     * done with coordinates larger than 3 * GLU_TESS_MAX_COORD).
-     */
-    private static final double SENTINEL_COORD = (4.0 * GLU_TESS_MAX_COORD);
 
     static void AddSentinel(GLUtessellatorImpl tess, double t)
         /*

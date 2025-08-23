@@ -92,10 +92,9 @@ import static net.radiant.lwjgl.util.glu.GLU.*;
 
 public class GLUtessellatorImpl implements GLUtessellator {
     public static final int TESS_MAX_CACHE = 100;
-
-    private int state;        /* what begin/end calls have we seen? */
-
-    private GLUhalfEdge lastEdge;    /* lastEdge->Org is the most recent vertex */
+    private static final double GLU_TESS_DEFAULT_TOLERANCE = 0.0;
+    //    private static final int GLU_TESS_MESH = 100112;	/* void (*)(GLUmesh *mesh)	    */
+    private static final GLUtessellatorCallback NULL_CB = new GLUtessellatorCallbackAdapter();
     GLUmesh mesh;		/* stores the input contours, and eventually
                                    the tessellation itself */
 
@@ -104,34 +103,29 @@ public class GLUtessellatorImpl implements GLUtessellator {
     double[] normal = new double[3];    /* user-specified normal (if provided) */
     double[] sUnit = new double[3];    /* unit vector in s-direction (debugging) */
     double[] tUnit = new double[3];    /* unit vector in t-direction (debugging) */
-
-    /*** state needed for the line sweep ***/
-
-    private double relTolerance;    /* tolerance for merging features */
     int windingRule;    /* rule for determining polygon interior */
     boolean fatalError;    /* fatal error: needed combine callback */
-
     Dict dict;        /* edge dictionary for sweep line */
     PriorityQ pq;        /* priority queue of vertex events */
     GLUvertex event;        /* current sweep event being processed */
-
     /*** state needed for rendering callbacks (see render.c) ***/
 
     boolean flagBoundary;    /* mark boundary edges (use EdgeFlag) */
     boolean boundaryOnly;    /* Extract contours, not triangles */
     GLUface lonelyTriList;
+    int cacheCount;        /* number of cached vertices */
     /* list of triangles which could not be rendered as strips or fans */
+    CachedVertex[] cache = new CachedVertex[TESS_MAX_CACHE];    /* the vertex data */
+    private int state;        /* what begin/end calls have we seen? */
+    private GLUhalfEdge lastEdge;    /* lastEdge->Org is the most recent vertex */
+    /*** state needed for the line sweep ***/
 
-
+    private double relTolerance;    /* tolerance for merging features */
     /*** state needed to cache single-contour polygons for renderCache() */
 
     private boolean flushCacheOnNextVertex;        /* empty cache on next vertex() call */
-    int cacheCount;        /* number of cached vertices */
-    CachedVertex[] cache = new CachedVertex[TESS_MAX_CACHE];    /* the vertex data */
-
     /*** rendering callbacks that also pass polygon data  ***/
     private Object polygonData;        /* client data for current polygon */
-
     private GLUtessellatorCallback callBegin;
     private GLUtessellatorCallback callEdgeFlag;
     private GLUtessellatorCallback callVertex;
@@ -139,7 +133,6 @@ public class GLUtessellatorImpl implements GLUtessellator {
     //    private GLUtessellatorCallback callMesh;
     private GLUtessellatorCallback callError;
     private GLUtessellatorCallback callCombine;
-
     private GLUtessellatorCallback callBeginData;
     private GLUtessellatorCallback callEdgeFlagData;
     private GLUtessellatorCallback callVertexData;
@@ -147,10 +140,6 @@ public class GLUtessellatorImpl implements GLUtessellator {
     //    private GLUtessellatorCallback callMeshData;
     private GLUtessellatorCallback callErrorData;
     private GLUtessellatorCallback callCombineData;
-
-    private static final double GLU_TESS_DEFAULT_TOLERANCE = 0.0;
-    //    private static final int GLU_TESS_MESH = 100112;	/* void (*)(GLUmesh *mesh)	    */
-    private static GLUtessellatorCallback NULL_CB = new GLUtessellatorCallbackAdapter();
 
 //    #define MAX_FAST_ALLOC	(MAX(sizeof(EdgePair), \
 //                 MAX(sizeof(GLUvertex),sizeof(GLUface))))
@@ -290,7 +279,7 @@ public class GLUtessellatorImpl implements GLUtessellator {
                 value[value_offset] = windingRule;
                 break;
             case GLU_TESS_BOUNDARY_ONLY:
-                assert (boundaryOnly == true || boundaryOnly == false);
+                assert (boundaryOnly || !boundaryOnly);
                 value[value_offset] = boundaryOnly ? 1 : 0;
                 break;
             default:
@@ -357,7 +346,6 @@ public class GLUtessellatorImpl implements GLUtessellator {
 //                return;
             default:
                 callErrorOrErrorData(GLU_INVALID_ENUM);
-                return;
         }
     }
 

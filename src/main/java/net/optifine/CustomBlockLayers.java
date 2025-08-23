@@ -6,7 +6,7 @@ import net.minecraft.util.RenderLayer;
 import net.optifine.config.ConnectedParser;
 import net.optifine.config.MatchBlock;
 import net.optifine.shaders.BlockAliases;
-import net.optifine.util.PropertiesOrdered;
+import net.optifine.util.collection.PropertiesOrdered;
 import net.optifine.util.ResUtils;
 
 import java.util.ArrayList;

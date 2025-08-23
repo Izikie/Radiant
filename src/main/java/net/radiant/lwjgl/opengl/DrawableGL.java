@@ -60,10 +60,6 @@ abstract class DrawableGL implements DrawableLWJGL {
     protected DrawableGL() {
     }
 
-    public void setPixelFormat(final PixelFormatLWJGL pf) throws LWJGLException {
-        throw new UnsupportedOperationException();
-    }
-
     public void setPixelFormat(final PixelFormatLWJGL pf, final ContextAttribs attribs) throws LWJGLException {
         this.pixel_format = (PixelFormat) pf;
         //this.peer_info = Display.getImplementation().createPeerInfo(pixel_format, attribs);
@@ -71,6 +67,10 @@ abstract class DrawableGL implements DrawableLWJGL {
 
     public PixelFormatLWJGL getPixelFormat() {
         return pixel_format;
+    }
+
+    public void setPixelFormat(final PixelFormatLWJGL pf) throws LWJGLException {
+        throw new UnsupportedOperationException();
     }
 
     public ContextGL getContext() {

@@ -50,11 +50,6 @@ public class OpenGLException extends RuntimeException {
         this(createErrorMessage(gl_error_code));
     }
 
-    private static String createErrorMessage(int gl_error_code) {
-        String error_string = Util.translateGLErrorString(gl_error_code);
-        return error_string + " (" + gl_error_code + ")";
-    }
-
     /**
      * Constructor for OpenGLException.
      */
@@ -88,6 +83,11 @@ public class OpenGLException extends RuntimeException {
      */
     public OpenGLException(Throwable cause) {
         super(cause);
+    }
+
+    private static String createErrorMessage(int gl_error_code) {
+        String error_string = Util.translateGLErrorString(gl_error_code);
+        return error_string + " (" + gl_error_code + ")";
     }
 
 }

@@ -103,13 +103,6 @@ class PriorityQSort extends PriorityQ {
         this.leq = leq;
     }
 
-    /* really __gl_pqSortDeletePriorityQ */
-    void pqDeletePriorityQ() {
-        if (heap != null) heap.pqDeletePriorityQ();
-        order = null;
-        keys = null;
-    }
-
     private static boolean LT(PriorityQ.Leq leq, Object x, Object y) {
         return (!PriorityQHeap.LEQ(leq, y, x));
     }
@@ -126,8 +119,11 @@ class PriorityQSort extends PriorityQ {
         }
     }
 
-    private static class Stack {
-        int p, r;
+    /* really __gl_pqSortDeletePriorityQ */
+    void pqDeletePriorityQ() {
+        if (heap != null) heap.pqDeletePriorityQ();
+        order = null;
+        keys = null;
     }
 
     /* really __gl_pqSortInit */
@@ -305,5 +301,9 @@ class PriorityQSort extends PriorityQ {
         while (size > 0 && keys[order[size - 1]] == null) {
             --size;
         }
+    }
+
+    private static class Stack {
+        int p, r;
     }
 }

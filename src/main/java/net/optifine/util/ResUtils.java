@@ -6,6 +6,7 @@ import net.minecraft.client.resources.IResourcePack;
 import net.optifine.Config;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.Log;
+import net.optifine.util.collection.PropertiesOrdered;
 
 import java.io.File;
 import java.io.FileNotFoundException;

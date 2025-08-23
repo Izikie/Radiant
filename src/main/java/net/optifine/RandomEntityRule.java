@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.optifine.config.*;
-import net.optifine.util.ArrayUtils;
+import net.optifine.util.collection.ArrayUtils;
 
 import java.util.Properties;
 

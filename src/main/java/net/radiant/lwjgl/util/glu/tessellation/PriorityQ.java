@@ -87,19 +87,6 @@ package net.radiant.lwjgl.util.glu.tessellation;
 abstract class PriorityQ {
     public static final int INIT_SIZE = 32;
 
-    public static class PQnode {
-        int handle;
-    }
-
-    public static class PQhandleElem {
-        Object key;
-        int node;
-    }
-
-    public interface Leq {
-        boolean leq(Object key1, Object key2);
-    }
-
     //    #ifdef FOR_TRITE_TEST_PROGRAM
 //    private static boolean LEQ(PriorityQCommon.Leq leq, Object x,Object y) {
 //        return pq.leq.leq(x,y);
@@ -128,5 +115,18 @@ abstract class PriorityQ {
     abstract Object pqMinimum();
 
     abstract boolean pqIsEmpty();
+
+    public interface Leq {
+        boolean leq(Object key1, Object key2);
+    }
+
+    public static class PQnode {
+        int handle;
+    }
+
+    public static class PQhandleElem {
+        Object key;
+        int node;
+    }
 //    #endif
 }
