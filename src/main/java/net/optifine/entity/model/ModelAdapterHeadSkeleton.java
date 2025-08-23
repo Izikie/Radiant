@@ -32,7 +32,7 @@ public class ModelAdapterHeadSkeleton extends ModelAdapter {
 
 	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
 		TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.INSTANCE;
-		TileEntitySpecialRenderer tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntitySkull.class);
+		TileEntitySpecialRenderer<TileEntitySkull> tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntitySkull.class);
 
         if (tileentityspecialrenderer instanceof TileEntitySkullRenderer) {
             if (tileentityspecialrenderer.getEntityClass() == null) {

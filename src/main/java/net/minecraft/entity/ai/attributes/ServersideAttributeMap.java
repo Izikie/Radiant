@@ -9,7 +9,7 @@ import java.util.Set;
 
 public class ServersideAttributeMap extends BaseAttributeMap {
     private final Set<IAttributeInstance> attributeInstanceSet = new HashSet<>();
-    protected final Map<String, IAttributeInstance> descriptionToAttributeInstanceMap = new LowerStringMap();
+    protected final Map<String, IAttributeInstance> descriptionToAttributeInstanceMap = new LowerStringMap<>();
 
     public ModifiableAttributeInstance getAttributeInstance(IAttribute attribute) {
         return (ModifiableAttributeInstance) super.getAttributeInstance(attribute);

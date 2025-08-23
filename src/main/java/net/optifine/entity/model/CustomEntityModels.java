@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
 import net.optifine.Config;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.Log;
@@ -21,11 +22,11 @@ import java.util.*;
 public class CustomEntityModels {
 	private static boolean active = false;
 	private static Map<Class, Render> originalEntityRenderMap = null;
-	private static Map<Class, TileEntitySpecialRenderer> originalTileEntityRenderMap = null;
+	private static Map<Class<? extends TileEntity>, TileEntitySpecialRenderer<?>> originalTileEntityRenderMap = null;
 
 	public static void update() {
 		Map<Class, Render> map = getEntityRenderMap();
-		Map<Class, TileEntitySpecialRenderer> map1 = getTileEntityRenderMap();
+		Map<Class<? extends TileEntity>, TileEntitySpecialRenderer<?>> map1 = getTileEntityRenderMap();
 
 		if (map == null) {
 			Log.error("Entity render map not found, custom entity models are DISABLED.");
@@ -73,15 +74,15 @@ public class CustomEntityModels {
 			return null;
 		} else {
 			if (originalEntityRenderMap == null) {
-				originalEntityRenderMap = new HashMap(map);
+				originalEntityRenderMap = new HashMap<>(map);
 			}
 
 			return map;
 		}
 	}
 
-	private static Map<Class, TileEntitySpecialRenderer> getTileEntityRenderMap() {
-		Map<Class, TileEntitySpecialRenderer> map = TileEntityRendererDispatcher.INSTANCE.mapSpecialRenderers;
+	private static Map<Class<? extends TileEntity>, TileEntitySpecialRenderer<?>> getTileEntityRenderMap() {
+		Map<Class<? extends TileEntity>, TileEntitySpecialRenderer<?>> map = TileEntityRendererDispatcher.INSTANCE.mapSpecialRenderers;
 
 		if (originalTileEntityRenderMap == null) {
 			originalTileEntityRenderMap = new HashMap<>(map);
@@ -204,10 +205,10 @@ public class CustomEntityModels {
 
 				if (modelrenderer.childModels != null) {
 					ModelRenderer[] amodelrenderer = modelAdapter.getModelRenderers(model);
-					Set<ModelRenderer> set = Collections.<ModelRenderer>newSetFromMap(new IdentityHashMap());
+					Set<ModelRenderer> set = Collections.<ModelRenderer>newSetFromMap(new IdentityHashMap<>());
 					set.addAll(Arrays.asList(amodelrenderer));
 					List<ModelRenderer> list = modelrenderer.childModels;
-					Iterator iterator = list.iterator();
+					Iterator<ModelRenderer> iterator = list.iterator();
 
 					while (iterator.hasNext()) {
 						ModelRenderer modelrenderer1 = (ModelRenderer) iterator.next();

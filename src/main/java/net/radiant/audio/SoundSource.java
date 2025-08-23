@@ -3,7 +3,6 @@ package net.radiant.audio;
 import java.nio.ShortBuffer;
 
 import static org.lwjgl.openal.AL10.*;
-import static org.lwjgl.openal.AL10.AL_PAUSED;
 
 public class SoundSource implements ISoundSource {
     private final int buffer, source;

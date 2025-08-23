@@ -98,7 +98,7 @@ public enum ShaderParameterFloat {
 
 	private static boolean instanceOf(Object obj, Class... classes) {
 		if (obj != null) {
-			Class oclass = obj.getClass();
+			Class<? extends Object> oclass = obj.getClass();
 
 			for (Class oclass1 : classes) {
 				if (oclass1.isAssignableFrom(oclass)) {

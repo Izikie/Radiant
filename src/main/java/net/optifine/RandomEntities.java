@@ -72,7 +72,7 @@ public class RandomEntities {
 
 	public static void worldChanged(World oldWorld, World newWorld) {
 		if (newWorld != null) {
-			List list = newWorld.getLoadedEntityList();
+			List<Entity> list = newWorld.getLoadedEntityList();
 
 			for (Object o : list) {
 				Entity entity = (Entity) o;
@@ -277,7 +277,7 @@ public class RandomEntities {
 	}
 
 	private static ResourceLocation[] getLocationsVariants(ResourceLocation loc, boolean mcpatcher) {
-		List list = new ArrayList<>();
+		List<Object> list = new ArrayList<>();
 		list.add(loc);
 		ResourceLocation resourcelocation = getLocationRandom(loc, mcpatcher);
 

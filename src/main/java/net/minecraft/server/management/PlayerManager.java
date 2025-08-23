@@ -44,7 +44,7 @@ public class PlayerManager {
 
     public void updatePlayerInstances() {
         Set<Entry<EntityPlayerMP, Set<ChunkCoordIntPair>>> set = this.mapPlayerPendingEntries.entrySet();
-        Iterator iterator = set.iterator();
+        Iterator<Entry<EntityPlayerMP, Set<ChunkCoordIntPair>>> iterator = set.iterator();
 
         while (iterator.hasNext()) {
             Entry<EntityPlayerMP, Set<ChunkCoordIntPair>> entry = (Entry) iterator.next();
@@ -333,7 +333,7 @@ public class PlayerManager {
         double d2 = d1 * 0.017453292519943295D;
         ChunkPosComparator chunkposcomparator = new ChunkPosComparator(p_getNearest_2_.chunkCoordX, p_getNearest_2_.chunkCoordZ, d0, d2);
         Comparator<ChunkCoordIntPair> comparator = Collections.reverseOrder(chunkposcomparator);
-        PriorityQueue<ChunkCoordIntPair> priorityqueue = new PriorityQueue(p_getNearest_3_, comparator);
+        PriorityQueue<ChunkCoordIntPair> priorityqueue = new PriorityQueue<>(p_getNearest_3_, comparator);
 
         for (ChunkCoordIntPair chunkcoordintpair : p_getNearest_1_) {
             if (priorityqueue.size() < p_getNearest_3_) {

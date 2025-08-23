@@ -11,7 +11,6 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.PlayerModelParts;
 import net.minecraft.network.play.client.C15PacketClientSettings;
-import net.optifine.Config;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.Difficulty;
 import net.optifine.*;

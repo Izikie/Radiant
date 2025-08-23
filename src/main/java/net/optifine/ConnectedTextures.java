@@ -162,7 +162,7 @@ public class ConnectedTextures {
 				Map map = spriteQuadMaps[i];
 
 				if (map == null) {
-					map = new IdentityHashMap(1);
+					map = new IdentityHashMap<>(1);
 					spriteQuadMaps[i] = map;
 				}
 
@@ -189,15 +189,15 @@ public class ConnectedTextures {
 			int i = sprite.getIndexInMap();
 
 			if (i >= 0 && i < spriteQuadFullMaps.length) {
-				Map map = spriteQuadFullMaps[i];
+				Map<Direction, BakedQuad> map = spriteQuadFullMaps[i];
 
 				if (map == null) {
-					map = new EnumMap(Direction.class);
+					map = new EnumMap<>(Direction.class);
 					spriteQuadFullMaps[i] = map;
 				}
 
 				Direction enumfacing = quadIn.getFace();
-				BakedQuad bakedquad = (BakedQuad) map.get(enumfacing);
+				BakedQuad bakedquad = map.get(enumfacing);
 
 				if (bakedquad == null) {
 					bakedquad = BlockModelUtils.makeBakedQuad(enumfacing, sprite, tintIndex);
@@ -1660,8 +1660,8 @@ public class ConnectedTextures {
 	public static void updateIcons(TextureMap textureMap, IResourcePack rp) {
 		String[] astring = ResUtils.collectFiles(rp, "mcpatcher/ctm/", ".properties", getDefaultCtmPaths());
 		Arrays.sort(astring);
-		List list = makePropertyList(tileProperties);
-		List list1 = makePropertyList(blockProperties);
+		List<List<ConnectedProperties>> list = makePropertyList(tileProperties);
+		List<List<ConnectedProperties>> list1 = makePropertyList(blockProperties);
 
 		for (String s : astring) {
 			Log.info("ConnectedTextures: " + s);
@@ -1697,15 +1697,15 @@ public class ConnectedTextures {
 		Log.info("Multipass connected textures: " + multipass);
 	}
 
-	private static List makePropertyList(ConnectedProperties[][] propsArr) {
-		List list = new ArrayList<>();
+	private static List<List<ConnectedProperties>> makePropertyList(ConnectedProperties[][] propsArr) {
+		List<List<ConnectedProperties>> list = new ArrayList<>();
 
 		if (propsArr != null) {
 			for (ConnectedProperties[] aconnectedproperties : propsArr) {
-				List list1 = null;
+				List<ConnectedProperties> list1 = null;
 
 				if (aconnectedproperties != null) {
-					list1 = new ArrayList(Arrays.asList(aconnectedproperties));
+					list1 = new ArrayList<>(Arrays.asList(aconnectedproperties));
 				}
 
 				list.add(list1);
@@ -1716,7 +1716,7 @@ public class ConnectedTextures {
 	}
 
 	private static boolean detectMultipass() {
-		List list = new ArrayList<>();
+		List<ConnectedProperties> list = new ArrayList<>();
 
 		for (ConnectedProperties[] aconnectedproperties : tileProperties) {
 			if (aconnectedproperties != null) {
@@ -1731,8 +1731,8 @@ public class ConnectedTextures {
 		}
 
 		ConnectedProperties[] aconnectedproperties1 = (ConnectedProperties[]) list.toArray(new ConnectedProperties[0]);
-		Set set1 = new HashSet();
-		Set set = new HashSet();
+		Set<TextureAtlasSprite> set1 = new HashSet<>();
+		Set<TextureAtlasSprite> set = new HashSet<>();
 
 		for (ConnectedProperties connectedproperties : aconnectedproperties1) {
 			if (connectedproperties.matchTileIcons != null) {
@@ -1813,7 +1813,7 @@ public class ConnectedTextures {
 	}
 
 	private static String[] getDefaultCtmPaths() {
-		List list = new ArrayList<>();
+		List<Object> list = new ArrayList<>();
 		String s = "mcpatcher/ctm/default/";
 
 		if (Config.isFromDefaultResourcePack(new ResourceLocation("textures/blocks/glass.png"))) {

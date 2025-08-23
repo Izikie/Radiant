@@ -32,7 +32,7 @@ public class ModelAdapterBanner extends ModelAdapter {
 
 	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
 		TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.INSTANCE;
-		TileEntitySpecialRenderer tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntityBanner.class);
+		TileEntitySpecialRenderer<TileEntityBanner> tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntityBanner.class);
 
         if (tileentityspecialrenderer instanceof TileEntityBannerRenderer) {
             if (tileentityspecialrenderer.getEntityClass() == null) {

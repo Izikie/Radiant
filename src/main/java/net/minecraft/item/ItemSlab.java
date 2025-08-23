@@ -61,7 +61,7 @@ public class ItemSlab extends ItemBlock {
 
     public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Direction side, EntityPlayer player, ItemStack stack) {
         BlockPos blockpos = pos;
-        IProperty iproperty = this.singleSlab.getVariantProperty();
+        IProperty<?> iproperty = this.singleSlab.getVariantProperty();
         Object object = this.singleSlab.getVariant(stack);
         IBlockState iblockstate = worldIn.getBlockState(pos);
 

@@ -23,7 +23,7 @@ public class HttpPipeline {
 	public static final String HEADER_VALUE_KEEP_ALIVE = "keep-alive";
 	public static final String HEADER_TRANSFER_ENCODING = "Transfer-Encoding";
 	public static final String HEADER_VALUE_CHUNKED = "chunked";
-	private static final Map MAP_CONNECTIONS = new HashMap<>();
+	private static final Map<Object, Object> MAP_CONNECTIONS = new HashMap<>();
 
 	public static void addRequest(String urlStr, HttpListener listener) throws IOException, URISyntaxException {
 		addRequest(urlStr, listener, Proxy.NO_PROXY);

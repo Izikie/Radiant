@@ -10,7 +10,6 @@ import net.optifine.Config;
 import net.optifine.Log;
 
 import java.util.Map;
-import java.util.Set;
 
 public class PlayerItemsLayer implements LayerRenderer {
 	private final RenderPlayer renderPlayer;
@@ -19,11 +18,10 @@ public class PlayerItemsLayer implements LayerRenderer {
 		this.renderPlayer = renderPlayer;
 	}
 
-	public static void register(Map renderPlayerMap) {
-		Set set = renderPlayerMap.keySet();
+	public static void register(Map<String, RenderPlayer> renderPlayerMap) {
 		boolean flag = false;
 
-		for (Object object : set) {
+		for (Object object : renderPlayerMap.keySet()) {
 			Object object1 = renderPlayerMap.get(object);
 
 			if (object1 instanceof RenderPlayer renderplayer) {

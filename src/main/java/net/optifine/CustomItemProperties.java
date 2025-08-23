@@ -579,7 +579,7 @@ public class CustomItemProperties {
 		if (map.isEmpty()) {
 			return null;
 		} else {
-			List list = new ArrayList<>();
+			List<Object> list = new ArrayList<>();
 
 			for (Object o : map.keySet()) {
 				String s1 = (String) o;

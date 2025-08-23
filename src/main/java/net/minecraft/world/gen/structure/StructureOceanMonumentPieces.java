@@ -604,7 +604,7 @@ public class StructureOceanMonumentPieces {
 
             for (RoomDefinition structureoceanmonumentpieces$roomdefinition : list) {
                 if (!structureoceanmonumentpieces$roomdefinition.field_175963_d && !structureoceanmonumentpieces$roomdefinition.func_175961_b()) {
-                    Iterator iterator = list1.iterator();
+                    Iterator<MonumentRoomFitHelper> iterator = list1.iterator();
                     MonumentRoomFitHelper structureoceanmonumentpieces$monumentroomfithelper;
 
                     while (true) {
@@ -612,7 +612,7 @@ public class StructureOceanMonumentPieces {
                             continue label319;
                         }
 
-                        structureoceanmonumentpieces$monumentroomfithelper = (MonumentRoomFitHelper) iterator.next();
+                        structureoceanmonumentpieces$monumentroomfithelper = iterator.next();
 
                         if (structureoceanmonumentpieces$monumentroomfithelper.func_175969_a(structureoceanmonumentpieces$roomdefinition)) {
                             break;

@@ -14,7 +14,7 @@ public class GuiMessage extends GuiScreen {
 	private final GuiScreen parentScreen;
 	private final String messageLine1;
 	private final String messageLine2;
-	private final List listLines2 = new ArrayList<>();
+	private final List<Object> listLines2 = new ArrayList<>();
 
 	public GuiMessage(GuiScreen parentScreen, String line1, String line2) {
 		this.parentScreen = parentScreen;

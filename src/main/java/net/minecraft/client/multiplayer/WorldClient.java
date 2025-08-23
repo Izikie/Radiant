@@ -18,7 +18,6 @@ import net.minecraft.scoreboard.Scoreboard;
 import net.optifine.Config;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.chat.ChatComponentText;
-import net.minecraft.world.ParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.*;
 import net.minecraft.world.chunk.Chunk;

@@ -23,12 +23,12 @@ public class SmartLeaves {
 	private static IBakedModel modelLeavesCullJungle = null;
 	private static IBakedModel modelLeavesCullOak = null;
 	private static IBakedModel modelLeavesCullSpruce = null;
-	private static List generalQuadsCullAcacia = null;
-	private static List generalQuadsCullBirch = null;
-	private static List generalQuadsCullDarkOak = null;
-	private static List generalQuadsCullJungle = null;
-	private static List generalQuadsCullOak = null;
-	private static List generalQuadsCullSpruce = null;
+	private static List<BakedQuad> generalQuadsCullAcacia = null;
+	private static List<BakedQuad> generalQuadsCullBirch = null;
+	private static List<BakedQuad> generalQuadsCullDarkOak = null;
+	private static List<BakedQuad> generalQuadsCullJungle = null;
+	private static List<BakedQuad> generalQuadsCullOak = null;
+	private static List<BakedQuad> generalQuadsCullSpruce = null;
 	private static IBakedModel modelLeavesDoubleAcacia = null;
 	private static IBakedModel modelLeavesDoubleBirch = null;
 	private static IBakedModel modelLeavesDoubleDarkOak = null;
@@ -40,7 +40,7 @@ public class SmartLeaves {
 		if (!Config.isTreesSmart()) {
 			return model;
 		} else {
-			List list = model.getGeneralQuads();
+			List<BakedQuad> list = model.getGeneralQuads();
 			return list == generalQuadsCullAcacia ? modelLeavesDoubleAcacia : (list == generalQuadsCullBirch ? modelLeavesDoubleBirch : (list == generalQuadsCullDarkOak ? modelLeavesDoubleDarkOak : (list == generalQuadsCullJungle ? modelLeavesDoubleJungle : (list == generalQuadsCullOak ? modelLeavesDoubleOak : (list == generalQuadsCullSpruce ? modelLeavesDoubleSpruce : model)))));
 		}
 	}
@@ -56,7 +56,7 @@ public class SmartLeaves {
 	}
 
 	public static void updateLeavesModels() {
-		List list = new ArrayList<>();
+		List<Object> list = new ArrayList<>();
 		modelLeavesCullAcacia = getModelCull("acacia", list);
 		modelLeavesCullBirch = getModelCull("birch", list);
 		modelLeavesCullDarkOak = getModelCull("dark_oak", list);

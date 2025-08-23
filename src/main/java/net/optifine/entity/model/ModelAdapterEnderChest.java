@@ -32,7 +32,7 @@ public class ModelAdapterEnderChest extends ModelAdapter {
 
 	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
 		TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.INSTANCE;
-		TileEntitySpecialRenderer tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntityEnderChest.class);
+		TileEntitySpecialRenderer<TileEntityEnderChest> tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntityEnderChest.class);
 
         if (tileentityspecialrenderer instanceof TileEntityEnderChestRenderer) {
             if (tileentityspecialrenderer.getEntityClass() == null) {

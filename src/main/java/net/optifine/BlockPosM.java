@@ -47,22 +47,22 @@ public class BlockPosM extends BlockPos {
 						} else if (this.theBlockPosM.equals(blockpos1)) {
 							return (BlockPosM) this.endOfData();
 						} else {
-							int i = this.theBlockPosM.getX();
-							int j = this.theBlockPosM.getY();
-							int k = this.theBlockPosM.getZ();
+							int x = this.theBlockPosM.getX();
+							int y = this.theBlockPosM.getY();
+							int z = this.theBlockPosM.getZ();
 
-							if (i < blockpos1.getX()) {
-								++i;
-							} else if (j < blockpos1.getY()) {
-								i = blockpos.getX();
-								++j;
-							} else if (k < blockpos1.getZ()) {
-								i = blockpos.getX();
-								j = blockpos.getY();
-								++k;
+							if (x < blockpos1.getX()) {
+								++x;
+							} else if (y < blockpos1.getY()) {
+								x = blockpos.getX();
+								++y;
+							} else if (z < blockpos1.getZ()) {
+								x = blockpos.getX();
+								y = blockpos.getY();
+								++z;
 							}
 
-							this.theBlockPosM.setXyz(i, j, k);
+							this.theBlockPosM.setXyz(x, y, z);
 							return this.theBlockPosM;
 						}
 					}

@@ -34,7 +34,7 @@ public class ModelRenderer {
     public float offsetX;
     public float offsetY;
     public float offsetZ;
-    public final List spriteList;
+    public final List<ModelSprite> spriteList;
     public boolean mirrorV;
     public float scaleX;
     public float scaleY;

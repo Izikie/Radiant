@@ -31,9 +31,6 @@
  */
 package net.radiant.lwjgl.util.glu;
 
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
-
 import net.radiant.lwjgl.opengl.Util;
 
 /**

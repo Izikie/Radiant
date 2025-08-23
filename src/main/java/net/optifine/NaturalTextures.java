@@ -30,7 +30,7 @@ public class NaturalTextures {
 
 				boolean flag = Config.isFromDefaultResourcePack(resourcelocation);
 				InputStream inputstream = Config.getResourceStream(resourcelocation);
-				ArrayList arraylist = new ArrayList(256);
+				ArrayList<NaturalProperties> arraylist = new ArrayList<>(256);
 				String s1 = Config.readInputStream(inputstream);
 				inputstream.close();
 				String[] astring = Config.tokenize(s1, "\n\r");

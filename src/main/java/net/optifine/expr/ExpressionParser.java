@@ -53,7 +53,7 @@ public class ExpressionParser {
 	private static Deque<Token> getGroup(Deque<Token> deque, TokenType tokenTypeEnd, boolean tokenEndRequired) throws ParseException {
 		Deque<Token> deque3 = new ArrayDeque<>();
 		int i = 0;
-		Iterator iterator = deque.iterator();
+		Iterator<Token> iterator = deque.iterator();
 
 		while (iterator.hasNext()) {
 			Token token = (Token) iterator.next();

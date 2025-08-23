@@ -42,7 +42,6 @@ import java.net.URI;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -572,11 +571,11 @@ public class Config {
         return isShaders() && Shaders.aoLevel >= 0.0F ? Shaders.aoLevel : gameSettings.ofAoLevel;
     }
 
-    public static String listToString(List p_listToString_0_) {
+    public static String listToString(List<String> p_listToString_0_) {
         return listToString(p_listToString_0_, ", ");
     }
 
-    public static String listToString(List p_listToString_0_, String p_listToString_1_) {
+    public static String listToString(List<String> p_listToString_0_, String p_listToString_1_) {
         if (p_listToString_0_ == null) {
             return "";
         } else {
@@ -953,11 +952,10 @@ public class Config {
 
     public static String[] tokenize(String p_tokenize_0_, String p_tokenize_1_) {
         StringTokenizer stringtokenizer = new StringTokenizer(p_tokenize_0_, p_tokenize_1_);
-        List list = new ArrayList<>();
+        List<String> list = new ArrayList<>();
 
         while (stringtokenizer.hasMoreTokens()) {
-            String s = stringtokenizer.nextToken();
-            list.add(s);
+            list.add(stringtokenizer.nextToken());
         }
 
         return (String[]) list.toArray(new String[0]);
@@ -972,7 +970,7 @@ public class Config {
             try {
                 DisplayMode[] adisplaymode = Display.getAvailableDisplayModes();
                 Set<Vector2i> set = getDisplayModeDimensions(adisplaymode);
-                List list = new ArrayList<>();
+                List<DisplayMode> list = new ArrayList<>();
 
                 for (Vector2i dimension : set) {
                     DisplayMode[] adisplaymode1 = getDisplayModes(adisplaymode, dimension);
@@ -1156,7 +1154,7 @@ public class Config {
     }
 
     public static String[] readLines(InputStream p_readLines_0_) throws IOException {
-        List list = new ArrayList<>();
+        List<String> list = new ArrayList<>();
         InputStreamReader inputstreamreader = new InputStreamReader(p_readLines_0_, StandardCharsets.US_ASCII);
         BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
 
@@ -1538,7 +1536,7 @@ public class Config {
     }
 
     public static Object[] addObjectToArray(Object[] p_addObjectToArray_0_, Object p_addObjectToArray_1_, int p_addObjectToArray_2_) {
-        List list = new ArrayList(Arrays.asList(p_addObjectToArray_0_));
+        List<Object> list = new ArrayList<>(Arrays.asList(p_addObjectToArray_0_));
         list.add(p_addObjectToArray_2_, p_addObjectToArray_1_);
         Object[] aobject = (Object[]) Array.newInstance(p_addObjectToArray_0_.getClass().getComponentType(), list.size());
         return list.toArray(aobject);
@@ -1560,12 +1558,12 @@ public class Config {
     }
 
     public static Object[] removeObjectFromArray(Object[] p_removeObjectFromArray_0_, Object p_removeObjectFromArray_1_) {
-        List list = new ArrayList(Arrays.asList(p_removeObjectFromArray_0_));
+        List<Object> list = new ArrayList<>(Arrays.asList(p_removeObjectFromArray_0_));
         list.remove(p_removeObjectFromArray_1_);
         return collectionToArray(list, p_removeObjectFromArray_0_.getClass().getComponentType());
     }
 
-    public static Object[] collectionToArray(Collection p_collectionToArray_0_, Class p_collectionToArray_1_) {
+    public static Object[] collectionToArray(Collection<Object> p_collectionToArray_0_, Class<?> p_collectionToArray_1_) {
         if (p_collectionToArray_0_ == null) {
             return null;
         } else if (p_collectionToArray_1_ == null) {

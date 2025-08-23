@@ -66,11 +66,11 @@ public class ServerAddress {
         try {
             String s = "com.sun.jndi.dns.DnsContextFactory";
             Class.forName("com.sun.jndi.dns.DnsContextFactory");
-            Hashtable hashtable = new Hashtable();
-            hashtable.put("java.naming.factory.initial", "com.sun.jndi.dns.DnsContextFactory");
-            hashtable.put("java.naming.provider.url", "dns:");
-            hashtable.put("com.sun.jndi.dns.timeout.retries", "1");
-            DirContext dircontext = new InitialDirContext(hashtable);
+            Hashtable<String, String> table = new Hashtable<>();
+            table.put("java.naming.factory.initial", "com.sun.jndi.dns.DnsContextFactory");
+            table.put("java.naming.provider.url", "dns:");
+            table.put("com.sun.jndi.dns.timeout.retries", "1");
+            DirContext dircontext = new InitialDirContext(table);
             Attributes attributes = dircontext.getAttributes("_minecraft._tcp." + p_78863_0_, new String[]{"SRV"});
             String[] astring = attributes.get("srv").get().toString().split(" ", 4);
             return new String[]{astring[3], astring[2]};

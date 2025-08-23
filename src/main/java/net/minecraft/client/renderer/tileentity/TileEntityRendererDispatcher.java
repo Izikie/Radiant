@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TileEntityRendererDispatcher {
-    public final Map<Class, TileEntitySpecialRenderer> mapSpecialRenderers = new HashMap<>();
+    public final Map<Class<? extends TileEntity>, TileEntitySpecialRenderer<?>> mapSpecialRenderers = new HashMap<>();
     public static final TileEntityRendererDispatcher INSTANCE = new TileEntityRendererDispatcher();
     public FontRenderer fontRenderer;
     public static double staticPlayerX;

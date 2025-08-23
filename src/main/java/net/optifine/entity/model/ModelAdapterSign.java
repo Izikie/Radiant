@@ -32,7 +32,7 @@ public class ModelAdapterSign extends ModelAdapter {
 
 	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
 		TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.INSTANCE;
-		TileEntitySpecialRenderer tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntitySign.class);
+		TileEntitySpecialRenderer<TileEntitySign> tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntitySign.class);
 
         if (tileentityspecialrenderer instanceof TileEntitySignRenderer) {
             if (tileentityspecialrenderer.getEntityClass() == null) {

@@ -38,12 +38,12 @@ public class ModelAdapterSheepWool extends ModelAdapterQuadruped {
 
 			RenderSheep rendersheep = (RenderSheep) render;
 			List<LayerRenderer<EntitySheep>> list = rendersheep.getLayerRenderers();
-			Iterator iterator = list.iterator();
+			Iterator<LayerRenderer<EntitySheep>> iterator = list.iterator();
 
 			while (iterator.hasNext()) {
-				LayerRenderer layerrenderer = (LayerRenderer) iterator.next();
+				LayerRenderer<EntitySheep> layerRenderer = iterator.next();
 
-				if (layerrenderer instanceof LayerSheepWool) {
+				if (layerRenderer instanceof LayerSheepWool) {
 					iterator.remove();
 				}
 			}

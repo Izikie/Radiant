@@ -61,7 +61,7 @@ public class TextureAnimations {
 	}
 
 	private static TextureAnimation[] getTextureAnimations(IResourcePack[] rps) {
-		List list = new ArrayList<>();
+		List<TextureAnimation> list = new ArrayList<>();
 
 		for (IResourcePack iresourcepack : rps) {
 			TextureAnimation[] atextureanimation = getTextureAnimations(iresourcepack);
@@ -80,7 +80,7 @@ public class TextureAnimations {
 		if (astring.length == 0) {
 			return null;
 		} else {
-			List list = new ArrayList<>();
+			List<TextureAnimation> list = new ArrayList<>();
 
 			for (String s : astring) {
 				Log.info("Texture animation: " + s);

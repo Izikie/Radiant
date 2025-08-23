@@ -10,7 +10,6 @@ import net.minecraft.client.resources.data.TextureMetadataSection;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.crash.ReportedException;
-import net.optifine.Config;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.*;
@@ -24,7 +23,6 @@ import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -586,7 +584,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
         return this.counterIndexInMap.getValue();
     }
 
-    private int detectMaxMipmapLevel(Map p_detectMaxMipmapLevel_1_, IResourceManager p_detectMaxMipmapLevel_2_) {
+    private int detectMaxMipmapLevel(Map<String, TextureAtlasSprite> p_detectMaxMipmapLevel_1_, IResourceManager p_detectMaxMipmapLevel_2_) {
         int i = this.detectMinimumSpriteSize(p_detectMaxMipmapLevel_1_, p_detectMaxMipmapLevel_2_, 20);
 
         if (i < 16) {
@@ -608,16 +606,14 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
         return j;
     }
 
-    private int detectMinimumSpriteSize(Map p_detectMinimumSpriteSize_1_, IResourceManager p_detectMinimumSpriteSize_2_, int p_detectMinimumSpriteSize_3_) {
-        Map map = new HashMap<>();
+    private int detectMinimumSpriteSize(Map<String, TextureAtlasSprite> sprites, IResourceManager p_detectMinimumSpriteSize_2_, int p_detectMinimumSpriteSize_3_) {
+        Map<Integer, Integer> map = new HashMap<>();
 
-        for (Object o : p_detectMinimumSpriteSize_1_.entrySet()) {
-            Entry entry = (Entry) o;
-            TextureAtlasSprite textureatlassprite = (TextureAtlasSprite) entry.getValue();
-            ResourceLocation resourcelocation = new ResourceLocation(textureatlassprite.getIconName());
+        for (TextureAtlasSprite sprite : sprites.values()) {
+            ResourceLocation resourcelocation = new ResourceLocation(sprite.getIconName());
             ResourceLocation resourcelocation1 = this.completeResourceLocation(resourcelocation);
 
-            if (!textureatlassprite.hasCustomLoader(p_detectMinimumSpriteSize_2_, resourcelocation)) {
+            if (!sprite.hasCustomLoader(p_detectMinimumSpriteSize_2_, resourcelocation)) {
                 try {
                     IResource iresource = p_detectMinimumSpriteSize_2_.getResource(resourcelocation1);
 
@@ -635,7 +631,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                                 if (!map.containsKey(j)) {
                                     map.put(j, 1);
                                 } else {
-                                    int k = (Integer) map.get(j);
+                                    int k = map.get(j);
                                     map.put(j, k + 1);
                                 }
                             }
@@ -647,22 +643,19 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
         }
 
         int l = 0;
-        Set set = map.keySet();
-        Set set1 = new TreeSet(set);
+        Set<Integer> set1 = new TreeSet<>(map.keySet());
         int l1;
 
-        for (Iterator iterator = set1.iterator(); iterator.hasNext(); l += l1) {
-            int j1 = (Integer) iterator.next();
-            l1 = (Integer) map.get(j1);
+        for (Iterator<Integer> iterator = set1.iterator(); iterator.hasNext(); l += l1) {
+            l1 = map.get(iterator.next());
         }
 
         int i1 = 16;
         int k1 = 0;
         l1 = l * p_detectMinimumSpriteSize_3_ / 100;
 
-        for (Object o : set1) {
-            int i2 = (Integer) o;
-            int j2 = (Integer) map.get(i2);
+        for (Integer i2 : set1) {
+            int j2 = map.get(i2);
             k1 += j2;
 
             if (i2 > i1) {
@@ -690,9 +683,9 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
     private int[] getMissingImageData(int p_getMissingImageData_1_) {
         NativeImage image = NativeImage.createBlankImage(16, 16);
         image.setRGB(0, 0, 16, 16, TextureUtil.MISSING_TEXTURE_DATA, 0, 16);
-        NativeImage bufferedimage1 = TextureUtils.scaleImage(image, p_getMissingImageData_1_);
+        NativeImage nativeImage = TextureUtils.scaleImage(image, p_getMissingImageData_1_);
         int[] aint = new int[p_getMissingImageData_1_ * p_getMissingImageData_1_];
-        bufferedimage1.getRGB(0, 0, p_getMissingImageData_1_, p_getMissingImageData_1_, aint, 0, p_getMissingImageData_1_);
+        nativeImage.getRGB(0, 0, p_getMissingImageData_1_, p_getMissingImageData_1_, aint, 0, p_getMissingImageData_1_);
         return aint;
     }
 
