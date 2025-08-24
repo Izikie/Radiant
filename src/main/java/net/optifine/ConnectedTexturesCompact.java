@@ -126,19 +126,19 @@ public class ConnectedTexturesCompact {
 	}
 
 	private static BakedQuad getQuadCompact(TextureAtlasSprite sprite, Dir dir, int x1, int y1, int x2, int y2, int side, BakedQuad quadIn, RenderEnv renderEnv) {
-		Map[][] amap = ConnectedTextures.getSpriteQuadCompactMaps();
+		Map<BakedQuad, BakedQuad>[][] quadCompactMaps = ConnectedTextures.getSpriteQuadCompactMaps();
 
-		if (amap == null) {
+		if (quadCompactMaps == null) {
 			return quadIn;
 		} else {
 			int i = sprite.getIndexInMap();
 
-			if (i >= 0 && i < amap.length) {
-				Map[] amap1 = amap[i];
+			if (i >= 0 && i < quadCompactMaps.length) {
+				Map<BakedQuad, BakedQuad>[] amap1 = quadCompactMaps[i];
 
 				if (amap1 == null) {
 					amap1 = new Map[Dir.VALUES.length];
-					amap[i] = amap1;
+					quadCompactMaps[i] = amap1;
 				}
 
 				Map<BakedQuad, BakedQuad> map = amap1[dir.ordinal()];

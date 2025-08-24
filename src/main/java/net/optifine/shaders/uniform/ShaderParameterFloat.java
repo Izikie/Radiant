@@ -96,12 +96,12 @@ public enum ShaderParameterFloat {
 		}
 	}
 
-	private static boolean instanceOf(Object obj, Class... classes) {
+	private static boolean instanceOf(ShaderUniformBase obj, Class<? extends ShaderUniformBase>... classes) {
 		if (obj != null) {
-			Class<? extends Object> oclass = obj.getClass();
+			Class<? extends Object> objClass = obj.getClass();
 
-			for (Class oclass1 : classes) {
-				if (oclass1.isAssignableFrom(oclass)) {
+			for (Class<? extends ShaderUniformBase> clazz : classes) {
+				if (clazz.isAssignableFrom(objClass)) {
 					return true;
 				}
 			}

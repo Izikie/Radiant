@@ -71,7 +71,7 @@ public class TextureAnimations {
 			}
 		}
 
-		return (TextureAnimation[]) list.toArray(new TextureAnimation[0]);
+		return list.toArray(new TextureAnimation[0]);
 	}
 
 	private static TextureAnimation[] getTextureAnimations(IResourcePack rp) {
@@ -109,7 +109,7 @@ public class TextureAnimations {
 				}
 			}
 
-			return (TextureAnimation[]) list.toArray(new TextureAnimation[0]);
+			return list.toArray(new TextureAnimation[0]);
 		}
 	}
 

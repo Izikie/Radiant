@@ -211,7 +211,7 @@ public class CustomEntityModels {
 					Iterator<ModelRenderer> iterator = list.iterator();
 
 					while (iterator.hasNext()) {
-						ModelRenderer modelrenderer1 = (ModelRenderer) iterator.next();
+						ModelRenderer modelrenderer1 = iterator.next();
 
 						if (!set.contains(modelrenderer1)) {
 							iterator.remove();

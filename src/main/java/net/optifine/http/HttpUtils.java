@@ -66,54 +66,6 @@ public class HttpUtils {
 		return abyte1;
 	}
 
-	public static String post(String urlStr, Map headers, byte[] content) throws IOException, URISyntaxException {
-		HttpURLConnection httpurlconnection = null;
-		String s3;
-
-		try {
-			URL url = new URI(urlStr).toURL();
-			httpurlconnection = (HttpURLConnection) url.openConnection(Minecraft.get().getProxy());
-			httpurlconnection.setRequestMethod("POST");
-
-			if (headers != null) {
-				for (Object s : headers.keySet()) {
-					String s1 = "" + headers.get(s);
-					httpurlconnection.setRequestProperty((String) s, s1);
-				}
-			}
-
-			httpurlconnection.setRequestProperty("Content-Type", "text/plain");
-			httpurlconnection.setRequestProperty("Content-Length", "" + content.length);
-			httpurlconnection.setRequestProperty("Content-Language", "en-US");
-			httpurlconnection.setUseCaches(false);
-			httpurlconnection.setDoInput(true);
-			httpurlconnection.setDoOutput(true);
-			OutputStream outputstream = httpurlconnection.getOutputStream();
-			outputstream.write(content);
-			outputstream.flush();
-			outputstream.close();
-			InputStream inputstream = httpurlconnection.getInputStream();
-			InputStreamReader inputstreamreader = new InputStreamReader(inputstream, StandardCharsets.US_ASCII);
-			BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
-			StringBuilder stringbuffer = new StringBuilder();
-			String s2;
-
-			while ((s2 = bufferedreader.readLine()) != null) {
-				stringbuffer.append(s2);
-				stringbuffer.append('\r');
-			}
-
-			bufferedreader.close();
-			s3 = stringbuffer.toString();
-		} finally {
-			if (httpurlconnection != null) {
-				httpurlconnection.disconnect();
-			}
-		}
-
-		return s3;
-	}
-
 	public static synchronized String getPlayerItemsUrl() {
 		if (playerItemsUrl == null) {
 			try {

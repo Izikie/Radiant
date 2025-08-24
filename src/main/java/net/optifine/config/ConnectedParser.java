@@ -377,7 +377,7 @@ public class ConnectedParser {
 				return this.parseIntList(s);
 			} else {
 				IBlockState iblockstate = block.getDefaultState();
-				Collection<?> collection = iblockstate.getPropertyNames();
+				Collection<IProperty<?>> collection = iblockstate.getPropertyNames();
 				Map<IProperty<?>, List<Comparable<?>>> map = new HashMap<>();
 
 				for (String s1 : params) {

@@ -59,8 +59,8 @@ public class CustomEntityModelParser {
 		float f = Json.getFloat(obj, "shadowSize", -1.0F);
 		JsonArray jsonarray = (JsonArray) obj.get("models");
 		checkNull(jsonarray, "Missing models");
-		Map<Object, Object> map = new HashMap<>();
-		List<Object> list = new ArrayList<>();
+		Map<String, JsonObject> map = new HashMap<>();
+		List<CustomModelRenderer> list = new ArrayList<>();
 
 		for (int i = 0; i < jsonarray.size(); ++i) {
 			JsonObject jsonobject = (JsonObject) jsonarray.get(i);
@@ -74,7 +74,7 @@ public class CustomEntityModelParser {
 			}
 		}
 
-		CustomModelRenderer[] acustommodelrenderer = (CustomModelRenderer[]) list.toArray(new CustomModelRenderer[0]);
+		CustomModelRenderer[] acustommodelrenderer = list.toArray(new CustomModelRenderer[0]);
 		ResourceLocation resourcelocation = null;
 
 		if (s2 != null) {
@@ -84,11 +84,11 @@ public class CustomEntityModelParser {
 		return new CustomEntityRenderer(s, s1, resourcelocation, acustommodelrenderer, f);
 	}
 
-	private static void processBaseId(JsonObject elem, Map mapModelJsons) {
+	private static void processBaseId(JsonObject elem, Map<String, JsonObject> mapModelJsons) {
 		String s = Json.getString(elem, "baseId");
 
 		if (s != null) {
-			JsonObject jsonobject = (JsonObject) mapModelJsons.get(s);
+			JsonObject jsonobject = mapModelJsons.get(s);
 
 			if (jsonobject == null) {
 				Log.error("BaseID not found: " + s);
@@ -98,7 +98,7 @@ public class CustomEntityModelParser {
 		}
 	}
 
-	private static void processExternalModel(JsonObject elem, Map mapModelJsons, String basePath) {
+	private static void processExternalModel(JsonObject elem, Map<String, JsonObject> mapModelJsons, String basePath) {
 		String s = Json.getString(elem, "model");
 
 		if (s != null) {
@@ -147,7 +147,7 @@ public class CustomEntityModelParser {
 		return new ResourceLocation(path);
 	}
 
-	private static void processId(JsonObject elem, Map mapModelJsons) {
+	private static void processId(JsonObject elem, Map<String, JsonObject> mapModelJsons) {
 		String s = Json.getString(elem, "id");
 
 		if (s != null) {

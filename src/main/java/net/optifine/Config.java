@@ -958,7 +958,7 @@ public class Config {
             list.add(stringtokenizer.nextToken());
         }
 
-        return (String[]) list.toArray(new String[0]);
+        return list.toArray(new String[0]);
     }
 
     public static DisplayMode getDesktopDisplayMode() {
@@ -981,7 +981,7 @@ public class Config {
                     }
                 }
 
-                DisplayMode[] adisplaymode2 = (DisplayMode[]) list.toArray(new DisplayMode[0]);
+                DisplayMode[] adisplaymode2 = list.toArray(new DisplayMode[0]);
                 Arrays.sort(adisplaymode2, new DisplayModeComparator());
                 return adisplaymode2;
             } catch (Exception exception) {
@@ -1162,7 +1162,7 @@ public class Config {
             String s = bufferedreader.readLine();
 
             if (s == null) {
-                return (String[]) list.toArray(new String[0]);
+                return list.toArray(new String[0]);
             }
 
             list.add(s);

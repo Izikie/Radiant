@@ -9,7 +9,7 @@ import java.util.IdentityHashMap;
 import java.util.Map;
 
 public class NaturalProperties {
-	private final Map[] quadMaps = new Map[8];
+	private final Map<BakedQuad, BakedQuad>[] quadMaps = new Map[8];
 	public int rotation = 1;
 	public boolean flip = false;
 
@@ -42,14 +42,14 @@ public class NaturalProperties {
 		}
 
 		if (i > 0 && i < this.quadMaps.length) {
-			Map map = this.quadMaps[i];
+			Map<BakedQuad, BakedQuad> map = this.quadMaps[i];
 
 			if (map == null) {
-				map = new IdentityHashMap(1);
+				map = new IdentityHashMap<>(1);
 				this.quadMaps[i] = map;
 			}
 
-			BakedQuad bakedquad = (BakedQuad) map.get(quadIn);
+			BakedQuad bakedquad = map.get(quadIn);
 
 			if (bakedquad == null) {
 				bakedquad = this.makeQuad(quadIn, rotate, flipU);

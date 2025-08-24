@@ -66,7 +66,7 @@ public class RandomEntityProperties {
 			}
 		}
 
-		return (RandomEntityRule[]) list.toArray(new RandomEntityRule[0]);
+		return list.toArray(new RandomEntityRule[0]);
 	}
 
 	public boolean isValid(String path) {

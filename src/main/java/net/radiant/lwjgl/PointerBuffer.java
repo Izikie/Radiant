@@ -8,7 +8,7 @@ import java.nio.*;
  *
  * @author Spasi
  */
-public class PointerBuffer implements Comparable {
+public class PointerBuffer implements Comparable<PointerBuffer> {
 
     protected final ByteBuffer pointers;
 
@@ -766,8 +766,7 @@ public class PointerBuffer implements Comparable {
      * @return A negative integer, zero, or a positive integer as this buffer
      * is less than, equal to, or greater than the given buffer
      */
-    public int compareTo(Object o) {
-        final PointerBuffer that = (PointerBuffer) o;
+    public int compareTo(PointerBuffer that) {
         int n = this.position() + Math.min(this.remaining(), that.remaining());
         for (int i = this.position(), j = that.position(); i < n; i++, j++) {
             long v1 = this.get(i);

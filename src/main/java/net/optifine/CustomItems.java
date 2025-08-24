@@ -50,7 +50,7 @@ public class CustomItems {
 	private static final String TYPE_POTION_LINGER = "linger";
 	private static CustomItemProperties[][] itemProperties = null;
 	private static CustomItemProperties[][] enchantmentProperties = null;
-	private static Map mapPotionIds = null;
+	private static Map<String, int[]> mapPotionIds = null;
 	private static boolean useGlint = true;
 
 	public static void update() {
@@ -252,7 +252,7 @@ public class CustomItems {
 			properties.put("items", "" + itemId);
 			return properties;
 		} else {
-			int[] aint = (int[]) getMapPotionIds().get(name);
+			int[] aint = getMapPotionIds().get(name);
 
 			if (aint == null) {
 				Log.error("Potion not found for image: " + path);
@@ -297,9 +297,9 @@ public class CustomItems {
 		}
 	}
 
-	private static Map getMapPotionIds() {
+	private static Map<String, int[]> getMapPotionIds() {
 		if (mapPotionIds == null) {
-			mapPotionIds = new LinkedHashMap();
+			mapPotionIds = new LinkedHashMap<>();
 			mapPotionIds.put("water", getPotionId(0, 0));
 			mapPotionIds.put("awkward", getPotionId(0, 1));
 			mapPotionIds.put("thick", getPotionId(0, 2));
@@ -382,23 +382,23 @@ public class CustomItems {
 		return list;
 	}
 
-	private static CustomItemProperties[][] propertyListToArray(List lists) {
-		CustomItemProperties[][] acustomitemproperties = new CustomItemProperties[lists.size()][];
+	private static CustomItemProperties[][] propertyListToArray(List<List<CustomItemProperties>> lists) {
+		CustomItemProperties[][] customItemProperties = new CustomItemProperties[lists.size()][];
 
 		for (int i = 0; i < lists.size(); ++i) {
-			List list = (List) lists.get(i);
+			List<CustomItemProperties> list = lists.get(i);
 
 			if (list != null) {
-				CustomItemProperties[] itemArray = (CustomItemProperties[]) list.toArray(new CustomItemProperties[0]);
+				CustomItemProperties[] itemArray = list.toArray(new CustomItemProperties[0]);
 				Arrays.sort(itemArray, new CustomItemsComparator());
-				acustomitemproperties[i] = itemArray;
+				customItemProperties[i] = itemArray;
 			}
 		}
 
-		return acustomitemproperties;
+		return customItemProperties;
 	}
 
-	private static void addToItemList(CustomItemProperties cp, List itemList) {
+	private static void addToItemList(CustomItemProperties cp, List<List<CustomItemProperties>> itemList) {
 		if (cp.items != null) {
 			for (int i = 0; i < cp.items.length; ++i) {
 				int j = cp.items[i];
@@ -412,7 +412,7 @@ public class CustomItems {
 		}
 	}
 
-	private static void addToEnchantmentList(CustomItemProperties cp, List enchantmentList) {
+	private static void addToEnchantmentList(CustomItemProperties cp, List<List<CustomItemProperties>> enchantmentList) {
 		if (cp.type == 2) {
 			if (cp.enchantmentIds != null) {
 				for (int i = 0; i < 256; ++i) {
@@ -424,19 +424,19 @@ public class CustomItems {
 		}
 	}
 
-	private static void addToList(CustomItemProperties cp, List lists, int id) {
-		while (id >= lists.size()) {
-			lists.add(null);
+	private static void addToList(CustomItemProperties cp, List<List<CustomItemProperties>> list, int id) {
+		while (id >= list.size()) {
+			list.add(null);
 		}
 
-		List list = (List) lists.get(id);
+		List<CustomItemProperties> subList = list.get(id);
 
-		if (list == null) {
-			list = new ArrayList<>();
-			list.set(id, list);
+		if (subList == null) {
+			subList = new ArrayList<>();
+			list.set(id, subList);
 		}
 
-		list.add(cp);
+		subList.add(cp);
 	}
 
 	public static IBakedModel getCustomItemModel(ItemStack itemStack, IBakedModel model, ResourceLocation modelLocation, boolean fullModel) {
@@ -651,7 +651,7 @@ public class CustomItems {
 			if (aint.length == 0) {
 				return false;
 			} else {
-				Set set = null;
+				Set<Integer> set = null;
 				boolean flag = false;
 				TextureManager texturemanager = Config.getTextureManager();
 
@@ -664,7 +664,7 @@ public class CustomItems {
 						if (acustomitemproperties != null) {
 							for (CustomItemProperties customitemproperties : acustomitemproperties) {
 								if (set == null) {
-									set = new HashSet();
+									set = new HashSet<>();
 								}
 
 								if (set.add(j) && matchesProperties(customitemproperties, itemStack, aint) && customitemproperties.textureLocation != null) {
@@ -723,7 +723,7 @@ public class CustomItems {
 			if (aint.length == 0) {
 				return false;
 			} else {
-				Set set = null;
+				Set<Integer> set = null;
 				boolean flag = false;
 				TextureManager texturemanager = Config.getTextureManager();
 
@@ -736,7 +736,7 @@ public class CustomItems {
 						if (acustomitemproperties != null) {
 							for (CustomItemProperties customitemproperties : acustomitemproperties) {
 								if (set == null) {
-									set = new HashSet();
+									set = new HashSet<>();
 								}
 
 								if (set.add(j) && matchesProperties(customitemproperties, itemStack, aint) && customitemproperties.textureLocation != null) {

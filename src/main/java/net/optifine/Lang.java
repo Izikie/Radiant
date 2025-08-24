@@ -63,7 +63,7 @@ public class Lang {
 		}
 	}
 
-	public static void loadLocaleData(InputStream is, Map localeProperties) throws IOException {
+	public static void loadLocaleData(InputStream is, Map<String, String> localeProperties) throws IOException {
 		Iterator<String> iterator = IOUtils.readLines(is, StandardCharsets.UTF_8).iterator();
 		is.close();
 

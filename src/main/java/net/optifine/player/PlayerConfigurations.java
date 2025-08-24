@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class PlayerConfigurations {
 	private static final boolean RELOAD_PLAYER_ITEMS = Boolean.getBoolean("player.models.reload");
-	private static Map mapConfigurations = null;
+	private static Map<String, PlayerConfiguration> mapConfigurations = null;
 	private static long timeReloadPlayerItemsMs = System.currentTimeMillis();
 
 	public static void renderPlayerItems(ModelBiped modelBiped, AbstractClientPlayer player, float scale, float partialTicks) {
@@ -56,7 +56,7 @@ public class PlayerConfigurations {
 		getMapConfigurations().put(player, pc);
 	}
 
-	private static Map getMapConfigurations() {
+	private static Map<String, PlayerConfiguration> getMapConfigurations() {
 		if (mapConfigurations == null) {
 			mapConfigurations = new HashMap<>();
 		}

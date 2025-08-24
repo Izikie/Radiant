@@ -16,7 +16,7 @@ import java.util.Properties;
 
 class GuiSlotShaders extends GuiSlot {
 	final GuiShaders shadersGui;
-	private ArrayList shaderslist;
+	private ArrayList<String> shaderslist;
 	private int selectedIndex;
 	private long lastClickedCached = 0L;
 
@@ -56,7 +56,7 @@ class GuiSlotShaders extends GuiSlot {
 
 	protected void elementClicked(int index, boolean doubleClicked, int mouseX, int mouseY) {
 		if (index != this.selectedIndex || this.lastClicked != this.lastClickedCached) {
-			String s = (String) this.shaderslist.get(index);
+			String s = this.shaderslist.get(index);
 			IShaderPack ishaderpack = Shaders.getShaderPack(s);
 
 			if (this.checkCompatible(ishaderpack, index)) {
@@ -68,7 +68,7 @@ class GuiSlotShaders extends GuiSlot {
 	private void selectIndex(int index) {
 		this.selectedIndex = index;
 		this.lastClickedCached = this.lastClicked;
-		Shaders.setShaderPack((String) this.shaderslist.get(index));
+		Shaders.setShaderPack(this.shaderslist.get(index));
 		Shaders.uninit();
 		this.shadersGui.updateButtons();
 	}
@@ -131,7 +131,7 @@ class GuiSlotShaders extends GuiSlot {
 	}
 
 	protected void drawSlot(int index, int posX, int posY, int contentY, int mouseX, int mouseY) {
-		String s = (String) this.shaderslist.get(index);
+		String s = this.shaderslist.get(index);
 
 		if (s.equals("OFF")) {
 			s = Lang.get("of.options.shaders.packNone");

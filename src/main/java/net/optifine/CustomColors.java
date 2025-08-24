@@ -392,7 +392,7 @@ public class CustomColors {
 			}
 		}
 
-		String[] astring = (String[]) map.keySet().toArray(new String[0]);
+		String[] astring = map.keySet().toArray(new String[0]);
 
 		for (String s6 : astring) {
 			String s3 = props.getProperty(s6);
@@ -423,14 +423,14 @@ public class CustomColors {
 		if (list.isEmpty()) {
 			return null;
 		} else {
-			return (CustomColormap[]) list.toArray(new CustomColormap[0]);
+			return list.toArray(new CustomColormap[0]);
 		}
 	}
 
 	private static CustomColormap[][] readBlockColormaps(String[] basePaths, CustomColormap[] basePalettes, int width, int height) {
 		String[] astring = ResUtils.collectFiles(basePaths, new String[]{".properties"});
 		Arrays.sort(astring);
-		List<Object> list = new ArrayList<>();
+		List<List<CustomColormap>> list = new ArrayList<>();
 
 		for (String s : astring) {
 			dbg("Block colormap: " + s);
@@ -471,7 +471,7 @@ public class CustomColors {
 		}
 	}
 
-	private static void addToBlockList(CustomColormap cm, List blockList) {
+	private static void addToBlockList(CustomColormap cm, List<List<CustomColormap>> blockList) {
 		int[] aint = cm.getMatchBlockIds();
 
 		if (aint != null && aint.length > 0) {
@@ -487,29 +487,29 @@ public class CustomColors {
 		}
 	}
 
-	private static void addToList(CustomColormap cm, List lists, int id) {
-		while (id >= lists.size()) {
-			lists.add(null);
+	private static void addToList(CustomColormap cm, List<List<CustomColormap>> list, int id) {
+		while (id >= list.size()) {
+			list.add(null);
 		}
 
-		List list = (List) lists.get(id);
+		List<CustomColormap> subList = list.get(id);
 
-		if (list == null) {
-			list = new ArrayList<>();
-			list.set(id, list);
+		if (subList == null) {
+			subList = new ArrayList<>();
+			list.set(id, subList);
 		}
 
-		list.add(cm);
+		subList.add(cm);
 	}
 
-	private static CustomColormap[][] blockListToArray(List lists) {
-		CustomColormap[][] acustomcolormap = new CustomColormap[lists.size()][];
+	private static CustomColormap[][] blockListToArray(List<List<CustomColormap>> list) {
+		CustomColormap[][] acustomcolormap = new CustomColormap[list.size()][];
 
-		for (int i = 0; i < lists.size(); ++i) {
-			List list = (List) lists.get(i);
+		for (int i = 0; i < list.size(); ++i) {
+			List<CustomColormap> subList = list.get(i);
 
-			if (list != null) {
-				CustomColormap[] acustomcolormap1 = (CustomColormap[]) list.toArray(new CustomColormap[0]);
+			if (subList != null) {
+				CustomColormap[] acustomcolormap1 = subList.toArray(new CustomColormap[0]);
 				acustomcolormap[i] = acustomcolormap1;
 			}
 		}

@@ -8,7 +8,7 @@ public class HttpResponse {
 	private final Map<String, String> headers;
 	private final byte[] body;
 
-	public HttpResponse(int status, String statusLine, Map headers, byte[] body) {
+	public HttpResponse(int status, String statusLine, Map<String, String> headers, byte[] body) {
 		this.status = status;
 		this.statusLine = statusLine;
 		this.headers = headers;
@@ -23,7 +23,7 @@ public class HttpResponse {
 		return this.statusLine;
 	}
 
-	public Map getHeaders() {
+	public Map<String, String> getHeaders() {
 		return this.headers;
 	}
 

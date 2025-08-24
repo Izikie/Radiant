@@ -52,9 +52,9 @@ public class CustomItemProperties {
 	public float duration = 1.0F;
 	public int weight = 0;
 	public ResourceLocation textureLocation = null;
-	public Map mapTextureLocations = null;
+	public Map<String, ResourceLocation> mapTextureLocations = null;
 	public TextureAtlasSprite sprite = null;
-	public Map mapSprites = null;
+	public Map<String, TextureAtlasSprite> mapSprites = null;
 	public IBakedModel bakedModelTexture = null;
 	public Map<String, IBakedModel> mapBakedModelsTexture = null;
 	public IBakedModel bakedModelFull = null;
@@ -167,21 +167,17 @@ public class CustomItemProperties {
 		}
 	}
 
-	private static Map parseTextures(Properties props, String basePath) {
+	private static Map<String, String> parseTextures(Properties props, String basePath) {
 		String s = "texture.";
-		Map map = getMatchingProperties(props, s);
+		Map<String, String> map = getMatchingProperties(props, s);
 
 		if (map.isEmpty()) {
 			return null;
 		} else {
-			Set set = map.keySet();
-			Map map1 = new LinkedHashMap();
+			Map<String, String> map1 = new LinkedHashMap<>();
 
-			for (Object o : set) {
-				String s1 = (String) o;
-				String s2 = (String) map.get(s1);
-				s2 = fixTextureName(s2, basePath);
-				map1.put(s1, s2);
+			for (String s1 : map.keySet()) {
+				map1.put(s1, fixTextureName(map.get(s1), basePath));
 			}
 
 			return map1;
@@ -231,21 +227,17 @@ public class CustomItemProperties {
 		}
 	}
 
-	private static Map parseModels(Properties props, String basePath) {
+	private static Map<String, String> parseModels(Properties props, String basePath) {
 		String s = "model.";
-		Map map = getMatchingProperties(props, s);
+		Map<String, String> map = getMatchingProperties(props, s);
 
 		if (map.isEmpty()) {
 			return null;
 		} else {
-			Set set = map.keySet();
-			Map map1 = new LinkedHashMap();
+			Map<String, String> map1 = new LinkedHashMap<>();
 
-			for (Object o : set) {
-				String s1 = (String) o;
-				String s2 = (String) map.get(s1);
-				s2 = fixModelName(s2, basePath);
-				map1.put(s1, s2);
+			for (String s1 : map.keySet()) {
+				map1.put(s1, fixModelName(map.get(s1), basePath));
 			}
 
 			return map1;
@@ -273,19 +265,16 @@ public class CustomItemProperties {
 		return modelName;
 	}
 
-	private static Map getMatchingProperties(Properties props, String keyPrefix) {
-		Map map = new LinkedHashMap();
+	private static Map<String, String> getMatchingProperties(Properties props, String keyPrefix) {
+		Map<String, String> properties = new LinkedHashMap<>();
 
-		for (Object o : props.keySet()) {
-			String s = (String) o;
-			String s1 = props.getProperty(s);
-
-			if (s.startsWith(keyPrefix)) {
-				map.put(s, s1);
+		for (String key : props.stringPropertyNames()) {
+			if (key.startsWith(keyPrefix)) {
+				properties.put(key, props.getProperty(key));
 			}
 		}
 
-		return map;
+		return properties;
 	}
 
 	private static IBakedModel makeBakedModel(TextureMap textureMap, ItemModelGenerator itemModelGenerator, String[] textures, boolean useTint) {
@@ -396,7 +385,7 @@ public class CustomItemProperties {
 			return null;
 		} else {
 			str = str.trim();
-			Set set = new TreeSet();
+			Set<Integer> set = new TreeSet<>();
 			String[] astring = Config.tokenize(str, " ");
 			label45:
 
@@ -446,7 +435,7 @@ public class CustomItemProperties {
 				}
 			}
 
-			Integer[] ainteger = (Integer[]) set.toArray(new Integer[0]);
+			Integer[] ainteger = set.toArray(new Integer[0]);
 			int[] aint = new int[ainteger.length];
 
 			for (int l1 = 0; l1 < aint.length; ++l1) {
@@ -574,22 +563,18 @@ public class CustomItemProperties {
 
 	private NbtTagValue[] parseNbtTagValues(Properties props) {
 		String s = "nbt.";
-		Map map = getMatchingProperties(props, s);
+		Map<String, String> map = getMatchingProperties(props, s);
 
 		if (map.isEmpty()) {
 			return null;
 		} else {
 			List<Object> list = new ArrayList<>();
 
-			for (Object o : map.keySet()) {
-				String s1 = (String) o;
-				String s2 = (String) map.get(s1);
-				String s3 = s1.substring(s.length());
-				NbtTagValue nbttagvalue = new NbtTagValue(s3, s2);
-				list.add(nbttagvalue);
+			for (String s1 : map.keySet()) {
+				list.add(new NbtTagValue(s1.substring(s.length()), map.get(s1)));
 			}
 
-			return (NbtTagValue[]) list.toArray(new NbtTagValue[0]);
+			return list.toArray(new NbtTagValue[0]);
 		}
 	}
 

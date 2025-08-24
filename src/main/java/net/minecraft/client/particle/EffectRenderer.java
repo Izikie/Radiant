@@ -180,7 +180,7 @@ public class EffectRenderer {
             int l = j;
 
             for (Iterator<EntityFX> iterator = entitiesFX.iterator(); iterator.hasNext() && l > 0; --l) {
-                EntityFX entityfx1 = (EntityFX) iterator.next();
+                EntityFX entityfx1 = iterator.next();
                 entityfx1.setDead();
                 iterator.remove();
             }

@@ -47,7 +47,7 @@ public class PlayerManager {
         Iterator<Entry<EntityPlayerMP, Set<ChunkCoordIntPair>>> iterator = set.iterator();
 
         while (iterator.hasNext()) {
-            Entry<EntityPlayerMP, Set<ChunkCoordIntPair>> entry = (Entry) iterator.next();
+            Entry<EntityPlayerMP, Set<ChunkCoordIntPair>> entry = iterator.next();
             Set<ChunkCoordIntPair> set1 = entry.getValue();
 
             if (!set1.isEmpty()) {
@@ -362,7 +362,7 @@ public class PlayerManager {
             int k = i * 2 + 1;
             int l = j * j - k * k;
             l = Math.max(l, 16);
-            HashSet hashset = new HashSet(l);
+            Set<ChunkCoordIntPair> hashset = new HashSet<>(l);
             this.mapPlayerPendingEntries.put(p_getPendingEntriesSafe_1_, hashset);
             return hashset;
         }

@@ -4404,13 +4404,12 @@ public class Shaders {
 
 					if (inputstream != null) {
 						Properties properties = new PropertiesOrdered();
-						Lang.loadLocaleData(inputstream, properties);
+						Lang.loadLocaleData(inputstream, (Map) properties);
 						inputstream.close();
 
-						for (Object o : properties.keySet()) {
-							String s4 = (String) o;
-							String s5 = properties.getProperty(s4);
-							shaderPackResources.put(s4, s5);
+						for (Object s4 : properties.keySet()) {
+							String cString = (String) s4;
+							shaderPackResources.put(cString, properties.getProperty(cString));
 						}
 					}
 				}

@@ -10,8 +10,7 @@ public class IteratorCache {
 
 	static {
 		for (int i = 0; i < 1000; ++i) {
-			IteratorReadOnly iteratorcache$iteratorreadonly = new IteratorReadOnly();
-			dequeIterators.add(iteratorcache$iteratorreadonly);
+			dequeIterators.add(new IteratorReadOnly());
 		}
 	}
 
@@ -69,7 +68,7 @@ public class IteratorCache {
 
 		public boolean hasNext() {
 			if (!this.hasNext) {
-				IteratorCache.finished(this);
+				finished(this);
 				return false;
 			} else {
 				return this.hasNext;

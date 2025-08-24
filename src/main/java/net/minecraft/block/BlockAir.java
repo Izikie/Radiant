@@ -49,7 +49,7 @@ public class BlockAir extends Block {
 
     public static void restoreLightOpacity(Block p_restoreLightOpacity_0_) {
         if (MAP_ORIGINAL_OPACITY.containsKey(p_restoreLightOpacity_0_)) {
-            int i = (Integer) MAP_ORIGINAL_OPACITY.get(p_restoreLightOpacity_0_);
+            int i = MAP_ORIGINAL_OPACITY.get(p_restoreLightOpacity_0_);
             setLightOpacity(p_restoreLightOpacity_0_, i);
         }
     }

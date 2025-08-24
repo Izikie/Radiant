@@ -56,9 +56,9 @@ public class ConnectedTextures {
 	private static final BlockDir[] EDGES_X_POS_EAST = new BlockDir[]{BlockDir.DOWN_NORTH, BlockDir.DOWN_SOUTH, BlockDir.UP_NORTH, BlockDir.UP_SOUTH};
 	private static final BlockDir[] EDGES_Z_NEG_NORTH_Z_AXIS = new BlockDir[]{BlockDir.UP_EAST, BlockDir.UP_WEST, BlockDir.DOWN_EAST, BlockDir.DOWN_WEST};
 	private static final BlockDir[] EDGES_X_POS_EAST_X_AXIS = new BlockDir[]{BlockDir.UP_SOUTH, BlockDir.UP_NORTH, BlockDir.DOWN_SOUTH, BlockDir.DOWN_NORTH};
-	private static Map[] spriteQuadMaps = null;
-	private static Map[] spriteQuadFullMaps = null;
-	private static Map[][] spriteQuadCompactMaps = null;
+	private static Map<BakedQuad, BakedQuad>[] spriteQuadMaps = null;
+	private static Map<Direction, BakedQuad>[] spriteQuadFullMaps = null;
+	private static Map<BakedQuad, BakedQuad>[][] spriteQuadCompactMaps = null;
 	private static ConnectedProperties[][] blockProperties = null;
 	private static ConnectedProperties[][] tileProperties = null;
 	private static boolean multipass = false;
@@ -159,14 +159,14 @@ public class ConnectedTextures {
 			int i = sprite.getIndexInMap();
 
 			if (i >= 0 && i < spriteQuadMaps.length) {
-				Map map = spriteQuadMaps[i];
+				Map<BakedQuad, BakedQuad> map = spriteQuadMaps[i];
 
 				if (map == null) {
 					map = new IdentityHashMap<>(1);
 					spriteQuadMaps[i] = map;
 				}
 
-				BakedQuad bakedquad = (BakedQuad) map.get(quadIn);
+				BakedQuad bakedquad = map.get(quadIn);
 
 				if (bakedquad == null) {
 					bakedquad = makeSpriteQuad(quadIn, sprite);
@@ -918,7 +918,7 @@ public class ConnectedTextures {
 		};
 	}
 
-	protected static Map[][] getSpriteQuadCompactMaps() {
+	protected static Map<BakedQuad, BakedQuad>[][] getSpriteQuadCompactMaps() {
 		return spriteQuadCompactMaps;
 	}
 
@@ -1730,7 +1730,7 @@ public class ConnectedTextures {
 			}
 		}
 
-		ConnectedProperties[] aconnectedproperties1 = (ConnectedProperties[]) list.toArray(new ConnectedProperties[0]);
+		ConnectedProperties[] aconnectedproperties1 = list.toArray(new ConnectedProperties[0]);
 		Set<TextureAtlasSprite> set1 = new HashSet<>();
 		Set<TextureAtlasSprite> set = new HashSet<>();
 
@@ -1748,14 +1748,14 @@ public class ConnectedTextures {
 		return !set1.isEmpty();
 	}
 
-	private static ConnectedProperties[][] propertyListToArray(List list) {
+	private static ConnectedProperties[][] propertyListToArray(List<List<ConnectedProperties>> list) {
 		ConnectedProperties[][] aconnectedproperties = new ConnectedProperties[list.size()][];
 
 		for (int i = 0; i < list.size(); ++i) {
-			List sublist = (List) list.get(i);
+			List<ConnectedProperties> sublist = list.get(i);
 
 			if (sublist != null) {
-				ConnectedProperties[] aconnectedproperties1 = (ConnectedProperties[]) sublist.toArray(new ConnectedProperties[0]);
+				ConnectedProperties[] aconnectedproperties1 = sublist.toArray(new ConnectedProperties[0]);
 				aconnectedproperties[i] = aconnectedproperties1;
 			}
 		}
@@ -1763,7 +1763,7 @@ public class ConnectedTextures {
 		return aconnectedproperties;
 	}
 
-	private static void addToTileList(ConnectedProperties cp, List tileList) {
+	private static void addToTileList(ConnectedProperties cp, List<List<ConnectedProperties>> tileList) {
 		if (cp.matchTileIcons != null) {
 			for (int i = 0; i < cp.matchTileIcons.length; ++i) {
 				TextureAtlasSprite textureatlassprite = cp.matchTileIcons[i];
@@ -1783,7 +1783,7 @@ public class ConnectedTextures {
 		}
 	}
 
-	private static void addToBlockList(ConnectedProperties cp, List blockList) {
+	private static void addToBlockList(ConnectedProperties cp, List<List<ConnectedProperties>> blockList) {
 		if (cp.matchBlocks != null) {
 			for (int i = 0; i < cp.matchBlocks.length; ++i) {
 				int j = cp.matchBlocks[i].getBlockId();
@@ -1797,19 +1797,19 @@ public class ConnectedTextures {
 		}
 	}
 
-	private static void addToList(ConnectedProperties cp, List lists, int id) {
-		while (id >= lists.size()) {
-			lists.add(null);
+	private static void addToList(ConnectedProperties cp, List<List<ConnectedProperties>> list, int id) {
+		while (id >= list.size()) {
+			list.add(null);
 		}
 
-		List list = (List) lists.get(id);
+		List<ConnectedProperties> subList = list.get(id);
 
-		if (list == null) {
-			list = new ArrayList<>();
-			lists.set(id, list);
+		if (subList == null) {
+			subList = new ArrayList<>();
+			list.set(id, subList);
 		}
 
-		list.add(cp);
+		subList.add(cp);
 	}
 
 	private static String[] getDefaultCtmPaths() {
@@ -1840,6 +1840,6 @@ public class ConnectedTextures {
 			}
 		}
 
-		return (String[]) list.toArray(new String[0]);
+		return list.toArray(new String[0]);
 	}
 }

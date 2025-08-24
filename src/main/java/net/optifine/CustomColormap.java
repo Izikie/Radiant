@@ -438,7 +438,7 @@ public class CustomColormap implements CustomColors.IColorizer {
 		if (this.matchBlocks == null) {
 			return null;
 		} else {
-			Set set = new HashSet();
+			Set<Integer> set = new HashSet<>();
 
 			for (MatchBlock matchblock : this.matchBlocks) {
 				if (matchblock.getBlockId() >= 0) {
@@ -446,7 +446,7 @@ public class CustomColormap implements CustomColors.IColorizer {
 				}
 			}
 
-			Integer[] ainteger = (Integer[]) set.toArray(new Integer[0]);
+			Integer[] ainteger = set.toArray(new Integer[0]);
 			int[] aint = new int[ainteger.length];
 
 			for (int j = 0; j < ainteger.length; ++j) {

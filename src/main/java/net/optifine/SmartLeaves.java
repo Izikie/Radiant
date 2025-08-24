@@ -56,7 +56,7 @@ public class SmartLeaves {
 	}
 
 	public static void updateLeavesModels() {
-		List<Object> list = new ArrayList<>();
+		List<String> list = new ArrayList<>();
 		modelLeavesCullAcacia = getModelCull("acacia", list);
 		modelLeavesCullBirch = getModelCull("birch", list);
 		modelLeavesCullDarkOak = getModelCull("dark_oak", list);
@@ -81,11 +81,11 @@ public class SmartLeaves {
 		}
 	}
 
-	private static List getGeneralQuadsSafe(IBakedModel model) {
+	private static List<BakedQuad> getGeneralQuadsSafe(IBakedModel model) {
 		return model == null ? null : model.getGeneralQuads();
 	}
 
-	static IBakedModel getModelCull(String type, List updatedTypes) {
+	static IBakedModel getModelCull(String type, List<String> updatedTypes) {
 		ModelManager modelmanager = Config.getModelManager();
 
 		if (modelmanager == null) {

@@ -56,7 +56,7 @@ public class ExpressionParser {
 		Iterator<Token> iterator = deque.iterator();
 
 		while (iterator.hasNext()) {
-			Token token = (Token) iterator.next();
+			Token token = iterator.next();
 			iterator.remove();
 
 			if (i == 0 && token.type() == tokenTypeEnd) {

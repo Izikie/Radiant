@@ -10,7 +10,7 @@ import net.minecraft.util.registry.IRegistry;
 import net.minecraft.util.registry.RegistrySimple;
 
 public class IMetadataSerializer {
-    private final IRegistry<String, Registration<? extends IMetadataSection>> metadataSectionSerializerRegistry = new RegistrySimple();
+    private final IRegistry<String, Registration<? extends IMetadataSection>> metadataSectionSerializerRegistry = new RegistrySimple<>();
     private final GsonBuilder gsonBuilder = new GsonBuilder()
             .registerTypeHierarchyAdapter(IChatComponent.class, new IChatComponent.Serializer())
             .registerTypeHierarchyAdapter(ChatStyle.class, new ChatStyle.Serializer())

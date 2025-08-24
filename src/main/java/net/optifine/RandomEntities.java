@@ -296,7 +296,7 @@ public class RandomEntities {
 			if (list.size() <= 1) {
 				return null;
 			} else {
-				ResourceLocation[] aresourcelocation = (ResourceLocation[]) list.toArray(new ResourceLocation[0]);
+				ResourceLocation[] aresourcelocation = list.toArray(new ResourceLocation[0]);
 				dbg(loc.getResourcePath() + ", variants: " + aresourcelocation.length);
 				return aresourcelocation;
 			}
@@ -318,7 +318,7 @@ public class RandomEntities {
 		String[] astring = new String[]{"optifine/random/", "mcpatcher/mob/"};
 		String[] astring1 = new String[]{".png", ".properties"};
 		String[] astring2 = ResUtils.collectFiles(astring, astring1);
-		Set set = new HashSet();
+		Set<String> set = new HashSet<>();
 
 		for (String string : astring2) {
 			String s = string;

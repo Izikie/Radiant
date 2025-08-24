@@ -244,11 +244,10 @@ public class ConnectedProperties {
 		}
 	}
 
-	public static IProperty getProperty(String key, Collection properties) {
-		for (Object o : properties) {
-			IProperty iproperty = (IProperty) o;
-			if (key.equals(iproperty.getName())) {
-				return iproperty;
+	public static IProperty<?> getProperty(String key, Collection<IProperty<?>> properties) {
+		for (IProperty<?> iProperty : properties) {
+			if (key.equals(iProperty.getName())) {
+				return iProperty;
 			}
 		}
 
@@ -372,7 +371,7 @@ public class ConnectedProperties {
 				}
 			}
 
-			return (TextureAtlasSprite[]) list.toArray(new TextureAtlasSprite[0]);
+			return list.toArray(new TextureAtlasSprite[0]);
 		}
 	}
 
@@ -488,7 +487,7 @@ public class ConnectedProperties {
 				list.add(s);
 			}
 
-			String[] astring2 = (String[]) list.toArray(new String[0]);
+			String[] astring2 = list.toArray(new String[0]);
 
 			for (int i1 = 0; i1 < astring2.length; ++i1) {
 				String s1 = astring2[i1];

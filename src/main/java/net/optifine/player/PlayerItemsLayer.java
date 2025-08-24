@@ -11,7 +11,7 @@ import net.optifine.Log;
 
 import java.util.Map;
 
-public class PlayerItemsLayer implements LayerRenderer {
+public class PlayerItemsLayer implements LayerRenderer<EntityLivingBase> {
 	private final RenderPlayer renderPlayer;
 
 	public PlayerItemsLayer(RenderPlayer renderPlayer) {

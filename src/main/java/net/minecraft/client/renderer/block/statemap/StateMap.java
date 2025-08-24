@@ -25,7 +25,7 @@ public class StateMap extends StateMapperBase {
         if (this.name == null) {
             s = Block.blockRegistry.getNameForObject(state.getBlock()).toString();
         } else {
-            s = ((IProperty)this.name).getName(map.remove(this.name));
+            s = ((IProperty) this.name).getName(map.remove(this.name));
         }
 
         if (this.suffix != null) {
