@@ -1,9 +1,9 @@
 package net.optifine.shaders.config;
 
-import net.optifine.Config;
 import net.optifine.Lang;
 import net.optifine.util.StrUtils;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,7 +26,7 @@ public class ShaderOptionSwitch extends ShaderOption {
 			String s2 = matcher.group(3);
 
 			if (s1 != null && !s1.isEmpty()) {
-				boolean flag = Config.equals(s, "//");
+				boolean flag = Objects.equals(s, "//");
 				boolean flag1 = !flag;
 				path = StrUtils.removePrefix(path, "/shaders/");
 				return new ShaderOptionSwitch(s1, s2, String.valueOf(flag1), path);

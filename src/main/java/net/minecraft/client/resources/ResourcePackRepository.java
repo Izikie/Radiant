@@ -69,7 +69,7 @@ public class ResourcePackRepository {
                     }
 
                     iterator.remove();
-                    LOGGER.warn("Removed selected resource pack {} because it's no longer compatible", new Object[]{resourcepackrepository$entry.getResourcePackName()});
+                    LOGGER.warn("Removed selected resource pack {} because it's no longer compatible", resourcepackrepository$entry.getResourcePackName());
                 }
             }
         }

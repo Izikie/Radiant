@@ -249,40 +249,31 @@ public class Minecraft implements IThreadListener {
 
 		LOGGER.info("Game launched in {}ms", System.currentTimeMillis() - startTime);
 
-		while (true) {
-			try {
-				while (running) {
-					if (!hasCrashed || crashReporter == null) {
-						try {
-							runGameLoop();
-						} catch (OutOfMemoryError error) {
-							freeMemory();
-							displayGuiScreen(new GuiMemoryErrorScreen());
-							System.gc();
-						}
-					} else {
-						displayCrashReport(crashReporter);
-					}
+		try {
+			while (running) {
+				if (!hasCrashed || crashReporter == null) {
+					runGameLoop();
+				} else {
+					displayCrashReport(crashReporter);
 				}
-			} catch (MinecraftError error) {
-				break;
-			} catch (ReportedException exception) {
-				addGraphicsAndWorldToCrashReport(exception.getCrashReport());
-				freeMemory();
-				LOGGER.error("Reported exception thrown!", exception);
-				displayCrashReport(exception.getCrashReport());
-				break;
-			} catch (Throwable throwable) {
-				CrashReport report = addGraphicsAndWorldToCrashReport(new CrashReport("Unexpected error", throwable));
-				freeMemory();
-				LOGGER.error("Unreported exception thrown!", throwable);
-				displayCrashReport(report);
-				break;
-			} finally {
-				shutdownMinecraftApplet();
 			}
-
-			return;
+		} catch (OutOfMemoryError error) {
+			freeMemory();
+			displayGuiScreen(new GuiMemoryErrorScreen());
+			System.gc();
+		} catch (MinecraftError error) {
+		} catch (ReportedException exception) {
+			addGraphicsAndWorldToCrashReport(exception.getCrashReport());
+			freeMemory();
+			LOGGER.error("Reported exception thrown!", exception);
+			displayCrashReport(exception.getCrashReport());
+		} catch (Throwable throwable) {
+			CrashReport report = addGraphicsAndWorldToCrashReport(new CrashReport("Unexpected error", throwable));
+			freeMemory();
+			LOGGER.error("Unreported exception thrown!", throwable);
+			displayCrashReport(report);
+		} finally {
+			shutdownMinecraftApplet();
 		}
 	}
 

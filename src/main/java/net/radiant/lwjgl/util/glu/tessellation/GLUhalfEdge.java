@@ -96,7 +96,7 @@ class GLUhalfEdge {
     /* Internal data (keep hidden) */
     public ActiveRegion activeRegion;    /* a region with this upper edge (sweep.c) */
     public int winding;    /* change in winding number when crossing */
-    public boolean first;
+    public final boolean first;
 
     GLUhalfEdge(boolean first) {
         this.first = first;

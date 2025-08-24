@@ -108,7 +108,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
     public boolean writeNextIO() {
         if (this.chunksToRemove.isEmpty()) {
             if (this.field_183014_e) {
-                LOGGER.info("ThreadedAnvilChunkStorage ({}): All chunks are saved", new Object[]{this.chunkSaveLocation.getName()});
+                LOGGER.info("ThreadedAnvilChunkStorage ({}): All chunks are saved", this.chunkSaveLocation.getName());
             }
 
             return false;

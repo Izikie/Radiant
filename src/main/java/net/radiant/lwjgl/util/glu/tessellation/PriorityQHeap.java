@@ -91,7 +91,7 @@ class PriorityQHeap extends PriorityQ {
     int size, max;
     int freeList;
     boolean initialized;
-    PriorityQ.Leq leq;
+    final PriorityQ.Leq leq;
 
     /* really __gl_pqHeapNewPriorityQ */
     PriorityQHeap(PriorityQ.Leq leq) {

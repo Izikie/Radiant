@@ -34,7 +34,6 @@ package net.radiant.lwjgl;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.nio.ByteBuffer;
 import java.util.*;
 
@@ -172,7 +171,7 @@ public class LWJGLUtil {
         }
 
         //create needed string array
-        return possible_paths.toArray(new String[possible_paths.size()]);
+        return possible_paths.toArray(new String[0]);
     }
 
     static void execPrivileged(final String[] cmd_array) throws Exception {

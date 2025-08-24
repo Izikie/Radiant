@@ -1,8 +1,9 @@
 package net.optifine.shaders;
 
-import net.optifine.Config;
 import net.optifine.shaders.config.ShaderOption;
 import net.optifine.shaders.config.ShaderProfile;
+
+import java.util.Objects;
 
 public class ShaderUtils {
 	public static ShaderOption getShaderOption(String name, ShaderOption[] opts) {
@@ -44,7 +45,7 @@ public class ShaderUtils {
 					String s1 = def ? shaderoption.getValueDefault() : shaderoption.getValue();
 					String s2 = prof.getValue(s);
 
-					if (!Config.equals(s1, s2)) {
+					if (!Objects.equals(s1, s2)) {
 						return false;
 					}
 				}

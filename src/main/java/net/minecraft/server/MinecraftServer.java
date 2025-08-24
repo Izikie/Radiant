@@ -351,7 +351,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
                     long j = k - this.currentTime;
 
                     if (j > 2000L && this.currentTime - this.timeOfLastWarning >= 15000L) {
-                        LOGGER.warn("Can't keep up! Did the system time change, or is the server overloaded? Running {}ms behind, skipping {} tick(s)", new Object[]{j, j / 50L});
+                        LOGGER.warn("Can't keep up! Did the system time change, or is the server overloaded? Running {}ms behind, skipping {} tick(s)", j, j / 50L);
                         j = 2000L;
                         this.timeOfLastWarning = this.currentTime;
                     }

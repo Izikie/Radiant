@@ -46,7 +46,7 @@ public class RandomEntityProperties {
 	}
 
 	private RandomEntityRule[] parseRules(Properties props, String pathProps, ResourceLocation baseResLoc, ConnectedParser cp) {
-		List<Object> list = new ArrayList<>();
+		List<RandomEntityRule> list = new ArrayList<>();
 		int i = props.size();
 
 		for (int j = 0; j < i; ++j) {

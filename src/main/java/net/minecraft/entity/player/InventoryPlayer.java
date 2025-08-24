@@ -284,14 +284,11 @@ public class InventoryPlayer implements IInventory {
                 } else {
                     int i;
 
-                    while (true) {
+                    do {
                         i = itemStackIn.stackSize;
                         itemStackIn.stackSize = this.storePartialItemStack(itemStackIn);
 
-                        if (itemStackIn.stackSize <= 0 || itemStackIn.stackSize >= i) {
-                            break;
-                        }
-                    }
+                    } while (itemStackIn.stackSize > 0 && itemStackIn.stackSize < i);
 
                     if (itemStackIn.stackSize == i && this.player.capabilities.isCreativeMode) {
                         itemStackIn.stackSize = 0;

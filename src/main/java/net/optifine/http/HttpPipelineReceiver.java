@@ -10,6 +10,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class HttpPipelineReceiver extends Thread {
 	private static final Charset ASCII = StandardCharsets.US_ASCII;
@@ -69,7 +70,7 @@ public class HttpPipelineReceiver extends Thread {
 					} else {
 						String s7 = map.get("Transfer-Encoding");
 
-						if (Config.equals(s7, "chunked")) {
+						if (Objects.equals(s7, "chunked")) {
 							abyte = this.readContentChunked(in);
 						}
 					}

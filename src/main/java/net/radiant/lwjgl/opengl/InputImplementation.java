@@ -39,7 +39,6 @@ package net.radiant.lwjgl.opengl;
  * @author elias_naur
  */
 
-import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
 import net.radiant.lwjgl.LWJGLException;
@@ -58,26 +57,6 @@ public interface InputImplementation {
      * Query of button count
      */
     int getButtonCount();
-
-    /**
-     * Method to create the mouse.
-     */
-    void createMouse() throws LWJGLException;
-
-    /**
-     * Method the destroy the mouse
-     */
-    void destroyMouse();
-
-    /**
-     * Method to poll the mouse
-     */
-    void pollMouse(IntBuffer coord_buffer, ByteBuffer buttons);
-
-    /**
-     * Method to read the keyboard buffer
-     */
-    void readMouse(ByteBuffer buffer);
 
     void grabMouse(boolean grab);
 
@@ -110,37 +89,12 @@ public interface InputImplementation {
      * Keyboard methods
      */
 
-    /**
-     * Method to create the keyboard
-     */
-    void createKeyboard() throws LWJGLException;
-
-    /**
-     * Method to destroy the keyboard
-     */
-    void destroyKeyboard();
-
-    /**
-     * Method to poll the keyboard.
-     *
-     * @param keyDownBuffer the address of a 256-byte buffer to place
-     *                      key states in.
-     */
-    void pollKeyboard(ByteBuffer keyDownBuffer);
-
-    /**
-     * Method to read the keyboard buffer
-     */
-    void readKeyboard(ByteBuffer buffer);
-
-//	int isStateKeySet(int key);
+    //	int isStateKeySet(int key);
 
     /**
      * Native cursor handles
      */
     Object createCursor(int width, int height, int xHotspot, int yHotspot, int numImages, IntBuffer images, IntBuffer delays) throws LWJGLException;
-
-    void destroyCursor(Object cursor_handle);
 
     int getWidth();
 

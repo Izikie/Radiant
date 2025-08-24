@@ -145,12 +145,9 @@ public class BlockPistonStructureHelper {
     }
 
     private void func_177255_a(int p_177255_1_, int p_177255_2_) {
-        List<BlockPos> list = new ArrayList<>();
-        List<BlockPos> list1 = new ArrayList<>();
-        List<BlockPos> list2 = new ArrayList<>();
-        list.addAll(this.toMove.subList(0, p_177255_2_));
-        list1.addAll(this.toMove.subList(this.toMove.size() - p_177255_1_, this.toMove.size()));
-        list2.addAll(this.toMove.subList(p_177255_2_, this.toMove.size() - p_177255_1_));
+        List<BlockPos> list = new ArrayList<>(this.toMove.subList(0, p_177255_2_));
+        List<BlockPos> list1 = new ArrayList<>(this.toMove.subList(this.toMove.size() - p_177255_1_, this.toMove.size()));
+        List<BlockPos> list2 = new ArrayList<>(this.toMove.subList(p_177255_2_, this.toMove.size() - p_177255_1_));
         this.toMove.clear();
         this.toMove.addAll(list);
         this.toMove.addAll(list1);

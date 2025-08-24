@@ -1,6 +1,6 @@
 package net.optifine.shaders.config;
 
-import net.optifine.Config;
+import java.util.Objects;
 
 public class PropertyDefaultFastFancyOff extends Property {
 	public static final String[] PROPERTY_VALUES = new String[]{"default", "fast", "fancy", "off"};
@@ -27,7 +27,7 @@ public class PropertyDefaultFastFancyOff extends Property {
 	}
 
 	public boolean setPropertyValue(String propVal) {
-		if (Config.equals(propVal, "none")) {
+		if (Objects.equals(propVal, "none")) {
 			propVal = "off";
 		}
 

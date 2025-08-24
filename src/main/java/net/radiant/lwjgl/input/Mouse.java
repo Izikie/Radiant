@@ -17,7 +17,7 @@ public class Mouse {
     private static final int[] lastyEvents = new int[queue.getMaxEvents()];
     private static final long[] nanoTimeEvents = new long[queue.getMaxEvents()];
     public static int lastDWheel = 0;
-    public static double[] scrollEvents = new double[queue.getMaxEvents()];
+    public static final double[] scrollEvents = new double[queue.getMaxEvents()];
     private static Cursor currentCursor = null;
     private static boolean grabbed = false;
     private static int lastX = 0;

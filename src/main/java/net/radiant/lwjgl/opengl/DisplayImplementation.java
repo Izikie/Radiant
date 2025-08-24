@@ -40,7 +40,6 @@ package net.radiant.lwjgl.opengl;
  */
 
 import java.nio.ByteBuffer;
-import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import net.radiant.lwjgl.LWJGLException;
@@ -64,11 +63,6 @@ interface DisplayImplementation extends InputImplementation {
      * @return the length of each gamma ramp array, or 0 if gamma settings are unsupported.
      */
     int getGammaRampLength();
-
-    /**
-     * Method to set the gamma ramp.
-     */
-    void setGammaRamp(FloatBuffer gammaRamp) throws LWJGLException;
 
     /**
      * Get the driver adapter string. This is a unique string describing the actual card's hardware, eg. "Geforce2", "PS2",
@@ -120,8 +114,6 @@ interface DisplayImplementation extends InputImplementation {
      */
     void update();
 
-    void reshape(int x, int y, int width, int height);
-
     /**
      * Method for getting displaymodes
      */
@@ -141,12 +133,6 @@ interface DisplayImplementation extends InputImplementation {
     PeerInfo createPbuffer(int width, int height, PixelFormat pixel_format, ContextAttribs attribs,
                            IntBuffer pixelFormatCaps,
                            IntBuffer pBufferAttribs) throws LWJGLException;
-
-    void setPbufferAttrib(PeerInfo handle, int attrib, int value);
-
-    void bindTexImageToPbuffer(PeerInfo handle, int buffer);
-
-    void releaseTexImageFromPbuffer(PeerInfo handle, int buffer);
 
     /**
      * Sets one or more icons for the Display.

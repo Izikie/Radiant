@@ -31,6 +31,8 @@
  */
 package net.radiant.lwjgl;
 
+import java.io.Serial;
+
 /**
  * <p>
  * This exception is supplied to make exception handling more generic for LWJGL
@@ -43,6 +45,7 @@ package net.radiant.lwjgl;
  */
 public class LWJGLException extends Exception {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**

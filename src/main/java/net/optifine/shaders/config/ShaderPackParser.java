@@ -71,7 +71,7 @@ public class ShaderPackParser {
 				ShaderOption shaderoption1 = mapOptions.get(s1);
 
 				if (shaderoption1 != null) {
-					if (!Config.equals(shaderoption1.getValueDefault(), shaderoption.getValueDefault())) {
+					if (!Objects.equals(shaderoption1.getValueDefault(), shaderoption.getValueDefault())) {
 						Log.error("Ambiguous shader option: " + shaderoption.getName());
 						Log.error(" - in " + Config.arrayToString(shaderoption1.getPaths()) + ": " + shaderoption1.getValueDefault());
 						Log.error(" - in " + Config.arrayToString(shaderoption.getPaths()) + ": " + shaderoption.getValueDefault());

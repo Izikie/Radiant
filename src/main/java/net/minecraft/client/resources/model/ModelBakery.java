@@ -244,7 +244,7 @@ public class ModelBakery {
                 ModelBlock modelblock = this.loadModel(p_loadItemModel_2_);
                 this.models.put(p_loadItemModel_2_, modelblock);
             } catch (Exception exception) {
-                LOGGER.warn("Unable to load item model: '{}' for item: '{}'", new Object[]{p_loadItemModel_2_, p_loadItemModel_3_});
+                LOGGER.warn("Unable to load item model: '{}' for item: '{}'", p_loadItemModel_2_, p_loadItemModel_3_);
                 LOGGER.warn("{}: {}", exception.getClass().getName(), exception.getMessage());
             }
         }

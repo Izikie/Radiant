@@ -2098,7 +2098,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             int i1 = 0;
             boolean flag1;
 
-            while (true) {
+            do {
                 flag1 = false;
 
                 for (int j1 = 0; j1 < 100; ++j1) {
@@ -2132,10 +2132,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                     l = System.currentTimeMillis() + 5000L;
                 }
 
-                if (!flag1) {
-                    break;
-                }
-            }
+            } while (flag1);
 
             Log.info("Chunks loaded: " + i1);
             Log.info("Finished loading visible chunks");

@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.optifine.Config;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.Log;
@@ -14,10 +13,7 @@ import net.optifine.entity.model.CustomEntityModelParser;
 import net.optifine.util.Json;
 import org.joml.Vector2i;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 public class PlayerItemParser {
@@ -59,7 +55,7 @@ public class PlayerItemParser {
 	public static PlayerItemModel parseItemModel(JsonObject obj) {
 		String s = Json.getString(obj, "type");
 
-		if (!Config.equals(s, "PlayerItem")) {
+		if (!Objects.equals(s, "PlayerItem")) {
 			throw new JsonParseException("Unknown model type: " + s);
 		} else {
 			int[] aint = Json.parseIntArray(obj.get("textureSize"), 2);
@@ -157,7 +153,7 @@ public class PlayerItemParser {
 	public static PlayerItemRenderer parseItemRenderer(JsonObject elem, Vector2i textureDim) {
 		String s = Json.getString(elem, "type");
 
-		if (!Config.equals(s, "ModelBox")) {
+		if (!Objects.equals(s, "ModelBox")) {
 			Log.error("Unknown model type: " + s);
 			return null;
 		} else {

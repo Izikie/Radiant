@@ -7,7 +7,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
-import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -50,10 +49,10 @@ public class Display {
     private static int displayX = -1;
     private static int displayY = -1;
     private static boolean displayResized = false;
-    private static int displayWidth = 0;
-    private static int displayHeight = 0;
-    private static int displayFramebufferWidth = 0;
-    private static int displayFramebufferHeight = 0;
+    private static int displayWidth;
+    private static int displayHeight;
+    private static int displayFramebufferWidth;
+    private static int displayFramebufferHeight;
     private static boolean latestResized = false;
     private static int latestWidth = 0;
     private static int latestHeight = 0;
@@ -364,28 +363,6 @@ public class Display {
             }
 
             @Override
-            public void readMouse(ByteBuffer buffer) {
-
-            }
-
-            @Override
-            public void readKeyboard(ByteBuffer buffer) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void pollMouse(IntBuffer coord_buffer, ByteBuffer buttons) {
-
-            }
-
-            @Override
-            public void pollKeyboard(ByteBuffer keyDownBuffer) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
             public boolean isInsideWindow() {
                 // TODO Auto-generated method stub
                 return false;
@@ -427,36 +404,6 @@ public class Display {
             }
 
             @Override
-            public void destroyMouse() {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void destroyKeyboard() {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void destroyCursor(Object cursor_handle) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void createMouse() throws LWJGLException {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void createKeyboard() throws LWJGLException {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
             public Object createCursor(int width, int height, int xHotspot, int yHotspot, int numImages,
                                        IntBuffer images, IntBuffer delays) throws LWJGLException {
                 // TODO Auto-generated method stub
@@ -491,28 +438,10 @@ public class Display {
             }
 
             @Override
-            public void setPbufferAttrib(PeerInfo handle, int attrib, int value) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
             public int setIcon(ByteBuffer[] icons) {
                 // TODO Auto-generated method stub
                 Display.setIcon(icons);
                 return 0;
-            }
-
-            @Override
-            public void setGammaRamp(FloatBuffer gammaRamp) throws LWJGLException {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void reshape(int x, int y, int width, int height) {
-                // TODO Auto-generated method stub
-
             }
 
             @Override
@@ -521,12 +450,6 @@ public class Display {
                     Display.setDisplayMode(desktopDisplayMode);
                 } catch (LWJGLException e) {
                 }
-            }
-
-            @Override
-            public void releaseTexImageFromPbuffer(PeerInfo handle, int buffer) {
-                // TODO Auto-generated method stub
-
             }
 
             @Override
@@ -643,11 +566,6 @@ public class Display {
                 return null;
             }
 
-            @Override
-            public void bindTexImageToPbuffer(PeerInfo handle, int buffer) {
-                // TODO Auto-generated method stub
-
-            }
         };
 
 
@@ -937,10 +855,6 @@ public class Display {
         if (!isCurrent()) {
             // -glfwMakeContextCurrent(Window.handle);
         }
-    }
-
-    public static void setDisplayConfiguration(float gamma, float brightness, float contrast) throws LWJGLException {
-        // ignore call, this is required for a1.1.1
     }
 
     public static String getAdapter() {

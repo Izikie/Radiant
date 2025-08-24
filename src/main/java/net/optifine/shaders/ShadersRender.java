@@ -363,15 +363,6 @@ public class ShadersRender {
 		Shaders.useProgram(Shaders.PROGRAM_BEACON_BEAM);
 	}
 
-	public static void beaconBeamStartQuad1() {
-	}
-
-	public static void beaconBeamStartQuad2() {
-	}
-
-	public static void beaconBeamDraw1() {
-	}
-
 	public static void beaconBeamDraw2() {
 		GlStateManager.disableBlend();
 	}

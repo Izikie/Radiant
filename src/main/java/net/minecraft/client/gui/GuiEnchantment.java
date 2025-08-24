@@ -253,13 +253,10 @@ public class GuiEnchantment extends GuiContainer {
         if (!ItemStack.areItemStacksEqual(itemstack, this.field_147077_B)) {
             this.field_147077_B = itemstack;
 
-            while (true) {
+            do {
                 this.field_147082_x += (this.random.nextInt(4) - this.random.nextInt(4));
 
-                if (this.field_147071_v > this.field_147082_x + 1.0F || this.field_147071_v < this.field_147082_x - 1.0F) {
-                    break;
-                }
-            }
+            } while (!(this.field_147071_v > this.field_147082_x + 1.0F) && !(this.field_147071_v < this.field_147082_x - 1.0F));
         }
 
         ++this.field_147073_u;

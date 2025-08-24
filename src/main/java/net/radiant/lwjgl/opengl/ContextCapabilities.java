@@ -371,7 +371,7 @@ public class ContextCapabilities {
     public boolean GL_SGIS_texture_lod;
     public boolean GL_SUN_slice_accum;
 
-    GLCapabilities cap = GL.getCapabilities();
+    final GLCapabilities cap = GL.getCapabilities();
 
     public ContextCapabilities() {
 

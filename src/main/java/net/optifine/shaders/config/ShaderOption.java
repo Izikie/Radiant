@@ -6,6 +6,7 @@ import net.optifine.util.StrUtils;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class ShaderOption {
 	public static final String COLOR_GREEN = "\u00a7a";
@@ -127,7 +128,7 @@ public abstract class ShaderOption {
 	}
 
 	public boolean isChanged() {
-		return !Config.equals(this.value, this.valueDefault);
+		return !Objects.equals(this.value, this.valueDefault);
 	}
 
 	public boolean isVisible() {

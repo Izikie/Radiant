@@ -167,7 +167,7 @@ public class Keyboard {
     private static final long[] nanoTimeEvents = new long[queue.getMaxEvents()];
     private static final char[] keyEventChars = new char[256];
     private static final String[] keyName = new String[KEYBOARD_SIZE];
-    private static final Map<String, Integer> keyMap = new HashMap<String, Integer>(253);
+    private static final Map<String, Integer> keyMap = new HashMap<>(253);
     private static boolean repeatEvents;
 
     static {

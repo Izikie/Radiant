@@ -218,7 +218,7 @@ public class PlayerProfileCache {
         }
     }
 
-    class Serializer implements JsonDeserializer<ProfileEntry>, JsonSerializer<ProfileEntry> {
+    static class Serializer implements JsonDeserializer<ProfileEntry>, JsonSerializer<ProfileEntry> {
         private Serializer() {
         }
 

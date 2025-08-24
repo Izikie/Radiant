@@ -26,7 +26,7 @@ public class BreakingFour extends BakedQuad {
         float f = Float.intBitsToFloat(this.vertexData[j]);
         float f1 = Float.intBitsToFloat(this.vertexData[j + 1]);
         float f2 = Float.intBitsToFloat(this.vertexData[j + 2]);
-        float f3 = 0.0F;
+        float f3;
         float f4 = switch (this.face) {
             case DOWN -> {
                 f3 = f * 16.0F;

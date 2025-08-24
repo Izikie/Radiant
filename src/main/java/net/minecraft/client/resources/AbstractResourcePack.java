@@ -44,7 +44,7 @@ public abstract class AbstractResourcePack implements IResourcePack {
     protected abstract boolean hasResourceName(String name);
 
     protected void logNameNotLowercase(String name) {
-        LOGGER.warn("ResourcePack: ignored non-lowercase namespace: {} in {}", new Object[]{name, this.resourcePackFile});
+        LOGGER.warn("ResourcePack: ignored non-lowercase namespace: {} in {}", name, this.resourcePackFile);
     }
 
     public <T extends IMetadataSection> T getPackMetadata(IMetadataSerializer metadataSerializer, String metadataSectionName) throws IOException {

@@ -301,7 +301,7 @@ public class CustomItemProperties {
 				stringbuffer.append(", ");
 			}
 
-			stringbuffer.append("\"layer" + i + "\": \"" + s + "\"");
+			stringbuffer.append("\"layer").append(i).append("\": \"").append(s).append("\"");
 		}
 
 		stringbuffer.append("}}");
@@ -568,7 +568,7 @@ public class CustomItemProperties {
 		if (map.isEmpty()) {
 			return null;
 		} else {
-			List<Object> list = new ArrayList<>();
+			List<NbtTagValue> list = new ArrayList<>();
 
 			for (String s1 : map.keySet()) {
 				list.add(new NbtTagValue(s1.substring(s.length()), map.get(s1)));

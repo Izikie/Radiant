@@ -1654,9 +1654,6 @@ public class ConnectedTextures {
 		}
 	}
 
-	private static void updateIconEmpty(TextureMap textureMap) {
-	}
-
 	public static void updateIcons(TextureMap textureMap, IResourcePack rp) {
 		String[] astring = ResUtils.collectFiles(rp, "mcpatcher/ctm/", ".properties", getDefaultCtmPaths());
 		Arrays.sort(astring);
@@ -1813,30 +1810,30 @@ public class ConnectedTextures {
 	}
 
 	private static String[] getDefaultCtmPaths() {
-		List<Object> list = new ArrayList<>();
-		String s = "mcpatcher/ctm/default/";
+		List<String> list = new ArrayList<>();
+		String base = "mcpatcher/ctm/default/";
 
 		if (Config.isFromDefaultResourcePack(new ResourceLocation("textures/blocks/glass.png"))) {
-			list.add(s + "glass.properties");
-			list.add(s + "glasspane.properties");
+			list.add(base + "glass.properties");
+			list.add(base + "glasspane.properties");
 		}
 
 		if (Config.isFromDefaultResourcePack(new ResourceLocation("textures/blocks/bookshelf.png"))) {
-			list.add(s + "bookshelf.properties");
+			list.add(base + "bookshelf.properties");
 		}
 
 		if (Config.isFromDefaultResourcePack(new ResourceLocation("textures/blocks/sandstone_normal.png"))) {
-			list.add(s + "sandstone.properties");
+			list.add(base + "sandstone.properties");
 		}
 
-		String[] astring = new String[]{"white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "silver", "cyan", "purple", "blue", "brown", "green", "red", "black"};
+		String[] colors = new String[]{"white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "silver", "cyan", "purple", "blue", "brown", "green", "red", "black"};
 
-		for (int i = 0; i < astring.length; ++i) {
-			String s1 = astring[i];
+		for (int i = 0; i < colors.length; ++i) {
+			String color = colors[i];
 
-			if (Config.isFromDefaultResourcePack(new ResourceLocation("textures/blocks/glass_" + s1 + ".png"))) {
-				list.add(s + i + "_glass_" + s1 + "/glass_" + s1 + ".properties");
-				list.add(s + i + "_glass_" + s1 + "/glass_pane_" + s1 + ".properties");
+			if (Config.isFromDefaultResourcePack(new ResourceLocation("textures/blocks/glass_" + color + ".png"))) {
+				list.add(base + i + "_glass_" + color + "/glass_" + color + ".properties");
+				list.add(base + i + "_glass_" + color + "/glass_pane_" + color + ".properties");
 			}
 		}
 

@@ -117,37 +117,34 @@ public class MacroState {
 		boolean flag;
 		int i = 0;
 
-		while (true) {
-			flag = false;
-			Matcher matcher2 = PATTERN_MACRO.matcher(str);
+        do {
+            flag = false;
+            Matcher matcher2 = PATTERN_MACRO.matcher(str);
 
-			while (matcher2.find()) {
-				String s = matcher2.group();
+            while (matcher2.find()) {
+                String s = matcher2.group();
 
-				if (!s.isEmpty()) {
-					char c0 = s.charAt(0);
+                if (!s.isEmpty()) {
+                    char c0 = s.charAt(0);
 
-					if ((Character.isLetter(c0) || c0 == 95) && this.mapMacroValues.containsKey(s)) {
-						String s1 = this.mapMacroValues.get(s);
+                    if ((Character.isLetter(c0) || c0 == 95) && this.mapMacroValues.containsKey(s)) {
+                        String s1 = this.mapMacroValues.get(s);
 
-						if (s1 == null) {
-							s1 = "1";
-						}
+                        if (s1 == null) {
+                            s1 = "1";
+                        }
 
-						int j = matcher2.start();
-						int k = matcher2.end();
-						str = str.substring(0, j) + " " + s1 + " " + str.substring(k);
-						flag = true;
-						++i;
-						break;
-					}
-				}
-			}
+                        int j = matcher2.start();
+                        int k = matcher2.end();
+                        str = str.substring(0, j) + " " + s1 + " " + str.substring(k);
+                        flag = true;
+                        ++i;
+                        break;
+                    }
+                }
+            }
 
-			if (!flag || i >= 100) {
-				break;
-			}
-		}
+        } while (flag && i < 100);
 
 		if (i == 100) {
 			Log.error("Too many iterations: " + i + ", when resolving: " + str);

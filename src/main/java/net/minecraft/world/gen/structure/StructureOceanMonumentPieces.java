@@ -607,17 +607,14 @@ public class StructureOceanMonumentPieces {
                     Iterator<MonumentRoomFitHelper> iterator = list1.iterator();
                     MonumentRoomFitHelper structureoceanmonumentpieces$monumentroomfithelper;
 
-                    while (true) {
+                    do {
                         if (!iterator.hasNext()) {
                             continue label319;
                         }
 
                         structureoceanmonumentpieces$monumentroomfithelper = iterator.next();
 
-                        if (structureoceanmonumentpieces$monumentroomfithelper.func_175969_a(structureoceanmonumentpieces$roomdefinition)) {
-                            break;
-                        }
-                    }
+                    } while (!structureoceanmonumentpieces$monumentroomfithelper.func_175969_a(structureoceanmonumentpieces$roomdefinition));
 
                     this.field_175843_q.add(structureoceanmonumentpieces$monumentroomfithelper.func_175968_a(this.coordBaseMode, structureoceanmonumentpieces$roomdefinition, p_i45599_1_));
                 }

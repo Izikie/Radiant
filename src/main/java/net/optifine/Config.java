@@ -1319,14 +1319,10 @@ public class Config {
         }
     }
 
-    public static boolean equals(Object p_equals_0_, Object p_equals_1_) {
-        return p_equals_0_ == p_equals_1_ || (p_equals_0_ != null && p_equals_0_.equals(p_equals_1_));
-    }
-
-    public static boolean equalsOne(Object p_equalsOne_0_, Object[] p_equalsOne_1_) {
-        if (p_equalsOne_1_ != null) {
-            for (Object object : p_equalsOne_1_) {
-                if (equals(p_equalsOne_0_, object)) {
+    public static boolean equalsOne(Object object, Object[] objects) {
+        if (objects != null) {
+            for (Object obj : objects) {
+                if (Objects.equals(object, obj)) {
                     return true;
                 }
             }

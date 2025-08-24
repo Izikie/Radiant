@@ -111,7 +111,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 
     public void setNetHandler(INetHandler handler) {
         Objects.requireNonNull(handler, "packetListener");
-        LOGGER.debug("Set listener of {} to {}", new Object[]{this, handler});
+        LOGGER.debug("Set listener of {} to {}", this, handler);
         this.packetListener = handler;
     }
 

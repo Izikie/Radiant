@@ -96,7 +96,7 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
             soundeventaccessorcomposite = this.sndRegistry.getObject(location);
         } else {
             if (!flag) {
-                LOGGER.debug("Replaced sound event location {}", new Object[]{location});
+                LOGGER.debug("Replaced sound event location {}", location);
             }
 
             soundeventaccessorcomposite = new SoundEventAccessorComposite(location, 1.0D, 1.0D, sounds.getSoundCategory());
@@ -117,7 +117,7 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
                     try {
                         inputstream = this.mcResourceManager.getResource(resourcelocation1).getInputStream();
                     } catch (FileNotFoundException exception) {
-                        LOGGER.warn("File {} does not exist, cannot add it to event {}", new Object[]{resourcelocation1, location});
+                        LOGGER.warn("File {} does not exist, cannot add it to event {}", resourcelocation1, location);
                         continue;
                     } catch (IOException exception) {
                         LOGGER.warn("Could not load sound file {}, cannot add it to event {}", resourcelocation1, location, exception);

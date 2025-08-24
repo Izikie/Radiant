@@ -27,7 +27,7 @@ public class MessageSerializer extends MessageToByteEncoder<Packet<?>> {
         Integer integer = ctx.channel().attr(NetworkManager.ATTR_KEY_CONNECTION_STATE).get().getPacketId(this.direction, packet);
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug(RECEIVED_PACKET_MARKER, "OUT: [{}:{}] {}", new Object[]{ctx.channel().attr(NetworkManager.ATTR_KEY_CONNECTION_STATE).get(), integer, packet.getClass().getName()});
+            LOGGER.debug(RECEIVED_PACKET_MARKER, "OUT: [{}:{}] {}", ctx.channel().attr(NetworkManager.ATTR_KEY_CONNECTION_STATE).get(), integer, packet.getClass().getName());
         }
 
         if (integer == null) {

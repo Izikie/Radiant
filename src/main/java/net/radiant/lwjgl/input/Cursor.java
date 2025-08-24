@@ -208,15 +208,6 @@ public class Cursor {
     }
 
     /**
-     * Destroy the native cursor. If the cursor is current,
-     * the current native cursor is set to null (the default
-     * OS cursor)
-     */
-    public void destroy() {
-        // TODO
-    }
-
-    /**
      * Sets the timout property to the time it should be changed
      */
     protected void setTimeout() {

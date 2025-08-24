@@ -277,7 +277,7 @@ public class RandomEntities {
 	}
 
 	private static ResourceLocation[] getLocationsVariants(ResourceLocation loc, boolean mcpatcher) {
-		List<Object> list = new ArrayList<>();
+		List<ResourceLocation> list = new ArrayList<>();
 		list.add(loc);
 		ResourceLocation resourcelocation = getLocationRandom(loc, mcpatcher);
 

@@ -383,7 +383,7 @@ public class PlayerManager {
 
         public void addPlayer(EntityPlayerMP player) {
             if (this.playersWatchingChunk.contains(player)) {
-                PlayerManager.LOGGER.debug("Failed to add player. {} already is in chunk {}, {}", new Object[]{player, this.chunkCoords.chunkXPos, this.chunkCoords.chunkZPos});
+                PlayerManager.LOGGER.debug("Failed to add player. {} already is in chunk {}, {}", player, this.chunkCoords.chunkXPos, this.chunkCoords.chunkZPos);
             } else {
                 if (this.playersWatchingChunk.isEmpty()) {
                     this.previousWorldTime = PlayerManager.this.theWorldServer.getTotalWorldTime();

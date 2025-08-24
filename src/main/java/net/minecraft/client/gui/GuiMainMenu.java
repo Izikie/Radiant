@@ -70,13 +70,10 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
             }
 
             if (!list.isEmpty()) {
-                while (true) {
+                do {
                     this.splashText = list.get(RANDOM.nextInt(list.size()));
 
-                    if (this.splashText.hashCode() != 125780783) {
-                        break;
-                    }
-                }
+                } while (this.splashText.hashCode() == 125780783);
             }
         } catch (IOException exception) {
         } finally {

@@ -127,7 +127,7 @@ public class GameSettings {
     public final KeyBinding keyBindChat = new KeyBinding("key.chat", 20, "key.categories.multiplayer");
     public final KeyBinding keyBindCommand = new KeyBinding("key.command", 53, "key.categories.multiplayer");
 
-    public KeyBinding[] keyBindings;
+    public final KeyBinding[] keyBindings;
     protected Minecraft mc;
     private File optionsFile;
     public Difficulty difficulty;

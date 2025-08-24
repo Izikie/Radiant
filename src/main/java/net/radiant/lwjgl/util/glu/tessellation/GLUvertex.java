@@ -91,7 +91,7 @@ class GLUvertex {
     public Object data;        /* client's data */
 
     /* Internal data (keep hidden) */
-    public double[] coords = new double[3];    /* vertex location in 3D */
+    public final double[] coords = new double[3];    /* vertex location in 3D */
     public double s, t;        /* projection onto the sweep plane */
     public int pqHandle;    /* to allow deletion from priority queue */
 }

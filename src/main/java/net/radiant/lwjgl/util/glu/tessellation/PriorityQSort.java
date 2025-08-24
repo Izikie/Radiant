@@ -81,7 +81,7 @@ package net.radiant.lwjgl.util.glu.tessellation;
 
 
 class PriorityQSort extends PriorityQ {
-    PriorityQHeap heap;
+    final PriorityQHeap heap;
     Object[] keys;
 
     // JAVA: 'order' contains indices into the keys array.
@@ -90,7 +90,7 @@ class PriorityQSort extends PriorityQ {
     int[] order;
     int size, max;
     boolean initialized;
-    PriorityQ.Leq leq;
+    final PriorityQ.Leq leq;
 
     PriorityQSort(PriorityQ.Leq leq) {
         heap = new PriorityQHeap(leq);

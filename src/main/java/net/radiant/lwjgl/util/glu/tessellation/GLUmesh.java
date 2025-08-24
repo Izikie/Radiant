@@ -86,8 +86,8 @@ package net.radiant.lwjgl.util.glu.tessellation;
 
 
 class GLUmesh {
-    GLUvertex vHead = new GLUvertex();        /* dummy header for vertex list */
-    GLUface fHead = new GLUface();        /* dummy header for face list */
-    GLUhalfEdge eHead = new GLUhalfEdge(true);        /* dummy header for edge list */
-    GLUhalfEdge eHeadSym = new GLUhalfEdge(false);    /* and its symmetric counterpart */
+    final GLUvertex vHead = new GLUvertex();        /* dummy header for vertex list */
+    final GLUface fHead = new GLUface();        /* dummy header for face list */
+    final GLUhalfEdge eHead = new GLUhalfEdge(true);        /* dummy header for edge list */
+    final GLUhalfEdge eHeadSym = new GLUhalfEdge(false);    /* and its symmetric counterpart */
 }

@@ -18,17 +18,17 @@ public class BlockNewLog extends BlockLog {
     }
 
     public MapColor getMapColor(IBlockState state) {
-        BlockPlanks.WoodType blockplanks$enumtype = state.getValue(VARIANT);
+        BlockPlanks.WoodType woodType = state.getValue(VARIANT);
 
         switch (state.getValue(LOG_AXIS)) {
             case Y:
-                return blockplanks$enumtype.getMapColor();
+                return woodType.getMapColor();
 
             case X:
             case Z:
             case NONE:
             default:
-                return switch (blockplanks$enumtype) {
+                return switch (woodType) {
                     case DARK_OAK -> BlockPlanks.WoodType.DARK_OAK.getMapColor();
                     default -> MapColor.STONE_COLOR;
                 };

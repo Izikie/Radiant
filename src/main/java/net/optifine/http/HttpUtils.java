@@ -9,8 +9,6 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.Map;
 
 public class HttpUtils {
 	public static final String SERVER_URL = "http://s.optifine.net";
@@ -40,19 +38,16 @@ public class HttpUtils {
 			byte[] abyte = new byte[httpurlconnection.getContentLength()];
 			int i = 0;
 
-			while (true) {
-				int j = inputstream.read(abyte, i, abyte.length - i);
+            do {
+                int j = inputstream.read(abyte, i, abyte.length - i);
 
-				if (j < 0) {
-					throw new IOException("Input stream closed: " + urlStr);
-				}
+                if (j < 0) {
+                    throw new IOException("Input stream closed: " + urlStr);
+                }
 
-				i += j;
+                i += j;
 
-				if (i >= abyte.length) {
-					break;
-				}
-			}
+            } while (i < abyte.length);
 
 			abyte1 = abyte;
 		} catch (URISyntaxException exception) {

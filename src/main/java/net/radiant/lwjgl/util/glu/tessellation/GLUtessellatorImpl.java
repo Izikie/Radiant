@@ -100,9 +100,9 @@ public class GLUtessellatorImpl implements GLUtessellator {
 
     /*** state needed for projecting onto the sweep plane ***/
 
-    double[] normal = new double[3];    /* user-specified normal (if provided) */
-    double[] sUnit = new double[3];    /* unit vector in s-direction (debugging) */
-    double[] tUnit = new double[3];    /* unit vector in t-direction (debugging) */
+    final double[] normal = new double[3];    /* user-specified normal (if provided) */
+    final double[] sUnit = new double[3];    /* unit vector in s-direction (debugging) */
+    final double[] tUnit = new double[3];    /* unit vector in t-direction (debugging) */
     int windingRule;    /* rule for determining polygon interior */
     boolean fatalError;    /* fatal error: needed combine callback */
     Dict dict;        /* edge dictionary for sweep line */
@@ -115,7 +115,7 @@ public class GLUtessellatorImpl implements GLUtessellator {
     GLUface lonelyTriList;
     int cacheCount;        /* number of cached vertices */
     /* list of triangles which could not be rendered as strips or fans */
-    CachedVertex[] cache = new CachedVertex[TESS_MAX_CACHE];    /* the vertex data */
+    final CachedVertex[] cache = new CachedVertex[TESS_MAX_CACHE];    /* the vertex data */
     private int state;        /* what begin/end calls have we seen? */
     private GLUhalfEdge lastEdge;    /* lastEdge->Org is the most recent vertex */
     /*** state needed for the line sweep ***/
@@ -279,7 +279,6 @@ public class GLUtessellatorImpl implements GLUtessellator {
                 value[value_offset] = windingRule;
                 break;
             case GLU_TESS_BOUNDARY_ONLY:
-                assert (boundaryOnly || !boundaryOnly);
                 value[value_offset] = boundaryOnly ? 1 : 0;
                 break;
             default:

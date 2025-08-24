@@ -227,19 +227,13 @@ public class GuiCreateWorld extends GuiScreen {
                 this.bonusChestEnabled = !this.bonusChestEnabled;
                 this.updateDisplayState();
             } else if (button.id == 5) {
-                ++this.selectedIndex;
-
-                if (this.selectedIndex >= WorldType.WORLD_TYPES.length) {
-                    this.selectedIndex = 0;
-                }
-
-                while (!this.canSelectCurWorldType()) {
+                do {
                     ++this.selectedIndex;
 
                     if (this.selectedIndex >= WorldType.WORLD_TYPES.length) {
                         this.selectedIndex = 0;
                     }
-                }
+                } while (!this.canSelectCurWorldType());
 
                 this.chunkProviderSettingsJson = "";
                 this.updateDisplayState();

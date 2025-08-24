@@ -21,7 +21,7 @@ public class ActiveRenderInfo {
     private static final FloatBuffer MODELVIEW = GLAllocation.createDirectFloatBuffer(16);
     private static final FloatBuffer PROJECTION = GLAllocation.createDirectFloatBuffer(16);
 
-    private static Vector3f position = new Vector3f(0.F, 0.F, 0.F);
+    private static final Vector3f position = new Vector3f(0.F, 0.F, 0.F);
     private static float rotationX;
     private static float rotationXZ;
     private static float rotationZ;

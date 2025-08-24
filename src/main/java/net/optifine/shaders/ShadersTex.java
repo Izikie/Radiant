@@ -699,9 +699,6 @@ public class ShadersTex {
 		return textureID;
 	}
 
-	public static void mergeImage(int[] aint, int dstoff, int srcoff, int size) {
-	}
-
 	public static int blendColor(int color1, int color2, int factor1) {
 		int i = 255 - factor1;
 		return ((color1 >>> 24 & 255) * factor1 + (color2 >>> 24 & 255) * i) / 255 << 24 | ((color1 >>> 16 & 255) * factor1 + (color2 >>> 16 & 255) * i) / 255 << 16 | ((color1 >>> 8 & 255) * factor1 + (color2 >>> 8 & 255) * i) / 255 << 8 | ((color1 & 255) * factor1 + (color2 & 255) * i) / 255;
@@ -796,6 +793,4 @@ public class ShadersTex {
 		return src;
 	}
 
-	public static void fixTransparentColor(TextureAtlasSprite tas, int[] aint) {
-	}
 }

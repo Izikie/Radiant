@@ -82,7 +82,7 @@ public class ThreadDownloadImageData extends SimpleTexture {
 
         if (this.imageThread == null) {
             if (this.cacheFile != null && this.cacheFile.isFile()) {
-                LOGGER.debug("Loading http texture from local cache ({})", new Object[]{this.cacheFile});
+                LOGGER.debug("Loading http texture from local cache ({})", this.cacheFile);
 
                 try {
                     this.image = NativeImage.loadFromFile(this.cacheFile);
@@ -106,7 +106,7 @@ public class ThreadDownloadImageData extends SimpleTexture {
         this.imageThread = new Thread("Texture Downloader #" + THREAD_DOWNLOAD_COUNTER.incrementAndGet()) {
             public void run() {
                 HttpURLConnection httpurlconnection = null;
-                ThreadDownloadImageData.LOGGER.debug("Downloading http texture from {} to {}", new Object[]{ThreadDownloadImageData.this.imageUrl, ThreadDownloadImageData.this.cacheFile});
+                ThreadDownloadImageData.LOGGER.debug("Downloading http texture from {} to {}", ThreadDownloadImageData.this.imageUrl, ThreadDownloadImageData.this.cacheFile);
 
                 if (ThreadDownloadImageData.this.shouldPipeline()) {
                     ThreadDownloadImageData.this.loadPipelined();
