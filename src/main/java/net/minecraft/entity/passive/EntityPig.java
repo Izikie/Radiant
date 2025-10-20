@@ -35,48 +35,58 @@ public class EntityPig extends EntityAnimal {
         this.tasks.addTask(8, new EntityAILookIdle(this));
     }
 
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
     }
 
+    @Override
     public boolean canBeSteered() {
         ItemStack itemstack = ((EntityPlayer) this.riddenByEntity).getHeldItem();
         return itemstack != null && itemstack.getItem() == Items.CARROT_ON_A_STICK;
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(16, (byte) 0);
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         tagCompound.setBoolean("Saddle", this.getSaddled());
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
         this.setSaddled(tagCompund.getBoolean("Saddle"));
     }
 
+    @Override
     protected String getLivingSound() {
         return "mob.pig.say";
     }
 
+    @Override
     protected String getHurtSound() {
         return "mob.pig.say";
     }
 
+    @Override
     protected String getDeathSound() {
         return "mob.pig.death";
     }
 
+    @Override
     protected void playStepSound(BlockPos pos, Block blockIn) {
         this.playSound("mob.pig.step", 0.15F, 1.0F);
     }
 
+    @Override
     public boolean interact(EntityPlayer player) {
         if (super.interact(player)) {
             return true;
@@ -88,10 +98,12 @@ public class EntityPig extends EntityAnimal {
         }
     }
 
+    @Override
     protected Item getDropItem() {
         return this.isBurning() ? Items.COOKED_PORKCHOP : Items.PORKCHOP;
     }
 
+    @Override
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
         int i = this.rand.nextInt(3) + 1 + this.rand.nextInt(1 + lootingModifier);
 
@@ -120,6 +132,7 @@ public class EntityPig extends EntityAnimal {
         }
     }
 
+    @Override
     public void onStruckByLightning(EntityLightningBolt lightningBolt) {
         if (!this.worldObj.isRemote && !this.isDead) {
             EntityPigZombie entitypigzombie = new EntityPigZombie(this.worldObj);
@@ -137,6 +150,7 @@ public class EntityPig extends EntityAnimal {
         }
     }
 
+    @Override
     public void fall(float distance, float damageMultiplier) {
         super.fall(distance, damageMultiplier);
 
@@ -145,10 +159,12 @@ public class EntityPig extends EntityAnimal {
         }
     }
 
+    @Override
     public EntityPig createChild(EntityAgeable ageable) {
         return new EntityPig(this.worldObj);
     }
 
+    @Override
     public boolean isBreedingItem(ItemStack stack) {
         return stack != null && stack.getItem() == Items.CARROT;
     }

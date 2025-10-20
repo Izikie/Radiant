@@ -15,14 +15,17 @@ public class BlockMelon extends Block {
         this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Items.MELON;
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return 3 + random.nextInt(5);
     }
 
+    @Override
     public int quantityDroppedWithBonus(int fortune, Random random) {
         return Math.min(9, this.quantityDropped(random) + random.nextInt(1 + fortune));
     }

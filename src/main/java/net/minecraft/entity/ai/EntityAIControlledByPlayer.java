@@ -27,19 +27,23 @@ public class EntityAIControlledByPlayer extends EntityAIBase {
         this.setMutexBits(7);
     }
 
+    @Override
     public void startExecuting() {
         this.currentSpeed = 0.0F;
     }
 
+    @Override
     public void resetTask() {
         this.speedBoosted = false;
         this.currentSpeed = 0.0F;
     }
 
+    @Override
     public boolean shouldExecute() {
         return this.thisEntity.isEntityAlive() && this.thisEntity.riddenByEntity != null && this.thisEntity.riddenByEntity instanceof EntityPlayer && (this.speedBoosted || this.thisEntity.canBeSteered());
     }
 
+    @Override
     public void updateTask() {
         EntityPlayer entityplayer = (EntityPlayer) this.thisEntity.riddenByEntity;
         EntityCreature entitycreature = (EntityCreature) this.thisEntity;

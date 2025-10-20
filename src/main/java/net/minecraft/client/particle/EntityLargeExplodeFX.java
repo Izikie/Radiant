@@ -28,6 +28,7 @@ public class EntityLargeExplodeFX extends EntityFX {
         this.field_70582_as = 1.0F - (float) p_i1213_9_ * 0.5F;
     }
 
+    @Override
     public void renderParticle(WorldRenderer worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
         int i = (int) ((this.field_70581_a + partialTicks) * 15.0F / this.field_70584_aq);
 
@@ -54,10 +55,12 @@ public class EntityLargeExplodeFX extends EntityFX {
         }
     }
 
+    @Override
     public int getBrightnessForRender(float partialTicks) {
         return 61680;
     }
 
+    @Override
     public void onUpdate() {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
@@ -69,11 +72,13 @@ public class EntityLargeExplodeFX extends EntityFX {
         }
     }
 
+    @Override
     public int getFXLayer() {
         return 3;
     }
 
     public static class Factory implements IParticleFactory {
+        @Override
         public EntityFX getEntityFX(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
             return new EntityLargeExplodeFX(Minecraft.get().getTextureManager(), worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
         }

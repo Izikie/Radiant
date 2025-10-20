@@ -319,6 +319,7 @@ public class Display {
 
         //glfwMakeContextCurrent(Window.handle);
         final DrawableGL drawable = new DrawableGL() {
+            @Override
             public void destroy() {
                 synchronized (GlobalLock.lock) {
                     if (!isCreated())

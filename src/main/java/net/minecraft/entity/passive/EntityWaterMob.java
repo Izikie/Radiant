@@ -10,30 +10,37 @@ public abstract class EntityWaterMob extends EntityLiving implements IAnimals {
         super(worldIn);
     }
 
+    @Override
     public boolean canBreatheUnderwater() {
         return true;
     }
 
+    @Override
     public boolean getCanSpawnHere() {
         return true;
     }
 
+    @Override
     public boolean isNotColliding() {
         return this.worldObj.checkNoEntityCollision(this.getEntityBoundingBox(), this);
     }
 
+    @Override
     public int getTalkInterval() {
         return 120;
     }
 
+    @Override
     protected boolean canDespawn() {
         return true;
     }
 
+    @Override
     protected int getExperiencePoints(EntityPlayer player) {
         return 1 + this.worldObj.rand.nextInt(3);
     }
 
+    @Override
     public void onEntityUpdate() {
         int i = this.getAir();
         super.onEntityUpdate();
@@ -51,6 +58,7 @@ public abstract class EntityWaterMob extends EntityLiving implements IAnimals {
         }
     }
 
+    @Override
     public boolean isPushedByWater() {
         return false;
     }

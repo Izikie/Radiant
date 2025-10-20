@@ -24,6 +24,7 @@ public abstract class BlockBasePressurePlate extends Block {
         this.setTickRandomly(true);
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         this.setBlockBoundsBasedOnState0(worldIn.getBlockState(pos));
     }
@@ -39,34 +40,42 @@ public abstract class BlockBasePressurePlate extends Block {
         }
     }
 
+    @Override
     public int tickRate(World worldIn) {
         return 20;
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
         return null;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
         return true;
     }
 
+    @Override
     public boolean canSpawnInBlock() {
         return true;
     }
 
+    @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
         return this.canBePlacedOn(worldIn, pos.down());
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         if (!this.canBePlacedOn(worldIn, pos.down())) {
             this.dropBlockAsItem(worldIn, pos, state, 0);
@@ -78,9 +87,11 @@ public abstract class BlockBasePressurePlate extends Block {
         return World.doesBlockHaveSolidTopSurface(worldIn, pos) || worldIn.getBlockState(pos).getBlock() instanceof BlockFence;
     }
 
+    @Override
     public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random) {
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (!worldIn.isRemote) {
             int i = this.getRedstoneStrength(state);
@@ -91,6 +102,7 @@ public abstract class BlockBasePressurePlate extends Block {
         }
     }
 
+    @Override
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
         if (!worldIn.isRemote) {
             int i = this.getRedstoneStrength(state);
@@ -129,6 +141,7 @@ public abstract class BlockBasePressurePlate extends Block {
         return new AxisAlignedBB((pos.getX() + 0.125F), pos.getY(), (pos.getZ() + 0.125F), ((pos.getX() + 1) - 0.125F), pos.getY() + 0.25D, ((pos.getZ() + 1) - 0.125F));
     }
 
+    @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         if (this.getRedstoneStrength(state) > 0) {
             this.updateNeighbors(worldIn, pos);
@@ -142,18 +155,22 @@ public abstract class BlockBasePressurePlate extends Block {
         worldIn.notifyNeighborsOfStateChange(pos.down(), this);
     }
 
+    @Override
     public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
         return this.getRedstoneStrength(state);
     }
 
+    @Override
     public int getStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
         return side == Direction.UP ? this.getRedstoneStrength(state) : 0;
     }
 
+    @Override
     public boolean canProvidePower() {
         return true;
     }
 
+    @Override
     public void setBlockBoundsForItemRender() {
         float f = 0.5F;
         float f1 = 0.125F;
@@ -161,6 +178,7 @@ public abstract class BlockBasePressurePlate extends Block {
         this.setBlockBounds(0.0F, 0.375F, 0.0F, 1.0F, 0.625F, 1.0F);
     }
 
+    @Override
     public int getMobilityFlag() {
         return 1;
     }

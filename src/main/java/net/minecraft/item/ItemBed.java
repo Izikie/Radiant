@@ -16,6 +16,7 @@ public class ItemBed extends Item {
         this.setCreativeTab(CreativeTabs.TAB_DECORATIONS);
     }
 
+    @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
         if (worldIn.isRemote) {
             return true;

@@ -27,6 +27,7 @@ public class ItemMonsterPlacer extends Item {
         this.setCreativeTab(CreativeTabs.TAB_MISC);
     }
 
+    @Override
     public String getItemStackDisplayName(ItemStack stack) {
         String s = (StatCollector.translateToLocal(this.getUnlocalizedName() + ".name")).trim();
         String s1 = EntityList.getStringFromID(stack.getMetadata());
@@ -38,11 +39,13 @@ public class ItemMonsterPlacer extends Item {
         return s;
     }
 
+    @Override
     public int getColorFromItemStack(ItemStack stack, int renderPass) {
         EntityList.EntityEggInfo entitylist$entityegginfo = EntityList.entityEggs.get(stack.getMetadata());
         return entitylist$entityegginfo != null ? (renderPass == 0 ? entitylist$entityegginfo.primaryColor : entitylist$entityegginfo.secondaryColor) : 16777215;
     }
 
+    @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
         if (worldIn.isRemote) {
             return true;
@@ -91,6 +94,7 @@ public class ItemMonsterPlacer extends Item {
         }
     }
 
+    @Override
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
         if (!worldIn.isRemote) {
             MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(worldIn, playerIn, true);
@@ -153,6 +157,7 @@ public class ItemMonsterPlacer extends Item {
         }
     }
 
+    @Override
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
         for (EntityList.EntityEggInfo entitylist$entityegginfo : EntityList.entityEggs.values()) {
             subItems.add(new ItemStack(itemIn, 1, entitylist$entityegginfo.spawnedID));

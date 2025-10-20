@@ -27,15 +27,18 @@ public class ItemTool extends Item {
         this.setCreativeTab(CreativeTabs.TAB_TOOLS);
     }
 
+    @Override
     public float getStrVsBlock(ItemStack stack, Block state) {
         return this.effectiveBlocks.contains(state) ? this.efficiencyOnProperMaterial : 1.0F;
     }
 
+    @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
         stack.damageItem(2, attacker);
         return true;
     }
 
+    @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, BlockPos pos, EntityLivingBase playerIn) {
         if (blockIn.getBlockHardness(worldIn, pos) != 0.0D) {
             stack.damageItem(1, playerIn);
@@ -44,6 +47,7 @@ public class ItemTool extends Item {
         return true;
     }
 
+    @Override
     public boolean isFull3D() {
         return true;
     }
@@ -52,6 +56,7 @@ public class ItemTool extends Item {
         return this.toolMaterial;
     }
 
+    @Override
     public int getItemEnchantability() {
         return this.toolMaterial.getEnchantability();
     }
@@ -60,10 +65,12 @@ public class ItemTool extends Item {
         return this.toolMaterial.toString();
     }
 
+    @Override
     public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
         return this.toolMaterial.getRepairItem() == repair.getItem() || super.getIsRepairable(toRepair, repair);
     }
 
+    @Override
     public Multimap<String, AttributeModifier> getItemAttributeModifiers() {
         Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers();
         multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(ITEM_MODIFIER_UUID, "Tool modifier", this.damageVsEntity, 0));

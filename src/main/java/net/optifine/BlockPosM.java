@@ -36,7 +36,8 @@ public class BlockPosM extends BlockPos {
 		final BlockPos blockpos = new BlockPos(Math.min(from.getX(), to.getX()), Math.min(from.getY(), to.getY()), Math.min(from.getZ(), to.getZ()));
 		final BlockPos blockpos1 = new BlockPos(Math.max(from.getX(), to.getX()), Math.max(from.getY(), to.getY()), Math.max(from.getZ(), to.getZ()));
 		return new Iterable<>() {
-			public Iterator iterator() {
+			@Override
+            public Iterator iterator() {
 				return new AbstractIterator<>() {
 					private BlockPosM theBlockPosM = null;
 
@@ -67,7 +68,8 @@ public class BlockPosM extends BlockPos {
 						}
 					}
 
-					protected BlockPosM computeNext() {
+					@Override
+                    protected BlockPosM computeNext() {
 						return this.computeNext0();
 					}
 				};
@@ -75,15 +77,18 @@ public class BlockPosM extends BlockPos {
 		};
 	}
 
-	public int getX() {
+	@Override
+    public int getX() {
 		return this.mx;
 	}
 
-	public int getY() {
+	@Override
+    public int getY() {
 		return this.my;
 	}
 
-	public int getZ() {
+	@Override
+    public int getZ() {
 		return this.mz;
 	}
 
@@ -112,7 +117,8 @@ public class BlockPosM extends BlockPos {
 		return this.offset(facing);
 	}
 
-	public BlockPos offset(Direction facing) {
+	@Override
+    public BlockPos offset(Direction facing) {
 		if (this.level <= 0) {
 			return super.offset(facing, 1);
 		} else {
@@ -139,7 +145,8 @@ public class BlockPosM extends BlockPos {
 		}
 	}
 
-	public BlockPos offset(Direction facing, int n) {
+	@Override
+    public BlockPos offset(Direction facing, int n) {
 		return n == 1 ? this.offset(facing) : super.offset(facing, n);
 	}
 

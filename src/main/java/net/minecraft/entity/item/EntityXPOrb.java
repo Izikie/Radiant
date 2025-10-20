@@ -29,6 +29,7 @@ public class EntityXPOrb extends Entity {
         this.xpValue = expValue;
     }
 
+    @Override
     protected boolean canTriggerWalking() {
         return false;
     }
@@ -38,9 +39,11 @@ public class EntityXPOrb extends Entity {
         this.setSize(0.25F, 0.25F);
     }
 
+    @Override
     protected void entityInit() {
     }
 
+    @Override
     public int getBrightnessForRender(float partialTicks) {
         float f = 0.5F;
         f = MathHelper.clamp(f, 0.0F, 1.0F);
@@ -56,6 +59,7 @@ public class EntityXPOrb extends Entity {
         return j | k << 16;
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
 
@@ -128,14 +132,17 @@ public class EntityXPOrb extends Entity {
         }
     }
 
+    @Override
     public boolean handleWaterMovement() {
         return this.worldObj.handleMaterialAcceleration(this.getEntityBoundingBox(), Material.WATER, this);
     }
 
+    @Override
     protected void dealFireDamage(int amount) {
         this.attackEntityFrom(DamageSource.IN_FIRE, amount);
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (this.isEntityInvulnerable(source)) {
             return false;
@@ -151,18 +158,21 @@ public class EntityXPOrb extends Entity {
         }
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         tagCompound.setShort("Health", (byte) this.xpOrbHealth);
         tagCompound.setShort("Age", (short) this.xpOrbAge);
         tagCompound.setShort("Value", (short) this.xpValue);
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         this.xpOrbHealth = tagCompund.getShort("Health") & 255;
         this.xpOrbAge = tagCompund.getShort("Age");
         this.xpValue = tagCompund.getShort("Value");
     }
 
+    @Override
     public void onCollideWithPlayer(EntityPlayer entityIn) {
         if (!this.worldObj.isRemote) {
             if (this.delayBeforeCanPickup == 0 && entityIn.xpCooldown == 0) {
@@ -187,6 +197,7 @@ public class EntityXPOrb extends Entity {
         return expValue >= 2477 ? 2477 : (expValue >= 1237 ? 1237 : (expValue >= 617 ? 617 : (expValue >= 307 ? 307 : (expValue >= 149 ? 149 : (expValue >= 73 ? 73 : (expValue >= 37 ? 37 : (expValue >= 17 ? 17 : (expValue >= 7 ? 7 : (expValue >= 3 ? 3 : 1)))))))));
     }
 
+    @Override
     public boolean canAttackWithItem() {
         return false;
     }

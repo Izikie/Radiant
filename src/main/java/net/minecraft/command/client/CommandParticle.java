@@ -13,18 +13,22 @@ import net.minecraft.world.WorldServer;
 import java.util.List;
 
 public class CommandParticle extends CommandBase {
+    @Override
     public String getCommandName() {
         return "particle";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 2;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.particle.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length < 8) {
             throw new WrongUsageException("commands.particle.usage");
@@ -90,6 +94,7 @@ public class CommandParticle extends CommandBase {
         }
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         return args.length == 1 ? getListOfStringsMatchingLastWord(args, ParticleTypes.getParticleNames()) : (args.length > 1 && args.length <= 4 ? func_175771_a(args, 1, pos) : (args.length == 10 ? getListOfStringsMatchingLastWord(args, "normal", "force") : null));
     }

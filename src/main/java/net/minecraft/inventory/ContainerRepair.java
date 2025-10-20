@@ -34,6 +34,7 @@ public class ContainerRepair extends Container {
     public ContainerRepair(InventoryPlayer playerInventory, final World worldIn, final BlockPos blockPosIn, EntityPlayer player) {
         this.outputSlot = new InventoryCraftResult();
         this.inputSlots = new InventoryBasic("Repair", true, 2) {
+            @Override
             public void markDirty() {
                 super.markDirty();
                 ContainerRepair.this.onCraftMatrixChanged(this);
@@ -45,14 +46,17 @@ public class ContainerRepair extends Container {
         this.addSlotToContainer(new Slot(this.inputSlots, 0, 27, 47));
         this.addSlotToContainer(new Slot(this.inputSlots, 1, 76, 47));
         this.addSlotToContainer(new Slot(this.outputSlot, 2, 134, 47) {
+            @Override
             public boolean isItemValid(ItemStack stack) {
                 return false;
             }
 
+            @Override
             public boolean canTakeStack(EntityPlayer playerIn) {
                 return (playerIn.capabilities.isCreativeMode || playerIn.experienceLevel >= ContainerRepair.this.maximumCost) && ContainerRepair.this.maximumCost > 0 && this.getHasStack();
             }
 
+            @Override
             public void onPickupFromSlot(EntityPlayer playerIn, ItemStack stack) {
                 if (!playerIn.capabilities.isCreativeMode) {
                     playerIn.addExperienceLevel(-ContainerRepair.this.maximumCost);
@@ -104,6 +108,7 @@ public class ContainerRepair extends Container {
         }
     }
 
+    @Override
     public void onCraftMatrixChanged(IInventory inventoryIn) {
         super.onCraftMatrixChanged(inventoryIn);
 
@@ -303,17 +308,20 @@ public class ContainerRepair extends Container {
         }
     }
 
+    @Override
     public void onCraftGuiOpened(ICrafting listener) {
         super.onCraftGuiOpened(listener);
         listener.sendProgressBarUpdate(this, 0, this.maximumCost);
     }
 
+    @Override
     public void updateProgressBar(int id, int data) {
         if (id == 0) {
             this.maximumCost = data;
         }
     }
 
+    @Override
     public void onContainerClosed(EntityPlayer playerIn) {
         super.onContainerClosed(playerIn);
 
@@ -328,10 +336,12 @@ public class ContainerRepair extends Container {
         }
     }
 
+    @Override
     public boolean canInteractWith(EntityPlayer playerIn) {
         return this.theWorld.getBlockState(this.selfPosition).getBlock() == Blocks.ANVIL && playerIn.getDistanceSq(this.selfPosition.getX() + 0.5D, this.selfPosition.getY() + 0.5D, this.selfPosition.getZ() + 0.5D) <= 64.0D;
     }
 
+    @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
         ItemStack itemstack = null;
         Slot slot = this.inventorySlots.get(index);

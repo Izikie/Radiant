@@ -36,10 +36,12 @@ public class BlockDaylightDetector extends BlockContainer {
         this.setUnlocalizedName("daylightDetector");
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.375F, 1.0F);
     }
 
+    @Override
     public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
         return state.getValue(POWER);
     }
@@ -64,6 +66,7 @@ public class BlockDaylightDetector extends BlockContainer {
         }
     }
 
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (playerIn.isAllowEdit()) {
             if (!worldIn.isRemote) {
@@ -82,46 +85,57 @@ public class BlockDaylightDetector extends BlockContainer {
         }
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Item.getItemFromBlock(Blocks.DAYLIGHT_DETECTOR);
     }
 
+    @Override
     public Item getItem(World worldIn, BlockPos pos) {
         return Item.getItemFromBlock(Blocks.DAYLIGHT_DETECTOR);
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public int getRenderType() {
         return 3;
     }
 
+    @Override
     public boolean canProvidePower() {
         return true;
     }
 
+    @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntityDaylightDetector();
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(POWER, meta);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(POWER);
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, POWER);
     }
 
+    @Override
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
         if (!this.inverted) {
             super.getSubBlocks(itemIn, tab, list);

@@ -126,6 +126,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
         }
     }
 
+    @Override
     public void doneLoading() {
         if (this.doesGuiPauseGame) {
             this.func_175366_f();
@@ -183,13 +184,16 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
             this.setHasListHeader(true, 20);
         }
 
+        @Override
         protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY) {
         }
 
+        @Override
         protected boolean isSelected(int slotIndex) {
             return false;
         }
 
+        @Override
         protected void drawBackground() {
             GuiStats.this.drawDefaultBackground();
         }
@@ -254,6 +258,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
             }
         }
 
+        @Override
         protected final int getSize() {
             return this.statsHolder.size();
         }
@@ -430,6 +435,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
             }
         }
 
+        @Override
         protected void drawSlot(int entryID, int p_180791_2_, int p_180791_3_, int p_180791_4_, int mouseXIn, int mouseYIn) {
             StatCrafting statcrafting = this.func_148211_c(entryID);
             Item item = statcrafting.func_150959_a();
@@ -440,6 +446,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
             this.func_148209_a(statcrafting, p_180791_2_ + 215, p_180791_3_, entryID % 2 == 0);
         }
 
+        @Override
         protected String func_148210_b(int p_148210_1_) {
             return p_148210_1_ == 0 ? "stat.crafted" : (p_148210_1_ == 1 ? "stat.used" : "stat.mined");
         }
@@ -451,13 +458,16 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
             this.setShowSelectionBox(false);
         }
 
+        @Override
         protected int getSize() {
             return StatList.GENERAL_STATS.size();
         }
 
+        @Override
         protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY) {
         }
 
+        @Override
         protected boolean isSelected(int slotIndex) {
             return false;
         }
@@ -467,10 +477,12 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
             return this.getSize() * 10;
         }
 
+        @Override
         protected void drawBackground() {
             GuiStats.this.drawDefaultBackground();
         }
 
+        @Override
         protected void drawSlot(int entryID, int p_180791_2_, int p_180791_3_, int p_180791_4_, int mouseXIn, int mouseYIn) {
             StatBase statbase = StatList.GENERAL_STATS.get(entryID);
             GuiStats.this.drawString(GuiStats.this.fontRendererObj, statbase.getStatName().getUnformattedText(), p_180791_2_ + 2, p_180791_3_ + 1, entryID % 2 == 0 ? 16777215 : 9474192);
@@ -562,6 +574,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
             }
         }
 
+        @Override
         protected void drawSlot(int entryID, int p_180791_2_, int p_180791_3_, int p_180791_4_, int mouseXIn, int mouseYIn) {
             StatCrafting statcrafting = this.func_148211_c(entryID);
             Item item = statcrafting.func_150959_a();
@@ -572,6 +585,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
             this.func_148209_a(statcrafting, p_180791_2_ + 215, p_180791_3_, entryID % 2 == 0);
         }
 
+        @Override
         protected String func_148210_b(int p_148210_1_) {
             return p_148210_1_ == 1 ? "stat.crafted" : (p_148210_1_ == 2 ? "stat.used" : "stat.depleted");
         }
@@ -591,13 +605,16 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
             }
         }
 
+        @Override
         protected int getSize() {
             return this.field_148222_l.size();
         }
 
+        @Override
         protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY) {
         }
 
+        @Override
         protected boolean isSelected(int slotIndex) {
             return false;
         }
@@ -607,10 +624,12 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
             return this.getSize() * GuiStats.this.fontRendererObj.FONT_HEIGHT * 4;
         }
 
+        @Override
         protected void drawBackground() {
             GuiStats.this.drawDefaultBackground();
         }
 
+        @Override
         protected void drawSlot(int entryID, int p_180791_2_, int p_180791_3_, int p_180791_4_, int mouseXIn, int mouseYIn) {
             EntityList.EntityEggInfo entitylist$entityegginfo = this.field_148222_l.get(entryID);
             String s = I18n.format("entity." + EntityList.getStringFromID(entitylist$entityegginfo.spawnedID) + ".name");

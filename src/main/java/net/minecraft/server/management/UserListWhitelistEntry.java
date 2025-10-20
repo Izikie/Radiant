@@ -14,6 +14,7 @@ public class UserListWhitelistEntry extends UserListEntry<GameProfile> {
         super(gameProfileFromJsonObject(json), json);
     }
 
+    @Override
     protected void onSerialization(JsonObject data) {
         if (this.getValue() != null) {
             data.addProperty("uuid", this.getValue().getId() == null ? "" : this.getValue().getId().toString());

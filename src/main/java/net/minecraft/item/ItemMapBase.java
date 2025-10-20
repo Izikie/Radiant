@@ -5,6 +5,7 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.world.World;
 
 public class ItemMapBase extends Item {
+    @Override
     public boolean isMap() {
         return true;
     }

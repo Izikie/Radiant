@@ -42,6 +42,7 @@ public class ModelChicken extends ModelBase {
         this.leftWing.setRotationPoint(4.0F, (-3 + i), 0.0F);
     }
 
+    @Override
     public void render(Entity entityIn, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_, float scale) {
         this.setRotationAngles(p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, scale, entityIn);
 
@@ -74,6 +75,7 @@ public class ModelChicken extends ModelBase {
         }
     }
 
+    @Override
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
         this.head.rotateAngleX = headPitch / (180.0F / (float) Math.PI);
         this.head.rotateAngleY = netHeadYaw / (180.0F / (float) Math.PI);

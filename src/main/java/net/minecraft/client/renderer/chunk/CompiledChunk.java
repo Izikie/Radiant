@@ -11,18 +11,22 @@ import java.util.List;
 
 public class CompiledChunk {
     public static final CompiledChunk DUMMY = new CompiledChunk() {
+        @Override
         protected void setLayerUsed(RenderLayer layer) {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public void setLayerStarted(RenderLayer layer) {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public boolean isVisible(Direction facing, Direction facing2) {
             return false;
         }
 
+        @Override
         public void setAnimatedSprites(RenderLayer p_setAnimatedSprites_1_, BitSet p_setAnimatedSprites_2_) {
             throw new UnsupportedOperationException();
         }

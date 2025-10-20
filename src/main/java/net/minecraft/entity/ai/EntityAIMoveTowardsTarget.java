@@ -20,6 +20,7 @@ public class EntityAIMoveTowardsTarget extends EntityAIBase {
         this.setMutexBits(1);
     }
 
+    @Override
     public boolean shouldExecute() {
         this.targetEntity = this.theEntity.getAttackTarget();
 
@@ -41,14 +42,17 @@ public class EntityAIMoveTowardsTarget extends EntityAIBase {
         }
     }
 
+    @Override
     public boolean continueExecuting() {
         return !this.theEntity.getNavigator().noPath() && this.targetEntity.isEntityAlive() && this.targetEntity.getDistanceSqToEntity(this.theEntity) < (this.maxTargetDistance * this.maxTargetDistance);
     }
 
+    @Override
     public void resetTask() {
         this.targetEntity = null;
     }
 
+    @Override
     public void startExecuting() {
         this.theEntity.getNavigator().tryMoveToXYZ(this.movePosX, this.movePosY, this.movePosZ, this.speed);
     }

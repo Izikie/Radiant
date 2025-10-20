@@ -23,16 +23,19 @@ public class S02PacketChat implements Packet<INetHandlerPlayClient> {
         this.type = typeIn;
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.chatComponent = buf.readChatComponent();
         this.type = buf.readByte();
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeChatComponent(this.chatComponent);
         buf.writeByte(this.type);
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleChat(this);
     }

@@ -43,18 +43,22 @@ public class GuiKeyBindingList extends GuiListExtended {
         }
     }
 
+    @Override
     protected int getSize() {
         return this.listEntries.length;
     }
 
+    @Override
     public IGuiListEntry getListEntry(int index) {
         return this.listEntries[index];
     }
 
+    @Override
     protected int getScrollBarX() {
         return super.getScrollBarX() + 15;
     }
 
+    @Override
     public int getListWidth() {
         return super.getListWidth() + 32;
     }
@@ -68,17 +72,21 @@ public class GuiKeyBindingList extends GuiListExtended {
             this.labelWidth = GuiKeyBindingList.this.mc.fontRendererObj.getStringWidth(this.labelText);
         }
 
+        @Override
         public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected) {
             GuiKeyBindingList.this.mc.fontRendererObj.drawString(this.labelText, GuiKeyBindingList.this.mc.currentScreen.width / 2 - this.labelWidth / 2, y + slotHeight - GuiKeyBindingList.this.mc.fontRendererObj.FONT_HEIGHT - 1, 16777215);
         }
 
+        @Override
         public boolean mousePressed(int slotIndex, int p_148278_2_, int p_148278_3_, int p_148278_4_, int p_148278_5_, int p_148278_6_) {
             return false;
         }
 
+        @Override
         public void mouseReleased(int slotIndex, int x, int y, int mouseEvent, int relativeX, int relativeY) {
         }
 
+        @Override
         public void setSelected(int p_178011_1_, int p_178011_2_, int p_178011_3_) {
         }
     }
@@ -96,6 +104,7 @@ public class GuiKeyBindingList extends GuiListExtended {
             this.btnReset = new GuiButton(0, 0, 0, 50, 20, I18n.format("controls.reset"));
         }
 
+        @Override
         public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected) {
             boolean flag = GuiKeyBindingList.this.field_148191_k.buttonId == this.keybinding;
             GuiKeyBindingList.this.mc.fontRendererObj.drawString(this.keyDesc, x + 90 - GuiKeyBindingList.this.maxListLabelWidth, y + slotHeight / 2 - GuiKeyBindingList.this.mc.fontRendererObj.FONT_HEIGHT / 2, 16777215);
@@ -126,6 +135,7 @@ public class GuiKeyBindingList extends GuiListExtended {
             this.btnChangeKeyBinding.drawButton(GuiKeyBindingList.this.mc, mouseX, mouseY);
         }
 
+        @Override
         public boolean mousePressed(int slotIndex, int p_148278_2_, int p_148278_3_, int p_148278_4_, int p_148278_5_, int p_148278_6_) {
             if (this.btnChangeKeyBinding.mousePressed(GuiKeyBindingList.this.mc, p_148278_2_, p_148278_3_)) {
                 GuiKeyBindingList.this.field_148191_k.buttonId = this.keybinding;
@@ -139,11 +149,13 @@ public class GuiKeyBindingList extends GuiListExtended {
             }
         }
 
+        @Override
         public void mouseReleased(int slotIndex, int x, int y, int mouseEvent, int relativeX, int relativeY) {
             this.btnChangeKeyBinding.mouseReleased(x, y);
             this.btnReset.mouseReleased(x, y);
         }
 
+        @Override
         public void setSelected(int p_178011_1_, int p_178011_2_, int p_178011_3_) {
         }
     }

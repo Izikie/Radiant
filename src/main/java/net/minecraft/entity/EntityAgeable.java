@@ -21,6 +21,7 @@ public abstract class EntityAgeable extends EntityCreature {
 
     public abstract EntityAgeable createChild(EntityAgeable ageable);
 
+    @Override
     public boolean interact(EntityPlayer player) {
         ItemStack itemstack = player.inventory.getCurrentItem();
 
@@ -57,6 +58,7 @@ public abstract class EntityAgeable extends EntityCreature {
         }
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(12, (byte) 0);
@@ -105,18 +107,21 @@ public abstract class EntityAgeable extends EntityCreature {
         this.setScaleForAge(this.isChild());
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         tagCompound.setInteger("Age", this.getGrowingAge());
         tagCompound.setInteger("ForcedAge", this.field_175502_b);
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
         this.setGrowingAge(tagCompund.getInteger("Age"));
         this.field_175502_b = tagCompund.getInteger("ForcedAge");
     }
 
+    @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
 
@@ -150,6 +155,7 @@ public abstract class EntityAgeable extends EntityCreature {
     protected void onGrowingAdult() {
     }
 
+    @Override
     public boolean isChild() {
         return this.getGrowingAge() < 0;
     }
@@ -158,6 +164,7 @@ public abstract class EntityAgeable extends EntityCreature {
         this.setScale(p_98054_1_ ? 0.5F : 1.0F);
     }
 
+    @Override
     protected final void setSize(float width, float height) {
         boolean flag = this.ageWidth > 0.0F;
         this.ageWidth = width;

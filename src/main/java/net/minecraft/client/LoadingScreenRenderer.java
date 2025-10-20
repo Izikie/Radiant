@@ -29,11 +29,13 @@ public class LoadingScreenRenderer implements IProgressUpdate {
         this.framebuffer.setFramebufferFilter(9728);
     }
 
+    @Override
     public void resetProgressAndMessage(String message) {
         this.loadingSuccess = false;
         this.displayString(message);
     }
 
+    @Override
     public void displaySavingString(String message) {
         this.loadingSuccess = true;
         this.displayString(message);
@@ -65,6 +67,7 @@ public class LoadingScreenRenderer implements IProgressUpdate {
         }
     }
 
+    @Override
     public void displayLoadingString(String message) {
         if (!this.mc.running) {
             if (!this.loadingSuccess) {
@@ -78,6 +81,7 @@ public class LoadingScreenRenderer implements IProgressUpdate {
         }
     }
 
+    @Override
     public void setLoadingProgress(int progress) {
         if (!this.mc.running) {
             if (!this.loadingSuccess) {
@@ -168,6 +172,7 @@ public class LoadingScreenRenderer implements IProgressUpdate {
         }
     }
 
+    @Override
     public void setDoneWorking() {
     }
 }

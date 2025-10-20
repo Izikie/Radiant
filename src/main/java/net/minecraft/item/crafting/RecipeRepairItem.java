@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeRepairItem implements IRecipe {
+    @Override
     public boolean matches(InventoryCrafting inv, World worldIn) {
         List<ItemStack> list = new ArrayList<>();
 
@@ -31,6 +32,7 @@ public class RecipeRepairItem implements IRecipe {
         return list.size() == 2;
     }
 
+    @Override
     public ItemStack getCraftingResult(InventoryCrafting inv) {
         List<ItemStack> list = new ArrayList<>();
 
@@ -72,14 +74,17 @@ public class RecipeRepairItem implements IRecipe {
         return null;
     }
 
+    @Override
     public int getRecipeSize() {
         return 4;
     }
 
+    @Override
     public ItemStack getRecipeOutput() {
         return null;
     }
 
+    @Override
     public ItemStack[] getRemainingItems(InventoryCrafting inv) {
         ItemStack[] aitemstack = new ItemStack[inv.getSizeInventory()];
 

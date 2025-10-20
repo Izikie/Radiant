@@ -36,10 +36,12 @@ public class BlockDispenser extends BlockContainer {
         this.setCreativeTab(CreativeTabs.TAB_REDSTONE);
     }
 
+    @Override
     public int tickRate(World worldIn) {
         return 4;
     }
 
+    @Override
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         super.onBlockAdded(worldIn, pos, state);
         this.setDefaultDirection(worldIn, pos, state);
@@ -70,6 +72,7 @@ public class BlockDispenser extends BlockContainer {
         }
     }
 
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
@@ -113,6 +116,7 @@ public class BlockDispenser extends BlockContainer {
         return dispenseBehaviorRegistry.getObject(stack == null ? null : stack.getItem());
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         boolean flag = worldIn.isBlockPowered(pos) || worldIn.isBlockPowered(pos.up());
         boolean flag1 = state.getValue(TRIGGERED);
@@ -125,20 +129,24 @@ public class BlockDispenser extends BlockContainer {
         }
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (!worldIn.isRemote) {
             this.dispense(worldIn, pos);
         }
     }
 
+    @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntityDispenser();
     }
 
+    @Override
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return this.getDefaultState().withProperty(FACING, BlockPistonBase.getFacingFromEntity(worldIn, pos, placer)).withProperty(TRIGGERED, Boolean.FALSE);
     }
 
+    @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         worldIn.setBlockState(pos, state.withProperty(FACING, BlockPistonBase.getFacingFromEntity(worldIn, pos, placer)), 2);
 
@@ -151,6 +159,7 @@ public class BlockDispenser extends BlockContainer {
         }
     }
 
+    @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
@@ -174,26 +183,32 @@ public class BlockDispenser extends BlockContainer {
         return Direction.getFront(meta & 7);
     }
 
+    @Override
     public boolean hasComparatorInputOverride() {
         return true;
     }
 
+    @Override
     public int getComparatorInputOverride(World worldIn, BlockPos pos) {
         return Container.calcRedstone(worldIn.getTileEntity(pos));
     }
 
+    @Override
     public int getRenderType() {
         return 3;
     }
 
+    @Override
     public IBlockState getStateForEntityRender(IBlockState state) {
         return this.getDefaultState().withProperty(FACING, Direction.SOUTH);
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(TRIGGERED, (meta & 8) > 0);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         int i = 0;
         i = i | state.getValue(FACING).getIndex();
@@ -205,6 +220,7 @@ public class BlockDispenser extends BlockContainer {
         return i;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, FACING, TRIGGERED);
     }

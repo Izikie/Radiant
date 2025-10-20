@@ -15,6 +15,7 @@ public class RenderSkeleton extends RenderBiped<EntitySkeleton> {
         super(renderManagerIn, new ModelSkeleton(), 0.5F);
         this.addLayer(new LayerHeldItem(this));
         this.addLayer(new LayerBipedArmor(this) {
+            @Override
             protected void initArmor() {
                 this.modelLeggings = new ModelSkeleton(0.5F, true);
                 this.modelArmor = new ModelSkeleton(1.0F, true);
@@ -22,16 +23,19 @@ public class RenderSkeleton extends RenderBiped<EntitySkeleton> {
         });
     }
 
+    @Override
     protected void preRenderCallback(EntitySkeleton entitylivingbaseIn, float partialTickTime) {
         if (entitylivingbaseIn.getSkeletonType() == 1) {
             GlStateManager.scale(1.2F, 1.2F, 1.2F);
         }
     }
 
+    @Override
     public void transformHeldFull3DItemLayer() {
         GlStateManager.translate(0.09375F, 0.1875F, 0.0F);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntitySkeleton entity) {
         return entity.getSkeletonType() == 1 ? WITHER_SKELETON_TEXTURES : SKELETON_TEXTURES;
     }

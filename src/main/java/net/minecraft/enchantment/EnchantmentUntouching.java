@@ -10,22 +10,27 @@ public class EnchantmentUntouching extends Enchantment {
         this.setName("untouching");
     }
 
+    @Override
     public int getMinEnchantability(int enchantmentLevel) {
         return 15;
     }
 
+    @Override
     public int getMaxEnchantability(int enchantmentLevel) {
         return super.getMinEnchantability(enchantmentLevel) + 50;
     }
 
+    @Override
     public int getMaxLevel() {
         return 1;
     }
 
+    @Override
     public boolean canApplyTogether(Enchantment ench) {
         return super.canApplyTogether(ench) && ench.effectId != FORTUNE.effectId;
     }
 
+    @Override
     public boolean canApply(ItemStack stack) {
         return stack.getItem() == Items.SHEARS || super.canApply(stack);
     }

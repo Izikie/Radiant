@@ -15,6 +15,7 @@ public class WorldGenMegaJungle extends WorldGenHugeTrees {
         super(p_i46448_1_, p_i46448_2_, p_i46448_3_, p_i46448_4_, p_i46448_5_);
     }
 
+    @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         int i = this.func_150533_a(rand);
 

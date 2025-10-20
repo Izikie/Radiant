@@ -11,10 +11,12 @@ public class RenderEndermite extends RenderLiving<EntityEndermite> {
         super(renderManagerIn, new ModelEnderMite(), 0.3F);
     }
 
+    @Override
     protected float getDeathMaxRotation(EntityEndermite entityLivingBaseIn) {
         return 180.0F;
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityEndermite entity) {
         return ENDERMITE_TEXTURES;
     }

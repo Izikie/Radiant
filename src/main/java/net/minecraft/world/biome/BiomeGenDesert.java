@@ -19,6 +19,7 @@ public class BiomeGenDesert extends BiomeGenBase {
         this.theBiomeDecorator.cactiPerChunk = 10;
     }
 
+    @Override
     public void decorate(World worldIn, Random rand, BlockPos pos) {
         super.decorate(worldIn, rand, pos);
 

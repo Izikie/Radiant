@@ -10,18 +10,22 @@ public class EnchantmentDigging extends Enchantment {
         this.setName("digging");
     }
 
+    @Override
     public int getMinEnchantability(int enchantmentLevel) {
         return 1 + 10 * (enchantmentLevel - 1);
     }
 
+    @Override
     public int getMaxEnchantability(int enchantmentLevel) {
         return super.getMinEnchantability(enchantmentLevel) + 50;
     }
 
+    @Override
     public int getMaxLevel() {
         return 5;
     }
 
+    @Override
     public boolean canApply(ItemStack stack) {
         return stack.getItem() == Items.SHEARS || super.canApply(stack);
     }

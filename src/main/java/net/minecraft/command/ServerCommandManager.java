@@ -78,6 +78,7 @@ public class ServerCommandManager extends CommandHandler implements IAdminComman
         CommandBase.setAdminCommander(this);
     }
 
+    @Override
     public void notifyOperators(ICommandSender sender, ICommand command, int flags, String msgFormat, Object... msgParams) {
         boolean flag = true;
         MinecraftServer minecraftserver = MinecraftServer.getServer();

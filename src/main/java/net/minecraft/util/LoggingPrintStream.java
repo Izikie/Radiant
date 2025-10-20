@@ -15,10 +15,12 @@ public class LoggingPrintStream extends PrintStream {
         this.domain = domainIn;
     }
 
+    @Override
     public void println(String p_println_1_) {
         this.logString(p_println_1_);
     }
 
+    @Override
     public void println(Object p_println_1_) {
         this.logString(String.valueOf(p_println_1_));
     }

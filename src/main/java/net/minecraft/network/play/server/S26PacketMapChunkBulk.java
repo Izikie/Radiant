@@ -33,6 +33,7 @@ public class S26PacketMapChunkBulk implements Packet<INetHandlerPlayClient> {
         }
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.isOverworld = buf.readBoolean();
         int i = buf.readVarIntFromBuffer();
@@ -53,6 +54,7 @@ public class S26PacketMapChunkBulk implements Packet<INetHandlerPlayClient> {
         }
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeBoolean(this.isOverworld);
         buf.writeVarIntToBuffer(this.chunksData.length);
@@ -68,6 +70,7 @@ public class S26PacketMapChunkBulk implements Packet<INetHandlerPlayClient> {
         }
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleMapChunkBulk(this);
     }

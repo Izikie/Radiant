@@ -61,6 +61,7 @@ public class EntityGuardian extends EntityMob {
         this.field_175484_c = this.field_175482_b = this.rand.nextFloat();
     }
 
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6.0D);
@@ -69,20 +70,24 @@ public class EntityGuardian extends EntityMob {
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30.0D);
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
         this.setElder(tagCompund.getBoolean("Elder"));
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         tagCompound.setBoolean("Elder", this.isElder());
     }
 
+    @Override
     protected PathNavigate getNewNavigator(World worldIn) {
         return new PathNavigateSwimmer(this, worldIn);
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(16, 0);
@@ -166,6 +171,7 @@ public class EntityGuardian extends EntityMob {
         }
     }
 
+    @Override
     public void onDataWatcherUpdate(int dataID) {
         super.onDataWatcherUpdate(dataID);
 
@@ -179,34 +185,42 @@ public class EntityGuardian extends EntityMob {
         }
     }
 
+    @Override
     public int getTalkInterval() {
         return 160;
     }
 
+    @Override
     protected String getLivingSound() {
         return !this.isInWater() ? "mob.guardian.land.idle" : (this.isElder() ? "mob.guardian.elder.idle" : "mob.guardian.idle");
     }
 
+    @Override
     protected String getHurtSound() {
         return !this.isInWater() ? "mob.guardian.land.hit" : (this.isElder() ? "mob.guardian.elder.hit" : "mob.guardian.hit");
     }
 
+    @Override
     protected String getDeathSound() {
         return !this.isInWater() ? "mob.guardian.land.death" : (this.isElder() ? "mob.guardian.elder.death" : "mob.guardian.death");
     }
 
+    @Override
     protected boolean canTriggerWalking() {
         return false;
     }
 
+    @Override
     public float getEyeHeight() {
         return this.height * 0.5F;
     }
 
+    @Override
     public float getBlockPathWeight(BlockPos pos) {
         return this.worldObj.getBlockState(pos).getBlock().getMaterial() == Material.WATER ? 10.0F + this.worldObj.getLightBrightness(pos) - 0.5F : super.getBlockPathWeight(pos);
     }
 
+    @Override
     public void onLivingUpdate() {
         if (this.worldObj.isRemote) {
             this.field_175484_c = this.field_175482_b;
@@ -294,6 +308,7 @@ public class EntityGuardian extends EntityMob {
         super.onLivingUpdate();
     }
 
+    @Override
     public void handleStatusUpdate(byte id) {
         if (id == 21) {
             float scale = this.getAttackAnimationScale(0.0F);
@@ -328,6 +343,7 @@ public class EntityGuardian extends EntityMob {
         return (this.field_175479_bo + p_175477_1_) / this.func_175464_ck();
     }
 
+    @Override
     protected void updateAITasks() {
         super.updateAITasks();
 
@@ -354,6 +370,7 @@ public class EntityGuardian extends EntityMob {
         }
     }
 
+    @Override
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
         int i = this.rand.nextInt(3) + this.rand.nextInt(lootingModifier + 1);
 
@@ -372,23 +389,28 @@ public class EntityGuardian extends EntityMob {
         }
     }
 
+    @Override
     protected void addRandomDrop() {
         ItemStack itemstack = WeightedRandom.getRandomItem(this.rand, EntityFishHook.func_174855_j()).getItemStack(this.rand);
         this.entityDropItem(itemstack, 1.0F);
     }
 
+    @Override
     protected boolean isValidLightLevel() {
         return true;
     }
 
+    @Override
     public boolean isNotColliding() {
         return this.worldObj.checkNoEntityCollision(this.getEntityBoundingBox(), this) && this.worldObj.getCollidingBoundingBoxes(this, this.getEntityBoundingBox()).isEmpty();
     }
 
+    @Override
     public boolean getCanSpawnHere() {
         return (this.rand.nextInt(20) == 0 || !this.worldObj.canBlockSeeSky(new BlockPos(this))) && super.getCanSpawnHere();
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (!this.func_175472_n() && !source.isMagicDamage() && source.getSourceOfDamage() instanceof EntityLivingBase entitylivingbase) {
 
@@ -402,10 +424,12 @@ public class EntityGuardian extends EntityMob {
         return super.attackEntityFrom(source, amount);
     }
 
+    @Override
     public int getVerticalFaceSpeed() {
         return 180;
     }
 
+    @Override
     public void moveEntityWithHeading(float strafe, float forward) {
         if (this.isServerWorld()) {
             if (this.isInWater()) {
@@ -435,15 +459,18 @@ public class EntityGuardian extends EntityMob {
             this.setMutexBits(3);
         }
 
+        @Override
         public boolean shouldExecute() {
             EntityLivingBase entitylivingbase = this.theEntity.getAttackTarget();
             return entitylivingbase != null && entitylivingbase.isEntityAlive();
         }
 
+        @Override
         public boolean continueExecuting() {
             return super.continueExecuting() && (this.theEntity.isElder() || this.theEntity.getDistanceSqToEntity(this.theEntity.getAttackTarget()) > 9.0D);
         }
 
+        @Override
         public void startExecuting() {
             this.tickCounter = -10;
             this.theEntity.getNavigator().clearPathEntity();
@@ -451,12 +478,14 @@ public class EntityGuardian extends EntityMob {
             this.theEntity.isAirBorne = true;
         }
 
+        @Override
         public void resetTask() {
             this.theEntity.setTargetedEntity(0);
             this.theEntity.setAttackTarget(null);
             this.theEntity.wander.makeUpdate();
         }
 
+        @Override
         public void updateTask() {
             EntityLivingBase entitylivingbase = this.theEntity.getAttackTarget();
             this.theEntity.getNavigator().clearPathEntity();
@@ -500,6 +529,7 @@ public class EntityGuardian extends EntityMob {
             this.entityGuardian = guardian;
         }
 
+        @Override
         public void onUpdateMoveHelper() {
             if (this.update && !this.entityGuardian.getNavigator().noPath()) {
                 double d0 = this.posX - this.entityGuardian.posX;
@@ -551,6 +581,7 @@ public class EntityGuardian extends EntityMob {
             this.parentEntity = guardian;
         }
 
+        @Override
         public boolean apply(EntityLivingBase p_apply_1_) {
             return (p_apply_1_ instanceof EntityPlayer || p_apply_1_ instanceof EntitySquid) && p_apply_1_.getDistanceSqToEntity(this.parentEntity) > 9.0D;
         }

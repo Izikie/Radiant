@@ -26,14 +26,17 @@ public class EntityEnderCrystal extends Entity {
         this.setPosition(x, y, z);
     }
 
+    @Override
     protected boolean canTriggerWalking() {
         return false;
     }
 
+    @Override
     protected void entityInit() {
         this.dataWatcher.addObject(8, this.health);
     }
 
+    @Override
     public void onUpdate() {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
@@ -49,16 +52,20 @@ public class EntityEnderCrystal extends Entity {
         }
     }
 
+    @Override
     protected void writeEntityToNBT(NBTTagCompound tagCompound) {
     }
 
+    @Override
     protected void readEntityFromNBT(NBTTagCompound tagCompund) {
     }
 
+    @Override
     public boolean canBeCollidedWith() {
         return true;
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (this.isEntityInvulnerable(source)) {
             return false;

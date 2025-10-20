@@ -13,11 +13,13 @@ public class ModelAdapterWitch extends ModelAdapter {
 		super(EntityWitch.class, "witch", 0.5F);
 	}
 
-	public ModelBase makeModel() {
+	@Override
+    public ModelBase makeModel() {
 		return new ModelWitch(0.0F);
 	}
 
-	public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
+	@Override
+    public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
 		if (model instanceof ModelWitch modelwitch) {
 			return modelPart.equals("mole") ? modelwitch.getMole()
 					: (modelPart.equals("hat") ? modelwitch.getWitchHat()
@@ -33,11 +35,13 @@ public class ModelAdapterWitch extends ModelAdapter {
 		}
 	}
 
-	public String[] getModelRendererNames() {
+	@Override
+    public String[] getModelRendererNames() {
 		return new String[]{"mole", "head", "body", "arms", "right_leg", "left_leg", "nose"};
 	}
 
-	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+	@Override
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
 		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		RenderWitch renderwitch = new RenderWitch(rendermanager);
 		renderwitch.mainModel = modelBase;

@@ -16,14 +16,17 @@ public class C01PacketPing implements Packet<INetHandlerStatusServer> {
         this.time = ping;
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.time = buf.readLong();
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeLong(this.time);
     }
 
+    @Override
     public void processPacket(INetHandlerStatusServer handler) {
         handler.processPing(this);
     }

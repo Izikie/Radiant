@@ -22,6 +22,7 @@ public class BlockWorkbench extends Block {
         this.setCreativeTab(CreativeTabs.TAB_DECORATIONS);
     }
 
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote) {
             playerIn.displayGui(new InterfaceCraftingTable(worldIn, pos));
@@ -39,22 +40,27 @@ public class BlockWorkbench extends Block {
             this.position = pos;
         }
 
+        @Override
         public String getName() {
             return null;
         }
 
+        @Override
         public boolean hasCustomName() {
             return false;
         }
 
+        @Override
         public IChatComponent getDisplayName() {
             return new ChatComponentTranslation(Blocks.CRAFTING_TABLE.getUnlocalizedName() + ".name");
         }
 
+        @Override
         public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
             return new ContainerWorkbench(playerInventory, this.world, this.position);
         }
 
+        @Override
         public String getGuiID() {
             return "minecraft:crafting_table";
         }

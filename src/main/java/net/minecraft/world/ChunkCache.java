@@ -42,16 +42,19 @@ public class ChunkCache implements IBlockAccess {
         }
     }
 
+    @Override
     public boolean extendedLevelsInChunkCache() {
         return this.hasExtendedLevels;
     }
 
+    @Override
     public TileEntity getTileEntity(BlockPos pos) {
         int i = (pos.getX() >> 4) - this.chunkX;
         int j = (pos.getZ() >> 4) - this.chunkZ;
         return this.chunkArray[i][j].getTileEntity(pos, Chunk.EnumCreateEntityType.IMMEDIATE);
     }
 
+    @Override
     public int getCombinedLight(BlockPos pos, int lightValue) {
         int i = this.getLightForExt(LightType.SKY, pos);
         int j = this.getLightForExt(LightType.BLOCK, pos);
@@ -63,6 +66,7 @@ public class ChunkCache implements IBlockAccess {
         return i << 20 | j << 4;
     }
 
+    @Override
     public IBlockState getBlockState(BlockPos pos) {
         if (pos.getY() >= 0 && pos.getY() < 256) {
             int i = (pos.getX() >> 4) - this.chunkX;
@@ -80,6 +84,7 @@ public class ChunkCache implements IBlockAccess {
         return Blocks.AIR.getDefaultState();
     }
 
+    @Override
     public BiomeGenBase getBiomeGenForCoords(BlockPos pos) {
         return this.worldObj.getBiomeGenForCoords(pos);
     }
@@ -114,6 +119,7 @@ public class ChunkCache implements IBlockAccess {
         }
     }
 
+    @Override
     public boolean isAirBlock(BlockPos pos) {
         return this.getBlockState(pos).getBlock().getMaterial() == Material.AIR;
     }
@@ -128,11 +134,13 @@ public class ChunkCache implements IBlockAccess {
         }
     }
 
+    @Override
     public int getStrongPower(BlockPos pos, Direction direction) {
         IBlockState iblockstate = this.getBlockState(pos);
         return iblockstate.getBlock().getStrongPower(this, pos, iblockstate, direction);
     }
 
+    @Override
     public WorldType getWorldType() {
         return this.worldObj.getWorldType();
     }

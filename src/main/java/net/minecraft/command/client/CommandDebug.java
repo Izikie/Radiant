@@ -20,18 +20,22 @@ public class CommandDebug extends CommandBase {
     private long profileStartTime;
     private int profileStartTick;
 
+    @Override
     public String getCommandName() {
         return "debug";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 3;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.debug.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length < 1) {
             throw new WrongUsageException("commands.debug.usage");
@@ -96,6 +100,7 @@ public class CommandDebug extends CommandBase {
         }
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         return args.length == 1 ? getListOfStringsMatchingLastWord(args, "start", "stop") : null;
     }

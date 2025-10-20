@@ -105,6 +105,7 @@ public class BlockRailPowered extends BlockRailBase {
         }
     }
 
+    @Override
     protected void onNeighborChangedInternal(World world, BlockPos pos, IBlockState state, Block neighborBlock) {
         boolean flag = state.getValue(POWERED);
         boolean flag1 = world.isBlockPowered(pos) || this.findSignal(world, pos, state, true, 0) || this.findSignal(world, pos, state, false, 0);
@@ -119,14 +120,17 @@ public class BlockRailPowered extends BlockRailBase {
         }
     }
 
+    @Override
     public IProperty<RailShape> getShapeProperty() {
         return SHAPE;
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(SHAPE, RailShape.byMetadata(meta & 7)).withProperty(POWERED, (meta & 8) > 0);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         int i = 0;
         i = i | state.getValue(SHAPE).getMetadata();
@@ -138,6 +142,7 @@ public class BlockRailPowered extends BlockRailBase {
         return i;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, SHAPE, POWERED);
     }

@@ -34,6 +34,7 @@ public class BlockFence extends Block {
         this.setCreativeTab(CreativeTabs.TAB_DECORATIONS);
     }
 
+    @Override
     public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {
         boolean flag = this.canConnectTo(worldIn, pos.north());
         boolean flag1 = this.canConnectTo(worldIn, pos.south());
@@ -84,6 +85,7 @@ public class BlockFence extends Block {
         this.setBlockBounds(f, 0.0F, f2, f1, 1.0F, f3);
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         boolean flag = this.canConnectTo(worldIn, pos.north());
         boolean flag1 = this.canConnectTo(worldIn, pos.south());
@@ -113,14 +115,17 @@ public class BlockFence extends Block {
         this.setBlockBounds(f, 0.0F, f2, f1, 1.0F, f3);
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
         return false;
     }
@@ -130,22 +135,27 @@ public class BlockFence extends Block {
         return block != Blocks.BARRIER && ((block instanceof BlockFence && block.blockMaterial == this.blockMaterial) || block instanceof BlockFenceGate || (block.blockMaterial.isOpaque() && block.isFullCube() && block.blockMaterial != Material.GOURD));
     }
 
+    @Override
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, Direction side) {
         return true;
     }
 
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         return worldIn.isRemote || ItemLead.attachToFence(playerIn, worldIn, pos);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return 0;
     }
 
+    @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         return state.withProperty(NORTH, this.canConnectTo(worldIn, pos.north())).withProperty(EAST, this.canConnectTo(worldIn, pos.east())).withProperty(SOUTH, this.canConnectTo(worldIn, pos.south())).withProperty(WEST, this.canConnectTo(worldIn, pos.west()));
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, NORTH, EAST, WEST, SOUTH);
     }

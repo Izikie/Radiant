@@ -29,6 +29,7 @@ public class BlockPistonMoving extends BlockContainer {
         this.setHardness(-1.0F);
     }
 
+    @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return null;
     }
@@ -37,6 +38,7 @@ public class BlockPistonMoving extends BlockContainer {
         return new TileEntityPiston(state, facing, extending, renderHead);
     }
 
+    @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
@@ -47,14 +49,17 @@ public class BlockPistonMoving extends BlockContainer {
         }
     }
 
+    @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
         return false;
     }
 
+    @Override
     public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Direction side) {
         return false;
     }
 
+    @Override
     public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
         BlockPos blockpos = pos.offset(state.getValue(FACING).getOpposite());
         IBlockState iblockstate = worldIn.getBlockState(blockpos);
@@ -64,14 +69,17 @@ public class BlockPistonMoving extends BlockContainer {
         }
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote && worldIn.getTileEntity(pos) == null) {
             worldIn.setBlockToAir(pos);
@@ -81,10 +89,12 @@ public class BlockPistonMoving extends BlockContainer {
         }
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return null;
     }
 
+    @Override
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
         if (!worldIn.isRemote) {
             TileEntityPiston tileentitypiston = this.getTileEntity(worldIn, pos);
@@ -96,16 +106,19 @@ public class BlockPistonMoving extends BlockContainer {
         }
     }
 
+    @Override
     public MovingObjectPosition collisionRayTrace(World worldIn, BlockPos pos, Vec3 start, Vec3 end) {
         return null;
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         if (!worldIn.isRemote) {
             worldIn.getTileEntity(pos);
         }
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
         TileEntityPiston tileentitypiston = this.getTileEntity(worldIn, pos);
 
@@ -122,6 +135,7 @@ public class BlockPistonMoving extends BlockContainer {
         }
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         TileEntityPiston tileentitypiston = this.getTileEntity(worldIn, pos);
 
@@ -199,14 +213,17 @@ public class BlockPistonMoving extends BlockContainer {
         return tileentity instanceof TileEntityPiston tileEntityPiston ? tileEntityPiston : null;
     }
 
+    @Override
     public Item getItem(World worldIn, BlockPos pos) {
         return null;
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(FACING, BlockPistonExtension.getFacing(meta)).withProperty(TYPE, (meta & 8) > 0 ? BlockPistonExtension.PistonType.STICKY : BlockPistonExtension.PistonType.DEFAULT);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         int i = 0;
         i = i | state.getValue(FACING).getIndex();
@@ -218,6 +235,7 @@ public class BlockPistonMoving extends BlockContainer {
         return i;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, FACING, TYPE);
     }

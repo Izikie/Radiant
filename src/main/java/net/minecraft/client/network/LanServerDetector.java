@@ -97,6 +97,7 @@ public class LanServerDetector {
             this.socket.joinGroup(multicastGroupAddress, networkInterface);
         }
 
+        @Override
         public void run() {
             byte[] abyte = new byte[1024];
 

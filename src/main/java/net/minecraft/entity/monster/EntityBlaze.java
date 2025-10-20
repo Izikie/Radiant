@@ -30,6 +30,7 @@ public class EntityBlaze extends EntityMob {
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
     }
 
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6.0D);
@@ -37,31 +38,38 @@ public class EntityBlaze extends EntityMob {
         this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(48.0D);
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(16, (byte) 0);
     }
 
+    @Override
     protected String getLivingSound() {
         return "mob.blaze.breathe";
     }
 
+    @Override
     protected String getHurtSound() {
         return "mob.blaze.hit";
     }
 
+    @Override
     protected String getDeathSound() {
         return "mob.blaze.death";
     }
 
+    @Override
     public int getBrightnessForRender(float partialTicks) {
         return 15728880;
     }
 
+    @Override
     public float getBrightness(float partialTicks) {
         return 1.0F;
     }
 
+    @Override
     public void onLivingUpdate() {
         if (!this.onGround && this.motionY < 0.0D) {
             this.motionY *= 0.6D;
@@ -80,6 +88,7 @@ public class EntityBlaze extends EntityMob {
         super.onLivingUpdate();
     }
 
+    @Override
     protected void updateAITasks() {
         if (this.isWet()) {
             this.attackEntityFrom(DamageSource.DROWN, 1.0F);
@@ -102,17 +111,21 @@ public class EntityBlaze extends EntityMob {
         super.updateAITasks();
     }
 
+    @Override
     public void fall(float distance, float damageMultiplier) {
     }
 
+    @Override
     protected Item getDropItem() {
         return Items.BLAZE_ROD;
     }
 
+    @Override
     public boolean isBurning() {
         return this.func_70845_n();
     }
 
+    @Override
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
         if (wasRecentlyHit) {
             int i = this.rand.nextInt(2 + lootingModifier);
@@ -139,6 +152,7 @@ public class EntityBlaze extends EntityMob {
         this.dataWatcher.updateObject(16, b0);
     }
 
+    @Override
     protected boolean isValidLightLevel() {
         return true;
     }
@@ -153,19 +167,23 @@ public class EntityBlaze extends EntityMob {
             this.setMutexBits(3);
         }
 
+        @Override
         public boolean shouldExecute() {
             EntityLivingBase entitylivingbase = this.blaze.getAttackTarget();
             return entitylivingbase != null && entitylivingbase.isEntityAlive();
         }
 
+        @Override
         public void startExecuting() {
             this.field_179467_b = 0;
         }
 
+        @Override
         public void resetTask() {
             this.blaze.setOnFire(false);
         }
 
+        @Override
         public void updateTask() {
             --this.field_179468_c;
             EntityLivingBase entitylivingbase = this.blaze.getAttackTarget();

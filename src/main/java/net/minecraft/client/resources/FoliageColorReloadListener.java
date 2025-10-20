@@ -9,6 +9,7 @@ import java.io.IOException;
 public class FoliageColorReloadListener implements IResourceManagerReloadListener {
     private static final ResourceLocation LOC_FOLIAGE_PNG = new ResourceLocation("textures/colormap/foliage.png");
 
+    @Override
     public void onResourceManagerReload(IResourceManager resourceManager) {
         try {
             ColorizerFoliage.setFoliageBiomeColorizer(TextureUtil.readImageData(resourceManager, LOC_FOLIAGE_PNG));

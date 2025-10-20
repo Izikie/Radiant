@@ -766,6 +766,7 @@ public class PointerBuffer implements Comparable<PointerBuffer> {
      * @return A negative integer, zero, or a positive integer as this buffer
      * is less than, equal to, or greater than the given buffer
      */
+    @Override
     public int compareTo(PointerBuffer that) {
         int n = this.position() + Math.min(this.remaining(), that.remaining());
         for (int i = this.position(), j = that.position(); i < n; i++, j++) {
@@ -791,34 +792,42 @@ public class PointerBuffer implements Comparable<PointerBuffer> {
             super(source);
         }
 
+        @Override
         public boolean isReadOnly() {
             return true;
         }
 
+        @Override
         protected PointerBuffer newInstance(final ByteBuffer source) {
             return new PointerBufferR(source);
         }
 
+        @Override
         public PointerBuffer asReadOnlyBuffer() {
             return duplicate();
         }
 
+        @Override
         public PointerBuffer put(final long l) {
             throw new ReadOnlyBufferException();
         }
 
+        @Override
         public PointerBuffer put(final int index, final long l) {
             throw new ReadOnlyBufferException();
         }
 
+        @Override
         public PointerBuffer put(final PointerBuffer src) {
             throw new ReadOnlyBufferException();
         }
 
+        @Override
         public PointerBuffer put(final long[] src, final int offset, final int length) {
             throw new ReadOnlyBufferException();
         }
 
+        @Override
         public PointerBuffer compact() {
             throw new ReadOnlyBufferException();
         }

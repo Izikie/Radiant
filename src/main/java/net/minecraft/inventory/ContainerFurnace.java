@@ -30,11 +30,13 @@ public class ContainerFurnace extends Container {
         }
     }
 
+    @Override
     public void onCraftGuiOpened(ICrafting listener) {
         super.onCraftGuiOpened(listener);
         listener.sendAllWindowProperties(this, this.tileFurnace);
     }
 
+    @Override
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
 
@@ -63,14 +65,17 @@ public class ContainerFurnace extends Container {
         this.totalCookTime = this.tileFurnace.getField(3);
     }
 
+    @Override
     public void updateProgressBar(int id, int data) {
         this.tileFurnace.setField(id, data);
     }
 
+    @Override
     public boolean canInteractWith(EntityPlayer playerIn) {
         return this.tileFurnace.isUseableByPlayer(playerIn);
     }
 
+    @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
         ItemStack itemstack = null;
         Slot slot = this.inventorySlots.get(index);

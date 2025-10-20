@@ -58,6 +58,7 @@ public class ModelBlockDefinition {
     }
 
     public static class Deserializer implements JsonDeserializer<ModelBlockDefinition> {
+        @Override
         public ModelBlockDefinition deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
             JsonObject jsonobject = jsonElement.getAsJsonObject();
             List<Variants> list = this.parseVariantsList(ctx, jsonobject);
@@ -142,6 +143,7 @@ public class ModelBlockDefinition {
         }
 
         public static class Deserializer implements JsonDeserializer<Variant> {
+            @Override
             public Variant deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
                 JsonObject jsonobject = jsonElement.getAsJsonObject();
                 String s = this.parseModel(jsonobject);

@@ -38,14 +38,17 @@ public class EntityPotion extends EntityThrowable {
         this.potionDamage = potionDamageIn;
     }
 
+    @Override
     protected float getGravityVelocity() {
         return 0.05F;
     }
 
+    @Override
     protected float getVelocity() {
         return 0.5F;
     }
 
+    @Override
     protected float getInaccuracy() {
         return -20.0F;
     }
@@ -66,6 +69,7 @@ public class EntityPotion extends EntityThrowable {
         return this.potionDamage.getMetadata();
     }
 
+    @Override
     protected void onImpact(MovingObjectPosition p_70184_1_) {
         if (!this.worldObj.isRemote) {
             List<PotionEffect> list = Items.POTION.getEffects(this.potionDamage);
@@ -108,6 +112,7 @@ public class EntityPotion extends EntityThrowable {
         }
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
 
@@ -122,6 +127,7 @@ public class EntityPotion extends EntityThrowable {
         }
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
 

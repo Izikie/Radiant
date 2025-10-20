@@ -30,10 +30,12 @@ public class ContainerChest extends Container {
         }
     }
 
+    @Override
     public boolean canInteractWith(EntityPlayer playerIn) {
         return this.lowerChestInventory.isUseableByPlayer(playerIn);
     }
 
+    @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
         ItemStack itemstack = null;
         Slot slot = this.inventorySlots.get(index);
@@ -60,6 +62,7 @@ public class ContainerChest extends Container {
         return itemstack;
     }
 
+    @Override
     public void onContainerClosed(EntityPlayer playerIn) {
         super.onContainerClosed(playerIn);
         this.lowerChestInventory.closeInventory(playerIn);

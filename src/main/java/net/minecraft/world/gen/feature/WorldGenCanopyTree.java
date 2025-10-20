@@ -18,6 +18,7 @@ public class WorldGenCanopyTree extends WorldGenAbstractTree {
         super(p_i45461_1_);
     }
 
+    @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         int i = rand.nextInt(3) + rand.nextInt(2) + 6;
         int j = position.getX();

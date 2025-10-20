@@ -43,11 +43,13 @@ public enum ShaderParameterBool implements IExpressionBool {
 		return this.name;
 	}
 
-	public ExpressionType getExpressionType() {
+	@Override
+    public ExpressionType getExpressionType() {
 		return ExpressionType.BOOL;
 	}
 
-	public boolean eval() {
+	@Override
+    public boolean eval() {
 		Entity entity = Minecraft.get().getRenderViewEntity();
 
 		if (entity instanceof EntityLivingBase entitylivingbase) {

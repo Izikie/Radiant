@@ -34,19 +34,23 @@ public abstract class BlockRailBase extends Block {
         this.setCreativeTab(CreativeTabs.TAB_TRANSPORT);
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
         return null;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public MovingObjectPosition collisionRayTrace(World worldIn, BlockPos pos, Vec3 start, Vec3 end) {
         this.setBlockBoundsBasedOnState(worldIn, pos);
         return super.collisionRayTrace(worldIn, pos, start, end);
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         IBlockState iblockstate = worldIn.getBlockState(pos);
         RailShape railShape = iblockstate.getBlock() == this ? iblockstate.getValue(this.getShapeProperty()) : null;
@@ -58,14 +62,17 @@ public abstract class BlockRailBase extends Block {
         }
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
         return World.doesBlockHaveSolidTopSurface(worldIn, pos.down());
     }
 
+    @Override
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         if (!worldIn.isRemote) {
             state = this.func_176564_a(worldIn, pos, state, true);
@@ -76,6 +83,7 @@ public abstract class BlockRailBase extends Block {
         }
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         if (!worldIn.isRemote) {
             RailShape railShape = state.getValue(this.getShapeProperty());
@@ -107,14 +115,17 @@ public abstract class BlockRailBase extends Block {
         return worldIn.isRemote ? p_176564_3_ : (new Rail(worldIn, p_176564_2_, p_176564_3_)).func_180364_a(worldIn.isBlockPowered(p_176564_2_), p_176564_4_).getBlockState();
     }
 
+    @Override
     public int getMobilityFlag() {
         return 0;
     }
 
+    @Override
     public RenderLayer getBlockLayer() {
         return RenderLayer.CUTOUT;
     }
 
+    @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         super.breakBlock(worldIn, pos, state);
 
@@ -171,6 +182,7 @@ public abstract class BlockRailBase extends Block {
             return META_LOOKUP[meta];
         }
 
+        @Override
         public String getName() {
             return this.name;
         }

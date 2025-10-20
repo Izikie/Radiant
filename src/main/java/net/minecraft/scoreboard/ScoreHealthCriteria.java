@@ -10,6 +10,7 @@ public class ScoreHealthCriteria extends ScoreDummyCriteria {
         super(name);
     }
 
+    @Override
     public int setScore(List<EntityPlayer> p_96635_1_) {
         float f = 0.0F;
 
@@ -24,10 +25,12 @@ public class ScoreHealthCriteria extends ScoreDummyCriteria {
         return MathHelper.ceil(f);
     }
 
+    @Override
     public boolean isReadOnly() {
         return true;
     }
 
+    @Override
     public EnumRenderType getRenderType() {
         return EnumRenderType.HEARTS;
     }

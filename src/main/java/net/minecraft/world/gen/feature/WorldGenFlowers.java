@@ -20,6 +20,7 @@ public class WorldGenFlowers extends WorldGenerator {
         this.field_175915_b = p_175914_1_.getDefaultState().withProperty(p_175914_1_.getTypeProperty(), p_175914_2_);
     }
 
+    @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         for (int i = 0; i < 64; ++i) {
             BlockPos blockpos = position.add(rand.nextInt(8) - rand.nextInt(8), rand.nextInt(4) - rand.nextInt(4), rand.nextInt(8) - rand.nextInt(8));

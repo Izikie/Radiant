@@ -24,7 +24,8 @@ public class GuiShaderMessage extends GuiScreen {
 		this.actionIndex = actionIndex;
 	}
 
-	public void initGui() {
+	@Override
+    public void initGui() {
 		buttonList.add(new GuiOptionButton(0, width / 2 - 74, height / 6 + 96, I18n.format("gui.back")));
 		lines.clear();
 		lines.addAll(fontRendererObj.listFormattedStringToWidth(secondary, width - 50));
@@ -32,7 +33,8 @@ public class GuiShaderMessage extends GuiScreen {
 		buttonList.add(new GuiOptionButton(1, width / 2 - 74, height / 6 + 116 + 4, I18n.format("options.off")));
 	}
 
-	protected void actionPerformed(GuiButton button) throws IOException {
+	@Override
+    protected void actionPerformed(GuiButton button) throws IOException {
 		if (button.id == 0) {
 			mc.displayGuiScreen(screen);
 		} else if (button.id == 1) {
@@ -55,7 +57,8 @@ public class GuiShaderMessage extends GuiScreen {
 		}
 	}
 
-	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+	@Override
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		drawCenteredString(fontRendererObj, main, width / 2, 70, 16777215);
 		int i = 90;

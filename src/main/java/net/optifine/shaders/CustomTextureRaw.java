@@ -58,19 +58,23 @@ public class CustomTextureRaw implements ICustomTexture {
 		GL11.glBindTexture(this.getTarget(), 0);
 	}
 
-	public int getTarget() {
+	@Override
+    public int getTarget() {
 		return this.type.getId();
 	}
 
-	public int getTextureId() {
+	@Override
+    public int getTextureId() {
 		return this.textureId;
 	}
 
-	public int textureUnit() {
+	@Override
+    public int textureUnit() {
 		return this.textureUnit;
 	}
 
-	public void deleteTexture() {
+	@Override
+    public void deleteTexture() {
 		if (this.textureId > 0) {
 			GL11.glDeleteTextures(this.textureId);
 			this.textureId = 0;

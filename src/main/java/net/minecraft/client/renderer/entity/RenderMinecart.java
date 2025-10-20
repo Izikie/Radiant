@@ -20,6 +20,7 @@ public class RenderMinecart<T extends EntityMinecart> extends Render<T> {
         this.shadowSize = 0.5F;
     }
 
+    @Override
     public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
         GlStateManager.pushMatrix();
         this.bindEntityTexture(entity);
@@ -95,6 +96,7 @@ public class RenderMinecart<T extends EntityMinecart> extends Render<T> {
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(T entity) {
         return MINECART_TEXTURES;
     }

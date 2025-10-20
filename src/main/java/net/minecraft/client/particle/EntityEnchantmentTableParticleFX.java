@@ -29,6 +29,7 @@ public class EntityEnchantmentTableParticleFX extends EntityFX {
         this.setParticleTextureIndex((int) (Math.random() * 26.0D + 1.0D + 224.0D));
     }
 
+    @Override
     public int getBrightnessForRender(float partialTicks) {
         int i = super.getBrightnessForRender(partialTicks);
         float f = (float) this.particleAge / this.particleMaxAge;
@@ -45,6 +46,7 @@ public class EntityEnchantmentTableParticleFX extends EntityFX {
         return j | k << 16;
     }
 
+    @Override
     public float getBrightness(float partialTicks) {
         float f = super.getBrightness(partialTicks);
         float f1 = (float) this.particleAge / this.particleMaxAge;
@@ -53,6 +55,7 @@ public class EntityEnchantmentTableParticleFX extends EntityFX {
         return f * (1.0F - f1) + f1;
     }
 
+    @Override
     public void onUpdate() {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
@@ -72,6 +75,7 @@ public class EntityEnchantmentTableParticleFX extends EntityFX {
     }
 
     public static class EnchantmentTable implements IParticleFactory {
+        @Override
         public EntityFX getEntityFX(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
             return new EntityEnchantmentTableParticleFX(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
         }

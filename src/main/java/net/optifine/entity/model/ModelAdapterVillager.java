@@ -13,11 +13,13 @@ public class ModelAdapterVillager extends ModelAdapter {
 		super(EntityVillager.class, "villager", 0.5F);
 	}
 
-	public ModelBase makeModel() {
+	@Override
+    public ModelBase makeModel() {
 		return new ModelVillager(0.0F);
 	}
 
-	public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
+	@Override
+    public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
 		if (!(model instanceof ModelVillager modelvillager)) {
 			return null;
 		} else {
@@ -25,11 +27,13 @@ public class ModelAdapterVillager extends ModelAdapter {
 		}
 	}
 
-	public String[] getModelRendererNames() {
+	@Override
+    public String[] getModelRendererNames() {
 		return new String[]{"head", "body", "arms", "right_leg", "left_leg", "nose"};
 	}
 
-	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+	@Override
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
 		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		RenderVillager rendervillager = new RenderVillager(rendermanager);
 		rendervillager.mainModel = modelBase;

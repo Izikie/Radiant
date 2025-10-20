@@ -12,6 +12,7 @@ public class EntityAITargetNonTamed<T extends EntityLivingBase> extends EntityAI
         this.theTameable = entityIn;
     }
 
+    @Override
     public boolean shouldExecute() {
         return !this.theTameable.isTamed() && super.shouldExecute();
     }

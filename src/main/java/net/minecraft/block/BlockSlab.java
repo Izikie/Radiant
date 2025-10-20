@@ -33,10 +33,12 @@ public abstract class BlockSlab extends Block {
         this.setLightOpacity(255);
     }
 
+    @Override
     protected boolean canSilkHarvest() {
         return false;
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         if (this.isDouble()) {
             this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
@@ -53,6 +55,7 @@ public abstract class BlockSlab extends Block {
         }
     }
 
+    @Override
     public void setBlockBoundsForItemRender() {
         if (this.isDouble()) {
             this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
@@ -61,28 +64,34 @@ public abstract class BlockSlab extends Block {
         }
     }
 
+    @Override
     public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {
         this.setBlockBoundsBasedOnState(worldIn, pos);
         super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return this.isDouble();
     }
 
+    @Override
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         IBlockState iblockstate = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(HALF, EnumBlockHalf.BOTTOM);
         return this.isDouble() ? iblockstate : (facing != Direction.DOWN && (facing == Direction.UP || hitY <= 0.5D) ? iblockstate : iblockstate.withProperty(HALF, EnumBlockHalf.TOP));
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return this.isDouble() ? 2 : 1;
     }
 
+    @Override
     public boolean isFullCube() {
         return this.isDouble();
     }
 
+    @Override
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, Direction side) {
         if (this.isDouble()) {
             return super.shouldSideBeRendered(worldIn, pos, side);
@@ -104,6 +113,7 @@ public abstract class BlockSlab extends Block {
 
     public abstract String getUnlocalizedName(int meta);
 
+    @Override
     public int getDamageValue(World worldIn, BlockPos pos) {
         return super.getDamageValue(worldIn, pos) & 7;
     }
@@ -128,6 +138,7 @@ public abstract class BlockSlab extends Block {
             return this.name;
         }
 
+        @Override
         public String getName() {
             return this.name;
         }

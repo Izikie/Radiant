@@ -26,6 +26,7 @@ public class LayeredTexture extends AbstractTexture {
         }
     }
 
+    @Override
     public void loadTexture(IResourceManager resourceManager) throws IOException {
         this.deleteGlTexture();
         NativeImage bufferedimage = null;

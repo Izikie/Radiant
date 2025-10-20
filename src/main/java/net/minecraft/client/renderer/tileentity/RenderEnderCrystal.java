@@ -18,6 +18,7 @@ public class RenderEnderCrystal extends Render<EntityEnderCrystal> {
         this.shadowSize = 0.5F;
     }
 
+    @Override
     public void doRender(EntityEnderCrystal entity, double x, double y, double z, float entityYaw, float partialTicks) {
         float f = entity.innerRotation + partialTicks;
         GlStateManager.pushMatrix();
@@ -30,6 +31,7 @@ public class RenderEnderCrystal extends Render<EntityEnderCrystal> {
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityEnderCrystal entity) {
         return ENDER_CRYSTAL_TEXTURES;
     }

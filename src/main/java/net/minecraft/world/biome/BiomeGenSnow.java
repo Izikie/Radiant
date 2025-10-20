@@ -26,6 +26,7 @@ public class BiomeGenSnow extends BiomeGenBase {
         this.spawnableCreatureList.clear();
     }
 
+    @Override
     public void decorate(World worldIn, Random rand, BlockPos pos) {
         if (this.field_150615_aC) {
             for (int i = 0; i < 3; ++i) {
@@ -44,10 +45,12 @@ public class BiomeGenSnow extends BiomeGenBase {
         super.decorate(worldIn, rand, pos);
     }
 
+    @Override
     public WorldGenAbstractTree genBigTreeChance(Random rand) {
         return new WorldGenTaiga2(false);
     }
 
+    @Override
     protected BiomeGenBase createMutatedBiome(int p_180277_1_) {
         BiomeGenBase biomegenbase = (new BiomeGenSnow(p_180277_1_, true)).func_150557_a(13828095, true).setBiomeName(this.biomeName + " Spikes").setEnableSnow().setTemperatureRainfall(0.0F, 0.5F).setHeight(new Height(this.minHeight + 0.1F, this.maxHeight + 0.1F));
         biomegenbase.minHeight = this.minHeight + 0.3F;

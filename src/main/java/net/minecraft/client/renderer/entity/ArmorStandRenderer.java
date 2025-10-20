@@ -15,6 +15,7 @@ public class ArmorStandRenderer extends RendererLivingEntity<EntityArmorStand> {
     public ArmorStandRenderer(RenderManager p_i46195_1_) {
         super(p_i46195_1_, new ModelArmorStand(), 0.0F);
         LayerBipedArmor layerbipedarmor = new LayerBipedArmor(this) {
+            @Override
             protected void initArmor() {
                 this.modelLeggings = new ModelArmorStandArmor(0.5F);
                 this.modelArmor = new ModelArmorStandArmor(1.0F);
@@ -25,18 +26,22 @@ public class ArmorStandRenderer extends RendererLivingEntity<EntityArmorStand> {
         this.addLayer(new LayerCustomHead(this.getMainModel().bipedHead));
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityArmorStand entity) {
         return TEXTURE_ARMOR_STAND;
     }
 
+    @Override
     public ModelArmorStand getMainModel() {
         return (ModelArmorStand) super.getMainModel();
     }
 
+    @Override
     protected void rotateCorpse(EntityArmorStand bat, float p_77043_2_, float p_77043_3_, float partialTicks) {
         GlStateManager.rotate(180.0F - p_77043_3_, 0.0F, 1.0F, 0.0F);
     }
 
+    @Override
     protected boolean canRenderName(EntityArmorStand entity) {
         return entity.getAlwaysRenderNameTag();
     }

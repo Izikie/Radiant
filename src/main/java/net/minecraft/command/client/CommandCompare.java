@@ -12,18 +12,22 @@ import net.minecraft.world.gen.structure.StructureBoundingBox;
 import java.util.List;
 
 public class CommandCompare extends CommandBase {
+    @Override
     public String getCommandName() {
         return "testforblocks";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 2;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.compare.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length < 9) {
             throw new WrongUsageException("commands.compare.usage");
@@ -105,6 +109,7 @@ public class CommandCompare extends CommandBase {
         }
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         return args.length > 0 && args.length <= 3 ? func_175771_a(args, 0, pos) : (args.length > 3 && args.length <= 6 ? func_175771_a(args, 3, pos) : (args.length > 6 && args.length <= 9 ? func_175771_a(args, 6, pos) : (args.length == 10 ? getListOfStringsMatchingLastWord(args, "masked", "all") : null)));
     }

@@ -13,7 +13,8 @@ public class MacroExpressionResolver implements IExpressionResolver {
 		this.mapMacroValues = mapMacroValues;
 	}
 
-	public IExpression getExpression(String name) {
+	@Override
+    public IExpression getExpression(String name) {
 		String s = "defined_";
 
 		if (name.startsWith(s)) {

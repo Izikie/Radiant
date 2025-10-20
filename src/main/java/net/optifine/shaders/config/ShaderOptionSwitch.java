@@ -40,20 +40,24 @@ public class ShaderOptionSwitch extends ShaderOption {
 		return Boolean.parseBoolean(val);
 	}
 
-	public String getSourceLine() {
+	@Override
+    public String getSourceLine() {
 		return isTrue(this.getValue()) ? "#define " + this.getName() + " // Shader option ON" : "//#define " + this.getName() + " // Shader option OFF";
 	}
 
-	public String getValueText(String val) {
+	@Override
+    public String getValueText(String val) {
 		String s = super.getValueText(val);
 		return s != val ? s : (isTrue(val) ? Lang.getOn() : Lang.getOff());
 	}
 
-	public String getValueColor(String val) {
+	@Override
+    public String getValueColor(String val) {
 		return isTrue(val) ? "\u00a7a" : "\u00a7c";
 	}
 
-	public boolean matchesLine(String line) {
+	@Override
+    public boolean matchesLine(String line) {
 		Matcher matcher = PATTERN_DEFINE.matcher(line);
 
 		if (!matcher.matches()) {
@@ -64,11 +68,13 @@ public class ShaderOptionSwitch extends ShaderOption {
 		}
 	}
 
-	public boolean checkUsed() {
+	@Override
+    public boolean checkUsed() {
 		return true;
 	}
 
-	public boolean isUsedInLine(String line) {
+	@Override
+    public boolean isUsedInLine(String line) {
 		Matcher matcher = PATTERN_IFDEF.matcher(line);
 
 		if (matcher.matches()) {

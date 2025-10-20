@@ -17,6 +17,7 @@ public class LayerWolfCollar implements LayerRenderer<EntityWolf> {
         this.wolfRenderer = wolfRendererIn;
     }
 
+    @Override
     public void doRenderLayer(EntityWolf entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
         if (entitylivingbaseIn.isTamed() && !entitylivingbaseIn.isInvisible()) {
             this.wolfRenderer.bindTexture(WOLF_COLLAR);
@@ -32,6 +33,7 @@ public class LayerWolfCollar implements LayerRenderer<EntityWolf> {
         }
     }
 
+    @Override
     public boolean shouldCombineTextures() {
         return true;
     }

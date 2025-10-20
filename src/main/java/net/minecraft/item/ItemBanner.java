@@ -26,6 +26,7 @@ public class ItemBanner extends ItemBlock {
         this.setMaxDamage(0);
     }
 
+    @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
         if (side == Direction.DOWN) {
             return false;
@@ -60,6 +61,7 @@ public class ItemBanner extends ItemBlock {
         }
     }
 
+    @Override
     public String getItemStackDisplayName(ItemStack stack) {
         String s = "item.banner.";
         DyeColor enumdyecolor = this.getBaseColor(stack);
@@ -67,6 +69,7 @@ public class ItemBanner extends ItemBlock {
         return StatCollector.translateToLocal(s);
     }
 
+    @Override
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
         NBTTagCompound nbttagcompound = stack.getSubCompound("BlockEntityTag", false);
 
@@ -85,6 +88,7 @@ public class ItemBanner extends ItemBlock {
         }
     }
 
+    @Override
     public int getColorFromItemStack(ItemStack stack, int renderPass) {
         if (renderPass == 0) {
             return 16777215;
@@ -94,6 +98,7 @@ public class ItemBanner extends ItemBlock {
         }
     }
 
+    @Override
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
         for (DyeColor enumdyecolor : DyeColor.values()) {
             NBTTagCompound nbttagcompound = new NBTTagCompound();
@@ -106,6 +111,7 @@ public class ItemBanner extends ItemBlock {
         }
     }
 
+    @Override
     public CreativeTabs getCreativeTab() {
         return CreativeTabs.TAB_DECORATIONS;
     }

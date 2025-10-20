@@ -152,6 +152,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
         }
     }
 
+    @Override
     public Chunk provideChunk(int x, int z) {
         this.rand.setSeed(x * 341873128712L + z * 132897987541L);
         ChunkPrimer chunkprimer = new ChunkPrimer();
@@ -299,10 +300,12 @@ public class ChunkProviderGenerate implements IChunkProvider {
         }
     }
 
+    @Override
     public boolean chunkExists(int x, int z) {
         return true;
     }
 
+    @Override
     public void populate(IChunkProvider chunkProvider, int x, int z) {
         BlockFalling.fallInstantly = true;
         int i = x * 16;
@@ -384,6 +387,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
         BlockFalling.fallInstantly = false;
     }
 
+    @Override
     public boolean populateChunk(IChunkProvider chunkProvider, Chunk chunkIn, int x, int z) {
         boolean flag = false;
 
@@ -394,25 +398,31 @@ public class ChunkProviderGenerate implements IChunkProvider {
         return flag;
     }
 
+    @Override
     public boolean saveChunks(boolean saveAllChunks, IProgressUpdate progressCallback) {
         return true;
     }
 
+    @Override
     public void saveExtraData() {
     }
 
+    @Override
     public boolean unloadQueuedChunks() {
         return false;
     }
 
+    @Override
     public boolean canSave() {
         return true;
     }
 
+    @Override
     public String makeString() {
         return "RandomLevelSource";
     }
 
+    @Override
     public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EntityCategory creatureType, BlockPos pos) {
         BiomeGenBase biomegenbase = this.worldObj.getBiomeGenForCoords(pos);
 
@@ -429,14 +439,17 @@ public class ChunkProviderGenerate implements IChunkProvider {
         return biomegenbase.getSpawnableList(creatureType);
     }
 
+    @Override
     public BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position) {
         return "Stronghold".equals(structureName) && this.strongholdGenerator != null ? this.strongholdGenerator.getClosestStrongholdPos(worldIn, position) : null;
     }
 
+    @Override
     public int getLoadedChunkCount() {
         return 0;
     }
 
+    @Override
     public void recreateStructures(Chunk chunkIn, int x, int z) {
         if (this.settings.useMineShafts && this.mapFeaturesEnabled) {
             this.mineshaftGenerator.generate(this, this.worldObj, x, z, null);
@@ -459,6 +472,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
         }
     }
 
+    @Override
     public Chunk provideChunk(BlockPos blockPosIn) {
         return this.provideChunk(blockPosIn.getX() >> 4, blockPosIn.getZ() >> 4);
     }

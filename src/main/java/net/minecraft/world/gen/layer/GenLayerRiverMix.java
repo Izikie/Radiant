@@ -12,12 +12,14 @@ public class GenLayerRiverMix extends GenLayer {
         this.riverPatternGeneratorChain = p_i2129_4_;
     }
 
+    @Override
     public void initWorldGenSeed(long seed) {
         this.biomePatternGeneratorChain.initWorldGenSeed(seed);
         this.riverPatternGeneratorChain.initWorldGenSeed(seed);
         super.initWorldGenSeed(seed);
     }
 
+    @Override
     public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
         int[] aint = this.biomePatternGeneratorChain.getInts(areaX, areaY, areaWidth, areaHeight);
         int[] aint1 = this.riverPatternGeneratorChain.getInts(areaX, areaY, areaWidth, areaHeight);

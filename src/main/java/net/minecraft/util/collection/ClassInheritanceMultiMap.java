@@ -52,6 +52,7 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
         }
     }
 
+    @Override
     public boolean add(T p_add_1_) {
         for (Class<?> oclass : this.knownKeys) {
             if (oclass.isAssignableFrom(p_add_1_.getClass())) {
@@ -75,6 +76,7 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
         this.empty = this.values.isEmpty();
     }
 
+    @Override
     public boolean remove(Object p_remove_1_) {
         T t = (T) p_remove_1_;
         boolean flag = false;
@@ -93,6 +95,7 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
         return flag;
     }
 
+    @Override
     public boolean contains(Object p_contains_1_) {
         return Iterators.contains(this.getByClass(p_contains_1_.getClass()).iterator(), p_contains_1_);
     }
@@ -110,14 +113,17 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
         };
     }
 
+    @Override
     public Iterator<T> iterator() {
         return this.values.isEmpty() ? Collections.emptyIterator() : (Iterator<T>) IteratorCache.getReadOnly(this.values);
     }
 
+    @Override
     public int size() {
         return this.values.size();
     }
 
+    @Override
     public boolean isEmpty() {
         return this.empty;
     }

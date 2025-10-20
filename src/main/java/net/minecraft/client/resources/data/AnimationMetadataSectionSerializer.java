@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AnimationMetadataSectionSerializer extends BaseMetadataSectionSerializer<AnimationMetadataSection> implements JsonSerializer<AnimationMetadataSection> {
+    @Override
     public AnimationMetadataSection deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
         List<AnimationFrame> list = new ArrayList<>();
         JsonObject jsonobject = JsonUtils.getJsonObject(p_deserialize_1_, "metadata section");
@@ -69,6 +70,7 @@ public class AnimationMetadataSectionSerializer extends BaseMetadataSectionSeria
         }
     }
 
+    @Override
     public JsonElement serialize(AnimationMetadataSection p_serialize_1_, Type type, JsonSerializationContext ctx) {
         JsonObject jsonobject = new JsonObject();
         jsonobject.addProperty("frametime", p_serialize_1_.getFrameTime());
@@ -101,6 +103,7 @@ public class AnimationMetadataSectionSerializer extends BaseMetadataSectionSeria
         return jsonobject;
     }
 
+    @Override
     public String getSectionName() {
         return "animation";
     }

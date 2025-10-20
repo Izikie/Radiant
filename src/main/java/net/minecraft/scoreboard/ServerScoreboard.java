@@ -19,6 +19,7 @@ public class ServerScoreboard extends Scoreboard {
         this.scoreboardMCServer = mcServer;
     }
 
+    @Override
     public void func_96536_a(Score p_96536_1_) {
         super.func_96536_a(p_96536_1_);
 
@@ -29,18 +30,21 @@ public class ServerScoreboard extends Scoreboard {
         this.markSaveDataDirty();
     }
 
+    @Override
     public void func_96516_a(String p_96516_1_) {
         super.func_96516_a(p_96516_1_);
         this.scoreboardMCServer.getConfigurationManager().sendPacketToAllPlayers(new S3CPacketUpdateScore(p_96516_1_));
         this.markSaveDataDirty();
     }
 
+    @Override
     public void func_178820_a(String p_178820_1_, ScoreObjective p_178820_2_) {
         super.func_178820_a(p_178820_1_, p_178820_2_);
         this.scoreboardMCServer.getConfigurationManager().sendPacketToAllPlayers(new S3CPacketUpdateScore(p_178820_1_, p_178820_2_));
         this.markSaveDataDirty();
     }
 
+    @Override
     public void setObjectiveInDisplaySlot(int p_96530_1_, ScoreObjective p_96530_2_) {
         ScoreObjective scoreobjective = this.getObjectiveInDisplaySlot(p_96530_1_);
         super.setObjectiveInDisplaySlot(p_96530_1_, p_96530_2_);
@@ -64,6 +68,7 @@ public class ServerScoreboard extends Scoreboard {
         this.markSaveDataDirty();
     }
 
+    @Override
     public boolean addPlayerToTeam(String player, String newTeam) {
         if (super.addPlayerToTeam(player, newTeam)) {
             ScorePlayerTeam scoreplayerteam = this.getTeam(newTeam);
@@ -75,17 +80,20 @@ public class ServerScoreboard extends Scoreboard {
         }
     }
 
+    @Override
     public void removePlayerFromTeam(String p_96512_1_, ScorePlayerTeam p_96512_2_) {
         super.removePlayerFromTeam(p_96512_1_, p_96512_2_);
         this.scoreboardMCServer.getConfigurationManager().sendPacketToAllPlayers(new S3EPacketTeams(p_96512_2_, Collections.singletonList(p_96512_1_), 4));
         this.markSaveDataDirty();
     }
 
+    @Override
     public void onScoreObjectiveAdded(ScoreObjective scoreObjectiveIn) {
         super.onScoreObjectiveAdded(scoreObjectiveIn);
         this.markSaveDataDirty();
     }
 
+    @Override
     public void onObjectiveDisplayNameChanged(ScoreObjective p_96532_1_) {
         super.onObjectiveDisplayNameChanged(p_96532_1_);
 
@@ -96,6 +104,7 @@ public class ServerScoreboard extends Scoreboard {
         this.markSaveDataDirty();
     }
 
+    @Override
     public void onScoreObjectiveRemoved(ScoreObjective p_96533_1_) {
         super.onScoreObjectiveRemoved(p_96533_1_);
 
@@ -106,18 +115,21 @@ public class ServerScoreboard extends Scoreboard {
         this.markSaveDataDirty();
     }
 
+    @Override
     public void broadcastTeamCreated(ScorePlayerTeam playerTeam) {
         super.broadcastTeamCreated(playerTeam);
         this.scoreboardMCServer.getConfigurationManager().sendPacketToAllPlayers(new S3EPacketTeams(playerTeam, 0));
         this.markSaveDataDirty();
     }
 
+    @Override
     public void sendTeamUpdate(ScorePlayerTeam playerTeam) {
         super.sendTeamUpdate(playerTeam);
         this.scoreboardMCServer.getConfigurationManager().sendPacketToAllPlayers(new S3EPacketTeams(playerTeam, 2));
         this.markSaveDataDirty();
     }
 
+    @Override
     public void func_96513_c(ScorePlayerTeam playerTeam) {
         super.func_96513_c(playerTeam);
         this.scoreboardMCServer.getConfigurationManager().sendPacketToAllPlayers(new S3EPacketTeams(playerTeam, 1));

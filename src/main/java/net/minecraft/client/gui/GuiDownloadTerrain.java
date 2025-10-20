@@ -17,13 +17,16 @@ public class GuiDownloadTerrain extends GuiScreen {
         this.netHandlerPlayClient = netHandler;
     }
 
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
     }
 
+    @Override
     public void initGui() {
         this.buttonList.clear();
     }
 
+    @Override
     public void updateScreen() {
         ++this.progress;
 
@@ -32,6 +35,7 @@ public class GuiDownloadTerrain extends GuiScreen {
         }
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         if (this.customLoadingScreen != null) {
             this.customLoadingScreen.drawBackground(this.width, this.height);
@@ -43,6 +47,7 @@ public class GuiDownloadTerrain extends GuiScreen {
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
+    @Override
     public boolean doesGuiPauseGame() {
         return false;
     }

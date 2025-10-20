@@ -23,12 +23,14 @@ public class EntityFlameFX extends EntityFX {
         this.setParticleTextureIndex(48);
     }
 
+    @Override
     public void renderParticle(WorldRenderer worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
         float f = (this.particleAge + partialTicks) / this.particleMaxAge;
         this.particleScale = this.flameScale * (1.0F - f * f * 0.5F);
         super.renderParticle(worldRendererIn, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
     }
 
+    @Override
     public int getBrightnessForRender(float partialTicks) {
         float f = (this.particleAge + partialTicks) / this.particleMaxAge;
         f = MathHelper.clamp(f, 0.0F, 1.0F);
@@ -44,6 +46,7 @@ public class EntityFlameFX extends EntityFX {
         return j | k << 16;
     }
 
+    @Override
     public float getBrightness(float partialTicks) {
         float f = (this.particleAge + partialTicks) / this.particleMaxAge;
         f = MathHelper.clamp(f, 0.0F, 1.0F);
@@ -51,6 +54,7 @@ public class EntityFlameFX extends EntityFX {
         return f1 * f + (1.0F - f);
     }
 
+    @Override
     public void onUpdate() {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
@@ -72,6 +76,7 @@ public class EntityFlameFX extends EntityFX {
     }
 
     public static class Factory implements IParticleFactory {
+        @Override
         public EntityFX getEntityFX(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
             return new EntityFlameFX(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
         }

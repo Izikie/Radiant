@@ -30,6 +30,7 @@ public class BlockFire extends Block {
     private final Map<Block, Integer> encouragements = new IdentityHashMap<>();
     private final Map<Block, Integer> flammabilities = new IdentityHashMap<>();
 
+    @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         int i = pos.getX();
         int j = pos.getY();
@@ -99,26 +100,32 @@ public class BlockFire extends Block {
         this.flammabilities.put(blockIn, flammability);
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
         return null;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return 0;
     }
 
+    @Override
     public int tickRate(World worldIn) {
         return 30;
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (worldIn.getGameRules().getBoolean("doFireTick")) {
             if (!this.canPlaceBlockAt(worldIn, pos)) {
@@ -215,6 +222,7 @@ public class BlockFire extends Block {
         return worldIn.isRainingAt(pos) || worldIn.isRainingAt(pos.west()) || worldIn.isRainingAt(pos.east()) || worldIn.isRainingAt(pos.north()) || worldIn.isRainingAt(pos.south());
     }
 
+    @Override
     public boolean requiresUpdates() {
         return false;
     }
@@ -277,6 +285,7 @@ public class BlockFire extends Block {
         }
     }
 
+    @Override
     public boolean isCollidable() {
         return false;
     }
@@ -285,16 +294,19 @@ public class BlockFire extends Block {
         return this.getEncouragement(worldIn.getBlockState(pos).getBlock()) > 0;
     }
 
+    @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
         return World.doesBlockHaveSolidTopSurface(worldIn, pos.down()) || this.canNeighborCatchFire(worldIn, pos);
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         if (!World.doesBlockHaveSolidTopSurface(worldIn, pos.down()) && !this.canNeighborCatchFire(worldIn, pos)) {
             worldIn.setBlockToAir(pos);
         }
     }
 
+    @Override
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         if (worldIn.provider.getDimensionId() > 0 || !Blocks.PORTAL.func_176548_d(worldIn, pos)) {
             if (!World.doesBlockHaveSolidTopSurface(worldIn, pos.down()) && !this.canNeighborCatchFire(worldIn, pos)) {
@@ -305,6 +317,7 @@ public class BlockFire extends Block {
         }
     }
 
+    @Override
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (rand.nextInt(24) == 0) {
             worldIn.playSound((pos.getX() + 0.5F), (pos.getY() + 0.5F), (pos.getZ() + 0.5F), "fire.fire", 1.0F + rand.nextFloat(), rand.nextFloat() * 0.7F + 0.3F, false);
@@ -365,22 +378,27 @@ public class BlockFire extends Block {
         }
     }
 
+    @Override
     public MapColor getMapColor(IBlockState state) {
         return MapColor.TNT_COLOR;
     }
 
+    @Override
     public RenderLayer getBlockLayer() {
         return RenderLayer.CUTOUT;
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(AGE, meta);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(AGE);
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, AGE, NORTH, EAST, SOUTH, WEST, UPPER, FLIP, ALT);
     }

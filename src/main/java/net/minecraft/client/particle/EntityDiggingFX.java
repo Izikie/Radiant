@@ -49,10 +49,12 @@ public class EntityDiggingFX extends EntityFX {
         return this;
     }
 
+    @Override
     public int getFXLayer() {
         return 1;
     }
 
+    @Override
     public void renderParticle(WorldRenderer worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
         float f = (this.particleTextureIndexX + this.particleTextureJitterX / 4.0F) / 16.0F;
         float f1 = f + 0.015609375F;
@@ -79,6 +81,7 @@ public class EntityDiggingFX extends EntityFX {
         worldRendererIn.pos((f5 + rotationX * f4 - rotationXY * f4), (f6 - rotationZ * f4), (f7 + rotationYZ * f4 - rotationXZ * f4)).tex(f1, f3).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(j, k).endVertex();
     }
 
+    @Override
     public int getBrightnessForRender(float partialTicks) {
         int i = super.getBrightnessForRender(partialTicks);
         int j = 0;
@@ -91,6 +94,7 @@ public class EntityDiggingFX extends EntityFX {
     }
 
     public static class Factory implements IParticleFactory {
+        @Override
         public EntityFX getEntityFX(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
             return (new EntityDiggingFX(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn, Block.getStateById(p_178902_15_[0]))).func_174845_l();
         }

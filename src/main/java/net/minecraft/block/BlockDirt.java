@@ -27,10 +27,12 @@ public class BlockDirt extends Block {
         this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
+    @Override
     public MapColor getMapColor(IBlockState state) {
         return state.getValue(VARIANT).func_181066_d();
     }
 
+    @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         if (state.getValue(VARIANT) == DirtType.PODZOL) {
             Block block = worldIn.getBlockState(pos.up()).getBlock();
@@ -40,29 +42,35 @@ public class BlockDirt extends Block {
         return state;
     }
 
+    @Override
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
         list.add(new ItemStack(this, 1, DirtType.DIRT.getMetadata()));
         list.add(new ItemStack(this, 1, DirtType.COARSE_DIRT.getMetadata()));
         list.add(new ItemStack(this, 1, DirtType.PODZOL.getMetadata()));
     }
 
+    @Override
     public int getDamageValue(World worldIn, BlockPos pos) {
         IBlockState iblockstate = worldIn.getBlockState(pos);
         return iblockstate.getBlock() != this ? 0 : iblockstate.getValue(VARIANT).getMetadata();
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(VARIANT, DirtType.byMetadata(meta));
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(VARIANT).getMetadata();
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, VARIANT, SNOWY);
     }
 
+    @Override
     public int damageDropped(IBlockState state) {
         DirtType blockdirt$dirttype = state.getValue(VARIANT);
 
@@ -119,6 +127,7 @@ public class BlockDirt extends Block {
             return METADATA_LOOKUP[metadata];
         }
 
+        @Override
         public String getName() {
             return this.name;
         }

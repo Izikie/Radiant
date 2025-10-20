@@ -10,25 +10,30 @@ import java.util.UUID;
 public class RandomEntity implements IRandomEntity {
 	private Entity entity;
 
-	public int getId() {
+	@Override
+    public int getId() {
 		UUID uuid = this.entity.getUniqueID();
 		long i = uuid.getLeastSignificantBits();
 		return (int) (i & 2147483647L);
 	}
 
-	public BlockPos getSpawnPosition() {
+	@Override
+    public BlockPos getSpawnPosition() {
 		return this.entity.getDataWatcher().spawnPosition;
 	}
 
-	public BiomeGenBase getSpawnBiome() {
+	@Override
+    public BiomeGenBase getSpawnBiome() {
 		return this.entity.getDataWatcher().spawnBiome;
 	}
 
-	public String getName() {
+	@Override
+    public String getName() {
 		return this.entity.hasCustomName() ? this.entity.getCustomNameTag() : null;
 	}
 
-	public int getHealth() {
+	@Override
+    public int getHealth() {
 		if (!(this.entity instanceof EntityLiving entityliving)) {
 			return 0;
 		} else {
@@ -36,7 +41,8 @@ public class RandomEntity implements IRandomEntity {
 		}
 	}
 
-	public int getMaxHealth() {
+	@Override
+    public int getMaxHealth() {
 		if (!(this.entity instanceof EntityLiving entityliving)) {
 			return 0;
 		} else {

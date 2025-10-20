@@ -29,42 +29,52 @@ public class CommandResultStats {
 
         if (s != null) {
             ICommandSender icommandsender = new ICommandSender() {
+                @Override
                 public String getName() {
                     return sender.getName();
                 }
 
+                @Override
                 public IChatComponent getDisplayName() {
                     return sender.getDisplayName();
                 }
 
+                @Override
                 public void addChatMessage(IChatComponent component) {
                     sender.addChatMessage(component);
                 }
 
+                @Override
                 public boolean canCommandSenderUseCommand(int permLevel, String commandName) {
                     return true;
                 }
 
+                @Override
                 public BlockPos getPosition() {
                     return sender.getPosition();
                 }
 
+                @Override
                 public Vec3 getPositionVector() {
                     return sender.getPositionVector();
                 }
 
+                @Override
                 public World getEntityWorld() {
                     return sender.getEntityWorld();
                 }
 
+                @Override
                 public Entity getCommandSenderEntity() {
                     return sender.getCommandSenderEntity();
                 }
 
+                @Override
                 public boolean sendCommandFeedback() {
                     return sender.sendCommandFeedback();
                 }
 
+                @Override
                 public void setCommandStat(Type type, int amount) {
                     sender.setCommandStat(type, amount);
                 }

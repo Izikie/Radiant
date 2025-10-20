@@ -27,30 +27,37 @@ public class SimpleBakedModel implements IBakedModel {
         this.cameraTransforms = cameraTransformsIn;
     }
 
+    @Override
     public List<BakedQuad> getFaceQuads(Direction facing) {
         return this.faceQuads.get(facing.ordinal());
     }
 
+    @Override
     public List<BakedQuad> getGeneralQuads() {
         return this.generalQuads;
     }
 
+    @Override
     public boolean isAmbientOcclusion() {
         return this.ambientOcclusion;
     }
 
+    @Override
     public boolean isGui3d() {
         return this.gui3d;
     }
 
+    @Override
     public boolean isBuiltInRenderer() {
         return false;
     }
 
+    @Override
     public TextureAtlasSprite getParticleTexture() {
         return this.texture;
     }
 
+    @Override
     public ItemCameraTransforms getItemCameraTransforms() {
         return this.cameraTransforms;
     }

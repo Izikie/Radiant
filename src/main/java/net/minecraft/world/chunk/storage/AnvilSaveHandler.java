@@ -15,6 +15,7 @@ public class AnvilSaveHandler extends SaveHandler {
         super(savesDirectory, directoryName, storePlayerdata);
     }
 
+    @Override
     public IChunkLoader getChunkLoader(WorldProvider provider) {
         File file1 = this.getWorldDirectory();
 
@@ -31,11 +32,13 @@ public class AnvilSaveHandler extends SaveHandler {
         }
     }
 
+    @Override
     public void saveWorldInfoWithPlayer(WorldInfo worldInformation, NBTTagCompound tagCompound) {
         worldInformation.setSaveVersion(19133);
         super.saveWorldInfoWithPlayer(worldInformation, tagCompound);
     }
 
+    @Override
     public void flush() {
         try {
             ThreadedFileIOBase.getThreadedIOInstance().waitForFinish();

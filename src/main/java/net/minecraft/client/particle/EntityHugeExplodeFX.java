@@ -13,9 +13,11 @@ public class EntityHugeExplodeFX extends EntityFX {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
     }
 
+    @Override
     public void renderParticle(WorldRenderer worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
     }
 
+    @Override
     public void onUpdate() {
         for (int i = 0; i < 6; ++i) {
             double d0 = this.posX + (this.rand.nextDouble() - this.rand.nextDouble()) * 4.0D;
@@ -31,11 +33,13 @@ public class EntityHugeExplodeFX extends EntityFX {
         }
     }
 
+    @Override
     public int getFXLayer() {
         return 1;
     }
 
     public static class Factory implements IParticleFactory {
+        @Override
         public EntityFX getEntityFX(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
             return new EntityHugeExplodeFX(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
         }

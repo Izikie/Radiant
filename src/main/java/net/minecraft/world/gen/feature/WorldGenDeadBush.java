@@ -9,6 +9,7 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 public class WorldGenDeadBush extends WorldGenerator {
+    @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         Block block;
 

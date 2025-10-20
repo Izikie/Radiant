@@ -36,27 +36,33 @@ public class TeleportToPlayer implements ISpectatorMenuView, ISpectatorMenuObjec
         }
     }
 
+    @Override
     public List<ISpectatorMenuObject> func_178669_a() {
         return this.field_178673_b;
     }
 
+    @Override
     public IChatComponent func_178670_b() {
         return new ChatComponentText("Select a player to teleport to");
     }
 
+    @Override
     public void func_178661_a(SpectatorMenu menu) {
         menu.func_178647_a(this);
     }
 
+    @Override
     public IChatComponent getSpectatorName() {
         return new ChatComponentText("Teleport to player");
     }
 
+    @Override
     public void func_178663_a(float p_178663_1_, int alpha) {
         Minecraft.get().getTextureManager().bindTexture(GuiSpectator.field_175269_a);
         Gui.drawModalRectWithCustomSizedTexture(0, 0, 0.0F, 0.0F, 16, 16, 256.0F, 256.0F);
     }
 
+    @Override
     public boolean func_178662_A_() {
         return !this.field_178673_b.isEmpty();
     }

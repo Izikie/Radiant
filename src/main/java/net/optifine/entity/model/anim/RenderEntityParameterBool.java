@@ -49,11 +49,13 @@ public enum RenderEntityParameterBool implements IExpressionBool {
 		return this.name;
 	}
 
-	public ExpressionType getExpressionType() {
+	@Override
+    public ExpressionType getExpressionType() {
 		return ExpressionType.BOOL;
 	}
 
-	public boolean eval() {
+	@Override
+    public boolean eval() {
 		Render render = this.renderManager.renderRender;
 
 		if (render != null) {

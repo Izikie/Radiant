@@ -25,30 +25,37 @@ public class BlockPrismarine extends Block {
         this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
+    @Override
     public String getLocalizedName() {
         return StatCollector.translateToLocal(this.getUnlocalizedName() + "." + PrismarineType.ROUGH.getUnlocalizedName() + ".name");
     }
 
+    @Override
     public MapColor getMapColor(IBlockState state) {
         return state.getValue(VARIANT) == PrismarineType.ROUGH ? MapColor.CYAN_COLOR : MapColor.DIAMOND_COLOR;
     }
 
+    @Override
     public int damageDropped(IBlockState state) {
         return state.getValue(VARIANT).getMetadata();
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(VARIANT).getMetadata();
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, VARIANT);
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(VARIANT, PrismarineType.byMetadata(meta));
     }
 
+    @Override
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
         list.add(new ItemStack(itemIn, 1, ROUGH_META));
         list.add(new ItemStack(itemIn, 1, BRICKS_META));
@@ -87,6 +94,7 @@ public class BlockPrismarine extends Block {
             return META_LOOKUP[meta];
         }
 
+        @Override
         public String getName() {
             return this.name;
         }

@@ -8,6 +8,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 public class BiomeEndDecorator extends BiomeDecorator {
     protected final WorldGenerator spikeGen = new WorldGenSpikes(Blocks.END_STONE);
 
+    @Override
     protected void genDecorations(BiomeGenBase biomeGenBaseIn) {
         this.generateOres();
 

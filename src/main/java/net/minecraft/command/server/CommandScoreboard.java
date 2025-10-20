@@ -18,18 +18,22 @@ import net.minecraft.util.chat.Formatting;
 import java.util.*;
 
 public class CommandScoreboard extends CommandBase {
+    @Override
     public String getCommandName() {
         return "scoreboard";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 2;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.scoreboard.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (!this.func_175780_b(sender, args)) {
             if (args.length < 1) {
@@ -793,6 +797,7 @@ public class CommandScoreboard extends CommandBase {
         }
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         if (args.length == 1) {
             return getListOfStringsMatchingLastWord(args, "objectives", "players", "teams");
@@ -952,6 +957,7 @@ public class CommandScoreboard extends CommandBase {
         return list;
     }
 
+    @Override
     public boolean isUsernameIndex(String[] args, int index) {
         return !args[0].equalsIgnoreCase("players") ? (args[0].equalsIgnoreCase("teams") && index == 2) : (args.length > 1 && args[1].equalsIgnoreCase("operation") ? index == 2 || index == 5 : index == 2);
     }

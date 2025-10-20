@@ -26,6 +26,7 @@ public class BlockCake extends Block {
         this.setTickRandomly(true);
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         float f = 0.0625F;
         float f1 = (1 + worldIn.getBlockState(pos).getValue(BITES) * 2) / 16.0F;
@@ -33,12 +34,14 @@ public class BlockCake extends Block {
         this.setBlockBounds(f1, 0.0F, f, 1.0F - f, f2, 1.0F - f);
     }
 
+    @Override
     public void setBlockBoundsForItemRender() {
         float f = 0.0625F;
         float f1 = 0.5F;
         this.setBlockBounds(f, 0.0F, f, 1.0F - f, f1, 1.0F - f);
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
         float f = 0.0625F;
         float f1 = (1 + state.getValue(BITES) * 2) / 16.0F;
@@ -46,23 +49,28 @@ public class BlockCake extends Block {
         return new AxisAlignedBB((pos.getX() + f1), pos.getY(), (pos.getZ() + f), ((pos.getX() + 1) - f), (pos.getY() + f2), ((pos.getZ() + 1) - f));
     }
 
+    @Override
     public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos) {
         return this.getCollisionBoundingBox(worldIn, pos, worldIn.getBlockState(pos));
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         this.eatCake(worldIn, pos, state, playerIn);
         return true;
     }
 
+    @Override
     public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn) {
         this.eatCake(worldIn, pos, worldIn.getBlockState(pos), playerIn);
     }
@@ -81,10 +89,12 @@ public class BlockCake extends Block {
         }
     }
 
+    @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
         return super.canPlaceBlockAt(worldIn, pos) && this.canBlockStay(worldIn, pos);
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         if (!this.canBlockStay(worldIn, pos)) {
             worldIn.setBlockToAir(pos);
@@ -95,38 +105,47 @@ public class BlockCake extends Block {
         return worldIn.getBlockState(pos.down()).getBlock().getMaterial().isSolid();
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return 0;
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return null;
     }
 
+    @Override
     public Item getItem(World worldIn, BlockPos pos) {
         return Items.CAKE;
     }
 
+    @Override
     public RenderLayer getBlockLayer() {
         return RenderLayer.CUTOUT;
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(BITES, meta);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(BITES);
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, BITES);
     }
 
+    @Override
     public int getComparatorInputOverride(World worldIn, BlockPos pos) {
         return (7 - worldIn.getBlockState(pos).getValue(BITES)) * 2;
     }
 
+    @Override
     public boolean hasComparatorInputOverride() {
         return true;
     }

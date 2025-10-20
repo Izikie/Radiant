@@ -18,6 +18,7 @@ public class NetHandlerHandshakeTCP implements INetHandlerHandshakeServer {
         this.networkManager = netManager;
     }
 
+    @Override
     public void processHandshake(C00Handshake packet) {
         switch (packet.getRequestedState()) {
             case LOGIN:
@@ -47,6 +48,7 @@ public class NetHandlerHandshakeTCP implements INetHandlerHandshakeServer {
         }
     }
 
+    @Override
     public void onDisconnect(IChatComponent reason) {
     }
 }

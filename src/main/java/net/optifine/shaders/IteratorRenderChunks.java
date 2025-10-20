@@ -17,17 +17,20 @@ public class IteratorRenderChunks implements Iterator<RenderChunk> {
 		this.Iterator3d = new Iterator3d(posStart, posEnd, width, height);
 	}
 
-	public boolean hasNext() {
+	@Override
+    public boolean hasNext() {
 		return this.Iterator3d.hasNext();
 	}
 
-	public RenderChunk next() {
+	@Override
+    public RenderChunk next() {
 		BlockPos blockpos = this.Iterator3d.next();
 		this.posBlock.setXyz(blockpos.getX() << 4, blockpos.getY() << 4, blockpos.getZ() << 4);
 		return this.viewFrustum.getRenderChunk(this.posBlock);
 	}
 
-	public void remove() {
+	@Override
+    public void remove() {
 		throw new RuntimeException("Not implemented");
 	}
 }

@@ -64,6 +64,7 @@ public class S3EPacketTeams implements Packet<INetHandlerPlayClient> {
         }
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.name = buf.readStringFromBuffer(16);
         this.action = buf.readByte();
@@ -86,6 +87,7 @@ public class S3EPacketTeams implements Packet<INetHandlerPlayClient> {
         }
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeString(this.name);
         buf.writeByte(this.action);
@@ -108,6 +110,7 @@ public class S3EPacketTeams implements Packet<INetHandlerPlayClient> {
         }
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleTeams(this);
     }

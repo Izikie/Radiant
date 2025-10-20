@@ -30,17 +30,21 @@ public class EntityTNTPrimed extends Entity {
         this.tntPlacedBy = igniter;
     }
 
+    @Override
     protected void entityInit() {
     }
 
+    @Override
     protected boolean canTriggerWalking() {
         return false;
     }
 
+    @Override
     public boolean canBeCollidedWith() {
         return !this.isDead;
     }
 
+    @Override
     public void onUpdate() {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
@@ -74,10 +78,12 @@ public class EntityTNTPrimed extends Entity {
         this.worldObj.createExplosion(this, this.posX, this.posY + (this.height / 16.0F), this.posZ, f, true);
     }
 
+    @Override
     protected void writeEntityToNBT(NBTTagCompound tagCompound) {
         tagCompound.setByte("Fuse", (byte) this.fuse);
     }
 
+    @Override
     protected void readEntityFromNBT(NBTTagCompound tagCompund) {
         this.fuse = tagCompund.getByte("Fuse");
     }
@@ -86,6 +92,7 @@ public class EntityTNTPrimed extends Entity {
         return this.tntPlacedBy;
     }
 
+    @Override
     public float getEyeHeight() {
         return 0.0F;
     }

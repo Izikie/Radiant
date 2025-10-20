@@ -14,11 +14,13 @@ public class ModelAdapterArmorStand extends ModelAdapterBiped {
 		super(EntityArmorStand.class, "armor_stand", 0.0F);
 	}
 
-	public ModelBase makeModel() {
+	@Override
+    public ModelBase makeModel() {
 		return new ModelArmorStand();
 	}
 
-	public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
+	@Override
+    public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
 		if (!(model instanceof ModelArmorStand modelarmorstand)) {
 			return null;
 		} else {
@@ -26,13 +28,15 @@ public class ModelAdapterArmorStand extends ModelAdapterBiped {
 		}
 	}
 
-	public String[] getModelRendererNames() {
+	@Override
+    public String[] getModelRendererNames() {
 		String[] astring = super.getModelRendererNames();
 		astring = (String[]) Config.addObjectsToArray(astring, new String[]{"right", "left", "waist", "base"});
 		return astring;
 	}
 
-	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+	@Override
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
 		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		ArmorStandRenderer armorstandrenderer = new ArmorStandRenderer(rendermanager);
 		armorstandrenderer.mainModel = modelBase;

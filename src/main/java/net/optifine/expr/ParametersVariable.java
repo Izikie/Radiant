@@ -46,7 +46,8 @@ public class ParametersVariable implements IParameters {
 		return this.first == null ? 0 : this.first.length;
 	}
 
-	public ExpressionType[] getParameterTypes(IExpression[] arguments) {
+	@Override
+    public ExpressionType[] getParameterTypes(IExpression[] arguments) {
 		int i = this.first.length + this.last.length;
 		int j = arguments.length - i;
 		int k = 0;

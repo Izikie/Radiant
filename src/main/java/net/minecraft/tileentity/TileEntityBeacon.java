@@ -40,6 +40,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
     private ItemStack payment;
     private String customName;
 
+    @Override
     public void update() {
         if (this.worldObj.getTotalWorldTime() % 80L == 0L) {
             this.updateBeacon();
@@ -193,12 +194,14 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
         }
     }
 
+    @Override
     public Packet<?> getDescriptionPacket() {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
         this.writeToNBT(nbttagcompound);
         return new S35PacketUpdateTileEntity(this.pos, 3, nbttagcompound);
     }
 
+    @Override
     public double getMaxRenderDistanceSquared() {
         return 65536.0D;
     }
@@ -212,6 +215,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
         }
     }
 
+    @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         this.primaryEffect = this.func_183001_h(compound.getInteger("Primary"));
@@ -219,6 +223,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
         this.levels = compound.getInteger("Levels");
     }
 
+    @Override
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
         compound.setInteger("Primary", this.primaryEffect);
@@ -226,14 +231,17 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
         compound.setInteger("Levels", this.levels);
     }
 
+    @Override
     public int getSizeInventory() {
         return 1;
     }
 
+    @Override
     public ItemStack getStackInSlot(int index) {
         return index == 0 ? this.payment : null;
     }
 
+    @Override
     public ItemStack decrStackSize(int index, int count) {
         if (index == 0 && this.payment != null) {
             if (count >= this.payment.stackSize) {
@@ -249,6 +257,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
         }
     }
 
+    @Override
     public ItemStack removeStackFromSlot(int index) {
         if (index == 0 && this.payment != null) {
             ItemStack itemstack = this.payment;
@@ -259,16 +268,19 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
         }
     }
 
+    @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
         if (index == 0) {
             this.payment = stack;
         }
     }
 
+    @Override
     public String getName() {
         return this.hasCustomName() ? this.customName : "container.beacon";
     }
 
+    @Override
     public boolean hasCustomName() {
         return this.customName != null && !this.customName.isEmpty();
     }
@@ -277,32 +289,40 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
         this.customName = name;
     }
 
+    @Override
     public int getInventoryStackLimit() {
         return 1;
     }
 
+    @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
         return this.worldObj.getTileEntity(this.pos) == this && player.getDistanceSq(this.pos.getX() + 0.5D, this.pos.getY() + 0.5D, this.pos.getZ() + 0.5D) <= 64.0D;
     }
 
+    @Override
     public void openInventory(EntityPlayer player) {
     }
 
+    @Override
     public void closeInventory(EntityPlayer player) {
     }
 
+    @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
         return stack.getItem() == Items.EMERALD || stack.getItem() == Items.DIAMOND || stack.getItem() == Items.GOLD_INGOT || stack.getItem() == Items.IRON_INGOT;
     }
 
+    @Override
     public String getGuiID() {
         return "minecraft:beacon";
     }
 
+    @Override
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
         return new ContainerBeacon(playerInventory, this);
     }
 
+    @Override
     public int getField(int id) {
         return switch (id) {
             case 0 -> this.levels;
@@ -312,6 +332,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
         };
     }
 
+    @Override
     public void setField(int id, int value) {
         switch (id) {
             case 0:
@@ -327,10 +348,12 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
         }
     }
 
+    @Override
     public int getFieldCount() {
         return 3;
     }
 
+    @Override
     public void clear() {
         this.payment = null;
     }
@@ -339,6 +362,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
         return customName;
     }
 
+    @Override
     public boolean receiveClientEvent(int id, int type) {
         if (id == 1) {
             this.updateBeacon();

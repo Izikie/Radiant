@@ -310,6 +310,7 @@ public class InventoryPlayer implements IInventory {
         }
     }
 
+    @Override
     public ItemStack decrStackSize(int index, int count) {
         ItemStack[] aitemstack = this.mainInventory;
 
@@ -337,6 +338,7 @@ public class InventoryPlayer implements IInventory {
         }
     }
 
+    @Override
     public ItemStack removeStackFromSlot(int index) {
         ItemStack[] aitemstack = this.mainInventory;
 
@@ -354,6 +356,7 @@ public class InventoryPlayer implements IInventory {
         }
     }
 
+    @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
         ItemStack[] aitemstack = this.mainInventory;
 
@@ -418,10 +421,12 @@ public class InventoryPlayer implements IInventory {
         }
     }
 
+    @Override
     public int getSizeInventory() {
         return this.mainInventory.length + 4;
     }
 
+    @Override
     public ItemStack getStackInSlot(int index) {
         ItemStack[] aitemstack = this.mainInventory;
 
@@ -433,18 +438,22 @@ public class InventoryPlayer implements IInventory {
         return aitemstack[index];
     }
 
+    @Override
     public String getName() {
         return "container.inventory";
     }
 
+    @Override
     public boolean hasCustomName() {
         return false;
     }
 
+    @Override
     public IChatComponent getDisplayName() {
         return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName());
     }
 
+    @Override
     public int getInventoryStackLimit() {
         return 64;
     }
@@ -509,6 +518,7 @@ public class InventoryPlayer implements IInventory {
         }
     }
 
+    @Override
     public void markDirty() {
         this.inventoryChanged = true;
     }
@@ -521,6 +531,7 @@ public class InventoryPlayer implements IInventory {
         return this.itemStack;
     }
 
+    @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
         return !this.player.isDead && player.getDistanceSqToEntity(this.player) <= 64.0D;
     }
@@ -541,12 +552,15 @@ public class InventoryPlayer implements IInventory {
         return false;
     }
 
+    @Override
     public void openInventory(EntityPlayer player) {
     }
 
+    @Override
     public void closeInventory(EntityPlayer player) {
     }
 
+    @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
         return true;
     }
@@ -563,17 +577,21 @@ public class InventoryPlayer implements IInventory {
         this.currentItem = playerInventory.currentItem;
     }
 
+    @Override
     public int getField(int id) {
         return 0;
     }
 
+    @Override
     public void setField(int id, int value) {
     }
 
+    @Override
     public int getFieldCount() {
         return 0;
     }
 
+    @Override
     public void clear() {
         Arrays.fill(this.mainInventory, null);
 

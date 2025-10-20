@@ -53,6 +53,7 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
         RANDOM.nextBytes(this.verifyToken);
     }
 
+    @Override
     public void update() {
         if (this.currentLoginState == LoginState.READY_TO_ACCEPT) {
             this.tryAcceptPlayer();
@@ -110,6 +111,7 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
         }
     }
 
+    @Override
     public void onDisconnect(IChatComponent reason) {
         LOGGER.info("{} lost connection: {}", this.getConnectionInfo(), reason.getUnformattedText());
     }
@@ -118,6 +120,7 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
         return this.loginGameProfile != null ? this.loginGameProfile + " (" + this.networkManager.getRemoteAddress().toString() + ")" : String.valueOf(this.networkManager.getRemoteAddress());
     }
 
+    @Override
     public void processLoginStart(C00PacketLoginStart packet) {
         Validate.validState(this.currentLoginState == LoginState.HELLO, "Unexpected hello packet");
         this.loginGameProfile = packet.getProfile();
@@ -130,6 +133,7 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
         }
     }
 
+    @Override
     public void processEncryptionResponse(C01PacketEncryptionResponse packet) {
         Validate.validState(this.currentLoginState == LoginState.KEY, "Unexpected key packet");
         PrivateKey privatekey = this.server.getKeyPair().getPrivate();
@@ -141,6 +145,7 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
             this.currentLoginState = LoginState.AUTHENTICATING;
             this.networkManager.enableEncryption(this.secretKey);
             (new Thread("User Authenticator #" + AUTHENTICATOR_THREAD_ID.incrementAndGet()) {
+                @Override
                 public void run() {
                     GameProfile gameprofile = loginGameProfile;
 

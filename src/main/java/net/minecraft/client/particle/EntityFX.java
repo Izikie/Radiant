@@ -99,13 +99,16 @@ public class EntityFX extends Entity {
         return this.particleAlpha;
     }
 
+    @Override
     protected boolean canTriggerWalking() {
         return false;
     }
 
+    @Override
     protected void entityInit() {
     }
 
+    @Override
     public void onUpdate() {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
@@ -157,9 +160,11 @@ public class EntityFX extends Entity {
         return 0;
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
     }
 
@@ -186,6 +191,7 @@ public class EntityFX extends Entity {
         ++this.particleTextureIndexX;
     }
 
+    @Override
     public boolean canAttackWithItem() {
         return false;
     }

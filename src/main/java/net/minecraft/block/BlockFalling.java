@@ -22,14 +22,17 @@ public class BlockFalling extends Block {
         super(materialIn);
     }
 
+    @Override
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (!worldIn.isRemote) {
             this.checkFallable(worldIn, pos);
@@ -63,6 +66,7 @@ public class BlockFalling extends Block {
     protected void onStartFalling(EntityFallingBlock fallingEntity) {
     }
 
+    @Override
     public int tickRate(World worldIn) {
         return 2;
     }

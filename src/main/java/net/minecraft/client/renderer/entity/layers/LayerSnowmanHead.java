@@ -15,6 +15,7 @@ public class LayerSnowmanHead implements LayerRenderer<EntitySnowman> {
         this.snowManRenderer = snowManRendererIn;
     }
 
+    @Override
     public void doRenderLayer(EntitySnowman entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
         if (!entitylivingbaseIn.isInvisible()) {
             GlStateManager.pushMatrix();
@@ -28,6 +29,7 @@ public class LayerSnowmanHead implements LayerRenderer<EntitySnowman> {
         }
     }
 
+    @Override
     public boolean shouldCombineTextures() {
         return true;
     }

@@ -8,14 +8,17 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class BlockPotato extends BlockCrops {
+    @Override
     protected Item getSeed() {
         return Items.POTATO;
     }
 
+    @Override
     protected Item getCrop() {
         return Items.POTATO;
     }
 
+    @Override
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
         super.dropBlockAsItemWithChance(worldIn, pos, state, chance, fortune);
 

@@ -68,10 +68,12 @@ public class IntegratedServer extends MinecraftServer {
         }
     }
 
+    @Override
     protected ServerCommandManager createNewCommandManager() {
         return new IntegratedServerCommandManager();
     }
 
+    @Override
     protected void loadAllWorlds(String saveName, String worldNameIn, long seed, WorldType type, String worldNameIn2) {
         this.convertMapIfNeeded(saveName);
 
@@ -118,6 +120,7 @@ public class IntegratedServer extends MinecraftServer {
         this.initialWorldChunkLoad();
     }
 
+    @Override
     protected boolean startServer() throws IOException {
         LOGGER.info("Starting integrated minecraft server version 1.9");
         this.setOnlineMode(true);
@@ -134,6 +137,7 @@ public class IntegratedServer extends MinecraftServer {
         return true;
     }
 
+    @Override
     public void tick() {
         this.onTick();
         boolean flag = this.isGamePaused;
@@ -179,30 +183,37 @@ public class IntegratedServer extends MinecraftServer {
         }
     }
 
+    @Override
     public boolean canStructuresSpawn() {
         return false;
     }
 
+    @Override
     public WorldSettings.GameType getGameType() {
         return this.theWorldSettings.getGameType();
     }
 
+    @Override
     public Difficulty getDifficulty() {
         return this.mc.world == null ? this.mc.gameSettings.difficulty : this.mc.world.getWorldInfo().getDifficulty();
     }
 
+    @Override
     public boolean isHardcore() {
         return this.theWorldSettings.getHardcoreEnabled();
     }
 
+    @Override
     public boolean shouldBroadcastRconToOps() {
         return true;
     }
 
+    @Override
     public boolean shouldBroadcastConsoleToOps() {
         return true;
     }
 
+    @Override
     public void saveAllWorlds(boolean dontLog) {
         if (dontLog) {
             int i = this.getTickCounter();
@@ -218,18 +229,22 @@ public class IntegratedServer extends MinecraftServer {
         super.saveAllWorlds(dontLog);
     }
 
+    @Override
     public File getDataDirectory() {
         return this.mc.mcDataDir;
     }
 
+    @Override
     public boolean isDedicatedServer() {
         return false;
     }
 
+    @Override
     protected void finalTick(CrashReport report) {
         this.mc.crashed(report);
     }
 
+    @Override
     public CrashReport addServerInfoToCrashReport(CrashReport report) {
         report = super.addServerInfoToCrashReport(report);
         report.getCategory().addCrashSectionCallable("Type", () -> "Integrated Server (map_client.txt)");
@@ -246,6 +261,7 @@ public class IntegratedServer extends MinecraftServer {
         return report;
     }
 
+    @Override
     public void setDifficultyForAllWorlds(Difficulty difficulty) {
         super.setDifficultyForAllWorlds(difficulty);
 
@@ -254,6 +270,7 @@ public class IntegratedServer extends MinecraftServer {
         }
     }
 
+    @Override
     public String shareToLAN(WorldSettings.GameType type, boolean allowCheats) {
         try {
             int i = -1;
@@ -280,6 +297,7 @@ public class IntegratedServer extends MinecraftServer {
         }
     }
 
+    @Override
     public void stopServer() {
         super.stopServer();
 
@@ -289,6 +307,7 @@ public class IntegratedServer extends MinecraftServer {
         }
     }
 
+    @Override
     public void initiateShutdown() {
         if (this.isServerRunning()) {
             Futures.getUnchecked(this.addScheduledTask(() -> {
@@ -314,14 +333,17 @@ public class IntegratedServer extends MinecraftServer {
         return this.isPublic;
     }
 
+    @Override
     public void setGameType(WorldSettings.GameType gameMode) {
         this.getConfigurationManager().setGameType(gameMode);
     }
 
+    @Override
     public boolean isCommandBlockEnabled() {
         return true;
     }
 
+    @Override
     public int getOpPermissionLevel() {
         return 4;
     }

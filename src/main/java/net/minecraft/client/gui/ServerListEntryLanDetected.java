@@ -16,6 +16,7 @@ public class ServerListEntryLanDetected implements GuiListExtended.IGuiListEntry
         this.mc = Minecraft.get();
     }
 
+    @Override
     public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected) {
         this.mc.fontRendererObj.drawString(I18n.format("lanServer.title"), x + 32 + 3, y + 1, 16777215);
         this.mc.fontRendererObj.drawString(this.field_148291_b.getServerMotd(), x + 32 + 3, y + 12, 8421504);
@@ -27,6 +28,7 @@ public class ServerListEntryLanDetected implements GuiListExtended.IGuiListEntry
         }
     }
 
+    @Override
     public boolean mousePressed(int slotIndex, int p_148278_2_, int p_148278_3_, int p_148278_4_, int p_148278_5_, int p_148278_6_) {
         this.field_148292_c.selectServer(slotIndex);
 
@@ -38,9 +40,11 @@ public class ServerListEntryLanDetected implements GuiListExtended.IGuiListEntry
         return false;
     }
 
+    @Override
     public void setSelected(int p_178011_1_, int p_178011_2_, int p_178011_3_) {
     }
 
+    @Override
     public void mouseReleased(int slotIndex, int x, int y, int mouseEvent, int relativeX, int relativeY) {
     }
 

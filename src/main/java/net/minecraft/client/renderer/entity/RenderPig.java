@@ -13,6 +13,7 @@ public class RenderPig extends RenderLiving<EntityPig> {
         this.addLayer(new LayerSaddle(this));
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityPig entity) {
         return PIG_TEXTURES;
     }

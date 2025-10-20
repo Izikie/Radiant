@@ -21,6 +21,7 @@ public class SoundEventAccessorComposite implements ISoundEventAccessor<SoundPoo
         this.category = category;
     }
 
+    @Override
     public int getWeight() {
         int i = 0;
 
@@ -31,6 +32,7 @@ public class SoundEventAccessorComposite implements ISoundEventAccessor<SoundPoo
         return i;
     }
 
+    @Override
     public SoundPoolEntry cloneEntry() {
         int i = this.getWeight();
 

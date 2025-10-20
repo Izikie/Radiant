@@ -12,10 +12,12 @@ public class RenderCaveSpider extends RenderSpider<EntityCaveSpider> {
         this.shadowSize *= 0.7F;
     }
 
+    @Override
     protected void preRenderCallback(EntityCaveSpider entitylivingbaseIn, float partialTickTime) {
         GlStateManager.scale(0.7F, 0.7F, 0.7F);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityCaveSpider entity) {
         return CAVE_SPIDER_TEXTURES;
     }

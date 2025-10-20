@@ -11,14 +11,17 @@ public class FolderResourcePack extends AbstractResourcePack {
         super(resourcePackFileIn);
     }
 
+    @Override
     protected InputStream getInputStreamByName(String name) throws IOException {
         return new BufferedInputStream(new FileInputStream(new File(this.resourcePackFile, name)));
     }
 
+    @Override
     protected boolean hasResourceName(String name) {
         return (new File(this.resourcePackFile, name)).isFile();
     }
 
+    @Override
     public Set<String> getResourceDomains() {
         Set<String> set = new HashSet<>();
         File file1 = new File(this.resourcePackFile, "assets/");

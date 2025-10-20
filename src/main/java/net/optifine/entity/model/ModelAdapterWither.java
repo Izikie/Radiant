@@ -14,11 +14,13 @@ public class ModelAdapterWither extends ModelAdapter {
 		super(EntityWither.class, "wither", 0.5F);
 	}
 
-	public ModelBase makeModel() {
+	@Override
+    public ModelBase makeModel() {
 		return new ModelWither(0.0F);
 	}
 
-	public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
+	@Override
+    public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
 		if (model instanceof ModelWither modelwither) {
 			String s = "body";
 
@@ -56,11 +58,13 @@ public class ModelAdapterWither extends ModelAdapter {
 		}
 	}
 
-	public String[] getModelRendererNames() {
+	@Override
+    public String[] getModelRendererNames() {
 		return new String[]{"body1", "body2", "body3", "head1", "head2", "head3"};
 	}
 
-	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+	@Override
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
 		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		RenderWither renderwither = new RenderWither(rendermanager);
 		renderwither.mainModel = modelBase;

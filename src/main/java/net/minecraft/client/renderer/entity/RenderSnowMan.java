@@ -13,10 +13,12 @@ public class RenderSnowMan extends RenderLiving<EntitySnowman> {
         this.addLayer(new LayerSnowmanHead(this));
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntitySnowman entity) {
         return SNOW_MAN_TEXTURES;
     }
 
+    @Override
     public ModelSnowMan getMainModel() {
         return (ModelSnowMan) super.getMainModel();
     }

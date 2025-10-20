@@ -47,10 +47,12 @@ public class MapGenStronghold extends MapGenStructure {
         }
     }
 
+    @Override
     public String getStructureName() {
         return "Stronghold";
     }
 
+    @Override
     protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ) {
         if (!this.ranBiomeCheck) {
             Random random = new Random();
@@ -90,6 +92,7 @@ public class MapGenStronghold extends MapGenStructure {
         return false;
     }
 
+    @Override
     protected List<BlockPos> getCoordList() {
         List<BlockPos> list = new ArrayList<>();
 
@@ -102,6 +105,7 @@ public class MapGenStronghold extends MapGenStructure {
         return list;
     }
 
+    @Override
     protected StructureStart getStructureStart(int chunkX, int chunkZ) {
         Start mapgenstronghold$start;
 

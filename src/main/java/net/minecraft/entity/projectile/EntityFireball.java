@@ -34,9 +34,11 @@ public abstract class EntityFireball extends Entity {
         this.setSize(1.0F, 1.0F);
     }
 
+    @Override
     protected void entityInit() {
     }
 
+    @Override
     public boolean isInRangeToRenderDist(double distance) {
         double d0 = this.getEntityBoundingBox().getAverageEdgeLength() * 4.0D;
 
@@ -75,6 +77,7 @@ public abstract class EntityFireball extends Entity {
         this.accelerationZ = accelZ / d0 * 0.1D;
     }
 
+    @Override
     public void onUpdate() {
         if (this.worldObj.isRemote || (this.shootingEntity == null || !this.shootingEntity.isDead) && this.worldObj.isBlockLoaded(new BlockPos(this))) {
             super.onUpdate();
@@ -194,6 +197,7 @@ public abstract class EntityFireball extends Entity {
 
     protected abstract void onImpact(MovingObjectPosition movingObject);
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         tagCompound.setShort("xTile", (short) this.xTile);
         tagCompound.setShort("yTile", (short) this.yTile);
@@ -204,6 +208,7 @@ public abstract class EntityFireball extends Entity {
         tagCompound.setTag("direction", this.newDoubleNBTList(this.motionX, this.motionY, this.motionZ));
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         this.xTile = tagCompund.getShort("xTile");
         this.yTile = tagCompund.getShort("yTile");
@@ -227,14 +232,17 @@ public abstract class EntityFireball extends Entity {
         }
     }
 
+    @Override
     public boolean canBeCollidedWith() {
         return true;
     }
 
+    @Override
     public float getCollisionBorderSize() {
         return 1.0F;
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (this.isEntityInvulnerable(source)) {
             return false;
@@ -264,10 +272,12 @@ public abstract class EntityFireball extends Entity {
         }
     }
 
+    @Override
     public float getBrightness(float partialTicks) {
         return 1.0F;
     }
 
+    @Override
     public int getBrightnessForRender(float partialTicks) {
         return 15728880;
     }

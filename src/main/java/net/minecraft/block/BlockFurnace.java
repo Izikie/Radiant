@@ -32,10 +32,12 @@ public class BlockFurnace extends BlockContainer {
         this.isBurning = isBurning;
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Item.getItemFromBlock(Blocks.FURNACE);
     }
 
+    @Override
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         this.setDefaultFacing(worldIn, pos, state);
     }
@@ -63,6 +65,7 @@ public class BlockFurnace extends BlockContainer {
     }
 
     
+    @Override
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (this.isBurning) {
             Direction enumfacing = state.getValue(FACING);
@@ -95,6 +98,7 @@ public class BlockFurnace extends BlockContainer {
         }
     }
 
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
@@ -129,14 +133,17 @@ public class BlockFurnace extends BlockContainer {
         }
     }
 
+    @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntityFurnace();
     }
 
+    @Override
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
     }
 
+    @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         worldIn.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
 
@@ -149,6 +156,7 @@ public class BlockFurnace extends BlockContainer {
         }
     }
 
+    @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         if (!keepInventory) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
@@ -162,26 +170,32 @@ public class BlockFurnace extends BlockContainer {
         super.breakBlock(worldIn, pos, state);
     }
 
+    @Override
     public boolean hasComparatorInputOverride() {
         return true;
     }
 
+    @Override
     public int getComparatorInputOverride(World worldIn, BlockPos pos) {
         return Container.calcRedstone(worldIn.getTileEntity(pos));
     }
 
+    @Override
     public Item getItem(World worldIn, BlockPos pos) {
         return Item.getItemFromBlock(Blocks.FURNACE);
     }
 
+    @Override
     public int getRenderType() {
         return 3;
     }
 
+    @Override
     public IBlockState getStateForEntityRender(IBlockState state) {
         return this.getDefaultState().withProperty(FACING, Direction.SOUTH);
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         Direction enumfacing = Direction.getFront(meta);
 
@@ -192,10 +206,12 @@ public class BlockFurnace extends BlockContainer {
         return this.getDefaultState().withProperty(FACING, enumfacing);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(FACING).getIndex();
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, FACING);
     }

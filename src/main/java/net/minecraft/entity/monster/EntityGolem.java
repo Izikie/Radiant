@@ -9,25 +9,31 @@ public abstract class EntityGolem extends EntityCreature implements IAnimals {
         super(worldIn);
     }
 
+    @Override
     public void fall(float distance, float damageMultiplier) {
     }
 
+    @Override
     protected String getLivingSound() {
         return "none";
     }
 
+    @Override
     protected String getHurtSound() {
         return "none";
     }
 
+    @Override
     protected String getDeathSound() {
         return "none";
     }
 
+    @Override
     public int getTalkInterval() {
         return 120;
     }
 
+    @Override
     protected boolean canDespawn() {
         return false;
     }

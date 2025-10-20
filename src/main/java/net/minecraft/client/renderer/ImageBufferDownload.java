@@ -7,6 +7,7 @@ public class ImageBufferDownload implements IImageBuffer {
     private int imageWidth;
     private int imageHeight;
 
+    @Override
     public NativeImage parseUserSkin(NativeImage image) {
         if (image == null) {
             return null;
@@ -53,6 +54,7 @@ public class ImageBufferDownload implements IImageBuffer {
         return image1;
     }
 
+    @Override
     public void skinAvailable() {
     }
 

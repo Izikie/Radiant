@@ -22,6 +22,7 @@ public class S3FPacketCustomPayload implements Packet<INetHandlerPlayClient> {
         }
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.channel = buf.readStringFromBuffer(20);
         int size = buf.readableBytes();
@@ -33,11 +34,13 @@ public class S3FPacketCustomPayload implements Packet<INetHandlerPlayClient> {
         }
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeString(this.channel);
         buf.writeBytes(this.data);
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleCustomPayload(this);
     }

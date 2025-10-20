@@ -8,6 +8,7 @@ public class GenLayerAddMushroomIsland extends GenLayer {
         this.parent = p_i2120_3_;
     }
 
+    @Override
     public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
         int i = areaX - 1;
         int j = areaY - 1;

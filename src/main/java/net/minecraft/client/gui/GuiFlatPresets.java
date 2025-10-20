@@ -36,6 +36,7 @@ public class GuiFlatPresets extends GuiScreen {
         this.parentScreen = p_i46318_1_;
     }
 
+    @Override
     public void initGui() {
         this.buttonList.clear();
         Keyboard.enableRepeatEvents(true);
@@ -51,26 +52,31 @@ public class GuiFlatPresets extends GuiScreen {
         this.func_146426_g();
     }
 
+    @Override
     public void handleMouseInput() throws IOException {
         super.handleMouseInput();
         this.field_146435_s.handleMouseInput();
     }
 
+    @Override
     public void onGuiClosed() {
         Keyboard.enableRepeatEvents(false);
     }
 
+    @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         this.field_146433_u.mouseClicked(mouseX, mouseY, mouseButton);
         super.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         if (!this.field_146433_u.textboxKeyTyped(typedChar, keyCode)) {
             super.keyTyped(typedChar, keyCode);
         }
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.id == 0 && this.func_146430_p()) {
             this.parentScreen.func_146383_a(this.field_146433_u.getText());
@@ -80,6 +86,7 @@ public class GuiFlatPresets extends GuiScreen {
         }
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         this.field_146435_s.drawScreen(mouseX, mouseY, partialTicks);
@@ -90,6 +97,7 @@ public class GuiFlatPresets extends GuiScreen {
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
+    @Override
     public void updateScreen() {
         this.field_146433_u.updateCursorCounter();
         super.updateScreen();
@@ -192,23 +200,28 @@ public class GuiFlatPresets extends GuiScreen {
             tessellator.draw();
         }
 
+        @Override
         protected int getSize() {
             return GuiFlatPresets.FLAT_WORLD_PRESETS.size();
         }
 
+        @Override
         protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY) {
             this.field_148175_k = slotIndex;
             GuiFlatPresets.this.func_146426_g();
             GuiFlatPresets.this.field_146433_u.setText(GuiFlatPresets.FLAT_WORLD_PRESETS.get(GuiFlatPresets.this.field_146435_s.field_148175_k).field_148233_c);
         }
 
+        @Override
         protected boolean isSelected(int slotIndex) {
             return slotIndex == this.field_148175_k;
         }
 
+        @Override
         protected void drawBackground() {
         }
 
+        @Override
         protected void drawSlot(int entryID, int p_180791_2_, int p_180791_3_, int p_180791_4_, int mouseXIn, int mouseYIn) {
             LayerItem guiflatpresets$layeritem = GuiFlatPresets.FLAT_WORLD_PRESETS.get(entryID);
             this.func_178054_a(p_180791_2_, p_180791_3_, guiflatpresets$layeritem.field_148234_a, guiflatpresets$layeritem.field_179037_b);

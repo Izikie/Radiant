@@ -31,6 +31,7 @@ public class ModelBoat extends ModelBase {
         this.boatSides[3].rotateAngleY = (float) Math.PI;
     }
 
+    @Override
     public void render(Entity entityIn, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_, float scale) {
         for (int i = 0; i < 5; ++i) {
             this.boatSides[i].render(scale);

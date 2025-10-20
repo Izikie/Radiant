@@ -13,18 +13,22 @@ import net.minecraft.world.GameRules;
 import java.util.List;
 
 public class CommandGameRule extends CommandBase {
+    @Override
     public String getCommandName() {
         return "gamerule";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 2;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.gamerule.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         GameRules gamerules = this.getGameRules();
         String s = args.length > 0 ? args[0] : "";
@@ -66,6 +70,7 @@ public class CommandGameRule extends CommandBase {
         }
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         if (args.length == 1) {
             return getListOfStringsMatchingLastWord(args, this.getGameRules().getRules());

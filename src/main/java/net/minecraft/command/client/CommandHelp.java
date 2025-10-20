@@ -15,22 +15,27 @@ import java.util.Map;
 import java.util.Set;
 
 public class CommandHelp extends CommandBase {
+    @Override
     public String getCommandName() {
         return "help";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 0;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.help.usage";
     }
 
+    @Override
     public List<String> getCommandAliases() {
         return List.of("?");
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         List<ICommand> list = this.getSortedPossibleCommands(sender);
         int i = 7;
@@ -83,6 +88,7 @@ public class CommandHelp extends CommandBase {
         return MinecraftServer.getServer().getCommandManager().getCommands();
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         if (args.length == 1) {
             Set<String> set = this.getCommands().keySet();

@@ -25,10 +25,12 @@ public class S07PacketRespawn implements Packet<INetHandlerPlayClient> {
         this.worldType = worldTypeIn;
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleRespawn(this);
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.dimensionID = buf.readInt();
         this.difficulty = Difficulty.getDifficultyEnum(buf.readUnsignedByte());
@@ -40,6 +42,7 @@ public class S07PacketRespawn implements Packet<INetHandlerPlayClient> {
         }
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeInt(this.dimensionID);
         buf.writeByte(this.difficulty.getDifficultyId());

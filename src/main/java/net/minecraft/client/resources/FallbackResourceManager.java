@@ -23,10 +23,12 @@ public class FallbackResourceManager implements IResourceManager {
         this.resourcePacks.add(resourcePack);
     }
 
+    @Override
     public Set<String> getResourceDomains() {
         return null;
     }
 
+    @Override
     public IResource getResource(ResourceLocation location) throws IOException {
         IResourcePack iresourcepack = null;
         ResourceLocation resourcelocation = getLocationMcmeta(location);
@@ -57,6 +59,7 @@ public class FallbackResourceManager implements IResourceManager {
         return LOGGER.isDebugEnabled() ? new InputStreamLeakedResourceLogger(inputstream, location, resourcePack.getPackName()) : inputstream;
     }
 
+    @Override
     public List<IResource> getAllResources(ResourceLocation location) throws IOException {
         List<IResource> list = new ArrayList<>();
         ResourceLocation resourcelocation = getLocationMcmeta(location);
@@ -91,11 +94,13 @@ public class FallbackResourceManager implements IResourceManager {
             this.message = "Leaked resource: '" + location + "' loaded from pack: '" + resourcePack + "'\n" + bytearrayoutputstream;
         }
 
+        @Override
         public void close() throws IOException {
             this.inputStream.close();
             this.isClosed = true;
         }
 
+        @Override
         public int read() throws IOException {
             return this.inputStream.read();
         }

@@ -62,6 +62,7 @@ public class EntityZombie extends EntityMob {
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityIronGolem.class, true));
     }
 
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(35.0D);
@@ -70,6 +71,7 @@ public class EntityZombie extends EntityMob {
         this.getAttributeMap().registerAttribute(REINFORCEMENT_CHANCE).setBaseValue(this.rand.nextDouble() * 0.10000000149011612D);
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.getDataWatcher().addObject(12, (byte) 0);
@@ -77,6 +79,7 @@ public class EntityZombie extends EntityMob {
         this.getDataWatcher().addObject(14, (byte) 0);
     }
 
+    @Override
     public int getTotalArmorValue() {
         int i = super.getTotalArmorValue() + 2;
 
@@ -103,10 +106,12 @@ public class EntityZombie extends EntityMob {
         }
     }
 
+    @Override
     public boolean isChild() {
         return this.getDataWatcher().getWatchableObjectByte(12) == 1;
     }
 
+    @Override
     protected int getExperiencePoints(EntityPlayer player) {
         if (this.isChild()) {
             this.experienceValue = (int) (this.experienceValue * 2.5F);
@@ -138,6 +143,7 @@ public class EntityZombie extends EntityMob {
         this.getDataWatcher().updateObject(13, (byte) (villager ? 1 : 0));
     }
 
+    @Override
     public void onLivingUpdate() {
         if (this.worldObj.isDaytime() && !this.worldObj.isRemote && !this.isChild()) {
             float f = this.getBrightness(1.0F);
@@ -173,6 +179,7 @@ public class EntityZombie extends EntityMob {
         super.onLivingUpdate();
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (super.attackEntityFrom(source, amount)) {
             EntityLivingBase entitylivingbase = this.getAttackTarget();
@@ -213,6 +220,7 @@ public class EntityZombie extends EntityMob {
         }
     }
 
+    @Override
     public void onUpdate() {
         if (!this.worldObj.isRemote && this.isConverting()) {
             int i = this.getConversionTimeBoost();
@@ -226,6 +234,7 @@ public class EntityZombie extends EntityMob {
         super.onUpdate();
     }
 
+    @Override
     public boolean attackEntityAsMob(Entity entityIn) {
         boolean flag = super.attackEntityAsMob(entityIn);
 
@@ -240,30 +249,37 @@ public class EntityZombie extends EntityMob {
         return flag;
     }
 
+    @Override
     protected String getLivingSound() {
         return "mob.zombie.say";
     }
 
+    @Override
     protected String getHurtSound() {
         return "mob.zombie.hurt";
     }
 
+    @Override
     protected String getDeathSound() {
         return "mob.zombie.death";
     }
 
+    @Override
     protected void playStepSound(BlockPos pos, Block blockIn) {
         this.playSound("mob.zombie.step", 0.15F, 1.0F);
     }
 
+    @Override
     protected Item getDropItem() {
         return Items.ROTTEN_FLESH;
     }
 
+    @Override
     public EntityGroup getCreatureAttribute() {
         return EntityGroup.UNDEAD;
     }
 
+    @Override
     protected void addRandomDrop() {
         switch (this.rand.nextInt(3)) {
             case 0:
@@ -279,6 +295,7 @@ public class EntityZombie extends EntityMob {
         }
     }
 
+    @Override
     protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
         super.setEquipmentBasedOnDifficulty(difficulty);
 
@@ -293,6 +310,7 @@ public class EntityZombie extends EntityMob {
         }
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
 
@@ -308,6 +326,7 @@ public class EntityZombie extends EntityMob {
         tagCompound.setBoolean("CanBreakDoors", this.isBreakDoorsTaskSet());
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
 
@@ -326,6 +345,7 @@ public class EntityZombie extends EntityMob {
         this.setBreakDoorsAItask(tagCompund.getBoolean("CanBreakDoors"));
     }
 
+    @Override
     public void onKillEntity(EntityLivingBase entityLivingIn) {
         super.onKillEntity(entityLivingIn);
 
@@ -356,6 +376,7 @@ public class EntityZombie extends EntityMob {
         }
     }
 
+    @Override
     public float getEyeHeight() {
         float f = 1.74F;
 
@@ -366,10 +387,12 @@ public class EntityZombie extends EntityMob {
         return f;
     }
 
+    @Override
     protected boolean func_175448_a(ItemStack stack) {
         return (stack.getItem() != Items.EGG || !this.isChild() || !this.isRiding()) && super.func_175448_a(stack);
     }
 
+    @Override
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
         livingdata = super.onInitialSpawn(difficulty, livingdata);
         float f = difficulty.getClampedAdditionalDifficulty();
@@ -436,6 +459,7 @@ public class EntityZombie extends EntityMob {
         return livingdata;
     }
 
+    @Override
     public boolean interact(EntityPlayer player) {
         ItemStack itemstack = player.getCurrentEquippedItem();
 
@@ -466,6 +490,7 @@ public class EntityZombie extends EntityMob {
         this.worldObj.setEntityState(this, (byte) 16);
     }
 
+    @Override
     public void handleStatusUpdate(byte id) {
         if (id == 16) {
             if (!this.isSilent()) {
@@ -476,6 +501,7 @@ public class EntityZombie extends EntityMob {
         }
     }
 
+    @Override
     protected boolean canDespawn() {
         return !this.isConverting();
     }
@@ -538,6 +564,7 @@ public class EntityZombie extends EntityMob {
         this.multiplySize(isChild ? 0.5F : 1.0F);
     }
 
+    @Override
     protected final void setSize(float width, float height) {
         boolean flag = this.zombieWidth > 0.0F && this.zombieHeight > 0.0F;
         this.zombieWidth = width;
@@ -552,10 +579,12 @@ public class EntityZombie extends EntityMob {
         super.setSize(this.zombieWidth * size, this.zombieHeight * size);
     }
 
+    @Override
     public double getYOffset() {
         return this.isChild() ? 0.0D : -0.35D;
     }
 
+    @Override
     public void onDeath(DamageSource cause) {
         super.onDeath(cause);
 

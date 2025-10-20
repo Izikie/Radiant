@@ -19,6 +19,7 @@ public class EntityBubbleFX extends EntityFX {
         this.particleMaxAge = (int) (8.0D / (Math.random() * 0.8D + 0.2D));
     }
 
+    @Override
     public void onUpdate() {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
@@ -39,6 +40,7 @@ public class EntityBubbleFX extends EntityFX {
     }
 
     public static class Factory implements IParticleFactory {
+        @Override
         public EntityFX getEntityFX(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
             return new EntityBubbleFX(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
         }

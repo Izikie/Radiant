@@ -14,7 +14,8 @@ public class PlayerConfigurationReceiver implements IFileDownloadListener {
 		this.player = player;
 	}
 
-	public void fileDownloadFinished(String url, byte[] bytes, Throwable throwable) {
+	@Override
+    public void fileDownloadFinished(String url, byte[] bytes, Throwable throwable) {
 		if (bytes != null) {
 			try {
 				String s = new String(bytes, StandardCharsets.US_ASCII);

@@ -12,6 +12,7 @@ public class ItemBucketMilk extends Item {
         this.setCreativeTab(CreativeTabs.TAB_MISC);
     }
 
+    @Override
     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityPlayer playerIn) {
         if (!playerIn.capabilities.isCreativeMode) {
             --stack.stackSize;
@@ -25,14 +26,17 @@ public class ItemBucketMilk extends Item {
         return stack.stackSize <= 0 ? new ItemStack(Items.BUCKET) : stack;
     }
 
+    @Override
     public int getMaxItemUseDuration(ItemStack stack) {
         return 32;
     }
 
+    @Override
     public UseAction getItemUseAction(ItemStack stack) {
         return UseAction.DRINK;
     }
 
+    @Override
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
         playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
         return itemStackIn;

@@ -12,18 +12,22 @@ public class EnchantmentDurability extends Enchantment {
         this.setName("durability");
     }
 
+    @Override
     public int getMinEnchantability(int enchantmentLevel) {
         return 5 + (enchantmentLevel - 1) * 8;
     }
 
+    @Override
     public int getMaxEnchantability(int enchantmentLevel) {
         return super.getMinEnchantability(enchantmentLevel) + 50;
     }
 
+    @Override
     public int getMaxLevel() {
         return 3;
     }
 
+    @Override
     public boolean canApply(ItemStack stack) {
         return stack.isItemStackDamageable() || super.canApply(stack);
     }

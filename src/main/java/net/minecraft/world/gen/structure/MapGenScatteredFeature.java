@@ -32,10 +32,12 @@ public class MapGenScatteredFeature extends MapGenStructure {
         }
     }
 
+    @Override
     public String getStructureName() {
         return "Temple";
     }
 
+    @Override
     protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ) {
         int i = chunkX;
         int j = chunkZ;
@@ -73,6 +75,7 @@ public class MapGenScatteredFeature extends MapGenStructure {
         return false;
     }
 
+    @Override
     protected StructureStart getStructureStart(int chunkX, int chunkZ) {
         return new Start(this.worldObj, this.rand, chunkX, chunkZ);
     }

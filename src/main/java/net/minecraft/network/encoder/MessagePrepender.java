@@ -6,6 +6,7 @@ import io.netty.handler.codec.MessageToByteEncoder;
 import net.minecraft.network.packet.PacketBuffer;
 
 public class MessagePrepender extends MessageToByteEncoder<ByteBuf> {
+    @Override
     protected void encode(ChannelHandlerContext ctx, ByteBuf in, ByteBuf out) throws Exception {
         int i = in.readableBytes();
         int j = PacketBuffer.getVarIntSize(i);

@@ -13,11 +13,13 @@ public class ModelAdapterCreeper extends ModelAdapter {
 		super(EntityCreeper.class, "creeper", 0.5F);
 	}
 
-	public ModelBase makeModel() {
+	@Override
+    public ModelBase makeModel() {
 		return new ModelCreeper();
 	}
 
-	public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
+	@Override
+    public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
 		if (!(model instanceof ModelCreeper modelcreeper)) {
 			return null;
 		} else {
@@ -25,11 +27,13 @@ public class ModelAdapterCreeper extends ModelAdapter {
 		}
 	}
 
-	public String[] getModelRendererNames() {
+	@Override
+    public String[] getModelRendererNames() {
 		return new String[]{"head", "armor", "body", "leg1", "leg2", "leg3", "leg4"};
 	}
 
-	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+	@Override
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
 		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		RenderCreeper rendercreeper = new RenderCreeper(rendermanager);
 		rendercreeper.mainModel = modelBase;

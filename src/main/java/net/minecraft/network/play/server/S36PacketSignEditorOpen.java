@@ -17,14 +17,17 @@ public class S36PacketSignEditorOpen implements Packet<INetHandlerPlayClient> {
         this.signPosition = signPositionIn;
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleSignEditorOpen(this);
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.signPosition = buf.readBlockPos();
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeBlockPos(this.signPosition);
     }

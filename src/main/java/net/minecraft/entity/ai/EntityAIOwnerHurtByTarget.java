@@ -14,6 +14,7 @@ public class EntityAIOwnerHurtByTarget extends EntityAITarget {
         this.setMutexBits(1);
     }
 
+    @Override
     public boolean shouldExecute() {
         if (!this.theDefendingTameable.isTamed()) {
             return false;
@@ -30,6 +31,7 @@ public class EntityAIOwnerHurtByTarget extends EntityAITarget {
         }
     }
 
+    @Override
     public void startExecuting() {
         this.taskOwner.setAttackTarget(this.theOwnerAttacker);
         EntityLivingBase entitylivingbase = this.theDefendingTameable.getOwner();

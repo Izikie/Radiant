@@ -31,7 +31,8 @@ public class TooltipProviderOptions implements TooltipProvider {
 		}
 	}
 
-	public Vector4i getTooltipBounds(GuiScreen guiScreen, int x, int y) {
+	@Override
+    public Vector4i getTooltipBounds(GuiScreen guiScreen, int x, int y) {
 		int i = guiScreen.width / 2 - 150;
 		int j = guiScreen.height / 6 - 7;
 
@@ -44,11 +45,13 @@ public class TooltipProviderOptions implements TooltipProvider {
 		return new Vector4i(i, j, k - i, l - j);
 	}
 
-	public boolean isRenderBorder() {
+	@Override
+    public boolean isRenderBorder() {
 		return false;
 	}
 
-	public String[] getTooltipLines(GuiButton btn, int width) {
+	@Override
+    public String[] getTooltipLines(GuiButton btn, int width) {
 		if (!(btn instanceof IOptionControl ioptioncontrol)) {
 			return null;
 		} else {

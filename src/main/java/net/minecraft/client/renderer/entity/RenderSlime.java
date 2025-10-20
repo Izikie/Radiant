@@ -14,11 +14,13 @@ public class RenderSlime extends RenderLiving<EntitySlime> {
         this.addLayer(new LayerSlimeGel(this));
     }
 
+    @Override
     public void doRender(EntitySlime entity, double x, double y, double z, float entityYaw, float partialTicks) {
         this.shadowSize = 0.25F * entity.getSlimeSize();
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 
+    @Override
     protected void preRenderCallback(EntitySlime entitylivingbaseIn, float partialTickTime) {
         float f = entitylivingbaseIn.getSlimeSize();
         float f1 = (entitylivingbaseIn.prevSquishFactor + (entitylivingbaseIn.squishFactor - entitylivingbaseIn.prevSquishFactor) * partialTickTime) / (f * 0.5F + 1.0F);
@@ -26,6 +28,7 @@ public class RenderSlime extends RenderLiving<EntitySlime> {
         GlStateManager.scale(f2 * f, 1.0F / f2 * f, f2 * f);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntitySlime entity) {
         return SLIME_TEXTURES;
     }

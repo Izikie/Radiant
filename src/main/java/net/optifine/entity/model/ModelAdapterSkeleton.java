@@ -14,11 +14,13 @@ public class ModelAdapterSkeleton extends ModelAdapterBiped {
 		super(EntitySkeleton.class, "skeleton", 0.7F);
 	}
 
-	public ModelBase makeModel() {
+	@Override
+    public ModelBase makeModel() {
 		return new ModelSkeleton();
 	}
 
-	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+	@Override
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
 		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		RenderSkeleton renderskeleton = new RenderSkeleton(rendermanager);
 		Render.setModelBipedMain(renderskeleton, (ModelBiped) modelBase);

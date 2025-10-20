@@ -12,6 +12,7 @@ public class EntityAISit extends EntityAIBase {
         this.setMutexBits(5);
     }
 
+    @Override
     public boolean shouldExecute() {
         if (!this.theEntity.isTamed()) {
             return false;
@@ -25,11 +26,13 @@ public class EntityAISit extends EntityAIBase {
         }
     }
 
+    @Override
     public void startExecuting() {
         this.theEntity.getNavigator().clearPathEntity();
         this.theEntity.setSitting(true);
     }
 
+    @Override
     public void resetTask() {
         this.theEntity.setSitting(false);
     }

@@ -12,11 +12,13 @@ public class ModelAdapterEnderman extends ModelAdapterBiped {
 		super(EntityEnderman.class, "enderman", 0.5F);
 	}
 
-	public ModelBase makeModel() {
+	@Override
+    public ModelBase makeModel() {
 		return new ModelEnderman(0.0F);
 	}
 
-	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+	@Override
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
 		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		RenderEnderman renderenderman = new RenderEnderman(rendermanager);
 		renderenderman.mainModel = modelBase;

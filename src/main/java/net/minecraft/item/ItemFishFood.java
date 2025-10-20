@@ -18,20 +18,24 @@ public class ItemFishFood extends ItemFood {
         this.cooked = cooked;
     }
 
+    @Override
     public int getHealAmount(ItemStack stack) {
         FishType itemfishfood$fishtype = FishType.byItemStack(stack);
         return this.cooked && itemfishfood$fishtype.canCook() ? itemfishfood$fishtype.getCookedHealAmount() : itemfishfood$fishtype.getUncookedHealAmount();
     }
 
+    @Override
     public float getSaturationModifier(ItemStack stack) {
         FishType itemfishfood$fishtype = FishType.byItemStack(stack);
         return this.cooked && itemfishfood$fishtype.canCook() ? itemfishfood$fishtype.getCookedSaturationModifier() : itemfishfood$fishtype.getUncookedSaturationModifier();
     }
 
+    @Override
     public String getPotionEffect(ItemStack stack) {
         return FishType.byItemStack(stack) == FishType.PUFFERFISH ? PotionHelper.PUFFERFISH_EFFECT : null;
     }
 
+    @Override
     protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
         FishType itemfishfood$fishtype = FishType.byItemStack(stack);
 
@@ -44,6 +48,7 @@ public class ItemFishFood extends ItemFood {
         super.onFoodEaten(stack, worldIn, player);
     }
 
+    @Override
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
         for (FishType itemfishfood$fishtype : FishType.values()) {
             if (!this.cooked || itemfishfood$fishtype.canCook()) {
@@ -52,6 +57,7 @@ public class ItemFishFood extends ItemFood {
         }
     }
 
+    @Override
     public String getUnlocalizedName(ItemStack stack) {
         FishType itemfishfood$fishtype = FishType.byItemStack(stack);
         return this.getUnlocalizedName() + "." + itemfishfood$fishtype.getUnlocalizedName() + "." + (this.cooked && itemfishfood$fishtype.canCook() ? "cooked" : "raw");

@@ -9,10 +9,12 @@ public abstract class EntityAmbientCreature extends EntityLiving implements IAni
         super(worldIn);
     }
 
+    @Override
     public boolean allowLeashing() {
         return false;
     }
 
+    @Override
     protected boolean interact(EntityPlayer player) {
         return false;
     }

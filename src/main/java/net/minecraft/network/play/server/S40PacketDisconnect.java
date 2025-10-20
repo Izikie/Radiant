@@ -17,14 +17,17 @@ public class S40PacketDisconnect implements Packet<INetHandlerPlayClient> {
         this.reason = reasonIn;
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.reason = buf.readChatComponent();
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeChatComponent(this.reason);
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleDisconnect(this);
     }

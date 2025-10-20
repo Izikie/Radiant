@@ -35,14 +35,17 @@ public class GameSettings {
     private static final Logger LOGGER = LoggerFactory.getLogger(GameSettings.class);
     private static final Gson GSON = new Gson();
     private static final ParameterizedType TYPE_LIST_STRING = new ParameterizedType() {
+        @Override
         public Type[] getActualTypeArguments() {
             return new Type[]{String.class};
         }
 
+        @Override
         public Type getRawType() {
             return List.class;
         }
 
+        @Override
         public Type getOwnerType() {
             return null;
         }

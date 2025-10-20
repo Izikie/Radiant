@@ -18,18 +18,22 @@ import java.util.Collection;
 import java.util.List;
 
 public class CommandStats extends CommandBase {
+    @Override
     public String getCommandName() {
         return "stats";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 2;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.stats.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length < 1) {
             throw new WrongUsageException("commands.stats.usage");
@@ -140,6 +144,7 @@ public class CommandStats extends CommandBase {
         }
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         return args.length == 1 ? getListOfStringsMatchingLastWord(args, "entity", "block") : (args.length == 2 && args[0].equals("entity") ? getListOfStringsMatchingLastWord(args, this.func_175776_d()) : (args.length >= 2 && args.length <= 4 && args[0].equals("block") ? func_175771_a(args, 1, pos) : ((args.length != 3 || !args[0].equals("entity")) && (args.length != 5 || !args[0].equals("block")) ? ((args.length != 4 || !args[0].equals("entity")) && (args.length != 6 || !args[0].equals("block")) ? ((args.length != 6 || !args[0].equals("entity")) && (args.length != 8 || !args[0].equals("block")) ? null : getListOfStringsMatchingLastWord(args, this.func_175777_e())) : getListOfStringsMatchingLastWord(args, CommandResultStats.Type.getTypeNames())) : getListOfStringsMatchingLastWord(args, "set", "clear"))));
     }
@@ -161,6 +166,7 @@ public class CommandStats extends CommandBase {
         return list;
     }
 
+    @Override
     public boolean isUsernameIndex(String[] args, int index) {
         return args.length > 0 && args[0].equals("entity") && index == 1;
     }

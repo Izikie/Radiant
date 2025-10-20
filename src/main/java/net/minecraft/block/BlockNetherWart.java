@@ -26,14 +26,17 @@ public class BlockNetherWart extends BlockBush {
         this.setCreativeTab(null);
     }
 
+    @Override
     protected boolean canPlaceBlockOn(Block ground) {
         return ground == Blocks.SOUL_SAND;
     }
 
+    @Override
     public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state) {
         return this.canPlaceBlockOn(worldIn.getBlockState(pos.down()).getBlock());
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         int i = state.getValue(AGE);
 
@@ -45,6 +48,7 @@ public class BlockNetherWart extends BlockBush {
         super.updateTick(worldIn, pos, state, rand);
     }
 
+    @Override
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
         if (!worldIn.isRemote) {
             int i = 1;
@@ -63,26 +67,32 @@ public class BlockNetherWart extends BlockBush {
         }
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return null;
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return 0;
     }
 
+    @Override
     public Item getItem(World worldIn, BlockPos pos) {
         return Items.NETHER_WART;
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(AGE, meta);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(AGE);
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, AGE);
     }

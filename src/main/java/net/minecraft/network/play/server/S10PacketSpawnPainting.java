@@ -25,6 +25,7 @@ public class S10PacketSpawnPainting implements Packet<INetHandlerPlayClient> {
         this.title = painting.art.title;
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.entityID = buf.readVarIntFromBuffer();
         this.title = buf.readStringFromBuffer(EntityPainting.PaintingType.field_180001_A);
@@ -32,6 +33,7 @@ public class S10PacketSpawnPainting implements Packet<INetHandlerPlayClient> {
         this.facing = Direction.getHorizontal(buf.readUnsignedByte());
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeVarIntToBuffer(this.entityID);
         buf.writeString(this.title);
@@ -39,6 +41,7 @@ public class S10PacketSpawnPainting implements Packet<INetHandlerPlayClient> {
         buf.writeByte(this.facing.getHorizontalIndex());
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleSpawnPainting(this);
     }

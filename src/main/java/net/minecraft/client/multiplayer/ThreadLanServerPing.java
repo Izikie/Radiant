@@ -25,6 +25,7 @@ public class ThreadLanServerPing extends Thread {
         this.socket = new DatagramSocket();
     }
 
+    @Override
     public void run() {
         String s = getPingResponse(this.motd, this.address);
         byte[] abyte = s.getBytes();
@@ -46,6 +47,7 @@ public class ThreadLanServerPing extends Thread {
         }
     }
 
+    @Override
     public void interrupt() {
         super.interrupt();
         this.isStopping = false;

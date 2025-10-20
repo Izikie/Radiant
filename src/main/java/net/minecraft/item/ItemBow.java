@@ -18,6 +18,7 @@ public class ItemBow extends Item {
         this.setCreativeTab(CreativeTabs.TAB_COMBAT);
     }
 
+    @Override
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityPlayer playerIn, int timeLeft) {
         boolean flag = playerIn.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.INFINITY.effectId, stack) > 0;
 
@@ -73,18 +74,22 @@ public class ItemBow extends Item {
         }
     }
 
+    @Override
     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityPlayer playerIn) {
         return stack;
     }
 
+    @Override
     public int getMaxItemUseDuration(ItemStack stack) {
         return 72000;
     }
 
+    @Override
     public UseAction getItemUseAction(ItemStack stack) {
         return UseAction.BOW;
     }
 
+    @Override
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
         if (playerIn.capabilities.isCreativeMode || playerIn.inventory.hasItem(Items.ARROW)) {
             playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
@@ -93,6 +98,7 @@ public class ItemBow extends Item {
         return itemStackIn;
     }
 
+    @Override
     public int getItemEnchantability() {
         return 1;
     }

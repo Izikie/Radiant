@@ -23,6 +23,7 @@ public class EntityAIWander extends EntityAIBase {
         this.setMutexBits(1);
     }
 
+    @Override
     public boolean shouldExecute() {
         if (!this.mustUpdate) {
             if (this.entity.getAge() >= 100) {
@@ -47,10 +48,12 @@ public class EntityAIWander extends EntityAIBase {
         }
     }
 
+    @Override
     public boolean continueExecuting() {
         return !this.entity.getNavigator().noPath();
     }
 
+    @Override
     public void startExecuting() {
         this.entity.getNavigator().tryMoveToXYZ(this.xPosition, this.yPosition, this.zPosition, this.speed);
     }

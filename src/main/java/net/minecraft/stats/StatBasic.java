@@ -11,6 +11,7 @@ public class StatBasic extends StatBase {
         super(statIdIn, statNameIn);
     }
 
+    @Override
     public StatBase registerStat() {
         super.registerStat();
         StatList.GENERAL_STATS.add(this);

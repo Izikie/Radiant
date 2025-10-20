@@ -25,6 +25,7 @@ public abstract class EntityAIDoorInteract extends EntityAIBase {
         }
     }
 
+    @Override
     public boolean shouldExecute() {
         if (!this.theEntity.isCollidedHorizontally) {
             return false;
@@ -55,16 +56,19 @@ public abstract class EntityAIDoorInteract extends EntityAIBase {
         }
     }
 
+    @Override
     public boolean continueExecuting() {
         return !this.hasStoppedDoorInteraction;
     }
 
+    @Override
     public void startExecuting() {
         this.hasStoppedDoorInteraction = false;
         this.entityPositionX = (float) ((this.doorPosition.getX() + 0.5F) - this.theEntity.posX);
         this.entityPositionZ = (float) ((this.doorPosition.getZ() + 0.5F) - this.theEntity.posZ);
     }
 
+    @Override
     public void updateTask() {
         float f = (float) ((this.doorPosition.getX() + 0.5F) - this.theEntity.posX);
         float f1 = (float) ((this.doorPosition.getZ() + 0.5F) - this.theEntity.posZ);

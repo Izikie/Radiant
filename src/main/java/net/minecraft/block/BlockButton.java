@@ -32,26 +32,32 @@ public abstract class BlockButton extends Block {
         this.wooden = wooden;
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
         return null;
     }
 
+    @Override
     public int tickRate(World worldIn) {
         return this.wooden ? 30 : 20;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Direction side) {
         return func_181088_a(worldIn, pos, side.getOpposite());
     }
 
+    @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
         for (Direction enumfacing : Direction.values()) {
             if (func_181088_a(worldIn, pos, enumfacing)) {
@@ -67,10 +73,12 @@ public abstract class BlockButton extends Block {
         return p_181088_2_ == Direction.DOWN ? World.doesBlockHaveSolidTopSurface(p_181088_0_, blockpos) : p_181088_0_.getBlockState(blockpos).getBlock().isNormalCube();
     }
 
+    @Override
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return func_181088_a(worldIn, pos, facing.getOpposite()) ? this.getDefaultState().withProperty(FACING, facing).withProperty(POWERED, Boolean.FALSE) : this.getDefaultState().withProperty(FACING, Direction.DOWN).withProperty(POWERED, Boolean.FALSE);
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         if (this.checkForDrop(worldIn, pos, state) && !func_181088_a(worldIn, pos, state.getValue(FACING).getOpposite())) {
             this.dropBlockAsItem(worldIn, pos, state, 0);
@@ -88,6 +96,7 @@ public abstract class BlockButton extends Block {
         }
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         this.updateBlockBounds(worldIn.getBlockState(pos));
     }
@@ -111,6 +120,7 @@ public abstract class BlockButton extends Block {
         }
     }
 
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (state.getValue(POWERED)) {
             return true;
@@ -124,6 +134,7 @@ public abstract class BlockButton extends Block {
         }
     }
 
+    @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         if (state.getValue(POWERED)) {
             this.notifyNeighbors(worldIn, pos, state.getValue(FACING));
@@ -132,21 +143,26 @@ public abstract class BlockButton extends Block {
         super.breakBlock(worldIn, pos, state);
     }
 
+    @Override
     public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
         return state.getValue(POWERED) ? 15 : 0;
     }
 
+    @Override
     public int getStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
         return !state.getValue(POWERED) ? 0 : (state.getValue(FACING) == side ? 15 : 0);
     }
 
+    @Override
     public boolean canProvidePower() {
         return true;
     }
 
+    @Override
     public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random) {
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (!worldIn.isRemote) {
             if (state.getValue(POWERED)) {
@@ -162,6 +178,7 @@ public abstract class BlockButton extends Block {
         }
     }
 
+    @Override
     public void setBlockBoundsForItemRender() {
         float f = 0.1875F;
         float f1 = 0.125F;
@@ -169,6 +186,7 @@ public abstract class BlockButton extends Block {
         this.setBlockBounds(0.5F - f, 0.5F - f1, 0.5F - f2, 0.5F + f, 0.5F + f1, 0.5F + f2);
     }
 
+    @Override
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
         if (!worldIn.isRemote) {
             if (this.wooden) {
@@ -209,6 +227,7 @@ public abstract class BlockButton extends Block {
         worldIn.notifyNeighborsOfStateChange(pos.offset(facing.getOpposite()), this);
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         Direction enumfacing = switch (meta & 7) {
             case 0 -> Direction.DOWN;
@@ -222,6 +241,7 @@ public abstract class BlockButton extends Block {
         return this.getDefaultState().withProperty(FACING, enumfacing).withProperty(POWERED, (meta & 8) > 0);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         int i = switch (state.getValue(FACING)) {
             case EAST -> 1;
@@ -239,6 +259,7 @@ public abstract class BlockButton extends Block {
         return i;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, FACING, POWERED);
     }

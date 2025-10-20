@@ -19,9 +19,11 @@ public class GuiDisconnected extends GuiScreen {
         this.message = chatComp;
     }
 
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
     }
 
+    @Override
     public void initGui() {
         this.buttonList.clear();
         this.multilineMessage = this.fontRendererObj.listFormattedStringToWidth(this.message.getFormattedText(), this.width - 50);
@@ -29,12 +31,14 @@ public class GuiDisconnected extends GuiScreen {
         this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height / 2 + this.field_175353_i / 2 + this.fontRendererObj.FONT_HEIGHT, I18n.format("gui.toMenu")));
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.id == 0) {
             this.mc.displayGuiScreen(this.parentScreen);
         }
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRendererObj, this.reason, this.width / 2, this.height / 2 - this.field_175353_i / 2 - this.fontRendererObj.FONT_HEIGHT * 2, 11184810);

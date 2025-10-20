@@ -28,6 +28,7 @@ public class BlockPortal extends BlockBreakable {
         this.setTickRandomly(true);
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         super.updateTick(worldIn, pos, state, rand);
 
@@ -48,10 +49,12 @@ public class BlockPortal extends BlockBreakable {
         }
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
         return null;
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         Direction.Axis enumfacing$axis = worldIn.getBlockState(pos).getValue(AXIS);
         float f = 0.125F;
@@ -72,6 +75,7 @@ public class BlockPortal extends BlockBreakable {
         return axis == Direction.Axis.X ? 1 : (axis == Direction.Axis.Z ? 2 : 0);
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
@@ -94,6 +98,7 @@ public class BlockPortal extends BlockBreakable {
         }
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         Direction.Axis enumfacing$axis = state.getValue(AXIS);
 
@@ -112,6 +117,7 @@ public class BlockPortal extends BlockBreakable {
         }
     }
 
+    @Override
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, Direction side) {
         Direction.Axis enumfacing$axis = null;
         IBlockState iblockstate = worldIn.getBlockState(pos);
@@ -141,20 +147,24 @@ public class BlockPortal extends BlockBreakable {
         return flag4 && side == Direction.WEST || (flag4 && side == Direction.EAST || (flag5 && side == Direction.NORTH || flag5 && side == Direction.SOUTH));
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return 0;
     }
 
+    @Override
     public RenderLayer getBlockLayer() {
         return RenderLayer.TRANSLUCENT;
     }
 
+    @Override
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
         if (entityIn.ridingEntity == null && entityIn.riddenByEntity == null) {
             entityIn.setPortal(pos);
         }
     }
 
+    @Override
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (rand.nextInt(100) == 0) {
             worldIn.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, "portal.portal", 0.5F, rand.nextFloat() * 0.4F + 0.8F, false);
@@ -181,18 +191,22 @@ public class BlockPortal extends BlockBreakable {
         }
     }
 
+    @Override
     public Item getItem(World worldIn, BlockPos pos) {
         return null;
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(AXIS, (meta & 3) == 2 ? Direction.Axis.Z : Direction.Axis.X);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return getMetaForAxis(state.getValue(AXIS));
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, AXIS);
     }

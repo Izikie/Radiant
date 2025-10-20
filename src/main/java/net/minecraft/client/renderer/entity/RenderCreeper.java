@@ -15,6 +15,7 @@ public class RenderCreeper extends RenderLiving<EntityCreeper> {
         this.addLayer(new LayerCreeperCharge(this));
     }
 
+    @Override
     protected void preRenderCallback(EntityCreeper entitylivingbaseIn, float partialTickTime) {
         float f = entitylivingbaseIn.getCreeperFlashIntensity(partialTickTime);
         float f1 = 1.0F + MathHelper.sin(f * 100.0F) * f * 0.01F;
@@ -26,6 +27,7 @@ public class RenderCreeper extends RenderLiving<EntityCreeper> {
         GlStateManager.scale(f2, f3, f2);
     }
 
+    @Override
     protected int getColorMultiplier(EntityCreeper entitylivingbaseIn, float lightBrightness, float partialTickTime) {
         float f = entitylivingbaseIn.getCreeperFlashIntensity(partialTickTime);
 
@@ -38,6 +40,7 @@ public class RenderCreeper extends RenderLiving<EntityCreeper> {
         }
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityCreeper entity) {
         return CREEPER_TEXTURES;
     }

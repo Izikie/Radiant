@@ -11,10 +11,12 @@ public class BiomeGenOcean extends BiomeGenBase {
         this.spawnableCreatureList.clear();
     }
 
+    @Override
     public TempCategory getTempCategory() {
         return TempCategory.OCEAN;
     }
 
+    @Override
     public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
         super.genTerrainBlocks(worldIn, rand, chunkPrimerIn, x, z, noiseVal);
     }

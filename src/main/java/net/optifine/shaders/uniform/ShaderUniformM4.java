@@ -32,10 +32,12 @@ public class ShaderUniformM4 extends ShaderUniformBase {
 		}
 	}
 
-	protected void onProgramSet(int program) {
+	@Override
+    protected void onProgramSet(int program) {
 	}
 
-	protected void resetValue() {
+	@Override
+    protected void resetValue() {
 		this.matrix = null;
 	}
 }

@@ -20,6 +20,7 @@ public class LayerHeldItem implements LayerRenderer<EntityLivingBase> {
         this.livingEntityRenderer = livingEntityRendererIn;
     }
 
+    @Override
     public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
         ItemStack itemstack = entitylivingbaseIn.getHeldItem();
 
@@ -60,6 +61,7 @@ public class LayerHeldItem implements LayerRenderer<EntityLivingBase> {
         }
     }
 
+    @Override
     public boolean shouldCombineTextures() {
         return false;
     }

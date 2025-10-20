@@ -23,6 +23,7 @@ public class S28PacketEffect implements Packet<INetHandlerPlayClient> {
         this.serverWide = serverWideIn;
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.soundType = buf.readInt();
         this.soundPos = buf.readBlockPos();
@@ -30,6 +31,7 @@ public class S28PacketEffect implements Packet<INetHandlerPlayClient> {
         this.serverWide = buf.readBoolean();
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeInt(this.soundType);
         buf.writeBlockPos(this.soundPos);
@@ -37,6 +39,7 @@ public class S28PacketEffect implements Packet<INetHandlerPlayClient> {
         buf.writeBoolean(this.serverWide);
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleEffect(this);
     }

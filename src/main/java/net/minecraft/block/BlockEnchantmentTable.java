@@ -25,10 +25,12 @@ public class BlockEnchantmentTable extends BlockContainer {
         this.setCreativeTab(CreativeTabs.TAB_DECORATIONS);
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         super.randomDisplayTick(worldIn, pos, state, rand);
 
@@ -55,18 +57,22 @@ public class BlockEnchantmentTable extends BlockContainer {
         }
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public int getRenderType() {
         return 3;
     }
 
+    @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntityEnchantmentTable();
     }
 
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
@@ -79,6 +85,7 @@ public class BlockEnchantmentTable extends BlockContainer {
         return true;
     }
 
+    @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
 

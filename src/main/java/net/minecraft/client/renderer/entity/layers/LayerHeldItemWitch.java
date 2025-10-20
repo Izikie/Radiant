@@ -19,6 +19,7 @@ public class LayerHeldItemWitch implements LayerRenderer<EntityWitch> {
         this.witchRenderer = witchRendererIn;
     }
 
+    @Override
     public void doRenderLayer(EntityWitch entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
         ItemStack itemstack = entitylivingbaseIn.getHeldItem();
 
@@ -79,6 +80,7 @@ public class LayerHeldItemWitch implements LayerRenderer<EntityWitch> {
         }
     }
 
+    @Override
     public boolean shouldCombineTextures() {
         return false;
     }

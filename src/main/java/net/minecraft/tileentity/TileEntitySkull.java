@@ -15,6 +15,7 @@ public class TileEntitySkull extends TileEntity {
     private int skullRotation;
     private GameProfile playerProfile = null;
 
+    @Override
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
         compound.setByte("SkullType", (byte) (this.skullType & 255));
@@ -27,6 +28,7 @@ public class TileEntitySkull extends TileEntity {
         }
     }
 
+    @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         this.skullType = compound.getByte("SkullType");
@@ -50,6 +52,7 @@ public class TileEntitySkull extends TileEntity {
         return this.playerProfile;
     }
 
+    @Override
     public Packet<?> getDescriptionPacket() {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
         this.writeToNBT(nbttagcompound);

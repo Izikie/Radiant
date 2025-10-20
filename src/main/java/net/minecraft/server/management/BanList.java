@@ -10,6 +10,7 @@ public class BanList extends UserList<String, IPBanEntry> {
         super(bansFile);
     }
 
+    @Override
     protected UserListEntry<String> createEntry(JsonObject entryData) {
         return new IPBanEntry(entryData);
     }

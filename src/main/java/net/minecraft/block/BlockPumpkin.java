@@ -33,6 +33,7 @@ public class BlockPumpkin extends BlockDirectional {
         this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
+    @Override
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         super.onBlockAdded(worldIn, pos, state);
         this.trySpawnGolem(worldIn, pos);
@@ -90,22 +91,27 @@ public class BlockPumpkin extends BlockDirectional {
         }
     }
 
+    @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
         return worldIn.getBlockState(pos).getBlock().blockMaterial.isReplaceable() && World.doesBlockHaveSolidTopSurface(worldIn, pos.down());
     }
 
+    @Override
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(FACING, Direction.getHorizontal(meta));
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(FACING).getHorizontalIndex();
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, FACING);
     }

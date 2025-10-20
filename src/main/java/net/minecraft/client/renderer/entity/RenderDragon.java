@@ -26,6 +26,7 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
         this.addLayer(new LayerEnderDragonDeath());
     }
 
+    @Override
     protected void rotateCorpse(EntityDragon bat, float p_77043_2_, float p_77043_3_, float partialTicks) {
         float f = (float) bat.getMovementOffsets(7, partialTicks)[0];
         float f1 = (float) (bat.getMovementOffsets(5, partialTicks)[1] - bat.getMovementOffsets(10, partialTicks)[1]);
@@ -45,6 +46,7 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
         }
     }
 
+    @Override
     protected void renderModel(EntityDragon entitylivingbaseIn, float p_77036_2_, float p_77036_3_, float p_77036_4_, float p_77036_5_, float p_77036_6_, float scaleFactor) {
         if (entitylivingbaseIn.deathTicks > 0) {
             float f = entitylivingbaseIn.deathTicks / 200.0F;
@@ -73,6 +75,7 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
         }
     }
 
+    @Override
     public void doRender(EntityDragon entity, double x, double y, double z, float entityYaw, float partialTicks) {
         BossStatus.setBossStatus(entity, false);
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
@@ -121,6 +124,7 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
         GlStateManager.popMatrix();
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityDragon entity) {
         return ENDER_DRAGON_TEXTURES;
     }

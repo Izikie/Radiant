@@ -19,6 +19,7 @@ public class BlockHay extends BlockRotatedPillar {
         this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         Direction.Axis enumfacing$axis = Direction.Axis.Y;
         int i = meta & 12;
@@ -32,6 +33,7 @@ public class BlockHay extends BlockRotatedPillar {
         return this.getDefaultState().withProperty(AXIS, enumfacing$axis);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         int i = 0;
         Direction.Axis enumfacing$axis = state.getValue(AXIS);
@@ -45,14 +47,17 @@ public class BlockHay extends BlockRotatedPillar {
         return i;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, AXIS);
     }
 
+    @Override
     protected ItemStack createStackedBlock(IBlockState state) {
         return new ItemStack(Item.getItemFromBlock(this), 1, 0);
     }
 
+    @Override
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(AXIS, facing.getAxis());
     }

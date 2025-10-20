@@ -176,11 +176,13 @@ public class ResourcePackRepository {
             final SettableFuture<Object> settablefuture = SettableFuture.create();
             this.downloadingPacks = HttpUtil.downloadResourcePack(file1, url, map, 52428800, guiscreenworking, minecraft.getProxy());
             Futures.addCallback(this.downloadingPacks, new FutureCallback<>() {
+                @Override
                 public void onSuccess(Object p_onSuccess_1_) {
                     ResourcePackRepository.this.setResourcePackInstance(file1);
                     settablefuture.set(null);
                 }
 
+                @Override
                 public void onFailure(Throwable throwable) {
                     settablefuture.setException(throwable);
                 }

@@ -32,26 +32,32 @@ public class BlockTripWireHook extends Block {
         this.setTickRandomly(true);
     }
 
+    @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         return state.withProperty(SUSPENDED, !World.doesBlockHaveSolidTopSurface(worldIn, pos.down()));
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
         return null;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Direction side) {
         return side.getAxis().isHorizontal() && worldIn.getBlockState(pos.offset(side.getOpposite())).getBlock().isNormalCube();
     }
 
+    @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
         for (Direction enumfacing : Direction.Plane.HORIZONTAL) {
             if (worldIn.getBlockState(pos.offset(enumfacing)).getBlock().isNormalCube()) {
@@ -62,6 +68,7 @@ public class BlockTripWireHook extends Block {
         return false;
     }
 
+    @Override
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         IBlockState iblockstate = this.getDefaultState().withProperty(POWERED, Boolean.FALSE).withProperty(ATTACHED, Boolean.FALSE).withProperty(SUSPENDED, Boolean.FALSE);
 
@@ -72,10 +79,12 @@ public class BlockTripWireHook extends Block {
         return iblockstate;
     }
 
+    @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         this.func_176260_a(worldIn, pos, state, false, false, -1, null);
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         if (neighborBlock != this) {
             if (this.checkForDrop(worldIn, pos, state)) {
@@ -167,9 +176,11 @@ public class BlockTripWireHook extends Block {
         }
     }
 
+    @Override
     public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random) {
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         this.func_176260_a(worldIn, pos, state, false, true, -1, null);
     }
@@ -202,6 +213,7 @@ public class BlockTripWireHook extends Block {
     }
 
     
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         float f = 0.1875F;
 
@@ -223,6 +235,7 @@ public class BlockTripWireHook extends Block {
         }
     }
 
+    @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         boolean flag = state.getValue(ATTACHED);
         boolean flag1 = state.getValue(POWERED);
@@ -239,26 +252,32 @@ public class BlockTripWireHook extends Block {
         super.breakBlock(worldIn, pos, state);
     }
 
+    @Override
     public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
         return state.getValue(POWERED) ? 15 : 0;
     }
 
+    @Override
     public int getStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
         return !state.getValue(POWERED) ? 0 : (state.getValue(FACING) == side ? 15 : 0);
     }
 
+    @Override
     public boolean canProvidePower() {
         return true;
     }
 
+    @Override
     public RenderLayer getBlockLayer() {
         return RenderLayer.CUTOUT_MIPPED;
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(FACING, Direction.getHorizontal(meta & 3)).withProperty(POWERED, (meta & 8) > 0).withProperty(ATTACHED, (meta & 4) > 0);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         int i = 0;
         i = i | state.getValue(FACING).getHorizontalIndex();
@@ -274,6 +293,7 @@ public class BlockTripWireHook extends Block {
         return i;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, FACING, POWERED, ATTACHED, SUSPENDED);
     }

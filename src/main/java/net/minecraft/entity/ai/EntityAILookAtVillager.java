@@ -13,6 +13,7 @@ public class EntityAILookAtVillager extends EntityAIBase {
         this.setMutexBits(3);
     }
 
+    @Override
     public boolean shouldExecute() {
         if (!this.theGolem.worldObj.isDaytime()) {
             return false;
@@ -24,20 +25,24 @@ public class EntityAILookAtVillager extends EntityAIBase {
         }
     }
 
+    @Override
     public boolean continueExecuting() {
         return this.lookTime > 0;
     }
 
+    @Override
     public void startExecuting() {
         this.lookTime = 400;
         this.theGolem.setHoldingRose(true);
     }
 
+    @Override
     public void resetTask() {
         this.theGolem.setHoldingRose(false);
         this.theVillager = null;
     }
 
+    @Override
     public void updateTask() {
         this.theGolem.getLookHelper().setLookPositionWithEntity(this.theVillager, 30.0F, 30.0F);
         --this.lookTime;

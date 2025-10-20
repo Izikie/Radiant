@@ -39,6 +39,7 @@ public class EntityLightningBolt extends EntityWeatherEffect {
         }
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
 
@@ -78,12 +79,15 @@ public class EntityLightningBolt extends EntityWeatherEffect {
         }
     }
 
+    @Override
     protected void entityInit() {
     }
 
+    @Override
     protected void readEntityFromNBT(NBTTagCompound tagCompund) {
     }
 
+    @Override
     protected void writeEntityToNBT(NBTTagCompound tagCompound) {
     }
 }

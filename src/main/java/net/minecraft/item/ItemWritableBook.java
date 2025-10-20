@@ -11,6 +11,7 @@ public class ItemWritableBook extends Item {
         this.setMaxStackSize(1);
     }
 
+    @Override
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
         playerIn.displayGUIBook(itemStackIn);
         playerIn.triggerAchievement(StatList.OBJECT_USE_STATS[Item.getIdFromItem(this)]);

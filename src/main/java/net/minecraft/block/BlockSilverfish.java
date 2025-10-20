@@ -26,6 +26,7 @@ public class BlockSilverfish extends Block {
         this.setCreativeTab(CreativeTabs.TAB_DECORATIONS);
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return 0;
     }
@@ -35,6 +36,7 @@ public class BlockSilverfish extends Block {
         return blockState == Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.StoneType.STONE) || block == Blocks.COBBLESTONE || block == Blocks.STONEBRICK;
     }
 
+    @Override
     protected ItemStack createStackedBlock(IBlockState state) {
         return switch (state.getValue(VARIANT)) {
             case COBBLESTONE -> new ItemStack(Blocks.COBBLESTONE);
@@ -48,6 +50,7 @@ public class BlockSilverfish extends Block {
         };
     }
 
+    @Override
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
         if (!worldIn.isRemote && worldIn.getGameRules().getBoolean("doTileDrops")) {
             EntitySilverfish entitysilverfish = new EntitySilverfish(worldIn);
@@ -57,56 +60,67 @@ public class BlockSilverfish extends Block {
         }
     }
 
+    @Override
     public int getDamageValue(World worldIn, BlockPos pos) {
         IBlockState iblockstate = worldIn.getBlockState(pos);
         return iblockstate.getBlock().getMetaFromState(iblockstate);
     }
 
+    @Override
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
         for (EnumType blocksilverfish$enumtype : EnumType.values()) {
             list.add(new ItemStack(itemIn, 1, blocksilverfish$enumtype.getMetadata()));
         }
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(VARIANT, EnumType.byMetadata(meta));
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(VARIANT).getMetadata();
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, VARIANT);
     }
 
     public enum EnumType implements IStringSerializable {
         STONE(0, "stone") {
+            @Override
             public IBlockState getModelBlock() {
                 return Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.StoneType.STONE);
             }
         },
         COBBLESTONE(1, "cobblestone", "cobble") {
+            @Override
             public IBlockState getModelBlock() {
                 return Blocks.COBBLESTONE.getDefaultState();
             }
         },
         STONEBRICK(2, "stone_brick", "brick") {
+            @Override
             public IBlockState getModelBlock() {
                 return Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.DEFAULT);
             }
         },
         MOSSY_STONEBRICK(3, "mossy_brick", "mossybrick") {
+            @Override
             public IBlockState getModelBlock() {
                 return Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.MOSSY);
             }
         },
         CRACKED_STONEBRICK(4, "cracked_brick", "crackedbrick") {
+            @Override
             public IBlockState getModelBlock() {
                 return Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.CRACKED);
             }
         },
         CHISELED_STONEBRICK(5, "chiseled_brick", "chiseledbrick") {
+            @Override
             public IBlockState getModelBlock() {
                 return Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.CHISELED);
             }
@@ -143,6 +157,7 @@ public class BlockSilverfish extends Block {
             return META_LOOKUP[meta];
         }
 
+        @Override
         public String getName() {
             return this.name;
         }

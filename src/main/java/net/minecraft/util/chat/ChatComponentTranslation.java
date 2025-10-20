@@ -119,6 +119,7 @@ public class ChatComponentTranslation extends ChatComponentStyle {
         }
     }
 
+    @Override
     public IChatComponent setChatStyle(ChatStyle style) {
         super.setChatStyle(style);
 
@@ -137,11 +138,13 @@ public class ChatComponentTranslation extends ChatComponentStyle {
         return this;
     }
 
+    @Override
     public Iterator<IChatComponent> iterator() {
         this.ensureInitialized();
         return Iterators.concat(createDeepCopyIterator(this.children), createDeepCopyIterator(this.siblings));
     }
 
+    @Override
     public String getUnformattedTextForChat() {
         this.ensureInitialized();
         StringBuilder stringbuilder = new StringBuilder();
@@ -153,6 +156,7 @@ public class ChatComponentTranslation extends ChatComponentStyle {
         return stringbuilder.toString();
     }
 
+    @Override
     public ChatComponentTranslation createCopy() {
         Object[] aobject = new Object[this.formatArgs.length];
 

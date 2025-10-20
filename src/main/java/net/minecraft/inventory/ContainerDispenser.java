@@ -26,10 +26,12 @@ public class ContainerDispenser extends Container {
         }
     }
 
+    @Override
     public boolean canInteractWith(EntityPlayer playerIn) {
         return this.dispenserInventory.isUseableByPlayer(playerIn);
     }
 
+    @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
         ItemStack itemstack = null;
         Slot slot = this.inventorySlots.get(index);

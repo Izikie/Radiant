@@ -25,11 +25,13 @@ public class ContainerBeacon extends Container {
         }
     }
 
+    @Override
     public void onCraftGuiOpened(ICrafting listener) {
         super.onCraftGuiOpened(listener);
         listener.sendAllWindowProperties(this, this.tileBeacon);
     }
 
+    @Override
     public void updateProgressBar(int id, int data) {
         this.tileBeacon.setField(id, data);
     }
@@ -38,6 +40,7 @@ public class ContainerBeacon extends Container {
         return this.tileBeacon;
     }
 
+    @Override
     public void onContainerClosed(EntityPlayer playerIn) {
         super.onContainerClosed(playerIn);
 
@@ -50,10 +53,12 @@ public class ContainerBeacon extends Container {
         }
     }
 
+    @Override
     public boolean canInteractWith(EntityPlayer playerIn) {
         return this.tileBeacon.isUseableByPlayer(playerIn);
     }
 
+    @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
         ItemStack itemstack = null;
         Slot slot = this.inventorySlots.get(index);
@@ -105,10 +110,12 @@ public class ContainerBeacon extends Container {
             super(p_i1801_2_, p_i1801_3_, p_i1801_4_, p_i1801_5_);
         }
 
+        @Override
         public boolean isItemValid(ItemStack stack) {
             return stack != null && (stack.getItem() == Items.EMERALD || stack.getItem() == Items.DIAMOND || stack.getItem() == Items.GOLD_INGOT || stack.getItem() == Items.IRON_INGOT);
         }
 
+        @Override
         public int getSlotStackLimit() {
             return 1;
         }

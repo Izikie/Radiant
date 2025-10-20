@@ -25,6 +25,7 @@ public class S30PacketWindowItems implements Packet<INetHandlerPlayClient> {
         }
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.windowId = buf.readUnsignedByte();
         int i = buf.readShort();
@@ -35,6 +36,7 @@ public class S30PacketWindowItems implements Packet<INetHandlerPlayClient> {
         }
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeByte(this.windowId);
         buf.writeShort(this.itemStacks.length);
@@ -44,6 +46,7 @@ public class S30PacketWindowItems implements Packet<INetHandlerPlayClient> {
         }
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleWindowItems(this);
     }

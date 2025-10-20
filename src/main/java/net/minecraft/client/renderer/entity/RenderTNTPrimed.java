@@ -15,6 +15,7 @@ public class RenderTNTPrimed extends Render<EntityTNTPrimed> {
         this.shadowSize = 0.5F;
     }
 
+    @Override
     public void doRender(EntityTNTPrimed entity, double x, double y, double z, float entityYaw, float partialTicks) {
         BlockRendererDispatcher blockrendererdispatcher = Minecraft.get().getBlockRendererDispatcher();
         GlStateManager.pushMatrix();
@@ -56,6 +57,7 @@ public class RenderTNTPrimed extends Render<EntityTNTPrimed> {
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityTNTPrimed entity) {
         return TextureMap.LOCATION_BLOCKS_TEXTURE;
     }

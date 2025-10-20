@@ -8,6 +8,7 @@ public class PotionAttackDamage extends Potion {
         super(potionID, location, badEffect, potionColor);
     }
 
+    @Override
     public double getAttributeModifierAmount(int p_111183_1_, AttributeModifier modifier) {
         return this.id == Potion.WEAKNESS.id ? (-0.5F * (p_111183_1_ + 1)) : 1.3D * (p_111183_1_ + 1);
     }

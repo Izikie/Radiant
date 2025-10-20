@@ -34,6 +34,7 @@ public class GuiYesNo extends GuiScreen {
         this.parentButtonClickedId = p_i1083_6_;
     }
 
+    @Override
     public void initGui() {
         this.buttonList.add(new GuiOptionButton(0, this.width / 2 - 155, this.height / 6 + 96, this.confirmButtonText));
         this.buttonList.add(new GuiOptionButton(1, this.width / 2 - 155 + 160, this.height / 6 + 96, this.cancelButtonText));
@@ -41,10 +42,12 @@ public class GuiYesNo extends GuiScreen {
         this.field_175298_s.addAll(this.fontRendererObj.listFormattedStringToWidth(this.messageLine2, this.width - 50));
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         this.parentScreen.confirmClicked(button.id == 0, this.parentButtonClickedId);
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRendererObj, this.messageLine1, this.width / 2, 70, 16777215);
@@ -66,6 +69,7 @@ public class GuiYesNo extends GuiScreen {
         }
     }
 
+    @Override
     public void updateScreen() {
         super.updateScreen();
 

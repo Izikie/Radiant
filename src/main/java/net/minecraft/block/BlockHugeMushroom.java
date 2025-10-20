@@ -24,10 +24,12 @@ public class BlockHugeMushroom extends Block {
         this.smallBlock = p_i46392_3_;
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return Math.max(0, random.nextInt(10) - 7);
     }
 
+    @Override
     public MapColor getMapColor(IBlockState state) {
         return switch (state.getValue(VARIANT)) {
             case ALL_STEM -> MapColor.CLOTH_COLOR;
@@ -37,26 +39,32 @@ public class BlockHugeMushroom extends Block {
         };
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Item.getItemFromBlock(this.smallBlock);
     }
 
+    @Override
     public Item getItem(World worldIn, BlockPos pos) {
         return Item.getItemFromBlock(this.smallBlock);
     }
 
+    @Override
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return this.getDefaultState();
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(VARIANT, EnumType.byMetadata(meta));
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(VARIANT).getMetadata();
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, VARIANT);
     }
@@ -102,6 +110,7 @@ public class BlockHugeMushroom extends Block {
             return blockhugemushroom$enumtype == null ? META_LOOKUP[0] : blockhugemushroom$enumtype;
         }
 
+        @Override
         public String getName() {
             return this.name;
         }

@@ -1791,12 +1791,14 @@ public class Minecraft implements IThreadListener {
 		}
 	}
 
-	public ListenableFuture<Object> addScheduledTask(Runnable runnableToSchedule) {
+	@Override
+    public ListenableFuture<Object> addScheduledTask(Runnable runnableToSchedule) {
 		Objects.requireNonNull(runnableToSchedule);
 		return addScheduledTask(Executors.callable(runnableToSchedule));
 	}
 
-	public boolean isCallingFromMinecraftThread() {
+	@Override
+    public boolean isCallingFromMinecraftThread() {
 		return Thread.currentThread() == mcThread;
 	}
 

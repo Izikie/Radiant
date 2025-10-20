@@ -37,6 +37,7 @@ public class MapData extends WorldSavedData {
         this.zCenter = k * i + i / 2 - 64;
     }
 
+    @Override
     public void readFromNBT(NBTTagCompound nbt) {
         this.dimension = nbt.getByte("dimension");
         this.xCenter = nbt.getInteger("xCenter");
@@ -70,6 +71,7 @@ public class MapData extends WorldSavedData {
         }
     }
 
+    @Override
     public void writeToNBT(NBTTagCompound nbt) {
         nbt.setByte("dimension", this.dimension);
         nbt.setInteger("xCenter", this.xCenter);

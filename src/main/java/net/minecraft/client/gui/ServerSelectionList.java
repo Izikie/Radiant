@@ -19,6 +19,7 @@ public class ServerSelectionList extends GuiListExtended {
         this.owner = ownerIn;
     }
 
+    @Override
     public IGuiListEntry getListEntry(int index) {
         if (index < this.serverListInternet.size()) {
             return this.serverListInternet.get(index);
@@ -34,6 +35,7 @@ public class ServerSelectionList extends GuiListExtended {
         }
     }
 
+    @Override
     protected int getSize() {
         return this.serverListInternet.size() + 1 + this.serverListLan.size();
     }
@@ -42,6 +44,7 @@ public class ServerSelectionList extends GuiListExtended {
         this.selectedSlotIndex = selectedSlotIndexIn;
     }
 
+    @Override
     protected boolean isSelected(int slotIndex) {
         return slotIndex == this.selectedSlotIndex;
     }
@@ -66,10 +69,12 @@ public class ServerSelectionList extends GuiListExtended {
         }
     }
 
+    @Override
     protected int getScrollBarX() {
         return super.getScrollBarX() + 30;
     }
 
+    @Override
     public int getListWidth() {
         return super.getListWidth() + 85;
     }

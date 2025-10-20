@@ -13,14 +13,17 @@ public class EntityAILookIdle extends EntityAIBase {
         this.setMutexBits(3);
     }
 
+    @Override
     public boolean shouldExecute() {
         return this.idleEntity.getRNG().nextFloat() < 0.02F;
     }
 
+    @Override
     public boolean continueExecuting() {
         return this.idleTime >= 0;
     }
 
+    @Override
     public void startExecuting() {
         double d0 = (Math.PI * 2.0D) * this.idleEntity.getRNG().nextDouble();
         this.lookX = Math.cos(d0);
@@ -28,6 +31,7 @@ public class EntityAILookIdle extends EntityAIBase {
         this.idleTime = 20 + this.idleEntity.getRNG().nextInt(20);
     }
 
+    @Override
     public void updateTask() {
         --this.idleTime;
         this.idleEntity.getLookHelper().setLookPosition(this.idleEntity.posX + this.lookX, this.idleEntity.posY + this.idleEntity.getEyeHeight(), this.idleEntity.posZ + this.lookZ, 10.0F, this.idleEntity.getVerticalFaceSpeed());

@@ -10,14 +10,17 @@ import net.minecraft.world.World;
 
 public class EntityMinecartMobSpawner extends EntityMinecart {
     private final MobSpawnerBaseLogic mobSpawnerLogic = new MobSpawnerBaseLogic() {
+        @Override
         public void func_98267_a(int id) {
             EntityMinecartMobSpawner.this.worldObj.setEntityState(EntityMinecartMobSpawner.this, (byte) id);
         }
 
+        @Override
         public World getSpawnerWorld() {
             return EntityMinecartMobSpawner.this.worldObj;
         }
 
+        @Override
         public BlockPos getSpawnerPosition() {
             return new BlockPos(EntityMinecartMobSpawner.this);
         }
@@ -31,28 +34,34 @@ public class EntityMinecartMobSpawner extends EntityMinecart {
         super(worldIn, p_i1726_2_, p_i1726_4_, p_i1726_6_);
     }
 
+    @Override
     public MinecartType getMinecartType() {
         return MinecartType.SPAWNER;
     }
 
+    @Override
     public IBlockState getDefaultDisplayTile() {
         return Blocks.MOB_SPAWNER.getDefaultState();
     }
 
+    @Override
     protected void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
         this.mobSpawnerLogic.readFromNBT(tagCompund);
     }
 
+    @Override
     protected void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         this.mobSpawnerLogic.writeToNBT(tagCompound);
     }
 
+    @Override
     public void handleStatusUpdate(byte id) {
         this.mobSpawnerLogic.setDelayToMin(id);
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
         this.mobSpawnerLogic.updateSpawner();

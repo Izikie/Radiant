@@ -13,6 +13,7 @@ public class ItemAxe extends ItemTool {
         super(3.0F, material, EFFECTIVE_ON);
     }
 
+    @Override
     public float getStrVsBlock(ItemStack stack, Block state) {
         return state.getMaterial() != Material.WOOD && state.getMaterial() != Material.PLANTS && state.getMaterial() != Material.VINE ? super.getStrVsBlock(stack, state) : this.efficiencyOnProperMaterial;
     }

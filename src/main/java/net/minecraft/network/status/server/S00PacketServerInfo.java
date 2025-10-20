@@ -30,14 +30,17 @@ public class S00PacketServerInfo implements Packet<INetHandlerStatusClient> {
         this.response = responseIn;
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.response = GSON.fromJson(buf.readStringFromBuffer(32767), ServerStatusResponse.class);
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeString(GSON.toJson(this.response));
     }
 
+    @Override
     public void processPacket(INetHandlerStatusClient handler) {
         handler.handleServerInfo(this);
     }

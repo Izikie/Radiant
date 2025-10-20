@@ -27,10 +27,12 @@ public class BlockCrops extends BlockBush implements IGrowable {
         this.disableStats();
     }
 
+    @Override
     protected boolean canPlaceBlockOn(Block ground) {
         return ground == Blocks.FARMLAND;
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         super.updateTick(worldIn, pos, state, rand);
 
@@ -102,6 +104,7 @@ public class BlockCrops extends BlockBush implements IGrowable {
         return f;
     }
 
+    @Override
     public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state) {
         return (worldIn.getLight(pos) >= 8 || worldIn.canSeeSky(pos)) && this.canPlaceBlockOn(worldIn.getBlockState(pos.down()).getBlock());
     }
@@ -114,6 +117,7 @@ public class BlockCrops extends BlockBush implements IGrowable {
         return Items.WHEAT;
     }
 
+    @Override
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
         super.dropBlockAsItemWithChance(worldIn, pos, state, chance, 0);
 
@@ -132,34 +136,42 @@ public class BlockCrops extends BlockBush implements IGrowable {
         }
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return state.getValue(AGE) == 7 ? this.getCrop() : this.getSeed();
     }
 
+    @Override
     public Item getItem(World worldIn, BlockPos pos) {
         return this.getSeed();
     }
 
+    @Override
     public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
         return state.getValue(AGE) < 7;
     }
 
+    @Override
     public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
         return true;
     }
 
+    @Override
     public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
         this.grow(worldIn, pos, state);
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(AGE, meta);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(AGE);
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, AGE);
     }

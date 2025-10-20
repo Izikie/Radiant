@@ -22,6 +22,7 @@ public class EntityLavaFX extends EntityFX {
         this.setParticleTextureIndex(49);
     }
 
+    @Override
     public int getBrightnessForRender(float partialTicks) {
         float f = (this.particleAge + partialTicks) / this.particleMaxAge;
         int i = super.getBrightnessForRender(partialTicks);
@@ -30,16 +31,19 @@ public class EntityLavaFX extends EntityFX {
         return j | k << 16;
     }
 
+    @Override
     public float getBrightness(float partialTicks) {
         return 1.0F;
     }
 
+    @Override
     public void renderParticle(WorldRenderer worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
         float f = (this.particleAge + partialTicks) / this.particleMaxAge;
         this.particleScale = this.lavaParticleScale * (1.0F - f * f);
         super.renderParticle(worldRendererIn, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
     }
 
+    @Override
     public void onUpdate() {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
@@ -68,6 +72,7 @@ public class EntityLavaFX extends EntityFX {
     }
 
     public static class Factory implements IParticleFactory {
+        @Override
         public EntityFX getEntityFX(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
             return new EntityLavaFX(worldIn, xCoordIn, yCoordIn, zCoordIn);
         }

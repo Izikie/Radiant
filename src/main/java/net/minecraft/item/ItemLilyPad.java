@@ -16,6 +16,7 @@ public class ItemLilyPad extends ItemColored {
         super(block, false);
     }
 
+    @Override
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
         MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(worldIn, playerIn, true);
 
@@ -49,6 +50,7 @@ public class ItemLilyPad extends ItemColored {
         return itemStackIn;
     }
 
+    @Override
     public int getColorFromItemStack(ItemStack stack, int renderPass) {
         return Blocks.WATERLILY.getRenderColor(Blocks.WATERLILY.getStateFromMeta(stack.getMetadata()));
     }

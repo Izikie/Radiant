@@ -147,6 +147,7 @@ public class GuiPageButtonList extends GuiListExtended {
         }
     }
 
+    @Override
     public boolean mouseClicked(int mouseX, int mouseY, int mouseEvent) {
         boolean flag = super.mouseClicked(mouseX, mouseY, mouseEvent);
         int i = this.getSlotIndexFromScreenCoords(mouseX, mouseY);
@@ -257,18 +258,22 @@ public class GuiPageButtonList extends GuiListExtended {
         }
     }
 
+    @Override
     public GuiEntry getListEntry(int index) {
         return this.field_178074_u.get(index);
     }
 
+    @Override
     public int getSize() {
         return this.field_178074_u.size();
     }
 
+    @Override
     public int getListWidth() {
         return 400;
     }
 
+    @Override
     protected int getScrollBarX() {
         return super.getScrollBarX() + 32;
     }
@@ -318,6 +323,7 @@ public class GuiPageButtonList extends GuiListExtended {
             return this.field_178030_c;
         }
 
+        @Override
         public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected) {
             this.func_178017_a(this.field_178029_b, y, mouseX, mouseY, false);
             this.func_178017_a(this.field_178030_c, y, mouseX, mouseY, false);
@@ -361,11 +367,13 @@ public class GuiPageButtonList extends GuiListExtended {
             }
         }
 
+        @Override
         public void setSelected(int p_178011_1_, int p_178011_2_, int p_178011_3_) {
             this.func_178017_a(this.field_178029_b, p_178011_3_, 0, 0, true);
             this.func_178017_a(this.field_178030_c, p_178011_3_, 0, 0, true);
         }
 
+        @Override
         public boolean mousePressed(int slotIndex, int p_148278_2_, int p_148278_3_, int p_148278_4_, int p_148278_5_, int p_148278_6_) {
             boolean flag = this.func_178026_a(this.field_178029_b, p_148278_2_, p_148278_3_, p_148278_4_);
             boolean flag1 = this.func_178026_a(this.field_178030_c, p_148278_2_, p_148278_3_, p_148278_4_);
@@ -404,6 +412,7 @@ public class GuiPageButtonList extends GuiListExtended {
             }
         }
 
+        @Override
         public void mouseReleased(int slotIndex, int x, int y, int mouseEvent, int relativeX, int relativeY) {
             this.func_178016_b(this.field_178029_b, x, y, mouseEvent);
             this.func_178016_b(this.field_178030_c, x, y, mouseEvent);

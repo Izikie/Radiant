@@ -33,10 +33,12 @@ public class S2DPacketOpenWindow implements Packet<INetHandlerPlayClient> {
         this.entityId = incomingEntityId;
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleOpenWindow(this);
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.windowId = buf.readUnsignedByte();
         this.inventoryType = buf.readStringFromBuffer(32);
@@ -48,6 +50,7 @@ public class S2DPacketOpenWindow implements Packet<INetHandlerPlayClient> {
         }
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeByte(this.windowId);
         buf.writeString(this.inventoryType);

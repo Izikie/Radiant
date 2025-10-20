@@ -22,6 +22,7 @@ public class EntityAIFleeSun extends EntityAIBase {
         this.setMutexBits(1);
     }
 
+    @Override
     public boolean shouldExecute() {
         if (!this.theWorld.isDaytime()) {
             return false;
@@ -43,10 +44,12 @@ public class EntityAIFleeSun extends EntityAIBase {
         }
     }
 
+    @Override
     public boolean continueExecuting() {
         return !this.theCreature.getNavigator().noPath();
     }
 
+    @Override
     public void startExecuting() {
         this.theCreature.getNavigator().tryMoveToXYZ(this.shelterX, this.shelterY, this.shelterZ, this.movementSpeed);
     }

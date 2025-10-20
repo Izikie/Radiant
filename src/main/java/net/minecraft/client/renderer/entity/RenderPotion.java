@@ -9,6 +9,7 @@ public class RenderPotion extends RenderSnowball<EntityPotion> {
         super(renderManagerIn, Items.POTION, itemRendererIn);
     }
 
+    @Override
     public ItemStack func_177082_d(EntityPotion entityIn) {
         return new ItemStack(this.field_177084_a, 1, entityIn.getPotionDamage());
     }

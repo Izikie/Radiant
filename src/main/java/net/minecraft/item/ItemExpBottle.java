@@ -11,10 +11,12 @@ public class ItemExpBottle extends Item {
         this.setCreativeTab(CreativeTabs.TAB_MISC);
     }
 
+    @Override
     public boolean hasEffect(ItemStack stack) {
         return true;
     }
 
+    @Override
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
         if (!playerIn.capabilities.isCreativeMode) {
             --itemStackIn.stackSize;

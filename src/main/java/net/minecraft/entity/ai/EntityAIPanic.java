@@ -16,6 +16,7 @@ public class EntityAIPanic extends EntityAIBase {
         this.setMutexBits(1);
     }
 
+    @Override
     public boolean shouldExecute() {
         if (this.theEntityCreature.getAITarget() == null && !this.theEntityCreature.isBurning()) {
             return false;
@@ -33,10 +34,12 @@ public class EntityAIPanic extends EntityAIBase {
         }
     }
 
+    @Override
     public void startExecuting() {
         this.theEntityCreature.getNavigator().tryMoveToXYZ(this.randPosX, this.randPosY, this.randPosZ, this.speed);
     }
 
+    @Override
     public boolean continueExecuting() {
         return !this.theEntityCreature.getNavigator().noPath();
     }

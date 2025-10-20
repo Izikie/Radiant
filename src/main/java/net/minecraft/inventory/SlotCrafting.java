@@ -18,10 +18,12 @@ public class SlotCrafting extends Slot {
         this.craftMatrix = craftingInventory;
     }
 
+    @Override
     public boolean isItemValid(ItemStack stack) {
         return false;
     }
 
+    @Override
     public ItemStack decrStackSize(int amount) {
         if (this.getHasStack()) {
             this.amountCrafted += Math.min(amount, this.getStack().stackSize);
@@ -30,11 +32,13 @@ public class SlotCrafting extends Slot {
         return super.decrStackSize(amount);
     }
 
+    @Override
     protected void onCrafting(ItemStack stack, int amount) {
         this.amountCrafted += amount;
         this.onCrafting(stack);
     }
 
+    @Override
     protected void onCrafting(ItemStack stack) {
         if (this.amountCrafted > 0) {
             stack.onCrafting(this.thePlayer.worldObj, this.thePlayer, this.amountCrafted);
@@ -87,6 +91,7 @@ public class SlotCrafting extends Slot {
         }
     }
 
+    @Override
     public void onPickupFromSlot(EntityPlayer playerIn, ItemStack stack) {
         this.onCrafting(stack);
         ItemStack[] aitemstack = CraftingManager.getInstance().func_180303_b(this.craftMatrix, playerIn.worldObj);

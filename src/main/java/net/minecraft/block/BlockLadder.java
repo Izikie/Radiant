@@ -22,16 +22,19 @@ public class BlockLadder extends Block {
         this.setCreativeTab(CreativeTabs.TAB_DECORATIONS);
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
         this.setBlockBoundsBasedOnState(worldIn, pos);
         return super.getCollisionBoundingBox(worldIn, pos, state);
     }
 
+    @Override
     public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos) {
         this.setBlockBoundsBasedOnState(worldIn, pos);
         return super.getSelectedBoundingBox(worldIn, pos);
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         IBlockState iblockstate = worldIn.getBlockState(pos);
 
@@ -58,18 +61,22 @@ public class BlockLadder extends Block {
         }
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
         return worldIn.getBlockState(pos.west()).getBlock().isNormalCube() || (worldIn.getBlockState(pos.east()).getBlock().isNormalCube() || (worldIn.getBlockState(pos.north()).getBlock().isNormalCube() || worldIn.getBlockState(pos.south()).getBlock().isNormalCube()));
     }
 
+    @Override
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         if (facing.getAxis().isHorizontal() && this.canBlockStay(worldIn, pos, facing)) {
             return this.getDefaultState().withProperty(FACING, facing);
@@ -84,6 +91,7 @@ public class BlockLadder extends Block {
         }
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         Direction enumfacing = state.getValue(FACING);
 
@@ -99,10 +107,12 @@ public class BlockLadder extends Block {
         return worldIn.getBlockState(pos.offset(facing.getOpposite())).getBlock().isNormalCube();
     }
 
+    @Override
     public RenderLayer getBlockLayer() {
         return RenderLayer.CUTOUT;
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         Direction enumfacing = Direction.getFront(meta);
 
@@ -113,10 +123,12 @@ public class BlockLadder extends Block {
         return this.getDefaultState().withProperty(FACING, enumfacing);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(FACING).getIndex();
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, FACING);
     }

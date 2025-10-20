@@ -24,6 +24,7 @@ public class EntitySmallFireball extends EntityFireball {
         this.setSize(0.3125F, 0.3125F);
     }
 
+    @Override
     protected void onImpact(MovingObjectPosition movingObject) {
         if (!this.worldObj.isRemote) {
             if (movingObject.entityHit != null) {
@@ -56,10 +57,12 @@ public class EntitySmallFireball extends EntityFireball {
         }
     }
 
+    @Override
     public boolean canBeCollidedWith() {
         return false;
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         return false;
     }

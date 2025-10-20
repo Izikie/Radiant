@@ -26,15 +26,18 @@ public class EntityMinecartFurnace extends EntityMinecart {
         super(worldIn, x, y, z);
     }
 
+    @Override
     public MinecartType getMinecartType() {
         return MinecartType.FURNACE;
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(16, (byte) 0);
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
 
@@ -53,10 +56,12 @@ public class EntityMinecartFurnace extends EntityMinecart {
         }
     }
 
+    @Override
     protected double getMaximumSpeed() {
         return 0.2D;
     }
 
+    @Override
     public void killMinecart(DamageSource source) {
         super.killMinecart(source);
 
@@ -65,6 +70,7 @@ public class EntityMinecartFurnace extends EntityMinecart {
         }
     }
 
+    @Override
     protected void func_180460_a(BlockPos p_180460_1_, IBlockState p_180460_2_) {
         super.func_180460_a(p_180460_1_, p_180460_2_);
         double d0 = this.pushX * this.pushX + this.pushZ * this.pushZ;
@@ -85,6 +91,7 @@ public class EntityMinecartFurnace extends EntityMinecart {
         }
     }
 
+    @Override
     protected void applyDrag() {
         double d0 = this.pushX * this.pushX + this.pushZ * this.pushZ;
 
@@ -107,6 +114,7 @@ public class EntityMinecartFurnace extends EntityMinecart {
         super.applyDrag();
     }
 
+    @Override
     public boolean interactFirst(EntityPlayer playerIn) {
         ItemStack itemstack = playerIn.inventory.getCurrentItem();
 
@@ -123,6 +131,7 @@ public class EntityMinecartFurnace extends EntityMinecart {
         return true;
     }
 
+    @Override
     protected void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         tagCompound.setDouble("PushX", this.pushX);
@@ -130,6 +139,7 @@ public class EntityMinecartFurnace extends EntityMinecart {
         tagCompound.setShort("Fuel", (short) this.fuel);
     }
 
+    @Override
     protected void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
         this.pushX = tagCompund.getDouble("PushX");
@@ -149,6 +159,7 @@ public class EntityMinecartFurnace extends EntityMinecart {
         }
     }
 
+    @Override
     public IBlockState getDefaultDisplayTile() {
         return (this.isMinecartPowered() ? Blocks.LIT_FURNACE : Blocks.FURNACE).getDefaultState().withProperty(BlockFurnace.FACING, Direction.NORTH);
     }

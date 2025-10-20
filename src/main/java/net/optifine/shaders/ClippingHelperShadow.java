@@ -16,7 +16,8 @@ public class ClippingHelperShadow extends ClippingHelper {
 		return INSTANCE;
 	}
 
-	public boolean isBoxInFrustum(double x1, double y1, double z1, double x2, double y2, double z2) {
+	@Override
+    public boolean isBoxInFrustum(double x1, double y1, double z1, double x2, double y2, double z2) {
 		for (int i = 0; i < this.shadowClipPlaneCount; ++i) {
 			float[] afloat = this.shadowClipPlanes[i];
 

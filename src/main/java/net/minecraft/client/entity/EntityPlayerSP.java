@@ -63,13 +63,16 @@ public class EntityPlayerSP extends AbstractClientPlayer {
         this.dimension = 0;
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         return false;
     }
 
+    @Override
     public void heal(float healAmount) {
     }
 
+    @Override
     public void mountEntity(Entity entityIn) {
         super.mountEntity(entityIn);
 
@@ -78,6 +81,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
         }
     }
 
+    @Override
     public void onUpdate() {
         if (this.worldObj.isBlockLoaded(new BlockPos(this.posX, 0.0D, this.posZ))) {
             super.onUpdate();
@@ -156,12 +160,14 @@ public class EntityPlayerSP extends AbstractClientPlayer {
         }
     }
 
+    @Override
     public EntityItem dropOneItem(boolean dropAll) {
         C07PacketPlayerDigging.Action c07packetplayerdigging$action = dropAll ? C07PacketPlayerDigging.Action.DROP_ALL_ITEMS : C07PacketPlayerDigging.Action.DROP_ITEM;
         this.sendQueue.addToSendQueue(new C07PacketPlayerDigging(c07packetplayerdigging$action, BlockPos.ORIGIN, Direction.DOWN));
         return null;
     }
 
+    @Override
     protected void joinEntityItemWithWorld(EntityItem itemIn) {
     }
 
@@ -169,21 +175,25 @@ public class EntityPlayerSP extends AbstractClientPlayer {
         this.sendQueue.addToSendQueue(new C01PacketChatMessage(message));
     }
 
+    @Override
     public void swingItem() {
         super.swingItem();
         this.sendQueue.addToSendQueue(new C0APacketAnimation());
     }
 
+    @Override
     public void respawnPlayer() {
         this.sendQueue.addToSendQueue(new C16PacketClientStatus(C16PacketClientStatus.EnumState.PERFORM_RESPAWN));
     }
 
+    @Override
     protected void damageEntity(DamageSource damageSrc, float damageAmount) {
         if (!this.isEntityInvulnerable(damageSrc)) {
             this.setHealth(this.getHealth() - damageAmount);
         }
     }
 
+    @Override
     public void closeScreen() {
         this.sendQueue.addToSendQueue(new C0DPacketCloseWindow(this.openContainer.windowId));
         this.closeScreenAndDropStack();
@@ -218,6 +228,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
         }
     }
 
+    @Override
     public void addStat(StatBase stat, int amount) {
         if (stat != null) {
             if (stat.isIndependent) {
@@ -226,10 +237,12 @@ public class EntityPlayerSP extends AbstractClientPlayer {
         }
     }
 
+    @Override
     public void sendPlayerAbilities() {
         this.sendQueue.addToSendQueue(new C13PacketPlayerAbilities(this.capabilities));
     }
 
+    @Override
     public boolean isUser() {
         return true;
     }
@@ -254,10 +267,12 @@ public class EntityPlayerSP extends AbstractClientPlayer {
         return this.statWriter;
     }
 
+    @Override
     public void addChatComponentMessage(IChatComponent chatComponent) {
         this.mc.ingameGUI.getChatGUI().printChatMessage(chatComponent);
     }
 
+    @Override
     protected boolean pushOutOfBlocks(double x, double y, double z) {
         if (!this.noClip) {
             BlockPos blockpos = new BlockPos(x, y, z);
@@ -314,6 +329,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
         return !this.worldObj.getBlockState(pos).getBlock().isNormalCube() && !this.worldObj.getBlockState(pos.up()).getBlock().isNormalCube();
     }
 
+    @Override
     public void setSprinting(boolean sprinting) {
         super.setSprinting(sprinting);
         this.sprintingTicksLeft = sprinting ? 600 : 0;
@@ -325,22 +341,27 @@ public class EntityPlayerSP extends AbstractClientPlayer {
         this.experienceLevel = level;
     }
 
+    @Override
     public void addChatMessage(IChatComponent component) {
         this.mc.ingameGUI.getChatGUI().printChatMessage(component);
     }
 
+    @Override
     public boolean canCommandSenderUseCommand(int permLevel, String commandName) {
         return permLevel <= 0;
     }
 
+    @Override
     public BlockPos getPosition() {
         return new BlockPos(this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D);
     }
 
+    @Override
     public void playSound(String name, float volume, float pitch) {
         this.worldObj.playSound(this.posX, this.posY, this.posZ, name, volume, pitch, false);
     }
 
+    @Override
     public boolean isServerWorld() {
         return true;
     }
@@ -353,14 +374,17 @@ public class EntityPlayerSP extends AbstractClientPlayer {
         return this.horseJumpPower;
     }
 
+    @Override
     public void openEditSign(TileEntitySign signTile) {
         this.mc.displayGuiScreen(new GuiEditSign(signTile));
     }
 
+    @Override
     public void openEditCommandBlock(CommandBlockLogic cmdBlockLogic) {
         this.mc.displayGuiScreen(new GuiCommandBlock(cmdBlockLogic));
     }
 
+    @Override
     public void displayGUIBook(ItemStack bookStack) {
         Item item = bookStack.getItem();
 
@@ -369,6 +393,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
         }
     }
 
+    @Override
     public void displayGUIChest(IInventory chestInventory) {
         String s = chestInventory instanceof IInteractionObject iInteractionObject ? iInteractionObject.getGuiID() : "minecraft:container";
 
@@ -389,10 +414,12 @@ public class EntityPlayerSP extends AbstractClientPlayer {
         }
     }
 
+    @Override
     public void displayGUIHorse(EntityHorse horse, IInventory horseInventory) {
         this.mc.displayGuiScreen(new GuiScreenHorseInventory(this.inventory, horseInventory, horse));
     }
 
+    @Override
     public void displayGui(IInteractionObject guiOwner) {
         String s = guiOwner.getGuiID();
 
@@ -405,23 +432,28 @@ public class EntityPlayerSP extends AbstractClientPlayer {
         }
     }
 
+    @Override
     public void displayVillagerTradeGui(IMerchant villager) {
         this.mc.displayGuiScreen(new GuiMerchant(this.inventory, villager, this.worldObj));
     }
 
+    @Override
     public void onCriticalHit(Entity entityHit) {
         this.mc.effectRenderer.emitParticleAtEntity(entityHit, ParticleTypes.CRIT);
     }
 
+    @Override
     public void onEnchantmentCritical(Entity entityHit) {
         this.mc.effectRenderer.emitParticleAtEntity(entityHit, ParticleTypes.CRIT_MAGIC);
     }
 
+    @Override
     public boolean isSneaking() {
         boolean flag = this.movementInput != null && this.movementInput.sneak;
         return flag && !this.sleeping;
     }
 
+    @Override
     public void updateEntityActionState() {
         super.updateEntityActionState();
 
@@ -440,6 +472,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
         return this.mc.getRenderViewEntity() == this;
     }
 
+    @Override
     public void onLivingUpdate() {
         if (this.sprintingTicksLeft > 0) {
             --this.sprintingTicksLeft;

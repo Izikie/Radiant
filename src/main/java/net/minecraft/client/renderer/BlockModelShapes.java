@@ -156,6 +156,7 @@ public class BlockModelShapes {
         this.registerBlockWithStateMapper(Blocks.HOPPER, (new StateMap.Builder()).ignore(BlockHopper.ENABLED).build());
         this.registerBlockWithStateMapper(Blocks.FLOWER_POT, (new StateMap.Builder()).ignore(BlockFlowerPot.LEGACY_DATA).build());
         this.registerBlockWithStateMapper(Blocks.QUARTZ_BLOCK, new StateMapperBase() {
+            @Override
             protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
                 BlockQuartz.QuartzType blockquartz$enumtype = state.getValue(BlockQuartz.VARIANT);
 
@@ -169,11 +170,13 @@ public class BlockModelShapes {
             }
         });
         this.registerBlockWithStateMapper(Blocks.DEAD_BUSH, new StateMapperBase() {
+            @Override
             protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
                 return new ModelResourceLocation("dead_bush", "normal");
             }
         });
         this.registerBlockWithStateMapper(Blocks.PUMPKIN_STEM, new StateMapperBase() {
+            @Override
             protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
                 Map<IProperty<?>, Comparable<?>> map = new LinkedHashMap<>(state.getProperties());
 
@@ -185,6 +188,7 @@ public class BlockModelShapes {
             }
         });
         this.registerBlockWithStateMapper(Blocks.MELON_STEM, new StateMapperBase() {
+            @Override
             protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
                 Map<IProperty<?>, Comparable<?>> map = new LinkedHashMap<>(state.getProperties());
 
@@ -196,6 +200,7 @@ public class BlockModelShapes {
             }
         });
         this.registerBlockWithStateMapper(Blocks.DIRT, new StateMapperBase() {
+            @Override
             protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
                 Map<IProperty<?>, Comparable<?>> map = new LinkedHashMap<>(state.getProperties());
                 String s = BlockDirt.VARIANT.getName((BlockDirt.DirtType) map.remove(BlockDirt.VARIANT));
@@ -208,6 +213,7 @@ public class BlockModelShapes {
             }
         });
         this.registerBlockWithStateMapper(Blocks.DOUBLE_STONE_SLAB, new StateMapperBase() {
+            @Override
             protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
                 Map<IProperty<?>, Comparable<?>> map = new LinkedHashMap<>(state.getProperties());
                 String s = BlockStoneSlab.VARIANT.getName((BlockStoneSlab.EnumType) map.remove(BlockStoneSlab.VARIANT));
@@ -217,6 +223,7 @@ public class BlockModelShapes {
             }
         });
         this.registerBlockWithStateMapper(Blocks.DOUBLE_STONE_SLAB_2, new StateMapperBase() {
+            @Override
             protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
                 Map<IProperty<?>, Comparable<?>> map = new LinkedHashMap<>(state.getProperties());
                 String s = BlockStoneSlabNew.VARIANT.getName((BlockStoneSlabNew.EnumType) map.remove(BlockStoneSlabNew.VARIANT));

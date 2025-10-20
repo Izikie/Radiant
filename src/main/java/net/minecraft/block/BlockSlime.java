@@ -15,10 +15,12 @@ public class BlockSlime extends BlockBreakable {
         this.slipperiness = 0.8F;
     }
 
+    @Override
     public RenderLayer getBlockLayer() {
         return RenderLayer.TRANSLUCENT;
     }
 
+    @Override
     public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
         if (entityIn.isSneaking()) {
             super.onFallenUpon(worldIn, pos, entityIn, fallDistance);
@@ -27,6 +29,7 @@ public class BlockSlime extends BlockBreakable {
         }
     }
 
+    @Override
     public void onLanded(World worldIn, Entity entityIn) {
         if (entityIn.isSneaking()) {
             super.onLanded(worldIn, entityIn);
@@ -35,6 +38,7 @@ public class BlockSlime extends BlockBreakable {
         }
     }
 
+    @Override
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, Entity entityIn) {
         if (Math.abs(entityIn.motionY) < 0.1D && !entityIn.isSneaking()) {
             double d0 = 0.4D + Math.abs(entityIn.motionY) * 0.2D;

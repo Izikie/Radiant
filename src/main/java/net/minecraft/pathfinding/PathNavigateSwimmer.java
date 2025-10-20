@@ -11,18 +11,22 @@ public class PathNavigateSwimmer extends PathNavigate {
         super(entitylivingIn, worldIn);
     }
 
+    @Override
     protected PathFinder getPathFinder() {
         return new PathFinder(new SwimNodeProcessor());
     }
 
+    @Override
     protected boolean canNavigate() {
         return this.isInLiquid();
     }
 
+    @Override
     protected Vec3 getEntityPosition() {
         return new Vec3(this.theEntity.posX, this.theEntity.posY + this.theEntity.height * 0.5D, this.theEntity.posZ);
     }
 
+    @Override
     protected void pathFollow() {
         Vec3 vec3 = this.getEntityPosition();
         float f = this.theEntity.width * this.theEntity.width;
@@ -44,10 +48,12 @@ public class PathNavigateSwimmer extends PathNavigate {
         this.checkForStuck(vec3);
     }
 
+    @Override
     protected void removeSunnyPath() {
         super.removeSunnyPath();
     }
 
+    @Override
     protected boolean isDirectPathBetweenPoints(Vec3 posVec31, Vec3 posVec32, int sizeX, int sizeY, int sizeZ) {
         MovingObjectPosition movingobjectposition = this.worldObj.rayTraceBlocks(posVec31, new Vec3(posVec32.xCoord, posVec32.yCoord + this.theEntity.height * 0.5D, posVec32.zCoord), false, true, false);
         return movingobjectposition == null || movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.MISS;

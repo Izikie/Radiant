@@ -7,10 +7,12 @@ public class PotionHealth extends Potion {
         super(potionID, location, badEffect, potionColor);
     }
 
+    @Override
     public boolean isInstant() {
         return true;
     }
 
+    @Override
     public boolean isReady(int p_76397_1_, int p_76397_2_) {
         return p_76397_1_ >= 1;
     }

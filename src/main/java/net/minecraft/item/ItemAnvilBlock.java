@@ -7,6 +7,7 @@ public class ItemAnvilBlock extends ItemMultiTexture {
         super(block, block, new String[]{"intact", "slightlyDamaged", "veryDamaged"});
     }
 
+    @Override
     public int getMetadata(int damage) {
         return damage << 2;
     }

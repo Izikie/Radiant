@@ -49,6 +49,7 @@ public class EntityGhast extends EntityFlying implements IMob {
         return this.explosionStrength;
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
 
@@ -57,6 +58,7 @@ public class EntityGhast extends EntityFlying implements IMob {
         }
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (this.isEntityInvulnerable(source)) {
             return false;
@@ -69,33 +71,40 @@ public class EntityGhast extends EntityFlying implements IMob {
         }
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(16, (byte) 0);
     }
 
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
         this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(100.0D);
     }
 
+    @Override
     protected String getLivingSound() {
         return "mob.ghast.moan";
     }
 
+    @Override
     protected String getHurtSound() {
         return "mob.ghast.scream";
     }
 
+    @Override
     protected String getDeathSound() {
         return "mob.ghast.death";
     }
 
+    @Override
     protected Item getDropItem() {
         return Items.GUNPOWDER;
     }
 
+    @Override
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
         int i = this.rand.nextInt(2) + this.rand.nextInt(1 + lootingModifier);
 
@@ -110,23 +119,28 @@ public class EntityGhast extends EntityFlying implements IMob {
         }
     }
 
+    @Override
     protected float getSoundVolume() {
         return 10.0F;
     }
 
+    @Override
     public boolean getCanSpawnHere() {
         return this.rand.nextInt(20) == 0 && super.getCanSpawnHere() && this.worldObj.getDifficulty() != Difficulty.PEACEFUL;
     }
 
+    @Override
     public int getMaxSpawnedInChunk() {
         return 1;
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         tagCompound.setInteger("ExplosionPower", this.explosionStrength);
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
 
@@ -135,6 +149,7 @@ public class EntityGhast extends EntityFlying implements IMob {
         }
     }
 
+    @Override
     public float getEyeHeight() {
         return 2.6F;
     }
@@ -147,18 +162,22 @@ public class EntityGhast extends EntityFlying implements IMob {
             this.parentEntity = ghast;
         }
 
+        @Override
         public boolean shouldExecute() {
             return this.parentEntity.getAttackTarget() != null;
         }
 
+        @Override
         public void startExecuting() {
             this.attackTimer = 0;
         }
 
+        @Override
         public void resetTask() {
             this.parentEntity.setAttacking(false);
         }
 
+        @Override
         public void updateTask() {
             EntityLivingBase entitylivingbase = this.parentEntity.getAttackTarget();
             double d0 = 64.0D;
@@ -202,10 +221,12 @@ public class EntityGhast extends EntityFlying implements IMob {
             this.setMutexBits(2);
         }
 
+        @Override
         public boolean shouldExecute() {
             return true;
         }
 
+        @Override
         public void updateTask() {
             if (this.parentEntity.getAttackTarget() == null) {
                 this.parentEntity.renderYawOffset = this.parentEntity.rotationYaw = -((float) MathHelper.atan2(this.parentEntity.motionX, this.parentEntity.motionZ)) * 180.0F / (float) Math.PI;
@@ -230,6 +251,7 @@ public class EntityGhast extends EntityFlying implements IMob {
             this.setMutexBits(1);
         }
 
+        @Override
         public boolean shouldExecute() {
             EntityMoveHelper entitymovehelper = this.parentEntity.getMoveHelper();
 
@@ -244,10 +266,12 @@ public class EntityGhast extends EntityFlying implements IMob {
             }
         }
 
+        @Override
         public boolean continueExecuting() {
             return false;
         }
 
+        @Override
         public void startExecuting() {
             Random random = this.parentEntity.getRNG();
             double d0 = this.parentEntity.posX + ((random.nextFloat() * 2.0F - 1.0F) * 16.0F);
@@ -266,6 +290,7 @@ public class EntityGhast extends EntityFlying implements IMob {
             this.parentEntity = ghast;
         }
 
+        @Override
         public void onUpdateMoveHelper() {
             if (this.update) {
                 double d0 = this.posX - this.parentEntity.posX;

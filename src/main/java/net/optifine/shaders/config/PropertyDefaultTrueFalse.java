@@ -10,7 +10,8 @@ public class PropertyDefaultTrueFalse extends Property {
 		super(propertyName, PROPERTY_VALUES, userName, USER_VALUES, defaultValue);
 	}
 
-	public String getUserValue() {
+	@Override
+    public String getUserValue() {
 		return this.isDefault() ? Lang.getDefault() : (this.isTrue() ? Lang.getOn() : (this.isFalse() ? Lang.getOff() : super.getUserValue()));
 	}
 

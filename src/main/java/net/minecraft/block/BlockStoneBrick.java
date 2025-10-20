@@ -24,24 +24,29 @@ public class BlockStoneBrick extends Block {
         this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
+    @Override
     public int damageDropped(IBlockState state) {
         return state.getValue(VARIANT).getMetadata();
     }
 
+    @Override
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
         for (EnumType blockstonebrick$enumtype : EnumType.values()) {
             list.add(new ItemStack(itemIn, 1, blockstonebrick$enumtype.getMetadata()));
         }
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(VARIANT, EnumType.byMetadata(meta));
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(VARIANT).getMetadata();
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, VARIANT);
     }
@@ -79,6 +84,7 @@ public class BlockStoneBrick extends Block {
             return META_LOOKUP[meta];
         }
 
+        @Override
         public String getName() {
             return this.name;
         }

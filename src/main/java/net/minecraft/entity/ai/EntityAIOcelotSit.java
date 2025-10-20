@@ -18,24 +18,29 @@ public class EntityAIOcelotSit extends EntityAIMoveToBlock {
         this.ocelot = ocelotIn;
     }
 
+    @Override
     public boolean shouldExecute() {
         return this.ocelot.isTamed() && !this.ocelot.isSitting() && super.shouldExecute();
     }
 
+    @Override
     public boolean continueExecuting() {
         return super.continueExecuting();
     }
 
+    @Override
     public void startExecuting() {
         super.startExecuting();
         this.ocelot.getAISit().setSitting(false);
     }
 
+    @Override
     public void resetTask() {
         super.resetTask();
         this.ocelot.setSitting(false);
     }
 
+    @Override
     public void updateTask() {
         super.updateTask();
         this.ocelot.getAISit().setSitting(false);
@@ -47,6 +52,7 @@ public class EntityAIOcelotSit extends EntityAIMoveToBlock {
         }
     }
 
+    @Override
     protected boolean shouldMoveTo(World worldIn, BlockPos pos) {
         if (!worldIn.isAirBlock(pos.up())) {
             return false;

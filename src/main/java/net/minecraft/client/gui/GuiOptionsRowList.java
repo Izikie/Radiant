@@ -31,18 +31,22 @@ public class GuiOptionsRowList extends GuiListExtended {
         }
     }
 
+    @Override
     public Row getListEntry(int index) {
         return this.field_148184_k.get(index);
     }
 
+    @Override
     protected int getSize() {
         return this.field_148184_k.size();
     }
 
+    @Override
     public int getListWidth() {
         return 400;
     }
 
+    @Override
     protected int getScrollBarX() {
         return super.getScrollBarX() + 32;
     }
@@ -57,6 +61,7 @@ public class GuiOptionsRowList extends GuiListExtended {
             this.field_148324_c = p_i45014_2_;
         }
 
+        @Override
         public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected) {
             if (this.field_148323_b != null) {
                 this.field_148323_b.yPosition = y;
@@ -69,6 +74,7 @@ public class GuiOptionsRowList extends GuiListExtended {
             }
         }
 
+        @Override
         public boolean mousePressed(int slotIndex, int p_148278_2_, int p_148278_3_, int p_148278_4_, int p_148278_5_, int p_148278_6_) {
             if (this.field_148323_b.mousePressed(this.field_148325_a, p_148278_2_, p_148278_3_)) {
                 if (this.field_148323_b instanceof GuiOptionButton guiOptionButton) {
@@ -89,6 +95,7 @@ public class GuiOptionsRowList extends GuiListExtended {
             }
         }
 
+        @Override
         public void mouseReleased(int slotIndex, int x, int y, int mouseEvent, int relativeX, int relativeY) {
             if (this.field_148323_b != null) {
                 this.field_148323_b.mouseReleased(x, y);
@@ -99,6 +106,7 @@ public class GuiOptionsRowList extends GuiListExtended {
             }
         }
 
+        @Override
         public void setSelected(int p_178011_1_, int p_178011_2_, int p_178011_3_) {
         }
     }

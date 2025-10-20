@@ -47,11 +47,13 @@ public class PreYggdrasilConverter {
             } else if (!minecraftserver.isSinglePlayer() && minecraftserver.isServerInOnlineMode()) {
                 final List<GameProfile> list = new ArrayList<>();
                 ProfileLookupCallback profilelookupcallback = new ProfileLookupCallback() {
+                    @Override
                     public void onProfileLookupSucceeded(GameProfile p_onProfileLookupSucceeded_1_) {
                         minecraftserver.getPlayerProfileCache().addEntry(p_onProfileLookupSucceeded_1_);
                         list.add(p_onProfileLookupSucceeded_1_);
                     }
 
+                    @Override
                     public void onProfileLookupFailed(GameProfile p_onProfileLookupFailed_1_, Exception p_onProfileLookupFailed_2_) {
                         PreYggdrasilConverter.LOGGER.warn("Could not lookup user whitelist entry for {}", p_onProfileLookupFailed_1_.getName(), p_onProfileLookupFailed_2_);
                     }

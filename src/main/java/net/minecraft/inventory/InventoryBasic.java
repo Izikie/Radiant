@@ -40,10 +40,12 @@ public class InventoryBasic implements IInventory {
         this.changeListeners.remove(listener);
     }
 
+    @Override
     public ItemStack getStackInSlot(int index) {
         return index >= 0 && index < this.inventoryContents.length ? this.inventoryContents[index] : null;
     }
 
+    @Override
     public ItemStack decrStackSize(int index, int count) {
         if (this.inventoryContents[index] != null) {
             if (this.inventoryContents[index].stackSize <= count) {
@@ -101,6 +103,7 @@ public class InventoryBasic implements IInventory {
         return itemstack;
     }
 
+    @Override
     public ItemStack removeStackFromSlot(int index) {
         if (this.inventoryContents[index] != null) {
             ItemStack itemstack = this.inventoryContents[index];
@@ -111,6 +114,7 @@ public class InventoryBasic implements IInventory {
         }
     }
 
+    @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
         this.inventoryContents[index] = stack;
 
@@ -121,14 +125,17 @@ public class InventoryBasic implements IInventory {
         this.markDirty();
     }
 
+    @Override
     public int getSizeInventory() {
         return this.slotsCount;
     }
 
+    @Override
     public String getName() {
         return this.inventoryTitle;
     }
 
+    @Override
     public boolean hasCustomName() {
         return this.hasCustomName;
     }
@@ -138,14 +145,17 @@ public class InventoryBasic implements IInventory {
         this.inventoryTitle = inventoryTitleIn;
     }
 
+    @Override
     public IChatComponent getDisplayName() {
         return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName());
     }
 
+    @Override
     public int getInventoryStackLimit() {
         return 64;
     }
 
+    @Override
     public void markDirty() {
         if (this.changeListeners != null) {
             for (IInvBasic changeListener : this.changeListeners) {
@@ -154,31 +164,39 @@ public class InventoryBasic implements IInventory {
         }
     }
 
+    @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
         return true;
     }
 
+    @Override
     public void openInventory(EntityPlayer player) {
     }
 
+    @Override
     public void closeInventory(EntityPlayer player) {
     }
 
+    @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
         return true;
     }
 
+    @Override
     public int getField(int id) {
         return 0;
     }
 
+    @Override
     public void setField(int id, int value) {
     }
 
+    @Override
     public int getFieldCount() {
         return 0;
     }
 
+    @Override
     public void clear() {
         Arrays.fill(this.inventoryContents, null);
     }

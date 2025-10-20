@@ -33,19 +33,23 @@ public class EntitySpider extends EntityMob {
         this.targetTasks.addTask(3, new AISpiderTarget<>(this, EntityIronGolem.class));
     }
 
+    @Override
     public double getMountedYOffset() {
         return (this.height * 0.5F);
     }
 
+    @Override
     protected PathNavigate getNewNavigator(World worldIn) {
         return new PathNavigateClimber(this, worldIn);
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(16, (byte) 0);
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
 
@@ -54,32 +58,39 @@ public class EntitySpider extends EntityMob {
         }
     }
 
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(16.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
     }
 
+    @Override
     protected String getLivingSound() {
         return "mob.spider.say";
     }
 
+    @Override
     protected String getHurtSound() {
         return "mob.spider.say";
     }
 
+    @Override
     protected String getDeathSound() {
         return "mob.spider.death";
     }
 
+    @Override
     protected void playStepSound(BlockPos pos, Block blockIn) {
         this.playSound("mob.spider.step", 0.15F, 1.0F);
     }
 
+    @Override
     protected Item getDropItem() {
         return Items.STRING;
     }
 
+    @Override
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
         super.dropFewItems(wasRecentlyHit, lootingModifier);
 
@@ -88,17 +99,21 @@ public class EntitySpider extends EntityMob {
         }
     }
 
+    @Override
     public boolean isOnLadder() {
         return this.isBesideClimbableBlock();
     }
 
+    @Override
     public void setInWeb() {
     }
 
+    @Override
     public EntityGroup getCreatureAttribute() {
         return EntityGroup.ARTHROPOD;
     }
 
+    @Override
     public boolean isPotionApplicable(PotionEffect potioneffectIn) {
         return potioneffectIn.getPotionID() != Potion.POISON.id && super.isPotionApplicable(potioneffectIn);
     }
@@ -119,6 +134,7 @@ public class EntitySpider extends EntityMob {
         this.dataWatcher.updateObject(16, b0);
     }
 
+    @Override
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
         livingdata = super.onInitialSpawn(difficulty, livingdata);
 
@@ -149,6 +165,7 @@ public class EntitySpider extends EntityMob {
         return livingdata;
     }
 
+    @Override
     public float getEyeHeight() {
         return 0.65F;
     }
@@ -158,6 +175,7 @@ public class EntitySpider extends EntityMob {
             super(spider, targetClass, 1.0D, true);
         }
 
+        @Override
         public boolean continueExecuting() {
             float f = this.attacker.getBrightness(1.0F);
 
@@ -169,6 +187,7 @@ public class EntitySpider extends EntityMob {
             }
         }
 
+        @Override
         protected double func_179512_a(EntityLivingBase attackTarget) {
             return (4.0F + attackTarget.width);
         }
@@ -179,6 +198,7 @@ public class EntitySpider extends EntityMob {
             super(spider, classTarget, true);
         }
 
+        @Override
         public boolean shouldExecute() {
             float f = this.taskOwner.getBrightness(1.0F);
             return !(f >= 0.5F) && super.shouldExecute();

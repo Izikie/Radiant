@@ -26,6 +26,7 @@ public class ItemRecord extends Item {
         RECORDS.put("records." + name, this);
     }
 
+    @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
         IBlockState iblockstate = worldIn.getBlockState(pos);
 
@@ -42,6 +43,7 @@ public class ItemRecord extends Item {
         }
     }
 
+    @Override
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
         tooltip.add(this.getRecordNameLocal());
     }
@@ -50,6 +52,7 @@ public class ItemRecord extends Item {
         return StatCollector.translateToLocal("item.record." + this.recordName + ".desc");
     }
 
+    @Override
     public Rarity getRarity(ItemStack stack) {
         return Rarity.RARE;
     }

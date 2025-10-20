@@ -224,10 +224,12 @@ public class GLUtessellatorImpl implements GLUtessellator {
         }
     }
 
+    @Override
     public void gluDeleteTess() {
         requireState(TessState.T_DORMANT);
     }
 
+    @Override
     public void gluTessProperty(int which, double value) {
         switch (which) {
             case GLU_TESS_TOLERANCE:
@@ -263,6 +265,7 @@ public class GLUtessellatorImpl implements GLUtessellator {
     }
 
     /* Returns tessellator property */
+    @Override
     public void gluGetTessProperty(int which, double[] value, int value_offset) {
         switch (which) {
             case GLU_TESS_TOLERANCE:
@@ -288,12 +291,14 @@ public class GLUtessellatorImpl implements GLUtessellator {
         }
     } /* gluGetTessProperty() */
 
+    @Override
     public void gluTessNormal(double x, double y, double z) {
         normal[0] = x;
         normal[1] = y;
         normal[2] = z;
     }
 
+    @Override
     public void gluTessCallback(int which, GLUtessellatorCallback aCallback) {
         switch (which) {
             case GLU_TESS_BEGIN:
@@ -416,6 +421,7 @@ public class GLUtessellatorImpl implements GLUtessellator {
         return true;
     }
 
+    @Override
     public void gluTessVertex(double[] coords, int coords_offset, Object vertexData) {
         int i;
         boolean tooLarge = false;
@@ -464,6 +470,7 @@ public class GLUtessellatorImpl implements GLUtessellator {
     }
 
 
+    @Override
     public void gluTessBeginPolygon(Object data) {
         requireState(TessState.T_DORMANT);
 
@@ -476,6 +483,7 @@ public class GLUtessellatorImpl implements GLUtessellator {
     }
 
 
+    @Override
     public void gluTessBeginContour() {
         requireState(TessState.T_IN_POLYGON);
 
@@ -491,11 +499,13 @@ public class GLUtessellatorImpl implements GLUtessellator {
     }
 
 
+    @Override
     public void gluTessEndContour() {
         requireState(TessState.T_IN_CONTOUR);
         state = TessState.T_IN_POLYGON;
     }
 
+    @Override
     public void gluTessEndPolygon() {
         GLUmesh mesh;
 
@@ -590,6 +600,7 @@ public class GLUtessellatorImpl implements GLUtessellator {
     /*******************************************************/
 
     /* Obsolete calls -- for backward compatibility */
+    @Override
     public void gluBeginPolygon() {
         gluTessBeginPolygon(null);
         gluTessBeginContour();
@@ -597,12 +608,14 @@ public class GLUtessellatorImpl implements GLUtessellator {
 
 
     /*ARGSUSED*/
+    @Override
     public void gluNextContour(int type) {
         gluTessEndContour();
         gluTessBeginContour();
     }
 
 
+    @Override
     public void gluEndPolygon() {
         gluTessEndContour();
         gluTessEndPolygon();

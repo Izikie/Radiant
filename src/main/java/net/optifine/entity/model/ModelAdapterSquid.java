@@ -14,11 +14,13 @@ public class ModelAdapterSquid extends ModelAdapter {
 		super(EntitySquid.class, "squid", 0.7F);
 	}
 
-	public ModelBase makeModel() {
+	@Override
+    public ModelBase makeModel() {
 		return new ModelSquid();
 	}
 
-	public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
+	@Override
+    public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
 		if (model instanceof ModelSquid modelsquid) {
 
 			if (modelPart.equals("body")) {
@@ -46,11 +48,13 @@ public class ModelAdapterSquid extends ModelAdapter {
 		}
 	}
 
-	public String[] getModelRendererNames() {
+	@Override
+    public String[] getModelRendererNames() {
 		return new String[]{"body", "tentacle1", "tentacle2", "tentacle3", "tentacle4", "tentacle5", "tentacle6", "tentacle7", "tentacle8"};
 	}
 
-	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+	@Override
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
 		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		return new RenderSquid(rendermanager, modelBase, shadowSize);
 	}

@@ -16,6 +16,7 @@ public class RenderArrow extends Render<EntityArrow> {
         super(renderManagerIn);
     }
 
+    @Override
     public void doRender(EntityArrow entity, double x, double y, double z, float entityYaw, float partialTicks) {
         this.bindEntityTexture(entity);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -77,6 +78,7 @@ public class RenderArrow extends Render<EntityArrow> {
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityArrow entity) {
         return ARROW_TEXTURES;
     }

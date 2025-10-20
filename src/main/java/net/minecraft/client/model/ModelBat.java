@@ -45,12 +45,14 @@ public class ModelBat extends ModelBase {
         this.batLeftWing.addChild(this.batOuterLeftWing);
     }
 
+    @Override
     public void render(Entity entityIn, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_, float scale) {
         this.setRotationAngles(p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, scale, entityIn);
         this.batHead.render(scale);
         this.batBody.render(scale);
     }
 
+    @Override
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
         if (((EntityBat) entityIn).getIsBatHanging()) {
             float f = (180.0F / (float) Math.PI);

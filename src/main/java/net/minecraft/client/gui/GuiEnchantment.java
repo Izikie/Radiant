@@ -48,16 +48,19 @@ public class GuiEnchantment extends GuiContainer {
         this.nameable = nameable;
     }
 
+    @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         this.fontRendererObj.drawString(this.nameable.getDisplayName().getUnformattedText(), 12, 5, 4210752);
         this.fontRendererObj.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
     }
 
+    @Override
     public void updateScreen() {
         super.updateScreen();
         this.func_147068_g();
     }
 
+    @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         super.mouseClicked(mouseX, mouseY, mouseButton);
         int i = (this.width - this.xSize) / 2;
@@ -73,6 +76,7 @@ public class GuiEnchantment extends GuiContainer {
         }
     }
 
+    @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(ENCHANTMENT_TABLE_GUI_TEXTURE);
@@ -191,6 +195,7 @@ public class GuiEnchantment extends GuiContainer {
         }
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
         boolean flag = this.mc.player.capabilities.isCreativeMode;

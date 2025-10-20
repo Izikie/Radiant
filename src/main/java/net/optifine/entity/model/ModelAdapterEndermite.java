@@ -14,11 +14,13 @@ public class ModelAdapterEndermite extends ModelAdapter {
 		super(EntityEndermite.class, "endermite", 0.3F);
 	}
 
-	public ModelBase makeModel() {
+	@Override
+    public ModelBase makeModel() {
 		return new ModelEnderMite();
 	}
 
-	public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
+	@Override
+    public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
 		if (model instanceof ModelEnderMite modelendermite) {
 			String s = "body";
 
@@ -41,11 +43,13 @@ public class ModelAdapterEndermite extends ModelAdapter {
 		}
 	}
 
-	public String[] getModelRendererNames() {
+	@Override
+    public String[] getModelRendererNames() {
 		return new String[]{"body1", "body2", "body3", "body4"};
 	}
 
-	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+	@Override
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
 		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		RenderEndermite renderendermite = new RenderEndermite(rendermanager);
 		renderendermite.mainModel = modelBase;

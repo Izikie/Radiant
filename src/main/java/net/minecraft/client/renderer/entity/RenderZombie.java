@@ -25,6 +25,7 @@ public class RenderZombie extends RenderBiped<EntityZombie> {
         this.zombieVillagerModel = new ModelZombieVillager();
         this.addLayer(new LayerHeldItem(this));
         LayerBipedArmor layerbipedarmor = new LayerBipedArmor(this) {
+            @Override
             protected void initArmor() {
                 this.modelLeggings = new ModelZombie(0.5F, true);
                 this.modelArmor = new ModelZombie(1.0F, true);
@@ -43,11 +44,13 @@ public class RenderZombie extends RenderBiped<EntityZombie> {
         this.field_177121_n = new ArrayList<>(this.layerRenderers);
     }
 
+    @Override
     public void doRender(EntityZombie entity, double x, double y, double z, float entityYaw, float partialTicks) {
         this.func_82427_a(entity);
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityZombie entity) {
         return entity.isVillager() ? ZOMBIE_VILLAGER_TEXTURES : ZOMBIE_TEXTURES;
     }
@@ -64,6 +67,7 @@ public class RenderZombie extends RenderBiped<EntityZombie> {
         this.modelBipedMain = (ModelBiped) this.mainModel;
     }
 
+    @Override
     protected void rotateCorpse(EntityZombie bat, float p_77043_2_, float p_77043_3_, float partialTicks) {
         if (bat.isConverting()) {
             p_77043_3_ += (float) (Math.cos(bat.ticksExisted * 3.25D) * Math.PI * 0.25D);

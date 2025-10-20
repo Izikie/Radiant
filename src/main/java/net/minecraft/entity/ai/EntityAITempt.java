@@ -33,6 +33,7 @@ public class EntityAITempt extends EntityAIBase {
         }
     }
 
+    @Override
     public boolean shouldExecute() {
         if (this.delayTemptCounter > 0) {
             --this.delayTemptCounter;
@@ -49,6 +50,7 @@ public class EntityAITempt extends EntityAIBase {
         }
     }
 
+    @Override
     public boolean continueExecuting() {
         if (this.scaredByPlayerMovement) {
             if (this.temptedEntity.getDistanceSqToEntity(this.temptingPlayer) < 36.0D) {
@@ -72,6 +74,7 @@ public class EntityAITempt extends EntityAIBase {
         return this.shouldExecute();
     }
 
+    @Override
     public void startExecuting() {
         this.targetX = this.temptingPlayer.posX;
         this.targetY = this.temptingPlayer.posY;
@@ -81,6 +84,7 @@ public class EntityAITempt extends EntityAIBase {
         ((PathNavigateGround) this.temptedEntity.getNavigator()).setAvoidsWater(false);
     }
 
+    @Override
     public void resetTask() {
         this.temptingPlayer = null;
         this.temptedEntity.getNavigator().clearPathEntity();
@@ -89,6 +93,7 @@ public class EntityAITempt extends EntityAIBase {
         ((PathNavigateGround) this.temptedEntity.getNavigator()).setAvoidsWater(this.avoidWater);
     }
 
+    @Override
     public void updateTask() {
         this.temptedEntity.getLookHelper().setLookPositionWithEntity(this.temptingPlayer, 30.0F, this.temptedEntity.getVerticalFaceSpeed());
 

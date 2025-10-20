@@ -11,6 +11,7 @@ public class TextureClock extends TextureAtlasSprite {
         super(iconName);
     }
 
+    @Override
     public void updateAnimation() {
         if (!this.framesTextureData.isEmpty()) {
             Minecraft minecraft = Minecraft.get();

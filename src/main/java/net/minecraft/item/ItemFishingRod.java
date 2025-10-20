@@ -13,14 +13,17 @@ public class ItemFishingRod extends Item {
         this.setCreativeTab(CreativeTabs.TAB_TOOLS);
     }
 
+    @Override
     public boolean isFull3D() {
         return true;
     }
 
+    @Override
     public boolean shouldRotateAroundWhenRendering() {
         return true;
     }
 
+    @Override
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
         if (playerIn.fishEntity != null) {
             int i = playerIn.fishEntity.handleHookRetraction();
@@ -40,10 +43,12 @@ public class ItemFishingRod extends Item {
         return itemStackIn;
     }
 
+    @Override
     public boolean isItemTool(ItemStack stack) {
         return super.isItemTool(stack);
     }
 
+    @Override
     public int getItemEnchantability() {
         return 1;
     }

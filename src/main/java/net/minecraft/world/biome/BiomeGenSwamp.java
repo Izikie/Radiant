@@ -28,23 +28,28 @@ public class BiomeGenSwamp extends BiomeGenBase {
         this.spawnableMonsterList.add(new SpawnListEntry(EntitySlime.class, 1, 1, 1));
     }
 
+    @Override
     public WorldGenAbstractTree genBigTreeChance(Random rand) {
         return this.worldGeneratorSwamp;
     }
 
+    @Override
     public int getGrassColorAtPos(BlockPos pos) {
         double d0 = GRASS_COLOR_NOISE.func_151601_a(pos.getX() * 0.0225D, pos.getZ() * 0.0225D);
         return d0 < -0.1D ? 5011004 : 6975545;
     }
 
+    @Override
     public int getFoliageColorAtPos(BlockPos pos) {
         return 6975545;
     }
 
+    @Override
     public BlockFlower.FlowerType pickRandomFlower(Random rand, BlockPos pos) {
         return BlockFlower.FlowerType.BLUE_ORCHID;
     }
 
+    @Override
     public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
         double d0 = GRASS_COLOR_NOISE.func_151601_a(x * 0.25D, z * 0.25D);
 

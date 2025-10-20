@@ -55,6 +55,7 @@ public class EntityWolf extends EntityTameable {
         this.setTamed(false);
     }
 
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
@@ -69,6 +70,7 @@ public class EntityWolf extends EntityTameable {
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
     }
 
+    @Override
     public void setAttackTarget(EntityLivingBase entitylivingbaseIn) {
         super.setAttackTarget(entitylivingbaseIn);
 
@@ -79,10 +81,12 @@ public class EntityWolf extends EntityTameable {
         }
     }
 
+    @Override
     protected void updateAITasks() {
         this.dataWatcher.updateObject(18, this.getHealth());
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(18, this.getHealth());
@@ -90,16 +94,19 @@ public class EntityWolf extends EntityTameable {
         this.dataWatcher.addObject(20, (byte) DyeColor.RED.getMetadata());
     }
 
+    @Override
     protected void playStepSound(BlockPos pos, Block blockIn) {
         this.playSound("mob.wolf.step", 0.15F, 1.0F);
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         tagCompound.setBoolean("Angry", this.isAngry());
         tagCompound.setByte("CollarColor", (byte) this.getCollarColor().getDyeDamage());
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
         this.setAngry(tagCompund.getBoolean("Angry"));
@@ -109,26 +116,32 @@ public class EntityWolf extends EntityTameable {
         }
     }
 
+    @Override
     protected String getLivingSound() {
         return this.isAngry() ? "mob.wolf.growl" : (this.rand.nextInt(3) == 0 ? (this.isTamed() && this.dataWatcher.getWatchableObjectFloat(18) < 10.0F ? "mob.wolf.whine" : "mob.wolf.panting") : "mob.wolf.bark");
     }
 
+    @Override
     protected String getHurtSound() {
         return "mob.wolf.hurt";
     }
 
+    @Override
     protected String getDeathSound() {
         return "mob.wolf.death";
     }
 
+    @Override
     protected float getSoundVolume() {
         return 0.4F;
     }
 
+    @Override
     protected Item getDropItem() {
         return Item.getItemById(-1);
     }
 
+    @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
 
@@ -144,6 +157,7 @@ public class EntityWolf extends EntityTameable {
         }
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
         this.headRotationCourseOld = this.headRotationCourse;
@@ -211,14 +225,17 @@ public class EntityWolf extends EntityTameable {
         return (this.headRotationCourseOld + (this.headRotationCourse - this.headRotationCourseOld) * p_70917_1_) * 0.15F * (float) Math.PI;
     }
 
+    @Override
     public float getEyeHeight() {
         return this.height * 0.8F;
     }
 
+    @Override
     public int getVerticalFaceSpeed() {
         return this.isSitting() ? 20 : super.getVerticalFaceSpeed();
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (this.isEntityInvulnerable(source)) {
             return false;
@@ -234,6 +251,7 @@ public class EntityWolf extends EntityTameable {
         }
     }
 
+    @Override
     public boolean attackEntityAsMob(Entity entityIn) {
         boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), ((int) this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue()));
 
@@ -244,6 +262,7 @@ public class EntityWolf extends EntityTameable {
         return flag;
     }
 
+    @Override
     public void setTamed(boolean tamed) {
         super.setTamed(tamed);
 
@@ -256,6 +275,7 @@ public class EntityWolf extends EntityTameable {
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
     }
 
+    @Override
     public boolean interact(EntityPlayer player) {
         ItemStack itemstack = player.inventory.getCurrentItem();
 
@@ -328,6 +348,7 @@ public class EntityWolf extends EntityTameable {
         return super.interact(player);
     }
 
+    @Override
     public void handleStatusUpdate(byte id) {
         if (id == 8) {
             this.isShaking = true;
@@ -342,10 +363,12 @@ public class EntityWolf extends EntityTameable {
         return this.isAngry() ? 1.5393804F : (this.isTamed() ? (0.55F - (20.0F - this.dataWatcher.getWatchableObjectFloat(18)) * 0.02F) * (float) Math.PI : ((float) Math.PI / 5.0F));
     }
 
+    @Override
     public boolean isBreedingItem(ItemStack stack) {
         return stack != null && (stack.getItem() instanceof ItemFood itemFood && itemFood.isWolfsFavoriteMeat());
     }
 
+    @Override
     public int getMaxSpawnedInChunk() {
         return 8;
     }
@@ -372,6 +395,7 @@ public class EntityWolf extends EntityTameable {
         this.dataWatcher.updateObject(20, (byte) (collarcolor.getDyeDamage() & 15));
     }
 
+    @Override
     public EntityWolf createChild(EntityAgeable ageable) {
         EntityWolf entitywolf = new EntityWolf(this.worldObj);
         String s = this.getOwnerId();
@@ -392,6 +416,7 @@ public class EntityWolf extends EntityTameable {
         }
     }
 
+    @Override
     public boolean canMateWith(EntityAnimal otherAnimal) {
         if (otherAnimal == this) {
             return false;
@@ -408,10 +433,12 @@ public class EntityWolf extends EntityTameable {
         return this.dataWatcher.getWatchableObjectByte(19) == 1;
     }
 
+    @Override
     protected boolean canDespawn() {
         return !this.isTamed() && this.ticksExisted > 2400;
     }
 
+    @Override
     public boolean shouldAttackEntity(EntityLivingBase p_142018_1_, EntityLivingBase p_142018_2_) {
         if (!(p_142018_1_ instanceof EntityCreeper) && !(p_142018_1_ instanceof EntityGhast)) {
             if (p_142018_1_ instanceof EntityWolf entitywolf) {
@@ -427,6 +454,7 @@ public class EntityWolf extends EntityTameable {
         }
     }
 
+    @Override
     public boolean allowLeashing() {
         return !this.isAngry() && super.allowLeashing();
     }

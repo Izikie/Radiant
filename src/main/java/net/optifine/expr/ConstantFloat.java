@@ -7,11 +7,13 @@ public class ConstantFloat implements IExpressionFloat {
 		this.value = value;
 	}
 
-	public float eval() {
+	@Override
+    public float eval() {
 		return this.value;
 	}
 
-	public ExpressionType getExpressionType() {
+	@Override
+    public ExpressionType getExpressionType() {
 		return ExpressionType.FLOAT;
 	}
 

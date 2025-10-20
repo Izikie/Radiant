@@ -68,6 +68,7 @@ public abstract class EntityLiving extends EntityLivingBase {
         Arrays.fill(this.equipmentDropChances, 0.085F);
     }
 
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getAttributeMap().registerAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(16.0D);
@@ -112,6 +113,7 @@ public abstract class EntityLiving extends EntityLivingBase {
     public void eatGrassBonus() {
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(15, (byte) 0);
@@ -129,6 +131,7 @@ public abstract class EntityLiving extends EntityLivingBase {
         }
     }
 
+    @Override
     public void onEntityUpdate() {
         super.onEntityUpdate();
         if (this.isEntityAlive() && this.rand.nextInt(1000) < this.livingSoundTime++) {
@@ -138,6 +141,7 @@ public abstract class EntityLiving extends EntityLivingBase {
 
     }
 
+    @Override
     protected int getExperiencePoints(EntityPlayer player) {
         if (this.experienceValue > 0) {
             int i = this.experienceValue;
@@ -169,6 +173,7 @@ public abstract class EntityLiving extends EntityLivingBase {
         }
     }
 
+    @Override
     public void handleStatusUpdate(byte id) {
         if (id == 20) {
             this.spawnExplosionParticle();
@@ -177,6 +182,7 @@ public abstract class EntityLiving extends EntityLivingBase {
         }
     }
 
+    @Override
     public void onUpdate() {
         if (Config.isSmoothWorld() && this.canSkipUpdate()) {
             this.onUpdateMinimal();
@@ -189,6 +195,7 @@ public abstract class EntityLiving extends EntityLivingBase {
         }
     }
 
+    @Override
     protected float updateDistance(float p_110146_1_, float p_110146_2_) {
         this.bodyHelper.updateRenderAngles();
         return p_110146_2_;
@@ -202,6 +209,7 @@ public abstract class EntityLiving extends EntityLivingBase {
         return null;
     }
 
+    @Override
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
         Item item = this.getDropItem();
 
@@ -218,6 +226,7 @@ public abstract class EntityLiving extends EntityLivingBase {
         }
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         tagCompound.setBoolean("CanPickUpLoot", this.canPickUpLoot());
@@ -265,6 +274,7 @@ public abstract class EntityLiving extends EntityLivingBase {
         }
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
 
@@ -303,11 +313,13 @@ public abstract class EntityLiving extends EntityLivingBase {
         this.moveForward = p_70657_1_;
     }
 
+    @Override
     public void setAIMoveSpeed(float speedIn) {
         super.setAIMoveSpeed(speedIn);
         this.setMoveForward(speedIn);
     }
 
+    @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
         if (!this.worldObj.isRemote && this.canPickUpLoot() && !this.dead && this.worldObj.getGameRules().getBoolean("mobGriefing")) {
@@ -414,6 +426,7 @@ public abstract class EntityLiving extends EntityLivingBase {
         }
     }
 
+    @Override
     protected final void updateEntityActionState() {
         ++this.entityAge;
         this.despawnEntity();
@@ -482,6 +495,7 @@ public abstract class EntityLiving extends EntityLivingBase {
         return 4;
     }
 
+    @Override
     public int getMaxFallHeight() {
         if (this.getAttackTarget() == null) {
             return 3;
@@ -497,26 +511,32 @@ public abstract class EntityLiving extends EntityLivingBase {
         }
     }
 
+    @Override
     public ItemStack getHeldItem() {
         return this.equipment[0];
     }
 
+    @Override
     public ItemStack getEquipmentInSlot(int slotIn) {
         return this.equipment[slotIn];
     }
 
+    @Override
     public ItemStack getCurrentArmor(int slotIn) {
         return this.equipment[slotIn + 1];
     }
 
+    @Override
     public void setCurrentItemOrArmor(int slotIn, ItemStack stack) {
         this.equipment[slotIn] = stack;
     }
 
+    @Override
     public ItemStack[] getInventory() {
         return this.equipment;
     }
 
+    @Override
     protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
         for (int i = 0; i < this.getInventory().length; ++i) {
             ItemStack itemstack = this.getEquipmentInSlot(i);
@@ -706,6 +726,7 @@ public abstract class EntityLiving extends EntityLivingBase {
         return this.persistenceRequired;
     }
 
+    @Override
     public final boolean interactFirst(EntityPlayer playerIn) {
         if (this.getLeashed() && this.getLeashedToEntity() == playerIn) {
             this.clearLeashed(true, !playerIn.capabilities.isCreativeMode);
@@ -819,6 +840,7 @@ public abstract class EntityLiving extends EntityLivingBase {
         this.leashNBTTag = null;
     }
 
+    @Override
     public boolean replaceItemInInventory(int inventorySlot, ItemStack itemStackIn) {
         int i;
 
@@ -840,6 +862,7 @@ public abstract class EntityLiving extends EntityLivingBase {
         }
     }
 
+    @Override
     public boolean isServerWorld() {
         return super.isServerWorld() && !this.isAIDisabled();
     }
@@ -890,6 +913,7 @@ public abstract class EntityLiving extends EntityLivingBase {
         this.despawnEntity();
     }
 
+    @Override
     public Team getTeam() {
         UUID uuid = this.getUniqueID();
 

@@ -38,11 +38,13 @@ public class GuiScreenAddServer extends GuiScreen {
         this.serverData = p_i1033_2_;
     }
 
+    @Override
     public void updateScreen() {
         this.serverNameField.updateCursorCounter();
         this.serverIPField.updateCursorCounter();
     }
 
+    @Override
     public void initGui() {
         Keyboard.enableRepeatEvents(true);
         this.buttonList.clear();
@@ -59,10 +61,12 @@ public class GuiScreenAddServer extends GuiScreen {
         this.buttonList.getFirst().enabled = !this.serverIPField.getText().isEmpty() && this.serverIPField.getText().split(":").length > 0 && !this.serverNameField.getText().isEmpty();
     }
 
+    @Override
     public void onGuiClosed() {
         Keyboard.enableRepeatEvents(false);
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.enabled) {
             if (button.id == 2) {
@@ -78,6 +82,7 @@ public class GuiScreenAddServer extends GuiScreen {
         }
     }
 
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         this.serverNameField.textboxKeyTyped(typedChar, keyCode);
         this.serverIPField.textboxKeyTyped(typedChar, keyCode);
@@ -94,12 +99,14 @@ public class GuiScreenAddServer extends GuiScreen {
         this.buttonList.getFirst().enabled = !this.serverIPField.getText().isEmpty() && this.serverIPField.getText().split(":").length > 0 && !this.serverNameField.getText().isEmpty();
     }
 
+    @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         super.mouseClicked(mouseX, mouseY, mouseButton);
         this.serverIPField.mouseClicked(mouseX, mouseY, mouseButton);
         this.serverNameField.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRendererObj, I18n.format("addServer.title"), this.width / 2, 17, 16777215);

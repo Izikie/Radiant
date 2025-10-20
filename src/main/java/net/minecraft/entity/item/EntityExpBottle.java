@@ -19,18 +19,22 @@ public class EntityExpBottle extends EntityThrowable {
         super(worldIn, x, y, z);
     }
 
+    @Override
     protected float getGravityVelocity() {
         return 0.07F;
     }
 
+    @Override
     protected float getVelocity() {
         return 0.7F;
     }
 
+    @Override
     protected float getInaccuracy() {
         return -20.0F;
     }
 
+    @Override
     protected void onImpact(MovingObjectPosition p_70184_1_) {
         if (!this.worldObj.isRemote) {
             this.worldObj.playAuxSFX(2002, new BlockPos(this), 0);

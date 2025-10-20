@@ -188,6 +188,7 @@ public class ModelHorse extends ModelBase {
         this.setBoxRotation(this.horseFaceRopes, 0.5235988F, 0.0F, 0.0F);
     }
 
+    @Override
     public void render(Entity entityIn, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_, float scale) {
         EntityHorse entityhorse = (EntityHorse) entityIn;
         int i = entityhorse.getHorseType();
@@ -302,6 +303,7 @@ public class ModelHorse extends ModelBase {
         return p_110683_1_ + p_110683_3_ * f;
     }
 
+    @Override
     public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
         super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
         float f = this.updateHorseRotation(entitylivingbaseIn.prevRenderYawOffset, entitylivingbaseIn.renderYawOffset, partialTickTime);

@@ -29,6 +29,7 @@ public class ScoreboardSaveData extends WorldSavedData {
         }
     }
 
+    @Override
     public void readFromNBT(NBTTagCompound nbt) {
         if (this.theScoreboard == null) {
             this.delayedInitNbt = nbt;
@@ -153,6 +154,7 @@ public class ScoreboardSaveData extends WorldSavedData {
         }
     }
 
+    @Override
     public void writeToNBT(NBTTagCompound nbt) {
         if (this.theScoreboard == null) {
             LOGGER.warn("Tried to save scoreboard without having a scoreboard...");

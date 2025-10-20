@@ -112,6 +112,7 @@ public class BlockPos extends Vec3i {
         return n == 0 ? this : new BlockPos(this.getX() + facing.getFrontOffsetX() * n, this.getY() + facing.getFrontOffsetY() * n, this.getZ() + facing.getFrontOffsetZ() * n);
     }
 
+    @Override
     public BlockPos crossProduct(Vec3i vec) {
         return new BlockPos(this.getY() * vec.getZ() - this.getZ() * vec.getY(), this.getZ() * vec.getX() - this.getX() * vec.getZ(), this.getX() * vec.getY() - this.getY() * vec.getX());
     }
@@ -131,10 +132,12 @@ public class BlockPos extends Vec3i {
         final BlockPos blockpos = new BlockPos(Math.min(from.getX(), to.getX()), Math.min(from.getY(), to.getY()), Math.min(from.getZ(), to.getZ()));
         final BlockPos blockpos1 = new BlockPos(Math.max(from.getX(), to.getX()), Math.max(from.getY(), to.getY()), Math.max(from.getZ(), to.getZ()));
         return new Iterable<>() {
+            @Override
             public Iterator<BlockPos> iterator() {
                 return new AbstractIterator<>() {
                     private BlockPos lastReturned = null;
 
+                    @Override
                     protected BlockPos computeNext() {
                         if (this.lastReturned == null) {
                             this.lastReturned = blockpos;
@@ -170,10 +173,12 @@ public class BlockPos extends Vec3i {
         final BlockPos blockpos = new BlockPos(Math.min(from.getX(), to.getX()), Math.min(from.getY(), to.getY()), Math.min(from.getZ(), to.getZ()));
         final BlockPos blockpos1 = new BlockPos(Math.max(from.getX(), to.getX()), Math.max(from.getY(), to.getY()), Math.max(from.getZ(), to.getZ()));
         return new Iterable<>() {
+            @Override
             public @NotNull Iterator<MutableBlockPos> iterator() {
                 return new AbstractIterator<>() {
                     private MutableBlockPos theBlockPos = null;
 
+                    @Override
                     protected MutableBlockPos computeNext() {
                         if (this.theBlockPos == null) {
                             this.theBlockPos = new MutableBlockPos(blockpos.getX(), blockpos.getY(), blockpos.getZ());
@@ -223,14 +228,17 @@ public class BlockPos extends Vec3i {
             this.z = z_;
         }
 
+        @Override
         public int getX() {
             return this.x;
         }
 
+        @Override
         public int getY() {
             return this.y;
         }
 
+        @Override
         public int getZ() {
             return this.z;
         }

@@ -17,6 +17,7 @@ public class BlockOldLog extends BlockLog {
         this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockPlanks.WoodType.OAK).withProperty(LOG_AXIS, Axis.Y));
     }
 
+    @Override
     public MapColor getMapColor(IBlockState state) {
         BlockPlanks.WoodType blockplanks$enumtype = state.getValue(VARIANT);
 
@@ -37,6 +38,7 @@ public class BlockOldLog extends BlockLog {
         }
     }
 
+    @Override
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
         list.add(new ItemStack(itemIn, 1, BlockPlanks.WoodType.OAK.getMetadata()));
         list.add(new ItemStack(itemIn, 1, BlockPlanks.WoodType.SPRUCE.getMetadata()));
@@ -44,6 +46,7 @@ public class BlockOldLog extends BlockLog {
         list.add(new ItemStack(itemIn, 1, BlockPlanks.WoodType.JUNGLE.getMetadata()));
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         IBlockState iblockstate = this.getDefaultState().withProperty(VARIANT, BlockPlanks.WoodType.byMetadata((meta & 3) % 4));
 
@@ -58,6 +61,7 @@ public class BlockOldLog extends BlockLog {
     }
 
     
+    @Override
     public int getMetaFromState(IBlockState state) {
         int i = 0;
         i = i | state.getValue(VARIANT).getMetadata();
@@ -78,14 +82,17 @@ public class BlockOldLog extends BlockLog {
         return i;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, VARIANT, LOG_AXIS);
     }
 
+    @Override
     protected ItemStack createStackedBlock(IBlockState state) {
         return new ItemStack(Item.getItemFromBlock(this), 1, state.getValue(VARIANT).getMetadata());
     }
 
+    @Override
     public int damageDropped(IBlockState state) {
         return state.getValue(VARIANT).getMetadata();
     }

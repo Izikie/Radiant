@@ -20,18 +20,21 @@ public class S1FPacketSetExperience implements Packet<INetHandlerPlayClient> {
         this.level = levelIn;
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.field_149401_a = buf.readFloat();
         this.level = buf.readVarIntFromBuffer();
         this.totalExperience = buf.readVarIntFromBuffer();
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeFloat(this.field_149401_a);
         buf.writeVarIntToBuffer(this.level);
         buf.writeVarIntToBuffer(this.totalExperience);
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleSetExperience(this);
     }

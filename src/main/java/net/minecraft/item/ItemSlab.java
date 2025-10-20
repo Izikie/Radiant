@@ -21,14 +21,17 @@ public class ItemSlab extends ItemBlock {
         this.setHasSubtypes(true);
     }
 
+    @Override
     public int getMetadata(int damage) {
         return damage;
     }
 
+    @Override
     public String getUnlocalizedName(ItemStack stack) {
         return this.singleSlab.getUnlocalizedName(stack.getMetadata());
     }
 
+    @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
         if (stack.stackSize == 0) {
             return false;
@@ -59,6 +62,7 @@ public class ItemSlab extends ItemBlock {
         }
     }
 
+    @Override
     public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Direction side, EntityPlayer player, ItemStack stack) {
         BlockPos blockpos = pos;
         IProperty<?> iproperty = this.singleSlab.getVariantProperty();

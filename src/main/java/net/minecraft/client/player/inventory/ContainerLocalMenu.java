@@ -18,33 +18,41 @@ public class ContainerLocalMenu extends InventoryBasic implements ILockableConta
         this.guiID = id;
     }
 
+    @Override
     public int getField(int id) {
         return this.field_174895_b.getOrDefault(id, 0);
     }
 
+    @Override
     public void setField(int id, int value) {
         this.field_174895_b.put(id, value);
     }
 
+    @Override
     public int getFieldCount() {
         return this.field_174895_b.size();
     }
 
+    @Override
     public boolean isLocked() {
         return false;
     }
 
+    @Override
     public void setLockCode(LockCode code) {
     }
 
+    @Override
     public LockCode getLockCode() {
         return LockCode.EMPTY_CODE;
     }
 
+    @Override
     public String getGuiID() {
         return this.guiID;
     }
 
+    @Override
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
         throw new UnsupportedOperationException();
     }

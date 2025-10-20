@@ -18,6 +18,7 @@ public class ItemMinecart extends Item {
     private static final IBehaviorDispenseItem DISPENSER_MINECART_BEHAVIOR = new BehaviorDefaultDispenseItem() {
         private final BehaviorDefaultDispenseItem behaviourDefaultDispenseItem = new BehaviorDefaultDispenseItem();
 
+        @Override
         public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
             Direction enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
             World world = source.getWorld();
@@ -61,6 +62,7 @@ public class ItemMinecart extends Item {
             return stack;
         }
 
+        @Override
         protected void playDispenseSound(IBlockSource source) {
             source.getWorld().playAuxSFX(1000, source.getBlockPos(), 0);
         }
@@ -74,6 +76,7 @@ public class ItemMinecart extends Item {
         BlockDispenser.dispenseBehaviorRegistry.putObject(this, DISPENSER_MINECART_BEHAVIOR);
     }
 
+    @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
         IBlockState iblockstate = worldIn.getBlockState(pos);
 

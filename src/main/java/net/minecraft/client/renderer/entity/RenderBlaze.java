@@ -11,6 +11,7 @@ public class RenderBlaze extends RenderLiving<EntityBlaze> {
         super(renderManagerIn, new ModelBlaze(), 0.5F);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityBlaze entity) {
         return BLAZE_TEXTURES;
     }

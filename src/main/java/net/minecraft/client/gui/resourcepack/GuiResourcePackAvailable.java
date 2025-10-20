@@ -11,6 +11,7 @@ public class GuiResourcePackAvailable extends GuiResourcePackList {
         super(mc, width, height, packs);
     }
 
+    @Override
     protected String getListHeader() {
         return I18n.format("resourcePack.available.title");
     }

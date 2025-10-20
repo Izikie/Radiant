@@ -17,10 +17,12 @@ public class GuiRenameWorld extends GuiScreen {
         this.saveName = saveNameIn;
     }
 
+    @Override
     public void updateScreen() {
         this.field_146583_f.updateCursorCounter();
     }
 
+    @Override
     public void initGui() {
         Keyboard.enableRepeatEvents(true);
         this.buttonList.clear();
@@ -34,10 +36,12 @@ public class GuiRenameWorld extends GuiScreen {
         this.field_146583_f.setText(s);
     }
 
+    @Override
     public void onGuiClosed() {
         Keyboard.enableRepeatEvents(false);
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.enabled) {
             if (button.id == 1) {
@@ -50,6 +54,7 @@ public class GuiRenameWorld extends GuiScreen {
         }
     }
 
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         this.field_146583_f.textboxKeyTyped(typedChar, keyCode);
         this.buttonList.getFirst().enabled = !this.field_146583_f.getText().trim().isEmpty();
@@ -59,11 +64,13 @@ public class GuiRenameWorld extends GuiScreen {
         }
     }
 
+    @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         super.mouseClicked(mouseX, mouseY, mouseButton);
         this.field_146583_f.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRendererObj, I18n.format("selectWorld.renameTitle"), this.width / 2, 20, 16777215);

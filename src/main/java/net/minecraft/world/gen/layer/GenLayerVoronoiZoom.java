@@ -6,6 +6,7 @@ public class GenLayerVoronoiZoom extends GenLayer {
         super.parent = p_i2133_3_;
     }
 
+    @Override
     public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
         areaX = areaX - 2;
         areaY = areaY - 2;

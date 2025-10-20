@@ -14,6 +14,7 @@ public class RenderLightningBolt extends Render<EntityLightningBolt> {
         super(renderManagerIn);
     }
 
+    @Override
     public void doRender(EntityLightningBolt entity, double x, double y, double z, float entityYaw, float partialTicks) {
         Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
@@ -118,6 +119,7 @@ public class RenderLightningBolt extends Render<EntityLightningBolt> {
         GlStateManager.enableTexture2D();
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityLightningBolt entity) {
         return null;
     }

@@ -22,18 +22,21 @@ public class C07PacketPlayerDigging implements Packet<INetHandlerPlayServer> {
         this.facing = facingIn;
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.status = buf.readEnumValue(Action.class);
         this.position = buf.readBlockPos();
         this.facing = Direction.getFront(buf.readUnsignedByte());
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeEnumValue(this.status);
         buf.writeBlockPos(this.position);
         buf.writeByte(this.facing.getIndex());
     }
 
+    @Override
     public void processPacket(INetHandlerPlayServer handler) {
         handler.processPlayerDigging(this);
     }

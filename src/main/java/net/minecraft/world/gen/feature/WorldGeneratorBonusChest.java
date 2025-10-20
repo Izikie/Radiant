@@ -21,6 +21,7 @@ public class WorldGeneratorBonusChest extends WorldGenerator {
         this.itemsToGenerateInBonusChest = p_i45634_2_;
     }
 
+    @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         Block block;
 

@@ -13,11 +13,13 @@ public class ModelAdapterSlime extends ModelAdapter {
 		super(EntitySlime.class, "slime", 0.25F);
 	}
 
-	public ModelBase makeModel() {
+	@Override
+    public ModelBase makeModel() {
 		return new ModelSlime(16);
 	}
 
-	public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
+	@Override
+    public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
 		if (!(model instanceof ModelSlime modelslime)) {
 			return null;
 		} else {
@@ -29,11 +31,13 @@ public class ModelAdapterSlime extends ModelAdapter {
 		}
 	}
 
-	public String[] getModelRendererNames() {
+	@Override
+    public String[] getModelRendererNames() {
 		return new String[]{"body", "left_eye", "right_eye", "mouth"};
 	}
 
-	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+	@Override
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
 		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		return new RenderSlime(rendermanager, modelBase, shadowSize);
 	}

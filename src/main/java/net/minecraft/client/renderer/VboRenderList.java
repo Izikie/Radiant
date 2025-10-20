@@ -13,6 +13,7 @@ public class VboRenderList extends ChunkRenderContainer {
     private double viewEntityY;
     private double viewEntityZ;
 
+    @Override
     public void renderChunkLayer(RenderLayer layer) {
         if (this.initialized) {
             if (!Config.isRenderRegions()) {
@@ -72,6 +73,7 @@ public class VboRenderList extends ChunkRenderContainer {
         }
     }
 
+    @Override
     public void initialize(double viewEntityXIn, double viewEntityYIn, double viewEntityZIn) {
         this.viewEntityX = viewEntityXIn;
         this.viewEntityY = viewEntityYIn;

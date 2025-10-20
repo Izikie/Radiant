@@ -93,6 +93,7 @@ public abstract class World implements IBlockAccess {
         return this;
     }
 
+    @Override
     public BiomeGenBase getBiomeGenForCoords(final BlockPos pos) {
         if (this.isBlockLoaded(pos)) {
             Chunk chunk = this.getChunkFromBlockCoords(pos);
@@ -137,6 +138,7 @@ public abstract class World implements IBlockAccess {
         return pos.getX() >= -30000000 && pos.getZ() >= -30000000 && pos.getX() < 30000000 && pos.getZ() < 30000000 && pos.getY() >= 0 && pos.getY() < 256;
     }
 
+    @Override
     public boolean isAirBlock(BlockPos pos) {
         return this.getBlockState(pos).getBlock().getMaterial() == Material.AIR;
     }
@@ -552,6 +554,7 @@ public abstract class World implements IBlockAccess {
         }
     }
 
+    @Override
     public int getCombinedLight(BlockPos pos, int lightValue) {
         int i = this.getLightFromNeighborsFor(LightType.SKY, pos);
         int j = this.getLightFromNeighborsFor(LightType.BLOCK, pos);
@@ -567,6 +570,7 @@ public abstract class World implements IBlockAccess {
         return this.provider.getLightBrightnessTable()[this.getLightFromNeighbors(pos)];
     }
 
+    @Override
     public IBlockState getBlockState(BlockPos pos) {
         if (!this.isValid(pos)) {
             return Blocks.AIR.getDefaultState();
@@ -1623,6 +1627,7 @@ public abstract class World implements IBlockAccess {
         return this.chunkProvider.makeString();
     }
 
+    @Override
     public TileEntity getTileEntity(BlockPos pos) {
         if (!this.isValid(pos)) {
             return null;
@@ -2250,11 +2255,13 @@ public abstract class World implements IBlockAccess {
         this.seaLevel = p_181544_1_;
     }
 
+    @Override
     public int getStrongPower(BlockPos pos, Direction direction) {
         IBlockState iblockstate = this.getBlockState(pos);
         return iblockstate.getBlock().getStrongPower(this, pos, iblockstate, direction);
     }
 
+    @Override
     public WorldType getWorldType() {
         return this.worldInfo.getTerrainType();
     }
@@ -2564,6 +2571,7 @@ public abstract class World implements IBlockAccess {
         return this.getChunkProvider().getStrongholdGen(this, name, pos);
     }
 
+    @Override
     public boolean extendedLevelsInChunkCache() {
         return false;
     }

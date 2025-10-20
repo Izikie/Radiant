@@ -13,6 +13,7 @@ public class EntityExplodeFX extends EntityFX {
         this.particleMaxAge = (int) (16.0D / (this.rand.nextFloat() * 0.8D + 0.2D)) + 2;
     }
 
+    @Override
     public void onUpdate() {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
@@ -36,6 +37,7 @@ public class EntityExplodeFX extends EntityFX {
     }
 
     public static class Factory implements IParticleFactory {
+        @Override
         public EntityFX getEntityFX(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
             return new EntityExplodeFX(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
         }

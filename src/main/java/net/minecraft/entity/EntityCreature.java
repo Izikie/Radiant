@@ -26,6 +26,7 @@ public abstract class EntityCreature extends EntityLiving {
         return 0.0F;
     }
 
+    @Override
     public boolean getCanSpawnHere() {
         return super.getCanSpawnHere() && this.getBlockPathWeight(new BlockPos(this.posX, this.getEntityBoundingBox().minY, this.posZ)) >= 0.0F;
     }
@@ -63,6 +64,7 @@ public abstract class EntityCreature extends EntityLiving {
         return this.maximumHomeDistance != -1.0F;
     }
 
+    @Override
     protected void updateLeashedState() {
         super.updateLeashedState();
 

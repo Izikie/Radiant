@@ -30,14 +30,17 @@ public class PlayerProfileCache {
             .create();;
     private final File usercacheFile;
     private static final ParameterizedType TYPE = new ParameterizedType() {
+        @Override
         public Type[] getActualTypeArguments() {
             return new Type[]{ProfileEntry.class};
         }
 
+        @Override
         public Type getRawType() {
             return List.class;
         }
 
+        @Override
         public Type getOwnerType() {
             return null;
         }
@@ -52,10 +55,12 @@ public class PlayerProfileCache {
     private static GameProfile getGameProfile(MinecraftServer server, String username) {
         final GameProfile[] agameprofile = new GameProfile[1];
         ProfileLookupCallback profilelookupcallback = new ProfileLookupCallback() {
+            @Override
             public void onProfileLookupSucceeded(GameProfile p_onProfileLookupSucceeded_1_) {
                 agameprofile[0] = p_onProfileLookupSucceeded_1_;
             }
 
+            @Override
             public void onProfileLookupFailed(GameProfile p_onProfileLookupFailed_1_, Exception p_onProfileLookupFailed_2_) {
                 agameprofile[0] = null;
             }
@@ -222,6 +227,7 @@ public class PlayerProfileCache {
         private Serializer() {
         }
 
+        @Override
         public JsonElement serialize(ProfileEntry p_serialize_1_, Type type, JsonSerializationContext ctx) {
             JsonObject jsonobject = new JsonObject();
             jsonobject.addProperty("name", p_serialize_1_.getGameProfile().getName());
@@ -231,6 +237,7 @@ public class PlayerProfileCache {
             return jsonobject;
         }
 
+        @Override
         public ProfileEntry deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
             if (jsonElement.isJsonObject()) {
                 JsonObject jsonobject = jsonElement.getAsJsonObject();

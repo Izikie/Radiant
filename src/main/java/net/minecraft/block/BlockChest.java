@@ -36,18 +36,22 @@ public class BlockChest extends BlockContainer {
         this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public int getRenderType() {
         return 2;
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         if (worldIn.getBlockState(pos.north()).getBlock() == this) {
             this.setBlockBounds(0.0625F, 0.0F, 0.0F, 0.9375F, 0.875F, 0.9375F);
@@ -62,6 +66,7 @@ public class BlockChest extends BlockContainer {
         }
     }
 
+    @Override
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         this.checkForSurroundingChests(worldIn, pos, state);
 
@@ -75,10 +80,12 @@ public class BlockChest extends BlockContainer {
         }
     }
 
+    @Override
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
     }
 
+    @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         Direction enumfacing = Direction.getHorizontal(MathHelper.floor((placer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3).getOpposite();
         state = state.withProperty(FACING, enumfacing);
@@ -242,6 +249,7 @@ public class BlockChest extends BlockContainer {
         }
     }
 
+    @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
         int i = 0;
         BlockPos blockpos = pos.west();
@@ -298,6 +306,7 @@ public class BlockChest extends BlockContainer {
         }
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         super.onNeighborBlockChange(worldIn, pos, state, neighborBlock);
         TileEntity tileentity = worldIn.getTileEntity(pos);
@@ -307,6 +316,7 @@ public class BlockChest extends BlockContainer {
         }
     }
 
+    @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
@@ -318,6 +328,7 @@ public class BlockChest extends BlockContainer {
         super.breakBlock(worldIn, pos, state);
     }
 
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote) {
             ILockableContainer ilockablecontainer = this.getLockableContainer(worldIn, pos);
@@ -373,14 +384,17 @@ public class BlockChest extends BlockContainer {
         }
     }
 
+    @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntityChest();
     }
 
+    @Override
     public boolean canProvidePower() {
         return this.chestType == 1;
     }
 
+    @Override
     public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
         if (!this.canProvidePower()) {
             return 0;
@@ -396,6 +410,7 @@ public class BlockChest extends BlockContainer {
         }
     }
 
+    @Override
     public int getStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
         return side == Direction.UP ? this.getWeakPower(worldIn, pos, state, side) : 0;
     }
@@ -418,14 +433,17 @@ public class BlockChest extends BlockContainer {
         return false;
     }
 
+    @Override
     public boolean hasComparatorInputOverride() {
         return true;
     }
 
+    @Override
     public int getComparatorInputOverride(World worldIn, BlockPos pos) {
         return Container.calcRedstoneFromInventory(this.getLockableContainer(worldIn, pos));
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         Direction enumfacing = Direction.getFront(meta);
 
@@ -436,10 +454,12 @@ public class BlockChest extends BlockContainer {
         return this.getDefaultState().withProperty(FACING, enumfacing);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(FACING).getIndex();
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, FACING);
     }

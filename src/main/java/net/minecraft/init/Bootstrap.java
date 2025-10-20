@@ -42,6 +42,7 @@ public class Bootstrap {
 
     static void registerDispenserBehaviors() {
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.ARROW, new BehaviorProjectileDispense() {
+            @Override
             protected IProjectile getProjectileEntity(World worldIn, IPosition position) {
                 EntityArrow arrow = new EntityArrow(worldIn, position.getX(), position.getY(), position.getZ());
                 arrow.canBePickedUp = 1;
@@ -49,24 +50,29 @@ public class Bootstrap {
             }
         });
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.EGG, new BehaviorProjectileDispense() {
+            @Override
             protected IProjectile getProjectileEntity(World worldIn, IPosition position) {
                 return new EntityEgg(worldIn, position.getX(), position.getY(), position.getZ());
             }
         });
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.SNOWBALL, new BehaviorProjectileDispense() {
+            @Override
             protected IProjectile getProjectileEntity(World worldIn, IPosition position) {
                 return new EntitySnowball(worldIn, position.getX(), position.getY(), position.getZ());
             }
         });
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.EXPERIENCE_BOTTLE, new BehaviorProjectileDispense() {
+            @Override
             protected IProjectile getProjectileEntity(World worldIn, IPosition position) {
                 return new EntityExpBottle(worldIn, position.getX(), position.getY(), position.getZ());
             }
 
+            @Override
             protected float func_82498_a() {
                 return super.func_82498_a() * 0.5F;
             }
 
+            @Override
             protected float func_82500_b() {
                 return super.func_82500_b() * 1.25F;
             }
@@ -74,16 +80,20 @@ public class Bootstrap {
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.POTION, new IBehaviorDispenseItem() {
             private final BehaviorDefaultDispenseItem field_150843_b = new BehaviorDefaultDispenseItem();
 
+            @Override
             public ItemStack dispense(IBlockSource source, final ItemStack stack) {
                 return ItemPotion.isSplash(stack.getMetadata()) ? (new BehaviorProjectileDispense() {
+                    @Override
                     protected IProjectile getProjectileEntity(World worldIn, IPosition position) {
                         return new EntityPotion(worldIn, position.getX(), position.getY(), position.getZ(), stack.copy());
                     }
 
+                    @Override
                     protected float func_82498_a() {
                         return super.func_82498_a() * 0.5F;
                     }
 
+                    @Override
                     protected float func_82500_b() {
                         return super.func_82500_b() * 1.25F;
                     }
@@ -91,6 +101,7 @@ public class Bootstrap {
             }
         });
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.SPAWN_EGG, new BehaviorDefaultDispenseItem() {
+            @Override
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
                 Direction direction = BlockDispenser.getFacing(source.getBlockMetadata());
                 double x = source.getX() + direction.getFrontOffsetX();
@@ -107,6 +118,7 @@ public class Bootstrap {
             }
         });
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.FIREWORKS, new BehaviorDefaultDispenseItem() {
+            @Override
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
                 Direction direction = BlockDispenser.getFacing(source.getBlockMetadata());
                 double d0 = source.getX() + direction.getFrontOffsetX();
@@ -118,11 +130,13 @@ public class Bootstrap {
                 return stack;
             }
 
+            @Override
             protected void playDispenseSound(IBlockSource source) {
                 source.getWorld().playAuxSFX(1002, source.getBlockPos(), 0);
             }
         });
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.FIRE_CHARGE, new BehaviorDefaultDispenseItem() {
+            @Override
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
                 Direction direction = BlockDispenser.getFacing(source.getBlockMetadata());
                 IPosition position = BlockDispenser.getDispensePosition(source);
@@ -139,6 +153,7 @@ public class Bootstrap {
                 return stack;
             }
 
+            @Override
             protected void playDispenseSound(IBlockSource source) {
                 source.getWorld().playAuxSFX(1009, source.getBlockPos(), 0);
             }
@@ -146,6 +161,7 @@ public class Bootstrap {
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.BOAT, new BehaviorDefaultDispenseItem() {
             private final BehaviorDefaultDispenseItem field_150842_b = new BehaviorDefaultDispenseItem();
 
+            @Override
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
                 Direction direction = BlockDispenser.getFacing(source.getBlockMetadata());
                 World world = source.getWorld();
@@ -172,6 +188,7 @@ public class Bootstrap {
                 return stack;
             }
 
+            @Override
             protected void playDispenseSound(IBlockSource source) {
                 source.getWorld().playAuxSFX(1000, source.getBlockPos(), 0);
             }
@@ -179,6 +196,7 @@ public class Bootstrap {
         IBehaviorDispenseItem ibehaviordispenseitem = new BehaviorDefaultDispenseItem() {
             private final BehaviorDefaultDispenseItem field_150841_b = new BehaviorDefaultDispenseItem();
 
+            @Override
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
                 ItemBucket bucket = (ItemBucket) stack.getItem();
                 BlockPos blockPos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
@@ -197,6 +215,7 @@ public class Bootstrap {
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.BUCKET, new BehaviorDefaultDispenseItem() {
             private final BehaviorDefaultDispenseItem field_150840_b = new BehaviorDefaultDispenseItem();
 
+            @Override
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
                 World world = source.getWorld();
                 BlockPos blockPos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
@@ -230,6 +249,7 @@ public class Bootstrap {
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.FLINT_AND_STEEL, new BehaviorDefaultDispenseItem() {
             private boolean field_150839_b = true;
 
+            @Override
             protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
                 World world = source.getWorld();
                 BlockPos blockpos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
@@ -250,6 +270,7 @@ public class Bootstrap {
                 return stack;
             }
 
+            @Override
             protected void playDispenseSound(IBlockSource source) {
                 if (this.field_150839_b) {
                     source.getWorld().playAuxSFX(1000, source.getBlockPos(), 0);
@@ -261,6 +282,7 @@ public class Bootstrap {
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.DYE, new BehaviorDefaultDispenseItem() {
             private boolean field_150838_b = true;
 
+            @Override
             protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
                 if (DyeColor.WHITE == DyeColor.byDyeDamage(stack.getMetadata())) {
                     World world = source.getWorld();
@@ -280,6 +302,7 @@ public class Bootstrap {
                 }
             }
 
+            @Override
             protected void playDispenseSound(IBlockSource source) {
                 if (this.field_150838_b) {
                     source.getWorld().playAuxSFX(1000, source.getBlockPos(), 0);
@@ -289,6 +312,7 @@ public class Bootstrap {
             }
         });
         BlockDispenser.dispenseBehaviorRegistry.putObject(Item.getItemFromBlock(Blocks.TNT), new BehaviorDefaultDispenseItem() {
+            @Override
             protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
                 World world = source.getWorld();
                 BlockPos blockpos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
@@ -302,6 +326,7 @@ public class Bootstrap {
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.SKULL, new BehaviorDefaultDispenseItem() {
             private boolean field_179240_b = true;
 
+            @Override
             protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
                 World world = source.getWorld();
                 Direction enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
@@ -349,6 +374,7 @@ public class Bootstrap {
                 return stack;
             }
 
+            @Override
             protected void playDispenseSound(IBlockSource source) {
                 if (this.field_179240_b) {
                     source.getWorld().playAuxSFX(1000, source.getBlockPos(), 0);
@@ -360,6 +386,7 @@ public class Bootstrap {
         BlockDispenser.dispenseBehaviorRegistry.putObject(Item.getItemFromBlock(Blocks.PUMPKIN), new BehaviorDefaultDispenseItem() {
             private boolean field_179241_b = true;
 
+            @Override
             protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
                 World world = source.getWorld();
                 BlockPos blockpos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
@@ -378,6 +405,7 @@ public class Bootstrap {
                 return stack;
             }
 
+            @Override
             protected void playDispenseSound(IBlockSource source) {
                 if (this.field_179241_b) {
                     source.getWorld().playAuxSFX(1000, source.getBlockPos(), 0);

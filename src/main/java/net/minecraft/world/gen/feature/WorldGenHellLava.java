@@ -17,6 +17,7 @@ public class WorldGenHellLava extends WorldGenerator {
         this.field_94524_b = p_i45453_2_;
     }
 
+    @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         if (worldIn.getBlockState(position.up()).getBlock() != Blocks.NETHERRACK) {
             return false;

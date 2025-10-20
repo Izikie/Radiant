@@ -15,6 +15,7 @@ public class BlockHelper implements Predicate<IBlockState> {
         return new BlockHelper(blockType);
     }
 
+    @Override
     public boolean apply(IBlockState p_apply_1_) {
         return p_apply_1_ != null && p_apply_1_.getBlock() == this.block;
     }

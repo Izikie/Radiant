@@ -10,12 +10,15 @@ public abstract class EntityFlying extends EntityLiving {
         super(worldIn);
     }
 
+    @Override
     public void fall(float distance, float damageMultiplier) {
     }
 
+    @Override
     protected void updateFallState(double y, boolean onGroundIn, Block blockIn, BlockPos pos) {
     }
 
+    @Override
     public void moveEntityWithHeading(float strafe, float forward) {
         if (this.isInWater()) {
             this.moveFlying(strafe, forward, 0.02F);
@@ -63,6 +66,7 @@ public abstract class EntityFlying extends EntityLiving {
         this.limbSwing += this.limbSwingAmount;
     }
 
+    @Override
     public boolean isOnLadder() {
         return false;
     }

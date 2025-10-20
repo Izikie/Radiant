@@ -10,6 +10,7 @@ import net.minecraft.network.packet.PacketBuffer;
 import java.util.List;
 
 public class MessageSplitter extends ByteToMessageDecoder {
+    @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf p_decode_2_, List<Object> p_decode_3_) throws Exception {
         p_decode_2_.markReaderIndex();
         byte[] abyte = new byte[3];

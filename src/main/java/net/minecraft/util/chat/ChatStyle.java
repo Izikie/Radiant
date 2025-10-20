@@ -16,74 +16,92 @@ public class ChatStyle {
     private HoverEvent chatHoverEvent;
     private String insertion;
     private static final ChatStyle ROOT_STYLE = new ChatStyle() {
+        @Override
         public Formatting getColor() {
             return null;
         }
 
+        @Override
         public boolean getBold() {
             return false;
         }
 
+        @Override
         public boolean getItalic() {
             return false;
         }
 
+        @Override
         public boolean getStrikethrough() {
             return false;
         }
 
+        @Override
         public boolean getUnderlined() {
             return false;
         }
 
+        @Override
         public boolean getObfuscated() {
             return false;
         }
 
+        @Override
         public ClickEvent getChatClickEvent() {
             return null;
         }
 
+        @Override
         public HoverEvent getChatHoverEvent() {
             return null;
         }
 
+        @Override
         public String getInsertion() {
             return null;
         }
 
+        @Override
         public ChatStyle setColor(Formatting color) {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public ChatStyle setBold(Boolean boldIn) {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public ChatStyle setItalic(Boolean italic) {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public ChatStyle setStrikethrough(Boolean strikethrough) {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public ChatStyle setUnderlined(Boolean underlined) {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public ChatStyle setObfuscated(Boolean obfuscated) {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public ChatStyle setChatClickEvent(ClickEvent event) {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public ChatStyle setChatHoverEvent(HoverEvent event) {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public ChatStyle setParentStyle(ChatStyle parent) {
             throw new UnsupportedOperationException();
         }
@@ -92,14 +110,17 @@ public class ChatStyle {
             return "Style.ROOT";
         }
 
+        @Override
         public ChatStyle createShallowCopy() {
             return this;
         }
 
+        @Override
         public ChatStyle createDeepCopy() {
             return this;
         }
 
+        @Override
         public String getFormattingCode() {
             return "";
         }
@@ -328,6 +349,7 @@ public class ChatStyle {
     }
 
     public static class Serializer implements JsonDeserializer<ChatStyle>, JsonSerializer<ChatStyle> {
+        @Override
         public ChatStyle deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
             if (jsonElement.isJsonObject()) {
                 ChatStyle chatstyle = new ChatStyle();
@@ -400,6 +422,7 @@ public class ChatStyle {
             }
         }
 
+        @Override
         public JsonElement serialize(ChatStyle p_serialize_1_, Type type, JsonSerializationContext ctx) {
             if (p_serialize_1_.isEmpty()) {
                 return null;

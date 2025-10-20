@@ -19,6 +19,7 @@ public class RenderRabbit extends RenderLiving<EntityRabbit> {
         super(renderManagerIn, modelBaseIn, shadowSizeIn);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityRabbit entity) {
         String s = Formatting.getTextWithoutFormattingCodes(entity.getName());
 

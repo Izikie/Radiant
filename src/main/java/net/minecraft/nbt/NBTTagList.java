@@ -14,6 +14,7 @@ public class NBTTagList extends NBTBase {
     private List<NBTBase> tagList = new ArrayList<>();
     private byte tagType = 0;
 
+    @Override
     void write(DataOutput output) throws IOException {
         if (!this.tagList.isEmpty()) {
             this.tagType = this.tagList.getFirst().getId();
@@ -29,6 +30,7 @@ public class NBTTagList extends NBTBase {
         }
     }
 
+    @Override
     void read(DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException {
         sizeTracker.read(296L);
 
@@ -53,6 +55,7 @@ public class NBTTagList extends NBTBase {
         }
     }
 
+    @Override
     public byte getId() {
         return (byte) 9;
     }
@@ -107,6 +110,7 @@ public class NBTTagList extends NBTBase {
         return this.tagList.remove(i);
     }
 
+    @Override
     public boolean hasNoTags() {
         return this.tagList.isEmpty();
     }
@@ -164,6 +168,7 @@ public class NBTTagList extends NBTBase {
         return this.tagList.size();
     }
 
+    @Override
     public NBTBase copy() {
         NBTTagList nbttaglist = new NBTTagList();
         nbttaglist.tagType = this.tagType;

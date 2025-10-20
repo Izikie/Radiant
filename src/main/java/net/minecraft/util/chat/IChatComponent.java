@@ -34,6 +34,7 @@ public interface IChatComponent extends Iterable<IChatComponent> {
                     .registerTypeAdapterFactory(new EnumTypeAdapterFactory())
                     .create();
 
+        @Override
         public IChatComponent deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
             if (jsonElement.isJsonPrimitive()) {
                 return new ChatComponentText(jsonElement.getAsString());
@@ -133,6 +134,7 @@ public interface IChatComponent extends Iterable<IChatComponent> {
             }
         }
 
+        @Override
         public JsonElement serialize(IChatComponent p_serialize_1_, Type type, JsonSerializationContext ctx) {
             if (p_serialize_1_ instanceof ChatComponentText chatComponents && p_serialize_1_.getChatStyle().isEmpty() && p_serialize_1_.getSiblings().isEmpty()) {
                 return new JsonPrimitive(chatComponents.getChatComponentText_TextValue());

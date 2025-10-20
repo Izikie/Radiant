@@ -22,6 +22,7 @@ public class BlockNote extends BlockContainer {
         this.setCreativeTab(CreativeTabs.TAB_REDSTONE);
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         boolean flag = worldIn.isBlockPowered(pos);
         TileEntity tileentity = worldIn.getTileEntity(pos);
@@ -38,6 +39,7 @@ public class BlockNote extends BlockContainer {
         }
     }
 
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
@@ -52,6 +54,7 @@ public class BlockNote extends BlockContainer {
         return true;
     }
 
+    @Override
     public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn) {
         if (!worldIn.isRemote) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
@@ -63,6 +66,7 @@ public class BlockNote extends BlockContainer {
         }
     }
 
+    @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntityNote();
     }
@@ -75,6 +79,7 @@ public class BlockNote extends BlockContainer {
         return INSTRUMENTS.get(id);
     }
 
+    @Override
     public boolean onBlockEventReceived(World worldIn, BlockPos pos, IBlockState state, int eventID, int eventParam) {
         float f = (float) Math.pow(2.0D, (eventParam - 12) / 12.0D);
         worldIn.playSoundEffect(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, "note." + this.getInstrument(eventID), 3.0F, f);
@@ -82,6 +87,7 @@ public class BlockNote extends BlockContainer {
         return true;
     }
 
+    @Override
     public int getRenderType() {
         return 3;
     }

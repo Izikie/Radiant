@@ -14,11 +14,13 @@ public class ModelAdapterHeadHumanoid extends ModelAdapter {
 		super(TileEntitySkull.class, "head_humanoid", 0.0F);
 	}
 
-	public ModelBase makeModel() {
+	@Override
+    public ModelBase makeModel() {
 		return new ModelHumanoidHead();
 	}
 
-	public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
+	@Override
+    public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
 		if (model instanceof ModelHumanoidHead modelhumanoidhead) {
 			if (modelPart.equals("head"))
 				return modelhumanoidhead.skeletonHead;
@@ -28,11 +30,13 @@ public class ModelAdapterHeadHumanoid extends ModelAdapter {
 		return null;
 	}
 
-	public String[] getModelRendererNames() {
+	@Override
+    public String[] getModelRendererNames() {
 		return new String[]{"head"};
 	}
 
-	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+	@Override
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
 		TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.INSTANCE;
 		TileEntitySpecialRenderer<TileEntitySkull> tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntitySkull.class);
 

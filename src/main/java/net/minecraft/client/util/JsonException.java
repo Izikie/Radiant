@@ -31,6 +31,7 @@ public class JsonException extends IOException {
         this.field_151383_a.addFirst(new Entry());
     }
 
+    @Override
     public String getMessage() {
         return "Invalid " + this.field_151383_a.getLast().toString() + ": " + this.exceptionMessage;
     }

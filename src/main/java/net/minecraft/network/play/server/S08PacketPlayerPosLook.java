@@ -28,6 +28,7 @@ public class S08PacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
         this.field_179835_f = p_i45993_9_;
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.x = buf.readDouble();
         this.y = buf.readDouble();
@@ -37,6 +38,7 @@ public class S08PacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
         this.field_179835_f = Flag.func_180053_a(buf.readUnsignedByte());
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeDouble(this.x);
         buf.writeDouble(this.y);
@@ -46,6 +48,7 @@ public class S08PacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
         buf.writeByte(Flag.func_180056_a(this.field_179835_f));
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handlePlayerPosLook(this);
     }

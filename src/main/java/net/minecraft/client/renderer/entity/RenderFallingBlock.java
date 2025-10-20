@@ -21,6 +21,7 @@ public class RenderFallingBlock extends Render<EntityFallingBlock> {
         this.shadowSize = 0.5F;
     }
 
+    @Override
     public void doRender(EntityFallingBlock entity, double x, double y, double z, float entityYaw, float partialTicks) {
         if (entity.getBlock() != null) {
             this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
@@ -54,6 +55,7 @@ public class RenderFallingBlock extends Render<EntityFallingBlock> {
         }
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityFallingBlock entity) {
         return TextureMap.LOCATION_BLOCKS_TEXTURE;
     }

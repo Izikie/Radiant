@@ -37,6 +37,7 @@ public class S2APacketParticles implements Packet<INetHandlerPlayClient> {
         this.particleArguments = particleArgumentsIn;
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.particleType = ParticleTypes.getParticleFromId(buf.readInt());
 
@@ -61,6 +62,7 @@ public class S2APacketParticles implements Packet<INetHandlerPlayClient> {
         }
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeInt(this.particleType.getParticleID());
         buf.writeBoolean(this.longDistance);
@@ -123,6 +125,7 @@ public class S2APacketParticles implements Packet<INetHandlerPlayClient> {
         return this.particleArguments;
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleParticles(this);
     }

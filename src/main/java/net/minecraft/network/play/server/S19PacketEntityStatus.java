@@ -20,16 +20,19 @@ public class S19PacketEntityStatus implements Packet<INetHandlerPlayClient> {
         this.logicOpcode = opCodeIn;
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.entityId = buf.readInt();
         this.logicOpcode = buf.readByte();
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeInt(this.entityId);
         buf.writeByte(this.logicOpcode);
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleEntityStatus(this);
     }

@@ -15,14 +15,17 @@ import net.minecraft.world.World;
 public class BlockDropper extends BlockDispenser {
     private final IBehaviorDispenseItem dropBehavior = new BehaviorDefaultDispenseItem();
 
+    @Override
     protected IBehaviorDispenseItem getBehavior(ItemStack stack) {
         return this.dropBehavior;
     }
 
+    @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntityDropper();
     }
 
+    @Override
     protected void dispense(World worldIn, BlockPos pos) {
         BlockSourceImpl blocksourceimpl = new BlockSourceImpl(worldIn, pos);
         TileEntityDispenser tileentitydispenser = blocksourceimpl.getBlockTileEntity();

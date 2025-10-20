@@ -25,10 +25,12 @@ public class BlockCommandBlock extends BlockContainer {
         this.setDefaultState(this.blockState.getBaseState().withProperty(TRIGGERED, Boolean.FALSE));
     }
 
+    @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntityCommandBlock();
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         if (!worldIn.isRemote) {
             boolean flag = worldIn.isBlockPowered(pos);
@@ -43,6 +45,7 @@ public class BlockCommandBlock extends BlockContainer {
         }
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
@@ -52,24 +55,29 @@ public class BlockCommandBlock extends BlockContainer {
         }
     }
 
+    @Override
     public int tickRate(World worldIn) {
         return 1;
     }
 
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
         return tileentity instanceof TileEntityCommandBlock tileEntityCommandBlock && tileEntityCommandBlock.getCommandBlockLogic().tryOpenEditCommandBlock(playerIn);
     }
 
+    @Override
     public boolean hasComparatorInputOverride() {
         return true;
     }
 
+    @Override
     public int getComparatorInputOverride(World worldIn, BlockPos pos) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
         return tileentity instanceof TileEntityCommandBlock tileEntityCommandBlock ? tileEntityCommandBlock.getCommandBlockLogic().getSuccessCount() : 0;
     }
 
+    @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
@@ -86,18 +94,22 @@ public class BlockCommandBlock extends BlockContainer {
         }
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return 0;
     }
 
+    @Override
     public int getRenderType() {
         return 3;
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(TRIGGERED, (meta & 1) > 0);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         int i = 0;
 
@@ -108,10 +120,12 @@ public class BlockCommandBlock extends BlockContainer {
         return i;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, TRIGGERED);
     }
 
+    @Override
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return this.getDefaultState().withProperty(TRIGGERED, Boolean.FALSE);
     }

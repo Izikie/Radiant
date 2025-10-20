@@ -26,6 +26,7 @@ public class GuiEditSign extends GuiScreen {
         this.tileSign = teSign;
     }
 
+    @Override
     public void initGui() {
         this.buttonList.clear();
         Keyboard.enableRepeatEvents(true);
@@ -33,6 +34,7 @@ public class GuiEditSign extends GuiScreen {
         this.tileSign.setEditable(false);
     }
 
+    @Override
     public void onGuiClosed() {
         Keyboard.enableRepeatEvents(false);
         NetHandlerPlayClient nethandlerplayclient = this.mc.getNetHandler();
@@ -44,10 +46,12 @@ public class GuiEditSign extends GuiScreen {
         this.tileSign.setEditable(true);
     }
 
+    @Override
     public void updateScreen() {
         ++this.updateCounter;
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.enabled) {
             if (button.id == 0) {
@@ -57,6 +61,7 @@ public class GuiEditSign extends GuiScreen {
         }
     }
 
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         if (keyCode == 200) {
             this.editLine = this.editLine - 1 & 3;
@@ -83,6 +88,7 @@ public class GuiEditSign extends GuiScreen {
         }
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRendererObj, I18n.format("sign.edit"), this.width / 2, 40, 16777215);

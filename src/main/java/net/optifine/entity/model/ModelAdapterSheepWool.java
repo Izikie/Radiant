@@ -20,11 +20,13 @@ public class ModelAdapterSheepWool extends ModelAdapterQuadruped {
 		super(EntitySheep.class, "sheep_wool", 0.7F);
 	}
 
-	public ModelBase makeModel() {
+	@Override
+    public ModelBase makeModel() {
 		return new ModelSheep1();
 	}
 
-	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+	@Override
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
 		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		Render render = rendermanager.getEntityRenderMap().get(EntitySheep.class);
 

@@ -11,7 +11,8 @@ public class GuiOptionSliderOF extends GuiOptionSlider implements IOptionControl
 		this.option = option;
 	}
 
-	public GameSettings.Options getOption() {
+	@Override
+    public GameSettings.Options getOption() {
 		return this.option;
 	}
 }

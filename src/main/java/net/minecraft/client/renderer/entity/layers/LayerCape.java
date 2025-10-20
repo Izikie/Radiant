@@ -13,6 +13,7 @@ public class LayerCape implements LayerRenderer<AbstractClientPlayer> {
         this.playerRenderer = playerRendererIn;
     }
 
+    @Override
     public void doRenderLayer(AbstractClientPlayer entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
         if (entitylivingbaseIn.hasPlayerInfo() && !entitylivingbaseIn.isInvisible() && entitylivingbaseIn.isWearing(PlayerModelParts.CAPE) && entitylivingbaseIn.getLocationCape() != null) {
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -59,6 +60,7 @@ public class LayerCape implements LayerRenderer<AbstractClientPlayer> {
         }
     }
 
+    @Override
     public boolean shouldCombineTextures() {
         return false;
     }

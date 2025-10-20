@@ -18,6 +18,7 @@ public class WorldGenSwamp extends WorldGenAbstractTree {
         super(false);
     }
 
+    @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         int i;
 

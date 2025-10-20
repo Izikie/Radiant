@@ -15,6 +15,7 @@ public class GuiCustomizeSkin extends GuiScreen {
         this.parentScreen = parentScreenIn;
     }
 
+    @Override
     public void initGui() {
         int i = 0;
         this.title = I18n.format("options.skinCustomisation.title");
@@ -33,6 +34,7 @@ public class GuiCustomizeSkin extends GuiScreen {
         this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 24 * (i >> 1), I18n.format("gui.done")));
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.enabled) {
             if (button.id == 210) {
@@ -50,6 +52,7 @@ public class GuiCustomizeSkin extends GuiScreen {
         }
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRendererObj, this.title, this.width / 2, 20, 16777215);

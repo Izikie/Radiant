@@ -27,6 +27,7 @@ public class C13PacketPlayerAbilities implements Packet<INetHandlerPlayServer> {
         this.setWalkSpeed(capabilities.getWalkSpeed());
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         byte b0 = buf.readByte();
         this.setInvulnerable((b0 & 1) > 0);
@@ -37,6 +38,7 @@ public class C13PacketPlayerAbilities implements Packet<INetHandlerPlayServer> {
         this.setWalkSpeed(buf.readFloat());
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         byte b0 = 0;
 
@@ -61,6 +63,7 @@ public class C13PacketPlayerAbilities implements Packet<INetHandlerPlayServer> {
         buf.writeFloat(this.walkSpeed);
     }
 
+    @Override
     public void processPacket(INetHandlerPlayServer handler) {
         handler.processPlayerAbilities(this);
     }

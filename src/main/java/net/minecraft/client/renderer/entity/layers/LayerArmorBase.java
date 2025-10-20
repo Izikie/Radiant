@@ -32,6 +32,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
         this.initArmor();
     }
 
+    @Override
     public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
         this.renderLayer(entitylivingbaseIn, p_177141_2_, p_177141_3_, partialTicks, p_177141_5_, p_177141_6_, p_177141_7_, scale, 4);
         this.renderLayer(entitylivingbaseIn, p_177141_2_, p_177141_3_, partialTicks, p_177141_5_, p_177141_6_, p_177141_7_, scale, 3);
@@ -39,6 +40,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
         this.renderLayer(entitylivingbaseIn, p_177141_2_, p_177141_3_, partialTicks, p_177141_5_, p_177141_6_, p_177141_7_, scale, 1);
     }
 
+    @Override
     public boolean shouldCombineTextures() {
         return false;
     }

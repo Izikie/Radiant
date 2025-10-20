@@ -52,6 +52,7 @@ public class EntityEnderman extends EntityMob {
         this.targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityEndermite.class, 10, true, false, EntityEndermite::isSpawnedByPlayer));
     }
 
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40.0D);
@@ -60,6 +61,7 @@ public class EntityEnderman extends EntityMob {
         this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(64.0D);
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(16, (short) 0);
@@ -67,6 +69,7 @@ public class EntityEnderman extends EntityMob {
         this.dataWatcher.addObject(18, (byte) 0);
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         IBlockState iblockstate = this.getHeldBlockState();
@@ -74,6 +77,7 @@ public class EntityEnderman extends EntityMob {
         tagCompound.setShort("carriedData", (short) iblockstate.getBlock().getMetaFromState(iblockstate));
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
         IBlockState iblockstate;
@@ -102,10 +106,12 @@ public class EntityEnderman extends EntityMob {
         }
     }
 
+    @Override
     public float getEyeHeight() {
         return 2.55F;
     }
 
+    @Override
     public void onLivingUpdate() {
         if (this.worldObj.isRemote) {
             for (int i = 0; i < 2; ++i) {
@@ -117,6 +123,7 @@ public class EntityEnderman extends EntityMob {
         super.onLivingUpdate();
     }
 
+    @Override
     protected void updateAITasks() {
         if (this.isWet()) {
             this.attackEntityFrom(DamageSource.DROWN, 1.0F);
@@ -214,22 +221,27 @@ public class EntityEnderman extends EntityMob {
         }
     }
 
+    @Override
     protected String getLivingSound() {
         return this.isScreaming() ? "mob.endermen.scream" : "mob.endermen.idle";
     }
 
+    @Override
     protected String getHurtSound() {
         return "mob.endermen.hit";
     }
 
+    @Override
     protected String getDeathSound() {
         return "mob.endermen.death";
     }
 
+    @Override
     protected Item getDropItem() {
         return Items.ENDER_PEARL;
     }
 
+    @Override
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
         Item item = this.getDropItem();
 
@@ -250,6 +262,7 @@ public class EntityEnderman extends EntityMob {
         return Block.getStateById(this.dataWatcher.getWatchableObjectShort(16) & 65535);
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (this.isEntityInvulnerable(source)) {
             return false;
@@ -326,6 +339,7 @@ public class EntityEnderman extends EntityMob {
             this.enderman = p_i45842_1_;
         }
 
+        @Override
         public boolean shouldExecute() {
             double d0 = this.getTargetDistance();
             List<EntityPlayer> list = this.taskOwner.worldObj.getEntitiesWithinAABB(EntityPlayer.class, this.taskOwner.getEntityBoundingBox().expand(d0, 4.0D, d0), this.targetEntitySelector);
@@ -339,11 +353,13 @@ public class EntityEnderman extends EntityMob {
             }
         }
 
+        @Override
         public void startExecuting() {
             this.field_179450_h = 5;
             this.field_179451_i = 0;
         }
 
+        @Override
         public void resetTask() {
             this.player = null;
             this.enderman.setScreaming(false);
@@ -352,6 +368,7 @@ public class EntityEnderman extends EntityMob {
             super.resetTask();
         }
 
+        @Override
         public boolean continueExecuting() {
             if (this.player != null) {
                 if (!this.enderman.shouldAttackPlayer(this.player)) {
@@ -366,6 +383,7 @@ public class EntityEnderman extends EntityMob {
             }
         }
 
+        @Override
         public void updateTask() {
             if (this.player != null) {
                 if (--this.field_179450_h <= 0) {
@@ -402,10 +420,12 @@ public class EntityEnderman extends EntityMob {
             this.enderman = p_i45843_1_;
         }
 
+        @Override
         public boolean shouldExecute() {
             return this.enderman.worldObj.getGameRules().getBoolean("mobGriefing") && (this.enderman.getHeldBlockState().getBlock().getMaterial() != Material.AIR && this.enderman.getRNG().nextInt(2000) == 0);
         }
 
+        @Override
         public void updateTask() {
             Random random = this.enderman.getRNG();
             World world = this.enderman.worldObj;
@@ -434,10 +454,12 @@ public class EntityEnderman extends EntityMob {
             this.enderman = p_i45841_1_;
         }
 
+        @Override
         public boolean shouldExecute() {
             return this.enderman.worldObj.getGameRules().getBoolean("mobGriefing") && (this.enderman.getHeldBlockState().getBlock().getMaterial() == Material.AIR && this.enderman.getRNG().nextInt(20) == 0);
         }
 
+        @Override
         public void updateTask() {
             Random random = this.enderman.getRNG();
             World world = this.enderman.worldObj;

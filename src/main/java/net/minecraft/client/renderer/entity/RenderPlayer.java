@@ -31,10 +31,12 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer> {
         this.addLayer(new LayerCustomHead(this.getMainModel().bipedHead));
     }
 
+    @Override
     public ModelPlayer getMainModel() {
         return (ModelPlayer) super.getMainModel();
     }
 
+    @Override
     public void doRender(AbstractClientPlayer entity, double x, double y, double z, float entityYaw, float partialTicks) {
         if (!entity.isUser() || this.renderManager.livingPlayer == entity) {
             double d0 = y;
@@ -86,19 +88,23 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer> {
         }
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(AbstractClientPlayer entity) {
         return entity.getLocationSkin();
     }
 
+    @Override
     public void transformHeldFull3DItemLayer() {
         GlStateManager.translate(0.0F, 0.1875F, 0.0F);
     }
 
+    @Override
     protected void preRenderCallback(AbstractClientPlayer entitylivingbaseIn, float partialTickTime) {
         float f = 0.9375F;
         GlStateManager.scale(f, f, f);
     }
 
+    @Override
     protected void renderOffsetLivingLabel(AbstractClientPlayer entityIn, double x, double y, double z, String str, float p_177069_9_, double p_177069_10_) {
         if (p_177069_10_ < 100.0D) {
             Scoreboard scoreboard = entityIn.getWorldScoreboard();
@@ -136,6 +142,7 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer> {
         modelplayer.renderLeftArm();
     }
 
+    @Override
     protected void renderLivingAt(AbstractClientPlayer entityLivingBaseIn, double x, double y, double z) {
         if (entityLivingBaseIn.isEntityAlive() && entityLivingBaseIn.isPlayerSleeping()) {
             super.renderLivingAt(entityLivingBaseIn, x + entityLivingBaseIn.renderOffsetX, y + entityLivingBaseIn.renderOffsetY, z + entityLivingBaseIn.renderOffsetZ);
@@ -144,6 +151,7 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer> {
         }
     }
 
+    @Override
     protected void rotateCorpse(AbstractClientPlayer bat, float p_77043_2_, float p_77043_3_, float partialTicks) {
         if (bat.isEntityAlive() && bat.isPlayerSleeping()) {
             GlStateManager.rotate(bat.getBedOrientationInDegrees(), 0.0F, 1.0F, 0.0F);

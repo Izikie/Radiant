@@ -12,6 +12,7 @@ public class ItemEmptyMap extends ItemMapBase {
         this.setCreativeTab(CreativeTabs.TAB_MISC);
     }
 
+    @Override
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
         ItemStack itemstack = new ItemStack(Items.FILLED_MAP, 1, worldIn.getUniqueDataId("map"));
         String s = "map_" + itemstack.getMetadata();

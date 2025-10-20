@@ -87,6 +87,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
         this.readGlyphSizes();
     }
 
+    @Override
     public void onResourceManagerReload(IResourceManager resourceManager) {
         this.locationFontTexture = FontUtils.getHdFontLocation(this.locationFontTextureBase);
 

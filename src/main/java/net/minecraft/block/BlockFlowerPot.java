@@ -30,28 +30,34 @@ public class BlockFlowerPot extends BlockContainer {
         this.setBlockBoundsForItemRender();
     }
 
+    @Override
     public String getLocalizedName() {
         return StatCollector.translateToLocal("item.flowerPot.name");
     }
 
+    @Override
     public void setBlockBoundsForItemRender() {
         float f = 0.375F;
         float f1 = f / 2.0F;
         this.setBlockBounds(0.5F - f1, 0.0F, 0.5F - f1, 0.5F + f1, f, 0.5F + f1);
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public int getRenderType() {
         return 3;
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
@@ -66,6 +72,7 @@ public class BlockFlowerPot extends BlockContainer {
         return 16777215;
     }
 
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         ItemStack itemstack = playerIn.inventory.getCurrentItem();
 
@@ -103,24 +110,29 @@ public class BlockFlowerPot extends BlockContainer {
         return blockIn == Blocks.YELLOW_FLOWER || blockIn == Blocks.RED_FLOWER || blockIn == Blocks.CACTUS || blockIn == Blocks.BROWN_MUSHROOM || blockIn == Blocks.RED_MUSHROOM || blockIn == Blocks.SAPLING || blockIn == Blocks.DEAD_BUSH || blockIn == Blocks.TALL_GRASS && meta == BlockTallGrass.EnumType.FERN.getMeta();
     }
 
+    @Override
     public Item getItem(World worldIn, BlockPos pos) {
         TileEntityFlowerPot tileentityflowerpot = this.getTileEntity(worldIn, pos);
         return tileentityflowerpot != null && tileentityflowerpot.getFlowerPotItem() != null ? tileentityflowerpot.getFlowerPotItem() : Items.FLOWER_POT;
     }
 
+    @Override
     public int getDamageValue(World worldIn, BlockPos pos) {
         TileEntityFlowerPot tileentityflowerpot = this.getTileEntity(worldIn, pos);
         return tileentityflowerpot != null && tileentityflowerpot.getFlowerPotItem() != null ? tileentityflowerpot.getFlowerPotData() : 0;
     }
 
+    @Override
     public boolean isFlowerPot() {
         return true;
     }
 
+    @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
         return super.canPlaceBlockAt(worldIn, pos) && World.doesBlockHaveSolidTopSurface(worldIn, pos.down());
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         if (!World.doesBlockHaveSolidTopSurface(worldIn, pos.down())) {
             this.dropBlockAsItem(worldIn, pos, state, 0);
@@ -128,6 +140,7 @@ public class BlockFlowerPot extends BlockContainer {
         }
     }
 
+    @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         TileEntityFlowerPot tileentityflowerpot = this.getTileEntity(worldIn, pos);
 
@@ -138,6 +151,7 @@ public class BlockFlowerPot extends BlockContainer {
         super.breakBlock(worldIn, pos, state);
     }
 
+    @Override
     public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
         super.onBlockHarvested(worldIn, pos, state, player);
 
@@ -150,6 +164,7 @@ public class BlockFlowerPot extends BlockContainer {
         }
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Items.FLOWER_POT;
     }
@@ -159,6 +174,7 @@ public class BlockFlowerPot extends BlockContainer {
         return tileentity instanceof TileEntityFlowerPot tileEntityFlowerPot ? tileEntityFlowerPot : null;
     }
 
+    @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         Block block = null;
         int i = 0;
@@ -227,14 +243,17 @@ public class BlockFlowerPot extends BlockContainer {
         return new TileEntityFlowerPot(Item.getItemFromBlock(block), i);
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, CONTENTS, LEGACY_DATA);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(LEGACY_DATA);
     }
 
+    @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         FlowerType blockflowerpot$enumflowertype = FlowerType.EMPTY;
         TileEntity tileentity = worldIn.getTileEntity(pos);
@@ -292,6 +311,7 @@ public class BlockFlowerPot extends BlockContainer {
         return state.withProperty(CONTENTS, blockflowerpot$enumflowertype);
     }
 
+    @Override
     public RenderLayer getBlockLayer() {
         return RenderLayer.CUTOUT;
     }
@@ -330,6 +350,7 @@ public class BlockFlowerPot extends BlockContainer {
             return this.name;
         }
 
+        @Override
         public String getName() {
             return this.name;
         }

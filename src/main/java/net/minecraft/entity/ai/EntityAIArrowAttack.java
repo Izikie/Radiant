@@ -38,6 +38,7 @@ public class EntityAIArrowAttack extends EntityAIBase {
         }
     }
 
+    @Override
     public boolean shouldExecute() {
         EntityLivingBase entitylivingbase = this.entityHost.getAttackTarget();
 
@@ -49,16 +50,19 @@ public class EntityAIArrowAttack extends EntityAIBase {
         }
     }
 
+    @Override
     public boolean continueExecuting() {
         return this.shouldExecute() || !this.entityHost.getNavigator().noPath();
     }
 
+    @Override
     public void resetTask() {
         this.attackTarget = null;
         this.field_75318_f = 0;
         this.rangedAttackTime = -1;
     }
 
+    @Override
     public void updateTask() {
         double d0 = this.entityHost.getDistanceSq(this.attackTarget.posX, this.attackTarget.getEntityBoundingBox().minY, this.attackTarget.posZ);
         boolean flag = this.entityHost.getEntitySenses().canSee(this.attackTarget);

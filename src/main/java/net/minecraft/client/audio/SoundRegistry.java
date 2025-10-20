@@ -9,6 +9,7 @@ import java.util.Map;
 public class SoundRegistry extends RegistrySimple<ResourceLocation, SoundEventAccessorComposite> {
     private Map<ResourceLocation, SoundEventAccessorComposite> soundRegistry;
 
+    @Override
     protected Map<ResourceLocation, SoundEventAccessorComposite> createUnderlyingMap() {
         this.soundRegistry = new HashMap<>();
         return this.soundRegistry;

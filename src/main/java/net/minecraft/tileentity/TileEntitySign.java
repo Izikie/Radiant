@@ -26,6 +26,7 @@ public class TileEntitySign extends TileEntity {
     private EntityPlayer player;
     private final CommandResultStats stats = new CommandResultStats();
 
+    @Override
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
 
@@ -37,45 +38,56 @@ public class TileEntitySign extends TileEntity {
         this.stats.writeStatsToNBT(compound);
     }
 
+    @Override
     public void readFromNBT(NBTTagCompound compound) {
         this.isEditable = false;
         super.readFromNBT(compound);
         ICommandSender icommandsender = new ICommandSender() {
+            @Override
             public String getName() {
                 return "Sign";
             }
 
+            @Override
             public IChatComponent getDisplayName() {
                 return new ChatComponentText(this.getName());
             }
 
+            @Override
             public void addChatMessage(IChatComponent component) {
             }
 
+            @Override
             public boolean canCommandSenderUseCommand(int permLevel, String commandName) {
                 return true;
             }
 
+            @Override
             public BlockPos getPosition() {
                 return TileEntitySign.this.pos;
             }
 
+            @Override
             public Vec3 getPositionVector() {
                 return new Vec3(TileEntitySign.this.pos.getX() + 0.5D, TileEntitySign.this.pos.getY() + 0.5D, TileEntitySign.this.pos.getZ() + 0.5D);
             }
 
+            @Override
             public World getEntityWorld() {
                 return TileEntitySign.this.worldObj;
             }
 
+            @Override
             public Entity getCommandSenderEntity() {
                 return null;
             }
 
+            @Override
             public boolean sendCommandFeedback() {
                 return false;
             }
 
+            @Override
             public void setCommandStat(CommandResultStats.Type type, int amount) {
             }
         };
@@ -99,12 +111,14 @@ public class TileEntitySign extends TileEntity {
         this.stats.readStatsFromNBT(compound);
     }
 
+    @Override
     public Packet<?> getDescriptionPacket() {
         IChatComponent[] aichatcomponent = new IChatComponent[4];
         System.arraycopy(this.signText, 0, aichatcomponent, 0, 4);
         return new S33PacketUpdateSign(this.worldObj, this.pos, aichatcomponent);
     }
 
+    @Override
     public boolean func_183000_F() {
         return true;
     }
@@ -131,41 +145,51 @@ public class TileEntitySign extends TileEntity {
 
     public boolean executeCommand(final EntityPlayer playerIn) {
         ICommandSender icommandsender = new ICommandSender() {
+            @Override
             public String getName() {
                 return playerIn.getName();
             }
 
+            @Override
             public IChatComponent getDisplayName() {
                 return playerIn.getDisplayName();
             }
 
+            @Override
             public void addChatMessage(IChatComponent component) {
             }
 
+            @Override
             public boolean canCommandSenderUseCommand(int permLevel, String commandName) {
                 return permLevel <= 2;
             }
 
+            @Override
             public BlockPos getPosition() {
                 return TileEntitySign.this.pos;
             }
 
+            @Override
             public Vec3 getPositionVector() {
                 return new Vec3(TileEntitySign.this.pos.getX() + 0.5D, TileEntitySign.this.pos.getY() + 0.5D, TileEntitySign.this.pos.getZ() + 0.5D);
             }
 
+            @Override
             public World getEntityWorld() {
                 return playerIn.getEntityWorld();
             }
 
+            @Override
             public Entity getCommandSenderEntity() {
                 return playerIn;
             }
 
+            @Override
             public boolean sendCommandFeedback() {
                 return false;
             }
 
+            @Override
             public void setCommandStat(CommandResultStats.Type type, int amount) {
                 TileEntitySign.this.stats.setCommandStatScore(this, type, amount);
             }

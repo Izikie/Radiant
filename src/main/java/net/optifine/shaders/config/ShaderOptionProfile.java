@@ -39,7 +39,8 @@ public class ShaderOptionProfile extends ShaderOption {
 		return list.toArray(new String[0]);
 	}
 
-	public void nextValue() {
+	@Override
+    public void nextValue() {
 		super.nextValue();
 
 		if (this.getValue().equals("<custom>")) {
@@ -95,19 +96,23 @@ public class ShaderOptionProfile extends ShaderOption {
 		return null;
 	}
 
-	public String getNameText() {
+	@Override
+    public String getNameText() {
 		return Lang.get("of.shaders.profile");
 	}
 
-	public String getValueText(String val) {
+	@Override
+    public String getValueText(String val) {
 		return val.equals("<custom>") ? Lang.get("of.general.custom", "<custom>") : Shaders.translate("profile." + val, val);
 	}
 
-	public String getValueColor(String val) {
+	@Override
+    public String getValueColor(String val) {
 		return val.equals("<custom>") ? "\u00a7c" : "\u00a7a";
 	}
 
-	public String getDescriptionText() {
+	@Override
+    public String getDescriptionText() {
 		String s = Shaders.translate("profile.comment", null);
 
 		if (s != null) {

@@ -31,6 +31,7 @@ public class BlockStem extends BlockBush implements IGrowable {
         this.setCreativeTab(null);
     }
 
+    @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         state = state.withProperty(FACING, Direction.UP);
 
@@ -44,10 +45,12 @@ public class BlockStem extends BlockBush implements IGrowable {
         return state;
     }
 
+    @Override
     protected boolean canPlaceBlockOn(Block ground) {
         return ground == Blocks.FARMLAND;
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         super.updateTick(worldIn, pos, state, rand);
 
@@ -83,6 +86,7 @@ public class BlockStem extends BlockBush implements IGrowable {
         worldIn.setBlockState(pos, state.withProperty(AGE, Math.min(7, i)), 2);
     }
 
+    @Override
     public int getRenderColor(IBlockState state) {
         if (state.getBlock() != this) {
             return super.getRenderColor(state);
@@ -95,21 +99,25 @@ public class BlockStem extends BlockBush implements IGrowable {
         }
     }
 
+    @Override
     public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass) {
         return this.getRenderColor(worldIn.getBlockState(pos));
     }
 
+    @Override
     public void setBlockBoundsForItemRender() {
         float f = 0.125F;
         this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.25F, 0.5F + f);
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         this.maxY = ((worldIn.getBlockState(pos).getValue(AGE) * 2 + 2) / 16.0F);
         float f = 0.125F;
         this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, (float) this.maxY, 0.5F + f);
     }
 
+    @Override
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
         super.dropBlockAsItemWithChance(worldIn, pos, state, chance, fortune);
 
@@ -132,35 +140,43 @@ public class BlockStem extends BlockBush implements IGrowable {
         return this.crop == Blocks.PUMPKIN ? Items.PUMPKIN_SEEDS : (this.crop == Blocks.MELON_BLOCK ? Items.MELON_SEEDS : null);
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return null;
     }
 
+    @Override
     public Item getItem(World worldIn, BlockPos pos) {
         Item item = this.getSeedItem();
         return item;
     }
 
+    @Override
     public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
         return state.getValue(AGE) != 7;
     }
 
+    @Override
     public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
         return true;
     }
 
+    @Override
     public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
         this.growStem(worldIn, pos, state);
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(AGE, meta);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(AGE);
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, AGE, FACING);
     }

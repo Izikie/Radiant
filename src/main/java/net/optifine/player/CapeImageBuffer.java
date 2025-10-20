@@ -15,13 +15,15 @@ public class CapeImageBuffer extends ImageBufferDownload {
 		this.resourceLocation = resourceLocation;
 	}
 
-	public NativeImage parseUserSkin(NativeImage imageRaw) {
+	@Override
+    public NativeImage parseUserSkin(NativeImage imageRaw) {
 		NativeImage image = CapeUtils.parseCape(imageRaw);
 		this.elytraOfCape = CapeUtils.isElytraCape(imageRaw, image);
 		return image;
 	}
 
-	public void skinAvailable() {
+	@Override
+    public void skinAvailable() {
 		if (this.player != null) {
 			this.player.setLocationOfCape(this.resourceLocation);
 			this.player.setElytraOfCape(this.elytraOfCape);

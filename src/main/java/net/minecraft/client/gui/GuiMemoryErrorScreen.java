@@ -5,12 +5,14 @@ import net.minecraft.client.resources.I18n;
 import java.io.IOException;
 
 public class GuiMemoryErrorScreen extends GuiScreen {
+    @Override
     public void initGui() {
         this.buttonList.clear();
         this.buttonList.add(new GuiOptionButton(0, this.width / 2 - 155, this.height / 4 + 120 + 12, I18n.format("gui.toTitle")));
         this.buttonList.add(new GuiOptionButton(1, this.width / 2 - 155 + 160, this.height / 4 + 120 + 12, I18n.format("menu.quit")));
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.id == 0) {
             this.mc.displayGuiScreen(new GuiMainMenu());
@@ -19,9 +21,11 @@ public class GuiMemoryErrorScreen extends GuiScreen {
         }
     }
 
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRendererObj, "Out of memory!", this.width / 2, this.height / 4 - 60 + 20, 16777215);

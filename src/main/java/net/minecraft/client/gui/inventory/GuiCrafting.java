@@ -19,11 +19,13 @@ public class GuiCrafting extends GuiContainer {
         super(new ContainerWorkbench(playerInv, worldIn, blockPosition));
     }
 
+    @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         this.fontRendererObj.drawString(I18n.format("container.crafting"), 28, 6, 4210752);
         this.fontRendererObj.drawString(I18n.format("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
     }
 
+    @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(CRAFTING_TABLE_GUI_TEXTURES);

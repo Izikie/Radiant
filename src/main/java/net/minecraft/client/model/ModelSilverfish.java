@@ -36,6 +36,7 @@ public class ModelSilverfish extends ModelBase {
         this.silverfishWings[2].setRotationPoint(0.0F, 19.0F, this.field_78170_c[1]);
     }
 
+    @Override
     public void render(Entity entityIn, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_, float scale) {
         this.setRotationAngles(p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, scale, entityIn);
 
@@ -48,6 +49,7 @@ public class ModelSilverfish extends ModelBase {
         }
     }
 
+    @Override
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
         for (int i = 0; i < this.silverfishBodyParts.length; ++i) {
             this.silverfishBodyParts[i].rotateAngleY = MathHelper.cos(ageInTicks * 0.9F + i * 0.15F * (float) Math.PI) * (float) Math.PI * 0.05F * (1 + Math.abs(i - 2));

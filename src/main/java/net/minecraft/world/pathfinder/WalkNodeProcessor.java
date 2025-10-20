@@ -16,16 +16,19 @@ public class WalkNodeProcessor extends NodeProcessor {
     private boolean canSwim;
     private boolean shouldAvoidWater;
 
+    @Override
     public void initProcessor(IBlockAccess iblockaccessIn, Entity entityIn) {
         super.initProcessor(iblockaccessIn, entityIn);
         this.shouldAvoidWater = this.avoidsWater;
     }
 
+    @Override
     public void postProcess() {
         super.postProcess();
         this.avoidsWater = this.shouldAvoidWater;
     }
 
+    @Override
     public PathPoint getPathPointTo(Entity entityIn) {
         int i;
 
@@ -46,10 +49,12 @@ public class WalkNodeProcessor extends NodeProcessor {
         return this.openPoint(MathHelper.floor(entityIn.getEntityBoundingBox().minX), i, MathHelper.floor(entityIn.getEntityBoundingBox().minZ));
     }
 
+    @Override
     public PathPoint getPathPointToCoords(Entity entityIn, double x, double y, double target) {
         return this.openPoint(MathHelper.floor(x - (entityIn.width / 2.0F)), MathHelper.floor(y), MathHelper.floor(target - (entityIn.width / 2.0F)));
     }
 
+    @Override
     public int findPathOptions(PathPoint[] pathOptions, Entity entityIn, PathPoint currentPoint, PathPoint targetPoint, float maxDistance) {
         int i = 0;
         int j = 0;

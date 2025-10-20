@@ -8,6 +8,7 @@ import net.minecraft.util.json.JsonUtils;
 import java.lang.reflect.Type;
 
 public class TextureMetadataSectionSerializer extends BaseMetadataSectionSerializer<TextureMetadataSection> {
+    @Override
     public TextureMetadataSection deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
         JsonObject jsonobject = jsonElement.getAsJsonObject();
         boolean flag = JsonUtils.getBoolean(jsonobject, "blur", false);
@@ -39,6 +40,7 @@ public class TextureMetadataSectionSerializer extends BaseMetadataSectionSeriali
         return new TextureMetadataSection(flag, flag1, list);
     }
 
+    @Override
     public String getSectionName() {
         return "texture";
     }

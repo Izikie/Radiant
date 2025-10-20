@@ -16,6 +16,7 @@ public class WorldGenSpikes extends WorldGenerator {
         this.baseBlockRequired = p_i45464_1_;
     }
 
+    @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         if (worldIn.isAirBlock(position) && worldIn.getBlockState(position.down()).getBlock() == this.baseBlockRequired) {
             int i = rand.nextInt(32) + 6;

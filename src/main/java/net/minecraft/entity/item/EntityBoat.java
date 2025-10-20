@@ -40,24 +40,29 @@ public class EntityBoat extends Entity {
         this.setSize(1.5F, 0.6F);
     }
 
+    @Override
     protected boolean canTriggerWalking() {
         return false;
     }
 
+    @Override
     protected void entityInit() {
         this.dataWatcher.addObject(17, 0);
         this.dataWatcher.addObject(18, 1);
         this.dataWatcher.addObject(19, 0.0F);
     }
 
+    @Override
     public AxisAlignedBB getCollisionBox(Entity entityIn) {
         return entityIn.getEntityBoundingBox();
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBox() {
         return this.getEntityBoundingBox();
     }
 
+    @Override
     public boolean canBePushed() {
         return true;
     }
@@ -73,10 +78,12 @@ public class EntityBoat extends Entity {
         this.prevPosZ = p_i1705_6_;
     }
 
+    @Override
     public double getMountedYOffset() {
         return -0.3D;
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (this.isEntityInvulnerable(source)) {
             return false;
@@ -109,16 +116,19 @@ public class EntityBoat extends Entity {
         }
     }
 
+    @Override
     public void performHurtAnimation() {
         this.setForwardDirection(-this.getForwardDirection());
         this.setTimeSinceHit(10);
         this.setDamageTaken(this.getDamageTaken() * 11.0F);
     }
 
+    @Override
     public boolean canBeCollidedWith() {
         return !this.isDead;
     }
 
+    @Override
     public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean p_180426_10_) {
         if (p_180426_10_ && this.riddenByEntity != null) {
             this.prevPosX = this.posX = x;
@@ -158,12 +168,14 @@ public class EntityBoat extends Entity {
         }
     }
 
+    @Override
     public void setVelocity(double x, double y, double z) {
         this.velocityX = this.motionX = x;
         this.velocityY = this.motionY = y;
         this.velocityZ = this.motionZ = z;
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
 
@@ -369,6 +381,7 @@ public class EntityBoat extends Entity {
         }
     }
 
+    @Override
     public void updateRiderPosition() {
         if (this.riddenByEntity != null) {
             double d0 = Math.cos(this.rotationYaw * Math.PI / 180.0D) * 0.4D;
@@ -377,12 +390,15 @@ public class EntityBoat extends Entity {
         }
     }
 
+    @Override
     protected void writeEntityToNBT(NBTTagCompound tagCompound) {
     }
 
+    @Override
     protected void readEntityFromNBT(NBTTagCompound tagCompund) {
     }
 
+    @Override
     public boolean interactFirst(EntityPlayer playerIn) {
         if (this.riddenByEntity == null || !(this.riddenByEntity instanceof EntityPlayer) || this.riddenByEntity == playerIn) {
             if (!this.worldObj.isRemote) {
@@ -393,6 +409,7 @@ public class EntityBoat extends Entity {
         return true;
     }
 
+    @Override
     protected void updateFallState(double y, boolean onGroundIn, Block blockIn, BlockPos pos) {
         if (onGroundIn) {
             if (this.fallDistance > 3.0F) {

@@ -26,10 +26,12 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
         this.renderDistanceWeight = 10.0D;
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         return true;
     }
 
+    @Override
     public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean p_180426_10_) {
         this.otherPlayerMPX = x;
         this.otherPlayerMPY = y;
@@ -39,6 +41,7 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
         this.otherPlayerMPPosRotationIncrements = posRotationIncrements;
     }
 
+    @Override
     public void onUpdate() {
         this.renderOffsetY = 0.0F;
         super.onUpdate();
@@ -64,6 +67,7 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
         }
     }
 
+    @Override
     public void onLivingUpdate() {
         if (this.otherPlayerMPPosRotationIncrements > 0) {
             double d0 = this.posX + (this.otherPlayerMPX - this.posX) / this.otherPlayerMPPosRotationIncrements;
@@ -106,6 +110,7 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
         this.cameraPitch += (f - this.cameraPitch) * 0.8F;
     }
 
+    @Override
     public void setCurrentItemOrArmor(int slotIn, ItemStack stack) {
         if (slotIn == 0) {
             this.inventory.mainInventory[this.inventory.currentItem] = stack;
@@ -114,14 +119,17 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
         }
     }
 
+    @Override
     public void addChatMessage(IChatComponent component) {
         Minecraft.get().ingameGUI.getChatGUI().printChatMessage(component);
     }
 
+    @Override
     public boolean canCommandSenderUseCommand(int permLevel, String commandName) {
         return false;
     }
 
+    @Override
     public BlockPos getPosition() {
         return new BlockPos(this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D);
     }

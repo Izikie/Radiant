@@ -18,6 +18,7 @@ public class EntityAIPlay extends EntityAIBase {
         this.setMutexBits(1);
     }
 
+    @Override
     public boolean shouldExecute() {
         if (this.villagerObj.getGrowingAge() >= 0) {
             return false;
@@ -48,10 +49,12 @@ public class EntityAIPlay extends EntityAIBase {
         }
     }
 
+    @Override
     public boolean continueExecuting() {
         return this.playTime > 0;
     }
 
+    @Override
     public void startExecuting() {
         if (this.targetVillager != null) {
             this.villagerObj.setPlaying(true);
@@ -60,11 +63,13 @@ public class EntityAIPlay extends EntityAIBase {
         this.playTime = 1000;
     }
 
+    @Override
     public void resetTask() {
         this.villagerObj.setPlaying(false);
         this.targetVillager = null;
     }
 
+    @Override
     public void updateTask() {
         --this.playTime;
 

@@ -80,6 +80,7 @@ public class WorldServer extends World implements IThreadListener {
         this.getWorldBorder().setSize(server.getMaxWorldSize());
     }
 
+    @Override
     public World init() {
         this.mapStorage = new MapStorage(this.saveHandler);
         String s = VillageCollection.fileNameForProvider(this.provider);
@@ -118,6 +119,7 @@ public class WorldServer extends World implements IThreadListener {
         return this;
     }
 
+    @Override
     public void tick() {
         super.tick();
 
@@ -173,6 +175,7 @@ public class WorldServer extends World implements IThreadListener {
         return list != null && !list.isEmpty() && list.contains(spawnListEntry);
     }
 
+    @Override
     public void updateAllPlayersSleepingFlag() {
         this.allPlayersSleeping = false;
 
@@ -225,6 +228,7 @@ public class WorldServer extends World implements IThreadListener {
         }
     }
 
+    @Override
     public void setInitialSpawnLocation() {
         if (this.worldInfo.getSpawnY() <= 0) {
             this.worldInfo.setSpawnY(this.getSeaLevel() + 1);
@@ -248,6 +252,7 @@ public class WorldServer extends World implements IThreadListener {
         this.worldInfo.setSpawnZ(j);
     }
 
+    @Override
     protected void updateBlocks() {
         super.updateBlocks();
 
@@ -329,15 +334,18 @@ public class WorldServer extends World implements IThreadListener {
         return !list.isEmpty() ? list.get(this.rand.nextInt(list.size())).getPosition() : blockpos;
     }
 
+    @Override
     public boolean isBlockTickPending(BlockPos pos, Block blockType) {
         NextTickListEntry nextticklistentry = new NextTickListEntry(pos, blockType);
         return this.pendingTickListEntriesThisTick.contains(nextticklistentry);
     }
 
+    @Override
     public void scheduleUpdate(BlockPos pos, Block blockIn, int delay) {
         this.updateBlockTick(pos, blockIn, delay, 0);
     }
 
+    @Override
     public void updateBlockTick(BlockPos pos, Block blockIn, int delay, int priority) {
         NextTickListEntry nextticklistentry = new NextTickListEntry(pos, blockIn);
         int i = 0;
@@ -373,6 +381,7 @@ public class WorldServer extends World implements IThreadListener {
         }
     }
 
+    @Override
     public void scheduleBlockUpdate(BlockPos pos, Block blockIn, int delay, int priority) {
         NextTickListEntry nextticklistentry = new NextTickListEntry(pos, blockIn);
         nextticklistentry.setPriority(priority);
@@ -387,6 +396,7 @@ public class WorldServer extends World implements IThreadListener {
         }
     }
 
+    @Override
     public void updateEntities() {
         if (this.playerEntities.isEmpty()) {
             if (this.updateEntityTick++ >= 1200) {
@@ -403,6 +413,7 @@ public class WorldServer extends World implements IThreadListener {
         this.updateEntityTick = 0;
     }
 
+    @Override
     public boolean tickUpdates(boolean p_72955_1_) {
         if (this.worldInfo.getTerrainType() == WorldType.DEBUG_WORLD) {
             return false;
@@ -459,6 +470,7 @@ public class WorldServer extends World implements IThreadListener {
         }
     }
 
+    @Override
     public List<NextTickListEntry> getPendingBlockUpdates(Chunk chunkIn, boolean p_72920_2_) {
         ChunkCoordIntPair chunkcoordintpair = chunkIn.getChunkCoordIntPair();
         int i = (chunkcoordintpair.chunkXPos << 4) - 2;
@@ -468,6 +480,7 @@ public class WorldServer extends World implements IThreadListener {
         return this.func_175712_a(new StructureBoundingBox(i, 0, k, j, 256, l), p_72920_2_);
     }
 
+    @Override
     public List<NextTickListEntry> func_175712_a(StructureBoundingBox structureBB, boolean p_175712_2_) {
         List<NextTickListEntry> list = null;
 
@@ -502,6 +515,7 @@ public class WorldServer extends World implements IThreadListener {
         return list;
     }
 
+    @Override
     public void updateEntityWithOptionalForce(Entity entityIn, boolean forceUpdate) {
         if (!this.canSpawnAnimals() && (entityIn instanceof EntityAnimal || entityIn instanceof EntityWaterMob)) {
             entityIn.setDead();
@@ -522,6 +536,7 @@ public class WorldServer extends World implements IThreadListener {
         return this.mcServer.getCanSpawnAnimals();
     }
 
+    @Override
     protected IChunkProvider createChunkProvider() {
         IChunkLoader ichunkloader = this.saveHandler.getChunkLoader(this.provider);
         this.theChunkProviderServer = new ChunkProviderServer(this, ichunkloader, this.provider.createChunkGenerator());
@@ -542,10 +557,12 @@ public class WorldServer extends World implements IThreadListener {
         return list;
     }
 
+    @Override
     public boolean isBlockModifiable(EntityPlayer player, BlockPos pos) {
         return !this.mcServer.isBlockProtected(this, pos, player) && this.getWorldBorder().contains(pos);
     }
 
+    @Override
     public void initialize(WorldSettings settings) {
         if (!this.worldInfo.isInitialized()) {
             try {
@@ -689,6 +706,7 @@ public class WorldServer extends World implements IThreadListener {
         this.mapStorage.saveAllData();
     }
 
+    @Override
     protected void onEntityAdded(Entity entityIn) {
         super.onEntityAdded(entityIn);
         this.entitiesById.put(entityIn.getEntityId(), entityIn);
@@ -702,6 +720,7 @@ public class WorldServer extends World implements IThreadListener {
         }
     }
 
+    @Override
     protected void onEntityRemoved(Entity entityIn) {
         super.onEntityRemoved(entityIn);
         this.entitiesById.remove(entityIn.getEntityId());
@@ -715,6 +734,7 @@ public class WorldServer extends World implements IThreadListener {
         }
     }
 
+    @Override
     public boolean addWeatherEffect(Entity entityIn) {
         if (super.addWeatherEffect(entityIn)) {
             this.mcServer.getConfigurationManager().sendToAllNear(entityIn.posX, entityIn.posY, entityIn.posZ, 512.0D, this.provider.getDimensionId(), new S2CPacketSpawnGlobalEntity(entityIn));
@@ -724,10 +744,12 @@ public class WorldServer extends World implements IThreadListener {
         }
     }
 
+    @Override
     public void setEntityState(Entity entityIn, byte state) {
         this.getEntityTracker().func_151248_b(entityIn, new S19PacketEntityStatus(entityIn, state));
     }
 
+    @Override
     public Explosion newExplosion(Entity entityIn, double x, double y, double z, float strength, boolean isFlaming, boolean isSmoking) {
         Explosion explosion = new Explosion(this, entityIn, x, y, z, strength, isFlaming, isSmoking);
         explosion.doExplosionA();
@@ -746,6 +768,7 @@ public class WorldServer extends World implements IThreadListener {
         return explosion;
     }
 
+    @Override
     public void addBlockEvent(BlockPos pos, Block blockIn, int eventID, int eventParam) {
         BlockEventData blockeventdata = new BlockEventData(pos, blockIn, eventID, eventParam);
 
@@ -782,6 +805,7 @@ public class WorldServer extends World implements IThreadListener {
         this.saveHandler.flush();
     }
 
+    @Override
     protected void updateWeather() {
         boolean flag = this.isRaining();
         super.updateWeather();
@@ -806,6 +830,7 @@ public class WorldServer extends World implements IThreadListener {
         }
     }
 
+    @Override
     protected int getRenderDistanceChunks() {
         return this.mcServer.getConfigurationManager().getViewDistance();
     }
@@ -848,10 +873,12 @@ public class WorldServer extends World implements IThreadListener {
         return this.entitiesByUuid.get(uuid);
     }
 
+    @Override
     public ListenableFuture<Object> addScheduledTask(Runnable runnableToSchedule) {
         return this.mcServer.addScheduledTask(runnableToSchedule);
     }
 
+    @Override
     public boolean isCallingFromMinecraftThread() {
         return this.mcServer.isCallingFromMinecraftThread();
     }

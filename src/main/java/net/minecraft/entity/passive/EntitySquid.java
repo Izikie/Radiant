@@ -34,39 +34,48 @@ public class EntitySquid extends EntityWaterMob {
         this.tasks.addTask(0, new AIMoveRandom(this));
     }
 
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
     }
 
+    @Override
     public float getEyeHeight() {
         return this.height * 0.5F;
     }
 
+    @Override
     protected String getLivingSound() {
         return null;
     }
 
+    @Override
     protected String getHurtSound() {
         return null;
     }
 
+    @Override
     protected String getDeathSound() {
         return null;
     }
 
+    @Override
     protected float getSoundVolume() {
         return 0.4F;
     }
 
+    @Override
     protected Item getDropItem() {
         return null;
     }
 
+    @Override
     protected boolean canTriggerWalking() {
         return false;
     }
 
+    @Override
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
         int i = this.rand.nextInt(3 + lootingModifier) + 1;
 
@@ -75,10 +84,12 @@ public class EntitySquid extends EntityWaterMob {
         }
     }
 
+    @Override
     public boolean isInWater() {
         return this.worldObj.handleMaterialAcceleration(this.getEntityBoundingBox().expand(0.0D, -0.6000000238418579D, 0.0D), Material.WATER, this);
     }
 
+    @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
         this.prevSquidPitch = this.squidPitch;
@@ -143,14 +154,17 @@ public class EntitySquid extends EntityWaterMob {
         }
     }
 
+    @Override
     public void moveEntityWithHeading(float strafe, float forward) {
         this.moveEntity(this.motionX, this.motionY, this.motionZ);
     }
 
+    @Override
     public boolean getCanSpawnHere() {
         return this.posY > 45.0D && this.posY < this.worldObj.getSeaLevel() && super.getCanSpawnHere();
     }
 
+    @Override
     public void handleStatusUpdate(byte id) {
         if (id == 19) {
             this.squidRotation = 0.0F;
@@ -176,10 +190,12 @@ public class EntitySquid extends EntityWaterMob {
             this.squid = p_i45859_1_;
         }
 
+        @Override
         public boolean shouldExecute() {
             return true;
         }
 
+        @Override
         public void updateTask() {
             int i = this.squid.getAge();
 

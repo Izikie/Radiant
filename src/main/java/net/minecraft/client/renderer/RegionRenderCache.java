@@ -32,12 +32,14 @@ public class RegionRenderCache extends ChunkCache {
         this.blockStates = allocateStates(8000);
     }
 
+    @Override
     public TileEntity getTileEntity(BlockPos pos) {
         int i = (pos.getX() >> 4) - this.chunkX;
         int j = (pos.getZ() >> 4) - this.chunkZ;
         return this.chunkArray[i][j].getTileEntity(pos, Chunk.EnumCreateEntityType.QUEUED);
     }
 
+    @Override
     public int getCombinedLight(BlockPos pos, int lightValue) {
         int i = this.getPositionIndex(pos);
         int j = this.combinedLights[i];
@@ -55,6 +57,7 @@ public class RegionRenderCache extends ChunkCache {
         return j;
     }
 
+    @Override
     public IBlockState getBlockState(BlockPos pos) {
         int i = this.getPositionIndex(pos);
         IBlockState iblockstate = this.blockStates[i];

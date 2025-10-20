@@ -30,10 +30,12 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
     private Item ingredientID;
     private String customName;
 
+    @Override
     public String getName() {
         return this.hasCustomName() ? this.customName : "container.brewing";
     }
 
+    @Override
     public boolean hasCustomName() {
         return this.customName != null && !this.customName.isEmpty();
     }
@@ -42,10 +44,12 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
         this.customName = name;
     }
 
+    @Override
     public int getSizeInventory() {
         return this.brewingItemStacks.length;
     }
 
+    @Override
     public void update() {
         if (this.brewTime > 0) {
             --this.brewTime;
@@ -158,6 +162,7 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
         return stack == null ? meta : (stack.getItem().isPotionIngredient(stack) ? PotionHelper.applyIngredient(meta, stack.getItem().getPotionEffect(stack)) : meta);
     }
 
+    @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         NBTTagList nbttaglist = compound.getTagList("Items", 10);
@@ -179,6 +184,7 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
         }
     }
 
+    @Override
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
         compound.setShort("BrewTime", (short) this.brewTime);
@@ -200,10 +206,12 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
         }
     }
 
+    @Override
     public ItemStack getStackInSlot(int index) {
         return index >= 0 && index < this.brewingItemStacks.length ? this.brewingItemStacks[index] : null;
     }
 
+    @Override
     public ItemStack decrStackSize(int index, int count) {
         if (index >= 0 && index < this.brewingItemStacks.length) {
             ItemStack itemstack = this.brewingItemStacks[index];
@@ -214,6 +222,7 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
         }
     }
 
+    @Override
     public ItemStack removeStackFromSlot(int index) {
         if (index >= 0 && index < this.brewingItemStacks.length) {
             ItemStack itemstack = this.brewingItemStacks[index];
@@ -224,26 +233,32 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
         }
     }
 
+    @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
         if (index >= 0 && index < this.brewingItemStacks.length) {
             this.brewingItemStacks[index] = stack;
         }
     }
 
+    @Override
     public int getInventoryStackLimit() {
         return 64;
     }
 
+    @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
         return this.worldObj.getTileEntity(this.pos) == this && player.getDistanceSq(this.pos.getX() + 0.5D, this.pos.getY() + 0.5D, this.pos.getZ() + 0.5D) <= 64.0D;
     }
 
+    @Override
     public void openInventory(EntityPlayer player) {
     }
 
+    @Override
     public void closeInventory(EntityPlayer player) {
     }
 
+    @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
         return index == 3 ? stack.getItem().isPotionIngredient(stack) : stack.getItem() == Items.POTION || stack.getItem() == Items.GLASS_BOTTLE;
     }
@@ -260,26 +275,32 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
         return aboolean;
     }
 
+    @Override
     public int[] getSlotsForFace(Direction side) {
         return side == Direction.UP ? INPUT_SLOTS : OUTPUT_SLOTS;
     }
 
+    @Override
     public boolean canInsertItem(int index, ItemStack itemStackIn, Direction direction) {
         return this.isItemValidForSlot(index, itemStackIn);
     }
 
+    @Override
     public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
         return true;
     }
 
+    @Override
     public String getGuiID() {
         return "minecraft:brewing_stand";
     }
 
+    @Override
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
         return new ContainerBrewingStand(playerInventory, this);
     }
 
+    @Override
     public int getField(int id) {
         if (id == 0) {
             return this.brewTime;
@@ -287,16 +308,19 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
         return 0;
     }
 
+    @Override
     public void setField(int id, int value) {
         if (id == 0) {
             this.brewTime = value;
         }
     }
 
+    @Override
     public int getFieldCount() {
         return 1;
     }
 
+    @Override
     public void clear() {
         Arrays.fill(this.brewingItemStacks, null);
     }

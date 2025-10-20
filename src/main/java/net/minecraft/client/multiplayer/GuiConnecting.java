@@ -46,6 +46,7 @@ public class GuiConnecting extends GuiScreen {
     private void connect(final String ip, final int port) {
         LOGGER.info("Connecting to {}, {}", ip, port);
         (new Thread("Server Connector #" + CONNECTION_ID.incrementAndGet()) {
+            @Override
             public void run() {
                 InetAddress inetaddress = null;
 
@@ -85,6 +86,7 @@ public class GuiConnecting extends GuiScreen {
         }).start();
     }
 
+    @Override
     public void updateScreen() {
         if (this.networkManager != null) {
             if (this.networkManager.isChannelOpen()) {
@@ -95,14 +97,17 @@ public class GuiConnecting extends GuiScreen {
         }
     }
 
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
     }
 
+    @Override
     public void initGui() {
         this.buttonList.clear();
         this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 120 + 12, I18n.format("gui.cancel")));
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.id == 0) {
             this.cancel = true;
@@ -115,6 +120,7 @@ public class GuiConnecting extends GuiScreen {
         }
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
 

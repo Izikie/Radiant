@@ -33,22 +33,27 @@ public class BlockWall extends Block {
         this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
+    @Override
     public String getLocalizedName() {
         return StatCollector.translateToLocal(this.getUnlocalizedName() + "." + WallType.NORMAL.getUnlocalizedName() + ".name");
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
         return false;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         boolean flag = this.canConnectTo(worldIn, pos.north());
         boolean flag1 = this.canConnectTo(worldIn, pos.south());
@@ -89,6 +94,7 @@ public class BlockWall extends Block {
         this.setBlockBounds(f, 0.0F, f2, f1, f4, f3);
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
         this.setBlockBoundsBasedOnState(worldIn, pos);
         this.maxY = 1.5D;
@@ -100,32 +106,39 @@ public class BlockWall extends Block {
         return block != Blocks.BARRIER && (block == this || block instanceof BlockFenceGate || (block.blockMaterial.isOpaque() && block.isFullCube() && block.blockMaterial != Material.GOURD));
     }
 
+    @Override
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
         for (WallType blockwall$enumtype : WallType.values()) {
             list.add(new ItemStack(itemIn, 1, blockwall$enumtype.getMetadata()));
         }
     }
 
+    @Override
     public int damageDropped(IBlockState state) {
         return state.getValue(VARIANT).getMetadata();
     }
 
+    @Override
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, Direction side) {
         return side != Direction.DOWN || super.shouldSideBeRendered(worldIn, pos, side);
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(VARIANT, WallType.byMetadata(meta));
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(VARIANT).getMetadata();
     }
 
+    @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         return state.withProperty(UP, !worldIn.isAirBlock(pos.up())).withProperty(NORTH, this.canConnectTo(worldIn, pos.north())).withProperty(EAST, this.canConnectTo(worldIn, pos.east())).withProperty(SOUTH, this.canConnectTo(worldIn, pos.south())).withProperty(WEST, this.canConnectTo(worldIn, pos.west()));
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, UP, NORTH, EAST, WEST, SOUTH, VARIANT);
     }
@@ -161,6 +174,7 @@ public class BlockWall extends Block {
             return META_LOOKUP[meta];
         }
 
+        @Override
         public String getName() {
             return this.name;
         }

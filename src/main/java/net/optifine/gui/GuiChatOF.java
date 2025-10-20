@@ -13,7 +13,8 @@ public class GuiChatOF extends GuiChat {
 		super(GuiVideoSettings.getGuiChatText(guiChat));
 	}
 
-	public void sendChatMessage(String msg) {
+	@Override
+    public void sendChatMessage(String msg) {
 		if (this.checkCustomCommand(msg)) {
 			this.mc.ingameGUI.getChatGUI().addToSentMessages(msg);
 		} else {

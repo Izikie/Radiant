@@ -318,7 +318,8 @@ public class CustomColormap implements CustomColors.IColorizer {
 		return this.colorsRgb;
 	}
 
-	public int getColor(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos) {
+	@Override
+    public int getColor(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos) {
 		return this.getColor(blockAccess, blockPos);
 	}
 
@@ -327,7 +328,8 @@ public class CustomColormap implements CustomColors.IColorizer {
 		return this.getColor(biomegenbase, blockPos);
 	}
 
-	public boolean isColorConstant() {
+	@Override
+    public boolean isColorConstant() {
 		return this.format == 2;
 	}
 

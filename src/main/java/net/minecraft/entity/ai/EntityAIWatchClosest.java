@@ -28,6 +28,7 @@ public class EntityAIWatchClosest extends EntityAIBase {
         this.setMutexBits(2);
     }
 
+    @Override
     public boolean shouldExecute() {
         if (this.theWatcher.getRNG().nextFloat() >= this.chance) {
             return false;
@@ -46,18 +47,22 @@ public class EntityAIWatchClosest extends EntityAIBase {
         }
     }
 
+    @Override
     public boolean continueExecuting() {
         return this.closestEntity.isEntityAlive() && (!(this.theWatcher.getDistanceSqToEntity(this.closestEntity) > (this.maxDistanceForPlayer * this.maxDistanceForPlayer)) && this.lookTime > 0);
     }
 
+    @Override
     public void startExecuting() {
         this.lookTime = 40 + this.theWatcher.getRNG().nextInt(40);
     }
 
+    @Override
     public void resetTask() {
         this.closestEntity = null;
     }
 
+    @Override
     public void updateTask() {
         this.theWatcher.getLookHelper().setLookPosition(this.closestEntity.posX, this.closestEntity.posY + this.closestEntity.getEyeHeight(), this.closestEntity.posZ, 10.0F, this.theWatcher.getVerticalFaceSpeed());
         --this.lookTime;

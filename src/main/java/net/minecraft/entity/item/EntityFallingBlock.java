@@ -49,17 +49,21 @@ public class EntityFallingBlock extends Entity {
         this.prevPosZ = z;
     }
 
+    @Override
     protected boolean canTriggerWalking() {
         return false;
     }
 
+    @Override
     protected void entityInit() {
     }
 
+    @Override
     public boolean canBeCollidedWith() {
         return !this.isDead;
     }
 
+    @Override
     public void onUpdate() {
         Block block = this.fallTile.getBlock();
 
@@ -139,6 +143,7 @@ public class EntityFallingBlock extends Entity {
         }
     }
 
+    @Override
     public void fall(float distance, float damageMultiplier) {
         Block block = this.fallTile.getBlock();
 
@@ -168,6 +173,7 @@ public class EntityFallingBlock extends Entity {
         }
     }
 
+    @Override
     protected void writeEntityToNBT(NBTTagCompound tagCompound) {
         Block block = this.fallTile != null ? this.fallTile.getBlock() : Blocks.AIR;
         ResourceLocation resourcelocation = Block.blockRegistry.getNameForObject(block);
@@ -184,6 +190,7 @@ public class EntityFallingBlock extends Entity {
         }
     }
 
+    @Override
     protected void readEntityFromNBT(NBTTagCompound tagCompund) {
         int i = tagCompund.getByte("Data") & 255;
 
@@ -227,10 +234,12 @@ public class EntityFallingBlock extends Entity {
         this.hurtEntities = p_145806_1_;
     }
 
+    @Override
     public boolean canRenderOnFire() {
         return false;
     }
 
+    @Override
     public void addEntityCrashInfo(CrashReportCategory category) {
         super.addEntityCrashInfo(category);
 

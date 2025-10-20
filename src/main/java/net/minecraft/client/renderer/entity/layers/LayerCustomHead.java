@@ -26,6 +26,7 @@ public class LayerCustomHead implements LayerRenderer<EntityLivingBase> {
         this.field_177209_a = p_i46120_1_;
     }
 
+    @Override
     public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
         ItemStack itemstack = entitylivingbaseIn.getCurrentArmor(3);
 
@@ -93,6 +94,7 @@ public class LayerCustomHead implements LayerRenderer<EntityLivingBase> {
         }
     }
 
+    @Override
     public boolean shouldCombineTextures() {
         return true;
     }

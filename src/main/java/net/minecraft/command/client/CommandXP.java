@@ -11,18 +11,22 @@ import net.minecraft.util.BlockPos;
 import java.util.List;
 
 public class CommandXP extends CommandBase {
+    @Override
     public String getCommandName() {
         return "xp";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 2;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.xp.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length == 0) {
             throw new WrongUsageException("commands.xp.usage");
@@ -66,6 +70,7 @@ public class CommandXP extends CommandBase {
         }
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         return args.length == 2 ? getListOfStringsMatchingLastWord(args, this.getAllUsernames()) : null;
     }
@@ -74,6 +79,7 @@ public class CommandXP extends CommandBase {
         return MinecraftServer.getServer().getAllUsernames();
     }
 
+    @Override
     public boolean isUsernameIndex(String[] args, int index) {
         return index == 1;
     }

@@ -22,17 +22,20 @@ public class GuiMessage extends GuiScreen {
 		this.messageLine2 = line2;
 	}
 
-	public void initGui() {
+	@Override
+    public void initGui() {
 		this.buttonList.add(new GuiOptionButton(0, this.width / 2 - 74, this.height / 6 + 96, I18n.format("gui.done")));
 		this.listLines2.clear();
 		this.listLines2.addAll(this.fontRendererObj.listFormattedStringToWidth(this.messageLine2, this.width - 50));
 	}
 
-	protected void actionPerformed(GuiButton button) throws IOException {
+	@Override
+    protected void actionPerformed(GuiButton button) throws IOException {
 		Config.getMinecraft().displayGuiScreen(this.parentScreen);
 	}
 
-	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+	@Override
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		this.drawDefaultBackground();
 		this.drawCenteredString(this.fontRendererObj, this.messageLine1, this.width / 2, 70, 16777215);
 		int i = 90;

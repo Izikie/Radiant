@@ -19,6 +19,7 @@ public class LayerArrow implements LayerRenderer<EntityLivingBase> {
         this.field_177168_a = p_i46124_1_;
     }
 
+    @Override
     public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
         int i = entitylivingbaseIn.getArrowCountInEntity();
 
@@ -59,6 +60,7 @@ public class LayerArrow implements LayerRenderer<EntityLivingBase> {
         }
     }
 
+    @Override
     public boolean shouldCombineTextures() {
         return false;
     }

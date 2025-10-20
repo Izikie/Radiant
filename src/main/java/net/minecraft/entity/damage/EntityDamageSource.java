@@ -26,10 +26,12 @@ public class EntityDamageSource extends DamageSource {
         return this.isThornsDamage;
     }
 
+    @Override
     public Entity getEntity() {
         return this.damageSourceEntity;
     }
 
+    @Override
     public IChatComponent getDeathMessage(EntityLivingBase entityLivingBaseIn) {
         ItemStack itemstack = this.damageSourceEntity instanceof EntityLivingBase entityLivingBase ? entityLivingBase.getHeldItem() : null;
         String s = "death.attack." + this.damageType;
@@ -37,6 +39,7 @@ public class EntityDamageSource extends DamageSource {
         return itemstack != null && itemstack.hasDisplayName() && StatCollector.canTranslate(s1) ? new ChatComponentTranslation(s1, entityLivingBaseIn.getDisplayName(), this.damageSourceEntity.getDisplayName(), itemstack.getChatComponent()) : new ChatComponentTranslation(s, entityLivingBaseIn.getDisplayName(), this.damageSourceEntity.getDisplayName());
     }
 
+    @Override
     public boolean isDifficultyScaled() {
         return this.damageSourceEntity != null && this.damageSourceEntity instanceof EntityLivingBase && !(this.damageSourceEntity instanceof EntityPlayer);
     }

@@ -14,6 +14,7 @@ public class GeneratorBushFeature extends WorldGenerator {
         this.field_175908_a = p_i45633_1_;
     }
 
+    @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         for (int i = 0; i < 64; ++i) {
             BlockPos blockpos = position.add(rand.nextInt(8) - rand.nextInt(8), rand.nextInt(4) - rand.nextInt(4), rand.nextInt(8) - rand.nextInt(8));

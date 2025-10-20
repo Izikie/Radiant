@@ -16,14 +16,17 @@ public class C0DPacketCloseWindow implements Packet<INetHandlerPlayServer> {
         this.windowId = windowId;
     }
 
+    @Override
     public void processPacket(INetHandlerPlayServer handler) {
         handler.processCloseWindow(this);
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.windowId = buf.readByte();
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeByte(this.windowId);
     }

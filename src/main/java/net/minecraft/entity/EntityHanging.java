@@ -28,6 +28,7 @@ public abstract class EntityHanging extends Entity {
         this.hangingPosition = hangingPositionIn;
     }
 
+    @Override
     protected void entityInit() {
     }
 
@@ -77,6 +78,7 @@ public abstract class EntityHanging extends Entity {
         return p_174858_1_ % 32 == 0 ? 0.5D : 0.0D;
     }
 
+    @Override
     public void onUpdate() {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
@@ -122,18 +124,22 @@ public abstract class EntityHanging extends Entity {
         }
     }
 
+    @Override
     public boolean canBeCollidedWith() {
         return true;
     }
 
+    @Override
     public boolean hitByEntity(Entity entityIn) {
         return entityIn instanceof EntityPlayer entityPlayer && this.attackEntityFrom(DamageSource.causePlayerDamage(entityPlayer), 0.0F);
     }
 
+    @Override
     public Direction getHorizontalFacing() {
         return this.facingDirection;
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (this.isEntityInvulnerable(source)) {
             return false;
@@ -148,6 +154,7 @@ public abstract class EntityHanging extends Entity {
         }
     }
 
+    @Override
     public void moveEntity(double x, double y, double z) {
         if (!this.worldObj.isRemote && !this.isDead && x * x + y * y + z * z > 0.0D) {
             this.setDead();
@@ -155,6 +162,7 @@ public abstract class EntityHanging extends Entity {
         }
     }
 
+    @Override
     public void addVelocity(double x, double y, double z) {
         if (!this.worldObj.isRemote && !this.isDead && x * x + y * y + z * z > 0.0D) {
             this.setDead();
@@ -162,6 +170,7 @@ public abstract class EntityHanging extends Entity {
         }
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         tagCompound.setByte("Facing", (byte) this.facingDirection.getHorizontalIndex());
         tagCompound.setInteger("TileX", this.getHangingPosition().getX());
@@ -169,6 +178,7 @@ public abstract class EntityHanging extends Entity {
         tagCompound.setInteger("TileZ", this.getHangingPosition().getZ());
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         this.hangingPosition = new BlockPos(tagCompund.getInteger("TileX"), tagCompund.getInteger("TileY"), tagCompund.getInteger("TileZ"));
         Direction enumfacing;
@@ -191,10 +201,12 @@ public abstract class EntityHanging extends Entity {
 
     public abstract void onBroken(Entity brokenEntity);
 
+    @Override
     protected boolean shouldSetPosAfterLoading() {
         return false;
     }
 
+    @Override
     public void setPosition(double x, double y, double z) {
         this.posX = x;
         this.posY = y;

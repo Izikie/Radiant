@@ -86,6 +86,7 @@ public class Main {
 
         if (!proxy.equals(Proxy.NO_PROXY) && isNotNullOrEmpty(proxyUser) && isNotNullOrEmpty(proxyPass)) {
             Authenticator.setDefault(new Authenticator() {
+                @Override
                 protected PasswordAuthentication getPasswordAuthentication() {
                     return new PasswordAuthentication(proxyUser, proxyPass.toCharArray());
                 }
@@ -125,6 +126,7 @@ public class Main {
         );
 
         Runtime.getRuntime().addShutdownHook(new Thread("Client Shutdown Thread") {
+            @Override
             public void run() {
                 Minecraft.stopIntegratedServer();
             }

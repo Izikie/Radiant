@@ -17,6 +17,7 @@ public class WorldGenSand extends WorldGenerator {
         this.radius = p_i45462_2_;
     }
 
+    @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         if (worldIn.getBlockState(position).getBlock().getMaterial() != Material.WATER) {
             return false;

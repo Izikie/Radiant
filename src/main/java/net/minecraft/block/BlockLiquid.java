@@ -28,10 +28,12 @@ public abstract class BlockLiquid extends Block {
         this.setTickRandomly(true);
     }
 
+    @Override
     public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
         return this.blockMaterial != Material.LAVA;
     }
 
+    @Override
     public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass) {
         return this.blockMaterial == Material.WATER ? BiomeColorHelper.getWaterColorAtPos(worldIn, pos) : 16777215;
     }
@@ -53,23 +55,28 @@ public abstract class BlockLiquid extends Block {
         return i >= 8 ? 0 : i;
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean canCollideCheck(IBlockState state, boolean hitIfLiquid) {
         return hitIfLiquid && state.getValue(LEVEL) == 0;
     }
 
+    @Override
     public boolean isBlockSolid(IBlockAccess worldIn, BlockPos pos, Direction side) {
         Material material = worldIn.getBlockState(pos).getBlock().getMaterial();
         return material != this.blockMaterial && (side == Direction.UP || (material != Material.ICE && super.isBlockSolid(worldIn, pos, side)));
     }
 
+    @Override
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, Direction side) {
         return worldIn.getBlockState(pos).getBlock().getMaterial() != this.blockMaterial && (side == Direction.UP || super.shouldSideBeRendered(worldIn, pos, side));
     }
@@ -90,18 +97,22 @@ public abstract class BlockLiquid extends Block {
         return false;
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
         return null;
     }
 
+    @Override
     public int getRenderType() {
         return 1;
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return null;
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return 0;
     }
@@ -143,14 +154,17 @@ public abstract class BlockLiquid extends Block {
         return vec3.normalize();
     }
 
+    @Override
     public Vec3 modifyAcceleration(World worldIn, BlockPos pos, Entity entityIn, Vec3 motion) {
         return motion.add(this.getFlowVector(worldIn, pos));
     }
 
+    @Override
     public int tickRate(World worldIn) {
         return this.blockMaterial == Material.WATER ? 5 : (this.blockMaterial == Material.LAVA ? (worldIn.provider.getHasNoSky() ? 10 : 30) : 0);
     }
 
+    @Override
     public int getMixedBrightnessForBlock(IBlockAccess worldIn, BlockPos pos) {
         int i = worldIn.getCombinedLight(pos, 0);
         int j = worldIn.getCombinedLight(pos.up(), 0);
@@ -161,10 +175,12 @@ public abstract class BlockLiquid extends Block {
         return (k > l ? k : l) | (i1 > j1 ? i1 : j1) << 16;
     }
 
+    @Override
     public RenderLayer getBlockLayer() {
         return this.blockMaterial == Material.WATER ? RenderLayer.TRANSLUCENT : RenderLayer.SOLID;
     }
 
+    @Override
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         double d0 = pos.getX();
         double d1 = pos.getY();
@@ -218,10 +234,12 @@ public abstract class BlockLiquid extends Block {
         return vec3.xCoord == 0.0D && vec3.zCoord == 0.0D ? -1000.0D : MathHelper.atan2(vec3.zCoord, vec3.xCoord) - (Math.PI / 2.0D);
     }
 
+    @Override
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         this.checkForMixing(worldIn, pos, state);
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         this.checkForMixing(worldIn, pos, state);
     }
@@ -268,14 +286,17 @@ public abstract class BlockLiquid extends Block {
         }
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(LEVEL, meta);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(LEVEL);
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, LEVEL);
     }

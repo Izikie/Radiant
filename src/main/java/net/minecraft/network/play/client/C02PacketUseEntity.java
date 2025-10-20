@@ -27,6 +27,7 @@ public class C02PacketUseEntity implements Packet<INetHandlerPlayServer> {
         this.hitVec = hitVec;
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.entityId = buf.readVarIntFromBuffer();
         this.action = buf.readEnumValue(Action.class);
@@ -36,6 +37,7 @@ public class C02PacketUseEntity implements Packet<INetHandlerPlayServer> {
         }
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeVarIntToBuffer(this.entityId);
         buf.writeEnumValue(this.action);
@@ -47,6 +49,7 @@ public class C02PacketUseEntity implements Packet<INetHandlerPlayServer> {
         }
     }
 
+    @Override
     public void processPacket(INetHandlerPlayServer handler) {
         handler.processUseEntity(this);
     }

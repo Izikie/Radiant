@@ -34,6 +34,7 @@ public class Material {
     public static final Material PORTAL = new MaterialPortal(MapColor.AIR_COLOR).setImmovableMobility();
     public static final Material CAKE = new Material(MapColor.AIR_COLOR).setNoPushMobility();
     public static final Material WEB = new Material(MapColor.CLOTH_COLOR) {
+        @Override
         public boolean blocksMovement() {
             return false;
         }

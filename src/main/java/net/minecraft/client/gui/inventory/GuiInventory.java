@@ -24,6 +24,7 @@ public class GuiInventory extends InventoryEffectRenderer {
         this.allowUserInput = true;
     }
 
+    @Override
     public void updateScreen() {
         if (this.mc.playerController.isInCreativeMode()) {
             this.mc.displayGuiScreen(new GuiContainerCreative(this.mc.player));
@@ -32,6 +33,7 @@ public class GuiInventory extends InventoryEffectRenderer {
         this.updateActivePotionEffects();
     }
 
+    @Override
     public void initGui() {
         this.buttonList.clear();
 
@@ -42,16 +44,19 @@ public class GuiInventory extends InventoryEffectRenderer {
         }
     }
 
+    @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         this.fontRendererObj.drawString(I18n.format("container.crafting"), 86, 16, 4210752);
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
         this.oldMouseX = mouseX;
         this.oldMouseY = mouseY;
     }
 
+    @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(INVENTORY_BACKGROUND);
@@ -100,6 +105,7 @@ public class GuiInventory extends InventoryEffectRenderer {
         GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.id == 0) {
             this.mc.displayGuiScreen(new GuiAchievements(this, this.mc.player.getStatFileWriter()));

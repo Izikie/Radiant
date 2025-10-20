@@ -33,28 +33,34 @@ public class BlockSnow extends Block {
         this.setBlockBoundsForItemRender();
     }
 
+    @Override
     public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
         return worldIn.getBlockState(pos).getValue(LAYERS) < 5;
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
         int i = state.getValue(LAYERS) - 1;
         float f = 0.125F;
         return new AxisAlignedBB(pos.getX() + this.minX, pos.getY() + this.minY, pos.getZ() + this.minZ, pos.getX() + this.maxX, (pos.getY() + i * f), pos.getZ() + this.maxZ);
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public void setBlockBoundsForItemRender() {
         this.getBoundsForLayers(0);
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         IBlockState iblockstate = worldIn.getBlockState(pos);
         this.getBoundsForLayers(iblockstate.getValue(LAYERS));
@@ -64,12 +70,14 @@ public class BlockSnow extends Block {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, p_150154_1_ / 8.0F, 1.0F);
     }
 
+    @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
         IBlockState iblockstate = worldIn.getBlockState(pos.down());
         Block block = iblockstate.getBlock();
         return block != Blocks.ICE && block != Blocks.PACKED_ICE && (block.getMaterial() == Material.LEAVES || (block == this && iblockstate.getValue(LAYERS) >= 7 || block.isOpaqueCube() && block.blockMaterial.blocksMovement()));
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         this.checkAndDropBlock(worldIn, pos, state);
     }
@@ -84,20 +92,24 @@ public class BlockSnow extends Block {
         }
     }
 
+    @Override
     public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te) {
         spawnAsEntity(worldIn, pos, new ItemStack(Items.SNOWBALL, state.getValue(LAYERS) + 1, 0));
         worldIn.setBlockToAir(pos);
         player.triggerAchievement(StatList.MINE_BLOCK_STAT_ARRAY[Block.getIdFromBlock(this)]);
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Items.SNOWBALL;
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return 0;
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (worldIn.getLightFor(LightType.BLOCK, pos) > 11) {
             this.dropBlockAsItem(worldIn, pos, worldIn.getBlockState(pos), 0);
@@ -105,22 +117,27 @@ public class BlockSnow extends Block {
         }
     }
 
+    @Override
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, Direction side) {
         return side == Direction.UP || super.shouldSideBeRendered(worldIn, pos, side);
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(LAYERS, (meta & 7) + 1);
     }
 
+    @Override
     public boolean isReplaceable(World worldIn, BlockPos pos) {
         return worldIn.getBlockState(pos).getValue(LAYERS) == 1;
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(LAYERS) - 1;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, LAYERS);
     }

@@ -20,14 +20,17 @@ public class BlockDragonEgg extends Block {
         this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 1.0F, 0.9375F);
     }
 
+    @Override
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         this.checkFall(worldIn, pos);
     }
@@ -52,11 +55,13 @@ public class BlockDragonEgg extends Block {
         }
     }
 
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         this.teleport(worldIn, pos);
         return true;
     }
 
+    @Override
     public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn) {
         this.teleport(worldIn, pos);
     }
@@ -91,22 +96,27 @@ public class BlockDragonEgg extends Block {
         }
     }
 
+    @Override
     public int tickRate(World worldIn) {
         return 5;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, Direction side) {
         return true;
     }
 
+    @Override
     public Item getItem(World worldIn, BlockPos pos) {
         return null;
     }

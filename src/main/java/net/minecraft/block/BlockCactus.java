@@ -24,6 +24,7 @@ public class BlockCactus extends Block {
         this.setCreativeTab(CreativeTabs.TAB_DECORATIONS);
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         BlockPos blockpos = pos.up();
 
@@ -48,28 +49,34 @@ public class BlockCactus extends Block {
         }
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
         float f = 0.0625F;
         return new AxisAlignedBB((pos.getX() + f), pos.getY(), (pos.getZ() + f), ((pos.getX() + 1) - f), ((pos.getY() + 1) - f), ((pos.getZ() + 1) - f));
     }
 
+    @Override
     public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos) {
         float f = 0.0625F;
         return new AxisAlignedBB((pos.getX() + f), pos.getY(), (pos.getZ() + f), ((pos.getX() + 1) - f), (pos.getY() + 1), ((pos.getZ() + 1) - f));
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
         return super.canPlaceBlockAt(worldIn, pos) && this.canBlockStay(worldIn, pos);
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         if (!this.canBlockStay(worldIn, pos)) {
             worldIn.destroyBlock(pos, true);
@@ -87,22 +94,27 @@ public class BlockCactus extends Block {
         return block == Blocks.CACTUS || block == Blocks.SAND;
     }
 
+    @Override
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
         entityIn.attackEntityFrom(DamageSource.CACTUS, 1.0F);
     }
 
+    @Override
     public RenderLayer getBlockLayer() {
         return RenderLayer.CUTOUT;
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(AGE, meta);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(AGE);
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, AGE);
     }

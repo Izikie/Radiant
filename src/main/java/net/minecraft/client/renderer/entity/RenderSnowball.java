@@ -18,6 +18,7 @@ public class RenderSnowball<T extends Entity> extends Render<T> {
         this.field_177083_e = p_i46137_3_;
     }
 
+    @Override
     public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
         GlStateManager.pushMatrix();
         GlStateManager.translate((float) x, (float) y, (float) z);
@@ -36,6 +37,7 @@ public class RenderSnowball<T extends Entity> extends Render<T> {
         return new ItemStack(this.field_177084_a, 1, 0);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(Entity entity) {
         return TextureMap.LOCATION_BLOCKS_TEXTURE;
     }

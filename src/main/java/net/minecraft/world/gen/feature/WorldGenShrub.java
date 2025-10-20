@@ -19,6 +19,7 @@ public class WorldGenShrub extends WorldGenTrees {
         this.leavesMetadata = p_i46450_2_;
     }
 
+    @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         Block block;
 

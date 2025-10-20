@@ -18,11 +18,13 @@ public class GuiSliderShaderOption extends GuiButtonShaderOption {
 		this.displayString = GuiShaderOptions.getButtonText(shaderOption, this.width);
 	}
 
-	protected int getHoverState(boolean mouseOver) {
+	@Override
+    protected int getHoverState(boolean mouseOver) {
 		return 0;
 	}
 
-	protected void mouseDragged(Minecraft mc, int mouseX, int mouseY) {
+	@Override
+    protected void mouseDragged(Minecraft mc, int mouseX, int mouseY) {
 		if (this.visible) {
 			if (this.dragging && !GuiScreen.isShiftKeyDown()) {
 				this.sliderValue = (float) (mouseX - (this.xPosition + 4)) / (this.width - 8);
@@ -39,7 +41,8 @@ public class GuiSliderShaderOption extends GuiButtonShaderOption {
 		}
 	}
 
-	public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
+	@Override
+    public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
 		if (super.mousePressed(mc, mouseX, mouseY)) {
 			this.sliderValue = (float) (mouseX - (this.xPosition + 4)) / (this.width - 8);
 			this.sliderValue = MathHelper.clamp(this.sliderValue, 0.0F, 1.0F);
@@ -52,15 +55,18 @@ public class GuiSliderShaderOption extends GuiButtonShaderOption {
 		}
 	}
 
-	public void mouseReleased(int mouseX, int mouseY) {
+	@Override
+    public void mouseReleased(int mouseX, int mouseY) {
 		this.dragging = false;
 	}
 
-	public void valueChanged() {
+	@Override
+    public void valueChanged() {
 		this.sliderValue = this.shaderOption.getIndexNormalized();
 	}
 
-	public boolean isSwitchable() {
+	@Override
+    public boolean isSwitchable() {
 		return false;
 	}
 }

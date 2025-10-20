@@ -31,10 +31,12 @@ public class EntityBreakingFX extends EntityFX {
         this.particleScale /= 2.0F;
     }
 
+    @Override
     public int getFXLayer() {
         return 1;
     }
 
+    @Override
     public void renderParticle(WorldRenderer worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
         float f = (this.particleTextureIndexX + this.particleTextureJitterX / 4.0F) / 16.0F;
         float f1 = f + 0.015609375F;
@@ -62,6 +64,7 @@ public class EntityBreakingFX extends EntityFX {
     }
 
     public static class Factory implements IParticleFactory {
+        @Override
         public EntityFX getEntityFX(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
             int i = p_178902_15_.length > 1 ? p_178902_15_[1] : 0;
             return new EntityBreakingFX(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn, Item.getItemById(p_178902_15_[0]), i);
@@ -69,12 +72,14 @@ public class EntityBreakingFX extends EntityFX {
     }
 
     public static class SlimeFactory implements IParticleFactory {
+        @Override
         public EntityFX getEntityFX(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
             return new EntityBreakingFX(worldIn, xCoordIn, yCoordIn, zCoordIn, Items.SLIME_BALL);
         }
     }
 
     public static class SnowballFactory implements IParticleFactory {
+        @Override
         public EntityFX getEntityFX(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
             return new EntityBreakingFX(worldIn, xCoordIn, yCoordIn, zCoordIn, Items.SNOWBALL);
         }

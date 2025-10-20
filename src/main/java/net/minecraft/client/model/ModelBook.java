@@ -18,6 +18,7 @@ public class ModelBook extends ModelBase {
         this.bookSpine.rotateAngleY = ((float) Math.PI / 2.0F);
     }
 
+    @Override
     public void render(Entity entityIn, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_, float scale) {
         this.setRotationAngles(p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, scale, entityIn);
         this.coverRight.render(scale);
@@ -29,6 +30,7 @@ public class ModelBook extends ModelBase {
         this.flippingPageLeft.render(scale);
     }
 
+    @Override
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
         float f = (MathHelper.sin(limbSwing * 0.02F) * 0.1F + 1.25F) * netHeadYaw;
         this.coverRight.rotateAngleY = (float) Math.PI + f;

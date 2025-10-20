@@ -55,10 +55,12 @@ final class ContextGL implements Context {
 
     }
 
+    @Override
     public void releaseCurrent() throws LWJGLException {
 
     }
 
+    @Override
     public synchronized void releaseDrawable() throws LWJGLException {
 
     }
@@ -67,10 +69,12 @@ final class ContextGL implements Context {
 
     }
 
+    @Override
     public synchronized void makeCurrent() throws LWJGLException {
 
     }
 
+    @Override
     public synchronized boolean isCurrent() throws LWJGLException {
         return false;
     }

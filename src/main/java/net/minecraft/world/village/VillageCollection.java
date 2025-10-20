@@ -207,6 +207,7 @@ public class VillageCollection extends WorldSavedData {
         return block instanceof BlockDoor && block.getMaterial() == Material.WOOD;
     }
 
+    @Override
     public void readFromNBT(NBTTagCompound nbt) {
         this.tickCounter = nbt.getInteger("Tick");
         NBTTagList nbttaglist = nbt.getTagList("Villages", 10);
@@ -219,6 +220,7 @@ public class VillageCollection extends WorldSavedData {
         }
     }
 
+    @Override
     public void writeToNBT(NBTTagCompound nbt) {
         nbt.setInteger("Tick", this.tickCounter);
         NBTTagList nbttaglist = new NBTTagList();

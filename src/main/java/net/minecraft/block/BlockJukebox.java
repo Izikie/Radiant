@@ -26,6 +26,7 @@ public class BlockJukebox extends BlockContainer {
         this.setCreativeTab(CreativeTabs.TAB_DECORATIONS);
     }
 
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (state.getValue(HAS_RECORD)) {
             this.dropRecord(worldIn, pos, state);
@@ -72,25 +73,30 @@ public class BlockJukebox extends BlockContainer {
         }
     }
 
+    @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         this.dropRecord(worldIn, pos, state);
         super.breakBlock(worldIn, pos, state);
     }
 
+    @Override
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
         if (!worldIn.isRemote) {
             super.dropBlockAsItemWithChance(worldIn, pos, state, chance, 0);
         }
     }
 
+    @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntityJukebox();
     }
 
+    @Override
     public boolean hasComparatorInputOverride() {
         return true;
     }
 
+    @Override
     public int getComparatorInputOverride(World worldIn, BlockPos pos) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
@@ -105,18 +111,22 @@ public class BlockJukebox extends BlockContainer {
         return 0;
     }
 
+    @Override
     public int getRenderType() {
         return 3;
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(HAS_RECORD, meta > 0);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(HAS_RECORD) ? 1 : 0;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, HAS_RECORD);
     }
@@ -124,6 +134,7 @@ public class BlockJukebox extends BlockContainer {
     public static class TileEntityJukebox extends TileEntity {
         private ItemStack record;
 
+        @Override
         public void readFromNBT(NBTTagCompound compound) {
             super.readFromNBT(compound);
 
@@ -134,6 +145,7 @@ public class BlockJukebox extends BlockContainer {
             }
         }
 
+        @Override
         public void writeToNBT(NBTTagCompound compound) {
             super.writeToNBT(compound);
 

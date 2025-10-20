@@ -16,36 +16,44 @@ public class BlockMobSpawner extends BlockContainer {
         super(Material.ROCK);
     }
 
+    @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntityMobSpawner();
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return null;
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return 0;
     }
 
+    @Override
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
         super.dropBlockAsItemWithChance(worldIn, pos, state, chance, fortune);
         int i = 15 + worldIn.rand.nextInt(15) + worldIn.rand.nextInt(15);
         this.dropXpOnBlockBreak(worldIn, pos, i);
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public int getRenderType() {
         return 3;
     }
 
+    @Override
     public RenderLayer getBlockLayer() {
         return RenderLayer.CUTOUT;
     }
 
+    @Override
     public Item getItem(World worldIn, BlockPos pos) {
         return null;
     }

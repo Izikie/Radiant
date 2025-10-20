@@ -83,6 +83,7 @@ public class StructureMineshaftPieces {
         public Corridor() {
         }
 
+        @Override
         protected void writeStructureToNBT(NBTTagCompound tagCompound) {
             tagCompound.setBoolean("hr", this.hasRails);
             tagCompound.setBoolean("sc", this.hasSpiders);
@@ -90,6 +91,7 @@ public class StructureMineshaftPieces {
             tagCompound.setInteger("Num", this.sectionCount);
         }
 
+        @Override
         protected void readStructureFromNBT(NBTTagCompound tagCompound) {
             this.hasRails = tagCompound.getBoolean("hr");
             this.hasSpiders = tagCompound.getBoolean("sc");
@@ -147,6 +149,7 @@ public class StructureMineshaftPieces {
             return i > 0 ? structureboundingbox : null;
         }
 
+        @Override
         public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
             int i = this.getComponentType();
             int j = rand.nextInt(4);
@@ -222,6 +225,7 @@ public class StructureMineshaftPieces {
             }
         }
 
+        @Override
         protected boolean generateChestContents(World worldIn, StructureBoundingBox boundingBoxIn, Random rand, int x, int y, int z, List<WeightedRandomChestContent> listIn, int max) {
             BlockPos blockpos = new BlockPos(this.getXWithOffset(x, z), this.getYWithOffset(y), this.getZWithOffset(x, z));
 
@@ -237,6 +241,7 @@ public class StructureMineshaftPieces {
             }
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             if (this.isLiquidInStructureBoundingBox(worldIn, structureBoundingBoxIn)) {
                 return false;
@@ -337,11 +342,13 @@ public class StructureMineshaftPieces {
         public Cross() {
         }
 
+        @Override
         protected void writeStructureToNBT(NBTTagCompound tagCompound) {
             tagCompound.setBoolean("tf", this.isMultipleFloors);
             tagCompound.setInteger("D", this.corridorDirection.getHorizontalIndex());
         }
 
+        @Override
         protected void readStructureFromNBT(NBTTagCompound tagCompound) {
             this.isMultipleFloors = tagCompound.getBoolean("tf");
             this.corridorDirection = Direction.getHorizontal(tagCompound.getInteger("D"));
@@ -389,6 +396,7 @@ public class StructureMineshaftPieces {
             return StructureComponent.findIntersecting(listIn, structureboundingbox) != null ? null : structureboundingbox;
         }
 
+        @Override
         public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
             int i = this.getComponentType();
 
@@ -436,6 +444,7 @@ public class StructureMineshaftPieces {
             }
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             if (this.isLiquidInStructureBoundingBox(worldIn, structureBoundingBoxIn)) {
                 return false;
@@ -480,6 +489,7 @@ public class StructureMineshaftPieces {
             this.boundingBox = new StructureBoundingBox(x, 50, z, x + 7 + rand.nextInt(6), 54 + rand.nextInt(6), z + 7 + rand.nextInt(6));
         }
 
+        @Override
         public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
             int i = this.getComponentType();
             int j = this.boundingBox.getYSize() - 3 - 1;
@@ -551,6 +561,7 @@ public class StructureMineshaftPieces {
             }
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             if (this.isLiquidInStructureBoundingBox(worldIn, structureBoundingBoxIn)) {
                 return false;
@@ -567,6 +578,7 @@ public class StructureMineshaftPieces {
             }
         }
 
+        @Override
         public void func_181138_a(int p_181138_1_, int p_181138_2_, int p_181138_3_) {
             super.func_181138_a(p_181138_1_, p_181138_2_, p_181138_3_);
 
@@ -575,6 +587,7 @@ public class StructureMineshaftPieces {
             }
         }
 
+        @Override
         protected void writeStructureToNBT(NBTTagCompound tagCompound) {
             NBTTagList nbttaglist = new NBTTagList();
 
@@ -585,6 +598,7 @@ public class StructureMineshaftPieces {
             tagCompound.setTag("Entrances", nbttaglist);
         }
 
+        @Override
         protected void readStructureFromNBT(NBTTagCompound tagCompound) {
             NBTTagList nbttaglist = tagCompound.getTagList("Entrances", 11);
 
@@ -604,9 +618,11 @@ public class StructureMineshaftPieces {
             this.boundingBox = structurebb;
         }
 
+        @Override
         protected void writeStructureToNBT(NBTTagCompound tagCompound) {
         }
 
+        @Override
         protected void readStructureFromNBT(NBTTagCompound tagCompound) {
         }
 
@@ -637,6 +653,7 @@ public class StructureMineshaftPieces {
             return StructureComponent.findIntersecting(listIn, structureboundingbox) != null ? null : structureboundingbox;
         }
 
+        @Override
         public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
             int i = this.getComponentType();
 
@@ -660,6 +677,7 @@ public class StructureMineshaftPieces {
             }
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             if (this.isLiquidInStructureBoundingBox(worldIn, structureBoundingBoxIn)) {
                 return false;

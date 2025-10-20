@@ -21,6 +21,7 @@ public class EntityMinecartChest extends EntityMinecartContainer {
         super(worldIn, x, y, z);
     }
 
+    @Override
     public void killMinecart(DamageSource source) {
         super.killMinecart(source);
 
@@ -29,26 +30,32 @@ public class EntityMinecartChest extends EntityMinecartContainer {
         }
     }
 
+    @Override
     public int getSizeInventory() {
         return 27;
     }
 
+    @Override
     public MinecartType getMinecartType() {
         return MinecartType.CHEST;
     }
 
+    @Override
     public IBlockState getDefaultDisplayTile() {
         return Blocks.CHEST.getDefaultState().withProperty(BlockChest.FACING, Direction.NORTH);
     }
 
+    @Override
     public int getDefaultDisplayTileOffset() {
         return 8;
     }
 
+    @Override
     public String getGuiID() {
         return "minecraft:chest";
     }
 
+    @Override
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
         return new ContainerChest(playerInventory, this, playerIn);
     }

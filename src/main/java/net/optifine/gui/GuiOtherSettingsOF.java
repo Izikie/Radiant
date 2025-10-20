@@ -16,7 +16,8 @@ public class GuiOtherSettingsOF extends GuiScreen implements GuiYesNoCallback {
 		this.settings = gamesettings;
 	}
 
-	public void initGui() {
+	@Override
+    public void initGui() {
 		this.title = I18n.format("of.options.otherTitle");
 		this.buttonList.clear();
 
@@ -36,7 +37,8 @@ public class GuiOtherSettingsOF extends GuiScreen implements GuiYesNoCallback {
 		this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168 + 11, I18n.format("gui.done")));
 	}
 
-	protected void actionPerformed(GuiButton guibutton) {
+	@Override
+    protected void actionPerformed(GuiButton guibutton) {
 		if (guibutton.enabled) {
 			if (guibutton.id < 200 && guibutton instanceof GuiOptionButton guiOptionButton) {
 				this.settings.setOptionValue(guiOptionButton.returnEnumOptions(), 1);
@@ -56,7 +58,8 @@ public class GuiOtherSettingsOF extends GuiScreen implements GuiYesNoCallback {
 		}
 	}
 
-	public void confirmClicked(boolean flag, int i) {
+	@Override
+    public void confirmClicked(boolean flag, int i) {
 		if (flag) {
 			this.mc.gameSettings.resetSettings();
 		}
@@ -64,7 +67,8 @@ public class GuiOtherSettingsOF extends GuiScreen implements GuiYesNoCallback {
 		this.mc.displayGuiScreen(this);
 	}
 
-	public void drawScreen(int x, int y, float f) {
+	@Override
+    public void drawScreen(int x, int y, float f) {
 		this.drawDefaultBackground();
 		this.drawCenteredString(this.fontRendererObj, this.title, this.width / 2, 15, 16777215);
 		super.drawScreen(x, y, f);

@@ -12,20 +12,24 @@ public class EntityAICreeperSwell extends EntityAIBase {
         this.setMutexBits(1);
     }
 
+    @Override
     public boolean shouldExecute() {
         EntityLivingBase entitylivingbase = this.swellingCreeper.getAttackTarget();
         return this.swellingCreeper.getCreeperState() > 0 || entitylivingbase != null && this.swellingCreeper.getDistanceSqToEntity(entitylivingbase) < 9.0D;
     }
 
+    @Override
     public void startExecuting() {
         this.swellingCreeper.getNavigator().clearPathEntity();
         this.creeperAttackTarget = this.swellingCreeper.getAttackTarget();
     }
 
+    @Override
     public void resetTask() {
         this.creeperAttackTarget = null;
     }
 
+    @Override
     public void updateTask() {
         if (this.creeperAttackTarget == null) {
             this.swellingCreeper.setCreeperState(-1);

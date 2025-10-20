@@ -16,6 +16,7 @@ public class EntityMooshroom extends EntityCow {
         this.spawnableBlock = Blocks.MYCELIUM;
     }
 
+    @Override
     public boolean interact(EntityPlayer player) {
         ItemStack itemstack = player.inventory.getCurrentItem();
 
@@ -61,6 +62,7 @@ public class EntityMooshroom extends EntityCow {
         }
     }
 
+    @Override
     public EntityMooshroom createChild(EntityAgeable ageable) {
         return new EntityMooshroom(this.worldObj);
     }

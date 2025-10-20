@@ -10,10 +10,12 @@ public class MapGenStructureData extends WorldSavedData {
         super(name);
     }
 
+    @Override
     public void readFromNBT(NBTTagCompound nbt) {
         this.tagCompound = nbt.getCompoundTag("Features");
     }
 
+    @Override
     public void writeToNBT(NBTTagCompound nbt) {
         nbt.setTag("Features", this.tagCompound);
     }

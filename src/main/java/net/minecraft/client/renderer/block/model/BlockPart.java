@@ -47,6 +47,7 @@ public class BlockPart {
     }
 
     static class Deserializer implements JsonDeserializer<BlockPart> {
+        @Override
         public BlockPart deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
             JsonObject jsonobject = jsonElement.getAsJsonObject();
             Vector3f vector3f = this.parsePositionFrom(jsonobject);

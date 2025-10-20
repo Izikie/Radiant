@@ -26,15 +26,18 @@ public class EntityItemFrame extends EntityHanging {
         this.updateFacingWithBoundingBox(p_i45852_3_);
     }
 
+    @Override
     protected void entityInit() {
         this.getDataWatcher().addObjectByDataType(8, 5);
         this.getDataWatcher().addObject(9, (byte) 0);
     }
 
+    @Override
     public float getCollisionBorderSize() {
         return 0.0F;
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (this.isEntityInvulnerable(source)) {
             return false;
@@ -50,20 +53,24 @@ public class EntityItemFrame extends EntityHanging {
         }
     }
 
+    @Override
     public int getWidthPixels() {
         return 12;
     }
 
+    @Override
     public int getHeightPixels() {
         return 12;
     }
 
+    @Override
     public boolean isInRangeToRenderDist(double distance) {
         double d0 = 16.0D;
         d0 = d0 * 64.0D * this.renderDistanceWeight;
         return distance < d0 * d0;
     }
 
+    @Override
     public void onBroken(Entity brokenEntity) {
         this.dropItemOrSelf(brokenEntity, true);
     }
@@ -142,6 +149,7 @@ public class EntityItemFrame extends EntityHanging {
         }
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         if (this.getDisplayedItem() != null) {
             tagCompound.setTag("Item", this.getDisplayedItem().writeToNBT(new NBTTagCompound()));
@@ -152,6 +160,7 @@ public class EntityItemFrame extends EntityHanging {
         super.writeEntityToNBT(tagCompound);
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         NBTTagCompound nbttagcompound = tagCompund.getCompoundTag("Item");
 
@@ -171,6 +180,7 @@ public class EntityItemFrame extends EntityHanging {
         super.readEntityFromNBT(tagCompund);
     }
 
+    @Override
     public boolean interactFirst(EntityPlayer playerIn) {
         if (this.getDisplayedItem() == null) {
             ItemStack itemstack = playerIn.getHeldItem();

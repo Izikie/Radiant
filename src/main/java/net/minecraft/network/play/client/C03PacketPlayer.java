@@ -23,14 +23,17 @@ public class C03PacketPlayer implements Packet<INetHandlerPlayServer> {
         this.onGround = isOnGround;
     }
 
+    @Override
     public void processPacket(INetHandlerPlayServer handler) {
         handler.processPlayer(this);
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.onGround = buf.readUnsignedByte() != 0;
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeByte(this.onGround ? 1 : 0);
     }
@@ -84,6 +87,7 @@ public class C03PacketPlayer implements Packet<INetHandlerPlayServer> {
             this.moving = true;
         }
 
+        @Override
         public void readPacketData(PacketBuffer buf) throws IOException {
             this.x = buf.readDouble();
             this.y = buf.readDouble();
@@ -91,6 +95,7 @@ public class C03PacketPlayer implements Packet<INetHandlerPlayServer> {
             super.readPacketData(buf);
         }
 
+        @Override
         public void writePacketData(PacketBuffer buf) throws IOException {
             buf.writeDouble(this.x);
             buf.writeDouble(this.y);
@@ -111,12 +116,14 @@ public class C03PacketPlayer implements Packet<INetHandlerPlayServer> {
             this.rotating = true;
         }
 
+        @Override
         public void readPacketData(PacketBuffer buf) throws IOException {
             this.yaw = buf.readFloat();
             this.pitch = buf.readFloat();
             super.readPacketData(buf);
         }
 
+        @Override
         public void writePacketData(PacketBuffer buf) throws IOException {
             buf.writeFloat(this.yaw);
             buf.writeFloat(this.pitch);
@@ -141,6 +148,7 @@ public class C03PacketPlayer implements Packet<INetHandlerPlayServer> {
             this.moving = true;
         }
 
+        @Override
         public void readPacketData(PacketBuffer buf) throws IOException {
             this.x = buf.readDouble();
             this.y = buf.readDouble();
@@ -150,6 +158,7 @@ public class C03PacketPlayer implements Packet<INetHandlerPlayServer> {
             super.readPacketData(buf);
         }
 
+        @Override
         public void writePacketData(PacketBuffer buf) throws IOException {
             buf.writeDouble(this.x);
             buf.writeDouble(this.y);

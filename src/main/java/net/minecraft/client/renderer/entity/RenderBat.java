@@ -13,14 +13,17 @@ public class RenderBat extends RenderLiving<EntityBat> {
         super(renderManagerIn, new ModelBat(), 0.25F);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityBat entity) {
         return BAT_TEXTURES;
     }
 
+    @Override
     protected void preRenderCallback(EntityBat entitylivingbaseIn, float partialTickTime) {
         GlStateManager.scale(0.35F, 0.35F, 0.35F);
     }
 
+    @Override
     protected void rotateCorpse(EntityBat bat, float p_77043_2_, float p_77043_3_, float partialTicks) {
         if (!bat.getIsBatHanging()) {
             GlStateManager.translate(0.0F, MathHelper.cos(p_77043_2_ * 0.3F) * 0.1F, 0.0F);

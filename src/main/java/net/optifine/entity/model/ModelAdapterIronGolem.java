@@ -13,11 +13,13 @@ public class ModelAdapterIronGolem extends ModelAdapter {
 		super(EntityIronGolem.class, "iron_golem", 0.5F);
 	}
 
-	public ModelBase makeModel() {
+	@Override
+    public ModelBase makeModel() {
 		return new ModelIronGolem();
 	}
 
-	public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
+	@Override
+    public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
 		if (!(model instanceof ModelIronGolem modelirongolem)) {
 			return null;
 		} else {
@@ -25,11 +27,13 @@ public class ModelAdapterIronGolem extends ModelAdapter {
 		}
 	}
 
-	public String[] getModelRendererNames() {
+	@Override
+    public String[] getModelRendererNames() {
 		return new String[]{"head", "body", "right_arm", "left_arm", "left_leg", "right_leg"};
 	}
 
-	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+	@Override
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
 		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		RenderIronGolem renderirongolem = new RenderIronGolem(rendermanager);
 		renderirongolem.mainModel = modelBase;

@@ -15,24 +15,29 @@ public class BlockRail extends BlockRailBase {
         this.setDefaultState(this.blockState.getBaseState().withProperty(SHAPE, RailShape.NORTH_SOUTH));
     }
 
+    @Override
     protected void onNeighborChangedInternal(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         if (neighborBlock.canProvidePower() && (new Rail(worldIn, pos, state)).countAdjacentRails() == 3) {
             this.func_176564_a(worldIn, pos, state, false);
         }
     }
 
+    @Override
     public IProperty<RailShape> getShapeProperty() {
         return SHAPE;
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(SHAPE, RailShape.byMetadata(meta));
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(SHAPE).getMetadata();
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, SHAPE);
     }

@@ -32,16 +32,19 @@ public abstract class AbstractTexture implements ITextureObject {
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, j);
     }
 
+    @Override
     public void setBlurMipmap(boolean p_174936_1_, boolean p_174936_2_) {
         this.blurLast = this.blur;
         this.mipmapLast = this.mipmap;
         this.setBlurMipmapDirect(p_174936_1_, p_174936_2_);
     }
 
+    @Override
     public void restoreLastBlurMipmap() {
         this.setBlurMipmapDirect(this.blurLast, this.mipmapLast);
     }
 
+    @Override
     public int getGlTextureId() {
         if (this.glTextureId == -1) {
             this.glTextureId = TextureUtil.glGenTextures();
@@ -59,6 +62,7 @@ public abstract class AbstractTexture implements ITextureObject {
         }
     }
 
+    @Override
     public MultiTexID getMultiTexID() {
         return ShadersTex.getMultiTexID(this);
     }

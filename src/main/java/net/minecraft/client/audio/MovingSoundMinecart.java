@@ -15,6 +15,7 @@ public class MovingSoundMinecart extends MovingSound {
         this.repeatDelay = 0;
     }
 
+    @Override
     public void update() {
         if (this.minecart.isDead) {
             this.donePlaying = true;

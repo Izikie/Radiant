@@ -15,10 +15,12 @@ public class BlockObsidian extends Block {
         this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Item.getItemFromBlock(Blocks.OBSIDIAN);
     }
 
+    @Override
     public MapColor getMapColor(IBlockState state) {
         return MapColor.BLACK_COLOR;
     }

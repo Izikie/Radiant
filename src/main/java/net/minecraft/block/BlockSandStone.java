@@ -21,28 +21,34 @@ public class BlockSandStone extends Block {
         this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
+    @Override
     public int damageDropped(IBlockState state) {
         return state.getValue(TYPE).getMetadata();
     }
 
+    @Override
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
         for (SandStoneType blocksandstone$enumtype : SandStoneType.values()) {
             list.add(new ItemStack(itemIn, 1, blocksandstone$enumtype.getMetadata()));
         }
     }
 
+    @Override
     public MapColor getMapColor(IBlockState state) {
         return MapColor.SAND_COLOR;
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(TYPE, SandStoneType.byMetadata(meta));
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(TYPE).getMetadata();
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, TYPE);
     }
@@ -79,6 +85,7 @@ public class BlockSandStone extends Block {
             return META_LOOKUP[meta];
         }
 
+        @Override
         public String getName() {
             return this.name;
         }

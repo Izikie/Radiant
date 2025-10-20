@@ -47,6 +47,7 @@ public class BlockFaceUV {
     }
 
     static class Deserializer implements JsonDeserializer<BlockFaceUV> {
+        @Override
         public BlockFaceUV deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
             JsonObject jsonobject = jsonElement.getAsJsonObject();
             float[] afloat = this.parseUV(jsonobject);

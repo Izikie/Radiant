@@ -18,6 +18,7 @@ public abstract class EntityMob extends EntityCreature implements IMob {
         this.experienceValue = 5;
     }
 
+    @Override
     public void onLivingUpdate() {
         this.updateArmSwingProgress();
         float f = this.getBrightness(1.0F);
@@ -29,6 +30,7 @@ public abstract class EntityMob extends EntityCreature implements IMob {
         super.onLivingUpdate();
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
 
@@ -37,32 +39,39 @@ public abstract class EntityMob extends EntityCreature implements IMob {
         }
     }
 
+    @Override
     protected String getSwimSound() {
         return "game.hostile.swim";
     }
 
+    @Override
     protected String getSplashSound() {
         return "game.hostile.swim.splash";
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (this.isEntityInvulnerable(source)) {
             return false;
         } else return super.attackEntityFrom(source, amount);
     }
 
+    @Override
     protected String getHurtSound() {
         return "game.hostile.hurt";
     }
 
+    @Override
     protected String getDeathSound() {
         return "game.hostile.die";
     }
 
+    @Override
     protected String getFallSoundString(int damageValue) {
         return damageValue > 4 ? "game.hostile.hurt.fall.big" : "game.hostile.hurt.fall.small";
     }
 
+    @Override
     public boolean attackEntityAsMob(Entity entityIn) {
         float f = (float) this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
         int i = 0;
@@ -93,6 +102,7 @@ public abstract class EntityMob extends EntityCreature implements IMob {
         return flag;
     }
 
+    @Override
     public float getBlockPathWeight(BlockPos pos) {
         return 0.5F - this.worldObj.getLightBrightness(pos);
     }
@@ -116,15 +126,18 @@ public abstract class EntityMob extends EntityCreature implements IMob {
         }
     }
 
+    @Override
     public boolean getCanSpawnHere() {
         return this.worldObj.getDifficulty() != Difficulty.PEACEFUL && this.isValidLightLevel() && super.getCanSpawnHere();
     }
 
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
     }
 
+    @Override
     protected boolean canDropLoot() {
         return true;
     }

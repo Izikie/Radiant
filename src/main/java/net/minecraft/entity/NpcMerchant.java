@@ -20,28 +20,35 @@ public class NpcMerchant implements IMerchant {
         this.theMerchantInventory = new InventoryMerchant(p_i45817_1_, this);
     }
 
+    @Override
     public EntityPlayer getCustomer() {
         return this.customer;
     }
 
+    @Override
     public void setCustomer(EntityPlayer p_70932_1_) {
     }
 
+    @Override
     public MerchantRecipeList getRecipes(EntityPlayer p_70934_1_) {
         return this.recipeList;
     }
 
+    @Override
     public void setRecipes(MerchantRecipeList recipeList) {
         this.recipeList = recipeList;
     }
 
+    @Override
     public void useRecipe(MerchantRecipe recipe) {
         recipe.incrementToolUses();
     }
 
+    @Override
     public void verifySellingItem(ItemStack stack) {
     }
 
+    @Override
     public IChatComponent getDisplayName() {
         return this.field_175548_d != null ? this.field_175548_d : new ChatComponentTranslation("entity.Villager.name");
     }

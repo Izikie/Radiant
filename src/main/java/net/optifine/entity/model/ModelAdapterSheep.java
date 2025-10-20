@@ -12,11 +12,13 @@ public class ModelAdapterSheep extends ModelAdapterQuadruped {
 		super(EntitySheep.class, "sheep", 0.7F);
 	}
 
-	public ModelBase makeModel() {
+	@Override
+    public ModelBase makeModel() {
 		return new ModelSheep2();
 	}
 
-	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+	@Override
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
 		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		return new RenderSheep(rendermanager, modelBase, shadowSize);
 	}

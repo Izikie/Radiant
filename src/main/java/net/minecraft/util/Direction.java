@@ -182,6 +182,7 @@ public enum Direction implements IStringSerializable {
         return this.name;
     }
 
+    @Override
     public String getName() {
         return this.name;
     }
@@ -246,6 +247,7 @@ public enum Direction implements IStringSerializable {
             return this.name;
         }
 
+        @Override
         public boolean apply(Direction p_apply_1_) {
             return p_apply_1_ != null && p_apply_1_.getAxis() == this;
         }
@@ -254,6 +256,7 @@ public enum Direction implements IStringSerializable {
             return this.plane;
         }
 
+        @Override
         public String getName() {
             return this.name;
         }
@@ -302,10 +305,12 @@ public enum Direction implements IStringSerializable {
             return directions[rand.nextInt(directions.length)];
         }
 
+        @Override
         public boolean apply(Direction p_apply_1_) {
             return p_apply_1_ != null && p_apply_1_.getAxis().getPlane() == this;
         }
 
+        @Override
         public @NotNull Iterator<Direction> iterator() {
             return Iterators.forArray(this.facings());
         }

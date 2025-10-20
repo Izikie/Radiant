@@ -17,6 +17,7 @@ public class MusicTicker implements ITickable {
         this.mc = mcIn;
     }
 
+    @Override
     public void update() {
         MusicType musicticker$musictype = this.mc.getAmbientMusicType();
 

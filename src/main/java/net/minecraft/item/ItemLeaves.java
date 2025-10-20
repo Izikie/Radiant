@@ -12,14 +12,17 @@ public class ItemLeaves extends ItemBlock {
         this.setHasSubtypes(true);
     }
 
+    @Override
     public int getMetadata(int damage) {
         return damage | 4;
     }
 
+    @Override
     public int getColorFromItemStack(ItemStack stack, int renderPass) {
         return this.leaves.getRenderColor(this.leaves.getStateFromMeta(stack.getMetadata()));
     }
 
+    @Override
     public String getUnlocalizedName(ItemStack stack) {
         return super.getUnlocalizedName() + "." + this.leaves.getWoodType(stack.getMetadata()).getUnlocalizedName();
     }

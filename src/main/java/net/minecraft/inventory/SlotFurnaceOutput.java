@@ -17,10 +17,12 @@ public class SlotFurnaceOutput extends Slot {
         this.thePlayer = player;
     }
 
+    @Override
     public boolean isItemValid(ItemStack stack) {
         return false;
     }
 
+    @Override
     public ItemStack decrStackSize(int amount) {
         if (this.getHasStack()) {
             this.field_75228_b += Math.min(amount, this.getStack().stackSize);
@@ -29,16 +31,19 @@ public class SlotFurnaceOutput extends Slot {
         return super.decrStackSize(amount);
     }
 
+    @Override
     public void onPickupFromSlot(EntityPlayer playerIn, ItemStack stack) {
         this.onCrafting(stack);
         super.onPickupFromSlot(playerIn, stack);
     }
 
+    @Override
     protected void onCrafting(ItemStack stack, int amount) {
         this.field_75228_b += amount;
         this.onCrafting(stack);
     }
 
+    @Override
     protected void onCrafting(ItemStack stack) {
         stack.onCrafting(this.thePlayer.worldObj, this.thePlayer, this.field_75228_b);
 

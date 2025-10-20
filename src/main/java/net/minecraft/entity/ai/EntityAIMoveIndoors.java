@@ -17,6 +17,7 @@ public class EntityAIMoveIndoors extends EntityAIBase {
         this.setMutexBits(1);
     }
 
+    @Override
     public boolean shouldExecute() {
         BlockPos blockpos = new BlockPos(this.entityObj);
 
@@ -40,10 +41,12 @@ public class EntityAIMoveIndoors extends EntityAIBase {
         }
     }
 
+    @Override
     public boolean continueExecuting() {
         return !this.entityObj.getNavigator().noPath();
     }
 
+    @Override
     public void startExecuting() {
         this.insidePosX = -1;
         BlockPos blockpos = this.doorInfo.getInsideBlockPos();
@@ -62,6 +65,7 @@ public class EntityAIMoveIndoors extends EntityAIBase {
         }
     }
 
+    @Override
     public void resetTask() {
         this.insidePosX = this.doorInfo.getInsideBlockPos().getX();
         this.insidePosZ = this.doorInfo.getInsideBlockPos().getZ();

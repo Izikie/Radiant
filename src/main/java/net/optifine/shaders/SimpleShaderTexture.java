@@ -64,7 +64,8 @@ public class SimpleShaderTexture extends AbstractTexture {
 		return serializer;
 	}
 
-	public void loadTexture(IResourceManager resourceManager) throws IOException {
+	@Override
+    public void loadTexture(IResourceManager resourceManager) throws IOException {
 		this.deleteGlTexture();
 		InputStream inputstream = Shaders.getShaderPackResourceStream(this.texturePath);
 

@@ -19,9 +19,11 @@ public class EntityParticleEmitter extends EntityFX {
         this.onUpdate();
     }
 
+    @Override
     public void renderParticle(WorldRenderer worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
     }
 
+    @Override
     public void onUpdate() {
         for (int i = 0; i < 16; ++i) {
             double d0 = (this.rand.nextFloat() * 2.0F - 1.0F);
@@ -43,6 +45,7 @@ public class EntityParticleEmitter extends EntityFX {
         }
     }
 
+    @Override
     public int getFXLayer() {
         return 3;
     }

@@ -19,18 +19,22 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class CommandSummon extends CommandBase {
+    @Override
     public String getCommandName() {
         return "summon";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 2;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.summon.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length < 1) {
             throw new WrongUsageException("commands.summon.usage");
@@ -110,6 +114,7 @@ public class CommandSummon extends CommandBase {
         }
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         return args.length == 1 ? getListOfStringsMatchingLastWord(args, EntityList.getEntityNameList()) : (args.length > 1 && args.length <= 4 ? func_175771_a(args, 1, pos) : null);
     }

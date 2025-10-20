@@ -11,6 +11,7 @@ public class MapGenMineshaft extends MapGenStructure {
     public MapGenMineshaft() {
     }
 
+    @Override
     public String getStructureName() {
         return "Mineshaft";
     }
@@ -23,10 +24,12 @@ public class MapGenMineshaft extends MapGenStructure {
         }
     }
 
+    @Override
     protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ) {
         return this.rand.nextDouble() < this.field_82673_e && this.rand.nextInt(80) < Math.max(Math.abs(chunkX), Math.abs(chunkZ));
     }
 
+    @Override
     protected StructureStart getStructureStart(int chunkX, int chunkZ) {
         return new StructureMineshaftStart(this.worldObj, this.rand, chunkX, chunkZ);
     }

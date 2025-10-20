@@ -29,6 +29,7 @@ public class ItemFood extends Item {
         this(amount, 0.6F, isWolfFood);
     }
 
+    @Override
     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityPlayer playerIn) {
         --stack.stackSize;
         playerIn.getFoodStats().addStats(this, stack);
@@ -44,14 +45,17 @@ public class ItemFood extends Item {
         }
     }
 
+    @Override
     public int getMaxItemUseDuration(ItemStack stack) {
         return 32;
     }
 
+    @Override
     public UseAction getItemUseAction(ItemStack stack) {
         return UseAction.EAT;
     }
 
+    @Override
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
         if (playerIn.canEat(this.alwaysEdible)) {
             playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));

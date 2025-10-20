@@ -37,6 +37,7 @@ public class SkinManager {
         this.skinCacheDir = skinCacheDirectory;
         this.sessionService = sessionService;
         this.skinCacheLoader = CacheBuilder.newBuilder().expireAfterAccess(15L, TimeUnit.SECONDS).build(new CacheLoader<>() {
+            @Override
             public Map<Type, MinecraftProfileTexture> load(GameProfile p_load_1_) throws Exception {
                 return Minecraft.get().getSessionService().getTextures(p_load_1_, false);
             }
@@ -60,6 +61,7 @@ public class SkinManager {
             File file2 = new File(file1, profileTexture.getHash());
             final IImageBuffer iimagebuffer = p_152789_2_ == Type.SKIN ? new ImageBufferDownload() : null;
             ThreadDownloadImageData threaddownloadimagedata = new ThreadDownloadImageData(file2, profileTexture.getUrl(), DefaultPlayerSkin.getDefaultSkinLegacy(), new IImageBuffer() {
+                @Override
                 public NativeImage parseUserSkin(NativeImage image) {
                     if (iimagebuffer != null) {
                         image = iimagebuffer.parseUserSkin(image);
@@ -68,6 +70,7 @@ public class SkinManager {
                     return image;
                 }
 
+                @Override
                 public void skinAvailable() {
                     if (iimagebuffer != null) {
                         iimagebuffer.skinAvailable();

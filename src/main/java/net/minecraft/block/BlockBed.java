@@ -26,6 +26,7 @@ public class BlockBed extends BlockDirectional {
         this.setBedBounds();
     }
 
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (worldIn.isRemote) {
             return true;
@@ -90,18 +91,22 @@ public class BlockBed extends BlockDirectional {
         return null;
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         this.setBedBounds();
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         Direction enumfacing = state.getValue(FACING);
 
@@ -118,6 +123,7 @@ public class BlockBed extends BlockDirectional {
         }
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return state.getValue(PART) == EnumPartType.HEAD ? null : Items.BED;
     }
@@ -160,24 +166,29 @@ public class BlockBed extends BlockDirectional {
         return World.doesBlockHaveSolidTopSurface(worldIn, pos.down()) && !worldIn.getBlockState(pos).getBlock().getMaterial().isSolid() && !worldIn.getBlockState(pos.up()).getBlock().getMaterial().isSolid();
     }
 
+    @Override
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
         if (state.getValue(PART) == EnumPartType.FOOT) {
             super.dropBlockAsItemWithChance(worldIn, pos, state, chance, 0);
         }
     }
 
+    @Override
     public int getMobilityFlag() {
         return 1;
     }
 
+    @Override
     public RenderLayer getBlockLayer() {
         return RenderLayer.CUTOUT;
     }
 
+    @Override
     public Item getItem(World worldIn, BlockPos pos) {
         return Items.BED;
     }
 
+    @Override
     public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
         if (player.capabilities.isCreativeMode && state.getValue(PART) == EnumPartType.HEAD) {
             BlockPos blockpos = pos.offset(state.getValue(FACING).getOpposite());
@@ -188,11 +199,13 @@ public class BlockBed extends BlockDirectional {
         }
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         Direction enumfacing = Direction.getHorizontal(meta);
         return (meta & 8) > 0 ? this.getDefaultState().withProperty(PART, EnumPartType.HEAD).withProperty(FACING, enumfacing).withProperty(OCCUPIED, (meta & 4) > 0) : this.getDefaultState().withProperty(PART, EnumPartType.FOOT).withProperty(FACING, enumfacing);
     }
 
+    @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         if (state.getValue(PART) == EnumPartType.FOOT) {
             IBlockState iblockstate = worldIn.getBlockState(pos.offset(state.getValue(FACING)));
@@ -205,6 +218,7 @@ public class BlockBed extends BlockDirectional {
         return state;
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         int i = 0;
         i = i | state.getValue(FACING).getHorizontalIndex();
@@ -220,6 +234,7 @@ public class BlockBed extends BlockDirectional {
         return i;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, FACING, PART, OCCUPIED);
     }
@@ -238,6 +253,7 @@ public class BlockBed extends BlockDirectional {
             return this.name;
         }
 
+        @Override
         public String getName() {
             return this.name;
         }

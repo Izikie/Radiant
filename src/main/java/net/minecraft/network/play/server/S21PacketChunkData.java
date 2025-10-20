@@ -26,6 +26,7 @@ public class S21PacketChunkData implements Packet<INetHandlerPlayClient> {
         this.extractedData = getExtractedData(chunkIn, p_i45196_2_, !chunkIn.getWorld().provider.getHasNoSky(), p_i45196_3_);
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.chunkX = buf.readInt();
         this.chunkZ = buf.readInt();
@@ -35,6 +36,7 @@ public class S21PacketChunkData implements Packet<INetHandlerPlayClient> {
         this.extractedData.data = buf.readByteArray();
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeInt(this.chunkX);
         buf.writeInt(this.chunkZ);
@@ -43,6 +45,7 @@ public class S21PacketChunkData implements Packet<INetHandlerPlayClient> {
         buf.writeByteArray(this.extractedData.data);
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleChunkData(this);
     }

@@ -25,6 +25,7 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
         this.field_177115_a = ((ModelGuardian) this.mainModel).func_178706_a();
     }
 
+    @Override
     public boolean shouldRender(EntityGuardian livingEntity, ICamera camera, double camX, double camY, double camZ) {
         if (super.shouldRender(livingEntity, camera, camX, camY, camZ)) {
             return true;
@@ -51,6 +52,7 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
         return new Vec3(d0, d1, d2);
     }
 
+    @Override
     public void doRender(EntityGuardian entity, double x, double y, double z, float entityYaw, float partialTicks) {
         if (this.field_177115_a != ((ModelGuardian) this.mainModel).func_178706_a()) {
             this.mainModel = new ModelGuardian();
@@ -140,12 +142,14 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
         }
     }
 
+    @Override
     protected void preRenderCallback(EntityGuardian entitylivingbaseIn, float partialTickTime) {
         if (entitylivingbaseIn.isElder()) {
             GlStateManager.scale(2.35F, 2.35F, 2.35F);
         }
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityGuardian entity) {
         return entity.isElder() ? GUARDIAN_ELDER_TEXTURE : GUARDIAN_TEXTURE;
     }

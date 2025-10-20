@@ -12,11 +12,13 @@ public class ModelAdapterPig extends ModelAdapterQuadruped {
 		super(EntityPig.class, "pig", 0.7F);
 	}
 
-	public ModelBase makeModel() {
+	@Override
+    public ModelBase makeModel() {
 		return new ModelPig();
 	}
 
-	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+	@Override
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
 		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		return new RenderPig(rendermanager, modelBase, shadowSize);
 	}

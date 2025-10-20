@@ -22,14 +22,17 @@ public abstract class CommandBase implements ICommand {
         return 4;
     }
 
+    @Override
     public List<String> getCommandAliases() {
         return Collections.emptyList();
     }
 
+    @Override
     public boolean canCommandSenderUseCommand(ICommandSender sender) {
         return sender.canCommandSenderUseCommand(this.getRequiredPermissionLevel(), this.getCommandName());
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         return null;
     }
@@ -489,6 +492,7 @@ public abstract class CommandBase implements ICommand {
         return list;
     }
 
+    @Override
     public boolean isUsernameIndex(String[] args, int index) {
         return false;
     }
@@ -507,6 +511,7 @@ public abstract class CommandBase implements ICommand {
         theAdmin = command;
     }
 
+    @Override
     public int compareTo(ICommand p_compareTo_1_) {
         return this.getCommandName().compareTo(p_compareTo_1_.getCommandName());
     }

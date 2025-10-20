@@ -12,18 +12,22 @@ import net.minecraft.world.Difficulty;
 import java.util.List;
 
 public class CommandDifficulty extends CommandBase {
+    @Override
     public String getCommandName() {
         return "difficulty";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 2;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.difficulty.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length == 0) {
             throw new WrongUsageException("commands.difficulty.usage");
@@ -38,6 +42,7 @@ public class CommandDifficulty extends CommandBase {
         return !p_180531_1_.equalsIgnoreCase("peaceful") && !p_180531_1_.equalsIgnoreCase("p") ? (!p_180531_1_.equalsIgnoreCase("easy") && !p_180531_1_.equalsIgnoreCase("e") ? (!p_180531_1_.equalsIgnoreCase("normal") && !p_180531_1_.equalsIgnoreCase("n") ? (!p_180531_1_.equalsIgnoreCase("hard") && !p_180531_1_.equalsIgnoreCase("h") ? Difficulty.getDifficultyEnum(parseInt(p_180531_1_, 0, 3)) : Difficulty.HARD) : Difficulty.NORMAL) : Difficulty.EASY) : Difficulty.PEACEFUL;
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         return args.length == 1 ? getListOfStringsMatchingLastWord(args, "peaceful", "easy", "normal", "hard") : null;
     }

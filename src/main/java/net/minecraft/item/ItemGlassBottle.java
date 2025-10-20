@@ -14,6 +14,7 @@ public class ItemGlassBottle extends Item {
         this.setCreativeTab(CreativeTabs.TAB_BREWING);
     }
 
+    @Override
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
         MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(worldIn, playerIn, true);
 

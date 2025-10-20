@@ -14,14 +14,17 @@ public class ItemAppleGold extends ItemFood {
         this.setHasSubtypes(true);
     }
 
+    @Override
     public boolean hasEffect(ItemStack stack) {
         return stack.getMetadata() > 0;
     }
 
+    @Override
     public Rarity getRarity(ItemStack stack) {
         return stack.getMetadata() == 0 ? Rarity.RARE : Rarity.EPIC;
     }
 
+    @Override
     protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
         if (!worldIn.isRemote) {
             player.addPotionEffect(new PotionEffect(Potion.ABSORPTION.id, 2400, 0));
@@ -38,6 +41,7 @@ public class ItemAppleGold extends ItemFood {
         }
     }
 
+    @Override
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
         subItems.add(new ItemStack(itemIn, 1, 0));
         subItems.add(new ItemStack(itemIn, 1, 1));

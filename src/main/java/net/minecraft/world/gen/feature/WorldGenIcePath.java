@@ -15,6 +15,7 @@ public class WorldGenIcePath extends WorldGenerator {
         this.basePathWidth = p_i45454_1_;
     }
 
+    @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         while (worldIn.isAirBlock(position) && position.getY() > 2) {
             position = position.down();

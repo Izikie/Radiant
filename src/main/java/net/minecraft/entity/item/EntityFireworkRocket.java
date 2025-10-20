@@ -16,10 +16,12 @@ public class EntityFireworkRocket extends Entity {
         this.setSize(0.25F, 0.25F);
     }
 
+    @Override
     protected void entityInit() {
         this.dataWatcher.addObjectByDataType(8, 5);
     }
 
+    @Override
     public boolean isInRangeToRenderDist(double distance) {
         return distance < 4096.0D;
     }
@@ -47,6 +49,7 @@ public class EntityFireworkRocket extends Entity {
         this.lifetime = 10 * i + this.rand.nextInt(6) + this.rand.nextInt(7);
     }
 
+    @Override
     public void setVelocity(double x, double y, double z) {
         this.motionX = x;
         this.motionY = y;
@@ -59,6 +62,7 @@ public class EntityFireworkRocket extends Entity {
         }
     }
 
+    @Override
     public void onUpdate() {
         this.lastTickPosX = this.posX;
         this.lastTickPosY = this.posY;
@@ -105,6 +109,7 @@ public class EntityFireworkRocket extends Entity {
         }
     }
 
+    @Override
     public void handleStatusUpdate(byte id) {
         if (id == 17 && this.worldObj.isRemote) {
             ItemStack itemstack = this.dataWatcher.getWatchableObjectItemStack(8);
@@ -120,6 +125,7 @@ public class EntityFireworkRocket extends Entity {
         super.handleStatusUpdate(id);
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         tagCompound.setInteger("Life", this.fireworkAge);
         tagCompound.setInteger("LifeTime", this.lifetime);
@@ -132,6 +138,7 @@ public class EntityFireworkRocket extends Entity {
         }
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         this.fireworkAge = tagCompund.getInteger("Life");
         this.lifetime = tagCompund.getInteger("LifeTime");
@@ -146,14 +153,17 @@ public class EntityFireworkRocket extends Entity {
         }
     }
 
+    @Override
     public float getBrightness(float partialTicks) {
         return super.getBrightness(partialTicks);
     }
 
+    @Override
     public int getBrightnessForRender(float partialTicks) {
         return super.getBrightnessForRender(partialTicks);
     }
 
+    @Override
     public boolean canAttackWithItem() {
         return false;
     }

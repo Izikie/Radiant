@@ -14,10 +14,12 @@ public class BlockClay extends Block {
         this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Items.CLAY_BALL;
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return 4;
     }

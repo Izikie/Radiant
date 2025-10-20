@@ -21,10 +21,12 @@ public class S37PacketStatistics implements Packet<INetHandlerPlayClient> {
         this.field_148976_a = p_i45173_1_;
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleStatistics(this);
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         int i = buf.readVarIntFromBuffer();
         this.field_148976_a = new HashMap<>();
@@ -39,6 +41,7 @@ public class S37PacketStatistics implements Packet<INetHandlerPlayClient> {
         }
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeVarIntToBuffer(this.field_148976_a.size());
 

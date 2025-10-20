@@ -33,22 +33,27 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
         this.isBlockContainer = true;
     }
 
+    @Override
     public String getLocalizedName() {
         return StatCollector.translateToLocal("item.comparator.name");
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Items.COMPARATOR;
     }
 
+    @Override
     public Item getItem(World worldIn, BlockPos pos) {
         return Items.COMPARATOR;
     }
 
+    @Override
     protected int getDelay(IBlockState state) {
         return 2;
     }
 
+    @Override
     protected IBlockState getPoweredState(IBlockState unpoweredState) {
         Boolean obool = unpoweredState.getValue(POWERED);
         Mode blockredstonecomparator$mode = unpoweredState.getValue(MODE);
@@ -56,6 +61,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
         return Blocks.POWERED_COMPARATOR.getDefaultState().withProperty(FACING, enumfacing).withProperty(POWERED, obool).withProperty(MODE, blockredstonecomparator$mode);
     }
 
+    @Override
     protected IBlockState getUnpoweredState(IBlockState poweredState) {
         Boolean obool = poweredState.getValue(POWERED);
         Mode blockredstonecomparator$mode = poweredState.getValue(MODE);
@@ -63,10 +69,12 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
         return Blocks.UNPOWERED_COMPARATOR.getDefaultState().withProperty(FACING, enumfacing).withProperty(POWERED, obool).withProperty(MODE, blockredstonecomparator$mode);
     }
 
+    @Override
     protected boolean isPowered(IBlockState state) {
         return this.isRepeaterPowered || state.getValue(POWERED);
     }
 
+    @Override
     protected int getActiveSignal(IBlockAccess worldIn, BlockPos pos, IBlockState state) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
         return tileentity instanceof TileEntityComparator tileEntityComparator ? tileEntityComparator.getOutputSignal() : 0;
@@ -76,6 +84,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
         return state.getValue(MODE) == Mode.SUBTRACT ? Math.max(this.calculateInputStrength(worldIn, pos, state) - this.getPowerOnSides(worldIn, pos, state), 0) : this.calculateInputStrength(worldIn, pos, state);
     }
 
+    @Override
     protected boolean shouldBePowered(World worldIn, BlockPos pos, IBlockState state) {
         int i = this.calculateInputStrength(worldIn, pos, state);
 
@@ -89,6 +98,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
         }
     }
 
+    @Override
     protected int calculateInputStrength(World worldIn, BlockPos pos, IBlockState state) {
         int i = super.calculateInputStrength(worldIn, pos, state);
         Direction enumfacing = state.getValue(FACING);
@@ -120,6 +130,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
         return list.size() == 1 ? list.getFirst() : null;
     }
 
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (!playerIn.capabilities.allowEdit) {
             return false;
@@ -132,6 +143,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
         }
     }
 
+    @Override
     protected void updateState(World worldIn, BlockPos pos, IBlockState state) {
         if (!worldIn.isBlockTickPending(pos, this)) {
             int i = this.calculateOutput(worldIn, pos, state);
@@ -172,6 +184,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
         }
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (this.isRepeaterPowered) {
             worldIn.setBlockState(pos, this.getUnpoweredState(state).withProperty(POWERED, Boolean.TRUE), 4);
@@ -180,31 +193,37 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
         this.onStateChange(worldIn, pos, state);
     }
 
+    @Override
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         super.onBlockAdded(worldIn, pos, state);
         worldIn.setTileEntity(pos, this.createNewTileEntity(worldIn, 0));
     }
 
+    @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         super.breakBlock(worldIn, pos, state);
         worldIn.removeTileEntity(pos);
         this.notifyNeighbors(worldIn, pos, state);
     }
 
+    @Override
     public boolean onBlockEventReceived(World worldIn, BlockPos pos, IBlockState state, int eventID, int eventParam) {
         super.onBlockEventReceived(worldIn, pos, state, eventID, eventParam);
         TileEntity tileentity = worldIn.getTileEntity(pos);
         return tileentity != null && tileentity.receiveClientEvent(eventID, eventParam);
     }
 
+    @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntityComparator();
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(FACING, Direction.getHorizontal(meta)).withProperty(POWERED, (meta & 8) > 0).withProperty(MODE, (meta & 4) > 0 ? Mode.SUBTRACT : Mode.COMPARE);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         int i = 0;
         i = i | state.getValue(FACING).getHorizontalIndex();
@@ -220,10 +239,12 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
         return i;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, FACING, MODE, POWERED);
     }
 
+    @Override
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite()).withProperty(POWERED, Boolean.FALSE).withProperty(MODE, Mode.COMPARE);
     }
@@ -242,6 +263,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
             return this.name;
         }
 
+        @Override
         public String getName() {
             return this.name;
         }

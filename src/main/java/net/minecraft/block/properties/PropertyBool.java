@@ -11,6 +11,7 @@ public class PropertyBool extends PropertyHelper<Boolean> {
         super(name, Boolean.class);
     }
 
+    @Override
     public Collection<Boolean> getAllowedValues() {
         return this.allowedValues;
     }
@@ -19,6 +20,7 @@ public class PropertyBool extends PropertyHelper<Boolean> {
         return new PropertyBool(name);
     }
 
+    @Override
     public String getName(Boolean value) {
         return value.toString();
     }

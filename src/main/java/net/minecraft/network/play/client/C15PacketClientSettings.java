@@ -25,6 +25,7 @@ public class C15PacketClientSettings implements Packet<INetHandlerPlayServer> {
         this.modelPartFlags = modelPartFlagsIn;
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.lang = buf.readStringFromBuffer(7);
         this.view = buf.readByte();
@@ -33,6 +34,7 @@ public class C15PacketClientSettings implements Packet<INetHandlerPlayServer> {
         this.modelPartFlags = buf.readUnsignedByte();
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeString(this.lang);
         buf.writeByte(this.view);
@@ -41,6 +43,7 @@ public class C15PacketClientSettings implements Packet<INetHandlerPlayServer> {
         buf.writeByte(this.modelPartFlags);
     }
 
+    @Override
     public void processPacket(INetHandlerPlayServer handler) {
         handler.processClientSettings(this);
     }

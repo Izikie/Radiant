@@ -25,22 +25,27 @@ public class BlockLever extends Block {
         this.setCreativeTab(CreativeTabs.TAB_REDSTONE);
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
         return null;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Direction side) {
         return func_181090_a(worldIn, pos, side.getOpposite());
     }
 
+    @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
         for (Direction enumfacing : Direction.values()) {
             if (func_181090_a(worldIn, pos, enumfacing)) {
@@ -55,6 +60,7 @@ public class BlockLever extends Block {
         return BlockButton.func_181088_a(p_181090_0_, p_181090_1_, p_181090_2_);
     }
 
+    @Override
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         IBlockState iblockstate = this.getDefaultState().withProperty(POWERED, Boolean.FALSE);
 
@@ -87,6 +93,7 @@ public class BlockLever extends Block {
         };
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         if (this.func_181091_e(worldIn, pos, state) && !func_181090_a(worldIn, pos, state.getValue(FACING).getFacing().getOpposite())) {
             this.dropBlockAsItem(worldIn, pos, state, 0);
@@ -104,6 +111,7 @@ public class BlockLever extends Block {
         }
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         float f = 0.1875F;
 
@@ -137,6 +145,7 @@ public class BlockLever extends Block {
         }
     }
 
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote) {
             state = state.cycleProperty(POWERED);
@@ -149,6 +158,7 @@ public class BlockLever extends Block {
         return true;
     }
 
+    @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         if (state.getValue(POWERED)) {
             worldIn.notifyNeighborsOfStateChange(pos, this);
@@ -159,22 +169,27 @@ public class BlockLever extends Block {
         super.breakBlock(worldIn, pos, state);
     }
 
+    @Override
     public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
         return state.getValue(POWERED) ? 15 : 0;
     }
 
+    @Override
     public int getStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
         return !state.getValue(POWERED) ? 0 : (state.getValue(FACING).getFacing() == side ? 15 : 0);
     }
 
+    @Override
     public boolean canProvidePower() {
         return true;
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(FACING, Orientation.byMetadata(meta & 7)).withProperty(POWERED, (meta & 8) > 0);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         int i = 0;
         i = i | state.getValue(FACING).getMetadata();
@@ -186,6 +201,7 @@ public class BlockLever extends Block {
         return i;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, FACING, POWERED);
     }
@@ -252,6 +268,7 @@ public class BlockLever extends Block {
             };
         }
 
+        @Override
         public String getName() {
             return this.name;
         }

@@ -11,6 +11,7 @@ public class EntityAILookAtTradePlayer extends EntityAIWatchClosest {
         this.theMerchant = theMerchantIn;
     }
 
+    @Override
     public boolean shouldExecute() {
         if (this.theMerchant.isTrading()) {
             this.closestEntity = this.theMerchant.getCustomer();

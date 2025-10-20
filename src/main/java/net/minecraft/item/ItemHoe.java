@@ -22,6 +22,7 @@ public class ItemHoe extends Item {
     }
 
     
+    @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
         if (!playerIn.canPlayerEdit(pos.offset(side), side, stack)) {
             return false;
@@ -59,6 +60,7 @@ public class ItemHoe extends Item {
         return true;
     }
 
+    @Override
     public boolean isFull3D() {
         return true;
     }

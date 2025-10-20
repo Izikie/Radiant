@@ -9,10 +9,12 @@ public class SoundEventAccessor implements ISoundEventAccessor<SoundPoolEntry> {
         this.weight = weight;
     }
 
+    @Override
     public int getWeight() {
         return this.weight;
     }
 
+    @Override
     public SoundPoolEntry cloneEntry() {
         return new SoundPoolEntry(this.entry);
     }

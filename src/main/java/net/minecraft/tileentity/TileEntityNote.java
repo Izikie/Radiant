@@ -11,11 +11,13 @@ public class TileEntityNote extends TileEntity {
     public byte note;
     public boolean previousRedstoneState;
 
+    @Override
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
         compound.setByte("note", this.note);
     }
 
+    @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         this.note = compound.getByte("note");

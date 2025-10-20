@@ -24,18 +24,22 @@ public class BlockSponge extends Block {
         this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
+    @Override
     public String getLocalizedName() {
         return StatCollector.translateToLocal(this.getUnlocalizedName() + ".dry.name");
     }
 
+    @Override
     public int damageDropped(IBlockState state) {
         return state.getValue(WET) ? 1 : 0;
     }
 
+    @Override
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         this.tryAbsorb(worldIn, pos, state);
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         this.tryAbsorb(worldIn, pos, state);
         super.onNeighborBlockChange(worldIn, pos, state, neighborBlock);
@@ -85,23 +89,28 @@ public class BlockSponge extends Block {
         return i > 0;
     }
 
+    @Override
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
         list.add(new ItemStack(itemIn, 1, 0));
         list.add(new ItemStack(itemIn, 1, 1));
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(WET, (meta & 1) == 1);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(WET) ? 1 : 0;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, WET);
     }
 
+    @Override
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (state.getValue(WET)) {
             Direction enumfacing = Direction.random(rand);

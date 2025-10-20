@@ -22,6 +22,7 @@ public class C0CPacketInput implements Packet<INetHandlerPlayServer> {
         this.sneaking = sneaking;
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.strafeSpeed = buf.readFloat();
         this.forwardSpeed = buf.readFloat();
@@ -30,6 +31,7 @@ public class C0CPacketInput implements Packet<INetHandlerPlayServer> {
         this.sneaking = (b0 & 2) > 0;
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeFloat(this.strafeSpeed);
         buf.writeFloat(this.forwardSpeed);
@@ -46,6 +48,7 @@ public class C0CPacketInput implements Packet<INetHandlerPlayServer> {
         buf.writeByte(b0);
     }
 
+    @Override
     public void processPacket(INetHandlerPlayServer handler) {
         handler.processInput(this);
     }

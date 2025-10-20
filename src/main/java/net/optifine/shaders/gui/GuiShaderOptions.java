@@ -64,7 +64,8 @@ public class GuiShaderOptions extends GuiScreenOF {
 		}
 	}
 
-	public void initGui() {
+	@Override
+    public void initGui() {
 		this.title = I18n.format("of.options.shaderOptionsTitle");
 		int i = 100;
 		int j;
@@ -112,7 +113,8 @@ public class GuiShaderOptions extends GuiScreenOF {
 		this.buttonList.add(new GuiButton(200, this.width / 2 + 20, this.height / 6 + 168 + 11, i1, j1, I18n.format("gui.done")));
 	}
 
-	protected void actionPerformed(GuiButton guibutton) {
+	@Override
+    protected void actionPerformed(GuiButton guibutton) {
 		if (guibutton.enabled) {
 			if (guibutton.id < 200 && guibutton instanceof GuiButtonShaderOption guibuttonshaderoption) {
 				ShaderOption shaderoption = guibuttonshaderoption.getShaderOption();
@@ -157,7 +159,8 @@ public class GuiShaderOptions extends GuiScreenOF {
 		}
 	}
 
-	protected void actionPerformedRightClick(GuiButton btn) {
+	@Override
+    protected void actionPerformedRightClick(GuiButton btn) {
 		if (btn instanceof GuiButtonShaderOption guibuttonshaderoption) {
 			ShaderOption shaderoption = guibuttonshaderoption.getShaderOption();
 
@@ -172,7 +175,8 @@ public class GuiShaderOptions extends GuiScreenOF {
 		}
 	}
 
-	public void onGuiClosed() {
+	@Override
+    public void onGuiClosed() {
 		super.onGuiClosed();
 
 		if (this.changed) {
@@ -197,7 +201,8 @@ public class GuiShaderOptions extends GuiScreenOF {
 		}
 	}
 
-	public void drawScreen(int x, int y, float f) {
+	@Override
+    public void drawScreen(int x, int y, float f) {
 		this.drawDefaultBackground();
 
 		if (this.screenText != null) {

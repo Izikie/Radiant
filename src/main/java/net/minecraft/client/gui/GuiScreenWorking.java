@@ -11,28 +11,34 @@ public class GuiScreenWorking extends GuiScreen implements IProgressUpdate {
     private boolean doneWorking;
     private final CustomLoadingScreen customLoadingScreen = CustomLoadingScreens.getCustomLoadingScreen();
 
+    @Override
     public void displaySavingString(String message) {
         this.resetProgressAndMessage(message);
     }
 
+    @Override
     public void resetProgressAndMessage(String message) {
         this.field_146591_a = message;
         this.displayLoadingString("Working...");
     }
 
+    @Override
     public void displayLoadingString(String message) {
         this.field_146589_f = message;
         this.setLoadingProgress(0);
     }
 
+    @Override
     public void setLoadingProgress(int progress) {
         this.progress = progress;
     }
 
+    @Override
     public void setDoneWorking() {
         this.doneWorking = true;
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         if (this.doneWorking) {
             this.mc.displayGuiScreen(null);

@@ -10,6 +10,7 @@ public class ItemNameTag extends Item {
         this.setCreativeTab(CreativeTabs.TAB_TOOLS);
     }
 
+    @Override
     public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target) {
         if (!stack.hasDisplayName()) {
             return false;

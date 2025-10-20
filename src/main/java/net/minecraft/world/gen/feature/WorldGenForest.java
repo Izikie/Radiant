@@ -22,6 +22,7 @@ public class WorldGenForest extends WorldGenAbstractTree {
         this.useExtraRandomHeight = p_i45449_2_;
     }
 
+    @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         int i = rand.nextInt(3) + 5;
 

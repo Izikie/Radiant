@@ -21,6 +21,7 @@ public class BlockPartFace {
     }
 
     static class Deserializer implements JsonDeserializer<BlockPartFace> {
+        @Override
         public BlockPartFace deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
             JsonObject jsonobject = jsonElement.getAsJsonObject();
             Direction direction = this.parseCullFace(jsonobject);

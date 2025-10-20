@@ -37,7 +37,8 @@ public class CustomTextureLocation implements ICustomTexture {
 		return this.texture;
 	}
 
-	public int getTextureId() {
+	@Override
+    public int getTextureId() {
 		ITextureObject itextureobject = this.getTexture();
 
 		if (this.variant != 0 && itextureobject instanceof AbstractTexture abstracttexture) {
@@ -57,14 +58,17 @@ public class CustomTextureLocation implements ICustomTexture {
 		return itextureobject.getGlTextureId();
 	}
 
-	public int textureUnit() {
+	@Override
+    public int textureUnit() {
 		return this.textureUnit;
 	}
 
-	public void deleteTexture() {
+	@Override
+    public void deleteTexture() {
 	}
 
-	public int getTarget() {
+	@Override
+    public int getTarget() {
 		return 3553;
 	}
 

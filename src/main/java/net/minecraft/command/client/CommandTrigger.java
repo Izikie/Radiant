@@ -17,18 +17,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CommandTrigger extends CommandBase {
+    @Override
     public String getCommandName() {
         return "trigger";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 0;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.trigger.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length < 3) {
             throw new WrongUsageException("commands.trigger.usage");
@@ -84,6 +88,7 @@ public class CommandTrigger extends CommandBase {
         }
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         if (args.length == 1) {
             Scoreboard scoreboard = MinecraftServer.getServer().worldServerForDimension(0).getScoreboard();

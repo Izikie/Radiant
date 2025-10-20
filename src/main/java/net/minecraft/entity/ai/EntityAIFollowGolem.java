@@ -16,6 +16,7 @@ public class EntityAIFollowGolem extends EntityAIBase {
         this.setMutexBits(3);
     }
 
+    @Override
     public boolean shouldExecute() {
         if (this.theVillager.getGrowingAge() >= 0) {
             return false;
@@ -39,21 +40,25 @@ public class EntityAIFollowGolem extends EntityAIBase {
         }
     }
 
+    @Override
     public boolean continueExecuting() {
         return this.theGolem.getHoldRoseTick() > 0;
     }
 
+    @Override
     public void startExecuting() {
         this.takeGolemRoseTick = this.theVillager.getRNG().nextInt(320);
         this.tookGolemRose = false;
         this.theGolem.getNavigator().clearPathEntity();
     }
 
+    @Override
     public void resetTask() {
         this.theGolem = null;
         this.theVillager.getNavigator().clearPathEntity();
     }
 
+    @Override
     public void updateTask() {
         this.theVillager.getLookHelper().setLookPositionWithEntity(this.theGolem, 30.0F, 30.0F);
 

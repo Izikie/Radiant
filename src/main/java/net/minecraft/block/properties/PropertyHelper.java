@@ -11,10 +11,12 @@ public abstract class PropertyHelper<T extends Comparable<T>> implements IProper
         this.name = name;
     }
 
+    @Override
     public String getName() {
         return this.name;
     }
 
+    @Override
     public Class<T> getValueClass() {
         return this.valueClass;
     }

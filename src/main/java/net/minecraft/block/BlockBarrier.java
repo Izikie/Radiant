@@ -14,18 +14,22 @@ public class BlockBarrier extends Block {
         this.translucent = true;
     }
 
+    @Override
     public int getRenderType() {
         return -1;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public float getAmbientOcclusionLightValue() {
         return 1.0F;
     }
 
+    @Override
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
     }
 }

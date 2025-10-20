@@ -16,14 +16,17 @@ public class C00PacketKeepAlive implements Packet<INetHandlerPlayServer> {
         this.key = key;
     }
 
+    @Override
     public void processPacket(INetHandlerPlayServer handler) {
         handler.processKeepAlive(this);
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.key = buf.readVarIntFromBuffer();
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeVarIntToBuffer(this.key);
     }

@@ -18,10 +18,12 @@ public abstract class RenderLiving<T extends EntityLiving> extends RendererLivin
         super(rendermanagerIn, modelbaseIn, shadowsizeIn);
     }
 
+    @Override
     protected boolean canRenderName(T entity) {
         return super.canRenderName(entity) && (entity.getAlwaysRenderNameTagForRender() || entity.hasCustomName() && entity == this.renderManager.pointedEntity);
     }
 
+    @Override
     public boolean shouldRender(T livingEntity, ICamera camera, double camX, double camY, double camZ) {
         if (super.shouldRender(livingEntity, camera, camX, camY, camZ)) {
             return true;
@@ -33,6 +35,7 @@ public abstract class RenderLiving<T extends EntityLiving> extends RendererLivin
         }
     }
 
+    @Override
     public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
         this.renderLeash(entity, x, y, z, entityYaw, partialTicks);

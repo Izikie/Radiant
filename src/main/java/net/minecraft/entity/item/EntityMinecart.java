@@ -60,10 +60,12 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         };
     }
 
+    @Override
     protected boolean canTriggerWalking() {
         return false;
     }
 
+    @Override
     protected void entityInit() {
         this.dataWatcher.addObject(17, 0);
         this.dataWatcher.addObject(18, 1);
@@ -73,14 +75,17 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         this.dataWatcher.addObject(22, (byte) 0);
     }
 
+    @Override
     public AxisAlignedBB getCollisionBox(Entity entityIn) {
         return entityIn.canBePushed() ? entityIn.getEntityBoundingBox() : null;
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBox() {
         return null;
     }
 
+    @Override
     public boolean canBePushed() {
         return true;
     }
@@ -96,10 +101,12 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         this.prevPosZ = z;
     }
 
+    @Override
     public double getMountedYOffset() {
         return 0.0D;
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (!this.worldObj.isRemote && !this.isDead) {
             if (this.isEntityInvulnerable(source)) {
@@ -144,20 +151,24 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         }
     }
 
+    @Override
     public void performHurtAnimation() {
         this.setRollingDirection(-this.getRollingDirection());
         this.setRollingAmplitude(10);
         this.setDamage(this.getDamage() + this.getDamage() * 10.0F);
     }
 
+    @Override
     public boolean canBeCollidedWith() {
         return !this.isDead;
     }
 
+    @Override
     public void setDead() {
         super.setDead();
     }
 
+    @Override
     public void onUpdate() {
         if (this.getRollingAmplitude() > 0) {
             this.setRollingAmplitude(this.getRollingAmplitude() - 1);
@@ -504,6 +515,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         }
     }
 
+    @Override
     public void setPosition(double x, double y, double z) {
         this.posX = x;
         this.posY = y;
@@ -606,6 +618,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         }
     }
 
+    @Override
     protected void readEntityFromNBT(NBTTagCompound tagCompund) {
         if (tagCompund.getBoolean("CustomDisplayTile")) {
             int i = tagCompund.getInteger("DisplayData");
@@ -636,6 +649,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         }
     }
 
+    @Override
     protected void writeEntityToNBT(NBTTagCompound tagCompound) {
         if (this.hasDisplayTile()) {
             tagCompound.setBoolean("CustomDisplayTile", true);
@@ -651,6 +665,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         }
     }
 
+    @Override
     public void applyEntityCollision(Entity entityIn) {
         if (!this.worldObj.isRemote) {
             if (!entityIn.noClip && !this.noClip) {
@@ -728,6 +743,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         }
     }
 
+    @Override
     public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean p_180426_10_) {
         this.minecartX = x;
         this.minecartY = y;
@@ -740,6 +756,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         this.motionZ = this.velocityZ;
     }
 
+    @Override
     public void setVelocity(double x, double y, double z) {
         this.velocityX = this.motionX = x;
         this.velocityY = this.motionY = y;
@@ -806,22 +823,27 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         this.getDataWatcher().updateObject(22, (byte) (p_94096_1_ ? 1 : 0));
     }
 
+    @Override
     public void setCustomNameTag(String name) {
         this.entityName = name;
     }
 
+    @Override
     public String getName() {
         return this.entityName != null ? this.entityName : super.getName();
     }
 
+    @Override
     public boolean hasCustomName() {
         return this.entityName != null;
     }
 
+    @Override
     public String getCustomNameTag() {
         return this.entityName;
     }
 
+    @Override
     public IChatComponent getDisplayName() {
         if (this.hasCustomName()) {
             ChatComponentText chatcomponenttext = new ChatComponentText(this.entityName);

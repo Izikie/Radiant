@@ -20,14 +20,17 @@ public class PlayerMenuObject implements ISpectatorMenuObject {
         AbstractClientPlayer.getDownloadImageSkin(this.resourceLocation, profileIn.getName());
     }
 
+    @Override
     public void func_178661_a(SpectatorMenu menu) {
         Minecraft.get().getNetHandler().addToSendQueue(new C18PacketSpectate(this.profile.getId()));
     }
 
+    @Override
     public IChatComponent getSpectatorName() {
         return new ChatComponentText(this.profile.getName());
     }
 
+    @Override
     public void func_178663_a(float p_178663_1_, int alpha) {
         Minecraft.get().getTextureManager().bindTexture(this.resourceLocation);
         GlStateManager.color(1.0F, 1.0F, 1.0F, alpha / 255.0F);
@@ -35,6 +38,7 @@ public class PlayerMenuObject implements ISpectatorMenuObject {
         Gui.drawScaledCustomSizeModalRect(2, 2, 40.0F, 8.0F, 8, 8, 12, 12, 64.0F, 64.0F);
     }
 
+    @Override
     public boolean func_178662_A_() {
         return true;
     }

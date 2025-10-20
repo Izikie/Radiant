@@ -22,6 +22,7 @@ public class BlockStateHelper implements Predicate<IBlockState> {
         return new BlockStateHelper(blockIn.getBlockState());
     }
 
+    @Override
     public boolean apply(IBlockState p_apply_1_) {
         if (p_apply_1_ != null && p_apply_1_.getBlock().equals(this.blockstate.getBlock())) {
             for (Entry<IProperty, Predicate> entry : this.propertyPredicates.entrySet()) {

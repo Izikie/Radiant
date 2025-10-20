@@ -19,10 +19,12 @@ public class RenderVillager extends RenderLiving<EntityVillager> {
         this.addLayer(new LayerCustomHead(this.getMainModel().villagerHead));
     }
 
+    @Override
     public ModelVillager getMainModel() {
         return (ModelVillager) super.getMainModel();
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityVillager entity) {
         return switch (entity.getProfession()) {
             case 0 -> FARMER_VILLAGER_TEXTURES;
@@ -34,6 +36,7 @@ public class RenderVillager extends RenderLiving<EntityVillager> {
         };
     }
 
+    @Override
     protected void preRenderCallback(EntityVillager entitylivingbaseIn, float partialTickTime) {
         float f = 0.9375F;
 

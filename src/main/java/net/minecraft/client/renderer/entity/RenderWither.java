@@ -16,16 +16,19 @@ public class RenderWither extends RenderLiving<EntityWither> {
         this.addLayer(new LayerWitherAura(this));
     }
 
+    @Override
     public void doRender(EntityWither entity, double x, double y, double z, float entityYaw, float partialTicks) {
         BossStatus.setBossStatus(entity, true);
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityWither entity) {
         int i = entity.getInvulTime();
         return i > 0 && (i > 80 || i / 5 % 2 != 1) ? INVULNERABLE_WITHER_TEXTURES : WITHER_TEXTURES;
     }
 
+    @Override
     protected void preRenderCallback(EntityWither entitylivingbaseIn, float partialTickTime) {
         float f = 2.0F;
         int i = entitylivingbaseIn.getInvulTime();

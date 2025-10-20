@@ -26,23 +26,28 @@ public class BlockGrass extends Block implements IGrowable {
         this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
+    @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         Block block = worldIn.getBlockState(pos.up()).getBlock();
         return state.withProperty(SNOWY, block == Blocks.SNOW || block == Blocks.SNOW_LAYER);
     }
 
+    @Override
     public int getBlockColor() {
         return ColorizerGrass.getGrassColor(0.5D, 1.0D);
     }
 
+    @Override
     public int getRenderColor(IBlockState state) {
         return this.getBlockColor();
     }
 
+    @Override
     public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass) {
         return BiomeColorHelper.getGrassColorAtPos(worldIn, pos);
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (!worldIn.isRemote) {
             if (worldIn.getLightFromNeighbors(pos.up()) < 4 && worldIn.getBlockState(pos.up()).getBlock().getLightOpacity() > 2) {
@@ -63,18 +68,22 @@ public class BlockGrass extends Block implements IGrowable {
         }
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Blocks.DIRT.getItemDropped(Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT), rand, fortune);
     }
 
+    @Override
     public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
         return true;
     }
 
+    @Override
     public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
         return true;
     }
 
+    @Override
     public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
         BlockPos blockpos = pos.up();
 
@@ -116,14 +125,17 @@ public class BlockGrass extends Block implements IGrowable {
         }
     }
 
+    @Override
     public RenderLayer getBlockLayer() {
         return RenderLayer.CUTOUT_MIPPED;
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return 0;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, SNOWY);
     }

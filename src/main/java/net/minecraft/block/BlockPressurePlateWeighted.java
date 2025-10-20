@@ -24,6 +24,7 @@ public class BlockPressurePlateWeighted extends BlockBasePressurePlate {
         this.field_150068_a = p_i46380_2_;
     }
 
+    @Override
     protected int computeRedstoneStrength(World worldIn, BlockPos pos) {
         int i = Math.min(worldIn.getEntitiesWithinAABB(Entity.class, this.getSensitiveAABB(pos)).size(), this.field_150068_a);
 
@@ -35,26 +36,32 @@ public class BlockPressurePlateWeighted extends BlockBasePressurePlate {
         }
     }
 
+    @Override
     protected int getRedstoneStrength(IBlockState state) {
         return state.getValue(POWER);
     }
 
+    @Override
     protected IBlockState setRedstoneStrength(IBlockState state, int strength) {
         return state.withProperty(POWER, strength);
     }
 
+    @Override
     public int tickRate(World worldIn) {
         return 10;
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(POWER, meta);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(POWER);
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, POWER);
     }

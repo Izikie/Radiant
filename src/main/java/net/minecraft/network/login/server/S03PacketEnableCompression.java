@@ -16,14 +16,17 @@ public class S03PacketEnableCompression implements Packet<INetHandlerLoginClient
         this.compressionThreshold = compressionTresholdIn;
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.compressionThreshold = buf.readVarIntFromBuffer();
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeVarIntToBuffer(this.compressionThreshold);
     }
 
+    @Override
     public void processPacket(INetHandlerLoginClient handler) {
         handler.handleEnableCompression(this);
     }

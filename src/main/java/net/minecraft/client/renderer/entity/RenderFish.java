@@ -18,6 +18,7 @@ public class RenderFish extends Render<EntityFishHook> {
         super(renderManagerIn);
     }
 
+    @Override
     public void doRender(EntityFishHook entity, double x, double y, double z, float entityYaw, float partialTicks) {
         GlStateManager.pushMatrix();
         GlStateManager.translate((float) x, (float) y, (float) z);
@@ -94,6 +95,7 @@ public class RenderFish extends Render<EntityFishHook> {
         }
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityFishHook entity) {
         return FISH_PARTICLES;
     }

@@ -18,6 +18,7 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEnti
     private static final ResourceLocation BANNERTEXTURES = new ResourceLocation("textures/entity/banner_base.png");
     private final ModelBanner bannerModel = new ModelBanner();
 
+    @Override
     public void renderTileEntityAt(TileEntityBanner te, double x, double y, double z, float partialTicks, int destroyStage) {
         boolean flag = te.getWorld() != null;
         boolean flag1 = !flag || te.getBlockType() == Blocks.STANDING_BANNER;

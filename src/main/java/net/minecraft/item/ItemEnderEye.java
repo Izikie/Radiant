@@ -18,6 +18,7 @@ public class ItemEnderEye extends Item {
         this.setCreativeTab(CreativeTabs.TAB_MISC);
     }
 
+    @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
         IBlockState iblockstate = worldIn.getBlockState(pos);
 
@@ -109,6 +110,7 @@ public class ItemEnderEye extends Item {
         }
     }
 
+    @Override
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
         MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(worldIn, playerIn, false);
 

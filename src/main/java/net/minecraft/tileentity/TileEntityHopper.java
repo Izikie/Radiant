@@ -28,6 +28,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
     private String customName;
     private int transferCooldown = -1;
 
+    @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         NBTTagList nbttaglist = compound.getTagList("Items", 10);
@@ -49,6 +50,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
         }
     }
 
+    @Override
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
         NBTTagList nbttaglist = new NBTTagList();
@@ -70,18 +72,22 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
         }
     }
 
+    @Override
     public void markDirty() {
         super.markDirty();
     }
 
+    @Override
     public int getSizeInventory() {
         return this.inventory.length;
     }
 
+    @Override
     public ItemStack getStackInSlot(int index) {
         return this.inventory[index];
     }
 
+    @Override
     public ItemStack decrStackSize(int index, int count) {
         if (this.inventory[index] != null) {
             if (this.inventory[index].stackSize <= count) {
@@ -102,6 +108,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
         }
     }
 
+    @Override
     public ItemStack removeStackFromSlot(int index) {
         if (this.inventory[index] != null) {
             ItemStack itemstack = this.inventory[index];
@@ -112,6 +119,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
         }
     }
 
+    @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
         this.inventory[index] = stack;
 
@@ -120,10 +128,12 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
         }
     }
 
+    @Override
     public String getName() {
         return this.hasCustomName() ? this.customName : "container.hopper";
     }
 
+    @Override
     public boolean hasCustomName() {
         return this.customName != null && !this.customName.isEmpty();
     }
@@ -132,24 +142,30 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
         this.customName = customNameIn;
     }
 
+    @Override
     public int getInventoryStackLimit() {
         return 64;
     }
 
+    @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
         return this.worldObj.getTileEntity(this.pos) == this && player.getDistanceSq(this.pos.getX() + 0.5D, this.pos.getY() + 0.5D, this.pos.getZ() + 0.5D) <= 64.0D;
     }
 
+    @Override
     public void openInventory(EntityPlayer player) {
     }
 
+    @Override
     public void closeInventory(EntityPlayer player) {
     }
 
+    @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
         return true;
     }
 
+    @Override
     public void update() {
         if (this.worldObj != null && !this.worldObj.isRemote) {
             --this.transferCooldown;
@@ -472,14 +488,17 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
         return stack1.getItem() == stack2.getItem() && (stack1.getMetadata() == stack2.getMetadata() && (stack1.stackSize <= stack1.getMaxStackSize() && ItemStack.areItemStackTagsEqual(stack1, stack2)));
     }
 
+    @Override
     public double getXPos() {
         return this.pos.getX() + 0.5D;
     }
 
+    @Override
     public double getYPos() {
         return this.pos.getY() + 0.5D;
     }
 
+    @Override
     public double getZPos() {
         return this.pos.getZ() + 0.5D;
     }
@@ -496,25 +515,31 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
         return this.transferCooldown <= 1;
     }
 
+    @Override
     public String getGuiID() {
         return "minecraft:hopper";
     }
 
+    @Override
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
         return new ContainerHopper(playerInventory, this, playerIn);
     }
 
+    @Override
     public int getField(int id) {
         return 0;
     }
 
+    @Override
     public void setField(int id, int value) {
     }
 
+    @Override
     public int getFieldCount() {
         return 0;
     }
 
+    @Override
     public void clear() {
         Arrays.fill(this.inventory, null);
     }

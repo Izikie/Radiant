@@ -15,14 +15,17 @@ public class EntityDamageSourceIndirect extends EntityDamageSource {
         this.indirectEntity = indirectEntityIn;
     }
 
+    @Override
     public Entity getSourceOfDamage() {
         return this.damageSourceEntity;
     }
 
+    @Override
     public Entity getEntity() {
         return this.indirectEntity;
     }
 
+    @Override
     public IChatComponent getDeathMessage(EntityLivingBase entityLivingBaseIn) {
         IChatComponent ichatcomponent = this.indirectEntity == null ? this.damageSourceEntity.getDisplayName() : this.indirectEntity.getDisplayName();
         ItemStack itemstack = this.indirectEntity instanceof EntityLivingBase entityLivingBase ? entityLivingBase.getHeldItem() : null;

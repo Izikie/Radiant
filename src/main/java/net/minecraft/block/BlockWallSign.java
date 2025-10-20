@@ -16,6 +16,7 @@ public class BlockWallSign extends BlockSign {
     }
 
     
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         Direction enumfacing = worldIn.getBlockState(pos).getValue(FACING);
         float f = 0.28125F;
@@ -43,6 +44,7 @@ public class BlockWallSign extends BlockSign {
         }
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         Direction enumfacing = state.getValue(FACING);
 
@@ -54,6 +56,7 @@ public class BlockWallSign extends BlockSign {
         super.onNeighborBlockChange(worldIn, pos, state, neighborBlock);
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         Direction enumfacing = Direction.getFront(meta);
 
@@ -64,10 +67,12 @@ public class BlockWallSign extends BlockSign {
         return this.getDefaultState().withProperty(FACING, enumfacing);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(FACING).getIndex();
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, FACING);
     }

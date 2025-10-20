@@ -11,6 +11,7 @@ public class BlockHardenedClay extends Block {
         this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
+    @Override
     public MapColor getMapColor(IBlockState state) {
         return MapColor.ADOBE_COLOR;
     }

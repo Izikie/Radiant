@@ -18,6 +18,7 @@ public class TileEntityFlowerPot extends TileEntity {
         this.flowerPotData = potData;
     }
 
+    @Override
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
         ResourceLocation resourcelocation = Item.itemRegistry.getNameForObject(this.flowerPotItem);
@@ -25,6 +26,7 @@ public class TileEntityFlowerPot extends TileEntity {
         compound.setInteger("Data", this.flowerPotData);
     }
 
+    @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
 
@@ -37,6 +39,7 @@ public class TileEntityFlowerPot extends TileEntity {
         this.flowerPotData = compound.getInteger("Data");
     }
 
+    @Override
     public Packet<?> getDescriptionPacket() {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
         this.writeToNBT(nbttagcompound);

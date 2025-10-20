@@ -10,6 +10,7 @@ public class RegistryNamespacedDefaultedByKey<K, V> extends RegistryNamespaced<K
         this.defaultValueKey = defaultValueKeyIn;
     }
 
+    @Override
     public void register(int id, K key, V value) {
         if (this.defaultValueKey.equals(key)) {
             this.defaultValue = value;
@@ -22,11 +23,13 @@ public class RegistryNamespacedDefaultedByKey<K, V> extends RegistryNamespaced<K
         Objects.requireNonNull(this.defaultValueKey);
     }
 
+    @Override
     public V getObject(K name) {
         V v = super.getObject(name);
         return v == null ? this.defaultValue : v;
     }
 
+    @Override
     public V getObjectById(int id) {
         V v = super.getObjectById(id);
         return v == null ? this.defaultValue : v;

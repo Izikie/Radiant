@@ -13,22 +13,27 @@ import net.minecraft.util.BlockPos;
 import java.util.List;
 
 public class CommandBanPlayer extends CommandBase {
+    @Override
     public String getCommandName() {
         return "ban";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 3;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.ban.usage";
     }
 
+    @Override
     public boolean canCommandSenderUseCommand(ICommandSender sender) {
         return MinecraftServer.getServer().getConfigurationManager().getBannedPlayers().isLanServer() && super.canCommandSenderUseCommand(sender);
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length >= 1 && !args[0].isEmpty()) {
             MinecraftServer minecraftserver = MinecraftServer.getServer();
@@ -58,6 +63,7 @@ public class CommandBanPlayer extends CommandBase {
         }
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         return args.length >= 1 ? getListOfStringsMatchingLastWord(args, MinecraftServer.getServer().getAllUsernames()) : null;
     }

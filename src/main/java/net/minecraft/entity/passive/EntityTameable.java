@@ -21,12 +21,14 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
         this.setupTamedAI();
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(16, (byte) 0);
         this.dataWatcher.addObject(17, "");
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
 
@@ -39,6 +41,7 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
         tagCompound.setBoolean("Sitting", this.isSitting());
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
         String s;
@@ -74,6 +77,7 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
         }
     }
 
+    @Override
     public void handleStatusUpdate(byte id) {
         if (id == 7) {
             this.playTameEffect(true);
@@ -117,6 +121,7 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
         }
     }
 
+    @Override
     public String getOwnerId() {
         return this.dataWatcher.getWatchableObjectString(17);
     }
@@ -125,6 +130,7 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
         this.dataWatcher.updateObject(17, ownerUuid);
     }
 
+    @Override
     public EntityLivingBase getOwner() {
         try {
             UUID uuid = UUID.fromString(this.getOwnerId());
@@ -146,6 +152,7 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
         return true;
     }
 
+    @Override
     public Team getTeam() {
         if (this.isTamed()) {
             EntityLivingBase entitylivingbase = this.getOwner();
@@ -158,6 +165,7 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
         return super.getTeam();
     }
 
+    @Override
     public boolean isOnSameTeam(EntityLivingBase otherEntity) {
         if (this.isTamed()) {
             EntityLivingBase entitylivingbase = this.getOwner();
@@ -174,6 +182,7 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
         return super.isOnSameTeam(otherEntity);
     }
 
+    @Override
     public void onDeath(DamageSource cause) {
         if (!this.worldObj.isRemote && this.worldObj.getGameRules().getBoolean("showDeathMessages") && this.hasCustomName() && this.getOwner() instanceof EntityPlayerMP) {
             this.getOwner().addChatMessage(this.getCombatTracker().getDeathMessage());

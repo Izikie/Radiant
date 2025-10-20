@@ -135,12 +135,15 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
             this.getActiveAnvilConverter().convertMapFormat(worldNameIn, new IProgressUpdate() {
                 private long startTime = System.currentTimeMillis();
 
+                @Override
                 public void displaySavingString(String message) {
                 }
 
+                @Override
                 public void resetProgressAndMessage(String message) {
                 }
 
+                @Override
                 public void setLoadingProgress(int progress) {
                     if (System.currentTimeMillis() - this.startTime >= 1000L) {
                         this.startTime = System.currentTimeMillis();
@@ -148,9 +151,11 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
                     }
                 }
 
+                @Override
                 public void setDoneWorking() {
                 }
 
+                @Override
                 public void displayLoadingString(String message) {
                 }
             });
@@ -337,6 +342,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         mcServer = this;
     }
 
+    @Override
     public void run() {
         try {
             if (this.startServer()) {
@@ -611,14 +617,17 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         return this.anvilFile != null;
     }
 
+    @Override
     public String getName() {
         return "Server";
     }
 
+    @Override
     public void addChatMessage(IChatComponent component) {
         LOGGER.info(component.getUnformattedText());
     }
 
+    @Override
     public boolean canCommandSenderUseCommand(int permLevel, String commandName) {
         return true;
     }
@@ -819,18 +828,22 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         return this.tickCounter;
     }
 
+    @Override
     public BlockPos getPosition() {
         return BlockPos.ORIGIN;
     }
 
+    @Override
     public Vec3 getPositionVector() {
         return new Vec3(0.0D, 0.0D, 0.0D);
     }
 
+    @Override
     public World getEntityWorld() {
         return this.worldServers[0];
     }
 
+    @Override
     public Entity getCommandSenderEntity() {
         return null;
     }
@@ -863,6 +876,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         this.maxPlayerIdleMinutes = idleTimeout;
     }
 
+    @Override
     public IChatComponent getDisplayName() {
         return new ChatComponentText(this.getName());
     }
@@ -905,10 +919,12 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         return null;
     }
 
+    @Override
     public boolean sendCommandFeedback() {
         return getServer().worldServers[0].getGameRules().getBoolean("sendCommandFeedback");
     }
 
+    @Override
     public void setCommandStat(CommandResultStats.Type type, int amount) {
     }
 
@@ -935,11 +951,13 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         }
     }
 
+    @Override
     public ListenableFuture<Object> addScheduledTask(Runnable runnableToSchedule) {
         Objects.requireNonNull(runnableToSchedule);
         return this.callFromMainThread(Executors.callable(runnableToSchedule));
     }
 
+    @Override
     public boolean isCallingFromMinecraftThread() {
         return Thread.currentThread() == this.serverThread;
     }

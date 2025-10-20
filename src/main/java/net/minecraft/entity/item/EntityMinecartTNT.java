@@ -24,14 +24,17 @@ public class EntityMinecartTNT extends EntityMinecart {
         super(worldIn, x, y, z);
     }
 
+    @Override
     public MinecartType getMinecartType() {
         return MinecartType.TNT;
     }
 
+    @Override
     public IBlockState getDefaultDisplayTile() {
         return Blocks.TNT.getDefaultState();
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
 
@@ -51,6 +54,7 @@ public class EntityMinecartTNT extends EntityMinecart {
         }
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         Entity entity = source.getSourceOfDamage();
 
@@ -64,6 +68,7 @@ public class EntityMinecartTNT extends EntityMinecart {
         return super.attackEntityFrom(source, amount);
     }
 
+    @Override
     public void killMinecart(DamageSource source) {
         super.killMinecart(source);
         double d0 = this.motionX * this.motionX + this.motionZ * this.motionZ;
@@ -90,6 +95,7 @@ public class EntityMinecartTNT extends EntityMinecart {
         }
     }
 
+    @Override
     public void fall(float distance, float damageMultiplier) {
         if (distance >= 3.0F) {
             float f = distance / 10.0F;
@@ -99,12 +105,14 @@ public class EntityMinecartTNT extends EntityMinecart {
         super.fall(distance, damageMultiplier);
     }
 
+    @Override
     public void onActivatorRailPass(int x, int y, int z, boolean receivingPower) {
         if (receivingPower && this.minecartTNTFuse < 0) {
             this.ignite();
         }
     }
 
+    @Override
     public void handleStatusUpdate(byte id) {
         if (id == 10) {
             this.ignite();
@@ -133,14 +141,17 @@ public class EntityMinecartTNT extends EntityMinecart {
         return this.minecartTNTFuse > -1;
     }
 
+    @Override
     public float getExplosionResistance(Explosion explosionIn, World worldIn, BlockPos pos, IBlockState blockStateIn) {
         return !this.isIgnited() || !BlockRailBase.isRailBlock(blockStateIn) && !BlockRailBase.isRailBlock(worldIn, pos.up()) ? super.getExplosionResistance(explosionIn, worldIn, pos, blockStateIn) : 0.0F;
     }
 
+    @Override
     public boolean verifyExplosion(Explosion explosionIn, World worldIn, BlockPos pos, IBlockState blockStateIn, float p_174816_5_) {
         return (!this.isIgnited() || !BlockRailBase.isRailBlock(blockStateIn) && !BlockRailBase.isRailBlock(worldIn, pos.up())) && super.verifyExplosion(explosionIn, worldIn, pos, blockStateIn, p_174816_5_);
     }
 
+    @Override
     protected void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
 
@@ -149,6 +160,7 @@ public class EntityMinecartTNT extends EntityMinecart {
         }
     }
 
+    @Override
     protected void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         tagCompound.setInteger("TNTFuse", this.minecartTNTFuse);

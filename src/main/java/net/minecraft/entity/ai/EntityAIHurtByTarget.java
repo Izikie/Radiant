@@ -16,11 +16,13 @@ public class EntityAIHurtByTarget extends EntityAITarget {
         this.setMutexBits(1);
     }
 
+    @Override
     public boolean shouldExecute() {
         int i = this.taskOwner.getRevengeTimer();
         return i != this.revengeTimerOld && this.isSuitableTarget(this.taskOwner.getAITarget(), false);
     }
 
+    @Override
     public void startExecuting() {
         this.taskOwner.setAttackTarget(this.taskOwner.getAITarget());
         this.revengeTimerOld = this.taskOwner.getRevengeTimer();

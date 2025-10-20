@@ -39,18 +39,22 @@ public abstract class TileEntitySpecialRenderer<T extends TileEntity> implements
         return false;
     }
 
+    @Override
     public Class getEntityClass() {
         return this.tileEntityClass;
     }
 
+    @Override
     public void setEntityClass(Class p_setEntityClass_1_) {
         this.tileEntityClass = p_setEntityClass_1_;
     }
 
+    @Override
     public ResourceLocation getLocationTextureCustom() {
         return this.locationTextureCustom;
     }
 
+    @Override
     public void setLocationTextureCustom(ResourceLocation p_setLocationTextureCustom_1_) {
         this.locationTextureCustom = p_setLocationTextureCustom_1_;
     }

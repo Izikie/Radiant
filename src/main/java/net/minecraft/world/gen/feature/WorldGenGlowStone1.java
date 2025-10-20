@@ -9,6 +9,7 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 public class WorldGenGlowStone1 extends WorldGenerator {
+    @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         if (!worldIn.isAirBlock(position)) {
             return false;

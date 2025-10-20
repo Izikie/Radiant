@@ -32,6 +32,7 @@ public class Vec3i implements Comparable<Vec3i> {
         return (this.getY() + this.getZ() * 31) * 31 + this.getX();
     }
 
+    @Override
     public int compareTo(Vec3i p_compareTo_1_) {
         return this.getY() == p_compareTo_1_.getY() ? (this.getZ() == p_compareTo_1_.getZ() ? this.getX() - p_compareTo_1_.getX() : this.getZ() - p_compareTo_1_.getZ()) : this.getY() - p_compareTo_1_.getY();
     }

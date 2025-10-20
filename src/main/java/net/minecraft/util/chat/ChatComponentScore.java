@@ -28,6 +28,7 @@ public class ChatComponentScore extends ChatComponentStyle {
         this.value = valueIn;
     }
 
+    @Override
     public String getUnformattedTextForChat() {
         MinecraftServer minecraftserver = MinecraftServer.getServer();
 
@@ -46,6 +47,7 @@ public class ChatComponentScore extends ChatComponentStyle {
         return this.value;
     }
 
+    @Override
     public ChatComponentScore createCopy() {
         ChatComponentScore chatcomponentscore = new ChatComponentScore(this.name, this.objective);
         chatcomponentscore.setValue(this.value);

@@ -11,6 +11,7 @@ import java.util.Set;
 public class JsonSerializableSet extends ForwardingSet<String> implements IJsonSerializable {
     private final Set<String> underlyingSet = new HashSet<>();
 
+    @Override
     public void fromJson(JsonElement json) {
         if (json.isJsonArray()) {
             for (JsonElement jsonelement : json.getAsJsonArray()) {
@@ -19,6 +20,7 @@ public class JsonSerializableSet extends ForwardingSet<String> implements IJsonS
         }
     }
 
+    @Override
     public JsonElement getSerializableElement() {
         JsonArray jsonarray = new JsonArray();
 
@@ -29,6 +31,7 @@ public class JsonSerializableSet extends ForwardingSet<String> implements IJsonS
         return jsonarray;
     }
 
+    @Override
     protected Set<String> delegate() {
         return this.underlyingSet;
     }

@@ -21,28 +21,34 @@ public class BlockColored extends Block {
         this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
+    @Override
     public int damageDropped(IBlockState state) {
         return state.getValue(COLOR).getMetadata();
     }
 
+    @Override
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
         for (DyeColor enumdyecolor : DyeColor.values()) {
             list.add(new ItemStack(itemIn, 1, enumdyecolor.getMetadata()));
         }
     }
 
+    @Override
     public MapColor getMapColor(IBlockState state) {
         return state.getValue(COLOR).getMapColor();
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(COLOR, DyeColor.byMetadata(meta));
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(COLOR).getMetadata();
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, COLOR);
     }

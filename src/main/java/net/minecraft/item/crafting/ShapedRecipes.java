@@ -19,10 +19,12 @@ public class ShapedRecipes implements IRecipe {
         this.recipeOutput = output;
     }
 
+    @Override
     public ItemStack getRecipeOutput() {
         return this.recipeOutput;
     }
 
+    @Override
     public ItemStack[] getRemainingItems(InventoryCrafting inv) {
         ItemStack[] aitemstack = new ItemStack[inv.getSizeInventory()];
 
@@ -37,6 +39,7 @@ public class ShapedRecipes implements IRecipe {
         return aitemstack;
     }
 
+    @Override
     public boolean matches(InventoryCrafting inv, World worldIn) {
         for (int i = 0; i <= 3 - this.recipeWidth; ++i) {
             for (int j = 0; j <= 3 - this.recipeHeight; ++j) {
@@ -89,6 +92,7 @@ public class ShapedRecipes implements IRecipe {
         return true;
     }
 
+    @Override
     public ItemStack getCraftingResult(InventoryCrafting inv) {
         ItemStack itemstack = this.getRecipeOutput().copy();
 
@@ -105,6 +109,7 @@ public class ShapedRecipes implements IRecipe {
         return itemstack;
     }
 
+    @Override
     public int getRecipeSize() {
         return this.recipeWidth * this.recipeHeight;
     }

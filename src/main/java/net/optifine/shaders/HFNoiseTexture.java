@@ -28,7 +28,8 @@ public class HFNoiseTexture implements ICustomTexture {
 		return this.texID;
 	}
 
-	public void deleteTexture() {
+	@Override
+    public void deleteTexture() {
 		GlStateManager.deleteTexture(this.texID);
 		this.texID = 0;
 	}
@@ -60,15 +61,18 @@ public class HFNoiseTexture implements ICustomTexture {
 		return abyte;
 	}
 
-	public int getTextureId() {
+	@Override
+    public int getTextureId() {
 		return this.texID;
 	}
 
-	public int textureUnit() {
+	@Override
+    public int textureUnit() {
 		return this.textureUnit;
 	}
 
-	public int getTarget() {
+	@Override
+    public int getTarget() {
 		return 3553;
 	}
 }

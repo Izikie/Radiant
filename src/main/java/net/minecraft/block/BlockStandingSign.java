@@ -13,6 +13,7 @@ public class BlockStandingSign extends BlockSign {
         this.setDefaultState(this.blockState.getBaseState().withProperty(ROTATION, 0));
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         if (!worldIn.getBlockState(pos.down()).getBlock().getMaterial().isSolid()) {
             this.dropBlockAsItem(worldIn, pos, state, 0);
@@ -22,14 +23,17 @@ public class BlockStandingSign extends BlockSign {
         super.onNeighborBlockChange(worldIn, pos, state, neighborBlock);
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(ROTATION, meta);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(ROTATION);
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, ROTATION);
     }

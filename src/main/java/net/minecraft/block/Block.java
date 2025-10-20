@@ -41,10 +41,12 @@ public class Block {
     public static final SoundType soundTypePiston = new SoundType("stone", 1.0F, 1.0F);
     public static final SoundType soundTypeMetal = new SoundType("stone", 1.0F, 1.5F);
     public static final SoundType soundTypeGlass = new SoundType("stone", 1.0F, 1.0F) {
+        @Override
         public String getBreakSound() {
             return "dig.glass";
         }
 
+        @Override
         public String getPlaceSound() {
             return "step.stone";
         }
@@ -53,28 +55,34 @@ public class Block {
     public static final SoundType soundTypeSand = new SoundType("sand", 1.0F, 1.0F);
     public static final SoundType soundTypeSnow = new SoundType("snow", 1.0F, 1.0F);
     public static final SoundType soundTypeLadder = new SoundType("ladder", 1.0F, 1.0F) {
+        @Override
         public String getBreakSound() {
             return "dig.wood";
         }
     };
     public static final SoundType soundTypeAnvil = new SoundType("anvil", 0.3F, 1.0F) {
+        @Override
         public String getBreakSound() {
             return "dig.stone";
         }
 
+        @Override
         public String getPlaceSound() {
             return "random.anvil_land";
         }
     };
     public static final SoundType SLIME_SOUND = new SoundType("slime", 1.0F, 1.0F) {
+        @Override
         public String getBreakSound() {
             return "mob.slime.big";
         }
 
+        @Override
         public String getPlaceSound() {
             return "mob.slime.big";
         }
 
+        @Override
         public String getStepSound() {
             return "mob.slime.small";
         }

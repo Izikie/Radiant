@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 
 public class EntityFirework {
     public static class Factory implements IParticleFactory {
+        @Override
         public EntityFX getEntityFX(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
             SparkFX entityfirework$sparkfx = new SparkFX(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn, Minecraft.get().effectRenderer);
             entityfirework$sparkfx.setAlphaF(0.99F);
@@ -25,6 +26,7 @@ public class EntityFirework {
             this.particleMaxAge = 4;
         }
 
+        @Override
         public void renderParticle(WorldRenderer worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
             float f = 0.25F;
             float f1 = 0.5F;
@@ -89,20 +91,24 @@ public class EntityFirework {
             this.hasFadeColour = true;
         }
 
+        @Override
         public AxisAlignedBB getCollisionBoundingBox() {
             return null;
         }
 
+        @Override
         public boolean canBePushed() {
             return false;
         }
 
+        @Override
         public void renderParticle(WorldRenderer worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
             if (!this.twinkle || this.particleAge < this.particleMaxAge / 3 || (this.particleAge + this.particleMaxAge) / 3 % 2 == 0) {
                 super.renderParticle(worldRendererIn, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
             }
         }
 
+        @Override
         public void onUpdate() {
             this.prevPosX = this.posX;
             this.prevPosY = this.posY;
@@ -152,10 +158,12 @@ public class EntityFirework {
             }
         }
 
+        @Override
         public int getBrightnessForRender(float partialTicks) {
             return 15728880;
         }
 
+        @Override
         public float getBrightness(float partialTicks) {
             return 1.0F;
         }
@@ -196,9 +204,11 @@ public class EntityFirework {
             }
         }
 
+        @Override
         public void renderParticle(WorldRenderer worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
         }
 
+        @Override
         public void onUpdate() {
             if (this.fireworkAge == 0 && this.fireworkExplosions != null) {
                 boolean flag = this.func_92037_i();
@@ -355,6 +365,7 @@ public class EntityFirework {
             }
         }
 
+        @Override
         public int getFXLayer() {
             return 0;
         }

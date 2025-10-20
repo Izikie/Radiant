@@ -28,10 +28,12 @@ public class EntityEndermite extends EntityMob {
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
     }
 
+    @Override
     public float getEyeHeight() {
         return 0.1F;
     }
 
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0D);
@@ -39,42 +41,51 @@ public class EntityEndermite extends EntityMob {
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
     }
 
+    @Override
     protected boolean canTriggerWalking() {
         return false;
     }
 
+    @Override
     protected String getLivingSound() {
         return "mob.silverfish.say";
     }
 
+    @Override
     protected String getHurtSound() {
         return "mob.silverfish.hit";
     }
 
+    @Override
     protected String getDeathSound() {
         return "mob.silverfish.kill";
     }
 
+    @Override
     protected void playStepSound(BlockPos pos, Block blockIn) {
         this.playSound("mob.silverfish.step", 0.15F, 1.0F);
     }
 
+    @Override
     protected Item getDropItem() {
         return null;
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
         this.lifetime = tagCompund.getInteger("Lifetime");
         this.playerSpawned = tagCompund.getBoolean("PlayerSpawned");
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         tagCompound.setInteger("Lifetime", this.lifetime);
         tagCompound.setBoolean("PlayerSpawned", this.playerSpawned);
     }
 
+    @Override
     public void onUpdate() {
         this.renderYawOffset = this.rotationYaw;
         super.onUpdate();
@@ -88,6 +99,7 @@ public class EntityEndermite extends EntityMob {
         this.playerSpawned = spawnedByPlayer;
     }
 
+    @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
 
@@ -106,10 +118,12 @@ public class EntityEndermite extends EntityMob {
         }
     }
 
+    @Override
     protected boolean isValidLightLevel() {
         return true;
     }
 
+    @Override
     public boolean getCanSpawnHere() {
         if (super.getCanSpawnHere()) {
             EntityPlayer entityplayer = this.worldObj.getClosestPlayerToEntity(this, 5.0D);
@@ -119,6 +133,7 @@ public class EntityEndermite extends EntityMob {
         }
     }
 
+    @Override
     public EntityGroup getCreatureAttribute() {
         return EntityGroup.ARTHROPOD;
     }

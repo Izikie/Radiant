@@ -39,6 +39,7 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
         this.previousGuiScreen = p_i45059_3_;
     }
 
+    @Override
     public void handleEncryptionRequest(S01PacketEncryptionRequest packet) {
         final SecretKey secretkey = CryptManager.createNewSharedKey();
         String s = packet.getServerId();
@@ -73,20 +74,24 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
         return this.mc.getSessionService();
     }
 
+    @Override
     public void handleLoginSuccess(S02PacketLoginSuccess packet) {
         this.gameProfile = packet.getProfile();
         this.networkManager.setConnectionState(NetworkState.PLAY);
         this.networkManager.setNetHandler(new NetHandlerPlayClient(this.mc, this.previousGuiScreen, this.networkManager, this.gameProfile));
     }
 
+    @Override
     public void onDisconnect(IChatComponent reason) {
         this.mc.displayGuiScreen(new GuiDisconnected(this.previousGuiScreen, "connect.failed", reason));
     }
 
+    @Override
     public void handleDisconnect(S00PacketDisconnect packet) {
         this.networkManager.closeChannel(packet.getReason());
     }
 
+    @Override
     public void handleEnableCompression(S03PacketEnableCompression packet) {
         if (!this.networkManager.isLocalChannel()) {
             this.networkManager.setCompressionThreshold(packet.getCompressionThreshold());

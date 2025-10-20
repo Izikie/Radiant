@@ -101,10 +101,12 @@ public class EntityArrow extends Entity implements IProjectile {
         this.setThrowableHeading(this.motionX, this.motionY, this.motionZ, velocity * 1.5F, 1.0F);
     }
 
+    @Override
     protected void entityInit() {
         this.dataWatcher.addObject(16, (byte) 0);
     }
 
+    @Override
     public void setThrowableHeading(double x, double y, double z, float velocity, float inaccuracy) {
         float f = MathHelper.sqrt(x * x + y * y + z * z);
         x = x / f;
@@ -125,11 +127,13 @@ public class EntityArrow extends Entity implements IProjectile {
         this.ticksInGround = 0;
     }
 
+    @Override
     public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean p_180426_10_) {
         this.setPosition(x, y, z);
         this.setRotation(yaw, pitch);
     }
 
+    @Override
     public void setVelocity(double x, double y, double z) {
         this.motionX = x;
         this.motionY = y;
@@ -146,6 +150,7 @@ public class EntityArrow extends Entity implements IProjectile {
         }
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
 
@@ -369,6 +374,7 @@ public class EntityArrow extends Entity implements IProjectile {
         }
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         tagCompound.setShort("xTile", (short) this.xTile);
         tagCompound.setShort("yTile", (short) this.yTile);
@@ -383,6 +389,7 @@ public class EntityArrow extends Entity implements IProjectile {
         tagCompound.setDouble("damage", this.damage);
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         this.xTile = tagCompund.getShort("xTile");
         this.yTile = tagCompund.getShort("yTile");
@@ -410,6 +417,7 @@ public class EntityArrow extends Entity implements IProjectile {
         }
     }
 
+    @Override
     public void onCollideWithPlayer(EntityPlayer entityIn) {
         if (!this.worldObj.isRemote && this.inGround && this.arrowShake <= 0) {
             boolean flag = this.canBePickedUp == 1 || this.canBePickedUp == 2 && entityIn.capabilities.isCreativeMode;
@@ -426,6 +434,7 @@ public class EntityArrow extends Entity implements IProjectile {
         }
     }
 
+    @Override
     protected boolean canTriggerWalking() {
         return false;
     }
@@ -442,10 +451,12 @@ public class EntityArrow extends Entity implements IProjectile {
         this.knockbackStrength = knockbackStrengthIn;
     }
 
+    @Override
     public boolean canAttackWithItem() {
         return false;
     }
 
+    @Override
     public float getEyeHeight() {
         return 0.0F;
     }

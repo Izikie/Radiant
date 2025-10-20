@@ -14,6 +14,7 @@ public class GenLayerHills extends GenLayer {
         this.field_151628_d = p_i45479_4_;
     }
 
+    @Override
     public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
         int[] aint = this.parent.getInts(areaX - 1, areaY - 1, areaWidth + 2, areaHeight + 2);
         int[] aint1 = this.field_151628_d.getInts(areaX - 1, areaY - 1, areaWidth + 2, areaHeight + 2);

@@ -17,6 +17,7 @@ public class LayerHeldBlock implements LayerRenderer<EntityEnderman> {
         this.endermanRenderer = endermanRendererIn;
     }
 
+    @Override
     public void doRenderLayer(EntityEnderman entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
         IBlockState iblockstate = entitylivingbaseIn.getHeldBlockState();
 
@@ -42,6 +43,7 @@ public class LayerHeldBlock implements LayerRenderer<EntityEnderman> {
         }
     }
 
+    @Override
     public boolean shouldCombineTextures() {
         return false;
     }

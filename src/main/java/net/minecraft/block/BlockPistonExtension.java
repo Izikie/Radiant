@@ -32,6 +32,7 @@ public class BlockPistonExtension extends Block {
         this.setHardness(0.5F);
     }
 
+    @Override
     public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
         if (player.capabilities.isCreativeMode) {
             Direction enumfacing = state.getValue(FACING);
@@ -49,6 +50,7 @@ public class BlockPistonExtension extends Block {
         super.onBlockHarvested(worldIn, pos, state, player);
     }
 
+    @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         super.breakBlock(worldIn, pos, state);
         Direction enumfacing = state.getValue(FACING).getOpposite();
@@ -61,26 +63,32 @@ public class BlockPistonExtension extends Block {
         }
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
         return false;
     }
 
+    @Override
     public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Direction side) {
         return false;
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return 0;
     }
 
+    @Override
     public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {
         this.applyHeadBounds(state);
         super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
@@ -122,6 +130,7 @@ public class BlockPistonExtension extends Block {
         }
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         this.applyHeadBounds(worldIn.getBlockState(pos));
     }
@@ -158,6 +167,7 @@ public class BlockPistonExtension extends Block {
         }
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         Direction enumfacing = state.getValue(FACING);
         BlockPos blockpos = pos.offset(enumfacing.getOpposite());
@@ -170,6 +180,7 @@ public class BlockPistonExtension extends Block {
         }
     }
 
+    @Override
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, Direction side) {
         return true;
     }
@@ -179,14 +190,17 @@ public class BlockPistonExtension extends Block {
         return i > 5 ? null : Direction.getFront(i);
     }
 
+    @Override
     public Item getItem(World worldIn, BlockPos pos) {
         return worldIn.getBlockState(pos).getValue(TYPE) == PistonType.STICKY ? Item.getItemFromBlock(Blocks.STICKY_PISTON) : Item.getItemFromBlock(Blocks.PISTON);
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(TYPE, (meta & 8) > 0 ? PistonType.STICKY : PistonType.DEFAULT);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         int i = 0;
         i = i | state.getValue(FACING).getIndex();
@@ -198,6 +212,7 @@ public class BlockPistonExtension extends Block {
         return i;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, FACING, TYPE, SHORT);
     }
@@ -216,6 +231,7 @@ public class BlockPistonExtension extends Block {
             return this.VARIANT;
         }
 
+        @Override
         public String getName() {
             return this.VARIANT;
         }

@@ -40,14 +40,17 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
         this.cachedChestType = chestType;
     }
 
+    @Override
     public int getSizeInventory() {
         return 27;
     }
 
+    @Override
     public ItemStack getStackInSlot(int index) {
         return this.chestContents[index];
     }
 
+    @Override
     public ItemStack decrStackSize(int index, int count) {
         if (this.chestContents[index] != null) {
             if (this.chestContents[index].stackSize <= count) {
@@ -70,6 +73,7 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
         }
     }
 
+    @Override
     public ItemStack removeStackFromSlot(int index) {
         if (this.chestContents[index] != null) {
             ItemStack itemstack = this.chestContents[index];
@@ -80,6 +84,7 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
         }
     }
 
+    @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
         this.chestContents[index] = stack;
 
@@ -90,10 +95,12 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
         this.markDirty();
     }
 
+    @Override
     public String getName() {
         return this.hasCustomName() ? this.customName : "container.chest";
     }
 
+    @Override
     public boolean hasCustomName() {
         return this.customName != null && !this.customName.isEmpty();
     }
@@ -102,6 +109,7 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
         this.customName = name;
     }
 
+    @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         NBTTagList nbttaglist = compound.getTagList("Items", 10);
@@ -121,6 +129,7 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
         }
     }
 
+    @Override
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
         NBTTagList nbttaglist = new NBTTagList();
@@ -141,14 +150,17 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
         }
     }
 
+    @Override
     public int getInventoryStackLimit() {
         return 64;
     }
 
+    @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
         return this.worldObj.getTileEntity(this.pos) == this && player.getDistanceSq(this.pos.getX() + 0.5D, this.pos.getY() + 0.5D, this.pos.getZ() + 0.5D) <= 64.0D;
     }
 
+    @Override
     public void updateContainingBlockInfo() {
         super.updateContainingBlockInfo();
         this.adjacentChestChecked = false;
@@ -223,6 +235,7 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
         }
     }
 
+    @Override
     public void update() {
         this.checkForAdjacentChests();
         int i = this.pos.getX();
@@ -299,6 +312,7 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
         }
     }
 
+    @Override
     public boolean receiveClientEvent(int id, int type) {
         if (id == 1) {
             this.numPlayersUsing = type;
@@ -308,6 +322,7 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
         }
     }
 
+    @Override
     public void openInventory(EntityPlayer player) {
         if (!player.isSpectator()) {
             if (this.numPlayersUsing < 0) {
@@ -321,6 +336,7 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
         }
     }
 
+    @Override
     public void closeInventory(EntityPlayer player) {
         if (!player.isSpectator() && this.getBlockType() instanceof BlockChest) {
             --this.numPlayersUsing;
@@ -330,10 +346,12 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
         }
     }
 
+    @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
         return true;
     }
 
+    @Override
     public void invalidate() {
         super.invalidate();
         this.updateContainingBlockInfo();
@@ -352,25 +370,31 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
         return this.cachedChestType;
     }
 
+    @Override
     public String getGuiID() {
         return "minecraft:chest";
     }
 
+    @Override
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
         return new ContainerChest(playerInventory, this, playerIn);
     }
 
+    @Override
     public int getField(int id) {
         return 0;
     }
 
+    @Override
     public void setField(int id, int value) {
     }
 
+    @Override
     public int getFieldCount() {
         return 0;
     }
 
+    @Override
     public void clear() {
         Arrays.fill(this.chestContents, null);
     }

@@ -9,10 +9,12 @@ public class SlotFurnaceFuel extends Slot {
         super(inventoryIn, slotIndex, xPosition, yPosition);
     }
 
+    @Override
     public boolean isItemValid(ItemStack stack) {
         return TileEntityFurnace.isItemFuel(stack) || isBucket(stack);
     }
 
+    @Override
     public int getItemStackLimit(ItemStack stack) {
         return isBucket(stack) ? 1 : super.getItemStackLimit(stack);
     }

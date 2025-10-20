@@ -40,19 +40,23 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.getDataWatcher().addObject(21, (byte) 0);
     }
 
+    @Override
     protected String getLivingSound() {
         return null;
     }
 
+    @Override
     protected String getHurtSound() {
         return null;
     }
 
+    @Override
     protected String getDeathSound() {
         return null;
     }
@@ -65,12 +69,14 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
         return this.getDataWatcher().getWatchableObjectByte(21) == 1;
     }
 
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(26.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
     }
 
+    @Override
     public void onLivingUpdate() {
         if (!this.worldObj.isRemote) {
             if (this.getAggressive()) {
@@ -124,6 +130,7 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
         super.onLivingUpdate();
     }
 
+    @Override
     public void handleStatusUpdate(byte id) {
         if (id == 15) {
             for (int i = 0; i < this.rand.nextInt(35) + 10; ++i) {
@@ -134,6 +141,7 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
         }
     }
 
+    @Override
     protected float applyPotionDamageCalculations(DamageSource source, float damage) {
         damage = super.applyPotionDamageCalculations(source, damage);
 
@@ -148,6 +156,7 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
         return damage;
     }
 
+    @Override
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
         int i = this.rand.nextInt(3) + 1;
 
@@ -165,6 +174,7 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
         }
     }
 
+    @Override
     public void attackEntityWithRangedAttack(EntityLivingBase target, float p_82196_2_) {
         if (!this.getAggressive()) {
             EntityPotion entitypotion = new EntityPotion(this.worldObj, this, 32732);
@@ -188,6 +198,7 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
         }
     }
 
+    @Override
     public float getEyeHeight() {
         return 1.62F;
     }

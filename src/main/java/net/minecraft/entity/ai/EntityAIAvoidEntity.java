@@ -29,6 +29,7 @@ public class EntityAIAvoidEntity<T extends Entity> extends EntityAIBase {
 
     public EntityAIAvoidEntity(EntityCreature theEntityIn, Class<T> classToAvoidIn, Predicate<? super T> avoidTargetSelectorIn, float avoidDistanceIn, double farSpeedIn, double nearSpeedIn) {
         this.canBeSeenSelector = new Predicate<>() {
+            @Override
             public boolean apply(Entity p_apply_1_) {
                 return p_apply_1_.isEntityAlive() && EntityAIAvoidEntity.this.theEntity.getEntitySenses().canSee(p_apply_1_);
             }
@@ -43,6 +44,7 @@ public class EntityAIAvoidEntity<T extends Entity> extends EntityAIBase {
         this.setMutexBits(1);
     }
 
+    @Override
     public boolean shouldExecute() {
         List<T> list = this.theEntity.worldObj.getEntitiesWithinAABB(this.classToAvoid, this.theEntity.getEntityBoundingBox().expand(this.avoidDistance, 3.0D, this.avoidDistance), Predicates.and(EntitySelectors.NOT_SPECTATING, this.canBeSeenSelector, this.avoidTargetSelector));
 
@@ -63,18 +65,22 @@ public class EntityAIAvoidEntity<T extends Entity> extends EntityAIBase {
         }
     }
 
+    @Override
     public boolean continueExecuting() {
         return !this.entityPathNavigate.noPath();
     }
 
+    @Override
     public void startExecuting() {
         this.entityPathNavigate.setPath(this.entityPathEntity, this.farSpeed);
     }
 
+    @Override
     public void resetTask() {
         this.closestLivingEntity = null;
     }
 
+    @Override
     public void updateTask() {
         if (this.theEntity.getDistanceSqToEntity(this.closestLivingEntity) < 49.0D) {
             this.theEntity.getNavigator().setSpeed(this.nearSpeed);

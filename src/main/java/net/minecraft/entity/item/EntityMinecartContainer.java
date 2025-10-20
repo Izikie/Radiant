@@ -25,6 +25,7 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
         super(worldIn, x, y, z);
     }
 
+    @Override
     public void killMinecart(DamageSource source) {
         super.killMinecart(source);
 
@@ -33,10 +34,12 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
         }
     }
 
+    @Override
     public ItemStack getStackInSlot(int index) {
         return this.minecartContainerItems[index];
     }
 
+    @Override
     public ItemStack decrStackSize(int index, int count) {
         if (this.minecartContainerItems[index] != null) {
             if (this.minecartContainerItems[index].stackSize <= count) {
@@ -57,6 +60,7 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
         }
     }
 
+    @Override
     public ItemStack removeStackFromSlot(int index) {
         if (this.minecartContainerItems[index] != null) {
             ItemStack itemstack = this.minecartContainerItems[index];
@@ -67,6 +71,7 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
         }
     }
 
+    @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
         this.minecartContainerItems[index] = stack;
 
@@ -75,36 +80,45 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
         }
     }
 
+    @Override
     public void markDirty() {
     }
 
+    @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
         return !this.isDead && player.getDistanceSqToEntity(this) <= 64.0D;
     }
 
+    @Override
     public void openInventory(EntityPlayer player) {
     }
 
+    @Override
     public void closeInventory(EntityPlayer player) {
     }
 
+    @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
         return true;
     }
 
+    @Override
     public String getName() {
         return this.hasCustomName() ? this.getCustomNameTag() : "container.minecart";
     }
 
+    @Override
     public int getInventoryStackLimit() {
         return 64;
     }
 
+    @Override
     public void travelToDimension(int dimensionId) {
         this.dropContentsWhenDead = false;
         super.travelToDimension(dimensionId);
     }
 
+    @Override
     public void setDead() {
         if (this.dropContentsWhenDead) {
             InventoryHelper.dropInventoryItems(this.worldObj, this, this);
@@ -113,6 +127,7 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
         super.setDead();
     }
 
+    @Override
     protected void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         NBTTagList nbttaglist = new NBTTagList();
@@ -129,6 +144,7 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
         tagCompound.setTag("Items", nbttaglist);
     }
 
+    @Override
     protected void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
         NBTTagList nbttaglist = tagCompund.getTagList("Items", 10);
@@ -144,6 +160,7 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
         }
     }
 
+    @Override
     public boolean interactFirst(EntityPlayer playerIn) {
         if (!this.worldObj.isRemote) {
             playerIn.displayGUIChest(this);
@@ -152,6 +169,7 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
         return true;
     }
 
+    @Override
     protected void applyDrag() {
         int i = 15 - Container.calcRedstoneFromInventory(this);
         float f = 0.98F + i * 0.001F;
@@ -160,28 +178,35 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
         this.motionZ *= f;
     }
 
+    @Override
     public int getField(int id) {
         return 0;
     }
 
+    @Override
     public void setField(int id, int value) {
     }
 
+    @Override
     public int getFieldCount() {
         return 0;
     }
 
+    @Override
     public boolean isLocked() {
         return false;
     }
 
+    @Override
     public void setLockCode(LockCode code) {
     }
 
+    @Override
     public LockCode getLockCode() {
         return LockCode.EMPTY_CODE;
     }
 
+    @Override
     public void clear() {
         Arrays.fill(this.minecartContainerItems, null);
     }

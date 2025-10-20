@@ -22,6 +22,7 @@ public class ItemArmor extends Item {
     private static final int[] MAX_DAMAGE_ARRAY = new int[]{11, 16, 15, 13};
     public static final String[] EMPTY_SLOT_NAMES = new String[]{"minecraft:items/empty_armor_slot_helmet", "minecraft:items/empty_armor_slot_chestplate", "minecraft:items/empty_armor_slot_leggings", "minecraft:items/empty_armor_slot_boots"};
     private static final IBehaviorDispenseItem DISPENSER_BEHAVIOR = new BehaviorDefaultDispenseItem() {
+        @Override
         protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
             BlockPos blockpos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
             int i = blockpos.getX();
@@ -65,6 +66,7 @@ public class ItemArmor extends Item {
         BlockDispenser.dispenseBehaviorRegistry.putObject(this, DISPENSER_BEHAVIOR);
     }
 
+    @Override
     public int getColorFromItemStack(ItemStack stack, int renderPass) {
         if (renderPass > 0) {
             return 16777215;
@@ -79,6 +81,7 @@ public class ItemArmor extends Item {
         }
     }
 
+    @Override
     public int getItemEnchantability() {
         return this.material.getEnchantability();
     }
@@ -144,10 +147,12 @@ public class ItemArmor extends Item {
         }
     }
 
+    @Override
     public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
         return this.material.getRepairItem() == repair.getItem() || super.getIsRepairable(toRepair, repair);
     }
 
+    @Override
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
         int i = EntityLiving.getArmorPosition(itemStackIn) - 1;
         ItemStack itemstack = playerIn.getCurrentArmor(i);

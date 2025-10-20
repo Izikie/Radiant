@@ -34,6 +34,7 @@ public class GuiChat extends GuiScreen {
         this.defaultInputFieldText = defaultText;
     }
 
+    @Override
     public void initGui() {
         Keyboard.enableRepeatEvents(true);
         this.sentHistoryCursor = this.mc.ingameGUI.getChatGUI().getSentMessages().size();
@@ -45,15 +46,18 @@ public class GuiChat extends GuiScreen {
         this.inputField.setCanLoseFocus(false);
     }
 
+    @Override
     public void onGuiClosed() {
         Keyboard.enableRepeatEvents(false);
         this.mc.ingameGUI.getChatGUI().resetScroll();
     }
 
+    @Override
     public void updateScreen() {
         this.inputField.updateCursorCounter();
     }
 
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         this.waitingOnAutocomplete = false;
 
@@ -88,6 +92,7 @@ public class GuiChat extends GuiScreen {
         }
     }
 
+    @Override
     public void handleMouseInput() throws IOException {
         super.handleMouseInput();
         int i = Mouse.getEventDWheel();
@@ -109,6 +114,7 @@ public class GuiChat extends GuiScreen {
         }
     }
 
+    @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         if (mouseButton == 0) {
             IChatComponent ichatcomponent = this.mc.ingameGUI.getChatGUI().getChatComponent(Mouse.getX(), Mouse.getY());
@@ -122,6 +128,7 @@ public class GuiChat extends GuiScreen {
         super.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
+    @Override
     protected void setText(String newChatText, boolean shouldOverwrite) {
         if (shouldOverwrite) {
             this.inputField.setText(newChatText);
@@ -203,6 +210,7 @@ public class GuiChat extends GuiScreen {
         }
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         drawRect(2, this.height - 14, this.width - 2, this.height - 2, Integer.MIN_VALUE);
         this.inputField.drawTextBox();
@@ -239,6 +247,7 @@ public class GuiChat extends GuiScreen {
         }
     }
 
+    @Override
     public boolean doesGuiPauseGame() {
         return false;
     }

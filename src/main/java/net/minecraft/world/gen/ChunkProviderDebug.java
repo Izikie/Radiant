@@ -26,6 +26,7 @@ public class ChunkProviderDebug implements IChunkProvider {
         this.world = worldIn;
     }
 
+    @Override
     public Chunk provideChunk(int x, int z) {
         ChunkPrimer chunkprimer = new ChunkPrimer();
 
@@ -74,52 +75,65 @@ public class ChunkProviderDebug implements IChunkProvider {
         return iblockstate;
     }
 
+    @Override
     public boolean chunkExists(int x, int z) {
         return true;
     }
 
+    @Override
     public void populate(IChunkProvider chunkProvider, int x, int z) {
     }
 
+    @Override
     public boolean populateChunk(IChunkProvider chunkProvider, Chunk chunkIn, int x, int z) {
         return false;
     }
 
+    @Override
     public boolean saveChunks(boolean saveAllChunks, IProgressUpdate progressCallback) {
         return true;
     }
 
+    @Override
     public void saveExtraData() {
     }
 
+    @Override
     public boolean unloadQueuedChunks() {
         return false;
     }
 
+    @Override
     public boolean canSave() {
         return true;
     }
 
+    @Override
     public String makeString() {
         return "DebugLevelSource";
     }
 
+    @Override
     public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EntityCategory creatureType, BlockPos pos) {
         BiomeGenBase biomegenbase = this.world.getBiomeGenForCoords(pos);
         return biomegenbase.getSpawnableList(creatureType);
     }
 
+    @Override
     public BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position) {
         return null;
     }
 
+    @Override
     public int getLoadedChunkCount() {
         return 0;
     }
 
+    @Override
     public void recreateStructures(Chunk chunkIn, int x, int z) {
     }
 
+    @Override
     public Chunk provideChunk(BlockPos blockPosIn) {
         return this.provideChunk(blockPosIn.getX() >> 4, blockPosIn.getZ() >> 4);
     }

@@ -24,6 +24,7 @@ public class RecipesBanners {
         private RecipeAddPattern() {
         }
 
+        @Override
         public boolean matches(InventoryCrafting inv, World worldIn) {
             boolean flag = false;
 
@@ -50,6 +51,7 @@ public class RecipesBanners {
             }
         }
 
+        @Override
         public ItemStack getCraftingResult(InventoryCrafting inv) {
             ItemStack itemstack = null;
 
@@ -96,14 +98,17 @@ public class RecipesBanners {
             return itemstack;
         }
 
+        @Override
         public int getRecipeSize() {
             return 10;
         }
 
+        @Override
         public ItemStack getRecipeOutput() {
             return null;
         }
 
+        @Override
         public ItemStack[] getRemainingItems(InventoryCrafting inv) {
             ItemStack[] aitemstack = new ItemStack[inv.getSizeInventory()];
 
@@ -200,6 +205,7 @@ public class RecipesBanners {
         private RecipeDuplicatePattern() {
         }
 
+        @Override
         public boolean matches(InventoryCrafting inv, World worldIn) {
             ItemStack itemstack = null;
             ItemStack itemstack1 = null;
@@ -250,6 +256,7 @@ public class RecipesBanners {
             return itemstack != null && itemstack1 != null;
         }
 
+        @Override
         public ItemStack getCraftingResult(InventoryCrafting inv) {
             for (int i = 0; i < inv.getSizeInventory(); ++i) {
                 ItemStack itemstack = inv.getStackInSlot(i);
@@ -264,14 +271,17 @@ public class RecipesBanners {
             return null;
         }
 
+        @Override
         public int getRecipeSize() {
             return 2;
         }
 
+        @Override
         public ItemStack getRecipeOutput() {
             return null;
         }
 
+        @Override
         public ItemStack[] getRemainingItems(InventoryCrafting inv) {
             ItemStack[] aitemstack = new ItemStack[inv.getSizeInventory()];
 

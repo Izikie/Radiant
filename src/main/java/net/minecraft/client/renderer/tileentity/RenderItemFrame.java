@@ -43,6 +43,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
         this.itemRenderer = itemRendererIn;
     }
 
+    @Override
     public void doRender(EntityItemFrame entity, double x, double y, double z, float entityYaw, float partialTicks) {
         GlStateManager.pushMatrix();
         BlockPos blockpos = entity.getHangingPosition();
@@ -72,6 +73,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
         this.renderName(entity, x + (entity.facingDirection.getFrontOffsetX() * 0.3F), y - 0.25D, z + (entity.facingDirection.getFrontOffsetZ() * 0.3F));
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityItemFrame entity) {
         return null;
     }
@@ -161,6 +163,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
         }
     }
 
+    @Override
     protected void renderName(EntityItemFrame entity, double x, double y, double z) {
         if (Minecraft.isGuiEnabled() && entity.getDisplayedItem() != null && entity.getDisplayedItem().hasDisplayName() && this.renderManager.pointedEntity == entity) {
             float f = 1.6F;

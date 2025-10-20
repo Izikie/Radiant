@@ -22,34 +22,41 @@ public class BlockNewLeaf extends BlockLeaves {
         this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockPlanks.WoodType.ACACIA).withProperty(CHECK_DECAY, Boolean.TRUE).withProperty(DECAYABLE, Boolean.TRUE));
     }
 
+    @Override
     protected void dropApple(World worldIn, BlockPos pos, IBlockState state, int chance) {
         if (state.getValue(VARIANT) == BlockPlanks.WoodType.DARK_OAK && worldIn.rand.nextInt(chance) == 0) {
             spawnAsEntity(worldIn, pos, new ItemStack(Items.APPLE, 1, 0));
         }
     }
 
+    @Override
     public int damageDropped(IBlockState state) {
         return state.getValue(VARIANT).getMetadata();
     }
 
+    @Override
     public int getDamageValue(World worldIn, BlockPos pos) {
         IBlockState iblockstate = worldIn.getBlockState(pos);
         return iblockstate.getBlock().getMetaFromState(iblockstate) & 3;
     }
 
+    @Override
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
         list.add(new ItemStack(itemIn, 1, 0));
         list.add(new ItemStack(itemIn, 1, 1));
     }
 
+    @Override
     protected ItemStack createStackedBlock(IBlockState state) {
         return new ItemStack(Item.getItemFromBlock(this), 1, state.getValue(VARIANT).getMetadata() - 4);
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(VARIANT, this.getWoodType(meta)).withProperty(DECAYABLE, (meta & 4) == 0).withProperty(CHECK_DECAY, (meta & 8) > 0);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         int i = 0;
         i = i | state.getValue(VARIANT).getMetadata() - 4;
@@ -65,14 +72,17 @@ public class BlockNewLeaf extends BlockLeaves {
         return i;
     }
 
+    @Override
     public BlockPlanks.WoodType getWoodType(int meta) {
         return BlockPlanks.WoodType.byMetadata((meta & 3) + 4);
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, VARIANT, CHECK_DECAY, DECAYABLE);
     }
 
+    @Override
     public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te) {
         if (!worldIn.isRemote && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.SHEARS) {
             player.triggerAchievement(StatList.MINE_BLOCK_STAT_ARRAY[Block.getIdFromBlock(this)]);

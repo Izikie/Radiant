@@ -13,10 +13,12 @@ public class RegistrySimple<K, V> implements IRegistry<K, V> {
         return new HashMap<>();
     }
 
+    @Override
     public V getObject(K name) {
         return this.registryObjects.get(name);
     }
 
+    @Override
     public void putObject(K key, V value) {
         Objects.requireNonNull(key);
         Objects.requireNonNull(value);
@@ -36,6 +38,7 @@ public class RegistrySimple<K, V> implements IRegistry<K, V> {
         return this.registryObjects.containsKey(key);
     }
 
+    @Override
     public Iterator<V> iterator() {
         return this.registryObjects.values().iterator();
     }

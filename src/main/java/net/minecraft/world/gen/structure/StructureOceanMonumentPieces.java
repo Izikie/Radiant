@@ -35,6 +35,7 @@ public class StructureOceanMonumentPieces {
             super(1, p_i45597_1_, p_i45597_2_, 2, 1, 1);
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             RoomDefinition structureoceanmonumentpieces$roomdefinition = this.field_175830_k.field_175965_b[Direction.EAST.getIndex()];
             RoomDefinition structureoceanmonumentpieces$roomdefinition1 = this.field_175830_k;
@@ -106,6 +107,7 @@ public class StructureOceanMonumentPieces {
             super(1, p_i45596_1_, p_i45596_2_, 2, 2, 1);
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             RoomDefinition structureoceanmonumentpieces$roomdefinition = this.field_175830_k.field_175965_b[Direction.EAST.getIndex()];
             RoomDefinition structureoceanmonumentpieces$roomdefinition1 = this.field_175830_k;
@@ -222,6 +224,7 @@ public class StructureOceanMonumentPieces {
             super(1, p_i45595_1_, p_i45595_2_, 1, 2, 1);
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             if (this.field_175830_k.field_175967_a / 25 > 0) {
                 this.func_175821_a(worldIn, structureBoundingBoxIn, 0, 0, this.field_175830_k.field_175966_c[Direction.DOWN.getIndex()]);
@@ -307,6 +310,7 @@ public class StructureOceanMonumentPieces {
             super(1, p_i45594_1_, p_i45594_2_, 1, 2, 2);
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             RoomDefinition structureoceanmonumentpieces$roomdefinition = this.field_175830_k.field_175965_b[Direction.NORTH.getIndex()];
             RoomDefinition structureoceanmonumentpieces$roomdefinition1 = this.field_175830_k;
@@ -421,6 +425,7 @@ public class StructureOceanMonumentPieces {
             super(1, p_i45593_1_, p_i45593_2_, 1, 1, 2);
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             RoomDefinition structureoceanmonumentpieces$roomdefinition = this.field_175830_k.field_175965_b[Direction.NORTH.getIndex()];
             RoomDefinition structureoceanmonumentpieces$roomdefinition1 = this.field_175830_k;
@@ -511,6 +516,7 @@ public class StructureOceanMonumentPieces {
             super(1, p_i45592_1_, p_i45592_2_, 1, 1, 1);
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             this.fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 3, 0, 2, 3, 7, field_175826_b, field_175826_b, false);
             this.fillWithBlocks(worldIn, structureBoundingBoxIn, 5, 3, 0, 7, 3, 7, field_175826_b, field_175826_b, false);
@@ -542,10 +548,12 @@ public class StructureOceanMonumentPieces {
         private FitSimpleRoomHelper() {
         }
 
+        @Override
         public boolean func_175969_a(RoomDefinition p_175969_1_) {
             return true;
         }
 
+        @Override
         public Piece func_175968_a(Direction p_175968_1_, RoomDefinition p_175968_2_, Random p_175968_3_) {
             p_175968_2_.field_175963_d = true;
             return new SimpleRoom(p_175968_1_, p_175968_2_, p_175968_3_);
@@ -556,10 +564,12 @@ public class StructureOceanMonumentPieces {
         private FitSimpleRoomTopHelper() {
         }
 
+        @Override
         public boolean func_175969_a(RoomDefinition p_175969_1_) {
             return !p_175969_1_.field_175966_c[Direction.WEST.getIndex()] && !p_175969_1_.field_175966_c[Direction.EAST.getIndex()] && !p_175969_1_.field_175966_c[Direction.NORTH.getIndex()] && !p_175969_1_.field_175966_c[Direction.SOUTH.getIndex()] && !p_175969_1_.field_175966_c[Direction.UP.getIndex()];
         }
 
+        @Override
         public Piece func_175968_a(Direction p_175968_1_, RoomDefinition p_175968_2_, Random p_175968_3_) {
             p_175968_2_.field_175963_d = true;
             return new SimpleTopRoom(p_175968_1_, p_175968_2_, p_175968_3_);
@@ -755,6 +765,7 @@ public class StructureOceanMonumentPieces {
             return list;
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             int i = Math.max(worldIn.getSeaLevel(), 64) - this.boundingBox.minY;
             this.func_181655_a(worldIn, structureBoundingBoxIn, 0, 0, 0, 58, i, 58, false);
@@ -1136,6 +1147,7 @@ public class StructureOceanMonumentPieces {
             super(1, p_i45598_1_, p_i45598_2_, 2, 2, 2);
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             this.func_175819_a(worldIn, structureBoundingBoxIn, 1, 8, 0, 14, 8, 14, field_175828_a);
             int i = 7;
@@ -1220,6 +1232,7 @@ public class StructureOceanMonumentPieces {
             super(p_i45591_1_, p_i45591_2_);
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             this.fillWithBlocks(worldIn, structureBoundingBoxIn, 2, -1, 2, 11, -1, 11, field_175826_b, field_175826_b, false);
             this.fillWithBlocks(worldIn, structureBoundingBoxIn, 0, -1, 0, 1, -1, 11, field_175828_a, field_175828_a, false);
@@ -1330,9 +1343,11 @@ public class StructureOceanMonumentPieces {
             }
         }
 
+        @Override
         protected void writeStructureToNBT(NBTTagCompound tagCompound) {
         }
 
+        @Override
         protected void readStructureFromNBT(NBTTagCompound tagCompound) {
         }
 
@@ -1473,6 +1488,7 @@ public class StructureOceanMonumentPieces {
             this.field_175833_o = p_i45587_3_.nextInt(3);
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             if (this.field_175830_k.field_175967_a / 25 > 0) {
                 this.func_175821_a(worldIn, structureBoundingBoxIn, 0, 0, this.field_175830_k.field_175966_c[Direction.DOWN.getIndex()]);
@@ -1639,6 +1655,7 @@ public class StructureOceanMonumentPieces {
             super(1, p_i45586_1_, p_i45586_2_, 1, 1, 1);
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             if (this.field_175830_k.field_175967_a / 25 > 0) {
                 this.func_175821_a(worldIn, structureBoundingBoxIn, 0, 0, this.field_175830_k.field_175966_c[Direction.DOWN.getIndex()]);
@@ -1693,6 +1710,7 @@ public class StructureOceanMonumentPieces {
             this.field_175834_o = p_i45585_3_ & 1;
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             if (this.field_175834_o == 0) {
                 for (int i = 0; i < 4; ++i) {
@@ -1790,10 +1808,12 @@ public class StructureOceanMonumentPieces {
         private XDoubleRoomFitHelper() {
         }
 
+        @Override
         public boolean func_175969_a(RoomDefinition p_175969_1_) {
             return p_175969_1_.field_175966_c[Direction.EAST.getIndex()] && !p_175969_1_.field_175965_b[Direction.EAST.getIndex()].field_175963_d;
         }
 
+        @Override
         public Piece func_175968_a(Direction p_175968_1_, RoomDefinition p_175968_2_, Random p_175968_3_) {
             p_175968_2_.field_175963_d = true;
             p_175968_2_.field_175965_b[Direction.EAST.getIndex()].field_175963_d = true;
@@ -1805,6 +1825,7 @@ public class StructureOceanMonumentPieces {
         private XYDoubleRoomFitHelper() {
         }
 
+        @Override
         public boolean func_175969_a(RoomDefinition p_175969_1_) {
             if (p_175969_1_.field_175966_c[Direction.EAST.getIndex()] && !p_175969_1_.field_175965_b[Direction.EAST.getIndex()].field_175963_d && p_175969_1_.field_175966_c[Direction.UP.getIndex()] && !p_175969_1_.field_175965_b[Direction.UP.getIndex()].field_175963_d) {
                 RoomDefinition structureoceanmonumentpieces$roomdefinition = p_175969_1_.field_175965_b[Direction.EAST.getIndex()];
@@ -1814,6 +1835,7 @@ public class StructureOceanMonumentPieces {
             }
         }
 
+        @Override
         public Piece func_175968_a(Direction p_175968_1_, RoomDefinition p_175968_2_, Random p_175968_3_) {
             p_175968_2_.field_175963_d = true;
             p_175968_2_.field_175965_b[Direction.EAST.getIndex()].field_175963_d = true;
@@ -1827,10 +1849,12 @@ public class StructureOceanMonumentPieces {
         private YDoubleRoomFitHelper() {
         }
 
+        @Override
         public boolean func_175969_a(RoomDefinition p_175969_1_) {
             return p_175969_1_.field_175966_c[Direction.UP.getIndex()] && !p_175969_1_.field_175965_b[Direction.UP.getIndex()].field_175963_d;
         }
 
+        @Override
         public Piece func_175968_a(Direction p_175968_1_, RoomDefinition p_175968_2_, Random p_175968_3_) {
             p_175968_2_.field_175963_d = true;
             p_175968_2_.field_175965_b[Direction.UP.getIndex()].field_175963_d = true;
@@ -1842,6 +1866,7 @@ public class StructureOceanMonumentPieces {
         private YZDoubleRoomFitHelper() {
         }
 
+        @Override
         public boolean func_175969_a(RoomDefinition p_175969_1_) {
             if (p_175969_1_.field_175966_c[Direction.NORTH.getIndex()] && !p_175969_1_.field_175965_b[Direction.NORTH.getIndex()].field_175963_d && p_175969_1_.field_175966_c[Direction.UP.getIndex()] && !p_175969_1_.field_175965_b[Direction.UP.getIndex()].field_175963_d) {
                 RoomDefinition structureoceanmonumentpieces$roomdefinition = p_175969_1_.field_175965_b[Direction.NORTH.getIndex()];
@@ -1851,6 +1876,7 @@ public class StructureOceanMonumentPieces {
             }
         }
 
+        @Override
         public Piece func_175968_a(Direction p_175968_1_, RoomDefinition p_175968_2_, Random p_175968_3_) {
             p_175968_2_.field_175963_d = true;
             p_175968_2_.field_175965_b[Direction.NORTH.getIndex()].field_175963_d = true;
@@ -1864,10 +1890,12 @@ public class StructureOceanMonumentPieces {
         private ZDoubleRoomFitHelper() {
         }
 
+        @Override
         public boolean func_175969_a(RoomDefinition p_175969_1_) {
             return p_175969_1_.field_175966_c[Direction.NORTH.getIndex()] && !p_175969_1_.field_175965_b[Direction.NORTH.getIndex()].field_175963_d;
         }
 
+        @Override
         public Piece func_175968_a(Direction p_175968_1_, RoomDefinition p_175968_2_, Random p_175968_3_) {
             RoomDefinition structureoceanmonumentpieces$roomdefinition = p_175968_2_;
 

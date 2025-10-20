@@ -16,14 +16,17 @@ public abstract class BaseAttribute implements IAttribute {
         }
     }
 
+    @Override
     public String getAttributeUnlocalizedName() {
         return this.unlocalizedName;
     }
 
+    @Override
     public double getDefaultValue() {
         return this.defaultValue;
     }
 
+    @Override
     public boolean getShouldWatch() {
         return this.shouldWatch;
     }
@@ -33,6 +36,7 @@ public abstract class BaseAttribute implements IAttribute {
         return this;
     }
 
+    @Override
     public IAttribute func_180372_d() {
         return this.field_180373_a;
     }

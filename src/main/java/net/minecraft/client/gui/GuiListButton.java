@@ -26,6 +26,7 @@ public class GuiListButton extends GuiButton {
         this.guiResponder.func_175321_a(this.id, p_175212_1_);
     }
 
+    @Override
     public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
         if (super.mousePressed(mc, mouseX, mouseY)) {
             this.field_175216_o = !this.field_175216_o;

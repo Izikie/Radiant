@@ -15,6 +15,7 @@ import java.util.Set;
 public class NBTTagCompound extends NBTBase {
     private final Map<String, NBTBase> tagMap = new HashMap<>();
 
+    @Override
     void write(DataOutput output) throws IOException {
         for (String s : this.tagMap.keySet()) {
             NBTBase nbtbase = this.tagMap.get(s);
@@ -24,6 +25,7 @@ public class NBTTagCompound extends NBTBase {
         output.writeByte(0);
     }
 
+    @Override
     void read(DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException {
         sizeTracker.read(384L);
 
@@ -49,6 +51,7 @@ public class NBTTagCompound extends NBTBase {
         return this.tagMap.keySet();
     }
 
+    @Override
     public byte getId() {
         return (byte) 10;
     }
@@ -240,6 +243,7 @@ public class NBTTagCompound extends NBTBase {
         return stringbuilder.append('}').toString();
     }
 
+    @Override
     public boolean hasNoTags() {
         return this.tagMap.isEmpty();
     }
@@ -253,6 +257,7 @@ public class NBTTagCompound extends NBTBase {
         return report;
     }
 
+    @Override
     public NBTBase copy() {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
 

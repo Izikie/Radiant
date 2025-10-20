@@ -94,6 +94,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
         this.missingImage.setIndexInMap(this.counterIndexInMap.nextValue());
     }
 
+    @Override
     public void loadTexture(IResourceManager resourceManager) throws IOException {
         if (this.iconCreator != null) {
             this.loadSprites(resourceManager, this.iconCreator);
@@ -519,6 +520,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
         }
     }
 
+    @Override
     public void tick() {
         this.updateAnimations();
     }

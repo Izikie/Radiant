@@ -36,19 +36,23 @@ public class BlockAnvil extends BlockFalling {
         this.setCreativeTab(CreativeTabs.TAB_DECORATIONS);
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         Direction enumfacing = placer.getHorizontalFacing().rotateY();
         return super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(FACING, enumfacing).withProperty(DAMAGE, meta >> 2);
     }
 
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote) {
             playerIn.displayGui(new Anvil(worldIn, pos));
@@ -57,10 +61,12 @@ public class BlockAnvil extends BlockFalling {
         return true;
     }
 
+    @Override
     public int damageDropped(IBlockState state) {
         return state.getValue(DAMAGE);
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         Direction enumfacing = worldIn.getBlockState(pos).getValue(FACING);
 
@@ -71,32 +77,39 @@ public class BlockAnvil extends BlockFalling {
         }
     }
 
+    @Override
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
         list.add(new ItemStack(itemIn, 1, 0));
         list.add(new ItemStack(itemIn, 1, 1));
         list.add(new ItemStack(itemIn, 1, 2));
     }
 
+    @Override
     protected void onStartFalling(EntityFallingBlock fallingEntity) {
         fallingEntity.setHurtEntities(true);
     }
 
+    @Override
     public void onEndFalling(World worldIn, BlockPos pos) {
         worldIn.playAuxSFX(1022, pos, 0);
     }
 
+    @Override
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, Direction side) {
         return true;
     }
 
+    @Override
     public IBlockState getStateForEntityRender(IBlockState state) {
         return this.getDefaultState().withProperty(FACING, Direction.SOUTH);
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(FACING, Direction.getHorizontal(meta & 3)).withProperty(DAMAGE, (meta & 15) >> 2);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         int i = 0;
         i = i | state.getValue(FACING).getHorizontalIndex();
@@ -104,6 +117,7 @@ public class BlockAnvil extends BlockFalling {
         return i;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, FACING, DAMAGE);
     }
@@ -117,22 +131,27 @@ public class BlockAnvil extends BlockFalling {
             this.position = pos;
         }
 
+        @Override
         public String getName() {
             return "anvil";
         }
 
+        @Override
         public boolean hasCustomName() {
             return false;
         }
 
+        @Override
         public IChatComponent getDisplayName() {
             return new ChatComponentTranslation(Blocks.ANVIL.getUnlocalizedName() + ".name");
         }
 
+        @Override
         public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
             return new ContainerRepair(playerInventory, this.world, this.position, playerIn);
         }
 
+        @Override
         public String getGuiID() {
             return "minecraft:anvil";
         }

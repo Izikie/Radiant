@@ -27,36 +27,44 @@ public class EntityCow extends EntityAnimal {
         this.tasks.addTask(7, new EntityAILookIdle(this));
     }
 
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
     }
 
+    @Override
     protected String getLivingSound() {
         return "mob.cow.say";
     }
 
+    @Override
     protected String getHurtSound() {
         return "mob.cow.hurt";
     }
 
+    @Override
     protected String getDeathSound() {
         return "mob.cow.hurt";
     }
 
+    @Override
     protected void playStepSound(BlockPos pos, Block blockIn) {
         this.playSound("mob.cow.step", 0.15F, 1.0F);
     }
 
+    @Override
     protected float getSoundVolume() {
         return 0.4F;
     }
 
+    @Override
     protected Item getDropItem() {
         return Items.LEATHER;
     }
 
+    @Override
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
         int i = this.rand.nextInt(3) + this.rand.nextInt(1 + lootingModifier);
 
@@ -75,6 +83,7 @@ public class EntityCow extends EntityAnimal {
         }
     }
 
+    @Override
     public boolean interact(EntityPlayer player) {
         ItemStack itemstack = player.inventory.getCurrentItem();
 
@@ -91,10 +100,12 @@ public class EntityCow extends EntityAnimal {
         }
     }
 
+    @Override
     public EntityCow createChild(EntityAgeable ageable) {
         return new EntityCow(this.worldObj);
     }
 
+    @Override
     public float getEyeHeight() {
         return this.height;
     }

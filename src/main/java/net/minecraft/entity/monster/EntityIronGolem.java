@@ -43,11 +43,13 @@ public class EntityIronGolem extends EntityGolem {
         this.targetTasks.addTask(3, new AINearestAttackableTargetNonCreeper<>(this, EntityLiving.class, 10, false, true, IMob.VISIBLE_MOB_SELECTOR));
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(16, (byte) 0);
     }
 
+    @Override
     protected void updateAITasks() {
         if (--this.homeCheckTimer <= 0) {
             this.homeCheckTimer = 70 + this.rand.nextInt(50);
@@ -64,16 +66,19 @@ public class EntityIronGolem extends EntityGolem {
         super.updateAITasks();
     }
 
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
     }
 
+    @Override
     protected int decreaseAirSupply(int p_70682_1_) {
         return p_70682_1_;
     }
 
+    @Override
     protected void collideWithEntity(Entity entityIn) {
         if (entityIn instanceof IMob && !(entityIn instanceof EntityCreeper) && this.getRNG().nextInt(20) == 0) {
             this.setAttackTarget((EntityLivingBase) entityIn);
@@ -82,6 +87,7 @@ public class EntityIronGolem extends EntityGolem {
         super.collideWithEntity(entityIn);
     }
 
+    @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
 
@@ -106,20 +112,24 @@ public class EntityIronGolem extends EntityGolem {
         }
     }
 
+    @Override
     public boolean canAttackClass(Class<? extends EntityLivingBase> cls) {
         return (!this.isPlayerCreated() || !EntityPlayer.class.isAssignableFrom(cls)) && (cls != EntityCreeper.class && super.canAttackClass(cls));
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         tagCompound.setBoolean("PlayerCreated", this.isPlayerCreated());
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
         this.setPlayerCreated(tagCompund.getBoolean("PlayerCreated"));
     }
 
+    @Override
     public boolean attackEntityAsMob(Entity entityIn) {
         this.attackTimer = 10;
         this.worldObj.setEntityState(this, (byte) 4);
@@ -134,6 +144,7 @@ public class EntityIronGolem extends EntityGolem {
         return flag;
     }
 
+    @Override
     public void handleStatusUpdate(byte id) {
         if (id == 4) {
             this.attackTimer = 10;
@@ -158,18 +169,22 @@ public class EntityIronGolem extends EntityGolem {
         this.worldObj.setEntityState(this, (byte) 11);
     }
 
+    @Override
     protected String getHurtSound() {
         return "mob.irongolem.hit";
     }
 
+    @Override
     protected String getDeathSound() {
         return "mob.irongolem.death";
     }
 
+    @Override
     protected void playStepSound(BlockPos pos, Block blockIn) {
         this.playSound("mob.irongolem.walk", 1.0F, 1.0F);
     }
 
+    @Override
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
         int i = this.rand.nextInt(3);
 
@@ -202,6 +217,7 @@ public class EntityIronGolem extends EntityGolem {
         }
     }
 
+    @Override
     public void onDeath(DamageSource cause) {
         if (!this.isPlayerCreated() && this.attackingPlayer != null && this.villageObj != null) {
             this.villageObj.setReputationForPlayer(this.attackingPlayer.getName(), -5);

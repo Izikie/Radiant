@@ -8,27 +8,33 @@ import net.optifine.util.TileEntityUtils;
 public class RandomTileEntity implements IRandomEntity {
 	private TileEntity tileEntity;
 
-	public int getId() {
+	@Override
+    public int getId() {
 		return Config.getRandom(this.tileEntity.getPos(), this.tileEntity.getBlockMetadata());
 	}
 
-	public BlockPos getSpawnPosition() {
+	@Override
+    public BlockPos getSpawnPosition() {
 		return this.tileEntity.getPos();
 	}
 
-	public String getName() {
+	@Override
+    public String getName() {
 		return TileEntityUtils.getTileEntityName(this.tileEntity);
 	}
 
-	public BiomeGenBase getSpawnBiome() {
+	@Override
+    public BiomeGenBase getSpawnBiome() {
 		return this.tileEntity.getWorld().getBiomeGenForCoords(this.tileEntity.getPos());
 	}
 
-	public int getHealth() {
+	@Override
+    public int getHealth() {
 		return -1;
 	}
 
-	public int getMaxHealth() {
+	@Override
+    public int getMaxHealth() {
 		return -1;
 	}
 

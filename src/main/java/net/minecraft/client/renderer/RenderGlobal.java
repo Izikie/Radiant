@@ -175,6 +175,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         this.generateSky2();
     }
 
+    @Override
     public void onResourceManagerReload(IResourceManager resourceManager) {
         this.updateDestroyBlockIcons();
     }
@@ -2026,6 +2027,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         this.viewFrustum.markBlocksForUpdate(x1, y1, z1, x2, y2, z2);
     }
 
+    @Override
     public void markBlockForUpdate(BlockPos pos) {
         int i = pos.getX();
         int j = pos.getY();
@@ -2033,6 +2035,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         this.markBlocksForUpdate(i - 1, j - 1, k - 1, i + 1, j + 1, k + 1);
     }
 
+    @Override
     public void notifyLightSet(BlockPos pos) {
         int i = pos.getX();
         int j = pos.getY();
@@ -2040,10 +2043,12 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         this.markBlocksForUpdate(i - 1, j - 1, k - 1, i + 1, j + 1, k + 1);
     }
 
+    @Override
     public void markBlockRangeForRenderUpdate(int x1, int y1, int z1, int x2, int y2, int z2) {
         this.markBlocksForUpdate(x1 - 1, y1 - 1, z1 - 1, x2 + 1, y2 + 1, z2 + 1);
     }
 
+    @Override
     public void playRecord(String recordName, BlockPos blockPosIn) {
         ISound isound = this.mapSoundPositions.get(blockPosIn);
 
@@ -2065,12 +2070,15 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         }
     }
 
+    @Override
     public void playSound(String soundName, double x, double y, double z, float volume, float pitch) {
     }
 
+    @Override
     public void playSoundToNearExcept(EntityPlayer except, String soundName, double x, double y, double z, float volume, float pitch) {
     }
 
+    @Override
     public void spawnParticle(int particleID, boolean ignoreRange, final double xCoord, final double yCoord, final double zCoord, double xOffset, double yOffset, double zOffset, int... parameters) {
         try {
             this.spawnEntityFX(particleID, ignoreRange, xCoord, yCoord, zCoord, xOffset, yOffset, zOffset, parameters);
@@ -2190,6 +2198,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         }
     }
 
+    @Override
     public void onEntityAdded(Entity entityIn) {
         RandomEntities.entityLoaded(entityIn, this.theWorld);
 
@@ -2198,6 +2207,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         }
     }
 
+    @Override
     public void onEntityRemoved(Entity entityIn) {
         RandomEntities.entityUnloaded(entityIn, this.theWorld);
 
@@ -2209,6 +2219,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     public void deleteAllDisplayLists() {
     }
 
+    @Override
     public void broadcastSound(int soundID, BlockPos pos, int data) {
         switch (soundID) {
             case 1013:
@@ -2239,6 +2250,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         }
     }
 
+    @Override
     public void playAuxSFX(EntityPlayer player, int sfxType, BlockPos blockPosIn, int data) {
         Random random = this.theWorld.rand;
 
@@ -2427,6 +2439,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         }
     }
 
+    @Override
     public void sendBlockBreakProgress(int breakerId, BlockPos pos, int progress) {
         if (progress >= 0 && progress < 10) {
             DestroyBlockProgress destroyblockprogress = this.damagedBlocks.get(breakerId);

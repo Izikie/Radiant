@@ -22,6 +22,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
         super(worldIn);
     }
 
+    @Override
     protected void updateAITasks() {
         if (this.getGrowingAge() != 0) {
             this.inLove = 0;
@@ -30,6 +31,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
         super.updateAITasks();
     }
 
+    @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
 
@@ -49,6 +51,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
         }
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (this.isEntityInvulnerable(source)) {
             return false;
@@ -58,20 +61,24 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
         }
     }
 
+    @Override
     public float getBlockPathWeight(BlockPos pos) {
         return this.worldObj.getBlockState(pos.down()).getBlock() == Blocks.GRASS ? 10.0F : this.worldObj.getLightBrightness(pos) - 0.5F;
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         tagCompound.setInteger("InLove", this.inLove);
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
         this.inLove = tagCompund.getInteger("InLove");
     }
 
+    @Override
     public boolean getCanSpawnHere() {
         int i = MathHelper.floor(this.posX);
         int j = MathHelper.floor(this.getEntityBoundingBox().minY);
@@ -80,14 +87,17 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
         return this.worldObj.getBlockState(blockpos.down()).getBlock() == this.spawnableBlock && this.worldObj.getLight(blockpos) > 8 && super.getCanSpawnHere();
     }
 
+    @Override
     public int getTalkInterval() {
         return 120;
     }
 
+    @Override
     protected boolean canDespawn() {
         return false;
     }
 
+    @Override
     protected int getExperiencePoints(EntityPlayer player) {
         return 1 + this.worldObj.rand.nextInt(3);
     }
@@ -96,6 +106,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
         return stack != null && stack.getItem() == Items.WHEAT;
     }
 
+    @Override
     public boolean interact(EntityPlayer player) {
         ItemStack itemstack = player.inventory.getCurrentItem();
 
@@ -148,6 +159,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
         return otherAnimal != this && (otherAnimal.getClass() == this.getClass() && this.isInLove() && otherAnimal.isInLove());
     }
 
+    @Override
     public void handleStatusUpdate(byte id) {
         if (id == 18) {
             for (int i = 0; i < 7; ++i) {

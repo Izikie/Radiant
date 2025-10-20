@@ -10,6 +10,7 @@ public class GenLayerShore extends GenLayer {
         this.parent = p_i2130_3_;
     }
 
+    @Override
     public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
         int[] aint = this.parent.getInts(areaX - 1, areaY - 1, areaWidth + 2, areaHeight + 2);
         int[] aint1 = IntCache.getIntCache(areaWidth * areaHeight);

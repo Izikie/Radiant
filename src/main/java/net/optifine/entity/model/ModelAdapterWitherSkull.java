@@ -14,11 +14,13 @@ public class ModelAdapterWitherSkull extends ModelAdapter {
 		super(EntityWitherSkull.class, "wither_skull", 0.0F);
 	}
 
-	public ModelBase makeModel() {
+	@Override
+    public ModelBase makeModel() {
 		return new ModelSkeletonHead();
 	}
 
-	public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
+	@Override
+    public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
 		if (model instanceof ModelSkeletonHead modelskeletonhead) {
 			return modelPart.equals("head") ? modelskeletonhead.skeletonHead : null;
 		} else {
@@ -26,11 +28,13 @@ public class ModelAdapterWitherSkull extends ModelAdapter {
 		}
 	}
 
-	public String[] getModelRendererNames() {
+	@Override
+    public String[] getModelRendererNames() {
 		return new String[]{"head"};
 	}
 
-	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+	@Override
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
 		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		RenderWitherSkull renderwitherskull = new RenderWitherSkull(rendermanager);
 

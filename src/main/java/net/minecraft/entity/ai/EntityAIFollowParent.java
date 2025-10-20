@@ -15,6 +15,7 @@ public class EntityAIFollowParent extends EntityAIBase {
         this.moveSpeed = speed;
     }
 
+    @Override
     public boolean shouldExecute() {
         if (this.childAnimal.getGrowingAge() >= 0) {
             return false;
@@ -45,6 +46,7 @@ public class EntityAIFollowParent extends EntityAIBase {
         }
     }
 
+    @Override
     public boolean continueExecuting() {
         if (this.childAnimal.getGrowingAge() >= 0) {
             return false;
@@ -56,14 +58,17 @@ public class EntityAIFollowParent extends EntityAIBase {
         }
     }
 
+    @Override
     public void startExecuting() {
         this.delayCounter = 0;
     }
 
+    @Override
     public void resetTask() {
         this.parentAnimal = null;
     }
 
+    @Override
     public void updateTask() {
         if (--this.delayCounter <= 0) {
             this.delayCounter = 10;

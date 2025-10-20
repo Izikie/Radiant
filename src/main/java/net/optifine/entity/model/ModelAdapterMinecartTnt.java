@@ -12,7 +12,8 @@ public class ModelAdapterMinecartTnt extends ModelAdapterMinecart {
 		super(EntityMinecartTNT.class, "tnt_minecart", 0.5F);
 	}
 
-	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+	@Override
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
 		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		RenderTntMinecart rendertntminecart = new RenderTntMinecart(rendermanager);
 

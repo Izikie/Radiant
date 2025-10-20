@@ -17,6 +17,7 @@ public class EntityAIVillagerInteract extends EntityAIWatchClosest2 {
         this.villager = villagerIn;
     }
 
+    @Override
     public void startExecuting() {
         super.startExecuting();
 
@@ -27,6 +28,7 @@ public class EntityAIVillagerInteract extends EntityAIWatchClosest2 {
         }
     }
 
+    @Override
     public void updateTask() {
         super.updateTask();
 

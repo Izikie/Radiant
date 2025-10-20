@@ -21,6 +21,7 @@ public class GuiVideoSettings extends GuiScreenOF {
         this.guiGameSettings = gameSettingsIn;
     }
 
+    @Override
     public void initGui() {
         this.screenTitle = I18n.format("options.videoTitle");
         this.buttonList.clear();
@@ -59,10 +60,12 @@ public class GuiVideoSettings extends GuiScreenOF {
         this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168 + 11, I18n.format("gui.done")));
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         this.actionPerformed(button, 1);
     }
 
+    @Override
     protected void actionPerformedRightClick(GuiButton p_actionPerformedRightClick_1_) {
         if (p_actionPerformedRightClick_1_.id == GameSettings.Options.GUI_SCALE.ordinal()) {
             this.actionPerformed(p_actionPerformedRightClick_1_, -1);
@@ -142,6 +145,7 @@ public class GuiVideoSettings extends GuiScreenOF {
         }
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRendererObj, this.screenTitle, this.width / 2, 15, 16777215);

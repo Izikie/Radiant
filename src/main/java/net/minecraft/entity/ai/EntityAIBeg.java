@@ -20,25 +20,30 @@ public class EntityAIBeg extends EntityAIBase {
         this.setMutexBits(2);
     }
 
+    @Override
     public boolean shouldExecute() {
         this.thePlayer = this.worldObject.getClosestPlayerToEntity(this.theWolf, this.minPlayerDistance);
         return this.thePlayer != null && this.hasPlayerGotBoneInHand(this.thePlayer);
     }
 
+    @Override
     public boolean continueExecuting() {
         return this.thePlayer.isEntityAlive() && (!(this.theWolf.getDistanceSqToEntity(this.thePlayer) > (this.minPlayerDistance * this.minPlayerDistance)) && this.timeoutCounter > 0 && this.hasPlayerGotBoneInHand(this.thePlayer));
     }
 
+    @Override
     public void startExecuting() {
         this.theWolf.setBegging(true);
         this.timeoutCounter = 40 + this.theWolf.getRNG().nextInt(40);
     }
 
+    @Override
     public void resetTask() {
         this.theWolf.setBegging(false);
         this.thePlayer = null;
     }
 
+    @Override
     public void updateTask() {
         this.theWolf.getLookHelper().setLookPosition(this.thePlayer.posX, this.thePlayer.posY + this.thePlayer.getEyeHeight(), this.thePlayer.posZ, 10.0F, this.theWolf.getVerticalFaceSpeed());
         --this.timeoutCounter;

@@ -77,6 +77,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         this.initHorseChest();
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(16, 0);
@@ -104,6 +105,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         return this.dataWatcher.getWatchableObjectInt(20);
     }
 
+    @Override
     public String getName() {
         if (this.hasCustomName()) {
             return this.getCustomNameTag();
@@ -158,6 +160,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         return 0.5F;
     }
 
+    @Override
     public void setScaleForAge(boolean p_98054_1_) {
         if (p_98054_1_) {
             this.setScale(this.getHorseSize());
@@ -178,10 +181,12 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         this.horseJumping = jumping;
     }
 
+    @Override
     public boolean allowLeashing() {
         return !this.isUndead() && super.allowLeashing();
     }
 
+    @Override
     protected void func_142017_o(float p_142017_1_) {
         if (p_142017_1_ > 6.0F && this.isEatingHaystack()) {
             this.setEatingHaystack(false);
@@ -256,15 +261,18 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         return i;
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         Entity entity = source.getEntity();
         return (this.riddenByEntity == null || !this.riddenByEntity.equals(entity)) && super.attackEntityFrom(source, amount);
     }
 
+    @Override
     public int getTotalArmorValue() {
         return ARMOR_VALUES[this.getHorseArmorIndexSynced()];
     }
 
+    @Override
     public boolean canBePushed() {
         return this.riddenByEntity == null;
     }
@@ -291,6 +299,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         }
     }
 
+    @Override
     public void fall(float distance, float damageMultiplier) {
         if (distance > 1.0F) {
             this.playSound("mob.horse.land", 0.4F, 1.0F);
@@ -351,6 +360,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         }
     }
 
+    @Override
     public void onInventoryChanged(InventoryBasic p_76316_1_) {
         int i = this.getHorseArmorIndexSynced();
         boolean flag = this.isHorseSaddled();
@@ -369,6 +379,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         }
     }
 
+    @Override
     public boolean getCanSpawnHere() {
         this.prepareChunkForSpawn();
         return super.getCanSpawnHere();
@@ -394,18 +405,21 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         return this.getEntityAttribute(HORSE_JUMP_STRENGTH).getAttributeValue();
     }
 
+    @Override
     protected String getDeathSound() {
         this.openHorseMouth();
         int i = this.getHorseType();
         return i == 3 ? "mob.horse.zombie.death" : (i == 4 ? "mob.horse.skeleton.death" : (i != 1 && i != 2 ? "mob.horse.death" : "mob.horse.donkey.death"));
     }
 
+    @Override
     protected Item getDropItem() {
         boolean flag = this.rand.nextInt(4) == 0;
         int i = this.getHorseType();
         return i == 4 ? Items.BONE : (i == 3 ? (flag ? null : Items.ROTTEN_FLESH) : Items.LEATHER);
     }
 
+    @Override
     protected String getHurtSound() {
         this.openHorseMouth();
 
@@ -421,6 +435,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         return this.getHorseWatchableBoolean(4);
     }
 
+    @Override
     protected String getLivingSound() {
         this.openHorseMouth();
 
@@ -439,6 +454,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         return i != 3 && i != 4 ? (i != 1 && i != 2 ? "mob.horse.angry" : "mob.horse.donkey.angry") : null;
     }
 
+    @Override
     protected void playStepSound(BlockPos pos, Block blockIn) {
         Block.SoundType block$soundtype = blockIn.stepSound;
 
@@ -469,6 +485,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         }
     }
 
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getAttributeMap().registerAttribute(HORSE_JUMP_STRENGTH);
@@ -476,6 +493,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.22499999403953552D);
     }
 
+    @Override
     public int getMaxSpawnedInChunk() {
         return 6;
     }
@@ -484,10 +502,12 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         return 100;
     }
 
+    @Override
     protected float getSoundVolume() {
         return 0.8F;
     }
 
+    @Override
     public int getTalkInterval() {
         return 400;
     }
@@ -570,6 +590,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         }
     }
 
+    @Override
     public boolean interact(EntityPlayer player) {
         ItemStack itemstack = player.inventory.getCurrentItem();
 
@@ -731,6 +752,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         return i == 2 || i == 1;
     }
 
+    @Override
     protected boolean isMovementBlocked() {
         return this.riddenByEntity != null && this.isHorseSaddled() || this.isEatingHaystack() || this.isRearing();
     }
@@ -744,6 +766,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         return this.isUndead() || this.getHorseType() == 2;
     }
 
+    @Override
     public boolean isBreedingItem(ItemStack stack) {
         return false;
     }
@@ -752,6 +775,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         this.field_110278_bp = 1;
     }
 
+    @Override
     public void onDeath(DamageSource cause) {
         super.onDeath(cause);
 
@@ -760,6 +784,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         }
     }
 
+    @Override
     public void onLivingUpdate() {
         if (this.rand.nextInt(200) == 0) {
             this.func_110210_cH();
@@ -791,6 +816,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         }
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
 
@@ -883,6 +909,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         return this.riddenByEntity == null && this.ridingEntity == null && this.isTame() && this.isAdultHorse() && !this.isSterile() && this.getHealth() >= this.getMaxHealth() && this.isInLove();
     }
 
+    @Override
     public void setEating(boolean eating) {
         this.setHorseWatchableBoolean(32, eating);
     }
@@ -938,6 +965,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         return true;
     }
 
+    @Override
     public void moveEntityWithHeading(float strafe, float forward) {
         if (this.riddenByEntity != null && this.riddenByEntity instanceof EntityLivingBase entityLivingBase && this.isHorseSaddled()) {
             this.prevRotationYaw = this.rotationYaw = this.riddenByEntity.rotationYaw;
@@ -1009,6 +1037,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         }
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         tagCompound.setBoolean("EatingHaystack", this.isEatingHaystack());
@@ -1047,6 +1076,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         }
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
         this.setEatingHaystack(tagCompund.getBoolean("EatingHaystack"));
@@ -1111,6 +1141,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         this.updateHorseSlots();
     }
 
+    @Override
     public boolean canMateWith(EntityAnimal otherAnimal) {
         if (otherAnimal == this) {
             return false;
@@ -1129,6 +1160,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         }
     }
 
+    @Override
     public EntityAgeable createChild(EntityAgeable ageable) {
         EntityHorse entityhorse = (EntityHorse) ageable;
         EntityHorse entityhorse1 = new EntityHorse(this.worldObj);
@@ -1177,6 +1209,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         return entityhorse1;
     }
 
+    @Override
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
         livingdata = super.onInitialSpawn(difficulty, livingdata);
         int i;
@@ -1268,6 +1301,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         }
     }
 
+    @Override
     public void handleStatusUpdate(byte id) {
         if (id == 7) {
             this.spawnHorseParticles(true);
@@ -1278,6 +1312,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         }
     }
 
+    @Override
     public void updateRiderPosition() {
         super.updateRiderPosition();
 
@@ -1310,14 +1345,17 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         return p_146085_0_ == Items.IRON_HORSE_ARMOR || p_146085_0_ == Items.GOLDEN_HORSE_ARMOR || p_146085_0_ == Items.DIAMOND_HORSE_ARMOR;
     }
 
+    @Override
     public boolean isOnLadder() {
         return false;
     }
 
+    @Override
     public float getEyeHeight() {
         return this.height;
     }
 
+    @Override
     public boolean replaceItemInInventory(int inventorySlot, ItemStack itemStackIn) {
         if (inventorySlot == 499 && this.canCarryChest()) {
             if (itemStackIn == null && this.isChested()) {

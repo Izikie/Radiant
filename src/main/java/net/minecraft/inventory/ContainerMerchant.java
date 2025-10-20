@@ -34,14 +34,17 @@ public class ContainerMerchant extends Container {
         return this.merchantInventory;
     }
 
+    @Override
     public void onCraftGuiOpened(ICrafting listener) {
         super.onCraftGuiOpened(listener);
     }
 
+    @Override
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
     }
 
+    @Override
     public void onCraftMatrixChanged(IInventory inventoryIn) {
         this.merchantInventory.resetRecipeAndSlots();
         super.onCraftMatrixChanged(inventoryIn);
@@ -51,13 +54,16 @@ public class ContainerMerchant extends Container {
         this.merchantInventory.setCurrentRecipeIndex(currentRecipeIndex);
     }
 
+    @Override
     public void updateProgressBar(int id, int data) {
     }
 
+    @Override
     public boolean canInteractWith(EntityPlayer playerIn) {
         return this.theMerchant.getCustomer() == playerIn;
     }
 
+    @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
         ItemStack itemstack = null;
         Slot slot = this.inventorySlots.get(index);
@@ -100,6 +106,7 @@ public class ContainerMerchant extends Container {
         return itemstack;
     }
 
+    @Override
     public void onContainerClosed(EntityPlayer playerIn) {
         super.onContainerClosed(playerIn);
         this.theMerchant.setCustomer(null);

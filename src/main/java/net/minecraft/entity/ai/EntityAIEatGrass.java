@@ -23,6 +23,7 @@ public class EntityAIEatGrass extends EntityAIBase {
         this.setMutexBits(7);
     }
 
+    @Override
     public boolean shouldExecute() {
         if (this.grassEaterEntity.getRNG().nextInt(this.grassEaterEntity.isChild() ? 50 : 1000) != 0) {
             return false;
@@ -32,16 +33,19 @@ public class EntityAIEatGrass extends EntityAIBase {
         }
     }
 
+    @Override
     public void startExecuting() {
         this.eatingGrassTimer = 40;
         this.entityWorld.setEntityState(this.grassEaterEntity, (byte) 10);
         this.grassEaterEntity.getNavigator().clearPathEntity();
     }
 
+    @Override
     public void resetTask() {
         this.eatingGrassTimer = 0;
     }
 
+    @Override
     public boolean continueExecuting() {
         return this.eatingGrassTimer > 0;
     }
@@ -50,6 +54,7 @@ public class EntityAIEatGrass extends EntityAIBase {
         return this.eatingGrassTimer;
     }
 
+    @Override
     public void updateTask() {
         this.eatingGrassTimer = Math.max(0, this.eatingGrassTimer - 1);
 

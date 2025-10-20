@@ -10,6 +10,7 @@ import org.apache.commons.lang3.Validate;
 import java.lang.reflect.Type;
 
 public class FontMetadataSectionSerializer extends BaseMetadataSectionSerializer<FontMetadataSection> {
+    @Override
     public FontMetadataSection deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
         JsonObject jsonobject = jsonElement.getAsJsonObject();
         float[] afloat = new float[256];
@@ -65,6 +66,7 @@ public class FontMetadataSectionSerializer extends BaseMetadataSectionSerializer
         return new FontMetadataSection(afloat, afloat2, afloat1);
     }
 
+    @Override
     public String getSectionName() {
         return "font";
     }

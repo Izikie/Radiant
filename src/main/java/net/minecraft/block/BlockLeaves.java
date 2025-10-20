@@ -33,18 +33,22 @@ public abstract class BlockLeaves extends BlockLeavesBase {
         this.setStepSound(soundTypeGrass);
     }
 
+    @Override
     public int getBlockColor() {
         return ColorizerFoliage.getFoliageColor(0.5D, 1.0D);
     }
 
+    @Override
     public int getRenderColor(IBlockState state) {
         return ColorizerFoliage.getFoliageColorBasic();
     }
 
+    @Override
     public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass) {
         return BiomeColorHelper.getFoliageColorAtPos(worldIn, pos);
     }
 
+    @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         int i = 1;
         int j = i + 1;
@@ -68,6 +72,7 @@ public abstract class BlockLeaves extends BlockLeavesBase {
         }
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (!worldIn.isRemote) {
             if (state.getValue(CHECK_DECAY) && state.getValue(DECAYABLE)) {
@@ -151,6 +156,7 @@ public abstract class BlockLeaves extends BlockLeavesBase {
         }
     }
 
+    @Override
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (worldIn.isRainingAt(pos.up()) && !World.doesBlockHaveSolidTopSurface(worldIn, pos.down()) && rand.nextInt(15) == 1) {
             double d0 = (pos.getX() + rand.nextFloat());
@@ -165,14 +171,17 @@ public abstract class BlockLeaves extends BlockLeavesBase {
         worldIn.setBlockToAir(pos);
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return random.nextInt(20) == 0 ? 1 : 0;
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Item.getItemFromBlock(Blocks.SAPLING);
     }
 
+    @Override
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
         if (!worldIn.isRemote) {
             int i = this.getSaplingDropChance(state);
@@ -211,6 +220,7 @@ public abstract class BlockLeaves extends BlockLeavesBase {
         return 20;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return !this.fancyGraphics;
     }
@@ -221,10 +231,12 @@ public abstract class BlockLeaves extends BlockLeavesBase {
         this.iconIndex = fancy ? 0 : 1;
     }
 
+    @Override
     public RenderLayer getBlockLayer() {
         return this.isTransparent ? RenderLayer.CUTOUT_MIPPED : RenderLayer.SOLID;
     }
 
+    @Override
     public boolean isVisuallyOpaque() {
         return false;
     }

@@ -20,16 +20,19 @@ public class PathNavigateGround extends PathNavigate {
         super(entitylivingIn, worldIn);
     }
 
+    @Override
     protected PathFinder getPathFinder() {
         this.nodeProcessor = new WalkNodeProcessor();
         this.nodeProcessor.setEnterDoors(true);
         return new PathFinder(this.nodeProcessor);
     }
 
+    @Override
     protected boolean canNavigate() {
         return this.theEntity.onGround || this.getCanSwim() && this.isInLiquid() || this.theEntity.isRiding() && this.theEntity instanceof EntityZombie && this.theEntity.ridingEntity instanceof EntityChicken;
     }
 
+    @Override
     protected Vec3 getEntityPosition() {
         return new Vec3(this.theEntity.posX, this.getPathablePosY(), this.theEntity.posZ);
     }
@@ -56,6 +59,7 @@ public class PathNavigateGround extends PathNavigate {
         }
     }
 
+    @Override
     protected void removeSunnyPath() {
         super.removeSunnyPath();
 
@@ -75,6 +79,7 @@ public class PathNavigateGround extends PathNavigate {
         }
     }
 
+    @Override
     protected boolean isDirectPathBetweenPoints(Vec3 posVec31, Vec3 posVec32, int sizeX, int sizeY, int sizeZ) {
         int i = MathHelper.floor(posVec31.xCoord);
         int j = MathHelper.floor(posVec31.zCoord);

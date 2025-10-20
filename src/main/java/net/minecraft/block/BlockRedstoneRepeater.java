@@ -26,14 +26,17 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH).withProperty(DELAY, 1).withProperty(LOCKED, Boolean.FALSE));
     }
 
+    @Override
     public String getLocalizedName() {
         return StatCollector.translateToLocal("item.diode.name");
     }
 
+    @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         return state.withProperty(LOCKED, this.isLocked(worldIn, pos, state));
     }
 
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (!playerIn.capabilities.allowEdit) {
             return false;
@@ -43,10 +46,12 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
         }
     }
 
+    @Override
     protected int getDelay(IBlockState state) {
         return state.getValue(DELAY) * 2;
     }
 
+    @Override
     protected IBlockState getPoweredState(IBlockState unpoweredState) {
         Integer integer = unpoweredState.getValue(DELAY);
         Boolean obool = unpoweredState.getValue(LOCKED);
@@ -54,6 +59,7 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
         return Blocks.POWERED_REPEATER.getDefaultState().withProperty(FACING, enumfacing).withProperty(DELAY, integer).withProperty(LOCKED, obool);
     }
 
+    @Override
     protected IBlockState getUnpoweredState(IBlockState poweredState) {
         Integer integer = poweredState.getValue(DELAY);
         Boolean obool = poweredState.getValue(LOCKED);
@@ -61,22 +67,27 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
         return Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(FACING, enumfacing).withProperty(DELAY, integer).withProperty(LOCKED, obool);
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Items.REPEATER;
     }
 
+    @Override
     public Item getItem(World worldIn, BlockPos pos) {
         return Items.REPEATER;
     }
 
+    @Override
     public boolean isLocked(IBlockAccess worldIn, BlockPos pos, IBlockState state) {
         return this.getPowerOnSides(worldIn, pos, state) > 0;
     }
 
+    @Override
     protected boolean canPowerSide(Block blockIn) {
         return isRedstoneRepeaterBlockID(blockIn);
     }
 
+    @Override
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (this.isRepeaterPowered) {
             Direction enumfacing = state.getValue(FACING);
@@ -96,15 +107,18 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
         }
     }
 
+    @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         super.breakBlock(worldIn, pos, state);
         this.notifyNeighbors(worldIn, pos, state);
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(FACING, Direction.getHorizontal(meta)).withProperty(LOCKED, Boolean.FALSE).withProperty(DELAY, 1 + (meta >> 2));
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         int i = 0;
         i = i | state.getValue(FACING).getHorizontalIndex();
@@ -112,6 +126,7 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
         return i;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, FACING, DELAY, LOCKED);
     }

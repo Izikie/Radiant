@@ -78,6 +78,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         playerIn.playerNetServerHandler = this;
     }
 
+    @Override
     public void update() {
         ++this.networkTickCount;
 
@@ -113,6 +114,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         Futures.getUnchecked(this.serverController.addScheduledTask(this.netManager::checkDisconnected));
     }
 
+    @Override
     public void processInput(C0CPacketInput packet) {
         PacketThreadUtil.checkThreadAndEnqueue(packet, this, this.playerEntity.getServerForPlayer());
         this.playerEntity.setEntityActionState(packet.getStrafeSpeed(), packet.getForwardSpeed(), packet.isJumping(), packet.isSneaking());
@@ -122,6 +124,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         return !Doubles.isFinite(packet.getPositionX()) || !Doubles.isFinite(packet.getPositionY()) || !Doubles.isFinite(packet.getPositionZ()) || !Floats.isFinite(packet.getPitch()) || !Floats.isFinite(packet.getYaw());
     }
 
+    @Override
     public void processPlayer(C03PacketPlayer packet) {
         PacketThreadUtil.checkThreadAndEnqueue(packet, this, this.playerEntity.getServerForPlayer());
 
@@ -349,6 +352,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         this.playerEntity.playerNetServerHandler.sendPacket(new S08PacketPlayerPosLook(x, y, z, yaw, pitch, relativeSet));
     }
 
+    @Override
     public void processPlayerDigging(C07PacketPlayerDigging packet) {
         PacketThreadUtil.checkThreadAndEnqueue(packet, this, this.playerEntity.getServerForPlayer());
         WorldServer worldServer = this.serverController.worldServerForDimension(this.playerEntity.dimension);
@@ -409,6 +413,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         }
     }
 
+    @Override
     public void processPlayerBlockPlacement(C08PacketPlayerBlockPlacement packet) {
         PacketThreadUtil.checkThreadAndEnqueue(packet, this, this.playerEntity.getServerForPlayer());
         WorldServer worldServer = this.serverController.worldServerForDimension(this.playerEntity.dimension);
@@ -462,6 +467,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         }
     }
 
+    @Override
     public void handleSpectate(C18PacketSpectate packet) {
         PacketThreadUtil.checkThreadAndEnqueue(packet, this, this.playerEntity.getServerForPlayer());
 
@@ -510,9 +516,11 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         }
     }
 
+    @Override
     public void handleResourcePackStatus(C19PacketResourcePackStatus packet) {
     }
 
+    @Override
     public void onDisconnect(IChatComponent reason) {
         LOGGER.info("{} lost connection: {}", this.playerEntity.getName(), reason);
         this.serverController.refreshStatusNextTick();
@@ -551,6 +559,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         }
     }
 
+    @Override
     public void processHeldItemChange(C09PacketHeldItemChange packet) {
         PacketThreadUtil.checkThreadAndEnqueue(packet, this, this.playerEntity.getServerForPlayer());
 
@@ -562,6 +571,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         }
     }
 
+    @Override
     public void processChatMessage(C01PacketChatMessage packet) {
         PacketThreadUtil.checkThreadAndEnqueue(packet, this, this.playerEntity.getServerForPlayer());
 
@@ -595,12 +605,14 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         }
     }
 
+    @Override
     public void handleAnimation(C0APacketAnimation packet) {
         PacketThreadUtil.checkThreadAndEnqueue(packet, this, this.playerEntity.getServerForPlayer());
         this.playerEntity.markPlayerActive();
         this.playerEntity.swingItem();
     }
 
+    @Override
     public void processEntityAction(C0BPacketEntityAction packet) {
         PacketThreadUtil.checkThreadAndEnqueue(packet, this, this.playerEntity.getServerForPlayer());
         this.playerEntity.markPlayerActive();
@@ -628,6 +640,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         }
     }
 
+    @Override
     public void processUseEntity(C02PacketUseEntity packet) {
         PacketThreadUtil.checkThreadAndEnqueue(packet, this, this.playerEntity.getServerForPlayer());
         WorldServer worldServer = this.serverController.worldServerForDimension(this.playerEntity.dimension);
@@ -660,6 +673,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         }
     }
 
+    @Override
     public void processClientStatus(C16PacketClientStatus packet) {
         PacketThreadUtil.checkThreadAndEnqueue(packet, this, this.playerEntity.getServerForPlayer());
         this.playerEntity.markPlayerActive();
@@ -690,11 +704,13 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         }
     }
 
+    @Override
     public void processCloseWindow(C0DPacketCloseWindow packet) {
         PacketThreadUtil.checkThreadAndEnqueue(packet, this, this.playerEntity.getServerForPlayer());
         this.playerEntity.closeContainer();
     }
 
+    @Override
     public void processClickWindow(C0EPacketClickWindow packet) {
         PacketThreadUtil.checkThreadAndEnqueue(packet, this, this.playerEntity.getServerForPlayer());
         this.playerEntity.markPlayerActive();
@@ -733,6 +749,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         }
     }
 
+    @Override
     public void processEnchantItem(C11PacketEnchantItem packet) {
         PacketThreadUtil.checkThreadAndEnqueue(packet, this, this.playerEntity.getServerForPlayer());
         this.playerEntity.markPlayerActive();
@@ -743,6 +760,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         }
     }
 
+    @Override
     public void processCreativeInventoryAction(C10PacketCreativeInventoryAction packet) {
         PacketThreadUtil.checkThreadAndEnqueue(packet, this, this.playerEntity.getServerForPlayer());
 
@@ -788,6 +806,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         }
     }
 
+    @Override
     public void processConfirmTransaction(C0FPacketConfirmTransaction packet) {
         PacketThreadUtil.checkThreadAndEnqueue(packet, this, this.playerEntity.getServerForPlayer());
         Short window = this.field_147372_n.get(this.playerEntity.openContainer.windowId);
@@ -797,6 +816,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         }
     }
 
+    @Override
     public void processUpdateSign(C12PacketUpdateSign packet) {
         PacketThreadUtil.checkThreadAndEnqueue(packet, this, this.playerEntity.getServerForPlayer());
         this.playerEntity.markPlayerActive();
@@ -826,6 +846,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         }
     }
 
+    @Override
     public void processKeepAlive(C00PacketKeepAlive packet) {
         if (packet.getKey() == this.lastPingTimeInt) {
             int lastTime = (int) (this.currentTimeMillis() - this.lastPingTime);
@@ -837,11 +858,13 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         return System.nanoTime() / 1000000L;
     }
 
+    @Override
     public void processPlayerAbilities(C13PacketPlayerAbilities packet) {
         PacketThreadUtil.checkThreadAndEnqueue(packet, this, this.playerEntity.getServerForPlayer());
         this.playerEntity.capabilities.isFlying = packet.isFlying() && this.playerEntity.capabilities.allowFlying;
     }
 
+    @Override
     public void processTabComplete(C14PacketTabComplete packet) {
         PacketThreadUtil.checkThreadAndEnqueue(packet, this, this.playerEntity.getServerForPlayer());
 
@@ -850,11 +873,13 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         this.playerEntity.playerNetServerHandler.sendPacket(new S3APacketTabComplete(command.toArray(new String[0])));
     }
 
+    @Override
     public void processClientSettings(C15PacketClientSettings packet) {
         PacketThreadUtil.checkThreadAndEnqueue(packet, this, this.playerEntity.getServerForPlayer());
         this.playerEntity.handleClientSettings(packet);
     }
 
+    @Override
     public void processCustomPayload(C17PacketCustomPayload packet) {
         PacketThreadUtil.checkThreadAndEnqueue(packet, this, this.playerEntity.getServerForPlayer());
 

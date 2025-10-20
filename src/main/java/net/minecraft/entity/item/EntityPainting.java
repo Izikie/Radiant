@@ -53,11 +53,13 @@ public class EntityPainting extends EntityHanging {
         this.updateFacingWithBoundingBox(facing);
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         tagCompound.setString("Motive", this.art.title);
         super.writeEntityToNBT(tagCompound);
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         String s = tagCompund.getString("Motive");
 
@@ -74,14 +76,17 @@ public class EntityPainting extends EntityHanging {
         super.readEntityFromNBT(tagCompund);
     }
 
+    @Override
     public int getWidthPixels() {
         return this.art.sizeX;
     }
 
+    @Override
     public int getHeightPixels() {
         return this.art.sizeY;
     }
 
+    @Override
     public void onBroken(Entity brokenEntity) {
         if (this.worldObj.getGameRules().getBoolean("doEntityDrops")) {
             if (brokenEntity instanceof EntityPlayer entityplayer) {
@@ -95,11 +100,13 @@ public class EntityPainting extends EntityHanging {
         }
     }
 
+    @Override
     public void setLocationAndAngles(double x, double y, double z, float yaw, float pitch) {
         BlockPos blockpos = this.hangingPosition.add(x - this.posX, y - this.posY, z - this.posZ);
         this.setPosition(blockpos.getX(), blockpos.getY(), blockpos.getZ());
     }
 
+    @Override
     public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean p_180426_10_) {
         BlockPos blockpos = this.hangingPosition.add(x - this.posX, y - this.posY, z - this.posZ);
         this.setPosition(blockpos.getX(), blockpos.getY(), blockpos.getZ());

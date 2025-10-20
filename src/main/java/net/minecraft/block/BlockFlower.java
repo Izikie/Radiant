@@ -21,16 +21,19 @@ public abstract class BlockFlower extends BlockBush {
         this.setDefaultState(this.blockState.getBaseState().withProperty(this.getTypeProperty(), this.getBlockType() == FlowerColor.RED ? FlowerType.POPPY : FlowerType.DANDELION));
     }
 
+    @Override
     public int damageDropped(IBlockState state) {
         return state.getValue(this.getTypeProperty()).getMeta();
     }
 
+    @Override
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
         for (FlowerType blockflower$enumflowertype : FlowerType.getTypes(this.getBlockType())) {
             list.add(new ItemStack(itemIn, 1, blockflower$enumflowertype.getMeta()));
         }
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(this.getTypeProperty(), FlowerType.getType(this.getBlockType(), meta));
     }
@@ -45,14 +48,17 @@ public abstract class BlockFlower extends BlockBush {
         return this.type;
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(this.getTypeProperty()).getMeta();
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, this.getTypeProperty());
     }
 
+    @Override
     public EnumOffsetType getOffsetType() {
         return EnumOffsetType.XZ;
     }
@@ -121,6 +127,7 @@ public abstract class BlockFlower extends BlockBush {
             return this.name;
         }
 
+        @Override
         public String getName() {
             return this.name;
         }

@@ -31,26 +31,32 @@ public class BlockBrewingStand extends BlockContainer {
         this.setDefaultState(this.blockState.getBaseState().withProperty(HAS_BOTTLE[0], Boolean.FALSE).withProperty(HAS_BOTTLE[1], Boolean.FALSE).withProperty(HAS_BOTTLE[2], Boolean.FALSE));
     }
 
+    @Override
     public String getLocalizedName() {
         return StatCollector.translateToLocal("item.brewingStand.name");
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public int getRenderType() {
         return 3;
     }
 
+    @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntityBrewingStand();
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {
         this.setBlockBounds(0.4375F, 0.0F, 0.4375F, 0.5625F, 0.875F, 0.5625F);
         super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
@@ -58,10 +64,12 @@ public class BlockBrewingStand extends BlockContainer {
         super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
     }
 
+    @Override
     public void setBlockBoundsForItemRender() {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
     }
 
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
@@ -75,6 +83,7 @@ public class BlockBrewingStand extends BlockContainer {
         return true;
     }
 
+    @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         if (stack.hasDisplayName()) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
@@ -85,6 +94,7 @@ public class BlockBrewingStand extends BlockContainer {
         }
     }
 
+    @Override
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         double d0 = (pos.getX() + 0.4F + rand.nextFloat() * 0.2F);
         double d1 = (pos.getY() + 0.7F + rand.nextFloat() * 0.3F);
@@ -92,6 +102,7 @@ public class BlockBrewingStand extends BlockContainer {
         worldIn.spawnParticle(ParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D);
     }
 
+    @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
@@ -102,26 +113,32 @@ public class BlockBrewingStand extends BlockContainer {
         super.breakBlock(worldIn, pos, state);
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Items.BREWING_STAND;
     }
 
+    @Override
     public Item getItem(World worldIn, BlockPos pos) {
         return Items.BREWING_STAND;
     }
 
+    @Override
     public boolean hasComparatorInputOverride() {
         return true;
     }
 
+    @Override
     public int getComparatorInputOverride(World worldIn, BlockPos pos) {
         return Container.calcRedstone(worldIn.getTileEntity(pos));
     }
 
+    @Override
     public RenderLayer getBlockLayer() {
         return RenderLayer.CUTOUT;
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         IBlockState iblockstate = this.getDefaultState();
 
@@ -132,6 +149,7 @@ public class BlockBrewingStand extends BlockContainer {
         return iblockstate;
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         int i = 0;
 
@@ -144,6 +162,7 @@ public class BlockBrewingStand extends BlockContainer {
         return i;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, HAS_BOTTLE[0], HAS_BOTTLE[1], HAS_BOTTLE[2]);
     }

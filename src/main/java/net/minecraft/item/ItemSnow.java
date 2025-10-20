@@ -16,6 +16,7 @@ public class ItemSnow extends ItemBlock {
         this.setHasSubtypes(true);
     }
 
+    @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
         if (stack.stackSize == 0) {
             return false;
@@ -51,6 +52,7 @@ public class ItemSnow extends ItemBlock {
         }
     }
 
+    @Override
     public int getMetadata(int damage) {
         return damage;
     }

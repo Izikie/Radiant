@@ -92,11 +92,13 @@ public class Iterator3d implements Iterator<BlockPos> {
 		return pos;
 	}
 
-	public boolean hasNext() {
+	@Override
+    public boolean hasNext() {
 		return this.iteratorAxis.hasNext();
 	}
 
-	public BlockPos next() {
+	@Override
+    public BlockPos next() {
 		BlockPos blockpos = this.iteratorAxis.next();
 
 		return switch (this.axis) {
@@ -119,7 +121,8 @@ public class Iterator3d implements Iterator<BlockPos> {
 		};
 	}
 
-	public void remove() {
+	@Override
+    public void remove() {
 		throw new RuntimeException("Not supported");
 	}
 }

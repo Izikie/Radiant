@@ -12,6 +12,7 @@ public class EntityMinecartEmpty extends EntityMinecart {
         super(worldIn, x, y, z);
     }
 
+    @Override
     public boolean interactFirst(EntityPlayer playerIn) {
         if (this.riddenByEntity != null && this.riddenByEntity instanceof EntityPlayer && this.riddenByEntity != playerIn) {
             return true;
@@ -26,6 +27,7 @@ public class EntityMinecartEmpty extends EntityMinecart {
         }
     }
 
+    @Override
     public void onActivatorRailPass(int x, int y, int z, boolean receivingPower) {
         if (receivingPower) {
             if (this.riddenByEntity != null) {
@@ -41,6 +43,7 @@ public class EntityMinecartEmpty extends EntityMinecart {
         }
     }
 
+    @Override
     public MinecartType getMinecartType() {
         return MinecartType.RIDEABLE;
     }

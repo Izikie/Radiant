@@ -9,11 +9,13 @@ public class FunctionFloatArray implements IExpressionFloatArray {
 		this.arguments = arguments;
 	}
 
-	public float[] eval() {
+	@Override
+    public float[] eval() {
 		return this.type.evalFloatArray(this.arguments);
 	}
 
-	public ExpressionType getExpressionType() {
+	@Override
+    public ExpressionType getExpressionType() {
 		return ExpressionType.FLOAT_ARRAY;
 	}
 

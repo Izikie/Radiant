@@ -77,11 +77,13 @@ public class GuiScreenBook extends GuiScreen {
         }
     }
 
+    @Override
     public void updateScreen() {
         super.updateScreen();
         ++this.updateCount;
     }
 
+    @Override
     public void initGui() {
         this.buttonList.clear();
         Keyboard.enableRepeatEvents(true);
@@ -102,6 +104,7 @@ public class GuiScreenBook extends GuiScreen {
         this.updateButtons();
     }
 
+    @Override
     public void onGuiClosed() {
         Keyboard.enableRepeatEvents(false);
     }
@@ -163,6 +166,7 @@ public class GuiScreenBook extends GuiScreen {
         }
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.enabled) {
             if (button.id == 0) {
@@ -203,6 +207,7 @@ public class GuiScreenBook extends GuiScreen {
         }
     }
 
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         super.keyTyped(typedChar, keyCode);
 
@@ -291,6 +296,7 @@ public class GuiScreenBook extends GuiScreen {
         }
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(BOOK_GUI_TEXTURES);
@@ -375,6 +381,7 @@ public class GuiScreenBook extends GuiScreen {
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
+    @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         if (mouseButton == 0) {
             IChatComponent ichatcomponent = this.func_175385_b(mouseX, mouseY);
@@ -387,6 +394,7 @@ public class GuiScreenBook extends GuiScreen {
         super.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
+    @Override
     protected boolean handleComponentClick(IChatComponent component) {
         ClickEvent clickevent = component == null ? null : component.getChatStyle().getChatClickEvent();
 
@@ -458,6 +466,7 @@ public class GuiScreenBook extends GuiScreen {
             this.field_146151_o = p_i46316_4_;
         }
 
+        @Override
         public void drawButton(Minecraft mc, int mouseX, int mouseY) {
             if (this.visible) {
                 boolean flag = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;

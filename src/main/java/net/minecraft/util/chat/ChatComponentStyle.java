@@ -11,20 +11,24 @@ public abstract class ChatComponentStyle implements IChatComponent {
     protected final List<IChatComponent> siblings = new ArrayList<>();
     private ChatStyle style;
 
+    @Override
     public IChatComponent appendSibling(IChatComponent component) {
         component.getChatStyle().setParentStyle(this.getChatStyle());
         this.siblings.add(component);
         return this;
     }
 
+    @Override
     public List<IChatComponent> getSiblings() {
         return this.siblings;
     }
 
+    @Override
     public IChatComponent appendText(String text) {
         return this.appendSibling(new ChatComponentText(text));
     }
 
+    @Override
     public IChatComponent setChatStyle(ChatStyle style) {
         this.style = style;
 
@@ -35,6 +39,7 @@ public abstract class ChatComponentStyle implements IChatComponent {
         return this;
     }
 
+    @Override
     public ChatStyle getChatStyle() {
         if (this.style == null) {
             this.style = new ChatStyle();
@@ -47,10 +52,12 @@ public abstract class ChatComponentStyle implements IChatComponent {
         return this.style;
     }
 
+    @Override
     public @NotNull Iterator<IChatComponent> iterator() {
         return Iterators.concat(Iterators.<IChatComponent>forArray(new ChatComponentStyle[]{this}), createDeepCopyIterator(this.siblings));
     }
 
+    @Override
     public final String getUnformattedText() {
         StringBuilder stringbuilder = new StringBuilder();
 
@@ -61,6 +68,7 @@ public abstract class ChatComponentStyle implements IChatComponent {
         return stringbuilder.toString();
     }
 
+    @Override
     public final String getFormattedText() {
         StringBuilder stringbuilder = new StringBuilder();
 

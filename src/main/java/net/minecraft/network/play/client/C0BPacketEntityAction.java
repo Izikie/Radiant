@@ -25,18 +25,21 @@ public class C0BPacketEntityAction implements Packet<INetHandlerPlayServer> {
         this.auxData = auxData;
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.entityID = buf.readVarIntFromBuffer();
         this.action = buf.readEnumValue(Action.class);
         this.auxData = buf.readVarIntFromBuffer();
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeVarIntToBuffer(this.entityID);
         buf.writeEnumValue(this.action);
         buf.writeVarIntToBuffer(this.auxData);
     }
 
+    @Override
     public void processPacket(INetHandlerPlayServer handler) {
         handler.processEntityAction(this);
     }

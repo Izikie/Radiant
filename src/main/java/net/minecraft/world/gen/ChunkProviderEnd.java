@@ -140,6 +140,7 @@ public class ChunkProviderEnd implements IChunkProvider {
         }
     }
 
+    @Override
     public Chunk provideChunk(int x, int z) {
         this.endRNG.setSeed(x * 341873128712L + z * 132897987541L);
         ChunkPrimer chunkprimer = new ChunkPrimer();
@@ -226,10 +227,12 @@ public class ChunkProviderEnd implements IChunkProvider {
         return p_73187_1_;
     }
 
+    @Override
     public boolean chunkExists(int x, int z) {
         return true;
     }
 
+    @Override
     public void populate(IChunkProvider chunkProvider, int x, int z) {
         BlockFalling.fallInstantly = true;
         BlockPos blockpos = new BlockPos(x * 16, 0, z * 16);
@@ -237,44 +240,55 @@ public class ChunkProviderEnd implements IChunkProvider {
         BlockFalling.fallInstantly = false;
     }
 
+    @Override
     public boolean populateChunk(IChunkProvider chunkProvider, Chunk chunkIn, int x, int z) {
         return false;
     }
 
+    @Override
     public boolean saveChunks(boolean saveAllChunks, IProgressUpdate progressCallback) {
         return true;
     }
 
+    @Override
     public void saveExtraData() {
     }
 
+    @Override
     public boolean unloadQueuedChunks() {
         return false;
     }
 
+    @Override
     public boolean canSave() {
         return true;
     }
 
+    @Override
     public String makeString() {
         return "RandomLevelSource";
     }
 
+    @Override
     public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EntityCategory creatureType, BlockPos pos) {
         return this.endWorld.getBiomeGenForCoords(pos).getSpawnableList(creatureType);
     }
 
+    @Override
     public BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position) {
         return null;
     }
 
+    @Override
     public int getLoadedChunkCount() {
         return 0;
     }
 
+    @Override
     public void recreateStructures(Chunk chunkIn, int x, int z) {
     }
 
+    @Override
     public Chunk provideChunk(BlockPos blockPosIn) {
         return this.provideChunk(blockPosIn.getX() >> 4, blockPosIn.getZ() >> 4);
     }

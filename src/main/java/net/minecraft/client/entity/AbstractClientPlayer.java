@@ -41,6 +41,7 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
         PlayerConfigurations.getPlayerConfiguration(this);
     }
 
+    @Override
     public boolean isSpectator() {
         NetworkPlayerInfo networkplayerinfo = Minecraft.get().getNetHandler().getPlayerInfo(this.getGameProfile().getId());
         return networkplayerinfo != null && networkplayerinfo.getGameType() == WorldSettings.GameType.SPECTATOR;
@@ -170,6 +171,7 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
         this.reloadCapeTimeMs = p_setReloadCapeTimeMs_1_;
     }
 
+    @Override
     public Vec3 getLook(float partialTicks) {
         return this.getVectorForRotation(this.rotationPitch, this.rotationYaw);
     }

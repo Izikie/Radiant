@@ -5,6 +5,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class ListChunkFactory implements IRenderChunkFactory {
+    @Override
     public RenderChunk makeRenderChunk(World worldIn, RenderGlobal globalRenderer, BlockPos pos, int index) {
         return new ListedRenderChunk(worldIn, globalRenderer, pos, index);
     }

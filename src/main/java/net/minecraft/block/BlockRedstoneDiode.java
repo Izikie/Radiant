@@ -22,10 +22,12 @@ public abstract class BlockRedstoneDiode extends BlockDirectional {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
         return World.doesBlockHaveSolidTopSurface(worldIn, pos.down()) && super.canPlaceBlockAt(worldIn, pos);
     }
@@ -34,9 +36,11 @@ public abstract class BlockRedstoneDiode extends BlockDirectional {
         return World.doesBlockHaveSolidTopSurface(worldIn, pos.down());
     }
 
+    @Override
     public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random) {
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (!this.isLocked(worldIn, pos, state)) {
             boolean flag = this.shouldBePowered(worldIn, pos, state);
@@ -53,6 +57,7 @@ public abstract class BlockRedstoneDiode extends BlockDirectional {
         }
     }
 
+    @Override
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, Direction side) {
         return side.getAxis() != Direction.Axis.Y;
     }
@@ -61,14 +66,17 @@ public abstract class BlockRedstoneDiode extends BlockDirectional {
         return this.isRepeaterPowered;
     }
 
+    @Override
     public int getStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
         return this.getWeakPower(worldIn, pos, state, side);
     }
 
+    @Override
     public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
         return !this.isPowered(state) ? 0 : (state.getValue(FACING) == side ? this.getActiveSignal(worldIn, pos, state) : 0);
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         if (this.canBlockStay(worldIn, pos)) {
             this.updateState(worldIn, pos, state);
@@ -134,20 +142,24 @@ public abstract class BlockRedstoneDiode extends BlockDirectional {
         return this.canPowerSide(block) ? (block == Blocks.REDSTONE_WIRE ? iblockstate.getValue(BlockRedstoneWire.POWER) : worldIn.getStrongPower(pos, side)) : 0;
     }
 
+    @Override
     public boolean canProvidePower() {
         return true;
     }
 
+    @Override
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
     }
 
+    @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         if (this.shouldBePowered(worldIn, pos, state)) {
             worldIn.scheduleUpdate(pos, this, 1);
         }
     }
 
+    @Override
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         this.notifyNeighbors(worldIn, pos, state);
     }
@@ -159,6 +171,7 @@ public abstract class BlockRedstoneDiode extends BlockDirectional {
         worldIn.notifyNeighborsOfStateExcept(blockpos, this, enumfacing);
     }
 
+    @Override
     public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
         if (this.isRepeaterPowered) {
             for (Direction enumfacing : Direction.values()) {
@@ -169,6 +182,7 @@ public abstract class BlockRedstoneDiode extends BlockDirectional {
         super.onBlockDestroyedByPlayer(worldIn, pos, state);
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
@@ -205,10 +219,12 @@ public abstract class BlockRedstoneDiode extends BlockDirectional {
 
     protected abstract IBlockState getUnpoweredState(IBlockState poweredState);
 
+    @Override
     public boolean isAssociatedBlock(Block other) {
         return this.isAssociated(other);
     }
 
+    @Override
     public RenderLayer getBlockLayer() {
         return RenderLayer.CUTOUT;
     }

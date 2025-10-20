@@ -164,11 +164,13 @@ interface DisplayImplementation extends InputImplementation {
     /**
      * @return this method will return the width of the Display window.
      */
+    @Override
     int getWidth();
 
     /**
      * @return this method will return the height of the Display window.
      */
+    @Override
     int getHeight();
 
     /**

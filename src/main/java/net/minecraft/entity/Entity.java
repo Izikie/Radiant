@@ -1578,6 +1578,7 @@ public abstract class Entity implements ICommandSender {
         this.fallDistance = 0.0F;
     }
 
+    @Override
     public String getName() {
         if (this.hasCustomName()) {
             return this.getCustomNameTag();
@@ -1722,6 +1723,7 @@ public abstract class Entity implements ICommandSender {
         return true;
     }
 
+    @Override
     public IChatComponent getDisplayName() {
         ChatComponentText chatcomponenttext = new ChatComponentText(this.getName());
         chatcomponenttext.getChatStyle().setChatHoverEvent(this.getHoverEvent());
@@ -1805,33 +1807,41 @@ public abstract class Entity implements ICommandSender {
         return false;
     }
 
+    @Override
     public void addChatMessage(IChatComponent component) {
     }
 
+    @Override
     public boolean canCommandSenderUseCommand(int permLevel, String commandName) {
         return true;
     }
 
+    @Override
     public BlockPos getPosition() {
         return new BlockPos(this.posX, this.posY + 0.5D, this.posZ);
     }
 
+    @Override
     public Vec3 getPositionVector() {
         return new Vec3(this.posX, this.posY, this.posZ);
     }
 
+    @Override
     public World getEntityWorld() {
         return this.worldObj;
     }
 
+    @Override
     public Entity getCommandSenderEntity() {
         return this;
     }
 
+    @Override
     public boolean sendCommandFeedback() {
         return false;
     }
 
+    @Override
     public void setCommandStat(CommandResultStats.Type type, int amount) {
         this.cmdResultStats.setCommandStatScore(this, type, amount);
     }

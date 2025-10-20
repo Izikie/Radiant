@@ -13,6 +13,7 @@ public class RenderTntMinecart extends RenderMinecart<EntityMinecartTNT> {
         super(renderManagerIn);
     }
 
+    @Override
     protected void func_180560_a(EntityMinecartTNT minecart, float partialTicks, IBlockState state) {
         int i = minecart.getFuseTicks();
 

@@ -17,16 +17,20 @@ public class SpectatorMenu {
     private static final ISpectatorMenuObject field_178653_d = new MoveMenuObject(1, true);
     private static final ISpectatorMenuObject field_178654_e = new MoveMenuObject(1, false);
     public static final ISpectatorMenuObject field_178657_a = new ISpectatorMenuObject() {
+        @Override
         public void func_178661_a(SpectatorMenu menu) {
         }
 
+        @Override
         public IChatComponent getSpectatorName() {
             return new ChatComponentText("");
         }
 
+        @Override
         public void func_178663_a(float p_178663_1_, int alpha) {
         }
 
+        @Override
         public boolean func_178662_A_() {
             return false;
         }
@@ -99,19 +103,23 @@ public class SpectatorMenu {
         private EndSpectatorObject() {
         }
 
+        @Override
         public void func_178661_a(SpectatorMenu menu) {
             menu.func_178641_d();
         }
 
+        @Override
         public IChatComponent getSpectatorName() {
             return new ChatComponentText("Close menu");
         }
 
+        @Override
         public void func_178663_a(float p_178663_1_, int alpha) {
             Minecraft.get().getTextureManager().bindTexture(GuiSpectator.field_175269_a);
             Gui.drawModalRectWithCustomSizedTexture(0, 0, 128.0F, 0.0F, 16, 16, 256.0F, 256.0F);
         }
 
+        @Override
         public boolean func_178662_A_() {
             return true;
         }
@@ -126,14 +134,17 @@ public class SpectatorMenu {
             this.field_178665_b = p_i45495_2_;
         }
 
+        @Override
         public void func_178661_a(SpectatorMenu menu) {
             menu.field_178658_j = this.field_178666_a;
         }
 
+        @Override
         public IChatComponent getSpectatorName() {
             return this.field_178666_a < 0 ? new ChatComponentText("Previous Page") : new ChatComponentText("Next Page");
         }
 
+        @Override
         public void func_178663_a(float p_178663_1_, int alpha) {
             Minecraft.get().getTextureManager().bindTexture(GuiSpectator.field_175269_a);
 
@@ -144,6 +155,7 @@ public class SpectatorMenu {
             }
         }
 
+        @Override
         public boolean func_178662_A_() {
             return this.field_178665_b;
         }

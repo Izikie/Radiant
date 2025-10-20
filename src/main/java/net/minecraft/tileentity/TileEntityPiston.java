@@ -35,6 +35,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
         return this.pistonState;
     }
 
+    @Override
     public int getBlockMetadata() {
         return 0;
     }
@@ -123,6 +124,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
         }
     }
 
+    @Override
     public void update() {
         this.lastProgress = this.progress;
 
@@ -148,6 +150,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
         }
     }
 
+    @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         this.pistonState = Block.getBlockById(compound.getInteger("blockId")).getStateFromMeta(compound.getInteger("blockData"));
@@ -156,6 +159,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
         this.extending = compound.getBoolean("extending");
     }
 
+    @Override
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
         compound.setInteger("blockId", Block.getIdFromBlock(this.pistonState.getBlock()));

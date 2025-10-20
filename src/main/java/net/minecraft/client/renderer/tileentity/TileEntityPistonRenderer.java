@@ -17,6 +17,7 @@ import net.minecraft.world.World;
 public class TileEntityPistonRenderer extends TileEntitySpecialRenderer<TileEntityPiston> {
     private final BlockRendererDispatcher blockRenderer = Minecraft.get().getBlockRendererDispatcher();
 
+    @Override
     public void renderTileEntityAt(TileEntityPiston te, double x, double y, double z, float partialTicks, int destroyStage) {
         BlockPos blockpos = te.getPos();
         IBlockState iblockstate = te.getPistonState();

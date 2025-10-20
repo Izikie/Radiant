@@ -20,16 +20,19 @@ public class S31PacketWindowProperty implements Packet<INetHandlerPlayClient> {
         this.varValue = varValueIn;
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleWindowProperty(this);
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.windowId = buf.readUnsignedByte();
         this.varIndex = buf.readShort();
         this.varValue = buf.readShort();
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeByte(this.windowId);
         buf.writeShort(this.varIndex);

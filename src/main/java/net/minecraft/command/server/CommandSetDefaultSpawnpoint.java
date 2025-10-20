@@ -11,18 +11,22 @@ import net.minecraft.util.BlockPos;
 import java.util.List;
 
 public class CommandSetDefaultSpawnpoint extends CommandBase {
+    @Override
     public String getCommandName() {
         return "setworldspawn";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 2;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.setworldspawn.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         BlockPos blockpos;
 
@@ -41,6 +45,7 @@ public class CommandSetDefaultSpawnpoint extends CommandBase {
         notifyOperators(sender, this, "commands.setworldspawn.success", blockpos.getX(), blockpos.getY(), blockpos.getZ());
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         return args.length > 0 && args.length <= 3 ? func_175771_a(args, 0, pos) : null;
     }

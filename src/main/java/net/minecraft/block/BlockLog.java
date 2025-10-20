@@ -20,6 +20,7 @@ public abstract class BlockLog extends BlockRotatedPillar {
         this.setStepSound(soundTypeWood);
     }
 
+    @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         int i = 4;
         int j = i + 1;
@@ -35,6 +36,7 @@ public abstract class BlockLog extends BlockRotatedPillar {
         }
     }
 
+    @Override
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(LOG_AXIS, Axis.fromFacingAxis(facing.getAxis()));
     }
@@ -64,6 +66,7 @@ public abstract class BlockLog extends BlockRotatedPillar {
             };
         }
 
+        @Override
         public String getName() {
             return this.name;
         }

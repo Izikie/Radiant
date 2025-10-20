@@ -21,6 +21,7 @@ public class WorldGenMegaPineTree extends WorldGenHugeTrees {
         this.useBaseHeight = p_i45457_2_;
     }
 
+    @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         int i = this.func_150533_a(rand);
 
@@ -73,6 +74,7 @@ public class WorldGenMegaPineTree extends WorldGenHugeTrees {
         }
     }
 
+    @Override
     public void func_180711_a(World worldIn, Random p_180711_2_, BlockPos p_180711_3_) {
         this.func_175933_b(worldIn, p_180711_3_.west().north());
         this.func_175933_b(worldIn, p_180711_3_.east(2).north());

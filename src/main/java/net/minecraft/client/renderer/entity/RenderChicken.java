@@ -12,10 +12,12 @@ public class RenderChicken extends RenderLiving<EntityChicken> {
         super(renderManagerIn, modelBaseIn, shadowSizeIn);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityChicken entity) {
         return CHICKEN_TEXTURES;
     }
 
+    @Override
     protected float handleRotationFloat(EntityChicken livingBase, float partialTicks) {
         float f = livingBase.field_70888_h + (livingBase.wingRotation - livingBase.field_70888_h) * partialTicks;
         float f1 = livingBase.field_70884_g + (livingBase.destPos - livingBase.field_70884_g) * partialTicks;

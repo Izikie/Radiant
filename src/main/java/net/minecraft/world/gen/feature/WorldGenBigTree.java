@@ -216,10 +216,12 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
         return -1;
     }
 
+    @Override
     public void func_175904_e() {
         this.leafDistanceLimit = 5;
     }
 
+    @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         this.world = worldIn;
         this.basePos = position;

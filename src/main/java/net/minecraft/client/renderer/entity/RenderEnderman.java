@@ -21,6 +21,7 @@ public class RenderEnderman extends RenderLiving<EntityEnderman> {
         this.addLayer(new LayerHeldBlock(this));
     }
 
+    @Override
     public void doRender(EntityEnderman entity, double x, double y, double z, float entityYaw, float partialTicks) {
         this.endermanModel.isCarrying = entity.getHeldBlockState().getBlock().getMaterial() != Material.AIR;
         this.endermanModel.isAttacking = entity.isScreaming();
@@ -34,6 +35,7 @@ public class RenderEnderman extends RenderLiving<EntityEnderman> {
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityEnderman entity) {
         return ENDERMAN_TEXTURES;
     }

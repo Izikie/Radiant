@@ -24,10 +24,12 @@ public class RenderBiped<T extends EntityLiving> extends RenderLiving<T> {
         this.addLayer(new LayerCustomHead(modelBipedIn.bipedHead));
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(T entity) {
         return DEFAULT_RES_LOC;
     }
 
+    @Override
     public void transformHeldFull3DItemLayer() {
         GlStateManager.translate(0.0F, 0.1875F, 0.0F);
     }

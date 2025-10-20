@@ -11,18 +11,22 @@ import net.minecraft.util.BlockPos;
 import java.util.List;
 
 public class CommandDeOp extends CommandBase {
+    @Override
     public String getCommandName() {
         return "deop";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 3;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.deop.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length == 1 && !args[0].isEmpty()) {
             MinecraftServer minecraftserver = MinecraftServer.getServer();
@@ -39,6 +43,7 @@ public class CommandDeOp extends CommandBase {
         }
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         return args.length == 1 ? getListOfStringsMatchingLastWord(args, MinecraftServer.getServer().getConfigurationManager().getOppedPlayerNames()) : null;
     }

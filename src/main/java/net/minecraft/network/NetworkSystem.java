@@ -37,11 +37,13 @@ import java.util.List;
 public class NetworkSystem {
     private static final Logger LOGGER = LoggerFactory.getLogger(NetworkSystem.class);
     public static final LazyLoadBase<MultiThreadIoEventLoopGroup> EVENT_LOOPS = new LazyLoadBase<>() {
+        @Override
         protected MultiThreadIoEventLoopGroup load() {
             return new MultiThreadIoEventLoopGroup(0, Thread.ofVirtual().name("Netty Server IO #%d", 0).factory(), NioIoHandler.newFactory());
         }
     };
     public static final LazyLoadBase<MultiThreadIoEventLoopGroup> SERVER_LOCAL_EVENTLOOP = new LazyLoadBase<>() {
+        @Override
         protected MultiThreadIoEventLoopGroup load() {
             return new MultiThreadIoEventLoopGroup(0, Thread.ofVirtual().name("Netty Local Server IO #%d", 0).factory(), LocalIoHandler.newFactory());
         }
@@ -61,6 +63,7 @@ public class NetworkSystem {
             Class<? extends ServerSocketChannel> oclass = NioServerSocketChannel.class;
 
 	        this.endpoints.add((new ServerBootstrap()).channel(oclass).childHandler(new ChannelInitializer<>() {
+                @Override
                 protected void initChannel(Channel channel) {
                     try {
                         channel.config().setOption(ChannelOption.TCP_NODELAY, Boolean.TRUE);
@@ -82,6 +85,7 @@ public class NetworkSystem {
 
         synchronized (this.endpoints) {
             channelfuture = (new ServerBootstrap()).channel(LocalServerChannel.class).childHandler(new ChannelInitializer<>() {
+                @Override
                 protected void initChannel(Channel channel) {
                     NetworkManager manager = new NetworkManager();
                     manager.setNetHandler(new NetHandlerHandshakeMemory(mcServer, manager));

@@ -47,11 +47,13 @@ public class GuiCreateWorld extends GuiScreen {
         this.worldName = I18n.format("selectWorld.newWorld");
     }
 
+    @Override
     public void updateScreen() {
         this.worldNameField.updateCursorCounter();
         this.worldSeedField.updateCursorCounter();
     }
 
+    @Override
     public void initGui() {
         Keyboard.enableRepeatEvents(true);
         this.buttonList.clear();
@@ -139,10 +141,12 @@ public class GuiCreateWorld extends GuiScreen {
         return name;
     }
 
+    @Override
     public void onGuiClosed() {
         Keyboard.enableRepeatEvents(false);
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.enabled) {
             if (button.id == 1) {
@@ -303,6 +307,7 @@ public class GuiCreateWorld extends GuiScreen {
         }
     }
 
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         if (this.worldNameField.isFocused() && !this.inMoreWorldOptionsDisplay) {
             this.worldNameField.textboxKeyTyped(typedChar, keyCode);
@@ -320,6 +325,7 @@ public class GuiCreateWorld extends GuiScreen {
         this.calcSaveDirName();
     }
 
+    @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         super.mouseClicked(mouseX, mouseY, mouseButton);
 
@@ -330,6 +336,7 @@ public class GuiCreateWorld extends GuiScreen {
         }
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRendererObj, I18n.format("selectWorld.create"), this.width / 2, 20, -1);

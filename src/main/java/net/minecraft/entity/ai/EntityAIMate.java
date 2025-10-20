@@ -27,6 +27,7 @@ public class EntityAIMate extends EntityAIBase {
         this.setMutexBits(3);
     }
 
+    @Override
     public boolean shouldExecute() {
         if (!this.theAnimal.isInLove()) {
             return false;
@@ -36,15 +37,18 @@ public class EntityAIMate extends EntityAIBase {
         }
     }
 
+    @Override
     public boolean continueExecuting() {
         return this.targetMate.isEntityAlive() && this.targetMate.isInLove() && this.spawnBabyDelay < 60;
     }
 
+    @Override
     public void resetTask() {
         this.targetMate = null;
         this.spawnBabyDelay = 0;
     }
 
+    @Override
     public void updateTask() {
         this.theAnimal.getLookHelper().setLookPositionWithEntity(this.targetMate, 10.0F, this.theAnimal.getVerticalFaceSpeed());
         this.theAnimal.getNavigator().tryMoveToEntityLiving(this.targetMate, this.moveSpeed);

@@ -80,7 +80,8 @@ public class GuiShaders extends GuiScreenOF {
 		return s.contains("win") ? 1 : (s.contains("mac") ? 2 : (s.contains("solaris") ? 3 : (s.contains("sunos") ? 3 : (s.contains("linux") ? 4 : (s.contains("unix") ? 4 : 0)))));
 	}
 
-	public void initGui() {
+	@Override
+    public void initGui() {
 		this.screenTitle = I18n.format("of.options.shadersTitle");
 
 		if (Shaders.shadersConfig == null) {
@@ -122,16 +123,19 @@ public class GuiShaders extends GuiScreenOF {
 		}
 	}
 
-	public void handleMouseInput() throws IOException {
+	@Override
+    public void handleMouseInput() throws IOException {
 		super.handleMouseInput();
 		this.shaderList.handleMouseInput();
 	}
 
-	protected void actionPerformed(GuiButton button) {
+	@Override
+    protected void actionPerformed(GuiButton button) {
 		this.actionPerformed(button, false);
 	}
 
-	protected void actionPerformedRightClick(GuiButton button) {
+	@Override
+    protected void actionPerformedRightClick(GuiButton button) {
 		this.actionPerformed(button, true);
 	}
 
@@ -286,7 +290,8 @@ public class GuiShaders extends GuiScreenOF {
 		}
 	}
 
-	public void onGuiClosed() {
+	@Override
+    public void onGuiClosed() {
 		super.onGuiClosed();
 
 		if (!this.saved) {
@@ -294,7 +299,8 @@ public class GuiShaders extends GuiScreenOF {
 		}
 	}
 
-	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+	@Override
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		this.drawDefaultBackground();
 		this.shaderList.drawScreen(mouseX, mouseY, partialTicks);
 
@@ -317,7 +323,8 @@ public class GuiShaders extends GuiScreenOF {
 		this.tooltipManager.drawTooltips(mouseX, mouseY, this.buttonList);
 	}
 
-	public void updateScreen() {
+	@Override
+    public void updateScreen() {
 		super.updateScreen();
 		--this.updateTimer;
 	}

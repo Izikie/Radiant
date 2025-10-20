@@ -26,15 +26,18 @@ public abstract class BlockContainer extends Block implements ITileEntityProvide
         return this.isInvalidNeighbor(p_181087_1_, p_181087_2_, Direction.NORTH) || this.isInvalidNeighbor(p_181087_1_, p_181087_2_, Direction.SOUTH) || this.isInvalidNeighbor(p_181087_1_, p_181087_2_, Direction.WEST) || this.isInvalidNeighbor(p_181087_1_, p_181087_2_, Direction.EAST);
     }
 
+    @Override
     public int getRenderType() {
         return -1;
     }
 
+    @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         super.breakBlock(worldIn, pos, state);
         worldIn.removeTileEntity(pos);
     }
 
+    @Override
     public boolean onBlockEventReceived(World worldIn, BlockPos pos, IBlockState state, int eventID, int eventParam) {
         super.onBlockEventReceived(worldIn, pos, state, eventID, eventParam);
         TileEntity tileentity = worldIn.getTileEntity(pos);

@@ -22,16 +22,19 @@ public class S23PacketBlockChange implements Packet<INetHandlerPlayClient> {
         this.blockState = worldIn.getBlockState(blockPositionIn);
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.blockPosition = buf.readBlockPos();
         this.blockState = Block.BLOCK_STATE_IDS.getByValue(buf.readVarIntFromBuffer());
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeBlockPos(this.blockPosition);
         buf.writeVarIntToBuffer(Block.BLOCK_STATE_IDS.get(this.blockState));
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleBlockChange(this);
     }

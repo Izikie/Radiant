@@ -16,11 +16,13 @@ public class EntityCaveSpider extends EntitySpider {
         this.setSize(0.7F, 0.5F);
     }
 
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(12.0D);
     }
 
+    @Override
     public boolean attackEntityAsMob(Entity entityIn) {
         if (super.attackEntityAsMob(entityIn)) {
             if (entityIn instanceof EntityLivingBase) {
@@ -43,10 +45,12 @@ public class EntityCaveSpider extends EntitySpider {
         }
     }
 
+    @Override
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
         return livingdata;
     }
 
+    @Override
     public float getEyeHeight() {
         return 0.45F;
     }

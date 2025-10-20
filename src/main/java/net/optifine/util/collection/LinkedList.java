@@ -130,11 +130,13 @@ public class LinkedList<T> {
 		return new Iterator<>() {
 			Node<T> node = LinkedList.this.getFirst();
 
-			public boolean hasNext() {
+			@Override
+            public boolean hasNext() {
 				return this.node != null;
 			}
 
-			public Node<T> next() {
+			@Override
+            public Node<T> next() {
 				Node<T> node = this.node;
 
 				if (this.node != null) {
@@ -144,7 +146,8 @@ public class LinkedList<T> {
 				return node;
 			}
 
-			public void remove() {
+			@Override
+            public void remove() {
 				throw new UnsupportedOperationException("remove");
 			}
 		};

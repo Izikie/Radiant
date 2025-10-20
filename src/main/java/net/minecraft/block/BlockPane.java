@@ -32,26 +32,32 @@ public class BlockPane extends Block {
         this.setCreativeTab(CreativeTabs.TAB_DECORATIONS);
     }
 
+    @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         return state.withProperty(NORTH, this.canPaneConnectToBlock(worldIn.getBlockState(pos.north()).getBlock())).withProperty(SOUTH, this.canPaneConnectToBlock(worldIn.getBlockState(pos.south()).getBlock())).withProperty(WEST, this.canPaneConnectToBlock(worldIn.getBlockState(pos.west()).getBlock())).withProperty(EAST, this.canPaneConnectToBlock(worldIn.getBlockState(pos.east()).getBlock()));
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return !this.canDrop ? null : super.getItemDropped(state, rand, fortune);
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, Direction side) {
         return worldIn.getBlockState(pos).getBlock() != this && super.shouldSideBeRendered(worldIn, pos, side);
     }
 
+    @Override
     public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {
         boolean flag = this.canPaneConnectToBlock(worldIn.getBlockState(pos.north()).getBlock());
         boolean flag1 = this.canPaneConnectToBlock(worldIn.getBlockState(pos.south()).getBlock());
@@ -85,10 +91,12 @@ public class BlockPane extends Block {
         }
     }
 
+    @Override
     public void setBlockBoundsForItemRender() {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         float f = 0.4375F;
         float f1 = 0.5625F;
@@ -133,18 +141,22 @@ public class BlockPane extends Block {
                 || blockIn instanceof BlockPane;
     }
 
+    @Override
     protected boolean canSilkHarvest() {
         return true;
     }
 
+    @Override
     public RenderLayer getBlockLayer() {
         return RenderLayer.CUTOUT_MIPPED;
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return 0;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, NORTH, EAST, WEST, SOUTH);
     }

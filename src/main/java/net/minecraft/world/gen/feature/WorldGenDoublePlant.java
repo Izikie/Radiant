@@ -14,6 +14,7 @@ public class WorldGenDoublePlant extends WorldGenerator {
         this.field_150549_a = p_180710_1_;
     }
 
+    @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         boolean flag = false;
 

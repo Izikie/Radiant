@@ -13,10 +13,12 @@ public class RenderGhast extends RenderLiving<EntityGhast> {
         super(renderManagerIn, new ModelGhast(), 0.5F);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityGhast entity) {
         return entity.isAttacking() ? GHAST_SHOOTING_TEXTURES : GHAST_TEXTURES;
     }
 
+    @Override
     protected void preRenderCallback(EntityGhast entitylivingbaseIn, float partialTickTime) {
         float f = 1.0F;
         float f1 = (8.0F + f) / 2.0F;

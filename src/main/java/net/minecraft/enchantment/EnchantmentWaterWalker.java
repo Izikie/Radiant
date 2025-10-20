@@ -8,14 +8,17 @@ public class EnchantmentWaterWalker extends Enchantment {
         this.setName("waterWalker");
     }
 
+    @Override
     public int getMinEnchantability(int enchantmentLevel) {
         return enchantmentLevel * 10;
     }
 
+    @Override
     public int getMaxEnchantability(int enchantmentLevel) {
         return this.getMinEnchantability(enchantmentLevel) + 15;
     }
 
+    @Override
     public int getMaxLevel() {
         return 3;
     }

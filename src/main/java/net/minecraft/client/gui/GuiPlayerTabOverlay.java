@@ -304,6 +304,7 @@ public class GuiPlayerTabOverlay extends Gui {
         private PlayerComparator() {
         }
 
+        @Override
         public int compare(NetworkPlayerInfo p_compare_1_, NetworkPlayerInfo p_compare_2_) {
             ScorePlayerTeam scoreplayerteam = p_compare_1_.getPlayerTeam();
             ScorePlayerTeam scoreplayerteam1 = p_compare_2_.getPlayerTeam();

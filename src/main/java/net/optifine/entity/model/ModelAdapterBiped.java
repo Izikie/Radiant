@@ -9,7 +9,8 @@ public abstract class ModelAdapterBiped extends ModelAdapter {
 		super(entityClass, name, shadowSize);
 	}
 
-	public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
+	@Override
+    public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
 		if (!(model instanceof ModelBiped modelbiped)) {
 			return null;
 		} else {
@@ -17,7 +18,8 @@ public abstract class ModelAdapterBiped extends ModelAdapter {
 		}
 	}
 
-	public String[] getModelRendererNames() {
+	@Override
+    public String[] getModelRendererNames() {
 		return new String[]{"head", "headwear", "body", "left_arm", "right_arm", "left_leg", "right_leg"};
 	}
 }

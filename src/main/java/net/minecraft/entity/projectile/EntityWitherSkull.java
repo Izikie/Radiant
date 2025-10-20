@@ -24,6 +24,7 @@ public class EntityWitherSkull extends EntityFireball {
         this.setSize(0.3125F, 0.3125F);
     }
 
+    @Override
     protected float getMotionFactor() {
         return this.isInvulnerable() ? 0.73F : super.getMotionFactor();
     }
@@ -33,10 +34,12 @@ public class EntityWitherSkull extends EntityFireball {
         this.setSize(0.3125F, 0.3125F);
     }
 
+    @Override
     public boolean isBurning() {
         return false;
     }
 
+    @Override
     public float getExplosionResistance(Explosion explosionIn, World worldIn, BlockPos pos, IBlockState blockStateIn) {
         float f = super.getExplosionResistance(explosionIn, worldIn, pos, blockStateIn);
         Block block = blockStateIn.getBlock();
@@ -48,6 +51,7 @@ public class EntityWitherSkull extends EntityFireball {
         return f;
     }
 
+    @Override
     protected void onImpact(MovingObjectPosition movingObject) {
         if (!this.worldObj.isRemote) {
             if (movingObject.entityHit != null) {
@@ -83,14 +87,17 @@ public class EntityWitherSkull extends EntityFireball {
         }
     }
 
+    @Override
     public boolean canBeCollidedWith() {
         return false;
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         return false;
     }
 
+    @Override
     protected void entityInit() {
         this.dataWatcher.addObject(10, (byte) 0);
     }

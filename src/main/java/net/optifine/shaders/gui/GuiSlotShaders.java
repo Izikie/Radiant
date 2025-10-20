@@ -33,7 +33,8 @@ class GuiSlotShaders extends GuiSlot {
 		}
 	}
 
-	public int getListWidth() {
+	@Override
+    public int getListWidth() {
 		return this.width - 20;
 	}
 
@@ -50,11 +51,13 @@ class GuiSlotShaders extends GuiSlot {
 		}
 	}
 
-	protected int getSize() {
+	@Override
+    protected int getSize() {
 		return this.shaderslist.size();
 	}
 
-	protected void elementClicked(int index, boolean doubleClicked, int mouseX, int mouseY) {
+	@Override
+    protected void elementClicked(int index, boolean doubleClicked, int mouseX, int mouseY) {
 		if (index != this.selectedIndex || this.lastClicked != this.lastClickedCached) {
 			String s = this.shaderslist.get(index);
 			IShaderPack ishaderpack = Shaders.getShaderPack(s);
@@ -115,22 +118,27 @@ class GuiSlotShaders extends GuiSlot {
 		}
 	}
 
-	protected boolean isSelected(int index) {
+	@Override
+    protected boolean isSelected(int index) {
 		return index == this.selectedIndex;
 	}
 
-	protected int getScrollBarX() {
+	@Override
+    protected int getScrollBarX() {
 		return this.width - 6;
 	}
 
-	protected int getContentHeight() {
+	@Override
+    protected int getContentHeight() {
 		return this.getSize() * 18;
 	}
 
-	protected void drawBackground() {
+	@Override
+    protected void drawBackground() {
 	}
 
-	protected void drawSlot(int index, int posX, int posY, int contentY, int mouseX, int mouseY) {
+	@Override
+    protected void drawSlot(int index, int posX, int posY, int contentY, int mouseX, int mouseY) {
 		String s = this.shaderslist.get(index);
 
 		if (s.equals("OFF")) {

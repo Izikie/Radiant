@@ -12,6 +12,7 @@ public class ItemSpade extends ItemTool {
         super(1.0F, material, EFFECTIVE_ON);
     }
 
+    @Override
     public boolean canHarvestBlock(Block blockIn) {
         return blockIn == Blocks.SNOW_LAYER || blockIn == Blocks.SNOW;
     }

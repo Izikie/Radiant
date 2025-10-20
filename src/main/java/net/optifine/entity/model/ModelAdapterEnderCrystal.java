@@ -19,11 +19,13 @@ public class ModelAdapterEnderCrystal extends ModelAdapter {
 		super(EntityEnderCrystal.class, name, 0.5F);
 	}
 
-	public ModelBase makeModel() {
+	@Override
+    public ModelBase makeModel() {
 		return new ModelEnderCrystal(0.0F, true);
 	}
 
-	public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
+	@Override
+    public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
 		if (model instanceof ModelEnderCrystal modelendercrystal) {
 			return modelPart.equals("cube") ? modelendercrystal.getCube()
 					: (modelPart.equals("glass") ? modelendercrystal.getGlass()
@@ -34,11 +36,13 @@ public class ModelAdapterEnderCrystal extends ModelAdapter {
 		}
 	}
 
-	public String[] getModelRendererNames() {
+	@Override
+    public String[] getModelRendererNames() {
 		return new String[]{"cube", "glass", "base"};
 	}
 
-	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+	@Override
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
 		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		Render<EntityEnderCrystal> render = rendermanager.getEntityRenderMap().get(EntityEnderCrystal.class);
 

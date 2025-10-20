@@ -33,6 +33,7 @@ public class EntityAIAttackOnCollide extends EntityAIBase {
         this.setMutexBits(3);
     }
 
+    @Override
     public boolean shouldExecute() {
         EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
 
@@ -48,20 +49,24 @@ public class EntityAIAttackOnCollide extends EntityAIBase {
         }
     }
 
+    @Override
     public boolean continueExecuting() {
         EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
         return entitylivingbase != null && (entitylivingbase.isEntityAlive() && (!this.longMemory ? !this.attacker.getNavigator().noPath() : this.attacker.isWithinHomeDistanceFromPosition(new BlockPos(entitylivingbase))));
     }
 
+    @Override
     public void startExecuting() {
         this.attacker.getNavigator().setPath(this.entityPathEntity, this.speedTowardsTarget);
         this.delayCounter = 0;
     }
 
+    @Override
     public void resetTask() {
         this.attacker.getNavigator().clearPathEntity();
     }
 
+    @Override
     public void updateTask() {
         EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
         this.attacker.getLookHelper().setLookPositionWithEntity(entitylivingbase, 30.0F, 30.0F);

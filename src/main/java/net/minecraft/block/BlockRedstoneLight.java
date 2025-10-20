@@ -22,6 +22,7 @@ public class BlockRedstoneLight extends Block {
         }
     }
 
+    @Override
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         if (!worldIn.isRemote) {
             if (this.isOn && !worldIn.isBlockPowered(pos)) {
@@ -32,6 +33,7 @@ public class BlockRedstoneLight extends Block {
         }
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         if (!worldIn.isRemote) {
             if (this.isOn && !worldIn.isBlockPowered(pos)) {
@@ -42,6 +44,7 @@ public class BlockRedstoneLight extends Block {
         }
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (!worldIn.isRemote) {
             if (this.isOn && !worldIn.isBlockPowered(pos)) {
@@ -50,14 +53,17 @@ public class BlockRedstoneLight extends Block {
         }
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Item.getItemFromBlock(Blocks.REDSTONE_LAMP);
     }
 
+    @Override
     public Item getItem(World worldIn, BlockPos pos) {
         return Item.getItemFromBlock(Blocks.REDSTONE_LAMP);
     }
 
+    @Override
     protected ItemStack createStackedBlock(IBlockState state) {
         return new ItemStack(Blocks.REDSTONE_LAMP);
     }

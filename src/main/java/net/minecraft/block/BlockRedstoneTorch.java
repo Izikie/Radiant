@@ -48,10 +48,12 @@ public class BlockRedstoneTorch extends BlockTorch {
         this.setCreativeTab(null);
     }
 
+    @Override
     public int tickRate(World worldIn) {
         return 2;
     }
 
+    @Override
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         if (this.isOn) {
             for (Direction enumfacing : Direction.values()) {
@@ -60,6 +62,7 @@ public class BlockRedstoneTorch extends BlockTorch {
         }
     }
 
+    @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         if (this.isOn) {
             for (Direction enumfacing : Direction.values()) {
@@ -68,6 +71,7 @@ public class BlockRedstoneTorch extends BlockTorch {
         }
     }
 
+    @Override
     public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
         return this.isOn && state.getValue(FACING) != side ? 15 : 0;
     }
@@ -77,9 +81,11 @@ public class BlockRedstoneTorch extends BlockTorch {
         return worldIn.isSidePowered(pos.offset(enumfacing), enumfacing);
     }
 
+    @Override
     public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random) {
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         boolean flag = this.shouldBeOff(worldIn, pos, state);
         List<Toggle> list = toggles.get(worldIn);
@@ -110,6 +116,7 @@ public class BlockRedstoneTorch extends BlockTorch {
         }
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         if (!this.onNeighborChangeInternal(worldIn, pos, state)) {
             if (this.isOn == this.shouldBeOff(worldIn, pos, state)) {
@@ -118,18 +125,22 @@ public class BlockRedstoneTorch extends BlockTorch {
         }
     }
 
+    @Override
     public int getStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
         return side == Direction.DOWN ? this.getWeakPower(worldIn, pos, state, side) : 0;
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Item.getItemFromBlock(Blocks.REDSTONE_TORCH);
     }
 
+    @Override
     public boolean canProvidePower() {
         return true;
     }
 
+    @Override
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (this.isOn) {
             double d0 = pos.getX() + 0.5D + (rand.nextDouble() - 0.5D) * 0.2D;
@@ -149,10 +160,12 @@ public class BlockRedstoneTorch extends BlockTorch {
         }
     }
 
+    @Override
     public Item getItem(World worldIn, BlockPos pos) {
         return Item.getItemFromBlock(Blocks.REDSTONE_TORCH);
     }
 
+    @Override
     public boolean isAssociatedBlock(Block other) {
         return other == Blocks.UNLIT_REDSTONE_TORCH || other == Blocks.REDSTONE_TORCH;
     }

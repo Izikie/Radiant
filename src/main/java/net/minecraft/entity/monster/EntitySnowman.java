@@ -29,12 +29,14 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
         this.targetTasks.addTask(1, new EntityAINearestAttackableTarget<>(this, EntityLiving.class, 10, true, false, IMob.mobSelector));
     }
 
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
     }
 
+    @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
 
@@ -64,10 +66,12 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
         }
     }
 
+    @Override
     protected Item getDropItem() {
         return Items.SNOWBALL;
     }
 
+    @Override
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
         int i = this.rand.nextInt(16);
 
@@ -76,6 +80,7 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
         }
     }
 
+    @Override
     public void attackEntityWithRangedAttack(EntityLivingBase target, float p_82196_2_) {
         EntitySnowball entitysnowball = new EntitySnowball(this.worldObj, this);
         double d0 = target.posY + target.getEyeHeight() - 1.100000023841858D;
@@ -88,6 +93,7 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
         this.worldObj.spawnEntityInWorld(entitysnowball);
     }
 
+    @Override
     public float getEyeHeight() {
         return 1.7F;
     }

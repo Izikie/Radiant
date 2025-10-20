@@ -45,10 +45,12 @@ public class GuiSlider extends GuiButton {
         return this.formatHelper == null ? I18n.format(this.name) + ": " + this.func_175220_c() : this.formatHelper.getText(this.id, I18n.format(this.name), this.func_175220_c());
     }
 
+    @Override
     protected int getHoverState(boolean mouseOver) {
         return 0;
     }
 
+    @Override
     protected void mouseDragged(Minecraft mc, int mouseX, int mouseY) {
         if (this.visible) {
             if (this.isMouseDown) {
@@ -78,6 +80,7 @@ public class GuiSlider extends GuiButton {
         this.responder.onTick(this.id, this.func_175220_c());
     }
 
+    @Override
     public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
         if (super.mousePressed(mc, mouseX, mouseY)) {
             this.sliderPosition = (float) (mouseX - (this.xPosition + 4)) / (this.width - 8);
@@ -99,6 +102,7 @@ public class GuiSlider extends GuiButton {
         }
     }
 
+    @Override
     public void mouseReleased(int mouseX, int mouseY) {
         this.isMouseDown = false;
     }

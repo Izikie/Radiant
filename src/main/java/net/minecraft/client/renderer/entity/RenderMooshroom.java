@@ -13,6 +13,7 @@ public class RenderMooshroom extends RenderLiving<EntityMooshroom> {
         this.addLayer(new LayerMooshroomMushroom(this));
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityMooshroom entity) {
         return MOOSHROOM_TEXTURES;
     }

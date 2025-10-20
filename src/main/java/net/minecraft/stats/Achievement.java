@@ -52,6 +52,7 @@ public class Achievement extends StatBase {
         this.parentAchievement = parent;
     }
 
+    @Override
     public Achievement initIndependentStat() {
         this.isIndependent = true;
         return this;
@@ -62,22 +63,26 @@ public class Achievement extends StatBase {
         return this;
     }
 
+    @Override
     public Achievement registerStat() {
         super.registerStat();
         AchievementList.ACHIEVEMENT_LIST.add(this);
         return this;
     }
 
+    @Override
     public boolean isAchievement() {
         return true;
     }
 
+    @Override
     public IChatComponent getStatName() {
         IChatComponent ichatcomponent = super.getStatName();
         ichatcomponent.getChatStyle().setColor(this.getSpecial() ? Formatting.DARK_PURPLE : Formatting.GREEN);
         return ichatcomponent;
     }
 
+    @Override
     public Achievement func_150953_b(Class<? extends IJsonSerializable> p_150953_1_) {
         return (Achievement) super.func_150953_b(p_150953_1_);
     }

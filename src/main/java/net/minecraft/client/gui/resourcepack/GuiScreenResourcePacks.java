@@ -26,6 +26,7 @@ public class GuiScreenResourcePacks extends GuiScreen {
         this.parentScreen = parentScreen;
     }
 
+    @Override
     public void initGui() {
         this.buttonList.add(new GuiButton(0, this.width / 2 - 204, this.height - 26, 30, 20, "A-Z"));
         this.buttonList.add(new GuiButton(1, this.width / 2 - 204 + 34, this.height - 26, 30, 20, "Z-A"));
@@ -97,6 +98,7 @@ public class GuiScreenResourcePacks extends GuiScreen {
         this.mc.refreshResources();
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if (!button.enabled) return;
 
@@ -120,22 +122,26 @@ public class GuiScreenResourcePacks extends GuiScreen {
         }
     }
 
+    @Override
     public void handleMouseInput() throws IOException {
         super.handleMouseInput();
         this.selectedResourcePacksList.handleMouseInput();
         this.availableResourcePacksList.handleMouseInput();
     }
 
+    @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         super.mouseClicked(mouseX, mouseY, mouseButton);
         this.availableResourcePacksList.mouseClicked(mouseX, mouseY, mouseButton);
         this.selectedResourcePacksList.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
+    @Override
     protected void mouseReleased(int mouseX, int mouseY, int state) {
         super.mouseReleased(mouseX, mouseY, state);
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawBackground(0);
         this.availableResourcePacksList.drawScreen(mouseX, mouseY, partialTicks);

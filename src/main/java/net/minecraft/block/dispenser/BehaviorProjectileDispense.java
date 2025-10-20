@@ -8,6 +8,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public abstract class BehaviorProjectileDispense extends BehaviorDefaultDispenseItem {
+    @Override
     public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
         World world = source.getWorld();
         IPosition iposition = BlockDispenser.getDispensePosition(source);
@@ -19,6 +20,7 @@ public abstract class BehaviorProjectileDispense extends BehaviorDefaultDispense
         return stack;
     }
 
+    @Override
     protected void playDispenseSound(IBlockSource source) {
         source.getWorld().playAuxSFX(1002, source.getBlockPos(), 0);
     }

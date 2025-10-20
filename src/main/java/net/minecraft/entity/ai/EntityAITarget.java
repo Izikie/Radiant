@@ -28,6 +28,7 @@ public abstract class EntityAITarget extends EntityAIBase {
         this.nearbyOnly = onlyNearby;
     }
 
+    @Override
     public boolean continueExecuting() {
         EntityLivingBase entitylivingbase = this.taskOwner.getAttackTarget();
 
@@ -66,12 +67,14 @@ public abstract class EntityAITarget extends EntityAIBase {
         return iattributeinstance == null ? 16.0D : iattributeinstance.getAttributeValue();
     }
 
+    @Override
     public void startExecuting() {
         this.targetSearchStatus = 0;
         this.targetSearchDelay = 0;
         this.targetUnseenTicks = 0;
     }
 
+    @Override
     public void resetTask() {
         this.taskOwner.setAttackTarget(null);
     }

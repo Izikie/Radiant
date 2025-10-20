@@ -36,10 +36,12 @@ public class StructureOceanMonument extends MapGenStructure {
         }
     }
 
+    @Override
     public String getStructureName() {
         return "Monument";
     }
 
+    @Override
     protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ) {
         int i = chunkX;
         int j = chunkZ;
@@ -71,6 +73,7 @@ public class StructureOceanMonument extends MapGenStructure {
         return false;
     }
 
+    @Override
     protected StructureStart getStructureStart(int chunkX, int chunkZ) {
         return new StartMonument(this.worldObj, this.rand, chunkX, chunkZ);
     }
@@ -110,6 +113,7 @@ public class StructureOceanMonument extends MapGenStructure {
             this.field_175790_d = true;
         }
 
+        @Override
         public void generateStructure(World worldIn, Random rand, StructureBoundingBox structurebb) {
             if (!this.field_175790_d) {
                 this.components.clear();
@@ -119,15 +123,18 @@ public class StructureOceanMonument extends MapGenStructure {
             super.generateStructure(worldIn, rand, structurebb);
         }
 
+        @Override
         public boolean func_175788_a(ChunkCoordIntPair pair) {
             return !this.field_175791_c.contains(pair) && super.func_175788_a(pair);
         }
 
+        @Override
         public void func_175787_b(ChunkCoordIntPair pair) {
             super.func_175787_b(pair);
             this.field_175791_c.add(pair);
         }
 
+        @Override
         public void writeToNBT(NBTTagCompound tagCompound) {
             super.writeToNBT(tagCompound);
             NBTTagList nbttaglist = new NBTTagList();
@@ -142,6 +149,7 @@ public class StructureOceanMonument extends MapGenStructure {
             tagCompound.setTag("Processed", nbttaglist);
         }
 
+        @Override
         public void readFromNBT(NBTTagCompound tagCompound) {
             super.readFromNBT(tagCompound);
 

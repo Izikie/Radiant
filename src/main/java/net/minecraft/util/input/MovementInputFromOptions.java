@@ -9,6 +9,7 @@ public class MovementInputFromOptions extends MovementInput {
         this.gameSettings = gameSettingsIn;
     }
 
+    @Override
     public void updatePlayerMoveState() {
         this.moveStrafe = 0.0F;
         this.moveForward = 0.0F;

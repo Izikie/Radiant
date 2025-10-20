@@ -13,18 +13,22 @@ import net.minecraft.util.chat.ChatComponentTranslation;
 import java.util.List;
 
 public class CommandWhitelist extends CommandBase {
+    @Override
     public String getCommandName() {
         return "whitelist";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 3;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.whitelist.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length < 1) {
             throw new WrongUsageException("commands.whitelist.usage");
@@ -81,6 +85,7 @@ public class CommandWhitelist extends CommandBase {
         }
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         if (args.length == 1) {
             return getListOfStringsMatchingLastWord(args, "on", "off", "list", "add", "remove", "reload");

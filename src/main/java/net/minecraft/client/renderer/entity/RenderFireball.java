@@ -19,6 +19,7 @@ public class RenderFireball extends Render<EntityFireball> {
         this.scale = scaleIn;
     }
 
+    @Override
     public void doRender(EntityFireball entity, double x, double y, double z, float entityYaw, float partialTicks) {
         GlStateManager.pushMatrix();
         this.bindEntityTexture(entity);
@@ -48,6 +49,7 @@ public class RenderFireball extends Render<EntityFireball> {
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityFireball entity) {
         return TextureMap.LOCATION_BLOCKS_TEXTURE;
     }

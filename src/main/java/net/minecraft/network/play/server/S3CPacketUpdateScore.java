@@ -38,6 +38,7 @@ public class S3CPacketUpdateScore implements Packet<INetHandlerPlayClient> {
         this.action = Action.REMOVE;
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.name = buf.readStringFromBuffer(40);
         this.action = buf.readEnumValue(Action.class);
@@ -48,6 +49,7 @@ public class S3CPacketUpdateScore implements Packet<INetHandlerPlayClient> {
         }
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeString(this.name);
         buf.writeEnumValue(this.action);
@@ -58,6 +60,7 @@ public class S3CPacketUpdateScore implements Packet<INetHandlerPlayClient> {
         }
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleUpdateScore(this);
     }

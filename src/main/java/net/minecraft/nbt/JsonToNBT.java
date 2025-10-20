@@ -301,6 +301,7 @@ public class JsonToNBT {
             this.json = p_i45137_1_;
         }
 
+        @Override
         public NBTBase parse() throws NBTException {
             NBTTagCompound nbttagcompound = new NBTTagCompound();
 
@@ -319,6 +320,7 @@ public class JsonToNBT {
             this.json = json;
         }
 
+        @Override
         public NBTBase parse() throws NBTException {
             NBTTagList nbttaglist = new NBTTagList();
 
@@ -346,6 +348,7 @@ public class JsonToNBT {
             this.jsonValue = p_i45139_2_;
         }
 
+        @Override
         public NBTBase parse() throws NBTException {
             try {
                 if (DOUBLE.matcher(this.jsonValue).matches()) {

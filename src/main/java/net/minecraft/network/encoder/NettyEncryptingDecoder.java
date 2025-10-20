@@ -14,6 +14,7 @@ public class NettyEncryptingDecoder extends MessageToMessageDecoder<ByteBuf> {
         this.decryptionCodec = new NettyEncryptionTranslator(cipher);
     }
 
+    @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> p_decode_3_) throws Exception {
         p_decode_3_.add(this.decryptionCodec.decipher(ctx, in));
     }

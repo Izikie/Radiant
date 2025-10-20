@@ -31,32 +31,39 @@ public class BlockTrapDoor extends Block {
         this.setCreativeTab(CreativeTabs.TAB_REDSTONE);
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
         return !worldIn.getBlockState(pos).getValue(OPEN);
     }
 
+    @Override
     public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos) {
         this.setBlockBoundsBasedOnState(worldIn, pos);
         return super.getSelectedBoundingBox(worldIn, pos);
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
         this.setBlockBoundsBasedOnState(worldIn, pos);
         return super.getCollisionBoundingBox(worldIn, pos, state);
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         this.setBounds(worldIn.getBlockState(pos));
     }
 
+    @Override
     public void setBlockBoundsForItemRender() {
         float f = 0.1875F;
         this.setBlockBounds(0.0F, 0.40625F, 0.0F, 1.0F, 0.59375F, 1.0F);
@@ -95,6 +102,7 @@ public class BlockTrapDoor extends Block {
         }
     }
 
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (this.blockMaterial != Material.IRON) {
             state = state.cycleProperty(OPEN);
@@ -104,6 +112,7 @@ public class BlockTrapDoor extends Block {
         return true;
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         if (!worldIn.isRemote) {
             BlockPos blockpos = pos.offset(state.getValue(FACING).getOpposite());
@@ -126,11 +135,13 @@ public class BlockTrapDoor extends Block {
         }
     }
 
+    @Override
     public MovingObjectPosition collisionRayTrace(World worldIn, BlockPos pos, Vec3 start, Vec3 end) {
         this.setBlockBoundsBasedOnState(worldIn, pos);
         return super.collisionRayTrace(worldIn, pos, start, end);
     }
 
+    @Override
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         IBlockState iblockstate = this.getDefaultState();
 
@@ -142,6 +153,7 @@ public class BlockTrapDoor extends Block {
         return iblockstate;
     }
 
+    @Override
     public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Direction side) {
         return !side.getAxis().isVertical() && isValidSupportBlock(worldIn.getBlockState(pos.offset(side.getOpposite())).getBlock());
     }
@@ -168,14 +180,17 @@ public class BlockTrapDoor extends Block {
         return blockIn.blockMaterial.isOpaque() && blockIn.isFullCube() || blockIn == Blocks.GLOWSTONE || blockIn instanceof BlockSlab || blockIn instanceof BlockStairs;
     }
 
+    @Override
     public RenderLayer getBlockLayer() {
         return RenderLayer.CUTOUT;
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(OPEN, (meta & 4) != 0).withProperty(HALF, (meta & 8) == 0 ? DoorHalf.BOTTOM : DoorHalf.TOP);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         int i = 0;
         i = i | getMetaForFacing(state.getValue(FACING));
@@ -191,6 +206,7 @@ public class BlockTrapDoor extends Block {
         return i;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, FACING, OPEN, HALF);
     }
@@ -209,6 +225,7 @@ public class BlockTrapDoor extends Block {
             return this.name;
         }
 
+        @Override
         public String getName() {
             return this.name;
         }

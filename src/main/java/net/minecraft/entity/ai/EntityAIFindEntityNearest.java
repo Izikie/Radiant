@@ -40,6 +40,7 @@ public class EntityAIFindEntityNearest extends EntityAIBase {
         this.field_179440_d = new EntityAINearestAttackableTarget.Sorter(mobIn);
     }
 
+    @Override
     public boolean shouldExecute() {
         double d0 = this.getFollowRange();
         List<EntityLivingBase> list = this.mob.worldObj.getEntitiesWithinAABB(this.field_179439_f, this.mob.getEntityBoundingBox().expand(d0, 4.0D, d0), this.field_179443_c);
@@ -53,6 +54,7 @@ public class EntityAIFindEntityNearest extends EntityAIBase {
         }
     }
 
+    @Override
     public boolean continueExecuting() {
         EntityLivingBase entitylivingbase = this.mob.getAttackTarget();
 
@@ -66,11 +68,13 @@ public class EntityAIFindEntityNearest extends EntityAIBase {
         }
     }
 
+    @Override
     public void startExecuting() {
         this.mob.setAttackTarget(this.target);
         super.startExecuting();
     }
 
+    @Override
     public void resetTask() {
         this.mob.setAttackTarget(null);
         super.startExecuting();

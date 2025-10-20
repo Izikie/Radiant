@@ -16,6 +16,7 @@ import java.util.List;
 public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEntityBeacon> {
     private static final ResourceLocation BEACON_BEAM = new ResourceLocation("textures/entity/beacon_beam.png");
 
+    @Override
     public void renderTileEntityAt(TileEntityBeacon te, double x, double y, double z, float partialTicks, int destroyStage) {
         float f = te.shouldBeamRender();
 
@@ -118,6 +119,7 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
         }
     }
 
+    @Override
     public boolean forceTileEntityRender() {
         return true;
     }

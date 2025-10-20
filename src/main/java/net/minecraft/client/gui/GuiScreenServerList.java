@@ -16,10 +16,12 @@ public class GuiScreenServerList extends GuiScreen {
         this.field_146301_f = p_i1031_2_;
     }
 
+    @Override
     public void updateScreen() {
         this.field_146302_g.updateCursorCounter();
     }
 
+    @Override
     public void initGui() {
         Keyboard.enableRepeatEvents(true);
         this.buttonList.clear();
@@ -32,12 +34,14 @@ public class GuiScreenServerList extends GuiScreen {
         this.buttonList.getFirst().enabled = !this.field_146302_g.getText().isEmpty() && this.field_146302_g.getText().split(":").length > 0;
     }
 
+    @Override
     public void onGuiClosed() {
         Keyboard.enableRepeatEvents(false);
         this.mc.gameSettings.lastServer = this.field_146302_g.getText();
         this.mc.gameSettings.saveOptions();
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.enabled) {
             if (button.id == 1) {
@@ -49,6 +53,7 @@ public class GuiScreenServerList extends GuiScreen {
         }
     }
 
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         if (this.field_146302_g.textboxKeyTyped(typedChar, keyCode)) {
             this.buttonList.getFirst().enabled = !this.field_146302_g.getText().isEmpty() && this.field_146302_g.getText().split(":").length > 0;
@@ -57,11 +62,13 @@ public class GuiScreenServerList extends GuiScreen {
         }
     }
 
+    @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         super.mouseClicked(mouseX, mouseY, mouseButton);
         this.field_146302_g.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRendererObj, I18n.format("selectServer.direct"), this.width / 2, 20, 16777215);

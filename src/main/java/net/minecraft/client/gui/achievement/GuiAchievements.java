@@ -161,6 +161,7 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
         }
     }
 
+    @Override
     public void doneLoading() {
         if (this.loadingAchievements) {
             this.loadingAchievements = false;

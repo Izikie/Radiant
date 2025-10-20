@@ -28,6 +28,7 @@ public class ItemSword extends Item {
         return this.material.getDamageVsEntity();
     }
 
+    @Override
     public float getStrVsBlock(ItemStack stack, Block state) {
         if (state == Blocks.WEB) {
             return 15.0F;
@@ -37,11 +38,13 @@ public class ItemSword extends Item {
         }
     }
 
+    @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
         stack.damageItem(1, attacker);
         return true;
     }
 
+    @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, BlockPos pos, EntityLivingBase playerIn) {
         if (blockIn.getBlockHardness(worldIn, pos) != 0.0D) {
             stack.damageItem(2, playerIn);
@@ -50,27 +53,33 @@ public class ItemSword extends Item {
         return true;
     }
 
+    @Override
     public boolean isFull3D() {
         return true;
     }
 
+    @Override
     public UseAction getItemUseAction(ItemStack stack) {
         return UseAction.BLOCK;
     }
 
+    @Override
     public int getMaxItemUseDuration(ItemStack stack) {
         return 72000;
     }
 
+    @Override
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
         playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
         return itemStackIn;
     }
 
+    @Override
     public boolean canHarvestBlock(Block blockIn) {
         return blockIn == Blocks.WEB;
     }
 
+    @Override
     public int getItemEnchantability() {
         return this.material.getEnchantability();
     }
@@ -79,10 +88,12 @@ public class ItemSword extends Item {
         return this.material.toString();
     }
 
+    @Override
     public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
         return this.material.getRepairItem() == repair.getItem() || super.getIsRepairable(toRepair, repair);
     }
 
+    @Override
     public Multimap<String, AttributeModifier> getItemAttributeModifiers() {
         Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers();
         multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(ITEM_MODIFIER_UUID, "Weapon modifier", this.attackDamage, 0));

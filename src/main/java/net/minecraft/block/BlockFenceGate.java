@@ -25,6 +25,7 @@ public class BlockFenceGate extends BlockDirectional {
         this.setCreativeTab(CreativeTabs.TAB_REDSTONE);
     }
 
+    @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         Direction.Axis enumfacing$axis = state.getValue(FACING).getAxis();
 
@@ -35,10 +36,12 @@ public class BlockFenceGate extends BlockDirectional {
         return state;
     }
 
+    @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
         return worldIn.getBlockState(pos.down()).getBlock().getMaterial().isSolid() && super.canPlaceBlockAt(worldIn, pos);
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
         if (state.getValue(OPEN)) {
             return null;
@@ -48,6 +51,7 @@ public class BlockFenceGate extends BlockDirectional {
         }
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         Direction.Axis enumfacing$axis = worldIn.getBlockState(pos).getValue(FACING).getAxis();
 
@@ -58,22 +62,27 @@ public class BlockFenceGate extends BlockDirectional {
         }
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
         return worldIn.getBlockState(pos).getValue(OPEN);
     }
 
+    @Override
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing()).withProperty(OPEN, Boolean.FALSE).withProperty(POWERED, Boolean.FALSE).withProperty(IN_WALL, Boolean.FALSE);
     }
 
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (state.getValue(OPEN)) {
             state = state.withProperty(OPEN, Boolean.FALSE);
@@ -93,6 +102,7 @@ public class BlockFenceGate extends BlockDirectional {
         return true;
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         if (!worldIn.isRemote) {
             boolean flag = worldIn.isBlockPowered(pos);
@@ -111,14 +121,17 @@ public class BlockFenceGate extends BlockDirectional {
         }
     }
 
+    @Override
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, Direction side) {
         return true;
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(FACING, Direction.getHorizontal(meta)).withProperty(OPEN, (meta & 4) != 0).withProperty(POWERED, (meta & 8) != 0);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         int i = 0;
         i = i | state.getValue(FACING).getHorizontalIndex();
@@ -134,6 +147,7 @@ public class BlockFenceGate extends BlockDirectional {
         return i;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, FACING, OPEN, POWERED, IN_WALL);
     }

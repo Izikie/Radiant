@@ -31,14 +31,17 @@ public class EntitySilverfish extends EntityMob {
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
     }
 
+    @Override
     public double getYOffset() {
         return 0.2D;
     }
 
+    @Override
     public float getEyeHeight() {
         return 0.1F;
     }
 
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0D);
@@ -46,22 +49,27 @@ public class EntitySilverfish extends EntityMob {
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1.0D);
     }
 
+    @Override
     protected boolean canTriggerWalking() {
         return false;
     }
 
+    @Override
     protected String getLivingSound() {
         return "mob.silverfish.say";
     }
 
+    @Override
     protected String getHurtSound() {
         return "mob.silverfish.hit";
     }
 
+    @Override
     protected String getDeathSound() {
         return "mob.silverfish.kill";
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (this.isEntityInvulnerable(source)) {
             return false;
@@ -74,27 +82,33 @@ public class EntitySilverfish extends EntityMob {
         }
     }
 
+    @Override
     protected void playStepSound(BlockPos pos, Block blockIn) {
         this.playSound("mob.silverfish.step", 0.15F, 1.0F);
     }
 
+    @Override
     protected Item getDropItem() {
         return null;
     }
 
+    @Override
     public void onUpdate() {
         this.renderYawOffset = this.rotationYaw;
         super.onUpdate();
     }
 
+    @Override
     public float getBlockPathWeight(BlockPos pos) {
         return this.worldObj.getBlockState(pos.down()).getBlock() == Blocks.STONE ? 10.0F : super.getBlockPathWeight(pos);
     }
 
+    @Override
     protected boolean isValidLightLevel() {
         return true;
     }
 
+    @Override
     public boolean getCanSpawnHere() {
         if (super.getCanSpawnHere()) {
             EntityPlayer entityplayer = this.worldObj.getClosestPlayerToEntity(this, 5.0D);
@@ -104,6 +118,7 @@ public class EntitySilverfish extends EntityMob {
         }
     }
 
+    @Override
     public EntityGroup getCreatureAttribute() {
         return EntityGroup.ARTHROPOD;
     }
@@ -119,6 +134,7 @@ public class EntitySilverfish extends EntityMob {
             this.setMutexBits(1);
         }
 
+        @Override
         public boolean shouldExecute() {
             if (this.silverfish.getAttackTarget() != null) {
                 return false;
@@ -143,10 +159,12 @@ public class EntitySilverfish extends EntityMob {
             }
         }
 
+        @Override
         public boolean continueExecuting() {
             return !this.field_179484_c && super.continueExecuting();
         }
 
+        @Override
         public void startExecuting() {
             if (!this.field_179484_c) {
                 super.startExecuting();
@@ -178,10 +196,12 @@ public class EntitySilverfish extends EntityMob {
             }
         }
 
+        @Override
         public boolean shouldExecute() {
             return this.field_179463_b > 0;
         }
 
+        @Override
         public void updateTask() {
             --this.field_179463_b;
 

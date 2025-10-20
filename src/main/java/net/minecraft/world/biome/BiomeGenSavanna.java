@@ -23,10 +23,12 @@ public class BiomeGenSavanna extends BiomeGenBase {
         this.theBiomeDecorator.grassPerChunk = 20;
     }
 
+    @Override
     public WorldGenAbstractTree genBigTreeChance(Random rand) {
         return rand.nextInt(5) > 0 ? field_150627_aC : this.worldGeneratorTrees;
     }
 
+    @Override
     protected BiomeGenBase createMutatedBiome(int p_180277_1_) {
         BiomeGenBase biomegenbase = new Mutated(p_180277_1_, this);
         biomegenbase.temperature = (this.temperature + 1.0F) * 0.5F;
@@ -35,6 +37,7 @@ public class BiomeGenSavanna extends BiomeGenBase {
         return biomegenbase;
     }
 
+    @Override
     public void decorate(World worldIn, Random rand, BlockPos pos) {
         DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.EnumPlantType.GRASS);
 
@@ -56,6 +59,7 @@ public class BiomeGenSavanna extends BiomeGenBase {
             this.theBiomeDecorator.grassPerChunk = 5;
         }
 
+        @Override
         public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
             this.topBlock = Blocks.GRASS.getDefaultState();
             this.fillerBlock = Blocks.DIRT.getDefaultState();
@@ -70,6 +74,7 @@ public class BiomeGenSavanna extends BiomeGenBase {
             this.generateBiomeTerrain(worldIn, rand, chunkPrimerIn, x, z, noiseVal);
         }
 
+        @Override
         public void decorate(World worldIn, Random rand, BlockPos pos) {
             this.theBiomeDecorator.decorate(worldIn, rand, this, pos);
         }

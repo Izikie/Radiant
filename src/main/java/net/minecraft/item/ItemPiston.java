@@ -7,6 +7,7 @@ public class ItemPiston extends ItemBlock {
         super(block);
     }
 
+    @Override
     public int getMetadata(int damage) {
         return 7;
     }

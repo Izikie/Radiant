@@ -17,14 +17,17 @@ public class TileEntityDispenser extends TileEntityLockable implements IInventor
     private ItemStack[] stacks = new ItemStack[9];
     protected String customName;
 
+    @Override
     public int getSizeInventory() {
         return 9;
     }
 
+    @Override
     public ItemStack getStackInSlot(int index) {
         return this.stacks[index];
     }
 
+    @Override
     public ItemStack decrStackSize(int index, int count) {
         if (this.stacks[index] != null) {
             if (this.stacks[index].stackSize <= count) {
@@ -47,6 +50,7 @@ public class TileEntityDispenser extends TileEntityLockable implements IInventor
         }
     }
 
+    @Override
     public ItemStack removeStackFromSlot(int index) {
         if (this.stacks[index] != null) {
             ItemStack itemstack = this.stacks[index];
@@ -70,6 +74,7 @@ public class TileEntityDispenser extends TileEntityLockable implements IInventor
         return i;
     }
 
+    @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
         this.stacks[index] = stack;
 
@@ -91,6 +96,7 @@ public class TileEntityDispenser extends TileEntityLockable implements IInventor
         return -1;
     }
 
+    @Override
     public String getName() {
         return this.hasCustomName() ? this.customName : "container.dispenser";
     }
@@ -99,10 +105,12 @@ public class TileEntityDispenser extends TileEntityLockable implements IInventor
         this.customName = customName;
     }
 
+    @Override
     public boolean hasCustomName() {
         return this.customName != null;
     }
 
+    @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         NBTTagList nbttaglist = compound.getTagList("Items", 10);
@@ -122,6 +130,7 @@ public class TileEntityDispenser extends TileEntityLockable implements IInventor
         }
     }
 
+    @Override
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
         NBTTagList nbttaglist = new NBTTagList();
@@ -142,43 +151,54 @@ public class TileEntityDispenser extends TileEntityLockable implements IInventor
         }
     }
 
+    @Override
     public int getInventoryStackLimit() {
         return 64;
     }
 
+    @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
         return this.worldObj.getTileEntity(this.pos) == this && player.getDistanceSq(this.pos.getX() + 0.5D, this.pos.getY() + 0.5D, this.pos.getZ() + 0.5D) <= 64.0D;
     }
 
+    @Override
     public void openInventory(EntityPlayer player) {
     }
 
+    @Override
     public void closeInventory(EntityPlayer player) {
     }
 
+    @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
         return true;
     }
 
+    @Override
     public String getGuiID() {
         return "minecraft:dispenser";
     }
 
+    @Override
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
         return new ContainerDispenser(playerInventory, this);
     }
 
+    @Override
     public int getField(int id) {
         return 0;
     }
 
+    @Override
     public void setField(int id, int value) {
     }
 
+    @Override
     public int getFieldCount() {
         return 0;
     }
 
+    @Override
     public void clear() {
         Arrays.fill(this.stacks, null);
     }

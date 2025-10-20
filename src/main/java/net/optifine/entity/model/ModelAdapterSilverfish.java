@@ -14,11 +14,13 @@ public class ModelAdapterSilverfish extends ModelAdapter {
 		super(EntitySilverfish.class, "silverfish", 0.3F);
 	}
 
-	public ModelBase makeModel() {
+	@Override
+    public ModelBase makeModel() {
 		return new ModelSilverfish();
 	}
 
-	public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
+	@Override
+    public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
 		if (model instanceof ModelSilverfish modelsilverfish) {
 			String s = "body";
 
@@ -56,11 +58,13 @@ public class ModelAdapterSilverfish extends ModelAdapter {
 		}
 	}
 
-	public String[] getModelRendererNames() {
+	@Override
+    public String[] getModelRendererNames() {
 		return new String[]{"body1", "body2", "body3", "body4", "body5", "body6", "body7", "wing1", "wing2", "wing3"};
 	}
 
-	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+	@Override
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
 		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		RenderSilverfish rendersilverfish = new RenderSilverfish(rendermanager);
 		rendersilverfish.mainModel = modelBase;

@@ -10,10 +10,12 @@ public class EntityGiantZombie extends EntityMob {
         this.setSize(this.width * 6.0F, this.height * 6.0F);
     }
 
+    @Override
     public float getEyeHeight() {
         return 10.440001F;
     }
 
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100.0D);
@@ -21,6 +23,7 @@ public class EntityGiantZombie extends EntityMob {
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(50.0D);
     }
 
+    @Override
     public float getBlockPathWeight(BlockPos pos) {
         return this.worldObj.getLightBrightness(pos) - 0.5F;
     }

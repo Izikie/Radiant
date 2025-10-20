@@ -14,65 +14,78 @@ import java.util.List;
 public abstract class CreativeTabs {
     public static final CreativeTabs[] CREATIVE_TABS = new CreativeTabs[12];
     public static final CreativeTabs TAB_BLOCK = new CreativeTabs(0, "buildingBlocks") {
+        @Override
         public Item getTabIconItem() {
             return Item.getItemFromBlock(Blocks.BRICK_BLOCK);
         }
     };
     public static final CreativeTabs TAB_DECORATIONS = new CreativeTabs(1, "decorations") {
+        @Override
         public Item getTabIconItem() {
             return Item.getItemFromBlock(Blocks.DOUBLE_PLANT);
         }
 
+        @Override
         public int getIconItemDamage() {
             return BlockDoublePlant.EnumPlantType.PAEONIA.getMeta();
         }
     };
     public static final CreativeTabs TAB_REDSTONE = new CreativeTabs(2, "redstone") {
+        @Override
         public Item getTabIconItem() {
             return Items.REDSTONE;
         }
     };
     public static final CreativeTabs TAB_TRANSPORT = new CreativeTabs(3, "transportation") {
+        @Override
         public Item getTabIconItem() {
             return Item.getItemFromBlock(Blocks.GOLDEN_RAIL);
         }
     };
     public static final CreativeTabs TAB_MISC = (new CreativeTabs(4, "misc") {
+        @Override
         public Item getTabIconItem() {
             return Items.LAVA_BUCKET;
         }
     }).setRelevantEnchantmentTypes(EnchantmentTarget.ALL);
     public static final CreativeTabs TAB_ALL_SEARCH = (new CreativeTabs(5, "search") {
+        @Override
         public Item getTabIconItem() {
             return Items.COMPASS;
         }
     }).setBackgroundImageName("item_search.png");
     public static final CreativeTabs TAB_FOOD = new CreativeTabs(6, "food") {
+        @Override
         public Item getTabIconItem() {
             return Items.APPLE;
         }
     };
     public static final CreativeTabs TAB_TOOLS = (new CreativeTabs(7, "tools") {
+        @Override
         public Item getTabIconItem() {
             return Items.IRON_AXE;
         }
     }).setRelevantEnchantmentTypes(EnchantmentTarget.DIGGER, EnchantmentTarget.FISHING_ROD, EnchantmentTarget.BREAKABLE);
     public static final CreativeTabs TAB_COMBAT = (new CreativeTabs(8, "combat") {
+        @Override
         public Item getTabIconItem() {
             return Items.GOLDEN_SWORD;
         }
     }).setRelevantEnchantmentTypes(EnchantmentTarget.ARMOR, EnchantmentTarget.ARMOR_FEET, EnchantmentTarget.ARMOR_HEAD, EnchantmentTarget.ARMOR_LEGS, EnchantmentTarget.ARMOR_TORSO, EnchantmentTarget.BOW, EnchantmentTarget.WEAPON);
     public static final CreativeTabs TAB_BREWING = new CreativeTabs(9, "brewing") {
+        @Override
         public Item getTabIconItem() {
             return Items.POTION;
         }
     };
     public static final CreativeTabs TAB_MATERIALS = new CreativeTabs(10, "materials") {
+        @Override
         public Item getTabIconItem() {
             return Items.STICK;
         }
     };
     public static final CreativeTabs TAB_INVENTORY = (new CreativeTabs(11, "inventory") {
+        @Override
         public Item getTabIconItem() {
             return Item.getItemFromBlock(Blocks.CHEST);
         }

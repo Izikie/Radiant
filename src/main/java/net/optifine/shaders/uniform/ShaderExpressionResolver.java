@@ -73,7 +73,8 @@ public class ShaderExpressionResolver implements IExpressionResolver {
 		}
 	}
 
-	public IExpression getExpression(String name) {
+	@Override
+    public IExpression getExpression(String name) {
 		return this.mapExpressions.get(name);
 	}
 }

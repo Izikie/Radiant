@@ -35,7 +35,8 @@ public class PlayerItemsLayer implements LayerRenderer<EntityLivingBase> {
 		}
 	}
 
-	public void doRenderLayer(EntityLivingBase entityLiving, float limbSwing, float limbSwingAmount, float partialTicks, float ticksExisted, float headYaw, float rotationPitch, float scale) {
+	@Override
+    public void doRenderLayer(EntityLivingBase entityLiving, float limbSwing, float limbSwingAmount, float partialTicks, float ticksExisted, float headYaw, float rotationPitch, float scale) {
 		this.renderEquippedItems(entityLiving, scale, partialTicks);
 	}
 
@@ -54,7 +55,8 @@ public class PlayerItemsLayer implements LayerRenderer<EntityLivingBase> {
 		}
 	}
 
-	public boolean shouldCombineTextures() {
+	@Override
+    public boolean shouldCombineTextures() {
 		return false;
 	}
 }

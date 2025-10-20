@@ -14,11 +14,13 @@ public class ModelAdapterZombie extends ModelAdapterBiped {
 		super(EntityZombie.class, "zombie", 0.5F);
 	}
 
-	public ModelBase makeModel() {
+	@Override
+    public ModelBase makeModel() {
 		return new ModelZombie();
 	}
 
-	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+	@Override
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
 		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		RenderZombie renderzombie = new RenderZombie(rendermanager);
 		Render.setModelBipedMain(renderzombie, (ModelBiped) modelBase);

@@ -13,10 +13,12 @@ public class RenderSpider<T extends EntitySpider> extends RenderLiving<T> {
         this.addLayer(new LayerSpiderEyes(this));
     }
 
+    @Override
     protected float getDeathMaxRotation(T entityLivingBaseIn) {
         return 180.0F;
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(T entity) {
         return SPIDER_TEXTURES;
     }

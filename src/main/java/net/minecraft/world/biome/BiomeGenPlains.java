@@ -21,6 +21,7 @@ public class BiomeGenPlains extends BiomeGenBase {
         this.theBiomeDecorator.grassPerChunk = 10;
     }
 
+    @Override
     public BlockFlower.FlowerType pickRandomFlower(Random rand, BlockPos pos) {
         double d0 = GRASS_COLOR_NOISE.func_151601_a(pos.getX() / 200.0D, pos.getZ() / 200.0D);
 
@@ -41,6 +42,7 @@ public class BiomeGenPlains extends BiomeGenBase {
         }
     }
 
+    @Override
     public void decorate(World worldIn, Random rand, BlockPos pos) {
         double d0 = GRASS_COLOR_NOISE.func_151601_a((pos.getX() + 8) / 200.0D, (pos.getZ() + 8) / 200.0D);
 
@@ -74,6 +76,7 @@ public class BiomeGenPlains extends BiomeGenBase {
         super.decorate(worldIn, rand, pos);
     }
 
+    @Override
     protected BiomeGenBase createMutatedBiome(int p_180277_1_) {
         BiomeGenPlains biomegenplains = new BiomeGenPlains(p_180277_1_);
         biomegenplains.setBiomeName("Sunflower Plains");

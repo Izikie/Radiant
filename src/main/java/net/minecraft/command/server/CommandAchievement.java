@@ -18,18 +18,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CommandAchievement extends CommandBase {
+    @Override
     public String getCommandName() {
         return "achievement";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 2;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.achievement.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length < 2) {
             throw new WrongUsageException("commands.achievement.usage");
@@ -119,6 +123,7 @@ public class CommandAchievement extends CommandBase {
         }
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         if (args.length == 1) {
             return getListOfStringsMatchingLastWord(args, "give", "take");
@@ -135,6 +140,7 @@ public class CommandAchievement extends CommandBase {
         }
     }
 
+    @Override
     public boolean isUsernameIndex(String[] args, int index) {
         return index == 2;
     }

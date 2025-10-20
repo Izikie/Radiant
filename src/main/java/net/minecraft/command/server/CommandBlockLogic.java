@@ -66,6 +66,7 @@ public abstract class CommandBlockLogic implements ICommandSender {
         this.resultStats.readStatsFromNBT(nbt);
     }
 
+    @Override
     public boolean canCommandSenderUseCommand(int permLevel, String commandName) {
         return permLevel <= 2;
     }
@@ -104,10 +105,12 @@ public abstract class CommandBlockLogic implements ICommandSender {
         }
     }
 
+    @Override
     public String getName() {
         return this.customName;
     }
 
+    @Override
     public IChatComponent getDisplayName() {
         return new ChatComponentText(this.getName());
     }
@@ -116,6 +119,7 @@ public abstract class CommandBlockLogic implements ICommandSender {
         this.customName = p_145754_1_;
     }
 
+    @Override
     public void addChatMessage(IChatComponent component) {
         if (this.trackOutput && this.getEntityWorld() != null && !this.getEntityWorld().isRemote) {
             this.lastOutput = (new ChatComponentText("[" + DATE_FORMAT.format(new Date()) + "] ")).appendSibling(component);
@@ -123,11 +127,13 @@ public abstract class CommandBlockLogic implements ICommandSender {
         }
     }
 
+    @Override
     public boolean sendCommandFeedback() {
         MinecraftServer minecraftserver = MinecraftServer.getServer();
         return minecraftserver == null || !minecraftserver.isAnvilFileSet() || minecraftserver.worldServers[0].getGameRules().getBoolean("commandBlockOutput");
     }
 
+    @Override
     public void setCommandStat(CommandResultStats.Type type, int amount) {
         this.resultStats.setCommandStatScore(this, type, amount);
     }

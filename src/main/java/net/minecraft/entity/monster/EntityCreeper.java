@@ -33,15 +33,18 @@ public class EntityCreeper extends EntityMob {
         this.targetTasks.addTask(2, new EntityAIHurtByTarget(this, false));
     }
 
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
     }
 
+    @Override
     public int getMaxFallHeight() {
         return this.getAttackTarget() == null ? 3 : 3 + (int) (this.getHealth() - 1.0F);
     }
 
+    @Override
     public void fall(float distance, float damageMultiplier) {
         super.fall(distance, damageMultiplier);
         this.timeSinceIgnited = (int) (this.timeSinceIgnited + distance * 1.5F);
@@ -51,6 +54,7 @@ public class EntityCreeper extends EntityMob {
         }
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(16, (byte) -1);
@@ -58,6 +62,7 @@ public class EntityCreeper extends EntityMob {
         this.dataWatcher.addObject(18, (byte) 0);
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
 
@@ -70,6 +75,7 @@ public class EntityCreeper extends EntityMob {
         tagCompound.setBoolean("ignited", this.hasIgnited());
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
         this.dataWatcher.updateObject(17, (byte) (tagCompund.getBoolean("powered") ? 1 : 0));
@@ -87,6 +93,7 @@ public class EntityCreeper extends EntityMob {
         }
     }
 
+    @Override
     public void onUpdate() {
         if (this.isEntityAlive()) {
             this.lastActiveTime = this.timeSinceIgnited;
@@ -116,14 +123,17 @@ public class EntityCreeper extends EntityMob {
         super.onUpdate();
     }
 
+    @Override
     protected String getHurtSound() {
         return "mob.creeper.say";
     }
 
+    @Override
     protected String getDeathSound() {
         return "mob.creeper.death";
     }
 
+    @Override
     public void onDeath(DamageSource cause) {
         super.onDeath(cause);
 
@@ -138,6 +148,7 @@ public class EntityCreeper extends EntityMob {
         }
     }
 
+    @Override
     public boolean attackEntityAsMob(Entity entityIn) {
         return true;
     }
@@ -150,6 +161,7 @@ public class EntityCreeper extends EntityMob {
         return (this.lastActiveTime + (this.timeSinceIgnited - this.lastActiveTime) * p_70831_1_) / (this.fuseTime - 2);
     }
 
+    @Override
     protected Item getDropItem() {
         return Items.GUNPOWDER;
     }
@@ -162,11 +174,13 @@ public class EntityCreeper extends EntityMob {
         this.dataWatcher.updateObject(16, (byte) state);
     }
 
+    @Override
     public void onStruckByLightning(EntityLightningBolt lightningBolt) {
         super.onStruckByLightning(lightningBolt);
         this.dataWatcher.updateObject(17, (byte) 1);
     }
 
+    @Override
     protected boolean interact(EntityPlayer player) {
         ItemStack itemstack = player.inventory.getCurrentItem();
 

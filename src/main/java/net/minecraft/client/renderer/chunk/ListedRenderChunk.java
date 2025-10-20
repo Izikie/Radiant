@@ -17,6 +17,7 @@ public class ListedRenderChunk extends RenderChunk {
         return !p_178600_2_.isLayerEmpty(layer) ? this.baseDisplayList + layer.ordinal() : -1;
     }
 
+    @Override
     public void deleteGlResources() {
         super.deleteGlResources();
         GLAllocation.deleteDisplayLists(this.baseDisplayList, RenderLayer.values().length);

@@ -18,6 +18,7 @@ public class StateMap extends StateMapperBase {
         this.ignored = ignored;
     }
 
+    @Override
     protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
         Map<IProperty<?>, Comparable<?>> map = new LinkedHashMap<>(state.getProperties());
         String s;

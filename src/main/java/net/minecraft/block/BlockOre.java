@@ -24,14 +24,17 @@ public class BlockOre extends Block {
         this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return this == Blocks.COAL_ORE ? Items.COAL : (this == Blocks.DIAMOND_ORE ? Items.DIAMOND : (this == Blocks.LAPIS_ORE ? Items.DYE : (this == Blocks.EMERALD_ORE ? Items.EMERALD : (this == Blocks.QUARTZ_ORE ? Items.QUARTZ : Item.getItemFromBlock(this)))));
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return this == Blocks.LAPIS_ORE ? 4 + random.nextInt(5) : 1;
     }
 
+    @Override
     public int quantityDroppedWithBonus(int fortune, Random random) {
         if (fortune > 0 && Item.getItemFromBlock(this) != this.getItemDropped(this.getBlockState().getValidStates().getFirst(), random, fortune)) {
             int i = random.nextInt(fortune + 2) - 1;
@@ -46,6 +49,7 @@ public class BlockOre extends Block {
         }
     }
 
+    @Override
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
         super.dropBlockAsItemWithChance(worldIn, pos, state, chance, fortune);
 
@@ -68,10 +72,12 @@ public class BlockOre extends Block {
         }
     }
 
+    @Override
     public int getDamageValue(World worldIn, BlockPos pos) {
         return 0;
     }
 
+    @Override
     public int damageDropped(IBlockState state) {
         return this == Blocks.LAPIS_ORE ? DyeColor.BLUE.getDyeDamage() : 0;
     }

@@ -21,6 +21,7 @@ public class MapGenNetherBridge extends MapGenStructure {
         this.spawnList.add(new BiomeGenBase.SpawnListEntry(EntityMagmaCube.class, 3, 4, 4));
     }
 
+    @Override
     public String getStructureName() {
         return "Fortress";
     }
@@ -29,6 +30,7 @@ public class MapGenNetherBridge extends MapGenStructure {
         return this.spawnList;
     }
 
+    @Override
     protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ) {
         int i = chunkX >> 4;
         int j = chunkZ >> 4;
@@ -37,6 +39,7 @@ public class MapGenNetherBridge extends MapGenStructure {
         return this.rand.nextInt(3) == 0 && (chunkX == (i << 4) + 4 + this.rand.nextInt(8) && chunkZ == (j << 4) + 4 + this.rand.nextInt(8));
     }
 
+    @Override
     protected StructureStart getStructureStart(int chunkX, int chunkZ) {
         return new Start(this.worldObj, this.rand, chunkX, chunkZ);
     }

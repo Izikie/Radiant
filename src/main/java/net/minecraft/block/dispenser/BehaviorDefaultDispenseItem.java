@@ -7,6 +7,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
 public class BehaviorDefaultDispenseItem implements IBehaviorDispenseItem {
+    @Override
     public final ItemStack dispense(IBlockSource source, ItemStack stack) {
         ItemStack itemstack = this.dispenseStack(source, stack);
         this.playDispenseSound(source);

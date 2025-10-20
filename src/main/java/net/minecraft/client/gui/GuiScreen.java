@@ -447,6 +447,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
         return true;
     }
 
+    @Override
     public void confirmClicked(boolean result, int id) {
         if (id == 31102009) {
             if (result) {

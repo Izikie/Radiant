@@ -9,6 +9,7 @@ import net.minecraft.util.StatCollector;
 import java.util.List;
 
 public class ItemFireworkCharge extends Item {
+    @Override
     public int getColorFromItemStack(ItemStack stack, int renderPass) {
         if (renderPass != 1) {
             return super.getColorFromItemStack(stack, renderPass);
@@ -54,6 +55,7 @@ public class ItemFireworkCharge extends Item {
         return null;
     }
 
+    @Override
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
         if (stack.hasTagCompound()) {
             NBTTagCompound nbttagcompound = stack.getTagCompound().getCompoundTag("Explosion");

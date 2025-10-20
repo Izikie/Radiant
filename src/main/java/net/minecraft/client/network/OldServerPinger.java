@@ -53,6 +53,7 @@ public class OldServerPinger {
             private boolean field_183009_e = false;
             private long field_175092_e = 0L;
 
+            @Override
             public void handleServerInfo(S00PacketServerInfo packet) {
                 if (this.field_183009_e) {
                     networkManager.closeChannel(new ChatComponentText("Received unrequested status"));
@@ -120,6 +121,7 @@ public class OldServerPinger {
                 }
             }
 
+            @Override
             public void handlePong(S01PacketPong packet) {
                 long i = this.field_175092_e;
                 long j = Minecraft.getSystemTime();
@@ -127,6 +129,7 @@ public class OldServerPinger {
                 networkManager.closeChannel(new ChatComponentText("Finished"));
             }
 
+            @Override
             public void onDisconnect(IChatComponent reason) {
                 if (!this.field_147403_d) {
                     OldServerPinger.LOGGER.error("Can't ping {}: {}", server.serverIP, reason.getUnformattedText());
@@ -148,6 +151,7 @@ public class OldServerPinger {
     private void tryCompatibilityPing(ServerData server) {
         ServerAddress address = ServerAddress.fromString(server.serverIP);
         (new Bootstrap()).group(NetworkManager.CLIENT_NIO_EVENTLOOP.getValue()).handler(new ChannelInitializer<>() {
+            @Override
             protected void initChannel(Channel channel) throws Exception {
                 try {
                     channel.config().setOption(ChannelOption.TCP_NODELAY, Boolean.TRUE);
@@ -155,6 +159,7 @@ public class OldServerPinger {
                 }
 
                 channel.pipeline().addLast(new SimpleChannelInboundHandler<ByteBuf>() {
+                    @Override
                     public void channelActive(ChannelHandlerContext ctx) throws Exception {
                         super.channelActive(ctx);
                         ByteBuf byteBuf = Unpooled.buffer();
@@ -186,6 +191,7 @@ public class OldServerPinger {
                         }
                     }
 
+                    @Override
                     protected void channelRead0(ChannelHandlerContext ctx, ByteBuf p_channelRead0_2_) {
                         short short1 = p_channelRead0_2_.readUnsignedByte();
 
@@ -209,6 +215,7 @@ public class OldServerPinger {
                         ctx.close();
                     }
 
+                    @Override
                     public void exceptionCaught(ChannelHandlerContext ctx, Throwable throwable) throws Exception {
                         ctx.close();
                     }

@@ -10,6 +10,7 @@ public class ItemSoup extends ItemFood {
         this.setMaxStackSize(1);
     }
 
+    @Override
     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityPlayer playerIn) {
         super.onItemUseFinish(stack, worldIn, playerIn);
         return new ItemStack(Items.BOWL);

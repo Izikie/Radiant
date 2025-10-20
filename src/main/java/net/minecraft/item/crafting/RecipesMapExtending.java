@@ -12,6 +12,7 @@ public class RecipesMapExtending extends ShapedRecipes {
         super(3, 3, new ItemStack[]{new ItemStack(Items.PAPER), new ItemStack(Items.PAPER), new ItemStack(Items.PAPER), new ItemStack(Items.PAPER), new ItemStack(Items.FILLED_MAP, 0, 32767), new ItemStack(Items.PAPER), new ItemStack(Items.PAPER), new ItemStack(Items.PAPER), new ItemStack(Items.PAPER)}, new ItemStack(Items.MAP, 0, 0));
     }
 
+    @Override
     public boolean matches(InventoryCrafting inv, World worldIn) {
         if (!super.matches(inv, worldIn)) {
             return false;
@@ -35,6 +36,7 @@ public class RecipesMapExtending extends ShapedRecipes {
         }
     }
 
+    @Override
     public ItemStack getCraftingResult(InventoryCrafting inv) {
         ItemStack itemstack = null;
 

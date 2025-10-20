@@ -13,6 +13,7 @@ public class EntityAIBreakDoor extends EntityAIDoorInteract {
         super(entityIn);
     }
 
+    @Override
     public boolean shouldExecute() {
         if (!super.shouldExecute()) {
             return false;
@@ -24,11 +25,13 @@ public class EntityAIBreakDoor extends EntityAIDoorInteract {
         }
     }
 
+    @Override
     public void startExecuting() {
         super.startExecuting();
         this.breakingTime = 0;
     }
 
+    @Override
     public boolean continueExecuting() {
         double d0 = this.theEntity.getDistanceSq(this.doorPosition);
         boolean flag;
@@ -46,11 +49,13 @@ public class EntityAIBreakDoor extends EntityAIDoorInteract {
         return flag;
     }
 
+    @Override
     public void resetTask() {
         super.resetTask();
         this.theEntity.worldObj.sendBlockBreakProgress(this.theEntity.getEntityId(), this.doorPosition, -1);
     }
 
+    @Override
     public void updateTask() {
         super.updateTask();
 

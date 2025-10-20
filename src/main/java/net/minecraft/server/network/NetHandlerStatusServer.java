@@ -21,9 +21,11 @@ public class NetHandlerStatusServer implements INetHandlerStatusServer {
         this.networkManager = netManager;
     }
 
+    @Override
     public void onDisconnect(IChatComponent reason) {
     }
 
+    @Override
     public void processServerQuery(C00PacketServerQuery packet) {
         if (this.handled) {
             this.networkManager.closeChannel(EXIT_MESSAGE);
@@ -33,6 +35,7 @@ public class NetHandlerStatusServer implements INetHandlerStatusServer {
         }
     }
 
+    @Override
     public void processPing(C01PacketPing packet) {
         this.networkManager.sendPacket(new S01PacketPong(packet.getTime()));
         this.networkManager.closeChannel(EXIT_MESSAGE);

@@ -38,6 +38,7 @@ public class Cartesian {
         private GetList() {
         }
 
+        @Override
         public List<T> apply(Object[] p_apply_1_) {
             return Arrays.asList((T[]) p_apply_1_);
         }
@@ -52,6 +53,7 @@ public class Cartesian {
             this.iterables = iterables;
         }
 
+        @Override
         public Iterator<T[]> iterator() {
             return iterables.length == 0
                     ? Collections.singletonList(createArray(clazz, 0)).iterator()
@@ -82,6 +84,7 @@ public class Cartesian {
                 Arrays.fill(this.results, null);
             }
 
+            @Override
             public boolean hasNext() {
                 if (this.index == -2) {
                     this.index = 0;
@@ -122,6 +125,7 @@ public class Cartesian {
                 }
             }
 
+            @Override
             public T[] next() {
                 if (!this.hasNext()) {
                     throw new NoSuchElementException();

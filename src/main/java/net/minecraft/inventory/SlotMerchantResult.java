@@ -19,10 +19,12 @@ public class SlotMerchantResult extends Slot {
         this.theMerchantInventory = merchantInventory;
     }
 
+    @Override
     public boolean isItemValid(ItemStack stack) {
         return false;
     }
 
+    @Override
     public ItemStack decrStackSize(int amount) {
         if (this.getHasStack()) {
             this.field_75231_g += Math.min(amount, this.getStack().stackSize);
@@ -31,16 +33,19 @@ public class SlotMerchantResult extends Slot {
         return super.decrStackSize(amount);
     }
 
+    @Override
     protected void onCrafting(ItemStack stack, int amount) {
         this.field_75231_g += amount;
         this.onCrafting(stack);
     }
 
+    @Override
     protected void onCrafting(ItemStack stack) {
         stack.onCrafting(this.thePlayer.worldObj, this.thePlayer, this.field_75231_g);
         this.field_75231_g = 0;
     }
 
+    @Override
     public void onPickupFromSlot(EntityPlayer playerIn, ItemStack stack) {
         this.onCrafting(stack);
         MerchantRecipe merchantrecipe = this.theMerchantInventory.getCurrentRecipe();

@@ -17,6 +17,7 @@ public class NettyCompressionEncoder extends MessageToByteEncoder<ByteBuf> {
         this.deflater = new Deflater();
     }
 
+    @Override
     protected void encode(ChannelHandlerContext ctx, ByteBuf in, ByteBuf out) {
         int length = in.readableBytes();
         PacketBuffer buffer = new PacketBuffer(out);

@@ -27,10 +27,12 @@ public class BlockSapling extends BlockBush implements IGrowable {
         this.setCreativeTab(CreativeTabs.TAB_DECORATIONS);
     }
 
+    @Override
     public String getLocalizedName() {
         return StatCollector.translateToLocal(this.getUnlocalizedName() + "." + BlockPlanks.WoodType.OAK.getUnlocalizedName() + ".name");
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (!worldIn.isRemote) {
             super.updateTick(worldIn, pos, state, rand);
@@ -158,32 +160,39 @@ public class BlockSapling extends BlockBush implements IGrowable {
         return iblockstate.getBlock() == this && iblockstate.getValue(TYPE) == type;
     }
 
+    @Override
     public int damageDropped(IBlockState state) {
         return state.getValue(TYPE).getMetadata();
     }
 
+    @Override
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
         for (BlockPlanks.WoodType blockplanks$enumtype : BlockPlanks.WoodType.values()) {
             list.add(new ItemStack(itemIn, 1, blockplanks$enumtype.getMetadata()));
         }
     }
 
+    @Override
     public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
         return true;
     }
 
+    @Override
     public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
         return worldIn.rand.nextFloat() < 0.45D;
     }
 
+    @Override
     public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
         this.grow(worldIn, pos, state, rand);
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(TYPE, BlockPlanks.WoodType.byMetadata(meta & 7)).withProperty(STAGE, (meta & 8) >> 3);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         int i = 0;
         i = i | state.getValue(TYPE).getMetadata();
@@ -191,6 +200,7 @@ public class BlockSapling extends BlockBush implements IGrowable {
         return i;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, TYPE, STAGE);
     }

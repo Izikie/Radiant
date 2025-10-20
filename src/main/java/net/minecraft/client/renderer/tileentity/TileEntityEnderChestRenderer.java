@@ -9,6 +9,7 @@ public class TileEntityEnderChestRenderer extends TileEntitySpecialRenderer<Tile
     private static final ResourceLocation ENDER_CHEST_TEXTURE = new ResourceLocation("textures/entity/chest/ender.png");
     private final ModelChest field_147521_c = new ModelChest();
 
+    @Override
     public void renderTileEntityAt(TileEntityEnderChest te, double x, double y, double z, float partialTicks, int destroyStage) {
         int i = 0;
 

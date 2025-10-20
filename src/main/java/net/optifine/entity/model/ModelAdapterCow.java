@@ -12,11 +12,13 @@ public class ModelAdapterCow extends ModelAdapterQuadruped {
 		super(EntityCow.class, "cow", 0.7F);
 	}
 
-	public ModelBase makeModel() {
+	@Override
+    public ModelBase makeModel() {
 		return new ModelCow();
 	}
 
-	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+	@Override
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
 		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		return new RenderCow(rendermanager, modelBase, shadowSize);
 	}

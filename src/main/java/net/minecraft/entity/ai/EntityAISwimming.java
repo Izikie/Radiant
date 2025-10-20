@@ -12,10 +12,12 @@ public class EntityAISwimming extends EntityAIBase {
         ((PathNavigateGround) entitylivingIn.getNavigator()).setCanSwim(true);
     }
 
+    @Override
     public boolean shouldExecute() {
         return this.theEntity.isInWater() || this.theEntity.isInLava();
     }
 
+    @Override
     public void updateTask() {
         if (this.theEntity.getRNG().nextFloat() < 0.8F) {
             this.theEntity.getJumpHelper().setJumping();

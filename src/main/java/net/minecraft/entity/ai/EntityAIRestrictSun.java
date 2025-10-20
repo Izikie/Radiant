@@ -10,14 +10,17 @@ public class EntityAIRestrictSun extends EntityAIBase {
         this.theEntity = creature;
     }
 
+    @Override
     public boolean shouldExecute() {
         return this.theEntity.worldObj.isDaytime();
     }
 
+    @Override
     public void startExecuting() {
         ((PathNavigateGround) this.theEntity.getNavigator()).setAvoidSun(true);
     }
 
+    @Override
     public void resetTask() {
         ((PathNavigateGround) this.theEntity.getNavigator()).setAvoidSun(false);
     }

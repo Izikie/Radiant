@@ -15,11 +15,13 @@ public class NBTTagByteArray extends NBTBase {
         this.data = data;
     }
 
+    @Override
     void write(DataOutput output) throws IOException {
         output.writeInt(this.data.length);
         output.write(this.data);
     }
 
+    @Override
     void read(DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException {
         sizeTracker.read(192L);
         int i = input.readInt();
@@ -28,6 +30,7 @@ public class NBTTagByteArray extends NBTBase {
         input.readFully(this.data);
     }
 
+    @Override
     public byte getId() {
         return (byte) 7;
     }
@@ -36,6 +39,7 @@ public class NBTTagByteArray extends NBTBase {
         return "[" + this.data.length + " bytes]";
     }
 
+    @Override
     public NBTBase copy() {
         byte[] abyte = new byte[this.data.length];
         System.arraycopy(this.data, 0, abyte, 0, this.data.length);

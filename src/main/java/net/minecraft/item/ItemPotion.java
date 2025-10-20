@@ -74,6 +74,7 @@ public class ItemPotion extends Item {
         return list;
     }
 
+    @Override
     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityPlayer playerIn) {
         if (!playerIn.capabilities.isCreativeMode) {
             --stack.stackSize;
@@ -102,14 +103,17 @@ public class ItemPotion extends Item {
         return stack;
     }
 
+    @Override
     public int getMaxItemUseDuration(ItemStack stack) {
         return 32;
     }
 
+    @Override
     public UseAction getItemUseAction(ItemStack stack) {
         return UseAction.DRINK;
     }
 
+    @Override
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
         if (isSplash(itemStackIn.getMetadata())) {
             if (!playerIn.capabilities.isCreativeMode) {
@@ -137,6 +141,7 @@ public class ItemPotion extends Item {
         return PotionHelper.getLiquidColor(meta, false);
     }
 
+    @Override
     public int getColorFromItemStack(ItemStack stack, int renderPass) {
         return renderPass > 0 ? 16777215 : this.getColorFromDamage(stack.getMetadata());
     }
@@ -155,6 +160,7 @@ public class ItemPotion extends Item {
         return false;
     }
 
+    @Override
     public String getItemStackDisplayName(ItemStack stack) {
         if (stack.getMetadata() == 0) {
             return StatCollector.translateToLocal("item.emptyPotion.name").trim();
@@ -178,6 +184,7 @@ public class ItemPotion extends Item {
         }
     }
 
+    @Override
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
         if (stack.getMetadata() != 0) {
             List<PotionEffect> list = Items.POTION.getEffects(stack);
@@ -242,11 +249,13 @@ public class ItemPotion extends Item {
         }
     }
 
+    @Override
     public boolean hasEffect(ItemStack stack) {
         List<PotionEffect> list = this.getEffects(stack);
         return list != null && !list.isEmpty();
     }
 
+    @Override
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
         super.getSubItems(itemIn, tab, subItems);
 

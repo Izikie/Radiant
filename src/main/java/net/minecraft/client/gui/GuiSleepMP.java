@@ -7,11 +7,13 @@ import net.minecraft.network.play.client.C0BPacketEntityAction;
 import java.io.IOException;
 
 public class GuiSleepMP extends GuiChat {
+    @Override
     public void initGui() {
         super.initGui();
         this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height - 40, I18n.format("multiplayer.stopSleeping")));
     }
 
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         if (keyCode == 1) {
             this.wakeFromSleep();
@@ -29,6 +31,7 @@ public class GuiSleepMP extends GuiChat {
         }
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.id == 1) {
             this.wakeFromSleep();

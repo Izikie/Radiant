@@ -33,11 +33,13 @@ public class ShaderOptionSwitchConst extends ShaderOptionSwitch {
 		}
 	}
 
-	public String getSourceLine() {
+	@Override
+    public String getSourceLine() {
 		return "const bool " + this.getName() + " = " + this.getValue() + "; // Shader option " + this.getValue();
 	}
 
-	public boolean matchesLine(String line) {
+	@Override
+    public boolean matchesLine(String line) {
 		Matcher matcher = PATTERN_CONST.matcher(line);
 
 		if (!matcher.matches()) {
@@ -48,7 +50,8 @@ public class ShaderOptionSwitchConst extends ShaderOptionSwitch {
 		}
 	}
 
-	public boolean checkUsed() {
+	@Override
+    public boolean checkUsed() {
 		return false;
 	}
 }

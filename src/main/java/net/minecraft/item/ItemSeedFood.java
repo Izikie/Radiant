@@ -16,6 +16,7 @@ public class ItemSeedFood extends ItemFood {
         this.soilId = soil;
     }
 
+    @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
         if (side != Direction.UP) {
             return false;

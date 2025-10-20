@@ -11,18 +11,22 @@ import net.minecraft.util.BlockPos;
 import java.util.List;
 
 public class CommandEnchant extends CommandBase {
+    @Override
     public String getCommandName() {
         return "enchant";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 2;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.enchant.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length < 2) {
             throw new WrongUsageException("commands.enchant.usage");
@@ -86,6 +90,7 @@ public class CommandEnchant extends CommandBase {
         }
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         return args.length == 1 ? getListOfStringsMatchingLastWord(args, this.getListOfPlayers()) : (args.length == 2 ? getListOfStringsMatchingLastWord(args, Enchantment.func_181077_c()) : null);
     }
@@ -94,6 +99,7 @@ public class CommandEnchant extends CommandBase {
         return MinecraftServer.getServer().getAllUsernames();
     }
 
+    @Override
     public boolean isUsernameIndex(String[] args, int index) {
         return index == 0;
     }

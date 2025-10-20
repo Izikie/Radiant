@@ -18,96 +18,123 @@ public class EmptyChunk extends Chunk {
         super(worldIn, x, z);
     }
 
+    @Override
     public boolean isAtLocation(int x, int z) {
         return x == this.xPosition && z == this.zPosition;
     }
 
+    @Override
     public int getHeightValue(int x, int z) {
         return 0;
     }
 
+    @Override
     public void generateHeightMap() {
     }
 
+    @Override
     public void generateSkylightMap() {
     }
 
+    @Override
     public Block getBlock(BlockPos pos) {
         return Blocks.AIR;
     }
 
+    @Override
     public int getBlockLightOpacity(BlockPos pos) {
         return 255;
     }
 
+    @Override
     public int getBlockMetadata(BlockPos pos) {
         return 0;
     }
 
+    @Override
     public int getLightFor(LightType p_177413_1_, BlockPos pos) {
         return p_177413_1_.defaultLightValue;
     }
 
+    @Override
     public void setLightFor(LightType p_177431_1_, BlockPos pos, int value) {
     }
 
+    @Override
     public int getLightSubtracted(BlockPos pos, int amount) {
         return 0;
     }
 
+    @Override
     public void addEntity(Entity entityIn) {
     }
 
+    @Override
     public void removeEntity(Entity entityIn) {
     }
 
+    @Override
     public void removeEntityAtIndex(Entity entityIn, int p_76608_2_) {
     }
 
+    @Override
     public boolean canSeeSky(BlockPos pos) {
         return false;
     }
 
+    @Override
     public TileEntity getTileEntity(BlockPos pos, EnumCreateEntityType p_177424_2_) {
         return null;
     }
 
+    @Override
     public void addTileEntity(TileEntity tileEntityIn) {
     }
 
+    @Override
     public void addTileEntity(BlockPos pos, TileEntity tileEntityIn) {
     }
 
+    @Override
     public void removeTileEntity(BlockPos pos) {
     }
 
+    @Override
     public void onChunkLoad() {
     }
 
+    @Override
     public void onChunkUnload() {
     }
 
+    @Override
     public void setChunkModified() {
     }
 
+    @Override
     public void getEntitiesWithinAABBForEntity(Entity entityIn, AxisAlignedBB aabb, List<Entity> listToFill, Predicate<? super Entity> p_177414_4_) {
     }
 
+    @Override
     public <T extends Entity> void getEntitiesOfTypeWithinAAAB(Class<? extends T> entityClass, AxisAlignedBB aabb, List<T> listToFill, Predicate<? super T> p_177430_4_) {
     }
 
+    @Override
     public boolean needsSaving(boolean p_76601_1_) {
         return false;
     }
 
+    @Override
     public Random getRandomWithSeed(long seed) {
         return new Random(this.getWorld().getSeed() + ((long) this.xPosition * this.xPosition * 4987142) + (this.xPosition * 5947611L) + ((long) this.zPosition * this.zPosition) * 4392871L + (this.zPosition * 389711L) ^ seed);
     }
 
+    @Override
     public boolean isEmpty() {
         return true;
     }
 
+    @Override
     public boolean getAreLevelsEmpty(int startY, int endY) {
         return true;
     }

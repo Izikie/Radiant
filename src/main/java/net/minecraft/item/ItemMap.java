@@ -191,6 +191,7 @@ public class ItemMap extends ItemMapBase {
         }
     }
 
+    @Override
     public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
         if (!worldIn.isRemote) {
             MapData mapdata = this.getMapData(stack, worldIn);
@@ -205,10 +206,12 @@ public class ItemMap extends ItemMapBase {
         }
     }
 
+    @Override
     public Packet<?> createMapDataPacket(ItemStack stack, World worldIn, EntityPlayer player) {
         return this.getMapData(stack, worldIn).getMapPacket(stack, worldIn, player);
     }
 
+    @Override
     public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn) {
         if (stack.hasTagCompound() && stack.getTagCompound().getBoolean("map_is_scaling")) {
             MapData mapdata = Items.FILLED_MAP.getMapData(stack, worldIn);
@@ -227,6 +230,7 @@ public class ItemMap extends ItemMapBase {
         }
     }
 
+    @Override
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
         MapData mapdata = this.getMapData(stack, playerIn.worldObj);
 

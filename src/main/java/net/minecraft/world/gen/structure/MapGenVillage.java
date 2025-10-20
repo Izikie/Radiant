@@ -34,10 +34,12 @@ public class MapGenVillage extends MapGenStructure {
         }
     }
 
+    @Override
     public String getStructureName() {
         return "Village";
     }
 
+    @Override
     protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ) {
         int i = chunkX;
         int j = chunkZ;
@@ -66,6 +68,7 @@ public class MapGenVillage extends MapGenStructure {
         return false;
     }
 
+    @Override
     protected StructureStart getStructureStart(int chunkX, int chunkZ) {
         return new Start(this.worldObj, this.rand, chunkX, chunkZ, this.terrainType);
     }
@@ -109,15 +112,18 @@ public class MapGenVillage extends MapGenStructure {
             this.hasMoreThanTwoComponents = k > 2;
         }
 
+        @Override
         public boolean isSizeableStructure() {
             return this.hasMoreThanTwoComponents;
         }
 
+        @Override
         public void writeToNBT(NBTTagCompound tagCompound) {
             super.writeToNBT(tagCompound);
             tagCompound.setBoolean("Valid", this.hasMoreThanTwoComponents);
         }
 
+        @Override
         public void readFromNBT(NBTTagCompound tagCompound) {
             super.readFromNBT(tagCompound);
             this.hasMoreThanTwoComponents = tagCompound.getBoolean("Valid");

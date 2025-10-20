@@ -73,6 +73,7 @@ public class S0FPacketSpawnMob implements Packet<INetHandlerPlayClient> {
         this.field_149043_l = entityIn.getDataWatcher();
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.entityId = buf.readVarIntFromBuffer();
         this.type = buf.readByte() & 255;
@@ -88,6 +89,7 @@ public class S0FPacketSpawnMob implements Packet<INetHandlerPlayClient> {
         this.watcher = DataWatcher.readWatchedListFromPacketBuffer(buf);
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeVarIntToBuffer(this.entityId);
         buf.writeByte(this.type & 255);
@@ -103,6 +105,7 @@ public class S0FPacketSpawnMob implements Packet<INetHandlerPlayClient> {
         this.field_149043_l.writeTo(buf);
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleSpawnMob(this);
     }

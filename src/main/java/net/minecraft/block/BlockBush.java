@@ -29,6 +29,7 @@ public class BlockBush extends Block {
         this.setCreativeTab(CreativeTabs.TAB_DECORATIONS);
     }
 
+    @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
         return super.canPlaceBlockAt(worldIn, pos) && this.canPlaceBlockOn(worldIn.getBlockState(pos.down()).getBlock());
     }
@@ -37,11 +38,13 @@ public class BlockBush extends Block {
         return ground == Blocks.GRASS || ground == Blocks.DIRT || ground == Blocks.FARMLAND;
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         super.onNeighborBlockChange(worldIn, pos, state, neighborBlock);
         this.checkAndDropBlock(worldIn, pos, state);
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         this.checkAndDropBlock(worldIn, pos, state);
     }
@@ -57,18 +60,22 @@ public class BlockBush extends Block {
         return this.canPlaceBlockOn(worldIn.getBlockState(pos.down()).getBlock());
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
         return null;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public RenderLayer getBlockLayer() {
         return RenderLayer.CUTOUT;
     }

@@ -24,6 +24,7 @@ public class BlockOldLeaf extends BlockLeaves {
         this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockPlanks.WoodType.OAK).withProperty(CHECK_DECAY, Boolean.TRUE).withProperty(DECAYABLE, Boolean.TRUE));
     }
 
+    @Override
     public int getRenderColor(IBlockState state) {
         if (state.getBlock() != this) {
             return super.getRenderColor(state);
@@ -33,6 +34,7 @@ public class BlockOldLeaf extends BlockLeaves {
         }
     }
 
+    @Override
     public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass) {
         IBlockState iblockstate = worldIn.getBlockState(pos);
 
@@ -51,16 +53,19 @@ public class BlockOldLeaf extends BlockLeaves {
         return super.colorMultiplier(worldIn, pos, renderPass);
     }
 
+    @Override
     protected void dropApple(World worldIn, BlockPos pos, IBlockState state, int chance) {
         if (state.getValue(VARIANT) == BlockPlanks.WoodType.OAK && worldIn.rand.nextInt(chance) == 0) {
             spawnAsEntity(worldIn, pos, new ItemStack(Items.APPLE, 1, 0));
         }
     }
 
+    @Override
     protected int getSaplingDropChance(IBlockState state) {
         return state.getValue(VARIANT) == BlockPlanks.WoodType.JUNGLE ? 40 : super.getSaplingDropChance(state);
     }
 
+    @Override
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
         list.add(new ItemStack(itemIn, 1, BlockPlanks.WoodType.OAK.getMetadata()));
         list.add(new ItemStack(itemIn, 1, BlockPlanks.WoodType.SPRUCE.getMetadata()));
@@ -68,14 +73,17 @@ public class BlockOldLeaf extends BlockLeaves {
         list.add(new ItemStack(itemIn, 1, BlockPlanks.WoodType.JUNGLE.getMetadata()));
     }
 
+    @Override
     protected ItemStack createStackedBlock(IBlockState state) {
         return new ItemStack(Item.getItemFromBlock(this), 1, state.getValue(VARIANT).getMetadata());
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(VARIANT, this.getWoodType(meta)).withProperty(DECAYABLE, (meta & 4) == 0).withProperty(CHECK_DECAY, (meta & 8) > 0);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         int i = 0;
         i = i | state.getValue(VARIANT).getMetadata();
@@ -91,18 +99,22 @@ public class BlockOldLeaf extends BlockLeaves {
         return i;
     }
 
+    @Override
     public BlockPlanks.WoodType getWoodType(int meta) {
         return BlockPlanks.WoodType.byMetadata((meta & 3) % 4);
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, VARIANT, CHECK_DECAY, DECAYABLE);
     }
 
+    @Override
     public int damageDropped(IBlockState state) {
         return state.getValue(VARIANT).getMetadata();
     }
 
+    @Override
     public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te) {
         if (!worldIn.isRemote && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.SHEARS) {
             player.triggerAchievement(StatList.MINE_BLOCK_STAT_ARRAY[Block.getIdFromBlock(this)]);

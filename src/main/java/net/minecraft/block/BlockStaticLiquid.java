@@ -19,6 +19,7 @@ public class BlockStaticLiquid extends BlockLiquid {
         }
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         if (!this.checkForMixing(worldIn, pos, state)) {
             this.updateLiquid(worldIn, pos, state);
@@ -31,6 +32,7 @@ public class BlockStaticLiquid extends BlockLiquid {
         worldIn.scheduleUpdate(pos, blockdynamicliquid, this.tickRate(worldIn));
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (this.blockMaterial == Material.LAVA) {
             if (worldIn.getGameRules().getBoolean("doFireTick")) {

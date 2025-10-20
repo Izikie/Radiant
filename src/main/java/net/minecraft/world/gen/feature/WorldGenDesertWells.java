@@ -19,6 +19,7 @@ public class WorldGenDesertWells extends WorldGenerator {
     private final IBlockState field_175912_c = Blocks.SANDSTONE.getDefaultState();
     private final IBlockState field_175910_d = Blocks.FLOWING_WATER.getDefaultState();
 
+    @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         while (worldIn.isAirBlock(position) && position.getY() > 2) {
             position = position.down();

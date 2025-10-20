@@ -28,6 +28,7 @@ import java.util.Random;
 
 public class EntitySheep extends EntityAnimal {
     private final InventoryCrafting inventoryCrafting = new InventoryCrafting(new Container() {
+        @Override
         public boolean canInteractWith(EntityPlayer playerIn) {
             return false;
         }
@@ -57,11 +58,13 @@ public class EntitySheep extends EntityAnimal {
         this.inventoryCrafting.setInventorySlotContents(1, new ItemStack(Items.DYE, 1, 0));
     }
 
+    @Override
     protected void updateAITasks() {
         this.sheepTimer = this.entityAIEatGrass.getEatingGrassTimer();
         super.updateAITasks();
     }
 
+    @Override
     public void onLivingUpdate() {
         if (this.worldObj.isRemote) {
             this.sheepTimer = Math.max(0, this.sheepTimer - 1);
@@ -70,17 +73,20 @@ public class EntitySheep extends EntityAnimal {
         super.onLivingUpdate();
     }
 
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.23000000417232513D);
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(16, (byte) 0);
     }
 
+    @Override
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
         if (!this.getSheared()) {
             this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1, this.getFleeceColor().getMetadata()), 0.0F);
@@ -97,10 +103,12 @@ public class EntitySheep extends EntityAnimal {
         }
     }
 
+    @Override
     protected Item getDropItem() {
         return Item.getItemFromBlock(Blocks.WOOL);
     }
 
+    @Override
     public void handleStatusUpdate(byte id) {
         if (id == 10) {
             this.sheepTimer = 40;
@@ -122,6 +130,7 @@ public class EntitySheep extends EntityAnimal {
         }
     }
 
+    @Override
     public boolean interact(EntityPlayer player) {
         ItemStack itemstack = player.inventory.getCurrentItem();
 
@@ -145,30 +154,36 @@ public class EntitySheep extends EntityAnimal {
         return super.interact(player);
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         tagCompound.setBoolean("Sheared", this.getSheared());
         tagCompound.setByte("Color", (byte) this.getFleeceColor().getMetadata());
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
         this.setSheared(tagCompund.getBoolean("Sheared"));
         this.setFleeceColor(DyeColor.byMetadata(tagCompund.getByte("Color")));
     }
 
+    @Override
     protected String getLivingSound() {
         return "mob.sheep.say";
     }
 
+    @Override
     protected String getHurtSound() {
         return "mob.sheep.say";
     }
 
+    @Override
     protected String getDeathSound() {
         return "mob.sheep.say";
     }
 
+    @Override
     protected void playStepSound(BlockPos pos, Block blockIn) {
         this.playSound("mob.sheep.step", 0.15F, 1.0F);
     }
@@ -201,6 +216,7 @@ public class EntitySheep extends EntityAnimal {
         return i < 5 ? DyeColor.BLACK : (i < 10 ? DyeColor.GRAY : (i < 15 ? DyeColor.SILVER : (i < 18 ? DyeColor.BROWN : (random.nextInt(500) == 0 ? DyeColor.PINK : DyeColor.WHITE))));
     }
 
+    @Override
     public EntitySheep createChild(EntityAgeable ageable) {
         EntitySheep entitysheep = (EntitySheep) ageable;
         EntitySheep entitysheep1 = new EntitySheep(this.worldObj);
@@ -208,6 +224,7 @@ public class EntitySheep extends EntityAnimal {
         return entitysheep1;
     }
 
+    @Override
     public void eatGrassBonus() {
         this.setSheared(false);
 
@@ -216,6 +233,7 @@ public class EntitySheep extends EntityAnimal {
         }
     }
 
+    @Override
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
         livingdata = super.onInitialSpawn(difficulty, livingdata);
         this.setFleeceColor(getRandomSheepColor(this.worldObj.rand));
@@ -239,6 +257,7 @@ public class EntitySheep extends EntityAnimal {
         return DyeColor.byDyeDamage(k);
     }
 
+    @Override
     public float getEyeHeight() {
         return 0.95F * this.height;
     }

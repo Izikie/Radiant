@@ -17,6 +17,7 @@ public class WorldGenTallGrass extends WorldGenerator {
         this.tallGrassState = Blocks.TALL_GRASS.getDefaultState().withProperty(BlockTallGrass.TYPE, p_i45629_1_);
     }
 
+    @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         Block block;
 

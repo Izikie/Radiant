@@ -180,6 +180,7 @@ public class ModelBlock {
     }
 
     public static class Deserializer implements JsonDeserializer<ModelBlock> {
+        @Override
         public ModelBlock deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
             JsonObject jsonobject = jsonElement.getAsJsonObject();
             List<BlockPart> list = this.getModelElements(ctx, jsonobject);

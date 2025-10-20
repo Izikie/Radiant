@@ -12,10 +12,12 @@ public class RenderMagmaCube extends RenderLiving<EntityMagmaCube> {
         super(renderManagerIn, new ModelMagmaCube(), 0.25F);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityMagmaCube entity) {
         return MAGMA_CUBE_TEXTURES;
     }
 
+    @Override
     protected void preRenderCallback(EntityMagmaCube entitylivingbaseIn, float partialTickTime) {
         int i = entitylivingbaseIn.getSlimeSize();
         float f = (entitylivingbaseIn.prevSquishFactor + (entitylivingbaseIn.squishFactor - entitylivingbaseIn.prevSquishFactor) * partialTickTime) / (i * 0.5F + 1.0F);

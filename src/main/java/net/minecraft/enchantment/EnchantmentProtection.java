@@ -21,18 +21,22 @@ public class EnchantmentProtection extends Enchantment {
         }
     }
 
+    @Override
     public int getMinEnchantability(int enchantmentLevel) {
         return BASE_ENCHANTABILITY[this.protectionType] + (enchantmentLevel - 1) * LEVEL_ENCHANTABILITY[this.protectionType];
     }
 
+    @Override
     public int getMaxEnchantability(int enchantmentLevel) {
         return this.getMinEnchantability(enchantmentLevel) + THRESHOLD_ENCHANTABILITY[this.protectionType];
     }
 
+    @Override
     public int getMaxLevel() {
         return 4;
     }
 
+    @Override
     public int calcModifierDamage(int level, DamageSource source) {
         if (source.canHarmInCreative()) {
             return 0;
@@ -42,10 +46,12 @@ public class EnchantmentProtection extends Enchantment {
         }
     }
 
+    @Override
     public String getName() {
         return "enchantment.protect." + PROTECTION_NAME[this.protectionType];
     }
 
+    @Override
     public boolean canApplyTogether(Enchantment ench) {
         if (ench instanceof EnchantmentProtection enchantmentprotection) {
             return enchantmentprotection.protectionType != this.protectionType && (this.protectionType == 2 || enchantmentprotection.protectionType == 2);

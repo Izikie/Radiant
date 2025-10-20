@@ -29,6 +29,7 @@ public class RenderWitherSkull extends Render<EntityWitherSkull> {
         return p_82400_1_ + p_82400_3_ * f;
     }
 
+    @Override
     public void doRender(EntityWitherSkull entity, double x, double y, double z, float entityYaw, float partialTicks) {
         GlStateManager.pushMatrix();
         GlStateManager.disableCull();
@@ -45,6 +46,7 @@ public class RenderWitherSkull extends Render<EntityWitherSkull> {
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityWitherSkull entity) {
         return entity.isInvulnerable() ? INVULNERABLE_WITHER_TEXTURES : WITHER_TEXTURES;
     }

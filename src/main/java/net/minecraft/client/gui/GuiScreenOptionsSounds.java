@@ -23,6 +23,7 @@ public class GuiScreenOptionsSounds extends GuiScreen {
         this.game_settings_4 = p_i45025_2_;
     }
 
+    @Override
     public void initGui() {
         int i = 0;
         this.field_146507_a = I18n.format("options.sounds.title");
@@ -40,6 +41,7 @@ public class GuiScreenOptionsSounds extends GuiScreen {
         this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168, I18n.format("gui.done")));
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.enabled) {
             if (button.id == 200) {
@@ -49,6 +51,7 @@ public class GuiScreenOptionsSounds extends GuiScreen {
         }
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRendererObj, this.field_146507_a, this.width / 2, 15, 16777215);
@@ -74,10 +77,12 @@ public class GuiScreenOptionsSounds extends GuiScreen {
             this.field_146156_o = GuiScreenOptionsSounds.this.game_settings_4.getSoundLevel(p_i45024_5_);
         }
 
+        @Override
         protected int getHoverState(boolean mouseOver) {
             return 0;
         }
 
+        @Override
         protected void mouseDragged(Minecraft mc, int mouseX, int mouseY) {
             if (this.visible) {
                 if (this.field_146155_p) {
@@ -94,6 +99,7 @@ public class GuiScreenOptionsSounds extends GuiScreen {
             }
         }
 
+        @Override
         public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
             if (super.mousePressed(mc, mouseX, mouseY)) {
                 this.field_146156_o = (float) (mouseX - (this.xPosition + 4)) / (this.width - 8);
@@ -108,9 +114,11 @@ public class GuiScreenOptionsSounds extends GuiScreen {
             }
         }
 
+        @Override
         public void playPressSound(SoundHandler soundHandlerIn) {
         }
 
+        @Override
         public void mouseReleased(int mouseX, int mouseY) {
             if (this.field_146155_p) {
                 if (this.field_146153_r == SoundCategory.MASTER) {

@@ -61,10 +61,12 @@ public class EntityArmorStand extends EntityLivingBase {
         this.setPosition(posX, posY, posZ);
     }
 
+    @Override
     public boolean isServerWorld() {
         return super.isServerWorld() && !this.hasNoGravity();
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(10, (byte) 0);
@@ -76,26 +78,32 @@ public class EntityArmorStand extends EntityLivingBase {
         this.dataWatcher.addObject(16, DEFAULT_RIGHTLEG_ROTATION);
     }
 
+    @Override
     public ItemStack getHeldItem() {
         return this.contents[0];
     }
 
+    @Override
     public ItemStack getEquipmentInSlot(int slotIn) {
         return this.contents[slotIn];
     }
 
+    @Override
     public ItemStack getCurrentArmor(int slotIn) {
         return this.contents[slotIn + 1];
     }
 
+    @Override
     public void setCurrentItemOrArmor(int slotIn, ItemStack stack) {
         this.contents[slotIn] = stack;
     }
 
+    @Override
     public ItemStack[] getInventory() {
         return this.contents;
     }
 
+    @Override
     public boolean replaceItemInInventory(int inventorySlot, ItemStack itemStackIn) {
         int i;
 
@@ -117,6 +125,7 @@ public class EntityArmorStand extends EntityLivingBase {
         }
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         NBTTagList nbttaglist = new NBTTagList();
@@ -151,6 +160,7 @@ public class EntityArmorStand extends EntityLivingBase {
         tagCompound.setTag("Pose", this.readPoseFromNBT());
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
 
@@ -255,13 +265,16 @@ public class EntityArmorStand extends EntityLivingBase {
         return nbttagcompound;
     }
 
+    @Override
     public boolean canBePushed() {
         return false;
     }
 
+    @Override
     protected void collideWithEntity(Entity entityIn) {
     }
 
+    @Override
     protected void collideWithNearbyEntities() {
         List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox());
 
@@ -275,6 +288,7 @@ public class EntityArmorStand extends EntityLivingBase {
         }
     }
 
+    @Override
     public boolean interactAt(EntityPlayer player, Vec3 targetVec3) {
         if (this.hasMarker()) {
             return false;
@@ -375,6 +389,7 @@ public class EntityArmorStand extends EntityLivingBase {
         }
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (this.worldObj.isRemote) {
             return false;
@@ -434,6 +449,7 @@ public class EntityArmorStand extends EntityLivingBase {
         }
     }
 
+    @Override
     public boolean isInRangeToRenderDist(double distance) {
         double d0 = this.getEntityBoundingBox().getAverageEdgeLength() * 4.0D;
 
@@ -478,22 +494,26 @@ public class EntityArmorStand extends EntityLivingBase {
         }
     }
 
+    @Override
     protected float updateDistance(float p_110146_1_, float p_110146_2_) {
         this.prevRenderYawOffset = this.prevRotationYaw;
         this.renderYawOffset = this.rotationYaw;
         return 0.0F;
     }
 
+    @Override
     public float getEyeHeight() {
         return this.isChild() ? this.height * 0.5F : this.height * 0.9F;
     }
 
+    @Override
     public void moveEntityWithHeading(float strafe, float forward) {
         if (!this.hasNoGravity()) {
             super.moveEntityWithHeading(strafe, forward);
         }
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
         Rotations rotations = this.dataWatcher.getWatchableObjectRotations(11);
@@ -561,23 +581,28 @@ public class EntityArmorStand extends EntityLivingBase {
         this.setPosition(d0, d1, d2);
     }
 
+    @Override
     protected void updatePotionMetadata() {
         this.setInvisible(this.canInteract);
     }
 
+    @Override
     public void setInvisible(boolean invisible) {
         this.canInteract = invisible;
         super.setInvisible(invisible);
     }
 
+    @Override
     public boolean isChild() {
         return this.isSmall();
     }
 
+    @Override
     public void onKillCommand() {
         this.setDead();
     }
 
+    @Override
     public boolean isImmuneToExplosions() {
         return this.isInvisible();
     }
@@ -716,6 +741,7 @@ public class EntityArmorStand extends EntityLivingBase {
         return this.rightLegRotation;
     }
 
+    @Override
     public boolean canBeCollidedWith() {
         return super.canBeCollidedWith() && !this.hasMarker();
     }

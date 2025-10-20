@@ -23,6 +23,7 @@ public class C00Handshake implements Packet<INetHandlerHandshakeServer> {
         this.requestedState = requestedState;
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.protocolVersion = buf.readVarIntFromBuffer();
         this.ip = buf.readStringFromBuffer(255);
@@ -30,6 +31,7 @@ public class C00Handshake implements Packet<INetHandlerHandshakeServer> {
         this.requestedState = NetworkState.getById(buf.readVarIntFromBuffer());
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeVarIntToBuffer(this.protocolVersion);
         buf.writeString(this.ip);
@@ -37,6 +39,7 @@ public class C00Handshake implements Packet<INetHandlerHandshakeServer> {
         buf.writeVarIntToBuffer(this.requestedState.getId());
     }
 
+    @Override
     public void processPacket(INetHandlerHandshakeServer handler) {
         handler.processHandshake(this);
     }

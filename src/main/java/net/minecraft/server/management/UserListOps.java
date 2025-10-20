@@ -10,10 +10,12 @@ public class UserListOps extends UserList<GameProfile, UserListOpsEntry> {
         super(saveFile);
     }
 
+    @Override
     protected UserListEntry<GameProfile> createEntry(JsonObject entryData) {
         return new UserListOpsEntry(entryData);
     }
 
+    @Override
     public String[] getKeys() {
         String[] astring = new String[this.getValues().size()];
         int i = 0;
@@ -30,6 +32,7 @@ public class UserListOps extends UserList<GameProfile, UserListOpsEntry> {
         return userlistopsentry != null && userlistopsentry.bypassesPlayerLimit();
     }
 
+    @Override
     protected String getObjectKey(GameProfile obj) {
         return obj.getId().toString();
     }

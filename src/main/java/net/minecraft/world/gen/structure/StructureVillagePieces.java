@@ -215,6 +215,7 @@ public class StructureVillagePieces {
             return canVillageGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(p_175854_1_, structureboundingbox) == null ? new Church(start, p_175854_7_, rand, structureboundingbox, facing) : null;
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             if (this.field_143015_k < 0) {
                 this.field_143015_k = this.getAverageGroundLevel(worldIn, structureBoundingBoxIn);
@@ -297,6 +298,7 @@ public class StructureVillagePieces {
             return true;
         }
 
+        @Override
         protected int func_180779_c(int p_180779_1_, int p_180779_2_) {
             return 2;
         }
@@ -321,6 +323,7 @@ public class StructureVillagePieces {
             this.cropTypeD = this.func_151559_a(rand);
         }
 
+        @Override
         protected void writeStructureToNBT(NBTTagCompound tagCompound) {
             super.writeStructureToNBT(tagCompound);
             tagCompound.setInteger("CA", Block.blockRegistry.getIDForObject(this.cropTypeA));
@@ -329,6 +332,7 @@ public class StructureVillagePieces {
             tagCompound.setInteger("CD", Block.blockRegistry.getIDForObject(this.cropTypeD));
         }
 
+        @Override
         protected void readStructureFromNBT(NBTTagCompound tagCompound) {
             super.readStructureFromNBT(tagCompound);
             this.cropTypeA = Block.getBlockById(tagCompound.getInteger("CA"));
@@ -350,6 +354,7 @@ public class StructureVillagePieces {
             return canVillageGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(p_175851_1_, structureboundingbox) == null ? new Field1(start, p_175851_7_, rand, structureboundingbox, facing) : null;
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             if (this.field_143015_k < 0) {
                 this.field_143015_k = this.getAverageGroundLevel(worldIn, structureBoundingBoxIn);
@@ -411,12 +416,14 @@ public class StructureVillagePieces {
             this.cropTypeB = this.func_151560_a(rand);
         }
 
+        @Override
         protected void writeStructureToNBT(NBTTagCompound tagCompound) {
             super.writeStructureToNBT(tagCompound);
             tagCompound.setInteger("CA", Block.blockRegistry.getIDForObject(this.cropTypeA));
             tagCompound.setInteger("CB", Block.blockRegistry.getIDForObject(this.cropTypeB));
         }
 
+        @Override
         protected void readStructureFromNBT(NBTTagCompound tagCompound) {
             super.readStructureFromNBT(tagCompound);
             this.cropTypeA = Block.getBlockById(tagCompound.getInteger("CA"));
@@ -436,6 +443,7 @@ public class StructureVillagePieces {
             return canVillageGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(p_175852_1_, structureboundingbox) == null ? new Field2(start, p_175852_7_, rand, structureboundingbox, facing) : null;
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             if (this.field_143015_k < 0) {
                 this.field_143015_k = this.getAverageGroundLevel(worldIn, structureBoundingBoxIn);
@@ -489,6 +497,7 @@ public class StructureVillagePieces {
             return canVillageGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(p_175857_1_, structureboundingbox) == null ? new Hall(start, p_175857_7_, rand, structureboundingbox, facing) : null;
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             if (this.field_143015_k < 0) {
                 this.field_143015_k = this.getAverageGroundLevel(worldIn, structureBoundingBoxIn);
@@ -576,6 +585,7 @@ public class StructureVillagePieces {
             return true;
         }
 
+        @Override
         protected int func_180779_c(int p_180779_1_, int p_180779_2_) {
             return p_180779_1_ == 0 ? 4 : super.func_180779_c(p_180779_1_, p_180779_2_);
         }
@@ -596,6 +606,7 @@ public class StructureVillagePieces {
             return canVillageGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(p_175850_1_, structureboundingbox) == null ? new House1(start, p_175850_7_, rand, structureboundingbox, facing) : null;
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             if (this.field_143015_k < 0) {
                 this.field_143015_k = this.getAverageGroundLevel(worldIn, structureBoundingBoxIn);
@@ -686,6 +697,7 @@ public class StructureVillagePieces {
             return true;
         }
 
+        @Override
         protected int func_180779_c(int p_180779_1_, int p_180779_2_) {
             return 1;
         }
@@ -709,16 +721,19 @@ public class StructureVillagePieces {
             return canVillageGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(p_175855_1_, structureboundingbox) == null ? new House2(start, p_175855_7_, rand, structureboundingbox, facing) : null;
         }
 
+        @Override
         protected void writeStructureToNBT(NBTTagCompound tagCompound) {
             super.writeStructureToNBT(tagCompound);
             tagCompound.setBoolean("Chest", this.hasMadeChest);
         }
 
+        @Override
         protected void readStructureFromNBT(NBTTagCompound tagCompound) {
             super.readStructureFromNBT(tagCompound);
             this.hasMadeChest = tagCompound.getBoolean("Chest");
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             if (this.field_143015_k < 0) {
                 this.field_143015_k = this.getAverageGroundLevel(worldIn, structureBoundingBoxIn);
@@ -788,6 +803,7 @@ public class StructureVillagePieces {
             return true;
         }
 
+        @Override
         protected int func_180779_c(int p_180779_1_, int p_180779_2_) {
             return 3;
         }
@@ -808,6 +824,7 @@ public class StructureVillagePieces {
             return canVillageGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(p_175849_1_, structureboundingbox) == null ? new House3(start, p_175849_7_, rand, structureboundingbox, facing) : null;
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             if (this.field_143015_k < 0) {
                 this.field_143015_k = this.getAverageGroundLevel(worldIn, structureBoundingBoxIn);
@@ -944,11 +961,13 @@ public class StructureVillagePieces {
             this.isRoofAccessible = rand.nextBoolean();
         }
 
+        @Override
         protected void writeStructureToNBT(NBTTagCompound tagCompound) {
             super.writeStructureToNBT(tagCompound);
             tagCompound.setBoolean("Terrace", this.isRoofAccessible);
         }
 
+        @Override
         protected void readStructureFromNBT(NBTTagCompound tagCompound) {
             super.readStructureFromNBT(tagCompound);
             this.isRoofAccessible = tagCompound.getBoolean("Terrace");
@@ -959,6 +978,7 @@ public class StructureVillagePieces {
             return StructureComponent.findIntersecting(p_175858_1_, structureboundingbox) != null ? null : new House4Garden(start, p_175858_7_, rand, structureboundingbox, facing);
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             if (this.field_143015_k < 0) {
                 this.field_143015_k = this.getAverageGroundLevel(worldIn, structureBoundingBoxIn);
@@ -1059,16 +1079,19 @@ public class StructureVillagePieces {
             this.length = Math.max(p_i45562_4_.getXSize(), p_i45562_4_.getZSize());
         }
 
+        @Override
         protected void writeStructureToNBT(NBTTagCompound tagCompound) {
             super.writeStructureToNBT(tagCompound);
             tagCompound.setInteger("Length", this.length);
         }
 
+        @Override
         protected void readStructureFromNBT(NBTTagCompound tagCompound) {
             super.readStructureFromNBT(tagCompound);
             this.length = tagCompound.getInteger("Length");
         }
 
+        @Override
         public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
             boolean flag = false;
 
@@ -1141,6 +1164,7 @@ public class StructureVillagePieces {
             return null;
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             IBlockState iblockstate = this.func_175847_a(Blocks.GRAVEL.getDefaultState());
             IBlockState iblockstate1 = this.func_175847_a(Blocks.COBBLESTONE.getDefaultState());
@@ -1233,6 +1257,7 @@ public class StructureVillagePieces {
             return StructureComponent.findIntersecting(p_175856_1_, structureboundingbox) != null ? null : structureboundingbox;
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             if (this.field_143015_k < 0) {
                 this.field_143015_k = this.getAverageGroundLevel(worldIn, structureBoundingBoxIn);
@@ -1274,12 +1299,14 @@ public class StructureVillagePieces {
             }
         }
 
+        @Override
         protected void writeStructureToNBT(NBTTagCompound tagCompound) {
             tagCompound.setInteger("HPos", this.field_143015_k);
             tagCompound.setInteger("VCount", this.villagersSpawned);
             tagCompound.setBoolean("Desert", this.isDesertVillage);
         }
 
+        @Override
         protected void readStructureFromNBT(NBTTagCompound tagCompound) {
             this.field_143015_k = tagCompound.getInteger("HPos");
             this.villagersSpawned = tagCompound.getInteger("VCount");
@@ -1408,17 +1435,20 @@ public class StructureVillagePieces {
             return p_175847_1_;
         }
 
+        @Override
         protected void setBlockState(World worldIn, IBlockState blockstateIn, int x, int y, int z, StructureBoundingBox boundingboxIn) {
             IBlockState iblockstate = this.func_175847_a(blockstateIn);
             super.setBlockState(worldIn, iblockstate, x, y, z, boundingboxIn);
         }
 
+        @Override
         protected void fillWithBlocks(World worldIn, StructureBoundingBox boundingboxIn, int xMin, int yMin, int zMin, int xMax, int yMax, int zMax, IBlockState boundaryBlockState, IBlockState insideBlockState, boolean existingOnly) {
             IBlockState iblockstate = this.func_175847_a(boundaryBlockState);
             IBlockState iblockstate1 = this.func_175847_a(insideBlockState);
             super.fillWithBlocks(worldIn, boundingboxIn, xMin, yMin, zMin, xMax, yMax, zMax, iblockstate, iblockstate1, existingOnly);
         }
 
+        @Override
         protected void replaceAirAndLiquidDownwards(World worldIn, IBlockState blockstateIn, int x, int y, int z, StructureBoundingBox boundingboxIn) {
             IBlockState iblockstate = this.func_175847_a(blockstateIn);
             super.replaceAirAndLiquidDownwards(worldIn, iblockstate, x, y, z, boundingboxIn);
@@ -1448,6 +1478,7 @@ public class StructureVillagePieces {
             }
         }
 
+        @Override
         public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
             StructureVillagePieces.func_176069_e((Start) componentIn, listIn, rand, this.boundingBox.minX - 1, this.boundingBox.maxY - 4, this.boundingBox.minZ + 1, Direction.WEST, this.getComponentType());
             StructureVillagePieces.func_176069_e((Start) componentIn, listIn, rand, this.boundingBox.maxX + 1, this.boundingBox.maxY - 4, this.boundingBox.minZ + 1, Direction.EAST, this.getComponentType());
@@ -1455,6 +1486,7 @@ public class StructureVillagePieces {
             StructureVillagePieces.func_176069_e((Start) componentIn, listIn, rand, this.boundingBox.minX + 1, this.boundingBox.maxY - 4, this.boundingBox.maxZ + 1, Direction.SOUTH, this.getComponentType());
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             if (this.field_143015_k < 0) {
                 this.field_143015_k = this.getAverageGroundLevel(worldIn, structureBoundingBoxIn);
@@ -1509,12 +1541,14 @@ public class StructureVillagePieces {
             this.tablePosition = rand.nextInt(3);
         }
 
+        @Override
         protected void writeStructureToNBT(NBTTagCompound tagCompound) {
             super.writeStructureToNBT(tagCompound);
             tagCompound.setInteger("T", this.tablePosition);
             tagCompound.setBoolean("C", this.isTallHouse);
         }
 
+        @Override
         protected void readStructureFromNBT(NBTTagCompound tagCompound) {
             super.readStructureFromNBT(tagCompound);
             this.tablePosition = tagCompound.getInteger("T");
@@ -1526,6 +1560,7 @@ public class StructureVillagePieces {
             return canVillageGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(p_175853_1_, structureboundingbox) == null ? new WoodHut(start, p_175853_7_, rand, structureboundingbox, facing) : null;
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             if (this.field_143015_k < 0) {
                 this.field_143015_k = this.getAverageGroundLevel(worldIn, structureBoundingBoxIn);

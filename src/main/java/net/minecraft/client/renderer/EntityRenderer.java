@@ -248,6 +248,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         }
     }
 
+    @Override
     public void onResourceManagerReload(IResourceManager resourceManager) {
         if (this.theShaderGroup != null) {
             this.theShaderGroup.deleteShaderGroup();

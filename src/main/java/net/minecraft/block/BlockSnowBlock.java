@@ -18,14 +18,17 @@ public class BlockSnowBlock extends Block {
         this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Items.SNOWBALL;
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return 4;
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (worldIn.getLightFor(LightType.BLOCK, pos) > 11) {
             this.dropBlockAsItem(worldIn, pos, worldIn.getBlockState(pos), 0);

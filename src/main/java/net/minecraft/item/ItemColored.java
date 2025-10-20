@@ -16,10 +16,12 @@ public class ItemColored extends ItemBlock {
         }
     }
 
+    @Override
     public int getColorFromItemStack(ItemStack stack, int renderPass) {
         return this.coloredBlock.getRenderColor(this.coloredBlock.getStateFromMeta(stack.getMetadata()));
     }
 
+    @Override
     public int getMetadata(int damage) {
         return damage;
     }
@@ -29,6 +31,7 @@ public class ItemColored extends ItemBlock {
         return this;
     }
 
+    @Override
     public String getUnlocalizedName(ItemStack stack) {
         if (this.subtypeNames == null) {
             return super.getUnlocalizedName(stack);

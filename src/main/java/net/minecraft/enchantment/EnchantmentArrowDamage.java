@@ -8,14 +8,17 @@ public class EnchantmentArrowDamage extends Enchantment {
         this.setName("arrowDamage");
     }
 
+    @Override
     public int getMinEnchantability(int enchantmentLevel) {
         return 1 + (enchantmentLevel - 1) * 10;
     }
 
+    @Override
     public int getMaxEnchantability(int enchantmentLevel) {
         return this.getMinEnchantability(enchantmentLevel) + 15;
     }
 
+    @Override
     public int getMaxLevel() {
         return 5;
     }

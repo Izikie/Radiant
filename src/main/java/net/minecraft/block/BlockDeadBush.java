@@ -22,22 +22,27 @@ public class BlockDeadBush extends BlockBush {
         this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.8F, 0.5F + f);
     }
 
+    @Override
     public MapColor getMapColor(IBlockState state) {
         return MapColor.WOOD_COLOR;
     }
 
+    @Override
     protected boolean canPlaceBlockOn(Block ground) {
         return ground == Blocks.SAND || ground == Blocks.HARDENED_CLAY || ground == Blocks.STAINED_HARDENED_CLAY || ground == Blocks.DIRT;
     }
 
+    @Override
     public boolean isReplaceable(World worldIn, BlockPos pos) {
         return true;
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return null;
     }
 
+    @Override
     public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te) {
         if (!worldIn.isRemote && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.SHEARS) {
             player.triggerAchievement(StatList.MINE_BLOCK_STAT_ARRAY[Block.getIdFromBlock(this)]);

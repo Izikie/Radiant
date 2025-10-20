@@ -21,6 +21,7 @@ public class EntityLargeFireball extends EntityFireball {
         super(worldIn, shooter, accelX, accelY, accelZ);
     }
 
+    @Override
     protected void onImpact(MovingObjectPosition movingObject) {
         if (!this.worldObj.isRemote) {
             if (movingObject.entityHit != null) {
@@ -34,11 +35,13 @@ public class EntityLargeFireball extends EntityFireball {
         }
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         tagCompound.setInteger("ExplosionPower", this.explosionPower);
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
 

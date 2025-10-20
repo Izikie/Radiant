@@ -37,6 +37,7 @@ public class ItemEditableBook extends Item {
         return book.getTagCompound().getInteger("generation");
     }
 
+    @Override
     public String getItemStackDisplayName(ItemStack stack) {
         if (stack.hasTagCompound()) {
             NBTTagCompound nbttagcompound = stack.getTagCompound();
@@ -50,6 +51,7 @@ public class ItemEditableBook extends Item {
         return super.getItemStackDisplayName(stack);
     }
 
+    @Override
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
         if (stack.hasTagCompound()) {
             NBTTagCompound nbttagcompound = stack.getTagCompound();
@@ -63,6 +65,7 @@ public class ItemEditableBook extends Item {
         }
     }
 
+    @Override
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
         if (!worldIn.isRemote) {
             this.resolveContents(itemStackIn, playerIn);
@@ -108,6 +111,7 @@ public class ItemEditableBook extends Item {
         }
     }
 
+    @Override
     public boolean hasEffect(ItemStack stack) {
         return true;
     }

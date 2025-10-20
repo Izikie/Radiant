@@ -10,6 +10,7 @@ public class TileEntityEnderChest extends TileEntity implements ITickable {
     public int numPlayersUsing;
     private int ticksSinceSync;
 
+    @Override
     public void update() {
         if (++this.ticksSinceSync % 20 * 4 == 0) {
             this.worldObj.addBlockEvent(this.pos, Blocks.ENDER_CHEST, 1, this.numPlayersUsing);
@@ -54,6 +55,7 @@ public class TileEntityEnderChest extends TileEntity implements ITickable {
         }
     }
 
+    @Override
     public boolean receiveClientEvent(int id, int type) {
         if (id == 1) {
             this.numPlayersUsing = type;
@@ -63,6 +65,7 @@ public class TileEntityEnderChest extends TileEntity implements ITickable {
         }
     }
 
+    @Override
     public void invalidate() {
         this.updateContainingBlockInfo();
         super.invalidate();

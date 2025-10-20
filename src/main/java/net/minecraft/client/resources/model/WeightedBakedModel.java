@@ -22,30 +22,37 @@ public class WeightedBakedModel implements IBakedModel {
         this.baseModel = p_i46073_1_.getFirst().model;
     }
 
+    @Override
     public List<BakedQuad> getFaceQuads(Direction facing) {
         return this.baseModel.getFaceQuads(facing);
     }
 
+    @Override
     public List<BakedQuad> getGeneralQuads() {
         return this.baseModel.getGeneralQuads();
     }
 
+    @Override
     public boolean isAmbientOcclusion() {
         return this.baseModel.isAmbientOcclusion();
     }
 
+    @Override
     public boolean isGui3d() {
         return this.baseModel.isGui3d();
     }
 
+    @Override
     public boolean isBuiltInRenderer() {
         return this.baseModel.isBuiltInRenderer();
     }
 
+    @Override
     public TextureAtlasSprite getParticleTexture() {
         return this.baseModel.getParticleTexture();
     }
 
+    @Override
     public ItemCameraTransforms getItemCameraTransforms() {
         return this.baseModel.getItemCameraTransforms();
     }
@@ -80,6 +87,7 @@ public class WeightedBakedModel implements IBakedModel {
             this.model = p_i46072_1_;
         }
 
+        @Override
         public int compareTo(MyWeighedRandomItem p_compareTo_1_) {
             return ComparisonChain.start().compare(p_compareTo_1_.itemWeight, this.itemWeight).compare(this.getCountQuads(), p_compareTo_1_.getCountQuads()).result();
         }

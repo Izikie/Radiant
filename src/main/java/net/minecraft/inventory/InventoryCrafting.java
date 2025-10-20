@@ -22,10 +22,12 @@ public class InventoryCrafting implements IInventory {
         this.inventoryHeight = height;
     }
 
+    @Override
     public int getSizeInventory() {
         return this.stackList.length;
     }
 
+    @Override
     public ItemStack getStackInSlot(int index) {
         return index >= this.getSizeInventory() ? null : this.stackList[index];
     }
@@ -34,18 +36,22 @@ public class InventoryCrafting implements IInventory {
         return row >= 0 && row < this.inventoryWidth && column >= 0 && column <= this.inventoryHeight ? this.getStackInSlot(row + column * this.inventoryWidth) : null;
     }
 
+    @Override
     public String getName() {
         return "container.crafting";
     }
 
+    @Override
     public boolean hasCustomName() {
         return false;
     }
 
+    @Override
     public IChatComponent getDisplayName() {
         return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName());
     }
 
+    @Override
     public ItemStack removeStackFromSlot(int index) {
         if (this.stackList[index] != null) {
             ItemStack itemstack = this.stackList[index];
@@ -56,6 +62,7 @@ public class InventoryCrafting implements IInventory {
         }
     }
 
+    @Override
     public ItemStack decrStackSize(int index, int count) {
         if (this.stackList[index] != null) {
             if (this.stackList[index].stackSize <= count) {
@@ -78,43 +85,54 @@ public class InventoryCrafting implements IInventory {
         }
     }
 
+    @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
         this.stackList[index] = stack;
         this.eventHandler.onCraftMatrixChanged(this);
     }
 
+    @Override
     public int getInventoryStackLimit() {
         return 64;
     }
 
+    @Override
     public void markDirty() {
     }
 
+    @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
         return true;
     }
 
+    @Override
     public void openInventory(EntityPlayer player) {
     }
 
+    @Override
     public void closeInventory(EntityPlayer player) {
     }
 
+    @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
         return true;
     }
 
+    @Override
     public int getField(int id) {
         return 0;
     }
 
+    @Override
     public void setField(int id, int value) {
     }
 
+    @Override
     public int getFieldCount() {
         return 0;
     }
 
+    @Override
     public void clear() {
         Arrays.fill(this.stackList, null);
     }

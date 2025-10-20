@@ -14,6 +14,7 @@ public class LayerSlimeGel implements LayerRenderer<EntitySlime> {
         this.slimeRenderer = slimeRendererIn;
     }
 
+    @Override
     public void doRenderLayer(EntitySlime entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
         if (!entitylivingbaseIn.isInvisible()) {
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -27,6 +28,7 @@ public class LayerSlimeGel implements LayerRenderer<EntitySlime> {
         }
     }
 
+    @Override
     public boolean shouldCombineTextures() {
         return true;
     }

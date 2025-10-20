@@ -14,19 +14,23 @@ public class RenderWitch extends RenderLiving<EntityWitch> {
         this.addLayer(new LayerHeldItemWitch(this));
     }
 
+    @Override
     public void doRender(EntityWitch entity, double x, double y, double z, float entityYaw, float partialTicks) {
         ((ModelWitch) this.mainModel).field_82900_g = entity.getHeldItem() != null;
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityWitch entity) {
         return WITCH_TEXTURES;
     }
 
+    @Override
     public void transformHeldFull3DItemLayer() {
         GlStateManager.translate(0.0F, 0.1875F, 0.0F);
     }
 
+    @Override
     protected void preRenderCallback(EntityWitch entitylivingbaseIn, float partialTickTime) {
         float f = 0.9375F;
         GlStateManager.scale(f, f, f);

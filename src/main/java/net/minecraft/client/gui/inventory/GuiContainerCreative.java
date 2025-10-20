@@ -505,6 +505,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         }
     }
 
+    @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         RenderHelper.enableGUIStandardItemLighting();
@@ -660,6 +661,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
             this.scrollTo(0.0F);
         }
 
+        @Override
         public boolean canInteractWith(EntityPlayer playerIn) {
             return true;
         }
@@ -689,9 +691,11 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
             return this.itemList.size() > 45;
         }
 
+        @Override
         protected void retrySlotClick(int slotId, int clickedButton, boolean mode, EntityPlayer playerIn) {
         }
 
+        @Override
         public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
             if (index >= this.inventorySlots.size() - 9 && index < this.inventorySlots.size()) {
                 Slot slot = this.inventorySlots.get(index);
@@ -704,10 +708,12 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
             return null;
         }
 
+        @Override
         public boolean canMergeSlot(ItemStack stack, Slot slotIn) {
             return slotIn.yDisplayPosition > 90;
         }
 
+        @Override
         public boolean canDragIntoSlot(Slot p_94531_1_) {
             return p_94531_1_.inventory instanceof InventoryPlayer || p_94531_1_.yDisplayPosition > 90 && p_94531_1_.xDisplayPosition <= 162;
         }
@@ -721,46 +727,57 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
             this.slot = p_i46313_2_;
         }
 
+        @Override
         public void onPickupFromSlot(EntityPlayer playerIn, ItemStack stack) {
             this.slot.onPickupFromSlot(playerIn, stack);
         }
 
+        @Override
         public boolean isItemValid(ItemStack stack) {
             return this.slot.isItemValid(stack);
         }
 
+        @Override
         public ItemStack getStack() {
             return this.slot.getStack();
         }
 
+        @Override
         public boolean getHasStack() {
             return this.slot.getHasStack();
         }
 
+        @Override
         public void putStack(ItemStack stack) {
             this.slot.putStack(stack);
         }
 
+        @Override
         public void onSlotChanged() {
             this.slot.onSlotChanged();
         }
 
+        @Override
         public int getSlotStackLimit() {
             return this.slot.getSlotStackLimit();
         }
 
+        @Override
         public int getItemStackLimit(ItemStack stack) {
             return this.slot.getItemStackLimit(stack);
         }
 
+        @Override
         public String getSlotTexture() {
             return this.slot.getSlotTexture();
         }
 
+        @Override
         public ItemStack decrStackSize(int amount) {
             return this.slot.decrStackSize(amount);
         }
 
+        @Override
         public boolean isHere(IInventory inv, int slotIn) {
             return this.slot.isHere(inv, slotIn);
         }

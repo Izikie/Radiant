@@ -27,6 +27,7 @@ public class PropertyInteger extends PropertyHelper<Integer> {
         }
     }
 
+    @Override
     public Collection<Integer> getAllowedValues() {
         return this.allowedValues;
     }
@@ -56,6 +57,7 @@ public class PropertyInteger extends PropertyHelper<Integer> {
         return new PropertyInteger(name, min, max);
     }
 
+    @Override
     public String getName(Integer value) {
         return value.toString();
     }

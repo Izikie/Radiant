@@ -27,6 +27,7 @@ public class LayeredColorMaskTexture extends AbstractTexture {
         this.field_174950_i = p_i46101_3_;
     }
 
+    @Override
     public void loadTexture(IResourceManager resourceManager) throws IOException {
         this.deleteGlTexture();
         NativeImage image;

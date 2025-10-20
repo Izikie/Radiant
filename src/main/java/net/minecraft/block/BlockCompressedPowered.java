@@ -12,10 +12,12 @@ public class BlockCompressedPowered extends Block {
         super(p_i46386_1_, p_i46386_2_);
     }
 
+    @Override
     public boolean canProvidePower() {
         return true;
     }
 
+    @Override
     public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
         return 15;
     }

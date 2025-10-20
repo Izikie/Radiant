@@ -13,18 +13,22 @@ import java.util.List;
 import java.util.Random;
 
 public class CommandWeather extends CommandBase {
+    @Override
     public String getCommandName() {
         return "weather";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 2;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.weather.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length >= 1 && args.length <= 2) {
             int i = (300 + (new Random()).nextInt(600)) * 20;
@@ -67,6 +71,7 @@ public class CommandWeather extends CommandBase {
         }
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         return args.length == 1 ? getListOfStringsMatchingLastWord(args, "clear", "rain", "thunder") : null;
     }

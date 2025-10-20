@@ -46,6 +46,7 @@ public class TileEntityBanner extends TileEntity {
         this.field_175119_g = true;
     }
 
+    @Override
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
         setBaseColorAndPatterns(compound, this.baseColor, this.patterns);
@@ -59,6 +60,7 @@ public class TileEntityBanner extends TileEntity {
         }
     }
 
+    @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         this.baseColor = compound.getInteger("Base");
@@ -69,6 +71,7 @@ public class TileEntityBanner extends TileEntity {
         this.field_175119_g = true;
     }
 
+    @Override
     public Packet<?> getDescriptionPacket() {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
         this.writeToNBT(nbttagcompound);

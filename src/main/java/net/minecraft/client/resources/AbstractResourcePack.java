@@ -31,10 +31,12 @@ public abstract class AbstractResourcePack implements IResourcePack {
         return p_110595_0_.toURI().relativize(p_110595_1_.toURI()).getPath();
     }
 
+    @Override
     public InputStream getInputStream(ResourceLocation location) throws IOException {
         return this.getInputStreamByName(locationToName(location));
     }
 
+    @Override
     public boolean resourceExists(ResourceLocation location) {
         return this.hasResourceName(locationToName(location));
     }
@@ -47,6 +49,7 @@ public abstract class AbstractResourcePack implements IResourcePack {
         LOGGER.warn("ResourcePack: ignored non-lowercase namespace: {} in {}", name, this.resourcePackFile);
     }
 
+    @Override
     public <T extends IMetadataSection> T getPackMetadata(IMetadataSerializer metadataSerializer, String metadataSectionName) throws IOException {
         return readMetadata(metadataSerializer, this.getInputStreamByName("pack.mcmeta"), metadataSectionName);
     }
@@ -67,10 +70,12 @@ public abstract class AbstractResourcePack implements IResourcePack {
         return p_110596_0_.parseMetadataSection(p_110596_2_, jsonobject);
     }
 
+    @Override
     public NativeImage getPackImage() throws IOException {
         return TextureUtil.readNativeImage(this.getInputStreamByName("pack.png"));
     }
 
+    @Override
     public String getPackName() {
         return this.resourcePackFile.getName();
     }

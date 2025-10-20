@@ -27,7 +27,8 @@ public class GuiScreenOF extends GuiScreen {
 	protected void actionPerformedRightClick(GuiButton button) throws IOException {
 	}
 
-	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+	@Override
+    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
 		super.mouseClicked(mouseX, mouseY, mouseButton);
 
 		if (mouseButton == 1) {

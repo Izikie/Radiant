@@ -18,6 +18,7 @@ public class LayerSheepWool implements LayerRenderer<EntitySheep> {
         this.sheepRenderer = sheepRendererIn;
     }
 
+    @Override
     public void doRenderLayer(EntitySheep entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
         if (!entitylivingbaseIn.getSheared() && !entitylivingbaseIn.isInvisible()) {
             this.sheepRenderer.bindTexture(TEXTURE);
@@ -54,6 +55,7 @@ public class LayerSheepWool implements LayerRenderer<EntitySheep> {
         }
     }
 
+    @Override
     public boolean shouldCombineTextures() {
         return true;
     }

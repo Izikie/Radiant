@@ -53,11 +53,13 @@ public enum RenderEntityParameterFloat implements IExpressionFloat {
 		return this.name;
 	}
 
-	public ExpressionType getExpressionType() {
+	@Override
+    public ExpressionType getExpressionType() {
 		return ExpressionType.FLOAT;
 	}
 
-	public float eval() {
+	@Override
+    public float eval() {
 		Render render = this.renderManager.renderRender;
 
 		if (render != null) {

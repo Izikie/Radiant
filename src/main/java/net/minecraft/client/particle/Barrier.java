@@ -17,10 +17,12 @@ public class Barrier extends EntityFX {
         this.particleMaxAge = 80;
     }
 
+    @Override
     public int getFXLayer() {
         return 1;
     }
 
+    @Override
     public void renderParticle(WorldRenderer worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
         float f = this.particleIcon.getMinU();
         float f1 = this.particleIcon.getMaxU();
@@ -40,6 +42,7 @@ public class Barrier extends EntityFX {
     }
 
     public static class Factory implements IParticleFactory {
+        @Override
         public EntityFX getEntityFX(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
             return new Barrier(worldIn, xCoordIn, yCoordIn, zCoordIn, Item.getItemFromBlock(Blocks.BARRIER));
         }

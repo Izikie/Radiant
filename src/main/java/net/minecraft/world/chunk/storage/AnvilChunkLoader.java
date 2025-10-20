@@ -41,6 +41,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
         this.chunkSaveLocation = chunkSaveLocationIn;
     }
 
+    @Override
     public Chunk loadChunk(World worldIn, int x, int z) throws IOException {
         ChunkCoordIntPair chunkcoordintpair = new ChunkCoordIntPair(x, z);
         NBTTagCompound nbttagcompound = this.chunksToRemove.get(chunkcoordintpair);
@@ -83,6 +84,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
         }
     }
 
+    @Override
     public void saveChunk(World worldIn, Chunk chunkIn) throws MinecraftException, IOException {
         worldIn.checkSessionLock();
 
@@ -105,6 +107,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
         ThreadedFileIOBase.getThreadedIOInstance().queueIO(this);
     }
 
+    @Override
     public boolean writeNextIO() {
         if (this.chunksToRemove.isEmpty()) {
             if (this.field_183014_e) {
@@ -143,12 +146,15 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
         dataoutputstream.close();
     }
 
+    @Override
     public void saveExtraChunkData(World worldIn, Chunk chunkIn) throws IOException {
     }
 
+    @Override
     public void chunkTick() {
     }
 
+    @Override
     public void saveExtraData() {
         try {
             this.field_183014_e = true;

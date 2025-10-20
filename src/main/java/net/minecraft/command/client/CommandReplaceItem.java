@@ -22,18 +22,22 @@ import java.util.Map;
 public class CommandReplaceItem extends CommandBase {
     private static final Map<String, Integer> SHORTCUTS = new HashMap<>();
 
+    @Override
     public String getCommandName() {
         return "replaceitem";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 2;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.replaceitem.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length < 1) {
             throw new WrongUsageException("commands.replaceitem.usage");
@@ -141,6 +145,7 @@ public class CommandReplaceItem extends CommandBase {
         }
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         return args.length == 1 ? getListOfStringsMatchingLastWord(args, "entity", "block") : (args.length == 2 && args[0].equals("entity") ? getListOfStringsMatchingLastWord(args, this.getUsernames()) : (args.length >= 2 && args.length <= 4 && args[0].equals("block") ? func_175771_a(args, 1, pos) : ((args.length != 3 || !args[0].equals("entity")) && (args.length != 5 || !args[0].equals("block")) ? ((args.length != 4 || !args[0].equals("entity")) && (args.length != 6 || !args[0].equals("block")) ? null : getListOfStringsMatchingLastWord(args, Item.itemRegistry.getKeys())) : getListOfStringsMatchingLastWord(args, SHORTCUTS.keySet()))));
     }
@@ -149,6 +154,7 @@ public class CommandReplaceItem extends CommandBase {
         return MinecraftServer.getServer().getAllUsernames();
     }
 
+    @Override
     public boolean isUsernameIndex(String[] args, int index) {
         return args.length > 0 && args[0].equals("entity") && index == 1;
     }

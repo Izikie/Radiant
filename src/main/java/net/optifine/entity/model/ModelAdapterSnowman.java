@@ -13,11 +13,13 @@ public class ModelAdapterSnowman extends ModelAdapter {
 		super(EntitySnowman.class, "snow_golem", 0.5F);
 	}
 
-	public ModelBase makeModel() {
+	@Override
+    public ModelBase makeModel() {
 		return new ModelSnowMan();
 	}
 
-	public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
+	@Override
+    public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
 		if (!(model instanceof ModelSnowMan modelsnowman)) {
 			return null;
 		} else {
@@ -25,11 +27,13 @@ public class ModelAdapterSnowman extends ModelAdapter {
 		}
 	}
 
-	public String[] getModelRendererNames() {
+	@Override
+    public String[] getModelRendererNames() {
 		return new String[]{"body", "body_bottom", "head", "right_hand", "left_hand"};
 	}
 
-	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+	@Override
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
 		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		RenderSnowMan rendersnowman = new RenderSnowMan(rendermanager);
 		rendersnowman.mainModel = modelBase;

@@ -11,10 +11,12 @@ public class ServersideAttributeMap extends BaseAttributeMap {
     private final Set<IAttributeInstance> attributeInstanceSet = new HashSet<>();
     protected final Map<String, IAttributeInstance> descriptionToAttributeInstanceMap = new LowerStringMap<>();
 
+    @Override
     public ModifiableAttributeInstance getAttributeInstance(IAttribute attribute) {
         return (ModifiableAttributeInstance) super.getAttributeInstance(attribute);
     }
 
+    @Override
     public ModifiableAttributeInstance getAttributeInstanceByName(String attributeName) {
         IAttributeInstance iattributeinstance = super.getAttributeInstanceByName(attributeName);
 
@@ -25,6 +27,7 @@ public class ServersideAttributeMap extends BaseAttributeMap {
         return (ModifiableAttributeInstance) iattributeinstance;
     }
 
+    @Override
     public IAttributeInstance registerAttribute(IAttribute attribute) {
         IAttributeInstance iattributeinstance = super.registerAttribute(attribute);
 
@@ -35,10 +38,12 @@ public class ServersideAttributeMap extends BaseAttributeMap {
         return iattributeinstance;
     }
 
+    @Override
     protected IAttributeInstance func_180376_c(IAttribute attribute) {
         return new ModifiableAttributeInstance(this, attribute);
     }
 
+    @Override
     public void func_180794_a(IAttributeInstance instance) {
         if (instance.getAttribute().getShouldWatch()) {
             this.attributeInstanceSet.add(instance);

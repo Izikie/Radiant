@@ -9,10 +9,12 @@ public class ItemCloth extends ItemBlock {
         this.setHasSubtypes(true);
     }
 
+    @Override
     public int getMetadata(int damage) {
         return damage;
     }
 
+    @Override
     public String getUnlocalizedName(ItemStack stack) {
         return super.getUnlocalizedName() + "." + DyeColor.byMetadata(stack.getMetadata()).getUnlocalizedName();
     }

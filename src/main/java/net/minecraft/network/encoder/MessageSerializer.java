@@ -23,6 +23,7 @@ public class MessageSerializer extends MessageToByteEncoder<Packet<?>> {
         this.direction = direction;
     }
 
+    @Override
     protected void encode(ChannelHandlerContext ctx, Packet<?> packet, ByteBuf out) throws Exception {
         Integer integer = ctx.channel().attr(NetworkManager.ATTR_KEY_CONNECTION_STATE).get().getPacketId(this.direction, packet);
 

@@ -36,38 +36,47 @@ public class BiomeGenMutated extends BiomeGenBase {
         this.maxHeight = biome.maxHeight + 0.2F;
     }
 
+    @Override
     public void decorate(World worldIn, Random rand, BlockPos pos) {
         this.baseBiome.theBiomeDecorator.decorate(worldIn, rand, this, pos);
     }
 
+    @Override
     public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
         this.baseBiome.genTerrainBlocks(worldIn, rand, chunkPrimerIn, x, z, noiseVal);
     }
 
+    @Override
     public float getSpawningChance() {
         return this.baseBiome.getSpawningChance();
     }
 
+    @Override
     public WorldGenAbstractTree genBigTreeChance(Random rand) {
         return this.baseBiome.genBigTreeChance(rand);
     }
 
+    @Override
     public int getFoliageColorAtPos(BlockPos pos) {
         return this.baseBiome.getFoliageColorAtPos(pos);
     }
 
+    @Override
     public int getGrassColorAtPos(BlockPos pos) {
         return this.baseBiome.getGrassColorAtPos(pos);
     }
 
+    @Override
     public Class<? extends BiomeGenBase> getBiomeClass() {
         return this.baseBiome.getBiomeClass();
     }
 
+    @Override
     public boolean isEqualTo(BiomeGenBase biome) {
         return this.baseBiome.isEqualTo(biome);
     }
 
+    @Override
     public TempCategory getTempCategory() {
         return this.baseBiome.getTempCategory();
     }

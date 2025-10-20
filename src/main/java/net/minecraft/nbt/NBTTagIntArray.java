@@ -15,6 +15,7 @@ public class NBTTagIntArray extends NBTBase {
         this.intArray = p_i45132_1_;
     }
 
+    @Override
     void write(DataOutput output) throws IOException {
         output.writeInt(this.intArray.length);
 
@@ -23,6 +24,7 @@ public class NBTTagIntArray extends NBTBase {
         }
     }
 
+    @Override
     void read(DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException {
         sizeTracker.read(192L);
         int i = input.readInt();
@@ -34,6 +36,7 @@ public class NBTTagIntArray extends NBTBase {
         }
     }
 
+    @Override
     public byte getId() {
         return (byte) 11;
     }
@@ -48,6 +51,7 @@ public class NBTTagIntArray extends NBTBase {
         return s + "]";
     }
 
+    @Override
     public NBTBase copy() {
         int[] aint = new int[this.intArray.length];
         System.arraycopy(this.intArray, 0, aint, 0, this.intArray.length);

@@ -25,6 +25,7 @@ public abstract class ResourcePackListEntry implements GuiListExtended.IGuiListE
         this.mc = Minecraft.get();
     }
 
+    @Override
     public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected) {
         int i = this.func_183019_a();
 
@@ -133,6 +134,7 @@ public abstract class ResourcePackListEntry implements GuiListExtended.IGuiListE
         return i >= 0 && i < list.size() - 1 && list.get(i + 1).func_148310_d();
     }
 
+    @Override
     public boolean mousePressed(int slotIndex, int p_148278_2_, int p_148278_3_, int p_148278_4_, int p_148278_5_, int p_148278_6_) {
         if (this.func_148310_d() && p_148278_5_ <= 32) {
             if (this.func_148309_e()) {
@@ -188,9 +190,11 @@ public abstract class ResourcePackListEntry implements GuiListExtended.IGuiListE
         return false;
     }
 
+    @Override
     public void setSelected(int p_178011_1_, int p_178011_2_, int p_178011_3_) {
     }
 
+    @Override
     public void mouseReleased(int slotIndex, int x, int y, int mouseEvent, int relativeX, int relativeY) {
     }
 }

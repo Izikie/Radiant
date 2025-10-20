@@ -165,29 +165,36 @@ public abstract class ServerConfigurationManager {
     public void setPlayerManager(WorldServer[] worldServers) {
         this.playerNBTManagerObj = worldServers[0].getSaveHandler().getPlayerNBTManager();
         worldServers[0].getWorldBorder().addListener(new IBorderListener() {
+            @Override
             public void onSizeChanged(WorldBorder border, double newSize) {
                 ServerConfigurationManager.this.sendPacketToAllPlayers(new S44PacketWorldBorder(border, S44PacketWorldBorder.Action.SET_SIZE));
             }
 
+            @Override
             public void onTransitionStarted(WorldBorder border, double oldSize, double newSize, long time) {
                 ServerConfigurationManager.this.sendPacketToAllPlayers(new S44PacketWorldBorder(border, S44PacketWorldBorder.Action.LERP_SIZE));
             }
 
+            @Override
             public void onCenterChanged(WorldBorder border, double x, double z) {
                 ServerConfigurationManager.this.sendPacketToAllPlayers(new S44PacketWorldBorder(border, S44PacketWorldBorder.Action.SET_CENTER));
             }
 
+            @Override
             public void onWarningTimeChanged(WorldBorder border, int newTime) {
                 ServerConfigurationManager.this.sendPacketToAllPlayers(new S44PacketWorldBorder(border, S44PacketWorldBorder.Action.SET_WARNING_TIME));
             }
 
+            @Override
             public void onWarningDistanceChanged(WorldBorder border, int newDistance) {
                 ServerConfigurationManager.this.sendPacketToAllPlayers(new S44PacketWorldBorder(border, S44PacketWorldBorder.Action.SET_WARNING_BLOCKS));
             }
 
+            @Override
             public void onDamageAmountChanged(WorldBorder border, double newAmount) {
             }
 
+            @Override
             public void onDamageBufferChanged(WorldBorder border, double newSize) {
             }
         });

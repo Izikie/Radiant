@@ -96,17 +96,21 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
     }
 
 
+    @Override
     public void updateScreen() {
         ++this.panoramaTimer;
     }
 
+    @Override
     public boolean doesGuiPauseGame() {
         return false;
     }
 
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
     }
 
+    @Override
     public void initGui() {
         this.viewportTexture = new DynamicTexture(256, 256);
         this.backgroundTexture = this.mc.getTextureManager().getDynamicTextureLocation("background", this.viewportTexture);
@@ -144,6 +148,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         }
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.id == 0) {
             this.mc.displayGuiScreen(new GuiOptions(this, this.mc.gameSettings));
@@ -341,6 +346,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         tessellator.draw();
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         GlStateManager.disableAlpha();
         this.renderSkybox(mouseX, mouseY, partialTicks);
@@ -408,6 +414,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
+    @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         super.mouseClicked(mouseX, mouseY, mouseButton);
 
@@ -420,6 +427,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         }
     }
 
+    @Override
     public void onGuiClosed() {
         if (this.field_183503_M != null) {
             this.field_183503_M.onGuiClosed();

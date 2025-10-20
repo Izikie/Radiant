@@ -15,18 +15,22 @@ import net.minecraft.util.BlockPos;
 import java.util.List;
 
 public class CommandTestFor extends CommandBase {
+    @Override
     public String getCommandName() {
         return "testfor";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 2;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.testfor.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length < 1) {
             throw new WrongUsageException("commands.testfor.usage");
@@ -55,10 +59,12 @@ public class CommandTestFor extends CommandBase {
         }
     }
 
+    @Override
     public boolean isUsernameIndex(String[] args, int index) {
         return index == 0;
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         return args.length == 1 ? getListOfStringsMatchingLastWord(args, MinecraftServer.getServer().getAllUsernames()) : null;
     }

@@ -11,18 +11,22 @@ import net.minecraft.util.BlockPos;
 import java.util.List;
 
 public class CommandKill extends CommandBase {
+    @Override
     public String getCommandName() {
         return "kill";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 2;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.kill.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length == 0) {
             EntityPlayer entityplayer = getCommandSenderAsPlayer(sender);
@@ -35,10 +39,12 @@ public class CommandKill extends CommandBase {
         }
     }
 
+    @Override
     public boolean isUsernameIndex(String[] args, int index) {
         return index == 0;
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         return args.length == 1 ? getListOfStringsMatchingLastWord(args, MinecraftServer.getServer().getAllUsernames()) : null;
     }

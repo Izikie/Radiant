@@ -33,6 +33,7 @@ public class BlockCauldron extends Block {
         this.setDefaultState(this.blockState.getBaseState().withProperty(LEVEL, 0));
     }
 
+    @Override
     public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.3125F, 1.0F);
         super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
@@ -48,18 +49,22 @@ public class BlockCauldron extends Block {
         this.setBlockBoundsForItemRender();
     }
 
+    @Override
     public void setBlockBoundsForItemRender() {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
         int i = state.getValue(LEVEL);
         float f = pos.getY() + (6.0F + (3 * i)) / 16.0F;
@@ -70,6 +75,7 @@ public class BlockCauldron extends Block {
         }
     }
 
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (worldIn.isRemote) {
             return true;
@@ -166,6 +172,7 @@ public class BlockCauldron extends Block {
         worldIn.updateComparatorOutputLevel(pos, this);
     }
 
+    @Override
     public void fillWithRain(World worldIn, BlockPos pos) {
         if (worldIn.rand.nextInt(20) == 1) {
             IBlockState iblockstate = worldIn.getBlockState(pos);
@@ -176,30 +183,37 @@ public class BlockCauldron extends Block {
         }
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Items.CAULDRON;
     }
 
+    @Override
     public Item getItem(World worldIn, BlockPos pos) {
         return Items.CAULDRON;
     }
 
+    @Override
     public boolean hasComparatorInputOverride() {
         return true;
     }
 
+    @Override
     public int getComparatorInputOverride(World worldIn, BlockPos pos) {
         return worldIn.getBlockState(pos).getValue(LEVEL);
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(LEVEL, meta);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(LEVEL);
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, LEVEL);
     }

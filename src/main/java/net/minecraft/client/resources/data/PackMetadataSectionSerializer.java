@@ -7,6 +7,7 @@ import net.minecraft.util.json.JsonUtils;
 import java.lang.reflect.Type;
 
 public class PackMetadataSectionSerializer extends BaseMetadataSectionSerializer<PackMetadataSection> implements JsonSerializer<PackMetadataSection> {
+    @Override
     public PackMetadataSection deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
         JsonObject jsonobject = jsonElement.getAsJsonObject();
         IChatComponent ichatcomponent = ctx.deserialize(jsonobject.get("description"), IChatComponent.class);
@@ -19,6 +20,7 @@ public class PackMetadataSectionSerializer extends BaseMetadataSectionSerializer
         }
     }
 
+    @Override
     public JsonElement serialize(PackMetadataSection p_serialize_1_, Type type, JsonSerializationContext ctx) {
         JsonObject jsonobject = new JsonObject();
         jsonobject.addProperty("pack_format", p_serialize_1_.getPackFormat());
@@ -26,6 +28,7 @@ public class PackMetadataSectionSerializer extends BaseMetadataSectionSerializer
         return jsonobject;
     }
 
+    @Override
     public String getSectionName() {
         return "pack";
     }

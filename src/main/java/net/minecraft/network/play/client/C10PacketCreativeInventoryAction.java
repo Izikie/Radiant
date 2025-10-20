@@ -19,15 +19,18 @@ public class C10PacketCreativeInventoryAction implements Packet<INetHandlerPlayS
         this.stack = stackIn != null ? stackIn.copy() : null;
     }
 
+    @Override
     public void processPacket(INetHandlerPlayServer handler) {
         handler.processCreativeInventoryAction(this);
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.slotId = buf.readShort();
         this.stack = buf.readItemStackFromBuffer();
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeShort(this.slotId);
         buf.writeItemStackToBuffer(this.stack);

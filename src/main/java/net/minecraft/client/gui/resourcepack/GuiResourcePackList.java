@@ -20,6 +20,7 @@ public abstract class GuiResourcePackList extends GuiListExtended {
         this.setHasListHeader(true, (int) (mc.fontRendererObj.FONT_HEIGHT * 1.5F));
     }
 
+    @Override
     protected void drawListHeader(int width, int height, Tessellator tessellator) {
         String s = Formatting.UNDERLINE + "" + Formatting.BOLD + this.getListHeader();
         this.mc.fontRendererObj.drawString(s, width + this.width / 2 - this.mc.fontRendererObj.getStringWidth(s) / 2, Math.min(this.top + 3, height), 16777215);
@@ -31,18 +32,22 @@ public abstract class GuiResourcePackList extends GuiListExtended {
         return this.packs;
     }
 
+    @Override
     protected int getSize() {
         return this.getList().size();
     }
 
+    @Override
     public ResourcePackListEntry getListEntry(int index) {
         return this.getList().get(index);
     }
 
+    @Override
     public int getListWidth() {
         return this.width;
     }
 
+    @Override
     protected int getScrollBarX() {
         return this.right - 6;
     }

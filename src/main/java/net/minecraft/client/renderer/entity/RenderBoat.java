@@ -16,6 +16,7 @@ public class RenderBoat extends Render<EntityBoat> {
         this.shadowSize = 0.5F;
     }
 
+    @Override
     public void doRender(EntityBoat entity, double x, double y, double z, float entityYaw, float partialTicks) {
         GlStateManager.pushMatrix();
         GlStateManager.translate((float) x, (float) y + 0.25F, (float) z);
@@ -41,6 +42,7 @@ public class RenderBoat extends Render<EntityBoat> {
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityBoat entity) {
         return BOAT_TEXTURES;
     }

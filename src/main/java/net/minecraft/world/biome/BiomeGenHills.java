@@ -30,10 +30,12 @@ public class BiomeGenHills extends BiomeGenBase {
         }
     }
 
+    @Override
     public WorldGenAbstractTree genBigTreeChance(Random rand) {
         return rand.nextInt(3) > 0 ? this.field_150634_aD : super.genBigTreeChance(rand);
     }
 
+    @Override
     public void decorate(World worldIn, Random rand, BlockPos pos) {
         super.decorate(worldIn, rand, pos);
         int i = 3 + rand.nextInt(6);
@@ -57,6 +59,7 @@ public class BiomeGenHills extends BiomeGenBase {
         }
     }
 
+    @Override
     public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
         this.topBlock = Blocks.GRASS.getDefaultState();
         this.fillerBlock = Blocks.DIRT.getDefaultState();
@@ -81,6 +84,7 @@ public class BiomeGenHills extends BiomeGenBase {
         return this;
     }
 
+    @Override
     protected BiomeGenBase createMutatedBiome(int p_180277_1_) {
         return (new BiomeGenHills(p_180277_1_, false)).mutateHills(this);
     }

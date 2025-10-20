@@ -21,16 +21,19 @@ public class S2FPacketSetSlot implements Packet<INetHandlerPlayClient> {
         this.item = itemIn == null ? null : itemIn.copy();
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleSetSlot(this);
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.windowId = buf.readByte();
         this.slot = buf.readShort();
         this.item = buf.readItemStackFromBuffer();
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeByte(this.windowId);
         buf.writeShort(this.slot);

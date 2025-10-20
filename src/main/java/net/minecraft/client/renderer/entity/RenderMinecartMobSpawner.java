@@ -10,6 +10,7 @@ public class RenderMinecartMobSpawner extends RenderMinecart<EntityMinecartMobSp
         super(renderManagerIn);
     }
 
+    @Override
     protected void func_180560_a(EntityMinecartMobSpawner minecart, float partialTicks, IBlockState state) {
         super.func_180560_a(minecart, partialTicks, state);
 

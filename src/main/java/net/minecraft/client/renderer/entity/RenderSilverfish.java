@@ -11,10 +11,12 @@ public class RenderSilverfish extends RenderLiving<EntitySilverfish> {
         super(renderManagerIn, new ModelSilverfish(), 0.3F);
     }
 
+    @Override
     protected float getDeathMaxRotation(EntitySilverfish entityLivingBaseIn) {
         return 180.0F;
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntitySilverfish entity) {
         return SILVERFISH_TEXTURES;
     }

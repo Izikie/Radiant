@@ -17,38 +17,47 @@ public abstract class PositionedSound implements ISound {
         this.positionedSoundLocation = soundResource;
     }
 
+    @Override
     public ResourceLocation getSoundLocation() {
         return this.positionedSoundLocation;
     }
 
+    @Override
     public boolean canRepeat() {
         return this.repeat;
     }
 
+    @Override
     public int getRepeatDelay() {
         return this.repeatDelay;
     }
 
+    @Override
     public float getVolume() {
         return this.volume;
     }
 
+    @Override
     public float getPitch() {
         return this.pitch;
     }
 
+    @Override
     public float getXPosF() {
         return this.xPosF;
     }
 
+    @Override
     public float getYPosF() {
         return this.yPosF;
     }
 
+    @Override
     public float getZPosF() {
         return this.zPosF;
     }
 
+    @Override
     public AttenuationType getAttenuationType() {
         return this.attenuationType;
     }

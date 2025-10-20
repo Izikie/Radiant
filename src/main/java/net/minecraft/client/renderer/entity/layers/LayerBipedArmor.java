@@ -8,11 +8,13 @@ public class LayerBipedArmor extends LayerArmorBase<ModelBiped> {
         super(rendererIn);
     }
 
+    @Override
     protected void initArmor() {
         this.modelLeggings = new ModelBiped(0.5F);
         this.modelArmor = new ModelBiped(1.0F);
     }
 
+    @Override
     protected void setModelPartVisible(ModelBiped model, int armorSlot) {
         this.setModelVisible(model);
 

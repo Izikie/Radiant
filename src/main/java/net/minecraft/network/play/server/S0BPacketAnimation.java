@@ -19,16 +19,19 @@ public class S0BPacketAnimation implements Packet<INetHandlerPlayClient> {
         this.type = animationType;
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.entityId = buf.readVarIntFromBuffer();
         this.type = buf.readUnsignedByte();
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeVarIntToBuffer(this.entityId);
         buf.writeByte(this.type);
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleAnimation(this);
     }

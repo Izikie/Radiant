@@ -412,16 +412,19 @@ public final class MemoryUtil {
             this.source = source;
         }
 
+        @Override
         public int length() {
             return source.length() + 1;
 
         }
 
+        @Override
         public char charAt(final int index) {
             return index == source.length() ? '\0' : source.charAt(index);
 
         }
 
+        @Override
         public CharSequence subSequence(final int start, final int end) {
             return new CharSequenceNT(source.subSequence(start, Math.min(end, source.length())));
         }
@@ -433,6 +436,7 @@ public final class MemoryUtil {
      */
     private static class AccessorJNI implements Accessor {
 
+        @Override
         public long getAddress(final Buffer buffer) {
             return BufferUtils.getBufferAddress(buffer);
         }
@@ -455,6 +459,7 @@ public final class MemoryUtil {
             address.setAccessible(true);
         }
 
+        @Override
         public long getAddress(final Buffer buffer) {
             try {
                 return address.getLong(buffer);

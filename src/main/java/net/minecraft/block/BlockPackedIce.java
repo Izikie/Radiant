@@ -12,6 +12,7 @@ public class BlockPackedIce extends Block {
         this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return 0;
     }

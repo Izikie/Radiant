@@ -19,6 +19,7 @@ public class GuiShareToLan extends GuiScreen {
         this.field_146598_a = p_i1055_1_;
     }
 
+    @Override
     public void initGui() {
         this.buttonList.clear();
         this.buttonList.add(new GuiButton(101, this.width / 2 - 155, this.height - 28, 150, 20, I18n.format("lanServer.start")));
@@ -39,6 +40,7 @@ public class GuiShareToLan extends GuiScreen {
         }
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.id == 102) {
             this.mc.displayGuiScreen(this.field_146598_a);
@@ -69,6 +71,7 @@ public class GuiShareToLan extends GuiScreen {
         }
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRendererObj, I18n.format("lanServer.title"), this.width / 2, 50, 16777215);

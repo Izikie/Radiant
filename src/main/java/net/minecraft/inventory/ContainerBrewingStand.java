@@ -29,11 +29,13 @@ public class ContainerBrewingStand extends Container {
         }
     }
 
+    @Override
     public void onCraftGuiOpened(ICrafting listener) {
         super.onCraftGuiOpened(listener);
         listener.sendAllWindowProperties(this, this.tileBrewingStand);
     }
 
+    @Override
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
 
@@ -47,14 +49,17 @@ public class ContainerBrewingStand extends Container {
         this.brewTime = this.tileBrewingStand.getField(0);
     }
 
+    @Override
     public void updateProgressBar(int id, int data) {
         this.tileBrewingStand.setField(id, data);
     }
 
+    @Override
     public boolean canInteractWith(EntityPlayer playerIn) {
         return this.tileBrewingStand.isUseableByPlayer(playerIn);
     }
 
+    @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
         ItemStack itemstack = null;
         Slot slot = this.inventorySlots.get(index);
@@ -112,10 +117,12 @@ public class ContainerBrewingStand extends Container {
             super(inventoryIn, index, xPosition, yPosition);
         }
 
+        @Override
         public boolean isItemValid(ItemStack stack) {
             return stack != null && stack.getItem().isPotionIngredient(stack);
         }
 
+        @Override
         public int getSlotStackLimit() {
             return 64;
         }
@@ -129,14 +136,17 @@ public class ContainerBrewingStand extends Container {
             this.player = playerIn;
         }
 
+        @Override
         public boolean isItemValid(ItemStack stack) {
             return canHoldPotion(stack);
         }
 
+        @Override
         public int getSlotStackLimit() {
             return 1;
         }
 
+        @Override
         public void onPickupFromSlot(EntityPlayer playerIn, ItemStack stack) {
             if (stack.getItem() == Items.POTION && stack.getMetadata() > 0) {
                 this.player.triggerAchievement(AchievementList.POTION);

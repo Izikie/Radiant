@@ -20,18 +20,21 @@ public class S06PacketUpdateHealth implements Packet<INetHandlerPlayClient> {
         this.saturationLevel = saturationIn;
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.health = buf.readFloat();
         this.foodLevel = buf.readVarIntFromBuffer();
         this.saturationLevel = buf.readFloat();
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeFloat(this.health);
         buf.writeVarIntToBuffer(this.foodLevel);
         buf.writeFloat(this.saturationLevel);
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleUpdateHealth(this);
     }

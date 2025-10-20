@@ -16,6 +16,7 @@ public class CommandHandler implements ICommandManager {
     private final Map<String, ICommand> commandMap = new HashMap<>();
     private final Set<ICommand> commandSet = new HashSet<>();
 
+    @Override
     public int executeCommand(ICommandSender sender, String rawCommand) {
         rawCommand = rawCommand.trim().toLowerCase(); // BUGFIX: Commands case-sensitive
 
@@ -109,6 +110,7 @@ public class CommandHandler implements ICommandManager {
         return astring;
     }
 
+    @Override
     public List<String> getTabCompletionOptions(ICommandSender sender, String input, BlockPos pos) {
         String[] astring = input.split(" ", -1);
         String s = astring[0];
@@ -136,6 +138,7 @@ public class CommandHandler implements ICommandManager {
         }
     }
 
+    @Override
     public List<ICommand> getPossibleCommands(ICommandSender sender) {
         List<ICommand> list = new ArrayList<>();
 
@@ -148,6 +151,7 @@ public class CommandHandler implements ICommandManager {
         return list;
     }
 
+    @Override
     public Map<String, ICommand> getCommands() {
         return this.commandMap;
     }

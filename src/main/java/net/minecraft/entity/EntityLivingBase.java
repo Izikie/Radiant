@@ -95,6 +95,7 @@ public abstract class EntityLivingBase extends Entity {
     private int jumpTicks;
     private float absorptionAmount;
 
+    @Override
     public void onKillCommand() {
         this.attackEntityFrom(DamageSource.OUT_OF_WORLD, Float.MAX_VALUE);
     }
@@ -112,6 +113,7 @@ public abstract class EntityLivingBase extends Entity {
         this.stepHeight = 0.6F;
     }
 
+    @Override
     protected void entityInit() {
         this.dataWatcher.addObject(7, 0);
         this.dataWatcher.addObject(8, (byte) 0);
@@ -125,6 +127,7 @@ public abstract class EntityLivingBase extends Entity {
         this.getAttributeMap().registerAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
     }
 
+    @Override
     protected void updateFallState(double y, boolean onGroundIn, Block blockIn, BlockPos pos) {
         if (!this.isInWater()) {
             this.handleWaterMovement();
@@ -154,6 +157,7 @@ public abstract class EntityLivingBase extends Entity {
         return false;
     }
 
+    @Override
     public void onEntityUpdate() {
         this.prevSwingProgress = this.swingProgress;
         super.onEntityUpdate();
@@ -333,6 +337,7 @@ public abstract class EntityLivingBase extends Entity {
         return this.entityAge;
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         tagCompound.setFloat("HealF", this.getHealth());
         tagCompound.setShort("Health", (short) ((int) Math.ceil(this.getHealth())));
@@ -366,6 +371,7 @@ public abstract class EntityLivingBase extends Entity {
         }
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         this.setAbsorptionAmount(tagCompund.getFloat("AbsorptionAmount"));
 
@@ -581,6 +587,7 @@ public abstract class EntityLivingBase extends Entity {
         this.dataWatcher.updateObject(6, MathHelper.clamp(health, 0.0F, this.getMaxHealth()));
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (this.isEntityInvulnerable(source)) {
             return false;
@@ -774,10 +781,12 @@ public abstract class EntityLivingBase extends Entity {
         return (block == Blocks.LADDER || block == Blocks.VINE) && (!(this instanceof EntityPlayer entityPlayer) || !entityPlayer.isSpectator());
     }
 
+    @Override
     public boolean isEntityAlive() {
         return !this.isDead && this.getHealth() > 0.0F;
     }
 
+    @Override
     public void fall(float distance, float damageMultiplier) {
         super.fall(distance, damageMultiplier);
         PotionEffect potioneffect = this.getActivePotionEffect(Potion.JUMP);
@@ -803,6 +812,7 @@ public abstract class EntityLivingBase extends Entity {
         return damageValue > 4 ? "game.neutral.hurt.fall.big" : "game.neutral.hurt.fall.small";
     }
 
+    @Override
     public void performHurtAnimation() {
         this.hurtTime = this.maxHurtTime = 10;
         this.attackedAtYaw = 0.0F;
@@ -918,6 +928,7 @@ public abstract class EntityLivingBase extends Entity {
         }
     }
 
+    @Override
     public void handleStatusUpdate(byte id) {
         if (id == 2) {
             this.limbSwingAmount = 1.5F;
@@ -945,6 +956,7 @@ public abstract class EntityLivingBase extends Entity {
         }
     }
 
+    @Override
     protected void kill() {
         this.attackEntityFrom(DamageSource.OUT_OF_WORLD, 4.0F);
     }
@@ -988,8 +1000,10 @@ public abstract class EntityLivingBase extends Entity {
 
     public abstract ItemStack getCurrentArmor(int slotIn);
 
+    @Override
     public abstract void setCurrentItemOrArmor(int slotIn, ItemStack stack);
 
+    @Override
     public void setSprinting(boolean sprinting) {
         super.setSprinting(sprinting);
         IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
@@ -1003,6 +1017,7 @@ public abstract class EntityLivingBase extends Entity {
         }
     }
 
+    @Override
     public abstract ItemStack[] getInventory();
 
     protected float getSoundVolume() {
@@ -1049,6 +1064,7 @@ public abstract class EntityLivingBase extends Entity {
         this.setPositionAndUpdate(d0, d1, d2);
     }
 
+    @Override
     public boolean getAlwaysRenderNameTagForRender() {
         return false;
     }
@@ -1218,6 +1234,7 @@ public abstract class EntityLivingBase extends Entity {
         return false;
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
 
@@ -1431,6 +1448,7 @@ public abstract class EntityLivingBase extends Entity {
         entityIn.applyEntityCollision(this);
     }
 
+    @Override
     public void mountEntity(Entity entityIn) {
         if (this.ridingEntity != null && entityIn == null) {
             if (!this.worldObj.isRemote) {
@@ -1447,6 +1465,7 @@ public abstract class EntityLivingBase extends Entity {
         }
     }
 
+    @Override
     public void updateRidden() {
         super.updateRidden();
         this.prevOnGroundSpeedFactor = this.onGroundSpeedFactor;
@@ -1454,6 +1473,7 @@ public abstract class EntityLivingBase extends Entity {
         this.fallDistance = 0.0F;
     }
 
+    @Override
     public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean p_180426_10_) {
         this.newPosX = x;
         this.newPosY = y;
@@ -1489,10 +1509,12 @@ public abstract class EntityLivingBase extends Entity {
         return this.worldObj.rayTraceBlocks(new Vec3(this.posX, this.posY + this.getEyeHeight(), this.posZ), new Vec3(entityIn.posX, entityIn.posY + entityIn.getEyeHeight(), entityIn.posZ)) == null;
     }
 
+    @Override
     public Vec3 getLookVec() {
         return this.getLook(1.0F);
     }
 
+    @Override
     public Vec3 getLook(float partialTicks) {
         if (partialTicks == 1.0F) {
             return this.getVectorForRotation(this.rotationPitch, this.rotationYawHead);
@@ -1517,26 +1539,32 @@ public abstract class EntityLivingBase extends Entity {
         return !this.worldObj.isRemote;
     }
 
+    @Override
     public boolean canBeCollidedWith() {
         return !this.isDead;
     }
 
+    @Override
     public boolean canBePushed() {
         return !this.isDead;
     }
 
+    @Override
     protected void setBeenAttacked() {
         this.velocityChanged = this.rand.nextDouble() >= this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).getAttributeValue();
     }
 
+    @Override
     public float getRotationYawHead() {
         return this.rotationYawHead;
     }
 
+    @Override
     public void setRotationYawHead(float rotation) {
         this.rotationYawHead = rotation;
     }
 
+    @Override
     public void setRenderYawOffset(float offset) {
         this.renderYawOffset = offset;
     }

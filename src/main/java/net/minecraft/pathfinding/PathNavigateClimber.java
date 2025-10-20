@@ -13,16 +13,19 @@ public class PathNavigateClimber extends PathNavigateGround {
         super(entityLivingIn, worldIn);
     }
 
+    @Override
     public PathEntity getPathToPos(BlockPos pos) {
         this.targetPosition = pos;
         return super.getPathToPos(pos);
     }
 
+    @Override
     public PathEntity getPathToEntityLiving(Entity entityIn) {
         this.targetPosition = new BlockPos(entityIn);
         return super.getPathToEntityLiving(entityIn);
     }
 
+    @Override
     public boolean tryMoveToEntityLiving(Entity entityIn, double speedIn) {
         PathEntity pathentity = this.getPathToEntityLiving(entityIn);
 
@@ -35,6 +38,7 @@ public class PathNavigateClimber extends PathNavigateGround {
         }
     }
 
+    @Override
     public void onUpdateNavigation() {
         if (!this.noPath()) {
             super.onUpdateNavigation();

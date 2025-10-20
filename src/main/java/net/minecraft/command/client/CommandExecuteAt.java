@@ -13,18 +13,22 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class CommandExecuteAt extends CommandBase {
+    @Override
     public String getCommandName() {
         return "execute";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 2;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.execute.usage";
     }
 
+    @Override
     public void processCommand(final ICommandSender sender, String[] args) throws CommandException {
         if (args.length < 5) {
             throw new WrongUsageException("commands.execute.usage");
@@ -55,43 +59,53 @@ public class CommandExecuteAt extends CommandBase {
 
             String s = buildString(args, i);
             ICommandSender icommandsender = new ICommandSender() {
+                @Override
                 public String getName() {
                     return entity.getName();
                 }
 
+                @Override
                 public IChatComponent getDisplayName() {
                     return entity.getDisplayName();
                 }
 
+                @Override
                 public void addChatMessage(IChatComponent component) {
                     sender.addChatMessage(component);
                 }
 
+                @Override
                 public boolean canCommandSenderUseCommand(int permLevel, String commandName) {
                     return sender.canCommandSenderUseCommand(permLevel, commandName);
                 }
 
+                @Override
                 public BlockPos getPosition() {
                     return blockpos;
                 }
 
+                @Override
                 public Vec3 getPositionVector() {
                     return new Vec3(d0, d1, d2);
                 }
 
+                @Override
                 public World getEntityWorld() {
                     return entity.worldObj;
                 }
 
+                @Override
                 public Entity getCommandSenderEntity() {
                     return entity;
                 }
 
+                @Override
                 public boolean sendCommandFeedback() {
                     MinecraftServer minecraftserver = MinecraftServer.getServer();
                     return minecraftserver == null || minecraftserver.worldServers[0].getGameRules().getBoolean("commandBlockOutput");
                 }
 
+                @Override
                 public void setCommandStat(CommandResultStats.Type type, int amount) {
                     entity.setCommandStat(type, amount);
                 }
@@ -110,10 +124,12 @@ public class CommandExecuteAt extends CommandBase {
         }
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         return args.length == 1 ? getListOfStringsMatchingLastWord(args, MinecraftServer.getServer().getAllUsernames()) : (args.length > 1 && args.length <= 4 ? func_175771_a(args, 1, pos) : (args.length > 5 && args.length <= 8 && "detect".equals(args[4]) ? func_175771_a(args, 5, pos) : (args.length == 9 && "detect".equals(args[4]) ? getListOfStringsMatchingLastWord(args, Block.blockRegistry.getKeys()) : null)));
     }
 
+    @Override
     public boolean isUsernameIndex(String[] args, int index) {
         return index == 0;
     }

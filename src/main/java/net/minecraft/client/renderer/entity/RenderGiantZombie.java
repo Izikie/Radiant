@@ -17,6 +17,7 @@ public class RenderGiantZombie extends RenderLiving<EntityGiantZombie> {
         this.scale = scaleIn;
         this.addLayer(new LayerHeldItem(this));
         this.addLayer(new LayerBipedArmor(this) {
+            @Override
             protected void initArmor() {
                 this.modelLeggings = new ModelZombie(0.5F, true);
                 this.modelArmor = new ModelZombie(1.0F, true);
@@ -24,14 +25,17 @@ public class RenderGiantZombie extends RenderLiving<EntityGiantZombie> {
         });
     }
 
+    @Override
     public void transformHeldFull3DItemLayer() {
         GlStateManager.translate(0.0F, 0.1875F, 0.0F);
     }
 
+    @Override
     protected void preRenderCallback(EntityGiantZombie entitylivingbaseIn, float partialTickTime) {
         GlStateManager.scale(this.scale, this.scale, this.scale);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityGiantZombie entity) {
         return ZOMBIE_TEXTURES;
     }

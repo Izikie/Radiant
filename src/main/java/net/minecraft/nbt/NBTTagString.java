@@ -19,16 +19,19 @@ public class NBTTagString extends NBTBase {
         }
     }
 
+    @Override
     void write(DataOutput output) throws IOException {
         output.writeUTF(this.data);
     }
 
+    @Override
     void read(DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException {
         sizeTracker.read(288L);
         this.data = input.readUTF();
         sizeTracker.read((16L * this.data.length()));
     }
 
+    @Override
     public byte getId() {
         return (byte) 8;
     }
@@ -37,10 +40,12 @@ public class NBTTagString extends NBTBase {
         return "\"" + this.data.replace("\"", "\\\"") + "\"";
     }
 
+    @Override
     public NBTBase copy() {
         return new NBTTagString(this.data);
     }
 
+    @Override
     public boolean hasNoTags() {
         return this.data.isEmpty();
     }
@@ -58,6 +63,7 @@ public class NBTTagString extends NBTBase {
         return super.hashCode() ^ this.data.hashCode();
     }
 
+    @Override
     public String getString() {
         return this.data;
     }

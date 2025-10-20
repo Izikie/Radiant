@@ -15,6 +15,7 @@ public class WorldGenLiquids extends WorldGenerator {
         this.block = p_i45465_1_;
     }
 
+    @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         if (worldIn.getBlockState(position.up()).getBlock() != Blocks.STONE) {
             return false;

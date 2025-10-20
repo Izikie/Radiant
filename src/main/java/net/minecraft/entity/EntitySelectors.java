@@ -19,6 +19,7 @@ public final class EntitySelectors {
             this.armor = armor;
         }
 
+        @Override
         public boolean apply(Entity p_apply_1_) {
             if (!p_apply_1_.isEntityAlive()) {
                 return false;

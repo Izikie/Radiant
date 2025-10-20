@@ -12,18 +12,22 @@ import net.minecraft.util.chat.IChatComponent;
 import java.util.List;
 
 public class CommandBroadcast extends CommandBase {
+    @Override
     public String getCommandName() {
         return "say";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 1;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.say.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length > 0 && !args[0].isEmpty()) {
             IChatComponent ichatcomponent = getChatComponentFromNthArg(sender, args, 0, true);
@@ -33,6 +37,7 @@ public class CommandBroadcast extends CommandBase {
         }
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         return args.length >= 1 ? getListOfStringsMatchingLastWord(args, MinecraftServer.getServer().getAllUsernames()) : null;
     }

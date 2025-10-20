@@ -36,9 +36,11 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
         this.setSize(0.25F, 0.25F);
     }
 
+    @Override
     protected void entityInit() {
     }
 
+    @Override
     public boolean isInRangeToRenderDist(double distance) {
         double d0 = this.getEntityBoundingBox().getAverageEdgeLength() * 4.0D;
 
@@ -81,6 +83,7 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
         return 0.0F;
     }
 
+    @Override
     public void setThrowableHeading(double x, double y, double z, float velocity, float inaccuracy) {
         float f = MathHelper.sqrt(x * x + y * y + z * z);
         x = x / f;
@@ -101,6 +104,7 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
         this.ticksInGround = 0;
     }
 
+    @Override
     public void setVelocity(double x, double y, double z) {
         this.motionX = x;
         this.motionY = y;
@@ -113,6 +117,7 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
         }
     }
 
+    @Override
     public void onUpdate() {
         this.lastTickPosX = this.posX;
         this.lastTickPosY = this.posY;
@@ -239,6 +244,7 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
 
     protected abstract void onImpact(MovingObjectPosition p_70184_1_);
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         tagCompound.setShort("xTile", (short) this.xTile);
         tagCompound.setShort("yTile", (short) this.yTile);
@@ -255,6 +261,7 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
         tagCompound.setString("ownerName", this.throwerName == null ? "" : this.throwerName);
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         this.xTile = tagCompund.getShort("xTile");
         this.yTile = tagCompund.getShort("yTile");

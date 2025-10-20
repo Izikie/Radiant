@@ -53,10 +53,12 @@ public abstract class BanEntry<T> extends UserListEntry<T> {
         return this.reason;
     }
 
+    @Override
     boolean hasBanExpired() {
         return this.banEndDate != null && this.banEndDate.before(new Date());
     }
 
+    @Override
     protected void onSerialization(JsonObject data) {
         data.addProperty("created", DATE_FORMAT.format(this.banStartDate));
         data.addProperty("source", this.bannedBy);

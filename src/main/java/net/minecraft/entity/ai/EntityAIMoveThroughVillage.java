@@ -31,6 +31,7 @@ public class EntityAIMoveThroughVillage extends EntityAIBase {
         }
     }
 
+    @Override
     public boolean shouldExecute() {
         this.resizeDoorList();
 
@@ -72,6 +73,7 @@ public class EntityAIMoveThroughVillage extends EntityAIBase {
         }
     }
 
+    @Override
     public boolean continueExecuting() {
         if (this.theEntity.getNavigator().noPath()) {
             return false;
@@ -81,10 +83,12 @@ public class EntityAIMoveThroughVillage extends EntityAIBase {
         }
     }
 
+    @Override
     public void startExecuting() {
         this.theEntity.getNavigator().setPath(this.entityPathNavigate, this.movementSpeed);
     }
 
+    @Override
     public void resetTask() {
         if (this.theEntity.getNavigator().noPath() || this.theEntity.getDistanceSq(this.doorInfo.getDoorBlockPos()) < 16.0D) {
             this.doorList.add(this.doorInfo);

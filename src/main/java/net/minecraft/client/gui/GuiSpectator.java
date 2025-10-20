@@ -117,6 +117,7 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
         }
     }
 
+    @Override
     public void func_175257_a(SpectatorMenu p_175257_1_) {
         this.field_175271_i = null;
         this.field_175270_h = 0L;

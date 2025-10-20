@@ -11,6 +11,7 @@ public class BlockNetherBrick extends Block {
         this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
+    @Override
     public MapColor getMapColor(IBlockState state) {
         return MapColor.NETHERRACK_COLOR;
     }

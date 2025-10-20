@@ -4,10 +4,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 
 public interface IBlockSource extends ILocatableSource {
+    @Override
     double getX();
 
+    @Override
     double getY();
 
+    @Override
     double getZ();
 
     BlockPos getBlockPos();

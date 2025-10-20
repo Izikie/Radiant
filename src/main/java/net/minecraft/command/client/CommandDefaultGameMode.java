@@ -9,14 +9,17 @@ import net.minecraft.util.chat.ChatComponentTranslation;
 import net.minecraft.world.WorldSettings;
 
 public class CommandDefaultGameMode extends CommandGameMode {
+    @Override
     public String getCommandName() {
         return "defaultgamemode";
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.defaultgamemode.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length == 0) {
             throw new WrongUsageException("commands.defaultgamemode.usage");

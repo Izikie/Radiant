@@ -54,54 +54,64 @@ public class CustomColors {
 	private static String paletteFormatDefault = "vanilla";
 	private static CustomColormap waterColors = null;
 	private static final IColorizer COLORIZER_WATER = new IColorizer() {
-		public int getColor(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos) {
+		@Override
+        public int getColor(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos) {
 			BiomeGenBase biomegenbase = CustomColors.getColorBiome(blockAccess, blockPos);
 			return CustomColors.waterColors != null ? CustomColors.waterColors.getColor(biomegenbase, blockPos) : (biomegenbase.waterColorMultiplier);
 		}
 
-		public boolean isColorConstant() {
+		@Override
+        public boolean isColorConstant() {
 			return false;
 		}
 	};
 	private static CustomColormap foliagePineColors = null;
 	private static final IColorizer COLORIZER_FOLIAGE_PINE = new IColorizer() {
-		public int getColor(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos) {
+		@Override
+        public int getColor(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos) {
 			return CustomColors.foliagePineColors != null ? CustomColors.foliagePineColors.getColor(blockAccess, blockPos) : ColorizerFoliage.getFoliageColorPine();
 		}
 
-		public boolean isColorConstant() {
+		@Override
+        public boolean isColorConstant() {
 			return CustomColors.foliagePineColors == null;
 		}
 	};
 	private static CustomColormap foliageBirchColors = null;
 	private static final IColorizer COLORIZER_FOLIAGE_BIRCH = new IColorizer() {
-		public int getColor(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos) {
+		@Override
+        public int getColor(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos) {
 			return CustomColors.foliageBirchColors != null ? CustomColors.foliageBirchColors.getColor(blockAccess, blockPos) : ColorizerFoliage.getFoliageColorBirch();
 		}
 
-		public boolean isColorConstant() {
+		@Override
+        public boolean isColorConstant() {
 			return CustomColors.foliageBirchColors == null;
 		}
 	};
 	private static CustomColormap swampFoliageColors = null;
 	private static final IColorizer COLORIZER_FOLIAGE = new IColorizer() {
-		public int getColor(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos) {
+		@Override
+        public int getColor(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos) {
 			BiomeGenBase biomegenbase = CustomColors.getColorBiome(blockAccess, blockPos);
 			return CustomColors.swampFoliageColors != null && biomegenbase == BiomeGenBase.SWAMPLAND ? CustomColors.swampFoliageColors.getColor(biomegenbase, blockPos) : biomegenbase.getFoliageColorAtPos(blockPos);
 		}
 
-		public boolean isColorConstant() {
+		@Override
+        public boolean isColorConstant() {
 			return false;
 		}
 	};
 	private static CustomColormap swampGrassColors = null;
 	private static final IColorizer COLORIZER_GRASS = new IColorizer() {
-		public int getColor(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos) {
+		@Override
+        public int getColor(IBlockState blockState, IBlockAccess blockAccess, BlockPos blockPos) {
 			BiomeGenBase biomegenbase = CustomColors.getColorBiome(blockAccess, blockPos);
 			return CustomColors.swampGrassColors != null && biomegenbase == BiomeGenBase.SWAMPLAND ? CustomColors.swampGrassColors.getColor(biomegenbase, blockPos) : biomegenbase.getGrassColorAtPos(blockPos);
 		}
 
-		public boolean isColorConstant() {
+		@Override
+        public boolean isColorConstant() {
 			return false;
 		}
 	};

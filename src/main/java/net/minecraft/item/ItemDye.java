@@ -26,11 +26,13 @@ public class ItemDye extends Item {
         this.setCreativeTab(CreativeTabs.TAB_MATERIALS);
     }
 
+    @Override
     public String getUnlocalizedName(ItemStack stack) {
         int i = stack.getMetadata();
         return super.getUnlocalizedName() + "." + DyeColor.byDyeDamage(i).getUnlocalizedName();
     }
 
+    @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
         if (!playerIn.canPlayerEdit(pos.offset(side), side, stack)) {
             return false;
@@ -117,6 +119,7 @@ public class ItemDye extends Item {
         }
     }
 
+    @Override
     public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target) {
         if (target instanceof EntitySheep entitysheep) {
             DyeColor enumdyecolor = DyeColor.byDyeDamage(stack.getMetadata());
@@ -132,6 +135,7 @@ public class ItemDye extends Item {
         }
     }
 
+    @Override
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
         for (int i = 0; i < 16; ++i) {
             subItems.add(new ItemStack(itemIn, 1, i));

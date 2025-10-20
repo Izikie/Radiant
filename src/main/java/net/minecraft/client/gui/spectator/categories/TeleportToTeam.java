@@ -32,27 +32,33 @@ public class TeleportToTeam implements ISpectatorMenuView, ISpectatorMenuObject 
         }
     }
 
+    @Override
     public List<ISpectatorMenuObject> func_178669_a() {
         return this.field_178672_a;
     }
 
+    @Override
     public IChatComponent func_178670_b() {
         return new ChatComponentText("Select a team to teleport to");
     }
 
+    @Override
     public void func_178661_a(SpectatorMenu menu) {
         menu.func_178647_a(this);
     }
 
+    @Override
     public IChatComponent getSpectatorName() {
         return new ChatComponentText("Teleport to team member");
     }
 
+    @Override
     public void func_178663_a(float p_178663_1_, int alpha) {
         Minecraft.get().getTextureManager().bindTexture(GuiSpectator.field_175269_a);
         Gui.drawModalRectWithCustomSizedTexture(0, 0, 16.0F, 0.0F, 16, 16, 256.0F, 256.0F);
     }
 
+    @Override
     public boolean func_178662_A_() {
         for (ISpectatorMenuObject ispectatormenuobject : this.field_178672_a) {
             if (ispectatormenuobject.func_178662_A_()) {
@@ -89,14 +95,17 @@ public class TeleportToTeam implements ISpectatorMenuView, ISpectatorMenuObject 
             }
         }
 
+        @Override
         public void func_178661_a(SpectatorMenu menu) {
             menu.func_178647_a(new TeleportToPlayer(this.field_178675_d));
         }
 
+        @Override
         public IChatComponent getSpectatorName() {
             return new ChatComponentText(this.field_178676_b.getTeamName());
         }
 
+        @Override
         public void func_178663_a(float p_178663_1_, int alpha) {
             int i = -1;
             String s = FontRenderer.getFormatFromString(this.field_178676_b.getColorPrefix());
@@ -118,6 +127,7 @@ public class TeleportToTeam implements ISpectatorMenuView, ISpectatorMenuObject 
             Gui.drawScaledCustomSizeModalRect(2, 2, 40.0F, 8.0F, 8, 8, 12, 12, 64.0F, 64.0F);
         }
 
+        @Override
         public boolean func_178662_A_() {
             return !this.field_178675_d.isEmpty();
         }

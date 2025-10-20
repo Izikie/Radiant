@@ -25,6 +25,7 @@ public class WorldGenMinable extends WorldGenerator {
         this.predicate = p_i45631_3_;
     }
 
+    @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         float f = rand.nextFloat() * (float) Math.PI;
         double d0 = ((position.getX() + 8) + MathHelper.sin(f) * this.numberOfBlocks / 8.0F);

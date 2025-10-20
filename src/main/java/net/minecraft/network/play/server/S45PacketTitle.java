@@ -33,6 +33,7 @@ public class S45PacketTitle implements Packet<INetHandlerPlayClient> {
         this.fadeOutTime = fadeOutTime;
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.type = buf.readEnumValue(Type.class);
 
@@ -47,6 +48,7 @@ public class S45PacketTitle implements Packet<INetHandlerPlayClient> {
         }
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeEnumValue(this.type);
 
@@ -61,6 +63,7 @@ public class S45PacketTitle implements Packet<INetHandlerPlayClient> {
         }
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleTitle(this);
     }

@@ -19,7 +19,8 @@ public class FunctionFloat implements IExpressionFloat {
 		return iexpressionfloat.eval();
 	}
 
-	public float eval() {
+	@Override
+    public float eval() {
 		IExpression[] aiexpression = this.arguments;
 
 		// TODO: check if requireNull is needed
@@ -41,7 +42,8 @@ public class FunctionFloat implements IExpressionFloat {
 		return this.type.evalFloat(this.arguments);
 	}
 
-	public ExpressionType getExpressionType() {
+	@Override
+    public ExpressionType getExpressionType() {
 		return ExpressionType.FLOAT;
 	}
 

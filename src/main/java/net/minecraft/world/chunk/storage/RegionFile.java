@@ -247,6 +247,7 @@ public class RegionFile {
             this.chunkZ = z;
         }
 
+        @Override
         public void close() throws IOException {
             RegionFile.this.write(this.chunkX, this.chunkZ, this.buf, this.count);
         }

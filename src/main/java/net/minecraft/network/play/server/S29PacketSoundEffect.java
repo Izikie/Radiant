@@ -28,6 +28,7 @@ public class S29PacketSoundEffect implements Packet<INetHandlerPlayClient> {
         this.soundPitch = (int) (pitch * 63.0F);
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.soundName = buf.readStringFromBuffer(256);
         this.posX = buf.readInt();
@@ -37,6 +38,7 @@ public class S29PacketSoundEffect implements Packet<INetHandlerPlayClient> {
         this.soundPitch = buf.readUnsignedByte();
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeString(this.soundName);
         buf.writeInt(this.posX);
@@ -70,6 +72,7 @@ public class S29PacketSoundEffect implements Packet<INetHandlerPlayClient> {
         return this.soundPitch / 63.0F;
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleSoundEffect(this);
     }

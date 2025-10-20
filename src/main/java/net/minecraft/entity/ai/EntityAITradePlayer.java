@@ -12,6 +12,7 @@ public class EntityAITradePlayer extends EntityAIBase {
         this.setMutexBits(5);
     }
 
+    @Override
     public boolean shouldExecute() {
         if (!this.villager.isEntityAlive()) {
             return false;
@@ -27,10 +28,12 @@ public class EntityAITradePlayer extends EntityAIBase {
         }
     }
 
+    @Override
     public void startExecuting() {
         this.villager.getNavigator().clearPathEntity();
     }
 
+    @Override
     public void resetTask() {
         this.villager.setCustomer(null);
     }

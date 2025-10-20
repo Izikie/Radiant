@@ -76,6 +76,7 @@ public enum DyeColor implements IStringSerializable {
         return this.unlocalizedName;
     }
 
+    @Override
     public String getName() {
         return this.name;
     }

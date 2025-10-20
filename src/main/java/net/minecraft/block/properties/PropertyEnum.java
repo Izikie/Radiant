@@ -30,10 +30,12 @@ public class PropertyEnum<T extends Enum<T> & IStringSerializable> extends Prope
         }
     }
 
+    @Override
     public Collection<T> getAllowedValues() {
         return this.allowedValues;
     }
 
+    @Override
     public String getName(T value) {
         return value.getName();
     }

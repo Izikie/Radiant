@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemFirework extends Item {
+    @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote) {
             EntityFireworkRocket entityfireworkrocket = new EntityFireworkRocket(worldIn, (pos.getX() + hitX), (pos.getY() + hitY), (pos.getZ() + hitZ), stack);
@@ -28,6 +29,7 @@ public class ItemFirework extends Item {
         }
     }
 
+    @Override
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
         if (stack.hasTagCompound()) {
             NBTTagCompound nbttagcompound = stack.getTagCompound().getCompoundTag("Fireworks");

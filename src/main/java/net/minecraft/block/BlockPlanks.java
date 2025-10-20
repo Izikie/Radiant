@@ -21,28 +21,34 @@ public class BlockPlanks extends Block {
         this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
+    @Override
     public int damageDropped(IBlockState state) {
         return state.getValue(VARIANT).getMetadata();
     }
 
+    @Override
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
         for (WoodType blockplanks$enumtype : WoodType.values()) {
             list.add(new ItemStack(itemIn, 1, blockplanks$enumtype.getMetadata()));
         }
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(VARIANT, WoodType.byMetadata(meta));
     }
 
+    @Override
     public MapColor getMapColor(IBlockState state) {
         return state.getValue(VARIANT).getMapColor();
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(VARIANT).getMetadata();
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, VARIANT);
     }
@@ -92,6 +98,7 @@ public class BlockPlanks extends Block {
             return META_LOOKUP[meta];
         }
 
+        @Override
         public String getName() {
             return this.name;
         }

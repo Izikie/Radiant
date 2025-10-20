@@ -20,6 +20,7 @@ public class EntitySnowball extends EntityThrowable {
         super(worldIn, x, y, z);
     }
 
+    @Override
     protected void onImpact(MovingObjectPosition p_70184_1_) {
         if (p_70184_1_.entityHit != null) {
             int i = 0;

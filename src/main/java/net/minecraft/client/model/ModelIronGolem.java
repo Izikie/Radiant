@@ -46,6 +46,7 @@ public class ModelIronGolem extends ModelBase {
         this.ironGolemRightLeg.addBox(-3.5F, -3.0F, -3.0F, 6, 16, 5, p_i46362_1_);
     }
 
+    @Override
     public void render(Entity entityIn, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_, float scale) {
         this.setRotationAngles(p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, scale, entityIn);
         this.ironGolemHead.render(scale);
@@ -56,6 +57,7 @@ public class ModelIronGolem extends ModelBase {
         this.ironGolemLeftArm.render(scale);
     }
 
+    @Override
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
         this.ironGolemHead.rotateAngleY = netHeadYaw / (180.0F / (float) Math.PI);
         this.ironGolemHead.rotateAngleX = headPitch / (180.0F / (float) Math.PI);
@@ -65,6 +67,7 @@ public class ModelIronGolem extends ModelBase {
         this.ironGolemRightLeg.rotateAngleY = 0.0F;
     }
 
+    @Override
     public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
         EntityIronGolem entityirongolem = (EntityIronGolem) entitylivingbaseIn;
         int i = entityirongolem.getAttackTimer();

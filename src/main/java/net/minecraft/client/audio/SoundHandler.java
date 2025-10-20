@@ -32,14 +32,17 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
             .registerTypeAdapter(SoundList.class, new SoundListSerializer())
             .create();
     private static final ParameterizedType TYPE = new ParameterizedType() {
+        @Override
         public Type[] getActualTypeArguments() {
             return new Type[]{String.class, SoundList.class};
         }
 
+        @Override
         public Type getRawType() {
             return Map.class;
         }
 
+        @Override
         public Type getOwnerType() {
             return null;
         }
@@ -54,6 +57,7 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
         this.sndManager = new SoundManager(this, gameSettingsIn);
     }
 
+    @Override
     public void onResourceManagerReload(IResourceManager resourceManager) {
         this.sndManager.reloadSoundSystem();
         this.sndRegistry.clearMap();
@@ -133,11 +137,13 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
                     isoundeventaccessor = new ISoundEventAccessor<>() {
                         final ResourceLocation field_148726_a = new ResourceLocation(s1, soundlist$soundentry.getSoundEntryName());
 
+                        @Override
                         public int getWeight() {
                             SoundEventAccessorComposite soundeventaccessorcomposite1 = SoundHandler.this.sndRegistry.getObject(this.field_148726_a);
                             return soundeventaccessorcomposite1 == null ? 0 : soundeventaccessorcomposite1.getWeight();
                         }
 
+                        @Override
                         public SoundPoolEntry cloneEntry() {
                             SoundEventAccessorComposite soundeventaccessorcomposite1 = SoundHandler.this.sndRegistry.getObject(this.field_148726_a);
                             return soundeventaccessorcomposite1 == null ? SoundHandler.MISSING_SOUND : soundeventaccessorcomposite1.cloneEntry();
@@ -181,6 +187,7 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
         this.sndManager.unloadSoundSystem();
     }
 
+    @Override
     public void update() {
         this.sndManager.updateAllSounds();
     }

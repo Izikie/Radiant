@@ -32,6 +32,7 @@ public class BlockRedstoneWire extends Block {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.0625F, 1.0F);
     }
 
+    @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         state = state.withProperty(WEST, this.getAttachPosition(worldIn, pos, Direction.WEST));
         state = state.withProperty(EAST, this.getAttachPosition(worldIn, pos, Direction.EAST));
@@ -52,23 +53,28 @@ public class BlockRedstoneWire extends Block {
         }
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
         return null;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass) {
         IBlockState iblockstate = worldIn.getBlockState(pos);
         return iblockstate.getBlock() != this ? super.colorMultiplier(worldIn, pos, renderPass) : this.colorMultiplier(iblockstate.getValue(POWER));
     }
 
+    @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
         return World.doesBlockHaveSolidTopSurface(worldIn, pos.down()) || worldIn.getBlockState(pos.down()).getBlock() == Blocks.GLOWSTONE;
     }
@@ -156,6 +162,7 @@ public class BlockRedstoneWire extends Block {
         }
     }
 
+    @Override
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         if (!worldIn.isRemote) {
             this.updateSurroundingRedstone(worldIn, pos, state);
@@ -180,6 +187,7 @@ public class BlockRedstoneWire extends Block {
         }
     }
 
+    @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         super.breakBlock(worldIn, pos, state);
 
@@ -215,6 +223,7 @@ public class BlockRedstoneWire extends Block {
         }
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         if (!worldIn.isRemote) {
             if (this.canPlaceBlockAt(worldIn, pos)) {
@@ -226,14 +235,17 @@ public class BlockRedstoneWire extends Block {
         }
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Items.REDSTONE;
     }
 
+    @Override
     public int getStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
         return !this.canProvidePower ? 0 : this.getWeakPower(worldIn, pos, state, side);
     }
 
+    @Override
     public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
         if (!this.canProvidePower) {
             return 0;
@@ -294,6 +306,7 @@ public class BlockRedstoneWire extends Block {
         }
     }
 
+    @Override
     public boolean canProvidePower() {
         return this.canProvidePower;
     }
@@ -323,6 +336,7 @@ public class BlockRedstoneWire extends Block {
         return -16777216 | i << 16 | j << 8 | k;
     }
 
+    @Override
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         int i = state.getValue(POWER);
 
@@ -338,22 +352,27 @@ public class BlockRedstoneWire extends Block {
         }
     }
 
+    @Override
     public Item getItem(World worldIn, BlockPos pos) {
         return Items.REDSTONE;
     }
 
+    @Override
     public RenderLayer getBlockLayer() {
         return RenderLayer.CUTOUT;
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(POWER, meta);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(POWER);
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, NORTH, EAST, SOUTH, WEST, POWER);
     }
@@ -373,6 +392,7 @@ public class BlockRedstoneWire extends Block {
             return this.getName();
         }
 
+        @Override
         public String getName() {
             return this.name;
         }

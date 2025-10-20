@@ -25,6 +25,7 @@ public class BlockQuartz extends Block {
         this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
+    @Override
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         if (meta == QuartzType.LINES_Y.getMetadata()) {
             return switch (facing.getAxis()) {
@@ -37,34 +38,41 @@ public class BlockQuartz extends Block {
         }
     }
 
+    @Override
     public int damageDropped(IBlockState state) {
         QuartzType blockquartz$enumtype = state.getValue(VARIANT);
         return blockquartz$enumtype != QuartzType.LINES_X && blockquartz$enumtype != QuartzType.LINES_Z ? blockquartz$enumtype.getMetadata() : QuartzType.LINES_Y.getMetadata();
     }
 
+    @Override
     protected ItemStack createStackedBlock(IBlockState state) {
         QuartzType blockquartz$enumtype = state.getValue(VARIANT);
         return blockquartz$enumtype != QuartzType.LINES_X && blockquartz$enumtype != QuartzType.LINES_Z ? super.createStackedBlock(state) : new ItemStack(Item.getItemFromBlock(this), 1, QuartzType.LINES_Y.getMetadata());
     }
 
+    @Override
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
         list.add(new ItemStack(itemIn, 1, QuartzType.DEFAULT.getMetadata()));
         list.add(new ItemStack(itemIn, 1, QuartzType.CHISELED.getMetadata()));
         list.add(new ItemStack(itemIn, 1, QuartzType.LINES_Y.getMetadata()));
     }
 
+    @Override
     public MapColor getMapColor(IBlockState state) {
         return MapColor.QUARTZ_COLOR;
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(VARIANT, QuartzType.byMetadata(meta));
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(VARIANT).getMetadata();
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, VARIANT);
     }
@@ -103,6 +111,7 @@ public class BlockQuartz extends Block {
             return META_LOOKUP[meta];
         }
 
+        @Override
         public String getName() {
             return this.field_176805_h;
         }

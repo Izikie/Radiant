@@ -63,6 +63,7 @@ public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends
         };
     }
 
+    @Override
     public boolean shouldExecute() {
         if (this.targetChance > 0 && this.taskOwner.getRNG().nextInt(this.targetChance) != 0) {
             return false;
@@ -80,6 +81,7 @@ public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends
         }
     }
 
+    @Override
     public void startExecuting() {
         this.taskOwner.setAttackTarget(this.targetEntity);
         super.startExecuting();
@@ -92,6 +94,7 @@ public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends
             this.theEntity = theEntityIn;
         }
 
+        @Override
         public int compare(Entity p_compare_1_, Entity p_compare_2_) {
             double d0 = this.theEntity.getDistanceSqToEntity(p_compare_1_);
             double d1 = this.theEntity.getDistanceSqToEntity(p_compare_2_);

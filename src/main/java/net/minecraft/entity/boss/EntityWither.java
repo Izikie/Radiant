@@ -52,6 +52,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
         this.experienceValue = 50;
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(17, 0);
@@ -60,28 +61,34 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
         this.dataWatcher.addObject(20, 0);
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         tagCompound.setInteger("Invul", this.getInvulTime());
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
         this.setInvulTime(tagCompund.getInteger("Invul"));
     }
 
+    @Override
     protected String getLivingSound() {
         return "mob.wither.idle";
     }
 
+    @Override
     protected String getHurtSound() {
         return "mob.wither.hurt";
     }
 
+    @Override
     protected String getDeathSound() {
         return "mob.wither.death";
     }
 
+    @Override
     public void onLivingUpdate() {
         this.motionY *= 0.6000000238418579D;
 
@@ -165,6 +172,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
         }
     }
 
+    @Override
     protected void updateAITasks() {
         if (this.getInvulTime() > 0) {
             int j1 = this.getInvulTime() - 1;
@@ -294,9 +302,11 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
         this.setHealth(this.getMaxHealth() / 3.0F);
     }
 
+    @Override
     public void setInWeb() {
     }
 
+    @Override
     public int getTotalArmorValue() {
         return 4;
     }
@@ -363,10 +373,12 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
         this.worldObj.spawnEntityInWorld(entitywitherskull);
     }
 
+    @Override
     public void attackEntityWithRangedAttack(EntityLivingBase target, float p_82196_2_) {
         this.launchWitherSkullToEntity(0, target);
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (this.isEntityInvulnerable(source)) {
             return false;
@@ -403,6 +415,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
         }
     }
 
+    @Override
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
         EntityItem entityitem = this.dropItem(Items.NETHER_STAR, 1);
 
@@ -417,20 +430,25 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
         }
     }
 
+    @Override
     protected void despawnEntity() {
         this.entityAge = 0;
     }
 
+    @Override
     public int getBrightnessForRender(float partialTicks) {
         return 15728880;
     }
 
+    @Override
     public void fall(float distance, float damageMultiplier) {
     }
 
+    @Override
     public void addPotionEffect(PotionEffect potioneffectIn) {
     }
 
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(300.0D);
@@ -466,10 +484,12 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
         return this.getHealth() <= this.getMaxHealth() / 2.0F;
     }
 
+    @Override
     public EntityGroup getCreatureAttribute() {
         return EntityGroup.UNDEAD;
     }
 
+    @Override
     public void mountEntity(Entity entityIn) {
         this.ridingEntity = null;
     }

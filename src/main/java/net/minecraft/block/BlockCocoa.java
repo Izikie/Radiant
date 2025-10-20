@@ -28,6 +28,7 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
         this.setTickRandomly(true);
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (!this.canBlockStay(worldIn, pos, state)) {
             this.dropBlock(worldIn, pos, state);
@@ -46,25 +47,30 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
         return iblockstate.getBlock() == Blocks.LOG && iblockstate.getValue(BlockPlanks.VARIANT) == BlockPlanks.WoodType.JUNGLE;
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
         this.setBlockBoundsBasedOnState(worldIn, pos);
         return super.getCollisionBoundingBox(worldIn, pos, state);
     }
 
+    @Override
     public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos) {
         this.setBlockBoundsBasedOnState(worldIn, pos);
         return super.getSelectedBoundingBox(worldIn, pos);
     }
 
     
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         IBlockState iblockstate = worldIn.getBlockState(pos);
         Direction enumfacing = iblockstate.getValue(FACING);
@@ -91,11 +97,13 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
         }
     }
 
+    @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         Direction enumfacing = Direction.fromAngle(placer.rotationYaw);
         worldIn.setBlockState(pos, state.withProperty(FACING, enumfacing), 2);
     }
 
+    @Override
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         if (!facing.getAxis().isHorizontal()) {
             facing = Direction.NORTH;
@@ -104,6 +112,7 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
         return this.getDefaultState().withProperty(FACING, facing.getOpposite()).withProperty(AGE, 0);
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         if (!this.canBlockStay(worldIn, pos, state)) {
             this.dropBlock(worldIn, pos, state);
@@ -115,6 +124,7 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
         this.dropBlockAsItem(worldIn, pos, state, 0);
     }
 
+    @Override
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
         int i = state.getValue(AGE);
         int j = 1;
@@ -128,34 +138,42 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
         }
     }
 
+    @Override
     public Item getItem(World worldIn, BlockPos pos) {
         return Items.DYE;
     }
 
+    @Override
     public int getDamageValue(World worldIn, BlockPos pos) {
         return DyeColor.BROWN.getDyeDamage();
     }
 
+    @Override
     public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
         return state.getValue(AGE) < 2;
     }
 
+    @Override
     public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
         return true;
     }
 
+    @Override
     public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
         worldIn.setBlockState(pos, state.withProperty(AGE, state.getValue(AGE) + 1), 2);
     }
 
+    @Override
     public RenderLayer getBlockLayer() {
         return RenderLayer.CUTOUT;
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(FACING, Direction.getHorizontal(meta)).withProperty(AGE, (meta & 15) >> 2);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         int i = 0;
         i = i | state.getValue(FACING).getHorizontalIndex();
@@ -163,6 +181,7 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
         return i;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, FACING, AGE);
     }

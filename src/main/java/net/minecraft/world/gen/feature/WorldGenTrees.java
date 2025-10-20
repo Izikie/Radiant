@@ -31,6 +31,7 @@ public class WorldGenTrees extends WorldGenAbstractTree {
         this.vinesGrow = p_i46446_5_;
     }
 
+    @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         int i = rand.nextInt(3) + this.minTreeHeight;
         boolean flag = true;

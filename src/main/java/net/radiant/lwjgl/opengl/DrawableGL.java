@@ -60,25 +60,30 @@ abstract class DrawableGL implements DrawableLWJGL {
     protected DrawableGL() {
     }
 
+    @Override
     public void setPixelFormat(final PixelFormatLWJGL pf, final ContextAttribs attribs) throws LWJGLException {
         this.pixel_format = (PixelFormat) pf;
         //this.peer_info = Display.getImplementation().createPeerInfo(pixel_format, attribs);
     }
 
+    @Override
     public PixelFormatLWJGL getPixelFormat() {
         return pixel_format;
     }
 
+    @Override
     public void setPixelFormat(final PixelFormatLWJGL pf) throws LWJGLException {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public ContextGL getContext() {
         synchronized (GlobalLock.lock) {
             return context;
         }
     }
 
+    @Override
     public ContextGL createSharedContext() throws LWJGLException {
         synchronized (GlobalLock.lock) {
             //checkDestroyed();
@@ -87,18 +92,22 @@ abstract class DrawableGL implements DrawableLWJGL {
         }
     }
 
+    @Override
     public void checkGLError() {
         Util.checkGLError();
     }
 
+    @Override
     public void setSwapInterval(final int swap_interval) {
         ContextGL.setSwapInterval(swap_interval);
     }
 
+    @Override
     public void swapBuffers() throws LWJGLException {
         ContextGL.swapBuffers();
     }
 
+    @Override
     public void initContext(final float r, final float g, final float b) {
         // set background clear color
         glClearColor(r, g, b, 0.0f);
@@ -106,6 +115,7 @@ abstract class DrawableGL implements DrawableLWJGL {
         glClear(GL_COLOR_BUFFER_BIT);
     }
 
+    @Override
     public boolean isCurrent() throws LWJGLException {
         synchronized (GlobalLock.lock) {
             checkDestroyed();
@@ -113,6 +123,7 @@ abstract class DrawableGL implements DrawableLWJGL {
         }
     }
 
+    @Override
     public void makeCurrent() throws LWJGLException {
         synchronized (GlobalLock.lock) {
             checkDestroyed();
@@ -120,6 +131,7 @@ abstract class DrawableGL implements DrawableLWJGL {
         }
     }
 
+    @Override
     public void releaseContext() throws LWJGLException {
         synchronized (GlobalLock.lock) {
             checkDestroyed();
@@ -128,6 +140,7 @@ abstract class DrawableGL implements DrawableLWJGL {
         }
     }
 
+    @Override
     public void destroy() {
         synchronized (GlobalLock.lock) {
             if (context == null)
@@ -149,6 +162,7 @@ abstract class DrawableGL implements DrawableLWJGL {
         }
     }
 
+    @Override
     public void setCLSharingProperties(final PointerBuffer properties) throws LWJGLException {
         synchronized (GlobalLock.lock) {
             checkDestroyed();

@@ -13,14 +13,17 @@ import java.util.List;
 import java.util.Random;
 
 public class ItemEnchantedBook extends Item {
+    @Override
     public boolean hasEffect(ItemStack stack) {
         return true;
     }
 
+    @Override
     public boolean isItemTool(ItemStack stack) {
         return false;
     }
 
+    @Override
     public Rarity getRarity(ItemStack stack) {
         return this.getEnchantments(stack).tagCount() > 0 ? Rarity.UNCOMMON : super.getRarity(stack);
     }
@@ -30,6 +33,7 @@ public class ItemEnchantedBook extends Item {
         return nbttagcompound != null && nbttagcompound.hasKey("StoredEnchantments", 9) ? (NBTTagList) nbttagcompound.getTag("StoredEnchantments") : new NBTTagList();
     }
 
+    @Override
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
         super.addInformation(stack, playerIn, tooltip, advanced);
         NBTTagList nbttaglist = this.getEnchantments(stack);

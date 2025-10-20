@@ -15,6 +15,7 @@ public class EntityAIDefendVillage extends EntityAITarget {
         this.setMutexBits(1);
     }
 
+    @Override
     public boolean shouldExecute() {
         Village village = this.irongolem.getVillage();
 
@@ -38,6 +39,7 @@ public class EntityAIDefendVillage extends EntityAITarget {
         }
     }
 
+    @Override
     public void startExecuting() {
         this.irongolem.setAttackTarget(this.villageAgressorTarget);
         super.startExecuting();

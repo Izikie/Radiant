@@ -32,6 +32,7 @@ public class ComponentScatteredFeaturePieces {
             super(p_i2062_1_, p_i2062_2_, 64, p_i2062_3_, 21, 15, 21);
         }
 
+        @Override
         protected void writeStructureToNBT(NBTTagCompound tagCompound) {
             super.writeStructureToNBT(tagCompound);
             tagCompound.setBoolean("hasPlacedChest0", this.hasPlacedChest[0]);
@@ -40,6 +41,7 @@ public class ComponentScatteredFeaturePieces {
             tagCompound.setBoolean("hasPlacedChest3", this.hasPlacedChest[3]);
         }
 
+        @Override
         protected void readStructureFromNBT(NBTTagCompound tagCompound) {
             super.readStructureFromNBT(tagCompound);
             this.hasPlacedChest[0] = tagCompound.getBoolean("hasPlacedChest0");
@@ -48,6 +50,7 @@ public class ComponentScatteredFeaturePieces {
             this.hasPlacedChest[3] = tagCompound.getBoolean("hasPlacedChest3");
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             this.fillWithBlocks(worldIn, structureBoundingBoxIn, 0, -4, 0, this.scatteredFeatureSizeX - 1, 0, this.scatteredFeatureSizeZ - 1, Blocks.SANDSTONE.getDefaultState(), Blocks.SANDSTONE.getDefaultState(), false);
 
@@ -269,6 +272,7 @@ public class ComponentScatteredFeaturePieces {
             }
         }
 
+        @Override
         protected void writeStructureToNBT(NBTTagCompound tagCompound) {
             tagCompound.setInteger("Width", this.scatteredFeatureSizeX);
             tagCompound.setInteger("Height", this.scatteredFeatureSizeY);
@@ -276,6 +280,7 @@ public class ComponentScatteredFeaturePieces {
             tagCompound.setInteger("HPos", this.field_74936_d);
         }
 
+        @Override
         protected void readStructureFromNBT(NBTTagCompound tagCompound) {
             this.scatteredFeatureSizeX = tagCompound.getInteger("Width");
             this.scatteredFeatureSizeY = tagCompound.getInteger("Height");
@@ -329,6 +334,7 @@ public class ComponentScatteredFeaturePieces {
             super(p_i2064_1_, p_i2064_2_, 64, p_i2064_3_, 12, 10, 15);
         }
 
+        @Override
         protected void writeStructureToNBT(NBTTagCompound tagCompound) {
             super.writeStructureToNBT(tagCompound);
             tagCompound.setBoolean("placedMainChest", this.placedMainChest);
@@ -337,6 +343,7 @@ public class ComponentScatteredFeaturePieces {
             tagCompound.setBoolean("placedTrap2", this.placedTrap2);
         }
 
+        @Override
         protected void readStructureFromNBT(NBTTagCompound tagCompound) {
             super.readStructureFromNBT(tagCompound);
             this.placedMainChest = tagCompound.getBoolean("placedMainChest");
@@ -345,6 +352,7 @@ public class ComponentScatteredFeaturePieces {
             this.placedTrap2 = tagCompound.getBoolean("placedTrap2");
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             if (!this.func_74935_a(worldIn, structureBoundingBoxIn, 0)) {
                 return false;
@@ -531,6 +539,7 @@ public class ComponentScatteredFeaturePieces {
             private Stones() {
             }
 
+            @Override
             public void selectBlocks(Random rand, int x, int y, int z, boolean p_75062_5_) {
                 if (rand.nextFloat() < 0.4F) {
                     this.blockstate = Blocks.COBBLESTONE.getDefaultState();
@@ -551,16 +560,19 @@ public class ComponentScatteredFeaturePieces {
             super(p_i2066_1_, p_i2066_2_, 64, p_i2066_3_, 7, 7, 9);
         }
 
+        @Override
         protected void writeStructureToNBT(NBTTagCompound tagCompound) {
             super.writeStructureToNBT(tagCompound);
             tagCompound.setBoolean("Witch", this.hasWitch);
         }
 
+        @Override
         protected void readStructureFromNBT(NBTTagCompound tagCompound) {
             super.readStructureFromNBT(tagCompound);
             this.hasWitch = tagCompound.getBoolean("Witch");
         }
 
+        @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             if (!this.func_74935_a(worldIn, structureBoundingBoxIn, 0)) {
                 return false;

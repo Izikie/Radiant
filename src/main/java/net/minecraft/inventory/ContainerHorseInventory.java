@@ -16,15 +16,18 @@ public class ContainerHorseInventory extends Container {
         horseInventoryIn.openInventory(player);
         int j = (i - 4) * 18;
         this.addSlotToContainer(new Slot(horseInventoryIn, 0, 8, 18) {
+            @Override
             public boolean isItemValid(ItemStack stack) {
                 return super.isItemValid(stack) && stack.getItem() == Items.SADDLE && !this.getHasStack();
             }
         });
         this.addSlotToContainer(new Slot(horseInventoryIn, 1, 8, 36) {
+            @Override
             public boolean isItemValid(ItemStack stack) {
                 return super.isItemValid(stack) && horse.canWearArmor() && EntityHorse.isArmorItem(stack.getItem());
             }
 
+            @Override
             public boolean canBeHovered() {
                 return horse.canWearArmor();
             }
@@ -49,10 +52,12 @@ public class ContainerHorseInventory extends Container {
         }
     }
 
+    @Override
     public boolean canInteractWith(EntityPlayer playerIn) {
         return this.horseInventory.isUseableByPlayer(playerIn) && this.theHorse.isEntityAlive() && this.theHorse.getDistanceToEntity(playerIn) < 8.0F;
     }
 
+    @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
         ItemStack itemstack = null;
         Slot slot = this.inventorySlots.get(index);
@@ -87,6 +92,7 @@ public class ContainerHorseInventory extends Container {
         return itemstack;
     }
 
+    @Override
     public void onContainerClosed(EntityPlayer playerIn) {
         super.onContainerClosed(playerIn);
         this.horseInventory.closeInventory(playerIn);

@@ -349,6 +349,7 @@ public class EnchantmentHelper {
         private DamageIterator() {
         }
 
+        @Override
         public void calculateModifier(Enchantment enchantmentIn, int enchantmentLevel) {
             enchantmentIn.onEntityDamaged(this.user, this.target, enchantmentLevel);
         }
@@ -361,6 +362,7 @@ public class EnchantmentHelper {
         private HurtIterator() {
         }
 
+        @Override
         public void calculateModifier(Enchantment enchantmentIn, int enchantmentLevel) {
             enchantmentIn.onUserHurt(this.user, this.attacker, enchantmentLevel);
         }
@@ -377,6 +379,7 @@ public class EnchantmentHelper {
         private ModifierDamage() {
         }
 
+        @Override
         public void calculateModifier(Enchantment enchantmentIn, int enchantmentLevel) {
             this.damageModifier += enchantmentIn.calcModifierDamage(enchantmentLevel, this.source);
         }
@@ -389,6 +392,7 @@ public class EnchantmentHelper {
         private ModifierLiving() {
         }
 
+        @Override
         public void calculateModifier(Enchantment enchantmentIn, int enchantmentLevel) {
             this.livingModifier += enchantmentIn.calcDamageByCreature(enchantmentLevel, this.entityLiving);
         }

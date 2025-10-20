@@ -23,6 +23,7 @@ public class ItemBucket extends Item {
         this.setCreativeTab(CreativeTabs.TAB_MISC);
     }
 
+    @Override
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
         boolean flag = this.isFull == Blocks.AIR;
         MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(worldIn, playerIn, flag);

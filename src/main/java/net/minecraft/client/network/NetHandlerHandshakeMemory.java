@@ -16,11 +16,13 @@ public class NetHandlerHandshakeMemory implements INetHandlerHandshakeServer {
         this.networkManager = networkManagerIn;
     }
 
+    @Override
     public void processHandshake(C00Handshake packet) {
         this.networkManager.setConnectionState(packet.getRequestedState());
         this.networkManager.setNetHandler(new NetHandlerLoginServer(this.mcServer, this.networkManager));
     }
 
+    @Override
     public void onDisconnect(IChatComponent reason) {
     }
 }

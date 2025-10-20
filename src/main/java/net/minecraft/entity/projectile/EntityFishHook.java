@@ -99,9 +99,11 @@ public class EntityFishHook extends Entity {
         this.handleHookCasting(this.motionX, this.motionY, this.motionZ, 1.5F, 1.0F);
     }
 
+    @Override
     protected void entityInit() {
     }
 
+    @Override
     public boolean isInRangeToRenderDist(double distance) {
         double d0 = this.getEntityBoundingBox().getAverageEdgeLength() * 4.0D;
 
@@ -133,6 +135,7 @@ public class EntityFishHook extends Entity {
         this.ticksInGround = 0;
     }
 
+    @Override
     public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean p_180426_10_) {
         this.fishX = x;
         this.fishY = y;
@@ -145,12 +148,14 @@ public class EntityFishHook extends Entity {
         this.motionZ = this.clientMotionZ;
     }
 
+    @Override
     public void setVelocity(double x, double y, double z) {
         this.clientMotionX = this.motionX = x;
         this.clientMotionY = this.motionY = y;
         this.clientMotionZ = this.motionZ = z;
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
 
@@ -407,6 +412,7 @@ public class EntityFishHook extends Entity {
         }
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         tagCompound.setShort("xTile", (short) this.xTile);
         tagCompound.setShort("yTile", (short) this.yTile);
@@ -417,6 +423,7 @@ public class EntityFishHook extends Entity {
         tagCompound.setByte("inGround", (byte) (this.inGround ? 1 : 0));
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         this.xTile = tagCompund.getShort("xTile");
         this.yTile = tagCompund.getShort("yTile");
@@ -499,6 +506,7 @@ public class EntityFishHook extends Entity {
         }
     }
 
+    @Override
     public void setDead() {
         super.setDead();
 

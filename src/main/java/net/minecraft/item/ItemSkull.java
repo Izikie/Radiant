@@ -28,6 +28,7 @@ public class ItemSkull extends Item {
         this.setHasSubtypes(true);
     }
 
+    @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
         if (side == Direction.DOWN) {
             return false;
@@ -91,16 +92,19 @@ public class ItemSkull extends Item {
         }
     }
 
+    @Override
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
         for (int i = 0; i < SKULL_TYPES.length; ++i) {
             subItems.add(new ItemStack(itemIn, 1, i));
         }
     }
 
+    @Override
     public int getMetadata(int damage) {
         return damage;
     }
 
+    @Override
     public String getUnlocalizedName(ItemStack stack) {
         int i = stack.getMetadata();
 
@@ -111,6 +115,7 @@ public class ItemSkull extends Item {
         return super.getUnlocalizedName() + "." + SKULL_TYPES[i];
     }
 
+    @Override
     public String getItemStackDisplayName(ItemStack stack) {
         if (stack.getMetadata() == 3 && stack.hasTagCompound()) {
             if (stack.getTagCompound().hasKey("SkullOwner", 8)) {
@@ -129,6 +134,7 @@ public class ItemSkull extends Item {
         return super.getItemStackDisplayName(stack);
     }
 
+    @Override
     public boolean updateItemStackNBT(NBTTagCompound nbt) {
         super.updateItemStackNBT(nbt);
 

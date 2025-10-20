@@ -50,11 +50,13 @@ public class IteratorAxis implements Iterator<BlockPos> {
 		}
 	}
 
-	public boolean hasNext() {
+	@Override
+    public boolean hasNext() {
 		return this.hasNext;
 	}
 
-	public BlockPos next() {
+	@Override
+    public BlockPos next() {
 		if (!this.hasNext) {
 			throw new NoSuchElementException();
 		} else {
@@ -87,7 +89,8 @@ public class IteratorAxis implements Iterator<BlockPos> {
 		}
 	}
 
-	public void remove() {
+	@Override
+    public void remove() {
 		throw new RuntimeException("Not implemented");
 	}
 }

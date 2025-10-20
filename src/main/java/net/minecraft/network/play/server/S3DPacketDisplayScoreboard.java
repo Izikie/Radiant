@@ -24,16 +24,19 @@ public class S3DPacketDisplayScoreboard implements Packet<INetHandlerPlayClient>
         }
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.position = buf.readByte();
         this.scoreName = buf.readStringFromBuffer(16);
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeByte(this.position);
         buf.writeString(this.scoreName);
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleDisplayScoreboard(this);
     }

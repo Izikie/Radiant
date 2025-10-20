@@ -84,6 +84,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
     public void transformHeldFull3DItemLayer() {
     }
 
+    @Override
     public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
         if (ANIMATE_MODEL_LIVING) {
             entity.limbSwingAmount = 1.0F;
@@ -501,6 +502,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
     protected void preRenderCallback(T entitylivingbaseIn, float partialTickTime) {
     }
 
+    @Override
     public void renderName(T entity, double x, double y, double z) {
         if (this.canRenderName(entity)) {
             double d0 = entity.getDistanceSqToEntity(this.renderManager.livingPlayer);
@@ -548,6 +550,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
         }
     }
 
+    @Override
     protected boolean canRenderName(T entity) {
         EntityPlayerSP entityplayersp = Minecraft.get().player;
 

@@ -10,6 +10,7 @@ public class UserListBans extends UserList<GameProfile, UserListBansEntry> {
         super(bansFile);
     }
 
+    @Override
     protected UserListEntry<GameProfile> createEntry(JsonObject entryData) {
         return new UserListBansEntry(entryData);
     }
@@ -18,6 +19,7 @@ public class UserListBans extends UserList<GameProfile, UserListBansEntry> {
         return this.hasEntry(profile);
     }
 
+    @Override
     public String[] getKeys() {
         String[] astring = new String[this.getValues().size()];
         int i = 0;
@@ -29,6 +31,7 @@ public class UserListBans extends UserList<GameProfile, UserListBansEntry> {
         return astring;
     }
 
+    @Override
     protected String getObjectKey(GameProfile obj) {
         return obj.getId().toString();
     }

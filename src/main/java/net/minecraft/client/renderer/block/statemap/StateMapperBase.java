@@ -34,6 +34,7 @@ public abstract class StateMapperBase implements IStateMapper {
         return stringbuilder.toString();
     }
 
+    @Override
     public Map<IBlockState, ModelResourceLocation> putStateModelLocations(Block blockIn) {
         for (IBlockState iblockstate : blockIn.getBlockState().getValidStates()) {
             this.mapStateModelLocations.put(iblockstate, this.getModelResourceLocation(iblockstate));

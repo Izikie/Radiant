@@ -109,6 +109,7 @@ public class KeyBinding implements Comparable<KeyBinding> {
         this.keyCode = keyCode;
     }
 
+    @Override
     public int compareTo(KeyBinding p_compareTo_1_) {
         int i = I18n.format(this.keyCategory).compareTo(I18n.format(p_compareTo_1_.keyCategory));
 

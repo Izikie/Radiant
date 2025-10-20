@@ -19,6 +19,7 @@ public class DefaultResourcePack implements IResourcePack {
         this.mapAssets = mapAssetsIn;
     }
 
+    @Override
     public InputStream getInputStream(ResourceLocation location) throws IOException {
         InputStream inputstream = this.getResourceStream(location);
 
@@ -45,14 +46,17 @@ public class DefaultResourcePack implements IResourcePack {
         return DefaultResourcePack.class.getResourceAsStream(s);
     }
 
+    @Override
     public boolean resourceExists(ResourceLocation location) {
         return this.getResourceStream(location) != null || this.mapAssets.containsKey(location.toString());
     }
 
+    @Override
     public Set<String> getResourceDomains() {
         return DEFAULT_RESOURCE_DOMAINS;
     }
 
+    @Override
     public <T extends IMetadataSection> T getPackMetadata(IMetadataSerializer metadataSerializer, String metadataSectionName) {
         try {
             InputStream inputstream = new FileInputStream(this.mapAssets.get("pack.mcmeta"));
@@ -62,10 +66,12 @@ public class DefaultResourcePack implements IResourcePack {
         }
     }
 
+    @Override
     public NativeImage getPackImage() throws IOException {
         return TextureUtil.readNativeImage(getClass().getResourceAsStream("/" + (new ResourceLocation("pack.png")).getResourcePath()));
     }
 
+    @Override
     public String getPackName() {
         return "Default";
     }

@@ -110,6 +110,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
         return resourcelocation;
     }
 
+    @Override
     public void tick() {
         for (ITickable itickable : this.listTickables) {
             itickable.tick();
@@ -125,6 +126,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
         }
     }
 
+    @Override
     public void onResourceManagerReload(IResourceManager resourceManager) {
         Log.info("*** Reloading textures ***");
         Log.info("Resource packs: " + Config.getResourcePackNames());

@@ -24,6 +24,7 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntity
     private final ModelSign model = new ModelSign();
     private static double textRenderDistanceSq = 4096.0D;
 
+    @Override
     public void renderTileEntityAt(TileEntitySign te, double x, double y, double z, float partialTicks, int destroyStage) {
         Block block = te.getBlockType();
         GlStateManager.pushMatrix();

@@ -16,6 +16,7 @@ public class EntityAIOcelotAttack extends EntityAIBase {
         this.setMutexBits(3);
     }
 
+    @Override
     public boolean shouldExecute() {
         EntityLivingBase entitylivingbase = this.theEntity.getAttackTarget();
 
@@ -27,15 +28,18 @@ public class EntityAIOcelotAttack extends EntityAIBase {
         }
     }
 
+    @Override
     public boolean continueExecuting() {
         return this.theVictim.isEntityAlive() && (!(this.theEntity.getDistanceSqToEntity(this.theVictim) > 225.0D) && (!this.theEntity.getNavigator().noPath() || this.shouldExecute()));
     }
 
+    @Override
     public void resetTask() {
         this.theVictim = null;
         this.theEntity.getNavigator().clearPathEntity();
     }
 
+    @Override
     public void updateTask() {
         this.theEntity.getLookHelper().setLookPositionWithEntity(this.theVictim, 30.0F, 30.0F);
         double d0 = (this.theEntity.width * 2.0F * this.theEntity.width * 2.0F);

@@ -29,6 +29,7 @@ public class UserListOpsEntry extends UserListEntry<GameProfile> {
         return this.bypassesPlayerLimit;
     }
 
+    @Override
     protected void onSerialization(JsonObject data) {
         if (this.getValue() != null) {
             data.addProperty("uuid", this.getValue().getId() == null ? "" : this.getValue().getId().toString());

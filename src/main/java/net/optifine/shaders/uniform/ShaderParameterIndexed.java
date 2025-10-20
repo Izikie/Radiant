@@ -22,11 +22,13 @@ public class ShaderParameterIndexed implements IExpressionFloat {
 		this.index2 = index2;
 	}
 
-	public float eval() {
+	@Override
+    public float eval() {
 		return this.type.eval(this.index1, this.index2);
 	}
 
-	public ExpressionType getExpressionType() {
+	@Override
+    public ExpressionType getExpressionType() {
 		return ExpressionType.FLOAT;
 	}
 

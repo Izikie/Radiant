@@ -16,23 +16,29 @@ public class EntityDragonPart extends Entity {
         this.partName = partName;
     }
 
+    @Override
     protected void entityInit() {
     }
 
+    @Override
     protected void readEntityFromNBT(NBTTagCompound tagCompund) {
     }
 
+    @Override
     protected void writeEntityToNBT(NBTTagCompound tagCompound) {
     }
 
+    @Override
     public boolean canBeCollidedWith() {
         return true;
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         return !this.isEntityInvulnerable(source) && this.entityDragonObj.attackEntityFromPart(this, source, amount);
     }
 
+    @Override
     public boolean isEntityEqual(Entity entityIn) {
         return this == entityIn || this.entityDragonObj == entityIn;
     }

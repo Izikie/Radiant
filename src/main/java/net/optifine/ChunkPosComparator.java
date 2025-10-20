@@ -18,7 +18,8 @@ public class ChunkPosComparator implements Comparator<ChunkCoordIntPair> {
 		this.pitchNorm = 1.0D - MathHelper.clamp(Math.abs(pitchRad) / (Math.PI / 2.0D), 0.0D, 1.0D);
 	}
 
-	public int compare(ChunkCoordIntPair cp1, ChunkCoordIntPair cp2) {
+	@Override
+    public int compare(ChunkCoordIntPair cp1, ChunkCoordIntPair cp2) {
 		int i = this.getDistSq(cp1);
 		int j = this.getDistSq(cp2);
 		return i - j;

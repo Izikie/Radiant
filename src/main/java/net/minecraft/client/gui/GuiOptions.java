@@ -23,6 +23,7 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
         this.gameSettings = gameSettings;
     }
 
+    @Override
     public void initGui() {
         int i = 0;
         this.title = I18n.format("options.title");
@@ -73,6 +74,7 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
         return ichatcomponent.getFormattedText();
     }
 
+    @Override
     public void confirmClicked(boolean result, int id) {
         this.mc.displayGuiScreen(this);
 
@@ -84,6 +86,7 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
         }
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.enabled) {
             switch (button.id) {
@@ -149,6 +152,7 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
         }
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRendererObj, this.title, this.width / 2, 15, 16777215);

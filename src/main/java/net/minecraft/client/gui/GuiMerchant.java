@@ -37,6 +37,7 @@ public class GuiMerchant extends GuiContainer {
         this.chatComponent = p_i45500_2_.getDisplayName();
     }
 
+    @Override
     public void initGui() {
         super.initGui();
         int i = (this.width - this.xSize) / 2;
@@ -47,12 +48,14 @@ public class GuiMerchant extends GuiContainer {
         this.previousButton.enabled = false;
     }
 
+    @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         String s = this.chatComponent.getUnformattedText();
         this.fontRendererObj.drawString(s, this.xSize / 2 - this.fontRendererObj.getStringWidth(s) / 2, 6, 4210752);
         this.fontRendererObj.drawString(I18n.format("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
     }
 
+    @Override
     public void updateScreen() {
         super.updateScreen();
         MerchantRecipeList merchantrecipelist = this.merchant.getRecipes(this.mc.player);
@@ -63,6 +66,7 @@ public class GuiMerchant extends GuiContainer {
         }
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         boolean flag = false;
 
@@ -93,6 +97,7 @@ public class GuiMerchant extends GuiContainer {
         }
     }
 
+    @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(MERCHANT_GUI_TEXTURE);
@@ -120,6 +125,7 @@ public class GuiMerchant extends GuiContainer {
         }
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
         MerchantRecipeList merchantrecipelist = this.merchant.getRecipes(this.mc.player);
@@ -181,6 +187,7 @@ public class GuiMerchant extends GuiContainer {
             this.field_146157_o = p_i1095_4_;
         }
 
+        @Override
         public void drawButton(Minecraft mc, int mouseX, int mouseY) {
             if (this.visible) {
                 mc.getTextureManager().bindTexture(GuiMerchant.MERCHANT_GUI_TEXTURE);

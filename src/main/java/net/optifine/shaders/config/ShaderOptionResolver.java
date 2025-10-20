@@ -18,7 +18,8 @@ public class ShaderOptionResolver implements IExpressionResolver {
 		}
 	}
 
-	public IExpression getExpression(String name) {
+	@Override
+    public IExpression getExpression(String name) {
 		return this.mapOptions.get(name);
 	}
 }

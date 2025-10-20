@@ -27,6 +27,7 @@ public class GuiScreenCustomizePresets extends GuiScreen {
         this.field_175314_r = p_i45524_1_;
     }
 
+    @Override
     public void initGui() {
         this.buttonList.clear();
         Keyboard.enableRepeatEvents(true);
@@ -42,26 +43,31 @@ public class GuiScreenCustomizePresets extends GuiScreen {
         this.func_175304_a();
     }
 
+    @Override
     public void handleMouseInput() throws IOException {
         super.handleMouseInput();
         this.field_175311_g.handleMouseInput();
     }
 
+    @Override
     public void onGuiClosed() {
         Keyboard.enableRepeatEvents(false);
     }
 
+    @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         this.field_175317_i.mouseClicked(mouseX, mouseY, mouseButton);
         super.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         if (!this.field_175317_i.textboxKeyTyped(typedChar, keyCode)) {
             super.keyTyped(typedChar, keyCode);
         }
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         switch (button.id) {
             case 0:
@@ -74,6 +80,7 @@ public class GuiScreenCustomizePresets extends GuiScreen {
         }
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         this.field_175311_g.drawScreen(mouseX, mouseY, partialTicks);
@@ -84,6 +91,7 @@ public class GuiScreenCustomizePresets extends GuiScreen {
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
+    @Override
     public void updateScreen() {
         this.field_175317_i.updateCursorCounter();
         super.updateScreen();
@@ -140,20 +148,24 @@ public class GuiScreenCustomizePresets extends GuiScreen {
             super(GuiScreenCustomizePresets.this.mc, GuiScreenCustomizePresets.this.width, GuiScreenCustomizePresets.this.height, 80, GuiScreenCustomizePresets.this.height - 32, 38);
         }
 
+        @Override
         protected int getSize() {
             return GuiScreenCustomizePresets.field_175310_f.size();
         }
 
+        @Override
         protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY) {
             this.field_178053_u = slotIndex;
             GuiScreenCustomizePresets.this.func_175304_a();
             GuiScreenCustomizePresets.this.field_175317_i.setText(GuiScreenCustomizePresets.field_175310_f.get(GuiScreenCustomizePresets.this.field_175311_g.field_178053_u).field_178954_c.toString());
         }
 
+        @Override
         protected boolean isSelected(int slotIndex) {
             return slotIndex == this.field_178053_u;
         }
 
+        @Override
         protected void drawBackground() {
         }
 
@@ -177,6 +189,7 @@ public class GuiScreenCustomizePresets extends GuiScreen {
             tessellator.draw();
         }
 
+        @Override
         protected void drawSlot(int entryID, int p_180791_2_, int p_180791_3_, int p_180791_4_, int mouseXIn, int mouseYIn) {
             Info guiscreencustomizepresets$info = GuiScreenCustomizePresets.field_175310_f.get(entryID);
             this.func_178051_a(p_180791_2_, p_180791_3_, guiscreencustomizepresets$info.field_178953_b);

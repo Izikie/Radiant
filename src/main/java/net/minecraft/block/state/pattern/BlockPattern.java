@@ -101,6 +101,7 @@ public class BlockPattern {
             this.field_181626_b = p_i46460_2_;
         }
 
+        @Override
         public BlockWorldState load(BlockPos p_load_1_) throws Exception {
             return new BlockWorldState(this.world, p_load_1_, this.field_181626_b);
         }

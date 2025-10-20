@@ -17,6 +17,7 @@ public class WorldGenBlockBlob extends WorldGenerator {
         this.field_150544_b = p_i45450_2_;
     }
 
+    @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         while (true) {
             label0:

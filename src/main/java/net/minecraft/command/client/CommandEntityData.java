@@ -11,18 +11,22 @@ import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class CommandEntityData extends CommandBase {
+    @Override
     public String getCommandName() {
         return "entitydata";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 2;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.entitydata.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length < 2) {
             throw new WrongUsageException("commands.entitydata.usage");
@@ -57,6 +61,7 @@ public class CommandEntityData extends CommandBase {
         }
     }
 
+    @Override
     public boolean isUsernameIndex(String[] args, int index) {
         return index == 0;
     }

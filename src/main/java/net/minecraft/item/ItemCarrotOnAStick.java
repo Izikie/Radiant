@@ -14,14 +14,17 @@ public class ItemCarrotOnAStick extends Item {
         this.setMaxDamage(25);
     }
 
+    @Override
     public boolean isFull3D() {
         return true;
     }
 
+    @Override
     public boolean shouldRotateAroundWhenRendering() {
         return true;
     }
 
+    @Override
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
         if (playerIn.isRiding() && playerIn.ridingEntity instanceof EntityPig entitypig) {
 

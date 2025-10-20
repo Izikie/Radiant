@@ -9,6 +9,7 @@ public class RenderEntity extends Render<Entity> {
         super(renderManagerIn);
     }
 
+    @Override
     public void doRender(Entity entity, double x, double y, double z, float entityYaw, float partialTicks) {
         GlStateManager.pushMatrix();
         renderOffsetAABB(entity.getEntityBoundingBox(), x - entity.lastTickPosX, y - entity.lastTickPosY, z - entity.lastTickPosZ);
@@ -16,6 +17,7 @@ public class RenderEntity extends Render<Entity> {
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(Entity entity) {
         return null;
     }

@@ -12,21 +12,25 @@ public class EntityAIOpenDoor extends EntityAIDoorInteract {
         this.closeDoor = shouldClose;
     }
 
+    @Override
     public boolean continueExecuting() {
         return this.closeDoor && this.closeDoorTemporisation > 0 && super.continueExecuting();
     }
 
+    @Override
     public void startExecuting() {
         this.closeDoorTemporisation = 20;
         this.doorBlock.toggleDoor(this.theEntity.worldObj, this.doorPosition, true);
     }
 
+    @Override
     public void resetTask() {
         if (this.closeDoor) {
             this.doorBlock.toggleDoor(this.theEntity.worldObj, this.doorPosition, false);
         }
     }
 
+    @Override
     public void updateTask() {
         --this.closeDoorTemporisation;
         super.updateTask();

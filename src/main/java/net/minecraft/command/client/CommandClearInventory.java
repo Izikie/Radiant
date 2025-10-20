@@ -15,18 +15,22 @@ import net.minecraft.util.chat.ChatComponentTranslation;
 import java.util.List;
 
 public class CommandClearInventory extends CommandBase {
+    @Override
     public String getCommandName() {
         return "clear";
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.clear.usage";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 2;
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         EntityPlayerMP entityplayermp = args.length == 0 ? getCommandSenderAsPlayer(sender) : getPlayer(sender, args[0]);
         Item item = args.length >= 2 ? getItemByText(sender, args[1]) : null;
@@ -66,6 +70,7 @@ public class CommandClearInventory extends CommandBase {
         }
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         return args.length == 1 ? getListOfStringsMatchingLastWord(args, this.func_147209_d()) : (args.length == 2 ? getListOfStringsMatchingLastWord(args, Item.itemRegistry.getKeys()) : null);
     }
@@ -74,6 +79,7 @@ public class CommandClearInventory extends CommandBase {
         return MinecraftServer.getServer().getAllUsernames();
     }
 
+    @Override
     public boolean isUsernameIndex(String[] args, int index) {
         return index == 0;
     }

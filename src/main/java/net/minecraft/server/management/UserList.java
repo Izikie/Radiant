@@ -21,14 +21,17 @@ public class UserList<K, V extends UserListEntry<K>> {
     private final Map<String, V> values = new HashMap<>();
     private boolean lanServer = true;
     private static final ParameterizedType SAVE_FILE_FORMAT = new ParameterizedType() {
+        @Override
         public Type[] getActualTypeArguments() {
             return new Type[]{UserListEntry.class};
         }
 
+        @Override
         public Type getRawType() {
             return List.class;
         }
 
+        @Override
         public Type getOwnerType() {
             return null;
         }
@@ -126,12 +129,14 @@ public class UserList<K, V extends UserListEntry<K>> {
         private Serializer() {
         }
 
+        @Override
         public JsonElement serialize(UserListEntry<K> p_serialize_1_, Type type, JsonSerializationContext ctx) {
             JsonObject jsonobject = new JsonObject();
             p_serialize_1_.onSerialization(jsonobject);
             return jsonobject;
         }
 
+        @Override
         public UserListEntry<K> deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
             if (jsonElement.isJsonObject()) {
                 JsonObject jsonobject = jsonElement.getAsJsonObject();

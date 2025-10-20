@@ -37,30 +37,37 @@ public abstract class BlockStoneSlabNew extends BlockSlab {
         this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
+    @Override
     public String getLocalizedName() {
         return StatCollector.translateToLocal(this.getUnlocalizedName() + ".red_sandstone.name");
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Item.getItemFromBlock(Blocks.BLOCK_SLAB);
     }
 
+    @Override
     public Item getItem(World worldIn, BlockPos pos) {
         return Item.getItemFromBlock(Blocks.BLOCK_SLAB);
     }
 
+    @Override
     public String getUnlocalizedName(int meta) {
         return super.getUnlocalizedName() + "." + EnumType.byMetadata(meta).getUnlocalizedName();
     }
 
+    @Override
     public IProperty<?> getVariantProperty() {
         return VARIANT;
     }
 
+    @Override
     public Object getVariant(ItemStack stack) {
         return EnumType.byMetadata(stack.getMetadata() & 7);
     }
 
+    @Override
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
         if (itemIn != Item.getItemFromBlock(Blocks.DOUBLE_STONE_SLAB_2)) {
             for (EnumType blockstoneslabnew$enumtype : EnumType.values()) {
@@ -69,6 +76,7 @@ public abstract class BlockStoneSlabNew extends BlockSlab {
         }
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         IBlockState iblockstate = this.getDefaultState().withProperty(VARIANT, EnumType.byMetadata(meta & 7));
 
@@ -81,6 +89,7 @@ public abstract class BlockStoneSlabNew extends BlockSlab {
         return iblockstate;
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         int i = 0;
         i = i | state.getValue(VARIANT).getMetadata();
@@ -96,14 +105,17 @@ public abstract class BlockStoneSlabNew extends BlockSlab {
         return i;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return this.isDouble() ? new BlockState(this, SEAMLESS, VARIANT) : new BlockState(this, HALF, VARIANT);
     }
 
+    @Override
     public MapColor getMapColor(IBlockState state) {
         return state.getValue(VARIANT).func_181068_c();
     }
 
+    @Override
     public int damageDropped(IBlockState state) {
         return state.getValue(VARIANT).getMetadata();
     }
@@ -142,6 +154,7 @@ public abstract class BlockStoneSlabNew extends BlockSlab {
             return META_LOOKUP[meta];
         }
 
+        @Override
         public String getName() {
             return this.name;
         }

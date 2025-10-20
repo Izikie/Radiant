@@ -31,18 +31,22 @@ public class SimpleResource implements IResource {
         this.srMetadataSerializer = srMetadataSerializerIn;
     }
 
+    @Override
     public ResourceLocation getResourceLocation() {
         return this.srResourceLocation;
     }
 
+    @Override
     public InputStream getInputStream() {
         return this.resourceInputStream;
     }
 
+    @Override
     public boolean hasMetadata() {
         return this.mcmetaInputStream != null;
     }
 
+    @Override
     public <T extends IMetadataSection> T getMetadata(String p_110526_1_) {
         if (!this.hasMetadata()) {
             return null;
@@ -69,6 +73,7 @@ public class SimpleResource implements IResource {
         }
     }
 
+    @Override
     public String getResourcePackName() {
         return this.resourcePackName;
     }

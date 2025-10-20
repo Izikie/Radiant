@@ -13,6 +13,7 @@ public class RenderLeashKnot extends Render<EntityLeashKnot> {
         super(renderManagerIn);
     }
 
+    @Override
     public void doRender(EntityLeashKnot entity, double x, double y, double z, float entityYaw, float partialTicks) {
         GlStateManager.pushMatrix();
         GlStateManager.disableCull();
@@ -27,6 +28,7 @@ public class RenderLeashKnot extends Render<EntityLeashKnot> {
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityLeashKnot entity) {
         return LEASH_KNOT_TEXTURES;
     }

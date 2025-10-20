@@ -11,18 +11,22 @@ import net.minecraft.world.WorldServer;
 import java.util.List;
 
 public class CommandTime extends CommandBase {
+    @Override
     public String getCommandName() {
         return "time";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 2;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.time.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length > 1) {
             switch (args[0]) {
@@ -69,6 +73,7 @@ public class CommandTime extends CommandBase {
         throw new WrongUsageException("commands.time.usage");
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         return args.length == 1 ? getListOfStringsMatchingLastWord(args, "set", "add", "query") : (args.length == 2 && args[0].equals("set") ? getListOfStringsMatchingLastWord(args, "day", "night") : (args.length == 2 && args[0].equals("query") ? getListOfStringsMatchingLastWord(args, "daytime", "gametime") : null));
     }

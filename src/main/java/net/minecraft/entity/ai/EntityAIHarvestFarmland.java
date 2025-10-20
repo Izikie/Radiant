@@ -22,6 +22,7 @@ public class EntityAIHarvestFarmland extends EntityAIMoveToBlock {
         this.theVillager = theVillagerIn;
     }
 
+    @Override
     public boolean shouldExecute() {
         if (this.runDelay <= 0) {
             if (!this.theVillager.worldObj.getGameRules().getBoolean("mobGriefing")) {
@@ -36,18 +37,22 @@ public class EntityAIHarvestFarmland extends EntityAIMoveToBlock {
         return super.shouldExecute();
     }
 
+    @Override
     public boolean continueExecuting() {
         return this.field_179501_f >= 0 && super.continueExecuting();
     }
 
+    @Override
     public void startExecuting() {
         super.startExecuting();
     }
 
+    @Override
     public void resetTask() {
         super.resetTask();
     }
 
+    @Override
     public void updateTask() {
         super.updateTask();
         this.theVillager.getLookHelper().setLookPosition(this.destinationBlock.getX() + 0.5D, (this.destinationBlock.getY() + 1), this.destinationBlock.getZ() + 0.5D, 10.0F, this.theVillager.getVerticalFaceSpeed());
@@ -97,6 +102,7 @@ public class EntityAIHarvestFarmland extends EntityAIMoveToBlock {
         }
     }
 
+    @Override
     protected boolean shouldMoveTo(World worldIn, BlockPos pos) {
         Block block = worldIn.getBlockState(pos).getBlock();
 

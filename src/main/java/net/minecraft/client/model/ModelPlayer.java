@@ -61,6 +61,7 @@ public class ModelPlayer extends ModelBiped {
         this.bipedBodyWear.setRotationPoint(0.0F, 0.0F, 0.0F);
     }
 
+    @Override
     public void render(Entity entityIn, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_, float scale) {
         super.render(entityIn, p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, scale);
         GlStateManager.pushMatrix();
@@ -95,6 +96,7 @@ public class ModelPlayer extends ModelBiped {
         this.bipedCape.render(p_178728_1_);
     }
 
+    @Override
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
         super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
         copyModelAngles(this.bipedLeftLeg, this.bipedLeftLegwear);
@@ -114,6 +116,7 @@ public class ModelPlayer extends ModelBiped {
         this.bipedLeftArmwear.render(0.0625F);
     }
 
+    @Override
     public void setInvisible(boolean invisible) {
         super.setInvisible(invisible);
         this.bipedLeftArmwear.showModel = invisible;
@@ -125,6 +128,7 @@ public class ModelPlayer extends ModelBiped {
         this.bipedDeadmau5Head.showModel = invisible;
     }
 
+    @Override
     public void postRenderArm(float scale) {
         if (this.smallArms) { // BUGFIX: Incorrect Alex's arm position
             this.bipedRightArm.rotationPointX += 0.5F;

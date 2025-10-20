@@ -15,6 +15,7 @@ public class LayerCreeperCharge implements LayerRenderer<EntityCreeper> {
         this.creeperRenderer = creeperRendererIn;
     }
 
+    @Override
     public void doRenderLayer(EntityCreeper entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
         if (entitylivingbaseIn.getPowered()) {
             boolean flag = entitylivingbaseIn.isInvisible();
@@ -41,6 +42,7 @@ public class LayerCreeperCharge implements LayerRenderer<EntityCreeper> {
         }
     }
 
+    @Override
     public boolean shouldCombineTextures() {
         return false;
     }

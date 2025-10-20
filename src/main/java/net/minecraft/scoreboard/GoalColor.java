@@ -13,18 +13,22 @@ public class GoalColor implements IScoreObjectiveCriteria {
         IScoreObjectiveCriteria.INSTANCES.put(this.goalName, this);
     }
 
+    @Override
     public String getName() {
         return this.goalName;
     }
 
+    @Override
     public int setScore(List<EntityPlayer> p_96635_1_) {
         return 0;
     }
 
+    @Override
     public boolean isReadOnly() {
         return false;
     }
 
+    @Override
     public EnumRenderType getRenderType() {
         return EnumRenderType.INTEGER;
     }

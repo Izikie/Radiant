@@ -11,10 +11,12 @@ public class ChatComponentText extends ChatComponentStyle {
         return this.text;
     }
 
+    @Override
     public String getUnformattedTextForChat() {
         return this.text;
     }
 
+    @Override
     public ChatComponentText createCopy() {
         ChatComponentText chatcomponenttext = new ChatComponentText(this.text);
         chatcomponenttext.setChatStyle(this.getChatStyle().createShallowCopy());

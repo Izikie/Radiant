@@ -9,18 +9,22 @@ import net.minecraft.util.chat.ChatComponentText;
 import net.minecraft.util.chat.ChatComponentTranslation;
 
 public class CommandListPlayers extends CommandBase {
+    @Override
     public String getCommandName() {
         return "list";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 0;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.players.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         int i = MinecraftServer.getServer().getCurrentPlayerCount();
         sender.addChatMessage(new ChatComponentTranslation("commands.players.list", i, MinecraftServer.getServer().getMaxPlayers()));

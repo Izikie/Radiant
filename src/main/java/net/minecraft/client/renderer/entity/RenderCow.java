@@ -11,6 +11,7 @@ public class RenderCow extends RenderLiving<EntityCow> {
         super(renderManagerIn, modelBaseIn, shadowSizeIn);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityCow entity) {
         return COW_TEXTURES;
     }

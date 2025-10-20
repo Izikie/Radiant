@@ -136,24 +136,30 @@ public class TextureUtils {
 		}
 
 		ITickableTextureObject itickabletextureobject = new ITickableTextureObject() {
-			public void tick() {
+			@Override
+            public void tick() {
 				TextureAnimations.updateAnimations();
 			}
 
-			public void loadTexture(IResourceManager var1) {
+			@Override
+            public void loadTexture(IResourceManager var1) {
 			}
 
-			public int getGlTextureId() {
+			@Override
+            public int getGlTextureId() {
 				return 0;
 			}
 
-			public void setBlurMipmap(boolean p_174936_1, boolean p_174936_2) {
+			@Override
+            public void setBlurMipmap(boolean p_174936_1, boolean p_174936_2) {
 			}
 
-			public void restoreLastBlurMipmap() {
+			@Override
+            public void restoreLastBlurMipmap() {
 			}
 
-			public MultiTexID getMultiTexID() {
+			@Override
+            public MultiTexID getMultiTexID() {
 				return null;
 			}
 		};

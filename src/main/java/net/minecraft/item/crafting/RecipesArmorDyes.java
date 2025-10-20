@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecipesArmorDyes implements IRecipe {
+    @Override
     public boolean matches(InventoryCrafting inv, World worldIn) {
         ItemStack itemstack = null;
         List<ItemStack> list = new ArrayList<>();
@@ -40,6 +41,7 @@ public class RecipesArmorDyes implements IRecipe {
         return itemstack != null && !list.isEmpty();
     }
 
+    @Override
     public ItemStack getCraftingResult(InventoryCrafting inv) {
         ItemStack itemstack = null;
         int[] aint = new int[3];
@@ -108,14 +110,17 @@ public class RecipesArmorDyes implements IRecipe {
         }
     }
 
+    @Override
     public int getRecipeSize() {
         return 10;
     }
 
+    @Override
     public ItemStack getRecipeOutput() {
         return null;
     }
 
+    @Override
     public ItemStack[] getRemainingItems(InventoryCrafting inv) {
         ItemStack[] aitemstack = new ItemStack[inv.getSizeInventory()];
 

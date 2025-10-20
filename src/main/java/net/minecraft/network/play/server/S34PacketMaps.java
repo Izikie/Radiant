@@ -39,6 +39,7 @@ public class S34PacketMaps implements Packet<INetHandlerPlayClient> {
         }
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.mapId = buf.readVarIntFromBuffer();
         this.mapScale = buf.readByte();
@@ -59,6 +60,7 @@ public class S34PacketMaps implements Packet<INetHandlerPlayClient> {
         }
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeVarIntToBuffer(this.mapId);
         buf.writeByte(this.mapScale);
@@ -80,6 +82,7 @@ public class S34PacketMaps implements Packet<INetHandlerPlayClient> {
         }
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleMaps(this);
     }

@@ -25,14 +25,17 @@ public class S14PacketEntity implements Packet<INetHandlerPlayClient> {
         this.entityId = entityIdIn;
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.entityId = buf.readVarIntFromBuffer();
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeVarIntToBuffer(this.entityId);
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleEntityMovement(this);
     }
@@ -85,6 +88,7 @@ public class S14PacketEntity implements Packet<INetHandlerPlayClient> {
             this.onGround = onGroundIn;
         }
 
+        @Override
         public void readPacketData(PacketBuffer buf) throws IOException {
             super.readPacketData(buf);
             this.posX = buf.readByte();
@@ -93,6 +97,7 @@ public class S14PacketEntity implements Packet<INetHandlerPlayClient> {
             this.onGround = buf.readBoolean();
         }
 
+        @Override
         public void writePacketData(PacketBuffer buf) throws IOException {
             super.writePacketData(buf);
             buf.writeByte(this.posX);
@@ -115,6 +120,7 @@ public class S14PacketEntity implements Packet<INetHandlerPlayClient> {
             this.onGround = onGroundIn;
         }
 
+        @Override
         public void readPacketData(PacketBuffer buf) throws IOException {
             super.readPacketData(buf);
             this.yaw = buf.readByte();
@@ -122,6 +128,7 @@ public class S14PacketEntity implements Packet<INetHandlerPlayClient> {
             this.onGround = buf.readBoolean();
         }
 
+        @Override
         public void writePacketData(PacketBuffer buf) throws IOException {
             super.writePacketData(buf);
             buf.writeByte(this.yaw);
@@ -146,6 +153,7 @@ public class S14PacketEntity implements Packet<INetHandlerPlayClient> {
             this.field_149069_g = true;
         }
 
+        @Override
         public void readPacketData(PacketBuffer buf) throws IOException {
             super.readPacketData(buf);
             this.posX = buf.readByte();
@@ -156,6 +164,7 @@ public class S14PacketEntity implements Packet<INetHandlerPlayClient> {
             this.onGround = buf.readBoolean();
         }
 
+        @Override
         public void writePacketData(PacketBuffer buf) throws IOException {
             super.writePacketData(buf);
             buf.writeByte(this.posX);

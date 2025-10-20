@@ -44,18 +44,22 @@ public class BlockSkull extends BlockContainer {
         this.setBlockBounds(0.25F, 0.0F, 0.25F, 0.75F, 0.5F, 0.75F);
     }
 
+    @Override
     public String getLocalizedName() {
         return StatCollector.translateToLocal("tile.skull.skeleton.name");
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         switch (worldIn.getBlockState(pos).getValue(FACING)) {
             case NORTH:
@@ -81,31 +85,38 @@ public class BlockSkull extends BlockContainer {
         }
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
         this.setBlockBoundsBasedOnState(worldIn, pos);
         return super.getCollisionBoundingBox(worldIn, pos, state);
     }
 
+    @Override
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing()).withProperty(NODROP, Boolean.FALSE);
     }
 
+    @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntitySkull();
     }
 
+    @Override
     public Item getItem(World worldIn, BlockPos pos) {
         return Items.SKULL;
     }
 
+    @Override
     public int getDamageValue(World worldIn, BlockPos pos) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
         return tileentity instanceof TileEntitySkull tileEntitySkull ? tileEntitySkull.getSkullType() : super.getDamageValue(worldIn, pos);
     }
 
+    @Override
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
     }
 
+    @Override
     public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
         if (player.capabilities.isCreativeMode) {
             state = state.withProperty(NODROP, Boolean.TRUE);
@@ -115,6 +126,7 @@ public class BlockSkull extends BlockContainer {
         super.onBlockHarvested(worldIn, pos, state, player);
     }
 
+    @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         if (!worldIn.isRemote) {
             if (!state.getValue(NODROP)) {
@@ -138,6 +150,7 @@ public class BlockSkull extends BlockContainer {
         }
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Items.SKULL;
     }
@@ -191,10 +204,12 @@ public class BlockSkull extends BlockContainer {
         }
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(FACING, Direction.getFront(meta & 7)).withProperty(NODROP, (meta & 8) > 0);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         int i = 0;
         i = i | state.getValue(FACING).getIndex();
@@ -206,6 +221,7 @@ public class BlockSkull extends BlockContainer {
         return i;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, FACING, NODROP);
     }

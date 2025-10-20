@@ -41,11 +41,13 @@ public class EntityOcelot extends EntityTameable {
         this.targetTasks.addTask(1, new EntityAITargetNonTamed<>(this, EntityChicken.class, false, null));
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(18, (byte) 0);
     }
 
+    @Override
     public void updateAITasks() {
         if (this.getMoveHelper().isUpdating()) {
             double d0 = this.getMoveHelper().getSpeed();
@@ -66,53 +68,65 @@ public class EntityOcelot extends EntityTameable {
         }
     }
 
+    @Override
     protected boolean canDespawn() {
         return !this.isTamed() && this.ticksExisted > 2400;
     }
 
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
     }
 
+    @Override
     public void fall(float distance, float damageMultiplier) {
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         tagCompound.setInteger("CatType", this.getTameSkin());
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
         this.setTameSkin(tagCompund.getInteger("CatType"));
     }
 
+    @Override
     protected String getLivingSound() {
         return this.isTamed() ? (this.isInLove() ? "mob.cat.purr" : (this.rand.nextInt(4) == 0 ? "mob.cat.purreow" : "mob.cat.meow")) : "";
     }
 
+    @Override
     protected String getHurtSound() {
         return "mob.cat.hitt";
     }
 
+    @Override
     protected String getDeathSound() {
         return "mob.cat.hitt";
     }
 
+    @Override
     protected float getSoundVolume() {
         return 0.4F;
     }
 
+    @Override
     protected Item getDropItem() {
         return Items.LEATHER;
     }
 
+    @Override
     public boolean attackEntityAsMob(Entity entityIn) {
         return entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 3.0F);
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (this.isEntityInvulnerable(source)) {
             return false;
@@ -122,9 +136,11 @@ public class EntityOcelot extends EntityTameable {
         }
     }
 
+    @Override
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
     }
 
+    @Override
     public boolean interact(EntityPlayer player) {
         ItemStack itemstack = player.inventory.getCurrentItem();
 
@@ -161,6 +177,7 @@ public class EntityOcelot extends EntityTameable {
         return super.interact(player);
     }
 
+    @Override
     public EntityOcelot createChild(EntityAgeable ageable) {
         EntityOcelot entityocelot = new EntityOcelot(this.worldObj);
 
@@ -173,10 +190,12 @@ public class EntityOcelot extends EntityTameable {
         return entityocelot;
     }
 
+    @Override
     public boolean isBreedingItem(ItemStack stack) {
         return stack != null && stack.getItem() == Items.FISH;
     }
 
+    @Override
     public boolean canMateWith(EntityAnimal otherAnimal) {
         if (otherAnimal == this) {
             return false;
@@ -197,10 +216,12 @@ public class EntityOcelot extends EntityTameable {
         this.dataWatcher.updateObject(18, (byte) skinId);
     }
 
+    @Override
     public boolean getCanSpawnHere() {
         return this.worldObj.rand.nextInt(3) != 0;
     }
 
+    @Override
     public boolean isNotColliding() {
         if (this.worldObj.checkNoEntityCollision(this.getEntityBoundingBox(), this) && this.worldObj.getCollidingBoundingBoxes(this, this.getEntityBoundingBox()).isEmpty() && !this.worldObj.isAnyLiquid(this.getEntityBoundingBox())) {
             BlockPos blockpos = new BlockPos(this.posX, this.getEntityBoundingBox().minY, this.posZ);
@@ -217,14 +238,17 @@ public class EntityOcelot extends EntityTameable {
         return false;
     }
 
+    @Override
     public String getName() {
         return this.hasCustomName() ? this.getCustomNameTag() : (this.isTamed() ? StatCollector.translateToLocal("entity.Cat.name") : super.getName());
     }
 
+    @Override
     public void setTamed(boolean tamed) {
         super.setTamed(tamed);
     }
 
+    @Override
     protected void setupTamedAI() {
         if (this.avoidEntity == null) {
             this.avoidEntity = new EntityAIAvoidEntity<>(this, EntityPlayer.class, 16.0F, 0.8D, 1.33D);
@@ -237,6 +261,7 @@ public class EntityOcelot extends EntityTameable {
         }
     }
 
+    @Override
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
         livingdata = super.onInitialSpawn(difficulty, livingdata);
 

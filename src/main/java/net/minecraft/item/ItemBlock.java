@@ -21,11 +21,13 @@ public class ItemBlock extends Item {
         this.block = block;
     }
 
+    @Override
     public ItemBlock setUnlocalizedName(String unlocalizedName) {
         super.setUnlocalizedName(unlocalizedName);
         return this;
     }
 
+    @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
         IBlockState iblockstate = worldIn.getBlockState(pos);
         Block block = iblockstate.getBlock();
@@ -105,18 +107,22 @@ public class ItemBlock extends Item {
         return worldIn.canBlockBePlaced(this.block, pos, false, side, null, stack);
     }
 
+    @Override
     public String getUnlocalizedName(ItemStack stack) {
         return this.block.getUnlocalizedName();
     }
 
+    @Override
     public String getUnlocalizedName() {
         return this.block.getUnlocalizedName();
     }
 
+    @Override
     public CreativeTabs getCreativeTab() {
         return this.block.getCreativeTabToDisplayOn();
     }
 
+    @Override
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
         this.block.getSubBlocks(itemIn, tab, subItems);
     }

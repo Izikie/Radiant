@@ -18,6 +18,7 @@ public class GuiLockIconButton extends GuiButton {
         this.locked = state;
     }
 
+    @Override
     public void drawButton(Minecraft mc, int mouseX, int mouseY) {
         if (this.visible) {
             mc.getTextureManager().bindTexture(GuiButton.BUTTON_TEXTURES);

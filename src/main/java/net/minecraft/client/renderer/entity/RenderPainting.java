@@ -18,6 +18,7 @@ public class RenderPainting extends Render<EntityPainting> {
         super(renderManagerIn);
     }
 
+    @Override
     public void doRender(EntityPainting entity, double x, double y, double z, float entityYaw, float partialTicks) {
         GlStateManager.pushMatrix();
         GlStateManager.translate(x, y, z);
@@ -33,6 +34,7 @@ public class RenderPainting extends Render<EntityPainting> {
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityPainting entity) {
         return KRISTOFFER_PAINTING_TEXTURE;
     }

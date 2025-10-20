@@ -13,6 +13,7 @@ public class RenderSheep extends RenderLiving<EntitySheep> {
         this.addLayer(new LayerSheepWool(this));
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntitySheep entity) {
         return SHEARED_SHEEP_TEXTURES;
     }

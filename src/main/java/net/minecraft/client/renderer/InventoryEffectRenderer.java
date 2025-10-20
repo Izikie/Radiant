@@ -13,6 +13,7 @@ public abstract class InventoryEffectRenderer extends GuiContainer {
         super(inventorySlotsIn);
     }
 
+    @Override
     public void initGui() {
         super.initGui();
         this.updateActivePotionEffects();
@@ -23,6 +24,7 @@ public abstract class InventoryEffectRenderer extends GuiContainer {
         this.guiLeft = (this.width - this.xSize) / 2;
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
 

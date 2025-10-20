@@ -21,34 +21,42 @@ public class EnchantmentDamage extends Enchantment {
         this.damageType = classification;
     }
 
+    @Override
     public int getMinEnchantability(int enchantmentLevel) {
         return BASE_ENCHANTABILITY[this.damageType] + (enchantmentLevel - 1) * LEVEL_ENCHANTABILITY[this.damageType];
     }
 
+    @Override
     public int getMaxEnchantability(int enchantmentLevel) {
         return this.getMinEnchantability(enchantmentLevel) + THRESHOLD_ENCHANTABILITY[this.damageType];
     }
 
+    @Override
     public int getMaxLevel() {
         return 5;
     }
 
+    @Override
     public float calcDamageByCreature(int level, EntityGroup creatureType) {
         return this.damageType == 0 ? level * 1.25F : (this.damageType == 1 && creatureType == EntityGroup.UNDEAD ? level * 2.5F : (this.damageType == 2 && creatureType == EntityGroup.ARTHROPOD ? level * 2.5F : 0.0F));
     }
 
+    @Override
     public String getName() {
         return "enchantment.damage." + PROTECTION_NAME[this.damageType];
     }
 
+    @Override
     public boolean canApplyTogether(Enchantment ench) {
         return !(ench instanceof EnchantmentDamage);
     }
 
+    @Override
     public boolean canApply(ItemStack stack) {
         return stack.getItem() instanceof ItemAxe || super.canApply(stack);
     }
 
+    @Override
     public void onEntityDamaged(EntityLivingBase user, Entity target, int level) {
         if (target instanceof EntityLivingBase entitylivingbase) {
 

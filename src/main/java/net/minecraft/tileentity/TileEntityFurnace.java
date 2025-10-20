@@ -29,14 +29,17 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
     private int totalCookTime;
     private String furnaceCustomName;
 
+    @Override
     public int getSizeInventory() {
         return this.furnaceItemStacks.length;
     }
 
+    @Override
     public ItemStack getStackInSlot(int index) {
         return this.furnaceItemStacks[index];
     }
 
+    @Override
     public ItemStack decrStackSize(int index, int count) {
         if (this.furnaceItemStacks[index] != null) {
             if (this.furnaceItemStacks[index].stackSize <= count) {
@@ -57,6 +60,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
         }
     }
 
+    @Override
     public ItemStack removeStackFromSlot(int index) {
         if (this.furnaceItemStacks[index] != null) {
             ItemStack itemstack = this.furnaceItemStacks[index];
@@ -67,6 +71,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
         }
     }
 
+    @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
         boolean flag = stack != null && stack.isItemEqual(this.furnaceItemStacks[index]) && ItemStack.areItemStackTagsEqual(stack, this.furnaceItemStacks[index]);
         this.furnaceItemStacks[index] = stack;
@@ -82,10 +87,12 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
         }
     }
 
+    @Override
     public String getName() {
         return this.hasCustomName() ? this.furnaceCustomName : "container.furnace";
     }
 
+    @Override
     public boolean hasCustomName() {
         return this.furnaceCustomName != null && !this.furnaceCustomName.isEmpty();
     }
@@ -94,6 +101,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
         this.furnaceCustomName = p_145951_1_;
     }
 
+    @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         NBTTagList nbttaglist = compound.getTagList("Items", 10);
@@ -118,6 +126,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
         }
     }
 
+    @Override
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
         compound.setShort("BurnTime", (short) this.furnaceBurnTime);
@@ -141,6 +150,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
         }
     }
 
+    @Override
     public int getInventoryStackLimit() {
         return 64;
     }
@@ -153,6 +163,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
         return p_174903_0_.getField(0) > 0;
     }
 
+    @Override
     public void update() {
         boolean flag = this.isBurning();
         boolean flag1 = false;
@@ -272,28 +283,35 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
         return getItemBurnTime(p_145954_0_) > 0;
     }
 
+    @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
         return this.worldObj.getTileEntity(this.pos) == this && player.getDistanceSq(this.pos.getX() + 0.5D, this.pos.getY() + 0.5D, this.pos.getZ() + 0.5D) <= 64.0D;
     }
 
+    @Override
     public void openInventory(EntityPlayer player) {
     }
 
+    @Override
     public void closeInventory(EntityPlayer player) {
     }
 
+    @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
         return index != 2 && (index != 1 || isItemFuel(stack) || SlotFurnaceFuel.isBucket(stack));
     }
 
+    @Override
     public int[] getSlotsForFace(Direction side) {
         return side == Direction.DOWN ? SLOTS_BOTTOM : (side == Direction.UP ? SLOTS_TOP : SLOTS_SIDES);
     }
 
+    @Override
     public boolean canInsertItem(int index, ItemStack itemStackIn, Direction direction) {
         return this.isItemValidForSlot(index, itemStackIn);
     }
 
+    @Override
     public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
         if (direction == Direction.DOWN && index == 1) {
             Item item = stack.getItem();
@@ -304,14 +322,17 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
         return true;
     }
 
+    @Override
     public String getGuiID() {
         return "minecraft:furnace";
     }
 
+    @Override
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
         return new ContainerFurnace(playerInventory, this);
     }
 
+    @Override
     public int getField(int id) {
         return switch (id) {
             case 0 -> this.furnaceBurnTime;
@@ -322,6 +343,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
         };
     }
 
+    @Override
     public void setField(int id, int value) {
         switch (id) {
             case 0:
@@ -341,10 +363,12 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
         }
     }
 
+    @Override
     public int getFieldCount() {
         return 4;
     }
 
+    @Override
     public void clear() {
         Arrays.fill(this.furnaceItemStacks, null);
     }

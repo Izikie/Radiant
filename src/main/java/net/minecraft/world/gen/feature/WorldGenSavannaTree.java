@@ -18,6 +18,7 @@ public class WorldGenSavannaTree extends WorldGenAbstractTree {
         super(p_i45463_1_);
     }
 
+    @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
         int i = rand.nextInt(3) + rand.nextInt(3) + 5;
         boolean flag = true;

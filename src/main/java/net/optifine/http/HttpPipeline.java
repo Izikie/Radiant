@@ -120,14 +120,16 @@ public class HttpPipeline {
 		String s = "Response";
 		String s1 = "Exception";
 		HttpListener httplistener = new HttpListener() {
-			public void finished(HttpRequest req, HttpResponse resp) {
+			@Override
+            public void finished(HttpRequest req, HttpResponse resp) {
 				synchronized (map) {
 					map.put("Response", resp);
 					map.notifyAll();
 				}
 			}
 
-			public void failed(HttpRequest req, Exception exception) {
+			@Override
+            public void failed(HttpRequest req, Exception exception) {
 				synchronized (map) {
 					map.put("Exception", exception);
 					map.notifyAll();

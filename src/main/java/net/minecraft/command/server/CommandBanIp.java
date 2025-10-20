@@ -14,22 +14,27 @@ import java.util.regex.Pattern;
 public class CommandBanIp extends CommandBase {
     public static final Pattern field_147211_a = Pattern.compile("^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
 
+    @Override
     public String getCommandName() {
         return "ban-ip";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 3;
     }
 
+    @Override
     public boolean canCommandSenderUseCommand(ICommandSender sender) {
         return MinecraftServer.getServer().getConfigurationManager().getBannedIPs().isLanServer() && super.canCommandSenderUseCommand(sender);
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.banip.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length >= 1 && args[0].length() > 1) {
             IChatComponent ichatcomponent = args.length >= 2 ? getChatComponentFromNthArg(sender, args, 1) : null;
@@ -51,6 +56,7 @@ public class CommandBanIp extends CommandBase {
         }
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         return args.length == 1 ? getListOfStringsMatchingLastWord(args, MinecraftServer.getServer().getAllUsernames()) : null;
     }

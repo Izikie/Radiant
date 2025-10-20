@@ -22,6 +22,7 @@ public class GuiControls extends GuiScreen {
         this.options = settings;
     }
 
+    @Override
     public void initGui() {
         this.keyBindingList = new GuiKeyBindingList(this, this.mc);
         this.buttonList.add(new GuiButton(200, this.width / 2 - 155, this.height - 29, 150, 20, I18n.format("gui.done")));
@@ -40,11 +41,13 @@ public class GuiControls extends GuiScreen {
         }
     }
 
+    @Override
     public void handleMouseInput() throws IOException {
         super.handleMouseInput();
         this.keyBindingList.handleMouseInput();
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.id == 200) {
             this.mc.displayGuiScreen(this.parentScreen);
@@ -60,6 +63,7 @@ public class GuiControls extends GuiScreen {
         }
     }
 
+    @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         if (this.buttonId != null) {
             this.options.setOptionKeyBinding(this.buttonId, -100 + mouseButton);
@@ -70,12 +74,14 @@ public class GuiControls extends GuiScreen {
         }
     }
 
+    @Override
     protected void mouseReleased(int mouseX, int mouseY, int state) {
         if (state != 0 || !this.keyBindingList.mouseReleased(mouseX, mouseY, state)) {
             super.mouseReleased(mouseX, mouseY, state);
         }
     }
 
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         if (this.buttonId != null) {
             if (keyCode == 1) {
@@ -94,6 +100,7 @@ public class GuiControls extends GuiScreen {
         }
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         this.keyBindingList.drawScreen(mouseX, mouseY, partialTicks);

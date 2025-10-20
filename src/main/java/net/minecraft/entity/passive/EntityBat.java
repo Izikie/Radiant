@@ -20,41 +20,51 @@ public class EntityBat extends EntityAmbientCreature {
         this.setIsBatHanging(true);
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(16, (byte) 0);
     }
 
+    @Override
     protected float getSoundVolume() {
         return 0.1F;
     }
 
+    @Override
     protected float getSoundPitch() {
         return super.getSoundPitch() * 0.95F;
     }
 
+    @Override
     protected String getLivingSound() {
         return this.getIsBatHanging() && this.rand.nextInt(4) != 0 ? null : "mob.bat.idle";
     }
 
+    @Override
     protected String getHurtSound() {
         return "mob.bat.hurt";
     }
 
+    @Override
     protected String getDeathSound() {
         return "mob.bat.death";
     }
 
+    @Override
     public boolean canBePushed() {
         return false;
     }
 
+    @Override
     protected void collideWithEntity(Entity entityIn) {
     }
 
+    @Override
     protected void collideWithNearbyEntities() {
     }
 
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(6.0D);
@@ -74,6 +84,7 @@ public class EntityBat extends EntityAmbientCreature {
         }
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
 
@@ -85,6 +96,7 @@ public class EntityBat extends EntityAmbientCreature {
         }
     }
 
+    @Override
     protected void updateAITasks() {
         super.updateAITasks();
         BlockPos blockpos = new BlockPos(this);
@@ -130,20 +142,25 @@ public class EntityBat extends EntityAmbientCreature {
         }
     }
 
+    @Override
     protected boolean canTriggerWalking() {
         return false;
     }
 
+    @Override
     public void fall(float distance, float damageMultiplier) {
     }
 
+    @Override
     protected void updateFallState(double y, boolean onGroundIn, Block blockIn, BlockPos pos) {
     }
 
+    @Override
     public boolean doesEntityNotTriggerPressurePlate() {
         return true;
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (this.isEntityInvulnerable(source)) {
             return false;
@@ -156,16 +173,19 @@ public class EntityBat extends EntityAmbientCreature {
         }
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
         this.dataWatcher.updateObject(16, tagCompund.getByte("BatFlags"));
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         tagCompound.setByte("BatFlags", this.dataWatcher.getWatchableObjectByte(16));
     }
 
+    @Override
     public boolean getCanSpawnHere() {
         BlockPos blockpos = new BlockPos(this.posX, this.getEntityBoundingBox().minY, this.posZ);
 
@@ -189,6 +209,7 @@ public class EntityBat extends EntityAmbientCreature {
         return p_175569_1_.get(Calendar.MONTH) + 1 == 10 && p_175569_1_.get(Calendar.DATE) >= 20 || p_175569_1_.get(Calendar.MONTH) + 1 == 11 && p_175569_1_.get(Calendar.DATE) <= 3;
     }
 
+    @Override
     public float getEyeHeight() {
         return this.height / 2.0F;
     }

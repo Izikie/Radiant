@@ -43,16 +43,19 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
     public static final Marker LOG_MARKER_PACKETS = MarkerFactory.getMarker("NETWORK_PACKETS");
     public static final AttributeKey<NetworkState> ATTR_KEY_CONNECTION_STATE = AttributeKey.valueOf("protocol");
     public static final LazyLoadBase<MultiThreadIoEventLoopGroup> CLIENT_NIO_EVENTLOOP = new LazyLoadBase<>() {
+        @Override
         protected MultiThreadIoEventLoopGroup load() {
             return new MultiThreadIoEventLoopGroup(0, Thread.ofVirtual().name("Netty Client IO #%d", 0).factory(), NioIoHandler.newFactory());
         }
     };
     public static final LazyLoadBase<MultiThreadIoEventLoopGroup> CLIENT_EPOLL_EVENTLOOP = new LazyLoadBase<>() {
+        @Override
         protected MultiThreadIoEventLoopGroup load() {
             return new MultiThreadIoEventLoopGroup(0, Thread.ofVirtual().name("Netty Client IO #%d", 0).factory(), EpollIoHandler.newFactory());
         }
     };
     public static final LazyLoadBase<MultiThreadIoEventLoopGroup> CLIENT_LOCAL_EVENTLOOP = new LazyLoadBase<>() {
+        @Override
         protected MultiThreadIoEventLoopGroup load() {
             return new MultiThreadIoEventLoopGroup(0, Thread.ofVirtual().name("Netty Client IO #%d", 0).factory(), LocalIoHandler.newFactory());
         }
@@ -66,6 +69,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
     private boolean isEncrypted;
     private boolean disconnected;
 
+    @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         super.channelActive(ctx);
         this.channel = ctx.channel();
@@ -84,10 +88,12 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
         LOGGER.debug("Enabled auto read");
     }
 
+    @Override
     public void channelInactive(ChannelHandlerContext ctx) {
         this.closeChannel(new ChatComponentTranslation("disconnect.endOfStream"));
     }
 
+    @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable throwable) {
         ChatComponentTranslation chatComponents;
 
@@ -100,6 +106,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
         this.closeChannel(chatComponents);
     }
 
+    @Override
     protected void channelRead0(ChannelHandlerContext ctx, Packet packet) {
         if (this.channel.isOpen()) {
             try {
@@ -238,6 +245,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
         }
 
         (new Bootstrap()).group(lazyloadbase.getValue()).handler(new ChannelInitializer<>() {
+            @Override
             protected void initChannel(Channel channel) {
                 try {
                     channel.config().setOption(ChannelOption.TCP_NODELAY, Boolean.TRUE);
@@ -259,6 +267,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
     public static NetworkManager provideLocalClient(SocketAddress address) {
         NetworkManager manager = new NetworkManager();
         (new Bootstrap()).group(CLIENT_LOCAL_EVENTLOOP.getValue()).handler(new ChannelInitializer<>() {
+            @Override
             protected void initChannel(Channel channel) {
                 channel.pipeline().addLast("packet_handler", manager);
             }

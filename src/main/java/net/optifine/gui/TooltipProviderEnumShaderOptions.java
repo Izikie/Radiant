@@ -7,7 +7,8 @@ import net.optifine.shaders.gui.GuiButtonEnumShaderOption;
 import org.joml.Vector4i;
 
 public class TooltipProviderEnumShaderOptions implements TooltipProvider {
-	public Vector4i getTooltipBounds(GuiScreen guiScreen, int x, int y) {
+	@Override
+    public Vector4i getTooltipBounds(GuiScreen guiScreen, int x, int y) {
 		int i = guiScreen.width - 450;
 		int j = 35;
 
@@ -24,11 +25,13 @@ public class TooltipProviderEnumShaderOptions implements TooltipProvider {
 		return new Vector4i(i, j, k - i, l - j);
 	}
 
-	public boolean isRenderBorder() {
+	@Override
+    public boolean isRenderBorder() {
 		return true;
 	}
 
-	public String[] getTooltipLines(GuiButton btn, int width) {
+	@Override
+    public String[] getTooltipLines(GuiButton btn, int width) {
         if (!(btn instanceof GuiButtonEnumShaderOption guibuttonenumshaderoption)) {
             return null;
         } else {

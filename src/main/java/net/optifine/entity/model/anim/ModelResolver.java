@@ -29,7 +29,8 @@ public class ModelResolver implements IModelResolver {
 		}
 	}
 
-	public IExpression getExpression(String name) {
+	@Override
+    public IExpression getExpression(String name) {
 		IExpression iexpression = this.getModelVariable(name);
 
 		if (iexpression != null) {
@@ -40,7 +41,8 @@ public class ModelResolver implements IModelResolver {
 		}
 	}
 
-	public ModelRenderer getModelRenderer(String name) {
+	@Override
+    public ModelRenderer getModelRenderer(String name) {
 		if (name == null) {
 			return null;
 		} else if (name.contains(":")) {
@@ -88,7 +90,8 @@ public class ModelResolver implements IModelResolver {
 		}
 	}
 
-	public ModelVariableFloat getModelVariable(String name) {
+	@Override
+    public ModelVariableFloat getModelVariable(String name) {
 		String[] astring = Config.tokenize(name, ".");
 
 		if (astring.length != 2) {

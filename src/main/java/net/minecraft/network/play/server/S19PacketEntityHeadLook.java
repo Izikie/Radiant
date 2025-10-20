@@ -20,16 +20,19 @@ public class S19PacketEntityHeadLook implements Packet<INetHandlerPlayClient> {
         this.yaw = p_i45214_2_;
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.entityId = buf.readVarIntFromBuffer();
         this.yaw = buf.readByte();
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeVarIntToBuffer(this.entityId);
         buf.writeByte(this.yaw);
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleEntityHeadLook(this);
     }

@@ -14,10 +14,12 @@ public class ShaderPackFolder implements IShaderPack {
 		this.packFile = file;
 	}
 
-	public void close() {
+	@Override
+    public void close() {
 	}
 
-	public InputStream getResourceAsStream(String resName) {
+	@Override
+    public InputStream getResourceAsStream(String resName) {
 		try {
 			String s = StrUtils.removePrefixSuffix(resName, "/", "/");
 			File file1 = new File(this.packFile, s);
@@ -27,12 +29,14 @@ public class ShaderPackFolder implements IShaderPack {
 		}
 	}
 
-	public boolean hasDirectory(String name) {
+	@Override
+    public boolean hasDirectory(String name) {
 		File file1 = new File(this.packFile, name.substring(1));
 		return file1.exists() && file1.isDirectory();
 	}
 
-	public String getName() {
+	@Override
+    public String getName() {
 		return this.packFile.getName();
 	}
 }

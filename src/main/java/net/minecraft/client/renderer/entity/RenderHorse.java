@@ -22,6 +22,7 @@ public class RenderHorse extends RenderLiving<EntityHorse> {
         super(rendermanagerIn, model, shadowSizeIn);
     }
 
+    @Override
     protected void preRenderCallback(EntityHorse entitylivingbaseIn, float partialTickTime) {
         float f = 1.0F;
         int i = entitylivingbaseIn.getHorseType();
@@ -36,6 +37,7 @@ public class RenderHorse extends RenderLiving<EntityHorse> {
         super.preRenderCallback(entitylivingbaseIn, partialTickTime);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityHorse entity) {
         if (!entity.func_110239_cn()) {
             return switch (entity.getHorseType()) {

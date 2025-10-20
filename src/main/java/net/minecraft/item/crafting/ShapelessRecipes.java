@@ -16,10 +16,12 @@ public class ShapelessRecipes implements IRecipe {
         this.recipeItems = inputList;
     }
 
+    @Override
     public ItemStack getRecipeOutput() {
         return this.recipeOutput;
     }
 
+    @Override
     public ItemStack[] getRemainingItems(InventoryCrafting inv) {
         ItemStack[] aitemstack = new ItemStack[inv.getSizeInventory()];
 
@@ -34,6 +36,7 @@ public class ShapelessRecipes implements IRecipe {
         return aitemstack;
     }
 
+    @Override
     public boolean matches(InventoryCrafting inv, World worldIn) {
         List<ItemStack> list = new ArrayList<>(this.recipeItems);
 
@@ -62,10 +65,12 @@ public class ShapelessRecipes implements IRecipe {
         return list.isEmpty();
     }
 
+    @Override
     public ItemStack getCraftingResult(InventoryCrafting inv) {
         return this.recipeOutput.copy();
     }
 
+    @Override
     public int getRecipeSize() {
         return this.recipeItems.size();
     }

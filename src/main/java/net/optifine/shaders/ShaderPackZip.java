@@ -26,7 +26,8 @@ public class ShaderPackZip implements IShaderPack {
 		this.baseFolder = "";
 	}
 
-	public void close() {
+	@Override
+    public void close() {
 		if (this.packZipFile != null) {
 			try {
 				this.packZipFile.close();
@@ -37,7 +38,8 @@ public class ShaderPackZip implements IShaderPack {
 		}
 	}
 
-	public InputStream getResourceAsStream(String resName) {
+	@Override
+    public InputStream getResourceAsStream(String resName) {
 		try {
 			if (this.packZipFile == null) {
 				this.packZipFile = new ZipFile(this.packFile);
@@ -105,7 +107,8 @@ public class ShaderPackZip implements IShaderPack {
 		return "";
 	}
 
-	public boolean hasDirectory(String resName) {
+	@Override
+    public boolean hasDirectory(String resName) {
 		try {
 			if (this.packZipFile == null) {
 				this.packZipFile = new ZipFile(this.packFile);
@@ -120,7 +123,8 @@ public class ShaderPackZip implements IShaderPack {
 		}
 	}
 
-	public String getName() {
+	@Override
+    public String getName() {
 		return this.packFile.getName();
 	}
 }

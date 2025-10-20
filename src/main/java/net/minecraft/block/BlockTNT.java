@@ -26,6 +26,7 @@ public class BlockTNT extends Block {
         this.setCreativeTab(CreativeTabs.TAB_REDSTONE);
     }
 
+    @Override
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         super.onBlockAdded(worldIn, pos, state);
 
@@ -35,6 +36,7 @@ public class BlockTNT extends Block {
         }
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         if (worldIn.isBlockPowered(pos)) {
             this.onBlockDestroyedByPlayer(worldIn, pos, state.withProperty(EXPLODE, Boolean.TRUE));
@@ -42,6 +44,7 @@ public class BlockTNT extends Block {
         }
     }
 
+    @Override
     public void onBlockDestroyedByExplosion(World worldIn, BlockPos pos, Explosion explosionIn) {
         if (!worldIn.isRemote) {
             EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(worldIn, (pos.getX() + 0.5F), pos.getY(), (pos.getZ() + 0.5F), explosionIn.getExplosivePlacedBy());
@@ -50,6 +53,7 @@ public class BlockTNT extends Block {
         }
     }
 
+    @Override
     public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
         this.explode(worldIn, pos, state, null);
     }
@@ -64,6 +68,7 @@ public class BlockTNT extends Block {
         }
     }
 
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         if (playerIn.getCurrentEquippedItem() != null) {
             Item item = playerIn.getCurrentEquippedItem().getItem();
@@ -85,6 +90,7 @@ public class BlockTNT extends Block {
         return super.onBlockActivated(worldIn, pos, state, playerIn, side, hitX, hitY, hitZ);
     }
 
+    @Override
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
         if (!worldIn.isRemote && entityIn instanceof EntityArrow entityarrow) {
 
@@ -95,18 +101,22 @@ public class BlockTNT extends Block {
         }
     }
 
+    @Override
     public boolean canDropFromExplosion(Explosion explosionIn) {
         return false;
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(EXPLODE, (meta & 1) > 0);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(EXPLODE) ? 1 : 0;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, EXPLODE);
     }

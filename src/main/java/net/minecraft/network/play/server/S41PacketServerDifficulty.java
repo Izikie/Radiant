@@ -19,14 +19,17 @@ public class S41PacketServerDifficulty implements Packet<INetHandlerPlayClient> 
         this.difficultyLocked = lockedIn;
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleServerDifficulty(this);
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.difficulty = Difficulty.getDifficultyEnum(buf.readUnsignedByte());
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeByte(this.difficulty.getDifficultyId());
     }

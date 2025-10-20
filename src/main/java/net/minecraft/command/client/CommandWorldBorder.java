@@ -13,18 +13,22 @@ import net.minecraft.world.border.WorldBorder;
 import java.util.List;
 
 public class CommandWorldBorder extends CommandBase {
+    @Override
     public String getCommandName() {
         return "worldborder";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 2;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.worldborder.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length < 1) {
             throw new WrongUsageException("commands.worldborder.usage");
@@ -154,6 +158,7 @@ public class CommandWorldBorder extends CommandBase {
         return MinecraftServer.getServer().worldServers[0].getWorldBorder();
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         return args.length == 1 ? getListOfStringsMatchingLastWord(args, "set", "center", "damage", "warning", "add", "get") : (args.length == 2 && args[0].equals("damage") ? getListOfStringsMatchingLastWord(args, "buffer", "amount") : (args.length >= 2 && args.length <= 3 && args[0].equals("center") ? func_181043_b(args, 1, pos) : (args.length == 2 && args[0].equals("warning") ? getListOfStringsMatchingLastWord(args, "time", "distance") : null)));
     }

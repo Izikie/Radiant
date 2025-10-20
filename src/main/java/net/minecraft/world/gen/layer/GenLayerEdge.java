@@ -9,6 +9,7 @@ public class GenLayerEdge extends GenLayer {
         this.field_151627_c = p_i45474_4_;
     }
 
+    @Override
     public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
         return switch (this.field_151627_c) {
             case HEAT_ICE -> this.getIntsHeatIce(areaX, areaY, areaWidth, areaHeight);

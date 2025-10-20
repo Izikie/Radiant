@@ -38,6 +38,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback {
         this.parentScreen = parentScreen;
     }
 
+    @Override
     public void initGui() {
         Keyboard.enableRepeatEvents(true);
         this.buttonList.clear();
@@ -64,6 +65,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback {
         this.createButtons();
     }
 
+    @Override
     public void handleMouseInput() throws IOException {
         super.handleMouseInput();
         this.serverListSelector.handleMouseInput();
@@ -80,6 +82,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback {
         this.selectServer(this.serverListSelector.func_148193_k());
     }
 
+    @Override
     public void updateScreen() {
         super.updateScreen();
 
@@ -92,6 +95,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback {
         this.oldServerPinger.pingPendingNetworks();
     }
 
+    @Override
     public void onGuiClosed() {
         Keyboard.enableRepeatEvents(false);
 
@@ -103,6 +107,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback {
         this.oldServerPinger.clearPendingNetworks();
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.enabled) {
             GuiListExtended.IGuiListEntry guilistextended$iguilistentry = this.serverListSelector.func_148193_k() < 0 ? null : this.serverListSelector.getListEntry(this.serverListSelector.func_148193_k());
@@ -145,6 +150,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback {
         this.mc.displayGuiScreen(new GuiMultiplayer(this.parentScreen));
     }
 
+    @Override
     public void confirmClicked(boolean result, int id) {
         GuiListExtended.IGuiListEntry guilistextended$iguilistentry = this.serverListSelector.func_148193_k() < 0 ? null : this.serverListSelector.getListEntry(this.serverListSelector.func_148193_k());
 
@@ -194,6 +200,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback {
         }
     }
 
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         int i = this.serverListSelector.func_148193_k();
         GuiListExtended.IGuiListEntry guilistextended$iguilistentry = i < 0 ? null : this.serverListSelector.getListEntry(i);
@@ -259,6 +266,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback {
         }
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.hoveringText = null;
         this.drawDefaultBackground();
@@ -311,11 +319,13 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback {
         this.hoveringText = p_146793_1_;
     }
 
+    @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         super.mouseClicked(mouseX, mouseY, mouseButton);
         this.serverListSelector.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
+    @Override
     protected void mouseReleased(int mouseX, int mouseY, int state) {
         super.mouseReleased(mouseX, mouseY, state);
         this.serverListSelector.mouseReleased(mouseX, mouseY, state);

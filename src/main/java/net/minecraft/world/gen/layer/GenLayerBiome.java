@@ -25,6 +25,7 @@ public class GenLayerBiome extends GenLayer {
         }
     }
 
+    @Override
     public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
         int[] aint = this.parent.getInts(areaX, areaY, areaWidth, areaHeight);
         int[] aint1 = IntCache.getIntCache(areaWidth * areaHeight);

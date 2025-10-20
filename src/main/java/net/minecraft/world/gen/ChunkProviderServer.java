@@ -44,6 +44,7 @@ public class ChunkProviderServer implements IChunkProvider {
         this.serverChunkGenerator = p_i1520_3_;
     }
 
+    @Override
     public boolean chunkExists(int x, int z) {
         return this.id2ChunkMap.containsKey(ChunkCoordIntPair.chunkXZ2Int(x, z));
     }
@@ -102,6 +103,7 @@ public class ChunkProviderServer implements IChunkProvider {
         return chunk;
     }
 
+    @Override
     public Chunk provideChunk(int x, int z) {
         Chunk chunk = this.id2ChunkMap.get(ChunkCoordIntPair.chunkXZ2Int(x, z));
         return chunk == null ? (!this.worldObj.isFindingSpawnPoint() && !this.chunkLoadOverride ? this.dummyChunk : this.loadChunk(x, z)) : chunk;
@@ -153,6 +155,7 @@ public class ChunkProviderServer implements IChunkProvider {
         }
     }
 
+    @Override
     public void populate(IChunkProvider chunkProvider, int x, int z) {
         Chunk chunk = this.provideChunk(x, z);
 
@@ -166,6 +169,7 @@ public class ChunkProviderServer implements IChunkProvider {
         }
     }
 
+    @Override
     public boolean populateChunk(IChunkProvider chunkProvider, Chunk chunkIn, int x, int z) {
         if (this.serverChunkGenerator != null && this.serverChunkGenerator.populateChunk(chunkProvider, chunkIn, x, z)) {
             Chunk chunk = this.provideChunk(x, z);
@@ -176,6 +180,7 @@ public class ChunkProviderServer implements IChunkProvider {
         }
     }
 
+    @Override
     public boolean saveChunks(boolean saveAllChunks, IProgressUpdate progressCallback) {
         int i = 0;
         List<Chunk> list = new ArrayList<>(this.loadedChunks);
@@ -199,12 +204,14 @@ public class ChunkProviderServer implements IChunkProvider {
         return true;
     }
 
+    @Override
     public void saveExtraData() {
         if (this.chunkLoader != null) {
             this.chunkLoader.saveExtraData();
         }
     }
 
+    @Override
     public boolean unloadQueuedChunks() {
         if (!this.worldObj.disableLevelSaving) {
             for (int i = 0; i < 100; ++i) {
@@ -232,29 +239,36 @@ public class ChunkProviderServer implements IChunkProvider {
         return this.serverChunkGenerator.unloadQueuedChunks();
     }
 
+    @Override
     public boolean canSave() {
         return !this.worldObj.disableLevelSaving;
     }
 
+    @Override
     public String makeString() {
         return "ServerChunkCache: " + this.id2ChunkMap.size() + " Drop: " + this.droppedChunksSet.size();
     }
 
+    @Override
     public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EntityCategory creatureType, BlockPos pos) {
         return this.serverChunkGenerator.getPossibleCreatures(creatureType, pos);
     }
 
+    @Override
     public BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position) {
         return this.serverChunkGenerator.getStrongholdGen(worldIn, structureName, position);
     }
 
+    @Override
     public int getLoadedChunkCount() {
         return this.id2ChunkMap.size();
     }
 
+    @Override
     public void recreateStructures(Chunk chunkIn, int x, int z) {
     }
 
+    @Override
     public Chunk provideChunk(BlockPos blockPosIn) {
         return this.provideChunk(blockPosIn.getX() >> 4, blockPosIn.getZ() >> 4);
     }

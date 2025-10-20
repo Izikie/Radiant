@@ -37,16 +37,19 @@ public class EntityChicken extends EntityAnimal {
         this.tasks.addTask(7, new EntityAILookIdle(this));
     }
 
+    @Override
     public float getEyeHeight() {
         return this.height;
     }
 
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
     }
 
+    @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
         this.field_70888_h = this.wingRotation;
@@ -73,29 +76,36 @@ public class EntityChicken extends EntityAnimal {
         }
     }
 
+    @Override
     public void fall(float distance, float damageMultiplier) {
     }
 
+    @Override
     protected String getLivingSound() {
         return "mob.chicken.say";
     }
 
+    @Override
     protected String getHurtSound() {
         return "mob.chicken.hurt";
     }
 
+    @Override
     protected String getDeathSound() {
         return "mob.chicken.hurt";
     }
 
+    @Override
     protected void playStepSound(BlockPos pos, Block blockIn) {
         this.playSound("mob.chicken.step", 0.15F, 1.0F);
     }
 
+    @Override
     protected Item getDropItem() {
         return Items.FEATHER;
     }
 
+    @Override
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
         int i = this.rand.nextInt(3) + this.rand.nextInt(1 + lootingModifier);
 
@@ -110,14 +120,17 @@ public class EntityChicken extends EntityAnimal {
         }
     }
 
+    @Override
     public EntityChicken createChild(EntityAgeable ageable) {
         return new EntityChicken(this.worldObj);
     }
 
+    @Override
     public boolean isBreedingItem(ItemStack stack) {
         return stack != null && stack.getItem() == Items.WHEAT_SEEDS;
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
         this.chickenJockey = tagCompund.getBoolean("IsChickenJockey");
@@ -127,20 +140,24 @@ public class EntityChicken extends EntityAnimal {
         }
     }
 
+    @Override
     protected int getExperiencePoints(EntityPlayer player) {
         return this.isChickenJockey() ? 10 : super.getExperiencePoints(player);
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         tagCompound.setBoolean("IsChickenJockey", this.chickenJockey);
         tagCompound.setInteger("EggLayTime", this.timeUntilNextEgg);
     }
 
+    @Override
     protected boolean canDespawn() {
         return this.isChickenJockey() && this.riddenByEntity == null;
     }
 
+    @Override
     public void updateRiderPosition() {
         super.updateRiderPosition();
         float f = MathHelper.sin(this.renderYawOffset * (float) Math.PI / 180.0F);

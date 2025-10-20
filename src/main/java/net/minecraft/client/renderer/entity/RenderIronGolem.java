@@ -14,10 +14,12 @@ public class RenderIronGolem extends RenderLiving<EntityIronGolem> {
         this.addLayer(new LayerIronGolemFlower(this));
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityIronGolem entity) {
         return IRON_GOLEM_TEXTURES;
     }
 
+    @Override
     protected void rotateCorpse(EntityIronGolem bat, float p_77043_2_, float p_77043_3_, float partialTicks) {
         super.rotateCorpse(bat, p_77043_2_, p_77043_3_, partialTicks);
 

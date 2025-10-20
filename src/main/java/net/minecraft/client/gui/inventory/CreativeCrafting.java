@@ -15,16 +15,20 @@ public class CreativeCrafting implements ICrafting {
         this.mc = mc;
     }
 
+    @Override
     public void updateCraftingInventory(Container containerToSend, List<ItemStack> itemsList) {
     }
 
+    @Override
     public void sendSlotContents(Container containerToSend, int slotInd, ItemStack stack) {
         this.mc.playerController.sendSlotPacket(stack, slotInd);
     }
 
+    @Override
     public void sendProgressBarUpdate(Container containerIn, int varToUpdate, int newValue) {
     }
 
+    @Override
     public void sendAllWindowProperties(Container p_175173_1_, IInventory p_175173_2_) {
     }
 }

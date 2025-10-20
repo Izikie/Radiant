@@ -15,22 +15,27 @@ public class EnchantmentThorns extends Enchantment {
         this.setName("thorns");
     }
 
+    @Override
     public int getMinEnchantability(int enchantmentLevel) {
         return 10 + 20 * (enchantmentLevel - 1);
     }
 
+    @Override
     public int getMaxEnchantability(int enchantmentLevel) {
         return super.getMinEnchantability(enchantmentLevel) + 50;
     }
 
+    @Override
     public int getMaxLevel() {
         return 3;
     }
 
+    @Override
     public boolean canApply(ItemStack stack) {
         return stack.getItem() instanceof ItemArmor || super.canApply(stack);
     }
 
+    @Override
     public void onUserHurt(EntityLivingBase user, Entity attacker, int level) {
         Random random = user.getRNG();
         ItemStack itemstack = EnchantmentHelper.getEnchantedItem(Enchantment.THORNS, user);

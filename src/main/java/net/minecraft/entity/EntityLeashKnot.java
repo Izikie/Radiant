@@ -24,42 +24,53 @@ public class EntityLeashKnot extends EntityHanging {
         this.setEntityBoundingBox(new AxisAlignedBB(this.posX - 0.1875D, this.posY - 0.25D + 0.125D, this.posZ - 0.1875D, this.posX + 0.1875D, this.posY + 0.25D + 0.125D, this.posZ + 0.1875D));
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
     }
 
+    @Override
     public void updateFacingWithBoundingBox(Direction facingDirectionIn) {
     }
 
+    @Override
     public int getWidthPixels() {
         return 9;
     }
 
+    @Override
     public int getHeightPixels() {
         return 9;
     }
 
+    @Override
     public float getEyeHeight() {
         return -0.0625F;
     }
 
+    @Override
     public boolean isInRangeToRenderDist(double distance) {
         return distance < 1024.0D;
     }
 
+    @Override
     public void onBroken(Entity brokenEntity) {
     }
 
+    @Override
     public boolean writeToNBTOptional(NBTTagCompound tagCompund) {
         return false;
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
     }
 
+    @Override
     public boolean interactFirst(EntityPlayer playerIn) {
         ItemStack itemstack = playerIn.getHeldItem();
         boolean flag = false;
@@ -92,6 +103,7 @@ public class EntityLeashKnot extends EntityHanging {
         return true;
     }
 
+    @Override
     public boolean onValidSurface() {
         return this.worldObj.getBlockState(this.hangingPosition).getBlock() instanceof BlockFence;
     }

@@ -105,12 +105,14 @@ public abstract class EntityPlayer extends EntityLivingBase {
         this.fireResistance = 20;
     }
 
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.10000000149011612D);
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(16, (byte) 0);
@@ -156,6 +158,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         return this.isUsingItem() && this.itemInUse.getItem().getItemUseAction(this.itemInUse) == UseAction.BLOCK;
     }
 
+    @Override
     public void onUpdate() {
         this.noClip = this.isSpectator();
 
@@ -274,22 +277,27 @@ public abstract class EntityPlayer extends EntityLivingBase {
         }
     }
 
+    @Override
     public int getMaxInPortalTime() {
         return this.capabilities.disableDamage ? 0 : 80;
     }
 
+    @Override
     protected String getSwimSound() {
         return "game.player.swim";
     }
 
+    @Override
     protected String getSplashSound() {
         return "game.player.swim.splash";
     }
 
+    @Override
     public int getPortalCooldown() {
         return 10;
     }
 
+    @Override
     public void playSound(String name, float volume, float pitch) {
         this.worldObj.playSoundToNearExcept(this, name, volume, pitch);
     }
@@ -339,6 +347,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         }
     }
 
+    @Override
     public void handleStatusUpdate(byte id) {
         if (id == 9) {
             this.onItemUseFinish();
@@ -351,6 +360,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         }
     }
 
+    @Override
     protected boolean isMovementBlocked() {
         return this.getHealth() <= 0.0F || this.isPlayerSleeping();
     }
@@ -359,6 +369,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         this.openContainer = this.inventoryContainer;
     }
 
+    @Override
     public void updateRidden() {
         if (!this.worldObj.isRemote && this.isSneaking()) {
             this.mountEntity(null);
@@ -382,6 +393,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         }
     }
 
+    @Override
     public void preparePlayerToSpawn() {
         this.setSize(0.6F, 1.8F);
         super.preparePlayerToSpawn();
@@ -389,12 +401,14 @@ public abstract class EntityPlayer extends EntityLivingBase {
         this.deathTime = 0;
     }
 
+    @Override
     protected void updateEntityActionState() {
         super.updateEntityActionState();
         this.updateArmSwingProgress();
         this.rotationYawHead = this.rotationYaw;
     }
 
+    @Override
     public void onLivingUpdate() {
         if (this.flyToggleTimer > 0) {
             --this.flyToggleTimer;
@@ -481,6 +495,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         this.dataWatcher.updateObject(18, i + p_85039_1_);
     }
 
+    @Override
     public void onDeath(DamageSource cause) {
         super.onDeath(cause);
         this.setSize(0.2F, 0.2F);
@@ -506,14 +521,17 @@ public abstract class EntityPlayer extends EntityLivingBase {
         this.func_175145_a(StatList.TIME_SINCE_DEATH_STAT);
     }
 
+    @Override
     protected String getHurtSound() {
         return "game.player.hurt";
     }
 
+    @Override
     protected String getDeathSound() {
         return "game.player.die";
     }
 
+    @Override
     public void addToPlayerScore(Entity entityIn, int amount) {
         this.addScore(amount);
         Collection<ScoreObjective> collection = this.getWorldScoreboard().getObjectivesFromCriteria(IScoreObjectiveCriteria.totalKillCount);
@@ -655,6 +673,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         return this.inventory.canHeldItemHarvest(blockToHarvest);
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
         this.entityUniqueID = getUUID(this.gameProfile);
@@ -693,6 +712,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         }
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         tagCompound.setTag("Inventory", this.inventory.writeToNBT(new NBTTagList()));
@@ -722,6 +742,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         }
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (this.isEntityInvulnerable(source)) {
             return false;
@@ -771,10 +792,12 @@ public abstract class EntityPlayer extends EntityLivingBase {
         return team == null || (!team.isSameTeam(team1) || team.getAllowFriendlyFire());
     }
 
+    @Override
     protected void damageArmor(float p_70675_1_) {
         this.inventory.damageArmor(p_70675_1_);
     }
 
+    @Override
     public int getTotalArmorValue() {
         return this.inventory.getTotalArmorValue();
     }
@@ -791,6 +814,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         return (float) i / this.inventory.armorInventory.length;
     }
 
+    @Override
     protected void damageEntity(DamageSource damageSrc, float damageAmount) {
         if (!this.isEntityInvulnerable(damageSrc)) {
             if (!damageSrc.isUnblockable() && this.isBlocking() && damageAmount > 0.0F) {
@@ -886,6 +910,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         this.inventory.setInventorySlotContents(this.inventory.currentItem, null);
     }
 
+    @Override
     public double getYOffset() {
         return -0.35D;
     }
@@ -1010,6 +1035,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
     public void respawnPlayer() {
     }
 
+    @Override
     public void setDead() {
         super.setDead();
         this.inventoryContainer.onContainerClosed(this);
@@ -1019,6 +1045,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         }
     }
 
+    @Override
     public boolean isEntityInsideOpaqueBlock() {
         return !this.sleeping && super.isEntityInsideOpaqueBlock();
     }
@@ -1196,6 +1223,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         return 0.0F;
     }
 
+    @Override
     public boolean isPlayerSleeping() {
         return this.sleeping;
     }
@@ -1239,6 +1267,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
     public void func_175145_a(StatBase p_175145_1_) {
     }
 
+    @Override
     public void jump() {
         super.jump();
         this.triggerAchievement(StatList.JUMP_STAT);
@@ -1250,6 +1279,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         }
     }
 
+    @Override
     public void moveEntityWithHeading(float strafe, float forward) {
         double d0 = this.posX;
         double d1 = this.posY;
@@ -1269,6 +1299,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         this.addMovementStat(this.posX - d0, this.posY - d1, this.posZ - d2);
     }
 
+    @Override
     public float getAIMoveSpeed() {
         return (float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue();
     }
@@ -1345,6 +1376,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         }
     }
 
+    @Override
     public void fall(float distance, float damageMultiplier) {
         if (!this.capabilities.allowFlying) {
             if (distance >= 2.0F) {
@@ -1355,16 +1387,19 @@ public abstract class EntityPlayer extends EntityLivingBase {
         }
     }
 
+    @Override
     protected void resetHeight() {
         if (!this.isSpectator()) {
             super.resetHeight();
         }
     }
 
+    @Override
     protected String getFallSoundString(int damageValue) {
         return damageValue > 4 ? "game.player.hurt.fall.big" : "game.player.hurt.fall.small";
     }
 
+    @Override
     public void onKillEntity(EntityLivingBase entityLivingIn) {
         if (entityLivingIn instanceof IMob) {
             this.triggerAchievement(AchievementList.KILL_ENEMY);
@@ -1377,12 +1412,14 @@ public abstract class EntityPlayer extends EntityLivingBase {
         }
     }
 
+    @Override
     public void setInWeb() {
         if (!this.capabilities.isFlying) {
             super.setInWeb();
         }
     }
 
+    @Override
     public ItemStack getCurrentArmor(int slotIn) {
         return this.inventory.armorItemInSlot(slotIn);
     }
@@ -1486,6 +1523,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         }
     }
 
+    @Override
     protected int getExperiencePoints(EntityPlayer player) {
         if (this.worldObj.getGameRules().getBoolean("keepInventory")) {
             return 0;
@@ -1495,10 +1533,12 @@ public abstract class EntityPlayer extends EntityLivingBase {
         }
     }
 
+    @Override
     protected boolean isPlayer() {
         return true;
     }
 
+    @Override
     public boolean getAlwaysRenderNameTagForRender() {
         return true;
     }
@@ -1528,6 +1568,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         this.getDataWatcher().updateObject(10, oldPlayer.getDataWatcher().getWatchableObjectByte(10));
     }
 
+    @Override
     protected boolean canTriggerWalking() {
         return !this.capabilities.isFlying;
     }
@@ -1538,6 +1579,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
     public void setGameType(WorldSettings.GameType gameType) {
     }
 
+    @Override
     public String getName() {
         return this.gameProfile.getName();
     }
@@ -1546,18 +1588,22 @@ public abstract class EntityPlayer extends EntityLivingBase {
         return this.theInventoryEnderChest;
     }
 
+    @Override
     public ItemStack getEquipmentInSlot(int slotIn) {
         return slotIn == 0 ? this.inventory.getCurrentItem() : this.inventory.armorInventory[slotIn - 1];
     }
 
+    @Override
     public ItemStack getHeldItem() {
         return this.inventory.getCurrentItem();
     }
 
+    @Override
     public void setCurrentItemOrArmor(int slotIn, ItemStack stack) {
         this.inventory.armorInventory[slotIn] = stack;
     }
 
+    @Override
     public boolean isInvisibleToPlayer(EntityPlayer player) {
         if (!this.isInvisible()) {
             return false;
@@ -1571,10 +1617,12 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
     public abstract boolean isSpectator();
 
+    @Override
     public ItemStack[] getInventory() {
         return this.inventory.armorInventory;
     }
 
+    @Override
     public boolean isPushedByWater() {
         return !this.capabilities.isFlying;
     }
@@ -1583,10 +1631,12 @@ public abstract class EntityPlayer extends EntityLivingBase {
         return this.worldObj.getScoreboard();
     }
 
+    @Override
     public Team getTeam() {
         return this.getWorldScoreboard().getPlayersTeam(this.getName());
     }
 
+    @Override
     public IChatComponent getDisplayName() {
         IChatComponent ichatcomponent = new ChatComponentText(ScorePlayerTeam.formatPlayerName(this.getTeam(), this.getName()));
         ichatcomponent.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/msg " + this.getName() + " "));
@@ -1595,6 +1645,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         return ichatcomponent;
     }
 
+    @Override
     public float getEyeHeight() {
         float f = 1.62F;
 
@@ -1609,6 +1660,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         return f;
     }
 
+    @Override
     public void setAbsorptionAmount(float amount) {
         if (amount < 0.0F) {
             amount = 0.0F;
@@ -1617,6 +1669,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         this.getDataWatcher().updateObject(17, amount);
     }
 
+    @Override
     public float getAbsorptionAmount() {
         return this.getDataWatcher().getWatchableObjectFloat(17);
     }
@@ -1648,10 +1701,12 @@ public abstract class EntityPlayer extends EntityLivingBase {
         return (this.getDataWatcher().getWatchableObjectByte(10) & p_175148_1_.getPartMask()) == p_175148_1_.getPartMask();
     }
 
+    @Override
     public boolean sendCommandFeedback() {
         return MinecraftServer.getServer().worldServers[0].getGameRules().getBoolean("sendCommandFeedback");
     }
 
+    @Override
     public boolean replaceItemInInventory(int inventorySlot, ItemStack itemStackIn) {
         if (inventorySlot >= 0 && inventorySlot < this.inventory.mainInventory.length) {
             this.inventory.setInventorySlotContents(inventorySlot, itemStackIn);

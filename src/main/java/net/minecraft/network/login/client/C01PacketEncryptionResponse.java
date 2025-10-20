@@ -22,16 +22,19 @@ public class C01PacketEncryptionResponse implements Packet<INetHandlerLoginServe
         this.verifyTokenEncrypted = CryptManager.encryptData(publicKey, verifyToken);
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.secretKeyEncrypted = buf.readByteArray();
         this.verifyTokenEncrypted = buf.readByteArray();
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeByteArray(this.secretKeyEncrypted);
         buf.writeByteArray(this.verifyTokenEncrypted);
     }
 
+    @Override
     public void processPacket(INetHandlerLoginServer handler) {
         handler.processEncryptionResponse(this);
     }

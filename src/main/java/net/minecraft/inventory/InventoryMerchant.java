@@ -23,14 +23,17 @@ public class InventoryMerchant implements IInventory {
         this.theMerchant = theMerchantIn;
     }
 
+    @Override
     public int getSizeInventory() {
         return this.theInventory.length;
     }
 
+    @Override
     public ItemStack getStackInSlot(int index) {
         return this.theInventory[index];
     }
 
+    @Override
     public ItemStack decrStackSize(int index, int count) {
         if (this.theInventory[index] != null) {
             if (index == 2) {
@@ -68,6 +71,7 @@ public class InventoryMerchant implements IInventory {
         return p_70469_1_ == 0 || p_70469_1_ == 1;
     }
 
+    @Override
     public ItemStack removeStackFromSlot(int index) {
         if (this.theInventory[index] != null) {
             ItemStack itemstack = this.theInventory[index];
@@ -78,6 +82,7 @@ public class InventoryMerchant implements IInventory {
         }
     }
 
+    @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
         this.theInventory[index] = stack;
 
@@ -90,36 +95,45 @@ public class InventoryMerchant implements IInventory {
         }
     }
 
+    @Override
     public String getName() {
         return "mob.villager";
     }
 
+    @Override
     public boolean hasCustomName() {
         return false;
     }
 
+    @Override
     public IChatComponent getDisplayName() {
         return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName());
     }
 
+    @Override
     public int getInventoryStackLimit() {
         return 64;
     }
 
+    @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
         return this.theMerchant.getCustomer() == player;
     }
 
+    @Override
     public void openInventory(EntityPlayer player) {
     }
 
+    @Override
     public void closeInventory(EntityPlayer player) {
     }
 
+    @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
         return true;
     }
 
+    @Override
     public void markDirty() {
         this.resetRecipeAndSlots();
     }
@@ -172,17 +186,21 @@ public class InventoryMerchant implements IInventory {
         this.resetRecipeAndSlots();
     }
 
+    @Override
     public int getField(int id) {
         return 0;
     }
 
+    @Override
     public void setField(int id, int value) {
     }
 
+    @Override
     public int getFieldCount() {
         return 0;
     }
 
+    @Override
     public void clear() {
         Arrays.fill(this.theInventory, null);
     }

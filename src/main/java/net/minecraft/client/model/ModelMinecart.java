@@ -35,6 +35,7 @@ public class ModelMinecart extends ModelBase {
         this.sideModels[5].rotateAngleX = -((float) Math.PI / 2.0F);
     }
 
+    @Override
     public void render(Entity entityIn, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_, float scale) {
         this.sideModels[5].rotationPointY = 4.0F - p_78088_4_;
 

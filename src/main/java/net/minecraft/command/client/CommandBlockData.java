@@ -11,18 +11,22 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class CommandBlockData extends CommandBase {
+    @Override
     public String getCommandName() {
         return "blockdata";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 2;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.blockdata.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length < 4) {
             throw new WrongUsageException("commands.blockdata.usage");
@@ -69,6 +73,7 @@ public class CommandBlockData extends CommandBase {
         }
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         return args.length > 0 && args.length <= 3 ? func_175771_a(args, 0, pos) : null;
     }

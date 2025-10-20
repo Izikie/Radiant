@@ -8,18 +8,22 @@ import net.minecraft.util.BlockPos;
 import java.util.List;
 
 public class CommandServerKick extends CommandBase {
+    @Override
     public String getCommandName() {
         return "kick";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 3;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.kick.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length > 0 && args[0].length() > 1) {
             EntityPlayerMP entityplayermp = MinecraftServer.getServer().getConfigurationManager().getPlayerByUsername(args[0]);
@@ -47,6 +51,7 @@ public class CommandServerKick extends CommandBase {
         }
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         return args.length >= 1 ? getListOfStringsMatchingLastWord(args, MinecraftServer.getServer().getAllUsernames()) : null;
     }

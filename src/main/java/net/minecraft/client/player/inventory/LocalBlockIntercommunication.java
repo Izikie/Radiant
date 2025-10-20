@@ -15,22 +15,27 @@ public class LocalBlockIntercommunication implements IInteractionObject {
         this.displayName = displayNameIn;
     }
 
+    @Override
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public String getName() {
         return this.displayName.getUnformattedText();
     }
 
+    @Override
     public boolean hasCustomName() {
         return true;
     }
 
+    @Override
     public String getGuiID() {
         return this.guiID;
     }
 
+    @Override
     public IChatComponent getDisplayName() {
         return this.displayName;
     }

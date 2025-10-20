@@ -10,6 +10,7 @@ import net.minecraft.entity.boss.EntityDragon;
 import java.util.Random;
 
 public class LayerEnderDragonDeath implements LayerRenderer<EntityDragon> {
+    @Override
     public void doRenderLayer(EntityDragon entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
         if (entitylivingbaseIn.deathTicks > 0) {
             Tessellator tessellator = Tessellator.get();
@@ -63,6 +64,7 @@ public class LayerEnderDragonDeath implements LayerRenderer<EntityDragon> {
         }
     }
 
+    @Override
     public boolean shouldCombineTextures() {
         return false;
     }

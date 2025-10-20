@@ -21,6 +21,7 @@ public class BlockDynamicLiquid extends BlockLiquid {
         worldIn.setBlockState(pos, getStaticBlock(this.blockMaterial).getDefaultState().withProperty(LEVEL, currentState.getValue(LEVEL)), 2);
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         int i = state.getValue(LEVEL);
         int j = 1;
@@ -219,6 +220,7 @@ public class BlockDynamicLiquid extends BlockLiquid {
         return material != this.blockMaterial && material != Material.LAVA && !this.isBlocked(worldIn, pos, state);
     }
 
+    @Override
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         if (!this.checkForMixing(worldIn, pos, state)) {
             worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));

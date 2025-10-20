@@ -24,36 +24,44 @@ public class BlockStone extends Block {
         this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
+    @Override
     public String getLocalizedName() {
         return StatCollector.translateToLocal(this.getUnlocalizedName() + "." + StoneType.STONE.getUnlocalizedName() + ".name");
     }
 
+    @Override
     public MapColor getMapColor(IBlockState state) {
         return state.getValue(VARIANT).func_181072_c();
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return state.getValue(VARIANT) == StoneType.STONE ? Item.getItemFromBlock(Blocks.COBBLESTONE) : Item.getItemFromBlock(Blocks.STONE);
     }
 
+    @Override
     public int damageDropped(IBlockState state) {
         return state.getValue(VARIANT).getMetadata();
     }
 
+    @Override
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
         for (StoneType blockstone$enumtype : StoneType.values()) {
             list.add(new ItemStack(itemIn, 1, blockstone$enumtype.getMetadata()));
         }
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(VARIANT, StoneType.byMetadata(meta));
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(VARIANT).getMetadata();
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, VARIANT);
     }
@@ -104,6 +112,7 @@ public class BlockStone extends Block {
             return META_LOOKUP[meta];
         }
 
+        @Override
         public String getName() {
             return this.name;
         }

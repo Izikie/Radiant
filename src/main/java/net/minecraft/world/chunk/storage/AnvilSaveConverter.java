@@ -32,10 +32,12 @@ public class AnvilSaveConverter extends SaveFormatOld {
         super(savesDirectoryIn);
     }
 
+    @Override
     public String getName() {
         return "Anvil";
     }
 
+    @Override
     public List<SaveFormatComparator> getSaveList() throws AnvilConverterException {
         if (this.savesDirectory != null && this.savesDirectory.exists() && this.savesDirectory.isDirectory()) {
             List<SaveFormatComparator> list = new ArrayList<>();
@@ -70,24 +72,29 @@ public class AnvilSaveConverter extends SaveFormatOld {
         return 19133;
     }
 
+    @Override
     public void flushCache() {
         RegionFileCache.clearRegionFileReferences();
     }
 
+    @Override
     public ISaveHandler getSaveLoader(String saveName, boolean storePlayerdata) {
         return new AnvilSaveHandler(this.savesDirectory, saveName, storePlayerdata);
     }
 
+    @Override
     public boolean isConvertible(String saveName) {
         WorldInfo worldinfo = this.getWorldInfo(saveName);
         return worldinfo != null && worldinfo.getSaveVersion() == 19132;
     }
 
+    @Override
     public boolean isOldMapFormat(String saveName) {
         WorldInfo worldinfo = this.getWorldInfo(saveName);
         return worldinfo != null && worldinfo.getSaveVersion() != this.getSaveVersion();
     }
 
+    @Override
     public boolean convertMapFormat(String filename, IProgressUpdate progressCallback) {
         progressCallback.setLoadingProgress(0);
         List<File> list = new ArrayList<>();

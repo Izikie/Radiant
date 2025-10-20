@@ -984,6 +984,7 @@ public class RenderItem implements IResourceManagerReloadListener {
         this.registerBlock(Blocks.DRAGON_EGG, "dragon_egg");
     }
 
+    @Override
     public void onResourceManagerReload(IResourceManager resourceManager) {
         this.itemModelMesher.rebuildCache();
     }

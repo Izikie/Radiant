@@ -34,7 +34,8 @@ public class ShaderUniform4i extends ShaderUniformBase {
 		return this.programValues[i];
 	}
 
-	protected void onProgramSet(int program) {
+	@Override
+    protected void onProgramSet(int program) {
 		if (program >= this.programValues.length) {
 			int[][] aint = this.programValues;
 			int[][] aint1 = new int[program + 10][];
@@ -47,7 +48,8 @@ public class ShaderUniform4i extends ShaderUniformBase {
 		}
 	}
 
-	protected void resetValue() {
+	@Override
+    protected void resetValue() {
 		this.programValues = new int[][]{{Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE}};
 	}
 }

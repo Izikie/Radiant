@@ -12,7 +12,8 @@ public class ModelAdapterMinecartMobSpawner extends ModelAdapterMinecart {
 		super(EntityMinecartMobSpawner.class, "spawner_minecart", 0.5F);
 	}
 
-	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+	@Override
+    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
 		RenderManager rendermanager = Minecraft.get().getRenderManager();
 		RenderMinecartMobSpawner renderminecartmobspawner = new RenderMinecartMobSpawner(rendermanager);
 

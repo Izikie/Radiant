@@ -14,18 +14,22 @@ import net.minecraft.world.World;
 import java.util.*;
 
 public class CommandSpreadPlayers extends CommandBase {
+    @Override
     public String getCommandName() {
         return "spreadplayers";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 2;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.spreadplayers.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length < 6) {
             throw new WrongUsageException("commands.spreadplayers.usage");
@@ -216,6 +220,7 @@ public class CommandSpreadPlayers extends CommandBase {
         return acommandspreadplayers$position;
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         return args.length >= 1 && args.length <= 2 ? func_181043_b(args, 0, pos) : null;
     }

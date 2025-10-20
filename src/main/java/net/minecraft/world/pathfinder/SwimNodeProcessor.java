@@ -10,22 +10,27 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 
 public class SwimNodeProcessor extends NodeProcessor {
+    @Override
     public void initProcessor(IBlockAccess iblockaccessIn, Entity entityIn) {
         super.initProcessor(iblockaccessIn, entityIn);
     }
 
+    @Override
     public void postProcess() {
         super.postProcess();
     }
 
+    @Override
     public PathPoint getPathPointTo(Entity entityIn) {
         return this.openPoint(MathHelper.floor(entityIn.getEntityBoundingBox().minX), MathHelper.floor(entityIn.getEntityBoundingBox().minY + 0.5D), MathHelper.floor(entityIn.getEntityBoundingBox().minZ));
     }
 
+    @Override
     public PathPoint getPathPointToCoords(Entity entityIn, double x, double y, double target) {
         return this.openPoint(MathHelper.floor(x - (entityIn.width / 2.0F)), MathHelper.floor(y + 0.5D), MathHelper.floor(target - (entityIn.width / 2.0F)));
     }
 
+    @Override
     public int findPathOptions(PathPoint[] pathOptions, Entity entityIn, PathPoint currentPoint, PathPoint targetPoint, float maxDistance) {
         int i = 0;
 

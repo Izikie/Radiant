@@ -24,14 +24,17 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
         }
     }
 
+    @Override
     public IAttribute getAttribute() {
         return this.genericAttribute;
     }
 
+    @Override
     public double getBaseValue() {
         return this.baseValue;
     }
 
+    @Override
     public void setBaseValue(double baseValue) {
         if (baseValue != this.getBaseValue()) {
             this.baseValue = baseValue;
@@ -39,10 +42,12 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
         }
     }
 
+    @Override
     public Collection<AttributeModifier> getModifiersByOperation(int operation) {
         return this.mapByOperation.get(operation);
     }
 
+    @Override
     public Collection<AttributeModifier> func_111122_c() {
         Set<AttributeModifier> set = new HashSet<>();
 
@@ -53,14 +58,17 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
         return set;
     }
 
+    @Override
     public AttributeModifier getModifier(UUID uuid) {
         return this.mapByUUID.get(uuid);
     }
 
+    @Override
     public boolean hasModifier(AttributeModifier modifier) {
         return this.mapByUUID.get(modifier.getID()) != null;
     }
 
+    @Override
     public void applyModifier(AttributeModifier modifier) {
         if (this.getModifier(modifier.getID()) != null) {
             throw new IllegalArgumentException("Modifier is already applied on this attribute!");
@@ -79,6 +87,7 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
         this.attributeMap.func_180794_a(this);
     }
 
+    @Override
     public void removeModifier(AttributeModifier modifier) {
         for (int i = 0; i < 3; ++i) {
             Set<AttributeModifier> set = this.mapByOperation.get(i);
@@ -99,6 +108,7 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
         this.flagForUpdate();
     }
 
+    @Override
     public void removeAllModifiers() {
         Collection<AttributeModifier> collection = this.func_111122_c();
 
@@ -109,6 +119,7 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
         }
     }
 
+    @Override
     public double getAttributeValue() {
         if (this.needsUpdate) {
             this.cachedValue = this.computeValue();

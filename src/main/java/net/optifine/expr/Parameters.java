@@ -7,7 +7,8 @@ public class Parameters implements IParameters {
 		this.parameterTypes = parameterTypes;
 	}
 
-	public ExpressionType[] getParameterTypes(IExpression[] params) {
+	@Override
+    public ExpressionType[] getParameterTypes(IExpression[] params) {
 		return this.parameterTypes;
 	}
 }

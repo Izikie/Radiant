@@ -13,6 +13,7 @@ import net.minecraft.world.World;
 public class RecipeFireworks implements IRecipe {
     private ItemStack field_92102_a;
 
+    @Override
     public boolean matches(InventoryCrafting inv, World worldIn) {
         this.field_92102_a = null;
         int i = 0;
@@ -162,18 +163,22 @@ public class RecipeFireworks implements IRecipe {
         }
     }
 
+    @Override
     public ItemStack getCraftingResult(InventoryCrafting inv) {
         return this.field_92102_a.copy();
     }
 
+    @Override
     public int getRecipeSize() {
         return 10;
     }
 
+    @Override
     public ItemStack getRecipeOutput() {
         return this.field_92102_a;
     }
 
+    @Override
     public ItemStack[] getRemainingItems(InventoryCrafting inv) {
         ItemStack[] aitemstack = new ItemStack[inv.getSizeInventory()];
 

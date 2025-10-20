@@ -31,14 +31,17 @@ public class BlockRailDetector extends BlockRailBase {
         this.setTickRandomly(true);
     }
 
+    @Override
     public int tickRate(World worldIn) {
         return 20;
     }
 
+    @Override
     public boolean canProvidePower() {
         return true;
     }
 
+    @Override
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
         if (!worldIn.isRemote) {
             if (!state.getValue(POWERED)) {
@@ -47,19 +50,23 @@ public class BlockRailDetector extends BlockRailBase {
         }
     }
 
+    @Override
     public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random) {
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (!worldIn.isRemote && state.getValue(POWERED)) {
             this.updatePoweredState(worldIn, pos, state);
         }
     }
 
+    @Override
     public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
         return state.getValue(POWERED) ? 15 : 0;
     }
 
+    @Override
     public int getStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, Direction side) {
         return !state.getValue(POWERED) ? 0 : (side == Direction.UP ? 15 : 0);
     }
@@ -94,19 +101,23 @@ public class BlockRailDetector extends BlockRailBase {
         worldIn.updateComparatorOutputLevel(pos, this);
     }
 
+    @Override
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         super.onBlockAdded(worldIn, pos, state);
         this.updatePoweredState(worldIn, pos, state);
     }
 
+    @Override
     public IProperty<RailShape> getShapeProperty() {
         return SHAPE;
     }
 
+    @Override
     public boolean hasComparatorInputOverride() {
         return true;
     }
 
+    @Override
     public int getComparatorInputOverride(World worldIn, BlockPos pos) {
         if (worldIn.getBlockState(pos).getValue(POWERED)) {
             List<EntityMinecartCommandBlock> list = this.findMinecarts(worldIn, pos, EntityMinecartCommandBlock.class);
@@ -136,10 +147,12 @@ public class BlockRailDetector extends BlockRailBase {
         return new AxisAlignedBB((pos.getX() + 0.2F), pos.getY(), (pos.getZ() + 0.2F), ((pos.getX() + 1) - 0.2F), ((pos.getY() + 1) - 0.2F), ((pos.getZ() + 1) - 0.2F));
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(SHAPE, RailShape.byMetadata(meta & 7)).withProperty(POWERED, (meta & 8) > 0);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         int i = 0;
         i = i | state.getValue(SHAPE).getMetadata();
@@ -151,6 +164,7 @@ public class BlockRailDetector extends BlockRailBase {
         return i;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, SHAPE, POWERED);
     }

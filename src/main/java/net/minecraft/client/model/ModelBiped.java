@@ -53,6 +53,7 @@ public class ModelBiped extends ModelBase {
         this.bipedLeftLeg.setRotationPoint(1.9F, 12.0F + p_i1149_2_, 0.0F);
     }
 
+    @Override
     public void render(Entity entityIn, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_, float scale) {
         this.setRotationAngles(p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, scale, entityIn);
         GlStateManager.pushMatrix();
@@ -83,6 +84,7 @@ public class ModelBiped extends ModelBase {
         GlStateManager.popMatrix();
     }
 
+    @Override
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
         this.bipedHead.rotateAngleY = netHeadYaw / (180.0F / (float) Math.PI);
         this.bipedHead.rotateAngleX = headPitch / (180.0F / (float) Math.PI);
@@ -192,6 +194,7 @@ public class ModelBiped extends ModelBase {
         copyModelAngles(this.bipedHead, this.bipedHeadwear);
     }
 
+    @Override
     public void setModelAttributes(ModelBase model) {
         super.setModelAttributes(model);
 

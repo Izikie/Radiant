@@ -8,6 +8,7 @@ import java.lang.reflect.Type;
 import java.util.Objects;
 
 public class SoundListSerializer implements JsonDeserializer<SoundList> {
+    @Override
     public SoundList deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
         JsonObject jsonobject = JsonUtils.getJsonObject(jsonElement, "entry");
         SoundList soundlist = new SoundList();

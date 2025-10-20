@@ -16,6 +16,7 @@ public class LayerEndermanEyes implements LayerRenderer<EntityEnderman> {
         this.endermanRenderer = endermanRendererIn;
     }
 
+    @Override
     public void doRenderLayer(EntityEnderman entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
         this.endermanRenderer.bindTexture(RES_ENDERMAN_EYES);
         GlStateManager.enableBlend();
@@ -48,6 +49,7 @@ public class LayerEndermanEyes implements LayerRenderer<EntityEnderman> {
         GlStateManager.enableAlpha();
     }
 
+    @Override
     public boolean shouldCombineTextures() {
         return false;
     }

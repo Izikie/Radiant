@@ -10,10 +10,12 @@ public class UserListWhitelist extends UserList<GameProfile, UserListWhitelistEn
         super(p_i1132_1_);
     }
 
+    @Override
     protected UserListEntry<GameProfile> createEntry(JsonObject entryData) {
         return new UserListWhitelistEntry(entryData);
     }
 
+    @Override
     public String[] getKeys() {
         String[] astring = new String[this.getValues().size()];
         int i = 0;
@@ -25,6 +27,7 @@ public class UserListWhitelist extends UserList<GameProfile, UserListWhitelistEn
         return astring;
     }
 
+    @Override
     protected String getObjectKey(GameProfile obj) {
         return obj.getId().toString();
     }

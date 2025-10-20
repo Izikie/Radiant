@@ -28,6 +28,7 @@ public class EntityPortalFX extends EntityFX {
         this.setParticleTextureIndex((int) (Math.random() * 8.0D));
     }
 
+    @Override
     public void renderParticle(WorldRenderer worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
         float f = (this.particleAge + partialTicks) / this.particleMaxAge;
         f = 1.0F - f;
@@ -37,6 +38,7 @@ public class EntityPortalFX extends EntityFX {
         super.renderParticle(worldRendererIn, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
     }
 
+    @Override
     public int getBrightnessForRender(float partialTicks) {
         int i = super.getBrightnessForRender(partialTicks);
         float f = (float) this.particleAge / this.particleMaxAge;
@@ -53,6 +55,7 @@ public class EntityPortalFX extends EntityFX {
         return j | k << 16;
     }
 
+    @Override
     public float getBrightness(float partialTicks) {
         float f = super.getBrightness(partialTicks);
         float f1 = (float) this.particleAge / this.particleMaxAge;
@@ -60,6 +63,7 @@ public class EntityPortalFX extends EntityFX {
         return f * (1.0F - f1) + f1;
     }
 
+    @Override
     public void onUpdate() {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
@@ -77,6 +81,7 @@ public class EntityPortalFX extends EntityFX {
     }
 
     public static class Factory implements IParticleFactory {
+        @Override
         public EntityFX getEntityFX(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
             return new EntityPortalFX(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
         }

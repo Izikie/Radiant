@@ -22,14 +22,17 @@ public class BlockPressurePlate extends BlockBasePressurePlate {
         this.sensitivity = sensitivityIn;
     }
 
+    @Override
     protected int getRedstoneStrength(IBlockState state) {
         return state.getValue(POWERED) ? 15 : 0;
     }
 
+    @Override
     protected IBlockState setRedstoneStrength(IBlockState state, int strength) {
         return state.withProperty(POWERED, strength > 0);
     }
 
+    @Override
     protected int computeRedstoneStrength(World worldIn, BlockPos pos) {
         AxisAlignedBB axisalignedbb = this.getSensitiveAABB(pos);
         List<? extends Entity> list;
@@ -58,14 +61,17 @@ public class BlockPressurePlate extends BlockBasePressurePlate {
         return 0;
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(POWERED, meta == 1);
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(POWERED) ? 1 : 0;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, POWERED);
     }

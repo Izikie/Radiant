@@ -21,10 +21,12 @@ public class RegistryNamespaced<K, V> extends RegistrySimple<K, V> implements IO
         this.putObject(key, value);
     }
 
+    @Override
     protected Map<K, V> createUnderlyingMap() {
         return HashBiMap.create();
     }
 
+    @Override
     public V getObject(K name) {
         return super.getObject(name);
     }
@@ -33,6 +35,7 @@ public class RegistryNamespaced<K, V> extends RegistrySimple<K, V> implements IO
         return this.inverseObjectRegistry.get(value);
     }
 
+    @Override
     public boolean containsKey(K key) {
         return super.containsKey(key);
     }
@@ -45,6 +48,7 @@ public class RegistryNamespaced<K, V> extends RegistrySimple<K, V> implements IO
         return this.underlyingIntegerMap.getByValue(id);
     }
 
+    @Override
     public Iterator<V> iterator() {
         return this.underlyingIntegerMap.iterator();
     }

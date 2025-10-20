@@ -13,18 +13,22 @@ import net.minecraft.util.chat.IChatComponent;
 import java.util.List;
 
 public class CommandEmote extends CommandBase {
+    @Override
     public String getCommandName() {
         return "me";
     }
 
+    @Override
     public int getRequiredPermissionLevel() {
         return 0;
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.me.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length == 0) {
             throw new WrongUsageException("commands.me.usage");
@@ -34,6 +38,7 @@ public class CommandEmote extends CommandBase {
         }
     }
 
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         return getListOfStringsMatchingLastWord(args, MinecraftServer.getServer().getAllUsernames());
     }

@@ -10,11 +10,13 @@ public class ExpressionShaderOptionSwitch implements IExpressionBool {
 		this.shaderOption = shaderOption;
 	}
 
-	public boolean eval() {
+	@Override
+    public boolean eval() {
 		return ShaderOptionSwitch.isTrue(this.shaderOption.getValue());
 	}
 
-	public ExpressionType getExpressionType() {
+	@Override
+    public ExpressionType getExpressionType() {
 		return ExpressionType.BOOL;
 	}
 

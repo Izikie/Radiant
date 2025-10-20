@@ -28,20 +28,24 @@ public class BlockRedstoneOre extends Block {
         this.isOn = isOn;
     }
 
+    @Override
     public int tickRate(World worldIn) {
         return 30;
     }
 
+    @Override
     public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn) {
         this.activate(worldIn, pos);
         super.onBlockClicked(worldIn, pos, playerIn);
     }
 
+    @Override
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, Entity entityIn) {
         this.activate(worldIn, pos);
         super.onEntityCollidedWithBlock(worldIn, pos, entityIn);
     }
 
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         this.activate(worldIn, pos);
         return super.onBlockActivated(worldIn, pos, state, playerIn, side, hitX, hitY, hitZ);
@@ -55,24 +59,29 @@ public class BlockRedstoneOre extends Block {
         }
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (this == Blocks.LIT_REDSTONE_ORE) {
             worldIn.setBlockState(pos, Blocks.REDSTONE_ORE.getDefaultState());
         }
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Items.REDSTONE;
     }
 
+    @Override
     public int quantityDroppedWithBonus(int fortune, Random random) {
         return this.quantityDropped(random) + random.nextInt(fortune + 1);
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return 4 + random.nextInt(2);
     }
 
+    @Override
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
         super.dropBlockAsItemWithChance(worldIn, pos, state, chance, fortune);
 
@@ -82,6 +91,7 @@ public class BlockRedstoneOre extends Block {
         }
     }
 
+    @Override
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (this.isOn) {
             this.spawnParticles(worldIn, pos);
@@ -127,6 +137,7 @@ public class BlockRedstoneOre extends Block {
         }
     }
 
+    @Override
     protected ItemStack createStackedBlock(IBlockState state) {
         return new ItemStack(Blocks.REDSTONE_ORE);
     }

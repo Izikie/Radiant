@@ -38,6 +38,7 @@ public class NextTickListEntry implements Comparable<NextTickListEntry> {
         this.priority = priorityIn;
     }
 
+    @Override
     public int compareTo(NextTickListEntry p_compareTo_1_) {
         return this.scheduledTime < p_compareTo_1_.scheduledTime ? -1 : (this.scheduledTime > p_compareTo_1_.scheduledTime ? 1 : (this.priority != p_compareTo_1_.priority ? this.priority - p_compareTo_1_.priority : (Long.compare(this.tickEntryID, p_compareTo_1_.tickEntryID))));
     }

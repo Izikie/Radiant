@@ -23,6 +23,7 @@ public class DynamicTexture extends AbstractTexture {
         TextureUtil.allocateTexture(this.getGlTextureId(), textureWidth, textureHeight);
     }
 
+    @Override
     public void loadTexture(IResourceManager resourceManager) throws IOException {
     }
 

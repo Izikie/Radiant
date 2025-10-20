@@ -17,6 +17,7 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
     private static final Random field_147527_e = new Random(31100L);
     final FloatBuffer field_147528_b = GLAllocation.createDirectFloatBuffer(16);
 
+    @Override
     public void renderTileEntityAt(TileEntityEndPortal te, double x, double y, double z, float partialTicks, int destroyStage) {
         if (!Config.isShaders() || !ShadersRender.renderEndPortal(te, x, y, z, partialTicks, destroyStage, 0.75F)) {
             float f = (float) this.rendererDispatcher.entityX;

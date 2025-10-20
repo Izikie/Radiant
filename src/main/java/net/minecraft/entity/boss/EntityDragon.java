@@ -54,11 +54,13 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
         this.ignoreFrustumCheck = true;
     }
 
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(200.0D);
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
     }
@@ -82,6 +84,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
         return adouble;
     }
 
+    @Override
     public void onLivingUpdate() {
         if (this.worldObj.isRemote) {
             float f = MathHelper.cos(this.animTime * (float) Math.PI * 2.0F);
@@ -417,6 +420,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
         return flag;
     }
 
+    @Override
     public boolean attackEntityFromPart(EntityDragonPart dragonPart, DamageSource source, float p_70965_3_) {
         if (dragonPart != this.dragonPartHead) {
             p_70965_3_ = p_70965_3_ / 4.0F + 1.0F;
@@ -437,6 +441,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
         return true;
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (source instanceof EntityDamageSource entityDamageSource && entityDamageSource.getIsThornsDamage()) {
             this.attackDragonFrom(source, amount);
@@ -449,10 +454,12 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
         return super.attackEntityFrom(source, amount);
     }
 
+    @Override
     public void onKillCommand() {
         this.setDead();
     }
 
+    @Override
     protected void onDeathUpdate() {
         ++this.deathTicks;
 
@@ -541,29 +548,36 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
         this.worldObj.setBlockState(pos.up(4), Blocks.DRAGON_EGG.getDefaultState());
     }
 
+    @Override
     protected void despawnEntity() {
     }
 
+    @Override
     public Entity[] getParts() {
         return this.dragonPartArray;
     }
 
+    @Override
     public boolean canBeCollidedWith() {
         return false;
     }
 
+    @Override
     public World getWorld() {
         return this.worldObj;
     }
 
+    @Override
     protected String getLivingSound() {
         return "mob.enderdragon.growl";
     }
 
+    @Override
     protected String getHurtSound() {
         return "mob.enderdragon.hit";
     }
 
+    @Override
     protected float getSoundVolume() {
         return 5.0F;
     }

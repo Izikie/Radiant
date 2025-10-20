@@ -45,7 +45,8 @@ public class IteratorCache {
 		private int index;
 		private boolean hasNext;
 
-		public void setList(List<Object> list) {
+		@Override
+        public void setList(List<Object> list) {
 			if (this.hasNext) {
 				throw new RuntimeException("Iterator still used, oldList: " + this.list + ", newList: " + list);
 			} else {
@@ -55,7 +56,8 @@ public class IteratorCache {
 			}
 		}
 
-		public Object next() {
+		@Override
+        public Object next() {
 			if (!this.hasNext) {
 				return null;
 			} else {
@@ -66,7 +68,8 @@ public class IteratorCache {
 			}
 		}
 
-		public boolean hasNext() {
+		@Override
+        public boolean hasNext() {
 			if (!this.hasNext) {
 				finished(this);
 				return false;
@@ -75,7 +78,8 @@ public class IteratorCache {
 			}
 		}
 
-		public void remove() {
+		@Override
+        public void remove() {
 			throw new UnsupportedOperationException("remove");
 		}
 	}

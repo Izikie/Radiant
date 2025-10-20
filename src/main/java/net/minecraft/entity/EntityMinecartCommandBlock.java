@@ -14,31 +14,38 @@ import net.minecraft.world.World;
 
 public class EntityMinecartCommandBlock extends EntityMinecart {
     private final CommandBlockLogic commandBlockLogic = new CommandBlockLogic() {
+        @Override
         public void updateCommand() {
             EntityMinecartCommandBlock.this.getDataWatcher().updateObject(23, this.getCommand());
             EntityMinecartCommandBlock.this.getDataWatcher().updateObject(24, IChatComponent.Serializer.componentToJson(this.getLastOutput()));
         }
 
+        @Override
         public int func_145751_f() {
             return 1;
         }
 
+        @Override
         public void func_145757_a(ByteBuf p_145757_1_) {
             p_145757_1_.writeInt(EntityMinecartCommandBlock.this.getEntityId());
         }
 
+        @Override
         public BlockPos getPosition() {
             return new BlockPos(EntityMinecartCommandBlock.this.posX, EntityMinecartCommandBlock.this.posY + 0.5D, EntityMinecartCommandBlock.this.posZ);
         }
 
+        @Override
         public Vec3 getPositionVector() {
             return new Vec3(EntityMinecartCommandBlock.this.posX, EntityMinecartCommandBlock.this.posY, EntityMinecartCommandBlock.this.posZ);
         }
 
+        @Override
         public World getEntityWorld() {
             return EntityMinecartCommandBlock.this.worldObj;
         }
 
+        @Override
         public Entity getCommandSenderEntity() {
             return EntityMinecartCommandBlock.this;
         }
@@ -53,12 +60,14 @@ public class EntityMinecartCommandBlock extends EntityMinecart {
         super(worldIn, x, y, z);
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.getDataWatcher().addObject(23, "");
         this.getDataWatcher().addObject(24, "");
     }
 
+    @Override
     protected void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
         this.commandBlockLogic.readDataFromNBT(tagCompund);
@@ -66,15 +75,18 @@ public class EntityMinecartCommandBlock extends EntityMinecart {
         this.getDataWatcher().updateObject(24, IChatComponent.Serializer.componentToJson(this.getCommandBlockLogic().getLastOutput()));
     }
 
+    @Override
     protected void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         this.commandBlockLogic.writeDataToNBT(tagCompound);
     }
 
+    @Override
     public MinecartType getMinecartType() {
         return MinecartType.COMMAND_BLOCK;
     }
 
+    @Override
     public IBlockState getDefaultDisplayTile() {
         return Blocks.COMMAND_BLOCK.getDefaultState();
     }
@@ -83,6 +95,7 @@ public class EntityMinecartCommandBlock extends EntityMinecart {
         return this.commandBlockLogic;
     }
 
+    @Override
     public void onActivatorRailPass(int x, int y, int z, boolean receivingPower) {
         if (receivingPower && this.ticksExisted - this.activatorRailCooldown >= 4) {
             this.getCommandBlockLogic().trigger(this.worldObj);
@@ -90,11 +103,13 @@ public class EntityMinecartCommandBlock extends EntityMinecart {
         }
     }
 
+    @Override
     public boolean interactFirst(EntityPlayer playerIn) {
         this.commandBlockLogic.tryOpenEditCommandBlock(playerIn);
         return false;
     }
 
+    @Override
     public void onDataWatcherUpdate(int dataID) {
         super.onDataWatcherUpdate(dataID);
 

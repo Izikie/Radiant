@@ -53,6 +53,7 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase {
         this.sorter = new EntityAINearestAttackableTarget.Sorter(entityLivingIn);
     }
 
+    @Override
     public boolean shouldExecute() {
         double d0 = this.maxTargetRange();
         List<EntityPlayer> list = this.entityLiving.worldObj.getEntitiesWithinAABB(EntityPlayer.class, this.entityLiving.getEntityBoundingBox().expand(d0, 4.0D, d0), this.predicate);
@@ -66,6 +67,7 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase {
         }
     }
 
+    @Override
     public boolean continueExecuting() {
         EntityLivingBase entitylivingbase = this.entityLiving.getAttackTarget();
 
@@ -88,11 +90,13 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase {
         }
     }
 
+    @Override
     public void startExecuting() {
         this.entityLiving.setAttackTarget(this.entityTarget);
         super.startExecuting();
     }
 
+    @Override
     public void resetTask() {
         this.entityLiving.setAttackTarget(null);
         super.startExecuting();

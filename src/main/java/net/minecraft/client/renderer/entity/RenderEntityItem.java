@@ -70,6 +70,7 @@ public class RenderEntityItem extends Render<EntityItem> {
         return i;
     }
 
+    @Override
     public void doRender(EntityItem entity, double x, double y, double z, float entityYaw, float partialTicks) {
         ItemStack itemstack = entity.getEntityItem();
         this.field_177079_e.setSeed(187L);
@@ -127,6 +128,7 @@ public class RenderEntityItem extends Render<EntityItem> {
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityItem entity) {
         return TextureMap.LOCATION_BLOCKS_TEXTURE;
     }

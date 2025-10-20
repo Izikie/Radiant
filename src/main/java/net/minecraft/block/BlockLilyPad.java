@@ -21,32 +21,39 @@ public class BlockLilyPad extends BlockBush {
         this.setCreativeTab(CreativeTabs.TAB_DECORATIONS);
     }
 
+    @Override
     public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {
         if (collidingEntity == null || !(collidingEntity instanceof EntityBoat)) {
             super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
         }
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
         return new AxisAlignedBB(pos.getX() + this.minX, pos.getY() + this.minY, pos.getZ() + this.minZ, pos.getX() + this.maxX, pos.getY() + this.maxY, pos.getZ() + this.maxZ);
     }
 
+    @Override
     public int getBlockColor() {
         return 7455580;
     }
 
+    @Override
     public int getRenderColor(IBlockState state) {
         return 7455580;
     }
 
+    @Override
     public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass) {
         return 2129968;
     }
 
+    @Override
     protected boolean canPlaceBlockOn(Block ground) {
         return ground == Blocks.WATER;
     }
 
+    @Override
     public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state) {
         if (pos.getY() >= 0 && pos.getY() < 256) {
             IBlockState iblockstate = worldIn.getBlockState(pos.down());
@@ -56,6 +63,7 @@ public class BlockLilyPad extends BlockBush {
         }
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return 0;
     }

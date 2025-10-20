@@ -26,14 +26,17 @@ public class BlockTorch extends Block {
         this.setCreativeTab(CreativeTabs.TAB_DECORATIONS);
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
         return null;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
@@ -47,6 +50,7 @@ public class BlockTorch extends Block {
         }
     }
 
+    @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
         for (Direction enumfacing : FACING.getAllowedValues()) {
             if (this.canPlaceAt(worldIn, pos, enumfacing)) {
@@ -63,6 +67,7 @@ public class BlockTorch extends Block {
         return flag && worldIn.isBlockNormalCube(blockpos, true) || facing == Direction.UP && this.canPlaceOn(worldIn, blockpos);
     }
 
+    @Override
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         if (this.canPlaceAt(worldIn, pos, facing)) {
             return this.getDefaultState().withProperty(FACING, facing);
@@ -77,10 +82,12 @@ public class BlockTorch extends Block {
         }
     }
 
+    @Override
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         this.checkForDrop(worldIn, pos, state);
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         this.onNeighborChangeInternal(worldIn, pos, state);
     }
@@ -123,6 +130,7 @@ public class BlockTorch extends Block {
         }
     }
 
+    @Override
     public MovingObjectPosition collisionRayTrace(World worldIn, BlockPos pos, Vec3 start, Vec3 end) {
         Direction enumfacing = worldIn.getBlockState(pos).getValue(FACING);
         float f = 0.15F;
@@ -143,6 +151,7 @@ public class BlockTorch extends Block {
         return super.collisionRayTrace(worldIn, pos, start, end);
     }
 
+    @Override
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         Direction enumfacing = state.getValue(FACING);
         double d0 = pos.getX() + 0.5D;
@@ -161,10 +170,12 @@ public class BlockTorch extends Block {
         }
     }
 
+    @Override
     public RenderLayer getBlockLayer() {
         return RenderLayer.CUTOUT;
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         IBlockState iblockstate = this.getDefaultState();
 
@@ -179,6 +190,7 @@ public class BlockTorch extends Block {
         return iblockstate;
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         int i = 0;
 
@@ -193,6 +205,7 @@ public class BlockTorch extends Block {
         return i;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, FACING);
     }

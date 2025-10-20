@@ -28,22 +28,27 @@ public class BlockCarpet extends Block {
         this.setBlockBoundsFromMeta(0);
     }
 
+    @Override
     public MapColor getMapColor(IBlockState state) {
         return state.getValue(COLOR).getMapColor();
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public void setBlockBoundsForItemRender() {
         this.setBlockBoundsFromMeta(0);
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         this.setBlockBoundsFromMeta(0);
     }
@@ -54,10 +59,12 @@ public class BlockCarpet extends Block {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
     }
 
+    @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
         return super.canPlaceBlockAt(worldIn, pos) && this.canBlockStay(worldIn, pos);
     }
 
+    @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
         this.checkForDrop(worldIn, pos, state);
     }
@@ -76,28 +83,34 @@ public class BlockCarpet extends Block {
         return !worldIn.isAirBlock(pos.down());
     }
 
+    @Override
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, Direction side) {
         return side == Direction.UP || super.shouldSideBeRendered(worldIn, pos, side);
     }
 
+    @Override
     public int damageDropped(IBlockState state) {
         return state.getValue(COLOR).getMetadata();
     }
 
+    @Override
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
         for (int i = 0; i < 16; ++i) {
             list.add(new ItemStack(itemIn, 1, i));
         }
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(COLOR, DyeColor.byMetadata(meta));
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(COLOR).getMetadata();
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, COLOR);
     }

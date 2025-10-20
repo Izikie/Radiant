@@ -16,6 +16,7 @@ public class ModelArmorStandArmor extends ModelBiped {
         super(modelSize, 0.0F, textureWidthIn, textureHeightIn);
     }
 
+    @Override
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
         if (entityIn instanceof EntityArmorStand entityarmorstand) {
             this.bipedHead.rotateAngleX = 0.017453292F * entityarmorstand.getHeadRotation().getX();

@@ -21,9 +21,11 @@ public class EntityEnderEye extends Entity {
         this.setSize(0.25F, 0.25F);
     }
 
+    @Override
     protected void entityInit() {
     }
 
+    @Override
     public boolean isInRangeToRenderDist(double distance) {
         double d0 = this.getEntityBoundingBox().getAverageEdgeLength() * 4.0D;
 
@@ -64,6 +66,7 @@ public class EntityEnderEye extends Entity {
         this.shatterOrDrop = this.rand.nextInt(5) > 0;
     }
 
+    @Override
     public void setVelocity(double x, double y, double z) {
         this.motionX = x;
         this.motionY = y;
@@ -76,6 +79,7 @@ public class EntityEnderEye extends Entity {
         }
     }
 
+    @Override
     public void onUpdate() {
         this.lastTickPosX = this.posX;
         this.lastTickPosY = this.posY;
@@ -153,20 +157,25 @@ public class EntityEnderEye extends Entity {
         }
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
     }
 
+    @Override
     public float getBrightness(float partialTicks) {
         return 1.0F;
     }
 
+    @Override
     public int getBrightnessForRender(float partialTicks) {
         return 15728880;
     }
 
+    @Override
     public boolean canAttackWithItem() {
         return false;
     }

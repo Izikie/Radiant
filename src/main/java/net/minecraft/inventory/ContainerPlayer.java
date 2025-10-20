@@ -29,14 +29,17 @@ public class ContainerPlayer extends Container {
         for (int k = 0; k < 4; ++k) {
             final int k_f = k;
             this.addSlotToContainer(new Slot(playerInventory, playerInventory.getSizeInventory() - 1 - k, 8, 8 + k * 18) {
+                @Override
                 public int getSlotStackLimit() {
                     return 1;
                 }
 
+                @Override
                 public boolean isItemValid(ItemStack stack) {
                     return stack != null && (stack.getItem() instanceof ItemArmor itemArmor ? itemArmor.armorType == k_f : ((stack.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN) || stack.getItem() == Items.SKULL) && k_f == 0));
                 }
 
+                @Override
                 public String getSlotTexture() {
                     return ItemArmor.EMPTY_SLOT_NAMES[k_f];
                 }
@@ -56,10 +59,12 @@ public class ContainerPlayer extends Container {
         this.onCraftMatrixChanged(this.craftMatrix);
     }
 
+    @Override
     public void onCraftMatrixChanged(IInventory inventoryIn) {
         this.craftResult.setInventorySlotContents(0, CraftingManager.getInstance().findMatchingRecipe(this.craftMatrix, this.thePlayer.worldObj));
     }
 
+    @Override
     public void onContainerClosed(EntityPlayer playerIn) {
         super.onContainerClosed(playerIn);
 
@@ -74,10 +79,12 @@ public class ContainerPlayer extends Container {
         this.craftResult.setInventorySlotContents(0, null);
     }
 
+    @Override
     public boolean canInteractWith(EntityPlayer playerIn) {
         return true;
     }
 
+    @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
         ItemStack itemstack = null;
         Slot slot = this.inventorySlots.get(index);
@@ -134,6 +141,7 @@ public class ContainerPlayer extends Container {
         return itemstack;
     }
 
+    @Override
     public boolean canMergeSlot(ItemStack stack, Slot slotIn) {
         return slotIn.inventory != this.craftResult && super.canMergeSlot(stack, slotIn);
     }

@@ -29,6 +29,7 @@ public class GuiRepair extends GuiContainer implements ICrafting {
         this.anvil = (ContainerRepair) this.inventorySlots;
     }
 
+    @Override
     public void initGui() {
         super.initGui();
         Keyboard.enableRepeatEvents(true);
@@ -43,12 +44,14 @@ public class GuiRepair extends GuiContainer implements ICrafting {
         this.inventorySlots.onCraftGuiOpened(this);
     }
 
+    @Override
     public void onGuiClosed() {
         super.onGuiClosed();
         Keyboard.enableRepeatEvents(false);
         this.inventorySlots.removeCraftingFromCrafters(this);
     }
 
+    @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         GlStateManager.disableLighting();
         GlStateManager.disableBlend();
@@ -89,6 +92,7 @@ public class GuiRepair extends GuiContainer implements ICrafting {
         GlStateManager.enableLighting();
     }
 
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         if (this.nameField.textboxKeyTyped(typedChar, keyCode)) {
             this.renameItem();
@@ -109,11 +113,13 @@ public class GuiRepair extends GuiContainer implements ICrafting {
         this.mc.player.sendQueue.addToSendQueue(new C17PacketCustomPayload("MC|ItemName", (new PacketBuffer(Unpooled.buffer())).writeString(s)));
     }
 
+    @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         super.mouseClicked(mouseX, mouseY, mouseButton);
         this.nameField.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
         GlStateManager.disableLighting();
@@ -121,6 +127,7 @@ public class GuiRepair extends GuiContainer implements ICrafting {
         this.nameField.drawTextBox();
     }
 
+    @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(ANVIL_RESOURCE);
@@ -134,10 +141,12 @@ public class GuiRepair extends GuiContainer implements ICrafting {
         }
     }
 
+    @Override
     public void updateCraftingInventory(Container containerToSend, List<ItemStack> itemsList) {
         this.sendSlotContents(containerToSend, 0, containerToSend.getSlot(0).getStack());
     }
 
+    @Override
     public void sendSlotContents(Container containerToSend, int slotInd, ItemStack stack) {
         if (slotInd == 0) {
             this.nameField.setText(stack == null ? "" : stack.getDisplayName());
@@ -149,9 +158,11 @@ public class GuiRepair extends GuiContainer implements ICrafting {
         }
     }
 
+    @Override
     public void sendProgressBarUpdate(Container containerIn, int varToUpdate, int newValue) {
     }
 
+    @Override
     public void sendAllWindowProperties(Container p_175173_1_, IInventory p_175173_2_) {
     }
 }

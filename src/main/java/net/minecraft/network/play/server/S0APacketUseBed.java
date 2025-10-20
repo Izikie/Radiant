@@ -21,16 +21,19 @@ public class S0APacketUseBed implements Packet<INetHandlerPlayClient> {
         this.pos = bedPosIn;
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.playerID = buf.readVarIntFromBuffer();
         this.pos = buf.readBlockPos();
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeVarIntToBuffer(this.playerID);
         buf.writeBlockPos(this.pos);
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleUseBed(this);
     }

@@ -18,6 +18,7 @@ public class MovingSoundMinecartRiding extends MovingSound {
         this.repeatDelay = 0;
     }
 
+    @Override
     public void update() {
         if (!this.minecart.isDead && this.player.isRiding() && this.player.ridingEntity == this.minecart) {
             float f = MathHelper.sqrt(this.minecart.motionX * this.minecart.motionX + this.minecart.motionZ * this.minecart.motionZ);

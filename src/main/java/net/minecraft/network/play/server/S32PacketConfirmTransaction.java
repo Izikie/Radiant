@@ -20,16 +20,19 @@ public class S32PacketConfirmTransaction implements Packet<INetHandlerPlayClient
         this.field_148893_c = p_i45182_3_;
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleConfirmTransaction(this);
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.windowId = buf.readUnsignedByte();
         this.actionNumber = buf.readShort();
         this.field_148893_c = buf.readBoolean();
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeByte(this.windowId);
         buf.writeShort(this.actionNumber);

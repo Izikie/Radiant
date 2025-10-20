@@ -34,7 +34,8 @@ public class ShaderUniform4f extends ShaderUniformBase {
 		return this.programValues[i];
 	}
 
-	protected void onProgramSet(int program) {
+	@Override
+    protected void onProgramSet(int program) {
 		if (program >= this.programValues.length) {
 			float[][] afloat = this.programValues;
 			float[][] afloat1 = new float[program + 10][];
@@ -47,7 +48,8 @@ public class ShaderUniform4f extends ShaderUniformBase {
 		}
 	}
 
-	protected void resetValue() {
+	@Override
+    protected void resetValue() {
 		this.programValues = new float[][]{{-3.4028235E38F, -3.4028235E38F, -3.4028235E38F, -3.4028235E38F}};
 	}
 }

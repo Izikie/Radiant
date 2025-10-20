@@ -26,6 +26,7 @@ public class EntityEnderPearl extends EntityThrowable {
         super(worldIn, x, y, z);
     }
 
+    @Override
     protected void onImpact(MovingObjectPosition p_70184_1_) {
         EntityLivingBase entitylivingbase = this.getThrower();
 
@@ -69,6 +70,7 @@ public class EntityEnderPearl extends EntityThrowable {
         }
     }
 
+    @Override
     public void onUpdate() {
         EntityLivingBase entitylivingbase = this.getThrower();
 

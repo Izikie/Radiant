@@ -28,6 +28,7 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
     private static final Random RANDOM = new Random();
     private String customName;
 
+    @Override
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
 
@@ -36,6 +37,7 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
         }
     }
 
+    @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
 
@@ -44,6 +46,7 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
         }
     }
 
+    @Override
     public void update() {
         this.bookSpreadPrev = this.bookSpread;
         this.bookRotationPrev = this.bookRotation;
@@ -104,10 +107,12 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
         this.pageFlip += this.field_145929_l;
     }
 
+    @Override
     public String getName() {
         return this.hasCustomName() ? this.customName : "container.enchant";
     }
 
+    @Override
     public boolean hasCustomName() {
         return this.customName != null && !this.customName.isEmpty();
     }
@@ -116,14 +121,17 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
         this.customName = customNameIn;
     }
 
+    @Override
     public IChatComponent getDisplayName() {
         return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName());
     }
 
+    @Override
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
         return new ContainerEnchantment(playerInventory, this.worldObj, this.pos);
     }
 
+    @Override
     public String getGuiID() {
         return "minecraft:enchanting_table";
     }

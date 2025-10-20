@@ -30,22 +30,27 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
         super(worldIn, x, y, z);
     }
 
+    @Override
     public MinecartType getMinecartType() {
         return MinecartType.HOPPER;
     }
 
+    @Override
     public IBlockState getDefaultDisplayTile() {
         return Blocks.HOPPER.getDefaultState();
     }
 
+    @Override
     public int getDefaultDisplayTileOffset() {
         return 1;
     }
 
+    @Override
     public int getSizeInventory() {
         return 5;
     }
 
+    @Override
     public boolean interactFirst(EntityPlayer playerIn) {
         if (!this.worldObj.isRemote) {
             playerIn.displayGUIChest(this);
@@ -54,6 +59,7 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
         return true;
     }
 
+    @Override
     public void onActivatorRailPass(int x, int y, int z, boolean receivingPower) {
         boolean flag = !receivingPower;
 
@@ -70,22 +76,27 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
         this.isBlocked = p_96110_1_;
     }
 
+    @Override
     public World getWorld() {
         return this.worldObj;
     }
 
+    @Override
     public double getXPos() {
         return this.posX;
     }
 
+    @Override
     public double getYPos() {
         return this.posY + 0.5D;
     }
 
+    @Override
     public double getZPos() {
         return this.posZ;
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
 
@@ -123,6 +134,7 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
         }
     }
 
+    @Override
     public void killMinecart(DamageSource source) {
         super.killMinecart(source);
 
@@ -131,11 +143,13 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
         }
     }
 
+    @Override
     protected void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         tagCompound.setInteger("TransferCooldown", this.transferTicker);
     }
 
+    @Override
     protected void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
         this.transferTicker = tagCompund.getInteger("TransferCooldown");
@@ -149,10 +163,12 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
         return this.transferTicker > 0;
     }
 
+    @Override
     public String getGuiID() {
         return "minecraft:hopper";
     }
 
+    @Override
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
         return new ContainerHopper(playerInventory, this, playerIn);
     }

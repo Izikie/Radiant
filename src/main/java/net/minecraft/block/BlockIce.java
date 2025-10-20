@@ -24,10 +24,12 @@ public class BlockIce extends BlockBreakable {
         this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
+    @Override
     public RenderLayer getBlockLayer() {
         return RenderLayer.TRANSLUCENT;
     }
 
+    @Override
     public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te) {
         player.triggerAchievement(StatList.MINE_BLOCK_STAT_ARRAY[Block.getIdFromBlock(this)]);
         player.addExhaustion(0.025F);
@@ -54,10 +56,12 @@ public class BlockIce extends BlockBreakable {
         }
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return 0;
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (worldIn.getLightFor(LightType.BLOCK, pos) > 11 - this.getLightOpacity()) {
             if (worldIn.provider.doesWaterVaporize()) {
@@ -69,6 +73,7 @@ public class BlockIce extends BlockBreakable {
         }
     }
 
+    @Override
     public int getMobilityFlag() {
         return 0;
     }

@@ -49,10 +49,12 @@ public class InventoryEnderChest extends InventoryBasic {
         return nbttaglist;
     }
 
+    @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
         return (this.associatedChest == null || this.associatedChest.canBeUsed(player)) && super.isUseableByPlayer(player);
     }
 
+    @Override
     public void openInventory(EntityPlayer player) {
         if (this.associatedChest != null) {
             this.associatedChest.openChest();
@@ -61,6 +63,7 @@ public class InventoryEnderChest extends InventoryBasic {
         super.openInventory(player);
     }
 
+    @Override
     public void closeInventory(EntityPlayer player) {
         if (this.associatedChest != null) {
             this.associatedChest.closeChest();

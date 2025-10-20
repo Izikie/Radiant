@@ -14,42 +14,52 @@ public class RConConsoleSource implements ICommandSender {
     private static final RConConsoleSource INSTANCE = new RConConsoleSource();
     private final StringBuffer buffer = new StringBuffer();
 
+    @Override
     public String getName() {
         return "Rcon";
     }
 
+    @Override
     public IChatComponent getDisplayName() {
         return new ChatComponentText(this.getName());
     }
 
+    @Override
     public void addChatMessage(IChatComponent component) {
         this.buffer.append(component.getUnformattedText());
     }
 
+    @Override
     public boolean canCommandSenderUseCommand(int permLevel, String commandName) {
         return true;
     }
 
+    @Override
     public BlockPos getPosition() {
         return new BlockPos(0, 0, 0);
     }
 
+    @Override
     public Vec3 getPositionVector() {
         return new Vec3(0.0D, 0.0D, 0.0D);
     }
 
+    @Override
     public World getEntityWorld() {
         return MinecraftServer.getServer().getEntityWorld();
     }
 
+    @Override
     public Entity getCommandSenderEntity() {
         return null;
     }
 
+    @Override
     public boolean sendCommandFeedback() {
         return true;
     }
 
+    @Override
     public void setCommandStat(CommandResultStats.Type type, int amount) {
     }
 }

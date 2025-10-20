@@ -22,10 +22,12 @@ public class MobAppearance extends EntityFX {
         this.particleMaxAge = 30;
     }
 
+    @Override
     public int getFXLayer() {
         return 3;
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
 
@@ -36,6 +38,7 @@ public class MobAppearance extends EntityFX {
         }
     }
 
+    @Override
     public void renderParticle(WorldRenderer worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
         if (this.entity != null) {
             RenderManager rendermanager = Minecraft.get().getRenderManager();
@@ -65,6 +68,7 @@ public class MobAppearance extends EntityFX {
     }
 
     public static class Factory implements IParticleFactory {
+        @Override
         public EntityFX getEntityFX(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
             return new MobAppearance(worldIn, xCoordIn, yCoordIn, zCoordIn);
         }

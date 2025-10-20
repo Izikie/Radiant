@@ -2,6 +2,7 @@ package net.minecraft.nbt;
 
 public class NBTSizeTracker {
     public static final NBTSizeTracker INFINITE = new NBTSizeTracker(0L) {
+        @Override
         public void read(long bits) {
         }
     };

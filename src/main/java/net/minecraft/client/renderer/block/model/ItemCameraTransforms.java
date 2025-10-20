@@ -74,6 +74,7 @@ public class ItemCameraTransforms {
     }
 
     static class Deserializer implements JsonDeserializer<ItemCameraTransforms> {
+        @Override
         public ItemCameraTransforms deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
             JsonObject jsonobject = jsonElement.getAsJsonObject();
             ItemTransformVec3f itemtransformvec3f = this.func_181683_a(ctx, jsonobject, "thirdperson");

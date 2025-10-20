@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class RecipesMapCloning implements IRecipe {
+    @Override
     public boolean matches(InventoryCrafting inv, World worldIn) {
         int i = 0;
         ItemStack itemstack = null;
@@ -33,6 +34,7 @@ public class RecipesMapCloning implements IRecipe {
         return itemstack != null && i > 0;
     }
 
+    @Override
     public ItemStack getCraftingResult(InventoryCrafting inv) {
         int i = 0;
         ItemStack itemstack = null;
@@ -70,14 +72,17 @@ public class RecipesMapCloning implements IRecipe {
         }
     }
 
+    @Override
     public int getRecipeSize() {
         return 9;
     }
 
+    @Override
     public ItemStack getRecipeOutput() {
         return null;
     }
 
+    @Override
     public ItemStack[] getRemainingItems(InventoryCrafting inv) {
         ItemStack[] aitemstack = new ItemStack[inv.getSizeInventory()];
 

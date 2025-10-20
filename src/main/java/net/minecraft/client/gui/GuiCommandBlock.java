@@ -25,10 +25,12 @@ public class GuiCommandBlock extends GuiScreen {
         this.localCommandBlock = p_i45032_1_;
     }
 
+    @Override
     public void updateScreen() {
         this.commandTextField.updateCursorCounter();
     }
 
+    @Override
     public void initGui() {
         Keyboard.enableRepeatEvents(true);
         this.buttonList.clear();
@@ -48,10 +50,12 @@ public class GuiCommandBlock extends GuiScreen {
         this.doneBtn.enabled = !this.commandTextField.getText().trim().isEmpty();
     }
 
+    @Override
     public void onGuiClosed() {
         Keyboard.enableRepeatEvents(false);
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.enabled) {
             if (button.id == 1) {
@@ -77,6 +81,7 @@ public class GuiCommandBlock extends GuiScreen {
         }
     }
 
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         this.commandTextField.textboxKeyTyped(typedChar, keyCode);
         this.previousOutputTextField.textboxKeyTyped(typedChar, keyCode);
@@ -91,12 +96,14 @@ public class GuiCommandBlock extends GuiScreen {
         }
     }
 
+    @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         super.mouseClicked(mouseX, mouseY, mouseButton);
         this.commandTextField.mouseClicked(mouseX, mouseY, mouseButton);
         this.previousOutputTextField.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRendererObj, I18n.format("advMode.setCommand"), this.width / 2, 20, 16777215);

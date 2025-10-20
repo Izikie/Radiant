@@ -6,6 +6,7 @@ public class GenLayerRiverInit extends GenLayer {
         this.parent = p_i2127_3_;
     }
 
+    @Override
     public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
         int[] aint = this.parent.getInts(areaX, areaY, areaWidth, areaHeight);
         int[] aint1 = IntCache.getIntCache(areaWidth * areaHeight);

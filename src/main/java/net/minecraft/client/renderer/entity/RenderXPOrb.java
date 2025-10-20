@@ -20,6 +20,7 @@ public class RenderXPOrb extends Render<EntityXPOrb> {
         this.shadowOpaque = 0.75F;
     }
 
+    @Override
     public void doRender(EntityXPOrb entity, double x, double y, double z, float entityYaw, float partialTicks) {
         GlStateManager.pushMatrix();
         GlStateManager.translate((float) x, (float) y, (float) z);
@@ -79,6 +80,7 @@ public class RenderXPOrb extends Render<EntityXPOrb> {
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityXPOrb entity) {
         return EXPERIENCE_ORB_TEXTURES;
     }

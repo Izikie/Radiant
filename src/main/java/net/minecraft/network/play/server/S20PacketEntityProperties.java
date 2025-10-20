@@ -27,6 +27,7 @@ public class S20PacketEntityProperties implements Packet<INetHandlerPlayClient> 
         }
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.entityId = buf.readVarIntFromBuffer();
         int i = buf.readInt();
@@ -46,6 +47,7 @@ public class S20PacketEntityProperties implements Packet<INetHandlerPlayClient> 
         }
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeVarIntToBuffer(this.entityId);
         buf.writeInt(this.field_149444_b.size());
@@ -63,6 +65,7 @@ public class S20PacketEntityProperties implements Packet<INetHandlerPlayClient> 
         }
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleEntityProperties(this);
     }

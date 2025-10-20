@@ -45,6 +45,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
         this.func_175324_a(p_i45521_2_);
     }
 
+    @Override
     public void initGui() {
         int i = 0;
         int j = 0;
@@ -84,6 +85,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
         }
     }
 
+    @Override
     public void handleMouseInput() throws IOException {
         super.handleMouseInput();
         this.field_175349_r.handleMouseInput();
@@ -115,6 +117,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
         }
     }
 
+    @Override
     public void func_175319_a(int p_175319_1_, String p_175319_2_) {
         float f = 0.0F;
 
@@ -159,6 +162,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
         this.field_175346_u.enabled = p_181031_1_;
     }
 
+    @Override
     public String getText(int id, String name, float value) {
         return name + ": " + this.func_175330_b(id, value);
     }
@@ -247,6 +251,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
         }
     }
 
+    @Override
     public void func_175321_a(int p_175321_1_, boolean p_175321_2_) {
         switch (p_175321_1_) {
             case 148:
@@ -298,6 +303,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
         }
     }
 
+    @Override
     public void onTick(int id, float value) {
         switch (id) {
             case 100:
@@ -627,6 +633,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
         }
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.enabled) {
             switch (button.id) {
@@ -743,6 +750,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
         this.field_175347_t.enabled = this.field_175349_r.func_178059_e() != this.field_175349_r.func_178057_f() - 1;
     }
 
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         super.keyTyped(typedChar, keyCode);
 
@@ -794,6 +802,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
         }
     }
 
+    @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         super.mouseClicked(mouseX, mouseY, mouseButton);
 
@@ -802,6 +811,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
         }
     }
 
+    @Override
     protected void mouseReleased(int mouseX, int mouseY, int state) {
         super.mouseReleased(mouseX, mouseY, state);
 
@@ -812,6 +822,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
         }
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         this.field_175349_r.drawScreen(mouseX, mouseY, partialTicks);

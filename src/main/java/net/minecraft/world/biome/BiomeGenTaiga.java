@@ -36,14 +36,17 @@ public class BiomeGenTaiga extends BiomeGenBase {
         }
     }
 
+    @Override
     public WorldGenAbstractTree genBigTreeChance(Random rand) {
         return (this.field_150644_aH == 1 || this.field_150644_aH == 2) && rand.nextInt(3) == 0 ? (this.field_150644_aH != 2 && rand.nextInt(13) != 0 ? field_150641_aE : field_150642_aF) : (rand.nextInt(3) == 0 ? field_150639_aC : field_150640_aD);
     }
 
+    @Override
     public WorldGenerator getRandomWorldGenForGrass(Random rand) {
         return rand.nextInt(5) > 0 ? new WorldGenTallGrass(BlockTallGrass.EnumType.FERN) : new WorldGenTallGrass(BlockTallGrass.EnumType.GRASS);
     }
 
+    @Override
     public void decorate(World worldIn, Random rand, BlockPos pos) {
         if (this.field_150644_aH == 1 || this.field_150644_aH == 2) {
             int i = rand.nextInt(3);
@@ -68,6 +71,7 @@ public class BiomeGenTaiga extends BiomeGenBase {
         super.decorate(worldIn, rand, pos);
     }
 
+    @Override
     public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
         if (this.field_150644_aH == 1 || this.field_150644_aH == 2) {
             this.topBlock = Blocks.GRASS.getDefaultState();
@@ -83,6 +87,7 @@ public class BiomeGenTaiga extends BiomeGenBase {
         this.generateBiomeTerrain(worldIn, rand, chunkPrimerIn, x, z, noiseVal);
     }
 
+    @Override
     protected BiomeGenBase createMutatedBiome(int p_180277_1_) {
         return this.biomeID == BiomeGenBase.MEGA_TAIGA.biomeID ? (new BiomeGenTaiga(p_180277_1_, 2)).func_150557_a(5858897, true).setBiomeName("Mega Spruce Taiga").setFillerBlockMetadata(5159473).setTemperatureRainfall(0.25F, 0.8F).setHeight(new Height(this.minHeight, this.maxHeight)) : super.createMutatedBiome(p_180277_1_);
     }

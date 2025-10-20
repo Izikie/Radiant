@@ -12,18 +12,22 @@ public class ScoreDummyCriteria implements IScoreObjectiveCriteria {
         IScoreObjectiveCriteria.INSTANCES.put(name, this);
     }
 
+    @Override
     public String getName() {
         return this.dummyName;
     }
 
+    @Override
     public int setScore(List<EntityPlayer> p_96635_1_) {
         return 0;
     }
 
+    @Override
     public boolean isReadOnly() {
         return false;
     }
 
+    @Override
     public EnumRenderType getRenderType() {
         return EnumRenderType.INTEGER;
     }

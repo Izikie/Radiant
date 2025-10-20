@@ -59,6 +59,7 @@ public class WorldClient extends World {
         }
     }
 
+    @Override
     public void tick() {
         super.tick();
         this.setTotalWorldTime(this.getTotalWorldTime() + 1L);
@@ -83,11 +84,13 @@ public class WorldClient extends World {
     public void invalidateBlockReceiveRegion(int x1, int y1, int z1, int x2, int y2, int z2) {
     }
 
+    @Override
     protected IChunkProvider createChunkProvider() {
         this.clientChunkProvider = new ChunkProviderClient(this);
         return this.clientChunkProvider;
     }
 
+    @Override
     protected void updateBlocks() {
         super.updateBlocks();
         this.previousActiveChunkSet.retainAll(this.activeChunkSet);
@@ -126,6 +129,7 @@ public class WorldClient extends World {
         }
     }
 
+    @Override
     public boolean spawnEntityInWorld(Entity entityIn) {
         boolean flag = super.spawnEntityInWorld(entityIn);
         this.entityList.add(entityIn);
@@ -139,17 +143,20 @@ public class WorldClient extends World {
         return flag;
     }
 
+    @Override
     public void removeEntity(Entity entityIn) {
         super.removeEntity(entityIn);
         this.entityList.remove(entityIn);
     }
 
+    @Override
     protected void onEntityAdded(Entity entityIn) {
         super.onEntityAdded(entityIn);
 
         this.entitySpawnQueue.remove(entityIn);
     }
 
+    @Override
     protected void onEntityRemoved(Entity entityIn) {
         super.onEntityRemoved(entityIn);
         boolean flag = false;
@@ -180,6 +187,7 @@ public class WorldClient extends World {
         this.entitiesById.put(entityID, entityToSpawn);
     }
 
+    @Override
     public Entity getEntityByID(int id) {
         return id == this.mc.player.getEntityId() ? this.mc.player : super.getEntityByID(id);
     }
@@ -203,13 +211,16 @@ public class WorldClient extends World {
         return super.setBlockState(pos, state, 3);
     }
 
+    @Override
     public void sendQuittingDisconnectingPacket() {
         this.sendQueue.getNetworkManager().closeChannel(new ChatComponentText("Quitting"));
     }
 
+    @Override
     protected void updateWeather() {
     }
 
+    @Override
     protected int getRenderDistanceChunks() {
         return this.mc.gameSettings.renderDistanceChunks;
     }
@@ -279,6 +290,7 @@ public class WorldClient extends World {
         }
     }
 
+    @Override
     public CrashReportCategory addWorldInfoToCrashReport(CrashReport report) {
         CrashReportCategory category = super.addWorldInfoToCrashReport(report);
         category.addCrashSectionCallable("Forced Entities", () -> this.entityList.size() + " total; " + this.entityList);
@@ -292,6 +304,7 @@ public class WorldClient extends World {
         this.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, soundName, volume, pitch, distanceDelay);
     }
 
+    @Override
     public void playSound(double x, double y, double z, String soundName, float volume, float pitch, boolean distanceDelay) {
         double d0 = this.mc.getRenderViewEntity().getDistanceSq(x, y, z);
         PositionedSoundRecord positionedsoundrecord = new PositionedSoundRecord(new ResourceLocation(soundName), volume, pitch, (float) x, (float) y, (float) z);
@@ -304,6 +317,7 @@ public class WorldClient extends World {
         }
     }
 
+    @Override
     public void makeFireworks(double x, double y, double z, double motionX, double motionY, double motionZ, NBTTagCompound compund) {
         this.mc.effectRenderer.addEffect(new EntityFirework.StarterFX(this, x, y, z, motionX, motionY, motionZ, this.mc.effectRenderer, compund));
     }
@@ -312,6 +326,7 @@ public class WorldClient extends World {
         this.worldScoreboard = scoreboardIn;
     }
 
+    @Override
     public void setWorldTime(long time) {
         if (time < 0L) {
             time = -time;
@@ -323,6 +338,7 @@ public class WorldClient extends World {
         super.setWorldTime(time);
     }
 
+    @Override
     public int getCombinedLight(BlockPos pos, int lightValue) {
         int i = super.getCombinedLight(pos, lightValue);
 
@@ -333,6 +349,7 @@ public class WorldClient extends World {
         return i;
     }
 
+    @Override
     public boolean setBlockState(BlockPos pos, IBlockState newState, int flags) {
         this.playerUpdate = this.isPlayerActing();
         boolean flag = super.setBlockState(pos, newState, flags);

@@ -21,18 +21,21 @@ public class S04PacketEntityEquipment implements Packet<INetHandlerPlayClient> {
         this.itemStack = itemStackIn == null ? null : itemStackIn.copy();
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.entityID = buf.readVarIntFromBuffer();
         this.equipmentSlot = buf.readShort();
         this.itemStack = buf.readItemStackFromBuffer();
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeVarIntToBuffer(this.entityID);
         buf.writeShort(this.equipmentSlot);
         buf.writeItemStackToBuffer(this.itemStack);
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleEntityEquipment(this);
     }

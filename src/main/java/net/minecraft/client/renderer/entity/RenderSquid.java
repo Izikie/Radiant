@@ -12,10 +12,12 @@ public class RenderSquid extends RenderLiving<EntitySquid> {
         super(renderManagerIn, modelBaseIn, shadowSizeIn);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntitySquid entity) {
         return SQUID_TEXTURES;
     }
 
+    @Override
     protected void rotateCorpse(EntitySquid bat, float p_77043_2_, float p_77043_3_, float partialTicks) {
         float f = bat.prevSquidPitch + (bat.squidPitch - bat.prevSquidPitch) * partialTicks;
         float f1 = bat.prevSquidYaw + (bat.squidYaw - bat.prevSquidYaw) * partialTicks;
@@ -26,6 +28,7 @@ public class RenderSquid extends RenderLiving<EntitySquid> {
         GlStateManager.translate(0.0F, -1.2F, 0.0F);
     }
 
+    @Override
     protected float handleRotationFloat(EntitySquid livingBase, float partialTicks) {
         return livingBase.lastTentacleAngle + (livingBase.tentacleAngle - livingBase.lastTentacleAngle) * partialTicks;
     }

@@ -30,6 +30,7 @@ public class GuiWinGame extends GuiScreen {
     private int field_146579_r;
     private final float field_146578_s = 0.5F;
 
+    @Override
     public void updateScreen() {
         MusicTicker musicticker = this.mc.getMusicTicker();
         SoundHandler soundhandler = this.mc.getSoundHandler();
@@ -49,6 +50,7 @@ public class GuiWinGame extends GuiScreen {
         }
     }
 
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         if (keyCode == 1) {
             this.sendRespawnPacket();
@@ -60,10 +62,12 @@ public class GuiWinGame extends GuiScreen {
         this.mc.displayGuiScreen(null);
     }
 
+    @Override
     public boolean doesGuiPauseGame() {
         return true;
     }
 
+    @Override
     public void initGui() {
         if (this.field_146582_i == null) {
             this.field_146582_i = new ArrayList<>();
@@ -144,6 +148,7 @@ public class GuiWinGame extends GuiScreen {
         tessellator.draw();
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawWinGameScreen(mouseX, mouseY, partialTicks);
         Tessellator tessellator = Tessellator.get();

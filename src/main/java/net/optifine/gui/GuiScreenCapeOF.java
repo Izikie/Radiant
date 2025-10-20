@@ -27,7 +27,8 @@ public class GuiScreenCapeOF extends GuiScreenOF {
 		this.parentScreen = parentScreenIn;
 	}
 
-	public void initGui() {
+	@Override
+    public void initGui() {
 		int i = 0;
 		this.title = I18n.format("of.options.capeOF.title");
 		i = i + 2;
@@ -41,7 +42,8 @@ public class GuiScreenCapeOF extends GuiScreenOF {
 		this.buttonList.add(new GuiButtonOF(200, this.width / 2 - 100, this.height / 6 + 24 * (i >> 1), I18n.format("gui.done")));
 	}
 
-	protected void actionPerformed(GuiButton button) {
+	@Override
+    protected void actionPerformed(GuiButton button) {
 		if (button.enabled) {
 			if (button.id == 200) {
 				this.mc.displayGuiScreen(this.parentScreen);
@@ -100,7 +102,8 @@ public class GuiScreenCapeOF extends GuiScreenOF {
 		this.setLinkUrl(null);
 	}
 
-	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+	@Override
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		this.drawDefaultBackground();
 		this.drawCenteredString(this.fontRenderer, this.title, this.width / 2, 20, 16777215);
 

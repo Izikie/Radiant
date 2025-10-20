@@ -15,6 +15,7 @@ public class TextureCompass extends TextureAtlasSprite {
         locationSprite = iconName;
     }
 
+    @Override
     public void updateAnimation() {
         Minecraft minecraft = Minecraft.get();
 

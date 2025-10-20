@@ -7,6 +7,7 @@ public class RegistryDefaulted<K, V> extends RegistrySimple<K, V> {
         this.defaultObject = defaultObjectIn;
     }
 
+    @Override
     public V getObject(K name) {
         V v = super.getObject(name);
         return v == null ? this.defaultObject : v;

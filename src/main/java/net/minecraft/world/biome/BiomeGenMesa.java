@@ -46,22 +46,27 @@ public class BiomeGenMesa extends BiomeGenBase {
         }
     }
 
+    @Override
     public WorldGenAbstractTree genBigTreeChance(Random rand) {
         return this.worldGeneratorTrees;
     }
 
+    @Override
     public int getFoliageColorAtPos(BlockPos pos) {
         return 10387789;
     }
 
+    @Override
     public int getGrassColorAtPos(BlockPos pos) {
         return 9470285;
     }
 
+    @Override
     public void decorate(World worldIn, Random rand, BlockPos pos) {
         super.decorate(worldIn, rand, pos);
     }
 
+    @Override
     public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
         if (this.field_150621_aC == null || this.field_150622_aD != worldIn.getSeed()) {
             this.func_150619_a(worldIn.getSeed());
@@ -253,6 +258,7 @@ public class BiomeGenMesa extends BiomeGenBase {
         return this.field_150621_aC[(p_180629_2_ + i + 64) % 64];
     }
 
+    @Override
     protected BiomeGenBase createMutatedBiome(int p_180277_1_) {
         boolean flag = this.biomeID == BiomeGenBase.MESA.biomeID;
         BiomeGenMesa biomegenmesa = new BiomeGenMesa(p_180277_1_, flag, this.field_150620_aI);

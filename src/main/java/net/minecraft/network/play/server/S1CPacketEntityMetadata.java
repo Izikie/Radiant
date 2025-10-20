@@ -25,16 +25,19 @@ public class S1CPacketEntityMetadata implements Packet<INetHandlerPlayClient> {
         }
     }
 
+    @Override
     public void readPacketData(PacketBuffer buf) throws IOException {
         this.entityId = buf.readVarIntFromBuffer();
         this.field_149378_b = DataWatcher.readWatchedListFromPacketBuffer(buf);
     }
 
+    @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
         buf.writeVarIntToBuffer(this.entityId);
         DataWatcher.writeWatchedListToPacketBuffer(this.field_149378_b, buf);
     }
 
+    @Override
     public void processPacket(INetHandlerPlayClient handler) {
         handler.handleEntityMetadata(this);
     }

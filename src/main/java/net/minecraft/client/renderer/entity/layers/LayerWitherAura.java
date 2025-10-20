@@ -16,6 +16,7 @@ public class LayerWitherAura implements LayerRenderer<EntityWither> {
         this.witherRenderer = witherRendererIn;
     }
 
+    @Override
     public void doRenderLayer(EntityWither entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
         if (entitylivingbaseIn.isArmored()) {
             GlStateManager.depthMask(!entitylivingbaseIn.isInvisible());
@@ -43,6 +44,7 @@ public class LayerWitherAura implements LayerRenderer<EntityWither> {
         }
     }
 
+    @Override
     public boolean shouldCombineTextures() {
         return false;
     }

@@ -10,6 +10,7 @@ public class GuiGameOver extends GuiScreen implements GuiYesNoCallback {
     private int enableButtonsTimer;
     private final boolean field_146346_f = false;
 
+    @Override
     public void initGui() {
         this.buttonList.clear();
 
@@ -33,9 +34,11 @@ public class GuiGameOver extends GuiScreen implements GuiYesNoCallback {
         }
     }
 
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         switch (button.id) {
             case 0:
@@ -54,6 +57,7 @@ public class GuiGameOver extends GuiScreen implements GuiYesNoCallback {
         }
     }
 
+    @Override
     public void confirmClicked(boolean result, int id) {
         if (result) {
             this.mc.world.sendQuittingDisconnectingPacket();
@@ -65,6 +69,7 @@ public class GuiGameOver extends GuiScreen implements GuiYesNoCallback {
         }
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawGradientRect(0, 0, this.width, this.height, 1615855616, -1602211792);
         GlStateManager.pushMatrix();
@@ -82,10 +87,12 @@ public class GuiGameOver extends GuiScreen implements GuiYesNoCallback {
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
+    @Override
     public boolean doesGuiPauseGame() {
         return false;
     }
 
+    @Override
     public void updateScreen() {
         super.updateScreen();
         ++this.enableButtonsTimer;

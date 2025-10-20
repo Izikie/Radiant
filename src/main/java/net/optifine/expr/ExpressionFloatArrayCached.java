@@ -9,7 +9,8 @@ public class ExpressionFloatArrayCached implements IExpressionFloatArray, IExpre
 		this.expression = expression;
 	}
 
-	public float[] eval() {
+	@Override
+    public float[] eval() {
 		if (!this.cached) {
 			this.value = this.expression.eval();
 			this.cached = true;
@@ -18,11 +19,13 @@ public class ExpressionFloatArrayCached implements IExpressionFloatArray, IExpre
 		return this.value;
 	}
 
-	public void reset() {
+	@Override
+    public void reset() {
 		this.cached = false;
 	}
 
-	public ExpressionType getExpressionType() {
+	@Override
+    public ExpressionType getExpressionType() {
 		return ExpressionType.FLOAT;
 	}
 

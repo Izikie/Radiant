@@ -17,6 +17,7 @@ public class LayerIronGolemFlower implements LayerRenderer<EntityIronGolem> {
         this.ironGolemRenderer = ironGolemRendererIn;
     }
 
+    @Override
     public void doRenderLayer(EntityIronGolem entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
         if (entitylivingbaseIn.getHoldRoseTick() != 0) {
             BlockRendererDispatcher blockrendererdispatcher = Minecraft.get().getBlockRendererDispatcher();
@@ -39,6 +40,7 @@ public class LayerIronGolemFlower implements LayerRenderer<EntityIronGolem> {
         }
     }
 
+    @Override
     public boolean shouldCombineTextures() {
         return false;
     }

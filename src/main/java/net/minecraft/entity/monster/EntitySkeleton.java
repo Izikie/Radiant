@@ -46,32 +46,39 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob {
         }
     }
 
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(13, (byte) 0);
     }
 
+    @Override
     protected String getLivingSound() {
         return "mob.skeleton.say";
     }
 
+    @Override
     protected String getHurtSound() {
         return "mob.skeleton.hurt";
     }
 
+    @Override
     protected String getDeathSound() {
         return "mob.skeleton.death";
     }
 
+    @Override
     protected void playStepSound(BlockPos pos, Block blockIn) {
         this.playSound("mob.skeleton.step", 0.15F, 1.0F);
     }
 
+    @Override
     public boolean attackEntityAsMob(Entity entityIn) {
         if (super.attackEntityAsMob(entityIn)) {
             if (this.getSkeletonType() == 1 && entityIn instanceof EntityLivingBase entityLivingBase) {
@@ -84,10 +91,12 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob {
         }
     }
 
+    @Override
     public EntityGroup getCreatureAttribute() {
         return EntityGroup.UNDEAD;
     }
 
+    @Override
     public void onLivingUpdate() {
         if (this.worldObj.isDaytime() && !this.worldObj.isRemote) {
             float f = this.getBrightness(1.0F);
@@ -123,6 +132,7 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob {
         super.onLivingUpdate();
     }
 
+    @Override
     public void updateRidden() {
         super.updateRidden();
 
@@ -131,6 +141,7 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob {
         }
     }
 
+    @Override
     public void onDeath(DamageSource cause) {
         super.onDeath(cause);
 
@@ -147,10 +158,12 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob {
         }
     }
 
+    @Override
     protected Item getDropItem() {
         return Items.ARROW;
     }
 
+    @Override
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
         if (this.getSkeletonType() == 1) {
             int i = this.rand.nextInt(3 + lootingModifier) - 1;
@@ -173,17 +186,20 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob {
         }
     }
 
+    @Override
     protected void addRandomDrop() {
         if (this.getSkeletonType() == 1) {
             this.entityDropItem(new ItemStack(Items.SKULL, 1, 1), 0.0F);
         }
     }
 
+    @Override
     protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
         super.setEquipmentBasedOnDifficulty(difficulty);
         this.setCurrentItemOrArmor(0, new ItemStack(Items.BOW));
     }
 
+    @Override
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
         livingdata = super.onInitialSpawn(difficulty, livingdata);
 
@@ -224,6 +240,7 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob {
         }
     }
 
+    @Override
     public void attackEntityWithRangedAttack(EntityLivingBase target, float p_82196_2_) {
         EntityArrow entityarrow = new EntityArrow(this.worldObj, this, target, 1.6F, (14 - this.worldObj.getDifficulty().getDifficultyId() * 4));
         int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.POWER.effectId, this.getHeldItem());
@@ -261,6 +278,7 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob {
         }
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
 
@@ -272,11 +290,13 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob {
         this.setCombatTask();
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         tagCompound.setByte("SkeletonType", (byte) this.getSkeletonType());
     }
 
+    @Override
     public void setCurrentItemOrArmor(int slotIn, ItemStack stack) {
         super.setCurrentItemOrArmor(slotIn, stack);
 
@@ -285,10 +305,12 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob {
         }
     }
 
+    @Override
     public float getEyeHeight() {
         return this.getSkeletonType() == 1 ? super.getEyeHeight() : 1.74F;
     }
 
+    @Override
     public double getYOffset() {
         return this.isChild() ? 0.0D : -0.35D;
     }

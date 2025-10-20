@@ -15,6 +15,7 @@ public class RenderOcelot extends RenderLiving<EntityOcelot> {
         super(renderManagerIn, modelBaseIn, shadowSizeIn);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityOcelot entity) {
         return switch (entity.getTameSkin()) {
             case 1 -> BLACK_OCELOT_TEXTURES;
@@ -24,6 +25,7 @@ public class RenderOcelot extends RenderLiving<EntityOcelot> {
         };
     }
 
+    @Override
     protected void preRenderCallback(EntityOcelot entitylivingbaseIn, float partialTickTime) {
         super.preRenderCallback(entitylivingbaseIn, partialTickTime);
 

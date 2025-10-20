@@ -15,11 +15,13 @@ public class ModelVariableFloat implements IExpressionFloat {
 		this.enumModelVariable = enumModelVariable;
 	}
 
-	public ExpressionType getExpressionType() {
+	@Override
+    public ExpressionType getExpressionType() {
 		return ExpressionType.FLOAT;
 	}
 
-	public float eval() {
+	@Override
+    public float eval() {
 		return this.getValue();
 	}
 

@@ -44,6 +44,7 @@ public class BlockStairs extends Block {
         this.setCreativeTab(CreativeTabs.TAB_BLOCK);
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         if (this.hasRaytraced) {
             this.setBlockBounds(0.5F * (this.rayTracePass % 2), 0.5F * (this.rayTracePass / 4 % 2), 0.5F * (this.rayTracePass / 2 % 2), 0.5F + 0.5F * (this.rayTracePass % 2), 0.5F + 0.5F * (this.rayTracePass / 4 % 2), 0.5F + 0.5F * (this.rayTracePass / 2 % 2));
@@ -52,10 +53,12 @@ public class BlockStairs extends Block {
         }
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
@@ -407,6 +410,7 @@ public class BlockStairs extends Block {
         return flag1;
     }
 
+    @Override
     public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {
         this.setBaseCollisionBounds(worldIn, pos);
         super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
@@ -420,89 +424,110 @@ public class BlockStairs extends Block {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
+    @Override
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         this.modelBlock.randomDisplayTick(worldIn, pos, state, rand);
     }
 
+    @Override
     public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn) {
         this.modelBlock.onBlockClicked(worldIn, pos, playerIn);
     }
 
+    @Override
     public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
         this.modelBlock.onBlockDestroyedByPlayer(worldIn, pos, state);
     }
 
+    @Override
     public int getMixedBrightnessForBlock(IBlockAccess worldIn, BlockPos pos) {
         return this.modelBlock.getMixedBrightnessForBlock(worldIn, pos);
     }
 
+    @Override
     public float getExplosionResistance(Entity exploder) {
         return this.modelBlock.getExplosionResistance(exploder);
     }
 
+    @Override
     public RenderLayer getBlockLayer() {
         return this.modelBlock.getBlockLayer();
     }
 
+    @Override
     public int tickRate(World worldIn) {
         return this.modelBlock.tickRate(worldIn);
     }
 
+    @Override
     public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos) {
         return this.modelBlock.getSelectedBoundingBox(worldIn, pos);
     }
 
+    @Override
     public Vec3 modifyAcceleration(World worldIn, BlockPos pos, Entity entityIn, Vec3 motion) {
         return this.modelBlock.modifyAcceleration(worldIn, pos, entityIn, motion);
     }
 
+    @Override
     public boolean isCollidable() {
         return this.modelBlock.isCollidable();
     }
 
+    @Override
     public boolean canCollideCheck(IBlockState state, boolean hitIfLiquid) {
         return this.modelBlock.canCollideCheck(state, hitIfLiquid);
     }
 
+    @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
         return this.modelBlock.canPlaceBlockAt(worldIn, pos);
     }
 
+    @Override
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         this.onNeighborBlockChange(worldIn, pos, this.modelState, Blocks.AIR);
         this.modelBlock.onBlockAdded(worldIn, pos, this.modelState);
     }
 
+    @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         this.modelBlock.breakBlock(worldIn, pos, this.modelState);
     }
 
+    @Override
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, Entity entityIn) {
         this.modelBlock.onEntityCollidedWithBlock(worldIn, pos, entityIn);
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         this.modelBlock.updateTick(worldIn, pos, state, rand);
     }
 
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Direction side, float hitX, float hitY, float hitZ) {
         return this.modelBlock.onBlockActivated(worldIn, pos, this.modelState, playerIn, Direction.DOWN, 0.0F, 0.0F, 0.0F);
     }
 
+    @Override
     public void onBlockDestroyedByExplosion(World worldIn, BlockPos pos, Explosion explosionIn) {
         this.modelBlock.onBlockDestroyedByExplosion(worldIn, pos, explosionIn);
     }
 
+    @Override
     public MapColor getMapColor(IBlockState state) {
         return this.modelBlock.getMapColor(this.modelState);
     }
 
+    @Override
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         IBlockState iblockstate = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
         iblockstate = iblockstate.withProperty(FACING, placer.getHorizontalFacing()).withProperty(SHAPE, StairsShape.STRAIGHT);
         return facing != Direction.DOWN && (facing == Direction.UP || hitY <= 0.5D) ? iblockstate.withProperty(HALF, EnumHalf.BOTTOM) : iblockstate.withProperty(HALF, EnumHalf.TOP);
     }
 
+    @Override
     public MovingObjectPosition collisionRayTrace(World worldIn, BlockPos pos, Vec3 start, Vec3 end) {
         MovingObjectPosition[] amovingobjectposition = new MovingObjectPosition[8];
         IBlockState iblockstate = worldIn.getBlockState(pos);
@@ -540,12 +565,14 @@ public class BlockStairs extends Block {
         return movingobjectposition1;
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         IBlockState iblockstate = this.getDefaultState().withProperty(HALF, (meta & 4) > 0 ? EnumHalf.TOP : EnumHalf.BOTTOM);
         iblockstate = iblockstate.withProperty(FACING, Direction.getFront(5 - (meta & 3)));
         return iblockstate;
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         int i = 0;
 
@@ -557,6 +584,7 @@ public class BlockStairs extends Block {
         return i;
     }
 
+    @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         if (this.func_176306_h(worldIn, pos)) {
             switch (this.func_176305_g(worldIn, pos)) {
@@ -589,6 +617,7 @@ public class BlockStairs extends Block {
         return state;
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, FACING, HALF, SHAPE);
     }
@@ -607,6 +636,7 @@ public class BlockStairs extends Block {
             return this.name;
         }
 
+        @Override
         public String getName() {
             return this.name;
         }
@@ -629,6 +659,7 @@ public class BlockStairs extends Block {
             return this.name;
         }
 
+        @Override
         public String getName() {
             return this.name;
         }

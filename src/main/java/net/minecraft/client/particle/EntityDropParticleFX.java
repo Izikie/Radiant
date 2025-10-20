@@ -35,14 +35,17 @@ public class EntityDropParticleFX extends EntityFX {
         this.motionX = this.motionY = this.motionZ = 0.0D;
     }
 
+    @Override
     public int getBrightnessForRender(float partialTicks) {
         return this.materialType == Material.WATER ? super.getBrightnessForRender(partialTicks) : 257;
     }
 
+    @Override
     public float getBrightness(float partialTicks) {
         return this.materialType == Material.WATER ? super.getBrightness(partialTicks) : 1.0F;
     }
 
+    @Override
     public void onUpdate() {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
@@ -110,12 +113,14 @@ public class EntityDropParticleFX extends EntityFX {
     }
 
     public static class LavaFactory implements IParticleFactory {
+        @Override
         public EntityFX getEntityFX(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
             return new EntityDropParticleFX(worldIn, xCoordIn, yCoordIn, zCoordIn, Material.LAVA);
         }
     }
 
     public static class WaterFactory implements IParticleFactory {
+        @Override
         public EntityFX getEntityFX(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
             return new EntityDropParticleFX(worldIn, xCoordIn, yCoordIn, zCoordIn, Material.WATER);
         }

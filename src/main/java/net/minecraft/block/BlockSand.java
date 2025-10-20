@@ -18,28 +18,34 @@ public class BlockSand extends BlockFalling {
         this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, SandType.SAND));
     }
 
+    @Override
     public int damageDropped(IBlockState state) {
         return state.getValue(VARIANT).getMetadata();
     }
 
+    @Override
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
         for (SandType blocksand$enumtype : SandType.values()) {
             list.add(new ItemStack(itemIn, 1, blocksand$enumtype.getMetadata()));
         }
     }
 
+    @Override
     public MapColor getMapColor(IBlockState state) {
         return state.getValue(VARIANT).getMapColor();
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(VARIANT, SandType.byMetadata(meta));
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(VARIANT).getMetadata();
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, VARIANT);
     }
@@ -81,6 +87,7 @@ public class BlockSand extends BlockFalling {
             return META_LOOKUP[meta];
         }
 
+        @Override
         public String getName() {
             return this.name;
         }

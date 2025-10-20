@@ -23,40 +23,49 @@ public class BlockEndPortal extends BlockContainer {
         this.setLightLevel(1.0F);
     }
 
+    @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntityEndPortal();
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         float f = 0.0625F;
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
     }
 
+    @Override
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, Direction side) {
         return side == Direction.DOWN && super.shouldSideBeRendered(worldIn, pos, side);
     }
 
+    @Override
     public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return 0;
     }
 
+    @Override
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
         if (entityIn.ridingEntity == null && entityIn.riddenByEntity == null && !worldIn.isRemote) {
             entityIn.travelToDimension(1);
         }
     }
 
+    @Override
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         double d0 = (pos.getX() + rand.nextFloat());
         double d1 = (pos.getY() + 0.8F);
@@ -67,10 +76,12 @@ public class BlockEndPortal extends BlockContainer {
         worldIn.spawnParticle(ParticleTypes.SMOKE_NORMAL, d0, d1, d2, d3, d4, d5);
     }
 
+    @Override
     public Item getItem(World worldIn, BlockPos pos) {
         return null;
     }
 
+    @Override
     public MapColor getMapColor(IBlockState state) {
         return MapColor.BLACK_COLOR;
     }

@@ -14,15 +14,18 @@ public class NBTTagLong extends NBTBase.NBTPrimitive {
         this.data = data;
     }
 
+    @Override
     void write(DataOutput output) throws IOException {
         output.writeLong(this.data);
     }
 
+    @Override
     void read(DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException {
         sizeTracker.read(128L);
         this.data = input.readLong();
     }
 
+    @Override
     public byte getId() {
         return (byte) 4;
     }
@@ -31,6 +34,7 @@ public class NBTTagLong extends NBTBase.NBTPrimitive {
         return this.data + "L";
     }
 
+    @Override
     public NBTBase copy() {
         return new NBTTagLong(this.data);
     }
@@ -48,26 +52,32 @@ public class NBTTagLong extends NBTBase.NBTPrimitive {
         return super.hashCode() ^ Long.hashCode(this.data);
     }
 
+    @Override
     public long getLong() {
         return this.data;
     }
 
+    @Override
     public int getInt() {
         return (int) (this.data & -1L);
     }
 
+    @Override
     public short getShort() {
         return (short) ((int) (this.data & 65535L));
     }
 
+    @Override
     public byte getByte() {
         return (byte) ((int) (this.data & 255L));
     }
 
+    @Override
     public double getDouble() {
         return this.data;
     }
 
+    @Override
     public float getFloat() {
         return this.data;
     }

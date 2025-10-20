@@ -14,7 +14,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TooltipProviderShaderOptions extends TooltipProviderOptions {
-	public String[] getTooltipLines(GuiButton btn, int width) {
+	@Override
+    public String[] getTooltipLines(GuiButton btn, int width) {
 		if (!(btn instanceof GuiButtonShaderOption guibuttonshaderoption)) {
 			return null;
 		} else {

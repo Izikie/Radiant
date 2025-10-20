@@ -27,10 +27,12 @@ public class ItemMultiTexture extends ItemBlock {
         });
     }
 
+    @Override
     public int getMetadata(int damage) {
         return damage;
     }
 
+    @Override
     public String getUnlocalizedName(ItemStack stack) {
         return super.getUnlocalizedName() + "." + this.nameFunction.apply(stack);
     }

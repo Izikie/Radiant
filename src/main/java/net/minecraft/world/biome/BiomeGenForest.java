@@ -49,6 +49,7 @@ public class BiomeGenForest extends BiomeGenBase {
         }
     }
 
+    @Override
     protected BiomeGenBase func_150557_a(int colorIn, boolean p_150557_2_) {
         if (this.field_150632_aF == 2) {
             this.field_150609_ah = 353825;
@@ -64,10 +65,12 @@ public class BiomeGenForest extends BiomeGenBase {
         }
     }
 
+    @Override
     public WorldGenAbstractTree genBigTreeChance(Random rand) {
         return this.field_150632_aF == 3 && rand.nextInt(3) > 0 ? field_150631_aE : (this.field_150632_aF != 2 && rand.nextInt(5) != 0 ? this.worldGeneratorTrees : field_150630_aD);
     }
 
+    @Override
     public BlockFlower.FlowerType pickRandomFlower(Random rand, BlockPos pos) {
         if (this.field_150632_aF == 1) {
             double d0 = MathHelper.clamp((1.0D + GRASS_COLOR_NOISE.func_151601_a(pos.getX() / 48.0D, pos.getZ() / 48.0D)) / 2.0D, 0.0D, 0.9999D);
@@ -78,6 +81,7 @@ public class BiomeGenForest extends BiomeGenBase {
         }
     }
 
+    @Override
     public void decorate(World worldIn, Random rand, BlockPos pos) {
         if (this.field_150632_aF == 3) {
             for (int i = 0; i < 4; ++i) {
@@ -132,11 +136,13 @@ public class BiomeGenForest extends BiomeGenBase {
         super.decorate(worldIn, rand, pos);
     }
 
+    @Override
     public int getGrassColorAtPos(BlockPos pos) {
         int i = super.getGrassColorAtPos(pos);
         return this.field_150632_aF == 3 ? (i & 16711422) + 2634762 >> 1 : i;
     }
 
+    @Override
     protected BiomeGenBase createMutatedBiome(final int p_180277_1_) {
         if (this.biomeID == BiomeGenBase.FOREST.biomeID) {
             BiomeGenForest biomegenforest = new BiomeGenForest(p_180277_1_, 1);
@@ -147,10 +153,12 @@ public class BiomeGenForest extends BiomeGenBase {
             return biomegenforest;
         } else {
             return this.biomeID != BiomeGenBase.BIRCH_FOREST.biomeID && this.biomeID != BiomeGenBase.BIRCH_FOREST_HILLS.biomeID ? new BiomeGenMutated(p_180277_1_, this) {
+                @Override
                 public void decorate(World worldIn, Random rand, BlockPos pos) {
                     this.baseBiome.decorate(worldIn, rand, pos);
                 }
             } : new BiomeGenMutated(p_180277_1_, this) {
+                @Override
                 public WorldGenAbstractTree genBigTreeChance(Random rand) {
                     return rand.nextBoolean() ? BiomeGenForest.field_150629_aC : BiomeGenForest.field_150630_aD;
                 }

@@ -21,6 +21,7 @@ public class ItemBoat extends Item {
         this.setCreativeTab(CreativeTabs.TAB_TRANSPORT);
     }
 
+    @Override
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
         float f = 1.0F;
         float f1 = playerIn.prevRotationPitch + (playerIn.rotationPitch - playerIn.prevRotationPitch) * f;

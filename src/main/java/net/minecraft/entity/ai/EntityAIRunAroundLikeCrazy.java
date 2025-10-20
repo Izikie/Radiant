@@ -17,6 +17,7 @@ public class EntityAIRunAroundLikeCrazy extends EntityAIBase {
         this.setMutexBits(1);
     }
 
+    @Override
     public boolean shouldExecute() {
         if (!this.horseHost.isTame() && this.horseHost.riddenByEntity != null) {
             Vec3 vec3 = RandomPositionGenerator.findRandomTarget(this.horseHost, 5, 4);
@@ -34,14 +35,17 @@ public class EntityAIRunAroundLikeCrazy extends EntityAIBase {
         }
     }
 
+    @Override
     public void startExecuting() {
         this.horseHost.getNavigator().tryMoveToXYZ(this.targetX, this.targetY, this.targetZ, this.speed);
     }
 
+    @Override
     public boolean continueExecuting() {
         return !this.horseHost.getNavigator().noPath() && this.horseHost.riddenByEntity != null;
     }
 
+    @Override
     public void updateTask() {
         if (this.horseHost.getRNG().nextInt(50) == 0) {
             if (this.horseHost.riddenByEntity instanceof EntityPlayer) {

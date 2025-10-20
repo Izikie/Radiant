@@ -211,6 +211,7 @@ public class Stitcher {
             return "Holder{width=" + this.width + ", height=" + this.height + '}';
         }
 
+        @Override
         public int compareTo(Holder p_compareTo_1_) {
             int i;
 

@@ -8,6 +8,7 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.ChunkProviderHell;
 
 public class WorldProviderHell extends WorldProvider {
+    @Override
     public void registerWorldChunkManager() {
         this.worldChunkMgr = new WorldChunkManagerHell(BiomeGenBase.HELL, 0.0F);
         this.isHellWorld = true;
@@ -15,10 +16,12 @@ public class WorldProviderHell extends WorldProvider {
         this.dimensionId = -1;
     }
 
+    @Override
     public Vec3 getFogColor(float p_76562_1_, float p_76562_2_) {
         return new Vec3(0.20000000298023224D, 0.029999999329447746D, 0.029999999329447746D);
     }
 
+    @Override
     protected void generateLightBrightnessTable() {
         float f = 0.1F;
 
@@ -28,44 +31,55 @@ public class WorldProviderHell extends WorldProvider {
         }
     }
 
+    @Override
     public IChunkProvider createChunkGenerator() {
         return new ChunkProviderHell(this.worldObj, this.worldObj.getWorldInfo().isMapFeaturesEnabled(), this.worldObj.getSeed());
     }
 
+    @Override
     public boolean isSurfaceWorld() {
         return false;
     }
 
+    @Override
     public boolean canCoordinateBeSpawn(int x, int z) {
         return false;
     }
 
+    @Override
     public float calculateCelestialAngle(long worldTime, float partialTicks) {
         return 0.5F;
     }
 
+    @Override
     public boolean canRespawnHere() {
         return false;
     }
 
+    @Override
     public boolean doesXZShowFog(int x, int z) {
         return true;
     }
 
+    @Override
     public String getDimensionName() {
         return "Nether";
     }
 
+    @Override
     public String getInternalNameSuffix() {
         return "_nether";
     }
 
+    @Override
     public WorldBorder getWorldBorder() {
         return new WorldBorder() {
+            @Override
             public double getCenterX() {
                 return super.getCenterX() / 8.0D;
             }
 
+            @Override
             public double getCenterZ() {
                 return super.getCenterZ() / 8.0D;
             }

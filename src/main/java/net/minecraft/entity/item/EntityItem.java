@@ -43,6 +43,7 @@ public class EntityItem extends Entity {
         this.setEntityItemStack(stack);
     }
 
+    @Override
     protected boolean canTriggerWalking() {
         return false;
     }
@@ -55,10 +56,12 @@ public class EntityItem extends Entity {
         this.setEntityItemStack(new ItemStack(Blocks.AIR, 0));
     }
 
+    @Override
     protected void entityInit() {
         this.getDataWatcher().addObjectByDataType(10, 5);
     }
 
+    @Override
     public void onUpdate() {
         if (this.getEntityItem() == null) {
             this.setDead();
@@ -168,6 +171,7 @@ public class EntityItem extends Entity {
         this.age = 4800;
     }
 
+    @Override
     public boolean handleWaterMovement() {
         if (this.worldObj.handleMaterialAcceleration(this.getEntityBoundingBox(), Material.WATER, this)) {
             if (!this.inWater && !this.firstUpdate) {
@@ -182,10 +186,12 @@ public class EntityItem extends Entity {
         return this.inWater;
     }
 
+    @Override
     protected void dealFireDamage(int amount) {
         this.attackEntityFrom(DamageSource.IN_FIRE, amount);
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (this.isEntityInvulnerable(source)) {
             return false;
@@ -203,6 +209,7 @@ public class EntityItem extends Entity {
         }
     }
 
+    @Override
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         tagCompound.setShort("Health", (byte) this.health);
         tagCompound.setShort("Age", (short) this.age);
@@ -221,6 +228,7 @@ public class EntityItem extends Entity {
         }
     }
 
+    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         this.health = tagCompund.getShort("Health") & 255;
         this.age = tagCompund.getShort("Age");
@@ -245,6 +253,7 @@ public class EntityItem extends Entity {
         }
     }
 
+    @Override
     public void onCollideWithPlayer(EntityPlayer entityIn) {
         if (!this.worldObj.isRemote) {
             ItemStack itemstack = this.getEntityItem();
@@ -292,14 +301,17 @@ public class EntityItem extends Entity {
         }
     }
 
+    @Override
     public String getName() {
         return this.hasCustomName() ? this.getCustomNameTag() : StatCollector.translateToLocal("item." + this.getEntityItem().getUnlocalizedName());
     }
 
+    @Override
     public boolean canAttackWithItem() {
         return false;
     }
 
+    @Override
     public void travelToDimension(int dimensionId) {
         super.travelToDimension(dimensionId);
 

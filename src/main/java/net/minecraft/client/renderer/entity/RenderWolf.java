@@ -16,10 +16,12 @@ public class RenderWolf extends RenderLiving<EntityWolf> {
         this.addLayer(new LayerWolfCollar(this));
     }
 
+    @Override
     protected float handleRotationFloat(EntityWolf livingBase, float partialTicks) {
         return livingBase.getTailRotation();
     }
 
+    @Override
     public void doRender(EntityWolf entity, double x, double y, double z, float entityYaw, float partialTicks) {
         if (entity.isWolfWet()) {
             float f = entity.getBrightness(partialTicks) * entity.getShadingWhileWet(partialTicks);
@@ -29,6 +31,7 @@ public class RenderWolf extends RenderLiving<EntityWolf> {
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture(EntityWolf entity) {
         return entity.isTamed() ? TAMED_WOLF_TEXTURES : (entity.isAngry() ? ANRGY_WOLF_TEXTURES : WOLF_TEXTURES);
     }

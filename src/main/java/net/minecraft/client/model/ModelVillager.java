@@ -41,6 +41,7 @@ public class ModelVillager extends ModelBase {
         this.leftVillagerLeg.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, p_i1164_1_);
     }
 
+    @Override
     public void render(Entity entityIn, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_, float scale) {
         this.setRotationAngles(p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, scale, entityIn);
         this.villagerHead.render(scale);
@@ -50,6 +51,7 @@ public class ModelVillager extends ModelBase {
         this.villagerArms.render(scale);
     }
 
+    @Override
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
         this.villagerHead.rotateAngleY = netHeadYaw / (180.0F / (float) Math.PI);
         this.villagerHead.rotateAngleX = headPitch / (180.0F / (float) Math.PI);

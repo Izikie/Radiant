@@ -6,6 +6,7 @@ import net.optifine.Config;
 public class VertexBufferUploader extends WorldVertexBufferUploader {
     private VertexBuffer vertexBuffer = null;
 
+    @Override
     public void draw(WorldRenderer p_181679_1_) {
         if (p_181679_1_.getDrawMode() == 7 && Config.isQuadsToTriangles()) {
             p_181679_1_.quadsToTriangles();

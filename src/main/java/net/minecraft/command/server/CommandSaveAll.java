@@ -9,14 +9,17 @@ import net.minecraft.world.MinecraftException;
 import net.minecraft.world.WorldServer;
 
 public class CommandSaveAll extends CommandBase {
+    @Override
     public String getCommandName() {
         return "save-all";
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "commands.save.usage";
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         MinecraftServer minecraftserver = MinecraftServer.getServer();
         sender.addChatMessage(new ChatComponentTranslation("commands.save.start"));

@@ -24,7 +24,8 @@ public class HttpPipelineReceiver extends Thread {
 		this.httpPipelineConnection = httpPipelineConnection;
 	}
 
-	public void run() {
+	@Override
+    public void run() {
 		while (!Thread.interrupted()) {
 			HttpPipelineRequest httppipelinerequest = null;
 
