@@ -1,4 +1,4 @@
-package net.radiant.util;
+package net.radiant;
 
 import fr.litarvan.openauth.microsoft.MicrosoftAuthResult;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthenticationException;
@@ -16,24 +16,29 @@ import java.io.IOException;
 
 public class MicrosoftAuth extends GuiScreen {
     private static final Logger LOGGER = LoggerFactory.getLogger(MicrosoftAuth.class);
-
     private static final MicrosoftAuthenticator AUTHENTICATOR = new MicrosoftAuthenticator();
-    private String status = "Direct Login";
 
-    private GuiTextField username, password;
+    private String status = "Direct Login";
     private final GuiScreen parentScreen;
+    private GuiTextField username;
+    private GuiTextField password;
 
     public MicrosoftAuth(GuiScreen parentScreen) {
         this.parentScreen = parentScreen;
     }
 
+    @Override
     public void initGui() {
-        buttonList.add(new GuiButton(0, width / 2 - 155, height - 28, 150, 20, "Login"));
-        buttonList.add(new GuiButton(1, width / 2 + 5, height - 28, 150, 20, I18n.format("gui.cancel")));
-        username = new GuiTextField(0, fontRendererObj, width / 2 - 100, height / 2 - 80, 200, 20);
-        password = new GuiTextField(1, fontRendererObj, width / 2 - 100, height / 2 - 50, 200, 20);
+        int btnY = this.height - 28;
+        this.buttonList.add(new GuiButton(0, this.width / 2 - 155, btnY, 150, 20, "Login"));
+        this.buttonList.add(new GuiButton(1, this.width / 2 + 5, btnY, 150, 20, I18n.format("gui.cancel")));
+
+        int textX = this.width / 2 - 100;
+        this.username = new GuiTextField(0, this.fontRendererObj, textX, this.height / 2 - 80, 200, 20);
+        this.password = new GuiTextField(1, this.fontRendererObj, textX, this.height / 2 - 50, 200, 20);
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         drawDefaultBackground();
         drawCenteredString(fontRendererObj, status, width / 2, height / 2 - 95 - fontRendererObj.FONT_HEIGHT * 2, -1);
@@ -49,29 +54,31 @@ public class MicrosoftAuth extends GuiScreen {
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if (!button.enabled) return;
 
-        switch (button.id) {
-            case 0 -> {
-                status = "Logging in...";
+        if (button.id == 0) {
+            status = "Logging in...";
 
-                if (username.getText().isEmpty() || password.getText().isEmpty()) {
-                    status = "Enter an email & password";
-                } else {
-                    login();
-                }
+            if (username.getText().isEmpty() || password.getText().isEmpty()) {
+                status = "Enter an email & password";
+            } else {
+                login();
             }
-            case 1 -> mc.displayGuiScreen(parentScreen);
+        } else if (button.id == 1) {
+            mc.displayGuiScreen(parentScreen);
         }
     }
 
+    @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         username.mouseClicked(mouseX, mouseY, mouseButton);
         password.mouseClicked(mouseX, mouseY, mouseButton);
         super.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         username.textboxKeyTyped(typedChar, keyCode);
         password.textboxKeyTyped(typedChar, keyCode);

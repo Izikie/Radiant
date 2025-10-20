@@ -17,7 +17,7 @@ It focuses on pre-optimized tweaks, bug and exploit fixes, and quality-of-life i
 - [ ] Optimize LWJGL3 translation layer
 
 ## Requirements
-- [JDK/JRE: Oracle GraalVM 24](https://www.graalvm.org/downloads/)
+- [JDK/JRE: Oracle GraalVM 25(https://www.graalvm.org/downloads/)
 
 ## Getting Started
 To run the client in development, use the `RunClient` Gradle task located under the `GradleMCP` task group in your IDE or via CLI.
