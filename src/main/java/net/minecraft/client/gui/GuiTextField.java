@@ -32,13 +32,17 @@ public class GuiTextField extends Gui {
     private GuiPageButtonList.GuiResponder field_175210_x;
     private Predicate<String> validator = Predicates.alwaysTrue();
 
-    public GuiTextField(int componentId, FontRenderer fontrendererObj, int x, int y, int par5Width, int par6Height) {
-        this.id = componentId;
-        this.fontRendererInstance = fontrendererObj;
+    public GuiTextField(int id, FontRenderer fontRenderer, int x, int y) {
+        this(id, fontRenderer, x, y, 200, 20);
+    }
+
+    public GuiTextField(int id, FontRenderer fontRenderer, int x, int y, int width, int height) {
+        this.id = id;
+        this.fontRendererInstance = fontRenderer;
         this.xPosition = x;
         this.yPosition = y;
-        this.width = par5Width;
-        this.height = par6Height;
+        this.width = width;
+        this.height = height;
     }
 
     public void func_175207_a(GuiPageButtonList.GuiResponder p_175207_1_) {
@@ -49,12 +53,12 @@ public class GuiTextField extends Gui {
         ++this.cursorCounter;
     }
 
-    public void setText(String p_146180_1_) {
-        if (this.validator.apply(p_146180_1_)) {
-            if (p_146180_1_.length() > this.maxStringLength) {
-                this.text = p_146180_1_.substring(0, this.maxStringLength);
+    public void setText(String text) {
+        if (this.validator.apply(text)) {
+            if (text.length() > this.maxStringLength) {
+                this.text = text.substring(0, this.maxStringLength);
             } else {
-                this.text = p_146180_1_;
+                this.text = text;
             }
 
             this.setCursorPositionEnd();
@@ -75,9 +79,9 @@ public class GuiTextField extends Gui {
         this.validator = theValidator;
     }
 
-    public void writeText(String p_146191_1_) {
+    public void writeText(String text) {
         String s = "";
-        String s1 = ChatAllowedCharacters.filterAllowedCharacters(p_146191_1_);
+        String s1 = ChatAllowedCharacters.filterAllowedCharacters(text);
         int i = this.cursorPosition < this.selectionEnd ? this.cursorPosition : this.selectionEnd;
         int j = this.cursorPosition < this.selectionEnd ? this.selectionEnd : this.cursorPosition;
         int k = this.maxStringLength - this.text.length() - (i - j);

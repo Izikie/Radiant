@@ -55,20 +55,24 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
         this.field_146568_t = this.field_146566_v = this.field_146573_x = (AchievementList.OPEN_INVENTORY.displayRow * 24 - j / 2);
     }
 
+    @Override
     public void initGui() {
         this.mc.getNetHandler().addToSendQueue(new C16PacketClientStatus(C16PacketClientStatus.EnumState.REQUEST_STATS));
         this.buttonList.clear();
         this.buttonList.add(new GuiOptionButton(1, this.width / 2 + 24, this.height / 2 + 74, 80, 20, I18n.format("gui.done")));
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
-        if (!this.loadingAchievements) {
+        if (!this.loadingAchievements && button.id == 1) {
             if (button.id == 1) {
                 this.mc.displayGuiScreen(this.parentScreen);
             }
         }
     }
 
+
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         if (keyCode == this.mc.gameSettings.keyBindInventory.getKeyCode()) {
             this.mc.displayGuiScreen(null);
@@ -78,6 +82,7 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
         }
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         if (this.loadingAchievements) {
             this.drawDefaultBackground();
@@ -162,6 +167,7 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
         }
     }
 
+    @Override
     public void updateScreen() {
         if (!this.loadingAchievements) {
             this.field_146569_s = this.field_146567_u;
@@ -440,6 +446,7 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
         return Minecraft.get().getBlockRendererDispatcher().getBlockModelShapes().getTexture(p_175371_1_.getDefaultState());
     }
 
+    @Override
     public boolean doesGuiPauseGame() {
         return !this.loadingAchievements;
     }

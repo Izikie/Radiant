@@ -44,12 +44,14 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
         this.field_146546_t = p_i1071_2_;
     }
 
+    @Override
     public void initGui() {
         this.screenTitle = I18n.format("gui.stats");
         this.doesGuiPauseGame = true;
         this.mc.getNetHandler().addToSendQueue(new C16PacketClientStatus(C16PacketClientStatus.EnumState.REQUEST_STATS));
     }
 
+    @Override
     public void handleMouseInput() throws IOException {
         super.handleMouseInput();
 
@@ -92,6 +94,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
         }
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.enabled) {
             if (button.id == 0) {
@@ -110,6 +113,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
         }
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         if (this.doesGuiPauseGame) {
             this.drawDefaultBackground();
@@ -131,6 +135,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
         }
     }
 
+    @Override
     public boolean doesGuiPauseGame() {
         return !this.doesGuiPauseGame;
     }
@@ -189,6 +194,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
             GuiStats.this.drawDefaultBackground();
         }
 
+        @Override
         protected void drawListHeader(int p_148129_1_, int p_148129_2_, Tessellator p_148129_3_) {
             if (!Mouse.isButtonDown(0)) {
                 this.field_148218_l = -1;
@@ -230,6 +236,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
             }
         }
 
+        @Override
         protected void func_148132_a(int p_148132_1_, int p_148132_2_) {
             this.field_148218_l = -1;
 
@@ -267,6 +274,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
             }
         }
 
+        @Override
         protected void func_148142_b(int p_148142_1_, int p_148142_2_) {
             if (p_148142_2_ >= this.top && p_148142_2_ <= this.bottom) {
                 int i = this.getSlotIndexFromScreenCoords(p_148142_1_, p_148142_2_);
@@ -399,6 +407,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
             };
         }
 
+        @Override
         protected void drawListHeader(int p_148129_1_, int p_148129_2_, Tessellator p_148129_3_) {
             super.drawListHeader(p_148129_1_, p_148129_2_, p_148129_3_);
 
@@ -453,6 +462,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
             return false;
         }
 
+        @Override
         protected int getContentHeight() {
             return this.getSize() * 10;
         }
@@ -529,6 +539,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
             };
         }
 
+        @Override
         protected void drawListHeader(int p_148129_1_, int p_148129_2_, Tessellator p_148129_3_) {
             super.drawListHeader(p_148129_1_, p_148129_2_, p_148129_3_);
 
@@ -591,6 +602,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
             return false;
         }
 
+        @Override
         protected int getContentHeight() {
             return this.getSize() * GuiStats.this.fontRendererObj.FONT_HEIGHT * 4;
         }

@@ -25,7 +25,7 @@ public class GuiScreenServerList extends GuiScreen {
         this.buttonList.clear();
         this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 96 + 12, I18n.format("selectServer.select")));
         this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 120 + 12, I18n.format("gui.cancel")));
-        this.field_146302_g = new GuiTextField(2, this.fontRendererObj, this.width / 2 - 100, 116, 200, 20);
+        this.field_146302_g = new GuiTextField(2, this.fontRendererObj, this.width / 2 - 100, 116);
         this.field_146302_g.setMaxStringLength(128);
         this.field_146302_g.setFocused(true);
         this.field_146302_g.setText(this.mc.gameSettings.lastServer);

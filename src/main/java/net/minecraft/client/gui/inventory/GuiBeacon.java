@@ -35,6 +35,7 @@ public class GuiBeacon extends GuiContainer {
         this.ySize = 219;
     }
 
+    @Override
     public void initGui() {
         super.initGui();
         this.buttonList.add(this.beaconConfirmButton = new ConfirmButton(-1, this.guiLeft + 164, this.guiTop + 107));
@@ -43,6 +44,7 @@ public class GuiBeacon extends GuiContainer {
         this.beaconConfirmButton.enabled = false;
     }
 
+    @Override
     public void updateScreen() {
         super.updateScreen();
         int i = this.tileBeacon.getField(0);
@@ -100,6 +102,7 @@ public class GuiBeacon extends GuiContainer {
         this.beaconConfirmButton.enabled = this.tileBeacon.getStackInSlot(0) != null && j > 0;
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.id == -2) {
             this.mc.displayGuiScreen(null);
@@ -131,6 +134,7 @@ public class GuiBeacon extends GuiContainer {
         }
     }
 
+    @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         RenderHelper.disableStandardItemLighting();
         this.drawCenteredString(this.fontRendererObj, I18n.format("tile.beacon.primary"), 62, 10, 14737632);
@@ -177,6 +181,7 @@ public class GuiBeacon extends GuiContainer {
             this.field_146143_q = p_i1077_6_;
         }
 
+        @Override
         public void drawButton(Minecraft mc, int mouseX, int mouseY) {
             if (this.visible) {
                 mc.getTextureManager().bindTexture(GuiBeacon.BEACON_GUI_TEXTURES);
@@ -217,6 +222,7 @@ public class GuiBeacon extends GuiContainer {
             super(p_i1074_2_, p_i1074_3_, p_i1074_4_, GuiBeacon.BEACON_GUI_TEXTURES, 112, 220);
         }
 
+        @Override
         public void drawButtonForegroundLayer(int mouseX, int mouseY) {
             GuiBeacon.this.drawCreativeTabHoveringText(I18n.format("gui.cancel"), mouseX, mouseY);
         }
@@ -227,6 +233,7 @@ public class GuiBeacon extends GuiContainer {
             super(p_i1075_2_, p_i1075_3_, p_i1075_4_, GuiBeacon.BEACON_GUI_TEXTURES, 90, 220);
         }
 
+        @Override
         public void drawButtonForegroundLayer(int mouseX, int mouseY) {
             GuiBeacon.this.drawCreativeTabHoveringText(I18n.format("gui.done"), mouseX, mouseY);
         }
@@ -242,6 +249,7 @@ public class GuiBeacon extends GuiContainer {
             this.field_146148_q = p_i1076_6_;
         }
 
+        @Override
         public void drawButtonForegroundLayer(int mouseX, int mouseY) {
             String s = I18n.format(Potion.POTION_TYPES[this.field_146149_p].getName());
 

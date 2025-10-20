@@ -54,6 +54,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         this.xSize = 195;
     }
 
+    @Override
     public void updateScreen() {
         if (!this.mc.playerController.isInCreativeMode()) {
             this.mc.displayGuiScreen(new GuiInventory(this.mc.player));
@@ -62,6 +63,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         this.updateActivePotionEffects();
     }
 
+    @Override
     protected void handleMouseClick(Slot slotIn, int slotId, int clickedButton, int clickType) {
         this.field_147057_D = true;
         boolean flag = clickType == 1;
@@ -179,6 +181,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         }
     }
 
+    @Override
     protected void updateActivePotionEffects() {
         int i = this.guiLeft;
         super.updateActivePotionEffects();
@@ -188,6 +191,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         }
     }
 
+    @Override
     public void initGui() {
         if (this.mc.playerController.isInCreativeMode()) {
             super.initGui();
@@ -208,6 +212,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         }
     }
 
+    @Override
     public void onGuiClosed() {
         super.onGuiClosed();
 
@@ -218,6 +223,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         Keyboard.enableRepeatEvents(false);
     }
 
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         if (selectedTabIndex != CreativeTabs.TAB_ALL_SEARCH.getTabIndex()) {
             if (GameSettings.isKeyDown(this.mc.gameSettings.keyBindChat)) {
@@ -280,6 +286,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         guicontainercreative$containercreative.scrollTo(0.0F);
     }
 
+    @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         CreativeTabs creativetabs = CreativeTabs.CREATIVE_TABS[selectedTabIndex];
 
@@ -289,6 +296,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         }
     }
 
+    @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         if (mouseButton == 0) {
             int i = mouseX - this.guiLeft;
@@ -304,6 +312,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         super.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
+    @Override
     protected void mouseReleased(int mouseX, int mouseY, int state) {
         if (state == 0) {
             int i = mouseX - this.guiLeft;
@@ -393,6 +402,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         guicontainercreative$containercreative.scrollTo(0.0F);
     }
 
+    @Override
     public void handleMouseInput() throws IOException {
         super.handleMouseInput();
         int i = Mouse.getEventDWheel();
@@ -414,6 +424,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         }
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         boolean flag = Mouse.isButtonDown(0);
         int i = this.guiLeft;
@@ -455,6 +466,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         GlStateManager.disableLighting();
     }
 
+    @Override
     protected void renderToolTip(ItemStack stack, int x, int y) {
         if (selectedTabIndex == CreativeTabs.TAB_ALL_SEARCH.getTabIndex()) {
             List<String> list = stack.getTooltip(this.mc.player, this.mc.gameSettings.advancedItemTooltips);
@@ -614,6 +626,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
         this.zLevel = 0.0F;
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.id == 0) {
             this.mc.displayGuiScreen(new GuiAchievements(this, this.mc.player.getStatFileWriter()));

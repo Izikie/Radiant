@@ -49,10 +49,10 @@ public class GuiScreenAddServer extends GuiScreen {
         this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 96 + 18, I18n.format("addServer.add")));
         this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 120 + 18, I18n.format("gui.cancel")));
         this.buttonList.add(this.serverResourcePacks = new GuiButton(2, this.width / 2 - 100, this.height / 4 + 72, I18n.format("addServer.resourcePack") + ": " + this.serverData.getResourceMode().getMotd().getFormattedText()));
-        this.serverNameField = new GuiTextField(0, this.fontRendererObj, this.width / 2 - 100, 66, 200, 20);
+        this.serverNameField = new GuiTextField(0, this.fontRendererObj, this.width / 2 - 100, 66);
         this.serverNameField.setFocused(true);
         this.serverNameField.setText(this.serverData.serverName);
-        this.serverIPField = new GuiTextField(1, this.fontRendererObj, this.width / 2 - 100, 106, 200, 20);
+        this.serverIPField = new GuiTextField(1, this.fontRendererObj, this.width / 2 - 100, 106);
         this.serverIPField.setMaxStringLength(128);
         this.serverIPField.setText(this.serverData.serverIP);
         this.serverIPField.setValidator(this.field_181032_r);

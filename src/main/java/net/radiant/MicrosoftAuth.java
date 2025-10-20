@@ -34,8 +34,8 @@ public class MicrosoftAuth extends GuiScreen {
         this.buttonList.add(new GuiButton(1, this.width / 2 + 5, btnY, 150, 20, I18n.format("gui.cancel")));
 
         int textX = this.width / 2 - 100;
-        this.username = new GuiTextField(0, this.fontRendererObj, textX, this.height / 2 - 80, 200, 20);
-        this.password = new GuiTextField(1, this.fontRendererObj, textX, this.height / 2 - 50, 200, 20);
+        this.username = new GuiTextField(0, this.fontRendererObj, textX, this.height / 2 - 80);
+        this.password = new GuiTextField(1, this.fontRendererObj, textX, this.height / 2 - 50);
     }
 
     @Override

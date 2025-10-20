@@ -17,6 +17,7 @@ public class GuiBrewingStand extends GuiContainer {
         this.tileBrewingStand = p_i45506_2_;
     }
 
+    @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         String s = this.tileBrewingStand.getDisplayName().getUnformattedText();
         this.fontRendererObj.drawString(s, this.xSize / 2 - this.fontRendererObj.getStringWidth(s) / 2, 6, 4210752);

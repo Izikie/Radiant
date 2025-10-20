@@ -19,19 +19,19 @@ public class GuiButton extends Gui {
     public boolean visible;
     protected boolean hovered;
 
-    public GuiButton(int buttonId, int x, int y, String buttonText) {
-        this(buttonId, x, y, 200, 20, buttonText);
+    public GuiButton(int id, int x, int y, String label) {
+        this(id, x, y, 200, 20, label);
     }
 
-    public GuiButton(int buttonId, int x, int y, int widthIn, int heightIn, String buttonText) {
+    public GuiButton(int id, int x, int y, int width, int height, String label) {
         this.enabled = true;
         this.visible = true;
-        this.id = buttonId;
+        this.id = id;
         this.xPosition = x;
         this.yPosition = y;
-        this.width = widthIn;
-        this.height = heightIn;
-        this.displayString = buttonText;
+        this.width = width;
+        this.height = height;
+        this.displayString = label;
     }
 
     protected int getHoverState(boolean mouseOver) {

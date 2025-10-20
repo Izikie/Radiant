@@ -69,10 +69,10 @@ public class GuiCreateWorld extends GuiScreen {
         this.btnAllowCommands.visible = false;
         this.buttonList.add(this.btnCustomizeType = new GuiButton(8, this.width / 2 + 5, 120, 150, 20, I18n.format("selectWorld.customizeType")));
         this.btnCustomizeType.visible = false;
-        this.worldNameField = new GuiTextField(9, this.fontRendererObj, this.width / 2 - 100, 60, 200, 20);
+        this.worldNameField = new GuiTextField(9, this.fontRendererObj, this.width / 2 - 100, 60);
         this.worldNameField.setFocused(true);
         this.worldNameField.setText(this.worldName);
-        this.worldSeedField = new GuiTextField(10, this.fontRendererObj, this.width / 2 - 100, 60, 200, 20);
+        this.worldSeedField = new GuiTextField(10, this.fontRendererObj, this.width / 2 - 100, 60);
         this.worldSeedField.setText(this.worldSeed);
         this.showMoreWorldOptions(this.inMoreWorldOptionsDisplay);
         this.calcSaveDirName();

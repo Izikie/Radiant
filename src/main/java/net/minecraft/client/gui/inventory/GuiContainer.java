@@ -55,6 +55,7 @@ public abstract class GuiContainer extends GuiScreen {
         this.ignoreMouseUp = true;
     }
 
+    @Override
     public void initGui() {
         super.initGui();
         this.mc.player.openContainer = this.inventorySlots;
@@ -62,6 +63,7 @@ public abstract class GuiContainer extends GuiScreen {
         this.guiTop = (this.height - this.ySize) / 2;
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         int i = this.guiLeft;
@@ -272,6 +274,7 @@ public abstract class GuiContainer extends GuiScreen {
         return null;
     }
 
+    @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         super.mouseClicked(mouseX, mouseY, mouseButton);
         boolean flag = mouseButton == this.mc.gameSettings.keyBindPickBlock.getKeyCode() + 100;
@@ -336,6 +339,7 @@ public abstract class GuiContainer extends GuiScreen {
         this.lastClickButton = mouseButton;
     }
 
+    @Override
     protected void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick) {
         Slot slot = this.getSlotAtPosition(mouseX, mouseY);
         ItemStack itemstack = this.mc.player.inventory.getItemStack();
@@ -346,6 +350,7 @@ public abstract class GuiContainer extends GuiScreen {
         }
     }
 
+    @Override
     protected void mouseReleased(int mouseX, int mouseY, int state) {
         Slot slot = this.getSlotAtPosition(mouseX, mouseY);
         int i = this.guiLeft;
@@ -439,6 +444,7 @@ public abstract class GuiContainer extends GuiScreen {
         this.mc.playerController.windowClick(this.inventorySlots.windowId, slotId, clickedButton, clickType, this.mc.player);
     }
 
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         if (keyCode == 1 || keyCode == this.mc.gameSettings.keyBindInventory.getKeyCode()) {
             this.mc.player.closeScreen();
@@ -468,16 +474,19 @@ public abstract class GuiContainer extends GuiScreen {
         return false;
     }
 
+    @Override
     public void onGuiClosed() {
         if (this.mc.player != null) {
             this.inventorySlots.onContainerClosed(this.mc.player);
         }
     }
 
+    @Override
     public boolean doesGuiPauseGame() {
         return false;
     }
 
+    @Override
     public void updateScreen() {
         super.updateScreen();
 
