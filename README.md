@@ -6,10 +6,11 @@ It focuses on pre-optimized tweaks, bug and exploit fixes, and quality-of-life i
 
 ## Features
 - Increased performance
-- Lowered/reduced memory usage
+- Increased efficenty 
 - Exploit and bug fixes
 - QoL (Quality of Life) improvements and features
 - Native Image support
+- Code Quality Improvments
 
 ## Todo
 - [ ] Patch all known packet exploits
@@ -18,6 +19,10 @@ It focuses on pre-optimized tweaks, bug and exploit fixes, and quality-of-life i
 
 ## Requirements
 - [JDK/JRE: Oracle GraalVM 25(https://www.graalvm.org/downloads/)
+- C/C++ Compiler
+   - Clang
+   - GCC
+   - MSVC (Kinda bad but so is anything made by Microsoft)
 
 ## Getting Started
 To run the client in development, use the `RunClient` Gradle task located under the `GradleMCP` task group in your IDE or via CLI.
