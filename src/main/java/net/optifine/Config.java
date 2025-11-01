@@ -1583,7 +1583,7 @@ public class Config {
         int k = MINECRAFT.renderGlobal.getCountEntitiesRendered();
         int l = MINECRAFT.renderGlobal.getCountTileEntitiesRendered();
         String s1 = i + "/" + getFpsMin() + " fps, C: " + j + ", E: " + k + "+" + l + ", U: " + s;
-        MINECRAFT.fontRendererObj.drawString(s1, 2, 2, -2039584);
+        MINECRAFT.fontRendererObj.drawStringWithShadow(s1, 2, 2, -2039584);
     }
 
     public static int getFpsMin() {
