@@ -160,7 +160,7 @@ public class TextureAnimations {
 									return null;
 								}
 							}
-						} catch (IOException exception) {
+						} catch (IOException _) {
 							Log.error("TextureAnimation: Target texture not found: " + s1);
 							return null;
 						}
@@ -224,7 +224,7 @@ public class TextureAnimations {
 
                 return abyte;
             }
-		} catch (FileNotFoundException exception) {
+		} catch (FileNotFoundException _) {
 			return null;
 		} catch (Exception exception) {
 			exception.printStackTrace();

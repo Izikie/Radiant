@@ -187,7 +187,7 @@ public class RandomEntities {
 				RandomEntityProperties randomentityproperties = new RandomEntityProperties(properties, s, resLoc);
 				return !randomentityproperties.isValid(s) ? null : randomentityproperties;
 			}
-		} catch (FileNotFoundException exception) {
+		} catch (FileNotFoundException _) {
 			warn("File not found: " + resLoc.getResourcePath());
 			return null;
 		} catch (IOException exception) {

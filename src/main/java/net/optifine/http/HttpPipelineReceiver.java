@@ -34,7 +34,7 @@ public class HttpPipelineReceiver extends Thread {
 				InputStream inputstream = this.httpPipelineConnection.getInputStream();
 				HttpResponse httpresponse = this.readResponse(inputstream);
 				this.httpPipelineConnection.onResponseReceived(httppipelinerequest, httpresponse);
-			} catch (InterruptedException exception) {
+			} catch (InterruptedException _) {
 				return;
 			} catch (Exception exception) {
 				this.httpPipelineConnection.onExceptionReceive(httppipelinerequest, exception);

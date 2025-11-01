@@ -353,7 +353,7 @@ public class Display {
             public void setNativeCursor(Object handle) throws LWJGLException {
                 try {
                     Mouse.setNativeCursor((Cursor) handle);
-                } catch (ClassCastException e) {
+                } catch (ClassCastException _) {
                     throw new LWJGLException("Handle is not an instance of cursor");
                 }
             }

@@ -143,7 +143,7 @@ public class HttpPipeline {
 
 			try {
 				map.wait();
-			} catch (InterruptedException exception) {
+			} catch (InterruptedException _) {
 				throw new InterruptedIOException("Interrupted");
 			}
 

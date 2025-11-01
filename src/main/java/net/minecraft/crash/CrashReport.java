@@ -230,7 +230,7 @@ public class CrashReport {
     private String getWittyComment() {
         try {
             return comments[Minecraft.RANDOM.nextInt(comments.length)];
-        } catch (Throwable ignore) {
+        } catch (Throwable _) {
             return "Witty comment unavailable :(";
         }
     }

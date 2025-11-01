@@ -463,7 +463,7 @@ public final class MemoryUtil {
         public long getAddress(final Buffer buffer) {
             try {
                 return address.getLong(buffer);
-            } catch (IllegalAccessException e) {
+            } catch (IllegalAccessException _) {
                 // cannot happen
                 return 0L;
             }

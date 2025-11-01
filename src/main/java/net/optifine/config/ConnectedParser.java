@@ -93,7 +93,7 @@ public class ConnectedParser {
 
 			try {
 				return Integer.parseInt(str, 16) & 16777215;
-			} catch (NumberFormatException exception) {
+			} catch (NumberFormatException _) {
 				return defVal;
 			}
 		}
@@ -107,7 +107,7 @@ public class ConnectedParser {
 
 			try {
 				return (int) (Long.parseLong(str, 16));
-			} catch (NumberFormatException exception) {
+			} catch (NumberFormatException _) {
 				return defVal;
 			}
 		}
@@ -463,7 +463,7 @@ public class ConnectedParser {
 			}
 
 			return iblockstate;
-		} catch (IllegalArgumentException exception) {
+		} catch (IllegalArgumentException _) {
 			return block.getDefaultState();
 		}
 	}

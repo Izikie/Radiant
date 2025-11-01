@@ -93,7 +93,7 @@ public class ItemEditableBook extends Item {
                         try {
                             ichatcomponent = IChatComponent.Serializer.jsonToComponent(s);
                             ichatcomponent = ChatComponentProcessor.processComponent(player, ichatcomponent, player);
-                        } catch (Exception exception) {
+                        } catch (Exception _) {
                             ichatcomponent = new ChatComponentText(s);
                         }
 

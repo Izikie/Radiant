@@ -31,7 +31,7 @@ public class CrashReportCategory {
 
         try {
             builder.append(String.format("World: (%d,%d,%d)", x, y, z));
-        } catch (Throwable ignore) {
+        } catch (Throwable _) {
             builder.append("(Error finding world loc)");
         }
 
@@ -48,7 +48,7 @@ public class CrashReportCategory {
             int k2 = (l + 1 << 4) - 1;
             int l2 = (i1 + 1 << 4) - 1;
             builder.append(String.format("Chunk: (at %d,%d,%d in %d,%d; contains blocks %d,0,%d to %d,255,%d)", j1, k1, l1, l, i1, i2, j2, k2, l2));
-        } catch (Throwable ignore) {
+        } catch (Throwable _) {
             builder.append("(Error finding chunk loc)");
         }
 
@@ -66,7 +66,7 @@ public class CrashReportCategory {
             int j5 = (j3 + 1 << 9) - 1;
             int i3 = (k3 + 1 << 9) - 1;
             builder.append(String.format("Region: (%d,%d; contains chunks %d,%d to %d,%d, blocks %d,0,%d to %d,255,%d)", j3, k3, l3, i4, j4, k4, l4, i5, j5, i3));
-        } catch (Throwable ignore) {
+        } catch (Throwable _) {
             builder.append("(Error finding world loc)");
         }
 
@@ -158,7 +158,7 @@ public class CrashReportCategory {
         category.addCrashSectionCallable("Block Type", () -> {
             try {
                 return String.format("ID #%d (%s // %s)", blockID, blockIn.getUnlocalizedName(), blockIn.getClass().getCanonicalName());
-            } catch (Throwable ignore) {
+            } catch (Throwable _) {
                 return "ID #" + blockID;
             }
         });

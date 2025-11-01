@@ -203,7 +203,7 @@ public class MathHelper {
 	public static int parseIntWithDefault(String value, int defaultValue) {
 		try {
 			return Integer.parseInt(value);
-		} catch (Throwable throwable) {
+		} catch (Throwable _) {
 			return defaultValue;
 		}
 	}

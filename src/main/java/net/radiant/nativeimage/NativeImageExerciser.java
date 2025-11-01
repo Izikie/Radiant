@@ -148,9 +148,9 @@ public class NativeImageExerciser {
             for (Constructor<?> constructor : constructors) {
                 try {
                     constructor.newInstance(new Object[constructor.getParameterCount()]);
-                } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+                } catch (InstantiationException | IllegalAccessException | InvocationTargetException _) {
                     //new RuntimeException(e).printStackTrace();
-                } catch (Throwable throwable) {
+                } catch (Throwable _) {
                     // Ignore
                     LOGGER.warn("Woke {} up but had error", aClass.getName());
                 }

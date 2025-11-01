@@ -94,9 +94,9 @@ public class Config {
         return stringBuilder.toString();
     }
 
-    public static void initGameSettings(GameSettings p_initGameSettings_0_) {
-        if (gameSettings == null) {
-            gameSettings = p_initGameSettings_0_;
+    public static void initGameSettings(GameSettings gameSettings) {
+        if (Config.gameSettings == null) {
+            Config.gameSettings = gameSettings;
             desktopDisplayMode = Display.getDesktopDisplayMode();
             updateAvailableProcessors();
         }
@@ -705,7 +705,7 @@ public class Config {
         try {
             IResource iresource = p_hasResource_0_.getResource(p_hasResource_1_);
             return iresource != null;
-        } catch (IOException exception) {
+        } catch (IOException _) {
             return false;
         }
     }
@@ -906,7 +906,7 @@ public class Config {
                 p_parseInt_0_ = p_parseInt_0_.trim();
                 return Integer.parseInt(p_parseInt_0_);
             }
-        } catch (NumberFormatException exception) {
+        } catch (NumberFormatException _) {
             return p_parseInt_1_;
         }
     }
@@ -919,7 +919,7 @@ public class Config {
                 p_parseFloat_0_ = p_parseFloat_0_.trim();
                 return Float.parseFloat(p_parseFloat_0_);
             }
-        } catch (NumberFormatException exception) {
+        } catch (NumberFormatException _) {
             return p_parseFloat_1_;
         }
     }
@@ -932,7 +932,7 @@ public class Config {
                 p_parseBoolean_0_ = p_parseBoolean_0_.trim();
                 return Boolean.parseBoolean(p_parseBoolean_0_);
             }
-        } catch (NumberFormatException exception) {
+        } catch (NumberFormatException _) {
             return p_parseBoolean_1_;
         }
     }
@@ -945,7 +945,7 @@ public class Config {
                 p_parseBoolean_0_ = p_parseBoolean_0_.trim().toLowerCase();
                 return p_parseBoolean_0_.equals("true") ? Boolean.TRUE : (p_parseBoolean_0_.equals("false") ? Boolean.FALSE : p_parseBoolean_1_);
             }
-        } catch (NumberFormatException exception) {
+        } catch (NumberFormatException _) {
             return p_parseBoolean_1_;
         }
     }

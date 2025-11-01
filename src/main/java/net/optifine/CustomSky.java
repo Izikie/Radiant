@@ -69,7 +69,7 @@ public class CustomSky {
 							inputstream.close();
 						}
 					}
-				} catch (FileNotFoundException exception) {
+				} catch (FileNotFoundException _) {
 					break;
 				} catch (IOException exception) {
 					exception.printStackTrace();

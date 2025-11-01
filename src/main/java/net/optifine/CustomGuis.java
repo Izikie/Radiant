@@ -192,7 +192,7 @@ public class CustomGuis {
 						addToList(customguiproperties, listProps);
 					}
 				}
-			} catch (FileNotFoundException exception) {
+			} catch (FileNotFoundException _) {
 				Log.error("CustomGuis file not found: " + s);
 			} catch (Exception exception) {
 				exception.printStackTrace();

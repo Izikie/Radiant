@@ -131,7 +131,7 @@ public class NBTTagCompound extends NBTBase {
     public byte getByte(String key) {
         try {
             return !this.hasKey(key, 99) ? 0 : ((NBTPrimitive) this.tagMap.get(key)).getByte();
-        } catch (ClassCastException exception) {
+        } catch (ClassCastException _) {
             return (byte) 0;
         }
     }
@@ -139,7 +139,7 @@ public class NBTTagCompound extends NBTBase {
     public short getShort(String key) {
         try {
             return !this.hasKey(key, 99) ? 0 : ((NBTPrimitive) this.tagMap.get(key)).getShort();
-        } catch (ClassCastException exception) {
+        } catch (ClassCastException _) {
             return (short) 0;
         }
     }
@@ -147,7 +147,7 @@ public class NBTTagCompound extends NBTBase {
     public int getInteger(String key) {
         try {
             return !this.hasKey(key, 99) ? 0 : ((NBTPrimitive) this.tagMap.get(key)).getInt();
-        } catch (ClassCastException exception) {
+        } catch (ClassCastException _) {
             return 0;
         }
     }
@@ -155,7 +155,7 @@ public class NBTTagCompound extends NBTBase {
     public long getLong(String key) {
         try {
             return !this.hasKey(key, 99) ? 0L : ((NBTPrimitive) this.tagMap.get(key)).getLong();
-        } catch (ClassCastException exception) {
+        } catch (ClassCastException _) {
             return 0L;
         }
     }
@@ -163,7 +163,7 @@ public class NBTTagCompound extends NBTBase {
     public float getFloat(String key) {
         try {
             return !this.hasKey(key, 99) ? 0.0F : ((NBTPrimitive) this.tagMap.get(key)).getFloat();
-        } catch (ClassCastException exception) {
+        } catch (ClassCastException _) {
             return 0.0F;
         }
     }
@@ -171,7 +171,7 @@ public class NBTTagCompound extends NBTBase {
     public double getDouble(String key) {
         try {
             return !this.hasKey(key, 99) ? 0.0D : ((NBTPrimitive) this.tagMap.get(key)).getDouble();
-        } catch (ClassCastException exception) {
+        } catch (ClassCastException _) {
             return 0.0D;
         }
     }
@@ -179,7 +179,7 @@ public class NBTTagCompound extends NBTBase {
     public String getString(String key) {
         try {
             return !this.hasKey(key, 8) ? "" : this.tagMap.get(key).getString();
-        } catch (ClassCastException exception) {
+        } catch (ClassCastException _) {
             return "";
         }
     }
