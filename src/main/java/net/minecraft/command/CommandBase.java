@@ -142,7 +142,7 @@ public abstract class CommandBase implements ICommand {
         if (entityplayermp == null) {
             try {
                 entityplayermp = MinecraftServer.getServer().getConfigurationManager().getPlayerByUUID(UUID.fromString(username));
-            } catch (IllegalArgumentException exception) {
+            } catch (IllegalArgumentException _) {
             }
         }
 

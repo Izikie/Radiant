@@ -116,7 +116,7 @@ public class EntityMinecartCommandBlock extends EntityMinecart {
         if (dataID == 24) {
             try {
                 this.commandBlockLogic.setLastOutput(IChatComponent.Serializer.jsonToComponent(this.getDataWatcher().getWatchableObjectString(24)));
-            } catch (Throwable throwable) {
+            } catch (Throwable _) {
             }
         } else if (dataID == 23) {
             this.commandBlockLogic.setCommand(this.getDataWatcher().getWatchableObjectString(23));

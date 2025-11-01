@@ -682,7 +682,7 @@ public class PointerBuffer implements Comparable<PointerBuffer> {
      * @return A summary string
      */
     public String toString() {
-        String sb = getClass().getName() +
+        return getClass().getName() +
                 "[pos=" +
                 position() +
                 " lim=" +
@@ -690,7 +690,6 @@ public class PointerBuffer implements Comparable<PointerBuffer> {
                 " cap=" +
                 capacity() +
                 "]";
-        return sb;
     }
 
     /**

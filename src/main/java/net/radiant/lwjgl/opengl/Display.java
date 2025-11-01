@@ -449,7 +449,7 @@ public class Display {
             public void resetDisplayMode() {
                 try {
                     Display.setDisplayMode(desktopDisplayMode);
-                } catch (LWJGLException e) {
+                } catch (LWJGLException _) {
                 }
             }
 

@@ -211,7 +211,7 @@ public class StreamingSound implements ISoundSource, Runnable {
                 int adaptive = Math.max(2, Math.min(MAX_WAIT_TIME, MAX_WAIT_TIME - queuedAfter));
                 Thread.sleep(adaptive);
             }
-        } catch (InterruptedException ignored) {
+        } catch (InterruptedException _) {
 
         }
     }
@@ -230,7 +230,7 @@ public class StreamingSound implements ISoundSource, Runnable {
         if (streamThread != null) {
             try {
                 streamThread.join(2000);
-            } catch (InterruptedException ignored) {
+            } catch (InterruptedException _) {
             }
             streamThread = null;
         }

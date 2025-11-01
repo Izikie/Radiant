@@ -433,7 +433,7 @@ public class ConnectedParser {
 							if (this.matchState(iblockstate1, map)) {
 								list1.add(k);
 							}
-						} catch (IllegalArgumentException exception) {
+						} catch (IllegalArgumentException _) {
 						}
 					}
 

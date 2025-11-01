@@ -13,7 +13,7 @@ public class FoliageColorReloadListener implements IResourceManagerReloadListene
     public void onResourceManagerReload(IResourceManager resourceManager) {
         try {
             ColorizerFoliage.setFoliageBiomeColorizer(TextureUtil.readImageData(resourceManager, LOC_FOLIAGE_PNG));
-        } catch (IOException exception) {
+        } catch (IOException _) {
         }
     }
 }

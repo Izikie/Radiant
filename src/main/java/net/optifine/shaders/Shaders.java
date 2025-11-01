@@ -464,14 +464,14 @@ public class Shaders {
 				FileReader filereader = new FileReader(CONFIG_FILE);
 				shadersConfig.load(filereader);
 				filereader.close();
-			} catch (Exception exception) {
+			} catch (Exception _) {
 			}
 		}
 
 		if (!CONFIG_FILE.exists()) {
 			try {
 				storeConfig();
-			} catch (Exception exception) {
+			} catch (Exception _) {
 			}
 		}
 
@@ -1352,7 +1352,7 @@ public class Shaders {
 					arraylist.add(s);
 				}
 			}
-		} catch (Exception exception) {
+		} catch (Exception _) {
 		}
 
 		List<String> list = arraylist.subList(i, arraylist.size());
@@ -2711,7 +2711,7 @@ public class Shaders {
 
 		try {
 			bufferedreader = new BufferedReader(new InputStreamReader(shaderPack.getResourceAsStream("/mc_Entity_x.txt")));
-		} catch (Exception exception) {
+		} catch (Exception _) {
 		}
 
 		if (bufferedreader != null) {
@@ -2744,7 +2744,7 @@ public class Shaders {
 		if (bufferedreader != null) {
 			try {
 				bufferedreader.close();
-			} catch (Exception exception) {
+			} catch (Exception _) {
 			}
 		}
 	}

@@ -639,7 +639,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                             }
                         }
                     }
-                } catch (Exception exception) {
+                } catch (Exception _) {
                 }
             }
         }

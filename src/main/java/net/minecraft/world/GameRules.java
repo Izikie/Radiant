@@ -119,12 +119,12 @@ public class GameRules {
 
             try {
                 this.valueInteger = Integer.parseInt(value);
-            } catch (NumberFormatException exception) {
+            } catch (NumberFormatException _) {
             }
 
             try {
                 this.valueDouble = Double.parseDouble(value);
-            } catch (NumberFormatException exception) {
+            } catch (NumberFormatException _) {
             }
         }
 

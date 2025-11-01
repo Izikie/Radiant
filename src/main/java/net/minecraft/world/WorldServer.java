@@ -578,7 +578,7 @@ public class WorldServer extends World implements IThreadListener {
 
                 try {
                     this.addWorldInfoToCrashReport(report);
-                } catch (Throwable worldCrash) {
+                } catch (Throwable _) {
                 }
 
                 throw new ReportedException(report);

@@ -170,8 +170,8 @@ public class PlayerProfileCache {
                     this.addEntry(playerprofilecache$profileentry.getGameProfile(), playerprofilecache$profileentry.getExpirationDate());
                 }
             }
-        } catch (FileNotFoundException exception) {
-        } catch (JsonParseException exception) {
+        } catch (FileNotFoundException _) {
+        } catch (JsonParseException _) {
         } finally {
             IOUtils.closeQuietly(bufferedreader);
         }
@@ -184,8 +184,8 @@ public class PlayerProfileCache {
         try {
             bufferedwriter = Files.newWriter(this.usercacheFile, StandardCharsets.UTF_8);
             bufferedwriter.write(s);
-        } catch (FileNotFoundException exception) {
-        } catch (IOException exception) {
+        } catch (FileNotFoundException _) {
+        } catch (IOException _) {
         } finally {
             IOUtils.closeQuietly(bufferedwriter);
         }

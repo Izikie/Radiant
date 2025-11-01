@@ -155,7 +155,7 @@ public class OldServerPinger {
             protected void initChannel(Channel channel) throws Exception {
                 try {
                     channel.config().setOption(ChannelOption.TCP_NODELAY, Boolean.TRUE);
-                } catch (ChannelException exception) {
+                } catch (ChannelException _) {
                 }
 
                 channel.pipeline().addLast(new SimpleChannelInboundHandler<ByteBuf>() {

@@ -543,7 +543,7 @@ public class ChunkProviderSettings {
                 factory.lapisCount = JsonUtils.getInt(jsonObject, "lapisCount", factory.lapisCount);
                 factory.lapisCenterHeight = JsonUtils.getInt(jsonObject, "lapisCenterHeight", factory.lapisCenterHeight);
                 factory.lapisSpread = JsonUtils.getInt(jsonObject, "lapisSpread", factory.lapisSpread);
-            } catch (Exception ignored) {
+            } catch (Exception _) {
             }
 
             return factory;

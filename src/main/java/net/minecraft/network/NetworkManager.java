@@ -111,7 +111,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
         if (this.channel.isOpen()) {
             try {
                 packet.processPacket(this.packetListener);
-            } catch (ThreadQuickExitException exception) {
+            } catch (ThreadQuickExitException _) {
             }
         }
     }
@@ -249,7 +249,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
             protected void initChannel(Channel channel) {
                 try {
                     channel.config().setOption(ChannelOption.TCP_NODELAY, Boolean.TRUE);
-                } catch (ChannelException exception) {
+                } catch (ChannelException _) {
                 }
 
                 channel.pipeline()

@@ -33,7 +33,7 @@ public class HttpPipelineSender extends Thread {
 				this.writeRequest(httprequest, outputstream);
 				this.httpPipelineConnection.onRequestSent(httppipelinerequest);
 			}
-		} catch (InterruptedException exception) {
+		} catch (InterruptedException _) {
 		} catch (Exception exception) {
 			this.httpPipelineConnection.onExceptionSend(httppipelinerequest, exception);
 		}

@@ -235,8 +235,7 @@ public class CustomColormap implements CustomColors.IColorizer {
 			}
 
 			ConnectedParser connectedparser = new ConnectedParser("Colormap");
-			MatchBlock[] amatchblock = connectedparser.parseMatchBlock(this.name);
-			return amatchblock;
+            return connectedparser.parseMatchBlock(this.name);
 		}
 	}
 

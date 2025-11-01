@@ -29,7 +29,7 @@ public class Locale {
             for (String s2 : resourceManager.getResourceDomains()) {
                 try {
                     this.loadLocaleData(resourceManager.getAllResources(new ResourceLocation(s2, s1)));
-                } catch (IOException exception) {
+                } catch (IOException _) {
                 }
             }
         }

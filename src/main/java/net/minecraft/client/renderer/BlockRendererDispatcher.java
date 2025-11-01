@@ -90,7 +90,7 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
         if (worldIn.getWorldType() != WorldType.DEBUG_WORLD) {
             try {
                 state = block.getActualState(state, worldIn, pos);
-            } catch (Exception exception) {
+            } catch (Exception _) {
             }
         }
 

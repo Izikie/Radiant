@@ -411,7 +411,7 @@ public class GuiScreenBook extends GuiScreen {
                     this.updateButtons();
                     return true;
                 }
-            } catch (Throwable throwable) {
+            } catch (Throwable _) {
             }
 
             return false;

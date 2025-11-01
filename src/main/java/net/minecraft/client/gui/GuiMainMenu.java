@@ -75,12 +75,12 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 
                 } while (this.splashText.hashCode() == 125780783);
             }
-        } catch (IOException exception) {
+        } catch (IOException _) {
         } finally {
             if (bufferedreader != null) {
                 try {
                     bufferedreader.close();
-                } catch (IOException exception) {
+                } catch (IOException _) {
                 }
             }
         }

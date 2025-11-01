@@ -347,7 +347,6 @@ public class NativeImage {
         int outB = Math.round(srcB * srcAlpha + dstB * invSrcAlpha);
 
         // Blend Alpha: GL_ONE, GL_ZERO = source alpha only
-        int outA = dstA;
 
         // Clamp to 0..255 (Math.round already ensures that, but extra safety)
         outR = Math.min(255, Math.max(0, outR));
@@ -355,7 +354,7 @@ public class NativeImage {
         outB = Math.min(255, Math.max(0, outB));
 
         // Pack back into ARGB
-        return (outA << 24) | (outR << 16) | (outG << 8) | outB;
+        return (dstA << 24) | (outR << 16) | (outG << 8) | outB;
     }
 
     public enum FileFormat {

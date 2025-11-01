@@ -180,7 +180,7 @@ public class HttpUtil {
                 if (serversocket != null) {
                     serversocket.close();
                 }
-            } catch (IOException exception) {
+            } catch (IOException _) {
             }
         }
 

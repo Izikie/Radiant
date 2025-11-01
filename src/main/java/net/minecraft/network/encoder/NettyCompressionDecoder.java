@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.zip.Inflater;
 
 public class NettyCompressionDecoder extends ByteToMessageDecoder {
-    private static int MAX_SIZE = 2097152;
+    private static final int MAX_SIZE = 2097152;
     private final Inflater inflater;
     private int threshold;
 

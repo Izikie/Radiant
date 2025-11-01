@@ -102,7 +102,7 @@ public class BlockState {
                 } else {
                     return this.properties.get(property) == value ? this : this.propertyValueTable.get(property, value);
                 }
-            } catch (IllegalArgumentException ignored) {
+            } catch (IllegalArgumentException _) {
                 return this;
             }
         }

@@ -406,13 +406,12 @@ public class GLUtessellatorImpl implements GLUtessellator {
 
 
     private boolean flushCache() {
-        CachedVertex[] v = cache;
 
         mesh = Mesh.__gl_meshNewMesh();
         if (mesh == null) return false;
 
         for (int i = 0; i < cacheCount; i++) {
-            CachedVertex vertex = v[i];
+            CachedVertex vertex = cache[i];
             if (!addVertex(vertex.coords, vertex.data)) return false;
         }
         cacheCount = 0;

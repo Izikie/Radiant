@@ -144,7 +144,7 @@ public class SaveFormatOld implements ISaveFormat {
                 if (i < 5) {
                     try {
                         Thread.sleep(500L);
-                    } catch (InterruptedException exception) {
+                    } catch (InterruptedException _) {
                     }
                 }
             }

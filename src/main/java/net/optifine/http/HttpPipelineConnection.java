@@ -291,7 +291,7 @@ public class HttpPipelineConnection {
 				if (this.socket != null) {
 					this.socket.close();
 				}
-			} catch (IOException exception) {
+			} catch (IOException _) {
 			}
 
 			this.socket = null;

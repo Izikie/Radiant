@@ -98,7 +98,7 @@ public class ChunkVisibility {
 								}
 							}
 						}
-					} catch (ConcurrentModificationException ignored) {
+					} catch (ConcurrentModificationException _) {
 					}
 
 					ClassInheritanceMultiMap<Entity>[] classinheritancemultimap = chunk1.getEntityLists();

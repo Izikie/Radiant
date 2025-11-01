@@ -390,7 +390,7 @@ public class ContextCapabilities {
                         this.getClass()
                                 .getField(name)
                                 .setBoolean(this, value);
-                    } catch (Exception e) {
+                    } catch (Exception _) {
                     }
                 }
             }

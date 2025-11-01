@@ -198,7 +198,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 
                     if (nbt instanceof NBTTagCompound tag)
                         stack = ItemStack.loadItemStackFromNBT(tag);
-                } catch (NBTException exception) {
+                } catch (NBTException _) {
                 }
 
                 if (stack != null) {

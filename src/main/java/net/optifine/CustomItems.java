@@ -93,7 +93,7 @@ public class CustomItems {
 			properties.load(inputstream);
 			inputstream.close();
 			useGlint = Config.parseBoolean(properties.getProperty("useGlint"), true);
-		} catch (FileNotFoundException exception) {
+		} catch (FileNotFoundException _) {
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		}

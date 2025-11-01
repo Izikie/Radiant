@@ -384,7 +384,7 @@ public class CustomColors {
 
 			potionColors = readPotionColors(properties, fileName, "potion.", "Potion");
 			xpOrbTime = Config.parseInt(properties.getProperty("xporb.time"), -1);
-		} catch (FileNotFoundException exception) {
+		} catch (FileNotFoundException _) {
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		}

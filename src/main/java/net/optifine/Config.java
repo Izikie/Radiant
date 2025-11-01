@@ -462,7 +462,7 @@ public class Config {
                 if (s.equals("off")) {
                     texturePackClouds = 3;
                 }
-            } catch (Exception exception) {
+            } catch (Exception _) {
             }
         }
     }

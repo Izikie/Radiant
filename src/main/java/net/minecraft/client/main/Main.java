@@ -76,7 +76,7 @@ public class Main {
         if (proxyHost != null) {
             try {
                 proxy = new Proxy(Type.SOCKS, new InetSocketAddress(proxyHost, options.valueOf(optionProxyPort)));
-            } catch (Exception ignored) {
+            } catch (Exception _) {
 
             }
         }

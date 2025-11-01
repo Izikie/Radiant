@@ -165,7 +165,7 @@ public class ModelBlock {
                 }
 
                 throw new Deserializer.LoopException();
-            } catch (NullPointerException exception) {
+            } catch (NullPointerException _) {
             }
         }
     }

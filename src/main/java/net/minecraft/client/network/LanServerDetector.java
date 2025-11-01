@@ -120,7 +120,7 @@ public class LanServerDetector {
 
             try {
                 this.socket.leaveGroup(this.multicastGroupAddress, networkInterface);
-            } catch (IOException exception) {
+            } catch (IOException _) {
             }
 
             this.socket.close();

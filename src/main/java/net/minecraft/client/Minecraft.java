@@ -261,7 +261,7 @@ public class Minecraft implements IThreadListener {
 			freeMemory();
 			displayGuiScreen(new GuiMemoryErrorScreen());
 			System.gc();
-		} catch (MinecraftError error) {
+		} catch (MinecraftError _) {
 		} catch (ReportedException exception) {
 			addGraphicsAndWorldToCrashReport(exception.getCrashReport());
 			freeMemory();
@@ -670,7 +670,7 @@ public class Minecraft implements IThreadListener {
 
 			try {
 				loadWorld(null);
-			} catch (Throwable throwable) {
+			} catch (Throwable _) {
 			}
 
 			mcSoundHandler.unloadSounds();

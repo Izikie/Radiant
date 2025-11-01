@@ -167,25 +167,24 @@ class Mesh {
                            GLUhalfEdge eOrig, GLUvertex vNext) {
         GLUhalfEdge e;
         GLUvertex vPrev;
-        GLUvertex vNew = newVertex;
 
-        assert (vNew != null);
+        assert (newVertex != null);
 
         /* insert in circular doubly-linked list before vNext */
         vPrev = vNext.prev;
-        vNew.prev = vPrev;
-        vPrev.next = vNew;
-        vNew.next = vNext;
-        vNext.prev = vNew;
+        newVertex.prev = vPrev;
+        vPrev.next = newVertex;
+        newVertex.next = vNext;
+        vNext.prev = newVertex;
 
-        vNew.anEdge = eOrig;
-        vNew.data = null;
+        newVertex.anEdge = eOrig;
+        newVertex.data = null;
         /* leave coords, s, t undefined */
 
         /* fix other edges on this vertex loop */
         e = eOrig;
         do {
-            e.Org = vNew;
+            e.Org = newVertex;
             e = e.Onext;
         } while (e != eOrig);
     }
@@ -199,31 +198,30 @@ class Mesh {
     static void MakeFace(GLUface newFace, GLUhalfEdge eOrig, GLUface fNext) {
         GLUhalfEdge e;
         GLUface fPrev;
-        GLUface fNew = newFace;
 
-        assert (fNew != null);
+        assert (newFace != null);
 
         /* insert in circular doubly-linked list before fNext */
         fPrev = fNext.prev;
-        fNew.prev = fPrev;
-        fPrev.next = fNew;
-        fNew.next = fNext;
-        fNext.prev = fNew;
+        newFace.prev = fPrev;
+        fPrev.next = newFace;
+        newFace.next = fNext;
+        fNext.prev = newFace;
 
-        fNew.anEdge = eOrig;
-        fNew.data = null;
-        fNew.trail = null;
-        fNew.marked = false;
+        newFace.anEdge = eOrig;
+        newFace.data = null;
+        newFace.trail = null;
+        newFace.marked = false;
 
         /* The new face is marked "inside" if the old one was.  This is a
          * convenience for the common case where a face has been split in two.
          */
-        fNew.inside = fNext.inside;
+        newFace.inside = fNext.inside;
 
         /* fix other edges on this face loop */
         e = eOrig;
         do {
-            e.Lface = fNew;
+            e.Lface = newFace;
             e = e.Lnext;
         } while (e != eOrig);
     }
