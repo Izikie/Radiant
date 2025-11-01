@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.network.play.client.C16PacketClientStatus;
+import net.minecraft.network.packet.impl.play.client.C16PacketClientStatus;
 import net.minecraft.util.chat.Formatting;
 import net.minecraft.util.ResourceLocation;
 import org.slf4j.LoggerFactory;

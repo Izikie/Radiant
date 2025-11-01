@@ -1,6 +1,6 @@
 package net.minecraft.client.gui;
 
-import net.minecraft.network.play.client.C14PacketTabComplete;
+import net.minecraft.network.packet.impl.play.client.C14PacketTabComplete;
 import net.minecraft.util.*;
 import net.minecraft.util.chat.ChatComponentText;
 import net.minecraft.util.chat.IChatComponent;

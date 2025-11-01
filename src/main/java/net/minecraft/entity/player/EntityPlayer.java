@@ -32,7 +32,7 @@ import net.minecraft.inventory.InventoryEnderChest;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.play.server.S12PacketEntityVelocity;
+import net.minecraft.network.packet.impl.play.server.S12PacketEntityVelocity;
 import net.minecraft.potion.Potion;
 import net.minecraft.scoreboard.*;
 import net.minecraft.server.MinecraftServer;

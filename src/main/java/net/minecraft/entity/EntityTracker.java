@@ -12,7 +12,7 @@ import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.passive.IAnimals;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.*;
-import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.api.Packet;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
 import org.slf4j.LoggerFactory;

@@ -5,7 +5,7 @@ import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.crash.ReportedException;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.packet.PacketBuffer;
+import net.minecraft.network.packet.api.PacketBuffer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Rotations;
 import net.minecraft.world.biome.BiomeGenBase;

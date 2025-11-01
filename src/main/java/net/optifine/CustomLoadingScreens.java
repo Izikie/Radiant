@@ -2,7 +2,7 @@ package net.optifine;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.minecraft.network.packet.PacketThreadUtil;
+import net.minecraft.network.packet.api.PacketThreadUtil;
 import net.optifine.util.ResUtils;
 import net.optifine.util.StrUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;

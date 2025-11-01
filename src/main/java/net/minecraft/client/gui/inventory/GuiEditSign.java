@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
-import net.minecraft.network.play.client.C12PacketUpdateSign;
+import net.minecraft.network.packet.impl.play.client.C12PacketUpdateSign;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.chat.ChatAllowedCharacters;
 import net.minecraft.util.chat.ChatComponentText;

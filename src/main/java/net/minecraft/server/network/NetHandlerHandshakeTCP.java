@@ -2,9 +2,9 @@ package net.minecraft.server.network;
 
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.NetworkState;
-import net.minecraft.network.handshake.INetHandlerHandshakeServer;
-import net.minecraft.network.handshake.client.C00Handshake;
-import net.minecraft.network.login.server.S00PacketDisconnect;
+import net.minecraft.network.packet.impl.handshake.INetHandlerHandshakeServer;
+import net.minecraft.network.packet.impl.handshake.client.C00Handshake;
+import net.minecraft.network.packet.impl.login.server.S00PacketDisconnect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.chat.ChatComponentText;
 import net.minecraft.util.chat.IChatComponent;

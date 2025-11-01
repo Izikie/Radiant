@@ -7,8 +7,8 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.network.packet.api.Packet;
+import net.minecraft.network.packet.impl.play.server.S35PacketUpdateTileEntity;
 
 import java.util.ArrayList;
 import java.util.List;

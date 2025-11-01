@@ -13,8 +13,8 @@ import net.minecraft.client.network.NetHandlerHandshakeMemory;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.crash.ReportedException;
-import net.minecraft.network.packet.PacketDirection;
-import net.minecraft.network.play.server.S40PacketDisconnect;
+import net.minecraft.network.packet.api.PacketDirection;
+import net.minecraft.network.packet.impl.play.server.S40PacketDisconnect;
 import net.minecraft.network.encoder.MessageDeserializer;
 import net.minecraft.network.encoder.MessageSplitter;
 import net.minecraft.network.encoder.MessageSerializer;
@@ -67,10 +67,13 @@ public class NetworkSystem {
                 protected void initChannel(Channel channel) {
                     try {
                         channel.config().setOption(ChannelOption.TCP_NODELAY, Boolean.TRUE);
-                    } catch (ChannelException exception) {
+                    } catch (ChannelException _) {
                     }
 
-                    channel.pipeline().addLast("timeout", new ReadTimeoutHandler(30)).addLast("legacy_query", new PingResponseHandler(NetworkSystem.this)).addLast("splitter", new MessageSplitter()).addLast("decoder", new MessageDeserializer(PacketDirection.OUTGOING)).addLast("prepender", new MessagePrepender()).addLast("encoder", new MessageSerializer(PacketDirection.INCOMING));
+                    channel.pipeline().addLast("timeout", new ReadTimeoutHandler(30))
+                            .addLast("legacy_query", new PingResponseHandler(NetworkSystem.this))
+                            .addLast("splitter", new MessageSplitter()).addLast("decoder", new MessageDeserializer(PacketDirection.OUTGOING))
+                            .addLast("prepender", new MessagePrepender()).addLast("encoder", new MessageSerializer(PacketDirection.INCOMING));
                     NetworkManager manager = new NetworkManager();
                     networkManagers.add(manager);
                     channel.pipeline().addLast("packet_handler", manager);
@@ -105,7 +108,7 @@ public class NetworkSystem {
         for (ChannelFuture channelfuture : this.endpoints) {
             try {
                 channelfuture.channel().close().sync();
-            } catch (InterruptedException ignore) {
+            } catch (InterruptedException _) {
                 LOGGER.error("Interrupted whilst closing channel");
             }
         }
@@ -134,8 +137,8 @@ public class NetworkSystem {
                             }
 
                             LOGGER.warn("Failed to handle packet for {}", manager.getRemoteAddress(), exception);
-                            final ChatComponentText component = new ChatComponentText("Internal server error");
-                            manager.sendPacket(new S40PacketDisconnect(component), p_operationComplete_1_ -> manager.closeChannel(component));
+                            ChatComponentText component = new ChatComponentText("Internal server error");
+                            manager.sendPacket(new S40PacketDisconnect(component), _ -> manager.closeChannel(component));
                             manager.disableAutoRead();
                         }
                     }

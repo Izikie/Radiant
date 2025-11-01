@@ -62,11 +62,9 @@ public class RandomEntities {
 			int i = entityvillager.getProfession();
 			ev.setProfession(i);
 			int j = entityvillager.getCareerId();
-			System.out.println(j);
 			ev.setCareerId(j);
 			int k = entityvillager.getCareerLevel();
 			ev.setCareerLevel(k);
-			System.out.println(k);
 		}
 	}
 

@@ -4,9 +4,10 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.PacketBuffer;
-import net.minecraft.network.packet.PacketDirection;
+import net.minecraft.network.NetworkState;
+import net.minecraft.network.packet.api.Packet;
+import net.minecraft.network.packet.api.PacketBuffer;
+import net.minecraft.network.packet.api.PacketDirection;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.slf4j.Marker;
@@ -16,8 +17,10 @@ import java.io.IOException;
 import java.util.List;
 
 public class MessageDeserializer extends ByteToMessageDecoder {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(MessageDeserializer.class);
     private static final Marker RECEIVED_PACKET_MARKER = MarkerFactory.getMarker("PACKET_RECEIVED");
+
     private final PacketDirection direction;
 
     public MessageDeserializer(PacketDirection direction) {
@@ -25,27 +28,41 @@ public class MessageDeserializer extends ByteToMessageDecoder {
     }
 
     @Override
-    protected void decode(ChannelHandlerContext ctx, ByteBuf p_decode_2_, List<Object> p_decode_3_) throws Exception {
-        if (p_decode_2_.readableBytes() != 0) {
-            PacketBuffer buffer = new PacketBuffer(p_decode_2_);
-            int i = buffer.readVarIntFromBuffer();
-            Packet<?> packet = ctx.channel().attr(NetworkManager.ATTR_KEY_CONNECTION_STATE).get().getPacket(this.direction, i);
+    protected void decode(ChannelHandlerContext ctx, ByteBuf payload, List<Object> out) throws Exception {
+        if (!payload.isReadable()) {
+            return;
+        }
 
-            if (packet == null) {
-                throw new IOException("Bad packet id " + i);
-            } else {
-                packet.readPacketData(buffer);
+        PacketBuffer buffer = new PacketBuffer(payload);
+        int packetId = buffer.readVarIntFromBuffer();
 
-                if (buffer.readableBytes() > 0) {
-                    throw new IOException("Packet " + ctx.channel().attr(NetworkManager.ATTR_KEY_CONNECTION_STATE).get().getId() + "/" + i + " (" + packet.getClass().getSimpleName() + ") was larger than I expected, found " + buffer.readableBytes() + " bytes extra whilst reading packet " + i);
-                } else {
-                    p_decode_3_.add(packet);
+        NetworkState state = ctx.channel()
+                .attr(NetworkManager.ATTR_KEY_CONNECTION_STATE)
+                .get();
 
-                    if (LOGGER.isDebugEnabled()) {
-                        LOGGER.debug(RECEIVED_PACKET_MARKER, " IN: [{}:{}] {}", ctx.channel().attr(NetworkManager.ATTR_KEY_CONNECTION_STATE).get(), i, packet.getClass().getName());
-                    }
-                }
-            }
+        if (state == null) {
+            throw new IOException("Connection state is null, cannot deserialize packet");
+        }
+
+        Packet<?> packet = state.getPacket(this.direction, packetId);
+
+        if (packet == null) {
+            throw new IOException("Unregistered packet id " + packetId + ", cannot deserialize packet");
+        }
+
+        packet.readPacketData(buffer);
+
+        if (buffer.isReadable()) {
+            throw new IOException(
+                    "Packet " + state.getId() + "/" + packetId + " (" + packet.getClass().getSimpleName() +
+                    ") has " + buffer.readableBytes() + " unexpected extra bytes"
+            );
+        }
+
+        out.add(packet);
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug(RECEIVED_PACKET_MARKER, " IN: [{}:{}] {}", state, packetId, packet.getClass().getName());
         }
     }
 

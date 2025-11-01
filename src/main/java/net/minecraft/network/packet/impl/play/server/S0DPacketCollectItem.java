@@ -1,0 +1,45 @@
+package net.minecraft.network.packet.impl.play.server;
+
+import net.minecraft.network.packet.api.Packet;
+import net.minecraft.network.packet.api.PacketBuffer;
+import net.minecraft.network.packet.impl.play.INetHandlerPlayClient;
+
+import java.io.IOException;
+
+public class S0DPacketCollectItem implements Packet<INetHandlerPlayClient> {
+    private int collectedItemEntityId;
+    private int entityId;
+
+    public S0DPacketCollectItem() {
+    }
+
+    public S0DPacketCollectItem(int collectedItemEntityIdIn, int entityIdIn) {
+        this.collectedItemEntityId = collectedItemEntityIdIn;
+        this.entityId = entityIdIn;
+    }
+
+    @Override
+    public void readPacketData(PacketBuffer buf) throws IOException {
+        this.collectedItemEntityId = buf.readVarIntFromBuffer();
+        this.entityId = buf.readVarIntFromBuffer();
+    }
+
+    @Override
+    public void writePacketData(PacketBuffer buf) throws IOException {
+        buf.writeVarIntToBuffer(this.collectedItemEntityId);
+        buf.writeVarIntToBuffer(this.entityId);
+    }
+
+    @Override
+    public void processPacket(INetHandlerPlayClient handler) {
+        handler.handleCollectItem(this);
+    }
+
+    public int getCollectedItemEntityID() {
+        return this.collectedItemEntityId;
+    }
+
+    public int getEntityID() {
+        return this.entityId;
+    }
+}

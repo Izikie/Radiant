@@ -3,21 +3,28 @@ package net.minecraft.network.encoder;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
-import net.minecraft.network.packet.PacketBuffer;
+import net.minecraft.network.packet.api.PacketBuffer;
+
+import java.io.IOException;
 
 public class MessagePrepender extends MessageToByteEncoder<ByteBuf> {
-    @Override
-    protected void encode(ChannelHandlerContext ctx, ByteBuf in, ByteBuf out) throws Exception {
-        int i = in.readableBytes();
-        int j = PacketBuffer.getVarIntSize(i);
 
-        if (j > 3) {
-            throw new IllegalArgumentException("unable to fit " + i + " into " + 3);
-        } else {
-            PacketBuffer buffer = new PacketBuffer(out);
-            buffer.ensureWritable(j + i);
-            buffer.writeVarIntToBuffer(i);
-            buffer.writeBytes(in, in.readerIndex(), i);
+    private static final int MAX_VARINT_SIZE = 3;
+
+    @Override
+    protected void encode(ChannelHandlerContext ctx, ByteBuf payload, ByteBuf out) throws Exception {
+        int size = payload.readableBytes();
+        int varIntSize = PacketBuffer.getVarIntSize(size);
+
+        if (varIntSize > MAX_VARINT_SIZE) {
+            throw new IOException(
+                    "Packet payload of " + size + " bytes exceeds maximum allowed size of " + MAX_VARINT_SIZE
+            );
         }
+
+        PacketBuffer buffer = new PacketBuffer(out);
+        buffer.ensureWritable(varIntSize + size);
+        buffer.writeVarIntToBuffer(size);
+        buffer.writeBytes(payload, payload.readerIndex(), size);
     }
 }

@@ -4,7 +4,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTUtil;
-import net.minecraft.network.packet.PacketBuffer;
+import net.minecraft.network.packet.api.PacketBuffer;
 
 import java.io.IOException;
 import java.util.ArrayList;

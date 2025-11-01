@@ -2,7 +2,7 @@ package net.minecraft.client.gui;
 
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.network.play.client.C00PacketKeepAlive;
+import net.minecraft.network.packet.impl.play.client.C00PacketKeepAlive;
 import net.optifine.CustomLoadingScreen;
 import net.optifine.CustomLoadingScreens;
 

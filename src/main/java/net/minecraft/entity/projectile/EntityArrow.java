@@ -14,7 +14,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.play.server.S2BPacketChangeGameState;
+import net.minecraft.network.packet.impl.play.server.S2BPacketChangeGameState;
 import net.minecraft.util.*;
 import net.minecraft.util.input.MovingObjectPosition;
 import net.minecraft.util.math.AxisAlignedBB;

@@ -3,7 +3,7 @@ package net.minecraft.network.encoder;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
-import net.minecraft.network.packet.PacketBuffer;
+import net.minecraft.network.packet.api.PacketBuffer;
 
 import java.util.zip.Deflater;
 

@@ -3,7 +3,7 @@ package net.minecraft.command;
 import net.minecraft.command.client.*;
 import net.minecraft.command.server.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.network.rcon.RConConsoleSource;
+import net.minecraft.network.packet.impl.rcon.RConConsoleSource;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.chat.ChatComponentTranslation;
 import net.minecraft.util.chat.Formatting;

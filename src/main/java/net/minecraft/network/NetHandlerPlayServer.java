@@ -26,12 +26,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemWritableBook;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagString;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.PacketBuffer;
-import net.minecraft.network.packet.PacketThreadUtil;
-import net.minecraft.network.play.INetHandlerPlayServer;
-import net.minecraft.network.play.client.*;
-import net.minecraft.network.play.server.*;
+import net.minecraft.network.packet.api.Packet;
+import net.minecraft.network.packet.api.PacketBuffer;
+import net.minecraft.network.packet.api.PacketThreadUtil;
+import net.minecraft.network.packet.impl.play.INetHandlerPlayServer;
+import net.minecraft.network.packet.impl.play.client.*;
+import net.minecraft.network.packet.impl.play.server.*;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.UserListBansEntry;
 import net.minecraft.stats.AchievementList;
@@ -109,7 +109,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 
     public void kickPlayerFromServer(String reason) {
         final ChatComponentText component = new ChatComponentText(reason);
-        this.netManager.sendPacket(new S40PacketDisconnect(component), p_operationComplete_1_ -> this.netManager.closeChannel(component));
+        this.netManager.sendPacket(new S40PacketDisconnect(component), _ -> this.netManager.closeChannel(component));
         this.netManager.disableAutoRead();
         Futures.getUnchecked(this.serverController.addScheduledTask(this.netManager::checkDisconnected));
     }

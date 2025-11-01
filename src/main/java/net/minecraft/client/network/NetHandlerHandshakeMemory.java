@@ -1,8 +1,8 @@
 package net.minecraft.client.network;
 
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.handshake.INetHandlerHandshakeServer;
-import net.minecraft.network.handshake.client.C00Handshake;
+import net.minecraft.network.packet.impl.handshake.INetHandlerHandshakeServer;
+import net.minecraft.network.packet.impl.handshake.client.C00Handshake;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.NetHandlerLoginServer;
 import net.minecraft.util.chat.IChatComponent;

@@ -6,7 +6,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.api.Packet;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import org.slf4j.LoggerFactory;

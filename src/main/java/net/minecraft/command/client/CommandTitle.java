@@ -3,7 +3,7 @@ package net.minecraft.command.client;
 import com.google.gson.JsonParseException;
 import net.minecraft.command.*;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.network.play.server.S45PacketTitle;
+import net.minecraft.network.packet.impl.play.server.S45PacketTitle;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.chat.ChatComponentProcessor;

@@ -6,7 +6,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
-import net.minecraft.network.play.server.S2FPacketSetSlot;
+import net.minecraft.network.packet.impl.play.server.S2FPacketSetSlot;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.*;
 import net.minecraft.util.chat.ChatComponentProcessor;

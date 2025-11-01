@@ -1,0 +1,55 @@
+package net.minecraft.network.packet.impl.login.server;
+
+import net.minecraft.network.packet.api.Packet;
+import net.minecraft.network.packet.api.PacketBuffer;
+import net.minecraft.network.packet.impl.login.INetHandlerLoginClient;
+import net.minecraft.network.CryptManager;
+
+import java.io.IOException;
+import java.security.PublicKey;
+
+public class S01PacketEncryptionRequest implements Packet<INetHandlerLoginClient> {
+    private String hashedServerId;
+    private PublicKey publicKey;
+    private byte[] verifyToken;
+
+    public S01PacketEncryptionRequest() {
+    }
+
+    public S01PacketEncryptionRequest(String serverId, PublicKey key, byte[] verifyToken) {
+        this.hashedServerId = serverId;
+        this.publicKey = key;
+        this.verifyToken = verifyToken;
+    }
+
+    @Override
+    public void readPacketData(PacketBuffer buf) throws IOException {
+        this.hashedServerId = buf.readStringFromBuffer(20);
+        this.publicKey = CryptManager.decodePublicKey(buf.readByteArray());
+        this.verifyToken = buf.readByteArray();
+    }
+
+    @Override
+    public void writePacketData(PacketBuffer buf) throws IOException {
+        buf.writeString(this.hashedServerId);
+        buf.writeByteArray(this.publicKey.getEncoded());
+        buf.writeByteArray(this.verifyToken);
+    }
+
+    @Override
+    public void processPacket(INetHandlerLoginClient handler) {
+        handler.handleEncryptionRequest(this);
+    }
+
+    public String getServerId() {
+        return this.hashedServerId;
+    }
+
+    public PublicKey getPublicKey() {
+        return this.publicKey;
+    }
+
+    public byte[] getVerifyToken() {
+        return this.verifyToken;
+    }
+}

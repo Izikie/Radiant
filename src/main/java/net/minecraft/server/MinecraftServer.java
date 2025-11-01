@@ -19,7 +19,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.NetworkSystem;
 import net.minecraft.network.ServerStatusResponse;
-import net.minecraft.network.play.server.S03PacketTimeUpdate;
+import net.minecraft.network.packet.impl.play.server.S03PacketTimeUpdate;
 import net.minecraft.server.management.PlayerProfileCache;
 import net.minecraft.server.management.ServerConfigurationManager;
 import net.minecraft.util.*;

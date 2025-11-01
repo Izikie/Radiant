@@ -5,12 +5,13 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.handler.codec.DecoderException;
-import net.minecraft.network.packet.PacketBuffer;
+import net.minecraft.network.packet.api.PacketBuffer;
 
 import java.util.List;
 import java.util.zip.Inflater;
 
 public class NettyCompressionDecoder extends ByteToMessageDecoder {
+    private static int MAX_SIZE = 2097152;
     private final Inflater inflater;
     private int threshold;
 
@@ -21,7 +22,7 @@ public class NettyCompressionDecoder extends ByteToMessageDecoder {
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-        if (in.readableBytes() == 0)
+        if (!in.isReadable())
             return;
 
         PacketBuffer buffer = new PacketBuffer(in);
@@ -29,25 +30,26 @@ public class NettyCompressionDecoder extends ByteToMessageDecoder {
 
         if (varInt == 0) {
             out.add(buffer.readBytes(buffer.readableBytes()));
-        } else {
-            if (varInt < this.threshold) {
-                throw new DecoderException("Badly compressed packet - size of " + varInt + " is below server threshold of " + this.threshold);
-            }
-
-            if (varInt > 2097152) {
-                throw new DecoderException("Badly compressed packet - size of " + varInt + " is larger than protocol maximum of " + 2097152);
-            }
-
-            byte[] compressedData = new byte[buffer.readableBytes()];
-            buffer.readBytes(compressedData);
-            this.inflater.setInput(compressedData);
-
-            byte[] decompressedData = new byte[varInt];
-            this.inflater.inflate(decompressedData);
-            out.add(Unpooled.wrappedBuffer(decompressedData));
-
-            this.inflater.reset();
+            return;
         }
+
+        if (varInt < threshold) {
+            throw new DecoderException("Badly compressed packet - size of " + varInt + " is below server threshold of " + threshold);
+        }
+
+        if (varInt > MAX_SIZE) {
+            throw new DecoderException("Badly compressed packet - size of " + varInt + " is larger than protocol maximum of " + MAX_SIZE);
+        }
+
+        byte[] compressedData = new byte[buffer.readableBytes()];
+        buffer.readBytes(compressedData);
+        this.inflater.setInput(compressedData);
+
+        byte[] decompressedData = new byte[varInt];
+        this.inflater.inflate(decompressedData);
+        out.add(Unpooled.wrappedBuffer(decompressedData));
+
+        this.inflater.reset();
     }
 
     public void setCompressionThreshold(int threshold) {

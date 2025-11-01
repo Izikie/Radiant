@@ -2,10 +2,10 @@ package net.minecraft.server.management;
 
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.play.server.S21PacketChunkData;
-import net.minecraft.network.play.server.S22PacketMultiBlockChange;
-import net.minecraft.network.play.server.S23PacketBlockChange;
+import net.minecraft.network.packet.api.Packet;
+import net.minecraft.network.packet.impl.play.server.S21PacketChunkData;
+import net.minecraft.network.packet.impl.play.server.S22PacketMultiBlockChange;
+import net.minecraft.network.packet.impl.play.server.S23PacketBlockChange;
 import net.optifine.Config;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;

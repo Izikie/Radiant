@@ -2,8 +2,8 @@ package net.minecraft.tileentity;
 
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.network.packet.api.Packet;
+import net.minecraft.network.packet.impl.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.ResourceLocation;
 
 public class TileEntityFlowerPot extends TileEntity {
