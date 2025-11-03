@@ -186,64 +186,70 @@ public class ItemPotion extends Item {
 
     @Override
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-        if (stack.getMetadata() != 0) {
-            List<PotionEffect> list = Items.POTION.getEffects(stack);
-            Multimap<String, AttributeModifier> multimap = HashMultimap.create();
+        if (stack.getMetadata() == 0) {
+            return;
+        }
 
-            if (list != null && !list.isEmpty()) {
-                for (PotionEffect potioneffect : list) {
-                    String s1 = StatCollector.translateToLocal(potioneffect.getEffectName()).trim();
-                    Potion potion = Potion.POTION_TYPES[potioneffect.getPotionID()];
-                    Map<IAttribute, AttributeModifier> map = potion.getAttributeModifierMap();
+        List<PotionEffect> list = Items.POTION.getEffects(stack);
+        Multimap<String, AttributeModifier> multimap = HashMultimap.create();
 
-                    if (map != null && !map.isEmpty()) {
-                        for (Entry<IAttribute, AttributeModifier> entry : map.entrySet()) {
-                            AttributeModifier attributemodifier = entry.getValue();
-                            AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(), potion.getAttributeModifierAmount(potioneffect.getAmplifier(), attributemodifier), attributemodifier.getOperation());
-                            multimap.put(entry.getKey().getAttributeUnlocalizedName(), attributemodifier1);
-                        }
-                    }
+        if (list != null && !list.isEmpty()) {
+            for (PotionEffect effect : list) {
+                String name = StatCollector.translateToLocal(effect.getEffectName()).trim();
+                Potion potion = Potion.POTION_TYPES[effect.getPotionID()];
+                Map<IAttribute, AttributeModifier> map = potion.getAttributeModifierMap();
 
-                    if (potioneffect.getAmplifier() > 0) {
-                        s1 = s1 + " " + StatCollector.translateToLocal("potion.potency." + potioneffect.getAmplifier()).trim();
-                    }
-
-                    if (potioneffect.getDuration() > 20) {
-                        s1 = s1 + " (" + Potion.getDurationString(potioneffect) + ")";
-                    }
-
-                    if (potion.isBadEffect()) {
-                        tooltip.add(Formatting.RED + s1);
-                    } else {
-                        tooltip.add(Formatting.GRAY + s1);
+                if (map != null && !map.isEmpty()) {
+                    for (Entry<IAttribute, AttributeModifier> entry : map.entrySet()) {
+                        AttributeModifier attributemodifier = entry.getValue();
+                        AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(), potion.getAttributeModifierAmount(effect.getAmplifier(), attributemodifier), attributemodifier.getOperation());
+                        multimap.put(entry.getKey().getAttributeUnlocalizedName(), attributemodifier1);
                     }
                 }
-            } else {
-                String s = StatCollector.translateToLocal("potion.empty").trim();
-                tooltip.add(Formatting.GRAY + s);
-            }
 
-            if (!multimap.isEmpty()) {
-                tooltip.add("");
-                tooltip.add(Formatting.DARK_PURPLE + StatCollector.translateToLocal("potion.effects.whenDrank"));
-
-                for (Entry<String, AttributeModifier> entry1 : multimap.entries()) {
-                    AttributeModifier attributemodifier2 = entry1.getValue();
-                    double d0 = attributemodifier2.getAmount();
-                    double d1;
-
-                    if (attributemodifier2.getOperation() != 1 && attributemodifier2.getOperation() != 2) {
-                        d1 = attributemodifier2.getAmount();
+                if (effect.getAmplifier() > 0) {
+                    if (effect.getAmplifier() > 3) {
+                        name += " " + effect.getAmplifier();
                     } else {
-                        d1 = attributemodifier2.getAmount() * 100.0D;
+                        name += " " + StatCollector.translateToLocal("potion.potency." + effect.getAmplifier()).trim();
                     }
+                }
 
-                    if (d0 > 0.0D) {
-                        tooltip.add(Formatting.BLUE + StatCollector.translateToLocalFormatted("attribute.modifier.plus." + attributemodifier2.getOperation(), new Object[]{ItemStack.DECIMALFORMAT.format(d1), StatCollector.translateToLocal("attribute.name." + entry1.getKey())}));
-                    } else if (d0 < 0.0D) {
-                        d1 = d1 * -1.0D;
-                        tooltip.add(Formatting.RED + StatCollector.translateToLocalFormatted("attribute.modifier.take." + attributemodifier2.getOperation(), new Object[]{ItemStack.DECIMALFORMAT.format(d1), StatCollector.translateToLocal("attribute.name." + entry1.getKey())}));
-                    }
+                if (effect.getDuration() > 20) {
+                    name = name + " (" + Potion.getDurationString(effect) + ")";
+                }
+
+                if (potion.isBadEffect()) {
+                    tooltip.add(Formatting.RED + name);
+                } else {
+                    tooltip.add(Formatting.GRAY + name);
+                }
+            }
+        } else {
+            String s = StatCollector.translateToLocal("potion.empty").trim();
+            tooltip.add(Formatting.GRAY + s);
+        }
+
+        if (!multimap.isEmpty()) {
+            tooltip.add("");
+            tooltip.add(Formatting.DARK_PURPLE + StatCollector.translateToLocal("potion.effects.whenDrank"));
+
+            for (Entry<String, AttributeModifier> entry1 : multimap.entries()) {
+                AttributeModifier attributemodifier2 = entry1.getValue();
+                double d0 = attributemodifier2.getAmount();
+                double d1;
+
+                if (attributemodifier2.getOperation() != 1 && attributemodifier2.getOperation() != 2) {
+                    d1 = attributemodifier2.getAmount();
+                } else {
+                    d1 = attributemodifier2.getAmount() * 100.0D;
+                }
+
+                if (d0 > 0.0D) {
+                    tooltip.add(Formatting.BLUE + StatCollector.translateToLocalFormatted("attribute.modifier.plus." + attributemodifier2.getOperation(), new Object[]{ItemStack.DECIMALFORMAT.format(d1), StatCollector.translateToLocal("attribute.name." + entry1.getKey())}));
+                } else if (d0 < 0.0D) {
+                    d1 = d1 * -1.0D;
+                    tooltip.add(Formatting.RED + StatCollector.translateToLocalFormatted("attribute.modifier.take." + attributemodifier2.getOperation(), new Object[]{ItemStack.DECIMALFORMAT.format(d1), StatCollector.translateToLocal("attribute.name." + entry1.getKey())}));
                 }
             }
         }

@@ -111,8 +111,13 @@ public abstract class Enchantment {
     }
 
     public String getTranslatedName(int level) {
-        String s = StatCollector.translateToLocal(this.getName());
-        return s + " " + StatCollector.translateToLocal("enchantment.level." + level);
+        String levelStr = StatCollector.translateToLocal("enchantment.level." + level);
+
+        if (level > 10) {
+            levelStr = String.valueOf(level);
+        }
+
+        return StatCollector.translateToLocal(this.getName()) + " " + levelStr;
     }
 
     public boolean canApply(ItemStack stack) {
