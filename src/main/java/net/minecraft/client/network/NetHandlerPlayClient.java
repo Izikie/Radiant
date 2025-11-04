@@ -370,29 +370,29 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         float yaw = packet.getYaw();
         float pitch = packet.getPitch();
 
-        if (packet.func_179834_f().contains(S08PacketPlayerPosLook.Flag.X)) {
+        if (packet.getFlags().contains(S08PacketPlayerPosLook.Flag.X)) {
             x += entityplayer.posX;
         } else {
             entityplayer.motionX = 0.0D;
         }
 
-        if (packet.func_179834_f().contains(S08PacketPlayerPosLook.Flag.Y)) {
+        if (packet.getFlags().contains(S08PacketPlayerPosLook.Flag.Y)) {
             y += entityplayer.posY;
         } else {
             entityplayer.motionY = 0.0D;
         }
 
-        if (packet.func_179834_f().contains(S08PacketPlayerPosLook.Flag.Z)) {
+        if (packet.getFlags().contains(S08PacketPlayerPosLook.Flag.Z)) {
             z += entityplayer.posZ;
         } else {
             entityplayer.motionZ = 0.0D;
         }
 
-        if (packet.func_179834_f().contains(S08PacketPlayerPosLook.Flag.X_ROT)) {
+        if (packet.getFlags().contains(S08PacketPlayerPosLook.Flag.X_ROT)) {
             pitch += entityplayer.rotationPitch;
         }
 
-        if (packet.func_179834_f().contains(S08PacketPlayerPosLook.Flag.Y_ROT)) {
+        if (packet.getFlags().contains(S08PacketPlayerPosLook.Flag.Y_ROT)) {
             yaw += entityplayer.rotationYaw;
         }
 
