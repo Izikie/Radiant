@@ -10,6 +10,8 @@ import joptsimple.ValueConverter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Session;
 import net.radiant.nativeimage.NativeImageExerciser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.net.Authenticator;
@@ -21,12 +23,15 @@ import java.util.List;
 
 public class Main {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
+
     public static void main(String[] args) {
         System.setProperty("java.net.preferIPv4Stack", "true");
         System.setProperty("io.netty.allocator.maxOrder", "9"); // Default is 16MiB, Minecraft uses 2MiB, use 4MiB as safe default
+        // Lowering maxOrder also lowers memory allocation
 
         if (!System.getProperty("os.arch").contains("64")) {
-            System.err.println("❌ Radiant requires a 64-bit JVM to run, java is deprecated on 32-bit systems.");
+            LOGGER.error("❌ Radiant requires a 64-bit JVM to run.");
             System.exit(1);
         }
 
@@ -67,7 +72,7 @@ public class Main {
 
         List<String> ignoredArgs = options.valuesOf(nonOptions);
         if (!ignoredArgs.isEmpty()) {
-            System.out.println("Completely ignored arguments: " + ignoredArgs);
+            LOGGER.warn("Completely ignored arguments: {}", ignoredArgs);
         }
 
         String proxyHost = options.valueOf(optionProxyHost);

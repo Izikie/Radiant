@@ -37,18 +37,19 @@ public class ScreenShotHelper {
 
     public static IChatComponent saveScreenshot(File gameDirectory, String screenshotName, int width, int height, Framebuffer buffer) {
         try {
-            File file1 = new File(gameDirectory, "screenshots");
-            file1.mkdir();
+            File folder = new File(gameDirectory, "screenshots");
+            folder.mkdir();
+
             Minecraft minecraft = Minecraft.get();
-            int i = Config.getGameSettings().guiScale;
+            int guiScale = Config.getGameSettings().guiScale;
             ScaledResolution scaledresolution = new ScaledResolution(minecraft);
-            int j = scaledresolution.getScaleFactor();
-            int k = Config.getScreenshotSize();
-            boolean flag = OpenGlHelper.isFramebufferEnabled() && k > 1;
+            int scaleFactor = scaledresolution.getScaleFactor();
+            int screenshotSize = Config.getScreenshotSize();
+            boolean flag = OpenGlHelper.isFramebufferEnabled() && screenshotSize > 1;
 
             if (flag) {
-                Config.getGameSettings().guiScale = j * k;
-                resize(width * k, height * k);
+                Config.getGameSettings().guiScale = scaleFactor * screenshotSize;
+                resize(width * screenshotSize, height * screenshotSize);
                 GlStateManager.pushMatrix();
                 GlStateManager.clear(16640);
                 minecraft.getFramebuffer().bindFramebuffer(true);
@@ -99,24 +100,24 @@ public class ScreenShotHelper {
             if (flag) {
                 minecraft.getFramebuffer().unbindFramebuffer();
                 GlStateManager.popMatrix();
-                Config.getGameSettings().guiScale = i;
+                Config.getGameSettings().guiScale = guiScale;
                 resize(width, height);
             }
 
             File file2;
 
             if (screenshotName == null) {
-                file2 = getTimestampedPNGFileForDirectory(file1);
+                file2 = getTimestampedPNGFileForDirectory(folder);
             } else {
-                file2 = new File(file1, screenshotName);
+                file2 = new File(folder, screenshotName);
             }
 
             file2 = file2.getCanonicalFile();
             image.saveToFile(file2, NativeImage.FileFormat.PNG);
-            IChatComponent ichatcomponent = new ChatComponentText(file2.getName());
-            ichatcomponent.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, file2.getAbsolutePath()));
-            ichatcomponent.getChatStyle().setUnderlined(Boolean.TRUE);
-            return new ChatComponentTranslation("screenshot.success", ichatcomponent);
+            IChatComponent component = new ChatComponentText(file2.getName());
+            component.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, file2.getAbsolutePath()));
+            component.getChatStyle().setUnderlined(Boolean.TRUE);
+            return new ChatComponentTranslation("screenshot.success", component);
         } catch (Exception exception) {
             LOGGER.warn("Couldn't save screenshot", exception);
             return new ChatComponentTranslation("screenshot.failure", exception.getMessage());
@@ -138,25 +139,25 @@ public class ScreenShotHelper {
         }
     }
 
-    private static void resize(int p_resize_0_, int p_resize_1_) {
+    private static void resize(int width, int height) {
         Minecraft minecraft = Minecraft.get();
-        minecraft.displayWidth = Math.max(1, p_resize_0_);
-        minecraft.displayHeight = Math.max(1, p_resize_1_);
+        minecraft.displayWidth = Math.max(1, width);
+        minecraft.displayHeight = Math.max(1, height);
 
         if (minecraft.currentScreen != null) {
-            ScaledResolution scaledresolution = new ScaledResolution(minecraft);
-            minecraft.currentScreen.onResize(minecraft, scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight());
+            ScaledResolution resolution = new ScaledResolution(minecraft);
+            minecraft.currentScreen.onResize(minecraft, resolution.getScaledWidth(), resolution.getScaledHeight());
         }
 
         updateFramebufferSize();
     }
 
     private static void updateFramebufferSize() {
-        Minecraft minecraft = Minecraft.get();
-        minecraft.getFramebuffer().createBindFramebuffer(minecraft.displayWidth, minecraft.displayHeight);
+        Minecraft mc = Minecraft.get();
+        mc.getFramebuffer().createBindFramebuffer(mc.displayWidth, mc.displayHeight);
 
-        if (minecraft.entityRenderer != null) {
-            minecraft.entityRenderer.updateShaderGroupSize(minecraft.displayWidth, minecraft.displayHeight);
+        if (mc.entityRenderer != null) {
+            mc.entityRenderer.updateShaderGroupSize(mc.displayWidth, mc.displayHeight);
         }
     }
 }

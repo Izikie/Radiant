@@ -6,11 +6,11 @@ It focuses on pre-optimized tweaks, bug and exploit fixes, and quality-of-life i
 
 ## Features
 - Increased performance
-- Increased efficenty 
+- Increased efficiency 
 - Exploit and bug fixes
 - QoL (Quality of Life) improvements and features
 - Native Image support
-- Code Quality Improvments
+- Code Quality Improvements
 
 ## Todo
 - [ ] Patch all known packet exploits
@@ -19,8 +19,9 @@ It focuses on pre-optimized tweaks, bug and exploit fixes, and quality-of-life i
 
 ## Requirements
 - [JDK/JRE: Oracle GraalVM 25(https://www.graalvm.org/downloads/)
+- Python 3.6+
 - C/C++ Compiler
-   - Clang
+   - Clang 
    - GCC
    - MSVC (Kinda bad but so is anything made by Microsoft)
 
@@ -31,9 +32,6 @@ To run the client in development, use the `RunClient` Gradle task located under 
 
 ### How to compile:
 1. Make sure you have a valid C/C++ compiler installed.<br>
-   - Clang
-   - GCC
-   - MSVC (Kinda bad but so is anything made by Microsoft)
 2. Run the `RunClientNativeAgent` gradle task, it is recommended that you load a world to make sure the tracing agent doesn't miss anything.
    **ALWAYS DO THIS BEFORE DOING STEP 3!**
 3. Run the `nativeCompile` task. This may take a few minutes (depending on your computing power).

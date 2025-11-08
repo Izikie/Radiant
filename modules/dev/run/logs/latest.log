@@ -1,0 +1,121 @@
+[13:53:55] [Client thread/INFO]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
+[13:53:55] [Client thread/INFO]: Setting user: Player
+[13:53:55] [Client thread/INFO]: (Session ID is token:0:Player)
+[13:53:55] [Client thread/INFO]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
+[13:53:56] [Client thread/INFO]: LWJGL Version: 3.3.6+1
+[13:53:56] [Client thread/INFO]: Build: OptiFine 1.8.9 HD U M6-Pre2
+[13:53:56] [Client thread/INFO]: OS: Windows 10 (amd64) version 10.0
+[13:53:56] [Client thread/INFO]: Java: 25, Oracle Corporation
+[13:53:56] [Client thread/INFO]: VM: Java HotSpot(TM) 64-Bit Server VM (mixed mode, sharing), Oracle Corporation
+[13:53:56] [Client thread/INFO]: OpenGL: AMD Radeon RX 7900 XT, version 4.6.0 Compatibility Profile Context 25.10.2.251010, ATI Technologies Inc.
+[13:53:56] [Client thread/INFO]: OpenGL Version: 4.6.0
+[13:53:56] [Client thread/INFO]: OpenGL Fancy fog: Not available (GL_NV_fog_distance)
+[13:53:56] [Client thread/INFO]: Maximum texture size: 16384x16384
+[13:53:56] [Client thread/INFO]: OpenGL Version: 4.6.0 Compatibility Profile Context 25.10.2.251010
+[13:53:56] [Client thread/INFO]: Vendor:  ATI Technologies Inc.
+[13:53:56] [Client thread/INFO]: Renderer: AMD Radeon RX 7900 XT
+[13:53:56] [Client thread/INFO]: Capabilities:  2.0  2.1  3.0  3.2  4.0 
+[13:53:56] [Client thread/INFO]: GL_MAX_DRAW_BUFFERS: 8
+[13:53:56] [Client thread/INFO]: GL_MAX_COLOR_ATTACHMENTS_EXT: 8
+[13:53:56] [Client thread/INFO]: GL_MAX_TEXTURE_IMAGE_UNITS: 32
+[13:53:56] [Client thread/INFO]: Load shaders configuration.
+[13:53:56] [Client thread/INFO]: No shaderpack loaded.
+[13:53:57] [Client thread/INFO]: Reloading ResourceManager: Default, §ePlast Pack §7Revamp.zip
+[13:53:57] [Client thread/WARN]: ResourcePack: ignored non-lowercase namespace: .DS_Store in C:\Users\Lucy\AppData\Roaming\.minecraft\resourcepacks\§ePlast Pack §7Revamp.zip
+[13:53:57] [Client thread/INFO]: *** Reloading textures ***
+[13:53:57] [Client thread/INFO]: Resource packs: §ePlast Pack §7Revamp.zip
+[13:53:58] [Sound Library Loader/INFO]: OpenAL initialized
+[13:53:58] [Sound Library Loader/INFO]: Sound engine started
+[13:53:58] [Client thread/INFO]: Loading mcpatcher/font/ascii.png
+[13:53:58] [Client thread/INFO]: Loading textures/font/ascii_sga.png
+[13:53:58] [Client thread/INFO]: Mipmap levels: 4
+[13:53:58] [Client thread/INFO]: Multitexture: false
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/bookshelves/bookshelf.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/brewingstand/brewing_stand.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/brick/brick.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/flowers/flower_dandelion.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/flowers/flower_rose.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/0_glass_white/glass_pane_white.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/0_glass_white/glass_white.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/10_glass_purple/glass_pane_purple.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/10_glass_purple/glass_purple.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/11_glass_blue/glass_blue.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/11_glass_blue/glass_pane_blue.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/12_glass_brown/glass_brown.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/12_glass_brown/glass_pane_brown.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/13_glass_green/glass_green.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/13_glass_green/glass_pane_green.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/14_glass_red/glass_pane_red.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/14_glass_red/glass_red.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/15_glass_black/glass_black.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/15_glass_black/glass_pane_black.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/1_glass_orange/glass_orange.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/1_glass_orange/glass_pane_orange.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/2_glass_magenta/glass_magenta.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/2_glass_magenta/glass_pane_magenta.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/3_glass_light_blue/glass_light_blue.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/3_glass_light_blue/glass_pane_light_blue.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/4_glass_yellow/glass_pane_yellow.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/4_glass_yellow/glass_yellow.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/5_glass_lime/glass_lime.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/5_glass_lime/glass_pane_lime.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/6_glass_pink/glass_pane_pink.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/6_glass_pink/glass_pink.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/7_glass_gray/glass_gray.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/7_glass_gray/glass_pane_gray.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/8_glass_silver/glass_pane_silver.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/8_glass_silver/glass_silver.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/9_glass_cyan/glass_cyan.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/9_glass_cyan/glass_pane_cyan.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/glass/glass.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/ironbars/block101.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/misc/block143.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/misc/block147.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/misc/block148.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/misc/block70.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/misc/block72.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/misc/block77.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/mushroom/block100.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/reeds/reeds.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/tallgrass/tallgrass.properties
+[13:53:58] [Client thread/INFO]: ConnectedTextures: mcpatcher/ctm/vines/vine.properties
+[13:53:58] [Client thread/INFO]: Multipass connected textures: false
+[13:53:58] [Client thread/INFO]: Multipass connected textures: false
+[13:53:58] [Client thread/INFO]: BetterGrass: Parsing default configuration optifine/bettergrass.properties
+[13:53:58] [Client thread/INFO]: Created: 1024x512 textures-atlas
+[13:53:58] [Client thread/INFO]: Animated sprites: 9
+[13:53:59] [Client thread/INFO]: Game launched in 3694ms
+[13:53:59] [Client thread/INFO]: *** Reloading custom textures ***
+[13:53:59] [Client thread/INFO]: CustomColors: Colormap mcpatcher/colormap/water.png
+[13:53:59] [Client thread/INFO]: CustomColors: Colormap mcpatcher/colormap/pine.png
+[13:53:59] [Client thread/INFO]: CustomColors: Colormap mcpatcher/colormap/birch.png
+[13:53:59] [Client thread/INFO]: CustomColors: Colormap mcpatcher/colormap/swampgrass.png
+[13:53:59] [Client thread/INFO]: CustomColors: Colormap mcpatcher/colormap/swampfoliage.png
+[13:53:59] [Client thread/INFO]: CustomColors: Colormap mcpatcher/colormap/sky0.png
+[13:53:59] [Client thread/INFO]: CustomColors: Colormap mcpatcher/colormap/fog0.png
+[13:53:59] [Client thread/INFO]: CustomColors: Colormap mcpatcher/colormap/xporb.png
+[13:53:59] [Client thread/INFO]: CustomColors: Colormap mcpatcher/colormap/myceliumparticle.png
+[13:53:59] [Client thread/INFO]: CustomColors: Colormap mcpatcher/lightmap/world-1.png
+[13:53:59] [Client thread/INFO]: CustomColors: Colormap mcpatcher/lightmap/world0.png
+[13:53:59] [Client thread/INFO]: CustomColors: Colormap mcpatcher/lightmap/world1.png
+[13:53:59] [Client thread/INFO]: CustomColors: Loading mcpatcher/color.properties
+[13:53:59] [Client thread/INFO]: CustomColors: lilypad = 6aef3f
+[13:53:59] [Client thread/INFO]: CustomSky properties: mcpatcher/sky/world0/sky1.properties
+[13:53:59] [Client thread/INFO]: CustomSky properties: mcpatcher/sky/world0/sky2.properties
+[13:53:59] [Client thread/INFO]: CustomSky properties: mcpatcher/sky/world0/sky3.properties
+[13:53:59] [Client thread/INFO]: CustomSky properties: mcpatcher/sky/world0/sky4.properties
+[13:53:59] [Client thread/INFO]: CustomSky: Texture not found: minecraft:mcpatcher/sky/world0/starfield01.png
+[13:53:59] [Client thread/INFO]: CustomSky properties: mcpatcher/sky/world0/sky5.properties
+[13:53:59] [Client thread/INFO]: CustomSky: Texture not found: minecraft:mcpatcher/sky/world0/starfield02.png
+[13:53:59] [Client thread/INFO]: CustomSky properties: mcpatcher/sky/world0/sky6.properties
+[13:53:59] [Client thread/INFO]: CustomSky properties: mcpatcher/sky/world0/sky7.properties
+[13:53:59] [Client thread/INFO]: CustomSky: Texture not found: minecraft:mcpatcher/sky/world0/sky_sunflare.png
+[13:53:59] [Client thread/INFO]: CustomSky properties: mcpatcher/sky/world0/sky8.properties
+[13:53:59] [Client thread/INFO]: CustomSky: Texture not found: minecraft:mcpatcher/sky/world0/sky_sunflare.png
+[13:53:59] [Client thread/INFO]: Enable face culling: acacia_leaves, birch_leaves, dark_oak_leaves, jungle_leaves, oak_leaves, spruce_leaves
+[13:54:03] [Client thread/INFO]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
+[13:54:03] [Server Thread/INFO]: Starting integrated minecraft server version 1.9
+[13:54:03] [Server Thread/INFO]: Generating keypair
+[13:54:04] [Server Thread/INFO]: Preparing start region for level 0
+[13:54:04] [Server Thread/INFO]: Changing view distance to 8, from 10
+[
