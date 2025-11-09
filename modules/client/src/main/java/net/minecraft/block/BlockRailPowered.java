@@ -8,110 +8,125 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
+// TODO: Possibly implement FX's Rail Optimization batched updates
 public class BlockRailPowered extends BlockRailBase {
-    public static final PropertyEnum<RailShape> SHAPE = PropertyEnum.create("shape", RailShape.class, p_apply_1_ -> p_apply_1_ != RailShape.NORTH_EAST && p_apply_1_ != RailShape.NORTH_WEST && p_apply_1_ != RailShape.SOUTH_EAST && p_apply_1_ != RailShape.SOUTH_WEST);
+    public static final PropertyEnum<RailShape> SHAPE = PropertyEnum.create("shape", RailShape.class,
+            shape -> shape != RailShape.NORTH_EAST && shape != RailShape.NORTH_WEST
+                    && shape != RailShape.SOUTH_EAST && shape != RailShape.SOUTH_WEST);
     public static final PropertyBool POWERED = PropertyBool.create("powered");
+
+    private static final int RAIL_POWER_LIMIT = 8;
 
     protected BlockRailPowered() {
         super(true);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(SHAPE, RailShape.NORTH_SOUTH).withProperty(POWERED, Boolean.FALSE));
+        this.setDefaultState(this.blockState.getBaseState()
+                .withProperty(SHAPE, RailShape.NORTH_SOUTH)
+                .withProperty(POWERED, Boolean.FALSE));
     }
 
     protected boolean findSignal(World world, BlockPos pos, IBlockState state, boolean forward, int distance) {
-        if (distance >= 8) {
-            return false;
-        } else {
-            int i = pos.getX();
-            int j = pos.getY();
-            int k = pos.getZ();
-            boolean flag = true;
-            RailShape railShape = state.getValue(SHAPE);
+        if (distance >= RAIL_POWER_LIMIT) return false;
 
-            switch (railShape) {
-                case NORTH_SOUTH -> {
-                    if (forward) {
-                        ++k;
-                    } else {
-                        --k;
-                    }
-                }
-                case EAST_WEST -> {
-                    if (forward) {
-                        --i;
-                    } else {
-                        ++i;
-                    }
-                }
-                case ASCENDING_EAST -> {
-                    if (forward) {
-                        --i;
-                    } else {
-                        ++i;
-                        ++j;
-                        flag = false;
-                    }
+        int x = pos.getX();
+        int y = pos.getY();
+        int z = pos.getZ();
+        boolean changed = true;
 
-                    railShape = RailShape.EAST_WEST;
-                }
-                case ASCENDING_WEST -> {
-                    if (forward) {
-                        --i;
-                        ++j;
-                        flag = false;
-                    } else {
-                        ++i;
-                    }
-
-                    railShape = RailShape.EAST_WEST;
-                }
-                case ASCENDING_NORTH -> {
-                    if (forward) {
-                        ++k;
-                    } else {
-                        --k;
-                        ++j;
-                        flag = false;
-                    }
-
-                    railShape = RailShape.NORTH_SOUTH;
-                }
-                case ASCENDING_SOUTH -> {
-                    if (forward) {
-                        ++k;
-                        ++j;
-                        flag = false;
-                    } else {
-                        --k;
-                    }
-
-                    railShape = RailShape.NORTH_SOUTH;
+        RailShape shape = state.getValue(SHAPE);
+        switch (shape) {
+            case NORTH_SOUTH -> {
+                if (forward) {
+                    ++z;
+                } else {
+                    --z;
                 }
             }
+            case EAST_WEST -> {
+                if (forward) {
+                    --x;
+                } else {
+                    ++x;
+                }
+            }
+            case ASCENDING_EAST -> {
+                if (forward) {
+                    --x;
+                } else {
+                    ++x;
+                    ++y;
+                    changed = false;
+                }
 
-            return this.func_176567_a(world, new BlockPos(i, j, k), forward, distance, railShape) || flag && this.func_176567_a(world, new BlockPos(i, j - 1, k), forward, distance, railShape);
+                shape = RailShape.EAST_WEST;
+            }
+            case ASCENDING_WEST -> {
+                if (forward) {
+                    --x;
+                    ++y;
+                    changed = false;
+                } else {
+                    ++x;
+                }
+
+                shape = RailShape.EAST_WEST;
+            }
+            case ASCENDING_NORTH -> {
+                if (forward) {
+                    ++z;
+                } else {
+                    --z;
+                    ++y;
+                    changed = false;
+                }
+
+                shape = RailShape.NORTH_SOUTH;
+            }
+            case ASCENDING_SOUTH -> {
+                if (forward) {
+                    ++z;
+                    ++y;
+                    changed = false;
+                } else {
+                    --z;
+                }
+
+                shape = RailShape.NORTH_SOUTH;
+            }
         }
+
+        BlockPos nextPos = new BlockPos(x, y, z);
+        return this.findSignal(world, nextPos, forward, distance, shape)
+                || changed && this.findSignal(world, nextPos.down(), forward, distance, shape);
     }
 
-    protected boolean func_176567_a(World world, BlockPos pos, boolean forward, int distance, RailShape expectedShape) {
+    protected boolean findSignal(World world, BlockPos pos, boolean forward, int distance, RailShape shape) {
         IBlockState state = world.getBlockState(pos);
+        if (state.getBlock() != this) return false;
 
-        if (state.getBlock() != this) {
+        RailShape railShape = state.getValue(SHAPE);
+        if ((shape == RailShape.EAST_WEST &&
+                (railShape == RailShape.NORTH_SOUTH ||
+                        railShape == RailShape.ASCENDING_NORTH ||
+                        railShape == RailShape.ASCENDING_SOUTH))
+                || (shape == RailShape.NORTH_SOUTH &&
+                (railShape == RailShape.EAST_WEST ||
+                        railShape == RailShape.ASCENDING_EAST ||
+                        railShape == RailShape.ASCENDING_WEST))) {
             return false;
-        } else {
-            RailShape actualShape = state.getValue(SHAPE);
-            return (expectedShape != RailShape.EAST_WEST || actualShape != RailShape.NORTH_SOUTH && actualShape != RailShape.ASCENDING_NORTH && actualShape != RailShape.ASCENDING_SOUTH)
-                    && ((expectedShape != RailShape.NORTH_SOUTH || actualShape != RailShape.EAST_WEST && actualShape != RailShape.ASCENDING_EAST && actualShape != RailShape.ASCENDING_WEST)
-                    && (state.getValue(POWERED) && (world.isBlockPowered(pos) || this.findSignal(world, pos, state, forward, distance + 1))));
         }
+
+        return state.getValue(POWERED) && (world.isBlockPowered(pos) || findSignal(world, pos, state, forward, distance + 1));
     }
 
     @Override
     protected void onNeighborChangedInternal(World world, BlockPos pos, IBlockState state, Block neighborBlock) {
-        boolean flag = state.getValue(POWERED);
-        boolean flag1 = world.isBlockPowered(pos) || this.findSignal(world, pos, state, true, 0) || this.findSignal(world, pos, state, false, 0);
+        boolean currentlyPowered = state.getValue(POWERED);
+        boolean shouldBePowered = world.isBlockPowered(pos) ||
+                this.findSignal(world, pos, state, true, 0) ||
+                this.findSignal(world, pos, state, false, 0);
 
-        if (flag1 != flag) {
-            world.setBlockState(pos, state.withProperty(POWERED, flag1), 3);
+        if (currentlyPowered != shouldBePowered) {
+            world.setBlockState(pos, state.withProperty(POWERED, shouldBePowered), 3);
             world.notifyNeighborsOfStateChange(pos.down(), this);
 
             if (state.getValue(SHAPE).isAscending()) {
@@ -127,20 +142,16 @@ public class BlockRailPowered extends BlockRailBase {
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(SHAPE, RailShape.byMetadata(meta & 7)).withProperty(POWERED, (meta & 8) > 0);
+        return this.getDefaultState()
+                .withProperty(SHAPE, RailShape.byMetadata(meta & 7))
+                .withProperty(POWERED, (meta & 8) > 0);
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        int i = 0;
-        i = i | state.getValue(SHAPE).getMetadata();
-
-        if (state.getValue(POWERED)) {
-            i |= 8;
-        }
-
-        return i;
+        return state.getValue(SHAPE).getMetadata() | (state.getValue(POWERED) ? 8 : 0);
     }
+
 
     @Override
     protected BlockState createBlockState() {

@@ -308,6 +308,7 @@ public class EntityGuardian extends EntityMob {
         super.onLivingUpdate();
     }
 
+    // TODO: make sure this actually work
     @Override
     public void handleStatusUpdate(byte id) {
         if (id == 21) {
