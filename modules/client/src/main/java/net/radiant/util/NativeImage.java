@@ -341,24 +341,24 @@ public class NativeImage {
         float srcAlpha = srcA / 255.0f;
         float invSrcAlpha = 1.0f - srcAlpha;
 
+        // Blend Alpha: GL_ONE, GL_ZERO = source alpha only
+        int outA = dstA;
+
         // Blend RGB
         int outR = Math.round(srcR * srcAlpha + dstR * invSrcAlpha);
         int outG = Math.round(srcG * srcAlpha + dstG * invSrcAlpha);
         int outB = Math.round(srcB * srcAlpha + dstB * invSrcAlpha);
 
-        // Blend Alpha: GL_ONE, GL_ZERO = source alpha only
-
         // Clamp to 0..255 (Math.round already ensures that, but extra safety)
-        outR = Math.min(255, Math.max(0, outR));
-        outG = Math.min(255, Math.max(0, outG));
-        outB = Math.min(255, Math.max(0, outB));
+        outR = Math.clamp(outR, 0, 255);
+        outG = Math.clamp(outG, 0, 255);
+        outB = Math.clamp(outB, 0, 255);
 
         // Pack back into ARGB
-        return (dstA << 24) | (outR << 16) | (outG << 8) | outB;
+        return (outA << 24) | (outR << 16) | (outG << 8) | outB;
     }
 
     public enum FileFormat {
         BMP, TGA, PNG, JPG
     }
-
 }

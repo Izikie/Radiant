@@ -8,8 +8,9 @@ build/
 *.iml
 *.ipr
 out/
-/run/
+run/
 
 # This may be changed whenever the agent is run, therefore it should be excluded
 /src/main/resources/META-INF/native-image/reachability-metadata.json
 /src/main/resources/META-INF/native-image/.lock
+/modules/dev/src/main/resources/gradle_hack.txt

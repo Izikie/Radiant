@@ -38,17 +38,22 @@ val minecraftDir = when {
     else -> "$home/.minecraft"
 }
 
-fun JavaExec.configureRunClient() {
+tasks.register<JavaExec>("RunClient") {
+    group = "GradleMCP"
+    description = "Starts the Minecraft client."
+
+    dependsOn("ExtractLwjglNatives")
+
     doFirst {
-        val runDir = file("run")
-        if (!runDir.exists()) {
-            runDir.mkdirs()
+        workingDir = file("run")
+        if (!workingDir.exists()) {
+            workingDir.mkdirs()
         }
     }
 
-    mainClass.set("net.minecraft.client.main.Main")
     classpath = sourceSets["main"].runtimeClasspath
-    workingDir = file("run")
+
+    mainClass.set("net.radiant.run.DevStart")
 
     args = listOf(
         "--gameDir", minecraftDir,
@@ -57,16 +62,29 @@ fun JavaExec.configureRunClient() {
     )
 }
 
-tasks.register<JavaExec>("RunClient") {
-    group = "GradleMCP"
-    description = "Starts the Minecraft client."
-    configureRunClient()
-}
-
 tasks.register<JavaExec>("RunClientNativeAgent") {
     group = "GradleMCP"
     description = "Starts the Minecraft client with the native image tracing agent attached. This won't work if ran in debug mode."
-    configureRunClient()
+
+    dependsOn("ExtractLwjglNatives")
+
+    doFirst {
+        workingDir = file("run")
+        if (!workingDir.exists()) {
+            workingDir.mkdirs()
+        }
+    }
+
+    classpath = sourceSets["main"].runtimeClasspath
+
+    mainClass.set("net.radiant.run.DevStart")
+
+    args = listOf(
+        "--gameDir", minecraftDir,
+        "--accessToken", "0",
+        "--userProperties", "{}"
+    )
+
     jvmArgs = listOf(
         "-Djava.library.path=natives",
         "-Dradiant.exerciseClasses",

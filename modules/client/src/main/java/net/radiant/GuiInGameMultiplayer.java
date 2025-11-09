@@ -4,6 +4,7 @@ import net.minecraft.client.gui.GuiMultiplayer;
 import net.minecraft.client.multiplayer.ServerData;
 
 public class GuiInGameMultiplayer extends GuiMultiplayer {
+
     public GuiInGameMultiplayer() {
         super(null);
     }

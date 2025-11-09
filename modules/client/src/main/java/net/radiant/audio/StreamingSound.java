@@ -11,6 +11,7 @@ import static org.lwjgl.openal.AL10.*;
 import static org.lwjgl.stb.STBVorbis.*;
 
 public class StreamingSound implements ISoundSource, Runnable {
+
     private static final int BUFFER_COUNT = 4;
     private static final int BUFFER_SIZE = 0x8000; // tune this
     private static final int MAX_WAIT_TIME = BUFFER_COUNT + 5;

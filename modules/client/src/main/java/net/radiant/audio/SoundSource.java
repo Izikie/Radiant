@@ -5,6 +5,7 @@ import java.nio.ShortBuffer;
 import static org.lwjgl.openal.AL10.*;
 
 public class SoundSource implements ISoundSource {
+
     private final int buffer, source;
     private float baseVolume = 1.0f;
 

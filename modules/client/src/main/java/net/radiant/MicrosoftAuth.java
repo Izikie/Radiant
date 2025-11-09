@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 public class MicrosoftAuth extends GuiScreen {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(MicrosoftAuth.class);
     private static final MicrosoftAuthenticator AUTHENTICATOR = new MicrosoftAuthenticator();
 

@@ -47,6 +47,7 @@ import java.util.*;
  * $Id: LWJGLUtil.java 3608 2011-08-10 16:05:46Z spasi $
  */
 public class LWJGLUtil {
+
     public static final int PLATFORM_LINUX = 1;
     public static final int PLATFORM_MACOSX = 2;
     public static final int PLATFORM_WINDOWS = 3;

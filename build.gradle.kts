@@ -15,6 +15,12 @@ subprojects {
     apply(plugin = "java")
     apply(plugin = "java-library")
 
+    extensions.configure(JavaPluginExtension::class.java) {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(25))
+        }
+    }
+
     repositories {
         mavenCentral()
         maven { url = uri("https://libraries.minecraft.net") }
