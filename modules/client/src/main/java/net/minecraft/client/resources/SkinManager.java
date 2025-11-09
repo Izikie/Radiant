@@ -59,12 +59,12 @@ public class SkinManager {
         } else {
             File file1 = new File(this.skinCacheDir, profileTexture.getHash().length() > 2 ? profileTexture.getHash().substring(0, 2) : "xx");
             File file2 = new File(file1, profileTexture.getHash());
-            final IImageBuffer iimagebuffer = p_152789_2_ == Type.SKIN ? new ImageBufferDownload() : null;
-            ThreadDownloadImageData threaddownloadimagedata = new ThreadDownloadImageData(file2, profileTexture.getUrl(), DefaultPlayerSkin.getDefaultSkinLegacy(), new IImageBuffer() {
+            final IImageBuffer imageBuffer = p_152789_2_ == Type.SKIN ? new ImageBufferDownload() : null;
+            ThreadDownloadImageData threadDownloadImageData = new ThreadDownloadImageData(file2, profileTexture.getUrl(), DefaultPlayerSkin.getDefaultSkinLegacy(), new IImageBuffer() {
                 @Override
                 public NativeImage parseUserSkin(NativeImage image) {
-                    if (iimagebuffer != null) {
-                        image = iimagebuffer.parseUserSkin(image);
+                    if (imageBuffer != null) {
+                        image = imageBuffer.parseUserSkin(image);
                     }
 
                     return image;
@@ -72,8 +72,8 @@ public class SkinManager {
 
                 @Override
                 public void skinAvailable() {
-                    if (iimagebuffer != null) {
-                        iimagebuffer.skinAvailable();
+                    if (imageBuffer != null) {
+                        imageBuffer.skinAvailable();
                     }
 
                     if (skinAvailableCallback != null) {
@@ -81,7 +81,7 @@ public class SkinManager {
                     }
                 }
             });
-            this.textureManager.loadTexture(resourcelocation, threaddownloadimagedata);
+            this.textureManager.loadTexture(resourcelocation, threadDownloadImageData);
         }
 
         return resourcelocation;

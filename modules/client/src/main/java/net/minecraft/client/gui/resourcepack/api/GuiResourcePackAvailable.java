@@ -1,4 +1,4 @@
-package net.minecraft.client.gui.resourcepack;
+package net.minecraft.client.gui.resourcepack.api;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;

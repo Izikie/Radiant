@@ -5,6 +5,8 @@ import com.google.common.collect.Lists;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiOptionButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.resourcepack.api.GuiResourcePackAvailable;
+import net.minecraft.client.gui.resourcepack.api.GuiResourcePackSelected;
 import net.minecraft.client.resources.*;
 import net.minecraft.util.Util;
 
@@ -28,8 +30,6 @@ public class GuiScreenResourcePacks extends GuiScreen {
 
     @Override
     public void initGui() {
-        this.buttonList.add(new GuiButton(0, this.width / 2 - 204, this.height - 26, 30, 20, "A-Z"));
-        this.buttonList.add(new GuiButton(1, this.width / 2 - 204 + 34, this.height - 26, 30, 20, "Z-A"));
         this.buttonList.add(new GuiButton(2, this.width / 2 - 56, this.height - 26, 52, 20, "Refresh"));
 
         this.buttonList.add(new GuiOptionButton(3, this.width / 2 + 25, this.height - 26, I18n.format("resourcePack.openFolder")));
@@ -45,8 +45,10 @@ public class GuiScreenResourcePacks extends GuiScreen {
     private void loadResourcePacks() {
         this.availableResourcePacks.clear();
         this.selectedResourcePacks.clear();
+
         ResourcePackRepository resourcePackRepository = this.mc.getResourcePackRepository();
         resourcePackRepository.updateRepositoryEntriesAll();
+
         List<ResourcePackRepository.Entry> allEntries = new ArrayList<>(resourcePackRepository.getRepositoryEntriesAll());
         allEntries.removeAll(resourcePackRepository.getRepositoryEntries());
 
@@ -103,18 +105,12 @@ public class GuiScreenResourcePacks extends GuiScreen {
         if (!button.enabled) return;
 
         switch (button.id) {
-            case 0 -> { // Sort A-Z
-            }
-            case 1 -> { // Sort Z-A
-            }
             case 2 -> { // Refresh
-                this.changed = false;
                 loadResourcePacks();
                 setupResourcePackLists();
             }
-            case 3 -> { // Open Resource Pack Folder
-                Util.openFolder(mc.getResourcePackRepository().getDirResourcepacks());
-            }
+            // Open Resource Pack Folder
+            case 3 -> Util.openFolder(mc.getResourcePackRepository().getDirResourcepacks());
             case 4 -> { // Done
                 applyResourcePackChanges();
                 this.mc.displayGuiScreen(this.parentScreen);
@@ -134,11 +130,6 @@ public class GuiScreenResourcePacks extends GuiScreen {
         super.mouseClicked(mouseX, mouseY, mouseButton);
         this.availableResourcePacksList.mouseClicked(mouseX, mouseY, mouseButton);
         this.selectedResourcePacksList.mouseClicked(mouseX, mouseY, mouseButton);
-    }
-
-    @Override
-    protected void mouseReleased(int mouseX, int mouseY, int state) {
-        super.mouseReleased(mouseX, mouseY, state);
     }
 
     @Override
