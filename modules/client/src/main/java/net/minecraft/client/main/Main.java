@@ -27,8 +27,8 @@ public class Main {
 
     public static void main(String[] args) {
         System.setProperty("java.net.preferIPv4Stack", "true");
-        System.setProperty("io.netty.allocator.maxOrder", "9"); // Default is 16MiB, Minecraft uses 2MiB, use 4MiB as safe default
-        // Lowering maxOrder also lowers memory allocation
+        // IMPROVEMENT: (Credit: Krypton): Lowered Netty allocator maxOrder to 9 (4MiB) for lower RAM usage
+        System.setProperty("io.netty.allocator.maxOrder", "9"); // Default 16MiB, MC max packet is 2MiB
 
         if (!System.getProperty("os.arch").contains("64")) {
             LOGGER.error("❌ Radiant requires a 64-bit JVM to run.");

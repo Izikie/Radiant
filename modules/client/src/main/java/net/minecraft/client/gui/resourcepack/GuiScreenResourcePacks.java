@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-// TODO: Implement sorting by search, A-Z, Z-A
+// TODO: Implement sorting by search
 public class GuiScreenResourcePacks extends GuiScreen {
     private final GuiScreen parentScreen;
     private final List<ResourcePackListEntry> availableResourcePacks = new ArrayList<>();

@@ -1188,7 +1188,7 @@ public class Minecraft implements IThreadListener {
 							if (gameSettings.thirdPersonView == GameSettings.Perspective.FIRST_PERSON) {
 								entityRenderer.loadEntityShader(getRenderViewEntity());
 							}
-							// IMPROVEMENT: Don't reset the shader when switching to 3rd person view
+							// IMPROVEMENT: (Credit: Patcher): Don't reset the shader when switching to 3rd person view
 
 							renderGlobal.setDisplayListEntitiesDirty();
 						}

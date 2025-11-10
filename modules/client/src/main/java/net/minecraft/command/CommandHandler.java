@@ -18,7 +18,8 @@ public class CommandHandler implements ICommandManager {
 
     @Override
     public int executeCommand(ICommandSender sender, String rawCommand) {
-        rawCommand = rawCommand.trim().toLowerCase(); // BUGFIX: Commands case-sensitive
+        // BUGFIX: (Credit: Patcher): Commands case-sensitive
+        rawCommand = rawCommand.trim().toLowerCase();
 
         if (rawCommand.startsWith("/")) {
             rawCommand = rawCommand.substring(1);

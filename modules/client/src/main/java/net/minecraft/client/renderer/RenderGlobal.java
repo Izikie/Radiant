@@ -1404,7 +1404,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             GlStateManager.color(0.0F, 0.0F, 0.0F);
             double d0 = this.mc.player.getPositionEyes(partialTicks).yCoord - this.theWorld.getHorizon();
 
-            // BUGFIX: Void Render Box
+            // BUGFIX: (Credit: Patcher): Void Render Box
 
             if (this.theWorld.provider.isSkyColored()) {
                 GlStateManager.color(f * 0.2F + 0.04F, f1 * 0.2F + 0.04F, f2 * 0.6F + 0.1F);

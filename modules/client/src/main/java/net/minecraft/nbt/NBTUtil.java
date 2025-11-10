@@ -16,7 +16,7 @@ import java.util.UUID;
 public final class NBTUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(NBTUtil.class);
 
-    // IMPROVEMENT: Fix skull crash
+    // CRASHFIX: Invalid texture URL in skull NBT data
     private static String fixSkullCrash(NBTTagCompound nbtTagCompound) {
         try {
             String valueURL = nbtTagCompound.getString("Value");

@@ -93,7 +93,7 @@ public class BlockState {
 
         @Override
         public <T extends Comparable<T>, V extends T> IBlockState withProperty(IProperty<T> property, V value) {
-            // BUGFIX: Crash from the value not being included in the properties allowed values
+            // CRASHFIX: value not being included in the properties allowed values
             try {
                 if (!this.properties.containsKey(property)) {
                     throw new IllegalArgumentException("Cannot set property " + property + " as it does not exist in " + this.block.getBlockState());

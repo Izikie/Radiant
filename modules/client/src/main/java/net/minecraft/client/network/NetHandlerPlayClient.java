@@ -884,12 +884,12 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
                 this.clientWorldController.setRainStrength(1.0F);
             }
             case 3 -> this.gameController.playerController.setGameType(WorldSettings.GameType.getByID(j));
-            case 4 -> this.gameController.displayGuiScreen(new GuiWinGame()); // TODO: Only allow once per session
-            // BUGFIX: Action 5, Shows Demo Screen
-            case 6 ->
-                    this.clientWorldController.playSound(entityplayer.posX, entityplayer.posY + entityplayer.getEyeHeight(), entityplayer.posZ, "random.successful_hit", 0.18F, 0.45F, false);
-            case 7 -> // BUGFIX: HIGH VALUE -> LAG/CRASH | LOW VALUE -> WORLD COLOR CHANGES
-                    this.clientWorldController.setRainStrength(Math.clamp(f, -2.0F, 2F)); // Allow leniency for servers to use
+            // TODO: Implement system to pervent abuse through spammed win packets
+            case 4 -> this.gameController.displayGuiScreen(new GuiWinGame());
+            // BUGFIX: Removed demo screen to prevent abuse
+            case 6 -> this.clientWorldController.playSound(entityplayer.posX, entityplayer.posY + entityplayer.getEyeHeight(), entityplayer.posZ, "random.successful_hit", 0.18F, 0.45F, false);
+            // BUGFIX: Clamp value to pervent lag/crash and abuse of color/brightness effects, leave leniency for servers
+            case 7 -> this.clientWorldController.setRainStrength(Math.clamp(f, -4.0F, 4F));
             case 8 -> this.clientWorldController.setThunderStrength(f);
             case 10 -> {
                 this.clientWorldController.spawnParticle(ParticleTypes.MOB_APPEARANCE, entityplayer.posX, entityplayer.posY, entityplayer.posZ, 0.0D, 0.0D, 0.0D);
@@ -966,9 +966,10 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         }
     }
 
+    // TODO: Possibly Fully remove packet?
     @Override
     public void handleCombatEvent(S42PacketCombatEvent packet) {
-    }// TODO: Possibly Fully remove packet?
+    }
 
     @Override
     public void handleServerDifficulty(S41PacketServerDifficulty packet) {
@@ -1113,7 +1114,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         final String url = packet.getURL();
         final String hash = packet.getHash();
 
-        try { // BUGFIX: Resource Pack Traversal Exploit
+        // BUGFIX: Resource Pack Traversal Exploit
+        try {
             // Check for unsupported protocols
             if (!url.matches("(http|https|level)://+.*")) {
                 netManager.sendPacket(new C19PacketResourcePackStatus(hash, C19PacketResourcePackStatus.Action.FAILED_DOWNLOAD));

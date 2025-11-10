@@ -566,7 +566,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                     f4 = f4 * 0.1F;
                     f5 = f5 * 0.1F;
 
-                    // IMPROVEMENT: Stop tall grass, plants, etc. from affecting your FOV as done in 1.14+.
+                    // IMPROVEMENT: (Credit: Patcher): Stop tall grass, plants, etc. from affecting your FOV as done in 1.14+.
                     MovingObjectPosition objectPosition = this.mc.world.rayTraceBlocks(
                             new Vec3(d0 + f3, d1 + f4, d2 + f5),
                             new Vec3(d0 - d4 + f3 + f5, d1 - d6 + f4, d2 - d5 + f5),
@@ -592,7 +592,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 GlStateManager.rotate(f2 - entity.rotationPitch, 1.0F, 0.0F, 0.0F);
             }
         } else {
-            GlStateManager.translate(0.0F, 0.0F, -0.1F); // TODO: Parallax Fix But Without Stretching
+            // TODO: Parallax Fix without the weird stretching and other issues
+            GlStateManager.translate(0.0F, 0.0F, -0.1F);
         }
 
         if (!this.mc.gameSettings.debugCamEnable) {
@@ -638,7 +639,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             GlStateManager.scale(this.cameraZoom, this.cameraZoom, 1.0D);
         }
 
-        // IMPROVEMENT: Used JOML
         Matrix4f projectionMatrix = new Matrix4f().perspective(
                 (float) Math.toRadians(this.getFOVModifier(partialTicks, true)),
                 (float) this.mc.displayWidth / this.mc.displayHeight,
