@@ -6,81 +6,81 @@ import java.util.Iterator;
 import java.util.List;
 
 public class IteratorCache {
-	private static final Deque<IteratorReusable<Object>> dequeIterators = new ArrayDeque<>();
+    private static final Deque<IteratorReusable<Object>> dequeIterators = new ArrayDeque<>();
 
-	static {
-		for (int i = 0; i < 1000; ++i) {
-			dequeIterators.add(new IteratorReadOnly());
-		}
-	}
+    static {
+        for (int i = 0; i < 1000; ++i) {
+            dequeIterators.add(new IteratorReadOnly());
+        }
+    }
 
-	public static Iterator<Object> getReadOnly(List list) {
-		synchronized (dequeIterators) {
-			IteratorReusable<Object> iteratorreusable = dequeIterators.pollFirst();
+    public static Iterator<Object> getReadOnly(List list) {
+        synchronized (dequeIterators) {
+            IteratorReusable<Object> iteratorreusable = dequeIterators.pollFirst();
 
-			if (iteratorreusable == null) {
-				iteratorreusable = new IteratorReadOnly();
-			}
+            if (iteratorreusable == null) {
+                iteratorreusable = new IteratorReadOnly();
+            }
 
-			iteratorreusable.setList(list);
-			return iteratorreusable;
-		}
-	}
+            iteratorreusable.setList(list);
+            return iteratorreusable;
+        }
+    }
 
-	private static void finished(IteratorReusable<Object> iterator) {
-		synchronized (dequeIterators) {
-			if (dequeIterators.size() <= 1000) {
-				iterator.setList(null);
-				dequeIterators.addLast(iterator);
-			}
-		}
-	}
+    private static void finished(IteratorReusable<Object> iterator) {
+        synchronized (dequeIterators) {
+            if (dequeIterators.size() <= 1000) {
+                iterator.setList(null);
+                dequeIterators.addLast(iterator);
+            }
+        }
+    }
 
-	public interface IteratorReusable<E> extends Iterator<E> {
-		void setList(List<E> var1);
-	}
+    public interface IteratorReusable<E> extends Iterator<E> {
+        void setList(List<E> var1);
+    }
 
-	public static class IteratorReadOnly implements IteratorReusable<Object> {
-		private List<Object> list;
-		private int index;
-		private boolean hasNext;
+    public static class IteratorReadOnly implements IteratorReusable<Object> {
+        private List<Object> list;
+        private int index;
+        private boolean hasNext;
 
-		@Override
+        @Override
         public void setList(List<Object> list) {
-			if (this.hasNext) {
-				throw new RuntimeException("Iterator still used, oldList: " + this.list + ", newList: " + list);
-			} else {
-				this.list = list;
-				this.index = 0;
-				this.hasNext = list != null && this.index < list.size();
-			}
-		}
+            if (this.hasNext) {
+                throw new RuntimeException("Iterator still used, oldList: " + this.list + ", newList: " + list);
+            } else {
+                this.list = list;
+                this.index = 0;
+                this.hasNext = list != null && this.index < list.size();
+            }
+        }
 
-		@Override
+        @Override
         public Object next() {
-			if (!this.hasNext) {
-				return null;
-			} else {
-				Object object = this.list.get(this.index);
-				++this.index;
-				this.hasNext = this.index < this.list.size();
-				return object;
-			}
-		}
+            if (!this.hasNext) {
+                return null;
+            } else {
+                Object object = this.list.get(this.index);
+                ++this.index;
+                this.hasNext = this.index < this.list.size();
+                return object;
+            }
+        }
 
-		@Override
+        @Override
         public boolean hasNext() {
-			if (!this.hasNext) {
-				finished(this);
-				return false;
-			} else {
-				return this.hasNext;
-			}
-		}
+            if (!this.hasNext) {
+                finished(this);
+                return false;
+            } else {
+                return this.hasNext;
+            }
+        }
 
-		@Override
+        @Override
         public void remove() {
-			throw new UnsupportedOperationException("remove");
-		}
-	}
+            throw new UnsupportedOperationException("remove");
+        }
+    }
 }

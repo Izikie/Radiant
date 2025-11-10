@@ -10,7 +10,8 @@ public class RadiantLoggerFactory implements ILoggerFactory {
 
     private final Map<String, Logger> loggers = new ConcurrentHashMap<>();
 
-    public RadiantLoggerFactory() {}
+    public RadiantLoggerFactory() {
+    }
 
     @Override
     public Logger getLogger(String name) {

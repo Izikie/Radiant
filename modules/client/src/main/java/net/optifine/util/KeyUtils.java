@@ -9,20 +9,20 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class KeyUtils {
-	public static void fixKeyConflicts(KeyBinding[] keys, KeyBinding[] priorityKeys) {
-		IntSet keyCodes = new IntOpenHashSet();
+    public static void fixKeyConflicts(KeyBinding[] keys, KeyBinding[] priorityKeys) {
+        IntSet keyCodes = new IntOpenHashSet();
 
-		for (KeyBinding key : priorityKeys) {
-			keyCodes.add(key.getKeyCode());
-		}
+        for (KeyBinding key : priorityKeys) {
+            keyCodes.add(key.getKeyCode());
+        }
 
-		Set<KeyBinding> nonPriorityKeys = new HashSet<>(Arrays.asList(keys));
-		Arrays.asList(priorityKeys).forEach(nonPriorityKeys::remove);
+        Set<KeyBinding> nonPriorityKeys = new HashSet<>(Arrays.asList(keys));
+        Arrays.asList(priorityKeys).forEach(nonPriorityKeys::remove);
 
-		for (KeyBinding keybinding1 : nonPriorityKeys) {
-			if (keyCodes.contains(keybinding1.getKeyCode())) {
-				keybinding1.setKeyCode(0);
-			}
-		}
-	}
+        for (KeyBinding keybinding1 : nonPriorityKeys) {
+            if (keyCodes.contains(keybinding1.getKeyCode())) {
+                keybinding1.setKeyCode(0);
+            }
+        }
+    }
 }

@@ -3,84 +3,84 @@ package net.optifine.util.collection;
 import java.util.Objects;
 
 public class ArrayUtils {
-	public static boolean contains(Object[] arr, Object val) {
-		if (arr != null) {
-			for (Object object : arr) {
-				if (object == val) {
-					return true;
-				}
-			}
+    public static boolean contains(Object[] arr, Object val) {
+        if (arr != null) {
+            for (Object object : arr) {
+                if (object == val) {
+                    return true;
+                }
+            }
 
-		}
-		return false;
-	}
+        }
+        return false;
+    }
 
-	public static String arrayToString(float[] arr, String separator) {
-		if (arr == null) {
-			return "";
-		} else {
-			StringBuilder stringbuffer = new StringBuilder(arr.length * 5);
+    public static String arrayToString(float[] arr, String separator) {
+        if (arr == null) {
+            return "";
+        } else {
+            StringBuilder stringbuffer = new StringBuilder(arr.length * 5);
 
-			for (int i = 0; i < arr.length; ++i) {
-				float f = arr[i];
+            for (int i = 0; i < arr.length; ++i) {
+                float f = arr[i];
 
-				if (i > 0) {
-					stringbuffer.append(separator);
-				}
+                if (i > 0) {
+                    stringbuffer.append(separator);
+                }
 
-				stringbuffer.append(f);
-			}
+                stringbuffer.append(f);
+            }
 
-			return stringbuffer.toString();
-		}
-	}
+            return stringbuffer.toString();
+        }
+    }
 
-	public static String arrayToString(int[] arr, String separator) {
-		if (arr == null) {
-			return "";
-		} else {
-			StringBuilder stringbuffer = new StringBuilder(arr.length * 5);
+    public static String arrayToString(int[] arr, String separator) {
+        if (arr == null) {
+            return "";
+        } else {
+            StringBuilder stringbuffer = new StringBuilder(arr.length * 5);
 
-			for (int i = 0; i < arr.length; ++i) {
-				int j = arr[i];
+            for (int i = 0; i < arr.length; ++i) {
+                int j = arr[i];
 
-				if (i > 0) {
-					stringbuffer.append(separator);
-				}
+                if (i > 0) {
+                    stringbuffer.append(separator);
+                }
 
-				stringbuffer.append(j);
-			}
+                stringbuffer.append(j);
+            }
 
-			return stringbuffer.toString();
-		}
-	}
+            return stringbuffer.toString();
+        }
+    }
 
-	public static String arrayToString(Object[] arr) {
-		return arrayToString(arr, ", ");
-	}
+    public static String arrayToString(Object[] arr) {
+        return arrayToString(arr, ", ");
+    }
 
-	public static String arrayToString(Object[] arr, String separator) {
-		if (arr == null) {
-			return "";
-		} else {
-			StringBuilder stringbuffer = new StringBuilder(arr.length * 5);
+    public static String arrayToString(Object[] arr, String separator) {
+        if (arr == null) {
+            return "";
+        } else {
+            StringBuilder stringbuffer = new StringBuilder(arr.length * 5);
 
-			for (int i = 0; i < arr.length; ++i) {
-				Object object = arr[i];
+            for (int i = 0; i < arr.length; ++i) {
+                Object object = arr[i];
 
-				if (i > 0) {
-					stringbuffer.append(separator);
-				}
+                if (i > 0) {
+                    stringbuffer.append(separator);
+                }
 
-				stringbuffer.append(object);
-			}
+                stringbuffer.append(object);
+            }
 
-			return stringbuffer.toString();
-		}
-	}
+            return stringbuffer.toString();
+        }
+    }
 
-	public static boolean equals(Object o1, Object o2) {
-		return Objects.equals(o1, o2);
-	}
+    public static boolean equals(Object o1, Object o2) {
+        return Objects.equals(o1, o2);
+    }
 
 }

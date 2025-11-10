@@ -11,33 +11,33 @@ import net.minecraft.tileentity.TileEntityChest;
 import net.optifine.Log;
 
 public class ModelAdapterChestLarge extends ModelAdapter {
-	public ModelAdapterChestLarge() {
-		super(TileEntityChest.class, "chest_large", 0.0F);
-	}
+    public ModelAdapterChestLarge() {
+        super(TileEntityChest.class, "chest_large", 0.0F);
+    }
 
-	@Override
+    @Override
     public ModelBase makeModel() {
-		return new ModelLargeChest();
-	}
+        return new ModelLargeChest();
+    }
 
-	@Override
+    @Override
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-		if (model instanceof ModelChest modelchest) {
-			return modelPart.equals("lid") ? modelchest.chestLid : (modelPart.equals("base") ? modelchest.chestBelow : (modelPart.equals("knob") ? modelchest.chestKnob : null));
-		} else {
-			return null;
-		}
-	}
+        if (model instanceof ModelChest modelchest) {
+            return modelPart.equals("lid") ? modelchest.chestLid : (modelPart.equals("base") ? modelchest.chestBelow : (modelPart.equals("knob") ? modelchest.chestKnob : null));
+        } else {
+            return null;
+        }
+    }
 
-	@Override
+    @Override
     public String[] getModelRendererNames() {
-		return new String[]{"lid", "base", "knob"};
-	}
+        return new String[]{"lid", "base", "knob"};
+    }
 
-	@Override
+    @Override
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.INSTANCE;
-		TileEntitySpecialRenderer<TileEntityChest> tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntityChest.class);
+        TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.INSTANCE;
+        TileEntitySpecialRenderer<TileEntityChest> tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntityChest.class);
 
         if (tileentityspecialrenderer instanceof TileEntityChestRenderer) {
             if (tileentityspecialrenderer.getEntityClass() == null) {

@@ -32,6 +32,10 @@ public class RadiantLoggerService implements SLF4JServiceProvider {
         this.infoEnabled = true;
     }
 
+    public static RadiantLoggerService get() {
+        return instance;
+    }
+
     @Override
     public ILoggerFactory getLoggerFactory() {
         return loggerFactory;
@@ -101,9 +105,5 @@ public class RadiantLoggerService implements SLF4JServiceProvider {
 
     public void setTraceEnabled(boolean traceEnabled) {
         this.traceEnabled = traceEnabled;
-    }
-
-    public static RadiantLoggerService get() {
-        return instance;
     }
 }

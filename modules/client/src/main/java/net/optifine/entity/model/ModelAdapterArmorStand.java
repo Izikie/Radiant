@@ -10,37 +10,37 @@ import net.minecraft.entity.item.EntityArmorStand;
 import net.optifine.Config;
 
 public class ModelAdapterArmorStand extends ModelAdapterBiped {
-	public ModelAdapterArmorStand() {
-		super(EntityArmorStand.class, "armor_stand", 0.0F);
-	}
+    public ModelAdapterArmorStand() {
+        super(EntityArmorStand.class, "armor_stand", 0.0F);
+    }
 
-	@Override
+    @Override
     public ModelBase makeModel() {
-		return new ModelArmorStand();
-	}
+        return new ModelArmorStand();
+    }
 
-	@Override
+    @Override
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-		if (!(model instanceof ModelArmorStand modelarmorstand)) {
-			return null;
-		} else {
-			return modelPart.equals("right") ? modelarmorstand.standRightSide : (modelPart.equals("left") ? modelarmorstand.standLeftSide : (modelPart.equals("waist") ? modelarmorstand.standWaist : (modelPart.equals("base") ? modelarmorstand.standBase : super.getModelRenderer(modelarmorstand, modelPart))));
-		}
-	}
+        if (!(model instanceof ModelArmorStand modelarmorstand)) {
+            return null;
+        } else {
+            return modelPart.equals("right") ? modelarmorstand.standRightSide : (modelPart.equals("left") ? modelarmorstand.standLeftSide : (modelPart.equals("waist") ? modelarmorstand.standWaist : (modelPart.equals("base") ? modelarmorstand.standBase : super.getModelRenderer(modelarmorstand, modelPart))));
+        }
+    }
 
-	@Override
+    @Override
     public String[] getModelRendererNames() {
-		String[] astring = super.getModelRendererNames();
-		astring = (String[]) Config.addObjectsToArray(astring, new String[]{"right", "left", "waist", "base"});
-		return astring;
-	}
+        String[] astring = super.getModelRendererNames();
+        astring = (String[]) Config.addObjectsToArray(astring, new String[]{"right", "left", "waist", "base"});
+        return astring;
+    }
 
-	@Override
+    @Override
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.get().getRenderManager();
-		ArmorStandRenderer armorstandrenderer = new ArmorStandRenderer(rendermanager);
-		armorstandrenderer.mainModel = modelBase;
-		armorstandrenderer.shadowSize = shadowSize;
-		return armorstandrenderer;
-	}
+        RenderManager rendermanager = Minecraft.get().getRenderManager();
+        ArmorStandRenderer armorstandrenderer = new ArmorStandRenderer(rendermanager);
+        armorstandrenderer.mainModel = modelBase;
+        armorstandrenderer.shadowSize = shadowSize;
+        return armorstandrenderer;
+    }
 }

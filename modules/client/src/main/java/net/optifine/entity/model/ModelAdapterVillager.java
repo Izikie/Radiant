@@ -9,35 +9,35 @@ import net.minecraft.client.renderer.entity.RenderVillager;
 import net.minecraft.entity.passive.EntityVillager;
 
 public class ModelAdapterVillager extends ModelAdapter {
-	public ModelAdapterVillager() {
-		super(EntityVillager.class, "villager", 0.5F);
-	}
+    public ModelAdapterVillager() {
+        super(EntityVillager.class, "villager", 0.5F);
+    }
 
-	@Override
+    @Override
     public ModelBase makeModel() {
-		return new ModelVillager(0.0F);
-	}
+        return new ModelVillager(0.0F);
+    }
 
-	@Override
+    @Override
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-		if (!(model instanceof ModelVillager modelvillager)) {
-			return null;
-		} else {
-			return modelPart.equals("head") ? modelvillager.villagerHead : (modelPart.equals("body") ? modelvillager.villagerBody : (modelPart.equals("arms") ? modelvillager.villagerArms : (modelPart.equals("left_leg") ? modelvillager.leftVillagerLeg : (modelPart.equals("right_leg") ? modelvillager.rightVillagerLeg : (modelPart.equals("nose") ? modelvillager.villagerNose : null)))));
-		}
-	}
+        if (!(model instanceof ModelVillager modelvillager)) {
+            return null;
+        } else {
+            return modelPart.equals("head") ? modelvillager.villagerHead : (modelPart.equals("body") ? modelvillager.villagerBody : (modelPart.equals("arms") ? modelvillager.villagerArms : (modelPart.equals("left_leg") ? modelvillager.leftVillagerLeg : (modelPart.equals("right_leg") ? modelvillager.rightVillagerLeg : (modelPart.equals("nose") ? modelvillager.villagerNose : null)))));
+        }
+    }
 
-	@Override
+    @Override
     public String[] getModelRendererNames() {
-		return new String[]{"head", "body", "arms", "right_leg", "left_leg", "nose"};
-	}
+        return new String[]{"head", "body", "arms", "right_leg", "left_leg", "nose"};
+    }
 
-	@Override
+    @Override
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.get().getRenderManager();
-		RenderVillager rendervillager = new RenderVillager(rendermanager);
-		rendervillager.mainModel = modelBase;
-		rendervillager.shadowSize = shadowSize;
-		return rendervillager;
-	}
+        RenderManager rendermanager = Minecraft.get().getRenderManager();
+        RenderVillager rendervillager = new RenderVillager(rendermanager);
+        rendervillager.mainModel = modelBase;
+        rendervillager.shadowSize = shadowSize;
+        return rendervillager;
+    }
 }

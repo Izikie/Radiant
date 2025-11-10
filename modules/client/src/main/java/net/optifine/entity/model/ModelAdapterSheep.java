@@ -8,18 +8,18 @@ import net.minecraft.client.renderer.entity.RenderSheep;
 import net.minecraft.entity.passive.EntitySheep;
 
 public class ModelAdapterSheep extends ModelAdapterQuadruped {
-	public ModelAdapterSheep() {
-		super(EntitySheep.class, "sheep", 0.7F);
-	}
+    public ModelAdapterSheep() {
+        super(EntitySheep.class, "sheep", 0.7F);
+    }
 
-	@Override
+    @Override
     public ModelBase makeModel() {
-		return new ModelSheep2();
-	}
+        return new ModelSheep2();
+    }
 
-	@Override
+    @Override
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.get().getRenderManager();
-		return new RenderSheep(rendermanager, modelBase, shadowSize);
-	}
+        RenderManager rendermanager = Minecraft.get().getRenderManager();
+        return new RenderSheep(rendermanager, modelBase, shadowSize);
+    }
 }

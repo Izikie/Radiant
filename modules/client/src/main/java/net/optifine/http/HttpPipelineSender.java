@@ -10,58 +10,58 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 public class HttpPipelineSender extends Thread {
-	private static final String CRLF = "\r\n";
-	private static final Charset ASCII = StandardCharsets.US_ASCII;
-	private final HttpPipelineConnection httpPipelineConnection;
+    private static final String CRLF = "\r\n";
+    private static final Charset ASCII = StandardCharsets.US_ASCII;
+    private final HttpPipelineConnection httpPipelineConnection;
 
-	public HttpPipelineSender(HttpPipelineConnection httpPipelineConnection) {
-		super("HttpPipelineSender");
-		this.httpPipelineConnection = httpPipelineConnection;
-	}
+    public HttpPipelineSender(HttpPipelineConnection httpPipelineConnection) {
+        super("HttpPipelineSender");
+        this.httpPipelineConnection = httpPipelineConnection;
+    }
 
-	@Override
+    @Override
     public void run() {
-		HttpPipelineRequest httppipelinerequest = null;
+        HttpPipelineRequest httppipelinerequest = null;
 
-		try {
-			this.connect();
+        try {
+            this.connect();
 
-			while (!Thread.interrupted()) {
-				httppipelinerequest = this.httpPipelineConnection.getNextRequestSend();
-				HttpRequest httprequest = httppipelinerequest.getHttpRequest();
-				OutputStream outputstream = this.httpPipelineConnection.getOutputStream();
-				this.writeRequest(httprequest, outputstream);
-				this.httpPipelineConnection.onRequestSent(httppipelinerequest);
-			}
-		} catch (InterruptedException _) {
-		} catch (Exception exception) {
-			this.httpPipelineConnection.onExceptionSend(httppipelinerequest, exception);
-		}
-	}
+            while (!Thread.interrupted()) {
+                httppipelinerequest = this.httpPipelineConnection.getNextRequestSend();
+                HttpRequest httprequest = httppipelinerequest.getHttpRequest();
+                OutputStream outputstream = this.httpPipelineConnection.getOutputStream();
+                this.writeRequest(httprequest, outputstream);
+                this.httpPipelineConnection.onRequestSent(httppipelinerequest);
+            }
+        } catch (InterruptedException _) {
+        } catch (Exception exception) {
+            this.httpPipelineConnection.onExceptionSend(httppipelinerequest, exception);
+        }
+    }
 
-	private void connect() throws IOException {
-		String s = this.httpPipelineConnection.getHost();
-		int i = this.httpPipelineConnection.getPort();
-		Proxy proxy = this.httpPipelineConnection.getProxy();
-		Socket socket = new Socket(proxy);
-		socket.connect(new InetSocketAddress(s, i), 5000);
-		this.httpPipelineConnection.setSocket(socket);
-	}
+    private void connect() throws IOException {
+        String s = this.httpPipelineConnection.getHost();
+        int i = this.httpPipelineConnection.getPort();
+        Proxy proxy = this.httpPipelineConnection.getProxy();
+        Socket socket = new Socket(proxy);
+        socket.connect(new InetSocketAddress(s, i), 5000);
+        this.httpPipelineConnection.setSocket(socket);
+    }
 
-	private void writeRequest(HttpRequest req, OutputStream out) throws IOException {
-		this.write(out, req.getMethod() + " " + req.getFile() + " " + req.getHttp() + "\r\n");
-		Map<String, String> map = req.getHeaders();
+    private void writeRequest(HttpRequest req, OutputStream out) throws IOException {
+        this.write(out, req.getMethod() + " " + req.getFile() + " " + req.getHttp() + "\r\n");
+        Map<String, String> map = req.getHeaders();
 
-		for (String s : map.keySet()) {
-			String s1 = req.getHeaders().get(s);
-			this.write(out, s + ": " + s1 + "\r\n");
-		}
+        for (String s : map.keySet()) {
+            String s1 = req.getHeaders().get(s);
+            this.write(out, s + ": " + s1 + "\r\n");
+        }
 
-		this.write(out, "\r\n");
-	}
+        this.write(out, "\r\n");
+    }
 
-	private void write(OutputStream out, String str) throws IOException {
-		byte[] abyte = str.getBytes(ASCII);
-		out.write(abyte);
-	}
+    private void write(OutputStream out, String str) throws IOException {
+        byte[] abyte = str.getBytes(ASCII);
+        out.write(abyte);
+    }
 }

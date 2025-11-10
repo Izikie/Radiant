@@ -8,18 +8,18 @@ import net.minecraft.client.renderer.entity.RenderPig;
 import net.minecraft.entity.passive.EntityPig;
 
 public class ModelAdapterPig extends ModelAdapterQuadruped {
-	public ModelAdapterPig() {
-		super(EntityPig.class, "pig", 0.7F);
-	}
+    public ModelAdapterPig() {
+        super(EntityPig.class, "pig", 0.7F);
+    }
 
-	@Override
+    @Override
     public ModelBase makeModel() {
-		return new ModelPig();
-	}
+        return new ModelPig();
+    }
 
-	@Override
+    @Override
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.get().getRenderManager();
-		return new RenderPig(rendermanager, modelBase, shadowSize);
-	}
+        RenderManager rendermanager = Minecraft.get().getRenderManager();
+        return new RenderPig(rendermanager, modelBase, shadowSize);
+    }
 }

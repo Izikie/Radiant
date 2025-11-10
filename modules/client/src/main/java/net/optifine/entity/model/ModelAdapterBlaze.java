@@ -10,55 +10,55 @@ import net.minecraft.entity.monster.EntityBlaze;
 import net.optifine.Config;
 
 public class ModelAdapterBlaze extends ModelAdapter {
-	public ModelAdapterBlaze() {
-		super(EntityBlaze.class, "blaze", 0.5F);
-	}
+    public ModelAdapterBlaze() {
+        super(EntityBlaze.class, "blaze", 0.5F);
+    }
 
-	@Override
+    @Override
     public ModelBase makeModel() {
-		return new ModelBlaze();
-	}
+        return new ModelBlaze();
+    }
 
-	@Override
+    @Override
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-		if (model instanceof ModelBlaze modelblaze) {
+        if (model instanceof ModelBlaze modelblaze) {
 
-			if (modelPart.equals("head")) {
-				return modelblaze.getBlazeHead();
-			} else {
-				String s = "stick";
+            if (modelPart.equals("head")) {
+                return modelblaze.getBlazeHead();
+            } else {
+                String s = "stick";
 
-				if (modelPart.startsWith(s)) {
-					ModelRenderer[] amodelrenderer = modelblaze.getBlazeSticks();
+                if (modelPart.startsWith(s)) {
+                    ModelRenderer[] amodelrenderer = modelblaze.getBlazeSticks();
 
-					if (amodelrenderer == null) {
-						return null;
-					} else {
-						String s1 = modelPart.substring(s.length());
-						int i = Config.parseInt(s1, -1);
-						--i;
-						return i >= 0 && i < amodelrenderer.length ? amodelrenderer[i] : null;
-					}
-				} else {
-					return null;
-				}
-			}
-		} else {
-			return null;
-		}
-	}
+                    if (amodelrenderer == null) {
+                        return null;
+                    } else {
+                        String s1 = modelPart.substring(s.length());
+                        int i = Config.parseInt(s1, -1);
+                        --i;
+                        return i >= 0 && i < amodelrenderer.length ? amodelrenderer[i] : null;
+                    }
+                } else {
+                    return null;
+                }
+            }
+        } else {
+            return null;
+        }
+    }
 
-	@Override
+    @Override
     public String[] getModelRendererNames() {
-		return new String[]{"head", "stick1", "stick2", "stick3", "stick4", "stick5", "stick6", "stick7", "stick8", "stick9", "stick10", "stick11", "stick12"};
-	}
+        return new String[]{"head", "stick1", "stick2", "stick3", "stick4", "stick5", "stick6", "stick7", "stick8", "stick9", "stick10", "stick11", "stick12"};
+    }
 
-	@Override
+    @Override
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.get().getRenderManager();
-		RenderBlaze renderblaze = new RenderBlaze(rendermanager);
-		renderblaze.mainModel = modelBase;
-		renderblaze.shadowSize = shadowSize;
-		return renderblaze;
-	}
+        RenderManager rendermanager = Minecraft.get().getRenderManager();
+        RenderBlaze renderblaze = new RenderBlaze(rendermanager);
+        renderblaze.mainModel = modelBase;
+        renderblaze.shadowSize = shadowSize;
+        return renderblaze;
+    }
 }

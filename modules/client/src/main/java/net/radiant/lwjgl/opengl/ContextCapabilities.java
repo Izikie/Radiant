@@ -7,6 +7,7 @@ import java.lang.reflect.Field;
 
 public class ContextCapabilities {
 
+    final GLCapabilities cap = GL.getCapabilities();
     public boolean GL_AMD_blend_minmax_factor;
     public boolean GL_AMD_conservative_depth;
     public boolean GL_AMD_debug_output;
@@ -370,8 +371,6 @@ public class ContextCapabilities {
     public boolean GL_SGIS_generate_mipmap;
     public boolean GL_SGIS_texture_lod;
     public boolean GL_SUN_slice_accum;
-
-    final GLCapabilities cap = GL.getCapabilities();
 
     public ContextCapabilities() {
 

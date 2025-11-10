@@ -16,115 +16,115 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 public class ShaderPackZip implements IShaderPack {
-	protected final File packFile;
-	protected ZipFile packZipFile;
-	protected String baseFolder;
+    protected final File packFile;
+    protected ZipFile packZipFile;
+    protected String baseFolder;
 
-	public ShaderPackZip(String name, File file) {
-		this.packFile = file;
-		this.packZipFile = null;
-		this.baseFolder = "";
-	}
+    public ShaderPackZip(String name, File file) {
+        this.packFile = file;
+        this.packZipFile = null;
+        this.baseFolder = "";
+    }
 
-	@Override
+    @Override
     public void close() {
-		if (this.packZipFile != null) {
-			try {
-				this.packZipFile.close();
-			} catch (Exception _) {
-			}
+        if (this.packZipFile != null) {
+            try {
+                this.packZipFile.close();
+            } catch (Exception _) {
+            }
 
-			this.packZipFile = null;
-		}
-	}
+            this.packZipFile = null;
+        }
+    }
 
-	@Override
+    @Override
     public InputStream getResourceAsStream(String resName) {
-		try {
-			if (this.packZipFile == null) {
-				this.packZipFile = new ZipFile(this.packFile);
-				this.baseFolder = this.detectBaseFolder(this.packZipFile);
-			}
+        try {
+            if (this.packZipFile == null) {
+                this.packZipFile = new ZipFile(this.packFile);
+                this.baseFolder = this.detectBaseFolder(this.packZipFile);
+            }
 
-			String s = StrUtils.removePrefix(resName, "/");
+            String s = StrUtils.removePrefix(resName, "/");
 
-			if (s.contains("..")) {
-				s = this.resolveRelative(s);
-			}
+            if (s.contains("..")) {
+                s = this.resolveRelative(s);
+            }
 
-			ZipEntry zipentry = this.packZipFile.getEntry(this.baseFolder + s);
-			return zipentry == null ? null : this.packZipFile.getInputStream(zipentry);
-		} catch (Exception exception) {
-			return null;
-		}
-	}
+            ZipEntry zipentry = this.packZipFile.getEntry(this.baseFolder + s);
+            return zipentry == null ? null : this.packZipFile.getInputStream(zipentry);
+        } catch (Exception exception) {
+            return null;
+        }
+    }
 
-	private String resolveRelative(String name) {
-		Deque<String> deque = new ArrayDeque<>();
-		String[] astring = Config.tokenize(name, "/");
+    private String resolveRelative(String name) {
+        Deque<String> deque = new ArrayDeque<>();
+        String[] astring = Config.tokenize(name, "/");
 
-		for (String s : astring) {
-			if (s.equals("..")) {
-				if (deque.isEmpty()) {
-					return "";
-				}
+        for (String s : astring) {
+            if (s.equals("..")) {
+                if (deque.isEmpty()) {
+                    return "";
+                }
 
-				deque.removeLast();
-			} else {
-				deque.add(s);
-			}
-		}
+                deque.removeLast();
+            } else {
+                deque.add(s);
+            }
+        }
 
-		return Joiner.on('/').join(deque);
-	}
+        return Joiner.on('/').join(deque);
+    }
 
-	private String detectBaseFolder(ZipFile zip) {
-		ZipEntry zipentry = zip.getEntry("shaders/");
+    private String detectBaseFolder(ZipFile zip) {
+        ZipEntry zipentry = zip.getEntry("shaders/");
 
-		if (zipentry == null || !zipentry.isDirectory()) {
-			Pattern pattern = Pattern.compile("([^/]+/)shaders/");
-			Enumeration<? extends ZipEntry> enumeration = zip.entries();
+        if (zipentry == null || !zipentry.isDirectory()) {
+            Pattern pattern = Pattern.compile("([^/]+/)shaders/");
+            Enumeration<? extends ZipEntry> enumeration = zip.entries();
 
-			while (enumeration.hasMoreElements()) {
-				ZipEntry zipentry1 = enumeration.nextElement();
-				String s = zipentry1.getName();
-				Matcher matcher = pattern.matcher(s);
+            while (enumeration.hasMoreElements()) {
+                ZipEntry zipentry1 = enumeration.nextElement();
+                String s = zipentry1.getName();
+                Matcher matcher = pattern.matcher(s);
 
-				if (matcher.matches()) {
-					String s1 = matcher.group(1);
+                if (matcher.matches()) {
+                    String s1 = matcher.group(1);
 
-					if (s1 != null) {
-						if (s1.equals("shaders/")) {
-							return "";
-						}
+                    if (s1 != null) {
+                        if (s1.equals("shaders/")) {
+                            return "";
+                        }
 
-						return s1;
-					}
-				}
-			}
+                        return s1;
+                    }
+                }
+            }
 
-		}
-		return "";
-	}
+        }
+        return "";
+    }
 
-	@Override
+    @Override
     public boolean hasDirectory(String resName) {
-		try {
-			if (this.packZipFile == null) {
-				this.packZipFile = new ZipFile(this.packFile);
-				this.baseFolder = this.detectBaseFolder(this.packZipFile);
-			}
+        try {
+            if (this.packZipFile == null) {
+                this.packZipFile = new ZipFile(this.packFile);
+                this.baseFolder = this.detectBaseFolder(this.packZipFile);
+            }
 
-			String s = StrUtils.removePrefix(resName, "/");
-			ZipEntry zipentry = this.packZipFile.getEntry(this.baseFolder + s);
-			return zipentry != null;
-		} catch (IOException exception) {
-			return false;
-		}
-	}
+            String s = StrUtils.removePrefix(resName, "/");
+            ZipEntry zipentry = this.packZipFile.getEntry(this.baseFolder + s);
+            return zipentry != null;
+        } catch (IOException exception) {
+            return false;
+        }
+    }
 
-	@Override
+    @Override
     public String getName() {
-		return this.packFile.getName();
-	}
+        return this.packFile.getName();
+    }
 }

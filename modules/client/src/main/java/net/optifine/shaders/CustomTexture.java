@@ -5,22 +5,22 @@ import net.minecraft.client.renderer.texture.TextureUtil;
 
 public record CustomTexture(int textureUnit, String path, ITextureObject texture) implements ICustomTexture {
 
-	@Override
+    @Override
     public int getTextureId() {
-		return this.texture.getGlTextureId();
-	}
+        return this.texture.getGlTextureId();
+    }
 
-	@Override
+    @Override
     public void deleteTexture() {
-		TextureUtil.deleteTexture(this.texture.getGlTextureId());
-	}
+        TextureUtil.deleteTexture(this.texture.getGlTextureId());
+    }
 
-	@Override
+    @Override
     public int getTarget() {
-		return 3553;
-	}
+        return 3553;
+    }
 
-	public String toString() {
-		return "textureUnit: " + this.textureUnit + ", path: " + this.path + ", glTextureId: " + this.getTextureId();
-	}
+    public String toString() {
+        return "textureUnit: " + this.textureUnit + ", path: " + this.path + ", glTextureId: " + this.getTextureId();
+    }
 }

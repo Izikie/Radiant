@@ -8,94 +8,94 @@ import java.util.List;
 import java.util.Properties;
 
 public class RandomEntityProperties {
-	public final String name;
-	public final String basePath;
-	public ResourceLocation[] resourceLocations = null;
-	public RandomEntityRule[] rules = null;
+    public final String name;
+    public final String basePath;
+    public ResourceLocation[] resourceLocations = null;
+    public RandomEntityRule[] rules = null;
 
-	public RandomEntityProperties(String path, ResourceLocation[] variants) {
-		ConnectedParser connectedparser = new ConnectedParser("RandomEntities");
-		this.name = connectedparser.parseName(path);
-		this.basePath = connectedparser.parseBasePath(path);
-		this.resourceLocations = variants;
-	}
+    public RandomEntityProperties(String path, ResourceLocation[] variants) {
+        ConnectedParser connectedparser = new ConnectedParser("RandomEntities");
+        this.name = connectedparser.parseName(path);
+        this.basePath = connectedparser.parseBasePath(path);
+        this.resourceLocations = variants;
+    }
 
-	public RandomEntityProperties(Properties props, String path, ResourceLocation baseResLoc) {
-		ConnectedParser connectedparser = new ConnectedParser("RandomEntities");
-		this.name = connectedparser.parseName(path);
-		this.basePath = connectedparser.parseBasePath(path);
-		this.rules = this.parseRules(props, path, baseResLoc, connectedparser);
-	}
+    public RandomEntityProperties(Properties props, String path, ResourceLocation baseResLoc) {
+        ConnectedParser connectedparser = new ConnectedParser("RandomEntities");
+        this.name = connectedparser.parseName(path);
+        this.basePath = connectedparser.parseBasePath(path);
+        this.rules = this.parseRules(props, path, baseResLoc, connectedparser);
+    }
 
-	public ResourceLocation getTextureLocation(ResourceLocation loc, IRandomEntity randomEntity) {
-		if (this.rules != null) {
-			for (RandomEntityRule randomentityrule : this.rules) {
-				if (randomentityrule.matches(randomEntity)) {
-					return randomentityrule.getTextureLocation(loc, randomEntity.getId());
-				}
-			}
-		}
+    public ResourceLocation getTextureLocation(ResourceLocation loc, IRandomEntity randomEntity) {
+        if (this.rules != null) {
+            for (RandomEntityRule randomentityrule : this.rules) {
+                if (randomentityrule.matches(randomEntity)) {
+                    return randomentityrule.getTextureLocation(loc, randomEntity.getId());
+                }
+            }
+        }
 
-		if (this.resourceLocations != null) {
-			int j = randomEntity.getId();
-			int k = j % this.resourceLocations.length;
-			return this.resourceLocations[k];
-		} else {
-			return loc;
-		}
-	}
+        if (this.resourceLocations != null) {
+            int j = randomEntity.getId();
+            int k = j % this.resourceLocations.length;
+            return this.resourceLocations[k];
+        } else {
+            return loc;
+        }
+    }
 
-	private RandomEntityRule[] parseRules(Properties props, String pathProps, ResourceLocation baseResLoc, ConnectedParser cp) {
-		List<RandomEntityRule> list = new ArrayList<>();
-		int i = props.size();
+    private RandomEntityRule[] parseRules(Properties props, String pathProps, ResourceLocation baseResLoc, ConnectedParser cp) {
+        List<RandomEntityRule> list = new ArrayList<>();
+        int i = props.size();
 
-		for (int j = 0; j < i; ++j) {
-			int k = j + 1;
-			String s = props.getProperty("textures." + k);
+        for (int j = 0; j < i; ++j) {
+            int k = j + 1;
+            String s = props.getProperty("textures." + k);
 
-			if (s == null) {
-				s = props.getProperty("skins." + k);
-			}
+            if (s == null) {
+                s = props.getProperty("skins." + k);
+            }
 
-			if (s != null) {
-				RandomEntityRule randomentityrule = new RandomEntityRule(props, pathProps, baseResLoc, k, s, cp);
+            if (s != null) {
+                RandomEntityRule randomentityrule = new RandomEntityRule(props, pathProps, baseResLoc, k, s, cp);
 
-				if (randomentityrule.isValid(pathProps)) {
-					list.add(randomentityrule);
-				}
-			}
-		}
+                if (randomentityrule.isValid(pathProps)) {
+                    list.add(randomentityrule);
+                }
+            }
+        }
 
-		return list.toArray(new RandomEntityRule[0]);
-	}
+        return list.toArray(new RandomEntityRule[0]);
+    }
 
-	public boolean isValid(String path) {
-		if (this.resourceLocations == null && this.rules == null) {
-			Log.error("No skins specified: " + path);
-			return false;
-		} else {
-			if (this.rules != null) {
-				for (RandomEntityRule randomentityrule : this.rules) {
-					if (!randomentityrule.isValid(path)) {
-						return false;
-					}
-				}
-			}
+    public boolean isValid(String path) {
+        if (this.resourceLocations == null && this.rules == null) {
+            Log.error("No skins specified: " + path);
+            return false;
+        } else {
+            if (this.rules != null) {
+                for (RandomEntityRule randomentityrule : this.rules) {
+                    if (!randomentityrule.isValid(path)) {
+                        return false;
+                    }
+                }
+            }
 
-			if (this.resourceLocations != null) {
-				for (ResourceLocation resourcelocation : this.resourceLocations) {
-					if (!Config.hasResource(resourcelocation)) {
-						Log.error("Texture not found: " + resourcelocation.getResourcePath());
-						return false;
-					}
-				}
-			}
+            if (this.resourceLocations != null) {
+                for (ResourceLocation resourcelocation : this.resourceLocations) {
+                    if (!Config.hasResource(resourcelocation)) {
+                        Log.error("Texture not found: " + resourcelocation.getResourcePath());
+                        return false;
+                    }
+                }
+            }
 
-			return true;
-		}
-	}
+            return true;
+        }
+    }
 
-	public boolean isDefault() {
-		return this.rules == null && this.resourceLocations == null;
-	}
+    public boolean isDefault() {
+        return this.rules == null && this.resourceLocations == null;
+    }
 }

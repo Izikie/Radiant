@@ -8,18 +8,18 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.passive.EntityCow;
 
 public class ModelAdapterCow extends ModelAdapterQuadruped {
-	public ModelAdapterCow() {
-		super(EntityCow.class, "cow", 0.7F);
-	}
+    public ModelAdapterCow() {
+        super(EntityCow.class, "cow", 0.7F);
+    }
 
-	@Override
+    @Override
     public ModelBase makeModel() {
-		return new ModelCow();
-	}
+        return new ModelCow();
+    }
 
-	@Override
+    @Override
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.get().getRenderManager();
-		return new RenderCow(rendermanager, modelBase, shadowSize);
-	}
+        RenderManager rendermanager = Minecraft.get().getRenderManager();
+        return new RenderCow(rendermanager, modelBase, shadowSize);
+    }
 }

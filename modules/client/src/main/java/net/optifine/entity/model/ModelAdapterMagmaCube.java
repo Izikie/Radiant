@@ -10,55 +10,55 @@ import net.minecraft.entity.monster.EntityMagmaCube;
 import net.optifine.Config;
 
 public class ModelAdapterMagmaCube extends ModelAdapter {
-	public ModelAdapterMagmaCube() {
-		super(EntityMagmaCube.class, "magma_cube", 0.5F);
-	}
+    public ModelAdapterMagmaCube() {
+        super(EntityMagmaCube.class, "magma_cube", 0.5F);
+    }
 
-	@Override
+    @Override
     public ModelBase makeModel() {
-		return new ModelMagmaCube();
-	}
+        return new ModelMagmaCube();
+    }
 
-	@Override
+    @Override
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-		if (model instanceof ModelMagmaCube modelmagmacube) {
+        if (model instanceof ModelMagmaCube modelmagmacube) {
 
-			if (modelPart.equals("core")) {
-				return modelmagmacube.getCore();
-			} else {
-				String s = "segment";
+            if (modelPart.equals("core")) {
+                return modelmagmacube.getCore();
+            } else {
+                String s = "segment";
 
-				if (modelPart.startsWith(s)) {
-					ModelRenderer[] amodelrenderer = modelmagmacube.getSegments();
+                if (modelPart.startsWith(s)) {
+                    ModelRenderer[] amodelrenderer = modelmagmacube.getSegments();
 
-					if (amodelrenderer == null) {
-						return null;
-					} else {
-						String s1 = modelPart.substring(s.length());
-						int i = Config.parseInt(s1, -1);
-						--i;
-						return i >= 0 && i < amodelrenderer.length ? amodelrenderer[i] : null;
-					}
-				} else {
-					return null;
-				}
-			}
-		} else {
-			return null;
-		}
-	}
+                    if (amodelrenderer == null) {
+                        return null;
+                    } else {
+                        String s1 = modelPart.substring(s.length());
+                        int i = Config.parseInt(s1, -1);
+                        --i;
+                        return i >= 0 && i < amodelrenderer.length ? amodelrenderer[i] : null;
+                    }
+                } else {
+                    return null;
+                }
+            }
+        } else {
+            return null;
+        }
+    }
 
-	@Override
+    @Override
     public String[] getModelRendererNames() {
-		return new String[]{"core", "segment1", "segment2", "segment3", "segment4", "segment5", "segment6", "segment7", "segment8"};
-	}
+        return new String[]{"core", "segment1", "segment2", "segment3", "segment4", "segment5", "segment6", "segment7", "segment8"};
+    }
 
-	@Override
+    @Override
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.get().getRenderManager();
-		RenderMagmaCube rendermagmacube = new RenderMagmaCube(rendermanager);
-		rendermagmacube.mainModel = modelBase;
-		rendermagmacube.shadowSize = shadowSize;
-		return rendermagmacube;
-	}
+        RenderManager rendermanager = Minecraft.get().getRenderManager();
+        RenderMagmaCube rendermagmacube = new RenderMagmaCube(rendermanager);
+        rendermagmacube.mainModel = modelBase;
+        rendermagmacube.shadowSize = shadowSize;
+        return rendermagmacube;
+    }
 }

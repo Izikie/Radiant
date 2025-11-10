@@ -10,65 +10,65 @@ import net.minecraft.entity.monster.EntitySilverfish;
 import net.optifine.Config;
 
 public class ModelAdapterSilverfish extends ModelAdapter {
-	public ModelAdapterSilverfish() {
-		super(EntitySilverfish.class, "silverfish", 0.3F);
-	}
+    public ModelAdapterSilverfish() {
+        super(EntitySilverfish.class, "silverfish", 0.3F);
+    }
 
-	@Override
+    @Override
     public ModelBase makeModel() {
-		return new ModelSilverfish();
-	}
+        return new ModelSilverfish();
+    }
 
-	@Override
+    @Override
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-		if (model instanceof ModelSilverfish modelsilverfish) {
-			String s = "body";
+        if (model instanceof ModelSilverfish modelsilverfish) {
+            String s = "body";
 
-			if (modelPart.startsWith(s)) {
-				ModelRenderer[] amodelrenderer1 = modelsilverfish.getSilverfishBodyParts();
+            if (modelPart.startsWith(s)) {
+                ModelRenderer[] amodelrenderer1 = modelsilverfish.getSilverfishBodyParts();
 
-				if (amodelrenderer1 == null) {
-					return null;
-				} else {
-					String s3 = modelPart.substring(s.length());
-					int j = Config.parseInt(s3, -1);
-					--j;
-					return j >= 0 && j < amodelrenderer1.length ? amodelrenderer1[j] : null;
-				}
-			} else {
-				String s1 = "wing";
+                if (amodelrenderer1 == null) {
+                    return null;
+                } else {
+                    String s3 = modelPart.substring(s.length());
+                    int j = Config.parseInt(s3, -1);
+                    --j;
+                    return j >= 0 && j < amodelrenderer1.length ? amodelrenderer1[j] : null;
+                }
+            } else {
+                String s1 = "wing";
 
-				if (modelPart.startsWith(s1)) {
-					ModelRenderer[] amodelrenderer = modelsilverfish.getSilverfishWings();
+                if (modelPart.startsWith(s1)) {
+                    ModelRenderer[] amodelrenderer = modelsilverfish.getSilverfishWings();
 
-					if (amodelrenderer == null) {
-						return null;
-					} else {
-						String s2 = modelPart.substring(s1.length());
-						int i = Config.parseInt(s2, -1);
-						--i;
-						return i >= 0 && i < amodelrenderer.length ? amodelrenderer[i] : null;
-					}
-				} else {
-					return null;
-				}
-			}
-		} else {
-			return null;
-		}
-	}
+                    if (amodelrenderer == null) {
+                        return null;
+                    } else {
+                        String s2 = modelPart.substring(s1.length());
+                        int i = Config.parseInt(s2, -1);
+                        --i;
+                        return i >= 0 && i < amodelrenderer.length ? amodelrenderer[i] : null;
+                    }
+                } else {
+                    return null;
+                }
+            }
+        } else {
+            return null;
+        }
+    }
 
-	@Override
+    @Override
     public String[] getModelRendererNames() {
-		return new String[]{"body1", "body2", "body3", "body4", "body5", "body6", "body7", "wing1", "wing2", "wing3"};
-	}
+        return new String[]{"body1", "body2", "body3", "body4", "body5", "body6", "body7", "wing1", "wing2", "wing3"};
+    }
 
-	@Override
+    @Override
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.get().getRenderManager();
-		RenderSilverfish rendersilverfish = new RenderSilverfish(rendermanager);
-		rendersilverfish.mainModel = modelBase;
-		rendersilverfish.shadowSize = shadowSize;
-		return rendersilverfish;
-	}
+        RenderManager rendermanager = Minecraft.get().getRenderManager();
+        RenderSilverfish rendersilverfish = new RenderSilverfish(rendermanager);
+        rendersilverfish.mainModel = modelBase;
+        rendersilverfish.shadowSize = shadowSize;
+        return rendersilverfish;
+    }
 }

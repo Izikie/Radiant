@@ -15,9 +15,8 @@ public class RadiantLoggerFile {
 
     private static final File LOGS_DIR = new File("logs");
     private static final File LATEST = new File(LOGS_DIR, "latest.log");
-
-    private FileWriter writer;
     private final ReentrantLock lock = new ReentrantLock();
+    private FileWriter writer;
 
     public void init() {
         Runtime.getRuntime().addShutdownHook(new Thread(this::shutdown));

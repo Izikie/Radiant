@@ -9,36 +9,36 @@ import net.minecraft.client.renderer.entity.RenderSlime;
 import net.minecraft.entity.monster.EntitySlime;
 
 public class ModelAdapterSlime extends ModelAdapter {
-	public ModelAdapterSlime() {
-		super(EntitySlime.class, "slime", 0.25F);
-	}
+    public ModelAdapterSlime() {
+        super(EntitySlime.class, "slime", 0.25F);
+    }
 
-	@Override
+    @Override
     public ModelBase makeModel() {
-		return new ModelSlime(16);
-	}
+        return new ModelSlime(16);
+    }
 
-	@Override
+    @Override
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-		if (!(model instanceof ModelSlime modelslime)) {
-			return null;
-		} else {
-			return modelPart.equals("body") ? modelslime.getSlimeBodies()
-					: (modelPart.equals("left_eye") ? modelslime.getSlimeLeftEye()
-					: (modelPart.equals("right_eye") ? modelslime.getSlimeRightEye()
-					: (modelPart.equals("mouth") ? modelslime.getSlimeMouth()
-					: null)));
-		}
-	}
+        if (!(model instanceof ModelSlime modelslime)) {
+            return null;
+        } else {
+            return modelPart.equals("body") ? modelslime.getSlimeBodies()
+                    : (modelPart.equals("left_eye") ? modelslime.getSlimeLeftEye()
+                    : (modelPart.equals("right_eye") ? modelslime.getSlimeRightEye()
+                    : (modelPart.equals("mouth") ? modelslime.getSlimeMouth()
+                    : null)));
+        }
+    }
 
-	@Override
+    @Override
     public String[] getModelRendererNames() {
-		return new String[]{"body", "left_eye", "right_eye", "mouth"};
-	}
+        return new String[]{"body", "left_eye", "right_eye", "mouth"};
+    }
 
-	@Override
+    @Override
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.get().getRenderManager();
-		return new RenderSlime(rendermanager, modelBase, shadowSize);
-	}
+        RenderManager rendermanager = Minecraft.get().getRenderManager();
+        return new RenderSlime(rendermanager, modelBase, shadowSize);
+    }
 }

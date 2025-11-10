@@ -5,35 +5,35 @@ import net.optifine.expr.ExpressionType;
 import net.optifine.expr.IExpressionFloat;
 
 public class ModelVariableFloat implements IExpressionFloat {
-	private final String name;
-	private final ModelRenderer modelRenderer;
-	private final ModelVariableType enumModelVariable;
+    private final String name;
+    private final ModelRenderer modelRenderer;
+    private final ModelVariableType enumModelVariable;
 
-	public ModelVariableFloat(String name, ModelRenderer modelRenderer, ModelVariableType enumModelVariable) {
-		this.name = name;
-		this.modelRenderer = modelRenderer;
-		this.enumModelVariable = enumModelVariable;
-	}
+    public ModelVariableFloat(String name, ModelRenderer modelRenderer, ModelVariableType enumModelVariable) {
+        this.name = name;
+        this.modelRenderer = modelRenderer;
+        this.enumModelVariable = enumModelVariable;
+    }
 
-	@Override
+    @Override
     public ExpressionType getExpressionType() {
-		return ExpressionType.FLOAT;
-	}
+        return ExpressionType.FLOAT;
+    }
 
-	@Override
+    @Override
     public float eval() {
-		return this.getValue();
-	}
+        return this.getValue();
+    }
 
-	public float getValue() {
-		return this.enumModelVariable.getFloat(this.modelRenderer);
-	}
+    public float getValue() {
+        return this.enumModelVariable.getFloat(this.modelRenderer);
+    }
 
-	public void setValue(float value) {
-		this.enumModelVariable.setFloat(this.modelRenderer, value);
-	}
+    public void setValue(float value) {
+        this.enumModelVariable.setFloat(this.modelRenderer, value);
+    }
 
-	public String toString() {
-		return this.name;
-	}
+    public String toString() {
+        return this.name;
+    }
 }

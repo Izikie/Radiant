@@ -24,11 +24,10 @@ import static org.lwjgl.stb.STBVorbis.stb_vorbis_decode_memory;
 public class SoundSystem {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SoundSystem.class);
-
+    private final Map<String, ISoundSource> sources = new HashMap<>();
     private long device;
     private long context;
     private float masterVolume = 1.0f;
-    private final Map<String, ISoundSource> sources = new HashMap<>();
 
     // ---------------- Initialization ----------------
     public void init() {
@@ -52,16 +51,16 @@ public class SoundSystem {
         alcCloseDevice(device);
     }
 
+    public float getMasterVolume() {
+        return masterVolume;
+    }
+
     // ---------------- Master Volume ----------------
     public void setMasterVolume(float volume) {
         masterVolume = Math.max(0f, Math.min(1f, volume));
         for (ISoundSource src : sources.values()) {
             src.updateVolumeWithMaster(masterVolume);
         }
-    }
-
-    public float getMasterVolume() {
-        return masterVolume;
     }
 
     // ---------------- Listener ----------------

@@ -95,14 +95,15 @@ public class GLUtessellatorImpl implements GLUtessellator {
     private static final double GLU_TESS_DEFAULT_TOLERANCE = 0.0;
     //    private static final int GLU_TESS_MESH = 100112;	/* void (*)(GLUmesh *mesh)	    */
     private static final GLUtessellatorCallback NULL_CB = new GLUtessellatorCallbackAdapter();
-    GLUmesh mesh;		/* stores the input contours, and eventually
-                                   the tessellation itself */
-
     /*** state needed for projecting onto the sweep plane ***/
 
     final double[] normal = new double[3];    /* user-specified normal (if provided) */
     final double[] sUnit = new double[3];    /* unit vector in s-direction (debugging) */
     final double[] tUnit = new double[3];    /* unit vector in t-direction (debugging) */
+    /* list of triangles which could not be rendered as strips or fans */
+    final CachedVertex[] cache = new CachedVertex[TESS_MAX_CACHE];    /* the vertex data */
+    GLUmesh mesh;		/* stores the input contours, and eventually
+                                   the tessellation itself */
     int windingRule;    /* rule for determining polygon interior */
     boolean fatalError;    /* fatal error: needed combine callback */
     Dict dict;        /* edge dictionary for sweep line */
@@ -114,8 +115,6 @@ public class GLUtessellatorImpl implements GLUtessellator {
     boolean boundaryOnly;    /* Extract contours, not triangles */
     GLUface lonelyTriList;
     int cacheCount;        /* number of cached vertices */
-    /* list of triangles which could not be rendered as strips or fans */
-    final CachedVertex[] cache = new CachedVertex[TESS_MAX_CACHE];    /* the vertex data */
     private int state;        /* what begin/end calls have we seen? */
     private GLUhalfEdge lastEdge;    /* lastEdge->Org is the most recent vertex */
     /*** state needed for the line sweep ***/

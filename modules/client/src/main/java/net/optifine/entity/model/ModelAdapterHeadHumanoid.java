@@ -10,35 +10,35 @@ import net.minecraft.tileentity.TileEntitySkull;
 import net.optifine.Log;
 
 public class ModelAdapterHeadHumanoid extends ModelAdapter {
-	public ModelAdapterHeadHumanoid() {
-		super(TileEntitySkull.class, "head_humanoid", 0.0F);
-	}
+    public ModelAdapterHeadHumanoid() {
+        super(TileEntitySkull.class, "head_humanoid", 0.0F);
+    }
 
-	@Override
+    @Override
     public ModelBase makeModel() {
-		return new ModelHumanoidHead();
-	}
+        return new ModelHumanoidHead();
+    }
 
-	@Override
+    @Override
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-		if (model instanceof ModelHumanoidHead modelhumanoidhead) {
-			if (modelPart.equals("head"))
-				return modelhumanoidhead.skeletonHead;
-			if (modelPart.equals("head2"))
-				return null;
-		}
-		return null;
-	}
+        if (model instanceof ModelHumanoidHead modelhumanoidhead) {
+            if (modelPart.equals("head"))
+                return modelhumanoidhead.skeletonHead;
+            if (modelPart.equals("head2"))
+                return null;
+        }
+        return null;
+    }
 
-	@Override
+    @Override
     public String[] getModelRendererNames() {
-		return new String[]{"head"};
-	}
+        return new String[]{"head"};
+    }
 
-	@Override
+    @Override
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.INSTANCE;
-		TileEntitySpecialRenderer<TileEntitySkull> tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntitySkull.class);
+        TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.INSTANCE;
+        TileEntitySpecialRenderer<TileEntitySkull> tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntitySkull.class);
 
         if (tileentityspecialrenderer instanceof TileEntitySkullRenderer) {
             if (tileentityspecialrenderer.getEntityClass() == null) {

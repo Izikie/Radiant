@@ -5,30 +5,30 @@ import net.minecraft.client.model.ModelBiped;
 import net.optifine.Config;
 
 public class PlayerConfiguration {
-	private PlayerItemModel[] playerItemModels = new PlayerItemModel[0];
-	private boolean initialized = false;
+    private PlayerItemModel[] playerItemModels = new PlayerItemModel[0];
+    private boolean initialized = false;
 
-	public void renderPlayerItems(ModelBiped modelBiped, AbstractClientPlayer player, float scale, float partialTicks) {
-		if (this.initialized) {
-			for (PlayerItemModel playeritemmodel : this.playerItemModels) {
-				playeritemmodel.render(modelBiped, player, scale, partialTicks);
-			}
-		}
-	}
+    public void renderPlayerItems(ModelBiped modelBiped, AbstractClientPlayer player, float scale, float partialTicks) {
+        if (this.initialized) {
+            for (PlayerItemModel playeritemmodel : this.playerItemModels) {
+                playeritemmodel.render(modelBiped, player, scale, partialTicks);
+            }
+        }
+    }
 
-	public boolean isInitialized() {
-		return this.initialized;
-	}
+    public boolean isInitialized() {
+        return this.initialized;
+    }
 
-	public void setInitialized(boolean initialized) {
-		this.initialized = initialized;
-	}
+    public void setInitialized(boolean initialized) {
+        this.initialized = initialized;
+    }
 
-	public PlayerItemModel[] getPlayerItemModels() {
-		return this.playerItemModels;
-	}
+    public PlayerItemModel[] getPlayerItemModels() {
+        return this.playerItemModels;
+    }
 
-	public void addPlayerItemModel(PlayerItemModel playerItemModel) {
-		this.playerItemModels = (PlayerItemModel[]) Config.addObjectToArray(this.playerItemModels, playerItemModel);
-	}
+    public void addPlayerItemModel(PlayerItemModel playerItemModel) {
+        this.playerItemModels = (PlayerItemModel[]) Config.addObjectToArray(this.playerItemModels, playerItemModel);
+    }
 }

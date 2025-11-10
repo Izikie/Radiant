@@ -10,33 +10,33 @@ import net.minecraft.tileentity.TileEntitySign;
 import net.optifine.Log;
 
 public class ModelAdapterSign extends ModelAdapter {
-	public ModelAdapterSign() {
-		super(TileEntitySign.class, "sign", 0.0F);
-	}
+    public ModelAdapterSign() {
+        super(TileEntitySign.class, "sign", 0.0F);
+    }
 
-	@Override
+    @Override
     public ModelBase makeModel() {
-		return new ModelSign();
-	}
+        return new ModelSign();
+    }
 
-	@Override
+    @Override
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-		if (model instanceof ModelSign modelsign) {
-			return modelPart.equals("board") ? modelsign.signBoard : (modelPart.equals("stick") ? modelsign.signStick : null);
-		} else {
-			return null;
-		}
-	}
+        if (model instanceof ModelSign modelsign) {
+            return modelPart.equals("board") ? modelsign.signBoard : (modelPart.equals("stick") ? modelsign.signStick : null);
+        } else {
+            return null;
+        }
+    }
 
-	@Override
+    @Override
     public String[] getModelRendererNames() {
-		return new String[]{"board", "stick"};
-	}
+        return new String[]{"board", "stick"};
+    }
 
-	@Override
+    @Override
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.INSTANCE;
-		TileEntitySpecialRenderer<TileEntitySign> tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntitySign.class);
+        TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.INSTANCE;
+        TileEntitySpecialRenderer<TileEntitySign> tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntitySign.class);
 
         if (tileentityspecialrenderer instanceof TileEntitySignRenderer) {
             if (tileentityspecialrenderer.getEntityClass() == null) {

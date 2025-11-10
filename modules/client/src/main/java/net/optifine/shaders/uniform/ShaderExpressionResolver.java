@@ -10,71 +10,71 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ShaderExpressionResolver implements IExpressionResolver {
-	private final Map<String, IExpression> mapExpressions = new HashMap<>();
+    private final Map<String, IExpression> mapExpressions = new HashMap<>();
 
-	public ShaderExpressionResolver(Map<String, IExpression> map) {
-		this.registerExpressions();
+    public ShaderExpressionResolver(Map<String, IExpression> map) {
+        this.registerExpressions();
 
-		for (String s : map.keySet()) {
-			IExpression iexpression = map.get(s);
-			this.registerExpression(s, iexpression);
-		}
-	}
+        for (String s : map.keySet()) {
+            IExpression iexpression = map.get(s);
+            this.registerExpression(s, iexpression);
+        }
+    }
 
-	private void registerExpressions() {
-		ShaderParameterFloat[] ashaderparameterfloat = ShaderParameterFloat.values();
+    private void registerExpressions() {
+        ShaderParameterFloat[] ashaderparameterfloat = ShaderParameterFloat.values();
 
-		for (ShaderParameterFloat shaderparameterfloat : ashaderparameterfloat) {
-			this.addParameterFloat(this.mapExpressions, shaderparameterfloat);
-		}
+        for (ShaderParameterFloat shaderparameterfloat : ashaderparameterfloat) {
+            this.addParameterFloat(this.mapExpressions, shaderparameterfloat);
+        }
 
-		ShaderParameterBool[] ashaderparameterbool = ShaderParameterBool.values();
+        ShaderParameterBool[] ashaderparameterbool = ShaderParameterBool.values();
 
-		for (ShaderParameterBool shaderparameterbool : ashaderparameterbool) {
-			this.mapExpressions.put(shaderparameterbool.getName(), shaderparameterbool);
-		}
+        for (ShaderParameterBool shaderparameterbool : ashaderparameterbool) {
+            this.mapExpressions.put(shaderparameterbool.getName(), shaderparameterbool);
+        }
 
-		for (BiomeGenBase biomegenbase : BiomeGenBase.BIOME_ID_MAP.values()) {
-			String s = biomegenbase.biomeName.trim();
-			s = "BIOME_" + s.toUpperCase().replace(' ', '_');
-			int j = biomegenbase.biomeID;
-			IExpression iexpression = new ConstantFloat(j);
-			this.registerExpression(s, iexpression);
-		}
-	}
+        for (BiomeGenBase biomegenbase : BiomeGenBase.BIOME_ID_MAP.values()) {
+            String s = biomegenbase.biomeName.trim();
+            s = "BIOME_" + s.toUpperCase().replace(' ', '_');
+            int j = biomegenbase.biomeID;
+            IExpression iexpression = new ConstantFloat(j);
+            this.registerExpression(s, iexpression);
+        }
+    }
 
-	private void addParameterFloat(Map<String, IExpression> map, ShaderParameterFloat spf) {
-		String[] astring = spf.getIndexNames1();
+    private void addParameterFloat(Map<String, IExpression> map, ShaderParameterFloat spf) {
+        String[] astring = spf.getIndexNames1();
 
-		if (astring == null) {
-			map.put(spf.getName(), new ShaderParameterIndexed(spf));
-		} else {
-			for (int i = 0; i < astring.length; ++i) {
-				String s = astring[i];
-				String[] astring1 = spf.getIndexNames2();
+        if (astring == null) {
+            map.put(spf.getName(), new ShaderParameterIndexed(spf));
+        } else {
+            for (int i = 0; i < astring.length; ++i) {
+                String s = astring[i];
+                String[] astring1 = spf.getIndexNames2();
 
-				if (astring1 == null) {
-					map.put(spf.getName() + "." + s, new ShaderParameterIndexed(spf, i));
-				} else {
-					for (int j = 0; j < astring1.length; ++j) {
-						String s1 = astring1[j];
-						map.put(spf.getName() + "." + s + "." + s1, new ShaderParameterIndexed(spf, i, j));
-					}
-				}
-			}
-		}
-	}
+                if (astring1 == null) {
+                    map.put(spf.getName() + "." + s, new ShaderParameterIndexed(spf, i));
+                } else {
+                    for (int j = 0; j < astring1.length; ++j) {
+                        String s1 = astring1[j];
+                        map.put(spf.getName() + "." + s + "." + s1, new ShaderParameterIndexed(spf, i, j));
+                    }
+                }
+            }
+        }
+    }
 
-	public void registerExpression(String name, IExpression expr) {
-		if (this.mapExpressions.containsKey(name)) {
-			Log.warn("Expression already defined: " + name);
-		} else {
-			this.mapExpressions.put(name, expr);
-		}
-	}
+    public void registerExpression(String name, IExpression expr) {
+        if (this.mapExpressions.containsKey(name)) {
+            Log.warn("Expression already defined: " + name);
+        } else {
+            this.mapExpressions.put(name, expr);
+        }
+    }
 
-	@Override
+    @Override
     public IExpression getExpression(String name) {
-		return this.mapExpressions.get(name);
-	}
+        return this.mapExpressions.get(name);
+    }
 }

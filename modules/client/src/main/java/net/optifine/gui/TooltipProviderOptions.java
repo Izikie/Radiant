@@ -10,53 +10,53 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TooltipProviderOptions implements TooltipProvider {
-	public static String[] getTooltipLines(String key) {
-		List<String> list = new ArrayList<>();
+    public static String[] getTooltipLines(String key) {
+        List<String> list = new ArrayList<>();
 
-		for (int i = 0; i < 10; ++i) {
-			String s = key + ".tooltip." + (i + 1);
-			String s1 = Lang.get(s, null);
+        for (int i = 0; i < 10; ++i) {
+            String s = key + ".tooltip." + (i + 1);
+            String s1 = Lang.get(s, null);
 
-			if (s1 == null) {
-				break;
-			}
+            if (s1 == null) {
+                break;
+            }
 
-			list.add(s1);
-		}
+            list.add(s1);
+        }
 
-		if (list.isEmpty()) {
-			return null;
-		} else {
-			return list.toArray(new String[0]);
-		}
-	}
+        if (list.isEmpty()) {
+            return null;
+        } else {
+            return list.toArray(new String[0]);
+        }
+    }
 
-	@Override
+    @Override
     public Vector4i getTooltipBounds(GuiScreen guiScreen, int x, int y) {
-		int i = guiScreen.width / 2 - 150;
-		int j = guiScreen.height / 6 - 7;
+        int i = guiScreen.width / 2 - 150;
+        int j = guiScreen.height / 6 - 7;
 
-		if (y <= j + 98) {
-			j += 105;
-		}
+        if (y <= j + 98) {
+            j += 105;
+        }
 
-		int k = i + 150 + 150;
-		int l = j + 84 + 10;
-		return new Vector4i(i, j, k - i, l - j);
-	}
+        int k = i + 150 + 150;
+        int l = j + 84 + 10;
+        return new Vector4i(i, j, k - i, l - j);
+    }
 
-	@Override
+    @Override
     public boolean isRenderBorder() {
-		return false;
-	}
+        return false;
+    }
 
-	@Override
+    @Override
     public String[] getTooltipLines(GuiButton btn, int width) {
-		if (!(btn instanceof IOptionControl ioptioncontrol)) {
-			return null;
-		} else {
-			GameSettings.Options gamesettings$options = ioptioncontrol.getOption();
-			return getTooltipLines(gamesettings$options.getEnumString());
-		}
-	}
+        if (!(btn instanceof IOptionControl ioptioncontrol)) {
+            return null;
+        } else {
+            GameSettings.Options gamesettings$options = ioptioncontrol.getOption();
+            return getTooltipLines(gamesettings$options.getEnumString());
+        }
+    }
 }

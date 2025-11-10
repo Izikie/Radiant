@@ -9,43 +9,43 @@ import net.minecraft.client.renderer.entity.RenderWitch;
 import net.minecraft.entity.monster.EntityWitch;
 
 public class ModelAdapterWitch extends ModelAdapter {
-	public ModelAdapterWitch() {
-		super(EntityWitch.class, "witch", 0.5F);
-	}
+    public ModelAdapterWitch() {
+        super(EntityWitch.class, "witch", 0.5F);
+    }
 
-	@Override
+    @Override
     public ModelBase makeModel() {
-		return new ModelWitch(0.0F);
-	}
+        return new ModelWitch(0.0F);
+    }
 
-	@Override
+    @Override
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-		if (model instanceof ModelWitch modelwitch) {
-			return modelPart.equals("mole") ? modelwitch.getMole()
-					: (modelPart.equals("hat") ? modelwitch.getWitchHat()
-					: (modelPart.equals("head") ? modelwitch.villagerHead
-					: (modelPart.equals("body") ? modelwitch.villagerBody
-					: (modelPart.equals("arms") ? modelwitch.villagerArms
-					: (modelPart.equals("left_leg") ? modelwitch.leftVillagerLeg
-					: (modelPart.equals("right_leg") ? modelwitch.rightVillagerLeg
-					: (modelPart.equals("nose") ? modelwitch.villagerNose
-					: null)))))));
-		} else {
-			return null;
-		}
-	}
+        if (model instanceof ModelWitch modelwitch) {
+            return modelPart.equals("mole") ? modelwitch.getMole()
+                    : (modelPart.equals("hat") ? modelwitch.getWitchHat()
+                    : (modelPart.equals("head") ? modelwitch.villagerHead
+                    : (modelPart.equals("body") ? modelwitch.villagerBody
+                    : (modelPart.equals("arms") ? modelwitch.villagerArms
+                    : (modelPart.equals("left_leg") ? modelwitch.leftVillagerLeg
+                    : (modelPart.equals("right_leg") ? modelwitch.rightVillagerLeg
+                    : (modelPart.equals("nose") ? modelwitch.villagerNose
+                    : null)))))));
+        } else {
+            return null;
+        }
+    }
 
-	@Override
+    @Override
     public String[] getModelRendererNames() {
-		return new String[]{"mole", "head", "body", "arms", "right_leg", "left_leg", "nose"};
-	}
+        return new String[]{"mole", "head", "body", "arms", "right_leg", "left_leg", "nose"};
+    }
 
-	@Override
+    @Override
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.get().getRenderManager();
-		RenderWitch renderwitch = new RenderWitch(rendermanager);
-		renderwitch.mainModel = modelBase;
-		renderwitch.shadowSize = shadowSize;
-		return renderwitch;
-	}
+        RenderManager rendermanager = Minecraft.get().getRenderManager();
+        RenderWitch renderwitch = new RenderWitch(rendermanager);
+        renderwitch.mainModel = modelBase;
+        renderwitch.shadowSize = shadowSize;
+        return renderwitch;
+    }
 }

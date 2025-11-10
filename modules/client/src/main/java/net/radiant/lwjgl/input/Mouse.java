@@ -9,6 +9,7 @@ public class Mouse {
 
     public static final int EVENT_SIZE = 1 + 1 + 4 + 4 + 4 + 8;
     private static final EventQueue queue = new EventQueue(999999);
+    public static final double[] scrollEvents = new double[queue.getMaxEvents()];
     private static final int[] buttonEvents = new int[queue.getMaxEvents()];
     private static final boolean[] buttonEventStates = new boolean[queue.getMaxEvents()];
     private static final int[] xEvents = new int[queue.getMaxEvents()];
@@ -17,7 +18,6 @@ public class Mouse {
     private static final int[] lastyEvents = new int[queue.getMaxEvents()];
     private static final long[] nanoTimeEvents = new long[queue.getMaxEvents()];
     public static int lastDWheel = 0;
-    public static final double[] scrollEvents = new double[queue.getMaxEvents()];
     private static Cursor currentCursor = null;
     private static boolean grabbed = false;
     private static int lastX = 0;

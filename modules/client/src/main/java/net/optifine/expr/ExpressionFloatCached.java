@@ -1,35 +1,35 @@
 package net.optifine.expr;
 
 public class ExpressionFloatCached implements IExpressionFloat, IExpressionCached {
-	private final IExpressionFloat expression;
-	private boolean cached;
-	private float value;
+    private final IExpressionFloat expression;
+    private boolean cached;
+    private float value;
 
-	public ExpressionFloatCached(IExpressionFloat expression) {
-		this.expression = expression;
-	}
+    public ExpressionFloatCached(IExpressionFloat expression) {
+        this.expression = expression;
+    }
 
-	@Override
+    @Override
     public float eval() {
-		if (!this.cached) {
-			this.value = this.expression.eval();
-			this.cached = true;
-		}
+        if (!this.cached) {
+            this.value = this.expression.eval();
+            this.cached = true;
+        }
 
-		return this.value;
-	}
+        return this.value;
+    }
 
-	@Override
+    @Override
     public void reset() {
-		this.cached = false;
-	}
+        this.cached = false;
+    }
 
-	@Override
+    @Override
     public ExpressionType getExpressionType() {
-		return ExpressionType.FLOAT;
-	}
+        return ExpressionType.FLOAT;
+    }
 
-	public String toString() {
-		return "cached(" + this.expression + ")";
-	}
+    public String toString() {
+        return "cached(" + this.expression + ")";
+    }
 }

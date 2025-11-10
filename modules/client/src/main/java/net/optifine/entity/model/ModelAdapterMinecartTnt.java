@@ -8,14 +8,14 @@ import net.minecraft.entity.item.EntityMinecartTNT;
 import net.optifine.Log;
 
 public class ModelAdapterMinecartTnt extends ModelAdapterMinecart {
-	public ModelAdapterMinecartTnt() {
-		super(EntityMinecartTNT.class, "tnt_minecart", 0.5F);
-	}
+    public ModelAdapterMinecartTnt() {
+        super(EntityMinecartTNT.class, "tnt_minecart", 0.5F);
+    }
 
-	@Override
+    @Override
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.get().getRenderManager();
-		RenderTntMinecart rendertntminecart = new RenderTntMinecart(rendermanager);
+        RenderManager rendermanager = Minecraft.get().getRenderManager();
+        RenderTntMinecart rendertntminecart = new RenderTntMinecart(rendermanager);
 
         Log.error("Field not found: RenderMinecart.modelMinecart");
         return null;

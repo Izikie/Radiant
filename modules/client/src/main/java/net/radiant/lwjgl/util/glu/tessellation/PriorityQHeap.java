@@ -86,12 +86,12 @@ package net.radiant.lwjgl.util.glu.tessellation;
 
 
 class PriorityQHeap extends PriorityQ {
+    final PriorityQ.Leq leq;
     PriorityQ.PQnode[] nodes;
     PriorityQ.PQhandleElem[] handles;
     int size, max;
     int freeList;
     boolean initialized;
-    final PriorityQ.Leq leq;
 
     /* really __gl_pqHeapNewPriorityQ */
     PriorityQHeap(PriorityQ.Leq leq) {

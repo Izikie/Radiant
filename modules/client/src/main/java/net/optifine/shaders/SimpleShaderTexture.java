@@ -14,71 +14,71 @@ import org.apache.commons.io.IOUtils;
 import java.io.*;
 
 public class SimpleShaderTexture extends AbstractTexture {
-	private static final IMetadataSerializer METADATA_SERIALIZER = makeMetadataSerializer();
-	private final String texturePath;
+    private static final IMetadataSerializer METADATA_SERIALIZER = makeMetadataSerializer();
+    private final String texturePath;
 
-	public SimpleShaderTexture(String texturePath) {
-		this.texturePath = texturePath;
-	}
+    public SimpleShaderTexture(String texturePath) {
+        this.texturePath = texturePath;
+    }
 
-	public static TextureMetadataSection loadTextureMetadataSection(String texturePath, TextureMetadataSection def) {
-		String s = texturePath + ".mcmeta";
-		String s1 = "texture";
-		InputStream inputstream = Shaders.getShaderPackResourceStream(s);
+    public static TextureMetadataSection loadTextureMetadataSection(String texturePath, TextureMetadataSection def) {
+        String s = texturePath + ".mcmeta";
+        String s1 = "texture";
+        InputStream inputstream = Shaders.getShaderPackResourceStream(s);
 
-		if (inputstream != null) {
-			BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(inputstream));
-			TextureMetadataSection texturemetadatasection1;
+        if (inputstream != null) {
+            BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(inputstream));
+            TextureMetadataSection texturemetadatasection1;
 
-			try {
-				JsonObject jsonobject = JsonParser.parseReader(bufferedreader).getAsJsonObject();
-				TextureMetadataSection texturemetadatasection = METADATA_SERIALIZER.parseMetadataSection(s1, jsonobject);
+            try {
+                JsonObject jsonobject = JsonParser.parseReader(bufferedreader).getAsJsonObject();
+                TextureMetadataSection texturemetadatasection = METADATA_SERIALIZER.parseMetadataSection(s1, jsonobject);
 
-				if (texturemetadatasection == null) {
-					return def;
-				}
+                if (texturemetadatasection == null) {
+                    return def;
+                }
 
-				texturemetadatasection1 = texturemetadatasection;
-			} catch (RuntimeException exception) {
-				Log.warn("Error reading metadata: " + s);
-				Log.warn(exception.getClass().getName() + ": " + exception.getMessage());
-				return def;
-			} finally {
-				IOUtils.closeQuietly(bufferedreader);
-				IOUtils.closeQuietly(inputstream);
-			}
+                texturemetadatasection1 = texturemetadatasection;
+            } catch (RuntimeException exception) {
+                Log.warn("Error reading metadata: " + s);
+                Log.warn(exception.getClass().getName() + ": " + exception.getMessage());
+                return def;
+            } finally {
+                IOUtils.closeQuietly(bufferedreader);
+                IOUtils.closeQuietly(inputstream);
+            }
 
-			return texturemetadatasection1;
-		} else {
-			return def;
-		}
-	}
+            return texturemetadatasection1;
+        } else {
+            return def;
+        }
+    }
 
-	private static IMetadataSerializer makeMetadataSerializer() {
-		IMetadataSerializer serializer = new IMetadataSerializer();
-		serializer.registerMetadataSectionType(new TextureMetadataSectionSerializer(), TextureMetadataSection.class);
-		serializer.registerMetadataSectionType(new FontMetadataSectionSerializer(), FontMetadataSection.class);
-		serializer.registerMetadataSectionType(new AnimationMetadataSectionSerializer(), AnimationMetadataSection.class);
-		serializer.registerMetadataSectionType(new PackMetadataSectionSerializer(), PackMetadataSection.class);
-		serializer.registerMetadataSectionType(new LanguageMetadataSectionSerializer(), LanguageMetadataSection.class);
-		return serializer;
-	}
+    private static IMetadataSerializer makeMetadataSerializer() {
+        IMetadataSerializer serializer = new IMetadataSerializer();
+        serializer.registerMetadataSectionType(new TextureMetadataSectionSerializer(), TextureMetadataSection.class);
+        serializer.registerMetadataSectionType(new FontMetadataSectionSerializer(), FontMetadataSection.class);
+        serializer.registerMetadataSectionType(new AnimationMetadataSectionSerializer(), AnimationMetadataSection.class);
+        serializer.registerMetadataSectionType(new PackMetadataSectionSerializer(), PackMetadataSection.class);
+        serializer.registerMetadataSectionType(new LanguageMetadataSectionSerializer(), LanguageMetadataSection.class);
+        return serializer;
+    }
 
-	@Override
+    @Override
     public void loadTexture(IResourceManager resourceManager) throws IOException {
-		this.deleteGlTexture();
-		InputStream inputstream = Shaders.getShaderPackResourceStream(this.texturePath);
+        this.deleteGlTexture();
+        InputStream inputstream = Shaders.getShaderPackResourceStream(this.texturePath);
 
-		if (inputstream == null) {
-			throw new FileNotFoundException("Shader texture not found: " + this.texturePath);
-		} else {
-			try {
-				NativeImage bufferedimage = TextureUtil.readNativeImage(inputstream);
-				TextureMetadataSection texturemetadatasection = loadTextureMetadataSection(this.texturePath, new TextureMetadataSection(false, false, new IntArrayList()));
-				TextureUtil.uploadTextureImageAllocate(this.getGlTextureId(), bufferedimage, texturemetadatasection.getTextureBlur(), texturemetadatasection.getTextureClamp());
-			} finally {
-				IOUtils.closeQuietly(inputstream);
-			}
-		}
-	}
+        if (inputstream == null) {
+            throw new FileNotFoundException("Shader texture not found: " + this.texturePath);
+        } else {
+            try {
+                NativeImage bufferedimage = TextureUtil.readNativeImage(inputstream);
+                TextureMetadataSection texturemetadatasection = loadTextureMetadataSection(this.texturePath, new TextureMetadataSection(false, false, new IntArrayList()));
+                TextureUtil.uploadTextureImageAllocate(this.getGlTextureId(), bufferedimage, texturemetadatasection.getTextureBlur(), texturemetadatasection.getTextureClamp());
+            } finally {
+                IOUtils.closeQuietly(inputstream);
+            }
+        }
+    }
 }

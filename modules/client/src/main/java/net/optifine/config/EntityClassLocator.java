@@ -4,8 +4,8 @@ import net.minecraft.util.ResourceLocation;
 import net.optifine.util.EntityUtils;
 
 public class EntityClassLocator implements IObjectLocator {
-	@Override
+    @Override
     public Object getObject(ResourceLocation loc) {
-		return EntityUtils.getEntityClassByName(loc.getResourcePath());
-	}
+        return EntityUtils.getEntityClassByName(loc.getResourcePath());
+    }
 }

@@ -7,66 +7,66 @@ import net.minecraft.util.math.MathHelper;
 import net.optifine.shaders.config.ShaderOption;
 
 public class GuiSliderShaderOption extends GuiButtonShaderOption {
-	private final ShaderOption shaderOption;
-	public boolean dragging;
-	private float sliderValue;
+    private final ShaderOption shaderOption;
+    public boolean dragging;
+    private float sliderValue;
 
-	public GuiSliderShaderOption(int buttonId, int x, int y, int w, int h, ShaderOption shaderOption, String text) {
-		super(buttonId, x, y, w, h, shaderOption, text);
-		this.shaderOption = shaderOption;
-		this.sliderValue = shaderOption.getIndexNormalized();
-		this.displayString = GuiShaderOptions.getButtonText(shaderOption, this.width);
-	}
+    public GuiSliderShaderOption(int buttonId, int x, int y, int w, int h, ShaderOption shaderOption, String text) {
+        super(buttonId, x, y, w, h, shaderOption, text);
+        this.shaderOption = shaderOption;
+        this.sliderValue = shaderOption.getIndexNormalized();
+        this.displayString = GuiShaderOptions.getButtonText(shaderOption, this.width);
+    }
 
-	@Override
+    @Override
     protected int getHoverState(boolean mouseOver) {
-		return 0;
-	}
+        return 0;
+    }
 
-	@Override
+    @Override
     protected void mouseDragged(Minecraft mc, int mouseX, int mouseY) {
-		if (this.visible) {
-			if (this.dragging && !GuiScreen.isShiftKeyDown()) {
-				this.sliderValue = (float) (mouseX - (this.xPosition + 4)) / (this.width - 8);
-				this.sliderValue = MathHelper.clamp(this.sliderValue, 0.0F, 1.0F);
-				this.shaderOption.setIndexNormalized(this.sliderValue);
-				this.sliderValue = this.shaderOption.getIndexNormalized();
-				this.displayString = GuiShaderOptions.getButtonText(this.shaderOption, this.width);
-			}
+        if (this.visible) {
+            if (this.dragging && !GuiScreen.isShiftKeyDown()) {
+                this.sliderValue = (float) (mouseX - (this.xPosition + 4)) / (this.width - 8);
+                this.sliderValue = MathHelper.clamp(this.sliderValue, 0.0F, 1.0F);
+                this.shaderOption.setIndexNormalized(this.sliderValue);
+                this.sliderValue = this.shaderOption.getIndexNormalized();
+                this.displayString = GuiShaderOptions.getButtonText(this.shaderOption, this.width);
+            }
 
-			mc.getTextureManager().bindTexture(BUTTON_TEXTURES);
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-			this.drawTexturedModalRect(this.xPosition + (int) (this.sliderValue * (this.width - 8)), this.yPosition, 0, 66, 4, 20);
-			this.drawTexturedModalRect(this.xPosition + (int) (this.sliderValue * (this.width - 8)) + 4, this.yPosition, 196, 66, 4, 20);
-		}
-	}
+            mc.getTextureManager().bindTexture(BUTTON_TEXTURES);
+            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+            this.drawTexturedModalRect(this.xPosition + (int) (this.sliderValue * (this.width - 8)), this.yPosition, 0, 66, 4, 20);
+            this.drawTexturedModalRect(this.xPosition + (int) (this.sliderValue * (this.width - 8)) + 4, this.yPosition, 196, 66, 4, 20);
+        }
+    }
 
-	@Override
+    @Override
     public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
-		if (super.mousePressed(mc, mouseX, mouseY)) {
-			this.sliderValue = (float) (mouseX - (this.xPosition + 4)) / (this.width - 8);
-			this.sliderValue = MathHelper.clamp(this.sliderValue, 0.0F, 1.0F);
-			this.shaderOption.setIndexNormalized(this.sliderValue);
-			this.displayString = GuiShaderOptions.getButtonText(this.shaderOption, this.width);
-			this.dragging = true;
-			return true;
-		} else {
-			return false;
-		}
-	}
+        if (super.mousePressed(mc, mouseX, mouseY)) {
+            this.sliderValue = (float) (mouseX - (this.xPosition + 4)) / (this.width - 8);
+            this.sliderValue = MathHelper.clamp(this.sliderValue, 0.0F, 1.0F);
+            this.shaderOption.setIndexNormalized(this.sliderValue);
+            this.displayString = GuiShaderOptions.getButtonText(this.shaderOption, this.width);
+            this.dragging = true;
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	@Override
+    @Override
     public void mouseReleased(int mouseX, int mouseY) {
-		this.dragging = false;
-	}
+        this.dragging = false;
+    }
 
-	@Override
+    @Override
     public void valueChanged() {
-		this.sliderValue = this.shaderOption.getIndexNormalized();
-	}
+        this.sliderValue = this.shaderOption.getIndexNormalized();
+    }
 
-	@Override
+    @Override
     public boolean isSwitchable() {
-		return false;
-	}
+        return false;
+    }
 }

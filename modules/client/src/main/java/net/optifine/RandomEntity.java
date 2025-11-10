@@ -8,53 +8,53 @@ import net.minecraft.world.biome.BiomeGenBase;
 import java.util.UUID;
 
 public class RandomEntity implements IRandomEntity {
-	private Entity entity;
+    private Entity entity;
 
-	@Override
+    @Override
     public int getId() {
-		UUID uuid = this.entity.getUniqueID();
-		long i = uuid.getLeastSignificantBits();
-		return (int) (i & 2147483647L);
-	}
+        UUID uuid = this.entity.getUniqueID();
+        long i = uuid.getLeastSignificantBits();
+        return (int) (i & 2147483647L);
+    }
 
-	@Override
+    @Override
     public BlockPos getSpawnPosition() {
-		return this.entity.getDataWatcher().spawnPosition;
-	}
+        return this.entity.getDataWatcher().spawnPosition;
+    }
 
-	@Override
+    @Override
     public BiomeGenBase getSpawnBiome() {
-		return this.entity.getDataWatcher().spawnBiome;
-	}
+        return this.entity.getDataWatcher().spawnBiome;
+    }
 
-	@Override
+    @Override
     public String getName() {
-		return this.entity.hasCustomName() ? this.entity.getCustomNameTag() : null;
-	}
+        return this.entity.hasCustomName() ? this.entity.getCustomNameTag() : null;
+    }
 
-	@Override
+    @Override
     public int getHealth() {
-		if (!(this.entity instanceof EntityLiving entityliving)) {
-			return 0;
-		} else {
-			return (int) entityliving.getHealth();
-		}
-	}
+        if (!(this.entity instanceof EntityLiving entityliving)) {
+            return 0;
+        } else {
+            return (int) entityliving.getHealth();
+        }
+    }
 
-	@Override
+    @Override
     public int getMaxHealth() {
-		if (!(this.entity instanceof EntityLiving entityliving)) {
-			return 0;
-		} else {
-			return (int) entityliving.getMaxHealth();
-		}
-	}
+        if (!(this.entity instanceof EntityLiving entityliving)) {
+            return 0;
+        } else {
+            return (int) entityliving.getMaxHealth();
+        }
+    }
 
-	public Entity getEntity() {
-		return this.entity;
-	}
+    public Entity getEntity() {
+        return this.entity;
+    }
 
-	public void setEntity(Entity entity) {
-		this.entity = entity;
-	}
+    public void setEntity(Entity entity) {
+        this.entity = entity;
+    }
 }

@@ -10,33 +10,33 @@ import net.minecraft.tileentity.TileEntitySkull;
 import net.optifine.Log;
 
 public class ModelAdapterHeadSkeleton extends ModelAdapter {
-	public ModelAdapterHeadSkeleton() {
-		super(TileEntitySkull.class, "head_skeleton", 0.0F);
-	}
+    public ModelAdapterHeadSkeleton() {
+        super(TileEntitySkull.class, "head_skeleton", 0.0F);
+    }
 
-	@Override
+    @Override
     public ModelBase makeModel() {
-		return new ModelSkeletonHead(0, 0, 64, 32);
-	}
+        return new ModelSkeletonHead(0, 0, 64, 32);
+    }
 
-	@Override
+    @Override
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-		if (model instanceof ModelSkeletonHead modelskeletonhead) {
-			return modelPart.equals("head") ? modelskeletonhead.skeletonHead : null;
-		} else {
-			return null;
-		}
-	}
+        if (model instanceof ModelSkeletonHead modelskeletonhead) {
+            return modelPart.equals("head") ? modelskeletonhead.skeletonHead : null;
+        } else {
+            return null;
+        }
+    }
 
-	@Override
+    @Override
     public String[] getModelRendererNames() {
-		return new String[]{"head"};
-	}
+        return new String[]{"head"};
+    }
 
-	@Override
+    @Override
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.INSTANCE;
-		TileEntitySpecialRenderer<TileEntitySkull> tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntitySkull.class);
+        TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.INSTANCE;
+        TileEntitySpecialRenderer<TileEntitySkull> tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntitySkull.class);
 
         if (tileentityspecialrenderer instanceof TileEntitySkullRenderer) {
             if (tileentityspecialrenderer.getEntityClass() == null) {

@@ -11,40 +11,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GuiMessage extends GuiScreen {
-	private final GuiScreen parentScreen;
-	private final String messageLine1;
-	private final String messageLine2;
-	private final List<Object> listLines2 = new ArrayList<>();
+    private final GuiScreen parentScreen;
+    private final String messageLine1;
+    private final String messageLine2;
+    private final List<Object> listLines2 = new ArrayList<>();
 
-	public GuiMessage(GuiScreen parentScreen, String line1, String line2) {
-		this.parentScreen = parentScreen;
-		this.messageLine1 = line1;
-		this.messageLine2 = line2;
-	}
+    public GuiMessage(GuiScreen parentScreen, String line1, String line2) {
+        this.parentScreen = parentScreen;
+        this.messageLine1 = line1;
+        this.messageLine2 = line2;
+    }
 
-	@Override
+    @Override
     public void initGui() {
-		this.buttonList.add(new GuiOptionButton(0, this.width / 2 - 74, this.height / 6 + 96, I18n.format("gui.done")));
-		this.listLines2.clear();
-		this.listLines2.addAll(this.fontRendererObj.listFormattedStringToWidth(this.messageLine2, this.width - 50));
-	}
+        this.buttonList.add(new GuiOptionButton(0, this.width / 2 - 74, this.height / 6 + 96, I18n.format("gui.done")));
+        this.listLines2.clear();
+        this.listLines2.addAll(this.fontRendererObj.listFormattedStringToWidth(this.messageLine2, this.width - 50));
+    }
 
-	@Override
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
-		Config.getMinecraft().displayGuiScreen(this.parentScreen);
-	}
+        Config.getMinecraft().displayGuiScreen(this.parentScreen);
+    }
 
-	@Override
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		this.drawDefaultBackground();
-		this.drawCenteredString(this.fontRendererObj, this.messageLine1, this.width / 2, 70, 16777215);
-		int i = 90;
+        this.drawDefaultBackground();
+        this.drawCenteredString(this.fontRendererObj, this.messageLine1, this.width / 2, 70, 16777215);
+        int i = 90;
 
-		for (Object s : this.listLines2) {
-			this.drawCenteredString(this.fontRendererObj, (String) s, this.width / 2, i, 16777215);
-			i += this.fontRendererObj.FONT_HEIGHT;
-		}
+        for (Object s : this.listLines2) {
+            this.drawCenteredString(this.fontRendererObj, (String) s, this.width / 2, i, 16777215);
+            i += this.fontRendererObj.FONT_HEIGHT;
+        }
 
-		super.drawScreen(mouseX, mouseY, partialTicks);
-	}
+        super.drawScreen(mouseX, mouseY, partialTicks);
+    }
 }

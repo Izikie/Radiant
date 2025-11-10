@@ -14,60 +14,60 @@ import net.minecraft.world.chunk.Chunk;
 import java.util.UUID;
 
 public class IntegratedServerUtils {
-	public static WorldServer getWorldServer() {
-		Minecraft minecraft = Config.getMinecraft();
-		World world = minecraft.world;
+    public static WorldServer getWorldServer() {
+        Minecraft minecraft = Config.getMinecraft();
+        World world = minecraft.world;
 
-		if (world == null) {
-			return null;
-		} else if (!minecraft.isIntegratedServerRunning()) {
-			return null;
-		} else {
-			IntegratedServer integratedserver = minecraft.getIntegratedServer();
+        if (world == null) {
+            return null;
+        } else if (!minecraft.isIntegratedServerRunning()) {
+            return null;
+        } else {
+            IntegratedServer integratedserver = minecraft.getIntegratedServer();
 
-			if (integratedserver == null) {
-				return null;
-			} else {
-				WorldProvider worldprovider = world.provider;
+            if (integratedserver == null) {
+                return null;
+            } else {
+                WorldProvider worldprovider = world.provider;
 
-				if (worldprovider == null) {
-					return null;
-				} else {
-					int i = worldprovider.getDimensionId();
+                if (worldprovider == null) {
+                    return null;
+                } else {
+                    int i = worldprovider.getDimensionId();
 
-					try {
-						return integratedserver.worldServerForDimension(i);
-					} catch (NullPointerException _) {
-						return null;
-					}
-				}
-			}
-		}
-	}
+                    try {
+                        return integratedserver.worldServerForDimension(i);
+                    } catch (NullPointerException _) {
+                        return null;
+                    }
+                }
+            }
+        }
+    }
 
-	public static Entity getEntity(UUID uuid) {
-		WorldServer worldserver = getWorldServer();
+    public static Entity getEntity(UUID uuid) {
+        WorldServer worldserver = getWorldServer();
 
-		if (worldserver == null) {
-			return null;
-		} else {
-			return worldserver.getEntityFromUuid(uuid);
-		}
-	}
+        if (worldserver == null) {
+            return null;
+        } else {
+            return worldserver.getEntityFromUuid(uuid);
+        }
+    }
 
-	public static TileEntity getTileEntity(BlockPos pos) {
-		WorldServer worldserver = getWorldServer();
+    public static TileEntity getTileEntity(BlockPos pos) {
+        WorldServer worldserver = getWorldServer();
 
-		if (worldserver == null) {
-			return null;
-		} else {
-			Chunk chunk = worldserver.getChunkProvider().provideChunk(pos.getX() >> 4, pos.getZ() >> 4);
+        if (worldserver == null) {
+            return null;
+        } else {
+            Chunk chunk = worldserver.getChunkProvider().provideChunk(pos.getX() >> 4, pos.getZ() >> 4);
 
-			if (chunk == null) {
-				return null;
-			} else {
-				return chunk.getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK);
-			}
-		}
-	}
+            if (chunk == null) {
+                return null;
+            } else {
+                return chunk.getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK);
+            }
+        }
+    }
 }

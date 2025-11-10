@@ -18,9 +18,8 @@ public class MicrosoftAuth extends GuiScreen {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MicrosoftAuth.class);
     private static final MicrosoftAuthenticator AUTHENTICATOR = new MicrosoftAuthenticator();
-
-    private String status = "Direct Login";
     private final GuiScreen parentScreen;
+    private String status = "Direct Login";
     private GuiTextField username;
     private GuiTextField password;
 

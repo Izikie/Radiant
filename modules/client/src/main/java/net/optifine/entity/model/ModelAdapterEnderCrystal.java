@@ -11,48 +11,48 @@ import net.minecraft.entity.item.EntityEnderCrystal;
 import net.optifine.Log;
 
 public class ModelAdapterEnderCrystal extends ModelAdapter {
-	public ModelAdapterEnderCrystal() {
-		this("end_crystal");
-	}
+    public ModelAdapterEnderCrystal() {
+        this("end_crystal");
+    }
 
-	protected ModelAdapterEnderCrystal(String name) {
-		super(EntityEnderCrystal.class, name, 0.5F);
-	}
+    protected ModelAdapterEnderCrystal(String name) {
+        super(EntityEnderCrystal.class, name, 0.5F);
+    }
 
-	@Override
+    @Override
     public ModelBase makeModel() {
-		return new ModelEnderCrystal(0.0F, true);
-	}
+        return new ModelEnderCrystal(0.0F, true);
+    }
 
-	@Override
+    @Override
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-		if (model instanceof ModelEnderCrystal modelendercrystal) {
-			return modelPart.equals("cube") ? modelendercrystal.getCube()
-					: (modelPart.equals("glass") ? modelendercrystal.getGlass()
-					: (modelPart.equals("base") ? modelendercrystal.getBase()
-					: null));
-		} else {
-			return null;
-		}
-	}
+        if (model instanceof ModelEnderCrystal modelendercrystal) {
+            return modelPart.equals("cube") ? modelendercrystal.getCube()
+                    : (modelPart.equals("glass") ? modelendercrystal.getGlass()
+                    : (modelPart.equals("base") ? modelendercrystal.getBase()
+                    : null));
+        } else {
+            return null;
+        }
+    }
 
-	@Override
+    @Override
     public String[] getModelRendererNames() {
-		return new String[]{"cube", "glass", "base"};
-	}
+        return new String[]{"cube", "glass", "base"};
+    }
 
-	@Override
+    @Override
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.get().getRenderManager();
-		Render<EntityEnderCrystal> render = rendermanager.getEntityRenderMap().get(EntityEnderCrystal.class);
+        RenderManager rendermanager = Minecraft.get().getRenderManager();
+        Render<EntityEnderCrystal> render = rendermanager.getEntityRenderMap().get(EntityEnderCrystal.class);
 
-		if (!(render instanceof RenderEnderCrystal renderendercrystal)) {
-			Log.error("Not an instance of RenderEnderCrystal: " + render);
-			return null;
-		} else {
+        if (!(render instanceof RenderEnderCrystal renderendercrystal)) {
+            Log.error("Not an instance of RenderEnderCrystal: " + render);
+            return null;
+        } else {
 
             Log.error("Field not found: RenderEnderCrystal.modelEnderCrystal");
             return null;
         }
-	}
+    }
 }

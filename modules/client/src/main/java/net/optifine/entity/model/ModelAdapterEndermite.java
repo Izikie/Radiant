@@ -10,50 +10,50 @@ import net.minecraft.entity.monster.EntityEndermite;
 import net.optifine.Config;
 
 public class ModelAdapterEndermite extends ModelAdapter {
-	public ModelAdapterEndermite() {
-		super(EntityEndermite.class, "endermite", 0.3F);
-	}
+    public ModelAdapterEndermite() {
+        super(EntityEndermite.class, "endermite", 0.3F);
+    }
 
-	@Override
+    @Override
     public ModelBase makeModel() {
-		return new ModelEnderMite();
-	}
+        return new ModelEnderMite();
+    }
 
-	@Override
+    @Override
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-		if (model instanceof ModelEnderMite modelendermite) {
-			String s = "body";
+        if (model instanceof ModelEnderMite modelendermite) {
+            String s = "body";
 
-			if (modelPart.startsWith(s)) {
-				ModelRenderer[] amodelrenderer = modelendermite.getBodyParts();
+            if (modelPart.startsWith(s)) {
+                ModelRenderer[] amodelrenderer = modelendermite.getBodyParts();
 
-				if (amodelrenderer == null) {
-					return null;
-				} else {
-					String s1 = modelPart.substring(s.length());
-					int i = Config.parseInt(s1, -1);
-					--i;
-					return i >= 0 && i < amodelrenderer.length ? amodelrenderer[i] : null;
-				}
-			} else {
-				return null;
-			}
-		} else {
-			return null;
-		}
-	}
+                if (amodelrenderer == null) {
+                    return null;
+                } else {
+                    String s1 = modelPart.substring(s.length());
+                    int i = Config.parseInt(s1, -1);
+                    --i;
+                    return i >= 0 && i < amodelrenderer.length ? amodelrenderer[i] : null;
+                }
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
 
-	@Override
+    @Override
     public String[] getModelRendererNames() {
-		return new String[]{"body1", "body2", "body3", "body4"};
-	}
+        return new String[]{"body1", "body2", "body3", "body4"};
+    }
 
-	@Override
+    @Override
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.get().getRenderManager();
-		RenderEndermite renderendermite = new RenderEndermite(rendermanager);
-		renderendermite.mainModel = modelBase;
-		renderendermite.shadowSize = shadowSize;
-		return renderendermite;
-	}
+        RenderManager rendermanager = Minecraft.get().getRenderManager();
+        RenderEndermite renderendermite = new RenderEndermite(rendermanager);
+        renderendermite.mainModel = modelBase;
+        renderendermite.shadowSize = shadowSize;
+        return renderendermite;
+    }
 }

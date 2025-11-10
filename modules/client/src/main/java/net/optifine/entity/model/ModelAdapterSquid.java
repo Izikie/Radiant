@@ -10,52 +10,52 @@ import net.minecraft.entity.passive.EntitySquid;
 import net.optifine.Config;
 
 public class ModelAdapterSquid extends ModelAdapter {
-	public ModelAdapterSquid() {
-		super(EntitySquid.class, "squid", 0.7F);
-	}
+    public ModelAdapterSquid() {
+        super(EntitySquid.class, "squid", 0.7F);
+    }
 
-	@Override
+    @Override
     public ModelBase makeModel() {
-		return new ModelSquid();
-	}
+        return new ModelSquid();
+    }
 
-	@Override
+    @Override
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-		if (model instanceof ModelSquid modelsquid) {
+        if (model instanceof ModelSquid modelsquid) {
 
-			if (modelPart.equals("body")) {
-				return modelsquid.getSquidBody();
-			} else {
-				String s = "tentacle";
+            if (modelPart.equals("body")) {
+                return modelsquid.getSquidBody();
+            } else {
+                String s = "tentacle";
 
-				if (modelPart.startsWith(s)) {
-					ModelRenderer[] amodelrenderer = modelsquid.getSquidTentacles();
+                if (modelPart.startsWith(s)) {
+                    ModelRenderer[] amodelrenderer = modelsquid.getSquidTentacles();
 
-					if (amodelrenderer == null) {
-						return null;
-					} else {
-						String s1 = modelPart.substring(s.length());
-						int i = Config.parseInt(s1, -1);
-						--i;
-						return i >= 0 && i < amodelrenderer.length ? amodelrenderer[i] : null;
-					}
-				} else {
-					return null;
-				}
-			}
-		} else {
-			return null;
-		}
-	}
+                    if (amodelrenderer == null) {
+                        return null;
+                    } else {
+                        String s1 = modelPart.substring(s.length());
+                        int i = Config.parseInt(s1, -1);
+                        --i;
+                        return i >= 0 && i < amodelrenderer.length ? amodelrenderer[i] : null;
+                    }
+                } else {
+                    return null;
+                }
+            }
+        } else {
+            return null;
+        }
+    }
 
-	@Override
+    @Override
     public String[] getModelRendererNames() {
-		return new String[]{"body", "tentacle1", "tentacle2", "tentacle3", "tentacle4", "tentacle5", "tentacle6", "tentacle7", "tentacle8"};
-	}
+        return new String[]{"body", "tentacle1", "tentacle2", "tentacle3", "tentacle4", "tentacle5", "tentacle6", "tentacle7", "tentacle8"};
+    }
 
-	@Override
+    @Override
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.get().getRenderManager();
-		return new RenderSquid(rendermanager, modelBase, shadowSize);
-	}
+        RenderManager rendermanager = Minecraft.get().getRenderManager();
+        return new RenderSquid(rendermanager, modelBase, shadowSize);
+    }
 }

@@ -4,23 +4,23 @@ import net.optifine.expr.ExpressionType;
 import net.optifine.expr.IExpressionBool;
 
 public class ExpressionShaderOptionSwitch implements IExpressionBool {
-	private final ShaderOptionSwitch shaderOption;
+    private final ShaderOptionSwitch shaderOption;
 
-	public ExpressionShaderOptionSwitch(ShaderOptionSwitch shaderOption) {
-		this.shaderOption = shaderOption;
-	}
+    public ExpressionShaderOptionSwitch(ShaderOptionSwitch shaderOption) {
+        this.shaderOption = shaderOption;
+    }
 
-	@Override
+    @Override
     public boolean eval() {
-		return ShaderOptionSwitch.isTrue(this.shaderOption.getValue());
-	}
+        return ShaderOptionSwitch.isTrue(this.shaderOption.getValue());
+    }
 
-	@Override
+    @Override
     public ExpressionType getExpressionType() {
-		return ExpressionType.BOOL;
-	}
+        return ExpressionType.BOOL;
+    }
 
-	public String toString() {
-		return "" + this.shaderOption;
-	}
+    public String toString() {
+        return "" + this.shaderOption;
+    }
 }

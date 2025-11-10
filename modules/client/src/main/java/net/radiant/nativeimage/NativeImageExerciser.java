@@ -66,7 +66,7 @@ public class NativeImageExerciser {
         int loaded = 0;
 
         List<Class<?>> classes = List.of(
-            // Add any other classes from mods in here
+                // Add any other classes from mods in here
         );
 
         List<Class<?>> initClasses = new ArrayList<>(classes);
@@ -118,7 +118,8 @@ public class NativeImageExerciser {
     private static Object tryConstruct(Class<?> clazz) throws ReflectiveOperationException {
         try {
             return clazz.getDeclaredConstructor().newInstance();
-        } catch (ReflectiveOperationException _) {}
+        } catch (ReflectiveOperationException _) {
+        }
 
         for (Constructor<?> constructor : clazz.getDeclaredConstructors()) {
             try {
@@ -133,7 +134,8 @@ public class NativeImageExerciser {
                 }
                 Object[] params = paramsList.toArray(Object[]::new);
                 return constructor.newInstance(params);
-            } catch (ReflectiveOperationException _) {}
+            } catch (ReflectiveOperationException _) {
+            }
         }
 
         throw new NoSuchMethodException("No working constructor found in " + clazz);

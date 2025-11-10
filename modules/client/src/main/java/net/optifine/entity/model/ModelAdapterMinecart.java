@@ -10,37 +10,37 @@ import net.minecraft.entity.item.EntityMinecart;
 import net.optifine.Log;
 
 public class ModelAdapterMinecart extends ModelAdapter {
-	public ModelAdapterMinecart() {
-		super(EntityMinecart.class, "minecart", 0.5F);
-	}
+    public ModelAdapterMinecart() {
+        super(EntityMinecart.class, "minecart", 0.5F);
+    }
 
-	protected ModelAdapterMinecart(Class entityClass, String name, float shadow) {
-		super(entityClass, name, shadow);
-	}
+    protected ModelAdapterMinecart(Class entityClass, String name, float shadow) {
+        super(entityClass, name, shadow);
+    }
 
-	@Override
+    @Override
     public ModelBase makeModel() {
-		return new ModelMinecart();
-	}
+        return new ModelMinecart();
+    }
 
-	@Override
+    @Override
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-		if (model instanceof ModelMinecart modelminecart) {
-			return modelPart.equals("bottom") ? modelminecart.sideModels[0] : (modelPart.equals("back") ? modelminecart.sideModels[1] : (modelPart.equals("front") ? modelminecart.sideModels[2] : (modelPart.equals("right") ? modelminecart.sideModels[3] : (modelPart.equals("left") ? modelminecart.sideModels[4] : (modelPart.equals("dirt") ? modelminecart.sideModels[5] : null)))));
-		} else {
-			return null;
-		}
-	}
+        if (model instanceof ModelMinecart modelminecart) {
+            return modelPart.equals("bottom") ? modelminecart.sideModels[0] : (modelPart.equals("back") ? modelminecart.sideModels[1] : (modelPart.equals("front") ? modelminecart.sideModels[2] : (modelPart.equals("right") ? modelminecart.sideModels[3] : (modelPart.equals("left") ? modelminecart.sideModels[4] : (modelPart.equals("dirt") ? modelminecart.sideModels[5] : null)))));
+        } else {
+            return null;
+        }
+    }
 
-	@Override
+    @Override
     public String[] getModelRendererNames() {
-		return new String[]{"bottom", "back", "front", "right", "left", "dirt"};
-	}
+        return new String[]{"bottom", "back", "front", "right", "left", "dirt"};
+    }
 
-	@Override
+    @Override
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.get().getRenderManager();
-		RenderMinecart renderminecart = new RenderMinecart(rendermanager);
+        RenderManager rendermanager = Minecraft.get().getRenderManager();
+        RenderMinecart renderminecart = new RenderMinecart(rendermanager);
 
         Log.error("Field not found: RenderMinecart.modelMinecart");
         return null;

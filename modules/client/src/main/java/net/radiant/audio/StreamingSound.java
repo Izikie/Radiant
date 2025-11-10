@@ -18,14 +18,12 @@ public class StreamingSound implements ISoundSource, Runnable {
 
     private final int source;
     private final int[] buffers = new int[BUFFER_COUNT];
-
-    private long decoder;
     private final @SuppressWarnings({"unused", "FieldCanBeLocal"}) ByteBuffer fileDataRef; // keep the ByteBuffer alive
     private final int channels;
     private final int sampleRate;
-
     // threading & control
     private final Object vorbisLock = new Object();
+    private long decoder;
     private volatile boolean threadRunning = false;
     private volatile boolean playRequested = false;
     private volatile boolean looping = true;
@@ -63,7 +61,9 @@ public class StreamingSound implements ISoundSource, Runnable {
         alSourceQueueBuffers(source, buffers);
     }
 
-    /** Decode into a *local* ShortBuffer and upload it. Must be called only while decoder is valid. */
+    /**
+     * Decode into a *local* ShortBuffer and upload it. Must be called only while decoder is valid.
+     */
     private boolean streamBuffer(int bufferId) {
         // local pcm prevents shared/native memory races
         ShortBuffer pcm = BufferUtils.createShortBuffer(BUFFER_SIZE * channels);

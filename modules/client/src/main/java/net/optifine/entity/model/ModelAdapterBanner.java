@@ -10,33 +10,33 @@ import net.minecraft.tileentity.TileEntityBanner;
 import net.optifine.Log;
 
 public class ModelAdapterBanner extends ModelAdapter {
-	public ModelAdapterBanner() {
-		super(TileEntityBanner.class, "banner", 0.0F);
-	}
+    public ModelAdapterBanner() {
+        super(TileEntityBanner.class, "banner", 0.0F);
+    }
 
-	@Override
+    @Override
     public ModelBase makeModel() {
-		return new ModelBanner();
-	}
+        return new ModelBanner();
+    }
 
-	@Override
+    @Override
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-		if (model instanceof ModelBanner modelbanner) {
-			return modelPart.equals("slate") ? modelbanner.bannerSlate : (modelPart.equals("stand") ? modelbanner.bannerStand : (modelPart.equals("top") ? modelbanner.bannerTop : null));
-		} else {
-			return null;
-		}
-	}
+        if (model instanceof ModelBanner modelbanner) {
+            return modelPart.equals("slate") ? modelbanner.bannerSlate : (modelPart.equals("stand") ? modelbanner.bannerStand : (modelPart.equals("top") ? modelbanner.bannerTop : null));
+        } else {
+            return null;
+        }
+    }
 
-	@Override
+    @Override
     public String[] getModelRendererNames() {
-		return new String[]{"slate", "stand", "top"};
-	}
+        return new String[]{"slate", "stand", "top"};
+    }
 
-	@Override
+    @Override
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.INSTANCE;
-		TileEntitySpecialRenderer<TileEntityBanner> tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntityBanner.class);
+        TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.INSTANCE;
+        TileEntitySpecialRenderer<TileEntityBanner> tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntityBanner.class);
 
         if (tileentityspecialrenderer instanceof TileEntityBannerRenderer) {
             if (tileentityspecialrenderer.getEntityClass() == null) {

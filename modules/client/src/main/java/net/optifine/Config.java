@@ -48,6 +48,8 @@ import java.util.regex.Pattern;
 
 public class Config {
     public static final String VERSION = "OptiFine 1.8.9 HD U M6-Pre2";
+    public static final Float DEF_ALPHA_FUNC_LEVEL = 0.1F;
+    private static final Minecraft MINECRAFT = Minecraft.get();
     public static String openGlVersion = null;
     public static String openGlRenderer = null;
     public static String openGlVendor = null;
@@ -57,24 +59,22 @@ public class Config {
     public static int minecraftVersionInt = -1;
     public static boolean fancyFogAvailable = false;
     public static boolean occlusionAvailable = false;
+    public static boolean zoomMode = false;
+    public static boolean zoomSmoothCamera = false;
+    public static boolean waterOpacityChanged = false;
+    public static float renderPartialTicks;
     private static GameSettings gameSettings = null;
-    private static final Minecraft MINECRAFT = Minecraft.get();
     private static boolean initialized = false;
     private static Thread minecraftThread = null;
     private static DisplayMode desktopDisplayMode = null;
     private static DisplayMode[] displayModes = null;
     private static int antialiasingLevel = 0;
     private static int availableProcessors = 0;
-    public static boolean zoomMode = false;
-    public static boolean zoomSmoothCamera = false;
     private static int texturePackClouds = 0;
-    public static boolean waterOpacityChanged = false;
     private static boolean fullscreenModeChecked = false;
     private static boolean desktopModeChecked = false;
-    public static final Float DEF_ALPHA_FUNC_LEVEL = 0.1F;
     private static String mcDebugLast = null;
     private static int fpsMinLast = 0;
-    public static float renderPartialTicks;
 
     public static String getVersionDebug() {
         StringBuilder stringBuilder = new StringBuilder(32);

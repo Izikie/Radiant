@@ -9,32 +9,32 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.passive.EntityChicken;
 
 public class ModelAdapterChicken extends ModelAdapter {
-	public ModelAdapterChicken() {
-		super(EntityChicken.class, "chicken", 0.3F);
-	}
+    public ModelAdapterChicken() {
+        super(EntityChicken.class, "chicken", 0.3F);
+    }
 
-	@Override
+    @Override
     public ModelBase makeModel() {
-		return new ModelChicken();
-	}
+        return new ModelChicken();
+    }
 
-	@Override
+    @Override
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-		if (!(model instanceof ModelChicken modelchicken)) {
-			return null;
-		} else {
-			return modelPart.equals("head") ? modelchicken.head : (modelPart.equals("body") ? modelchicken.body : (modelPart.equals("right_leg") ? modelchicken.rightLeg : (modelPart.equals("left_leg") ? modelchicken.leftLeg : (modelPart.equals("right_wing") ? modelchicken.rightWing : (modelPart.equals("left_wing") ? modelchicken.leftWing : (modelPart.equals("bill") ? modelchicken.bill : (modelPart.equals("chin") ? modelchicken.chin : null)))))));
-		}
-	}
+        if (!(model instanceof ModelChicken modelchicken)) {
+            return null;
+        } else {
+            return modelPart.equals("head") ? modelchicken.head : (modelPart.equals("body") ? modelchicken.body : (modelPart.equals("right_leg") ? modelchicken.rightLeg : (modelPart.equals("left_leg") ? modelchicken.leftLeg : (modelPart.equals("right_wing") ? modelchicken.rightWing : (modelPart.equals("left_wing") ? modelchicken.leftWing : (modelPart.equals("bill") ? modelchicken.bill : (modelPart.equals("chin") ? modelchicken.chin : null)))))));
+        }
+    }
 
-	@Override
+    @Override
     public String[] getModelRendererNames() {
-		return new String[]{"head", "body", "right_leg", "left_leg", "right_wing", "left_wing", "bill", "chin"};
-	}
+        return new String[]{"head", "body", "right_leg", "left_leg", "right_wing", "left_wing", "bill", "chin"};
+    }
 
-	@Override
+    @Override
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.get().getRenderManager();
-		return new RenderChicken(rendermanager, modelBase, shadowSize);
-	}
+        RenderManager rendermanager = Minecraft.get().getRenderManager();
+        return new RenderChicken(rendermanager, modelBase, shadowSize);
+    }
 }

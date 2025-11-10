@@ -82,15 +82,14 @@ package net.radiant.lwjgl.util.glu.tessellation;
 
 class PriorityQSort extends PriorityQ {
     final PriorityQHeap heap;
+    final PriorityQ.Leq leq;
     Object[] keys;
-
     // JAVA: 'order' contains indices into the keys array.
     // This simulates the indirect pointers used in the original C code
     // (from Frank Suykens, Luciad.com).
     int[] order;
     int size, max;
     boolean initialized;
-    final PriorityQ.Leq leq;
 
     PriorityQSort(PriorityQ.Leq leq) {
         heap = new PriorityQHeap(leq);

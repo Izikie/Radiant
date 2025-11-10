@@ -10,22 +10,22 @@ import net.minecraft.client.renderer.entity.RenderSkeleton;
 import net.minecraft.entity.monster.EntitySkeleton;
 
 public class ModelAdapterSkeleton extends ModelAdapterBiped {
-	public ModelAdapterSkeleton() {
-		super(EntitySkeleton.class, "skeleton", 0.7F);
-	}
+    public ModelAdapterSkeleton() {
+        super(EntitySkeleton.class, "skeleton", 0.7F);
+    }
 
-	@Override
+    @Override
     public ModelBase makeModel() {
-		return new ModelSkeleton();
-	}
+        return new ModelSkeleton();
+    }
 
-	@Override
+    @Override
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.get().getRenderManager();
-		RenderSkeleton renderskeleton = new RenderSkeleton(rendermanager);
-		Render.setModelBipedMain(renderskeleton, (ModelBiped) modelBase);
-		renderskeleton.mainModel = modelBase;
-		renderskeleton.shadowSize = shadowSize;
-		return renderskeleton;
-	}
+        RenderManager rendermanager = Minecraft.get().getRenderManager();
+        RenderSkeleton renderskeleton = new RenderSkeleton(rendermanager);
+        Render.setModelBipedMain(renderskeleton, (ModelBiped) modelBase);
+        renderskeleton.mainModel = modelBase;
+        renderskeleton.shadowSize = shadowSize;
+        return renderskeleton;
+    }
 }

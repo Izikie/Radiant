@@ -8,18 +8,18 @@ import net.minecraft.client.renderer.entity.RenderMooshroom;
 import net.minecraft.entity.passive.EntityMooshroom;
 
 public class ModelAdapterMooshroom extends ModelAdapterQuadruped {
-	public ModelAdapterMooshroom() {
-		super(EntityMooshroom.class, "mooshroom", 0.7F);
-	}
+    public ModelAdapterMooshroom() {
+        super(EntityMooshroom.class, "mooshroom", 0.7F);
+    }
 
-	@Override
+    @Override
     public ModelBase makeModel() {
-		return new ModelCow();
-	}
+        return new ModelCow();
+    }
 
-	@Override
+    @Override
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.get().getRenderManager();
-		return new RenderMooshroom(rendermanager, modelBase, shadowSize);
-	}
+        RenderManager rendermanager = Minecraft.get().getRenderManager();
+        return new RenderMooshroom(rendermanager, modelBase, shadowSize);
+    }
 }

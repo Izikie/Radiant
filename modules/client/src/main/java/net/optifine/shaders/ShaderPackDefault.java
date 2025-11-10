@@ -3,22 +3,22 @@ package net.optifine.shaders;
 import java.io.InputStream;
 
 public class ShaderPackDefault implements IShaderPack {
-	@Override
+    @Override
     public void close() {
-	}
+    }
 
-	@Override
+    @Override
     public InputStream getResourceAsStream(String resName) {
-		return ShaderPackDefault.class.getResourceAsStream(resName);
-	}
+        return ShaderPackDefault.class.getResourceAsStream(resName);
+    }
 
-	@Override
+    @Override
     public String getName() {
-		return "(internal)";
-	}
+        return "(internal)";
+    }
 
-	@Override
+    @Override
     public boolean hasDirectory(String name) {
-		return false;
-	}
+        return false;
+    }
 }

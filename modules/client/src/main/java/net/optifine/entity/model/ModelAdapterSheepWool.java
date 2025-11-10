@@ -16,44 +16,44 @@ import java.util.Iterator;
 import java.util.List;
 
 public class ModelAdapterSheepWool extends ModelAdapterQuadruped {
-	public ModelAdapterSheepWool() {
-		super(EntitySheep.class, "sheep_wool", 0.7F);
-	}
+    public ModelAdapterSheepWool() {
+        super(EntitySheep.class, "sheep_wool", 0.7F);
+    }
 
-	@Override
+    @Override
     public ModelBase makeModel() {
-		return new ModelSheep1();
-	}
+        return new ModelSheep1();
+    }
 
-	@Override
+    @Override
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.get().getRenderManager();
-		Render render = rendermanager.getEntityRenderMap().get(EntitySheep.class);
+        RenderManager rendermanager = Minecraft.get().getRenderManager();
+        Render render = rendermanager.getEntityRenderMap().get(EntitySheep.class);
 
-		if (!(render instanceof RenderSheep)) {
-			Log.error("Not a RenderSheep: " + render);
-			return null;
-		} else {
-			if (render.getEntityClass() == null) {
-				render = new RenderSheep(rendermanager, new ModelSheep2(), 0.7F);
-			}
+        if (!(render instanceof RenderSheep)) {
+            Log.error("Not a RenderSheep: " + render);
+            return null;
+        } else {
+            if (render.getEntityClass() == null) {
+                render = new RenderSheep(rendermanager, new ModelSheep2(), 0.7F);
+            }
 
-			RenderSheep rendersheep = (RenderSheep) render;
-			List<LayerRenderer<EntitySheep>> list = rendersheep.getLayerRenderers();
-			Iterator<LayerRenderer<EntitySheep>> iterator = list.iterator();
+            RenderSheep rendersheep = (RenderSheep) render;
+            List<LayerRenderer<EntitySheep>> list = rendersheep.getLayerRenderers();
+            Iterator<LayerRenderer<EntitySheep>> iterator = list.iterator();
 
-			while (iterator.hasNext()) {
-				LayerRenderer<EntitySheep> layerRenderer = iterator.next();
+            while (iterator.hasNext()) {
+                LayerRenderer<EntitySheep> layerRenderer = iterator.next();
 
-				if (layerRenderer instanceof LayerSheepWool) {
-					iterator.remove();
-				}
-			}
+                if (layerRenderer instanceof LayerSheepWool) {
+                    iterator.remove();
+                }
+            }
 
-			LayerSheepWool layersheepwool = new LayerSheepWool(rendersheep);
-			layersheepwool.sheepModel = (ModelSheep1) modelBase;
-			rendersheep.addLayer(layersheepwool);
-			return rendersheep;
-		}
-	}
+            LayerSheepWool layersheepwool = new LayerSheepWool(rendersheep);
+            layersheepwool.sheepModel = (ModelSheep1) modelBase;
+            rendersheep.addLayer(layersheepwool);
+            return rendersheep;
+        }
+    }
 }

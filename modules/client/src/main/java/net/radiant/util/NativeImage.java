@@ -29,6 +29,106 @@ public class NativeImage {
     private NativeImage() {
     }
 
+    /**
+     * Creates a new blank image
+     *
+     * @param width  The width of the image
+     * @param height The height of the image
+     * @return The new blank image
+     */
+    public static NativeImage createBlankImage(int width, int height) {
+        NativeImage image = new NativeImage();
+        image.width = width;
+        image.height = height;
+        image.data = new byte[width * height * 4];
+        return image;
+    }
+
+    /**
+     * Loads a native image from an input stream
+     *
+     * @param stream The input stream to read from
+     * @return The loaded native image
+     * @throws IOException If an I/O error occurs
+     */
+    public static NativeImage loadFromInputStream(InputStream stream) throws IOException {
+        byte[] imageBytes = stream.readAllBytes();
+        ByteBuffer imageBuffer = MemoryUtil.memAlloc(imageBytes.length);
+        imageBuffer.put(imageBytes).flip();
+
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            IntBuffer w = stack.mallocInt(1);
+            IntBuffer h = stack.mallocInt(1);
+            IntBuffer comp = stack.mallocInt(1); // Useless...
+
+            ByteBuffer out = stbi_load_from_memory(imageBuffer, w, h, comp, STBI_rgb_alpha);
+            if (out == null) {
+                throw new IOException("Failed to load image: " + stbi_failure_reason());
+            }
+
+            NativeImage image = new NativeImage();
+            image.width = w.get(0);
+            image.height = h.get(0);
+
+            int size = image.width * image.height * 4;
+            image.data = new byte[size];
+            out.get(image.data, 0, size);
+
+            out.position(0);
+            stbi_image_free(out);
+
+            return image;
+        } finally {
+            MemoryUtil.memFree(imageBuffer);
+        }
+    }
+
+    public static NativeImage loadFromResourceLocation(ResourceLocation location) throws IOException {
+        try (InputStream stream = Minecraft.get().getResourceManager().getResource(location).getInputStream()) {
+            return loadFromInputStream(stream);
+        }
+    }
+
+    public static NativeImage loadFromFile(File file) throws IOException {
+        try (InputStream stream = new FileInputStream(file)) {
+            return loadFromInputStream(stream);
+        }
+    }
+
+    // I hate this
+    public static int blendARGB(int srcARGB, int dstARGB) {
+        // Extract channels
+        int srcA = (srcARGB >>> 24) & 0xFF;
+        int srcR = (srcARGB >>> 16) & 0xFF;
+        int srcG = (srcARGB >>> 8) & 0xFF;
+        int srcB = srcARGB & 0xFF;
+
+        int dstA = (dstARGB >>> 24) & 0xFF;
+        int dstR = (dstARGB >>> 16) & 0xFF;
+        int dstG = (dstARGB >>> 8) & 0xFF;
+        int dstB = dstARGB & 0xFF;
+
+        // Normalize alpha to 0..1
+        float srcAlpha = srcA / 255.0f;
+        float invSrcAlpha = 1.0f - srcAlpha;
+
+        // Blend Alpha: GL_ONE, GL_ZERO = source alpha only
+        int outA = dstA;
+
+        // Blend RGB
+        int outR = Math.round(srcR * srcAlpha + dstR * invSrcAlpha);
+        int outG = Math.round(srcG * srcAlpha + dstG * invSrcAlpha);
+        int outB = Math.round(srcB * srcAlpha + dstB * invSrcAlpha);
+
+        // Clamp to 0..255 (Math.round already ensures that, but extra safety)
+        outR = Math.clamp(outR, 0, 255);
+        outG = Math.clamp(outG, 0, 255);
+        outB = Math.clamp(outB, 0, 255);
+
+        // Pack back into ARGB
+        return (outA << 24) | (outR << 16) | (outG << 8) | outB;
+    }
+
     public byte[] getData() {
         return data;
     }
@@ -49,6 +149,7 @@ public class NativeImage {
 
     /**
      * Gets a pixel from the image at a specified location
+     *
      * @param x The x position of the pixel
      * @param y The y position of the pixel
      * @return The pixel in ARGB format
@@ -59,6 +160,7 @@ public class NativeImage {
 
     /**
      * Returns the pixel at a specified byte index
+     *
      * @param index The index of the data <code>(x + y * width) * 4</code>
      * @return The pixel in ARGB format
      */
@@ -72,6 +174,7 @@ public class NativeImage {
 
     /**
      * Converts the image to an array of ARGB pixels
+     *
      * @return The image pixel array
      */
     public int[] getRGB() {
@@ -85,12 +188,13 @@ public class NativeImage {
 
     /**
      * Implementation of {@link java.awt.image.BufferedImage#getRGB(int, int, int, int, int[], int, int) BufferedImage.getRGB}.
-     * @param startX The starting X coordinate
-     * @param startY The starting Y coordinate
-     * @param w width of the region
-     * @param h height of the region
+     *
+     * @param startX   The starting X coordinate
+     * @param startY   The starting Y coordinate
+     * @param w        width of the region
+     * @param h        height of the region
      * @param rgbArray if not <code>null</code>, the rgb pixels are written here
-     * @param offset offset into the <code>rgbArray</code>
+     * @param offset   offset into the <code>rgbArray</code>
      * @param scansize scanline stride for the <code>rgbArray</code>
      * @return array of ARGB pixels.
      */
@@ -114,8 +218,9 @@ public class NativeImage {
 
     /**
      * Sets a pixel in the image
-     * @param x The X position of the pixel
-     * @param y The Y position of the pixel
+     *
+     * @param x     The X position of the pixel
+     * @param y     The Y position of the pixel
      * @param color The color to set in ARGB format
      */
     public void setPixel(int x, int y, int color) {
@@ -128,9 +233,10 @@ public class NativeImage {
 
     /**
      * Sets an RGB region of the image
+     *
      * @param startX The starting X coordinate
      * @param startY The starting Y coordinate
-     * @param width width of the region
+     * @param width  width of the region
      * @param height height of the region
      * @param pixels The pixels to write to the image
      */
@@ -144,9 +250,10 @@ public class NativeImage {
 
     /**
      * Sets an RGB region of the image with an alpha value of 255
+     *
      * @param startX The starting X coordinate
      * @param startY The starting Y coordinate
-     * @param width width of the region
+     * @param width  width of the region
      * @param height height of the region
      * @param pixels The pixels to write to the image
      */
@@ -258,104 +365,6 @@ public class NativeImage {
             case PNG -> stbi_write_png(path, this.width, this.height, 4, data, 0);
             case JPG -> stbi_write_jpg(path, this.width, this.height, 4, data, 100);
         };
-    }
-
-    /**
-     * Creates a new blank image
-     * @param width The width of the image
-     * @param height The height of the image
-     * @return The new blank image
-     */
-    public static NativeImage createBlankImage(int width, int height) {
-        NativeImage image = new NativeImage();
-        image.width = width;
-        image.height = height;
-        image.data = new byte[width * height * 4];
-        return image;
-    }
-
-    /**
-     * Loads a native image from an input stream
-     * @param stream The input stream to read from
-     * @return The loaded native image
-     * @throws IOException If an I/O error occurs
-     */
-    public static NativeImage loadFromInputStream(InputStream stream) throws IOException {
-        byte[] imageBytes = stream.readAllBytes();
-        ByteBuffer imageBuffer = MemoryUtil.memAlloc(imageBytes.length);
-        imageBuffer.put(imageBytes).flip();
-
-        try (MemoryStack stack = MemoryStack.stackPush()) {
-            IntBuffer w = stack.mallocInt(1);
-            IntBuffer h = stack.mallocInt(1);
-            IntBuffer comp = stack.mallocInt(1); // Useless...
-
-            ByteBuffer out = stbi_load_from_memory(imageBuffer, w, h, comp, STBI_rgb_alpha);
-            if (out == null) {
-                throw new IOException("Failed to load image: " + stbi_failure_reason());
-            }
-
-            NativeImage image = new NativeImage();
-            image.width = w.get(0);
-            image.height = h.get(0);
-
-            int size = image.width * image.height * 4;
-            image.data = new byte[size];
-            out.get(image.data, 0, size);
-
-            out.position(0);
-            stbi_image_free(out);
-
-            return image;
-        } finally {
-            MemoryUtil.memFree(imageBuffer);
-        }
-    }
-
-    public static NativeImage loadFromResourceLocation(ResourceLocation location) throws IOException {
-        try (InputStream stream = Minecraft.get().getResourceManager().getResource(location).getInputStream()) {
-            return loadFromInputStream(stream);
-        }
-    }
-
-    public static NativeImage loadFromFile(File file) throws IOException {
-        try (InputStream stream = new FileInputStream(file)) {
-            return loadFromInputStream(stream);
-        }
-    }
-
-    // I hate this
-    public static int blendARGB(int srcARGB, int dstARGB) {
-        // Extract channels
-        int srcA = (srcARGB >>> 24) & 0xFF;
-        int srcR = (srcARGB >>> 16) & 0xFF;
-        int srcG = (srcARGB >>> 8) & 0xFF;
-        int srcB = srcARGB & 0xFF;
-
-        int dstA = (dstARGB >>> 24) & 0xFF;
-        int dstR = (dstARGB >>> 16) & 0xFF;
-        int dstG = (dstARGB >>> 8) & 0xFF;
-        int dstB = dstARGB & 0xFF;
-
-        // Normalize alpha to 0..1
-        float srcAlpha = srcA / 255.0f;
-        float invSrcAlpha = 1.0f - srcAlpha;
-
-        // Blend Alpha: GL_ONE, GL_ZERO = source alpha only
-        int outA = dstA;
-
-        // Blend RGB
-        int outR = Math.round(srcR * srcAlpha + dstR * invSrcAlpha);
-        int outG = Math.round(srcG * srcAlpha + dstG * invSrcAlpha);
-        int outB = Math.round(srcB * srcAlpha + dstB * invSrcAlpha);
-
-        // Clamp to 0..255 (Math.round already ensures that, but extra safety)
-        outR = Math.clamp(outR, 0, 255);
-        outG = Math.clamp(outG, 0, 255);
-        outB = Math.clamp(outB, 0, 255);
-
-        // Pack back into ARGB
-        return (outA << 24) | (outR << 16) | (outG << 8) | outB;
     }
 
     public enum FileFormat {

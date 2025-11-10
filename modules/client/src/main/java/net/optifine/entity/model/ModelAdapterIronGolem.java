@@ -9,35 +9,35 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.monster.EntityIronGolem;
 
 public class ModelAdapterIronGolem extends ModelAdapter {
-	public ModelAdapterIronGolem() {
-		super(EntityIronGolem.class, "iron_golem", 0.5F);
-	}
+    public ModelAdapterIronGolem() {
+        super(EntityIronGolem.class, "iron_golem", 0.5F);
+    }
 
-	@Override
+    @Override
     public ModelBase makeModel() {
-		return new ModelIronGolem();
-	}
+        return new ModelIronGolem();
+    }
 
-	@Override
+    @Override
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-		if (!(model instanceof ModelIronGolem modelirongolem)) {
-			return null;
-		} else {
-			return modelPart.equals("head") ? modelirongolem.ironGolemHead : (modelPart.equals("body") ? modelirongolem.ironGolemBody : (modelPart.equals("left_arm") ? modelirongolem.ironGolemLeftArm : (modelPart.equals("right_arm") ? modelirongolem.ironGolemRightArm : (modelPart.equals("left_leg") ? modelirongolem.ironGolemLeftLeg : (modelPart.equals("right_leg") ? modelirongolem.ironGolemRightLeg : null)))));
-		}
-	}
+        if (!(model instanceof ModelIronGolem modelirongolem)) {
+            return null;
+        } else {
+            return modelPart.equals("head") ? modelirongolem.ironGolemHead : (modelPart.equals("body") ? modelirongolem.ironGolemBody : (modelPart.equals("left_arm") ? modelirongolem.ironGolemLeftArm : (modelPart.equals("right_arm") ? modelirongolem.ironGolemRightArm : (modelPart.equals("left_leg") ? modelirongolem.ironGolemLeftLeg : (modelPart.equals("right_leg") ? modelirongolem.ironGolemRightLeg : null)))));
+        }
+    }
 
-	@Override
+    @Override
     public String[] getModelRendererNames() {
-		return new String[]{"head", "body", "right_arm", "left_arm", "left_leg", "right_leg"};
-	}
+        return new String[]{"head", "body", "right_arm", "left_arm", "left_leg", "right_leg"};
+    }
 
-	@Override
+    @Override
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.get().getRenderManager();
-		RenderIronGolem renderirongolem = new RenderIronGolem(rendermanager);
-		renderirongolem.mainModel = modelBase;
-		renderirongolem.shadowSize = shadowSize;
-		return renderirongolem;
-	}
+        RenderManager rendermanager = Minecraft.get().getRenderManager();
+        RenderIronGolem renderirongolem = new RenderIronGolem(rendermanager);
+        renderirongolem.mainModel = modelBase;
+        renderirongolem.shadowSize = shadowSize;
+        return renderirongolem;
+    }
 }

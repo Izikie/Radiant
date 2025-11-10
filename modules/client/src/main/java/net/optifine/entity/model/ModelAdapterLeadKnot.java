@@ -10,33 +10,33 @@ import net.minecraft.entity.EntityLeashKnot;
 import net.optifine.Log;
 
 public class ModelAdapterLeadKnot extends ModelAdapter {
-	public ModelAdapterLeadKnot() {
-		super(EntityLeashKnot.class, "lead_knot", 0.0F);
-	}
+    public ModelAdapterLeadKnot() {
+        super(EntityLeashKnot.class, "lead_knot", 0.0F);
+    }
 
-	@Override
+    @Override
     public ModelBase makeModel() {
-		return new ModelLeashKnot();
-	}
+        return new ModelLeashKnot();
+    }
 
-	@Override
+    @Override
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
-		if (model instanceof ModelLeashKnot modelleashknot) {
-			return modelPart.equals("knot") ? modelleashknot.field_110723_a : null;
-		} else {
-			return null;
-		}
-	}
+        if (model instanceof ModelLeashKnot modelleashknot) {
+            return modelPart.equals("knot") ? modelleashknot.field_110723_a : null;
+        } else {
+            return null;
+        }
+    }
 
-	@Override
+    @Override
     public String[] getModelRendererNames() {
-		return new String[]{"knot"};
-	}
+        return new String[]{"knot"};
+    }
 
-	@Override
+    @Override
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
-		RenderManager rendermanager = Minecraft.get().getRenderManager();
-		RenderLeashKnot renderleashknot = new RenderLeashKnot(rendermanager);
+        RenderManager rendermanager = Minecraft.get().getRenderManager();
+        RenderLeashKnot renderleashknot = new RenderLeashKnot(rendermanager);
 
         Log.error("Field not found: RenderLeashKnot.leashKnotModel");
         return null;
