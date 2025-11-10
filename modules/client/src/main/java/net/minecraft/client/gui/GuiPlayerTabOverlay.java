@@ -146,7 +146,8 @@ public class GuiPlayerTabOverlay extends Gui {
                     int i3 = 8 * (flag1 ? -1 : 1);
                     Gui.drawScaledCustomSizeModalRect(j2, k2, 8.0F, l2, 8, i3, 8, 8, 64.0F, 64.0F);
 
-                    if (entityplayer != null && entityplayer.isWearing(PlayerModelParts.HAT)) {
+                    // BUGFIX: (Credit: Patcher): Layers not rendering properly in tab list
+                    if (entityplayer != null) {
                         int j3 = 8 + (flag1 ? 8 : 0);
                         int k3 = 8 * (flag1 ? -1 : 1);
                         Gui.drawScaledCustomSizeModalRect(j2, k2, 40.0F, j3, 8, k3, 8, 8, 64.0F, 64.0F);
