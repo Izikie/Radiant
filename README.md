@@ -9,13 +9,14 @@ It focuses on pre-optimized tweaks, bug and exploit fixes, and quality-of-life i
 - Increased efficiency 
 - Exploit and bug fixes
 - QoL (Quality of Life) improvements and features
-- Native Image support
-- Code Quality Improvements
+- Native Image support (WIP)
+- Code Quality Improvements (Follow Conventions)
 
 ## Todo
 - [ ] Patch all known packet exploits
-- [ ] Optimize network stack heavily without sacrificing security (using velocity networking)
-- [ ] Optimize LWJGL3 translation layer
+- [ ] Optimize network stack heavily without sacrificing security (using tricks from velocity)
+- [ ] Optimize/Cleanup LWJGL3 translation layer
+- [ ] One Click Auto Native Compile Task
 
 ## Requirements
 - [JDK/JRE: Oracle GraalVM 25(https://www.graalvm.org/downloads/)
