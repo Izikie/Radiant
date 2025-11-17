@@ -26,23 +26,23 @@ public class S10PacketSpawnPainting implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        this.entityID = buf.readVarIntFromBuffer();
-        this.title = buf.readStringFromBuffer(EntityPainting.PaintingType.field_180001_A);
+    public void read(PacketBuffer buf) throws IOException {
+        this.entityID = buf.readVarInt();
+        this.title = buf.readString(EntityPainting.PaintingType.field_180001_A);
         this.position = buf.readBlockPos();
         this.facing = Direction.getHorizontal(buf.readUnsignedByte());
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeVarIntToBuffer(this.entityID);
+    public void write(PacketBuffer buf) throws IOException {
+        buf.writeVarInt(this.entityID);
         buf.writeString(this.title);
         buf.writeBlockPos(this.position);
         buf.writeByte(this.facing.getHorizontalIndex());
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleSpawnPainting(this);
     }
 

@@ -20,17 +20,17 @@ public class C18PacketSpectate implements Packet<INetHandlerPlayServer> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void read(PacketBuffer buf) throws IOException {
         this.id = buf.readUuid();
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeUuid(this.id);
     }
 
     @Override
-    public void processPacket(INetHandlerPlayServer handler) {
+    public void handle(INetHandlerPlayServer handler) {
         handler.handleSpectate(this);
     }
 

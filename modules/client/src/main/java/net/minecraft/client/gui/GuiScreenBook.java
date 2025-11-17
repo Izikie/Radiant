@@ -160,7 +160,7 @@ public class GuiScreenBook extends GuiScreen {
                 }
 
                 PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
-                buffer.writeItemStackToBuffer(this.bookObj);
+                buffer.writeItemStack(this.bookObj);
                 this.mc.getNetHandler().addToSendQueue(new C17PacketCustomPayload(s2, buffer));
             }
         }

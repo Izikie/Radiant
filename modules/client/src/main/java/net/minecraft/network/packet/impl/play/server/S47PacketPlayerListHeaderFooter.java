@@ -19,19 +19,19 @@ public class S47PacketPlayerListHeaderFooter implements Packet<INetHandlerPlayCl
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void read(PacketBuffer buf) throws IOException {
         this.header = buf.readChatComponent();
         this.footer = buf.readChatComponent();
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeChatComponent(this.header);
         buf.writeChatComponent(this.footer);
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handlePlayerListHeaderFooter(this);
     }
 

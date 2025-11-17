@@ -17,17 +17,17 @@ public class C16PacketClientStatus implements Packet<INetHandlerPlayServer> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        this.status = buf.readEnumValue(EnumState.class);
+    public void read(PacketBuffer buf) throws IOException {
+        this.status = buf.readEnum(EnumState.class);
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeEnumValue(this.status);
+    public void write(PacketBuffer buf) throws IOException {
+        buf.writeEnum(this.status);
     }
 
     @Override
-    public void processPacket(INetHandlerPlayServer handler) {
+    public void handle(INetHandlerPlayServer handler) {
         handler.processClientStatus(this);
     }
 

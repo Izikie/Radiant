@@ -24,7 +24,7 @@ public class S33PacketUpdateSign implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void read(PacketBuffer buf) throws IOException {
         this.blockPos = buf.readBlockPos();
         this.lines = new IChatComponent[4];
 
@@ -34,7 +34,7 @@ public class S33PacketUpdateSign implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeBlockPos(this.blockPos);
 
         for (int i = 0; i < 4; ++i) {
@@ -43,7 +43,7 @@ public class S33PacketUpdateSign implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleUpdateSign(this);
     }
 

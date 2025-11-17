@@ -34,14 +34,14 @@ public class S2DPacketOpenWindow implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleOpenWindow(this);
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void read(PacketBuffer buf) throws IOException {
         this.windowId = buf.readUnsignedByte();
-        this.inventoryType = buf.readStringFromBuffer(32);
+        this.inventoryType = buf.readString(32);
         this.windowTitle = buf.readChatComponent();
         this.slotCount = buf.readUnsignedByte();
 
@@ -51,7 +51,7 @@ public class S2DPacketOpenWindow implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeByte(this.windowId);
         buf.writeString(this.inventoryType);
         buf.writeChatComponent(this.windowTitle);

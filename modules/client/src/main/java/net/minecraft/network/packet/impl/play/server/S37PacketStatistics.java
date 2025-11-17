@@ -22,18 +22,18 @@ public class S37PacketStatistics implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleStatistics(this);
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        int i = buf.readVarIntFromBuffer();
+    public void read(PacketBuffer buf) throws IOException {
+        int i = buf.readVarInt();
         this.field_148976_a = new HashMap<>();
 
         for (int j = 0; j < i; ++j) {
-            StatBase statbase = StatList.getOneShotStat(buf.readStringFromBuffer(32767));
-            int k = buf.readVarIntFromBuffer();
+            StatBase statbase = StatList.getOneShotStat(buf.readString(32767));
+            int k = buf.readVarInt();
 
             if (statbase != null) {
                 this.field_148976_a.put(statbase, k);
@@ -42,12 +42,12 @@ public class S37PacketStatistics implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeVarIntToBuffer(this.field_148976_a.size());
+    public void write(PacketBuffer buf) throws IOException {
+        buf.writeVarInt(this.field_148976_a.size());
 
         for (Entry<StatBase, Integer> entry : this.field_148976_a.entrySet()) {
             buf.writeString(entry.getKey().statId);
-            buf.writeVarIntToBuffer(entry.getValue());
+            buf.writeVarInt(entry.getValue());
         }
     }
 

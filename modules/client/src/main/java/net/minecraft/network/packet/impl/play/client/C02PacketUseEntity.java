@@ -28,9 +28,9 @@ public class C02PacketUseEntity implements Packet<INetHandlerPlayServer> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        this.entityId = buf.readVarIntFromBuffer();
-        this.action = buf.readEnumValue(Action.class);
+    public void read(PacketBuffer buf) throws IOException {
+        this.entityId = buf.readVarInt();
+        this.action = buf.readEnum(Action.class);
 
         if (this.action == Action.INTERACT_AT) {
             this.hitVec = new Vec3(buf.readFloat(), buf.readFloat(), buf.readFloat());
@@ -38,9 +38,9 @@ public class C02PacketUseEntity implements Packet<INetHandlerPlayServer> {
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeVarIntToBuffer(this.entityId);
-        buf.writeEnumValue(this.action);
+    public void write(PacketBuffer buf) throws IOException {
+        buf.writeVarInt(this.entityId);
+        buf.writeEnum(this.action);
 
         if (this.action == Action.INTERACT_AT) {
             buf.writeFloat((float) this.hitVec.xCoord);
@@ -50,7 +50,7 @@ public class C02PacketUseEntity implements Packet<INetHandlerPlayServer> {
     }
 
     @Override
-    public void processPacket(INetHandlerPlayServer handler) {
+    public void handle(INetHandlerPlayServer handler) {
         handler.processUseEntity(this);
     }
 

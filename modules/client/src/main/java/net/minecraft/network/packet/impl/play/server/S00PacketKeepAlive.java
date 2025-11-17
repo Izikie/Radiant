@@ -17,18 +17,18 @@ public class S00PacketKeepAlive implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleKeepAlive(this);
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        this.id = buf.readVarIntFromBuffer();
+    public void read(PacketBuffer buf) throws IOException {
+        this.id = buf.readVarInt();
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeVarIntToBuffer(this.id);
+    public void write(PacketBuffer buf) throws IOException {
+        buf.writeVarInt(this.id);
     }
 
     public int func_149134_c() {

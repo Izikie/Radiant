@@ -18,17 +18,17 @@ public class C00PacketLoginStart implements Packet<INetHandlerLoginServer> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        this.profile = new GameProfile(null, buf.readStringFromBuffer(16));
+    public void read(PacketBuffer buf) throws IOException {
+        this.profile = new GameProfile(null, buf.readString(16));
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeString(this.profile.getName());
     }
 
     @Override
-    public void processPacket(INetHandlerLoginServer handler) {
+    public void handle(INetHandlerLoginServer handler) {
         handler.processLoginStart(this);
     }
 

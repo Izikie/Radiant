@@ -40,10 +40,10 @@ public class S34PacketMaps implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        this.mapId = buf.readVarIntFromBuffer();
+    public void read(PacketBuffer buf) throws IOException {
+        this.mapId = buf.readVarInt();
         this.mapScale = buf.readByte();
-        this.mapVisiblePlayersVec4b = new Vec4b[buf.readVarIntFromBuffer()];
+        this.mapVisiblePlayersVec4b = new Vec4b[buf.readVarInt()];
 
         for (int i = 0; i < this.mapVisiblePlayersVec4b.length; ++i) {
             short short1 = buf.readByte();
@@ -61,10 +61,10 @@ public class S34PacketMaps implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeVarIntToBuffer(this.mapId);
+    public void write(PacketBuffer buf) throws IOException {
+        buf.writeVarInt(this.mapId);
         buf.writeByte(this.mapScale);
-        buf.writeVarIntToBuffer(this.mapVisiblePlayersVec4b.length);
+        buf.writeVarInt(this.mapVisiblePlayersVec4b.length);
 
         for (Vec4b vec4b : this.mapVisiblePlayersVec4b) {
             buf.writeByte((vec4b.x() & 15) << 4 | vec4b.w() & 15);
@@ -83,7 +83,7 @@ public class S34PacketMaps implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleMaps(this);
     }
 

@@ -26,16 +26,16 @@ public class S07PacketRespawn implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleRespawn(this);
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void read(PacketBuffer buf) throws IOException {
         this.dimensionID = buf.readInt();
         this.difficulty = Difficulty.getDifficultyEnum(buf.readUnsignedByte());
         this.gameType = WorldSettings.GameType.getByID(buf.readUnsignedByte());
-        this.worldType = WorldType.parseWorldType(buf.readStringFromBuffer(16));
+        this.worldType = WorldType.parseWorldType(buf.readString(16));
 
         if (this.worldType == null) {
             this.worldType = WorldType.DEFAULT;
@@ -43,7 +43,7 @@ public class S07PacketRespawn implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeInt(this.dimensionID);
         buf.writeByte(this.difficulty.getDifficultyId());
         buf.writeByte(this.gameType.getID());

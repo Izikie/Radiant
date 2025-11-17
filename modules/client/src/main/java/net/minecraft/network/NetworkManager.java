@@ -110,7 +110,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
     protected void channelRead0(ChannelHandlerContext ctx, Packet packet) {
         if (this.channel.isOpen()) {
             try {
-                packet.processPacket(this.packetListener);
+                packet.handle(this.packetListener);
             } catch (ThreadQuickExitException _) {
             }
         }

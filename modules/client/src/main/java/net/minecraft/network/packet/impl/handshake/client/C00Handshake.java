@@ -24,23 +24,23 @@ public class C00Handshake implements Packet<INetHandlerHandshakeServer> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        this.protocolVersion = buf.readVarIntFromBuffer();
-        this.ip = buf.readStringFromBuffer(255);
+    public void read(PacketBuffer buf) throws IOException {
+        this.protocolVersion = buf.readVarInt();
+        this.ip = buf.readString(255);
         this.port = buf.readUnsignedShort();
-        this.requestedState = NetworkState.getById(buf.readVarIntFromBuffer());
+        this.requestedState = NetworkState.getById(buf.readVarInt());
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeVarIntToBuffer(this.protocolVersion);
+    public void write(PacketBuffer buf) throws IOException {
+        buf.writeVarInt(this.protocolVersion);
         buf.writeString(this.ip);
         buf.writeShort(this.port);
-        buf.writeVarIntToBuffer(this.requestedState.getId());
+        buf.writeVarInt(this.requestedState.getId());
     }
 
     @Override
-    public void processPacket(INetHandlerHandshakeServer handler) {
+    public void handle(INetHandlerHandshakeServer handler) {
         handler.processHandshake(this);
     }
 

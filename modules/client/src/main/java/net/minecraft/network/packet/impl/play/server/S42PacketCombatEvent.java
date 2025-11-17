@@ -37,35 +37,35 @@ public class S42PacketCombatEvent implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        this.eventType = buf.readEnumValue(Event.class);
+    public void read(PacketBuffer buf) throws IOException {
+        this.eventType = buf.readEnum(Event.class);
 
         if (this.eventType == Event.END_COMBAT) {
-            this.field_179772_d = buf.readVarIntFromBuffer();
+            this.field_179772_d = buf.readVarInt();
             this.field_179775_c = buf.readInt();
         } else if (this.eventType == Event.ENTITY_DIED) {
-            this.field_179774_b = buf.readVarIntFromBuffer();
+            this.field_179774_b = buf.readVarInt();
             this.field_179775_c = buf.readInt();
-            this.deathMessage = buf.readStringFromBuffer(32767);
+            this.deathMessage = buf.readString(32767);
         }
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeEnumValue(this.eventType);
+    public void write(PacketBuffer buf) throws IOException {
+        buf.writeEnum(this.eventType);
 
         if (this.eventType == Event.END_COMBAT) {
-            buf.writeVarIntToBuffer(this.field_179772_d);
+            buf.writeVarInt(this.field_179772_d);
             buf.writeInt(this.field_179775_c);
         } else if (this.eventType == Event.ENTITY_DIED) {
-            buf.writeVarIntToBuffer(this.field_179774_b);
+            buf.writeVarInt(this.field_179774_b);
             buf.writeInt(this.field_179775_c);
             buf.writeString(this.deathMessage);
         }
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleCombatEvent(this);
     }
 

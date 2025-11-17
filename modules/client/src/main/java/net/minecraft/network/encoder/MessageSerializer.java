@@ -47,10 +47,10 @@ public class MessageSerializer extends MessageToByteEncoder<Packet<?>> {
         }
 
         PacketBuffer buffer = new PacketBuffer(out);
-        buffer.writeVarIntToBuffer(packetId);
+        buffer.writeVarInt(packetId);
 
         try {
-            packet.writePacketData(buffer);
+            packet.write(buffer);
         } catch (Throwable throwable) {
             LOGGER.error("Failed to serialize packet", throwable);
         }

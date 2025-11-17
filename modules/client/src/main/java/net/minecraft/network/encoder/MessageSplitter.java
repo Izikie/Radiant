@@ -27,7 +27,7 @@ public class MessageSplitter extends ByteToMessageDecoder {
                 PacketBuffer packetbuffer = new PacketBuffer(Unpooled.wrappedBuffer(abyte));
 
                 try {
-                    int j = packetbuffer.readVarIntFromBuffer();
+                    int j = packetbuffer.readVarInt();
 
                     if (msg.readableBytes() >= j) {
                         out.add(msg.readBytes(j));

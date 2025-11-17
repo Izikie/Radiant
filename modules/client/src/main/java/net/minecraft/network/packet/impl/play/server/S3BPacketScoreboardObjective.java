@@ -25,18 +25,18 @@ public class S3BPacketScoreboardObjective implements Packet<INetHandlerPlayClien
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        this.objectiveName = buf.readStringFromBuffer(16);
+    public void read(PacketBuffer buf) throws IOException {
+        this.objectiveName = buf.readString(16);
         this.field_149342_c = buf.readByte();
 
         if (this.field_149342_c == 0 || this.field_149342_c == 2) {
-            this.objectiveValue = buf.readStringFromBuffer(32);
-            this.type = IScoreObjectiveCriteria.EnumRenderType.func_178795_a(buf.readStringFromBuffer(16));
+            this.objectiveValue = buf.readString(32);
+            this.type = IScoreObjectiveCriteria.EnumRenderType.func_178795_a(buf.readString(16));
         }
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeString(this.objectiveName);
         buf.writeByte(this.field_149342_c);
 
@@ -47,7 +47,7 @@ public class S3BPacketScoreboardObjective implements Packet<INetHandlerPlayClien
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleScoreboardObjective(this);
     }
 

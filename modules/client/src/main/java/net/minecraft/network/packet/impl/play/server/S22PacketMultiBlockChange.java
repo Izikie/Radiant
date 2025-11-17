@@ -28,29 +28,29 @@ public class S22PacketMultiBlockChange implements Packet<INetHandlerPlayClient> 
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void read(PacketBuffer buf) throws IOException {
         this.chunkPosCoord = new ChunkCoordIntPair(buf.readInt(), buf.readInt());
-        this.changedBlocks = new BlockUpdateData[buf.readVarIntFromBuffer()];
+        this.changedBlocks = new BlockUpdateData[buf.readVarInt()];
 
         for (int i = 0; i < this.changedBlocks.length; ++i) {
-            this.changedBlocks[i] = new BlockUpdateData(buf.readShort(), Block.BLOCK_STATE_IDS.getByValue(buf.readVarIntFromBuffer()));
+            this.changedBlocks[i] = new BlockUpdateData(buf.readShort(), Block.BLOCK_STATE_IDS.getByValue(buf.readVarInt()));
         }
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeInt(this.chunkPosCoord.chunkXPos);
         buf.writeInt(this.chunkPosCoord.chunkZPos);
-        buf.writeVarIntToBuffer(this.changedBlocks.length);
+        buf.writeVarInt(this.changedBlocks.length);
 
         for (BlockUpdateData s22packetmultiblockchange$blockupdatedata : this.changedBlocks) {
             buf.writeShort(s22packetmultiblockchange$blockupdatedata.func_180089_b());
-            buf.writeVarIntToBuffer(Block.BLOCK_STATE_IDS.get(s22packetmultiblockchange$blockupdatedata.getBlockState()));
+            buf.writeVarInt(Block.BLOCK_STATE_IDS.get(s22packetmultiblockchange$blockupdatedata.getBlockState()));
         }
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleMultiBlockChange(this);
     }
 

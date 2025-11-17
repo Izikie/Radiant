@@ -23,21 +23,21 @@ public class S01PacketEncryptionRequest implements Packet<INetHandlerLoginClient
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        this.hashedServerId = buf.readStringFromBuffer(20);
+    public void read(PacketBuffer buf) throws IOException {
+        this.hashedServerId = buf.readString(20);
         this.publicKey = CryptManager.decodePublicKey(buf.readByteArray());
         this.verifyToken = buf.readByteArray();
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeString(this.hashedServerId);
         buf.writeByteArray(this.publicKey.getEncoded());
         buf.writeByteArray(this.verifyToken);
     }
 
     @Override
-    public void processPacket(INetHandlerLoginClient handler) {
+    public void handle(INetHandlerLoginClient handler) {
         handler.handleEncryptionRequest(this);
     }
 

@@ -34,8 +34,8 @@ public class S45PacketTitle implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        this.type = buf.readEnumValue(Type.class);
+    public void read(PacketBuffer buf) throws IOException {
+        this.type = buf.readEnum(Type.class);
 
         if (this.type == Type.TITLE || this.type == Type.SUBTITLE) {
             this.message = buf.readChatComponent();
@@ -49,8 +49,8 @@ public class S45PacketTitle implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeEnumValue(this.type);
+    public void write(PacketBuffer buf) throws IOException {
+        buf.writeEnum(this.type);
 
         if (this.type == Type.TITLE || this.type == Type.SUBTITLE) {
             buf.writeChatComponent(this.message);
@@ -64,7 +64,7 @@ public class S45PacketTitle implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleTitle(this);
     }
 

@@ -25,23 +25,23 @@ public class S24PacketBlockAction implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void read(PacketBuffer buf) throws IOException {
         this.blockPosition = buf.readBlockPos();
         this.instrument = buf.readUnsignedByte();
         this.pitch = buf.readUnsignedByte();
-        this.block = Block.getBlockById(buf.readVarIntFromBuffer() & 4095);
+        this.block = Block.getBlockById(buf.readVarInt() & 4095);
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeBlockPos(this.blockPosition);
         buf.writeByte(this.instrument);
         buf.writeByte(this.pitch);
-        buf.writeVarIntToBuffer(Block.getIdFromBlock(this.block) & 4095);
+        buf.writeVarInt(Block.getIdFromBlock(this.block) & 4095);
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleBlockAction(this);
     }
 

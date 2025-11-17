@@ -26,7 +26,7 @@ public class NettyCompressionDecoder extends ByteToMessageDecoder {
             return;
 
         PacketBuffer buffer = new PacketBuffer(in);
-        int varInt = buffer.readVarIntFromBuffer();
+        int varInt = buffer.readVarInt();
 
         if (varInt == 0) {
             out.add(buffer.readBytes(buffer.readableBytes()));

@@ -41,8 +41,8 @@ public class S18PacketEntityTeleport implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        this.entityId = buf.readVarIntFromBuffer();
+    public void read(PacketBuffer buf) throws IOException {
+        this.entityId = buf.readVarInt();
         this.posX = buf.readInt();
         this.posY = buf.readInt();
         this.posZ = buf.readInt();
@@ -52,8 +52,8 @@ public class S18PacketEntityTeleport implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeVarIntToBuffer(this.entityId);
+    public void write(PacketBuffer buf) throws IOException {
+        buf.writeVarInt(this.entityId);
         buf.writeInt(this.posX);
         buf.writeInt(this.posY);
         buf.writeInt(this.posZ);
@@ -63,7 +63,7 @@ public class S18PacketEntityTeleport implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleEntityTeleport(this);
     }
 

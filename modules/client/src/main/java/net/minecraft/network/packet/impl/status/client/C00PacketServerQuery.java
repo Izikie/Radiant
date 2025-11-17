@@ -8,15 +8,15 @@ import java.io.IOException;
 
 public class C00PacketServerQuery implements Packet<INetHandlerStatusServer> {
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void read(PacketBuffer buf) throws IOException {
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
     }
 
     @Override
-    public void processPacket(INetHandlerStatusServer handler) {
+    public void handle(INetHandlerStatusServer handler) {
         handler.processServerQuery(this);
     }
 }

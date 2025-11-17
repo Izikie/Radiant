@@ -23,19 +23,19 @@ public class C19PacketResourcePackStatus implements Packet<INetHandlerPlayServer
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        this.hash = buf.readStringFromBuffer(40);
-        this.status = buf.readEnumValue(Action.class);
+    public void read(PacketBuffer buf) throws IOException {
+        this.hash = buf.readString(40);
+        this.status = buf.readEnum(Action.class);
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeString(this.hash);
-        buf.writeEnumValue(this.status);
+        buf.writeEnum(this.status);
     }
 
     @Override
-    public void processPacket(INetHandlerPlayServer handler) {
+    public void handle(INetHandlerPlayServer handler) {
         handler.handleResourcePackStatus(this);
     }
 

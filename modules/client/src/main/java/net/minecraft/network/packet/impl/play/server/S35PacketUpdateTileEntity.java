@@ -23,21 +23,21 @@ public class S35PacketUpdateTileEntity implements Packet<INetHandlerPlayClient> 
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void read(PacketBuffer buf) throws IOException {
         this.blockPos = buf.readBlockPos();
         this.metadata = buf.readUnsignedByte();
-        this.nbt = buf.readNBTTagCompoundFromBuffer();
+        this.nbt = buf.readNBTTagCompound();
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeBlockPos(this.blockPos);
         buf.writeByte((byte) this.metadata);
-        buf.writeNBTTagCompoundToBuffer(this.nbt);
+        buf.writeNBTTagCompound(this.nbt);
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleUpdateTileEntity(this);
     }
 

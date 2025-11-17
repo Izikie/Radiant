@@ -19,17 +19,17 @@ public class S43PacketCamera implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        this.entityId = buf.readVarIntFromBuffer();
+    public void read(PacketBuffer buf) throws IOException {
+        this.entityId = buf.readVarInt();
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeVarIntToBuffer(this.entityId);
+    public void write(PacketBuffer buf) throws IOException {
+        buf.writeVarInt(this.entityId);
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleCamera(this);
     }
 

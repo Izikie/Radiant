@@ -22,22 +22,22 @@ public class S2FPacketSetSlot implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleSetSlot(this);
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void read(PacketBuffer buf) throws IOException {
         this.windowId = buf.readByte();
         this.slot = buf.readShort();
-        this.item = buf.readItemStackFromBuffer();
+        this.item = buf.readItemStack();
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeByte(this.windowId);
         buf.writeShort(this.slot);
-        buf.writeItemStackToBuffer(this.item);
+        buf.writeItemStack(this.item);
     }
 
     public int func_149175_c() {

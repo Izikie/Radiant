@@ -887,7 +887,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
             PacketBuffer buffer = new PacketBuffer(Unpooled.wrappedBuffer(packet.getData()));
 
             try {
-                ItemStack itemStack = buffer.readItemStackFromBuffer();
+                ItemStack itemStack = buffer.readItemStack();
 
                 if (itemStack != null) {
                     if (!ItemWritableBook.isNBTValid(itemStack.getTagCompound())) {
@@ -913,7 +913,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
             PacketBuffer buffer = new PacketBuffer(Unpooled.wrappedBuffer(packet.getData()));
 
             try {
-                ItemStack itemStack = buffer.readItemStackFromBuffer();
+                ItemStack itemStack = buffer.readItemStack();
 
                 if (itemStack != null) {
                     if (!ItemEditableBook.validBookTagContents(itemStack.getTagCompound())) {
@@ -973,7 +973,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
                         }
                     }
 
-                    String s1 = buffer.readStringFromBuffer(buffer.readableBytes());
+                    String s1 = buffer.readString(buffer.readableBytes());
                     boolean flag = buffer.readBoolean();
 
                     if (commandblocklogic != null) {
@@ -1016,7 +1016,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
             }
         } else if ("MC|ItemName".equals(packet.getChannel()) && this.playerEntity.openContainer instanceof ContainerRepair container) {
             if (packet.getData() != null && packet.getData().readableBytes() >= 1) {
-                String allowedCharacters = ChatAllowedCharacters.filterAllowedCharacters(packet.getData().readStringFromBuffer(32767));
+                String allowedCharacters = ChatAllowedCharacters.filterAllowedCharacters(packet.getData().readString(32767));
 
                 if (allowedCharacters.length() <= 30) {
                     container.updateItemName(allowedCharacters);

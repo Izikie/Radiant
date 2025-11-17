@@ -22,21 +22,21 @@ public class S04PacketEntityEquipment implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        this.entityID = buf.readVarIntFromBuffer();
+    public void read(PacketBuffer buf) throws IOException {
+        this.entityID = buf.readVarInt();
         this.equipmentSlot = buf.readShort();
-        this.itemStack = buf.readItemStackFromBuffer();
+        this.itemStack = buf.readItemStack();
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeVarIntToBuffer(this.entityID);
+    public void write(PacketBuffer buf) throws IOException {
+        buf.writeVarInt(this.entityID);
         buf.writeShort(this.equipmentSlot);
-        buf.writeItemStackToBuffer(this.itemStack);
+        buf.writeItemStack(this.itemStack);
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleEntityEquipment(this);
     }
 

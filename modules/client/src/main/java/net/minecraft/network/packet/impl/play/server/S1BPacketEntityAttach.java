@@ -22,21 +22,21 @@ public class S1BPacketEntityAttach implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void read(PacketBuffer buf) throws IOException {
         this.entityId = buf.readInt();
         this.vehicleEntityId = buf.readInt();
         this.leash = buf.readUnsignedByte();
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeInt(this.entityId);
         buf.writeInt(this.vehicleEntityId);
         buf.writeByte(this.leash);
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleEntityAttach(this);
     }
 

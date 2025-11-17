@@ -23,7 +23,7 @@ public class C0CPacketInput implements Packet<INetHandlerPlayServer> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void read(PacketBuffer buf) throws IOException {
         this.strafeSpeed = buf.readFloat();
         this.forwardSpeed = buf.readFloat();
         byte b0 = buf.readByte();
@@ -32,7 +32,7 @@ public class C0CPacketInput implements Packet<INetHandlerPlayServer> {
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeFloat(this.strafeSpeed);
         buf.writeFloat(this.forwardSpeed);
         byte b0 = 0;
@@ -49,7 +49,7 @@ public class C0CPacketInput implements Packet<INetHandlerPlayServer> {
     }
 
     @Override
-    public void processPacket(INetHandlerPlayServer handler) {
+    public void handle(INetHandlerPlayServer handler) {
         handler.processInput(this);
     }
 

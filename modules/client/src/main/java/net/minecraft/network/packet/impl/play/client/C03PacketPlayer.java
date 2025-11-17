@@ -24,17 +24,17 @@ public class C03PacketPlayer implements Packet<INetHandlerPlayServer> {
     }
 
     @Override
-    public void processPacket(INetHandlerPlayServer handler) {
+    public void handle(INetHandlerPlayServer handler) {
         handler.processPlayer(this);
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void read(PacketBuffer buf) throws IOException {
         this.onGround = buf.readUnsignedByte() != 0;
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeByte(this.onGround ? 1 : 0);
     }
 
@@ -88,19 +88,19 @@ public class C03PacketPlayer implements Packet<INetHandlerPlayServer> {
         }
 
         @Override
-        public void readPacketData(PacketBuffer buf) throws IOException {
+        public void read(PacketBuffer buf) throws IOException {
             this.x = buf.readDouble();
             this.y = buf.readDouble();
             this.z = buf.readDouble();
-            super.readPacketData(buf);
+            super.read(buf);
         }
 
         @Override
-        public void writePacketData(PacketBuffer buf) throws IOException {
+        public void write(PacketBuffer buf) throws IOException {
             buf.writeDouble(this.x);
             buf.writeDouble(this.y);
             buf.writeDouble(this.z);
-            super.writePacketData(buf);
+            super.write(buf);
         }
     }
 
@@ -117,17 +117,17 @@ public class C03PacketPlayer implements Packet<INetHandlerPlayServer> {
         }
 
         @Override
-        public void readPacketData(PacketBuffer buf) throws IOException {
+        public void read(PacketBuffer buf) throws IOException {
             this.yaw = buf.readFloat();
             this.pitch = buf.readFloat();
-            super.readPacketData(buf);
+            super.read(buf);
         }
 
         @Override
-        public void writePacketData(PacketBuffer buf) throws IOException {
+        public void write(PacketBuffer buf) throws IOException {
             buf.writeFloat(this.yaw);
             buf.writeFloat(this.pitch);
-            super.writePacketData(buf);
+            super.write(buf);
         }
     }
 
@@ -149,23 +149,23 @@ public class C03PacketPlayer implements Packet<INetHandlerPlayServer> {
         }
 
         @Override
-        public void readPacketData(PacketBuffer buf) throws IOException {
+        public void read(PacketBuffer buf) throws IOException {
             this.x = buf.readDouble();
             this.y = buf.readDouble();
             this.z = buf.readDouble();
             this.yaw = buf.readFloat();
             this.pitch = buf.readFloat();
-            super.readPacketData(buf);
+            super.read(buf);
         }
 
         @Override
-        public void writePacketData(PacketBuffer buf) throws IOException {
+        public void write(PacketBuffer buf) throws IOException {
             buf.writeDouble(this.x);
             buf.writeDouble(this.y);
             buf.writeDouble(this.z);
             buf.writeFloat(this.yaw);
             buf.writeFloat(this.pitch);
-            super.writePacketData(buf);
+            super.write(buf);
         }
     }
 }

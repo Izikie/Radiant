@@ -21,19 +21,19 @@ public class C0FPacketConfirmTransaction implements Packet<INetHandlerPlayServer
     }
 
     @Override
-    public void processPacket(INetHandlerPlayServer handler) {
+    public void handle(INetHandlerPlayServer handler) {
         handler.processConfirmTransaction(this);
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void read(PacketBuffer buf) throws IOException {
         this.windowId = buf.readByte();
         this.uid = buf.readShort();
         this.accepted = buf.readByte() != 0;
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeByte(this.windowId);
         buf.writeShort(this.uid);
         buf.writeByte(this.accepted ? 1 : 0);

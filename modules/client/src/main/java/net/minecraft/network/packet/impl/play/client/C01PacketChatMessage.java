@@ -21,17 +21,17 @@ public class C01PacketChatMessage implements Packet<INetHandlerPlayServer> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        this.message = buf.readStringFromBuffer(100);
+    public void read(PacketBuffer buf) throws IOException {
+        this.message = buf.readString(100);
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeString(this.message);
     }
 
     @Override
-    public void processPacket(INetHandlerPlayServer handler) {
+    public void handle(INetHandlerPlayServer handler) {
         handler.processChatMessage(this);
     }
 

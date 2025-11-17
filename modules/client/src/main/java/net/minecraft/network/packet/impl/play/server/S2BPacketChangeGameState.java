@@ -20,19 +20,19 @@ public class S2BPacketChangeGameState implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void read(PacketBuffer buf) throws IOException {
         this.state = buf.readUnsignedByte();
         this.field_149141_c = buf.readFloat();
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeByte(this.state);
         buf.writeFloat(this.field_149141_c);
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleChangeGameState(this);
     }
 

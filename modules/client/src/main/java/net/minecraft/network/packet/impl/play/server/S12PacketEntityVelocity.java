@@ -54,23 +54,23 @@ public class S12PacketEntityVelocity implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        this.entityID = buf.readVarIntFromBuffer();
+    public void read(PacketBuffer buf) throws IOException {
+        this.entityID = buf.readVarInt();
         this.motionX = buf.readShort();
         this.motionY = buf.readShort();
         this.motionZ = buf.readShort();
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeVarIntToBuffer(this.entityID);
+    public void write(PacketBuffer buf) throws IOException {
+        buf.writeVarInt(this.entityID);
         buf.writeShort(this.motionX);
         buf.writeShort(this.motionY);
         buf.writeShort(this.motionZ);
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleEntityVelocity(this);
     }
 

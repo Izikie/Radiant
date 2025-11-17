@@ -34,8 +34,8 @@ public class S44PacketWorldBorder implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        this.action = buf.readEnumValue(Action.class);
+    public void read(PacketBuffer buf) throws IOException {
+        this.action = buf.readEnum(Action.class);
 
         switch (this.action) {
             case SET_SIZE:
@@ -54,11 +54,11 @@ public class S44PacketWorldBorder implements Packet<INetHandlerPlayClient> {
                 break;
 
             case SET_WARNING_BLOCKS:
-                this.warningDistance = buf.readVarIntFromBuffer();
+                this.warningDistance = buf.readVarInt();
                 break;
 
             case SET_WARNING_TIME:
-                this.warningTime = buf.readVarIntFromBuffer();
+                this.warningTime = buf.readVarInt();
                 break;
 
             case INITIALIZE:
@@ -67,15 +67,15 @@ public class S44PacketWorldBorder implements Packet<INetHandlerPlayClient> {
                 this.diameter = buf.readDouble();
                 this.targetSize = buf.readDouble();
                 this.timeUntilTarget = buf.readVarLong();
-                this.size = buf.readVarIntFromBuffer();
-                this.warningDistance = buf.readVarIntFromBuffer();
-                this.warningTime = buf.readVarIntFromBuffer();
+                this.size = buf.readVarInt();
+                this.warningDistance = buf.readVarInt();
+                this.warningTime = buf.readVarInt();
         }
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeEnumValue(this.action);
+    public void write(PacketBuffer buf) throws IOException {
+        buf.writeEnum(this.action);
 
         switch (this.action) {
             case SET_SIZE:
@@ -94,11 +94,11 @@ public class S44PacketWorldBorder implements Packet<INetHandlerPlayClient> {
                 break;
 
             case SET_WARNING_BLOCKS:
-                buf.writeVarIntToBuffer(this.warningDistance);
+                buf.writeVarInt(this.warningDistance);
                 break;
 
             case SET_WARNING_TIME:
-                buf.writeVarIntToBuffer(this.warningTime);
+                buf.writeVarInt(this.warningTime);
                 break;
 
             case INITIALIZE:
@@ -107,14 +107,14 @@ public class S44PacketWorldBorder implements Packet<INetHandlerPlayClient> {
                 buf.writeDouble(this.diameter);
                 buf.writeDouble(this.targetSize);
                 buf.writeVarLong(this.timeUntilTarget);
-                buf.writeVarIntToBuffer(this.size);
-                buf.writeVarIntToBuffer(this.warningDistance);
-                buf.writeVarIntToBuffer(this.warningTime);
+                buf.writeVarInt(this.size);
+                buf.writeVarInt(this.warningDistance);
+                buf.writeVarInt(this.warningTime);
         }
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleWorldBorder(this);
     }
 

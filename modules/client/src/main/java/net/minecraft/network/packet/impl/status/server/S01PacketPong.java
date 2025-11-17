@@ -17,17 +17,17 @@ public class S01PacketPong implements Packet<INetHandlerStatusClient> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void read(PacketBuffer buf) throws IOException {
         this.time = buf.readLong();
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeLong(this.time);
     }
 
     @Override
-    public void processPacket(INetHandlerStatusClient handler) {
+    public void handle(INetHandlerStatusClient handler) {
         handler.handlePong(this);
     }
 }

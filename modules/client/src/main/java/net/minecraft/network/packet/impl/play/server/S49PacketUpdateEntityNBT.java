@@ -22,19 +22,19 @@ public class S49PacketUpdateEntityNBT implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        this.entityId = buf.readVarIntFromBuffer();
-        this.tagCompound = buf.readNBTTagCompoundFromBuffer();
+    public void read(PacketBuffer buf) throws IOException {
+        this.entityId = buf.readVarInt();
+        this.tagCompound = buf.readNBTTagCompound();
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeVarIntToBuffer(this.entityId);
-        buf.writeNBTTagCompoundToBuffer(this.tagCompound);
+    public void write(PacketBuffer buf) throws IOException {
+        buf.writeVarInt(this.entityId);
+        buf.writeNBTTagCompound(this.tagCompound);
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleEntityNBT(this);
     }
 

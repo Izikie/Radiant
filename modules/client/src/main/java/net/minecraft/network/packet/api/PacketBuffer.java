@@ -45,12 +45,12 @@ public class PacketBuffer extends ByteBuf {
     }
 
     public void writeByteArray(byte[] array) {
-        this.writeVarIntToBuffer(array.length);
+        this.writeVarInt(array.length);
         this.writeBytes(array);
     }
 
     public byte[] readByteArray() {
-        byte[] bytes = new byte[this.readVarIntFromBuffer()];
+        byte[] bytes = new byte[this.readVarInt()];
         this.readBytes(bytes);
         return bytes;
     }
@@ -64,22 +64,22 @@ public class PacketBuffer extends ByteBuf {
     }
 
     public IChatComponent readChatComponent() {
-        return IChatComponent.Serializer.jsonToComponent(this.readStringFromBuffer(32767));
+        return IChatComponent.Serializer.jsonToComponent(this.readString(32767));
     }
 
     public void writeChatComponent(IChatComponent component) {
         this.writeString(IChatComponent.Serializer.componentToJson(component));
     }
 
-    public <T extends Enum<T>> T readEnumValue(Class<T> enumClass) {
-        return enumClass.getEnumConstants()[this.readVarIntFromBuffer()];
+    public <T extends Enum<T>> T readEnum(Class<T> enumClass) {
+        return enumClass.getEnumConstants()[this.readVarInt()];
     }
 
-    public void writeEnumValue(Enum<?> value) {
-        this.writeVarIntToBuffer(value.ordinal());
+    public void writeEnum(Enum<?> value) {
+        this.writeVarInt(value.ordinal());
     }
 
-    public int readVarIntFromBuffer() {
+    public int readVarInt() {
         int result = 0;
         int shift = 0;
 
@@ -128,7 +128,7 @@ public class PacketBuffer extends ByteBuf {
         return new UUID(this.readLong(), this.readLong());
     }
 
-    public void writeVarIntToBuffer(int input) {
+    public void writeVarInt(int input) {
         while ((input & -128) != 0) {
             this.writeByte(input & 127 | 128);
             input >>>= 7;
@@ -146,7 +146,7 @@ public class PacketBuffer extends ByteBuf {
         this.writeByte((int) value);
     }
 
-    public void writeNBTTagCompoundToBuffer(NBTTagCompound nbt) {
+    public void writeNBTTagCompound(NBTTagCompound nbt) {
         if (nbt == null) {
             this.writeByte(0);
         } else {
@@ -158,7 +158,7 @@ public class PacketBuffer extends ByteBuf {
         }
     }
 
-    public NBTTagCompound readNBTTagCompoundFromBuffer() throws IOException {
+    public NBTTagCompound readNBTTagCompound() throws IOException {
         int i = this.readerIndex();
         byte b0 = this.readByte();
 
@@ -170,7 +170,7 @@ public class PacketBuffer extends ByteBuf {
         }
     }
 
-    public void writeItemStackToBuffer(ItemStack stack) {
+    public void writeItemStack(ItemStack stack) {
         if (stack == null) {
             this.writeShort(-1);
         } else {
@@ -183,11 +183,11 @@ public class PacketBuffer extends ByteBuf {
                 nbttagcompound = stack.getTagCompound();
             }
 
-            this.writeNBTTagCompoundToBuffer(nbttagcompound);
+            this.writeNBTTagCompound(nbttagcompound);
         }
     }
 
-    public ItemStack readItemStackFromBuffer() throws IOException {
+    public ItemStack readItemStack() throws IOException {
         ItemStack itemstack = null;
         int i = this.readShort();
 
@@ -195,14 +195,14 @@ public class PacketBuffer extends ByteBuf {
             int j = this.readByte();
             int k = this.readShort();
             itemstack = new ItemStack(Item.getItemById(i), j, k);
-            itemstack.setTagCompound(this.readNBTTagCompoundFromBuffer());
+            itemstack.setTagCompound(this.readNBTTagCompound());
         }
 
         return itemstack;
     }
 
-    public String readStringFromBuffer(int maxLength) {
-        int i = this.readVarIntFromBuffer();
+    public String readString(int maxLength) {
+        int i = this.readVarInt();
 
         if (i > maxLength * 4) {
             throw new DecoderException("The received encoded string buffer length is longer than maximum allowed (" + i + " > " + maxLength * 4 + ")");
@@ -241,7 +241,7 @@ public class PacketBuffer extends ByteBuf {
         if (abyte.length > 32767) {
             throw new EncoderException("String too big (was " + string.length() + " bytes encoded, max " + 32767 + ")");
         } else {
-            this.writeVarIntToBuffer(abyte.length);
+            this.writeVarInt(abyte.length);
             this.writeBytes(abyte);
             return this;
         }

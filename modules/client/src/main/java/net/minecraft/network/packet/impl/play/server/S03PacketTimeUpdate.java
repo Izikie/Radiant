@@ -27,19 +27,19 @@ public class S03PacketTimeUpdate implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void read(PacketBuffer buf) throws IOException {
         this.totalWorldTime = buf.readLong();
         this.worldTime = buf.readLong();
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeLong(this.totalWorldTime);
         buf.writeLong(this.worldTime);
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleTimeUpdate(this);
     }
 

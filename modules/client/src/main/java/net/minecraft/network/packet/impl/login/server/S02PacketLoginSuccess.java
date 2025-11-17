@@ -19,21 +19,21 @@ public class S02PacketLoginSuccess implements Packet<INetHandlerLoginClient> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        String uuid = buf.readStringFromBuffer(36);
-        String name = buf.readStringFromBuffer(16);
+    public void read(PacketBuffer buf) throws IOException {
+        String uuid = buf.readString(36);
+        String name = buf.readString(16);
         this.profile = new GameProfile(UUID.fromString(uuid), name);
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         UUID uuid = this.profile.getId();
         buf.writeString(uuid == null ? "" : uuid.toString());
         buf.writeString(this.profile.getName());
     }
 
     @Override
-    public void processPacket(INetHandlerLoginClient handler) {
+    public void handle(INetHandlerLoginClient handler) {
         handler.handleLoginSuccess(this);
     }
 

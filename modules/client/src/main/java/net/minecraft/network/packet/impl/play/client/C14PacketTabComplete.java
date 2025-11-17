@@ -25,8 +25,8 @@ public class C14PacketTabComplete implements Packet<INetHandlerPlayServer> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        this.message = buf.readStringFromBuffer(32767);
+    public void read(PacketBuffer buf) throws IOException {
+        this.message = buf.readString(32767);
         boolean flag = buf.readBoolean();
 
         if (flag) {
@@ -35,7 +35,7 @@ public class C14PacketTabComplete implements Packet<INetHandlerPlayServer> {
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeString(StringUtils.substring(this.message, 0, 32767));
         boolean flag = this.targetBlock != null;
         buf.writeBoolean(flag);
@@ -46,7 +46,7 @@ public class C14PacketTabComplete implements Packet<INetHandlerPlayServer> {
     }
 
     @Override
-    public void processPacket(INetHandlerPlayServer handler) {
+    public void handle(INetHandlerPlayServer handler) {
         handler.processTabComplete(this);
     }
 

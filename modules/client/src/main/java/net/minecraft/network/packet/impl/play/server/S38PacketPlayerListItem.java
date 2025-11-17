@@ -38,9 +38,9 @@ public class S38PacketPlayerListItem implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        this.action = buf.readEnumValue(Action.class);
-        int i = buf.readVarIntFromBuffer();
+    public void read(PacketBuffer buf) throws IOException {
+        this.action = buf.readEnum(Action.class);
+        int i = buf.readVarInt();
 
         for (int j = 0; j < i; ++j) {
             GameProfile gameprofile = null;
@@ -50,23 +50,23 @@ public class S38PacketPlayerListItem implements Packet<INetHandlerPlayClient> {
 
             switch (this.action) {
                 case ADD_PLAYER:
-                    gameprofile = new GameProfile(buf.readUuid(), buf.readStringFromBuffer(16));
-                    int l = buf.readVarIntFromBuffer();
+                    gameprofile = new GameProfile(buf.readUuid(), buf.readString(16));
+                    int l = buf.readVarInt();
                     int i1 = 0;
 
                     for (; i1 < l; ++i1) {
-                        String s = buf.readStringFromBuffer(32767);
-                        String s1 = buf.readStringFromBuffer(32767);
+                        String s = buf.readString(32767);
+                        String s1 = buf.readString(32767);
 
                         if (buf.readBoolean()) {
-                            gameprofile.getProperties().put(s, new Property(s, s1, buf.readStringFromBuffer(32767)));
+                            gameprofile.getProperties().put(s, new Property(s, s1, buf.readString(32767)));
                         } else {
                             gameprofile.getProperties().put(s, new Property(s, s1));
                         }
                     }
 
-                    worldsettings$gametype = WorldSettings.GameType.getByID(buf.readVarIntFromBuffer());
-                    k = buf.readVarIntFromBuffer();
+                    worldsettings$gametype = WorldSettings.GameType.getByID(buf.readVarInt());
+                    k = buf.readVarInt();
 
                     if (buf.readBoolean()) {
                         ichatcomponent = buf.readChatComponent();
@@ -76,12 +76,12 @@ public class S38PacketPlayerListItem implements Packet<INetHandlerPlayClient> {
 
                 case UPDATE_GAME_MODE:
                     gameprofile = new GameProfile(buf.readUuid(), null);
-                    worldsettings$gametype = WorldSettings.GameType.getByID(buf.readVarIntFromBuffer());
+                    worldsettings$gametype = WorldSettings.GameType.getByID(buf.readVarInt());
                     break;
 
                 case UPDATE_LATENCY:
                     gameprofile = new GameProfile(buf.readUuid(), null);
-                    k = buf.readVarIntFromBuffer();
+                    k = buf.readVarInt();
                     break;
 
                 case UPDATE_DISPLAY_NAME:
@@ -102,16 +102,16 @@ public class S38PacketPlayerListItem implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeEnumValue(this.action);
-        buf.writeVarIntToBuffer(this.players.size());
+    public void write(PacketBuffer buf) throws IOException {
+        buf.writeEnum(this.action);
+        buf.writeVarInt(this.players.size());
 
         for (AddPlayerData s38packetplayerlistitem$addplayerdata : this.players) {
             switch (this.action) {
                 case ADD_PLAYER:
                     buf.writeUuid(s38packetplayerlistitem$addplayerdata.getProfile().getId());
                     buf.writeString(s38packetplayerlistitem$addplayerdata.getProfile().getName());
-                    buf.writeVarIntToBuffer(s38packetplayerlistitem$addplayerdata.getProfile().getProperties().size());
+                    buf.writeVarInt(s38packetplayerlistitem$addplayerdata.getProfile().getProperties().size());
 
                     for (Property property : s38packetplayerlistitem$addplayerdata.getProfile().getProperties().values()) {
                         buf.writeString(property.getName());
@@ -125,8 +125,8 @@ public class S38PacketPlayerListItem implements Packet<INetHandlerPlayClient> {
                         }
                     }
 
-                    buf.writeVarIntToBuffer(s38packetplayerlistitem$addplayerdata.getGameMode().getID());
-                    buf.writeVarIntToBuffer(s38packetplayerlistitem$addplayerdata.getPing());
+                    buf.writeVarInt(s38packetplayerlistitem$addplayerdata.getGameMode().getID());
+                    buf.writeVarInt(s38packetplayerlistitem$addplayerdata.getPing());
 
                     if (s38packetplayerlistitem$addplayerdata.getDisplayName() == null) {
                         buf.writeBoolean(false);
@@ -139,12 +139,12 @@ public class S38PacketPlayerListItem implements Packet<INetHandlerPlayClient> {
 
                 case UPDATE_GAME_MODE:
                     buf.writeUuid(s38packetplayerlistitem$addplayerdata.getProfile().getId());
-                    buf.writeVarIntToBuffer(s38packetplayerlistitem$addplayerdata.getGameMode().getID());
+                    buf.writeVarInt(s38packetplayerlistitem$addplayerdata.getGameMode().getID());
                     break;
 
                 case UPDATE_LATENCY:
                     buf.writeUuid(s38packetplayerlistitem$addplayerdata.getProfile().getId());
-                    buf.writeVarIntToBuffer(s38packetplayerlistitem$addplayerdata.getPing());
+                    buf.writeVarInt(s38packetplayerlistitem$addplayerdata.getPing());
                     break;
 
                 case UPDATE_DISPLAY_NAME:
@@ -166,7 +166,7 @@ public class S38PacketPlayerListItem implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handlePlayerListItem(this);
     }
 

@@ -21,19 +21,19 @@ public class C12PacketUpdateSign implements Packet<INetHandlerPlayServer> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void read(PacketBuffer buf) throws IOException {
         this.pos = buf.readBlockPos();
         this.lines = new IChatComponent[4];
 
         for (int i = 0; i < 4; ++i) {
-            String s = buf.readStringFromBuffer(384);
+            String s = buf.readString(384);
             IChatComponent ichatcomponent = IChatComponent.Serializer.jsonToComponent(s);
             this.lines[i] = ichatcomponent;
         }
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeBlockPos(this.pos);
 
         for (int i = 0; i < 4; ++i) {
@@ -44,7 +44,7 @@ public class C12PacketUpdateSign implements Packet<INetHandlerPlayServer> {
     }
 
     @Override
-    public void processPacket(INetHandlerPlayServer handler) {
+    public void handle(INetHandlerPlayServer handler) {
         handler.processUpdateSign(this);
     }
 

@@ -32,20 +32,20 @@ public class S1DPacketEntityEffect implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        this.entityId = buf.readVarIntFromBuffer();
+    public void read(PacketBuffer buf) throws IOException {
+        this.entityId = buf.readVarInt();
         this.effectId = buf.readByte();
         this.amplifier = buf.readByte();
-        this.duration = buf.readVarIntFromBuffer();
+        this.duration = buf.readVarInt();
         this.hideParticles = buf.readByte();
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeVarIntToBuffer(this.entityId);
+    public void write(PacketBuffer buf) throws IOException {
+        buf.writeVarInt(this.entityId);
         buf.writeByte(this.effectId);
         buf.writeByte(this.amplifier);
-        buf.writeVarIntToBuffer(this.duration);
+        buf.writeVarInt(this.duration);
         buf.writeByte(this.hideParticles);
     }
 
@@ -54,7 +54,7 @@ public class S1DPacketEntityEffect implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleEntityEffect(this);
     }
 

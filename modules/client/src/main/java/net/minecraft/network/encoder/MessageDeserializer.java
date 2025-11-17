@@ -34,7 +34,7 @@ public class MessageDeserializer extends ByteToMessageDecoder {
         }
 
         PacketBuffer buffer = new PacketBuffer(payload);
-        int packetId = buffer.readVarIntFromBuffer();
+        int packetId = buffer.readVarInt();
 
         NetworkState state = ctx.channel()
                 .attr(NetworkManager.ATTR_KEY_CONNECTION_STATE)
@@ -50,7 +50,7 @@ public class MessageDeserializer extends ByteToMessageDecoder {
             throw new IOException("Unregistered packet id " + packetId + ", cannot deserialize packet");
         }
 
-        packet.readPacketData(buffer);
+        packet.read(buffer);
 
         if (buffer.isReadable()) {
             throw new IOException(

@@ -26,28 +26,28 @@ public class S30PacketWindowItems implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void read(PacketBuffer buf) throws IOException {
         this.windowId = buf.readUnsignedByte();
         int i = buf.readShort();
         this.itemStacks = new ItemStack[i];
 
         for (int j = 0; j < i; ++j) {
-            this.itemStacks[j] = buf.readItemStackFromBuffer();
+            this.itemStacks[j] = buf.readItemStack();
         }
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeByte(this.windowId);
         buf.writeShort(this.itemStacks.length);
 
         for (ItemStack itemstack : this.itemStacks) {
-            buf.writeItemStackToBuffer(itemstack);
+            buf.writeItemStack(itemstack);
         }
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleWindowItems(this);
     }
 

@@ -27,7 +27,7 @@ public class S21PacketChunkData implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void read(PacketBuffer buf) throws IOException {
         this.chunkX = buf.readInt();
         this.chunkZ = buf.readInt();
         this.field_149279_g = buf.readBoolean();
@@ -37,7 +37,7 @@ public class S21PacketChunkData implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeInt(this.chunkX);
         buf.writeInt(this.chunkZ);
         buf.writeBoolean(this.field_149279_g);
@@ -46,7 +46,7 @@ public class S21PacketChunkData implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleChunkData(this);
     }
 

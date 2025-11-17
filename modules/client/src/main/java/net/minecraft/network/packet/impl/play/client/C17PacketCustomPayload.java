@@ -23,8 +23,8 @@ public class C17PacketCustomPayload implements Packet<INetHandlerPlayServer> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        this.channel = buf.readStringFromBuffer(20);
+    public void read(PacketBuffer buf) throws IOException {
+        this.channel = buf.readString(20);
         int size = buf.readableBytes();
 
         if (size >= 0 && size <= 32767) {
@@ -35,13 +35,13 @@ public class C17PacketCustomPayload implements Packet<INetHandlerPlayServer> {
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeString(this.channel);
         buf.writeBytes(this.data);
     }
 
     @Override
-    public void processPacket(INetHandlerPlayServer handler) {
+    public void handle(INetHandlerPlayServer handler) {
         handler.processCustomPayload(this);
     }
 

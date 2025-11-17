@@ -38,7 +38,7 @@ public class S2APacketParticles implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void read(PacketBuffer buf) throws IOException {
         this.particleType = ParticleTypes.getParticleFromId(buf.readInt());
 
         if (this.particleType == null) {
@@ -58,12 +58,12 @@ public class S2APacketParticles implements Packet<INetHandlerPlayClient> {
         this.particleArguments = new int[i];
 
         for (int j = 0; j < i; ++j) {
-            this.particleArguments[j] = buf.readVarIntFromBuffer();
+            this.particleArguments[j] = buf.readVarInt();
         }
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeInt(this.particleType.getParticleID());
         buf.writeBoolean(this.longDistance);
         buf.writeFloat(this.xCoord);
@@ -77,7 +77,7 @@ public class S2APacketParticles implements Packet<INetHandlerPlayClient> {
         int i = this.particleType.getArgumentCount();
 
         for (int j = 0; j < i; ++j) {
-            buf.writeVarIntToBuffer(this.particleArguments[j]);
+            buf.writeVarInt(this.particleArguments[j]);
         }
     }
 
@@ -126,7 +126,7 @@ public class S2APacketParticles implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleParticles(this);
     }
 }

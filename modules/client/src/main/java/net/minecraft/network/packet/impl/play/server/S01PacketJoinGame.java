@@ -34,7 +34,7 @@ public class S01PacketJoinGame implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void read(PacketBuffer buf) throws IOException {
         this.entityId = buf.readInt();
         int i = buf.readUnsignedByte();
         this.hardcoreMode = (i & 8) == 8;
@@ -43,7 +43,7 @@ public class S01PacketJoinGame implements Packet<INetHandlerPlayClient> {
         this.dimension = buf.readByte();
         this.difficulty = Difficulty.getDifficultyEnum(buf.readUnsignedByte());
         this.maxPlayers = buf.readUnsignedByte();
-        this.worldType = WorldType.parseWorldType(buf.readStringFromBuffer(16));
+        this.worldType = WorldType.parseWorldType(buf.readString(16));
 
         if (this.worldType == null) {
             this.worldType = WorldType.DEFAULT;
@@ -53,7 +53,7 @@ public class S01PacketJoinGame implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeInt(this.entityId);
         int i = this.gameType.getID();
 
@@ -70,7 +70,7 @@ public class S01PacketJoinGame implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleJoinGame(this);
     }
 

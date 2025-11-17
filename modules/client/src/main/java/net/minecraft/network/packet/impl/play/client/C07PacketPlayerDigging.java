@@ -23,21 +23,21 @@ public class C07PacketPlayerDigging implements Packet<INetHandlerPlayServer> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        this.status = buf.readEnumValue(Action.class);
+    public void read(PacketBuffer buf) throws IOException {
+        this.status = buf.readEnum(Action.class);
         this.position = buf.readBlockPos();
         this.facing = Direction.getFront(buf.readUnsignedByte());
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeEnumValue(this.status);
+    public void write(PacketBuffer buf) throws IOException {
+        buf.writeEnum(this.status);
         buf.writeBlockPos(this.position);
         buf.writeByte(this.facing.getIndex());
     }
 
     @Override
-    public void processPacket(INetHandlerPlayServer handler) {
+    public void handle(INetHandlerPlayServer handler) {
         handler.processPlayerDigging(this);
     }
 

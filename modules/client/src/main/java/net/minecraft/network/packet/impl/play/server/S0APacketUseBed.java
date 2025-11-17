@@ -22,19 +22,19 @@ public class S0APacketUseBed implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        this.playerID = buf.readVarIntFromBuffer();
+    public void read(PacketBuffer buf) throws IOException {
+        this.playerID = buf.readVarInt();
         this.pos = buf.readBlockPos();
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeVarIntToBuffer(this.playerID);
+    public void write(PacketBuffer buf) throws IOException {
+        buf.writeVarInt(this.playerID);
         buf.writeBlockPos(this.pos);
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleUseBed(this);
     }
 

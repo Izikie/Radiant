@@ -28,7 +28,7 @@ public class S08PacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
         this.flags = flags;
     }
 
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void read(PacketBuffer buf) throws IOException {
         this.x = buf.readDouble();
         this.y = buf.readDouble();
         this.z = buf.readDouble();
@@ -37,7 +37,7 @@ public class S08PacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
         this.flags = Flag.fromByte(buf.readUnsignedByte());
     }
 
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeDouble(this.x);
         buf.writeDouble(this.y);
         buf.writeDouble(this.z);
@@ -46,7 +46,7 @@ public class S08PacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
         buf.writeByte(Flag.toByte(this.flags));
     }
 
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handlePlayerPosLook(this);
     }
 

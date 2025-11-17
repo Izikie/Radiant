@@ -34,27 +34,27 @@ public class C08PacketPlayerBlockPlacement implements Packet<INetHandlerPlayServ
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void read(PacketBuffer buf) throws IOException {
         this.position = buf.readBlockPos();
         this.placedBlockDirection = buf.readUnsignedByte();
-        this.stack = buf.readItemStackFromBuffer();
+        this.stack = buf.readItemStack();
         this.facingX = buf.readUnsignedByte() / 16.0F;
         this.facingY = buf.readUnsignedByte() / 16.0F;
         this.facingZ = buf.readUnsignedByte() / 16.0F;
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeBlockPos(this.position);
         buf.writeByte(this.placedBlockDirection);
-        buf.writeItemStackToBuffer(this.stack);
+        buf.writeItemStack(this.stack);
         buf.writeByte((int) (this.facingX * 16.0F));
         buf.writeByte((int) (this.facingY * 16.0F));
         buf.writeByte((int) (this.facingZ * 16.0F));
     }
 
     @Override
-    public void processPacket(INetHandlerPlayServer handler) {
+    public void handle(INetHandlerPlayServer handler) {
         handler.processPlayerBlockPlacement(this);
     }
 

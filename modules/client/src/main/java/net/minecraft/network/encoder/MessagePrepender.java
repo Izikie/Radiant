@@ -24,7 +24,7 @@ public class MessagePrepender extends MessageToByteEncoder<ByteBuf> {
 
         PacketBuffer buffer = new PacketBuffer(out);
         buffer.ensureWritable(varIntSize + size);
-        buffer.writeVarIntToBuffer(size);
+        buffer.writeVarInt(size);
         buffer.writeBytes(payload, payload.readerIndex(), size);
     }
 }

@@ -213,7 +213,7 @@ public class DataWatcher {
 
             case 5:
                 ItemStack itemstack = (ItemStack) object.getObject();
-                buffer.writeItemStackToBuffer(itemstack);
+                buffer.writeItemStack(itemstack);
                 break;
 
             case 6:
@@ -261,11 +261,11 @@ public class DataWatcher {
                     break;
 
                 case 4:
-                    datawatcher$watchableobject = new WatchableObject(j, k, buffer.readStringFromBuffer(32767));
+                    datawatcher$watchableobject = new WatchableObject(j, k, buffer.readString(32767));
                     break;
 
                 case 5:
-                    datawatcher$watchableobject = new WatchableObject(j, k, buffer.readItemStackFromBuffer());
+                    datawatcher$watchableobject = new WatchableObject(j, k, buffer.readItemStack());
                     break;
 
                 case 6:

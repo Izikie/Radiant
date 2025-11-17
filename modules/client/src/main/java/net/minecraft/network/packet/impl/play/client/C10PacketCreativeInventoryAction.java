@@ -20,20 +20,20 @@ public class C10PacketCreativeInventoryAction implements Packet<INetHandlerPlayS
     }
 
     @Override
-    public void processPacket(INetHandlerPlayServer handler) {
+    public void handle(INetHandlerPlayServer handler) {
         handler.processCreativeInventoryAction(this);
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void read(PacketBuffer buf) throws IOException {
         this.slotId = buf.readShort();
-        this.stack = buf.readItemStackFromBuffer();
+        this.stack = buf.readItemStack();
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeShort(this.slotId);
-        buf.writeItemStackToBuffer(this.stack);
+        buf.writeItemStack(this.stack);
     }
 
     public int getSlotId() {

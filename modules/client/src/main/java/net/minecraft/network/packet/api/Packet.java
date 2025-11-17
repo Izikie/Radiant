@@ -5,9 +5,9 @@ import net.minecraft.network.INetHandler;
 import java.io.IOException;
 
 public interface Packet<T extends INetHandler> {
-    void readPacketData(PacketBuffer buf) throws IOException;
+    void read(PacketBuffer buf) throws IOException;
 
-    void writePacketData(PacketBuffer buf) throws IOException;
+    void write(PacketBuffer buf) throws IOException;
 
-    void processPacket(T handler);
+    void handle(T handler);
 }

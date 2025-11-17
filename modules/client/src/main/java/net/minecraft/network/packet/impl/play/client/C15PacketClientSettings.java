@@ -26,8 +26,8 @@ public class C15PacketClientSettings implements Packet<INetHandlerPlayServer> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        this.lang = buf.readStringFromBuffer(7);
+    public void read(PacketBuffer buf) throws IOException {
+        this.lang = buf.readString(7);
         this.view = buf.readByte();
         this.chatVisibility = EntityPlayer.ChatVisibility.getEnumChatVisibility(buf.readByte());
         this.enableColors = buf.readBoolean();
@@ -35,7 +35,7 @@ public class C15PacketClientSettings implements Packet<INetHandlerPlayServer> {
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeString(this.lang);
         buf.writeByte(this.view);
         buf.writeByte(this.chatVisibility.getChatVisibility());
@@ -44,7 +44,7 @@ public class C15PacketClientSettings implements Packet<INetHandlerPlayServer> {
     }
 
     @Override
-    public void processPacket(INetHandlerPlayServer handler) {
+    public void handle(INetHandlerPlayServer handler) {
         handler.processClientSettings(this);
     }
 

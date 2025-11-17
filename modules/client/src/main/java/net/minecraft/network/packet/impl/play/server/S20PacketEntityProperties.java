@@ -28,15 +28,15 @@ public class S20PacketEntityProperties implements Packet<INetHandlerPlayClient> 
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        this.entityId = buf.readVarIntFromBuffer();
+    public void read(PacketBuffer buf) throws IOException {
+        this.entityId = buf.readVarInt();
         int i = buf.readInt();
 
         for (int j = 0; j < i; ++j) {
-            String s = buf.readStringFromBuffer(64);
+            String s = buf.readString(64);
             double d0 = buf.readDouble();
             List<AttributeModifier> list = new ArrayList<>();
-            int k = buf.readVarIntFromBuffer();
+            int k = buf.readVarInt();
 
             for (int l = 0; l < k; ++l) {
                 UUID uuid = buf.readUuid();
@@ -48,14 +48,14 @@ public class S20PacketEntityProperties implements Packet<INetHandlerPlayClient> 
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeVarIntToBuffer(this.entityId);
+    public void write(PacketBuffer buf) throws IOException {
+        buf.writeVarInt(this.entityId);
         buf.writeInt(this.field_149444_b.size());
 
         for (Snapshot s20packetentityproperties$snapshot : this.field_149444_b) {
             buf.writeString(s20packetentityproperties$snapshot.func_151409_a());
             buf.writeDouble(s20packetentityproperties$snapshot.func_151410_b());
-            buf.writeVarIntToBuffer(s20packetentityproperties$snapshot.func_151408_c().size());
+            buf.writeVarInt(s20packetentityproperties$snapshot.func_151408_c().size());
 
             for (AttributeModifier attributemodifier : s20packetentityproperties$snapshot.func_151408_c()) {
                 buf.writeUuid(attributemodifier.getID());
@@ -66,7 +66,7 @@ public class S20PacketEntityProperties implements Packet<INetHandlerPlayClient> 
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleEntityProperties(this);
     }
 

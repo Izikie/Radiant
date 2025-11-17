@@ -42,13 +42,13 @@ public class MerchantRecipeList extends ArrayList<MerchantRecipe> {
         buffer.writeByte((byte) (this.size() & 255));
 
         for (MerchantRecipe merchantRecipe : this) {
-            buffer.writeItemStackToBuffer(merchantRecipe.getItemToBuy());
-            buffer.writeItemStackToBuffer(merchantRecipe.getItemToSell());
+            buffer.writeItemStack(merchantRecipe.getItemToBuy());
+            buffer.writeItemStack(merchantRecipe.getItemToSell());
             ItemStack itemstack = merchantRecipe.getSecondItemToBuy();
             buffer.writeBoolean(itemstack != null);
 
             if (itemstack != null) {
-                buffer.writeItemStackToBuffer(itemstack);
+                buffer.writeItemStack(itemstack);
             }
 
             buffer.writeBoolean(merchantRecipe.isRecipeDisabled());
@@ -62,12 +62,12 @@ public class MerchantRecipeList extends ArrayList<MerchantRecipe> {
         int i = buffer.readByte() & 255;
 
         for (int j = 0; j < i; ++j) {
-            ItemStack itemstack = buffer.readItemStackFromBuffer();
-            ItemStack itemstack1 = buffer.readItemStackFromBuffer();
+            ItemStack itemstack = buffer.readItemStack();
+            ItemStack itemstack1 = buffer.readItemStack();
             ItemStack itemstack2 = null;
 
             if (buffer.readBoolean()) {
-                itemstack2 = buffer.readItemStackFromBuffer();
+                itemstack2 = buffer.readItemStack();
             }
 
             boolean flag = buffer.readBoolean();

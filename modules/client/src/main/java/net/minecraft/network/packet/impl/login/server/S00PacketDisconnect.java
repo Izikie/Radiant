@@ -18,17 +18,17 @@ public class S00PacketDisconnect implements Packet<INetHandlerLoginClient> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void read(PacketBuffer buf) throws IOException {
         this.reason = buf.readChatComponent();
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeChatComponent(this.reason);
     }
 
     @Override
-    public void processPacket(INetHandlerLoginClient handler) {
+    public void handle(INetHandlerLoginClient handler) {
         handler.handleDisconnect(this);
     }
 

@@ -1238,7 +1238,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
                 buffer.release();
             }
         } else if ("MC|Brand".equals(packet.getChannel())) {
-            this.gameController.player.setClientBrand(packet.getData().readStringFromBuffer(32767));
+            this.gameController.player.setClientBrand(packet.getData().readString(32767));
         } else if ("MC|BOpen".equals(packet.getChannel())) {
             ItemStack itemstack = this.gameController.player.getCurrentEquippedItem();
 

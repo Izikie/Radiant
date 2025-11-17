@@ -42,8 +42,8 @@ public class S0CPacketSpawnPlayer implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
-        this.entityId = buf.readVarIntFromBuffer();
+    public void read(PacketBuffer buf) throws IOException {
+        this.entityId = buf.readVarInt();
         this.uuid = buf.readUuid();
         this.x = buf.readInt();
         this.y = buf.readInt();
@@ -55,8 +55,8 @@ public class S0CPacketSpawnPlayer implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeVarIntToBuffer(this.entityId);
+    public void write(PacketBuffer buf) throws IOException {
+        buf.writeVarInt(this.entityId);
         buf.writeUuid(this.uuid);
         buf.writeInt(this.x);
         buf.writeInt(this.y);
@@ -68,7 +68,7 @@ public class S0CPacketSpawnPlayer implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handleSpawnPlayer(this);
     }
 

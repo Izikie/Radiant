@@ -28,28 +28,28 @@ public class C0EPacketClickWindow implements Packet<INetHandlerPlayServer> {
     }
 
     @Override
-    public void processPacket(INetHandlerPlayServer handler) {
+    public void handle(INetHandlerPlayServer handler) {
         handler.processClickWindow(this);
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void read(PacketBuffer buf) throws IOException {
         this.windowId = buf.readByte();
         this.slotId = buf.readShort();
         this.usedButton = buf.readByte();
         this.actionNumber = buf.readShort();
         this.mode = buf.readByte();
-        this.clickedItem = buf.readItemStackFromBuffer();
+        this.clickedItem = buf.readItemStack();
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeByte(this.windowId);
         buf.writeShort(this.slotId);
         buf.writeByte(this.usedButton);
         buf.writeShort(this.actionNumber);
         buf.writeByte(this.mode);
-        buf.writeItemStackToBuffer(this.clickedItem);
+        buf.writeItemStack(this.clickedItem);
     }
 
     public int getWindowId() {

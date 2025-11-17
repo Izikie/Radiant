@@ -28,7 +28,7 @@ public class S39PacketPlayerAbilities implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void read(PacketBuffer buf) throws IOException {
         byte b0 = buf.readByte();
         this.setInvulnerable((b0 & 1) > 0);
         this.setFlying((b0 & 2) > 0);
@@ -39,7 +39,7 @@ public class S39PacketPlayerAbilities implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         byte b0 = 0;
 
         if (this.isInvulnerable()) {
@@ -64,7 +64,7 @@ public class S39PacketPlayerAbilities implements Packet<INetHandlerPlayClient> {
     }
 
     @Override
-    public void processPacket(INetHandlerPlayClient handler) {
+    public void handle(INetHandlerPlayClient handler) {
         handler.handlePlayerAbilities(this);
     }
 

@@ -17,17 +17,17 @@ public class C01PacketPing implements Packet<INetHandlerStatusServer> {
     }
 
     @Override
-    public void readPacketData(PacketBuffer buf) throws IOException {
+    public void read(PacketBuffer buf) throws IOException {
         this.time = buf.readLong();
     }
 
     @Override
-    public void writePacketData(PacketBuffer buf) throws IOException {
+    public void write(PacketBuffer buf) throws IOException {
         buf.writeLong(this.time);
     }
 
     @Override
-    public void processPacket(INetHandlerStatusServer handler) {
+    public void handle(INetHandlerStatusServer handler) {
         handler.processPing(this);
     }
 

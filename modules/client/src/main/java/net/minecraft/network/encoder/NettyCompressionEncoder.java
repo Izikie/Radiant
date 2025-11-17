@@ -23,12 +23,12 @@ public class NettyCompressionEncoder extends MessageToByteEncoder<ByteBuf> {
         PacketBuffer buffer = new PacketBuffer(out);
 
         if (length < this.threshold) {
-            buffer.writeVarIntToBuffer(0);
+            buffer.writeVarInt(0);
             buffer.writeBytes(in);
         } else {
             byte[] decompressedData = new byte[length];
             in.readBytes(decompressedData);
-            buffer.writeVarIntToBuffer(decompressedData.length);
+            buffer.writeVarInt(decompressedData.length);
             this.deflater.setInput(decompressedData, 0, length);
             this.deflater.finish();
 
