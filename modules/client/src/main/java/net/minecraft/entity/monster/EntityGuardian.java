@@ -308,30 +308,6 @@ public class EntityGuardian extends EntityMob {
         super.onLivingUpdate();
     }
 
-    // TODO: make sure this actually work
-    @Override
-    public void handleStatusUpdate(byte id) {
-        if (id == 21) {
-            float scale = this.getAttackAnimationScale(0.0F);
-            float volume = scale * scale;
-            float pitch = 0.7F + 0.5F * scale;
-
-            Minecraft.get().getSoundHandler().playSound(
-                    new PositionedSoundRecord(
-                            new ResourceLocation("minecraft:mob.guardian.attack"),
-                            volume,
-                            pitch,
-                            true,
-                            0,
-                            ISound.AttenuationType.NONE,
-                            (float) this.posX, (float) this.posY, (float) this.posZ
-                    )
-            );
-        } else {
-            super.handleStatusUpdate(id);
-        }
-    }
-
     public float func_175471_a(float p_175471_1_) {
         return this.field_175484_c + (this.field_175482_b - this.field_175484_c) * p_175471_1_;
     }
