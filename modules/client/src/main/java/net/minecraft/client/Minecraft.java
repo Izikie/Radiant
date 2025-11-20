@@ -562,15 +562,18 @@ public class Minecraft implements IThreadListener {
 		displayHeight = displaymode.getHeight();
 	}
 
-	private void drawSplashScreen(TextureManager textureManagerInstance) {
-		ScaledResolution scaledResolution = new ScaledResolution(this);
-		int i = scaledResolution.getScaleFactor();
-		Framebuffer framebuffer = new Framebuffer(scaledResolution.getScaledWidth() * i, scaledResolution.getScaledHeight() * i, true);
-		framebuffer.bindFramebuffer(false);
-		GlStateManager.matrixMode(5889);
+	private void drawSplashScreen(TextureManager textureManager) {
+		ScaledResolution sr = new ScaledResolution(this);
+		int scale = sr.getScaleFactor();
+
+		Framebuffer frameBuffer = new Framebuffer(sr.getScaledWidth() * scale, sr.getScaledHeight() * scale, true);
+		frameBuffer.bindFramebuffer(false);
+
+		GlStateManager.matrixMode(GL11.GL_PROJECTION);
 		GlStateManager.loadIdentity();
-		GlStateManager.ortho(0.0D, scaledResolution.getScaledWidth(), scaledResolution.getScaledHeight(), 0.0D, 1000.0D, 3000.0D);
-		GlStateManager.matrixMode(5888);
+		GlStateManager.ortho(0.0D, sr.getScaledWidth(), sr.getScaledHeight(), 0.0D, 1000.0D, 3000.0D);
+		GlStateManager.matrixMode(GL11.GL_MODELVIEW);
+
 		GlStateManager.loadIdentity();
 		GlStateManager.translate(0.0F, 0.0F, -2000.0F);
 		GlStateManager.disableLighting();
@@ -579,42 +582,49 @@ public class Minecraft implements IThreadListener {
 		GlStateManager.enableTexture2D();
 
 		try (InputStream inputstream = mcDefaultResourcePack.getInputStream(LOCATION_MOJANG_PNG)) {
-			mojangLogo = textureManagerInstance.getDynamicTextureLocation("logo", new DynamicTexture(NativeImage.loadFromInputStream(inputstream)));
-			textureManagerInstance.bindTexture(mojangLogo);
+			mojangLogo = textureManager.getDynamicTextureLocation("logo", new DynamicTexture(NativeImage.loadFromInputStream(inputstream)));
+			textureManager.bindTexture(mojangLogo);
 		} catch (IOException exception) {
 			LOGGER.error("Unable to load logo: {}", LOCATION_MOJANG_PNG, exception);
 		}
 
 		Tessellator tessellator = Tessellator.get();
 		WorldRenderer renderer = tessellator.getWorldRenderer();
-		renderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
+		renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
 		renderer.pos(0.0D, displayHeight, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255).endVertex();
 		renderer.pos(displayWidth, displayHeight, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255).endVertex();
 		renderer.pos(displayWidth, 0.0D, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255).endVertex();
 		renderer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255).endVertex();
 		tessellator.draw();
+
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+
 		int j = 256;
 		int k = 256;
-		draw((scaledResolution.getScaledWidth() - j) / 2, (scaledResolution.getScaledHeight() - k) / 2, 0, 0, j, k, 255, 255, 255, 255);
+
+		draw((sr.getScaledWidth() - j) / 2, (sr.getScaledHeight() - k) / 2, 0, 0, j, k, 255, 255, 255, 255);
+
 		GlStateManager.disableLighting();
 		GlStateManager.disableFog();
-		framebuffer.unbindFramebuffer();
-		framebuffer.framebufferRender(scaledResolution.getScaledWidth() * i, scaledResolution.getScaledHeight() * i);
+
+		frameBuffer.unbindFramebuffer();
+		frameBuffer.framebufferRender(sr.getScaledWidth() * scale, sr.getScaledHeight() * scale);
+
 		GlStateManager.enableAlpha();
-		GlStateManager.alphaFunc(516, 0.1F);
+		GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
+
 		updateDisplay();
 	}
 
 	public void draw(int posX, int posY, int texU, int texV, int width, int height, int red, int green, int blue, int alpha) {
 		float f = 0.00390625F;
 		float f1 = 0.00390625F;
-		WorldRenderer worldrenderer = Tessellator.get().getWorldRenderer();
-		worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-		worldrenderer.pos(posX, posY + height, 0.0D).tex(texU * f, (texV + height) * f1).color(red, green, blue, alpha).endVertex();
-		worldrenderer.pos(posX + width, posY + height, 0.0D).tex((texU + width) * f, (texV + height) * f1).color(red, green, blue, alpha).endVertex();
-		worldrenderer.pos(posX + width, posY, 0.0D).tex((texU + width) * f, texV * f1).color(red, green, blue, alpha).endVertex();
-		worldrenderer.pos(posX, posY, 0.0D).tex(texU * f, texV * f1).color(red, green, blue, alpha).endVertex();
+		WorldRenderer renderer = Tessellator.get().getWorldRenderer();
+		renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
+		renderer.pos(posX, posY + height, 0.0D).tex(texU * f, (texV + height) * f1).color(red, green, blue, alpha).endVertex();
+		renderer.pos(posX + width, posY + height, 0.0D).tex((texU + width) * f, (texV + height) * f1).color(red, green, blue, alpha).endVertex();
+		renderer.pos(posX + width, posY, 0.0D).tex((texU + width) * f, texV * f1).color(red, green, blue, alpha).endVertex();
+		renderer.pos(posX, posY, 0.0D).tex(texU * f, texV * f1).color(red, green, blue, alpha).endVertex();
 		Tessellator.get().draw();
 	}
 
