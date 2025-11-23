@@ -45,7 +45,7 @@ tasks.register<JavaExec>("RunClient") {
     dependsOn("ExtractLwjglNatives")
 
     doFirst {
-        workingDir = file("run")
+        workingDir = rootProject.file("run")
         if (!workingDir.exists()) {
             workingDir.mkdirs()
         }
@@ -53,7 +53,7 @@ tasks.register<JavaExec>("RunClient") {
 
     classpath = sourceSets["main"].runtimeClasspath
 
-    mainClass.set("net.radiant.run.DevStart")
+    mainClass.set("net.radiant.start.DevStart")
 
     args = listOf(
         "--gameDir", minecraftDir,
@@ -69,7 +69,7 @@ tasks.register<JavaExec>("RunClientNativeAgent") {
     dependsOn("ExtractLwjglNatives")
 
     doFirst {
-        workingDir = file("run")
+        workingDir = rootProject.file("run")
         if (!workingDir.exists()) {
             workingDir.mkdirs()
         }
@@ -77,7 +77,7 @@ tasks.register<JavaExec>("RunClientNativeAgent") {
 
     classpath = sourceSets["main"].runtimeClasspath
 
-    mainClass.set("net.radiant.run.DevStart")
+    mainClass.set("net.radiant.start.DevStart")
 
     args = listOf(
         "--gameDir", minecraftDir,
@@ -88,7 +88,7 @@ tasks.register<JavaExec>("RunClientNativeAgent") {
     jvmArgs = listOf(
         "-Djava.library.path=natives",
         "-Dradiant.exerciseClasses",
-        "-agentlib:native-image-agent=config-output-dir=../modules/client/src/main/resources/META-INF/native-image"
+        "-agentlib:native-image-agent=config-output-dir=../modules/dev/src/main/resources/META-INF/native-image"
     )
 }
 
